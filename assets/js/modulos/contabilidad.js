@@ -16,18 +16,25 @@ $(function(){
 
 		switch(id){
 			case 1:			
-				$("[modulo=scontabilidad]").attr('max',$("[cod]").length / 2);
-				break;
+			$("[modulo=scontabilidad]").attr('max',$("[cod]").length / 2);
+			break;
 			case 2:
-				$('#fn1').click();
-            break;
+			$('#fn1').click();
+			break;
 		}
 
 		$('.dropdown-button').dropdown();
+		$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+});
+		  $(document).ready(function() {
+    $('select').material_select();
+  });
 
 	});
 
-	$("#m1").click();
+	$("#m2").click();
 });
 
 $(document).on('change','#continuo',function(){
@@ -44,23 +51,23 @@ $(document).on("click",".view-cuenta",function(){
 	var titulo = "Movimiento ";
 	switch(op2){
 		case 1:
-			titulo += "Diario ";
-			break;
+		titulo += "Diario ";
+		break;
 		case 2:
-			titulo += "Mensual ";
-			break;
+		titulo += "Mensual ";
+		break;
 		case 3:
-			titulo += "Semanal ";
-			break;
+		titulo += "Semanal ";
+		break;
 		case 4:
-			titulo += "Período Fiscal ";
-			break;
+		titulo += "Período Fiscal ";
+		break;
 		case 5:
-			titulo += "Fecha "+vdate1+" ";
-			break;
+		titulo += "Fecha "+vdate1+" ";
+		break;
 		case 6:
-			titulo += "Desde: "+vdate1+" - Hasta: "+vdate2+" ";
-			break;
+		titulo += "Desde: "+vdate1+" - Hasta: "+vdate2+" ";
+		break;
 	}
 	titulo += " en la Cuenta "+$("#n"+id).html();
 	$(".cta-sh-tit").html(titulo);
@@ -86,13 +93,13 @@ $(document).on("click",".vfiltros",function(){
 	var elemento = $("#vbusqueda");
 	switch(id){
 		case 1:
-			elemento.attr("placeholder","Número / Descripción");
-			elemento.focus();
-			break;
+		elemento.attr("placeholder","Número / Descripción");
+		elemento.focus();
+		break;
 		default:
-			elemento.attr("placeholder",$(this).html());
-			elemento.focus();
-			break;
+		elemento.attr("placeholder",$(this).html());
+		elemento.focus();
+		break;
 	}
 	ftr = id;
 });
@@ -129,58 +136,50 @@ $(document).on("keyup",".tdtext",function(e){
 		
 		switch(spec){
 			case 'vd':
-				id = parseInt($(this).attr('id').substr(5));
-				if($(this).val() == '0.00' || $(this).val() == ''){
-					$(this).val('');
-					$('#vhaber'+id).val('0.00');
-					$('#vhaber'+id).select();
-					$('#vhaber'+id).focus();
-				}else{
-					$('#vhaber'+id).val('0.00');
-					$('#c'+(id+1)).focus()
-				}
-				totalizar();
-				break;
+			id = parseInt($(this).attr('id').substr(5));
+			if($(this).val() == '0.00' || $(this).val() == ''){
+				$(this).val('');
+				$('#vhaber'+id).val('0.00');
+				$('#vhaber'+id).select();
+				$('#vhaber'+id).focus();
+			}else{
+				$('#vhaber'+id).val('0.00');
+				$('#c'+(id+1)).focus()
+			}
+			totalizar();
+			break;
 			case 'vh':
-				id = parseInt($(this).attr('id').substr(6));
-				if($(this).val() == '0.00' || $(this).val() == ''){
-					$(this).val('');
+			id = parseInt($(this).attr('id').substr(6));
+			if($(this).val() == '0.00' || $(this).val() == ''){
+				$(this).val('');
+				$('#vdebe'+id).val('0.00');
+				$('#vdebe'+id).select();
+				$('#vdebe'+id).focus();
+			}else{
+				$('#vdebe'+id).val('0.00');
+				$('#c'+(id+1)).focus()
+			}
+			totalizar();
+			break;
+			default:
+			var rs = arr('login',4,'',53,"'"+$(this).val()+"',1",'',0,'')[0][0];
+
+			if(rs != undefined && $(this).val() != ''){
+				var repetido = 0;
+
+				$('#detalletransaccione tr').each(function(){
+					if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
+						repetido = 1;
+				});
+
+				if(!repetido){
+					$('#c'+id).val(rs[0])
+					$('#d'+id).val(rs[1])
 					$('#vdebe'+id).val('0.00');
 					$('#vdebe'+id).select();
 					$('#vdebe'+id).focus();
-				}else{
-					$('#vdebe'+id).val('0.00');
-					$('#c'+(id+1)).focus()
-				}
-				totalizar();
-				break;
-			default:
-				var rs = arr('login',4,'',53,"'"+$(this).val()+"',1",'',0,'')[0][0];
-				
-				if(rs != undefined && $(this).val() != ''){
-					var repetido = 0;
-
-					$('#detalletransaccione tr').each(function(){
-						if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
-							repetido = 1;
-					});
-
-					if(!repetido){
-						$('#c'+id).val(rs[0])
-						$('#d'+id).val(rs[1])
-						$('#vdebe'+id).val('0.00');
-						$('#vdebe'+id).select();
-						$('#vdebe'+id).focus();
-						$('#f'+id).attr('st',1)
-						$('#vidcuenta'+id).val(rs[3])
-					}else{
-						$(this).focus();
-						$(this).select();
-						$('#vdebe'+id).val('');
-						$('#vhaber'+id).val('');
-						$('#f'+id).attr('st',0)
-						$('#vidcuenta'+id).val('')
-					}
+					$('#f'+id).attr('st',1)
+					$('#vidcuenta'+id).val(rs[3])
 				}else{
 					$(this).focus();
 					$(this).select();
@@ -189,7 +188,15 @@ $(document).on("keyup",".tdtext",function(e){
 					$('#f'+id).attr('st',0)
 					$('#vidcuenta'+id).val('')
 				}
-				break;
+			}else{
+				$(this).focus();
+				$(this).select();
+				$('#vdebe'+id).val('');
+				$('#vhaber'+id).val('');
+				$('#f'+id).attr('st',0)
+				$('#vidcuenta'+id).val('')
+			}
+			break;
 		}
 	}
 });
@@ -201,29 +208,29 @@ $(document).on("blur",".tdtext",function(){
 
 	switch(spec){
 		case 'vd':
-			if($(this).val() == '0.00' || $(this).val() == ''){
-				$(this).val('');
-				$('#vhaber'+id).val('0.00');
-				$('#vhaber'+id).select();
-				$('#vhaber'+id).focus();
-			}else{
-				$('#vhaber'+id).val('0.00');
-				$('#c'+(id+1)).focus()
-			}
-			break;
+		if($(this).val() == '0.00' || $(this).val() == ''){
+			$(this).val('');
+			$('#vhaber'+id).val('0.00');
+			$('#vhaber'+id).select();
+			$('#vhaber'+id).focus();
+		}else{
+			$('#vhaber'+id).val('0.00');
+			$('#c'+(id+1)).focus()
+		}
+		break;
 		case 'vh':
-			if($(this).val() == '0.00' || $(this).val() == ''){
-				$(this).val('');
-				$('#vdebe'+id).val('0.00');
-				$('#vdebe'+id).select();
-				$('#vdebe'+id).focus();
-			}else{
-				$('#vdebe'+id).val('0.00');
-				$('#c'+(id+1)).focus()
-			}
-			break;
+		if($(this).val() == '0.00' || $(this).val() == ''){
+			$(this).val('');
+			$('#vdebe'+id).val('0.00');
+			$('#vdebe'+id).select();
+			$('#vdebe'+id).focus();
+		}else{
+			$('#vdebe'+id).val('0.00');
+			$('#c'+(id+1)).focus()
+		}
+		break;
 		default:
-			break;
+		break;
 	}
 });
 
@@ -236,12 +243,12 @@ $(document).on("click",".func",function(){
 		case 1:
 			$('#detalletransaccione').html('');
 			var rs = arr('login',4,'id,nombre',55,"",'',0,'')[0];
-		
+			
 			for (var i = 0; i < rs.length; i++) {
 				gop += '<option value="'+rs[i][0]+'">'+rs[i][1]+'</option>';
 			}
 
-			for (var i = 1; i < 10; i++) {
+			for (var i = 1; i < 7; i++) {
 				$('#detalletransaccione').append(getFila(i))
 			}
 
@@ -252,7 +259,7 @@ $(document).on("click",".func",function(){
 			$('#ftransacciones').find('#vdescripcion').focus()
 			break;
 		default:
-			break;
+		break;
 	}	
 });
 
@@ -283,21 +290,21 @@ function validar (varreglo,vmodulo) {
 	
 	var salida = {}
 	
-		/*VALIDACION FRONT END*/
+	/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
 		case 'transaccione':
-			if (vmodulo['tip'] == '') {
-				err = validartransacciones();
-				if ( err ) {
-					return err;
-				}
+		if (vmodulo['tip'] == '') {
+			err = validartransacciones();
+			if ( err ) {
+				return err;
 			}
-			
-			break;
+		}
+
+		break;
 		default:
-			return 'Módulo no Existente';
-			break;
+		return 'Módulo no Existente';
+		break;
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
@@ -334,13 +341,13 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'transaccione':
-			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 3;
-			vmodulo['where'] ='';
-			break;
+		vmodulo['sel'] = '';
+		vmodulo['tbl'] = 3;
+		vmodulo['where'] ='';
+		break;
 		default:
-			return 'Módulo no Existente';
-			break;
+		return 'Módulo no Existente';
+		break;
 	}
 	
 	return vmodulo;
@@ -355,5 +362,5 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-		return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>'
+	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>'
 }

@@ -278,4 +278,4 @@
 
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=2.7"></script>
+<script src="../assets/js/modulos/ventas.js?v=2.9"></script>

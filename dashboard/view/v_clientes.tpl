@@ -81,6 +81,7 @@
 
                     <div class="modal-content" style="padding: 0px;">
                         <div id="fclientes">
+                            <input type="hidden" id="zelda">
                             <div class="row">
                                 <br>
                                 <div class="col s12 m12 l12">
@@ -90,16 +91,28 @@
                                                 <p>
                                                   <input class="with-gap" name="tipoclie" type="radio" id="cfisico" tipoClie="1" checked="checked" principal="1"/>
                                                   <label for="cfisico">Físico</label>
-                                              </p>
-                                          </div>
-                                          <div class="col s6 m3 l2">
-                                            <p>
-                                              <input class="with-gap" name="tipoclie" type="radio" id="cjuridico" tipoClie="2" />
-                                              <label for="cjuridico">Jurídico</label>
-                                          </p>
+                                                  </p>
+                                            </div>
+                                            <div class="col s6 m3 l2">
+                                                <p>
+                                                  <input class="with-gap" name="tipoclie" type="radio" id="cjuridico" tipoClie="2" />
+                                                  <label for="cjuridico">Jurídico</label>
+                                                </p>
+                                            </div>
+                                            <div class="col s6 m3 l2">
+                                                <p>
+                                                  <input class="with-gap" name="tipoclie" type="radio" id="cnite" tipoClie="3" />
+                                                  <label for="cnite">NITE</label>
+                                                </p>
+                                            </div>
+                                            <div class="col s6 m3 l2">
+                                                <p>
+                                                  <input class="with-gap" name="tipoclie" type="radio" id="cdimex" tipoClie="4" />
+                                                  <label for="cdimex">DIMEX</label>
+                                                </p>
+                                            </div>
+                                            <input type="hidden" id="vidtipocliente" value="1">
                                       </div>
-                                      <input type="hidden" id="vidtipocliente" value="1">
-                                  </div>
                                   <div class="card-title" id="titInfo"><b>Datos Personales</b></div>
 
                                   <div class="row">
@@ -207,12 +220,6 @@
                                   </div> 
 
                                   <div class="row">
-
-                                    <div class="input-field col s12 m6 l6">
-                                        <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
-                                        <input type="number" class="eder center" id="vdescuentop">
-                                        <label for="vdescuentop">Descuento del Cliente</label>
-                                    </div>
 
                                     <div class="input-field col s12 m6 l6">
                                         <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
@@ -328,13 +335,13 @@
                                             <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
                                         </div>
 
-                                        <div class="input-field col s12 m6 l6">
+                                        <div class="input-field col s6 hide-on-med-and-up">
                                             <div class="prefix"><i class="material-icons">location_on</i></div>
                                             <label for="vlatitud">Latitud</label>
                                             <input type="text" class="eder" id="vlatitud">
                                         </div>
-
-                                        <div class="input-field col s12 m6 l6">
+ 
+                                        <div class="input-field col s6 hide-on-med-and-up">
                                             <div class="prefix"><i class="material-icons">location_on</i></div>
                                             <label for="vlongitud">Longitud</label>
                                             <input type="text" class="eder" id="vlongitud">
@@ -383,7 +390,7 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/clientes.js?v=1.0"></script>
+<script src="../assets/js/modulos/clientes.js?v=1.1"></script>
 
 </body>
 </html>

@@ -182,7 +182,7 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '', idline:0});
+    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0});
 
     $(".modal").modal();
 })//READY
@@ -224,7 +224,7 @@ $(document).on("keyup","#cantp",function(e){
             var cod = $("#valores").data('elemento')['idp'];
             var inv = $("#valores").data('elemento')['hinv'];
 
-            var cnt = arr('login',4,'cantidad',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
+            var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
             
             if (cant > cnt) {
                Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
@@ -569,12 +569,9 @@ function validarFactura() {
         if(p['succed'] == 0){
             return p[0]['ERROR'] 
         }
-    }else{
-        var extra = arr('login',4,'',206,$("#vidtipopago").val(),0,0,0);
-        console.log(extra)
     }
     
-    return 'pruebas';
+    return false;
 }
 
 function cargar(vmodulo,vid) {

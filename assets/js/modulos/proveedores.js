@@ -18,17 +18,17 @@ $(function(){
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
 
-	$("#fclientes input").keyup(function(e){
-		var code = e.which || e.keyCode;
-		if (code == 13) {
-			// cnt = $(".navbar-nav > a").length;
-			// act = parseInt($(".navbar-nav > a.active").attr('id').substr(2));
-			// if(act != cnt)
-			// 	$("#ln"+(act+1)).click()
-			// else
-				$("#agClie").click()
-		}
-	});
+	// $("#fclientes input").keyup(function(e){
+	// 	var code = e.which || e.keyCode;
+	// 	if (code == 13) {
+	// 		// cnt = $(".navbar-nav > a").length;
+	// 		// act = parseInt($(".navbar-nav > a.active").attr('id').substr(2));
+	// 		// if(act != cnt)
+	// 		// 	$("#ln"+(act+1)).click()
+	// 		// else
+	// 			$("#agClie").click()
+	// 	}
+	// });
 
 	$(".addcta").click(function(){
 		tp = $(this).attr('tp');
@@ -41,7 +41,7 @@ $(function(){
 	});
 
 	$("#ingClie").click(function(){
-		$("#titModal").html('Agregar Cliente');
+		$("#titModal").html('Agregar Proveedor');
 		$("#agClie").html('Agregar');
 
 		$("#agClie").removeClass('edit');
@@ -56,6 +56,7 @@ $(function(){
 		$("#shtelefonos").html('');
 		$("#shcorreos").html('');
 		obtenerCuentas(0);
+		obtenerImpuestos(0);
 		if($("#tipocliente").attr("tp") != 1)
 			$("#tipocliente").click();
 
@@ -82,7 +83,7 @@ $(function(){
 
 	$("#telefono_in").keyup(function(e){
 		var code = e.which || e.keyCode
-		if (code == 39) {
+		if (code == 13) {
 			if($("#tptel option:selected").val() == ''){
 				Materialize.toast("Debe Seleccionar un Tipo de Teléfono",4000,'danger');
 				$("#tptel").focus()
@@ -101,7 +102,7 @@ $(function(){
 
 	$("#correo_in").keyup(function(e){
 		var code = e.which || e.keyCode
-		if (code == 39) {
+		if (code == 13) {
 			if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
 				$("#shcorreos").append('<li id="0_'+ind_2+'"> <div class="collapsible-header"><span class="badge">'+$(this).val()+'</div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_mail" id="m0_'+ind_2+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_mail" id="d0_'+ind_2+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div> </li>');
 					$(this).val('');
@@ -120,6 +121,8 @@ $(function(){
 	$("#idcanton").change(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
+
+	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1})
 
 });
 
@@ -142,21 +145,34 @@ $(document).on("click",".load",function(){
 
 	$("#ln1").click();
 	obtenerCuentas($(this).attr('id').substr(1));
+	obtenerImpuestos($(this).attr('id').substr(1));
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
-	var tipo = $(this).attr('tipoClie');
+	var tipo = parseInt($(this).attr('tipoClie'));
+	$("#vidtipocliente").val(tipo);
 
-	if (tipo == 1) {
-		$("#titInfo").html('<b>Datos Personales<b/>');
-		$("#nomClie").html('Nombre');
-		$("#vcedula").removeAttr('data-mask');
-		$(".hid").show(300);
-	} else if (tipo == 2) {
-		$("#titInfo").html('<b>Información Jurídica<b/>');
-		$("#nomClie").html('Razón Social');
-		$("#vcedula").attr('data-mask', '9-999-999999');
-		$(".hid").css('display','none');
+	switch(tipo){
+		case 1:
+			$("#titInfo").html('<b>Datos Personales<b/>');
+			$("#nomClie").html('Nombre');
+			$(".hid").show(300);
+			break;
+		case 3:
+			$("#titInfo").html('<b>Información Tributaria<b/>');
+			$("#nomClie").html('Razón Social');
+			$(".hid").css('display','none');
+			break;
+		case 4:
+			$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
+			$("#nomClie").html('Nombre');
+			$(".hid").show(300);
+			break;
+		default:
+			$("#titInfo").html('<b>Información Jurídica<b/>');
+			$("#nomClie").html('Razón Social');
+			$(".hid").css('display','none');
+			break;
 	}
 });
 
@@ -204,18 +220,6 @@ function validarclientes() {
 	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
 	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
-
-	if ($("#vdescuentop").val() == ''){$("#vdescuentop").val(0)}
-	else if ($("#vdescuentop").val() > 100){$('#ln2').click(); $("#vdescuentop").focus(); return 'Descuento no Puede Superar el 100%';}
-	else if (isNaN($("#vdescuentop").val())){$('#ln2').click(); $("#vdescuentop").focus(); return 'Descuento no es Numérico';}
-
-
-	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0)}
-	else if ($("#vdescuentom").val() > 100){$('#ln2').click(); $("#vdescuentom").focus(); return 'Descuento Máximo no Puede Superar el 100%';}
-	else if (isNaN($("#vdescuentom").val())){$('#ln2').click(); $("#vdescuentom").focus(); return 'Descuento Máximo no es Numérico';}
-
-	if ($("#vlatitud").val() == ''){$("#vlatitud").val(0)}
-	if ($("#vlongitud").val() == '') {$("#vlongitud").val(0)}
 
 	
 	if($("#vidcuenta").val() == 1){
@@ -295,7 +299,7 @@ function obtenerCuentas(vid){
 	$("#ctacredito").html('');
 
 	for (var i = 0; i < cuentasg[0].length; i++) {
-		if (cuentasg[0][i][5] == 1) {
+		if (cuentasg[0][i][5] == 5) {
 			$("#ctacontado").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
 		}else{
 			$("#ctacredito").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
@@ -304,6 +308,21 @@ function obtenerCuentas(vid){
 	}
 
 	$("#vidcuenta").val('');
+}
+
+function obtenerImpuestos(vid){
+	var imp = arr('login',4,'',200,'2,'+vid,0,'',0)[0];
+	
+	$("#showimpuestos").html('');
+
+	for (var i = 0; i < imp.length; i++) {
+		fila = imp[i];
+		addIM(fila[0],fila[1],fila[2],fila[3],fila[4]);
+	}
+}
+
+function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
+	$("#showimpuestos").append('<li class="collection-item dismissable" id="newimp'+vid+'"><div><span class="impuestos" id="vimv'+vid+'" value="'+vvalor+'" timv="'+vimpuesto+'">'+vnombre+' - '+vvalor+'%</span><a class="secondary-content delimp" id="dimp'+vid+'"><i class="material-icons">delete</i></a></div></li>')
 }
 
 function endDetail(vid,vacc,modulo){

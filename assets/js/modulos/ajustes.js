@@ -210,14 +210,23 @@ $(document).on("click","#add_x",function(){
 		msj = "Nombre de Cuenta Requerido";
 	}
 
-	if (isNaN($("#f"+vmod+"s #vcomision").val()) || $("#f"+vmod+"s #vcomision").val() < 0 || $("#f"+vmod+"s #vcomision").val() > 100 ) {
-		$("#f"+vmod+"s #vcomision").focus()
+	if (isNaN($("#vcomision_txt").val()) || $("#vcomision_txt").val() < 0 || $("#vcomision_txt").val() > 100 ) {
+		$("#vcomision_txt").focus()
 		return "Valores de Comisión Incorrectos";
 	}
 
-	var ctacom = 0
-	if ($("#f"+vmod+"s #vcuenta option:selected").val() != $("#f"+vmod+"s #vcuenta").attr('defecto'))
-		ctacom = $("#f"+vmod+"s #vcuenta option:selected").val();
+	var ctacom = 0;
+	if ($("#vctacom option:selected").val() != $("#vctacom").attr('defecto') && $("#vcomision_txt").val() > 0)
+		ctacom = $("#vctacom option:selected").val();
+
+	var comi = 0;
+	if ($("#vcomision_txt").val() > 0){
+		if ($("#vdat_moneda option:selected").val() == '')
+			comi = $("#vcomision_txt").val();
+		else
+			comi = $("#vdat_moneda option:selected").attr('simb')+$("#vcomision_txt").val()
+	} 
+
 
 	$("#fdetallebancos .collapsible-header").each(function(){
 		if ($(this).attr('vdet_cta').trim() == $("#vdet_cta").val().trim()){
@@ -241,7 +250,7 @@ $(document).on("click","#add_x",function(){
 			mmon = $("#vdet_moneda option:selected").attr('simb');
 			mmonid = $("#vdet_moneda option:selected").val();
 		}
-		$("#fdetallebancos").append('<li id="0"> <div class="collapsible-header ciclos" vid="0" vdet_moneda="'+mmonid+'" vctabnk="'+$("#vctabnk option:selected").val()+'" vidbanco="?" vdet_nom="'+$("#vdet_nom").val()+'" vdet_cta="'+$("#vdet_cta").val()+'" vcomision="'+$("#vcomision").val()+'" vctacom="'+ctacom+'">'+mmon+'<span class="badge">'+$("#vdet_nom").val()+': '+$("#vdet_cta").val()+' ['+$("#vctabnk option:selected").html()+']</span></div> </li>')
+		$("#fdetallebancos").append('<li id="0"> <div class="collapsible-header ciclos" vid="0" vaccion="1" vdet_moneda="'+mmonid+'" vctabnk="'+$("#vctabnk option:selected").val()+'" vidbanco="?" vdet_nom="'+$("#vdet_nom").val()+'" vdet_cta="'+$("#vdet_cta").val()+'" vcomision="'+comi+'" vctacom="'+ctacom+'">'+mmon+'<span class="badge">'+$("#vdet_nom").val()+': '+$("#vdet_cta").val()+' ['+$("#vctabnk option:selected").html()+']</span></div> </li>')
 	
 	}
 });
@@ -526,7 +535,7 @@ function validar (varreglo,vmodulo) {
 
 function validarBancos(vmod){
 
-	if($("#f"+vmod+"s #vnombre_banco").val() == '' ){
+	if($("#f"+vmod+"s #vnombre_banco").val() == '' && !$("#f"+vmod+"s #vcomision_txt").is(":visible")){
 		$("#f"+vmod+"s #vnombre_banco").focus();
 		return "Campo Nombre Requerido";
 	}

@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
-<ul id="slide-out" class="side-nav">
+<ul id="slide" class="side-nav">
     <li>
       <div class="userView">
         <div class="background">
@@ -91,7 +91,7 @@
       </nav>
       </div>
 
-  <a href="#" data-activates="slide-out" class="hide-on-med-and-down button-collapse blue-grey menu-btn"><p class="white-text menu-txt">MENU</p></a>
+  <a href="#" data-activates="slide" class="hide-on-med-and-down button-collapse blue-grey menu-btn"><p class="white-text menu-txt">MENU</p></a>
   <!-- hide-on-med-and-down  -->
   
 <script src="../assets/js/jquery.js"></script>
