@@ -113,13 +113,13 @@ $(function(){
 		}
 	});
 
-	// $("#vidprovincia").change(function(){
-	// 	change_load('vidcanton',9,'id,nombre','id > 0 and idprovincia = '+$('option:selected',this).val());
-	// });
+	$("#vidprovincia").change(function(){
+		change_load('vidcanton',9,'id,nombre','id > 0 and idprovincia = '+$('option:selected',this).val());
+	});
 
-	// $("#idcanton").change(function(){
-	// 	change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
-	// });
+	$("#idcanton").change(function(){
+		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
+	});
 
 	$("#searh_clie").keyup(function(e){
 		var code = e.which || e.keyCode

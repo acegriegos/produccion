@@ -26,7 +26,7 @@
 	   			$smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'1 order by idunidad'));
 	   			$smarty->assign('BOD',$kakaroto->kamehameha('*',41,'id > 0 order by id'));
-	   			$smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre'));
+	   			$smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre'));
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('*',69,'id > 0 and !bisproveedor order by id'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
 	   			break;

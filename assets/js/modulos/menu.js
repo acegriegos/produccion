@@ -18,7 +18,7 @@ $(document).ready(function(){
         if (code == 13) {
             var numtrans = $(this).val();
             if (numtrans == 1) {
-                window.open('productos','_self');
+                window.open('produccion','_self');
             }
         }
     });
