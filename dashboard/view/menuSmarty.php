@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
-<ul id="slide" class="side-nav">
+<ul id="slide" class="side-nav blue-text text-darken-2">
     <li>
       <div class="userView">
         <div class="background">
@@ -30,17 +30,17 @@
       <label for="numtrans"># Transacción</label>
     </div>
     </div>
-    <li><a href="dashboard"><i class="material-icons right" aria-hidden="true">dashboard</i>Inicio</a></li>
-    <li><a href="comercial"><i class="material-icons right" aria-hidden="true">business</i>Comercial</a></li>
-    <li><a href="proveedor"><i class="material-icons right" aria-hidden="true">store</i>Proveedor</a></li>
-    <li><a href="inventarios"><i class="material-icons right" aria-hidden="true">shopping_basket</i>Proveduría</a></li>
-    <li><a href="productos"><i class="material-icons right" aria-hidden="true">list</i>Productos</a></li>
-    <li><a href="produccion"><i class="material-icons right" aria-hidden="true">high_quality</i>Producción</a></li>
-    <li><a href="proyectos"><i class="material-icons right" aria-hidden="true">verified_user</i>Proyectos</a></li>
-    <li><a href="contabilidad"><i class="material-icons right" aria-hidden="true">credit_card</i>Contabilidad</a></li>
-    <li><a href="usuarios"><i class="material-icons right" aria-hidden="true">perm_identity</i>Usuarios</a></li>
-    <li><a href="reportes"><i class="material-icons right" aria-hidden="true">trending_up</i>Reportes</a></li>
-    <li><a href="ajustes"><i class="material-icons right" aria-hidden="true">settings</i>Configuración</a></li>
+    <li><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true">dashboard</i><b>Inicio</b></a></li>
+    <li><a href="comercial"><i class="material-icons right" aria-hidden="true">business</i><b>Comercial</b></a></li>
+    <li><a href="proveedor"><i class="material-icons right" aria-hidden="true">store</i><b>Proveedor</b></a></li>
+    <li><a href="inventarios"><i class="material-icons right" aria-hidden="true">shopping_basket</i><b>Proveduría</b></a></li>
+    <li><a href="productos"><i class="material-icons right" aria-hidden="true">list</i><b>Productos</b></a></li>
+    <li><a href="produccion"><i class="material-icons right" aria-hidden="true">high_quality</i><b>Producción</b></a></li>
+    <li><a href="proyectos"><i class="material-icons right" aria-hidden="true">verified_user</i><b>Proyectos</b></a></li>
+    <li><a href="contabilidad"><i class="material-icons right" aria-hidden="true">credit_card</i><b>Contabilidad</b></a></li>
+    <li><a href="usuarios"><i class="material-icons right" aria-hidden="true">perm_identity</i><b>Usuarios</b></a></li>
+    <li><a href="reportes"><i class="material-icons right" aria-hidden="true">trending_up</i><b>Reportes</b></a></li>
+    <li><a href="ajustes"><i class="material-icons right" aria-hidden="true">settings</i><b>Configuración</b></a></li>
     <!-- <li><div class="divider"></div></li> -->
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
   </ul>

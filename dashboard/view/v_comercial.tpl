@@ -15,17 +15,17 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
     </head>
-    <body>
+    <body class="grey">
       {$NAV}
       <div class="bdy">
-        <div class="card">
+        <div class="card z-depth-5">
           <div class="card-header center blue-grey white-text"><p class="flow-text">Área Comercial</p></div>
           <div class="card-content ">
             <div class="row">
 
               <div class="col s12 m12 l6">
-                <div class="card">
-                  <div class="card-title grey white-text center">&nbsp;Opciones</div>
+                <div class="card z-depth-5">
+                  <div class="card-title grey white-text center ">&nbsp;Opciones</div>
 
                   <div class="card-panel ">
 
@@ -55,7 +55,7 @@
             </div>
 
             <div class="col s12 m12 l6">
-              <div class="card">
+              <div class="card z-depth-5">
                 <div class="card-title grey white-text center">&nbsp;Gráfico</div>
                 <div class="card-content">
                   <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>

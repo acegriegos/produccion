@@ -1,6 +1,6 @@
 <div id="ffacturas">
 
-<div class="card">
+<div class="card z-depth-5">
 <div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%;">VENTAS {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
@@ -65,13 +65,13 @@
     <table class="table" id="data-table-detalle" cellspacing="0">
       <thead>
         <tr>
-          <th style="width: 5%"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
-          <th style="width: 10%; font-size: 0.8em;" class="center-align">Código</th>
-          <th style="width: 30%; font-size: 0.8em;" class="center-align"><span class="truncate">Descripción</span></th>
-          <th style="width: 14%; font-size: 0.8em;" class="center-align"><span class="truncate">Prec.Unit</span></th>
-          <th style="width: 10%; font-size: 0.8em;" class="center-align">Cantidad</th>
-          <th style="width: 14%; font-size: 0.8em;" class="center-align">Total</th>
-          <th style="width: 17%; font-size: 0.8em;" class="center-align">
+          <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <th style="width: 10%; " class="center-align">Código</th>
+          <th style="width: 30%; " class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width: 14%; " class="center-align"><span class="truncate">Prec.Unit</span></th>
+          <th style="width: 10%; " class="center-align">Cantidad</th>
+          <th style="width: 14%; " class="center-align">Total</th>
+          <th style="width: 17%; " class="center-align">
           <div class="hide-on-small-only">
             <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
             <label for="barras"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
@@ -86,24 +86,24 @@
           <td style="width: 5%">
           </td>
 
-          <td style="width: 10%; font-size: 0.8em" class="input-field">
+          <td style="width: 10%; " class="input-field">
             <input type="text" id="codp" class="f prod center" placeholder="Código">
             <input type="hidden" id="valores">
           </td>
 
-          <td style="width: 30%; font-size: 0.8em" class="input-field">
+          <td style="width: 30%; " class="input-field">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
-          <td style="width: 14%; font-size: 0.8em" class="input-field">
+          <td style="width: 14%; " class="input-field">
             <input type="text" id="precp" class="f center" value="0.00" readonly>
           </td>
-          <td style="width: 10%; font-size: 0.8em" class="input-field">
+          <td style="width: 10%; " class="input-field">
             <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
-          <td style="width: 14%; font-size: 0.8em" class="input-field">
+          <td style="width: 14%; " class="input-field">
             <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
           </td>
-          <td class="center" style="font-size: 1em; width: 17%; font-size: 0.8em">
+          <td class="center" style="font-size: 1em; width: 17%; ">
             
             <div class="col s12 m4 l4">
                 <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
@@ -126,10 +126,39 @@
     </div>
 </div> <!-- card footer -->
 
-<div class="card" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
+<div class="card z-depth-5" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
   <p class="white-text card-header blue-grey center" style="margin-top: 0px;">DESGLOCE DE FACTURA</p>
   <div class="row">
+
+
+
+    
+
     <div class="col s12 m6 l6">
+      <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
+      <div class="row">
+      <br>
+        <div class="col s12 m4 input-field">
+          <div class="prefix"><img src="../assets/img/icon/percent.svg"/></div>
+          <input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled>
+          <label>DESCUENTO</label>
+        </div>
+
+        <div class="col s12 m4 input-field">
+          <div class="prefix">¢</div>
+          <label for="vflete">FLETE</label>
+          <input type="text" id="vflete" class="eder" value="0">
+        </div>
+
+        <div class="col s12 m4 input-field">
+          <div class="prefix" id="btnAjuste" accion="1">+</div>
+          <label for="vajuste">AJUSTE</label>
+          <input type="text" id="vajuste" class="eder" value="0">
+        </div>
+
+      </div>
+      </div>
+      <div class="col s12 m6 l6">
       <table class="table table-striped table-hover" style="border: 1px solid #e2e2e2;">
         <thead style="border: 0px">
           <tr>
@@ -166,32 +195,6 @@
       </table>
       <br>
       <div class="row">
-
-        <div class="col s12 m4 input-field">
-          <div class="prefix"><img src="../assets/img/icon/percent.svg"/></div>
-          <input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled>
-          <label>DESCUENTO</label>
-        </div>
-
-        <div class="col s12 m4 input-field">
-          <div class="prefix">¢</div>
-          <label for="vflete">FLETE</label>
-          <input type="text" id="vflete" class="eder" value="0">
-        </div>
-
-        <div class="col s12 m4 input-field">
-          <div class="prefix" id="btnAjuste" accion="1">+</div>
-          <label for="vajuste">AJUSTE</label>
-          <input type="text" id="vajuste" class="eder" value="0">
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="col s12 m6 l6">
-      <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
-      <div class="row">
         <div class="col s4">
           <p>
             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
@@ -211,7 +214,9 @@
         </div>
 
         </div>
-      </div>
+      
+
+    </div>
 
     </div>
 

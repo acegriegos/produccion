@@ -1,7 +1,11 @@
 header, main, footer {
-  padding-left: 300px;
+  padding-left: 400px;
 }
 
+    html {
+    font-family: GillSans, Calibri, Trebuchet !important, sans-serif  ;
+  }
+        
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
