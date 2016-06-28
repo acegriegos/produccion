@@ -1,0 +1,96 @@
+<?php  
+	
+	require_once 'model/m_login.php';
+   	$log = new _login();
+
+    if (!isset($_REQUEST['accion'])) {
+
+    	if (session_status() !== PHP_SESSION_ACTIVE){
+		    session_start();
+		}
+
+    	if (isset($_POST['pss'])) {
+    		require_once '../_config/ecy.php';
+    		$log->ini($_POST['id'],$_POST['pss']);
+		    $encrypt = new _cy();
+
+		    $user = $log->autenticar();
+		    if (!$user){
+		       header("Location: login?msj=1");
+		    }
+		    else
+		    {
+		    $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
+		    $_SESSION['NOM']     = $user[0][1];
+		    $_SESSION['TIPO']    = $user[0][2];
+
+			header("Location: ../dashboard/main");
+	    }
+    	}else{
+    		if (isset($_SESSION['USR'])) {
+		        header("Location: ../dashboard/main");
+		    }
+		    else{
+		   	require '../_config/mySmarty.php';
+		   
+		   	$smarty  = new mySmarty();
+		   	$smarty->setModule('dashboard');
+		   	$pg = $smarty->fetch('../view/menuSmarty.php');
+		   
+		   	$smarty->assign('NAV',$pg);
+		   	$smarty->display('login.tpl');
+		   }
+		}
+   }else{
+   $pagina = 0;
+
+   	switch ($_REQUEST['accion']) {
+   		case 1:
+   			$transaccion = $log->analizarTabla($_POST['arreglo']);
+   			break;
+   		case 2:
+   			$transaccion = $log->mantenimiento($_POST['arreglo']);
+   			break;
+   		case 3:
+   			$log->ini($_POST['arreglo']['id'],$_POST['arreglo']['pss']);
+   			$transaccion = $log->autenticar();
+   			break;
+   		case 4:
+   			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+   			break;
+   		case 5:
+   			$transaccion = $log->kaioken($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+   			break;
+   		case 6:
+   			$pagina = 1;
+   			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+   			if (isset($_REQUEST['arreglo']['join'])) {
+   				$join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
+   			}
+   			if (sizeof($transaccion) == 0) {
+   				$pagina = 0;
+   			}else
+   				include 'view/ajax/tabla_'.$_REQUEST['arreglo']['tbl'].'.php';
+   				
+   			break;
+   		case 7:
+   			$transaccion = $log->genkidama($_REQUEST['arreglo']['accion'],$_REQUEST['arreglo']['tabla'],$_REQUEST['arreglo']['arg1'],$_REQUEST['arreglo']['arg2']);
+   			break;
+   	}
+	if(!$pagina){
+	   	if (is_array($transaccion)){
+			$marcas = $transaccion;
+			$succed = 1;
+			}else{
+				$marcas = array('ERROR'=>$transaccion);
+				$succed = 0;
+			}
+	
+			$salida = array('succed'=>$succed);
+			array_push($salida, $marcas);
+			print_r(json_encode($salida));	
+	
+	   }
+    }	
+			   
+?>

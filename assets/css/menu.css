@@ -1,0 +1,17 @@
+a{ text-decoration: none; font-size: none; color: #F0F0F0; }
+a:hover{ text-decoration: none; font-size: none; color: #C8C8C8; }
+
+.ico{ z-index: 2; background: #373A3C; text-align: center;}
+
+#ico00{ margin-top: -22px; background: #8DC6F2; transition: 0.5s; position: relative; text-align: center;}
+#ico01{ margin-top: -22px; background: #71B6EB; transition: 0.5s; position: relative; text-align: center;}
+#ico02{ margin-top: -22px; background: #64A8DD; transition: 0.5s; position: relative; text-align: center;}
+#ico03{ margin-top: -22px; background: #5B9DD0; transition: 0.5s; position: relative; text-align: center;}
+#ico04{ margin-top: -22px; background: #5291C1; transition: 0.5s; position: relative; text-align: center;}
+#ico05{ margin-top: -22px; background: #4683B1; transition: 0.5s; position: relative; text-align: center;}
+#ico06{ margin-top: -22px; background: #3E79A5; transition: 0.5s; position: relative; text-align: center;}
+#ico07{ margin-top: -22px; background: #38709A; transition: 0.5s; position: relative; text-align: center;}
+#ico08{ margin-top: -22px; background: #2D6188; transition: 0.5s; position: relative; text-align: center;}
+#ico09{ margin-top: -22px; background: #2A5B7F; transition: 0.5s; position: relative; text-align: center;}
+#ico10{ margin-top: -22px; background: #225174; transition: 0.5s; position: relative; text-align: center;}
+#ico11{ margin-top: -22px; background: #1B496B; transition: 0.5s; position: relative; text-align: center;}

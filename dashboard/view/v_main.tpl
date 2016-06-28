@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="max-age=86400"/>
+    <title>Sistema de Compras</title>
+    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
+    <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <br><br>
+    {$NAV}
+    <div class="bdy">
+    {if $smarty.session.TIPO eq 1}
+        <label for="lempresas">Seleccione una Compañía</label>
+        <select id="cia" class="form-control">
+            <option value="0">Todas las Compañías</option>
+            {section name=LE loop=$CIAS}
+                <option value="{$CIAS[LE][0]}">{$CIAS[LE][1]}</option>
+            {/section}
+        </select>
+    {else}
+        <h1 align="center"><b>{$smarty.session.EMPRESA}</b></h1>
+        <hr>
+    {/if}
+    <!-- <form id="fclientes">
+    
+    <div class="alert alert-danger err_" id="err1">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong id="errm1"></strong>
+    </div>
+    <small id="suc1" class="suc_"></small>
+    <button type="button" class="btn btn-primary add" modulo="clientes" codigo="1">Agregar</button>
+    </form>  -->
+
+    </div>
+
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/mask/jquery.mask.js"></script>
+    <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/js/asgard.js"></script>
+    <script src="../assets/js/modulos/menu.js"></script>
+
+  </body>
+</html>

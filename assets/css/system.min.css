@@ -1,0 +1,154 @@
+.bdy {
+    padding-left: 6%;
+    margin-top: 2%;
+    padding-right: 2%}
+.err_ {
+    text-align: center;
+}
+.suc_ {
+    text-align: center;
+}
+@media(max-width:766px) {
+    .bdy {
+    padding-left: 0;
+    margin-top: 2%}
+}
+.der {
+    float: right;
+}
+.eder {
+    text-align: right;
+}
+body {
+    background-color: #e9e9e9;
+}
+.asterisco {
+    color: red;
+}
+.bootstrap-dialog.modal-header {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.bootstrap-dialog.bootstrap-dialog-title {
+    color: #fff;
+    display: inline-block;
+    font-size: 16px;
+}
+.bootstrap-dialog.bootstrap-dialog-message {
+    font-size: 14px;
+}
+.bootstrap-dialog.bootstrap-dialog-button-icon {
+    margin-right: 3px;
+}
+.bootstrap-dialog.bootstrap-dialog-close-button {
+    font-size: 20px;
+    float: right;
+    opacity: .9;
+    filter: alpha(opacity=90);
+}
+.bootstrap-dialog.bootstrap-dialog-close-button:hover {
+    cursor: pointer;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.bootstrap-dialog.type-default.modal-header {
+    background-color: #fff;
+}
+.bootstrap-dialog.type-default.bootstrap-dialog-title {
+    color: #333;
+}
+.bootstrap-dialog.type-info.modal-header {
+    background-color: #5bc0de;
+}
+.bootstrap-dialog.type-primary.modal-header {
+    background-color: #337ab7;
+}
+.bootstrap-dialog.type-success.modal-header {
+    background-color: #5cb85c;
+}
+.bootstrap-dialog.type-warning.modal-header {
+    background-color: #f0ad4e;
+}
+.bootstrap-dialog.type-danger.modal-header {
+    background-color: #d9534f;
+}
+.bootstrap-dialog.size-large.bootstrap-dialog-title {
+    font-size: 24px;
+}
+.bootstrap-dialog.size-large.bootstrap-dialog-close-button {
+    font-size: 30px;
+}
+.bootstrap-dialog.size-large.bootstrap-dialog-message {
+    font-size: 18px;
+}
+.bootstrap-dialog.icon-spin {
+    display: inline-block;
+    -moz-animation: spin2sinfinitelinear;
+    -o-animation: spin2sinfinitelinear;
+    -webkit-animation: spin2sinfinitelinear;
+    animation: spin2sinfinitelinear;
+}
+@-moz-keyframesspin {
+    0% {
+    -moz-transform: rotate(0);
+}
+100% {
+    -moz-transform: rotate(359deg);
+}
+}
+@-webkit-keyframesspin {
+    0% {
+    -webkit-transform: rotate(0);
+}
+100% {
+    -webkit-transform: rotate(359deg);
+}
+}
+@-o-keyframesspin {
+    0% {
+    -o-transform: rotate(0);
+}
+100% {
+    -o-transform: rotate(359deg);
+}
+}
+@-ms-keyframesspin {
+    0% {
+    -ms-transform: rotate(0);
+}
+100% {
+    -ms-transform: rotate(359deg);
+}
+}
+@keyframesspin {
+    0% {
+    transform: rotate(0);
+}
+100% {
+    transform: rotate(359deg);
+}
+}
+[data-notify="progressbar"] {
+    margin-bottom: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+}
+[data-notify="icon"] {
+    height: 50px;
+    margin-right: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.2em;
+    background: rgba(51, 51, 51, 0.1);
+    border-radius: 50%;
+    padding: 1%}
+[data-notify="title"] {
+    color: #333;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+[data-notify="message"] {
+    font-size: 80%}
