@@ -2,17 +2,21 @@
 <h2 align="center">Mantenimiento Productos</h2>
 <hr>
 <div class="row">
-        <div class="col-md-6 col-lg-6">
-            <button type="button" class="btn btn-primary">Buscar</button>            
-        </div>
-        <div class="col-md-6 col-lg-6">
-            <button type="button" id="ingInvProd" class="btn btn-primary der" data-toggle="modal" href="#modal-productos" style="margin-right: 15px;">Agregar</button>
-        </div>
-    </div><br><br>
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
+            </span>
+            <input type="search" class="form-control" placeholder="Nombre de Producto">
+        </div>           
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <button type="button" id="ingInvProd" class="btn btn-primary der" data-toggle="modal" href="#modal-productos" style="margin-right: 15px; padding: 16px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
+    </div>
+</div><br><br>
     
     <div class="row">
         <div class="col-md-12 col-lg-12">
-            <div class="table-responsive">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-productos" cellspacing="0" width="100%" >
                         <thead>
@@ -35,14 +39,13 @@
                                 <td>{$PROD[LE][5]}</td>
                                 <td>
                                     <i class="fa fa-pencil-square-o btn load" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" modulo="producto"></i>
-                                    <i class="fa fa-times btn delete" codigo="1" modulo="producto" id="d{$PROD[LE][0]}"></i>
+                                    <i class="fa fa-times btn delete" codigo="1" modulo="producto" id="d{$PROD[LE][0]}" style="color: #D9534F"></i>
                                 </td>
                             </tr>
                             {/section}
                         </tbody>
                     </table>
                 </div>
-            </div>
         </div>
     </div>
     
@@ -104,25 +107,27 @@
  <div class="form-control" style="margin-left: 1.2%; width: 570px; height: 50px;">
         <div class="col-md-4 col-lg-4">
         <div class="radio">
-                <label>
-                    <b>Tipo de producto:</b>
-                </label>
+            <label class="c-input c-radio">
+                <b>Tipo de producto:</b>
+            </label>
             </div>
         </div>
         <div class="col-md-1 col-lg-1"></div>
         <div class="col-md-3 col-lg-3">
             <div class="radio">
-                <label>
+                <label class="c-input c-radio">
                     <input name="visgravado" type="radio" id="inputGrav" value="0" checked>
                     <input type="hidden" id="visgravado" value="1">
+                    <span class="c-indicator"></span>
                     Gravado
                 </label>
             </div>
         </div>
         <div class="col-md-3 col-lg-3">
             <div class="radio">
-                <label>
+                <label class="c-input c-radio">
                     <input name="visgravado" type="radio" id="inputExc" value="1">
+                    <span class="c-indicator"></span>
                     Excento
                 </label>
             </div>
@@ -131,17 +136,17 @@
         </div>
         </form>
     </div>
-                    <div class="alert alert-danger err_" id="err1" style="display: none">
-                        <strong id="errm1"></strong>
-                    </div>
-                    <div class="alert alert-success suc_" id="suc1" style="display: none">
-                        <strong id="sucm1"></strong>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                    <button type="button" class="btn btn-primary add" id="addV" codigo="1" modulo="producto">Agregar</button>
-                </div>
+        <div class="alert alert-danger err_" id="err1" style="display: none">
+            <strong id="errm1"></strong>
+        </div>
+        <div class="alert alert-success suc_" id="suc1" style="display: none">
+            <strong id="sucm1"></strong>
+        </div>
+    </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+            <button type="button" class="btn btn-primary add" id="addV" codigo="1" modulo="producto">Agregar</button>
+        </div>
             </div>
         </div>
     </div> <!-- End mantProductos -->

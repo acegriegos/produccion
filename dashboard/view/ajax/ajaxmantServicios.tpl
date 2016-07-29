@@ -2,17 +2,21 @@
 <h2 align="center">Mantenimiento Servicios</h2>
 <hr>
 <div class="row">
-        <div class="col-md-6 col-lg-6">
-            <button type="button" class="btn btn-primary">Buscar</button>            
-        </div>
-        <div class="col-md-6 col-lg-6">
-            <button type="button" id="ingInvServ" class="btn btn-primary der" data-toggle="modal" href="#modal-servicios" style="margin-right: 15px;">Agregar</button>
-        </div>
-    </div><br><br>
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
+            </span>
+            <input type="search" class="form-control" placeholder="Nombre de Servicio">
+        </div>            
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <button type="button" id="ingInvServ" class="btn btn-primary der" data-toggle="modal" href="#modal-servicios" style="margin-right: 15px; padding: 16px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
+    </div>
+</div><br><br>
     
     <div class="row">
         <div class="col-md-12 col-lg-12">
-            <div class="table-responsive">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-servicios" cellspacing="0" width="100%">
                         <thead>
@@ -35,13 +39,12 @@
                                 <td>{$SERV[LE][4]}</td>
                                 <td>
                                 <i class="fa fa-pencil-square-o btn load" id="m{$SERV[LE][0]}" data-toggle="modal" href="#modal-servicios" modulo="servicio"></i>
-                                <i class="fa fa-times btn delete" codigo="1" modulo="servicio" id="d{$SERV[LE][0]}"></i></td>
+                                <i class="fa fa-times btn delete" codigo="1" modulo="servicio" id="d{$SERV[LE][0]}" style="color: #D9534F"></i></td>
                             </tr>
                             {/section}
                         </tbody>
                     </table>
                 </div>
-            </div>
         </div>
     </div>
     
@@ -79,38 +82,46 @@
     <div class="form-control" style="margin-left: 1.2%; width: 570px; height: 50px;">
         <div class="col-md-3 col-lg-3">
             <div class="checkbox">
-                <label>
+            <label class="c-input c-checkbox">
+                <input type="checkbox">
+                <span class="c-indicator" value="0" id="isPeriodo"></span>
+                <b>Por período</b><small type="checkbox" style="color: #A3A3A3" title="Seleccione esta opción si el servicio que desea agregar se va a repetir periódicamente">&nbsp;&nbsp;?</small>
+            </label>
+                <!-- <label>
                     <input type="checkbox" value="0" id="isPeriodo">
                     <b>Por período</b><small type="checkbox" style="color: #A3A3A3" title="Seleccione esta opción si el servicio que desea agregar se va a repetir periódicamente">      ?</small>
-                </label>
+                </label> -->
             </div>
         </div>
         <div class="col-md-3 col-lg-3 opPeriodo">
             <div class="radio">
-                <label>
-                    <input type="radio" name="sPeriodo" class="inpSPeriodo" value="30" id="mensual" disabled>
+                <label class="c-input c-radio">
+                    <input type="radio" name="sPeriodo" class="inpSPeriodo" value="30" id="mensual">
                     <input type="hidden" id="vperiodo" value="0">
+                    <span class="c-indicator"></span>
                     Mensual
                 </label>
             </div>
         </div>
         <div class="col-md-3 col-lg-3 opPeriodo">
             <div class="radio">
-                <label>
-                    <input type="radio" name="sPeriodo" class="inpSPeriodo" value="365" id="anual" disabled>
+                <label class="c-input c-radio">
+                    <input type="radio" name="sPeriodo" class="inpSPeriodo" value="365" id="anual">
+                    <span class="c-indicator"></span>
                     Anual
                 </label>
             </div>
         </div>
         <div class="col-md-3 col-lg-3">
             <div class="radio">
-                <label>
-                    <input type="radio" name="sPeriodo" id="otros" class="inpSPeriodo" value="0" disabled>
+                <label class="c-input c-radio">
+                    <input type="radio" name="sPeriodo" id="otros" class="inpSPeriodo" value="0">
+                    <span class="c-indicator"></span>
                     Otros
                 </label>
             </div>
         </div>
-        <div class="col-md-6 col-lg-6" id="opOtro" hidden>
+        <div class="col-md-6 col-lg-6" id="opOtro" >
             <div class="input-group">
                 <div class="input-group-addon"><b>Otros:</b></div>
                 <input type="text" class="form-control eder" id="voptServ" placeholder="en Días" data-mask="999999999">
@@ -120,16 +131,17 @@
         </div><br>
 
         <div class="row">
-        <div class="col-md-12 col-lg-12">
+        <div class="col-md-11 col-lg-11">
         <div class="checkbox">
         <input type="hidden" id="idServ" value="0">
-            <label>
+            <label class="c-input c-checkbox">
                 <input type="checkbox" id="outsourcing" value="0">
+                <span class="c-indicator"></span>
                 <b>Outsourcing</b> <small>- Seleccione esta opción si es necesario <i>sub-contratar</i> el servicio de un tercero para el préstamo de éste servcio</small>
             </label>
         </div>
         </div>
-            <div class="col-md-12 col-lg-12" id="prove" hidden>
+            <div class="col-md-11 col-lg-11" id="prove">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Proveedor</b></div>
                     <select id="vidprovee" class="form-control" type="select" value="0">
@@ -145,14 +157,14 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 col-lg-6 ganServ" hidden>
+                <div class="col-md-6 col-lg-6 ganServ">
                     <br><div class="input-group">
                     <div class="input-group-addon"><b>Compra</b></div>
                     <input type="text" class="form-control eder pout" id="vpcompra" placeholder="Precio de Compra" data-mask="999999999.99" value="0.00">
                     <div class="input-group-addon"><b>¢</b></div>
                 </div><br>
                 </div>
-                <div class="col-md-6 col-lg-6 ganServ" hidden>
+                <div class="col-md-6 col-lg-6 ganServ">
                     <br><div class="input-group">
                     <div class="input-group-addon"><b>Ganancia</b></div>
                     <input type="text" class="form-control eder pout" id="vpganancia" placeholder="Local" data-mask="999999999" value="0.00">

@@ -1,5 +1,5 @@
 .bdy {
-    padding-left: 6%;
+    padding-left: 2%;
     margin-top: 2%;
     padding-right: 2%}
 .err_ {
@@ -143,7 +143,8 @@ body {
     font-size: 2.2em;
     background: rgba(51, 51, 51, 0.1);
     border-radius: 50%;
-    padding: 1%}
+    padding: 1%;
+}
 [data-notify="title"] {
     color: #333;
     display: block;

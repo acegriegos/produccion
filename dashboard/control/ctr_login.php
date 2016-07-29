@@ -20,6 +20,7 @@
 		    }
 		    else
 		    {
+		    $_SESSION['NUM']	 = trim($encrypt->ency($user[0][1]));
 		    $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
 		    $_SESSION['NOM']     = $user[0][1];
 		    $_SESSION['TIPO']    = $user[0][2];
@@ -38,7 +39,7 @@
 		   	$pg = $smarty->fetch('../view/menuSmarty.php');
 		   
 		   	$smarty->assign('NAV',$pg);
-		   	$smarty->display('login.tpl');
+		   	$smarty->display('login1.tpl');
 		   }
 		}
    }else{

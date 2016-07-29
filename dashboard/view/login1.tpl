@@ -12,17 +12,38 @@
     <link href="../assets/libs/iconos/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/modulos/style_login.css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
-     
-  <div class="container boxlogin x1">
-        <div class="jumbotron x1" style="background-color: transparent;width:100%;padding-left:0%;padding-right:0%;padding-bottom:12%">
+  <br><br>
+     <!-- BODY SIGNIN -->
+    <div class="container boxlogin x1">
+        <div class="container">
+        <div class="alert alert-danger" role="alert" id="err">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong id="titulo">Error de Autenticación!</strong><br><small id="alerta">Usuario o Contraseña Incorrecta</small>
+        </div>
+          <form class="form-signin" action="index.php" method="POST" role="form" onsubmit="return getIn();">
+            <h2 class="form-signin-heading">Sistema Logintech</h2><br>
+            <label for="inputEmail" class="sr-only">Usuario</label>
+            <input autofocus="autofocus" name="id" type="text" id="num" class="form-control" placeholder="Nombre de Usuario" required="">
+            <label for="inputPassword" class="sr-only">Contraseña</label>
+            <input type="password" name="pss" id="pass" class="form-control" placeholder="Contraseña" required="">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me"> Recuérdame
+              </label>
+            </div><br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+          </form>
+    
+        </div> <!-- /container -->
+    </div>
+    <br><br>
+    <center><small>© 2016. Copyright. Todos los derechos reservados. LogintechCR, S. A. </small></center>
+
+    <!-- BODY SIGNIN -->
+  
+        <!-- <div class="jumbotron x1" style="background-color: transparent;width:100%;padding-left:0%;padding-right:0%;padding-bottom:12%">
                 <div class="container x1" style="padding-left:15%;padding-right:15%">
                 <div class="alert alert-danger" id="err">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -45,11 +66,7 @@
                     <small style="float: right;"><a href="#" style="color: #337ab7">Olvidó su Contraseña?</a></small>
                 </form>
             </div>
-        </div>
-        
-    </div>
-
-    <center><small>© 2015. Copyright. Todos los derechos reservados. LogintechCR, S. A. </small></center>
+        </div> -->
     
 
     <script src="../assets/js/jquery.js"></script>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-04-26 23:45:04
+<?php /* Smarty version 2.6.17, created on 2016-07-28 09:34:49
          compiled from v_proveedores.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -7,13 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Proveedores</title>
+    <title></title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,36 +27,39 @@
   <body>
     <?php echo $this->_tpl_vars['NAV']; ?>
 
+    <br><br>
     <div class="bdy">
-        <h2 align="center">MANTENIMIENTO DE PROVEEDORES</h2><hr><br>
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <button type="button" class="btn btn-primary" data-toggle="modal" href="#modal-buscar" style="margin-left: 15px;">Buscar</button>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <a class="btn btn-primary der" data-toggle="modal" href='#modal-Proveedor' id="IaddProv" style="margin-right: 15px;">Agregar Proveedor <i class="fa fa-plus"></i></a>
-            </div>
-        </div><br><br>
-        <div class="alert alert-danger err_" id="err2" style="display:none">
-            <strong id="errm2"></strong>
-        </div>
+    <h3 class="card-header card-primary" style="color: #fff"><b>PROVEEDORES</b></h3><br>
+    <input type="hidden" id="vtabla" value="17">
 
-        <div class="alert alert-success suc_" id="suc2" style="display:none">
-            <strong id="sucm2"></strong>
-        </div>
-
-        <div class="table-responsive">
-            <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-proveedores">
-                <thead>
-                    <tr>
-                        <th>Cedula Juridica</th>
-                        <th style="width: 50%">Razon Social</th>
-                        <th style="width: 20%">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="listaproveedores">
-                    <?php unset($this->_sections['LE']);
+    <div class="row">
+    <div class="col-md-8 col-lg-8">
+    <div class="input-group">
+        <span class="input-group-btn">
+        <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
+        </span>
+        <input type="search" class="form-control" placeholder="Nombre de Proveedor">
+    </div>
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <button type="button" id="ingProv" class="btn btn-primary der" data-toggle="modal" href="#modal-proveedores" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
+    </div>
+  </div><br><br>
+    
+    <div class="card-block">
+    <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
+        <thead>
+            <tr>
+                <th>Cédula Jurídica</th>
+                <th>Razón Social</th>
+                <th>Teléfonos</th>
+                <th>Correo</th>
+                <th>Web</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="listaProveedores">
+            <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['PROV']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -78,97 +83,161 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                    <tr>
-                        <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][1]; ?>
+          <tr id="f1">
+            <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][1]; ?>
 </td>
-                        <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][2]; ?>
+            <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][2]; ?>
 </td>
-                        <td>
-                        <i class="fa fa-book fa-lg btn state" id="s<?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][0]; ?>
-" title="Ver Estado de Cuenta" data-toggle="modal" href="#modal-estadoCuenta"></i>
-                        <i class="fa fa-check-square fa-lg btn pagovarios" id="sp<?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][0]; ?>
-" data-toggle="modal" href='#modal-pagoVariosP' title="Realizar Varios Pagos"></i>
-                        <i class="fa fa-pencil-square-o fa-lg btn load" modulo="proveedore" title="Modificar Proveedor" id="m<?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][0]; ?>
-" data-toggle="modal" href='#modal-Proveedor'></i>
-                        <i class="fa fa-times btn fa-lg delete" title="Eliminar Proveedor" codigo="2" modulo="proveedore" id="d<?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][0]; ?>
-"></i>
-                        </td>
-                    </tr>
-                    <?php endfor; endif; ?>
-                </tbody>
-            </table>
-        </div>
-        </div>
-
-
+            <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][3]; ?>
+</td>
+            <td style="font-size: 0.9em"><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][4]; ?>
+</td>
+            <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][5]; ?>
+</td>
+            <td>
+                <i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][0]; ?>
+" data-toggle="modal" href='#modal-proveedores' modulo="proveedore"></i>
+                <i class="fa fa-times btn delete" codigo="1" modulo="proveedore" id="d<?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][0]; ?>
+" style="color: #D9534F"></i>
+            </td>
+          </tr>
+          <?php endfor; endif; ?>
+        </tbody>
+    </table>
     </div>
 
-    <div class="modal fade" id="modal-Proveedor">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title accmodal">AGREGAR PROVEEDOR</h4>
-                </div>
-                <div class="modal-body">
-                <form id="fproveedores">
-                    <div class="panel-body">
+     <div class="modal fade" id="modal-proveedores">
+         <div class="modal-dialog" style="width: 50%;">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                     <h4 class="modal-title" id="titModal">Agregar Proveedor</h4>
+                 </div>
+                 <div class="modal-body">
+                     <form id="fproveedores">
+                     <input type="hidden" id="vid" value="0">
+
                         <div class="row">
-                            <label>Cédula Jurídica</label>
-                            <input type="text" id="vcedula" class="form-control" value="" required="required" placeholder="Cédula Jurídica" data-mask="9-999-999999">
-                            <label>Razón Social</label>
-                            <input type="text" id="vnombre" class="form-control" value="" required="required" placeholder="Razón Social del Proveedor">
-                            <input type="hidden" id="vid" class="form-control" value="0">
+                        <div class="col-md-8 col-lg-8">
+                            <div class="input-group">
+                                <div class="input-group-addon"><b>Cédula Jurídica</b></div>
+                                <input type="text" class="form-control eder" id="vcedula" placeholder="Cédula de Proveedor" data-mask="9-999-999999">
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="input-group">
+                                <div class="input-group-addon"><b>Código</b></div>
+                                <input type="text" class="form-control eder" id="vid" placeholder="Código" value="P-<?php echo $this->_tpl_vars['MAXID'][0][0]; ?>
+" readonly>
+                            </div>
+                        </div>
+                        </div><br>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                    <button type="sumbit" class="btn btn-primary add" id="sprov" codigo="1" modulo="proveedore">Agregar</button>
-                    <button type="submit" class="btn btn-primary edit" id="aprov" codigo="1" modulo="proveedore">Aceptar</button>
-                        <br><br>
-                        <div class="alert alert-danger err_" id="err1">
-                            <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> -->
-                            <strong id="errm1"></strong>
+                        <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="input-group">
+                                <div class="input-group-addon"><b>Razón Social</b></div>
+                                <input type="text" class="form-control eder" id="vnombre" placeholder="Nombre de Proveedor">
+                            </div> 
                         </div>
-                        <div class="alert alert-success suc_" id="suc1">
-                            <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> -->
-                            <strong id="sucm1"></strong>
+                        </div><br>
+                        
+                        <div class="card-header" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+                        <div class="card-title"><b>Teléfonos</b></div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-4">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><b><i class="fa fa-building" aria-hidden="true"></i></b></div>
+                                    <input type="text" class="form-control eder" id="vtrabajo" placeholder="Trabajo" data-mask="9999-9999">
+                                </div> 
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><b><i class="fa fa-home" aria-hidden="true"></i></b></div>
+                                    <input type="text" class="form-control eder" id="vcasa" placeholder="Casa" data-mask="9999-9999">
+                                </div> 
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><b><i class="fa fa-mobile" aria-hidden="true"></i></b></div>
+                                    <input type="text" class="form-control eder" id="vmovil" placeholder="Móvil" data-mask="9999-9999">
+                                </div> 
+                            </div>
+                        </div><br>
+                        </div><br>
+
+                        <div class="card-header" vtabla="correo" id="fcorreos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+                        <div class="card-title"><b>Correos</b></div>
+                        <input type="hidden" id="vcorreo3" value="">
+                        <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-group">
+                                <div class="input-group-addon"><b><i class="fa fa-envelope-o" aria-hidden="true"></i><small> (1)</small></b></div>
+                                <input type="text" class="form-control eder" id="vcorreo1" placeholder="ejemplo@dominio.com">
+                            </div> 
                         </div>
-                    
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-group">
+                                <div class="input-group-addon"><b><i class="fa fa-envelope" aria-hidden="true"></i><small> (2)</small></b></div>
+                                <input type="text" class="form-control eder" id="vcorreo2" placeholder="ejemplo@dominio.com">
+                            </div> 
+                        </div>
+                        </div><br>
+                        </div><br>
+
+                        <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="input-group">
+                                <div class="input-group-addon"><b>Web</b></div>
+                                <input type="text" class="form-control eder" id="vweb" placeholder="www.dominio.com">
+                            </div> 
+                        </div>
+                        </div><br>
+
+                        <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-group">
+                                <div class="input-group-addon"><b>Crédito</b></div>
+                                <input type="text" class="form-control eder" id="vcredito" placeholder="0" data-mask="999999999">
+                                <div class="input-group-addon"><b>¢</b></div>
+                            </div> 
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="input-group">
+                                <div class="input-group-addon"><b>Plazo</b></div>
+                                <input type="text" class="form-control eder" id="vplazo" placeholder="0" data-mask="999999999">
+                                <div class="input-group-addon"><b>días</b></div>
+                            </div> 
+                        </div>
+                        </div><br>
+                     </form>
+                
+                <div class="alert alert-danger err_" id="err1" style="display: none">
+                    <strong id="errm1"></strong>
                 </div>
-                </form>
+                <div class="alert alert-success suc_" id="suc1" style="display: none">
+                    <strong id="sucm1"></strong>
                 </div>
-            </div>
-        </div>
+
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                     <button type="button" class="btn btn-primary add" modulo="proveedore" id="agProv" codigo="1" vtablas="1">Agregar</button>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+    </div> <!-- END BDY -->
+
     </div>
-
-    <div class="modal fade" id="modal-buscar">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Filtro Proveedores</h4>
-                </div>
-                <div class="modal-body">
-                    <label>Cédula Jurídica</label>
-                    <input type="text" id="cedula" class="form-control" value="" required="required" placeholder="Cédula Jurídica del Proveedor" data-mask="9-999-999999">
-                    <label>Razón Social</label>
-                    <input type="text" id="nombre" class="form-control" value="" required="required" placeholder="Razón Social del Proveedor">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                    <button type="button" class="btn btn-primary" id="buscar" data-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/mask/jquery.mask.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <script src="../assets/js/alertModal.js"></script>
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
+    <script src="../assets/js/jquery.mask.min.js"></script>
     <script src="../assets/js/modulos/proveedores.js"></script>
+    <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
   </body>
 </html>

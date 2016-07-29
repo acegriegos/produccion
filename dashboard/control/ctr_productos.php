@@ -44,7 +44,10 @@
 	   			$smarty->display('ajax/ajaxmantPaquetes.tpl');
 	   			break;
 	   		case 4:
-	   			
+	   			$pagina = 1;
+	   			$arr = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+	   			file_put_contents('view/getPkg.php', json_encode($arr));
+	   			print_r($arr);
 	   			break;
 	   		case 5:
 	   			

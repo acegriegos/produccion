@@ -27,17 +27,83 @@ $(function(){
 				$("#data-table-servicios").dataTable({
 					bFilter: false
 				});
+				$("#prove").hide();
+				$(".ganServ").hide();
+				$("#opOtro").hide();
 				break;
 			case 3:
 				$("#mantServ").remove();
 				$("#mantProd").remove();
 				var p = mantenimiento('productos',3,'');
 				$("#bdymantInventario").html(p);
+					
+					var options = {
+
+						  url: function(phrase) {
+						  	getDatos();
+						    return 'view/getPkg.php';
+						  },
+
+						  getValue: function(element) {
+						    return element[0];
+						  },
+
+						  ajaxSettings: {
+						    dataType: "json",
+						    method: "POST",
+						    data: {
+						      dataType: "json"
+						    }
+						  },
+
+						  preparePostData: function(data) {
+						    data.phrase = $("#textProd").val();
+						    return data;
+						  },
+
+						  requestDelay: 400
+						};
+
+					$("#descrP").easyAutocomplete(options);
+
+				// BADGE
+					$('#textProd')
+					.on('tokenfield:createtoken', function (e) {
+						var data = e.attrs.value.split('|')
+						e.attrs.value = data[1] || data[0]
+						e.attrs.label = data[1] ? data[0] + ' (' + data[1] + ')' : data[0]
+					})
+					.on('tokenfield:edittoken', function (e) {
+						if (e.attrs.label !== e.attrs.value) {
+						  var label = e.attrs.label.split(' (')
+						  e.attrs.value = label[0] + '|' + e.attrs.value
+						}
+					})
+					.on('tokenfield:removedtoken', function (e) {
+						
+					})
+					.tokenfield();
+					// BADGE
+
 				break;
 		}
 	});
 
-	$("#m3").click();
+	$("#m1").click();
+});
+
+$(document).on("keyup","#cantProd",function(e){
+	if (e.which == 13) {
+		$("#agInvProPqts").click();
+		$("#descrP").val('');
+		$("#cantProd").val('');
+	}
+});
+
+$(document).on("keyup","#textProd-tokenfield",function(e){
+	if (e.which == 36) {
+		$("#descrP").focus();
+	}
 });
 
 $(document).on("click",".load",function(){
@@ -182,6 +248,40 @@ $(document).on("keyup","#vpganancia",function(){
 	$("#vpcompra").val(compra.toFixed(2));
 });
 
+
+$(document).on("click","#agInvProPqts",function(){
+
+	var prodStr = $("#descrP").val();
+	var prodPrec = prodStr.substr(prodStr.indexOf('¢')+1);
+	prodStr = prodStr.substr(0,prodStr.indexOf('¢')+1);
+	var prodCant = $("#cantProd").val();
+	var idProdStr = $("#idProdStr").val();
+	var cProdStr = $("#cProdStr").val();
+	var subtotal = (parseFloat(prodPrec)*prodCant).toFixed(2);
+
+	var gDatos = getDatos();
+	// alert(gDatos);
+
+	$("#textProd-tokenfield").focus();
+	$("#textProd-tokenfield").val(prodStr+subtotal+'|'+prodCant);
+	$("#textProd-tokenfield").select();
+
+});
+
+$(document).on("keyup","#textProd-tokenfield",function(e){
+
+	if (e.which == 13) {
+
+		var text = $("#s"+(consec-1)).html();
+		var cantidad = text.substring(text.lastIndexOf('(')+1, text.lastIndexOf(')'));
+		var precio = text.substring(text.indexOf('¢')+1, text.indexOf('(')-1);
+
+		$("#s"+(consec-1)).attr({'precio':precio,'cantidad':cantidad});
+	}
+
+});
+
+
 $(document).on("click","#ingInvProd",function(){
 	$("#accmodalProd").html('Agregar Producto');
 	$("#addV").html('Agregar');
@@ -241,14 +341,13 @@ $(document).on("keyup","#voptServ",function(){
 });
 
 $(document).on("click","#otros",function(){
-		$(".opPeriodo").toggle();
-		$("#opOtro").toggle();
+		$(".opPeriodo").toggle(0.5);
+		$("#opOtro").toggle(0.5);
 });
 
 $(document).on("click","#outsourcing",function(){
-
-		$("#prove").toggle(300);
-		$(".ganServ").toggle(300);
+		$("#prove").toggle(0.5);
+		$(".ganServ").toggle(0.5);
 
 		if ($("#outsourcing").is(":checked")) {
 			$("#vpbase").addClass('vcalcServ');
@@ -373,5 +472,18 @@ function cargarSintax(vtabla){
 			break;
 }
 		return arr;
+
+}
+
+function getDatos(){
+	
+	var array = {};
+
+    array['sel'] = 'concat(nombre," - ¢ ",venta) as nombre, id, venta';
+    array['tbl'] = 11;
+    array['where'] = 'nombre like "%'+$("#descrP").val()+'%" and id > 0';
+
+    p = mantenimiento('productos',4,array);
+    return p;
 
 }

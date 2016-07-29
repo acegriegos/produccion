@@ -22,15 +22,6 @@
 			return $this->db;
 		}
 
-		public function ejecutarTransaccion(){
-			$rs = $this->db->ejecutar($this->sql);
-			if ($rs == 1) {
-				return 1;
-			}else{
-				return array('ERROR'=>$rs);
-			}
-		}
-
 		public function ejecutarSelect(){
 			$rs = $this->db->ejecutar($this->sql);
 
@@ -53,6 +44,7 @@
 				return $rs;
 			}
 		}
+
 
 		public function kaioken($sel,$tabl,$wher)
 		{
@@ -86,14 +78,14 @@
 				$args2 = str_replace('@@usr', $usr, $args2);
 			}
 
-			if (strpos($wher,'@@impresa')) {
-				$impresa = $_SESSION['IMPRESA'];
-				$wher = str_replace('@@impresa', $impresa, $wher);
+			// if (strpos($wher,'@@impresa')) {
+			// 	$impresa = $_SESSION['IMPRESA'];
+			// 	$wher = str_replace('@@impresa', $impresa, $wher);
 
-				if (($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0)) {
-					$wher = str_replace('and idempresa = '.$impresa, '' , $wher);
-				}
-			}
+			// 	if (($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0)) {
+			// 		$wher = str_replace('and idempresa = '.$impresa, '' , $wher);
+			// 	}
+			// }
 
 			$args2 = str_replace("'", '\\\'', $args2);
 			$args2 = str_replace('"', '\\"', $args2);
@@ -164,7 +156,7 @@
 					$param = $ant;
 				$param = str_replace("'", '\\\'', $param);
 				$param = str_replace('"', '\\"', $param);
-				
+				print_r($param);
 			    $salida .= "'".$param."',";
 			}
 			$salida = substr($salida,0,-1);

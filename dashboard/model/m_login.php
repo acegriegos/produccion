@@ -26,15 +26,27 @@
 					$rs = $this->mant($arreglo['detalle']['tabla'],$obj,$id_new);
 				}
 			}
+			if (isset($arreglo['varios'])) {
+				$accion = $arreglo['atributos']['vaccion'];
+				foreach ($arreglo['varios'] as $index => $varios) {
+					$varios['atributos']['vidfila'] = $id_new[0][0];
+					$varios['atributos']['vaccion'] = $accion;
+					if ($accion != 1) {
+						$this->genkidama(3,17,'idfila = '.$id_new[0][0],'');
+						$varios['atributos']['vaccion'] = 1;
+					}
+					$rs = $this->mant($varios['modulo'],$varios['atributos'],$id_new[0][0]);
+				}
+			}
 
-			return array('0' => $id_new);;
+			return array('0' => $id_new);
 		}
 
 		function analizarTabla($arreglo){
 			$salida = array();
 
 			$this->sql = "SHOW CREATE PROCEDURE sp_mant".$arreglo['modulo']."s";
-			$rs = $this->ejecutarSelect()[0][2] or die("No existe SP asociado");
+			$rs = $this->ejecutarSelect()[0][2] or die("No existe SP asociado: ".$arreglo['modulo']."s");
 			$rs = substr($rs, strpos($rs,"(")+1);
 			$rs = substr($rs, 0,strpos($rs,"BEGIN"));
 			$rs = str_replace("\n", " ", $rs);

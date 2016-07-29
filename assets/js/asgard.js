@@ -21,13 +21,15 @@ $(document).on("click",".load",function(){
 $(document).on("click",".add",function(){
     var modulo = $(this).attr('modulo');
     var codigo = $(this).attr('codigo');
-    doGlobal(1,modulo,codigo,'',$(this).attr('detalle'));
+    var varias = $(this).attr('vtablas');
+    doGlobal(1,modulo,codigo,'',$(this).attr('detalle'),varias);
 });
 
 $(document).on("click",".edit",function(){
     var modulo = $(this).attr('modulo');
     var codigo = $(this).attr('codigo');
-    doGlobal(2,modulo,codigo,'',$(this).attr('detalle')); 
+    var varias = $(this).attr('vtablas');
+    doGlobal(2,modulo,codigo,'',$(this).attr('detalle'),varias); 
 });
 
 $(document).on("click",".delete",function(){
@@ -36,15 +38,30 @@ $(document).on("click",".delete",function(){
     var codigo = $(this).attr('codigo');
     var id = $(this).attr('id').substr(1);
   
-    doGlobal(3,modulo,codigo,id,$(this).attr('detalle'));
+    doGlobal(3,modulo,codigo,id,$(this).attr('detalle'),0);
 });
 
-function doGlobal(accion,modulo,codigo,tip,detalle){
+function doGlobal(accion,modulo,codigo,tip,detalle,varias){
 
     var arreglo = {}
     arreglo['modulo'] = modulo;
     arreglo['tip'] = tip;
     arreglo['atributos'] = baseValidar(1,arreglo);
+
+    if (varias == 1) {
+        $("#f"+modulo+"s").find();
+        arreglo['varios'] = {};
+
+        $("[vtabla]").each(function(index){
+            var arr = {}
+            
+            arr['modulo'] = $(this).attr('vtabla');
+            arr['tip'] = tip;
+            arr['atributos'] = baseValidar(1,arr);
+
+        arreglo['varios'][index] = arr;
+        });
+    }
 
     $('#err'+codigo).hide();
     $('#suc'+codigo).hide();
@@ -164,7 +181,7 @@ function mantenimiento(vmodulo,vaccion, varreglo){
             data: {accion: vaccion,arreglo : varreglo}
             })
             .done(function(data) {
-                //console.error(data)
+                console.error(data)
                 try {
                     p = JSON.parse(data);
                 }
@@ -198,8 +215,9 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
             });
 }
 
-function odin(varreglo,vform,id = '') {
+function odin(varreglo,vform,id) {
     var salida = {}
+    id || (id = '');
 
     for (var i = 0; i < varreglo.length; i++) {
         
@@ -221,7 +239,9 @@ function odin(varreglo,vform,id = '') {
             case 'vaccion':
                 salida[varreglo[i]] = 0;
                 break
-
+            case 'vidtabla':
+                salida[varreglo[i]] = $("#vtabla").val();
+                break;
             default:
             
                 if ($("#"+varreglo[i]+id).attr("type") == 'select')
@@ -331,7 +351,7 @@ function permisos(vnumber,vnumber2) {
                 };
             })
             .fail(function(x,y,z) {
-                alert(z,' ',y,' ',z)
+                // alert(z,' ',y,' ',z)
             });
 }
 

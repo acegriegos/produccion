@@ -18,38 +18,27 @@
     <![endif]-->
   </head>
   <body>
-
+<br><br>
     <h1>Sistema BMS</h1>
     <h3>Bussines Management Solution</h3>
 
- <div class="flip" >
-    <form class="flip" action="index.php" method="POST" role="form" onsubmit="return getIn();">
-    <div class="content">
-        <ul>
-            <li>
-                <h4 align="center" class="title">Inicio de sesión</h4>
-            </li>
-            <li>
-                <input type="text" placeholder="Usuario" id="num" name='id'/>
-            </li>
-            <li>
-                <input type="password" placeholder="Contraseña" id="pass" name="pss"/>
-            </li>
-        </ul>
-    </div>
-        <ul class="button">
-            <li class="front">
-                Entrar
-            </li>
-            <li class="back">
-                <button id="x" class="btn btn-link btn-lg pull-xs-right btn-close">&times;</button>
-                <button type="submit" id="ingr" class="btn btn-primary btn-lg" >Ingresar</button>
-                <div style="float: right;"><a href="#" style="color: #337ab7">Olvidó su Contraseña?</a></div>
-            </li>
-        </ul>
-    </form>
-    </div>
+<div class="container">
 
+      <form class="form-signin" action="index.php" method="POST" role="form" onsubmit="return getIn();">
+        <h2 class="form-signin-heading">Inicio de sesión</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" placeholder="Usuario" id="num" name='id' required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" placeholder="Contraseña" id="pass" name="pss" required>
+        <div class="checkbox">
+          <label>
+            <div style="float: right;"><a href="#" style="color: #337ab7">Olvidó su Contraseña?</a></div>
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+      </form>
+
+    </div> <!-- /container -->
 
 <center id="dr"><small>© 2016. Copyright. Todos los derechos reservados. LogintechCR, S.A. </small></center>
 
