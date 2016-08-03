@@ -14,7 +14,8 @@ $(function(){
 				var p = mantenimiento('productos',1,'');
 				$("#bdymantInventario").html(p);
 				$("#data-table-productos").DataTable({
-					bFilter: false
+					bFilter: false,
+        			bLengthChange : false
 				});
 				break;
 			case 2:
@@ -25,7 +26,8 @@ $(function(){
 				var p = mantenimiento('productos',2,'');
 				$("#bdymantInventario").html(p);
 				$("#data-table-servicios").dataTable({
-					bFilter: false
+					bFilter: false,
+        			bLengthChange : false
 				});
 				$("#prove").hide();
 				$(".ganServ").hide();
@@ -93,6 +95,13 @@ $(function(){
 
 });
 
+$(document).on("keyup","#searchprod",function(e){
+	var code = e.which || e.keyCode;
+	var filtro = $("#searchprod").val();
+	filtrarprod(code,filtro)
+
+});
+
 $(document).on("change","#inputExc",function(){
 	var costo = isNaN($("#vcosto").val()) ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
 	var ganancia = isNaN($("#vganancia").val()) ? 0 : parseFloat($("#vganancia").val().replace(/,/g,""));
@@ -113,8 +122,6 @@ $(document).on("change","#inputGrav",function(){
 
 	if ($(this).is(":checked")) {
 		vventa = costo * ((ganancia/100)+1) * ((imv/100)+1);
-		console.log(imv)
-		console.log(vventa)
 		$("#vventa").val( (vventa).toFixed(2) );
 	}
 });
@@ -479,7 +486,7 @@ $(document).on("click","#agInvProPqts",function(){
 	var cProdStr = $("#cProdStr").val();
 	var subtotal = (parseFloat(prodPrec)*prodCant).toFixed(2);
 
-	// var gDatos = getDatos();
+	var gDatos = getDatos();
 	
 
 	$("#textProd-tokenfield").focus();
@@ -567,19 +574,19 @@ $(document).on("keyup","#voptServ",function(){
 });
 
 $(document).on("click","#otros",function(){
-		$(".opPeriodo").toggle(0.5);
-		$("#opOtro").toggle(0.5);
+	$(".opPeriodo").toggle(0.5);
+	$("#opOtro").toggle(0.5);
 });
 
 $(document).on("click","#outsourcing",function(){
-		$("#prove").toggle(0.5);
-		$(".ganServ").toggle(0.5);
+	$("#prove").toggle(0.5);
+	$(".ganServ").toggle(0.5);
 
-		if ($("#outsourcing").is(":checked")) {
-			$("#vpbase").addClass('vcalcServ');
-		}else{
-			$("#vpbase").removeClass('.vcalcServ');
-		}
+	if ($("#outsourcing").is(":checked")) {
+		$("#vpbase").addClass('vcalcServ');
+	}else{
+		$("#vpbase").removeClass('.vcalcServ');
+	}
 });
 
 $(document).on("change","#vidprovee",function(){
@@ -587,6 +594,23 @@ $(document).on("change","#vidprovee",function(){
 
 	$("#vidproveedor").val(opcProv);
 });
+
+function filtrarprod(code,filtro){
+	if (code == 13) {
+		var arr = {};
+		arr['sel'] = '';
+		arr['tbl'] = 25;
+		arr['where'] = '\"'+filtro+'\"';
+		var p = mantenimiento('login',6,arr);
+		var tabla = $("#data-table-productos").DataTable();
+	    tabla.destroy();
+		$("#listaproductos").html(p);
+		$("#data-table-productos").DataTable({
+	        bFilter :  false,
+        	bLengthChange : false
+	    });
+	}
+}
 
 function valjerarquia(tipo){
 

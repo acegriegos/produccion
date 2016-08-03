@@ -7,7 +7,7 @@
             <span class="input-group-btn">
             <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
             </span>
-            <input type="search" class="form-control" placeholder="Nombre de Producto">
+            <input type="search" class="form-control" id="searchprod" placeholder="Nombre de Producto">
         </div>           
     </div>
     <div class="col-md-6 col-lg-6">

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-03 19:43:30
+<?php /* Smarty version 2.6.17, created on 2016-08-03 21:41:49
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
@@ -9,7 +9,7 @@
             <span class="input-group-btn">
             <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
             </span>
-            <input type="search" class="form-control" placeholder="Nombre de Producto">
+            <input type="search" class="form-control" id="searchprod" placeholder="Nombre de Producto">
         </div>           
     </div>
     <div class="col-md-6 col-lg-6">
