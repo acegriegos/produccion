@@ -90,6 +90,137 @@ $(function(){
 	});
 
 	$("#m1").click();
+
+	$("#vidfamilia").change(function(){
+		var idfamilia = $("#vidfamilia option:selected").val();
+		var arr = {};
+		arr['sel'] = 'id,nombre';
+		arr['tbl'] = 21;
+		arr['where'] = 'id > 0 and idfamilia = '+idfamilia+' order by id';
+		var tip = mantenimiento('login',6,arr);
+		$("#vidtipo").empty();
+		$("#vidtipo").html(tip);
+	});
+
+	$("#vidmarca").change(function(){
+		var idmarca = $("#vidmarca option:selected").val();
+		var arr = {};
+		arr['sel'] = 'id,nombre';
+		arr['tbl'] = 23;
+		arr['where'] = 'id > 0 and idmarca = '+idmarca+' order by id';
+		var mod = mantenimiento('login',6,arr);
+		$("#vidmodelo").empty();
+		$("#vidmodelo").html(mod)
+	});
+});
+
+$(document).on("click",".bjerarquia",function(){
+	var tipo = parseInt($(this).attr('tipo'));
+	switch(tipo){
+		case 1:
+			$("#vidfamilia").hide(500);
+			$("#newfam").show(500);
+			$(this).removeClass('bjerarquia');
+			$(this).addClass('sjerarquia');
+			$("#newfam").focus();
+			$("#newfam").select();
+			break;
+		case 2:
+			$("#vidtipo").hide(500);
+			$("#newtip").show(500);
+			$(this).removeClass('bjerarquia');
+			$(this).addClass('sjerarquia');
+			$("#newtip").focus();
+			$("#newtip").select();
+			break;
+		case 3:
+			$("#vidmarca").hide(500);
+			$("#newmar").show(500);
+			$(this).removeClass('bjerarquia');
+			$(this).addClass('sjerarquia');
+			$("#newmar").focus();
+			$("#newmar").select();
+			break;
+		case 4:
+			$("#vidmodelo").hide(500);
+			$("#newmod").show(500);
+			$(this).removeClass('bjerarquia');
+			$(this).addClass('sjerarquia');
+			$("#newmod").focus();
+			$("#newmod").select();
+			break;
+	}
+});
+
+$(document).on("click",".sjerarquia",function(){
+	var tipo = $(this).attr('tipo');
+	var ref = $(this).attr('ref');
+	var nom = $(this).attr('nombre');
+	var nombre = $("#new"+nom.substr(0,3)).val();
+	var idref1 = $("#vid"+$(this).attr('ref1')+" option:selected").val();
+	var idref2 = $("#vid"+$(this).attr('ref2')+" option:selected").val();
+	// console.log("tipo: "+tipo+" ,nombre: "+nombre+" ,ref1: "+idref1+" ,ref2: "+idref2)
+	var valj = valjerarquia(tipo)
+
+	if (valj == false) {
+
+		$("#err1").hide();
+		$("#suc1").hide();
+
+		if (ref == 0) {
+			var arr = {};
+			arr['sel'] = '';
+			arr['tbl'] = 24;
+			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",0,0,@@usr';
+			mantenimiento('login',4,arr);
+
+			$("#new"+nom.substr(0,3)).hide(500);
+			$("#vid"+nom).show(500);
+
+			$("#vid"+nom).empty();
+			var cargar = cargarSintax(nom);
+			var tbl = mantenimiento('login',6,cargar);
+			$("#vid"+nom).html(tbl);
+			$(this).removeClass('sjerarquia');
+			$(this).addClass('bjerarquia');
+
+		}else if(ref == 1){
+			var arr = {};
+			arr['sel'] = '';
+			arr['tbl'] = 24;
+			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",'+idref1+',0,@@usr';
+			mantenimiento('login',4,arr);
+			$("#new"+nom.substr(0,3)).hide(500);
+			$("#vid"+nom).show(500);
+			
+			$("#vid"+nom).empty();
+			var cargar = cargarSintax(nom);
+			var tbl = mantenimiento('login',6,cargar);
+			$("#vid"+nom).html(tbl);
+			$(this).removeClass('sjerarquia');
+			$(this).addClass('bjerarquia');
+
+		}else{
+			var arr = {};
+			arr['sel'] = '';
+			arr['tbl'] = 24;
+			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",'+idref1+','+idref2+',@@usr';
+			mantenimiento('login',4,arr);
+			$("#new"+nom.substr(0,3)).hide(500);
+			$("#vid"+nom).show(500);
+			
+			$("#vid"+nom).empty();
+			var cargar = cargarSintax(nom);
+			var tbl = mantenimiento('login',6,cargar);
+			$("#vid"+nom).html(tbl);
+			$(this).removeClass('sjerarquia');
+			$(this).addClass('bjerarquia');
+
+		}
+	}else{
+		$("#err1").show();
+		$("#err1").html(valj);
+	}	
 });
 
 $(document).on("keyup","#cantProd",function(e){
@@ -259,12 +390,15 @@ $(document).on("click","#agInvProPqts",function(){
 	var cProdStr = $("#cProdStr").val();
 	var subtotal = (parseFloat(prodPrec)*prodCant).toFixed(2);
 
-	var gDatos = getDatos();
-	// alert(gDatos);
+	// var gDatos = getDatos();
+	
 
 	$("#textProd-tokenfield").focus();
 	$("#textProd-tokenfield").val(prodStr+subtotal+'|'+prodCant);
 	$("#textProd-tokenfield").select();
+    var e = $.Event("keypress");
+    e.keyCode = 13;
+    $('#textProd-tokenfield').trigger(e);
 
 });
 
@@ -283,13 +417,16 @@ $(document).on("keyup","#textProd-tokenfield",function(e){
 
 
 $(document).on("click","#ingInvProd",function(){
+	$("#fproductos").submit(function(){return false});
 	$("#accmodalProd").html('Agregar Producto');
 	$("#addV").html('Agregar');
 	
 	deadclear('producto');
 
-	$("#vidtipo").val(0);
+	setTimeout(function(){ $("#fproductos").find($("#vidfamilia")).focus(); }, 500);
 	$("#ajaxProductos").html('');
+	$("#vcosto").val('0.00');
+	$("#vganancia").val('0.00');
 
 	var arr = {};
 	arr['sel'] = 'valor';
@@ -362,6 +499,26 @@ $(document).on("change","#vidprovee",function(){
 	$("#vidproveedor").val(opcProv);
 });
 
+function valjerarquia(tipo){
+
+	var id = parseInt(tipo);
+	switch(id){
+		case 1:
+			var validar = validarfamilia();
+			break;
+		case 2:
+			var validar = validartipo();
+			break;
+		case 3:
+			var validar = validarmarca();
+			break;
+		case 4:
+			var validar = validarmodelo();
+			break;
+	}
+	return validar;
+}
+
 function validar (varreglo,vmodulo) {
 	
 	var salida = {}
@@ -398,11 +555,27 @@ function validar (varreglo,vmodulo) {
 
 function validarproductos() {
 	
-	if ($("#vnombre").val() == ''){ return 'Nombre Requerido'};
-	if ($("#vcodigo").val() == ''){ return 'Código Requerido'};
-	if ($("#vcosto").val() == ''){	return 'Precio de Costo Requerido'};
-	if ($("#vganancia").val() == ''){	return 'Porcentaje de Ganancia Requerido'};
-	if ($("#vventa").val() == ''){	return 'Precio de Venta Requerido'};
+	if ($("#vnombre").val() == ''){
+		$("#vnombre").focus();
+		return 'Nombre Requerido';
+	}
+	if ($("#vcodigo").val() == ''){
+		$("#vcodigo").focus();
+		return 'Código Requerido';
+	}
+	if ($("#vcosto").val() == '0.00'){
+		$("#vcosto").focus();
+		$("#vcosto").select()
+		return 'Precio de Costo Requerido';
+	}
+	if ($("#vganancia").val() == ''){
+		$("#vganancia").fcus();
+		return 'Porcentaje de Ganancia Requerido';
+	}
+	if ($("#vventa").val() == ''){
+		$("#vventa").focus();
+		return 'Precio de Venta Requerido';
+	}
 }
 
 function validarservicios() {
@@ -432,12 +605,45 @@ function validarservicios() {
 	return false;
 }
 
+function validarfamilia(){
+
+	if ($("#newfam").val() == '') {
+		$("#newfam").focus();
+		return "Nombre Familia Requerido";
+	}
+	return false;
+}
+
+function validartipo(){
+	if ($("#newtip").val() == '') {
+		$("#newtip").focus();
+		return "Nombre Tipo Requerido";
+	}
+	return false;
+}
+
+function validarmarca(){
+	if ($("#newmar").val() == '') {
+		$("#newmar").focus();
+		return "Nombre Marca Requerido";
+	}
+	return false;
+}
+
+function validarmodelo(){
+	if ($("#newmod").val() == '') {
+		$("#newmod").focus();
+		return "Nombre Modelo Requerido";
+	}
+	return false;
+}
+
 function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'producto':
-			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda';
-			vmodulo['tbl'] = 11;
+			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idmodelo as vidmodelo';
+			vmodulo['tbl'] = 14;
 			vmodulo['where'] ='id = '+vid;
 			break;
 
@@ -470,7 +676,31 @@ function cargarSintax(vtabla){
 			arr['tbl'] = 13;
 			arr['where'] = '`Codigo` > 0 order by nombre';
 			break;
-}
+		case 'familia':
+			var arr = {};
+			arr['sel'] = 'id,nombre';
+			arr['tbl'] = 20;
+			arr['where'] = 'id > 0 order by id';
+			break;
+		case 'tipo':
+			var arr = {};
+			arr['sel'] = 'id,nombre';
+			arr['tbl'] = 21;
+			arr['where'] = 'id > 0 and idfamilia = '+$("#vidfamilia option:selected").val()+' order by id';
+			break;
+		case 'marca':
+			var arr = {};
+			arr['sel'] = 'id,nombre';
+			arr['tbl'] = 22;
+			arr['where'] = 'id > 0 order by id';
+			break;
+		case 'modelo':
+			var arr = {};
+			arr['sel'] = 'id,nombre';
+			arr['tbl'] = 23;
+			arr['where'] = 'id > 0 and idmarca = '+$("#vidmarca option:selected").val()+' order by id';
+			break;
+	}
 		return arr;
 
 }

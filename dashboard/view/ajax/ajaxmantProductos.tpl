@@ -60,6 +60,44 @@
                 <form id="fproductos">
                 <input type="hidden" id="vidmoneda" value="1">
 <div class="input-group">
+    <div class="input-group-addon"><b>Familia</b></div>
+    <select type="select" id="vidfamilia" class="form-control" required="required" cambio="1">
+    <option value="0">Seleccione una Familia</option>
+    {section name=LE loop=$FAM}
+        <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
+    {/section}
+    </select>
+    <input type="text" id="newfam" class="form-control" value="" required="required" style="display:none">
+    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" tipo="1" nombre="familia" ref="0"></i></div>
+</div><br>
+<div class="input-group">
+    <div class="input-group-addon"><b>Tipo</b></div>
+    <select type="select" id="vidtipo" class="form-control" required="required">
+    <option value="0">Sin Tipo</option>
+    </select>
+    <input type="text" id="newtip" class="form-control" value="" required="required" style="display:none">
+    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" tipo="2" nombre="tipo" ref="1" ref1="familia"></i></div>
+</div><br>
+<div class="input-group">
+    <div class="input-group-addon"><b>Marca</b></div>
+    <select type="select" id="vidmarca" class="form-control" required="required" cambio="1">
+    <option value="0">Seleccione una Marca</option>
+    {section name=LE loop=$MAR}
+        <option value="{$MAR[LE][0]}">{$MAR[LE][1]}</option>
+    {/section}
+    </select>
+    <input type="text" id="newmar" class="form-control" value="" required="required" style="display:none">
+    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" tipo="3" nombre="marca" ref="0"></i></div>
+</div><br>
+<div class="input-group">
+    <div class="input-group-addon"><b>Modelo</b></div>
+    <select type="select" id="vidmodelo" class="form-control" required="required">
+    <option value="0">Sin Modelo</option>
+    </select>
+    <input type="text" id="newmod" class="form-control" value="" required="required" style="display:none">
+    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i></div>
+</div><br>            
+<div class="input-group">
     <div class="input-group-addon"><b>Nombre</b></div>
     <input type="text" class="form-control eder" id="vnombre" placeholder="Nombre de Producto">
 </div><br>
