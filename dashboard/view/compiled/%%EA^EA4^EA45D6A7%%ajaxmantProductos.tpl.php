@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-02 01:41:40
+<?php /* Smarty version 2.6.17, created on 2016-08-03 19:40:32
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
@@ -125,7 +125,8 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <?php endfor; endif; ?>
     </select>
     <input type="text" id="newfam" class="form-control" value="" required="required" style="display:none">
-    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" tipo="1" nombre="familia" ref="0"></i></div>
+    <div class="input-group-addon" id="dbck1" style="display:none"><i class="fa fa-reply bbck" tipo="1"></i></div>
+    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" id="baddj1" tipo="1" nombre="familia" ref="0"></i></div>
 </div><br>
 <div class="input-group">
     <div class="input-group-addon"><b>Tipo</b></div>
@@ -133,7 +134,8 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <option value="0">Sin Tipo</option>
     </select>
     <input type="text" id="newtip" class="form-control" value="" required="required" style="display:none">
-    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" tipo="2" nombre="tipo" ref="1" ref1="familia"></i></div>
+    <div class="input-group-addon" id="dbck2" style="display:none"><i class="fa fa-reply bbck" tipo="2"></i></div>
+    <div class="input-group-addon"><i class="fa fa-plus" id="baddj2" id="bfam" tipo="2" nombre="tipo" ref="1" ref1="familia"></i></div>
 </div><br>
 <div class="input-group">
     <div class="input-group-addon"><b>Marca</b></div>
@@ -169,7 +171,8 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <?php endfor; endif; ?>
     </select>
     <input type="text" id="newmar" class="form-control" value="" required="required" style="display:none">
-    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" tipo="3" nombre="marca" ref="0"></i></div>
+    <div class="input-group-addon" id="dbck3" style="display:none"><i class="fa fa-reply bbck" tipo="3"></i></div>
+    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" id="baddj3" tipo="3" nombre="marca" ref="0"></i></div>
 </div><br>
 <div class="input-group">
     <div class="input-group-addon"><b>Modelo</b></div>
@@ -177,7 +180,8 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <option value="0">Sin Modelo</option>
     </select>
     <input type="text" id="newmod" class="form-control" value="" required="required" style="display:none">
-    <div class="input-group-addon"><i class="fa fa-plus bjerarquia" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i></div>
+    <div class="input-group-addon" id="dbck4" style="display:none"><i class="fa fa-reply bbck" tipo="4"></i></div>
+    <div class="input-group-addon"><i class="fa fa-plus" id="baddj4" id="bmod" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i></div>
 </div><br>            
 <div class="input-group">
     <div class="input-group-addon"><b>Nombre</b></div>

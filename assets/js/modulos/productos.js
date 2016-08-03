@@ -91,27 +91,79 @@ $(function(){
 
 	$("#m1").click();
 
-	$("#vidfamilia").change(function(){
-		var idfamilia = $("#vidfamilia option:selected").val();
-		var arr = {};
-		arr['sel'] = 'id,nombre';
-		arr['tbl'] = 21;
-		arr['where'] = 'id > 0 and idfamilia = '+idfamilia+' order by id';
-		var tip = mantenimiento('login',6,arr);
-		$("#vidtipo").empty();
-		$("#vidtipo").html(tip);
-	});
+});
 
-	$("#vidmarca").change(function(){
-		var idmarca = $("#vidmarca option:selected").val();
-		var arr = {};
-		arr['sel'] = 'id,nombre';
-		arr['tbl'] = 23;
-		arr['where'] = 'id > 0 and idmarca = '+idmarca+' order by id';
-		var mod = mantenimiento('login',6,arr);
-		$("#vidmodelo").empty();
-		$("#vidmodelo").html(mod)
-	});
+$(document).on("click",".bbck",function(){
+	var tipo = parseInt($(this).attr('tipo'));
+	switch(tipo){
+		case 1:
+			$("#newfam").hide(500);
+			$("#dbck1").hide(500);
+			$("#vidfamilia").show(500);
+			$("#baddj1").addClass('bjerarquia');
+			break;
+		case 2:
+			$("#newtip").hide(500);
+			$("#dbck2").hide(500);
+			$("#vidtipo").show(500);
+			$("#baddj2").addClass('bjerarquia');
+			break;
+		case 3:
+			$("#newmar").hide(500);
+			$("#dbck3").hide(500);
+			$("#vidmarca").show(500);
+			$("#baddj3").addClass('bjerarquia');
+			break;
+		case 4:
+			$("#newmod").hide(500);
+			$("#dbck4").hide(500);
+			$("#vidmodelo").show(500);
+			$("#baddj4").addClass('bjerarquia');
+			break;
+	}
+
+});
+
+$(document).on("change","#vidfamilia",function(){
+	var idfamilia = $("#vidfamilia option:selected").val();
+	var arr = {};
+	arr['sel'] = 'id,nombre';
+	arr['tbl'] = 21;
+	arr['where'] = 'id > 0 and idfamilia = '+idfamilia+' order by id';
+	var tip = mantenimiento('login',6,arr);
+	$("#vidtipo").empty();
+	$("#vidtipo").html(tip);
+	$("#bfam").addClass('bjerarquia');
+});
+
+$(document).on("change","#vidmarca",function(){
+	var idmarca = $("#vidmarca option:selected").val();
+	var arr = {};
+	arr['sel'] = 'id,nombre';
+	arr['tbl'] = 23;
+	arr['where'] = 'id > 0 and idmarca = '+idmarca+' order by id';
+	var mod = mantenimiento('login',6,arr);
+	$("#vidmodelo").empty();
+	$("#vidmodelo").html(mod);
+	$("#bmod").addClass('bjerarquia');
+});
+
+$(document).on("click","#bfam",function(){
+	if ($("#vidfamilia").val() == 0) {
+		$("#err1").show();
+		$("#errm1").html("Debe Seleccionar una Familia");
+	}else{
+		$("#err1").hide();
+	}
+});
+
+$(document).on("click","#bmod",function(){
+	if ($("#vidmarca").val() == 0) {
+		$("#err1").show();
+		$("#errm1").html("Debe Seleccionar una Marca");
+	}else{
+		$("#err1").hide();
+	}
 });
 
 $(document).on("click",".bjerarquia",function(){
@@ -120,34 +172,42 @@ $(document).on("click",".bjerarquia",function(){
 		case 1:
 			$("#vidfamilia").hide(500);
 			$("#newfam").show(500);
+			$("#dbck1").show(500);
 			$(this).removeClass('bjerarquia');
 			$(this).addClass('sjerarquia');
 			$("#newfam").focus();
 			$("#newfam").select();
+			
 			break;
 		case 2:
 			$("#vidtipo").hide(500);
 			$("#newtip").show(500);
+			$("#dbck2").show(500);
 			$(this).removeClass('bjerarquia');
 			$(this).addClass('sjerarquia');
 			$("#newtip").focus();
 			$("#newtip").select();
+			
 			break;
 		case 3:
 			$("#vidmarca").hide(500);
 			$("#newmar").show(500);
+			$("#dbck3").show(500);
 			$(this).removeClass('bjerarquia');
 			$(this).addClass('sjerarquia');
 			$("#newmar").focus();
 			$("#newmar").select();
+			
 			break;
 		case 4:
 			$("#vidmodelo").hide(500);
 			$("#newmod").show(500);
+			$("#dbck4").show(500);
 			$(this).removeClass('bjerarquia');
 			$(this).addClass('sjerarquia');
 			$("#newmod").focus();
 			$("#newmod").select();
+			
 			break;
 	}
 });
@@ -183,6 +243,7 @@ $(document).on("click",".sjerarquia",function(){
 			$("#vid"+nom).html(tbl);
 			$(this).removeClass('sjerarquia');
 			$(this).addClass('bjerarquia');
+			$("#dbck"+tipo).hide(500);
 
 		}else if(ref == 1){
 			var arr = {};
@@ -199,6 +260,7 @@ $(document).on("click",".sjerarquia",function(){
 			$("#vid"+nom).html(tbl);
 			$(this).removeClass('sjerarquia');
 			$(this).addClass('bjerarquia');
+			$("#dbck"+tipo).hide(500);
 
 		}else{
 			var arr = {};
@@ -215,6 +277,7 @@ $(document).on("click",".sjerarquia",function(){
 			$("#vid"+nom).html(tbl);
 			$(this).removeClass('sjerarquia');
 			$(this).addClass('bjerarquia');
+			$("#dbck"+tipo).hide(500);
 
 		}
 	}else{
