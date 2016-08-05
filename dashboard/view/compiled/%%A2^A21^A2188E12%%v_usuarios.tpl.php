@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-05 00:57:21
+<?php /* Smarty version 2.6.17, created on 2016-08-05 23:25:28
          compiled from v_usuarios.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -84,7 +84,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><b>Tipo Usuario</b></span>
                         <select id="vidTipoUsuario" class="form-control" tabindex="2" type="select">
-                            <option value="">Seleccione un Tipo de Usuario</option>
+                            <option value="0">Seleccione un Tipo de Usuario</option>
                             <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['TUSR']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -123,41 +123,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                         <span class="input-group-addon asterisco"><b>*</b></span>
                       </div>
                     <br>
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Compañía</b></span>
-                        <select id="vidempresa" class="form-control" type="select">
-                          <option value="0">Seleccione una Compañía</option>
-                          <?php unset($this->_sections['LE']);
-$this->_sections['LE']['name'] = 'LE';
-$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['CIA']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$this->_sections['LE']['show'] = true;
-$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
-$this->_sections['LE']['step'] = 1;
-$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
-if ($this->_sections['LE']['show']) {
-    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
-    if ($this->_sections['LE']['total'] == 0)
-        $this->_sections['LE']['show'] = false;
-} else
-    $this->_sections['LE']['total'] = 0;
-if ($this->_sections['LE']['show']):
-
-            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
-                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
-                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
-$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
-$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
-$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
-$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
-$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
-?>
-                                <option value="<?php echo $this->_tpl_vars['CIA'][$this->_sections['LE']['index']][0]; ?>
-"><?php echo $this->_tpl_vars['CIA'][$this->_sections['LE']['index']][1]; ?>
-</option>
-                          <?php endfor; endif; ?>
-                        </select>
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                      </div>
                </div>
 
            </div>
@@ -212,8 +177,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
               <div class="alert alert-success suc_" id="suc1" style="display: none">
                   <strong id="sucm1"></strong>
               </div>
-              <button type="button" class="btn btn-primary" id="prueba">asd</button>
-              <button type="submit" class="btn btn-success der add per500" style="display:none" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button>
+              <button type="submit" class="btn btn-success der add per500" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button>
               <button type="submit" class="btn btn-default der" id="back" title="Agregar Usuario" style="display: none"><i class="fa fa-chevron-circle-right" ></i></button>
               
               </form>
@@ -258,26 +222,26 @@ $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
                         <tr>
-                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
-</td>
                           <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][1]; ?>
 </td>
                           <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][2]; ?>
 </td>
-                          <td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
-"><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][3]; ?>
-</a></td>
-                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][4]; ?>
+                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][3]; ?>
 </td>
+                          <td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][4]; ?>
+</a></td>
                           <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][5]; ?>
 </td>
                           <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][6]; ?>
 </td>
+                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][7]; ?>
+</td>
                           <td>
-                            <i class="fa fa-pencil-square-o load cargar btn per501" style="display:none;" modulo="usuario" title="Cargar Usuario" id="m<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][7]; ?>
-" <?php if ($this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0] == 'admin' && $_SESSION['NUM'] != 1): ?> disabled <?php endif; ?>></i>
-                            <i class="fa fa-times delete eliminar btn per502" style="display:none;" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][7]; ?>
-" <?php if ($this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0] == 'admin'): ?> disabled <?php endif; ?>></i>
+                            <i class="fa fa-pencil-square-o load cargar btn per501" modulo="usuario" title="Cargar Usuario" id="m<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
+" <?php if ($this->_tpl_vars['USRS'][$this->_sections['LE']['index']][1] == 'admin' && $_SESSION['NUM'] != 1): ?> disabled <?php endif; ?>></i>
+                            <i class="fa fa-times delete eliminar btn per502" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
+" <?php if ($this->_tpl_vars['USRS'][$this->_sections['LE']['index']][1] == 'admin'): ?> disabled <?php endif; ?>></i>
                           </td>
                         </tr>
                     <?php endfor; endif; ?>

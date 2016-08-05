@@ -81,7 +81,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><b>Tipo Usuario</b></span>
                         <select id="vidTipoUsuario" class="form-control" tabindex="2" type="select">
-                            <option value="">Seleccione un Tipo de Usuario</option>
+                            <option value="0">Seleccione un Tipo de Usuario</option>
                             {section name=LE loop=$TUSR}
                                 <option value="{$TUSR[LE][0]}">{$TUSR[LE][1]}</option>
                             {/section}
@@ -95,16 +95,6 @@
                         <span class="input-group-addon asterisco"><b>*</b></span>
                       </div>
                     <br>
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Compañía</b></span>
-                        <select id="vidempresa" class="form-control" type="select">
-                          <option value="0">Seleccione una Compañía</option>
-                          {section name=LE loop=$CIA}
-                                <option value="{$CIA[LE][0]}">{$CIA[LE][1]}</option>
-                          {/section}
-                        </select>
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                      </div>
                </div>
 
            </div>
@@ -159,7 +149,7 @@
               <div class="alert alert-success suc_" id="suc1" style="display: none">
                   <strong id="sucm1"></strong>
               </div>
-              <button type="submit" class="btn btn-success der add per500" style="display:none" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button>
+              <button type="submit" class="btn btn-success der add per500" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button>
               <button type="submit" class="btn btn-default der" id="back" title="Agregar Usuario" style="display: none"><i class="fa fa-chevron-circle-right" ></i></button>
               
               </form>
@@ -181,16 +171,16 @@
                     <tbody id="listausuarios">
                     {section name=LE loop=$USRS}
                         <tr>
-                          <td>{$USRS[LE][0]}</td>
                           <td>{$USRS[LE][1]}</td>
                           <td>{$USRS[LE][2]}</td>
-                          <td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e{$USRS[LE][0]}">{$USRS[LE][3]}</a></td>
-                          <td>{$USRS[LE][4]}</td>
+                          <td>{$USRS[LE][3]}</td>
+                          <td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e{$USRS[LE][0]}">{$USRS[LE][4]}</a></td>
                           <td>{$USRS[LE][5]}</td>
                           <td>{$USRS[LE][6]}</td>
+                          <td>{$USRS[LE][7]}</td>
                           <td>
-                            <i class="fa fa-pencil-square-o load cargar btn per501" style="display:none;" modulo="usuario" title="Cargar Usuario" id="m{$USRS[LE][7]}" {if $USRS[LE][0] eq 'admin' and $smarty.session.NUM neq 1} disabled {/if}></i>
-                            <i class="fa fa-times delete eliminar btn per502" style="display:none;" modulo="usuario" title="Eliminar Usuario" id="d{$USRS[LE][7]}" {if $USRS[LE][0] eq 'admin'} disabled {/if}></i>
+                            <i class="fa fa-pencil-square-o load cargar btn per501" modulo="usuario" title="Cargar Usuario" id="m{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin' and $smarty.session.NUM neq 1} disabled {/if}></i>
+                            <i class="fa fa-times delete eliminar btn per502" modulo="usuario" title="Eliminar Usuario" id="d{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin'} disabled {/if}></i>
                           </td>
                         </tr>
                     {/section}

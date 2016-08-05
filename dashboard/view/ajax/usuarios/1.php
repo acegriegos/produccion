@@ -7,7 +7,7 @@
                <div class="col-xs-6 col-sm-6">
                     <div class="input-group">
                         <span class="input-group-addon"><b>Usuario</b></span>
-                        <input type="text" id="vid" class="form-control" placeholder="Ingrese el Usuario" tabindex="1">
+                        <input type="text" id="vuser" class="form-control" placeholder="Ingrese el Usuario" tabindex="1">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
                     <br>
@@ -30,7 +30,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><b>Tipo Usuario</b></span>
                         <select id="vidTipoUsuario" class="form-control" tabindex="2" type="select">
-                            <option value="">Seleccione un Tipo de Usuario</option>
+                            <option value="0">Seleccione un Tipo de Usuario</option>
                              <?php foreach ($tusr as $obj) { ?>
                                 <option value="<?php echo $obj[0] ?>"><?php echo $obj[1] ?></option>
                             <?php } ?>
@@ -44,18 +44,7 @@
                         <span class="input-group-addon asterisco"><b>*</b></span>
                       </div>
 
-                  <br>
-                  
-                  <div class="input-group">
-                    <span class="input-group-addon"><b>Compañía</b></span>
-                    <select id="vidempresa" class="form-control" type="select">
-                      <option value="">Seleccione una Compañía</option>
-                      <?php foreach ($cia as $obj) { ?>
-                          <option value="<?php echo $obj[0] ?>"><?php echo $obj[1] ?></option>
-                      <?php } ?>
-                    </select>
-                    <span class="input-group-addon asterisco"><b>*</b></span>
-                  </div>  
+                  <br> 
                </div>
 
            </div>
@@ -135,16 +124,16 @@
                       
                     ?>
                         <tr>
-                          <td><?php echo $obj[0] ?></td>
                           <td><?php echo $obj[1] ?></td>
                           <td><?php echo $obj[2] ?></td>
-                          <td><a data-toggle="modal" href='#modal-sendMail' class="correo" id="e<?php echo $obj[0] ?>"><?php echo $obj[3] ?></a></td>
-                          <td><?php echo $obj[4] ?></td>
+                          <td><?php echo $obj[3] ?></td>
+                          <td><a data-toggle="modal" href='#modal-sendMail' class="correo" id="e<?php echo $obj[0] ?>"><?php echo $obj[4] ?></a></td>
                           <td><?php echo $obj[5] ?></td>
                           <td><?php echo $obj[6] ?></td>
+                          <td><?php echo $obj[7] ?></td>
                          <td>
-                            <i class="fa fa-pencil-square-o load cargar" modulo="usuario" title="Cargar Usuario" id="m<?php echo $obj[0] ?>"></i>
-                            <i class="fa fa-times delete eliminar" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $obj[0] ?>"></i>
+                            <i class="fa fa-pencil-square-o load cargar btn" modulo="usuario" title="Cargar Usuario" id="m<?php echo $obj[0] ?>"></i>
+                            <i class="fa fa-times delete eliminar btn" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $obj[0] ?>"></i>
                           </td>
                         </tr>
                     <?php } ?>

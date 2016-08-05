@@ -10,7 +10,7 @@
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	   	
 	   	$smarty->assign("CIA",$kakaroto->kamehameha('id,nombre',13,'id > 0'));
-	   	$smarty->assign('USRS',$kakaroto->kamehameha('Usuario,Nombre,Cedula,Correo,`Tipo Usuario`',7,"1"));
+	   	$smarty->assign('USRS',$kakaroto->kamehameha('Id,Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`',7,"1"));
 	   	$smarty->assign('TUSR',$kakaroto->kamehameha('id,nombre',27,'id > 0'));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_usuarios.tpl');
@@ -23,7 +23,7 @@
 	   		case 2:
 	   			$pagina = 1;
 	   			if ($_REQUEST['arreglo'] == 1){ 
-	   				$usr = $kakaroto->kamehameha('Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`',5,"");
+	   				$usr = $kakaroto->kamehameha('Id,Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`',7,"");
 	   				$cia = $kakaroto->kamehameha('id,nombre',13,'id > 0');
 	   			}
 
@@ -39,7 +39,7 @@
 	   			}
 
 	   			if($_REQUEST['arreglo'] != 3) 
-					$tusr = $kakaroto->kamehameha('id,nombre',1,'id > 0');
+					$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0');
 
 	   			include 'view/ajax/usuarios/'.$_REQUEST['arreglo'].'.php';
 	   			break;
