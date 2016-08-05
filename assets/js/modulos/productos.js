@@ -337,7 +337,8 @@ $(document).on("click",".load",function(){
 
 	$("#accmodalProd").html('Editar Producto');
 	$("#accmodalServ").html('Editar Servicio');
-
+	$("#addV").removeClass('add');
+	$("#addV").addClass('edit');
 	$("#addV").html('Editar');
 
 	if ($("#voptServ").val() == '') {
@@ -779,7 +780,7 @@ function cargarSintax(vtabla){
 	switch(vtabla) {
 		case 'productos':
 			var arr = {};
-			arr['sel'] = 'id,codigo,nombre,costo,ganancia,venta';
+			arr['sel'] = 'id,codigo,nombre,scosto,ganancia,sventa';
 			arr['tbl'] = 14;
 			arr['where'] = 'id > 0 order by nombre';
 			break;
@@ -787,7 +788,7 @@ function cargarSintax(vtabla){
 			var arr = {};
 			arr['sel'] = '*';
 			arr['tbl'] = 13;
-			arr['where'] = '`Codigo` > 0 order by nombre';
+			arr['where'] = '`Codigo` > 0';
 			break;
 		case 'familia':
 			var arr = {};

@@ -4,6 +4,12 @@ $(function(){
 		return false;
 	});
 
+	$("#vid").focus();
+	$("#data-table-usuarios").dataTable({
+		bFilter :  false,
+        bLengthChange : false
+	});
+
 	$("#spas").mousedown(function(){
 		$("#vclave").attr('type',"text")
 		$("#clave").attr('type',"text")
@@ -27,7 +33,10 @@ $(function(){
 
 		$("#cuerpo").html(mantenimiento("usuarios",2,id));
 		if (id == 1)
-			$("#data-table-usuarios").dataTable();
+			$("#data-table-usuarios").dataTable({
+				bFilter :  false,
+        		$$bLengthChange : false
+			});
 		else if (id == 2)
 			$("#data-table-usuariosPermisos").dataTable();
 		else
@@ -47,7 +56,6 @@ $(function(){
 	});
 
 	$("#sendMail").submit(function(){
-		
 		var arr = {}
 		arr['sel'] = 'nombre';
 		arr['tbl'] = 2;
@@ -61,8 +69,6 @@ $(function(){
 		return false;
 	});
 
-	$("#vid").focus();
-	$("#data-table-usuarios").dataTable();
 });
 
 

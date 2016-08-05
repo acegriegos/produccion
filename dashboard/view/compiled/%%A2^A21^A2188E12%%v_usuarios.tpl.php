@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-06-29 10:38:16
+<?php /* Smarty version 2.6.17, created on 2016-08-05 00:57:21
          compiled from v_usuarios.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -50,41 +50,42 @@
 <br>       
 <div class="panel panel-default" id="cuerpo"> 
 
-   <div class="panel-body" >
+           <div class="panel-body" >
 
-    <form id="fusuarios">
+            <form id="fusuarios">
 
-   <div class="row">
+           <div class="row">
 
-       <div class="col-md-6 col-lg-6">
-            <div class="input-group">
-                <span class="input-group-addon"><b>Usuario</b></span>
-                <input type="text" id="vid" class="form-control" placeholder="Ingrese el Usuario" tabindex="1">
-                <span class="input-group-addon asterisco"><b>*</b></span>
-            </div>
-            <br>
+               <div class="col-md-6 col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Usuario</b></span>
+                        <input type="hidden" id="vid" value="0">
+                        <input type="text" id="vuser" class="form-control" placeholder="Ingrese el Usuario" tabindex="1">
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                    </div>
+                    <br>
 
-            <div class="input-group">
-                <span class="input-group-addon"><b>Nombre del Usuario</b></span>
-                <input type="text" id="vnombre" class="form-control" placeholder="Ingrese el Nombre del Usuario" tabindex="3">
-                <span class="input-group-addon asterisco"><b>*</b></span>
-            </div>
-            <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Nombre del Usuario</b></span>
+                        <input type="text" id="vnombre" class="form-control" placeholder="Ingrese el Nombre del Usuario" tabindex="3">
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                    </div>
+                    <br>
 
-            <div class="input-group">
-                <span class="input-group-addon"><b>Correo del Usuario</b></span>
-                <input type="mail" id="vmail" class="form-control" placeholder="Ingrese el Correo del Usuario" tabindex="5">
-            </div>
-            <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Correo del Usuario</b></span>
+                        <input type="mail" id="vmail" class="form-control" placeholder="Ingrese el Correo del Usuario" tabindex="5">
+                    </div>
+                    <br>
 
-       </div>
-
-       <div class="col-md-6 col-lg-6">
-            <div class="input-group">
-                <span class="input-group-addon"><b>Tipo Usuario</b></span>
-                <select id="vidTipoUsuario" class="form-control" tabindex="2" type="select">
-                    <option value="">Seleccione un Tipo de Usuario</option>
-                    <?php unset($this->_sections['LE']);
+               </div>
+               
+               <div class="col-md-6 col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Tipo Usuario</b></span>
+                        <select id="vidTipoUsuario" class="form-control" tabindex="2" type="select">
+                            <option value="">Seleccione un Tipo de Usuario</option>
+                            <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['TUSR']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -108,25 +109,25 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                        <option value="<?php echo $this->_tpl_vars['TUSR'][$this->_sections['LE']['index']][0]; ?>
+                                <option value="<?php echo $this->_tpl_vars['TUSR'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['TUSR'][$this->_sections['LE']['index']][1]; ?>
 </option>
-                    <?php endfor; endif; ?>
-                </select>
-                <span class="input-group-addon asterisco"><b>*</b></span>
-            </div>
-            <br>
-            <div class="input-group">
-                <span class="input-group-addon"><b>Cédula del Usuario</b></span>
-                <input type="text" id="vcedula" data-mask="9-9999-9999-9999" class="form-control" placeholder="Ingrese la Cédula del Usuario" tabindex="4">
-                <span class="input-group-addon asterisco"><b>*</b></span>
-              </div>
-            <br>
-            <div class="input-group">
-                <span class="input-group-addon"><b>Compañía</b></span>
-                <select id="vidempresa" class="form-control" type="select">
-                  <option value="0">Seleccione una Compañía</option>
-                  <?php unset($this->_sections['LE']);
+                            <?php endfor; endif; ?>
+                        </select>
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Cédula del Usuario</b></span>
+                        <input type="text" id="vcedula" data-mask="9-9999-9999-9999" class="form-control" placeholder="Ingrese la Cédula del Usuario" tabindex="4">
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                      </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Compañía</b></span>
+                        <select id="vidempresa" class="form-control" type="select">
+                          <option value="0">Seleccione una Compañía</option>
+                          <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['CIA']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -150,68 +151,89 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                        <option value="<?php echo $this->_tpl_vars['CIA'][$this->_sections['LE']['index']][0]; ?>
+                                <option value="<?php echo $this->_tpl_vars['CIA'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['CIA'][$this->_sections['LE']['index']][1]; ?>
 </option>
-                  <?php endfor; endif; ?>
-                </select>
-                <span class="input-group-addon asterisco"><b>*</b></span>
+                          <?php endfor; endif; ?>
+                        </select>
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                      </div>
+               </div>
+
+           </div>
+           <hr>
+           <div class="row">
+               <div class="col-md-6 col-lg-6">
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Contraseña</b></span>
+                        <input type="password" id="vclave" class="form-control" value="" tabindex="5">
+                        <span class="input-group-addon btn" id="spas"><b><i class="fa fa-eye"></i></b></span>
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                    </div>
+                    <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Hora Entrada</b></span>
+                        <input type="time" id="vlimite" class="form-control" value="08:00" tabindex="7">
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                    </div>
+
+                    <br>
+
+               </div>
+
+               <div class="col-md-6 col-lg-6">
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Repita Contraseña</b></span>
+                        <input type="password" id="clave" class="form-control" value="" tabindex="6">
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                    </div>
+                    <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><b>Hora Salida</b></span>
+                        <input type="time" id="vlimite2" class="form-control" value="17:00" tabindex="8">
+                        <span class="input-group-addon asterisco"><b>*</b></span>
+                    </div>
+                    <br>
+
+               </div>
+           </div>
+
+              <input type="hidden" id="vbcambioPSSW" class="form-control" value="0">
+              <input type="hidden" id="vcodigo" class="form-control" value="">
+              <small style="float: left;" class="asterisco">* Campo Requerido</small>
+              
+              <div class="alert alert-danger err_" id="err1" style="display: none">
+                <strong id="errm1"></strong>
               </div>
-       </div>
-
-   </div>
-   <hr>
- <div class="row">
-     <div class="col-md-6 col-lg-6">
-
-          <div class="input-group">
-              <span class="input-group-addon"><b>Contraseña</b></span>
-              <input type="password" id="vclave" class="form-control" value="" tabindex="5">
-              <span class="input-group-addon btn" id="spas"><b><i class="fa fa-eye"></i></b></span>
-              <span class="input-group-addon asterisco"><b>*</b></span>
-          </div>
-          <br>
-
-          <div class="input-group">
-              <span class="input-group-addon"><b>Hora Entrada</b></span>
-              <input type="time" id="vlimite" class="form-control" value="08:00" tabindex="7">
-              <span class="input-group-addon asterisco"><b>*</b></span>
-          </div>
-          <br>
-     </div>
- </div>
-
-          <input type="hidden" id="vbcambioPSSW" class="form-control" value="0">
-          <input type="hidden" id="vcodigo" class="form-control" value="">
-          <small style="float: left;" class="asterisco">* Campo Requerido</small>
-          
-          <div class="alert alert-danger err_" id="err1" style="display: none">
-            <strong id="errm1"></strong>
-          </div>
-          <div class="alert alert-success suc_" id="suc1" style="display: none">
-              <strong id="sucm1"></strong>
-          </div>
-          
-          <!-- <button type="submit" class="btn btn-primary der add" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button> -->
-          <button type="submit" title="Agregar Usuario" id="userSubmit" class="btn btn-primary der add" codigo="1" modulo="usuario" style="margin-right: 15px; margin-top: -4%; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
-          <button type="submit" class="btn btn-default der" id="back" title="Agregar Usuario" style="display: none"><i class="fa fa-chevron-circle-right" ></i></button>
-          </form>
-       </div>
-      <br><hr>
-      <div class="panel-footer">
-
-      <div class="table-responsive">
-          <table class="table table-striped table-bordered dt-responsive nowrap" id="data-table-usuarios" cellspacing="0" width="100%">
-              <thead>
-                  <th>Usuario</th>
-                  <th>Nombre</th>
-                  <th>Cédula</th>
-                  <th>Correo</th>
-                  <th>Tipo de Usuario</th>
-                  <th>Acciones</th>
-              </thead>
-              <tbody id="listausuarios">
-              <?php unset($this->_sections['LE']);
+              <div class="alert alert-success suc_" id="suc1" style="display: none">
+                  <strong id="sucm1"></strong>
+              </div>
+              <button type="button" class="btn btn-primary" id="prueba">asd</button>
+              <button type="submit" class="btn btn-success der add per500" style="display:none" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button>
+              <button type="submit" class="btn btn-default der" id="back" title="Agregar Usuario" style="display: none"><i class="fa fa-chevron-circle-right" ></i></button>
+              
+              </form>
+           </div>
+           
+          <div class="panel-footer">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" id="data-table-usuarios" cellspacing="0" width="100%">
+                    <thead>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                        <th>Tipo de Usuario</th>
+                        <th>Hora Entrada</th>
+                        <th>Hora Salida</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody id="listausuarios">
+                    <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['USRS']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -235,33 +257,37 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                  <tr>
-                    <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
+                        <tr>
+                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
 </td>
-                    <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][1]; ?>
+                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][1]; ?>
 </td>
-                    <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][2]; ?>
+                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][2]; ?>
 </td>
-                    <td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
+                          <td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][3]; ?>
 </a></td>
-                    <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][4]; ?>
+                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][4]; ?>
 </td>
-                    <td>
-                      <i class="fa fa-pencil-square-o load cargar btn" modulo="usuario" title="Cargar Usuario" id="m<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
-"></i>
-                      <i class="fa fa-times delete eliminar btn" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
-"></i>
-                    </td>
-                  </tr>
-              <?php endfor; endif; ?>
-              </tbody>
-          </table>
-      </div>
+                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][5]; ?>
+</td>
+                          <td><?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][6]; ?>
+</td>
+                          <td>
+                            <i class="fa fa-pencil-square-o load cargar btn per501" style="display:none;" modulo="usuario" title="Cargar Usuario" id="m<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][7]; ?>
+" <?php if ($this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0] == 'admin' && $_SESSION['NUM'] != 1): ?> disabled <?php endif; ?>></i>
+                            <i class="fa fa-times delete eliminar btn per502" style="display:none;" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][7]; ?>
+" <?php if ($this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0] == 'admin'): ?> disabled <?php endif; ?>></i>
+                          </td>
+                        </tr>
+                    <?php endfor; endif; ?>
+                    </tbody>
+                </table>
+            </div>
 
-    </div>
-      
-   </div>
+          </div>
+          
+       </div>
    
    <div class="modal fade" id="modal-sendMail">
      <div class="modal-dialog">

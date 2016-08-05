@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-07-28 19:49:59
+<?php /* Smarty version 2.6.17, created on 2016-08-04 17:09:01
          compiled from ajax/ajaxmantServicios.tpl */ ?>
 <div id="mantServ">
 <h2 align="center">Mantenimiento Servicios</h2>
@@ -68,10 +68,11 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                                 <td><?php echo $this->_tpl_vars['SERV'][$this->_sections['LE']['index']][4]; ?>
 </td>
                                 <td>
-                                <i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['SERV'][$this->_sections['LE']['index']][0]; ?>
+                                    <i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['SERV'][$this->_sections['LE']['index']][0]; ?>
 " data-toggle="modal" href="#modal-servicios" modulo="servicio"></i>
-                                <i class="fa fa-times btn delete" codigo="1" modulo="servicio" id="d<?php echo $this->_tpl_vars['SERV'][$this->_sections['LE']['index']][0]; ?>
-" style="color: #D9534F"></i></td>
+                                    <i class="fa fa-times btn delete" codigo="1" modulo="servicio" id="d<?php echo $this->_tpl_vars['SERV'][$this->_sections['LE']['index']][0]; ?>
+" style="color: #D9534F"></i>
+                                </td>
                             </tr>
                             <?php endfor; endif; ?>
                         </tbody>

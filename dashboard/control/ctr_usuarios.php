@@ -11,7 +11,7 @@
 	   	
 	   	$smarty->assign("CIA",$kakaroto->kamehameha('id,nombre',13,'id > 0'));
 	   	$smarty->assign('USRS',$kakaroto->kamehameha('Usuario,Nombre,Cedula,Correo,`Tipo Usuario`',7,"1"));
-	   	$smarty->assign('TUSR',$kakaroto->kamehameha('id,nombre',1,'id > 0'));
+	   	$smarty->assign('TUSR',$kakaroto->kamehameha('id,nombre',27,'id > 0'));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_usuarios.tpl');
 	   }else{

@@ -38,8 +38,9 @@
                                 <td>{$SERV[LE][3]}</td>
                                 <td>{$SERV[LE][4]}</td>
                                 <td>
-                                <i class="fa fa-pencil-square-o btn load" id="m{$SERV[LE][0]}" data-toggle="modal" href="#modal-servicios" modulo="servicio"></i>
-                                <i class="fa fa-times btn delete" codigo="1" modulo="servicio" id="d{$SERV[LE][0]}" style="color: #D9534F"></i></td>
+                                    <i class="fa fa-pencil-square-o btn load" id="m{$SERV[LE][0]}" data-toggle="modal" href="#modal-servicios" modulo="servicio"></i>
+                                    <i class="fa fa-times btn delete" codigo="1" modulo="servicio" id="d{$SERV[LE][0]}" style="color: #D9534F"></i>
+                                </td>
                             </tr>
                             {/section}
                         </tbody>
