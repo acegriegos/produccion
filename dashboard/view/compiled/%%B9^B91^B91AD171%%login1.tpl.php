@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-07-11 15:24:46
+<?php /* Smarty version 2.6.17, created on 2016-08-08 10:10:24
          compiled from login1.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link href="../assets/libs/iconos/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/modulos/style_login.css">
+    <link rel="stylesheet" href="../assets/fonts/tipografia.css">
 
   </head>
   <body>

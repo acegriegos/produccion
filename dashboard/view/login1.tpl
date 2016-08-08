@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link href="../assets/libs/iconos/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/modulos/style_login.css">
+    <link rel="stylesheet" href="../assets/fonts/tipografia.css">
 
   </head>
   <body>
