@@ -19,9 +19,13 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
+	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
+	   			$smarty->assign('TIP',$kakaroto->kamehameha('id,nombre',21,'id > 0 order by id'));
+	   			$smarty->assign('MAR',$kakaroto->kamehameha('id,nombre',22,'id > 0 order by id'));
+	   			$smarty->assign('MOD',$kakaroto->kamehameha('id,nombre',23,'id > 0 order by id'));
 	   			$smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'1 order by idunidad'));
-	   			$smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,costo,ganancia,venta',14,'id > 0 order by nombre'));
+	   			$smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,scosto,ganancia,sventa',14,'id > 0 order by nombre'));
 	   			$smarty->display('ajax/ajaxmantProductos.tpl');
 	   			break;
 	   		case 2:
@@ -30,7 +34,7 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
-	   			$smarty->assign('SERV',$kakaroto->kamehameha('*',13,'`Codigo` > 0 limit 100'));
+	   			$smarty->assign('SERV',$kakaroto->kamehameha('*',13,'Codigo > 0 limit 20'));
 	   			$smarty->display('ajax/ajaxmantServicios.tpl');
 	   			break;
 	   		case 3:

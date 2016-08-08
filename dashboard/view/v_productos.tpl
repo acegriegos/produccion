@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title></title>
+    <title>Productos</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="../assets/css/animate.css">
    <!--  <link href="../assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->

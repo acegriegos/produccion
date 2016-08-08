@@ -2,34 +2,28 @@ var max = 1;
 
 $(document).ready(function(){
 
-    $("#vreferencia").focus();
+    $("#idprv").focus();
         
-    $('#nprv').autoComplete({
-        minChars: 1,
-        source: function(term, response){
-            term = term.toLowerCase();
-            var arr = {}
-            arr['sel'] = 'nombre';
-            arr['tbl'] = 3;
-            arr['where'] = 'nombre like \"%'+term+'%\" and id > 0 order by nombre';
-            msuggest = mantenimiento('login',4,arr)[0];              
-            response(msuggest);
-        }
-    });
+    $("#fact").click(function(){
+        $("#tptit").html('FACTURACION');
+        $("#nfact").html('N° Factura');
 
-    $('#descr').autoComplete({
-        minChars: 1,
-        source: function(term, response){
-            term = term.toLowerCase();
-            var array = {}
-            array['sel'] = $("#prodprov").is(":checked") ? 'Producto' :'nombre';
-            array['tbl'] = $("#prodprov").is(":checked") ? 15 : 7;
-            array['where'] = $("#prodprov").is(":checked") ? 'Producto like \"%'+term+'%\" and IDprod > 0 and IDprov = '+$("#vidproveedor").val()+' order by Producto' : 'nombre like \"%'+term+'%\" and id > 0 order by nombre';
-            msuggest = mantenimiento('login',4,array)[0];              
-            response(msuggest);
-        }
+        $("#mfacturacion").empty();
+        var p = mantenimiento('compras',1,'');
+        $("#mfacturacion").html(p);
 
     });
+
+    $("#comp").click(function(){
+        $("#tptit").html('COMPRAS');
+        $("#nfact").html('N° Compra');
+
+        $("#mfacturacion").empty();
+        var p = mantenimiento('compras',2,'');
+        $("#mfacturacion").html(p);
+    });
+
+    $("#fact").click();
 
     $("#ninunclud").click(function(){
         $("#descr").focus();

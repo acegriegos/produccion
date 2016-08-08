@@ -319,7 +319,8 @@ function thorload(vtabla) {
     tabla.destroy();
     $("#lista"+vtabla).html(tbl);
     $("#data-table-"+vtabla).DataTable({
-        bFilter :  false
+        bFilter :  false,
+        bLengthChange : false
     });
     
 }

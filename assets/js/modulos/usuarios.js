@@ -4,6 +4,12 @@ $(function(){
 		return false;
 	});
 
+	$("#vid").focus();
+	$("#data-table-usuarios").dataTable({
+		bFilter :  false,
+        bLengthChange : false
+	});
+
 	$("#spas").mousedown(function(){
 		$("#vclave").attr('type',"text")
 		$("#clave").attr('type',"text")
@@ -27,11 +33,20 @@ $(function(){
 
 		$("#cuerpo").html(mantenimiento("usuarios",2,id));
 		if (id == 1)
-			$("#data-table-usuarios").dataTable();
+			$("#data-table-usuarios").dataTable({
+				bFilter :  false,
+        		bLengthChange : false
+			});
 		else if (id == 2)
-			$("#data-table-usuariosPermisos").dataTable();
+			$("#data-table-usuariosPermisos").dataTable({
+				bFilter :  false,
+				bLengthChange : false
+			});
 		else
-			$("#data-table-usuariosHistorial").dataTable();
+			$("#data-table-usuariosHistorial").dataTable({
+				bFilter :  false,
+				bLengthChange : false
+			});
 
 	});
 
@@ -47,7 +62,6 @@ $(function(){
 	});
 
 	$("#sendMail").submit(function(){
-		
 		var arr = {}
 		arr['sel'] = 'nombre';
 		arr['tbl'] = 2;
@@ -61,8 +75,6 @@ $(function(){
 		return false;
 	});
 
-	$("#vid").focus();
-	$("#data-table-usuarios").dataTable();
 });
 
 
@@ -174,12 +186,12 @@ function validar (varreglo,vmodulo) {
 
 function validarusuarios() {
 
-	if ($('#vid').val() == '') {
-		$('#vid').focus();
+	if ($('#vuser').val() == '') {
+		$('#vuser').focus();
 		return 'Nombre de Usuario Requerido';
 	}
 
-	if ($('#vidTipoUsuario option:selected').val() == '') {
+	if ($('#vidTipoUsuario option:selected').val() == 0) {
 		$('#vidTipoUsuario').focus();
 		return 'Tipo de Usuario Requerido';
 	}
@@ -192,11 +204,6 @@ function validarusuarios() {
 	if ($('#vcedula').val() == '') {
 		$('#vcedula').focus();
 		return 'Cédula Requerida';
-	}
-
-	if ($('#vidempresa').val() == '') {
-		$('#vidempresa').focus();
-		return 'Compañía Requerida';
 	}
 
 	if ($('#vclave').val() == '') {
@@ -233,8 +240,8 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'usuario':
-			vmodulo['sel'] = 'id as vid,cedula as vcedula,nombre as vnombre,idtipousuario as vidTipoUsuario,mail as vmail,limite as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2015") as vclave, aes_decrypt(clave,"lt2015") as clave,idempresa as vidempresa';
-			vmodulo['tbl'] = 2;
+			vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave, aes_decrypt(clave,"lt2016") as clave';
+			vmodulo['tbl'] = 1;
 			vmodulo['where'] = 'id = "'+vid+'"';
 			$("#vid").focus();
 			break;
@@ -249,9 +256,9 @@ function cargar(vmodulo,vid) {
 function cargarSintax(){
 	var arr = {}
 
-	arr['sel'] = 'Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`';
-	arr['tbl'] = 5;
-	arr['where'] = '';
+	arr['sel'] = 'Id,Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`';
+	arr['tbl'] = 7;
+	arr['where'] = 'Id > 0';
 
 	return arr;
 }
