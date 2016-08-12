@@ -42,34 +42,6 @@
     <br><br>
     <center><small>© 2016. Copyright. Todos los derechos reservados. LogintechCR, S. A. </small></center>
 
-    <!-- BODY SIGNIN -->
-  
-        <!-- <div class="jumbotron x1" style="background-color: transparent;width:100%;padding-left:0%;padding-right:0%;padding-bottom:12%">
-                <div class="container x1" style="padding-left:15%;padding-right:15%">
-                <div class="alert alert-danger" id="err">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <strong id="titulo">Error de Autenticación!</strong><br><small id="alerta">Usuario o Contraseña Incorrecta</small>
-                    </div>    
-                <div class="container x1">
-                <form action="index.php" method="POST" role="form" onsubmit="return getIn();">
-                    <h3 align="center">Sistema BMS</h3>
-                
-                    <div class="form-group">
-                        <label for="">Ingrese su Usuario: </label>
-                        <input autofocus= 'autofocus' name='id' type="text" class="form-control" id="num">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Contraseña: </label>
-                        <input type="password" name="pss" id="pass" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-success">Ingresar</button>
-                    <small style="float: right;"><a href="#" style="color: #337ab7">Olvidó su Contraseña?</a></small>
-                </form>
-            </div>
-        </div> -->
-    
-
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/mask/jquery.mask.js"></script>

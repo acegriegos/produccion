@@ -8,10 +8,14 @@
 .suc_ {
     text-align: center;
 }
+
+.inv{
+    display: none;
+}
 @media(max-width:766px) {
-    .bdy {
-    padding-left: 0;
-    margin-top: 2%}
+.bdy {
+padding-left: 0;
+margin-top: 2%}
 }
 .der {
     float: right;

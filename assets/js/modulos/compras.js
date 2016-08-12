@@ -3,7 +3,7 @@ var max = 1;
 $(document).ready(function(){
 
     $("#idprv").focus();
-        
+
     $("#fact").click(function(){
         $("#tptit").html('FACTURACION');
         $("#nfact").html('N° Factura');
@@ -73,9 +73,40 @@ $(document).ready(function(){
     $(".xort").blur(function(){
         detallar($(this).attr('idx'))
     });
-
 });
 
+$(document).on("click",".desc",function(){
+    var estado = $(this).attr('estado');
+    var id = $(this).attr('id').substr(1);
+
+    if (estado == 0) {
+        $("#desctd"+id).show(60);
+        $("#descth"+id).show(60);
+        $(this).attr('estado',1);
+        $(this).css('color','#30DE61');
+    }else if (estado == 1) {
+        $("#desctd"+id).hide(60);
+        $("#descth"+id).hide(60);
+        $(this).attr('estado',0);
+        $(this).css('color','#3E3E3E');
+    }
+});
+
+$(document).on("click","#facturar",function(){
+    $("#pcon").focus();
+});
+
+$(document).on("click","#btnAjuste",function(){
+    var accion = $(this).attr('accion');
+
+    if (accion == 1) {
+        $("#btnAjuste").text('-');
+        $(this).attr('accion',0);
+    }else if (accion == 0) {
+        $("#btnAjuste").text('+');
+        $(this).attr('accion',1);
+    }
+});
 
 $(document).on('keyup','#vreferencia',function(e){
     var code = e.keyCode || e.which;
