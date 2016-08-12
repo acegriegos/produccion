@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-07-30 01:39:04
+<?php /* Smarty version 2.6.17, created on 2016-08-11 16:21:27
          compiled from ../view/menuSmarty.php */ ?>
 <link rel="stylesheet" href="../assets/css/modulos/style_login.css">
 <link rel="stylesheet" href="../assets/fonts/tipografia.css">
@@ -11,29 +11,29 @@
         <a href="compras"><div class="col-sm-1 ico per1" icono="i02"><i class="btn fa fa-shopping-cart" align="center"></i></div></a>
         <a href="inventarios"><div class="col-sm-1 ico per2" icono="i03"><i class="btn fa fa-list" align="center"></i></div></a>
         <a href="productos"><div class="col-sm-1 ico per3" icono="i04"><i class="btn fa fa-th" align="center"></i></div></a>
-        <a href="proveedores"><div class="col-sm-1 ico per4" icono="i05"><i class="btn fa fa-truck" align="center"></i></div></a>
-        <a href="cuentas"><div class="col-sm-1 ico per5" icono="i06"><i class="btn fa fa-clipboard" align="center"></i></div></a>
-        <a href="usuarios"><div class="col-sm-1 ico per6" icono="i07"><i class="btn fa fa-user" align="center"></i></div></a>
-        <a href="reportes"><div class="col-sm-1 ico per7" icono="i08"><i class="btn fa fa-line-chart" align="center"></i></div></a>
+        <a href="clientes"><div class="col-sm-1 ico per4" icono="i05"><i class="btn fa fa-male" align="center"></i></div></a>
+        <a href="proveedores"><div class="col-sm-1 ico per5" icono="i06"><i class="btn fa fa-truck" align="center"></i></div></a>
+        <a href="cuentas"><div class="col-sm-1 ico per6" icono="i07"><i class="btn fa fa-clipboard" align="center"></i></div></a>
+        <a href="usuarios"><div class="col-sm-1 ico per7" icono="i08"><i class="btn fa fa-user" align="center"></i></div></a>
+        <a href="reportes"><div class="col-sm-1 ico per8" icono="i09"><i class="btn fa fa-line-chart" align="center"></i></div></a>
         <a href="#"><div class="col-sm-1 ico" icono="i09"><i class="btn fa fa-meh-o" align="center"></i></div></a>
-        <a href="ajustes"><div class="col-sm-1 ico per8" icono="i10"><i class="btn fa fa-cog" align="center"></i></div></a>
-        <a href="socios"><div class="col-sm-1 ico per9" icono="i11"><i class="btn fa fa-cubes" align="center"></i></div></a>
-        <a href="logout"><div class="col-sm-1 ico" icono="i12"><i class="btn fa fa-sign-out" align="center"></i></div></a>
+        <a href="ajustes"><div class="col-sm-1 ico per9" icono="i11"><i class="btn fa fa-cog" align="center"></i></div></a>
+        <a href="socios"><div class="col-sm-1 ico per10" icono="i12"><i class="btn fa fa-cubes" align="center"></i></div></a>
       </div>
       <div class="row">
         <div class="col-sm-1 titIcon" id="ico01" icono="i01">Dashboard</div>
         <div class="col-sm-1 titIcon" id="ico02" icono="i02">Facturación</div>
         <div class="col-sm-1 titIcon" id="ico03" icono="i03">Inventarios</div>
         <div class="col-sm-1 titIcon" id="ico04" icono="i04">Productos</div>
-        <div class="col-sm-1 titIcon" id="ico05" icono="i05">Proveedores</div>
-        <div class="col-sm-1 titIcon" id="ico06" icono="i06">Cuentas</div>
-        <div class="col-sm-1 titIcon" id="ico07" icono="i07">Usuarios</div>
-        <div class="col-sm-1 titIcon" id="ico08" icono="i08">Reportes</div>
-        <div class="col-sm-1 titIcon" id="ico09" icono="i09"><small><?php echo $_SESSION['NOM']; ?>
+        <div class="col-sm-1 titIcon" id="ico05" icono="i05">Clientes</div>
+        <div class="col-sm-1 titIcon" id="ico06" icono="i06">Proveedores</div>
+        <div class="col-sm-1 titIcon" id="ico07" icono="i07">Cuentas</div>
+        <div class="col-sm-1 titIcon" id="ico08" icono="i08">Usuarios</div>
+        <div class="col-sm-1 titIcon" id="ico09" icono="i09">Reportes</div>
+        <div class="col-sm-1 titIcon" id="ico10" icono="i10"><small><?php echo $_SESSION['NOM']; ?>
 </small></div>
-        <div class="col-sm-1 titIcon" id="ico10" icono="i10">Ajustes</div>
-        <div class="col-sm-1 titIcon" id="ico11" icono="i11">Distribuidor</div>
-        <div class="col-sm-1 titIcon" id="ico12" icono="i12">Salir</div>
+        <div class="col-sm-1 titIcon" id="ico11" icono="i11">Ajustes</div>
+        <div class="col-sm-1 titIcon" id="ico12" icono="i12">Distribuidor</div>
       </div>
   </div>
  </div>
@@ -54,7 +54,7 @@
           <hr>
           <div class="dropdown-item">
             <div class="row">
-              <div class="col-md-2"><img src="https://randomuser.me/api/portraits/med/men/87.jpg" alt="foto" class="profPicNoti"></div>
+              <div class="col-md-2"><img src="../assets/img/user.png" alt="foto" class="profPicNoti"></div>
               <div class="col-md-8">Andrés Miranda<br><small>Lorem ipsum dolor sit amet.</small></div>
               <div class="col-md-2">
                 <div class="c-inputs-stacked">
@@ -74,7 +74,7 @@
           <hr>
           <div class="dropdown-item">
             <div class="row">
-              <div class="col-md-2"><img src="https://randomuser.me/api/portraits/med/men/56.jpg" alt="Foto de Usuario" class="profPicNoti"></div>
+              <div class="col-md-2"><img src="../assets/img/user.png" alt="Foto de Usuario" class="profPicNoti"></div>
               <div class="col-md-8">Rolando Alfaro<br><small>Lorem ipsum dolor sit amet.</small></div>
               <div class="col-md-2">
                 <div class="c-inputs-stacked">
@@ -94,7 +94,7 @@
           <hr>
           <div class="dropdown-item">
             <div class="row">
-              <div class="col-md-2"><img src="https://randomuser.me/api/portraits/med/men/55.jpg" alt="Foto de Usuario" class="profPicNoti" style="padding-top: 0%;"></div>
+              <div class="col-md-2"><img src="../assets/img/user.png" alt="Foto de Usuario" class="profPicNoti" style="padding-top: 0%;"></div>
               <div class="col-md-8">Bryan Rojas<br><small>Lorem ipsum dolor sit amet.</small></div>
               <div class="col-md-2">
                 <div class="c-inputs-stacked">
@@ -117,7 +117,7 @@
     <div class="col-md-2" align="right" id="userLog">
       <small><?php echo $_SESSION['NOM']; ?>
 </small>
-      <img src="https://randomuser.me/api/portraits/med/men/17.jpg" alt="Foto de Usuario" id="profPic">
+      <img src="../assets/img/user.png" alt="Foto de Usuario" id="profPic">
     </div>
     <a href="logout"><div class="col-lg-2" id="cerrarS">CERRAR SESION</div></a>
   </div>

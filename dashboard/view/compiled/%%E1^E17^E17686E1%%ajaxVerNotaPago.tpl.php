@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-07-28 17:39:12
+<?php /* Smarty version 2.6.17, created on 2016-08-05 11:48:58
          compiled from ajax/ajaxVerNotaPago.tpl */ ?>
 <div id="mantVerNP">
 	<h2 align="center">Ver Notas y Pagos</h2>
@@ -74,7 +74,7 @@
                         <tr>
                             <td>1<!-- ($PROD[LE][1]) --></td>
                             <td>5483<!-- ($PROD[LE][3]) --></td>
-                            <td>Chino Cochino<!-- ($PROD[LE][4]) --></td>
+                            <td>Homero Simpson<!-- ($PROD[LE][4]) --></td>
                             <td>16-07-2016 03:25:00<!-- ($PROD[LE][5]) --></td>
                             <td>¢2,750.00<!-- ($PROD[LE][6]) --></td>
                             <td>¢14,350.00<!-- ($PROD[LE][6]) --></td>

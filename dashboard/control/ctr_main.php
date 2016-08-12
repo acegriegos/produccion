@@ -16,7 +16,7 @@
 	   $pagina = 0;
 	   	switch ($_POST['accion']) {
 	   		case 1:
-	   			$transaccion = $kakaroto->kamehameha($_REQUEST['sel'],$_REQUEST['tbl'],$_REQUEST['where']);
+	   			
 	   			break;
 	   		case 2:
 	   			

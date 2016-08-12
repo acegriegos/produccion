@@ -12,7 +12,7 @@ $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');
     deadclear(modulo);
     var mod = modulo.slice(0,-1)
-    var arreglo = {}
+    var arreglo = {}        
     arreglo['modulo'] = modulo;
     var varreglo = loadpool(arreglo,$(this).attr('id').substr(1),$(this).attr('detalle'));
 
@@ -131,7 +131,7 @@ function loadpool(vmodulo,vid,vdetalle){
 
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
-    
+
     var columns = mantenimiento('login',5,vmodulo);
 
     for (var i = 0; columns[0][1].length > i; i++) {

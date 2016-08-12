@@ -9,6 +9,7 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/modulos/style_login.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+    <link rel="stylesheet" href="../assets/fonts/tipografia.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

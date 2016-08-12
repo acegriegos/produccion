@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-04 23:20:15
+<?php /* Smarty version 2.6.17, created on 2016-08-10 14:55:51
          compiled from v_compras.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,22 +28,19 @@
 <div class="bdy">
 
     <div id="fcompras">
-    <h3 class="card-header card-primary" style="color: #fff"><b id="tptit">FACTURACION</b></h3>
-    
-    <div class="card-block card-footer">
-      <div class="row">
-        <div class="col-lg-6">
-          <input type="checkbox" checked data-toggle="toggle" data-off="<span id='comp'>Comprar</span>" data-on="<span id='fact'>Facturar</span>" data-size="small" data-width="100" data-onstyle="primary-outline" data-offstyle="primary">
-        </div>
-        <div class="col-lg-3 der">
-          <div class="input-group input-group">
-            <span class="input-group-addon" id="nfact">N° Factura</span>
-            <input type="text" class="form-control" aria-label="Código" placeholder="Código" value="<?php echo $this->_tpl_vars['NFACT']; ?>
-" disabled>
-          </div>
-        </div>
+    <h3 class="card-header card-primary" style="color: #fff">
+    <div class="row">
+      <div class="col-md-10 col-lg-10">
+        <b id="tptit">FACTURACION</b>
       </div>
-      
+      <div class="col-md-2 col-lg-2">
+        <input type="checkbox" checked data-toggle="toggle" data-off="<span id='comp'>Compra</span>" data-on="<span id='fact'>Venta</span>" data-size="small" data-width="100" data-onstyle="primary active" data-offstyle="primary active">
+        <!-- data-onstyle="primary" data-offstyle="primary" -->
+      </div>
+    </div>
+    </h3>
+
+    <div class="card-block card-footer">
       <br>
       <!-- <label class="der asterisco ncompra"><b>N° Compra: <?php echo $this->_tpl_vars['NFACT']; ?>
 </b></label> -->
@@ -72,4 +69,3 @@
 </html>
 
 
-

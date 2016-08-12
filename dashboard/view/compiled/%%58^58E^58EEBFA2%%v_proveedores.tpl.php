@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-04 00:08:12
+<?php /* Smarty version 2.6.17, created on 2016-08-11 16:06:06
          compiled from v_proveedores.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title></title>
+    <title>Proveedores 2.0</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
