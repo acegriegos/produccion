@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-11 16:06:06
+<?php /* Smarty version 2.6.17, created on 2016-08-12 10:57:14
          compiled from v_proveedores.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -88,11 +88,11 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </td>
             <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][2]; ?>
 </td>
-            <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][3]; ?>
+            <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][4]; ?>
 </td>
-            <td style="font-size: 0.9em"><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][4]; ?>
+            <td style="font-size: 0.9em"><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][5]; ?>
 </td>
-            <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][5]; ?>
+            <td><?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][6]; ?>
 </td>
             <td>
                 <i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['PROV'][$this->_sections['LE']['index']][0]; ?>

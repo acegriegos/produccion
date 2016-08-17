@@ -13,14 +13,15 @@
 	    $smarty->assign('CANT',$kakaroto->kamehameha('*',9,'1 order by id'));
 	    $smarty->assign('DIS',$kakaroto->kamehameha('*',10,'1 order by id'));
 	    
-	    $smarty->assign('CLIE',$kakaroto->kamehameha('*',6,'1 order by nombre'));
+	    $smarty->assign('CLIE',$kakaroto->kamehameha('*',29,'1 order by vnombre'));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_clientes.tpl');
+	   	
 	   }else{
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-	   			
+	   			$transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   			break;
 	   		case 2:
 

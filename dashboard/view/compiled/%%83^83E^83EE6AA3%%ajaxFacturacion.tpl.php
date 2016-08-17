@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-10 15:22:45
+<?php /* Smarty version 2.6.17, created on 2016-08-12 13:09:28
          compiled from ajax/ajaxFacturacion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxFacturacion.tpl', 38, false),)), $this); ?>

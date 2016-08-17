@@ -141,6 +141,7 @@ Desea Agregarlo al Realizar la Compra?<br> <button type="button" class="btn btn-
 <table class="table table-striped table-bordered nowrap" id="table-detalle" cellspacing="0" width="100%">
 <thead>
 <tr>
+<th><i class="fa fa-trash" aria-hidden="true" title="Elimina varias filas seleccionadas presionando sobre el botón 'Eliminar Filas'"></i></th>
 <th>Descripción</th>
 <th style="width: 13%">Cantidad</th>
 <th style="width: 13%">Costo</th>
@@ -153,6 +154,14 @@ Desea Agregarlo al Realizar la Compra?<br> <button type="button" class="btn btn-
 </thead>
 <tbody id="detallecompra">
 <tr id="f1">
+<td>
+<div class="checkbox">
+<label class="c-input c-checkbox">
+<input type="checkbox">
+<span class="c-indicator" class="delf" name="eliminarf" value="1" style="float: right;"></span>
+</label>
+</div>
+</td>
 <td>  <span class="checkbox" id="prod1"></span><input type="hidden" id="vidproducto1" class="constante1" value=""><input type="hidden" id="vidfactura1" value="?"></td>
 <td><input type="number" id="vcantidad1" idx=1 class="form-control xort" value="1" min="1"></td>
 <td><input type="text" id="vcosto1" idx=1 class="form-control xort eder" value="0.00" data-mask="99999999.99"></td>
@@ -160,7 +169,7 @@ Desea Agregarlo al Realizar la Compra?<br> <button type="button" class="btn btn-
 <td align="right"><div class="checkbox"> <span class="valores" id="margen1">0.00</span></div></td>
 <td align="right"><div class="checkbox"> <span class="valores" id="totm1">0.00</span></div></td>
 <td align="left">
-<div class="checkbox "><span id="prcent1" value="0">0.00</span>  </div>
+<div class="checkbox"><span id="prcent1" value="0">0.00</span></div>
 </td>
 <td><div class="checkbox "> <input type="checkbox" class="delf" name="eliminarf" value="1" style="float: right;"> <i class="fa fa-random btn" id="pr1" title="Ver Otros Precios" data-toggle="modal" href='#modal-precios'></i> </div></td>
 </tr>
@@ -170,7 +179,7 @@ Desea Agregarlo al Realizar la Compra?<br> <button type="button" class="btn btn-
 </div>
 </div>
 
-<div class="card-header">
+<div class="card-footer">
 <h3 class="card-title"><b>DESGLOCE DE COMPRA</b></h3><br>
 
 <div class="row">

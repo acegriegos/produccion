@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-07-28 10:21:58
+<?php /* Smarty version 2.6.17, created on 2016-08-12 13:34:28
          compiled from ajax/ajaxmantInvDevoluciones.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 

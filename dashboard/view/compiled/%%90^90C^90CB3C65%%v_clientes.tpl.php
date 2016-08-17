@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-11 16:41:11
+<?php /* Smarty version 2.6.17, created on 2016-08-12 12:09:25
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -42,7 +42,7 @@
 </div>
 </div>
 <div class="col-md-4 col-lg-4">
-<button type="button" id="ingProv" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
+<button type="button" id="ingClie" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
 </div>
 </div><br><br>
 
@@ -84,15 +84,15 @@ $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
 <tr id="f1">
-<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][3]; ?>
-</td>
 <td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][1]; ?>
+</td>
+<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][2]; ?>
 </td>
 <td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][4]; ?>
 </td>
-<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][6]; ?>
+<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][5]; ?>
 </td>
-<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][2]; ?>
+<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][6]; ?>
 </td>
 <td>
 <i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][0]; ?>
@@ -111,7 +111,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-<h4 class="modal-title acc">Agregar Clientes</h4>
+<h4 class="modal-title" id="titModal">Agregar Clientes</h4>
 </div>
 <div class="modal-body">
 <div id="fclientes">
@@ -119,7 +119,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 <div class="col-md-2 col-lg-2">
 <div class="radio">
 <label class="c-input c-radio">
-<input type="radio" name="tipoclie" id="cfisico" value="1" checked="checked">
+<input type="radio" name="tipoclie" id="cfisico" tipoClie="0" checked="checked">
 <span class="c-indicator"></span>
 Físico
 </label>
@@ -128,13 +128,13 @@ Físico
 <div class="col-md-2 col-lg-2">
 <div class="radio">
 <label class="c-input c-radio">
-<input type="radio" name="tipoclie" id="cjuridico" value="2">
+<input type="radio" name="tipoclie" id="cjuridico" tipoClie="1">
 <span class="c-indicator"></span>
 Jurídico
 </label>
 </div>
 </div>
-<input type="hidden" id="vidtipoCliente" class="form-control" value="1">
+<input type="hidden" id="vidtipoCliente" class="form-control" value="0">
 </div><br>
 
 <div class="card-header" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
@@ -174,7 +174,7 @@ Jurídico
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Correo</b></div>
-<input type="text" class="form-control" id="vmail" placeholder="Correo Electrónico">
+<input type="text" class="form-control" id="vcorreo1" placeholder="Correo Electrónico">
 </div>
 </div>
 
@@ -359,7 +359,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal" >Salir</button>
-<button type="button" class="btn btn-primary add" id="sclie" codigo="1" modulo="cliente" enrutador="1" >Guardar</button>
+<button type="button" class="btn btn-primary add" id="agClie" codigo="1" modulo="cliente" enrutador="1" >Guardar</button>
 </div>
 
 </div>

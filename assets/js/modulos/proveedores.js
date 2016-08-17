@@ -11,9 +11,6 @@ $(function(){
 		$("#agProv").addClass('add');
 		
 		deadclear('proveedor');
-
-
-
 	})
 
 	$(".load").click(function(){
@@ -34,7 +31,7 @@ $(document).on("click","#Iadd",function(){
 function validar (varreglo,vmodulo) {
 	
 	var salida = {};
-	
+
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
@@ -45,7 +42,6 @@ function validar (varreglo,vmodulo) {
 					return err;
 				}
 			}
-			
 			break;
 
 		case 'correo':
@@ -80,7 +76,7 @@ function cargar(vmodulo,vid) {
 	switch(vmodulo['modulo']) {
 		case 'proveedore':
 			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 18;
+			vmodulo['tbl'] = 32;
 			vmodulo['where'] = vid;
 			break;
 		default:
@@ -95,8 +91,8 @@ function cargarSintax(){
 	var arr = {}
 
 	arr['sel'] = '*';
-	arr['tbl'] = 19;
-	arr['where'] = 'id > 0';
+	arr['tbl'] = 30;
+	arr['where'] = 'vid > 0';
 
 	return arr;
 }

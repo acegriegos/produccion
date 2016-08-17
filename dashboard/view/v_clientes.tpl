@@ -39,7 +39,7 @@
 </div>
 </div>
 <div class="col-md-4 col-lg-4">
-<button type="button" id="ingProv" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
+<button type="button" id="ingClie" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
 </div>
 </div><br><br>
 
@@ -58,11 +58,11 @@
 <tbody id="listaClientes">
 {section name=LE loop=$CLIE}
 <tr id="f1">
-<td>{$CLIE[LE][3]}</td>
 <td>{$CLIE[LE][1]}</td>
-<td>{$CLIE[LE][4]}</td>
-<td>{$CLIE[LE][6]}</td>
 <td>{$CLIE[LE][2]}</td>
+<td>{$CLIE[LE][4]}</td>
+<td>{$CLIE[LE][5]}</td>
+<td>{$CLIE[LE][6]}</td>
 <td>
 <i class="fa fa-pencil-square-o btn load" id="m{$CLIE[LE][0]}" data-toggle="modal" href='#modal-clientes' modulo="cliente"></i>
 <i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F"></i>
@@ -78,7 +78,7 @@
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-<h4 class="modal-title acc">Agregar Clientes</h4>
+<h4 class="modal-title" id="titModal">Agregar Clientes</h4>
 </div>
 <div class="modal-body">
 <div id="fclientes">
@@ -86,7 +86,7 @@
 <div class="col-md-2 col-lg-2">
 <div class="radio">
 <label class="c-input c-radio">
-<input type="radio" name="tipoclie" id="cfisico" value="1" checked="checked">
+<input type="radio" name="tipoclie" id="cfisico" tipoClie="0" checked="checked">
 <span class="c-indicator"></span>
 Físico
 </label>
@@ -95,13 +95,13 @@ Físico
 <div class="col-md-2 col-lg-2">
 <div class="radio">
 <label class="c-input c-radio">
-<input type="radio" name="tipoclie" id="cjuridico" value="2">
+<input type="radio" name="tipoclie" id="cjuridico" tipoClie="1">
 <span class="c-indicator"></span>
 Jurídico
 </label>
 </div>
 </div>
-<input type="hidden" id="vidtipoCliente" class="form-control" value="1">
+<input type="hidden" id="vidtipoCliente" class="form-control" value="0">
 </div><br>
 
 <div class="card-header" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
@@ -141,7 +141,7 @@ Jurídico
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Correo</b></div>
-<input type="text" class="form-control" id="vmail" placeholder="Correo Electrónico">
+<input type="text" class="form-control" id="vcorreo1" placeholder="Correo Electrónico">
 </div>
 </div>
 
@@ -251,7 +251,7 @@ Jurídico
 
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal" >Salir</button>
-<button type="button" class="btn btn-primary add" id="sclie" codigo="1" modulo="cliente" enrutador="1" >Guardar</button>
+<button type="button" class="btn btn-primary add" id="agClie" codigo="1" modulo="cliente" enrutador="1" >Guardar</button>
 </div>
 
 </div>
