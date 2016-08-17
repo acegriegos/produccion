@@ -12,7 +12,6 @@
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
 <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
