@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?php /* Smarty version 2.6.17, created on 2016-08-12 12:09:25
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 467b78783cb09ee8564fcc63e673d3ddb0c09f32
 <?php /* Smarty version 2.6.17, created on 2016-08-11 00:51:21
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
