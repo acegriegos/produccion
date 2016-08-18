@@ -94,7 +94,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-				<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+				<button type="button" class="btn btn-primary" id="editGasto">Editar</button>
 			</div>
 		</div>
 	</div>

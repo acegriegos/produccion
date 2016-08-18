@@ -334,6 +334,7 @@ function permisos(vnumber,vnumber2) {
             data: {x1 : vnumber, x2 : vnumber2}
             })
             .done(function(data) {
+                console.error(data)
                 p = JSON.parse(data);
                 for (var i = 0; i < p.length; i++) {
                     var op = parseInt(p[i][1]);

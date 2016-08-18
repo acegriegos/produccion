@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-07-28 10:21:59
+<?php /* Smarty version 2.6.17, created on 2016-08-18 19:13:39
          compiled from ajax/ajaxmantInvInsumos.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 
@@ -49,7 +49,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Detalle de Devolución</h4>
+				<h4 class="modal-title">Detalle de Insumo</h4>
 				<h5 class="form-horizontal"><b>Factura-<span id="numFInsumo">5489</span></b></h5>
 			</div>
 			<div class="modal-body">
@@ -97,14 +97,18 @@
 							</div>
 						</li>
 					</ul>
-				</small>
+				</small><br>
+                <div class="input-group der" style="width: 50%">
+                    <div class="input-group-addon">Total</div>
+                    <input type="text" class="form-control" id="totInsumo" placeholder="0.00" readonly>
+                </div>
 				<br>
-				<legend><small>Comentario</small></legend>
+				<legend><small>Motivo <small class="text-muted">- (Comentario)</small></small></legend>
 				<textarea id="commentFInsu" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-				<!-- <button type="button" class="btn btn-primary">Aceptar</button> -->
+				<button type="button" class="btn btn-primary" id="editInsumo">Editar</button>
 			</div>
 		</div>
 	</div>
