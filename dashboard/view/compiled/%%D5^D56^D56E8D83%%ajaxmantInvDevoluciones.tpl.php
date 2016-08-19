@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-18 19:13:40
+<?php /* Smarty version 2.6.17, created on 2016-08-18 23:10:52
          compiled from ajax/ajaxmantInvDevoluciones.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 
@@ -50,14 +50,14 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title">Detalle de Devolución</h4>
-				<h5 class="form-horizontal"><b>Factura-<span id="numFDevo">5489</span></b></h5>
+				<h5 class="form-horizontal"><b>Factura-<span id="vnumfdevo">5489</span></b></h5>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-xs-9 col-sm-9">
 						<div class="input-group">
 							<span class="input-group-addon">Realizado por</span>
-							<input type="text" class="form-control" id="nomUser" value="Rolando Rorrigo" readonly>
+							<input type="text" class="form-control" id="nomUser" value=""><b>
 						</div>
 					</div>
 					<div class="col-xs-3 col-sm-3 eder">
@@ -101,11 +101,11 @@
                 <br>
                 <div class="input-group der" style="width: 50%">
                     <div class="input-group-addon">Total</div>
-                    <input type="text" class="form-control" id="totDevo" placeholder="0.00" readonly>
+                    <input type="text" class="form-control" id="vtotdevo" placeholder="0.00" readonly>
                 </div>
 				<br>
 				<legend><small>Comentario</small></legend>
-				<textarea id="commentFDev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
+				<textarea id="vcommentfdev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>

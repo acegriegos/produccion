@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-18 19:13:48
+<?php /* Smarty version 2.6.17, created on 2016-08-18 23:04:03
          compiled from ajax/ajaxmantInvGastos.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 

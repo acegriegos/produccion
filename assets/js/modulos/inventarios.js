@@ -89,6 +89,20 @@ $(document).on("click","#editCannotGasto",function(){
 	$("#commentFGasto").attr('readonly', true);
 });
 
+$(document).on("click","#editCanCont",function(){
+	$("#vdetallecont").removeAttr('readonly');
+	$("#vidtipo").removeAttr('disabled');
+	$("#vcantcont").removeAttr('readonly');
+	$("#commentfdev").removeAttr('readonly')
+});
+
+$(document).on("click","#editCannotCont",function(){
+	$("#vdetallecont").attr('readonly', true);
+	$("#vidtipo").attr('disabled', true);
+	$("#vcantcont").attr('readonly', true);
+	$("#commentfdev").attr('readonly', true);
+});
+
 $(document).on("click","#Iadd",function(){
 	deadclear('inventarios')
 

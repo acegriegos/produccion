@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-18 19:58:14
+<?php /* Smarty version 2.6.17, created on 2016-08-18 22:36:41
          compiled from ajax/ajaxmantInvContable.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 
@@ -47,14 +47,14 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Detalle Contable</h4>
-                <h5 class="form-horizontal"><b>Codígo-<span id="numFDevo">215</span></b></h5>
+                <h5 class="form-horizontal"><b>Codígo-<span id="vnumfdevo">215</span></b></h5>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-9 col-sm-9">
                         <div class="input-group">
                             <span class="input-group-addon">Realizado por</span>
-                            <input type="text" class="form-control" id="nomUser" value="Rolando Rorrigo" readonly>
+                            <input type="text" class="form-control" id="vnombre" value="Rolando Rorrigo" readonly>
                         </div>
                     </div>
                     <div class="col-xs-3 col-sm-3 eder">
@@ -67,7 +67,7 @@
                 <div class="col-md-12 col-lg-12">
                     <div class="input-group">
                         <span class="input-group-addon">Descripción</span>
-                        <input type="text" class="form-control" id="detalleGasto" value="" placeholder="" readonly>
+                        <input type="text" class="form-control" id="vdetallecont" value="" placeholder="Descripción del Activo" readonly>
                     </div>
                 </div>
                 </div><br>
@@ -75,7 +75,7 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="input-group">
                     <div class="input-group-addon">Tipo</div>
-                    <select id="vidunidad" class="form-control" type="select">
+                    <select id="vidtipo" class="form-control" type="select" disabled>
                     <!-- [section name=LE loop=$UNI]
                     <option value="[$UNI[LE][0]]">[$UNI[LE][1]]</option>';
                     [/section] -->
@@ -85,22 +85,22 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="input-group">
                         <div class="input-group-addon">Cantidad</div>
-                        <input type="text" class="form-control" id="cantCont" placeholder="0.00">
+                        <input type="text" class="form-control" id="vcantcont" placeholder="0.00" readonly>
                     </div>
                 </div>
                 </div>
                 <br>
                 <div class="input-group der" style="width: 50%">
                     <div class="input-group-addon">Total</div>
-                    <input type="text" class="form-control" id="totDevo" placeholder="0.00" readonly>
+                    <input type="text" class="form-control" id="vtotdevo" placeholder="0.00" readonly>
                 </div>
                 <br>
                 <legend><small>Comentario</small></legend>
-                <textarea id="commentFDev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
+                <textarea id="commentfdev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-primary" id="editContable">Editar</button>
+                <button type="button" class="btn btn-primary" id="editcontable">Editar</button>
             </div>
         </div>
     </div>

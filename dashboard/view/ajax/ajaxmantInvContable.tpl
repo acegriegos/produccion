@@ -45,14 +45,14 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Detalle Contable</h4>
-                <h5 class="form-horizontal"><b>Codígo-<span id="numFDevo">215</span></b></h5>
+                <h5 class="form-horizontal"><b>Codígo-<span id="vnumfdevo">215</span></b></h5>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-9 col-sm-9">
                         <div class="input-group">
                             <span class="input-group-addon">Realizado por</span>
-                            <input type="text" class="form-control" id="nomUser" value="Rolando Rorrigo" readonly>
+                            <input type="text" class="form-control" id="vnombre" value="Rolando Rorrigo" readonly>
                         </div>
                     </div>
                     <div class="col-xs-3 col-sm-3 eder">
@@ -65,7 +65,7 @@
                 <div class="col-md-12 col-lg-12">
                     <div class="input-group">
                         <span class="input-group-addon">Descripción</span>
-                        <input type="text" class="form-control" id="vdetallegasto" value="" placeholder="" readonly>
+                        <input type="text" class="form-control" id="vdetallecont" value="" placeholder="Descripción del Activo" readonly>
                     </div>
                 </div>
                 </div><br>
@@ -73,7 +73,7 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="input-group">
                     <div class="input-group-addon">Tipo</div>
-                    <select id="vidunidad" class="form-control" type="select">
+                    <select id="vidtipo" class="form-control" type="select" disabled>
                     <!-- [section name=LE loop=$UNI]
                     <option value="[$UNI[LE][0]]">[$UNI[LE][1]]</option>';
                     [/section] -->
@@ -83,7 +83,7 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="input-group">
                         <div class="input-group-addon">Cantidad</div>
-                        <input type="text" class="form-control" id="vcantcont" placeholder="0.00">
+                        <input type="text" class="form-control" id="vcantcont" placeholder="0.00" readonly>
                     </div>
                 </div>
                 </div>
@@ -98,7 +98,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-primary" id="editContable">Editar</button>
+                <button type="button" class="btn btn-primary" id="editcontable">Editar</button>
             </div>
         </div>
     </div>
