@@ -22,6 +22,7 @@ $(function(){
         $("#ico"+id).css("margin-top","-22px");
     });
 
+
     permisos(1,50)
 });
 

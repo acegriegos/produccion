@@ -166,11 +166,20 @@ function validar (varreglo,vmodulo) {
 
 	/*VALIDACION FRONT END*/
 
+	if (vmodulo['tip'] == '') {
+				err = validarformularios();
+				if ( err ) {
+					return err;
+				}
+			}
+
 	switch(vmodulo['modulo']) {
 		case 'usuario':
-			err = validarusuarios();
-			if ( err ) {
-				return err;
+			if (vmodulo['tip'] == '') {
+				err = validarusuarios();
+				if ( err ) {
+					return err;
+				}
 			}
 			break;
 		default:

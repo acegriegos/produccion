@@ -48,10 +48,10 @@ padding: 0.5%;
 }
 
 #userLog{
-	display:inline-block;
-  	vertical-align:middle;
-  	text-align: center;
-  	padding: 0.05%;
+  display:inline-block;
+    vertical-align:middle;
+    text-align: center;
+    padding: 0.05%;
 }
 
 #smallNotify{
@@ -62,28 +62,28 @@ padding: 0.5%;
 }
 
 #toggMenu{
-	display:inline-block;
-	vertical-align:middle;
-	text-align: center;
-	border-right: 0.5px solid #CACACA;
-	padding: 0.43%;
+  display:inline-block;
+  vertical-align:middle;
+  text-align: center;
+  border-right: 0.5px solid #CACACA;
+  padding: 0.43%;
 }
 
 #cerrarS{
-	border-left: 0.5px solid #CACACA;
-	display:inline-block;
-  	vertical-align:middle;
-  	text-align: center;
-  	background: transparent;
-  	padding: 0.95%;
-  	transition: 0.3s;
-  	color: #777777;
+  border-left: 0.5px solid #CACACA;
+  display:inline-block;
+    vertical-align:middle;
+    text-align: center;
+    background: transparent;
+    padding: 0.95%;
+    transition: 0.3s;
+    color: #777777;
 }
 
 #cerrarS:hover{
-  	background: #E5E5E5;
+    background: #E5E5E5;
 }
 
 #sesClose:hover{
-	background: #808080;
+  background: #808080;
 }

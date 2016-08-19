@@ -1,21 +1,17 @@
 acc = 1;
 
 $(function(){
-
     $(".err_").hide();
     $(".suc_").hide();
-    
 });
 
 $(document).on("click",".load",function(){
-
     var modulo = $(this).attr('modulo');
     deadclear(modulo);
     var mod = modulo.slice(0,-1)
     var arreglo = {}        
     arreglo['modulo'] = modulo;
     var varreglo = loadpool(arreglo,$(this).attr('id').substr(1),$(this).attr('detalle'));
-
 });
 
 $(document).on("click",".add",function(){
@@ -33,11 +29,9 @@ $(document).on("click",".edit",function(){
 });
 
 $(document).on("click",".delete",function(){
-    
     var modulo = $(this).attr('modulo');
     var codigo = $(this).attr('codigo');
     var id = $(this).attr('id').substr(1);
-  
     doGlobal(3,modulo,codigo,id,$(this).attr('detalle'),0);
 });
 
@@ -123,7 +117,6 @@ function baseValidar(vaccion,vmodulo){
     }else{
         return varreglo//'ERROR DE COMUNICACION';
     }
-    
     return salida;
 }
 
@@ -168,8 +161,6 @@ function loadpool(vmodulo,vid,vdetalle){
 
         $("#detalle"+vmodulo['modulo']).html(mantenimiento('login',6,arr))
     }
-
-
 }
 
 function mantenimiento(vmodulo,vaccion, varreglo){
