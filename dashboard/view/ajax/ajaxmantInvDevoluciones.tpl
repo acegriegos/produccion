@@ -94,13 +94,18 @@
 						</li>
 					</ul>
 				</small>
+                <br>
+                <div class="input-group der" style="width: 50%">
+                    <div class="input-group-addon">Total</div>
+                    <input type="text" class="form-control" id="totDevo" placeholder="0.00" readonly>
+                </div>
 				<br>
 				<legend><small>Comentario</small></legend>
 				<textarea id="commentFDev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-				<!-- <button type="button" class="btn btn-primary">Aceptar</button> -->
+				<button type="button" class="btn btn-primary" id="editDevo">Editar</button>
 			</div>
 		</div>
 	</div>

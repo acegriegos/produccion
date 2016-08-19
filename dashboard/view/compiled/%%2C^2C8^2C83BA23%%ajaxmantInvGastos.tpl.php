@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-04 18:44:50
+<?php /* Smarty version 2.6.17, created on 2016-08-18 19:13:48
          compiled from ajax/ajaxmantInvGastos.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 
@@ -97,7 +97,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-				<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+				<button type="button" class="btn btn-primary" id="editGasto">Editar</button>
 			</div>
 		</div>
 	</div>

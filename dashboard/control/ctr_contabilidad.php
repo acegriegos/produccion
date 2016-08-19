@@ -9,10 +9,10 @@
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	   
+	   	$smarty->assign('TCUE',$kakaroto->kamehameha('*',34,''));
+	    $smarty->assign('CUE',$kakaroto->kamehameha('*',33,''));
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->assign('PROV',$kakaroto->kamehameha('*',30,'vid > 0'));
-	   	$smarty->assign('MAXID',$kakaroto->kamehameha('max(id)+1',17,'id > 0'));
-	   	$smarty->display('v_proveedores.tpl');
+	   	$smarty->display('v_contabilidad.tpl');
 	   }else{
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
@@ -31,7 +31,6 @@
 	   		case 5:
 	   			
 	   			break;
-   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

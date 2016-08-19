@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-07-28 10:21:58
+<?php /* Smarty version 2.6.17, created on 2016-08-18 19:13:40
          compiled from ajax/ajaxmantInvDevoluciones.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 
@@ -98,13 +98,18 @@
 						</li>
 					</ul>
 				</small>
+                <br>
+                <div class="input-group der" style="width: 50%">
+                    <div class="input-group-addon">Total</div>
+                    <input type="text" class="form-control" id="totDevo" placeholder="0.00" readonly>
+                </div>
 				<br>
 				<legend><small>Comentario</small></legend>
 				<textarea id="commentFDev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-				<!-- <button type="button" class="btn btn-primary">Aceptar</button> -->
+				<button type="button" class="btn btn-primary" id="editDevo">Editar</button>
 			</div>
 		</div>
 	</div>

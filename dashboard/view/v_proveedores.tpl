@@ -60,9 +60,9 @@
           <tr id="f1">
             <td>{$PROV[LE][1]}</td>
             <td>{$PROV[LE][2]}</td>
-            <td>{$PROV[LE][3]}</td>
-            <td style="font-size: 0.9em">{$PROV[LE][4]}</td>
-            <td>{$PROV[LE][5]}</td>
+            <td>{$PROV[LE][4]}</td>
+            <td style="font-size: 0.9em">{$PROV[LE][5]}</td>
+            <td>{$PROV[LE][6]}</td>
             <td>
                 <i class="fa fa-pencil-square-o btn load" id="m{$PROV[LE][0]}" data-toggle="modal" href='#modal-proveedores' modulo="proveedore"></i>
                 <i class="fa fa-times btn delete" codigo="1" modulo="proveedore" id="d{$PROV[LE][0]}" style="color: #D9534F"></i>

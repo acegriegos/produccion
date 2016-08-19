@@ -1,39 +1,31 @@
-<<<<<<< HEAD
-<?php /* Smarty version 2.6.17, created on 2016-08-12 17:40:07
-=======
-<?php /* Smarty version 2.6.17, created on 2016-08-12 13:33:01
->>>>>>> origin/master
-         compiled from ../view/menuSmarty.php */ ?>
+<?php /* Smarty version 2.6.17, created on 2016-08-18 00:18:50
+         compiled from ../view/menuSmarty1.php */ ?>
 <link rel="stylesheet" href="../assets/css/modulos/style_login.css">
 <link rel="stylesheet" href="../assets/fonts/tipografia.css">
 
 <div class="pos-f-t">
   <div class="collapse" id="navbar-header">
-    <div class="container-fluid bg-inverse p-a-1">
-      <div class="row">
-        <a href="dashboard"><div class="col-sm-1 ico" icono="i01"><i class="btn fa fa-dashboard" align="center"></i></div></a>
+    <div class="container-fluid p-a-1">
+      <div class="row custom-controls-stacked" style="width: 30%; background: #686868">
+      <ul>
+        <li style="padding: 0.8%"><a href=""><div class="checkbox" icono="i01">Dashboard</div></a></li>
+        <li style="padding: 0.8%"><a href=""><div class="checkbox" icono="i02">Compras</div></a></li>
+        <li style="padding: 0.8%"><a href=""><div class="checkbox" icono="i03">Facturacion</div></a></li>
+      </ul>
+        <!-- <a href="dashboard"><div class="col-sm-1 ico" icono="i01"><i class="btn fa fa-dashboard" align="center"></i></div></a>
         <a href="compras"><div class="col-sm-1 ico per1" icono="i02"><i class="btn fa fa-shopping-cart" align="center"></i></div></a>
         <a href="inventarios"><div class="col-sm-1 ico per2" icono="i03"><i class="btn fa fa-list" align="center"></i></div></a>
         <a href="productos"><div class="col-sm-1 ico per3" icono="i04"><i class="btn fa fa-th" align="center"></i></div></a>
         <a href="clientes"><div class="col-sm-1 ico per4" icono="i05"><i class="btn fa fa-male" align="center"></i></div></a>
         <a href="proveedores"><div class="col-sm-1 ico per5" icono="i06"><i class="btn fa fa-truck" align="center"></i></div></a>
-<<<<<<< HEAD
-        <a href="cuentas"><div class="col-sm-1 ico per6" icono="i07"><i class="btn fa fa-clipboard" align="center"></i></div></a>
-        <a href="usuarios"><div class="col-sm-1 ico per7" icono="i08"><i class="btn fa fa-user" align="center"></i></div></a>
-        <a href="reportes"><div class="col-sm-1 ico per8" icono="i09"><i class="btn fa fa-line-chart" align="center"></i></div></a>
-        <a href="#"><div class="col-sm-1 ico" icono="i10"><i class="btn fa fa-meh-o" align="center"></i></div></a>
-        <a href="ajustes"><div class="col-sm-1 ico per9" icono="i11"><i class="btn fa fa-cog" align="center"></i></div></a>
-        <a href="socios"><div class="col-sm-1 ico per10" icono="i12"><i class="btn fa fa-cubes" align="center"></i></div></a>
-=======
         <a href="cuentas"><div class="col-sm-1 ico per6" icono="i07"><i class="btn fa fa-check-square" align="center"></i></div></a>
         <a href="contabilidad"><div class="col-sm-1 ico per10" icono="i08"><i class="btn fa fa-clipboard" align="center"></i></div></a>
         <a href="usuarios"><div class="col-sm-1 ico per7" icono="i09"><i class="btn fa fa-user" align="center"></i></div></a>
         <a href="reportes"><div class="col-sm-1 ico per8" icono="i10"><i class="btn fa fa-line-chart" align="center"></i></div></a>
         <a href="#"><div class="col-sm-1 ico" icono="i11"><i class="btn fa fa-meh-o" align="center"></i></div></a>
-        <a href="ajustes"><div class="col-sm-1 ico per9" icono="i12"><i class="btn fa fa-cog" align="center"></i></div></a>
->>>>>>> origin/master
+        <a href="ajustes"><div class="col-sm-1 ico per9" icono="i12"><i class="btn fa fa-cog" align="center"></i></div></a> -->
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-sm-1 titIcon" id="ico01" icono="i01">Dashboard</div>
         <div class="col-sm-1 titIcon" id="ico02" icono="i02">Facturación</div>
         <div class="col-sm-1 titIcon" id="ico03" icono="i03">Inventarios</div>
@@ -47,7 +39,7 @@
         <div class="col-sm-1 titIcon" id="ico11" icono="i11"><small><?php echo $_SESSION['NOM']; ?>
 </small></div>
         <div class="col-sm-1 titIcon" id="ico12" icono="i12">Ajustes</div>
-      </div>
+      </div> -->
   </div>
  </div>
     

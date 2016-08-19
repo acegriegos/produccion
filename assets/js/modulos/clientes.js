@@ -2,19 +2,37 @@ $(function(){
 	$("#fclientess").submit(function(){return false});
 	$("#data-table-clientess").dataTable();
 
+	$("#ingClie").click(function(){
+		$("#titModal").html('Agregar Cliente');
+		$("#agClie").html('Agregar');
+
+		$("#agClie").removeClass('edit');
+		$("#agClie").addClass('add');
+
+		deadclear('cliente');
+	});
+
+	$(".load").click(function(){
+		$("#titModal").html('Editar Cliente');
+		$("#agClie").html('Editar');
+
+		$("#agClie").removeClass('add');
+		$("#agClie").addClass('edit');
+	})
+
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
-	var tipo = $(this).val();
+	var tipo = $(this).attr('tipoClie');
 
-	if (tipo == 1) {
+	if (tipo == 0) {
 		$("#titInfo").html('<b>Datos Personales<b/>');
 		$("#nomClie").html('<b>Nombre</b>');
 		$("#colMod").addClass("col-md-6 col-lg-6");
 		$("#colMod").removeClass("col-md-12 col-lg-12");
 		$("#vcedula").attr('data-mask', '9-9999-9999');
 		$(".hid").show(300);
-	} else if (tipo == 2) {
+	} else if (tipo == 1) {
 		$("#titInfo").html('<b>Información Jurídica<b/>');
 		$("#nomClie").html('<b>Razón Social</b>');
 		$("#colMod").removeClass("col-md-6 col-lg-6");
@@ -29,10 +47,8 @@ $(document).on("click","#Iadd",function(){
 });
 
 $(document).on("click","input[name=tipoclie]",function(){
-	
-	var tipo = $(this).attr('value');
+	var tipo = $(this).attr('tipoClie');
 	$("#vidtipoCliente").val(tipo);
-	
 });
 
 function validar (varreglo,vmodulo) {
@@ -49,7 +65,6 @@ function validar (varreglo,vmodulo) {
 					return err;
 				}
 			}
-			
 			break;
 		default:
 			return 'Módulo no Existente';
@@ -63,6 +78,8 @@ function validar (varreglo,vmodulo) {
 
 function validarclientes() {
 
+	if ($("#vnombre").val() == ''){ return 'El campo <b>Nombre</b> es requerido'; $("#vnombre").focus(); };
+	if ($("#vcedula").val() == ''){	return 'El campo <b>Cédula</b> es requerida'; $("#vcedula").focus(); };
 
 	return false;
 
@@ -73,7 +90,7 @@ function cargar(vmodulo,vid) {
 	switch(vmodulo['modulo']) {
 		case 'cliente':
 			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 28;
+			vmodulo['tbl'] = 31;
 			vmodulo['where'] = vid;
 			break;
 		default:
@@ -88,8 +105,8 @@ function cargarSintax(){
 	var arr = {}
 
 	arr['sel'] = '*';
-	arr['tbl'] = 6;
-	arr['where'] = 'id > 0';
+	arr['tbl'] = 29;
+	arr['where'] = 'vid > 0';
 
 	return arr;
 }
