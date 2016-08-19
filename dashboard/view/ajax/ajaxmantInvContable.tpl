@@ -74,9 +74,9 @@
                     <div class="input-group">
                     <div class="input-group-addon">Tipo</div>
                     <select id="vidtipo" class="form-control" type="select" disabled>
-                    <!-- [section name=LE loop=$UNI]
-                    <option value="[$UNI[LE][0]]">[$UNI[LE][1]]</option>';
-                    [/section] -->
+                    {section name=LE loop=$TIP}
+                    <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>';
+                    {/section}
                     </select>
                     </div>
                 </div>

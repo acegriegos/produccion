@@ -10,6 +10,7 @@
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	   
 	   	$smarty->assign('NAV',$pg);
+	   	$smarty->assign('TIP',$kakaroto->kamehameha('*',38,'id > 0'));
 	   	$smarty->display('v_inventarios.tpl');
 	   }else{
 	   $pagina = 0;

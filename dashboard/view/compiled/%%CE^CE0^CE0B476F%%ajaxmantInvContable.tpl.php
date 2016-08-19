@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-18 22:36:41
+<?php /* Smarty version 2.6.17, created on 2016-08-19 17:07:07
          compiled from ajax/ajaxmantInvContable.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 
@@ -76,9 +76,34 @@
                     <div class="input-group">
                     <div class="input-group-addon">Tipo</div>
                     <select id="vidtipo" class="form-control" type="select" disabled>
-                    <!-- [section name=LE loop=$UNI]
-                    <option value="[$UNI[LE][0]]">[$UNI[LE][1]]</option>';
-                    [/section] -->
+                    <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['TIP']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+                    <option value="<?php echo $this->_tpl_vars['TIP'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['TIP'][$this->_sections['LE']['index']][1]; ?>
+</option>';
+                    <?php endfor; endif; ?>
                     </select>
                     </div>
                 </div>
