@@ -213,7 +213,7 @@ $(document).on("keyup","#totp",function(e){
         if (!existe) {
             id++;
 
-            $("#detalleFac").append('<tr align="center" id="f'+id+'"><td style="width: 5%"><div class="checkbox"><label class="c-input c-checkbox"><input type="checkbox"><span class="c-indicator" id="d'+id+'" class="delf" name="eliminarf" value="1" style="float: right;"></span></label></div></td><td style="width: 10%"><span id="codprod'+id+'">'+codp+'</span></td><td style="width: 27%"><span id="desc'+id+'">'+descp+'</span></td><td style="width: 10%"><span id="cant'+id+'">'+cantp+'</span><input type="number" id="canh'+id+'" class="form-control form-control-sm" value="'+cantp+'" visible="0" style="display:none; width: 70px"></td><td style="width: 14%"><span id="prec'+id+'">'+precp+'</span></td><td style="width: 14%"><span id="tota'+id+'">'+totp+'</span></td><td id="desctd'+id+'" align="left" style="width: 6%"><input type="text" id="h'+id+'" class="form-control form-control-sm desci" placeholder="0" style="width: 50px" disabled><input type="hidden" id="descHide'+id+'"></td><td style="font-size: 0.9em; width: 15%"><i class="fa fa-percent btn desc" id="i'+id+'" title="Descuento individual" data-toggle="modal" href="#modal-MODAL" style="font-size: 0.8em" estado="0"></i><i class="btn fa fa-edit fedit" id="edit'+id+'"></i><i class="fa fa-times btn del" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila"></i></td></tr>');
+            $("#detalleFac").append('<tr align="center" id="f'+id+'"><td style="width: 5%"><div class="checkbox"><label class="c-input c-checkbox"><input type="checkbox"><span class="c-indicator" id="d'+id+'" class="delf" name="eliminarf" value="1" style="float: right;"></span></label></div></td><td style="width: 10%"><span id="codprod'+id+'">'+codp+'</span></td><td style="width: 27%"><span id="desc'+id+'">'+descp+'</span></td><td style="width: 10%"><span id="cant'+id+'">'+cantp+'</span><input type="number" id="canh'+id+'" class="form-control form-control-sm" value="'+cantp+'" visible="0" style="display:none; width: 70px"><input type="text" id="cnth'+id+'" value=""></td><td style="width: 14%"><span id="prec'+id+'">'+precp+'</span></td><td style="width: 14%"><span id="tota'+id+'">'+totp+'</span></td><td id="desctd'+id+'" align="left" style="width: 6%"><input type="text" id="h'+id+'" class="form-control form-control-sm desci" placeholder="0" style="width: 50px" disabled><input type="hidden" id="descHide'+id+'"></td><td style="font-size: 0.9em; width: 15%"><i class="fa fa-percent btn desc" id="i'+id+'" title="Descuento individual" data-toggle="modal" href="#modal-MODAL" style="font-size: 0.8em" estado="0"></i><i class="btn fa fa-edit fedit" id="edit'+id+'"></i><i class="fa fa-times btn del" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila"></i></td></tr>');
         }
 
     } //ENTER
@@ -240,6 +240,7 @@ $(document).on("click",".fedit",function(){
     arr['where'] = 'vcodigo = "'+cod+'"';
 
     var cantinv = mantenimiento('login',4,arr)[0][0];
+    $("#cnth"+id).val(cantinv[1]);
 
     if (visible == 0) {
         $("#cant"+id).show(100);
