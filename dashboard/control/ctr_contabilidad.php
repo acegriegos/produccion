@@ -7,10 +7,10 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	   
-	   	$smarty->assign('TCUE',$kakaroto->kamehameha('*',34,''));
-	    $smarty->assign('CUE',$kakaroto->kamehameha('*',33,''));
+	    $smarty->assign('CUE',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and idsubcuenta = 0 order by nombre'));
+	    $smarty->assign('VCUE',$kakaroto->kamehameha('*',33,''));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_contabilidad.tpl');
 	   }else{

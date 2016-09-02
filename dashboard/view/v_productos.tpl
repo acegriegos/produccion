@@ -13,7 +13,7 @@
     <link href="../assets/css/system.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/easy-autocomplete.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
@@ -28,7 +28,6 @@
   </head>
   <body>
 <br>
-
     {$NAV}
 
 <div class="bdy">

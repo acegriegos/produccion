@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,8 +23,9 @@
     <![endif]-->
   </head>
   <body>
+  <br>
     {$NAV}
-    <br><br>
+
     <div class="bdy">
     <h3 class="card-header card-primary" style="color: #fff"><b>PROVEEDORES</b></h3><br>
     <input type="hidden" id="vtabla" value="17">

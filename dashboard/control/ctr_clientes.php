@@ -7,7 +7,7 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	    
 	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));
 	    $smarty->assign('CANT',$kakaroto->kamehameha('*',9,'1 order by id'));

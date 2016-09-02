@@ -90,7 +90,7 @@
 				</div>
 				<br>
 				<legend><small>Detalle</small></legend>
-				<textarea id="commentFGasto" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
+				<textarea id="vdetalle" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>

@@ -1,3 +1,5 @@
+<div id="fcompras">
+
 <div class="row">
 <div class="col-sm-2 col-xs-2">
 <label class="c-input c-radio">
@@ -74,24 +76,24 @@ Crédito
 
 <div class="row">
 <div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Cédula</b></div>
-<input type="text" class="form-control" id="idprv" placeholder="Cédula del Proveedor">
-<input type="hidden" id="vidproveedor" class="form-control" value="0">
-</div>
+<!-- <div class="input-group">
+<div class="input-group-addon"><b>Nombre</b></div> -->
+<input type="text" class="form-control" id="nprv" placeholder="Nombre del Proveedor">
+<!-- </div> -->
 </div>
 <div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Nombre</b></div>
-<input type="text" class="form-control" id="nprv" placeholder="Nombre del Proveedor">
-</div>
+<!-- <div class="input-group">
+<div class="input-group-addon"><b>Cédula</b></div> -->
+<input type="text" class="form-control" id="idprv" placeholder="Cédula del Proveedor">
+<input type="hidden" id="vidproveedor" class="form-control" value="0">
+<!-- </div> -->
 </div>
 <br><br>
 <div class="col-md-12 col-lg-12">
-<div class="input-group">
-<div class="input-group-addon"><b>Dirección</b></div>
+<!-- <div class="input-group">
+<div class="input-group-addon"><b>Dirección</b></div> -->
 <input type="text" class="form-control" id="dprv" placeholder="Dirección del Proveedor">
-</div>
+<!-- </div> -->
 </div>
 </div>
 
@@ -276,4 +278,6 @@ Punto Venta
 </div>
 <div class="alert alert-success suc_" id="suc1" style="display:none">
 <strong id="sucm1"></strong>
+</div>
+
 </div>

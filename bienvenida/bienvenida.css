@@ -1,0 +1,21 @@
+.bdy
+{
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-top: 2%;
+}
+
+.der
+{
+	float: right;
+}
+
+.inv
+{
+	display: none;
+}
+
+#msj
+{
+	color: green;
+}

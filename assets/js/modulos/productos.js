@@ -38,11 +38,11 @@ $(function(){
 				$("#mantProd").remove();
 				var p = mantenimiento('productos',3,'');
 				$("#bdymantInventario").html(p);
-					
-					var options = {
+					// AUTO COMPLETE PRODUCTOS
+					var optionsp = {
 
 						  url: function(phrase) {
-						  	getDatos();
+						  	getDatos('productos');
 						    return 'view/getPkg.php';
 						  },
 
@@ -66,10 +66,61 @@ $(function(){
 						  requestDelay: 400
 						};
 
-					$("#descrP").easyAutocomplete(options);
+					$("#descrP").easyAutocomplete(optionsp);
+						// AUTO COMPLETE PRODUCTOS
+
+						// AUTO COMPLETE SERVICIOS
+					var optionss = {
+
+						  url: function(phrase) {
+						  	getDatos('servicios');
+						    return 'view/getServ.php';
+						  },
+
+						  getValue: function(element) {
+						    return element[0];
+						  },
+
+						  ajaxSettings: {
+						    dataType: "json",
+						    method: "POST",
+						    data: {
+						      dataType: "json"
+						    }
+						  },
+
+						  preparePostData: function(data) {
+						    data.phrase = $("#textServ").val();
+						    return data;
+						  },
+
+						  requestDelay: 400
+						};
+
+					$("#descrS").easyAutocomplete(optionss);
+						// AUTO COMPLETE SERVICIOS
 
 				// BADGE
 					$('#textProd')
+					.on('tokenfield:createtoken', function (e) {
+						var data = e.attrs.value.split('|')
+						e.attrs.value = data[1] || data[0]
+						e.attrs.label = data[1] ? data[0] + ' (' + data[1] + ')' : data[0]
+					})
+					.on('tokenfield:edittoken', function (e) {
+						if (e.attrs.label !== e.attrs.value) {
+						  var label = e.attrs.label.split(' (')
+						  e.attrs.value = label[0] + '|' + e.attrs.value
+						}
+					})
+					.on('tokenfield:removedtoken', function (e) {
+						
+					})
+					.tokenfield();
+					// BADGE
+
+					// BADGE
+					$('#textServ')
 					.on('tokenfield:createtoken', function (e) {
 						var data = e.attrs.value.split('|')
 						e.attrs.value = data[1] || data[0]
@@ -95,11 +146,28 @@ $(function(){
 
 });
 
+
+$(document).on("change","#vtipoinv",function(){
+	var tipoinv = $("#vtipoinv option:selected").val();
+});
+
+$(document).on("click",".salidainv",function(){
+	var id = $(this).attr('id').substr(1);
+
+	var arr = {}
+	
+	arr['sel'] = 'nombre';
+	arr['tbl'] = 14;
+	arr['where'] = 'id = '+id;
+
+	var nom = mantenimiento('login',4,arr)[0][0];
+	$("#nomprod").html(nom);
+});
+
 $(document).on("keyup","#searchprod",function(e){
 	var code = e.which || e.keyCode;
 	var filtro = $("#searchprod").val();
 	filtrarprod(code,filtro)
-
 });
 
 $(document).on("change","#inputExc",function(){
@@ -327,6 +395,14 @@ $(document).on("keyup","#cantProd",function(e){
 	}
 });
 
+$(document).on("keyup","#cantServ",function(e){
+	if (e.which == 13) {
+		$("#agInvSerPqts").click();
+		$("#descrS").val('');
+		$("#cantServ").val('');
+	}
+});
+
 $(document).on("keyup","#textProd-tokenfield",function(e){
 	if (e.which == 36) {
 		$("#descrP").focus();
@@ -496,6 +572,28 @@ $(document).on("click","#agInvProPqts",function(){
     var e = $.Event("keypress");
     e.keyCode = 13;
     $('#textProd-tokenfield').trigger(e);
+
+});
+
+$(document).on("click","#agInvSerPqts",function(){
+
+	var servStr = $("#descrS").val();
+	var servPrec = servStr.substr(servStr.indexOf('¢')+1);
+	servStr = servStr.substr(0,servStr.indexOf('¢')+1);
+	var servCant = $("#cantServ").val();
+	var idServStr = $("#idServStr").val();
+	var cServStr = $("#cServStr").val();
+	var subtotal = (parseFloat(servPrec)*servCant).toFixed(2);
+
+	var gDatos = getDatos();
+	
+
+	$("#textServ-tokenfield").focus();
+	$("#textServ-tokenfield").val(servStr+subtotal+'|'+servCant);
+	$("#textServ-tokenfield").select();
+    var e = $.Event("keypress");
+    e.keyCode = 13;
+    $('#textServ-tokenfield').trigger(e);
 
 });
 
@@ -819,15 +917,29 @@ function cargarSintax(vtabla){
 
 }
 
-function getDatos(){
+function getDatos(vmodulo){
 	
-	var array = {};
+	switch (vmodulo){
+		case 'productos':
+			var array = {};
 
-    array['sel'] = 'concat(nombre," - ¢ ",venta) as nombre, id, venta';
-    array['tbl'] = 11;
-    array['where'] = 'nombre like "%'+$("#descrP").val()+'%" and id > 0';
+		    array['sel'] = 'concat(nombre," - ¢ ",venta) as nombre, id, venta';
+		    array['tbl'] = 11;
+		    array['where'] = 'nombre like "%'+$("#descrP").val()+'%" and id > 0';
 
-    p = mantenimiento('productos',4,array);
-    return p;
+		    p = mantenimiento('productos',4,array);
+		    return p;
+		break;
 
+		case 'servicios':
+			var array = {};
+
+		    array['sel'] = 'concat(nombre," - ¢ ",pbase) as nombre, id, pbase';
+		    array['tbl'] = 16;
+		    array['where'] = 'nombre like "%'+$("#descrS").val()+'%" and id > 0';
+
+		    p = mantenimiento('productos',5,array);
+		    return p;
+		break;
+	}
 }

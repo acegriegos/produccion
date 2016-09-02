@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-07-30 01:39:04
+<?php /* Smarty version 2.6.17, created on 2016-08-30 10:28:42
          compiled from v_main.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,25 +13,25 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
   </head>
   <body>
-
-    <br><br>
+    <br>
     <?php echo $this->_tpl_vars['NAV']; ?>
 
-
-    
     <div class="bdy">
     <?php if ($_SESSION['TIPO'] == 1): ?>
-        <label for="lempresas">Seleccione una Compañía</label>
-        <select id="cia" class="form-control">
-            <option value="0">Todas las Compañías</option>
-            <?php unset($this->_sections['LE']);
+        <div class="row">
+            <div class="col-xs-12 col-md-12 der">
+                <div class="input-group">
+                    <div class="input-group-addon">Sucursal</div>
+                    <select id="vidsucursal" class="form-control" required="required">
+                        <option value="0">Seleccione una Sucursal</option>
+                        <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
-$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['CIAS']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['SUC']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
 $this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
 $this->_sections['LE']['step'] = 1;
@@ -53,18 +53,20 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                <option value="<?php echo $this->_tpl_vars['CIAS'][$this->_sections['LE']['index']][0]; ?>
-"><?php echo $this->_tpl_vars['CIAS'][$this->_sections['LE']['index']][1]; ?>
+                        <option value="<?php echo $this->_tpl_vars['SUC'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['SUC'][$this->_sections['LE']['index']][1]; ?>
 </option>
-            <?php endfor; endif; ?>
-        </select>
-    <?php else: ?>
-        <h1 align="center"><b><?php echo $_SESSION['EMPRESA']; ?>
-</b></h1>
-        <hr>
+                        <?php endfor; endif; ?>
+                    </select>
+            </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="idsuc" value="<?php echo $_SESSION['IDSUC']; ?>
+">
     <?php endif; ?>
+
     <!-- <form id="fclientes">
-    
     <div class="alert alert-danger err_" id="err1">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong id="errm1"></strong>
@@ -80,7 +82,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
-    <script src="../assets/js/modulos/menu.js"></script>
 
   </body>
 </html>

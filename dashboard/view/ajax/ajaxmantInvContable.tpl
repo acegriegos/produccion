@@ -12,27 +12,27 @@
                             <th style="width: 12%">Código</th>
                             <th>Nombre</th>
                             <th>Cantidad</th>
-                            <th>Tipo</th>
+                            <th>Cuenta</th>
                             <th>Fecha</th>
                             <th style="width: 15%">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="listaContable">
-                        <!-- [section name=LE loop=$PROD] -->
+                        {section name=LE loop=$INV}
                         <tr>
-                            <td>215<!-- ($PROD[LE][1]) --></td>
-                            <td>Escritorio Vidrio - Tempered Glass<!-- ($PROD[LE][3]) --></td>
-                            <td>5<!-- ($PROD[LE][4]) --></td>
-                            <td>Pasivo - Corriente<!-- ($PROD[LE][5]) --></td>
-                            <td>16-07-2016 03:25:00<!-- ($PROD[LE][6]) --></td>
+                            <td>{$INV[LE][1]}</td>
+                            <td>{$INV[LE][2]}</td>
+                            <td>{$INV[LE][3]}</td>
+                            <td>{$INV[LE][4]}</td>
+                            <td>{$INV[LE][5]}</td>
                             <td>
                                 <!-- <i class="fa fa-pencil-square-o btn load" id="m" data-toggle="modal" href="#modal-invDevo" modulo="inventario"></i> -->
-                                <i class="fa fa-info-circle btn" id="c" data-toggle="modal" href="#modal-invContaComment" modulo="inventario" title="Detalle de Activo" style="color: #3C8FAD"></i>
-                                <i class="fa fa-print btn" codigo="" id="p" data-toggle="modal" href="#modal-invConta" modulo="inventario"></i>
-                                <i class="fa fa-times btn delete" codigo="1" modulo="inventario" id="d" style="color: #D9534F" title="Anular"></i>
+                                <i class="fa fa-info-circle btn" id="c{$INV[LE][0]}" data-toggle="modal" href="#modal-invContaComment" modulo="inventario" title="Detalle de Activo" style="color: #3C8FAD"></i>
+                                <i class="fa fa-print btn" codigo="" id="p{$INV[LE][0]}" data-toggle="modal" href="#modal-invConta" modulo="inventario"></i>
+                                <i class="fa fa-times btn delete" codigo="1" modulo="inventario" id="d{$INV[LE][0]}" style="color: #D9534F" title="Anular"></i>
                             </td>
                         </tr>
-                        <!-- [/section] -->
+                        {/section}
                     </tbody>
                 </table>
             </div>
@@ -75,7 +75,7 @@
                     <div class="input-group-addon">Tipo</div>
                     <select id="vidtipo" class="form-control" type="select" disabled>
                     {section name=LE loop=$TIP}
-                    <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>';
+                    <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>
                     {/section}
                     </select>
                     </div>
@@ -94,7 +94,7 @@
                 </div>
                 <br>
                 <legend><small>Comentario</small></legend>
-                <textarea id="commentfdev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
+                <textarea id="vdetalle" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>

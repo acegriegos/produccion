@@ -12,7 +12,8 @@
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
 <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -22,12 +23,11 @@
 
 </head>
 <body>
+<br>
 {$NAV}
-<br><br>
 <div class="bdy">
 <h3 class="card-header card-primary" style="color: #fff"><b>CLIENTES</b></h3><br>
 <input type="hidden" id="vtabla" value="17">
-
 <div class="row">
 <div class="col-md-8 col-lg-8">
 <div class="input-group">
@@ -255,6 +255,8 @@ Jurídico
 
 </div>
 </div>
+</div>
+</div></div></div>
 
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/mask/jquery.mask.js"></script>

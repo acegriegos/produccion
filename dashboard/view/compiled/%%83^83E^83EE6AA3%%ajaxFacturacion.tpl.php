@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-12 13:09:28
+<?php /* Smarty version 2.6.17, created on 2016-09-01 16:19:09
          compiled from ajax/ajaxFacturacion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxFacturacion.tpl', 38, false),)), $this); ?>
@@ -90,76 +90,54 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
 <div class="row">
 <div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Cédula</b></div>
+<!-- <div class="input-group">
+<div class="input-group-addon"><b>Nombre</b></div> -->
+<input type="text" id="ncli" class="form-control" value="" required="required" placeholder="Nombre de Cliente">
+<!-- </div> -->
+</div>
+<div class="col-md-6 col-lg-6">
+<!-- <div class="input-group">
+<div class="input-group-addon"><b>Cédula</b></div> -->
 <input type="text" class="form-control" id="idcli" placeholder="Cédula del Cliente">
 <input type="hidden" id="vidproveedor" class="form-control" value="0">
-</div>
+<!-- </div> -->
 </div> 
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Nombre</b></div>
-<input type="text" class="form-control" id="ncli" placeholder="Nombre del Cliente">
-</div>
-</div><br><br>
-<div class="col-md-12 col-lg-12">
-<div class="input-group">
-<div class="input-group-addon"><b>Dirección</b></div>
-<input type="text" class="form-control" id="dcli" placeholder="Dirección del Cliente">
-</div>
-</div>
-<br>
 <div class="alert alert-warning" align="center" id="alert-prov" style="display:none">
-<strong >Proveedor no Existente,</strong>
+<strong >Cliente no Existente,</strong>
 Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">Aceptar</button> <button type="button" class="btn btn-success" id="ninuncludprov">Declinar</button>
 </div>
+</div><br>
+<div class="row">
+<div class="col-md-12 col-lg-12">
+<!-- <div class="input-group">
+<div class="input-group-addon"><b>Dirección</b></div> -->
+<input type="text" class="form-control" id="dcli" placeholder="Dirección del Cliente">
+<!-- </div> -->
 </div>
-
+</div>
 <div class="alert alert-warning reference" align="center" id="alert-ref" style="display:none">
 <strong >Esta Referencia  ya se Encuentra Asociada a un Numero de Factura</strong>
 </div>
 </div>
-<!-- <hr>
-<h3 class="card-title"><b id="det">INGRESAR PRODUCTOS</b></h3><br>
-
-<div class="row">
-<div class="col-md-3 col-lg-3">
-<div class="input-group">
-<div class="input-group-addon"><b>Código</b></div>
-<input type="text" id="cod" class="form-control" value="" placeholder="Código">
-</div>
-</div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Descripción</b></div>
-<input type="text" id="descr" class="form-control" value="" placeholder="Descripción de Producto">
-</div><br>
-</div>
-<div class="col-md-3 col-lg-3">
-<div class="checkbox">
-<label class="c-input c-checkbox">
-<input type="checkbox">
-<span class="c-indicator" value="0" id="prodprov"></span>
-Cargar Productos del Proveedor
-</label>
-</div>
-</div>
-</div>
-
-<div class="alert alert-warning" align="center" style="display: none" id="alert-prod">
-<strong >Producto no Existente,</strong>
-Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includ">Aceptar</button> <button type="button" class="btn btn-success" id="ninunclud">Declinar</button>
-</div> -->
 <hr>
-
 <div class="card-header">
 <div class="row">
 <div class="col-md-2 col-lg-2"></div>
 <div class="col-md-8 col-lg-8">
 <h3 class="card-title" align="center"><b>DETALLE DE FACTURA</b></h3><br>
 </div>
-<div class="col-md-2 col-lg-2">
-<button type="button" class="btn btn-info-outline der" id="del1">Eliminar Filas</button>
+<div class="col-md-2 col-lg-2 eder">
+<label class="c-input c-radio">
+  <input id="modo1" name="modo" type="radio">
+  <span class="c-indicator"></span>
+  <i class="fa fa-keyboard-o" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i>
+</label>
+<label class="c-input c-radio">
+  <input id="modo2" name="modo" type="radio">
+  <span class="c-indicator"></span>
+  <i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i>
+</label>
+<input type="hidden" id="modselected" value="0">
 <br><br>
 </div>
 </div>
@@ -168,38 +146,37 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includ">Acep
 <table class="table table-striped table-bordered nowrap" id="table-detalle" cellspacing="0">
 <thead>
 <tr>
-<th><i class="fa fa-trash" aria-hidden="true" title="Elimina varias filas seleccionadas presionando sobre el botón 'Eliminar Filas'"></i></th>
-<th style="width: 10%">Codigo</th>
-<th style="width: 27%">Descripción</th>
+<th style="width: 5%"></th>
+<th style="width: 10%">Código</th>
+<th style="width: 32%">Descripción</th>
 <th style="width: 10%">Cantidad</th>
-<th style="width: 12%">Precio</th>
-<th style="width: 12%">Unitario</th>
-<th style="width: 12%">Total</th>
-<th id="descth1" style="display:none; width: 6%">%</th>
-<th style="width: 14%">Acciones</th>
+<th style="width: 14%">Precio</th>
+<!-- <th style="width: 12%">Unitario</th> -->
+<th style="width: 14%">Total</th>
+<!-- <th id="descth1" style="display:none; width: 6%">%</th> -->
+<th style="width: 10%">Acciones</th>
 </tr>
 </thead>
-<tbody id="detallecompra">
+<tbody id="fdetallecompras">
 <tr id="f1">
+<td>&nbsp;</td>
+<td><input type="text" id="codp" class="form-control f" value="" placeholder="Código"></td>
+<td><input type="text" id="descp" class="form-control fd" value="" placeholder="Descripción"></td>
+<!-- <td><input type="number" id="cantp" class="form-control f" value="" placeholder="0" value="1"></td> -->
 <td>
-<div class="checkbox">
-<label class="c-input c-checkbox">
-<input type="checkbox">
-<span class="c-indicator" class="delf" name="eliminarf" value="1" style="float: right;"></span>
-</label>
+  <div id="divcnt" class="form-group">
+  <input type="number" class="form-control f" id="cantp" value="" placeholder="0" min="1" value="1" data-mask="999999999">
+  <div id="err" class="form-control-feedback" align="center" style="display:none"><small>Cantidad insuficiente</small></div>
 </div>
 </td>
-<td><input type="text" id="input" class="form-control f" value="" placeholder="Código"></td>
-<td><input type="text" id="input" class="form-control fd" value="" placeholder="Descripción"></td>
-<td><input type="number" id="input" class="form-control f" value="" placeholder="0"></td>
-<td><input type="text" id="input" class="form-control f" value="" placeholder="0.00"></td>
-<td><input type="text" id="input" class="form-control f" value="" placeholder="0.00"></td>
-<td><input type="text" id="input" class="form-control f" value="" placeholder="0.00"></td>
-<td id="desctd1" style="display:none;"><input type="text" class="form-control form-control-sm" placeholder="0"><input type="hidden" id="descHide1"></td>
+<td><input type="text" id="precp" class="form-control f" value="" placeholder="0.00" readonly></td>
+<!-- <td><input type="text" id="input" class="form-control f" value="" placeholder="0.00"></td> -->
+<td><input type="text" id="totp" class="form-control f" value="" placeholder="0.00" readonly></td>
+<!-- <td id="desctd1" style="display:none;"><input type="text" class="form-control form-control-sm" placeholder="0"><input type="hidden" id="descHide1"></td> -->
 <td style="font-size: 0.9em">
-<i class="fa fa-percent btn desc" id="d1" title="Descuento individual" data-toggle="modal" href='#modal-MODAL' style="font-size: 0.8em" estado="0"></i>
-<span style="background: rgba(219,219,219,0.3); padding: 2%; border-radius: 0.2em;" title="Cantidad en Inventario"><i class="fa fa-archive" style="font-size: 0.8em"></i>:<span id="cantP1">0</span></span>
-<i class="fa fa-times btn del" id="del1" style="color: #D9534F" title="Eliminar Fila"></i>
+<!-- <i class="fa fa-percent btn desc" id="d1" title="Descuento individual" data-toggle="modal" href='#modal-MODAL' style="font-size: 0.8em" estado="0"></i> -->
+<span style="background: rgba(219,219,219,0.3); padding: 2%; border-radius: 0.2em;" title="Cantidad en Inventario"><i class="fa fa-archive" style="font-size: 0.8em"></i>:<span id="cantP">0</span></span>
+<i class="fa fa-eraser btn del" id="del" style="color: #D9534F" title="Eliminar Fila"></i>
 </td>
 </tr>
 </tbody>
@@ -207,8 +184,41 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includ">Acep
 <!-- </div> -->
 </div>
 
+<div class="card-block">
+<div class="row">
+  <div class="col-md-2 col-lg-2"></div>
+  <div class="col-md-8 col-lg-8">
+    <div class="card-header" align="center"><h6>DETALLE DE FACTURA</h6></div>
+  </div>
+  <div class="col-md-2 col-lg-2">
+  <button type="button" class="btn btn-info-outline der" id="del1">Eliminar Filas</button>
+  <br><br>
+  </div>
+</div>
+<table class="table table-bordered">
+<thead>
+  <tr  align="center">
+    <th style="width: 5%"><i class="fa fa-trash" aria-hidden="true" title="Elimina varias filas seleccionadas presionando sobre el botón 'Eliminar Filas'"></i></th>
+    <th style="width: 10%">Código</th>
+    <th style="width: 27%">Descripción</th>
+    <th style="width: 10%">Cantidad</th>
+    <th style="width: 14%">Precio</th>
+    <th style="width: 14%">Total</th>
+    <th id="descth1" style="width: 6%">%</th>
+    <th style="width: 15%">Acciones</th> 
+  </tr>
+</thead>
+</table>
+<div style="max-height: 200px; overflow: auto;">
+  <table class="table table-hover table-striped table-bordered">
+    <tbody id="detalleFac">
+       
+    </tbody>
+  </table>
+  </div>
+</div>
 
-<div class="card-header">
+<div class="card-footer">
 <h3 class="card-title"><b>DESGLOCE DE FACTURA</b></h3><br>
 
 <div class="row">

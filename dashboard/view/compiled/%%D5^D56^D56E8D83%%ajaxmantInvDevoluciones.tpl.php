@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-18 23:10:52
+<?php /* Smarty version 2.6.17, created on 2016-08-23 13:51:00
          compiled from ajax/ajaxmantInvDevoluciones.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 
@@ -105,7 +105,7 @@
                 </div>
 				<br>
 				<legend><small>Comentario</small></legend>
-				<textarea id="vcommentfdev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
+				<textarea id="vdetalle" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>

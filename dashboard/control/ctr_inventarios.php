@@ -7,10 +7,9 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	   
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->assign('TIP',$kakaroto->kamehameha('*',38,'id > 0'));
 	   	$smarty->display('v_inventarios.tpl');
 	   }else{
 	   $pagina = 0;
@@ -28,7 +27,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			//PROD
+	   			$smarty->assign('INSU',$kakaroto->kamehameha('*',42,''));
 	   			$smarty->display('ajax/ajaxmantInvInsumos.tpl');
 	   			break;
 	   		case 3:
@@ -44,7 +43,8 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			//PROD
+	   			$smarty->assign('TIP',$kakaroto->kamehameha('*',38,''));
+	   			$smarty->assign('INV',$kakaroto->kamehameha('*',40,''));
 	   			$smarty->display('ajax/ajaxmantInvContable.tpl');
 	   			break;
 	   		case 5:

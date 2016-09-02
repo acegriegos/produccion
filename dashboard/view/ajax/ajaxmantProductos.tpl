@@ -38,8 +38,9 @@
     <td>{$PROD[LE][4]}</td>
     <td>{$PROD[LE][5]}</td>
     <td>
-    <i class="fa fa-pencil-square-o btn load" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" modulo="producto"></i>
-    <i class="fa fa-times btn delete" codigo="1" modulo="producto" id="d{$PROD[LE][0]}" style="color: #D9534F"></i>
+    <i class="fa fa-pencil-square-o btn load" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" modulo="producto" title="Editar Producto"></i>
+    <i class="fa fa-outdent salidainv" id="s{$PROD[LE][0]}" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
+    <i class="fa fa-times btn delete" codigo="1" modulo="producto" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i>
     </td>
     </tr>
     {/section}
@@ -225,6 +226,40 @@
 </div>
 </div>
 </div>
+
+<div class="modal fade" id="modal-salida">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Salida de Inventario</h4>
+                <h5 class="form-horizontal"><b>Producto: <span id="nomprod"></span></b></h5>
+            </div>
+            <div class="modal-body">
+                <p>Elija el inventario a enviar este producto y defina un motivo:</p>
+                <div class="input-group">
+                <div class="input-group-addon">Tipo</div>
+                <select id="vtipoinv" class="form-control" type="select">
+                <option value="0">Seleccione un inventario...</option>
+                {section name=LE loop=$TIPOINV}
+                <option value="{$TIPOINV[LE][0]}">{$TIPOINV[LE][1]}</option>
+                {/section}
+                </select>
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="titcom">Motivo</span>
+                    <textarea name="" id="vdetalle" class="form-control" rows="2" required="required" placeholder="Detalle..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div> <!-- End mantProductos -->
 
 <script src="../assets/js/alertModal.js"></script>

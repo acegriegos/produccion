@@ -7,7 +7,7 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	   
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_reportes.tpl');

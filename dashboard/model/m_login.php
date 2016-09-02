@@ -13,7 +13,7 @@
 			if (isset($arreglo['atributos']['vidusuario'])) {
 				if ($arreglo['atributos']['vidusuario'] == '') {
 					$cy = new _cy();
-					$arreglo['atributos']['vidusuario'] = str_replace("\0","",$cy->decy($_SESSION['USR']));
+					$arreglo['atributos']['vidusuario'] = str_replace("\0","",$cy->decy($_SESSION['ID']));
 				}
 			}
 
@@ -39,12 +39,12 @@
 				}
 			}
 
-			return array('0' => $id_new);
+			// return array('0' => $id_new);
+			return is_array($id_new) ? array('0' => $id_new) : $id_new;
 		}
 
 		function analizarTabla($arreglo){
 			$salida = array();
-
 			$this->sql = "SHOW CREATE PROCEDURE sp_mant".$arreglo['modulo']."s";
 			$rs = $this->ejecutarSelect()[0][2] or die("No existe SP asociado: ".$arreglo['modulo']."s");
 			$rs = substr($rs, strpos($rs,"(")+1);
@@ -74,24 +74,11 @@
 
 		function autenticar() {
 	
-			$sql = "CALL sp_Login('$this->user','$this->pass')";
+			$this->sql = "CALL sp_Login('$this->user','$this->pass')";
 
-			$resul = $this->db->ejecutar($sql);
+			$resul = $this->ejecutarSelect();
 			
-			if ($resul->num_rows > 0) {
-				
-				$resul = $resul->fetch_all();
-
-				if ($resul[0][0] != '') {
-					return $resul;
-				}else{
-					return 0;
-				}
-				
-			}
-			else{
-				return 0;
-			}
+			return $resul;
 		}
 
 		function ini($id,$pss){

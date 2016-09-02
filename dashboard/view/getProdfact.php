@@ -1,0 +1,1 @@
+[["S-1","[SERV] Soporte","200,000.00","?"],["S-4","[SERV] Mantenimiento RR","400,000.00","?"],["S-6","[SERV] Mantenimiento QQ","12,000.00","?"],["S-8","[SERV] Mantenimiento GGhJ","34,000.00","?"],["S-9","[SERV] serv1","2,000.00","?"],["S-10","[SERV] serv2","25,000.00","?"]]

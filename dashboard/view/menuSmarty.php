@@ -11,21 +11,12 @@
         <a href="productos"><div class="col-sm-1 ico per3" icono="i04"><i class="btn fa fa-th" align="center"></i></div></a>
         <a href="clientes"><div class="col-sm-1 ico per4" icono="i05"><i class="btn fa fa-male" align="center"></i></div></a>
         <a href="proveedores"><div class="col-sm-1 ico per5" icono="i06"><i class="btn fa fa-truck" align="center"></i></div></a>
-<<<<<<< HEAD
-        <a href="cuentas"><div class="col-sm-1 ico per6" icono="i07"><i class="btn fa fa-clipboard" align="center"></i></div></a>
-        <a href="usuarios"><div class="col-sm-1 ico per7" icono="i08"><i class="btn fa fa-user" align="center"></i></div></a>
-        <a href="reportes"><div class="col-sm-1 ico per8" icono="i09"><i class="btn fa fa-line-chart" align="center"></i></div></a>
-        <a href="#"><div class="col-sm-1 ico" icono="i10"><i class="btn fa fa-meh-o" align="center"></i></div></a>
-        <a href="ajustes"><div class="col-sm-1 ico per9" icono="i11"><i class="btn fa fa-cog" align="center"></i></div></a>
-        <a href="socios"><div class="col-sm-1 ico per10" icono="i12"><i class="btn fa fa-cubes" align="center"></i></div></a>
-=======
         <a href="cuentas"><div class="col-sm-1 ico per6" icono="i07"><i class="btn fa fa-check-square" align="center"></i></div></a>
-        <a href="contabilidad"><div class="col-sm-1 ico per10" icono="i08"><i class="btn fa fa-clipboard" align="center"></i></div></a>
-        <a href="usuarios"><div class="col-sm-1 ico per7" icono="i09"><i class="btn fa fa-user" align="center"></i></div></a>
-        <a href="reportes"><div class="col-sm-1 ico per8" icono="i10"><i class="btn fa fa-line-chart" align="center"></i></div></a>
+        <a href="contabilidad"><div class="col-sm-1 ico per7" icono="i08"><i class="btn fa fa-clipboard" align="center"></i></div></a>
+        <a href="usuarios"><div class="col-sm-1 ico per8" icono="i09"><i class="btn fa fa-user" align="center"></i></div></a>
+        <a href="reportes"><div class="col-sm-1 ico per9" icono="i10"><i class="btn fa fa-line-chart" align="center"></i></div></a>
         <a href="#"><div class="col-sm-1 ico" icono="i11"><i class="btn fa fa-meh-o" align="center"></i></div></a>
-        <a href="ajustes"><div class="col-sm-1 ico per9" icono="i12"><i class="btn fa fa-cog" align="center"></i></div></a>
->>>>>>> origin/master
+        <a href="ajustes"><div class="col-sm-1 ico per10" icono="i12"><i class="btn fa fa-cog" align="center"></i></div></a>
       </div>
       <div class="row">
         <div class="col-sm-1 titIcon" id="ico01" icono="i01">Dashboard</div>

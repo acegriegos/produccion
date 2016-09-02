@@ -166,12 +166,12 @@ function validar (varreglo,vmodulo) {
 
 	/*VALIDACION FRONT END*/
 
-	if (vmodulo['tip'] == '') {
-				err = validarformularios();
-				if ( err ) {
-					return err;
-				}
-			}
+	// if (vmodulo['tip'] == '') {
+	// 			err = validarformularios();
+	// 			if ( err ) {
+	// 				return err;
+	// 			}
+	// 		}
 
 	switch(vmodulo['modulo']) {
 		case 'usuario':
@@ -249,7 +249,7 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'usuario':
-			vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave, aes_decrypt(clave,"lt2016") as clave';
+			vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave, aes_decrypt(clave,"lt2016") as clave,idsucursal as vidsucursal';
 			vmodulo['tbl'] = 1;
 			vmodulo['where'] = 'id = "'+vid+'"';
 			$("#vid").focus();

@@ -7,9 +7,10 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	    
 	   	$smarty->assign('NAV',$pg);
+
 	   	$smarty->display('v_compras.tpl');
 	   }else{
 	   $pagina = 0;
@@ -31,13 +32,22 @@
 			   	$smarty->display('ajax/ajaxCompras.tpl');
 	   			break;
 	   		case 3:
-	   			
+	   			$pagina = 1;
+	   			$arr = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+	   			file_put_contents('view/getClie.php', json_encode($arr));
+	   			print_r($arr);
 	   			break;
 	   		case 4:
-	   			
+	   			$pagina = 1;
+	   			$arr = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+	   			file_put_contents('view/getPrv.php', json_encode($arr));
+	   			print_r($arr);
 	   			break;
 	   		case 5:
-	   			
+	   			$pagina = 1;
+	   			$arr = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+	   			file_put_contents('view/getProdfact.php', json_encode($arr));
+	   			print_r($arr);
 	   			break;
 	   	}
 		if(!$pagina){

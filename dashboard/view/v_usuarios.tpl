@@ -10,7 +10,7 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
@@ -57,6 +57,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><b>Usuario</b></span>
                         <input type="hidden" id="vid" value="0">
+                        <input type="hidden" id="vidusuario" value="">
                         <input type="text" id="vuser" class="form-control" placeholder="Ingrese el Usuario" tabindex="1">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
@@ -74,7 +75,6 @@
                         <input type="mail" id="vmail" class="form-control" placeholder="Ingrese el Correo del Usuario" tabindex="5">
                     </div>
                     <br>
-
                </div>
                
                <div class="col-md-6 col-lg-6">
@@ -95,47 +95,48 @@
                         <span class="input-group-addon asterisco"><b>*</b></span>
                       </div>
                     <br>
+                    <div class="input-group">
+                      <div class="input-group-addon"><b>Sucursal</b></div>
+                      <select type="select" id="vidsucursal" class="form-control" required="required" tabindex="6">
+                        <option value="0">Seleccione una Sucursal</option>
+                        {section name=LE loop=$SUC}
+                        <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
+                        {/section}
+                      </select>
+                    </div>
                </div>
-
            </div>
            <hr>
            <div class="row">
                <div class="col-md-6 col-lg-6">
-
                     <div class="input-group">
                         <span class="input-group-addon"><b>Contraseña</b></span>
-                        <input type="password" id="vclave" class="form-control" value="" tabindex="5">
+                        <input type="password" id="vclave" class="form-control" value="" tabindex="7">
                         <span class="input-group-addon btn" id="spas"><b><i class="fa fa-eye"></i></b></span>
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
                     <br>
-
                     <div class="input-group">
                         <span class="input-group-addon"><b>Hora Entrada</b></span>
-                        <input type="time" id="vlimite" class="form-control" value="08:00" tabindex="7">
+                        <input type="time" id="vlimite" class="form-control" value="08:00" tabindex="9">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
-
                     <br>
-
                </div>
 
                <div class="col-md-6 col-lg-6">
-
                     <div class="input-group">
                         <span class="input-group-addon"><b>Repita Contraseña</b></span>
-                        <input type="password" id="clave" class="form-control" value="" tabindex="6">
+                        <input type="password" id="clave" class="form-control" value="" tabindex="8">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
                     <br>
-
                     <div class="input-group">
                         <span class="input-group-addon"><b>Hora Salida</b></span>
-                        <input type="time" id="vlimite2" class="form-control" value="17:00" tabindex="8">
+                        <input type="time" id="vlimite2" class="form-control" value="17:00" tabindex="10">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
                     <br>
-
                </div>
            </div>
 
@@ -149,7 +150,11 @@
               <div class="alert alert-success suc_" id="suc1" style="display: none">
                   <strong id="sucm1"></strong>
               </div>
-              <button type="submit" class="btn btn-success der add per500" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button>
+              <!-- <button type="submit" class="btn btn-primary der" id="back" title="Agregar Usuario" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i> -->
+
+              <button type="submit" class="btn btn-primary der fa fa-plus add per500" id="userSubmit" title="Agregar Usuario" codigo="1" modulo="usuario" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;">
+
+              <!-- <button type="submit" class="btn btn-success der add per500" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button> -->
               <button type="submit" class="btn btn-default der" id="back" title="Agregar Usuario" style="display: none"><i class="fa fa-chevron-circle-right" ></i></button>
               
               </form>
@@ -180,7 +185,7 @@
                           <td>{$USRS[LE][7]}</td>
                           <td>
                             <i class="fa fa-pencil-square-o load cargar btn per501" modulo="usuario" title="Cargar Usuario" id="m{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin' and $smarty.session.NUM neq 1} disabled {/if}></i>
-                            <i class="fa fa-times delete eliminar btn per502" modulo="usuario" title="Eliminar Usuario" id="d{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin'} disabled {/if}></i>
+                            <i class="fa fa-times delete eliminar btn per502" codigo="1" modulo="usuario" title="Eliminar Usuario" id="d{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin'} disabled {/if}></i>
                           </td>
                         </tr>
                     {/section}

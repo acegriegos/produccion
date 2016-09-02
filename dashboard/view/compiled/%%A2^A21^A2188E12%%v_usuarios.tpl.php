@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-05 23:25:28
+<?php /* Smarty version 2.6.17, created on 2016-08-30 10:48:37
          compiled from v_usuarios.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +12,7 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
@@ -60,6 +60,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><b>Usuario</b></span>
                         <input type="hidden" id="vid" value="0">
+                        <input type="hidden" id="vidusuario" value="">
                         <input type="text" id="vuser" class="form-control" placeholder="Ingrese el Usuario" tabindex="1">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
@@ -77,7 +78,6 @@
                         <input type="mail" id="vmail" class="form-control" placeholder="Ingrese el Correo del Usuario" tabindex="5">
                     </div>
                     <br>
-
                </div>
                
                <div class="col-md-6 col-lg-6">
@@ -123,47 +123,73 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                         <span class="input-group-addon asterisco"><b>*</b></span>
                       </div>
                     <br>
-               </div>
+                    <div class="input-group">
+                      <div class="input-group-addon"><b>Sucursal</b></div>
+                      <select type="select" id="vidsucursal" class="form-control" required="required" tabindex="6">
+                        <option value="0">Seleccione una Sucursal</option>
+                        <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['SUC']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
 
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+                        <option value="<?php echo $this->_tpl_vars['SUC'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['SUC'][$this->_sections['LE']['index']][1]; ?>
+</option>
+                        <?php endfor; endif; ?>
+                      </select>
+                    </div>
+               </div>
            </div>
            <hr>
            <div class="row">
                <div class="col-md-6 col-lg-6">
-
                     <div class="input-group">
                         <span class="input-group-addon"><b>Contraseña</b></span>
-                        <input type="password" id="vclave" class="form-control" value="" tabindex="5">
+                        <input type="password" id="vclave" class="form-control" value="" tabindex="7">
                         <span class="input-group-addon btn" id="spas"><b><i class="fa fa-eye"></i></b></span>
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
                     <br>
-
                     <div class="input-group">
                         <span class="input-group-addon"><b>Hora Entrada</b></span>
-                        <input type="time" id="vlimite" class="form-control" value="08:00" tabindex="7">
+                        <input type="time" id="vlimite" class="form-control" value="08:00" tabindex="9">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
-
                     <br>
-
                </div>
 
                <div class="col-md-6 col-lg-6">
-
                     <div class="input-group">
                         <span class="input-group-addon"><b>Repita Contraseña</b></span>
-                        <input type="password" id="clave" class="form-control" value="" tabindex="6">
+                        <input type="password" id="clave" class="form-control" value="" tabindex="8">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
                     <br>
-
                     <div class="input-group">
                         <span class="input-group-addon"><b>Hora Salida</b></span>
-                        <input type="time" id="vlimite2" class="form-control" value="17:00" tabindex="8">
+                        <input type="time" id="vlimite2" class="form-control" value="17:00" tabindex="10">
                         <span class="input-group-addon asterisco"><b>*</b></span>
                     </div>
                     <br>
-
                </div>
            </div>
 
@@ -177,7 +203,11 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
               <div class="alert alert-success suc_" id="suc1" style="display: none">
                   <strong id="sucm1"></strong>
               </div>
-              <button type="submit" class="btn btn-success der add per500" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button>
+              <!-- <button type="submit" class="btn btn-primary der" id="back" title="Agregar Usuario" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i> -->
+
+              <button type="submit" class="btn btn-primary der fa fa-plus add per500" id="userSubmit" title="Agregar Usuario" codigo="1" modulo="usuario" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;">
+
+              <!-- <button type="submit" class="btn btn-success der add per500" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button> -->
               <button type="submit" class="btn btn-default der" id="back" title="Agregar Usuario" style="display: none"><i class="fa fa-chevron-circle-right" ></i></button>
               
               </form>
@@ -240,7 +270,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                           <td>
                             <i class="fa fa-pencil-square-o load cargar btn per501" modulo="usuario" title="Cargar Usuario" id="m<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
 " <?php if ($this->_tpl_vars['USRS'][$this->_sections['LE']['index']][1] == 'admin' && $_SESSION['NUM'] != 1): ?> disabled <?php endif; ?>></i>
-                            <i class="fa fa-times delete eliminar btn per502" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
+                            <i class="fa fa-times delete eliminar btn per502" codigo="1" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $this->_tpl_vars['USRS'][$this->_sections['LE']['index']][0]; ?>
 " <?php if ($this->_tpl_vars['USRS'][$this->_sections['LE']['index']][1] == 'admin'): ?> disabled <?php endif; ?>></i>
                           </td>
                         </tr>

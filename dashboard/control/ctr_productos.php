@@ -7,7 +7,7 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	    
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_productos.tpl');
@@ -19,6 +19,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
+				$smarty->assign('TIPOINV',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by id'));
 	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
 	   			$smarty->assign('TIP',$kakaroto->kamehameha('id,nombre',21,'id > 0 order by id'));
 	   			$smarty->assign('MAR',$kakaroto->kamehameha('id,nombre',22,'id > 0 order by id'));
@@ -33,7 +34,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
+	   			$smarty->assign('CLI',$kakaroto->kamehameha("id,nombre",2,"bisproveedor = 1"));
 	   			$smarty->assign('SERV',$kakaroto->kamehameha('*',13,'Codigo > 0 limit 20'));
 	   			$smarty->display('ajax/ajaxmantServicios.tpl');
 	   			break;
@@ -54,7 +55,10 @@
 	   			print_r($arr);
 	   			break;
 	   		case 5:
-	   			
+	   			$pagina = 1;
+	   			$arr = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+	   			file_put_contents('view/getServ.php', json_encode($arr));
+	   			print_r($arr);
 	   			break;
 	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   	}

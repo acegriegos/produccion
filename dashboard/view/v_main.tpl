@@ -11,31 +11,33 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
   </head>
   <body>
-
-    <br><br>
+    <br>
     {$NAV}
-
-    
     <div class="bdy">
     {if $smarty.session.TIPO eq 1}
-        <label for="lempresas">Seleccione una Compañía</label>
-        <select id="cia" class="form-control">
-            <option value="0">Todas las Compañías</option>
-            {section name=LE loop=$CIAS}
-                <option value="{$CIAS[LE][0]}">{$CIAS[LE][1]}</option>
-            {/section}
-        </select>
-    {else}
-        <h1 align="center"><b>{$smarty.session.EMPRESA}</b></h1>
-        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-md-12 der">
+                <div class="input-group">
+                    <div class="input-group-addon">Sucursal</div>
+                    <select id="vidsucursal" class="form-control" required="required">
+                        <option value="0">Seleccione una Sucursal</option>
+                        {section name=LE loop=$SUC}
+                        <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
+                        {/section}
+                    </select>
+            </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="idsuc" value="{$smarty.session.IDSUC}">
     {/if}
+
     <!-- <form id="fclientes">
-    
     <div class="alert alert-danger err_" id="err1">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong id="errm1"></strong>
@@ -51,7 +53,6 @@
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
-    <script src="../assets/js/modulos/menu.js"></script>
 
   </body>
 </html>

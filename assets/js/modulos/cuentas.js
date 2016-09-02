@@ -151,7 +151,7 @@ function validar (varreglo,vmodulo) {
 
 function validarcuentas() {
 
-
+	
 
 	return false;
 }

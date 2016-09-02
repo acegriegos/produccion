@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-04 00:07:16
+<?php /* Smarty version 2.6.17, created on 2016-08-22 15:02:41
          compiled from v_cuentas.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cuentas.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,10 +25,10 @@
     <![endif]-->
   </head>
   <body>
+  <br>
     <?php echo $this->_tpl_vars['NAV']; ?>
 
     <div class="bdy">
-    <br>
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
         <!-- Brand -->
         <a class="navbar-brand" href="#"><b>Cuentas</b></a>

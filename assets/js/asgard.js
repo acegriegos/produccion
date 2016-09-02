@@ -8,8 +8,8 @@ $(function(){
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');
     deadclear(modulo);
-    var mod = modulo.slice(0,-1)
-    var arreglo = {}        
+    var mod = modulo.slice(0,-1);
+    var arreglo = {};
     arreglo['modulo'] = modulo;
     var varreglo = loadpool(arreglo,$(this).attr('id').substr(1),$(this).attr('detalle'));
 });
@@ -72,6 +72,7 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
+            alert(1)
             $('#err'+codigo).show();
             $('#errm'+codigo).html(p[0]['ERROR']);
         }else{
@@ -93,6 +94,7 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
                 window.open(modulo+"s?accion=5&id="+id+"&tp="+$("#t_p").val());
                 setTimeout(function(){ location.reload(); }, 1000);
             }else{
+                alert(arreglo['modulo'])
                 setTimeout(function(){ deadclear(arreglo['modulo']); }, 2000);
                 thorload(modulo);
             }
@@ -106,6 +108,7 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
 };
 
 function baseValidar(vaccion,vmodulo){
+    
     var salida = {}
     var varreglo = mantenimiento('login',vaccion,vmodulo);
     if (varreglo == "[object Object]"){
@@ -390,7 +393,7 @@ function notify(vicon,vtitle,vmsg,vtype){
     title: vtitle,
     message: vmsg,
     target: '_blank'
-},{
+    },{
     // settings
     element: 'body',
     position: null,
@@ -427,3 +430,5 @@ function notify(vicon,vtitle,vmsg,vtype){
     '</div>' 
 });
 }
+
+// Login Technologies S.A.

@@ -20,22 +20,22 @@
                         </tr>
                     </thead>
                     <tbody id="listaInsumos">
-                        <!-- [section name=LE loop=$PROD] -->
+                        {section name=LE loop=$INSU}
                         <tr>
-                        	<td>1</td>
-                            <td>Carton para trabajos extraclase<!-- ($PROD[LE][1]) --></td>
-                            <td>15<!-- ($PROD[LE][2]) --></td>
-                            <td>¢2,500.00<!-- ($PROD[LE][3]) --></td>
-                            <td>16-07-2016 03:25:00<!-- ($PROD[LE][4]) --></td>
-                            <td>Trabajo de mi hijo<!-- ($PROD[LE][5]) --></td>
+                        	<td>{$INSU[LE][1]}</td>
+                            <td>{$INSU[LE][2]}</td>
+                            <td>{$INSU[LE][3]}</td>
+                            <td>{$INSU[LE][4]}</td>
+                            <td>{$INSU[LE][5]}</td>
+                            <td>{$INSU[LE][6]}</td>
                             <td>
                                 <!-- <i class="fa fa-pencil-square-o btn load" id="m" data-toggle="modal" href="#modal-invDevo" modulo="inventario"></i> -->
-                                <i class="fa fa-info-circle btn" id="c" data-toggle="modal" href="#modal-invInsumoComment" modulo="inventario" title="Detalle de Insumo" style="color: #3C8FAD"></i>
-                                <i class="fa fa-print btn" codigo="" id="p" data-toggle="modal" href="#modal-invInsumo" modulo="inventario"></i>
-                                <i class="fa fa-times btn delete" codigo="1" modulo="inventario" id="d" style="color: #D9534F" title="Anular"></i>
+                                <i class="fa fa-info-circle btn" id="c{$INSU[LE][0]}" data-toggle="modal" href="#modal-invInsumoComment" modulo="inventario" title="Detalle de Insumo" style="color: #3C8FAD"></i>
+                                <i class="fa fa-print btn" codigo="" id="p{$INSU[LE][0]}" data-toggle="modal" href="#modal-invInsumo" modulo="inventario"></i>
+                                <i class="fa fa-times btn delete" codigo="1" modulo="inventario" id="d{$INSU[LE][0]}" style="color: #D9534F" title="Anular"></i>
                             </td>
                         </tr>
-                        <!-- [/section] -->
+                        {/section}
                     </tbody>
                 </table>
             </div>
@@ -100,7 +100,7 @@
                 </div>
 				<br>
 				<legend><small>Motivo <small class="text-muted">- (Comentario)</small></small></legend>
-				<textarea id="commentFInsu" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
+				<textarea id="vdetalle" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>

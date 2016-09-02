@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-01 19:03:20
+<?php /* Smarty version 2.6.17, created on 2016-08-22 15:02:05
          compiled from v_productos.tpl */ ?>
 <DOCTYPE html>
 <html lang="es">
@@ -15,7 +15,7 @@
     <link href="../assets/css/system.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/easy-autocomplete.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
@@ -30,7 +30,6 @@
   </head>
   <body>
 <br>
-
     <?php echo $this->_tpl_vars['NAV']; ?>
 
 

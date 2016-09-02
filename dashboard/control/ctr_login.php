@@ -15,18 +15,21 @@
 		    $encrypt = new _cy();
 
 		    $user = $log->autenticar();
-		    if (!$user){
-		       header("Location: login?msj=1");
-		    }
-		    else
+		    if(sizeof($user) == 2){
+		    	print_r($user);
+		    }else if (sizeof($user) == 1)
 		    {
-		    $_SESSION['NUM']	 = trim($encrypt->ency($user[0][1]));
-		    $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
-		    $_SESSION['NOM']     = $user[0][1];
-		    $_SESSION['TIPO']    = $user[0][2];
+		     $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
+		     $_SESSION['NUM']	 = trim($encrypt->ency($user[0][1]));
+		     $_SESSION['NOM']     = $user[0][2];
+		     $_SESSION['TIPO']    = $user[0][3];
+		     $_SESSION['EMPRESA'] = $user[0][4];
+		     $_SESSION['IMPRESA'] = $user[0][5];
+		     $_SESSION['TMP_CIA'] = 0;
 
-			header("Location: ../dashboard/main");
-	    }
+             $user[0][6] == '' ? header("Location: bienvenida/bienvenida.html") : header("Location: ../dashboard/main");
+		     
+		   }
     	}else{
     		if (isset($_SESSION['USR'])) {
 		        header("Location: ../dashboard/main");
@@ -39,7 +42,7 @@
 		   	$pg = $smarty->fetch('../view/menuSmarty.php');
 		   
 		   	$smarty->assign('NAV',$pg);
-		   	$smarty->display('login1.tpl');
+		   	$smarty->display('login.tpl');
 		   }
 		}
    }else{
@@ -68,6 +71,7 @@
    			if (isset($_REQUEST['arreglo']['join'])) {
    				$join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
    			}
+            
    			if (sizeof($transaccion) == 0) {
    				$pagina = 0;
    			}else

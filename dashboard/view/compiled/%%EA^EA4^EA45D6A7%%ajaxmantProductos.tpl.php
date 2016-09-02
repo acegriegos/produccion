@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-09 14:08:38
+<?php /* Smarty version 2.6.17, created on 2016-08-23 13:41:38
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
@@ -69,9 +69,11 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </td>
     <td>
     <i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
-" data-toggle="modal" href="#modal-productos" modulo="producto"></i>
+" data-toggle="modal" href="#modal-productos" modulo="producto" title="Editar Producto"></i>
+    <i class="fa fa-outdent salidainv" id="s<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
+" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
     <i class="fa fa-times btn delete" codigo="1" modulo="producto" id="d<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
-" style="color: #D9534F"></i>
+" style="color: #D9534F" title="Eliminar Producto"></i>
     </td>
     </tr>
     <?php endfor; endif; ?>
@@ -334,6 +336,65 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div>
 </div>
 </div>
+
+<div class="modal fade" id="modal-salida">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Salida de Inventario</h4>
+                <h5 class="form-horizontal"><b>Producto: <span id="nomprod"></span></b></h5>
+            </div>
+            <div class="modal-body">
+                <p>Elija el inventario a enviar este producto y defina un motivo:</p>
+                <div class="input-group">
+                <div class="input-group-addon">Tipo</div>
+                <select id="vtipoinv" class="form-control" type="select">
+                <option value="0">Seleccione un inventario...</option>
+                <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['TIPOINV']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+                <option value="<?php echo $this->_tpl_vars['TIPOINV'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['TIPOINV'][$this->_sections['LE']['index']][1]; ?>
+</option>
+                <?php endfor; endif; ?>
+                </select>
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="titcom">Motivo</span>
+                    <textarea name="" id="vdetalle" class="form-control" rows="2" required="required" placeholder="Detalle..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div> <!-- End mantProductos -->
 
 <script src="../assets/js/alertModal.js"></script>

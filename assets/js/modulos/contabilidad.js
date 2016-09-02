@@ -14,38 +14,54 @@ $(document).ready(function(){
 	$("[modulo=scontabilidad]").attr('max',$("[cod]").length / 2) ;
 	
 	$("#vgenero").change(function(){
-		slide($(this).attr('cod'),1);
 		var arr = {};
-		arr['sel'] = '*';
-		arr['tbl'] = 35;
-		arr['where'] = 'idtipocuenta = '+$("option:selected",this).val();
-		$("#vsubgenero").html(mantenimiento('login',6,arr));
-	});
-
-	$("#vsubgenero").change(function(){
-		slide($(this).attr('cod'),1);
+		arr['sel'] = 'id,nombre,numero';
+		arr['tbl'] = 36;
+		arr['where'] = 'idsubcuenta = '+$("option:selected",this).val();
+		
+		var rs = mantenimiento('login',6,arr);
+		$(".myh3").append($("option:selected",this).attr('num')+"-"+$("option:selected",this).text()+"<br>"+"&nbsp>");
+		if (rs.length == undefined) {
+			slide($("[cod]:visible").attr('cod'),1);
+			$("#vnombre").val('');
+            $("#vnombre").focus();
+            
+		}
+		else{
+			$(this).attr('lvl',$("option:selected",this).val());
+			$(this).html(rs);
+		}
 	});
 
 	$(".slidel").click(function(){
 		slide($("[cod]:visible").attr('cod'),-1);
 	});
 
-	$("#vnombre").keyup(function(e){
-		var code = e.which || e.keyCode;
-		if (code == 13) {
-			var arr = {};
-			arr['sel'] = '';
-			arr['tbl'] = 37;
-			arr['where'] = '1,0,'+$("#vsubgenero option:selected").val()+",\""+$(this).val()+"\"";
-			
-			var p = mantenimiento('login',4,arr);
-			if (p['succed'] == 0) {
-				$("#err1").show();
-				$("#errm1").html(p[0]['ERROR']);
-			}
-		}
-	});
+});
 
+$(document).on("click",".addglobal",function(){
+	if($("#vnombre").is(":visible")){
+		var arr = {}
+		arr['sel'] = '';
+		arr['tbl'] = 37;
+		arr['where'] = '1,0,'+$("#vgenero option:selected").val()+',"'+$('#vnombre').val()+'",@@usr';
+
+		mantenimiento('login',4,arr);
+
+		var arr = {};
+		arr['sel'] = 'id,nombre,numero';
+		arr['tbl'] = 36;
+		arr['where'] = 'idsubcuenta = '+$("#vgenero option:selected").val();
+
+		$("#vgenero").attr('lvl',$("#vgenero option:selected").val());
+		$("#vgenero").html(mantenimiento('login',6,arr));
+
+		slide($("[cod]:visible").attr('cod'),-1);
+	}else{
+		slide($("[cod]:visible").attr('cod'),1);
+		$("#vnombre").val('');
+        $("#vnombre").focus();
+	}
 });
 
 function slide(cod,suma) {
@@ -113,12 +129,9 @@ function cargar(vmodulo,vid) {
 	return vmodulo;
 }
 
-function cargarSintax(){
-	var arr = {}
+function cargarSintax(vtabla){
+	
+	return false;
 
-	arr['sel'] = '';
-	arr['tbl'] = 4;
-	arr['where'] = '';
 
-	return arr;
 }

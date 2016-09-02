@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-19 17:07:07
+<?php /* Smarty version 2.6.17, created on 2016-08-23 10:58:28
          compiled from ajax/ajaxmantInvContable.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bv2_toggle.css">
 
@@ -14,27 +14,58 @@
                             <th style="width: 12%">Código</th>
                             <th>Nombre</th>
                             <th>Cantidad</th>
-                            <th>Tipo</th>
+                            <th>Cuenta</th>
                             <th>Fecha</th>
                             <th style="width: 15%">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="listaContable">
-                        <!-- [section name=LE loop=$PROD] -->
+                        <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['INV']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
                         <tr>
-                            <td>215<!-- ($PROD[LE][1]) --></td>
-                            <td>Escritorio Vidrio - Tempered Glass<!-- ($PROD[LE][3]) --></td>
-                            <td>5<!-- ($PROD[LE][4]) --></td>
-                            <td>Pasivo - Corriente<!-- ($PROD[LE][5]) --></td>
-                            <td>16-07-2016 03:25:00<!-- ($PROD[LE][6]) --></td>
+                            <td><?php echo $this->_tpl_vars['INV'][$this->_sections['LE']['index']][1]; ?>
+</td>
+                            <td><?php echo $this->_tpl_vars['INV'][$this->_sections['LE']['index']][2]; ?>
+</td>
+                            <td><?php echo $this->_tpl_vars['INV'][$this->_sections['LE']['index']][3]; ?>
+</td>
+                            <td><?php echo $this->_tpl_vars['INV'][$this->_sections['LE']['index']][4]; ?>
+</td>
+                            <td><?php echo $this->_tpl_vars['INV'][$this->_sections['LE']['index']][5]; ?>
+</td>
                             <td>
                                 <!-- <i class="fa fa-pencil-square-o btn load" id="m" data-toggle="modal" href="#modal-invDevo" modulo="inventario"></i> -->
-                                <i class="fa fa-info-circle btn" id="c" data-toggle="modal" href="#modal-invContaComment" modulo="inventario" title="Detalle de Activo" style="color: #3C8FAD"></i>
-                                <i class="fa fa-print btn" codigo="" id="p" data-toggle="modal" href="#modal-invConta" modulo="inventario"></i>
-                                <i class="fa fa-times btn delete" codigo="1" modulo="inventario" id="d" style="color: #D9534F" title="Anular"></i>
+                                <i class="fa fa-info-circle btn" id="c<?php echo $this->_tpl_vars['INV'][$this->_sections['LE']['index']][0]; ?>
+" data-toggle="modal" href="#modal-invContaComment" modulo="inventario" title="Detalle de Activo" style="color: #3C8FAD"></i>
+                                <i class="fa fa-print btn" codigo="" id="p<?php echo $this->_tpl_vars['INV'][$this->_sections['LE']['index']][0]; ?>
+" data-toggle="modal" href="#modal-invConta" modulo="inventario"></i>
+                                <i class="fa fa-times btn delete" codigo="1" modulo="inventario" id="d<?php echo $this->_tpl_vars['INV'][$this->_sections['LE']['index']][0]; ?>
+" style="color: #D9534F" title="Anular"></i>
                             </td>
                         </tr>
-                        <!-- [/section] -->
+                        <?php endfor; endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -102,7 +133,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 ?>
                     <option value="<?php echo $this->_tpl_vars['TIP'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['TIP'][$this->_sections['LE']['index']][1]; ?>
-</option>';
+</option>
                     <?php endfor; endif; ?>
                     </select>
                     </div>
@@ -121,7 +152,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                 </div>
                 <br>
                 <legend><small>Comentario</small></legend>
-                <textarea id="commentfdev" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
+                <textarea id="vdetalle" class="form-control" rows="4" required="required" style="max-height: 200px" readonly></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>

@@ -49,7 +49,9 @@
 		public function kaioken($sel,$tabl,$wher)
 		{
 			if (strpos($wher,'@@usr')) {
-				$usr = str_replace("\0","",$this->usrDecy());
+				require_once '../_config/ecy.php';
+				$cy = new _cy();
+				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
@@ -66,7 +68,7 @@
 				$salida[1] = $rs->fetch_fields();
 				return $salida;
 			}else{
-				return $rs." call krattos('$sel',$tabl,'$wher')";
+				return $rs;//." call krattos('$sel',$tabl,'$wher')";
 			}
 		}
 
@@ -74,18 +76,22 @@
 		{
 
 			if (strpos($args2,'@@usr')) {
-				$usr = str_replace("\0","",$this->usrDecy());
+				require_once '../_config/ecy.php';
+				$cy = new _cy();
+				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+
+
 				$args2 = str_replace('@@usr', $usr, $args2);
 			}
 
-			// if (strpos($wher,'@@impresa')) {
-			// 	$impresa = $_SESSION['IMPRESA'];
-			// 	$wher = str_replace('@@impresa', $impresa, $wher);
+			// // if (strpos($wher,'@@impresa')) {
+			// // 	$impresa = $_SESSION['IMPRESA'];
+			// // 	$wher = str_replace('@@impresa', $impresa, $wher);
 
-			// 	if (($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0)) {
-			// 		$wher = str_replace('and idempresa = '.$impresa, '' , $wher);
-			// 	}
-			// }
+			// // 	if (($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0)) {
+			// // 		$wher = str_replace('and idempresa = '.$impresa, '' , $wher);
+			// // 	}
+			// // }
 
 			$args2 = str_replace("'", '\\\'', $args2);
 			$args2 = str_replace('"', '\\"', $args2);
@@ -102,7 +108,9 @@
 		public function kamehameha($sel,$tabl,$wher){
 
 			if (strpos($wher,'@usr')) {
-				$usr = str_replace("\0","",$this->usrDecy());
+				require_once '../_config/ecy.php';
+				$cy = new _cy();
+				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
@@ -134,7 +142,7 @@
 			if (isset($rs->num_rows)) {
 				return $rs->fetch_all();
 			}else{
-				return $rs." call krattos('$sel',$tabl,'$wher')";
+				return $rs;//." call krattos('$sel',$tabl,'$wher')";
 			}
 		}
 
@@ -156,7 +164,6 @@
 					$param = $ant;
 				$param = str_replace("'", '\\\'', $param);
 				$param = str_replace('"', '\\"', $param);
-				print_r($param);
 			    $salida .= "'".$param."',";
 			}
 			$salida = substr($salida,0,-1);

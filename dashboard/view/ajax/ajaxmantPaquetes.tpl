@@ -87,7 +87,7 @@
               </div>
               <div class=" col-md-2 col-lg-2"></div>
               <div class="col-md-8 col-lg-8">
-              <input type="text" name="" id="descrS" class="form-control" value="" required="required" pattern="" title="" placeholder="Nombre de Servicio">
+              <input type="text" name="" id="descrS" class="form-control" value="" required="required" pattern="" title="" placeholder="Nombre de Servicio" style="width: 182%;">
               </div>
               <div class="col-xs-2" style="padding: 0 1 0 3%">
               <input type="number" name="" id="cantServ" class="form-control" value="" required="required" pattern="" title="" placeholder="1" min="1" value="1">
@@ -102,11 +102,13 @@
           <div class="col-md-6 col-lg-6" style="border-left: 0.5px solid #E2E2E2;">
           <h3>Contenido</h3>
           <legend>Productos</legend>
-          <input name="" id="textProd" class="form-control" required="required">
+          <input id="textProd" class="form-control" required="required">
           <input type="hidden" id="idProdStr" class="form-control" value="0">
           <input type="hidden" id="cProdStr" class="form-control" value="0">
           <legend>Servicios</legend>
-          <textarea name="" id="textServ" class="form-control" rows="3" required="required"></textarea>
+          <input id="textServ" class="form-control" required="required">
+          <input type="hidden" id="idServStr" class="form-control" value="0">
+          <input type="hidden" id="cServStr" class="form-control" value="0">
           </div>
         </div>
         <hr>
