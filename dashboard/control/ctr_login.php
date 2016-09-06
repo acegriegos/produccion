@@ -26,8 +26,7 @@
 		     $_SESSION['EMPRESA'] = $user[0][4];
 		     $_SESSION['IMPRESA'] = $user[0][5];
 		     $_SESSION['TMP_CIA'] = 0;
-
-             $user[0][6] == '' ? header("Location: bienvenida/bienvenida.html") : header("Location: ../dashboard/main");
+             $user[0][6] == '' ? header("Location: ../bienvenida/bienvenida.html") : header("Location: ../dashboard/main");
 		     
 		   }
     	}else{
@@ -43,6 +42,7 @@
 		   
 		   	$smarty->assign('NAV',$pg);
 		   	$smarty->display('login.tpl');
+
 		   }
 		}
    }else{
@@ -81,6 +81,10 @@
    		case 7:
    			$transaccion = $log->genkidama($_REQUEST['arreglo']['accion'],$_REQUEST['arreglo']['tabla'],$_REQUEST['arreglo']['arg1'],$_REQUEST['arreglo']['arg2']);
    			break;
+   		case 8:
+   			
+		   	break;
+
    	}
 	if(!$pagina){
 	   	if (is_array($transaccion)){

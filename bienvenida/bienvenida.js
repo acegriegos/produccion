@@ -24,11 +24,10 @@ $(function(){
 
 	$("#licencia").submit(function(){
 		var arr = {};
-		arr['sel'] = 'codigo';
+		arr['sel'] = 'aes_decrypt(codigo,"lt2016")';
 		arr['tbl'] = 1;
-		arr['where'] = 'id = @@usr';
+		arr['where'] = 'id = @@usr and bcambioPSSW = 1';
 		var code = mantenimiento('login',4,arr)[0][0];
-		// alert(code++$("#").)
 
 		if ($("#vlicencia").val() == code) {
 			$("#licencia").hide();
@@ -42,7 +41,7 @@ $(function(){
 
 });
 
-$(document).on("click",".addinfo",function(){
+$(document).on("click","#addinfo",function(){
 	var validar = validarAjuste();
 	if(validar  == false){
 		var arr = {};
@@ -50,12 +49,55 @@ $(document).on("click",".addinfo",function(){
 		arr['tbl'] = 47;
 		arr['where'] = '1,\"'+$("#vnombre").val()+'\",\"'+$("#vcedula").val()+'\",\"'+$("#vtelefono").val()+'\",\"'+$("#vcorreo").val()+'\",\"'+$("#vdireccion").val()+'\"'
 		mantenimiento('login',4,arr);
+		$("#info").hide();
+		$("#imp").show();
 	}else{
 		$("#err2").show();
 		$("#errm2").html(validar)
 	}
 
 });
+
+$(document).on("click","#saveim",function(){
+
+	var imv = $("#vimv").val();
+	var ims = $("#vims").val();
+	var imp = $("#vimp").val();
+	var imsa = $("#vimsa").val();
+	var validar = validarImpuesto();
+	if(validar  == false){
+		var arr = {};
+		arr['sel'] = '';
+		arr['tbl'] = 48;
+		arr['where'] = '1,\"'+imv+'\",\"'+ims+'\",\"'+imp+'\",\"'+imsa+'\"'
+		mantenimiento('login',4,arr);
+
+		var arr = {};
+		arr['accion'] = 2;
+		arr['tabla'] = 1;
+		arr['arg1'] = 'bcambioPSSW = 0';
+		arr['arg2'] = 'id = @@usr';
+		window.open('../dashboard/logout','_self');
+
+	}else{
+		$("#err2").show();
+		$("#errm2").html(validar)
+	}
+
+});
+
+// $(document).on("click","#finish",function(){
+// 	if ($(this).attr('valida') == 2) {
+		
+// 		var arr = {};
+// 		arr['accion'] = 2;
+// 		arr['tabla'] = 1;
+// 		arr['arg1'] = 'bcambioPSSW = 0';
+// 		arr['arg2'] = 'id = @@usr';
+// 		window.open('../dashboard/logout','_self');
+
+// 	}
+// });
 
 function validarAjuste() {
 	if ($("#vnombre").val() == '') {
@@ -81,6 +123,29 @@ function validarAjuste() {
 	if ($("#vdireccion").val() == '') {
 		$("#vdireccion").focus();
 		return "Dirección de la Empresa Requerida";
+	}
+	return false;
+}
+
+function validarImpuesto() {
+	if ($("#vimv").val() == '') {
+		$("#vimv").focus();
+		return "Impuesto de Venta Requerid";
+	}
+
+	if ($("#vims").val() == '') {
+		$("#vims").focus();
+		return "Impuesto de Servicio Requerido";
+	}
+
+	if ($("#vimp").val() == '') {
+		$("#vimp").focus();
+		return "Impuesto al Patrimonio Requerido";
+	}
+
+	if ($("#vimsa").val() == '') {
+		$("#vimsa").focus();
+		return "Impuesto a las Sociedades Requerido";
 	}
 	return false;
 }
