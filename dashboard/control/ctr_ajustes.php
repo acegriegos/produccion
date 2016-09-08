@@ -7,7 +7,7 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	   
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_ajustes.tpl');
@@ -18,10 +18,12 @@
 	   			$transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   			break;
 	   		case 2:
-
+	   			$pagina = 1;
+	   			include 'view/ajax/ajaxDatosEmpresa.tpl';
 	   			break;
 	   		case 3:
-	   			
+	   			$pagina = 1;
+	   			include 'view/ajax/ajaxImpuestos.tpl';
 	   			break;
 	   		case 4:
 	   			

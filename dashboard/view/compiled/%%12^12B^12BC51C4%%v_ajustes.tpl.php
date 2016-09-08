@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-08 19:52:41
+<?php /* Smarty version 2.6.17, created on 2016-09-08 22:22:27
          compiled from v_ajustes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -35,117 +35,20 @@
                     <a class="nav-link menu3 active" id="m1" href="#">Empresa</a>
                 </li>
                 <li class="nav-item menu3" id="m2">
-                    <a class="nav-link" href="#">Servicios</a>
+                    <a class="nav-link" href="#">Impuestos</a>
                 </li>
-                <li class="nav-item menu3" id="m3">
-                    <a class="nav-link" href="#">Paquetes</a>
-                </li>
+                <!-- <li class="nav-item menu3" id="m3">
+                    <a class="nav-link" href="#"></a>
+                </li> -->
             </ul>
         </nav>
         <br>
-        <div class="card">
-            <h3 class="card-header">Datos de la Empresa</h3>
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Nombre</b></div>
-                            <input type="text" class="form-control" id="vnombre" placeholder="Nombre de la Empresa">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Cédula Jurídica</b></div>
-                            <input type="text" class="form-control" id="vcedula" placeholder="Cédula Jurídica">
-                        </div>
-                    </div>
-                </div><br>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Teléfono</b></div>
-                            <input type="text" class="form-control" id="vtelefono" placeholder="Teléfono de la Empresa">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Correo</b></div>
-                            <input type="text" class="form-control" id="vcorreo" placeholder="Correo Contacto de la Empresa">
-                        </div>
-                    </div>
-                </div><br>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Dirección</b></div>
-                            <input type="text" class="form-control" id="vdireccion" placeholder="DIrección de la Empresa">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-primary der" id="actinfo">Actualizar</button>
-                    </div>
-                </div><br>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <input type="file" id="archivo" name="imagen" multiple="false" class="file-loading">
-                    </div>
-                </div><br>
-                <div class="alert alert-danger err_" id="err1" style="display: none">
-                    <strong id="errm1"></strong>
-                </div>
-                <div class="alert alert-success suc_" id="suc1" style="display: none">
-                    <strong id="sucm1"></strong>
-                </div>
-            </div>
-        </div>
+        <div id="majustes"></div>
+        
 
-        <div class="card">
-            <h3 class="card-header">Impuestos</h3>
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Nombre Impuesto</b></div>
-                            <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
-                            <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6"></div>
-                </div><br><br>
-                <div id="dimpuestos"></div><br>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6"></div>
-                    <div class="col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-primary der" id="actimp">Actualizar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
-        <div class="card">
-            <h3 class="card-header">Período Fiscal</h3>
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Fecha Inicio</b></div>
-                            <input type="date" id="vfechainicio" class="form-control" value="">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Fecha Cierre</b></div>
-                            <input type="date" id="vfechafinal" class="form-control" value="">
-                        </div>
-                    </div>
-                </div><br>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <button type="button" class="btn btn-primary der" id="sfechafiscal">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div><br><br>
+        
         
 
     </div>
