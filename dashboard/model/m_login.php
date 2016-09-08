@@ -13,7 +13,7 @@
 			if (isset($arreglo['atributos']['vidusuario'])) {
 				if ($arreglo['atributos']['vidusuario'] == '') {
 					$cy = new _cy();
-					$arreglo['atributos']['vidusuario'] = str_replace("\0","",$cy->decy($_SESSION['ID']));
+					$arreglo['atributos']['vidusuario'] = str_replace("\0","",$cy->decy($_SESSION['USR']));
 				}
 			}
 

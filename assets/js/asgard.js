@@ -72,7 +72,6 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
-            alert(1)
             $('#err'+codigo).show();
             $('#errm'+codigo).html(p[0]['ERROR']);
         }else{
@@ -94,7 +93,6 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
                 window.open(modulo+"s?accion=5&id="+id+"&tp="+$("#t_p").val());
                 setTimeout(function(){ location.reload(); }, 1000);
             }else{
-                alert(arreglo['modulo'])
                 setTimeout(function(){ deadclear(arreglo['modulo']); }, 2000);
                 thorload(modulo);
             }
@@ -200,6 +198,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
             data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
             })
             .done(function(data) {
+                console.error(data)
                 try {
                     p = JSON.parse(data);
                 }

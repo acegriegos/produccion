@@ -180,6 +180,9 @@ function validar (varreglo,vmodulo) {
 				if ( err ) {
 					return err;
 				}
+			}else{
+				$("#vlimite").val('08:00');
+				$("#vlimite2").val('15:00')
 			}
 			break;
 		default:

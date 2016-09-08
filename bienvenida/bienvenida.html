@@ -79,59 +79,111 @@
 	<h3>Configuracion</h3><hr>
 	<p>Su producto ha sido activado con éxito. Siga las instrucciones para la configuración del sistema.</p><br>
 
-	<div class="card">
-	  <div class="card-header card-info">
+	<div class="card" id="info">
+	  	<div class="card-header card-info">
 	    <h4 class="card-title">1- Información de la empresa</h4>
-	  </div>
-	  <div class="card-block">
-	    <div class="row">
-	    	<div class="col-md-6 col-lg-6">
-	    		<div class="input-group">
-	    			<div class="input-group-addon"><b>Nombre</b></div>
-	    			<input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la empresa">
-	    		</div>
-	    	</div>
-	    	<div class="col-md-6 col-lg-6">
-	    		<div class="input-group">
-	    			<div class="input-group-addon"><b>Cédula</b></div>
-	    			<input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica">
-	    		</div>
-	    	</div>
-	    </div><br>
-	    <div class="row">
-	    	<div class="col-md-6 col-lg-6">
-	    		<div class="input-group">
-	    			<div class="input-group-addon"><b>Teléfono</b></div>
-	    			<input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la empresa Ej,24444-4444 || 88888888" data-mask="9999-9999 || 9999-9999 || 9999-9999">
-	    		</div>
-	    	</div>
-	    	<div class="col-md-6 col-lg-6">
-	    		<div class="input-group">
-	    			<div class="input-group-addon"><b>Correo</b></div>
-	    			<input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo">
-	    		</div>
-	    	</div>
-	    </div><br>
-	    <div class="row">
-	    	<div class="col-md-6 col-lg-6">
-	    		<div class="input-group">
-	    			<div class="input-group-addon"><b>Dirección</b></div>
-	    			<input type="text" id="vdireccion" class="form-control infoempresa" value="" placeholder="Dirección de la empresa">
-	    		</div>
-	    	</div>
-	    	<div class="col-md-6 col-lg-6">
-	    		<button type="button" class="btn btn-primary der addinfo" codigo="2">Guardar</button>
-	    	</div>
-	    </div><br>
-	    <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
-	    	<strong id="errm2"></strong>
-	    </div>
-	    <div class="alert alert-success suc_" id="suc2" style="display: none">
-	    	<strong id="sucm2"></strong>
-	    </div>
-	  </div>
+	  	</div>
+	  	<div class="card-block">
+		    <div class="row">
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Nombre</b></div>
+		    			<input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la empresa">
+		    		</div>
+		    	</div>
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Cédula</b></div>
+		    			<input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica">
+		    		</div>
+		    	</div>
+		    </div><br>
+		    <div class="row">
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Teléfono</b></div>
+		    			<input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la empresa Ej,24444-4444 || 88888888" data-mask="9999-9999 || 9999-9999 || 9999-9999">
+		    		</div>
+		    	</div>
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Correo</b></div>
+		    			<input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo">
+		    		</div>
+		    	</div>
+		    </div><br>
+		    <div class="row">
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Dirección</b></div>
+		    			<input type="text" id="vdireccion" class="form-control infoempresa" value="" placeholder="Dirección de la empresa">
+		    		</div>
+		    	</div>
+		    	<div class="col-md-6 col-lg-6">
+		    		<button type="button" class="btn btn-primary der" id="addinfo" codigo="2">Guardar</button>
+		    	</div>
+		    </div><br>
+		    <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
+		    	<strong id="errm2"></strong>
+		    </div>
+		    <div class="alert alert-success suc_" id="suc2" style="display: none">
+		    	<strong id="sucm2"></strong>
+		    </div>
+	  	</div>
 	</div>
 
+	<div class="card inv" id="imp">
+	  	<div class="card-header card-info">
+	    <h4 class="card-title">2- Impuestos</h4>
+	  	</div>
+	  	<div class="card-block">
+		    <div class="row">
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Impuesto Venta</b></div>
+		    			<input type="text" class="form-control impuestos" id="vimv" placeholder="0.00" data-mask="999">
+		    			<div class="input-group-addon"><b>%</b></div>
+		    		</div>
+		    	</div>
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Impuesto Servicio</b></div>
+		    			<input type="text" class="form-control impuestos" id="vims" placeholder="0.00" data-mask="999">
+		    			<div class="input-group-addon"><b>%</b></div>
+		    		</div>
+		    	</div>
+		    </div><br>
+		    <div class="row">
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Impuesto Patrimonio</b></div>
+		    			<input type="text" class="form-control impuestos" id="vimp" placeholder="0.00" data-mask="999">
+		    			<div class="input-group-addon"><b>%</b></div>
+		    		</div>
+		    	</div>
+		    	<div class="col-md-6 col-lg-6">
+		    		<div class="input-group">
+		    			<div class="input-group-addon"><b>Impuesto Sociedad</b></div>
+		    			<input type="text" class="form-control impuestos" id="vimsa" placeholder="0.00" data-mask="999">
+		    			<div class="input-group-addon"><b>%</b></div>
+		    		</div>
+		    	</div>
+		    </div><br>
+		    <div class="row">
+		    	<div class="col-md-12 col-lg-12">
+		    		<button type="button" class="btn btn-primary der" id="saveim">Guardar</button>
+		    	</div>
+		    </div><br>
+		    <div class="alert alert-danger err_" id="err3" align="center" style="display: none">
+		    	<strong id="errm3"></strong>
+		    </div>
+		    <div class="alert alert-success suc_" id="suc3" style="display: none">
+		    	<strong id="sucm3"></strong>
+		    </div>
+	  	</div>
+	</div>
+<!-- <br><button type="button" class="btn btn-primary der" valida="0" id="finish">Terminar</button> -->
+<br><br>
 
 </div>
 
