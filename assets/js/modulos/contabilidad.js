@@ -13,11 +13,13 @@ $(document).on("click","#Iadd",function(){
 $(document).ready(function(){
 	$("[modulo=scontabilidad]").attr('max',$("[cod]").length / 2) ;
 	
+
 	$("#vgenero").change(function(){
 		var arr = {};
 		arr['sel'] = 'id,nombre,numero';
 		arr['tbl'] = 36;
 		arr['where'] = 'idsubcuenta = '+$("option:selected",this).val();
+		$(this).attr('lvl',$("option:selected",this).val());
 		
 		var rs = mantenimiento('login',6,arr);
 		$(".myh3").append($("option:selected",this).attr('num')+"-"+$("option:selected",this).text()+"<br>"+"&nbsp>");
@@ -27,36 +29,43 @@ $(document).ready(function(){
             $("#vnombre").focus();
             
 		}
-		else{
-			$(this).attr('lvl',$("option:selected",this).val());
+		else
 			$(this).html(rs);
-		}
 	});
 
 	$(".slidel").click(function(){
-		slide($("[cod]:visible").attr('cod'),-1);
+		//slide($("[cod]:visible").attr('cod'),-1);
 	});
 
 });
 
+$(document).on("keyup","#vnombre",function(e){
+	var code = e.which || e.keyCode
+	if(code == 13)
+		$(".addglobal").click();
+})
+
 $(document).on("click",".addglobal",function(){
+
 	if($("#vnombre").is(":visible")){
 		var arr = {}
 		arr['sel'] = '';
 		arr['tbl'] = 37;
-		arr['where'] = '1,0,'+$("#vgenero option:selected").val()+',"'+$('#vnombre').val()+'",@@usr';
+		arr['where'] = '1,0,'+$("#vgenero").attr('lvl')+',"'+$('#vnombre').val()+'",@@usr';
 
-		mantenimiento('login',4,arr);
+		mantenimiento('login',4,arr);//INGRESAR CUENTA
 
-		var arr = {};
+		arr = {};
 		arr['sel'] = 'id,nombre,numero';
 		arr['tbl'] = 36;
-		arr['where'] = 'idsubcuenta = '+$("#vgenero option:selected").val();
+		arr['where'] = 'idsubcuenta = '+$("#vgenero").attr('lvl');
 
-		$("#vgenero").attr('lvl',$("#vgenero option:selected").val());
 		$("#vgenero").html(mantenimiento('login',6,arr));
 
 		slide($("[cod]:visible").attr('cod'),-1);
+
+		$("#show_cuentas").append('<div class="card-block"><div class="row" id="vcuentas"><div class="col-md-6 col-lg-6">{$VCUE[LE][0]}</div><div class="col-md-6 col-lg-6">{$VCUE[LE][1]}</div></div></div>');
+		
 	}else{
 		slide($("[cod]:visible").attr('cod'),1);
 		$("#vnombre").val('');

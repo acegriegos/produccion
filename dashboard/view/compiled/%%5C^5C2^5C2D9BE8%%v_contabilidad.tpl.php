@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-01 11:27:52
+<?php /* Smarty version 2.6.17, created on 2016-09-07 19:27:54
          compiled from v_contabilidad.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,9 +40,6 @@
                 </li>
                 <li class="nav-item menu3" id="m2">
                     <a class="nav-link" href="#">Asientos</a>
-                </li>
-                <li class="nav-item menu3" id="m3">
-                    <a class="nav-link" href="#">Paquetes</a>
                 </li>
             </ul>
         </nav>
@@ -91,7 +88,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                     <div class="input-group-addon slide" cod="2" style="display:none"><b>Descripción</b></div>
                     <input type="text" class="form-control slide" cod="2" style="display:none" id="vnombre" placeholder="">
                     <div class="input-group-addon addglobal btn"><i class="fa fa-plus"></i></div>
-                    <div class="input-group-addon slidel btn" style="display:none"><i class="fa fa-arrow-left"></i></div>
+                    <div class="input-group-addon moveL btn" style="display:none"><i class="fa fa-arrow-left"></i></div>
                     <div class="input-group-addon slider btn" style="display:none"><i class="fa fa-arrow-right"></i></div>
                 </div><br>
                 <small class="myh3"></small>
@@ -104,7 +101,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
             </div>
             <div class="col-md-1 col-lg-1"></div>
             <div class="col-md-6 col-lg-6">
-                <div class="card">
+                <div class="card" id="show_cuentas">
                     <div class="card-header">
                         <h3>Cuentas</h3>
                     </div>
