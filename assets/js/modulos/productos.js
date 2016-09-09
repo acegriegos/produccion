@@ -504,10 +504,11 @@ $(document).on("keyup",".calcvv",function(){
 	var costo = isNaN($("#vcosto").val()) ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
 	var ganancia = isNaN($("#vganancia").val()) ? 0 : parseFloat($("#vganancia").val().replace(/,/g,""));
 	var imv = isNaN($("#vimv").val()) || $("#vimv").val() <= 0 ? mantenimiento('login',4,{sel:'valor',tbl:15,where:'descr="imv"'})[0][0][0] : parseFloat($("#vimv").val().replace(/,/g,""));
+	var moneda = parseFloat($("#vmoneda").val().replace(/,/g,""))
 	var vventa = 0;
 
 	if (costo != 0 && imv != 0) {
-		vventa = costo * ((ganancia/100)+1) * ((imv/100)+1);
+		vventa = (costo * moneda) * ((ganancia/100)+1) * ((imv/100)+1);
 	}
 
 	$("#vventa").val( (vventa).toFixed(2) );
@@ -620,16 +621,36 @@ $(document).on("click","#ingInvProd",function(){
 
 	setTimeout(function(){ $("#fproductos").find($("#vidfamilia")).focus(); }, 500);
 	$("#ajaxProductos").html('');
+
+	var arr2 = {};
+	arr2['sel'] = '*';
+	arr2['tbl'] = 54;
+	arr2['where'] = 'id > 0';
+	var monedas = mantenimiento('login',6,arr2);
+	$("#monedas").html(monedas);
+
 	$("#vcosto").val('0.00');
 	$("#vganancia").val('0.00');
-
 	var arr = {};
 	arr['sel'] = 'valor';
-	arr['tbl'] = 15;
-	arr['where'] = 'id = 8';
+	arr['tbl'] = 51;
+	arr['where'] = 'id = 1';
 
 	var imv = mantenimiento('login',4,arr)[0][0];
 	$("#vimv").val(imv);
+	$("#vidmoneda").change();
+});
+
+$(document).on("change","#vidmoneda",function(){
+	var id = $("option:selected",this).val();
+	var arr = {};
+	arr['sel'] = 'valor,simbolo';
+	arr['tbl'] = 54;
+	arr['where'] = 'id = '+id;
+	var s = mantenimiento('login',4,arr)[0][0];
+	$(".simbolo").text(s[1])
+	$("#vmoneda").val(s[0])
+	$(".calcvv").keyup();
 });
 
 $(document).on("click","#ingInvServ",function(){
@@ -854,7 +875,7 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'producto':
-			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idmodelo as vidmodelo';
+			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as 	,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idmodelo as vidmodelo';
 			vmodulo['tbl'] = 14;
 			vmodulo['where'] ='id = '+vid;
 			break;

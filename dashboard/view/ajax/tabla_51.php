@@ -12,18 +12,22 @@ for ($i=0; $i < sizeof($transaccion); $i++) {
  			<div class="input-group">
  				<div class="input-group-addon"><b>'.$transaccion[$i][1].'</b></div>
  				<input type="text" class="form-control eder" id="'.$transaccion[$i][1].'" placeholder="Impuesto de '.$transaccion[$i][1].'" value="'.$transaccion[$i][2].'" vid="'.$transaccion[$i][0].'" name="impuesto">
- 				<div class="input-group-addon"><b>%</b></div>
- 				<div class="input-group-addon btn"><i class="fa fa-times delimp" id="'.$transaccion[$i][0].'"></i></div>
- 			</div>
+ 				<div class="input-group-addon"><b>%</b></div>';
+ 				if ($transaccion[$i][0] != 1) {
+ 					echo '<div class="input-group-addon btn"><i class="fa fa-times delimp" id="'.$transaccion[$i][0].'"></i></div>';
+ 				}
+ 			echo '</div>
 		</div><br><br><br>';
 	}else{
 		echo '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 			<div class="input-group">
 				<div class="input-group-addon"><b>'.$transaccion[$i][1].'</b></div>
 					<input type="text" class="form-control eder" id="'.$transaccion[$i][1].'" placeholder="Impuesto de '.$transaccion[$i][1].'" value="'.$transaccion[$i][2].'" vid="'.$transaccion[$i][0].'" name="impuesto">
-				<div class="input-group-addon"><b>%</b></div>
-				<div class="input-group-addon btn"><i class="fa fa-times delimp" id="'.$transaccion[$i][0].'"></i></div>
-			</div>
+				<div class="input-group-addon"><b>%</b></div>';
+				if ($transaccion[$i][0] != 1) {
+					echo '<div class="input-group-addon btn"><i class="fa fa-times delimp" id="'.$transaccion[$i][0].'"></i></div>';
+				}
+			echo '</div>
 		</div>';
 	}
 }
