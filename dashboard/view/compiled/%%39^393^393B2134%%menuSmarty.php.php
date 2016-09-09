@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<?php /* Smarty version 2.6.17, created on 2016-09-08 17:36:51
+=======
 <?php /* Smarty version 2.6.17, created on 2016-09-07 17:56:05
+>>>>>>> 016f8398e5acc769235bd605f82c61029fa3998e
          compiled from ../view/menuSmarty.php */ ?>
 <link rel="stylesheet" href="../assets/css/modulos/style-login.css">
 <link rel="stylesheet" href="../assets/fonts/tipografia.css">
