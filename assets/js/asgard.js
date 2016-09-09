@@ -184,6 +184,22 @@ function mantenimiento(vmodulo,vaccion, varreglo){
     return p;
 }
 
+function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
+    arr = {};
+    arr['sel'] = vsel;
+    arr['tbl'] = vtbl;
+    arr['where'] = vwhere;
+    if (vcambio != '') 
+        arr['cambio'] = vcambio;
+    
+    if (vch){
+        velemto.html(mantenimiento(vref,vaccion,arr));
+        return 1;
+    }
+    else
+        return mantenimiento(vref,vaccion,arr)
+}
+
  function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),

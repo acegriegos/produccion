@@ -1,3 +1,38 @@
 .myh3{
     color: green;
 }
+
+#vcuentas{
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.list-group-item:hover{
+    background-color: #60605F;
+    color: white;
+}
+
+.trtable{
+    background-color: white;
+    color: black;
+}
+
+.trtable tr td,thead th{
+    border: 1px solid #e2e2e2;
+}
+
+.trtable thead th{
+    text-align: center;
+}
+
+.blc1{
+    background-color: white;
+    padding-top: 3px;
+    margin-top: 0px;
+}
+
+.tdtext{
+    width: 100%;
+    margin: 0px;
+    border: 0px;
+}

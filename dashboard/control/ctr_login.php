@@ -71,6 +71,9 @@
    			if (isset($_REQUEST['arreglo']['join'])) {
    				$join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
    			}
+            if(isset($_REQUEST['arreglo']['cambio'])){
+                $_REQUEST['arreglo']['tbl'] = $_REQUEST['arreglo']['cambio'];
+            }
             
    			if (sizeof($transaccion) == 0) {
    				$pagina = 0;
