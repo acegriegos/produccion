@@ -3,7 +3,7 @@
                 <h3>Ingresar Cuenta</h3>
                 <div class="input-group" modulo="scontabilidad">
                     <div class="input-group-addon slide" cod="1"><b>Cuenta</b></div>
-                    <input type="text" id="genero" class="form-control" value="" required="required" placeholder="Nombre Genero" style="display:none">
+                    
                     <select class="form-control slide" cod="1" id="vgenero" lvl="0">
                         <option value="0">Seleccione una Opción</option>
                         {section name=LE loop=$CUE}
@@ -12,7 +12,7 @@
                     </select>
 
                     <div class="input-group-addon slide" cod="2" style="display:none"><b>Descripción</b></div>
-                    <input type="text" class="form-control slide" cod="2" style="display:none" id="vnombre" placeholder="">
+                    <input type="text" class="form-control slide" cod="2" style="display:none" id="vnombre" placeholder="Nombre Cuenta" maxlength="20">
                     <div class="input-group-addon addglobal btn"><i class="fa fa-plus"></i></div>
                     <div class="input-group-addon moveL btn" style="display:none"><i class="fa fa-arrow-left"></i></div>
                     <div class="input-group-addon slider btn" style="display:none"><i class="fa fa-arrow-right"></i></div>
@@ -35,9 +35,9 @@
                                             </i>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 <a class="dropdown-item vfiltros" href="#" filtro="f1">Filtro Normal</a>
-                                                <a class="dropdown-item vfiltros" href="#" filtro="f2">Valor Igual a</a>
-                                                <a class="dropdown-item vfiltros" href="#" filtro="f3">Valor Mayor o Igual a</a>
-                                                <a class="dropdown-item vfiltros" href="#" filtro="f4">Valor Menor o Igual a</a>
+                                                <a class="dropdown-item vfiltros" href="#" filtro="f2">Saldo Igual a</a>
+                                                <a class="dropdown-item vfiltros" href="#" filtro="f3">Saldo Mayor o Igual a</a>
+                                                <a class="dropdown-item vfiltros" href="#" filtro="f4">Saldo Menor o Igual a</a>
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                 Descripción
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" align="center">
-                                Valor(CRC)
+                                Saldo(CRC)
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-2 col-lg-2">
         <ul class="list-group">
+          <li class="list-group-item btn func" fn="f1" id="fn1">Realizar Transacción</li>
+          <li class="list-group-item btn func" fn="f1">Ver Transacciones</li>
           <li class="list-group-item btn func" fn="f1">Realizar Transacción</li>
         </ul>
     </div>
@@ -8,11 +10,21 @@
     <div class="col-md-9 col-lg-9" id="show_transac">
         
         <!-- Funcion 1 -->
-
+        <div id='ftransacciones'>  
         <div style="display: none" class="sub-tran" id="t1">
             <div class="input-group">
                 <div class="input-group-addon"><b>Descripción</b></div>
                 <input type="text" class="form-control" id="vdescripcion" placeholder="Descripcion de la Transacción" maxlength="100">
+            </div>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                <input type="date" class="form-control" id="vfecha" style="height: 38px;" value="{$smarty.now|date_format:'%Y-%m-%d'}">
+                <div class="input-group-addon">Moneda</div>
+                <select type="select" id="vidmoneda" class="form-control" required="required">
+                    {section name=LE loop=$MON}
+                        <option value="{$MON[LE][0]}">{$MON[LE][1]}</option>
+                    {/section}
+                </select>
             </div>
            
            <!-- <div class="form-group">
@@ -31,10 +43,10 @@
                         <th>Cuenta</th>
                         <th>Descripción</th>
                         <th>Debe</th>
-                        <th>haber</th>
+                        <th>Haber</th>
                     </tr>
                 </thead>
-                <tbody id="detalletransacciones">
+                <tbody id="detalletransaccione">
                     
                 </tbody>
                 <tfoot>
@@ -47,13 +59,21 @@
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <button type="button" class="btn btn-primary">Aceptar</button>
+                            <input type="hidden" id="vidempresa" value="{$smarty.session.IMPRESA}">
+                            <button type="button" class="btn btn-primary add der" codigo="1" modulo="transaccione" detalle="1">Aceptar</button>
+                            <div class="alert alert-danger" align="center" style="height: 38px; padding: 6px;display: none" id="err1">
+                                <small><strong id="errm1"></strong></small>
+                            </div>
+                            <div class="alert alert-success" align="center" style="height: 38px; padding: 6px;display: none" id="suc1">
+                                <small><strong id="sucm1"></strong></small>
+                            </div>
                         </td>
                     </tr>
                 </tfoot>
             </table>
         </div>
 
+        </div>
         <!-- /Funcion 1 -->
 
     </div>

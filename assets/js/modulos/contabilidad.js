@@ -15,9 +15,7 @@ $(function(){
 				break;
 			case 2:
 				//$('#datetimepicker2').datetimepicker();
-				for (var i = 1; i < 10; i++) {
-					$('#detalletransacciones').append('<tr id="f'+i+'"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="e'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="h'+i+'"></td></tr>')
-				}
+
             break;
 		}
 
@@ -46,11 +44,26 @@ $(document).on("click",".vfiltros",function(){
 	ftr = id;
 });
 
+$(document).on("keyup","#vdescripcion",function(e){
+	var code = e.which || e.keyCode;
+	if(code == 13){
+		$('#detalletransaccione tr td input[type=text]').first().focus()
+	}
+});
+
 $(document).on("keyup","[id^=f]",function(e){
 	var code = e.which || e.keyCode;
 	if(code == 46){
 		$(this).remove();
-		$('#detalletransacciones').append('<tr id="f'+i+'"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="e'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="h'+i+'"></td></tr>')
+		var id = parseInt($('#detalletransaccione tr').last().attr('id').substr(1))+1
+		$('#detalletransaccione').append(getFila(id))
+	}
+});
+
+$(document).on("keyup","[id^=c]",function(e){
+	var code = e.which || e.keyCode;
+	if(code != 13){
+		$('#f'+$(this).attr('id').substr(1)).attr('st',0);
 	}
 });
 
@@ -58,22 +71,129 @@ $(document).on("keyup",".tdtext",function(e){
 	var code = e.which || e.keyCode;
 
 	if(code == 13){
-		var id = $(this).attr('id').substr(1);
-		var spec = $(this).attr('id').substring(0,1);
-
+		var id = parseInt($(this).attr('id').substr(1));
+		var spec = $(this).attr('id').substring(0,2);
+		
 		switch(spec){
-			case 'c':
+			case 'vd':
+				id = parseInt($(this).attr('id').substr(5));
+				if($(this).val() == '0.00' || $(this).val() == ''){
+					$(this).val('');
+					$('#vhaber'+id).val('0.00');
+					$('#vhaber'+id).select();
+					$('#vhaber'+id).focus();
+				}else{
+					$('#vhaber'+id).val('0.00');
+					$('#c'+(id+1)).focus()
+				}
+				totalizar();
+				break;
+			case 'vh':
+				id = parseInt($(this).attr('id').substr(6));
+				if($(this).val() == '0.00' || $(this).val() == ''){
+					$(this).val('');
+					$('#vdebe'+id).val('0.00');
+					$('#vdebe'+id).select();
+					$('#vdebe'+id).focus();
+				}else{
+					$('#vdebe'+id).val('0.00');
+					$('#c'+(id+1)).focus()
+				}
+				totalizar();
+				break;
+			default:
+				var rs = arr('login',4,'',53,"'"+$(this).val()+"',1",'',0,'')[0][0];
+				
+				if(rs != undefined && $(this).val() != ''){
+					var repetido = 0;
 
-				$('#e'+id).focus()
+					$('#detalletransaccione tr').each(function(){
+						if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
+							repetido = 1;
+					});
+
+					if(!repetido){
+						$('#c'+id).val(rs[0])
+						$('#d'+id).val(rs[1])
+						$('#vdebe'+id).val('0.00');
+						$('#vdebe'+id).select();
+						$('#vdebe'+id).focus();
+						$('#f'+id).attr('st',1)
+						$('#vidcuenta'+id).val(rs[3])
+					}else{
+						$(this).focus();
+						$(this).select();
+						$('#vdebe'+id).val('');
+						$('#vhaber'+id).val('');
+						$('#f'+id).attr('st',0)
+						$('#vidcuenta'+id).val('')
+					}
+				}else{
+					$(this).focus();
+					$(this).select();
+					$('#vdebe'+id).val('');
+					$('#vhaber'+id).val('');
+					$('#f'+id).attr('st',0)
+					$('#vidcuenta'+id).val('')
+				}
 				break;
 		}
 	}
 });
 
+$(document).on("blur",".tdtext",function(){
+	
+	var id = parseInt($(this).attr('id').substr(1));
+	var spec = $(this).attr('id').substring(0,2);
+
+	switch(spec){
+		case 'vd':
+			if($(this).val() == '0.00' || $(this).val() == ''){
+				$(this).val('');
+				$('#vhaber'+id).val('0.00');
+				$('#vhaber'+id).select();
+				$('#vhaber'+id).focus();
+			}else{
+				$('#vhaber'+id).val('0.00');
+				$('#c'+(id+1)).focus()
+			}
+			break;
+		case 'vh':
+			if($(this).val() == '0.00' || $(this).val() == ''){
+				$(this).val('');
+				$('#vdebe'+id).val('0.00');
+				$('#vdebe'+id).select();
+				$('#vdebe'+id).focus();
+			}else{
+				$('#vdebe'+id).val('0.00');
+				$('#c'+(id+1)).focus()
+			}
+			break;
+		default:
+			break;
+	}
+});
+
 $(document).on("click",".func",function(){
 	var id = parseInt($(this).attr('fn').substr(1))
-	$(".sub-tran").hide('fast');
-	$("#t"+id).show('fast');
+	$(".sub-tran").hide();
+	$("#t"+id).show();
+
+	switch(id){
+		case 1:
+			$('#detalletransaccione').html('');
+			for (var i = 1; i < 10; i++) {
+				$('#detalletransaccione').append(getFila(i))
+			}
+			$('#suc1').hide();
+			$('#totDebe').html('');
+			$('#totHber').html('');
+			$('#ftransacciones').find('#vdescripcion').val('')
+			$('#ftransacciones').find('#vdescripcion').focus()
+			break;
+		default:
+			break;
+	}	
 });
 
 $(document).on("keyup","#vbusqueda",function(e){
@@ -148,6 +268,21 @@ $(document).on("click",".addglobal",function(){
 	}
 });
 
+function totalizar(){
+	var vdebe = vhaber = 0;
+
+	$('#detalletransaccione tr').each(function(){
+		if($(this).attr('st') == 1){
+			var id = $(this).attr('id').substr(1);
+			vdebe += parseFloat($('#vdebe'+id).val());
+			vhaber += parseFloat($('#vhaber'+id).val());
+		}
+	});
+
+	$('#totDebe').html(vdebe.formatMoney(2,'.',','));
+	$('#totHber').html(vhaber.formatMoney(2,'.',','));
+}
+
 function slide(cod,suma) {
 	var max = $("[modulo=scontabilidad]").attr('max');
 	var siguiente = parseInt(cod) + suma;
@@ -170,9 +305,9 @@ function validar (varreglo,vmodulo) {
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
-		case 'contabilidad':
+		case 'transaccione':
 			if (vmodulo['tip'] == '') {
-				err = validarcontabilidad();
+				err = validartransacciones();
 				if ( err ) {
 					return err;
 				}
@@ -189,9 +324,26 @@ function validar (varreglo,vmodulo) {
 
 }
 
-function validarcontabilidad() {
+function endDetail(vid) {
+	setTimeout(function(){ $('#fn1').click(); }, 2000);
+	return false;
+}
 
+function validartransacciones() {
 
+	if ($('#ftransacciones').find('#vdescripcion').val() == '') {
+		$('#ftransacciones').find('#vdescripcion').focus();
+		return 'Descripción Requerida';
+	}
+
+	/*if ($('#ftransacciones').find('#vfecha').val() == '') {
+		$('#ftransacciones').find('#vfecha').val() = ;
+	}*/
+
+	if (parseFloat($('#ftransacciones').find('#totDebe').html()) == 0.00 && parseFloat($('#ftransacciones').find('#totHber').html()) == 0.00) 
+		return 'No Existe Movimiento Contable';
+	else if(parseFloat($('#ftransacciones').find('#totDebe').html()) !=  parseFloat($('#ftransacciones').find('#totHber').html()))
+		return 'Asientos no Cierran Adecuadamente';
 
 	return false;
 }
@@ -200,7 +352,7 @@ function cargar(vmodulo,vid) {
 
 
 	switch(vmodulo['modulo']) {
-		case 'contabilidad':
+		case 'transaccione':
 			vmodulo['sel'] = '';
 			vmodulo['tbl'] = 3;
 			vmodulo['where'] ='';
@@ -218,4 +370,8 @@ function cargarSintax(vtabla){
 	return false;
 
 
+}
+
+function getFila(i) {
+		return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td></tr>'
 }

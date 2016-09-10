@@ -23,7 +23,7 @@
 				$accion = $arreglo['atributos']['vaccion'];
 				foreach ($arreglo['detalle']['registros'] as $obj) {
 					$obj['vaccion'] = $accion;
-					$rs = $this->mant($arreglo['detalle']['tabla'],$obj,$id_new);
+					$rs = $this->mant($arreglo['detalle']['tabla'],$obj,$id_new[0][0]);
 				}
 			}
 			if (isset($arreglo['varios'])) {
@@ -39,7 +39,6 @@
 				}
 			}
 
-			// return array('0' => $id_new);
 			return is_array($id_new) ? array('0' => $id_new) : $id_new;
 		}
 

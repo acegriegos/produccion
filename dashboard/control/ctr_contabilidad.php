@@ -33,6 +33,7 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 
+	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre',54,'1 > 0'));
 	   			$smarty->display('ajax/contabilidad/asientos.tpl');
 	   			break;
 	   		case 3:

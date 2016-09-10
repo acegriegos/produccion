@@ -74,6 +74,7 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         if (p['succed'] == 0) {
             $('#err'+codigo).show();
             $('#errm'+codigo).html(p[0]['ERROR']);
+            setTimeout(function(){ $('#err'+codigo).hide(); $('#errm'+codigo).html('');}, 5000);
         }else{
            
             var tmsj = "Ingresado";
@@ -89,9 +90,10 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
             $('#sucm'+codigo).html('Registro '+tmsj+' Correctamente');
             
             if (detalle == 1) {
-                id = p[0][0];
+                /*id = p[0][0];
                 window.open(modulo+"s?accion=5&id="+id+"&tp="+$("#t_p").val());
-                setTimeout(function(){ location.reload(); }, 1000);
+                setTimeout(function(){ location.reload(); }, 1000);*/
+                endDetail(p);
             }else{
                 setTimeout(function(){ deadclear(arreglo['modulo']); }, 2000);
                 thorload(modulo);
@@ -102,6 +104,7 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
     }else{
         $('#errm'+codigo).html(arreglo['atributos']);
         $('#err'+codigo).show();
+        setTimeout(function(){ $('#err'+codigo).hide(); $('#errm'+codigo).html('');}, 5000);
     }
 };
 
@@ -185,19 +188,20 @@ function mantenimiento(vmodulo,vaccion, varreglo){
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
-    arr = {};
+    var salida = 1;
+    var arr = {};
     arr['sel'] = vsel;
     arr['tbl'] = vtbl;
     arr['where'] = vwhere;
     if (vcambio != '') 
         arr['cambio'] = vcambio;
     
-    if (vch){
+    if (vch)
         velemto.html(mantenimiento(vref,vaccion,arr));
-        return 1;
-    }
     else
-        return mantenimiento(vref,vaccion,arr)
+        salida = mantenimiento(vref,vaccion,arr);
+
+    return salida;
 }
 
  function getParameterByName(name) {

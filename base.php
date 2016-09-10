@@ -194,8 +194,12 @@ function validar (varreglo,vmodulo) {
 function validar".$modulo."() {
 
 
-
 	return false;
+}
+
+function endDetail(vid){
+
+    return false;
 }
 
 function cargar(vmodulo,vid) {
