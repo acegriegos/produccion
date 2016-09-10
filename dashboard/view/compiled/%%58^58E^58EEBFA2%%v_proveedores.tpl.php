@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-22 15:01:55
+<?php /* Smarty version 2.6.17, created on 2016-09-08 22:46:56
          compiled from v_proveedores.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -232,7 +232,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     </div> <!-- END BDY -->
 
     </div>
-    <script src="../assets/js/bootstrap.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/alertModal.js"></script>
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>

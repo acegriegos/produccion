@@ -17,6 +17,12 @@
 				}
 			}
 
+			if (isset($arreglo['atributos']['vidsucursal'])) {
+				if ($arreglo['atributos']['vidsucursal'] == '') {
+					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
+				}
+			}
+
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 
 			if (isset($arreglo['detalle'])) {

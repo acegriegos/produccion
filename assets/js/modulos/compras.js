@@ -365,7 +365,6 @@ $(document).on("keyup","#ncli",function(e){
     if (code == 13) {
         
         var arr = {}
-        
         arr['sel'] = 'vnombre, vcedula';
         arr['tbl'] = 29;
         arr['where'] = 'vnombre like \"%'+$(this).val()+'%\"';

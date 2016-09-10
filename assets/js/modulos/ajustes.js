@@ -2,28 +2,50 @@ $(function(){
 	$("#fajustess").submit(function(){return false});
 	$("#data-table-ajustess").dataTable();
 
+	$("#m1").click();
 	//carga datos de la empresa
-	var arr = {};
-	arr['sel'] = 'valor';
-	arr['tbl'] = 50;
-	arr['where'] = '';
-	var e = mantenimiento('login',4,arr)[0];
-	$("#vnombre").val(e[0]);
-	$("#vcedula").val(e[1]);
-	$("#vtelefono").val(e[2]);
-	$("#vcorreo").val(e[3]);
-	$("#vdireccion").val(e[4]);
-	$("#vfechainicio").val(e[5]);
-	$("#vfechafinal").val(e[6]);
-	// fin
+		// fin
 
-	var arr = {};
-	arr['sel'] = '*';
-	arr['tbl'] = 51;
-	arr['where'] = 'id > 0 order by id';
-	var p = mantenimiento('login',6,arr);
-	$("#dimpuestos").html(p);
+	
 
+});
+
+$(document).on("click",".menu3",function(){
+	$(".menu3").removeClass('active');
+		$(this).addClass('active');
+	
+		var id = parseInt($(this).attr('id').substr(1));
+		switch(id){
+			case 1:
+				var p = mantenimiento('ajustes',2,'');
+				$("#majustes").html('');
+				$("#majustes").html(p);
+				var arr = {};
+				arr['sel'] = 'valor';
+				arr['tbl'] = 50;
+				arr['where'] = '';
+				var e = mantenimiento('login',4,arr)[0];
+				$("#vnombre").val(e[0]);
+				$("#vcedula").val(e[1]);
+				$("#vtelefono").val(e[2]);
+				$("#vcorreo").val(e[3]);
+				$("#vdireccion").val(e[4]);
+				$("#vfechainicio").val(e[5]);
+				$("#vfechafinal").val(e[6]);
+				break;
+			case 2:
+				var p = mantenimiento('ajustes',3,'');
+				$("#majustes").html('');
+				$("#majustes").html(p);
+				var arr = {};
+				arr['sel'] = '*';
+				arr['tbl'] = 51;
+				arr['where'] = 'id > 0 order by id';
+				var imp = mantenimiento('login',6,arr);
+				$("#dimpuestos").html(imp);
+				break;
+		}
+		
 });
 
 $(document).on("click","#addimp",function(){

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<?php /* Smarty version 2.6.17, created on 2016-09-09 17:33:42
+=======
 <?php /* Smarty version 2.6.17, created on 2016-09-08 17:36:51
+>>>>>>> origin/master
          compiled from login.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
