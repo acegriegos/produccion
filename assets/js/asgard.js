@@ -1,5 +1,5 @@
 acc = 1;
-
+€
 $(function(){
     $(".err_").hide();
     $(".suc_").hide();
