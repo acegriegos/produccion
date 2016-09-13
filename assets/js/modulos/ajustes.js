@@ -53,11 +53,10 @@ $(document).on("click","#addimp",function(){
 
 		var nombre = $("#vimpuesto").val();
 		var arr = {};
-		arr['accion'] = 1;
-		arr['tabla'] = 51;
-		arr['arg1'] = '';
-		arr['arg2'] = 'null,\"'+nombre+'\",0.00';
-		mantenimiento('login',7,arr);
+		arr['sel'] = '';
+		arr['tbl'] = 48;
+		arr['where'] = '1,0,\"'+nombre+'\",0.00';
+		mantenimiento('login',4,arr);
 
 		var arr2 = {};
 		arr2['sel'] = '*';
@@ -94,12 +93,17 @@ $(document).on("click","#actinfo",function(){
 	$("#err1").hide();
 
 	var validar = validarAjuste();
-	var arr = {};
-	arr['sel'] = '';
-	arr['tbl'] = 47;
-	arr['where'] = '1,\"'+$("#vnombre").val()+'\",\"'+$("#vcedula").val()+'\",\"'+$("#vtelefono").val()+'\",\"'+$("#vcorreo").val()+'\",\"'+$("#vdireccion").val()+'\"';
 	if (validar == false) {
-		mantenimiento('login',4,arr);
+		$(".infoempresa").each(function(){
+			var valor = $(this).val();
+			var campo = $(this).attr('field');
+			var arr = {};
+			arr['sel'] = '';
+			arr['tbl'] = 47;
+			arr['where'] = '\"'+valor+'\",\"'+campo+'\"';
+			mantenimiento('login',4,arr);
+		});
+		
 		$("#suc1").show();
 		$("#sucm1").html('Datos Ingresados Correctamente');
 	}else{
@@ -112,12 +116,12 @@ $(document).on("click","#actinfo",function(){
 $(document).on("click","#actimp",function(){
 	$("input[name=impuesto]").each(function(){
 		var valor = $(this).val();
-		var id = $(this).attr('vid');
+		var id = $(this).attr('id');
 
 		var arr = {};
 		arr['sel'] = '';
 		arr['tbl'] = 48;
-		arr['where'] = '1,'+id+','+valor;
+		arr['where'] = '2,'+id+',"",'+valor;
 		mantenimiento('login',4,arr);
 	});
 	

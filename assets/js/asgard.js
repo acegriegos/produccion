@@ -1,5 +1,5 @@
 acc = 1;
-€
+//€
 $(function(){
     $(".err_").hide();
     $(".suc_").hide();
@@ -176,7 +176,7 @@ function mantenimiento(vmodulo,vaccion, varreglo){
             data: {accion: vaccion,arreglo : varreglo}
             })
             .done(function(data) {
-                //console.error(data)
+                console.error(data)
                 try {
                     p = JSON.parse(data);
                 }

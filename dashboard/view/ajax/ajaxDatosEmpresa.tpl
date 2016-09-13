@@ -5,13 +5,13 @@
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Nombre</b></div>
-                    <input type="text" class="form-control" id="vnombre" placeholder="Nombre de la Empresa">
+                    <input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la Empresa" field="empresa">
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Cédula Jurídica</b></div>
-                    <input type="text" class="form-control" id="vcedula" placeholder="Cédula Jurídica">
+                    <input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica" field="CJuridica">
                 </div>
             </div>
         </div><br>
@@ -19,13 +19,13 @@
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Teléfono</b></div>
-                    <input type="text" class="form-control" id="vtelefono" placeholder="Teléfono de la Empresa">
+                    <input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la Empresa" field="telefonos">
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Correo</b></div>
-                    <input type="text" class="form-control" id="vcorreo" placeholder="Correo Contacto de la Empresa">
+                    <input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo Contacto de la Empresa" field="correo">
                 </div>
             </div>
         </div><br>
@@ -33,7 +33,7 @@
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Dirección</b></div>
-                    <input type="text" class="form-control" id="vdireccion" placeholder="DIrección de la Empresa">
+                    <input type="text" class="form-control infoempresa" id="vdireccion" placeholder="DIrección de la Empresa" field="direccion">
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">

@@ -26,7 +26,7 @@
 <br>
 <div class="bdy">
 <hr>
-<!-- <h3 id="hb" align="center" style="margin-right:3%">Bienvenido(a)</h3>
+<h3 id="hb" align="center" style="margin-right:3%">Bienvenido(a)</h3>
 <hr>
 <form id="correo">
 	<div class="row">
@@ -34,7 +34,7 @@
 			<p>Digite su correo:</p>
 		</div>
 		<div class="col-md-3 col-lg-3">
-			<input type="text" id="vcorreo" class="form-control" value="" placeholder="Correo del Administrador"><br>
+			<input type="text" id="mail" class="form-control" value="" placeholder="Correo del Administrador"><br>
 			<div class="alert alert-danger err_" id="err1" style="display: none">
 				<strong id="errm1"></strong>
 			</div>
@@ -65,36 +65,43 @@
 		<div class="col-md-3 col-lg-3">
 			<input type="text" id="vlicencia" class="form-control" value="">
 		</div>
-		<div class="col-md-7 col-lg-7"></div>
+		<div class="col-md-7 col-lg-7"></div><br><br>
+		<div class="col-md-5 col-lg-5">
+			<div class="alert alert-danger err_" id="err4" align="center" style="display: none">
+				<strong id="errm4"></strong>
+			</div>
+		</div>
 	</div><br>
+	
+	
 	<div class="row">
 		<div class="col-md-5 col-lg-5">
 			<button type="submit" class="btn btn-primary der">Activar</button>
 		</div>
 	</div>
-</form> -->
+</form>
 
-<div id="bienvenida" ><!-- class="inv" -->
+<div id="bienvenida" class="inv"> <!-- inv -->
 	
 	<h3>Configuracion</h3><hr>
-	<p>Su producto ha sido activado con éxito. Siga las instrucciones para la configuración del sistema.</p><br>
+	<p>Su producto ha sido activado con éxito.</p><br>
 
 	<div class="card" id="info">
 	  	<div class="card-header card-info">
-	    <h4 class="card-title">1- Información de la empresa</h4>
+	    <h4 class="card-title">Información de la Empresa</h4>
 	  	</div>
 	  	<div class="card-block">
 		    <div class="row">
 		    	<div class="col-md-6 col-lg-6">
 		    		<div class="input-group">
 		    			<div class="input-group-addon"><b>Nombre</b></div>
-		    			<input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la empresa">
+		    			<input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la empresa" field="empresa">
 		    		</div>
 		    	</div>
 		    	<div class="col-md-6 col-lg-6">
 		    		<div class="input-group">
 		    			<div class="input-group-addon"><b>Cédula</b></div>
-		    			<input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica">
+		    			<input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica" field="Cjuridica">
 		    		</div>
 		    	</div>
 		    </div><br>
@@ -102,13 +109,13 @@
 		    	<div class="col-md-6 col-lg-6">
 		    		<div class="input-group">
 		    			<div class="input-group-addon"><b>Teléfono</b></div>
-		    			<input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la empresa Ej,24444-4444 || 88888888" data-mask="9999-9999 || 9999-9999 || 9999-9999">
+		    			<input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la Empresa" data-mask="9999-9999 || 9999-9999 || 9999-9999" field="telefonos">
 		    		</div>
 		    	</div>
 		    	<div class="col-md-6 col-lg-6">
 		    		<div class="input-group">
 		    			<div class="input-group-addon"><b>Correo</b></div>
-		    			<input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo">
+		    			<input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo" field="correo">
 		    		</div>
 		    	</div>
 		    </div><br>
@@ -116,7 +123,7 @@
 		    	<div class="col-md-6 col-lg-6">
 		    		<div class="input-group">
 		    			<div class="input-group-addon"><b>Dirección</b></div>
-		    			<input type="text" id="vdireccion" class="form-control infoempresa" value="" placeholder="Dirección de la empresa">
+		    			<input type="text" id="vdireccion" class="form-control infoempresa" value="" placeholder="Dirección de la empresa" field="direccion">
 		    		</div>
 		    	</div>
 		    	<div class="col-md-6 col-lg-6">
@@ -136,6 +143,29 @@
 	</div>
 
 	<div class="card" id="imp">
+	    <h3 class="card-header card-info">Impuestos</h3>
+	    <div class="card-block">
+	        <div class="row">
+	            <div class="col-md-6 col-lg-6">
+	                <div class="input-group">
+	                    <div class="input-group-addon"><b>Nombre Impuesto</b></div>
+	                    <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
+	                    <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
+	                </div>
+	            </div>
+	            <div class="col-md-6 col-lg-6"></div>
+	        </div><br><br>
+	        <div id="dimpuestos"></div><br>
+	        <div class="row">
+	            <div class="col-md-6 col-lg-6"></div>
+	            <div class="col-md-6 col-lg-6">
+	                <button type="button" class="btn btn-primary der" id="actinfo">Actualizar</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- <div class="card inv" id="imp">
 	  	<div class="card-header card-info">
 	    <h4 class="card-title">2- Impuestos</h4>
 	  	</div>
@@ -184,7 +214,7 @@
 		    	<strong id="sucm3"></strong>
 		    </div>
 	  	</div>
-	</div>
+	</div> -->
 <!-- <br><button type="button" class="btn btn-primary der" valida="0" id="finish">Terminar</button> -->
 <br><br>
 

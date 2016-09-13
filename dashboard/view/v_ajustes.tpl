@@ -23,8 +23,9 @@
     <![endif]-->
   </head>
   <body>
+    
+    <div class="bdy">
     {$NAV}
-    <div class="bdy"><br>
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
             <a class="navbar-brand" href="#"><b>Ajustes</b></a>
             <ul class="nav navbar-nav">
@@ -42,12 +43,6 @@
         <br>
         <div id="majustes"></div>
         
-
-        
-
-        
-        
-
     </div>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/mask/jquery.mask.js"></script>
