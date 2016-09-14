@@ -27,10 +27,10 @@
     <![endif]-->
   </head>
   <body>
-<br>
-    {$NAV}
+    
 
 <div class="bdy">
+{$NAV}
     
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
         <!-- Brand -->

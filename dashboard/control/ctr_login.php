@@ -20,7 +20,7 @@
 		    }else if (sizeof($user) == 1)
 		    {
 		     $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
-		     $_SESSION['NUM']	 = trim($encrypt->ency($user[0][1]));
+		     $_SESSION['NUM']	    = trim($encrypt->ency($user[0][1]));
 		     $_SESSION['NOM']     = $user[0][2];
 		     $_SESSION['TIPO']    = $user[0][3];
 		     $_SESSION['EMPRESA'] = $user[0][4];
@@ -54,6 +54,7 @@
    			break;
    		case 2:
    			$transaccion = $log->mantenimiento($_POST['arreglo']);
+        print_r($_REQUEST);
    			break;
    		case 3:
    			$log->ini($_POST['arreglo']['id'],$_POST['arreglo']['pss']);

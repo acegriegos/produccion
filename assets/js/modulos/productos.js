@@ -142,7 +142,7 @@ $(function(){
 		}
 	});
 
-	$("#m1").click();
+	$("#m3").click();
 
 });
 
@@ -222,7 +222,6 @@ $(document).on("click",".bbck",function(){
 			$("#baddj4").addClass('bjerarquia');
 			break;
 	}
-
 });
 
 $(document).on("change","#vidfamilia",function(){
@@ -232,6 +231,7 @@ $(document).on("change","#vidfamilia",function(){
 	arr['tbl'] = 21;
 	arr['where'] = 'id > 0 and idfamilia = '+idfamilia+' order by id';
 	var tip = mantenimiento('login',6,arr);
+
 	$("#vidtipo").empty();
 	$("#vidtipo").html(tip);
 	$("#baddj2").addClass('bjerarquia');
@@ -321,7 +321,7 @@ $(document).on("click",".sjerarquia",function(){
 	var idref1 = $("#vid"+$(this).attr('ref1')+" option:selected").val();
 	var idref2 = $("#vid"+$(this).attr('ref2')+" option:selected").val();
 	// console.log("tipo: "+tipo+" ,nombre: "+nombre+" ,ref1: "+idref1+" ,ref2: "+idref2)
-	var valj = valjerarquia(tipo)
+	var valj = valjerarquia(tipo);
 
 	if (valj == false) {
 
@@ -332,16 +332,16 @@ $(document).on("click",".sjerarquia",function(){
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 24;
-			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",0,0,@@usr';
-			mantenimiento('login',4,arr);
+			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",0,0,@@usr,@@impresa';
+			var p = mantenimiento('login',4,arr)[0][0];
 
 			$("#new"+nom.substr(0,3)).hide(500);
 			$("#vid"+nom).show(500);
-
 			$("#vid"+nom).empty();
 			var cargar = cargarSintax(nom);
 			var tbl = mantenimiento('login',6,cargar);
 			$("#vid"+nom).html(tbl);
+			$("#vid"+nom).val(p).change();
 			$(this).removeClass('sjerarquia');
 			$(this).addClass('bjerarquia');
 			$("#dbck"+tipo).hide(500);
@@ -350,15 +350,16 @@ $(document).on("click",".sjerarquia",function(){
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 24;
-			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",'+idref1+',0,@@usr';
-			mantenimiento('login',4,arr);
+			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",'+idref1+',0,@@usr,@@impresa';
+			var p = mantenimiento('login',4,arr)[0][0];
+
 			$("#new"+nom.substr(0,3)).hide(500);
 			$("#vid"+nom).show(500);
-			
 			$("#vid"+nom).empty();
 			var cargar = cargarSintax(nom);
 			var tbl = mantenimiento('login',6,cargar);
 			$("#vid"+nom).html(tbl);
+			$("#vid"+nom).val(p).change();
 			$(this).removeClass('sjerarquia');
 			$(this).addClass('bjerarquia');
 			$("#dbck"+tipo).hide(500);
@@ -367,8 +368,9 @@ $(document).on("click",".sjerarquia",function(){
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 24;
-			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",'+idref1+','+idref2+',@@usr';
-			mantenimiento('login',4,arr);
+			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",'+idref1+','+idref2+',@@usr,@@impresa';
+			var p = mantenimiento('login',4,arr)[0][0];
+
 			$("#new"+nom.substr(0,3)).hide(500);
 			$("#vid"+nom).show(500);
 			
@@ -376,6 +378,7 @@ $(document).on("click",".sjerarquia",function(){
 			var cargar = cargarSintax(nom);
 			var tbl = mantenimiento('login',6,cargar);
 			$("#vid"+nom).html(tbl);
+			$("#vid"+nom).val(p).change();
 			$(this).removeClass('sjerarquia');
 			$(this).addClass('bjerarquia');
 			$("#dbck"+tipo).hide(500);
@@ -403,11 +406,7 @@ $(document).on("keyup","#cantServ",function(e){
 	}
 });
 
-$(document).on("keyup","#textProd-tokenfield",function(e){
-	if (e.which == 36) {
-		$("#descrP").focus();
-	}
-});
+
 
 $(document).on("click",".load",function(){
 
@@ -504,11 +503,11 @@ $(document).on("keyup",".calcvv",function(){
 	var costo = isNaN($("#vcosto").val()) ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
 	var ganancia = isNaN($("#vganancia").val()) ? 0 : parseFloat($("#vganancia").val().replace(/,/g,""));
 	var imv = isNaN($("#vimv").val()) || $("#vimv").val() <= 0 ? mantenimiento('login',4,{sel:'valor',tbl:15,where:'descr="imv"'})[0][0][0] : parseFloat($("#vimv").val().replace(/,/g,""));
-	var moneda = parseFloat($("#vmoneda").val().replace(/,/g,""))
+	// var moneda = parseFloat($("#vmoneda").val().replace(/,/g,""))
 	var vventa = 0;
 
 	if (costo != 0 && imv != 0) {
-		vventa = (costo * moneda) * ((ganancia/100)+1) * ((imv/100)+1);
+		vventa = costo * ((ganancia/100)+1) * ((imv/100)+1);
 	}
 
 	$("#vventa").val( (vventa).toFixed(2) );
@@ -565,15 +564,17 @@ $(document).on("click","#agInvProPqts",function(){
 	var subtotal = (parseFloat(prodPrec)*prodCant).toFixed(2);
 
 	var gDatos = getDatos();
-	
 
 	$("#textProd-tokenfield").focus();
 	$("#textProd-tokenfield").val(prodStr+subtotal+'|'+prodCant);
 	$("#textProd-tokenfield").select();
-    var e = $.Event("keypress");
-    e.keyCode = 13;
-    $('#textProd-tokenfield').trigger(e);
 
+});
+
+$(document).on("focus","#textProd-tokenfield",function(){
+	alert(2)
+	// var e = jQuery.Event( 'keyup', { which: 13 } );
+	// $("#textProd-tokenfield").trigger(e);
 });
 
 $(document).on("click","#agInvSerPqts",function(){
@@ -592,9 +593,6 @@ $(document).on("click","#agInvSerPqts",function(){
 	$("#textServ-tokenfield").focus();
 	$("#textServ-tokenfield").val(servStr+subtotal+'|'+servCant);
 	$("#textServ-tokenfield").select();
-    var e = $.Event("keypress");
-    e.keyCode = 13;
-    $('#textServ-tokenfield').trigger(e);
 
 });
 
@@ -621,13 +619,6 @@ $(document).on("click","#ingInvProd",function(){
 
 	setTimeout(function(){ $("#fproductos").find($("#vidfamilia")).focus(); }, 500);
 	$("#ajaxProductos").html('');
-
-	var arr2 = {};
-	arr2['sel'] = '*';
-	arr2['tbl'] = 54;
-	arr2['where'] = 'id > 0';
-	var monedas = mantenimiento('login',6,arr2);
-	$("#monedas").html(monedas);
 
 	$("#vcosto").val('0.00');
 	$("#vganancia").val('0.00');
@@ -774,6 +765,12 @@ function validar (varreglo,vmodulo) {
 				if ( err ) {
 					return err;
 				}
+			}else{
+				$("#vcodigo").val("");
+				$("#vnombre").val("");
+				$("#vcantidad").val('0.00');
+				$("#vminimo").val(0);
+				$("#vmaximo").val(0);
 			}
 			break;
 		default:

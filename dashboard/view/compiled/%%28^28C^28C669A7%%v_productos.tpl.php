@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-07 17:31:24
+<?php /* Smarty version 2.6.17, created on 2016-09-13 18:58:58
          compiled from v_productos.tpl */ ?>
 <DOCTYPE html>
 <html lang="es">
@@ -29,11 +29,11 @@
     <![endif]-->
   </head>
   <body>
-<br>
-    <?php echo $this->_tpl_vars['NAV']; ?>
-
+    
 
 <div class="bdy">
+<?php echo $this->_tpl_vars['NAV']; ?>
+
     
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
         <!-- Brand -->

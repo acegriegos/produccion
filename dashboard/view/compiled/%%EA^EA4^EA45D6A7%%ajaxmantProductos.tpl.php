@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-09 19:05:18
+<?php /* Smarty version 2.6.17, created on 2016-09-14 00:01:07
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
@@ -80,6 +80,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     </tbody>
     </table>
     </div>
+    <br><br>
 </div>
 </div>
 
@@ -95,9 +96,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <!-- div row 1 -->
     <div class="row">
     <div class="col-xs-6 col-md-6">
-        <div id="monedas"></div>
-        
-        <input type="hidden" id="vidmoneda" value="1">
         <div class="input-group">
         <div class="input-group-addon"><b>Familia</b></div>
         <select type="select" id="vidfamilia" class="form-control" required="required" cambio="1">
@@ -190,7 +188,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         <div class="input-group-addon" id="dbck4" style="display:none"><i class="fa fa-reply bbck" tipo="4"></i></div>
         <div class="input-group-addon"><i class="fa fa-plus" id="baddj4" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i></div>
         </div><br>
-
         <div class="input-group">
         <div class="input-group-addon"><b>Nombre</b></div>
         <input type="text" class="form-control eder" id="vnombre" placeholder="Nombre de Producto">
@@ -200,6 +197,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         <input type="text" class="form-control eder" id="vcodigo" placeholder="Código de Producto">
         <input type="hidden" id="vid" value="0">
         <input type="hidden" id="vidusuario" value="">
+        <input type="hidden" id="vidsucursal" value="">
         </div><br>
     </div>
     <!-- div row -->
@@ -207,7 +205,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         <div class="input-group">
         <div class="input-group-addon"><b>Precio Costo</b></div>
         <input type="text" class="form-control eder calcvv" id="vcosto" placeholder="Precio Costo" data-mask="999999999.99" value="0.00">
-        <div class="input-group-addon"><b class="simbolo"></b></div>
+        <div class="input-group-addon"><b>¢</b></div>
         </div><br>
         <div class="input-group">
         <div class="input-group-addon"><b>Ganancia</b></div>
@@ -223,7 +221,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         <div class="input-group">
         <div class="input-group-addon"><b>Precio Venta</b></div>
         <input type="text" class="form-control eder" id="vventa" placeholder="Precio Venta" data-mask="999999999.99" readonly  value="0.00">
-        <div class="input-group-addon"><b class="simbolo"></b></div>
+        <div class="input-group-addon"><b>¢</b></div>
         </div><br>  
 
         <div class="row">
@@ -302,23 +300,23 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <div class="col-xs-4 col-lg-4">
         <div class="input-group">
         <div class="input-group-addon"><b>Cantidad a Inventariar</b></div>
-        <input type="number" class="form-control eder" id="vcantidad" placeholder="Cantidad">
+        <input type="number" class="form-control eder" id="vcantidad" placeholder="Cantidad" min="1">
         </div>
     </div>
      <div class="col-xs-4 col-lg-4">
         <div class="input-group">
         <div class="input-group-addon"><b>Mínimo en Inventario</b></div>
-        <input type="number" class="form-control eder" id="vcantmin" placeholder="Mínimo">
-        <input type="hidden" id="" value="0" min="<?php echo 0; ?>
-" data-mask="999999999.99">
+        <input type="number" class="form-control eder" id="vminimo" placeholder="Mínimo" min="1">
+        <!-- <input type="hidden" id="" value="0" min="<?php echo 0; ?>
+" data-mask="999999999.99"> -->
         </div>
     </div>
     <div class="col-xs-4 col-lg-4">
         <div class="input-group">
         <div class="input-group-addon"><b>Máximo en Inventario</b></div>
-        <input type="number" class="form-control eder" id="vcantmax" placeholder="Máximo">
-        <input type="hidden" id="" value="0" min="<?php echo 0; ?>
-" data-mask="999999999.99">
+        <input type="number" class="form-control eder" id="vmaximo" placeholder="Máximo" min="1">
+        <!-- <input type="hidden" id="" value="0" min="<?php echo 0; ?>
+" data-mask="999999999.99"> -->
         </div>
     </div>
     </div>
