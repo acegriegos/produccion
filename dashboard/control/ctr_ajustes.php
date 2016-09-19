@@ -9,6 +9,7 @@
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	   
+	   	
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_ajustes.tpl');
 	   }else{
@@ -26,7 +27,12 @@
 	   			include 'view/ajax/ajaxImpuestos.tpl';
 	   			break;
 	   		case 4:
-	   			
+	   			$pagina = 1;
+	   			require '../_config/mySmarty.php';
+			   	$smarty  = new mySmarty();
+			   	$smarty->setModule('dashboard');
+			   	$smarty->assign('CAN',$kakaroto->kamehameha('id,nombre',9,'id > 0 order by nombre'));
+			   	$smarty->display('ajax/ajaxSucursales.tpl');
 	   			break;
 	   		case 5:
 	   			

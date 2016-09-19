@@ -57,7 +57,15 @@
         <br><br>
       </div>
       <hr>
-        <div class="row">
+     <!--  <div class="row">
+        <div class="col-md-6 col-lg-6">
+          
+        </div>
+      </div> -->
+
+
+        
+        <!-- <div class="row">
           <div class="col-md-6 col-lg-6">
           <h3>Contenido</h3>
             <div class="row">
@@ -96,9 +104,7 @@
               <button type="button" id="agInvSerPqts" class="btn btn-primary" style="padding: 12px 13px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
               </div>
             </div>
-          </div>
-          <!--  -->
-          <!--  -->
+          </div> 
           <div class="col-md-6 col-lg-6" style="border-left: 0.5px solid #E2E2E2;">
           <h3>Contenido</h3>
           <legend>Productos</legend>
@@ -110,7 +116,7 @@
           <input type="hidden" id="idServStr" class="form-control" value="0">
           <input type="hidden" id="cServStr" class="form-control" value="0">
           </div>
-        </div>
+        </div> -->
         <hr>
         <div class="row">
           <div class="col-lg-8"></div>
