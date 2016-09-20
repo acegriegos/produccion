@@ -1,11 +1,43 @@
-<div class="card">
-    <h3 class="card-header">Datos de la Empresa</h3>
-    <div class="card-block">
+<div class="row">
+    <div class="col-md-4 col-lg-4">
+        <div class="table-responsive">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-sucursales" cellspacing="0" width="100%" >
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th style="width:10%">Telefono</th>
+                            <th style="width:6%">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listasucursales">
+                        {section name=LE loop=$SUC}
+                        <tr>
+                            <td>{$SUC[LE][1]}</td>
+                            <td>{$SUC[LE][2]}</td>
+                            <td>
+                                <i class="fa fa-pencil btn load" id="e{$SUC[LE][0]}" codigo="1" modulo="sucursale"></i>
+                                <i class="fa fa-times btn delete" id="d{$SUC[LE][0]}" codigo="1" modulo="sucursale"></i>
+                            </td>
+                        </tr>
+                        {/section}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-lg-8">
+        <form id="fsucursales">
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Nombre</b></div>
                     <input type="text" class="form-control" id="vnombre" placeholder="Nombre Sucursal">
+                    <input type="hidden" id="vidusuario" value="">
+                    <input type="hidden" id="vidsucursal" value="">
+                    <input type="hidden" id="vfactura" value="AB">
+                    <input type="hidden" id="vconsecutivo" value="1">
+                    <input type="hidden" id="vid" value="0">
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">
@@ -14,20 +46,34 @@
                     <input type="text" class="form-control" id="vtelefono" placeholder="Teléfono Sucursal">
                 </div>
             </div>
-            <br><br><br>
-            <div class="col-md-6 col-lg-6">
+        </div><br>
+        <div class="row">
+            <div class="col-md-2 col-lg-2">
+                <strong>Ubicación:</strong>
+            </div>
+            <div class="col-md-5 col-lg-5">
                 <div class="input-group">
-                    <div class="input-group-addon"><b>Localización</b></div>
-                    <select id="vcanton" class="form-control" required="required">
-                        <option value="0">Seleccione un Cantón</option>
-                        {section name=LE loop=$CAN}
-                            <option value="{$CAN[LE][0]}">{$CAN[LE][1]}</option>
+                    <div class="input-group-addon"><b>Provincia</b></div>
+                    <select type="text" id="vidprovincia" class="form-control" required="required" cambio="1">
+                        <option value="0">Seleccione una Provincia</option>
+                        {section name=LE loop=$PROV}
+                        <option value="{$PROV[LE][0]}">{$PROV[LE][1]}</option>
                         {/section}
                     </select>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6">
-                <button type="button" class="btn btn-primary der">Guardar</button>
+            <div class="col-md-5 col-lg-5">
+                <div class="input-group">
+                    <div class="input-group-addon"><b>Cantón</b></div>
+                    <select type="text" id="vidcanton" class="form-control" required="required">
+                        <option value="0">Seleccione un Cantón</option>
+                    </select>
+                </div>
+            </div>
+        </div><br>
+        <div class="row">    
+            <div class="col-md-12 col-lg-12">
+                <button type="button" class="btn btn-primary der add" id="accsuc" codigo="1" modulo="sucursale">Agregar</button>
             </div>
         </div><br>
         <div class="alert alert-danger err_" id="err1" style="display: none">
@@ -36,5 +82,6 @@
         <div class="alert alert-success suc_" id="suc1" style="display: none">
             <strong id="sucm1"></strong>
         </div>
+        </form>
     </div>
-</div>
+        </div>

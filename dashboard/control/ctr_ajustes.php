@@ -31,7 +31,8 @@
 	   			require '../_config/mySmarty.php';
 			   	$smarty  = new mySmarty();
 			   	$smarty->setModule('dashboard');
-			   	$smarty->assign('CAN',$kakaroto->kamehameha('id,nombre',9,'id > 0 order by nombre'));
+			   	$smarty->assign('SUC',$kakaroto->kamehameha('id,nombre,telefono',39,'id > 0 order by nombre'));
+			   	$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0 order by nombre'));
 			   	$smarty->display('ajax/ajaxSucursales.tpl');
 	   			break;
 	   		case 5:
