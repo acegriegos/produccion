@@ -1,4 +1,5 @@
 var ftr = 1;
+var gop = '<option value="0">N/A</option>';
 
 $(function(){
 
@@ -15,7 +16,7 @@ $(function(){
 				break;
 			case 2:
 				//$('#datetimepicker2').datetimepicker();
-
+				$('#fn1').click();
             break;
 		}
 
@@ -182,9 +183,16 @@ $(document).on("click",".func",function(){
 	switch(id){
 		case 1:
 			$('#detalletransaccione').html('');
+			var rs = arr('login',4,'id,nombre',55,"",'',0,'')[0];
+		
+			for (var i = 0; i < rs.length; i++) {
+				gop += '<option value="'+rs[i][0]+'">'+rs[i][1]+'</option>';
+			}
+
 			for (var i = 1; i < 10; i++) {
 				$('#detalletransaccione').append(getFila(i))
 			}
+
 			$('#suc1').hide();
 			$('#totDebe').html('');
 			$('#totHber').html('');
@@ -373,5 +381,6 @@ function cargarSintax(vtabla){
 }
 
 function getFila(i) {
-		return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td></tr>'
+
+		return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>'
 }

@@ -2,8 +2,7 @@
     <div class="col-md-2 col-lg-2">
         <ul class="list-group">
           <li class="list-group-item btn func" fn="f1" id="fn1">Realizar Transacción</li>
-          <li class="list-group-item btn func" fn="f1">Ver Transacciones</li>
-          <li class="list-group-item btn func" fn="f1">Realizar Transacción</li>
+          <li class="list-group-item btn func" fn="f2">Ver Transacciones</li>
         </ul>
     </div>
 
@@ -44,6 +43,8 @@
                         <th>Descripción</th>
                         <th>Debe</th>
                         <th>Haber</th>
+                        <th>ODT</th>
+                        <th>Comentario</th>
                     </tr>
                 </thead>
                 <tbody id="detalletransaccione">
@@ -56,9 +57,10 @@
                         </td>
                         <td id="totDebe" align="right">0.00</td>
                         <td id="totHber" align="right">0.00</td>
+                        <td colspan="2"></td>
                     </tr>
                     <tr>
-                        <td colspan="4">
+                        <td colspan="6">
                             <input type="hidden" id="vidempresa" value="{$smarty.session.IMPRESA}">
                             <button type="button" class="btn btn-primary add der" codigo="1" modulo="transaccione" detalle="1">Aceptar</button>
                             <div class="alert alert-danger" align="center" style="height: 38px; padding: 6px;display: none" id="err1">
