@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-13 18:23:11
+<?php /* Smarty version 2.6.17, created on 2016-09-16 18:11:15
          compiled from v_ajustes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,6 +37,9 @@
                 </li>
                 <li class="nav-item menu3" id="m2">
                     <a class="nav-link" href="#">Impuestos</a>
+                </li>
+                <li class="nav-item menu3" id="m3">
+                    <a class="nav-link" href="#">Sucursales</a>
                 </li>
                 <!-- <li class="nav-item menu3" id="m3">
                     <a class="nav-link" href="#"></a>

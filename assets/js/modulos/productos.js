@@ -564,17 +564,16 @@ $(document).on("click","#agInvProPqts",function(){
 	var subtotal = (parseFloat(prodPrec)*prodCant).toFixed(2);
 
 	var gDatos = getDatos();
-
+	tkn(prodStr,subtotal,prodCant)
 	$("#textProd-tokenfield").focus();
-	$("#textProd-tokenfield").val(prodStr+subtotal+'|'+prodCant);
-	$("#textProd-tokenfield").select();
+	
 
 });
 
 $(document).on("focus","#textProd-tokenfield",function(){
-	alert(2)
-	// var e = jQuery.Event( 'keyup', { which: 13 } );
-	// $("#textProd-tokenfield").trigger(e);
+	var e = jQuery.Event( 'keyup', { which: 13 } );
+	$("#textProd-tokenfield").trigger(e);
+	alert("focus")
 });
 
 $(document).on("click","#agInvSerPqts",function(){
@@ -705,6 +704,14 @@ $(document).on("change","#vidprovee",function(){
 
 	$("#vidproveedor").val(opcProv);
 });
+
+function tkn(prodStr,subtotal,prodCant){
+	
+	$("#textProd-tokenfield").val(prodStr+subtotal+'|'+prodCant);
+	$("#textProd-tokenfield").select();
+	
+
+}
 
 function filtrarprod(code,filtro){
 	if (code == 13) {

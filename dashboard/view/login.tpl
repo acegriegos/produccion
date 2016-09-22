@@ -19,7 +19,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="background-image: url(../assets/img/bg-azul.jpg)">
+  <!-- <body style="background-image: url(../assets/img/bg-azul.jpg)"> -->
      
   <div class="container boxlogin x1">
         <div class="jumbotron x1" style="background-color: transparent;width:100%;padding-left:0%;padding-right:0%;padding-bottom:12%">
@@ -43,15 +43,58 @@
                         <input type="password" name="pss" id="pass" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success">Ingresar</button>
-                    <small style="float: right;"><a href="#" style="color: #337ab7">Olvidó su Contraseña?</a></small>
+                    <small style="float: right;"><a href="#modal-forgetpssw" style="color: #337ab7" data-toggle="modal">Olvidó su Contraseña?</a></small>
                 </form>
             </div>
         </div>
         
     </div>
 
-    <center><small>© 2016. Copyright. Todos los derechos reservados. LogintechCR, S. A. </small></center>
+    <center><small>© 2016. Copyright. Todos los derechos reservados. LoginTechCR, S. A. </small></center>
     
+    <div class="modal fade" id="modal-forgetpssw">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Cambiar Contraseña</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <label>Usuario</label>
+                            <input type="text" id="vuser" class="form-control" value="">
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <label>Contraseña Nueva</label>
+                            <input type="password" id="vclave" class="form-control" value="">
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <label>Repetir Contraseña Nueva</label>
+                            <input type="password" id="clave" class="form-control" value="">
+                        </div>
+                    </div><br>
+                    <div class="alert alert-danger err_" id="err1" align="center" style="display: none">
+                        <strong id="errm1"></strong>
+                    </div>
+                    <div class="alert alert-success suc_" id="suc1" align="center" style="display: none">
+                        <strong id="sucm1"></strong>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="salir">Salir</button>
+                    <button type="button" class="btn btn-primary" id="changepssw">Guardar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>

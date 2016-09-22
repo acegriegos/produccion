@@ -3,8 +3,61 @@ $(document).ready(function(){
   $("#logF").submit(function(){
      return getIn();
   });
+
+  $("#changepssw").click(function(){
+    $("#suc1").hide();
+    $("#err1").hide();
+
+    var val = validarcambio();
+    if (val == false) {
+      
+      var arr = {};
+      arr['sel'] = '';
+      arr['tbl'] = 56;
+      arr['where'] = '\"'+$("#vuser").val()+'\",\"'+$("#vclave").val()+'\"';
+      var p = mantenimiento('login',4,arr)[0];
+      if (p == "[object Object]") {
+        $("#err1").show();
+        $("#errm1").html(p['ERROR']);
+      }else{
+        $("#suc1").show();
+        $("#sucm1").html("Contraseña Cambiada Correctamente");
+        $("#salir").click();
+        $("#num").focus();
+      }
+    }else{
+      $("#err1").show();
+      $("#errm1").html(val);
+    }
+
+
+  });
     
 });
+
+function validarcambio(){
+  if ($("#vuser").val() == '') {
+    $("#vuser").focus();
+    return "Usuario Requerido";
+  }
+
+  if ($("#vclave").val() == '') {
+    $("#vclave").focus();
+    return "Contraseña Requerida";
+  }
+
+  if ($("#clave").val() == '') {
+    $("#clave").focus();
+    return "Repetir Contraseña";
+  }
+
+  if ($("#vclave").val() != $("#clave").val()) {
+    return "Contraseñas Deben Coincidir";
+  }
+
+  return false;
+
+}
 
 function getIn(){
   $('#err').hide();

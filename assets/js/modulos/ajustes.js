@@ -2,7 +2,7 @@ $(function(){
 	$("#fajustess").submit(function(){return false});
 	$("#data-table-ajustess").dataTable();
 
-	$("#m1").click();
+	$("#m3").click();
 	//carga datos de la empresa
 		// fin
 
@@ -44,6 +44,10 @@ $(document).on("click",".menu3",function(){
 				var imp = mantenimiento('login',6,arr);
 				$("#dimpuestos").html(imp);
 				break;
+			case 3:
+				var p = mantenimiento('ajustes',4,'');
+				$("#majustes").html('');
+				$("#majustes").html(p);
 		}
 		
 });
