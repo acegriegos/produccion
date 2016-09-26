@@ -40,7 +40,7 @@
 	   
 	   	\$smarty  = new mySmarty();
 	   	\$smarty->setModule('dashboard');
-	   	\$pg = \$smarty->fetch('../view/menuSmarty.php');
+	   	\$pg = \$smarty->fetch('../view/menuSmarty1.php');
 	   
 	   	\$smarty->assign('NAV',\$pg);
 	   	\$smarty->display('v_".$modulo.".tpl');
@@ -48,7 +48,7 @@
 	   \$pagina = 0;
 	   	switch (\$_REQUEST['accion']) {
 	   		case 1:
-	   			\$transaccion = \$kakaroto->kamehameha(\$_REQUEST['arreglo']['sel'],\$_REQUEST['arreglo']['tbl'],\$_REQUEST['arreglo']['where']);
+
 	   			break;
 	   		case 2:
 
@@ -120,7 +120,7 @@
     <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/libs/DataTables/media/css/dataTables.responsive.css\">
     <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/libs/iconos/css/font-awesome.min.css\">
     <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/css/modulos/style-".$modulo.".css\">
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/css/modulos/style-menu.css\">
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/css/modulos/style-menu1.css\">
 	<link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/css/system.min.css\">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -131,6 +131,7 @@
     <![endif]-->
   </head>
   <body>
+  <br>
     {\$NAV}
     <div class=\"bdy\">
 
@@ -227,12 +228,17 @@ function cargarSintax(){
 	arr['where'] = '';
 
 	return arr;
+}
+
+function endDetail(vid) {
+	setTimeout(function(){ console.log('Registro Ingresado') }, 2000);
+	return false;
 }";
 
 			fwrite($nuevoarchivo,$contenido); 
 			fclose($nuevoarchivo);
 
-			exec("chmod 777 /opt/lampp/htdocs/chino/ -R");
+			exec("chmod 777 /opt/lampp/htdocs/demo2.0/ -R");
 		} ?>
  	
      <script src="assets/js/jquery.js"></script>
