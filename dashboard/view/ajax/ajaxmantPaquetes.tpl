@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="../assets/css/bootstrap-tokenfield.css">
 <link rel="stylesheet" href="../assets/css/tokenfield-typeahead.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/bv2_toggle.css">
 
 <div id="mantPaquetes">
 <h2 align="center">Mantenimiento Paquetes</h2>
@@ -33,35 +34,84 @@
     </div>
 </div>
 
+<br>
+<div class="table-responsive">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-paquetes" cellspacing="0" width="100%" >
+          <thead>
+              <tr>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Descuento</th>
+                  <th>Total</th>
+                  <th style="width:9%">Acciones</th>
+              </tr>
+          </thead>
+            <tbody id="listapqts">
+                {section name=LE loop=$PAQ}
+                <tr>
+                    <td>{$PAQ[LE][1]}</td>
+                    <td>{$PAQ[LE][2]}</td>
+                    <td>{$PAQ[LE][3]}</td>
+                    <td>{$PAQ[LE][4]}</td>
+                    <td>
+                      <i class="fa fa-pencil-square-o btn loadpck" id="e{$PAQ[LE][0]}" data-toggle="modal" href="#modal-paquetes"></i>
+                      <i class="fa fa-times btn delpck" id="d{$PAQ[LE][0]}" style="color: #D9534F"></i>
+                    </td>
+                </tr>
+                {/section}
+            </tbody>
+      </table>
+  </div>
+  <br><br>
+</div>
+
 <div class="modal fade" id="modal-paquetes">
   <div class="modal-dialog" style="width: 80%;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Agregar Paquetes</h4>
+        <h4 class="modal-title" id="titpqt">Agregar Paquetes</h4>
       </div>
       <div class="modal-body">
       <div class="row">
         <div class="col-md-8 col-lg-8">
           <div class="input-group input-group">
-            <span class="input-group-addon">Nombre</span>
-            <input type="text" class="form-control" aria-label="Nombre de Paquete" placeholder="Nombre de Paquete">
+            <span class="input-group-addon"><b>Nombre</b></span>
+            <input type="text" id="vnombre" class="form-control" aria-label="Nombre de Paquete" placeholder="Nombre de Paquete">
           </div>
         </div>
         <div class="col-md-4 col-lg-4">
           <div class="input-group input-group">
-            <span class="input-group-addon">Código</span>
-            <input type="text" class="form-control" aria-label="Código de Paquete" placeholder="Código" value="PCK-122" disabled>
+            <span class="input-group-addon"><b>Código</b></span>
+            <input type="text" class="form-control" id="vcodigo" aria-label="Código de Paquete" placeholder="Código" value="PCK-122" disabled>
           </div>
         </div>
         <br><br>
       </div>
       <hr>
-     <!--  <div class="row">
-        <div class="col-md-6 col-lg-6">
+      <!-- <div class="row">
+        <div class="col-md-12 col-lg-12" align="right">
           
         </div>
-      </div> -->
+      </div><br> -->
+      <div class="row">
+        <div class="col-md-7 col-lg-7">
+          <div class="input-group">
+            <div class="input-group-addon btn"><b>Producto</b></div>
+            <input type="text" class="form-control" id="prod" placeholder="Producto">
+            <input type="hidden" id="hprod" class="form-control" value="">
+            <div class="input-group-addon btn"><b>Cantidad</b></div>
+            <input type="number" id="cantidad" class="form-control" value="">
+            <div class="input-group-addon btn"><i class="fa fa-plus" id="bProd"></i></div>
+          </div>
+        </div>
+        <div class="col-md-5 col-lg-5" style="border-left: 0.5px solid #E2E2E2;">
+          <ul class="list-group" id="listapaquetes">
+            <input type="checkbox" checked data-toggle="toggle" data-off="<span id='editoff'>Editable</span>" data-on="<span id='editon'>Editar</span>" data-size="small" data-width="100" data-onstyle="primary active" data-offstyle="primary active"><br><br>
+          </ul>
+        </div>
+      </div>
 
 
         
@@ -119,21 +169,37 @@
         </div> -->
         <hr>
         <div class="row">
-          <div class="col-lg-8"></div>
+          <div class="col-lg-4"></div>
+          <div class="col-lg-4">
+            <div class="input-group">
+              <div class="input-group-addon"><b>Descuento</b></div>
+              <input type="number" class="form-control" min="1" id="vdescuento" value="0.00">
+              <div class="input-group-addon"><b>%</b></div>
+            </div>
+          </div>
           <div class="col-lg-4">
               <div class="input-group">
-                <span class="input-group-addon">TOTAL</span>
-                <input type="text" class="form-control" aria-label="Amount (rounded to the nearest dollar)" placeholder="0.00">
+                <span class="input-group-addon"><b>TOTAL</b></span>
+                <input type="text" class="form-control" value="0.00" id="totpqt" aria-label="Amount (rounded to the nearest dollar)" disabled>
+                <input type="hidden" id="htotal" class="form-control" value="0.00">
               </div>
           </div>
+        </div><br>
+        <div class="alert alert-danger err_" id="err1" style="display: none">
+          <strong id="errm1"></strong>
+        </div>
+        <div class="alert alert-success suc_" id="suc1" style="display: none">
+          <strong id="sucm1"></strong>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-        <button type="button" class="btn btn-primary">Agregar</button>
+        <button type="button" class="btn btn-primary" id="addpqt">Agregar</button>
       </div>
     </div>
   </div>
 </div>
 
 </div> <!-- End mantPaquetes -->
+
+<script src="../assets/js/bv2_toggle.js"></script>

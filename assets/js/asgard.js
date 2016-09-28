@@ -129,6 +129,7 @@ function loadpool(vmodulo,vid,vdetalle){
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
 
+
     var columns = mantenimiento('login',5,vmodulo);
 
     for (var i = 0; columns[0][1].length > i; i++) {
@@ -149,11 +150,12 @@ function loadpool(vmodulo,vid,vdetalle){
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).html(columns[0][0][0][i]);
         }
         
-        else 
+        else
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
         
         if ($("#"+columns[0][1][i]['name']).attr("cambio") == 1)
             $("#"+columns[0][1][i]['name']).change();
+        
     }
 
     if (vdetalle != undefined){
@@ -200,6 +202,7 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
         velemto.html(mantenimiento(vref,vaccion,arr));
     else
         salida = mantenimiento(vref,vaccion,arr);
+    
 
     return salida;
 }

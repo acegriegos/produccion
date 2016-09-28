@@ -54,7 +54,6 @@
    			break;
    		case 2:
    			$transaccion = $log->mantenimiento($_POST['arreglo']);
-        print_r($_REQUEST);
    			break;
    		case 3:
    			$log->ini($_POST['arreglo']['id'],$_POST['arreglo']['pss']);
