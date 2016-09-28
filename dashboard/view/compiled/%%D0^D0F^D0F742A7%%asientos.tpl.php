@@ -1,13 +1,12 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-10 09:52:14
+<?php /* Smarty version 2.6.17, created on 2016-09-19 19:44:56
          compiled from ajax/contabilidad/asientos.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/contabilidad/asientos.tpl', 21, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/contabilidad/asientos.tpl', 20, false),)), $this); ?>
 <div class="row">
     <div class="col-md-2 col-lg-2">
         <ul class="list-group">
           <li class="list-group-item btn func" fn="f1" id="fn1">Realizar Transacción</li>
-          <li class="list-group-item btn func" fn="f1">Ver Transacciones</li>
-          <li class="list-group-item btn func" fn="f1">Realizar Transacción</li>
+          <li class="list-group-item btn func" fn="f2">Ver Transacciones</li>
         </ul>
     </div>
 
@@ -75,6 +74,8 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                         <th>Descripción</th>
                         <th>Debe</th>
                         <th>Haber</th>
+                        <th>ODT</th>
+                        <th>Comentario</th>
                     </tr>
                 </thead>
                 <tbody id="detalletransaccione">
@@ -87,9 +88,10 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                         </td>
                         <td id="totDebe" align="right">0.00</td>
                         <td id="totHber" align="right">0.00</td>
+                        <td colspan="2"></td>
                     </tr>
                     <tr>
-                        <td colspan="4">
+                        <td colspan="6">
                             <input type="hidden" id="vidempresa" value="<?php echo $_SESSION['IMPRESA']; ?>
 ">
                             <button type="button" class="btn btn-primary add der" codigo="1" modulo="transaccione" detalle="1">Aceptar</button>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-02 22:51:56
+<?php /* Smarty version 2.6.17, created on 2016-09-27 00:03:02
          compiled from ../view/menuSmarty1.php */ ?>
 <link rel="stylesheet" href="../assets/css/modulos/style-login.css">
 <link rel="stylesheet" href="../assets/fonts/tipografia.css">
@@ -107,18 +107,13 @@
 <a href="#" id="mobile_nav" class="display" value="0"><i class="fa fa-bars"></i></a>
 <ul>
 <li style="padding: 5%""><input type="text" id="menut" class="form-control form-control-sm" title="Transacción" placeholder="# de Transacción" style="display:none"></li><br>
-<li><a href="dashboard">Dashboard</a></li>
-<li><a href="compras">Facturación</a></li>
-<li><a href="inventarios">Inventarios</a></li>
-<li><a href="productos">Productos</a></li>
-<li><a href="clientes">Clientes</a></li>
+<li><a href="dashboard">Inicio</a></li>
+<li><a href="comercial">Comercial</a></li>
 <li><a href="proveedores">Proveedores</a></li>
-<li><a href="cuentas">Cuentas</a></li>
+<li><a href="inventarios">Proveduría</a></li>
 <li><a href="contabilidad">Contabilidad</a></li>
 <li><a href="usuarios">Usuarios</a></li>
 <li><a href="reportes">Reportes</a></li>
-<li><a href="#" id="menuu" style="display:none"><small><?php echo $_SESSION['NOM']; ?>
-</small></a></li>
 <li><a href="ajustes">Ajustes</a></li>
 </ul>
 </nav>

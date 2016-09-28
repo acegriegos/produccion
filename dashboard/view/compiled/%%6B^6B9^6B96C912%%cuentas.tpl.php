@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-10 09:58:47
+<?php /* Smarty version 2.6.17, created on 2016-09-26 23:13:55
          compiled from ajax/contabilidad/cuentas.tpl */ ?>
 <div class="row">
             <div class="col-md-6 col-lg-6">
