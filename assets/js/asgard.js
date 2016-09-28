@@ -202,6 +202,7 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
         velemto.html(mantenimiento(vref,vaccion,arr));
     else
         salida = mantenimiento(vref,vaccion,arr);
+    
 
     return salida;
 }

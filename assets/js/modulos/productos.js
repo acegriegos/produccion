@@ -38,6 +38,14 @@ $(function(){
 				$("#mantProd").remove();
 				var p = mantenimiento('productos',3,'');
 				$("#bdymantInventario").html(p);
+				$("#data-table-paquetes").DataTable({
+					bFilter : false,
+					bScrollInfinite : true,
+					bSort : false,
+					bLengthChange : false,
+					bPaginate :  false,
+					bInfo : false
+				});
 					// AUTO COMPLETE PRODUCTOS
 					var optionsp = {
 
@@ -146,6 +154,159 @@ $(function(){
 
 });
 
+$(document).ready(function(){
+	$('#prod').autoComplete({
+	    minChars: 1,
+	    source: function(term, response){
+	        term = term.toLowerCase();
+	        var arr = {};
+	        arr['sel'] = 'concat(nombre," - ",sventa)';
+	        arr['tbl'] = 14;
+	        arr['where'] = '';
+	        msuggest = mantenimiento('login',4,arr)[0];         
+	        response(msuggest);
+		}
+	});
+});
+
+$(document).on("blur","#prod",function(){
+
+	var nombre = $(this).val();
+	nombre = nombre.substring(0, nombre.indexOf(' '));
+	$("#hprod").val(nombre)
+
+});
+
+$(document).on("click","#bProd",function(){
+	if ($("#prod").val() != '' && $("#cantidad").val() != '') {
+		var prod = $("#hprod").val();
+		var cant = $("#cantidad").val();
+		addprod(prod,cant)
+	}
+});
+
+$(document).on("keyup","#cantidad",function(e){
+	if ($(this).val() != '') {
+		var prod = $("#hprod").val();
+		var cant = $(this).val();
+		var code = e.which || e.keyCode;
+		if (code == 13) {
+			addprod(prod,cant)
+		}
+	}
+});
+
+$(document).on("keyup","#prod",function(e){
+	if ($(this).val() != '') {
+		var code = e.which || e.keyCode;
+		if (code == 13) {
+			$("#cantidad").focus();
+		}
+	}
+	
+});
+
+$(document).on("click",".del",function(){
+	var id = $(this).attr('id').substr(1);
+	var total = parseFloat($("#htotal").val()) - $("#htot"+id).val();
+	$("#totpqt").val(total)
+	$("#l"+id).remove();
+});
+
+$(document).on("keyup","#vdescuento",function(){
+	var total = 0;
+	var desc = $(this).val() == '' ? 0 : parseFloat($(this).val());
+	var totpqt = parseFloat($("#htotal").val());
+	total = totpqt / ((desc/100)+1);
+	$("#totpqt").val(total.toFixed(2));
+
+});
+
+$(document).on("click","#addpqt",function(){
+	var descuento = isNaN($("#vdescuento").val()) && $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
+	var total = isNaN($("#htotal").val()) ? '0.00' : parseFloat($("#htotal").val());
+	var arreglo = {};
+	arreglo['where'] = '1,0,\"'+$("#vcodigo").val()+'\",\"'+$("#vnombre").val()+'\",'+descuento+','+total+',@@usr,@@impresa';
+	var idpaquete = arr('login',4,'',60,arreglo['where'],'',0,'')[0][0];
+
+	$(".nomprod").each(function(){
+		var id = $(this).attr('id').substr(1);
+		var array = {};
+		array['where'] = '1,'+idpaquete+','+id+',0,'+$("#c"+id).text()+',@@usr,@@impresa';
+		arr('login',4,'',61,array['where'],'',0,'');
+	});
+});
+
+$(document).on("click","#editon",function(){
+	$(".del").show();
+	$(".hcant").hide();
+	$(".ihcant").attr("type","number");
+	$(".hcant").each(function(){
+		var id = $(this).attr('id').substr(1);
+		var cant = $("#c"+id).text();
+		$("#hcant"+id).val(cant);
+	});
+});
+$(document).on("click","#editoff",function(){
+	$(".del").hide();
+	$(".hcant").show();
+	$(".ihcant").attr("type","hidden");
+});
+
+
+$(document).on("click",".loadpck",function(){
+
+	var id = $(this).attr('id').substr(1);
+	$("#titpqt").html("Editar Paquetes");
+
+	var p = arr('login',4,'nombre,codigo,descuento,total',58,'id = '+id,'',0,'')[0][0];
+	var descuento = (p[2] / 100)+1;
+	var total = p[3] / descuento;
+	$("#vnombre").val(p[0]);
+	$("#vcodigo").val(p[1]);
+	$("#vdescuento").val(p[2]);
+	$("#htotal").val(p[3]);
+	$("#totpqt").val(total.toFixed(2));
+	
+	arr('login',6,'idproducto,nombre,cantidad,ptotal',62,'idpaquete = '+id,'',1,$("#listapaquetes"))
+
+
+});
+
+$(document).on("click",".delpck",function(){
+	var id = $(this).attr('id').substr(1);
+	var array = {}
+	array['where'] = '3,'+id+',"","",0.00,0.00,@@usr,@@impresa';
+	arr('login',4,'',60,array['where'],'',0,'');
+
+	var array2 = {}
+	array2['where'] = '3,'+id+',0,0,0,@@usr,@@impresa';
+	arr('login',4,'',61,array2['where'],'',0,'');
+
+});
+
+
+$(document).on("change",".ihcant",function(){
+	var id = $(this).attr('id').substr(5);
+	var cantidad = parseInt($("#c"+id).text());
+	var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
+	
+	var ttotal = $("#htot"+id).val(); //
+	var ptotal = $("#htot"+id).val() / cantidad; //
+	var total = $("#hcant"+id).val() * ptotal; //
+	
+
+	if (total > ttotal) {
+		$("#htotal").val((parseFloat($("#htotal").val()) + ptotal).toFixed(2));
+		$("#totpqt").val( ($("#htotal").val() / ((desc/100)+1)).toFixed(2) );
+	}else{
+		$("#htotal").val((parseFloat($("#htotal").val()) - ptotal).toFixed(2));
+		$("#totpqt").val( ($("#htotal").val() / ((desc/100)+1)).toFixed(2) );
+	}
+
+	$("#htot"+id).val(total);
+	$("#c"+id).text($("#hcant"+id).val());
+});
 
 $(document).on("change","#vtipoinv",function(){
 	var tipoinv = $("#vtipoinv option:selected").val();
@@ -155,7 +316,6 @@ $(document).on("click",".salidainv",function(){
 	var id = $(this).attr('id').substr(1);
 
 	var arr = {}
-	
 	arr['sel'] = 'nombre';
 	arr['tbl'] = 14;
 	arr['where'] = 'id = '+id;
@@ -656,8 +816,13 @@ $(document).on("click","#ingInvServ",function(){
 	$("#ajaxServicio").html('');
 });
 
-$(document).on("click","#Iadd",function(){
-	deadclear('productos');
+$(document).on("click","#ingInvPqts",function(){
+	
+	$("#titpqt").html("Agregar Paquetes");
+	var number = arr('login',4,'ifnull(max(id),1)',58,'1','',0,'')[0][0];
+	var codigo = addZero(number,4);
+	$("#vcodigo").val('PCK-'+codigo);
+	setTimeout(function(){ $("#vnombre").focus() },500);
 
 });
 
@@ -705,12 +870,55 @@ $(document).on("change","#vidprovee",function(){
 	$("#vidproveedor").val(opcProv);
 });
 
-function tkn(prodStr,subtotal,prodCant){
-	
-	$("#textProd-tokenfield").val(prodStr+subtotal+'|'+prodCant);
-	$("#textProd-tokenfield").select();
-	
+function addZero(n, len) {
+  return (new Array(len + 1).join('0') + n).slice(-len);
+}
 
+// function tkn(prodStr,subtotal,prodCant){
+// 	$("#textProd-tokenfield").val(prodStr+subtotal+'|'+prodCant);
+// 	$("#textProd-tokenfield").select();
+// }
+
+function addprod(prod,cant) {
+	var info = arr('login',4,'id,venta',11,'nombre = \"'+prod+'\"','',0,'')[0][0];
+	var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
+	var ptotal = parseFloat(info[1]) * $("#cantidad").val();
+	var total = parseFloat($("#htotal").val()) + (parseFloat(info[1]) * $("#cantidad").val());
+	var totdesc = total / ((desc/100)+1);
+	var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
+	var val = 0;
+	$(".nomprod").each(function(){
+		var tid = $(this).attr('id').substr(1);
+		if (tid == info[0]) {
+			cant = parseInt(cant);
+			var cantidad = parseInt($("#c"+info[0]).text());
+			cant += cantidad;
+			$("#c"+info[0]).text(cant);
+			var ftotal = parseFloat($("#htotal").val()) + (parseFloat(info[1]) * $("#cantidad").val());
+			var dtotal = ftotal / ((desc/100)+1)
+			$("#htotal").val(ftotal);
+			$("#totpqt").val(dtotal);
+			$("#prod").val('');
+			$("#cantidad").val('');
+			$("#hprod").val('');
+			$("#prod").focus();
+
+			val += 1;
+		}
+	});
+
+	if (val == 0) {
+		$("#listapaquetes").append('<li class="list-group-item" id="l'+info[0]+'"><input type="hidden" id="htot'+info[0]+'" value="'+ptotal+'"><span class="tag tag-default tag-pill pull-xs-right hcant" id="c'+info[0]+'">'+cant+'</span><input type="hidden" class="form-control ihcant pull-xs-right" style="max-width:22%" id="hcant'+info[0]+'" value=""><label class="nomprod" id="n'+info[0]+'">'+prod+'</label> <i class="fa fa-times btn del inv" id="d'+info[0]+'"></i></li>');
+	}else{
+		return false;
+	}
+
+	$("#htotal").val(total);
+	$("#totpqt").val(totdesc.toFixed(2));
+	$("#prod").val('');
+	$("#cantidad").val('');
+	$("#hprod").val('');
+	$("#prod").focus();
 }
 
 function filtrarprod(code,filtro){
@@ -879,7 +1087,7 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'producto':
-			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as 	,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idmodelo as vidmodelo';
+			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idmodelo as vidmodelo,SUBSTRING_INDEX(cantidad,".",1) as vcantidad,minimo as vminimo,maximo as vmaximo';
 			vmodulo['tbl'] = 14;
 			vmodulo['where'] ='id = '+vid;
 			break;

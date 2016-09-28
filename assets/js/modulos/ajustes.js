@@ -1,6 +1,6 @@
 $(function(){
 	$("#fajustess").submit(function(){return false});
-	$("#m3").click();
+	$("#m1").click();
 });
 
 $(document).on("click",".menu3",function(){
@@ -81,7 +81,7 @@ $(document).on("click",".delimp",function(){
 	var arr = {};
 	arr['sel'] = '';
 	arr['tbl'] = 48;
-	arr['where'] = '3,'+id+',0.00';
+	arr['where'] = '3,'+id+',"",0.00';
 	mantenimiento('login',4,arr);
 
 	var arr2 = {};
@@ -173,6 +173,8 @@ function validar (varreglo,vmodulo) {
 				if ( err ) {
 					return err;
 				}
+			}else{
+				$("#vtelefono").val(1);
 			}
 			break;
 		default:
