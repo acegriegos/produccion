@@ -20,6 +20,10 @@ $(function(){
 		$("#agClie").addClass('edit');
 	})
 
+	$("#modal-clientes").click(function(){
+		alert("Diego Gay")
+		
+	})
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
