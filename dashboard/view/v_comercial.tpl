@@ -42,7 +42,7 @@
             </button>
 
             <button type="button" class="btn btn-default mybtn" title="CxC">
-              <i class="fa fa-user"></i>
+              <i class="fa fa-usd"></i>
               <br>Ventas
             </button>
 
@@ -52,7 +52,7 @@
             </button>
 
             <button type="button" class="btn btn-default mybtn" title="CxC">
-              <i class="fa fa-user"></i>
+              <i class="fa fa-folder-o"></i>
               <br>CxC
             </button>
             

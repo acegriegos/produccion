@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-27 00:47:02
+<?php /* Smarty version 2.6.17, created on 2016-09-28 17:30:36
          compiled from v_comercial.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -45,7 +45,7 @@
             </button>
 
             <button type="button" class="btn btn-default mybtn" title="CxC">
-              <i class="fa fa-user"></i>
+              <i class="fa fa-usd"></i>
               <br>Ventas
             </button>
 
@@ -55,7 +55,7 @@
             </button>
 
             <button type="button" class="btn btn-default mybtn" title="CxC">
-              <i class="fa fa-user"></i>
+              <i class="fa fa-folder-o"></i>
               <br>CxC
             </button>
             
