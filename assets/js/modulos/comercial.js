@@ -1,6 +1,38 @@
+var config1 = {
+    type: 'doughnut',
+    data: {
+        labels: ['a','b','c','d','e'],
+        datasets: [{
+            label: 'Al Día',
+            data: ['10','20','15','5','30'],
+            backgroundColor: [
+            "rgba(70,191,189,0.7)",
+            "rgba(247,70,74,0.7)",
+            "rgba(148,159,177,0.7)",
+            "rgba(253,180,92,0.7)",
+            "rgba(180,253,92,0.7)"
+            ]
+        }],
+    },
+    options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'Grafico 1'
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    }
+};
+
 $(function(){
-	$("#fcomercials").submit(function(){return false});
-	$("#data-table-comercials").dataTable();
+	var ctx = $("#chartG1");
+    var myChart = new Chart(ctx, config1);
 
 });
 

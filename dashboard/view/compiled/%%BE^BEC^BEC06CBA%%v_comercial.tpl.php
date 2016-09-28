@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-28 17:30:36
+<?php /* Smarty version 2.6.17, created on 2016-09-28 18:21:25
          compiled from v_comercial.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,25 +39,32 @@
         <div class="row">
           <div class="col-md-7 col-lg-7">
 
-            <button type="button" class="btn btn-default mybtn" title="CxC">
+          <a href="clientes" class="myah">
+            <button type="button" class="btn btn-default mybtn" title="Clientes">
               <i class="fa fa-user"></i>
               <br>Clientes
             </button>
+          </a>
 
+          <a href="compras" class="myah">
             <button type="button" class="btn btn-default mybtn" title="CxC">
               <i class="fa fa-usd"></i>
               <br>Ventas
             </button>
 
-            <button type="button" class="btn btn-default mybtn" title="CxC" style="display: none">
+          <a href="crm" class="myah" style="display: none">
+            <button type="button" class="btn btn-default mybtn" title="CxC">
               <i class="fa fa-user"></i>
               <br>CRM
             </button>
+          </a>
 
+          <a href="cuentas" class="myah">
             <button type="button" class="btn btn-default mybtn" title="CxC">
               <i class="fa fa-folder-o"></i>
               <br>CxC
             </button>
+          </a>
             
           </div>
           <div class="col-md-5 col-lg-5 mycol">
@@ -66,6 +73,8 @@
             <hr style="border: 1px dashed #e2e2e2">
 
             GRAFICA
+
+            <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
 
             <hr style="border: 1px dashed #e2e2e2">
 
@@ -84,6 +93,7 @@
     <script src="../assets/js/mask/jquery.mask.js"></script>
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/libs/charts/dist/Chart.bundle.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
     <script src="../assets/js/modulos/comercial.js"></script>
   </body>
