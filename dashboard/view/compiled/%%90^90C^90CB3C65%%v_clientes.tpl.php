@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-28 19:25:16
+<?php /* Smarty version 2.6.17, created on 2016-09-29 01:14:52
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -118,9 +118,9 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
 <nav class="navbar navbar-light bg-faded">
   <div class="nav navbar-nav">
-    <a class="nav-item nav-link active" href="#" ln="1">Información</a>
-    <a class="nav-item nav-link" href="#" ln="2">Financiero</a>
-    <a class="nav-item nav-link" href="#" ln="3">Logística</a>
+    <a class="nav-item nav-link active" href="#" id="ln1">Información</a>
+    <a class="nav-item nav-link" href="#" id="ln2">Financiero</a>
+    <a class="nav-item nav-link" href="#" id="ln3">Logística</a>
   </div>
 </nav>
  <br>
@@ -187,25 +187,9 @@ Jurídico
 </div>
 </div>
 
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Crédito</b></div>
-<input type="number" class="form-control" id="vcredito" placeholder="Crédito del Cliente">
-</div> 
-</div>
-
-</div><br>
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Plazo</b></div>
-<input type="number" class="form-control" id="vplazo" placeholder="Plazo en Días">
-<div class="input-group-addon"><b>días</b></div>
 </div>
 </div>
 </div>
-</div>
-<br>
 
 <div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Teléfonos</b></div>
@@ -230,7 +214,27 @@ Jurídico
 </div>
 </div>
 </div>
-<br>
+
+<div class="card-header parte2 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+<div class="card-title"><b>Crédito y Plazo</b></div>
+
+<div class="row">
+<div class="col-md-6 col-lg-6">
+<div class="input-group">
+<div class="input-group-addon"><b>Plazo</b></div>
+<input type="number" class="form-control" id="vplazo" placeholder="Plazo en Días">
+<div class="input-group-addon"><b>días</b></div>
+</div>
+</div>
+<div class="col-md-6 col-lg-6">
+<div class="input-group">
+<div class="input-group-addon"><b>Crédito</b></div>
+<input type="number" class="form-control" id="vcredito" placeholder="Crédito del Cliente">
+</div> 
+</div>
+
+</div>
+</div>
 
 <div class="card-header parte3 ptr" vtabla="ubicaciones" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Direcciones</b></div>
@@ -364,7 +368,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div>
 </div>
 </div>
-<br>
 
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal" >Salir</button>
