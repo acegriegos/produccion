@@ -3,22 +3,23 @@
 <div class="row">
 <div class="col-sm-2 col-xs-2">
 <label class="c-input c-radio">
-<input name="radio" type="radio" id="vidtipofactura" name="vidtipofactura" value="1" checked="checked">
+<input type="radio" id="cont" name="vidtipo" value="1" checked="checked">
+<input type="hidden" id="vidtipo" class="form-control" value="1">
 <span class="c-indicator"></span>
 Contado
 </label>
 </div>
 <div class="col-sm-2 col-xs-2">
 <label class="c-input c-radio">
-<input name="radio" type="radio" id="cred" name="vidtipofactura" value="2">
+<input type="radio" id="cred" name="vidtipo" value="2">
 <span class="c-indicator"></span>
 Crédito
 </label>
 </div>
 <div class="col-md-3 col-lg-3 der">
 <div class="input-group input-group">
-<span class="input-group-addon" id="nfact">N° Factura</span>
-<input type="text" class="form-control" aria-label="Código" placeholder="Código" value="{$NFACT}" disabled>
+<span class="input-group-addon" id="nfact"><b>N° Factura</b></span>
+<input type="text" class="form-control" id="idfact" aria-label="Código" placeholder="Código" value="" disabled>
 </div>
 </div>
 <div class="col-md-5 col-lg-5"></div>
@@ -30,18 +31,19 @@ Crédito
 <input type="hidden" id="vid" value="0">
 <input type="hidden" id="vidusuario" value="">
 <input type="hidden" id="vidempresa" value="{$smarty.session.IMPRESA}">
+<input type="hidden" id="videstado" value="1">
 
 <div class="row">
 <div class="col-md-6 col-lg-6">
 <div class="input-group" title="Formato: (DD-MM-AAAA)">
 <div class="input-group-addon"><b>Fecha:</b></div>
-<input type="text" class="form-control eder" id="vreferencia" value="{$smarty.now|date_format:'%d-%m-%Y'}" readonly>
+<input type="text" class="form-control eder" id="vfecha" value="{$smarty.now|date_format:'%d-%m-%Y'}" readonly>
 </div>
 </div>
 <div class="col-sm-6 col-xs-6">
 <div class="input-group con">
 <div class="input-group-addon"><b>Forma de Pago</b></div>
-<select id="vtipopago" class="form-control" type="select">
+<select id="vidtipopago" type="select" class="form-control">
 {section name=LE loop=$TPAGO}
 <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
 {/section}
@@ -61,13 +63,15 @@ Crédito
 <!-- <div class="input-group">
 <div class="input-group-addon"><b>Nombre</b></div> -->
 <input type="text" id="ncli" class="form-control" value="" required="required" placeholder="Nombre de Cliente">
+<input type="hidden" id="vidcliente" class="form-control" value="">
 <!-- </div> -->
 </div>
 <div class="col-md-6 col-lg-6">
 <!-- <div class="input-group">
 <div class="input-group-addon"><b>Cédula</b></div> -->
-<input type="text" class="form-control" id="idcli" placeholder="Cédula del Cliente">
-<input type="hidden" id="vidproveedor" class="form-control" value="0">
+<input type="text" class="form-control" id="ced" placeholder="Cédula del Cliente" data-mask="9-9999-9999">
+<input type="hidden" id="vbisproveedor" class="form-control" value="0">
+
 <!-- </div> -->
 </div> 
 <div class="alert alert-warning" align="center" id="alert-prov" style="display:none">
@@ -93,6 +97,8 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <div class="col-md-2 col-lg-2"></div>
 <div class="col-md-8 col-lg-8">
 <h3 class="card-title" align="center"><b>DETALLE DE FACTURA</b></h3><br>
+<input type="hidden" id="idline" class="form-control" value="0">
+
 </div>
 <div class="col-md-2 col-lg-2 eder">
 <label class="c-input c-radio">
@@ -114,21 +120,21 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <table class="table table-striped table-bordered nowrap" id="table-detalle" cellspacing="0">
 <thead>
 <tr>
-<th style="width: 5%"></th>
+<!-- <th style="width: 5%"></th> -->
 <th style="width: 10%">Código</th>
 <th style="width: 32%">Descripción</th>
 <th style="width: 10%">Cantidad</th>
 <th style="width: 14%">Precio</th>
 <!-- <th style="width: 12%">Unitario</th> -->
-<th style="width: 14%">Total</th>
+<!-- <th style="width: 14%">Total</th> -->
 <!-- <th id="descth1" style="display:none; width: 6%">%</th> -->
 <th style="width: 10%">Acciones</th>
 </tr>
 </thead>
 <tbody id="fdetallecompras">
 <tr id="f1">
-<td>&nbsp;</td>
-<td><input type="text" id="codp" class="form-control f" value="" placeholder="Código"></td>
+<!-- <td>&nbsp;</td> -->
+<td><input type="text" id="codp" class="form-control f" value="" placeholder="Código"><div id="noprod" class="form-control-feedback" align="center" style="display:none"><small class="asterisco">Producto no Existente</small></div></td>
 <td><input type="text" id="descp" class="form-control fd" value="" placeholder="Descripción"></td>
 <!-- <td><input type="number" id="cantp" class="form-control f" value="" placeholder="0" value="1"></td> -->
 <td>
@@ -137,9 +143,12 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
   <div id="err" class="form-control-feedback" align="center" style="display:none"><small>Cantidad insuficiente</small></div>
 </div>
 </td>
-<td><input type="text" id="precp" class="form-control f" value="" placeholder="0.00" readonly></td>
+<td>
+<input type="text" id="precp" class="form-control f" value="" placeholder="0.00" readonly>
+<input type="hidden" id="hprec" class="form-control" value="">
+</td>
 <!-- <td><input type="text" id="input" class="form-control f" value="" placeholder="0.00"></td> -->
-<td><input type="text" id="totp" class="form-control f" value="" placeholder="0.00" readonly></td>
+<!-- <td><input type="text" id="totp" class="form-control f" value="" placeholder="0.00" readonly></td> -->
 <!-- <td id="desctd1" style="display:none;"><input type="text" class="form-control form-control-sm" placeholder="0"><input type="hidden" id="descHide1"></td> -->
 <td style="font-size: 0.9em">
 <!-- <i class="fa fa-percent btn desc" id="d1" title="Descuento individual" data-toggle="modal" href='#modal-MODAL' style="font-size: 0.8em" estado="0"></i> -->
@@ -149,6 +158,12 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 </tr>
 </tbody>
 </table>
+
+<!-- <div class="alert alert-warning" align="center" id="alert-prod" style="display:none">
+<strong >Producto no Existente,</strong>
+Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">Aceptar</button> <button type="button" class="btn btn-success" id="nincludprod">Declinar</button>
+</div> -->
+
 <!-- </div> -->
 </div>
 
@@ -156,7 +171,7 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <div class="row">
   <div class="col-md-2 col-lg-2"></div>
   <div class="col-md-8 col-lg-8">
-    <div class="card-header" align="center"><h6>DETALLE DE FACTURA</h6></div>
+    <!-- <div class="card-header" align="center"><h6>DETALLE DE FACTURA</h6></div> -->
   </div>
   <div class="col-md-2 col-lg-2">
   <button type="button" class="btn btn-info-outline der" id="del1">Eliminar Filas</button>
@@ -197,23 +212,29 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <tr>
 <tr>
 <td>SUBTOTAL:</td>
-<td align="right"><span><b>¢</b></span><span id="subtot" type="html" value="0">0.00</span></td>
+<td align="right">
+<span><b>¢</b></span><span id="subtot" type="html" value="0">0.00</span>
+<input type="hidden" id="hsubtot" value="0">
+</td>
 </tr>
 <tr>
 <td>I.M.V:</td>
 <td align="right"><span><b>¢</b></span><span id="imv" type="html" value="0">0.00</span></td>
 </tr>
-<td>TOTAL:</td>
-<td align="right"><span><b>¢</b></span><span id="tot" type="html" value="0">0.00</span>
-<input type="hidden" id="vtsubtotal" value="0">
-</td>
+<tr>
+<td>DESCUENTO:</td>
+<td align="right"><span><b>¢</b></span><span id="descuento" type="html" value="0">0.00</span></td>
+</tr>
 <tr>
 <td>FLETE:</td>
 <td align="right"><span><b>¢</b></span><span id="flete" type="html" value="0">0.00</span></td>
 </tr>
 <tr>
-<td>DESCUENTO:</td>
-<td align="right"><span><b>¢</b></span><span id="descuento" type="html" value="0">0.00</span></td>
+<td>TOTAL:</td>
+<td align="right"><span><b>¢</b></span><span id="tot" type="html" value="0">0.00</span>
+<input type="hidden" id="vtsubtotal" value="0">
+<input type="hidden" id="tdesc" value="">
+</td>
 </tr>
 </tr>
 </thead>
@@ -225,16 +246,16 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <div class="row">
 <div class="col-md-4 col-lg-4">
 <div class="input-group">
-<div class="input-group-addon"><small><b>FLETE</b></small></div>
-<input type="text" id="flet" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
-<div class="input-group-addon"><small><b>¢</b></small></div>
+<div class="input-group-addon"><small><b>DESC</b></small></div>
+<input type="text" id="descuent" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
+<div class="input-group-addon"><small><b>%</b></small></div>
 </div>
 </div>
 <div class="col-md-4 col-lg-4">
 <div class="input-group">
-<div class="input-group-addon"><small><b>DESC</b></small></div>
-<input type="text" id="cod" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
-<div class="input-group-addon"><small><b>%</b></small></div>
+<div class="input-group-addon"><small><b>FLETE</b></small></div>
+<input type="text" id="flet" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
+<div class="input-group-addon"><small><b>¢</b></small></div>
 </div>
 </div>
 <div class="col-md-4 col-lg-4">
@@ -269,6 +290,7 @@ Punto Venta
 <br>
 <div class="card-footer"><br>
 <span class="card-title" style="font-size: 3.8em"><h4>TOTAL:</h4><strong><span>¢</span><span id="total" type="html">0.00</span></strong></span>
+<input type="hidden" id="htotal" class="form-control" value="">
 </div>
 </div>
 </div>
@@ -303,4 +325,4 @@ Punto Venta
   </div>
 </div>
 
-<!-- <script src="../assets/js/mask/jquery.mask.js"></script> -->
+<script src="../assets/js/mask/jquery.mask.js"></script>

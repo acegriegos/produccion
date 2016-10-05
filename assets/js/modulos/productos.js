@@ -870,10 +870,6 @@ $(document).on("change","#vidprovee",function(){
 	$("#vidproveedor").val(opcProv);
 });
 
-function addZero(n, len) {
-  return (new Array(len + 1).join('0') + n).slice(-len);
-}
-
 // function tkn(prodStr,subtotal,prodCant){
 // 	$("#textProd-tokenfield").val(prodStr+subtotal+'|'+prodCant);
 // 	$("#textProd-tokenfield").select();

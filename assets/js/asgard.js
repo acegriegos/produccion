@@ -341,6 +341,10 @@ function thorload(vtabla) {
     
 }
 
+function addZero(n, len) {
+  return (new Array(len + 1).join('0') + n).slice(-len);
+}
+
 function permisos(vnumber,vnumber2) {
 
     $.ajax({

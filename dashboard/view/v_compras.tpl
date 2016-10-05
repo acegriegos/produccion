@@ -51,7 +51,6 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/mask/jquery.mask.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
 <script src="../assets/js/jquery.auto-complete.min.js"></script>
