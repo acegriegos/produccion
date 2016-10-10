@@ -94,18 +94,17 @@ $(document).on("click","#delimp",function(){
 
 $(document).on("click","#actinfo",function(){
 
-	// $(".infoempresa").each(function(){
-	// 	var id = $(this).attr('id');
-	// 	var valor = $("#"+id).val();
-	// 	var field = $(this).attr('field');
+	$(".infoempresa").each(function(){
+		var id = $(this).attr('id');
+		var valor = $("#"+id).val();
+		var field = $(this).attr('field');
 
-	// 	var arr = {};
-	// 	arr['sel'] = '';
-	// 	arr['tbl'] = 47;
-	// 	arr['where'] = '\"'+valor+'\",\"'+field+'\"';
-	// 	mantenimiento('login',4,arr);
-
-	// });
+		var arr = {};
+		arr['sel'] = '';
+		arr['tbl'] = 47;
+		arr['where'] = '\"'+valor+'\",\"'+field+'\"';
+		mantenimiento('login',4,arr);
+	});
 
 	$("input[name=impuesto]").each(function(){
 		var id = $(this).attr('id');
@@ -116,8 +115,9 @@ $(document).on("click","#actinfo",function(){
 		arr['tbl'] = 48;
 		arr['where'] = '2,'+id+',"",\"'+value+'\"';
 		mantenimiento('login',4,arr);
-
 	});
+
+	window.open('../dashboard/logout','_self');
 
 });
 
