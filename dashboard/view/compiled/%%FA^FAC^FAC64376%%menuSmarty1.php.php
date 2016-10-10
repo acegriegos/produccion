@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-27 00:03:02
+<?php /* Smarty version 2.6.17, created on 2016-10-06 21:37:42
          compiled from ../view/menuSmarty1.php */ ?>
 <link rel="stylesheet" href="../assets/css/modulos/style-login.css">
-<link rel="stylesheet" href="../assets/fonts/tipografia.css">
+<!-- <link rel="stylesheet" href="../assets/fonts/tipografia.css"> -->
 
 <nav class="navbar navbar-light bg-faded" style="margin-top: -2%; padding: 0% 0% 0% 0%; width: 98%">
 <a class="navbar-brand" href="#"></a>

@@ -1,8 +1,8 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-05 22:54:12
+<?php /* Smarty version 2.6.17, created on 2016-10-10 23:06:56
          compiled from ajax/ajaxFacturacion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxFacturacion.tpl', 40, false),)), $this); ?>
-<div id="fcompras">
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxFacturacion.tpl', 46, false),)), $this); ?>
+<div id="ffacturas">
 
 <div class="row">
 <div class="col-sm-2 col-xs-2">
@@ -33,16 +33,22 @@ Crédito
 
 <div class="panel-heading">
 <input type="hidden" id="vid" value="0">
+<input type="hidden" id="vidtipoventa" value="1">
 <input type="hidden" id="vidusuario" value="">
+<input type="hidden" id="vidsucursal" value="">
 <input type="hidden" id="vidempresa" value="<?php echo $_SESSION['IMPRESA']; ?>
 ">
 <input type="hidden" id="videstado" value="1">
+<input type="hidden" id="visregistrada" value="0">
+<input type="hidden" id="vreferencia" value="0">
+<input type="hidden" id="vidmoneda" value="1">
+
 
 <div class="row">
 <div class="col-md-6 col-lg-6">
-<div class="input-group" title="Formato: (DD-MM-AAAA)">
+<div class="input-group" title="Formato: (AAAA-MM-DD)">
 <div class="input-group-addon"><b>Fecha:</b></div>
-<input type="text" class="form-control eder" id="vfecha" value="<?php echo ((is_array($_tmp=time())) ? $this->_run_mod_handler('date_format', true, $_tmp, '%d-%m-%Y') : smarty_modifier_date_format($_tmp, '%d-%m-%Y')); ?>
+<input type="text" class="form-control eder" id="vfecha" value="<?php echo ((is_array($_tmp=time())) ? $this->_run_mod_handler('date_format', true, $_tmp, '%Y-%m-%d') : smarty_modifier_date_format($_tmp, '%Y-%m-%d')); ?>
 " readonly>
 </div>
 </div>
@@ -162,7 +168,7 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <th style="width: 10%">Acciones</th>
 </tr>
 </thead>
-<tbody id="fdetallecompras">
+<tbody>
 <tr id="f1">
 <!-- <td>&nbsp;</td> -->
 <td><input type="text" id="codp" class="form-control f" value="" placeholder="Código"><div id="noprod" class="form-control-feedback" align="center" style="display:none"><small class="asterisco">Producto no Existente</small></div></td>
@@ -225,7 +231,7 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 </table>
 <div style="max-height: 200px; overflow: auto;">
   <table class="table table-hover table-striped table-bordered">
-    <tbody id="detalleFac">
+    <tbody id="detallefactura">
        
     </tbody>
   </table>
@@ -250,7 +256,8 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 </tr>
 <tr>
 <td>I.M.V:</td>
-<td align="right"><span><b>¢</b></span><span id="imv" type="html" value="0">0.00</span></td>
+<td align="right"><span><b>¢</b></span><span id="imv" type="html" value="0">0.00</span>
+<input type="hidden" id="vimv" value=""></td>
 </tr>
 <tr>
 <td>DESCUENTO:</td>
@@ -263,7 +270,7 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 <tr>
 <td>TOTAL:</td>
 <td align="right"><span><b>¢</b></span><span id="tot" type="html" value="0">0.00</span>
-<input type="hidden" id="vtsubtotal" value="0">
+<input type="hidden" id="vsubtotal" value="0">
 <input type="hidden" id="tdesc" value="">
 </td>
 </tr>
@@ -278,21 +285,21 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 <div class="col-md-4 col-lg-4">
 <div class="input-group">
 <div class="input-group-addon"><small><b>DESC</b></small></div>
-<input type="text" id="descuent" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
+<input type="text" id="vdescuento" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
 <div class="input-group-addon"><small><b>%</b></small></div>
 </div>
 </div>
 <div class="col-md-4 col-lg-4">
 <div class="input-group">
 <div class="input-group-addon"><small><b>FLETE</b></small></div>
-<input type="text" id="flet" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
+<input type="text" id="vflete" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
 <div class="input-group-addon"><small><b>¢</b></small></div>
 </div>
 </div>
 <div class="col-md-4 col-lg-4">
 <div class="input-group">
 <div class="input-group-addon"><small><b>AJUSTE</b></small></div>
-<input type="text" id="ajust" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
+<input type="text" id="vajuste" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
 <div class="input-group-btn">
 <button type="button" class="btn btn-sm" id="btnAjuste" accion="1">+</button>
 </div>
@@ -308,9 +315,9 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 <textarea id="vcomentario" class="form-control" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px"></textarea><br>
 <div class="row">
 <div class="col-md-12 col-lg-12">
-<button class="btn btn-primary-outline der add" modulo="compra" codigo="1" id="facturar" detalle=1 data-toggle="modal" href='#modal-cambio'>Facturar</button>
-<button type="button" class="btn btn-primary der edit per105 inv" codigo="1" modulo="compra" detalle="1" id="actualizar">Actualizar</button>
-<input type="hidden" class="load" value="" codigo="1" modulo="compra" detalle="1">
+<button class="btn btn-primary-outline der add" modulo="factura" codigo="1" detalle="1" id="facturar">Facturar</button>  <!--  data-toggle="modal" href='#modal-cambio' -->
+<button type="button" class="btn btn-primary der edit per105 inv" codigo="1" modulo="factura" detalle="1" id="actualizar">Actualizar</button>
+<input type="hidden" class="load" value="" codigo="1" modulo="factura" detalle="1">
 <div class="checkbox" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'">
 <label class="c-input c-checkbox">
 <input type="checkbox">
@@ -319,13 +326,24 @@ Punto Venta
 </label>
 </div>
 <br>
-<div class="card-footer"><br>
+<!-- <div class="card-footer"><br>
 <span class="card-title" style="font-size: 3.8em"><h4>TOTAL:</h4><strong><span>¢</span><span id="total" type="html">0.00</span></strong></span>
 <input type="hidden" id="htotal" class="form-control" value="">
+</div> -->
 </div>
 </div>
 </div>
 </div>
+<br><br>
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    <div class="alert alert-danger err_" id="err1" style="display: none">
+      <strong id="errm1"></strong>
+    </div>
+    <div class="alert alert-success suc_" id="suc1" style="display: none">
+      <strong id="sucm1"></strong>
+    </div>
+  </div>
 </div>
 </div>
 

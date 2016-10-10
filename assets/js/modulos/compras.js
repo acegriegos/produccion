@@ -63,8 +63,13 @@ $(document).ready(function(){
         // AUTO COMPLETE PRODUCTOS
 
         var consecutivo = arr('login',4,'consecutivo',39,'id = @@impresa','',0,'')[0][0][0];
+        var idfact = 0;
         
-        var idfact = addZero(consecutivo,parseInt(consecutivo.length)+1);
+        if (consecutivo.length == 1) {
+            idfact = addZero(consecutivo,parseInt(consecutivo.length)+1);
+        }else{
+            idfact = consecutivo
+        }
         $("#idfact").val(idfact)
 
 
@@ -205,7 +210,7 @@ $(document).on("change","#cantp",function(){
 
 $(document).on("click",".fedit",function(){
     var id = $(this).attr('id').substr(4);
-    var visible = $("#canh"+id).attr('visible');
+    var visible = $("#vcantidad"+id).attr('visible');
 
     var cod = $("#codprod"+id).text();
     var arr = {}
@@ -219,19 +224,19 @@ $(document).on("click",".fedit",function(){
 
     if (visible == 0) {
         $("#cant"+id).show(100);
-        $("#canh"+id).hide();
-        $("#canh"+id).attr('visible',1);
+        $("#vcantidad"+id).hide();
+        $("#vcantidad"+id).attr('visible',1);
     }else{
         $("#cant"+id).hide();
-        $("#canh"+id).show(100);
-        $("#canh"+id).attr('visible',0);
+        $("#vcantidad"+id).show(100);
+        $("#vcantidad"+id).attr('visible',0);
 
-        $("#canh"+id).keyup(function(e){
+        $("#vcantidad"+id).keyup(function(e){
             var code = e.which || e.keyCode;
             if (code == 13) {
-                $("#cant"+id).text(parseFloat($("#canh"+id).val()));
+                $("#cant"+id).text(parseFloat($("#vcantidad"+id).val()));
                 $("#cant"+id).show(100);
-                $("#canh"+id).hide();
+                $("#vcantidad"+id).hide();
 
                 $("#tota"+id).text( (parseFloat($("#cant"+id).text().replace(/,/g,"")) * parseFloat($("#prec"+id).text().replace(/,/g,""))).formatMoney(2,'.',',') );
             }
@@ -362,12 +367,12 @@ $(document).on("click",".desc",function(){
     var id = $(this).attr('id').substr(1);
 
     if (estado == 0) {
-        $("#h"+id).removeAttr('disabled');
+        $("#vdesc"+id).removeAttr('disabled');
         $(this).attr('estado',1);
         $(this).css('color','#30DE61');
-        $("#h"+id).focus();
+        $("#vdesc"+id).select();
     }else{
-        $("#h"+id).attr('disabled',true);
+        $("#vdesc"+id).attr('disabled',true);
         $(this).attr('estado',0);
         $(this).css('color','#3E3E3E');
     }
@@ -377,38 +382,38 @@ $(document).on("keyup",".desci",function(e){
     var code = e.which || e.keyCode;
 
     if (code == 13) {
-        var line = $(this).attr('id').substr(1);
+        var line = $(this).attr('id').substr(5);
 
         var desci = $(this).val() == '' ? 0 : parseFloat($(this).val());
         var total = parseFloat($("#htotp"+line).val().replace(/,/g,""));
         
         dodesc(line,desci,total);
-        totalizar($("#descuent").val(),$("#flet").val(),$("#ajust").val())
+        totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val())
     }
 });
 
 $(document).on("blur",".desci",function(){
-    var line = $(this).attr('id').substr(1);
+    var line = $(this).attr('id').substr(5);
     var desci = $(this).val() == '' ? 0 : parseFloat($(this).val());
     var total = parseFloat($("#htotp"+line).val().replace(/,/g,""));
     
     dodesc(line,desci,total);
 
-    $("#h"+line).attr('disabled',true);
+    $("#vdesc"+line).attr('disabled',true);
     $("#i"+line).attr('estado',0);
     $("#i"+line).css('color','#3E3E3E');
 });
 
-$(document).on("keyup","#descuent",function(){
-    totalizar($(this).val(),$("#flet").val(),$("#ajust").val());
+$(document).on("keyup","#vdescuento",function(){
+    totalizar($(this).val(),$("#vflete").val(),$("#vajuste").val());
 });
 
-$(document).on("keyup","#flet",function(){
-    totalizar($("#descuent").val(),$(this).val(),$("#ajust").val());
+$(document).on("keyup","#vflete",function(){
+    totalizar($("#vdescuento").val(),$(this).val(),$("#vajuste").val());
 });
 
-$(document).on("keyup","#ajust",function(){
-    totalizar($("#descuent").val(),$("#flet").val(),$(this).val());
+$(document).on("keyup","#vajuste",function(){
+    totalizar($("#vdescuento").val(),$("#vflete").val(),$(this).val());
 });
 
 $(document).on("click",".delf",function(){
@@ -420,14 +425,14 @@ $(document).on("click",".delf",function(){
         var precio = parseFloat($(this).text().replace(/,/g,""));
         total += precio;
         $("#hsubtot").val(total);
-        totalizar($("#descuent").val(),$("#flet").val(),$("#ajust").val());
+        totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
         // $("#subtot").html(total.formatMoney(2,'.',','));
     });
 
 });
 
 $(document).on("click","#facturar",function(){
-    $("#pcon").focus();
+    // setTimeout(function(){ $("#pcon").focus(); }, 500);
 });
 
 $(document).on("click","#btnAjuste",function(){
@@ -441,7 +446,7 @@ $(document).on("click","#btnAjuste",function(){
         $(this).attr('accion',1);
     }
 
-    totalizar($("#descuent").val(),$("#flet").val(),$("#ajust").val());
+    totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
 
 });
 
@@ -545,7 +550,8 @@ function addline(cod,desc,cant,prec,tot,cntinv) {
     
     var err = 0;
     var existe = 0;
-    $("#detalleFac tr").each(function(){
+    var precio = parseFloat(prec.replace(/,/g,""));
+    $("#detallefactura tr").each(function(){
         var vid = $(this).attr('id').substr(2);
         if (cod == $("#codprod"+vid).text()) {
             existe = 1;
@@ -556,13 +562,15 @@ function addline(cod,desc,cant,prec,tot,cntinv) {
                 $("#cantp").select();
                 err = 1;
             }else{
-                var descp = $("#h"+vid).val() == '' ? 0 : parseFloat($("#h"+vid).val());
+                var descp = $("#vdesc"+vid).val() == '' ? 0 : parseFloat($("#vdesc"+vid).val());
                 var totp = parseFloat($("#htotp"+vid).val().replace(/,/g,""));
-                var precio = parseFloat(prec.replace(/,/g,""));
+                
                 var htot = totp + (precio * cant);
                 var total = 0;
+                var tcant = parseFloat($("#cant"+vid).text().replace(/,/g,""))+cant
 
-                $("#cant"+vid).html(parseFloat($("#cant"+vid).text().replace(/,/g,""))+cant);
+                $("#vcantidad"+vid).val(tcant)
+                $("#cant"+vid).html(tcant);
                 $("#htotp"+vid).val(htot);
                 $("#tota"+vid).text(htot.formatMoney(2,'.',','))
 
@@ -577,7 +585,7 @@ function addline(cod,desc,cant,prec,tot,cntinv) {
                     // $("#subtot").html( total.formatMoney(2,'.',',') );
                 });
             }
-            totalizar($("#descuent").val(),$("#flet").val(),$("#ajust").val());
+            totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
         }
     });
 
@@ -586,12 +594,12 @@ function addline(cod,desc,cant,prec,tot,cntinv) {
         $("#idline").val(id)
 
 
-        $("#detalleFac").append('<tr align="center" id="fd'+id+'"><td style="width: 5%"><div class="checkbox"><label class="c-input c-checkbox"><input type="checkbox"><span class="c-indicator" id="d'+id+'" class="delf" name="eliminarf" value="1" style="float: right;"></span></label></div></td><td style="width: 10%"><span id="codprod'+id+'">'+cod+'</span></td><td style="width: 27%"><span id="desc'+id+'">'+desc+'</span></td><td style="width: 10%"><span id="cant'+id+'">'+cant+'</span><input type="number" id="canh'+id+'" class="form-control form-control-sm" value="'+cant+'" visible="0" style="display:none; width: 70px"><input type="hidden" id="cnth'+id+'" value=""></td><td style="width: 14%"><span id="prec'+id+'">'+prec+'</span></td><td style="width: 14%"><span id="tota'+id+'" class="totp">'+tot+'</span><input type="hidden" id="htotp'+id+'" value="'+tot+'"></td><td id="desctd'+id+'" align="left" style="width: 6%"><input type="text" id="h'+id+'" class="form-control form-control-sm desci" placeholder="0" style="width: 50px" disabled><input type="hidden" id="descHide'+id+'"></td><td style="font-size: 0.9em; width: 15%"><i class="fa fa-percent btn desc" id="i'+id+'" title="Descuento individual" data-toggle="modal" href="#modal-MODAL" style="font-size: 0.8em" estado="0"></i><i class="btn fa fa-edit fedit" id="edit'+id+'"></i><i class="fa fa-times btn delf" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila"></i></td></tr>');
+        $("#detallefactura").append('<tr align="center" id="fd'+id+'"><td style="width: 5%"><div class="checkbox"><label class="c-input c-checkbox"><input type="checkbox"><span class="c-indicator" id="d'+id+'" class="delf" name="eliminarf" value="1" style="float: right;"></span></label></div></td><td style="width: 10%"><span id="codprod'+id+'">'+cod+'</span><input type="hidden" id="vidproducto'+id+'" class="constante'+id+'" value="'+cod+'"><input type="hidden" id="vidfactura'+id+'" value="?"></td><td style="width: 27%"><span id="desc'+id+'">'+desc+'</span></td><td style="width: 10%"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" class="form-control form-control-sm" value="'+cant+'" visible="0" style=" display:none;width: 70px"><input type="hidden" id="cnth'+id+'" value=""></td><td style="width: 14%"><span id="prec'+id+'">'+prec+'</span><input type="hidden" id="vprecio'+id+'" value="'+precio+'"></td><td style="width: 14%"><span id="tota'+id+'" class="totp">'+tot+'</span><input type="hidden" id="htotp'+id+'" value="'+tot+'"></td><td id="desctd'+id+'" align="left" style="width: 6%"><input type="text" id="vdesc'+id+'" class="form-control form-control-sm desci" value="0.00" placeholder="0" style="width: 50px" disabled><input type="hidden" id="descHide'+id+'"></td><td style="font-size: 0.9em; width: 15%"><i class="fa fa-percent btn desc" id="i'+id+'" title="Descuento individual" data-toggle="modal" href="#modal-MODAL" style="font-size: 0.8em" estado="0"></i><i class="btn fa fa-edit fedit" id="edit'+id+'"></i><i class="fa fa-times btn delf" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila"></i></td></tr>');
 
         var total = parseFloat($("#hsubtot").val().replace(/,/g,"")) + parseFloat(tot.replace(/,/g,""));
         // $("#subtot").html(total.formatMoney(2,'.',','));
         // $("#hsubtot").val();
-        totalizar($("#descuent").val(),$("#flet").val(),$("#ajust").val());
+        totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
 
     }
 
@@ -622,7 +630,7 @@ function dodesc(line,desc,total){
         sumaprod += precio;
         
         $("#hsubtot").val(sumaprod);
-        totalizar($("#descuent").val(),$("#flet").val(),$("#ajust").val());
+        totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
         // $("#subtot").text(sumaprod.formatMoney(2,'.',','));
 
     });
@@ -727,49 +735,13 @@ function totalizar(desc,flete,ajuste) {
     }
     
     $("#subtot").html(totd.formatMoney(2,'.',','));
+    $("#vimv").val(imv);
     $("#imv").html(impuesto.formatMoney(2,'.',','));
     $("#descuento").html(idesc.formatMoney(2,'.',','));
     $("#tdesc").val(tdesc);
     $("#tot").html(total.formatMoney(2,'.',','));
-    $("#vtsubtotal").val(totd.toFixed(2));
-
+    $("#vsubtotal").val(totd.toFixed(2));
 }
-
-// function detallar(id) {
-//     var cantidad = isNaN($("#vcantidad"+id).val()) ? 1 : parseFloat($("#vcantidad"+id).val());
-//     var precio = isNaN($("#vprecio"+id).val()) ? 1 : parseFloat($("#vprecio"+id).val());
-//     var costo = isNaN($("#vcosto"+id).val()) ? 1 : parseFloat($("#vcosto"+id).val());
-
-//     var margen = (precio-costo)/2;
-
-//     if (margen < 0) {
-//         $("#totm"+id).css("color","red");
-//         $("#margen"+id).css("color","red");
-//     }else if (margen == 0) {
-//         $("#totm"+id).css("color","black");
-//         $("#margen"+id).css("color","black");
-//     }else {
-//         $("#totm"+id).css("color","green");
-//         $("#margen"+id).css("color","green");
-//     }
-    
-//     $("#margen"+id).text( Math.abs(margen).formatMoney(2,'.',',') );
-//     $("#totm"+id).text( Math.abs(margen*cantidad).formatMoney(2,'.',',') );
-//     $("#prcent"+id).text( (((precio/costo)-1)*100).toFixed(2) );
-
-//     totalizar()
-
-// }
-
-// function 2line(id) {
-//     if( ($("#prod"+id).html() == '') || ($("#prod"+max).html() == '') ){
-//         $("#descr").focus();
-//         return false;
-//     }else{
-//         max += 1;
-//         $("#detallecompra").append('<tr id="f'+max+'"><td>  <span class="checkbox" id="prod'+max+'"></span><input type="hidden" id="vidproducto'+max+'" class="constante'+max+'" value=""><input type="hidden" id="vidfactura'+max+'" value="?"></td><td><input type="number" id="vcantidad'+max+'" idx="'+max+'" class="form-control xort" value="1" required="required" min="1"></td><td><input type="text" id="vcosto'+max+'" idx="'+max+'" class="form-control xort eder" value="0.00" required="required" data-mas="99999999.99"></td><td><input type="text" id="vprecio'+max+'" idx="'+max+'" class="form-control xort eder" value="0.00" required="required" data-mas="99999999.99"></td><td align="right"><div class="checkbox"> <span class="valores" id="margen'+max+'">0.00</span></div></td><td align="right"><div class="checkbox"> <span class="valores" id="totm'+max+'">0.00</span></div><td align="left"><div class="checkbox"> <input type="checkbox" class="delf" value="'+max+'" name="eliminarf" style="float: right;display: none;"> <span id="prcent'+max+'" value="0">0.00</span>  </div></td></tr>');
-//     }
-// }
 
 function validar (varreglo,vmodulo) {
     
@@ -778,9 +750,9 @@ function validar (varreglo,vmodulo) {
         /*VALIDACION FRONT END*/
     
     switch(vmodulo['modulo']) {
-        case 'compra':
+        case 'factura':
             if (vmodulo['tip'] == '') {
-                err = validarCompra();
+                err = validarFactura();
                 if ( err ) {
                     return err;
                 }
@@ -797,29 +769,24 @@ function validar (varreglo,vmodulo) {
 
 }
 
-function validarCompra() {
+function validarFactura() {
 
-    if ($("#vfecha_inclucion").val() == '') {
-        $("#vfecha_inclucion").focus();
-        return "Fecha de Incluión Requerida";
+
+    if ($("#ncli").val() == '') {
+        $("#ncli").focus()
+        return "Cliente Requerido";
     }
 
-    if ($("#vidproveedor").val() == 0) {
-        $("#nprv").focus()
-        return "Proveedor Requerido";
-    }
-
-    if ($("#vtsubtotal").val() == '') {
-        $("#descr").focus()
+    if ($("#subtot").text() == '0.00') {
+        $("#codp").focus()
         return "No se Han Ingresado Productos";
     }
 
     if ($("#vcomentario").val() == '') {
-        $("#vcomentario").focus();
-        return "Comentario Requerido";
+        $("#vcomentario").val('');
     }
 
-
+    
     return false;
 }
 

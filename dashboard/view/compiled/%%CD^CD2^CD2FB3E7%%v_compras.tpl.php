@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-03 23:50:57
+<?php /* Smarty version 2.6.17, created on 2016-10-07 20:14:25
          compiled from v_compras.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,7 +54,7 @@
     </div> <!-- fcompras -->
 </div> <!-- bdy -->
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script> -->
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
