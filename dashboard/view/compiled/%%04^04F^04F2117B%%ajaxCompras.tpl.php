@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-08-29 10:01:49
+<?php /* Smarty version 2.6.17, created on 2016-10-05 23:47:20
          compiled from ajax/ajaxCompras.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxCompras.tpl', 59, false),)), $this); ?>
@@ -116,7 +116,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 <!-- <div class="input-group">
 <div class="input-group-addon"><b>Cédula</b></div> -->
 <input type="text" class="form-control" id="idprv" placeholder="Cédula del Proveedor">
-<input type="hidden" id="vidproveedor" class="form-control" value="0">
+<input type="hidden" id="vbisproveedor" class="form-control" value="1">
 <!-- </div> -->
 </div>
 <br><br>

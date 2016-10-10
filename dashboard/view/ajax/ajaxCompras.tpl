@@ -85,7 +85,7 @@ Crédito
 <!-- <div class="input-group">
 <div class="input-group-addon"><b>Cédula</b></div> -->
 <input type="text" class="form-control" id="idprv" placeholder="Cédula del Proveedor">
-<input type="hidden" id="vidproveedor" class="form-control" value="0">
+<input type="hidden" id="vbisproveedor" class="form-control" value="1">
 <!-- </div> -->
 </div>
 <br><br>

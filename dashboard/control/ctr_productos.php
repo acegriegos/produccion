@@ -43,7 +43,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			//PAQ
+	   			$smarty->assign('PAQ',$kakaroto->kamehameha('id,codigo,nombre,descuento,total',58,'id > 0 order by nombre'));
 	   			//PROD
 	   			//SERV
 	   			$smarty->display('ajax/ajaxmantPaquetes.tpl');

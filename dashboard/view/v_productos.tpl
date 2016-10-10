@@ -15,10 +15,12 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/easy-autocomplete.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/jquery.auto-complete.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:500' rel='stylesheet' type='text/css'>
+    <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:500' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -54,15 +56,14 @@
     </div>
 
 </div>
-   <!--  <script src="../assets/js/tether.min.js"></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script> -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="../assets/js/tether.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/js/alertModal.js"></script>
     <script src="../assets/js/notify.js"></script>
     <script src="../assets/js/jquery.auto-complete.min.js"></script>
+    <script src="../assets/js/NaN/auto-complete.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
     <script src="../assets/js/modulos/productos.js"></script>
     <script src="../assets/js/bootstrap-tokenfield.js"></script>

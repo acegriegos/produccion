@@ -10,6 +10,8 @@ $(function(){
 		$("#agClie").addClass('add');
 
 		deadclear('cliente');
+
+		$("#ln1").click();
 	});
 
 	$(".load").click(function(){
@@ -20,6 +22,13 @@ $(function(){
 		$("#agClie").addClass('edit');
 	})
 
+	$("[id^=ln]").click(function(){
+		var id = $(this).attr('id').substr(2);
+		$(".ptr").hide()
+		$(".parte"+id).show()
+		$("[id^=ln]").removeClass('active')
+		$(this).addClass('active')
+	});
 });
 
 $(document).on("click","input[name='tipoclie']",function(){

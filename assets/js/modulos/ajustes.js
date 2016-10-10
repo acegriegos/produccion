@@ -1,16 +1,10 @@
 $(function(){
 	$("#fajustess").submit(function(){return false});
-	$("#data-table-ajustess").dataTable();
-
-	$("#m3").click();
-	//carga datos de la empresa
-		// fin
-
-	
-
+	$("#m1").click();
 });
 
 $(document).on("click",".menu3",function(){
+
 	$(".menu3").removeClass('active');
 		$(this).addClass('active');
 	
@@ -48,6 +42,14 @@ $(document).on("click",".menu3",function(){
 				var p = mantenimiento('ajustes',4,'');
 				$("#majustes").html('');
 				$("#majustes").html(p);
+				$("#data-table-sucursales").dataTable({
+					bFilter : false,
+					bScrollInfinite : true,
+					bSort : false,
+					bLengthChange : false,
+					bPaginate :  false,
+					bInfo : false
+				});
 		}
 		
 });
@@ -79,7 +81,7 @@ $(document).on("click",".delimp",function(){
 	var arr = {};
 	arr['sel'] = '';
 	arr['tbl'] = 48;
-	arr['where'] = '3,'+id+',0.00';
+	arr['where'] = '3,'+id+',"",0.00';
 	mantenimiento('login',4,arr);
 
 	var arr2 = {};
@@ -139,8 +141,15 @@ $(document).on("click","#sfechafiscal",function(){
 	mantenimiento('login',4,arr);
 });
 
-$(document).on("click","#Iadd",function(){
-	deadclear('ajustes')
+$(document).on("click",".load",function(){
+	$("#accsuc").removeClass("add");
+	$("#accsuc").addClass("edit");
+	$("#accsuc").html("Guardar");
+});
+
+$(document).on("change","#vidprovincia",function(){
+	var id = $("option:selected",this).val();
+	arr('login',6,'id,nombre',9,'idprovincia = '+id+' and id > 0 order by nombre','',1,$("#vidcanton"))
 });
 
 function validar (varreglo,vmodulo) {
@@ -157,7 +166,16 @@ function validar (varreglo,vmodulo) {
 					return err;
 				}
 			}
-			
+			break;
+		case 'sucursale':
+			if (vmodulo['tip'] == '') {
+				err = validarsucursales();
+				if ( err ) {
+					return err;
+				}
+			}else{
+				$("#vtelefono").val(1);
+			}
 			break;
 		default:
 			return 'Módulo no Existente';
@@ -167,6 +185,28 @@ function validar (varreglo,vmodulo) {
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
 	return salida;
 
+}
+
+function validarsucursales() {
+	if ($("#vnombre").val() == '') {
+		$("#vnombre").focus();
+		return "Nombre de la Sucursal Requerido";
+	}
+
+	if ($("#vtelefono").val() == '') {
+		$("#vtelefono").focus();
+		return "Teléfono de la Sucursal Requerido";
+	}
+
+	if ($("#vidprovincia").val() == 0) {
+		$("#vidprovincia").focus();
+		return "Provincia Requerido";
+	}
+
+	if ($("#vidcanton").val() == 0) {
+		$("#vidcanton").focus();
+		return "Cantón Requerido";
+	}
 }
 
 function validarAjuste() {
@@ -199,12 +239,11 @@ function validarAjuste() {
 
 function cargar(vmodulo,vid) {
 
-
 	switch(vmodulo['modulo']) {
-		case 'ajustes':
-			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 3;
-			vmodulo['where'] ='';
+		case 'sucursale':
+			vmodulo['sel'] = 'vid,vconsecutivo,vfactura,vidusuario,vnombre,vtelefono,vidprovincia,vidcanton';
+			vmodulo['tbl'] = 57;
+			vmodulo['where'] ='vid = '+vid;
 			break;
 		default:
 			return 'Módulo no Existente';
@@ -217,9 +256,9 @@ function cargar(vmodulo,vid) {
 function cargarSintax(){
 	var arr = {}
 
-	arr['sel'] = '';
-	arr['tbl'] = 4;
-	arr['where'] = '';
+	arr['sel'] = 'id,nombre,telefono';
+	arr['tbl'] = 39;
+	arr['where'] = 'id > 0 order by nombre';
 
 	return arr;
 }

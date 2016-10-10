@@ -27,24 +27,23 @@
     <div class="bdy">
     {$NAV}
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-            <a class="navbar-brand" href="#"><b>Ajustes</b></a>
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link menu3 active" id="m1" href="#">Empresa</a>
-                </li>
-                <li class="nav-item menu3" id="m2">
-                    <a class="nav-link" href="#">Impuestos</a>
-                </li>
-                <li class="nav-item menu3" id="m3">
-                    <a class="nav-link" href="#">Sucursales</a>
-                </li>
-                <!-- <li class="nav-item menu3" id="m3">
-                    <a class="nav-link" href="#"></a>
-                </li> -->
-            </ul>
-        </nav>
-        <br>
-        <div id="majustes"></div>
+        <a class="navbar-brand" href="#"><b>Ajustes</b></a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link menu3 active" id="m1" href="#">Empresa</a>
+            </li>
+            <li class="nav-item menu3" id="m2">
+                <a class="nav-link" href="#">Impuestos</a>
+            </li>
+            <li class="nav-item menu3" id="m3">
+                <a class="nav-link" href="#">Sucursales</a>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    
+
+    <div id="majustes"></div>
         
     </div>
     <script src="../assets/js/bootstrap.min.js"></script>

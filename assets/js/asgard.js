@@ -74,7 +74,8 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         if (p['succed'] == 0) {
             $('#err'+codigo).show();
             $('#errm'+codigo).html(p[0]['ERROR']);
-            setTimeout(function(){ $('#err'+codigo).hide(); $('#errm'+codigo).html('');}, 5000);
+            // $('#err'+codigo).hide();
+            // $('#errm'+codigo).html('');
         }else{
            
             var tmsj = "Ingresado";
@@ -90,10 +91,10 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
             $('#sucm'+codigo).html('Registro '+tmsj+' Correctamente');
             
             if (detalle == 1) {
-                /*id = p[0][0];
-                window.open(modulo+"s?accion=5&id="+id+"&tp="+$("#t_p").val());
-                setTimeout(function(){ location.reload(); }, 1000);*/
-                endDetail(p);
+                id = p[0][0];
+                // window.open(modulo+"s?accion=5&id="+id+"&tp="+$("#t_p").val());
+                // setTimeout(function(){ location.reload(); }, 1000);
+                // endDetail(p);
             }else{
                 setTimeout(function(){ deadclear(arreglo['modulo']); }, 2000);
                 thorload(modulo);
@@ -104,7 +105,7 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
     }else{
         $('#errm'+codigo).html(arreglo['atributos']);
         $('#err'+codigo).show();
-        setTimeout(function(){ $('#err'+codigo).hide(); $('#errm'+codigo).html('');}, 5000);
+        // setTimeout(function(){ $('#err'+codigo).hide(); $('#errm'+codigo).html('');}, 5000);
     }
 };
 
@@ -129,6 +130,7 @@ function loadpool(vmodulo,vid,vdetalle){
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
 
+
     var columns = mantenimiento('login',5,vmodulo);
 
     for (var i = 0; columns[0][1].length > i; i++) {
@@ -149,11 +151,12 @@ function loadpool(vmodulo,vid,vdetalle){
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).html(columns[0][0][0][i]);
         }
         
-        else 
+        else
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
         
         if ($("#"+columns[0][1][i]['name']).attr("cambio") == 1)
             $("#"+columns[0][1][i]['name']).change();
+        
     }
 
     if (vdetalle != undefined){
@@ -200,6 +203,7 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
         velemto.html(mantenimiento(vref,vaccion,arr));
     else
         salida = mantenimiento(vref,vaccion,arr);
+    
 
     return salida;
 }
@@ -239,14 +243,14 @@ function odin(varreglo,vform,id) {
                 if (typeof $("#vidusuario"+id).val() == 'undefined') {
                     salida[varreglo[i]] = '';
                 }else{
-                    salida[varreglo[i]] = $("#"+vform).find($("#vidusuario"+id)).val();
+                    salida[varreglo[i]] = $("#vidusuario"+id).val();
                 }
                 break;
             case 'vid':
                 if (typeof $("#vid"+id).val() == 'undefined') {
                     salida[varreglo[i]] = 0;
                 }else{
-                    salida[varreglo[i]] = $("#"+vform).find($("#vid"+id)).val();
+                    salida[varreglo[i]] = $("#vid"+id).val();
                 }
                 break;
             case 'vaccion':
@@ -338,6 +342,10 @@ function thorload(vtabla) {
     
 }
 
+function addZero(n, len) {
+  return (new Array(len + 1).join('0') + n).slice(-len);
+}
+
 function permisos(vnumber,vnumber2) {
 
     $.ajax({
@@ -382,7 +390,6 @@ var n = this,
  };
 
  function cargarDetalle(vdetalle) {
-
     var salida = [];
     var varreglo = {};
     varreglo['modulo'] = vdetalle;
@@ -392,9 +399,9 @@ var n = this,
     var det;
  
     $("#"+vdetalle+" tr").each(function(index){
-       
-        fid = $(this).attr('id').substr(1);
-        sid = $(".constante"+fid).val()
+        fid = $(this).attr('id').substr(2);
+        sid = $(".constante"+fid).val();
+        alert(fid+" "+sid)
 
         if (sid != ''){
             det = odin(varreglo['atributos'][0],$(this).attr('id'),fid);
