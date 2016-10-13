@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-29 01:14:52
+<?php /* Smarty version 2.6.17, created on 2016-10-11 14:50:12
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,7 +30,7 @@
 
 <div class="bdy">
 <h3 class="card-header card-primary" style="color: #fff"><b>CLIENTES</b></h3><br>
-<input type="hidden" id="vtabla" value="17">
+
 <div class="row">
 <div class="col-md-8 col-lg-8">
 <div class="input-group">
@@ -216,9 +216,9 @@ Jurídico
 </div>
 
 <div class="card-header parte2 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Crédito y Plazo</b></div>
+<div class="card-title"><b>Plazo y Crédito</b></div>
 
-<div class="row">
+<div class="row">   
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Plazo</b></div>
@@ -234,6 +234,19 @@ Jurídico
 </div>
 
 </div>
+
+<div class="card-title"><b>Contabilidad</b></div>
+
+<div class="row">   
+<div class="col-md-6 col-lg-6">
+<div class="input-group">
+<div class="input-group-addon"><b>Plazo</b></div>
+<input type="number" class="form-control" id="vplazo" placeholder="Plazo en Días">
+<div class="input-group-addon"><b>días</b></div>
+</div>
+</div>
+</div>
+
 </div>
 
 <div class="card-header parte3 ptr" vtabla="ubicaciones" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">

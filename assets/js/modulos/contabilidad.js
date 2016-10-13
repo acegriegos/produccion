@@ -25,6 +25,13 @@ $(function(){
 	$("#m1").click();
 });
 
+$(document).on('change','#continuo',function(){
+	if ($(this).is(':checked'))
+		$('#vispadre').val(1)
+	else
+		$('#vispadre').val(0)
+});
+
 $(document).on("click","#Iadd",function(){
 	deadclear('contabilidad')
 });
@@ -250,7 +257,7 @@ $(document).on("click",".addglobal",function(){
 		var arr = {}
 		arr['sel'] = '';
 		arr['tbl'] = 37;
-		arr['where'] = '1,0,'+$("#vgenero").attr('lvl')+',"'+$('#vnombre').val()+'",@@usr';
+		arr['where'] = '1,0,'+$("#vgenero").attr('lvl')+',"'+$('#vnombre').val()+'",@@usr,'+$("#vispadre").val();
 
 		mantenimiento('login',4,arr);//INGRESAR CUENTA
 

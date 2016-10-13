@@ -401,13 +401,14 @@ var n = this,
     $("#"+vdetalle+" tr").each(function(index){
         fid = $(this).attr('id').substr(2);
         sid = $(".constante"+fid).val();
-        alert(fid+" "+sid)
 
         if (sid != ''){
             det = odin(varreglo['atributos'][0],$(this).attr('id'),fid);
             salida.push(det);
         }
     });
+
+    
 
     return salida;
 }

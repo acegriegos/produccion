@@ -1,5 +1,4 @@
 <div id="ffacturas">
-
 <div class="row">
 <div class="col-sm-2 col-xs-2">
 <label class="c-input c-radio">
@@ -15,8 +14,7 @@ Contado
 <span class="c-indicator"></span>
 Crédito
 </label>
-</div>
-<div class="col-md-3 col-lg-3 der">
+</div><div class="col-md-3 col-lg-3 der">
 <div class="input-group input-group">
 <span class="input-group-addon" id="nfact"><b>N° Factura</b></span>
 <input type="text" class="form-control" id="idfact" aria-label="Código" placeholder="Código" value="" disabled>
@@ -57,7 +55,7 @@ Crédito
 </div>
 <div class="input-group cre" style="display: none;">
 <div class="input-group-addon"><b>Plazo en Días</b></div>
-<input type="text" id="vplazo" class="form-control" value="0" data-mask="999">
+<input type="text" id="vplazo" class="form-control" value="0" disabled>
 </div>
 </div>
 </div>
@@ -140,13 +138,13 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <tbody>
 <tr id="f1">
 <!-- <td>&nbsp;</td> -->
-<td><input type="text" id="codp" class="form-control f" value="" placeholder="Código"><div id="noprod" class="form-control-feedback" align="center" style="display:none"><small class="asterisco">Producto no Existente</small></div></td>
+<td><input type="text" id="codp" class="form-control f" value="" placeholder="Código"><input type="hidden" id="idp" value=""><div id="noprod" class="form-control-feedback" align="center" style="display:none"><small class="asterisco">Producto no Existente</small></div></td>
 <td><input type="text" id="descp" class="form-control fd" value="" placeholder="Descripción"></td>
 <!-- <td><input type="number" id="cantp" class="form-control f" value="" placeholder="0" value="1"></td> -->
 <td>
   <div id="divcnt" class="form-group">
   <input type="number" class="form-control f" id="cantp" value="" placeholder="0" min="1" value="1" data-mask="999999999">
-  <div id="err" class="form-control-feedback" align="center" style="display:none"><small>Cantidad insuficiente</small></div>
+  <div id="err" class="form-control-feedback" align="center" style="display:none"><small id="smerr">Cantidad insuficiente</small></div>
 </div>
 </td>
 <td>
@@ -158,7 +156,7 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <!-- <td id="desctd1" style="display:none;"><input type="text" class="form-control form-control-sm" placeholder="0"><input type="hidden" id="descHide1"></td> -->
 <td style="font-size: 0.9em">
 <!-- <i class="fa fa-percent btn desc" id="d1" title="Descuento individual" data-toggle="modal" href='#modal-MODAL' style="font-size: 0.8em" estado="0"></i> -->
-<span style="background: rgba(219,219,219,0.3); padding: 2%; border-radius: 0.2em;" title="Cantidad en Inventario"><i class="fa fa-archive" style="font-size: 0.8em"></i>:<span id="cantP">0</span></span>
+<span style="background: rgba(219,219,219,0.3); padding: 2%; border-radius: 0.2em;" title="Cantidad en Inventario"><i class="fa fa-archive" style="font-size: 0.8em"></i>:<span id="cantI">0</span></span>
 <i class="fa fa-eraser btn del" id="del" style="color: #D9534F" title="Eliminar Fila"></i>
 </td>
 </tr>
