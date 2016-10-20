@@ -146,8 +146,8 @@ $(document).ready(function(){
 });
 
 $(document).on("click","input[name=vidtipo]",function(){
-    var value = parseInt($(this,"option:selected").val());
-    var idcli = $("#vidcliente").val() == '' ? 0 : $("#vidcliente").val();
+    var value = parseInt($(this,"option:selected").val()),
+        idcli = $("#vidcliente").val() == '' ? 0 : $("#vidcliente").val();
     $("#vidtipo").val(value);
 
     if (value == 1) {
@@ -167,10 +167,11 @@ $(document).on("click","input[name=vidtipo]",function(){
 });
 
 $(document).on("keyup","#cantp",function(e){
-    var cant = parseFloat($(this).val());
-    var prec = $("#hprec").val();
-    var precio = parseFloat($("#hprec").val().replace(/,/g,""));
-    var total = precio * cant;
+    var cant = parseFloat($(this).val()),
+        prec = $("#hprec").val(),
+        precio = parseFloat($("#hprec").val().replace(/,/g,"")),
+        total = precio * cant;
+        
     $("#precp").val(total.formatMoney(2,'.',','));
     var totp = $("#precp").val();
     var code = e.which || e.keyCode;
