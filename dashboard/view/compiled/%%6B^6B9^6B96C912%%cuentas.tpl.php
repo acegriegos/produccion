@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-11 15:01:42
+<?php /* Smarty version 2.6.17, created on 2016-10-14 01:11:00
          compiled from ajax/contabilidad/cuentas.tpl */ ?>
 <div class="row">
             <div class="col-md-6 col-lg-6">
@@ -40,7 +40,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                     </select>
 
                     <div class="input-group-addon slide" cod="2" style="display:none"><b>Descripción</b></div>
-                    <input type="text" class="form-control slide" cod="2" style="display:none" id="vnombre" placeholder="Nombre Cuenta" maxlength="20">
+                    <input type="text" class="form-control slide" cod="2" style="display:none" id="vnombre" placeholder="Nombre Cuenta" maxlength="40">
                     <div class="input-group-addon addglobal btn" title="Agregar Cuenta"><i class="fa fa-plus"></i></div>
                     <div class="input-group-addon moveL btn" style="display:none"><i class="fa fa-arrow-left"></i></div>
                     <div class="input-group-addon slider btn" style="display:none"><i class="fa fa-arrow-right"></i></div>

@@ -113,7 +113,7 @@ Jurídico
 <input type="hidden" id="vidtipoCliente" class="form-control" value="0">
 </div>
 
-<div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+<div class="card-header parte1 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title" id="titInfo"><b>Datos Personales</b></div>
 <div class="row">
 <div class="col-md-6 col-lg-6" id="colMod">
@@ -156,7 +156,7 @@ Jurídico
 
 </div>
 </div>
-</div>
+
 
 <div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Teléfonos</b></div>
@@ -216,7 +216,7 @@ Jurídico
 
 </div>
 
-<div class="card-header parte3 ptr" vtabla="ubicaciones" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+<div class="card-header parte3 ptr" vtabla="ubicacione" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Direcciones</b></div>
 <div class="row">
 <div class="col-md-12 col-lg-12">
@@ -275,8 +275,16 @@ Jurídico
 </div>
 
 <div class="modal-footer">
+    <div class="alert alert-danger err_" id="err1" style="display: none">
+        <strong id="errm1"></strong>
+    </div>
+    <div class="alert alert-success suc_" id="suc1" style="display: none">
+        <strong id="sucm1"></strong>
+    </div>
 <button type="button" class="btn btn-default" data-dismiss="modal" >Salir</button>
-<button type="button" class="btn btn-primary add" id="agClie" codigo="1" modulo="cliente" enrutador="1" >Guardar</button>
+<button type="button" class="btn btn-primary add" id="agClie" codigo="1" modulo="cliente" varias="1" >Guardar</button>
+</div>
+
 </div>
 
 </div>
