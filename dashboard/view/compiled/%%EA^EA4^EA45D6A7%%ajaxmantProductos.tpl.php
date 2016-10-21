@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-14 00:01:07
+<?php /* Smarty version 2.6.17, created on 2016-10-19 22:20:56
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
@@ -26,8 +26,8 @@
     <th style="width: 20%">Código</th>
     <th>Nombre</th>
     <th>Precio Costo</th>
-    <th>Margen de Ganancia</th>
     <th>Precio Venta</th>
+    <th>Margen Ganancia</th>
     <th>Acciones</th>
     </tr>
     </thead>
@@ -300,7 +300,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <div class="col-xs-4 col-lg-4">
         <div class="input-group">
         <div class="input-group-addon"><b>Cantidad a Inventariar</b></div>
-        <input type="number" class="form-control eder" id="vcantidad" placeholder="Cantidad" min="1">
+        <input type="number" class="form-control eder" id="vcantidad" placeholder="Cantidad" min="0">
         </div>
     </div>
      <div class="col-xs-4 col-lg-4">

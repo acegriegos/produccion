@@ -1,0 +1,77 @@
+.tbl01>tbody>tr>td {
+	border-right	: 1px solid black;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.tbl01{
+	float: right;
+}
+
+.tbl02{
+	width: 100%;
+}
+
+.hr1{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 0;
+  border-top: 1px dashed #eee;
+}
+
+body{
+	padding-left: 10%;
+	padding-right: 10%;
+	background-color: #e4e4e4;
+}
+
+.hoja{
+	background-color: white;
+	padding: 1%;
+}
+
+@media print {
+
+	/*body{
+		counter-reset: hoja;
+	}*/
+
+ 	header, footer, nav, aside {
+	  display: none;
+	}
+
+	.salto {
+		page-break-before: always;
+	}
+
+	ul, img {
+		page-break-inside: avoid;
+	}
+
+	body{
+		padding-left: 10px;
+	  	padding-right: 10px;
+	}
+
+	@page {
+	  size: A4 landscape; 
+	}
+
+	.hoja{
+		background-color: white;
+		padding: 0;
+	}
+
+	/*#pageFooter:before {
+	    counter-increment: hoja;
+	    counter-reset: hoja + 1;
+	    position: fixed;
+	    content: counter(hoja);
+	    left: 50%; 
+	    white-space: nowrap; 
+	    -moz-border-radius: 5px; 
+	    -moz-box-shadow: 0px 0px 4px #222;  
+	    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);  
+	    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);  
+	  }*/
+}

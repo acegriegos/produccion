@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-06 21:37:42
+<?php /* Smarty version 2.6.17, created on 2016-10-20 23:06:56
          compiled from ../view/menuSmarty1.php */ ?>
 <link rel="stylesheet" href="../assets/css/modulos/style-login.css">
 <!-- <link rel="stylesheet" href="../assets/fonts/tipografia.css"> -->
@@ -109,6 +109,7 @@
 <li style="padding: 5%""><input type="text" id="menut" class="form-control form-control-sm" title="Transacción" placeholder="# de Transacción" style="display:none"></li><br>
 <li><a href="dashboard">Inicio</a></li>
 <li><a href="comercial">Comercial</a></li>
+<li><a href="productos">Productos</a></li>
 <li><a href="proveedores">Proveedores</a></li>
 <li><a href="inventarios">Proveduría</a></li>
 <li><a href="contabilidad">Contabilidad</a></li>
