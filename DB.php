@@ -101,12 +101,12 @@ $param = substr($param, 0,-1);
 $param .= '
 WHERE id = vid;
 	SELECT vid;
-	INSERT INTO log values(null,0,2,\'\',vidusuario,now());
+	/*INSERT INTO log values(null,0,2,\'\',vidusuario,now());*/
 WHEN 3 THEN
-	SELECT ifnull(min(id),-1)-1 FROM '.$tabla.' INTO @id;  
+	SELECT ifnull(if(min(id)-1 = 0,-1,min(id)-1),-1) FROM '.$tabla.' INTO @id;  
 	UPDATE '.$tabla.' set id = @id where id = vid;
 	SELECT @id;
-	INSERT INTO log values(null,0,3,\'\',vidusuario,now());
+	/*INSERT INTO log values(null,0,3,\'\',vidusuario,now());*/
 END CASE; 
 END;';
 	 		 print_r($mysql->ejecutar($param));

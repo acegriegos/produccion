@@ -9,7 +9,7 @@
 		var $pass;
 
 		function mantenimiento($arreglo){
-
+			
 			if (isset($arreglo['atributos']['vidusuario'])) {
 				if ($arreglo['atributos']['vidusuario'] == '') {
 					$cy = new _cy();
@@ -22,7 +22,7 @@
 					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
 				}
 			}
-
+			print_r($arreglo);
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 
 			if (isset($arreglo['detalle'])) {
@@ -32,13 +32,17 @@
 					$rs = $this->mant($arreglo['detalle']['tabla'],$obj,$id_new[0][0]);
 				}
 			}
+
 			if (isset($arreglo['varios'])) {
 				$accion = $arreglo['atributos']['vaccion'];
+				print_r($this->ejecutarSelect('select hola from dual'));
 				foreach ($arreglo['varios'] as $index => $varios) {
 					$varios['atributos']['vidfila'] = $id_new[0][0];
+					$varios['atributos']['vidtabla'] = $id_new[0][0];
 					$varios['atributos']['vaccion'] = $accion;
 					if ($accion != 1) {
-						$this->genkidama(3,17,'idfila = '.$id_new[0][0],'');
+						$varios['atributos']['vaccion'] = 3;
+						$del = $this->mant($varios['modulo'],$varios['atributos'],$id_new[0][0]);
 						$varios['atributos']['vaccion'] = 1;
 					}
 					$rs = $this->mant($varios['modulo'],$varios['atributos'],$id_new[0][0]);
