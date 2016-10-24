@@ -257,7 +257,7 @@ Desea Agregarlo al Realizar la Compra?<br> <button type="button" class="btn btn-
 <div class="checkbox" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'">
 <label class="c-input c-checkbox">
 <input type="checkbox">
-<span class="c-indicator" value="0" value="1" id="t_p"></span>
+<span class="c-indicator" id="t_p" value="1"></span>
 Punto Venta
 </label>
 </div>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-05 23:47:20
+<?php /* Smarty version 2.6.17, created on 2016-10-24 19:07:09
          compiled from ajax/ajaxCompras.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxCompras.tpl', 59, false),)), $this); ?>
@@ -288,7 +288,7 @@ Desea Agregarlo al Realizar la Compra?<br> <button type="button" class="btn btn-
 <div class="checkbox" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'">
 <label class="c-input c-checkbox">
 <input type="checkbox">
-<span class="c-indicator" value="0" value="1" id="t_p"></span>
+<span class="c-indicator" id="t_p" value="1"></span>
 Punto Venta
 </label>
 </div>

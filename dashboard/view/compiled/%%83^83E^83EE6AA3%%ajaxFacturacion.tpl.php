@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-12 14:57:37
+<?php /* Smarty version 2.6.17, created on 2016-10-21 22:38:41
          compiled from ajax/ajaxFacturacion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxFacturacion.tpl', 44, false),)), $this); ?>
@@ -283,7 +283,7 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 <div class="col-md-4 col-lg-4">
 <div class="input-group">
 <div class="input-group-addon"><small><b>DESC</b></small></div>
-<input type="text" id="vdescuento" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
+<input type="text" id="vdescuento" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99" disabled>
 <div class="input-group-addon"><small><b>%</b></small></div>
 </div>
 </div>
@@ -318,8 +318,8 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 <input type="hidden" class="load" value="" codigo="1" modulo="factura" detalle="1">
 <div class="checkbox" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'">
 <label class="c-input c-checkbox">
-<input type="checkbox">
-<span class="c-indicator" value="0" value="1" id="t_p"></span>
+<input type="checkbox" id="p_v" value="0">
+<span class="c-indicator"></span>
 Punto Venta
 </label>
 </div>

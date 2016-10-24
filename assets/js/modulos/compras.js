@@ -145,6 +145,15 @@ $(document).ready(function(){
     $("#modo1").click();
 });
 
+$(document).on("click","#p_v",function(){
+    if ($(this).is(":checked"))
+        $(this).val(1);
+    else
+        $(this).val(0);
+
+
+});
+
 $(document).on("click","input[name=vidtipo]",function(){
     var value = parseInt($(this,"option:selected").val()),
         idcli = $("#vidcliente").val() == '' ? 0 : $("#vidcliente").val();

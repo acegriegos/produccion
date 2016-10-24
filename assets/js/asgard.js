@@ -92,7 +92,7 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
             
             if (detalle == 1) {
                 id = p[0][0];
-                // window.open(modulo+"s?accion=5&id="+id+"&tp="+$("#t_p").val());
+                window.open("compras?accion=6");//&id="+id+"&tp="+$("#p_v").val()
                 // setTimeout(function(){ location.reload(); }, 1000);
                 // endDetail(p);
             }else{
