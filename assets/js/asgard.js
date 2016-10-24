@@ -1,5 +1,5 @@
 acc = 1;
-//€
+
 $(function(){
     $(".err_").hide();
     $(".suc_").hide();
@@ -17,7 +17,7 @@ $(document).on("click",".load",function(){
 $(document).on("click",".add",function(){
     var modulo = $(this).attr('modulo');
     var codigo = $(this).attr('codigo');
-    var varias = $(this).attr('vtablas');
+    var varias = $(this).attr('varias');
     doGlobal(1,modulo,codigo,'',$(this).attr('detalle'),varias);
 });
 
@@ -43,6 +43,7 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
     arreglo['atributos'] = baseValidar(1,arreglo);
 
     if (varias == 1) {
+
         $("#f"+modulo+"s").find();
         arreglo['varios'] = {};
 
@@ -74,8 +75,6 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         if (p['succed'] == 0) {
             $('#err'+codigo).show();
             $('#errm'+codigo).html(p[0]['ERROR']);
-            // $('#err'+codigo).hide();
-            // $('#errm'+codigo).html('');
         }else{
            
             var tmsj = "Ingresado";
@@ -92,9 +91,13 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
             
             if (detalle == 1) {
                 id = p[0][0];
+<<<<<<< HEAD
                 window.open("compras?accion=6");//&id="+id+"&tp="+$("#p_v").val()
                 // setTimeout(function(){ location.reload(); }, 1000);
                 // endDetail(p);
+=======
+                endDetail(p);
+>>>>>>> 1f1b249c6952ffcc5a98bda363cb85c29aa84cd3
             }else{
                 setTimeout(function(){ deadclear(arreglo['modulo']); }, 2000);
                 thorload(modulo);
@@ -105,23 +108,27 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
     }else{
         $('#errm'+codigo).html(arreglo['atributos']);
         $('#err'+codigo).show();
-        // setTimeout(function(){ $('#err'+codigo).hide(); $('#errm'+codigo).html('');}, 5000);
     }
+
+    $('#err'+codigo).is(':visible') ?  setTimeout(function(){ $('#err'+codigo).hide(); }, 2000) :  setTimeout(function(){ $('#suc'+codigo).hide(); }, 2000); ;
 };
 
 function baseValidar(vaccion,vmodulo){
     
     var salida = {}
     var varreglo = mantenimiento('login',vaccion,vmodulo);
+
     if (varreglo == "[object Object]"){
         salida = validar(varreglo[0],vmodulo);
-        
         if (vmodulo['tip'] != '') {
             salida['vid'] = vmodulo['tip'];
         }
+
     }else{
+        console.error('eroor en Base Validar')
         return varreglo//'ERROR DE COMUNICACION';
     }
+
     return salida;
 }
 

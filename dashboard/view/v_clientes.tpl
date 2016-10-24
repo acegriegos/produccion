@@ -95,7 +95,7 @@
 <div class="col-md-2 col-lg-2">
 <div class="radio">
 <label class="c-input c-radio">
-<input type="radio" name="tipoclie" id="cfisico" tipoClie="0" checked="checked">
+<input type="radio" name="tipoclie" id="cfisico" tipoClie="1" checked="checked">
 <span class="c-indicator"></span>
 Físico
 </label>
@@ -104,24 +104,24 @@ Físico
 <div class="col-md-2 col-lg-2">
 <div class="radio">
 <label class="c-input c-radio">
-<input type="radio" name="tipoclie" id="cjuridico" tipoClie="1">
+<input type="radio" name="tipoclie" id="cjuridico" tipoClie="2">
 <span class="c-indicator"></span>
 Jurídico
 </label>
 </div>
 </div>
-<input type="hidden" id="vidtipoCliente" class="form-control" value="0">
+<input type="hidden" id="vidtipocliente" value="1">
 </div>
 
-<div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+<div class="card-header parte1 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title" id="titInfo"><b>Datos Personales</b></div>
 <div class="row">
 <div class="col-md-6 col-lg-6" id="colMod">
 <div class="input-group">
 <div class="input-group-addon" id="nomClie"><b>Nombre</b></div>
 <input type="hidden" id="vid" value="0">
-<input type="hidden" id="vidEstado" value="1">
-<input type="hidden" id="vbisProveedor" value="0">
+<input type="hidden" id="vbisproveedor" value="0">
+
 <input type="text" class="form-control" id="vnombre" placeholder="Nombre del Cliente">
 </div>
 </div>
@@ -149,14 +149,36 @@ Jurídico
 <div class="row">
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
-<div class="input-group-addon"><b>Correo</b></div>
+<div class="input-group-addon"><b>@</b></div>
 <input type="text" class="form-control" id="vcorreo1" placeholder="Correo Electrónico">
 </div>
 </div>
 
+<div class="col-md-6 col-lg-6">
+<div class="input-group">
+<div class="input-group-addon"><b>Web</b></div>
+<input type="text" class="form-control" id="vweb" placeholder="Página Web">
 </div>
 </div>
+
+</div><br>
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+    <div class="input-group">
+    <div class="input-group-addon"><b>Estado</b></div>
+    <select id="videstado" class="form-control" type="select">
+    <option value="0">Seleccione un Estado</option>
+    {section name=LE loop=$ESTCLIE}
+    <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
+    {/section}
+    </select>
+    </div>
+    </div>
 </div>
+
+</div>
+
 
 <div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Teléfonos</b></div>
@@ -185,6 +207,21 @@ Jurídico
 <div class="card-header parte2 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Plazo y Crédito</b></div>
 
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+    <div class="input-group">
+    <div class="input-group-addon"><b>Nivel del Cliente</b></div>
+    <select type="select" class="form-control" id="vidnivel">
+        <option value="0">Seleccione un Nivel</option>
+        {section name=LE loop=$NVLCLIE}
+        <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
+        {/section}
+    </select>
+</div>
+    </div>
+</div> <br>
+
 <div class="row">   
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
@@ -202,7 +239,12 @@ Jurídico
 
 </div>
 
-<div class="card-title"><b>Contabilidad</b></div>
+</div>
+
+<div class="card-header parte2 ptr" vtabla="defectocuenta" id="fdefectocuentas" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+<div class="card-title"><b> Cuentas Cliente</b></div>
+
+<input type="hidden" id="videstadocontable" value="1">
 
 <div class="row">   
 <div class="col-md-6 col-lg-6">
@@ -213,11 +255,13 @@ Jurídico
 </div>
 </div>
 </div>
-
 </div>
 
-<div class="card-header parte3 ptr" vtabla="ubicaciones" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+<div class="card-header parte3 ptr" vtabla="ubicacione" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Direcciones</b></div>
+
+<input type="hidden" id="vbisnacional" value="1">
+
 <div class="row">
 <div class="col-md-12 col-lg-12">
 <div tabla="detalleubicacione" class="enrutador">
@@ -225,8 +269,8 @@ Jurídico
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b> Provincia</b></div>
-<select name="" id="input" class="form-control" required="required">
-<option value="">Selecciona una Provincia</option>
+<select class="form-control">
+<option value="0">Selecciona una Provincia</option>
 {section name=LE loop=$PRO}
 <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
 {/section}
@@ -237,8 +281,8 @@ Jurídico
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b> Cantón </b></div>
-<select name="" id="input" class="form-control" required="required">
-<option value="">Selecciona un Cantón</option>
+<select class="form-control">
+<option value="0">Selecciona un Cantón</option>
 {section name=LE loop=$CANT}
 <option value="{$CANT[LE][0]}">{$CANT[LE][1]}</option>
 {/section}
@@ -253,8 +297,8 @@ Jurídico
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b> Distrito</b></div>
-<select name="" id="input" class="form-control" required="required">
-<option value="">Selecciona un  Distrito</option>
+<select id="vdistrito" class="form-control">
+<option value="0">Selecciona un  Distrito</option>
 {section name=LE loop=$DIS}
 <option value="{$DIS[LE][0]}">{$DIS[LE][1]}</option>
 {/section}
@@ -275,8 +319,16 @@ Jurídico
 </div>
 
 <div class="modal-footer">
+    <div class="alert alert-danger err_" id="err1" style="display: none">
+        <strong id="errm1"></strong>
+    </div>
+    <div class="alert alert-success suc_" id="suc1" style="display: none">
+        <strong id="sucm1"></strong>
+    </div>
 <button type="button" class="btn btn-default" data-dismiss="modal" >Salir</button>
-<button type="button" class="btn btn-primary add" id="agClie" codigo="1" modulo="cliente" enrutador="1" >Guardar</button>
+<button type="button" class="btn btn-primary add" id="agClie" codigo="1" modulo="cliente" varias="1" >Guardar</button>
+</div>
+
 </div>
 
 </div>

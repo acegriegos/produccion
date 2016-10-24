@@ -35,14 +35,14 @@ $(function(){
 $(document).on("click","input[name='tipoclie']",function(){
 	var tipo = $(this).attr('tipoClie');
 
-	if (tipo == 0) {
+	if (tipo == 1) {
 		$("#titInfo").html('<b>Datos Personales<b/>');
 		$("#nomClie").html('<b>Nombre</b>');
 		$("#colMod").addClass("col-md-6 col-lg-6");
 		$("#colMod").removeClass("col-md-12 col-lg-12");
 		$("#vcedula").attr('data-mask', '9-9999-9999');
 		$(".hid").show(300);
-	} else if (tipo == 1) {
+	} else if (tipo == 2) {
 		$("#titInfo").html('<b>Información Jurídica<b/>');
 		$("#nomClie").html('<b>Razón Social</b>');
 		$("#colMod").removeClass("col-md-6 col-lg-6");
@@ -58,7 +58,7 @@ $(document).on("click","#Iadd",function(){
 
 $(document).on("click","input[name=tipoclie]",function(){
 	var tipo = $(this).attr('tipoClie');
-	$("#vidtipoCliente").val(tipo);
+	$("#vidtipocliente").val(tipo);
 });
 
 function validar (varreglo,vmodulo) {
@@ -76,6 +76,10 @@ function validar (varreglo,vmodulo) {
 				}
 			}
 			break;
+		case 'telefono':
+			break;
+		case 'ubicacione':
+			break;	
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -88,9 +92,8 @@ function validar (varreglo,vmodulo) {
 
 function validarclientes() {
 
-	if ($("#vnombre").val() == ''){ return 'El campo <b>Nombre</b> es requerido'; $("#vnombre").focus(); };
-	if ($("#vcedula").val() == ''){	return 'El campo <b>Cédula</b> es requerida'; $("#vcedula").focus(); };
-
+	if ($("#vnombre").val() == ''){ $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
+	if ($("#vcedula").val() == ''){	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
 	return false;
 
 }
@@ -120,16 +123,3 @@ function cargarSintax(){
 
 	return arr;
 }
-
-// function guardarEnrutador(enrutador,id){
-// 	alert(id)
-// 	if (enrutador == 1) {
-
-// 		var varreglo = {};
-
-// 		$(".enrutador").each(function(i,obj){
-// 			varreglo['modulo'] = $(obj).attr('tabla');
-//     		varreglo['atributos'] = mantenimiento('login',1,varreglo);
-// 		});
-// 	}
-// }
