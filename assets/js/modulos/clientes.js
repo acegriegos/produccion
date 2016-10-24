@@ -30,6 +30,8 @@ $(function(){
 		$("[id^=ln]").removeClass('active')
 		$(this).addClass('active')
 	});
+
+	$("#cuentasclientes").multiSelect();
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
@@ -80,6 +82,8 @@ function validar (varreglo,vmodulo) {
 			break;
 		case 'ubicacione':
 			break;	
+		case 'defectocuenta':
+			break;	
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -94,6 +98,8 @@ function validarclientes() {
 
 	if ($("#vnombre").val() == ''){ $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == ''){	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
+	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
+	if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
 	return false;
 
 }

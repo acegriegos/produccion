@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-24 22:34:36
+<?php /* Smarty version 2.6.17, created on 2016-10-25 00:37:08
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,9 +13,11 @@
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
 <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../assets/libs/multiselect/css/multi-select.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -123,7 +125,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <a class="nav-item nav-link" href="#" id="ln3">Logística</a>
   </div>
 </nav>
- <br>
+
 <div class="row parte1 ptr">
 <div class="col-md-2 col-lg-2">
 <div class="radio">
@@ -263,9 +265,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div>
 
 <div class="card-header parte2 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Plazo y Crédito</b></div>
-
-
 <div class="row">
     <div class="col-md-6 col-lg-6">
     <div class="input-group">
@@ -328,16 +327,39 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 <div class="card-title"><b> Cuentas Cliente</b></div>
 
 <input type="hidden" id="videstadocontable" value="1">
+<input type="hidden" id="vidcuenta" value="1">
 
-<div class="row">   
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Plazo</b></div>
-<input type="number" class="form-control" id="vplazo" placeholder="Plazo en Días">
-<div class="input-group-addon"><b>días</b></div>
-</div>
-</div>
-</div>
+<select multiple="multiple" id="cuentasclientes">
+  <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['CTACLIE']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+  <option value="<?php echo $this->_tpl_vars['CTACLIE'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['CTACLIE'][$this->_sections['LE']['index']][1]; ?>
+</option>
+  <?php endfor; endif; ?>
+</select>
+
 </div>
 
 <div class="card-header parte3 ptr" vtabla="ubicacione" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
@@ -348,12 +370,14 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 <div class="row">
 <div class="col-md-12 col-lg-12">
 <div tabla="detalleubicacione" class="enrutador">
+
 <div class="row">
 <div class="col-md-6 col-lg-6">
+
 <div class="input-group">
 <div class="input-group-addon"><b> Provincia</b></div>
 <select class="form-control">
-<option value="0">Selecciona una Provincia</option>
+<option value="" selected>Seleccione una Provincia</option>
 <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['PRO']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -385,95 +409,54 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </select>
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
-</div>
-<div class="col-md-6 col-lg-6">
+
 <div class="input-group">
 <div class="input-group-addon"><b> Cantón </b></div>
 <select class="form-control">
-<option value="0">Selecciona un Cantón</option>
-<?php unset($this->_sections['LE']);
-$this->_sections['LE']['name'] = 'LE';
-$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['CANT']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$this->_sections['LE']['show'] = true;
-$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
-$this->_sections['LE']['step'] = 1;
-$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
-if ($this->_sections['LE']['show']) {
-    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
-    if ($this->_sections['LE']['total'] == 0)
-        $this->_sections['LE']['show'] = false;
-} else
-    $this->_sections['LE']['total'] = 0;
-if ($this->_sections['LE']['show']):
-
-            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
-                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
-                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
-$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
-$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
-$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
-$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
-$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
-?>
-<option value="<?php echo $this->_tpl_vars['CANT'][$this->_sections['LE']['index']][0]; ?>
-"><?php echo $this->_tpl_vars['CANT'][$this->_sections['LE']['index']][1]; ?>
-</option>
-<?php endfor; endif; ?>
+<option value="" selected>Seleccione un Cantón</option>
 </select>
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
-</div>
-</div>
 
-<br>
-<div class="row">
-<div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b> Distrito</b></div>
-<select id="vdistrito" class="form-control">
-<option value="0">Selecciona un  Distrito</option>
-<?php unset($this->_sections['LE']);
-$this->_sections['LE']['name'] = 'LE';
-$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['DIS']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$this->_sections['LE']['show'] = true;
-$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
-$this->_sections['LE']['step'] = 1;
-$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
-if ($this->_sections['LE']['show']) {
-    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
-    if ($this->_sections['LE']['total'] == 0)
-        $this->_sections['LE']['show'] = false;
-} else
-    $this->_sections['LE']['total'] = 0;
-if ($this->_sections['LE']['show']):
-
-            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
-                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
-                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
-$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
-$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
-$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
-$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
-$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
-?>
-<option value="<?php echo $this->_tpl_vars['DIS'][$this->_sections['LE']['index']][0]; ?>
-"><?php echo $this->_tpl_vars['DIS'][$this->_sections['LE']['index']][1]; ?>
-</option>
-<?php endfor; endif; ?>
+<select id="viddistrito" class="form-control">
+<option value="">Seleccione un Distrito</option>
 </select>
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
+
 </div>
+
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b> Dirección Exacta </b></div>
-<input type="text" id="vdireccion" class="form-control" value="" required="required">
+<textarea id="vdireccion" class="form-control" rows="3"></textarea>
+</div>
+</div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+        <div class="input-group-addon"><b> Latitud </b></div>
+        <input type="text" class="form-control" id="vlatitud" placeholder="00.00">
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+        <div class="input-group-addon"><b> Longitud </b></div>
+        <input type="text" class="form-control" id="vlongitud" placeholder="00.00">
+        </div>
+    </div>
+</div>
+
 </div>
 </div>
 </div>
 </div>
-</div>
-</div>
+
 </div>
 
 <div class="modal-footer">
@@ -498,6 +481,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 <script src="../assets/js/mask/jquery.mask.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
+<script src="../assets/libs/multiselect/js/jquery.multi-select.js"></script>
 <script src="../assets/js/asgard.js"></script>
 <script src="../assets/js/modulos/clientes.js"></script>
 

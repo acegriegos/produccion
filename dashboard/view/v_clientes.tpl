@@ -11,9 +11,11 @@
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
 <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../assets/libs/multiselect/css/multi-select.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -90,7 +92,7 @@
     <a class="nav-item nav-link" href="#" id="ln3">Logística</a>
   </div>
 </nav>
- <br>
+
 <div class="row parte1 ptr">
 <div class="col-md-2 col-lg-2">
 <div class="radio">
@@ -205,9 +207,6 @@ Jurídico
 </div>
 
 <div class="card-header parte2 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Plazo y Crédito</b></div>
-
-
 <div class="row">
     <div class="col-md-6 col-lg-6">
     <div class="input-group">
@@ -245,16 +244,14 @@ Jurídico
 <div class="card-title"><b> Cuentas Cliente</b></div>
 
 <input type="hidden" id="videstadocontable" value="1">
+<input type="hidden" id="vidcuenta" value="1">
 
-<div class="row">   
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Plazo</b></div>
-<input type="number" class="form-control" id="vplazo" placeholder="Plazo en Días">
-<div class="input-group-addon"><b>días</b></div>
-</div>
-</div>
-</div>
+<select multiple="multiple" id="cuentasclientes">
+  {section name=LE loop=$CTACLIE}
+  <option value="{$CTACLIE[LE][0]}">{$CTACLIE[LE][1]}</option>
+  {/section}
+</select>
+
 </div>
 
 <div class="card-header parte3 ptr" vtabla="ubicacione" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
@@ -265,57 +262,68 @@ Jurídico
 <div class="row">
 <div class="col-md-12 col-lg-12">
 <div tabla="detalleubicacione" class="enrutador">
+
 <div class="row">
 <div class="col-md-6 col-lg-6">
+
 <div class="input-group">
 <div class="input-group-addon"><b> Provincia</b></div>
 <select class="form-control">
-<option value="0">Selecciona una Provincia</option>
+<option value="" selected>Seleccione una Provincia</option>
 {section name=LE loop=$PRO}
 <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
 {/section}
 </select>
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
-</div>
-<div class="col-md-6 col-lg-6">
+
 <div class="input-group">
 <div class="input-group-addon"><b> Cantón </b></div>
 <select class="form-control">
-<option value="0">Selecciona un Cantón</option>
-{section name=LE loop=$CANT}
-<option value="{$CANT[LE][0]}">{$CANT[LE][1]}</option>
-{/section}
+<option value="" selected>Seleccione un Cantón</option>
 </select>
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
+</div>
+
+<div class="input-group">
+<div class="input-group-addon"><b> Distrito</b></div>
+<select id="viddistrito" class="form-control">
+<option value="">Seleccione un Distrito</option>
+</select>
+<div class="input-group-addon"><i class="fa fa-plus"></i></div>
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-6">
+<div class="input-group">
+<div class="input-group-addon"><b> Dirección Exacta </b></div>
+<textarea id="vdireccion" class="form-control" rows="3"></textarea>
+</div>
+</div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+        <div class="input-group-addon"><b> Latitud </b></div>
+        <input type="text" class="form-control" id="vlatitud" placeholder="00.00">
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+        <div class="input-group-addon"><b> Longitud </b></div>
+        <input type="text" class="form-control" id="vlongitud" placeholder="00.00">
+        </div>
+    </div>
+</div>
+
+</div>
 </div>
 </div>
 </div>
 
-<br>
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b> Distrito</b></div>
-<select id="vdistrito" class="form-control">
-<option value="0">Selecciona un  Distrito</option>
-{section name=LE loop=$DIS}
-<option value="{$DIS[LE][0]}">{$DIS[LE][1]}</option>
-{/section}
-</select>
-<div class="input-group-addon"><i class="fa fa-plus"></i></div>
-</div>
-</div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b> Dirección Exacta </b></div>
-<input type="text" id="vdireccion" class="form-control" value="" required="required">
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 <div class="modal-footer">
@@ -340,6 +348,7 @@ Jurídico
 <script src="../assets/js/mask/jquery.mask.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
+<script src="../assets/libs/multiselect/js/jquery.multi-select.js"></script>
 <script src="../assets/js/asgard.js"></script>
 <script src="../assets/js/modulos/clientes.js"></script>
 

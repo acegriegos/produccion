@@ -775,6 +775,6 @@ function getDatos(vmodulo){
     }
 }
 function endDetail(vid) {
-    window.open('compras?accion=6,id='+vid);
+    window.open('compras?accion=6&id='+vid);
     return false;
 }
