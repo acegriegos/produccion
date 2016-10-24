@@ -774,3 +774,7 @@ function getDatos(vmodulo){
     break;
     }
 }
+function endDetail(vid) {
+    window.open('compras?accion=6,id='+vid);
+    return false;
+}
