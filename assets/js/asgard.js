@@ -91,8 +91,11 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
             
             if (detalle == 1) {
                 id = p[0][0];
+<<<<<<< HEAD
                 window.open("compras?accion=6");//&id="+id+"&tp="+$("#p_v").val()
                 // setTimeout(function(){ location.reload(); }, 1000);
+=======
+>>>>>>> c806e695ccbef420039857ff3ad5be860c6bd3be
                 endDetail(p);
             }else{
                 setTimeout(function(){ deadclear(arreglo['modulo']); }, 2000);

@@ -2,7 +2,7 @@
 	    require_once 'model/m_general.php';
 	    $kakaroto = new _general();
 	    
-	    if (!isset($_POST['accion'])) {
+	    if (!isset($_REQUEST['accion'])) {
 	   	require '../_config/mySmarty.php';
 	   
 	   	$smarty  = new mySmarty();
@@ -14,7 +14,7 @@
 	   	$smarty->display('v_compras.tpl');
 	   }else{
 	   $pagina = 0;
-	   	switch ($_POST['accion']) {
+	   	switch ($_REQUEST['accion']) {
 	   		case 1:
 	   			$pagina = 1;
 	   			require '../_config/mySmarty.php';
