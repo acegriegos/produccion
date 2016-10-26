@@ -13,6 +13,7 @@ $(function(){
 		deadclear('cliente');
 
 		$("#ln1").click();
+		$("#videstado").val(1);
 	});
 
 	$(".load").click(function(){
@@ -32,6 +33,7 @@ $(function(){
 	});
 
 	$("#cuentasclientes").multiSelect();
+
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
@@ -98,8 +100,13 @@ function validarclientes() {
 
 	if ($("#vnombre").val() == ''){ $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == ''){	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
+	if ($("#videstado").val() == 0) {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
 	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
+	if ($("#vdescuentop").val() == ''){$("#vdescuentop").val(0)}
+	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0)}
+	if ($("#vlatitud").val() == ''){$("#vlatitud").val(0)}
+	if ($("#vlongitud").val() == '') {$("#vlongitud").val(0)}
 	return false;
 
 }

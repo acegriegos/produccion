@@ -172,7 +172,7 @@ Jurídico
     <select id="videstado" class="form-control" type="select">
     <option value="0">Seleccione un Estado</option>
     {section name=LE loop=$ESTCLIE}
-    <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
+    <option value="{$ESTCLIE[LE][0]}" selected>{$ESTCLIE[LE][1]}</option>
     {/section}
     </select>
     </div>
@@ -221,18 +221,35 @@ Jurídico
     </div>
 </div> <br>
 
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+        <div class="input-group-addon"><b>Descuento</b></div>
+        <input type="number" class="form-control eder" id="vdescuentop" placeholder="Descuento Porcentual">
+        <div class="input-group-addon"><b>%</b></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+        <div class="input-group-addon"><b>Descuento Max</b></div>
+        <input type="number" class="form-control eder" id="vdescuentom" placeholder="Descuento Máximo">
+        <div class="input-group-addon"><b>días</b></div>
+        </div>
+    </div>
+</div><br>
+
 <div class="row">   
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Plazo</b></div>
-<input type="number" class="form-control" id="vplazo" placeholder="Plazo en Días">
+<input type="number" class="form-control eder" id="vplazo" placeholder="Plazo en Días">
 <div class="input-group-addon"><b>días</b></div>
 </div>
 </div>
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Crédito</b></div>
-<input type="number" class="form-control" id="vcredito" placeholder="Crédito del Cliente">
+<input type="number" class="form-control eder" id="vcredito" placeholder="Crédito del Cliente">
 </div> 
 </div>
 
@@ -268,8 +285,8 @@ Jurídico
 
 <div class="input-group">
 <div class="input-group-addon"><b> Provincia</b></div>
-<select class="form-control">
-<option value="" selected>Seleccione una Provincia</option>
+<select class="form-control" type="select">
+<option value="0">Seleccione una Provincia</option>
 {section name=LE loop=$PRO}
 <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
 {/section}
@@ -279,17 +296,18 @@ Jurídico
 
 <div class="input-group">
 <div class="input-group-addon"><b> Cantón </b></div>
-<select class="form-control">
-<option value="" selected>Seleccione un Cantón</option>
+<select class="form-control" type="select">
+<option value="0">Seleccione un Cantón</option>
 </select>
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
 
 <div class="input-group">
 <div class="input-group-addon"><b> Distrito</b></div>
-<select id="viddistrito" class="form-control">
-<option value="">Seleccione un Distrito</option>
+<select id="viddistrito" class="form-control" type="select">
+<option value="0">Seleccione un Distrito</option>
 </select>
+
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
 
@@ -302,19 +320,19 @@ Jurídico
 </div>
 </div>
 
-</div>
+</div><br>
 
 <div class="row">
     <div class="col-md-6 col-lg-6">
         <div class="input-group">
         <div class="input-group-addon"><b> Latitud </b></div>
-        <input type="text" class="form-control" id="vlatitud" placeholder="00.00">
+        <input type="text" class="form-control eder" id="vlatitud" placeholder="00.00">
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
         <div class="input-group">
         <div class="input-group-addon"><b> Longitud </b></div>
-        <input type="text" class="form-control" id="vlongitud" placeholder="00.00">
+        <input type="text" class="form-control eder" id="vlongitud" placeholder="00.00">
         </div>
     </div>
 </div>

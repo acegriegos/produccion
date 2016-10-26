@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-25 00:37:08
+<?php /* Smarty version 2.6.17, created on 2016-10-26 05:19:54
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -229,7 +229,7 @@ $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
     <option value="<?php echo $this->_tpl_vars['ESTCLIE'][$this->_sections['LE']['index']][0]; ?>
-"><?php echo $this->_tpl_vars['ESTCLIE'][$this->_sections['LE']['index']][1]; ?>
+" selected><?php echo $this->_tpl_vars['ESTCLIE'][$this->_sections['LE']['index']][1]; ?>
 </option>
     <?php endfor; endif; ?>
     </select>
@@ -304,18 +304,35 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     </div>
 </div> <br>
 
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+        <div class="input-group-addon"><b>Descuento</b></div>
+        <input type="number" class="form-control eder" id="vdescuentop" placeholder="Descuento Porcentual">
+        <div class="input-group-addon"><b>%</b></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+        <div class="input-group-addon"><b>Descuento Max</b></div>
+        <input type="number" class="form-control eder" id="vdescuentom" placeholder="Descuento Máximo">
+        <div class="input-group-addon"><b>días</b></div>
+        </div>
+    </div>
+</div><br>
+
 <div class="row">   
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Plazo</b></div>
-<input type="number" class="form-control" id="vplazo" placeholder="Plazo en Días">
+<input type="number" class="form-control eder" id="vplazo" placeholder="Plazo en Días">
 <div class="input-group-addon"><b>días</b></div>
 </div>
 </div>
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Crédito</b></div>
-<input type="number" class="form-control" id="vcredito" placeholder="Crédito del Cliente">
+<input type="number" class="form-control eder" id="vcredito" placeholder="Crédito del Cliente">
 </div> 
 </div>
 
@@ -376,8 +393,8 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
 <div class="input-group">
 <div class="input-group-addon"><b> Provincia</b></div>
-<select class="form-control">
-<option value="" selected>Seleccione una Provincia</option>
+<select class="form-control" type="select">
+<option value="0">Seleccione una Provincia</option>
 <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['PRO']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -412,17 +429,18 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
 <div class="input-group">
 <div class="input-group-addon"><b> Cantón </b></div>
-<select class="form-control">
-<option value="" selected>Seleccione un Cantón</option>
+<select class="form-control" type="select">
+<option value="0">Seleccione un Cantón</option>
 </select>
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
 
 <div class="input-group">
 <div class="input-group-addon"><b> Distrito</b></div>
-<select id="viddistrito" class="form-control">
-<option value="">Seleccione un Distrito</option>
+<select id="viddistrito" class="form-control" type="select">
+<option value="0">Seleccione un Distrito</option>
 </select>
+
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
 
@@ -435,19 +453,19 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div>
 </div>
 
-</div>
+</div><br>
 
 <div class="row">
     <div class="col-md-6 col-lg-6">
         <div class="input-group">
         <div class="input-group-addon"><b> Latitud </b></div>
-        <input type="text" class="form-control" id="vlatitud" placeholder="00.00">
+        <input type="text" class="form-control eder" id="vlatitud" placeholder="00.00">
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
         <div class="input-group">
         <div class="input-group-addon"><b> Longitud </b></div>
-        <input type="text" class="form-control" id="vlongitud" placeholder="00.00">
+        <input type="text" class="form-control eder" id="vlongitud" placeholder="00.00">
         </div>
     </div>
 </div>
