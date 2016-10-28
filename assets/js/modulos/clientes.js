@@ -10,6 +10,16 @@ $(function(){
 		}
 	});
 
+	$(".addcta").click(function(){
+		tp = $(this).attr('tp');
+		det = "ctacontado";
+		if(tp == 2)
+			det = "ctacredito";
+		$("#vidcuenta").val(1);
+
+		$("#"+det).append(getFila(0,'',0));
+	});
+
 	$("#ingClie").click(function(){
 		$("#titModal").html('Agregar Cliente');
 		$("#agClie").html('Agregar');
@@ -21,6 +31,20 @@ $(function(){
 
 		$("#ln1").click();
 		$("#videstado").val(1);
+		var cont = arr('login',4,'',85,'1,1,0','',0,'');
+		var cred = arr('login',4,'',85,'1,2,0','',0,'');
+		var conh = creh = '';
+
+		for (var i = 0; i < cont[0].length; i++) {
+			conh += getFila(cont[0][i][0],cont[0][i][1],cont[0][i][5]);
+		}
+
+		for (var i = 0; i < cred[0].length; i++) {
+			creh += getFila(cred[0][i][0],cred[0][i][1],cred[0][i][5]);
+		}
+
+		$("#ctacontado").html(conh);
+		$("#ctacredito").html(creh);
 	});
 
 	$(".load").click(function(){
@@ -45,6 +69,11 @@ $(function(){
 
 });
 
+$(document).on("click",".delcta",function(){
+		tp = $(this).attr('tp');
+		$("#vidcuenta").val(1);
+		$("#fl"+tp).remove();
+})
 $(document).on("click","input[name='tipoclie']",function(){
 	var tipo = $(this).attr('tipoClie');
 
@@ -144,4 +173,8 @@ function cargarSintax(){
 	arr['where'] = 'vid > 0';
 
 	return arr;
+}
+
+function getFila(valor,vnombre,vporcentaje){
+	return '<div class="input-group ctas" id="fl'+valor+'"><div class="input-group-addon" id="ct'+valor+'">'+vnombre+'</div><input type="number" class="form-control eder" id="pr'+valor+'" placeholder="Porcentaje de la Cuenta" value="'+vporcentaje+'"><div class="input-group-addon">%</div><div class="input-group-addon btn"><i class="fa fa-times delcta" tp="'+valor+'"></i></div></div>'
 }

@@ -257,16 +257,24 @@ Jurídico
 </div>
 
 <div class="card-header parte2 ptr" vtabla="defectocuenta" id="fdefectocuentas" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b> Cuentas Cliente</b></div>
-
 <input type="hidden" id="videstadocontable" value="1">
-<input type="hidden" id="vidcuenta" value="1">
+<input type="hidden" id="vidcuenta" value="0">
 
-<select multiple="multiple" id="cuentasclientes">
-  {section name=LE loop=$CTACLIE}
-  <option value="{$CTACLIE[LE][0]}">{$CTACLIE[LE][1]}</option>
-  {/section}
-</select>
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;"></i> </b></div>
+        <div id="ctacontado">
+            
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;"></i> </b></div>
+        <div id="ctacredito">
+            
+        </div>
+    </div>
+</div>
 
 </div>
 

@@ -38,16 +38,22 @@
     <td>{$PROD[LE][4]}</td>
     <td>{$PROD[LE][5]}</td>
     <td>
-    <i class="fa fa-pencil-square-o btn load" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" modulo="producto" title="Editar Producto"></i>
+    <i class="fa fa-pencil-square-o btn editprod" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
     <i class="fa fa-outdent salidainv" id="s{$PROD[LE][0]}" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
-    <i class="fa fa-times btn delete" codigo="1" modulo="producto" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i>
+    <i class="fa fa-times btn delprod" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i>
     </td>
     </tr>
     {/section}
     </tbody>
     </table>
     </div>
-    <br><br>
+    <br>
+    <div class="alert alert-danger err_" id="err3" style="display:none">
+        <strong id="errm3"></strong>
+    </div>
+    <div class="alert alert-success suc_" id="suc3" style="display:none">
+        <strong id="sucm3"></strong>
+    </div><br><br>
 </div>
 </div>
 
@@ -197,6 +203,7 @@
                 <div class="input-group">
                     <div class="input-group-addon"><b>Precio Costo</b></div>
                     <input type="text" class="form-control eder calcvv" id="vcosto" placeholder="Precio Costo" data-mask="999999999.99" value="0.00">
+                    <input type="hidden" id="hvcosto" class="form-control" value="">
                     <div class="input-group-addon"><b>¢</b></div>
                 </div><br>
                 <div class="input-group">
@@ -212,6 +219,7 @@
                 <div class="input-group">
                     <div class="input-group-addon"><b>Precio Venta</b></div>
                     <input type="text" class="form-control eder" id="vventa" placeholder="Precio Venta" data-mask="999999999.99" readonly  value="0.00">
+                    <input type="hidden" id="hventa" value="">
                     <div class="input-group-addon"><b>¢</b></div>
                 </div><br> 
             </div>
@@ -228,6 +236,7 @@
         </div>
     </div>
     <div id="descuentos" class="inv">
+        <br>
         <div class="alert alert-danger err_" id="err2" style="display: none">
             <strong id="errm2"></strong>
         </div>
