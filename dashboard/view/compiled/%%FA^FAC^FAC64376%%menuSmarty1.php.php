@@ -1,3 +1,5 @@
+<?php /* Smarty version 2.6.17, created on 2016-10-29 13:34:05
+         compiled from ../view/menuSmarty1.php */ ?>
 <link rel="stylesheet" href="../assets/css/modulos/style-login.css">
 <!-- <link rel="stylesheet" href="../assets/fonts/tipografia.css"> -->
 
@@ -92,7 +94,8 @@
 </div>
 </div>
 <div class="col-md-2" align="right" id="userLog">
-<small>{$smarty.session.NOM}</small>
+<small><?php echo $_SESSION['NOM']; ?>
+</small>
 <img src="../assets/img/user.png" alt="Foto de Usuario" id="profPic">
 </div>
 <a href="logout"><div class="col-lg-2" id="cerrarS">CERRAR SESION</div></a>

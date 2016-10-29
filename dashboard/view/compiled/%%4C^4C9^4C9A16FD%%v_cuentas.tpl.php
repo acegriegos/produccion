@@ -1,3 +1,5 @@
+<?php /* Smarty version 2.6.17, created on 2016-10-29 13:39:20
+         compiled from v_cuentas.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -11,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventarios.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cuentas.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
@@ -24,45 +26,37 @@
   </head>
   <body>
   <br>
-    {$NAV}
+    <?php echo $this->_tpl_vars['NAV']; ?>
+
     <div class="bdy">
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
         <!-- Brand -->
-        <a class="navbar-brand" href="#"><b>Inventarios</b></a>
+        <a class="navbar-brand" href="#"><b>Cuentas</b></a>
         <!-- Links -->
         <ul class="nav navbar-nav">
-            <li class="nav-item menu5 active" id="m2">
-                <a class="nav-link" href="#" title="Insumos">Insumos</a>
+            <li class="nav-item">
+                <a class="nav-link menu4 active" id="m1" href="#" title="Cuentas por Pagar">CxP</a>
             </li>
-            <li class="nav-item menu5" id="m3">
-                <a class="nav-link" href="#" title="Gastos">Gastos</a>
+            <li class="nav-item menu4" id="m2">
+                <a class="nav-link" href="#" title="Cuentas por Cobrar">CxC</a>
             </li>
-            <li class="nav-item menu5" id="m6">
-                <a class="nav-link" href="#" title="Producción">Producción</a>
-            </li>
-            <li class="nav-item menu5" id="m4">
-                <a class="nav-link" href="#" title="En Ruta">Rutas</a>
-            </li>
-            <li class="nav-item menu5" id="m1">
-                <a class="nav-link" href="#" title="Devoluciones">Devoluciones</a>
-            </li>
-            <li class="nav-item menu5" id="m5">
-                <a class="nav-link" href="#" title="Mal Estado">Mal Estado</a>
+            <li class="nav-item menu4" id="m3">
+                <a class="nav-link" href="#" title="Ver Notas y Pagos">Notas y Pagos</a>
             </li>
         </ul>
     </nav>
     <br>
-
-    <div class="formInventarios" id="finventarios">
-        <div id="bdymantInvGeneral"></div>
+    
+    <div class="formServ" id="fservicios">
+        <div id="bdymantCuentas"></div>
     </div>
-
+    
     </div>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/mask/jquery.mask.js"></script>
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
-    <script src="../assets/js/modulos/inventarios.js"></script>
+    <script src="../assets/js/modulos/cuentas.js"></script>
   </body>
 </html>

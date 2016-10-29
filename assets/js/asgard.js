@@ -307,6 +307,7 @@ function deadclear(vform) {
     if (acc == 1) {
 
         $("#f"+vform+"s :input").each(function(){
+           if ($(this).attr('noClear') == undefined) { 
             if ($(this).attr("type") == 'select')
                 $(this).val(0);
 
@@ -322,8 +323,10 @@ function deadclear(vform) {
 
             else if ($(this).attr("type") == 'hidden')
                 $(this).removeClass("form-control")
+
             else
                 $(this).val('');
+           } 
         });
     }else
         acc = 1;

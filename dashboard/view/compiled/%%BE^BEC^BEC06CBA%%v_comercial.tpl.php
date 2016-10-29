@@ -1,3 +1,5 @@
+<?php /* Smarty version 2.6.17, created on 2016-10-29 13:41:41
+         compiled from v_comercial.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -24,7 +26,8 @@
   </head>
   <body>
   <br>
-    {$NAV}
+    <?php echo $this->_tpl_vars['NAV']; ?>
+
     <div class="bdy">
 
     <div class="card">

@@ -1,7 +1,16 @@
+var cuentas = '<select noClear="1" class="form-control cta-array" style="padding-top: 7%;"><option value="0">Seleccione una Cuenta</option>';
+
 $(function(){
 	
 	$("#fclientes").submit(function(){return false});
 	$("#data-table-clientess").dataTable();
+
+	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
+
+	for (var i = 0; i < cuentas_arr[0].length; i++) {
+		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
+	}
+	cuentas += '</select>';
 
 	$("#fclientes input").keyup(function(e){
 		var code = e.which || e.keyCode;
@@ -31,20 +40,8 @@ $(function(){
 
 		$("#ln1").click();
 		$("#videstado").val(1);
-		var cont = arr('login',4,'',85,'1,1,0','',0,'');
-		var cred = arr('login',4,'',85,'1,2,0','',0,'');
-		var conh = creh = '';
 
-		for (var i = 0; i < cont[0].length; i++) {
-			conh += getFila(cont[0][i][0],cont[0][i][1],cont[0][i][5]);
-		}
-
-		for (var i = 0; i < cred[0].length; i++) {
-			creh += getFila(cred[0][i][0],cred[0][i][1],cred[0][i][5]);
-		}
-
-		$("#ctacontado").html(conh);
-		$("#ctacredito").html(creh);
+		obtenerCuentas('null');
 	});
 
 	$(".load").click(function(){
@@ -55,6 +52,7 @@ $(function(){
 		$("#agClie").addClass('edit');
 
 		$("#ln1").click();
+		obtenerCuentas($(this).attr('id').substr(1));
 	})
 
 	$("[id^=ln]").click(function(){
@@ -70,10 +68,21 @@ $(function(){
 });
 
 $(document).on("click",".delcta",function(){
-		tp = $(this).attr('tp');
-		$("#vidcuenta").val(1);
-		$("#fl"+tp).remove();
-})
+	tp = $(this).attr('tp');
+	$("#vidcuenta").val(1);
+	$("#fl"+tp).remove();
+});
+
+$(document).on("change",".cta-array",function(){
+	vcta = $(this).parent().parent().attr('id');
+	fila = $(this).parent().attr('id').substr(2);
+	valor = $('option:selected',this).val();
+
+	$("#"+vcta+" > #fl"+fila).attr('id','fl'+valor);
+	$("#"+vcta+" > #fl"+valor+" > #pr"+fila).attr('id','pr'+valor);
+	$("#"+vcta+" > #fl"+valor+" > .delcetap > .delcta").attr('tp',valor);
+});
+
 $(document).on("click","input[name='tipoclie']",function(){
 	var tipo = $(this).attr('tipoClie');
 
@@ -145,6 +154,70 @@ function validarclientes() {
 	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0)}
 	if ($("#vlatitud").val() == ''){$("#vlatitud").val(0)}
 	if ($("#vlongitud").val() == '') {$("#vlongitud").val(0)}
+
+	
+	if($("#vidcuenta").val() == 1){
+		salida = '';
+		vsum = 0;
+		vdefecto = '';
+		//VALIDAR CUENTAS IGUALES
+		$("#ctacontado > .ctas").each(function(){
+			vid = $(this).attr('id').substr(2);
+
+			vsum += parseFloat($("#ctacontado > #fl"+vid+" > #pr"+vid).val());
+			if($("#ctacontado > #fl"+vid+" > #pr"+vid).val() == 0 || $("#ctacontado > #fl"+vid+" > #pr"+vid).val() == ''){
+				$('#ln2').click();
+				$("#ctacontado > #fl"+vid+" > #pr"+vid).focus()
+				salida = 'Campo Contable sin Datos';
+			}
+
+			if($("#ctacontado > #fl"+vid+" > .cta-array").val() == 0 ){
+				$('#ln2').click();
+				$("#ctacontado > #fl"+vid+" > .cta-array").focus()
+				salida = 'Campo Contable no Válido';
+			}
+
+			vdefecto += '['+$("#ctacontado > #fl"+vid+" > .cta-array").val()+',2,?,0,1,'+$("#ctacontado > #fl"+vid+" > #pr"+vid).val()+',1]:';
+		});
+
+		if (vsum != 100) {
+			$('#ln2').click();
+			return 'Porcentajes Incorrectos en Cuentas Contado'
+		}
+
+		if (salida != '')  
+			return salida
+		vsum = 0;
+
+		$("#ctacredito > .ctas").each(function(){
+			vid = $(this).attr('id').substr(2);
+			vsum += parseFloat($("#ctacredito > #fl"+vid+" > #pr"+vid).val());
+			if($("#ctacredito > #fl"+vid+" > #pr"+vid).val() == 0 || $("#ctacredito > #fl"+vid+" > #pr"+vid).val() == ''){
+				$('#ln2').click();
+				$("#ctacredito > #fl"+vid+" > #pr"+vid).focus()
+				salida = 'Campo Contable sin Datos';
+			}
+
+			if($("#ctacredito > #fl"+vid+" > .cta-array").val() == 0 ){
+				$('#ln2').click();
+				$("#ctacredito > #fl"+vid+" > .cta-array").focus()
+				salida = 'Campo Contable no Válido';
+			}
+
+			vdefecto += '['+$("#ctacredito > #fl"+vid+" > .cta-array").val()+',2,?,0,3,'+$("#ctacredito > #fl"+vid+" > #pr"+vid).val()+',1]:';
+		});
+
+		if (salida != '')  
+			return salida
+
+		if (vsum != 100) {
+			$('#ln2').click();
+			return 'Porcentajes Incorrectos en Cuentas Crédito'
+		}
+
+		$("#vidcuenta").val(vdefecto);
+	}
+
 	return false;
 
 }
@@ -175,6 +248,25 @@ function cargarSintax(){
 	return arr;
 }
 
-function getFila(valor,vnombre,vporcentaje){
-	return '<div class="input-group ctas" id="fl'+valor+'"><div class="input-group-addon" id="ct'+valor+'">'+vnombre+'</div><input type="number" class="form-control eder" id="pr'+valor+'" placeholder="Porcentaje de la Cuenta" value="'+vporcentaje+'"><div class="input-group-addon">%</div><div class="input-group-addon btn"><i class="fa fa-times delcta" tp="'+valor+'"></i></div></div>'
+function getFila(valor,vporcentaje){
+
+	return '<div class="input-group ctas" id="fl'+valor+'">'+cuentas+'<div class="input-group-addon">-</div><input type="number" noClear="1" class="form-control eder" id="pr'+valor+'" placeholder="Porcentaje de la Cuenta" value="'+vporcentaje+'"><div class="input-group-addon">%</div><div class="input-group-addon btn delcetap"><i class="fa fa-times delcta" tp="'+valor+'"></i></div></div>';
+}
+
+function obtenerCuentas(vid){
+	var cont = arr('login',4,'',85,'1,1,'+vid,'',0,'');
+	var cred = arr('login',4,'',85,'1,2,'+vid,'',0,'');
+
+	$("#ctacontado").html('');
+	$("#ctacredito").html('');
+
+	for (var i = 0; i < cont[0].length; i++) {
+		$("#ctacontado").html($("#ctacontado").html()+getFila(cont[0][i][0],cont[0][i][5]));
+		$("#ctacontado > #fl"+cont[0][i][0]+" > .cta-array").val(cont[0][i][0])
+	}
+
+	for (var i = 0; i < cred[0].length; i++) {
+		$("#ctacredito").html($("#ctacredito").html()+getFila(cred[0][i][0],cred[0][i][5]));
+		$("#ctacredito > #fl"+cred[0][i][0]+" > .cta-array").val(cred[0][i][0])
+	}
 }
