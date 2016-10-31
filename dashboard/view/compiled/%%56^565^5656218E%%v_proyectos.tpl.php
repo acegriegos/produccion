@@ -1,3 +1,5 @@
+<?php /* Smarty version 2.6.17, created on 2016-10-29 16:53:20
+         compiled from v_proyectos.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -5,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Configuración</title>
+    <title></title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proyectos.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
@@ -23,39 +25,17 @@
     <![endif]-->
   </head>
   <body>
-    
-    <div class="bdy">
-    {$NAV}
-    <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-        <a class="navbar-brand" href="#"><b>Ajustes</b></a>
-        <ul class="nav navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link menu3 active" id="m1" href="#">Empresa</a>
-            </li>
-            <li class="nav-item menu3" id="m2">
-                <a class="nav-link" href="#">Impuestos</a>
-            </li>
-            <li class="nav-item menu3" id="m4">
-                <a class="nav-link" href="#">Descuentos</a>
-            </li>
-            <li class="nav-item menu3" id="m3">
-                <a class="nav-link" href="#">Sucursales</a>
-            </li>
-        </ul>
-    </nav>
-    <br>
-    
+  <br>
+    <?php echo $this->_tpl_vars['NAV']; ?>
 
-    <div id="majustes"></div>
-        
+    <div class="bdy">
+
     </div>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/mask/jquery.mask.js"></script>
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
-    <script src="../assets/js/modulos/ajustes.js"></script>
-    
+    <script src="../assets/js/modulos/proyectos.js"></script>
   </body>
-
 </html>

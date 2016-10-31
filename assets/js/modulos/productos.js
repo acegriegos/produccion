@@ -177,7 +177,7 @@ $(document).on("click",".menuP",function(){
 			$("#datosproductos").hide();
 			$("#financiero").hide();
 			$("#descuentos").show();
-			$("#maxdesc").focus();
+			$("#dscts").focus();
 			break;
 	}
 });
@@ -185,52 +185,54 @@ $(document).on("click",".menuP",function(){
 $(document).on("keyup","#maxdesc",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		$("#dscts").focus ();
+		$("#dscts").focus();
 	}
 });
 
 $(document).on("click","#adddsct",function(){
 	var desc = $("#dscts").val();
-	$("#err2").hide()
-	if ($("#desc"+desc).text() == '') {
-		if (desc != '' && desc <= parseFloat($("#maxdesc").val())) {
-			$("#tbldesc").show();
-			// $("#listadescuentos").append('<tr id="'+desc+'"><td><span id="desc'+desc+'" class="descprod">'+desc+'%</span><span class="der"><i class="fa fa-times btn deldesc" id="deldesc'+desc+'"></i></span></td></tr>');
-			$("#listadescuentos").append('<div class="container-fluid"><ul class="list-group"><li class="list-group-item">'+desc+'%<span><i class="fa fatimes btn"></i></span></li></ul></div>');
-		}else{
-			$("#err2").show();
-			$("#errm2").html("Descuento Máximo es de "+$("#maxdesc").val()+"%");
-			$("#dscts").focus();
-		}
-	}else{
-		$("#err2").show();
-		$("#errm2").html("Descuento del "+desc+"% Ya Existe");
-	}
+	adddesc(desc);
+	// $("#err2").hide()
+	// if ($("#desc"+desc).text() == '') {
+	// 	if (desc <= parseFloat($("#maxdesc").val())) {
+	// 		$("#tbldesc").show();
+	// 		$("#listadescuentos").append('<div class="container-fluid"><ul class="list-group"><li class="list-group-item">'+desc+'%<span><i class="fa fatimes btn"></i></span></li></ul></div>');
+	// 	}else{
+	// 		$("#err2").show();
+	// 		$("#errm2").html("Descuento Máximo es de "+$("#maxdesc").val()+"%");
+	// 		$("#dscts").focus();
+	// 	}
+	// }else{
+	// 	$("#err2").show();
+	// 	$("#errm2").html("Descuento del "+desc+"% Ya Existe");
+	// }
 	
-	$("#dscts").val('');
-	$("#dscts").focus();
+	// $("#dscts").val('');
+	// $("#dscts").focus();
 });
 
 $(document).on("keyup","#dscts",function(e){
 	var code = e.which || e.keyCode;
+	var desc = $(this).val();
 	if (code == 13) {
-		if ($(this).val() != '' && $(this).val() <= parseFloat($("#maxdesc").val())) {
-			$("#err2").hide();
-			if ($("#desc"+$(this).val()).text() == '') {
-				$("#tbldesc").show();
-				$("#listadescuentos").append('<div class="container-fluid" id="ld'+$(this).val()+'"><ul class="list-group"><li class="list-group-item" align="center">'+$(this).val()+' % <i class="fa fa-times btn asterisco deldesc" id="deldesc'+$(this).val()+'"></i></li></ul></div>');
-			}else{
-				$("#err2").show();
-				$("#errm2").html("Descuento del "+$(this).val()+"% Ya Existe");
-			}
+		adddesc(desc)
+		// if ($(this).val() != '' && $(this).val() <= parseFloat($("#maxdesc").val())) {
+		// 	$("#err2").hide();
+		// 	if ($("#desc"+$(this).val()).text() == '') {
+		// 		$("#tbldesc").show();
+		// 		$("#listadescuentos").append('<div class="container-fluid" id="ld'+$(this).val()+'"><ul class="list-group"><li class="list-group-item" align="center">'+$(this).val()+' % <i class="fa fa-times btn asterisco deldesc" id="deldesc'+$(this).val()+'"></i></li></ul></div>');
+		// 	}else{
+		// 		$("#err2").show();
+		// 		$("#errm2").html("Descuento del "+$(this).val()+"% Ya Existe");
+		// 	}
 			
 			
-		}else{
-			$("#err2").show();
-			$("#errm2").html("Descuento Máximo es de "+$("#maxdesc").val()+"%");
-			$(this).focus();
-		}
-		$("#dscts").val('');
+		// }else{
+		// 	$("#err2").show();
+		// 	$("#errm2").html("Descuento Máximo es de "+$("#maxdesc").val()+"%");
+		// 	$(this).focus();
+		// }
+		// $("#dscts").val('');
 	}
 	
 });
@@ -285,48 +287,28 @@ $(document).on("click","#addprod",function(){
 		var maximo = $("#vmaximo").val();
 		var isgravado = $("#visgravado").val();
 		var idmodelo = $("#vidmodelo option:selected").val();
-		var maxdesc = $("#maxdesc").val();
 	//producto
-	var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+',0,'+minimo+','+maximo+','+isgravado+','+maxdesc+','+idmodelo+',@@usr,@@impresa','',0,'');
-	//financiero
-	$(".impuestos").each(function(){
-		var idimpuesto = $(this).attr('id').substr(4);
-		var imp = arr('login',4,'',81,'1,0,'+idproducto[0][0]+','+idimpuesto,'',0,'');
-	});
+		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+',0,'+minimo+','+maximo+',0,'+idmodelo+',@@usr,@@impresa','',0,'');
 	// descuentos
-		var maxdesc = $("#maxdesc").val() == '' ? 0 : $("#maxdesc").val();
-
-		// producto
-		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+',0,'+minimo+','+maximo+','+isgravado+','+maxdesc+','+idmodelo+',@@usr,@@impresa','',0,'');
-
 		if (idproducto[0][0] != undefined) {
-			// financiero
+			financiero
 			$(".impuestos").each(function(){
-				var idimpuesto = $(this).attr('id').substr(4);
-				var imp = arr('login',4,'',81,'1,0,'+idproducto[0][0]+','+idimpuesto,'',0,'');
+				var idimpuesto = $(this).attr('id').substr(4);	
+				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+',0.00','',0,'');
 			});
-
-			// descuentos
-			$(".descprod").each(function(){
-				var valor = $(this).text().slice(0,-1);
-				var descuentos = arr('login',4,'',82,'1,0,'+idproducto[0][0]+','+valor,'',0,'');
-			});
-
+			//descuentos
+			// $(".descprod").each(function(){
+			// 	var valor = $(this).text().replace('%','');
+			// 	var descuentos = arr('login',4,'',82,'1,0,0,'+valor+',null,null,'+idproducto[0][0]+',11','',0,'');
+			// });
 			$("#suc1").show();
 			$("#sucm1").html("Producto Agregado Correctamente");
-
-
-
 			arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
-
 			vaciar('productos');
-
-
 		}else{
 			$("#err1").show();
 			$("#errm1").html(idproducto[0]['ERROR']);
 		}
-
 	}else{
 		$("#err1").show();
 		$("#errm1").html(valprod);
@@ -347,33 +329,37 @@ $(document).on("click","#editprod",function(){
 		var idunidad = $("#vidunidad option:selected").val();
 		var minimo = $("#vminimo").val();
 		var maximo = $("#vmaximo").val();
-		var isgravado = $("#visgravado").val();
 		var idmodelo = $("#vidmodelo option:selected").val();
-		var maxdesc = $("#maxdesc").val();
 		//producto
-		var idproducto = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+',0,'+minimo+','+maximo+','+isgravado+','+maxdesc+','+idmodelo+',@@usr,@@impresa','',0,'');
+		var idproducto = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+',0,'+minimo+','+maximo+',0,'+idmodelo+',@@usr,@@impresa','',0,'');
 		
 		//impuestos
-		var isimp = arr('login',4,'id',80,'idproducto='+idproducto[0][0],'',0,'');
-		
-		if (isimp == undefined) {
+		var isimp = arr('login',4,'id',87,'idfila='+idproducto[0][0],'',0,'');
+
+		if (isimp[0][0] == undefined) {
 			$(".impuestos").each(function(){
 				var idimpuesto = $(this).attr('id').substr(4);
 				var imp = arr('login',4,'',81,'1,0,'+idproducto[0][0]+','+idimpuesto,'',0,'');
 			});
 		}else{
-			var array = {};
-			array['accion'] = 3;
-			array['tabla'] = 80;
-			array['arg1'] = 'idproducto = '+idproducto[0][0];
-			array['arg2'] = '';
-			mantenimiento('login',7,array);
+			// var array = {};
+			// array['accion'] = 3;
+			// array['tabla'] = 87;
+			// array['arg1'] = 'idproducto = '+idproducto[0][0];
+			// array['arg2'] = '';
+			// mantenimiento('login',7,array);
+			arr('login',4,'',86,'3,0,'+idproducto[0][0]+',11,0,0.00','',0,'');
 			
 			$(".impuestos").each(function(){
 				var idimpuesto = $(this).attr('id').substr(4);
 				var imp = arr('login',4,'',81,'1,0,'+idproducto[0][0]+','+idimpuesto,'',0,'');
 			});
 		}
+
+		$("#suc1").show();
+		$("#sucm1").html("Producto Editado Correctamente");
+		arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+		vaciar('productos');
 		
 
 	}else{
@@ -384,11 +370,13 @@ $(document).on("click","#editprod",function(){
 
 $(document).on("click",".editprod",function(){
 	var id = $(this).attr('id').substr(1);
-	var p = arr('login',4,'idfamilia,idtipo,idmarca,idmodelo,isgravado,nombre,codigo,idunidad,minimo,maximo,costo,ganancia,fventa,vventa,maxdescuento',14,'id = '+id,'',0,'')[0][0];
+	var p = arr('login',4,'idfamilia,idtipo,idmarca,idmodelo,nombre,codigo,idunidad,minimo,maximo,costo,ganancia,fventa,venta,maxdescuento',14,'id = '+id,'',0,'')[0][0];
 	var imp = arr('login',4,'idimpuesto,impuesto,valor',83,'idproducto = '+id,'',0,'')[0];
-	var desc = arr('login',4,'descuento',84,'idproducto = '+id,'',0,'')[0];
+	// var desc = arr('login',4,'descuento',84,'idproducto = '+id,'',0,'')[0];
 	//modal
 	$(".accmodalProd").html("Actualizar Producto "+p[5]);
+	$("#err1").hide();
+	$("#err2").hide();
 	$("#addprod").hide();
 	$("#editprod").show();
 	$("#editprod").attr('idprod',id);
@@ -398,22 +386,17 @@ $(document).on("click",".editprod",function(){
 	$("#vidtipo").val(p[1]);
 	$("#vidmarca").val(p[2]).change();
 	$("#vidmodelo").val(p[3]);
-	$("#visgravado").val(p[4]);
-	if (p[4] == 1) {
-		$("#inputGrav").prop('checked',true);
-	}else{
-		$("#inputExc").prop('checked',true);
-	}
-	$("#vnombre").val(p[5]);
-	$("#vcodigo").val(p[6]);
-	$("#vidunidad").val(p[7]);
-	$("#vminimo").val(p[8]);
-	$("#vmaximo").val(p[9]);
-	$("#vcosto").val(p[10]);
-	$("#vganancia").val(p[11]);
-	$("#vventa").val(p[12]);
-	$("#hventa").val(p[13]);
-	$("#maxdesc").val(p[14]);
+	$("#vnombre").val(p[4]);
+	$("#vcodigo").val(p[5]);
+	$("#vidunidad").val(p[6]);
+	$("#vminimo").val(p[7]);
+	$("#vmaximo").val(p[8]);
+	$("#vcosto").val(p[9]);
+	$("#hvcosto").val(p[9]);
+	$("#vganancia").val(p[10]);
+	$("#vventa").val(p[11]);
+	$("#hventa").val(p[12]);
+	$("#maxdesc").val(p[13]);
 
 	if (imp != '') {
 		for (var i = 0; i < imp.length; i++) {
@@ -421,12 +404,12 @@ $(document).on("click",".editprod",function(){
 		}
 	}
 
-	if (desc != '') {
-		for (var i = 0; i < desc.length; i++) {
-			$("#tbldesc").show();
-			$("#listadescuentos").append('<tr id="ld'+desc[i]+'"><td><span id="desc'+desc[i]+'" class="descprod">'+desc[i]+'%</span><span class="der"><i class="fa fa-times btn deldesc" id="deldesc'+desc[i]+'"></i></span></td></tr>');
-		}
-	}
+	// if (desc != '') {
+	// 	for (var i = 0; i < desc.length; i++) {
+	// 		$("#tbldesc").show();
+	// 		$("#listadescuentos").append('<tr id="ld'+desc[i]+'"><td><span id="desc'+desc[i]+'" class="descprod">'+desc[i]+'%</span><span class="der"><i class="fa fa-times btn deldesc" id="deldesc'+desc[i]+'"></i></span></td></tr>');
+	// 	}
+	// }
 
 });
 
@@ -1102,7 +1085,7 @@ $(document).on("keyup","#textProd-tokenfield",function(e){
 
 $(document).on("click","#ingInvProd",function(){
 	$("#fproductos").submit(function(){return false});
-	$("#accmodalProd").html('Agregar Producto');
+	$(".accmodalProd").html('Agregar Producto');
 	$("#addV").html('Agregar');
 	
 	deadclear('producto');
@@ -1203,6 +1186,22 @@ $(document).on("click","#outsourcing",function(){
 		$("#vpbase").removeClass('.vcalcServ');
 	}
 });
+
+function adddesc(vdesc) {
+
+	$("#err2").hide()
+	if ($("#desc"+vdesc).text() == '') {
+		$("#tbldesc").show();
+		$("#listadescuentos").append('<div class="container-fluid" id="ld'+vdesc+'"><ul class="list-group"><li class="list-group-item" align="center"><span class="descprod">'+vdesc+' % <i class="fa fa-times btn asterisco deldesc" id="deldesc'+vdesc+'"></i></li></ul></div>');
+	}else{
+		$("#err2").show();
+		$("#errm2").html("Descuento del "+vdesc+"% Ya Existe");
+	}
+	
+	$("#dscts").val('');
+	$("#dscts").focus();
+
+}
 
 function vaciar(modulo){
 	switch (modulo){

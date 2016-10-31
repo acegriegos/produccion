@@ -22,7 +22,6 @@
 					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
 				}
 			}
-			// print_r($arreglo);
 		
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 
@@ -35,9 +34,7 @@
 			}
 			
 			if (isset($arreglo['varios'])) {
-				
 				$accion = $arreglo['atributos']['vaccion'];
-				// print_r($this->ejecutarSelect('select hola from dual'));
 				$id_tabla = $this->kamehameha('id',70,'nombre like "'.$arreglo['modulo'].'s"')[0][0];
 				foreach ($arreglo['varios'] as $index => $varios) {
 	
@@ -52,8 +49,8 @@
 					}
 
 					$rs = $this->mant($varios['modulo'],$varios['atributos'],$id_new[0][0]);
-					echo $varios['modulo'];
-					print_r($rs);
+					// echo $varios['modulo'];
+					// print_r($rs);
 				}
 			}
 

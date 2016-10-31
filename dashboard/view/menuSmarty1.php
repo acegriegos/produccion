@@ -114,7 +114,7 @@
 <li><a href="contabilidad">Contabilidad</a></li>
 <li><a href="usuarios">Usuarios</a></li>
 <li><a href="reportes">Reportes</a></li>
-<li><a href="ajustes">Ajustes</a></li>
+<li><a href="ajustes">Configuración</a></li>
 </ul>
 </nav>
 

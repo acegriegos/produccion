@@ -4,9 +4,8 @@ $(function(){
 	
 	$("#fclientes").submit(function(){return false});
 	$("#data-table-clientess").dataTable();
-
 	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
-
+	get_loc()
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
@@ -15,7 +14,12 @@ $(function(){
 	$("#fclientes input").keyup(function(e){
 		var code = e.which || e.keyCode;
 		if (code == 13) {
-			$("#agClie").click();
+			// cnt = $(".navbar-nav > a").length;
+			// act = parseInt($(".navbar-nav > a.active").attr('id').substr(2));
+			// if(act != cnt)
+			// 	$("#ln"+(act+1)).click()
+			// else
+				$("#agClie").click()
 		}
 	});
 
@@ -132,6 +136,8 @@ function validar (varreglo,vmodulo) {
 		case 'ubicacione':
 			break;	
 		case 'defectocuenta':
+			break;
+		case 'correo':
 			break;	
 		default:
 			return 'Módulo no Existente';
@@ -150,8 +156,16 @@ function validarclientes() {
 	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
 	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
+
 	if ($("#vdescuentop").val() == ''){$("#vdescuentop").val(0)}
+	else if ($("#vdescuentop").val() > 100){$('#ln2').click(); $("#vdescuentop").focus(); return 'Descuento no Puede Superar el 100%';}
+	else if (isNaN($("#vdescuentop").val())){$('#ln2').click(); $("#vdescuentop").focus(); return 'Descuento no es Numérico';}
+
+
 	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0)}
+	else if ($("#vdescuentom").val() > 100){$('#ln2').click(); $("#vdescuentom").focus(); return 'Descuento Máximo no Puede Superar el 100%';}
+	else if (isNaN($("#vdescuentom").val())){$('#ln2').click(); $("#vdescuentom").focus(); return 'Descuento Máximo no es Numérico';}
+
 	if ($("#vlatitud").val() == ''){$("#vlatitud").val(0)}
 	if ($("#vlongitud").val() == '') {$("#vlongitud").val(0)}
 

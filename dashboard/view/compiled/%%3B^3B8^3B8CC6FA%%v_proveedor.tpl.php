@@ -1,5 +1,5 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-29 16:28:57
-         compiled from v_comercial.tpl */ ?>
+<?php /* Smarty version 2.6.17, created on 2016-10-29 16:28:50
+         compiled from v_proveedor.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -7,15 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Área Comercial</title>
+    <title>Área Proveedor</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedor.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
-	  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,41 +32,34 @@
 
     <div class="card">
       <div class="card-block">
-        <h4 class="card-title">Área Comercial</h4>
+        <h4 class="card-title">Área Proveedor</h4>
       </div>
       <div class="card-block">
         
         <div class="row">
           <div class="col-md-7 col-lg-7">
 
-          <a href="clientes" class="myah">
-            <button type="button" class="btn btn-default mybtn" title="Clientes">
+          <a href="proveedores" class="myah">
+            <button type="button" class="btn btn-default mybtn" title="Proveedores">
               <i class="fa fa-user"></i>
-              <br>Clientes
+              <br>Proveedores
             </button>
           </a>
 
-          <a href="compras" class="myah">
-            <button type="button" class="btn btn-default mybtn" title="Ventas">
+          <a href="compras?ch=1" class="myah">
+            <button type="button" class="btn btn-default mybtn" title="Compras">
               <i class="fa fa-usd"></i>
-              <br>Ventas
+              <br>Compras
             </button>
-
-          <a href="crm" class="myah" style="display: none">
-            <button type="button" class="btn btn-default mybtn" title="Custom Relationship Managment">
-              <i class="fa fa-user"></i>
-              <br>CRM
-            </button>
-          </a>
 
           <a href="cuentas" class="myah">
-            <button type="button" class="btn btn-default mybtn" title="Cuentas por Cobrar">
+            <button type="button" class="btn btn-default mybtn" title="Cuentas por Pagar">
               <i class="fa fa-folder-o"></i>
-              <br>CxC
+              <br>CxP
             </button>
           </a>
 
-          <a href="reportes" class="myah">
+          <a href="reportes?ch=1" class="myah">
             <button type="button" class="btn btn-default mybtn" title="Reportes">
               <i class="fa fa-folder-o"></i>
               <br>Reportes
@@ -102,6 +95,6 @@
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/libs/charts/dist/Chart.bundle.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
-    <script src="../assets/js/modulos/comercial.js"></script>
+    <script src="../assets/js/modulos/proveedor.js"></script>
   </body>
 </html>
