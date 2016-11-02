@@ -22,9 +22,14 @@
 					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
 				}
 			}
+<<<<<<< HEAD
 
 			// print_r($arreglo);
 		
+=======
+			// print_r($arreglo);
+			
+>>>>>>> 4b2ad78326f8b6c914c1c8fff2b1de0199faf927
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 
 			if (isset($arreglo['detalle'])) {

@@ -720,13 +720,11 @@ function validarFactura() {
     if ($("#vcomentario").val() == '') {
         $("#vcomentario").val('');
     }
-
     
     return false;
 }
 
 function cargar(vmodulo,vid) {
-
 
     switch(vmodulo['modulo']) {
         case 'compra':
@@ -738,7 +736,6 @@ function cargar(vmodulo,vid) {
             return 'Módulo no Existente';
             break;
     }
-    
     return vmodulo;
 }
 
