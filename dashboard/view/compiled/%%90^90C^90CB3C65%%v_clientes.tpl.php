@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-26 05:19:54
+<?php /* Smarty version 2.6.17, created on 2016-10-26 23:52:19
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -97,9 +97,9 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </td>
 <td>
 <i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][0]; ?>
-" data-toggle="modal" href='#modal-clientes' modulo="cliente"></i>
+" data-toggle="modal" href='#modal-clientes' modulo="cliente" title="Editar Cliente"></i>
 <i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d<?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][0]; ?>
-" style="color: #D9534F"></i>
+" style="color: #D9534F" title="Eliminar Cliente"></i>
 </td>
 </tr>
 <?php endfor; endif; ?>
@@ -203,7 +203,7 @@ Jurídico
     <div class="input-group">
     <div class="input-group-addon"><b>Estado</b></div>
     <select id="videstado" class="form-control" type="select">
-    <option value="0">Seleccione un Estado</option>
+    <option value="">Seleccione un Estado</option>
     <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['ESTCLIE']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -316,7 +316,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         <div class="input-group">
         <div class="input-group-addon"><b>Descuento Max</b></div>
         <input type="number" class="form-control eder" id="vdescuentom" placeholder="Descuento Máximo">
-        <div class="input-group-addon"><b>días</b></div>
         </div>
     </div>
 </div><br>
@@ -440,7 +439,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 <select id="viddistrito" class="form-control" type="select">
 <option value="0">Seleccione un Distrito</option>
 </select>
-
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
 

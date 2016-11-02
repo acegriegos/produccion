@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-14 01:11:00
+<?php /* Smarty version 2.6.17, created on 2016-11-02 01:07:50
          compiled from ajax/contabilidad/cuentas.tpl */ ?>
 <div class="row">
             <div class="col-md-6 col-lg-6">
@@ -70,6 +70,8 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                                                 <a class="dropdown-item vfiltros" href="#" filtro="f2">Saldo Igual a</a>
                                                 <a class="dropdown-item vfiltros" href="#" filtro="f3">Saldo Mayor o Igual a</a>
                                                 <a class="dropdown-item vfiltros" href="#" filtro="f4">Saldo Menor o Igual a</a>
+                                                <a class="dropdown-item" href="#" id="refresh">Refrescar</a>
+                                                <a class="dropdown-item" href="#" id="refresh4ever">Refrescar Contínuo</a>
                                             </div>
                                         </div>
                                     </div>
@@ -118,13 +120,15 @@ $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
                             
-                                <li class="list-group-item" style="cursor: pointer;">
+                                <li class="list-group-item view-cuenta" style="cursor: pointer;" id="c<?php echo $this->_tpl_vars['VCUE'][$this->_sections['LE']['index']][3]; ?>
+">
                                   <div class="row">
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <?php echo $this->_tpl_vars['VCUE'][$this->_sections['LE']['index']][0]; ?>
 
                                     </div>
-                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" align="center">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" align="center" id="n<?php echo $this->_tpl_vars['VCUE'][$this->_sections['LE']['index']][3]; ?>
+">
                                         <?php echo $this->_tpl_vars['VCUE'][$this->_sections['LE']['index']][1]; ?>
 
                                     </div>
@@ -142,6 +146,9 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                     </div>
             </div>
             <div class="col-md-6 col-lg-6">
+
+                <div class="colDetalle"></div>
+
                 <small class="myh3"></small>
                 <div class="alert alert-danger err_" id="err1" style="display: none">
                     <strong id="errm1"></strong>

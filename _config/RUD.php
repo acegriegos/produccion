@@ -133,8 +133,6 @@
 				$wher = str_replace('@@tmp_cia', $str , $wher);
 			}
 
-			// $wher = str_replace("'", '\\\'', $wher);
-			// $wher = str_replace('"', '\\"', $wher);
 			$wher = addslashes($wher);
 			
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");

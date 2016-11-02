@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-19 19:44:56
+<?php /* Smarty version 2.6.17, created on 2016-10-31 18:09:07
          compiled from ajax/contabilidad/asientos.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/contabilidad/asientos.tpl', 20, false),)), $this); ?>

@@ -1,5 +1,9 @@
 var ftr = 1;
 var gop = '<option value="0">N/A</option>';
+var intervarl1 = null;
+var op1 = 0;
+var op2 = 4;
+var vdate1 = vdate2 = null;
 
 $(function(){
 
@@ -32,8 +36,43 @@ $(document).on('change','#continuo',function(){
 		$('#vispadre').val(0)
 });
 
-$(document).on("click","#Iadd",function(){
-	deadclear('contabilidad')
+$(document).on("click",".view-cuenta",function(){
+	var id = $(this).attr('id').substr(1);
+	arr('login',6,'',71,op1+","+id+","+op2+","+vdate1+","+vdate2,71,1,$(".colDetalle"));
+
+	var titulo = "Movimiento ";
+	switch(op2){
+		case 1:
+			titulo += "Diario ";
+			break;
+		case 2:
+			titulo += "Mensual ";
+			break;
+		case 3:
+			titulo += "Semanal ";
+			break;
+		case 4:
+			titulo += "Período Fiscal ";
+			break;
+		case 5:
+			titulo += "Fecha "+vdate1+" ";
+			break;
+		case 6:
+			titulo += "Desde: "+vdate1+" - Hasta: "+vdate2+" ";
+			break;
+	}
+	titulo += " en la Cuenta "+$("#n"+id).html();
+	$(".cta-sh-tit").html(titulo);
+
+});
+
+$(document).on("click","#refresh",function(){
+	arr('login',6,'',53,"'',1",33,1,$("#vcuentas"));
+	clearInterval(interval1); 
+});
+
+$(document).on("click","#refresh4ever",function(){
+	interval1 = setInterval(function(){ arr('login',6,'',53,"'',1",33,1,$("#vcuentas")); }, 1500);
 });
 
 $(document).on("click",".vfiltros",function(){

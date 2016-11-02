@@ -65,8 +65,8 @@
 <td>{$CLIE[LE][5]}</td>
 <td>{$CLIE[LE][6]}</td>
 <td>
-<i class="fa fa-pencil-square-o btn load" id="m{$CLIE[LE][0]}" data-toggle="modal" href='#modal-clientes' modulo="cliente"></i>
-<i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F"></i>
+<i class="fa fa-pencil-square-o btn load" id="m{$CLIE[LE][0]}" data-toggle="modal" href='#modal-clientes' modulo="cliente" title="Editar Cliente"></i>
+<i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F" title="Eliminar Cliente"></i>
 </td>
 </tr>
 {/section}
@@ -170,7 +170,7 @@ Jurídico
     <div class="input-group">
     <div class="input-group-addon"><b>Estado</b></div>
     <select id="videstado" class="form-control" type="select">
-    <option value="0">Seleccione un Estado</option>
+    <option value="">Seleccione un Estado</option>
     {section name=LE loop=$ESTCLIE}
     <option value="{$ESTCLIE[LE][0]}" selected>{$ESTCLIE[LE][1]}</option>
     {/section}
@@ -233,7 +233,6 @@ Jurídico
         <div class="input-group">
         <div class="input-group-addon"><b>Descuento Max</b></div>
         <input type="number" class="form-control eder" id="vdescuentom" placeholder="Descuento Máximo">
-        <div class="input-group-addon"><b>días</b></div>
         </div>
     </div>
 </div><br>
@@ -307,7 +306,6 @@ Jurídico
 <select id="viddistrito" class="form-control" type="select">
 <option value="0">Seleccione un Distrito</option>
 </select>
-
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
 

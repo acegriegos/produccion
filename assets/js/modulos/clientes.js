@@ -1,7 +1,14 @@
 $(function(){
 	
-	$("#fclientess").submit(function(){return false});
+	$("#fclientes").submit(function(){return false});
 	$("#data-table-clientess").dataTable();
+
+	$("#fclientes input").keyup(function(e){
+		var code = e.which || e.keyCode;
+		if (code == 13) {
+			$("#agClie").click();
+		}
+	});
 
 	$("#ingClie").click(function(){
 		$("#titModal").html('Agregar Cliente');
@@ -22,6 +29,8 @@ $(function(){
 
 		$("#agClie").removeClass('add');
 		$("#agClie").addClass('edit');
+
+		$("#ln1").click();
 	})
 
 	$("[id^=ln]").click(function(){
@@ -100,7 +109,7 @@ function validarclientes() {
 
 	if ($("#vnombre").val() == ''){ $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == ''){	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
-	if ($("#videstado").val() == 0) {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
+	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
 	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
 	if ($("#vdescuentop").val() == ''){$("#vdescuentop").val(0)}

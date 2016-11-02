@@ -25,11 +25,6 @@ class DBClass
 		$this->db  = trim($this->encrypt->decy('Uyp/p/7Y5S+7mmilYzGx/URNNNoD3yRx62G/GJXtSr0='));
 		$this->usr = trim($this->encrypt->decy("dvywc7DJzGEs7FG3xzA3149kB4NoWJ/180efl9v3EkI="));
 	    $this->pss = trim($this->encrypt->decy("1eKYMc9PrUoktk7U7n5oiko86fKxQ/FiTOMD8SER7bY="));
-
-		// if (isset($_SESSION['ylu'])) {
-		// 	$this->usr = trim($this->encrypt->decy($_SESSION['ylu']));
-		// 	$this->pss = trim($this->encrypt->decy($_SESSION['ylp']));
-		// }
 		
 		$this->host = '127.0.0.1';
 	}
