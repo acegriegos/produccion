@@ -22,7 +22,11 @@
 					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
 				}
 			}
+<<<<<<< HEAD
 			// print_r($arreglo);
+=======
+			
+>>>>>>> 48c3d1fc2ca549745d5f6c7daf46b0c308b36757
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 
 			if (isset($arreglo['detalle'])) {
@@ -32,20 +36,30 @@
 					$rs = $this->mant($arreglo['detalle']['tabla'],$obj,$id_new[0][0]);
 				}
 			}
-
+			
 			if (isset($arreglo['varios'])) {
+				
 				$accion = $arreglo['atributos']['vaccion'];
+<<<<<<< HEAD
 				// print_r($this->ejecutarSelect('select hola from dual'));
+=======
+				$id_tabla = $this->kamehameha('id',70,'nombre like "'.$arreglo['modulo'].'s"')[0][0];
+>>>>>>> 48c3d1fc2ca549745d5f6c7daf46b0c308b36757
 				foreach ($arreglo['varios'] as $index => $varios) {
+	
 					$varios['atributos']['vidfila'] = $id_new[0][0];
-					$varios['atributos']['vidtabla'] = $id_new[0][0];
+					$varios['atributos']['vidtabla'] = $id_tabla;
 					$varios['atributos']['vaccion'] = $accion;
+
 					if ($accion != 1) {
 						$varios['atributos']['vaccion'] = 3;
 						$del = $this->mant($varios['modulo'],$varios['atributos'],$id_new[0][0]);
 						$varios['atributos']['vaccion'] = 1;
 					}
+
 					$rs = $this->mant($varios['modulo'],$varios['atributos'],$id_new[0][0]);
+					echo $varios['modulo'];
+					print_r($rs);
 				}
 			}
 

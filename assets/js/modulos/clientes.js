@@ -1,7 +1,14 @@
 $(function(){
 	
-	$("#fclientess").submit(function(){return false});
+	$("#fclientes").submit(function(){return false});
 	$("#data-table-clientess").dataTable();
+
+	$("#fclientes input").keyup(function(e){
+		var code = e.which || e.keyCode;
+		if (code == 13) {
+			$("#agClie").click();
+		}
+	});
 
 	$("#ingClie").click(function(){
 		$("#titModal").html('Agregar Cliente');
@@ -13,6 +20,7 @@ $(function(){
 		deadclear('cliente');
 
 		$("#ln1").click();
+		$("#videstado").val(1);
 	});
 
 	$(".load").click(function(){
@@ -21,6 +29,8 @@ $(function(){
 
 		$("#agClie").removeClass('add');
 		$("#agClie").addClass('edit');
+
+		$("#ln1").click();
 	})
 
 	$("[id^=ln]").click(function(){
@@ -30,6 +40,9 @@ $(function(){
 		$("[id^=ln]").removeClass('active')
 		$(this).addClass('active')
 	});
+
+	$("#cuentasclientes").multiSelect();
+
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
@@ -80,6 +93,8 @@ function validar (varreglo,vmodulo) {
 			break;
 		case 'ubicacione':
 			break;	
+		case 'defectocuenta':
+			break;	
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -94,6 +109,13 @@ function validarclientes() {
 
 	if ($("#vnombre").val() == ''){ $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == ''){	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
+	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
+	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
+	if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
+	if ($("#vdescuentop").val() == ''){$("#vdescuentop").val(0)}
+	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0)}
+	if ($("#vlatitud").val() == ''){$("#vlatitud").val(0)}
+	if ($("#vlongitud").val() == '') {$("#vlongitud").val(0)}
 	return false;
 
 }

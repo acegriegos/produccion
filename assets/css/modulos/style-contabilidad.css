@@ -36,3 +36,16 @@
     margin: 0px;
     border: 0px;
 }
+
+.numTransacc{
+  font-size: 0.8em;
+  color:#fff;
+  background:#D9534F;
+  padding: 0px 7px;
+  border-radius: 42px;
+}
+
+.sh-cta-card{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

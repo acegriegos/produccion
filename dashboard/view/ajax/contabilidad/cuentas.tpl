@@ -42,6 +42,8 @@
                                                 <a class="dropdown-item vfiltros" href="#" filtro="f2">Saldo Igual a</a>
                                                 <a class="dropdown-item vfiltros" href="#" filtro="f3">Saldo Mayor o Igual a</a>
                                                 <a class="dropdown-item vfiltros" href="#" filtro="f4">Saldo Menor o Igual a</a>
+                                                <a class="dropdown-item" href="#" id="refresh">Refrescar</a>
+                                                <a class="dropdown-item" href="#" id="refresh4ever">Refrescar Contínuo</a>
                                             </div>
                                         </div>
                                     </div>
@@ -67,12 +69,12 @@
                                   
                             {section name=LE loop=$VCUE}
                             
-                                <li class="list-group-item" style="cursor: pointer;">
+                                <li class="list-group-item view-cuenta" style="cursor: pointer;" id="c{$VCUE[LE][3]}">
                                   <div class="row">
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         {$VCUE[LE][0]}
                                     </div>
-                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" align="center">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" align="center" id="n{$VCUE[LE][3]}">
                                         {$VCUE[LE][1]}
                                     </div>
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" align="right">
@@ -88,6 +90,9 @@
                     </div>
             </div>
             <div class="col-md-6 col-lg-6">
+
+                <div class="colDetalle"></div>
+
                 <small class="myh3"></small>
                 <div class="alert alert-danger err_" id="err1" style="display: none">
                     <strong id="errm1"></strong>

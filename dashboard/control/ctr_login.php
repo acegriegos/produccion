@@ -75,7 +75,7 @@
                 $_REQUEST['arreglo']['tbl'] = $_REQUEST['arreglo']['cambio'];
             }
             
-   			if (sizeof($transaccion) == 0) {
+   			if (!is_array($transaccion)) {
    				$pagina = 0;
    			}else
    				include 'view/ajax/tabla_'.$_REQUEST['arreglo']['tbl'].'.php';

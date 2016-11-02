@@ -10,11 +10,12 @@
 	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
 	    
 	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));
-	    $smarty->assign('CANT',$kakaroto->kamehameha('*',9,'1 order by id'));
-	    $smarty->assign('DIS',$kakaroto->kamehameha('*',10,'1 order by id'));
+	    //$smarty->assign('CANT',$kakaroto->kamehameha('*',9,'1 order by id'));
+	    //$smarty->assign('DIS',$kakaroto->kamehameha('*',10,'1 order by id'));
 	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('*',68,'id >= 0 order by nombre'));
 	    $smarty->assign('NVLCLIE',$kakaroto->kamehameha('*',69,'id > 0 and !bisproveedor order by id'));
-	    $smarty->assign('CLIE',$kakaroto->kamehameha('*',29,'1 order by vnombre'));
+	    $smarty->assign('CTACLIE',$kakaroto->kamehameha('cuenta,nombre',33,''));
+	    $smarty->assign('CLIE',$kakaroto->kamehameha('*',29,'1 order by nombre'));
 
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_clientes.tpl');

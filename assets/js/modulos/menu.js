@@ -1,18 +1,6 @@
 $(document).ready(function(){
-    
-function validar (varreglo) {
-	var salida = {}
 
-	/*VALIDACION FRONT END Y SI SE PUEDE AJAX*/
-
-	for (var i = 0; i < varreglo.length; i++) {
-		salida[varreglo[i]] = 2;
-	};
-
-	return salida;
-
-}
-
+    //PONER EN F11
     $("#mobile_nav").click(function(){
     //toggles nav and ensures other elements play nice too
         if($("#primary_nav").css('left') < "0px"){
@@ -46,3 +34,16 @@ function validar (varreglo) {
     });
      
 });//end
+
+function validar (varreglo) {
+    var salida = {}
+
+    /*VALIDACION FRONT END Y SI SE PUEDE AJAX*/
+
+    for (var i = 0; i < varreglo.length; i++) {
+        salida[varreglo[i]] = 2;
+    };
+
+    return salida;
+
+}
