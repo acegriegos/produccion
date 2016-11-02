@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-20 01:31:08
+<?php /* Smarty version 2.6.17, created on 2016-11-01 20:50:52
          compiled from v_ajustes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,6 +40,9 @@
             </li>
             <li class="nav-item menu3" id="m3">
                 <a class="nav-link" href="#">Sucursales</a>
+            </li>
+            <li class="nav-item menu3" id="m4">
+                <a class="nav-link" href="#">Productos</a>
             </li>
         </ul>
     </nav>

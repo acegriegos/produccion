@@ -22,7 +22,7 @@
 					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
 				}
 			}
-			print_r($arreglo);
+			// print_r($arreglo);
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 
 			if (isset($arreglo['detalle'])) {
@@ -35,7 +35,7 @@
 
 			if (isset($arreglo['varios'])) {
 				$accion = $arreglo['atributos']['vaccion'];
-				print_r($this->ejecutarSelect('select hola from dual'));
+				// print_r($this->ejecutarSelect('select hola from dual'));
 				foreach ($arreglo['varios'] as $index => $varios) {
 					$varios['atributos']['vidfila'] = $id_new[0][0];
 					$varios['atributos']['vidtabla'] = $id_new[0][0];

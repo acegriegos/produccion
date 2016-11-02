@@ -52,11 +52,11 @@
 	   		case 6:
 	   			$pagina = 1;
 	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion","logo")');
-	   			$factura = $kakaroto->kamehameha('idfactura,tipofactura,tipopago,fecha,cliente,subtotal,imv,descuento,flete,ajuste,ftotal,plazo,comentario,referencia,simbolo,usuario',68,'idfactura = "'.$_REQUEST['id'].'"')[0] or die(header("Location: error"));
-	   			$detalle = $kakaroto->kamehameha('idfactura,idproducto,nombreidservicio,nombreservicio,idpaquete,nombrepaquete,precio,descuento,ftotal,ftotaldesc',69,'idfactura = "'.$_REQUEST['id'].'"');
+	   			$factura = $kakaroto->kamehameha('idfactura,tipofactura,tipopago,fecha,cliente,fsubtotal,imv,tdescuento,flete,ajuste,ftotal,plazo,comentario,referencia,simbolo,usuario',68,'idfactura = "'.$_REQUEST['id'].'"')[0] or die(header("Location: error"));
+	   			$detalle = $kakaroto->kamehameha('idfactura,idproducto,nombreproducto,codigoproducto,precio,cantidad,descuento,ftotal,ftotaldesc',69,'idfactura = "'.$_REQUEST['id'].'"');
 	   			
 	   			// if($_REQUEST['tp'] == 1)
-	   				include_once 'view/ajax/factura.php';
+   				include_once 'view/ajax/factura.php';
 	   			// else
 	   			// 	include_once 'view/reportes/compraPV.php';
 	   			break;

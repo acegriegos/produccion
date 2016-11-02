@@ -138,7 +138,12 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <tbody>
 <tr id="f1">
 <!-- <td>&nbsp;</td> -->
-<td><input type="text" id="codp" class="form-control f" value="" placeholder="Código"><input type="hidden" id="idp" value=""><div id="noprod" class="form-control-feedback" align="center" style="display:none"><small class="asterisco">Producto no Existente</small></div></td>
+<td>
+  <input type="text" id="codp" class="form-control f" value="" placeholder="Código">
+  <input type="hidden" id="idp" value="">
+  <input type="hidden" id="hcodp" value="">
+  <div id="noprod" class="form-control-feedback" align="center" style="display:none"><small class="asterisco">Producto no Existente</small></div>
+</td>
 <td><input type="text" id="descp" class="form-control fd" value="" placeholder="Descripción"></td>
 <!-- <td><input type="number" id="cantp" class="form-control f" value="" placeholder="0" value="1"></td> -->
 <td>

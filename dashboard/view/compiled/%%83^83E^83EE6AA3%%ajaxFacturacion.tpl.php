@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-21 22:38:41
+<?php /* Smarty version 2.6.17, created on 2016-10-26 00:49:08
          compiled from ajax/ajaxFacturacion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxFacturacion.tpl', 44, false),)), $this); ?>
@@ -169,7 +169,12 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">
 <tbody>
 <tr id="f1">
 <!-- <td>&nbsp;</td> -->
-<td><input type="text" id="codp" class="form-control f" value="" placeholder="Código"><input type="hidden" id="idp" value=""><div id="noprod" class="form-control-feedback" align="center" style="display:none"><small class="asterisco">Producto no Existente</small></div></td>
+<td>
+  <input type="text" id="codp" class="form-control f" value="" placeholder="Código">
+  <input type="hidden" id="idp" value="">
+  <input type="hidden" id="hcodp" value="">
+  <div id="noprod" class="form-control-feedback" align="center" style="display:none"><small class="asterisco">Producto no Existente</small></div>
+</td>
 <td><input type="text" id="descp" class="form-control fd" value="" placeholder="Descripción"></td>
 <!-- <td><input type="number" id="cantp" class="form-control f" value="" placeholder="0" value="1"></td> -->
 <td>

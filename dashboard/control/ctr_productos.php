@@ -43,7 +43,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('PAQ',$kakaroto->kamehameha('id,codigo,nombre,descuento,total',58,'id > 0 order by nombre'));
+	   			$smarty->assign('PAQ',$kakaroto->kamehameha('vid,vcodigo,vnombre,vdescuento,totpqt',72,'vid > 0 order by vnombre'));
 	   			//PROD
 	   			//SERV
 	   			$smarty->display('ajax/ajaxmantPaquetes.tpl');
@@ -61,6 +61,9 @@
 	   			print_r($arr);
 	   			break;
 	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+	   		case 6:
+	   			
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

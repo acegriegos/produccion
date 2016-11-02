@@ -187,7 +187,7 @@ $(document).on("keyup","#cantp",function(e){
     if (code == 13) {
         if (cant > 0) {
             var cod = $("#codp").val();
-            var idprd = $("#idp").val();
+            var idprd = $("#hcodp").val();
             var desc = $("#descp").val();
             var cnt = arr('login',4,'vcantidad',43,'vcodigo = \"'+ cod+'\"','',0,'')[0];
             
@@ -314,14 +314,17 @@ $(document).on("keyup","#codp",function(e){
 
         if ($("#codp").val().substr(0,1) == '-') {
             kbrota = 'S'+$(this).val();
+        }else if($("#codp").val().substr(0,1) == '+') {
+            kbrota = 'P-'+$(this).val().substr(1);
         }
 
-        var cod = arr('login',4,'vid,vcodigo,vnombre,vprecio,vcantidad',43,'vcodigo = \"'+ kbrota +'\"','',0,'')[0][0];
+        var cod = arr('login',4,'vid,vcodigo,vnombre,vprecio,vcantidad,vhcodigo',43,'vcodigo = \"'+ kbrota +'\"','',0,'')[0][0];
 
         if (cod != undefined) {
             $("#noprod").hide(500);
             $("#idp").val(cod[0]);
             $("#codp").val(cod[1]);
+            $("#hcodp").val(cod[5]);
             $("#descp").val(cod[2]);
             $("#precp").val(cod[3]);
             $("#hprec").val(cod[3]);
@@ -564,17 +567,23 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv) {
         var id = parseInt($("#idline").val())+1;
         var cprd = 0;
         var csrv = 0;
+        var cpck = 0;
         $("#idline").val(id);
-
-        if (cod.substr(1,1) != '-') {
+        if (idprod.substr(1,1) == '-') {
+            cprd = 0;
+            csrv = idprod.substr(2);
+            cpck = 0;
+        }else if(idprod.substr(1,1) == '+') {
+            cprd = 0;
+            csrv = 0;
+            cpck = idprod.substr(2);
+        }else{
             cprd = idprod;
             csrv = 0;
-        }else{
-            csrv = idprod;
-            cprd = 0;
+            cpck = 0;
         }
 
-        $("#detallefactura").append('<tr align="center" id="fd'+id+'"><td style="width: 5%"><div class="checkbox"><label class="c-input c-checkbox"><input type="checkbox"><span class="c-indicator" id="d'+id+'" class="delf" name="eliminarf" value="1" style="float: right;"></span></label></div></td><td style="width: 10%"><span id="codprod'+id+'">'+cod+'</span><input type="hidden" id="vidproducto'+id+'" class="constante'+id+'" value="'+cprd+'"><input type="hidden" id="vidpaquete'+id+'" value="0"><input type="hidden" id="vidservicio'+id+'" value="'+csrv+'"><input type="hidden" id="vidfactura'+id+'" value="?"></td><td style="width: 27%"><span id="desc'+id+'">'+desc+'</span></td><td style="width: 10%"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" class="form-control form-control-sm" value="'+cant+'" min="1" style=" display:none;width: 70px"><input type="hidden" id="cnth'+id+'" value=""><div id="errcnt" class="form-control-feedback" align="center" style="display:none"><small>Cantidad insuficiente</small></div></div></td><td style="width: 14%"><span id="prec'+id+'">'+prec+'</span><input type="hidden" id="vprecio'+id+'" value="'+precio+'"></td><td style="width: 14%"><span id="tota'+id+'" class="totp">'+tot+'</span><input type="hidden" id="htotp'+id+'" value="'+tot+'"></td><td id="desctd'+id+'" align="left" style="width: 6%"><input type="text" id="vdesc'+id+'" class="form-control form-control-sm desci" value="0.00" placeholder="0" style="width: 50px" disabled><input type="hidden" id="descHide'+id+'"></td><td style="font-size: 0.9em; width: 15%"><i class="fa fa-percent btn desc" id="i'+id+'" title="Descuento individual" data-toggle="modal" href="#modal-MODAL" style="font-size: 0.8em" estado="0"></i><i class="btn fa fa-edit fedit" id="edit'+id+'" visible="0"></i><i class="fa fa-times btn delf" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila"></i></td></tr>');
+        $("#detallefactura").append('<tr align="center" id="fd'+id+'"><td style="width: 5%"><div class="checkbox"><label class="c-input c-checkbox"><input type="checkbox"><span class="c-indicator" id="d'+id+'" class="delf" name="eliminarf" value="1" style="float: right;"></span></label></div></td><td style="width: 10%"><span id="codprod'+id+'">'+cod+'</span><input type="hidden" id="vidproducto'+id+'" class="constante'+id+'" value="'+cprd+'"><input type="hidden" id="vidpaquete'+id+'" value="'+cpck+'"><input type="hidden" id="vidservicio'+id+'" value="'+csrv+'"><input type="hidden" id="vidfactura'+id+'" value="?"></td><td style="width: 27%"><span id="desc'+id+'">'+desc+'</span></td><td style="width: 10%"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" class="form-control form-control-sm" value="'+cant+'" min="1" style=" display:none;width: 70px"><input type="hidden" id="cnth'+id+'" value=""><div id="errcnt" class="form-control-feedback" align="center" style="display:none"><small>Cantidad insuficiente</small></div></div></td><td style="width: 14%"><span id="prec'+id+'">'+prec+'</span><input type="hidden" id="vprecio'+id+'" value="'+precio+'"></td><td style="width: 14%"><span id="tota'+id+'" class="totp">'+tot+'</span><input type="hidden" id="htotp'+id+'" value="'+tot+'"></td><td id="desctd'+id+'" align="left" style="width: 6%"><input type="text" id="vdesc'+id+'" class="form-control form-control-sm desci" value="0.00" placeholder="0" style="width: 50px" disabled><input type="hidden" id="descHide'+id+'"></td><td style="font-size: 0.9em; width: 15%"><i class="fa fa-percent btn desc" id="i'+id+'" title="Descuento individual" data-toggle="modal" href="#modal-MODAL" style="font-size: 0.8em" estado="0"></i><i class="btn fa fa-edit fedit" id="edit'+id+'" visible="0"></i><i class="fa fa-times btn delf" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila"></i></td></tr>');
 
         totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
 
@@ -633,10 +642,16 @@ function totalizar(desc,flete,ajuste) {
         totd += precio;
     });
 
-    impuesto = totd * (imv / 100);
-    total = totd + impuesto;
-    idesc = total * (desc / 100);
-    tdesc = total / ((desc / 100)+1);
+    // formula
+    // subtotal * (1-(descuento / 100)) * (1+(imv / 100))
+
+    // impuesto = totd * (imv / 100);
+    // total = totd + impuesto;
+    idesc = totd * (desc / 100);
+    tdesc =  totd - idesc;
+    impuesto = tdesc * (imv / 100);
+    // tdesc = total / ((desc / 100)+1);
+    total = tdesc + impuesto;
 
     if (flete == 0) {
         $("#flete").html('0.00');
@@ -761,7 +776,7 @@ function getDatos(vmodulo){
         p = mantenimiento('compras',5,array);
         return p;
     break;
-
+    
     case 'proveedores':
         var array = {};
 
@@ -775,6 +790,6 @@ function getDatos(vmodulo){
     }
 }
 function endDetail(vid) {
-    window.open('compras?accion=6,id='+vid);
+    window.open('compras?accion=6&id='+vid);
     return false;
 }

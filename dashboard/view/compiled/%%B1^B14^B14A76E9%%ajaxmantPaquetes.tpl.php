@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-09-28 17:04:12
+<?php /* Smarty version 2.6.17, created on 2016-10-27 19:54:39
          compiled from ajax/ajaxmantPaquetes.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bootstrap-tokenfield.css">
 <link rel="stylesheet" href="../assets/css/tokenfield-typeahead.css">
@@ -139,6 +139,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         </div>
         <div class="col-md-5 col-lg-5" style="border-left: 0.5px solid #E2E2E2;">
           <ul class="list-group" id="listapaquetes">
+            <input type="hidden" id="arrpqt" value="0">
             <input type="checkbox" checked data-toggle="toggle" data-off="<span id='editoff'>Editable</span>" data-on="<span id='editon'>Editar</span>" data-size="small" data-width="100" data-onstyle="primary active" data-offstyle="primary active"><br><br>
           </ul>
         </div>
