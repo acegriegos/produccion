@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-11-02 16:30:08
+<?php /* Smarty version 2.6.17, created on 2016-11-02 20:25:41
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>

@@ -281,11 +281,11 @@ $(document).on("click","#addprod",function(){
 		var idmodelo = $("#vidmodelo option:selected").val();
 		var maxdesc = $("#maxdesc").val();
 	//producto
-	var idproducto = arr('login',4,'',74,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+',0,'+idunidad+',0,'+minimo+','+maximo+','+isgravado+','+maxdesc+',@@usr,'+idmodelo+',@@impresa','',0,'');
+	var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+',0,'+idunidad+',0,'+minimo+','+maximo+','+isgravado+','+maxdesc+',@@usr,'+idmodelo+',@@impresa','',0,'');
 	//financiero
 	$(".impuestos").each(function(){
 		var idimpuesto = $(this).attr('id').substr(4);
-		var imp = arr('login',4,'',75,'1,0,'+idproducto+','+idimpuesto,'',0,'');
+		var imp = arr('login',4,'',81,'1,0,'+idproducto+','+idimpuesto,'',0,'');
 	});
 	// descuentos
 	}else{
@@ -378,7 +378,7 @@ $(document).on("click","#addpqt",function(){
 		arr('login',4,'',61,array['where'],'',0,'');
 	});
 
-	arr('login',6,'vid,vcodigo,vnombre,vdescuento,totpqt',72,'vid > 0 order by vnombre','',1,$("#listapqts"));
+	arr('login',6,'vid,vcodigo,vnombre,vdescuento,totpqt',76,'vid > 0 order by vnombre','',1,$("#listapqts"));
 	
 	$("#vnombre").val('');
 	$("#prod").val('');
@@ -1018,7 +1018,7 @@ $(document).on("click","#ingInvPqts",function(){
 	        // arr['tbl'] = 14;
 	        // arr['where'] = '';
 	        // msuggest = mantenimiento('login',4,arr)[0]; 
-	        msuggest = arr('login',4,'nombreprecio',73,'nombre like \"%'+term+'%\"','',0,'')[0];
+	        msuggest = arr('login',4,'nombreprecio',77,'nombre like \"%'+term+'%\"','',0,'')[0];
 	        response(msuggest);
 		}
 	});
@@ -1072,15 +1072,18 @@ $(document).on("change","#vidprovee",function(){
 
 function totalizar(costo,ganancia) {
 	var subtotal = 0;
+	var impuestos = 0;
 	
 	$(".impuestos").each(function(){
 		var id = $(this).attr('id').substr(4);
+		impuestos += $(this).val();
+		alert(impuestos)
 	});
 
 }
 
 function addprod(prod,cant) {
-	var info = arr('login',4,'id,precio,nombreprecio',73,'nombre = \"'+prod+'\"','',0,'')[0][0];
+	var info = arr('login',4,'id,precio,nombreprecio',77,'nombre = \"'+prod+'\"','',0,'')[0][0];
 	var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
 	var ptotal = info[1] * cant;
 	var total = 0;
