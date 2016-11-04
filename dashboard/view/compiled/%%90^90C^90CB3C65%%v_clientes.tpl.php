@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php /* Smarty version 2.6.17, created on 2016-11-09 02:05:52
-=======
-<?php /* Smarty version 2.6.17, created on 2016-10-30 18:02:23
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
+<?php /* Smarty version 2.6.17, created on 2016-11-04 15:36:43
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,43 +24,6 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<<<<<<< HEAD
-=======
-<?php echo '
-<script type="text/javascript">
-        
-         function showLocation(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            alert("Latitude : " + latitude + " Longitude: " + longitude);
-         }
-
-         function errorHandler(err) {
-            if(err.code == 1) {
-               alert("Error: Access is denied!");
-            }
-            
-            else if( err.code == 2) {
-               alert("Error: Position is unavailable!");
-            }
-         }
-            
-         function getLocation(){
-
-            if(navigator.geolocation){
-               // timeout at 60000 milliseconds (60 seconds)
-               var options = {timeout:60000};
-               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-            }
-            
-            else{
-               alert("Sorry, browser does not support geolocation!");
-            }
-         }
-            
-      </script>
-'; ?>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
 
 </head>
 <body>
@@ -87,11 +46,7 @@
 <button type="button" id="ingClie" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
 </div>
 </div><br><br>
-<<<<<<< HEAD
 
-=======
- <input type="button" onclick="getLocation();" value="Get Location"/>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
 <div class="card-block">
 <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
 <thead>
@@ -227,20 +182,13 @@ Jurídico
 </div>
 </div>
 </div><br>
-<<<<<<< HEAD
-<div class="row">
-=======
 <div class="row" vtabla="correo" id="fcorreos">
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>@</b></div>
 <input type="text" class="form-control" id="vcorreo1" placeholder="Correo Electrónico">
-<<<<<<< HEAD
-=======
 <input type="hidden" id="vcorreo2" value="">
 <input type="hidden" id="vcorreo3" value="">
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
 </div>
 </div>
 
@@ -323,15 +271,9 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 <div class="row">
     <div class="col-md-6 col-lg-6">
     <div class="input-group">
-<<<<<<< HEAD
-    <div class="input-group-addon"><b>Nivel del Cliente</b></div>
-    <select type="select" class="form-control" id="vidnivel">
-        <option value="0">Seleccione un Nivel</option>
-=======
     <div class="input-group-addon"><b>Categoría del Cliente</b></div>
     <select type="select" class="form-control" id="vidnivel">
         <option value="0">Seleccione una Categoría</option>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
         <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['NVLCLIE']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -369,11 +311,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <div class="col-md-6 col-lg-6">
         <div class="input-group">
         <div class="input-group-addon"><b>Descuento</b></div>
-<<<<<<< HEAD
-        <input type="number" class="form-control eder" id="vdescuentop" placeholder="Descuento Porcentual">
-=======
         <input type="number" class="form-control eder" id="vdescuentop" placeholder="Descuento Porcentual del Cliente">
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
         <div class="input-group-addon"><b>%</b></div>
         </div>
     </div>
@@ -381,10 +319,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         <div class="input-group">
         <div class="input-group-addon"><b>Descuento Max</b></div>
         <input type="number" class="form-control eder" id="vdescuentom" placeholder="Descuento Máximo">
-<<<<<<< HEAD
-=======
         <div class="input-group-addon"><b>%</b></div>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
         </div>
     </div>
 </div><br>
@@ -410,22 +345,18 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
 <div class="card-header parte2 ptr" vtabla="defectocuenta" id="fdefectocuentas" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <input type="hidden" id="videstadocontable" value="1">
-<<<<<<< HEAD
-<input type="hidden" id="vidcuenta" value="0">
-=======
 <input type="hidden" id="vidcuenta" value="">
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
 
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;"></i> </b></div>
+        <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
         <div id="ctacontado">
             
         </div>
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;"></i> </b></div>
+        <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
         <div id="ctacredito">
             
         </div>
@@ -529,13 +460,10 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div>
 </div>
 
-<<<<<<< HEAD
-=======
 <div class="card-header parte4 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-
+<div class="card-title"><b>Impuestos</b></div>
 </div>
 
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
 </div>
 
 <div class="modal-footer">
