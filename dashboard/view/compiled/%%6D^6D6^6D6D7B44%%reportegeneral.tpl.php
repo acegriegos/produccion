@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php /* Smarty version 2.6.17, created on 2016-10-31 09:47:56
+=======
+<?php /* Smarty version 2.6.17, created on 2016-11-09 01:50:41
+>>>>>>> 415287cb1c8905fb70a94464935ffad798848665
          compiled from ajax/reportegeneral.tpl */ ?>
 <div id="reportegeneral">
     

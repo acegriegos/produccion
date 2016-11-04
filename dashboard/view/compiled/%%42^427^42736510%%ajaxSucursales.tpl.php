@@ -1,5 +1,14 @@
+<<<<<<< HEAD:dashboard/view/compiled/%%42^427^42736510%%ajaxSucursales.tpl.php
 <?php /* Smarty version 2.6.17, created on 2016-11-01 10:33:41
          compiled from ajax/ajustes/ajaxSucursales.tpl */ ?>
+=======
+<<<<<<< HEAD
+<?php /* Smarty version 2.6.17, created on 2016-11-09 01:48:38
+=======
+<?php /* Smarty version 2.6.17, created on 2016-10-29 16:44:13
+>>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
+         compiled from ajax/ajaxSucursales.tpl */ ?>
+>>>>>>> 415287cb1c8905fb70a94464935ffad798848665:dashboard/view/compiled/%%3E^3EC^3ECBFAEB%%ajaxSucursales.tpl.php
 <div class="row">
     <div class="col-md-4 col-lg-4">
         <div class="table-responsive">

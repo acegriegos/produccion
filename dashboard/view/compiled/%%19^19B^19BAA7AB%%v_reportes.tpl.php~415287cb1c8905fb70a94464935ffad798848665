@@ -1,14 +1,5 @@
-<<<<<<< HEAD:dashboard/view/compiled/%%19^19B^19BAA7AB%%v_reportes.tpl.php
-<?php /* Smarty version 2.6.17, created on 2016-10-31 09:47:56
+<?php /* Smarty version 2.6.17, created on 2016-11-09 01:50:40
          compiled from v_reportes.tpl */ ?>
-=======
-<<<<<<< HEAD
-<?php /* Smarty version 2.6.17, created on 2016-11-09 01:54:51
-=======
-<?php /* Smarty version 2.6.17, created on 2016-10-29 16:32:20
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
-         compiled from v_contabilidad.tpl */ ?>
->>>>>>> 415287cb1c8905fb70a94464935ffad798848665:dashboard/view/compiled/%%5C^5C2^5C2D9BE8%%v_contabilidad.tpl.php
 <!DOCTYPE html>
 <html lang="es">
   <head>
