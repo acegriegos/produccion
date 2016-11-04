@@ -1,5 +1,5 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-29 16:53:27
-         compiled from v_produccion.tpl */ ?>
+<?php /* Smarty version 2.6.17, created on 2016-10-31 09:47:56
+         compiled from v_reportes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-produccion.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-reportes.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
@@ -29,13 +29,32 @@
     <?php echo $this->_tpl_vars['NAV']; ?>
 
     <div class="bdy">
-
+        <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
+        <!-- Brand -->
+            <a class="navbar-brand" href="#"><b>Reportes</b></a>
+            <!-- Links -->
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link menu5 active" id="m1" href="#">Generales</a>
+                </li>
+                <li class="nav-item menu5" id="m2">
+                    <a class="nav-link" href="#">Crear</a>
+                </li>
+                <!-- <li class="nav-item menu5" id="m3">
+                    <a class="nav-link" href="#">Paquetes</a>
+                </li> -->
+            </ul>
+        </nav>
+        <br>
+        <div id="mreportes">
+            
+        </div>
     </div>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/mask/jquery.mask.js"></script>
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
-    <script src="../assets/js/modulos/produccion.js"></script>
+    <script src="../assets/js/modulos/reportes.js"></script>
   </body>
 </html>

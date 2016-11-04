@@ -50,6 +50,13 @@ $(document).on("click",".menu3",function(){
 					bPaginate :  false,
 					bInfo : false
 				});
+				break;
+			case 4:
+				var p = mantenimiento('ajustes',1,'');
+				$("#majustes").html('');
+				$("#majustes").html(p);
+				notify('i','hola','good','danger')
+				break;
 		}
 		
 });
@@ -150,6 +157,12 @@ $(document).on("click",".load",function(){
 $(document).on("change","#vidprovincia",function(){
 	var id = $("option:selected",this).val();
 	arr('login',6,'id,nombre',9,'idprovincia = '+id+' and id > 0 order by nombre','',1,$("#vidcanton"))
+});
+
+$(document).on("click",".cuecon",function(){
+	var vdeep = parseInt($(this).attr('deep'));
+	var vndeep = parseInt($(this).attr('ndeep'))+1;
+	$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') == vndeep}).toggle()
 });
 
 function validar (varreglo,vmodulo) {
@@ -261,4 +274,77 @@ function cargarSintax(){
 	arr['where'] = 'id > 0 order by nombre';
 
 	return arr;
+}
+
+/*cuentas clientes*/
+
+$(document).on("change","#vgenero",function(){
+	var arr = {};
+	arr['sel'] = 'id,nombre,numero';
+	arr['tbl'] = 36;
+	arr['where'] = 'idsubcuenta = '+$("option:selected",this).val();
+	$(this).attr('lvl',$("option:selected",this).val());
+	
+	var rs = mantenimiento('login',6,arr);
+	$(".myh3").append($("option:selected",this).attr('num')+"-"+$("option:selected",this).text()+"<br>"+"&nbsp>");
+	if (rs.length == undefined) {
+		slide($("[cod]:visible").attr('cod'),1);
+		$("#vnombre").val('');
+        $("#vnombre").focus();
+        
+	}
+	else
+		$(this).html(rs);
+});
+
+$(document).on("keyup","#vnombre",function(e){
+	var code = e.which || e.keyCode
+	if(code == 13)
+		$(".addglobal").click();
+})
+
+$(document).on("click",".addglobal",function(){
+
+	if($("#vnombre").is(":visible")){
+		var arr = {}
+		arr['sel'] = '';
+		arr['tbl'] = 37;
+		arr['where'] = '1,0,'+$("#vgenero").attr('lvl')+',"'+$('#vnombre').val()+'",@@usr,'+$("#vispadre").val();
+
+		mantenimiento('login',4,arr);//INGRESAR CUENTA
+
+		arr = {};
+		arr['sel'] = 'id,nombre,numero';
+		arr['tbl'] = 36;
+		arr['where'] = 'idsubcuenta = '+$("#vgenero").attr('lvl');
+
+		$("#vgenero").html(mantenimiento('login',6,arr));
+
+		slide($("[cod]:visible").attr('cod'),-1);
+
+		// arr = {};
+		// arr['sel'] = '*';
+		// arr['tbl'] = 33;
+		// arr['where'] = '';
+		// $("#vcuentas").html(mantenimiento('login',6,arr));
+		
+	}else{
+		slide($("[cod]:visible").attr('cod'),1);
+		$("#vnombre").val('');
+        $("#vnombre").focus();
+	}
+});
+
+function slide(cod,suma) {
+	var max = $("[modulo=scontabilidad]").attr('max');
+	var siguiente = parseInt(cod) + suma;
+	$("[cod="+cod+"]").hide();
+	$("[cod="+siguiente+"]").show();
+	
+	if (siguiente == 1) 
+		$(".slidel").hide();
+	else if(siguiente ==  max)
+		$(".slidel").show();
+	else
+		$(".slidel").show();
 }

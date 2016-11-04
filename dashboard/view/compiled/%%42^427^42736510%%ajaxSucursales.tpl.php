@@ -1,5 +1,5 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-29 16:44:13
-         compiled from ajax/ajaxSucursales.tpl */ ?>
+<?php /* Smarty version 2.6.17, created on 2016-11-01 10:33:41
+         compiled from ajax/ajustes/ajaxSucursales.tpl */ ?>
 <div class="row">
     <div class="col-md-4 col-lg-4">
         <div class="table-responsive">
