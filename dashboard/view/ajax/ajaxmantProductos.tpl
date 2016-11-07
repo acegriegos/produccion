@@ -197,6 +197,7 @@
                 <div class="input-group">
                     <div class="input-group-addon"><b>Precio Costo</b></div>
                     <input type="text" class="form-control eder calcvv" id="vcosto" placeholder="Precio Costo" data-mask="999999999.99" value="0.00">
+                    <input type="hidden" id="hvcosto" class="form-control" value="">
                     <div class="input-group-addon"><b>¢</b></div>
                 </div><br>
                 <div class="input-group">

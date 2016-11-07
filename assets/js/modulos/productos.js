@@ -250,7 +250,7 @@ $(document).on("click","#addimp",function(){
 			$("#impuestos").append('<div class="col-md-12 col-lg-12" id="newimp'+id+'"><div class="input-group"><div class="input-group-addon"><b>'+nombre+'</b></div><input type="text" class="form-control eder impuestos" id="vimv'+id+'" value="'+valor+'" readonly><div class="input-group-addon"><b>%</b></div><div class="input-group-addon btn delimp" id="dimp'+id+'"><i class="fa fa-times"></i></div></div><br></div>');
 
 
-			totalizar($("#vcosto").val(),$("#vganancia").val());
+			totalizar($("#hvcosto").val(),$("#vganancia").val());
 		}
 		
 	}else{
@@ -261,7 +261,12 @@ $(document).on("click","#addimp",function(){
 
 $(document).on("click",".delimp",function(){
 	var id = $(this).attr('id').substr(4);
+	var costo = $("#hvcosto").val();
+	var ganancia = $("#vganancia").val();
 	$("#newimp"+id).remove();
+
+	totalizar(costo,ganancia)
+
 });
 
 $(document).on("click","#addprod",function(){
@@ -281,11 +286,12 @@ $(document).on("click","#addprod",function(){
 		var idmodelo = $("#vidmodelo option:selected").val();
 		var maxdesc = $("#maxdesc").val();
 	//producto
-	var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+',0,'+idunidad+',0,'+minimo+','+maximo+','+isgravado+','+maxdesc+',@@usr,'+idmodelo+',@@impresa','',0,'');
+	var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+',0,'+minimo+','+maximo+','+isgravado+','+maxdesc+','+idmodelo+',@@usr,@@impresa','',0,'');
 	//financiero
 	$(".impuestos").each(function(){
 		var idimpuesto = $(this).attr('id').substr(4);
 		var imp = arr('login',4,'',81,'1,0,'+idproducto+','+idimpuesto,'',0,'');
+		alert(imp)
 	});
 	// descuentos
 	}else{
@@ -846,15 +852,16 @@ $(document).on("change","input[name=visgravado]",function(){
 $(document).on("keyup",".calcvv",function(){
 	var costo = isNaN($("#vcosto").val()) ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
 	var ganancia = isNaN($("#vganancia").val()) ? 0 : parseFloat($("#vganancia").val().replace(/,/g,""));
-	var imv = $(".impuestos").val();
-	var venta = 0;
+	$("#hvcosto").val(costo);
+	// var venta = 0;
 
-	if (imv == undefined && ganancia == 0) {
-		venta = costo;
-	}else{
-		venta = costo * ((ganancia/100)+1);
-	}
-	$("#vventa").val( (venta).toFixed(2) );
+	totalizar(costo,ganancia)
+	// if (imv == undefined && ganancia == 0) {
+	// 	venta = costo;
+	// }else{
+	// 	venta = costo * ((ganancia/100)+1);
+	// }
+	// $("#vventa").val( (venta).toFixed(2) );
 });
 
 $(document).on("keyup",".vcalcServ",function(){
@@ -1076,9 +1083,17 @@ function totalizar(costo,ganancia) {
 	
 	$(".impuestos").each(function(){
 		var id = $(this).attr('id').substr(4);
-		impuestos += $(this).val();
-		alert(impuestos)
+		impuestos += parseFloat($(this).val());
 	});
+
+	if (ganancia == 0) {
+		subtotal = costo * ((impuestos / 100)+1);
+	}else{
+		subtotal = costo * ((impuestos / 100)+1) * ((ganancia / 100)+1);
+	}
+
+	
+	$("#vventa").val(subtotal.formatMoney(2,',','.'));
 
 }
 

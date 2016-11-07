@@ -61,6 +61,7 @@
    			break;
    		case 4:
    			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        print_r($_REQUEST['arreglo']['sel']);
    			break;
    		case 5:
    			$transaccion = $log->kaioken($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
