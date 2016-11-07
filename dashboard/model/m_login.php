@@ -23,7 +23,7 @@
 				}
 			}
 			// print_r($arreglo);
-			
+		
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 
 			if (isset($arreglo['detalle'])) {

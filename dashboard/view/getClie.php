@@ -1,1 +1,1 @@
-"Unknown column 'vnombre' in 'field list' call krattos('vid, vnombre, vcedula',29,'vnombre like \\\"%Rolando Alfaro Loria%\\\"')"
+[["2","Rolando Alfaro Loria","2-0654-0321"]]

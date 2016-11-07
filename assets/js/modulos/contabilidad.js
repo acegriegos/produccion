@@ -66,6 +66,11 @@ $(document).on("click",".view-cuenta",function(){
 
 });
 
+$(document).on("click",".numTransacc",function(){
+	/*arr('login',4,'',53,"'',1",33,1,$("#vcuentas"));
+	clearInterval(interval1); */
+});
+
 $(document).on("click","#refresh",function(){
 	arr('login',6,'',53,"'',1",33,1,$("#vcuentas"));
 	clearInterval(interval1); 
