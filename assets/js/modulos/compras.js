@@ -181,7 +181,7 @@ $(document).on("keyup","#cantp",function(e){
         precio = parseFloat($("#hprec").val().replace(/,/g,"")),
         total = precio * cant;
         
-    $("#precp").val(total.formatMoney(2,',','.'));
+    $("#precp").val(total.formatMoney(2,'.',','));
     var totp = $("#precp").val();
     var code = e.which || e.keyCode;
     if (code == 13) {
@@ -217,7 +217,7 @@ $(document).on("change","#cantp",function(){
     var prec = $("#hprec").val();
     var precio = parseFloat($("#hprec").val().replace(/,/g,""));
     var total = precio * cant;
-    $("#precp").val(total.formatMoney(2,',','.'));
+    $("#precp").val(total.formatMoney(2,'.',','));
 });
 
 $(document).on("keyup","[id^=vcantidad]",function(e){
@@ -229,7 +229,7 @@ $(document).on("keyup","[id^=vcantidad]",function(e){
         var precio = parseFloat($("#vprecio"+id).val());
         var total = precio * valor;
         $("#htotp"+id).val(total);
-        $("#tota"+id).text(total.formatMoney(2,',','.'))
+        $("#tota"+id).text(total.formatMoney(2,'.',','))
         
         totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val())
 
@@ -242,7 +242,7 @@ $(document).on("change","[id^=vcantidad]",function(){
     var precio = parseFloat($("#vprecio"+id).val());
     var total = precio * valor;
     $("#htotp"+id).val(total);
-    $("#tota"+id).text(total.formatMoney(2,',','.'))
+    $("#tota"+id).text(total.formatMoney(2,'.',','))
     
     totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
 });
@@ -253,7 +253,7 @@ $(document).on("blur","[id^=vcantidad]",function(){
     var precio = parseFloat($("#vprecio"+id).val());
     var total = precio * valor;
     $("#htotp"+id).val(total);
-    $("#tota"+id).text(total.formatMoney(2,',','.'))
+    $("#tota"+id).text(total.formatMoney(2,'.',','))
     
     totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
     $(this).hide();
@@ -546,17 +546,17 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv) {
                 $("#vcantidad"+vid).val(tcant)
                 $("#cant"+vid).html(tcant);
                 $("#htotp"+vid).val(htot);
-                $("#tota"+vid).text(htot.formatMoney(2,',','.'))
+                $("#tota"+vid).text(htot.formatMoney(2,'.',','))
 
                 if (descp != 0)
-                    $("#tota"+vid).html( ( (totp + (precio * cant)) / ((descp/100)+1) ).formatMoney(2,',','.') );
+                    $("#tota"+vid).html( ( (totp + (precio * cant)) / ((descp/100)+1) ).formatMoney(2,'.',',') );
 
                 $(".totp").each(function(){
                     var precio = parseFloat($(this).text().replace(/,/g,""));
                     total += precio;
                     $("#hsubtot").val( total );
                     
-                    // $("#subtot").html( total.formatMoney(2,',','.') );
+                    // $("#subtot").html( total.formatMoney(2,'.',',') );
                 });
             }
             totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
@@ -605,9 +605,9 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv) {
 function dodesc(line,desc,total){
     if (desc != 0) {
         var totdesc = total / ((desc / 100)+1);
-        $("#tota"+line).text(totdesc.formatMoney(2,',','.'));
+        $("#tota"+line).text(totdesc.formatMoney(2,'.',','));
     }else
-        $("#tota"+line).text(total.formatMoney(2,',','.'));
+        $("#tota"+line).text(total.formatMoney(2,'.',','));
     
     var sumaprod = 0;
     $(".totp").each(function(){
@@ -616,7 +616,7 @@ function dodesc(line,desc,total){
         
         $("#hsubtot").val(sumaprod);
         totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
-        // $("#subtot").text(sumaprod.formatMoney(2,',','.'));
+        // $("#subtot").text(sumaprod.formatMoney(2,'.',','));
 
     });
     
@@ -657,7 +657,7 @@ function totalizar(desc,flete,ajuste) {
         $("#flete").html('0.00');
         total = tdesc;
     }else{
-        $("#flete").html(flete.formatMoney(2,',','.'));
+        $("#flete").html(flete.formatMoney(2,'.',','));
         total = tdesc + flete;
     }
 
@@ -669,12 +669,12 @@ function totalizar(desc,flete,ajuste) {
         total += ajuste;
     }
     
-    $("#subtot").html(totd.formatMoney(2,',','.'));
+    $("#subtot").html(totd.formatMoney(2,'.',','));
     $("#vimv").val(imv);
-    $("#imv").html(impuesto.formatMoney(2,',','.'));
-    $("#descuento").html(idesc.formatMoney(2,',','.'));
+    $("#imv").html(impuesto.formatMoney(2,'.',','));
+    $("#descuento").html(idesc.formatMoney(2,'.',','));
     $("#tdesc").val(tdesc);
-    $("#tot").html(total.formatMoney(2,',','.'));
+    $("#tot").html(total.formatMoney(2,'.',','));
     $("#vsubtotal").val(totd.toFixed(2));
 }
 
@@ -755,9 +755,9 @@ function getDatos(vmodulo){
     case 'clientes':
         var array = {};
 
-        array['sel'] = 'vid, vnombre, vcedula';
+        array['sel'] = 'vid, nombre, vcedula';
         array['tbl'] = 29;
-        array['where'] = 'vnombre like \"%'+$("#ncli").val()+'%\"';
+        array['where'] = 'nombre like \"%'+$("#ncli").val()+'%\"';
 
         p = mantenimiento('compras',3,array);
         return p;

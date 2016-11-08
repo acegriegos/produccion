@@ -249,30 +249,18 @@
                     <div class="input-group-addon"><b>Máximo Descuento</b></div>
                     <input type="text" class="form-control eder" id="maxdesc" placeholder="Descuento Máximo Producto">
                     <div class="input-group-addon"><b>%</b></div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6"></div><br><br><br>
-            <div class="col-md-6 col-lg-6">
+                </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Agregar Descuentos</b></div>
                     <input type="text" id="dscts" class="form-control eder" value="" required="required" placeholder="Descuento">
                     <div class="input-group-addon"><b>%</b></div>
-                    <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus"></i></div>
+                    <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
                 </div>
             </div>
-            <div class="col-md-1 col-lg-1"></div>
-            <div class="col-md-4 col-lg-4 inv" id="tbldesc">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th style="text-align:center">Descuentos</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listadescuentos">
-                    </tbody>
-                </table>
+            <div class="col-md-6 col-lg-6 inv" id="tbldesc">
+                <h3>Descuentos</h3>
+                <div id="listadescuentos" style="width:60%"></div>
             </div>
-            <div class="col-md-1 col-lg-1"></div>
         </div>
     </div>
     <br>
@@ -286,6 +274,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="addprod">Agregar</button>
+        <button type="button" class="btn btn-primary inv" id="editprod">Guardar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
     </div>
 </div>

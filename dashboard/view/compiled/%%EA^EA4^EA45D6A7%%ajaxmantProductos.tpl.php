@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-11-03 16:04:00
+<?php /* Smarty version 2.6.17, created on 2016-11-08 21:57:29
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
@@ -68,11 +68,11 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <td><?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][5]; ?>
 </td>
     <td>
-    <i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
-" data-toggle="modal" href="#modal-productos" modulo="producto" title="Editar Producto"></i>
+    <i class="fa fa-pencil-square-o btn editprod" id="m<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
+" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
     <i class="fa fa-outdent salidainv" id="s<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
 " data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
-    <i class="fa fa-times btn delete" codigo="1" modulo="producto" id="d<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
+    <i class="fa fa-times btn delprod" id="d<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
 " style="color: #D9534F" title="Eliminar Producto"></i>
     </td>
     </tr>
@@ -80,7 +80,13 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     </tbody>
     </table>
     </div>
-    <br><br>
+    <br>
+    <div class="alert alert-danger err_" id="err3" style="display:none">
+        <strong id="errm3"></strong>
+    </div>
+    <div class="alert alert-success suc_" id="suc3" style="display:none">
+        <strong id="sucm3"></strong>
+    </div><br><br>
 </div>
 </div>
 
@@ -323,6 +329,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                 <div class="input-group">
                     <div class="input-group-addon"><b>Precio Venta</b></div>
                     <input type="text" class="form-control eder" id="vventa" placeholder="Precio Venta" data-mask="999999999.99" readonly  value="0.00">
+                    <input type="hidden" id="hventa" value="">
                     <div class="input-group-addon"><b>¢</b></div>
                 </div><br> 
             </div>
@@ -339,6 +346,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         </div>
     </div>
     <div id="descuentos" class="inv">
+        <br>
         <div class="alert alert-danger err_" id="err2" style="display: none">
             <strong id="errm2"></strong>
         </div>
@@ -351,30 +359,18 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                     <div class="input-group-addon"><b>Máximo Descuento</b></div>
                     <input type="text" class="form-control eder" id="maxdesc" placeholder="Descuento Máximo Producto">
                     <div class="input-group-addon"><b>%</b></div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6"></div><br><br><br>
-            <div class="col-md-6 col-lg-6">
+                </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Agregar Descuentos</b></div>
                     <input type="text" id="dscts" class="form-control eder" value="" required="required" placeholder="Descuento">
                     <div class="input-group-addon"><b>%</b></div>
-                    <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus"></i></div>
+                    <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
                 </div>
             </div>
-            <div class="col-md-1 col-lg-1"></div>
-            <div class="col-md-4 col-lg-4 inv" id="tbldesc">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th style="text-align:center">Descuentos</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listadescuentos">
-                    </tbody>
-                </table>
+            <div class="col-md-6 col-lg-6 inv" id="tbldesc">
+                <h3>Descuentos</h3>
+                <div id="listadescuentos" style="width:60%"></div>
             </div>
-            <div class="col-md-1 col-lg-1"></div>
         </div>
     </div>
     <br>
@@ -388,6 +384,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="addprod">Agregar</button>
+        <button type="button" class="btn btn-primary inv" id="editprod">Guardar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
     </div>
 </div>
