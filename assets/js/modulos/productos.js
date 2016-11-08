@@ -196,7 +196,7 @@ $(document).on("click","#adddsct",function(){
 		if (desc != '' && desc <= parseFloat($("#maxdesc").val())) {
 			$("#tbldesc").show();
 			// $("#listadescuentos").append('<tr id="'+desc+'"><td><span id="desc'+desc+'" class="descprod">'+desc+'%</span><span class="der"><i class="fa fa-times btn deldesc" id="deldesc'+desc+'"></i></span></td></tr>');
-			$("#listadescuentos").append('<div class="container-fluid"><ul class="list-group"><li class="list-group-item">'+desc+'%<span><i class="fa fatimes btn"></i></span></li></ul></div>');
+			$("#listadescuentos").append('<div class="container-fluid" id="ld'+desc+'"><ul class="list-group"><li class="list-group-item" align="center">'+desc+' % <i class="fa fa-times btn asterisco deldesc" id="deldesc'+desc+'"></i></li></ul></div>');
 		}else{
 			$("#err2").show();
 			$("#errm2").html("Descuento Máximo es de "+$("#maxdesc").val()+"%");
