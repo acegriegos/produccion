@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventarios.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proyeccion.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
@@ -26,36 +26,6 @@
   <br>
     {$NAV}
     <div class="bdy">
-    <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-        <!-- Brand -->
-        <a class="navbar-brand" href="#"><b>Inventarios</b></a>
-        <!-- Links -->
-        <ul class="nav navbar-nav">
-            <li class="nav-item menu5 active" id="m2">
-                <a class="nav-link" href="#" title="Insumos">Insumos</a>
-            </li>
-            <li class="nav-item menu5" id="m3">
-                <a class="nav-link" href="#" title="Gastos">Gastos</a>
-            </li>
-            <li class="nav-item menu5" id="m6">
-                <a class="nav-link" href="#" title="Producción">Producción</a>
-            </li>
-            <li class="nav-item menu5" id="m4">
-                <a class="nav-link" href="#" title="En Ruta">Rutas</a>
-            </li>
-            <li class="nav-item menu5" id="m1">
-                <a class="nav-link" href="#" title="Devoluciones">Devoluciones</a>
-            </li>
-            <li class="nav-item menu5" id="m5">
-                <a class="nav-link" href="#" title="Mal Estado">Mal Estado</a>
-            </li>
-        </ul>
-    </nav>
-    <br>
-
-    <div class="formInventarios" id="finventarios">
-        <div id="bdymantInvGeneral"></div>
-    </div>
 
     </div>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -63,6 +33,6 @@
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
     <script src="../assets/js/asgard.js"></script>
-    <script src="../assets/js/modulos/inventarios.js"></script>
+    <script src="../assets/js/modulos/proyeccion.js"></script>
   </body>
 </html>

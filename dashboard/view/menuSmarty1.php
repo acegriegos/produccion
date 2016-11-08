@@ -106,9 +106,11 @@
 <li style="padding: 5%""><input type="text" id="menut" class="form-control form-control-sm" title="Transacción" placeholder="# de Transacción" style="display:none"></li><br>
 <li><a href="dashboard">Inicio</a></li>
 <li><a href="comercial">Comercial</a></li>
-<li><a href="productos">Productos</a></li>
-<li><a href="proveedores">Proveedores</a></li>
+<li><a href="proveedor">Proveedor</a></li>
 <li><a href="inventarios">Proveduría</a></li>
+<li><a href="productos">Productos</a></li>
+<li><a href="produccion">Producción</a></li>
+<li><a href="proyectos">Proyectos</a></li>
 <li><a href="contabilidad">Contabilidad</a></li>
 <li><a href="usuarios">Usuarios</a></li>
 <li><a href="reportes">Reportes</a></li>

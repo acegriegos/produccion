@@ -90,6 +90,7 @@
     <a class="nav-item nav-link active" href="#" id="ln1">Información</a>
     <a class="nav-item nav-link" href="#" id="ln2">Financiero</a>
     <a class="nav-item nav-link" href="#" id="ln3">Logística</a>
+    <a class="nav-item nav-link" href="#" id="ln4">Impuestos y Exoneraciones</a>
   </div>
 </nav>
 
