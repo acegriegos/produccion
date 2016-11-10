@@ -41,6 +41,7 @@
     <i class="fa fa-pencil-square-o btn editprod" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
     <i class="fa fa-outdent salidainv" id="s{$PROD[LE][0]}" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
     <i class="fa fa-times btn delprod" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i>
+    <span class="descuentos but" id="desc{$PROD[LE][0]}" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
     </td>
     </tr>
     {/section}
@@ -49,9 +50,11 @@
     </div>
     <br>
     <div class="alert alert-danger err_" id="err3" style="display:none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong id="errm3"></strong>
     </div>
     <div class="alert alert-success suc_" id="suc3" style="display:none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong id="sucm3"></strong>
     </div><br><br>
 </div>
@@ -69,7 +72,7 @@
       <div class="nav navbar-nav">
         <a class="nav-item nav-link active menuP" href="#" id="tb1">Datos Producto</a>
         <a class="nav-item nav-link menuP" href="#" id="tb2">Financiero</a>
-        <a class="nav-item nav-link menuP" href="#" id="tb3">Descuentos</a>
+        <!-- <a class="nav-item nav-link menuP" href="#" id="tb3">Descuentos</a> -->
       </div>
     </nav>
 
@@ -133,34 +136,13 @@
                         <i class="fa fa-plus" id="baddj4" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i>
                     </div>
                 </div><br>
-                <div class="form-control" style="margin-left: 2.5%; width: 510px; height: 50px;">
-                    <div class="col-md-5 col-lg-5">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <b>Tipo de producto:</b>
-                        </label>
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-lg-1"></div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <input name="visgravado" type="radio" id="inputGrav" value="0" checked>
-                        <input type="hidden" id="visgravado" value="1">
-                        <span class="c-indicator"></span>
-                        Gravado
-                        </label>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <input name="visgravado" type="radio" id="inputExc" value="1">
-                        <span class="c-indicator"></span>
-                        Excento
-                        </label>
-                        </div>
-                    </div>
+                <div class="input-group">
+                    <div class="input-group-addon"><b>Unidad</b></div>
+                        <select id="vidunidad" class="form-control" type="select">
+                            {section name=LE loop=$UNI}
+                            <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>';
+                            {/section}
+                        </select>
                 </div><br>
             </div>
             <div class="col-md-6 col-lg-6">
@@ -174,14 +156,6 @@
                     <input type="hidden" id="vid" value="0">
                     <input type="hidden" id="vidusuario" value="">
                     <input type="hidden" id="vidsucursal" value="">
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Unidad</b></div>
-                        <select id="vidunidad" class="form-control" type="select">
-                            {section name=LE loop=$UNI}
-                            <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>';
-                            {/section}
-                        </select>
                 </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Mínimo en Inventario</b></div>
@@ -221,7 +195,36 @@
                     <input type="text" class="form-control eder" id="vventa" placeholder="Precio Venta" data-mask="999999999.99" readonly  value="0.00">
                     <input type="hidden" id="hventa" value="">
                     <div class="input-group-addon"><b>¢</b></div>
-                </div><br> 
+                </div><br>
+                <!-- <div class="form-control" style="margin-left: 2.5%; width: 510px; height: 50px;">
+                    <div class="col-md-5 col-lg-5">
+                        <div class="radio">
+                        <label class="c-input c-radio">
+                        <b>Tipo de producto:</b>
+                        </label>
+                        </div>
+                    </div>
+                    <div class="col-md-1 col-lg-1"></div>
+                    <div class="col-md-3 col-lg-3">
+                        <div class="radio">
+                        <label class="c-input c-radio">
+                        <input name="visgravado" type="radio" id="inputGrav" value="0" checked>
+                        <input type="hidden" id="visgravado" value="1">
+                        <span class="c-indicator"></span>
+                        Gravado
+                        </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3">
+                        <div class="radio">
+                        <label class="c-input c-radio">
+                        <input name="visgravado" type="radio" id="inputExc" value="1">
+                        <span class="c-indicator"></span>
+                        Excento
+                        </label>
+                        </div>
+                    </div>
+                </div> -->
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
@@ -235,43 +238,15 @@
             </div>
         </div>
     </div>
-    <div id="descuentos" class="inv">
-        <br>
-        <div class="alert alert-danger err_" id="err2" style="display: none">
-            <strong id="errm2"></strong>
-        </div>
-        <div class="alert alert-success suc_" id="suc2" style="display: none">
-            <strong id="sucm2"></strong>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Máximo Descuento</b></div>
-                    <input type="text" class="form-control eder" id="maxdesc" placeholder="Descuento Máximo Producto">
-                    <div class="input-group-addon"><b>%</b></div>
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Agregar Descuentos</b></div>
-                    <input type="text" id="dscts" class="form-control eder" value="" required="required" placeholder="Descuento">
-                    <div class="input-group-addon"><b>%</b></div>
-                    <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 inv" id="tbldesc">
-                <h3>Descuentos</h3>
-                <div id="listadescuentos" style="width:60%"></div>
-            </div>
-        </div>
-    </div>
     <br>
-
     <div class="alert alert-danger err_" id="err1" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong id="errm1"></strong>
     </div>
     <div class="alert alert-success suc_" id="suc1" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong id="sucm1"></strong>
     </div>
-
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="addprod">Agregar</button>
         <button type="button" class="btn btn-primary inv" id="editprod">Guardar</button>
@@ -280,7 +255,7 @@
 </div>
 </div>
 </div>
-
+</div>
 <div class="modal fade" id="modal-salida">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -313,7 +288,49 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-descuentos">
+    <div class="modal-dialog" role="document" style="width: 60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Agregar Descuentos a Producto <span></span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger err_" id="err2" style="display: none">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong id="errm2"></strong>
+                </div>
+                <div class="alert alert-success suc_" id="suc2" style="display: none">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong id="sucm2"></strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="input-group">
+                            <div class="input-group-addon"><b>Agregar Descuentos</b></div>
+                            <input type="text" id="dscts" class="form-control eder" value="" required="required" placeholder="Descuento">
+                            <div class="input-group-addon"><b>%</b></div>
+                            <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 inv" id="tbldesc">
+                        <h3>Descuentos</h3>
+                        <div id="listadescuentos" style="width:60%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </div> <!-- End mantProductos -->
 
 <script src="../assets/js/alertModal.js"></script>
+<script src="../assets/js/jquery.mask.min.js"></script>

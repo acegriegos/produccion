@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Ajustes</title>
+    <title>Configuración</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
@@ -35,11 +35,11 @@
             <li class="nav-item menu3" id="m2">
                 <a class="nav-link" href="#">Impuestos</a>
             </li>
+            <li class="nav-item menu3" id="m4">
+                <a class="nav-link" href="#">Descuentos</a>
+            </li>
             <li class="nav-item menu3" id="m3">
                 <a class="nav-link" href="#">Sucursales</a>
-            </li>
-            <li class="nav-item menu3" id="m4">
-                <a class="nav-link" href="#">Productos</a>
             </li>
         </ul>
     </nav>

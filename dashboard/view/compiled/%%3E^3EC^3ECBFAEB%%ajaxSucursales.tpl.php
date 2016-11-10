@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php /* Smarty version 2.6.17, created on 2016-11-09 01:48:38
+=======
+<?php /* Smarty version 2.6.17, created on 2016-10-29 16:44:13
+>>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
          compiled from ajax/ajaxSucursales.tpl */ ?>
 <div class="row">
     <div class="col-md-4 col-lg-4">

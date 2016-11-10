@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-11-07 22:32:05
+<?php /* Smarty version 2.6.17, created on 2016-10-30 10:45:15
          compiled from v_ajustes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Ajustes</title>
+    <title>Configuración</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
@@ -42,7 +42,7 @@
                 <a class="nav-link" href="#">Sucursales</a>
             </li>
             <li class="nav-item menu3" id="m4">
-                <a class="nav-link" href="#">Productos</a>
+                <a class="nav-link" href="#">Descuentos</a>
             </li>
         </ul>
     </nav>
