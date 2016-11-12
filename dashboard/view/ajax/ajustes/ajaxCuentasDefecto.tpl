@@ -58,7 +58,15 @@
         </div>
         <br>
          <h3>Cuentas por Defecto</h3>
-
+         {section name=LE loop=$DCUE}
+        <div class="input-group" modulo="scontabilidad">
+        <div class="input-group-addon"><b>{$DCUE[LE][3]} {$DCUE[LE][5]} </b></div>
+        <select class="form-control">
+            <option selected> {$DCUE[LE][2]} </option>
+        </select>
+        </div>
+           
+         {/section}
         <div class="alert alert-danger err_" id="err1" style="display: none">
             <strong id="errm1"></strong>
         </div>

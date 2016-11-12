@@ -220,7 +220,16 @@ Jurídico
         <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
         {/section}
     </select>
-</div>
+    </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <label>Tipo Cliente:</label>
+        <label class="radio-inline">
+            <input type="radio" name="tipocliente" class="tipocl" tp="1" checked> Contado
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="tipocliente" class="tipocl" tp="2"> Crédito
+        </label>
     </div>
 </div> <br>
 
@@ -241,7 +250,7 @@ Jurídico
     </div>
 </div><br>
 
-<div class="row">   
+<div class="row cre" style="display: none;">   
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Plazo</b></div>
@@ -272,7 +281,7 @@ Jurídico
         </div>
     </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cre" style="display: none;">
         <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
         <div id="ctacredito">
             

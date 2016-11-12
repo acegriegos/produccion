@@ -23,6 +23,7 @@
 	   			$pagina = 1;
 	   			$smarty->assign('CUE',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and idsubcuenta = 0 order by nombre'));
 	   			$smarty->assign('VCUE',$kakaroto->kamehameha('id,nombre,rpad(numero,10,0),numero,deep,ispadre',36,'1 order by numero'));
+	   			$smarty->assign('DCUE',$kakaroto->kamehameha('*',89,''));
 	   			$smarty->display('ajax/ajustes/ajaxCuentasDefecto.tpl');
 	   			break;
 	   		case 2:

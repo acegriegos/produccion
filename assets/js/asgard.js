@@ -1,9 +1,10 @@
 acc = 1;
 
-/*$(function(){
-    $(".err_").hide();
-    $(".suc_").hide();
-});*/
+$(window).keydown(function(e){
+    var code = e.wich || e.keyCode
+    if(code == 113)
+        alert('f2')
+});
 
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');

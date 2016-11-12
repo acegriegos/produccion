@@ -44,6 +44,8 @@ $(function(){
 		$("#ln1").click();
 		$("#videstado").val(1);
 
+		$("input[name='tipocliente'][tp='1']").click()
+		$("input[name='tipocliente'][tp='1']").change()
 		obtenerCuentas(0);
 	});
 
@@ -65,6 +67,13 @@ $(function(){
 		$("[id^=ln]").removeClass('active')
 		$(this).addClass('active')
 	});
+
+	$("input[name='tipocliente'").click(function(){
+		if($(this).attr('tp') == 1)
+			$(".cre").hide();
+		else
+			$(".cre").show();
+	})
 
 	$("#cuentasclientes").multiSelect();
 

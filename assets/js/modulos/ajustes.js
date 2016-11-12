@@ -55,7 +55,6 @@ $(document).on("click",".menu3",function(){
 				var p = mantenimiento('ajustes',1,'');
 				$("#majustes").html('');
 				$("#majustes").html(p);
-				notify('i','hola','good','danger')
 				break;
 		}
 		

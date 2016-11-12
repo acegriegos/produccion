@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-11-04 15:36:43
+<?php /* Smarty version 2.6.17, created on 2016-11-05 13:08:56
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -303,7 +303,16 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </option>
         <?php endfor; endif; ?>
     </select>
-</div>
+    </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <label>Tipo Cliente:</label>
+        <label class="radio-inline">
+            <input type="radio" name="tipocliente" class="tipocl" tp="1" checked> Contado
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="tipocliente" class="tipocl" tp="2"> Crédito
+        </label>
     </div>
 </div> <br>
 
@@ -324,7 +333,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     </div>
 </div><br>
 
-<div class="row">   
+<div class="row cre" style="display: none;">   
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
 <div class="input-group-addon"><b>Plazo</b></div>
@@ -355,7 +364,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         </div>
     </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cre" style="display: none;">
         <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
         <div id="ctacredito">
             
