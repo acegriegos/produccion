@@ -1,17 +1,10 @@
 $(function(){
-
+	arr('login',6,'*',51,'id > 0 order by id','',1,$("#dimpuestos"));
 	$("#mail").focus();
-
-
 	$("#correo").submit(function(){
 		if ($("#mail").val() != '') {
 			var aleatorio = Math.random().toString(36).substring(7).toUpperCase();
-			var arr = {};
-			arr['sel'] = '';
-			arr['tbl'] = 46;
-			arr['where'] = '\"'+aleatorio+'\",@@usr';
-			var code = mantenimiento('login',4,arr)[0][0];
-
+			var code = arr('login',4,'',46,'\"'+aleatorio+'\",@@usr','',0,'')[0][0];
 			var body = "<h2>Saludos de parte de Login Technologies S.A</h2><br><p>Gracias por comprar nuestros productos</p><br>Su codigo de activación es: "+code;
 			enviarCorreo(1,$("#mail").val(),'Cambio de Contraseña Sistema LT',body,'');
 			$(this).hide();
@@ -25,30 +18,23 @@ $(function(){
 		}
 		return false;
 	});
+	// 2F78B7
+// CAROUSEL
+	$(".left").click(function(){
+        $("#carousel").carousel("prev");
+    });
+    $(".right").click(function(){
+        $("#carousel").carousel("next");
+    });
+// END CAROUSEL
 
 	$("#licencia").submit(function(){
-		var arr = {};
-		arr['sel'] = 'aes_decrypt(codigo,"lt2016")';
-		arr['tbl'] = 1;
-		arr['where'] = 'id = @@usr and bcambioPSSW = 1';
-		var code = mantenimiento('login',4,arr)[0][0];
-
+		var code = arr('login',4,'aes_decrypt(codigo,"lt2016")',1,'id = @@usr and bcambioPSSW = 1','',0,'')[0][0];
 		if ($("#vlicencia").val() == code) {
 			$("#licencia").hide();
 			$("#bienvenida").show();
 			$("#hb").hide();
-
-			var arr = {}
-			arr['sel'] = '*';
-			arr['tbl'] = 51;
-			arr['where'] = 'id > 0 order by id';
-			var imp = mantenimiento('login',6,arr);
-
-			$("#dimpuestos").html(imp);
-			
-
-
-			// function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
+			arr('login',6,'*',51,'id > 0 order by id','',1,$("#dimpuestos"));
 		}else{
 			$("#err4").show();
 			$("#errm4").html('Código Erroneo');
@@ -60,65 +46,46 @@ $(function(){
 
 $(document).on("click","#addimp",function(){
 	var nombre = $("#vimpuesto").val();
-	var arr = {};
-	arr['sel'] = '';
-	arr['tbl'] = 48;
-	arr['where'] = '1,null,\"'+nombre+'\",0.00';
-	mantenimiento('login',4,arr);
-
-	var arr2 = {}
-	arr2['sel'] = '*';
-	arr2['tbl'] = 51;
-	arr2['where'] = 'id > 0 order by id';
-	var imp = mantenimiento('login',6,arr2);
-	$("#dimpuestos").html(imp)
+	mantimpuesto(nombre);
 });
 
-$(document).on("click","#delimp",function(){
-	var arr = {}
-	arr['sel'] = '';
-	arr['tbl'] = 48;
-	arr['where'] = '3,'+$(this).attr('id')+',0.00';
-	mantenimiento('login',4,arr);
+$(document).on("keyup","#vimpuesto",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		var nombre = $("#vimpuesto").val();
+		mantimpuesto(nombre);
+	}
+});
 
-	var arr2 = {};
-	arr2['sel'] = '*';
-	arr2['tbl'] = 51;
-	arr2['where'] = 'id > 0 order by id';
-	var imp = mantenimiento('login',6,arr);
-
-	$("#dimpuestos").html('');
-	$("#dimpuestos").html(imp);
-
+$(document).on("click",".delimp",function(){
+	var id = $(this).attr('id');
+	var impuesto = arr('login',4,'',48,'3,'+id+',"",0.00','',0,'');
+	$("#suc5").show();
+	$("#sucm5").html('Impuesto de '+impuesto[0][0]+' Eliminado Correctamente');
+	arr('login',6,'*',51,'id > 0','',1,$("#dimpuestos"));
 });
 
 $(document).on("click","#actinfo",function(){
-
 	$(".infoempresa").each(function(){
 		var id = $(this).attr('id');
 		var valor = $("#"+id).val();
 		var field = $(this).attr('field');
-
 		var arr = {};
 		arr['sel'] = '';
 		arr['tbl'] = 47;
 		arr['where'] = '\"'+valor+'\",\"'+field+'\"';
 		mantenimiento('login',4,arr);
 	});
-
 	$("input[name=impuesto]").each(function(){
 		var id = $(this).attr('id');
 		var value = $(this).val();
-
 		var arr = {};
 		arr['sel'] = '';
 		arr['tbl'] = 48;
 		arr['where'] = '2,'+id+',"",\"'+value+'\"';
 		mantenimiento('login',4,arr);
 	});
-
 	window.open('../dashboard/logout','_self');
-
 });
 
 // $(document).on("click","#addinfo",function(){
@@ -178,6 +145,20 @@ $(document).on("click","#actinfo",function(){
 
 // 	}
 // });
+
+function mantimpuesto(nombre) {
+	$("#err5").hide();
+	if (nombre != '') {
+		var impuesto = arr('login',4,'',48,'1,0,\"'+nombre+'\",0.00','',0,'');
+		if (impuesto[0][0] != undefined) {
+			arr('login',6,'*',51,'id > 0','',1,$("#dimpuestos"));
+		}else{
+			$("#err5").show();
+			$("#errm5").html(impuesto[0]['ERROR']);
+		}
+		$("#vimpuesto").select();
+	}
+}
 
 function validarAjuste() {
 	if ($("#vnombre").val() == '') {
