@@ -119,4 +119,5 @@
 </nav>
 
 <script src="../assets/js/jquery.js"></script>
+<script src="../assets/js/notify.js"></script>
 <script src="../assets/js/modulos/menu.js"></script>

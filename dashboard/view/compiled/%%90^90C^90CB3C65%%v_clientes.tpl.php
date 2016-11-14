@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php /* Smarty version 2.6.17, created on 2016-11-10 17:54:41
+=======
+<?php /* Smarty version 2.6.17, created on 2016-11-04 15:36:43
+>>>>>>> 204ff22aca54443c093c8a6e2263ec1989ad871a
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,6 +28,7 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<<<<<<< HEAD
 <?php echo '
 <script type="text/javascript">
         
@@ -58,6 +63,8 @@
             
       </script>
 '; ?>
+=======
+>>>>>>> 204ff22aca54443c093c8a6e2263ec1989ad871a
 
 </head>
 <body>
@@ -80,7 +87,11 @@
 <button type="button" id="ingClie" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
 </div>
 </div><br><br>
+<<<<<<< HEAD
  <input type="button" onclick="getLocation();" value="Get Location"/>
+=======
+
+>>>>>>> 204ff22aca54443c093c8a6e2263ec1989ad871a
 <div class="card-block">
 <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
 <thead>
@@ -383,14 +394,14 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;"></i> </b></div>
+        <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
         <div id="ctacontado">
             
         </div>
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;"></i> </b></div>
+        <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
         <div id="ctacredito">
             
         </div>
@@ -495,7 +506,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div>
 
 <div class="card-header parte4 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-
+<div class="card-title"><b>Impuestos</b></div>
 </div>
 
 </div>

@@ -21,7 +21,6 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 
-	   			$smarty->assign('CUE',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and idsubcuenta = 0 order by nombre'));
 				$smarty->assign('VCUE',$kakaroto->kamehameha('*',33,'1 limit 20'));
 				
 				$smarty->display('ajax/contabilidad/cuentas.tpl');

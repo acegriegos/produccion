@@ -22,40 +22,7 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-{literal}
-<script type="text/javascript">
-        
-         function showLocation(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            alert("Latitude : " + latitude + " Longitude: " + longitude);
-         }
 
-         function errorHandler(err) {
-            if(err.code == 1) {
-               alert("Error: Access is denied!");
-            }
-            
-            else if( err.code == 2) {
-               alert("Error: Position is unavailable!");
-            }
-         }
-            
-         function getLocation(){
-
-            if(navigator.geolocation){
-               // timeout at 60000 milliseconds (60 seconds)
-               var options = {timeout:60000};
-               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-            }
-            
-            else{
-               alert("Sorry, browser does not support geolocation!");
-            }
-         }
-            
-      </script>
-{/literal}
 </head>
 <body>
 <br>
@@ -76,7 +43,7 @@
 <button type="button" id="ingClie" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
 </div>
 </div><br><br>
- <input type="button" onclick="getLocation();" value="Get Location"/>
+
 <div class="card-block">
 <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
 <thead>
@@ -299,14 +266,14 @@ Jurídico
 
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;"></i> </b></div>
+        <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
         <div id="ctacontado">
             
         </div>
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;"></i> </b></div>
+        <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
         <div id="ctacredito">
             
         </div>
@@ -386,7 +353,7 @@ Jurídico
 </div>
 
 <div class="card-header parte4 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-
+<div class="card-title"><b>Impuestos</b></div>
 </div>
 
 </div>

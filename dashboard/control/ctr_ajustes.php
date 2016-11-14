@@ -14,26 +14,31 @@
 	   	$smarty->display('v_ajustes.tpl');
 	   }else{
 	   $pagina = 0;
+	   require '../_config/mySmarty.php';
+	   	$smarty  = new mySmarty();
+	   	$smarty->setModule('dashboard');
 	   	switch ($_REQUEST['accion']) {
+
 	   		case 1:
-	   			$transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+	   			$pagina = 1;
+	   			$smarty->assign('CUE',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and idsubcuenta = 0 order by nombre'));
+	   			$smarty->assign('VCUE',$kakaroto->kamehameha('id,nombre,rpad(numero,10,0),numero,deep,ispadre',36,'1 order by numero'));
+	   			$smarty->display('ajax/ajustes/ajaxCuentasDefecto.tpl');
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
-	   			include 'view/ajax/ajaxDatosEmpresa.tpl';
+	   			include 'view/ajax/ajustes/ajaxDatosEmpresa.tpl';
 	   			break;
 	   		case 3:
 	   			$pagina = 1;
-	   			include 'view/ajax/ajaxImpuestos.tpl';
+	   			include 'view/ajax/ajustes/ajaxImpuestos.tpl';
 	   			break;
 	   		case 4:
 	   			$pagina = 1;
-	   			require '../_config/mySmarty.php';
-			   	$smarty  = new mySmarty();
-			   	$smarty->setModule('dashboard');
+	   			
 			   	$smarty->assign('SUC',$kakaroto->kamehameha('id,nombre,telefono',39,'id > 0 order by nombre'));
 			   	$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0 order by nombre'));
-			   	$smarty->display('ajax/ajaxSucursales.tpl');
+			   	$smarty->display('ajax/ajustes/ajaxSucursales.tpl');
 	   			break;
 	   		case 5:
 	   			

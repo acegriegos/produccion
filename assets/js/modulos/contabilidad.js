@@ -262,70 +262,6 @@ $(document).on("keyup","#vbusqueda",function(e){
 	}
 });
 
-$(document).ready(function(){
-
-	$(".slidel").click(function(){
-		//slide($("[cod]:visible").attr('cod'),-1);
-	});
-
-});
-
-$(document).on("change","#vgenero",function(){
-	var arr = {};
-	arr['sel'] = 'id,nombre,numero';
-	arr['tbl'] = 36;
-	arr['where'] = 'idsubcuenta = '+$("option:selected",this).val();
-	$(this).attr('lvl',$("option:selected",this).val());
-	
-	var rs = mantenimiento('login',6,arr);
-	$(".myh3").append($("option:selected",this).attr('num')+"-"+$("option:selected",this).text()+"<br>"+"&nbsp>");
-	if (rs.length == undefined) {
-		slide($("[cod]:visible").attr('cod'),1);
-		$("#vnombre").val('');
-        $("#vnombre").focus();
-        
-	}
-	else
-		$(this).html(rs);
-});
-
-$(document).on("keyup","#vnombre",function(e){
-	var code = e.which || e.keyCode
-	if(code == 13)
-		$(".addglobal").click();
-})
-
-$(document).on("click",".addglobal",function(){
-
-	if($("#vnombre").is(":visible")){
-		var arr = {}
-		arr['sel'] = '';
-		arr['tbl'] = 37;
-		arr['where'] = '1,0,'+$("#vgenero").attr('lvl')+',"'+$('#vnombre').val()+'",@@usr,'+$("#vispadre").val();
-
-		mantenimiento('login',4,arr);//INGRESAR CUENTA
-
-		arr = {};
-		arr['sel'] = 'id,nombre,numero';
-		arr['tbl'] = 36;
-		arr['where'] = 'idsubcuenta = '+$("#vgenero").attr('lvl');
-
-		$("#vgenero").html(mantenimiento('login',6,arr));
-
-		slide($("[cod]:visible").attr('cod'),-1);
-
-		arr = {};
-		arr['sel'] = '*';
-		arr['tbl'] = 33;
-		arr['where'] = '1 limit 20';
-		$("#vcuentas").html(mantenimiento('login',6,arr));
-		
-	}else{
-		slide($("[cod]:visible").attr('cod'),1);
-		$("#vnombre").val('');
-        $("#vnombre").focus();
-	}
-});
 
 function totalizar(){
 	var vdebe = vhaber = 0;
@@ -341,21 +277,6 @@ function totalizar(){
 	$('#totDebe').html(vdebe.formatMoney(2,'.',','));
 	$('#totHber').html(vhaber.formatMoney(2,'.',','));
 }
-
-function slide(cod,suma) {
-	var max = $("[modulo=scontabilidad]").attr('max');
-	var siguiente = parseInt(cod) + suma;
-	$("[cod="+cod+"]").hide();
-	$("[cod="+siguiente+"]").show();
-	
-	if (siguiente == 1) 
-		$(".slidel").hide();
-	else if(siguiente ==  max)
-		$(".slidel").show();
-	else
-		$(".slidel").show();
-}
-
 
 function validar (varreglo,vmodulo) {
 	

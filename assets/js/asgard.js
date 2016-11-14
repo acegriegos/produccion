@@ -1,9 +1,9 @@
 acc = 1;
 
-$(function(){
+/*$(function(){
     $(".err_").hide();
     $(".suc_").hide();
-});
+});*/
 
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');
@@ -58,8 +58,8 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         });
     }
 
-    $('#err'+codigo).hide();
-    $('#suc'+codigo).hide();
+    //$('#err'+codigo).hide();
+    //$('#suc'+codigo).hide();
 
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
@@ -73,8 +73,9 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
-            $('#err'+codigo).show();
-            $('#errm'+codigo).html(p[0]['ERROR']);
+            //$('#err'+codigo).show();
+            //$('#errm'+codigo).html(p[0]['ERROR']);
+            notify('E','Error',p[0]['ERROR'],'danger');
         }else{
            
             var tmsj = "Ingresado";
@@ -86,8 +87,9 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
                 acc = 3;
             }
 
-            $('#suc'+codigo).show();
-            $('#sucm'+codigo).html('Registro '+tmsj+' Correctamente');
+            /*$('#suc'+codigo).show();
+            $('#sucm'+codigo).html('Registro '+tmsj+' Correctamente');*/
+            notify('','','Registro '+tmsj+' Correctamente','success');
             
             if (detalle == 1) {
                 id = p[0][0];
@@ -100,11 +102,12 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         }
 
     }else{
-        $('#errm'+codigo).html(arreglo['atributos']);
-        $('#err'+codigo).show();
+        /*$('#errm'+codigo).html(arreglo['atributos']);
+        $('#err'+codigo).show();*/
+        notify('E','Error',arreglo['atributos'],'danger');
     }
 
-    $('#err'+codigo).is(':visible') ?  setTimeout(function(){ $('#err'+codigo).hide(); }, 2000) :  setTimeout(function(){ $('#suc'+codigo).hide(); }, 2000); ;
+    //$('#err'+codigo).is(':visible') ?  setTimeout(function(){ $('#err'+codigo).hide(); }, 2000) :  setTimeout(function(){ $('#suc'+codigo).hide(); }, 2000); ;
 };
 
 function baseValidar(vaccion,vmodulo){
@@ -438,7 +441,7 @@ function notify(vicon,vtitle,vmsg,vtype){
     },
     offset: 20,
     spacing: 10,
-    z_index: 1031,
+    z_index: 3500,
     delay: 5000,
     timer: 1000,
     url_target: '_blank',

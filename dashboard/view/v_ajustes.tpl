@@ -41,6 +41,9 @@
             <li class="nav-item menu3" id="m3">
                 <a class="nav-link" href="#">Sucursales</a>
             </li>
+            <li class="nav-item menu3" id="m4">
+                <a class="nav-link" href="#">Cuentas Contables</a>
+            </li>
         </ul>
     </nav>
     <br>
