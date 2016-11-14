@@ -27,7 +27,7 @@
     <div class="bdy">
     {$NAV}
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-        <a class="navbar-brand" href="#"><b>Ajustes</b></a>
+        <a class="navbar-brand" href="#"><b>Configuración</b></a>
         <ul class="nav navbar-nav">
             <li class="nav-item">
                 <a class="nav-link menu3 active" id="m1" href="#">Empresa</a>

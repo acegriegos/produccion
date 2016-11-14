@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-11-08 22:05:11
+<?php /* Smarty version 2.6.17, created on 2016-11-14 16:24:27
          compiled from ajax/ajaxmantPaquetes.tpl */ ?>
 <link rel="stylesheet" href="../assets/css/bootstrap-tokenfield.css">
 <link rel="stylesheet" href="../assets/css/tokenfield-typeahead.css">

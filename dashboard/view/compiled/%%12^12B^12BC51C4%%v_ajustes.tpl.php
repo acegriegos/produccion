@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-30 10:45:15
+<?php /* Smarty version 2.6.17, created on 2016-11-13 05:39:57
          compiled from v_ajustes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,7 +30,7 @@
     <?php echo $this->_tpl_vars['NAV']; ?>
 
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-        <a class="navbar-brand" href="#"><b>Ajustes</b></a>
+        <a class="navbar-brand" href="#"><b>Configuración</b></a>
         <ul class="nav navbar-nav">
             <li class="nav-item">
                 <a class="nav-link menu3 active" id="m1" href="#">Empresa</a>
@@ -38,11 +38,11 @@
             <li class="nav-item menu3" id="m2">
                 <a class="nav-link" href="#">Impuestos</a>
             </li>
-            <li class="nav-item menu3" id="m3">
-                <a class="nav-link" href="#">Sucursales</a>
-            </li>
             <li class="nav-item menu3" id="m4">
                 <a class="nav-link" href="#">Descuentos</a>
+            </li>
+            <li class="nav-item menu3" id="m3">
+                <a class="nav-link" href="#">Sucursales</a>
             </li>
         </ul>
     </nav>

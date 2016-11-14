@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-10-29 16:37:58
+<?php /* Smarty version 2.6.17, created on 2016-11-10 15:41:06
          compiled from login.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -105,4 +105,4 @@
     <script src="../assets/js/asgard.js"></script>
     <script src="../assets/js/modulos/login.js"></script>
   </body>
-</html>
+</html>

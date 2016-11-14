@@ -33,7 +33,7 @@
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Dirección</b></div>
-                    <input type="text" class="form-control infoempresa" id="vdireccion" placeholder="DIrección de la Empresa" field="direccion">
+                    <input type="text" class="form-control infoempresa" id="vdireccion" placeholder="Dirección de la Empresa" field="direccion">
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">

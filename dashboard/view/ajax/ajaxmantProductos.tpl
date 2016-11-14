@@ -1,5 +1,6 @@
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
+<input type="hidden" id="vclick" value="1">
 <hr>
 <div class="row">
 <div class="col-md-6 col-lg-6">
@@ -7,7 +8,21 @@
     <span class="input-group-btn">
     <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
     </span>
-    <input type="search" class="form-control" id="searchprod" placeholder="Nombre de Producto">
+    <input type="search" class="form-control" id="searchprod" placeholder="Buscar Código">
+    <div class="btn-group input-group-addon" role="group" id="fgrande" filter="1">
+        <i id="btnGroupDrop1" class="dropdown-toggle fa fa-navicon but" data-toggle="dropdown">
+        </i>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item vfiltros" href="#" filtro="f1">Código</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f2">Nombre</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f3">Costo Mayor o igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f4">Costo Menor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f5">Venta Mayor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f6">Venta Menor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f7">Ganancia Mayor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f8">Ganancia Menor o Igual a</a>
+        </div>
+    </div>
     </div>           
 </div>
 <div class="col-md-6 col-lg-6">
@@ -39,9 +54,10 @@
     <td>{$PROD[LE][5]}</td>
     <td>
     <i class="fa fa-pencil-square-o btn editprod" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
+    <span class="descuentos btn" id="desc{$PROD[LE][0]}" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
     <i class="fa fa-outdent salidainv" id="s{$PROD[LE][0]}" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
     <i class="fa fa-times btn delprod" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i>
-    <span class="descuentos but" id="desc{$PROD[LE][0]}" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
+    
     </td>
     </tr>
     {/section}
@@ -158,12 +174,12 @@
                     <input type="hidden" id="vidsucursal" value="">
                 </div><br>
                 <div class="input-group">
-                    <div class="input-group-addon"><b>Mínimo en Inventario</b></div>
+                    <div class="input-group-addon"><b>Mínimo</b></div>
                     <input type="number" class="form-control eder" id="vminimo" placeholder="Mínimo" min="1" title="Valor debe ser mayor o igual a 1">
                     <!-- <input type="hidden" id="" value="0" min="{0}" data-mask="999999999.99"> -->
                 </div><br>
                 <div class="input-group">
-                    <div class="input-group-addon"><b>Máximo en Inventario</b></div>
+                    <div class="input-group-addon"><b>Máximo</b></div>
                     <input type="number" class="form-control eder" id="vmaximo" placeholder="Máximo" min="1" title="Valor debe ser mayor o igual a 1">
                     <!-- <input type="hidden" id="" value="0" min="{0}" data-mask="999999999.99"> -->
                 </div>
@@ -310,10 +326,11 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-6">
                         <div class="input-group">
-                            <div class="input-group-addon"><b>Agregar Descuentos</b></div>
-                            <input type="text" id="dscts" class="form-control eder" value="" required="required" placeholder="Descuento">
+                            <div class="input-group-addon"><b>Agregar</b></div>
+                                <select id="dscts" class="form-control" required="required"></select>
                             <div class="input-group-addon"><b>%</b></div>
                             <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
+                            <input type="hidden" id="idproducto" class="form-control" value="">
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 inv" id="tbldesc">
@@ -323,7 +340,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" id="gdesc">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
             </div>
         </div><!-- /.modal-content -->

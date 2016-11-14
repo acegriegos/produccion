@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php /* Smarty version 2.6.17, created on 2016-11-09 01:51:24
-=======
-<?php /* Smarty version 2.6.17, created on 2016-10-29 16:46:53
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
+<?php /* Smarty version 2.6.17, created on 2016-11-10 05:43:31
          compiled from v_usuarios.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">

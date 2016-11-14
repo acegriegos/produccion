@@ -12,24 +12,22 @@ $(document).on("click",".menu3",function(){
 		switch(id){
 			case 1:
 				var p = mantenimiento('ajustes',2,'');
-				$("#majustes").html('');
 				$("#majustes").html(p);
 				var arr = {};
-				arr['sel'] = 'valor';
+				arr['sel'] = 'nombre,cedula,telefonos,correo,direccion';
 				arr['tbl'] = 50;
 				arr['where'] = '';
-				var e = mantenimiento('login',4,arr)[0];
+				var e = mantenimiento('login',4,arr)[0][0];
 				$("#vnombre").val(e[0]);
 				$("#vcedula").val(e[1]);
 				$("#vtelefono").val(e[2]);
 				$("#vcorreo").val(e[3]);
 				$("#vdireccion").val(e[4]);
-				$("#vfechainicio").val(e[5]);
-				$("#vfechafinal").val(e[6]);
+				// $("#vfechainicio").val(e[5]);
+				// $("#vfechafinal").val(e[6]);
 				break;
 			case 2:
 				var p = mantenimiento('ajustes',3,'');
-				$("#majustes").html('');
 				$("#majustes").html(p);
 				var arr = {};
 				arr['sel'] = '*';
@@ -40,7 +38,6 @@ $(document).on("click",".menu3",function(){
 				break;
 			case 3:
 				var p = mantenimiento('ajustes',4,'');
-				$("#majustes").html('');
 				$("#majustes").html(p);
 				$("#data-table-sucursales").dataTable({
 					bFilter : false,

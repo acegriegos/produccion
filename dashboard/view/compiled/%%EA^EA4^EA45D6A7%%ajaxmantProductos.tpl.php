@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-<?php /* Smarty version 2.6.17, created on 2016-11-08 23:10:59
-=======
-<?php /* Smarty version 2.6.17, created on 2016-10-30 17:15:42
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
+<?php /* Smarty version 2.6.17, created on 2016-11-14 16:46:55
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
+<input type="hidden" id="vclick" value="1">
 <hr>
 <div class="row">
 <div class="col-md-6 col-lg-6">
@@ -13,7 +10,21 @@
     <span class="input-group-btn">
     <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
     </span>
-    <input type="search" class="form-control" id="searchprod" placeholder="Nombre de Producto">
+    <input type="search" class="form-control" id="searchprod" placeholder="Buscar Código">
+    <div class="btn-group input-group-addon" role="group" id="fgrande" filter="1">
+        <i id="btnGroupDrop1" class="dropdown-toggle fa fa-navicon but" data-toggle="dropdown">
+        </i>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item vfiltros" href="#" filtro="f1">Código</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f2">Nombre</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f3">Costo Mayor o igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f4">Costo Menor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f5">Venta Mayor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f6">Venta Menor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f7">Ganancia Mayor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f8">Ganancia Menor o Igual a</a>
+        </div>
+    </div>
     </div>           
 </div>
 <div class="col-md-6 col-lg-6">
@@ -74,15 +85,13 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <td>
     <i class="fa fa-pencil-square-o btn editprod" id="m<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
 " data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
+    <span class="descuentos btn" id="desc<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
+" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
     <i class="fa fa-outdent salidainv" id="s<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
 " data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
     <i class="fa fa-times btn delprod" id="d<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
 " style="color: #D9534F" title="Eliminar Producto"></i>
-<<<<<<< HEAD
-=======
-    <span class="descuentos but" id="desc<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
-" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
+    
     </td>
     </tr>
     <?php endfor; endif; ?>
@@ -91,17 +100,11 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     </div>
     <br>
     <div class="alert alert-danger err_" id="err3" style="display:none">
-<<<<<<< HEAD
-        <strong id="errm3"></strong>
-    </div>
-    <div class="alert alert-success suc_" id="suc3" style="display:none">
-=======
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong id="errm3"></strong>
     </div>
     <div class="alert alert-success suc_" id="suc3" style="display:none">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
         <strong id="sucm3"></strong>
     </div><br><br>
 </div>
@@ -119,11 +122,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
       <div class="nav navbar-nav">
         <a class="nav-item nav-link active menuP" href="#" id="tb1">Datos Producto</a>
         <a class="nav-item nav-link menuP" href="#" id="tb2">Financiero</a>
-<<<<<<< HEAD
-        <a class="nav-item nav-link menuP" href="#" id="tb3">Descuentos</a>
-=======
         <!-- <a class="nav-item nav-link menuP" href="#" id="tb3">Descuentos</a> -->
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
       </div>
     </nav>
 
@@ -237,51 +236,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                         <i class="fa fa-plus" id="baddj4" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i>
                     </div>
                 </div><br>
-<<<<<<< HEAD
-                <div class="form-control" style="margin-left: 2.5%; width: 510px; height: 50px;">
-                    <div class="col-md-5 col-lg-5">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <b>Tipo de producto:</b>
-                        </label>
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-lg-1"></div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <input name="visgravado" type="radio" id="inputGrav" value="0" checked>
-                        <input type="hidden" id="visgravado" value="1">
-                        <span class="c-indicator"></span>
-                        Gravado
-                        </label>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <input name="visgravado" type="radio" id="inputExc" value="1">
-                        <span class="c-indicator"></span>
-                        Excento
-                        </label>
-                        </div>
-                    </div>
-                </div><br>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Nombre</b></div>
-                    <input type="text" class="form-control" id="vnombre" placeholder="Nombre de Producto">
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Código</b></div>
-                    <input type="text" class="form-control" id="vcodigo" placeholder="Código de Producto">
-                    <input type="hidden" id="vid" value="0">
-                    <input type="hidden" id="vidusuario" value="">
-                    <input type="hidden" id="vidsucursal" value="">
-                </div><br>
-=======
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
                 <div class="input-group">
                     <div class="input-group-addon"><b>Unidad</b></div>
                         <select id="vidunidad" class="form-control" type="select">
@@ -315,8 +269,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                             <?php endfor; endif; ?>
                         </select>
                 </div><br>
-<<<<<<< HEAD
-=======
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
@@ -330,15 +282,14 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                     <input type="hidden" id="vidusuario" value="">
                     <input type="hidden" id="vidsucursal" value="">
                 </div><br>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
                 <div class="input-group">
-                    <div class="input-group-addon"><b>Mínimo en Inventario</b></div>
+                    <div class="input-group-addon"><b>Mínimo</b></div>
                     <input type="number" class="form-control eder" id="vminimo" placeholder="Mínimo" min="1" title="Valor debe ser mayor o igual a 1">
                     <!-- <input type="hidden" id="" value="0" min="<?php echo 0; ?>
 " data-mask="999999999.99"> -->
                 </div><br>
                 <div class="input-group">
-                    <div class="input-group-addon"><b>Máximo en Inventario</b></div>
+                    <div class="input-group-addon"><b>Máximo</b></div>
                     <input type="number" class="form-control eder" id="vmaximo" placeholder="Máximo" min="1" title="Valor debe ser mayor o igual a 1">
                     <!-- <input type="hidden" id="" value="0" min="<?php echo 0; ?>
 " data-mask="999999999.99"> -->
@@ -371,9 +322,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                     <input type="text" class="form-control eder" id="vventa" placeholder="Precio Venta" data-mask="999999999.99" readonly  value="0.00">
                     <input type="hidden" id="hventa" value="">
                     <div class="input-group-addon"><b>¢</b></div>
-<<<<<<< HEAD
-                </div><br> 
-=======
                 </div><br>
                 <!-- <div class="form-control" style="margin-left: 2.5%; width: 510px; height: 50px;">
                     <div class="col-md-5 col-lg-5">
@@ -404,7 +352,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                         </div>
                     </div>
                 </div> -->
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
@@ -418,45 +365,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-    <div id="descuentos" class="inv">
-        <br>
-        <div class="alert alert-danger err_" id="err2" style="display: none">
-            <strong id="errm2"></strong>
-        </div>
-        <div class="alert alert-success suc_" id="suc2" style="display: none">
-            <strong id="sucm2"></strong>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Máximo Descuento</b></div>
-                    <input type="text" class="form-control eder" id="maxdesc" placeholder="Descuento Máximo Producto">
-                    <div class="input-group-addon"><b>%</b></div>
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Agregar Descuentos</b></div>
-                    <input type="text" id="dscts" class="form-control eder" value="" required="required" placeholder="Descuento">
-                    <div class="input-group-addon"><b>%</b></div>
-                    <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 inv" id="tbldesc">
-                <h3>Descuentos</h3>
-                <div id="listadescuentos" style="width:60%"></div>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <div class="alert alert-danger err_" id="err1" style="display: none">
-        <strong id="errm1"></strong>
-    </div>
-    <div class="alert alert-success suc_" id="suc1" style="display: none">
-        <strong id="sucm1"></strong>
-    </div>
-
-=======
     <br>
     <div class="alert alert-danger err_" id="err1" style="display: none">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -466,7 +374,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong id="sucm1"></strong>
     </div>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="addprod">Agregar</button>
         <button type="button" class="btn btn-primary inv" id="editprod">Guardar</button>
@@ -475,11 +382,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div>
 </div>
 </div>
-<<<<<<< HEAD
-
-=======
 </div>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
 <div class="modal fade" id="modal-salida">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -537,12 +440,6 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-
-</div> <!-- End mantProductos -->
-
-<script src="../assets/js/alertModal.js"></script>
-=======
 <div class="modal fade" id="modal-descuentos">
     <div class="modal-dialog" role="document" style="width: 60%">
         <div class="modal-content">
@@ -565,10 +462,11 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                 <div class="row">
                     <div class="col-md-6 col-lg-6">
                         <div class="input-group">
-                            <div class="input-group-addon"><b>Agregar Descuentos</b></div>
-                            <input type="text" id="dscts" class="form-control eder" value="" required="required" placeholder="Descuento">
+                            <div class="input-group-addon"><b>Agregar</b></div>
+                                <select id="dscts" class="form-control" required="required"></select>
                             <div class="input-group-addon"><b>%</b></div>
                             <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
+                            <input type="hidden" id="idproducto" class="form-control" value="">
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 inv" id="tbldesc">
@@ -578,7 +476,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" id="gdesc">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
             </div>
         </div><!-- /.modal-content -->
@@ -588,5 +486,4 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div> <!-- End mantProductos -->
 
 <script src="../assets/js/alertModal.js"></script>
-<script src="../assets/js/jquery.mask.min.js"></script>
->>>>>>> 90b91e48bed4f7762916dec2a3d142855b891a49
+<script src="../assets/js/jquery.mask.min.js"></script>
