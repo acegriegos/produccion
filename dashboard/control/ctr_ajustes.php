@@ -42,7 +42,11 @@
 			   	$smarty->display('ajax/ajustes/ajaxSucursales.tpl');
 	   			break;
 	   		case 5:
+	   			$pagina = 1;
 	   			
+			   	$smarty->assign('DESCF',$kakaroto->kamehameha('valor',15,'descr = "descuentoVenta"'));
+			   	//$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0 order by nombre'));
+			   	$smarty->display('ajax/ajustes/ajaxDescuentos.tpl');
 	   			break;
 	   	}
 		if(!$pagina){

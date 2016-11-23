@@ -198,17 +198,24 @@ function mantenimiento(vmodulo,vaccion, varreglo){
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
     var salida = 1;
     var arr = {};
-    arr['sel'] = vsel;
-    arr['tbl'] = vtbl;
-    arr['where'] = vwhere;
-    if (vcambio != '') 
-        arr['cambio'] = vcambio;
     
+    if(vref == 'login' && vaccion == 7){
+        arr['accion'] = vsel;
+        arr['tabla'] = vtbl;
+        arr['arg1'] = vwhere;
+        arr['arg2'] = vcambio;
+    }else{
+        arr['sel'] = vsel;
+        arr['tbl'] = vtbl;
+        arr['where'] = vwhere;
+        if (vcambio != '') 
+            arr['cambio'] = vcambio;
+    }
+
     if (vch)
         velemto.html(mantenimiento(vref,vaccion,arr));
     else
         salida = mantenimiento(vref,vaccion,arr);
-    
 
     return salida;
 }

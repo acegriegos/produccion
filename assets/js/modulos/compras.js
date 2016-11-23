@@ -1,4 +1,5 @@
 var max = 1;
+var exoneracion = 0;
 
 $(document).ready(function(){
 
@@ -387,28 +388,24 @@ $(document).on("keyup","#descp",function(e){
 
 $(document).on("keyup","#ncli",function(e){
     var code = e.which || e.keyCode;
-    var isprv = $("#vbisproveedor").val();
     if (code == 13) {
-        searchClient($(this).val(),isprv);
+        searchClient($(this).val(),$("#vbisproveedor").val());
     }
 });
 
 $(document).on("blur","#ncli",function(){
-    var isprv = $("#vbisproveedor").val();
-    searchClient($(this).val(),isprv);
+    searchClient($(this).val(),$("#vbisproveedor").val());
 });
 
 $(document).on("keyup","#ced",function(e){
     var code = e.which || e.keyCode;
-    var isprv = $("#vbisproveedor").val();
     if (code == 13) {
-        searchClient($(this).val(),isprv);
+        searchClient($(this).val(),$("#vbisproveedor").val());
     } 
 });
 
 $(document).on("blur","#ced",function(){
-    var isprv = $("#vbisproveedor").val();
-    searchClient($(this).val(),isprv);
+    searchClient($(this).val(),$("#vbisproveedor").val());
 });
 
 $(document).on("click",".desc",function(){
@@ -509,7 +506,6 @@ function searchClient(vvariable,visprv){
         $("#vidcliente").val(clie[0]);
         $("#ncli").val(clie[1]);
         $("#ced").val(clie[2]);
-        $("#dcli").val(clie[3]);
         if ($("#vidtipo").val() == 2) {
             $("#vplazo").val(clie[4]);
         }else{

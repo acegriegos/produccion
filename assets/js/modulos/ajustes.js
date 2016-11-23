@@ -53,6 +53,11 @@ $(document).on("click",".menu3",function(){
 				$("#majustes").html('');
 				$("#majustes").html(p);
 				break;
+			case 5:
+				var p = mantenimiento('ajustes',5,'');
+				$("#majustes").html('');
+				$("#majustes").html(p);
+				break;
 		}
 		
 });
@@ -271,6 +276,13 @@ function cargarSintax(){
 
 	return arr;
 }
+
+/*DESCUENTOS*/
+
+$(document).on('click','input[name="descfact"]',function(){
+	var valor = $(this).attr('tp');
+	arr('login',7,2,15,'valor='+valor,'descr="descuentoVenta"',0,0);
+});
 
 /*cuentas clientes*/
 
