@@ -42,6 +42,7 @@
         </div><br>
         <div class="row">
             <div class="col-md-6 col-lg-6">
+                <img src="#" class="img-responsive" alt="Image" width="200px" height="100px" id="vlogo">
                 <input type="file" id="archivo" name="imagen" multiple="false" class="file-loading">
             </div>
         </div><br>
@@ -55,6 +56,41 @@
 </div>
 
 <div class="card">
+
+    <h3 class="card-header">Monedas</h3>
+    <div class="class-block">
+        <input type="text" id="vnombre" class="form-control" placeholder="">
+
+    </div>
+
+    <h3 class="card-header">Tipo de Usuarios</h3>
+    <div class="class-block">
+        <div id="ftipousuarios">
+        <input type="text" id="vnombre" class="form-control" placeholder="">
+        </div>
+    </div>
+
+    <h3 class="card-header">Tipo de Pagos</h3>
+    <div class="class-block">
+        <div id="ftipousuarios">
+        <input type="text" id="vnombre" class="form-control" placeholder="">
+        </div>
+    </div>
+
+    <h3 class="card-header">Categoría de Clientes</h3>
+    <div class="class-block">
+        <div id="ftipousuarios">
+        <input type="text" id="vnombre" class="form-control" placeholder="">
+        </div>
+    </div>
+
+    <h3 class="card-header">Estado de Clientes</h3>
+    <div class="class-block">
+        <div id="ftipousuarios">
+        <input type="text" id="vnombre" class="form-control" placeholder="">
+        </div>
+    </div>
+
     <h3 class="card-header">Período Fiscal</h3>
     <div class="card-block">
         <div class="row">
@@ -77,5 +113,5 @@
             </div>
         </div>
     </div>
-    
-</div><br><br>
+
+</div>

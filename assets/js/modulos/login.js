@@ -63,55 +63,44 @@ function getIn(){
   $('#err').hide();
   var salida = true;
 
-  $('#err').html('<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong id="titulo">Error de Autenticación!</strong><br><small id="alerta">Usuario o Contraseña Incorrecta</small>');
-
   if ($('#pass').val() == '') {
-    $('#err').show();
-    $('#titulo').html('Error de Ingreso:');
-    $('#alerta').html('Contraseña no válida');
+    notify('','Error de Ingreso:','Contraseña no válida','danger');
     $('#pass').focus();
-    salida = false;
+    return false;
   }
 
   if ($('#num').val() == '') {
-    $('#err').show();
-    $('#titulo').html('Error de Ingreso:');
-    $('#alerta').html('No a Ingresado Usuario');
+    notify('','Error de Ingreso:','No a Ingresado Usuario','danger');
     $('#num').focus();
-    salida = false;
+    return false;
   }
   
   var p = mantenimiento('login',3,{id: $('#num').val(), pss: $('#pass').val()})
   
   if(p[0].length == 2){
-         $('#err').show();
-         $('#alerta').html(p[0][0]);
-   $('#pass').focus();
+          notify('','Error de Ingreso:',p[0][0],'danger');
+         $('#pass').focus();
     switch(parseInt(p[0][1])){
      case 1:
-    $.getJSON("http://ip-api.com/json", function (data) {
+      $.getJSON("http://ip-api.com/json", function (data) {
 
       var arr = {}
-    
-      arr['sel'] = 'mail';
-      arr['tbl'] = 2;
-      arr['where'] = 'id = \"'+ $('#num').val() +'\"';
-      var correo = mantenimiento('login',4,arr)[0][0][0];
+      var correo = '';
+      var varibale = $('#num').val();
 
-      if (correo == '')
-        correo = '';
-      else
-        correo += ',';
+      if ($('#num').val().indexOf('@') > 0) {
+        rs = arr('login',4,'*',92,'correos like \"%'+ $('#num').val() +'%\"',0,0,'')[0];
+        correo = rs[0][0];
+        varibale = rs[0][1];
+      }else
+        correo = arr('login',4,'mail',1,'user = \"'+ $('#num').val() +'\"',0,0,'')[0][0][0];
 
-      arr['sel'] = 'valor';
-      arr['tbl'] = 18;
-      arr['where'] = 'id = 4';
-      var cempresa = mantenimiento('login',4,arr)[0][0][0];
+      if (correo != ''){
 
-
-      var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ $('#num').val() +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
+      var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ varibale +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
       
-      //enviarCorreo(1,'amiranda@logintechcr.com,'+correo+cempresa,'Intento de Acceso al Sistema',bdy);
+        enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
+        }
       });
     break;
    }

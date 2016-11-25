@@ -100,6 +100,7 @@
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/mask/jquery.mask.js"></script>
     <script src="../assets/libs/DataTables/media/js/jquery.dataTables.js"></script>
+    <script src="../assets/js/notify.js"></script>
     <script src="../assets/js/asgard.js"></script>
     <script src="../assets/js/modulos/login.js"></script>
   </body>
