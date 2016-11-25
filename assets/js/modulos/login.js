@@ -83,8 +83,7 @@ function getIn(){
     switch(parseInt(p[0][1])){
      case 1:
       $.getJSON("http://ip-api.com/json", function (data) {
-
-      var arr = {}
+      
       var correo = '';
       var varibale = $('#num').val();
 
