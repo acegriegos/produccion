@@ -78,7 +78,7 @@ function getIn(){
   
   if(p[0].length == 2){
           notify('','Error de Ingreso:',p[0][0],'danger');
-         $('#pass').focus();
+         $('#pass').select();
     switch(parseInt(p[0][1])){
      case 1:
       $.getJSON("http://ip-api.com/json", function (data) {

@@ -25,7 +25,7 @@
                 <div class="input-group">
                     <div class="input-group-addon">Sucursal</div>
                     <select id="vidsucursal" class="form-control" required="required">
-                        <option value="0">Seleccione una Sucursal</option>
+                        <option value="0">Todas las Sucursales</option>
                         {section name=LE loop=$SUC}
                         <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
                         {/section}

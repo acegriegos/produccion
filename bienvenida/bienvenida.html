@@ -80,17 +80,17 @@
 </form> -->
 <br>
 <div class="container">
-<h3 class="titp">Configuración</h3>
-<hr>
+<!-- <h3 class="titp">Configuración</h3>
+<hr> -->
 <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
 <div class="carousel-inner">
 <!-- ****************************** -->
 <div class="carousel-item active">
-  <div class="card" id="info">
-    <div class="card-header card-primary">
-        <h4 class="card-title">Información Geográfica</h4>
-    </div>
-    <div class="card-block">
+<div class="card" id="info">
+<div class="card-header card-primary">
+    <h4 class="card-title">Información de la Empresa</h4>
+</div>
+    <div class="card-block" id="section1">
     <div class="row">
         <div class="col-md-4">
           <div class="form-group">
@@ -185,55 +185,54 @@
 </div>
 <!-- ****************************** -->
 <div class="carousel-item">
-<div class="card" id="info" hidden>
-<div class="card-header card-primary">
-<h4 class="card-title">Información de la Empresa</h4></div>
+<div class="card" id="imp">
+  <h4 class="card-header card-primary">Impuestos</h4>
   <div class="card-block">
       <div class="row">
           <div class="col-md-6 col-lg-6">
               <div class="input-group">
-                  <div class="input-group-addon"><b>Nombre</b></div>
-                  <input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la empresa" field="empresa">
-              </div>
-              
-          </div>
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Cédula</b></div>
-                  <input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica" field="Cjuridica">
-              </div>
-              
-          </div>
-      </div><br>
-      <div class="row">
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Teléfono</b></div>
-                  <input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la Empresa" data-mask="9999-9999 || 9999-9999 || 9999-9999" field="telefonos">
-              </div>
-              
-          </div>
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Correo</b></div>
-                  <input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo" field="correo">
-              </div>
-          </div>
-      </div><br>
-      <div class="row">
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Dirección</b></div>
-                  <input type="text" id="vdireccion" class="form-control infoempresa" value="" placeholder="Dirección de la empresa" field="direccion">
+                  <div class="input-group-addon"><b>Nombre Impuesto</b></div>
+                  <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
+                  <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
               </div>
           </div>
           <div class="col-md-6 col-lg-6"></div>
-      </div><br>
-      <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
-          <strong id="errm2"></strong>
+      </div><br><br>
+      <div id="dimpuestos"></div><br>
+      <div class="alert alert-danger err_" id="err5" align="center" style="display: none">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong id="errm5"></strong>
       </div>
-      <div class="alert alert-success suc_" id="suc2" style="display: none">
-          <strong id="sucm2"></strong>
+      <div class="alert alert-success suc_" id="suc5" align="center" style="display: none">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong id="sucm5"></strong>
+      </div>
+  </div>
+</div>
+</div>
+<!-- ****************************** -->
+<div class="carousel-item">
+<div class="card" id="imp">
+  <h4 class="card-header card-primary">Impuestos</h4>
+  <div class="card-block">
+      <div class="row">
+          <div class="col-md-6 col-lg-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><b>Nombre Impuesto</b></div>
+                  <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
+                  <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
+              </div>
+          </div>
+          <div class="col-md-6 col-lg-6"></div>
+      </div><br><br>
+      <div id="dimpuestos"></div><br>
+      <div class="alert alert-danger err_" id="err5" align="center" style="display: none">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong id="errm5"></strong>
+      </div>
+      <div class="alert alert-success suc_" id="suc5" align="center" style="display: none">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong id="sucm5"></strong>
       </div>
   </div>
 </div>
@@ -242,7 +241,7 @@
 </div><!-- end .carousel-inner -->
 </div><!-- end .carousel slide -->
 </div><!-- end .container -->
-<!-- ________________________________________________________________________________________________ -->
+<!-- ****************************** -->
 <footer align="center">
 <button type="button" class="btn btn-default but left"> <i class="fa fa-angle-left"></i> </button>
 <button type="button" class="btn btn-primary but right">  <i class="fa fa-angle-right"></i> </button>
