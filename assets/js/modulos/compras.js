@@ -509,7 +509,6 @@ function searchClient(vvariable,visprv){
         $("#vidcliente").val(clie[0]);
         $("#ncli").val(clie[1]);
         $("#ced").val(clie[2]);
-        $("#dcli").val(clie[3]);
         if ($("#vidtipo").val() == 2) {
             $("#vplazo").val(clie[4]);
         }else{
@@ -757,7 +756,7 @@ function getDatos(vmodulo){
 
         array['sel'] = 'vid, nombre, vcedula';
         array['tbl'] = 29;
-        array['where'] = 'nombre like \"%'+$("#ncli").val()+'%\"';
+        array['where'] = 'nombre like \"%'+$("#ncli").val()+'%\" and isproveedor = 0';
 
         p = mantenimiento('compras',3,array);
         return p;

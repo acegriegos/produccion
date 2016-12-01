@@ -9,23 +9,28 @@ $(function(){
 
 		$("#agProv").removeClass('edit');
 		$("#agProv").addClass('add');
-		
 		deadclear('proveedor');
+		$("#ln1").click();
 	})
 
 	$(".load").click(function(){
 		$("#titModal").html('Editar Proveedor');
 		$("#agProv").html('Editar');
-
 		$("#agProv").removeClass('add');
 		$("#agProv").addClass('edit');
-	})
-
+	});
 });
 
-$(document).on("click","#Iadd",function(){
-	deadclear('proveedores');
+$(document).on("click",".mnprov",function(){
+	var id = $(this).attr('id').substr(2);
+	$(".ptr").hide();
+	$(".parte"+id).show();
+	$(".mnprov").removeClass('active');
+	$(this).addClass('active');
+});
 
+$(document).on("click","#ln2",function(){
+	arr('login',6,'id,nombre,valor,concat(replace(valor,".00",""),"%")',94,'id > 0','',1,$("#vdescuentop"));
 });
 
 function validar (varreglo,vmodulo) {
@@ -51,7 +56,7 @@ function validar (varreglo,vmodulo) {
 			break;
 
 		default:
-			console.error('varreglo');
+			console.error(varreglo);
 			return 'Módulo no Existente';
 			break;
 	}

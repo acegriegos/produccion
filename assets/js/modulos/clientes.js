@@ -5,7 +5,7 @@ $(function(){
 	$("#fclientes").submit(function(){return false});
 	$("#data-table-clientess").dataTable();
 	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
-	get_loc();
+	// get_loc();
 	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';

@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  
   $("#logF").submit(function(){
      return getIn();
   });

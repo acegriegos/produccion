@@ -11,7 +11,15 @@
             <span class="input-group-btn">
             <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
             </span>
-            <input type="search" class="form-control" placeholder="Nombre de Paquete">
+            <input type="search" id="searchpqt" class="form-control" placeholder="Buscar Código">
+            <div class="btn-group input-group-addon" role="group" id="fpqt" filter="1">
+              <i id="btnGroupDrop1" class="dropdown-toggle fa fa-navicon but" data-toggle="dropdown">
+              </i>
+              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <a class="dropdown-item filtropqt" href="#" filtro="f1">Código</a>
+                  <a class="dropdown-item filtropqt" href="#" filtro="f2">Nombre</a>
+              </div>
+            </div>
         </div>
       </div>
       <div class="col-md-6 col-lg-6">
@@ -19,7 +27,7 @@
       </div>
   </div><br><br>
 
-<div class="input-group">
+<!-- <div class="input-group">
   <input type="text" class="form-control" aria-label="Text input with dropdown button">
     <div class="input-group-btn">
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,7 +40,7 @@
         <a class="dropdown-item" href="#"><i class="fa fa-times" style="color: #D9534F"></i>&nbsp;&nbsp;Eliminar</a>
       </div>
     </div>
-</div>
+</div> -->
 
 <br>
 <div class="table-responsive">
@@ -78,6 +86,7 @@
         <div class="col-md-8 col-lg-8">
           <div class="input-group input-group">
             <span class="input-group-addon"><b>Nombre</b></span>
+            <input type="hidden" id="vid" value="">
             <input type="text" id="vnombre" class="form-control" aria-label="Nombre de Paquete" placeholder="Nombre de Paquete">
           </div>
         </div>
@@ -107,74 +116,20 @@
           </div>
         </div>
         <div class="col-md-5 col-lg-5" style="border-left: 0.5px solid #E2E2E2;">
-          <ul class="list-group" id="listapaquetes">
+          <ul class="list-group">
             <input type="hidden" id="arrpqt" value="0">
             <input type="checkbox" checked data-toggle="toggle" data-off="<span id='editoff'>Editable</span>" data-on="<span id='editon'>Editar</span>" data-size="small" data-width="100" data-onstyle="primary active" data-offstyle="primary active"><br><br>
+            <div  id="listapaquetes"></div>
           </ul>
         </div>
       </div>
-
-
-        
-        <!-- <div class="row">
-          <div class="col-md-6 col-lg-6">
-          <h3>Contenido</h3>
-            <div class="row">
-              <div class="col-md-8 col-lg-8">
-                <legend>Productos</legend>
-              </div>
-              <div class=" col-md-2 col-lg-2">
-                <legend>Cantidad</legend>
-              </div>
-              <div class="col-md-8 col-lg-8">
-                <input type="text" name="" id="descrP" class="form-control" value="" required="required" title="" placeholder="Nombre de Producto" style="width: 182%;">
-              </div>
-              <div class="col-xs-2" style="padding: 0 1 0 3%">
-                <input type="number" name="" id="cantProd" class="form-control" value="" required="required" title=
-              "" placeholder="1" min="1" value="1">
-              </div>
-              <div class="col-xs-2" style="padding: 0 1 0 3%">
-                <button type="button" id="agInvProPqts" class="btn btn-primary" style="padding: 12px 13px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-md-8 col-lg-8">
-                <legend>Servicios</legend>
-              </div>
-              <div class=" col-md-2 col-lg-2">
-                <legend>Cantidad</legend>
-              </div>
-              <div class=" col-md-2 col-lg-2"></div>
-              <div class="col-md-8 col-lg-8">
-              <input type="text" name="" id="descrS" class="form-control" value="" required="required" pattern="" title="" placeholder="Nombre de Servicio" style="width: 182%;">
-              </div>
-              <div class="col-xs-2" style="padding: 0 1 0 3%">
-              <input type="number" name="" id="cantServ" class="form-control" value="" required="required" pattern="" title="" placeholder="1" min="1" value="1">
-              </div>
-              <div class="col-xs-2" style="padding: 0 1 0 3%">
-              <button type="button" id="agInvSerPqts" class="btn btn-primary" style="padding: 12px 13px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
-              </div>
-            </div>
-          </div> 
-          <div class="col-md-6 col-lg-6" style="border-left: 0.5px solid #E2E2E2;">
-          <h3>Contenido</h3>
-          <legend>Productos</legend>
-          <input id="textProd" class="form-control" required="required">
-          <input type="hidden" id="idProdStr" class="form-control" value="0">
-          <input type="hidden" id="cProdStr" class="form-control" value="0">
-          <legend>Servicios</legend>
-          <input id="textServ" class="form-control" required="required">
-          <input type="hidden" id="idServStr" class="form-control" value="0">
-          <input type="hidden" id="cServStr" class="form-control" value="0">
-          </div>
-        </div> -->
         <hr>
         <div class="row">
           <div class="col-lg-4"></div>
           <div class="col-lg-4">
             <div class="input-group">
               <div class="input-group-addon"><b>Descuento</b></div>
-              <input type="number" class="form-control" min="1" id="vdescuento" value="0.00">
+              <select id="vdescuento" class="form-control" required="required"></select>
               <div class="input-group-addon"><b>%</b></div>
             </div>
           </div>
@@ -196,6 +151,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
         <button type="button" class="btn btn-primary" id="addpqt">Agregar</button>
+        <button type="button" class="btn btn-primary inv" id="editpck">Guardar</button>
       </div>
     </div>
   </div>

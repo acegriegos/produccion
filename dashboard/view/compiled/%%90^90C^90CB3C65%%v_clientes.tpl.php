@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php /* Smarty version 2.6.17, created on 2016-11-10 17:54:41
-=======
-<?php /* Smarty version 2.6.17, created on 2016-11-04 15:36:43
->>>>>>> 204ff22aca54443c093c8a6e2263ec1989ad871a
+<?php /* Smarty version 2.6.17, created on 2016-11-23 00:55:21
          compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,43 +24,6 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<<<<<<< HEAD
-<?php echo '
-<script type="text/javascript">
-        
-         function showLocation(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            alert("Latitude : " + latitude + " Longitude: " + longitude);
-         }
-
-         function errorHandler(err) {
-            if(err.code == 1) {
-               alert("Error: Access is denied!");
-            }
-            
-            else if( err.code == 2) {
-               alert("Error: Position is unavailable!");
-            }
-         }
-            
-         function getLocation(){
-
-            if(navigator.geolocation){
-               // timeout at 60000 milliseconds (60 seconds)
-               var options = {timeout:60000};
-               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-            }
-            
-            else{
-               alert("Sorry, browser does not support geolocation!");
-            }
-         }
-            
-      </script>
-'; ?>
-=======
->>>>>>> 204ff22aca54443c093c8a6e2263ec1989ad871a
 
 </head>
 <body>
@@ -87,11 +46,7 @@
 <button type="button" id="ingClie" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
 </div>
 </div><br><br>
-<<<<<<< HEAD
- <input type="button" onclick="getLocation();" value="Get Location"/>
-=======
 
->>>>>>> 204ff22aca54443c093c8a6e2263ec1989ad871a
 <div class="card-block">
 <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
 <thead>
@@ -284,10 +239,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     </div>
     </div>
 </div>
-
 </div>
-
-
 <div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Teléfonos</b></div>
 <div class="row">

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-11-11 16:04:48
+<?php /* Smarty version 2.6.17, created on 2016-11-22 20:55:05
          compiled from v_inventarios.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">

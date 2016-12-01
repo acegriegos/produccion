@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-11-10 04:40:18
+<?php /* Smarty version 2.6.17, created on 2016-11-16 17:22:48
          compiled from v_productos.tpl */ ?>
 <DOCTYPE html>
 <html lang="es">
@@ -36,7 +36,6 @@
 <div class="bdy">
 <?php echo $this->_tpl_vars['NAV']; ?>
 
-    
     <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
         <!-- Brand -->
         <a class="navbar-brand" href="#"><b>Inventario</b></a>

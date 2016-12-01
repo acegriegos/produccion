@@ -181,10 +181,7 @@ Jurídico
     </div>
     </div>
 </div>
-
 </div>
-
-
 <div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
 <div class="card-title"><b>Teléfonos</b></div>
 <div class="row">

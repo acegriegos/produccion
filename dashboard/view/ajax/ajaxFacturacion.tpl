@@ -83,14 +83,7 @@ Crédito
 Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">Aceptar</button> <button type="button" class="btn btn-success" id="ninuncludprov">Declinar</button>
 </div>
 </div><br>
-<div class="row">
-<div class="col-md-12 col-lg-12">
-<!-- <div class="input-group">
-<div class="input-group-addon"><b>Dirección</b></div> -->
-<input type="text" class="form-control" id="dcli" placeholder="Dirección del Cliente">
-<!-- </div> -->
-</div>
-</div>
+
 <div class="alert alert-warning reference" align="center" id="alert-ref" style="display:none">
 <strong >Esta Referencia  ya se Encuentra Asociada a un Numero de Factura</strong>
 </div>

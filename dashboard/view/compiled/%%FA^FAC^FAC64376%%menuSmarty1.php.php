@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php /* Smarty version 2.6.17, created on 2016-11-10 04:39:31
-=======
-<?php /* Smarty version 2.6.17, created on 2016-11-04 15:36:43
->>>>>>> 204ff22aca54443c093c8a6e2263ec1989ad871a
+<?php /* Smarty version 2.6.17, created on 2016-11-16 16:54:17
          compiled from ../view/menuSmarty1.php */ ?>
 <link rel="stylesheet" href="../assets/css/modulos/style-login.css">
 <!-- <link rel="stylesheet" href="../assets/fonts/tipografia.css"> -->
@@ -127,4 +123,4 @@
 
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/notify.js"></script>
-<script src="../assets/js/modulos/menu.js"></script>
+<script src="../assets/js/modulos/menu.js"></script>

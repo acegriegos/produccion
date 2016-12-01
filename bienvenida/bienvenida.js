@@ -18,7 +18,26 @@ $(function(){
 		}
 		return false;
 	});
-	// 2F78B7
+
+	$(".moneda").click(function(){
+		if ($(this).attr('id') == 'dol1') {
+			$("#dol2").attr('disabled', true);
+			$("#con2").attr('disabled', false);
+			$("#eur2").attr('disabled', false);
+			$("#dol2").attr('checked', false);
+		}else if ($(this).attr('id') == 'con1') {
+			$("#con2").attr('disabled', true);
+			$("#dol2").attr('disabled', false);
+			$("#eur2").attr('disabled', false);
+			$("#con2").attr('checked', false);
+		}else if ($(this).attr('id') == 'eur1') {
+			$("#eur2").attr('disabled', true);
+			$("#dol2").attr('disabled', false);
+			$("#con2").attr('disabled', false);
+			$("#eur2").attr('checked', false);
+		}
+	});
+
 // CAROUSEL
 	$(".left").click(function(){
         $("#carousel").carousel("prev");
@@ -41,8 +60,74 @@ $(function(){
 		}
 		return false;
 	});
-
 });
+
+//STEPS
+	$(document).on("click",".right",function(){
+		var val = parseFloat($(".container").attr('position'));
+		if (val == 0) {
+
+			$("#stp1").removeClass('active');
+			$("#stp1").addClass('complete');
+			$("#stp2").removeClass('disabled');
+			$("#stp2").addClass('active');
+			$(".container").attr('position',1);
+			$(".progress-bar").animate({
+			    width: "200%"
+			}, 50);
+		}else if (val == 1) {
+			$("#stp2").removeClass('active');
+			$("#stp2").addClass('complete');
+			$("#stp3").removeClass('disabled');
+			$("#stp3").addClass('active');
+			$(".container").attr('position',2);
+			$(".progress-bar").animate({
+			    width: "400%"
+			}, 50);
+		}else if (val == 2) {
+			$("#stp3").removeClass('active');
+			$("#stp3").addClass('complete');
+			$("#stp4").removeClass('disabled');
+			$("#stp4").addClass('active');
+			$(".container").attr('position',3);
+			$(".progress-bar").animate({
+			    width: "600%"
+			}, 50);
+		}
+	});
+
+	$(document).on("click",".left",function(){
+		var val = parseFloat($(".container").attr('position'));
+		if (val == 3) {
+			$("#stp4").removeClass('active');
+			$("#stp4").addClass('disabled');
+			$("#stp3").removeClass('complete');
+			$("#stp3").addClass('active');
+			$(".container").attr('position',2);
+			$(".progress-bar").animate({
+			    width: "400%"
+			}, 50);
+		}else if (val == 2) {
+			$("#stp3").removeClass('active');
+			$("#stp3").addClass('disabled');
+			$("#stp2").removeClass('complete');
+			$("#stp2").addClass('active');
+			$(".container").attr('position',1);
+			$(".progress-bar").animate({
+			    width: "200%"
+			}, 50);
+		}else if (val == 1) {
+			$("#stp2").removeClass('active');
+			$("#stp2").addClass('disabled');
+			$("#stp1").removeClass('complete');
+			$("#stp1").addClass('active');
+			$(".container").attr('position',0);
+			$(".progress-bar").animate({
+			    width: "0%"
+			}, 50);
+		}
+	});
+//END STEPS
 
 $(document).on("click","#addimp",function(){
 	var nombre = $("#vimpuesto").val();

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-11-10 19:02:47
+<?php /* Smarty version 2.6.17, created on 2016-11-16 17:20:44
          compiled from ajax/ajaxFacturacion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'ajax/ajaxFacturacion.tpl', 44, false),)), $this); ?>
@@ -114,14 +114,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprov">Aceptar</button> <button type="button" class="btn btn-success" id="ninuncludprov">Declinar</button>
 </div>
 </div><br>
-<div class="row">
-<div class="col-md-12 col-lg-12">
-<!-- <div class="input-group">
-<div class="input-group-addon"><b>Dirección</b></div> -->
-<input type="text" class="form-control" id="dcli" placeholder="Dirección del Cliente">
-<!-- </div> -->
-</div>
-</div>
+
 <div class="alert alert-warning reference" align="center" id="alert-ref" style="display:none">
 <strong >Esta Referencia  ya se Encuentra Asociada a un Numero de Factura</strong>
 </div>
