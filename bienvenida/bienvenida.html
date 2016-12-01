@@ -79,7 +79,169 @@
 	</div>
 </form> -->
 <br>
+<div class="container">
+<h3 class="titp">Configuración</h3>
+<hr>
+<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+<div class="carousel-inner">
+<!-- ****************************** -->
+<div class="carousel-item active">
+  <div class="card" id="info">
+    <div class="card-header card-primary">
+        <h4 class="card-title">Información Geográfica</h4>
+    </div>
+    <div class="card-block">
+    <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleSelect1"><i class="fa fa-globe fa-2x"></i></label>
+            <select class="form-control" id="exampleSelect1">
+              <option>Seleccione una región...</option>
+              <option>Centro América</option>
+              <option>América Norte</option>
+              <option>América del Sur</option>
+            </select>
+          </div>
+          </div>
 
+          <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleSelect1"><i class="fa fa-flag fa-2x"></i></label>
+            <select class="form-control" id="exampleSelect1">
+              <option>Seleccione un país...</option>
+              <option>Costa Rica</option>
+              <option>Nicaragua</option>
+            </select>
+          </div>
+          </div>
+
+          <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleSelect1"><i class="fa fa-clock-o fa-2x"></i></label> 
+            <select class="form-control" id="exampleSelect1">
+                <option>Seleccione una zona horaria...</option>
+                <option value="America/Chicago">(GMT-06:00) Central Time </option>
+            </select>
+          </div>
+          </div>
+
+        <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
+            <strong id="errm2"></strong>
+        </div>
+        <div class="alert alert-success suc_" id="suc2" style="display: none">
+            <strong id="sucm2"></strong>
+        </div>
+    </div>
+    <br>
+    <div class="card-header card-primary">
+        <h4 class="card-title">Monedas</h4>
+    </div>
+    <div class="card-block" align="left">
+    <div class="row">
+    <div class="col-md-1"></div>
+      <div class="col-md-5">
+      <h6><b>Moneda Pincipal</b></h6>
+      <div class="custom-controls-stacked">
+      <label class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input moneda" name="moneda" id="dol1">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(US-<b>$</b>) Dólar</span>
+       </label><br>
+       <label class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input moneda" name="moneda" id="con1">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(CR-<b>¢</b>) Colón</span>
+       </label><br>
+       <label class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input moneda" name="moneda" id="eur1">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(EU-<b>€</b>) Euro</span>
+       </label>
+       </div>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+      <h6><b>Monedas Secundarias</b></h6>
+      <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input moneda" id="dol2" >
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(US-<b>$</b>) Dólar</span>
+       </label><br>
+       <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input moneda" id="con2" >
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(CR-<b>¢</b>) Colón</span>
+       </label><br>
+       <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input moneda" id="eur2" >
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(EU-<b>€</b>) Euro</span>
+       </label>
+      </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- ****************************** -->
+<div class="carousel-item">
+<div class="card" id="info" hidden>
+<div class="card-header card-primary">
+<h4 class="card-title">Información de la Empresa</h4></div>
+  <div class="card-block">
+      <div class="row">
+          <div class="col-md-6 col-lg-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><b>Nombre</b></div>
+                  <input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la empresa" field="empresa">
+              </div>
+              
+          </div>
+          <div class="col-md-6 col-lg-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><b>Cédula</b></div>
+                  <input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica" field="Cjuridica">
+              </div>
+              
+          </div>
+      </div><br>
+      <div class="row">
+          <div class="col-md-6 col-lg-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><b>Teléfono</b></div>
+                  <input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la Empresa" data-mask="9999-9999 || 9999-9999 || 9999-9999" field="telefonos">
+              </div>
+              
+          </div>
+          <div class="col-md-6 col-lg-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><b>Correo</b></div>
+                  <input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo" field="correo">
+              </div>
+          </div>
+      </div><br>
+      <div class="row">
+          <div class="col-md-6 col-lg-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><b>Dirección</b></div>
+                  <input type="text" id="vdireccion" class="form-control infoempresa" value="" placeholder="Dirección de la empresa" field="direccion">
+              </div>
+          </div>
+          <div class="col-md-6 col-lg-6"></div>
+      </div><br>
+      <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
+          <strong id="errm2"></strong>
+      </div>
+      <div class="alert alert-success suc_" id="suc2" style="display: none">
+          <strong id="sucm2"></strong>
+      </div>
+  </div>
+</div>
+</div>
+<!-- ****************************** -->
+</div><!-- end .carousel-inner -->
+</div><!-- end .carousel slide -->
+</div><!-- end .container -->
 <!-- ________________________________________________________________________________________________ -->
 <footer align="center">
 <button type="button" class="btn btn-default but left"> <i class="fa fa-angle-left"></i> </button>

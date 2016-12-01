@@ -1,9 +1,10 @@
 acc = 1;
 
-/*$(function(){
-    $(".err_").hide();
-    $(".suc_").hide();
-});*/
+$(window).keydown(function(e){
+    var code = e.wich || e.keyCode
+    if(code == 113)
+        alert('f2')
+});
 
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');
@@ -16,26 +17,23 @@ $(document).on("click",".load",function(){
 
 $(document).on("click",".add",function(){
     var modulo = $(this).attr('modulo');
-    var codigo = $(this).attr('codigo');
     var varias = $(this).attr('varias');
-    doGlobal(1,modulo,codigo,'',$(this).attr('detalle'),varias);
+    doGlobal(1,modulo,'',$(this).attr('detalle'),varias);
 });
 
 $(document).on("click",".edit",function(){
     var modulo = $(this).attr('modulo');
-    var codigo = $(this).attr('codigo');
     var varias = $(this).attr('vtablas');
-    doGlobal(2,modulo,codigo,'',$(this).attr('detalle'),varias); 
+    doGlobal(2,modulo,'',$(this).attr('detalle'),varias); 
 });
 
 $(document).on("click",".delete",function(){
     var modulo = $(this).attr('modulo');
-    var codigo = $(this).attr('codigo');
     var id = $(this).attr('id').substr(1);
-    doGlobal(3,modulo,codigo,id,$(this).attr('detalle'),0);
+    doGlobal(3,modulo,id,$(this).attr('detalle'),0);
 });
 
-function doGlobal(accion,modulo,codigo,tip,detalle,varias){
+function doGlobal(accion,modulo,tip,detalle,varias){
 
     var arreglo = {}
     arreglo['modulo'] = modulo;
@@ -58,9 +56,6 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         });
     }
 
-    //$('#err'+codigo).hide();
-    //$('#suc'+codigo).hide();
-
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
 
@@ -73,8 +68,6 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
-            //$('#err'+codigo).show();
-            //$('#errm'+codigo).html(p[0]['ERROR']);
             notify('E','Error',p[0]['ERROR'],'danger');
         }else{
            
@@ -87,27 +80,20 @@ function doGlobal(accion,modulo,codigo,tip,detalle,varias){
                 acc = 3;
             }
 
-            /*$('#suc'+codigo).show();
-            $('#sucm'+codigo).html('Registro '+tmsj+' Correctamente');*/
             notify('','','Registro '+tmsj+' Correctamente','success');
             
             if (detalle == 1) {
                 id = p[0][0];
-                // setTimeout(function(){ location.reload(); }, 1000);
                 endDetail(id);
             }else{
-                setTimeout(function(){ deadclear(arreglo['modulo']); }, 2000);
+                setTimeout(function(){ deadclear(arreglo['modulo']); }, 2500);
                 thorload(modulo);
             }
         }
 
     }else{
-        /*$('#errm'+codigo).html(arreglo['atributos']);
-        $('#err'+codigo).show();*/
         notify('E','Error',arreglo['atributos'],'danger');
     }
-
-    //$('#err'+codigo).is(':visible') ?  setTimeout(function(){ $('#err'+codigo).hide(); }, 2000) :  setTimeout(function(){ $('#suc'+codigo).hide(); }, 2000); ;
 };
 
 function baseValidar(vaccion,vmodulo){
@@ -197,17 +183,24 @@ function mantenimiento(vmodulo,vaccion, varreglo){
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
     var salida = 1;
     var arr = {};
-    arr['sel'] = vsel;
-    arr['tbl'] = vtbl;
-    arr['where'] = vwhere;
-    if (vcambio != '') 
-        arr['cambio'] = vcambio;
     
+    if(vref == 'login' && vaccion == 7){
+        arr['accion'] = vsel;
+        arr['tabla'] = vtbl;
+        arr['arg1'] = vwhere;
+        arr['arg2'] = vcambio;
+    }else{
+        arr['sel'] = vsel;
+        arr['tbl'] = vtbl;
+        arr['where'] = vwhere;
+        if (vcambio != '') 
+            arr['cambio'] = vcambio;
+    }
+
     if (vch)
         velemto.html(mantenimiento(vref,vaccion,arr));
     else
         salida = mantenimiento(vref,vaccion,arr);
-    
 
     return salida;
 }

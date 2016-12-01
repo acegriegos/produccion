@@ -62,6 +62,8 @@
                     <tr>
                         <td colspan="6">
                             <input type="hidden" id="vidempresa" value="{$smarty.session.IMPRESA}">
+                            <input type="hidden" id="vidtabla" value="0">
+                            <input type="hidden" id="idfila" value="0">
                             <button type="button" class="btn btn-primary add der" codigo="1" modulo="transaccione" detalle="1">Aceptar</button>
                             <div class="alert alert-danger" align="center" style="height: 38px; padding: 6px;display: none" id="err1">
                                 <small><strong id="errm1"></strong></small>

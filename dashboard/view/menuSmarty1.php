@@ -107,8 +107,8 @@
 <li><a href="dashboard">Inicio</a></li>
 <li><a href="comercial">Comercial</a></li>
 <li><a href="proveedor">Proveedor</a></li>
-<li><a href="inventarios">Proveduría</a></li>
 <li><a href="productos">Productos</a></li>
+<li><a href="inventarios">Inventarios</a></li>
 <li><a href="produccion">Producción</a></li>
 <li><a href="proyectos">Proyectos</a></li>
 <li><a href="contabilidad">Contabilidad</a></li>

@@ -38,17 +38,17 @@
               </div></b>
             </li>
             {section name=LE loop=$VCUE}
-            <li class="list-group-item cuecon" style="cursor: pointer;{if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="{$VCUE[LE][4]}">
+            <li class="list-group-item cuecon" style="{if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="{$VCUE[LE][4]}">
               <div class="row">
                 <div class="col-md-4 col-lg-4" align="center">
-                    <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; width:100%; " {if $VCUE[LE][4] eq 1} readonly {/if}>
+                    <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; width:100%;border-left:1px solid #e2e2e2;{if $VCUE[LE][4] neq 1} margin-left: {math equation='x * y' x=2 y=$VCUE[LE][4]}%;{/if}" {if $VCUE[LE][4] eq 1} readonly {/if} maxlength="40">
                 </div>
-                <div class="col-md-4 col-lg-4" align="right">
+                <div class="col-md-4 col-lg-4 numcon" align="right" style="cursor: pointer;">
                     {$VCUE[LE][2]}
                 </div>
                 <div class="col-md-4 col-lg-4" align="right">
                     {if $VCUE[LE][4] neq 1}
-                    <input type="checkbox" class="ispadr" id="ip{$VCUE[LE][5]}" {if $VCUE[LE][5] eq 1} checked {/if}>
+                    <input type="checkbox" class="ispadr" id="ip{$VCUE[LE][5]}" title="Cuenta Padre" {if $VCUE[LE][5] eq 1} checked {/if}>
                     <i class="fa fa-times btn" id="ec{$VCUE[LE][0]}" title="Eliminar Cuenta"></i>
                     {/if}
                 </div>
@@ -57,8 +57,16 @@
             {/section}
         </div>
         <br>
-         <h3>Cuentas por Defecto</h3>
-
+         <h3>Cuentas por Defecto Sistema</h3>
+         {section name=LE loop=$DCUE}
+        <div class="input-group" modulo="scontabilidad">
+        <div class="input-group-addon"><b>{$DCUE[LE][3]} {$DCUE[LE][5]} </b></div>
+        <select class="form-control dsc">
+            <option selected> {$DCUE[LE][2]} </option>
+        </select>
+        </div>
+           
+         {/section}
         <div class="alert alert-danger err_" id="err1" style="display: none">
             <strong id="errm1"></strong>
         </div>

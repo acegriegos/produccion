@@ -19,15 +19,24 @@
 		    	print_r($user);
 		    }else if (sizeof($user) == 1)
 		    {
-		     $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
-		     $_SESSION['NUM']	    = trim($encrypt->ency($user[0][1]));
-		     $_SESSION['NOM']     = $user[0][2];
-		     $_SESSION['TIPO']    = $user[0][3];
-		     $_SESSION['EMPRESA'] = $user[0][4];
-		     $_SESSION['IMPRESA'] = $user[0][5];
-		     $_SESSION['TMP_CIA'] = 0;
-             $user[0][6] == '' ? header("Location: ../bienvenida/bienvenida.html") : header("Location: ../dashboard/main");
-		     
+
+          if($user[0][6] == '')
+            header("Location: ../bienvenida/bienvenida.html");
+          else{
+            if ($user[0][7] == 0)
+              cambioDia($log);
+
+              $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
+              $_SESSION['NUM']     = trim($encrypt->ency($user[0][1]));
+              $_SESSION['NOM']     = $user[0][2];
+              $_SESSION['TIPO']    = $user[0][3];
+              $_SESSION['EMPRESA'] = $user[0][4];
+              $_SESSION['IMPRESA'] = $user[0][5];
+              $_SESSION['TMP_CIA'] = 0;
+              
+              header("Location: ../dashboard/main");
+           }
+  
 		   }
     	}else{
     		if (isset($_SESSION['USR'])) {
@@ -103,6 +112,46 @@
 			print_r(json_encode($salida));	
 	
 	   }
-    }	
+    }
+
+    function cambioDia($log)
+     {  
+        indicadores($log);
+        $log->genkidama(2,15,'valor=1','descr="Cambio de Dia"');
+     } 
+
+     function indicadores($log){
+        require_once '../assets/libs/nusoapLT/nusoap.php';
+
+        $tipoCambio = "";
+        $parametros = array(
+               "tcIndicador"=>318,
+               "tcFechaInicio"=>date('d/m/Y'),
+               "tcFechaFinal"=>date('d/m/Y'),
+               "tcNombre"=>"LoginTech",
+               "tnSubNiveles"=>"N");
+        $oSoapClient = new nusoap_client("http://indicadoreseconomicos.bccr.fi.cr/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx?WSDL",true);
+        $aRespuesta = $oSoapClient->call("ObtenerIndicadoresEconomicosXML", $parametros);
+        $xml = (array) simplexml_load_string($aRespuesta['ObtenerIndicadoresEconomicosXMLResult']); 
+        $xml = array_values($xml);     
+        $tipoCambio = (string) $xml[0]->NUM_VALOR;
+
+        $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id=2');
+
+        $parametros2 = array(
+               "tcIndicador"=>317,
+               "tcFechaInicio"=>date('d/m/Y'),
+               "tcFechaFinal"=>date('d/m/Y'),
+               "tcNombre"=>"LoginTech",
+               "tnSubNiveles"=>"N");
+        $oSoapClient = new nusoap_client("http://indicadoreseconomicos.bccr.fi.cr/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx?WSDL",true);
+
+        $aRespuesta = $oSoapClient->call("ObtenerIndicadoresEconomicosXML", $parametros2);
+        $xml = (array) simplexml_load_string($aRespuesta['ObtenerIndicadoresEconomicosXMLResult']);
+        $xml = array_values($xml); 
+        $tipoCambio = (string) $xml[0]->NUM_VALOR;
+
+       $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id=3');
+     }	
 			   
 ?>

@@ -84,15 +84,6 @@
 				$args2 = str_replace('@@usr', $usr, $args2);
 			}
 
-			// // if (strpos($wher,'@@impresa')) {
-			// // 	$impresa = $_SESSION['IMPRESA'];
-			// // 	$wher = str_replace('@@impresa', $impresa, $wher);
-
-			// // 	if (($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0)) {
-			// // 		$wher = str_replace('and idempresa = '.$impresa, '' , $wher);
-			// // 	}
-			// // }
-
 			$args2 = str_replace("'", '\\\'', $args2);
 			$args2 = str_replace('"', '\\"', $args2);
 

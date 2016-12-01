@@ -14,7 +14,7 @@ $(document).on("click",".menu3",function(){
 				var p = mantenimiento('ajustes',2,'');
 				$("#majustes").html(p);
 				var arr = {};
-				arr['sel'] = 'nombre,cedula,telefonos,correo,direccion';
+				arr['sel'] = '*';
 				arr['tbl'] = 50;
 				arr['where'] = '';
 				var e = mantenimiento('login',4,arr)[0][0];
@@ -23,8 +23,24 @@ $(document).on("click",".menu3",function(){
 				$("#vtelefono").val(e[2]);
 				$("#vcorreo").val(e[3]);
 				$("#vdireccion").val(e[4]);
-				// $("#vfechainicio").val(e[5]);
-				// $("#vfechafinal").val(e[6]);
+				$("#vlogo").attr('src',e[5]);
+				$("#vfechainicio").val(e[6]);
+				$("#vfechafinal").val(e[7]);
+				$("#data-table-monedas").dataTable({
+					bFilter : false,
+				});
+				$("#data-table-tipousuarios").dataTable({
+					bFilter : false,
+					order : []
+				});
+				$("#data-table-tipopagos").dataTable({
+					bFilter : false,
+				});
+				$("#data-table-nivelesclientes").dataTable({
+					bFilter : false,
+				});
+				
+				$(".wsdl-op").hide()
 				break;
 			case 2:
 				var p = mantenimiento('ajustes',3,'');
@@ -52,7 +68,11 @@ $(document).on("click",".menu3",function(){
 				var p = mantenimiento('ajustes',1,'');
 				$("#majustes").html('');
 				$("#majustes").html(p);
-				notify('i','hola','good','danger')
+				break;
+			case 5:
+				var p = mantenimiento('ajustes',5,'');
+				$("#majustes").html('');
+				$("#majustes").html(p);
 				break;
 		}
 		
@@ -65,7 +85,7 @@ $(document).on("click","#addimp",function(){
 		var arr = {};
 		arr['sel'] = '';
 		arr['tbl'] = 48;
-		arr['where'] = '1,0,\"'+nombre+'\",0.00';
+		arr['where'] = '1,0,\"'+nombre+'\",0.00,0,0';
 		mantenimiento('login',4,arr);
 
 		var arr2 = {};
@@ -85,7 +105,7 @@ $(document).on("click",".delimp",function(){
 	var arr = {};
 	arr['sel'] = '';
 	arr['tbl'] = 48;
-	arr['where'] = '3,'+id+',"",0.00';
+	arr['where'] = '3,'+id+',"",0.00,0,0';
 	mantenimiento('login',4,arr);
 
 	var arr2 = {};
@@ -131,7 +151,7 @@ $(document).on("click","#actimp",function(){
 		var arr = {};
 		arr['sel'] = '';
 		arr['tbl'] = 48;
-		arr['where'] = '2,'+id+',"",'+valor;
+		arr['where'] = '2,'+id+',"",'+valor+',0,0';
 		mantenimiento('login',4,arr);
 	});
 	
@@ -156,17 +176,67 @@ $(document).on("change","#vidprovincia",function(){
 	arr('login',6,'id,nombre',9,'idprovincia = '+id+' and id > 0 order by nombre','',1,$("#vidcanton"))
 });
 
-$(document).on("click",".cuecon",function(){
-	var vdeep = parseInt($(this).attr('deep'));
-	var vndeep = parseInt($(this).attr('ndeep'))+1;
-	$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') == vndeep}).toggle()
+
+$(document).on("click",".numcon",function(){
+	var vdeep = parseInt($(this).parent().parent().attr('deep'));
+	var vndeep = parseInt($(this).parent().parent().attr('ndeep'))+1;
+	
+	if($(".cuecon[deep^='"+vdeep+"']:visible").filter(function(){ return $(this).attr('ndeep') == vndeep}).length == 0)
+		$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') == vndeep}).show()
+	else
+		$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') >= vndeep}).hide()
+});
+
+
+$(document).on("keyup",'.editc',function(e){
+	var code = e.which || e.keyCode
+	if (code == 13) {
+		var valorc = $(this).val();
+		if(valorc == '')
+			notify('','Error','Cuenta Requiere Nombre','danger')
+		else{
+			rs = arr('login',4,'',37,'2,'+$(this).attr('tp')+',0,"'+valorc+'",0,0,0,0');
+			if (rs['succed'] == 0) 
+				notify('','Error',rs['ERROR'],'danger')
+			else
+				notify('','','Cambio de Nombre Correcto','success')
+		}
+	};
+	
+});
+
+$(document).on("click",'.dsc',function(){
+	
+	if ($('option',this).length == 1) {
+
+
+	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
+    cuentas = '';
+
+    for (var i = 0; i < cuentas_arr[0].length; i++) {
+        cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
+    }
+
+    $(this).html('')
+    $(this).html(cuentas)
+
+    }
+});
+
+/*DESCUENTOS*/
+
+// $(document).on("click","#modalDescuento",function(){
+	
+// });
+
+$(document).on("click",".descfactc",function(){
+	var valor = $(this).attr('tp');
+	arr('login',7,2,15,'valor='+valor,'descr="descuentoVenta"',0,0);
 });
 
 function validar (varreglo,vmodulo) {
 	
 	var salida = {}
-	
-		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
 		case 'ajustes':
@@ -318,12 +388,6 @@ $(document).on("click",".addglobal",function(){
 		$("#vgenero").html(mantenimiento('login',6,arr));
 
 		slide($("[cod]:visible").attr('cod'),-1);
-
-		// arr = {};
-		// arr['sel'] = '*';
-		// arr['tbl'] = 33;
-		// arr['where'] = '';
-		// $("#vcuentas").html(mantenimiento('login',6,arr));
 		
 	}else{
 		slide($("[cod]:visible").attr('cod'),1);
@@ -345,3 +409,21 @@ function slide(cod,suma) {
 	else
 		$(".slidel").show();
 }
+
+/*MONEDAS*/
+
+$(document).on('click','#iswsdl',function(){
+	
+	if ($(this).is(':checked'))
+		$(".wsdl-op").show()
+	else
+		$(".wsdl-op").hide()
+});
+
+$(document).on('change','#vwsdl',function(){
+	
+	if ($('option:selected',this).val() == 0)
+		$(".add-wsdl").show()
+	else
+		$(".add-wsdl").hide()
+});

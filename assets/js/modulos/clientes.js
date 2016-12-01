@@ -3,9 +3,12 @@ var cuentas = '<option value="0">Seleccione una Cuenta</option>';
 $(function(){
 	
 	$("#fclientes").submit(function(){return false});
-	$("#data-table-clientess").dataTable();
+	$("#data-table-clientes").dataTable();
 	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
+<<<<<<< HEAD
 	// get_loc();
+=======
+>>>>>>> a40ab9278cab45ae9dc2935b62d8678c4e1b8a35
 	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
@@ -45,6 +48,8 @@ $(function(){
 		$("#ln1").click();
 		$("#videstado").val(1);
 
+		$("input[name='tipocliente'][tp='1']").click()
+		$("input[name='tipocliente'][tp='1']").change()
 		obtenerCuentas(0);
 	});
 
@@ -66,6 +71,13 @@ $(function(){
 		$("[id^=ln]").removeClass('active')
 		$(this).addClass('active')
 	});
+
+	$("input[name='tipocliente'").click(function(){
+		if($(this).attr('tp') == 1)
+			$(".cre").hide();
+		else
+			$(".cre").show();
+	})
 
 	$("#cuentasclientes").multiSelect();
 
