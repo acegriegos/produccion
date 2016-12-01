@@ -242,7 +242,7 @@ function getFila(valor,vtipo,vdh,vtp){
 }
 
 function obtenerCuentas(vid){
-	var cuentasg = arr('login',4,'',85,'2,'+vid,'',0,'');
+	var cuentasg = arr('login',4,'',85,'2,'+vid+',"1,2"','',0,'');
 
 	$("#ctacontado").html('');
 	$("#ctacredito").html('');
