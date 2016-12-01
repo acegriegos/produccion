@@ -78,167 +78,206 @@
 		</div>
 	</div>
 </form> -->
-<hr>
-<br><br><br>
-<div id="bienvenida"> <!-- Bienvenida -->
-<h3 class="titp">Configuración</h3>
-<hr>
-<!-- ************************************************************************************************ -->
+<br>
+<div class="container">
+<!-- <h3 class="titp">Configuración</h3>
+<hr> -->
 <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
-<!-- Indicators -->
-  <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active">
-<!-- ************************************************************************************************ -->
-        <div class="card" id="info">
-        <div class="card-header card-primary">
-            <h4 class="card-title">Información de la Empresa</h4>
-        </div>
-        <div class="card-block">
-            <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <div class="input-group-addon"><b>Nombre</b></div>
-                        <input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la empresa" field="empresa">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <div class="input-group-addon"><b>Cédula</b></div>
-                        <input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica" field="Cjuridica">
-                    </div>
-                </div>
-            </div><br>
-            <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <div class="input-group-addon"><b>Teléfono</b></div>
-                        <input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la Empresa" data-mask="9999-9999 || 9999-9999 || 9999-9999" field="telefonos">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <div class="input-group-addon"><b>Correo</b></div>
-                        <input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo" field="correo">
-                    </div>
-                </div>
-            </div><br>
-            <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <div class="input-group-addon"><b>Dirección</b></div>
-                        <input type="text" id="vdireccion" class="form-control infoempresa" value="" placeholder="Dirección de la empresa" field="direccion">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6"></div>
-            </div><br>
-            <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
-                <strong id="errm2"></strong>
-            </div>
-            <div class="alert alert-success suc_" id="suc2" style="display: none">
-                <strong id="sucm2"></strong>
-            </div>
-        </div>
-    </div>
-<!-- ************************************************************************************************ -->
-    </div>
-    <div class="carousel-item">
-<!-- ************************************************************************************************ -->
-    <div class="card" id="imp">
-    <h4 class="card-header card-primary">Impuestos</h4>
-    <div class="card-block">
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Nombre Impuesto</b></div>
-                    <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
-                    <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6"></div>
-        </div><br><br>
-        <div id="dimpuestos"></div><br>
-        <div class="alert alert-danger err_" id="err5" align="center" style="display: none">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong id="errm5"></strong>
-        </div>
-        <div class="alert alert-success suc_" id="suc5" align="center" style="display: none">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong id="sucm5"></strong>
-        </div>
-    </div>
+<div class="carousel-inner">
+<!-- ****************************** -->
+<div class="carousel-item active">
+<div class="card" id="info">
+<div class="card-header card-primary">
+    <h4 class="card-title">Información de la Empresa</h4>
 </div>
-<!-- ************************************************************************************************ -->
-</div>
-<div class="carousel-item">
-<!-- ************************************************************************************************ -->
-    <div class="card" id="imp">
-    <h4 class="card-header card-primary">Impuestos</h4>
-    <div class="card-block">
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Nombre Impuesto</b></div>
-                    <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
-                    <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6"></div>
-        </div><br><br>
-        <div id="dimpuestos"></div><br>
-        <div class="alert alert-danger err_" id="err5" align="center" style="display: none">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong id="errm5"></strong>
-        </div>
-        <div class="alert alert-success suc_" id="suc5" align="center" style="display: none">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong id="sucm5"></strong>
-        </div>
-    </div>
-</div>
-<!-- ************************************************************************************************ -->
-</div>
-</div>
-</div>
-<!-- ******************************************************************************************* -->
+    <div class="card-block" id="section1">
+    <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleSelect1"><i class="fa fa-globe fa-2x"></i></label>
+            <select class="form-control" id="exampleSelect1">
+              <option>Seleccione una región...</option>
+              <option>Centro América</option>
+              <option>América Norte</option>
+              <option>América del Sur</option>
+            </select>
+          </div>
+          </div>
 
-</div> <!-- End Bienvenida -->
-<footer>
-<button type="button" class="btn btn-default left"> <i class="fa fa-angle-left"></i> </button>
-<button type="button" class="btn btn-primary right">  <i class="fa fa-angle-right"></i> </button>
+          <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleSelect1"><i class="fa fa-flag fa-2x"></i></label>
+            <select class="form-control" id="exampleSelect1">
+              <option>Seleccione un país...</option>
+              <option>Costa Rica</option>
+              <option>Nicaragua</option>
+            </select>
+          </div>
+          </div>
+
+          <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleSelect1"><i class="fa fa-clock-o fa-2x"></i></label> 
+            <select class="form-control" id="exampleSelect1">
+                <option>Seleccione una zona horaria...</option>
+                <option value="America/Chicago">(GMT-06:00) Central Time </option>
+            </select>
+          </div>
+          </div>
+
+        <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
+            <strong id="errm2"></strong>
+        </div>
+        <div class="alert alert-success suc_" id="suc2" style="display: none">
+            <strong id="sucm2"></strong>
+        </div>
+    </div>
+    <br>
+    <div class="card-header card-primary">
+        <h4 class="card-title">Monedas</h4>
+    </div>
+    <div class="card-block" align="left">
+    <div class="row">
+    <div class="col-md-1"></div>
+      <div class="col-md-5">
+      <h6><b>Moneda Pincipal</b></h6>
+      <div class="custom-controls-stacked">
+      <label class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input moneda" name="moneda" id="dol1">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(US-<b>$</b>) Dólar</span>
+       </label><br>
+       <label class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input moneda" name="moneda" id="con1">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(CR-<b>¢</b>) Colón</span>
+       </label><br>
+       <label class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input moneda" name="moneda" id="eur1">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(EU-<b>€</b>) Euro</span>
+       </label>
+       </div>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+      <h6><b>Monedas Secundarias</b></h6>
+      <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input moneda" id="dol2" >
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(US-<b>$</b>) Dólar</span>
+       </label><br>
+       <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input moneda" id="con2" >
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(CR-<b>¢</b>) Colón</span>
+       </label><br>
+       <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input moneda" id="eur2" >
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">(EU-<b>€</b>) Euro</span>
+       </label>
+      </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- ****************************** -->
+<div class="carousel-item">
+<div class="card" id="imp">
+  <h4 class="card-header card-primary">Impuestos</h4>
+  <div class="card-block">
+      <div class="row">
+          <div class="col-md-6 col-lg-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><b>Nombre Impuesto</b></div>
+                  <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
+                  <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
+              </div>
+          </div>
+          <div class="col-md-6 col-lg-6"></div>
+      </div><br><br>
+      <div id="dimpuestos"></div><br>
+      <div class="alert alert-danger err_" id="err5" align="center" style="display: none">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong id="errm5"></strong>
+      </div>
+      <div class="alert alert-success suc_" id="suc5" align="center" style="display: none">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong id="sucm5"></strong>
+      </div>
+  </div>
+</div>
+</div>
+<!-- ****************************** -->
+<div class="carousel-item">
+<div class="card" id="imp">
+  <h4 class="card-header card-primary">Impuestos</h4>
+  <div class="card-block">
+      <div class="row">
+          <div class="col-md-6 col-lg-6">
+              <div class="input-group">
+                  <div class="input-group-addon"><b>Nombre Impuesto</b></div>
+                  <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
+                  <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
+              </div>
+          </div>
+          <div class="col-md-6 col-lg-6"></div>
+      </div><br><br>
+      <div id="dimpuestos"></div><br>
+      <div class="alert alert-danger err_" id="err5" align="center" style="display: none">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong id="errm5"></strong>
+      </div>
+      <div class="alert alert-success suc_" id="suc5" align="center" style="display: none">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong id="sucm5"></strong>
+      </div>
+  </div>
+</div>
+</div>
+<!-- ****************************** -->
+</div><!-- end .carousel-inner -->
+</div><!-- end .carousel slide -->
+</div><!-- end .container -->
+<!-- ****************************** -->
+<footer align="center">
+<button type="button" class="btn btn-default but left"> <i class="fa fa-angle-left"></i> </button>
+<button type="button" class="btn btn-primary but right">  <i class="fa fa-angle-right"></i> </button>
 <!-- <button type="button" class="btn btn-primary" id="saveinfo">Guardar</button> -->
 <!-- Indicators -->
-<div class="container">
+<div class="container" position="0">
     <div class="row bs-wizard" style="border-bottom:0;">
         
-        <div class="col-xs-3 bs-wizard-step complete">
-          <div class="text-center bs-wizard-stepnum">Paso 1</div>
-          <div class="progress"><div class="progress-bar"></div></div>
+        <div id="stp1" class="col-xs-3 bs-wizard-step active">
+          <div class="text-center bs-wizard-stepnum"><b class="steptit">Paso 1</b></div>
+          <div class="progress"><progress id="progress" class="progress progress-bar" value="100" max="100"></progress></div>
           <a href="#" class="bs-wizard-dot"></a>
-          <div class="bs-wizard-info text-center">Información de la Compañía</div>
+          <div class="bs-wizard-info text-center"><span class="steppsubt">Configuración Regional</span></div>
         </div>
         
-        <div class="col-xs-3 bs-wizard-step complete"><!-- complete -->
-          <div class="text-center bs-wizard-stepnum">Paso 2</div>
-          <div class="progress"><div class="progress-bar"></div></div>
+        <div id="stp2" class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
+          <div class="text-center bs-wizard-stepnum"><b class="steptit">Paso 2</b></div>
+          <div class="progress"><!-- <progress id="progress2" class="progress progress-primary progress-bar" value="0" max="100"></progress> --></div>
           <a href="#" class="bs-wizard-dot"></a>
-          <div class="bs-wizard-info text-center">Configuración de los impuestos designados por defecto en los valores del sistema</div>
+          <div class="bs-wizard-info text-center"><span class="steppsubt">Información de la Compañía</span></div>
         </div>
         
-        <div class="col-xs-3 bs-wizard-step active"><!-- complete -->
-          <div class="text-center bs-wizard-stepnum">Paso 3</div>
-          <div class="progress"><div class="progress-bar"></div></div>
+        <div id="stp3" class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
+          <div class="text-center bs-wizard-stepnum"><b class="steptit">Paso 3</b></div>
+          <div class="progress"><!-- <progress id="progress3" class="progress progress-primary progress-bar" value="0" max="100"></progress> --></div>
           <a href="#" class="bs-wizard-dot"></a>
-          <div class="bs-wizard-info text-center">Información Geográfica</div>
+          <div class="bs-wizard-info text-center"><span class="steppsubt">Información Contable</span></div>
         </div>
         
-        <div class="col-xs-3 bs-wizard-step disabled"><!-- active -->
-          <div class="text-center bs-wizard-stepnum">Paso 4</div>
-          <div class="progress"><div class="progress-bar"></div></div>
+        <div id="stp4" class="col-xs-3 bs-wizard-step disabled"><!-- active -->
+          <div class="text-center bs-wizard-stepnum"><b class="steptit">Paso 4</b></div>
+          <div class="progress"><!-- <progress id="progress4" class="progress progress-primary progress-bar" value="0" max="100"></progress> --></div>
           <a href="#" class="bs-wizard-dot"></a>
-          <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+          <div class="bs-wizard-info text-center"><span class="steppsubt">Curabitur mollis</span></div>
         </div>
-    </div>    
-</div>
+    </div>
 </div>
 </footer>
 

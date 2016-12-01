@@ -753,7 +753,7 @@ function getDatos(vmodulo){
 
         array['sel'] = 'vid, nombre, vcedula';
         array['tbl'] = 29;
-        array['where'] = 'nombre like \"%'+$("#ncli").val()+'%\"';
+        array['where'] = 'nombre like \"%'+$("#ncli").val()+'%\" and isproveedor = 0';
 
         p = mantenimiento('compras',3,array);
         return p;

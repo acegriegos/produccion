@@ -15,12 +15,12 @@
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
             <a class="dropdown-item vfiltros" href="#" filtro="f1">Código</a>
             <a class="dropdown-item vfiltros" href="#" filtro="f2">Nombre</a>
-            <a class="dropdown-item vfiltros" href="#" filtro="f3">Costo Mayor o igual a</a>
+            <!-- <a class="dropdown-item vfiltros" href="#" filtro="f3">Costo Mayor o igual a</a>
             <a class="dropdown-item vfiltros" href="#" filtro="f4">Costo Menor o Igual a</a>
             <a class="dropdown-item vfiltros" href="#" filtro="f5">Venta Mayor o Igual a</a>
             <a class="dropdown-item vfiltros" href="#" filtro="f6">Venta Menor o Igual a</a>
             <a class="dropdown-item vfiltros" href="#" filtro="f7">Ganancia Mayor o Igual a</a>
-            <a class="dropdown-item vfiltros" href="#" filtro="f8">Ganancia Menor o Igual a</a>
+            <a class="dropdown-item vfiltros" href="#" filtro="f8">Ganancia Menor o Igual a</a> -->
         </div>
     </div>
     </div>           
@@ -53,11 +53,10 @@
     <td>{$PROD[LE][4]}</td>
     <td>{$PROD[LE][5]}</td>
     <td>
-    <i class="fa fa-pencil-square-o btn editprod" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
     <span class="descuentos btn" id="desc{$PROD[LE][0]}" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
     <i class="fa fa-outdent salidainv" id="s{$PROD[LE][0]}" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
+    <i class="fa fa-pencil-square-o btn editprod" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
     <i class="fa fa-times btn delprod" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i>
-    
     </td>
     </tr>
     {/section}
@@ -104,24 +103,21 @@
                             <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
                             {/section}
                         </select>
-                        <input type="text" id="newfam" class="form-control" value="" required="required" style="display:none">
-                    <div class="input-group-addon" id="dbck1" style="display:none">
-                        <i class="fa fa-reply bbck" tipo="1"></i>
-                    </div>
-                    <div class="input-group-addon but"><i class="fa fa-plus bjerarquia" id="baddj1" tipo="1" nombre="familia" ref="0"></i></div>
+                        <!-- <input type="text" id="newfam" class="form-control" value="" required="required" style="display:none"> -->
+                    <!-- <div class="input-group-addon" id="dbck1" style="display:none"><i class="fa fa-reply bbck" tipo="1"></i></div> -->
+                    <!-- <div class="input-group-addon but"><i class="fa fa-plus bjerarquia" id="baddj1" tipo="1" nombre="familia" ref="0"></i></div> -->
                 </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Tipo</b></div>
                         <select type="select" id="vidtipo" class="form-control" required="required">
-                            <option value="0">Sin Tipo</option>
+                            <option value="0">Seleccione un Tipo</option>
+                            {section name=LE loop=$TIP}
+                            <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>
+                            {/section}
                         </select>
-                        <input type="text" id="newtip" class="form-control" value="" required="required" style="display:none">
-                    <div class="input-group-addon" id="dbck2" style="display:none">
-                        <i class="fa fa-reply bbck" tipo="2"></i>
-                    </div>
-                    <div class="input-group-addon but">
-                        <i class="fa fa-plus" id="baddj2" tipo="2" nombre="tipo" ref="1" ref1="familia"></i>
-                    </div>
+                        <!-- <input type="text" id="newtip" class="form-control" value="" required="required" style="display:none"> -->
+                    <!-- <div class="input-group-addon" id="dbck2" style="display:none"><i class="fa fa-reply bbck" tipo="2"></i></div> -->
+                    <!-- <div class="input-group-addon but"><i class="fa fa-plus" id="baddj2" tipo="2" nombre="tipo" ref="1" ref1="familia"></i></div> -->
                 </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Marca</b></div>
@@ -131,26 +127,21 @@
                             <option value="{$MAR[LE][0]}">{$MAR[LE][1]}</option>
                             {/section}
                         </select>
-                        <input type="text" id="newmar" class="form-control" value="" required="required" style="display:none">
-                    <div class="input-group-addon" id="dbck3" style="display:none">
-                        <i class="fa fa-reply bbck" tipo="3"></i>
-                    </div>
-                    <div class="input-group-addon but">
-                        <i class="fa fa-plus bjerarquia" id="baddj3" tipo="3" nombre="marca" ref="0"></i>
-                    </div>
+                        <!-- <input type="text" id="newmar" class="form-control" value="" required="required" style="display:none"> -->
+                    <!-- <div class="input-group-addon" id="dbck3" style="display:none"><i class="fa fa-reply bbck" tipo="3"></i></div> -->
+                    <!-- <div class="input-group-addon but"><i class="fa fa-plus bjerarquia" id="baddj3" tipo="3" nombre="marca" ref="0"></i></div> -->
                 </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Modelo</b></div>
                         <select type="select" id="vidmodelo" class="form-control" required="required">
-                            <option value="0">Sin Modelo</option>
+                            <option value="0">Seleccione un Modelo</option>
+                            {section name=LE loop=$MOD}
+                            <option value="{$MOD[LE][0]}">{$MOD[LE][1]}</option>
+                            {/section}
                         </select>
-                        <input type="text" id="newmod" class="form-control" value="" required="required" style="display:none">
-                    <div class="input-group-addon" id="dbck4" style="display:none">
-                        <i class="fa fa-reply bbck" tipo="4"></i>
-                    </div>
-                    <div class="input-group-addon but">
-                        <i class="fa fa-plus" id="baddj4" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i>
-                    </div>
+                        <!-- <input type="text" id="newmod" class="form-control" value="" required="required" style="display:none"> -->
+                    <!-- <div class="input-group-addon" id="dbck4" style="display:none"><i class="fa fa-reply bbck" tipo="4"></i></div> -->
+                    <!-- <div class="input-group-addon but"><i class="fa fa-plus" id="baddj4" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i></div> -->
                 </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Unidad</b></div>
@@ -164,23 +155,28 @@
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Nombre</b></div>
-                    <input type="text" class="form-control" id="vnombre" placeholder="Nombre de Producto">
+                    <input type="text" class="form-control formprod" id="vnombre" placeholder="Nombre de Producto">
                 </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Código</b></div>
-                    <input type="text" class="form-control" id="vcodigo" placeholder="Código de Producto">
+                    <input type="text" class="form-control formprod" id="vcodigo" placeholder="Código de Producto">
                     <input type="hidden" id="vid" value="0">
                     <input type="hidden" id="vidusuario" value="">
                     <input type="hidden" id="vidsucursal" value="">
                 </div><br>
                 <div class="input-group">
+                    <div class="input-group-addon"><b>Cantidad</b></div>
+                    <input type="number" class="form-control eder formprod" id="vcantidad" placeholder="Cantidad" min="0" title="Valor debe ser mayor o igual a 0">
+                    <!-- <input type="hidden" id="" value="0" min="{0}" data-mask="999999999.99"> -->
+                </div><br>
+                <div class="input-group">
                     <div class="input-group-addon"><b>Mínimo</b></div>
-                    <input type="number" class="form-control eder" id="vminimo" placeholder="Mínimo" min="1" title="Valor debe ser mayor o igual a 1">
+                    <input type="number" class="form-control eder formprod" id="vminimo" placeholder="Mínimo" min="1" title="Valor debe ser mayor o igual a 1">
                     <!-- <input type="hidden" id="" value="0" min="{0}" data-mask="999999999.99"> -->
                 </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Máximo</b></div>
-                    <input type="number" class="form-control eder" id="vmaximo" placeholder="Máximo" min="1" title="Valor debe ser mayor o igual a 1">
+                    <input type="number" class="form-control eder formprod" id="vmaximo" placeholder="Máximo" min="1" title="Valor debe ser mayor o igual a 1">
                     <!-- <input type="hidden" id="" value="0" min="{0}" data-mask="999999999.99"> -->
                 </div>
             </div>
@@ -192,55 +188,21 @@
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
                     <div class="input-group-addon"><b>Precio Costo</b></div>
-                    <input type="text" class="form-control eder calcvv" id="vcosto" placeholder="Precio Costo" data-mask="999999999.99" value="0.00">
+                    <input type="text" class="form-control eder calcvv formprod" id="vcosto" placeholder="Precio Costo" data-mask="999999999.99" value="0.00">
                     <input type="hidden" id="hvcosto" class="form-control" value="">
                     <div class="input-group-addon"><b>¢</b></div>
                 </div><br>
                 <div class="input-group">
                     <div class="input-group-addon"><b>Ganancia</b></div>
-                    <input type="text" class="form-control eder calcvv" id="vganancia" placeholder="Ganancia de Producto" data-mask="999999999.99" value="0.00">
+                    <input type="text" class="form-control eder calcvv formprod" id="vganancia" placeholder="Ganancia de Producto" data-mask="999999999.99" value="0.00">
                     <div class="input-group-addon"><b>%</b></div>
                 </div><br>
-                <!-- <div class="input-group">
-                    <div class="input-group-addon"><b>IMV</b></div>
-                    <input type="text" class="form-control eder calcvv" id="vimv" placeholder="Impuesto de Venta" data-mask="999999999.99"  value="0.00">
-                    <div class="input-group-addon"><b>%</b></div>
-                </div><br> -->
                 <div class="input-group">
                     <div class="input-group-addon"><b>Precio Venta</b></div>
-                    <input type="text" class="form-control eder" id="vventa" placeholder="Precio Venta" data-mask="999999999.99" readonly  value="0.00">
+                    <input type="text" class="form-control eder formprod" id="vventa" placeholder="Precio Venta" data-mask="999999999.99" readonly  value="0.00">
                     <input type="hidden" id="hventa" value="">
                     <div class="input-group-addon"><b>¢</b></div>
                 </div><br>
-                <!-- <div class="form-control" style="margin-left: 2.5%; width: 510px; height: 50px;">
-                    <div class="col-md-5 col-lg-5">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <b>Tipo de producto:</b>
-                        </label>
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-lg-1"></div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <input name="visgravado" type="radio" id="inputGrav" value="0" checked>
-                        <input type="hidden" id="visgravado" value="1">
-                        <span class="c-indicator"></span>
-                        Gravado
-                        </label>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="radio">
-                        <label class="c-input c-radio">
-                        <input name="visgravado" type="radio" id="inputExc" value="1">
-                        <span class="c-indicator"></span>
-                        Excento
-                        </label>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="input-group">
@@ -312,7 +274,7 @@
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title">Agregar Descuentos a Producto <span></span></h4>
+                <h4 class="modal-title">Agregar Descuentos a <span id="dprod"></span></h4>
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger err_" id="err2" style="display: none">

@@ -11,7 +11,7 @@
 	   
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->assign('PROV',$kakaroto->kamehameha('*',30,'vid > 0'));
-	   	$smarty->assign('MAXID',$kakaroto->kamehameha('max(id)+1',17,'id > 0'));
+	   	$smarty->assign('ESTCLIE',$kakaroto->kamehameha('*',68,'id >= 0 order by nombre'));
 	   	$smarty->display('v_proveedores.tpl');
 	   }else{
 	   $pagina = 0;

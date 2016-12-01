@@ -148,12 +148,12 @@ body {
     margin-right: 12px;
     font-family: 'Roboto', sans-serif;
     font-size: 2.2em;
-    background: rgba(51, 51, 51, 0.1);
+    /*background: rgba(51,51,51,0.1);*/
     border-radius: 50%;
     padding: 1%;
 }
 [data-notify="title"] {
-    color: #333;
+    color: #686868;
     display: block;
     font-weight: bold;
     margin-bottom: 5px;

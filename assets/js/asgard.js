@@ -52,7 +52,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
             arr['tip'] = tip;
             arr['atributos'] = baseValidar(1,arr);
 
-        arreglo['varios'][index] = arr;
+            arreglo['varios'][index] = arr;
         });
     }
 

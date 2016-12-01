@@ -35,7 +35,7 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('CLI',$kakaroto->kamehameha("id,nombre",2,"bisproveedor = 1"));
-	   			$smarty->assign('SERV',$kakaroto->kamehameha('*',13,'Codigo > 0 limit 20'));
+	   			$smarty->assign('SERV',$kakaroto->kamehameha('*',13,'id > 0 limit 20'));
 	   			$smarty->display('ajax/ajaxmantServicios.tpl');
 	   			break;
 	   		case 3:
