@@ -1,4 +1,13 @@
+var cuentas = '<option value="0">Seleccione una Cuenta</option>';
+
 $(function(){
+
+	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
+	
+	for (var i = 0; i < cuentas_arr[0].length; i++) {
+		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
+	}
+
 	$("#fproveedoress").submit(function(){return false});
 	$("#data-table-proveedoress").dataTable();
 
@@ -11,7 +20,9 @@ $(function(){
 		$("#agProv").addClass('add');
 		deadclear('proveedor');
 		$("#ln1").click();
-	})
+		$("#videstado").val('');
+		obtenerCuentas(0);
+	});
 
 	$(".load").click(function(){
 		$("#titModal").html('Editar Proveedor');
@@ -40,7 +51,7 @@ function validar (varreglo,vmodulo) {
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
-		case 'proveedore':
+		case 'cliente':
 			if (vmodulo['tip'] == '') {
 				err = validarproveedores();
 				if ( err ) {
@@ -69,9 +80,27 @@ function validar (varreglo,vmodulo) {
 
 function validarproveedores() {
 
-	if ($("#vnombre").val() == ''){ return 'El campo <b>Nombre</b> es requerido'; $("#vnombre").focus(); };
-	if ($("#vcedula").val() == ''){	return 'El campo <b>Cédula</b> es requerida'; $("#vcedula").focus(); };
-
+	if ($("#vnombre").val() == '') {
+		$("#ln1").click();
+		$("#vnombre").focus();
+		return "Razón Social Requerido"
+	}
+	if ($("#vcedula").val() == '') {
+		$("#ln1").click();
+		$("#vcedula").focus();
+		return "Cédula Jurídica Requerida"
+	}
+	if ($("#videstado").val() == '') {
+		$("#ln1").click();
+		$("#videstado").focus();
+		return "Estado Requerido"
+	}
+	if ($("#vtrabajo").val() == '' && $("#vtrabajo2").val() == '' && $("#vmovil").val() == '') {
+		$("#ln1").click();
+		$("#videstado").focus();
+		return "Al Menos un Teléfono es Requerido"
+	}
+	
 	return false;
 }
 
@@ -95,9 +124,32 @@ function cargar(vmodulo,vid) {
 function cargarSintax(){
 	var arr = {}
 
-	arr['sel'] = '*';
+	arr['sel'] = 'vid,vcedula,vnombre,vtelefonos,vcorreos,vweb';
 	arr['tbl'] = 30;
 	arr['where'] = 'vid > 0';
 
 	return arr;
+}
+
+function getFila(valor,vtipo,vdh,vtp){
+
+	return '<div class="input-group ctas" id="fl'+valor+'"><select noClear="1" class="form-control cta-array" tp="'+vtp+'" dh="'+vdh+'" id="my-array'+valor+'" >'+cuentas+'</select><div class="input-group-addon" style="display:none" >-</div><input type="number" noClear="1" class="form-control eder" id="pr'+valor+'"  style="display:none" placeholder="Porcentaje de la Cuenta" value="100"><div class="input-group-addon"><b>'+vtipo+'</b></div><div class="input-group-addon btn delcetap" style="display:none"><i class="fa fa-times delcta" tp="'+valor+'"></i></div></div>';
+}
+
+function obtenerCuentas(vid){
+	var cuentasg = arr('login',4,'',85,'2,'+vid+',"5,6"','',0,'');
+
+	$("#ctacontado").html('');
+	$("#ctacredito").html('');
+
+	for (var i = 0; i < cuentasg[0].length; i++) {
+		if (cuentasg[0][i][5] == 5) {
+			$("#ctacontado").append(getFila(cuentasg[0][i][0],cuentasg[0][i][8],cuentasg[0][i][7],cuentasg[0][i][5]));
+		}else{
+			$("#ctacredito").append(getFila(cuentasg[0][i][0],cuentasg[0][i][8],cuentasg[0][i][7],cuentasg[0][i][5]));
+		}
+		$("#my-array"+cuentasg[0][i][0]).val(cuentasg[0][i][1]);
+	}
+
+	$("#vidcuenta").val('');
 }

@@ -1,3 +1,5 @@
+<?php /* Smarty version 2.6.17, created on 2016-12-01 18:28:17
+         compiled from v_clientes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +8,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Clientes</title>
+<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
+<link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../assets/libs/multiselect/css/multi-select.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,7 +28,8 @@
 </head>
 <body>
 <br>
-{$NAV}
+<?php echo $this->_tpl_vars['NAV']; ?>
+
 <div class="bdy">
 <h3 class="card-header card-primary" style="color: #fff"><b>CLIENTES</b></h3><br>
 
@@ -49,19 +60,49 @@
 </tr>
 </thead>
 <tbody id="listaClientes">
-{section name=LE loop=$CLIE}
+<?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['CLIE']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
 <tr id="f1">
-<td>{$CLIE[LE][1]}</td>
-<td>{$CLIE[LE][2]}</td>
-<td>{$CLIE[LE][4]}</td>
-<td>{$CLIE[LE][5]}</td>
-<td>{$CLIE[LE][6]}</td>
+<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][1]; ?>
+</td>
+<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][2]; ?>
+</td>
+<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][4]; ?>
+</td>
+<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][5]; ?>
+</td>
+<td><?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][6]; ?>
+</td>
 <td>
-<i class="fa fa-pencil-square-o btn load" id="m{$CLIE[LE][0]}" data-toggle="modal" href='#modal-clientes' modulo="cliente" title="Editar Cliente"></i>
-<i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F" title="Eliminar Cliente"></i>
+<i class="fa fa-pencil-square-o btn load" id="m<?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][0]; ?>
+" data-toggle="modal" href='#modal-clientes' modulo="cliente" title="Editar Cliente"></i>
+<i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d<?php echo $this->_tpl_vars['CLIE'][$this->_sections['LE']['index']][0]; ?>
+" style="color: #D9534F" title="Eliminar Cliente"></i>
 </td>
 </tr>
-{/section}
+<?php endfor; endif; ?>
 </tbody>
 </table>
 </div>
@@ -166,9 +207,34 @@ Jurídico
     <div class="input-group-addon"><b>Estado</b></div>
     <select id="videstado" class="form-control" type="select">
     <option value="">Seleccione un Estado</option>
-    {section name=LE loop=$ESTCLIE}
-    <option value="{$ESTCLIE[LE][0]}" selected>{$ESTCLIE[LE][1]}</option>
-    {/section}
+    <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['ESTCLIE']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+    <option value="<?php echo $this->_tpl_vars['ESTCLIE'][$this->_sections['LE']['index']][0]; ?>
+" selected><?php echo $this->_tpl_vars['ESTCLIE'][$this->_sections['LE']['index']][1]; ?>
+</option>
+    <?php endfor; endif; ?>
     </select>
     </div>
     </div>
@@ -205,9 +271,34 @@ Jurídico
     <div class="input-group-addon"><b>Categoría del Cliente</b></div>
     <select type="select" class="form-control" id="vidnivel">
         <option value="0">Seleccione una Categoría</option>
-        {section name=LE loop=$NVLCLIE}
-        <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
-        {/section}
+        <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['NVLCLIE']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+        <option value="<?php echo $this->_tpl_vars['NVLCLIE'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['NVLCLIE'][$this->_sections['LE']['index']][1]; ?>
+</option>
+        <?php endfor; endif; ?>
     </select>
     </div>
     </div>
@@ -296,9 +387,34 @@ Jurídico
 <div class="input-group-addon"><b> Provincia</b></div>
 <select class="form-control" type="select">
 <option value="0">Seleccione una Provincia</option>
-{section name=LE loop=$PRO}
-<option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
-{/section}
+<?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['PRO']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+<option value="<?php echo $this->_tpl_vars['PRO'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['PRO'][$this->_sections['LE']['index']][1]; ?>
+</option>
+<?php endfor; endif; ?>
 </select>
 <div class="input-group-addon"><i class="fa fa-plus"></i></div>
 </div>
@@ -373,7 +489,15 @@ Jurídico
 </div>
 </div>
 </div></div></div>
+
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/mask/jquery.mask.js"></script>
+<script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
+<script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
+<script src="../assets/libs/multiselect/js/jquery.multi-select.js"></script>
+<script src="../assets/js/asgard.js"></script>
 <script src="../assets/js/modulos/clientes.js"></script>
+
 </div>
 </body>
 </html>

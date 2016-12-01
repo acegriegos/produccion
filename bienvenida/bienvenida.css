@@ -4,8 +4,15 @@
     /*background: #e9e9e9;*/
     /*background: #123E64; /*#001F3F*/
 }
-#section1{
-    height: 100%;
+
+.mon{ font-size: 1.8em; }
+.monp{ font-size: 1.8em; padding: 0.6em 0.8em ; color: #B1B1B1; }
+.monp:hover{ color: #9F9F9F; }
+
+.mod{
+padding: 1em;
+background: #0275d8; /* For browsers that do not support gradients */
+color: #fff;
 }
 
 footer{
@@ -16,7 +23,8 @@ footer{
  /*background: #123E64;*/
 }
 
-h4{ color: #FFF; }
+/*h4{ color: #FFF; }*/
+.titmon{ color: #4D4848; }
 
 .titp{
     color: #686868;

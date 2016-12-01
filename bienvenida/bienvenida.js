@@ -19,24 +19,42 @@ $(function(){
 		return false;
 	});
 
-	$(".moneda").click(function(){
-		if ($(this).attr('id') == 'dol1') {
-			$("#dol2").attr('disabled', true);
-			$("#con2").attr('disabled', false);
-			$("#eur2").attr('disabled', false);
-			$("#dol2").attr('checked', false);
-		}else if ($(this).attr('id') == 'con1') {
-			$("#con2").attr('disabled', true);
-			$("#dol2").attr('disabled', false);
-			$("#eur2").attr('disabled', false);
-			$("#con2").attr('checked', false);
-		}else if ($(this).attr('id') == 'eur1') {
-			$("#eur2").attr('disabled', true);
-			$("#dol2").attr('disabled', false);
-			$("#con2").attr('disabled', false);
-			$("#eur2").attr('checked', false);
-		}
-	});
+$(".moneda").click(function(){
+	var id = $(this).attr('id');
+	var txid = $(this).attr('id').substring(3,-1);
+	var estado = $(this).attr('estado');
+
+	if ($(this).attr('id') == id && $(this).attr('estado') == 0) {
+		$("#"+id).removeClass('btn-default');
+		$("#"+id).addClass('btn-primary');
+		$(".tx"+txid).css('color','#fff');
+		$(this).attr('estado', 1);
+	}else if ($(this).attr('id') == id && $(this).attr('estado') == 1) {
+		$("#"+id).removeClass('btn-primary');
+		$("#"+id).addClass('btn-default');
+		$(".tx"+txid).css('color','#818a91');
+		$(this).attr('estado', 0);
+	}
+});
+
+	// $(".moneda").click(function(){
+	// 	if ($(this).attr('id') == 'dol1') {
+	// 		$("#dol2").attr('disabled', true);
+	// 		$("#con2").attr('disabled', false);
+	// 		$("#eur2").attr('disabled', false);
+	// 		$("#dol2").attr('checked', false);
+	// 	}else if ($(this).attr('id') == 'con1') {
+	// 		$("#con2").attr('disabled', true);
+	// 		$("#dol2").attr('disabled', false);
+	// 		$("#eur2").attr('disabled', false);
+	// 		$("#con2").attr('checked', false);
+	// 	}else if ($(this).attr('id') == 'eur1') {
+	// 		$("#eur2").attr('disabled', true);
+	// 		$("#dol2").attr('disabled', false);
+	// 		$("#con2").attr('disabled', false);
+	// 		$("#eur2").attr('checked', false);
+	// 	}
+	// });
 
 // CAROUSEL
 	$(".left").click(function(){
@@ -44,6 +62,9 @@ $(function(){
     });
     $(".right").click(function(){
         $("#carousel").carousel("next");
+        $("#info").hide();
+        $("#info2").show();
+        $("#info2").addClass('animated fadeInRight');
     });
 // END CAROUSEL
 

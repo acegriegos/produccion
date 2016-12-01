@@ -1,3 +1,5 @@
+<?php /* Smarty version 2.6.17, created on 2016-12-01 18:28:15
+         compiled from v_comercial.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -6,7 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Área Comercial</title>
+    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
+    <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
+	  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,7 +26,8 @@
   </head>
   <body>
   <br>
-    {$NAV}
+    <?php echo $this->_tpl_vars['NAV']; ?>
+
     <div class="bdy">
 
     <div class="card">
@@ -86,6 +96,12 @@
     </div>
 
     </div>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/mask/jquery.mask.js"></script>
+    <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/libs/charts/dist/Chart.bundle.min.js"></script>
+    <script src="../assets/js/asgard.js"></script>
     <script src="../assets/js/modulos/comercial.js"></script>
   </body>
 </html>
