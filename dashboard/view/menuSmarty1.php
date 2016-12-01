@@ -1,3 +1,16 @@
+<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+
+<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="../assets/css/materialize.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="bootstrap-material-design.min.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="ripples.min.css"> -->
+
+<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
+<link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+
 <link rel="stylesheet" href="../assets/css/modulos/style-login.css">
 <!-- <link rel="stylesheet" href="../assets/fonts/tipografia.css"> -->
 
@@ -120,4 +133,14 @@
 
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/notify.js"></script>
+
+<!-- <script src="../assets/js/material.min.js"></script> -->
+<!-- <script src="../assets/js/ripples.min.js"></script> -->
+<!-- <script src="../assets/js/materialize.js"></script> -->
+<script src="../assets/js/bootstrap.min.js"></script>
+
 <script src="../assets/js/modulos/menu.js"></script>
+<script src="../assets/js/mask/jquery.mask.js"></script>
+<script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
+<script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
+<script src="../assets/js/asgard.js"></script>
