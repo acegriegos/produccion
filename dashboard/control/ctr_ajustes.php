@@ -28,7 +28,11 @@
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
-	   			include 'view/ajax/ajustes/ajaxDatosEmpresa.tpl';
+	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo',54,'id > 0 order by principal desc,nombre'));
+	   			$smarty->assign('TUSR',$kakaroto->kamehameha('id,nombre,defecto',27,'id > 0 order by defecto desc'));
+	   			$smarty->assign('TPAG',$kakaroto->kamehameha('id,nombre,banco',26,'id > 0'));
+	   			$smarty->assign('CATC',$kakaroto->kamehameha('id,nombre',69,'id > 0'));	
+	   			$smarty->display('ajax/ajustes/ajaxDatosEmpresa.tpl');
 	   			break;
 	   		case 3:
 	   			$pagina = 1;

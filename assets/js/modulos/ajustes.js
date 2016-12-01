@@ -26,7 +26,21 @@ $(document).on("click",".menu3",function(){
 				$("#vlogo").attr('src',e[5]);
 				$("#vfechainicio").val(e[6]);
 				$("#vfechafinal").val(e[7]);
-				break;
+				$("#data-table-monedas").dataTable({
+					bFilter : false,
+				});
+				$("#data-table-tipousuarios").dataTable({
+					bFilter : false,
+					order : []
+				});
+				$("#data-table-tipopagos").dataTable({
+					bFilter : false,
+				});
+				$("#data-table-nivelesclientes").dataTable({
+					bFilter : false,
+				});
+				
+				$(".wsdl-op").hide()
 				break;
 			case 2:
 				var p = mantenimiento('ajustes',3,'');
@@ -395,3 +409,21 @@ function slide(cod,suma) {
 	else
 		$(".slidel").show();
 }
+
+/*MONEDAS*/
+
+$(document).on('click','#iswsdl',function(){
+	
+	if ($(this).is(':checked'))
+		$(".wsdl-op").show()
+	else
+		$(".wsdl-op").hide()
+});
+
+$(document).on('change','#vwsdl',function(){
+	
+	if ($('option:selected',this).val() == 0)
+		$(".add-wsdl").show()
+	else
+		$(".add-wsdl").hide()
+});

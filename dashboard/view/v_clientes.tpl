@@ -45,7 +45,7 @@
 </div><br><br>
 
 <div class="card-block">
-<table class="table table-striped table-bordered table-hover dt-responsive nowrap">
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-clientes">
 <thead>
 <tr>
 <th>Cédula</th>
