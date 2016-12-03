@@ -1,5 +1,9 @@
 acc = 1;
 
+$(function(){
+    $('.dropdown-button').dropdown('open');
+})
+
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     if(code == 113)

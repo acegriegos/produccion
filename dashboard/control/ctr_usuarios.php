@@ -7,7 +7,7 @@
 	   	$smarty = new mySmarty();
 
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	   	$smarty->assign('SUC',$kakaroto->kamehameha('id,nombre',39,'id > 0'));
 	   	$smarty->assign('CIA',$kakaroto->kamehameha('id,nombre',13,'id > 0'));
 	   	$smarty->assign('USRS',$kakaroto->kamehameha('Id,Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`',7,"id > 0"));

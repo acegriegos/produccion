@@ -1,89 +1,19 @@
-a{ text-decoration: none; font-size: none; color: #F0F0F0; }
-a:hover{ text-decoration: none; font-size: none; color: #C8C8C8; }
-
-.ico{ z-index: 2; background: #373A3C; text-align: center;}
-
-#ico00{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico01{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico02{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico03{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico04{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico05{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico06{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico07{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico08{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico09{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico10{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico11{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-#ico12{ margin-top: -22px; background: #2488DE; transition: 0.5s; position: relative; text-align: center;}
-
-#profPic{
-height: 50px;
-margin-right: 12px;
-font-family: 'Roboto', sans-serif;
-font-size: 2.2em;
-/*background: rgba(51, 51, 51, 0.1);*/
-border-radius: 50%;
-padding: 1%;
+header, main, footer {
+  padding-left: 300px;
 }
 
-.profPicNoti{
-height: 40px;
-margin-right: 12px;
-font-family: 'Roboto', sans-serif;
-font-size: 2.2em;
-/*background: rgba(51, 51, 51, 0.1);*/
-border-radius: 50%;
-padding: 0.5%;
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
 }
 
-#numNot{
-  font-size: 0.8em;
-  color:#fff;
-  background:#D9534F;
-  padding: 0px 7px;
-  border-radius: 42px;
-  position: absolute;
-  margin-top: 8%;
+.accion{
+    background-color: transparent;
+    color: black;
+    box-shadow: none;
 }
 
-#userLog{
-  display:inline-block;
-    vertical-align:middle;
-    text-align: center;
-    padding: 0.05%;
-}
-
-#smallNotify{
-  display:inline-block;
-  vertical-align:middle;
-  text-align: center;
-  padding-top: 0.4%;
-}
-
-#toggMenu{
-  display:inline-block;
-  vertical-align:middle;
-  text-align: center;
-  border-right: 0.5px solid #CACACA;
-  padding: 0.43%;
-}
-
-#cerrarS{
-  border-left: 0.5px solid #CACACA;
-  display:inline-block;
-    vertical-align:middle;
-    text-align: center;
-    background: transparent;
-    padding: 0.95%;
-    transition: 0.3s;
-    color: #777777;
-}
-
-#cerrarS:hover{
-    background: #E5E5E5;
-}
-
-#sesClose:hover{
-  background: #808080;
+.accion:hover{
+    background-color: gray;
 }

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-12-01 22:11:54
+<?php /* Smarty version 2.6.17, created on 2016-12-02 05:54:15
          compiled from v_proveedores.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -187,58 +187,46 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 </div><br>
 </div>
 <div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Teléfonos</b></div>
+<div class="card-title">
 <div class="row">
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-building-o" aria-hidden="true"></i></b></div>
-<input type="text" class="form-control eder" id="vtrabajo" placeholder="Trabajo" data-mask="9999-9999">
-</div> 
+<div class="col-md-1 col-lg-1">
+<b>Teléfonos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
 </div>
-<div class="col-md-4 col-lg-4">
+<div class="col-md-1 col-lg-1">
+<i type="button" class="btn btn-primary dropdown-toggle fa fa-plus" data-toggle="dropdown"></i>
+<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+<input type="hidden" id="num" value="1">
+<a class="dropdown-item typephone" href="#" tipo="t1">Casa</a>
+<a class="dropdown-item typephone" href="#" tipo="t2">Móvil</a>
+<a class="dropdown-item typephone" href="#" tipo="t3">Trabajo</a>
+<a class="dropdown-item typephone" href="#" tipo="t4">Fax</a>
+</div>
+</div>
+</div>
+</div>
+<div class="row naruto-telefonos" id="variostelefonos">
+<div class="col-md-4 col-lg-4" id="dt1">
 <div class="input-group">
 <div class="input-group-addon"><b><i class="fa fa-building" aria-hidden="true"></i></b></div>
-<input type="text" class="form-control eder" id="vtrabajo2" placeholder="Trabajo2" data-mask="9999-9999">
-</div> 
-</div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-mobile" aria-hidden="true"></i></b></div>
-<input type="text" class="form-control eder" id="vmovil" placeholder="Móvil" data-mask="9999-9999">
+<input type="text" class="form-control eder" id="vtrabajo" vidtipo="3" placeholder="Trabajo" data-mask="9999-9999">
 </div> 
 </div>
 </div>
 </div>
 <div class="card-header parte1 ptr" vtabla="correo" id="fcorreos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Correos</b></div>
-<div class="row">
+<div class="card-title">
+<b>Correos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><button type="button" class="btn btn-primary fa fa-plus" id="addmail" num="1">
+</div>
+<div class="row naruto-correos" id="varioscorreos">
 <div class="col-md-6 col-lg-6">
 <div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-envelope-o" aria-hidden="true"></i><small> (1)</small></b></div>
+<div class="input-group-addon"><b><i class="fa fa-envelope" aria-hidden="true"></i><small> (1)</small></b></div>
 <input type="text" class="form-control eder" id="vcorreo1" placeholder="ejemplo@dominio.com">
 </div> 
 </div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-envelope" aria-hidden="true"></i><small> (2)</small></b></div>
-<input type="text" class="form-control eder" id="vcorreo2" placeholder="ejemplo@dominio.com">
-</div>
-</div>
+
 </div><br>
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-envelope" aria-hidden="true"></i><small> (3)</small></b></div>
-<input type="text" class="form-control eder" id="vcorreo3" placeholder="ejemplo@dominio.com">
-</div> 
-</div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-envelope-o" aria-hidden="true"></i><small> (4)</small></b></div>
-<input type="text" class="form-control eder" id="vcorreo4" placeholder="ejemplo@dominio.com">
-</div> 
-</div>
-</div><br>
+
 </div>
 <div class="card-header parte2 ptr" style="border-radius:5px;border-size:1px 1px 1px 1px;border-color: #D1D1D1;">
 <div class="row">

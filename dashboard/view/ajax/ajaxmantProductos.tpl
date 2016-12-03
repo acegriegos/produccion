@@ -1,32 +1,21 @@
 <div id="mantProd">
 <h2 align="center">Mantenimiento Productos</h2>
-<input type="hidden" id="vclick" value="1">
 <hr>
 <div class="row">
-<div class="col-md-6 col-lg-6">
-    <div class="input-group">
-    <span class="input-group-btn">
-    <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
-    </span>
-    <input type="search" class="form-control" id="searchprod" placeholder="Buscar Código">
-    <div class="btn-group input-group-addon" role="group" id="fgrande" filter="1">
-        <i id="btnGroupDrop1" class="dropdown-toggle fa fa-navicon but" data-toggle="dropdown">
-        </i>
-        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item vfiltros" href="#" filtro="f1">Código</a>
-            <a class="dropdown-item vfiltros" href="#" filtro="f2">Nombre</a>
-            <!-- <a class="dropdown-item vfiltros" href="#" filtro="f3">Costo Mayor o igual a</a>
-            <a class="dropdown-item vfiltros" href="#" filtro="f4">Costo Menor o Igual a</a>
-            <a class="dropdown-item vfiltros" href="#" filtro="f5">Venta Mayor o Igual a</a>
-            <a class="dropdown-item vfiltros" href="#" filtro="f6">Venta Menor o Igual a</a>
-            <a class="dropdown-item vfiltros" href="#" filtro="f7">Ganancia Mayor o Igual a</a>
-            <a class="dropdown-item vfiltros" href="#" filtro="f8">Ganancia Menor o Igual a</a> -->
-        </div>
-    </div>
-    </div>           
+<div class="col s6">
+<div class="input-field col s6">
+<input id="searchprod" type="text" class="validate">
+<label for="icon_prefix" id="phs">Buscar Nombre</label>
 </div>
-<div class="col-md-6 col-lg-6">
-    <button type="button" id="ingInvProd" class="btn btn-primary der" data-toggle="modal" href="#modal-productos" style="margin-right: 15px; padding: 16px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
+<a class="dropdown-button btn-floating btn-large waves-effect waves-light green" data-activates="fgrande"><i class="material-icons">search</i></a>
+<ul id="fgrande" class="dropdown-content" filter="1">
+<li><a class="dropdown-item vfiltros" filtro="f1">Código</a></li>
+<li><a class="dropdown-item vfiltros" filtro="f2">Nombre</a></li>
+</ul>       
+</div>
+<div class="col s6">
+    <a id="ingInvProd" class="btn-floating btn-large waves-effect waves-light right blue" href="#modal-productos"><i class="material-icons">add</i></a>
+    <!-- <button type="button" id="ingInvProd" class="btn btn-primary der" data-toggle="modal" href="#modal-productos" style="margin-right: 15px; padding: 16px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button> -->
 </div>
 </div><br><br>
 
@@ -53,10 +42,12 @@
     <td>{$PROD[LE][4]}</td>
     <td>{$PROD[LE][5]}</td>
     <td>
-    <span class="descuentos btn" id="desc{$PROD[LE][0]}" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
+    <a class="btn-floating waves-effect waves-light blue descuentos accion" id="desc{$PROD[LE][0]}" href="#modal-descuentos"><i class="material-icons">%</i></a>
+    <a class="btn-floating waves-effect waves-light blue salidainv" id="desc{$PROD[LE][0]}" href="#modal-descuentos"><i class="material-icons">%</i></a>
+    <!-- <span class="descuentos btn" id="desc{$PROD[LE][0]}" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
     <i class="fa fa-outdent salidainv" id="s{$PROD[LE][0]}" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
     <i class="fa fa-pencil-square-o btn editprod" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
-    <i class="fa fa-times btn delprod" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i>
+    <i class="fa fa-times btn delprod" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i> -->
     </td>
     </tr>
     {/section}
@@ -75,165 +66,108 @@
 </div>
 </div>
 
-<div class="modal fade" id="modal-productos">
-<div class="modal-dialog" style="width: 80%">
-<div class="modal-content">
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title accmodalProd">Agregar Producto</h4>
-</div>
-<div class="modal-body">
-    <nav class="navbar navbar-light bg-faded">
+<!-- <nav class="navbar navbar-light bg-faded">
       <div class="nav navbar-nav">
         <a class="nav-item nav-link active menuP" href="#" id="tb1">Datos Producto</a>
         <a class="nav-item nav-link menuP" href="#" id="tb2">Financiero</a>
-        <!-- <a class="nav-item nav-link menuP" href="#" id="tb3">Descuentos</a> -->
       </div>
-    </nav>
+    </nav> -->
 
-    <div id="datosproductos">
-        <br>
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Familia</b></div>
-                        <select type="select" id="vidfamilia" class="form-control" required="required" cambio="1">
-                            <option value="0">Seleccione una Familia</option>
-                            {section name=LE loop=$FAM}
-                            <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <!-- <input type="text" id="newfam" class="form-control" value="" required="required" style="display:none"> -->
-                    <!-- <div class="input-group-addon" id="dbck1" style="display:none"><i class="fa fa-reply bbck" tipo="1"></i></div> -->
-                    <!-- <div class="input-group-addon but"><i class="fa fa-plus bjerarquia" id="baddj1" tipo="1" nombre="familia" ref="0"></i></div> -->
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Tipo</b></div>
-                        <select type="select" id="vidtipo" class="form-control" required="required">
-                            <option value="0">Seleccione un Tipo</option>
-                            {section name=LE loop=$TIP}
-                            <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <!-- <input type="text" id="newtip" class="form-control" value="" required="required" style="display:none"> -->
-                    <!-- <div class="input-group-addon" id="dbck2" style="display:none"><i class="fa fa-reply bbck" tipo="2"></i></div> -->
-                    <!-- <div class="input-group-addon but"><i class="fa fa-plus" id="baddj2" tipo="2" nombre="tipo" ref="1" ref1="familia"></i></div> -->
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Marca</b></div>
-                        <select type="select" id="vidmarca" class="form-control" required="required" cambio="1">
-                            <option value="0">Seleccione una Marca</option>
-                            {section name=LE loop=$MAR}
-                            <option value="{$MAR[LE][0]}">{$MAR[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <!-- <input type="text" id="newmar" class="form-control" value="" required="required" style="display:none"> -->
-                    <!-- <div class="input-group-addon" id="dbck3" style="display:none"><i class="fa fa-reply bbck" tipo="3"></i></div> -->
-                    <!-- <div class="input-group-addon but"><i class="fa fa-plus bjerarquia" id="baddj3" tipo="3" nombre="marca" ref="0"></i></div> -->
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Modelo</b></div>
-                        <select type="select" id="vidmodelo" class="form-control" required="required">
-                            <option value="0">Seleccione un Modelo</option>
-                            {section name=LE loop=$MOD}
-                            <option value="{$MOD[LE][0]}">{$MOD[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <!-- <input type="text" id="newmod" class="form-control" value="" required="required" style="display:none"> -->
-                    <!-- <div class="input-group-addon" id="dbck4" style="display:none"><i class="fa fa-reply bbck" tipo="4"></i></div> -->
-                    <!-- <div class="input-group-addon but"><i class="fa fa-plus" id="baddj4" tipo="4" nombre="modelo" ref="2" ref1="marca" ref2="tipo"></i></div> -->
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Unidad</b></div>
-                        <select id="vidunidad" class="form-control" type="select">
-                            {section name=LE loop=$UNI}
-                            <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>';
-                            {/section}
-                        </select>
-                </div><br>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Nombre</b></div>
-                    <input type="text" class="form-control formprod" id="vnombre" placeholder="Nombre de Producto">
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Código</b></div>
-                    <input type="text" class="form-control formprod" id="vcodigo" placeholder="Código de Producto">
-                    <input type="hidden" id="vid" value="0">
-                    <input type="hidden" id="vidusuario" value="">
-                    <input type="hidden" id="vidsucursal" value="">
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Cantidad</b></div>
-                    <input type="number" class="form-control eder formprod" id="vcantidad" placeholder="Cantidad" min="0" title="Valor debe ser mayor o igual a 0">
-                    <!-- <input type="hidden" id="" value="0" min="{0}" data-mask="999999999.99"> -->
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Mínimo</b></div>
-                    <input type="number" class="form-control eder formprod" id="vminimo" placeholder="Mínimo" min="1" title="Valor debe ser mayor o igual a 1">
-                    <!-- <input type="hidden" id="" value="0" min="{0}" data-mask="999999999.99"> -->
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Máximo</b></div>
-                    <input type="number" class="form-control eder formprod" id="vmaximo" placeholder="Máximo" min="1" title="Valor debe ser mayor o igual a 1">
-                    <!-- <input type="hidden" id="" value="0" min="{0}" data-mask="999999999.99"> -->
+<div id="modal-productos" class="modal modal-fixed-footer" style="width:70%">
+    <div class="modal-content">
+        <h4>Agregar Producto</h4><hr>
+            <nav class="blue">
+                <div class="nav-wrapper">
+                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+                        <li class="menuP active" id="tb1"><a>Datos Productos</a></li>
+                        <li class="menuP" id="tb2"><a>Financiero</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="datosproductos"><br>
+                <div class="row">
+                    <div class="col s6">
+                        <div class="input-field">
+                            <select>
+                                {section name=LE loop=$FAM}
+                                <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
+                                {/section}
+                            </select>
+                            <label>Seleccione una Familia</label>
+                        </div>
+                        <div class="input-field">
+                            <select>
+                                {section name=LE loop=$TIP}
+                                <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>
+                                {/section}
+                            </select>
+                            <label>Seleccione un Tipo</label>
+                        </div>
+                        <div class="input-field">
+                            <select>
+                                {section name=LE loop=$MAR}
+                                <option value="{$MAR[LE][0]}">{$MAR[LE][1]}</option>
+                                {/section}
+                            </select>
+                            <label>Seleccione una Marca</label>
+                        </div>
+                        <div class="input-field">
+                            <select>
+                                {section name=LE loop=$MOD}
+                                <option value="{$MOD[LE][0]}">{$MOD[LE][1]}</option>
+                                {/section}
+                            </select>
+                            <label>Seleccione un Modelo</label>
+                        </div>
+                        <div class="input-field">
+                            <select>
+                                {section name=LE loop=$UNI}
+                                <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
+                                {/section}
+                            </select>
+                            <label>Seleccione una Unidad</label>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field">
+                            <input type="text" id="vnombre" class="validate" value="">
+                            <label class="active" for="vnombre">Nombre</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="text" id="vcodigo" class="validate" value="">
+                            <label class="active" for="vcodigo">Código</label>
+                            <input type="hidden" id="vid" value="0">
+                            <input type="hidden" id="vidusuario" value="">
+                            <input type="hidden" id="vidsucursal" value="">
+                        </div>
+                        <div class="input-field">
+                            <input type="number" id="vcantidad" class="validate" value="" min="1">
+                            <label class="active" for="vcantidad">Cantidad</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="number" id="vminimo" class="validate" value="" min="1">
+                            <label class="active" for="vminimo">Mínimo</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="number" id="vmaximo" class="validate" value="" min="1">
+                            <label class="active" for="vmaximo">Máximo</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div id="financiero" class="inv">
-    <br>
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Precio Costo</b></div>
-                    <input type="text" class="form-control eder calcvv formprod" id="vcosto" placeholder="Precio Costo" data-mask="999999999.99" value="0.00">
-                    <input type="hidden" id="hvcosto" class="form-control" value="">
-                    <div class="input-group-addon"><b>¢</b></div>
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Ganancia</b></div>
-                    <input type="text" class="form-control eder calcvv formprod" id="vganancia" placeholder="Ganancia de Producto" data-mask="999999999.99" value="0.00">
-                    <div class="input-group-addon"><b>%</b></div>
-                </div><br>
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Precio Venta</b></div>
-                    <input type="text" class="form-control eder formprod" id="vventa" placeholder="Precio Venta" data-mask="999999999.99" readonly  value="0.00">
-                    <input type="hidden" id="hventa" value="">
-                    <div class="input-group-addon"><b>¢</b></div>
-                </div><br>
+            <div id="financiero" class="hide">
             </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                    <div class="input-group-addon"><b>Agregar Impuestos</b></div>
-                    <select id="imp" class="form-control" required="required">
-                        
-                    </select>
-                    <div class="input-group-addon but" id="addimp"><i class="fa fa-plus"></i></div>
-                </div><br>
-                <div class="row" id="impuestos"></div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="alert alert-danger err_" id="err1" style="display: none">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong id="errm1"></strong>
-    </div>
-    <div class="alert alert-success suc_" id="suc1" style="display: none">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong id="sucm1"></strong>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="addprod">Agregar</button>
-        <button type="button" class="btn btn-primary inv" id="editprod">Guardar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue" >Guardar</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
     </div>
 </div>
-</div>
-</div>
-</div>
+
+
+
+
+
 <div class="modal fade" id="modal-salida">
     <div class="modal-dialog">
         <div class="modal-content">

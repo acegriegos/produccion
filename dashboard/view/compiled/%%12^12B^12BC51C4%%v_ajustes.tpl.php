@@ -1,3 +1,5 @@
+<?php /* Smarty version 2.6.17, created on 2016-12-02 21:09:56
+         compiled from v_ajustes.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -21,7 +23,8 @@
   <body>
     
     <div class="bdy">
-    {$NAV}
+    <?php echo $this->_tpl_vars['NAV']; ?>
+
     <ul class="tabs">
         <li class="tab col s3 menu3" id="m1"><a href="#" class="active">Empresa</a></li>
         <li class="tab col s3 menu3" id="m2"><a href="#">Impuestos</a></li>

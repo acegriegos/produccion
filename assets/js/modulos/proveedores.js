@@ -44,6 +44,45 @@ $(document).on("click","#ln2",function(){
 	arr('login',6,'id,nombre,valor,concat(replace(valor,".00",""),"%")',94,'id > 0','',1,$("#vdescuentop"));
 });
 
+$(document).on("click",".typephone",function(){
+	var tipo = parseInt($(this).attr('tipo').substr(1));
+	var ai = $("#num").val();
+	ai += 1;
+	switch(tipo){
+		case 1:
+			$("#variostelefonos").append('<div class="col-md-4 col-lg-4" id="dt'+ai+'"><div class="input-group"><div class="input-group-addon"><b><i class="fa fa-home" aria-hidden="true"></i></b></div><input type="text" class="form-control eder" id="vtrabajo" vidtipo="'+tipo+'" placeholder="Casa" data-mask="9999-9999"><div class="input-group-addon asterisco delphone but" num="'+ai+'"><i class="fa fa-times"></i></div></div></div>');
+			break;
+		case 2:
+			$("#variostelefonos").append('<div class="col-md-4 col-lg-4" id="dt'+ai+'"><div class="input-group"><div class="input-group-addon"><b><i class="fa fa-mobile" aria-hidden="true"></i></b></div><input type="text" class="form-control eder" id="vtrabajo" vidtipo="'+tipo+'" placeholder="Movil" data-mask="9999-9999"><div class="input-group-addon asterisco delphone but" num="'+ai+'"><i class="fa fa-times"></i></div></div></div>');
+			break;
+		case 3:
+			$("#variostelefonos").append('<div class="col-md-4 col-lg-4" id="dt'+ai+'"><div class="input-group"><div class="input-group-addon"><b><i class="fa fa-building" aria-hidden="true"></i></b></div><input type="text" class="form-control eder" id="vtrabajo" vidtipo="'+tipo+'" placeholder="Trabajo" data-mask="9999-9999"><div class="input-group-addon asterisco delphone but" num="'+ai+'"><i class="fa fa-times"></i></div></div></div>');
+			break;
+		case 4:
+			$("#variostelefonos").append('<div class="col-md-4 col-lg-4" id="dt'+ai+'"><div class="input-group"><div class="input-group-addon"><b><i class="fa fa-fax" aria-hidden="true"></i></b></div><input type="text" class="form-control eder" id="vtrabajo" vidtipo="'+tipo+'" placeholder="Fax" data-mask="9999-9999"><div class="input-group-addon asterisco delphone but" num="'+ai+'"><i class="fa fa-times"></i></div></div></div>');
+			break;
+	}
+	$("#num").val(ai);
+});
+
+$(document).on("click",".delphone",function(){
+	var id = $(this).attr('num');
+	$("#dt"+id).remove();
+});
+
+$(document).on("click","#addmail",function(){
+	var id = parseInt($(this).attr('num'));
+	id += 1;
+	$("#varioscorreos").append('<div class="col-md-6 col-lg-6" id="dm'+id+'"><div class="input-group"><div class="input-group-addon"><b><i class="fa fa-envelope" aria-hidden="true"></i><small> ('+id+')</small></b></div><input type="text" class="form-control eder" id="vcorreo1" placeholder="ejemplo@dominio.com"><div class="input-group-addon asterisco but"><i class="fa fa-times delmail" num="'+id+'"></i></div></div></div>');
+	$(this).attr('num',id);
+
+});
+
+$(document).on("click",".delmail",function(){
+	var id = $(this).attr('num');
+	$("#dm"+id).remove();
+});
+
 function validar (varreglo,vmodulo) {
 	
 	var salida = {};

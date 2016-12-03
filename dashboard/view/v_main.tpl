@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Sistema BMS</title>
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 
   </head>
   <body>

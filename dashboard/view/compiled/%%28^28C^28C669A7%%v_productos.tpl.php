@@ -1,3 +1,5 @@
+<?php /* Smarty version 2.6.17, created on 2016-12-02 18:12:49
+         compiled from v_productos.tpl */ ?>
 <DOCTYPE html>
 <html lang="es">
   <head>
@@ -20,7 +22,8 @@
     
 
 <div class="bdy">
-{$NAV}
+<?php echo $this->_tpl_vars['NAV']; ?>
+
 <nav class="nav-extended blue">
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">Inventario</a>

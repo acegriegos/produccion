@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2016-12-01 23:12:22
+<?php /* Smarty version 2.6.17, created on 2016-12-01 23:19:19
          compiled from v_contabilidad.tpl */ ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -49,12 +49,7 @@
     <script src="../assets/js/datepicker/moment.min.js"></script>
     <script src="../assets/js/datepicker/transition.js"></script>
     <script src="../assets/js/datepicker/collapse.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/datepicker/bootstrap-datepicker.js"></script>
-    <script src="../assets/js/mask/jquery.mask.js"></script>
-    <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-    <script src="../assets/js/asgard.js"></script>
     <script src="../assets/js/modulos/contabilidad.js"></script>
   </body>
 </html>

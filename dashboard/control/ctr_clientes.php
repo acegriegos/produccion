@@ -7,7 +7,7 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	    
 	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));
 	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('*',68,'id >= 0 order by nombre'));

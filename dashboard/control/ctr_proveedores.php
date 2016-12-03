@@ -7,7 +7,7 @@
 	   
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty1.php');
+	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	   
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->assign('PROV',$kakaroto->kamehameha('*',30,'vid > 0'));
