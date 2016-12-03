@@ -72,7 +72,7 @@
             <td>{$MON[LE][2]}</td>
             <td>{$MON[LE][3]}</td>
             <td>
-                <a class='dropdown-button btn' href='#' data-activates='dropdown-m{$MON[LE][0]}'><i class="material-icons">menu</i></a>
+                <a class='dropdown-button btn' data-activates='dropdown-m{$MON[LE][0]}'><i class="material-icons">menu</i></a>
 
                 <ul id='dropdown-m{$MON[LE][0]}' class='dropdown-content'>
                     <li>

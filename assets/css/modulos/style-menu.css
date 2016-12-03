@@ -17,3 +17,13 @@ header, main, footer {
 .accion:hover{
     background-color: gray;
 }
+
+.menu-btn{
+    position: fixed;
+    top: 50%;
+    left: -25px;
+}
+
+.drag-target{
+    width: 0px;
+}

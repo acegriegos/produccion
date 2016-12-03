@@ -22,13 +22,19 @@
     
     <div class="bdy">
     {$NAV}
-    <ul class="tabs">
-        <li class="tab col s3 menu3" id="m1"><a href="#" class="active">Empresa</a></li>
-        <li class="tab col s3 menu3" id="m2"><a href="#">Impuestos</a></li>
-        <li class="tab col s3 menu3" id="m5"><a href="#">Descuentos</a></li>
-        <li class="tab col s3 menu3" id="m3"><a href="#">Surcusales</a></li>
-        <li class="tab col s3 menu3" id="m4"><a href="#">Cuentas Contables</a></li>
-    </ul> 
+    <nav class="nav-extended blue">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Configuración del Sistema</a>
+        <br>
+        <ul class="tabs tabs-transparent">
+          <li class="tab col s3 menu3" id="m1"><a href="#" class="active">Empresa</a></li>
+          <li class="tab col s3 menu3" id="m2"><a href="#">Impuestos</a></li>
+          <li class="tab col s3 menu3" id="m5"><a href="#">Descuentos</a></li>
+          <li class="tab col s3 menu3" id="m3"><a href="#">Surcusales</a></li>
+          <li class="tab col s3 menu3" id="m4"><a href="#">Cuentas Contables</a></li>
+        </ul> 
+      </div>
+    </nav>
 
     <div id="majustes"></div>
         

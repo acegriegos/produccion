@@ -41,6 +41,7 @@ $(document).on("click",".menu3",function(){
 				});
 				
 				$(".wsdl-op").hide()
+
 				break;
 			case 2:
 				var p = mantenimiento('ajustes',3,'');
@@ -75,6 +76,8 @@ $(document).on("click",".menu3",function(){
 				$("#majustes").html(p);
 				break;
 		}
+
+		$('.dropdown-button').dropdown();
 		
 });
 
