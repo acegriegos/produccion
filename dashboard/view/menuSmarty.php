@@ -43,13 +43,12 @@
     <li><div class="divider"></div></li>
     <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li>
   </ul>
-  <div class="collection-item blue">
-    <a href="#" data-activates="slide-out" class="button-collapse material-icons" style="color: #FFF">toc</a>
-  </div>
+
+  <a href="#" data-activates="slide-out" class="button-collapse btn-floating blue menu-btn"><i class="material-icons">toc</i></a>
 
   
 <script src="../assets/js/jquery.js"></script>
-<script src="../assets/js/notify.js"></script>
+<!-- <script src="../assets/js/notify.js"></script> -->
 <script src="../assets/js/materialize.js"></script>
 
 <script src="../assets/js/modulos/menu.js"></script>

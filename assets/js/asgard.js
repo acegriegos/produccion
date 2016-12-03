@@ -1,13 +1,13 @@
 acc = 1;
 
 $(function(){
-    $('.dropdown-button').dropdown('open');
+    $('.dropdown-button').dropdown();
 })
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     if(code == 113)
-        alert('f2')
+        $(".menu-btn").click();
 });
 
 $(document).on("click",".load",function(){
