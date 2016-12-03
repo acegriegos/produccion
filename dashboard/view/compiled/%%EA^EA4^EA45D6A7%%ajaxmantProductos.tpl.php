@@ -1,8 +1,8 @@
-<?php /* Smarty version 2.6.17, created on 2016-12-02 23:03:51
+<?php /* Smarty version 2.6.17, created on 2016-12-03 06:40:28
          compiled from ajax/ajaxmantProductos.tpl */ ?>
 <div id="mantProd">
-<h2 align="center">Mantenimiento Productos</h2>
-<hr>
+<!-- <h2 align="center">Mantenimiento Productos</h2>
+<hr> -->
 <div class="row">
 <div class="col s6">
 <div class="input-field col s6">
@@ -72,10 +72,14 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
     <td><?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][5]; ?>
 </td>
     <td>
-    <a class="btn-floating waves-effect waves-light blue descuentos accion" id="desc<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
-" href="#modal-descuentos"><i class="material-icons">%</i></a>
-    <a class="btn-floating waves-effect waves-light blue salidainv" id="desc<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
-" href="#modal-descuentos"><i class="material-icons">%</i></a>
+    <a class="btn-floating waves-effect waves-light amber darken-3 descuentos " id="desc<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
+" href="#modal-descuentos" title="Agregar Descuentos"><i class="material-icons">%</i></a>
+    <a class="btn-floating waves-effect waves-light green salidainv" id="s<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
+" href="#modal-salida" title="Salida de Inventario"><i class=" fa fa-outdent"></i></a>
+    <a class="btn-floating waves-effect waves-light blue editprod" id="m<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
+" href="#modal-productos" title="Editar Producto"><i class="fa fa-pencil-square-o"></i></a>
+    <a class="btn-floating waves-effect waves-light red delprod" id="d<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
+" href="#modal-productos" title="Eliminar Producto"><i class="fa fa-times"></i></a>
     <!-- <span class="descuentos btn" id="desc<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
 " data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
     <i class="fa fa-outdent salidainv" id="s<?php echo $this->_tpl_vars['PROD'][$this->_sections['LE']['index']][0]; ?>
@@ -114,18 +118,17 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         <h4>Agregar Producto</h4><hr>
             <nav class="blue">
                 <div class="nav-wrapper">
-                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <ul id="nav-mobile" class="left">
                         <li class="menuP active" id="tb1"><a>Datos Productos</a></li>
                         <li class="menuP" id="tb2"><a>Financiero</a></li>
                     </ul>
                 </div>
             </nav>
-            <div id="datosproductos"><br>
-                <div class="row">
-                    <div class="col s6">
-                        <div class="input-field">
-                            <select>
-                                <?php unset($this->_sections['LE']);
+            <div id="datosproductos" class="row"><br>
+                <div class="col s6">
+                    <div class="input-field">
+                        <select id="vidfamilia">
+                            <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['FAM']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -149,16 +152,16 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                                <option value="<?php echo $this->_tpl_vars['FAM'][$this->_sections['LE']['index']][0]; ?>
+                            <option value="<?php echo $this->_tpl_vars['FAM'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['FAM'][$this->_sections['LE']['index']][1]; ?>
 </option>
-                                <?php endfor; endif; ?>
-                            </select>
-                            <label>Seleccione una Familia</label>
-                        </div>
-                        <div class="input-field">
-                            <select>
-                                <?php unset($this->_sections['LE']);
+                            <?php endfor; endif; ?>
+                        </select>
+                        <label>Seleccione una Familia</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="vidtipo">
+                            <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['TIP']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -182,16 +185,16 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                                <option value="<?php echo $this->_tpl_vars['TIP'][$this->_sections['LE']['index']][0]; ?>
+                            <option value="<?php echo $this->_tpl_vars['TIP'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['TIP'][$this->_sections['LE']['index']][1]; ?>
 </option>
-                                <?php endfor; endif; ?>
-                            </select>
-                            <label>Seleccione un Tipo</label>
-                        </div>
-                        <div class="input-field">
-                            <select>
-                                <?php unset($this->_sections['LE']);
+                            <?php endfor; endif; ?>
+                        </select>
+                        <label>Seleccione un Tipo</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="vidmarca">
+                            <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['MAR']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -215,16 +218,16 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                                <option value="<?php echo $this->_tpl_vars['MAR'][$this->_sections['LE']['index']][0]; ?>
+                            <option value="<?php echo $this->_tpl_vars['MAR'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['MAR'][$this->_sections['LE']['index']][1]; ?>
 </option>
-                                <?php endfor; endif; ?>
-                            </select>
-                            <label>Seleccione una Marca</label>
-                        </div>
-                        <div class="input-field">
-                            <select>
-                                <?php unset($this->_sections['LE']);
+                            <?php endfor; endif; ?>
+                        </select>
+                        <label>Seleccione una Marca</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="vidmodelo">
+                            <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['MOD']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -248,16 +251,16 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                                <option value="<?php echo $this->_tpl_vars['MOD'][$this->_sections['LE']['index']][0]; ?>
+                            <option value="<?php echo $this->_tpl_vars['MOD'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['MOD'][$this->_sections['LE']['index']][1]; ?>
 </option>
-                                <?php endfor; endif; ?>
-                            </select>
-                            <label>Seleccione un Modelo</label>
-                        </div>
-                        <div class="input-field">
-                            <select>
-                                <?php unset($this->_sections['LE']);
+                            <?php endfor; endif; ?>
+                        </select>
+                        <label>Seleccione un Modelo</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="vidunidad">
+                            <?php unset($this->_sections['LE']);
 $this->_sections['LE']['name'] = 'LE';
 $this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['UNI']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['LE']['show'] = true;
@@ -281,46 +284,81 @@ $this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->
 $this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
 $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
 ?>
-                                <option value="<?php echo $this->_tpl_vars['UNI'][$this->_sections['LE']['index']][0]; ?>
+                            <option value="<?php echo $this->_tpl_vars['UNI'][$this->_sections['LE']['index']][0]; ?>
 "><?php echo $this->_tpl_vars['UNI'][$this->_sections['LE']['index']][1]; ?>
 </option>
-                                <?php endfor; endif; ?>
-                            </select>
-                            <label>Seleccione una Unidad</label>
-                        </div>
+                            <?php endfor; endif; ?>
+                        </select>
+                        <label>Seleccione una Unidad</label>
                     </div>
-                    <div class="col s6">
-                        <div class="input-field">
-                            <input type="text" id="vnombre" class="validate" value="">
-                            <label class="active" for="vnombre">Nombre</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="text" id="vcodigo" class="validate" value="">
-                            <label class="active" for="vcodigo">Código</label>
-                            <input type="hidden" id="vid" value="0">
-                            <input type="hidden" id="vidusuario" value="">
-                            <input type="hidden" id="vidsucursal" value="">
-                        </div>
-                        <div class="input-field">
-                            <input type="number" id="vcantidad" class="validate" value="" min="1">
-                            <label class="active" for="vcantidad">Cantidad</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="number" id="vminimo" class="validate" value="" min="1">
-                            <label class="active" for="vminimo">Mínimo</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="number" id="vmaximo" class="validate" value="" min="1">
-                            <label class="active" for="vmaximo">Máximo</label>
+                </div>
+                <div class="col s6">
+                    <div class="input-field">
+                        <input type="text" id="vnombre" class="formprod validate" value="">
+                        <label class="active" for="vnombre">Nombre</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="vcodigo" class="formprod validate" value="">
+                        <label class="active" for="vcodigo">Código</label>
+                        <input type="hidden" id="vid" value="0">
+                        <input type="hidden" id="vidusuario" value="">
+                        <input type="hidden" id="vidsucursal" value="">
+                    </div>
+                    <div class="input-field">
+                        <input type="number" id="vcantidad" class="formprod validate" value="" min="1">
+                        <label class="active" for="vcantidad">Cantidad</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="number" id="vminimo" class="formprod validate" value="" min="1">
+                        <label class="active" for="vminimo">Mínimo</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="number" id="vmaximo" class="formprod validate" value="" min="1">
+                        <label class="active" for="vmaximo">Máximo</label>
+                    </div>
+                </div>
+            </div>
+            <div id="financiero" class="row hide"><br>
+                <div class="col s6">
+                    <div class="input-field">
+                        <i class="material-icons prefix">¢</i>
+                        <input type="text" id="vcosto" class="formprod validate calcvv" value="0.00" data-mask="9999999999.99">
+                        <input type="hidden" id="hvcosto" value="">
+                        <label class="active" for="vcosto">Precio Costo</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">%</i>
+                        <input type="text" id="vganancia" class="formprod validate calcvv" value="0.00" data-mask="9999999999.99">
+                        <label for="vganancia">Ganancia</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">¢</i>
+                        <input type="text" id="vventa" class="validate calcvv" value="0.00" data-mask="9999999999.99">
+                        <input type="hidden" id="hventa" value="">
+                        <label for="vventa">Precio Venta</label>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="input-field col s10">
+                        <select id="imp"></select>
+                        <label>Seleccione un Impuesto</label>
+                    </div>
+                    <div class="col s2">
+                        <button type="button" class="btn-floating btn-large waves-effect waves-light blue" id="addimp"><i class="material-icons">add</i></button>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="collection hide" id="impuestos">
+                            <!-- <li class="collection-item" id="newimp1"><div><span id="vimv1" value="12">Venta - 12%</span><a class="secondary-content delimp" id="dimp1"><i class="material-icons">delete</i></a></div></li> -->
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="financiero" class="hide">
-            </div>
     </div>
     <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue" >Guardar</a>
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="addprod">Agregar</a>
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="editprod">Guardar</a>
         <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
     </div>
 </div>
@@ -329,7 +367,7 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
 
 
 
-<div class="modal fade" id="modal-salida">
+<div class="modal fade" id="modal-salida" style="width:70%">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -386,48 +424,35 @@ $this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-descuentos">
-    <div class="modal-dialog" role="document" style="width: 60%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title">Agregar Descuentos a <span id="dprod"></span></h4>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-danger err_" id="err2" style="display: none">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong id="errm2"></strong>
+
+<div id="modal-descuentos" class="modal modal-fixed-footer" style="width:70%">
+    <div class="modal-content">
+        <h4>Agregar Descuentos a <span id="dprod"></span></h4><hr>
+        <div class="row">
+            <div class="col s6">
+                <div class="input-field col s10">
+                    <select id="dscts"></select>
+                    <label>Seleccione un Descuento</label>
+                    <input type="hidden" id="idproducto" class="form-control" value="">
                 </div>
-                <div class="alert alert-success suc_" id="suc2" style="display: none">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong id="sucm2"></strong>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Agregar</b></div>
-                                <select id="dscts" class="form-control" required="required"></select>
-                            <div class="input-group-addon"><b>%</b></div>
-                            <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
-                            <input type="hidden" id="idproducto" class="form-control" value="">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 inv" id="tbldesc">
-                        <h3>Descuentos</h3>
-                        <div id="listadescuentos" style="width:60%"></div>
-                    </div>
+                <div class="col s2">
+                    <button type="button" class="btn-floating btn-large waves-effect waves-light blue" id="adddsct"><i class="material-icons">add</i></button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="gdesc">Guardar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+            <div class="col s6" id="tbldesc">
+                <h5>Descuentos</h5>
+                <ul class="collection " id="listadescuentos">
+                
+                </ul>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+            
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="gdesc">Guardar</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
+    </div>
+</div>
 
 </div> <!-- End mantProductos -->
 

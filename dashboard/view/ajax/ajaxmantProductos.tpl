@@ -1,6 +1,6 @@
 <div id="mantProd">
-<h2 align="center">Mantenimiento Productos</h2>
-<hr>
+<!-- <h2 align="center">Mantenimiento Productos</h2>
+<hr> -->
 <div class="row">
 <div class="col s6">
 <div class="input-field col s6">
@@ -42,8 +42,10 @@
     <td>{$PROD[LE][4]}</td>
     <td>{$PROD[LE][5]}</td>
     <td>
-    <a class="btn-floating waves-effect waves-light blue descuentos accion" id="desc{$PROD[LE][0]}" href="#modal-descuentos"><i class="material-icons">%</i></a>
-    <a class="btn-floating waves-effect waves-light blue salidainv" id="desc{$PROD[LE][0]}" href="#modal-descuentos"><i class="material-icons">%</i></a>
+    <a class="btn-floating waves-effect waves-light amber darken-3 descuentos " id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Agregar Descuentos"><i class="material-icons">%</i></a>
+    <a class="btn-floating waves-effect waves-light green salidainv" id="s{$PROD[LE][0]}" href="#modal-salida" title="Salida de Inventario"><i class=" fa fa-outdent"></i></a>
+    <a class="btn-floating waves-effect waves-light blue editprod" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"><i class="fa fa-pencil-square-o"></i></a>
+    <a class="btn-floating waves-effect waves-light red delprod" id="d{$PROD[LE][0]}" href="#modal-productos" title="Eliminar Producto"><i class="fa fa-times"></i></a>
     <!-- <span class="descuentos btn" id="desc{$PROD[LE][0]}" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
     <i class="fa fa-outdent salidainv" id="s{$PROD[LE][0]}" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
     <i class="fa fa-pencil-square-o btn editprod" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
@@ -78,88 +80,122 @@
         <h4>Agregar Producto</h4><hr>
             <nav class="blue">
                 <div class="nav-wrapper">
-                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <ul id="nav-mobile" class="left">
                         <li class="menuP active" id="tb1"><a>Datos Productos</a></li>
                         <li class="menuP" id="tb2"><a>Financiero</a></li>
                     </ul>
                 </div>
             </nav>
-            <div id="datosproductos"><br>
-                <div class="row">
-                    <div class="col s6">
-                        <div class="input-field">
-                            <select>
-                                {section name=LE loop=$FAM}
-                                <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
-                                {/section}
-                            </select>
-                            <label>Seleccione una Familia</label>
-                        </div>
-                        <div class="input-field">
-                            <select>
-                                {section name=LE loop=$TIP}
-                                <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>
-                                {/section}
-                            </select>
-                            <label>Seleccione un Tipo</label>
-                        </div>
-                        <div class="input-field">
-                            <select>
-                                {section name=LE loop=$MAR}
-                                <option value="{$MAR[LE][0]}">{$MAR[LE][1]}</option>
-                                {/section}
-                            </select>
-                            <label>Seleccione una Marca</label>
-                        </div>
-                        <div class="input-field">
-                            <select>
-                                {section name=LE loop=$MOD}
-                                <option value="{$MOD[LE][0]}">{$MOD[LE][1]}</option>
-                                {/section}
-                            </select>
-                            <label>Seleccione un Modelo</label>
-                        </div>
-                        <div class="input-field">
-                            <select>
-                                {section name=LE loop=$UNI}
-                                <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
-                                {/section}
-                            </select>
-                            <label>Seleccione una Unidad</label>
-                        </div>
+            <div id="datosproductos" class="row"><br>
+                <div class="col s6">
+                    <div class="input-field">
+                        <select id="vidfamilia">
+                            {section name=LE loop=$FAM}
+                            <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label>Seleccione una Familia</label>
                     </div>
-                    <div class="col s6">
-                        <div class="input-field">
-                            <input type="text" id="vnombre" class="validate" value="">
-                            <label class="active" for="vnombre">Nombre</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="text" id="vcodigo" class="validate" value="">
-                            <label class="active" for="vcodigo">Código</label>
-                            <input type="hidden" id="vid" value="0">
-                            <input type="hidden" id="vidusuario" value="">
-                            <input type="hidden" id="vidsucursal" value="">
-                        </div>
-                        <div class="input-field">
-                            <input type="number" id="vcantidad" class="validate" value="" min="1">
-                            <label class="active" for="vcantidad">Cantidad</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="number" id="vminimo" class="validate" value="" min="1">
-                            <label class="active" for="vminimo">Mínimo</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="number" id="vmaximo" class="validate" value="" min="1">
-                            <label class="active" for="vmaximo">Máximo</label>
+                    <div class="input-field">
+                        <select id="vidtipo">
+                            {section name=LE loop=$TIP}
+                            <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label>Seleccione un Tipo</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="vidmarca">
+                            {section name=LE loop=$MAR}
+                            <option value="{$MAR[LE][0]}">{$MAR[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label>Seleccione una Marca</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="vidmodelo">
+                            {section name=LE loop=$MOD}
+                            <option value="{$MOD[LE][0]}">{$MOD[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label>Seleccione un Modelo</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="vidunidad">
+                            {section name=LE loop=$UNI}
+                            <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label>Seleccione una Unidad</label>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="input-field">
+                        <input type="text" id="vnombre" class="formprod validate" value="">
+                        <label class="active" for="vnombre">Nombre</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="vcodigo" class="formprod validate" value="">
+                        <label class="active" for="vcodigo">Código</label>
+                        <input type="hidden" id="vid" value="0">
+                        <input type="hidden" id="vidusuario" value="">
+                        <input type="hidden" id="vidsucursal" value="">
+                    </div>
+                    <div class="input-field">
+                        <input type="number" id="vcantidad" class="formprod validate" value="" min="1">
+                        <label class="active" for="vcantidad">Cantidad</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="number" id="vminimo" class="formprod validate" value="" min="1">
+                        <label class="active" for="vminimo">Mínimo</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="number" id="vmaximo" class="formprod validate" value="" min="1">
+                        <label class="active" for="vmaximo">Máximo</label>
+                    </div>
+                </div>
+            </div>
+            <div id="financiero" class="row hide"><br>
+                <div class="col s6">
+                    <div class="input-field">
+                        <i class="material-icons prefix">¢</i>
+                        <input type="text" id="vcosto" class="formprod validate calcvv" value="0.00" data-mask="9999999999.99">
+                        <input type="hidden" id="hvcosto" value="">
+                        <label class="active" for="vcosto">Precio Costo</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">%</i>
+                        <input type="text" id="vganancia" class="formprod validate calcvv" value="0.00" data-mask="9999999999.99">
+                        <label for="vganancia">Ganancia</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">¢</i>
+                        <input type="text" id="vventa" class="validate calcvv" value="0.00" data-mask="9999999999.99">
+                        <input type="hidden" id="hventa" value="">
+                        <label for="vventa">Precio Venta</label>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="input-field col s10">
+                        <select id="imp"></select>
+                        <label>Seleccione un Impuesto</label>
+                    </div>
+                    <div class="col s2">
+                        <button type="button" class="btn-floating btn-large waves-effect waves-light blue" id="addimp"><i class="material-icons">add</i></button>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="collection hide" id="impuestos">
+                            <!-- <li class="collection-item" id="newimp1"><div><span id="vimv1" value="12">Venta - 12%</span><a class="secondary-content delimp" id="dimp1"><i class="material-icons">delete</i></a></div></li> -->
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="financiero" class="hide">
-            </div>
     </div>
     <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue" >Guardar</a>
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="addprod">Agregar</a>
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="editprod">Guardar</a>
         <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
     </div>
 </div>
@@ -168,7 +204,7 @@
 
 
 
-<div class="modal fade" id="modal-salida">
+<div class="modal fade" id="modal-salida" style="width:70%">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -200,48 +236,35 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-descuentos">
-    <div class="modal-dialog" role="document" style="width: 60%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title">Agregar Descuentos a <span id="dprod"></span></h4>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-danger err_" id="err2" style="display: none">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong id="errm2"></strong>
+
+<div id="modal-descuentos" class="modal modal-fixed-footer" style="width:70%">
+    <div class="modal-content">
+        <h4>Agregar Descuentos a <span id="dprod"></span></h4><hr>
+        <div class="row">
+            <div class="col s6">
+                <div class="input-field col s10">
+                    <select id="dscts"></select>
+                    <label>Seleccione un Descuento</label>
+                    <input type="hidden" id="idproducto" class="form-control" value="">
                 </div>
-                <div class="alert alert-success suc_" id="suc2" style="display: none">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong id="sucm2"></strong>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Agregar</b></div>
-                                <select id="dscts" class="form-control" required="required"></select>
-                            <div class="input-group-addon"><b>%</b></div>
-                            <div class="input-group-addon but" id="adddsct"><i class="fa fa-plus but"></i></div>
-                            <input type="hidden" id="idproducto" class="form-control" value="">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 inv" id="tbldesc">
-                        <h3>Descuentos</h3>
-                        <div id="listadescuentos" style="width:60%"></div>
-                    </div>
+                <div class="col s2">
+                    <button type="button" class="btn-floating btn-large waves-effect waves-light blue" id="adddsct"><i class="material-icons">add</i></button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="gdesc">Guardar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+            <div class="col s6" id="tbldesc">
+                <h5>Descuentos</h5>
+                <ul class="collection " id="listadescuentos">
+                
+                </ul>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+            
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="gdesc">Guardar</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
+    </div>
+</div>
 
 </div> <!-- End mantProductos -->
 

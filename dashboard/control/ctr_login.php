@@ -80,9 +80,9 @@
    			if (isset($_REQUEST['arreglo']['join'])) {
    				$join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
    			}
-            if(isset($_REQUEST['arreglo']['cambio'])){
-                $_REQUEST['arreglo']['tbl'] = $_REQUEST['arreglo']['cambio'];
-            }
+        if(isset($_REQUEST['arreglo']['cambio'])){
+            $_REQUEST['arreglo']['tbl'] = $_REQUEST['arreglo']['cambio'];
+        }
             
    			if (!is_array($transaccion)) {
    				$pagina = 0;
