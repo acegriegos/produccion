@@ -23,7 +23,7 @@
 {$NAV}
 <nav class="nav-extended blue">
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo center">Inventario</a>
+      <a class="brand-logo center">Inventario</a>
       <br>
       <ul class="tabs tabs-transparent">
         <li class="tab menu3" id="m1"><a href="#">Productos</a></li>
@@ -32,20 +32,6 @@
       </ul>
     </div>
   </nav>
-    <!-- <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-        <a class="navbar-brand" href="#"><b>Inventario</b></a>
-        <ul class="nav navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link menu3 active" id="m1" href="#">Productos</a>
-            </li>
-            <li class="nav-item menu3" id="m2">
-                <a class="nav-link" href="#">Servicios</a>
-            </li>
-            <li class="nav-item menu3" id="m3">
-                <a class="nav-link" href="#">Paquetes</a>
-            </li>
-        </ul>
-    </nav> -->
     <br>
     <div class="formServ" id="fservicios">
         <div id="bdymantInventario"></div>

@@ -15,9 +15,8 @@
 </div>
 <div class="col s6">
     <a id="ingInvProd" class="btn-floating btn-large waves-effect waves-light right blue" href="#modal-productos"><i class="material-icons">add</i></a>
-    <!-- <button type="button" id="ingInvProd" class="btn btn-primary der" data-toggle="modal" href="#modal-productos" style="margin-right: 15px; padding: 16px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button> -->
 </div>
-</div><br><br>
+</div>
 
 <div class="row">
 <div class="col-md-12 col-lg-12">
@@ -45,37 +44,18 @@
     <a class="btn-floating waves-effect waves-light amber darken-3 descuentos " id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Agregar Descuentos"><i class="material-icons">%</i></a>
     <a class="btn-floating waves-effect waves-light green salidainv" id="s{$PROD[LE][0]}" href="#modal-salida" title="Salida de Inventario"><i class=" fa fa-outdent"></i></a>
     <a class="btn-floating waves-effect waves-light blue editprod" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"><i class="fa fa-pencil-square-o"></i></a>
-    <a class="btn-floating waves-effect waves-light red delprod" id="d{$PROD[LE][0]}" href="#modal-productos" title="Eliminar Producto"><i class="fa fa-times"></i></a>
-    <!-- <span class="descuentos btn" id="desc{$PROD[LE][0]}" data-toggle="modal" href="#modal-descuentos" title="Agregar Descuentos a Producto"><b>%</b></span>
-    <i class="fa fa-outdent salidainv" id="s{$PROD[LE][0]}" data-toggle="modal" href="#modal-salida" modulo="producto" title="Salida de Inventario"></i>
-    <i class="fa fa-pencil-square-o btn editprod" id="m{$PROD[LE][0]}" data-toggle="modal" href="#modal-productos" title="Editar Producto"></i>
-    <i class="fa fa-times btn delprod" id="d{$PROD[LE][0]}" style="color: #D9534F" title="Eliminar Producto"></i> -->
+    <a class="btn-floating waves-effect waves-light red delprod" id="d{$PROD[LE][0]}" title="Eliminar Producto"><i class="fa fa-times"></i></a>
     </td>
     </tr>
     {/section}
     </tbody>
     </table>
     </div>
-    <br>
-    <div class="alert alert-danger err_" id="err3" style="display:none">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong id="errm3"></strong>
-    </div>
-    <div class="alert alert-success suc_" id="suc3" style="display:none">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong id="sucm3"></strong>
-    </div><br><br>
+    <br><br><br>
 </div>
 </div>
 
-<!-- <nav class="navbar navbar-light bg-faded">
-      <div class="nav navbar-nav">
-        <a class="nav-item nav-link active menuP" href="#" id="tb1">Datos Producto</a>
-        <a class="nav-item nav-link menuP" href="#" id="tb2">Financiero</a>
-      </div>
-    </nav> -->
-
-<div id="modal-productos" class="modal modal-fixed-footer" style="width:70%">
+<div id="modal-productos" class="modal modal-fixed-footer" style="width:70%;max-height:100%">
     <div class="modal-content">
         <h4>Agregar Producto</h4><hr>
             <nav class="blue">
@@ -90,6 +70,7 @@
                 <div class="col s6">
                     <div class="input-field">
                         <select id="vidfamilia">
+                            <option value="0" disabled selected>Seleccione una Opción</option>
                             {section name=LE loop=$FAM}
                             <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
                             {/section}
@@ -98,6 +79,7 @@
                     </div>
                     <div class="input-field">
                         <select id="vidtipo">
+                            <option value="0" disabled selected>Seleccione una Opción</option>
                             {section name=LE loop=$TIP}
                             <option value="{$TIP[LE][0]}">{$TIP[LE][1]}</option>
                             {/section}
@@ -106,6 +88,7 @@
                     </div>
                     <div class="input-field">
                         <select id="vidmarca">
+                            <option value="0" disabled selected>Seleccione una Opción</option>
                             {section name=LE loop=$MAR}
                             <option value="{$MAR[LE][0]}">{$MAR[LE][1]}</option>
                             {/section}
@@ -114,6 +97,7 @@
                     </div>
                     <div class="input-field">
                         <select id="vidmodelo">
+                            <option value="0" disabled selected>Seleccione una Opción</option>
                             {section name=LE loop=$MOD}
                             <option value="{$MOD[LE][0]}">{$MOD[LE][1]}</option>
                             {/section}
@@ -122,6 +106,7 @@
                     </div>
                     <div class="input-field">
                         <select id="vidunidad">
+                            <option value="0" disabled selected>Seleccione una Opción</option>
                             {section name=LE loop=$UNI}
                             <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
                             {/section}

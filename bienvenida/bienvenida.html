@@ -7,13 +7,13 @@
 <!-- <meta http-equiv="Cache-Control" content="max-age=86400"/> -->
 <title>Bienvenida</title>
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/css/materialize.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
 <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/animate.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu1.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 <link rel="stylesheet" type="text/css" href="../bienvenida/bienvenida.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,281 +24,94 @@
 
 </head>
 <body>
-<div class="bdy" align="center">
-<!-- <hr>
-<h3 id="hb" align="center" style="margin-right:3%">Bienvenido(a)</h3> -->
-<!-- <form id="correo">
-	<div class="row">
-		<div class="col-md-2 col-lg-2">
-			<p>Digite su correo:</p>
-		</div>
-		<div class="col-md-3 col-lg-3">
-			<input type="text" id="mail" class="form-control" value="" placeholder="Correo del Administrador"><br>
-			<div class="alert alert-danger err_" id="err1" style="display: none">
-				<strong id="errm1"></strong>
-			</div>
-		</div>
-		<div class="col-md-7 col-lg-7"></div>
-	</div>
-	<div class="row">
-		<div class="col-md-5 col-lg-5">
-			<button type="submit" class="btn btn-primary der">Enviar</button>
-		</div>
-		<div class="col-md-7 col-lg-7"></div>
-	</div>
-</form> -->
+<div class="bdy">
+<nav>
+  <div class="nav-wrapper blue">
+    <span class="brand-logo center">Configuración</span>
+  </div>
+</nav>
+<div class="container center-align">
+<div class="row" id="panel1">
+  <div class="col s12 m12 l12">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Información de Empresa</span>
+        <p><small>- Ingerse la información que se le solicita con el fin de configurar elementos definidos en el sistema <i>(facturas, recibos, ...)</i> -</small></p>
+        <br>
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="input-field">
+                <select>
+                  <option value="" selected>Elija una opción</option>
+                  <option value="1">Norteamérica</option>
+                  <option value="2">América Central</option>
+                  <option value="3">Suramérica</option>
+                </select>
+                <label>Región</label>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="input-field">
+                <input type="text" id="autocomplete-input" class="pais">
+                <label for="autocomplete-input">País</label>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="input-field">
+                <select>
+                  <option value="" selected>Elija una opción</option>
+                  <option value="1">(GMT-06:00) Central Time</option>
+                </select>
+                <label>Zona Horaria</label>
+              </div>
+          </div> 
+      </div>
+      <br>
+      <span class="card-title">Moneda</span>
+      <p><small>- Seleccione la moneda principal sobre la cuál se basa el cálculo de todas las operaciones del sistema por defecto -</small></p>
 
-<!-- <form id="licencia" class="inv">
-	<div class="row">
-		<div class="col-md-5 col-lg-5">
-			<div class="alert alert-success suc_" id="suc1" style="display: none">
-				<strong id="sucm1"></strong>
-			</div>
-		</div>
-		<div class="col-md-7 col-lg-7"></div>
-	</div>
-	<div class="row">
-		<div class="col-md-2 col-lg-2">
-			<p>Código de activación</p>
-		</div>
-		<div class="col-md-3 col-lg-3">
-			<input type="text" id="vlicencia" class="form-control" value="">
-		</div>
-		<div class="col-md-7 col-lg-7"></div><br><br>
-		<div class="col-md-5 col-lg-5">
-			<div class="alert alert-danger err_" id="err4" align="center" style="display: none">
-				<strong id="errm4"></strong>
-			</div>
-		</div>
-	</div><br>
+      <div class="card-action">
+        <a href="#" id="prev">Anterior</a>
+        <a href="#" id="next">Siguiente</a>
+      </div>
+    </div>
+  </div>
+</div>
 
+</div>  <!-- container -->
+</div> <!-- bdy -->
 
-	<div class="row">
-		<div class="col-md-5 col-lg-5">
-			<button type="submit" class="btn btn-primary der">Activar</button>
-		</div>
-	</div>
-</form> -->
-<br>
-<div class="container">
-<!-- <h3 class="titp">Configuración</h3>
-<hr> -->
-<!-- <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false"> -->
-<!-- <div class="carousel-inner"> -->
-<!-- ****************************** -->
-<!-- <div class="carousel-item active"> -->
-<div id="info">
-<h2 class="card-title">Información de la Empresa</h4>
-<small><p class="text-muted"> - Ingerse la información que se le solicita con el fin de configurar elementos definidos en el sistema <i>(facturas, recibos,...)</i> -</p></small>
-    <div class="card-block" id="section1">
+<footer class="page-footer blue hide-on-med-and-down">
+  <div class="container">
     <div class="row">
-        <div class="col-md-4 mod" id="mod1">
-          <div class="form-group">
-            <label for="exampleSelect1"><i class="fa fa-globe fa-2x"></i></label>
-            <select class="form-control" id="exampleSelect1">
-              <option>Seleccione una región...</option>
-              <option>Centro América</option>
-              <option>América Norte</option>
-              <option>América del Sur</option>
-            </select>
-          </div>
-          </div>
-
-          <div class="col-md-4 mod" id="mod2">
-          <div class="form-group">
-            <label for="exampleSelect1"><i class="fa fa-flag fa-2x"></i></label>
-            <select class="form-control" id="exampleSelect1">
-              <option>Seleccione un país...</option>
-              <option>Costa Rica</option>
-              <option>Nicaragua</option>
-            </select>
-          </div>
-          </div>
-
-          <div class="col-md-4 mod" id="mod3">
-          <div class="form-group">
-            <label for="exampleSelect1"><i class="fa fa-clock-o fa-2x"></i></label> 
-            <select class="form-control" id="exampleSelect1">
-                <option>Seleccione una zona horaria...</option>
-                <option value="America/Chicago">(GMT-06:00) Central Time </option>
-            </select>
-          </div>
-          </div>
-
-        <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
-            <strong id="errm2"></strong>
-        </div>
-        <div class="alert alert-success suc_" id="suc2" style="display: none">
-            <strong id="sucm2"></strong>
-        </div>
-    </div>
-    <br>
-    <!-- <div class="card-header card-primary"> -->
-    <h5 class="titmon">Configuración de monedas</h5>
-    <small><p class="text-muted"> - Seleccione la moneda principal sobre la cuál se basa el cálculo de todas las operaciones del sistema por defecto -</p></small>
-    <!-- </div> -->
-    <div class="card-block" align="center" id="section-moneda">
-        <button type="button" class="btn btn-default moneda" id="dol1" estado="0"><b class="mon">$</b><br><small><span class="text-muted txdol">DÓLAR</span></small></button>
-        <button type="button" class="btn btn-default moneda" id="col1" estado="0"><b class="mon">₡</b><br><small><span class="text-muted txcol">COLÓN</span></small></button>
-        <button type="button" class="btn btn-default moneda" id="eur1" estado="0"><b class="mon">€</b><br><small><span class="text-muted txeur">EURO</span></small></button>
-        <button type="button" class="btn btn-default monp" id="eur1" estado="0" data-toggle="modal" href='#modal-id'><i class="fa fa-plus"></i></button>
-    </div>
-</div>
-</div>
-<!-- </div> -->
-
-<div class="modal fade" id="modal-id">
-  <div class="modal-dialog" style="width:30%">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Agregar Moneda</h4>
-      </div>
-      <div class="modal-body">
-          <input align="center" type="text" class="form-control form-control-lg" id="exampleInputAmount" placeholder="Descripción"><br>
-          <input align="center" type="text" class="form-control form-control-lg" id="exampleInputAmount" placeholder="Símbolo">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Agregar</button>
+      <div class="col s12 m12">
+        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
       </div>
     </div>
   </div>
-</div>
-<!-- ****************************** -->
-<!-- <div class="carousel-item"> -->
-<div class="card" id="info2" style="display: none">
-<div class="card-header card-primary">
-<h4 class="card-title">Información de la Empresa</h4></div>
-  <div class="card-block">
-      <div class="row">
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Nombre</b></div>
-                  <input type="text" class="form-control infoempresa" id="vnombre" placeholder="Nombre de la empresa" field="empresa">
-              </div>
-              
-          </div>
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Cédula</b></div>
-                  <input type="text" class="form-control infoempresa" id="vcedula" placeholder="Cédula Jurídica" field="Cjuridica">
-              </div>
-              
-          </div>
-      </div><br>
-      <div class="row">
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Teléfono</b></div>
-                  <input type="text" class="form-control infoempresa" id="vtelefono" placeholder="Teléfono de la Empresa" data-mask="9999-9999 || 9999-9999 || 9999-9999" field="telefonos">
-              </div>
-              
-          </div>
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Correo</b></div>
-                  <input type="text" class="form-control infoempresa" id="vcorreo" placeholder="Correo" field="correo">
-              </div>
-          </div>
-      </div><br>
-      <div class="row">
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Dirección</b></div>
-                  <input type="text" id="vdireccion" class="form-control infoempresa" value="" placeholder="Dirección de la empresa" field="direccion">
-              </div>
-          </div>
-          <div class="col-md-6 col-lg-6"></div>
-      </div><br>
-      <div class="alert alert-danger err_" id="err2" align="center" style="display: none">
-          <strong id="errm2"></strong>
-      </div>
-      <div class="alert alert-success suc_" id="suc2" style="display: none">
-          <strong id="sucm2"></strong>
-      </div>
-  </div>
-</div>
-<!-- </div> -->
-<!-- ****************************** -->
-<!-- <div class="carousel-item"> -->
-<div class="card" id="imp" hidden>
-<h4 class="card-header card-primary">Impuestos</h4>
-  <div class="card-block">
-      <div class="row">
-          <div class="col-md-6 col-lg-6">
-              <div class="input-group">
-                  <div class="input-group-addon"><b>Nombre Impuesto</b></div>
-                  <input type="text" class="form-control" id="vimpuesto" placeholder="Nombre del Impuesto">
-                  <div class="input-group-addon btn"><i class="fa fa-plus" id="addimp"></i></div>
-              </div>
-          </div>
-          <div class="col-md-6 col-lg-6"></div>
-      </div><br><br>
-      <div id="dimpuestos"></div><br>
-      <div class="alert alert-danger err_" id="err5" align="center" style="display: none">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <strong id="errm5"></strong>
-      </div>
-      <div class="alert alert-success suc_" id="suc5" align="center" style="display: none">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <strong id="sucm5"></strong>
-      </div>
-  </div>
-</div>
-<!-- </div> -->
-<!-- ****************************** -->
-<!-- </div>end .carousel-inner -->
-<!-- </div>end .carousel slide -->
-</div><!-- end .container -->
-<!-- ****************************** -->
-<footer align="center">
-<button type="button" class="btn btn-default but left">Atrás</button>
-<button type="button" class="btn btn-primary but right">Siguiente</button>
-<!-- <button type="button" class="btn btn-primary" id="saveinfo">Guardar</button> -->
-<!-- Indicators -->
-<div class="container" position="0">
-    <div class="row bs-wizard" style="border-bottom:0;">
-        
-        <div id="stp1" class="col-xs-3 bs-wizard-step active">
-          <div class="text-center bs-wizard-stepnum"><b class="steptit">Paso 1</b></div>
-          <div class="progress"><progress id="progress" class="progress progress-bar" value="100" max="100"></progress></div>
-          <a href="#" class="bs-wizard-dot"></a>
-          <div class="bs-wizard-info text-center"><span class="steppsubt">Configuración Regional</span></div>
-        </div>
-        
-        <div id="stp2" class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
-          <div class="text-center bs-wizard-stepnum"><b class="steptit">Paso 2</b></div>
-          <div class="progress"><!-- <progress id="progress2" class="progress progress-primary progress-bar" value="0" max="100"></progress> --></div>
-          <a href="#" class="bs-wizard-dot"></a>
-          <div class="bs-wizard-info text-center"><span class="steppsubt">Información de la Compañía</span></div>
-        </div>
-        
-        <div id="stp3" class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
-          <div class="text-center bs-wizard-stepnum"><b class="steptit">Paso 3</b></div>
-          <div class="progress"><!-- <progress id="progress3" class="progress progress-primary progress-bar" value="0" max="100"></progress> --></div>
-          <a href="#" class="bs-wizard-dot"></a>
-          <div class="bs-wizard-info text-center"><span class="steppsubt">Información Contable</span></div>
-        </div>
-        
-        <div id="stp4" class="col-xs-3 bs-wizard-step disabled"><!-- active -->
-          <div class="text-center bs-wizard-stepnum"><b class="steptit">Paso 4</b></div>
-          <div class="progress"><!-- <progress id="progress4" class="progress progress-primary progress-bar" value="0" max="100"></progress> --></div>
-          <a href="#" class="bs-wizard-dot"></a>
-          <div class="bs-wizard-info text-center"><span class="steppsubt">Curabitur mollis</span></div>
-        </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2014 Copyright Text
     </div>
-</div>
+  </div>
 </footer>
-
+<!-- <footer class="page-footer blue">
+  <div class="container hide-on-small-only">
+    <p class="white-text">Configuración Inicial de Sistema</p>
+    <p class="white-text">Toda información slicitada en esta sección del software es Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2016 Copyright LoginTechnologies S.A
+    </div>
+  </div>
+</footer> -->
 <script src="../assets/js/jquery.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/materialize.js"></script>
 <script src="../assets/js/mask/jquery.mask.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
 <script src="../assets/js/asgard.js"></script>
 <script src="../bienvenida/bienvenida.js"></script>
-
-</div>
 </body>
 </html>

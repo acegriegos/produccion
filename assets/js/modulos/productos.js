@@ -1,6 +1,4 @@
 $(function(){
-	
-
 	$(".menu3").click(function(){
 		var id = $(this).attr('id').substr(1);
 
@@ -53,125 +51,20 @@ $(function(){
 				    minChars: 1,
 				    source: function(term, response){
 				        term = term.toLowerCase();
-				        // var arr = {};
-				        // arr['sel'] = 'concat(nombre," - ",sventa)';
-				        // arr['tbl'] = 14;
-				        // arr['where'] = '';
-				        // msuggest = mantenimiento('login',4,arr)[0]; 
 				        msuggest = arr('login',4,'nombreprecio',77,'nombre like \"%'+term+'%\"','',0,'')[0];
 				        response(msuggest);
 					}
 				});
-					// AUTO COMPLETE PRODUCTOS
-					// var optionsp = {
-
-					// 	  url: function(phrase) {
-					// 	  	getDatos('productos');
-					// 	    return 'view/getPkg.php';
-					// 	  },
-
-					// 	  getValue: function(element) {
-					// 	    return element[0];
-					// 	  },
-
-					// 	  ajaxSettings: {
-					// 	    dataType: "json",
-					// 	    method: "POST",
-					// 	    data: {
-					// 	      dataType: "json"
-					// 	    }
-					// 	  },
-
-					// 	  preparePostData: function(data) {
-					// 	    data.phrase = $("#textProd").val();
-					// 	    return data;
-					// 	  },
-
-					// 	  requestDelay: 400
-					// 	};
-
-					// $("#descrP").easyAutocomplete(optionsp);
-						// AUTO COMPLETE PRODUCTOS
-
-						// AUTO COMPLETE SERVICIOS
-					var optionss = {
-
-						  url: function(phrase) {
-						  	getDatos('servicios');
-						    return 'view/getServ.php';
-						  },
-
-						  getValue: function(element) {
-						    return element[0];
-						  },
-
-						  ajaxSettings: {
-						    dataType: "json",
-						    method: "POST",
-						    data: {
-						      dataType: "json"
-						    }
-						  },
-
-						  preparePostData: function(data) {
-						    data.phrase = $("#textServ").val();
-						    return data;
-						  },
-
-						  requestDelay: 400
-						};
-
-					$("#descrS").easyAutocomplete(optionss);
-					// AUTO COMPLETE SERVICIOS
-				// BADGE
-					// $('#textProd')
-					// .on('tokenfield:createtoken', function (e) {
-					// 	var data = e.attrs.value.split('|')
-					// 	e.attrs.value = data[1] || data[0]
-					// 	e.attrs.label = data[1] ? data[0] + ' (' + data[1] + ')' : data[0]
-					// })
-					// .on('tokenfield:edittoken', function (e) {
-					// 	if (e.attrs.label !== e.attrs.value) {
-					// 	  var label = e.attrs.label.split(' (')
-					// 	  e.attrs.value = label[0] + '|' + e.attrs.value
-					// 	}
-					// })
-					// .on('tokenfield:removedtoken', function (e) {
-						
-					// })
-					// .tokenfield();
-					// BADGE
-
-					// BADGE
-					// $('#textServ')
-					// .on('tokenfield:createtoken', function (e) {
-					// 	var data = e.attrs.value.split('|')
-					// 	e.attrs.value = data[1] || data[0]
-					// 	e.attrs.label = data[1] ? data[0] + ' (' + data[1] + ')' : data[0]
-					// })
-					// .on('tokenfield:edittoken', function (e) {
-					// 	if (e.attrs.label !== e.attrs.value) {
-					// 	  var label = e.attrs.label.split(' (')
-					// 	  e.attrs.value = label[0] + '|' + e.attrs.value
-					// 	}
-					// })
-					// .on('tokenfield:removedtoken', function (e) {
-						
-					// })
-					// .tokenfield();
-					// BADGE
 				break;
 		}
+		$('select').material_select();
+		$('.dropdown-button').dropdown();
+		$('.modal').modal();
 	});
-
-	$("#m1").click();
-
+	$("#m2").click();
 });
 $(document).ready(function(){
 	// Materialize
-	$('select').material_select();
-	$('.dropdown-button').dropdown();
-	$('.modal').modal();
 
 	//Materialize
 });
@@ -185,7 +78,6 @@ $(document).on("click",".menuP",function(){
 			$("#financiero").addClass('hide');
 			$("#descuentos").addClass('hide');
 			$("#datosproductos").removeClass('hide');
-			$("#vfamilia").focus();
 			break;
 		case 2:
 			$("#datosproductos").addClass('hide');
@@ -194,7 +86,6 @@ $(document).on("click",".menuP",function(){
 			$('select').material_select('destroy');
 			arr('login',6,'*',51,'id > 0',48,1,$("#imp"));
 			$('select').material_select();
-			
 			$("#vcosto").select();
 			break;
 		case 3:
@@ -292,29 +183,24 @@ $(document).on("click","#gdesc",function(){
 	if (action == 1) {
 		$(".descprod").each(function(){
 			var iddescuento = $(this).attr('id').substr(5);
-			var descuentos = arr('login',4,'',90,'1,0,0,'+iddescuento+',null,null,'+idproducto+',11','',0,'');
+			var descuentos = arr('login',4,'',95,'1,0,0,'+iddescuento+',null,null,'+idproducto+',11','',0,'');
 			if (descuentos[0] != '[object Object]') {
-				Materialize.toast('Descuento Agregado Correctamente', 6000);
+				Materialize.toast('Descuento Agregado Correctamente', 6000, 'green');
 			}else{
-				Materialize.toast(descuentos[0]['ERROR'], 6000);
+				Materialize.toast(descuentos[0]['ERROR'], 6000, 'red');
 			}
 			
 		});
 	}else{
-		var array = {};
-		array['accion'] = 3;
-		array['tabla'] = 79;
-		array['arg1'] = 'idfila = '+idproducto+' and idtabla = 11';
-		array['arg2'] = '';
-		mantenimiento('login',7,array);
+		arr('login',7,'3',79,'idfila = '+idproducto+' and idtabla = 11','',0,'');
 
 		$(".descprod").each(function(){
 			var iddescuento = $(this).attr('id').substr(5);
-			var descuentos = arr('login',4,'',90,'1,0,0,'+iddescuento+',null,null,'+idproducto+',11','',0,'');
+			var descuentos = arr('login',4,'',95,'1,0,0,'+iddescuento+',null,null,'+idproducto+',11','',0,'');
 			if (descuentos[0] != '[object Object]') {
-				Materialize.toast('Descuento Agregado Correctamente', 6000);
+				Materialize.toast('Descuento Agregado Correctamente', 6000, 'green');
 			}else{
-				Materialize.toast(descuentos[0]['ERROR'], 6000);
+				Materialize.toast(descuentos[0]['ERROR'], 6000, 'red');
 			}
 		});
 	}
@@ -333,7 +219,7 @@ $(document).on("click","#addimp",function(){
 			totalizar($("#hvcosto").val(),$("#vganancia").val());
 		}
 	}else{
-		Materialize.toast('Impuesto '+nombre+' Agregado Anteriormente', 6000);
+		Materialize.toast('Impuesto '+nombre+' Agregado Anteriormente', 6000, 'yellow accent-4');
 	}
 });
 
@@ -375,7 +261,8 @@ $(document).on("click","#addprod",function(){
 			Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
 			arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
 			vaciar('productos');
-			$("#vidfamilia").focus();
+			Materialize.updateTextFields();
+			$("#impuestos").addClass('hide');
 		}else{
 			Materialize.toast(idproducto[0]['ERROR'], 6000, 'red');
 		}
@@ -430,13 +317,12 @@ $(document).on("click",".editprod",function(){
 	var p = arr('login',4,'idfamilia,idtipo,idmarca,idmodelo,nombre,codigo,idunidad,minimo,maximo,costo,ganancia,fventa,venta,maxdescuento',14,'id = '+id,'',0,'')[0][0];
 	var cant = arr('login',4,'replace(cantidad,".00","")',97,'idproducto = '+id,'',0,'')[0][0];
 	var imp = arr('login',4,'idimpuesto,impuesto,valor',83,'idproducto = '+id,'',0,'')[0];
-	// var desc = arr('login',4,'descuento',84,'idproducto = '+id,'',0,'')[0];
-	//modal
 	$(".accmodalProd").html("Actualizar Producto "+p[5]);
 	$("#addprod").addClass('hide');
 	$("#editprod").removeClass('hide');
 	$("#editprod").attr('idprod',id);
-
+	$("#impuestos").removeClass('hide');
+	$("#impuestos").html('');
 	//cargar
 	$("#vidfamilia").val(p[0]);
 	$("#vidtipo").val(p[1]);
@@ -468,8 +354,8 @@ $(document).on("click",".editprod",function(){
 $(document).on("click",".descuentos",function(){
 	var id = $(this).attr('id').substr(4);
 	var prod = arr('login',4,'nombre',11,'id = '+id,'',0,'')[0];
-	// $("#tbldesc").hide();
-	// $("#listadescuentos").html('');
+	$("#tbldesc").addClass('hide');
+	$("#listadescuentos").html('');
 	$("#idproducto").val(id);
 	$("#dprod").text(prod);
 	$('select').material_select('destroy');
@@ -481,15 +367,15 @@ $(document).on("click",".descuentos",function(){
 	if (ifdesc != 0) {
 		var desc = arr('login',4,'iddescuento',79,'idfila = '+id+' and idtabla = 11','',0,'')[0];
 		$.each( desc, function( index, value ){
-			var valor = arr('login',4,'replace(valor,".00","")',89,'id = '+value,'',0,'')[0];
+			var valor = arr('login',4,'replace(valor,".00","")',94,'id = '+value,'',0,'')[0];
 			index += 1;
-    		$("#tbldesc").show();
-			$("#listadescuentos").append('<div class="container-fluid" id="ld'+index+'"><ul class="list-group"><li class="list-group-item" align="center"><span class="descprod" id="vdesc'+index+'">'+valor+' % <i class="fa fa-times btn asterisco deldesc" id="deldesc'+index+'"></i></li></ul></div>');
+    		$("#tbldesc").removeClass('hide');
+			$("#listadescuentos").append('<li class="collection-item dismissable" id="ld'+index+'"><div><span class="descprod" id="vdesc'+index+'">'+valor+'%</span><a class="secondary-content"><i class="material-icons but deldesc" id="deldesc'+index+'">delete</i></a></div></li>');
 		});
 		$("#gdesc").attr('action',2)
 	}else{
-		// $("#tbldesc").hide();
-		// $("#listadescuentos").html('');
+		$("#tbldesc").addClass('hide');
+		$("#listadescuentos").html('');
 		$("#gdesc").attr('action',1)
 	}
 
@@ -1177,6 +1063,10 @@ $(document).on("click","#ingInvProd",function(){
 	$("#editprod").addClass('hide');
 	$(".accmodalProd").html('Agregar Producto');
 	$("#ajaxProductos").html('');
+	$("#impuestos").addClass('hide');
+	$("#impuestos").html('');
+	vaciar('productos');
+	Materialize.updateTextFields();
 	setTimeout(function(){$("#vfamilia").focus();},500)
 
 });
@@ -1190,10 +1080,11 @@ $(document).on("click","#ingInvServ",function(){
 	$("#addV").html('Agregar');
 	
 	$("input[name=sPeriodo]").prop('checked',false);
-	$("vdescripcion").val('');
+	$("#vdescripcion").val('');
 
 	deadclear('servicio');
-
+	Materialize.updateTextFields();
+	$("#vdescripcion").characterCounter();
 	$("#vidtipo").val(0);
 	$("#ajaxServicio").html('');
 });
@@ -1209,7 +1100,7 @@ $(document).on("click","#ingInvPqts",function(){
 	$("#editpck").hide();
 	$("#addpqt").show();
 	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
-	
+	Materialize.updateTextFields();
 	setTimeout(function(){ $("#vnombre").focus() },500);
 
 });
@@ -1283,9 +1174,9 @@ function sendfocus(pos) {
 function adddesc(vdesc,vvalor) {
 	if ($("#vdesc"+vdesc).text() == '') {
 		$("#tbldesc").removeClass('hide');
-		$("#listadescuentos").append('<li class="collection-item dismissable" id="ld'+vdesc+'"><div><span class="descprod" id="vdesc'+vdesc+'">'+vvalor+'%</span><a class="secondary-content"><i class="material-icons but deldesc" id="deldesc'+vdesc+'">delete</i></a></div></li>')
+		$("#listadescuentos").append('<li class="collection-item dismissable" id="ld'+vdesc+'"><div><span class="descprod" id="vdesc'+vdesc+'">'+vvalor+'%</span><a class="secondary-content"><i class="material-icons but deldesc" id="deldesc'+vdesc+'">delete</i></a></div></li>');
 	}else{
-		Materialize.toast('Descuento del '+vvalor+'% Ya Existe', 6000, 'red');;
+		Materialize.toast('Descuento del '+vvalor+'% Ya Existe', 6000, 'yellow accent-4');;
 	}
 	$("#dscts").focus();
 }

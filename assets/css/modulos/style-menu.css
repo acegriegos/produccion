@@ -21,7 +21,7 @@ header, main, footer {
 .menu-btn{
     position: fixed;
     top: 50%;
-    left: -25px;
+    left: -20px;
 }
 
 .drag-target{
