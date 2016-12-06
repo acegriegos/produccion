@@ -8,10 +8,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 <link rel="stylesheet" href="../assets/css/modulos/style-login.css">
-<<<<<<< HEAD
-=======
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
->>>>>>> 10794a1614c7fca891010ad365ccaf7c31d3a67e
+
 
 <ul id="slide-out" class="side-nav">
     <li>
