@@ -73,7 +73,11 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
+<<<<<<< HEAD
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
+=======
+            Materialize.toast(p[0]['ERROR'],4000,'danger');
+>>>>>>> a35217298962bea305cd910e96449fa87deacf1b
         }else{
            
             var tmsj = "Ingresado";
@@ -85,7 +89,11 @@ function doGlobal(accion,modulo,tip,detalle,varias){
                 acc = 3;
             }
 
+<<<<<<< HEAD
             Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
+=======
+            Materialize.toast('Registro '+tmsj+' Correctamente',4000,'success');
+>>>>>>> a35217298962bea305cd910e96449fa87deacf1b
             
             if (detalle == 1) {
                 id = p[0][0];
@@ -97,7 +105,11 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         }
 
     }else{
+<<<<<<< HEAD
         Materialize.toast(arreglo['atributos'], 4000, 'red');
+=======
+        Materialize.toast(arreglo['atributos'],4000,'danger');
+>>>>>>> a35217298962bea305cd910e96449fa87deacf1b
     }
 };
 
@@ -142,9 +154,11 @@ function loadpool(vmodulo,vid,vdetalle){
         else if ($("#"+columns[0][1][i]['name']).attr("type") == 'checkbox')
             $("#"+vform).find($("input[name="+columns[0][1][i]['name']+']:checked')).val(columns[0][0][0][i]);
 
-        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'html'){
+        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'html')
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).html(columns[0][0][0][i]);
-        }
+
+        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'date')
+            $("#"+vform).find($("#"+columns[0][1][i]['name'])).pickadate().pickadate('picker').set('select', columns[0][0][0][i]);
         
         else
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
@@ -276,11 +290,11 @@ function odin(varreglo,vform,id) {
                     salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).html();
 
                 else if (/vfecha/.test(varreglo[i])){
-                    if (typeof $("#"+varreglo[i]+id).val() == 'undefined') {
+                    if (typeof $("#"+varreglo[i]+id) == 'undefined') {
                         salida[varreglo[i]] = '1990-01-01';
                     }else{
-                        salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val() == '' ? 
-                        '1990-01-01' : $("#"+vform).find($("#"+varreglo[i]+id)).val();
+                        salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                        '1990-01-01' : $("#"+vform).find($("#"+varreglo[i]+id)).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                     }
                 }
 
@@ -417,5 +431,8 @@ var n = this,
 
     return salida;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> a35217298962bea305cd910e96449fa87deacf1b
 // Login Technologies S.A.

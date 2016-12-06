@@ -36,7 +36,7 @@
             </button>
           </a>
 
-          <a href="compras" class="myah">
+          <a href="facturacion?tf=1" class="myah">
             <button type="button" class="btn btn-default mybtn" title="Ventas">
               <i class="fa fa-usd"></i>
               <br>Ventas
@@ -86,6 +86,7 @@
     </div>
 
     </div>
+    <script src="../assets/libs/charts/dist/Chart.js"></script>
     <script src="../assets/js/modulos/comercial.js"></script>
   </body>
 </html>

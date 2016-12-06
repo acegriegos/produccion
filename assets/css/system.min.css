@@ -1,7 +1,13 @@
 .bdy {
+<<<<<<< HEAD
+    padding-left: 3%;
+    margin-top: 1%;
+    padding-right: 3%}
+=======
     padding-left: 5%;
     margin-top: 0%;
     padding-right: 2%}
+>>>>>>> 10794a1614c7fca891010ad365ccaf7c31d3a67e
 .err_ {
     text-align: center;
 }
