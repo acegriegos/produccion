@@ -28,6 +28,7 @@ $(document).on("click",".menu3",function(){
 				$("#vfechafinal").val(e[7]);
 				$("#data-table-monedas").dataTable({
 					bFilter : false,
+					order : []
 				});
 				$("#data-table-tipousuarios").dataTable({
 					bFilter : false,

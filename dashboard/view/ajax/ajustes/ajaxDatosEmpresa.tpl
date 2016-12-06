@@ -2,21 +2,21 @@
     <h3 class="card-header">Datos de la Empresa</h3>
     <div class="card-block">
         <div class="row">
-            <div class="input-field col s6">
+            <div class="col s6">
                 <label for="vnombre">Nombre de la Empresa</label>
                 <input type="text" class="infoempresa validate" id="vnombre" field="empresa">
             </div>
-            <div class="input-field col s6">
+            <div class="col s6">
                 <label for="vcedula">Cédula Jurídica</label>
                 <input type="text" class="infoempresa validate" id="vcedula" field="CJuridica">
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
+            <div class="col s6">
                 <label for="vtelefono">Teléfonos de la Empresa</label>
                 <input type="text" class="infoempresa validate" id="vtelefono" field="telefonos">
             </div>
-            <div class="input-field col s6">
+            <div class="col s6">
                 <label for="vcorreo">Correo Principal de la Empresa</label>
                 <input type="email" class="infoempresa validate" id="vcorreo" field="correo">
             </div>
@@ -37,7 +37,7 @@
             <div class="col s6">
                 <img src="#" class="img-responsive" alt="Image" width="200px" height="100px" id="vlogo">
            
-                <div class="file-field input-field der">
+                <div class="file-field der">
                   <div class="btn">
                     <span>Logo</span>
                     <input type="file" id="archivo" name="imagen" multiple="false" class="file-loading">
@@ -47,9 +47,7 @@
             
         </div>
     </div>
-</div>
-
-<div class="card">
+<hr style="border: 1px solid #e2e2e2">
 
     <h3 class="card-header">Monedas</h3>
     <div class="class-block">
@@ -61,7 +59,6 @@
         <th>Moneda</th>
         <th>Valor</th>
         <th>Estado</th>
-        <th>Acciones</th>
         </tr>
         </thead>
         <tbody id="listamonedas">
@@ -70,9 +67,8 @@
             <td>{$MON[LE][4]}</td>
             <td>{$MON[LE][1]}</td>
             <td>{$MON[LE][2]}</td>
-            <td>{$MON[LE][3]}</td>
-            <td>
-                <a class='dropdown-button btn' data-activates='dropdown-m{$MON[LE][0]}'><i class="material-icons">menu</i></a>
+            <td>{$MON[LE][3]}
+                <a class='dropdown-button btn der mydrop' data-activates='dropdown-m{$MON[LE][0]}'><i class="material-icons">menu</i></a>
 
                 <ul id='dropdown-m{$MON[LE][0]}' class='dropdown-content'>
                     <li>
@@ -88,7 +84,7 @@
         </tbody>
         </table>
     </div>
-
+<hr style="border: 1px solid #e2e2e2">
     <h3 class="card-header">Tipo de Usuarios</h3>
     <div class="class-block">
         <div id="ftipousuarios">
@@ -116,7 +112,7 @@
         </tbody>
         </table>
     </div>
-
+<hr style="border: 1px solid #e2e2e2">
     <h3 class="card-header">Tipo de Pagos</h3>
     <div class="class-block">
         <div id="ftipopagos">
@@ -152,7 +148,7 @@
         </tbody>
         </table>
     </div>
-
+<hr style="border: 1px solid #e2e2e2">
     <h3 class="card-header">Categoría de Clientes</h3>
     <div class="class-block">
         <div id="fnivelesclientes">
@@ -180,7 +176,7 @@
         </table>
         
     </div>
-
+<hr style="border: 1px solid #e2e2e2">
     <h3 class="card-header">Período Fiscal</h3>
     <div class="card-block">
         <div class="row">

@@ -72,7 +72,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
-            notify('E','Error',p[0]['ERROR'],'danger');
+            Materialize.toast(p[0]['ERROR'],4000,'danger');
         }else{
            
             var tmsj = "Ingresado";
@@ -84,7 +84,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
                 acc = 3;
             }
 
-            notify('','','Registro '+tmsj+' Correctamente','success');
+            Materialize.toast('Registro '+tmsj+' Correctamente',4000,'success');
             
             if (detalle == 1) {
                 id = p[0][0];
@@ -96,7 +96,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         }
 
     }else{
-        notify('E','Error',arreglo['atributos'],'danger');
+        Materialize.toast(arreglo['atributos'],4000,'danger');
     }
 };
 
@@ -141,9 +141,11 @@ function loadpool(vmodulo,vid,vdetalle){
         else if ($("#"+columns[0][1][i]['name']).attr("type") == 'checkbox')
             $("#"+vform).find($("input[name="+columns[0][1][i]['name']+']:checked')).val(columns[0][0][0][i]);
 
-        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'html'){
+        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'html')
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).html(columns[0][0][0][i]);
-        }
+
+        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'date')
+            $("#"+vform).find($("#"+columns[0][1][i]['name'])).pickadate().pickadate('picker').set('select', columns[0][0][0][i]);
         
         else
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
@@ -275,11 +277,11 @@ function odin(varreglo,vform,id) {
                     salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).html();
 
                 else if (/vfecha/.test(varreglo[i])){
-                    if (typeof $("#"+varreglo[i]+id).val() == 'undefined') {
+                    if (typeof $("#"+varreglo[i]+id) == 'undefined') {
                         salida[varreglo[i]] = '1990-01-01';
                     }else{
-                        salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val() == '' ? 
-                        '1990-01-01' : $("#"+vform).find($("#"+varreglo[i]+id)).val();
+                        salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                        '1990-01-01' : $("#"+vform).find($("#"+varreglo[i]+id)).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                     }
                 }
 
@@ -416,50 +418,4 @@ var n = this,
 
     return salida;
 }
-
-function notify(vicon,vtitle,vmsg,vtype){
-    $.notify({
-    // options
-    icon: vicon,
-    title: vtitle,
-    message: vmsg,
-    target: '_blank'
-    },{
-    // settings
-    element: 'body',
-    position: null,
-    type: vtype,
-    allow_dismiss: true,
-    newest_on_top: true,
-    showProgressbar: false,
-    placement: {
-        from: "top",
-        align: "right"
-    },
-    offset: 20,
-    spacing: 10,
-    z_index: 3500,
-    delay: 5000,
-    timer: 1000,
-    url_target: '_blank',
-    mouse_over: null,
-    animate: {
-        enter: 'animated fadeInDown',
-        exit: 'animated fadeOutUp'
-    },
-    // type: 'notify',
-    icon_type: 'image',
-    template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
-        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-        '<div data-notify="icon" class="circle pull-left"></div>' +
-        '<span data-notify="title">{1}</span> ' +
-        '<span data-notify="message">{2}</span>' +
-        '<div class="progress" data-notify="progressbar">' +
-            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-        '</div>' +
-        '<a href="{3}" target="{4}" data-notify="url"></a>' +
-    '</div>' 
-});
-}
-
 // Login Technologies S.A.

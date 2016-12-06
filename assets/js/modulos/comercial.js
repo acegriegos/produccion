@@ -38,7 +38,6 @@ $(function(){
 
 $(document).on("click","#Iadd",function(){
 	deadclear('comercial')
-
 });
 
 function validar (varreglo,vmodulo) {
