@@ -6,8 +6,9 @@ $(function(){
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
-    if(code == 113)
+    if(code == 113){
         $(".menu-btn").click();
+    }
 });
 
 $(document).on("click",".load",function(){
@@ -72,7 +73,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
-            notify('E','Error',p[0]['ERROR'],'danger');
+            Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
            
             var tmsj = "Ingresado";
@@ -84,7 +85,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
                 acc = 3;
             }
 
-            notify('','','Registro '+tmsj+' Correctamente','success');
+            Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
             
             if (detalle == 1) {
                 id = p[0][0];
@@ -96,7 +97,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         }
 
     }else{
-        notify('E','Error',arreglo['atributos'],'danger');
+        Materialize.toast(arreglo['atributos'], 4000, 'red');
     }
 };
 
@@ -415,51 +416,6 @@ var n = this,
     
 
     return salida;
-}
-
-function notify(vicon,vtitle,vmsg,vtype){
-    $.notify({
-    // options
-    icon: vicon,
-    title: vtitle,
-    message: vmsg,
-    target: '_blank'
-    },{
-    // settings
-    element: 'body',
-    position: null,
-    type: vtype,
-    allow_dismiss: true,
-    newest_on_top: true,
-    showProgressbar: false,
-    placement: {
-        from: "top",
-        align: "right"
-    },
-    offset: 20,
-    spacing: 10,
-    z_index: 3500,
-    delay: 5000,
-    timer: 1000,
-    url_target: '_blank',
-    mouse_over: null,
-    animate: {
-        enter: 'animated fadeInDown',
-        exit: 'animated fadeOutUp'
-    },
-    // type: 'notify',
-    icon_type: 'image',
-    template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
-        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-        '<div data-notify="icon" class="circle pull-left"></div>' +
-        '<span data-notify="title">{1}</span> ' +
-        '<span data-notify="message">{2}</span>' +
-        '<div class="progress" data-notify="progressbar">' +
-            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-        '</div>' +
-        '<a href="{3}" target="{4}" data-notify="url"></a>' +
-    '</div>' 
-});
 }
 
 // Login Technologies S.A.

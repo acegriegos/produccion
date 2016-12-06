@@ -5,7 +5,7 @@
 <div class="col s6">
 <div class="input-field col s6">
 <input id="searchprod" type="text" class="validate">
-<label for="icon_prefix" id="phs">Buscar Nombre</label>
+<label for="icon_prefix" id="phs">Buscar Por Código</label>
 </div>
 <a class="dropdown-button btn-floating btn-large waves-effect waves-light green" data-activates="fgrande"><i class="material-icons">search</i></a>
 <ul id="fgrande" class="dropdown-content" filter="1">
