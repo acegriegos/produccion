@@ -10,7 +10,6 @@
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	    
 	    $smarty->assign('SUC',$kakaroto->kamehameha('id,nombre',39,'id > 0 order by nombre'));
-	    $smarty->assign('CIAS',$kakaroto->kamehameha("id,nombre",13,'id > 0'));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_main.tpl');
 	   }else{

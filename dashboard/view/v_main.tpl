@@ -15,19 +15,16 @@
     <div class="bdy">
     {if $smarty.session.TIPO eq 1}
         <div class="row">
-            <div class="col-xs-12 col-md-12 der">
-                <div class="input-group">
-                    <div class="input-group-addon">Sucursal</div>
-                    <select id="vidsucursal" class="form-control" required="required">
-                        <option value="0">Todas las Sucursales</option>
-                        {section name=LE loop=$SUC}
-                        <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
-                        {/section}
-                    </select>
-            </div>
+            <div class="input-field col s6">
+                <select>
+                    <option value="0">Todas las Sucursales</option>
+                    {section name=LE loop=$SUC}
+                    <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
+                    {/section}
+                </select>
+                <label>Seleccione una Sucursal</label>
             </div>
         </div>
-        <input type="hidden" id="idsuc" value="{$smarty.session.IDSUC}">
     {/if}
 
     <!-- <form id="fclientes">
@@ -40,5 +37,6 @@
     </form>  -->
 
     </div>
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>
