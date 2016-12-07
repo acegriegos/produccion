@@ -7,8 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Login</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
+    <link href="../assets/css/materialize.css" rel="stylesheet">
     <link href="../assets/libs/iconos/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css">
 
@@ -97,10 +96,7 @@
     </div><!-- /.modal -->
 
     <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/mask/jquery.mask.js"></script>
-    <script src="../assets/libs/DataTables/media/js/jquery.dataTables.js"></script>
-    <script src="../assets/js/notify.js"></script>
+    <script src="../assets/js/materialize.js"></script>
     <script src="../assets/js/asgard.js"></script>
     <script src="../assets/js/modulos/login.js"></script>
   </body>

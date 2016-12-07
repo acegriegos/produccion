@@ -73,11 +73,9 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
-<<<<<<< HEAD
-            Materialize.toast(p[0]['ERROR'], 4000, 'red');
-=======
+
             Materialize.toast(p[0]['ERROR'],4000,'danger');
->>>>>>> a35217298962bea305cd910e96449fa87deacf1b
+
         }else{
            
             var tmsj = "Ingresado";
@@ -89,11 +87,8 @@ function doGlobal(accion,modulo,tip,detalle,varias){
                 acc = 3;
             }
 
-<<<<<<< HEAD
-            Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
-=======
+
             Materialize.toast('Registro '+tmsj+' Correctamente',4000,'success');
->>>>>>> a35217298962bea305cd910e96449fa87deacf1b
             
             if (detalle == 1) {
                 id = p[0][0];
@@ -105,11 +100,8 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         }
 
     }else{
-<<<<<<< HEAD
-        Materialize.toast(arreglo['atributos'], 4000, 'red');
-=======
+
         Materialize.toast(arreglo['atributos'],4000,'danger');
->>>>>>> a35217298962bea305cd910e96449fa87deacf1b
     }
 };
 
@@ -433,7 +425,6 @@ var n = this,
 
     return salida;
 }
-<<<<<<< HEAD
 
 function get_Json(varray,vheader){
     // console.log(vheader)
@@ -455,10 +446,4 @@ function get_Json(varray,vheader){
     salida = salida.substring(-1);
     return JSON.stringify(salida);
 }
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> a35217298962bea305cd910e96449fa87deacf1b
->>>>>>> 0ed4460adc3ae8bc2d2c63633a519c934cd2f2a7
 // Login Technologies S.A.
