@@ -166,7 +166,7 @@ function loadpool(vmodulo,vid,vdetalle){
     }
 }
 
-function mantenimiento(vmodulo,vaccion, varreglo){
+function mantenimiento(vmodulo,vaccion,varreglo){
     var p;
     $.ajax({
             async: false,
@@ -175,13 +175,15 @@ function mantenimiento(vmodulo,vaccion, varreglo){
             data: {accion: vaccion,arreglo : varreglo}
             })
             .done(function(data) {
-                console.error(data)
+                
                 try {
                     p = JSON.parse(data);
                 }
                 catch(err){
                     p = data;
                 }
+
+                console.error(p)
             });
     return p;
 }
@@ -417,5 +419,26 @@ var n = this,
     
 
     return salida;
+}
+
+function get_Json(varray,vheader){
+    // console.log(vheader)
+    has_header = vheader == undefined ? 0 : vheader.length;
+    salida = '';
+
+    for (var i = 0; i < varray.length; i++) {
+        console.log(varray[i][0])
+        if ( has_header ){
+            for (var i = 0; i < vheader.length; i++) {
+                vheader[i]
+            };
+        }else{
+            salida = salida+'"'+varray[i][0]+'" : "'+varray[i][1]+'","';
+        }
+
+    };
+
+    salida = salida.substring(-1);
+    return JSON.stringify(salida);
 }
 // Login Technologies S.A.
