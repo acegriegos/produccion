@@ -59,7 +59,15 @@ $(function(){
 		}
 		$('select').material_select();
 		$('.dropdown-button').dropdown();
-		$('.modal').modal();
+		$('.modal').modal({
+			dismissible: true, // Modal can be dismissed by clicking outside of the modal
+			opacity: .5, // Opacity of modal background
+			in_duration: 300, // Transition in duration
+			out_duration: 200, // Transition out duration
+			starting_top: '6%', // Starting top style attribute
+			ending_top: '5%' // Ending top style attribute
+		}
+		);
 	});
 	$("#m2").click();
 });
@@ -67,6 +75,10 @@ $(document).ready(function(){
 	// Materialize
 
 	//Materialize
+});
+
+$(document).on("click","#prueba",function(){
+	// pruebas
 });
 
 $(document).on("click",".menuP",function(){
@@ -97,17 +109,36 @@ $(document).on("click",".menuP",function(){
 	}
 });
 
+$(document).on("click",".menuS",function(){
+	var id = parseInt($(this).attr('id').substr(2));
+	$(".menuS").removeClass('active');
+	$(this).addClass('active');
+	switch(id){
+		case 1:
+			$("#datosservicios").removeClass('hide');
+			$("#financiero").addClass('hide');
+			$("#vcodigo").focus();
+			break;
+		case 2:
+			$("#financiero").removeClass('hide');
+			$("#datosservicios").addClass('hide');
+			$("#vpbase").focus();
+			break;
+	}
+});
+
+
 $(document).on("click",".vfiltros",function(){
 	var id = parseInt($(this).attr('filtro').substr(1));
 	var elemento = $("#phs");
 	switch(id) {
 		case 1:
 			$("#fgrande").attr('filter',id);
-			elemento.text('Buscar '+$(this).html())
+			elemento.text('Buscar por '+$(this).html())
 			break;
 		case 2:
 			$("#fgrande").attr('filter',id);
-			elemento.text('Buscar '+$(this).html())
+			elemento.text('Buscar por '+$(this).html())
 			break;
 	}
 });
@@ -118,11 +149,11 @@ $(document).on("click",".filtersrv",function(){
 	switch(id) {
 		case 1:
 			$("#fserv").attr('filter',id);
-			elemento.attr('placeholder','Buscar '+$(this).html());
+			elemento.attr('placeholder','Buscar por '+$(this).html());
 			break;
 		case 2:
 			$("#fserv").attr('filter',id);
-			elemento.attr('placeholder','Buscar '+$(this).html());
+			elemento.attr('placeholder','Buscar por '+$(this).html());
 			break;
 	}
 });
@@ -133,11 +164,11 @@ $(document).on("click",".filtropqt",function(){
 	switch(id) {
 		case 1:
 			$("#fpqt").attr('filter',id);
-			elemento.attr('placeholder','Buscar '+$(this).html());
+			elemento.attr('placeholder','Buscar por '+$(this).html());
 			break;
 		case 2:
 			$("#fpqt").attr('filter',id);
-			elemento.attr('placeholder','Buscar '+$(this).html());
+			elemento.attr('placeholder','Buscar por '+$(this).html());
 			break;
 		case 3:
 			$("#fpqt").attr('filter',id);
@@ -1085,8 +1116,11 @@ $(document).on("click","#ingInvServ",function(){
 	deadclear('servicio');
 	Materialize.updateTextFields();
 	$("#vdescripcion").characterCounter();
+	$('select').material_select();
 	$("#vidtipo").val(0);
 	$("#ajaxServicio").html('');
+	setTimeout(function(){$("#vcodigo").focus();},500);
+	
 });
 
 $(document).on("click","#ingInvPqts",function(){
@@ -1105,21 +1139,26 @@ $(document).on("click","#ingInvPqts",function(){
 
 });
 
-$(document).on("change","#isPeriodo",function(){	
-
+$(document).on("change","#isPeriodo",function(){
 	if ($("#isPeriodo").is(':checked')) {
-		$(".inpSPeriodo").removeAttr('disabled');
-		$("#isPeriodo").val(1);
+		$("#mensual").prop('checked',true);
+		$(".cper").prop('disabled',false);
+		$("#vperiodo").val(1);
 	}else{
-		$(".inpSPeriodo").attr('disabled',true);
-		$(".inpSPeriodo").attr('checked',false);
-		$("#isPeriodo").val(0);
+		if ($("#botro").val() == 1)
+			$("#otros").click();
+
+		$(".cper").prop('disabled',true);
+		$(".cper").prop('checked',false);
+		$("#dhotro").addClass('hide');
+		$("#vperiodo").val(0);
 	}
 });
 
-$(document).on("change",".inpSPeriodo",function(){
-	var dias = $("input[name='sPeriodo']:checked").val();
+$(document).on("change",".cper",function(){
+	var dias = $(this).attr('valor');
 	$("#vperiodo").val(dias)
+	alert(dias)
 });
 
 $(document).on("keyup","#voptServ",function(){
@@ -1128,19 +1167,36 @@ $(document).on("keyup","#voptServ",function(){
 });
 
 $(document).on("click","#otros",function(){
-	$(".opPeriodo").toggle(0.5);
-	$("#opOtro").toggle(0.5);
-});
+
+	if ($("#botro").val() == 0) {
+		$(".opPeriodo").addClass('hide');
+		$("#dotros").removeClass('hide');
+		$("#dhotro").removeClass('hide');
+		$("#botro").val(1);
+	}else{
+		$("#dhotro").addClass('hide');
+		$(".opPeriodo").removeClass('hide');
+		$("#botro").val(0);
+	}
+});	
 
 $(document).on("click","#outsourcing",function(){
-	$("#prove").toggle(0.5);
-	$(".ganServ").toggle(0.5);
-
-	if ($("#outsourcing").is(":checked")) {
-		$("#vpbase").addClass('vcalcServ');
+	if ($("#boutsrc").val() == 0) {
+		$("#prov").attr('disabled',false);
+		$('select').material_select();
+		$("#boutsrc").val(1);
 	}else{
-		$("#vpbase").removeClass('.vcalcServ');
+		$("#boutsrc").val(0);
+		$("#prov").attr('disabled',true);
+		$("#prov").val(0);
+		$("#vidproveedor").val(0);
+		$('select').material_select();
 	}
+});
+
+$(document).on("change","#prov",function(){
+	var id = $(this).val();
+	$("#vidproveedor").val(id)
 });
 
 function sendfocus(pos) {
@@ -1299,26 +1355,6 @@ function filterserv(variable,filtro){
 	arr('login',6,'',98,'\''+variable+'\','+filtro,13,1,$("#listaservicios"));
 }
 
-function valjerarquia(tipo){
-
-	var id = parseInt(tipo);
-	switch(id){
-		case 1:
-			var validar = validarfamilia();
-			break;
-		case 2:
-			var validar = validartipo();
-			break;
-		case 3:
-			var validar = validarmarca();
-			break;
-		case 4:
-			var validar = validarmodelo();
-			break;
-	}
-	return validar;
-}
-
 function validar (varreglo,vmodulo) {
 	
 	var salida = {}
@@ -1425,29 +1461,42 @@ function validarproductos() {
 }
 
 function validarservicios() {
+	if ($("#vcodigo").val() == '') {
+		$("#ms1").click();
+		$("#vcodigo").focus();
+		return 'Código Requerido';
+	}
 
-	if ($("#vnombre").val() == ''){ return 'Nombre Requerido'};
-	if ($("#vdescripcion").val() == ''){ return 'Descripción Requerido'};
-	if ($("#vpbase").val() == ''){ return 'Precio Base Requerido'};
+	if ($("#vnombre").val() == ''){
+		$("#ms1").click();
+		$("#vnombre").focus();
+		return 'Nombre Requerido'
+	}
+	if ($("#vdescripcion").val() == ''){
+		$("#ms1").click();
+		$("#vdescripcion").focus();
+		return 'Descripción Requerido'
+	}
 
-	if($("#outsourcing").is(":checked")){
-		if($("#vpcompra").val() == '' || isNaN($("#vpcompra").val()) || $("#vpcompra").val() == '.'){
-			$("#vpcompra").focus();
-			$("#vpcompra").select();
-			return 'Valor de Compra no Válido';
+	if ($("#outsourcing").is(":checked")) {
+		if ($("#prov").val() == null) {
+			$("#ms1").click();
+			return 'Proveedor Requerido';
 		}
-	} else if($("#vidproveedor option:selected").val() == 0){
-		$("#vidproveedor").focus();
-		return 'Proveedor Requerido';
+	}
+
+	if ($("#vpbase").val() == ''){
+		$("#ms2").click();
+		$("#vpbase").focus();
+		return 'Precio Base Requerido'
 	}
 
 	if ($("#vpcompra").val() == '') {
-		$("#vpcompra").val(0);
+		$("#ms2").click();
+		$("#vpcompra").focus();
+		return 'Precio Compra Requerido';
 	}
 
-	if ($("#vpganancia").val() == '') {
-		$("#vpganancia").val(0);
-	}
 	return false;
 }
 
@@ -1534,7 +1583,7 @@ function cargarSintax(vtabla){
 			var arr = {};
 			arr['sel'] = '*';
 			arr['tbl'] = 13;
-			arr['where'] = '`Codigo` > 0';
+			arr['where'] = 'codigo > 0';
 			break;
 		case 'paquetes':
 			var arr = {};
