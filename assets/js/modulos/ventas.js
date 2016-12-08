@@ -25,13 +25,15 @@ $(function(){
         $(".autocomplete-content").remove();
         $("#ncli").autocomplete({
             limit: 20,
-            data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2)) as nom,null',2,'1 having nom like "%'+$("#ncli").val()+'%"',0,0,0,'')[0]
+            data: JSON.stringify(arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2)) as nom',2,'1 having nom like "%'+$("#ncli").val()+'%"',0,0,0,'')[0])
         })
 
         }
     })
     
-})
+    console.log(get_Json(arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2)) as nom,null',2,'1 having nom like "%'+$("#ncli").val()+'%"',0,0,0,'')[0]),'')
+
+})//READY
 
 $(document).on("click","#p_v",function(){
     if ($(this).is(":checked"))

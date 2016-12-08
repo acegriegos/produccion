@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    // alert(1)
+
     setTimeout(function() {$("#num").focus()}, 500);
 
     $("#logF").submit(function(){
@@ -21,8 +21,6 @@ $("#changepssw").click(function(){
     }else{
         Materialize.toast(val, 4000, 'red');
     }
-});
-    
 });
 
 function validarcambio(){
