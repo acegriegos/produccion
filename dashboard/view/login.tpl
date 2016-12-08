@@ -7,8 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Login</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
+    <link href="../assets/css/materialize.css" rel="stylesheet">
     <link href="../assets/libs/iconos/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css">
 
@@ -19,38 +18,32 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <!-- <body style="background-image: url(../assets/img/bg-azul.jpg)"> -->
+  <body style="background-image: url(../assets/img/bckground.jpg)">
      
-  <div class="container boxlogin x1">
-        <div class="jumbotron x1" style="background-color: transparent;width:100%;padding-left:0%;padding-right:0%;padding-bottom:12%">
-                <div class="container x1" style="padding-left:15%;padding-right:15%">
-
-                <div class="alert alert-danger" id="err" style="display:none">
-                    
-                </div>
-
-                <div class="container x1">
-                <form role="form" id="logF" action="index.php" method="POST">
-                    <h2 align="center">Sistema BMS</h2>
-                    <br><br>
-                    <div class="form-group">
-                        <label for=""><p>Ingrese su Usuario: </p></label>
-                        <input autofocus= 'autofocus' name='id' type="text" class="form-control" id="num">
-                    </div>
-
-                    <div class="form-group">
-                        <label for=""><p>Contraseña: </p></label>
-                        <input type="password" name="pss" id="pass" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-success">Ingresar</button>
-                    <small style="float: right;"><a href="#modal-forgetpssw" style="color: #337ab7" data-toggle="modal">Olvidó su Contraseña?</a></small>
-                </form>
+<div class="container x1">
+    <div style="background-color: transparent;width:100%;padding-left:0%;padding-right:0%;padding-bottom:12%">
+        <div class="container x1" style="padding-left:15%;padding-right:15%"> <!-- 3 -->
+            <div class="container x1">
+                <h2 class="center white-text">Sistema BMS</h2>
+                <br><br>
             </div>
+            <form role="form" id="logF" action="index.php" method="POST">
+                <div class="input-field col s12">
+                    <input id="num" type="text" name="id" class="validate">
+                    <label for="num">Ingrese su Usuario</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="pass" type="password" name="pss" class="validate">
+                    <label for="pass">Contraseña</label>
+                </div>
+                <button type="submit" class="btn waves-effect waves-light blue">Ingresar</button>
+                <small style="float: right;" class="white-text"><a href="#modal-forgetpssw" style="color: #337ab7" data-toggle="modal">Olvidó su Contraseña?</a></small>
+            </form>
         </div>
-        
     </div>
+</div>
 
-    <center><small>© 2016. Copyright. Todos los derechos reservados. LoginTechCR, S. A. </small></center>
+    <center><small class="white-text">© 2016. Copyright. Todos los derechos reservados. LoginTechCR, S. A. </small></center>
     
     <div class="modal fade" id="modal-forgetpssw">
         <div class="modal-dialog" role="document">
@@ -97,10 +90,7 @@
     </div><!-- /.modal -->
 
     <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/mask/jquery.mask.js"></script>
-    <script src="../assets/libs/DataTables/media/js/jquery.dataTables.js"></script>
-    <script src="../assets/js/notify.js"></script>
+    <script src="../assets/js/materialize.js"></script>
     <script src="../assets/js/asgard.js"></script>
     <script src="../assets/js/modulos/login.js"></script>
   </body>

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Productos</title>
-    <link rel="stylesheet" type="text/css" href="../assets/css/jquery.auto-complete.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,9 +37,6 @@
     </div>
 
 </div>
-    <script src="../assets/js/notify.js"></script>
-    <script src="../assets/js/NaN/auto-complete.min.js"></script>
-    <script src="../assets/js/jquery.auto-complete.min.js"></script>
     <script src="../assets/js/modulos/productos.js"></script>
 
 
