@@ -6,9 +6,8 @@ $(function(){
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
-    if(code == 113){
+    if(code == 113)
         $(".menu-btn").click();
-    }
 });
 
 $(document).on("click",".load",function(){
@@ -73,9 +72,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         var p = mantenimiento('login',2,arreglo);
 
         if (p['succed'] == 0) {
-
-            Materialize.toast(p[0]['ERROR'],4000,'danger');
-
+            Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
            
             var tmsj = "Ingresado";
@@ -87,8 +84,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
                 acc = 3;
             }
 
-
-            Materialize.toast('Registro '+tmsj+' Correctamente',4000,'success');
+            Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
             
             if (detalle == 1) {
                 id = p[0][0];
@@ -100,8 +96,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
         }
 
     }else{
-
-        Materialize.toast(arreglo['atributos'],4000,'danger');
+        Materialize.toast(arreglo['atributos'], 4000, 'red');
     }
 };
 
@@ -117,7 +112,7 @@ function baseValidar(vaccion,vmodulo){
         }
 
     }else{
-        console.error('eroor en Base Validar')
+        console.error('error en Base Validar')
         return varreglo//'ERROR DE COMUNICACION';
     }
 
@@ -161,13 +156,13 @@ function loadpool(vmodulo,vid,vdetalle){
     }
 
     if (vdetalle != undefined){
-        var arr = {}
-        
-        arr['sel'] = '';
-        arr['tbl'] = 32;
-        arr['where'] = "\""+vid+"\"";
+        // var arr = {}
+        // arr['sel'] = '';
+        // arr['tbl'] = 32;
+        // arr['where'] = "\""+vid+"\"";
 
-        $("#detalle"+vmodulo['modulo']).html(mantenimiento('login',6,arr))
+        // $("#detalle"+vmodulo['modulo']).html(mantenimiento('login',6,arr))
+        arr('login',6,'',32,'\"'+vid+'\"','',1,$("#detalle"+vmodulo['modulo']));
     }
 }
 
@@ -223,26 +218,25 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
 
  function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
      $.ajax({
-            url: '../_config/correoAjax.php',
-            type: 'POST',
-            data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
-            })
-            .done(function(data) {
-                console.error(data)
-                try {
-                    p = JSON.parse(data);
-                }
-                catch(err){
-                    p = data;
-                }
-            });
+        url: '../_config/correoAjax.php',
+        type: 'POST',
+        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
+        })
+        .done(function(data) {
+            console.error(data)
+            try {
+                p = JSON.parse(data);
+            }
+            catch(err){
+                p = data;
+            }
+        });
 }
 
 function odin(varreglo,vform,id) {
@@ -312,10 +306,6 @@ function odin(varreglo,vform,id) {
 }
 
 function deadclear(vform) {
-
-    $(".err_").hide();
-    $(".suc_").hide();
-
     if (acc == 1) {
 
         $("#f"+vform+"s :input").each(function(){
@@ -359,11 +349,10 @@ function thorload(vtabla) {
 }
 
 function addZero(n, len) {
-  return (new Array(len + 1).join('0') + n).slice(-len);
+    return (new Array(len + 1).join('0') + n).slice(-len);
 }
 
 function permisos(vnumber,vnumber2) {
-
     $.ajax({
             async: false,
             url: '../_config/permisos.php',
@@ -423,9 +412,6 @@ var n = this,
             salida.push(det);
         }
     });
-
-    
-
     return salida;
 }
 

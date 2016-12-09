@@ -79,6 +79,7 @@ $(document).ready(function(){
 
 $(document).on("click","#prueba",function(){
 	// pruebas
+
 });
 
 $(document).on("click",".menuP",function(){
@@ -348,7 +349,7 @@ $(document).on("click",".editprod",function(){
 	var p = arr('login',4,'idfamilia,idtipo,idmarca,idmodelo,nombre,codigo,idunidad,minimo,maximo,costo,ganancia,fventa,venta,maxdescuento',14,'id = '+id,'',0,'')[0][0];
 	var cant = arr('login',4,'replace(cantidad,".00","")',97,'idproducto = '+id,'',0,'')[0][0];
 	var imp = arr('login',4,'idimpuesto,impuesto,valor',83,'idproducto = '+id,'',0,'')[0];
-	$(".accmodalProd").html("Actualizar Producto "+p[5]);
+	$(".accmodal").html("Actualizar Producto "+p[5]);
 	$("#addprod").addClass('hide');
 	$("#editprod").removeClass('hide');
 	$("#editprod").attr('idprod',id);
@@ -698,6 +699,71 @@ $(document).on("keyup","#searchsrv",function(e){
 	}
 });
 
+$(document).on("click",".loadserv",function(){
+	var id = $(this).attr('id').substr(1);
+	var serv = arr('login',4,'*',16,'id = '+id,'',0,'')[0][0];
+	$(".accmodal").html('Actualizar Servicio '+serv[2])
+	$("#vid").val(serv[0]);
+	$("#vcodigo").val(serv[1]);
+	$("#vnombre").val(serv[2]);
+	$("#vdescripcion").val(serv[3]);
+	$("#vpbase").val(serv[4]);
+	if (serv[5] == 1) {
+		$("#isPeriodo").prop('checked',true).change();
+		//otros
+		$(".opPeriodo").removeClass('hide');
+		$("#dhotro").addClass('hide');
+		$("#diario").prop('checked',true);
+		$("#vdias").val(0);
+	}else if (serv[5] == 2) {
+		$("#isPeriodo").prop('checked',true).change();
+		//otros
+		$(".opPeriodo").removeClass('hide');
+		$("#dhotro").addClass('hide');
+		$("#mensual").prop('checked',true);
+		$("#vdias").val(0);
+	}else if (serv[5] == 3) {
+		$("#isPeriodo").prop('checked',true).change();
+		//otros
+		$(".opPeriodo").removeClass('hide');
+		$("#dhotro").addClass('hide');
+		$("#anual").prop('checked',true);
+		$("#vdias").val(0);
+	}else if (serv[5] == 4) {
+		$("#isPeriodo").prop('checked',true).change();
+		//otros
+		$(".opPeriodo").addClass('hide');
+		$("#dhotro").removeClass('hide');
+		$("#dotros").removeClass('hide');
+		$("#otros").prop('checked',true);
+		$("#botro").val(1);
+		$("#vdias").val(serv[6]);
+	}else{
+		$(".opPeriodo").removeClass('hide');
+		$("#dhotro").addClass('hide');
+		$("#isPeriodo").prop('checked',false).change();
+		$("#vdias").val(0);
+	}
+	$("#vidproveedor").val(serv[7]);
+	if (serv[7] != 0) {
+		$("#outsourcing").prop('checked',true).change();
+		$("#prov").val(serv[7]);
+		$("#prov").material_select();
+	}else{
+		$("#outsourcing").prop('checked',false).change();
+
+	}
+	$("#vpcompra").val(serv[8]);
+	$("#vpganancia").val(serv[9]);
+	$("#vidmoneda").val(serv[12]);
+	$("#addserv").removeClass('add');
+	$("#addserv").addClass('edit');
+	$("#addserv").html('Guardar')
+
+
+	Materialize.updateTextFields();
+});
+
 $(document).on("change","#inputExc",function(){
 	var costo = isNaN($("#vcosto").val()) ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
 	var ganancia = isNaN($("#vganancia").val()) ? 0 : parseFloat($("#vganancia").val().replace(/,/g,""));
@@ -992,44 +1058,44 @@ $(document).on("keyup",".calcvv",function(){
 	// $("#vventa").val( (venta).toFixed(2) );
 });
 
-$(document).on("keyup",".vcalcServ",function(){
-	var base = isNaN($("#vpbase").val()) ? 0 : parseFloat($("#vpbase").val().replace(/,/g,""));
-	var compra = isNaN($("#vpcompra").val()) ? 0 : parseFloat($("#vpcompra").val().replace(/,/g,""));
-	var ganancia = isNaN($("#vpganancia").val()) ? 0 : parseFloat($("#vpganancia").val().replace(/,/g,""));
-	var tganancia = 0;
+// $(document).on("keyup",".vcalcServ",function(){
+// 	var base = isNaN($("#vpbase").val()) ? 0 : parseFloat($("#vpbase").val().replace(/,/g,""));
+// 	var compra = isNaN($("#vpcompra").val()) ? 0 : parseFloat($("#vpcompra").val().replace(/,/g,""));
+// 	var ganancia = isNaN($("#vpganancia").val()) ? 0 : parseFloat($("#vpganancia").val().replace(/,/g,""));
+// 	var tganancia = 0;
 	
-	if (compra != 0) 
-		tganancia = (((base / compra)-1)*100);
+// 	if (compra != 0) 
+// 		tganancia = (((base / compra)-1)*100);
 
-	$("#vpganancia").val(tganancia.formatMoney(0,'.',','));
-	$("#vpcompra").val(compra.toFixed(2));
+// 	$("#vpganancia").val(tganancia.formatMoney(0,'.',','));
+// 	$("#vpcompra").val(compra.toFixed(2));
 
-});
+// });
 
-$(document).on("keyup","#vpcompra",function(){
-	var base = isNaN($("#vpbase").val()) ? 0 : parseFloat($("#vpbase").val().replace(/,/g,""));
-	var compra = isNaN($("#vpcompra").val()) ? 0 : parseFloat($("#vpcompra").val().replace(/,/g,""));
-	var ganancia = isNaN($("#vpganancia").val()) ? 0 : parseFloat($("#vpganancia").val().replace(/,/g,""));
-	var tbase = base;
+// $(document).on("keyup","#vpcompra",function(){
+// 	var base = isNaN($("#vpbase").val()) ? 0 : parseFloat($("#vpbase").val().replace(/,/g,""));
+// 	var compra = isNaN($("#vpcompra").val()) ? 0 : parseFloat($("#vpcompra").val().replace(/,/g,""));
+// 	var ganancia = isNaN($("#vpganancia").val()) ? 0 : parseFloat($("#vpganancia").val().replace(/,/g,""));
+// 	var tbase = base;
 
-	var tganancia = (((base / compra)-1)*100);
-	if (base == 0)
-		tbase = ((compra * ((ganancia / 100)+1)));
+// 	var tganancia = (((base / compra)-1)*100);
+// 	if (base == 0)
+// 		tbase = ((compra * ((ganancia / 100)+1)));
 
-	$("#vpganancia").val(tganancia.formatMoney(0,'.',','));
-	$("#vpbase").val(tbase.toFixed(2));
-});
+// 	$("#vpganancia").val(tganancia.formatMoney(0,'.',','));
+// 	$("#vpbase").val(tbase.toFixed(2));
+// });
 
-$(document).on("keyup","#vpganancia",function(){
-	var base = isNaN($("#vpbase").val()) ? 0 : parseFloat($("#vpbase").val().replace(/,/g,""));
-	var compra = isNaN($("#vpcompra").val()) ? 0 : parseFloat($("#vpcompra").val().replace(/,/g,""));
-	var ganancia = isNaN($("#vpganancia").val()) ? 0 : parseFloat($("#vpganancia").val().replace(/,/g,""));
+// $(document).on("keyup","#vpganancia",function(){
+// 	var base = isNaN($("#vpbase").val()) ? 0 : parseFloat($("#vpbase").val().replace(/,/g,""));
+// 	var compra = isNaN($("#vpcompra").val()) ? 0 : parseFloat($("#vpcompra").val().replace(/,/g,""));
+// 	var ganancia = isNaN($("#vpganancia").val()) ? 0 : parseFloat($("#vpganancia").val().replace(/,/g,""));
 
-	var tbase = ((compra * ((ganancia / 100)+1)));
+// 	var tbase = ((compra * ((ganancia / 100)+1)));
 
-	$("#vpbase").val(tbase.toFixed(2));
-	$("#vpcompra").val(compra.toFixed(2));
-});
+// 	$("#vpbase").val(tbase.toFixed(2));
+// 	$("#vpcompra").val(compra.toFixed(2));
+// });
 
 
 $(document).on("click","#agInvProPqts",function(){
@@ -1047,12 +1113,6 @@ $(document).on("click","#agInvProPqts",function(){
 	$("#textProd-tokenfield").focus();
 	
 
-});
-
-$(document).on("focus","#textProd-tokenfield",function(){
-	var e = jQuery.Event( 'keyup', { which: 13 } );
-	$("#textProd-tokenfield").trigger(e);
-	alert("focus")
 });
 
 $(document).on("click","#agInvSerPqts",function(){
@@ -1106,8 +1166,8 @@ $(document).on("change","#vidmoneda",function(){
 	
 });
 
-$(document).on("click","#ingInvServ",function(){
-	$("#accmodalServ").html('Agregar Servicio');
+$(document).on("click","#addservice",function(){
+	$(".accmodal").html('Agregar Servicio');
 	$("#addV").html('Agregar');
 	
 	$("input[name=sPeriodo]").prop('checked',false);
@@ -1136,12 +1196,11 @@ $(document).on("click","#ingInvPqts",function(){
 	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
 	Materialize.updateTextFields();
 	setTimeout(function(){ $("#vnombre").focus() },500);
-
 });
 
 $(document).on("change","#isPeriodo",function(){
 	if ($("#isPeriodo").is(':checked')) {
-		$("#mensual").prop('checked',true);
+		$("#diario").prop('checked',true);
 		$(".cper").prop('disabled',false);
 		$("#vperiodo").val(1);
 	}else{
@@ -1158,7 +1217,6 @@ $(document).on("change","#isPeriodo",function(){
 $(document).on("change",".cper",function(){
 	var dias = $(this).attr('valor');
 	$("#vperiodo").val(dias)
-	alert(dias)
 });
 
 $(document).on("keyup","#voptServ",function(){
@@ -1180,7 +1238,7 @@ $(document).on("click","#otros",function(){
 	}
 });	
 
-$(document).on("click","#outsourcing",function(){
+$(document).on("change","#outsourcing",function(){
 	if ($("#boutsrc").val() == 0) {
 		$("#prov").attr('disabled',false);
 		$('select').material_select();
@@ -1368,6 +1426,9 @@ function validar (varreglo,vmodulo) {
 				if ( err ) {
 					return err;
 				}
+			}else{
+				$("#vpbase").val(0);
+				$("#vpcompra").val(0);
 			}
 			
 			break;
@@ -1497,6 +1558,13 @@ function validarservicios() {
 		return 'Precio Compra Requerido';
 	}
 
+	if ($("#vpganancia").val() == '') {
+		$("#vpganancia").val(0);
+	}
+
+	if (!$("#isPeriodo").is(":checked"))
+		$("#vdias").val(0);
+
 	return false;
 }
 
@@ -1569,6 +1637,10 @@ function cargar(vmodulo,vid) {
 	}
 	
 	return vmodulo;
+}
+
+function cargarservicio() {
+
 }
 
 function cargarSintax(vtabla){

@@ -57,7 +57,7 @@
 
 <div id="modal-productos" class="modal modal-fixed-footer" style="width:70%;max-height:100%">
     <div class="modal-content">
-        <h4>Agregar Producto</h4><hr>
+        <h4 class="accmodal">Agregar Producto</h4><hr>
             <nav class="blue">
                 <div class="nav-wrapper">
                     <ul id="nav-mobile" class="left">
@@ -253,5 +253,4 @@
 
 </div> <!-- End mantProductos -->
 
-<script src="../assets/js/alertModal.js"></script>
 <script src="../assets/js/jquery.mask.min.js"></script>

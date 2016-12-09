@@ -158,5 +158,3 @@
 </div>
 
 </div> <!-- End mantPaquetes -->
-
-<script src="../assets/js/bv2_toggle.js"></script>
