@@ -100,6 +100,15 @@
 
    	}
 	if(!$pagina){
+
+    if (isset($_REQUEST['arreglo']['JSON'])) {
+      $salida = array();
+      
+      foreach ($transaccion as $obj) {
+        $salida[$obj[0]] = $obj[1];
+      }
+      array_push($salida, array($transaccion[0][0] => null,$transaccion[1][0] => null));
+    }else{
 	   	if (is_array($transaccion)){
 			$marcas = $transaccion;
 			$succed = 1;
@@ -110,9 +119,11 @@
 	
 			$salida = array('succed'=>$succed);
 			array_push($salida, $marcas);
-			print_r(json_encode($salida));	
+    }
+		
+    print_r(json_encode($salida));	
 	
-	   }
+	 }
     }
 
     function cambioDia($log)

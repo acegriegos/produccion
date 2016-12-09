@@ -171,7 +171,7 @@ function loadpool(vmodulo,vid,vdetalle){
     }
 }
 
-function mantenimiento(vmodulo,vaccion,varreglo){
+function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     var p;
     $.ajax({
             async: false,
@@ -180,20 +180,18 @@ function mantenimiento(vmodulo,vaccion,varreglo){
             data: {accion: vaccion,arreglo : varreglo}
             })
             .done(function(data) {
-                
                 try {
                     p = JSON.parse(data);
+                    console.log(data)
                 }
                 catch(err){
                     p = data;
                 }
-
-                console.error(p)
             });
     return p;
 }
 
-function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
+function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
     var salida = 1;
     var arr = {};
     
@@ -208,12 +206,17 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto){
         arr['where'] = vwhere;
         if (vcambio != '') 
             arr['cambio'] = vcambio;
+
+        if (vjson != undefined)
+            arr['JSON'] = vjson;
     }
 
-    if (vch)
-        velemto.html(mantenimiento(vref,vaccion,arr));
+    if (vch){
+        velemto.html(mantenimiento(vref,vaccion,arr,vjson));
+        return true;
+    }
     else
-        salida = mantenimiento(vref,vaccion,arr);
+        salida = mantenimiento(vref,vaccion,arr,vjson);
 
     return salida;
 }
@@ -426,24 +429,4 @@ var n = this,
     return salida;
 }
 
-function get_Json(varray,vheader){
-    // console.log(vheader)
-    has_header = vheader == undefined ? 0 : vheader.length;
-    salida = '';
-
-    for (var i = 0; i < varray.length; i++) {
-        console.log(varray[i][0])
-        if ( has_header ){
-            for (var i = 0; i < vheader.length; i++) {
-                vheader[i]
-            };
-        }else{
-            salida = salida+'"'+varray[i][0]+'" : "'+varray[i][1]+'","';
-        }
-
-    };
-
-    salida = salida.substring(-1);
-    return JSON.stringify(salida);
-}
 // Login Technologies S.A.

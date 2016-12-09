@@ -20,18 +20,23 @@ $(function(){
     $('select').material_select();
 
     $("#ncli").keydown(function(e){
-        var code = e.which || e.keyCode
-        if (code != 13) {
-        $(".autocomplete-content").remove();
-        $("#ncli").autocomplete({
-            limit: 20,
-            data: JSON.stringify(arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2)) as nom',2,'1 having nom like "%'+$("#ncli").val()+'%"',0,0,0,'')[0])
-        })
-
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+       
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+            $(".autocomplete-content").remove();
+        
+            $("#ncli").autocomplete({
+                limit: 20,
+                dropdown: {
+                    el: ".autocomplete-content"
+                },
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2)) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+                })
         }
-    })
+    });
+
     
-    console.log(get_Json(arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2)) as nom,null',2,'1 having nom like "%'+$("#ncli").val()+'%"',0,0,0,'')[0]),'')
 
 })//READY
 
@@ -389,25 +394,6 @@ $(document).on("click","#btnAjuste",function(){
     totalizar($("#vdescuento").val(),$("#vflete").val(),$("#vajuste").val());
 });
 
-function searchClient(vvariable,visprv){
-    if (vvariable != '') {
-        var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
-        if (clie[0] != '') {
-            $("#vidcliente").val(clie[0]);
-            $("#ncli").val(clie[1]);
-            $("#ced").val(clie[2]);
-
-            if ($("#vidtipo").val() == 2) {
-                $("#vplazo").val(clie[4]);
-            }else{
-                $("#vplazo").val(0);
-            }
-            
-            $("#vdescuento").val(clie[5]);
-            $("#codp").focus();
-        }
-    }
-}
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv) {
     var err = 0;
