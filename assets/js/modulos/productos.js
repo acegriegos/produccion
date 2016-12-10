@@ -1,10 +1,8 @@
 $(function(){
 	$(".menu3").click(function(){
 		var id = $(this).attr('id').substr(1);
-
 		$(".menu3").removeClass('active');
 		$(this).addClass('active');
-
 		switch(parseInt(id)){
 			case 1:
 				$("#mantServ").remove();
@@ -47,14 +45,6 @@ $(function(){
 					bInfo : false
 				});
 
-				$('#prod').autoComplete({
-				    minChars: 1,
-				    source: function(term, response){
-				        term = term.toLowerCase();
-				        msuggest = arr('login',4,'nombreprecio',77,'nombre like \"%'+term+'%\"','',0,'')[0];
-				        response(msuggest);
-					}
-				});
 				break;
 		}
 		$('select').material_select();
@@ -69,7 +59,7 @@ $(function(){
 		}
 		);
 	});
-	$("#m2").click();
+	$("#m3").click();
 });
 $(document).ready(function(){
 	// Materialize
@@ -161,7 +151,7 @@ $(document).on("click",".filtersrv",function(){
 
 $(document).on("click",".filtropqt",function(){
 	var id = parseInt($(this).attr('filtro').substr(1));
-	var elemento = $("#searchpqt");
+	var elemento = $("#lpq");
 	switch(id) {
 		case 1:
 			$("#fpqt").attr('filter',id);
@@ -282,7 +272,7 @@ $(document).on("click","#addprod",function(){
 		var isgravado = $("#visgravado").val();
 		var idmodelo = $("#vidmodelo option:selected").val();
 	//producto
-		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+','+cantidad+','+minimo+','+maximo+',0,'+idmodelo+',@@usr,@@impresa','',0,'');
+		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+','+cantidad+','+minimo+','+maximo+',0,'+idmodelo+',@@usr,@@impresa,""','',0,'');
 	
 		if (idproducto[0][0] != undefined) {
 			// financiero
@@ -746,11 +736,17 @@ $(document).on("click",".loadserv",function(){
 	}
 	$("#vidproveedor").val(serv[7]);
 	if (serv[7] != 0) {
-		$("#outsourcing").prop('checked',true).change();
+		$("#outsourcing").prop('checked',true);
+		$("#prov").prop('disabled',false);
 		$("#prov").val(serv[7]);
 		$("#prov").material_select();
+		$("#boutsrc").val(1);
 	}else{
-		$("#outsourcing").prop('checked',false).change();
+		$("#outsourcing").prop('checked',false);
+		$("#prov").prop('disabled',true);
+		$("#prov").val(0);
+		$("#prov").material_select();
+		$("#boutsrc").val(0);
 
 	}
 	$("#vpcompra").val(serv[8]);
@@ -817,125 +813,6 @@ $(document).on("click",".bbck",function(){
 			break;
 	}
 });
-
-// $(document).on("click",".bjerarquia",function(){
-// 	var tipo = parseInt($(this).attr('tipo'));
-// 	switch(tipo){
-// 		case 1:
-// 			$("#vidfamilia").hide(500);
-// 			$("#newfam").show(500);
-// 			$("#dbck1").show(500);
-// 			$(this).removeClass('bjerarquia');
-// 			$(this).addClass('sjerarquia');
-// 			$("#newfam").focus();
-// 			$("#newfam").select();
-// 			break;
-// 		case 2:
-// 			$("#vidtipo").hide(500);
-// 			$("#newtip").show(500);
-// 			$("#dbck2").show(500);
-// 			$(this).removeClass('bjerarquia');
-// 			$(this).addClass('sjerarquia');
-// 			$("#newtip").focus();
-// 			$("#newtip").select();
-// 			break;
-// 		case 3:
-// 			$("#vidmarca").hide(500);
-// 			$("#newmar").show(500);
-// 			$("#dbck3").show(500);
-// 			$(this).removeClass('bjerarquia');
-// 			$(this).addClass('sjerarquia');
-// 			$("#newmar").focus();
-// 			$("#newmar").select();
-// 			break;
-// 		case 4:
-// 			$("#vidmodelo").hide(500);
-// 			$("#newmod").show(500);
-// 			$("#dbck4").show(500);
-// 			$(this).removeClass('bjerarquia');
-// 			$(this).addClass('sjerarquia');
-// 			$("#newmod").focus();
-// 			$("#newmod").select();
-// 			break;
-// 	}
-// });
-
-// $(document).on("click",".sjerarquia",function(){
-// 	var tipo = $(this).attr('tipo');
-// 	var ref = $(this).attr('ref');
-// 	var nom = $(this).attr('nombre');
-// 	var nombre = $("#new"+nom.substr(0,3)).val();
-// 	var idref1 = $("#vid"+$(this).attr('ref1')+" option:selected").val();
-// 	var idref2 = $("#vid"+$(this).attr('ref2')+" option:selected").val();
-// 	// console.log("tipo: "+tipo+" ,nombre: "+nombre+" ,ref1: "+idref1+" ,ref2: "+idref2)
-// 	var valj = valjerarquia(tipo);
-
-// 	if (valj == false) {
-
-// 		$("#err1").hide();
-// 		$("#suc1").hide();
-
-// 		if (ref == 0) {
-// 			var arr = {};
-// 			arr['sel'] = '';
-// 			arr['tbl'] = 24;
-// 			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",0,0,@@usr,@@impresa';
-// 			var p = mantenimiento('login',4,arr)[0][0];
-
-// 			$("#new"+nom.substr(0,3)).hide(500);
-// 			$("#vid"+nom).show(500);
-// 			$("#vid"+nom).empty();
-// 			var cargar = cargarSintax(nom);
-// 			var tbl = mantenimiento('login',6,cargar);
-// 			$("#vid"+nom).html(tbl);
-// 			$("#vid"+nom).val(p).change();
-// 			$(this).removeClass('sjerarquia');
-// 			$(this).addClass('bjerarquia');
-// 			$("#dbck"+tipo).hide(500);
-
-// 		}else if(ref == 1){
-// 			var arr = {};
-// 			arr['sel'] = '';
-// 			arr['tbl'] = 24;
-// 			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",'+idref1+',0,@@usr,@@impresa';
-// 			var p = mantenimiento('login',4,arr)[0][0];
-
-// 			$("#new"+nom.substr(0,3)).hide(500);
-// 			$("#vid"+nom).show(500);
-// 			$("#vid"+nom).empty();
-// 			var cargar = cargarSintax(nom);
-// 			var tbl = mantenimiento('login',6,cargar);
-// 			$("#vid"+nom).html(tbl);
-// 			$("#vid"+nom).val(p).change();
-// 			$(this).removeClass('sjerarquia');
-// 			$(this).addClass('bjerarquia');
-// 			$("#dbck"+tipo).hide(500);
-
-// 		}else{
-// 			var arr = {};
-// 			arr['sel'] = '';
-// 			arr['tbl'] = 24;
-// 			arr['where'] = '1,'+tipo+',0,\"'+nombre+'\",'+idref1+','+idref2+',@@usr,@@impresa';
-// 			var p = mantenimiento('login',4,arr)[0][0];
-
-// 			$("#new"+nom.substr(0,3)).hide(500);
-// 			$("#vid"+nom).show(500);
-			
-// 			$("#vid"+nom).empty();
-// 			var cargar = cargarSintax(nom);
-// 			var tbl = mantenimiento('login',6,cargar);
-// 			$("#vid"+nom).html(tbl);
-// 			$("#vid"+nom).val(p).change();
-// 			$(this).removeClass('sjerarquia');
-// 			$(this).addClass('bjerarquia');
-// 			$("#dbck"+tipo).hide(500);
-
-// 		}
-// 	}else{
-// 		$("#err1").show();
-// 		$("#err1").html(valj);
-// 	}	
-// });
 
 $(document).on("keyup","#cantProd",function(e){
 	if (e.which == 13) {
@@ -1009,26 +886,26 @@ $(document).on("click",".load",function(){
 		$("#voptServ").val(opcDia);
 	}
 
-		var idS = $("#idServ").val();
-			if (idS != 0) {
+	var idS = $("#idServ").val();
+	if (idS != 0) {
 
-				var arr = {}
-				arr['sel'] = 'idproveedor';
-				arr['tbl'] = 16;
-				arr['where'] = 'id ='+idS;
-				var idprov = mantenimiento('login',4,arr)[0][0][0];
+		var arr = {}
+		arr['sel'] = 'idproveedor';
+		arr['tbl'] = 16;
+		arr['where'] = 'id ='+idS;
+		var idprov = mantenimiento('login',4,arr)[0][0][0];
 
-				$("#outsourcing").prop('checked',true);
-				$("#prove").show();
-				$(".ganServ").show();
-				$("#vidprovee").val(idprov);
-			}
+		$("#outsourcing").prop('checked',true);
+		$("#prove").show();
+		$(".ganServ").show();
+		$("#vidprovee").val(idprov);
+	}
 
-			if ($("#vidprovee").val() == 0 ) {
-				$("#outsourcing").prop('checked',false);
-				$("#prove").hide();
-				$(".ganServ").hide();
-			}
+	if ($("#vidprovee").val() == 0 ) {
+		$("#outsourcing").prop('checked',false);
+		$("#prove").hide();
+		$(".ganServ").hide();
+	}
 });
 
 $(document).on("change","input[name=visgravado]",function(){
@@ -1134,21 +1011,7 @@ $(document).on("click","#agInvSerPqts",function(){
 
 });
 
-$(document).on("keyup","#textProd-tokenfield",function(e){
-
-	if (e.which == 13) {
-
-		var text = $("#s"+(consec-1)).html();
-		var cantidad = text.substring(text.lastIndexOf('(')+1, text.lastIndexOf(')'));
-		var precio = text.substring(text.indexOf('¢')+1, text.indexOf('(')-1);
-
-		$("#s"+(consec-1)).attr({'precio':precio,'cantidad':cantidad});
-	}
-
-});
-
-
-$(document).on("click","#ingInvProd",function(){
+$(document).on("click","#addproduct",function(){
 	$("#fproductos").submit(function(){return false});
 	$("#addprod").removeClass('hide');
 	$("#editprod").addClass('hide');
@@ -1158,8 +1021,6 @@ $(document).on("click","#ingInvProd",function(){
 	$("#impuestos").html('');
 	vaciar('productos');
 	Materialize.updateTextFields();
-	setTimeout(function(){$("#vfamilia").focus();},500)
-
 });
 
 $(document).on("change","#vidmoneda",function(){
@@ -1183,7 +1044,7 @@ $(document).on("click","#addservice",function(){
 	
 });
 
-$(document).on("click","#ingInvPqts",function(){
+$(document).on("click","#addpackage",function(){
 	
 	$("#titpqt").html("Agregar Paquetes");
 	var number = arr('login',4,'ifnull(max(id)+1,1)',58,'1','',0,'')[0][0];
@@ -1195,6 +1056,12 @@ $(document).on("click","#ingInvPqts",function(){
 	$("#addpqt").show();
 	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
 	Materialize.updateTextFields();
+
+	$("#prod").autocomplete({
+	    limit: 20,
+	    data: arr('login',4,'concat(nombre," - ¢",venta)',11,'id > 0','',0,'',1)
+	})
+
 	setTimeout(function(){ $("#vnombre").focus() },500);
 });
 
@@ -1203,6 +1070,7 @@ $(document).on("change","#isPeriodo",function(){
 		$("#diario").prop('checked',true);
 		$(".cper").prop('disabled',false);
 		$("#vperiodo").val(1);
+		$("#vdias").val(0);
 	}else{
 		if ($("#botro").val() == 1)
 			$("#otros").click();
@@ -1211,6 +1079,7 @@ $(document).on("change","#isPeriodo",function(){
 		$(".cper").prop('checked',false);
 		$("#dhotro").addClass('hide');
 		$("#vperiodo").val(0);
+		$("#vdias").val(0);
 	}
 });
 
@@ -1225,11 +1094,12 @@ $(document).on("keyup","#voptServ",function(){
 });
 
 $(document).on("click","#otros",function(){
-
 	if ($("#botro").val() == 0) {
 		$(".opPeriodo").addClass('hide');
 		$("#dotros").removeClass('hide');
 		$("#dhotro").removeClass('hide');
+		Materialize.updateTextFields();
+		setTimeout(function(){$("#vdias").select();},100);
 		$("#botro").val(1);
 	}else{
 		$("#dhotro").addClass('hide');
@@ -1519,6 +1389,7 @@ function validarproductos() {
 	}
 
 	return false;
+
 }
 
 function validarservicios() {
@@ -1579,39 +1450,6 @@ function validarpaquete(){
 	return false;
 }
 
-function validarfamilia(){
-
-	if ($("#newfam").val() == '') {
-		$("#newfam").focus();
-		return "Nombre Familia Requerido";
-	}
-	return false;
-}
-
-function validartipo(){
-	if ($("#newtip").val() == '') {
-		$("#newtip").focus();
-		return "Nombre Tipo Requerido";
-	}
-	return false;
-}
-
-function validarmarca(){
-	if ($("#newmar").val() == '') {
-		$("#newmar").focus();
-		return "Nombre Marca Requerido";
-	}
-	return false;
-}
-
-function validarmodelo(){
-	if ($("#newmod").val() == '') {
-		$("#newmod").focus();
-		return "Nombre Modelo Requerido";
-	}
-	return false;
-}
-
 function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
@@ -1639,29 +1477,25 @@ function cargar(vmodulo,vid) {
 	return vmodulo;
 }
 
-function cargarservicio() {
-
-}
-
 function cargarSintax(vtabla){
 	switch(vtabla) {
 		case 'productos':
 			var arr = {};
 			arr['sel'] = 'id,codigo,nombre,scosto,sventa,sganancia';
 			arr['tbl'] = 14;
-			arr['where'] = 'id > 0 order by nombre';
+			arr['where'] = 'id > 0 order by nombre limit 20';
 			break;
 		case 'servicios':
 			var arr = {};
 			arr['sel'] = '*';
 			arr['tbl'] = 13;
-			arr['where'] = 'codigo > 0';
+			arr['where'] = 'id > 0 order by nombre limit 20';
 			break;
 		case 'paquetes':
 			var arr = {};
 			arr['sel'] = 'vid,vcodigo,vnombre,vdescuento,totpqt';
 			arr['tbl'] = 72;
-			arr['where'] = 'vid > 0 order by nombre';
+			arr['where'] = 'vid > 0 order by nombre limit 20';
 			break;
 		case 'familia':
 			var arr = {};
@@ -1690,31 +1524,4 @@ function cargarSintax(vtabla){
 	}
 		return arr;
 
-}
-
-function getDatos(vmodulo){
-	
-	switch (vmodulo){
-		case 'productos':
-			var array = {};
-
-		    array['sel'] = 'concat(nombre," - ¢ ",venta) as nombre, id, venta';
-		    array['tbl'] = 11;
-		    array['where'] = 'nombre like "%'+$("#descrP").val()+'%" and id > 0';
-
-		    p = mantenimiento('productos',4,array);
-		    return p;
-		break;
-
-		case 'servicios':
-			var array = {};
-
-		    array['sel'] = 'concat(nombre," - ¢ ",pbase) as nombre, id, pbase';
-		    array['tbl'] = 16;
-		    array['where'] = 'nombre like "%'+$("#descrS").val()+'%" and id > 0';
-
-		    p = mantenimiento('productos',5,array);
-		    return p;
-		break;
-	}
 }

@@ -1,48 +1,21 @@
-<link rel="stylesheet" href="../assets/css/bootstrap-tokenfield.css">
-<link rel="stylesheet" href="../assets/css/tokenfield-typeahead.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/bv2_toggle.css">
-
 <div id="mantPaquetes">
-<h2 align="center">Mantenimiento Paquetes</h2>
-<hr>
   <div class="row">
-    <div class="col-md-6 col-lg-6">
-        <div class="input-group">
-            <span class="input-group-btn">
-            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
-            </span>
-            <input type="search" id="searchpqt" class="form-control" placeholder="Buscar Código">
-            <div class="btn-group input-group-addon" role="group" id="fpqt" filter="1">
-              <i id="btnGroupDrop1" class="dropdown-toggle fa fa-navicon but" data-toggle="dropdown">
-              </i>
-              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item filtropqt" href="#" filtro="f1">Código</a>
-                  <a class="dropdown-item filtropqt" href="#" filtro="f2">Nombre</a>
-              </div>
-            </div>
+    <div class="col s6 m6">
+        <div class="input-field col s6">
+            <input id="searchpqt" type="text" class="validate">
+            <label for="searchpqt" id="lpq">Buscar por Código</label>
         </div>
+        <a class="dropdown-button btn-floating btn-large waves-effect waves-light green" data-activates="fpqt"><i class="material-icons">search</i></a>
+        <ul id="fpqt" class="dropdown-content" filter="1">
+            <li><a class="dropdown-item filtropqt" filtro="f1">Código</a></li>
+            <li><a class="dropdown-item filtropqt" filtro="f2">Nombre</a></li>
+        </ul> 
       </div>
-      <div class="col-md-6 col-lg-6">
-          <button type="button" id="ingInvPqts" class="btn btn-primary der" data-toggle="modal" href="#modal-paquetes" style="margin-right: 15px; padding: 16px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
+      <div class="col s6 col m6">
+          <a id="addpackage" class="btn-floating btn-large waves-effect waves-light right blue" href="#modal-paquetes"><i class="material-icons">add</i></a>
       </div>
-  </div><br><br>
-
-<!-- <div class="input-group">
-  <input type="text" class="form-control" aria-label="Text input with dropdown button">
-    <div class="input-group-btn">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Action
-      </button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="#"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Editar</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-certificate" style="color: #f0ad4e"></i>&nbsp;&nbsp;Promoción</a>
-        <div role="separator" class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#"><i class="fa fa-times" style="color: #D9534F"></i>&nbsp;&nbsp;Eliminar</a>
-      </div>
-    </div>
-</div> -->
-
-<br>
+  </div>
+    <br>
 <div class="table-responsive">
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-paquetes" cellspacing="0" width="100%" >
@@ -74,87 +47,58 @@
   <br><br>
 </div>
 
-<div class="modal fade" id="modal-paquetes">
-  <div class="modal-dialog" style="width: 80%;">
+<div id="modal-paquetes" class="modal modal-fixed-footer" style="width:70%;height:90%">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="titpqt">Agregar Paquetes</h4>
-      </div>
-      <div class="modal-body">
-      <div class="row">
-        <div class="col-md-8 col-lg-8">
-          <div class="input-group input-group">
-            <span class="input-group-addon"><b>Nombre</b></span>
-            <input type="hidden" id="vid" value="">
-            <input type="text" id="vnombre" class="form-control" aria-label="Nombre de Paquete" placeholder="Nombre de Paquete">
-          </div>
-        </div>
-        <div class="col-md-4 col-lg-4">
-          <div class="input-group input-group">
-            <span class="input-group-addon"><b>Código</b></span>
-            <input type="text" class="form-control" id="vcodigo" aria-label="Código de Paquete" placeholder="Código" value="PCK-122" disabled>
-          </div>
-        </div>
-        <br><br>
-      </div>
-      <hr>
-      <!-- <div class="row">
-        <div class="col-md-12 col-lg-12" align="right">
-          
-        </div>
-      </div><br> -->
-      <div class="row">
-        <div class="col-md-7 col-lg-7">
-          <div class="input-group">
-            <div class="input-group-addon btn"><b>Producto</b></div>
-            <input type="text" class="form-control" id="prod" placeholder="Producto">
-            <input type="hidden" id="hprod" class="form-control" value="">
-            <div class="input-group-addon btn"><b>Cantidad</b></div>
-            <input type="number" id="cantidad" class="form-control" value="">
-            <div class="input-group-addon btn"><i class="fa fa-plus" id="bProd"></i></div>
-          </div>
-        </div>
-        <div class="col-md-5 col-lg-5" style="border-left: 0.5px solid #E2E2E2;">
-          <ul class="list-group">
-            <input type="hidden" id="arrpqt" value="0">
-            <input type="checkbox" checked data-toggle="toggle" data-off="<span id='editoff'>Editable</span>" data-on="<span id='editon'>Editar</span>" data-size="small" data-width="100" data-onstyle="primary active" data-offstyle="primary active"><br><br>
-            <div  id="listapaquetes"></div>
-          </ul>
-        </div>
-      </div>
-        <hr>
+        <h4  id="titpqt">Agregar Paquete</h4><hr>
         <div class="row">
-          <div class="col-lg-4"></div>
-          <div class="col-lg-4">
-            <div class="input-group">
-              <div class="input-group-addon"><b>Descuento</b></div>
-              <select id="vdescuento" class="form-control" required="required"></select>
-              <div class="input-group-addon"><b>%</b></div>
+            <div class="input-field col s6">
+                <input id="vcodigo" type="text" class="validate" disabled>
+                <label for="vcodigo">Codigo</label>
             </div>
-          </div>
-          <div class="col-lg-4">
-              <div class="input-group">
-                <span class="input-group-addon"><b>TOTAL</b></span>
-                <input type="text" class="form-control" value="0.00" id="totpqt" aria-label="Amount (rounded to the nearest dollar)" disabled>
-                <input type="hidden" id="htotal" class="form-control" value="0.00">
-              </div>
-          </div>
-        </div><br>
-        <div class="alert alert-danger err_" id="err1" style="display: none">
-          <strong id="errm1"></strong>
+            <div class="input-field col s6">
+                <input id="vnombre" type="text" class="validate">
+                <label for="vnombre">Nombre del Paquete</label>
+            </div>
         </div>
-        <div class="alert alert-success suc_" id="suc1" style="display: none">
-          <strong id="sucm1"></strong>
+
+        <div class="row">
+            <div class="col s6">
+                <table class="responsive-table bordered highlight">
+                    <thead>
+                        <tr>
+                            <th>Nombre Producto</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" id="prod" class="autocomplete">
+                                <input type="hidden" id="hprod" value="">
+                            </td>
+                            <td>
+                               
+                                <input id="cantidad" type="text">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s6"><br>
+                <div id="listapaquetes">
+                    <!-- <div class="chip blue lighten-3">
+                    Producto1 (3)
+                    <i class="close material-icons">close</i>
+                    </div> -->
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-        <button type="button" class="btn btn-primary" id="addpqt">Agregar</button>
-        <button type="button" class="btn btn-primary inv" id="editpck">Guardar</button>
-      </div>
     </div>
-  </div>
+    <div class="modal-footer">
+        <a class="waves-effect waves-light btn-flat modal-action blue white-text">Agregar</a>
+        <a class="waves-effect waves-light btn-flat modal-action modal-close grey lighten-1 white-text" red>Salir</a>
+    </div>
 </div>
 
 </div> <!-- End mantPaquetes -->

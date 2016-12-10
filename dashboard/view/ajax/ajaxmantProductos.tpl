@@ -5,7 +5,7 @@
 <div class="col s6">
 <div class="input-field col s6">
 <input id="searchprod" type="text" class="validate">
-<label for="icon_prefix" id="phs">Buscar Por Código</label>
+<label for="searchprod" id="phs">Buscar por Código</label>
 </div>
 <a class="dropdown-button btn-floating btn-large waves-effect waves-light green" data-activates="fgrande"><i class="material-icons">search</i></a>
 <ul id="fgrande" class="dropdown-content" filter="1">
@@ -14,7 +14,7 @@
 </ul>       
 </div>
 <div class="col s6">
-    <a id="ingInvProd" class="btn-floating btn-large waves-effect waves-light right blue" href="#modal-productos"><i class="material-icons">add</i></a>
+    <a id="addproduct" class="btn-floating btn-large waves-effect waves-light right blue" href="#modal-productos"><i class="material-icons">add</i></a>
 </div>
 </div>
 
@@ -25,7 +25,7 @@
     <thead>
     <tr>
     <th style="width: 20%">Código</th>
-    <th>Nombre</th>
+    <th>Nombre1</th>
     <th>Precio Costo</th>
     <th>Precio Venta</th>
     <th>Margen Ganancia</th>
@@ -55,7 +55,7 @@
 </div>
 </div>
 
-<div id="modal-productos" class="modal modal-fixed-footer" style="width:70%;max-height:100%">
+<div id="modal-productos" class="modal modal-fixed-footer" style="width:70%;height:90%">
     <div class="modal-content">
         <h4 class="accmodal">Agregar Producto</h4><hr>
             <nav class="blue">
@@ -125,6 +125,7 @@
                         <input type="hidden" id="vid" value="0">
                         <input type="hidden" id="vidusuario" value="">
                         <input type="hidden" id="vidsucursal" value="">
+                        <input type="hidden" id="vimg" value="">
                     </div>
                     <div class="input-field">
                         <input type="number" id="vcantidad" class="formprod validate" value="" min="1">
