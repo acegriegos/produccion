@@ -254,7 +254,8 @@ $(document).on("keyup","#codp",function(e){
             }
 
         }else{
-            $("#noprod").show(500);
+            //$("#noprod").show(500);
+            Materialize.toast('Producto no Eistente',4000,'red');
             $(this).select()
         }
     }

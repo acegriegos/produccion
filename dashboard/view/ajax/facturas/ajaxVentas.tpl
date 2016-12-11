@@ -80,10 +80,10 @@
 
 <div class="row">
 
-<div class="col s12">
- <nav>
-    <div class="nav-wrapper">
-      <div class="col s12">
+<div class="col s12" style="height: 50px;">
+ <nav style="line-height: 0px;height: 30px">
+    <div class="nav-wrapper" style="line-height: 0px;">
+      <div class="col s12" style="line-height: 30px;">
         <a href="#!" class="breadcrumb"></a>
         <a href="#!" class="breadcrumb">DETALLE DE FACTURA</a>
       </div>
@@ -114,7 +114,7 @@
 
       <td class="input-field">
         <label for="codp">Código Producto</label>
-        <input type="text" id="codp" value="" class="f">
+        <input type="text" id="codp" value="" class="f validate">
 
         <input type="hidden" id="idp" value="">
         <input type="hidden" id="hcodp" value="">
@@ -138,8 +138,9 @@
         <input type="hidden" id="hprec" class="form-control" value="">
       </td>
       <td style="font-size: 0.9em">
-      <span style="background: rgba(219,219,219,0.3); padding: 2%; border-radius: 0.2em;" title="Cantidad en Inventario"><i class="fa fa-archive" style="font-size: 0.8em"></i>:<span id="cantI">0</span></span>
-      <i class="fa fa-eraser btn del" id="del" style="color: #D9534F" title="Eliminar Fila"></i>
+      <span style="background: rgba(219,219,219,0.3); padding: 2%; border-radius: 0.2em;" title="Cantidad en Inventario">
+      <i class="fa fa-archive" style="font-size: 0.8em"></i>:<span id="cantI">0</span></span>
+      <a href="#" class="btn del" id="del" title="Eliminar Fila"><i class="fa fa-eraser"></i></a>
       </td>
     </tr>
   </tbody>
@@ -153,16 +154,15 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 <!-- </div> -->
 
 <div class="card-block">
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-2 col-lg-2"></div>
   <div class="col-md-8 col-lg-8">
-    <!-- <div class="card-header" align="center"><h6>DETALLE DE FACTURA</h6></div> -->
+    <div class="card-header" align="center"><h6>DETALLE DE FACTURA</h6></div>
   </div>
   <div class="col-md-2 col-lg-2">
   <button type="button" class="btn btn-info-outline der" id="del1">Eliminar Filas</button>
-  <br><br>
   </div>
-</div>
+</div> -->
 <table class="table table-bordered">
 <thead>
   <tr  align="center">
@@ -185,13 +185,25 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
   </table>
   </div>
 </div>
+<br>
 
-<div class="card-footer">
-<h3 class="card-title"><b>DESGLOCE DE FACTURA</b></h3><br>
+<div class="card-block">
+
+<div class="col s12" style="height: 50px;">
+ <nav style="line-height: 0px;height: 30px">
+    <div class="nav-wrapper" style="line-height: 0px;">
+      <div class="col s12" style="line-height: 30px;">
+        <a href="#!" class="breadcrumb"></a>
+        <a href="#!" class="breadcrumb">DESGLOCE DE FACTURA</a>
+      </div>
+    </div>
+  </nav>
+</div>
 
 <div class="row">
-<div class="col-md-6 col-lg-6">
-<strong>
+
+<div class="col m6">
+
 <table class="table table-striped table-hover" style="border: 1px solid #e2e2e2;">
 <thead>
 <tr>
@@ -227,39 +239,42 @@ Desea Agregarlo?<br> <button type="button" class="btn btn-info" id="includprod">
 <tbody>
 </tbody>
 </table>
-<!--  -->
-<div class="col-md-12 col-lg-12">
+
+<div class="col m12">
+
 <div class="row">
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><small><b>DESC</b></small></div>
-<input type="text" id="vdescuento" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99" disabled>
-<div class="input-group-addon"><small><b>%</b></small></div>
+
+<div class="col m4 input-field">
+
+<div class="prefix">%</div>
+<label for="vdescuento">DESCUENTO<label>
+<input type="text" id="vdescuento" class="eder" value="0" placeholder="0.00" disabled>
+
+</div>
+
+<div class="col m4 input-field">
+
+<div class="prefix">¢</div>
+<label for="vflete">FLETE</label>
+<input type="text" id="vflete" class="eder" value="0" placeholder="0.00" data-mask="999999999.99">
+
+</div>
+
+<div class="col m4 input-field">
+
+<div class="prefix" id="btnAjuste" accion="1">+</div>
+<label for="vajuste">AJUSTE</label>
+<input type="text" id="vajuste" class="eder" value="0" placeholder="0.00" data-mask="999999999.99">
+
+</div>
+
 </div>
 </div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><small><b>FLETE</b></small></div>
-<input type="text" id="vflete" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
-<div class="input-group-addon"><small><b>¢</b></small></div>
 </div>
 </div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><small><b>AJUSTE</b></small></div>
-<input type="text" id="vajuste" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
-<div class="input-group-btn">
-<button type="button" class="btn btn-sm" id="btnAjuste" accion="1">+</button>
+
 </div>
-<!-- <div class="input-group-addon"><small><b>+</b></small></div> -->
-</div>
-</div>
-</div>
-</div>
-<!--  -->
-</strong>
-</div>
-<div class="col-md-6 col-lg-6">
+<div class="col m6">
 <textarea id="vcomentario" class="form-control" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px"></textarea><br>
 <div class="row">
 <div class="col-md-12 col-lg-12">
@@ -281,17 +296,6 @@ Punto Venta
 </div>
 </div>
 </div>
-</div>
-<br><br>
-<div class="row">
-  <div class="col-md-12 col-lg-12">
-    <div class="alert alert-danger err_" id="err1" style="display: none">
-      <strong id="errm1"></strong>
-    </div>
-    <div class="alert alert-success suc_" id="suc1" style="display: none">
-      <strong id="sucm1"></strong>
-    </div>
-  </div>
 </div>
 </div>
 
