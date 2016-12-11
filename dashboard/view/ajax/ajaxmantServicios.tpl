@@ -124,9 +124,9 @@
                 <!-- <div class="row"> -->
                     <div class="input-field col s12 m6">
                         <select id="prov" disabled>
-                        <option tipo="0" value="0" disabled selected>Proveedor</option>
+                        <option value="0" disabled selected>Proveedor</option>
                         {section name=LE loop=$CLI}
-                        <option tipo="{$CLI[LE][0]}" value="{$CLI[LE][0]}">{$CLI[LE][1]}</option>
+                        <option value="{$CLI[LE][0]}">{$CLI[LE][1]}</option>
                         {/section}
                         </select>
                         <label>Seleccione un Proveedor</label>

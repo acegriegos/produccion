@@ -177,7 +177,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
             .done(function(data) {
                 try {
                     p = JSON.parse(data);
-                    console.log(data)
+                    console.error(data)
                 }
                 catch(err){
                     p = data;
