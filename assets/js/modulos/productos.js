@@ -1048,7 +1048,7 @@ $(document).on("click","#addpackage",function(){
 	
 	$("#titpqt").html("Agregar Paquetes");
 	var number = arr('login',4,'ifnull(max(id)+1,1)',58,'1','',0,'')[0][0];
-	var codigo = addZero(number,4);
+	var codigo = addZero(number,2);
 	$("#vcodigo").val('PCK-'+codigo);
 	vaciar('paquetes');
 	$("#listapaquetes").html('');
@@ -1057,10 +1057,10 @@ $(document).on("click","#addpackage",function(){
 	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
 	Materialize.updateTextFields();
 
-	$("#prod").autocomplete({
-	    limit: 20,
-	    data: arr('login',4,'concat(nombre," - ¢",venta)',11,'id > 0','',0,'',1)
-	})
+	$('#prod').autocomplete({
+		limit: 20,
+		data: arr('login',4,'nombre,null',11,'nombre like "%'+$("#prod").val()+'%" limit 20',0,0,0,1)
+	});
 
 	setTimeout(function(){ $("#vnombre").focus() },500);
 });
