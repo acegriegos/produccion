@@ -20,8 +20,9 @@ function searchClient(vvariable,visprv){
             }
             
             $("#vdescuento").val(clie[5]);
-            $("#codp").focus();
+            
             Materialize.updateTextFields()
+            $("#codp").focus();
         }
     }
 }

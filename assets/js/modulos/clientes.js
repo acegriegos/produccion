@@ -3,7 +3,11 @@ var cuentas = '<option value="0">Seleccione una Cuenta</option>';
 $(function(){
 	
 	$("#fclientes").submit(function(){return false});
-	$("#data-table-clientes").dataTable();
+	$("#data-table-clientes").dataTable({
+		bFilter: false,
+		order : [],
+		"bLengthChange": false
+	});
 	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
 	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
@@ -74,8 +78,6 @@ $(function(){
 		else
 			$(".cre").show();
 	})
-
-	$("#cuentasclientes").multiSelect();
 
 });
 

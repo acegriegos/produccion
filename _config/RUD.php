@@ -48,14 +48,14 @@
 
 		public function kaioken($sel,$tabl,$wher)
 		{
-			if (strpos($wher,'@@usr')) {
+			if (strpos($wher,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
 				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
-			if (strpos($sel,'@@tp')) {
+			if (strpos($sel,'@tp')) {
 				$sel = str_replace('@@tp', 'idtipousuario', $sel);
 			}
 
@@ -75,7 +75,7 @@
 		public function genkidama($accion,$tabl,$arg1,$args2)
 		{
 
-			if (strpos($args2,'@@usr')) {
+			if (strpos($args2,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
 				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
