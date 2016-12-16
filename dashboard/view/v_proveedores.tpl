@@ -20,7 +20,7 @@
 {$NAV}
 
 <div class="bdy">
-<h3 class="card-header card-primary" style="color: #fff"><b>PROVEEDORES</b></h3><br>
+<h3 class="card-header card-primary black-text"><b>PROVEEDORES</b></h3><br>
 <div class="row">
 <div class="col-md-8 col-lg-8">
 <div class="input-group">

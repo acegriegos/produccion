@@ -5,6 +5,23 @@ $(document).ready(function(){
         closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
         draggable: true // Choose whether you can drag to open on touch screens
     });
+
+    $("#lgt").change(function(){
+        if ($(this).val() == 1) {
+            window.open("logout","_self");
+        }
+        
+    });
+
+    $("#last_name").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            var numtrans = $(this).val();
+            if (numtrans == 1) {
+                window.open('usuarios','_self');
+            }
+        }
+    });
     
     // //PONER EN F11
     // $("#mobile_nav").click(function(){

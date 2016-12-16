@@ -10,8 +10,18 @@
         <td><?php echo $obj[6] ?></td>
         <td><?php echo $obj[7] ?></td>
        <td>
-          <i class="fa fa-pencil-square-o load cargar btn" modulo="usuario" title="Cargar Usuario" id="m<?php echo $obj[0] ?>"></i>
-          <i class="fa fa-times delete eliminar btn" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $obj[0] ?>"></i>
+          <?php if ($obj[1] == 'admin') {
+            echo '<a class="btn-floating waves-effect waves-light blue cargar load" modulo="usuario" title="Editar Usuario" id="m'.$obj[0].'" disabled><i class="fa fa-pencil-square-o"></i></a>';
+          }else{
+            echo '<a class="btn-floating waves-effect waves-light blue cargar load" modulo="usuario" title="Editar Usuario" id="m'.$obj[0].'"><i class="fa fa-pencil-square-o"></i></a>';
+          } ?>
+          <?php if ($obj[1] == 'admin') {
+            echo '<a class="btn-floating waves-effect waves-light red delete eliminar" modulo="usuario" title="Eliminar Usuario" id="d'.$obj[0].'" disabled><i class="fa fa-times"></i></a>';
+          }else{
+            echo '<a class="btn-floating waves-effect waves-light red delete eliminar" modulo="usuario" title="Eliminar Usuario" id="d'.$obj[0].'"><i class="fa fa-times"></i></a>';
+          } ?>
+          
+          
         </td>
       </tr>
   <?php } ?>

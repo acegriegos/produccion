@@ -1,26 +1,26 @@
 $(document).ready(function(){
-
-    setTimeout(function() {$("#num").focus()}, 500);
-
+    Materialize.updateTextFields();
+    $("#num").focus();
     $("#logF").submit(function(){
         return getIn();
     });
 
-$("#changepssw").click(function(){
-    var val = validarcambio();
-    if (val == false) {
-        arr('login',4,'',56,'\"'+$("#vuser").val()+'\",\"'+$("#vclave").val()+'\"','',0,'');
-        var p = mantenimiento('login',4,arr)[0];
-        if (p == "[object Object]") {
-            Materialize.toast(p['ERROR'], 4000, 'red');
+    $("#changepssw").click(function(){
+        var val = validarcambio();
+        if (val == false) {
+            arr('login',4,'',56,'\"'+$("#vuser").val()+'\",\"'+$("#vclave").val()+'\"','',0,'');
+            var p = mantenimiento('login',4,arr)[0];
+            if (p == "[object Object]") {
+                Materialize.toast(p['ERROR'], 4000, 'red');
+            }else{
+                Materialize.toast('Contraseña Cambiada Correctamente', 4000, 'green');
+                $("#salir").click();
+                $("#num").focus();
+            }
         }else{
-            Materialize.toast('Contraseña Cambiada Correctamente', 4000, 'green');
-            $("#salir").click();
-            $("#num").focus();
+            Materialize.toast(val, 4000, 'red');
         }
-    }else{
-        Materialize.toast(val, 4000, 'red');
-    }
+    });
 });
 
 function validarcambio(){

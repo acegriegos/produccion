@@ -1,238 +1,144 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Usuarios</title>
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="max-age=86400"/>
+<title>Usuarios</title>
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-
-<br>
-
-    {$NAV}
+{$NAV}
 <div class="bdy">
-  <nav class="navbar navbar-dark bg-primary">
-        <!-- Brand -->
-        <a class="navbar-brand" href="#"><b>Usuarios</b></a>
-        <!-- Links -->
-        <ul class="nav navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link menu2 active" id="m1" href="#">Mantenimiento</a>
-            </li>
-            <li class="nav-item menu2" id="m2">
-                <a class="nav-link" href="#">Permisos</a>
-            </li>
-            <li class="nav-item menu2" id="m3">
-                <a class="nav-link" href="#">Historial</a>
-            </li>
-        </ul>
-    </nav>
-<br>       
-<div class="panel panel-default" id="cuerpo"> 
-
-           <div class="panel-body" >
-
-            <form id="fusuarios">
-
-           <div class="row">
-
-               <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Usuario</b></span>
-                        <input type="hidden" id="vid" value="0">
-                        <input type="hidden" id="vidusuario" value="">
-                        <input type="text" id="vuser" class="form-control" placeholder="Ingrese el Usuario" tabindex="1">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Nombre del Usuario</b></span>
-                        <input type="text" id="vnombre" class="form-control" placeholder="Ingrese el Nombre del Usuario" tabindex="3">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Correo del Usuario</b></span>
-                        <input type="mail" id="vmail" class="form-control" placeholder="Ingrese el Correo del Usuario" tabindex="5">
-                    </div>
-                    <br>
-               </div>
-               
-               <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Tipo Usuario</b></span>
-                        <select id="vidTipoUsuario" class="form-control" tabindex="2" type="select">
-                            <option value="0">Seleccione un Tipo de Usuario</option>
-                            {section name=LE loop=$TUSR}
-                                <option value="{$TUSR[LE][0]}">{$TUSR[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Cédula del Usuario</b></span>
-                        <input type="text" id="vcedula" data-mask="9-9999-9999-9999" class="form-control" placeholder="Ingrese la Cédula del Usuario" tabindex="4">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                      </div>
-                    <br>
-                    <div class="input-group">
-                      <div class="input-group-addon"><b>Sucursal</b></div>
-                      <select type="select" id="vidsucursal" class="form-control" required="required" tabindex="6">
-                        <option value="0">Seleccione una Sucursal</option>
-                        {section name=LE loop=$SUC}
-                        <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
-                        {/section}
-                      </select>
-                    </div>
-               </div>
-           </div>
-           <hr>
-           <div class="row">
-               <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Contraseña</b></span>
-                        <input type="password" id="vclave" class="form-control" value="" tabindex="7">
-                        <span class="input-group-addon btn" id="spas"><b><i class="fa fa-eye"></i></b></span>
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Hora Entrada</b></span>
-                        <input type="time" id="vlimite" class="form-control" value="08:00" tabindex="9">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-               </div>
-
-               <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Repita Contraseña</b></span>
-                        <input type="password" id="clave" class="form-control" value="" tabindex="8">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Hora Salida</b></span>
-                        <input type="time" id="vlimite2" class="form-control" value="17:00" tabindex="10">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-               </div>
-           </div>
-
-              <input type="hidden" id="vbcambioPSSW" class="form-control" value="0">
-              <input type="hidden" id="vcodigo" class="form-control" value="">
-              <small style="float: left;" class="asterisco">* Campo Requerido</small>
-              
-              <div class="alert alert-danger err_" id="err1" style="display: none">
-                <strong id="errm1"></strong>
-              </div>
-              <div class="alert alert-success suc_" id="suc1" style="display: none">
-                  <strong id="sucm1"></strong>
-              </div>
-              <!-- <button type="submit" class="btn btn-primary der" id="back" title="Agregar Usuario" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i> -->
-
-              <button type="submit" class="btn btn-primary der fa fa-plus add per500" id="userSubmit" title="Agregar Usuario" codigo="1" modulo="usuario" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;">
-
-              <!-- <button type="submit" class="btn btn-success der add per500" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button> -->
-              <button type="submit" class="btn btn-default der" id="back" title="Agregar Usuario" style="display: none"><i class="fa fa-chevron-circle-right" ></i></button>
-              
-              </form>
-           </div>
-           
-          <div class="panel-footer">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered dt-responsive nowrap" id="data-table-usuarios" cellspacing="0" width="100%">
-                    <thead>
-                        <th>Usuario</th>
-                        <th>Nombre</th>
-                        <th>Cédula</th>
-                        <th>Correo</th>
-                        <th>Tipo de Usuario</th>
-                        <th>Hora Entrada</th>
-                        <th>Hora Salida</th>
-                        <th>Acciones</th>
-                    </thead>
-                    <tbody id="listausuarios">
-                    {section name=LE loop=$USRS}
-                        <tr>
-                          <td>{$USRS[LE][1]}</td>
-                          <td>{$USRS[LE][2]}</td>
-                          <td>{$USRS[LE][3]}</td>
-                          <td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e{$USRS[LE][0]}">{$USRS[LE][4]}</a></td>
-                          <td>{$USRS[LE][5]}</td>
-                          <td>{$USRS[LE][6]}</td>
-                          <td>{$USRS[LE][7]}</td>
-                          <td>
-                            <i class="fa fa-pencil-square-o load cargar btn per501" modulo="usuario" title="Cargar Usuario" id="m{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin' and $smarty.session.NUM neq 1} disabled {/if}></i>
-                            <i class="fa fa-times delete eliminar btn per502" codigo="1" modulo="usuario" title="Eliminar Usuario" id="d{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin'} disabled {/if}></i>
-                          </td>
-                        </tr>
-                    {/section}
-                    </tbody>
-                </table>
-            </div>
-
-          </div>
-          
-       </div>
-   
-   <div class="modal fade" id="modal-sendMail">
-     <div class="modal-dialog">
-       <div class="modal-content">
-         <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-           <h4 class="modal-title" id="corTit"></h4>
-         </div>
-
-         <form id="sendMail">
-
-         <div class="modal-body">
-        
-        <div class="input-group">
-             <span class="input-group-addon"><b>Asunto</b></span>
-             <input type="text" id="subject" class="form-control" value="" required>
-         </div>
-         
-         <br>
-         
-         <div class="input-group">
-             <span class="input-group-addon"><b>Para</b></span>
-             <input type="mail" id="to" class="form-control" value="" required>
-         </div>
-
-         <br>
-
-         <div class="input-group">
-             <span class="input-group-addon"><b>Mensaje</b></span>
-             <textarea id="content" class="form-control" required></textarea>
-         </div>
-
-         </div>
-         <div class="modal-footer">
-           <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-           <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i></button>
-         </div>
-         
-         </form>
-       </div>
-     </div>
-   </div>
+<nav class="nav-extended blue">
+<div class="nav-wrapper">
+<a class="brand-logo center">Usuarios</a>
+<br>
+<ul class="tabs tabs-transparent">
+<li class="tab menu2" id="m1"><a href="#">Mantenimiento</a></li>
+<li class="tab menu2" id="m2"><a href="#">Permisos</a></li>
+<li class="tab menu2" id="m3"><a href="#">Historial</a></li>
+</ul>
 </div>
-    <script src="../assets/js/modulos/usuarios.js"></script>
+</nav>
+<div class="card card-content grey lighten-2" id="cuerpo">
+<form id="fusuarios">
+<div class="row">
+    <div class="input-field col s6 col m6">
+        <input id="vuser" type="text" class="validate">
+        <input type="hidden" id="vid" value="0">
+        <input type="hidden" id="vidusuario" value="">
+        <label for="vuser">Usuario</label>
+    </div>
+    <div class="input-field col s6 m6">
+        <input id="vnombre" type="text" class="validate">
+        <label for="vnombre">Nombre de Usuario</label>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s6 m6">
+        <input id="vcedula" type="text" class="validate">
+        <label for="vcedula">Cédula del Usuario</label>
+        
+    </div>
+    <div class="input-field col s6 m6">
+        <input id="vmail" type="text" class="validate">
+        <label for="vmail">Correo de Usuario</label>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s6 m6">
+        <select id="vidTipoUsuario" type="select">
+            <option value="0" selected disabled>Seleccione un Tipo de Usuario</option>
+            {section name=LE loop=$TUSR}
+            <option value="{$TUSR[LE][0]}">{$TUSR[LE][1]}</option>
+            {/section}
+        </select>
+    </div>
+    <div class="input-field col s6 m6">
+        <select id="vidsucursal" type="select">
+            <option value="0" selected disabled>Seleccione una Sucursal</option>
+            {section name=LE loop=$SUC}
+            <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
+            {/section}
 
-  </body>
+        </select>
+    </div>
+</div>
+<hr>
+<div class="row" id="dpass">
+    <div class="input-field col s6 m6">
+        <input id="vclave" type="password" class="validate">
+        <label for="vclave">Contraseña</label>
+    </div>
+    <div class="input-field col s6 m6">
+        <input id="clave" type="password" class="validate">
+        <label for="clave">Repetir Contraseña</label>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s6 m6">.
+        <label>Hora de Entrada</label>
+        <input id="vlimite" type="time" class="validate">
+    </div>
+    <div class="input-field col s6 m6">.
+        <label>Hora de Salida</label>
+        <input id="vlimite2" type="time" class="validate">
+    </div>
+</div>
+<a class="btn-floating waves-effect waves-light blue right add" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="material-icons">add</i></a>
+<br>
+<input type="hidden" id="vbcambioPSSW" value="0">
+<input type="hidden" id="vcodigo" value="">
+</form>
+</div>
+<br>
+<div class="card-footer">
+<div class="table-responsive">
+<table class="table table-striped table-bordered dt-responsive nowrap" id="data-table-usuarios" cellspacing="0" width="100%">
+<thead>
+<th>Usuario</th>
+<th>Nombre</th>
+<th>Cédula</th>
+<th>Correo</th>
+<th>Tipo de Usuario</th>
+<th>Hora Entrada</th>
+<th>Hora Salida</th>
+<th>Acciones</th>
+</thead>
+<tbody id="listausuarios">
+{section name=LE loop=$USRS}
+<tr>
+<td>{$USRS[LE][1]}</td>
+<td>{$USRS[LE][2]}</td>
+<td>{$USRS[LE][3]}</td>
+<td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e{$USRS[LE][0]}">{$USRS[LE][4]}</a></td>
+<td>{$USRS[LE][5]}</td>
+<td>{$USRS[LE][6]}</td>
+<td>{$USRS[LE][7]}</td>
+<td>
+<a class="btn-floating waves-effect waves-light blue cargar load" modulo="usuario" title="Editar Usuario" id="m{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin' and $smarty.session.num neq 1} disabled {/if}><i class="fa fa-pencil-square-o"></i></a>
+<a class="btn-floating waves-effect waves-light red delete eliminar" modulo="usuario" title="Eliminar Usuario" id="d{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin'} disabled {/if}><i class="fa fa-times"></i></a>
+</td>
+</tr>
+{/section}
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- //modal-mail// -->
+
+</div>
+<script src="../assets/js/modulos/usuarios.js"></script>
+
+</body>
 </html>

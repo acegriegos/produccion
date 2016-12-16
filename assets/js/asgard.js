@@ -6,8 +6,10 @@ $(function(){
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
-    if(code == 113)
+    if(code == 113){
         $(".menu-btn").click();
+        $("#last_name").focus();
+    }
 });
 
 $(document).on("click",".load",function(){
@@ -120,7 +122,6 @@ function baseValidar(vaccion,vmodulo){
 }
 
 function loadpool(vmodulo,vid,vdetalle){
-
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
 
@@ -129,8 +130,10 @@ function loadpool(vmodulo,vid,vdetalle){
 
     for (var i = 0; columns[0][1].length > i; i++) {
         
-        if ($("#"+columns[0][1][i]['name']).attr("type") == 'select') 
-            $("#"+vform).find($("#"+ columns[0][1][i]['name'])).val(columns[0][0][0][i]);
+        if ($("#"+columns[0][1][i]['name']).attr("type") == 'select') {
+            $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
+            $("#"+columns[0][1][i]['name']).material_select();
+        }
 
         else if ($("#"+columns[0][1][i]['name']).attr("type") == 'textarea')
             $("#"+vform).find($("#"+columns[0][1][i]['name'])).text(columns[0][0][0][i]);
@@ -154,6 +157,7 @@ function loadpool(vmodulo,vid,vdetalle){
             $("#"+columns[0][1][i]['name']).change();
         
     }
+    Materialize.updateTextFields();
 
     if (vdetalle != undefined){
         // var arr = {}
@@ -164,6 +168,7 @@ function loadpool(vmodulo,vid,vdetalle){
         // $("#detalle"+vmodulo['modulo']).html(mantenimiento('login',6,arr))
         arr('login',6,'',32,'\"'+vid+'\"','',1,$("#detalle"+vmodulo['modulo']));
     }
+
 }
 
 function mantenimiento(vmodulo,vaccion,varreglo,vjson){
