@@ -17,3 +17,13 @@ html{
 td, th{
     padding: 1px 3px;
 }
+
+.autocomplete-content{
+    z-index: 3000;
+    position: fixed;
+}
+
+.faccion{
+    padding: 0px 10px;
+    margin: 2px;
+}

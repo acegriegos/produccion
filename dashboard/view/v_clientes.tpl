@@ -20,24 +20,28 @@
 <br>
 {$NAV}
 <div class="bdy">
-<h3 class="card-header card-primary" style="color: #fff"><b>CLIENTES</b></h3><br>
+
+<div class="card">
+
+<h3 class="card-header card-primary">CLIENTES</h3>
 
 <div class="row">
-<div class="col-md-8 col-lg-8">
-<div class="input-group">
-<span class="input-group-btn">
-<button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
-</span>
-<input type="search" class="form-control" placeholder="Nombre de Cliente">
-</div>
-</div>
-<div class="col-md-4 col-lg-4">
+
+    <div class="input-field col m8 col l8">
+
+        <i class="prefix" class="fa fa-search"></i>
+        <input type="search" id="searh_clie">
+        <label for="searh_clie">Buscar Cliente por Nombre</label>
+
+    </div>
+
+<div class="col m4">
 <button type="button" id="ingClie" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
 </div>
-</div><br><br>
+</div>
 
 <div class="card-block">
-<table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="datatable-clientes">
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-clientes">
 <thead>
 <tr>
 <th>Cédula</th>
@@ -369,6 +373,7 @@ Jurídico
 
 </div>
 
+</div>
 </div>
 </div>
 </div>
