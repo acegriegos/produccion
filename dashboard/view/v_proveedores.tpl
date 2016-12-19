@@ -20,9 +20,28 @@
 {$NAV}
 
 <div class="bdy">
-<h3 class="card-header card-primary black-text"><b>PROVEEDORES</b></h3><br>
-<div class="row">
-<div class="col-md-8 col-lg-8">
+    <nav class="blue">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">Proveedores</a>
+        </div>
+    </nav><br>
+    <div class="row">
+        <div class="col s6">
+            <div class="input-field col s8">
+                <input id="searchprod" type="text" class="validate">
+                <label for="searchprod" id="phs">Buscar por Cédula Jurídica</label>
+            </div>
+            <a class="dropdown-button btn-floating btn-large waves-effect waves-light green" data-activates="fprov"><i class="material-icons">search</i></a>
+            <ul id="fprov" class="dropdown-content" filter="1" style="width: 140px">
+                <li><a class="dropdown-item fprov" filtro="f1">Cédula Jurídica</a></li>
+                <li><a class="dropdown-item fprov" filtro="f2">Razón Social</a></li>
+            </ul>
+        </div>
+        <div class="col s6">
+            <a class="btn-floating btn-large waves-effect waves-light blue right" href="#modal-proveedores" id="ingProv"><i class="material-icons">add</i></a>
+        </div>
+        
+<!-- <div class="col-md-8 col-lg-8">
 <div class="input-group">
 <span class="input-group-btn">
 <button class="btn btn-primary" type="button"><i class="fa fa-search"></i><span style="color: transparent">.</span></button>
@@ -32,8 +51,8 @@
 </div>
 <div class="col-md-4 col-lg-4">
 <button type="button" id="ingProv" class="btn btn-primary der" data-toggle="modal" href="#modal-proveedores" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
-</div>
-</div><br><br>
+</div> -->
+    </div>
 <div class="card-block">
 <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
 <thead>
@@ -63,185 +82,40 @@
 </tbody>
 </table>
 </div>
-<div class="modal fade" id="modal-proveedores">
-<div class="modal-dialog"  style="width: 70%">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-<h4 class="modal-title" id="titModal">Agregar Proveedor</h4>
-</div>
-<div class="modal-body">
-<form id="fclientes">
-<nav class="navbar navbar-light bg-faded">
-<div class="nav navbar-nav">
-<a class="nav-item nav-link mnprov active" href="#" id="ln1">Información</a>
-<a class="nav-item nav-link mnprov" href="#" id="ln2">Financiero</a>
-<a class="nav-item nav-link mnprov" href="#" id="ln3">Logística</a>
-</div>
-</nav>
-<div class="card-header parte1 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title" id="titInfo"><b>Datos Personales</b></div>
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Razón Social</b></div>
-<input type="text" class="form-control" id="vnombre" placeholder="Razón Social">
-<input type="hidden" id="videstadocontable" value="1">
-<input type="hidden" id="vidtipocliente" value="0">
-<input type="hidden" id="vbisproveedor" value="1">
-<input type="hidden" id="vbisnacional" value="1">
-<input type="hidden" id="vdescuentop" value="0.00">
-<input type="hidden" id="vdescuentom" value="0.00">
-<input type="hidden" id="vapellido1" value="">
-<input type="hidden" id="vapellido2" value="">
-<input type="hidden" id="vidnivel" value="0">
-<input type="hidden" id="vcredito" value="0">
-<input type="hidden" id="vidcuenta" value="">
-<input type="hidden" id="vplazo" value="0">
-<input type="hidden" id="vid" value="0">
-</div>
-</div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Cédula</b></div>
-<input type="text" class="form-control" id="vcedula" data-mask="9-999-999999" placeholder="Cédula Jurídica">
-</div>
-</div>
-</div><br>
-<div class="row" vtabla="correo" id="fcorreos">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Web</b></div>
-<input type="text" class="form-control" id="vweb" placeholder="Página Web">
-</div>
-</div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Estado</b></div>
-<select id="videstado" class="form-control" type="select">
-<option value="">Seleccione un Estado</option>
-{section name=LE loop=$ESTCLIE}
-<option value="{$ESTCLIE[LE][0]}" selected>{$ESTCLIE[LE][1]}</option>
-{/section}
-</select>
-</div>
-</div>
-</div><br>
-</div>
-<div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title">
-<div class="row">
-<div class="col-md-1 col-lg-1">
-<b>Teléfonos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-</div>
-<div class="col-md-1 col-lg-1">
-<i type="button" class="btn btn-primary dropdown-toggle fa fa-plus" data-toggle="dropdown"></i>
-<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-<input type="hidden" id="num" value="1">
-<a class="dropdown-item typephone" href="#" tipo="t1">Casa</a>
-<a class="dropdown-item typephone" href="#" tipo="t2">Móvil</a>
-<a class="dropdown-item typephone" href="#" tipo="t3">Trabajo</a>
-<a class="dropdown-item typephone" href="#" tipo="t4">Fax</a>
-</div>
-</div>
-</div>
-</div>
-<div class="row naruto-telefonos" id="variostelefonos">
-<div class="col-md-4 col-lg-4" id="dt1">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-building" aria-hidden="true"></i></b></div>
-<input type="text" class="form-control eder" id="vtrabajo" vidtipo="3" placeholder="Trabajo" data-mask="9999-9999">
-</div> 
-</div>
-</div>
-</div>
-<div class="card-header parte1 ptr" vtabla="correo" id="fcorreos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title">
-<b>Correos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><button type="button" class="btn btn-primary fa fa-plus" id="addmail" num="1">
-</div>
-<div class="row naruto-correos" id="varioscorreos">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-envelope" aria-hidden="true"></i><small> (1)</small></b></div>
-<input type="text" class="form-control eder" id="vcorreo1" placeholder="ejemplo@dominio.com">
-</div> 
-</div>
 
-</div><br>
-
-</div>
-<div class="card-header parte2 ptr" style="border-radius:5px;border-size:1px 1px 1px 1px;border-color: #D1D1D1;">
-<div class="row">
-<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-<div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
-<div id="ctacontado">
+<div id="modal-proveedores" class="modal modal-fixed-footer" style="width:70%;height:90%">
+    <div class="modal-content">
+        <h4 class="titmodal">Agregar Proveedores</h4><hr><br>
+        <nav class="blue">
+            <div class="nav-wrapper">
+                <ul id="nav-mobile" class="left">
+                    <li class="mnprov active" id="ln1"><a>Datos Proveedores</a></li>
+                    <li class="mnprov" id="ln2"><a>Financiero</a></li>
+                </ul>
+            </div>
+        </nav>
+<div class="card card-content grey lighten-3 parte1 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
+    <div class="row">
+        <div class="input-field col s6 m6">
+          <input id="vnombre" type="text" class="validate">
+          <label for="vnombre">Razon Social</label>
+        </div>
+        <div class="input-field col s6 m6">
+            <input id="vcedula" type="text" class="validate">
+            <label for="vcedula">Cedula Juridica</label>
+        </div>
+    </div>
     
 </div>
+        
+
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="agProv">Agregar</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
+    </div>
 </div>
 
-<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cre">
-<div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
-<div id="ctacredito">
-    
-</div>
-</div>
-</div>
-</div>
-<!-- <div class="card-header parte3 ptr" vtabla="ubicacione" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Direcciones</b></div>
-<div class="row">
-<div class="col-md-12 col-lg-12">
-<div tabla="detalleubicacione" class="enrutador">
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b> Provincia</b></div>
-<select class="form-control" type="select">
-<option value="0">Seleccione una Provincia</option>
-{section name=LE loop=$PRO}
-<option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
-{/section}
-</select>
-</div>
-<div class="input-group">
-<div class="input-group-addon"><b> Cantón </b></div>
-<select class="form-control" type="select">
-<option value="0">Seleccione un Cantón</option>
-</select>
-</div>
-<div class="input-group">
-<div class="input-group-addon"><b> Distrito </b></div>
-<select id="viddistrito" class="form-control" type="select">
-<option value="0">Seleccione un Distrito</option>
-</select>
-</div>
-</div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b> Dirección Exacta </b></div>
-<textarea id="vdireccion" class="form-control" rows="3"></textarea>
-</div>
-</div>
-</div><br>
-</div>
-</div>
-</div>
-</div> -->
-</form>
-<div class="alert alert-danger err_" id="err1" style="display: none">
-<strong id="errm1"></strong>
-</div>
-<div class="alert alert-success suc_" id="suc1" style="display: none">
-<strong id="sucm1"></strong>
-</div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-<button type="button" class="btn btn-primary add" id="agProv" codigo="1" modulo="cliente" varias="1" >Agregar</button>
-</div>
-</div>
-</div>
-</div>
 </div> <!-- END BDY -->
 
 </div>

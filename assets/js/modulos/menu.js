@@ -13,12 +13,12 @@ $(document).ready(function(){
         
     });
 
-    $("#last_name").keyup(function(e){
+    $("#numtrans").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
             var numtrans = $(this).val();
             if (numtrans == 1) {
-                window.open('usuarios','_self');
+                window.open('produccion','_self');
             }
         }
     });

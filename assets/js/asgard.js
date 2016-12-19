@@ -8,7 +8,7 @@ $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     if(code == 113){
         $(".menu-btn").click();
-        $("#last_name").focus();
+        $("#numtrans").focus();
     }
 });
 

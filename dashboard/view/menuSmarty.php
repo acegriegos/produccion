@@ -28,8 +28,8 @@
     </li>
     <div class="row">
     <div class="input-field col s10">
-      <input id="last_name" type="text" class="validate">
-      <label for="last_name"># Transacción</label>
+      <input id="numtrans" type="text" class="validate">
+      <label for="numtrans"># Transacción</label>
     </div>
     </div>
     <li style="margin-top:-20px;"><a href="dashboard"><i class="material-icons right" aria-hidden="true">dashboard</i>Inicio</a></li>
