@@ -1,0 +1,14 @@
+#cuerpo {
+    padding-bottom: 2%;
+}
+#vuser, #vnombre, #vcedula, #vcorreo, #vlimite, #vlimite2 {
+    margin: 0px;
+}
+
+#dpass {
+    margin-bottom: 0px;
+}
+
+#userSubmit {
+    margin-right: 15px;
+}

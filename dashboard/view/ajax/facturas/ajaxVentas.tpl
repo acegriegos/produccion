@@ -78,7 +78,7 @@
 <div class="row">
 
 <div class="col s12" style="height: 50px;">
- <nav style="line-height: 0px;height: 30px">
+ <nav class="blue" style="line-height: 0px;height: 30px">
     <div class="nav-wrapper" style="line-height: 0px;">
       <div class="col s12" style="line-height: 30px;">
         <a href="#!" class="breadcrumb"></a>
@@ -170,7 +170,7 @@
 <div class="card-block">
 
   <div class="col s12" style="height: 50px;">
-   <nav style="line-height: 0px;height: 30px">
+   <nav class="blue" style="line-height: 0px;height: 30px">
       <div class="nav-wrapper" style="line-height: 0px;">
         <div class="col s12" style="line-height: 30px;">
           <a href="#!" class="breadcrumb"></a>

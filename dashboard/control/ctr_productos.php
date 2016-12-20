@@ -27,7 +27,7 @@
 	   			$smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'1 order by idunidad'));
 	   			$smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre'));
-	   			$smarty->display('ajax/ajaxmantProductos.tpl');
+	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
@@ -36,7 +36,7 @@
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('CLI',$kakaroto->kamehameha("id,nombre",2,"bisproveedor = 1"));
 	   			$smarty->assign('SERV',$kakaroto->kamehameha('*',13,'id > 0 limit 20'));
-	   			$smarty->display('ajax/ajaxmantServicios.tpl');
+	   			$smarty->display('ajax/productos/ajaxmantServicios.tpl');
 	   			break;
 	   		case 3:
 	   			$pagina = 1;
@@ -46,7 +46,7 @@
 	   			$smarty->assign('PAQ',$kakaroto->kamehameha('vid,vcodigo,vnombre,vdescuento,totpqt',76,'vid > 0 order by vnombre'));
 	   			//PROD
 	   			//SERV
-	   			$smarty->display('ajax/ajaxmantPaquetes.tpl');
+	   			$smarty->display('ajax/productos/ajaxmantPaquetes.tpl');
 	   			break;
 	   		case 4:
 	   			$pagina = 1;

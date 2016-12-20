@@ -1,10 +1,10 @@
 $(function(){
-
+	$('select').material_select();
+		
 	$("#fusuarios").submit(function(){
 		return false;
 	});
 
-	$("#vid").focus();
 	$("#data-table-usuarios").dataTable({
 		bFilter :  false,
         bLengthChange : false
@@ -30,7 +30,6 @@ $(function(){
 			id['id'] = 1;
 			id['where'] = "f1 = curdate()"
 		}
-
 		$("#cuerpo").html(mantenimiento("usuarios",2,id));
 		if (id == 1)
 			$("#data-table-usuarios").dataTable({
@@ -47,7 +46,6 @@ $(function(){
 				bFilter :  false,
 				bLengthChange : false
 			});
-
 	});
 
 	$("#back").click(function(){
@@ -76,7 +74,6 @@ $(function(){
 	});
 
 });
-
 
 $(document).on('change','#selectUser',function(){
 		var opcion = $(this).val();
@@ -152,13 +149,11 @@ $(document).on('click','.correo',function(){
  });
 
 $(document).on('click','.cargar',function(){
-	$("#userSubmit").removeClass('btn-success');
 	$("#userSubmit").removeClass('add');
-	$("#userSubmit").addClass('btn-info');
 	$("#userSubmit").addClass('edit');
-	$("#userSubmit").attr('title','Actualiza Usuario');
-
-	$("#back").show();
+	$("#userSubmit").removeClass('blue');
+	$("#userSubmit").addClass('green');
+	$("#userSubmit").attr('title','Actualizar Usuario');
 });
 
 function validar (varreglo,vmodulo) {
@@ -202,22 +197,18 @@ function validarusuarios() {
 		$('#vuser').focus();
 		return 'Nombre de Usuario Requerido';
 	}
-
-	if ($('#vidTipoUsuario option:selected').val() == 0) {
-		$('#vidTipoUsuario').focus();
-		return 'Tipo de Usuario Requerido';
-	}
-
 	if ($('#vnombre').val() == '') {
 		$('#vnombre').focus();
 		return 'Nombre Requerido';
 	}
-
 	if ($('#vcedula').val() == '') {
 		$('#vcedula').focus();
 		return 'Cédula Requerida';
 	}
-
+	if ($('#vidTipoUsuario option:selected').val() == 0) {
+		$('#vidTipoUsuario').focus();
+		return 'Tipo de Usuario Requerido';
+	}
 	if ($('#vclave').val() == '') {
 		$('#vclave').focus();
 		return 'Contraseña Requerida';
@@ -236,15 +227,19 @@ function validarusuarios() {
 		$('#clave').focus();
 		return 'Contraseñas Deben ser Iguales';
 	}
+	if ($('#vidTipoUsuario option:selected').val() != 1) {
+		if ($('#vlimite').val() == '') {
+			$('#vlimite').focus();
+			return 'Hora de Entrada Requerida';
+		}
 
-	if ($('#vlimite').val() == '') {
-		$('#vlimite').focus();
-		return 'Hora de Entrada Requerida';
-	}
-
-	if ($('#vlimite2').val() == '') {
-		$('#vlimite2').focus();
-		return 'Hora de Salida Requerida';
+		if ($('#vlimite2').val() == '') {
+			$('#vlimite2').focus();
+			return 'Hora de Salida Requerida';
+		}
+	}else{
+		$('#vlimite').val('00:00')
+		$('#vlimite2').val('00:00')
 	}
 }
 

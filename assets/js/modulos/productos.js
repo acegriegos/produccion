@@ -59,7 +59,7 @@ $(function(){
 		}
 		);
 	});
-	$("#m3").click();
+	$("#m1").click();
 });
 $(document).ready(function(){
 	// Materialize
@@ -347,12 +347,17 @@ $(document).on("click",".editprod",function(){
 	$("#impuestos").html('');
 	//cargar
 	$("#vidfamilia").val(p[0]);
+	$("#vidfamilia").material_select();
 	$("#vidtipo").val(p[1]);
+	$("#vidtipo").material_select();
 	$("#vidmarca").val(p[2]);
+	$("#vidmarca").material_select();
 	$("#vidmodelo").val(p[3]);
+	$("#vidmodelo").material_select();
 	$("#vnombre").val(p[4]);
 	$("#vcodigo").val(p[5]);
 	$("#vidunidad").val(p[6]);
+	$("#vidunidad").material_select();
 	$("#vcantidad").val(cant)
 	$("#vminimo").val(p[7]);
 	$("#vmaximo").val(p[8]);
@@ -423,9 +428,22 @@ $(document).on("keyup","#prod",function(e){
 	}
 });
 
-$(document).on("blur","#prod",function(){
-	var nombre = $(this).val();
+// $(document).on("blur","#prod",function(){
+// 	var nombre = $(this).val();
+// 	identify = nombre.substring(1,0);
+
+// 	if (identify != '[') {
+// 		nombre = nombre.substring(0, nombre.indexOf(' - '));
+// 	}else{
+// 		nombre = nombre.substring(0, nombre.indexOf(' - ')).replace('[SERV] ','');
+// 	}
+// 	$("#hprod").val(nombre);
+// });
+
+$(document).on("focus","#cantidad",function(){
+	var nombre = $("#prod").val();
 	identify = nombre.substring(1,0);
+
 	if (identify != '[') {
 		nombre = nombre.substring(0, nombre.indexOf(' - '));
 	}else{
@@ -463,7 +481,7 @@ $(document).on("click",".del",function(){
 
 	$(".nomprod").each(function(){
 		var pid = $(this).attr('id').substr(1);
-		var precio = $("#htot"+pid).val();
+		var precio = parseFloat($("#htot"+pid).val());
 		subtot += precio;
 	});
 
@@ -483,7 +501,7 @@ $(document).on("change","#vdescuento",function(){
 $(document).on("click","#addpqt",function(){
 	var valpqt = validarpaquete();
 	if (valpqt == false) {
-		var descuento = $("#vdescuento option:selected").val();
+		var descuento = $("#vdescuento").val();
 		var total = isNaN($("#htotal").val()) ? '0.00' : parseFloat($("#htotal").val());
 		var idpaquete = arr('login',4,'',60,'1,0,\"'+$("#vcodigo").val()+'\",\"'+$("#vnombre").val()+'\",'+descuento+','+total+',@@usr,@@impresa','',0,'');
 		if (idpaquete[0][0] != undefined) {
@@ -493,7 +511,7 @@ $(document).on("click","#addpqt",function(){
 				var idservicio = $(this).attr('idservicio');
 				arr('login',4,'',61,'1,'+idpaquete[0][0]+','+idproducto+','+idservicio+','+$("#c"+id).text()+',@@usr,@@impresa','',0,'');
 			});
-			Materialize.toast('Paquete Agregado Correctamente', 6000);
+			Materialize.toast('Paquete Agregado Correctamente', 6000, "green");
 			arr('login',6,'vid,vcodigo,vnombre,vdescuento,totpqt',76,'vid > 0 order by vnombre','',1,$("#listapqts"));
 			vaciar('paquetes');
 			$("#listapaquetes").html('');
@@ -501,11 +519,11 @@ $(document).on("click","#addpqt",function(){
 			var codigo = addZero(consecutivo,4);
 			$("#vcodigo").val('PCK-'+codigo);
 		}else{
-			Materialize.toast(idpaquete[0]['ERROR'], 6000);
+			Materialize.toast(idpaquete[0]['ERROR'], 6000, "red");
 
 		}
 	}else{
-		Materialize.toast(valpqt, 6000);
+		Materialize.toast(valpqt, 6000, "red");
 
 	}
 });
@@ -524,7 +542,7 @@ $(document).on("click","#editpck",function(){
 				var idservicio = $(this).attr('idservicio');
 				arr('login',4,'',61,'1,'+idpaquete[0][0]+','+idproducto+','+idservicio+','+$("#c"+id).text()+',@@usr,@@impresa','',0,'');
 			});
-			Materialize.toast('Paquete Editado Correctamente', 6000);
+			Materialize.toast('Paquete Editado Correctamente', 6000, 'green');
 			arr('login',6,'vid,vcodigo,vnombre,vdescuento,totpqt',76,'vid > 0 order by vnombre','',1,$("#listapqts"));
 			vaciar('paquetes');
 			$("#listapaquetes").html('');
@@ -532,48 +550,30 @@ $(document).on("click","#editpck",function(){
 			var codigo = addZero(consecutivo,4);
 			$("#vcodigo").val('PCK-'+codigo);
 		}else{
-			Materialize.toast(idpaquete[0]['ERROR'], 6000);
+			Materialize.toast(idpaquete[0]['ERROR'], 6000, 'red');
 		}
 	}else{
-		Materialize.toast(valpqt, 6000);
+		Materialize.toast(valpqt, 6000, 'red');
 	}
 });
 
-$(document).on("click","#editon",function(){
-	$(".del").show();
-	$(".hcant").hide();
-	$(".ihcant").attr("type","number");
-	$(".hcant").each(function(){
-		var id = $(this).attr('id').substr(1);
-		var cant = $("#c"+id).text();
-		$("#hcant"+id).val(cant);
-	});
-});
-$(document).on("click","#editoff",function(){
-	$(".del").hide();
-	$(".hcant").show();
-	$(".ihcant").attr("type","hidden");
-});
-
-
 $(document).on("click",".loadpck",function(){
-
 	var id = $(this).attr('id').substr(1);
-	$("#titpqt").html("Editar Paquetes");
-	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',89,'id > 0 order by nombre','',1,$("#vdescuento"));
-
+	$("#titpqt").html("Actualizar Paquetes");
+	$('select').material_select('destroy');
+	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
 	var p = arr('login',4,'vnombre,vcodigo,iddescuento,htotal,totpqt,vid',76,'vid = '+id,'',0,'')[0][0];
 	$("#vid").val(p[5])
 	$("#vnombre").val(p[0]);
 	$("#vcodigo").val(p[1]);
-	$("#vdescuento").val(p[2]);
 	$("#htotal").val(p[3]);
 	$("#totpqt").val(p[4]);
-
-	$("#addpqt").hide();
-	$("#editpck").show();
-	
-	arr('login',6,'idproducto,producto,idservicio,servicio,cantidad,precio,ptotal',62,'idpaquete = '+id,'',1,$("#listapaquetes"))
+	$("#vdescuento").val(p[2]);
+	$('select').material_select();
+	Materialize.updateTextFields();
+	$("#addpqt").attr('id','editpck');
+	$("#editpck").html('Guardar');
+	arr('login',6,'*',62,'idpaquete = '+id,'',1,$("#listapaquetes"));
 	setTimeout(function(){$("#prod").focus()},500);
 
 });
@@ -582,11 +582,13 @@ $(document).on("click",".delpck",function(){
 	var id = $(this).attr('id').substr(1);
 	var array = {}
 	array['where'] = '3,'+id+',"","",0.00,0.00,@@usr,@@impresa';
-	arr('login',4,'',60,array['where'],'',0,'');
+	arr('login',4,'',60,array['where'],'',0,'')[0];
+	Materialize.toast('Paquete Eliminado Correctamente', 6000, 'green');
 
 	var array2 = {}
 	array2['where'] = '3,'+id+',0,0,0,@@usr,@@impresa';
 	arr('login',4,'',61,array2['where'],'',0,'');
+	arr('login',6,'vid,vcodigo,vnombre,vdescuento,totpqt',76,'vid > 0 order by vnombre','',1,$("#listapqts"));
 
 });
 
@@ -1045,23 +1047,22 @@ $(document).on("click","#addservice",function(){
 });
 
 $(document).on("click","#addpackage",function(){
-	
 	$("#titpqt").html("Agregar Paquetes");
 	var number = arr('login',4,'ifnull(max(id)+1,1)',58,'1','',0,'')[0][0];
 	var codigo = addZero(number,2);
 	$("#vcodigo").val('PCK-'+codigo);
 	vaciar('paquetes');
-	$("#listapaquetes").html('');
-	$("#editpck").hide();
-	$("#addpqt").show();
+	$('select').material_select('destroy');
 	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
+	$('select').material_select();
 	Materialize.updateTextFields();
-
 	$('#prod').autocomplete({
 		limit: 20,
-		data: arr('login',4,'nombre,null',11,'nombre like "%'+$("#prod").val()+'%" limit 20',0,0,0,1)
+		data: arr('login',4,'concat(nombre," - ¢",replace(precio,".00","")),null',77,'nombre like "%'+$("#prod").val()+'%" limit 20',0,0,0,1)
 	});
-
+	$("#editpck").attr('id','addpqt');
+	$("#addpqt").html('Agregar');
+	$("#listapaquetes").html('')
 	setTimeout(function(){ $("#vnombre").focus() },500);
 });
 
@@ -1242,7 +1243,7 @@ function addprod(prod,cant) {
 	}
 
 	if ($("#l"+info[0]).html() == undefined) {
-		$("#listapaquetes").append('<li class="list-group-item linea" id="l'+info[0]+'"><input type="hidden" id="htot'+info[0]+'" value="'+ptotal+'" precio="'+info[1]+'"><span class="tag tag-default tag-pill pull-xs-right hcant" id="c'+info[0]+'">'+cant+'</span><input type="hidden" class="form-control ihcant pull-xs-right" style="max-width:22%" id="hcant'+info[0]+'" value=""><label class="nomprod" id="n'+info[0]+'" idproducto="'+idprod+'" idservicio="'+idserv+'">'+prod+'</label><i class="fa fa-times btn del inv" id="d'+info[0]+'"></i></li>');
+		$("#listapaquetes").append('<div class="chip blue lighten-3" id="l'+info[0]+'"><input type="hidden" id="htot'+info[0]+'" value="'+ptotal+'" precio="'+info[1]+'"><span class="nomprod" id="n'+info[0]+'" idproducto="'+idprod+'" idservicio="'+idserv+'">'+prod+'</span> (<span class="hcant" id="c'+info[0]+'">'+cant+'</span>)<i class="close material-icons del" id="d'+info[0]+'">close</i></div>');
 	}else{
 		$("#c"+info[0]).text( parseInt($("#c"+info[0]).text()) + parseInt(cant) );
 		var precio = parseFloat($("#htot"+info[0]).attr('precio'));

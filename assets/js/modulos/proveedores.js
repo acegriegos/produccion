@@ -1,16 +1,34 @@
 var cuentas = '<option value="0">Seleccione una Cuenta</option>';
 
 $(function(){
-
 	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
-	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
 
 	$("#fproveedoress").submit(function(){return false});
 	$("#data-table-proveedoress").dataTable();
+	$('.dropdown-button').dropdown();
+	$('.modal').modal({
+		dismissible: true, // Modal can be dismissed by clicking outside of the modal
+		opacity: .5, // Opacity of modal background
+		in_duration: 300, // Transition in duration
+		out_duration: 200, // Transition out duration
+		starting_top: '6%', // Starting top style attribute
+		ending_top: '5%' // Ending top style attribute
+	});
 
+	
+
+	$(".load").click(function(){
+		$("#titModal").html('Editar Proveedor');
+		$("#agProv").html('Editar');
+		$("#agProv").removeClass('add');
+		$("#agProv").addClass('edit');
+	});
+});
+
+$(document).ready(function(){
 	$("#ingProv").click(function(){
 		$("#vcedula").focus();
 		$("#titModal").html('Agregar Proveedor');
@@ -22,13 +40,6 @@ $(function(){
 		$("#ln1").click();
 		$("#videstado").val('');
 		obtenerCuentas(0);
-	});
-
-	$(".load").click(function(){
-		$("#titModal").html('Editar Proveedor');
-		$("#agProv").html('Editar');
-		$("#agProv").removeClass('add');
-		$("#agProv").addClass('edit');
 	});
 });
 
