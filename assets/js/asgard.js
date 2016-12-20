@@ -2,6 +2,7 @@ acc = 1;
 
 $(function(){
     $('.dropdown-button').dropdown();
+    $('.tooltipped').tooltip({delay: 50});
 })
 
 $(window).keydown(function(e){
@@ -9,6 +10,10 @@ $(window).keydown(function(e){
     if(code == 113)
         $(".menu-btn").click();
 });
+
+$(document).on('click','.modal',function(){
+    $(this).modal()
+})
 
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');
@@ -307,29 +312,26 @@ function odin(varreglo,vform,id) {
 
 function deadclear(vform) {
     if (acc == 1) {
-
-        $("#f"+vform+"s :input").each(function(){
-           if ($(this).attr('noClear') == undefined) { 
-            if ($(this).attr("type") == 'select')
-                $(this).val(0);
-
-            else if ($(this).attr("type") == 'textarea')
-                $(this).text('');
-
-            else if ($(this).attr("type") == 'checkbox')
-                $(this).prop('checked',false);
-
-            else if ($(this).attr("type") == 'radio'){
-                $(this).val(0);
-            }
-
-            else if ($(this).attr("type") == 'hidden')
-                $(this).removeClass("form-control")
-
-            else
-                $(this).val('');
-           } 
+        vform = "#f"+vform+"s";
+        /*REGLAS PARA VACIAR CAMPOS*/
+        $(vform+" :input").each(function(){
+            if ($(this).attr('noClear') == undefined) { 
+                switch($(this).attr('type')){
+                    case 'radio':
+                    //SI ES RADIO SOLO PONER ATRIBUTO PRINCIPAL PARA EL CUAL QUIERE MANTENER CHECKED
+                        $(vform+" :input[name='"+$(this).attr('name')+"'][principal='1']").click()
+                        break;
+                    case 'text':
+                        $(vform).find("#"+$(this).attr('id')).val('');
+                        break;
+                    case 'select':
+                        $(vform).find("#"+$(this).attr('id')).val("");
+                        $(vform).find("#"+$(this).attr('id')).material_select('update');
+                        break;
+                };
+            } 
         });
+        Materialize.updateTextFields();
     }else
         acc = 1;
 }

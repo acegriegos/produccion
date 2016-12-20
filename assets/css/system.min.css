@@ -4,11 +4,9 @@
     padding-right: 3%
 }
 
-.err_ {
-    text-align: center;
-}
-.suc_ {
-    text-align: center;
+.autocomplete-content{
+    z-index: 3000;
+    position: fixed;
 }
 
 .inv{

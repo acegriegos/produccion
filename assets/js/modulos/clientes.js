@@ -1,8 +1,12 @@
 var cuentas = '<option value="0">Seleccione una Cuenta</option>';
+var ind_1 = ind_2 = 1;
 
 $(function(){
+	$('ul.tabs').tabs();
+	$('select').material_select();
 	
 	$("#fclientes").submit(function(){return false});
+
 	$("#data-table-clientes").dataTable({
 		bFilter: false,
 		order : [],
@@ -47,10 +51,9 @@ $(function(){
 
 		$("#ln1").click();
 		$("#videstado").val(1);
-
-		$("input[name='tipocliente'][tp='1']").click()
-		$("input[name='tipocliente'][tp='1']").change()
-		obtenerCuentas(0);
+		$('#videstado').material_select('update');
+		ind_1 = 1;
+		// obtenerCuentas(0);
 	});
 
 	$(".load").click(function(){
@@ -77,7 +80,40 @@ $(function(){
 			$(".cre").hide();
 		else
 			$(".cre").show();
-	})
+	});
+
+	$("#telefono_in").keyup(function(e){
+		var code = e.which || e.keyCode
+		if (code == 39) {
+			if($("#tptel option:selected").val() == ''){
+				Materialize.toast("Debe Seleccionar un Tipo de Teléfono",4000,'danger');
+				$("#tptel").focus()
+			}else{
+				rgex = arr('login',4,'regex,img',4,'id = ' + $("#tptel option:selected").val(),0,0,0)[0][0];
+				if($(this).val().match(new RegExp(rgex[0]))){
+					$("#shtelefonos").append('<li> <div class="collapsible-header" id="0_'+ind_1+'" tp="'+$("#tptel option:selected").val()+'"><span class="badge">'+$(this).val()+'</span><i class="fa '+rgex[1]+'"></i></div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Teléfono"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Teléfono"><i class="fa fa-times"></i></a></div> </li>');
+					$(this).val('');
+					ind_1 += 1;
+				}else{
+					Materialize.toast("Número de Teléfono Inválido,[####-####]",4000,'danger');
+				}
+			}
+		}
+	});
+
+	$("#correo_in").keyup(function(e){
+		var code = e.which || e.keyCode
+		if (code == 39) {
+			if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+				$("#shcorreos").append('<li> <div class="collapsible-header" id="0_'+ind_2+'"><span class="badge">'+$(this).val()+'</div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div> </li>');
+					$(this).val('');
+					ind_2 += 1;
+			}else{
+				Materialize.toast('Correo no Válido',4000,'danger');
+				$(this).select();
+			}
+		}
+	});
 
 });
 
