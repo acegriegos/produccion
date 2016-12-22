@@ -28,14 +28,19 @@
 
     <div class="input-field col m8 col l8">
 
-        <a href="#" class="prefix" style="cursor: default;"><i  class="fa fa-search"></i></a>
-        <input type="text" id="searh_clie">
-        <label for="searh_clie">Buscar Cliente por Nombre</label>
+        <a href="#" class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="fa fa-search"></i></a>
+        <ul id='filtr_1' class='dropdown-content'>
+            <li><a href="#!" fltr="1">Por Nombre y Cédula</a></li>
+            <li><a href="#!" fltr="2">Por Teléfono</a></li>
+            <li><a href="#!" fltr="3">Por Correo</a></li>
+        </ul>
+        <input type="text" id="searh_clie" maxlength="100" class="searchclientes">
+        <label for="searh_clie">Buscar Cliente por Nombre y Cédula</label>
 
     </div>
 
     <div class="col m4">
-        <a id="ingClie" class="btn der btn-floating" href="#modal-clientes" ><i class="fa fa-plus" title="Agregar Cliente"></i></a>
+        <a id="ingClie" class="der btn-floating tooltipped" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes" ><i class="fa fa-plus"></i></a>
         </div>
     </div>
 
@@ -51,17 +56,17 @@
 <th>Acciones</th>
 </tr>
 </thead>
-<tbody id="listaClientes">
+<tbody id="listaclientes">
 {section name=LE loop=$CLIE}
-<tr id="f1">
+<tr id="f{$CLIE[LE][0]}">
 <td>{$CLIE[LE][1]}</td>
 <td>{$CLIE[LE][2]}</td>
 <td>{$CLIE[LE][4]}</td>
 <td>{$CLIE[LE][5]}</td>
 <td>{$CLIE[LE][6]}</td>
 <td>
-<i class="fa fa-pencil-square-o btn load" id="m{$CLIE[LE][0]}" data-toggle="modal" href='#modal-clientes' modulo="cliente" title="Editar Cliente"></i>
-<i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F" title="Eliminar Cliente"></i>
+<a href="#modal-clientes" class="btn-floating load" id="m{$CLIE[LE][0]}" modulo="cliente"><i class="fa fa-pencil-square-o"></i></a>
+<a href="#!" class="btn-floating delete" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F"><i class="fa fa-times"></i></a>
 </td>
 </tr>
 {/section}
@@ -160,8 +165,8 @@
 
                 <div class="input-field col s12 m4 l4" vtabla="correo" id="fcorreos">
                 <div class="prefix">@</div>
-                <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-delay="50" data-tooltip="Ingresar Correo con la Tecla [right]">
-                <input type="hidden" id="vcorreo">
+                <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
+                <input type="hidden" id="vcorreo" fill="18">
                 <label for="correo_in">Ingresar Correo</label>
                 <br>
                 <div class="col s12">
@@ -187,8 +192,8 @@
 
                     <div class="input-field col s8">
                         <div class="prefix"><i class="fa fa-phone"></i></div>
-                        <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-delay="50" data-tooltip="Ingresar Teléfono con la Tecla [right]">
-                        <input type="hidden" id="vtelefono">
+                        <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+                        <input type="hidden" id="vtelefono" fill="19">
                         <label for="telefono_in">Ingresar Teléfono</label>
 
                     </div>
@@ -209,59 +214,58 @@
         <div id="fina" class="col s12">
 
             <div class="row">
-                <div class="col-md-6 col-lg-6">
-                <div class="input-group">
-                <div class="input-group-addon"><b>Categoría del Cliente</b></div>
-                <select type="select" class="form-control" id="vidnivel">
-                    <option value="">Seleccione una Categoría</option>
-                    {section name=LE loop=$NVLCLIE}
-                    <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
-                    {/section}
-                </select>
+
+                <div class="input-field col s6">
+                    <select type="select" id="vidnivel" noClear="1">
+                        <option value="0" selected>Seleccione una Categoría</option>
+                        {section name=LE loop=$NVLCLIE}
+                        <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
+                        {/section}
+                    </select>
+                     <label for="vidnivel">Categoría del Cliente</label>
                 </div>
+
+                <div class="col s6">
+
+                      <div class="switch">
+                        <label>
+                          Cliente Contado
+                          <input type="checkbox" tp="1" id="tipocliente">
+                          <span class="lever"></span>
+                          Cliente Crédito
+                        </label>
+                      </div>
+            
                 </div>
-                <div class="col-md-6 col-lg-6">
-                    <label>Tipo Cliente:</label>
-                    <label class="radio-inline">
-                        <input type="radio" name="tipocliente" class="tipocl" tp="1" checked principal="1"> Contado
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="tipocliente" class="tipocl" tp="2"> Crédito
-                    </label>
-                </div>
-            </div> <br>
+            </div> 
 
             <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                    <div class="input-group-addon"><b>Descuento</b></div>
-                    <input type="number" class="form-control eder" id="vdescuentop" placeholder="Descuento Porcentual del Cliente">
-                    <div class="input-group-addon"><b>%</b></div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                    <div class="input-group-addon"><b>Descuento Max</b></div>
-                    <input type="number" class="form-control eder" id="vdescuentom" placeholder="Descuento Máximo">
-                    <div class="input-group-addon"><b>%</b></div>
-                    </div>
-                </div>
-            </div><br>
 
-            <div class="row cre" style="display: none;">   
-            <div class="col-md-6 col-lg-6">
-            <div class="input-group">
-            <div class="input-group-addon"><b>Plazo</b></div>
-            <input type="number" class="form-control eder" id="vplazo" placeholder="Plazo en Días">
-            <div class="input-group-addon"><b>días</b></div>
+                <div class="input-field col s6">
+                    <div class="prefix">%</div>
+                    <input type="number" class="eder" id="vdescuentop">
+                    <label for="vdescuentop">Descuento del Cliente</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <div class="prefix">%</div>
+                    <input type="number" class="eder" id="vdescuentom">
+                    <label for="vdescuentom">Descuento Máximo</label>
+                </div>
+
             </div>
-            </div>
-            <div class="col-md-6 col-lg-6">
-            <div class="input-group">
-            <div class="input-group-addon"><b>Crédito</b></div>
-            <input type="number" class="form-control eder" id="vcredito" placeholder="Crédito del Cliente">
-            </div> 
-            </div>
+
+            <div class="row cre" style="display: none;"> 
+
+                <div class="input-field col s6">
+                    <label for="vplazo">Plazo en Días</label>
+                    <input type="number" class="eder" id="vplazo">
+                </div>
+
+                <div class="input-field col s6">
+                    <label for="vcredito">Crédito del Cliente</label>
+                    <input type="number" class="eder" id="vcredito">
+                </div>
 
             </div>
 
@@ -272,15 +276,15 @@
             <input type="hidden" id="vidcuenta" value="">
 
             <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
+                <div class="col s6">
+                    <div class="card-title"><b> Cuentas Contado </b></div>
                     <div id="ctacontado">
                         
                     </div>
                 </div>
 
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cre" style="display: none;">
-                    <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
+                <div class="col s6 cre" style="display: none;">
+                    <div class="card-title"><b> Cuentas Crédito </b></div>
                     <div id="ctacredito">
                         
                     </div>
@@ -293,73 +297,75 @@
         <div id="logis" class="col s12">
 
             <div vtabla="ubicacione" id="fubicaciones">
-            <div class="card-title"><b>Direcciones</b></div>
+                <div class="card-title"><b>Direcciones</b></div>
 
-            <input type="hidden" id="vbisnacional" value="1">
+                <input type="hidden" id="vbisnacional" value="1">
 
-            <div class="row">
-            <div class="col-md-12 col-lg-12">
-            <div tabla="detalleubicacione" class="enrutador">
+                <div class="row">
 
-            <div class="row">
-            <div class="col-md-6 col-lg-6">
+                    <div class="input-field col s4">
 
-            <div class="input-group">
-            <div class="input-group-addon"><b> Provincia</b></div>
-            <select id="idprovincia" type="select">
-            <option value="">Seleccione una Provincia</option>
-            {section name=LE loop=$PRO}
-            <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
-            {/section}
-            </select>
-            <div class="input-group-addon"><i class="fa fa-plus"></i></div>
-            </div>
+                    <div class="provincia">
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev=""><i class="fa fa-plus"></i></a>
 
-            <div class="input-group">
-            <div class="input-group-addon"><b> Cantón </b></div>
-            <select id="idcanton" type="select">
-            <option value="">Seleccione un Cantón</option>
-            </select>
-            <div class="input-group-addon"><i class="fa fa-plus"></i></div>
-            </div>
-
-            <div class="input-group">
-            <div class="input-group-addon"><b> Distrito</b></div>
-            <select id="viddistrito" type="select">
-            <option value="">Seleccione un Distrito</option>
-            </select>
-            <div class="input-group-addon"><i class="fa fa-plus"></i></div>
-            </div>
-
-            </div>
-
-            <div class="col-md-6 col-lg-6">
-            <div class="input-group">
-            <div class="input-group-addon"><b> Dirección Exacta </b></div>
-            <textarea id="vdireccion" class="form-control" rows="3"></textarea>
-            </div>
-            </div>
-
-            </div><br>
-
-            <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                    <div class="input-group-addon"><b> Latitud </b></div>
-                    <input type="text" class="form-control eder" id="vlatitud" placeholder="00.00">
+                    <select id="vidprovincia" type="select">
+                    <option value="">Seleccione una Provincia</option>
+                    {section name=LE loop=$PRO}
+                    <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
+                    {/section}
+                    </select>
+                    <label for="vidprovincia">Provincia</label>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                    <div class="input-group-addon"><b> Longitud </b></div>
-                    <input type="text" class="form-control eder" id="vlongitud" placeholder="00.00">
-                    </div>
-                </div>
-            </div>
 
-            </div>
-            </div>
-            </div>
+                    </div>
+
+                    <div class="input-field col s4">
+                    
+                    <div class="canton">
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia"><i class="fa fa-plus"></i></a>
+
+                    <select id="vidcanton" type="select">
+                    <option value="">Seleccione un Cantón</option>
+                    </select>
+                    <label for="vidcanton">Cantón</label>
+                    </div>
+
+                    </div>
+
+                    <div class="input-field col s4">
+                    
+                    <div class="distrito">
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton"><i class="fa fa-plus"></i></a>
+                    
+                    <select id="viddistrito" type="select">
+                    <option value="">Seleccione un Distrito</option>
+                    </select>
+                    <label for="viddistrito">Distrito</label>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="input-field col s12">
+                    <label for="vdireccion">Dirección Exacta</label>
+                    <textarea id="vdireccion" class="materialize-textarea" length="100"></textarea>
+                    </div>
+
+                    
+                    <div class="input-field col s6">
+                        <label for="vlatitud">Latitud</label>
+                        <input type="text" class="eder" id="vlatitud">
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="vlongitud">Longitud</label>
+                        <input type="text" class="eder" id="vlongitud">
+                    </div>
+
+                </div>
             </div>
         </div>
 

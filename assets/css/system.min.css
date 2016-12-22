@@ -4,14 +4,11 @@
     padding-right: 3%
 }
 
-<<<<<<< HEAD
 .autocomplete-content{
     z-index: 3000;
     position: fixed;
 }
 
-=======
->>>>>>> 04531b596c876073e7a008b70b4441fba16b70cf
 .inv{
     display: none;
 }

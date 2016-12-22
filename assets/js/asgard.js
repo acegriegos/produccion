@@ -34,7 +34,7 @@ $(document).on("click",".add",function(){
 
 $(document).on("click",".edit",function(){
     var modulo = $(this).attr('modulo');
-    var varias = $(this).attr('vtablas');
+    var varias = $(this).attr('varias');
     doGlobal(2,modulo,'',$(this).attr('detalle'),varias); 
 });
 
@@ -93,13 +93,10 @@ function doGlobal(accion,modulo,tip,detalle,varias){
 
             Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
             
-            if (detalle == 1) {
-                id = p[0][0];
-                endDetail(id);
-            }else{
-                setTimeout(function(){ deadclear(arreglo['modulo']); }, 2500);
-                thorload(modulo);
-            }
+            // setTimeout(function(){ deadclear(arreglo['modulo']); }, 2500);
+            // thorload(modulo);
+            id = p[0][0];
+            endDetail(id,acc);
         }
 
     }else{
@@ -134,45 +131,54 @@ function loadpool(vmodulo,vid,vdetalle){
     var columns = mantenimiento('login',5,vmodulo);
 
     for (var i = 0; columns[0][1].length > i; i++) {
+
+        switch($("#"+columns[0][1][i]['name']).attr("type")){
+
+            case 'select':
+                $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
+                $("#"+columns[0][1][i]['name']).material_select();
+                if (columns[0][0][0][i] != '') 
+                    $("#"+columns[0][1][i]['name']).change();
+                break;
+
+            case 'textarea':
+                $("#"+vform).find($("#"+columns[0][1][i]['name'])).text(columns[0][0][0][i]);
+                break;
+
+            case 'radio':
+            case 'checkbox':
+                $("#"+vform).find($("input[name="+columns[0][1][i]['name']+']:checked')).val(columns[0][0][0][i]);
+                break;
+
+            case 'html':
+                $("#"+vform).find($("#"+columns[0][1][i]['name'])).html(columns[0][0][0][i]);
+                break;
+
+            case 'date':
+                $("#"+vform).find($("#"+columns[0][1][i]['name'])).pickadate().pickadate('picker').set('select', columns[0][0][0][i]);
+                break;
+
+            case 'text':
+            case 'number':
+                $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
+                break;
+
+            case 'hidden':
+                if ($("#"+columns[0][1][i]['name']).attr("fill") == undefined)
+                    $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
+                else
+                    arr('login',6,'',$("#"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+columns[0][0][0][i]))
+                break;
+
+        };           
         
-        if ($("#"+columns[0][1][i]['name']).attr("type") == 'select') {
-            $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
-            $("#"+columns[0][1][i]['name']).material_select();
-        }
-
-        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'textarea')
-            $("#"+vform).find($("#"+columns[0][1][i]['name'])).text(columns[0][0][0][i]);
-
-        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'radio')
-            $("#"+vform).find($("input[name="+columns[0][1][i]['name']+']:checked')).val(columns[0][0][0][i]);
-
-        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'checkbox')
-            $("#"+vform).find($("input[name="+columns[0][1][i]['name']+']:checked')).val(columns[0][0][0][i]);
-
-        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'html')
-            $("#"+vform).find($("#"+columns[0][1][i]['name'])).html(columns[0][0][0][i]);
-
-        else if ($("#"+columns[0][1][i]['name']).attr("type") == 'date')
-            $("#"+vform).find($("#"+columns[0][1][i]['name'])).pickadate().pickadate('picker').set('select', columns[0][0][0][i]);
-        
-        else
-            $("#"+vform).find($("#"+columns[0][1][i]['name'])).val(columns[0][0][0][i]);
-        
-        if ($("#"+columns[0][1][i]['name']).attr("cambio") == 1)
-            $("#"+columns[0][1][i]['name']).change();
+        // if ($("#"+columns[0][1][i]['name']).attr("cambio") == 1)
         
     }
     Materialize.updateTextFields();
 
-    if (vdetalle != undefined){
-        // var arr = {}
-        // arr['sel'] = '';
-        // arr['tbl'] = 32;
-        // arr['where'] = "\""+vid+"\"";
-
-        // $("#detalle"+vmodulo['modulo']).html(mantenimiento('login',6,arr))
+    if (vdetalle != undefined)
         arr('login',6,'',32,'\"'+vid+'\"','',1,$("#detalle"+vmodulo['modulo']));
-    }
 
 }
 
@@ -343,16 +349,25 @@ function deadclear(vform) {
 
 function thorload(vtabla) {
     vtabla += "s";
-    var arreglo = cargarSintax(vtabla);
-    var tbl = mantenimiento('login',6,arreglo);
-    var tabla = $("#data-table-"+vtabla).DataTable();
-    tabla.destroy();
-    $("#lista"+vtabla).html(tbl);
-    $("#data-table-"+vtabla).DataTable({
-        bFilter :  false,
-        bLengthChange : false
-    });
     
+    if ($(".search"+vtabla).val() != undefined && $(".search"+vtabla).val() != ""){
+        var e = jQuery.Event("keyup");
+        e.which = 13;
+        $(".search"+vtabla).trigger(e);
+    }
+    else{
+        var arreglo = cargarSintax(vtabla);
+        var tbl = mantenimiento('login',6,arreglo);
+        var tabla = $("#data-table-"+vtabla).DataTable();
+        tabla.destroy();
+        $("#lista"+vtabla).html(tbl);
+        $("#data-table-"+vtabla).DataTable({
+            bFilter :  false,
+            bLengthChange : false,
+            order : []
+        });
+    }
+
 }
 
 function addZero(n, len) {
@@ -421,5 +436,84 @@ var n = this,
     });
     return salida;
 }
+
+function change_load(vto,vtabla,vval,vset){
+    var tmp = $('#'+vto+' option').first().html();
+    $('#'+vto).html('<option value="">'+tmp+'</option>');
+
+    var res = arr('login',4,vval,vtabla,vset,0,0,0)[0];
+    $('#'+vto)
+    for (var i = 0; i < res.length; i++) {
+        $('#'+vto).append('<option value="'+res[i][0]+'">'+res[i][1]+'</option>');
+    }
+    $('#'+vto).material_select('update');
+};
+
+$(document).on('click',"[det]",function(){
+    var vdet = $(this).attr('det');
+    var tabla = $(this).attr('d-b');
+    var previo = $(this).attr('prev');
+
+    if ($("."+vdet).is(":visible")) {
+        
+        $("."+vdet).hide();
+        $("."+vdet).parent().append('<div class="_'+vdet+'"><a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar" href="#!" style="width: 2.5rem" det="'+vdet+'" prev="'+previo+'" d-b="'+tabla+'" id="_'+vdet+'"><i class="fa fa-plus"></i></a> <label for="ing_'+vdet+'">'+vdet.toUpperCase()+'</label> <input type="text" id="ing_'+vdet+'" d-b="'+tabla+'" prev="'+previo+'" d-e-t="'+vdet+'"></div>');
+        $('#ing_'+vdet).focus();
+
+    }else{
+        $("._"+vdet).remove()
+        var set = 'id > 0';
+        if (previo != '')
+            set += " and "+previo.substr(1)+" = "+$("#"+previo+" option:selected").val(); 
+        change_load('vid'+vdet,tabla,'id,nombre',set);
+        $("."+vdet).show();
+    }
+    
+});
+
+$(document).on("keyup","[id^=ing_]",function(e){
+    var code = e.wich || e.keyCode
+    if (code == 13) {
+        if($(this).val() == ''){
+            Materialize.toast("Valor Incorrecto",4000,'red');
+            $(this).select();
+        }else{
+            var tabla = $(this).attr('d-b');
+            var insert = 'nombre';
+            var values = '"'+$(this).val()+'"';
+            if($(this).attr('prev') != ''){
+                insert += ','+$(this).attr('prev').substr(1);
+                values += ','+$('#'+$(this).attr('prev')+' option:selected').val()
+            }
+
+            arr('login',7,1,tabla,insert,values,0,0);
+            $("#_"+$(this).attr('d-e-t')).click();
+        }
+    }
+});
+
+//TELEFONOS Y CORREOS
+
+$(document).on('click','.del_mail',function(){
+    vid = $(this).attr('id').substr(1);
+    if (vid.indexOf('_') != 0)
+        $(this).parent().parent().remove();
+    else{
+        //CONFIRMACION
+        arr('login',7,3,17,'id = '+vid,'',0,0);
+        $(this).parent().parent().remove();
+    }
+});
+
+$(document).on('click','.del_phone',function(){
+    vid = $(this).attr('id').substr(1);
+    if (vid.indexOf('_') != 0)
+        $(this).parent().parent().remove();
+    else{
+        //CONFIRMACION
+        arr('login',7,3,17,'id = '+vid,'',0,0);
+        $(this).parent().parent().remove();
+    }
+});
 
 // Login Technologies S.A.

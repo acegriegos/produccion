@@ -53,19 +53,13 @@ $(function(){
 		$("#videstado").val(1);
 		$('#videstado').material_select('update');
 		ind_1 = 1;
-		// obtenerCuentas(0);
+		$("#shtelefonos").html('');
+		$("#shcorreos").html('');
+		obtenerCuentas(0);
+		if($("#tipocliente").attr("tp") != 1)
+			$("#tipocliente").click();
+
 	});
-
-	$(".load").click(function(){
-		$("#titModal").html('Editar Cliente');
-		$("#agClie").html('Editar');
-
-		$("#agClie").removeClass('add');
-		$("#agClie").addClass('edit');
-
-		$("#ln1").click();
-		obtenerCuentas($(this).attr('id').substr(1));
-	})
 
 	$("[id^=ln]").click(function(){
 		var id = $(this).attr('id').substr(2);
@@ -75,11 +69,15 @@ $(function(){
 		$(this).addClass('active')
 	});
 
-	$("input[name='tipocliente'").click(function(){
-		if($(this).attr('tp') == 1)
+	$("#tipocliente").click(function(){
+		if($(this).attr('tp') == 2){
 			$(".cre").hide();
-		else
+			$(this).attr('tp',1);
+		}
+		else{
 			$(".cre").show();
+			$(this).attr('tp',2);
+		}
 	});
 
 	$("#telefono_in").keyup(function(e){
@@ -91,11 +89,11 @@ $(function(){
 			}else{
 				rgex = arr('login',4,'regex,img',4,'id = ' + $("#tptel option:selected").val(),0,0,0)[0][0];
 				if($(this).val().match(new RegExp(rgex[0]))){
-					$("#shtelefonos").append('<li> <div class="collapsible-header" id="0_'+ind_1+'" tp="'+$("#tptel option:selected").val()+'"><span class="badge">'+$(this).val()+'</span><i class="fa '+rgex[1]+'"></i></div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Teléfono"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Teléfono"><i class="fa fa-times"></i></a></div> </li>');
+					$("#shtelefonos").append('<li id="0_'+ind_1+'" tp="'+$("#tptel option:selected").val()+'"> <div class="collapsible-header" ><span class="badge">'+$(this).val()+'</span><i class="fa '+rgex[1]+'"></i></div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Teléfono"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Teléfono"><i class="fa fa-times"></i></a></div> </li>');
 					$(this).val('');
 					ind_1 += 1;
 				}else{
-					Materialize.toast("Número de Teléfono Inválido,[####-####]",4000,'danger');
+					Materialize.toast("Número de Teléfono Inválido",4000,'danger');
 				}
 			}
 		}
@@ -105,7 +103,7 @@ $(function(){
 		var code = e.which || e.keyCode
 		if (code == 39) {
 			if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-				$("#shcorreos").append('<li> <div class="collapsible-header" id="0_'+ind_2+'"><span class="badge">'+$(this).val()+'</div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div> </li>');
+				$("#shcorreos").append('<li id="0_'+ind_2+'"> <div class="collapsible-header"><span class="badge">'+$(this).val()+'</div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_mail" id="m0_'+ind_2+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_mail" id="d0_'+ind_2+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div> </li>');
 					$(this).val('');
 					ind_2 += 1;
 			}else{
@@ -114,6 +112,29 @@ $(function(){
 			}
 		}
 	});
+
+	$("#vidprovincia").change(function(){
+		change_load('vidcanton',9,'id,nombre','id > 0 and idprovincia = '+$('option:selected',this).val());
+	});
+
+	$("#idcanton").change(function(){
+		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
+	});
+
+	$("#searh_clie").keyup(function(e){
+		var code = e.which || e.keyCode
+		if (code == 13) {
+			constante = $(this).val().replace(/"/g,'\\\"');
+			tabla = $("#data-table-clientes").DataTable();
+		    tabla.destroy();
+		    arr('login',6,'*',29,'vid > 0 and (nombre like "%'+constante+'%")',0,1,$("#listaclientes"))
+		    $("#data-table-clientes").DataTable({
+		        bFilter :  false,
+		        bLengthChange : false,
+		        order : []
+		    });
+		}
+	})
 
 });
 
@@ -125,6 +146,17 @@ $(document).on("click",".delcta",function(){
 
 $(document).on("change",".cta-array",function(){
 	$("#vidcuenta").val(1)
+});
+
+$(document).on("click",".load",function(){
+	$("#titModal").html('Editar Cliente');
+	$("#agClie").html('Editar');
+
+	$("#agClie").removeClass('add');
+	$("#agClie").addClass('edit');
+
+	$("#ln1").click();
+	obtenerCuentas($(this).attr('id').substr(1));
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
@@ -149,11 +181,6 @@ $(document).on("click","input[name='tipoclie']",function(){
 
 $(document).on("click","#Iadd",function(){
 	deadclear('clientes')
-});
-
-$(document).on("click","input[name=tipoclie]",function(){
-	var tipo = $(this).attr('tipoClie');
-	$("#vidtipocliente").val(tipo);
 });
 
 function validar (varreglo,vmodulo) {
@@ -244,6 +271,16 @@ function validarclientes() {
 		$("#vidcuenta").val(vdefecto);
 	}
 
+	$("#shtelefonos li[id^=0_]").each(function(){
+		t_valor = $("#vtelefono").val()
+		$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.collapsible-header > .badge',this).html()+'",?]:')
+	});
+
+	$("#shcorreos li[id^=0_]").each(function(){
+		t_valor = $("#vcorreo").val()
+		$("#vcorreo").val(t_valor+'[null,?,"'+$('.collapsible-header > .badge',this).html()+'"]:')
+	});
+	console.log($("#vcorreo").val())
 	return false;
 
 }
@@ -269,14 +306,16 @@ function cargarSintax(){
 
 	arr['sel'] = '*';
 	arr['tbl'] = 29;
-	arr['where'] = 'vid > 0';
+	arr['where'] = 'vid > 0 order by nombre';
 
 	return arr;
 }
 
 function getFila(valor,vtipo,vdh,vtp){
+	//<i class="fa fa-times delcta" delcetap tp="'+valor+'"></i>
+	//<input type="number" noClear="1" class="form-control eder" id="pr'+valor+'" value="100">
 
-	return '<div class="input-group ctas" id="fl'+valor+'"><select noClear="1" class="form-control cta-array" tp="'+vtp+'" dh="'+vdh+'" id="my-array'+valor+'" >'+cuentas+'</select><div class="input-group-addon" style="display:none" >-</div><input type="number" noClear="1" class="form-control eder" id="pr'+valor+'"  style="display:none" placeholder="Porcentaje de la Cuenta" value="100"><div class="input-group-addon"><b>'+vtipo+'</b></div><div class="input-group-addon btn delcetap" style="display:none"><i class="fa fa-times delcta" tp="'+valor+'"></i></div></div>';
+	return '<div class="row ctas" id="fl'+valor+'"><div class="col s2">'+vtipo+'</div> <div class="col s10"><select noClear="1" class="browser-default cta-array der" tp="'+vtp+'" dh="'+vdh+'" id="my-array'+valor+'" >'+cuentas+'</select></div></div>';
 }
 
 function obtenerCuentas(vid){
@@ -295,4 +334,14 @@ function obtenerCuentas(vid){
 	}
 
 	$("#vidcuenta").val('');
+}
+
+function endDetail(vid,vacc){
+
+	setTimeout(function(){ deadclear('cliente'); }, 2500);
+    thorload('cliente');
+    if (vacc == 1) {
+	    $("#shcorreos").html('');
+	    $("#shtelefonos").html('');
+    }
 }
