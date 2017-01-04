@@ -319,7 +319,6 @@ function odin(varreglo,vform,id) {
 
 function deadclear(vform) {
     if (acc == 1) {
-<<<<<<< HEAD
 
         $("#f"+vform+"s :input").each(function(){
             if ($(this).attr('noClear') == undefined) { 
@@ -340,8 +339,7 @@ function deadclear(vform) {
 
                 else
                     $(this).val('');
-           } 
-=======
+           }
         vform = "#f"+vform+"s";
         /*REGLAS PARA VACIAR CAMPOS*/
         $(vform+" :input").each(function(){
@@ -359,17 +357,16 @@ function deadclear(vform) {
                         $(vform).find("#"+$(this).attr('id')).material_select('update');
                         break;
                 };
-            } 
->>>>>>> 2ed57b202cd220cef6be5ca98a8d050c8db9ac95
+            }
         });
         Materialize.updateTextFields();
-    }else
+    }
+    } else
         acc = 1;
 }
 
 function thorload(vtabla) {
     vtabla += "s";
-<<<<<<< HEAD
     var arreglo = cargarSintax(vtabla);
     var tbl = mantenimiento('login',6,arreglo);
     var tabla = $("#data-table-"+vtabla).DataTable();
@@ -383,8 +380,6 @@ function thorload(vtabla) {
         bPaginate :  false,
         bInfo : false
     });
-=======
->>>>>>> 2ed57b202cd220cef6be5ca98a8d050c8db9ac95
     
     if ($(".search"+vtabla).val() != undefined && $(".search"+vtabla).val() != ""){
         var e = jQuery.Event("keyup");

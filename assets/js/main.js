@@ -23,7 +23,7 @@ $(function(){
     // });
 
 
-    permisos(1,50)
+    // permisos(1,50)
 });
 
 // function mantMoneda(x1){
