@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Clientes</title>
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
+
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,6 +18,7 @@
 </head>
 <body>
 {$NAV}
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
 <div class="bdy">
 
 <div class="card">
@@ -40,7 +41,7 @@
     </div>
 
     <div class="col m4">
-        <a id="ingClie" class="der btn-floating tooltipped" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes" ><i class="fa fa-plus"></i></a>
+        <a id="ingClie" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes" ><i class="fa fa-plus"></i></a>
         </div>
     </div>
 
@@ -65,7 +66,7 @@
 <td>{$CLIE[LE][5]}</td>
 <td>{$CLIE[LE][6]}</td>
 <td>
-<a href="#modal-clientes" class="btn-floating load" id="m{$CLIE[LE][0]}" modulo="cliente"><i class="fa fa-pencil-square-o"></i></a>
+<a href="#modal-clientes" class="btn-floating load modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente"><i class="fa fa-pencil-square-o"></i></a>
 <a href="#!" class="btn-floating delete" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F"><i class="fa fa-times"></i></a>
 </td>
 </tr>
@@ -81,7 +82,7 @@
         <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
         <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
         <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
-        <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Exoneraciones</a></li>
+        <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
       </ul>
 </div>
 

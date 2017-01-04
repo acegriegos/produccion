@@ -126,42 +126,38 @@
 
     function cambioDia($log)
      {  
-        indicadores($log);
+        print_r(indicadores($log));
         $log->genkidama(2,15,'valor=1','descr="Cambio de Dia"');
      } 
 
      function indicadores($log){
         require_once '../assets/libs/nusoapLT/nusoap.php';
 
+        $wsdls = $log->kamehameha('*',102,'id > 0');
         $tipoCambio = "";
-        $parametros = array(
-               "tcIndicador"=>318,
-               "tcFechaInicio"=>date('d/m/Y'),
-               "tcFechaFinal"=>date('d/m/Y'),
-               "tcNombre"=>"LoginTech",
-               "tnSubNiveles"=>"N");
-        $oSoapClient = new nusoap_client("http://indicadoreseconomicos.bccr.fi.cr/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx?WSDL",true);
-        $aRespuesta = $oSoapClient->call("ObtenerIndicadoresEconomicosXML", $parametros);
-        $xml = (array) simplexml_load_string($aRespuesta['ObtenerIndicadoresEconomicosXMLResult']); 
-        $xml = array_values($xml);     
-        $tipoCambio = (string) $xml[0]->NUM_VALOR;
 
-        $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id=2');
+        foreach ($wsdls as $obj) {
 
-        $parametros2 = array(
-               "tcIndicador"=>317,
-               "tcFechaInicio"=>date('d/m/Y'),
-               "tcFechaFinal"=>date('d/m/Y'),
-               "tcNombre"=>"LoginTech",
-               "tnSubNiveles"=>"N");
-        $oSoapClient = new nusoap_client("http://indicadoreseconomicos.bccr.fi.cr/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx?WSDL",true);
+          $parametros = $log->kamehameha('detalle,valordetwsdl',103,'idwsdl = '.$obj[4]);
+          $param_salida = array();
+          foreach ($parametros as $obj1) {
+            $param_salida[$obj1[0]] = $obj1[1];
+          };
 
-        $aRespuesta = $oSoapClient->call("ObtenerIndicadoresEconomicosXML", $parametros2);
-        $xml = (array) simplexml_load_string($aRespuesta['ObtenerIndicadoresEconomicosXMLResult']);
-        $xml = array_values($xml); 
-        $tipoCambio = (string) $xml[0]->NUM_VALOR;
+          $oSoapClient = new nusoap_client($obj[1],true);
+          $aRespuesta = $oSoapClient->call($obj[2], $param_salida);
+          $xml = (array) simplexml_load_string($aRespuesta[$obj[3]]);
 
-       $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id=3');
+          while (strpos($obj[5], ',')) {
+            $valor = substr($obj[5], 0,strpos($obj[5], ','));
+            $obj[5] = substr($obj[5], strpos($obj[5], ',')+1);
+            $xml = (array) $xml[$valor];
+          }          
+    
+          $tipoCambio = (string) $xml[$obj[5]];
+
+          $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id='.$obj[0]);
+        };
      }	
 			   
 ?>

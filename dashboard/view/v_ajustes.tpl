@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Configuración</title>
-    
-    
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
 
 
@@ -19,9 +17,9 @@
     <![endif]-->
   </head>
   <body>
-    
-    <div class="bdy">
     {$NAV}
+    <div class="bdy">
+    
     <nav class="nav-extended blue">
       <div class="nav-wrapper">
         <a href="#" class="brand-logo center">Configuración del Sistema</a>

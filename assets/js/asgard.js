@@ -3,6 +3,7 @@ acc = 1;
 $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
+    $('.modal').modal()
 })
 
 $(window).keydown(function(e){
@@ -12,10 +13,6 @@ $(window).keydown(function(e){
         $("#numtrans").focus();
     }
 });
-
-$(document).on('click','.modal',function(){
-    $(this).modal()
-})
 
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');
@@ -53,10 +50,9 @@ function doGlobal(accion,modulo,tip,detalle,varias){
 
     if (varias == 1) {
 
-        $("#f"+modulo+"s").find();
         arreglo['varios'] = {};
 
-        $("[vtabla]").each(function(index){
+        $("#f"+modulo+"s [vtabla]").each(function(index){
             var arr = {}
             
             arr['modulo'] = $(this).attr('vtabla');
@@ -92,9 +88,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
             }
 
             Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
-            
-            // setTimeout(function(){ deadclear(arreglo['modulo']); }, 2500);
-            // thorload(modulo);
+
             id = p[0][0];
             endDetail(id,acc);
         }
@@ -256,11 +250,12 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
 }
 
 function odin(varreglo,vform,id) {
+ 
     var salida = {}
     id || (id = '');
 
     for (var i = 0; i < varreglo.length; i++) {
-        
+
         switch(varreglo[i]) {
             case 'vidusuario':                
                 if (typeof $("#vidusuario"+id).val() == 'undefined') {
@@ -283,12 +278,12 @@ function odin(varreglo,vform,id) {
                 salida[varreglo[i]] = $("#vtabla").val();
                 break;
             default:
-            
+                
                 if ($("#"+varreglo[i]+id).attr("type") == 'select')
                     salida[varreglo[i]] = $("#"+vform).find($("#"+ varreglo[i]+id+" option:selected")).val();
 
                 else if ($("#"+varreglo[i]+id).attr("type") == 'text')
-                    salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val();
+                     salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val();
 
                 else if ($("#"+varreglo[i]+id).attr("type") == 'textarea')
                     salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val();
@@ -308,8 +303,9 @@ function odin(varreglo,vform,id) {
                 else if ($("#"+varreglo[i]+id).attr("type") == 'radio')
                     salida[varreglo[i]] = $("#"+vform).find($("input[name='"+varreglo[i]+id+"']:checked")).val();
 
-                else if ($("#"+varreglo[i]+id).attr("type") == 'checkbox')
-                    salida[varreglo[i]] = $("#"+vform).find($("input[name='"+varreglo[i]+id+"']:checked")).val();
+                else if ($("#"+varreglo[i]+id).attr("type") == 'checkbox'){
+                    salida[varreglo[i]] = $("#"+vform).find($("input[name='"+varreglo[i]+id+"']")).val();
+                }
 
                 else
                     salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val();
@@ -401,7 +397,7 @@ function permisos(vnumber,vnumber2) {
                 };
             })
             .fail(function(x,y,z) {
-                // alert(z,' ',y,' ',z)
+                
             });
 }
 
