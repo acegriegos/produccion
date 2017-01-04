@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    Materialize.updateTextFields();
+    
+    // Materialize.updateTextFields();
     $("#num").focus();
     $("#logF").submit(function(){
         return getIn();

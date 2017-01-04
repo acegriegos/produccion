@@ -56,8 +56,7 @@ $(function(){
 			out_duration: 200, // Transition out duration
 			starting_top: '6%', // Starting top style attribute
 			ending_top: '5%' // Ending top style attribute
-		}
-		);
+		});
 	});
 	$("#m1").click();
 });
@@ -79,24 +78,23 @@ $(document).on("click",".menuP",function(){
 	switch(id){
 		case 1:
 			$("#financiero").addClass('hide');
-			$("#descuentos").addClass('hide');
+			$("#dimpuestos").addClass('hide');
 			$("#datosproductos").removeClass('hide');
 			break;
 		case 2:
 			$("#datosproductos").addClass('hide');
-			$("#descuentos").addClass('hide');
+			$("#dimpuestos").addClass('hide');
 			$("#financiero").removeClass('hide');
-			$('select').material_select('destroy');
-			arr('login',6,'*',51,'id > 0',48,1,$("#imp"));
-			$('select').material_select();
 			$("#vcosto").select();
 			break;
 		case 3:
 			$("#datosproductos").addClass('hide');
 			$("#financiero").addClass('hide');
-			$("#descuentos").removeClass('hide');
-			$("#dscts").focus();
+			$("#dimpuestos").removeClass('hide');
+			arr('login',6,'*',51,'id > 0',48,1,$("#imp"));
+			$('select').material_select();
 			break;
+
 	}
 });
 
@@ -180,13 +178,44 @@ $(document).on("click",".filtropqt",function(){
 	}
 });
 
-$(document).on("keyup",".formprod",function(e){
-	var code = e.which || e.keyCode;
-	var pos = $(this).attr('id');
-	if (code == 13) {
-		sendfocus(pos);
-	}
+$(document).on("click",".isproducto",function(){
+    if ( $("#prodfinal").is(":checked") ) {
+    	$("#visproducto").val(1);
+    	$("#tipoinsumos").remove();
+    }
+    
+    else {
+    	$("#visproducto").val(0);
+    	var tipoinsumos = arr('login',4,'*',100,'id > 0',0,0,0)[0];
+		var options = '';
+		$.each(tipoinsumos,function(i,value){
+			options += '<option value="'+value[0]+'">'+value[1]+'</option>';
+		});
+    	$("#col1").append('<div class="input-field" id="tipoinsumos"><select id="tipoinsumo" type="select"><option value="0">Seleccione una Opcion</option>'+options+'</select><label>Seleccione un Tipo de Insumo</label></div>');
+    	$("#tipoinsumo").material_select();
+    }    
 });
+
+$(document).on("change","#tipoinsumo",function(){
+    var id = $(this).val();
+    $("#vidtipoinsumo").val(id);
+});
+
+// $(document).on("change","#vidbodega",function(){
+//     var id = $(this).val();
+
+//     if (id == 1) {
+// 		var tipoinsumos = arr('login',4,'*',100,'id > 0',0,0,0)[0];
+// 		var options = '';
+// 		$.each(tipoinsumos,function(i,value){
+// 			options += '<option value="'+value[0]+'">'+value[1]+'</option>';
+// 		});
+//     	$("#col1").append('<div class="input-field" id="tipoinsumos"><select id="vidtipoinsumo"><option value="0">Seleccione una Opcion</option>'+options+'</select><label>Seleccione un Tipo de Insumo</label></div>');
+//     	$("#vidtipoinsumo").material_select();
+//     }else{
+//     	$("#tipoinsumos").remove();
+//     }
+// });
 
 $(document).on("click","#adddsct",function(){
 	var desc = $("#dscts option:selected").val();
@@ -266,13 +295,12 @@ $(document).on("click","#addprod",function(){
 		var venta = $("#hventa").val();
 		var imv = $("#vimv").val();
 		var idunidad = $("#vidunidad option:selected").val();
-		var cantidad = $("#vcantidad").val() == '' ? 0 : $("#vcantidad").val();
 		var minimo = $("#vminimo").val();
 		var maximo = $("#vmaximo").val();
-		var isgravado = $("#visgravado").val();
-		var idmodelo = $("#vidmodelo option:selected").val();
+		var idmarca = $("#vidmarca option:selected").val();
+		var tipoinsumo = $("#vidtipoinsumo").val();
 	//producto
-		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+','+cantidad+','+minimo+','+maximo+',0,'+idmodelo+',@@usr,@@impresa,""','',0,'');
+		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+','+minimo+','+maximo+','+idmarca+','+tipoinsumo+',@@usr,@@impresa,""','',0,'');
 	
 		if (idproducto[0][0] != undefined) {
 			// financiero
@@ -280,9 +308,16 @@ $(document).on("click","#addprod",function(){
 				var idimpuesto = $(this).attr('id').substr(4);	
 				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+',0.00','',0,'');
 			});
+			$(".precionivel").each(function(){
+				var idfila = $(this).attr('id').substr(1);
+				if ($("#vventa"+idfila).val() > 0) {
+					arr('login',4,'',105,'null,'+idproducto+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+id).val(),0,0,0)
+				}
+				
+			});
 			Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
 			arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
-			vaciar('productos');
+			// vaciar('productos');
 			Materialize.updateTextFields();
 			$("#impuestos").addClass('hide');
 		}else{
@@ -328,7 +363,7 @@ $(document).on("click","#editprod",function(){
 
 		Materialize.toast('Producto Editado Correctamente', 6000, 'green');
 		arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
-		vaciar('productos');
+		// vaciar('productos');
 	}else{
 		Materialize.toast(valprod, 6000, 'red');
 	}
@@ -336,7 +371,7 @@ $(document).on("click","#editprod",function(){
 
 $(document).on("click",".editprod",function(){
 	var id = $(this).attr('id').substr(1);
-	var p = arr('login',4,'idfamilia,idtipo,idmarca,idmodelo,nombre,codigo,idunidad,minimo,maximo,costo,ganancia,fventa,venta,maxdescuento',14,'id = '+id,'',0,'')[0][0];
+	var p = arr('login',4,'idfamilia,idtipo,idmarca,idbodega,nombre,codigo,idunidad,minimo,maximo,costo,ganancia,fventa,venta,maxdescuento',14,'id = '+id,'',0,'')[0][0];
 	var cant = arr('login',4,'replace(cantidad,".00","")',97,'idproducto = '+id,'',0,'')[0][0];
 	var imp = arr('login',4,'idimpuesto,impuesto,valor',83,'idproducto = '+id,'',0,'')[0];
 	$(".accmodal").html("Actualizar Producto "+p[5]);
@@ -352,8 +387,8 @@ $(document).on("click",".editprod",function(){
 	$("#vidtipo").material_select();
 	$("#vidmarca").val(p[2]);
 	$("#vidmarca").material_select();
-	$("#vidmodelo").val(p[3]);
-	$("#vidmodelo").material_select();
+	$("#vidbodega").val(p[3]);
+	$("#vidbodega").material_select();
 	$("#vnombre").val(p[4]);
 	$("#vcodigo").val(p[5]);
 	$("#vidunidad").val(p[6]);
@@ -513,7 +548,7 @@ $(document).on("click","#addpqt",function(){
 			});
 			Materialize.toast('Paquete Agregado Correctamente', 6000, "green");
 			arr('login',6,'vid,vcodigo,vnombre,vdescuento,totpqt',76,'vid > 0 order by vnombre','',1,$("#listapqts"));
-			vaciar('paquetes');
+			// vaciar('paquetes');
 			$("#listapaquetes").html('');
 			var consecutivo = arr('login',4,'ifnull(max(id)+1,1)',58,'1','',0,'')[0][0];
 			var codigo = addZero(consecutivo,4);
@@ -544,7 +579,7 @@ $(document).on("click","#editpck",function(){
 			});
 			Materialize.toast('Paquete Editado Correctamente', 6000, 'green');
 			arr('login',6,'vid,vcodigo,vnombre,vdescuento,totpqt',76,'vid > 0 order by vnombre','',1,$("#listapqts"));
-			vaciar('paquetes');
+			// vaciar('paquetes');
 			$("#listapaquetes").html('');
 			var consecutivo = arr('login',4,'ifnull(max(id)+1,1)',58,'1','',0,'')[0][0];
 			var codigo = addZero(consecutivo,4);
@@ -1021,8 +1056,9 @@ $(document).on("click","#addproduct",function(){
 	$("#ajaxProductos").html('');
 	$("#impuestos").addClass('hide');
 	$("#impuestos").html('');
-	vaciar('productos');
+	// vaciar('productos');
 	Materialize.updateTextFields();
+	
 });
 
 $(document).on("change","#vidmoneda",function(){
@@ -1051,7 +1087,7 @@ $(document).on("click","#addpackage",function(){
 	var number = arr('login',4,'ifnull(max(id)+1,1)',58,'1','',0,'')[0][0];
 	var codigo = addZero(number,2);
 	$("#vcodigo").val('PCK-'+codigo);
-	vaciar('paquetes');
+	// vaciar('paquetes');
 	$('select').material_select('destroy');
 	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
 	$('select').material_select();
@@ -1166,63 +1202,75 @@ function adddesc(vdesc,vvalor) {
 	$("#dscts").focus();
 }
 
-function vaciar(modulo){
-	switch (modulo){
-		case 'productos':
-			$("#vidfamilia").val(0);
-			$("#vidtipo").val(0);
-			$("#vidmarca").val(0);
-			$("#vidmodelo").val(0);
-			$("#vnombre").val('');
-			$("#vcodigo").val('');
-			$("#vidunidad").val(0);
-			$("#vcantidad").val(0);
-			$("#vminimo").val(0);
-			$("#vmaximo").val(0);
-			$("#vcosto").val('0.00');
-			$("#hvcosto").val('0.00');
-			$("#vganancia").val('0.00');
-			$("#vventa").val('0.00');
-			$("#hventa").val('');
-			$("#impuestos").html('');
-			$("#maxdesc").val('');
-			$("#dscts").val('');
-			$("#tbldesc").hide();
-			$("#listadescuentos").html('');
-			$("#tb1").click();
-			break;
-		case 'paquetes':
-			$("#vnombre").val('');
-			$("#prod").val('');
-			$("#hprod").val('');
-			$("#cantidad").val('');
-			$(".linea").remove();
-			$("#vdescuento").val(0);
-			$("#totpqt").val('0.00');
-			$("#htotal").val('');
-			break;
+// function vaciar(modulo){
+// 	switch (modulo){
+// 		case 'productos':
+// 			$("#vidfamilia").val(0);
+// 			$("#vidtipo").val(0);
+// 			$("#vidmarca").val(0);
+// 			$("#vidmodelo").val(0);
+// 			$("#vnombre").val('');
+// 			$("#vcodigo").val('');
+// 			$("#vidunidad").val(0);
+// 			$("#vcantidad").val(0);
+// 			$("#vminimo").val(0);
+// 			$("#vmaximo").val(0);
+// 			$("#vcosto").val('0.00');
+// 			$("#hvcosto").val('0.00');
+// 			$("#vganancia").val('0.00');
+// 			$("#vventa").val('0.00');
+// 			$("#hventa").val('');
+// 			$("#impuestos").html('');
+// 			$("#maxdesc").val('');
+// 			$("#dscts").val('');
+// 			$("#tbldesc").hide();
+// 			$("#listadescuentos").html('');
+// 			$("#tb1").click();
+// 			break;
+// 		case 'paquetes':
+// 			$("#vnombre").val('');
+// 			$("#prod").val('');
+// 			$("#hprod").val('');
+// 			$("#cantidad").val('');
+// 			$(".linea").remove();
+// 			$("#vdescuento").val(0);
+// 			$("#totpqt").val('0.00');
+// 			$("#htotal").val('');
+// 			break;
 
-	}
-}
+// 	}
+// }
 
 function totalizar(costo,ganancia) {
 	var subtotal = 0;
 	var impuestos = 0;
+	var exoneracion = 0;
 	
 	$(".impuestos").each(function(){
 		var id = $(this).attr('id').substr(4);
 		impuestos += parseFloat($(this).attr('value'));
+		exoneracion = $("#vexoneracion").val() == '' ? 0 : parseFloat($("#vexoneracion").val())
 	});
 
 	if (ganancia == 0) {
-		subtotal = costo * ((impuestos / 100)+1);
+		subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1);
 	}else{
-		subtotal = costo * ((impuestos / 100)+1) * ((ganancia / 100)+1);
+		subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1) * ((ganancia / 100)+1);
 	}
-	
-	$("#vventa").val(subtotal.formatMoney(2,',','.'));
 	$("#hventa").val(subtotal)
 	$("#vventa").val(subtotal.formatMoney(2,'.',','));
+
+	$(".precionivel").each(function(){
+		var id = $(this).attr('id').substr(1);
+		ganancia = $("#vganancia"+id).val();
+		exoneracion = $("#vexoneracion"+id).val();
+		if (ganancia == 0) {
+			subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1);
+		}else{
+			subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1) * ((ganancia / 100)+1);
+		}
+		$("#vventa"+id).val(subtotal.formatMoney(2,'.',','));
+	});
 
 }
 
@@ -1455,7 +1503,7 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'producto':
-			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idmodelo as vidmodelo,replace(cantidad,".00","") as vcantidad,minimo as vminimo,maximo as vmaximo';
+			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idbodega as vidbodega,cantidad as vcantidad,minimo as vminimo,maximo as vmaximo';
 			vmodulo['tbl'] = 14;
 			vmodulo['where'] ='id = '+vid;
 			break;
@@ -1474,7 +1522,6 @@ function cargar(vmodulo,vid) {
 			return 'Módulo no Existente';
 			break;
 	}
-	
 	return vmodulo;
 }
 
@@ -1482,7 +1529,7 @@ function cargarSintax(vtabla){
 	switch(vtabla) {
 		case 'productos':
 			var arr = {};
-			arr['sel'] = 'id,codigo,nombre,scosto,sventa,sganancia';
+			arr['sel'] = 'id,codigo,nombre,isprod,scosto,sventa,sganancia';
 			arr['tbl'] = 14;
 			arr['where'] = 'id > 0 order by nombre limit 20';
 			break;
