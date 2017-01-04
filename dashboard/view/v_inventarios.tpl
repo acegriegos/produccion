@@ -19,32 +19,20 @@
   <br>
     {$NAV}
     <div class="bdy">
-    <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-        <!-- Brand -->
-        <a class="navbar-brand" href="#"><b>Inventarios</b></a>
-        <!-- Links -->
-        <ul class="nav navbar-nav">
-            <li class="nav-item menu5 active" id="m2">
-                <a class="nav-link" href="#" title="Insumos">Insumos</a>
-            </li>
-            <li class="nav-item menu5" id="m3">
-                <a class="nav-link" href="#" title="Gastos">Gastos</a>
-            </li>
-            <li class="nav-item menu5" id="m6">
-                <a class="nav-link" href="#" title="Producción">Producción</a>
-            </li>
-            <li class="nav-item menu5" id="m4">
-                <a class="nav-link" href="#" title="En Ruta">Rutas</a>
-            </li>
-            <li class="nav-item menu5" id="m1">
-                <a class="nav-link" href="#" title="Devoluciones">Devoluciones</a>
-            </li>
-            <li class="nav-item menu5" id="m5">
-                <a class="nav-link" href="#" title="Mal Estado">Mal Estado</a>
-            </li>
-        </ul>
-    </nav>
-    <br>
+        <nav class="nav-extended blue">
+            <div class="nav-wrapper">
+                <a class="brand-logo center">Inventario</a>
+                <br>
+                <ul class="tabs tabs-transparent">
+                    <li class="tab menu5" id="m1"><a href="#">Insumos</a></li>
+                    <li class="tab menu5" id="m2"><a href="#">Gastos</a></li>
+                    <li class="tab menu5" id="m3"><a href="#">Producción</a></li>
+                    <li class="tab menu5" id="m4"><a href="#">Ruta</a></li>
+                    <li class="tab menu5" id="m5"><a href="#">Devoluciones</a></li>
+                    <li class="tab menu5" id="m6"><a href="#">Mal Estado</a></li>
+                </ul>
+            </div>
+        </nav>
     <div class="formInventarios" id="finventarios">
         <div id="bdymantInvGeneral"></div>
     </div>

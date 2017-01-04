@@ -314,25 +314,24 @@ function deadclear(vform) {
     if (acc == 1) {
 
         $("#f"+vform+"s :input").each(function(){
-           if ($(this).attr('noClear') == undefined) { 
-            if ($(this).attr("type") == 'select')
-                $(this).val(0);
+            if ($(this).attr('noClear') == undefined) { 
+                if ($(this).attr("type") == 'select')
+                    $(this).val(0);
 
-            else if ($(this).attr("type") == 'textarea')
-                $(this).text('');
+                else if ($(this).attr("type") == 'textarea')
+                    $(this).text('');
 
-            else if ($(this).attr("type") == 'checkbox')
-                $(this).prop('checked',false);
+                else if ($(this).attr("type") == 'checkbox')
+                    $(this).prop('checked',false);
 
-            else if ($(this).attr("type") == 'radio'){
-                $(this).val(0);
-            }
+                else if ($(this).attr("type") == 'radio')
+                    $(this).val(0);
 
-            else if ($(this).attr("type") == 'hidden')
-                $(this).removeClass("form-control")
+                else if ($(this).attr("type") == 'hidden')
+                    $(this).removeClass("form-control")
 
-            else
-                $(this).val('');
+                else
+                    $(this).val('');
            } 
         });
     }else
@@ -347,8 +346,12 @@ function thorload(vtabla) {
     tabla.destroy();
     $("#lista"+vtabla).html(tbl);
     $("#data-table-"+vtabla).DataTable({
-        bFilter :  false,
-        bLengthChange : false
+        bFilter : false,
+        bScrollInfinite : true,
+        bSort : false,
+        bLengthChange : false,
+        bPaginate :  false,
+        bInfo : false
     });
     
 }
