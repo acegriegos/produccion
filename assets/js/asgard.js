@@ -328,6 +328,8 @@ function deadclear(vform) {
                     //SI ES RADIO SOLO PONER ATRIBUTO PRINCIPAL PARA EL CUAL QUIERE MANTENER CHECKED
                         $(vform+" :input[name='"+$(this).attr('name')+"'][principal='1']").click()
                         break;
+                    case 'number':
+                    case 'textarea':
                     case 'text':
                         $(vform).find("#"+$(this).attr('id')).val('');
                         break;
