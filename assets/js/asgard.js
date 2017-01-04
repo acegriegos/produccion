@@ -319,29 +319,6 @@ function odin(varreglo,vform,id) {
 
 function deadclear(vform) {
     if (acc == 1) {
-<<<<<<< HEAD
-
-        $("#f"+vform+"s :input").each(function(){
-            if ($(this).attr('noClear') == undefined) { 
-                if ($(this).attr("type") == 'select')
-                    $(this).val(0);
-
-                else if ($(this).attr("type") == 'textarea')
-                    $(this).text('');
-
-                else if ($(this).attr("type") == 'checkbox')
-                    $(this).prop('checked',false);
-
-                else if ($(this).attr("type") == 'radio')
-                    $(this).val(0);
-
-                else if ($(this).attr("type") == 'hidden')
-                    $(this).removeClass("form-control")
-
-                else
-                    $(this).val('');
-           } 
-=======
         vform = "#f"+vform+"s";
         /*REGLAS PARA VACIAR CAMPOS*/
         $(vform+" :input").each(function(){
@@ -362,7 +339,6 @@ function deadclear(vform) {
                         break;
                 };
             } 
->>>>>>> 2ed57b202cd220cef6be5ca98a8d050c8db9ac95
         });
         Materialize.updateTextFields();
     }else
@@ -371,22 +347,6 @@ function deadclear(vform) {
 
 function thorload(vtabla) {
     vtabla += "s";
-<<<<<<< HEAD
-    var arreglo = cargarSintax(vtabla);
-    var tbl = mantenimiento('login',6,arreglo);
-    var tabla = $("#data-table-"+vtabla).DataTable();
-    tabla.destroy();
-    $("#lista"+vtabla).html(tbl);
-    $("#data-table-"+vtabla).DataTable({
-        bFilter : false,
-        bScrollInfinite : true,
-        bSort : false,
-        bLengthChange : false,
-        bPaginate :  false,
-        bInfo : false
-    });
-=======
->>>>>>> 2ed57b202cd220cef6be5ca98a8d050c8db9ac95
     
     if ($(".search"+vtabla).val() != undefined && $(".search"+vtabla).val() != ""){
         var e = jQuery.Event("keyup");
