@@ -1,85 +1,91 @@
 $(function(){
-	$("#fajustess").submit(function(){return false});
+	$(".modal").modal();
 	$("#m1").click();
+	$("script").each(function(){
+		$(this).remove();
+	});
+	
 });
 
 $(document).on("click",".menu3",function(){
-
 	$(".menu3").removeClass('active');
-		$(this).addClass('active');
+	$(this).addClass('active');
 	
-		var id = parseInt($(this).attr('id').substr(1));
-		switch(id){
-			case 1:
-				var p = mantenimiento('ajustes',2,'');
-				$("#majustes").html(p);
-				var arr = {};
-				arr['sel'] = '*';
-				arr['tbl'] = 50;
-				arr['where'] = '';
-				var e = mantenimiento('login',4,arr)[0][0];
-				$("#vnombre").val(e[0]);
-				$("#vcedula").val(e[1]);
-				$("#vtelefono").val(e[2]);
-				$("#vcorreo").val(e[3]);
-				$("#vdireccion").val(e[4]);
-				$("#vlogo").attr('src',e[5]);
-				$("#vfechainicio").val(e[6]);
-				$("#vfechafinal").val(e[7]);
-				$("#data-table-monedas").dataTable({
-					bFilter : false,
-					order : []
-				});
-				$("#data-table-tipousuarios").dataTable({
-					bFilter : false,
-					order : []
-				});
-				$("#data-table-tipopagos").dataTable({
-					bFilter : false,
-				});
-				$("#data-table-nivelesclientes").dataTable({
-					bFilter : false,
-				});
-				
-				$(".wsdl-op").hide()
+	var id = parseInt($(this).attr('id').substr(1));
+	switch(id){
+		case 1:
+			var p = mantenimiento('ajustes',2,'');
+			$("#majustes").html(p);
+			var arr = {};
+			arr['sel'] = '*';
+			arr['tbl'] = 50;
+			arr['where'] = '';
+			var e = mantenimiento('login',4,arr)[0][0];
+			$("#vnombre").val(e[0]);
+			$("#vcedula").val(e[1]);
+			$("#vtelefono").val(e[2]);
+			$("#vcorreo").val(e[3]);
+			$("#vdireccion").val(e[4]);
+			$("#vlogo").attr('src',e[5]);
+			$("#vfechainicio").val(e[6]);
+			$("#vfechafinal").val(e[7]);
+			$("#data-table-monedas").dataTable({
+				bFilter : false,
+				order : []
+			});
+			$("#data-table-tipousuarios").dataTable({
+				bFilter : false,
+				order : []
+			});
+			$("#data-table-tipopagos").dataTable({
+				bFilter : false,
+				order : []
+			});
+			$("#data-table-nivelesclientes").dataTable({
+				bFilter : false,
+				order : []
+			});
+			
+			$(".wsdl-op").hide()
+			break;
+		case 2:
+			var p = mantenimiento('ajustes',3,'');
+			$("#majustes").html(p);
+			var arr = {};
+			arr['sel'] = '*';
+			arr['tbl'] = 51;
+			arr['where'] = 'id > 0 order by id';
+			var imp = mantenimiento('login',6,arr);
+			$("#dimpuestos").html(imp);
+			break;
+		case 3:
+			var p = mantenimiento('ajustes',4,'');
+			$("#majustes").html(p);
+			$("#data-table-sucursales").dataTable({
+				bFilter : false,
+				bScrollInfinite : true,
+				bSort : false,
+				bLengthChange : false,
+				bPaginate :  false,
+				bInfo : false
+			});
+			break;
+		case 4:
+			var p = mantenimiento('ajustes',1,'');
+			$("#majustes").html('');
+			$("#majustes").html(p);
+			break;
+		case 5:
+			var p = mantenimiento('ajustes',5,'');
+			$("#majustes").html('');
+			$("#majustes").html(p);
+			break;
+	}
 
-				break;
-			case 2:
-				var p = mantenimiento('ajustes',3,'');
-				$("#majustes").html(p);
-				var arr = {};
-				arr['sel'] = '*';
-				arr['tbl'] = 51;
-				arr['where'] = 'id > 0 order by id';
-				var imp = mantenimiento('login',6,arr);
-				$("#dimpuestos").html(imp);
-				break;
-			case 3:
-				var p = mantenimiento('ajustes',4,'');
-				$("#majustes").html(p);
-				$("#data-table-sucursales").dataTable({
-					bFilter : false,
-					bScrollInfinite : true,
-					bSort : false,
-					bLengthChange : false,
-					bPaginate :  false,
-					bInfo : false
-				});
-				break;
-			case 4:
-				var p = mantenimiento('ajustes',1,'');
-				$("#majustes").html('');
-				$("#majustes").html(p);
-				break;
-			case 5:
-				var p = mantenimiento('ajustes',5,'');
-				$("#majustes").html('');
-				$("#majustes").html(p);
-				break;
-		}
+	$(".modal").modal()	
+	$('.tooltipped').tooltip({delay: 50});
+	$('.dropdown-button').dropdown();
 
-		$('.dropdown-button').dropdown();
-		
 });
 
 $(document).on("click","#addimp",function(){
@@ -175,6 +181,16 @@ $(document).on("click",".load",function(){
 	$("#accsuc").html("Guardar");
 });
 
+$(document).on("click","#vprincipal",function(){
+
+	if($(this).is(":checked"))
+		$(this).attr('value',1)
+	
+	else
+		$(this).attr('value',0)
+	
+});
+
 $(document).on("change","#vidprovincia",function(){
 	var id = $("option:selected",this).val();
 	arr('login',6,'id,nombre',9,'idprovincia = '+id+' and id > 0 order by nombre','',1,$("#vidcanton"))
@@ -261,12 +277,29 @@ function validar (varreglo,vmodulo) {
 				$("#vtelefono").val(1);
 			}
 			break;
+		case 'moneda':
+			if (vmodulo['tip'] == '') {
+				err = validarMonedas();
+				if ( err ) {
+					return err;
+				}
+			}
+			break;
+		case 'wsdl':
+			if (vmodulo['tip'] == '') {
+				err = validarWSDL();
+				if ( err ) {
+					return err;
+				}
+			}
+			break;
 		default:
-			return 'Módulo no Existente';
+			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
 			break;
 	}
-
+	
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+	console.log(salida)
 	return salida;
 
 }
@@ -321,6 +354,42 @@ function validarAjuste() {
 	return false;
 }
 
+function validarMonedas(){
+	if ($("#vnombremon").val() == '') {
+		$("#vnombremon").focus();
+		return "Nombre de la Moneda Requerido";
+	}
+
+	if ($("#vsimbolo").val() == '') {
+		$("#vsimbolo").focus();
+		return "Símbolo de la Moneda Requerido";
+	}
+	return false;
+}
+
+function validarWSDL(){
+	if ($("#vwsdl").is(":checked")) {
+		if($("#vwsdlsnom").val() == ''){
+			$("#vwsdlsnom").focus()
+			return 'Dirección HTML Requerida'
+		}
+		if($("#vxmlsen").val() == ''){
+			$("#vxmlsen").focus()
+			return 'Petición XML Requerida'
+		}
+		if($("#vxmlreq").val() == ''){
+			$("#vxmlreq").focus()
+			return 'Respuesta XML Requerida'
+		}
+		if($("#vobtener").val() == ''){
+			$("#vobtener").focus()
+			return 'Nombre de Arreglo Requerido'
+		}
+	}
+
+	return false;
+}
+
 function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
@@ -330,7 +399,7 @@ function cargar(vmodulo,vid) {
 			vmodulo['where'] ='vid = '+vid;
 			break;
 		default:
-			return 'Módulo no Existente';
+			return 'Cargar Módulo no Existente';
 			break;
 	}
 	

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Clientes</title>
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
+
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,8 +17,8 @@
 
 </head>
 <body>
-<br>
 {$NAV}
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
 <div class="bdy">
 
 <div class="card">
@@ -29,16 +29,21 @@
 
     <div class="input-field col m8 col l8">
 
-        <i class="prefix" class="fa fa-search"></i>
-        <input type="search" id="searh_clie">
-        <label for="searh_clie">Buscar Cliente por Nombre</label>
+        <a href="#" class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="fa fa-search"></i></a>
+        <ul id='filtr_1' class='dropdown-content'>
+            <li><a href="#!" fltr="1">Por Nombre y Cédula</a></li>
+            <li><a href="#!" fltr="2">Por Teléfono</a></li>
+            <li><a href="#!" fltr="3">Por Correo</a></li>
+        </ul>
+        <input type="text" id="searh_clie" maxlength="100" class="searchclientes">
+        <label for="searh_clie">Buscar Cliente por Nombre y Cédula</label>
 
     </div>
 
-<div class="col m4">
-<button type="button" id="ingClie" class="btn btn-primary der" data-toggle="modal" href="#modal-clientes" style="margin-right: 15px; padding: 12px 18px; border-radius: 42px;"><i class="fa fa-plus" style="font-size: 0.8em"></i></button>
-</div>
-</div>
+    <div class="col m4">
+        <a id="ingClie" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes" ><i class="fa fa-plus"></i></a>
+        </div>
+    </div>
 
 <div class="card-block">
 <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-clientes">
@@ -52,17 +57,17 @@
 <th>Acciones</th>
 </tr>
 </thead>
-<tbody id="listaClientes">
+<tbody id="listaclientes">
 {section name=LE loop=$CLIE}
-<tr id="f1">
+<tr id="f{$CLIE[LE][0]}">
 <td>{$CLIE[LE][1]}</td>
 <td>{$CLIE[LE][2]}</td>
 <td>{$CLIE[LE][4]}</td>
 <td>{$CLIE[LE][5]}</td>
 <td>{$CLIE[LE][6]}</td>
 <td>
-<i class="fa fa-pencil-square-o btn load" id="m{$CLIE[LE][0]}" data-toggle="modal" href='#modal-clientes' modulo="cliente" title="Editar Cliente"></i>
-<i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F" title="Eliminar Cliente"></i>
+<a href="#modal-clientes" class="btn-floating load modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente"><i class="fa fa-pencil-square-o"></i></a>
+<a href="#!" class="btn-floating delete" modulo="cliente" id="d{$CLIE[LE][0]}" style="color: #D9534F"><i class="fa fa-times"></i></a>
 </td>
 </tr>
 {/section}
@@ -70,315 +75,324 @@
 </table>
 </div>
 
-<div class="modal fade" id="modal-clientes">
-<div class="modal-dialog" style="width: 70%">
-<div class="modal-content">
+<div class="modal modal-fixed-footer" id="modal-clientes" style="height: 80%; width: 75%">
+
 <div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-<h4 class="modal-title" id="titModal">Agregar Clientes</h4>
-</div>
-<div class="modal-body">
-
-<div id="fclientes">
-
-<nav class="navbar navbar-light bg-faded">
-  <div class="nav navbar-nav">
-    <a class="nav-item nav-link active" href="#" id="ln1">Información</a>
-    <a class="nav-item nav-link" href="#" id="ln2">Financiero</a>
-    <a class="nav-item nav-link" href="#" id="ln3">Logística</a>
-    <a class="nav-item nav-link" href="#" id="ln4">Impuestos y Exoneraciones</a>
-  </div>
-</nav>
-
-<div class="row parte1 ptr">
-<div class="col-md-2 col-lg-2">
-<div class="radio">
-<label class="c-input c-radio">
-<input type="radio" name="tipoclie" id="cfisico" tipoClie="1" checked="checked">
-<span class="c-indicator"></span>
-Físico
-</label>
-</div>
-</div>
-<div class="col-md-2 col-lg-2">
-<div class="radio">
-<label class="c-input c-radio">
-<input type="radio" name="tipoclie" id="cjuridico" tipoClie="2">
-<span class="c-indicator"></span>
-Jurídico
-</label>
-</div>
-</div>
-<input type="hidden" id="vidtipocliente" value="1">
+    <ul class="tabs tabs-fixed-width blue">
+        <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
+        <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
+        <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
+        <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
+      </ul>
 </div>
 
-<div class="card-header parte1 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title" id="titInfo"><b>Datos Personales</b></div>
-<div class="row">
-<div class="col-md-6 col-lg-6" id="colMod">
-<div class="input-group">
-<div class="input-group-addon" id="nomClie"><b>Nombre</b></div>
-<input type="hidden" id="vid" value="0">
-<input type="hidden" id="vbisproveedor" value="0">
 
-<input type="text" class="form-control" id="vnombre" placeholder="Nombre del Cliente">
-</div>
-</div>
-<div class="col-md-6 col-lg-6 hid">
-<div class="input-group">
-<div class="input-group-addon"><b>Primer Apellido</b></div>
-<input type="text" class="form-control" id="vapellido1" placeholder="Primer Apellido">
-</div>
-</div>
-</div><br>
-<div class="row">
-<div class="col-md-6 col-lg-6 hid">
-<div class="input-group">
-<div class="input-group-addon"><b>Segundo Apellido</b></div>
-<input type="text" class="form-control" id="vapellido2" placeholder="Segundo Apellido">
-</div>
-</div>
-<div class="col-md-6 col-lg-6" id="colMod">
-<div class="input-group">
-<div class="input-group-addon"><b>Cédula</b></div>
-<input type="text" class="form-control" id="vcedula" data-mask="9-9999-9999" placeholder="Cédula del Cliente">
-</div>
-</div>
-</div><br>
-<div class="row" vtabla="correo" id="fcorreos">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>@</b></div>
-<input type="text" class="form-control" id="vcorreo1" placeholder="Correo Electrónico">
-<input type="hidden" id="vcorreo2" value="">
-<input type="hidden" id="vcorreo3" value="">
-</div>
-</div>
 
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Web</b></div>
-<input type="text" class="form-control" id="vweb" placeholder="Página Web">
-</div>
-</div>
+<div class="modal-content" style="padding: 0px;">
 
-</div><br>
+    <div id="fclientes">
 
-<div class="row">
-    <div class="col-md-6 col-lg-6">
-    <div class="input-group">
-    <div class="input-group-addon"><b>Estado</b></div>
-    <select id="videstado" class="form-control" type="select">
-    <option value="">Seleccione un Estado</option>
-    {section name=LE loop=$ESTCLIE}
-    <option value="{$ESTCLIE[LE][0]}" selected>{$ESTCLIE[LE][1]}</option>
-    {/section}
-    </select>
-    </div>
-    </div>
-</div>
-</div>
-<div class="card-header parte1 ptr" vtabla="telefono" id="ftelefonos" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Teléfonos</b></div>
-<div class="row">
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-building" aria-hidden="true"></i></b></div>
-<input type="text" class="form-control eder" id="vtrabajo" placeholder="Trabajo" data-mask="9999-9999">
-</div> 
-</div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-home" aria-hidden="true"></i></b></div>
-<input type="text" class="form-control eder" id="vcasa" placeholder="Casa" data-mask="9999-9999">
-</div> 
-</div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><b><i class="fa fa-mobile" aria-hidden="true"></i></b></div>
-<input type="text" class="form-control eder" id="vmovil" placeholder="Móvil" data-mask="9999-9999">
-</div> 
-</div>
-</div>
-</div>
+    <div class="row">
+        <div class="col s12">
+          
 
-<div class="card-header parte2 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="row">
-    <div class="col-md-6 col-lg-6">
-    <div class="input-group">
-    <div class="input-group-addon"><b>Categoría del Cliente</b></div>
-    <select type="select" class="form-control" id="vidnivel">
-        <option value="0">Seleccione una Categoría</option>
-        {section name=LE loop=$NVLCLIE}
-        <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
-        {/section}
-    </select>
-    </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-        <label>Tipo Cliente:</label>
-        <label class="radio-inline">
-            <input type="radio" name="tipocliente" class="tipocl" tp="1" checked> Contado
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="tipocliente" class="tipocl" tp="2"> Crédito
-        </label>
-    </div>
-</div> <br>
+        <div class="row parte1 col s12" id="info">
 
-<div class="row">
-    <div class="col-md-6 col-lg-6">
-        <div class="input-group">
-        <div class="input-group-addon"><b>Descuento</b></div>
-        <input type="number" class="form-control eder" id="vdescuentop" placeholder="Descuento Porcentual del Cliente">
-        <div class="input-group-addon"><b>%</b></div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-        <div class="input-group">
-        <div class="input-group-addon"><b>Descuento Max</b></div>
-        <input type="number" class="form-control eder" id="vdescuentom" placeholder="Descuento Máximo">
-        <div class="input-group-addon"><b>%</b></div>
-        </div>
-    </div>
-</div><br>
+            <div class="row" style="margin: 0px">
+                <div class="col s2">
+                    <p>
+                      <input class="with-gap" name="tipoclie" type="radio" id="cfisico" tipoClie="1" checked="checked" principal="1"/>
+                      <label for="cfisico">Físico</label>
+                    </p>
+                </div>
 
-<div class="row cre" style="display: none;">   
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Plazo</b></div>
-<input type="number" class="form-control eder" id="vplazo" placeholder="Plazo en Días">
-<div class="input-group-addon"><b>días</b></div>
-</div>
-</div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Crédito</b></div>
-<input type="number" class="form-control eder" id="vcredito" placeholder="Crédito del Cliente">
-</div> 
-</div>
+                <div class="col s2">
+                    <p>
+                      <input class="with-gap" name="tipoclie" type="radio" id="cjuridico" tipoClie="2" />
+                      <label for="cjuridico">Jurídico</label>
+                    </p>
+                </div>
+                <input type="hidden" id="vidtipocliente" value="1">
+            </div>
 
-</div>
+            <div class="card-title"><b>Datos Personales</b></div>
 
-</div>
+            <div class="row">
+                <div class="input-field col s6 m4 l4" id="colMod">
+                <label id="nomClie" for="vnombre">Nombre del Cliente</label>
+                <input type="text" class="validate" id="vnombre">
 
-<div class="card-header parte2 ptr" vtabla="defectocuenta" id="fdefectocuentas" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<input type="hidden" id="videstadocontable" value="1">
-<input type="hidden" id="vidcuenta" value="">
+                <input type="hidden" id="vid" value="0">
+                <input type="hidden" id="vbisproveedor" value="0">
+                </div>
 
-<div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="card-title"><b> Cuentas Contado <i class="fa fa-plus btn btn-success addcta" tp="1" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
-        <div id="ctacontado">
+                <div class="input-field col s6 m4 l4 hid">
+                <label for="vapellido1">Primer Apellido</label>
+                <input type="text" class="validate" id="vapellido1">
+                </div>
+
+                <div class="input-field col s6 m4 l4 hid">
+                <label for="vapellido2">Segundo Apellido</label>
+                <input type="text" class="validate" id="vapellido2">
+                </div>
+
+            </div>
+
+            <div class="row">
             
-        </div>
-    </div>
+                <div class="input-field col s6 m4 l4" id="colMod">
+                <label for="vcedula">Cédula del Cliente</label>
+                <input type="text" class="validate" id="vcedula" data-mask="9-9999-9999">
+                </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cre" style="display: none;">
-        <div class="card-title"><b> Cuentas Crédito <i class="fa fa-plus btn btn-success addcta" tp="2" title="Agregar Cuenta" style="border-radius: 25px;width: 7%;padding: 0px;display: none;"></i> </b></div>
-        <div id="ctacredito">
+                <div class="input-field col s6 m4 col l4">
+                <label for="vweb">Web</label>
+                <input type="text" class="form-control" id="vweb" placeholder="Página Web">
+                </div>
+
+                <div class="input-field col s6 m4 l4">
+                <select id="videstado" type="select">
+                    <option value="" disabled selected>Seleccione un Estado</option>
+                    {section name=LE loop=$ESTCLIE}
+                    <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
+                    {/section}
+                </select>
+                <label for="videstado">Estado</label>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="input-field col s12 m4 l4" vtabla="correo" id="fcorreos">
+                <div class="prefix">@</div>
+                <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
+                <input type="hidden" id="vcorreo" fill="18">
+                <label for="correo_in">Ingresar Correo</label>
+                <br>
+                <div class="col s12">
+                    <ul class="collapsible" data-collapsible="accordion" id="shcorreos">
+                      
+                    </ul>
+                </div>
+                </div>
+
+                <div class="col s12 m8 l8" vtabla="telefono" id="ftelefonos">
+                
+                <div class="row">
+
+                    <div class="input-field col s4">
+                    <select type="select" id="tptel">
+                        <option value="" disabled selected>Seleccione Tipo de Tel.</option>
+                        {section name=LE loop=$TPTEL}
+                        <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
+                        {/section}
+                    </select>
+                    <label for="tptel">Tipo Teléfono</label>
+                    </div>
+
+                    <div class="input-field col s8">
+                        <div class="prefix"><i class="fa fa-phone"></i></div>
+                        <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+                        <input type="hidden" id="vtelefono" fill="19">
+                        <label for="telefono_in">Ingresar Teléfono</label>
+
+                    </div>
+                    <div class="col s4"></div>
+                    <div class="col s8">
+                        <ul class="collapsible" data-collapsible="accordion" id="shtelefonos">
+                          
+                        </ul>
+                    </div>
+
+                </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="fina" class="col s12">
+
+            <div class="row">
+
+                <div class="input-field col s6">
+                    <select type="select" id="vidnivel" noClear="1">
+                        <option value="0" selected>Seleccione una Categoría</option>
+                        {section name=LE loop=$NVLCLIE}
+                        <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
+                        {/section}
+                    </select>
+                     <label for="vidnivel">Categoría del Cliente</label>
+                </div>
+
+                <div class="col s6">
+
+                      <div class="switch">
+                        <label>
+                          Cliente Contado
+                          <input type="checkbox" tp="1" id="tipocliente">
+                          <span class="lever"></span>
+                          Cliente Crédito
+                        </label>
+                      </div>
             
+                </div>
+            </div> 
+
+            <div class="row">
+
+                <div class="input-field col s6">
+                    <div class="prefix">%</div>
+                    <input type="number" class="eder" id="vdescuentop">
+                    <label for="vdescuentop">Descuento del Cliente</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <div class="prefix">%</div>
+                    <input type="number" class="eder" id="vdescuentom">
+                    <label for="vdescuentom">Descuento Máximo</label>
+                </div>
+
+            </div>
+
+            <div class="row cre" style="display: none;"> 
+
+                <div class="input-field col s6">
+                    <label for="vplazo">Plazo en Días</label>
+                    <input type="number" class="eder" id="vplazo">
+                </div>
+
+                <div class="input-field col s6">
+                    <label for="vcredito">Crédito del Cliente</label>
+                    <input type="number" class="eder" id="vcredito">
+                </div>
+
+            </div>
+
+
+
+            <div vtabla="defectocuenta" id="fdefectocuentas">
+            <input type="hidden" id="videstadocontable" value="1">
+            <input type="hidden" id="vidcuenta" value="">
+
+            <div class="row">
+                <div class="col s6">
+                    <div class="card-title"><b> Cuentas Contado </b></div>
+                    <div id="ctacontado">
+                        
+                    </div>
+                </div>
+
+                <div class="col s6 cre" style="display: none;">
+                    <div class="card-title"><b> Cuentas Crédito </b></div>
+                    <div id="ctacredito">
+                        
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+        <div id="logis" class="col s12">
+
+            <div vtabla="ubicacione" id="fubicaciones">
+                <div class="card-title"><b>Direcciones</b></div>
+
+                <input type="hidden" id="vbisnacional" value="1">
+
+                <div class="row">
+
+                    <div class="input-field col s4">
+
+                    <div class="provincia">
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev=""><i class="fa fa-plus"></i></a>
+
+                    <select id="vidprovincia" type="select">
+                    <option value="">Seleccione una Provincia</option>
+                    {section name=LE loop=$PRO}
+                    <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
+                    {/section}
+                    </select>
+                    <label for="vidprovincia">Provincia</label>
+                    </div>
+
+                    </div>
+
+                    <div class="input-field col s4">
+                    
+                    <div class="canton">
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia"><i class="fa fa-plus"></i></a>
+
+                    <select id="vidcanton" type="select">
+                    <option value="">Seleccione un Cantón</option>
+                    </select>
+                    <label for="vidcanton">Cantón</label>
+                    </div>
+
+                    </div>
+
+                    <div class="input-field col s4">
+                    
+                    <div class="distrito">
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton"><i class="fa fa-plus"></i></a>
+                    
+                    <select id="viddistrito" type="select">
+                    <option value="">Seleccione un Distrito</option>
+                    </select>
+                    <label for="viddistrito">Distrito</label>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="input-field col s12">
+                    <label for="vdireccion">Dirección Exacta</label>
+                    <textarea id="vdireccion" class="materialize-textarea" length="100"></textarea>
+                    </div>
+
+                    
+                    <div class="input-field col s6">
+                        <label for="vlatitud">Latitud</label>
+                        <input type="text" class="eder" id="vlatitud">
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="vlongitud">Longitud</label>
+                        <input type="text" class="eder" id="vlongitud">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="exo" class="col s12">
+            <div class="card-title"><b>Impuestos</b></div>
+        </div>
+
         </div>
     </div>
-</div>
 
 </div>
-
-<div class="card-header parte3 ptr" vtabla="ubicacione" id="fubicaciones" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Direcciones</b></div>
-
-<input type="hidden" id="vbisnacional" value="1">
-
-<div class="row">
-<div class="col-md-12 col-lg-12">
-<div tabla="detalleubicacione" class="enrutador">
-
-<div class="row">
-<div class="col-md-6 col-lg-6">
-
-<div class="input-group">
-<div class="input-group-addon"><b> Provincia</b></div>
-<select class="form-control" type="select">
-<option value="0">Seleccione una Provincia</option>
-{section name=LE loop=$PRO}
-<option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
-{/section}
-</select>
-<div class="input-group-addon"><i class="fa fa-plus"></i></div>
-</div>
-
-<div class="input-group">
-<div class="input-group-addon"><b> Cantón </b></div>
-<select class="form-control" type="select">
-<option value="0">Seleccione un Cantón</option>
-</select>
-<div class="input-group-addon"><i class="fa fa-plus"></i></div>
-</div>
-
-<div class="input-group">
-<div class="input-group-addon"><b> Distrito</b></div>
-<select id="viddistrito" class="form-control" type="select">
-<option value="0">Seleccione un Distrito</option>
-</select>
-<div class="input-group-addon"><i class="fa fa-plus"></i></div>
-</div>
-
-</div>
-
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b> Dirección Exacta </b></div>
-<textarea id="vdireccion" class="form-control" rows="3"></textarea>
-</div>
-</div>
-
-</div><br>
-
-<div class="row">
-    <div class="col-md-6 col-lg-6">
-        <div class="input-group">
-        <div class="input-group-addon"><b> Latitud </b></div>
-        <input type="text" class="form-control eder" id="vlatitud" placeholder="00.00">
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-        <div class="input-group">
-        <div class="input-group-addon"><b> Longitud </b></div>
-        <input type="text" class="form-control eder" id="vlongitud" placeholder="00.00">
-        </div>
-    </div>
-</div>
-
-</div>
-</div>
-</div>
-</div>
-
-<div class="card-header parte4 ptr" style="border-radius: 5px; border-size:1px 1px 1px 1px; border-color: #D1D1D1;">
-<div class="card-title"><b>Impuestos</b></div>
-</div>
-
 </div>
 
 <div class="modal-footer">
-    <div class="alert alert-danger err_" id="err1" style="display: none">
-        <strong id="errm1"></strong>
-    </div>
-    <div class="alert alert-success suc_" id="suc1" style="display: none">
-        <strong id="sucm1"></strong>
-    </div>
-<button type="button" class="btn btn-default" data-dismiss="modal" >Salir</button>
-<button type="button" class="btn btn-primary add" id="agClie" codigo="1" modulo="cliente" varias="1" >Guardar</button>
+   
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+    <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" codigo="1" modulo="cliente" varias="1" >Guardar</button>
 </div>
 
 </div>
 
+
 </div>
 </div>
-</div>
-</div>
-</div></div></div>
+
 <script src="../assets/js/modulos/clientes.js"></script>
-</div>
+
 </body>
 </html>

@@ -4,6 +4,11 @@
     padding-right: 3%
 }
 
+.autocomplete-content{
+    z-index: 3000;
+    position: fixed;
+}
+
 .inv{
     display: none;
 }

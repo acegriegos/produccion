@@ -51,7 +51,9 @@
 
     <h3 class="card-header">Monedas</h3>
     <div class="class-block">
-        <a data-toggle="modal" href='#modal-monedas' id="addMoneda" class="btn btn-info der">Agregar Moneda</a>
+
+        <a href='#modal-monedas' id="addMoneda" class="btn btn-info der tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Moneda">Agregar Moneda</a>
+
         <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-monedas">
         <thead>
         <tr>
@@ -72,7 +74,7 @@
 
                 <ul id='dropdown-m{$MON[LE][0]}' class='dropdown-content'>
                     <li>
-                        <a class="btn load accion" id="a{$MON[LE][0]}" data-toggle="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="fa fa-pencil-square-o"></i></a>
+                        <a class="btn load accion" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="fa fa-pencil-square-o"></i></a>
                     </li>
                     <li>
                         <a modulo="moneda" id="b{$MON[LE][0]}" style="color: #D9534F" title="Eliminar Moneda" class="btn delete accion"><i class="fa fa-times"></i></a>
@@ -103,8 +105,12 @@
             <td>{$TUSR[LE][1]}</td>
             <td align="right">
             {if $TUSR[LE][2] eq 0}
-            <i class="fa fa-gg-circle btn valorestu" id="c{$TUSR[LE][0]}" data-toggle="modal" href='#modal-tusuarios' modulo="moneda" title="Valores en el Sistema"></i>
-            <i class="fa fa-times btn delete" modulo="tipousuario" id="d{$TUSR[LE][0]}" style="color: #D9534F" title="Eliminar Tipo Usuario" readonly></i>
+            <a href='#modal-tusuarios' class="btn valorestu" id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
+            <i class="fa fa-gg-circle"></i>
+            </a>
+            <a href="#" class="btn delete" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario">
+            <i class="fa fa-times"  style="color: #D9534F" readonly></i>
+            </a>
             </td>
             {/if}
             </tr>
@@ -119,16 +125,6 @@
         <input type="text" id="vnombre" placeholder="">
         </div>
 
-        <div class="input-group">
-            <div class="input-group-addon"><b>Bancos</b></div>
-            <select id="selbanco">
-                {section name=LE loop=$TPAG}
-                <option value="{$TPAG[LE][0]}">{$TPAG[LE][1]}</option>
-                {/section}
-            </select>
-            <div class="input-group-addon"><b>Bancos</b></div>
-        </div>
-
         <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-tipopagos">
         <thead>
         <tr>
@@ -141,6 +137,7 @@
             <tr id="f1">
             <td>{$TPAG[LE][1]}</td>
             <td align="right">
+            {if $TPAG[LE][1]}{/if}
             <i class="fa fa-times btn delete" modulo="tipopago" id="f{$TPAG[LE][0]}" style="color: #D9534F" title="Eliminar Tipo Pago"></i>
             </td>
             </tr>
@@ -149,7 +146,7 @@
         </table>
     </div>
 <hr style="border: 1px solid #e2e2e2">
-    <h3 class="card-header">Categoría de Clientes</h3>
+    <h3 class="card-header">Categorías</h3>
     <div class="class-block">
         <div id="fnivelesclientes">
         <input type="text" id="vnombre" placeholder="">
@@ -202,72 +199,92 @@
 
 </div>
 
-<div class="modal fade" id="modal-monedas">
-    <div class="modal-dialog" role="document">
+<div class="modal modal-fixed-footer" id="modal-monedas">
+
+        <div class="modal-header">
+            <h4 class="modal-title" id="tit-modal-m"></h4>
+        </div>
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="tit-modal-m"></h4>
-            </div>
-            <div class="modal-body">
-                <div class="fmonedas">
-                    <label><b>Nombre de Moneda</b></label>
-                    <input type="text" id="vnombre" placeholder="abc" maxlength="45">
-                    <br>
-                    <label><b>Símbolo de Moneda</b></label>
-                    <input type="text" id="vsimbolo" placeholder="abc" maxlength="45">
-                    <br>
-                    <label><b>Valor de Moneda</b></label>
-                    <input type="number" id="vvalor" placeholder="0.00"> 
-                    <br>
-                    <label class="checkbox-inline">
-                         <input type="checkbox" id="isdefault"> Moneda Principal
-                         <input type="hidden" id="vprincipal" value="0">
-                     </label>
-                     <label class="checkbox-inline">
-                         <input type="checkbox" id="iswsdl"> Valor por WSDL
-                     </label>
+            <div id="fmonedas">
+            <input type="hidden" name="vid" value="0">
+                <div class="row">
+                    
+                    <div class="input-field col s6">
+                        <label for="vnombremon">Nombre de Moneda</label>
+                        <input type="text" id="vnombremon" maxlength="45">
+                    </div>
 
-                     <div class="wsdl-op">
-                        <select type="select" id="vwsdl" noClear="1">
-                            <option value="0">Agregar WSDL</option>
-                            {section name=LE loop=$WSDL}
-                            <option value="{$WSDL[LE][0]}">{$WSDL[LE][1]}</option>
-                            {/section}
-                        </select>
+                    <div class="input-field col s6">
+                        <label for="vsimbolo">Símbolo de Moneda</label>
+                        <input type="text" id="vsimbolo" maxlength="2">
+                    </div>
 
-                        <div class="add-wsdl" id="fwsdls">
-                            <label>Dirección URL del WSDL</label>
-                            <input type="text" id="vwsdlsnom" placeholder="http://" maxlength="255">
-                            <label>Peticion XML</label>
-                            <input type="text" id="vxmlsen" placeholder="SOAP" maxlength="255">
-                            <label>Respuesta XML</label>
-                            <input type="text" id="vxmlreq" placeholder="SOAP" maxlength="255">
-                            <label>Parámetros</label>
-                            <table>
-                                <th>Campo</th>
-                                <th>Valor</th>
-                                <tbody id="detallewsdl">
-                                    <tr id="fl0">
-                                        <td>
-                                        <input type="hidden" id="vidwsdl" value="?">
-                                        <input type="text" id="wsn1" class="constante" value="" placeholder="Nombre del Parámetro" maxlength="64"></td>
-                                        <td><input type="text" id="wsv1" value="" placeholder="Valor del Parámetro" maxlength="64"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-info add" modulo="wsdl" detalle="1">Agregar WSDL</button>
-                         </div>
-                     </div>
                 </div>
+
+                <div class="class">
+                    
+                    <div class="input-field col s12">
+                        <label for="vvalor">Valor de Moneda</label>
+                        <input type="number" id="vvalor" value="0.00" class="eder"> 
+                    </div>
+
+                </div>
+                
+                <label class="row">
+                    <div class="input-field col s4">
+                    <p>
+                      <input type="checkbox" name="vprincipal" id="vprincipal" value="0" />
+                      <label for="vprincipal">Moneda Principal</label>
+                    </p>
+                    </div>
+
+                    <div class="input-field col s4">
+                    <p>
+                      <input type="checkbox" id="iswsdl" />
+                      <label for="iswsdl">Valor por WSDL</label>
+                    </p>
+                    </div>
+                </label>
+
+                 <div class="wsdl-op">
+                    <select type="select" id="vwsdl" noClear="1">
+                        <option value="0">Agregar WSDL</option>
+                        {section name=LE loop=$WSDL}
+                        <option value="{$WSDL[LE][0]}">{$WSDL[LE][1]}</option>
+                        {/section}
+                    </select>
+
+                    <div class="add-wsdl" id="fwsdls">
+                        <label>Dirección URL del WSDL</label>
+                        <input type="text" id="vwsdlsnom" placeholder="http://" maxlength="255">
+                        <label>Peticion XML</label>
+                        <input type="text" id="vxmlsen" placeholder="SOAP" maxlength="255">
+                        <label>Respuesta XML</label>
+                        <input type="text" id="vxmlreq" placeholder="SOAP" maxlength="100">
+                        <label>Respuesta Array</label>
+                        <input type="text" id="vobtener" placeholder="VALOR_1,VALOR_2" maxlength="255">
+                        <label>Parámetros</label>
+                        <table>
+                            <th>Campo</th>
+                            <th>Valor</th>
+                            <tbody id="detallewsdl">
+                                <tr id="fl0">
+                                    <td>
+                                    <input type="hidden" id="vidwsdl" value="?">
+                                    <input type="text" id="wsn1" class="constante" value="" placeholder="Nombre del Parámetro" maxlength="64"></td>
+                                    <td><input type="text" id="wsv1" value="" placeholder="Valor del Parámetro" maxlength="64"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-info add" modulo="wsdl" detalle="1">Agregar WSDL</button>
+                     </div>
+                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-primary">Agregar</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+            <button type="button" class="btn btn-primary add" modulo="moneda">Agregar</button>
+        </div>
+        
 </div><!-- /.modal -->
