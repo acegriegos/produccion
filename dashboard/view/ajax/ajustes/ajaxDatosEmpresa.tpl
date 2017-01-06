@@ -60,16 +60,16 @@
         <th>Símbolo</th>
         <th>Moneda</th>
         <th>Valor</th>
-        <th>Estado</th>
+        <th></th>
         </tr>
         </thead>
         <tbody id="listamonedas">
             {section name=LE loop=$MON}
-            <tr id="f1">
-            <td>{$MON[LE][4]}</td>
+            <tr id="f{$MON[LE][0]}">
+            <td {if $MON[LE][3] neq ''} class="tooltipped" style="border: 1px solid red;" data-position="top" data-tooltip="Moneda por Defecto"{/if}>{$MON[LE][4]}</td>
             <td>{$MON[LE][1]}</td>
             <td>{$MON[LE][2]}</td>
-            <td>{$MON[LE][3]}
+            <td>
                 <a class='dropdown-button btn der mydrop' data-activates='dropdown-m{$MON[LE][0]}'><i class="material-icons">menu</i></a>
 
                 <ul id='dropdown-m{$MON[LE][0]}' class='dropdown-content'>
