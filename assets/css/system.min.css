@@ -1,8 +1,45 @@
+html{
+    font-family: "logintech";
+}
+
+@font-face {
+  font-family: "logintech";
+  src: url("../fonts/roboto/Roboto-Light.eot") format("embedded-opentype"),
+  /*src: url("Roboto-Regular.eot?#logintech") format("embedded-opentype"),*/
+    url("../fonts/roboto/Roboto-Light.woff") format("woff"),
+    url("../fonts/roboto/Roboto-Light.ttf") format("truetype"),
+    url("../fonts/roboto/Roboto-Light.svg#logintech") format("svg");
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/material-icons/material-icons.woff") format("woff");
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
 .bdy {
     padding-left: 3%;
-    margin-top: 0%;
-    padding-right: 3%
+    margin-top: 1%;
+    padding-right: 3%;
 }
+
 
 .autocomplete-content{
     z-index: 3000;
@@ -15,7 +52,8 @@
 @media(max-width:766px) {
     .bdy {
     padding-left: 2%;
-    margin-top: 2%
+    margin-top: 2%;
+    font-family: "logintech";
     }
 }
 .der {

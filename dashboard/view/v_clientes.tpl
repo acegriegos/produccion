@@ -23,27 +23,28 @@
 
 <div class="card">
 
-<h3 class="card-header card-primary">CLIENTES</h3>
-
+<div class="card-header center blue-grey white-text"><p class="flow-text">Clientes</p></div>
+<div class="card-content">
 <div class="row">
 
-    <div class="input-field col m8 col l8">
+<div class="input-field col m8 col l8">
 
-        <a href="#" class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="fa fa-search"></i></a>
-        <ul id='filtr_1' class='dropdown-content'>
-            <li><a href="#!" fltr="1">Por Nombre y Cédula</a></li>
-            <li><a href="#!" fltr="2">Por Teléfono</a></li>
-            <li><a href="#!" fltr="3">Por Correo</a></li>
-        </ul>
-        <input type="text" id="searh_clie" maxlength="100" class="searchclientes">
-        <label for="searh_clie">Buscar Cliente por Nombre y Cédula</label>
+    <a href="#" class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+    <ul id='filtr_1' class='dropdown-content'>
+        <li><a href="#!" fltr="1">Nombre</a></li>
+        <li><a href="#!" fltr="2">Cédula</a></li>
+        <li><a href="#!" fltr="3">Teléfono</a></li>
+    </ul>
+    <input type="text" id="searh_clie" maxlength="100" class="searchclientes">
+    <label for="searh_clie">Buscar Cliente por Nombre o Cédula</label>
 
-    </div>
+</div>
 
-    <div class="col m4">
-        <a id="ingClie" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes" ><i class="fa fa-plus"></i></a>
-        </div>
-    </div>
+<div class="col m4">
+    <a id="ingClie" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="large material-icons">add</i></a>
+</div>
+
+</div>
 
 <div class="card-block">
 <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-clientes">
@@ -93,11 +94,9 @@
     <div id="fclientes">
 
     <div class="row">
+    <br>
         <div class="col s12">
-          
-
         <div class="row parte1 col s12" id="info">
-
             <div class="row" style="margin: 0px">
                 <div class="col s2">
                     <p>
@@ -114,24 +113,24 @@
                 </div>
                 <input type="hidden" id="vidtipocliente" value="1">
             </div>
-
+            <br>
             <div class="card-title"><b>Datos Personales</b></div>
-
+            <br>
             <div class="row">
-                <div class="input-field col s6 m4 l4" id="colMod">
-                <label id="nomClie" for="vnombre">Nombre del Cliente</label>
+                <div class="input-field col s12 m4 l4" id="colMod">
+                <label id="nomClie" for="vnombre">Nombre</label>
                 <input type="text" class="validate" id="vnombre">
 
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vbisproveedor" value="0">
                 </div>
 
-                <div class="input-field col s6 m4 l4 hid">
+                <div class="input-field col s12 m4 l4 hid">
                 <label for="vapellido1">Primer Apellido</label>
                 <input type="text" class="validate" id="vapellido1">
                 </div>
 
-                <div class="input-field col s6 m4 l4 hid">
+                <div class="input-field col s12 m4 l4 hid">
                 <label for="vapellido2">Segundo Apellido</label>
                 <input type="text" class="validate" id="vapellido2">
                 </div>
@@ -140,14 +139,14 @@
 
             <div class="row">
             
-                <div class="input-field col s6 m4 l4" id="colMod">
+                <div class="input-field col s12 m4 l4" id="colMod">
                 <label for="vcedula">Cédula del Cliente</label>
                 <input type="text" class="validate" id="vcedula" data-mask="9-9999-9999">
                 </div>
 
-                <div class="input-field col s6 m4 col l4">
+                <div class="input-field col s12 m4 col l4">
                 <label for="vweb">Web</label>
-                <input type="text" class="form-control" id="vweb" placeholder="Página Web">
+                <input type="text" class="form-control" id="vweb" placeholder="www.webempresa.com">
                 </div>
 
                 <div class="input-field col s6 m4 l4">
@@ -169,12 +168,6 @@
                 <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                 <input type="hidden" id="vcorreo" fill="18">
                 <label for="correo_in">Ingresar Correo</label>
-                <br>
-                <div class="col s12">
-                    <ul class="collapsible" data-collapsible="accordion" id="shcorreos">
-                      
-                    </ul>
-                </div>
                 </div>
 
                 <div class="col s12 m8 l8" vtabla="telefono" id="ftelefonos">
@@ -198,13 +191,6 @@
                         <label for="telefono_in">Ingresar Teléfono</label>
 
                     </div>
-                    <div class="col s4"></div>
-                    <div class="col s8">
-                        <ul class="collapsible" data-collapsible="accordion" id="shtelefonos">
-                          
-                        </ul>
-                    </div>
-
                 </div>
 
                 </div>
@@ -216,7 +202,7 @@
 
             <div class="row">
 
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6 l6">
                     <select type="select" id="vidnivel" noClear="1">
                         <option value="0" selected>Seleccione una Categoría</option>
                         {section name=LE loop=$NVLCLIE}
@@ -226,7 +212,7 @@
                      <label for="vidnivel">Categoría del Cliente</label>
                 </div>
 
-                <div class="col s6">
+                <div class="col s12 m6 l6">
 
                       <div class="switch">
                         <label>
@@ -242,13 +228,13 @@
 
             <div class="row">
 
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6 l6">
                     <div class="prefix">%</div>
                     <input type="number" class="eder" id="vdescuentop">
                     <label for="vdescuentop">Descuento del Cliente</label>
                 </div>
 
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6 l6">
                     <div class="prefix">%</div>
                     <input type="number" class="eder" id="vdescuentom">
                     <label for="vdescuentom">Descuento Máximo</label>
@@ -258,12 +244,12 @@
 
             <div class="row cre" style="display: none;"> 
 
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6 l6">
                     <label for="vplazo">Plazo en Días</label>
                     <input type="number" class="eder" id="vplazo">
                 </div>
 
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6 l6">
                     <label for="vcredito">Crédito del Cliente</label>
                     <input type="number" class="eder" id="vcredito">
                 </div>
@@ -277,7 +263,7 @@
             <input type="hidden" id="vidcuenta" value="">
 
             <div class="row">
-                <div class="col s6">
+                <div class="col s12 m6 l6">
                     <div class="card-title"><b> Cuentas Contado </b></div>
                     <div id="ctacontado">
                         
@@ -356,12 +342,12 @@
                     </div>
 
                     
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6 l6">
                         <label for="vlatitud">Latitud</label>
                         <input type="text" class="eder" id="vlatitud">
                     </div>
 
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6 l6">
                         <label for="vlongitud">Longitud</label>
                         <input type="text" class="eder" id="vlongitud">
                     </div>
@@ -388,7 +374,7 @@
 
 </div>
 
-
+</div>
 </div>
 </div>
 

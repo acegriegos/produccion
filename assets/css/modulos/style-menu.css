@@ -20,8 +20,23 @@ header, main, footer {
 
 .menu-btn{
     position: fixed;
-    top: 50%;
+    top: 40%;
     left: -20px;
+    padding: 4em 0em 4em 0.8em;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -ms-border-radius: 0.5em;
+    -o-border-radius: 0.5em;
+    border-radius: 0.5em;
+}
+
+.menu-txt{  
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+  font-weight: 500;
 }
 
 .drag-target{

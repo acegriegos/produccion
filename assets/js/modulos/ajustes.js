@@ -406,12 +406,20 @@ function cargar(vmodulo,vid) {
 	return vmodulo;
 }
 
-function cargarSintax(){
+function cargarSintax(vtabla){
+
 	var arr = {}
 
-	arr['sel'] = 'id,nombre,telefono';
-	arr['tbl'] = 39;
-	arr['where'] = 'id > 0 order by nombre';
+	switch(vtabla){
+		case 'monedas':
+			arr['sel'] = 'id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo';
+			arr['tbl'] = 54;
+			arr['where'] = 'id > 0 order by principal desc,nombre';
+			break;
+		default:
+			console.error('ERROR: autodestrucción');
+			break;
+	}
 
 	return arr;
 }
@@ -500,3 +508,12 @@ $(document).on('change','#vwsdl',function(){
 	else
 		$(".add-wsdl").hide()
 });
+
+/*-------*/
+
+function endDetail(vid,vacc,modulo){
+
+	setTimeout(function(){ deadclear(modulo); }, 2500);
+    thorload(modulo);
+
+}

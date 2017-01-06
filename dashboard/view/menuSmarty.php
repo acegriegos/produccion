@@ -6,8 +6,6 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
-<link rel="stylesheet" href="../assets/css/modulos/style-login.css">
-
 
 <ul id="slide-out" class="side-nav">
     <li>
@@ -47,12 +45,14 @@
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
   </ul>
 
-  <a href="#" data-activates="slide-out" class="button-collapse btn-floating blue menu-btn"><i class="material-icons">toc</i></a>
+  <a href="#" data-activates="slide-out" class="button-collapse blue-grey menu-btn"><p class="white-text menu-txt">MENU</p></a>
   
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/mask/jquery.mask.js"></script>
 <script src="../assets/js/materialize.js"></script>
 <script src="../assets/js/modulos/menu.js"></script>
+<script src="../assets/libs/charts/chart.js"></script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script> -->
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
 <script src="../assets/js/asgard.js"></script>
