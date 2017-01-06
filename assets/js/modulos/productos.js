@@ -116,6 +116,23 @@ $(document).on("click",".menuS",function(){
 	}
 });
 
+$(document).on("keyup",".formprod",function(e){
+    var code = e.which || e.keyCode;
+    var id = $(this).attr('focus').substr(0,1);
+    var focus = $(this).attr('focus');
+    if (code == 13) {
+    	if (id == 1) {
+    		$("#tb"+id).click();
+    		$("#"+focus.substr(1)).focus();
+    	}else if (id == 2) {
+    		$("#tb"+id).click();
+    		$("#"+focus.substr(1)).select();
+    	}else {
+    		$("#tb3").click();
+    		$("#"+focus.substr(1)).focus();
+    	}
+    }
+});
 
 $(document).on("click",".vfiltros",function(){
 	var id = parseInt($(this).attr('filtro').substr(1));
@@ -178,44 +195,42 @@ $(document).on("click",".filtropqt",function(){
 	}
 });
 
-$(document).on("click",".isproducto",function(){
-    if ( $("#prodfinal").is(":checked") ) {
-    	$("#visproducto").val(1);
-    	$("#tipoinsumos").remove();
+function cambio_select(vto,vtabla,vval,vset){
+    var tmp = $('#'+vto+' option').first().html();
+
+    $('#'+vto).html('<option value="">'+tmp+'</option>');
+    var res = arr('login',4,vval,vtabla,vset,0,0,0)[0];
+    for (var i = 0; i < res.length; i++) {
+        $('#'+vto).append('<option value="'+res[i][0]+'">'+res[i][1]+'</option>');
     }
+    $('#'+vto).material_select('update');
+};
+
+$(document).on('click',"#unidad",function(){
+    var tabla = $(this).attr('db');
+
+    if ($("#iconunidad").is(':visible')) {
+    	$(".unidad").html('');
+    	$(".unidad").append('<a class="prefix btn-floating red btn-small" style="width: 2.5rem" id="unidad" db="'+tabla+'"><i class="fa fa-arrow-left" id="iconunidad"></i></a> <label for="ing_unidad">Unidad</label> <input type="text" id="ing_unidad" db="'+tabla+'" d-e-t="unidad">');
+    }else{
+    	var opc = '';
+    	arr('login',4,'id,nombre,simbolo',vtbl,'vwhere','vcambio',vch,'velemto',vjson)
+    	$(".unidad").html('<a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Unidad" style="width: 2.5rem" id="unidad" db="107"><i class="fa fa-plus" id="iconunidad"></i></a><select type="select" id="vidunidad" class="_det"><option value="" simbol="">Seleccione un Unidad</option>{section name=LE loop=$UNI}<option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>{/section}</select><label for="vidunidad">Unidad</label>');
+    }
+
+    // if ($("."+vdet).is(":visible")) {
+    //     $("."+vdet).hide();
+    //     $("."+vdet).parent().append('<div class="_'+vdet+'"><a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar" href="#!" style="width: 2.5rem" det="'+vdet+'" db="'+tabla+'" id="_'+vdet+'"><i class="fa fa-plus" id="icon'+vdet+'"></i></a> <label for="ing_'+vdet+'">'+vdet.toUpperCase()+'</label> <input type="text" id="ing_'+vdet+'" db="'+tabla+'" d-e-t="'+vdet+'"></div>');
+    //     $("#icon"+vdet).removeClass('fa-plus');
+    //     $("#icon"+vdet).addClass('fa-arrow-left');
+    //     $('#ing_'+vdet).focus();
+    // }else{
+    //     $("._"+vdet).remove();
+    //     cambio_select('vid'+vdet,tabla,'id,nombre','id > 0');
+    //     $("."+vdet).show();
+    // }
     
-    else {
-    	$("#visproducto").val(0);
-    	var tipoinsumos = arr('login',4,'*',100,'id > 0',0,0,0)[0];
-		var options = '';
-		$.each(tipoinsumos,function(i,value){
-			options += '<option value="'+value[0]+'">'+value[1]+'</option>';
-		});
-    	$("#col1").append('<div class="input-field" id="tipoinsumos"><select id="tipoinsumo" type="select"><option value="0">Seleccione una Opcion</option>'+options+'</select><label>Seleccione un Tipo de Insumo</label></div>');
-    	$("#tipoinsumo").material_select();
-    }    
 });
-
-$(document).on("change","#tipoinsumo",function(){
-    var id = $(this).val();
-    $("#vidtipoinsumo").val(id);
-});
-
-// $(document).on("change","#vidbodega",function(){
-//     var id = $(this).val();
-
-//     if (id == 1) {
-// 		var tipoinsumos = arr('login',4,'*',100,'id > 0',0,0,0)[0];
-// 		var options = '';
-// 		$.each(tipoinsumos,function(i,value){
-// 			options += '<option value="'+value[0]+'">'+value[1]+'</option>';
-// 		});
-//     	$("#col1").append('<div class="input-field" id="tipoinsumos"><select id="vidtipoinsumo"><option value="0">Seleccione una Opcion</option>'+options+'</select><label>Seleccione un Tipo de Insumo</label></div>');
-//     	$("#vidtipoinsumo").material_select();
-//     }else{
-//     	$("#tipoinsumos").remove();
-//     }
-// });
 
 $(document).on("click","#adddsct",function(){
 	var desc = $("#dscts option:selected").val();
@@ -240,7 +255,6 @@ $(document).on("click","#gdesc",function(){
 			}else{
 				Materialize.toast(descuentos[0]['ERROR'], 6000, 'red');
 			}
-			
 		});
 	}else{
 		arr('login',7,'3',79,'idfila = '+idproducto+' and idtabla = 11','',0,'');
@@ -255,7 +269,6 @@ $(document).on("click","#gdesc",function(){
 			}
 		});
 	}
-	
 });
 
 $(document).on("click","#addimp",function(){
@@ -266,7 +279,8 @@ $(document).on("click","#addimp",function(){
 	if ($("#vimv"+id).val() == undefined) {
 		$("#impuestos").removeClass('hide');
 		if ($("#imp option:selected").val() != 0) {
-			$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+id+'"><div><span class="impuestos" id="vimv'+id+'" value="'+valor+'">'+nombre+' - '+valor+'%</span><a class="secondary-content delimp" id="dimp'+id+'"><i class="material-icons">delete</i></a></div></li>');
+			// $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+id+'"><div><span class="impuestos" id="vimv'+id+'" value="'+valor+'">'+nombre+' - '+valor+'%</span><a class="secondary-content delimp" id="dimp'+id+'"><i class="material-icons">delete</i></a></div></li>');
+			$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+id+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+id+'" value="'+valor+'">'+nombre+' - '+valor+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+id+'" type="number" class="validate eder" value="0" style="margin: 0px;width: 50%"></div></div></li>')
 			totalizar($("#hvcosto").val(),$("#vganancia").val());
 		}
 	}else{
@@ -278,14 +292,10 @@ $(document).on("click",".delimp",function(){
 	var id = $(this).attr('id').substr(4);
 	var costo = $("#hvcosto").val();
 	var ganancia = $("#vganancia").val();
-	$("#newimp"+id).remove();
-
 	totalizar(costo,ganancia)
-
 });
 
 $(document).on("click","#addprod",function(){
-	
 	var valprod = validarproductos();
 	if (valprod == false) {
 		var codigo = $("#vcodigo").val();
@@ -297,26 +307,25 @@ $(document).on("click","#addprod",function(){
 		var idunidad = $("#vidunidad option:selected").val();
 		var minimo = $("#vminimo").val();
 		var maximo = $("#vmaximo").val();
+		var maxdesc = $("#vmaxdescuento").val();
 		var idmarca = $("#vidmarca option:selected").val();
-		var tipoinsumo = $("#vidtipoinsumo").val();
+		var exoneracion = $("#vexoneracion").val();
 	//producto
-		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+','+minimo+','+maximo+','+idmarca+','+tipoinsumo+',@@usr,@@impresa,""','',0,'');
-	
+		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+',0,@@usr,@@impresa,""','',0,'');
 		if (idproducto[0][0] != undefined) {
 			// financiero
 			$(".impuestos").each(function(){
 				var idimpuesto = $(this).attr('id').substr(4);	
-				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+',0.00','',0,'');
+				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),'',0,'');
 			});
 			$(".precionivel").each(function(){
 				var idfila = $(this).attr('id').substr(1);
 				if ($("#vventa"+idfila).val() > 0) {
-					arr('login',4,'',105,'null,'+idproducto+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+id).val(),0,0,0)
+					arr('login',4,'',108,'1,null,'+idproducto[0][0]+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
 				}
-				
 			});
 			Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
-			arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+			arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
 			// vaciar('productos');
 			Materialize.updateTextFields();
 			$("#impuestos").addClass('hide');
@@ -371,45 +380,53 @@ $(document).on("click","#editprod",function(){
 
 $(document).on("click",".editprod",function(){
 	var id = $(this).attr('id').substr(1);
-	var p = arr('login',4,'idfamilia,idtipo,idmarca,idbodega,nombre,codigo,idunidad,minimo,maximo,costo,ganancia,fventa,venta,maxdescuento',14,'id = '+id,'',0,'')[0][0];
-	var cant = arr('login',4,'replace(cantidad,".00","")',97,'idproducto = '+id,'',0,'')[0][0];
-	var imp = arr('login',4,'idimpuesto,impuesto,valor',83,'idproducto = '+id,'',0,'')[0];
-	$(".accmodal").html("Actualizar Producto "+p[5]);
+	var p = arr('login',4,'',83,id,'',0,'');
+	var q = p[0][0];
+	var precios = arr('login',4,'',110,id,0,0,0)[0];
+	$(".accmodal").html("Actualizar Producto "+q[5]);
 	$("#addprod").addClass('hide');
 	$("#editprod").removeClass('hide');
 	$("#editprod").attr('idprod',id);
 	$("#impuestos").removeClass('hide');
 	$("#impuestos").html('');
 	//cargar
-	$("#vidfamilia").val(p[0]);
+	$("#vidfamilia").val(q[0]).change();
 	$("#vidfamilia").material_select();
-	$("#vidtipo").val(p[1]);
+	$("#vidtipo").val(q[1]).change();
 	$("#vidtipo").material_select();
-	$("#vidmarca").val(p[2]);
+	$("#vidmarca").val(q[2]);
 	$("#vidmarca").material_select();
-	$("#vidbodega").val(p[3]);
-	$("#vidbodega").material_select();
-	$("#vnombre").val(p[4]);
-	$("#vcodigo").val(p[5]);
-	$("#vidunidad").val(p[6]);
+	$("#vidunidad").val(q[3]);
 	$("#vidunidad").material_select();
-	$("#vcantidad").val(cant)
-	$("#vminimo").val(p[7]);
-	$("#vmaximo").val(p[8]);
-	$("#vcosto").val(p[9]);
-	$("#hvcosto").val(p[9]);
-	$("#vganancia").val(p[10]);
-	$("#vventa").val(p[11]);
-	$("#hventa").val(p[12]);
-	$("#maxdesc").val(p[13]);
+	$("#vnombre").val(q[4]);
+	$("#vcodigo").val(q[5]);
+	$("#vminimo").val(q[6]);
+	$("#vmaximo").val(q[7]);
+	$("#vcosto").val(q[8]);
+	$("#hvcosto").val(q[8]);
+	$("#vganancia").val(q[9]);
+	$("#vventa").val(q[10]);
+	$("#hventa").val(q[11]);
 
-	if (imp != '') {
-		for (var i = 0; i < imp.length; i++) {
-			$("#impuestos").removeClass('hide');
-			$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'">'+imp[i][1]+' - '+imp[i][2]+'%</span><a class="secondary-content delimp" id="dimp'+imp[i][0]+'"><i class="material-icons">delete</i></a></div></li>');
+	for (var i = 0; i < p[0].length; i++) {
+		q = p[0][i]
+		if (q[12] != '') {
+			defecto = '';
+			if (q[15] == 0)
+				defecto = '<a class="secondary-content delimp" id="dimp'+q[12]+'"><i class="material-icons">delete</i></a>';
 
+				$("#impuestos").removeClass('hide');
+				$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+q[12]+'"><div><span class="impuestos" id="vimv'+q[12]+'" value="'+q[14]+'">'+q[13]+' - '+q[14]+'%</span>'+defecto+'</div></li>');
 		}
+		
 	}
+
+	for (var i = 0; i < precios.length; i++) {
+		$("#vganancia"+precios[i][0]).val(precios[i][1]);
+		$("#vventa"+precios[i][0]).val(precios[i][2]);
+		$("#vexoneracion"+precios[i][0]).val(precios[i][3]);
+	}
+
 	Materialize.updateTextFields();
 });
 
@@ -957,19 +974,17 @@ $(document).on("change","input[name=visgravado]",function(){
 	}
 });
 
-$(document).on("keyup",".calcvv",function(){
+$(document).on("keyup",".calcvv",function(e){
+	var code = e.which || e.keyCode;
+	var focus = $(this).attr('focus');
 	var costo = isNaN($("#vcosto").val()) ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
 	var ganancia = isNaN($("#vganancia").val()) ? 0 : parseFloat($("#vganancia").val().replace(/,/g,""));
 	$("#hvcosto").val(costo);
-	// var venta = 0;
+	totalizar(costo,ganancia);
 
-	totalizar(costo,ganancia)
-	// if (imv == undefined && ganancia == 0) {
-	// 	venta = costo;
-	// }else{
-	// 	venta = costo * ((ganancia/100)+1);
-	// }
-	// $("#vventa").val( (venta).toFixed(2) );
+	if (code == 13) {
+		$("#"+focus).select();
+	}
 });
 
 // $(document).on("keyup",".vcalcServ",function(){
@@ -1013,7 +1028,6 @@ $(document).on("keyup",".calcvv",function(){
 
 
 $(document).on("click","#agInvProPqts",function(){
-
 	var prodStr = $("#descrP").val();
 	var prodPrec = prodStr.substr(prodStr.indexOf('¢')+1);
 	prodStr = prodStr.substr(0,prodStr.indexOf('¢')+1);
@@ -1025,12 +1039,9 @@ $(document).on("click","#agInvProPqts",function(){
 	var gDatos = getDatos();
 	tkn(prodStr,subtotal,prodCant)
 	$("#textProd-tokenfield").focus();
-	
-
 });
 
 $(document).on("click","#agInvSerPqts",function(){
-
 	var servStr = $("#descrS").val();
 	var servPrec = servStr.substr(servStr.indexOf('¢')+1);
 	servStr = servStr.substr(0,servStr.indexOf('¢')+1);
@@ -1045,7 +1056,6 @@ $(document).on("click","#agInvSerPqts",function(){
 	$("#textServ-tokenfield").focus();
 	$("#textServ-tokenfield").val(servStr+subtotal+'|'+servCant);
 	$("#textServ-tokenfield").select();
-
 });
 
 $(document).on("click","#addproduct",function(){
@@ -1055,7 +1065,13 @@ $(document).on("click","#addproduct",function(){
 	$(".accmodalProd").html('Agregar Producto');
 	$("#ajaxProductos").html('');
 	$("#impuestos").addClass('hide');
-	$("#impuestos").html('');
+	// $("#impuestos").html('');
+	var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
+	$("#impuestos").removeClass('hide');
+	for (var i = 0; i < imp.length; i++) {
+		$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder" value="0" style="margin: 0px;width: 50%"></div></div></li>')
+	}
+	
 	// vaciar('productos');
 	Materialize.updateTextFields();
 	
@@ -1164,34 +1180,6 @@ $(document).on("change","#prov",function(){
 	$("#vidproveedor").val(id)
 });
 
-function sendfocus(pos) {
-	switch(pos){
-		case 'vnombre':
-			$("#vcodigo").focus();
-			break;
-		case 'vcodigo':
-			$("#vcantidad").focus();
-			break;
-		case 'vcantidad':
-			$("#vminimo").focus();
-			break;
-		case 'vminimo':
-			$("#vmaximo").focus();
-			break;
-		case 'vmaximo':
-			$("#tb2").click();
-			$("#vcosto").focus();
-			break;
-		case 'vcosto':
-			$("#vganancia").select();
-			$("#vganancia").focus();
-			break;
-		case 'vganancia':
-			$("#vventa").focus();
-			break;
-	}
-}
-
 function adddesc(vdesc,vvalor) {
 	if ($("#vdesc"+vdesc).text() == '') {
 		$("#tbldesc").removeClass('hide');
@@ -1262,14 +1250,13 @@ function totalizar(costo,ganancia) {
 
 	$(".precionivel").each(function(){
 		var id = $(this).attr('id').substr(1);
-		ganancia = $("#vganancia"+id).val();
-		exoneracion = $("#vexoneracion"+id).val();
-		if (ganancia == 0) {
-			subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1);
-		}else{
+		ganancia = parseFloat($("#vganancia"+id).val());
+		exoneracion = parseFloat($("#vexoneracion"+id).val());
+		if (ganancia != 0 || exoneracion != 0) {
 			subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1) * ((ganancia / 100)+1);
+			$("#vventa"+id).val(subtotal.formatMoney(2,'.',','));
 		}
-		$("#vventa"+id).val(subtotal.formatMoney(2,'.',','));
+		
 	});
 
 }
@@ -1410,12 +1397,12 @@ function validarproductos() {
 		$("#vcodigo").focus();
 		return 'Código Requerido';
 	}
-	if ($("#vminimo").val() == 0){
+	if ($("#vminimo").val() < 0){
 		$("#tb1").click()
 		$("#vminimo").select();
 		return 'Mínimo Requerido';
 	}
-	if ($("#vmaximo").val() == 0){
+	if ($("#vmaximo").val() < 0){
 		$("#tb1").click()
 		$("#vmaximo").select();
 		return 'Máximo Requerido';
