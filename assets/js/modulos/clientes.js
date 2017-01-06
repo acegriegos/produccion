@@ -164,16 +164,16 @@ $(document).on("click","input[name='tipoclie']",function(){
 
 	if (tipo == 1) {
 		$("#titInfo").html('<b>Datos Personales<b/>');
-		$("#nomClie").html('<b>Nombre</b>');
-		$("#colMod").addClass("col-md-6 col-lg-6");
-		$("#colMod").removeClass("col-md-12 col-lg-12");
+		$("#nomClie").html('Nombre');
+		$("#colMod").addClass("col s12 m4 l4");
+		$("#colMod").removeClass("col s12 m12 l12");
 		$("#vcedula").attr('data-mask', '9-9999-9999');
 		$(".hid").show(300);
 	} else if (tipo == 2) {
 		$("#titInfo").html('<b>Información Jurídica<b/>');
-		$("#nomClie").html('<b>Razón Social</b>');
-		$("#colMod").removeClass("col-md-6 col-lg-6");
-		$("#colMod").addClass("col-md-12 col-lg-12");
+		$("#nomClie").html('Razósn Social');
+		$("#colMod").removeClass("col s12 m4 l4");
+		$("#colMod").addClass("col s12 m12 l12");
 		$("#vcedula").attr('data-mask', '9-999-999999');
 		$(".hid").css('display','none');
 	}

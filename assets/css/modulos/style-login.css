@@ -3,8 +3,16 @@
 body {
   background-size: cover;
   background-position: center;
-  font-family: 'Open Sans';
-  font-weight: 100;
+  font-family: "logintech";
+}
+
+@font-face {
+  font-family: "logintech";
+  src: url("../fonts/roboto/Roboto-Light.eot") format("embedded-opentype"),
+  /*src: url("Roboto-Regular.eot?#logintech") format("embedded-opentype"),*/
+    url("../fonts/roboto/Roboto-Light.woff") format("woff"),
+    url("../fonts/roboto/Roboto-Light.ttf") format("truetype"),
+    url("../fonts/roboto/Roboto-Light.svg#logintech") format("svg");
 }
 
 input:focus, input:active, button:focus, button:active, .btn:focus, .btn:active {
