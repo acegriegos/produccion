@@ -10,6 +10,8 @@
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	   
 	   	$smarty->assign('NAV',$pg);
+	   	$smarty->assign('UNI',$kakaroto->kamehameha('*',12,'1 order by idunidad'));
+	   	$smarty->assign('REC',$kakaroto->kamehameha('*',99,'1'));
 	   	$smarty->display('v_produccion.tpl');
 	   }else{
 	   $pagina = 0;

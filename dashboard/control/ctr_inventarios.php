@@ -19,8 +19,9 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			//PROD
-	   			$smarty->display('ajax/ajaxmantInvDevoluciones.tpl');
+	   			$smarty->assign('INSU',$kakaroto->kamehameha('id,nombre,precio,cantidad,sunidad',42,'1'));
+	   			$smarty->assign('UNI',$kakaroto->kamehameha('*',12,'1 order by idunidad'));
+	   			$smarty->display('ajax/inventarios/insumos.tpl');
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
@@ -28,27 +29,35 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('INSU',$kakaroto->kamehameha('*',42,''));
-	   			$smarty->display('ajax/ajaxmantInvInsumos.tpl');
+	   			$smarty->display('ajax/inventarios/gastos.tpl');
 	   			break;
 	   		case 3:
 	   			$pagina = 1;
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			//PROD
-	   			$smarty->display('ajax/ajaxmantInvGastos.tpl');
+	   			// $smarty->display('ajax/inventarios/***.tpl'); PRODUCCION
 	   			break;
 	   		case 4:
 	   			$pagina = 1;
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('TIP',$kakaroto->kamehameha('*',38,''));
-	   			$smarty->assign('INV',$kakaroto->kamehameha('*',40,''));
-	   			$smarty->display('ajax/ajaxmantInvContable.tpl');
+	   			// $smarty->display('ajax/inventarios/**.tpl'); RUTA
 	   			break;
 	   		case 5:
-	   			
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->display('ajax/inventarios/devoluciones.tpl');
+	   			break;
+	   		case 6:
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			// $smarty->display('ajax/inventarios/**.tpl'); MAL ESTADO
 	   			break;
 	   		// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   	}

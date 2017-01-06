@@ -1,0 +1,38 @@
+#dinsu {
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+    padding: 0px;
+}
+
+.insu{
+    display: inline-block;
+    background: #2196F3;
+    height: 30px;
+
+}
+
+.insu:hover{
+    background: #256BB1;
+    cursor: pointer;
+
+}
+
+.tinsu {
+    margin-top: 20px;
+    color: #fff;
+}
+
+#nav-tipoinsumo {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+.side-nav li {
+    line-height: 20px;
+}
+
+#addtipo {
+    width: 100%;
+}
+#acttipo {
+    width: 100%;
+}
