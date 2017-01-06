@@ -90,7 +90,7 @@ function doGlobal(accion,modulo,tip,detalle,varias){
             Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
 
             id = p[0][0];
-            endDetail(id,acc);
+            endDetail(id,acc,modulo);
         }
 
     }else{

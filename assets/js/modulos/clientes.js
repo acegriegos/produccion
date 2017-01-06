@@ -336,7 +336,7 @@ function obtenerCuentas(vid){
 	$("#vidcuenta").val('');
 }
 
-function endDetail(vid,vacc){
+function endDetail(vid,vacc,modulo){
 
 	setTimeout(function(){ deadclear('cliente'); }, 2500);
     thorload('cliente');
