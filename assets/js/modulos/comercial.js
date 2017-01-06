@@ -1,16 +1,16 @@
 var config1 = {
-    type: 'doughnut',
+    type: 'bar',
     data: {
-        labels: ['a','b','c','d','e'],
+        labels: ['Suc 1','Suc 2','Suc 3','Suc 4','Suc 5'],
         datasets: [{
             label: 'Al Día',
-            data: ['10','20','15','5','30'],
+            data: ['80000','200000','300000','400000','500000'],
             backgroundColor: [
-            "rgba(70,191,189,0.7)",
-            "rgba(247,70,74,0.7)",
-            "rgba(148,159,177,0.7)",
-            "rgba(253,180,92,0.7)",
-            "rgba(180,253,92,0.7)"
+            "#9c27b0",
+            "#3f51b5",
+            "#2196f3",
+            "#03a9f4",
+            "#00bcd4 "
             ]
         }],
     },
@@ -21,7 +21,7 @@ var config1 = {
         },
         title: {
             display: true,
-            text: 'Grafico 1'
+            text: 'Reporte de Ventas'
         },
         animation: {
             animateScale: true,

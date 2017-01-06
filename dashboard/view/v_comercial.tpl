@@ -16,77 +16,55 @@
     <![endif]-->
   </head>
   <body>
-  <br>
-    {$NAV}
-    <div class="bdy">
-
-    <div class="card">
-      <div class="card-block">
-        <h4 class="card-title">Área Comercial</h4>
-      </div>
-      <div class="card-block">
-        
-        <div class="row">
-          <div class="col-md-7 col-lg-7">
-
-          <a href="clientes" class="myah">
-            <button type="button" class="btn btn-default mybtn" title="Clientes">
-              <i class="fa fa-user"></i>
-              <br>Clientes
-            </button>
-          </a>
-
-          <a href="facturacion?tf=1" class="myah">
-            <button type="button" class="btn btn-default mybtn" title="Ventas">
-              <i class="fa fa-usd"></i>
-              <br>Ventas
-            </button>
-
-          <a href="crm" class="myah" style="display: none">
-            <button type="button" class="btn btn-default mybtn" title="Custom Relationship Managment">
-              <i class="fa fa-user"></i>
-              <br>CRM
-            </button>
-          </a>
-
-          <a href="cuentas" class="myah">
-            <button type="button" class="btn btn-default mybtn" title="Cuentas por Cobrar">
-              <i class="fa fa-folder-o"></i>
-              <br>CxC
-            </button>
-          </a>
-
-          <a href="reportes" class="myah">
-            <button type="button" class="btn btn-default mybtn" title="Reportes">
-              <i class="fa fa-folder-o"></i>
-              <br>Reportes
-            </button>
-          </a>
-            
+  {$NAV}
+  <div class="bdy">
+  <div class="card">
+    <div class="card-header center blue-grey white-text"><p class="flow-text">Área Comercial</p></div>
+    <div class="card-content">
+      <div class="row">
+        <div class="col s12 m6 l6">
+          <div class="card">
+          <div class="card-title grey white-text center">&nbsp;Opciones</div>
+          <div class="card-content">
+            <div class="row center">
+              <div class="col s12 m6 l6">
+                <a href="clientes" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Clientes">Clientes</a>
+              </div>
+              <div class="col s12 m6 l6">
+                <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Ventas">Ventas</a>
+              </div>
+            </div>
+            <div class="row center">
+              <div class="col s12 m6 l6">
+                <a href="#" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Clientes">CRM</a>
+              </div>
+              <div class="col s12 m6 l6">
+                <a href="cuentas" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Clientes">CxC</a>
+              </div>
+            </div>
+            <div class="row center">
+              <div class="col s12 m6 l6">
+                <a href="reportes" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Clientes">Reportes</a>
+              </div>
+            </div>
           </div>
-          <div class="col-md-5 col-lg-5 mycol">
-            OPCIONES
-
-            <hr style="border: 1px dashed #e2e2e2">
-
-            GRAFICA
-
-            <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
-
-            <hr style="border: 1px dashed #e2e2e2">
-
-            DETALLE
-
-            <hr style="border: 1px dashed #e2e2e2">
-
           </div>
         </div>
-
+        <div class="col s12 m6 l6">
+          <div class="card">
+          <div class="card-title grey white-text center">&nbsp;Gráfico</div>
+          <div class="card-content">
+            <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
+          </div>
+          </div>
+        </div>
       </div>
-    </div>
 
     </div>
-    <script src="../assets/libs/charts/dist/Chart.js"></script>
+  </div>
+
+
+  </div>
     <script src="../assets/js/modulos/comercial.js"></script>
   </body>
 </html>
