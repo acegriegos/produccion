@@ -62,7 +62,7 @@ function getIn(){
         $('#num').focus();
         return false;
     }
-
+    
     var p = mantenimiento('login',3,{id: $('#num').val(), pss: $('#pass').val()})
 
     if(p[0].length == 2){
@@ -79,7 +79,7 @@ function getIn(){
             rs = arr('login',4,'*',92,'correos like \"%'+ $('#num').val() +'%\"',0,0,'')[0];
             correo = rs[0][0];
             varibale = rs[0][1];
-        }else
+        }else{
             correo = arr('login',4,'mail',1,'user = \"'+ $('#num').val() +'\"',0,0,'')[0][0][0];
 
             if (correo != ''){
@@ -87,10 +87,18 @@ function getIn(){
 
                 enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
             }
+        }
         });
         break;
         }
         salida = false;
+    }
+    if (salida){
+        direccion = window.location.pathname;
+        direccion = direccion.substring(direccion.lastIndexOf('/')+1)
+        $("#vdir").val(direccion)
+    }else{
+        $("#vdir").val('')
     }
     return salida;
 }

@@ -157,6 +157,7 @@ $(document).on("click",".load",function(){
 
 	$("#ln1").click();
 	obtenerCuentas($(this).attr('id').substr(1));
+	obtenerImpuestos($(this).attr('id').substr(1))
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
@@ -334,6 +335,10 @@ function obtenerCuentas(vid){
 	}
 
 	$("#vidcuenta").val('');
+}
+
+function obtenerImpuestos(vid){
+	//var cuentasg = arr('login',4,'',85,'2,'+vid+',"1,2"','',0,'');
 }
 
 function endDetail(vid,vacc,modulo){

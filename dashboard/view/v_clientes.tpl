@@ -293,9 +293,9 @@
                     <div class="input-field col s4">
 
                     <div class="provincia">
-                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev=""><i class="fa fa-plus"></i></a>
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="fa fa-plus"></i></a>
 
-                    <select id="vidprovincia" type="select">
+                    <select id="vidprovincia" type="select" class="_det" primary="1">
                     <option value="">Seleccione una Provincia</option>
                     {section name=LE loop=$PRO}
                     <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
@@ -309,9 +309,9 @@
                     <div class="input-field col s4">
                     
                     <div class="canton">
-                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia"><i class="fa fa-plus"></i></a>
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="fa fa-plus"></i></a>
 
-                    <select id="vidcanton" type="select">
+                    <select id="vidcanton" type="select" class="_det">
                     <option value="">Seleccione un Cantón</option>
                     </select>
                     <label for="vidcanton">Cantón</label>
@@ -322,9 +322,9 @@
                     <div class="input-field col s4">
                     
                     <div class="distrito">
-                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton"><i class="fa fa-plus"></i></a>
+                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="fa fa-plus"></i></a>
                     
-                    <select id="viddistrito" type="select">
+                    <select id="viddistrito" type="select" class="_det">
                     <option value="">Seleccione un Distrito</option>
                     </select>
                     <label for="viddistrito">Distrito</label>

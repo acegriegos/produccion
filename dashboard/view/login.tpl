@@ -28,6 +28,7 @@
                 <br><br>
             </div>
             <form role="form" id="logF" action="index.php" method="POST">
+            <input type="hidden" name="vdir" id="vdir">
                 <div class="input-field col s12">
                     <input id="num" type="text" name="id" class="validate">
                     <label for="num">Ingrese su Usuario</label>

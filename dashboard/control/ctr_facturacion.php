@@ -63,7 +63,7 @@
 
 	   	}
 		if(!$pagina){
-		   	if (is_array($transaccion)){
+		   	if (is_array($transaccion) or die(header("Location: error"))){
 				$marcas = $transaccion;
 				$succed = 1;
 				}else{
