@@ -61,13 +61,10 @@ $(function(){
 	$("#m1").click();
 });
 $(document).ready(function(){
-	// Materialize
 
-	//Materialize
 });
 
 $(document).on("click","#prueba",function(){
-	// pruebas
 
 });
 
@@ -178,6 +175,19 @@ $(document).on("click",".filtropqt",function(){
 	}
 });
 
+<<<<<<< HEAD
+function cambio_select(vto,vtabla,vval,vset){
+    var tmp = $('#'+vto+' option').first().html();
+
+    $('#'+vto).html('<option value="">'+tmp+'</option>');
+    var res = arr('login',4,vval,vtabla,vset,0,0,0)[0];
+
+    for (var i = 0; i < res.length; i++) {
+        $('#'+vto).append('<option value="'+res[i][0]+'">'+res[i][1]+'</option>');
+    }
+    $('#'+vto).material_select('update');
+};
+=======
 $(document).on("click",".isproducto",function(){
     if ( $("#prodfinal").is(":checked") ) {
     	$("#visproducto").val(1);
@@ -216,6 +226,7 @@ $(document).on("change","#tipoinsumo",function(){
 //     	$("#tipoinsumos").remove();
 //     }
 // });
+>>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 
 $(document).on("click","#adddsct",function(){
 	var desc = $("#dscts option:selected").val();
@@ -278,10 +289,14 @@ $(document).on("click",".delimp",function(){
 	var id = $(this).attr('id').substr(4);
 	var costo = $("#hvcosto").val();
 	var ganancia = $("#vganancia").val();
+<<<<<<< HEAD
+	totalizar(costo,ganancia);
+=======
 	$("#newimp"+id).remove();
 
 	totalizar(costo,ganancia)
 
+>>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 });
 
 $(document).on("click","#addprod",function(){
@@ -293,20 +308,33 @@ $(document).on("click","#addprod",function(){
 		var costo = $("#vcosto").val();
 		var ganancia = $("#vganancia").val();
 		var venta = $("#hventa").val();
-		var imv = $("#vimv").val();
 		var idunidad = $("#vidunidad option:selected").val();
 		var minimo = $("#vminimo").val();
 		var maximo = $("#vmaximo").val();
 		var idmarca = $("#vidmarca option:selected").val();
+<<<<<<< HEAD
+		var exoneracion = $("#vexoneracion").val();
+		var idinventario =  $("#vidinventario option:selected").val();
+		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+',0,'+idinventario+',@@usr,@@impresa,""','',0,'');
+		
+=======
 		var tipoinsumo = $("#vidtipoinsumo").val();
 	//producto
 		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+','+minimo+','+maximo+','+idmarca+','+tipoinsumo+',@@usr,@@impresa,""','',0,'');
 	
+>>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 		if (idproducto[0][0] != undefined) {
-			// financiero
+			
 			$(".impuestos").each(function(){
+<<<<<<< HEAD
+				var idimpuesto = $(this).attr('id').substr(4);
+				if (!$(this).attr('defecto') && $("#impexo"+idimpuesto).val() != 0) {
+					var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),'',0,'');
+				}
+=======
 				var idimpuesto = $(this).attr('id').substr(4);	
 				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+',0.00','',0,'');
+>>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 			});
 			$(".precionivel").each(function(){
 				var idfila = $(this).attr('id').substr(1);
@@ -316,8 +344,13 @@ $(document).on("click","#addprod",function(){
 				
 			});
 			Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
+<<<<<<< HEAD
+			arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+			vaciar('productos');
+=======
 			arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
 			// vaciar('productos');
+>>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 			Materialize.updateTextFields();
 			$("#impuestos").addClass('hide');
 		}else{
@@ -337,33 +370,35 @@ $(document).on("click","#editprod",function(){
 		var costo = $("#vcosto").val();
 		var ganancia = $("#vganancia").val();
 		var venta = $("#hventa").val();
-		var imv = $("#vimv").val();
+		var exoneracion = $("#vexoneracion").val();
 		var idunidad = $("#vidunidad option:selected").val();
-		var cantidad = $("#vcantidad").val();
 		var minimo = $("#vminimo").val();
 		var maximo = $("#vmaximo").val();
-		var idmodelo = $("#vidmodelo option:selected").val();
-		//producto
-		var idproducto = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+','+cantidad+','+minimo+','+maximo+',0,'+idmodelo+',@@usr,@@impresa','',0,'');
-		//impuestos
-		var isimp = arr('login',4,'id',87,'idfila='+idproducto[0][0],'',0,'');
-		// var isimp = arr('login',4,'id',87,'idfila=3','',0,'');
-		if (isimp[0][0] == undefined) {
+		var maxdesc = $("#vmaxdescuento").val()
+		var idmarca = $("#vidmarca option:selected").val();
+		var idproducto = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+',0,0,@@usr,@@impresa,""','',0,'');
+		if (idproducto[0][0] != undefined) {
+			arr('login',4,'',86,'3,0,'+idproducto[0][0]+',11,0,0',0,0,0);
+			
 			$(".impuestos").each(function(){
-				var idimpuesto = $(this).attr('id').substr(4);
-				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+',0.00','',0,'');
+				var idimpuesto = $(this).attr('id').substr(4);	
+				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),'',0,'');
 			});
+			$(".precionivel").each(function(){
+				var idfila = $(this).attr('id').substr(1);
+				arr('login',4,'',108,'3,null,'+idproducto[0][0]+','+idfila+',0,0,@@usr,@@impresa',0,0,0);
+				if ($("#vventa"+idfila).val() > 0) {
+					arr('login',4,'',108,'1,null,'+idproducto[0][0]+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
+				}
+			});
+			Materialize.toast('Producto Editado Correctamente', 6000, 'green');
+			arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+			vaciar('productos');
+			Materialize.updateTextFields();
+			$("#impuestos").addClass('hide');
 		}else{
-			arr('login',4,'',86,'3,0,'+idproducto[0][0]+',11,0,0.00','',0,'');
-			$(".impuestos").each(function(){
-				var idimpuesto = $(this).attr('id').substr(4);
-				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+',0.00','',0,'');
-			});
+			Materialize.toast(idproducto[0]['ERROR'], 6000, 'red');
 		}
-
-		Materialize.toast('Producto Editado Correctamente', 6000, 'green');
-		arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
-		// vaciar('productos');
 	}else{
 		Materialize.toast(valprod, 6000, 'red');
 	}
@@ -378,6 +413,7 @@ $(document).on("click",".editprod",function(){
 	$("#addprod").addClass('hide');
 	$("#editprod").removeClass('hide');
 	$("#editprod").attr('idprod',id);
+	$("#dinventario").addClass('hide');
 	$("#impuestos").removeClass('hide');
 	$("#impuestos").html('');
 	//cargar
@@ -393,6 +429,30 @@ $(document).on("click",".editprod",function(){
 	$("#vcodigo").val(p[5]);
 	$("#vidunidad").val(p[6]);
 	$("#vidunidad").material_select();
+<<<<<<< HEAD
+	$("#vnombre").val(q[4]);
+	$("#vcodigo").val(q[5]);
+	$("#vminimo").val(q[6]);
+	$("#vmaximo").val(q[7]);
+	$("#vmaxdescuento").val(q[8]);
+	$("#vcosto").val(q[9]);
+	$("#hvcosto").val(q[9]);
+	$("#vganancia").val(q[10]);
+	$("#vventa").val(q[11]);
+	$("#hventa").val(q[12]);
+	for (var i = 0, len = p[0].length; i < len; i++) {
+		q = p[0][i]
+		if (q[12] != '') {
+			defecto = '';
+			if (q[15] == 0)
+				defecto = '<a class="secondary-content delimp" id="dimp'+q[12]+'"><i class="material-icons">delete</i></a>';
+				$("#impuestos").html('');
+				$("#impuestos").removeClass('hide');
+				$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+q[13]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+q[13]+'" value="'+q[15]+'">'+q[14]+' - '+q[15]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+q[13]+'" type="number" class="validate eder" value="'+q[16]+'" style="margin: 0px;width: 50%"></div></div></li>')
+		}
+		
+	}
+=======
 	$("#vcantidad").val(cant)
 	$("#vminimo").val(p[7]);
 	$("#vmaximo").val(p[8]);
@@ -407,43 +467,44 @@ $(document).on("click",".editprod",function(){
 		for (var i = 0; i < imp.length; i++) {
 			$("#impuestos").removeClass('hide');
 			$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'">'+imp[i][1]+' - '+imp[i][2]+'%</span><a class="secondary-content delimp" id="dimp'+imp[i][0]+'"><i class="material-icons">delete</i></a></div></li>');
+>>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 
 		}
 	}
 	Materialize.updateTextFields();
 });
 
-$(document).on("click",".descuentos",function(){
-	var id = $(this).attr('id').substr(4);
-	var prod = arr('login',4,'nombre',11,'id = '+id,'',0,'')[0];
-	$("#tbldesc").addClass('hide');
-	$("#listadescuentos").html('');
-	$("#idproducto").val(id);
-	$("#dprod").text(prod);
-	$('select').material_select('destroy');
-	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#dscts"));
-	$('select').material_select();
+// $(document).on("click",".descuentos",function(){
+// 	var id = $(this).attr('id').substr(4);
+// 	var prod = arr('login',4,'nombre',11,'id = '+id,'',0,'')[0];
+// 	$("#tbldesc").addClass('hide');
+// 	$("#listadescuentos").html('');
+// 	$("#idproducto").val(id);
+// 	$("#dprod").text(prod);
+// 	$('select').material_select('destroy');
+// 	arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#dscts"));
+// 	$('select').material_select();
 
-	var ifdesc = arr('login',4,'count(id)',79,'idfila = '+id+' and idtabla = 11','',0,'')[0];
+// 	var ifdesc = arr('login',4,'count(id)',79,'idfila = '+id+' and idtabla = 11','',0,'')[0];
 
-	if (ifdesc != 0) {
-		var desc = arr('login',4,'iddescuento',79,'idfila = '+id+' and idtabla = 11','',0,'')[0];
-		$.each( desc, function( index, value ){
-			var valor = arr('login',4,'replace(valor,".00","")',94,'id = '+value,'',0,'')[0];
-			index += 1;
-    		$("#tbldesc").removeClass('hide');
-			$("#listadescuentos").append('<li class="collection-item dismissable" id="ld'+index+'"><div><span class="descprod" id="vdesc'+index+'">'+valor+'%</span><a class="secondary-content"><i class="material-icons but deldesc" id="deldesc'+index+'">delete</i></a></div></li>');
-		});
-		$("#gdesc").attr('action',2)
-	}else{
-		$("#tbldesc").addClass('hide');
-		$("#listadescuentos").html('');
-		$("#gdesc").attr('action',1)
-	}
+// 	if (ifdesc != 0) {
+// 		var desc = arr('login',4,'iddescuento',79,'idfila = '+id+' and idtabla = 11','',0,'')[0];
+// 		$.each( desc, function( index, value ){
+// 			var valor = arr('login',4,'replace(valor,".00","")',94,'id = '+value,'',0,'')[0];
+// 			index += 1;
+//     		$("#tbldesc").removeClass('hide');
+// 			$("#listadescuentos").append('<li class="collection-item dismissable" id="ld'+index+'"><div><span class="descprod" id="vdesc'+index+'">'+valor+'%</span><a class="secondary-content"><i class="material-icons but deldesc" id="deldesc'+index+'">delete</i></a></div></li>');
+// 		});
+// 		$("#gdesc").attr('action',2)
+// 	}else{
+// 		$("#tbldesc").addClass('hide');
+// 		$("#listadescuentos").html('');
+// 		$("#gdesc").attr('action',1)
+// 	}
 
-	// arr('login',4,'vsel',vtbl,'vwhere','vcambio',vch,'velemto');
+// 	// arr('login',4,'vsel',vtbl,'vwhere','vcambio',vch,'velemto');
 
-});
+// });
 
 $(document).on("click",".delprod",function(){
 	var id = $(this).attr('id').substr(1);
@@ -687,14 +748,33 @@ $(document).on("change","#vtipoinv",function(){
 
 $(document).on("click",".salidainv",function(){
 	var id = $(this).attr('id').substr(1);
-
-	var arr = {}
-	arr['sel'] = 'nombre';
-	arr['tbl'] = 14;
-	arr['where'] = 'id = '+id;
-
-	var nom = mantenimiento('login',4,arr)[0][0];
+	var nom = arr('login',4,'nombre',11,'id = '+id,0,0,0)[0][0];
+	var bod = arr('login',4,'*',41,'id > 0',0,0,0)[0];
+	var inv = arr('login',4,'bodega,inventario',14,'id = '+id,0,0,0)[0][0];
+	$("#bodact").text(inv[0]);
+	$("#invact").text(inv[1]);
+	for (var i = 0, len = bod.length; i < len; i++) {
+		$("#idbodega").append('<option value="'+bod[i][0]+'">'+bod[i][1]+'</option>');
+	};
+	$("#idbodega").material_select();
 	$("#nomprod").html(nom);
+	$("#vcomentario").characterCounter();
+});
+
+$(document).on("change","#idbodega",function(){
+    var id = $(this).val();
+    var inv = arr('login',4,'id,nombre',111,'id > 0 and idbodega = '+id+' order by id',0,0,0)[0];
+    if (inv != '') {
+		for (var i = 0, len = inv.length; i < len; i++) {
+			$("#idinventario").append('<option value="'+inv[i][0]+'">'+inv[i][1]+'</option>');
+		}
+    }else{
+    	$("#idinventario").html('');
+    	$("#idinventario").append('<option value="0">Seleccione un Inventario</option>');
+
+    }
+    $("#idinventario").material_select();
+    
 });
 
 $(document).on("keyup","#searchprod",function(e){
@@ -1038,9 +1118,7 @@ $(document).on("click","#agInvSerPqts",function(){
 	var idServStr = $("#idServStr").val();
 	var cServStr = $("#cServStr").val();
 	var subtotal = (parseFloat(servPrec)*servCant).toFixed(2);
-
 	var gDatos = getDatos();
-	
 
 	$("#textServ-tokenfield").focus();
 	$("#textServ-tokenfield").val(servStr+subtotal+'|'+servCant);
@@ -1053,6 +1131,17 @@ $(document).on("click","#addproduct",function(){
 	$("#addprod").removeClass('hide');
 	$("#editprod").addClass('hide');
 	$(".accmodalProd").html('Agregar Producto');
+<<<<<<< HEAD
+	$("#dinventario").removeClass('hide');
+	// $("#impuestos").addClass('hide');
+	var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
+	vaciar('productos');
+	$("#impuestos").removeClass('hide');
+	for (var i = 0, len = imp.length; i < len; i++) {
+		$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'" defecto="1">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder" value="0" style="margin: 0px;width: 50%"></div></div></li>');
+	};
+	Materialize.updateTextFields();});
+=======
 	$("#ajaxProductos").html('');
 	$("#impuestos").addClass('hide');
 	$("#impuestos").html('');
@@ -1060,6 +1149,7 @@ $(document).on("click","#addproduct",function(){
 	Materialize.updateTextFields();
 	
 });
+>>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 
 $(document).on("change","#vidmoneda",function(){
 	
@@ -1202,47 +1292,48 @@ function adddesc(vdesc,vvalor) {
 	$("#dscts").focus();
 }
 
-// function vaciar(modulo){
-// 	switch (modulo){
-// 		case 'productos':
-// 			$("#vidfamilia").val(0);
-// 			$("#vidtipo").val(0);
-// 			$("#vidmarca").val(0);
-// 			$("#vidmodelo").val(0);
-// 			$("#vnombre").val('');
-// 			$("#vcodigo").val('');
-// 			$("#vidunidad").val(0);
-// 			$("#vcantidad").val(0);
-// 			$("#vminimo").val(0);
-// 			$("#vmaximo").val(0);
-// 			$("#vcosto").val('0.00');
-// 			$("#hvcosto").val('0.00');
-// 			$("#vganancia").val('0.00');
-// 			$("#vventa").val('0.00');
-// 			$("#hventa").val('');
-// 			$("#impuestos").html('');
-// 			$("#maxdesc").val('');
-// 			$("#dscts").val('');
-// 			$("#tbldesc").hide();
-// 			$("#listadescuentos").html('');
-// 			$("#tb1").click();
-// 			break;
-// 		case 'paquetes':
-// 			$("#vnombre").val('');
-// 			$("#prod").val('');
-// 			$("#hprod").val('');
-// 			$("#cantidad").val('');
-// 			$(".linea").remove();
-// 			$("#vdescuento").val(0);
-// 			$("#totpqt").val('0.00');
-// 			$("#htotal").val('');
-// 			break;
+function vaciar(modulo){
+	switch (modulo){
+		case 'productos':
+			$("#vidfamilia").val(0);
+			$("#vidtipo").val(0);
+			$("#vidmarca").val(0);
+			$("#vidmodelo").val(0);
+			$("#vidunidad").val(0);
+			$("select").material_select();
+			$(".formprod").val('');
+			$(".calcvv").val('0.00')
+			// $("#vnombre").val('');
+			// $("#vcodigo").val('');
+			
+			// $("#vcantidad").val(0);
+			// $("#vminimo").val(0);
+			// $("#vmaximo").val(0);
+			// $("#vcosto").val('0.00');
+			// $("#hvcosto").val('0.00');
+			// $("#vganancia").val('0.00');
+			// $("#vventa").val('0.00');
+			// $("#hventa").val('');
+			$("#impuestos").html('');
+			$("#tb1").click();
+			break;
+		// case 'paquetes':
+		// 	$("#vnombre").val('');
+		// 	$("#prod").val('');
+		// 	$("#hprod").val('');
+		// 	$("#cantidad").val('');
+		// 	$(".linea").remove();
+		// 	$("#vdescuento").val(0);
+		// 	$("#totpqt").val('0.00');
+		// 	$("#htotal").val('');
+		// 	break;
 
-// 	}
-// }
+	}
+}
 
 function totalizar(costo,ganancia) {
 	var subtotal = 0;
+	var hsubtotal = 0;
 	var impuestos = 0;
 	var exoneracion = 0;
 	
@@ -1253,11 +1344,13 @@ function totalizar(costo,ganancia) {
 	});
 
 	if (ganancia == 0) {
+		hsubtotal = costo * ((impuestos / 100)+1);
 		subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1);
 	}else{
+		hsubtotal = costo * ((impuestos / 100)+1) * ((ganancia / 100)+1);
 		subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1) * ((ganancia / 100)+1);
 	}
-	$("#hventa").val(subtotal)
+	$("#hventa").val(hsubtotal.formatMoney(2,'.',''))
 	$("#vventa").val(subtotal.formatMoney(2,'.',','));
 
 	$(".precionivel").each(function(){
@@ -1394,10 +1487,9 @@ function validarproductos() {
 		return "Marca Requerido"
 	}
 
-	if ($("#vidmodelo").val() == 0) {
-		$("#tb1").click()
-		$("#vidmodelo").focus();
-		return "Modelo Requerido"
+	if ($("#vidinventario").val() == 0){
+	    $("#vidinventario").focus();
+	    return 'Inventario Requerido';
 	}
 	
 	if ($("#vnombre").val() == ''){
@@ -1419,6 +1511,9 @@ function validarproductos() {
 		$("#tb1").click()
 		$("#vmaximo").select();
 		return 'Máximo Requerido';
+	}
+	if ($("#vmaxdescuento").val() == ''){
+	    $("#vmaxdescuento").val(0);
 	}
 	if ($("#vcosto").val() == '0.00'){
 		$("#tb2").click();

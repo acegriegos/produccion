@@ -7,27 +7,20 @@
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Clientes</title>
 
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
 </head>
 <body>
 {$NAV}
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
 <div class="bdy">
-
 <div class="card">
 
-<div class="card-header center blue-grey white-text"><p class="flow-text">Clientes</p></div>
+<div class="card-header center blue-grey white-text">
+    <p class="flow-text">Clientes</p>
+</div>
 <div class="card-content">
 <div class="row">
 
-<div class="input-field col m8 col l8">
+<div class="input-field col s12 m8 l8">
 
     <a href="#" class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
     <ul id='filtr_1' class='dropdown-content'>
@@ -39,7 +32,6 @@
     <label for="searh_clie">Buscar Cliente por Nombre o Cédula</label>
 
 </div>
-
 <div class="col m4">
     <a id="ingClie" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="large material-icons">add</i></a>
 </div>
@@ -87,10 +79,7 @@
       </ul>
 </div>
 
-
-
 <div class="modal-content" style="padding: 0px;">
-
     <div id="fclientes">
 
     <div class="row">
@@ -104,7 +93,6 @@
                       <label for="cfisico">Físico</label>
                     </p>
                 </div>
-
                 <div class="col s2">
                     <p>
                       <input class="with-gap" name="tipoclie" type="radio" id="cjuridico" tipoClie="2" />
@@ -113,9 +101,7 @@
                 </div>
                 <input type="hidden" id="vidtipocliente" value="1">
             </div>
-            <br>
             <div class="card-title"><b>Datos Personales</b></div>
-            <br>
             <div class="row">
                 <div class="input-field col s12 m4 l4" id="colMod">
                 <label id="nomClie" for="vnombre">Nombre</label>
@@ -134,11 +120,10 @@
                 <label for="vapellido2">Segundo Apellido</label>
                 <input type="text" class="validate" id="vapellido2">
                 </div>
-
             </div>
 
             <div class="row">
-            
+
                 <div class="input-field col s12 m4 l4" id="colMod">
                 <label for="vcedula">Cédula del Cliente</label>
                 <input type="text" class="validate" id="vcedula" data-mask="9-9999-9999">
@@ -201,7 +186,7 @@
         <div id="fina" class="col s12">
 
             <div class="row">
-
+            <br>
                 <div class="input-field col s12 m6 l6">
                     <select type="select" id="vidnivel" noClear="1">
                         <option value="0" selected>Seleccione una Categoría</option>
@@ -293,7 +278,11 @@
                     <div class="input-field col s4">
 
                     <div class="provincia">
+<<<<<<< HEAD
                     <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="fa fa-plus"></i></a>
+=======
+                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev=""><i class="material-icons">add</i></a>
+>>>>>>> e5163a7ecd4dbb23541aeb3b269d4fe20de5cbed
 
                     <select id="vidprovincia" type="select" class="_det" primary="1">
                     <option value="">Seleccione una Provincia</option>
@@ -309,7 +298,11 @@
                     <div class="input-field col s4">
                     
                     <div class="canton">
+<<<<<<< HEAD
                     <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="fa fa-plus"></i></a>
+=======
+                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia"><i class="material-icons">add</i></a>
+>>>>>>> e5163a7ecd4dbb23541aeb3b269d4fe20de5cbed
 
                     <select id="vidcanton" type="select" class="_det">
                     <option value="">Seleccione un Cantón</option>
@@ -322,7 +315,11 @@
                     <div class="input-field col s4">
                     
                     <div class="distrito">
+<<<<<<< HEAD
                     <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="fa fa-plus"></i></a>
+=======
+                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton"><i class="material-icons">add</i></a>
+>>>>>>> e5163a7ecd4dbb23541aeb3b269d4fe20de5cbed
                     
                     <select id="viddistrito" type="select" class="_det">
                     <option value="">Seleccione un Distrito</option>
