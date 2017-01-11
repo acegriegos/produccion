@@ -11,7 +11,7 @@
 
     	if (isset($_POST['pss'])) {
     		require_once '../_config/ecy.php';
-    		$log->ini($_POST['id'],$_POST['pss']);
+    		$log->ini($_POST['user'],$_POST['pss']);
 		    $encrypt = new _cy();
 
 		    $user = $log->autenticar();
@@ -65,7 +65,7 @@
    			$transaccion = $log->mantenimiento($_POST['arreglo']);
    			break;
    		case 3:
-   			$log->ini($_POST['arreglo']['id'],$_POST['arreglo']['pss']);
+   			$log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
    			$transaccion = $log->autenticar();
    			break;
    		case 4:

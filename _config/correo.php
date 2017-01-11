@@ -1,5 +1,5 @@
 <?php
-include('Mail.php');
+include('mail.php');
 /**
 * CORREO
 */
@@ -15,22 +15,24 @@ class correo
 
 	function __construct($pr,$tit,$msj)
 	{
-		
+		include_once 'mysqlDB.php';
+		$base = new DBClass();
+		$res = $base->ejecutar('(select aes_decrypt(valor, "Login2Help") from ajustes where descr = "smtpp")union(select valor from ajustes where descr in ("smtp","smtphost","smtpport"))')->fetch_all();
 	    $this->para = $pr;
 
-	    $this->headers['From']    = 'sistemas.compras.lt@gmail.com';//'smtp@supercable.co.cr';
+	    $this->headers['From']    = $res[1];
 	    $this->headers['To']      = $pr;
 	    $this->headers['Subject'] = $tit;
 	    $this->headers['Content-Type'] = 'text/html; charset=UTF-8';
 
-	    $this->smtpinfo["host"] = "smtp.gmail.com";
-	    $this->smtpinfo["port"] = "587";
+	    $this->smtpinfo["host"] = $res[2];
+	    $this->smtpinfo["port"] = $res[3];
 	    $this->smtpinfo["auth"] = true;
-	    $this->smtpinfo["username"] = "sistemas.compras.lt@gmail.com";
-	    $this->smtpinfo["password"] = "p82F5bxh";
+	    $this->smtpinfo["username"] = $res[1];
+	    $this->smtpinfo["password"] = $res[0];
 
 	    $this->body = $msj;
-	    // Create the mail object using the Mail::factory method
+	    
 	    $this->mail_object =& Mail::factory("smtp", $this->smtpinfo); 
 	}
 
