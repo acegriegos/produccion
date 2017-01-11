@@ -23,8 +23,13 @@
 	   			$smarty->assign('TIP',$kakaroto->kamehameha('id,nombre',21,'id > 0 order by id'));
 	   			$smarty->assign('MAR',$kakaroto->kamehameha('id,nombre',22,'id > 0 order by id'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'1 order by idunidad'));
+<<<<<<< HEAD
 	   			$smarty->assign('INV',$kakaroto->kamehameha('*',111,'id > 0 order by id'));
 	   			$smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre'));
+=======
+	   			$smarty->assign('BOD',$kakaroto->kamehameha('*',41,'id > 0 order by id'));
+	   			$smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre'));
+>>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('*',69,'id > 0 and !bisproveedor order by id'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
 	   			break;

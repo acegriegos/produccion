@@ -10,6 +10,7 @@
     <link href="../assets/css/materialize.css" rel="stylesheet">
     <link href="../assets/libs/iconos/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,77 +19,54 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="background-image: url(../assets/img/bckground.jpg)">
-     
-<div class="container x1">
-    <div style="background-color: transparent;width:100%;padding-left:0%;padding-right:0%;padding-bottom:12%">
-        <div class="container x1" style="padding-left:15%;padding-right:15%"> <!-- 3 -->
-            <div class="container x1">
-                <h2 class="center white-text">Sistema BMS</h2>
-                <br><br>
-            </div>
-            <form role="form" id="logF" action="index.php" method="POST">
-                <div class="input-field col s12">
-                    <input id="num" type="text" name="id" class="validate">
-                    <label for="num">Ingrese su Usuario</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="pass" type="password" name="pss" class="validate">
-                    <label for="pass">Contraseña</label>
-                </div>
-                <button type="submit" class="btn waves-effect waves-light blue">Ingresar</button>
-                <small style="float: right;" class="white-text"><a href="#modal-forgetpssw" style="color: #337ab7" data-toggle="modal">Olvidó su Contraseña?</a></small>
-            </form>
+  <body>
+<div class="bdy">
+<div class="row"><br><br>
+    <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px"><br>
+    <div class="card-header"><p class="flow-text center">Sistema BMS</p></div>
+    <div class="card-content">
+    
+    <form role="form" id="logF" action="index.php" method="POST">
+        <div class="input-field col s12">
+            <input id="num" type="text" name="id" class="validate">
+            <label for="num">Ingrese su Usuario</label>
         </div>
+        <div class="input-field col s12">
+            <input id="pass" type="password" name="pss" class="validate">
+            <label for="pass">Contraseña</label>
+        </div>
+        <div class="row">
+            <div class="col s12"><br>
+                <button type="submit" class="btn waves-effect waves-light blue" style="width: 100%;">Ingresar</button>
+            </div>
+
+            <div class="col s12 center"><br>
+                <small class="white-text"><a href="#modal1" style="color: #337ab7">Olvidó su Contraseña?</a></small>
+            </div>
+
+            <div class="col s12">
+                <br><br>
+                <center>
+                    <small>© 2016. Copyright. Todos los derechos reservados. logintechCR, S. A. </small>
+                </center>
+            </div>
+        </div>
+
+    </form>
+    </div>
+    
     </div>
 </div>
+<div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content center">
+      <h5>Recuperar Contraseña</h5>
+      <p>Enviar código de recuperación al correo: <b>ami****@logintechcr.com</b></p>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat grey lighten-3">Enviar</a>
+    </div>
+  </div>
 
-    <center><small class="white-text">© 2016. Copyright. Todos los derechos reservados. LoginTechCR, S. A. </small></center>
-    
-    <div class="modal fade" id="modal-forgetpssw">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title">Cambiar Contraseña</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <label>Usuario</label>
-                            <input type="text" id="vuser" class="form-control" value="">
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <label>Contraseña Nueva</label>
-                            <input type="password" id="vclave" class="form-control" value="">
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <label>Repetir Contraseña Nueva</label>
-                            <input type="password" id="clave" class="form-control" value="">
-                        </div>
-                    </div><br>
-                    <div class="alert alert-danger err_" id="err1" align="center" style="display: none">
-                        <strong id="errm1"></strong>
-                    </div>
-                    <div class="alert alert-success suc_" id="suc1" align="center" style="display: none">
-                        <strong id="sucm1"></strong>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="salir">Salir</button>
-                    <button type="button" class="btn btn-primary" id="changepssw">Guardar</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
+</div>
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/materialize.js"></script>
     <script src="../assets/js/asgard.js"></script>
