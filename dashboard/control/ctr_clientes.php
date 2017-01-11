@@ -13,6 +13,7 @@
 	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('*',68,'id >= 0 order by nombre'));
 	    $smarty->assign('NVLCLIE',$kakaroto->kamehameha('*',69,'id > 0 and !bisproveedor order by id'));
 	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
+	    $smarty->assign('IMP',$kakaroto->kamehameha('*',51,'id > 0 order by nombre'));
 	    $smarty->assign('CLIE',$kakaroto->kamehameha('*',29,'1 order by nombre'));
 
 	   	$smarty->assign('NAV',$pg);

@@ -128,7 +128,7 @@
 
     function cambioDia($log)
      {  
-        print_r(indicadores($log));
+        indicadores($log);
         $log->genkidama(2,15,'valor=1','descr="Cambio de Dia"');
      } 
 

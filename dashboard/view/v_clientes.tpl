@@ -358,6 +358,22 @@
 
         <div id="exo" class="col s12">
             <div class="card-title"><b>Impuestos</b></div>
+        
+            <div class="row">
+                <div class="input-field col s6 m4 l4">
+                <select id="sel_impuestos" type="select">
+                    <option value="" disabled selected>Ingrese un Impuesto</option>
+                    {section name=LE loop=$IMP}
+                    <option value="{$IMP[LE][0]}" tmp="{$IMP[LE][2]}">{$IMP[LE][1]} - {$IMP[LE][2]}%</option>
+                    {/section}
+                </select>
+                </div>
+            </div>
+            <div>
+                <ul class="collection" id="showimpuestos">
+                    
+                </ul>
+            </div>
         </div>
 
         </div>
