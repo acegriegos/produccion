@@ -10,6 +10,7 @@
 		}
 
     	if (isset($_POST['pss'])) {
+
     		require_once '../_config/ecy.php';
     		$log->ini($_POST['id'],$_POST['pss']);
 		    $encrypt = new _cy();
@@ -34,7 +35,8 @@
               $_SESSION['IMPRESA'] = $user[0][5];
               $_SESSION['TMP_CIA'] = 0;
               
-              header("Location: ../dashboard/main");
+              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'main' : $_POST['vdir'];
+              header("Location: ../dashboard/$vdir");
            }
   
 		   }
@@ -126,7 +128,7 @@
 
     function cambioDia($log)
      {  
-        print_r(indicadores($log));
+        indicadores($log);
         $log->genkidama(2,15,'valor=1','descr="Cambio de Dia"');
      } 
 
