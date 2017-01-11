@@ -19,13 +19,11 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-				$smarty->assign('TIPOINV',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by id'));
 	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
 	   			$smarty->assign('TIP',$kakaroto->kamehameha('id,nombre',21,'id > 0 order by id'));
 	   			$smarty->assign('MAR',$kakaroto->kamehameha('id,nombre',22,'id > 0 order by id'));
-	   			$smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'1 order by idunidad'));
-	   			$smarty->assign('BOD',$kakaroto->kamehameha('*',41,'id > 0 order by id'));
+	   			$smarty->assign('INV',$kakaroto->kamehameha('*',111,'id > 0 order by id'));
 	   			$smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre'));
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('*',69,'id > 0 and !bisproveedor order by id'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
@@ -50,16 +48,8 @@
 	   			$smarty->display('ajax/productos/ajaxmantPaquetes.tpl');
 	   			break;
 	   		case 4:
-	   			$pagina = 1;
-	   			$arr = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
-	   			file_put_contents('view/getPkg.php', json_encode($arr));
-	   			print_r($arr);
 	   			break;
 	   		case 5:
-	   			$pagina = 1;
-	   			$arr = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
-	   			file_put_contents('view/getServ.php', json_encode($arr));
-	   			print_r($arr);
 	   			break;
 	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   		case 6:

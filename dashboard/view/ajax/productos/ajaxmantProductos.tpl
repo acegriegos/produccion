@@ -43,8 +43,7 @@
     <td>{$PROD[LE][6]}</td>
     <td>
     <!-- <a class="btn-floating waves-effect waves-light amber darken-3 descuentos " id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Agregar Descuentos"><i class="material-icons">%</i></a> -->
-    <a class="btn-floating waves-effect waves-light green salidainv" id="s{$PROD[LE][0]}" href="#modal-salida" title="Salida de Inventario"><i class=" fa fa-outdent"></i></a>
-    <!-- <a class="btn-floating waves-effect waves-light green salidainv" id="s{$PROD[LE][0]}" href="#modal-salida" title="Salida de Inventario"><i class=" fa fa-outdent"></i></a> -->
+    <a class="btn-floating waves-effect waves-light green salidainv" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"><i class=" fa fa-outdent"></i></a>
     <a class="btn-floating waves-effect waves-light blue editprod" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"><i class="fa fa-pencil-square-o"></i></a>
     <a class="btn-floating waves-effect waves-light red delprod" id="d{$PROD[LE][0]}" title="Eliminar Producto"><i class="fa fa-times"></i></a>
     </td>
@@ -101,13 +100,22 @@
                         </div>
                     </div>
                     <div class="input-field">
-                        <select type="select" id="vidunidad" class="_det">
+                        <select type="select" id="vidunidad">
                         <option value="">Seleccione un Unidad</option>
                         {section name=LE loop=$UNI}
                         <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
                         {/section}
                         </select>
                         <label for="vidunidad">Unidad</label>
+                    </div>
+                    <div class="input-field" id="dinventario">
+                        <select type="select" id="vidinventario">
+                        <option value="">Seleccione un Inventario</option>
+                        {section name=LE loop=$INV}
+                        <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                        {/section}
+                        </select>
+                        <label for="vidinventario">Inventario</label>
                     </div>
                 </div>
                 <div class="col s12 m6 l6" id="col2">
@@ -181,12 +189,6 @@
             <div class="row precionivel" id="f{$NIV[LE][0]}">
                 <div class="col s3">
                     <label><b>Precio para Categoria: {$NIV[LE][1]}</b></label>
-                    <!-- <div class="input-field">
-                        <i class="material-icons prefix">¢</i>
-                        <input type="text" id="vcosto" class="formprod validate calcvv eder" value="0.00" data-mask="9999999999.99">
-                        <input type="hidden" id="hvcosto" value="">
-                        
-                    </div> -->
                 </div>
                 <div class="col s3">
                     <div class="input-field">
@@ -238,40 +240,50 @@
     </div>
 </div>
 
-
-
-
-
-<div class="modal fade" id="modal-salida" style="width:70%">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Salida de Inventario</h4>
-                <h5 class="form-horizontal"><b>Producto: <span id="nomprod"></span></b></h5>
-            </div>
-            <div class="modal-body">
-                <p>Elija el inventario a enviar este producto y defina un motivo:</p>
-                <div class="input-group">
-                <div class="input-group-addon">Tipo</div>
-                <select id="vtipoinv" class="form-control" type="select">
-                <option value="0">Seleccione un inventario...</option>
-                {section name=LE loop=$TIPOINV}
-                <option value="{$TIPOINV[LE][0]}">{$TIPOINV[LE][1]}</option>
-                {/section}
-                </select>
+<div id="modal-movinventario" class="modal modal-fixed-footer">
+    <div class="modal-content" style="padding: 0px;">
+        <ul class="tabs blue">
+            <li class="tab col s3"><a class="white-text">Producto: <span id="nomprod"></span></a></li>
+        </ul>
+        <div style="padding: 15px 10px 0 10px">
+            <div class="row">
+                <div class="col s6 m6 l6">
+                    <h5>Bodega Actual: <span id="bodact"></span></h5>
                 </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon" id="titcom">Motivo</span>
-                    <textarea name="" id="vdetalle" class="form-control" rows="2" required="required" placeholder="Detalle..."></textarea>
+                <div class="col s6 m6 l6">
+                    <h5>Inventario Actual: <span id="invact"></span></h5>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-primary">Aceptar</button>
+            <div class="row">
+                <div class="input-field col s6 m6">
+                    <select type="select" id="idbodega">
+                        <option>Seleccione una Bodega</option>
+                    </select>
+                    <label for="idbodega">Bodega</label>
+                </div>
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="idinventario">
+                        <option>Seleccione un Inventario</option>
+                    </select>
+                    <label for="idinventario">Inventario</label>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="input-field col s2 m4 l4">
+                    <input id="cant" type="number" class="validate" min="0">
+                    <label for="cant">Cantidad</label>
+                </div>
+                <div class="input-field col s10 m8 l8">
+                    <input type="text" id="vcomentario" class="materialize-textarea" length="150">
+                    <label for="vcomentario">Comentario</label>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="actinv">Guardar</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
     </div>
 </div>
 

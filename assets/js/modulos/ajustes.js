@@ -14,7 +14,7 @@ $(document).on("click",".menu3",function(){
 	var id = parseInt($(this).attr('id').substr(1));
 	switch(id){
 		case 1:
-			var p = mantenimiento('ajustes',2,'');
+			var p = mantenimiento('ajustes',1,'');
 			$("#majustes").html(p);
 			var arr = {};
 			arr['sel'] = '*';
@@ -49,7 +49,7 @@ $(document).on("click",".menu3",function(){
 			$(".wsdl-op").hide()
 			break;
 		case 2:
-			var p = mantenimiento('ajustes',3,'');
+			var p = mantenimiento('ajustes',2,'');
 			$("#majustes").html(p);
 			var arr = {};
 			arr['sel'] = '*';
@@ -59,7 +59,7 @@ $(document).on("click",".menu3",function(){
 			$("#dimpuestos").html(imp);
 			break;
 		case 3:
-			var p = mantenimiento('ajustes',4,'');
+			var p = mantenimiento('ajustes',3,'');
 			$("#majustes").html(p);
 			$("#data-table-sucursales").dataTable({
 				bFilter : false,
@@ -71,12 +71,17 @@ $(document).on("click",".menu3",function(){
 			});
 			break;
 		case 4:
-			var p = mantenimiento('ajustes',1,'');
+			var p = mantenimiento('ajustes',4,'');
 			$("#majustes").html('');
 			$("#majustes").html(p);
 			break;
 		case 5:
 			var p = mantenimiento('ajustes',5,'');
+			$("#majustes").html('');
+			$("#majustes").html(p);
+			break;
+		case 6:
+			var p = mantenimiento('ajustes',6,'');
 			$("#majustes").html('');
 			$("#majustes").html(p);
 			break;
