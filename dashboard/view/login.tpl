@@ -50,22 +50,6 @@
                     <small>© 2016. Copyright. Todos los derechos reservados. logintechCR, S. A. </small>
                 </center>
             </div>
-<<<<<<< HEAD
-            <form role="form" id="logF" action="index.php" method="POST">
-            <input type="hidden" name="vdir" id="vdir">
-                <div class="input-field col s12">
-                    <input id="num" type="text" name="id" class="validate">
-                    <label for="num">Ingrese su Usuario</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="pass" type="password" name="pss" class="validate">
-                    <label for="pass">Contraseña</label>
-                </div>
-                <button type="submit" class="btn waves-effect waves-light blue">Ingresar</button>
-                <small style="float: right;" class="white-text"><a href="#modal-forgetpssw" style="color: #337ab7" data-toggle="modal">Olvidó su Contraseña?</a></small>
-            </form>
-=======
->>>>>>> e5163a7ecd4dbb23541aeb3b269d4fe20de5cbed
         </div>
 
     </form>

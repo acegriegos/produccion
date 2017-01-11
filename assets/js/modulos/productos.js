@@ -175,7 +175,7 @@ $(document).on("click",".filtropqt",function(){
 	}
 });
 
-<<<<<<< HEAD
+
 function cambio_select(vto,vtabla,vval,vset){
     var tmp = $('#'+vto+' option').first().html();
 
@@ -187,46 +187,6 @@ function cambio_select(vto,vtabla,vval,vset){
     }
     $('#'+vto).material_select('update');
 };
-=======
-$(document).on("click",".isproducto",function(){
-    if ( $("#prodfinal").is(":checked") ) {
-    	$("#visproducto").val(1);
-    	$("#tipoinsumos").remove();
-    }
-    
-    else {
-    	$("#visproducto").val(0);
-    	var tipoinsumos = arr('login',4,'*',100,'id > 0',0,0,0)[0];
-		var options = '';
-		$.each(tipoinsumos,function(i,value){
-			options += '<option value="'+value[0]+'">'+value[1]+'</option>';
-		});
-    	$("#col1").append('<div class="input-field" id="tipoinsumos"><select id="tipoinsumo" type="select"><option value="0">Seleccione una Opcion</option>'+options+'</select><label>Seleccione un Tipo de Insumo</label></div>');
-    	$("#tipoinsumo").material_select();
-    }    
-});
-
-$(document).on("change","#tipoinsumo",function(){
-    var id = $(this).val();
-    $("#vidtipoinsumo").val(id);
-});
-
-// $(document).on("change","#vidbodega",function(){
-//     var id = $(this).val();
-
-//     if (id == 1) {
-// 		var tipoinsumos = arr('login',4,'*',100,'id > 0',0,0,0)[0];
-// 		var options = '';
-// 		$.each(tipoinsumos,function(i,value){
-// 			options += '<option value="'+value[0]+'">'+value[1]+'</option>';
-// 		});
-//     	$("#col1").append('<div class="input-field" id="tipoinsumos"><select id="vidtipoinsumo"><option value="0">Seleccione una Opcion</option>'+options+'</select><label>Seleccione un Tipo de Insumo</label></div>');
-//     	$("#vidtipoinsumo").material_select();
-//     }else{
-//     	$("#tipoinsumos").remove();
-//     }
-// });
->>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 
 $(document).on("click","#adddsct",function(){
 	var desc = $("#dscts option:selected").val();
@@ -289,14 +249,9 @@ $(document).on("click",".delimp",function(){
 	var id = $(this).attr('id').substr(4);
 	var costo = $("#hvcosto").val();
 	var ganancia = $("#vganancia").val();
-<<<<<<< HEAD
-	totalizar(costo,ganancia);
-=======
 	$("#newimp"+id).remove();
-
 	totalizar(costo,ganancia)
 
->>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 });
 
 $(document).on("click","#addprod",function(){
@@ -312,29 +267,19 @@ $(document).on("click","#addprod",function(){
 		var minimo = $("#vminimo").val();
 		var maximo = $("#vmaximo").val();
 		var idmarca = $("#vidmarca option:selected").val();
-<<<<<<< HEAD
 		var exoneracion = $("#vexoneracion").val();
 		var idinventario =  $("#vidinventario option:selected").val();
 		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+',0,'+idinventario+',@@usr,@@impresa,""','',0,'');
 		
-=======
-		var tipoinsumo = $("#vidtipoinsumo").val();
-	//producto
-		var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+idunidad+','+minimo+','+maximo+','+idmarca+','+tipoinsumo+',@@usr,@@impresa,""','',0,'');
-	
->>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 		if (idproducto[0][0] != undefined) {
 			
 			$(".impuestos").each(function(){
-<<<<<<< HEAD
+
 				var idimpuesto = $(this).attr('id').substr(4);
 				if (!$(this).attr('defecto') && $("#impexo"+idimpuesto).val() != 0) {
 					var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),'',0,'');
 				}
-=======
-				var idimpuesto = $(this).attr('id').substr(4);	
-				var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+',0.00','',0,'');
->>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
+
 			});
 			$(".precionivel").each(function(){
 				var idfila = $(this).attr('id').substr(1);
@@ -344,13 +289,10 @@ $(document).on("click","#addprod",function(){
 				
 			});
 			Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
-<<<<<<< HEAD
+
 			arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
 			vaciar('productos');
-=======
-			arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
-			// vaciar('productos');
->>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
+
 			Materialize.updateTextFields();
 			$("#impuestos").addClass('hide');
 		}else{
@@ -429,7 +371,6 @@ $(document).on("click",".editprod",function(){
 	$("#vcodigo").val(p[5]);
 	$("#vidunidad").val(p[6]);
 	$("#vidunidad").material_select();
-<<<<<<< HEAD
 	$("#vnombre").val(q[4]);
 	$("#vcodigo").val(q[5]);
 	$("#vminimo").val(q[6]);
@@ -452,22 +393,6 @@ $(document).on("click",".editprod",function(){
 		}
 		
 	}
-=======
-	$("#vcantidad").val(cant)
-	$("#vminimo").val(p[7]);
-	$("#vmaximo").val(p[8]);
-	$("#vcosto").val(p[9]);
-	$("#hvcosto").val(p[9]);
-	$("#vganancia").val(p[10]);
-	$("#vventa").val(p[11]);
-	$("#hventa").val(p[12]);
-	$("#maxdesc").val(p[13]);
-
-	if (imp != '') {
-		for (var i = 0; i < imp.length; i++) {
-			$("#impuestos").removeClass('hide');
-			$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'">'+imp[i][1]+' - '+imp[i][2]+'%</span><a class="secondary-content delimp" id="dimp'+imp[i][0]+'"><i class="material-icons">delete</i></a></div></li>');
->>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 
 		}
 	}
@@ -1131,7 +1056,6 @@ $(document).on("click","#addproduct",function(){
 	$("#addprod").removeClass('hide');
 	$("#editprod").addClass('hide');
 	$(".accmodalProd").html('Agregar Producto');
-<<<<<<< HEAD
 	$("#dinventario").removeClass('hide');
 	// $("#impuestos").addClass('hide');
 	var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
@@ -1141,15 +1065,6 @@ $(document).on("click","#addproduct",function(){
 		$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'" defecto="1">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder" value="0" style="margin: 0px;width: 50%"></div></div></li>');
 	};
 	Materialize.updateTextFields();});
-=======
-	$("#ajaxProductos").html('');
-	$("#impuestos").addClass('hide');
-	$("#impuestos").html('');
-	// vaciar('productos');
-	Materialize.updateTextFields();
-	
-});
->>>>>>> 76eba10b7bc83b9021001116ee4d144456011089
 
 $(document).on("change","#vidmoneda",function(){
 	
