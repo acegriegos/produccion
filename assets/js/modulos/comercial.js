@@ -1,9 +1,9 @@
 var config1 = {
     type: 'bar',
     data: {
-        labels: ['Suc 1','Suc 2','Suc 3','Suc 4','Suc 5'],
+        labels: ['Al Día','1 Mes','2 Meses','3 Meses','+4 Meses'],
         datasets: [{
-            label: 'Al Día',
+            label: 'Morosidad Clientes',
             data: ['80000','200000','300000','400000','500000'],
             backgroundColor: [
             "#9c27b0",

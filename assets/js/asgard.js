@@ -3,7 +3,7 @@ acc = 1;
 $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
-    $('.modal').modal()
+    $('.modal').modal();
 })
 
 $(window).keydown(function(e){
@@ -187,10 +187,11 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
             .done(function(data) {
                 try {
                     p = JSON.parse(data);
-                    console.error(data)
+                    console.error(p)
                 }
                 catch(err){
                     p = data;
+                    console.error(data)
                 }
             });
     return p;
@@ -338,16 +339,18 @@ function deadclear(vform) {
                         $(vform).find("#"+$(this).attr('id')).material_select('update');
                         break;
                 };
-            } 
+            
+            }
         });
         Materialize.updateTextFields();
-    }else
+    
+    } else
         acc = 1;
 }
 
 function thorload(vtabla) {
     vtabla += "s";
-    
+
     if ($(".search"+vtabla).val() != undefined && $(".search"+vtabla).val() != ""){
         var e = jQuery.Event("keyup");
         e.which = 13;
@@ -438,14 +441,30 @@ var n = this,
 function change_load(vto,vtabla,vval,vset){
     var tmp = $('#'+vto+' option').first().html();
     $('#'+vto).html('<option value="">'+tmp+'</option>');
-
     var res = arr('login',4,vval,vtabla,vset,0,0,0)[0];
-    $('#'+vto)
     for (var i = 0; i < res.length; i++) {
         $('#'+vto).append('<option value="'+res[i][0]+'">'+res[i][1]+'</option>');
     }
     $('#'+vto).material_select('update');
 };
+
+$(document).on("change","._det",function(){
+    var vto = $(this).attr('id');
+    // ver xq putas sale el undefined
+    if (vto != undefined) {
+        var vprev = $("[det='"+vto.substr(3)+"']").attr('prev');
+        var vsig = $("[det='"+vto.substr(3)+"']").attr('sig');
+        var vtabla = $("[det='"+vsig.substr(3)+"']").attr('d-b');
+        var vprimary = $(this).attr('primary');
+
+        if (vprimary && vprev == '' && $("#"+vsig).val() != '') {
+            $("._det[primary!=1]").val(0);
+            $("select").material_select();
+        }
+        change_load(vsig,vtabla,'id,nombre','id > 0 and '+vto.substr(1)+' = '+$('option:selected',this).val());
+    }
+    
+});
 
 $(document).on('click',"[det]",function(){
     var vdet = $(this).attr('det');
@@ -453,13 +472,13 @@ $(document).on('click',"[det]",function(){
     var previo = $(this).attr('prev');
 
     if ($("."+vdet).is(":visible")) {
-        
         $("."+vdet).hide();
-        $("."+vdet).parent().append('<div class="_'+vdet+'"><a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar" href="#!" style="width: 2.5rem" det="'+vdet+'" prev="'+previo+'" d-b="'+tabla+'" id="_'+vdet+'"><i class="fa fa-plus"></i></a> <label for="ing_'+vdet+'">'+vdet.toUpperCase()+'</label> <input type="text" id="ing_'+vdet+'" d-b="'+tabla+'" prev="'+previo+'" d-e-t="'+vdet+'"></div>');
+        $("."+vdet).parent().append('<div class="_'+vdet+'"><a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar" href="#!" style="width: 2.5rem" det="'+vdet+'" prev="'+previo+'" d-b="'+tabla+'" id="_'+vdet+'"><i class="fa fa-plus" id="icon'+vdet+'"></i></a> <label for="ing_'+vdet+'">'+vdet.toUpperCase()+'</label> <input type="text" id="ing_'+vdet+'" d-b="'+tabla+'" prev="'+previo+'" d-e-t="'+vdet+'"></div>');
+        $("#icon"+vdet).removeClass('fa-plus');
+        $("#icon"+vdet).addClass('fa-arrow-left');
         $('#ing_'+vdet).focus();
-
     }else{
-        $("._"+vdet).remove()
+        $("._"+vdet).remove();
         var set = 'id > 0';
         if (previo != '')
             set += " and "+previo.substr(1)+" = "+$("#"+previo+" option:selected").val(); 
@@ -477,13 +496,12 @@ $(document).on("keyup","[id^=ing_]",function(e){
             $(this).select();
         }else{
             var tabla = $(this).attr('d-b');
-            var insert = 'nombre';
-            var values = '"'+$(this).val()+'"';
+            var insert = 'nombre,idusuario,idsucursal';
+            var values = '"'+$(this).val()+'",@@usr,@@impresa';
             if($(this).attr('prev') != ''){
                 insert += ','+$(this).attr('prev').substr(1);
-                values += ','+$('#'+$(this).attr('prev')+' option:selected').val()
+                values += ','+$('#'+$(this).attr('prev')+' option:selected').val();
             }
-
             arr('login',7,1,tabla,insert,values,0,0);
             $("#_"+$(this).attr('d-e-t')).click();
         }

@@ -90,8 +90,13 @@ function getIn(){
         $('#user').focus();
         return false;
     }
+<<<<<<< HEAD
 
     var p = mantenimiento('login',3,{id: $('#user').val(), pss: $('#pass').val()})
+=======
+    
+    var p = mantenimiento('login',3,{id: $('#num').val(), pss: $('#pass').val()})
+>>>>>>> d0f6e45fa216f27b7bec136e742567ea6954259d
 
     if(p[0].length == 2){
         Materialize.toast(p[0][0], 4000, 'red');
@@ -107,18 +112,31 @@ function getIn(){
             rs = arr('login',4,'*',92,'correos like \"%'+ $('#user').val() +'%\"',0,0,'')[0];
             correo = rs[0][0];
             varibale = rs[0][1];
+<<<<<<< HEAD
         }else
             correo = arr('login',4,'mail',1,'user = \"'+ $('#user').val() +'\"',0,0,'')[0][0][0];
+=======
+        }else{
+            correo = arr('login',4,'mail',1,'user = \"'+ $('#num').val() +'\"',0,0,'')[0][0][0];
+>>>>>>> d0f6e45fa216f27b7bec136e742567ea6954259d
 
             if (correo != ''){
                 var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ varibale +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
 
                 enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
             }
+        }
         });
         break;
         }
         salida = false;
+    }
+    if (salida){
+        direccion = window.location.pathname;
+        direccion = direccion.substring(direccion.lastIndexOf('/')+1)
+        $("#vdir").val(direccion)
+    }else{
+        $("#vdir").val('')
     }
     return salida;
 }
