@@ -1,3 +1,7 @@
 #vnombre, #vcedula, #vweb {
     width: 0px;
 }
+
+.delete:hover{
+    color: #ea454b;
+}

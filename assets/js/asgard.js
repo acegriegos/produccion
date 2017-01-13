@@ -4,7 +4,7 @@ $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();
-})
+});
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode

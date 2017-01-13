@@ -38,7 +38,7 @@
 </div>
 
 <div class="col m4">
-    <a href="#modal-proveedores" id="ingProv" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Proveedor"><i class="large material-icons">add</i></a>
+    <a href="#modal-proveedores" id="ingProv" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Proveedor"><i class="material-icons">add</i></a>
 </div>
         
 <!-- <div class="col-md-8 col-lg-8">
@@ -74,14 +74,8 @@
             <td style="font-size: 0.9em">{$PROV[LE][5]}</td>
             <td>{$PROV[LE][6]}</td>
             <td align="center">
-            <div class="input-field col s12">
-                <select>
-                    <option value="" disabled selected>Seleccione</option>
-                    <option value="1"><i class="mdi mdi-bell load" id="m{$PROV[LE][0]}" data-toggle="modal" href='#modal-proveedores' modulo="proveedore">mode_edit</i></option>
-                    <option value="2"><i class="fa fa-times delete" codigo="1" modulo="proveedore" id="d{$PROV[LE][0]}" style="color: #D9534F"></i></option>
-                </select>
-                <label>Acciones</label>
-            </div>
+                <i id="m{$PROV[LE][0]}" data-toggle="modal" class="load material-icons pbtn" href='#modal-proveedores' modulo="proveedore">edit</i>
+                <i class="delete material-icons pbtn" codigo="1" modulo="proveedore" id="d{$PROV[LE][0]}">delete</i>
             <!-- i class="fa fa-pencil-square-o load" id="m{$PROV[LE][0]}" data-toggle="modal" href='#modal-proveedores' modulo="proveedore"></i>&nbsp;&nbsp;&nbsp;&nbsp;
             <i class="fa fa-times delete" codigo="1" modulo="proveedore" id="d{$PROV[LE][0]}" style="color: #D9534F"></i> -->
             </td>
