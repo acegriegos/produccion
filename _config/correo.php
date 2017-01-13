@@ -1,5 +1,5 @@
 <?php
-include('mail.php');
+include('Mail.php');
 /**
 * CORREO
 */

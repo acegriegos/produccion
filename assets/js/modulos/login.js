@@ -34,7 +34,7 @@ $(document).ready(function(){
             var result = arr('login',4,'mail, concat(substring(mail,1,3),"****@", substring_index(mail,"@",-1))',1,'user = "'+$("#user").val()+'" and id > 0','',0,'');
             console.log(result);
             if (result[0].length) {
-                $("#msjrecupss").html('<h5>Recuperar Contraseña</h5><p>Enviar código de recuperación al correo:<br><b class="truncate">'+result[0][0][1]+'</b></p><a href="#!" id="sendrecupss" class="modal-action modal-close waves-effect waves-green btn-flat grey lighten-3">Enviar</a>');
+                $("#msjrecupss").html('<img src="../assets/img/mail_recovery.svg" width="100px"><br><h5>Recuperar Contraseña</h5><p>Enviar código de recuperación al correo:<br><b class="truncate">'+result[0][0][1]+'</b></p><a href="#!" id="sendrecupss" class="modal-action modal-close waves-effect waves-green btn-flat grey lighten-3">Enviar</a>');
                 crr = result[0][0][0];
                 $("#msjrecupss").removeClass('red white-text');
             }else{
