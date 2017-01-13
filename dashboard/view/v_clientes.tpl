@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Clientes</title>
-
 </head>
 <body>
 {$NAV}
@@ -278,7 +277,7 @@
                     <div class="input-field col s4">
 
                     <div class="provincia">
-                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="fa fa-plus"></i></a>
+                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
 
                     <select id="vidprovincia" type="select" class="_det" primary="1">
                     <option value="">Seleccione una Provincia</option>
@@ -295,7 +294,7 @@
                     
                     <div class="canton">
 
-                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="fa fa-plus"></i></a>
+                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="material-icons">add</i></a>
 
 
                     <select id="vidcanton" type="select" class="_det">
@@ -310,7 +309,7 @@
                     
                     <div class="distrito">
 
-                    <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="fa fa-plus"></i></a>
+                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="material-icons">add</i></a>
                     
                     <select id="viddistrito" type="select" class="_det">
                     <option value="">Seleccione un Distrito</option>
@@ -325,17 +324,20 @@
                 <div class="row">
 
                     <div class="input-field col s12">
+
                     <label for="vdireccion">Dirección Exacta</label>
                     <textarea id="vdireccion" class="materialize-textarea" length="100"></textarea>
                     </div>
 
                     
                     <div class="input-field col s12 m6 l6">
+                        <div class="prefix"><i class="material-icons">location_on</i></div>
                         <label for="vlatitud">Latitud</label>
                         <input type="text" class="eder" id="vlatitud">
                     </div>
 
                     <div class="input-field col s12 m6 l6">
+                        <div class="prefix"><i class="material-icons">location_on</i></div>
                         <label for="vlongitud">Longitud</label>
                         <input type="text" class="eder" id="vlongitud">
                     </div>

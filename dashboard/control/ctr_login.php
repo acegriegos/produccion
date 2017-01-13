@@ -12,7 +12,7 @@
     	if (isset($_POST['pss'])) {
 
     		require_once '../_config/ecy.php';
-    		$log->ini($_POST['user'],$_POST['pss']);
+    		$log->ini($_POST['usr'],$_POST['pss']);
 		    $encrypt = new _cy();
 
 		    $user = $log->autenticar();

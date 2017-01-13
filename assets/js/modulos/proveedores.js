@@ -18,8 +18,6 @@ $(function(){
 		ending_top: '5%' // Ending top style attribute
 	});
 
-	
-
 	$(".load").click(function(){
 		$("#titModal").html('Editar Proveedor');
 		$("#agProv").html('Editar');
@@ -27,6 +25,10 @@ $(function(){
 		$("#agProv").addClass('edit');
 	});
 });
+
+$(document).ready(function() {
+    $('select').material_select();
+  });
 
 $(document).ready(function(){
 	$("#ingProv").click(function(){
