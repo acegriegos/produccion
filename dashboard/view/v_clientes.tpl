@@ -152,8 +152,10 @@
                 <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                 <input type="hidden" id="vcorreo" fill="18">
                 <label for="correo_in">Ingresar Correo</label>
-                </div>
 
+                <ul class="collection" id="shcorreos"></ul>
+                </div>
+                <br>
                 <div class="col s12 m8 l8" vtabla="telefono" id="ftelefonos">
                 
                 <div class="row">
@@ -173,8 +175,11 @@
                         <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
                         <input type="hidden" id="vtelefono" fill="19">
                         <label for="telefono_in">Ingresar Teléfono</label>
+                        <br>
+                        <ul class="collection" id="shtelefonos"></ul>
 
                     </div>
+                    
                 </div>
 
                 </div>

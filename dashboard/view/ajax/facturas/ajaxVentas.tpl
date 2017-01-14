@@ -33,8 +33,8 @@
 <div class="row">
   <div class="input-field col s6 m3 l3">
     <i class="fa fa-calendar-o prefix"></i>
-    <label for="vfecha">Fecha</label>
     <input type="date" class="datepicker" id="vfecha" value="">
+    <!-- <label for="vfecha">Fecha</label> -->
   </div>
 
 

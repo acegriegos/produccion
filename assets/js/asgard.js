@@ -323,20 +323,26 @@ function deadclear(vform) {
         vform = "#f"+vform+"s";
         /*REGLAS PARA VACIAR CAMPOS*/
         $(vform+" :input").each(function(){
-            if ($(this).attr('noClear') == undefined) { 
-                switch($(this).attr('type')){
+            if ($(this).prop('noClear') == undefined) { 
+                switch($(this).prop('type')){
+                    case 'checkbox':
+                        $(vform+" :input[name='"+$(this).prop('name')+"'][stay='1']").prop('checked', true);
+                        $(vform+" :input[name='"+$(this).prop('name')+"'][stay='0']").prop('checked',false);
+                        
+                        $(this).change();
+                        break;
                     case 'radio':
                     //SI ES RADIO SOLO PONER ATRIBUTO PRINCIPAL PARA EL CUAL QUIERE MANTENER CHECKED
-                        $(vform+" :input[name='"+$(this).attr('name')+"'][principal='1']").click()
+                        $(vform+" :input[name='"+$(this).prop('name')+"'][principal='1']").click();
                         break;
                     case 'number':
                     case 'textarea':
                     case 'text':
-                        $(vform).find("#"+$(this).attr('id')).val('');
+                        $(vform+" #"+$(this).prop('id')).val('');
                         break;
                     case 'select':
-                        $(vform).find("#"+$(this).attr('id')).val("");
-                        $(vform).find("#"+$(this).attr('id')).material_select('update');
+                        $(vform+" #"+$(this).prop('id')).val("");
+                        $(vform+" #"+$(this).prop('id')).material_select('update');
                         break;
                 };
             
