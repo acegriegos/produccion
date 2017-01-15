@@ -22,6 +22,8 @@
 	   		case 1:
 	   			$pagina = 1;
 	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo',54,'id > 0 order by principal desc,nombre'));
+	   			$smarty->assign('WSDL',$kakaroto->kamehameha('wsid,wsname',100,'wsid > 0 order by wsname'));
+	   			
 	   			$smarty->assign('TUSR',$kakaroto->kamehameha('id,nombre,defecto',27,'id > 0 order by defecto desc'));
 	   			$smarty->assign('TPAG',$kakaroto->kamehameha('id,nombre,bancos',26,'id > 0 order by id'));
 	   			$smarty->assign('CATC',$kakaroto->kamehameha('id,nombre',69,'id > 0'));	

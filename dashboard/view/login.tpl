@@ -27,9 +27,10 @@
     <div class="card-content">
     
     <form role="form" id="logF" action="index.php" method="POST">
+    <input type="hidden" name="vdir" value="">
         <div class="input-field col s12">
-            <input id="num" type="text" name="id" class="validate">
-            <label for="num">Ingrese su Usuario</label>
+            <input id="user" type="text" name="usr" class="validate">
+            <label for="user">Ingrese su Usuario</label>
         </div>
         <div class="input-field col s12">
             <input id="pass" type="password" name="pss" class="validate">
@@ -41,7 +42,7 @@
             </div>
 
             <div class="col s12 center"><br>
-                <small class="white-text"><a href="#modal1" style="color: #337ab7">Olvidó su Contraseña?</a></small>
+                <small class="white-text"><a href="#modal1" id="recupss" style="color: #337ab7">Olvidó su Contraseña?</a></small>
             </div>
 
             <div class="col s12">
@@ -58,13 +59,10 @@
     </div>
 </div>
 <div id="modal1" class="modal bottom-sheet">
-    <div class="modal-content center">
-      <h5>Recuperar Contraseña</h5>
-      <p>Enviar código de recuperación al correo: <b>ami****@logintechcr.com</b></p>
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat grey lighten-3">Enviar</a>
+    <div id="msjrecupss" class="modal-content center">
+    
     </div>
   </div>
-
 
 </div>
     <script src="../assets/js/jquery.js"></script>

@@ -1,7 +1,9 @@
+var crr = '';
+
 $(document).ready(function(){
     
     // Materialize.updateTextFields();
-    $("#num").focus();
+    $("#user").focus();
     $("#logF").submit(function(){
         return getIn();
     });
@@ -16,12 +18,38 @@ $(document).ready(function(){
             }else{
                 Materialize.toast('Contraseña Cambiada Correctamente', 4000, 'green');
                 $("#salir").click();
-                $("#num").focus();
+                $("#user").focus();
             }
         }else{
             Materialize.toast(val, 4000, 'red');
         }
     });
+
+    $("#recupss").click(function(){
+        if ($("#user").val() == '') {
+            $("#msjrecupss").html('Usuario no existe, por favor verifique los datos e intente de nuevo.');
+            $("#msjrecupss").addClass('red white-text');
+            $("#user").focus();
+        }else{
+            var result = arr('login',4,'mail, concat(substring(mail,1,3),"****@", substring_index(mail,"@",-1))',1,'user = "'+$("#user").val()+'" and id > 0','',0,'');
+            console.log(result);
+            if (result[0].length) {
+                $("#msjrecupss").html('<img src="../assets/img/mail_recovery.svg" width="100px"><br><h5>Recuperar Contraseña</h5><p>Enviar código de recuperación al correo:<br><b class="truncate">'+result[0][0][1]+'</b></p><a href="#!" id="sendrecupss" class="modal-action modal-close waves-effect waves-green btn-flat grey lighten-3">Enviar</a>');
+                crr = result[0][0][0];
+                $("#msjrecupss").removeClass('red white-text');
+            }else{
+               $("#msjrecupss").html('Usuario no existe, por favor verifique los datos e intente de nuevo.');
+                $("#msjrecupss").addClass('red white-text');
+                $("#user").focus(); 
+            }
+        }
+    });
+});
+
+$(document).on("click","#sendrecupss",function(){
+    var bdy = '';
+
+        enviarCorreo(1,crr,'<b>Petición</b> Cambio de Contraseña',bdy);
 });
 
 function validarcambio(){
@@ -57,13 +85,13 @@ function getIn(){
         return false;
     }
 
-    if ($('#num').val() == '') {
+    if ($('#user').val() == '') {
         Materialize.toast('No a Ingresado Usuario', 4000, 'red');
-        $('#num').focus();
+        $('#user').focus();
         return false;
     }
-    
-    var p = mantenimiento('login',3,{id: $('#num').val(), pss: $('#pass').val()})
+
+    var p = mantenimiento('login',3,{id: $('#user').val(), pss: $('#pass').val()})
 
     if(p[0].length == 2){
         Materialize.toast(p[0][0], 4000, 'red');
@@ -73,21 +101,20 @@ function getIn(){
         $.getJSON("http://ip-api.com/json", function (data) {
 
         var correo = '';
-        var varibale = $('#num').val();
+        var varibale = $('#user').val();
 
-        if ($('#num').val().indexOf('@') > 0) {
-            rs = arr('login',4,'*',92,'correos like \"%'+ $('#num').val() +'%\"',0,0,'')[0];
+        if ($('#user').val().indexOf('@') > 0) {
+            rs = arr('login',4,'*',92,'correos like \"%'+ $('#user').val() +'%\"',0,0,'')[0];
             correo = rs[0][0];
             varibale = rs[0][1];
-        }else{
-            correo = arr('login',4,'mail',1,'user = \"'+ $('#num').val() +'\"',0,0,'')[0][0][0];
+        }else
+            correo = arr('login',4,'mail',1,'user = \"'+ $('#user').val() +'\"',0,0,'')[0][0][0];
 
             if (correo != ''){
                 var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ varibale +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
 
                 enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
             }
-        }
         });
         break;
         }

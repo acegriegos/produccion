@@ -1,6 +1,11 @@
 $(function(){
 	$(".modal").modal();
 	$("#m1").click();
+	$("#addMoneda").click(function(){
+		deadclear('moneda');
+	})
+
+
 	$("script").each(function(){
 		$(this).remove();
 	});
@@ -31,18 +36,22 @@ $(document).on("click",".menu3",function(){
 			$("#vfechafinal").val(e[7]);
 			$("#data-table-monedas").dataTable({
 				bFilter : false,
+				bLengthChange : false,
 				order : []
 			});
 			$("#data-table-tipousuarios").dataTable({
 				bFilter : false,
+				bLengthChange : false,
 				order : []
 			});
 			$("#data-table-tipopagos").dataTable({
 				bFilter : false,
+				bLengthChange : false,
 				order : []
 			});
 			$("#data-table-nivelesclientes").dataTable({
 				bFilter : false,
+				bLengthChange : false,
 				order : []
 			});
 			
@@ -90,6 +99,7 @@ $(document).on("click",".menu3",function(){
 	$(".modal").modal()	
 	$('.tooltipped').tooltip({delay: 50});
 	$('.dropdown-button').dropdown();
+	$('select').material_select();
 
 });
 
@@ -498,21 +508,17 @@ function slide(cod,suma) {
 
 /*MONEDAS*/
 
-$(document).on('click','#iswsdl',function(){
+$(document).on('change','#iswsdl',function(){
 	
 	if ($(this).is(':checked'))
 		$(".wsdl-op").show()
-	else
+	else{
 		$(".wsdl-op").hide()
+		$("#vwsdl").val(0);
+		$("#vwsdl").material_select();
+	}
 });
 
-$(document).on('change','#vwsdl',function(){
-	
-	if ($('option:selected',this).val() == 0)
-		$(".add-wsdl").show()
-	else
-		$(".add-wsdl").hide()
-});
 
 /*-------*/
 

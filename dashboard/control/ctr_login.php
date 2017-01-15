@@ -12,7 +12,7 @@
     	if (isset($_POST['pss'])) {
 
     		require_once '../_config/ecy.php';
-    		$log->ini($_POST['id'],$_POST['pss']);
+    		$log->ini($_POST['usr'],$_POST['pss']);
 		    $encrypt = new _cy();
 
 		    $user = $log->autenticar();
@@ -67,7 +67,7 @@
    			$transaccion = $log->mantenimiento($_POST['arreglo']);
    			break;
    		case 3:
-   			$log->ini($_POST['arreglo']['id'],$_POST['arreglo']['pss']);
+   			$log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
    			$transaccion = $log->autenticar();
    			break;
    		case 4:
@@ -157,7 +157,6 @@
           }          
     
           $tipoCambio = (string) $xml[$obj[5]];
-
           $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id='.$obj[0]);
         };
      }	
