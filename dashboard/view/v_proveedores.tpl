@@ -54,7 +54,7 @@
 </div> -->
 </div>
 <div class="card-block">
-    <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-proveedores">
+    <table class="table striped highlight dt-responsive nowrap" id="data-table-proveedores">
     <thead>
     <tr>
         <th>Cédula Jurídica</th>
@@ -72,10 +72,10 @@
             <td>{$PROV[LE][2]}</td>
             <td>{$PROV[LE][4]}</td>
             <td style="font-size: 0.9em">{$PROV[LE][5]}</td>
-            <td>{$PROV[LE][6]}</td>
+            <td>{$PROV[LE][19]}</td>
             <td align="center">
-                <i id="m{$PROV[LE][0]}" data-toggle="modal" class="load material-icons pbtn" href='#modal-proveedores' modulo="proveedore">edit</i>
-                <i class="delete material-icons pbtn" codigo="1" modulo="proveedore" id="d{$PROV[LE][0]}">delete</i>
+                <a href="" style="color: #686868"><i id="m{$PROV[LE][0]}" data-toggle="modal" class="load material-icons pbtn" href='#modal-proveedores' modulo="proveedore">edit</i></a>
+                <a href="" style="color: #686868"><i class="delete material-icons pbtn" codigo="1" modulo="proveedore" id="d{$PROV[LE][0]}">delete</i></a>
             <!-- i class="fa fa-pencil-square-o load" id="m{$PROV[LE][0]}" data-toggle="modal" href='#modal-proveedores' modulo="proveedore"></i>&nbsp;&nbsp;&nbsp;&nbsp;
             <i class="fa fa-times delete" codigo="1" modulo="proveedore" id="d{$PROV[LE][0]}" style="color: #D9534F"></i> -->
             </td>
@@ -248,6 +248,7 @@
             <div class="row cre" style="display: none;"> 
 
                 <div class="input-field col s12 m6 l6">
+                    <div class="prefix"><i class="material-icons">today</i></div>
                     <label for="vplazo">Plazo en Días</label>
                     <input type="number" class="eder" id="vplazo">
                 </div>
