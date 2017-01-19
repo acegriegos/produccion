@@ -122,21 +122,6 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$("#searh_clie").keyup(function(e){
-		var code = e.which || e.keyCode
-		if (code == 13) {
-			constante = $(this).val().replace(/"/g,'\\\"');
-			tabla = $("#data-table-clientes").DataTable();
-		    tabla.destroy();
-		    arr('login',6,'*',29,'vid > 0 and (nombre like "%'+constante+'%")',0,1,$("#listaclientes"))
-		    $("#data-table-clientes").DataTable({
-		        bFilter :  false,
-		        bLengthChange : false,
-		        order : []
-		    });
-		}
-	})
-
 });
 
 $(document).on("click",".delcta",function(){

@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Configuración</title>
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,6 +16,7 @@
   </head>
   <body>
     {$NAV}
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
     <div class="bdy">
     
     <nav class="nav-extended blue-grey">

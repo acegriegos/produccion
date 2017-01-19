@@ -37,7 +37,10 @@ function searchClient(vvariable,visprv){
             $("#vdescuento").val(clie[5]);
             
             Materialize.updateTextFields()
-            $("#codp").focus();
+        }else{
+            $("#vidcliente").val(0);
         }
+
+        $("#codp").focus();
     }
 }

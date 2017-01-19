@@ -67,7 +67,7 @@
         </thead>
         <tbody id="listamonedas">
             {section name=LE loop=$MON}
-            <tr id="f{$MON[LE][0]}">
+            <tr id="a_{$MON[LE][0]}">
                 <td {if $MON[LE][3] neq ''} class="tooltipped" style="border: 1px solid red;" data-position="top" data-tooltip="Moneda por Defecto"{/if}>{$MON[LE][4]}</td>
                 <td>{$MON[LE][1]}</td>
                 <td>{$MON[LE][2]}</td>
@@ -103,7 +103,7 @@
         </thead>
         <tbody id="listatipousuarios">
             {section name=LE loop=$TUSR}
-            <tr id="f1">
+            <tr id="b_1">
                 <td>{$TUSR[LE][1]}</td>
                 <td align="right">
                     {if $TUSR[LE][2] eq 0}
@@ -123,8 +123,79 @@
 <hr style="border: 1px solid #e2e2e2">
 <h3 class="card-header">Tipo de Pagos</h3>
 <div class="class-block">
-    <div id="ftipopagos">
-        <input type="text" id="vnombre" placeholder="">
+    <div class="row">
+
+        <div class="input-field col s6">
+            <a class="prefix"><i class="small material-icons">search</i></a>
+            <input type="text" id="search_tipopagos" maxlength="100" num="+26" var="nombre">
+            <label for="search_tipopagos">Buscar Tipo Pago</label>
+        </div>
+
+        <div id="ftipopagos" class="col s6">
+
+            <div class="row">
+
+                <div class="col s1">
+                    <a class="prefix btn-floating blue add tooltipped" modulo="tipopago" data-position="top" data-tooltip="Ingresar Tipo de Pago"><i class="small material-icons">add</i></a>
+                </div>
+
+                <div class="input-field col s11">
+                    <input type="text" id="vnombre_pago">
+                    <label for="vnombre_pago">Ingresar Tipo Pago</label>
+                </div>
+            
+            </div>
+
+            <div class="modal modal-fixed-footer" id="modal-tipopagos">
+
+                <div class="modal-header">
+                    Editar Tipo Pago "<span id="pname-mod"></span>"
+                    <input type="hidden" id="vid" value="0">
+                </div>
+
+                <div class="modal-content">
+                    
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="text" id="tmp_pagos">
+                            <label id="tmp_pagos" for="tmp_pagos">Nombre del Pago</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <p>
+                            <input type="checkbox" id="vbancos" />
+                            <label for="vbancos">Acredita Bancos</label>
+                            </p>
+
+                            <p>
+                            <input type="checkbox" id="extra" />
+                            <label for="extra">Tiene Extras</label>
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="row extra hide">
+                        <div class="input-field col s6">
+                            <input type="text" id="vextra">
+                            <label for="vextra">Nombre de la Extra</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input type="text" id="vregex">
+                            <label for="vregex">Expresión regular</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+                    <button type="button" class="btn btn-primary edit" modulo="tipopago">Guardar</button>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
     <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-tipopagos">
@@ -136,11 +207,14 @@
         </thead>
         <tbody id="listatipopagos">
             {section name=LE loop=$TPAG}
-            <tr id="f1">
-                <td>{$TPAG[LE][1]}</td>
+            <tr id="c_{$TPAG[LE][0]}">
+                <td><input type="text" value="{$TPAG[LE][1]}" readonly style="border: 0px;margin: 0px; padding: 0px;"></td>
                 <td align="right">
-                    {if $TPAG[LE][1]}{/if}
-                    <i class="fa fa-times btn delete" modulo="tipopago" id="f{$TPAG[LE][0]}" style="color: #D9534F" title="Eliminar Tipo Pago"></i>
+
+                    <a class="btn load_x" modulo="tipopago" id="e{$TPAG[LE][0]}" title="Editar Tipo Pago" href='#modal-tipopagos'><i class="fa fa-pencil-square-o"></i></a>
+
+                    <a class="btn delete" modulo="tipopago" id="f{$TPAG[LE][0]}" style="color: #D9534F" title="Eliminar Tipo Pago"><i class="fa fa-times"></i></a>
+                    
                 </td>
             </tr>
             {/section}
@@ -150,8 +224,30 @@
 <hr style="border: 1px solid #e2e2e2">
 <h3 class="card-header">Categorías</h3>
 <div class="class-block">
-    <div id="fnivelesclientes">
-        <input type="text" id="vnombre" placeholder="">
+    <div class="row">
+
+        <div class="input-field col s6">
+            <a class="prefix"><i class="small material-icons">search</i></a>
+            <input type="text" id="search_nivelesclientes" maxlength="100" num="+69" var="nombre">
+            <label for="search_nivelesclientes">Buscar Categoría</label>
+        </div>
+
+        <div id="fnivelesclientes" class="col s6">
+
+            <div class="row">
+
+                <div class="col s1">
+                    <a class="prefix btn-floating blue add tooltipped" modulo="nivelescliente" data-position="top" data-tooltip="Ingresar Categoría"><i class="small material-icons">add</i></a>
+                </div>
+
+                <div class="input-field col s11">
+                    <input type="text" id="vnombre_nivel">
+                    <label for="vnombre_nivel">Ingresar Categoría</label>
+                </div>
+            
+            </div>
+
+        </div>
     </div>
 
     <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-nivelesclientes">
@@ -163,11 +259,15 @@
         </thead>
         <tbody id="listanivelesclientes">
             {section name=LE loop=$CATC}
-            <tr id="f1">
-                <td>{$CATC[LE][1]}</td>
+            <tr id="d_{$CATC[LE][0]}">
+                <td><input type="text" id="vnombre" class="fast-edit" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;"></td>
                 <td align="right">
-                    <i class="fa fa-gg-circle btn valorescc" id="g{$CATC[LE][0]}" data-toggle="modal" href='#modal-valorescat' title="Valores en el Sistema"></i>
-                    <i class="fa fa-times btn delete" modulo="nivelescliente" id="h{$CATC[LE][0]}" style="color: #D9534F" title="Eliminar Nivel de Cliente"></i>
+                    
+                    <a class="btn valorescc" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="fa fa-gg-circle"></i></a>
+                    
+                    
+                    <a class="btn delete" modulo="nivelescliente" id="h{$CATC[LE][0]}" style="color: #D9534F" title="Eliminar Nivel de Cliente"><i class="fa fa-times"></i></a>
+                    
                 </td>
             </tr>
             {/section}
@@ -317,3 +417,107 @@
     </div>
         
 </div><!-- /.modal -->
+
+<div class="modal modal-fixed-footer" id="modal-valorescat" style="width: 80%; height: 550px">
+
+    <div class="modal-header">
+        Valores en el Sistema - Categoría "<span id="cname-mod"></span>"
+    </div>
+
+    <div class="modal-content" id="fdetallenivelesclientes">
+        <h3>Clientes</h3>
+        <input type="hidden" id="viddetalle">
+        <input type="hidden" id="vidnivel">
+        <div class="row">
+            <div class="input-field col s6 l3">
+                <a class="prefix">%</a>
+                <input type="text" id="vclie_descuento_max" class="eder set0">
+                <label for="vclie_descuento_max">Descuento Max.</label>
+            </div>
+            <div class="input-field col s6 l3">
+                <input type="text" id="vclie_descuento" class="eder set0">
+                <label for="vclie_descuento">Descuento Base</label>
+            </div>
+            <div class="input-field col s6 l3">
+                <input type="text" id="vclie_plazo" class="eder set0">
+                <label for="vclie_plazo">Plazo en Días</label>
+            </div>
+            <div class="input-field col s6 l3">
+                <input type="text" id="vclie_credito" class="eder set0">
+                <label for="vclie_credito">Crédito</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s6 l3">
+                <select id="vdcontado" type="select">
+                    <option value="" disabled selected>Seleccione una Cuenta</option>
+                    {section name=LE loop=$CUE}
+                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    {/section}
+                </select>
+                <label for="vdcontado">Contado Debe</label>
+            </div>
+            <div class="input-field col s6 l3">
+                <select id="vhcontado" type="select">
+                    <option value="" disabled selected>Seleccione una Cuenta</option>
+                    {section name=LE loop=$CUE}
+                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    {/section}
+                </select>
+                <label for="vhcontado">Contado Haber</label>
+            </div>
+            <div class="input-field col s6 l3">
+                <select id="vdcredito" type="select">
+                    <option value="" disabled selected>Seleccione una Cuenta</option>
+                    {section name=LE loop=$CUE}
+                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    {/section}
+                </select>
+                <label for="vdcredito">Crédito Debe</label>
+            </div>
+            <div class="input-field col s6 l3">
+                <select id="vhcredito" type="select">
+                    <option value="" disabled selected>Seleccione una Cuenta</option>
+                    {section name=LE loop=$CUE}
+                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    {/section}
+                </select>
+                <label for="vhcredito">Crédito Haber</label>
+            </div>
+        </div>
+       
+        <h3>Productos</h3>
+
+        <div class="row">
+
+            <div class="input-field col s6 l4">
+                <a class="prefix">%</a>
+                <input type="text" id="vprod_descuento_max" class="eder set0">
+                <label for="vprod_descuento_max">Descuento Max.</label>
+            </div>
+
+            <div class="input-field col s6 l4">
+                <input type="text" id="vprod_descuento" class="eder set0">
+                <label for="vprod_descuento">Descuento Base</label>
+            </div>
+
+            <div class="input-field col s6 l4">
+                <select id="vprod_cuenta" type="select">
+                    <option value="" disabled selected>Seleccione una Cuenta</option>
+                    {section name=LE loop=$CUE}
+                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    {/section}
+                </select>
+                <label for="vprod_cuenta">Cuenta Inventario</label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+        <button type="button" class="btn btn-primary edit" modulo="detallenivelescliente">Guardar</button>
+    </div>
+
+</div>

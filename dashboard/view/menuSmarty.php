@@ -51,9 +51,9 @@
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/mask/jquery.mask.js"></script>
 <script src="../assets/js/materialize.js"></script>
+<!-- <script src="../assets/js/materialize_autocomplete.min.js"></script> -->
 <script src="../assets/js/modulos/menu.js"></script>
 <script src="../assets/libs/charts/chart.js"></script>
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script> -->
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
 <script src="../assets/js/asgard.js"></script>

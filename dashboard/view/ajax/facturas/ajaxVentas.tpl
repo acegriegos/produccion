@@ -55,13 +55,13 @@
   <div class="input-field col s6 m3 l3">
     <i class="fa fa-user prefix"></i>
     <label for="ncli">Nombre de Cliente</label>
-    <input type="text" id="ncli" value="" class="autocomplete validate">
-    <input type="hidden" id="vidcliente" value="">
+    <input type="text" id="ncli" value="" class="autocomplete validate sclie">
+    <input type="hidden" id="vidcliente" value="0">
   </div>
 
   <div class="input-field col s6 m3 l3">
     <label for="ced">Cédula del Cliente</label>
-    <input type="text" id="ced" data-mask="9-9999-9999" class="validate">
+    <input type="text" id="ced" class="validate sclie">
     <input type="hidden" id="vbisproveedor" value="0">
   </div> 
 

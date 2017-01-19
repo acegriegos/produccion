@@ -11,6 +11,7 @@
 <body>
 {$NAV}
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css">
+<script src="../assets/js/modulos/facturacion.js"></script>
 <div class="bdy">
 
     <div class="card-block card-footer">
@@ -25,6 +26,6 @@
     </div> <!-- card footer -->
 
 </div> <!-- bdy -->
-<script src="../assets/js/modulos/facturacion.js"></script>
+
 </body>
 </html>

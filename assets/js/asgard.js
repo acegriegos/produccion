@@ -14,6 +14,10 @@ $(window).keydown(function(e){
     }
 });
 
+// $(document).on("blur",".autocomplete",function(){
+//     $(".autocomplete-content").hide('500')
+// });
+
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');
     deadclear(modulo);
@@ -39,6 +43,27 @@ $(document).on("click",".delete",function(){
     var modulo = $(this).attr('modulo');
     var id = $(this).attr('id').substr(1);
     doGlobal(3,modulo,id,$(this).attr('detalle'),0);
+});
+
+$(document).on("keyup","[id^=search_]",function(e){
+    var code = e.which || e.keyCode
+    if (code == 13) {
+        var a = $(this).val().replace(/"/g,'\\\"');
+        var b = $(this).prop('id').substr(7);
+        var c = $(this).attr('num').substr(1);
+        var d = $(this).attr('num').substring(0,1).replace('+','');
+        var e = $(this).attr('var');
+
+        tabla = $("#data-table-"+b).DataTable();
+        tabla.destroy();
+        arr('login',6,'*',c,d+'id > 0 and '+e+' like "%'+a+'%"',0,1,$("#lista"+b))
+        
+        $("#data-table-"+b).DataTable({
+            bFilter :  false,
+            bLengthChange : false,
+            order : []
+        });
+    }
 });
 
 function doGlobal(accion,modulo,tip,detalle,varias){
@@ -256,63 +281,67 @@ function odin(varreglo,vform,id) {
     id || (id = '');
 
     for (var i = 0; i < varreglo.length; i++) {
+        
+        if ($("#"+vform+" #varreglo[i]").attr('hid') != undefined)
+            varreglo[i] = $("#"+vform+" #varreglo[i]").attr('hid');
+        else{
 
         switch(varreglo[i]) {
             case 'vidusuario':                
-                if (typeof $("#vidusuario"+id).val() == 'undefined') {
+                if (typeof $("#"+vform+" #vidusuario"+id).val() == 'undefined') {
                     salida[varreglo[i]] = '';
                 }else{
-                    salida[varreglo[i]] = $("#vidusuario"+id).val();
+                    salida[varreglo[i]] = $("#"+vform+" #vidusuario"+id).val();
                 }
                 break;
             case 'vid':
-                if (typeof $("#vid"+id).val() == 'undefined') {
+                if (typeof $("#"+vform+" #vid"+id).val() == 'undefined') {
                     salida[varreglo[i]] = 0;
                 }else{
-                    salida[varreglo[i]] = $("#vid"+id).val();
+                    salida[varreglo[i]] = $("#"+vform+" #vid"+id).val();
                 }
                 break;
             case 'vaccion':
                 salida[varreglo[i]] = 0;
                 break
             case 'vidtabla':
-                salida[varreglo[i]] = $("#vtabla").val();
+                salida[varreglo[i]] = $("#"+vform+" #vtabla").val();
                 break;
             default:
                 
-                if ($("#"+varreglo[i]+id).attr("type") == 'select')
-                    salida[varreglo[i]] = $("#"+vform).find($("#"+ varreglo[i]+id+" option:selected")).val();
+                if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'select')
+                    salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+id+" option:selected").val();
 
-                else if ($("#"+varreglo[i]+id).attr("type") == 'text')
-                     salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val();
+                else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'text')
+                     salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).val();
 
-                else if ($("#"+varreglo[i]+id).attr("type") == 'textarea')
-                    salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val();
+                else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'textarea')
+                    salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).val();
 
-                else if ($("#"+varreglo[i]+id).attr("type") == 'html')
-                    salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).html();
+                else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'html')
+                    salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).html();
 
                 else if (/vfecha/.test(varreglo[i])){
-                    if (typeof $("#"+varreglo[i]+id) == 'undefined') {
+                    if (typeof $("#"+vform+" #"+varreglo[i]+id) == 'undefined') {
                         salida[varreglo[i]] = '1990-01-01';
                     }else{
-                        salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
-                        '1990-01-01' : $("#"+vform).find($("#"+varreglo[i]+id)).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                        '1990-01-01' : $("#"+vform+" #"+varreglo[i]+id).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                     }
                 }
 
-                else if ($("#"+varreglo[i]+id).attr("type") == 'radio')
-                    salida[varreglo[i]] = $("#"+vform).find($("input[name='"+varreglo[i]+id+"']:checked")).val();
+                else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'radio')
+                    salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+id+"']:checked").val();
 
-                else if ($("#"+varreglo[i]+id).attr("type") == 'checkbox'){
-                    salida[varreglo[i]] = $("#"+vform).find($("input[name='"+varreglo[i]+id+"']")).val();
+                else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'checkbox'){
+                    salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+id+"']").is(":checked") ? 1 : 0;
                 }
 
                 else
-                    salida[varreglo[i]] = $("#"+vform).find($("#"+varreglo[i]+id)).val();
+                    salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).val();
                                 
                 break;
-
+        }
         }
     }
     return salida;
@@ -357,10 +386,10 @@ function deadclear(vform) {
 function thorload(vtabla) {
     vtabla += "s";
 
-    if ($(".search"+vtabla).val() != undefined && $(".search"+vtabla).val() != ""){
+    if ($("#searh_"+vtabla).val() != undefined && $("#searh_"+vtabla).val() != ""){
         var e = jQuery.Event("keyup");
         e.which = 13;
-        $(".search"+vtabla).trigger(e);
+        $("#searh_"+vtabla).trigger(e);
     }
     else{
         var arreglo = cargarSintax(vtabla);
