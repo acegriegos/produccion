@@ -42,7 +42,8 @@
 	 		}
 	 		$param = substr($param, 0,-1);
 	 		$param .= ')BEGIN 
-CASE vaccion WHEN 1 THEN  
+CASE vaccion 
+WHEN 1 THEN  
 	INSERT INTO '.$tabla.' VALUES(';
 
 foreach ($cols as $obj) {
@@ -72,7 +73,8 @@ $param = substr($param, 0,-1);
 
 	$param .= ');
 SELECT @@identity;
-INSERT INTO log values(null,0,1,\'\',vidusuario,now());  
+/*INSERT INTO log values(null,0,1,\'\',vidusuario,now());*/  
+
 WHEN 2 THEN  
 	UPDATE '.$tabla.' SET ';
 
@@ -99,9 +101,10 @@ foreach ($cols as $obj) {
 $param = substr($param, 0,-1);
 
 $param .= '
-WHERE id = vid;
+    WHERE id = vid;
 	SELECT vid;
 	/*INSERT INTO log values(null,0,2,\'\',vidusuario,now());*/
+
 WHEN 3 THEN
 	SELECT ifnull(if(min(id)-1 = 0,-1,min(id)-1),-1) FROM '.$tabla.' INTO @id;  
 	UPDATE '.$tabla.' set id = @id where id = vid;

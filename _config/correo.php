@@ -20,16 +20,16 @@ class correo
 		$res = $base->ejecutar('(select aes_decrypt(valor, "Login2Help") from ajustes where descr = "smtpp")union(select valor from ajustes where descr in ("smtp","smtphost","smtpport"))')->fetch_all();
 	    $this->para = $pr;
 
-	    $this->headers['From']    = $res[1];
+	    $this->headers['From']    = $res[1][0];
 	    $this->headers['To']      = $pr;
 	    $this->headers['Subject'] = $tit;
 	    $this->headers['Content-Type'] = 'text/html; charset=UTF-8';
 
-	    $this->smtpinfo["host"] = $res[2];
-	    $this->smtpinfo["port"] = $res[3];
+	    $this->smtpinfo["host"] = $res[2][0];
+	    $this->smtpinfo["port"] = $res[3][0];
 	    $this->smtpinfo["auth"] = true;
-	    $this->smtpinfo["username"] = $res[1];
-	    $this->smtpinfo["password"] = $res[0];
+	    $this->smtpinfo["username"] = $res[1][0];
+	    $this->smtpinfo["password"] = $res[0][0];
 
 	    $this->body = $msj;
 	    

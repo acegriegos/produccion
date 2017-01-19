@@ -157,7 +157,6 @@
           }          
     
           $tipoCambio = (string) $xml[$obj[5]];
-
           $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id='.$obj[0]);
         };
      }	

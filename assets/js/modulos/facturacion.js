@@ -29,8 +29,6 @@ $(document).ready(function(){
      $("#cantI").text(0);
  });
 
-    
-
 });
 
 function searchClient(vvariable,visprv){
@@ -42,10 +40,20 @@ function searchClient(vvariable,visprv){
       $("#ncli").val(clie[1]);
       $("#ced").val(clie[2]);
 
-      if ($("#vidtipo").val() == 2) {
-        $("#vplazo").val(clie[4]);
-    }else{
-        $("#vplazo").val(0);
+            if ($("#vidtipo").val() == 2) {
+                $("#vplazo").val(clie[4]);
+            }else{
+                $("#vplazo").val(0);
+            }
+            
+            $("#vdescuento").val(clie[5]);
+            
+            Materialize.updateTextFields()
+        }else{
+            $("#vidcliente").val(0);
+        }
+
+        $("#codp").focus();
     }
     
     $("#vdescuento").val(clie[5]);

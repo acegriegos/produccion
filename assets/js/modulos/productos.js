@@ -236,7 +236,7 @@ $(document).on("click","#addimp",function(){
     if ($("#vimv"+id).val() == undefined) {
         $("#impuestos").removeClass('hide');
         if ($("#imp option:selected").val() != 0) {
-            $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+id+'"><div><span class="impuestos" id="vimv'+id+'" value="'+valor+'">'+nombre+' - '+valor+'%</span><a class="secondary-content delimp" id="dimp'+id+'"><i class="material-icons">delete</i></a></div></li>');
+            $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+id+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+id+'" value="'+valor+'">'+nombre+' - '+valor+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+id+'" type="number" class="validate eder" value="0" style="margin: 0px;width: 50%"></div></div></li>')
             totalizar($("#hvcosto").val(),$("#vganancia").val());
         }
     }else{
@@ -253,7 +253,6 @@ $(document).on("click",".delimp",function(){
 });
 
 $(document).on("click","#addprod",function(){
-    
     var valprod = validarproductos();
     if (valprod == false) {
         var codigo = $("#vcodigo").val();
@@ -343,54 +342,58 @@ $(document).on("click","#editprod",function(){
 });
 
 $(document).on("click",".editprod",function(){
-    var id = $(this).attr('id').substr(1);
-    var p = arr('login',4,'idfamilia,idtipo,idmarca,idbodega,nombre,codigo,idunidad,minimo,maximo,costo,ganancia,fventa,venta,maxdescuento',14,'id = '+id,'',0,'')[0][0];
-    var cant = arr('login',4,'replace(cantidad,".00","")',97,'idproducto = '+id,'',0,'')[0][0];
-    var imp = arr('login',4,'idimpuesto,impuesto,valor',83,'idproducto = '+id,'',0,'')[0];
-    $(".accmodal").html("Actualizar Producto "+p[5]);
-    $("#addprod").addClass('hide');
-    $("#editprod").removeClass('hide');
-    $("#editprod").attr('idprod',id);
-    $("#dinventario").addClass('hide');
-    $("#impuestos").removeClass('hide');
-    $("#impuestos").html('');
-    //cargar
-    $("#vidfamilia").val(p[0]);
-    $("#vidfamilia").material_select();
-    $("#vidtipo").val(p[1]);
-    $("#vidtipo").material_select();
-    $("#vidmarca").val(p[2]);
-    $("#vidmarca").material_select();
-    $("#vidbodega").val(p[3]);
-    $("#vidbodega").material_select();
-    $("#vnombre").val(p[4]);
-    $("#vcodigo").val(p[5]);
-    $("#vidunidad").val(p[6]);
-    $("#vidunidad").material_select();
+	var id = $(this).attr('id').substr(1);
+	var p = arr('login',4,'',83,id,'',0,'');
+	var q = p[0][0];
+	var precios = arr('login',4,'',110,id,0,0,0)[0];
+	alert(precios)
+	$(".accmodal").html("Actualizar Producto "+q[5]);
+	$("#addprod").addClass('hide');
+	$("#editprod").removeClass('hide');
+	$("#editprod").attr('idprod',id);
+	$("#impuestos").removeClass('hide');
+	$("#impuestos").html('');
+	$("#vidfamilia").val(q[0]).change();
+	$("#vidfamilia").material_select();
+	$("#vidtipo").val(q[1]).change();
+	$("#vidtipo").material_select();
+	$("#vidmarca").val(q[2]);
+	$("#vidmarca").material_select();
+	$("#vidunidad").val(q[3]);
+	$("#vidunidad").material_select();
+	$("#vidinventario").val(q[4]);
+	$("#vidinventario").material_select();
+	$("#vnombre").val(q[5]);
+	$("#vcodigo").val(q[6]);
+	$("#vminimo").val(q[7]);
+	$("#vmaximo").val(q[8]);
+	$("#vmaxdescuento").val(q[9]);
+	$("#vcosto").val(q[10]);
+	$("#hvcosto").val(q[10]);
+	$("#vganancia").val(q[11]);
+	$("#vventa").val(q[12]);
+	$("#hventa").val(q[13]);
 
-    $("#vnombre").val(q[4]);
-    $("#vcodigo").val(q[5]);
-    $("#vminimo").val(q[6]);
-    $("#vmaximo").val(q[7]);
-    $("#vmaxdescuento").val(q[8]);
-    $("#vcosto").val(q[9]);
-    $("#hvcosto").val(q[9]);
-    $("#vganancia").val(q[10]);
-    $("#vventa").val(q[11]);
-    $("#hventa").val(q[12]);
-    for (var i = 0, len = p[0].length; i < len; i++) {
-        q = p[0][i]
-        if (q[12] != '') {
-            defecto = '';
-            if (q[15] == 0)
-                defecto = '<a class="secondary-content delimp" id="dimp'+q[12]+'"><i class="material-icons">delete</i></a>';
-                $("#impuestos").html('');
-                $("#impuestos").removeClass('hide');
-                $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+q[13]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+q[13]+'" value="'+q[15]+'">'+q[14]+' - '+q[15]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+q[13]+'" type="number" class="validate eder" value="'+q[16]+'" style="margin: 0px;width: 50%"></div></div></li>')
-        }
-        
-    }
-    Materialize.updateTextFields();
+	for (var i = 0; i < p[0].length; i++) {
+		q = p[0][i]
+		if (q[12] != '') {
+			defecto = '';
+			if (q[15] == 0)
+				defecto = '<a class="secondary-content delimp" id="dimp'+q[12]+'"><i class="material-icons">delete</i></a>';
+
+				$("#impuestos").removeClass('hide');
+				
+				$("#impuestos").append('<li class="collection-item dismissable" id="newimp'+q[15]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+q[15]+'" value="'+q[17]+'">'+q[16]+' - '+q[17]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+q[15]+'" type="number" class="validate eder" value="0" style="margin: 0px;width: 50%"></div></div></li>')
+		}
+	}
+
+	for (var i = 0; i < precios.length; i++) {
+		$("#vganancia"+precios[i][0]).val(precios[i][1]);
+		$("#vventa"+precios[i][0]).val(precios[i][2]);
+		$("#vexoneracion"+precios[i][0]).val(precios[i][3]);
+	}
+
+	Materialize.updateTextFields();
 });
 
 // $(document).on("click",".descuentos",function(){
@@ -427,11 +430,23 @@ $(document).on("click",".editprod",function(){
 
 $(document).on("click",".delprod",function(){
     var id = $(this).attr('id').substr(1);
+    Materialize.toast('Desea Borrar este Producto? <button type="button" class="waves-effect waves-light btn blue accept" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="fa fa-times"></i></button>', 10000, 'rounded');
+    // arr('login',4,'',78,'3,'+id+',"","",0,0,0,0,0,0,0,0,0,0,0,@@usr,@@impresa,""','',0,'');
+    // var tblprod = arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+    // Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
 
-    arr('login',4,'',78,'3,'+id+',"","",0,0,0,0,0,0,0,0,0,@@usr,@@impresa','',0,'');
-    var tblprod = arr('login',6,'id,codigo,nombre,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+});
+
+$(document).on("click",".accept",function(){
+    var id = $(this).attr('id').substr(3);
+    arr('login',4,'',78,'3,'+id+',"","",0,0,0,0,0,0,0,0,0,0,0,@@usr,@@impresa,""','',0,'');
+    arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+    $('#toast-container').remove();
     Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
+});
 
+$(document).on("click",".cancel",function(){
+    $('#toast-container').remove();
 });
 
 $(document).on("keyup","#prod",function(e){
@@ -667,23 +682,51 @@ $(document).on("change","#vtipoinv",function(){
 
 $(document).on("click",".salidainv",function(){
     var id = $(this).attr('id').substr(1);
-    var nom = arr('login',4,'nombre',11,'id = '+id,0,0,0)[0][0];
     var bod = arr('login',4,'*',41,'id > 0',0,0,0)[0];
-    var inv = arr('login',4,'bodega,inventario',14,'id = '+id,0,0,0)[0][0];
-    $("#bodact").text(inv[0]);
-    $("#invact").text(inv[1]);
+    var p = arr('login',4,'nombre,replace(cantidad,".00",""),bodega,idinventario,inventario',14,'id = '+id,0,0,0)[0][0];
+    $("#idbodega").val(0);
+    $("#idbodega").material_select();
+    $("#idinventario").val(0);
+    $("#idinventario").material_select();
+    $("#prcant").val('');
+    $("#vcomentario").val('');
+    $("#idprd").val(id);
+    $("#nomprod").text(p[0]);
+    $("#prodcant").text(p[1])
+    $("#bodact").text(p[2]);
+    $("#oldinvent").val(p[3])
+    $("#invact").text(p[4]);
     for (var i = 0, len = bod.length; i < len; i++) {
         $("#idbodega").append('<option value="'+bod[i][0]+'">'+bod[i][1]+'</option>');
     };
     $("#idbodega").material_select();
-    $("#nomprod").html(nom);
     $("#vcomentario").characterCounter();
+});
+
+$(document).on("click","#actinv",function(){
+	var oldinvent = $("#oldinvent").val();
+    var idinventario  = $("#idinventario").val();
+    var idproducto = $("#idprd").val();
+    var idservicio = 0;
+    var cantidad = $("#prcant").val();
+    var comentario = $("#vcomentario").val();
+
+    var cambio = arr('login',4,'',112,oldinvent+','+idinventario+','+idproducto+','+idservicio+','+cantidad+',\"'+comentario+'\"',0,0,0)[0];
+    if (cambio != '[object Object]') {
+    	Materialize.toast('Cambio Realizado', 6000, 'green');
+    }else{
+    	Materialize.toast(cambio['ERROR'], 6000, 'red');
+    }
+    
+
 });
 
 $(document).on("change","#idbodega",function(){
     var id = $(this).val();
     var inv = arr('login',4,'id,nombre',111,'id > 0 and idbodega = '+id+' order by id',0,0,0)[0];
     if (inv != '') {
+    	$("#idinventario").html('');
+    	$("#idinventario").append('<option>Seleccione un Inventario</option>');
         for (var i = 0, len = inv.length; i < len; i++) {
             $("#idinventario").append('<option value="'+inv[i][0]+'">'+inv[i][1]+'</option>');
         }
@@ -1268,12 +1311,11 @@ function totalizar(costo,ganancia) {
         var id = $(this).attr('id').substr(1);
         ganancia = $("#vganancia"+id).val();
         exoneracion = $("#vexoneracion"+id).val();
-        if (ganancia == 0) {
-            subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1);
-        }else{
+        if (ganancia != 0 || exoneracion != 0) {
             subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1) * ((ganancia / 100)+1);
+            $("#vventa"+id).val(subtotal.formatMoney(2,'.',','));
         }
-        $("#vventa"+id).val(subtotal.formatMoney(2,'.',','));
+        
     });
 
 }

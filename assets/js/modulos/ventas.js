@@ -19,17 +19,32 @@ $(function(){
 
     $('select').material_select();
 
+    $(".autocomplete").blur(function(){ 
+        $(".autocomplete-content").hide('500'); 
+    });
+
+    $(".sclie").blur(function(){
+        searchClient($(this).val(),0);
+    });
+
     $("#ncli").keydown(function(e){
         var charCode = e.which || e.keyCode;
         var charStr = String.fromCharCode(charCode);
-       
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
         
             $("#ncli").autocomplete({
                 limit: 20,
                 data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2)) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
             })
+        }
+    });
+
+    $(".sclie").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            $(this).blur()
         }
     });
 
@@ -47,16 +62,15 @@ $(function(){
         }
     });
     
+    $("#p_v").click(function(){
+        if ($(this).is(":checked"))
+            $(this).val(1);
+        else
+            $(this).val(0);
+
+    });
 
 })//READY
-
-$(document).on("click","#p_v",function(){
-    if ($(this).is(":checked"))
-        $(this).val(1);
-    else
-        $(this).val(0);
-
-});
 
 $(document).on("click","#chg_tipo",function(){
     
@@ -281,28 +295,6 @@ $(document).on("keyup","#descp",function(e){
         $("#cantp").select();
         Materialize.updateTextFields()
     }
-});
-
-$(document).on("keyup","#ncli",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        searchClient($(this).val(),$("#vbisproveedor").val());
-    }
-});
-
-$(document).on("blur","#ncli",function(){
-    searchClient($(this).val(),$("#vbisproveedor").val());
-});
-
-$(document).on("keyup","#ced",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        searchClient($(this).val(),$("#vbisproveedor").val());
-    } 
-});
-
-$(document).on("blur","#ced",function(){
-    searchClient($(this).val(),$("#vbisproveedor").val());
 });
 
 $(document).on("click",".desc",function(){

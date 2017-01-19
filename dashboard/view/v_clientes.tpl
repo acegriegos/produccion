@@ -21,14 +21,14 @@
 
 <div class="input-field col s12 m8 l8">
 
-    <a href="#" class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+    <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
     <ul id='filtr_1' class='dropdown-content'>
         <li><a href="#!" fltr="1">Nombre</a></li>
         <li><a href="#!" fltr="2">Cédula</a></li>
         <li><a href="#!" fltr="3">Teléfono</a></li>
     </ul>
-    <input type="text" id="searh_clie" maxlength="100" class="searchclientes">
-    <label for="searh_clie">Buscar Cliente por Nombre o Cédula</label>
+    <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
+    <label for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
 
 </div>
 <div class="col m4">
@@ -149,7 +149,6 @@
                 <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                 <input type="hidden" id="vcorreo" fill="18">
                 <label for="correo_in">Ingresar Correo</label>
-                </div>
 
                 <div class="input-field col s12 m4 l4">
                 <select type="select" id="tptel">
@@ -159,6 +158,21 @@
                     {/section}
                 </select>
                 <label for="tptel">Tipo Teléfono</label>
+                <ul class="collection" id="shcorreos"></ul>
+                </div>
+                <br>
+                <div class="col s12 m8 l8" vtabla="telefono" id="ftelefonos">
+                
+                <div class="row">
+                    <div class="input-field col s8">
+                        <div class="prefix"><i class="fa fa-phone"></i></div>
+                        <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+                        <input type="hidden" id="vtelefono" fill="19">
+                        <label for="telefono_in">Ingresar Teléfono</label>
+                        <br>
+                        <ul class="collection" id="shtelefonos"></ul>
+
+                    </div>
                 </div>
 
                 <div class="input-field col s12 m4 l4">
