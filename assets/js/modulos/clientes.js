@@ -122,21 +122,6 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$("#searh_clie").keyup(function(e){
-		var code = e.which || e.keyCode
-		if (code == 13) {
-			constante = $(this).val().replace(/"/g,'\\\"');
-			tabla = $("#data-table-clientes").DataTable();
-		    tabla.destroy();
-		    arr('login',6,'*',29,'vid > 0 and (nombre like "%'+constante+'%")',0,1,$("#listaclientes"))
-		    $("#data-table-clientes").DataTable({
-		        bFilter :  false,
-		        bLengthChange : false,
-		        order : []
-		    });
-		}
-	})
-
 });
 
 $(document).on("click",".delcta",function(){
@@ -167,15 +152,11 @@ $(document).on("click","input[name='tipoclie']",function(){
 	if (tipo == 1) {
 		$("#titInfo").html('<b>Datos Personales<b/>');
 		$("#nomClie").html('Nombre');
-		$("#colMod").addClass("col s12 m4 l4");
-		$("#colMod").removeClass("col s12 m12 l12");
-		$("#vcedula").attr('data-mask', '9-9999-9999');
+		$("#vcedula").removeAttr('data-mask');
 		$(".hid").show(300);
 	} else if (tipo == 2) {
 		$("#titInfo").html('<b>Información Jurídica<b/>');
-		$("#nomClie").html('Razósn Social');
-		$("#colMod").removeClass("col s12 m4 l4");
-		$("#colMod").addClass("col s12 m12 l12");
+		$("#nomClie").html('Razón Social');
 		$("#vcedula").attr('data-mask', '9-999-999999');
 		$(".hid").css('display','none');
 	}

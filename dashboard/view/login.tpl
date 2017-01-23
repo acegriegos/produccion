@@ -52,7 +52,12 @@
                 </center>
             </div>
         </div>
-
+        <div class="alert alert-danger err_" id="err1" align="center" style="display: none">
+            <strong id="errm1"></strong>
+        </div>
+        <div class="alert alert-success suc_" id="suc1" align="center" style="display: none">
+            <strong id="sucm1"></strong>
+        </div>
     </form>
     </div>
     

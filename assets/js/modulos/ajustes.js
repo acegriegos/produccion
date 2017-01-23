@@ -258,6 +258,28 @@ $(document).on("click",'.dsc',function(){
     }
 });
 
+$(document).on('click',".valorescc",function(){
+	var vid = $(this).prop('id').substr(1);
+	var p = arr('login',4,'',201,vid,0,0,0)[0][0];
+	$("#vidnivel").val(p[0]);
+	$("#cname-mod").html(p[1]);
+	$("#viddetalle").val(p[2]);
+	$("#vclie_descuento_max").val(p[3]);
+	$("#vclie_descuento").val(p[4]);
+	$("#vclie_plazo").val(p[5]);
+	$("#vclie_credito").val(p[6]);
+	$("#vprod_descuento_max").val(p[7]);
+	$("#vprod_descuento").val(p[8]);
+	$("#vdcontado").val(p[9]);
+	$("#vhcontado").val(p[10]);
+	$("#vdcredito").val(p[11]);
+	$("#vhcredito").val(p[12]);
+	$("#vprod_cuenta").val(p[13]);
+
+	$("select").material_select('update');
+	Materialize.updateTextFields();
+});
+
 /*DESCUENTOS*/
 
 // $(document).on("click","#modalDescuento",function(){
@@ -277,35 +299,52 @@ function validar (varreglo,vmodulo) {
 		case 'ajustes':
 			if (vmodulo['tip'] == '') {
 				err = validarajustes();
-				if ( err ) {
-					return err;
-				}
+				if (err)
+					return err
 			}
 			break;
 		case 'sucursale':
 			if (vmodulo['tip'] == '') {
 				err = validarsucursales();
-				if ( err ) {
-					return err;
-				}
+				if (err)
+					return err
 			}else{
 				$("#vtelefono").val(1);
 			}
 			break;
 		case 'moneda':
 			if (vmodulo['tip'] == '') {
-				err = validarMonedas();
-				if ( err ) {
-					return err;
-				}
+				err = validarMonedas(vmodulo['modulo']);
+				if (err)
+					return err
 			}
 			break;
 		case 'wsdl':
 			if (vmodulo['tip'] == '') {
-				err = validarWSDL();
-				if ( err ) {
-					return err;
-				}
+				err = validarWSDL(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
+		case 'detallenivelescliente':
+			if (vmodulo['tip'] == '') {
+				err = validarCategoria(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
+		case 'nivelescliente':
+			if (vmodulo['tip'] == '') {
+				err = validarNiveles(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
+		case 'tipopago':
+			if (vmodulo['tip'] == '') {
+				err = validarTP(vmodulo['modulo']);
+				if (err)
+					return err
 			}
 			break;
 		default:
@@ -314,9 +353,50 @@ function validar (varreglo,vmodulo) {
 	}
 	
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	console.log(salida)
+	// console.log(salida)
 	return salida;
 
+}
+
+function validarTP(vmod){
+
+	if($("#f"+vmod+"s #vnombre_pago").val() == '' ){
+		$("#f"+vmod+"s #vnombre_pago").focus()
+		return 'Nombre de Pago es Requerido';
+	}
+
+	if ($("#f"+vmod+" #vbancos").is(":visible")) {
+		return "Imposible";
+	}
+
+	return 0;
+}
+
+function validarCategoria(vmod){
+
+	$("#f"+vmod+"s .set0").each(function(){
+		if(isNaN($(this).val()) || $(this).val() == '')
+			$(this).val(0)
+	});
+
+	$("#f"+vmod+"s select").each(function(){
+		if ($('option:selected',this).val() == $(this).attr('defecto'))
+			$(this).attr('hid',0);
+		else
+			$(this).removeAttr('hid');
+	});
+
+	return 0;
+}
+
+function validarNiveles(vmod){
+
+	if ($("#f"+vmod+"s #vnombre_nivel").val() == ''){
+		$("#f"+vmod+"s #vnombre_nivel").focus()
+		return 'Nombre de Nivel Requerido';
+	}
+
+	return false;
 }
 
 function validarsucursales() {
@@ -369,35 +449,35 @@ function validarAjuste() {
 	return false;
 }
 
-function validarMonedas(){
-	if ($("#vnombremon").val() == '') {
-		$("#vnombremon").focus();
+function validarMonedas(vmod){
+	if ($("#f"+vmod+"s #vnombremon").val() == '') {
+		$("#f"+vmod+"s #vnombremon").focus();
 		return "Nombre de la Moneda Requerido";
 	}
 
-	if ($("#vsimbolo").val() == '') {
-		$("#vsimbolo").focus();
+	if ($("#f"+vmod+"s #vsimbolo").val() == '') {
+		$("#f"+vmod+"s #vsimbolo").focus();
 		return "Símbolo de la Moneda Requerido";
 	}
 	return false;
 }
 
-function validarWSDL(){
+function validarWSDL(vmod){
 	if ($("#vwsdl").is(":checked")) {
-		if($("#vwsdlsnom").val() == ''){
-			$("#vwsdlsnom").focus()
+		if($("#f"+vmod+"s #vwsdlsnom").val() == ''){
+			$("#f"+vmod+"s #vwsdlsnom").focus()
 			return 'Dirección HTML Requerida'
 		}
-		if($("#vxmlsen").val() == ''){
-			$("#vxmlsen").focus()
+		if($("#f"+vmod+"s #vxmlsen").val() == ''){
+			$("#f"+vmod+"s #vxmlsen").focus()
 			return 'Petición XML Requerida'
 		}
-		if($("#vxmlreq").val() == ''){
-			$("#vxmlreq").focus()
+		if($("#f"+vmod+"s #vxmlreq").val() == ''){
+			$("#f"+vmod+"s #vxmlreq").focus()
 			return 'Respuesta XML Requerida'
 		}
-		if($("#vobtener").val() == ''){
-			$("#vobtener").focus()
+		if($("#f"+vmod+"s #vobtener").val() == ''){
+			$("#f"+vmod+"s #vobtener").focus()
 			return 'Nombre de Arreglo Requerido'
 		}
 	}
@@ -431,8 +511,18 @@ function cargarSintax(vtabla){
 			arr['tbl'] = 54;
 			arr['where'] = 'id > 0 order by principal desc,nombre';
 			break;
+		case 'nivelesclientes':
+			arr['sel'] = '*';
+			arr['tbl'] = 69;
+			arr['where'] = 'id > 0';
+			break;
+		case 'tipopagos':
+			arr['sel'] = '*';
+			arr['tbl'] = 26;
+			arr['where'] = 'id > 0';
+			break;
 		default:
-			console.error('ERROR: autodestrucción');
+			console.error('ERROR: autodestrucción: '+vtabla);
 			break;
 	}
 
@@ -459,6 +549,18 @@ $(document).on("change","#vgenero",function(){
 	else
 		$(this).html(rs);
 });
+
+$(document).on("click",".load_x",function(){
+    $("#vnombre_pago").attr('id','tmp_pagos');
+    $("#tmp_pagos").attr('id','vnombre_pago');
+})
+
+$(document).on("click","#extra",function(){
+    if ($(this).is(':checked'))
+    	$(".extra").removeClass('hide')
+    else
+    	$(".extra").addClass('hide')
+})
 
 $(document).on("keyup","#vnombre",function(e){
 	var code = e.which || e.keyCode
