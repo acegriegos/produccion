@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
+
 <div id="mantProd">
 <div class="row">
 <div class="col s8 m6 l6">
@@ -19,7 +19,7 @@
 
 <div class="row">
 <div class="col s12 m12 l12">
-    <div class="table-responsive">
+    <div class="table">
     <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-productos" cellspacing="0" width="100%" >
     <thead>
     <tr>
@@ -242,6 +242,11 @@
 
 <div id="modal-movinventario" class="modal modal-fixed-footer" style="width:70%;height:90%">
     <div class="modal-content" style="padding: 0px;">
+        <ul class="tabs blue-grey">
+            <li class="tab col s3 minvent but" id="mv1"><a class="white-text">Entrada Inventario</a></li>
+            <li class="tab col s3 minvent but" id="mv2"><a class="white-text">Salida Inventario</a></li>
+            <li class="tab col s3 minvent but" id="mv3"><a class="white-text">Movimiento Inventario</a></li>
+        </ul>
         <ul class="tabs blue">
             <li class="tab col s3" style="width: 100%">
                 <div class="row">
@@ -260,44 +265,94 @@
                 </div>
             </li>
         </ul>
-        <div style="padding: 15px 10px 0 10px">
+        <input type="hidden" id="spot" value="0">
+        <div id="ininvent" class="movsinvent" style="padding: 15px 10px 0 10px">
             <div class="row">
-                <div class="col s6 m6 l6">
-                    <h5>Bodega Actual: <span id="bodact"></span></h5>
-                </div>
-                <div class="col s6 m6 l6">
-                    <h5>Inventario Actual: <span id="invact"></span></h5>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6 m6">
-                    <select type="select" id="idbodega">
-                        <option>Seleccione una Bodega</option>
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="inidbodega">
+                        <option value="0">Seleccione una Bodega</option>
                     </select>
-                    <label for="idbodega">Bodega</label>
+                    <label for="inidbodega">Bodega</label>
                 </div>
                 <div class="input-field col s6 m6 l6">
-                    <select type="select" id="idinventario">
-                        <option>Seleccione un Inventario</option>
+                    <select type="select" id="inidinventario">
+                        <option value="0">Seleccione un Inventario</option>
                     </select>
-                    <label for="idinventario">Inventario</label>
+                    <label for="inidinventario">Inventario</label>
                 </div>
-
+                <div class="input-field col s4 m4 l4">
+                    <input id="vincantidad" type="text" class="validate">
+                    <label for="vincantidad">Cantidad Entrante</label>
+                </div>
+                <div class="input-field col s8 m8 l8">
+                    <input type="text" id="vincomentario" class="materialize-textarea" length="150">
+                    <label for="vincomentario">Comentario</label>
+                </div>
             </div>
+        </div>
+        <div id="outinvent" class="movsinvent hide">
             <div class="row">
-                <div class="input-field col s3 m4 l4">
-                    <input id="prcant" type="number" class="validate" min="0">
-                    <label for="prcant">Cantidad</label>
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="outidbodega">
+                        <option value="0">Seleccione una Bodega</option>
+                    </select>
+                    <label for="outidbodega">Bodega Origen</label>
                 </div>
-                <div class="input-field col s9 m8 l8">
-                    <input type="text" id="vcomentario" class="materialize-textarea" length="150">
-                    <label for="vcomentario">Comentario</label>
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="outidinventario">
+                        <option value="0">Seleccione un Inventario</option>
+                    </select>
+                    <label for="outidinventario">Inventario Origen</label>
+                </div>
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="destidbodega">
+                        <option value="0">Seleccione una Bodega</option>
+                    </select>
+                    <label for="destidbodega">Bodega Destino</label>
+                </div>
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="destidinventario">
+                        <option value="0">Seleccione un Inventario</option>
+                    </select>
+                    <label for="destidinventario">Inventario Destino</label>
+                </div>
+                <div class="input-field col s4 m4 l4">
+                    <input id="voutcantidad" type="text" class="validate">
+                    <label for="voutcantidad">Cantidad Saliente</label>
+                </div>
+                <div class="input-field col s8 m8 l8">
+                    <input type="text" id="voutcomentario" class="materialize-textarea" length="150">
+                    <label for="voutcomentario">Comentario</label>
+                </div>
+            </div>
+        </div>
+        <div id="movinvent" class="movsinvent hide">
+            <div class="row">
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="movidbodega">
+                        <option value="0">Seleccione una Bodega</option>
+                    </select>
+                    <label for="movidbodega">Bodega</label>
+                </div>
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="movidinventario">
+                        <option value="0">Seleccione un Inventario</option>
+                    </select>
+                    <label for="movidinventario">Inventario</label>
+                </div>
+                <div class="input-field col s4 m4 l4">
+                    <input id="vmovcantidad" type="text" class="validate">
+                    <label for="vmovcantidad">Cantidad Entrante</label>
+                </div>
+                <div class="input-field col s8 m8 l8">
+                    <input type="text" id="vmovcomentario" class="materialize-textarea" length="150">
+                    <label for="vmovcomentario">Comentario</label>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue" id="actinv">Guardar</a>
+        <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="actinv">Guardar</a>
         <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
     </div>
 </div>

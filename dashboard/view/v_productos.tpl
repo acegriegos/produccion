@@ -8,6 +8,7 @@
     <title>Productos</title>
   </head>
   <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
   <body>
     
 
@@ -25,9 +26,7 @@
     </div>
   </nav>
     <br>
-    <div class="formServ" id="fservicios">
-        <div id="bdymantInventario"></div>
-    </div>
+    <div id="bdymantInventario"></div>
 
 </div>
 </div> <!-- END BDY -->
