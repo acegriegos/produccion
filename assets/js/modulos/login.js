@@ -125,6 +125,7 @@ function getIn(){
         direccion = direccion.substring(direccion.lastIndexOf('/')+1)
         $("#vdir").val(direccion)
     }else{
+        console.log('Vamo a ver')
         $("#vdir").val('')
     }
     return salida;

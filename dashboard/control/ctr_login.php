@@ -78,7 +78,8 @@
    			break;
    		case 6:
    			$pagina = 1;
-   			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+   			$transaccion = $_REQUEST['arreglo']['sel'] == '-' ? $_REQUEST['arreglo']['where'] : $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        
    			if (isset($_REQUEST['arreglo']['join'])) {
    				$join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
    			}
@@ -89,7 +90,7 @@
    			if (!is_array($transaccion)) {
    				$pagina = 0;
    			}else
-   				include 'view/ajax/tabla_'.$_REQUEST['arreglo']['tbl'].'.php';
+          include 'view/ajax/tabla_'.$_REQUEST['arreglo']['tbl'].'.php';
    				
    			break;
    		case 7:
