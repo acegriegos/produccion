@@ -91,9 +91,30 @@
 <hr style="border: 1px solid #e2e2e2">
 <h3 class="card-header">Tipo de Usuarios</h3>
 <div class="class-block">
-    <div id="ftipousuarios">
-        <input type="text" id="vnombre" placeholder="">
+    <div class="row">
+        <div class="input-field col s6">
+            <a class="prefix"><i class="small material-icons">search</i></a>
+            <input type="text" id="search_tipousuarios" maxlength="45" num="+27" var="nombre">
+            <label for="search_tipousuarios">Buscar Tipo de Usuario</label>
+        </div>
+
+        <div id="ftipousuarios" class="col s6">
+            <div class="row">
+
+                <div class="col s1">
+                    <a class="prefix btn-floating blue add tooltipped" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario"><i class="small material-icons">add</i></a>
+                </div>
+
+                <div class="input-field col s11">
+                    <input type="text" id="vnombre_tusuario">
+                    <label for="vnombre_tusuario">Ingresar Tipo Usuario</label>
+                </div>
+            
+            </div>
+        </div>
+
     </div>
+    
     <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-tipousuarios">
         <thead>
             <tr>
@@ -103,8 +124,10 @@
         </thead>
         <tbody id="listatipousuarios">
             {section name=LE loop=$TUSR}
-            <tr id="b_1">
-                <td>{$TUSR[LE][1]}</td>
+            <tr id="b_{$TUSR[LE][0]}">
+                <td>
+                    <input type="text" value="{$TUSR[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" class="fast-edit">
+                </td>
                 <td align="right">
                     {if $TUSR[LE][2] eq 0}
                     <a href='#modal-tusuarios' class="btn valorestu" id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">

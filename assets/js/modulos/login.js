@@ -120,14 +120,14 @@ function getIn(){
         }
         salida = false;
     }
+    
     if (salida){
         direccion = window.location.pathname;
         direccion = direccion.substring(direccion.lastIndexOf('/')+1)
         $("#vdir").val(direccion)
-    }else{
-        console.log('Vamo a ver')
+    }else
         $("#vdir").val('')
-    }
+    
     return salida;
 }
 

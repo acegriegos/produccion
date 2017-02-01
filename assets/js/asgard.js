@@ -82,9 +82,9 @@ function doGlobal(accion,modulo,tip,varias){
             arr['modulo'] = $(this).attr('vtabla');
             arr['tip'] = tip;
             arr['atributos'] = baseValidar(1,arr);
+            arr['hasTabla'] = $(this).attr('hasTabla') == undefined ? 0 : 1;
 
             arreglo['varios'][index] = arr;
-            console.log(arr);
         });
     }
 
@@ -92,6 +92,7 @@ function doGlobal(accion,modulo,tip,varias){
         arreglo['atributos']['vaccion'] = accion;
 
         var p = mantenimiento('login',2,arreglo);
+        console.log(p)
 
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
@@ -150,7 +151,7 @@ function loadpool(vmodulo,vid,vvarias){
                 
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
-
+                
                 if (columns[0][0][0][i] != '') 
                     $("#"+vform+" #"+columns[0][1][i]['name']).change();
 
@@ -284,19 +285,97 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
         });
 }
 
-function odin(varreglo,vform,id) {
+function odin(varreglo,vform) {
  
     var salida = {}
-    id || (id = '');
 
     switch($("#"+vform).attr('tp')){
     case "1":
+    //LLENADO DE VARIABLES POR ATRIBUTO EN DETALLE
+        $("#"+vform+" .ciclos").each(function(index){
+            salida[index] = {};
+            for (var i = 0; i < varreglo.length; i++) {
+                salida[index][varreglo[i]] = $(this).attr(varreglo[i]);
+            }// end FOR
+        });//end EACH
+    break;
 
-    console.log("vamos bien")
+    case "2":
+    //LLENADO DE VARIABLES POR ATRIBUTO SIN DETALLE
+        for (var i = 0; i < varreglo.length; i++) {
+            salida[varreglo[i]] = $("#"+vform+" .uniq").attr(varreglo[i]);
+        }// end FOR
+    break;
+
+    case "3":
+    //LLENADO DE VARIABLES POR ID EN DETALLE
+        $("#"+vform+" .ciclos").each(function(index){
+            salida[index] = {};
+            for (var i = 0; i < varreglo.length; i++) {
+                if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
+                    salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
+                else{
+            switch(varreglo[i]) {
+                case 'vidusuario':                
+                    if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
+                        salida[index][varreglo[i]] = '';
+                    }else{
+                        salida[index][varreglo[i]] = $("#"+vform+" #vidusuario").val();
+                    }
+                    break;
+                case 'vid':
+                    if (typeof $("#"+vform+" #vid"+id).val() == 'undefined') {
+                        salida[index][varreglo[i]] = 0;
+                    }else{
+                        salida[index][varreglo[i]] = $("#"+vform+" #vid").val();
+                    }
+                    break;
+                case 'vaccion':
+                    salida[index][varreglo[i]] = 0;
+                    break
+                case 'vidtabla':
+                    salida[index][varreglo[i]] = $("#"+vform+" #vtabla").val();
+                    break;
+                default:
+                    
+                    if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'select')
+                        salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'text')
+                         salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'textarea')
+                        salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'html')
+                        salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+
+                    else if (/vfecha/.test(varreglo[i])){
+                        if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
+                            salida[index][varreglo[i]] = '1990-01-01';
+                        }else{
+                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                            '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                        }
+                    }
+
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'radio')
+                        salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'checkbox'){
+                        salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                    }
+
+                    else
+                        salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                }//end SWITCH
+            }//end IF
+            }// end FOR
+        });//end EACH
     break;
 
     default:
-
+    //LLENADO DE VARIABLES POR ID SIN DETALLE
     for (var i = 0; i < varreglo.length; i++) {
         
         if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
@@ -304,17 +383,17 @@ function odin(varreglo,vform,id) {
         else{
             switch(varreglo[i]) {
                 case 'vidusuario':                
-                    if (typeof $("#"+vform+" #vidusuario"+id).val() == 'undefined') {
+                    if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
                         salida[varreglo[i]] = '';
                     }else{
-                        salida[varreglo[i]] = $("#"+vform+" #vidusuario"+id).val();
+                        salida[varreglo[i]] = $("#"+vform+" #vidusuario").val();
                     }
                     break;
                 case 'vid':
-                    if (typeof $("#"+vform+" #vid"+id).val() == 'undefined') {
+                    if (typeof $("#"+vform+" #vid").val() == 'undefined') {
                         salida[varreglo[i]] = 0;
                     }else{
-                        salida[varreglo[i]] = $("#"+vform+" #vid"+id).val();
+                        salida[varreglo[i]] = $("#"+vform+" #vid").val();
                     }
                     break;
                 case 'vaccion':
@@ -325,40 +404,40 @@ function odin(varreglo,vform,id) {
                     break;
                 default:
                     
-                    if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'select')
-                        salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+id+" option:selected").val();
+                    if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'select')
+                        salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
 
-                    else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'text')
-                         salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).val();
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'text')
+                         salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
 
-                    else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'textarea')
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).val();
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'textarea')
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
 
-                    else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'html')
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).html();
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'html')
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
 
                     else if (/vfecha/.test(varreglo[i])){
-                        if (typeof $("#"+vform+" #"+varreglo[i]+id) == 'undefined') {
+                        if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
                             salida[varreglo[i]] = '1990-01-01';
                         }else{
-                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
-                            '1990-01-01' : $("#"+vform+" #"+varreglo[i]+id).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                            '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
                     }
 
-                    else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'radio')
-                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+id+"']:checked").val();
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'radio')
+                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
 
-                    else if ($("#"+vform+" #"+varreglo[i]+id).attr("type") == 'checkbox'){
-                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+id+"']").is(":checked") ? 1 : 0;
+                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'checkbox'){
+                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                     }
 
                     else
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]+id).val();
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                                     
                     break;
             }//end SWITCH
-        }
+        }//end IF
     }//end FOR
     break;
 
@@ -471,13 +550,15 @@ var n = this,
  };
 
 function change_load(vto,vtabla,vval,vset){
-    var tmp = $('#'+vto+' option').first().html();
-    $('#'+vto).html('<option value="">'+tmp+'</option>');
-    var res = arr('login',4,vval,vtabla,vset,0,0,0)[0];
-    for (var i = 0; i < res.length; i++) {
-        $('#'+vto).append('<option value="'+res[i][0]+'">'+res[i][1]+'</option>');
+    if (vto != '') {
+        var tmp = $('#'+vto+' option').first().html();
+        $('#'+vto).html('<option value="">'+tmp+'</option>');
+        var res = arr('login',4,vval,vtabla,vset,0,0,0)[0];
+        for (var i = 0; i < res.length; i++) {
+            $('#'+vto).append('<option value="'+res[i][0]+'">'+res[i][1]+'</option>');
+        }
+        $('#'+vto).material_select('update');
     }
-    $('#'+vto).material_select('update');
 };
 
 $(document).on("change","._det",function(){

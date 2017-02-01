@@ -254,16 +254,18 @@ function validarclientes() {
 		$("#vidcuenta").val(vdefecto);
 	}
 
+	$("#vtelefono").val('');
 	$("#shtelefonos li[id^=0_]").each(function(){
 		t_valor = $("#vtelefono").val()
 		$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.collapsible-header > .badge',this).html()+'",?]:')
 	});
 
+	$("#vcorreo").val('');
 	$("#shcorreos li[id^=0_]").each(function(){
 		t_valor = $("#vcorreo").val()
 		$("#vcorreo").val(t_valor+'[null,?,"'+$('.collapsible-header > .badge',this).html()+'"]:')
 	});
-	console.log($("#vcorreo").val())
+
 	return false;
 
 }

@@ -6,9 +6,9 @@ $(function(){
 	})
 
 
-	// $("script").each(function(){
-	// 	$(this).remove();
-	// });
+	$("script").each(function(){
+		$(this).remove();
+	});
 	
 });
 
@@ -65,24 +65,22 @@ $(document).on("click",".menu3",function(){
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
 			$("#majustes").html(p);
+			$("#data-table-descuentos").dataTable({
+				bFilter : false,
+				bLengthChange : false,
+				order : []
+			});
+			break;
+		case 3:
+			var p = mantenimiento('ajustes',3,'');
 			var arr = {};
 			arr['sel'] = '*';
 			arr['tbl'] = 51;
 			arr['where'] = 'id > 0 order by id';
 			var imp = mantenimiento('login',6,arr);
 			$("#dimpuestos").html(imp);
-			break;
-		case 3:
-			var p = mantenimiento('ajustes',3,'');
 			$("#majustes").html(p);
-			$("#data-table-sucursales").dataTable({
-				bFilter : false,
-				bScrollInfinite : true,
-				bSort : false,
-				bLengthChange : false,
-				bPaginate :  false,
-				bInfo : false
-			});
+			
 			break;
 		case 4:
 			var p = mantenimiento('ajustes',4,'');
@@ -91,6 +89,14 @@ $(document).on("click",".menu3",function(){
 			break;
 		case 5:
 			var p = mantenimiento('ajustes',5,'');
+			$("#data-table-sucursales").dataTable({
+				bFilter : false,
+				bScrollInfinite : true,
+				bSort : false,
+				bLengthChange : false,
+				bPaginate :  false,
+				bInfo : false
+			});
 			$("#majustes").html('');
 			$("#majustes").html(p);
 			break;
@@ -111,6 +117,13 @@ $(document).on("click",".menu3",function(){
 			$("#vnombre_pago").attr('id','tmp_pagos');
 	    	$("#tmp").attr('id','vnombre_pago');
 	    	$("#tmp_l_pagos").attr('for','tmp_pagos');
+		}
+	});
+
+	$("#modal-bancos").modal({
+		complete: function(){
+			$("#vnombre_banco").attr('id','bname-mod');
+			$("#tmp").attr('id','vnombre_banco');
 		}
 	});
 
@@ -157,11 +170,11 @@ $(document).on("click","#add_x",function(){
 	}else{
 		var mmon = '-';
 		var mmonid = 0;
-		if($("#vdet-moneda option:selected").val() != ''){
-			mmon = $("#vdet-moneda option:selected").attr('simb');
-			mmonid = $("#vdet-moneda option:selected").val();
+		if($("#vdet_moneda option:selected").val() != ''){
+			mmon = $("#vdet_moneda option:selected").attr('simb');
+			mmonid = $("#vdet_moneda option:selected").val();
 		}
-		$("#fdetallebancos").append('<li id="?"> <div class="collapsible-header" vdet_moneda="'+mmonid+'" vctabnk="'+$("#vctabnk option:selected").val()+'" vidbanco="'+$('#fbancos #vid').val()+'" vdet_nom="'+$("#vdet_nom").val()+'" vdet_cta="'+$("#vdet_cta").val()+'">'+mmon+'<span class="badge">'+$("#vdet_nom").val()+': '+$("#vdet_cta").val()+' ['+$("#vctabnk option:selected").html()+']</span></div> </li>')
+		$("#fdetallebancos").append('<li id="0"> <div class="collapsible-header ciclos" vid="0" vdet_moneda="'+mmonid+'" vctabnk="'+$("#vctabnk option:selected").val()+'" vidbanco="?" vdet_nom="'+$("#vdet_nom").val()+'" vdet_cta="'+$("#vdet_cta").val()+'">'+mmon+'<span class="badge">'+$("#vdet_nom").val()+': '+$("#vdet_cta").val()+' ['+$("#vctabnk option:selected").html()+']</span></div> </li>')
 	
 	}
 });

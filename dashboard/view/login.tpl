@@ -27,7 +27,7 @@
     <div class="card-content">
     
     <form role="form" id="logF" action="index.php" method="POST">
-    <input type="hidden" name="vdir" value="">
+    <input type="hidden" name="vdir" value="" id="vdir">
         <div class="input-field col s12">
             <input id="user" type="text" name="usr" class="validate">
             <label for="user">Ingrese su Usuario</label>

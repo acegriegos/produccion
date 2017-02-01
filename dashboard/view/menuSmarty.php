@@ -30,7 +30,7 @@
       <label for="numtrans"># Transacción</label>
     </div>
     </div>
-    <li style="margin-top:-20px;"><a href="dashboard"><i class="material-icons right" aria-hidden="true">dashboard</i>Inicio</a></li>
+    <li><a href="dashboard"><i class="material-icons right" aria-hidden="true">dashboard</i>Inicio</a></li>
     <li><a href="comercial"><i class="material-icons right" aria-hidden="true">business</i>Comercial</a></li>
     <li><a href="proveedor"><i class="material-icons right" aria-hidden="true">store</i>Proveedor</a></li>
     <li><a href="inventarios"><i class="material-icons right" aria-hidden="true">shopping_basket</i>Proveduría</a></li>
