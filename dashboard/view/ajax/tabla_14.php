@@ -11,9 +11,10 @@
     <td><?php echo $obj[5] ?></td>
     <td><?php echo $obj[6] ?></td>
     <td>
-        <a class="btn-floating waves-effect waves-light green salidainv" id="s<?php echo $obj[0] ?>" href="#modal-movinventario" title="Movimiento de Inventario"><i class=" fa fa-outdent"></i></a>
-        <a class="btn-floating waves-effect waves-light blue editprod" id="m<?php echo $obj[0] ?>" href="#modal-productos" title="Editar Producto"><i class="fa fa-pencil-square-o"></i></a>
-        <a class="btn-floating waves-effect waves-light red delprod" id="d<?php echo $obj[0] ?>" title="Eliminar Producto"><i class="fa fa-times"></i></a>
+        <a class="btn-color pbtn descuentos" id="desc<?php echo $obj[0] ?>" href="#modal-descuentos" title="Agregar Descuentos"><img src="../assets/img/icon/percent.svg"></a>
+        <a class="btn-color pbtn salidainv" id="s<?php echo $obj[0] ?>" href="#modal-movinventario" title="Movimiento de Inventario"><i class="material-icons">compare_arrows</i></a>
+        <a class="btn-color pbtn editprod" id="m<?php echo $obj[0] ?>" href="#modal-productos" title="Editar Producto"><i class="material-icons">edit</i></a>
+        <a class="btn-color pbtn cdel delprod" id="d<?php echo $obj[0] ?>" title="Eliminar Producto"><i class="material-icons">close</i></a>
     </td>
 </tr>
 

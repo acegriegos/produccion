@@ -1,22 +1,18 @@
-
 <div id="mantProd">
 <div class="row">
-<div class="col s8 m6 l6">
-<div class="input-field col s8 m6 l6">
-<input id="searchprod" type="text" class="validate">
-<label for="searchprod" id="phs">Buscar por Código</label>
+<div class="input-field col s12 m8 l8">
+    <a class="prefix dropdown-button tooltipped" data-activates='fgrande' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons pbtn">search</i></a>
+    <ul id='fgrande' class='dropdown-content'>
+        <li><a href="#!" vfiltros="1">Nombre</a></li>
+        <li><a href="#!" vfiltros="2">Código</a></li>
+    </ul>
+    <input type="text" id="search_productos" maxlength="100" num="v14" var="nombre">
+    <label for="search_productos">Buscar Producto por Nombre o Código</label>
 </div>
-<a class="dropdown-button btn-floating waves-effect waves-light blue" data-activates="fgrande"><i class="material-icons">search</i></a>
-<ul id="fgrande" class="dropdown-content" filter="1">
-<li><a class="dropdown-item vfiltros" filtro="f1">Código</a></li>
-<li><a class="dropdown-item filtros" filtro="f2">Nombre</a></li>
-</ul>       
-</div>
-<div class="col s4 m6 l6">
+<div class="col s12 m4 l4">
     <a id="addproduct" class="btn-floating waves-effect waves-light right blue" href="#modal-productos"><i class="material-icons">add</i></a>
 </div>
 </div>
-
 <div class="row">
 <div class="col s12 m12 l12">
     <div class="table">
@@ -42,10 +38,10 @@
     <td>{$PROD[LE][5]}</td>
     <td>{$PROD[LE][6]}</td>
     <td>
-    <!-- <a class="btn-floating waves-effect waves-light amber darken-3 descuentos " id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Agregar Descuentos"><i class="material-icons">%</i></a> -->
-    <a class="btn-floating waves-effect waves-light green salidainv" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"><i class=" fa fa-outdent"></i></a>
-    <a class="btn-floating waves-effect waves-light blue editprod" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"><i class="fa fa-pencil-square-o"></i></a>
-    <a class="btn-floating waves-effect waves-light red delprod" id="d{$PROD[LE][0]}" title="Eliminar Producto"><i class="fa fa-times"></i></a>
+    <a class="btn-color pbtn descuentos" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Agregar Descuentos"><img src="../assets/img/icon/percent.svg"></a>
+    <a class="btn-color pbtn salidainv" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"><i class="material-icons">compare_arrows</i></a>
+    <a class="btn-color pbtn editprod" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"><i class="material-icons">edit</i></a>
+    <a class="btn-color pbtn cdel delprod" id="d{$PROD[LE][0]}" title="Eliminar Producto"><i class="material-icons">close</i></a>
     </td>
     </tr>
     {/section}
@@ -70,7 +66,7 @@
                 <div class="col s12 m6 l6" id="col1">
                     <div class="input-field">
                         <div class="familia">
-                            <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a>
+                            <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a>
 
                             <select type="select" id="vidfamilia" class="_det" primary="1">
                                 <option value="">Seleccione una Familia</option>
@@ -83,7 +79,7 @@
                     </div>
                     <div class="input-field">
                         <div class="tipo">
-                            <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Tipo" style="width: 2.5rem" det="tipo" d-b="21" prev="vidfamilia" sig="vidmarca"><i class="fa fa-plus"></i></a>
+                            <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Tipo" style="width: 2.5rem" det="tipo" d-b="21" prev="vidfamilia" sig="vidmarca"><i class="fa fa-plus"></i></a>
                             <select type="select" id="vidtipo" class="_det">
                             <option value="">Seleccione un Tipo</option>
                             </select>
@@ -92,7 +88,7 @@
                     </div>
                     <div class="input-field">
                         <div class="marca">
-                            <a class="prefix btn-floating red btn-small tooltipped" data-position="button" data-tooltip="Ingresar Marca" style="width: 2.5rem" det="marca" d-b="22" prev="vidtipo" sig=""><i class="fa fa-plus"></i></a>
+                            <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Marca" style="width: 2.5rem" det="marca" d-b="22" prev="vidtipo" sig=""><i class="fa fa-plus"></i></a>
                             <select type="select" id="vidmarca" class="_det">
                             <option value="">Seleccione un Marca</option>
                             </select>
@@ -222,7 +218,7 @@
                     <label>Impuestos</label>
                 </div>
                 <div class="col s2">
-                    <button type="button" class="btn-floating btn-large waves-effect waves-light blue" id="addimp"><i class="material-icons">add</i></button>
+                    <button type="button" class="btn-floating waves-effect waves-light blue" id="addimp"><i class="material-icons">add</i></button>
                 </div>
                 <div class="row">
                     <div class="col s12">
@@ -332,19 +328,27 @@
                     <select type="select" id="movidbodega">
                         <option value="0">Seleccione una Bodega</option>
                     </select>
-                    <label for="movidbodega">Bodega</label>
+                    <label for="movidbodega">Bodega Origen</label>
                 </div>
                 <div class="input-field col s6 m6 l6">
                     <select type="select" id="movidinventario">
                         <option value="0">Seleccione un Inventario</option>
                     </select>
-                    <label for="movidinventario">Inventario</label>
+                    <label for="movidinventario">Inventario Origen</label>
                 </div>
-                <div class="input-field col s4 m4 l4">
-                    <input id="vmovcantidad" type="text" class="validate">
-                    <label for="vmovcantidad">Cantidad Entrante</label>
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="didbodega">
+                        <option value="0">Seleccione una Bodega</option>
+                    </select>
+                    <label for="didbodega">Bodega Destino</label>
                 </div>
-                <div class="input-field col s8 m8 l8">
+                <div class="input-field col s6 m6 l6">
+                    <select type="select" id="didinventario">
+                        <option value="0">Seleccione un Inventario</option>
+                    </select>
+                    <label for="didinventario">Inventario Destino</label>
+                </div>
+                <div class="input-field col s12 m12 l12">
                     <input type="text" id="vmovcomentario" class="materialize-textarea" length="150">
                     <label for="vmovcomentario">Comentario</label>
                 </div>
@@ -357,9 +361,13 @@
     </div>
 </div>
 
-<!-- <div id="modal-descuentos" class="modal modal-fixed-footer" style="width:70%">
-    <div class="modal-content">
-        <h4>Agregar Descuentos a <span id="dprod"></span></h4><hr><br>
+<div id="modal-descuentos" class="modal modal-fixed-footer" style="width:70%;height:90%">
+    <div class="modal-header">
+        <ul class="tabs blue-grey">
+            <li class="tab col s3"><a class="white-text">AGREGAR DESCUENTO A <span id="dprod"></span></a></li>
+        </ul>
+    </div>
+    <div class="modal-content" stylle="padding: 0px;">
         <div class="row">
             <div class="col s6">
                 <div class="input-field col s10">
@@ -368,7 +376,7 @@
                     <input type="hidden" id="idproducto" class="form-control" value="">
                 </div>
                 <div class="col s2">
-                    <button type="button" class="btn-floating btn-large waves-effect waves-light blue" id="adddsct"><i class="material-icons">add</i></button>
+                    <button type="button" class="btn-floating waves-effect waves-light blue" id="adddsct"><i class="material-icons">add</i></button>
                 </div>
             </div>
             <div class="col s6" id="tbldesc">
@@ -378,13 +386,12 @@
                 </ul>
             </div>
         </div>
-            
     </div>
     <div class="modal-footer">
         <a class="modal-action waves-effect waves-light btn-flat white-text blue" id="gdesc">Guardar</a>
         <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
     </div>
-</div> -->
+</div>
 
 </div> <!-- End mantProductos -->
 

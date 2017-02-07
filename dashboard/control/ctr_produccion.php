@@ -11,16 +11,16 @@
 	   
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->assign('UNI',$kakaroto->kamehameha('*',12,'1 order by idunidad'));
-	   	$smarty->assign('REC',$kakaroto->kamehameha('*',99,'1'));
+		$smarty->assign('REC',$kakaroto->kamehameha('idreceta,producto,precioventa',99,'1'));
+		$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
+		$smarty->assign('DEF',$kakaroto->kamehameha('nombre',111,'id = 7')[0][0]);
 	   	$smarty->display('v_produccion.tpl');
-	   }else{
-	   $pagina = 0;
+		}else{
+		$pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-
 	   			break;
 	   		case 2:
-
 	   			break;
 	   		case 3:
 	   			

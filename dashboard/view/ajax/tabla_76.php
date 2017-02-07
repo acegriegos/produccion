@@ -9,8 +9,8 @@
     <td><?php echo $obj[3] ?></td>
     <td><?php echo $obj[4] ?></td>
     <td>
-        <a class="btn-floating waves-effect waves-light blue loadpck" id="e<?php echo $obj[0]?>" href="#modal-paquetes" title="Editar Paquete"><i class="fa fa-pencil-square-o"></i></a>
-        <a class="btn-floating waves-effect waves-light red delpck" id="d<?php echo $obj[0]?>" title="Eliminar Paquete"><i class="fa fa-times"></i></a>
+    <a class="btn-color pbtn loadpck" id="e<?php echo $obj[0]?>" href="#modal-paquetes" title="Editar Paquete"><i class="material-icons">edit</i></a>
+    <a class="btn-color pbtn cdel delpck" id="d<?php echo $obj[0]?>" title="Eliminar Paquete"><i class="material-icons">close</i></a>
     </td>
 </tr>
 
