@@ -328,7 +328,7 @@
                                         <div class="input-field col s12">
 
                                             <label for="vdireccion">Dirección Exacta</label>
-                                            <textarea id="vdireccion" class="materialize-textarea" length="100"></textarea>
+                                            <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">

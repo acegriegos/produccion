@@ -1,9 +1,11 @@
 acc = 1;
 
+
 $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
-    $('.modal').modal();
+    $('.modal').modal();   
+
 });
 
 $(window).keydown(function(e){
@@ -161,6 +163,7 @@ function loadpool(vmodulo,vid,vvarias){
                 break;
 
             case 'textarea':
+                console.log('entro')
                 $("#"+vform+" #"+columns[0][1][i]['name']).text(columns[0][0][0][i]);
                 break;
 
@@ -215,28 +218,37 @@ function loadpool(vmodulo,vid,vvarias){
 
 function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     var p;
-    $.ajax({
-            async: false,
-            url: '../dashboard/'+vmodulo,
-            type: 'POST',
-            data: {accion: vaccion,arreglo : varreglo}
-            })
-            .done(function(data) {
-                try {
-                    p = JSON.parse(data);
-                    //console.error(p)
-                }
-                catch(err){
-                    p = data;
-                }
-            });
+    var stack = new Error().stack || '';
+    stack = stack.split('\n').map(function (line) { return line.trim(); });
+    stack = stack.splice(stack[0] == 'Error' ? 2 : 1);
+    if(stack.length <= 2){
+        p = 'Get Lost';
+    }else{
+        
+        $.ajax({
+                async: false,
+                url: '../dashboard/'+vmodulo,
+                type: 'POST',
+                data: {accion: vaccion,arreglo : varreglo}
+                })
+                .done(function(data) {
+                    try {
+                        p = JSON.parse(data);
+                        //console.error(p)
+                    }
+                    catch(err){
+                        p = data;
+                    }
+                });
+    }
     return p;
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
     var salida = 1;
     var arr = {};
-    
+
+
     if(vref == 'login' && vaccion == 7){
         arr['accion'] = vsel;
         arr['tabla'] = vtbl;
@@ -259,7 +271,7 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
     }
     else
         salida = mantenimiento(vref,vaccion,arr,vjson);
-
+    
     return salida;
 }
 
@@ -312,9 +324,9 @@ function odin(varreglo,vform) {
         $("#"+vform+" .ciclos").each(function(index){
             salida[index] = {};
             for (var i = 0; i < varreglo.length; i++) {
-                if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
-                    salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
-                else{
+            if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
+                salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
+            else{
             switch(varreglo[i]) {
                 case 'vidusuario':                
                     if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
@@ -337,39 +349,50 @@ function odin(varreglo,vform) {
                     salida[index][varreglo[i]] = $("#"+vform+" #vtabla").val();
                     break;
                 default:
-                    
-                    if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'select')
-                        salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
 
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'text')
-                         salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'textarea')
-                        salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'html')
-                        salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
-
-                    else if (/vfecha/.test(varreglo[i])){
+                    if (/vfecha/.test(varreglo[i])){
                         if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
                             salida[index][varreglo[i]] = '1990-01-01';
                         }else{
                             salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
                             '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
-                    }
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'radio')
-                        salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'checkbox'){
-                        salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
-                    }
-
-                    else
-                        salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                    }else{
+                        switch($("#"+vform+" #"+varreglo[i]).attr("type")){
+                            case 'select':
+                                salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                                break;
+                            case 'text':
+                            case 'textarea':
+                            case 'hidden':
+                            case 'number':
+                                salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                                break;
+                            case 'html':
+                                salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                            case 'radio':
+                                salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                                break;
+                            case 'checkbox':
+                                salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                                break;
+                            default:
+                                salida[index][varreglo[i]] = $("#"+vform+" #zelda").data('triforce')[varreglo[i]]
+                                break;
+                        }//END SWITCH
+                }//end if
                 }//end SWITCH
             }//end IF
+            }// end FOR
+        });//end EACH
+    break;
+
+    case "4":
+    //LLENADO DE VARIABLES POR DATA EN DETALLE
+        $("#"+vform+" .ciclos").each(function(index){
+            salida[index] = {};
+            for (var i = 0; i < varreglo.length; i++) {
+                salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
             }// end FOR
         });//end EACH
     break;
@@ -403,38 +426,37 @@ function odin(varreglo,vform) {
                     salida[varreglo[i]] = $("#"+vform+" #vtabla").val();
                     break;
                 default:
-                    
-                    if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'select')
-                        salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'text')
-                         salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'textarea')
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'html')
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
-
-                    else if (/vfecha/.test(varreglo[i])){
+                    if (/vfecha/.test(varreglo[i])){
                         if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
                             salida[varreglo[i]] = '1990-01-01';
                         }else{
                             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
                             '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
+                    }else{
+                    switch($("#"+vform+" #"+varreglo[i]).attr("type")){
+                        case 'select':
+                            salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            break;
+                        case 'text':
+                        case 'textarea':
+                        case 'hidden':
+                        case 'number':
+                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                            break;
+                        case 'html':
+                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                        case 'radio':
+                            salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                            break;
+                        case 'checkbox':
+                            salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                            break;
+                        default:
+                            salida[varreglo[i]] = $("#"+vform+" #zelda").data('triforce')[varreglo[i]]
+                            break;
                     }
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'radio')
-                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
-
-                    else if ($("#"+vform+" #"+varreglo[i]).attr("type") == 'checkbox'){
-                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
-                    }
-
-                    else
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
-                                    
+                    }            
                     break;
             }//end SWITCH
         }//end IF
