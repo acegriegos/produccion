@@ -91,9 +91,30 @@
 <hr style="border: 1px solid #e2e2e2">
 <h3 class="card-header">Tipo de Usuarios</h3>
 <div class="class-block">
-    <div id="ftipousuarios">
-        <input type="text" id="vnombre" placeholder="">
+    <div class="row">
+        <div class="input-field col s6">
+            <a class="prefix"><i class="small material-icons">search</i></a>
+            <input type="text" id="search_tipousuarios" maxlength="45" num="+27" var="nombre">
+            <label for="search_tipousuarios">Buscar Tipo de Usuario</label>
+        </div>
+
+        <div id="ftipousuarios" class="col s6">
+            <div class="row">
+
+                <div class="col s1">
+                    <a class="prefix btn-floating blue add tooltipped" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario"><i class="small material-icons">add</i></a>
+                </div>
+
+                <div class="input-field col s11">
+                    <input type="text" id="vnombre_tusuario">
+                    <label for="vnombre_tusuario">Ingresar Tipo Usuario</label>
+                </div>
+            
+            </div>
+        </div>
+
     </div>
+    
     <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-tipousuarios">
         <thead>
             <tr>
@@ -103,8 +124,10 @@
         </thead>
         <tbody id="listatipousuarios">
             {section name=LE loop=$TUSR}
-            <tr id="b_1">
-                <td>{$TUSR[LE][1]}</td>
+            <tr id="b_{$TUSR[LE][0]}">
+                <td>
+                    <input type="text" value="{$TUSR[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" class="fast-edit">
+                </td>
                 <td align="right">
                     {if $TUSR[LE][2] eq 0}
                     <a href='#modal-tusuarios' class="btn valorestu" id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
@@ -156,12 +179,27 @@
                 <div class="modal-content">
                     
                     <div class="row">
-                        <div class="input-field col s6">
+                        <div class="col s6">
+                            <div class="input-field">    
                             <input type="text" id="tmp_pagos">
-                            <label id="tmp_pagos" for="tmp_pagos">Nombre del Pago</label>
+                            <label id="tmp_l_pagos" for="tmp_pagos">Nombre del Pago</label>
+                            </div>
+
+                            <!-- <br>
+
+                            <div class="input-field mix">    
+                            <select type="select" id="vcuenta" defecto="">
+                                <option value="" disabled>Seleccione una Cuenta</option>
+                                {section name=LE loop=$CUE}
+                                <option value="">{$CUE[LE][1]}</option>
+                                {/section}
+                            </select>
+                            <label for="cta-pagos">Cuenta Contable</label>
+                            </div>  -->
+
                         </div>
 
-                        <div class="input-field col s6">
+                        <div class="input-field col s6 mix">
                             <p>
                             <input type="checkbox" id="vbancos" />
                             <label for="vbancos">Acredita Bancos</label>
@@ -212,8 +250,9 @@
                 <td align="right">
 
                     <a class="btn load_x" modulo="tipopago" id="e{$TPAG[LE][0]}" title="Editar Tipo Pago" href='#modal-tipopagos'><i class="fa fa-pencil-square-o"></i></a>
-
+                    {if $TPAG[LE][0] neq 0}
                     <a class="btn delete" modulo="tipopago" id="f{$TPAG[LE][0]}" style="color: #D9534F" title="Eliminar Tipo Pago"><i class="fa fa-times"></i></a>
+                    {/if}
                     
                 </td>
             </tr>
@@ -221,6 +260,133 @@
         </tbody>
     </table>
 </div>
+
+<hr style="border: 1px solid #e2e2e2">
+<h3 class="card-header">Bancos</h3>
+<div class="class-block">
+    <div class="row">
+
+        <div class="input-field col s6">
+            <a class="prefix"><i class="small material-icons">search</i></a>
+            <input type="text" id="search_bancos" maxlength="100" num="+202" var="nombre">
+            <label for="search_bancos">Buscar Banco</label>
+        </div>
+
+        <div id="fbancos" class="col s6">
+
+            <div class="row">
+
+                <div class="col s1">
+                    <a class="prefix btn-floating blue add tooltipped" modulo="banco" varias="1" data-position="top" data-tooltip="Ingresar Banco"><i class="small material-icons">add</i></a>
+                </div>
+
+                <div class="input-field col s11">
+                    <input type="text" id="vnombre_banco" noClear="1">
+                    <label for="vnombre_banco">Ingresar Banco</label>
+                </div>
+            
+            </div>
+
+            <div class="modal modal-fixed-footer" id="modal-bancos">
+
+                <div class="modal-header">
+                    Valores del Banco "<span id="bname-mod" type="html"></span>"
+                    <input type="hidden" id="vid" value="0">
+                </div>
+
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="number" id="vcomision" class="eder" value="0">
+                            <label for="vcomision">Comisón por Uso de Datáfono</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <select type="select" id="vcuenta" defecto="1" noClear="1">
+                                <option value="" disabled>Seleccione una Cuenta</option>
+                                {section name=LE loop=$CUE}
+                                <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                                {/section}
+                            </select>
+                            <label for="vcuenta">Cuenta Comisión de Datáfono</label>
+                        </div>
+                    </div>
+
+                    <div vtabla="detallebanco" detalle="1" vnum="203">
+                        <h4>Cuentas Bancarias</h4>
+                        <div class="row">
+                            <div class="input-field col s2 m3">
+                                <a class="btn-floating prefix small" id="add_x"><i class="material-icons blue">add</i></a>
+                                <input type="text" id="vdet_nom">
+                                <label for="vdet_nom">Nombre</label>
+                            </div> 
+
+                            <div class="input-field col s2 m3">
+                                <input type="text" id="vdet_cta">
+                                <label for="vdet_cta">Número</label>
+                            </div>  
+
+                            <div class="input-field col s2 m3">
+                                <select type="select" id="vdet_moneda">
+                                    <option value="" disabled selected>Seleccione una Moneda</option>
+                                    {section name=LE loop=$MON}
+                                    <option value="{$MON[LE][0]}" simb="{$MON[LE][4]}">{$MON[LE][1]}</option>
+                                    {/section}
+                                </select>
+                                <label for="vdet-moneda">Moneda de la Cuenta</label>
+                            </div> 
+
+                            <div class="input-field col s2 m3">
+                                <select type="select" id="vctabnk">
+                                    <option value="" disabled selected>Seleccione una Cuenta</option>
+                                    {section name=LE loop=$CUE}
+                                    <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                                    {/section}
+                                </select>
+                                <label for="vdet-cuenta">Cuenta Contable Asociada</label>
+                            </div>   
+                        </div>
+
+                        <ul class="collection" id="fdetallebancos" tp="1">
+                           
+                        </ul>
+                    </div>
+                    
+                </div>
+
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+                    <button type="button" class="btn btn-primary edit" modulo="banco" varias="1">Guardar</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-bancos">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="listabancos">
+            {section name=LE loop=$BNK}
+            <tr id="e_{$BNK[LE][0]}">
+                <td><input type="text" value="{$BNK[LE][1]}" class="fast-edit" style="border: 0px;margin: 0px; padding: 0px;"></td>
+                <td align="right">
+
+                   <a class="btn load" modulo="banco" varias="1" id="i{$BNK[LE][0]}" href='#modal-bancos' title="Valores del Banco" ><i class="fa fa-gg-circle"></i></a>
+                    
+                    <a class="btn delete" modulo="banco" id="j{$BNK[LE][0]}" style="color: #D9534F" title="Eliminar Banco"><i class="fa fa-times"></i></a>
+                    
+                </td>
+            </tr>
+            {/section}
+        </tbody>
+    </table>
+</div>
+
 <hr style="border: 1px solid #e2e2e2">
 <h3 class="card-header">Categorías</h3>
 <div class="class-block">
@@ -260,7 +426,7 @@
         <tbody id="listanivelesclientes">
             {section name=LE loop=$CATC}
             <tr id="d_{$CATC[LE][0]}">
-                <td><input type="text" id="vnombre" class="fast-edit" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;"></td>
+                <td><input type="text" id="vnombre" class="fast-edit fast-edit-r" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" maxlength="20"></td>
                 <td align="right">
                     
                     <a class="btn valorescc" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="fa fa-gg-circle"></i></a>
@@ -435,6 +601,7 @@
                 <label for="vclie_descuento_max">Descuento Max.</label>
             </div>
             <div class="input-field col s6 l3">
+                <a class="prefix">%</a>
                 <input type="text" id="vclie_descuento" class="eder set0">
                 <label for="vclie_descuento">Descuento Base</label>
             </div>
@@ -451,36 +618,36 @@
         <div class="row">
             <div class="input-field col s6 l3">
                 <select id="vdcontado" type="select">
-                    <option value="" disabled selected>Seleccione una Cuenta</option>
+                    <option value="" disabled selected defecto="">Seleccione una Cuenta</option>
                     {section name=LE loop=$CUE}
-                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
                     {/section}
                 </select>
                 <label for="vdcontado">Contado Debe</label>
             </div>
             <div class="input-field col s6 l3">
-                <select id="vhcontado" type="select">
+                <select id="vhcontado" type="select" defecto="">
                     <option value="" disabled selected>Seleccione una Cuenta</option>
                     {section name=LE loop=$CUE}
-                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
                     {/section}
                 </select>
                 <label for="vhcontado">Contado Haber</label>
             </div>
             <div class="input-field col s6 l3">
-                <select id="vdcredito" type="select">
+                <select id="vdcredito" type="select" defecto="">
                     <option value="" disabled selected>Seleccione una Cuenta</option>
                     {section name=LE loop=$CUE}
-                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
                     {/section}
                 </select>
                 <label for="vdcredito">Crédito Debe</label>
             </div>
             <div class="input-field col s6 l3">
-                <select id="vhcredito" type="select">
+                <select id="vhcredito" type="select" defecto="">
                     <option value="" disabled selected>Seleccione una Cuenta</option>
                     {section name=LE loop=$CUE}
-                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
                     {/section}
                 </select>
                 <label for="vhcredito">Crédito Haber</label>
@@ -503,10 +670,10 @@
             </div>
 
             <div class="input-field col s6 l4">
-                <select id="vprod_cuenta" type="select">
+                <select id="vprod_cuenta" type="select" defecto="">
                     <option value="" disabled selected>Seleccione una Cuenta</option>
                     {section name=LE loop=$CUE}
-                    <option value="{$CUE[LE][0]}" defecto="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                    <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
                     {/section}
                 </select>
                 <label for="vprod_cuenta">Cuenta Inventario</label>
