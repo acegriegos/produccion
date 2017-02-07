@@ -14,9 +14,9 @@ $(window).keydown(function(e){
     }
 });
 
-// $(document).on("blur",".autocomplete",function(){
-//     $(".autocomplete-content").hide('500')
-// });
+$(document).on("blur",".autocomplete",function(){
+    $(".autocomplete-content").hide('500')
+});
 
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');

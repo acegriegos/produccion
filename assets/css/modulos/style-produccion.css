@@ -1,7 +1,38 @@
-.row {
-    margin-bottom: 0px;
+.flow-text {
+    margin: 0;
 }
-
-#vnombre {
-    margin: 0px 0px 0px 0px;
+.input-field {
+    margin-top: 0 !important;
+}
+#groupprodcts {
+    font-size: 1.4em;
+}
+.raddreceta {
+    margin-bottom: 0 !important;
+}
+#vestimado {
+    margin: 0 !important;
+}
+.gastos {
+    margin-top: 6px !important;
+}
+.padbotzero {
+    padding-bottom: 0 !important;
+}
+.modal-content {
+    padding: 0 !important;
+}
+.modal-bdy {
+    padding: 18px 10px 0 10px;
+}
+#alrdyisprdct {
+    width: 80%;
+    height: 50px;
+    padding-top: 10px;
+    margin-left: 10%;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    border-radius: 12px;
 }
