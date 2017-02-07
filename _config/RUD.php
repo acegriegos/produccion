@@ -81,7 +81,6 @@
 				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
 
 
-
 				$args2 = str_replace('@@usr', $usr, $args2);
 			}
 

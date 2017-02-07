@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Configuración</title>
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,19 +16,19 @@
   </head>
   <body>
     {$NAV}
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
     <div class="bdy">
     
-    <nav class="nav-extended blue">
+    <nav class="nav-extended blue-grey">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Configuración del Sistema</a>
-        <br>
         <ul class="tabs tabs-transparent">
-          <li class="tab col s3 menu3" id="m1"><a href="#" class="active">Empresa</a></li>
-          <li class="tab col s3 menu3" id="m2"><a href="#">Impuestos</a></li>
-          <li class="tab col s3 menu3" id="m5"><a href="#">Descuentos</a></li>
-          <li class="tab col s3 menu3" id="m3"><a href="#">Surcusales</a></li>
-          <li class="tab col s3 menu3" id="m4"><a href="#">Cuentas Contables</a></li>
-        </ul> 
+          <li class="tab col s3 menu3" id="m1"><a class="active">Empresa</a></li>
+          <li class="tab col s3 menu3" id="m2"><a>Descuentos</a></li>
+          <li class="tab col s3 menu3" id="m3"><a>Impuestos</a></li>
+          <li class="tab col s3 menu3" id="m4"><a>Cuentas Contables</a></li>
+          <li class="tab col s3 menu3" id="m5"><a>Surcusales</a></li>
+          <li class="tab col s3 menu3" id="m6"><a>Bodegas</a></li>
+        </ul>
       </div>
     </nav>
 

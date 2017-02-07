@@ -3,22 +3,22 @@
 <div class="col s8 m6">
 <div class="input-field col s10">
 <input id="searchsrv" type="text" class="validate">
-<label for="icon_prefix" id="phs">Buscar por Código</label>
+<label for="searchsrv" id="phs">Buscar por Código</label>
 </div>
-<a class="dropdown-button btn-floating btn-large waves-effect waves-light green" data-activates="fserv"><i class="material-icons">search</i></a>
+<a class="dropdown-button btn-floating waves-effect waves-light blue" data-activates="fserv"><i class="material-icons">search</i></a>
 <ul id="fserv" class="dropdown-content" filter="1">
 <li><a class="dropdown-item filtersrv" filtro="f1">Código</a></li>
 <li><a class="dropdown-item filtersrv" filtro="f2">Nombre</a></li>
 </ul>            
 </div>
 <div class="col s4 m6">
-<a id="addservice" class="btn-floating btn-large waves-effect waves-light right blue" href="#modal-servicios"><i class="material-icons">add</i></a>
+<a id="addservice" class="btn-floating waves-effect waves-light right blue" href="#modal-servicios"><i class="material-icons">add</i></a>
 </div>
 </div>
     
 <div class="row">
 <div class="col s12 m12">
-<div class="table-responsive">
+<div class="table">
 <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-servicios" cellspacing="0" width="100%">
 <thead>
 <tr>

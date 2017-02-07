@@ -10,8 +10,9 @@
 		}
 
     	if (isset($_POST['pss'])) {
+
     		require_once '../_config/ecy.php';
-    		$log->ini($_POST['id'],$_POST['pss']);
+    		$log->ini($_POST['usr'],$_POST['pss']);
 		    $encrypt = new _cy();
 
 		    $user = $log->autenticar();
@@ -34,7 +35,8 @@
               $_SESSION['IMPRESA'] = $user[0][5];
               $_SESSION['TMP_CIA'] = 0;
               
-              header("Location: ../dashboard/main");
+              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'main' : $_POST['vdir'];
+              header("Location: ../dashboard/$vdir");
            }
   
 		   }
@@ -65,7 +67,7 @@
    			$transaccion = $log->mantenimiento($_POST['arreglo']);
    			break;
    		case 3:
-   			$log->ini($_POST['arreglo']['id'],$_POST['arreglo']['pss']);
+   			$log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
    			$transaccion = $log->autenticar();
    			break;
    		case 4:
@@ -76,7 +78,8 @@
    			break;
    		case 6:
    			$pagina = 1;
-   			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+   			$transaccion = $_REQUEST['arreglo']['sel'] == '-' ? $_REQUEST['arreglo']['where'] : $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        
    			if (isset($_REQUEST['arreglo']['join'])) {
    				$join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
    			}
@@ -87,7 +90,7 @@
    			if (!is_array($transaccion)) {
    				$pagina = 0;
    			}else
-   				include 'view/ajax/tabla_'.$_REQUEST['arreglo']['tbl'].'.php';
+          include 'view/ajax/tabla_'.$_REQUEST['arreglo']['tbl'].'.php';
    				
    			break;
    		case 7:
@@ -126,7 +129,7 @@
 
     function cambioDia($log)
      {  
-        print_r(indicadores($log));
+        indicadores($log);
         $log->genkidama(2,15,'valor=1','descr="Cambio de Dia"');
      } 
 
@@ -155,7 +158,6 @@
           }          
     
           $tipoCambio = (string) $xml[$obj[5]];
-
           $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id='.$obj[0]);
         };
      }	

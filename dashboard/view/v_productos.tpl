@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="utf-8">
@@ -7,16 +7,17 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Productos</title>
   </head>
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
   <body>
     
 
 <div class="bdy">
 {$NAV}
 <!-- <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css"> -->
-<nav class="nav-extended blue">
+<div class="card">
+<nav class="nav-extended blue-grey">
     <div class="nav-wrapper">
-      <a class="brand-logo center">Inventario</a>
-      <br>
       <ul class="tabs tabs-transparent">
         <li class="tab menu3" id="m1"><a href="#">Productos</a></li>
         <li class="tab menu3" id="m2"><a href="#">Servicios</a></li>
@@ -25,11 +26,10 @@
     </div>
   </nav>
     <br>
-    <div class="formServ" id="fservicios">
-        <div id="bdymantInventario"></div>
-    </div>
+    <div id="bdymantInventario"></div>
 
 </div>
+</div> <!-- END BDY -->
     <script src="../assets/js/modulos/productos.js"></script>
 
 

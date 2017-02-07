@@ -56,6 +56,7 @@ $(function(){
 		$("#shtelefonos").html('');
 		$("#shcorreos").html('');
 		obtenerCuentas(0);
+		obtenerImpuestos(0);
 		if($("#tipocliente").attr("tp") != 1)
 			$("#tipocliente").click();
 
@@ -113,28 +114,13 @@ $(function(){
 		}
 	});
 
-	// $("#vidprovincia").change(function(){
-	// 	change_load('vidcanton',9,'id,nombre','id > 0 and idprovincia = '+$('option:selected',this).val());
-	// });
+	$("#vidprovincia").change(function(){
+		change_load('vidcanton',9,'id,nombre','id > 0 and idprovincia = '+$('option:selected',this).val());
+	});
 
-	// $("#idcanton").change(function(){
-	// 	change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
-	// });
-
-	$("#searh_clie").keyup(function(e){
-		var code = e.which || e.keyCode
-		if (code == 13) {
-			constante = $(this).val().replace(/"/g,'\\\"');
-			tabla = $("#data-table-clientes").DataTable();
-		    tabla.destroy();
-		    arr('login',6,'*',29,'vid > 0 and (nombre like "%'+constante+'%")',0,1,$("#listaclientes"))
-		    $("#data-table-clientes").DataTable({
-		        bFilter :  false,
-		        bLengthChange : false,
-		        order : []
-		    });
-		}
-	})
+	$("#idcanton").change(function(){
+		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
+	});
 
 });
 
@@ -157,6 +143,7 @@ $(document).on("click",".load",function(){
 
 	$("#ln1").click();
 	obtenerCuentas($(this).attr('id').substr(1));
+	obtenerImpuestos($(this).attr('id').substr(1));
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
@@ -165,15 +152,11 @@ $(document).on("click","input[name='tipoclie']",function(){
 	if (tipo == 1) {
 		$("#titInfo").html('<b>Datos Personales<b/>');
 		$("#nomClie").html('Nombre');
-		$("#colMod").addClass("col s12 m4 l4");
-		$("#colMod").removeClass("col s12 m12 l12");
-		$("#vcedula").attr('data-mask', '9-9999-9999');
+		$("#vcedula").removeAttr('data-mask');
 		$(".hid").show(300);
 	} else if (tipo == 2) {
 		$("#titInfo").html('<b>Información Jurídica<b/>');
-		$("#nomClie").html('Razósn Social');
-		$("#colMod").removeClass("col s12 m4 l4");
-		$("#colMod").addClass("col s12 m12 l12");
+		$("#nomClie").html('Razón Social');
 		$("#vcedula").attr('data-mask', '9-999-999999');
 		$(".hid").css('display','none');
 	}
@@ -271,16 +254,18 @@ function validarclientes() {
 		$("#vidcuenta").val(vdefecto);
 	}
 
+	$("#vtelefono").val('');
 	$("#shtelefonos li[id^=0_]").each(function(){
 		t_valor = $("#vtelefono").val()
 		$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.collapsible-header > .badge',this).html()+'",?]:')
 	});
 
+	$("#vcorreo").val('');
 	$("#shcorreos li[id^=0_]").each(function(){
 		t_valor = $("#vcorreo").val()
 		$("#vcorreo").val(t_valor+'[null,?,"'+$('.collapsible-header > .badge',this).html()+'"]:')
 	});
-	console.log($("#vcorreo").val())
+
 	return false;
 
 }
@@ -326,14 +311,29 @@ function obtenerCuentas(vid){
 
 	for (var i = 0; i < cuentasg[0].length; i++) {
 		if (cuentasg[0][i][5] == 1) {
-			$("#ctacontado").append(getFila(cuentasg[0][i][0],cuentasg[0][i][8],cuentasg[0][i][7],cuentasg[0][i][5]));
+			$("#ctacontado").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
 		}else{
-			$("#ctacredito").append(getFila(cuentasg[0][i][0],cuentasg[0][i][8],cuentasg[0][i][7],cuentasg[0][i][5]));
+			$("#ctacredito").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
 		}
 		$("#my-array"+cuentasg[0][i][0]).val(cuentasg[0][i][1]);
 	}
 
 	$("#vidcuenta").val('');
+}
+
+function obtenerImpuestos(vid){
+	var imp = arr('login',4,'',200,'2,'+vid,0,'',0)[0];
+	
+	$("#showimpuestos").html('');
+
+	for (var i = 0; i < imp.length; i++) {
+		fila = imp[i];
+		addIM(fila[0],fila[1],fila[2],fila[3],fila[4]);
+	}
+}
+
+function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
+	$("#showimpuestos").append('<li class="collection-item dismissable" id="newimp'+vid+'"><div><span class="impuestos" id="vimv'+vid+'" value="'+vvalor+'" timv="'+vimpuesto+'">'+vnombre+' - '+vvalor+'%</span><a class="secondary-content delimp" id="dimp'+vid+'"><i class="material-icons">delete</i></a></div></li>')
 }
 
 function endDetail(vid,vacc,modulo){
