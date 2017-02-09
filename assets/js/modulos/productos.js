@@ -53,8 +53,12 @@ $(function(){
             opacity: .5, // Opacity of modal background
             in_duration: 300, // Transition in duration
             out_duration: 200, // Transition out duration
-            starting_top: '6%', // Starting top style attribute
-            ending_top: '5%' // Ending top style attribute
+            startingTop: '4%', // Starting top style attribute
+            endingTop: '4%', // Ending top style attribute
+            ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+                // alert("Ready");
+                console.log(modal, trigger);
+            }
         });
         $('ul.tabs').tabs();
     });

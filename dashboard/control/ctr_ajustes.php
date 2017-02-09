@@ -58,7 +58,9 @@
 	   			break;
 	   		case 6:
 	   			$pagina = 1;
-	   			$smarty->display('ajax/ajustes/ajaxProductos.tpl');
+	   			$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
+	   			$smarty->assign('CDEF',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and !ispadre order by nombre'));
+	   			$smarty->display('ajax/ajustes/ajaxBodegas.tpl');
 	   			break;
 	   	}
 		if(!$pagina){

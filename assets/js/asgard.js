@@ -43,6 +43,7 @@ $(document).on("click",".edit",function(){
 $(document).on("click",".delete",function(){
     var modulo = $(this).attr('modulo');
     var id = $(this).attr('id').substr(1);
+    vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
     doGlobal(3,modulo,id,0);
 });
 
@@ -94,7 +95,6 @@ function doGlobal(accion,modulo,tip,varias){
         arreglo['atributos']['vaccion'] = accion;
 
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
 
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
@@ -127,10 +127,11 @@ function baseValidar(vaccion,vmodulo){
 
     if (varreglo == "[object Object]"){
         salida = validar(varreglo[0],vmodulo);
+        
         if (vmodulo['tip'] != '') {
-            salida['vid'] = vmodulo['tip'];
+            salida[vari] = vmodulo['tip'];
         }
-
+        console.log(salida)
     }else{
         console.error('error en Base Validar')
         return varreglo;
@@ -163,7 +164,6 @@ function loadpool(vmodulo,vid,vvarias){
                 break;
 
             case 'textarea':
-                console.log('entro')
                 $("#"+vform+" #"+columns[0][1][i]['name']).text(columns[0][0][0][i]);
                 break;
 
@@ -234,7 +234,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                 .done(function(data) {
                     try {
                         p = JSON.parse(data);
-                        //console.error(p)
+                        // console.error(p)
                     }
                     catch(err){
                         p = data;
@@ -298,8 +298,8 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
 }
 
 function odin(varreglo,vform) {
- 
-    var salida = {}
+    
+    var salida = {};
 
     switch($("#"+vform).attr('tp')){
     case "1":
@@ -399,13 +399,14 @@ function odin(varreglo,vform) {
 
     default:
     //LLENADO DE VARIABLES POR ID SIN DETALLE
+    
     for (var i = 0; i < varreglo.length; i++) {
-        
-        if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
+        if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined){
             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
+        }
         else{
             switch(varreglo[i]) {
-                case 'vidusuario':                
+                case 'vidusuario':             
                     if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
                         salida[varreglo[i]] = '';
                     }else{
@@ -453,16 +454,17 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
-                            salida[varreglo[i]] = $("#"+vform+" #zelda").data('triforce')[varreglo[i]]
+                            salida[varreglo[i]] = $("#"+vform+" #zelda").data('triforce')[varreglo[i]];
                             break;
                     }
-                    }            
+                    }
+                          
                     break;
             }//end SWITCH
         }//end IF
+
     }//end FOR
     break;
-
     }//end SWITCH
     return salida;
 }

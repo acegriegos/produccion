@@ -1,15 +1,18 @@
 $(function(){
 	$(".modal").modal();
-	$("#m1").click();
+	$("#m6").click();
 	$("#addMoneda").click(function(){
 		deadclear('moneda');
 	})
-
 
 	$("script").each(function(){
 		$(this).remove();
 	});
 	
+});
+
+$(document).ready(function(){
+
 });
 
 $(document).on("click",".menu3",function(){
@@ -104,6 +107,23 @@ $(document).on("click",".menu3",function(){
 			var p = mantenimiento('ajustes',6,'');
 			$("#majustes").html('');
 			$("#majustes").html(p);
+			$("#data-table-bodegas").dataTable({
+				bFilter : false,
+				bLengthChange : false,
+				order : []
+			});
+			$("#data-table-inventarios").dataTable({
+				bFilter : false,
+				bLengthChange : false,
+				order : []
+			});
+			var arr = {};
+			arr['sel'] = 'idcuenta';
+			arr['tbl'] = 88;
+			arr['where'] = 'idfila = 0 and idtipo = 10';
+			var def = mantenimiento('login',4,arr)[0][0];
+			$("#vidcuenta").val(def);
+
 			break;
 	}
 
@@ -126,7 +146,41 @@ $(document).on("click",".menu3",function(){
 			$("#tmp").attr('id','vnombre_banco');
 		}
 	});
+});
 
+$(document).on("click",".load[modulo=bodega]",function(){
+    $("#addbod").attr('id','actbod');
+    $("#actbod").removeClass('add');
+    $("#actbod").addClass('edit');
+    $("#actbod").text('save');
+    $("#vbodega").select();
+});
+
+$(document).on("click",".load[modulo=inventario]",function(){
+    $("#addinv").attr('id','actinv');
+    $("#actinv").removeClass('add');
+    $("#actinv").addClass('edit');
+    $("#actinv").text('save');
+    $("#vinventario").select();
+});
+
+$(document).on("click","#actbod",function(){
+    $("#actbod").attr('id','addbod');
+    $("#addbod").removeClass('edit');
+    $("#addbod").addClass('add');
+    $("#addbod").text('add');
+});
+
+$(document).on("change","#vidbode",function(){
+    var id = $(this).val();
+    var tabla = $("#data-table-inventarios").DataTable();
+    tabla.destroy();
+    arr('login',6,'id,nombre',111,'idbodega = '+id,'',1,$("#listainventarios"));
+    $("#data-table-inventarios").DataTable({
+    	bFilter :  false,
+        bLengthChange : false,
+        order : []
+    });
 });
 
 $(document).on("click",".load[id^=i]",function(){
@@ -376,7 +430,6 @@ $(document).on("click",".descfactc",function(){
 function validar (varreglo,vmodulo) {
 	
 	var salida = {}
-	
 	switch(vmodulo['modulo']) {
 		case 'ajustes':
 			if (vmodulo['tip'] == '') {
@@ -437,6 +490,20 @@ function validar (varreglo,vmodulo) {
 			}
 			break;
 		case 'detallebanco':
+			break;
+		case 'bodega':
+			if (vmodulo['tip'] == '') {
+				err = validarBodega();
+				if (err)
+					return err
+			}
+			break;
+		case 'inventario':
+			if (vmodulo['tip'] == '') {
+				err = validarInventario();
+				if (err)
+					return err
+			}
 			break;
 		default:
 			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
@@ -600,8 +667,21 @@ function validarWSDL(vmod){
 	return false;
 }
 
-function cargar(vmodulo,vid) {
+function validarBodega() {
+	if ($("#vbodega").val() == ''){
+	    $("#vbodega").focus();
+	    return 'Nombre Bodega Requerido';
+	}
+}
 
+function validarInventario() {
+	if ($("#vinventario").val() == ''){
+	    $("#vinventario").focus();
+	    return 'Nombre Bodega Requerido';
+	}
+}
+
+function cargar(vmodulo,vid) {
 	switch(vmodulo['modulo']) {
 		case 'sucursale':
 			vmodulo['sel'] = 'vid,vconsecutivo,vfactura,vidusuario,vnombre,vtelefono,vidprovincia,vidcanton';
@@ -613,6 +693,16 @@ function cargar(vmodulo,vid) {
 			vmodulo['tbl'] = 204;
 			vmodulo['where'] = vid;
 			break;
+		case 'bodega':
+			vmodulo['sel'] = 'id as vidbodega,nombre as vbodega';
+			vmodulo['tbl'] = 41;
+			vmodulo['where'] = 'id = '+vid;
+			break;
+		case 'inventario':
+			vmodulo['sel'] = 'id as vidinventario,nombre as vinventario,idbodega as vidbode,idcuenta as vidcuenta';
+			vmodulo['tbl'] = 126;
+			vmodulo['where'] = 'id = '+vid;
+			break;
 		default:
 			console.log('Cargar Módulo no Existente');
 			break;
@@ -622,7 +712,6 @@ function cargar(vmodulo,vid) {
 }
 
 function cargarSintax(vtabla){
-
 	var arr = {}
 
 	switch(vtabla){
@@ -645,6 +734,16 @@ function cargarSintax(vtabla){
 			arr['sel'] = 'id,nombre';
 			arr['tbl'] = 202;
 			arr['where'] = 'id >= 0 order by nombre';
+			break;
+		case 'bodegas':
+			arr['sel'] = 'id,nombre';
+			arr['tbl'] = 41;
+			arr['where'] = 'id > 0 order by nombre';
+			break;
+		case 'inventarios':
+			arr['sel'] = 'id,nombre';
+			arr['tbl'] = 111;
+			arr['where'] = 'id > 0 and idbodega = '+$("#vidbode").val()+' order by nombre';
 			break;
 		default:
 			console.error('ERROR: autodestrucción: '+vtabla);
@@ -798,12 +897,19 @@ $(document).on('change','#iswsdl',function(){
 /*-------*/
 
 function endDetail(vid,vacc,modulo){
-	
 	switch(modulo){
 		case 'detallenivelescliente':
 			$("#f"+modulo+"s #viddetalle").val(vid);
 			break;
 		case 'bancos':
+			break;
+		case 'bodega':
+			setTimeout(function(){ deadclear(modulo); $("#vbodega").focus()}, 100);
+			thorload(modulo);
+			break;
+		case 'inventario':
+			setTimeout(function(){ deadclear(modulo)}, 100);
+			thorload(modulo);
 			break;
 		default:
 			setTimeout(function(){ deadclear(modulo); }, 2500);

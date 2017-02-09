@@ -22,3 +22,16 @@
     margin: 0px;
     padding: 0px;
 }
+
+.mrgn{
+    margin-top: 15px;
+}
+
+.card-block {
+    padding: 5px 15px 15px 15px;
+}
+
+.accmodulo {
+    font-size: 1.3em;
+    font-weight: bold;
+}
