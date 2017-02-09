@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,34 +13,50 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+      <![endif]-->
   </head>
   <body>
-  <br>
     {$NAV}
     <div class="bdy">
-    <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-        <!-- Brand -->
-        <a class="navbar-brand" href="#"><b>Cuentas</b></a>
-        <!-- Links -->
-        <ul class="nav navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link menu4 active" id="m1" href="#" title="Cuentas por Pagar">CxP</a>
-            </li>
-            <li class="nav-item menu4" id="m2">
-                <a class="nav-link" href="#" title="Cuentas por Cobrar">CxC</a>
-            </li>
-            <li class="nav-item menu4" id="m3">
-                <a class="nav-link" href="#" title="Ver Notas y Pagos">Notas y Pagos</a>
-            </li>
+
+     <div class="card">
+        <div class="card-content  blue-grey darken-2">
+          <h1 class="center-align"><i class="large material-icons">supervisor_account</i>Cuentas </h1>
+      </div>
+      <div class="card-tabs">
+          <ul class="tabs tabs-fixed-width">
+            <li class="tab"><a href="#test4" id="m1">Cuentas por Pagar</a></li>
+            <li class="tab"><a class="active" href="#test5" id="m2">Cuentas por Pagar</a></li>
+            <li class="tab"><a href="#test6" id="m3">Notas y Pagos</a></li>
         </ul>
-    </nav>
+    </div>
+    <div class="card-content grey lighten-4">
+      <div id="test4">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div> 
+    
+    <div id="test5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div id="test6">Test 3</div>
+    </div>
+</div>
+</div>
+
+  
     
     <div class="formServ" id="fservicios">
-        <div id="bdymantCuentas"></div>
-    </div>
+            <div id="bdymantCuentas"></div> 
     
-    </div>
-    <script src="../assets/js/modulos/cuentas.js"></script>
-  </body>
+</div>
+<script src="../assets/js/modulos/cuentas.js"></script>
+</body>
 </html>

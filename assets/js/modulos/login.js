@@ -79,20 +79,20 @@ function validarcambio(){
 function getIn(){
     var salida = true;
 
-    if ($('#pass').val() == '') {
-        Materialize.toast('Contraseña no válida', 4000, 'red');
-        $('#pass').focus();
-        return false;
-    }
-
     if ($('#user').val() == '') {
         Materialize.toast('No a Ingresado Usuario', 4000, 'red');
         $('#user').focus();
         return false;
     }
 
-    var p = mantenimiento('login',3,{id: $('#user').val(), pss: $('#pass').val()})
+    if ($('#pass').val() == '') {
+        Materialize.toast('Contraseña no válida', 4000, 'red');
+        $('#pass').focus();
+        return false;
+    }
 
+    var p = mantenimiento('login',3,{user: $('#user').val(), pss: $('#pass').val()})
+    
     if(p[0].length == 2){
         Materialize.toast(p[0][0], 4000, 'red');
         $('#pass').select();
@@ -118,7 +118,7 @@ function getIn(){
         });
         break;
         }
-        salida = false;
+        salida = salida;
     }
     
     if (salida){
