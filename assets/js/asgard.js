@@ -455,11 +455,7 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
-<<<<<<< HEAD
-                            salida[varreglo[i]] = $("#"+vform+" #zelda").data('triforce')[varreglo[i]];
-=======
-                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]]
->>>>>>> 9a2653aee8191155638dc5dc9c2395bffd783805
+                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             break;
                     }
                     }
