@@ -16,26 +16,35 @@
     <![endif]-->
   </head>
   <body>
-  <br>
     {$NAV}
-    <div class="bdy">
-        <nav class="nav-extended blue">
-            <div class="nav-wrapper">
-                <a class="brand-logo center">Inventario</a>
-                <br>
-                <ul class="tabs tabs-transparent">
-                    <li class="tab menu5" id="m1"><a href="#">Insumos</a></li>
-                    <li class="tab menu5" id="m2"><a href="#">Gastos</a></li>
-                    <li class="tab menu5" id="m3"><a href="#">Producción</a></li>
-                    <li class="tab menu5" id="m4"><a href="#">Ruta</a></li>
-                    <li class="tab menu5" id="m5"><a href="#">Devoluciones</a></li>
-                    <li class="tab menu5" id="m6"><a href="#">Mal Estado</a></li>
-                </ul>
-            </div>
-        </nav>
-    <div class="formInventarios" id="finventarios">
+     <div class="bdy">
+<!-- codigo de prueba -->
+
+<div class="card">
+        <div class="card-header center blue-grey white-text" >
+          <h4 class="center-align blue-grey white-text">Inventario </h4>
+      </div>
+      <div class="card-tabs">
+          <ul class="tabs tabs-fixed-width">
+            <li class="tab menu5" id="m1"><a href="#">Insumos</a></li>
+            <li class="tab menu5" id="m2"><a href="#">Gastos</a></li>
+            <li class="tab menu5" id="m3"><a href="#">Producción</a></li>
+            <li class="tab menu5" id="m4"><a href="#">Ruta</a></li>
+            <li class="tab menu5" id="m5"><a href="#">Devoluciones</a></li>
+            <li class="tab menu5" id="m6"><a href="#">Mal Estado</a></li>
+        </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+      <div class="formInventarios" id="finventarios">
         <div id="bdymantInvGeneral"></div>
     </div>
+    </div>
+</div>
+
+
+
+
+
     </div>
     <script src="../assets/js/modulos/inventarios.js"></script>
   </body>

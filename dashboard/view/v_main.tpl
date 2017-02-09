@@ -10,7 +10,6 @@
 
   </head>
   <body>
-    <br>
     {$NAV}
     <div class="bdy">
     {if $smarty.session.TIPO eq 1}

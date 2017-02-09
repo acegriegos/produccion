@@ -19,7 +19,7 @@
             <div class="card-content">
                 <div class="row">
 
-                    <div class="input-field col s12 m8 l8">
+                    <div class="input-field col s10 m8 l8">
 
                         <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                         <ul id='filtr_1' class='dropdown-content'>
@@ -28,17 +28,18 @@
                             <li><a href="#!" fltr="3">Teléfono</a></li>
                         </ul>
                         <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
-                        <label for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
+                        <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
 
                     </div>
-                    <div class="col m4">
+                    <div class="col s2 m4">
                         <a id="ingClie" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="large material-icons">add</i></a>
                     </div>
 
                 </div>
 
                 <div class="card-block">
-                    <table class="table striped highlight dt-responsive nowrap" id="data-table-clientes">
+                
+                    <table class="table centered striped bordered responsive-table" id="data-table-clientes">
                         <thead>
                             <tr>
                                 <th>Cédula</th>
@@ -85,13 +86,13 @@
                                 <div class="col s12 m12 l12">
                                 <div class="row parte1 col s12" id="info">
                                         <div class="row" style="margin: 0px">
-                                            <div class="col s2">
+                                            <div class="col s6 m3 l2">
                                                 <p>
                                                   <input class="with-gap" name="tipoclie" type="radio" id="cfisico" tipoClie="1" checked="checked" principal="1"/>
                                                   <label for="cfisico">Físico</label>
                                               </p>
                                           </div>
-                                          <div class="col s2">
+                                          <div class="col s6 m3 l2">
                                             <p>
                                               <input class="with-gap" name="tipoclie" type="radio" id="cjuridico" tipoClie="2" />
                                               <label for="cjuridico">Jurídico</label>
@@ -102,36 +103,34 @@
                                   <div class="card-title" id="titInfo"><b>Datos Personales</b></div>
 
                                   <div class="row">
-                                    <div class="input-field col s12 m4 l4">
+                                    <div class="input-field col s12 m6 l4">
                                         <label id="nomClie" for="vnombre">Nombre</label>
                                         <input type="text" class="validate" id="vnombre">
                                         <input type="hidden" id="vid" value="0">
                                         <input type="hidden" id="vbisproveedor" value="0">
                                     </div>
 
-                                    <div class="input-field col s12 m4 col l4 hid">
+                                    <div class="input-field col s12 m6 col l4 hid">
                                         <label for="vapellido1">Primer Apellido</label>
                                         <input type="text" class="form-control" id="vapellido1">
                                     </div>
 
-                                    <div class="input-field col s12 m4 l4 hid">
+                                    <div class="input-field col s12 m6 l4 hid">
                                         <label for="vapellido2">Segundo Apellido</label>
                                         <input type="text" class="form-control" id="vapellido2">
                                     </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field col s12 m4 l4">
+                                
+                                    <div class="input-field col s12 m6 l4">
                                         <label for="vcedula">Cédula del Cliente</label>
                                         <input type="text" class="validate" id="vcedula" data-mask="9-9999-9999">
                                     </div>
 
-                                    <div class="input-field col s12 m4 col l4">
+                                    <div class="input-field col s12 m6 col l4">
                                         <label for="vweb">Web</label>
                                         <input type="text" class="form-control" id="vweb" placeholder="www.webempresa.com">
                                     </div>
 
-                                    <div class="input-field col s6 m4 l4">
+                                    <div class="input-field col s12 m6 l4">
                                         <select id="videstado" type="select">
                                             <option value="" disabled selected>Seleccione un Estado</option>
                                             {section name=LE loop=$ESTCLIE}
@@ -140,27 +139,25 @@
                                         </select>
                                         <label for="videstado">Estado</label>
                                     </div>
-                                </div>
+                                
 
-                                <div class="row">
-
-                                    <div class="input-field col s12 m4 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
+                                    <div class="input-field col s12 m12 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
                                     <div class="ciclos">
                                         <div class="prefix"><i class="material-icons">email</i></div>
                                         <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                                         <input type="hidden" id="vcorreo" fill="18">
                                         <label for="correo_in">Ingresar Correo</label>
-                                        <ul class="collection" id="shcorreos"></ul>
-                                    </div>
+<!--                                         <ul class="collection" id="shcorreos"></ul>
+ -->                                    </div>
                                     </div>
                                     
-                                    <div class="col s12 m8 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3">
+                                    <div class="col s12 m12 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3">
                                     <div class="ciclos">
                                         <div class="row">
                                            
-                                            <div class="input-field col s4">
+                                            <div class="input-field col s12 m6">
                                                 <select type="select" id="tptel">
-                                                    <option value="" disabled selected>Seleccione Tipo de Tel.</option>
+                                                    <option value=""  disabled selected>Seleccione Tipo de Tel.</option>
                                                     {section name=LE loop=$TPTEL}
                                                     <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
                                                     {/section}
@@ -168,14 +165,14 @@
                                                 <label for="tptel">Tipo Teléfono</label>
                                             </div>
 
-                                             <div class="input-field col s8">
+                                             <div class="input-field col s12 m6">
                                                 <div class="prefix"><i class="fa fa-phone"></i></div>
                                                 <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
                                                 <input type="hidden" id="vtelefono" fill="19">
-                                                <label for="telefono_in">Ingresar Teléfono</label>
+                                                <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
                                                 
-                                                <ul class="collection" id="shtelefonos"></ul>
-
+<!--                                                 <ul class="collection" id="shtelefonos"></ul>
+ -->
                                             </div>
                                         </div>
                                     </div>

@@ -22,35 +22,35 @@
     <div class="card-header center blue-grey white-text"><p class="flow-text">Área Proveedor</p></div>
     <div class="card-content">
       <div class="row">
-        <div class="col s12 m6 l6">
+        <div class="col s12 m12 l6">
           <div class="card">
           <div class="card-title grey white-text center">&nbsp;Opciones</div>
           <div class="card-content">
             <div class="row center">
-              <div class="col s12 m6 l6">
-                <a href="proveedores" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Clientes">Proveedores</a>
+              <div class="col s12 m12 l6">
+                <a href="proveedores" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">Proveedores</a>
               </div>
-              <div class="col s12 m6 l6">
-                <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Ventas">Ventas</a>
-              </div>
-            </div>
-            <div class="row center">
-              <div class="col s12 m6 l6">
-                <a href="#" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Clientes">CRM</a>
-              </div>
-              <div class="col s12 m6 l6">
-                <a href="cuentas" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Clientes">CxC</a>
+              <div class="col s12 m12 l6">
+                <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
               </div>
             </div>
             <div class="row center">
-              <div class="col s12 m6 l6">
-                <a href="reportes" class="waves-effect waves-light btn-large blue" style="width: 100%;" title="Clientes">Reportes</a>
+              <div class="col s12 m12 l6">
+                <a href="#" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">CRM</a>
+              </div>
+              <div class="col s12 m12 l6">
+                <a href="cuentas" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">CxC</a>
+              </div>
+            </div>
+            <div class="row center">
+              <div class="col s12 m12 l6">
+                <a href="reportes" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
               </div>
             </div>
           </div>
           </div>
         </div>
-        <div class="col s12 m6 l6">
+        <div class="col s12 m12 l6">
           <div class="card">
           <div class="card-title grey white-text center">&nbsp;Gráfico</div>
           <div class="card-content">

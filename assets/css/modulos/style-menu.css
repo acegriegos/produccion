@@ -43,3 +43,7 @@ header, main, footer {
 .drag-target{
     width: 0px;
 }
+
+.rellenomenu{
+height: 40px;
+}

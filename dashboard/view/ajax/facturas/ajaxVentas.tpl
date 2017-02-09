@@ -2,7 +2,7 @@
 
 <div class="card">
 <div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%;">VENTAS</p></div>
-  <input type="hidden" id="zelda">
+  <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
   <div class="row">
@@ -47,7 +47,7 @@
 
     <div class="input-field col s6 m3 l3">
       <i class="fa fa-user prefix"></i>
-      <label for="ncli">Nombre de Cliente</label>
+      <label class="truncate" for="ncli">Nombre de Cliente</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
     </div>
 
@@ -62,67 +62,84 @@
 
     <div class="card-header blue-grey center"><p class="white-text">DETALLE DE FACTURA</p></div>
 
-    <table class="table">
+    <table class="table" id="data-table-detalle" cellspacing="0">
       <thead>
         <tr>
           <th style="width: 5%"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
-          <th style="width: 10%" class="center">Código</th>
-          <th style="width: 33%" class="center">Descripción</th>
-          <th style="width: 14%" class="eder">Prec.Unit</th>
-          <th style="width: 10%" class="center">Cantidad</th>
-          <th style="width: 14%" class="eder">Total</th>
-          <th style="width: 14%" class="eder">
-            <input class="with-gap" name="modselected" type="radio" value="2" checked/>
-            <label for="test5"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
+          <th style="width: 10%; font-size: 0.8em;" class="center-align">Código</th>
+          <th style="width: 30%; font-size: 0.8em;" class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width: 14%; font-size: 0.8em;" class="center-align"><span class="truncate">Prec.Unit</span></th>
+          <th style="width: 10%; font-size: 0.8em;" class="center-align">Cantidad</th>
+          <th style="width: 14%; font-size: 0.8em;" class="center-align">Total</th>
+          <th style="width: 17%; font-size: 0.8em;" class="center-align">
+          <div class="hide-on-small-only">
+            <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
+            <label for="barras"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
 
-            <input class="with-gap" name="modselected" type="radio" value="1" checked/>
-            <label for="test5"><i class="fa fa-keyboard-o" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
+            <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" checked/>
+            <label for="teclado"><i class="fa fa-keyboard-o" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
+            </div>  
           </th>
         </tr>
-      </thead>
-    </table>
 
-    <table class="table" id="table-detalle" cellspacing="0">
-      <tbody>
         <tr>
           <td style="width: 5%">
           </td>
 
-          <td style="width: 10%" class="input-field">
+          <td style="width: 10%; font-size: 0.8em" class="input-field">
             <input type="text" id="codp" class="f prod center" placeholder="Código">
             <input type="hidden" id="valores">
           </td>
 
-          <td style="width: 33%" class="input-field">
+          <td style="width: 30%; font-size: 0.8em" class="input-field">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
-          <td style="width: 14%" class="input-field">
-            <input type="text" id="precp" class="f eder" value="0.00" readonly>
+          <td style="width: 14%; font-size: 0.8em" class="input-field">
+            <input type="text" id="precp" class="f center" value="0.00" readonly>
           </td>
-          <td style="width: 10%" class="input-field">
+          <td style="width: 10%; font-size: 0.8em" class="input-field">
             <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
-          <td style="width: 14%" class="input-field">
-            <input type="text" id="precp" class="f eder" value="0.00" readonly placeholder="Total">
+          <td style="width: 14%; font-size: 0.8em" class="input-field">
+            <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
           </td>
-          <td class="center" style="font-size: 1em; width: 16%">
-            <div class="row" style="padding: 0">
-              <div class="col s12 m6 l6 eder">
-                <span style="background: rgba(219,219,219,0.3); padding: 5%; border-radius: 0.2em;" title="Cantidad en Inventario"><i class="fa fa-archive" style="font-size: 0.8em"></i>:<span id="cantI">0</span></span>
-              </div>
-              <div class="col s12 m6 l6">
-                <a href="#!" title="Limpiar Campos" class="left"><img id="cleanspace" src="../assets/img/icon/broom.svg"></a>
-              </div>
-            </div>
+          <td class="center" style="font-size: 1em; width: 17%; font-size: 0.8em">
+            
+            <div class="col s12 m4 l4">
+                
+                 <i class="fa fa-archive" title="Cantidad en Inventario"><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span></i>
+          </div>
+          <div class="col s12 m8 l5"">
+         
+             <a href="#!" title="Limpiar Campos" ><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+          </div>
+  
           </td>
         </tr>
-      </tbody>
-    </table>
+      </thead>
 
-    <div style="max-height: 20%; overflow: auto;">
-      <table class="table striped highlight">
-        <tbody id="detallefactura" tp="4">
-          
+        <tbody id="detallefactura" tp="4" style="max-height: 20%; overflow: auto; font-size: 0.8em; ">
+          <!-- <tr id="fd1">
+          <td style="padding: 0; width: 5%">
+            <input type="checkbox" id="bor1" />
+            <label for="bor1"></label>
+          </td>
+          <td style="width: 10%;" class="center">1234</td>
+          <td style="width: 33%;" class="center">MONITOR 21" AOC HD 1920x1080 WS BLACK</td>
+          <td style="width: 14%;" class="center">73900.00</td>
+          <td style="width: 10%;" class="center">1</td>
+          <td style="width: 14%;" class="center">73900.00</td>
+          <td style="width: 16%;" class="center">
+           <div class="col s12 m4 l4">
+            <a class="material-icons pbtn black-text">edit</a>
+            </div>
+                       <div class="col s12 m4 l4">
+            <i class="material-icons pbtn red-text">close</i>
+
+            </div>
+
+          </td>
+        </tr> -->
         </tbody>
       </table>
     </div>
@@ -240,4 +257,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=1.6"></script>
+<script src="../assets/js/modulos/ventas.js?v=2.1"></script>
