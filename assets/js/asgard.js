@@ -346,7 +346,8 @@ function odin(varreglo,vform) {
                     salida[index][varreglo[i]] = 0;
                     break
                 case 'vidtabla':
-                    salida[index][varreglo[i]] = $("#"+vform+" #vtabla").val();
+                case 'vidfila':
+                    salida[index][varreglo[i]] = 0;//$("#"+vform+" #vtabla").val();
                     break;
                 default:
 
