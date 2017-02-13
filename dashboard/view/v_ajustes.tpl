@@ -31,12 +31,12 @@
         </ul>
       </div>
     </nav>
-
+    
     <div id="majustes"></div>
         
     </div>
     
-    <script src="../assets/js/modulos/ajustes.js"></script>
+    <script src="../assets/js/modulos/ajustes.js?v=1.4"></script>
     
   </body>
 

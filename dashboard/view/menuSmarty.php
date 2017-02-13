@@ -83,7 +83,7 @@
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
   </ul>
   <!-- fin -->
-  <div class="navbar-fixed">
+  <div class="navbar-fixed hide-on-large-only">
   <nav class="hide-on-large-only">
    <div class="hide-on-large-only nav-wrapper blue-grey darken-2">
       <a href="#" data-activates="out" class="button-collapse"><i class="samll material-icons">menu</i></a>
@@ -96,10 +96,10 @@
   
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/mask/jquery.mask.js"></script>
-<script src="../assets/js/materialize.js?v=1.7"></script>
+<script src="../assets/js/materialize.js?v=1.8"></script>
 <script src="../assets/js/modulos/menu.js"></script>
 <script src="../assets/libs/charts/chart.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-<script src="../assets/js/asgard.js?v=1.3"></script>
+<script src="../assets/js/asgard.js?v=1.7"></script>
 

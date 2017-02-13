@@ -1,6 +1,6 @@
 $(function(){
 	$(".modal").modal();
-	$("#m6").click();
+	$("#m1").click();
 	$("#addMoneda").click(function(){
 		deadclear('moneda');
 	})
@@ -9,10 +9,6 @@ $(function(){
 		$(this).remove();
 	});
 	
-});
-
-$(document).ready(function(){
-
 });
 
 $(document).on("click",".menu3",function(){
@@ -131,6 +127,12 @@ $(document).on("click",".menu3",function(){
 	$('.tooltipped').tooltip({delay: 50});
 	$('.dropdown-button').dropdown();
 	$('select').material_select();
+	$(".collapsible").collapsible(); 
+	$('.datepicker').pickadate({
+    	selectMonths: true, // Creates a dropdown to control month
+    	selectYears: 15 // Creates a dropdown of 15 years to control year
+  	});
+
 
 	$("#modal-tipopagos").modal({
 		complete: function(){

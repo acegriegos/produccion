@@ -1,4 +1,4 @@
-<?php print_r($transaccion);foreach ($transaccion as $obj) {
+<?php foreach ($transaccion as $obj) {
 ?>
 
 <tr id="c_<?php echo $obj[0]; ?>">

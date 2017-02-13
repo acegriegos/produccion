@@ -26,7 +26,7 @@
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 			$accion = $arreglo['atributos']['vaccion'];
 
-			if (isset($arreglo['varios']) && $accion != 3) {
+			if (isset($arreglo['varios']) && $accion != 3 && isset($arreglo['varios']['atributos'])) {
 				$id_tabla = $this->kamehameha('id',70,'nombre like "'.$arreglo['modulo'].'s"')[0][0];
 				foreach ($arreglo['varios'] as $index => $varios) {
 

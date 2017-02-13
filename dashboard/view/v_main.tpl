@@ -25,15 +25,7 @@
             </div>
         </div>
     {/if}
-
-    <!-- <form id="fclientes">
-    <div class="alert alert-danger err_" id="err1">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong id="errm1"></strong>
-    </div>
-    <small id="suc1" class="suc_"></small>
-    <button type="button" class="btn btn-primary add" modulo="clientes" codigo="1">Agregar</button>
-    </form>  -->
+    
 
     </div>
     <script src="../assets/js/main.js"></script>

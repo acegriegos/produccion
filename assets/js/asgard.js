@@ -58,7 +58,7 @@ $(document).on("keyup","[id^=search_]",function(e){
 
         tabla = $("#data-table-"+b).DataTable();
         tabla.destroy();
-        arr('login',6,'*',c,d+'id > 0 and '+e+' like "%'+a+'%"',0,1,$("#lista"+b))
+        arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,1,$("#lista"+b))
         
         $("#data-table-"+b).DataTable({
             bFilter :  false,
@@ -95,7 +95,7 @@ function doGlobal(accion,modulo,tip,varias){
         arreglo['atributos']['vaccion'] = accion;
 
         var p = mantenimiento('login',2,arreglo);
-
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -131,7 +131,7 @@ function baseValidar(vaccion,vmodulo){
         if (vmodulo['tip'] != '') {
             salida[vari] = vmodulo['tip'];
         }
-        console.log(salida)
+
     }else{
         console.error('error en Base Validar')
         return varreglo;
@@ -208,7 +208,6 @@ function loadpool(vmodulo,vid,vvarias){
                 default:
                     break;
             }
-            // var chn = $(this).attr('chn');
             
         });
 
@@ -234,7 +233,6 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                 .done(function(data) {
                     try {
                         p = JSON.parse(data);
-                        // console.error(p)
                     }
                     catch(err){
                         p = data;
@@ -436,6 +434,7 @@ function odin(varreglo,vform) {
                             '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
                     }else{
+                    
                     switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                         case 'select':
                             salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
@@ -444,6 +443,7 @@ function odin(varreglo,vform) {
                         case 'textarea':
                         case 'hidden':
                         case 'number':
+                            
                             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                             break;
                         case 'html':
