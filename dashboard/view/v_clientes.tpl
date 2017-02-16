@@ -59,7 +59,7 @@
                                 <td>{$CLIE[LE][5]}</td>
                                 <td>{$CLIE[LE][6]}</td>
                                 <td>
-                                    <a href="#" style="color: #686868"><i class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente">edit</i></a>
+                                    <a href="#modal-clientes" style="color: #686868"><i class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente">edit</i></a>
                                     <a href="#" style="color: #686868"><i class="delete material-icons pbtn" modulo="cliente" id="d{$CLIE[LE][0]}">delete</i></a>
                                 </td>
                             </tr>
@@ -147,8 +147,8 @@
                                         <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                                         <input type="hidden" id="vcorreo" fill="18">
                                         <label for="correo_in">Ingresar Correo</label>
-<!--                                         <ul class="collection" id="shcorreos"></ul>
- -->                                    </div>
+                                        <ul class="collection" id="shcorreos"></ul>
+                                    </div>
                                     </div>
                                     
                                     <div class="col s12 m12 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3">
@@ -157,7 +157,7 @@
                                            
                                             <div class="input-field col s12 m6">
                                                 <select type="select" id="tptel">
-                                                    <option value=""  disabled selected>Seleccione Tipo de Tel.</option>
+                                                    <option value="" disabled selected>Seleccione Tipo de Tel.</option>
                                                     {section name=LE loop=$TPTEL}
                                                     <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
                                                     {/section}
@@ -171,8 +171,8 @@
                                                 <input type="hidden" id="vtelefono" fill="19">
                                                 <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
                                                 
-<!--                                                 <ul class="collection" id="shtelefonos"></ul>
- -->
+                                                <ul class="collection" id="shtelefonos"></ul>
+
                                             </div>
                                         </div>
                                     </div>
@@ -183,8 +183,8 @@
                                     <div id="fina" class="col s12">
                                         <div class="row"><br>
                                             <div class="input-field col s12 m6 l6">
-                                                <select type="select" id="vidnivel" noClear="1">
-                                                    <option value="0" selected>Seleccione una Categoría</option>
+                                                <select type="select" id="vidnivel">
+                                                    <option value="0">Seleccione una Categoría</option>
                                                     {section name=LE loop=$NVLCLIE}
                                                     <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
                                                     {/section}
@@ -279,7 +279,7 @@
                                                 <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
 
                                                 <select id="vidprovincia" type="select" class="_det" primary="1">
-                                                    <option value="">Seleccione una Provincia</option>
+                                                    <option value="0">Seleccione una Provincia</option>
                                                     {section name=LE loop=$PRO}
                                                     <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
                                                     {/section}
@@ -353,7 +353,7 @@
                                         <select id="sel_impuestos" type="select">
                                             <option value="" disabled selected>Ingrese un Impuesto</option>
                                             {section name=LE loop=$IMP}
-                                            <option value="{$IMP[LE][0]}" tmp="{$IMP[LE][2]}">{$IMP[LE][1]} - {$IMP[LE][2]}%</option>
+                                            <option value="{$IMP[LE][0]}" tmp="{$IMP[LE][2]}">{$IMP[LE][1]} - {$IMP[LE][3]}%</option>
                                             {/section}
                                         </select>
                                     </div>
@@ -383,7 +383,7 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/clientes.js"></script>
+<script src="../assets/js/modulos/clientes.js?v=1.0"></script>
 
 </body>
 </html>

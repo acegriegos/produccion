@@ -5,16 +5,16 @@
         <div class="row">
             <div class="col s4">
             <div class="row">
-                <div class="col s8">
+                <div class="col s12">
                     <p>Descuento en Factura de Venta:</p>
                 </div>
-                <div class="col s2">
+                <div class="col s6">
                     <p class="der">
                         <input type="radio" class="descfactc with-gap" name="descfact" tp="1" id="sum" {if $DESCF eq 1} checked {/if} />
                         <label for="sum">Suma</label>
                     </p>
                 </div>
-                <div class="col s2">
+                <div class="col s6">
                     <p class="der">
                         <input type="radio" class="descfactc with-gap" name="descfact" tp="2" id="may" {if $DESCF eq 2} checked {/if}>
                         <label for="may">Mayor</label>
@@ -26,14 +26,14 @@
 
         <a href="#modal-descuentos" class="btn" style="margin: 1%;">Generar Descuento</a> 
 
-        <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-descuentos">
+        <table class="table responsive-table" id="data-table-descuentos">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Estado</th>
-                <th>Realizado(Veces)</th>
-                <th>Usuario</th>
-                <th>Acciones</th>
+                <th style="border: 0;">Nombre</th>
+                <th style="border: 0;">Estado</th>
+                <th style="border: 0;">Realizado(Veces)</th>
+                <th style="border: 0;">Usuario</th>
+                <th style="border: 0;">Acciones</th>
             </tr>
         </thead>
         <tbody id="listadescuentos">

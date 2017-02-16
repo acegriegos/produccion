@@ -106,7 +106,7 @@
           <td class="center" style="font-size: 1em; width: 17%; font-size: 0.8em">
             
             <div class="col s12 m4 l4">
-                <a href="#modal-inventario" title="Cantidad en Inventario"><i class="fa fa-archive" ></i>
+                <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
                  <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
                 </a>
           </div>
@@ -249,30 +249,27 @@
 
 </div>
 
-<div class="modal modal-fixed-footer" id="modal-inventario" style="height: 200px;">
-
-  <div class="modal-header">
-      Cantidad <span id="bname-inv" type="html">0.00</span>
-  </div>
+<div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
 
   <div class="modal-content">
       <div class="row">
           <div class="input-field col s6">
-              <select type="select" id="bodegas">
-                  <option value="" disabled>Seleccione una Bodega</option>
+              <select type="select" id="xidbodega" class="_det" det="bodega" sig="xidinventario" prev="" d-b="41">
+                  <option value="" disabled selected>Seleccione una Bodega</option>
                   {section name=LE loop=$BOD}
                   <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
                   {/section}
               </select>
-              <label for="bodegas">Bodegas</label>
+              <label for="idbodega">Bodegas</label>
           </div>
           <div class="input-field col s6">
-              <select type="select" id="inventario">
+              <select type="select" id="xidinventario" det="inventario" d-b="111">
                   <option value="" disabled>Seleccione un Inventario</option>
               </select>
-              <label for="inventario">Inventarios</label>
+              <label for="idinventario">Inventarios</label>
           </div>
       </div>
+      <p>Cantidad de Producto en el Inventario: <b><span id="bname-inv" type="html">0.00</span></b></p>
   </div>
 
   <div class="modal-footer">
@@ -281,4 +278,4 @@
 
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=2.6"></script>
+<script src="../assets/js/modulos/ventas.js?v=2.7"></script>

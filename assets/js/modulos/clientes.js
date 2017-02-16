@@ -222,17 +222,9 @@ function validarclientes() {
 	
 	if($("#vidcuenta").val() == 1){
 		salida = '';
-		///vsum = 0;
 		vdefecto = '';
 		$(".ctas").each(function(){
 			vid = $(this).attr('id').substr(2);
-			/*
-			vsum += parseFloat($("#ctacontado > #fl"+vid+" > #pr"+vid).val());
-			if($("#ctacontado > #fl"+vid+" > #pr"+vid).val() == 0 || $("#ctacontado > #fl"+vid+" > #pr"+vid).val() == ''){
-				$('#ln2').click();
-				$("#ctacontado > #fl"+vid+" > #pr"+vid).focus()
-				salida = 'Campo Contable sin Datos';
-			}*/
 
 			if($("#my-array"+vid).val() == 0 ){
 				$('#ln2').click();
@@ -242,11 +234,6 @@ function validarclientes() {
 
 			vdefecto += '[null,'+$("#my-array"+vid).val()+',2,?,100,'+$("#my-array"+vid).attr('tp')+','+$("#my-array"+vid).attr('dh')+']:';
 		});
-
-		/*if (vsum != 100) {
-			$('#ln2').click();
-			return 'Porcentajes Incorrectos en Cuentas Contado'
-		}*/
 
 		if (salida != '')  
 			return salida

@@ -74,19 +74,19 @@
 <!-- /INFO CONTACTO -->
 
 <!-- DETALLE FACT -->
-<table id="detalle">
-  <tr class="tr" align="center">
-    <th class="th" id="th1">Cantidad</th>
-    <th class="space"></th>
-    <th class="th" id="th2">Descricpión</th>
-    <th class="space"></th>
-    <th class="th" id="th3">P. Unit</th>
-    <th class="space"></th>
-    <th class="th" id="th6">Tipo</th>
-    <th class="space"></th>
-    <th class="th" id="th4">Descuento</th>
-    <th class="space"></th>
-    <th class="th" id="th5">Importe</th>
+<table class="bordered striped centered" id="detalle">
+  <tr >
+    <th class="center-align" id="th1">Cantidad</th>
+    <th ></th>
+    <th class="center-align"  id="th2">Descricpión</th>
+    <th ></th>
+    <th class="center-align"   id="th3">P. Unit</th>
+    <th ></th>
+    <th class="center-align"   id="th6">Tipo</th>
+    <th ></th>
+    <th  class="center-align"  id="th4">Descuento</th>
+    <th ></th>
+    <th class="center-align"  id="th5">Importe</th>
   </tr>
   <?php foreach ($transaccion as $obj) {?>
   <tr class="tr" align="center">
@@ -127,7 +127,7 @@
   </section>
   </div>
   <div class="col s7">
-    <table id="infotot" width="93%">
+    <table  id="infotot" width="93%">
       <tr>
         <th class="tittot thtiti">SubTotal</th>
         <th class="infospace"></th>
@@ -155,7 +155,7 @@
         $diviciones = round(strlen($entero) / 3,0)-1;
         $salida = '';
 
-        for ($i=1; $i <= $diviciones; $i++) { 
+        /*for ($i=1; $i <= $diviciones; $i++) { 
           $pos = pow(1000, $i);
           $base = round($entero/$pos,0);
           $centena = round($base/100,0);
@@ -177,7 +177,7 @@
           $decena = $decena != 0 ? $unidad == 0 ? $nombres[$decena*10] : $nombres[($decena*10).'+'] : '';
           $unidad = $unidad == 0 ? '' : $nombres[$unidad];
           $salida .= ' '.$centena.' '.$decena.' '.$unidad.' '.$datos[14];
-
+*/
         
       ?> 
        <span class="labelalpha"><?php echo $salida; ?></span>

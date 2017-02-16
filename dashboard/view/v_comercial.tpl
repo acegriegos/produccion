@@ -36,7 +36,7 @@
                     <div class="col s12 m6 l6">
                       <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
                     </div>
-                    <div class="col s12 m6 l6">
+                    <div class="col s12 m6 l6 hide">
                       <a href="#" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">CRM</a>
                     </div>
                     <div class="col s12 m6 l6">
