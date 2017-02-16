@@ -1,73 +1,34 @@
 $(function(){
-	$("#finventarioss").submit(function(){return false});
-	
-
-	$(".menu5").click(function(){
-		var id = $(this).attr('id').substr(1);
-		$(".menu5").removeClass('active');
-		$(this).addClass('active');
-
-		switch(parseInt(id)){
-			case 1:
-				var p = mantenimiento('inventarios',1,'');
-				$("#bdymantInvGeneral").html(p);
-				break;
-			case 2:
-				var p = mantenimiento('inventarios',2,'');
-				$("#bdymantInvGeneral").html(p);
-				break;
-			case 3:
-				var p = mantenimiento('inventarios',3,'');
-				$("#bdymantInvGeneral").html(p);
-				break;
-			case 4:
-				var p = mantenimiento('inventarios',4,'');
-				$("#bdymantInvGeneral").html(p);
-				break;
-		}
-		$('#addtipoinsumo').sideNav({
-			menuWidth: 300, // Default is 240
-			edge: 'right', // Choose the horizontal origin
-			closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-			draggable: true // Choose whether you can drag to open on touch screens
-      });
-
-		$('.modal').modal({
-		    dismissible: true, // Modal can be dismissed by clicking outside of the modal
-		    opacity: .5, // Opacity of modal background
-		    in_duration: 300, // Transition in duration
-		    out_duration: 200, // Transition out duration
-		    starting_top: '6%', // Starting top style attribute
-		    ending_top: '5%' // Ending top style attribute
-		});
-		$('select').material_select();
-	});
-
-	$("#m1").click();
-
+    $('select').material_select();
 });
+
+
 
 $(document).ready(function(){
 	
 });
 
-$(document).on("click","#addtipoinsumo",function(){
-	alert(1)
-	// $("#data-table-tipoinsumos").dataTable({
-	// 	bFilter : false,
-	// 	bScrollInfinite : true,
-	// 	bSort : false,
-	// 	bLengthChange : false,
-	// 	bPaginate :  false,
-	// 	bInfo : false
-	// });
-    // arr('login',6,'*',100,'id > 0 order by nombre limit 20',0,1,$("#listatipoinsumos"))
+$(document).on("change","#vidinventario",function(){
+	var id = $(this).val();
+	var tabla = $("#data-table-inventarios").DataTable();
+	tabla.destroy();
+	arr('login',6,'',127,id,0,1,$("#listainventarios"));
+	$("#data-table-inventarios").DataTable({
+        bFilter : false,
+        bScrollInfinite : true,
+        bSort : false,
+        bLengthChange : false,
+        bPaginate :  false,
+        bInfo : false
+    });
+    
 });
+
+
 
 $(document).on("click",".del",function(){
     var id = $(this).attr('id').substr(1);
     Materialize.toast('Desea Borrar este Insumo? <button type="button" class="waves-effect waves-light btn blue accept" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="fa fa-times"></i></button>', 10000, 'rounded');
-    
 });
 
 $(document).on("click",".cancel",function(){
@@ -251,4 +212,9 @@ function cargarSintax(vtabla){
 	        break;
 	}
 	return arr;
+}
+
+function endDetail(id,acc,modulo) {
+    thorload(modulo);
+    deadclear(modulo);
 }

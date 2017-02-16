@@ -72,6 +72,18 @@ html{
 .marginzero {
   margin: 0;
 }
+.mtopcero {
+  margin-top: 0;
+}
+.mbotcero {
+  margin-bottom: 0;
+}
+.mleftcero {
+  margin-left: 0;
+}
+.mrightcero {
+  margin-right: 0;
+}
 
 .autocomplete-content{
     z-index: 3000;

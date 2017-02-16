@@ -83,9 +83,9 @@
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
   </ul>
   <!-- fin -->
-  <div class="navbar-fixed">
-  <nav class="hide-on-large-only">
-   <div class="hide-on-large-only nav-wrapper blue-grey darken-2">
+  <div class="navbar-fixed hide-on-large-only">
+  <nav>
+   <div class="nav-wrapper blue-grey darken-2">
       <a href="#" data-activates="out" class="button-collapse"><i class="samll material-icons">menu</i></a>
       </div>
       </nav>

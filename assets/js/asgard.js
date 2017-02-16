@@ -20,6 +20,14 @@ $(document).on("blur",".autocomplete",function(){
     $(".autocomplete-content").hide('500')
 });
 
+$(document).on("keyup",".autocomplete",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 27) {
+       $(".autocomplete-content").hide('500') 
+    }
+    
+});
+
 $(document).on("click",".load",function(){
     var modulo = $(this).attr('modulo');
     var arreglo = {};
@@ -131,7 +139,7 @@ function baseValidar(vaccion,vmodulo){
         if (vmodulo['tip'] != '') {
             salida[vari] = vmodulo['tip'];
         }
-        console.log(salida)
+        // console.log(salida)
     }else{
         console.error('error en Base Validar')
         return varreglo;
@@ -232,6 +240,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                 data: {accion: vaccion,arreglo : varreglo}
                 })
                 .done(function(data) {
+                    console.error(data)
                     try {
                         p = JSON.parse(data);
                         // console.error(p)

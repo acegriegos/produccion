@@ -17,34 +17,35 @@
   </head>
   <body>
     {$NAV}
-     <div class="bdy">
-<!-- codigo de prueba -->
-
-<div class="card">
-        <div class="card-header center blue-grey white-text" >
-          <h4 class="center-align blue-grey white-text">Inventario </h4>
-      </div>
-      <div class="card-tabs">
-          <ul class="tabs tabs-fixed-width">
-            <li class="tab menu5" id="m1"><a href="#">Insumos</a></li>
-            <li class="tab menu5" id="m2"><a href="#">Gastos</a></li>
-            <li class="tab menu5" id="m3"><a href="#">Producción</a></li>
-            <li class="tab menu5" id="m4"><a href="#">Ruta</a></li>
-            <li class="tab menu5" id="m5"><a href="#">Devoluciones</a></li>
-            <li class="tab menu5" id="m6"><a href="#">Mal Estado</a></li>
-        </ul>
-    </div>
-    <div class="card-content grey lighten-4">
-      <div class="formInventarios" id="finventarios">
-        <div id="bdymantInvGeneral"></div>
-    </div>
-    </div>
-</div>
-
-
-
-
-
+    <div class="bdy">
+        <div class=" card center blue-grey white-text mbotcero" >
+          <h4 class="center-align blue-grey white-text mbotcero">Inventario</h4>
+        </div>
+        
+        <div class="card card-content mdinvent grey lighten-3">
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <select type="select" class="_det" id="vidbodega" det="bodega" sig="vidinventario" prev="" d-b="41">
+                <option value="0">Seleccione una Bodega</option>
+                {section name=LE loop=$BOD}
+                <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
+                {/section}
+              </select>
+              <label for="vidbodega">Bodega</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <select type="select" det="inventario" id="vidinventario" d-b="111">
+                <option value="0">Seleccione un Inventario</option>
+              </select>
+              <label for="vidinventario">Inventario</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m12 l12">
+              <div id="listainventarios"></div>
+            </div>
+          </div>
+        </div>
     </div>
     <script src="../assets/js/modulos/inventarios.js"></script>
   </body>

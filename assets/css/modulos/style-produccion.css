@@ -2,7 +2,7 @@
     margin: 0;
 }
 .input-field {
-    margin-top: 0 !important;
+    /*margin-top: 0 !important;*/
 }
 #groupprodcts {
     font-size: 1.4em;
@@ -36,3 +36,35 @@
     -o-border-radius: 12px;
     border-radius: 12px;
 }
+
+#mantproduccion {
+    padding: 15px 10px 15px 10px;
+}
+
+.tasks {
+    background-color: #fff;
+    margin-bottom: 0 !important;
+}
+
+.mbutton {
+    margin-top: 10px;
+}
+
+#modal-search {
+    padding: 10px 28px 10px 28px;
+}
+
+.namereceta {
+    padding: 0 !important;
+    margin-top: 20px !important;
+}
+
+#dtableline {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.reloj {
+    font-size: 60px;
+}
+    

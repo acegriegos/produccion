@@ -1,5 +1,63 @@
+var centesimas = 0;
+var segundos = 0;
+var minutos = 0;
+var horas = 0;
 $(function(){
-	$("#fproduccions").submit(function(){return false});
+    $(".menu").click(function(){
+        var id = $(this).attr('id').substr(1);
+        switch(parseInt(id)) {
+            case 1:
+                $("#mantproduccion").html('');
+                var p = mantenimiento('produccion',1,'');
+                $("#mantproduccion").html(p);
+                $("#data-table-recetas").DataTable({
+                    bFilter : false,
+                    bScrollInfinite : true,
+                    bSort : false,
+                    bLengthChange : false,
+                    bPaginate :  false,
+                    bInfo : false
+                });
+                break;
+            case 2:
+                $("#mantproduccion").html('');
+                var p = mantenimiento('produccion',2,'');
+                $("#mantproduccion").html(p);
+                $("#data-table-lineaproducciones").DataTable({
+                    bFilter : false,
+                    bScrollInfinite : true,
+                    bSort : false,
+                    bLengthChange : false,
+                    bPaginate :  false,
+                    bInfo : false
+                });
+                break;
+            case 3:
+                $("#mantproduccion").html('');
+                var p = mantenimiento('produccion',3,'');
+                $("#mantproduccion").html(p);
+                break;
+            case 4:
+                $("#mantproduccion").html('');
+                var p = mantenimiento('produccion',4,'');
+                $("#mantproduccion").html(p);
+                break;
+        }
+        $('select').material_select();
+        $('.collapsible').collapsible();
+        $('.modal').modal({
+            dismissible: true, // Modal can be dismissed by clicking outside of the modal
+            opacity: .5, // Opacity of modal background
+            in_duration: 300, // Transition in duration
+            out_duration: 200, // Transition out duration
+            startingTop: '4%', // Starting top style attribute
+            endingTop: '4%', // Ending top style attribute
+            ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+                // alert("Ready");
+                console.log(modal, trigger);
+            }
+        });
+    });
 	$("#data-table-recetas").dataTable({
         bFilter : false,
         bScrollInfinite : true,
@@ -8,11 +66,11 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
+    $("#m2").click();
 });
 
 $(document).ready(function(){
     $('select').material_select();
-    
     $('.modal').modal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
@@ -21,8 +79,7 @@ $(document).ready(function(){
         starting_top: '4%', // Starting top style attribute
         ending_top: '4%', // Ending top style attribute
         ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-            alert("Ready");
-            console.log(1);
+            // ready
         }
     });
 
@@ -35,6 +92,203 @@ $(document).ready(function(){
     $("#spot").val(spot);
     $("#count").val(spot);
     $("#data-table-recetas").removeClass('hide');
+
+    $("#vlinea").keyup(function(e){
+        $(".autocomplete-content").show();
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            $("#vtestimado").focus();
+        }
+        // $(".autocomplete-content").show();
+        // var code = e.which || e.keyCode;
+        // if (code == 13) {
+        //     var pass = 1;
+        //     var nombre = $(this).val();
+        //     var line = arr('login',4,'id,nombre',128,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+        //     $(".linesprod").each(function(){
+        //         var id = $(".linesprod").attr('id').substr(1);
+        //         if (line[0] == id) {
+        //             pass = 0;
+        //         }else{
+        //             return false;
+        //         }
+        //     });
+        //     if (pass == 1) {
+        //         $("#productionlines").append('<li class="collection-item"><div><span id="l'+line[0]+'" class="linesprod">'+line[1]+'</span><a class="secondary-content"><i class="material-icons pbtn btn-color cdel">close</i></a></div></li>');
+        //         $(this).val('');
+        //     }else{
+        //         alert("repetido")
+        //     }
+        // }
+    });
+
+});
+
+$(document).on("click","#addprodline",function(){
+    addprodline();
+    
+});
+
+$(document).on("click",".order",function(){
+    var id = $(this).attr('id').substr(6);
+    var orden = $("#sorder"+id).text();
+    $("#sorder"+id).addClass('hide');
+    $("#eorder"+id).attr('type','number');
+    $("#eorder"+id).val(orden).select();
+});
+
+$(document).on("blur",".horder",function(){
+    var id = $(this).attr('id').substr(6);
+    var orden = $(this).val();
+    $(this).attr('type','hidden');
+    $("#sorder"+id).removeClass('hide');
+    $("#sorder"+id).text(orden);
+    $("#torder"+id).attr('orden',orden);
+});
+
+$(document).on("keyup","#vtestimado",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        $("#viduni").click();
+        
+    }
+    if (code == 9) {
+        $("#viduni").click();
+    }
+});
+
+$(document).on("change","#viduni",function(e){
+    addprodline();
+});
+
+$(document).on("click","#changerecipe",function(){
+    $('#modal-search').modal('open');
+    var tabla = $("#data-table-search").DataTable();
+    tabla.destroy();
+    arr('login',6,'',129,'""',0,1,$("#listasearch"));
+    $("#data-table-search").dataTable({
+        bFilter : false,
+        bScrollInfinite : true,
+        bSort : false,
+        bLengthChange : false,
+        bPaginate :  false,
+        bInfo : false
+    });
+});
+
+$(document).on("click","#savelinea",function(){
+    var idreceta = $(".namereceta").attr('id').substr(1);
+    $(".linesprod").each(function(){
+        var idlinea = $(this).attr('id').substr(1);
+        var idunidad = $("#uni"+idlinea).attr('idunidad');
+        var order = $("#torder"+idlinea).attr('orden');
+        arr('login',4,'',131,'1,0,'+idreceta+','+idlinea+','+idunidad+','+order,0,0,0)[0];
+    });
+    
+});
+
+$(document).on("click",".viewreceta",function(){
+    var id = $(this).attr('id').substr(1);
+    var tabla = $("#data-table-detallerecetas").DataTable();
+    tabla.destroy();
+    arr('login',6,'',130,id,0,1,$("#listadetallerecetas"));
+    $('#modal-detallerecetas').modal('open');
+    $("#data-table-detallerecetas").dataTable({
+        bFilter : false,
+        bScrollInfinite : true,
+        bSort : false,
+        bLengthChange : false,
+        bPaginate :  false,
+        bInfo : false
+    });
+});
+
+$(document).on("click","#searchrecetas",function(){
+    var nombre = $("#vreceta").val();
+    var tabla = $("#data-table-search").DataTable();
+    tabla.destroy();
+    arr('login',6,'',129,'\"'+nombre+'\"',0,1,$("#listasearch"));
+    $('#modal-search').modal('open');
+    $("#data-table-search").dataTable({
+        bFilter : false,
+        bScrollInfinite : true,
+        bSort : false,
+        bLengthChange : false,
+        bPaginate :  false,
+        bInfo : false
+    });
+});
+
+$(document).on("keyup","#vreceta",function(e){
+    var code = e.which || e.keyCode;
+    var nombre = $(this).val();
+    var tabla = $("#data-table-search").DataTable();
+    tabla.destroy();
+    arr('login',6,'',129,'\"'+nombre+'\"',0,1,$("#listasearch"));
+    if (code == 13) {
+        $('#modal-search').modal('open');
+        $("#data-table-search").dataTable({
+            bFilter : false,
+            bScrollInfinite : true,
+            bSort : false,
+            bLengthChange : false,
+            bPaginate :  false,
+            bInfo : false
+        });
+    }
+});
+
+$(document).on("keyup","#nombrelinea",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        $("#tablelineas").removeClass('hide');
+        var nombre = $(this).val();
+        var receta = $("#vreceta").val();
+        $("#nomlinea").text(nombre);
+        $("#nomreceta").text(receta);
+        $(".faddline").prop('disabled',false);
+        $("#viduni").material_select();
+        $("#vlinea").focus();
+    }
+});
+
+$(document).on("click",".selreceta",function(){
+    var id = $(this).attr('id').substr(1);
+    var receta = arr('login',4,'id,nombre',11,'id = '+id,0,0,0)[0][0];
+    var estimado = $(this).attr('est');
+    var hm = $(this).attr('hm');
+    var hh = $(this).attr('hh');
+    $('#modal-search').modal('close');
+    $("#drecipe").addClass('hide');
+    $(".dcline").removeClass('hide');
+    $(".namereceta").text('');
+    $(".namereceta").attr('id','r'+id);
+    $(".namereceta").append(receta[1]+'<a class="material-icons pbtn blue-text mbutton" id="changerecipe" href="#modal-search">search</a>');
+    $("#vlinea").autocomplete({
+        limit: 20,
+        data: arr('login',4,'nombre,null',128,'nombre like "%'+$("#vlinea").val()+'%" and id > 0 limit 20',0,0,0,1)
+    });
+    $("#nombrelinea").focus();
+});
+
+$(document).on("click",".selline",function(){
+    var id = $(this).attr('id').substr(1);
+    var line = arr('login',4,'id,nombre',128,'id = '+id,0,0,0)[0][0];
+    $("#productionlines").append('<li class="collection-item"><div><span id="l'+line[0]+'" class="linesprod">'+line[1]+'</span><a class="secondary-content"><i class="material-icons pbtn btn-color cdel">close</i></a></div></li>');
+});
+
+$(document).on("click",".load[modulo=lineaproduccione]",function(){
+    $("#addlinea").attr('id','actlinea');
+    $("#actlinea").removeClass('add');
+    $("#actlinea").addClass('edit');
+    $("#actlinea").text('save');
+});
+
+$(document).on("click","#actlinea",function(){
+    $("#actlinea").attr('id','addlinea');
+    $("#addlinea").removeClass('edit');
+    $("#addlinea").addClass('add');
+    $("#addlinea").text('add');
 });
 
 $(document).on("click",".instoproduct",function(){
@@ -110,7 +364,7 @@ $(document).on("keyup","#vcodigo",function(e){
 
 $(document).on("keyup","#vproducto",function(e){
     var code = e.which || e.keyCode;
-    $(".autocomplete-content").show('500')
+    $(".autocomplete-content").show('500');
     if (code == 13)
         $("#vcantidad").focus();
 
@@ -134,9 +388,10 @@ $(document).on("keyup","#vcantidad",function(e){
     }
 });
 
-$(document).on("change","#vproducto",function(){
+$(document).on("blur","#vproducto",function(){
     var nombre = $(this).val();
     var idunidad = arr('login',4,'idunidad',116,'nombre = \"'+nombre+"\"",0,0,0)[0][0];
+    console.log(idunidad)
     $("#vidunidad").val(idunidad);
     $('select').material_select();
     $("#vcantidad").focus();
@@ -334,6 +589,98 @@ $(document).on("keyup",".ganancia",function(){
     totalizar(id,ganancia,manoobra)
 });
 
+function addprodline() {
+    var pass = 1;
+    var nombre = $("#vlinea").val();
+    var estimado = $("#vtestimado").val();
+    var idunidad = $("#viduni").val();
+    var unidad = $("#viduni option:selected").text();
+    var orden = 0;
+    var count = parseInt($("#autoi").val());
+    var line = arr('login',4,'id,nombre',128,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+    $(".prodlines").each(function(){
+        var id = $(this).attr('id').substr(1);
+        if (line[0] == id) {
+            pass = 0;
+        }
+    });
+    if (pass == 1) {
+        count ++;
+        $("#listadetalles").append('<tr class="prodlines" id="p'+line[0]+'"><td id="task'+line[0]+'">'+line[1]+'</td><td id="est'+line[0]+'">'+estimado+'</td><td id="uni'+line[0]+'" idunidad="'+idunidad+'">'+unidad+'</td><td orden="'+count+'" id="torder'+line[0]+'"><span class="order" id="sorder'+line[0]+'">'+count+'</span><input type="hidden" class="horder" id="eorder'+line[0]+'"></td><td><i class="material-icons btn-color pbtn blueh">swap_vert</i><i class="material-icons btn-color pbtn cdel" id="del'+line[0]+'">close</i></td></tr>');
+        $("#vlinea").val('');
+        $("#vtestimado").val('');
+        $("#viduni").val(0);
+        $("#viduni").material_select();
+        $("#autoi").val(count);
+        $("#vlinea").focus();
+    }else{
+        alert("repetido")
+    }
+}
+
+// CRONOMETRO //
+
+function inicio () {
+    control = setInterval(cronometro,10);
+    document.getElementById("inicio").disabled = true;
+    document.getElementById("parar").disabled = false;
+    document.getElementById("continuar").disabled = true;
+    document.getElementById("reinicio").disabled = false;
+}
+function parar () {
+    clearInterval(control);
+    document.getElementById("parar").disabled = true;
+    document.getElementById("continuar").disabled = false;
+}
+function reinicio () {
+    clearInterval(control);
+    centesimas = 0;
+    segundos = 0;
+    minutos = 0;
+    horas = 0;
+    Centesimas.innerHTML = ":00";
+    Segundos.innerHTML = ":00";
+    Minutos.innerHTML = ":00";
+    Horas.innerHTML = "00";
+    document.getElementById("inicio").disabled = false;
+    document.getElementById("parar").disabled = true;
+    document.getElementById("continuar").disabled = true;
+    document.getElementById("reinicio").disabled = true;
+}
+function cronometro () {
+    if (centesimas < 99) {
+        centesimas++;
+        if (centesimas < 10) { centesimas = "0"+centesimas }
+        Centesimas.innerHTML = ":"+centesimas;
+    }
+    if (centesimas == 99) {
+        centesimas = -1;
+    }
+    if (centesimas == 0) {
+        segundos ++;
+        if (segundos < 10) { segundos = "0"+segundos }
+        Segundos.innerHTML = ":"+segundos;
+    }
+    if (segundos == 59) {
+        segundos = -1;
+    }
+    if ( (centesimas == 0)&&(segundos == 0) ) {
+        minutos++;
+        if (minutos < 10) { minutos = "0"+minutos }
+        Minutos.innerHTML = ":"+minutos;
+    }
+    if (minutos == 59) {
+        minutos = -1;
+    }
+    if ( (centesimas == 0)&&(segundos == 0)&&(minutos == 0) ) {
+        horas ++;
+        if (horas < 10) { horas = "0"+horas }
+        Horas.innerHTML = horas;
+    }
+}
+
+// TERMINA CRONOMETRO //
+
 function totalizar(id,ganancia,manoobra) {
     var total = parseFloat($("#htotal"+id).val());
     if (manoobra != 0)
@@ -444,15 +791,14 @@ function validar (varreglo,vmodulo) {
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
-		case 'gasto':
-			if (vmodulo['tip'] == '') {
-				err = validargasto();
-				if ( err ) {
-					return err;
-				}
-			}
-			
-			break;
+        case 'lineaproduccione':
+            if (vmodulo['tip'] == '') {
+                err = validarlinea();
+                if ( err ) {
+                    return err;
+                }
+            }
+            break;
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -461,6 +807,14 @@ function validar (varreglo,vmodulo) {
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
 	return salida;
 
+}
+
+function validarlinea() {
+    if ($("#vnombre").val() == ''){
+        $("#vnombre").focus();
+        return 'Nombre Requerido';
+    }
+    return false;
 }
 
 function validartoprod() {
@@ -494,6 +848,17 @@ function cargar(vmodulo,vid) {
 			vmodulo['tbl'] = 3;
 			vmodulo['where'] ='';
 			break;
+        case 'lineaproduccione':
+            vmodulo['sel'] = 'id as vid,nombre as vnombre';
+            vmodulo['tbl'] = 128;
+            vmodulo['where'] ='id = '+vid;
+            break;
+        case 'lineaproducciones':
+            var arr = {};
+            arr['sel'] = 'id,nombre';
+            arr['tbl'] = 128;
+            arr['where'] = 'id > 0 order by nombre limit 20';
+            break;
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -510,10 +875,23 @@ function cargarSintax(vtabla){
             arr['tbl'] = 118;
             arr['where'] = 'id > 0 order by nombre limit 20';
             break;
+        case 'lineaproducciones':
+            var arr = {};
+            arr['sel'] = 'id,nombre';
+            arr['tbl'] = 128;
+            arr['where'] = 'id > 0 order by nombre limit 20';
+            break;
     }
     return arr;
 }
 
-function endDetail(vid,vacc,vmodulo) {
-	thorload(vmodulo)
+function endDetail(id,acc,modulo) {
+    switch(modulo) {
+        case 'lineaproduccione':
+            thorload(modulo);
+            deadclear(modulo);
+            $("#vnombre").focus();
+            break;
+    }
+    
 }

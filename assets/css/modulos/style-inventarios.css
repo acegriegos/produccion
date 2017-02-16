@@ -36,3 +36,11 @@
 #acttipo {
     width: 100%;
 }
+
+.mdinvent {
+    padding: 15px 10px 15px 10px !important;
+}
+
+.tit {
+    font-size: 1.3em;
+}
