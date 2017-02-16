@@ -23,21 +23,7 @@
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-	   			$transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   			break;
-	   		case 2:
-
-	   			break;
-	   		case 3:
-	   			
-	   			break;
-	   		case 4:
-	   			
-	   			break;
-	   		case 5:
-	   			
-	   			break;
-	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

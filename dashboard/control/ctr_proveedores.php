@@ -8,30 +8,19 @@
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
-	   
+	    
+	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));
+	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
+	    $smarty->assign('PROV',$kakaroto->kamehameha('*',30,'1 order by nombre'));
+
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->assign('PROV',$kakaroto->kamehameha('*',30,'vid > 0'));
-	   	$smarty->assign('ESTCLIE',$kakaroto->kamehameha('*',68,'id >= 0 order by nombre'));
 	   	$smarty->display('v_proveedores.tpl');
+	   	
 	   }else{
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-	   			$transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   			break;
-	   		case 2:
-
-	   			break;
-	   		case 3:
-	   			
-	   			break;
-	   		case 4:
-	   			
-	   			break;
-	   		case 5:
-	   			
-	   			break;
-   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

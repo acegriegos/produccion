@@ -66,7 +66,7 @@ $(document).on("keyup","[id^=search_]",function(e){
 
         tabla = $("#data-table-"+b).DataTable();
         tabla.destroy();
-        arr('login',6,'*',c,d+'id > 0 and '+e+' like "%'+a+'%"',0,1,$("#lista"+b))
+        arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,1,$("#lista"+b))
         
         $("#data-table-"+b).DataTable({
             bFilter :  false,
@@ -103,7 +103,6 @@ function doGlobal(accion,modulo,tip,varias){
         arreglo['atributos']['vaccion'] = accion;
 
         var p = mantenimiento('login',2,arreglo);
-
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -171,10 +170,6 @@ function loadpool(vmodulo,vid,vvarias){
 
                 break;
 
-            case 'textarea':
-                $("#"+vform+" #"+columns[0][1][i]['name']).text(columns[0][0][0][i]);
-                break;
-
             case 'radio':
             case 'checkbox':
                 $("#"+vform+" input[name="+columns[0][1][i]['name']+']:checked').val(columns[0][0][0][i]);
@@ -187,7 +182,7 @@ function loadpool(vmodulo,vid,vvarias){
             case 'date':
                 $("#"+vform+" #"+columns[0][1][i]['name']).pickadate().pickadate('picker').set('select', columns[0][0][0][i]);
                 break;
-
+            case 'textarea':
             case 'text':
             case 'number':
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
@@ -198,6 +193,8 @@ function loadpool(vmodulo,vid,vvarias){
                     $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 else
                     arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]))
+                break;
+            default:
                 break;
 
         };           
@@ -216,7 +213,6 @@ function loadpool(vmodulo,vid,vvarias){
                 default:
                     break;
             }
-            // var chn = $(this).attr('chn');
             
         });
 
@@ -243,7 +239,6 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     console.error(data)
                     try {
                         p = JSON.parse(data);
-                        // console.error(p)
                     }
                     catch(err){
                         p = data;
@@ -370,7 +365,7 @@ function odin(varreglo,vform) {
                     }else{
                         switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                             case 'select':
-                                salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                                salida[index][varreglo[i]] =    $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
                                 break;
                             case 'text':
                             case 'textarea':
@@ -380,6 +375,7 @@ function odin(varreglo,vform) {
                                 break;
                             case 'html':
                                 salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                                break;
                             case 'radio':
                                 salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
                                 break;
@@ -445,20 +441,23 @@ function odin(varreglo,vform) {
                             '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
                     }else{
+                    
                     switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                         case 'select':
-                            salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
                             break;
                         case 'text':
                         case 'textarea':
                         case 'hidden':
                         case 'number':
+                            
                             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                             break;
                         case 'html':
                             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                            break;
                         case 'radio':
-                            salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                            salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
                             break;
                         case 'checkbox':
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
@@ -484,8 +483,8 @@ function deadclear(vform) {
         vform = "#f"+vform+"s";
         /*REGLAS PARA VACIAR CAMPOS*/
         $(vform+" :input").each(function(){
-            if ($(this).prop('noClear') == undefined && $(this).prop('id') != '') { 
-                switch($(this).prop('type')){
+            if ($(this).attr('noClear') == undefined && $(this).prop('id') != '') { 
+                switch($(this).attr('type')){
                     case 'checkbox':
                         $(vform+" :input[name='"+$(this).prop('name')+"'][stay='1']").prop('checked', true);
                         $(vform+" :input[name='"+$(this).prop('name')+"'][stay='0']").prop('checked',false);
@@ -504,6 +503,8 @@ function deadclear(vform) {
                     case 'select':
                         $(vform+" #"+$(this).prop('id')).val("");
                         $(vform+" #"+$(this).prop('id')).material_select('update');
+                        break;
+                    default:
                         break;
                 };
             

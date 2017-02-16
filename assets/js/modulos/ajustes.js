@@ -1,6 +1,6 @@
 $(function(){
 	$(".modal").modal();
-	$("#m6").click();
+	$("#m1").click();
 	$("#addMoneda").click(function(){
 		deadclear('moneda');
 	})
@@ -9,10 +9,6 @@ $(function(){
 		$(this).remove();
 	});
 	
-});
-
-$(document).ready(function(){
-
 });
 
 $(document).on("click",".menu3",function(){
@@ -89,6 +85,8 @@ $(document).on("click",".menu3",function(){
 			var p = mantenimiento('ajustes',4,'');
 			$("#majustes").html('');
 			$("#majustes").html(p);
+			$("#data-table-defecto").dataTable();
+
 			break;
 		case 5:
 			var p = mantenimiento('ajustes',5,'');
@@ -131,6 +129,12 @@ $(document).on("click",".menu3",function(){
 	$('.tooltipped').tooltip({delay: 50});
 	$('.dropdown-button').dropdown();
 	$('select').material_select();
+	$(".collapsible").collapsible(); 
+	$('.datepicker').pickadate({
+    	selectMonths: true, // Creates a dropdown to control month
+    	selectYears: 15 // Creates a dropdown of 15 years to control year
+  	});
+
 
 	$("#modal-tipopagos").modal({
 		complete: function(){
@@ -206,6 +210,15 @@ $(document).on("click","#add_x",function(){
 		msj = "Nombre de Cuenta Requerido";
 	}
 
+	if (isNaN($("#f"+vmod+"s #vcomision").val()) || $("#f"+vmod+"s #vcomision").val() < 0 || $("#f"+vmod+"s #vcomision").val() > 100 ) {
+		$("#f"+vmod+"s #vcomision").focus()
+		return "Valores de Comisión Incorrectos";
+	}
+
+	var ctacom = 0
+	if ($("#f"+vmod+"s #vcuenta option:selected").val() != $("#f"+vmod+"s #vcuenta").attr('defecto'))
+		ctacom = $("#f"+vmod+"s #vcuenta option:selected").val();
+
 	$("#fdetallebancos .collapsible-header").each(function(){
 		if ($(this).attr('vdet_cta').trim() == $("#vdet_cta").val().trim()){
 			$("#vdet_cta").focus()
@@ -228,7 +241,7 @@ $(document).on("click","#add_x",function(){
 			mmon = $("#vdet_moneda option:selected").attr('simb');
 			mmonid = $("#vdet_moneda option:selected").val();
 		}
-		$("#fdetallebancos").append('<li id="0"> <div class="collapsible-header ciclos" vid="0" vdet_moneda="'+mmonid+'" vctabnk="'+$("#vctabnk option:selected").val()+'" vidbanco="?" vdet_nom="'+$("#vdet_nom").val()+'" vdet_cta="'+$("#vdet_cta").val()+'">'+mmon+'<span class="badge">'+$("#vdet_nom").val()+': '+$("#vdet_cta").val()+' ['+$("#vctabnk option:selected").html()+']</span></div> </li>')
+		$("#fdetallebancos").append('<li id="0"> <div class="collapsible-header ciclos" vid="0" vdet_moneda="'+mmonid+'" vctabnk="'+$("#vctabnk option:selected").val()+'" vidbanco="?" vdet_nom="'+$("#vdet_nom").val()+'" vdet_cta="'+$("#vdet_cta").val()+'" vcomision="'+$("#vcomision").val()+'" vctacom="'+ctacom+'">'+mmon+'<span class="badge">'+$("#vdet_nom").val()+': '+$("#vdet_cta").val()+' ['+$("#vctabnk option:selected").html()+']</span></div> </li>')
 	
 	}
 });
@@ -274,8 +287,6 @@ $(document).on("click",".delimp",function(){
 });
 
 $(document).on("click","#actinfo",function(){
-	$("#suc1").hide();
-	$("#err1").hide();
 
 	var validar = validarAjuste();
 	if (validar == false) {
@@ -289,12 +300,9 @@ $(document).on("click","#actinfo",function(){
 			mantenimiento('login',4,arr);
 		});
 		
-		$("#suc1").show();
-		$("#sucm1").html('Datos Ingresados Correctamente');
-	}else{
-		$("#err1").show();
-		$("#errm1").html(validar);
-	}
+		Materialize.toast('Datos Ingresados Correctamente',4000,'green');
+	}else
+		Materialize.toast(validar,4000,'red');
 	
 });
 
@@ -358,13 +366,13 @@ $(document).on("keyup",'.editc',function(e){
 	if (code == 13) {
 		var valorc = $(this).val();
 		if(valorc == '')
-			notify('','Error','Cuenta Requiere Nombre','danger')
+			Materialize.toast('Cuenta Requiere Nombre',4000,'red')
 		else{
-			rs = arr('login',4,'',37,'2,'+$(this).attr('tp')+',0,"'+valorc+'",0,0,0,0');
+			rs = arr('login',4,'',37,'2,'+$(this).attr('tp')+',0,"'+valorc+'",0,0');
 			if (rs['succed'] == 0) 
-				notify('','Error',rs['ERROR'],'danger')
+				Materialize.toast(rs[0]['ERROR'],4000,'red')
 			else
-				notify('','','Cambio de Nombre Correcto','success')
+				Materialize.toast('Cambio de Nombre Exitoso',4000,'green')
 		}
 	};
 	
@@ -511,30 +519,16 @@ function validar (varreglo,vmodulo) {
 	}
 	
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	// console.log(salida)
+	console.log(salida)
 	return salida;
 
 }
 
 function validarBancos(vmod){
 
-	if ($("#f"+vmod+"s #vcomision").is(":visible")) {
-
-		if (isNaN($("#f"+vmod+"s #vcomision").val()) || $("#f"+vmod+"s #vcomision").val() < 0 || $("#f"+vmod+"s #vcomision").val() > 100 ) {
-			$("#f"+vmod+"s #vcomision").focus()
-			return "Valores de Comisión Incorrectos";
-		}
-
-		if ($("#f"+vmod+"s #vcuenta option:selected").val() == $("#f"+vmod+"s #vcuenta").attr('defecto'))
-			$("#f"+vmod+"s #vcuenta").attr('hid',0);
-		else
-			$("#f"+vmod+"s #vcuenta").removeAttr('hid');
-
-	}else{
-		if($("#f"+vmod+"s #vnombre_banco").val() == '' ){
-			$("#f"+vmod+"s #vnombre_banco").focus();
-			return "Campo Nombre Requerido";
-		}
+	if($("#f"+vmod+"s #vnombre_banco").val() == '' ){
+		$("#f"+vmod+"s #vnombre_banco").focus();
+		return "Campo Nombre Requerido";
 	}
 
 	return false;
@@ -752,24 +746,61 @@ function cargarSintax(vtabla){
 
 	return arr;
 }
+$(document).on("click",".moveL",function(){
+	$("#vgenero").data('sum',parseInt($("#vgenero").data('sum'))-1)
+	if($("#vgenero").data('sum') == 0) 
+		$(".moveL").hide();
+	var arr = {}
+
+    arr['sel'] = 'id,nombre,numero';
+	arr['tbl'] = 36;
+	arr['where'] = 'ispadre and idsubcuenta = (select idsubcuenta from cuentas where id = '+$("#vgenero").data('lvl')+')';
+	var rs = mantenimiento('login',6,arr);
+	var str = $("#myub").html();
+
+	$("#myub").html(str.substr(0,str.lastIndexOf('&gt')));
+	$("#vgenero").html(rs);
+	$("#vgenero").material_select('update')
+});
+
+$(document).on("click","[name='cta-def']",function(){
+	var id_def = $(this).attr('id').substr(1);
+	var id_cta = $("#cta"+id_def).attr('pr');
+	var nom = $("#def"+id_def+" td").first().html();
+
+	$("#vdefecto").data('elemento',{def:id_def, default:id_cta, cta:0})
+	$("#vdefecto").val(id_cta);
+	$("#ldef-cta").html(nom);
+	$("#vdefecto").material_select('update');
+	$("#vdefecto").focus();
+
+	$(this).change();
+	
+	$('#modal-defcta').modal('open');
+});
 
 $(document).on("change","#vgenero",function(){
+	var ant = $("option:selected",this).html();
 	var arr = {};
 	arr['sel'] = 'id,nombre,numero';
 	arr['tbl'] = 36;
-	arr['where'] = 'idsubcuenta = '+$("option:selected",this).val();
-	$(this).attr('lvl',$("option:selected",this).val());
-	
+	arr['where'] = 'ispadre and idsubcuenta = '+$("option:selected",this).val();
+	$(this).data('lvl',$("option:selected",this).val());
+	$(this).data('sum') == undefined ? $(this).data('sum',1) : $(this).data('sum',parseInt($(this).data('sum'))+1);
+	$(".moveL").show();
+
 	var rs = mantenimiento('login',6,arr);
-	$(".myh3").append($("option:selected",this).attr('num')+"-"+$("option:selected",this).text()+"<br>"+"&nbsp>");
+
 	if (rs.length == undefined) {
-		slide($("[cod]:visible").attr('cod'),1);
+		Materialize.toast('No hay Cuentas Asociadas',4000,'red')
 		$("#vnombre").val('');
         $("#vnombre").focus();
-        
 	}
-	else
+	else{
+		$("#myub").append(">"+ant)
 		$(this).html(rs);
+		$(this).material_select('update')
+	}
 });
 
 $(document).on("keyup",".fast-edit-r",function(e){
@@ -803,10 +834,23 @@ $(document).on("click",".load_x",function(){
     $("#ftipopagos #vnombre_pago").val(p[1]);
     if (p[0] > 0) {
     	$(".mix").show();
-	    if(p[2] == 1) 
-	    	$("#ftipopagos #vbancos").attr('checked',true);
-	    else 
-	    	$("#ftipopagos #vbancos").attr('checked',false);
+    	
+    	switch(parseInt(p[2])){
+    		case 1:
+    			$("#ftipopagos #vbancos").click();
+    			break;
+    		case 2:
+    			$("#ftipopagos #dat").click();
+    			break;
+    		default:
+    			$('input:radio[name=vbancos]:checked').prop('checked', false);
+    			break;
+    	}
+	    
+	    if (p[5] == 1) 
+	    	$("#ftipopagos #vprincipal").attr('checked',true);
+	    else
+	    	$("#ftipopagos #vprincipal").attr('checked',false);
 	    
 	    if(p[3]){
 	    	$("#ftipopagos #extra").attr('checked',true);
@@ -817,14 +861,13 @@ $(document).on("click",".load_x",function(){
 	    	$("#ftipopagos #vextra").val('');
 	    	$("#ftipopagos #vregex").val('');
 	    }
-	    //$("#ftipopagos #vcuenta").val(p[5]);
-    	$("#ftipopagos #vbancos").change();
+
     	$("#ftipopagos #extra").change();
+    	$("#ftipopagos #vprincipal").change();
     }else
     	$(".mix").hide();
 
     Materialize.updateTextFields();
-    //$("#ftipopagos #vcuenta").material_select('update'); 
 })
 
 $(document).on("change","#extra",function(){
@@ -842,43 +885,35 @@ $(document).on("keyup","#vnombre",function(e){
 
 $(document).on("click",".addglobal",function(){
 
-	if($("#vnombre").is(":visible")){
-		var arr = {}
-		arr['sel'] = '';
-		arr['tbl'] = 37;
-		arr['where'] = '1,0,'+$("#vgenero").attr('lvl')+',"'+$('#vnombre').val()+'",@@usr,'+$("#vispadre").val();
-
-		mantenimiento('login',4,arr);//INGRESAR CUENTA
-
-		arr = {};
-		arr['sel'] = 'id,nombre,numero';
-		arr['tbl'] = 36;
-		arr['where'] = 'idsubcuenta = '+$("#vgenero").attr('lvl');
-
-		$("#vgenero").html(mantenimiento('login',6,arr));
-
-		slide($("[cod]:visible").attr('cod'),-1);
-		
-	}else{
-		slide($("[cod]:visible").attr('cod'),1);
-		$("#vnombre").val('');
-        $("#vnombre").focus();
+	if($("#vnombre").val() == ''){
+		$("#vnombre").focus()
+		Materialize.toast('Nombre Requerido',4000,'red')
+		return false;
 	}
-});
 
-function slide(cod,suma) {
-	var max = $("[modulo=scontabilidad]").attr('max');
-	var siguiente = parseInt(cod) + suma;
-	$("[cod="+cod+"]").hide();
-	$("[cod="+siguiente+"]").show();
-	
-	if (siguiente == 1) 
-		$(".slidel").hide();
-	else if(siguiente ==  max)
-		$(".slidel").show();
-	else
-		$(".slidel").show();
-}
+	var arr = {}
+	arr['sel'] = '';
+	arr['tbl'] = 37;
+	arr['where'] = '1,0,'+$("#vgenero").data('lvl')+',"'+$('#vnombre').val()+'",@@usr,'+$("#vispadre").val();
+
+	var p = mantenimiento('login',4,arr);//INGRESAR CUENTA
+	if(p['succed'] != 0){
+		// arr = {};
+		// arr['sel'] = 'id,nombre,numero';
+		// arr['tbl'] = 36;
+		// arr['where'] = 'ispadre and idsubcuenta = '+$("#vgenero").attr('lvl');
+
+		// var q = mantenimiento('login',6,arr);
+		// $("#vgenero").html(q);
+		// $("#vgenero").material_select('update');
+		$("#m4").click()
+
+	}else{
+		Materialize.toast(p[0]['ERROR'],4000,'red')
+    	$("#vnombre").focus();
+	}
+		
+});
 
 /*MONEDAS*/
 

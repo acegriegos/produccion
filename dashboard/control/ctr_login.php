@@ -138,7 +138,6 @@
 
         $wsdls = $log->kamehameha('*',102,'id > 0');
         $tipoCambio = "";
-
         foreach ($wsdls as $obj) {
 
           $parametros = $log->kamehameha('detalle,valordetwsdl',103,'idwsdl = '.$obj[4]);

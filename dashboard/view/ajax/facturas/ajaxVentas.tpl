@@ -1,7 +1,7 @@
 <div id="ffacturas">
 
 <div class="card">
-<div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%;">VENTAS</p></div>
+<div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%;">VENTAS {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
@@ -19,7 +19,7 @@
     </div>
 
     <div class="col s6">
-      <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">000001</span></label>
+      <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
     </div>
 
   </div>
@@ -106,8 +106,9 @@
           <td class="center" style="font-size: 1em; width: 17%; font-size: 0.8em">
             
             <div class="col s12 m4 l4">
-                
-                 <i class="fa fa-archive" title="Cantidad en Inventario"><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span></i>
+                <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
+                 <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
+                </a>
           </div>
           <div class="col s12 m8 l5"">
          
@@ -118,32 +119,11 @@
         </tr>
       </thead>
 
-        <tbody id="detallefactura" tp="4" style="max-height: 20%; overflow: auto; font-size: 0.8em; ">
-          <!-- <tr id="fd1">
-          <td style="padding: 0; width: 5%">
-            <input type="checkbox" id="bor1" />
-            <label for="bor1"></label>
-          </td>
-          <td style="width: 10%;" class="center">1234</td>
-          <td style="width: 33%;" class="center">MONITOR 21" AOC HD 1920x1080 WS BLACK</td>
-          <td style="width: 14%;" class="center">73900.00</td>
-          <td style="width: 10%;" class="center">1</td>
-          <td style="width: 14%;" class="center">73900.00</td>
-          <td style="width: 16%;" class="center">
-           <div class="col s12 m4 l4">
-            <a class="material-icons pbtn black-text">edit</a>
-            </div>
-                       <div class="col s12 m4 l4">
-            <i class="material-icons pbtn red-text">close</i>
+        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" style="max-height: 20%; overflow: auto; font-size: 0.8em; ">
 
-            </div>
-
-          </td>
-        </tr> -->
         </tbody>
       </table>
     </div>
-  </div>
 </div> <!-- card footer -->
 
 <div class="card" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
@@ -212,16 +192,27 @@
     <div class="col s12 m6 l6">
       <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
       <div class="row">
-        <div class="col-md-12 col-lg-12">
-          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar">Facturar</button>
-          
+        <div class="col s4">
           <p>
             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
             <label for="p_v">Punto Venta</label>
           </p>
+        </div>
+
+        <div class="col s4">
+          <select id="vidodt" type="select">
+            <option value="0">Selecione una ODT</option>
+          </select>
+          <label>ODT</label>
+        </div>
+
+        <div class="col s4">
+          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar">Facturar</button>
+        </div>
 
         </div>
       </div>
+
     </div>
 
   </div>
@@ -233,28 +224,58 @@
 </div> <!-- bdy --> 
 
 
-<div class="modal fade" id="modal-cambio">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="background: #4098CB">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" style="color: #fff">CÁLCULO DE CAMBIO</h4>
-      </div>
-      <div class="modal-body" align="center">
-        <div class="input-group input-group" style="width: 60%">
-          <span class="input-group-addon">PAGA CON:</span>
-          <input type="text" class="form-control form-control-lg" id="pcon" placeholder="0.00" value="">
-        </div><br>
-        <div class="input-group input-group" style="width: 60%">
-          <span class="input-group-addon">CAMBIO DE:</span>
-          <input type="text" class="form-control form-control-lg" id="pcam" placeholder="0.00" value="0.00" readonly>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+<div class="modal modal-fixed-footer" id="modal-cambio">
+  
+  <div class="modal-content">
+    <div class="modal-header" style="background: #4098CB">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" style="color: #fff">CÁLCULO DE CAMBIO</h4>
+    </div>
+    <div class="modal-body" align="center">
+      <div class="input-group input-group" style="width: 60%">
+        <span class="input-group-addon">PAGA CON:</span>
+        <input type="text" class="form-control form-control-lg" id="pcon" placeholder="0.00" value="">
+      </div><br>
+      <div class="input-group input-group" style="width: 60%">
+        <span class="input-group-addon">CAMBIO DE:</span>
+        <input type="text" class="form-control form-control-lg" id="pcam" placeholder="0.00" value="0.00" readonly>
       </div>
     </div>
   </div>
+
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=2.1"></script>
+<div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
+
+  <div class="modal-content">
+      <div class="row">
+          <div class="input-field col s6">
+              <select type="select" id="xidbodega" class="_det" det="bodega" sig="xidinventario" prev="" d-b="41">
+                  <option value="" disabled selected>Seleccione una Bodega</option>
+                  {section name=LE loop=$BOD}
+                  <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
+                  {/section}
+              </select>
+              <label for="idbodega">Bodegas</label>
+          </div>
+          <div class="input-field col s6">
+              <select type="select" id="xidinventario" det="inventario" d-b="111">
+                  <option value="" disabled>Seleccione un Inventario</option>
+              </select>
+              <label for="idinventario">Inventarios</label>
+          </div>
+      </div>
+      <p>Cantidad de Producto en el Inventario: <b><span id="bname-inv" type="html">0.00</span></b></p>
+  </div>
+
+  <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+
+</div>
+
+<script src="../assets/js/modulos/ventas.js?v=2.7"></script>

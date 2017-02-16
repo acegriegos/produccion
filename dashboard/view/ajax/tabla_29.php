@@ -8,8 +8,8 @@
 <td><?php echo $obj[5] ?></td>
 <td><?php echo $obj[6] ?></td>
 <td>
-<a href="#modal-clientes" class="btn-floating load modal-trigger" id="m<?php echo $obj[0] ?>" modulo="cliente"><i class="fa fa-pencil-square-o"></i></a>
-<a href="#!" class="btn-floating delete" modulo="cliente" id="d<?php echo $obj[0] ?>" style="color: #D9534F"><i class="fa fa-times"></i></a>
+<a href="#modal-clientes" style="color: #686868"><i class="load material-icons pbtn" id="m<?php echo $obj[0] ?>" modulo="cliente">edit</i></a>
+<a href="#" style="color: #686868"><i class="delete material-icons pbtn" modulo="cliente" id="d<?php echo $obj[0] ?>">delete</i></a>
 </td>
 </tr>
 

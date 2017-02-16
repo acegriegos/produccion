@@ -1,4 +1,6 @@
+<div class="card"
 <div class="row">
+<br>
     <div class="col-md-2 col-lg-2">
         <ul class="list-group">
           <li class="list-group-item btn func" fn="f1" id="fn1">Realizar Transacción</li>
@@ -36,7 +38,7 @@
             </div> -->
            
             <br>
-            <table class="table trtable">
+            <table class="table responsive-table">
                 <thead>
                     <tr>
                         <th>Cuenta</th>
@@ -81,4 +83,5 @@
         <!-- /Funcion 1 -->
 
     </div>
+</div>
 </div>

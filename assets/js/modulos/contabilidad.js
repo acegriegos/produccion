@@ -19,10 +19,11 @@ $(function(){
 				$("[modulo=scontabilidad]").attr('max',$("[cod]").length / 2);
 				break;
 			case 2:
-				//$('#datetimepicker2').datetimepicker();
 				$('#fn1').click();
             break;
 		}
+
+		$('.dropdown-button').dropdown();
 
 	});
 
