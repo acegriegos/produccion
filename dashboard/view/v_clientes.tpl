@@ -8,19 +8,19 @@
     <title>Clientes</title>
 </head>
 <!-- #0B3861 -->
-<body class="grey">
+<body class="grey lighten-5">
     {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
     <div class="bdy">
         <div class="card z-depth-5">
 
-            <div class="card-header center    white-text blue " >
+            <div class="card-header center    white-text  " style="background-color:#0B3861 " >
                 <p class="flow-text" style="font-size: 1.9em;">Clientes</p>
             </div>
             <div class="card-content">
                 <div class="row">
 
-                    <div class="input-field col s10 m8 l8">
+                    <div class="input-field col s10 m8 l6">
 
                         <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                         <ul id='filtr_1' class='dropdown-content'>
@@ -32,7 +32,7 @@
                         <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
 
                     </div>
-                    <div class="col s2 m4">
+                    <div class="col s2 m6">
                         <a id="ingClie" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="large material-icons">add</i></a>
                     </div>
 
@@ -40,15 +40,15 @@
 
                 <div class="card-block">
                     
-                    <table  class="table centered striped responsive-table" id="data-table-clientes">
+                    <table  class="table centered  responsive-table" id="data-table-clientes">
                         <thead>
                             <tr>
-                                <th class="sinborde white-text blue-grey" style="font-size: 1.2em; "><b>Cédula</b></th>
-                                <th class="sinborde white-text blue-grey" style="font-size: 1.2em; ">Nombre</th>
-                                <th class="sinborde white-text blue-grey" style="font-size: 1.2em; ">Teléfonos</th>
-                                <th class="sinborde white-text blue-grey" style="font-size: 1.2em; ">Correo</th>
-                                <th class="sinborde white-text blue-grey" style="font-size: 1.2em; ">Tipo</th>
-                                <th class="sinborde white-text blue-grey" style="font-size: 1.2em; ">Acciones</th>
+                                <th class="sinborde white-text blue  " style="font-size: 1.2em;"><b>Cédula</b></th>
+                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Nombre</th>
+                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Teléfonos</th>
+                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Correo</th>
+                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Tipo</th>
+                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listaclientes">
@@ -60,8 +60,8 @@
                                 <td>{$CLIE[LE][5]}</td>
                                 <td>{$CLIE[LE][6]}</td>
                                 <td>
-                                    <a href="#modal-clientes" style="color: #686868"><i class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente">edit</i></a>
-                                    <a href="#" style="color: #686868"><i class="delete material-icons pbtn" modulo="cliente" id="d{$CLIE[LE][0]}">delete</i></a>
+                                    <a href="#modal-clientes" class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente" >edit</a>
+                                    <a href="#" class="delete material-icons pbtn" modulo="cliente" id="d{$CLIE[LE][0]}" >delete</a>
                                 </td>
                             </tr>
                             {/section}
