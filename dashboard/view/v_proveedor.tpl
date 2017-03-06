@@ -15,44 +15,40 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body class="grey lighten-5">
     {$NAV}
     <div class="bdy">
-      <div class="card">
-    <div class="card-header center blue-grey white-text"><p class="flow-text">Área Proveedor</p></div>
+      <div class="card z-depth-5">
+    <div class="card-header center white-text" style="background-color:#0B3861"><p class="flow-text">Área Proveedor</p></div>
     <div class="card-content">
       <div class="row">
         <div class="col s12 m12 l6">
-          <div class="card">
-          <div class="card-title grey white-text center">&nbsp;Opciones</div>
-          <div class="card-content">
-            <div class="row center">
-              <div class="col s12 m12 l6">
-                <a href="proveedores" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">Proveedores</a>
-              </div>
-              <div class="col s12 m12 l6">
-                <a href="facturacion?tf=2" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Ventas">Compras</a>
-              </div>
-            </div>
-            <div class="row center">
-              <div class="col s12 m12 l6">
-                <a href="#" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="facturacion?tf=3">Compra Activos</a>
-              </div>
-              <div class="col s12 m12 l6">
-                <a href="cuentas" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">CxP</a>
-              </div>
-            </div>
-            <div class="row center">
-              <div class="col s12 m12 l6">
-                <a href="reportes" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
+          <div class="card  z-depth-5">
+            <div class="card-title blue-grey white-text center">&nbsp;Opciones</div>
+            <div class="card-panel">
+              <div class="row ">
+                <div class="col s12 m6 l6">
+                  <a href="proveedores" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Proveedores</a>
+                </div>
+                <div class="col s12 m6 l6">
+                  <a href="facturacion?tf=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Compras</a>
+                </div>
+                <div class="col s12 m6 l6">
+                  <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="facturacion?tf=3">Compra Activos</a>
+                </div>
+                <div class="col s12 m6 l6">
+                  <a href="cuentas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">CxP</a>
+                </div>
+                <div class="col s12 m6 l6">
+                  <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
         <div class="col s12 m12 l6">
-          <div class="card">
-          <div class="card-title grey white-text center">&nbsp;Gráfico</div>
+          <div class="card z-depth-5">
+                <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
           <div class="card-content">
             <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
           </div>

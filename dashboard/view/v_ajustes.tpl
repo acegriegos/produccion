@@ -8,13 +8,13 @@
     <title>Configuración</title>
     
   </head>
-  <body>
+  <body class="grey lighten-5">
     {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
     <div class="bdy">
     
-    <nav class="nav-extended blue-grey">
-      <div class="nav-wrapper">
+    <nav class="nav-extended z-depth-5 " style="background-color:#0B3861">
+      <div class="nav-wrapper ">
         <ul class="tabs tabs-transparent">
           <li class="tab col s3 menu3" id="m1"><a class="active">Empresa</a></li>
           <li class="tab col s3 menu3" id="m2"><a>Descuentos</a></li>

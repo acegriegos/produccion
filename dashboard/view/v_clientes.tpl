@@ -14,15 +14,15 @@
     <div class="bdy">
         <div class="card z-depth-5">
 
-            <div class="card-header center    white-text  " style="background-color:#0B3861 " >
+        <div class="card-header center white-text" style="background-color:#0B3861">
                 <p class="flow-text" style="font-size: 1.9em;">Clientes</p>
             </div>
             <div class="card-content">
                 <div class="row">
 
-                    <div class="input-field col s10 m8 l6">
+                    <div class="input-field col s10 m6 l6">
 
-                        <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+                        <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                         <ul id='filtr_1' class='dropdown-content'>
                             <li><a href="#!" fltr="1">Nombre</a></li>
                             <li><a href="#!" fltr="2">Cédula</a></li>
@@ -33,35 +33,35 @@
 
                     </div>
                     <div class="col s2 m6">
-                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="large material-icons">add</i></a>
+                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="large material-icons ">add</i></a>
                     </div>
 
                 </div>
 
                 <div class="card-block">
-                    
-                    <table  class="table centered  responsive-table" id="data-table-clientes">
+
+                    <table  class="table centered highlight bordered responsive-table z-depth-3" id="data-table-clientes">
                         <thead>
                             <tr>
-                                <th class="sinborde white-text blue  " style="font-size: 1.2em;"><b>Cédula</b></th>
-                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Nombre</th>
-                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Teléfonos</th>
-                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Correo</th>
-                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Tipo</th>
-                                <th class="sinborde white-text blue  " style="font-size: 1.2em;">Acciones</th>
+                                <th class="sinborde white-text blue" style="font-size: 1.2em;"><b>Cédula</b></th>
+                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Nombre</th>
+                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Teléfonos</th>
+                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Correo</th>
+                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Tipo</th>
+                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listaclientes">
                             {section name=LE loop=$CLIE}
                             <tr id="f{$CLIE[LE][0]}">
-                                <td>{$CLIE[LE][1]}</td>
-                                <td>{$CLIE[LE][2]}</td>
-                                <td>{$CLIE[LE][4]}</td>
-                                <td>{$CLIE[LE][5]}</td>
-                                <td>{$CLIE[LE][6]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][1]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][2]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][4]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][5]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][6]}</td>
                                 <td>
-                                    <a href="#modal-clientes" class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente" >edit</a>
-                                    <a href="#" class="delete material-icons pbtn" modulo="cliente" id="d{$CLIE[LE][0]}" >delete</a>
+                                    <a href="#modal-clientes" class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente" style="font-size: 2em; color: #607d8b">edit</a>
+                                    <a href="#" class="delete material-icons pbtn" modulo="cliente" id="d{$CLIE[LE][0]}" style="font-size: 2em; color: #607d8b">delete</a>
                                 </td>
                             </tr>
                             {/section}
@@ -168,7 +168,7 @@
                             <div class="col s12 m12 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3">
                                 <div class="ciclos">
                                     <div class="row">
-                                     
+
                                         <div class="input-field col s12 m6">
                                             <select type="select" id="tptel">
                                                 <option value="" disabled selected>Seleccione Tipo de Tel.</option>
@@ -284,8 +284,8 @@
 
                             <div class="row"><br>
                                 <div class="input-field col s12 m12 l4">
-                                   <br>
-                                   <div class="provincia">
+                                 <br>
+                                 <div class="provincia">
                                     <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
 
                                     <select id="vidprovincia" type="select" class="_det" primary="1">
@@ -300,8 +300,8 @@
                             </div>
 
                             <div class="input-field col s12 m12 l4">
-                               <br>
-                               <div class="canton">
+                             <br>
+                             <div class="canton">
 
                                 <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="material-icons">add</i></a>
 
@@ -315,8 +315,8 @@
                         </div>
 
                         <div class="input-field col s12 m12 l4">
-                           <br>
-                           <div class="distrito">
+                         <br>
+                         <div class="distrito">
                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="material-icons">add</i></a>
 
                             <select id="viddistrito" type="select" class="_det">
@@ -336,7 +336,7 @@
 
                 <div class="row">
 
-                    
+
 
                     <div class="input-field col s6 hide-on-med-and-up">
                         <div class="prefix"><i class="material-icons">location_on</i></div>
@@ -358,7 +358,7 @@
 
 <div id="exo" class="col s12">
     <div class="row">
-        
+
         <div class="card-title"><b>Impuestos</b></div>
 
         
@@ -372,7 +372,7 @@
             
         </div>
         <div class="col s12 m12 l6">
-         
+
             <div>
                 <ul class="collection" id="showimpuestos">
 

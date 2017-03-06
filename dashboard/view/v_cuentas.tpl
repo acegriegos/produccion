@@ -21,7 +21,7 @@
 
      <div class="card">
      
-        <div class="card-content  blue-grey darken-2">
+        <div class="card-content   darken-2" style="background-color:#0B3861">
           <h1 class="center-align"><i class="large material-icons">supervisor_account</i>Cuentas </h1>
       </div>
       <div class="card-tabs">

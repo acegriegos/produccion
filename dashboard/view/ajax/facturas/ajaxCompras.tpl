@@ -1,283 +1,290 @@
 <div id="fcompras">
 
-<div class="row">
-<div class="col-sm-2 col-xs-2">
-<label class="c-input c-radio">
-<input name="radio" type="radio" id="vidtipofactura" name="vidtipofactura" value="1" checked="checked">
-<span class="c-indicator"></span>
-Contado
-</label>
-</div>
-<div class="col-sm-2 col-xs-2">
-<label class="c-input c-radio">
-<input name="radio" type="radio" id="cred" name="vidtipofactura" value="2">
-<span class="c-indicator"></span>
-Crédito
-</label>
-</div>
-<div class="col-md-3 col-lg-3 der">
-<div class="input-group input-group">
-<span class="input-group-addon" id="nfact">N° Factura</span>
-<input type="text" class="form-control" aria-label="Código" placeholder="Código" value="{$NFACT}" disabled>
-</div>
-</div>
-<div class="col-md-5 col-lg-5"></div>
-</div>
+<div class="card z-depth-5">
+<div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%; background-color:#0B3861">COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
+  <input type="hidden" class="zelda">
+  <input type="hidden" id="vidusuario" value="">
 
+  <div class="row">
+
+    <div class="col s6">
+      <div class="switch">
+        <label>
+          Contado
+          <input type="checkbox" id="chg_tipo" value="1" disabled>
+          <span class="lever"></span>
+          Crédito
+        </label>
+      </div>
+    </div>
+
+    <div class="col s6">
+      <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
+    </div>
+
+  </div>
 <br>
+  <div class="row">
 
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Número Referencia</b></div>
-<input type="text" class="form-control eder" id="vreferencia" placeholder="Numero de Referencia">
-</div>
-</div>
-<div class="col-sm-6 col-xs-6">
-<div class="input-group con">
-<div class="input-group-addon"><b>Forma de Pago</b></div>
-<select id="vtipopago" class="form-control" type="select">
-{section name=LE loop=$TPAGO}
-<option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
-{/section}
-</select>
-</div>
-<div class="input-group cre" style="display: none;">
-<div class="input-group-addon"><b>Plazo en Días</b></div>
-<input type="text" id="vplazo" class="form-control" value="0" data-mask="999">
-</div>
-</div>
-</div>
+   <div class="input-field col s6 m3 l3">
+      <i class="fa fa-calendar-o prefix"></i>
+      <input type="date" class="datepicker" id="vfecha" value="" />
+    </div>
 
-<br>
+    <div class="input-field con col s6 m3 l3" >
+      <select id="vidtipopago" type="select">
+        {section name=LE loop=$TPAGO}
+        <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
+        {/section}
+      </select>
+      <label>Forma de Pago</label>
+    </div>
+   
+    <div class="input-field cre col s6 m3 l3" style="display: none;">
+      <input type="text" id="vplazo" value="0" class="eder" readonly />
+      <label for="vplazo">Plazo en Días</label>
+    </div>
 
-<div class="row">
-<div class="col-md-4 col-lg-4"></div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><b>Fecha Inclusión</b></div>
-<input type="date" id="vfecha_inclucion" class="form-control" value="{$smarty.now|date_format:'%Y-%m-%d'}" >
-</div>
-<br>
-</div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><b>Fecha Entrega</b></div>
-<input type="date" id="vfecha_entrega" class="form-control" value="" >
-</div>
-<input type="hidden" id="tipopago" class="form-control" value="1"> 
-</div>
-<br>
-</div>
+    <div class="input-field col s6 m3 l3">
+      <i class="fa fa-user prefix"></i>
+      <label class="truncate" for="ncli">Nombre deL Proveedor</label>
+      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
+    </div>
 
-  <!-- </div> -->
-<div class="panel-body" style="border-top: 1px dashed rgb(238,238,238)">
-<h3 class="card-footer"><b id="ncli">DATOS DEL PROVEEDOR</b></h3><br>
+    <div class="input-field col s6 m3 l3">
+      <label for="ced">Cédula del Proveedor</label>
+      <input type="text" id="ced" class="validate sclie" />
+    </div> 
+    
+  </div>
 
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<!-- <div class="input-group">
-<div class="input-group-addon"><b>Nombre</b></div> -->
-<input type="text" class="form-control" id="nprv" placeholder="Nombre del Proveedor">
-<!-- </div> -->
-</div>
-<div class="col-md-6 col-lg-6">
-<!-- <div class="input-group">
-<div class="input-group-addon"><b>Cédula</b></div> -->
-<input type="text" class="form-control" id="idprv" placeholder="Cédula del Proveedor">
-<input type="hidden" id="vbisproveedor" class="form-control" value="1">
-<!-- </div> -->
-</div>
-<br><br>
-<div class="col-md-12 col-lg-12">
-<!-- <div class="input-group">
-<div class="input-group-addon"><b>Dirección</b></div> -->
-<input type="text" class="form-control" id="dprv" placeholder="Dirección del Proveedor">
-<!-- </div> -->
-</div>
-</div>
+  <div class="row">
 
-<div class="card-block" style="border-top: 1px solid rgb(245,245,245);">
-<h3 class="card-footer"><b id="det">INGRESAR PRODUCTOS</b></h3><br>
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Código</b></div>
-<input type="text" id="cod" class="form-control" value="" placeholder="Código">
-</div>
-</div>
-<div class="col-md-6 col-lg-6">
-<div class="input-group">
-<div class="input-group-addon"><b>Descripción</b></div>
-<input type="text" id="descr" class="form-control" value="" placeholder="Descripción de Producto">
-</div>
-<br>
-</div>
-<div class="col-md-3 col-lg-3">
-<!-- <label class="c-input c-checkbox">
-<input type="checkbox" id="prodprov">
-<span class="c-indicator"></span>
-Cargar Productos del Proveedor
-</label> -->
-</div>
-</div>
-<div class="alert alert-warning" align="center" style="display: none" id="alert-prod">
-<strong >Producto no Existente,</strong>
-Desea Agregarlo al Realizar la Compra?<br> <button type="button" class="btn btn-info" id="includ">Aceptar</button> <button type="button" class="btn btn-success" id="ninunclud">Declinar</button>
-</div>
-</div>
+    <div class="card-header blue-grey center"><p class="white-text">DETALLE DE FACTURA</p></div>
 
-<div class="card-footer">
-<div class="row">
-<div class="col-md-2 col-lg-2"></div>
-<div class="col-md-8 col-lg-8">
-<h3 class="card-title" align="center"><b>DETALLE COMPRA</b></h3><br>
-</div>
-<div class="col-md-2 col-lg-2">
-<button type="button" class="btn btn-info-outline der" id="del1">Eliminar Filas</button>
-<br><br>
-</div>
-</div>
-<div class="row">
-<div class="table-responsive">
-<table class="table table-striped table-bordered nowrap" id="table-detalle" cellspacing="0" width="100%">
-<thead>
-<tr>
-<th><i class="fa fa-trash" aria-hidden="true" title="Elimina varias filas seleccionadas presionando sobre el botón 'Eliminar Filas'"></i></th>
-<th>Descripción</th>
-<th style="width: 13%">Cantidad</th>
-<th style="width: 13%">Costo</th>
-<th style="width: 13%">Precio</th>
-<th style="width: 13%">Margen</th>
-<th style="width: 13%">Total Margen</th>
-<th style="width: 8%" align="center">%</th>
-<th style="width: 2%">Acciones</th>
-</tr>
-</thead>
-<tbody id="detallecompra">
-<tr id="f1">
-<td>
-<div class="checkbox">
-<label class="c-input c-checkbox">
-<input type="checkbox">
-<span class="c-indicator" class="delf" name="eliminarf" value="1" style="float: right;"></span>
-</label>
-</div>
-</td>
-<td>  <span class="checkbox" id="prod1"></span><input type="hidden" id="vidproducto1" class="constante1" value=""><input type="hidden" id="vidfactura1" value="?"></td>
-<td><input type="number" id="vcantidad1" idx=1 class="form-control xort" value="1" min="1"></td>
-<td><input type="text" id="vcosto1" idx=1 class="form-control xort eder" value="0.00" data-mask="99999999.99"></td>
-<td><input type="text" id="vprecio1" idx=1 class="form-control xort eder" value="0.00" data-mask="99999999.99"></td>
-<td align="right"><div class="checkbox"> <span class="valores" id="margen1">0.00</span></div></td>
-<td align="right"><div class="checkbox"> <span class="valores" id="totm1">0.00</span></div></td>
-<td align="left">
-<div class="checkbox"><span id="prcent1" value="0">0.00</span></div>
-</td>
-<td><div class="checkbox "> <input type="checkbox" class="delf" name="eliminarf" value="1" style="float: right;"> <i class="fa fa-random btn" id="pr1" title="Ver Otros Precios" data-toggle="modal" href='#modal-precios'></i> </div></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+    <table class="table" id="data-table-detalle" cellspacing="0">
+      <thead>
+        <tr>
+          <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <th style="width: 10%; " class="center-align">Código</th>
+          <th style="width: 20%; " class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width: 14%; " class="center-align"><span class="truncate">Costo.Unit</span></th>
+          <th style="width: 10%; " class="center-align">Cantidad</th>
+          <th style="width: 10%; " class="center-align"><span class="truncate">Descuento</span></th>
+          <th style="width: 14%; " class="center-align">Total</th>
+          <th style="width: 17%; " class="center-align">
+          <div class="hide-on-small-only">
+            <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
+            <label for="barras"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
 
-<div class="card-footer">
-<h3 class="card-title"><b>DESGLOCE DE COMPRA</b></h3><br>
+            <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" checked/>
+            <label for="teclado"><i class="fa fa-keyboard-o" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
+            </div>  
+          </th>
+        </tr>
 
-<div class="row">
-<div class="col-md-6 col-lg-6">
-<strong>
-<table class="table table-striped table-hover" style="border: 1px solid #e2e2e2;">
-<thead>
-<tr>
-<tr>
-<td>SUBTOTAL:</td>
-<td align="right"><span><b>¢</b></span><span id="subtot" type="html" value="0">0.00</span></td>
-</tr>
-<tr>
-<td>I.M.V:</td>
-<td align="right"><span><b>¢</b></span><span id="imv" type="html" value="0">0.00</span></td>
-</tr>
-<td>TOTAL:</td>
-<td align="right"><span><b>¢</b></span><span id="tot" type="html" value="0">0.00</span>
-<input type="hidden" id="vtsubtotal" value="0">
-</td>
-<tr>
-<td>FLETE:</td>
-<td align="right"><span><b>¢</b></span><span id="flete" type="html" value="0">0.00</span></td>
-</tr>
-<tr>
-<td>DESCUENTO:</td>
-<td align="right"><span><b>¢</b></span><span id="descuento" type="html" value="0">0.00</span></td>
-</tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<!--  -->
-<div class="col-md-12 col-lg-12">
-<div class="row">
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><small><b>FLETE</b></small></div>
-<input type="text" id="flet" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
-<div class="input-group-addon"><small><b>¢</b></small></div>
-</div>
-</div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><small><b>DESC</b></small></div>
-<input type="text" id="cod" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
-<div class="input-group-addon"><small><b>%</b></small></div>
-</div>
-</div>
-<div class="col-md-4 col-lg-4">
-<div class="input-group">
-<div class="input-group-addon"><small><b>AJUSTE</b></small></div>
-<input type="text" id="ajust" class="form-control form-control-sm" value="0" placeholder="0.00" data-mask="999999999.99">
-<div class="input-group-btn">
-<button type="button" class="btn btn-sm" id="btnAjuste" accion="1">+</button>
-</div>
-<!-- <div class="input-group-addon"><small><b>+</b></small></div> -->
-</div>
-</div>
-</div>
-</div>
-<!--  -->
-</strong>
-</div>
-<div class="col-md-6 col-lg-6">
-<textarea id="vcomentario" class="form-control" cols="25" placeholder="Comentario de la Compra" type="textarea" style="max-height: 100px"></textarea><br>
-<div class="row">
-<div class="col-md-12 col-lg-12">
-<button class="btn btn-primary-outline der add" modulo="compra" codigo="1" id="comprar" detalle="1">Ingresar Compra</button>
-<button type="button" class="btn btn-primary der edit per105 inv" codigo="1" modulo="compra" detalle="1" id="actualizar">Actualizar</button>
-<input type="hidden" class="load" value="" codigo="1" modulo="compra" detalle="1">
-<div class="checkbox" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'">
-<label class="c-input c-checkbox">
-<input type="checkbox">
-<span class="c-indicator" id="t_p" value="1"></span>
-Punto Venta
-</label>
-</div>
-<br>
-<div class="card-footer"><br>
-<span class="card-title" style="font-size: 3.8em"><h4>TOTAL:</h4><strong><span>¢</span><span id="total" type="html">0.00</span></strong></span>
-</div>
-</div>
-</div>
-</div>
-</div>
+        <tr>
+          <td style="width: 5%">
+          </td>
+
+          <td style="width: 10%; " class="input-field">
+            <input type="text" id="codp" class="f prod center" placeholder="Código">
+            <input type="hidden" id="valores">
+          </td>
+
+          <td style="width: 20%; " class="input-field">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
+          </td>
+          <td style="width: 14%; " class="input-field">
+            <input type="text" id="precp" class="f center" value="0.00" readonly>
+          </td>
+          <td style="width: 10%; " class="input-field">
+            <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+          </td>
+            <td style="width: 10%; " class="input-field">
+            <input type="number" class="f center" id="cantp" min="0" data-mask="999999999.99" placeholder="Cantidad">
+          </td>
+          <td style="width: 14%; " class="input-field">
+            <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
+          </td>
+          <td class="center" style="font-size: 1em; width: 17%; ">
+            
+            <div class="col s12 m4 l4">
+                <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
+                 <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
+                </a>
+          </div>
+          <div class="col s12 m8 l5"">
+         
+             <a href="#!" title="Limpiar Campos" ><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+          </div>
+  
+          </td>
+        </tr>
+      </thead>
+
+        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" style="max-height: 20%; overflow: auto; font-size: 0.8em; ">
+
+        </tbody>
+      </table>
+    </div>
+</div> <!-- card footer -->
+
+<div class="card z-depth-5" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
+  <p class="white-text card-header blue-grey center" style="margin-top: 0px;">DESGLOCE DE FACTURA</p>
+  <div class="row">
+
+
+
+    
+
+    <div class="col s12 m12 l6">
+      <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
+      <div class="row">
+      <br>
+        <div class="col s12 m4 input-field">
+          <div class="prefix"><img src="../assets/img/icon/percent.svg"/></div>
+          <input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled>
+          <label>DESCUENTO</label>
+        </div>
+
+        <div class="col s12 m4 input-field">
+          <div class="prefix">¢</div>
+          <label for="vflete">FLETE</label>
+          <input type="text" id="vflete" class="eder" value="0">
+        </div>
+
+        <div class="col s12 m4 input-field">
+          <div class="prefix" id="btnAjuste" accion="1">+</div>
+          <label for="vajuste">AJUSTE</label>
+          <input type="text" id="vajuste" class="eder" value="0">
+        </div>
+
+      </div>
+      </div>
+      <div class="col s12 m12 l6">
+      <table class="table table-striped table-hover" style="border: 1px solid #e2e2e2;">
+        <thead style="border: 0px">
+          <tr>
+            <td>SUBTOTAL:</td>
+            <td style="float: right;">
+              <span><b>¢</b></span><span id="subtot" type="html" value="0">0.00</span>
+            </td>
+          </tr>
+        </thead>
+
+        <tbody id="sh_imp">
+          
+        </tbody>  
+
+        <tfoot>  
+          <tr>
+            <td>DESCUENTO:</td>
+            <td style="float: right;"><span><b>¢</b></span><span id="descuento_v" type="html" value="0">0.00</span></td>
+          </tr>
+
+          <tr>
+            <td>FLETE:</td>
+            <td style="float: right;"><span><b>¢</b></span><span id="flete" type="html" value="0">0.00</span></td>
+          </tr>
+
+          <tr style="border-top:1px solid black">
+            <td>TOTAL:</td>
+            <td style="float: right;"><span><b>¢</b></span><span id="tot" type="html" value="0">0.00</span>
+            </td>
+          </tr>
+       
+        </tfoot>
+          
+      </table>
+      <br>
+      <div class="row">
+        <div class="col s4">
+          <p>
+            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+            <label for="p_v">Punto Venta</label>
+          </p>
+        </div>
+
+        <div class="col s4">
+          <select id="vidodt" type="select">
+            <option value="0">Selecione una ODT</option>
+          </select>
+          <label>ODT</label>
+        </div>
+
+        <div class="col s4">
+          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar">Realizar Compra</button>
+        </div>
+
+        </div>
+      
+
+    </div>
+
+    </div>
+
+  </div>
 </div>
 
-<br>
 
-<div class="alert alert-danger err_" id="err1" style="display:none">
-<strong id="errm1"></strong>
-</div>
-<div class="alert alert-success suc_" id="suc1" style="display:none">
-<strong id="sucm1"></strong>
-</div>
+</div> <!-- ffacturas -->
+
+</div> <!-- bdy --> 
+
+
+<div class="modal modal-fixed-footer" id="modal-cambio">
+  
+  <div class="modal-content">
+    <div class="modal-header" style="background: #4098CB">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" style="color: #fff">CÁLCULO DE CAMBIO</h4>
+    </div>
+    <div class="modal-body" align="center">
+      <div class="input-group input-group" style="width: 60%">
+        <span class="input-group-addon">PAGA CON:</span>
+        <input type="text" class="form-control form-control-lg" id="pcon" placeholder="0.00" value="">
+      </div><br>
+      <div class="input-group input-group" style="width: 60%">
+        <span class="input-group-addon">CAMBIO DE:</span>
+        <input type="text" class="form-control form-control-lg" id="pcam" placeholder="0.00" value="0.00" readonly>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
 
 </div>
+
+<div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
+
+  <div class="modal-content">
+      <div class="row">
+          <div class="input-field col s6">
+              <select type="select" id="xidbodega" class="_det" det="bodega" sig="xidinventario" prev="" d-b="41">
+                  <option value="" disabled selected>Seleccione una Bodega</option>
+                  {section name=LE loop=$BOD}
+                  <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
+                  {/section}
+              </select>
+              <label for="idbodega">Bodegas</label>
+          </div>
+          <div class="input-field col s6">
+              <select type="select" id="xidinventario" det="inventario" d-b="111">
+                  <option value="" disabled>Seleccione un Inventario</option>
+              </select>
+              <label for="idinventario">Inventarios</label>
+          </div>
+      </div>
+      <p>Cantidad de Producto en el Inventario: <b><span id="bname-inv" type="html">0.00</span></b></p>
+  </div>
+
+  <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+
+</div>
+
+<script src="../assets/js/modulos/ventas.js?v=2.9"></script>

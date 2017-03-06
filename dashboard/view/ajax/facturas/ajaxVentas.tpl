@@ -1,7 +1,7 @@
 <div id="ffacturas">
 
 <div class="card z-depth-5">
-<div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%;">VENTAS {$smarty.session.EMPRESA|upper}</p></div>
+<div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%; background-color:#0B3861">VENTAS {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
@@ -134,7 +134,7 @@
 
     
 
-    <div class="col s12 m6 l6">
+    <div class="col s12 m12 l6">
       <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
       <div class="row">
       <br>
@@ -158,7 +158,7 @@
 
       </div>
       </div>
-      <div class="col s12 m6 l6">
+      <div class="col s12 m12 l6">
       <table class="table table-striped table-hover" style="border: 1px solid #e2e2e2;">
         <thead style="border: 0px">
           <tr>

@@ -31,19 +31,19 @@
 
                     <div class="row">
                      <div class="col s12 m6 l6">
-                      <a href="clientes" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
+                      <a href="clientes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
                     </div>
                     <div class="col s12 m6 l6">
-                      <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
+                      <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
                     </div>
                     <div class="col s12 m6 l6 hide">
-                      <a href="#" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">CRM</a>
+                      <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">CRM</a>
                     </div>
                     <div class="col s12 m6 l6">
-                    <a href="cuentas" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">CxC</a>
+                    <a href="cuentas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">CxC</a>
                     </div>
                     <div class="col s12 m6 l6">
-                      <a href="reportes" class="waves-effect waves-light btn-large blue" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
+                      <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
                     </div>
 
 
