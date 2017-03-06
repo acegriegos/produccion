@@ -79,11 +79,6 @@
                 <br>
             </div>
 
-
-
-
-
-
             <div class="col s12 m7 l6">
                 <table class="table bordered highlight responsive-table " id="data-table-monedas" style="margin: 1%;">
                     <thead>
@@ -346,7 +341,7 @@
 
                     </div>
 
-                    <div class="modal modal-fixed-footer" id="modal-bancos" style="width: 65%;">
+                    <div class="modal modal-fixed-footer" id="modal-bancos" style="width: 65%;min-height: 550px">
 
                         <div class="modal-header">
                             Valores del Banco "<span id="bname-mod" type="html"></span>"
@@ -354,36 +349,52 @@
                         </div>
 
                         <div class="modal-content">
-
-                            <div vtabla="detallebanco" detalle="1" vnum="203">
+                        <div class="row">
+                            <div class="col s12 m6">
+                                
+                                <div vtabla="detallebanco" detalle="1" vnum="203">
                                 <h4 class="center-align">Cuentas Bancarias</h4>
                                 <div class="row">
-                                    <div class="input-field col s12 m6">
-                                        <a class="btn-floating prefix small" id="add_x"><i class="material-icons blue">add</i></a>
+                                    <div class="input-field col s6">
                                         <input type="text" id="vdet_nom">
-                                        <label for="vdet_nom">Nombre</label>
+                                        <label for="vdet_nom">Nombre de Cuenta</label>
                                     </div> 
 
-                                    <div class="input-field col s12 m6">
+                                    <div class="input-field col s6">
                                         <input type="text" id="vdet_cta">
-                                        <label for="vdet_cta">Número</label>
+                                        <label for="vdet_cta">Número de Cuenta</label>
                                     </div> 
 
-                                    <div class="input-field col s12 m6">
-                                        <input type="number" id="vcomision" class="eder" value="0">
-                                        <label for="vcomision">Comisón por Uso de Datáfono</label>
-                                    </div>
-                                    <div class="input-field col s12 m6">
-                                        <select type="select" id="vcuenta" defecto="1" noClear="1">
+                                    <div class="input-field col s6">
+                                        <select type="select" id="vdat_moneda">
+                                            <optgroup label="Porcentual">
+                                                <option value="" selected>Porcentaje</option>
+                                            </optgroup>
+                                            <optgroup label="Valor Fijo">
+                                                {section name=LE loop=$MON}
+                                                <option value="{$MON[LE][0]}" simb="{$MON[LE][4]}">{$MON[LE][1]}</option>
+                                                {/section}
+                                            </optgroup>
+                                        </select>
+                                        <label for="vdat-moneda">Tipo de Comisión</label>
+                                    </div> 
+
+                                    <div class="input-field col s6">
+                                        <select type="select" id="vctacom" defecto="1" noClear="1">
                                             <option value="" disabled>Seleccione una Cuenta</option>
                                             {section name=LE loop=$CUE}
                                             <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
                                             {/section}
                                         </select>
-                                        <label for="vcuenta">Cuenta Comisión de Datáfono</label>
+                                        <label for="vctacom">Cuenta Comisión de Datáfono</label>
                                     </div>
 
-                                    <div class="input-field col s12 m6">
+                                    <div class="input-field col s12">
+                                        <input type="number" id="vcomision_txt" class="eder" value="0" noClear="1">
+                                        <label for="vcomision_txt">Comisón pot Datáfono</label>
+                                    </div>
+
+                                    <div class="input-field col s6">
                                         <select type="select" id="vdet_moneda">
                                             <option value="" disabled selected>Seleccione una Moneda</option>
                                             {section name=LE loop=$MON}
@@ -393,22 +404,28 @@
                                         <label for="vdet-moneda">Moneda de la Cuenta</label>
                                     </div> 
 
-                                    <div class="input-field col s12 m6">
+                                    <div class="input-field col s6">
                                         <select type="select" id="vctabnk">
                                             <option value="" disabled selected>Seleccione una Cuenta</option>
                                             {section name=LE loop=$CUE}
                                             <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
                                             {/section}
                                         </select>
-                                        <label for="vdet-cuenta">Cuenta Contable Asociada</label>
+                                        <label for="vctabnk">Cuenta Contable Asociada</label>
                                     </div>
-                                    <br>   
                                 </div>
+                                <a class="btn-floating small der" id="add_x"><i class="material-icons blue">add</i></a>
+                            </div>
 
-                                <ul class="collection" id="fdetallebancos" tp="4">
+                            </div>
+
+                            <div class="col s6">
+                                <ul class="collection" id="fdetallebancos" tp="1">
 
                                 </ul>
                             </div>
+                        </div>
+                            
 
                         </div>
 
@@ -580,7 +597,7 @@
 
                 <div class="input-field col s12 m6">
                     <label for="vsimbolo" class="truncate">Símbolo de Moneda</label>
-                    <input type="text" id="vsimbolo" maxlength="2">
+                    <input type="text" id="vsimbolo" maxlength="1">
                 </div>
 
             </div>

@@ -19,8 +19,8 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
-<div class="bdy">
+  <body class="light-blue darken-2">
+<div class="bdy ">
 <div class="row"><br><br>
     <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px"><br>
     <div class="card-header"><p class="flow-text center">Sistema BMS</p></div>

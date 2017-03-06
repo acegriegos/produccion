@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Facturación</title>
   </head>
-  <body>
+  <body >
   {$NAV}
 
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css">

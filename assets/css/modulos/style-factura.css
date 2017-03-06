@@ -1,0 +1,105 @@
+.hr1{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 0;
+  border-top: 1px dashed #eee;
+}
+
+body{
+	padding-left: 14%;
+	padding-right: 14%;
+}
+
+.hoja{
+	padding: 1%;
+	width: 100%;
+}
+
+.margen{
+	margin-top:0px !important;
+	margin-bottom:0px !important;
+	padding-top:2px !important;
+	padding-bottom:2px !important;
+
+}
+
+.margen2{
+	margin-top:0px !important;
+	margin-bottom:0px !important;
+	padding-top:5x !important;
+	padding-bottom:2px !important;
+
+}
+.sinborde{
+	border-radius: 0px !important;
+}
+@media only screen and (min-width:941px) and (max-width:1050px){
+	body{
+	padding-left: 10%;
+	padding-right: 10%;
+	background-color: #e4e4e4;
+}
+}
+/*Movil*/
+@media only screen and (max-width:599px){
+	body{
+	padding-left: 0%;
+	padding-right: 0%;
+	background-color: #e4e4e4;
+}
+}
+	
+/*Tabletas*/
+@media only screen and (min-width:600px) and (max-width:940px){
+	body{
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: #e4e4e4;
+}
+}
+
+@media print {
+
+	
+
+	thead{
+		background-color: red;
+	}
+
+ 	header, nav, aside {
+	  display: none;
+	}
+	footer{
+		font-size: 10px;
+	}
+
+	.salto {
+		page-break-before: always;
+	}
+
+	ul, img {
+		page-break-inside: avoid;
+	}
+
+	body{
+		padding-left: 10px;
+	  	padding-right: 10px;
+	  	color: black !important;
+	}
+
+	@page {
+	  size: A4 ; 
+	}
+
+	.hoja{
+		background-color: black;
+		padding: 0 !important;
+	}
+	.imprimirSINBOR{
+		border: 0px !important;
+		box-shadow: none !important;
+		color: black !important;
+
+	}
+
+}

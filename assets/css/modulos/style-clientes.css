@@ -5,3 +5,6 @@
 .delete:hover{
     color: #ea454b;
 }
+.sinborde{
+	border-radius: 0px !important;
+}

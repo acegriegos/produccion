@@ -79,7 +79,7 @@
     $(function(){
         $('.button-collapse').sideNav({
                 menuWidth: 600,
-                edge: 'right', // Choose the horizontal origin
+                edge: 'left', // Choose the horizontal origin
                 closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
             }
         );

@@ -18,17 +18,17 @@ $(function(){
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
 
-	$("#fclientes input").keyup(function(e){
-		var code = e.which || e.keyCode;
-		if (code == 13) {
-			// cnt = $(".navbar-nav > a").length;
-			// act = parseInt($(".navbar-nav > a.active").attr('id').substr(2));
-			// if(act != cnt)
-			// 	$("#ln"+(act+1)).click()
-			// else
-				$("#agClie").click()
-		}
-	});
+	// $("#fclientes input").keyup(function(e){
+	// 	var code = e.which || e.keyCode;
+	// 	if (code == 13) {
+	// 		// cnt = $(".navbar-nav > a").length;
+	// 		// act = parseInt($(".navbar-nav > a.active").attr('id').substr(2));
+	// 		// if(act != cnt)
+	// 		// 	$("#ln"+(act+1)).click()
+	// 		// else
+	// 			$("#agClie").click()
+	// 	}
+	// });
 
 	$(".addcta").click(function(){
 		tp = $(this).attr('tp');
@@ -83,7 +83,7 @@ $(function(){
 
 	$("#telefono_in").keyup(function(e){
 		var code = e.which || e.keyCode
-		if (code == 39) {
+		if (code == 13) {
 			if($("#tptel option:selected").val() == ''){
 				Materialize.toast("Debe Seleccionar un Tipo de Teléfono",4000,'danger');
 				$("#tptel").focus()
@@ -102,7 +102,7 @@ $(function(){
 
 	$("#correo_in").keyup(function(e){
 		var code = e.which || e.keyCode
-		if (code == 39) {
+		if (code == 13) {
 			if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
 				$("#shcorreos").append('<li id="0_'+ind_2+'"> <div class="collapsible-header"><span class="badge">'+$(this).val()+'</div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_mail" id="m0_'+ind_2+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_mail" id="d0_'+ind_2+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div> </li>');
 					$(this).val('');
@@ -147,18 +147,30 @@ $(document).on("click",".load",function(){
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
-	var tipo = $(this).attr('tipoClie');
+	var tipo = parseInt($(this).attr('tipoClie'));
+	$("#vidtipocliente").val(tipo);
 
-	if (tipo == 1) {
-		$("#titInfo").html('<b>Datos Personales<b/>');
-		$("#nomClie").html('Nombre');
-		$("#vcedula").removeAttr('data-mask');
-		$(".hid").show(300);
-	} else if (tipo == 2) {
-		$("#titInfo").html('<b>Información Jurídica<b/>');
-		$("#nomClie").html('Razón Social');
-		$("#vcedula").attr('data-mask', '9-999-999999');
-		$(".hid").css('display','none');
+	switch(tipo){
+		case 1:
+			$("#titInfo").html('<b>Datos Personales<b/>');
+			$("#nomClie").html('Nombre');
+			$(".hid").show(300);
+			break;
+		case 3:
+			$("#titInfo").html('<b>Información Tributaria<b/>');
+			$("#nomClie").html('Razón Social');
+			$(".hid").css('display','none');
+			break;
+		case 4:
+			$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
+			$("#nomClie").html('Nombre');
+			$(".hid").show(300);
+			break;
+		default:
+			$("#titInfo").html('<b>Información Jurídica<b/>');
+			$("#nomClie").html('Razón Social');
+			$(".hid").css('display','none');
+			break;
 	}
 });
 
@@ -206,11 +218,6 @@ function validarclientes() {
 	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
 	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
-
-	if ($("#vdescuentop").val() == ''){$("#vdescuentop").val(0)}
-	else if ($("#vdescuentop").val() > 100){$('#ln2').click(); $("#vdescuentop").focus(); return 'Descuento no Puede Superar el 100%';}
-	else if (isNaN($("#vdescuentop").val())){$('#ln2').click(); $("#vdescuentop").focus(); return 'Descuento no es Numérico';}
-
 
 	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0)}
 	else if ($("#vdescuentom").val() > 100){$('#ln2').click(); $("#vdescuentom").focus(); return 'Descuento Máximo no Puede Superar el 100%';}
