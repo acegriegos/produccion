@@ -236,9 +236,9 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                 data: {accion: vaccion,arreglo : varreglo}
                 })
                 .done(function(data) {
-                    console.error(data)
                     try {
                         p = JSON.parse(data);
+                        console.error(p)
                     }
                     catch(err){
                         p = data;
@@ -463,6 +463,7 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
+                            alert(varreglo[i])
                             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             break;
                     }
@@ -655,6 +656,8 @@ $(document).on("keyup","[id^=ing_]",function(e){
         }
     }
 });
+
+
 
 //TELEFONOS Y CORREOS
 

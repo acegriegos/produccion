@@ -41,6 +41,10 @@
     padding: 15px 10px 15px 10px;
 }
 
+.nopadding {
+    padding: 0 !important;
+}
+
 .tasks {
     background-color: #fff;
     margin-bottom: 0 !important;
@@ -67,4 +71,16 @@
 .reloj {
     font-size: 60px;
 }
-    
+
+tr.prodlines > td {
+    padding: 10px 10px;
+}
+
+#vnomlinea {
+    margin-bottom: 0 !important;
+}
+
+label[for=vtarea] {
+    width: 100% !important;
+}
+

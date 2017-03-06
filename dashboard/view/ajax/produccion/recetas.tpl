@@ -54,9 +54,9 @@
         <table class="table responsive-table striped bordered highlight" id="data-table-recetas" cellspacing="0" width="100%" >
             <thead>
                 <tr>
-                    <th>Nombre</th>
+                    <th style="width: 30%">Nombre</th>
                     <th>Total</th>
-                    <th style="width: 20%">Acciones</th>
+                    <th style="width: 40%">Acciones</th>
                 </tr>
             </thead>
             <tbody id="listarecetas">
@@ -65,7 +65,7 @@
                     <td>{$REC[LE][1]}</td>
                     <td>{$REC[LE][2]}</td>
                     <td>
-                        <a class="btn-color pbtn instoproduct material-icons modal-trigger" href="#modal-addtoproducts" id="m{$REC[LE][0]}" title="Ingresar Receta a Inventario {$DEF}">system_update_alt</a>
+                        <a class="btn-color pbtn instoproduct material-icons modal-trigger" href="#modal-addtoproducts" id="i{$REC[LE][0]}" title="Ingresar Receta a Inventario Producto Final">system_update_alt</a>
                         <a class="btn-color pbtn editreceta material-icons" id="m{$REC[LE][0]}">edit</a>
                         <a class="btn-color pbtn cdel delreceta material-icons" id="d{$REC[LE][0]}">close</a>
                     </td>

@@ -43,14 +43,13 @@
     	}else{
     		if (isset($_SESSION['USR'])) {
 		        header("Location: ../dashboard/main");
-		    }
-		    else{
+		    }else{
 		   	require '../_config/mySmarty.php';
 		   
 		   	$smarty  = new mySmarty();
 		   	$smarty->setModule('dashboard');
 		   	$pg = $smarty->fetch('../view/menuSmarty.php');
-		   
+		    
 		   	$smarty->assign('NAV',$pg);
 		   	$smarty->display('login.tpl');
 

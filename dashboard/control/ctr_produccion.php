@@ -19,7 +19,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('REC',$kakaroto->kamehameha('idreceta,producto,precioventa',99,'1'));
+	   			$smarty->assign('REC',$kakaroto->kamehameha('idreceta,receta,precioventa',99,'1'));
 	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
 	   			$smarty->assign('UNIP',$kakaroto->kamehameha('*',12,'idtipo in(0,1) order by idunidad'));
 	   			$smarty->assign('DEF',$kakaroto->kamehameha('nombre',111,'id = 7')[0][0]);
@@ -30,7 +30,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('LPR',$kakaroto->kamehameha('id,nombre',128,'id > 0 order by nombre limit 20'));
+	   			$smarty->assign('LPR',$kakaroto->kamehameha('id,nombre',134,'id > 0 order by nombre limit 10'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('*',12,'idtipo = 2 order by idunidad'));
 	   			$smarty->display('ajax/produccion/lineaproduccion.tpl');
 	   			break;

@@ -19,13 +19,13 @@
     <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-productos" cellspacing="0" width="100%" >
     <thead>
     <tr>
-    <th style="width: 20%">Código</th>
+    <th>Código</th>
     <th>Nombre</th>
     <th>Marca</th>
     <th>Precio Costo</th>
     <th>Precio Venta</th>
     <th>Ganancia</th>
-    <th>Acciones</th>
+    <th style="width: 20%">Acciones</th>
     </tr>
     </thead>
     <tbody id="listaproductos">
@@ -64,38 +64,53 @@
         <div id="datosproductos" style="padding: 30px 10px 0 10px">
             <div class="row">
                 <div class="col s12 m6 l6" id="col1">
-                    <div class="input-field">
+                    <div class="input-field marginzero">
                         <div class="familia">
-                            <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a>
-
-                            <select type="select" id="vidfamilia" class="_det" primary="1">
+                            <!-- <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a> -->
+                            <a class="material-icons prefix blue-text pbtn qckadd" element="familia" d-b="106" tbl="20" sig="tipo">add</a>
+                            <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off">
+                            <label for="vfamilia">Familia</label>
+                            <input type="hidden" id="vidfamilia" value="0">
+                            <!-- <select type="select" id="vidfamilia" class="_det" primary="1">
                                 <option value="">Seleccione una Familia</option>
                                 {section name=LE loop=$FAM}
                                 <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
                                 {/section}
                             </select>
-                            <label for="vidfamilia">Familia</label>
+                            <label for="vidfamilia">Familia</label> -->
                         </div>
                     </div>
-                    <div class="input-field">
+                    <div class="input-field marginzero">
                         <div class="tipo">
-                            <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Tipo" style="width: 2.5rem" det="tipo" d-b="21" prev="vidfamilia" sig="vidmarca"><i class="fa fa-plus"></i></a>
-                            <select type="select" id="vidtipo" class="_det">
+                            <!-- <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Tipo" style="width: 2.5rem" det="tipo" d-b="21" prev="vidfamilia" sig="vidmarca"><i class="fa fa-plus"></i></a> -->
+                            <a class="material-icons prefix blue-text pbtn qckadd" element="tipo" d-b="135" tbl="21" sig="marca" ant="familia">add</a>
+                            <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off">
+                            <label for="vtipo">Tipo</label>
+                            <input type="hidden" id="vidtipo" value="0">
+                            <!-- <select type="select" id="vidtipo" class="_det">
                             <option value="">Seleccione un Tipo</option>
                             </select>
-                            <label for="vidtipo">Tipo</label>
+                            <label for="vidtipo">Tipo</label> -->
                         </div>
                     </div>
-                    <div class="input-field">
+                    <div class="input-field marginzero">
                         <div class="marca">
-                            <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Marca" style="width: 2.5rem" det="marca" d-b="22" prev="vidtipo" sig=""><i class="fa fa-plus"></i></a>
-                            <select type="select" id="vidmarca" class="_det">
+                            <!-- <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Marca" style="width: 2.5rem" det="marca" d-b="22" prev="vidtipo" sig=""><i class="fa fa-plus"></i></a> -->
+                            <a class="material-icons prefix blue-text pbtn qckadd" element="marca" d-b="136" tbl="22" ant="tipo">add</a>
+                            <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off">
+                            <label for="vmarca">Marca</label>
+                            <input type="hidden" id="vidmarca" value="0">
+                            <!-- <select type="select" id="vidmarca" class="_det">
                             <option value="">Seleccione un Marca</option>
                             </select>
-                            <label for="vidmarca">Marca</label>
+                            <label for="vidmarca">Marca</label> -->
                         </div>
                     </div>
-                    <div class="input-field">
+                    <div class="input-field marginzero">
+                        <input id="vpeso" type="number" class="formprod validate" min="0">
+                        <label for="vpeso">Peso</label>
+                    </div>
+                    <div class="input-field marginzero">
                         <select type="select" id="vidunidad">
                         <option value="">Seleccione un Unidad</option>
                         {section name=LE loop=$UNI}
@@ -104,7 +119,7 @@
                         </select>
                         <label for="vidunidad">Unidad</label>
                     </div>
-                    <div class="input-field" id="dinventario">
+                    <div class="input-field marginzero" id="dinventario">
                         <select type="select" id="vidinventario">
                         <option value="">Seleccione un Inventario</option>
                         {section name=LE loop=$INV}
@@ -115,27 +130,28 @@
                     </div>
                 </div>
                 <div class="col s12 m6 l6" id="col2">
-                    <div class="input-field">
+                    <div class="input-field marginzero">
                         <input type="text" id="vnombre" class="formprod validate" value="" focus="1vcodigo">
-                        <label class="active" for="vnombre">Nombre</label>
+                        <label for="vnombre">Nombre</label>
                     </div>
-                    <div class="input-field">
+                    <div class="input-field marginzero">
                         <input type="text" id="vcodigo" class="formprod validate" value="" focus="1vminimo">
                         <label class="active" for="vcodigo">Código</label>
                         <input type="hidden" id="vid" value="0">
+                        <input type="hidden" id="vidmoneda" value="1">
                         <input type="hidden" id="vidusuario" value="">
                         <input type="hidden" id="vidsucursal" value="">
                         <input type="hidden" id="vimg" value="">
                     </div>
-                    <div class="input-field">
+                    <div class="input-field marginzero">
                         <input type="number" id="vminimo" class="formprod validate" value="" min="0" focus="1vmaximo">
                         <label class="active" for="vminimo">Mínimo</label>
                     </div>
-                    <div class="input-field">
-                        <input type="number" id="vmaximo" class="formprod validate" value="" min="0" focus="2vmaxdescuento">
+                    <div class="input-field marginzero">
+                        <input type="number" id="vmaximo" class="formprod validate" value="" min="0" focus="1vmaxdescuento">
                         <label class="active" for="vmaximo">Máximo</label>
                     </div>
-                    <div class="input-field">
+                    <div class="input-field marginzero">
                         <i class="material-icons prefix">%</i>
                         <input type="number" id="vmaxdescuento" class="formprod validate" value="" min="0" focus="2vcosto">
                         <label class="active" for="vmaxdescuento">Descuento Máximo</label>
@@ -181,7 +197,6 @@
                 </div>
             </div>
             {section name=LE loop=$NIV}
-                
             <div class="row precionivel" id="f{$NIV[LE][0]}">
                 <div class="col s3">
                     <label><b>Precio para Categoria: {$NIV[LE][1]}</b></label>
@@ -281,7 +296,7 @@
                     <label for="vincantidad">Cantidad Entrante</label>
                 </div>
                 <div class="input-field col s8 m8 l8">
-                    <input type="text" id="vincomentario" class="materialize-textarea" length="150">
+                    <input type="text" id="vincomentario" class="materialize-textarea marginzero" length="150">
                     <label for="vincomentario">Comentario</label>
                 </div>
             </div>
@@ -317,7 +332,7 @@
                     <label for="voutcantidad">Cantidad Saliente</label>
                 </div>
                 <div class="input-field col s8 m8 l8">
-                    <input type="text" id="voutcomentario" class="materialize-textarea" length="150">
+                    <input type="text" id="voutcomentario" class="materialize-textarea marginzero" length="150">
                     <label for="voutcomentario">Comentario</label>
                 </div>
             </div>
@@ -349,7 +364,7 @@
                     <label for="didinventario">Inventario Destino</label>
                 </div>
                 <div class="input-field col s12 m12 l12">
-                    <input type="text" id="vmovcomentario" class="materialize-textarea" length="150">
+                    <input type="text" id="vmovcomentario" class="materialize-textarea marginzero" length="150">
                     <label for="vmovcomentario">Comentario</label>
                 </div>
             </div>

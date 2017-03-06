@@ -73,7 +73,7 @@
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
                     <div class="input-field col s12" style="margin: 0">
-                        <textarea id="vdescripcion" class="materialize-textarea" length="150" style="margin: 0"></textarea>
+                        <textarea id="vdescripcion" type="textarea" class="materialize-textarea" length="150" style="margin: 0"></textarea>
                         <label for="vdescripcion">Descripción del Servicio</label>
                     </div>
                 </div>
