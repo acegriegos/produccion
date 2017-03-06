@@ -1,9 +1,9 @@
 var crr = '';
 
 $(document).ready(function(){
+    setTimeout(function(){$("#user").focus();},100)
+    Materialize.updateTextFields();
     
-    // Materialize.updateTextFields();
-    $("#user").focus();
     $("#logF").submit(function(){
         return getIn();
     });

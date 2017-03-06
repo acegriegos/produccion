@@ -18,12 +18,16 @@ $(function(){
                     bPaginate :  false,
                     bInfo : false
                 });
+                var spot = arr('login',4,'ifnull(max(id)+1,1)',119,'1',0,0,0)[0][0];
+                $("#spot").val(spot);
+                $("#count").val(spot);
+                $("#mantproduccion").removeClass('nopadding');
                 break;
             case 2:
                 $("#mantproduccion").html('');
                 var p = mantenimiento('produccion',2,'');
                 $("#mantproduccion").html(p);
-                $("#data-table-lineaproducciones").DataTable({
+                $("#data-table-tareaproducciones").DataTable({
                     bFilter : false,
                     bScrollInfinite : true,
                     bSort : false,
@@ -31,16 +35,23 @@ $(function(){
                     bPaginate :  false,
                     bInfo : false
                 });
+                $("#mantproduccion").addClass('nopadding');
                 break;
             case 3:
                 $("#mantproduccion").html('');
                 var p = mantenimiento('produccion',3,'');
                 $("#mantproduccion").html(p);
+                $("#receta").autocomplete({
+                    limit: 10,
+                    data: arr('login',4,'producto,null',99,'producto like "%'+$("#receta").val()+'%" limit 10',0,0,0,1)
+                })
+                $("#mantproduccion").removeClass('nopadding');
                 break;
             case 4:
                 $("#mantproduccion").html('');
                 var p = mantenimiento('produccion',4,'');
                 $("#mantproduccion").html(p);
+                $("#mantproduccion").removeClass('nopadding');
                 break;
         }
         $('select').material_select();
@@ -66,7 +77,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m2").click();
+    $("#m1").click();
 });
 
 $(document).ready(function(){
@@ -82,51 +93,103 @@ $(document).ready(function(){
             // ready
         }
     });
-
-    $("#vproducto").autocomplete({
-        limit: 20,
-        data: arr('login',4,'nombre,null',116,'nombre like "%'+$("#vproducto").val()+'%" limit 20',0,0,0,1)
-    });
-
-    var spot = arr('login',4,'ifnull(max(id)+1,1)',119,'1',0,0,0)[0][0];
-    $("#spot").val(spot);
-    $("#count").val(spot);
     $("#data-table-recetas").removeClass('hide');
+    
+});
 
-    $("#vlinea").keyup(function(e){
-        $(".autocomplete-content").show();
-        var code = e.which || e.keyCode;
-        if (code == 13) {
-            $("#vtestimado").focus();
-        }
-        // $(".autocomplete-content").show();
-        // var code = e.which || e.keyCode;
-        // if (code == 13) {
-        //     var pass = 1;
-        //     var nombre = $(this).val();
-        //     var line = arr('login',4,'id,nombre',128,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
-        //     $(".linesprod").each(function(){
-        //         var id = $(".linesprod").attr('id').substr(1);
-        //         if (line[0] == id) {
-        //             pass = 0;
-        //         }else{
-        //             return false;
-        //         }
-        //     });
-        //     if (pass == 1) {
-        //         $("#productionlines").append('<li class="collection-item"><div><span id="l'+line[0]+'" class="linesprod">'+line[1]+'</span><a class="secondary-content"><i class="material-icons pbtn btn-color cdel">close</i></a></div></li>');
-        //         $(this).val('');
-        //     }else{
-        //         alert("repetido")
-        //     }
-        // }
+$(document).on("click",".productline",function(){
+    var id = parseInt($(this).attr('id').substr(2));
+    switch(id) {
+        case 1:
+            arr('login',6,'id,nombre',134,'id > 0 order by nombre limit 10',0,1,$("#listatareaproducciones"));
+            $("#vnombre").focus();
+            break;
+        case 2:
+            $("#vreceta").focus();
+            break;
+        case 3:
+            arr('login',6,'idlinea,linea,idreceta,receta',137,'1',0,1,$("#listamantlinea"));
+
+            break;
+    }
+});
+
+$(document).on("keypress","#aestimado",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        $(this).trigger("keydown", [9]);
+    } 
+    
+});
+
+$(document).on("keydown","#atarea",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+    
+        $("#atarea").autocomplete({
+            limit: 10,
+            data: arr('login',4,'nombre,null',134,'nombre like \"%'+$("#atarea").val()+'%\" and id > 0 limit 10',0,0,0,1)
+        });
+        $("#atarea").siblings($(".autocomplete-content")).css('width','25%');
+    }
+
+    if (charCode == 13) {
+        $("#testimado").focus();
+    }
+});
+
+$(document).on("click","#chrecipe",function(){
+    var tabla = $("#data-table-search").DataTable();
+    tabla.destroy();
+    arr('login',6,'',129,'""',0,1,$("#listasearch"));
+    $('#modal-search').modal('open');
+    $("#data-table-search").dataTable({
+        bFilter : false,
+        bScrollInfinite : true,
+        bSort : false,
+        bLengthChange : false,
+        bPaginate :  false,
+        bInfo : false
     });
+    $(".selreceta").addClass('chselreceta');
+    $(".chselreceta").removeClass('selreceta')
+});
+
+$(document).on("keyup","#vnomlinea",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        $("#nl").text($(this).val());
+        $("#atarea").focus();
+    }
 
 });
 
-$(document).on("click","#addprodline",function(){
-    addprodline();
+$(document).on("keyup","#atarea",function(e){
+    var code = e.which || e.keyCode;
+    if ($(this).val() == '')
+        $("#atarea").autocomplete({
+            limit: 10,
+            data: arr('login',4,'nombre,null',134,'nombre like "%'+$("#atarea").val()+'%" and id > 0 limit 10',0,0,0,1)
+        });
     
+    if (code == 13)
+        $("#aestimado").focus();
+    
+    $(".autocomplete-content").show();
+});
+
+$(document).on("keyup","#receta",function(e){
+    $(".autocomplete-content").show('500');
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        $("#linea").focus();
+    }
+});
+
+$(document).on("click","#addprodline",function(){
+    addprodline(1);
 });
 
 $(document).on("click",".order",function(){
@@ -146,19 +209,12 @@ $(document).on("blur",".horder",function(){
     $("#torder"+id).attr('orden',orden);
 });
 
-$(document).on("keyup","#vtestimado",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        $("#viduni").click();
-        
-    }
-    if (code == 9) {
-        $("#viduni").click();
-    }
+$(document).on("change","#aunidad",function(){
+    addprodline(1);
 });
 
-$(document).on("change","#viduni",function(e){
-    addprodline();
+$(document).on("change","#tuni",function(){
+    addprodline(2);
 });
 
 $(document).on("click","#changerecipe",function(){
@@ -178,13 +234,57 @@ $(document).on("click","#changerecipe",function(){
 
 $(document).on("click","#savelinea",function(){
     var idreceta = $(".namereceta").attr('id').substr(1);
-    $(".linesprod").each(function(){
-        var idlinea = $(this).attr('id').substr(1);
-        var idunidad = $("#uni"+idlinea).attr('idunidad');
-        var order = $("#torder"+idlinea).attr('orden');
-        arr('login',4,'',131,'1,0,'+idreceta+','+idlinea+','+idunidad+','+order,0,0,0)[0];
-    });
-    
+    var nombre = $("#nombrelinea").val();
+    var idlinea = arr('login',4,'',132,'1,0,\"'+nombre+'\",'+idreceta,0,0,0);
+
+    if (idlinea[0]['ERROR'] == undefined) {
+        $(".aplines").each(function(){
+            var idtarea = $(this).attr('id').substr(2);
+            var idunidad = $("#uni"+idtarea).attr('idunidad');
+            var order = $("#torder"+idtarea).attr('orden');
+            var estimado = $("#est"+idtarea).attr('estimado');
+            arr('login',4,'',131,'1,0,'+idtarea+','+idlinea[0][0]+','+estimado+','+idunidad+','+order,0,0,0)[0];
+        });
+        Materialize.toast('Linea de produccion '+nombre+' Guardada Correctamente', 6000, 'green');
+    }else{
+        Materialize.toast(idlinea[0]['ERROR'], 6000, 'red');
+    }    
+});
+
+$(document).on("click","#dsavelinea",function(){
+    var idreceta = $(".namereceta").attr('id').substr(1);
+    var nombre = $("#nombrelinea").val();
+    var idlinea = arr('login',4,'',132,'1,0,\"'+nombre+'\",'+idreceta,0,0,0);
+
+    if (idlinea[0]['ERROR'] == undefined) {
+        $(".aplines").each(function(){
+            var idtarea = $(this).attr('id').substr(2);
+            var idunidad = $("#uni"+idtarea).attr('idunidad');
+            var order = $("#torder"+idtarea).attr('orden');
+            var estimado = $("#est"+idtarea).attr('estimado');
+            arr('login',4,'',131,'1,0,'+idtarea+','+idlinea[0][0]+','+estimado+','+idunidad+','+order,0,0,0)[0];
+        });
+        Materialize.toast('Linea de produccion '+nombre+' Guardada Correctamente', 6000, 'green');
+    }else{
+        Materialize.toast(idlinea[0]['ERROR'], 6000, 'red');
+    }    
+});
+
+$(document).on("click",".actlinea",function(){
+    var id = $(this).attr('id').substr(1);
+    var idreceta = $(this).attr('idreceta');
+    var detalle = arr('login',4,'',138,id+','+idreceta,0,0,0)[0];
+    $("#vnomlinea").val(detalle[0][4]);
+    $("#actrec").val(detalle[0][9]);
+    $("#actrec").attr('idreceta',detalle[0][1])
+    $("#nl").text(detalle[0][4]);
+    $("#listadetprod").html('');
+    for (var i = 0, len = detalle.length; i < len; i++) {
+        $("#listadetprod").append('<tr class="pline" id="p'+detalle[i][0]+'"><td id="task'+detalle[i][0]+'">'+detalle[i][2]+'</td><td id="est'+detalle[i][0]+'" estimado="'+detalle[i][5]+'">'+detalle[i][5]+'</td><td id="uni'+detalle[i][0]+'" idunidad="'+detalle[i][6]+'">'+detalle[i][7]+'</td><td orden="'+detalle[i][8]+'" id="torder'+detalle[i][0]+'"><span class="order" id="sorder'+detalle[i][0]+'">'+detalle[i][8]+'</span><input type="hidden" class="horder" id="eorder'+detalle[i][0]+'"></td><td><i class="material-icons btn-color pbtn blueh">swap_vert</i><i class="material-icons btn-color pbtn cdel" id="del'+detalle[i][0]+'">close</i></td></tr>');
+    }
+    Materialize.updateTextFields();
+    $("#dactrec").removeClass('hide');
+    $("#atarea").focus();
 });
 
 $(document).on("click",".viewreceta",function(){
@@ -219,26 +319,42 @@ $(document).on("click","#searchrecetas",function(){
     });
 });
 
-$(document).on("keyup","#vreceta",function(e){
-    var code = e.which || e.keyCode;
-    var nombre = $(this).val();
-    var tabla = $("#data-table-search").DataTable();
-    tabla.destroy();
-    arr('login',6,'',129,'\"'+nombre+'\"',0,1,$("#listasearch"));
-    if (code == 13) {
-        $('#modal-search').modal('open');
-        $("#data-table-search").dataTable({
-            bFilter : false,
-            bScrollInfinite : true,
-            bSort : false,
-            bLengthChange : false,
-            bPaginate :  false,
-            bInfo : false
+// $(document).on("keyup","#vreceta",function(e){
+//     var code = e.which || e.keyCode;
+//     var nombre = $(this).val();
+//     var tabla = $("#data-table-search").DataTable();
+//     tabla.destroy();
+//     arr('login',6,'',129,'\"'+nombre+'\"',0,1,$("#listasearch"));
+//     if (code == 13) {
+//         $('#modal-search').modal('open');
+//         $("#data-table-search").dataTable({
+//             bFilter : false,
+//             bScrollInfinite : true,
+//             bSort : false,
+//             bLengthChange : false,
+//             bPaginate :  false,
+//             bInfo : false
+//         });
+//     }
+// });
+
+$(document).on("keydown","#vreceta",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+    
+        $("#vreceta").autocomplete({
+            limit: 10,
+            data: arr('login',4,'producto,null',99,'producto like \"%'+$("#vreceta").val()+'%\" limit 10',0,0,0,1)
         });
+    
+        $("#vreceta").siblings($(".autocomplete-content")).css('width','25%');
     }
 });
 
-$(document).on("keyup","#nombrelinea",function(e){
+$(document).on("keyup","#anombre",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
         $("#tablelineas").removeClass('hide');
@@ -247,34 +363,36 @@ $(document).on("keyup","#nombrelinea",function(e){
         $("#nomlinea").text(nombre);
         $("#nomreceta").text(receta);
         $(".faddline").prop('disabled',false);
-        $("#viduni").material_select();
-        $("#vlinea").focus();
+        $("#aunidad").material_select();
+        $("#atarea").focus();
     }
 });
 
 $(document).on("click",".selreceta",function(){
     var id = $(this).attr('id').substr(1);
     var receta = arr('login',4,'id,nombre',11,'id = '+id,0,0,0)[0][0];
-    var estimado = $(this).attr('est');
-    var hm = $(this).attr('hm');
-    var hh = $(this).attr('hh');
     $('#modal-search').modal('close');
     $("#drecipe").addClass('hide');
     $(".dcline").removeClass('hide');
     $(".namereceta").text('');
     $(".namereceta").attr('id','r'+id);
     $(".namereceta").append(receta[1]+'<a class="material-icons pbtn blue-text mbutton" id="changerecipe" href="#modal-search">search</a>');
-    $("#vlinea").autocomplete({
-        limit: 20,
-        data: arr('login',4,'nombre,null',128,'nombre like "%'+$("#vlinea").val()+'%" and id > 0 limit 20',0,0,0,1)
+    $("#atarea").autocomplete({
+        limit: 10,
+        data: arr('login',4,'nombre,null',134,'nombre like "%'+$("#atarea").val()+'%" and id > 0 limit 10',0,0,0,1)
     });
     $("#nombrelinea").focus();
 });
 
-$(document).on("click",".selline",function(){
+$(document).on("click",".chselreceta",function(){
     var id = $(this).attr('id').substr(1);
-    var line = arr('login',4,'id,nombre',128,'id = '+id,0,0,0)[0][0];
-    $("#productionlines").append('<li class="collection-item"><div><span id="l'+line[0]+'" class="linesprod">'+line[1]+'</span><a class="secondary-content"><i class="material-icons pbtn btn-color cdel">close</i></a></div></li>');
+    var receta = arr('login',4,'id,nombre',11,'id = '+id,0,0,0)[0][0];
+    $('#modal-search').modal('close');
+    $("#actrec").val('');
+    $("#actrec").attr('idreceta',receta[0])
+    $("#actrec").val(receta[1]);
+    $("#nombrelinea").focus();
+
 });
 
 $(document).on("click",".load[modulo=lineaproduccione]",function(){
@@ -353,6 +471,14 @@ $(document).on("keyup","#vnombre",function(e){
         $("#vcodigo").focus();
 });
 
+$(document).on("keyup","#vnombre[ku=1]",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        $("#addlinea").click();
+    }
+    
+});
+
 $(document).on("keyup","#vcodigo",function(e){
     var code = e.which || e.keyCode;
     var id = parseInt($("#count").val());
@@ -362,15 +488,27 @@ $(document).on("keyup","#vcodigo",function(e){
         addrecipe(id,nombre,codigo);
 });
 
-$(document).on("keyup","#vproducto",function(e){
-    var code = e.which || e.keyCode;
-    $(".autocomplete-content").show('500');
-    if (code == 13)
+$(document).on("keydown","#vproducto",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+    
+        $("#vproducto").autocomplete({
+            limit: 10,
+            data: arr('login',4,'nombre,null',116,'nombre like \"%'+$("#vproducto").val()+'%\" limit 10',0,0,0,1)
+        });
+    
+        $("#vproducto").siblings($(".autocomplete-content")).css('width','25%');
+    }
+
+    if (charCode == 13)
         $("#vcantidad").focus();
 
 });
 
-$(document).on("keyup","#vcantidad",function(e){
+$(document).on("keydown","#vcantidad",function(e){
     var code = e.which || e.keyCode;
     var nombre = $("#vproducto").val();
     var cantidad = $("#vcantidad").val();
@@ -391,10 +529,8 @@ $(document).on("keyup","#vcantidad",function(e){
 $(document).on("blur","#vproducto",function(){
     var nombre = $(this).val();
     var idunidad = arr('login',4,'idunidad',116,'nombre = \"'+nombre+"\"",0,0,0)[0][0];
-    console.log(idunidad)
     $("#vidunidad").val(idunidad);
     $('select').material_select();
-    $("#vcantidad").focus();
 });
 
 $(document).on("click","#addproduct",function(){
@@ -467,15 +603,10 @@ $(document).on("click",".savereceta",function(){
     var nombre = $("#titreceta"+id).text();
     var codigo = $("#codreceta"+id).text() == '' ? 'N/A' : $("#codreceta"+id).text();
     var total = $("#total"+id).text().substr(2);
-    var testimado = $("#vestimado"+id).val() == '' ? 0 : $("#vestimado"+id).val();
-    var horasmaquina = $("#vhorasmaquina"+id).val() == '' ? 0 : $("#vhorasmaquina"+id).val();
-    var horashombre = $("#vhorashombre"+id).val() == '' ? 0 : $("#vhorashombre"+id).val();
     if (total != '0.00') {
         //guarda receta en tabla prodcutos
-        var idreceta = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,1,1,0,0,0,0,8,@@usr,@@impresa,""',0,0,0);
+        var idreceta = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,8,@@usr,1,@@impresa,""',0,0,0);
         if (idreceta[0] != '[object Object]') {
-            //guarda detalles de la receta
-            arr('login',4,'',120,'1,0,'+idreceta[0][0]+','+testimado+','+horasmaquina+','+horashombre,0,0,0);
             //guarda productos de la receta
             $(".product").each(function(){
                 var idproducto = $(this).attr('id').substr(4);
@@ -484,13 +615,15 @@ $(document).on("click",".savereceta",function(){
                     arr('login',4,'',121,'1,0,'+idreceta[0][0]+','+idproducto+','+cantidad,0,0,0);
                 }
             });
+            arr('login',6,'idreceta,producto,precioventa',99,'idproducto > 0 order by producto limit 20',0,1,$("#listarecetas"));
+            $("#makerecipe").html('');
+            $("#vnombre").val('');
+            $("#vcodigo").val('');
+            $("#daddprod").addClass('hide');
         }else{
             Materialize.toast(idreceta[0]['ERROR'], 6000, 'red');
         }
-        arr('login',6,'idreceta,producto,precioventa',99,'idproducto > 0 order by producto limit 20',0,1,$("#listarecetas"));
-        $("#makerecipe").html('');
-        $("#vnombre").val('');
-        $("#vcodigo").val('');
+        
     }else{
         Materialize.toast('Es necesario agregar productos a la receta', 6000, 'orange lighten-2');
     }
@@ -504,37 +637,40 @@ $(document).on("click",".actrecipe",function(){
     var testimado = $("#vestimado"+id).val() == '' ? 0 : $("#vestimado"+id).val();
     var horasmaquina = $("#vhorasmaquina"+id).val() == '' ? 0 : $("#vhorasmaquina"+id).val();
     var horashombre = $("#vhorashombre"+id).val() == '' ? 0 : $("#vhorashombre"+id).val();
-    // if (total != '0.00') {
-    //     //guarda receta en tabla prodcutos
-        // var idreceta = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,1,1,0,0,0,0,8,@@usr,@@impresa,""',0,0,0);
-    //     if (idreceta[0] != '[object Object]') {
-    //         //guarda detalles de la receta
-    //         arr('login',4,'',120,'2,0,'+idreceta[0][0]+','+testimado+','+horasmaquina+','+horashombre,0,0,0);
-    //         //borrar todos los productos de la receta
-                // arr('login',4,'',121,'3,0,'+idreceta[0][0]+',0,0',0,0,0);
+    if (total != '0.00') {
+        //guarda receta en tabla prodcutos
+        var idreceta = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,8,@@usr,1,@@impresa,""',0,0,0);
+        if (idreceta[0] != '[object Object]') {
+            //guarda detalles de la receta
+            arr('login',4,'',120,'2,0,'+idreceta[0][0]+','+testimado+','+horasmaquina+','+horashombre,0,0,0);
+            //borrar todos los productos de la receta
+                arr('login',4,'',121,'3,0,'+idreceta[0][0]+',0,0',0,0,0);
                 var det = arr('login',4,'',121,'3,0,'+idreceta[0][0]+',0,0',0,0,0);
-    //         //guarda productos de la receta
-    //         $(".product").each(function(){
-    //             var idproducto = $(this).attr('id').substr(4);
-    //             if ($("#prec"+idproducto).attr('spot') == id) {
-    //                 var cantidad = $("#cant"+idproducto).text();
-    //                 arr('login',4,'',121,'1,0,'+idreceta[0][0]+','+idproducto+','+cantidad,0,0,0);
-    //             }
-    //         });
-    //     }else{
-    //         Materialize.toast(idreceta[0]['ERROR'], 6000, 'red');
-    //     }
-    //     arr('login',6,'idreceta,producto,precioventa',99,'idproducto > 0 order by producto limit 20',0,1,$("#listarecetas"));
-    //     $("#makerecipe").html('');
-    // }else{
-    //     Materialize.toast('Es necesario agregar productos a la receta', 6000, 'orange lighten-2');
-    // }
+            //guarda productos de la receta
+            $(".product").each(function(){
+                var idproducto = $(this).attr('id').substr(4);
+                if ($("#prec"+idproducto).attr('spot') == id) {
+                    var cantidad = $("#cant"+idproducto).text();
+                    arr('login',4,'',121,'1,0,'+idreceta[0][0]+','+idproducto+','+cantidad,0,0,0);
+                }
+            });
+            Materialize.toast('Receta '+nombre+' Agregada Correctamente', 6000, 'green');
+        }else{
+            Materialize.toast(idreceta[0]['ERROR'], 6000, 'red');
+        }
+        arr('login',6,'idproducto,producto,precioventa',99,'idreceta > 0 order by producto limit 20',0,1,$("#listarecetas"));
+        // 'idproducto,producto,precioventa',99,'1'
+        $("#makerecipe").html('');
+
+    }else{
+        Materialize.toast('Es necesario agregar productos a la receta', 6000, 'orange lighten-2');
+    }
 });
 
 $(document).on("click",".editreceta",function(){
     var id = $(this).attr('id').substr(1);
-    var vreceta = arr('login',4,'idproducto,producto,codigo,precioventa,preciocosto,idreceta,tiempoestimado,horasmaquina,horashombre',99,'idreceta = '+id,0,0,0)[0][0];
-    var detalle = arr('login',4,'idproducto,producto,cantidad,preciocosto,simbolo',123,'idreceta = '+id,0,0,0)[0];
+    var vreceta = arr('login',4,'idproducto,producto,codigo,precioventa,preciocosto,idreceta,tiempoestimado,horasmaquina,horashombre',99,'idproducto = '+id,0,0,0)[0][0];
+    var detalle = arr('login',4,'idproducto,producto,cantidad,preciocosto,simbolo',123,'ridreceta = '+id,0,0,0)[0];
     var rnombre = vreceta[1].replace(/\s+/g, '');
     $("#edtitcod").removeClass('hide');
     $("#addrecipe").addClass('hide');
@@ -545,6 +681,7 @@ $(document).on("click",".editreceta",function(){
     var count = parseInt($("#count").val());
     count += 1;
     $("#count").val(count);
+    $("#makerecipe").html('');
     $("#makerecipe").append('<div class="col s12 m12 l12 recipes" id="r'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="productos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="titreceta'+id+'" class="titrecipe but">'+vreceta[1]+'</span> - [Cod: <span id="codreceta'+id+'">'+vreceta[2]+'</span>]<i class="material-icons deltit right pbtn cdel btn-color" id="dt'+id+'">close</i><i class="material-icons actrecipe right pbtn blueh btn-color" id="ar'+id+'">save</i></h4></li><li class="collection-item padbotzero"><div class="row raddreceta gastos"><div class="input-field col s4 m4 l4"><input id="vestimado'+id+'" type="text" class="validate" value="'+vreceta[6]+'"><label for="vestimado'+id+'">Tiempo Estimado en minutos</label></div><div class="input-field col s4 m4 l4"><input id="vhorasmaquina'+id+'" type="text" class="validate" value="'+vreceta[7]+'"><label for="vhorasmaquina'+id+'">Horas Maquina</label></div><div class="input-field col s4 m4 l4"><input id="vhorashombre'+id+'" type="text" class="validate" value="'+vreceta[8]+'"><label for="vhorashombre'+id+'">Horas Hombre</label></div></div></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="total'+id+'">¢ '+vreceta[4]+'</span><input type="hidden" id="htotal'+id+'" value="'+vreceta[4]+'"></h4></div></div></div></div>');
     for (var i = 0, len = detalle.length; i < len; i++) {
         $("#productos"+id).append('<li class="collection-item dismissable" id="p'+detalle[i][0]+'"><div id="groupprodcts'+detalle[i][0]+'"><span id="prod'+detalle[i][0]+'" class="product">'+detalle[i][1]+'</span><input type="hidden" id="prec'+detalle[i][0]+'" spot="'+id+'" value="'+detalle[i][3]+'"> - Cantidad: <span id="cant'+detalle[i][0]+'">'+detalle[i][2]+'</span> (<span id="idmedida'+detalle[i][0]+'">'+detalle[i][4]+'<span>)<i class="material-icons right red-text del but" id="d'+detalle[i][0]+'">close</i></div></li>');
@@ -589,33 +726,55 @@ $(document).on("keyup",".ganancia",function(){
     totalizar(id,ganancia,manoobra)
 });
 
-function addprodline() {
+function addprodline(tipo) {
+    if (tipo == 1)
+        tipo = "a";
+    else
+        tipo = "b";
+
     var pass = 1;
-    var nombre = $("#vlinea").val();
-    var estimado = $("#vtestimado").val();
-    var idunidad = $("#viduni").val();
-    var unidad = $("#viduni option:selected").text();
+    var nombre = $("#"+tipo+"tarea").val();
+    var estimado = $("#"+tipo+"estimado").val();
+    var idunidad = $("#"+tipo+"unidad").val();
+    var unidad = $("#"+tipo+"unidad option:selected").text();
     var orden = 0;
-    var count = parseInt($("#autoi").val());
-    var line = arr('login',4,'id,nombre',128,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
-    $(".prodlines").each(function(){
-        var id = $(this).attr('id').substr(1);
-        if (line[0] == id) {
-            pass = 0;
+    var count = parseInt($("#"+tipo+"autoinc").val());
+    var line = arr('login',4,'id,nombre',134,'nombre = \"'+nombre+'\"',0,0,0)[0];
+    var validar = validateprodline();
+    if (line != '') {
+        if (validar == false) {
+            $("."+tipo+"plines").each(function(){
+                var id = $(this).attr('id').substr(2);
+                if (line[0][0] == id) {
+                    pass = 0;
+                }
+            });
+            if (pass == 1) {
+                count ++;
+                $("#listadetalles").append('<tr class="'+tipo+'plines" id="'+tipo+'p'+line[0][0]+'"><td id="'+tipo+'task'+line[0][0]+'">'+line[0][1]+'</td><td id="'+tipo+'est'+line[0][0]+'" estimado="'+estimado+'">'+estimado+'</td><td id="'+tipo+'uni'+line[0][0]+'" idunidad="'+idunidad+'">'+unidad+'</td><td orden="'+count+'" id="'+tipo+'torder'+line[0][0]+'"><span class="order" id="'+tipo+'sorder'+line[0][0]+'">'+count+'</span><input type="hidden" class="horder" id="'+tipo+'eorder'+line[0][0]+'"></td><td><i class="material-icons btn-color pbtn cdel" id="'+tipo+'del'+line[0][0]+'">close</i></td></tr>');
+                //aqui quede
+                $("#atarea").val('');
+                $("#aestimado").val('');
+                $("#aunidad").val(0);
+                $("#aunidad").material_select();
+                $("#aautoinc").val(count);
+                $("#atarea").focus();
+            }else{
+                Materialize.toast('Tarea de Produccion ha sido agregada anteriormente', 6000, 'amber lighten-2');
+            }
+        }else{
+            Materialize.toast(validar, 6000, 'red');
         }
-    });
-    if (pass == 1) {
-        count ++;
-        $("#listadetalles").append('<tr class="prodlines" id="p'+line[0]+'"><td id="task'+line[0]+'">'+line[1]+'</td><td id="est'+line[0]+'">'+estimado+'</td><td id="uni'+line[0]+'" idunidad="'+idunidad+'">'+unidad+'</td><td orden="'+count+'" id="torder'+line[0]+'"><span class="order" id="sorder'+line[0]+'">'+count+'</span><input type="hidden" class="horder" id="eorder'+line[0]+'"></td><td><i class="material-icons btn-color pbtn blueh">swap_vert</i><i class="material-icons btn-color pbtn cdel" id="del'+line[0]+'">close</i></td></tr>');
-        $("#vlinea").val('');
-        $("#vtestimado").val('');
-        $("#viduni").val(0);
-        $("#viduni").material_select();
-        $("#autoi").val(count);
-        $("#vlinea").focus();
     }else{
-        alert("repetido")
+        Materialize.toast('Tarea de Producción no existe', 6000, 'red');
+        $("#atarea").val('');
+        $("#aestimado").val('');
+        $("#aunidad").val(0);
+        $("#aunidad").material_select();
+        $("#atarea").focus();
     }
+    
+    
 }
 
 // CRONOMETRO //
@@ -760,7 +919,7 @@ function addrecipe(id,nombre,codigo) {
 
     if (opc != 1) {
         if (nombre != '') {
-            $("#makerecipe").append('<div class="col s12 m12 l12 recipes" id="r'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="productos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="titreceta'+id+'" class="titrecipe but">'+nombre+'</span> - [Cod: <span id="codreceta'+id+'">'+codigo+'</span>]<i class="material-icons deltit right pbtn cdel btn-color" id="dt'+id+'">close</i><i class="material-icons savereceta right pbtn blueh btn-color" id="st'+id+'">save</i></h4></li><li class="collection-item padbotzero"><div class="row raddreceta gastos"><div class="input-field col s4 m4 l4"><input id="vestimado'+id+'" type="text" class="validate"><label for="vestimado'+id+'">Tiempo Estimado en minutos</label></div><div class="input-field col s4 m4 l4"><input id="vhorasmaquina'+id+'" type="text" class="validate"><label for="vhorasmaquina'+id+'">Horas Maquina</label></div><div class="input-field col s4 m4 l4"><input id="vhorashombre'+id+'" type="text" class="validate"><label for="vhorashombre'+id+'">Horas Hombre</label></div></div></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="total'+id+'">¢ 0.00</span><input type="hidden" id="htotal'+id+'" value="0"></h4></div></div></div></div>');
+            $("#makerecipe").append('<div class="col s12 m12 l12 recipes" id="r'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="productos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="titreceta'+id+'" class="titrecipe but">'+nombre+'</span> - [Cod: <span id="codreceta'+id+'">'+codigo+'</span>]<i class="material-icons deltit right pbtn cdel btn-color" id="dt'+id+'">close</i><i class="material-icons savereceta right pbtn blueh btn-color" id="st'+id+'">save</i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="total'+id+'">¢ 0.00</span><input type="hidden" id="htotal'+id+'" value="0"></h4></div></div></div></div>');
         }
         $("#daddprod").removeClass('hide');
         $("#count").val(id);
@@ -791,7 +950,7 @@ function validar (varreglo,vmodulo) {
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
-        case 'lineaproduccione':
+        case 'tareaproduccione':
             if (vmodulo['tip'] == '') {
                 err = validarlinea();
                 if ( err ) {
@@ -839,25 +998,28 @@ function validartoprod() {
     return false;
 }
 
+function validateprodline() {
+    if ($("#atarea").val() == ''){
+        $("#atarea").focus();
+        return 'Tarea de Produccion Requerida';
+    }
+    if ($("#aestimado").val() == ''){
+        $("#aestimado").focus();
+        return 'Tiempo Estimado Requerido';
+    }
+    if ($("#aunidad").val() == 0){
+        $("#aunidad").click();
+        return 'Unidad Requerida';
+    }
+    return false;
+}
+
 function cargar(vmodulo,vid) {
-
-
 	switch(vmodulo['modulo']) {
-		case 'produccion':
-			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 3;
-			vmodulo['where'] ='';
-			break;
-        case 'lineaproduccione':
+        case 'tareaproduccione':
             vmodulo['sel'] = 'id as vid,nombre as vnombre';
-            vmodulo['tbl'] = 128;
+            vmodulo['tbl'] = 134;
             vmodulo['where'] ='id = '+vid;
-            break;
-        case 'lineaproducciones':
-            var arr = {};
-            arr['sel'] = 'id,nombre';
-            arr['tbl'] = 128;
-            arr['where'] = 'id > 0 order by nombre limit 20';
             break;
 		default:
 			return 'Módulo no Existente';
@@ -875,10 +1037,10 @@ function cargarSintax(vtabla){
             arr['tbl'] = 118;
             arr['where'] = 'id > 0 order by nombre limit 20';
             break;
-        case 'lineaproducciones':
+        case 'tareaproducciones':
             var arr = {};
             arr['sel'] = 'id,nombre';
-            arr['tbl'] = 128;
+            arr['tbl'] = 134;
             arr['where'] = 'id > 0 order by nombre limit 20';
             break;
     }
@@ -887,7 +1049,7 @@ function cargarSintax(vtabla){
 
 function endDetail(id,acc,modulo) {
     switch(modulo) {
-        case 'lineaproduccione':
+        case 'tareaproduccione':
             thorload(modulo);
             deadclear(modulo);
             $("#vnombre").focus();

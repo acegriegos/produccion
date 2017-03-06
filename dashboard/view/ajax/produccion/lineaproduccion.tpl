@@ -1,34 +1,34 @@
 <ul class="collapsible" data-collapsible="accordion">
-    <li>
-        <div class="collapsible-header"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
+    <li class="productline" id="pl1">
+        <div class="collapsible-header active"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks">
             <div class="col s6 m6 l6">
-                <div class="row" id="flineaproducciones">
+                <div class="row" id="ftareaproducciones">
                     <div class="input-field col s6 m6 l6">
-                        <input id="vnombre" type="text" class="validate">
-                        <label for="vnombre">Linea de Producción</label>
+                        <input id="vnombre" type="text" class="validate" ku="1" autocomplete="off">
+                        <label for="vnombre">Tarea de Producción</label>
                         <input type="hidden" id="vid" value="0">
                     </div>
                     <div class="col s1 m1 l1">
-                        <a class="waves-effect waves-light btn-floating white-text blue add mbutton" id="addlinea" modulo="lineaproduccione"><i class="material-icons">add</i></a>
-                    </div>         
+                        <a class="waves-effect waves-light btn-floating white-text blue add mbutton" id="addlinea" modulo="tareaproduccione"><i class="material-icons">add</i></a>
+                    </div>
                 </div>
             </div>
             <div class="col s6 m6 l6">
-                <table class="table responsive-table striped bordered highlight centered" id="data-table-lineaproducciones" cellspacing="0" width="100%" >
+                <table class="table responsive-table striped bordered highlight centered" id="data-table-tareaproducciones" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Nombre</th>
                             <th style="width: 20%">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="listalineaproducciones">
+                    <tbody id="listatareaproducciones">
                         {section name=LE loop=$LPR}
                         <tr>
                             <td>{$LPR[LE][1]}</td>
                             <td>
-                                <a class="btn-color pbtn load" id="m{$LPR[LE][0]}" modulo="lineaproduccione"><i class="material-icons">edit</i></a>
-                                <a class="btn-color pbtn cdel delete" id="d{$LPR[LE][0]}" modulo="lineaproduccione"><i class="material-icons">close</i></a>
+                                <a class="btn-color pbtn load" id="m{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">edit</i></a>
+                                <a class="btn-color pbtn cdel delete" id="d{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">close</i></a>
                             </td>
                         </tr>
                         {/section}
@@ -37,43 +37,43 @@
             </div>
         </div>
     </li>
-    <li>
-        <div class="collapsible-header active"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
+    <li class="productline" id="pl2">
+        <div class="collapsible-header"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row" id="drecipe">
                 <div class="input-field col s4 m4 l4 dcline">
                     <a class="material-icons prefix pbtn blue-text mbutton" id="searchrecetas" href="#modal-search">search</a>
-                    <input id="vreceta" type="text" class="validate">
+                    <input id="vreceta" type="text" class="validate autocomplete" autocomplete="off">
                     <label for="vreceta">Receta</label>
                 </div>
             </div>
             <div class="row hide dcline mbotcero">
                 <div class="col s3 m3 l3">
                     <p class="flow-text namereceta"></p>
-                    <input type="hidden" id="autoi" value="0">
+                    <input type="hidden" id="aautoinc" value="0">
                 </div>
-                <div class="input-field col s3 m3 l3">
-                    <input id="nombrelinea" type="text" class="validate">
-                    <label for="nombrelinea">Nombre Linea Producción</label>
+                <div class="input-field col s4 m4 l4">
+                    <input id="anombre" type="text" class="validate">
+                    <label for="anombre">Nombre Linea Producción</label>
                 </div>
             </div>
             <div class="row hide dcline">
                 <div class="input-field col s3 m3 l3 mtopcero">
-                    <input id="vlinea" type="text" class="validate autocomplete faddline" disabled>
-                    <label for="vlinea">Tarea de Producción</label>
+                    <input id="atarea" type="text" class="validate autocomplete faddline" disabled>
+                    <label for="atarea">Tarea de Producción</label>
                 </div>
                 <div class="input-field col s3 m3 l3 mtopcero">
-                    <input id="vtestimado" type="number" class="validate faddline" disabled>
-                    <label for="vtestimado">Tiempo Estimado</label>
+                    <input id="aestimado" type="number" class="validate faddline" min="0" disabled>
+                    <label for="aestimado">Tiempo Estimado</label>
                 </div>
                 <div class="input-field col s2 m2 l2 mtopcero">
-                    <select type="select" id="viduni" class="faddline" disabled>
+                    <select type="select" id="aunidad" class="faddline" disabled>
                         <option value="0">Seleccione una Opción</option>
                         {section name=LE loop=$UNI}
-                        <option value="{$UNI[LE][0]}" class="viduni">{$UNI[LE][1]}</option>
+                        <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
                         {/section}
                     </select>
-                    <label for="viduni">Unidad</label>
+                    <label for="aunidad">Unidad</label>
                 </div>
                 <div class="col s1 m1 l1">
                     <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline" id="addprodline" disabled><i class="material-icons">add</i></button>
@@ -91,7 +91,7 @@
                             </tr>
                             <tr>
                                 <th>Tarea</th>
-                                <th>Estimado</th>
+                                <th>Tiempo Est.</th>
                                 <th>Unidad</th>
                                 <th style="width: 20%">Orden</th>
                                 <th style="width: 20%">Acciones</th>
@@ -105,10 +105,79 @@
             </div>
         </div>
     </li>
-    <li>
-        <div class="collapsible-header"><i class="material-icons">play_arrow</i>Iniciar Producción</div>
-        <div class="collapsible-body row tasks">
-
+    <li class="productline" id="pl3">
+        <div class="collapsible-header"><i class="material-icons">build</i>Mantenimeinto Lineas de Producción</div>
+        <div class="collapsible-body tasks">
+            <div class="row">
+                <div class="col s4 m4 l4">
+                    <table class="table striped bordered highlight centered" id="data-table-mantlinea" cellspacing="0" width="100%" >
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Receta</th>
+                                <th style="width: 20%">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listamantlinea"></tbody>
+                    </table>
+                </div>
+                <div class="col s8 m8 l8 hide" id="dactrec">
+                    <div class="row marginzero">
+                        <div class="input-field col s4 m4 l4">
+                            <!-- <a class="material-icons prefix pbtn btn-color blueh mbutton">save</a> -->
+                            <input id="vnomlinea" type="text" class="validate mbotcero"><!-- imp -->
+                            <label for="vnomlinea">Nombre Linea</label>
+                        </div>
+                        <div class="input-field col s4 m4 l4">
+                            <i class="material-icons prefix pbtn mbutton blue-text" id="chrecipe">search</i>
+                            <input id="actrec" type="text" readonly>
+                            <input type="hidden" id="bautoinc" value="0">
+                            <label for="actrec">Receta</label>
+                        </div>
+                    </div>
+                    <div class="row marginzero">
+                        <div class="input-field col s4 m4 l4 marginzero">
+                            <input id="vtarea" type="text" class="validate autocomplete">
+                            <label for="vtarea">Tarea Producción</label>
+                        </div>
+                        <div class="input-field col s3 m3 l3 marginzero">
+                            <input id="testimado" type="number" class="validate">
+                            <label for="testimado">Estimado</label>
+                        </div>
+                        <div class="input-field col s3 m3 l3 marginzero">
+                            <select id="tuni" type="select">
+                                <option value="0">Seleccione una Opción</option>
+                                {section name=LE loop=$UNI}
+                                <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
+                                {/section}
+                            </select>
+                            <label for="tuni">Unidad</label>
+                        </div>
+                        <div class="col s2 m2 l2">
+                            <button type="button" class="btn-floating waves-effect waves-light blue"><i class="material-icons">add</i></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table responsive-table striped bordered highlight centered" id="data-table-detprod" cellspacing="0" width="100%" >
+                        <thead>
+                            <tr>
+                                <td>Nombre: <span id="nl"></span></td>
+                                <td colspan="3"></td>
+                                <td class="right"><i class="material-icons btn-color pbtn blueh" id="dsavelinea">save</i></td>
+                            </tr>
+                            <tr>
+                                <th>Tarea</th>
+                                <th>Tiempo Est.</th>
+                                <th>Unidad</th>
+                                <th style="width: 20%">Orden</th>
+                                <th style="width: 20%">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listadetprod"></tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </li>
 </ul>
