@@ -34,7 +34,7 @@ $(function(){
 
 	});
 
-	$("#m2").click();
+	$("#m1").click();
 });
 
 $(document).on('change','#continuo',function(){

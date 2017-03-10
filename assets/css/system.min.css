@@ -69,10 +69,7 @@ html{
     padding-right: 3%;
 }
 
-ul.autocomplete-content > li{
-    min-height: 40px;
-    height: 40px;
-}
+
 
 .marginzero {
   margin: 0;

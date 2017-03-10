@@ -1,22 +1,25 @@
-<div class="card card-block">
+<div class="card card-block z-depth-5">
     <span class="accmodulo">Agregar Bodegas</span><hr>
     <div class="row">
         <div id="fbodegas">
-            <div class="input-field col s5 m5 l5">
+            <div class="input-field col s11 l5">
+            <br>
                 <input id="vbodega" type="text" class="validate">
                 <label for="vbodega">Agregar Bodega</label>
                 <input type="hidden" id="vidbodega" value="0">
             </div>
             <div class="col s1 m1 l1 mrgn">
-                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons" modulo="bodega" id="addbod">add</button>
+            <br>
+                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="bodega" id="addbod">add</button>
             </div>
         </div>
-        <div class="col s6 m6 l6">
-            <table class="table responsive-table striped bordered highlight" id="data-table-bodegas" cellspacing="0" width="100%">
+        <div class="col s12 l6">
+        <br>
+            <table class="table highlight centered responsive-table striped z-depth-3" id="data-table-bodegas" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th style="width: 20%">Acciones</th>
+                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
+                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="listabodegas">
@@ -34,10 +37,11 @@
         </div>
     </div>
 </div>
-<div class="card card-block">
+<div class="card card-block z-depth-5">
     <span class="accmodulo">Agregar Inventarios</span><hr>
     <div class="row">
-        <div class="col s6 m6 l6" id="finventarios">
+        <div class="col s12 l6" id="finventarios">
+        <br>
             <div class="input-field col s12 m12 l12">
                 <select id="vidbode" type="select">
                     <option value="0">Seleccione una Bodega</option>
@@ -63,16 +67,18 @@
                     <label for="vidcuenta">Cuenta</label>
                 </div>
                 <div class="col s1 m1 l1">
-                    <button type="button" class="btn-floating waves-effect waves-light blue add material-icons" modulo="inventario" id="addinv">add</button>
+                    <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="inventario" id="addinv">add</button>
                 </div>
             </div>
+            <br>
         </div>
-        <div class="col s6 m6 l6">
-            <table class="table responsive-table striped bordered highlight" id="data-table-inventarios" cellspacing="0" width="100%" >
+        <div class="col s12 l6">
+        <br>
+            <table class="table highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th style="width: 20%">Acciones</th>
+                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
+                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="listainventarios"></tbody>

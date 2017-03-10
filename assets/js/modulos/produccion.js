@@ -18,10 +18,13 @@ $(function(){
                     bPaginate :  false,
                     bInfo : false
                 });
-                var spot = arr('login',4,'ifnull(max(id)+1,1)',119,'1',0,0,0)[0][0];
-                $("#spot").val(spot);
-                $("#count").val(spot);
+                // var spot = arr('login',4,'ifnull(max(id)+1,1)',119,'1',0,0,0)[0][0];
+                // $("#spot").val(spot);
+                // $("#count").val(spot);
+                // QUEDA PARA VERSION 2.0
                 $("#mantproduccion").removeClass('nopadding');
+                setTimeout(function(){$("#vnombre").focus()},100);
+                Materialize.updateTextFields();
                 break;
             case 2:
                 $("#mantproduccion").html('');
@@ -605,7 +608,7 @@ $(document).on("click",".savereceta",function(){
     var total = $("#total"+id).text().substr(2);
     if (total != '0.00') {
         //guarda receta en tabla prodcutos
-        var idreceta = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,8,@@usr,1,@@impresa,""',0,0,0);
+        var idreceta = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,3,@@usr,1,@@impresa,""',0,0,0);
         if (idreceta[0] != '[object Object]') {
             //guarda productos de la receta
             $(".product").each(function(){
@@ -669,8 +672,8 @@ $(document).on("click",".actrecipe",function(){
 
 $(document).on("click",".editreceta",function(){
     var id = $(this).attr('id').substr(1);
-    var vreceta = arr('login',4,'idproducto,producto,codigo,precioventa,preciocosto,idreceta,tiempoestimado,horasmaquina,horashombre',99,'idproducto = '+id,0,0,0)[0][0];
-    var detalle = arr('login',4,'idproducto,producto,cantidad,preciocosto,simbolo',123,'ridreceta = '+id,0,0,0)[0];
+    var vreceta = arr('login',4,'idreceta,receta,codigo,precioventa,preciocosto',99,'idreceta = '+id,0,0,0)[0][0];
+    var detalle = arr('login',4,'',119,id,0,0,0)[0];
     var rnombre = vreceta[1].replace(/\s+/g, '');
     $("#edtitcod").removeClass('hide');
     $("#addrecipe").addClass('hide');
@@ -682,9 +685,9 @@ $(document).on("click",".editreceta",function(){
     count += 1;
     $("#count").val(count);
     $("#makerecipe").html('');
-    $("#makerecipe").append('<div class="col s12 m12 l12 recipes" id="r'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="productos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="titreceta'+id+'" class="titrecipe but">'+vreceta[1]+'</span> - [Cod: <span id="codreceta'+id+'">'+vreceta[2]+'</span>]<i class="material-icons deltit right pbtn cdel btn-color" id="dt'+id+'">close</i><i class="material-icons actrecipe right pbtn blueh btn-color" id="ar'+id+'">save</i></h4></li><li class="collection-item padbotzero"><div class="row raddreceta gastos"><div class="input-field col s4 m4 l4"><input id="vestimado'+id+'" type="text" class="validate" value="'+vreceta[6]+'"><label for="vestimado'+id+'">Tiempo Estimado en minutos</label></div><div class="input-field col s4 m4 l4"><input id="vhorasmaquina'+id+'" type="text" class="validate" value="'+vreceta[7]+'"><label for="vhorasmaquina'+id+'">Horas Maquina</label></div><div class="input-field col s4 m4 l4"><input id="vhorashombre'+id+'" type="text" class="validate" value="'+vreceta[8]+'"><label for="vhorashombre'+id+'">Horas Hombre</label></div></div></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="total'+id+'">¢ '+vreceta[4]+'</span><input type="hidden" id="htotal'+id+'" value="'+vreceta[4]+'"></h4></div></div></div></div>');
+    $("#makerecipe").append('<div class="col s12 m12 l12 recipes" id="r'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="productos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="titreceta'+id+'" class="titrecipe but">'+vreceta[1]+'</span> - [Cod: <span id="codreceta'+id+'">'+vreceta[2]+'</span>]<i class="material-icons deltit right pbtn cdel btn-color" id="dt'+id+'">close</i><i class="material-icons actrecipe right pbtn blueh btn-color" id="ar'+id+'">save</i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="total'+id+'">¢ '+vreceta[4]+'</span><input type="hidden" id="htotal'+id+'" value="'+vreceta[4]+'"></h4></div></div></div></div>');
     for (var i = 0, len = detalle.length; i < len; i++) {
-        $("#productos"+id).append('<li class="collection-item dismissable" id="p'+detalle[i][0]+'"><div id="groupprodcts'+detalle[i][0]+'"><span id="prod'+detalle[i][0]+'" class="product">'+detalle[i][1]+'</span><input type="hidden" id="prec'+detalle[i][0]+'" spot="'+id+'" value="'+detalle[i][3]+'"> - Cantidad: <span id="cant'+detalle[i][0]+'">'+detalle[i][2]+'</span> (<span id="idmedida'+detalle[i][0]+'">'+detalle[i][4]+'<span>)<i class="material-icons right red-text del but" id="d'+detalle[i][0]+'">close</i></div></li>');
+        $("#productos"+id).append('<li class="collection-item dismissable" id="p'+detalle[i][2]+'"><div id="groupprodcts'+detalle[i][2]+'"><span id="prod'+detalle[i][2]+'" class="product">'+detalle[i][3]+'</span><input type="hidden" id="prec'+detalle[i][2]+'" spot="'+id+'" value="'+detalle[i][5]+'"> - Cantidad: <span id="cant'+detalle[i][2]+'">'+detalle[i][4]+'</span> (<span id="idmedida'+detalle[i][2]+'">'+detalle[i][6]+'<span>)<i class="material-icons right red-text del but" id="d'+detalle[i][2]+'">close</i></div></li>');
     }
     $("#daddprod").removeClass('hide');
     

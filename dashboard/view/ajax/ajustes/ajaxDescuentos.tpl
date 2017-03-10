@@ -3,37 +3,42 @@
     <div class="card-block">
         <h3>Descuentos del Sistema</h3>
         <div class="row">
-            <div class="col s4">
+            <div class="col s12">
             <div class="row">
                 <div class="col s12">
                     <p>Descuento en Factura de Venta:</p>
                 </div>
-                <div class="col s6">
+                <div class="col s6 m2">
                     <p class="der">
-                        <input type="radio" class="descfactc with-gap" name="descfact" tp="1" id="sum" {if $DESCF eq 1} checked {/if} />
+                        <input type="radio" class="descfactc with-gap z-depth-5" name="descfact" tp="1" id="sum" {if $DESCF eq 1} checked {/if} />
                         <label for="sum">Suma</label>
                     </p>
                 </div>
-                <div class="col s6">
+                <div class="col s6 m2">
                     <p class="der">
-                        <input type="radio" class="descfactc with-gap" name="descfact" tp="2" id="may" {if $DESCF eq 2} checked {/if}>
+                        <input type="radio" class="descfactc with-gap z-depth-5" name="descfact" tp="2" id="may" {if $DESCF eq 2} checked {/if}>
                         <label for="may">Mayor</label>
                     </p>
+                    <br>
                 </div>
             </div>
             </div>
         </div>
 
-        <a href="#modal-descuentos" class="btn" style="margin: 1%;">Generar Descuento</a> 
+        <a href="#modal-descuentos" class="btn z-depth-5 right" style="margin: 1%;">Generar Descuento</a> 
+        <br>
+        <br>
 
-        <table class="table responsive-table" id="data-table-descuentos">
+        <table class="table responsive-table z-depth-5 highlight centered" id="data-table-descuentos">
+        <br>
+        <br>
         <thead>
             <tr>
-                <th style="border: 0;">Nombre</th>
-                <th style="border: 0;">Estado</th>
-                <th style="border: 0;">Realizado(Veces)</th>
-                <th style="border: 0;">Usuario</th>
-                <th style="border: 0;">Acciones</th>
+                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
+                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Estado</th>
+                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Realizado(Veces)</th>
+                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Usuario</th>
+                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Acciones</th>
             </tr>
         </thead>
         <tbody id="listadescuentos">
@@ -45,18 +50,18 @@
 
     <div class="modal modal-fixed-footer" id="modal-descuentos">
             <div class="modal-header">
-                <h4 class="modal-title">Crear Descuento</h4>
+                <h4 class="modal-title" style="background-color:#0B3861">Crear Descuento</h4>
             </div>
 
             <div class="modal-content" >
                 
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <input type="text" id="vnombre">
                         <label for="vnombre">Nombre del Descuento</label>
                     </div>
 
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                 
                         <select type="select" id="vidciclo" noClear="1">
                             {section name=LE loop=$CICLOS}
@@ -112,7 +117,7 @@
             </div><!-- /.modal-content -->
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left: 2%; ">Salir</button>
                 <button type="button" class="btn btn-primary">Agregar</button>
             </div>
         </div><!-- /.modal -->

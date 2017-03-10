@@ -29,13 +29,13 @@
             
           </div>
           <br><br>
-          <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" id="data-table-usuariosHistorial">
+          <table class="table bordered highlight responsive-table z-depth-3 centered" cellspacing="0" width="100%" id="data-table-usuariosHistorial">
             <thead>
                 <tr>
-                    <th> Usuario </th>
-                    <th> Acción </th>
-                    <th> Descripción </th>
-                    <th> Fecha </th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"> Usuario </th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"> Acción </th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"> Descripción </th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"> Fecha </th>
                 </tr>
             </thead>
             <tbody id="lista">

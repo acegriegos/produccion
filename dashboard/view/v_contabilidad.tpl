@@ -8,13 +8,14 @@
     <title>Contabilidad</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad.css">
   </head>
-  <body>
+  <body class="blue lighten-5">
       
     {$NAV}
     <div class="bdy">
         
-        <nav class="nav-extended blue-grey">
+        <nav class="nav-extended white-text" style="background-color:#0B3861">
           <div class="nav-wrapper">
+  
             <ul class="tabs tabs-transparent">
               <li class="tab col s6 menu3" id="m1"><a class="active">Cuentas</a></li>
               <li class="tab col s6 menu3" id="m2"><a>Transacciones</a></li>

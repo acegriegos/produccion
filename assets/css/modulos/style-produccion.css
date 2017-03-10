@@ -84,3 +84,7 @@ label[for=vtarea] {
     width: 100% !important;
 }
 
+ul.autocomplete-content > li{
+    min-height: 40px;
+    height: 40px;
+}

@@ -14,11 +14,11 @@
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body class="blue lighten-5">
 
 {$NAV}
 <div class="bdy">
-<nav class="nav-extended blue">
+<nav class="nav-extended  white-text" style="background-color:#0B3861">
 <div class="nav-wrapper">
 <a class="brand-logo center">Usuarios</a>
 <br>
@@ -29,33 +29,31 @@
 </ul>
 </div>
 </nav>
-<div class="card card-content grey lighten-2" id="cuerpo">
+<div class="card card-content z-depth-5" id="cuerpo">
 <form id="fusuarios">
 <div class="row">
-    <div class="input-field col s6 col m6">
+    <div class="input-field col s6 col m6 l4">
         <input id="vuser" type="text" class="validate">
         <input type="hidden" id="vid" value="0">
         <input type="hidden" id="vidusuario" value="">
         <label for="vuser">Usuario</label>
     </div>
-    <div class="input-field col s6 m6">
+    <div class="input-field col s6 m6 l4">
         <input id="vnombre" type="text" class="validate">
         <label for="vnombre">Nombre de Usuario</label>
     </div>
-</div>
-<div class="row">
-    <div class="input-field col s6 m6">
+
+    <div class="input-field col s6 m6 l4">
         <input id="vcedula" type="text" class="validate">
         <label for="vcedula">Cédula del Usuario</label>
         
     </div>
-    <div class="input-field col s6 m6">
+    <div class="input-field col s6 m6 l4">
         <input id="vmail" type="text" class="validate">
         <label for="vmail">Correo de Usuario</label>
     </div>
-</div>
-<div class="row">
-    <div class="input-field col s6 m6">
+
+    <div class="input-field col s6 m6 l4">
         <select id="vidTipoUsuario" type="select">
             <option value="0" selected disabled>Seleccione un Tipo de Usuario</option>
             {section name=LE loop=$TUSR}
@@ -63,7 +61,7 @@
             {/section}
         </select>
     </div>
-    <div class="input-field col s6 m6">
+    <div class="input-field col s6 m6 l4">
         <select id="vidsucursal" type="select">
             <option value="0" selected disabled>Seleccione una Sucursal</option>
             {section name=LE loop=$SUC}
@@ -73,28 +71,26 @@
         </select>
     </div>
 </div>
-<hr>
 <div class="row" id="dpass">
-    <div class="input-field col s6 m6">
+    <div class="input-field col s6 m6 l4">
         <input id="vclave" type="password" class="validate">
         <label for="vclave">Contraseña</label>
     </div>
-    <div class="input-field col s6 m6">
+    <div class="input-field col s6 m6 l4">
         <input id="clave" type="password" class="validate">
         <label for="clave">Repetir Contraseña</label>
     </div>
-</div>
-<div class="row">
-    <div class="input-field col s6 m6">.
+
+    <div class="input-field col s6 m6 l4">
         <label>Hora de Entrada</label>
         <input id="vlimite" type="time" class="validate">
     </div>
-    <div class="input-field col s6 m6">.
+    <div class="input-field col s6 m6 l4">
         <label>Hora de Salida</label>
         <input id="vlimite2" type="time" class="validate">
     </div>
 </div>
-<a class="btn-floating waves-effect waves-light blue right add" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="material-icons">add</i></a>
+<a class="btn-floating waves-effect waves-light blue right add z-depth-5" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="material-icons">add</i></a>
 <br>
 <input type="hidden" id="vbcambioPSSW" value="0">
 <input type="hidden" id="vcodigo" value="">
@@ -103,16 +99,16 @@
 <br>
 <div class="card-footer">
 <div class="table-responsive">
-<table class="table table-striped table-bordered dt-responsive nowrap" id="data-table-usuarios" cellspacing="0" width="100%">
+<table class="table bordered highlight responsive-table z-depth-3 centered" id="data-table-usuarios" cellspacing="0" width="100%">
 <thead>
-<th>Usuario</th>
-<th>Nombre</th>
-<th>Cédula</th>
-<th>Correo</th>
-<th>Tipo de Usuario</th>
-<th>Hora Entrada</th>
-<th>Hora Salida</th>
-<th>Acciones</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cédula</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Correo</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Tipo de Usuario</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Entrada</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Salida</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
 </thead>
 <tbody id="listausuarios">
 {section name=LE loop=$USRS}

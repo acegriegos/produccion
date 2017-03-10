@@ -24,13 +24,13 @@
 
           </div>
           <br><br>
-          <table class="display" id="data-table-usuariosPermisos">
+          <table class="display table bordered highlight responsive-table z-depth-3 centered" id="data-table-usuariosPermisos">
             <thead>
                 <tr>
-                    <th> Ventana </th>
-                    <th> Habilitar </th>
-                    <th> Deshabilitar </th>
-                    <th> Invisible </th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"> Ventana </th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"> Habilitar </th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"> Deshabilitar </th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"> Invisible </th>
                 </tr>
             </thead>
             <tbody id="lista">

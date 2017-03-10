@@ -27,7 +27,7 @@
                             <li><a class="dropdown-item" href="#" id="refresh">Refrescar</a></li>
                             <li>  <a class="dropdown-item" href="#" id="refresh4ever">Refrescar Contínuo</a></li>
                         </ul>
-                        <a class="btn dropdown-button" href="#!" data-activates="dropdown2">Filtro de Busqueda<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                        <a class="btn dropdown-button z-depth-5" href="#!" data-activates="dropdown2">Filtro de Busqueda<i class="mdi-navigation-arrow-drop-down right"></i></a>
                     </div>
                     
 
@@ -39,16 +39,17 @@
     </div>
     <div class="row">
         <div class="col s12 m12 l6">
+        <div class="card z-depth-5">
             <div class="card-block blc1" >
 
                 <div class="row " style="margin: 0.5%;" >
-                    <div class="col s4 card-title grey white-text truncate " align="center" style="font-size: 1.2em">
+                    <div class="col s4 card-title blue-grey white-text truncate " align="center" style="font-size: 1.2em">
                         Número de Cuenta
                     </div>
-                    <div class="col s4 card-title grey white-text " align="center" style="font-size: 1.2em">
+                    <div class="col s4 card-title blue-grey white-text " align="center" style="font-size: 1.2em">
                         Descripción
                     </div>
-                    <div class="col s4 card-title grey white-text " align="center" style="font-size: 1.2em">
+                    <div class="col s4 card-title blue-grey white-text " align="center" style="font-size: 1.2em">
                         Saldo(CRC)
                     </div>
                 </div>
@@ -75,6 +76,7 @@
             {/section}
 
         </ul>
+        </div>
     </div>
 
     <div class="col s12 m12 l6">

@@ -19,7 +19,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="light-blue darken-2">
+  <body class="blue lighten-5">
 <div class="bdy ">
 <div class="row"><br><br>
     <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px"><br>

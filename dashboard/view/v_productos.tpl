@@ -12,11 +12,11 @@
 	<body>
 		<div class="bdy">
 			{$NAV}
-			<div class="card">
-				<div class="card-header center blue-grey white-text">
-					<p class="flow-text">Productos</p>
+			<div class="card z-depth-5">
+				<div class="card-header center blue-grey white-text z-depth-1">
+					<p class="flow-text"  style="background-color:#0B3861">Productos</p>
 				</div>
-				<nav class="navbar navbar-dark blue" style="margin-top: -25px;">
+				<nav class="navbar navbar-dark blue z-depth-1" style="margin-top: -25px;">
 					<ul class="nav navbar-nav">
 						<li class="nav-item menu3 active" id="m1">
 							<a class="nav-link" href="#" title="Productos">Productos</a>

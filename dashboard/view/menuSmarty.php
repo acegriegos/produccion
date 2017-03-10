@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
-<ul id="slide" class="side-nav blue-text text-darken-2">
+<ul id="slide" class="side-nav blue-text text-darken-2 ">
     <li>
       <div class="userView">
         <div class="background">

@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-block">
-        <h4 class="card-title grey white-text cta-sh-tit" align="center" style="font-size: 1.2em; margin: 0;"></h4>
+    <div class="card-block z-depth-5">
+        <h4 class="card-title blue-grey white-text cta-sh-tit" align="center" style="font-size: 1.2em; margin: 0;"></h4>
         <div class="card-block sh-cta-card">
             <div class="row">
                 <div class="col s2 m3 truncate" align="center" style="font-size: 1.2em;">

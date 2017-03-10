@@ -4,7 +4,7 @@
         <h3>Ingresar Cuenta</h3>
         <div class="row">
 
-            <div class="input-field col s6">
+            <div class="input-field col s12 m6">
                 <div class="prefix addglobal pbtn" title="Agregar Cuenta"><i class="material-icons">add</i></div>
                 <select class="slide" cod="1" id="vgenero" lvl="0">
                     <option value="0">Seleccione una Opción</option>
@@ -15,7 +15,7 @@
                 <label for="vgenero">Cuenta</label>
             </div>
            
-            <div class="col s6 addcta" cod="2">
+            <div class="col s12 m6 addcta" cod="2">
                 <div class="row">
                     <div class="col s9 input-field">
                     <i class="fa fa-arrow-left moveL prefix pbtn" style="display: none"></i>
@@ -38,25 +38,25 @@
         <br>
 
          <h3>Modificar Cuentas</h3>
-        <div id="vcuentas">
+        <div class="z-depth-5" id="vcuentas">
             <div class="collection">
 
-            <a class="collection-item" style="color: black;">
+            <a class="collection-item blue" style="color: black;">
               <b><div class="row">
-                <div class="col s4 left">
+                <div class="col s4 left blue   white-text">
                     Nombre de la Cuenta
                 </div>
-                <div class="col s4 center"> 
+                <div class="col s4 center blue white-text"> 
                     Número de la Cuenta
                 </div>
-                <div class="col s4 right">
+                <div class="col s4 right blue  white-text">
                     Acciones
                 </div>
               </div></b>
             </a>
             
             {section name=LE loop=$VCUE}
-            <a href="#!" class="collection-item cuecon" style="max-height:80px;padding:0;padding-top: 2px; {if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="{$VCUE[LE][4]}">
+            <a href="#!" class="collection-item cuecon" style="max-height:220px;padding:0;padding-top: 2px; {if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="{$VCUE[LE][4]}">
               <div class="row">
                 <div class="col s4 left">
                     <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px;{if $VCUE[LE][4] neq 1} margin-left: {math equation='x * y' x=2 y=$VCUE[LE][4]}%;{/if}" {if $VCUE[LE][4] eq 1} readonly {/if} maxlength="40">
@@ -85,18 +85,18 @@
          <div class="row">
 
             <div class="col s12">
-            <table class="table highlight responsive-table " id="data-table-defecto">
+            <table class="centered highlight bordered responsive-table z-depth-5 " id="data-table-defecto">
             <thead>
-                <th>Nombre</th>
-                <th>Cuenta</th>
-                <th>Cambiar</th>
+                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
+                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width: 100%;">Cuenta</th>
+                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width: 100%;">Cambiar</th>
             </thead>
             <tbody>
              {section name=LE loop=$DCUE}
                 <tr id="def{$DCUE[LE][0]}">
-                    <td>{$DCUE[LE][3]} {$DCUE[LE][5]}</td>
-                    <td id="cta{$DCUE[LE][0]}" pr="{$DCUE[LE][1]}">{$DCUE[LE][2]}</td>
-                    <td>
+                    <td style="width:20%">{$DCUE[LE][3]} {$DCUE[LE][5]}</td>
+                    <td style="width:50%" id="cta{$DCUE[LE][0]}" pr="{$DCUE[LE][1]}">{$DCUE[LE][2]}</td>
+                    <td style="width:50%">
                       <input name="cta-def" type="radio" id="r{$DCUE[LE][0]}"/>
                       <label for="r{$DCUE[LE][0]}"></label>
                     </td>
@@ -107,7 +107,7 @@
             </div>
          </div>
 
-         <div id="modal-defcta" class="modal bottom-sheet">
+         <div id="modal-defcta" class="modal bottom-sheet" style="min-height:220px;" >
             <div class="modal-content">
               <h4>Cambio de Cuenta por Defecto</h4>
               <div class="input-field">

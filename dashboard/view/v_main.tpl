@@ -9,12 +9,12 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 
   </head>
-  <body>
+  <body >
     {$NAV}
     <div class="bdy">
     {if $smarty.session.TIPO eq 1}
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s3">
                 <select>
                     <option value="0">Todas las Sucursales</option>
                     {section name=LE loop=$SUC}

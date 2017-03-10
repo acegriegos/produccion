@@ -8,7 +8,7 @@
     <title>Clientes</title>
 </head>
 <!-- #0B3861 -->
-<body class="grey lighten-5">
+<body class="blue lighten-5">
     {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
     <div class="bdy">
@@ -54,11 +54,11 @@
                         <tbody id="listaclientes">
                             {section name=LE loop=$CLIE}
                             <tr id="f{$CLIE[LE][0]}">
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][1]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][2]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][4]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][5]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][6]}</td>
+                                <td style=" padding: 10px;">{$CLIE[LE][1]}</td>
+                                <td style=" padding: 10px;">{$CLIE[LE][2]}</td>
+                                <td style=" padding: 10px;">{$CLIE[LE][4]}</td>
+                                <td style=" padding: 10px;">{$CLIE[LE][5]}</td>
+                                <td style=" padding: 10px;">{$CLIE[LE][6]}</td>
                                 <td>
                                     <a href="#modal-clientes" class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente" style="font-size: 2em; color: #607d8b">edit</a>
                                     <a href="#" class="delete material-icons pbtn" modulo="cliente" id="d{$CLIE[LE][0]}" style="font-size: 2em; color: #607d8b">delete</a>

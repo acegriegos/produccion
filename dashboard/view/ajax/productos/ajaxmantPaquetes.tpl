@@ -5,27 +5,28 @@
             <input id="searchpqt" type="text" class="validate">
             <label for="searchpqt" id="lpq">Buscar por Código</label>
         </div>
-        <a class="dropdown-button btn-floating waves-effect waves-light blue" data-activates="fpqt"><i class="material-icons">search</i></a>
+        <a class="dropdown-button btn-floating waves-effect waves-light blue z-depth-5" data-activates="fpqt"><i class="material-icons">search</i></a>
         <ul id="fpqt" class="dropdown-content" filter="1">
             <li><a class="dropdown-item filtropqt" filtro="f1">Código</a></li>
             <li><a class="dropdown-item filtropqt" filtro="f2">Nombre</a></li>
         </ul> 
       </div>
       <div class="col s6 col m6">
-          <a id="addpackage" class="btn-floating waves-effect waves-light right blue" href="#modal-paquetes"><i class="material-icons">add</i></a>
+          <a id="addpackage" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-paquetes"><i class="material-icons">add</i></a>
       </div>
   </div>
     <br>
+    <div class="card">
 <div class="table-responsive">
     <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="data-table-paquetes" cellspacing="0" width="100%" >
+        <table class="table striped bordered highlight centered responsive-table z-depth-3" id="data-table-paquetes" cellspacing="0"  >
           <thead>
               <tr>
-                  <th>Código</th>
-                  <th>Nombre</th>
-                  <th>Descuento</th>
-                  <th>Total</th>
-                  <th style="width:9%">Acciones</th>
+                  <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Código</th>
+                  <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nombre</th>
+                  <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Descuento</th>
+                  <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Total</th>
+                  <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width:9%" >Acciones</th>
               </tr>
           </thead>
             <tbody id="listapqts">
@@ -43,6 +44,7 @@
                 {/section}
             </tbody>
       </table>
+  </div>
   </div>
   <br><br>
 </div>

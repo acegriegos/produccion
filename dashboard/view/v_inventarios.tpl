@@ -15,14 +15,14 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body class="blue lighten-5">
     {$NAV}
     <div class="bdy">
         <div class=" card center blue-grey white-text mbotcero" >
-          <h4 class="center-align blue-grey white-text mbotcero">Inventario</h4>
+          <h4 class="center-align white-text mbotcero z-depth-5" style="background-color:#0B3861">Inventario</h4>
         </div>
         
-        <div class="card card-content mdinvent grey lighten-3">
+        <div class="card card-content mdinvent z-depth-5">
           <div class="row">
             <div class="input-field col s6 m6 l6">
               <select type="select" class="_det" id="vidbodega" det="bodega" sig="vidinventario" prev="" d-b="41">

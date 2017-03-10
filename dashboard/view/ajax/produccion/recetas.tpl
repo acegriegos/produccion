@@ -1,23 +1,15 @@
-<div class="fixed-action-btn vertical">
-        <a class="btn-floating btn-large blue">
-            <i class="large material-icons">mode_edit</i>
-        </a>
-        <ul>
-            <li><a class="btn-floating green" title="Exportar Receta a Excel"><i class="material-icons">insert_chart</i></a></li>
-            <li><a class="btn-floating red" title="Exportar Receta a PDF"><i class="material-icons">picture_as_pdf</i></a></li>
-        </ul>
-    </div>
+<!-- hacer 2 div en donde cada uno tenga como encabezado creacion de recetas y edicion de recetas para futura version, esto para hacer que el sistema permita agregar varias recetas a las vez mientras que tambien pueda editar recetas mientras agrega recetas -->
 <div class="row">
     <div class="col s8 m8 l8">
         <div class="row raddreceta">
             <div class="input-field col s5 m5 l5">
-                <input id="vnombre" type="text">
+                <input id="vnombre" type="text" autocomplete="off">
                 <label for="vnombre">Nombre de la Receta</label>
                 <input type="hidden" id="count" value="0">
-                <input type="hidden" id="spot" value="">
+                <input type="hidden" id="spot" value="0">
             </div>
             <div class="input-field col s5 m5 l5">
-                <input id="vcodigo" type="text" class="validate">
+                <input id="vcodigo" type="text" autocomplete="off">
                 <label for="vcodigo">Codigo de la Receta</label>
             </div>
             <div class="col s2 m2 l2">

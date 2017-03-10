@@ -48,7 +48,6 @@
                </div>
 
            </div>
-           <hr>
            <div class="row">
                <div class="col-xs-6 col-sm-6">
 
@@ -108,16 +107,16 @@
           <div class="panel-footer">
 
             <div class="table-responsive">
-                <table class="table table-striped table-bordered dt-responsive nowrap" id="data-table-usuarios" cellspacing="0" width="100%">
+                <table class="table bordered highlight responsive-table z-depth-5 centered" id="data-table-usuarios" cellspacing="0" width="100%">
                     <thead>
-                        <th>Usuario</th>
-                        <th>Nombre</th>
-                        <th>Cédula</th>
-                        <th>Correo</th>
-                        <th>Tipo de Usuario</th>
-                        <th>Hora Entrada</th>
-                        <th>Hora Salida</th>
-                        <th>Acciones</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cédula</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Correo</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Tipo de Usuario</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Entrada</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Salida</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
                     </thead>
                     <tbody id="listausuarios">
                     <?php foreach ($usr as $obj) {

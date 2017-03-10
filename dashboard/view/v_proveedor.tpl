@@ -15,7 +15,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="grey lighten-5">
+  <body class="blue lighten-5">
     {$NAV}
     <div class="bdy">
       <div class="card z-depth-5">

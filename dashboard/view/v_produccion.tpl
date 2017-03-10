@@ -15,10 +15,10 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body class="blue lighten-5">
 <div class="bdy">
 {$NAV}
-    <div class="card-header center blue-grey white-text">
+    <div class="card-header center white-text" style="background-color:#0B3861">
         <p class="flow-text">Producción</p>
     </div>
     <nav class="navbar navbar-dark blue">
@@ -37,7 +37,7 @@
             </li>
         </ul>
     </nav>
-    <div class="card grey lighten-3" id="mantproduccion"></div>
+    <div class="card " id="mantproduccion"></div>
     <div id="modal-addtoproducts" class="modal modal-fixed-footer" style="width:70%;height:90%">
         <div class="modal-header">
             <div class="card-header center blue-grey white-text">
@@ -46,7 +46,7 @@
         </div>
         <div class="modal-content">
             <div class="modal-bdy row">
-                <div id="alrdyisprdct" class="orange lighten-2 center">
+                <div id="alrdyisprdct" class=" center">
                     <span id="isinprod">Esta receta ha sido agregada anteriormente a productos</span>
                 </div>
                 <div id="noisprdct">

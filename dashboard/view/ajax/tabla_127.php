@@ -1,16 +1,16 @@
-<table class="table striped bordered highlight centered" id="data-table-inventarios" cellspacing="0" width="100%" >
+<table class="table striped bordered highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
     <thead>
         <tr>
-            <th>Codigo</th>
-            <th>Producto</th>
-            <th>Costo</th>
-            <th>Costo Total</th>
-            <th>Minimo</th>
-            <th>Maximo</th>
-            <th>Cantidad</th>
-            <th>Compras</th>
-            <th>Ventas</th>
-            <th>Acciones</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Codigo</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Producto</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Costo</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Costo Total</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Minimo</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Maximo</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cantidad</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Compras</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Ventas</th>
+            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Acciones</th>
         </tr>
     </thead>
     <tbody>
