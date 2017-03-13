@@ -8,7 +8,7 @@
     <title>Configuración</title>
     
   </head>
-  <body class="blue lighten-5">
+  <body>
     {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
     <div class="bdy">

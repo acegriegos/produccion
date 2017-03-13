@@ -3,6 +3,7 @@ var segundos = 0;
 var minutos = 0;
 var horas = 0;
 $(function(){
+    alert(1)
     $(".menu").click(function(){
         var id = $(this).attr('id').substr(1);
         switch(parseInt(id)) {
@@ -80,7 +81,8 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m1").click();
+    $("#m2").click();
+
 });
 
 $(document).ready(function(){
@@ -608,7 +610,7 @@ $(document).on("click",".savereceta",function(){
     var total = $("#total"+id).text().substr(2);
     if (total != '0.00') {
         //guarda receta en tabla prodcutos
-        var idreceta = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,3,@@usr,1,@@impresa,""',0,0,0);
+        var idreceta = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
         if (idreceta[0] != '[object Object]') {
             //guarda productos de la receta
             $(".product").each(function(){
@@ -618,7 +620,7 @@ $(document).on("click",".savereceta",function(){
                     arr('login',4,'',121,'1,0,'+idreceta[0][0]+','+idproducto+','+cantidad,0,0,0);
                 }
             });
-            arr('login',6,'idreceta,producto,precioventa',99,'idproducto > 0 order by producto limit 20',0,1,$("#listarecetas"));
+            arr('login',6,'idreceta,receta,precioventa',99,'idreceta > 0 order by receta limit 20',0,1,$("#listarecetas"));
             $("#makerecipe").html('');
             $("#vnombre").val('');
             $("#vcodigo").val('');
