@@ -83,34 +83,54 @@ $(function(){
 
 	$("#telefono_in").keyup(function(e){
 		var code = e.which || e.keyCode
+		var idfila = $(this).attr('idfila');
 		if (code == 13) {
-			if($("#tptel option:selected").val() == ''){
-				Materialize.toast("Debe Seleccionar un Tipo de Teléfono",4000,'danger');
-				$("#tptel").focus()
-			}else{
-				rgex = arr('login',4,'regex,img',4,'id = ' + $("#tptel option:selected").val(),0,0,0)[0][0];
-				if($(this).val().match(new RegExp(rgex[0]))){
-					$("#shtelefonos").append('<li id="0_'+ind_1+'" tp="'+$("#tptel option:selected").val()+'"> <div class="collapsible-header" ><span class="badge">'+$(this).val()+'</span><i class="fa '+rgex[1]+'"></i></div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Teléfono"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Teléfono"><i class="fa fa-times"></i></a></div> </li>');
-					$(this).val('');
-					ind_1 += 1;
+			if (idfila == undefined) {
+				if($("#tptel option:selected").val() == ''){
+					Materialize.toast("Debe Seleccionar un Tipo de Teléfono",4000,'danger');
+					$("#tptel").focus()
 				}else{
-					Materialize.toast("Número de Teléfono Inválido",4000,'danger');
+					rgex = arr('login',4,'regex,img',4,'id = ' + $("#tptel option:selected").val(),0,0,0)[0][0];
+					if($(this).val().match(new RegExp(rgex[0]))){
+						$("#shtelefonos").append('<li id="0_'+ind_1+'" tp="'+$("#tptel option:selected").val()+'"> <div class="collapsible-header" ><span class="badge" id="tel'+ind_1+'">'+$(this).val()+'</span><i class="fa '+rgex[1]+'"></i></div> <div class="collapsible-body row"><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Teléfono"><i class="fa fa-pencil-square-o"></i></a></div><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Teléfono"><i class="fa fa-times"></i></a></div></div> </li>');
+						$("#shtelefonos").removeClass('hide');
+						$(this).val('');
+						ind_1 += 1;
+						$('.collapsible').collapsible();
+					}else{
+						Materialize.toast("Número de Teléfono Inválido",4000,'danger');
+					}
 				}
+			}else{
+				$("#tel"+idfila).text($(this).val());
+				$(this).removeAttr('idfila');
+				$(this).val('');
 			}
+			
 		}
 	});
 
 	$("#correo_in").keyup(function(e){
 		var code = e.which || e.keyCode
+		var idfila = $(this).attr('idfila')
 		if (code == 13) {
-			if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-				$("#shcorreos").append('<li id="0_'+ind_2+'"> <div class="collapsible-header"><span class="badge">'+$(this).val()+'</div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_mail" id="m0_'+ind_2+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_mail" id="d0_'+ind_2+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div> </li>');
-					$(this).val('');
-					ind_2 += 1;
+			if (idfila == undefined) {
+				if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+					$("#shcorreos").append('<li id="0_'+ind_2+'"><div class="collapsible-header"><span class="badge" id="mail'+ind_2+'">'+$(this).val()+'</span></div> <div class="collapsible-body row"><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light blue edit_mail" id="m0_'+ind_2+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a></div><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light red del_mail" id="d0_'+ind_2+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div></div></li>');
+						$("#shcorreos").removeClass('hide');
+						$(this).val('');
+						ind_2 += 1;
+						$('.collapsible').collapsible();
+				}else{
+					Materialize.toast('Correo no Válido',4000,'danger');
+					$(this).select();
+				}
 			}else{
-				Materialize.toast('Correo no Válido',4000,'danger');
-				$(this).select();
+				$("#mail"+idfila).text($(this).val());
+				$(this).removeAttr('idfila');
+				$(this).val('');
 			}
+			
 		}
 	});
 
@@ -124,6 +144,46 @@ $(function(){
 
 	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1})
 
+});
+
+$(document).on("click",".del_phone",function(){
+	var id = $(this).attr('id').substr(3);
+	Materialize.toast('Desea Borrar este Telefono? <button type="button" class="waves-effect waves-light btn blue acctel" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="material-icons">close</i></button>', 10000, 'rounded');
+});
+
+$(document).on("click",".edit_phone",function(){
+	var id = $(this).attr('id').substr(3);
+	var tel = $("#tel"+id).text();
+	$("#telefono_in").attr('idfila',id);
+	$("#telefono_in").val(tel);
+	Materialize.updateTextFields();
+	console.log(tel)
+});
+
+$(document).on("click",".del_mail",function(){
+	var id = $(this).attr('id').substr(3);
+	Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="material-icons">close</i></button>', 10000, 'rounded');
+});
+
+$(document).on("click",".edit_mail",function(){
+	var id = $(this).attr('id').substr(3);
+	var mail = $("#mail"+id).text();
+	$("#correo_in").attr('idfila',id);
+	$("#correo_in").val(mail);
+	Materialize.updateTextFields();
+	console.log(mail)
+});
+
+$(document).on("click",".acctel",function(){
+	var id = $(this).attr('id').substr(3);
+	$("#shtelefonos #0_"+id).remove();
+	$('#toast-container').remove();
+});
+
+$(document).on("click",".accmail",function(){
+	var id = $(this).attr('id').substr(3);
+	$("#shcorreos #0_"+id).remove();
+	$('#toast-container').remove();
 });
 
 $(document).on("click",".delcta",function(){
@@ -279,7 +339,7 @@ function cargarSintax(){
 	var arr = {}
 
 	arr['sel'] = '*';
-	arr['tbl'] = 29;
+	arr['tbl'] = 30;
 	arr['where'] = 'vid > 0 order by nombre';
 
 	return arr;

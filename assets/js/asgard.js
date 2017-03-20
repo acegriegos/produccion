@@ -1,6 +1,5 @@
 acc = 1;
 
-
 $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
@@ -103,6 +102,7 @@ function doGlobal(accion,modulo,tip,varias){
         var p = mantenimiento('login',2,arreglo);
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
+            endDetail(1,1,modulo+"s");
         }else{
            
             var tmsj = "Ingresado";
@@ -462,7 +462,6 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
-                            alert(varreglo[i])
                             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             break;
                     }

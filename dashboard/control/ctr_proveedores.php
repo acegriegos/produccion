@@ -12,7 +12,7 @@
 	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));
 	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
 	    $smarty->assign('PROV',$kakaroto->kamehameha('*',30,'1 order by nombre'));
-
+	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('id,nombre',68,'1 order by nombre limit 10'));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_proveedores.tpl');
 	   	
@@ -33,8 +33,7 @@
 		
 				$salida = array('succed'=>$succed);
 				array_push($salida, $marcas);
-				print_r(json_encode($salida));	
-		
+				print_r(json_encode($salida));
 		   }
 	    }	
 			   

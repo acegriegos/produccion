@@ -8,18 +8,28 @@
   <div class="row">
 
     <div class="col s6">
-      <div class="switch">
+    <div class="row">
+
+      <div class="switch col s4">
         <label>
           Contado
-          <input type="checkbox" id="chg_tipo" value="1" disabled>
+          <input type="checkbox" id="chg_tipo" value="1">
           <span class="lever"></span>
           Crédito
         </label>
       </div>
+
+      <div class="input-field col s8">
+        <label for="vreferencia">Número de Referencia</label>
+        <input type="text" id="vreferencia" class="validate" />
+      </div>
+
+    </div>
+      
     </div>
 
     <div class="col s6">
-      <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
+      <label class="der black-text" style="font-size: 18px;"><b>N° Compra: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
     </div>
 
   </div>
@@ -47,7 +57,7 @@
 
     <div class="input-field col s6 m3 l3">
       <i class="fa fa-user prefix"></i>
-      <label class="truncate" for="ncli">Nombre deL Proveedor</label>
+      <label class="truncate" for="ncli">Nombre del Proveedor</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
     </div>
 
@@ -65,14 +75,14 @@
     <table class="table" id="data-table-detalle" cellspacing="0">
       <thead>
         <tr>
-          <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
-          <th style="width: 10%; " class="center-align">Código</th>
-          <th style="width: 20%; " class="center-align"><span class="truncate">Descripción</span></th>
-          <th style="width: 14%; " class="center-align"><span class="truncate">Costo.Unit</span></th>
-          <th style="width: 10%; " class="center-align">Cantidad</th>
-          <th style="width: 10%; " class="center-align"><span class="truncate">Descuento</span></th>
-          <th style="width: 14%; " class="center-align">Total</th>
-          <th style="width: 17%; " class="center-align">
+          <!-- <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
+          <th style="width: 10%;" class="center-align">Código</th>
+          <th style="width: 20%;" class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width: 10%;" class="center-align"><span class="truncate">Costo.Unit</span></th>
+          <th style="width: 9%;" class="center-align"><span class="truncate">Descuento</span></th>
+          <th style="width: 7%;" class="center-align">Cantidad</th>
+          <th style="width: 12%;" class="center-align">Total</th>
+          <th style="width: 17%;" class="center-align">
           <div class="hide-on-small-only">
             <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
             <label for="barras"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
@@ -84,47 +94,46 @@
         </tr>
 
         <tr>
-          <td style="width: 5%">
-          </td>
+          <!-- <td style="width: 5%">
+          </td> -->
 
-          <td style="width: 10%; " class="input-field">
+          <td style="width: 10%;" class="input-field">
             <input type="text" id="codp" class="f prod center" placeholder="Código">
             <input type="hidden" id="valores">
           </td>
-
-          <td style="width: 20%; " class="input-field">
+          <td style="width: 20%;" class="input-field">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
-          <td style="width: 14%; " class="input-field">
-            <input type="text" id="precp" class="f center" value="0.00" readonly>
+          <td style="width: 10%;" class="input-field">
+            <input type="text" id="precp" class="f center" value="0.00">
           </td>
-          <td style="width: 10%; " class="input-field">
+          <td style="width: 9%;" class="input-field">
+            <input type="number" class="f center" id="descp" min="0" data-mask="999999999.99" placeholder="Descuento">
+          </td>
+          <td style="width: 7%;" class="input-field">
             <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
-            <td style="width: 10%; " class="input-field">
-            <input type="number" class="f center" id="cantp" min="0" data-mask="999999999.99" placeholder="Cantidad">
-          </td>
-          <td style="width: 14%; " class="input-field">
+          <td style="width: 12%;" class="input-field">
             <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
           </td>
           <td class="center" style="font-size: 1em; width: 17%; ">
-            
             <div class="col s12 m4 l4">
-                <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
-                 <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-                </a>
-          </div>
-          <div class="col s12 m8 l5"">
-         
-             <a href="#!" title="Limpiar Campos" ><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
-          </div>
-  
+              <a href="#modal-inventario" id="sinv"><i class="fa fa-archive" ></i>
+                <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI" title="Cantidad en Inventario">0</span>
+              </a>
+            </div>
+            <div class="col s12 m8 l5">
+              <a title="Limpiar Campos"><img class="responsive-img" src="../assets/img/icon/broom.svg"></a>
+            </div>
+            <!-- <div class="col s12 m8 l5">
+              <input type="number" >
+            </div> -->
           </td>
         </tr>
       </thead>
 
-        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" style="max-height: 20%; overflow: auto; font-size: 0.8em; ">
-
+        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" style="max-height: 10%; overflow: auto; font-size: 1.1em; ">
+          <!-- <tr id="fd1" class="ciclos"><td class="center" id="codprod1">P01</td><td class="center" id="desc1">Producto1</td><td class="center" id="prec1">2,250.00</td><td class="center"><div id="divcnt" class="form-group"><span id="cant1">1</span><input type="number" id="vcantidad1" value="1" min="1" style=" display:none;width: 70px"></div></td><td class="center"><span id="descu1">5</span> %</td><td class="center totp" id="tota1">2,250.00</td><td id="desctd1" align="left"><input type="checkbox" class="filled-in chkivi" id="aivi1" checked="checked"><label for="aivi1">I.V.I</label><input type="text" id="ivi1" value="{$IVI}" placeholder="0" style="width: 50px"><a id="edit1" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a id="del1" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr> -->
         </tbody>
       </table>
     </div>
@@ -133,18 +142,13 @@
 <div class="card z-depth-5" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
   <p class="white-text card-header blue-grey center" style="margin-top: 0px;">DESGLOCE DE FACTURA</p>
   <div class="row">
-
-
-
-    
-
     <div class="col s12 m12 l6">
       <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
       <div class="row">
       <br>
         <div class="col s12 m4 input-field">
           <div class="prefix"><img src="../assets/img/icon/percent.svg"/></div>
-          <input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled>
+          <input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00">
           <label>DESCUENTO</label>
         </div>
 
@@ -287,4 +291,4 @@
 
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=2.9"></script>
+<script src="../assets/js/modulos/compras.js?v=2.0"></script>

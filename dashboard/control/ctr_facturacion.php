@@ -30,7 +30,10 @@
 	   			require '../_config/mySmarty.php';
 			   	$smarty  = new mySmarty();
 			   	$smarty->setModule('dashboard');
+			   	$smarty->assign('NFACT',$kakaroto->kamehameha('lpad(consecutivo1+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
 			   	$smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by id'));
+			   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
+			   	$smarty->assign('IVI',$kakaroto->kamehameha('',200,'64,0')[0][3]);
 			   	$smarty->display('ajax/facturas/ajaxCompras.tpl');
 	   			break;
 	   		case 3:
