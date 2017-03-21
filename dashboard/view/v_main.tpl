@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 
   </head>
-  <body >
+  <body>
     {$NAV}
     <div class="bdy">
     {if $smarty.session.TIPO eq 1}

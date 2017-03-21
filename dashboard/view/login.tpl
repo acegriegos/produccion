@@ -20,6 +20,7 @@
     <![endif]-->
   </head>
   <body style="background-image: url(../assets/img/1.jpg);  background-attachment: fixed;">
+  
 <div class="bdy ">
 <div class="row"><br><br>
 

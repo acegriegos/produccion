@@ -28,19 +28,19 @@
             <div class="card-panel">
               <div class="row ">
                 <div class="col s12 m6 l6">
-                  <a href="proveedores" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Proveedores</a>
+                  <a href="proveedores" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Proveedores">Proveedores</a>
                 </div>
                 <div class="col s12 m6 l6">
-                  <a href="facturacion?tf=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Compras</a>
+                  <a href="facturacion?tf=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Compras">Compras</a>
                 </div>
                 <div class="col s12 m6 l6">
-                  <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="facturacion?tf=3">Compra Activos</a>
+                  <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Compra Activos">Compra Activos</a>
                 </div>
                 <div class="col s12 m6 l6">
-                  <a href="cuentas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">CxP</a>
+                  <a href="cuentas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="CxP">CxP</a>
                 </div>
                 <div class="col s12 m6 l6">
-                  <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
+                  <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                 </div>
               </div>
             </div>

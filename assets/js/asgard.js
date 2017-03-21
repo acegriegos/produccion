@@ -1,6 +1,5 @@
 acc = 1;
 
-
 $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
@@ -22,9 +21,8 @@ $(document).on("blur",".autocomplete",function(){
 
 $(document).on("keyup",".autocomplete",function(e){
     var code = e.which || e.keyCode;
-    if (code == 27) {
-       $(".autocomplete-content").hide('500') 
-    }
+    if (code == 27)
+       $(".autocomplete-content").hide('500');
     
 });
 
@@ -101,10 +99,10 @@ function doGlobal(accion,modulo,tip,varias){
 
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
-
         var p = mantenimiento('login',2,arreglo);
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
+            endDetail(1,1,modulo+"s");
         }else{
            
             var tmsj = "Ingresado";
@@ -239,7 +237,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     
                     try {
                         p = JSON.parse(data);
-                        console.error(p)
+                        // console.error(p)
                     }
                     catch(err){
                         p = data;
@@ -464,7 +462,6 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
-                            alert(varreglo[i])
                             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             break;
                     }

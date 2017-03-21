@@ -7,19 +7,17 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Proveedores</title>
 </head>
-<body >
-    {$NAV}
+
+<body>
+        {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
     <div class="bdy">
         <div class="card">
-
             <div class="card-header center white-text" style="background-color:#0B3861"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
             </div>
             <div class="card-content">
                 <div class="row">
-
                     <div class="input-field col s10 m6">
-
                         <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                         <ul id='filtr_1' class='dropdown-content'>
                             <li><a href="#!" fltr="1">Nombre</a></li>
@@ -28,16 +26,12 @@
                         </ul>
                         <input type="text" id="search_clientes" maxlength="100" num="v30" var="nombre">
                         <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
-
                     </div>
                     <div class="col s2 m6">
                         <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large material-icons">add</i></a>
                     </div>
-
                 </div>
-
                 <div class="card-block">
-                    
                     <table class="table centered highlight bordered responsive-table z-depth-2" id="data-table-clientes">
                         <thead>
                             <tr>
@@ -50,25 +44,23 @@
                             </tr>
                         </thead>
                         <tbody id="listaclientes">
-                            {section name=LE loop=$CLIE}
-                            <tr id="f{$CLIE[LE][0]}">
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][1]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][2]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][4]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][5]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$CLIE[LE][6]}</td>
+                            {section name=LE loop=$PROV}
+                            <tr id="f{$PROV[LE][0]}">
+                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][1]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][2]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][4]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][5]}</td>
+                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][6]}</td>
                                 <td>
-                                    <a href="#modal-clientes" style="font-size: 2em; color: #607d8b"><i class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente">edit</i></a>
-                                    <a href="#" style="font-size: 2em; color: #607d8b"><i class="delete material-icons pbtn" modulo="cliente" id="d{$CLIE[LE][0]}">delete</i></a>
+                                    <a href="#modal-clientes" style="font-size: 2em; color: #607d8b"><i class="load material-icons pbtn" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
+                                    <a href="#" style="font-size: 2em; color: #607d8b"><i class="delete material-icons pbtn" modulo="cliente" id="d{$PROV[LE][0]}">delete</i></a>
                                 </td>
                             </tr>
                             {/section}
                         </tbody>
                     </table>
                 </div>
-
                 <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 80%; width: 75%">
-
                     <div class="modal-header">
                         <ul class="tabs tabs-fixed-width blue">
                             <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
@@ -76,7 +68,6 @@
                             <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
                         </ul>
                     </div>
-
                     <div class="modal-content" style="padding: 0px;">
                         <div id="fclientes">
                             <input type="hidden" class="zelda">
@@ -118,7 +109,7 @@
                                 <label id="nomClie" for="vnombre">Nombre</label>
                                 <input type="text" class="validate" id="vnombre">
                                 <input type="hidden" id="vid" value="0">
-                                <input type="hidden" id="vbisproveedor" value="0">
+                                <input type="hidden" id="vbisproveedor" value="1">
                             </div>
 
                             <div class="input-field col s12 m6 col l4 hid">
@@ -150,22 +141,18 @@
                                 </select>
                                 <label for="videstado">Estado</label>
                             </div>
-                            
-
                             <div class="input-field col s12 m12 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
                                 <div class="ciclos">
                                     <div class="prefix"><i class="material-icons">email</i></div>
                                     <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                                     <input type="hidden" id="vcorreo" fill="18">
                                     <label for="correo_in">Ingresar Correo</label>
-                                    <ul class="collection" id="shcorreos"></ul>
+                                    <ul class="collapsible hide" data-collapsible="accordion" id="shcorreos"></ul>
                                 </div>
                             </div>
-                            
                             <div class="col s12 m12 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3">
                                 <div class="ciclos">
                                     <div class="row">
-                                     
                                         <div class="input-field col s12 m6">
                                             <select type="select" id="tptel">
                                                 <option value="" disabled selected>Seleccione Tipo de Tel.</option>
@@ -175,15 +162,12 @@
                                             </select>
                                             <label for="tptel">Tipo Teléfono</label>
                                         </div>
-
                                         <div class="input-field col s12 m6">
                                             <div class="prefix"><i class="fa fa-phone"></i></div>
                                             <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
                                             <input type="hidden" id="vtelefono" fill="19">
                                             <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
-                                            
-                                            <ul class="collection" id="shtelefonos"></ul>
-
+                                            <ul class="collapsible hide" data-collapsible="accordion" id="shtelefonos"></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +178,8 @@
                     <div id="fina" class="col s12">
                         <div vtabla="defectocuenta" id="fdefectocuentas" hasTabla="1" tp="3">
                             <div class="ciclos">
-
+                                <input type="hidden" id="videstadocontable" value="1">
+                                <input type="hidden" id="vidcuenta" value="">
                                 <div class="row">
                                     <div class="col s6">
                                         <div class="card-title"><b> Cuentas Contado </b></div>
@@ -202,7 +187,6 @@
 
                                         </div>
                                     </div>
-
                                     <div class="col s6">
                                         <div class="card-title"><b> Cuentas Crédito </b></div>
                                         <div id="ctacredito">
@@ -210,22 +194,16 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                     <div id="logis" class="col s12">
-
                         <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
                             <div class="ciclos">
                                 <div class="card-title"><b>Direcciones</b></div>
-
                                 <input type="hidden" id="vbisnacional" value="1">
-
                                 <div class="row"><br>
                                     <div class="input-field col s4">
-
                                         <div class="provincia">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
 
@@ -237,28 +215,18 @@
                                             </select>
                                             <label for="vidprovincia">Provincia</label>
                                         </div>
-
                                     </div>
-
                                     <div class="input-field col s4">
-
                                         <div class="canton">
-
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="material-icons">add</i></a>
-
-
                                             <select id="vidcanton" type="select" class="_det">
                                                 <option value="">Seleccione un Cantón</option>
                                             </select>
                                             <label for="vidcanton">Cantón</label>
                                         </div>
-
                                     </div>
-
                                     <div class="input-field col s4">
-
                                         <div class="distrito">
-
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="material-icons">add</i></a>
 
                                             <select id="viddistrito" type="select" class="_det">
@@ -266,15 +234,10 @@
                                             </select>
                                             <label for="viddistrito">Distrito</label>
                                         </div>
-
                                     </div>
-
                                 </div>
-
                                 <div class="row">
-
                                     <div class="input-field col s12">
-
                                         <label for="vdireccion">Dirección Exacta</label>
                                         <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
                                     </div>
