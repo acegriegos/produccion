@@ -52,22 +52,19 @@
                     <p class="flow-text namereceta"></p>
                     <input type="hidden" id="aautoinc" value="0">
                 </div>
-                <div class="input-field col s4 m4 l4">
-                    <input id="anombre" type="text" class="validate">
-                    <label for="anombre">Nombre Linea Producción</label>
-                </div>
+                <div class="s49 m49 l49"></div>
             </div>
             <div class="row hide dcline">
                 <div class="input-field col s3 m3 l3 mtopcero">
-                    <input id="atarea" type="text" class="validate autocomplete faddline" disabled>
+                    <input id="atarea" type="text" class="validate autocomplete faddline tarea">
                     <label for="atarea">Tarea de Producción</label>
                 </div>
                 <div class="input-field col s3 m3 l3 mtopcero">
-                    <input id="aestimado" type="number" class="validate faddline" min="0" disabled>
+                    <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
                     <label for="aestimado">Tiempo Estimado</label>
                 </div>
                 <div class="input-field col s2 m2 l2 mtopcero">
-                    <select type="select" id="aunidad" class="faddline" disabled>
+                    <select type="select" id="aunidad" class="faddline">
                         <option value="0">Seleccione una Opción</option>
                         {section name=LE loop=$UNI}
                         <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
@@ -76,7 +73,7 @@
                     <label for="aunidad">Unidad</label>
                 </div>
                 <div class="col s1 m1 l1">
-                    <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline" id="addprodline" disabled><i class="material-icons">add</i></button>
+                    <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline" id="addprodline"><i class="material-icons">add</i></button>
                 </div>
             </div>
             <div class="row hide" id="tablelineas">
@@ -85,8 +82,7 @@
                     <table class="table responsive-table striped bordered highlight centered" id="data-table-detalles" cellspacing="0" width="100%" >
                         <thead>
                             <tr>
-                                <td>Nombre: <span id="nomlinea"></span></td>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td class="right"><i class="material-icons btn-color pbtn blueh" id="savelinea">save</i></td>
                             </tr>
                             <tr>
@@ -113,45 +109,32 @@
                     <table class="table striped bordered highlight centered" id="data-table-mantlinea" cellspacing="0" width="100%" >
                         <thead>
                             <tr>
-                                <th>Nombre</th>
                                 <th>Receta</th>
-                                <th style="width: 20%">Acciones</th>
+                                <th style="width: 25%">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listamantlinea"></tbody>
                     </table>
                 </div>
                 <div class="col s8 m8 l8 hide" id="dactrec">
-                    <div class="row marginzero">
+                <input type="hidden" id="bautoinc" value="0">
+                    <div class="row">
                         <div class="input-field col s4 m4 l4">
-                            <!-- <a class="material-icons prefix pbtn btn-color blueh mbutton">save</a> -->
-                            <input id="vnomlinea" type="text" class="validate mbotcero"><!-- imp -->
-                            <label for="vnomlinea">Nombre Linea</label>
+                            <input id="btarea" type="text" class="validate autocomplete tarea">
+                            <label for="btarea">Tarea Producción</label>
                         </div>
-                        <div class="input-field col s4 m4 l4">
-                            <i class="material-icons prefix pbtn mbutton blue-text" id="chrecipe">search</i>
-                            <input id="actrec" type="text" readonly>
-                            <input type="hidden" id="bautoinc" value="0">
-                            <label for="actrec">Receta</label>
+                        <div class="input-field col s3 m3 l3">
+                            <input id="bestimado" type="number" class="validate bestimado">
+                            <label for="bestimado">Estimado</label>
                         </div>
-                    </div>
-                    <div class="row marginzero">
-                        <div class="input-field col s4 m4 l4 marginzero">
-                            <input id="vtarea" type="text" class="validate autocomplete">
-                            <label for="vtarea">Tarea Producción</label>
-                        </div>
-                        <div class="input-field col s3 m3 l3 marginzero">
-                            <input id="testimado" type="number" class="validate">
-                            <label for="testimado">Estimado</label>
-                        </div>
-                        <div class="input-field col s3 m3 l3 marginzero">
-                            <select id="tuni" type="select">
+                        <div class="input-field col s3 m3 l3">
+                            <select id="bunidad" type="select">
                                 <option value="0">Seleccione una Opción</option>
                                 {section name=LE loop=$UNI}
                                 <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
                                 {/section}
                             </select>
-                            <label for="tuni">Unidad</label>
+                            <label for="bunidad">Unidad</label>
                         </div>
                         <div class="col s2 m2 l2">
                             <button type="button" class="btn-floating waves-effect waves-light blue"><i class="material-icons">add</i></button>
@@ -161,8 +144,7 @@
                         <table class="table responsive-table striped bordered highlight centered" id="data-table-detprod" cellspacing="0" width="100%" >
                         <thead>
                             <tr>
-                                <td>Nombre: <span id="nl"></span></td>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td class="right"><i class="material-icons btn-color pbtn blueh" id="dsavelinea">save</i></td>
                             </tr>
                             <tr>
@@ -190,9 +172,6 @@
                     <tr>
                         <th>Código</th>
                         <th>Nombre</th>
-                        <th>Tiempo Est.</th>
-                        <th>Horas Hombre</th>
-                        <th>Horas Maquina</th>
                         <th style="width: 20%">Acciones</th>
                     </tr>
                 </thead>
