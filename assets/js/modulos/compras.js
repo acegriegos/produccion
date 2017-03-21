@@ -75,26 +75,26 @@ $(function(){
             if (cod[0][0] != undefined) {
                 cod = cod[0][0];
 
-                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : 0,hdescm : 0, hinv : 0, hbod:cod[4],hdescu : 0})
+                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : 0,hdescm : 0, hinv : cod[5], hbod:cod[4],hdescu : 0})
 
                 $("#codp").val(cod[1]);
                 $("#descp").val(cod[2]);
                 $("#precp").val(parseFloat(cod[3]).formatMoney(2,',','.'));
+                $("#descup").val(0);
                 $("#totp").val((parseFloat(cod[3])*cantidad).formatMoney(2,',','.'))
                 
                 if (cod[4] == '?') {
                     $("#cantI").html('∞');
                 }else{
-                    $("#cantI").html(cod[4]);
-                    $("#bname-inv").html(cod[4]);
+                    $("#cantI").html(cod[6]);
+                    $("#bname-inv").html(cod[6]);
                 }
 
                 var modselec = $("input[name='modselected']:checked").val();
                 if (modselec == 1) {
-                    
                     $("#cantp").val(cantidad);
-                    $("#descp").focus();
-                    $("#cantp").select();
+                    $("#descup").focus();
+                    $("#descup").select();
                 }else{
                     var e = jQuery.Event("keyup");
                     e.which = 13;
@@ -105,6 +105,40 @@ $(function(){
             }else{
                 Materialize.toast('Producto no Existente Desea Agregarlo',4000,'red');
                 $(this).select()
+            }
+        }
+    });
+
+    $("#descup").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            $("#valores").data('elemento')['hdescu'] = $(this).val();
+            $("#cantp").select();
+        }
+    });
+
+    $("#cantp").keyup(function(e){
+        var code = e.which || e.keyCode;
+        var cant = parseFloat($(this).val()),
+            precio = parseFloat($("#valores").data('elemento')['hprec']),
+            total = precio * cant;
+        var descu = $("#valores").data('elemento')['hdescu'];
+
+        $("#totp").val(total.formatMoney(2,'.',','));
+
+        if (code == 13) {
+            if (cant > 0) {
+                var cod = $("#valores").data('elemento')['hcodp'];
+                var inv = $("#valores").data('elemento')['hinv'];
+                var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
+                var idprd = $("#valores").data('elemento')['idp'];
+                var desc = $("#descp").val();
+                var hinv = $("#valores").data('elemento')['hinv'];
+                var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
+                $("#valores").removeData('elemento');
+                addline(idprd,cod,desc,cant,precio,total,descu,defi,cnt,hinv);
+            }else{
+                Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
             }
         }
     });
@@ -130,7 +164,7 @@ $(function(){
             }
             
             $("#cantp").val(1);
-            $("#cantp").focus();
+            $("#descup").focus();
             $("#cantp").select();
             Materialize.updateTextFields()
         }
@@ -169,6 +203,8 @@ $(document).on("change",".chkivi",function(){
         $("#ivi"+id).val(0);
         $("#ivi"+id).prop('disabled',true);
     }
+
+    totalizar();
 });
 
 $(document).on("click","#chg_tipo",function(){
@@ -190,34 +226,6 @@ $(document).on("click","#chg_tipo",function(){
         $(".zelda").data('triforce')['vidtipo'] = 2
         $(this).val(2)
     }
-});
-
-$(document).on("keyup","#cantp",function(e){
-    var code = e.which || e.keyCode;
-    var cant = parseFloat($(this).val()),
-        precio = parseFloat($("#valores").data('elemento')['hprec']),
-        total = precio * cant;
-
-    $("#totp").val(total.formatMoney(2,'.',','));
-
-    if (code == 13) {
-        if (cant > 0) {
-            var cod = $("#valores").data('elemento')['idp'];
-            var inv = $("#valores").data('elemento')['hinv'];
-            var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
-            var idprd = $("#valores").data('elemento')['hcodp'];
-            var dcs = $("#valores").data('elemento')['hdesc'];
-            var mdcs = $("#valores").data('elemento')['hdescm'];
-            var desc = $("#descp").val();
-            var hinv = $("#valores").data('elemento')['hinv'];
-            var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
-            $("#valores").removeData('elemento');
-            addline(idprd,cod,desc,cant,precio,total,descu,defi,cnt,dcs,mdcs,hinv);
-        }else{
-            Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
-        }
-    }
-  
 });
 
 $(document).on("change","#cantp",function(){
@@ -272,8 +280,6 @@ $(document).on("click",".fedit",function(){
     var id = $(this).attr('id').substr(4);
     var cod = $("#codprod"+id).text();
     var visible = $(this).attr('visible');
-    var cantinv = arr('login',4,'',43,'"'+cod+'",@@impresa','',0,'')[0][0][4];
-    $("#vcantidad"+id).attr('max',cantinv)
 
     if (visible == 0) {
         $("#errcnt").hide();
@@ -283,22 +289,14 @@ $(document).on("click",".fedit",function(){
         $("#vcantidad"+id).select();
     }else{
         var cant = parseInt($("#vcantidad"+id).val());
-        var cinv = parseInt(cantinv);
-        if (cant > cinv) {
-           $("#errcnt").show();
-           $("#vcantidad"+id).select();
-        }else{
-           $("#cant"+id).text(cant)
-            $("#vcantidad"+id).hide();
-            $("#cant"+id).show();
-            $(this).attr('visible','0');
-            $("#errcnt").hide();
-        }
-        
+        $("#cant"+id).text(cant)
+        $("#vcantidad"+id).hide();
+        $("#cant"+id).show();
+        $(this).attr('visible','0');
+        $("#errcnt").hide();
+        $("#fd"+id).data('triforce')['vcantidad'] = $("#cant"+id).text();
+        totalizar();
     }
-
-
-
 });
 
 $(document).on("click","input[name=modo]",function(){
@@ -354,7 +352,7 @@ $(document).on("click","#btnAjuste",function(){
 });
 
 
-function addline(idprod,cod,desc,cant,prec,tot,descu,defi,cntinv,dcs,mdcs,hinv) {
+function addline(idprod,cod,desc,cant,prec,tot,descu,defi,cntinv,hinv) {
     var err = 0;
     var existe = 0;
     var precio = parseFloat(prec);
@@ -378,13 +376,10 @@ function addline(idprod,cod,desc,cant,prec,tot,descu,defi,cntinv,dcs,mdcs,hinv) 
     });
 
     if (!existe) {
-        var id = parseInt($(".zelda").data('triforce')['idline']);//+1
+        var id = parseInt($(".zelda").data('triforce')['idline'])+1;
         $(".zelda").data('triforce')['idline'] = id;
-
-        $("#fdetallefacturas").append('<tr id="fd'+id+'" class="ciclos"><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center" id="prec'+id+'">'+prec+'</td><td class="center"><div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="1" min="1" style="display:none;width: 70px"></div></td><td class="center"><span id="descu'+id+'">'+descu+'</span> %</td><td class="center totp" id="tota'+id+'"></td><td id="desctd'+id+'" align="left"><input type="checkbox" class="filled-in chkivi" id="aivi'+id+'" checked="checked"><label for="aivi'+id+'">I.V.I</label><input type="text" id="ivi'+id+'" value="'+defi+'" placeholder="0" style="width: 50px"><a id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr>');
-
-        $("#vdesc"+id).data('valor',dcs);
-        $("#vdesc"+id).data('max',mdcs);
+        $("#fdetallefacturas").append('<tr id="fd'+id+'" class="ciclos"><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center"><div><span id="prec'+id+'">'+prec+'</span><input type="hidden" id="hprc'+id+'" value="'+cant+'"/></div></td><td class="center"><span id="descu'+id+'">'+descu+'</span> %</td><td class="center"><div><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="1" min="1" style="display:none;width: 70px"></div></td><td class="center totp" id="tota'+id+'"></td><td id="desctd'+id+'" align="left"><input type="checkbox" class="filled-in chkivi" id="aivi'+id+'" checked="checked"><label for="aivi'+id+'">I.V.I</label><input type="text" id="ivi'+id+'" value="'+defi+'" placeholder="0" style="width: 50px"><a id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr>');
+        $("#descu"+id).data('valor',descu);
         $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:0, vtotal:0, vidinventario:hinv});
        
     }
@@ -395,17 +390,14 @@ function addline(idprod,cod,desc,cant,prec,tot,descu,defi,cntinv,dcs,mdcs,hinv) 
         $("#cantp").val(0);
         $("#precp").val('0.00');
         $("#totp").val('0.00');
+        $("#descup").val(0);
         $("#cantI").text(0);
         $("#bname-inv").html(0.00);
-
         $("#codp").focus();
     }
-    
-
 }
 
 function totalizar() {
-    
     var totd = 0;
     var total = 0;
     var impuesto = 0;
@@ -413,6 +405,7 @@ function totalizar() {
     var tdesc = 0;
     var tmpdesc = 0;
     var exento = 0;
+    var impuestoi = 0;
     var flete = $("#vflete").val();
     var desc = $("#vdescuentop").data('valor');
     var ajuste = $("#vajuste").val();
@@ -427,53 +420,32 @@ function totalizar() {
         var vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
         var cantidad = parseFloat($("#fd"+vidlinea).data('triforce')['vcantidad']);
         var precio = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']);
-        var decindv = parseFloat($("#vdesc"+vidlinea).data('valor'));
-        var descmax = parseFloat($("#vdesc"+vidlinea).data('max'));
-        var desct = decindv+desc > descmax ? descmax : decindv+desc;
+        var desct = parseFloat($("#descu"+vidlinea).data('valor'));
         $("#fd"+vidlinea).data('triforce')['vdesc'] = desct;
         $("#vdesc"+vidlinea).val(desct+"%");
         precio = precio * cantidad
 
-        totd += precio;
+        var ivi = isNaN($("#ivi"+vidlinea).val()) ? 0 : parseFloat($("#ivi"+vidlinea).val()); //13
         tmpdesc = precio * (1-(desct/100));
+        impuestoi = tmpdesc - tmpdesc / (1+(ivi / 100));
+        tdesc = tdesc - impuestoi;
+        totd += precio - impuestoi;
         idesc += precio * (desct/100);
         tdesc += tmpdesc; 
+        impuesto += impuestoi;
 
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc;
-        $("#tota"+vidlinea).html(tmpdesc.formatMoney(2,',','.'))
+        $("#tota"+vidlinea).html(tmpdesc.formatMoney(2,',','.'));
 
-        $("[id^=imv_").each(function(){
-
-            var incl = $(this).data('incl');
-            var idimv = $(this).prop('id').substr(4);
-            incl = incl.indexOf('*') === -1 ? incl.indexOf(vid+",") : 0
-
-            if(incl !== -1){
-                var im0 = parseFloat($(this).data('imv'));
-                var im1 = $(this).data('imv'+vid) == undefined ? 100 : parseFloat($(this).data('imv'+vid)) ;
-                var rimv = im0 <= im1 ? im0 : im1;
-
-                if(rimv == 0)
-                    exento += tmpdesc;
-                else{
-                    var dimv = tmpdesc*(rimv/100);
-                    impuesto += dimv;
-                    var tmimv = $(this).attr('tmp_imv') == undefined ? dimv :parseFloat($(this).attr('tmp_imv'))+dimv;
-                    $(this).attr('tmp_imv',tmimv)
-                    $(this).html(parseFloat($(this).attr('tmp_imv')).formatMoney(2,'.',','))
-                }
-            }
-        });
     });
-    $("[id^=imv_]").removeAttr('tmp_imv');
 
+    $("[id^=imv_]").removeAttr('tmp_imv');
     total = tdesc + impuesto;
 
     if (flete != 0) {
         $("#vflete").html(flete.formatMoney(2,'.',','));
         total = total + flete;
     }
-
     if (ajuste != 0) {
         ajuste = parseFloat(actajuste*ajuste);
         total += ajuste;
@@ -481,7 +453,7 @@ function totalizar() {
     
     $("#subtot").html(totd.formatMoney(2,'.',','));
     $(".zelda").data('triforce')['vsubtotal'] = totd.toFixed(2);
-
+    $("#imv_1").html(impuesto.formatMoney(2,'.',','));
     $("#descuento_v").html(idesc.formatMoney(2,'.',','));
     $(".zelda").data('triforce')['vdescuento'] = idesc.toFixed(2);
     $(".zelda").data('triforce')['vimv'] = impuesto.toFixed(2);

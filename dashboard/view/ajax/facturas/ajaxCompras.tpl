@@ -108,7 +108,7 @@
             <input type="text" id="precp" class="f center" value="0.00">
           </td>
           <td style="width: 9%;" class="input-field">
-            <input type="number" class="f center" id="descp" min="0" data-mask="999999999.99" placeholder="Descuento">
+            <input type="number" class="f center" id="descup" min="0" data-mask="999999999.99" placeholder="Descuento">
           </td>
           <td style="width: 7%;" class="input-field">
             <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
@@ -291,4 +291,4 @@
 
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=2.0"></script>
+<script src="../assets/js/modulos/compras.js?v=2.2"></script>
