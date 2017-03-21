@@ -8,7 +8,7 @@
     <title>Clientes</title>
 </head>
 <!-- #0B3861 -->
-<body class="blue lighten-5">
+<body>
     {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
     <div class="bdy">

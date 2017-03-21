@@ -14,7 +14,7 @@
     <div class="bdy">
     {if $smarty.session.TIPO eq 1}
         <div class="row">
-            <div class="input-field col s3">
+            <div class="input-field col s6 m6 l3">
                 <select>
                     <option value="0">Todas las Sucursales</option>
                     {section name=LE loop=$SUC}

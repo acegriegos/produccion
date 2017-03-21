@@ -15,7 +15,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="blue lighten-5">
+<body>
 <div class="bdy">
 {$NAV}
     <div class="card-header center white-text" style="background-color:#0B3861">

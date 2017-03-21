@@ -8,7 +8,7 @@
     <title>Contabilidad</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad.css">
   </head>
-  <body class="blue lighten-5">
+  <body>
       
     {$NAV}
     <div class="bdy">
