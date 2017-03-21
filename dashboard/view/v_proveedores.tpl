@@ -7,8 +7,9 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Proveedores</title>
 </head>
+
 <body>
-    {$NAV}
+        {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
     <div class="bdy">
         <div class="card">

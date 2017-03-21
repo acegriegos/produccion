@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="card" id="show_cuentas">
+    <div class="card z-depth-5" id="show_cuentas">
         <div class="card-header">
             <div class="row">
                 <div class="col s3" >

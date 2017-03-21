@@ -19,10 +19,12 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body style="background-image: url(../assets/img/1.jpg);  background-attachment: fixed;">
+  
 <div class="bdy ">
 <div class="row"><br><br>
-    <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px"><br>
+
+    <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px; margin-top: 7%; "><br>
     <div class="card-header"><p class="flow-text center">Sistema BMS</p></div>
     <div class="card-content">
     
