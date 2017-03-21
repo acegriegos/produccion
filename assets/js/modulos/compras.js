@@ -5,8 +5,6 @@ $(function(){
     fecha = new Date();
     $('#vfecha').pickadate().pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
 
-    $("#ncli").focus();
-
     $('select').material_select();
 
     $(".autocomplete").blur(function(){ 
@@ -189,10 +187,20 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0});
+    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente : 0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1: '',vlista2 : '', vextrapagos : '' , idline : 0});
 
     $(".modal").modal();
+
+    setTimeout(function(){$("#vreferencia").focus();},500);
+    
+
 })//READY
+
+$(document).on("keyup","#vreferencia",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13)
+        $("#ced").focus();
+});
 
 $(document).on("change",".chkivi",function(){
     var id = $(this).attr('id').substr(4);
@@ -427,6 +435,10 @@ function totalizar() {
 
         var ivi = isNaN($("#ivi"+vidlinea).val()) ? 0 : parseFloat($("#ivi"+vidlinea).val()); //13
         tmpdesc = precio * (1-(desct/100));
+        $(".zelda").data('triforce')['vlista1'] = [];
+        $(".zelda").data('triforce')['vlista1'][vidlinea+'-'+$("#fd"+vidlinea).data('triforce')['vidinventario']] = ivi;
+        $(".zelda").data('triforce')['vlista2'][vidlinea+'-'+$("#fd"+vidlinea).data('triforce')['vidinventario']] = desct;
+        
         impuestoi = tmpdesc - tmpdesc / (1+(ivi / 100));
         tdesc = tdesc - impuestoi;
         totd += precio - impuestoi;
@@ -545,7 +557,7 @@ function cargarSintax(){
 }
 
 function endDetail(vid) {
-    window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+    // window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
     return false;
 }
 
