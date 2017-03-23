@@ -290,4 +290,4 @@
 
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=2.5"></script>
+<script src="../assets/js/modulos/compras.js?v=2.6"></script>
