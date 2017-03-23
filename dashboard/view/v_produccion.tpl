@@ -19,15 +19,15 @@
 {$NAV}
 <div class="bdy">
 
-    <div class="card-header center white-text" style="background-color:#0B3861">
-        <p class="flow-text">Producción</p>
+    <div class="card-header  white-text z-depth-5" style="background-color:#0B3861">
+        <p class="flow-text center-align">Producción</p>
     </div>
-    <nav class="navbar navbar-dark blue">
+    <nav class="navbar navbar-dark blue z-depth-5">
         <ul class="nav navbar-nav">
-            <li class="nav-item menu active" id="m1">
+            <li class="nav-item menu " id="m1">
                 <a class="nav-link" href="#" title="Recetas">Recetas</a>
             </li>
-            <li class="nav-item menu" id="m2">
+            <li class="nav-item menu active" id="m2">
                 <a class="nav-link" href="#" title="Linea Producción">Linea Producción</a>
             </li>
             <li class="nav-item menu" id="m3">
@@ -38,10 +38,10 @@
             </li>
         </ul>
     </nav>
-    <div class="card " id="mantproduccion"></div>
+    <div class="card z-depth-5" id="mantproduccion"></div>
     <div id="modal-addtoproducts" class="modal modal-fixed-footer" style="width:70%;height:90%">
         <div class="modal-header">
-            <div class="card-header center blue-grey white-text">
+            <div class="card-header center white-text" style="background-color:#0B3861">
                 <p class="flow-text marginzero">Agregar Receta a Inventario de {$DEF}</p>
             </div>
         </div>
@@ -51,9 +51,9 @@
                     <span id="isinprod">Esta receta ha sido agregada anteriormente a productos</span>
                 </div>
                 <div id="noisprdct">
-                    <div class="input-field col s6 m6 l6">
+                    <div class="input-field col s12 m12 l6">
                         <div class="familia">
-                            <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a>
+                            <a class="prefix btn-floating blue btn-small tooltipped z-depth-5" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a>
 
                             <select type="select" id="vidfamilia" class="_det" primary="1">
                                 <option value="0">Seleccione una Familia</option>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="input-field">
                             <div class="tipo">
-                                <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Tipo" style="width: 2.5rem" det="tipo" d-b="21" prev="vidfamilia" sig="vidmarca"><i class="fa fa-plus"></i></a>
+                                <a class="prefix btn-floating blue btn-small tooltipped z-depth-5" data-position="button" data-tooltip="Ingresar Tipo" style="width: 2.5rem" det="tipo" d-b="21" prev="vidfamilia" sig="vidmarca"><i class="fa fa-plus"></i></a>
                                 <select type="select" id="vidtipo" class="_det">
                                 <option value="0">Seleccione un Tipo</option>
                                 </select>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="input-field">
                             <div class="marca">
-                                <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Marca" style="width: 2.5rem" det="marca" d-b="22" prev="vidtipo" sig=""><i class="fa fa-plus"></i></a>
+                                <a class="prefix btn-floating blue btn-small tooltipped z-depth-5" data-position="button" data-tooltip="Ingresar Marca" style="width: 2.5rem" det="marca" d-b="22" prev="vidtipo" sig=""><i class="fa fa-plus"></i></a>
                                 <select type="select" id="vidmarca" class="_det">
                                 <option value="0">Seleccione un Marca</option>
                                 </select>
@@ -82,19 +82,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-field col s6 m6 l6">
+                    <div class="input-field col s12 m6 l6">
                         <input id="vminimo" type="number" class="validate">
                         <label for="vminimo">Minimo en Inventario</label>
                     </div>
-                    <div class="input-field col s6 m6 l6">
+                    <div class="input-field col s12 m6 l6">
                         <input id="vmaximo" type="number" class="validate">
                         <label for="vmaximo">Maximo en Inventario</label>
                     </div>
-                    <div class="input-field col s6 m6 l6">
+                    <div class="input-field col s12 m6 l6">
                         <input id="vmaxdesc" type="number" class="validate">
                         <label for="vmaxdesc">Descuento Máximo</label>
                     </div>
-                    <div class="input-field col s6 m6 l6">
+                    <div class="input-field col s12 m6 l6">
                         <input id="vganancia" type="number" class="validate">
                         <label for="vganancia">Ganancia</label>
                     </div>
@@ -103,8 +103,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue" id="savetoprod">Agregar</a>
-            <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1">Salir</a>
+            <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" id="savetoprod">Agregar</a>
+            <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1 z-depth-5" style="margin-right: 2%;">Salir</a>
         </div>
     </div>
 </div>

@@ -1,32 +1,33 @@
 <ul class="collapsible" data-collapsible="accordion">
     <li class="productline" id="pl1">
-        <div class="collapsible-header active"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
+        <div class="collapsible-header "><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks">
-            <div class="col s6 m6 l6">
+            <div class="col s12 m6 l6">
                 <div class="row" id="ftareaproducciones">
-                    <div class="input-field col s6 m6 l6">
+                    <div class="input-field col s10 m8 l6">
                         <input id="vnombre" type="text" class="validate" ku="1" autocomplete="off">
                         <label for="vnombre">Tarea de Producción</label>
                         <input type="hidden" id="vid" value="0">
                     </div>
                     <div class="col s1 m1 l1">
-                        <a class="waves-effect waves-light btn-floating white-text blue add mbutton" id="addlinea" modulo="tareaproduccione"><i class="material-icons">add</i></a>
+                        <a class="waves-effect waves-light btn-floating white-text blue add mbutton z-depth-5" id="addlinea" modulo="tareaproduccione"><i class="material-icons">add</i></a>
                     </div>
                 </div>
             </div>
-            <div class="col s6 m6 l6">
-                <table class="table responsive-table striped bordered highlight centered" id="data-table-tareaproducciones" cellspacing="0" width="100%">
+            <div class="col s12 m6 l4">
+            <br>
+                <table class="table responsive-table striped bordered highlight z-depth-3" id="data-table-tareaproducciones" cellspacing="0" >
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th style="width: 20%">Acciones</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="listatareaproducciones">
                         {section name=LE loop=$LPR}
                         <tr>
-                            <td>{$LPR[LE][1]}</td>
-                            <td>
+                            <td style=" padding: 10px;">{$LPR[LE][1]}</td>
+                            <td style=" padding: 10px;">
                                 <a class="btn-color pbtn load" id="m{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">edit</i></a>
                                 <a class="btn-color pbtn cdel delete" id="d{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">close</i></a>
                             </td>
@@ -34,6 +35,7 @@
                         {/section}
                     </tbody>
                 </table>
+                <br>
             </div>
         </div>
     </li>
@@ -41,7 +43,7 @@
         <div class="collapsible-header"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row" id="drecipe">
-                <div class="input-field col s4 m4 l4 dcline">
+                <div class="input-field col s12 m6 l4 dcline">
                     <a class="material-icons prefix pbtn blue-text mbutton" id="searchrecetas" href="#modal-search">search</a>
                     <input id="vreceta" type="text" class="validate autocomplete" autocomplete="off">
                     <label for="vreceta">Receta</label>
@@ -52,7 +54,6 @@
                     <p class="flow-text namereceta"></p>
                     <input type="hidden" id="aautoinc" value="0">
                 </div>
-                <div class="s49 m49 l49"></div>
             </div>
             <div class="row hide dcline">
                 <div class="input-field col s3 m3 l3 mtopcero">
@@ -73,7 +74,7 @@
                     <label for="aunidad">Unidad</label>
                 </div>
                 <div class="col s1 m1 l1">
-                    <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline" id="addprodline"><i class="material-icons">add</i></button>
+                    <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline z-depth-5" id="addprodline"><i class="material-icons">add</i></button>
                 </div>
             </div>
             <div class="row hide" id="tablelineas">
@@ -83,7 +84,7 @@
                         <thead>
                             <tr>
                                 <td colspan="4"></td>
-                                <td class="right"><i class="material-icons btn-color pbtn blueh" id="savelinea">save</i></td>
+                                <td class="right"><i class="material-icons btn-color pbtn blueh z-depth-5" id="savelinea">save</i></td>
                             </tr>
                             <tr>
                                 <th>Tarea</th>
@@ -105,16 +106,18 @@
         <div class="collapsible-header"><i class="material-icons">build</i>Mantenimeinto Lineas de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row">
-                <div class="col s4 m4 l4">
-                    <table class="table striped bordered highlight centered" id="data-table-mantlinea" cellspacing="0" width="100%" >
+                <div class="col s12 m6 l6">
+                <br>
+                    <table class="table striped bordered highlight centered z-depth-3" id="data-table-mantlinea" cellspacing="0" width="100%" >
                         <thead>
                             <tr>
-                                <th>Receta</th>
-                                <th style="width: 25%">Acciones</th>
+                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Receta</th>
+                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listamantlinea"></tbody>
                     </table>
+                    <br>
                 </div>
                 <div class="col s8 m8 l8 hide" id="dactrec">
                 <input type="hidden" id="bautoinc" value="0">
@@ -137,7 +140,7 @@
                             <label for="bunidad">Unidad</label>
                         </div>
                         <div class="col s2 m2 l2">
-                            <button type="button" class="btn-floating waves-effect waves-light blue"><i class="material-icons">add</i></button>
+                            <button type="button" class="btn-floating waves-effect waves-light blue z-depth-5"><i class="material-icons">add</i></button>
                         </div>
                     </div>
                     <div class="row">
