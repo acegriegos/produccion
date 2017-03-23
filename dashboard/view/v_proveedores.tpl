@@ -35,22 +35,22 @@
                     <table class="table centered highlight bordered responsive-table z-depth-2" id="data-table-clientes">
                         <thead>
                             <tr>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em;  border-radius: 0px !important;">Cédula</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em; border-radius: 0px !important;">Nombre</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em; border-radius: 0px !important;">Teléfonos</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em; border-radius: 0px !important;">Correo</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em; border-radius: 0px !important;">Tipo</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em; border-radius: 0px !important;">Acciones</th>
+                                <th class="sinborde white-text blue"   border-radius: 0px !important;">Cédula</th>
+                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Nombre</th>
+                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Teléfonos</th>
+                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Correo</th>
+                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Tipo</th>
+                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listaclientes">
                             {section name=LE loop=$PROV}
                             <tr id="f{$PROV[LE][0]}">
-                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][1]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][2]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][4]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][5]}</td>
-                                <td style="font-size: 1.2em; padding: 10px;">{$PROV[LE][6]}</td>
+                                <td  padding: 10px;">{$PROV[LE][1]}</td>
+                                <td  padding: 10px;">{$PROV[LE][2]}</td>
+                                <td  padding: 10px;">{$PROV[LE][4]}</td>
+                                <td  padding: 10px;">{$PROV[LE][5]}</td>
+                                <td  padding: 10px;">{$PROV[LE][6]}</td>
                                 <td>
                                     <a href="#modal-clientes" style="font-size: 2em; color: #607d8b"><i class="load material-icons pbtn" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
                                     <a href="#" style="font-size: 2em; color: #607d8b"><i class="delete material-icons pbtn" modulo="cliente" id="d{$PROV[LE][0]}">delete</i></a>
@@ -181,13 +181,13 @@
                                 <input type="hidden" id="videstadocontable" value="1">
                                 <input type="hidden" id="vidcuenta" value="">
                                 <div class="row">
-                                    <div class="col s6">
+                                    <div class="col s12 m6">
                                         <div class="card-title"><b> Cuentas Contado </b></div>
                                         <div id="ctacontado">
 
                                         </div>
                                     </div>
-                                    <div class="col s6">
+                                    <div class="col s12 m6">
                                         <div class="card-title"><b> Cuentas Crédito </b></div>
                                         <div id="ctacredito">
 
@@ -200,10 +200,10 @@
                     <div id="logis" class="col s12">
                         <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
                             <div class="ciclos">
-                                <div class="card-title"><b>Direcciones</b></div>
+                                <div class="card-title" align="center"><b>Direcciones</b></div>
                                 <input type="hidden" id="vbisnacional" value="1">
                                 <div class="row"><br>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s12 m6 l4">
                                         <div class="provincia">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
 
@@ -214,18 +214,18 @@
                                                 {/section}
                                             </select>
                                             <label for="vidprovincia">Provincia</label>
-                                        </div>
+                                        </div><br>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s12 m6 l4">
                                         <div class="canton">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="material-icons">add</i></a>
                                             <select id="vidcanton" type="select" class="_det">
                                                 <option value="">Seleccione un Cantón</option>
                                             </select>
                                             <label for="vidcanton">Cantón</label>
-                                        </div>
+                                        </div><br>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s12 m6 l4">
                                         <div class="distrito">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="material-icons">add</i></a>
 
@@ -233,7 +233,7 @@
                                                 <option value="">Seleccione un Distrito</option>
                                             </select>
                                             <label for="viddistrito">Distrito</label>
-                                        </div>
+                                        </div><br>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -242,13 +242,13 @@
                                         <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
                                     </div>
 
-                                    <div class="input-field col s6 hide-on-med-and-up">
+                                    <div class="input-field col s12 hide-on-med-and-up">
                                         <div class="prefix"><i class="material-icons">location_on</i></div>
                                         <label for="vlatitud">Latitud</label>
                                         <input type="text" class="eder" id="vlatitud">
                                     </div>
                                     
-                                    <div class="input-field col s6 hide-on-med-and-up">
+                                    <div class="input-field col s12 hide-on-med-and-up">
                                         <div class="prefix"><i class="material-icons">location_on</i></div>
                                         <label for="vlongitud">Longitud</label>
                                         <input type="text" class="eder" id="vlongitud">

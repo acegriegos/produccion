@@ -1,56 +1,65 @@
 <div id="mantServ">
     <div class="row">
-        <div class="col s8 m6">
-            <div class="input-field col m8">
-                <input id="searchsrv" type="text" class="validate">
-                <label for="searchsrv" id="phs">Buscar por Código</label>
-            </div>
-            <a class="dropdown-button btn-floating waves-effect waves-light blue z-depth-5" data-activates="fserv"><i class="material-icons">search</i></a>
-            <ul id="fserv" class="dropdown-content" filter="1">
-                <li><a class="dropdown-item filtersrv" filtro="f1">Código</a></li>
-                <li><a class="dropdown-item filtersrv" filtro="f2">Nombre</a></li>
-            </ul>            
+        <div class="col s12 m6">
+
+
+           <div class="input-field col s2 m2 l1">
+
+            <a class="dropdown-button btn-floating waves-effect waves-light blue z-depth-5" data-activates="fserv" ><i class="material-icons">search</i></a>
+
         </div>
-        <div class="col s4 m6">
-            <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-servicios"><i class="material-icons">add</i></a>
+
+
+        <div class="input-field col s9 m9">
+            <input id="searchsrv" type="text" class="validate" style="margin-left: 1% !important;">
+            <label for="searchsrv" id="phs" style="margin-left: 1% !important;">Buscar por Código</label>
+
+        </div>
+        <ul id="fserv" class="dropdown-content" filter="1">
+            <li><a class="dropdown-item filtersrv" filtro="f1">Código</a></li>
+            <li><a class="dropdown-item filtersrv" filtro="f2">Nombre</a></li>
+        </ul>            
+    </div>
+    <div class="col s12 m6">
+        <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-servicios"><i class="material-icons">add</i></a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m12">
+        <div class="table">
+            <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-servicios" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Período</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Outsourcing</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="listaservicios">
+                    {section name=LE loop=$SERV}
+                    <tr>
+                        <td style="padding: 10px;">{$SERV[LE][1]}</td>
+                        <td style="padding: 10px;">{$SERV[LE][2]}</td>
+                        <td style="padding: 10px;">{$SERV[LE][3]}</td>
+                        <td style="padding: 10px;">{$SERV[LE][4]}</td>
+                        <td style="padding: 10px;">{$SERV[LE][5]}</td>
+                        <td style="padding: 10px;">
+                            <a class="btn-color pbtn loadserv" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="btn-color pbtn cdel delete" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
         </div>
     </div>
-    
-    <div class="row">
-        <div class="col s12 m12">
-            <div class="table">
-                <table class="table responsive-table centered striped bordered highlight z-depth-5r" id="data-table-servicios" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;width: 20%">Código</th>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nombre</th>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Precio</th>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Período</th>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Outsourcing</th>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaservicios">
-                        {section name=LE loop=$SERV}
-                        <tr>
-                            <td>{$SERV[LE][1]}</td>
-                            <td>{$SERV[LE][2]}</td>
-                            <td>{$SERV[LE][3]}</td>
-                            <td>{$SERV[LE][4]}</td>
-                            <td>{$SERV[LE][5]}</td>
-                            <td>
-                                <a class="btn-color pbtn loadserv" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i></a>
-                                <a class="btn-color pbtn cdel delete" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-                        {/section}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div id="modal-servicios" class="modal modal-fixed-footer" style="width:70%;height:90%">
-        <div class="modal-header">
+</div><br><br>
+<div id="modal-servicios" class="modal modal-fixed-footer" style="width:70%;height:90%">
+    <div class="modal-header">
         <ul class="tabs blue">
             <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
             <li class="tab col s3"><a class="white-text menuS" id="ms2" href="#">Financiero</a></li>
@@ -64,15 +73,15 @@
                 <input type="hidden" id="vidproveedor" value="0">
                 <input type="hidden" id="vidusuario" value="">
                 <div class="row">
-                    <div class="input-field col s6" style="margin: 0">
+                    <div class="input-field col s12 m6 l6" style="margin: 0">
                         <input id="vcodigo" type="text" class="validate">
                         <label for="vcodigo">Código de Servicio</label>
                     </div>
-                    <div class="input-field col s6" style="margin: 0">
+                    <div class="input-field col s12  m6 l6" style="margin: 0">
                         <input id="vnombre" type="text" class="validate">
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
-                    <div class="input-field col s12" style="margin: 0">
+                    <div class="input-field col s12 " style="margin: 0">
                         <textarea id="vdescripcion" type="textarea" class="materialize-textarea" length="150" style="margin: 0"></textarea>
                         <label for="vdescripcion">Descripción del Servicio</label>
                     </div>
@@ -80,29 +89,35 @@
                 <div class="row">
                     <div class="col s12 m12">
                         <div class="row" style="margin: 0">
-                            <div class="col s3 m3">
+                            <div class="col s12 m12 l3">
                                 <input type="checkbox" id="isPeriodo" value="0">
                                 <label for="isPeriodo">Por Periodo</label>
+
                                 <input type="hidden" id="vperiodo" value="0">
                             </div>
-                            <div class="col s2 m2 opPeriodo">
+
+                            <div class="col s6 l2 opPeriodo">
+                                <br>
                                 <input type="radio" class="with-gap cper" id="diario" valor="1" name="speriodo" disabled>
                                 <label for="diario">Diario</label>
                             </div>
-                            <div class="col s2 m2 opPeriodo">
+                            <div class="col s6 l2 opPeriodo">
+                                <br>
                                 <input type="radio" class="with-gap cper" id="mensual" valor="2" name="speriodo" disabled>
                                 <label for="mensual">Mensual</label>
                             </div>
-                            <div class="col s2 m2 opPeriodo">
+                            <div class="col s6 l2 opPeriodo">
+                                <br>
                                 <input type="radio" class="with-gap cper" id="anual" valor="3" name="speriodo" disabled>
                                 <label for="anual">Anual</label>
                             </div>
-                            <div class="col s2 m2 opPeriodo" id="dotros">
+                            <div class="col s6 l2 opPeriodo" id="dotros">
+                                <br>
                                 <input type="radio" class="with-gap cper" id="otros" valor="4" name="speriodo" disabled>
                                 <label for="otros">Otros:</label>
                                 <input type="hidden" id="botro" value="0">
                             </div>
-                            <div class="input-field col s3 m3 hide" id="dhotro">
+                            <div class="input-field col s6 m3 hide" id="dhotro">
                                 <input id="vdias" type="number" class="validate" min="1" value="0">
                                 <label for="vdias">Período en Días</label>
                             </div>
@@ -117,31 +132,30 @@
                     </div>
                     <!-- </div> -->
                     <!-- <div class="row"> -->
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m12 ">
                         <select id="prov" disabled>
-                            <option value="0" disabled selected>Proveedor</option>
+                            <br><option value="0" disabled selected>Seleccione un Proveedor</option>
                             {section name=LE loop=$CLI}
                             <option value="{$CLI[LE][0]}">{$CLI[LE][1]}</option>
                             {/section}
                         </select>
-                        <label>Seleccione un Proveedor</label>
                     </div>
                 </div>
             </div>
             <div id="financiero" class="hide" style="padding: 25px 10px 0 10px">
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <i class="material-icons prefix">¢</i>
                         <input id="vpbase" type="number" class="validate vcalcserv" min="1" num="1">
                         <label for="vpbase">Precio Base</label>
 
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <i class="material-icons prefix">%</i>
                         <input id="vpganancia" type="number" class="validate vcalcserv" min="1" value="0.00" num="2">
                         <label for="vganancia">Ganancia</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <i class="material-icons prefix">¢</i>
                         <input id="vprecio" type="number" class="validate vcalcserv" num="3">
                         <label for="vprecio">Precio Total</label>

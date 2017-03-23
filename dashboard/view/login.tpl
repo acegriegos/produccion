@@ -24,8 +24,8 @@
 <div class="bdy ">
 <div class="row"><br><br>
 
-    <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px; margin-top: 7%; "><br>
-    <div class="card-header"><p class="flow-text center">Sistema BMS</p></div>
+    <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px; margin-top: 7%; background-color: rgba(11,56,97,0.7) "><br>
+    <div class="card-header"><p class="flow-text center white-text"><b>Sistema BMS</b></p></div>
     <div class="card-content">
     
     <form role="form" id="logF" action="index.php" method="POST">
@@ -33,11 +33,11 @@
         <div class="input-field col s12">
         
             <input id="user" type="text" name="usr" class="validate">
-            <label for="user">Ingrese su Usuario</label>
+            <label for="user" class="white-text"><b>Ingrese su Usuario</b></label>
         </div>
         <div class="input-field col s12">
             <input id="pass" type="password" name="pss" class="validate">
-            <label for="pass">Contraseña</label>
+            <label for="pass" class="white-text"><b>Contraseña</b></label>
         </div>
         <div class="row">
             <div class="col s12"><br>
@@ -45,13 +45,13 @@
             </div>
 
             <div class="col s12 center"><br>
-                <small class="white-text"><a href="#modal1" id="recupss" style="color: #337ab7">Olvidó su Contraseña?</a></small>
+                <small class="white-text"><a href="#modal1" id="recupss" >Olvidó su Contraseña?</a></small>
             </div>
 
             <div class="col s12">
                 <br><br>
                 <center>
-                    <small>© 2016. Copyright. Todos los derechos reservados. logintechCR, S. A. </small>
+                    <small class="white-text">© 2016. Copyright. Todos los derechos reservados. logintechCR, S. A. </small>
                 </center>
             </div>
         </div>

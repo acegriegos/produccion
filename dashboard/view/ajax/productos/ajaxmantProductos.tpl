@@ -1,19 +1,19 @@
 <div id="mantProd">
-<div class="row">
-<div class="input-field col s12 m8 l5">
-    <a class="prefix dropdown-button tooltipped" data-activates='fgrande' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons pbtn">search</i></a>
-    <ul id='fgrande' class='dropdown-content'>
-        <li><a href="#!" vfiltros="1">Nombre</a></li>
-        <li><a href="#!" vfiltros="2">Código</a></li>
-    </ul>
-    <input type="text" id="search_productos" maxlength="100" num="v14" var="nombre">
-    <label for="search_productos">Buscar Producto por Nombre o Código</label>
-</div>
-<div class="col s12 m4 l7">
-    <a id="addproduct" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-productos"><i class="material-icons">add</i></a>
-</div>
-</div>
-<div class="row">
+    <div class="row">
+        <div class="input-field col s11 m8 l5">
+            <a class="prefix dropdown-button tooltipped" data-activates='fgrande' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons pbtn">search</i></a>
+            <ul id='fgrande' class='dropdown-content'>
+                <li><a href="#!" vfiltros="1">Nombre</a></li>
+                <li><a href="#!" vfiltros="2">Código</a></li>
+            </ul>
+            <input type="text" id="search_productos" maxlength="100" num="v14" var="nombre">
+            <label for="search_productos" class="truncate">Buscar Producto por Nombre o Código</label>
+        </div>
+        <div class="col s12 m4 l7">
+            <a id="addproduct" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-productos"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+  <div class="row">
 <div class="col s12 m12 l12">
     <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
         <thead>
@@ -48,34 +48,32 @@
     </table>
     <br><br><br>
 </div>
-</div>
 
-<div id="modal-productos" class="modal modal-fixed-footer" style="width:70%;height:90%">
-    <div class="modal-header">
-        <ul class="tabs white-text" style="background-color:#0B3861">
-            <li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
-            <li class="tab col s3 menuP but" id="tb2"><a class="white-text">Financiero</a></li>
-            <li class="tab col s3 menuP but" id="tb3"><a class="white-text">Impuestos</a></li>
-        </ul>
-    </div>
-    <div class="modal-content" style="padding: 0px;">
-        <div id="datosproductos" style="padding: 30px 10px 0 10px">
-            <div class="row">
-                <div class="col s12 m12 l6" id="col1">
-                    <div class="input-field marginzero">
-                        <div class="familia">
-                            <!-- <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a> -->
-                            <a class="material-icons prefix blue-text pbtn qckadd" element="familia" d-b="106" tbl="20" sig="tipo">add</a>
-                            <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off">
-                            <label for="vfamilia">Familia</label>
-                            <input type="hidden" id="vidfamilia" value="0">
+    <div id="modal-productos" class="modal modal-fixed-footer" style="width:70%;height:90%">
+        <div class="modal-header">
+            <ul class="tabs white-text" style="background-color:#0B3861">
+                <li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
+                <li class="tab col s3 menuP but" id="tb2"><a class="white-text">Financiero</a></li>
+                <li class="tab col s3 menuP but" id="tb3"><a class="white-text">Impuestos</a></li>
+            </ul>
+        </div>
+        <div class="modal-content" style="padding: 0px;">
+            <div id="datosproductos" style="padding: 30px 10px 0 10px">
+                <div class="row">
+                    <div class="col s12 m12 l6" id="col1">
+                        <div class="input-field marginzero">
+                            <div class="familia">
+                                <!-- <a class="prefix btn-floating blue btn-small tooltipped" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a> -->
+                                <a class="material-icons prefix blue-text pbtn qckadd" element="familia" d-b="106" tbl="20" sig="tipo">add</a>
+                                <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off">
+                                <label for="vfamilia">Familia</label>
+                                <input type="hidden" id="vidfamilia" value="0">
                             <!-- <select type="select" id="vidfamilia" class="_det" primary="1">
                                 <option value="">Seleccione una Familia</option>
                                 {section name=LE loop=$FAM}
                                 <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
                                 {/section}
-                            </select>
-                            <label for="vidfamilia">Familia</label> -->
+                            </select> -->
                         </div>
                     </div>
                     <div class="input-field marginzero">
@@ -110,19 +108,19 @@
                     </div>
                     <div class="input-field marginzero">
                         <select type="select" id="vidunidad">
-                        <option value="">Seleccione un Unidad</option>
-                        {section name=LE loop=$UNI}
-                        <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
-                        {/section}
+                            <option value="">Seleccione un Unidad</option>
+                            {section name=LE loop=$UNI}
+                            <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
+                            {/section}
                         </select>
                         <label for="vidunidad">Unidad</label>
                     </div>
                     <div class="input-field marginzero" id="dinventario">
                         <select type="select" id="vidinventario">
-                        <option value="">Seleccione un Inventario</option>
-                        {section name=LE loop=$INV}
-                        <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
-                        {/section}
+                            <option value="">Seleccione un Inventario</option>
+                            {section name=LE loop=$INV}
+                            <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                            {/section}
                         </select>
                         <label for="vidinventario">Inventario</label>
                     </div>
@@ -160,9 +158,9 @@
             </div>
         </div>
         <div id="financiero" class="row hide" style="padding: 20px 10px 0 10px">
-        <label><b>Precio General</b></label><br><br>
+            <label><b>Precio General</b></label><br><br>
             <div class="row">
-                <div class="col s3  center-align">
+            <div class="col s12 m6 l3  center-align">
                     <label>Precio Costo</label>
                     <div class="input-field">
                         <i class="material-icons prefix">¢</i>
@@ -171,7 +169,7 @@
                         
                     </div>
                 </div>
-                <div class="col s3 center-align">
+                <div class="col s12 m6 l3 center-align">
                     <label>Ganancia</label>
                     <div class="input-field">
                         <i class="material-icons prefix">%</i>
@@ -179,7 +177,7 @@
                         
                     </div>
                 </div>
-                <div class="col s3 center-align">
+                <div class="col s12 m6 l3 center-align">
                     <label>Precio Venta</label>
                     <div class="input-field">
                         <i class="material-icons prefix">¢</i>
@@ -188,7 +186,7 @@
                         
                     </div>
                 </div>
-                <div class="col s3 center-align">
+                <div class="col s12 m6 l3 center-align">
                     <label>Exoneración</label>
                     <div class="input-field">
                         <i class="material-icons prefix">%</i>
@@ -198,57 +196,64 @@
             </div>
             {section name=LE loop=$NIV}
             <div class="row precionivel" id="f{$NIV[LE][0]}">
-                <div class="col s3">
+                <div class="col s12 m12 l3">
                     <label><b>Precio para Categoria: {$NIV[LE][1]}</b></label>
+                    <br>
                 </div>
-                <div class="col s3">
+                <div class="col s12 m6 l3 center-align">
+                <br>
+                    <label>Ganancia</label>
                     <div class="input-field">
                         <i class="material-icons prefix">%</i>
                         <input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
                         
                     </div>
                 </div>
-                <div class="col s3">
-                    <div class="input-field">
-                        <i class="material-icons prefix">¢</i>
-                        <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
-                        <input type="hidden" id="hventa{$NIV[LE][0]}" value="">
-                        
-                    </div>
-                </div>
-                <div class="col s3">
-                    <div class="input-field">
-                        <i class="material-icons prefix">%</i>
-                        <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
-                    </div>
-                </div>
+                <div class="col s12 m6 l3 center-align">
+                   <br>
+                   <label>Precio Venta</label>
+                   <div class="input-field">
+                    <i class="material-icons prefix">¢</i>
+                    <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
+                    <input type="hidden" id="hventa{$NIV[LE][0]}" value="">
 
+                </div>
             </div>
-            {/section}
+            <div class="col s12 m6 l3 center-align">
+                <br>
+                <label>Exoneración</label>
+                <div class="input-field">
+                    <i class="material-icons prefix">%</i>
+                    <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
+                </div>
+            </div>
+
         </div>
-        <div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
-            <div class="col s12">
-                <div class="input-field col s10">
-                    <select id="imp"></select>
-                    <label>Impuestos</label>
-                </div>
-                <div class="col s2">
-                    <button type="button" class="btn-floating waves-effect waves-light blue  z-depth-5" id="addimp"><i class="material-icons">add</i></button>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="collection hide  z-depth-5" id="impuestos">
-                        </ul>
-                    </div>
+        {/section}
+    </div>
+    <div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
+        <div class="col s12">
+            <div class="input-field col s10">
+                <select id="imp"></select>
+                <label>Impuestos</label>
+            </div>
+            <div class="col s2">
+                <button type="button" class="btn-floating waves-effect waves-light blue  z-depth-5" id="addimp"><i class="material-icons">add</i></button>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collection hide  z-depth-5" id="impuestos">
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal-footer ">
-        <a class="modal-action waves-effect waves-light btn-flat white-text blue z-depth-5" id="addprod">Agregar</a>
-        <a class="modal-action waves-effect waves-light btn-flat white-text blue z-depth-5" id="editprod">Guardar</a>
-        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
-    </div>
+</div>
+<div class="modal-footer ">
+    <a class="modal-action waves-effect waves-light btn-flat white-text blue z-depth-5" id="addprod">Agregar</a>
+    <a class="modal-action waves-effect waves-light btn-flat white-text blue z-depth-5" id="editprod">Guardar</a>
+    <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
+</div>
 </div>
 
 <div id="modal-movinventario" class="modal modal-fixed-footer" style="width:70%;height:90%">
@@ -384,20 +389,20 @@
     </div>
     <div class="modal-content" stylle="padding: 0px;">
         <div class="row">
-            <div class="col s6">
+            <div class="col s11 m6">
                 <div class="input-field col s10">
                     <select id="dscts"></select>
                     <label>Seleccione un Descuento</label>
                     <input type="hidden" id="idproducto" class="form-control" value="">
                 </div>
-                <div class="col s2">
+                <div class="col s1 m2">
                     <button type="button" class="btn-floating waves-effect waves-light blue z-depth-5" id="adddsct"><i class="material-icons">add</i></button>
                 </div>
             </div>
             <div class="col s6" id="tbldesc">
                 <h5>Descuentos</h5>
                 <ul class="collection " id="listadescuentos">
-                
+
                 </ul>
             </div>
         </div>

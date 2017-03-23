@@ -16,8 +16,9 @@
     <![endif]-->
 </head>
 <body>
-<div class="bdy">
 {$NAV}
+<div class="bdy">
+
     <div class="card-header center white-text" style="background-color:#0B3861">
         <p class="flow-text">Producción</p>
     </div>

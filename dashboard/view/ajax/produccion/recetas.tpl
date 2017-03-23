@@ -46,9 +46,9 @@
         <table class="table responsive-table striped bordered highlight" id="data-table-recetas" cellspacing="0" width="100%" >
             <thead>
                 <tr>
-                    <th style="width: 30%">Nombre</th>
-                    <th>Total</th>
-                    <th style="width: 40%">Acciones</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 30%">Nombre</th>
+                    <th  class="white-text blue" style="border: 0; border-radius: 0px !important;">Total</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 40%">Acciones</th>
                 </tr>
             </thead>
             <tbody id="listarecetas">
