@@ -2,7 +2,7 @@
     <div class="col s6 m6 l6">
         
     </div>
-    <div class="col s6 m6 l6">
+    <div class="col s12 m12 l6">
         <span class="reloj" id="Horas">00</span>
         <span class="reloj" id="Minutos">:00</span>
         <span class="reloj" id="Segundos">:00</span>
