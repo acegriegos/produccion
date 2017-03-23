@@ -326,7 +326,7 @@ function obtenerImpuestos(vid){
 	}
 }
 
-function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
+function addIM(vidcuenta,vimpuesto,vnombre,vvalor,vexoneracion){
 	$("#showimpuestos").append('<li class="collection-item dismissable" id="newimp'+vid+'"><div><span class="impuestos" id="vimv'+vid+'" value="'+vvalor+'" timv="'+vimpuesto+'">'+vnombre+' - '+vvalor+'%</span><a class="secondary-content delimp" id="dimp'+vid+'"><i class="material-icons">delete</i></a></div></li>')
 }
 

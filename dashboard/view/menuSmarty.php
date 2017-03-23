@@ -97,9 +97,9 @@
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/mask/jquery.mask.js"></script>
 <script src="../assets/js/materialize.js?v=1.8"></script>
-<script src="../assets/js/modulos/menu.js"></script>
+<script src="../assets/js/modulos/menu.js?v=1.1"></script>
 <script src="../assets/libs/charts/chart.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-<script src="../assets/js/asgard.js?v=1.9"></script>
+<script src="../assets/js/asgard.js?v=1.10"></script>
 

@@ -1,10 +1,9 @@
-<div id="fcompras">
+<div id="ffacturas">
 
 <div class="card z-depth-5">
 <div class="car">
 <div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%; background-color:#0B3861">COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
-  <input type="hidden" id="vidusuario" value="">
 
   <div class="row">
 
@@ -57,15 +56,15 @@
     </div>
 
     <div class="input-field col s6 m3 l3">
+      <label for="ced">Cédula del Proveedor</label>
+      <input type="text" id="ced" class="validate sclie" />
+    </div> 
+
+    <div class="input-field col s6 m3 l3">
       <i class="fa fa-user prefix"></i>
       <label class="truncate" for="ncli">Nombre del Proveedor</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
     </div>
-
-    <div class="input-field col s6 m3 l3">
-      <label for="ced">Cédula del Proveedor</label>
-      <input type="text" id="ced" class="validate sclie" />
-    </div> 
     
   </div>
 
@@ -292,4 +291,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=2.2"></script>
+<script src="../assets/js/modulos/compras.js?v=2.6"></script>
