@@ -1,5 +1,4 @@
 $(function(){
-    // console.log(12)
     $("#ffacturas").submit(function(){
         return false;
     });
