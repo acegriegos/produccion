@@ -25,7 +25,7 @@
         
         <div class="card card-content mdinvent z-depth-5">
           <div class="row">
-            <div class="input-field col s6 m6 l6">
+            <div class="input-field col s12 m6 l6">
               <select type="select" class="_det" id="vidbodega" det="bodega" sig="vidinventario" prev="" d-b="41">
                 <option value="0">Seleccione una Bodega</option>
                 {section name=LE loop=$BOD}
@@ -34,7 +34,7 @@
               </select>
               <label for="vidbodega">Bodega</label>
             </div>
-            <div class="input-field col s6 m6 l6">
+            <div class="input-field col s12 m6 l6">
               <select type="select" det="inventario" id="vidinventario" d-b="111">
                 <option value="0">Seleccione un Inventario</option>
               </select>

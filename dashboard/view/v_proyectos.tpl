@@ -16,7 +16,6 @@
     <![endif]-->
   </head>
   <body>
-  <br>
     {$NAV}
     <div class="bdy">
 

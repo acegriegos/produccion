@@ -1,6 +1,6 @@
 <div id="ffacturas">
-
-<div class="card z-depth-5">
+<div class="card z-depth-5 ">
+<div class="card ">
 <div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%; background-color:#0B3861">VENTAS {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
@@ -45,13 +45,13 @@
       <label for="vplazo">Plazo en Días</label>
     </div>
 
-    <div class="input-field col s6 m3 l3">
+    <div class="input-field col s12 m3 l3">
       <i class="fa fa-user prefix"></i>
       <label class="truncate" for="ncli">Nombre de Cliente</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
     </div>
 
-    <div class="input-field col s6 m3 l3">
+    <div class="input-field col s12 m3 l3">
       <label for="ced">Cédula del Cliente</label>
       <input type="text" id="ced" class="validate sclie" />
     </div> 
@@ -60,7 +60,7 @@
 
   <div class="row">
 
-    <div class="card-header blue-grey center"><p class="white-text">DETALLE DE FACTURA</p></div>
+    <div class="card-header blue-grey center"><p class="white-text" style="background-color:#0B3861">DETALLE DE FACTURA</p></div>
 
     <table class="table" id="data-table-detalle" cellspacing="0">
       <thead>
@@ -119,15 +119,15 @@
         </tr>
       </thead>
 
-        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" style="max-height: 20%; overflow: auto; font-size: 0.8em; ">
-
+        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" style="max-height: 20%; overflow: auto;">
+         
         </tbody>
       </table>
     </div>
 </div> <!-- card footer -->
 
 <div class="card z-depth-5" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
-  <p class="white-text card-header blue-grey center" style="margin-top: 0px;">DESGLOCE DE FACTURA</p>
+  <p class="white-text card-header center" style="margin-top: 0px; background-color:#0B3861">DESGLOCE DE FACTURA</p>
   <div class="row">
 
 
@@ -195,22 +195,23 @@
       </table>
       <br>
       <div class="row">
-        <div class="col s4">
+        <div class="col s12 m4">
           <p>
             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
             <label for="p_v">Punto Venta</label>
           </p>
         </div>
 
-        <div class="col s4">
+        <div class="col s12 m4">
           <select id="vidodt" type="select">
             <option value="0">Selecione una ODT</option>
           </select>
           <label>ODT</label>
         </div>
 
-        <div class="col s4">
-          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar">Facturar</button>
+        <div class="col s12 m4">
+          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button>
+          <br>
         </div>
 
         </div>
@@ -281,6 +282,7 @@
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
   </div>
 
+</div>
 </div>
 
 <script src="../assets/js/modulos/ventas.js?v=2.9"></script>

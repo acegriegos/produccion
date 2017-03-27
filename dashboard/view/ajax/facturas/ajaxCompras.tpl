@@ -1,6 +1,7 @@
 <div id="ffacturas">
 
 <div class="card z-depth-5">
+<div class="car">
 <div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%; background-color:#0B3861">COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
 
@@ -9,7 +10,7 @@
     <div class="col s6">
     <div class="row">
 
-      <div class="switch col s4">
+      <div class="switch col s12 m4">
         <label>
           Contado
           <input type="checkbox" id="chg_tipo" value="1">
@@ -18,7 +19,7 @@
         </label>
       </div>
 
-      <div class="input-field col s8">
+      <div class="input-field col s12 m8">
         <label for="vreferencia">Número de Referencia</label>
         <input type="text" id="vreferencia" class="validate" />
       </div>
@@ -69,7 +70,7 @@
 
   <div class="row">
 
-    <div class="card-header blue-grey center"><p class="white-text">DETALLE DE FACTURA</p></div>
+    <div class="card-header center"><p class="white-text" style="background-color:#0B3861">DETALLE DE FACTURA</p></div>
 
     <table class="table" id="data-table-detalle" cellspacing="0">
       <thead>
@@ -139,7 +140,7 @@
 </div> <!-- card footer -->
 
 <div class="card z-depth-5" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
-  <p class="white-text card-header blue-grey center" style="margin-top: 0px;">DESGLOCE DE FACTURA</p>
+  <p class="white-text card-header center" style="margin-top: 0px; background-color:#0B3861">DESGLOCE DE FACTURA</p>
   <div class="row">
     <div class="col s12 m12 l6">
       <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
@@ -202,22 +203,22 @@
       </table>
       <br>
       <div class="row">
-        <div class="col s4">
+        <div class="col s12 m4">
           <p>
             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
             <label for="p_v">Punto Venta</label>
           </p>
         </div>
 
-        <div class="col s4">
+        <div class="col s12 m4">
           <select id="vidodt" type="select">
             <option value="0">Selecione una ODT</option>
           </select>
           <label>ODT</label>
         </div>
 
-        <div class="col s4">
-          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar">Realizar Compra</button>
+        <div class="col s12 m4">
+          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Realizar Compra</button>
         </div>
 
         </div>
@@ -287,7 +288,7 @@
   <div class="modal-footer">
       <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
   </div>
-
+</div>
 </div>
 
 <script src="../assets/js/modulos/compras.js?v=2.7"></script>

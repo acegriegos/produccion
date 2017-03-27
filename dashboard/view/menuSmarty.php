@@ -71,7 +71,7 @@
    <li><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b>Inicio</b></a></li>
     <li><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b>Comercial</b></a></li>
     <li><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b>Proveedor</b></a></li>
-    <li><a href="inventarios"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b>Proveduría</b></a></li>
+    <li><a href="inventarios"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b>Inventarios</b></a></li>
     <li><a href="productos"><i class="material-icons right" aria-hidden="true" style="color: #000000">list</i><b>Productos</b></a></li>
     <li><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><b>Producción</b></a></li>
     <li><a href="proyectos"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">verified_user</i><b>Proyectos</b></a></li>

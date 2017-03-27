@@ -18,6 +18,7 @@
 <body>
 
 {$NAV}
+
 <div class="bdy">
 <nav class="nav-extended  white-text" style="background-color:#0B3861">
 <div class="nav-wrapper">
@@ -33,28 +34,28 @@
 <div class="card card-content z-depth-5" id="cuerpo">
 <form id="fusuarios">
 <div class="row">
-    <div class="input-field col s6 col m6 l4">
+    <div class="input-field col s12 col m6 l4">
         <input id="vuser" type="text" class="validate">
         <input type="hidden" id="vid" value="0">
         <input type="hidden" id="vidusuario" value="">
         <label for="vuser">Usuario</label>
     </div>
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <input id="vnombre" type="text" class="validate">
         <label for="vnombre">Nombre de Usuario</label>
     </div>
 
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <input id="vcedula" type="text" class="validate">
         <label for="vcedula">Cédula del Usuario</label>
         
     </div>
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <input id="vmail" type="text" class="validate">
         <label for="vmail">Correo de Usuario</label>
     </div>
 
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <select id="vidTipoUsuario" type="select">
             <option value="0" selected disabled>Seleccione un Tipo de Usuario</option>
             {section name=LE loop=$TUSR}
@@ -62,7 +63,7 @@
             {/section}
         </select>
     </div>
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <select id="vidsucursal" type="select">
             <option value="0" selected disabled>Seleccione una Sucursal</option>
             {section name=LE loop=$SUC}
@@ -73,20 +74,20 @@
     </div>
 </div>
 <div class="row" id="dpass">
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <input id="vclave" type="password" class="validate">
         <label for="vclave">Contraseña</label>
     </div>
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <input id="clave" type="password" class="validate">
         <label for="clave">Repetir Contraseña</label>
     </div>
 
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <label>Hora de Entrada</label>
         <input id="vlimite" type="time" class="validate">
     </div>
-    <div class="input-field col s6 m6 l4">
+    <div class="input-field col s12 m6 l4">
         <label>Hora de Salida</label>
         <input id="vlimite2" type="time" class="validate">
     </div>
@@ -114,14 +115,14 @@
 <tbody id="listausuarios">
 {section name=LE loop=$USRS}
 <tr>
-<td>{$USRS[LE][1]}</td>
-<td>{$USRS[LE][2]}</td>
-<td>{$USRS[LE][3]}</td>
-<td><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e{$USRS[LE][0]}">{$USRS[LE][4]}</a></td>
-<td>{$USRS[LE][5]}</td>
-<td>{$USRS[LE][6]}</td>
-<td>{$USRS[LE][7]}</td>
-<td>
+<td style=" padding: 10px;">{$USRS[LE][1]}</td>
+<td style=" padding: 10px;">{$USRS[LE][2]}</td>
+<td style=" padding: 10px;">{$USRS[LE][3]}</td>
+<td style=" padding: 10px;"><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e{$USRS[LE][0]}">{$USRS[LE][4]}</a></td>
+<td style=" padding: 10px;">{$USRS[LE][5]}</td>
+<td style=" padding: 10px;">{$USRS[LE][6]}</td>
+<td style=" padding: 10px;">{$USRS[LE][7]}</td>
+<td style=" padding: 10px;">
 <a class="btn-floating waves-effect waves-light blue cargar load" modulo="usuario" title="Editar Usuario" id="m{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin' and $smarty.session.num neq 1} disabled {/if}><i class="fa fa-pencil-square-o"></i></a>
 <a class="btn-floating waves-effect waves-light red delete eliminar" modulo="usuario" title="Eliminar Usuario" id="d{$USRS[LE][0]}" {if $USRS[LE][1] eq 'admin'} disabled {/if}><i class="fa fa-times"></i></a>
 </td>

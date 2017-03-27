@@ -9,12 +9,12 @@
 	</head>
 	<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
-	<body>
+	<body>{$NAV}
 		<div class="bdy">
-			{$NAV}
+			
 			<div class="card z-depth-5">
 				<div class="card-header center blue-grey white-text z-depth-1">
-					<p class="flow-text"  style="background-color:#0B3861">Productos</p>
+					<p class="flow-text"  style="background-color:#0B3861; padding-bottom: 1%; padding-top: 1%;" >Productos</p>
 				</div>
 				<nav class="navbar navbar-dark blue z-depth-1" style="margin-top: -25px;">
 					<ul class="nav navbar-nav">

@@ -43,12 +43,12 @@
                     <table  class="table centered highlight bordered responsive-table z-depth-3" id="data-table-clientes">
                         <thead>
                             <tr>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em;"><b>Cédula</b></th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Nombre</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Teléfonos</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Correo</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Tipo</th>
-                                <th class="sinborde white-text blue" style="font-size: 1.2em;">Acciones</th>
+                                <th class="sinborde white-text blue" ><b>Cédula</b></th>
+                                <th class="sinborde white-text blue" >Nombre</th>
+                                <th class="sinborde white-text blue" >Teléfonos</th>
+                                <th class="sinborde white-text blue" >Correo</th>
+                                <th class="sinborde white-text blue" >Tipo</th>
+                                <th class="sinborde white-text blue" >Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listaclientes">
@@ -114,7 +114,8 @@
                               </div>
                               <input type="hidden" id="vidtipocliente" value="1">
                           </div>
-                          <div class="card-title" id="titInfo"><b>Datos Personales</b></div>
+                          <br>
+                          <div class="card-title" id="titInfo" align="center"><b>Datos Personales</b></div>
 
                           <div class="row">
                             <div class="input-field col s12 m6 l4">
@@ -208,12 +209,12 @@
 
                             <div class="col s12 m6 l6">
 
-                              <div class="switch">
+                              <div class="switch" align="center">
                                 <label>
-                                  Cliente Contado
+                                   Contado
                                   <input type="checkbox" tp="1" id="tipocliente">
                                   <span class="lever"></span>
-                                  Cliente Crédito
+                                   Crédito
                               </label>
                           </div>
 
@@ -278,7 +279,7 @@
 
                     <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
                         <div class="ciclos">
-                            <div class="card-title"><b>Direcciones</b></div>
+                            <div class="card-title" align="center"><b>Direcciones</b></div>
 
                             <input type="hidden" id="vbisnacional" value="1">
 
@@ -338,13 +339,13 @@
 
 
 
-                    <div class="input-field col s6 hide-on-med-and-up">
+                    <div class="input-field col s12 hide-on-med-and-up">
                         <div class="prefix"><i class="material-icons">location_on</i></div>
                         <label for="vlatitud">Latitud</label>
                         <input type="text" class="eder" id="vlatitud">
                     </div>
                     
-                    <div class="input-field col s6 hide-on-med-and-up">
+                    <div class="input-field col s12 hide-on-med-and-up">
                         <div class="prefix"><i class="material-icons">location_on</i></div>
                         <label for="vlongitud">Longitud</label>
                         <input type="text" class="eder" id="vlongitud">
@@ -359,7 +360,7 @@
 <div id="exo" class="col s12">
     <div class="row">
 
-        <div class="card-title"><b>Impuestos</b></div>
+        <div class="card-title" align="center"><b>Impuestos</b></div>
 
         
         <div class="input-field col s12 m12 l6">
