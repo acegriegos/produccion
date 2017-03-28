@@ -1,8 +1,8 @@
 $(function(){
-    // console.log(12)
     $("#ffacturas").submit(function(){
         return false;
     });
+
     fecha = new Date();
     $('#vfecha').pickadate().pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
 
@@ -188,14 +188,26 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente : 0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1: '',vlista2 : '', vextrapagos : '' , idline : 0});
-
     $(".modal").modal();
 
     setTimeout(function(){$("#vreferencia").focus();},500);
     
+    while ($("#ffacturas .zelda").data('triforce') == undefined)
+        $("#ffacturas .zelda").data('triforce',123);
+     /*{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente : 0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1: '',vlista2 : '', vextrapagos : '' , idline : 0}*/
+});//READY
 
-})//READY
+$(document).on("click",".chinv",function(){
+    var id = $(this).attr('id').substr(3);
+    var inv = $("#fd"+id).data('triforce')['vidinventario'];
+    var bod = arr('login',4,'idbodega',111,'id = '+inv,0,0,0)[0][0];
+    $("#xidbodega").val(bod);
+    $("#xidbodega").material_select();
+    $("#xidbodega").change();
+    $("#xidinventario").val(inv);
+    $("#xidinventario").material_select();
+    $("#fd"+id).data('triforce')['vidinventario'] = inv;
+});
 
 $(document).on("keyup","#vreferencia",function(e){
     var code = e.which || e.keyCode;
@@ -387,7 +399,7 @@ function addline(idprod,cod,desc,cant,prec,tot,descu,defi,cntinv,hinv) {
     if (!existe) {
         var id = parseInt($(".zelda").data('triforce')['idline'])+1;
         $(".zelda").data('triforce')['idline'] = id;
-        $("#fdetallefacturas").append('<tr id="fd'+id+'" class="ciclos"><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center"><div><span id="prec'+id+'">'+prec+'</span><input type="hidden" id="hprc'+id+'" value="'+cant+'"/></div></td><td class="center"><span id="descu'+id+'">'+descu+'</span> %</td><td class="center"><div><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="1" min="1" style="display:none;width: 70px"></div></td><td class="center totp" id="tota'+id+'"></td><td id="desctd'+id+'" align="left"><input type="checkbox" class="filled-in chkivi" id="aivi'+id+'" checked="checked"><label for="aivi'+id+'">I.V.I</label><input type="text" id="ivi'+id+'" value="'+defi+'" placeholder="0" style="width: 50px"><a id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr>');
+        $("#fdetallefacturas").append('<tr id="fd'+id+'" class="ciclos"><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center"><div><span id="prec'+id+'">'+prec+'</span><input type="hidden" id="hprc'+id+'" value="'+cant+'"/></div></td><td class="center"><span id="descu'+id+'">'+descu+'</span> %</td><td class="center"><div><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="1" min="1" style="display:none;width: 70px"></div></td><td class="center totp" id="tota'+id+'"></td><td id="desctd'+id+'" align="left"><input type="checkbox" class="filled-in chkivi" id="aivi'+id+'" checked="checked"><label for="aivi'+id+'">I.V.I</label><input type="text" id="ivi'+id+'" value="'+defi+'" placeholder="0" style="width: 50px"><a class="fa fa-archive pbtn black-text chinv" id="chi'+id+'" href="#modal-inventario" title="Cambiar Inventario"></a><a id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr>');
         $("#descu"+id).data('valor',descu);
         $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:0, vtotal:0, vidinventario:hinv,vidodt : 0});
        

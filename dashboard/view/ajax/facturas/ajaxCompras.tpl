@@ -286,9 +286,9 @@
   </div>
 
   <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
   </div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=2.6"></script>
+<script src="../assets/js/modulos/compras.js?v=2.7"></script>

@@ -1,42 +1,77 @@
 $(function(){
     $('select').material_select();
-    // $(".chmoneda").click(function(){
-        
-    //     $.ajax({
-    //         async: true,
-    //         url: '../miscelaneo/moneda.php',
-    //         type: 'POST',
-    //         data: {accion : 2, moneda : $(this).attr("id"), valor : $("#m"+$(this).attr("id")).val()}
-    //         })
-    //         .done(function(data) {
-    //         });
-    // });
 
-    // $(document).on("mouseover",".ico",function(){
-    //     var id = $(this).attr('icono').substr(1);
-    //     $("#ico"+id).css("margin-top","0px");
-    // });
+    permisos(1,50);
 
-    // $(document).on("mouseout",".ico",function(){
-    //     var id = $(this).attr('icono').substr(1);
-    //     $("#ico"+id).css("margin-top","-22px");
-    // });
+var form = document.querySelector('#checkout-form');
+var submit = document.querySelector('input[type="submit"]');
 
+braintree.client.create({
+  // Replace this with your own authorization.
+  authorization: arr('main',2,'')[0]['ERROR']
+}, function (clientErr, clientInstance) {
+  if (clientErr) {
+    // Handle error in client creation
+    return;
+  }
 
-    permisos(1,50)
+  braintree.hostedFields.create({
+    client: clientInstance,
+    styles: {
+      'input': {
+        'font-size': '14pt'
+      },
+      'input.invalid': {
+        'color': 'red'
+      },
+      'input.valid': {
+        'color': 'green'
+      }
+    },
+    fields: {
+      number: {
+        selector: '#card-number',
+        placeholder: '4111 1111 1111 1111'
+      },
+      cvv: {
+        selector: '#cvv',
+        placeholder: '123'
+      },
+      expirationDate: {
+        selector: '#expiration-date',
+        placeholder: '10/2019'
+      }
+    }
+  }, function (hostedFieldsErr, hostedFieldsInstance) {
+    if (hostedFieldsErr) {
+      // Handle error in Hosted Fields creation
+      return;
+    }
+
+    submit.removeAttribute('disabled');
+
+    form.addEventListener('submit', function (event) {
+
+      event.preventDefault();
+
+      hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+        if (tokenizeErr) {
+          //VERIFICAR CAMPOS
+          console.log('VERIFICAR CAMPOS')
+          // Handle error in Hosted Fields tokenization
+          return;
+        }
+
+        // Put `payload.nonce` into the `payment_method_nonce` input, and then
+        // submit the form. Alternatively, you could send the nonce to your server
+        // with AJAX.
+        document.querySelector('input[name="payment_method_nonce"]').value = payload.nonce;
+
+        form.submit();
+      });
+    }, false);
+  });
 });
 
-// function mantMoneda(x1){
-//     var p;
-//     $.ajax({
-//             async: false,
-//             url: '../miscelaneo/moneda.php',
-//             type: 'POST',
-//             data: {accion : 1, moneda : x1}
-//             })
-//             .done(function(data) {
-//                 p = JSON.parse(data);
-//             });
-//     return p;
-// }
+});
 
