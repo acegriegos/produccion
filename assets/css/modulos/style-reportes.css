@@ -1,8 +1,6 @@
 .tbl01>tbody>tr>td {
 	border-right	: 1px solid black;
-	padding-left: 5px;
-	padding-right: 5px;
-}
+	
 
 .tbl01{
 	float: right;
@@ -20,8 +18,7 @@
 }
 
 body{
-	padding-left: 10%;
-	padding-right: 10%;
+	
 	background-color: #e4e4e4;
 }
 
@@ -48,10 +45,7 @@ body{
 		page-break-inside: avoid;
 	}
 
-	body{
-		padding-left: 10px;
-	  	padding-right: 10px;
-	}
+	
 
 	@page {
 	  size: A4 landscape; 

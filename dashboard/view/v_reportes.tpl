@@ -15,13 +15,13 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body style="padding: 0 !important">
     {$NAV}
-    <div class="bdy">
-        <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
-        <!-- Brand -->
-            <a class="navbar-brand" href="#"><b>Reportes</b></a>
-            <!-- Links -->
+ <div class="bdy">
+         <nav class="navbar navbar-dark bg-primary" style="border-radius: 0px 0px 5px 5px;">
+          <a class="navbar-brand" href="#"><b>Reportes</b></a> -->
+          
+
             <ul class="nav navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link menu5 active" id="m1" href="#">Generales</a>
@@ -29,9 +29,9 @@
                 <li class="nav-item menu5" id="m2">
                     <a class="nav-link" href="#">Crear</a>
                 </li>
-                <!-- <li class="nav-item menu5" id="m3">
+                <li class="nav-item menu5" id="m3">
                     <a class="nav-link" href="#">Paquetes</a>
-                </li> -->
+                </li>
             </ul>
         </nav>
         <br>

@@ -23,16 +23,17 @@ $(function(){
 			break;
 		}
 
+		$('select').material_select();
+		$('.modal').modal();
 		$('.dropdown-button').dropdown();
 		$('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
 });
-		  $(document).ready(function() {
-    $('select').material_select();
-  });
+
 
 	});
+	$('select').material_select();
 
 	$("#m1").click();
 });
@@ -241,34 +242,38 @@ $(document).on("click",".func",function(){
 
 	switch(id){
 		case 1:
-			$('#detalletransaccione').html('');
-			var rs = arr('login',4,'id,nombre',55,"",'',0,'')[0];
-			
-			for (var i = 0; i < rs.length; i++) {
-				gop += '<option value="'+rs[i][0]+'">'+rs[i][1]+'</option>';
-			}
+		$('#detalletransaccione').html('');
+		var rs = arr('login',4,'id,nombre',55,"",'',0,'')[0];
 
-			for (var i = 1; i < 7; i++) {
-				$('#detalletransaccione').append(getFila(i))
-			}
+		for (var i = 0; i < rs.length; i++) {
+			gop += '<option value="'+rs[i][0]+'">'+rs[i][1]+'</option>';
+		}
 
-			$('#suc1').hide();
-			$('#totDebe').html('');
-			$('#totHber').html('');
-			$('#ftransacciones').find('#vdescripcion').val('')
-			$('#ftransacciones').find('#vdescripcion').focus()
-			break;
+		for (var i = 1; i < 7; i++) {
+			$('#detalletransaccione').append(getFila(i))
+		}
+
+		$('#suc1').hide();
+		$('#totDebe').html('');
+		$('#totHber').html('');
+		$('#ftransacciones').find('#vdescripcion').val('')
+		$('#ftransacciones').find('#vdescripcion').focus()
+		break;
 		default:
 		break;
 	}	
 });
-
+$(document).on("click",".dettran",function(){
+	alert("asd")
+});
 $(document).on("keyup","#vbusqueda",function(e){
 	var code = e.which || e.keyCode
 	if (code == 13) {
 		arr('login',6,'',53,"'"+$(this).val()+"',"+ftr,33,1,$("#vcuentas"));
 	}
 });
+
+
 
 
 function totalizar(){

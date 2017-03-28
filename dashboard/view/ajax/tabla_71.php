@@ -34,7 +34,7 @@
                         
 
                     <div class="chip">
-                       <a href="#" class="button-collapse" data-activates="transacciones">'.$key[0].'</a>
+                       <a href="#" class="button-collapse dettran" data-activates="transacciones">'.$key[0].'</a>
                     </div>
                 </div>
                 <div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
@@ -78,7 +78,6 @@
 <script type="text/javascript">
     $(function(){
         $('.button-collapse').sideNav({
-                menuWidth: 600,
                 edge: 'left', // Choose the horizontal origin
                 closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
             }

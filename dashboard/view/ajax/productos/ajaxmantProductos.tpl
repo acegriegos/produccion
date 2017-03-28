@@ -18,25 +18,25 @@
     <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
         <thead>
             <tr>
-                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Código</th>
-                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Nombre</th>
-                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Marca</th>
-                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Precio Costo</th>
-                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Precio Venta</th>
-                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Ganancia</th>
-                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%" >Acciones</th>
+                <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Código</th>
+                <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Nombre</th>
+                <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Marca</th>
+                <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Precio Costo</th>
+                <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Precio Venta</th>
+                <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Ganancia</th>
+                <th class="white-text blue" style="border: 0;  border-radius: 0px !important;" >Acciones</th>
             </tr>
         </thead>
         <tbody id="listaproductos">
             {section name=LE loop=$PROD}
             <tr>
-                <td style="width: 10%">{$PROD[LE][1]}</td>
-                <td style="width: 10%">{$PROD[LE][2]}</td>
-                <td style="width: 10%">{$PROD[LE][3]}</td>
-                <td style="width: 10%">{$PROD[LE][4]}</td>
-                <td style="width: 10%">{$PROD[LE][5]}</td>
-                <td style="width: 10%">{$PROD[LE][6]}</td>
-                <td style="width: 10%">
+                <td style="padding: 10px !important;">{$PROD[LE][1]}</td>
+                <td style="padding: 10px !important;">{$PROD[LE][2]}</td>
+                <td style="padding: 10px !important;">{$PROD[LE][3]}</td>
+                <td style="padding: 10px !important;">{$PROD[LE][4]}</td>
+                <td style="padding: 10px !important;">{$PROD[LE][5]}</td>
+                <td style="padding: 10px !important;">{$PROD[LE][6]}</td>
+                <td style="padding: 10px !important;">
                 <a class="btn-color pbtn descuentos" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Agregar Descuentos"><img src="../assets/img/icon/percent.svg"></a>
                 <a class="btn-color pbtn salidainv" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"><i class="material-icons">compare_arrows</i></a>
                 <a class="btn-color pbtn editprod" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"><i class="material-icons">edit</i></a>

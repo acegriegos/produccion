@@ -55,7 +55,7 @@
 </div>
 <div class="row">
 <div class="col s12">
-<table class="table centered highlight responsive-table z-depth-3">
+<table class="table centered highlight responsive-table z-depth-5">
     <thead>
         <tr>
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cuenta</th>
@@ -94,6 +94,7 @@
         </tr>
     </tfoot>
 </table>
+<br><br>
 </div>
 </div>
 </div>

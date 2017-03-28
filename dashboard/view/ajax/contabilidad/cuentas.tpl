@@ -39,43 +39,43 @@
     </div>
     <div class="row">
         <div class="col s12 m12 l6">
-        <div class="card z-depth-5">
-            <div class="card-block blc1" >
+            <div class="card z-depth-5">
+                <div class="card-block blc1" >
 
-                <div class="row " style="margin: 0.5%;" >
-                    <div class="col s4 card-title blue-grey white-text truncate " align="center" style="font-size: 1.2em">
-                        Número de Cuenta
-                    </div>
-                    <div class="col s4 card-title blue-grey white-text " align="center" style="font-size: 1.2em">
-                        Descripción
-                    </div>
-                    <div class="col s4 card-title blue-grey white-text " align="center" style="font-size: 1.2em">
-                        Saldo(CRC)
-                    </div>
-                </div>
-            </div>
-            <ul class="list-group list-group-flush" id="vcuentas">
-
-
-                {section name=LE loop=$VCUE}
-
-                <li class="list-group-item view-cuenta" style="cursor: pointer;" id="c{$VCUE[LE][3]}">
-                  <div class="row">
-                    <div class="col s4 center-align" style="font-size: 1.2em" >
-                        {$VCUE[LE][0]}
-                    </div>
-                    <div class="col s4 center-align" style="font-size: 1.2em"  id="n{$VCUE[LE][3]}">
-                        {$VCUE[LE][1]}
-                    </div>
-                    <div class="col s4 center-align" style="font-size: 1.2em">
-                        {$VCUE[LE][2]}
+                    <div class="row " style="margin: 0.5%;" >
+                        <div class="col s4 card-title blue-grey white-text truncate " align="center" style="font-size: 1.2em">
+                            Número de Cuenta
+                        </div>
+                        <div class="col s4 card-title blue-grey white-text " align="center" style="font-size: 1.2em">
+                            Descripción
+                        </div>
+                        <div class="col s4 card-title blue-grey white-text " align="center" style="font-size: 1.2em">
+                            Saldo(CRC)
+                        </div>
                     </div>
                 </div>
-            </li>
+                <ul class="list-group list-group-flush" id="vcuentas">
 
-            {/section}
 
-        </ul>
+                    {section name=LE loop=$VCUE}
+
+                    <li class="list-group-item view-cuenta" style="cursor: pointer;" id="c{$VCUE[LE][3]}">
+                      <div class="row">
+                        <div class="col s4 center-align" style="font-size: 1.2em" >
+                            {$VCUE[LE][0]}
+                        </div>
+                        <div class="col s4 center-align" style="font-size: 1.2em"  id="n{$VCUE[LE][3]}">
+                            {$VCUE[LE][1]}
+                        </div>
+                        <div class="col s4 center-align" style="font-size: 1.2em">
+                            {$VCUE[LE][2]}
+                        </div>
+                    </div>
+                </li>
+
+                {/section}
+
+            </ul>
         </div>
     </div>
 
@@ -87,21 +87,89 @@
 
     </div>
 
-    <ul id="transacciones" class="side-nav">
-        <li><div class="userView">
-          <div class="background">
-            <img src="images/office.jpg">
-          </div>
-          <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
-          <a href="#!name"><span class="white-text name">John Doe</span></a>
-          <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div></li>
-        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-        <li><a href="#!">Second Link</a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-    </ul>
+    <ul id="transacciones" class="side-nav" style="min-width: 50% !important;">
+
+
+        <div class="card-header center white-text" style="background-color:#0B3861" >
+            <p class="flow-text" style="font-size: 1.9em;">Detalle de Transacción</p>
+        </div>
+        <div class="card-content">
+
+            <div class="card z-depth-5">
+               <div class="row">    
+                <div class="col s12 m12 l6"><h5><b>N° Transacción:</b></h5> </div>
+                <div class="col s12 m12 l6"><h5><b>Fecha:</b></h5></div>
+
+                <div class="col s12 m12 l6">
+                    <h5><b>Descripción:</b></h5>
+                </div>
+
+                <div class="col s12 m12 l6">
+                    <h5><b>Usuario:</b></h5>
+                </div>
+
+                <div class="col s12 m12 l6">
+                    <h5><b>Empresa:</b></h5>
+                    <br><br>
+                </div>   
+
+
+                <div class="col s12 ">
+                <div class="card-block ">
+                    <div class="row">
+
+                        <div class="col s2 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
+                        ">
+                        
+
+                        <div class="chip">
+                         <a href="#" class="button-collapse" data-activates="transacciones">'.$key[0].'</a>
+                     </div>
+                 </div>
+                 <div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
+                 ">
+                 '.$key[1].'
+             </div>
+             <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
+             ">
+             '.$key[2].'
+         </div>
+         <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0;  height: 1.9em;">
+            '.$key[3].'
+        </div>
+    </div>
+</div>';
+}
+
+echo '<div class="card-block sh-cta-card"> <div class="row">
+<div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+    <b>TOTAL</b>
+</div>
+<div class="col s3" align="center" style="border-bottom: 1px solid black;color: white; font-size: 1.2em; margin: 0; height: 1.9em;">
+    a
+</div>
+<div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+    564
+</div>
+<div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+    564
+</div>
+</div> </div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+</div>
+
+</ul>
 
 </div>
 

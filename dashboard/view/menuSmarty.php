@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 
-<ul id="slide" class="side-nav blue-text text-darken-2 ">
+<ul id="slide" class="side-nav blue-text text-darken-2 " style="max-width: 400px !important;">
     <li>
       <div class="userView">
         <div class="background">
@@ -45,7 +45,7 @@
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
   </ul>
   <!-- menu pequeño -->
-<ul id="out" class="side-nav">
+<ul id="out" class="side-nav" style="max-width: 400px !important;">
     <li>
       <div class="userView">
         <div class="background">
