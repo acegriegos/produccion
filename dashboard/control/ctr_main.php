@@ -16,10 +16,33 @@
 	   $pagina = 0;
 	   	switch ($_POST['accion']) {
 	   		case 1:
-	   			
+	   			$pagina = 1;
+	   			require_once '../assets/libs/braintree/Braintree.php';
+	   			Braintree_Configuration::environment('sandbox');
+				Braintree_Configuration::merchantId('r8tjk9hz8tfq2fkp');
+				Braintree_Configuration::publicKey('g6tjz7k4mxthskpz');
+				Braintree_Configuration::privateKey('80dbbc5fc8a78746348fe3a263e7fa55');
+
+	   			$nonceFromTheClient = $_POST["payment_method_nonce"];
+	   			$result = Braintree_Transaction::sale([
+				  'amount' => '10.00',
+				  'paymentMethodNonce' => 'fake-valid-visa-nonce',//$nonceFromTheClient,
+				  'options' => [
+				    'submitForSettlement' => True
+				  ]
+				]);
+				echo "<pre>";
+				print_r($result);
+				echo "</pre>";
 	   			break;
 	   		case 2:
-	   			
+	   			require_once '../assets/libs/braintree/Braintree.php';
+	   			Braintree_Configuration::environment('sandbox');
+				Braintree_Configuration::merchantId('r8tjk9hz8tfq2fkp');
+				Braintree_Configuration::publicKey('g6tjz7k4mxthskpz');
+				Braintree_Configuration::privateKey('80dbbc5fc8a78746348fe3a263e7fa55');
+
+				$transaccion = Braintree_ClientToken::generate();
 	   			break;
 	   		case 3:
 	   			
