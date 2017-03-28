@@ -23,3 +23,8 @@ function requireDependencies() {
 }
 
 requireDependencies();
+
+Braintree_Configuration::environment('sandbox');
+Braintree_Configuration::merchantId('r8tjk9hz8tfq2fkp');
+Braintree_Configuration::publicKey('g6tjz7k4mxthskpz');
+Braintree_Configuration::privateKey('80dbbc5fc8a78746348fe3a263e7fa55');
