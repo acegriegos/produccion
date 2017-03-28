@@ -286,7 +286,7 @@
   </div>
 
   <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
   </div>
 </div>
 </div>
