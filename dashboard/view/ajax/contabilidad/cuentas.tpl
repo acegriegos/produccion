@@ -45,13 +45,13 @@
                 <div class="card-block blc1" >
 
                     <div class="row " style="margin: 0.5%;" >
-                        <div class="col s4 card-title blue-grey white-text truncate " align="center" style="font-size: 1.2em">
+                        <div class="col s4 card-title white-text blue truncate " align="center" style="font-size: 1.2em">
                             Número de Cuenta
                         </div>
-                        <div class="col s4 card-title blue-grey white-text " align="center" style="font-size: 1.2em">
+                        <div class="col s4 card-title white-text blue " align="center" style="font-size: 1.2em">
                             Descripción
                         </div>
-                        <div class="col s4 card-title blue-grey white-text " align="center" style="font-size: 1.2em">
+                        <div class="col s4 card-title white-text blue " align="center" style="font-size: 1.2em">
                             Saldo(CRC)
                         </div>
                     </div>

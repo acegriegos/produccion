@@ -1,18 +1,18 @@
 <div class="card">
     <div class="card-block z-depth-5">
-        <h4 class="card-title blue-grey white-text cta-sh-tit" align="center" style="font-size: 1.2em; margin: 0;"></h4>
+        <h4 class="card-title blue white-text cta-sh-tit" align="center" style="font-size: 1.2em; margin: 0;"></h4>
         <div class="card-block sh-cta-card">
             <div class="row">
-                <div class="col s2 m3 truncate" align="center" style="font-size: 1.2em;">
+                <div class="col s2 m3 truncate white-text blue" align="center" style="font-size: 1.2em;">
                     N° Transacción
                 </div>
-                <div class="col s4 m3" align="center" style="font-size: 1.2em;">
+                <div class="col s4 m3 white-text blue" align="center" style="font-size: 1.2em;">
                     Fecha
                 </div>
-                <div class="col s3 truncate" align="center" style="font-size: 1.2em;">
+                <div class="col s3 truncate white-text blue" align="center" style="font-size: 1.2em;">
                     Debe(CRC)
                 </div>
-                <div class="col s3 truncate" align="center" style="font-size: 1.2em;">
+                <div class="col s3 truncate white-text blue" align="center" style="font-size: 1.2em;">
                     Haber(CRC)
                 </div>
             </div>
