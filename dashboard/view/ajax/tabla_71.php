@@ -33,8 +33,8 @@
 ">
                         
 
-                    <div class="chip">
-                       <a href="#" class="button-collapse dettran" data-activates="transacciones">'.$key[0].'</a>
+                    <div class="chip" >
+                       <a href="#" class="button-collapse dettran" data-activates="transacciones" style= "padding-bottom: 20% !important;">'.$key[0].'</a>
                     </div>
                 </div>
                 <div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
@@ -43,10 +43,10 @@
                 </div>
                 <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
 ">
-                    '.$key[2].'
+                    '.number_format($key[2],2).'
                 </div>
                 <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0;  height: 1.9em;">
-                    '.$key[3].'
+                    '.number_format($key[3],2).'
                 </div>
             </div>
         </div>';
@@ -60,10 +60,10 @@
         a
     </div>
     <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-        '.$sumh.'
+        '.number_format($sumh,2).'
     </div>
     <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-        '.$sumd.'
+        '.number_format($sumd,2).'
     </div>
 </div> </div>';
 }

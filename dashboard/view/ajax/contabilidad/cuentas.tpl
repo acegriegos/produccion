@@ -1,3 +1,5 @@
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad-cuentas.css">
+
 <div class="row">
 
     <div class="card z-depth-5" id="show_cuentas">
@@ -87,7 +89,7 @@
 
     </div>
 
-    <ul id="transacciones" class="side-nav" style="min-width: 50% !important;">
+    <ul id="transacciones" class="side-nav" >
 
 
         <div class="card-header center white-text" style="background-color:#0B3861" >
@@ -99,28 +101,28 @@
              <div class="row">    
 
                 <div class="col s12 m12 l6">
-                    <h5><b>N° Transacción:</b></h5>
-                    <span id="dtranN"></span>
+                    <h5><b>N° Transacción: <span id="dtranN"></span></b></h5>
+                    
                 </div>
 
                 <div class="col s12 m12 l6">
-                    <h5><b>Fecha:</b></h5>
-                    <span id="dtranF"></span>
+                    <h5><b>Fecha: <span id="dtranF"></span></b></h5>
+                    
                 </div>
 
                 <div class="col s12 m12 l6">
-                    <h5><b>Usuario:</b></h5>
-                    <span id="dtranU"></span>
+                    <h5><b>Usuario: <span id="dtranU"></span></b></h5>
+                    
                 </div>
 
                 <div class="col s12 m12 l6">
-                    <h5><b>Empresa:</b></h5>
-                    <span id="dtranE"></span>
+                    <h5><b>Empresa: <span id="dtranE"></span></b></h5>
+                    
                 </div>
 
                 <div class="col s12 m12 l12">
-                    <h5><b>Descripción:</b></h5>
-                    <span id="dtranD"></span>
+                    <h5><b>Descripción: <span id="dtranD"></span></b></h5>
+                    
                     <br><br>
                 </div>   
 
@@ -129,16 +131,16 @@
                     <div class="card-block ">
                         <b><div class="row">
 
-                            <div class="col s2 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                            <div class="col s2 m3 white-text blue" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; padding-top: 1%; padding-bottom: 1%; height: 1.9em;">
                                 Cuenta
                             </div>
-                            <div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                            <div class="col s4 m3 white-text blue" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; padding-top: 1%; padding-bottom: 1%; height: 1.9em;">
                                 Comentario
                             </div>
-                            <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                            <div class="col s3 white-text blue" align="center" style="border-bottom: 1px solid black;  font-size: 1.2em; margin: 0; padding-top: 1%; padding-bottom: 1%; height: 1.9em;">
                                 Debe
                             </div>
-                            <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0;  height: 1.9em;">
+                            <div class="col s3 white-text blue" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; padding-top: 1%; padding-bottom: 1%;  height: 1.9em;">
                                 Haber
                             </div>
                         </div></b>
@@ -150,10 +152,10 @@
                         </div>
                         <div class="col s3" align="center" style="border-bottom: 1px solid black;color: white; font-size: 1.2em; margin: 0; height: 1.9em;">
                         </div>
-                        <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                        <div class="col s3 numeros" align="center" style="border-bottom: 1px solid black;  font-size: 1.2em; margin: 0; height: 1.9em;">
                             <span id="tdebe" class="tdettran"></span>
                         </div>
-                        <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                        <div class="col s3 numeros" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
                             <span id="thaber" class="tdettran"></span>
                         </div>
                     </div> </div>

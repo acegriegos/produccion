@@ -36,6 +36,7 @@ $(function(){
 	$('select').material_select();
 
 	$("#m1").click();
+
 });
 
 $(document).on('change','#continuo',function(){
@@ -274,16 +275,16 @@ $(document).on("click",".dettran",function(){
 	var dtran = arr('login',4,'',207,num,0,0,0)[0];
 	$("#dtranN").html(dtran[0][0]);
 	$("#dtranF").html(dtran[0][1]);
-	$("#dtranD").html('<a href="#" class="button-collapse detextra" data-activates="extra">'+dtran[0][2]+"</a>");
-	$("#dtranE").html(dtran[0][3]);
-	$("#dtranU").html(dtran[0][4]);
+	$("#dtranD").html('<a href="#" class="button-collapse detextra truncate" data-activates="extra"> <h5><b>'+dtran[0][2]+"</b></h5></a>");
+	$("#dtranE").html(dtran[0][9]);
+	$("#dtranU").html(dtran[0][8]);
 
 	var tdebe = thaber = debe = haber = 0;
 	$("#dtranDet").html('');
 	$.each(dtran,function(e,val){
-		debe = parseFloat(val[7]);
-		haber = parseFloat(val[8]);
-		$("#dtranDet").append('<div class="row"><div class="col s2 m3" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+val[5]+'</div><div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+val[6]+'</div><div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+debe.formatMoney(2,'.',',')+'</div><div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0;  height: 1.9em;">'+haber.formatMoney(2,'.',',')+'</div></div>');
+		debe = parseFloat(val[5]);
+		haber = parseFloat(val[6]);
+		$("#dtranDet").append('<div class="row"><div class="col s2 m3 truncate" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+val[3]+'</div><div class="col s4 m3 truncate" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+val[4]+'</div><div class="col s3 truncate" align="center" style="border-bottom: 1px solid black;  font-size: 1em; margin: 0; height: 1.9em;">'+debe.formatMoney(2,'.',',')+'</div><div class="col s3 truncate" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0;  height: 1.9em;">'+haber.formatMoney(2,'.',',')+'</div></div>');
 		tdebe += debe;
 		thaber += haber;
 	});
