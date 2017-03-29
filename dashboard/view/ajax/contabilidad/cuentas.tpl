@@ -89,7 +89,7 @@
 
     </div>
 
-    <ul id="transacciones" class="side-nav" >
+    <ul id="transacciones" class="side-nav side-nav-conta" >
 
 
         <div class="card-header center white-text" style="background-color:#0B3861" >
@@ -171,11 +171,13 @@
 
 
         </div>
+     
+
     </div>
 
 </ul>
 
-<ul id="extra" class="side-nav" style="min-width: 45% !important;">
+<ul id="extra" class="side-nav side-nav-conta1" >
 <h1>EXTRA</h1>
 </ul>
 
