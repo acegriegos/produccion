@@ -74,13 +74,3 @@
 <!--   <a href="#" data-activates="transacciones" class="button-collapse"><i class="material-icons">menu</i></a>
  -->        
 </div>
-
-<script type="text/javascript">
-    $(function(){
-        $('.button-collapse').sideNav({
-                edge: 'left', // Choose the horizontal origin
-                closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
-            }
-        );
-    })
-</script>

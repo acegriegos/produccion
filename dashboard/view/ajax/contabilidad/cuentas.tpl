@@ -12,7 +12,7 @@
                 <div class="col s12 m12 l8 ">
                     <div class="row">
 
-                       <div class="input-field col s12 m6 l6">
+                     <div class="input-field col s12 m6 l6">
                         <a class="prefix"><i class="small material-icons">search</i></a>
                         <input type="text" id="vbusqueda" maxlength="45" num="+27" var="nombre">
                         <label for="vbusqueda">Número / Descripción</label>
@@ -93,82 +93,88 @@
         <div class="card-header center white-text" style="background-color:#0B3861" >
             <p class="flow-text" style="font-size: 1.9em;">Detalle de Transacción</p>
         </div>
-        <div class="card-content">
+        <div class="card-content" style="padding-top: 0px;">
 
             <div class="card z-depth-5">
-               <div class="row">    
-                <div class="col s12 m12 l6"><h5><b>N° Transacción:</b></h5> </div>
-                <div class="col s12 m12 l6"><h5><b>Fecha:</b></h5></div>
+             <div class="row">    
 
                 <div class="col s12 m12 l6">
-                    <h5><b>Descripción:</b></h5>
+                    <h5><b>N° Transacción:</b></h5>
+                    <span id="dtranN"></span>
+                </div>
+
+                <div class="col s12 m12 l6">
+                    <h5><b>Fecha:</b></h5>
+                    <span id="dtranF"></span>
                 </div>
 
                 <div class="col s12 m12 l6">
                     <h5><b>Usuario:</b></h5>
+                    <span id="dtranU"></span>
                 </div>
 
                 <div class="col s12 m12 l6">
                     <h5><b>Empresa:</b></h5>
+                    <span id="dtranE"></span>
+                </div>
+
+                <div class="col s12 m12 l12">
+                    <h5><b>Descripción:</b></h5>
+                    <span id="dtranD"></span>
                     <br><br>
                 </div>   
 
 
                 <div class="col s12 ">
-                <div class="card-block ">
-                    <div class="row">
+                    <div class="card-block ">
+                        <b><div class="row">
 
-                        <div class="col s2 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
-                        ">
-                        
+                            <div class="col s2 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                                Cuenta
+                            </div>
+                            <div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                                Comentario
+                            </div>
+                            <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                                Debe
+                            </div>
+                            <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0;  height: 1.9em;">
+                                Haber
+                            </div>
+                        </div></b>
+                        <div id="dtranDet"></div>
+                    </div>
+                    <div class="card-block sh-cta-card"> <div class="row">
+                        <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                            <b>TOTAL</b>
+                        </div>
+                        <div class="col s3" align="center" style="border-bottom: 1px solid black;color: white; font-size: 1.2em; margin: 0; height: 1.9em;">
+                        </div>
+                        <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                            <span id="tdebe" class="tdettran"></span>
+                        </div>
+                        <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
+                            <span id="thaber" class="tdettran"></span>
+                        </div>
+                    </div> </div>
+                </div>
 
-                        <div class="chip">
-                         <a href="#" class="button-collapse" data-activates="transacciones">'.$key[0].'</a>
-                     </div>
-                 </div>
-                 <div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
-                 ">
-                 '.$key[1].'
-             </div>
-             <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
-             ">
-             '.$key[2].'
-         </div>
-         <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0;  height: 1.9em;">
-            '.$key[3].'
+
+
+
+            </div>
+
+
+
+
+
         </div>
     </div>
-</div>';
-}
 
-echo '<div class="card-block sh-cta-card"> <div class="row">
-<div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-    <b>TOTAL</b>
-</div>
-<div class="col s3" align="center" style="border-bottom: 1px solid black;color: white; font-size: 1.2em; margin: 0; height: 1.9em;">
-    a
-</div>
-<div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-    564
-</div>
-<div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-    564
-</div>
-</div> </div>
-</div>
+</ul>
 
-
-
-
-</div>
-
-
-
-
-
-</div>
-</div>
-
+<ul id="extra" class="side-nav" style="min-width: 45% !important;">
+<h1>EXTRA</h1>
 </ul>
 
 </div>

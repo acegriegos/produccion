@@ -73,6 +73,12 @@ $(document).on("click",".view-cuenta",function(){
 	titulo += " en la Cuenta "+$("#n"+id).html();
 	$(".cta-sh-tit").html(titulo);
 
+	// $('.sh-cta-card .button-collapse').sideNav({
+ //            edge: 'left', // Choose the horizontal origin
+ //            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+ //        }
+ //    );
+
 });
 
 $(document).on("click",".numTransacc",function(){
@@ -264,8 +270,50 @@ $(document).on("click",".func",function(){
 	}	
 });
 $(document).on("click",".dettran",function(){
-	alert("asd")
+	var num = parseInt($(this).html());
+	var dtran = arr('login',4,'',207,num,0,0,0)[0];
+	$("#dtranN").html(dtran[0][0]);
+	$("#dtranF").html(dtran[0][1]);
+	$("#dtranD").html('<a href="#" class="button-collapse detextra" data-activates="extra">'+dtran[0][2]+"</a>");
+	$("#dtranE").html(dtran[0][3]);
+	$("#dtranU").html(dtran[0][4]);
+
+	var tdebe = thaber = debe = haber = 0;
+	$("#dtranDet").html('');
+	$.each(dtran,function(e,val){
+		debe = parseFloat(val[7]);
+		haber = parseFloat(val[8]);
+		$("#dtranDet").append('<div class="row"><div class="col s2 m3" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+val[5]+'</div><div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+val[6]+'</div><div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+debe.formatMoney(2,'.',',')+'</div><div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0;  height: 1.9em;">'+haber.formatMoney(2,'.',',')+'</div></div>');
+		tdebe += debe;
+		thaber += haber;
+	});
+
+	$("#tdebe").html(tdebe.formatMoney(2,'.',','));
+	$("#thaber").html(thaber.formatMoney(2,'.',','));
+
+	if(tdebe == thaber)
+		$(".tdettran").css('color','green');
+	else
+		$(".tdettran").css('color','red');
+
+	$(this).sideNav({
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: false// Closes side-nav on <a> clicks, useful for Angular/Meteor
+        }
+    );
+    $(this).sideNav('show');
 });
+
+$(document).on("click",".detextra",function(){
+    $(this).sideNav({
+            edge: 'right', // Choose the horizontal origin
+            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+        }
+    );
+    $(this).sideNav('show');
+})
+
+
 $(document).on("keyup","#vbusqueda",function(e){
 	var code = e.which || e.keyCode
 	if (code == 13) {
