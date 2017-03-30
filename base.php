@@ -40,7 +40,7 @@
 	   
 	   	\$smarty  = new mySmarty();
 	   	\$smarty->setModule('dashboard');
-	   	\$pg = \$smarty->fetch('../view/menuSmarty1.php');
+	   	\$pg = \$smarty->fetch('../view/menuSmarty.php');
 	   
 	   	\$smarty->assign('NAV',\$pg);
 	   	\$smarty->display('v_".$modulo.".tpl');

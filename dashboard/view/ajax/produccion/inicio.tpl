@@ -1,7 +1,7 @@
 <div class="row">
     <div class="input-field col s6 m6 l6">
         <input id="receta" type="text" class="validate autocomplete">
-        <label for="receta">Receta</label>
+        <label for="receta">Proceso</label>
     </div>
     <div class="input-field col s6 m6 l6">
         <a class="material-icons prefix blue-text" href="#modal-searchprodline">search</a>

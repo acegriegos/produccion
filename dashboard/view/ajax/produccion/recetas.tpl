@@ -4,13 +4,13 @@
         <div class="row raddreceta">
             <div class="input-field col s12 m5 l5">
                 <input id="vnombre" type="text" autocomplete="off">
-                <label for="vnombre">Nombre de la Receta</label>
+                <label for="vnombre">Nombre del Proceso</label>
                 <input type="hidden" id="count" value="0">
                 <input type="hidden" id="spot" value="0">
             </div>
             <div class="input-field col s12 m5 l5">
                 <input id="vcodigo" type="text" autocomplete="off">
-                <label for="vcodigo">Codigo de la Receta</label>
+                <label for="vcodigo">Codigo del Proceso</label>
             </div>
             <div class="col s2 m2 l2">
                 <button type="button" class="btn-floating waves-effect waves-light blue hide" id="edtitcod" title="Editar nombre y codigo de la receta"><i class="material-icons" style="padding-top: 3px">save</i></button>

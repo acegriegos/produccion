@@ -70,6 +70,7 @@ $(function(){
                 kbrota = 'S'+$(this).val();
             }
             var cod = arr('login',4,'',140, $(".zelda").data('triforce')['vidcliente']+',@@impresa,"'+ kbrota +'"',0,0,0);
+            console.log(cod);
             
             if (cod[0][0][0] != null) {
                 cod = cod[0][0];
@@ -193,8 +194,7 @@ $(function(){
     setTimeout(function(){$("#vreferencia").focus();},500);
     
     while ($("#ffacturas .zelda").data('triforce') == undefined)
-        $("#ffacturas .zelda").data('triforce',123);
-     /*{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente : 0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1: '',vlista2 : '', vextrapagos : '' , idline : 0}*/
+        $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente : 0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1: '',vlista2 : '', vextrapagos : '' , idline : 0});
 });//READY
 
 $(document).on("click",".chinv",function(){

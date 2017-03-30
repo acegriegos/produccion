@@ -40,7 +40,10 @@
                       <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">CRM</a>
                     </div>
                     <div class="col s12 m6 l6">
-                    <a href="cuentas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">CxC</a>
+                    <a href="cuentas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Cuentas por Cobrar</a>
+                    </div>
+                     <div class="col s12 m6 l6">
+                    <a href="facturacion?tf=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cotizaciones">Cotizaciones</a>
                     </div>
                     <div class="col s12 m6 l6">
                       <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>

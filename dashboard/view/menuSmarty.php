@@ -33,13 +33,12 @@
     <li><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b>Inicio</b></a></li>
     <li><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b>Comercial</b></a></li>
     <li><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b>Proveedor</b></a></li>
-    <li><a href="inventarios"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b>Inventarios</b></a></li>
-    <li><a href="productos"><i class="material-icons right" aria-hidden="true" style="color: #000000">list</i><b>Productos</b></a></li>
+    <li><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b>Financiero</b></a></li>
+    <li><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b>Inventarios</b></a></li>
+    <li><a href="rutas"><i class="material-icons right" aria-hidden="true" style="color: #000000">list</i><b>Rutas</b></a></li>
     <li><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><b>Producción</b></a></li>
-    <li><a href="proyectos"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">verified_user</i><b>Proyectos</b></a></li>
-    <li><a href="contabilidad"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b>Contabilidad</b></a></li>
     <li><a href="usuarios"><i class="material-icons right" aria-hidden="true" style="color: #000000">perm_identity</i><b>Usuarios</b></a></li>
-    <li><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000">trending_up</i><b>Reportes</b></a></li>
+    <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><b>Reportes</b></a></li>
     <li><a href="ajustes"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><b>Configuración</b></a></li>
     <!-- <li><div class="divider"></div></li> -->
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->

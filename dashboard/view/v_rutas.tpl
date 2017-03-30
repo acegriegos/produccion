@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Producción</title>
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-produccion.css">
+    <title></title>
+   
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-rutas.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
-<body>
-{$NAV}
-<div class="bdy">
-
-    <div class="card-header  white-text z-depth-5" style="background-color:#0B3861">
-        <p class="flow-text center-align">Producción</p>
+  </head>
+  <body>
+  <br>
+    {$NAV}
+    <div class="bdy">
+      <div class="card-header  white-text z-depth-5" style="background-color:#0B3861">
+        <p class="flow-text center-align">Rutas</p>
     </div>
     <nav class="navbar navbar-dark blue z-depth-5">
         <ul class="nav navbar-nav">
-            <li class="nav-item menu " id="m1">
-                <a class="nav-link" href="#" title="Recetas">Procesos</a>
+            <li class="nav-item menu" id="m1">
+                <a class="nav-link" href="#" title="Mantenimiento">Mantenimiento</a>
             </li>
             <li class="nav-item menu active" id="m2">
-                <a class="nav-link" href="#" title="Linea Producción">Linea Producción</a>
+                <a class="nav-link" href="#" title="Carga/Descarga">Carga/Descarga</a>
             </li>
             <li class="nav-item menu" id="m3">
-                <a class="nav-link" href="#" title="Inicio Produccion">Inicio Produccion</a>
+                <a class="nav-link" href="#" title="Rastreo">Rastreo</a>
             </li>
             <li class="nav-item menu" id="m4">
-                <a class="nav-link" href="#" title="Seguimiento">Seguimiento</a>
+                <a class="nav-link" href="#" title="Reportes">Reportes</a>
             </li>
         </ul>
     </nav>
@@ -107,8 +108,7 @@
             <a class="modal-action modal-close waves-effect waves-light btn-flat white-text grey lighten-1 z-depth-5" style="margin-right: 2%;">Salir</a>
         </div>
     </div>
-</div>
-
-<script src="../assets/js/modulos/produccion.js"></script>
-</body>
+    </div>
+    <script src="../assets/js/modulos/rutas.js"></script>
+  </body>
 </html>
