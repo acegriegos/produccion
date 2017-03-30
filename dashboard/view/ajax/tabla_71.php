@@ -1,18 +1,18 @@
 <div class="card">
     <div class="card-block z-depth-5">
-        <h4 class="card-title blue-grey white-text cta-sh-tit" align="center" style="font-size: 1.2em; margin: 0;"></h4>
+        <h4 class="card-title blue white-text cta-sh-tit" align="center" style="font-size: 1.2em; margin: 0;"></h4>
         <div class="card-block sh-cta-card">
             <div class="row">
-                <div class="col s2 m3 truncate" align="center" style="font-size: 1.2em;">
+                <div class="col s2 m3 truncate white-text blue" align="center" style="font-size: 1.2em;">
                     N° Transacción
                 </div>
-                <div class="col s4 m3" align="center" style="font-size: 1.2em;">
+                <div class="col s4 m3 white-text blue" align="center" style="font-size: 1.2em;">
                     Fecha
                 </div>
-                <div class="col s3 truncate" align="center" style="font-size: 1.2em;">
+                <div class="col s3 truncate white-text blue" align="center" style="font-size: 1.2em;">
                     Debe(CRC)
                 </div>
-                <div class="col s3 truncate" align="center" style="font-size: 1.2em;">
+                <div class="col s3 truncate white-text blue" align="center" style="font-size: 1.2em;">
                     Haber(CRC)
                 </div>
             </div>
@@ -33,8 +33,8 @@
 ">
                         
 
-                    <div class="chip">
-                       <a href="#" class="button-collapse" data-activates="transacciones">'.$key[0].'</a>
+                    <div class="chip" >
+                       <a href="#" class="button-collapse dettran" data-activates="transacciones" style= "padding-bottom: 20% !important;">'.$key[0].'</a>
                     </div>
                 </div>
                 <div class="col s4 m3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
@@ -43,10 +43,10 @@
                 </div>
                 <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;
 ">
-                    '.$key[2].'
+                    '.number_format($key[2],2).'
                 </div>
                 <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0;  height: 1.9em;">
-                    '.$key[3].'
+                    '.number_format($key[3],2).'
                 </div>
             </div>
         </div>';
@@ -60,10 +60,10 @@
         a
     </div>
     <div class="col s3" align="center" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-        '.$sumh.'
+        '.number_format($sumh,2).'
     </div>
     <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-        '.$sumd.'
+        '.number_format($sumd,2).'
     </div>
 </div> </div>';
 }
@@ -74,14 +74,3 @@
 <!--   <a href="#" data-activates="transacciones" class="button-collapse"><i class="material-icons">menu</i></a>
  -->        
 </div>
-
-<script type="text/javascript">
-    $(function(){
-        $('.button-collapse').sideNav({
-                menuWidth: 600,
-                edge: 'left', // Choose the horizontal origin
-                closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
-            }
-        );
-    })
-</script>

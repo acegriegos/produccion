@@ -71,6 +71,7 @@ $(function(){
                 kbrota = 'S'+$(this).val();
             }
             var cod = arr('login',4,'',140, $(".zelda").data('triforce')['vidcliente']+',@@impresa,"'+ kbrota +'"',0,0,0);
+            console.log(cod);
             
             if (cod[0][0][0] != null) {
                 cod = cod[0][0];

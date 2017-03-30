@@ -182,7 +182,7 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0});
+    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vextrapagos : 0});
 
     $(".modal").modal();
 })//READY
@@ -412,7 +412,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
 
         $("#vdesc"+id).data('valor',dcs);
         $("#vdesc"+id).data('max',mdcs);
-        $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:0, vtotal:0, vidinventario:hinv});
+        $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:0, vtotal:0, vidinventario:hinv,vidodt : 0});
        
     }
     totalizar();
@@ -565,10 +565,10 @@ function validarFactura() {
         $("#vidtipopago").val(0)
         $("#vidtipopago").material_select('update');
 
-        var p = arr('login',4,'',205,$(".zelda").data('triforce')['vidcliente'],0,0,0);
-        if(p['succed'] == 0){
-            return p[0]['ERROR'] 
-        }
+        // var p = arr('login',4,'',205,$(".zelda").data('triforce')['vidcliente'],0,0,0);
+        // if(p['succed'] == 0){
+        //     return p[0]['ERROR'] 
+        // }
     }
     
     return false;

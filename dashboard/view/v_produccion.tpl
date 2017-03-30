@@ -25,7 +25,7 @@
     <nav class="navbar navbar-dark blue z-depth-5">
         <ul class="nav navbar-nav">
             <li class="nav-item menu " id="m1">
-                <a class="nav-link" href="#" title="Recetas">Recetas</a>
+                <a class="nav-link" href="#" title="Recetas">Procesos</a>
             </li>
             <li class="nav-item menu active" id="m2">
                 <a class="nav-link" href="#" title="Linea Producción">Linea Producción</a>

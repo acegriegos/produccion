@@ -1,151 +1,111 @@
 <div class="panel-body" >
 
-            <form id="fusuarios">
+  <form id="fusuarios">
+    <div class="row">
+      <div class="input-field col s12  m6 l4" style="margin-bottom: 0 !important">
+        <input id="vuser" type="text" class="validate">
+        <input type="hidden" id="vid" value="0">
+        <input type="hidden" id="vidusuario" value="">
+        <label for="vuser">Usuario</label>
+      </div>
+      <div class="input-field col s12 m6 l4" style="margin-bottom: 0 !important">
+        <input id="vnombre" type="text" class="validate">
+        <label for="vnombre">Nombre de Usuario</label>
+      </div>
 
-           <div class="row">
+      <div class="input-field col s12 m6 l4" style="margin-bottom: 0 !important">
+        <input id="vcedula" type="text" class="validate">
+        <label for="vcedula">Cédula del Usuario</label>
+        
+      </div>
+      <div class="input-field col s12 m6 l4" style="margin-bottom: 0 !important">
+        <input id="vmail" type="text" class="validate">
+        <label for="vmail">Correo de Usuario</label>
+      </div>
 
-               <div class="col-xs-6 col-sm-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Usuario</b></span>
-                        <input type="text" id="vuser" class="form-control" placeholder="Ingrese el Usuario" tabindex="1">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
+      <div class="input-field col s12 m6 l4">
+        <select id="vidTipoUsuario" type="select" style="margin-bottom: 0 !important">
+          <option value="0" selected disabled>Seleccione un Tipo de Usuario</option>
+          <?php  foreach ($tusr as $obj) { ?>
+          <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
+          <?php } ?>
+        </select>
+      </div>
+      <div class="input-field col s12 m6 l4" >
+        <select id="vidsucursal" type="select" style="margin-bottom: 0 !important">
+          <option value="0" selected disabled>Seleccione una Sucursal</option>
+          <?php  foreach ($suc as $obj) { ?>
+          <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
+          <?php } ?>
 
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Nombre del Usuario</b></span>
-                        <input type="text" id="vnombre" class="form-control" placeholder="Ingrese el Nombre del Usuario" tabindex="3">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
+        </select>
+      </div>
+      <div class="input-field col s12 m6 l4">
+        <input id="vclave" type="password" class="validate">
+        <label for="vclave">Contraseña</label>
+      </div>
+      <div class="input-field col s12 m6 l4">
+        <input id="clave" type="password" class="validate">
+        <label for="clave">Repetir Contraseña</label>
+      </div>
 
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Correo del Usuario</b></span>
-                        <input type="mail" id="vmail" class="form-control" placeholder="Ingrese el Correo del Usuario" tabindex="5">
-                    </div>
+      <div class="col s12 m6 l2" style="margin-bottom: 20px;">
+        <label>Hora de Entrada</label>
+        <input id="vlimite" type="time" class="validate">
+      </div>
+      <div class=" col s12 m6 l2" style="margin-bottom: 20px;">
+        <label>Hora de Salida</label>
+        <input id="vlimite2" type="time" class="validate">
+      </div>
+    </div>
 
-               </div>
+    <a class="btn-floating waves-effect waves-light blue right add z-depth-5" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="material-icons">add</i></a>
+    <br>
+    <input type="hidden" id="vbcambioPSSW" value="0">
+    <input type="hidden" id="vcodigo" value="">
+  </form>
 
-               <div class="col-xs-6 col-sm-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Tipo Usuario</b></span>
-                        <select id="vidTipoUsuario" class="form-control" tabindex="2" type="select">
-                            <option value="0">Seleccione un Tipo de Usuario</option>
-                             <?php foreach ($tusr as $obj) { ?>
-                                <option value="<?php echo $obj[0] ?>"><?php echo $obj[1] ?></option>
-                            <?php } ?>
-                        </select>
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Cédula del Usuario</b></span>
-                        <input type="text" id="vcedula" data-mask="9-9999-9999-9999" class="form-control" placeholder="Ingrese la Cédula del Usuario" tabindex="4">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                      </div>
 
-                  <br> 
-               </div>
 
-           </div>
-           <div class="row">
-               <div class="col-xs-6 col-sm-6">
+</div>
+<div class="row">
+  <div class="col s12 m12 l12">
+    <br>
+    <div class="table-responsive">
+      <table class="table bordered highlight responsive-table z-depth-5 centered" id="data-table-usuarios" cellspacing="0" width="100%">
+        <thead>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cédula</th>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Correo</th>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Tipo de Usuario</th>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Entrada</th>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Salida</th>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
+        </thead>
+        <tbody id="listausuarios">
+          <?php foreach ($usr as $obj) { ?><tr>
+          <td style=" padding: 10px;"><?php echo $obj[1]; ?></td>
+          <td style=" padding: 10px;"><?php echo $obj[2]; ?></td>
+          <td style=" padding: 10px;"><?php echo $obj[3]; ?></td>
+          <td style=" padding: 10px;"><a data-toggle="modal" class="correo" href='#modal-sendMail' id="e<?php echo $obj[0]; ?>"><?php echo $obj[4]; ?></a></td>
+          <td style=" padding: 10px;"><?php echo $obj[5]; ?></td>
+          <td style=" padding: 10px;"><?php echo $obj[6]; ?></td>
+          <td style=" padding: 10px;"><?php echo $obj[7]; ?></td>
+          <td style=" padding: 10px;">
+            <a class="btn-floating waves-effect waves-light blue cargar load z-depth-5" modulo="usuario" title="Editar Usuario" id="m<?php echo $obj[0]; ?>" <?php if($obj[1] == 'admin' && $_SESSION['NUM'] != 0) echo "disabled"; ?> ><i class="fa fa-pencil-square-o"></i></a>
+            <a class="btn-floating waves-effect waves-light red delete eliminar z-depth-5" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $obj[0]; ?>" <?php if($obj[1] == 'admin') echo "disabled"; ?>><i class="fa fa-times"></i></a>
+          </td>
+        </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
 
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Contraseña</b></span>
-                        <input type="password" id="vclave" class="form-control" value="" tabindex="5">
-                        <span class="input-group-addon btn" id="spas"><b><i class="fa fa-eye"></i></b></span>
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Hora Entrada</b></span>
-                        <input type="time" id="vlimite" class="form-control" value="08:00" tabindex="7">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-
-                    <br>
-
-               </div>
-
-               <div class="col-xs-6 col-sm-6">
-
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Repita Contraseña</b></span>
-                        <input type="password" id="clave" class="form-control" value="" tabindex="6">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-
-                    <div class="input-group">
-                        <span class="input-group-addon"><b>Hora Salida</b></span>
-                        <input type="time" id="vlimite2" class="form-control" value="17:00" tabindex="8">
-                        <span class="input-group-addon asterisco"><b>*</b></span>
-                    </div>
-                    <br>
-
-               </div>
-           </div>
-
-              <input type="hidden" id="vbcambioPSSW" class="form-control" value="0">
-              <input type="hidden" id="vcodigo" class="form-control" value="">
-              <small style="float: left;" class="asterisco">* Campo Requerido</small>
-              
-              <div class="alert alert-danger err_" id="err1" style="display: none">
-                <strong id="errm1"></strong>
-              </div>
-              <div class="alert alert-success suc_" id="suc1" style="display: none">
-                  <strong id="sucm1"></strong>
-              </div>
-               <button type="submit" class="btn btn-success der add" id="userSubmit" title="Agregar Usuario" modulo="usuario" codigo="1" style="margin-left: 2%;"><i class="fa fa-plus"></i></button>
-              <button type="submit" class="btn btn-default der" id="back" title="Agregar Usuario" style="display: none"><i class="fa fa-chevron-circle-right" ></i></button>
-              
-              </form>
-           </div>
-           
-          <div class="panel-footer">
-
-            <div class="table-responsive">
-                <table class="table bordered highlight responsive-table z-depth-5 centered" id="data-table-usuarios" cellspacing="0" width="100%">
-                    <thead>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cédula</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Correo</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Tipo de Usuario</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Entrada</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Salida</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
-                    </thead>
-                    <tbody id="listausuarios">
-                    <?php foreach ($usr as $obj) {
-                      
-                    ?>
-                        <tr>
-                          <td><?php echo $obj[1] ?></td>
-                          <td><?php echo $obj[2] ?></td>
-                          <td><?php echo $obj[3] ?></td>
-                          <td><a data-toggle="modal" href='#modal-sendMail' class="correo" id="e<?php echo $obj[0] ?>"><?php echo $obj[4] ?></a></td>
-                          <td><?php echo $obj[5] ?></td>
-                          <td><?php echo $obj[6] ?></td>
-                          <td><?php echo $obj[7] ?></td>
-                         <td>
-                            <i class="fa fa-pencil-square-o load cargar btn" modulo="usuario" title="Cargar Usuario" id="m<?php echo $obj[0] ?>"></i>
-                            <i class="fa fa-times delete eliminar btn" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $obj[0] ?>"></i>
-                          </td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-
-          </div>
-          
-       </div>
-
-       <script type="text/javascript">
+<script type="text/javascript">
   $(function(){
     permisos(310,311);
   })
- </script>
+</script>

@@ -31,11 +31,13 @@ $(function(){
 			id['where'] = "f1 = curdate()"
 		}
 		$("#cuerpo").html(mantenimiento("usuarios",2,id));
-		if (id == 1)
+		if (id == 1){
 			$("#data-table-usuarios").dataTable({
 				bFilter :  false,
         		bLengthChange : false
 			});
+			$("select").material_select('update');
+		}
 		else if (id == 2)
 			$("#data-table-usuariosPermisos").dataTable({
 				bFilter :  false,
@@ -72,6 +74,8 @@ $(function(){
 
 		return false;
 	});
+
+	$("#m1").click();
 
 });
 

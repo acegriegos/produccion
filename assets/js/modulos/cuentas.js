@@ -80,6 +80,7 @@ $(document).on("click","#p",function(){
 	$("#totSaldoVig").val(debe).toFixed(2);
 });
 
+
 $(document).on("keyup","#totAbonoF",function(e){
 
 		var rs = kpress($(this).val());

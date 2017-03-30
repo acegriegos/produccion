@@ -16,10 +16,26 @@
 	   $pagina = 0;
 	   	switch ($_POST['accion']) {
 	   		case 1:
+	   			$pagina = 1;
+	   			require_once '../assets/libs/braintree/Braintree.php';
 	   			
+
+	   			$nonceFromTheClient = $_POST["payment_method_nonce"];
+	   			$result = Braintree_Transaction::sale([
+				  'amount' => '10.00',
+				  'paymentMethodNonce' => 'fake-valid-visa-nonce',//$nonceFromTheClient,
+				  'options' => [
+				    'submitForSettlement' => True
+				  ]
+				]);
+				echo "<pre>";
+				print_r($result);
+				echo "</pre>";
 	   			break;
 	   		case 2:
-	   			
+	   			require_once '../assets/libs/braintree/Braintree.php';
+
+				$transaccion = Braintree_ClientToken::generate();
 	   			break;
 	   		case 3:
 	   			

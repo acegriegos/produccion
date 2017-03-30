@@ -23,18 +23,20 @@ $(function(){
 			break;
 		}
 
+		$('select').material_select();
+		$('.modal').modal();
 		$('.dropdown-button').dropdown();
 		$('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
 });
-		  $(document).ready(function() {
-    $('select').material_select();
-  });
+
 
 	});
+	$('select').material_select();
 
 	$("#m1").click();
+
 });
 
 $(document).on('change','#continuo',function(){
@@ -71,6 +73,12 @@ $(document).on("click",".view-cuenta",function(){
 	}
 	titulo += " en la Cuenta "+$("#n"+id).html();
 	$(".cta-sh-tit").html(titulo);
+
+	// $('.sh-cta-card .button-collapse').sideNav({
+ //            edge: 'left', // Choose the horizontal origin
+ //            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+ //        }
+ //    );
 
 });
 
@@ -241,27 +249,71 @@ $(document).on("click",".func",function(){
 
 	switch(id){
 		case 1:
-			$('#detalletransaccione').html('');
-			var rs = arr('login',4,'id,nombre',55,"",'',0,'')[0];
-			
-			for (var i = 0; i < rs.length; i++) {
-				gop += '<option value="'+rs[i][0]+'">'+rs[i][1]+'</option>';
-			}
+		$('#detalletransaccione').html('');
+		var rs = arr('login',4,'id,nombre',55,"",'',0,'')[0];
 
-			for (var i = 1; i < 7; i++) {
-				$('#detalletransaccione').append(getFila(i))
-			}
+		for (var i = 0; i < rs.length; i++) {
+			gop += '<option value="'+rs[i][0]+'">'+rs[i][1]+'</option>';
+		}
 
-			$('#suc1').hide();
-			$('#totDebe').html('');
-			$('#totHber').html('');
-			$('#ftransacciones').find('#vdescripcion').val('')
-			$('#ftransacciones').find('#vdescripcion').focus()
-			break;
+		for (var i = 1; i < 7; i++) {
+			$('#detalletransaccione').append(getFila(i))
+		}
+
+		$('#suc1').hide();
+		$('#totDebe').html('');
+		$('#totHber').html('');
+		$('#ftransacciones').find('#vdescripcion').val('')
+		$('#ftransacciones').find('#vdescripcion').focus()
+		break;
 		default:
 		break;
 	}	
 });
+$(document).on("click",".dettran",function(){
+	var num = parseInt($(this).html());
+	var dtran = arr('login',4,'',207,num,0,0,0)[0];
+	$("#dtranN").html(dtran[0][0]);
+	$("#dtranF").html(dtran[0][1]);
+	$("#dtranD").html('<a href="#" class="button-collapse detextra truncate" data-activates="extra"> <h5><b>'+dtran[0][2]+"</b></h5></a>");
+	$("#dtranE").html(dtran[0][9]);
+	$("#dtranU").html(dtran[0][8]);
+
+	var tdebe = thaber = debe = haber = 0;
+	$("#dtranDet").html('');
+	$.each(dtran,function(e,val){
+		debe = parseFloat(val[5]);
+		haber = parseFloat(val[6]);
+		$("#dtranDet").append('<div class="row"><div class="col s2 m3 truncate" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+val[3]+'</div><div class="col s4 m3 truncate" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0; height: 1.9em;">'+val[4]+'</div><div class="col s3 truncate" align="center" style="border-bottom: 1px solid black;  font-size: 1em; margin: 0; height: 1.9em;">'+debe.formatMoney(2,'.',',')+'</div><div class="col s3 truncate" align="center" style="border-bottom: 1px solid black; font-size: 1em; margin: 0;  height: 1.9em;">'+haber.formatMoney(2,'.',',')+'</div></div>');
+		tdebe += debe;
+		thaber += haber;
+	});
+
+	$("#tdebe").html(tdebe.formatMoney(2,'.',','));
+	$("#thaber").html(thaber.formatMoney(2,'.',','));
+
+	if(tdebe == thaber)
+		$(".tdettran").css('color','green');
+	else
+		$(".tdettran").css('color','red');
+
+	$(this).sideNav({
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: false// Closes side-nav on <a> clicks, useful for Angular/Meteor
+        }
+    );
+    $(this).sideNav('show');
+});
+
+$(document).on("click",".detextra",function(){
+    $(this).sideNav({
+            edge: 'right', // Choose the horizontal origin
+            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+        }
+    );
+    $(this).sideNav('show');
+})
+
 
 $(document).on("keyup","#vbusqueda",function(e){
 	var code = e.which || e.keyCode
@@ -269,6 +321,8 @@ $(document).on("keyup","#vbusqueda",function(e){
 		arr('login',6,'',53,"'"+$(this).val()+"',"+ftr,33,1,$("#vcuentas"));
 	}
 });
+
+
 
 
 function totalizar(){
