@@ -30,7 +30,7 @@
         
     </div>
     
-    <script src="../assets/js/modulos/ajustes.js?v=1.9"></script>
+    <script src="../assets/js/modulos/ajustes.js?v=1.13"></script>
     
   </body>
 

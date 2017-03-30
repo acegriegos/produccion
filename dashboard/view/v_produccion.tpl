@@ -109,6 +109,6 @@
     </div>
 </div>
 
-<script src="../assets/js/modulos/produccion.js"></script>
+<script src="../assets/js/modulos/produccion.js?v=0.2"></script>
 </body>
 </html>

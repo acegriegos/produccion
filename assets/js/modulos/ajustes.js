@@ -1,14 +1,12 @@
 $(function(){
 	$(".modal").modal();
-	$("#m1").click();
+	$("#m2").click();
 	$("#addMoneda").click(function(){
 		deadclear('moneda');
-	})
-
+	});
 	$("script").each(function(){
 		$(this).remove();
 	});
-	
 });
 
 $(document).on("click",".menu3",function(){
@@ -150,6 +148,21 @@ $(document).on("click",".menu3",function(){
 			$("#tmp").attr('id','vnombre_banco');
 		}
 	});
+});
+
+$(document).on("change","[name=tipodesc]",function(){
+	var id = parseInt($(this).attr('id').substr(2));
+	var tbl = $(this).attr('tbl')
+
+	if (tbl != undefined) {
+		$(".optns").removeClass('hide');
+		arr('login',6,'id,nombre',tbl,'id > 0',15,1,$("#voptns"));
+		$("#voptns").material_select();
+	}else{
+		$(".optns").addClass('hide');
+		$("#voptns").val(0);
+		$("#voptns").material_select();
+	}
 });
 
 $(document).on("click",".load[modulo=bodega]",function(){
@@ -522,6 +535,13 @@ function validar (varreglo,vmodulo) {
 					return err
 			}
 			break;
+		case 'descuento':
+			if (vmodulo['tip'] == '') {
+				err = validarDescuento();
+				if (err)
+					return err
+			}
+			break;
 		default:
 			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
 			break;
@@ -684,6 +704,13 @@ function validarInventario() {
 	}
 }
 
+function validarDescuento() {
+	if ($("#vnombre").val() == ''){
+	    $("#vnombre").focus();
+	    return 'Nombre Descuento Requerido';
+	}
+}
+
 function cargar(vmodulo,vid) {
 	switch(vmodulo['modulo']) {
 		case 'sucursale':
@@ -744,6 +771,11 @@ function cargarSintax(vtabla){
 			arr['where'] = 'id > 0 order by nombre';
 			break;
 		case 'inventarios':
+			arr['sel'] = 'id,nombre';
+			arr['tbl'] = 111;
+			arr['where'] = 'id > 0 and idbodega = '+$("#vidbode").val()+' order by nombre';
+			break;
+		case 'descuento':
 			arr['sel'] = 'id,nombre';
 			arr['tbl'] = 111;
 			arr['where'] = 'id > 0 and idbodega = '+$("#vidbode").val()+' order by nombre';
