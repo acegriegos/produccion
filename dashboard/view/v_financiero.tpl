@@ -37,7 +37,19 @@
                       ">Contabilidad</a>
                     </div>
                     <div class="col s12 m6 l6">
-                      <a href="proyectos" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Proyectos">Proyectos</a>
+                      <a href="presupuesto" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Presupuesto">Presupuesto</a>
+                    </div>
+                    <div class="col s12 m6 l6">
+                      <a href="cuentas?tf=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Cuentas por Cobrar</a>
+                    </div>
+                    <div class="col s12 m6 l6">
+                      <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Cuentas por Pagar</a>
+                    </div>
+                     <div class="col s12 m6 l6">
+                      <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Notas de Crédito y debito</a>
+                    </div>
+                      <div class="col s12 m6 l6">
+                      <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Devoluciones</a>
                     </div>
                     <div class="col s12 m6 l6">
                       <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>

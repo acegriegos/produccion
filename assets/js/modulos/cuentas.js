@@ -1,4 +1,19 @@
 $(function(){
+	 param = parseInt(getParameterByName('tf'));
+	 switch(param){
+	 	case 1:
+	 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+	 		break;
+	 	case 2:
+	 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+	 		break;	
+	 	default:
+	 		$("#bdymantCuentas").html("Valor no Valido")
+	 		break; 
+
+
+	 }
+
 	$("#fcuentass").submit(function(){return false});
 	$("#data-table-cuentass").dataTable();
 
