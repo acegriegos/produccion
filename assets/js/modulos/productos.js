@@ -5,46 +5,46 @@ $(function(){
         $(this).addClass('active');
         switch(parseInt(id)) {
             case 1:
-            $("#mantServ").remove();
-            $("#mantPaquetes").remove();
-            var tabla = $("#data-table-productos").DataTable();
-            tabla.destroy();
-            var p = mantenimiento('productos',1,'');
-            $("#bdymantInventario").html(p);
-            $("#data-table-productos").DataTable({
-                bFilter: false,
-                bLengthChange : false
-            });
-            break;
+                $("#mantServ").remove();
+                $("#mantPaquetes").remove();
+                var tabla = $("#data-table-productos").DataTable();
+                tabla.destroy();
+                var p = mantenimiento('productos',1,'');
+                $("#bdymantInventario").html(p);
+                $("#data-table-productos").DataTable({
+                    bFilter: false,
+                    bLengthChange : false
+                });
+                break;
             case 2:
-            $("#mantProd").remove();
-            $("#mantPaquetes").remove();
-            var tabla = $("#data-table-servicios").DataTable();
-            tabla.destroy();
-            var p = mantenimiento('productos',2,'');
-            $("#bdymantInventario").html(p);
-            $("#data-table-servicios").dataTable({
-                bFilter: false,
-                bLengthChange : false
-            });
-            $("#prove").hide();
-            $(".ganServ").hide();
-            $("#opOtro").hide();
-            break;
+                $("#mantProd").remove();
+                $("#mantPaquetes").remove();
+                var tabla = $("#data-table-servicios").DataTable();
+                tabla.destroy();
+                var p = mantenimiento('productos',2,'');
+                $("#bdymantInventario").html(p);
+                $("#data-table-servicios").dataTable({
+                    bFilter: false,
+                    bLengthChange : false
+                });
+                $("#prove").hide();
+                $(".ganServ").hide();
+                $("#opOtro").hide();
+                break;
             case 3:
-            $("#mantServ").remove();
-            $("#mantProd").remove();
-            var p = mantenimiento('productos',3,'');
-            $("#bdymantInventario").html(p);
-            $("#data-table-paquetes").DataTable({
-                bFilter : false,
-                bScrollInfinite : true,
-                bSort : false,
-                bLengthChange : false,
-                bPaginate :  false,
-                bInfo : false
-            });
-            break;
+                $("#mantServ").remove();
+                $("#mantProd").remove();
+                var p = mantenimiento('productos',3,'');
+                $("#bdymantInventario").html(p);
+                $("#data-table-paquetes").DataTable({
+                    bFilter : false,
+                    bScrollInfinite : true,
+                    bSort : false,
+                    bLengthChange : false,
+                    bPaginate :  false,
+                    bInfo : false
+                });
+                break;
         }
         $('select').material_select();
         $('.dropdown-button').dropdown();
@@ -83,53 +83,53 @@ $(document).on("keyup",".formprod",function(e){
 // end focus
 
 // Quick add
-$(document).on("click",".qckadd",function(){
-    var elemento = $(this).attr('element');
-    $(this).text('save');
-    $(this).removeClass('qckadd');
-    $(this).addClass('savelem');
-    $("#v"+elemento).removeClass('autocomplete')
-    $("#v"+elemento).val('');
-    $("#v"+elemento).focus();
-});
+// $(document).on("click",".qckadd",function(){
+//     var elemento = $(this).attr('element');
+//     $(this).text('save');
+//     $(this).removeClass('qckadd');
+//     $(this).addClass('savelem');
+//     $("#v"+elemento).removeClass('autocomplete')
+//     $("#v"+elemento).val('');
+//     $("#v"+elemento).focus();
+// });
 
-$(document).on("click",".savelem",function(){
-    var elemento = $(this).attr('element');
-    var id = 0;
-    var nombre = $("#v"+elemento).val();
-    var db = $(this).attr('d-b');
-    var tbl = $(this).attr('tbl');
-    var ant = $(this).attr('ant');
-    var idant = $("#vid"+ant).val();
-    if (nombre != '') {
-        if (ant != undefined) {
-            console.log(db+' '+'1,0,\"'+nombre+'\",'+idant)
-            id = arr('login',4,'',db,'1,0,\"'+nombre+'\",'+idant,0,0,0)
-        }else{
-            id = arr('login',4,'',db,'1,0,\"'+nombre+'\"',0,0,0);
-        }
+// $(document).on("click",".savelem",function(){
+//     var elemento = $(this).attr('element');
+//     var id = 0;
+//     var nombre = $("#v"+elemento).val();
+//     var db = $(this).attr('d-b');
+//     var tbl = $(this).attr('tbl');
+//     var ant = $(this).attr('ant');
+//     var idant = $("#vid"+ant).val();
+//     if (nombre != '') {
+//         if (ant != undefined) {
+//             console.log(db+' '+'1,0,\"'+nombre+'\",'+idant)
+//             id = arr('login',4,'',db,'1,0,\"'+nombre+'\",'+idant,0,0,0)
+//         }else{
+//             id = arr('login',4,'',db,'1,0,\"'+nombre+'\"',0,0,0);
+//         }
 
-        if (id[0]['ERROR'] == undefined) {
-            Materialize.toast('Elemento agregado correctamente', 6000, 'green');
-            $(this).text('add');
-            $(this).removeClass('savelem');
-            $(this).addClass('qckadd');
-            $("#v"+elemento).addClass('autocomplete')
-            $("#vid"+elemento).val(id[0][0][0])
-            $("#v"+elemento).val(id[0][0][1]);
-            console.log(id[0][0][1])
-            $("#v"+elemento).focus();
-        }else{
-            Materialize.toast(id[0]['ERROR'], 6000, 'red');
-        }
-    }else{
-        $(this).text('add');
-        $(this).removeClass('savelem');
-        $(this).addClass('qckadd');
-        $("#v"+elemento).addClass('autocomplete');
-        $("#v"+elemento).focus();
-    } 
-});
+//         if (id[0]['ERROR'] == undefined) {
+//             Materialize.toast('Elemento agregado correctamente', 6000, 'green');
+//             $(this).text('add');
+//             $(this).removeClass('savelem');
+//             $(this).addClass('qckadd');
+//             $("#v"+elemento).addClass('autocomplete')
+//             $("#vid"+elemento).val(id[0][0][0])
+//             $("#v"+elemento).val(id[0][0][1]);
+//             console.log(id[0][0][1])
+//             $("#v"+elemento).focus();
+//         }else{
+//             Materialize.toast(id[0]['ERROR'], 6000, 'red');
+//         }
+//     }else{
+//         $(this).text('add');
+//         $(this).removeClass('savelem');
+//         $(this).addClass('qckadd');
+//         $("#v"+elemento).addClass('autocomplete');
+//         $("#v"+elemento).focus();
+//     } 
+// });
 // Fin Quick add
 
 $(document).on("keyup","#vpeso",function(e){
@@ -462,39 +462,70 @@ $(document).on("click","#addprod",function(){
         var minimo = $("#vminimo").val();
         var maximo = $("#vmaximo").val();
         var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
-        var idmarca = $("#vidmarca").val();
         var idmoneda = $("#vidmoneda").val();
         var idinventario =  $("#vidinventario option:selected").val();
-        
-        var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+peso+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+','+idinventario+',@@usr,'+idmoneda+',@@impresa,""','',0,'');
-        
-        if (idproducto[0][0] != undefined) {
+        var pass = 1;
 
-            $(".impuestos").each(function(){
-                var idimpuesto = $(this).attr('id').substr(4);
-                if ($(this).attr('defecto') && $("#impexo"+idimpuesto).val() == '' || $("#impexo"+idimpuesto).val() == 0) {
-                    return false;
-                }else{
-                	var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),'',0,'');
-                }
-            });
-            $(".precionivel").each(function(){
-                var idfila = $(this).attr('id').substr(1);
-                if ($("#vventa"+idfila).val() > 0) {
-                    arr('login',4,'',108,'1,0,'+idproducto[0][0]+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
-                }
-            });
-            Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
-            arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
-            vaciar('productos');
-            var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
-            for (var i = 0, len = imp.length; i < len; i++) {
-                $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'" defecto="1">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder calcvv" value="0" style="margin: 0px;width: 50%"></div></div></li>');
+        if ($("#vidfamilia").val() == 0) {
+            var familia = arr('login',4,'',106,'1,0,\"'+$("#vfamilia").val()+'\"',0,0,0);
+            if (familia[0][0] != undefined) {
+                $("#vidfamilia").val(familia[0][0][0])
+            }else{
+                Materialize.toast(familia[0]['ERROR'], 6000, 'red');
+                pass = 0;
             }
-            Materialize.updateTextFields();
-            $("#vfamilia").focus();
-        }else{
-            Materialize.toast(idproducto[0]['ERROR'], 6000, 'red');
+        }
+        if ($("#vidtipo").val() == 0) {
+            var tipo = arr('login',4,'',135,'1,0,\"'+$("#vtipo").val()+'\",'+$("#vidfamilia").val(),0,0,0);
+            if (tipo[0][0] != undefined) {
+                $("#vidtipo").val(tipo[0][0][0])
+            }else{
+                Materialize.toast(tipo[0]['ERROR'], 6000, 'red');
+                pass = 0;
+            }
+        }
+        if ($("#vidmarca").val() == 0) {
+            var marca = arr('login',4,'',136,'1,0,\"'+$("#vmarca").val()+'\",'+$("#vidtipo").val(),0,0,0);
+            if (marca[0][0] != undefined) {
+                $("#vidmarca").val(marca[0][0][0])
+            }else{
+                Materialize.toast(marca[0]['ERROR'], 6000, 'red');
+                pass = 0;
+            }
+        }
+
+        if (pass == 1) {
+            var idmarca = $("#vidmarca").val();
+            var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+peso+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+','+idinventario+',@@usr,'+idmoneda+',@@impresa,""','',0,'');
+            if (idproducto[0][0] != undefined) {//validar su guarda correctamente
+                //agregar impuestos
+                $(".impuestos").each(function(){
+                    var idimpuesto = $(this).attr('id').substr(4);
+                    if ($(this).attr('defecto') && $("#impexo"+idimpuesto).val() == '' || $("#impexo"+idimpuesto).val() == 0) {
+                        return false;
+                    }else{
+                        var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),'',0,'');
+                    }
+                });
+                //agrega niveles productos
+                $(".precionivel").each(function(){
+                    var idfila = $(this).attr('id').substr(1);
+                    if ($("#vventa"+idfila).val() > 0) {
+                        arr('login',4,'',108,'1,0,'+idproducto[0][0]+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
+                    }
+                });
+                Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
+                arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+                vaciar('productos');
+                var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
+                for (var i = 0, len = imp.length; i < len; i++) {
+                    $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'" defecto="1">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder calcvv" value="0" style="margin: 0px;width: 50%"></div></div></li>');
+                }
+                Materialize.updateTextFields();
+                $("#vfamilia").focus();
+            }else{
+                Materialize.toast(idproducto[0]['ERROR'], 6000, 'red');
+            }
         }
     }else{
         Materialize.toast(valprod, 6000, 'red');
@@ -547,6 +578,7 @@ $(document).on("click","#editprod",function(){
 });
 
 $(document).on("click",".editprod",function(){
+    $(".autocomplete-content").hide();
 	var id = $(this).attr('id').substr(1);
 	var p = arr('login',4,'',83,id,'',0,'');
 	var q = p[0][0];
@@ -557,12 +589,9 @@ $(document).on("click",".editprod",function(){
 	$("#editprod").removeClass('hide');
 	$("#editprod").attr('idprod',id);
 	$("#impuestos").removeClass('hide');
-	$("#vidfamilia").val(q[0]).change();
-	$("#vidfamilia").material_select();
-	$("#vidtipo").val(q[1]).change();
-	$("#vidtipo").material_select();
+	$("#vidfamilia").val(q[0]);
+	$("#vidtipo").val(q[1]);
 	$("#vidmarca").val(q[2]);
-	$("#vidmarca").material_select();
 	$("#vidunidad").val(q[3]);
 	$("#vidunidad").material_select();
 	$("#vidinventario").val(q[4]);
@@ -637,7 +666,7 @@ $(document).on("click",".delprod",function(){
 
 $(document).on("click",".accept",function(){
     var id = $(this).attr('id').substr(3);
-    arr('login',4,'',78,'3,'+id+',"","",0,0,0,0,0,0,0,0,0,0,0,@@usr,@@impresa,""','',0,'');
+    arr('login',4,'',78,'3,'+id+',"","",0,0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""','',0,'');
     arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
     $('#toast-container').remove();
     Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
@@ -1672,66 +1701,66 @@ function validar (varreglo,vmodulo) {
 
 function validarproductos() {
 
-    if ($("#vidfamilia").val() == 0) {
-        $("#tb1").click()
-        $("#vidfamilia").focus();
-        return "Familia Requerido"
+    if ($("#vfamilia").val() == '') {
+        $("#tb1").click();
+        $("#vfamilia").focus();
+        return "Familia Requerido";
     }
-
-    if ($("#vidtipo").val() == 0) {
-        $("#tb1").click()
-        $("#vidtipo").focus();
-        return "Tipo Requerido"
+    if ($("#vtipo").val() == '') {
+        $("#tb1").click();
+        $("#vtipo").focus();
+        return "Tipo Requerido";
     }
-    if ($("#vidmarca").val() == 0) {
-        $("#tb1").click()
-        $("#vidmarca").focus();
-        return "Marca Requerido"
+    if ($("#vmarca").val() == '') {
+        $("#tb1").click();
+        $("#vmarca").focus();
+        return "Marca Requerido";
     }
-
-    if ($("#vpeso").val() == ''){
-        $("#vpeso").focus();
-        return 'Peso Requerido';
+    if ($("#vpeso").val() == '') {
+        $("#vpeso").val(0);
     }
-
-    if ($("#vidinventario").val() == 0){
+    if ($("#vidinventario").val() == 0) {
+        $("#tb1").click();
         $("#vidinventario").focus();
         return 'Inventario Requerido';
     }
-    
-    if ($("#vnombre").val() == ''){
+    if ($("#vidunidad").val() == '') {
+        $("#tb1").click();
+        return 'Unidad Requerida';
+    }
+    if ($("#vnombre").val() == '') {
         $("#tb1").click()
         $("#vnombre").focus();
         return 'Nombre Requerido';
     }
-    if ($("#vcodigo").val() == ''){
+    if ($("#vcodigo").val() == '') {
         $("#tb1").click()
         $("#vcodigo").focus();
         return 'Código Requerido';
     }
-    if ($("#vminimo").val() == 0){
+    if ($("#vminimo").val() == 0) {
         $("#tb1").click()
         $("#vminimo").select();
         return 'Mínimo Requerido';
     }
-    if ($("#vmaximo").val() == 0){
+    if ($("#vmaximo").val() == '') {
         $("#vmaximo").val(0);
     }
-    if ($("#vmaxdescuento").val() == ''){
+    if ($("#vmaxdescuento").val() == '') {
         $("#vmaxdescuento").val(0);
     }
-    if ($("#vcosto").val() == '0.00'){
+    if ($("#vcosto").val() == '0.00') {
         $("#tb2").click();
         $("#vcosto").select()
         return 'Precio Costo Requerido';
     }
-    if ($("#vcosto").val() <= 0){
+    if ($("#vcosto").val() <= 0) {
         $("#tb2").click();
         $("#vcosto").select()
         return 'Precio Costo Debe ser Mayor a 0';
     }
     
-    if ($("#vventa").val() == '' || $("#vventa").val() == '0.00'){
+    if ($("#vventa").val() == '' || $("#vventa").val() == '0.00') {
         $("#tb2").click();
         $("#vventa").focus();
         return 'Precio de Venta Requerido';

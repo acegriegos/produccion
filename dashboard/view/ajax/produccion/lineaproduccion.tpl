@@ -1,6 +1,6 @@
 <ul class="collapsible" data-collapsible="accordion">
     <li class="productline" id="pl1">
-        <div class="collapsible-header "><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
+        <div class="collapsible-header active"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks">
             <div class="col s12 m6 l6">
                 <div class="row" id="ftareaproducciones">
