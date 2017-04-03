@@ -19,30 +19,22 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			// $smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
-	   			// $smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'1 order by idunidad'));
-	   			// $smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,costo,ganancia,venta',14,'id > 0 order by nombre'));
-	   			$smarty->display('ajax/ajaxmantCxP.tpl');
+	   			$smarty->display('ajax/cuentas/ajaxmantCxP.tpl');
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			// $smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
-	   			// $smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'1 order by idunidad'));
-	   			// $smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,costo,ganancia,venta',14,'id > 0 order by nombre'));
-	   			$smarty->display('ajax/ajaxmantCxC.tpl');
+	   			$smarty->assign('CLI',$kakaroto->kamehameha('',208,1));
+	   			$smarty->display('ajax/cuentas/ajaxmantCxC.tpl');
 	   			break;
 	   		case 3:
 	   			$pagina = 1;
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			// $smarty->assign('CLI',$kakaroto->kamehameha('idcliente,nombre',6,'tipo = "Proveedor"'));
-	   			// $smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'1 order by idunidad'));
-	   			// $smarty->assign('PROD',$kakaroto->kamehameha('id,codigo,nombre,costo,ganancia,venta',14,'id > 0 order by nombre'));
-	   			$smarty->display('ajax/ajaxVerNotaPago.tpl');
+	   			$smarty->display('ajax/cuentas/ajaxVerNotaPago.tpl');
 	   			break;
 	   		case 4:
 	   			
