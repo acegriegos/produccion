@@ -53,7 +53,7 @@
 	   			break;
 	   		case 5:
 	   			$pagina = 1;
-			   	$smarty->assign('SUC',$kakaroto->kamehameha('id,nombre,telefono',39,'id > 0 order by nombre'));
+			   	$smarty->assign('SUC',$kakaroto->kamehameha('id,nombre',39,'id > 0 order by nombre'));
 			   	$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0 order by nombre'));
 			   	print_r($kakaroto->kamehameha('id,nombre,telefono',39,'id > 0 order by nombre'));
 			   	//$smarty->display('ajax/ajustes/ajaxSucursales.tpl');

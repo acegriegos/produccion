@@ -82,7 +82,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m2").click();
+    $("#m1").click();
 
 });
 
@@ -507,15 +507,30 @@ $(document).on("keydown","#vcantidad",function(e){
     var idmedida = $("#vidunidad").val();
     var medida = $("#vidunidad option:selected").attr('unidad');
     if (code == 13) {
-        var validacion = arr('login',4,'nombre,precio',116,'nombre = \"'+nombre+'\"',0,0,0)[0];
-        if (validacion[0] != undefined) {
-            addproduct(nombre,cantidad,idmedida,medida,validacion[0][1]);
-        }else{
+        var validacion = arr('login',4,'format(precio / '+cantidad+',2)',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+        // ? precio o costo
+        if (validacion[0] != undefined)
+            addproduct(nombre,cantidad,idmedida,medida,validacion[0]);
+        else
             Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
             $("#vcantidad").val('');
             $("#vproducto").select();
-        }
+        
     }
+});
+
+$(document).on("change","#vidunidad",function(){
+    var nombre = $("#vproducto").val();
+    var cantidad = $("#vcantidad").val();
+    var idmedida = $("#vidunidad").val();
+    var medida = $("#vidunidad option:selected").attr('unidad');
+    var precio = arr('login',4,'format(precio / '+cantidad+')',116,'nombre = \"'+nombre+'\"',0,0,0)[0];
+    if (precio != undefined)
+        addproduct(nombre,cantidad,idmedida,medida,precio);
+    else
+        Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
+        $("#vcantidad").val('');
+        $("#vproducto").select();
 });
 
 $(document).on("blur","#vproducto",function(){
@@ -530,8 +545,15 @@ $(document).on("click","#addproduct",function(){
     var cantidad = $("#vcantidad").val();
     var idmedida = $("#vidunidad").val();
     var medida = $("#vidunidad option:selected").attr('unidad');
-    var precio = arr('login',4,'format((precio / '+cantidad+'),2)',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
-    addproduct(nombre,cantidad,idmedida,medida,precio)
+    var precio = arr('login',4,'format(precio / '+cantidad+',2)',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+    console.log(precio)
+    if (precio != undefined)
+        addproduct(nombre,cantidad,idmedida,medida,precio);
+    else
+        Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
+        $("#vcantidad").val('');
+        $("#vproducto").select();
+    
 });
 
 $(document).on("click",".titrecipe",function(){

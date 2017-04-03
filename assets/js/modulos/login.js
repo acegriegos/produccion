@@ -1,6 +1,7 @@
 var crr = '';
 
 $(document).ready(function(){
+    // console.log(4)
     setTimeout(function(){$("#user").focus();},100)
     Materialize.updateTextFields();
     
@@ -92,7 +93,6 @@ function getIn(){
     }
 
     var p = mantenimiento('login',3,{user: $('#user').val(), pss: $('#pass').val()})
-    
     if(p[0].length == 2){
         Materialize.toast(p[0][0], 4000, 'red');
         $('#pass').select();

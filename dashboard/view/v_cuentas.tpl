@@ -14,32 +14,18 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+      <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css">
+
     </head>
+
     <body>
       {$NAV}
 
       <div class="bdy">
-        <nav class="nav-extended  white-text" style="background-color:#0B3861">
-          <div class="nav-wrapper">
 
-            <ul class="tabs tabs-transparent">
-              <li class="tab menu4 " id="m1"><a href="#">Cuentas por Cobrar</a></li>
-              <li class="tab menu4 " id="m2"><a href="#">Notas y Pagos</a></li>
-            </ul>
-          </div>
-        </nav>
+        <div id="bdymantCuentas"></div> 
 
-          <br>
-        <div class="formServ" id="fservicios">
-          <div id="bdymantCuentas"></div> 
-
-
-
-
-
-
-
-        </div>
-        <script src="../assets/js/modulos/cuentas.js"></script>
+      </div>
+      <script src="../assets/js/modulos/cuentas.js?v=1.0"></script>
       </body>
       </html>
