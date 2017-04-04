@@ -569,11 +569,6 @@ function validarFactura() {
     if($(".zelda").data('triforce')['vidtipo'] == 2){
         $("#vidtipopago").val(0)
         $("#vidtipopago").material_select('update');
-
-        var p = arr('login',4,'',205,$(".zelda").data('triforce')['vidcliente'],0,0,0);
-        if(p['succed'] == 0){
-            return p[0]['ERROR'] 
-        }
     }
     
     return false;
