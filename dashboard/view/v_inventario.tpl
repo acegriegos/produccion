@@ -36,7 +36,7 @@
                       <a href="inventarios" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Inventarios">Inventarios</a>
                     </div>
                     <div class="col s12 m6 l6">
-                      <a href="Productos" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Productos">Productos</a>
+                      <a href="productos" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Productos">Productos</a>
                     </div>
                     <div class="col s12 m6 l6">
                       <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>

@@ -14,10 +14,10 @@
   <br>
 
      <div class="row">
-      <div class="col s12 m5">
-        <div class="card-panel red">
-          <strong>ERROR!!</strong> No Tiene Permisos <br>
-          <a href="../index.php" class="btn btn-info">Ir al Menú</a>
+      <div class="col s12">
+        <div class="card-panel red center">
+          <strong>NO CUENTA CON LOS PERMISOS ADECUADOS</strong><br>
+          <a href="../index.php" class="btn btn-info">Volver al Menú</a>
         </div>
       </div>
     </div>

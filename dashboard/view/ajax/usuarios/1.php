@@ -32,7 +32,7 @@
         </select>
       </div>
       <div class="input-field col s12 m6 l4" >
-        <select id="vidsucursal" type="select" style="margin-bottom: 0 !important">
+        <select id="vidsucursal" type="select" style="margin-bottom: 0 !important" multiple>
           <option value="0" selected disabled>Seleccione una Sucursal</option>
           <?php  foreach ($suc as $obj) { ?>
           <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>

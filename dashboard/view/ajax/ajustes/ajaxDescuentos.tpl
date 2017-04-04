@@ -22,44 +22,91 @@
                 </div>
             </div>
         </div>
-        <a href="#modal-descuentos" class="btn z-depth-5 right" style="margin: 1%;">Generar Descuento</a><br><br>
+        <a href="#modal-descuentos" class="btn z-depth-5 right" style="margin: 1%;" id="gendesc">Generar Descuento</a><br><br>
         <table class="table responsive-table z-depth-5 highlight centered" id="data-table-descuentos"><br><br>
             <thead>
                 <tr>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Estado</th>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Realizado(Veces)</th>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Usuario</th>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Acciones</th>
+                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Nombre</th>
+                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Estado</th>
+                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Realizado(Veces)</th>
+                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Usuario</th>
+                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width: 20%">Acciones</th>
                 </tr>
             </thead>
             <tbody id="listadescuentos"></tbody>
         </table>
     </div>
 
-    <div class="modal modal-fixed-footer" id="modal-descuentos">
+    <div class="modal modal-fixed-footer" id="modal-descuentos" style="">
         <div class="modal-header">
             <h4 class="modal-title" style="background-color:#0B3861">Crear Descuento</h4>
         </div>
-        <div class="modal-content">
+        <div class="modal-content" id="fdescuentos">
             <div class="row">
                 <div class="input-field col s12 m6">
                     <input type="text" id="vnombre">
                     <label for="vnombre">Nombre del Descuento</label>
+                    <input type="hidden" id="vid" value="0">
+                    <input type="hidden" id="vidusuario" value="">
+                    <input type="hidden" id="vidsucursal" value="">
                 </div>
                 <div class="input-field col s12 m6">
+                    <select type="select" id="videstado"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6 m6 l6">
+                    <span style="font-size: 1em">Cuenta: </span>
+                    <select type="select" id="vidcuenta"></select>
+                </div> 
+            </div>
+        </div><!-- /.modal-content -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left: 2%; ">Salir</button>
+            <button type="button" class="btn btn-primary add" modulo="descuento">Agregar</button>
+        </div>
+    </div><!-- /.modal -->
+    <div id="modal-assgndsct" class="modal modal-fixed-footer">
+        <div class="modal-header">
+            <h4 class="modal-title" style="background-color:#0B3861">Asignar Descuento</h4>
+        </div>
+        <div class="modal-content" style="padding-top: 0">
+            <div class="row">
+                <div class="col s6 m4 l4">
+                    <label style="font-size: 1em">Nombre de Descuento: <span id="namedesc"></span></label>
+                </div>
+                <div class="input-field col s6 m4 l4" style="margin-top: 0">
+                    <select type="select" id="isporcent">
+                        <option value="1">Porcentual</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 m4 l4">
                     <select type="select" id="vidciclo" noClear="1">
                         {section name=LE loop=$CICLOS}
                         <option value="{$CICLOS[LE][0]}">{$CICLOS[LE][1]}</option>
                         {/section}
                     </select>
-                <label for="vidciclo">Opciones del Descuento</label>
+                    <label for="vidciclo">Opciones del Descuento</label>
+                </div>
+                <div class="col s6 m4 l4 hide" vfecha="1">
+                    <input type="date" class="datepicker" id="vf1">
+                </div>
+                <div class="col s6 m4 l4 hide" vfecha="1">
+                    <input type="date" class="datepicker" id="vf2">
+                </div>
+                <div class="col s6 m4 l4 hide" vfecha="2">
+                    <select type="select" id="vmonths"></select>
+                </div>
+                <div class="col s6 m4 l4 hide" vfecha="3">
+                    <select multiple type="select" id="vdays"></select>
                 </div>
             </div>
             <div class="row">
                 <div class="col s6 m6 l6">
                     <p>
-                        <input name="tipodesc" type="radio" id="td1" class="with-gap" value="1" checked/>
+                        <input name="tipodesc" type="radio" id="td1" class="with-gap" value="1" tbl="11" text="1" checked/>
                         <label for="td1">Producto</label>
                     </p>
                     <p>
@@ -77,7 +124,7 @@
                 </div>
             <div class="col s6 m6 l6">
                 <p>
-                    <input name="tipodesc" type="radio" id="td5" class="with-gap" value="5" />
+                    <input name="tipodesc" type="radio" id="td5" class="with-gap" value="5" tbl="2" text="2"/>
                     <label for="td5">Cliente</label>
                 </p>
                 <p>
@@ -88,21 +135,25 @@
                     <input name="tipodesc" type="radio" id="td7" class="with-gap" value="7" tbl="69"/>
                     <label for="td7">Categoría de Cliente</label>
                 </p>
-                <p>
+                <!-- <p>
                     <input name="tipodesc" type="radio" id="td8" class="with-gap" value="8" />
-                    <label for="td8">Producto por Cliente</label>
-                </p>
-                <p>
-                    <input name="tipodesc" type="radio" id="td9" class="with-gap" value="9" />
-                    <label for="td9">Ubicación de Cliente</label>
-                </p>
+                    <label for="td8">Ubicación de Cliente</label>
+                </p> -->
             </div>
             </div>
             <div class="row optns hide">
-                <div class="col s6 m6 l6">
-                    <select id="voptns"></select>
+                <div class="input-field col s6 m6 l6">
+                    <select id="voptns" class="hide"></select>
+                    <input type="text" id="vproducto" class="validate autocomplete hide" placeholder="Producto" autocomplete="off">
+                    <input type="text" id="vcliente" class="validate autocomplete hide" placeholder="Cliente" autocomplete="off">
+                    <input type="hidden" id="vidfila" value="0">
                 </div>
-            </div>
+                <div class="input-field col s6 m6 l6">
+                    <i class="prefix">%</i>
+                    <input type="text" id="vvalor" class="validate">
+                    <label for="vvalor">Valor</label>
+                </div>
+            </div><br><br>
             <div class="filtro0 hide">
                 <label><b>Filtrar:</b> </label>
                 <input name="filr0" type="radio" id="tf1" class="with-gap" value="1" checked/>
@@ -110,10 +161,10 @@
                 <input name="filr0" type="radio" id="tf2" class="with-gap" value="2" />
                 <label for="td9">Estadística</label>
             </div>
-        </div><!-- /.modal-content -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left: 2%; ">Salir</button>
-            <button type="button" class="btn btn-primary">Agregar</button>
         </div>
-    </div><!-- /.modal -->
+        <div class="modal-footer">
+            <a class="modal-action waves-effect waves-light btn-flat white-text blue z-depth-5" id="adddesc">Guardar</a>
+            <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
+        </div>
+    </div>
 </div>
