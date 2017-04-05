@@ -1,5 +1,4 @@
 $(function(){
-    console.log("compras")
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -214,7 +213,11 @@ $(document).on("click",".chinv",function(){
 $(document).on("keyup","#vreferencia",function(e){
     var code = e.which || e.keyCode;
     if (code == 13)
-        $("#ced").focus();
+        $("#vfecha").focus();
+});
+
+$(document).on("blur","#vfecha",function(){
+    $("#vidtipopago").is(":visible") ? $("#vidtipopago").focus() : $("#vplazo").focus();
 });
 
 $(document).on("change",".chkivi",function(){
