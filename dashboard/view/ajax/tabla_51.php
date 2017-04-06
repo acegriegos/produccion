@@ -1,30 +1,24 @@
-<div class="row">
-<?php
-for ($i=0; $i < sizeof($transaccion); $i++) { 
-	$vuelta = $i%2;
-	if ($vuelta == 1) {
-		echo '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
- 			<div class="input-group">
- 				<div class="input-group-addon"><b>'.$transaccion[$i][1].'</b></div>
- 				<input type="text" class="form-control eder" id="'.$transaccion[$i][0].'" placeholder="Impuesto de '.$transaccion[$i][1].'" value="'.$transaccion[$i][2].'" name="impuesto">
- 				<div class="input-group-addon"><b>%</b></div>';
- 				if ($transaccion[$i][0] != 1) {
- 					echo '<div class="input-group-addon btn"><i class="fa fa-times delimp" id="'.$transaccion[$i][0].'"></i></div>';
- 				}
- 			echo '</div>
-		</div><br><br><br>';
-	}else{
-		echo '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<div class="input-group">
-				<div class="input-group-addon"><b>'.$transaccion[$i][1].'</b></div>
-					<input type="text" class="form-control eder" id="'.$transaccion[$i][0].'" placeholder="Impuesto de '.$transaccion[$i][1].'" value="'.$transaccion[$i][2].'" name="impuesto">
-				<div class="input-group-addon"><b>%</b></div>';
-				if ($transaccion[$i][0] != 1) {
-					echo '<div class="input-group-addon btn"><i class="fa fa-times delimp" id="'.$transaccion[$i][0].'"></i></div>';
-				}
-			echo '</div>
-		</div>';
-	}
-}
+<?php 
+	
+	foreach ($transaccion as $obj) {
 ?>
-</div>
+
+<tr>
+    <td><?php echo $obj[1] ?></td>
+    <td><?php echo $obj[2] ?></td>
+    <td><?php echo $obj[3] ?></td>
+    <td>
+        <a class="load material-icons pbtn btn-color" id="m<?php echo $obj[0] ?>" modulo="impuesto">edit</a>
+        <a class="delete material-icons pbtn btn-color cdel" modulo="impuesto" id="d<?php echo $obj[0] ?>">delete</a>
+    </td>
+</tr>
+
+<?php }
+
+ ?>
+
+ <script type="text/javascript">
+ 	$(function(){
+ 		permisos(310,311);
+ 	})
+ </script>

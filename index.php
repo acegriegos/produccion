@@ -2,5 +2,4 @@
 
 	header("location: dashboard");
 	
- ?>
-
+?>

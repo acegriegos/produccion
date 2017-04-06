@@ -1,6 +1,6 @@
 <ul class="collapsible" data-collapsible="accordion">
     <li class="productline" id="pl1">
-        <div class="collapsible-header active"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
+        <div class="collapsible-header"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks">
             <div class="col s12 m6 l6">
                 <div class="row" id="ftareaproducciones">
@@ -40,18 +40,18 @@
         </div>
     </li>
     <li class="productline" id="pl2">
-        <div class="collapsible-header"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
+        <div class="collapsible-header active"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row" id="drecipe">
-                <div class="input-field col s12 m6 l4 dcline">
-                    <a class="material-icons prefix pbtn blue-text mbutton" id="searchrecetas" href="#modal-search">search</a>
-                    <input id="vreceta" type="text" class="validate autocomplete" autocomplete="off">
-                    <label for="vreceta">Receta</label>
+                <div class="input-field col s12 m6 l4 dcline" id="nac">
+                    <a class="material-icons prefix pbtn blue-text mbutton" id="searchprocesos" href="#modal-search">search</a>
+                    <input id="vproceso" type="text" class="validate autocomplete" autocomplete="off">
+                    <label for="vproceso">proceso</label>
                 </div>
             </div>
             <div class="row hide dcline mbotcero">
                 <div class="col s3 m3 l3">
-                    <p class="flow-text namereceta"></p>
+                    <p class="flow-text nameproceso"></p>
                     <input type="hidden" id="aautoinc" value="0">
                 </div>
             </div>
@@ -84,7 +84,7 @@
                         <thead>
                             <tr>
                                 <td colspan="4"></td>
-                                <td class="right"><i class="material-icons btn-color pbtn blueh z-depth-5" id="savelinea">save</i></td>
+                                <td class="right"><i class="material-icons btn-color pbtn blueh" id="savelinea">save</i></td>
                             </tr>
                             <tr>
                                 <th>Tarea</th>
@@ -111,7 +111,7 @@
                     <table class="table striped bordered highlight centered z-depth-3" id="data-table-mantlinea" cellspacing="0" width="100%" >
                         <thead>
                             <tr>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Receta</th>
+                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">proceso</th>
                                 <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
                             </tr>
                         </thead>
@@ -208,17 +208,17 @@
     </div>
 </div>
 
-<div id="modal-detallerecetas" class="modal modal-fixed-footer">
+<div id="modal-detalleprocesos" class="modal modal-fixed-footer">
     <div class="modal-content" style="padding: 0px;">
         <div style="padding: 10px 15px 0 15px">
-            <table class="table responsive-table striped bordered highlight centered" id="data-table-detallerecetas" cellspacing="0" width="100%" >
+            <table class="table responsive-table striped bordered highlight centered" id="data-table-detalleprocesos" cellspacing="0" width="100%" >
                 <thead>
                     <tr>
                         <th>Ingredientes</th>
                         <th>Cantidad</th>
                     </tr>
                 </thead>
-                <tbody id="listadetallerecetas"></tbody>
+                <tbody id="listadetalleprocesos"></tbody>
             </table>
         </div>
         
