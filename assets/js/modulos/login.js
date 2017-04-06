@@ -93,6 +93,10 @@ function getIn(){
     }
 
     var p = mantenimiento('login',3,{user: $('#user').val(), pss: $('#pass').val()})
+    if(p.length == 0){
+        Materialize.toast('Archivo Conf. Inválido', 4000, 'red');
+        return false;
+    }
     if(p[0].length == 2){
         Materialize.toast(p[0][0], 4000, 'red');
         $('#pass').select();
@@ -116,9 +120,9 @@ function getIn(){
                 enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
             }
         });
+        salida = false;
         break;
         }
-        salida = salida;
     }
     
     if (salida){
