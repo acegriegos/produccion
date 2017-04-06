@@ -55,16 +55,11 @@
       <label for="vplazo">Plazo en Días</label>
     </div>
 
-    <div class="input-field col s6 m3 l3">
-      <label for="ced">Cédula del Proveedor</label>
-      <input type="text" id="ced" class="validate sclie" />
-    </div> 
-
-    <div class="input-field col s6 m3 l3">
+    <div class="input-field col s6">
       <i class="fa fa-user prefix"></i>
-      <label class="truncate" for="ncli">Nombre del Proveedor</label>
+      <label class="truncate" for="ncli">Nombre o Cédula del Proveedor</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
-    </div>
+    </div> 
     
   </div>
 
@@ -123,7 +118,7 @@
               </a>
             </div>
             <div class="col s12 m8 l5">
-              <a title="Limpiar Campos"><img class="responsive-img" src="../assets/img/icon/broom.svg"></a>
+              <a title="Limpiar Campos" class="pbtn" id="limpiar"><img class="responsive-img" src="../assets/img/icon/broom.svg"></a>
             </div>
             <!-- <div class="col s12 m8 l5">
               <input type="number" >
@@ -291,4 +286,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=2.11"></script>
+<script src="../assets/js/modulos/compras.js?v=2.14"></script>

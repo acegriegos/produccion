@@ -141,6 +141,13 @@
                         </select>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <a class="prefix" href="#hextra"><i class="material-icons pbtn">help</i></a>
+                        <input type="text" id="vextra">
+                        <label for="vextra">Extra Automática del Nombre</label>
+                    </div>
+                </div>
             </div>
             <div id="financiero" class="hide" style="padding: 25px 10px 0 10px">
                 <div class="row">
@@ -169,3 +176,21 @@
         <a class="modal-action modal-close waves-effect waves-light btn-flat grey lighten-1 white-text">Salir</a>
     </div>
 </div>
+
+<div id="hextra" class="modal">
+    <div class="modal-content">
+      <h4>Extra en el Nombre del Servicio</h4>
+      <p>Se Utiliza para asignar variables cuando el servicio es Facturado</p>
+      <br>
+      <ul>
+          <li><b>%HOY%</b>, Despliega la Fecha del Día en Formato dd-mm-yyyy</li>
+          <li><b>%ANO%</b></li>  
+          <li><b>%MES%</b></li>
+          <li><b>%DIA%</b></li>
+
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+    </div>
+  </div>

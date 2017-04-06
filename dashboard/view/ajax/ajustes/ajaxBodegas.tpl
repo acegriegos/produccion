@@ -41,8 +41,8 @@
     <span class="accmodulo">Agregar Inventarios</span><hr>
     <div class="row">
         <div class="col s12 l6" id="finventarios">
-        <br>
-            <div class="input-field col s12 m12 l12">
+        <div class="row">
+            <div class="input-field col s6">
                 <select id="vidbode" type="select">
                     <option value="0">Seleccione una Bodega</option>
                     {section name=LE loop=$BOD}
@@ -51,29 +51,41 @@
                 </select>
                 <label for="vidbode">Bodega</label>
             </div>
-            <div class="col s12 m12 l12" style="padding-left: 0;">
-                <div class="input-field marginzero col s6 m6 l6">
-                    <input id="vinventario" type="text" class="validate">
-                    <label for="vinventario">Inventario</label>
-                    <input type="hidden" id="vidinventario" value="0">
-                </div>
-                <div class="input-field col s5 m5 l5 marginzero">
-                    <select id="vidcuenta" type="select">
-                        <option value="0">Cuenta Por Defecto</option>
-                        {section name=LE loop=$CDEF}
-                        <option value="{$CDEF[LE][0]}">{$CDEF[LE][1]}</option>
-                        {/section}
-                    </select>
-                    <label for="vidcuenta">Cuenta</label>
-                </div>
-                <div class="col s1 m1 l1">
-                    <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="inventario" id="addinv">add</button>
-                </div>
+            <div class="input-field col s6">
+                <input id="vinventario" type="text" class="validate">
+                <label for="vinventario">Nombre Inventario</label>
+                <input type="hidden" id="vidinventario" value="0">
             </div>
-            <br>
         </div>
+        <div class="row">
+            <div class="input-field marginzero col s6">
+                <select id="vidtipo" type="select">
+                    <option value="1">Mercadería</option>
+                    <option value="2">Producción</option>
+                    <option value="3">Consignación</option>
+                    <option value="4">Gastos</option>
+                    <option value="5">Activos</option>
+                    <option value="6">Neutro</option>
+                </select>
+                <label for="vidtipo">Tipo Inventario</label>
+            </div>
+            <div class="input-field col s5 marginzero">
+                <select id="vidcuenta" type="select">
+                    <option value="0">Cuenta Por Defecto</option>
+                    {section name=LE loop=$CDEF}
+                    <option value="{$CDEF[LE][0]}">{$CDEF[LE][1]}</option>
+                    {/section}
+                </select>
+                <label for="vidcuenta">Cuenta</label>
+            </div>
+            <div class="col s1">
+                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="inventario" id="addinv">add</button>
+            </div>
+        </div>
+
+        </div>
+
         <div class="col s12 l6">
-        <br>
             <table class="table highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
                 <thead>
                     <tr>

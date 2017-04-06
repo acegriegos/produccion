@@ -33,7 +33,6 @@
 	      $path['call'] = '';
 	    }
 	    $path['call_parts'] = explode('/', $path['call']);
-
 	    $path['query_utf8'] = urldecode($request_path[0]);
 	    $path['query'] = utf8_decode(urldecode($request_path[0]));
 	    $vars = explode('&', $path['query']);
