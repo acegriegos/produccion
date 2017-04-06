@@ -50,6 +50,7 @@ $(document).on("click",".delete",function(){
     var modulo = $(this).attr('modulo');
     var id = $(this).attr('id').substr(1);
     vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
+    console.log(vari)
     doGlobal(3,modulo,id,0);
 });
 
@@ -149,8 +150,8 @@ function baseValidar(vaccion,vmodulo){
 function loadpool(vmodulo,vid,vvarias){
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
-
     var columns = mantenimiento('login',5,vmodulo);
+    console.log(columns)
 
     for (var i = 0; columns[0][1].length > i; i++) {
 

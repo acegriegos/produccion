@@ -40,7 +40,8 @@
 	   			break;
 	   		case 3:
 	   			$pagina = 1;
-	   			include 'view/ajax/ajustes/ajaxImpuestos.tpl';
+	   			$smarty->assign('IMP',$kakaroto->kamehameha('id,nombre,resumen,valor',51,'id > 0 order by nombre limit 100'));
+	   			$smarty->display('ajax/ajustes/ajaxImpuestos.tpl');
 	   			break;
 	   		case 4:
 	   			$pagina = 1;

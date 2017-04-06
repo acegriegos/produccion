@@ -24,10 +24,10 @@
     </div>
     <nav class="navbar navbar-dark blue z-depth-5">
         <ul class="nav navbar-nav">
-            <li class="nav-item menu " id="m1">
+            <li class="nav-item menu active" id="m1">
                 <a class="nav-link" href="#" title="Recetas">Procesos</a>
             </li>
-            <li class="nav-item menu active" id="m2">
+            <li class="nav-item menu" id="m2">
                 <a class="nav-link" href="#" title="Linea Producción">Linea Producción</a>
             </li>
             <li class="nav-item menu" id="m3">
@@ -109,6 +109,6 @@
     </div>
 </div>
 
-<script src="../assets/js/modulos/produccion.js?v=0.2"></script>
+<script src="../assets/js/modulos/produccion.js?v=0.12"></script>
 </body>
 </html>
