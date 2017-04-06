@@ -1,5 +1,4 @@
 $(function(){
-    console.log("compras")
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -214,7 +213,11 @@ $(document).on("click",".chinv",function(){
 $(document).on("keyup","#vreferencia",function(e){
     var code = e.which || e.keyCode;
     if (code == 13)
-        $("#ced").focus();
+        $("#vfecha").focus();
+});
+
+$(document).on("blur","#vfecha",function(){
+    $("#vidtipopago").is(":visible") ? $("#vidtipopago").focus() : $("#vplazo").focus();
 });
 
 $(document).on("change",".chkivi",function(){
@@ -569,11 +572,6 @@ function validarFactura() {
     if($(".zelda").data('triforce')['vidtipo'] == 2){
         $("#vidtipopago").val(0)
         $("#vidtipopago").material_select('update');
-
-        var p = arr('login',4,'',205,$(".zelda").data('triforce')['vidcliente'],0,0,0);
-        if(p['succed'] == 0){
-            return p[0]['ERROR'] 
-        }
     }
     
     return false;

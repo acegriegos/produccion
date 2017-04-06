@@ -299,7 +299,7 @@ $(document).on("click",".dettran",function(){
 
 	$(this).sideNav({
             edge: 'left', // Choose the horizontal origin
-            closeOnClick: false// Closes side-nav on <a> clicks, useful for Angular/Meteor
+            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
         }
     );
     $(this).sideNav('show');

@@ -57,12 +57,6 @@
                     <div class="col m12">
                         <button type="button" class="btn btn-primary der add z-depth-5" id="accsuc" codigo="1" modulo="sucursale">Agregar</button>
                     </div>
-                </div><br>
-                <div class="alert alert-danger err_" id="err1" style="display: none">
-                    <strong id="errm1"></strong>
-                </div>
-                <div class="alert alert-success suc_" id="suc1" style="display: none">
-                    <strong id="sucm1"></strong>
                 </div>
             </form>
 

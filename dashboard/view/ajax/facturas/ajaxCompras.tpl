@@ -51,7 +51,7 @@
     </div>
    
     <div class="input-field cre col s6 m3 l3" style="display: none;">
-      <input type="text" id="vplazo" value="0" class="eder" readonly />
+      <input type="text" id="vplazo" value="0" class="eder"/>
       <label for="vplazo">Plazo en Días</label>
     </div>
 
@@ -291,4 +291,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=2.9"></script>
+<script src="../assets/js/modulos/compras.js?v=2.11"></script>

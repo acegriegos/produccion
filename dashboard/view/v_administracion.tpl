@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title></title>
    
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventario.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-administracion.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,7 +21,7 @@
     {$NAV}
     <div class="bdy">
       <div class="card z-depth-5">
-          <div class="card-header center  white-text" style="background-color:#0B3861 "><p class="flow-text">Área Inventarios</p></div>
+          <div class="card-header center  white-text" style="background-color:#0B3861 "><p class="flow-text">Área Administrativa</p></div>
           <div class="card-content ">
             <div class="row">
 
@@ -33,11 +33,12 @@
 
                     <div class="row">
                      <div class="col s12 m6 l6">
-                      <a href="inventarios" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Inventarios">Inventarios</a>
+                      <a href="ajustes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Configuración">Configuración</a>
                     </div>
                     <div class="col s12 m6 l6">
-                      <a href="productos" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Productos">Productos</a>
+                      <a href="usuarios" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Usuarios">Usuarios</a>
                     </div>
+                    
                     <div class="col s12 m6 l6">
                       <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
                     </div>
@@ -63,7 +64,9 @@
  
         </div>
       </div>
+
+
     </div>
-    <script src="../assets/js/modulos/inventario.js"></script>
+    <script src="../assets/js/modulos/administracion.js"></script>
   </body>
 </html>

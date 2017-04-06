@@ -15,54 +15,16 @@ $(function(){
 	 }
 
 	$("#fcuentass").submit(function(){return false});
-	$("#data-table-cuentass").dataTable();
+	$("#data-table-cuentas").dataTable({
 
-	$(".menu4").click(function(){
-		var id = $(this).attr('id').substr(1);
-		$(".menu4").removeClass('active');
-		$(this).addClass('active');
-
-		switch(parseInt(id)){
-			case 1:
-				$("#mantCxC").remove();
-				$("#mantVerNP").remove();
-				// var tabla = $("#data-table-productos").DataTable();
-				// tabla.destroy();
-				var p = mantenimiento('cuentas',1,'');
-				$("#bdymantCuentas").html(p);
-				// $("#data-table-productos").DataTable({
-				// 	bFilter: false
-				// });
-				break;
-			case 2:
-				$("#mantCxP").remove();
-				$("#mantVerNP").remove();
-				// var tabla = $("#data-table-productos").DataTable();
-				// tabla.destroy();
-				var p = mantenimiento('cuentas',2,'');
-				$("#bdymantCuentas").html(p);
-				// $("#data-table-productos").DataTable({
-				// 	bFilter: false
-				// });
-				break;
-			case 3:
-				$("#mantCxC").remove();
-				$("#mantCxP").remove();
-				// var tabla = $("#data-table-productos").DataTable();
-				// tabla.destroy();
-				var p = mantenimiento('cuentas',3,'');
-				$("#bdymantCuentas").html(p);
-				// $("#data-table-productos").DataTable({
-				// 	bFilter: false
-				// });
-				break;
-		}
+		bFilter: false,
+		order : [],
+		"bLengthChange": false
 	});
+	
 
-	$("#m3").click();
 
-	$("#totSaldoAdeud").val(10000.85);
-	$("#totInt").val(2000.00);
+	
 
 });
 
@@ -82,6 +44,15 @@ $(document).on("change","#cobInteres",function(){
 		$("#totSaldoVig").val(totSaldo);
 	}
 });
+
+$(document).on("click",".detalle",function(){
+	$(this).sideNav({
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+        }
+    );
+    $(this).sideNav('show');
+})
 
 $(document).on("click","#Iadd",function(){
 	deadclear('cuentas');
