@@ -7,7 +7,7 @@
 
     	if (session_status() !== PHP_SESSION_ACTIVE){
 		    session_start();
-		}
+		  }
 
     	if (isset($_POST['pss'])) {
 
@@ -100,31 +100,33 @@
 		   	break;
 
    	}
-	if(!$pagina){
 
-    if (isset($_REQUEST['arreglo']['JSON'])) {
-      $salida = array();
+	 if(!$pagina){
       
-      foreach ($transaccion as $obj) {
-        $salida[$obj[0]] = $obj[1];
+      if (isset($_REQUEST['arreglo']['JSON'])) {
+        $salida = array();
+        
+        foreach ($transaccion as $obj) {
+          $salida[$obj[0]] = $obj[1];
+        }
+      }else{
+        
+  	   	if (is_array($transaccion)){
+  			$marcas = $transaccion;
+  			$succed = 1;
+  			}else{
+  				$marcas = array('ERROR'=>$transaccion);
+  				$succed = 0;
+  			}
+  	   
+  			$salida = array('succed'=>$succed);
+  			array_push($salida, $marcas);
+
       }
-    }else{
-	   	if (is_array($transaccion)){
-			$marcas = $transaccion;
-			$succed = 1;
-			}else{
-				$marcas = array('ERROR'=>$transaccion);
-				$succed = 0;
-			}
-	
-			$salida = array('succed'=>$succed);
-			array_push($salida, $marcas);
-    }
-		
-    print_r(json_encode($salida));	
-	
-	 }
-    }
+  		
+      echo json_encode($salida);
+  	 }
+   }
 
     function cambioDia($log)
      {  

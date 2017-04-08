@@ -76,6 +76,6 @@
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/materialize.js"></script>
     <script src="../assets/js/asgard.js"></script>
-    <script src="../assets/js/modulos/login.js?v=1.2"></script>
+    <script src="../assets/js/modulos/login.js?v=1.3"></script>
   </body>
 </html>
