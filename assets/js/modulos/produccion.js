@@ -1,8 +1,4 @@
-var centesimas = 0;
-var segundos = 0;
-var minutos = 0;
-var horas = 0;
-var interval = null;
+var atiempo = [];
 $(function(){
     $(".menu").click(function(){
         var id = $(this).attr('id').substr(1);
@@ -76,7 +72,7 @@ $(function(){
             }
         });
     });
-	$("#data-table-procesos").dataTable({
+    $("#data-table-procesos").dataTable({
         bFilter : false,
         bScrollInfinite : true,
         bSort : false,
@@ -103,10 +99,57 @@ $(document).ready(function(){
     $("#data-table-procesos").removeClass('hide');
 });
 
+$(document).on("click",".start",function(){
+    var id = $(this).attr('id').substr(5);
+    var tiempo = {
+        hora: 0,
+        minuto: 0,
+        segundo: 0
+    };
+    $(this).prop('disabled',true);
+    $("#stop"+id).prop('disabled',false);
+    atiempo[id] = setInterval(function(){
+        // Segundos
+        tiempo.segundo++;
+        if(tiempo.segundo >= 60) {
+            tiempo.segundo = 0;
+            tiempo.minuto++;
+        }      
+
+        // Minutos
+        if(tiempo.minuto >= 60) {
+            tiempo.minuto = 0;
+            tiempo.hora++;
+        }
+        $("#horas"+id).text(tiempo.hora < 10 ? '0' + tiempo.hora : tiempo.hora);
+        $("#minutos"+id).text(tiempo.minuto < 10 ? '0' + tiempo.minuto : tiempo.minuto);
+        $("#segundos"+id).text(tiempo.segundo < 10 ? '0' + tiempo.segundo : tiempo.segundo);
+    }, 1000);
+    var idproceso = $(this).attr('idproceso');
+    var idlinea = $(this).attr('idlinea');
+    var cantidad = $(this).attr('cantidad');
+    var idtarea = 
+    arr('login',4,'',148,'1,0,'+idproceso+','+idlinea+','+cantidad,0,0,0);
+    arr('login',4,'',149,'1,0,1,tarea,now(),@@usr,@@impresa',vcambio,vch,velemto,vjson)
+
+});
+
+$(document).on("click",".pause",function(){
+    var id = $(this).attr('id').substr(5);
+    clearInterval(atiempo[id]);
+    $(this).addClass('hide');
+    $("#start"+id).removeClass('hide');
+});
+
+$(document).on("click",".stop",function(){
+    var id = $(this).attr('id').substr(5);
+    clearInterval(atiempo[id]);
+    $(this).prop('disabled',true);
+    $("#start"+id).prop('disabled',false);
+});
+
 $(document).on("click",".nexttask",function(){
     var id = $(this).attr('id').substr(1);
-    clearInterval(interval);
-    $("#t"+id).css('background-color','#fff');
 });
 
 $(document).on("keydown","#proceso",function(e){
@@ -124,59 +167,37 @@ $(document).on("keydown","#proceso",function(e){
 
 $(document).on("keyup","#proceso",function(e){
     var code = e.which || e.keyCode;
-    if (code == 13) {
-        var idlinea = arr('login',4,'idlinea',146,'nombre = "'+$("#proceso").val()+'"',0,0,0)[0][0][0];
-        $("#linea").val(idlinea);
+    if (code == 13)
         $("#linea").focus();
-    }
 });
 
-// $(document).on("blur","#proceso",function(){
+$(document).on("blur","#proceso",function(){
+    var id = arr('login',4,'id',11,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
+    if (id != undefined) {
+        var idlinea = arr('login',4,'idlinea',146,'nombre = "'+$(this).val()+'"',0,0,0)[0][0][0];
+        $("#idproceso").val(id[0]);
+        $("#linea").val(idlinea);
+        $(this).css('border-bottom','1px solid #4CAF50');
+        $(this).css('box-shadow','0 1px 0 0 #4CAF50');
+    }else{
+        $("#idproceso").val(0);
+        $(this).css('border-bottom','1px solid #F44336');
+        $(this).css('box-shadow','0 1px 0 0 #F44336');
+    }
     
-   
-// });
+});
 
 $(document).on("keyup","#linea",function(e){
     var code = e.which || e.keyCode;
-    if (code == 13) {
-        
-    }
-
+    if (code == 13)
+        $("#cantidad").val(1);
+        $("#cantidad").select();
 });
 
-//validar proceso
-// var idproceso = arr('login',4,'id',11,'nombre = "'+$("#proceso").val()+'"',0,0,0)[0][0];
-// if (idproceso != undefined) {
-//     $("#idproceso").val(idproceso);
-
-//     //detalleprocesos
-//     $("#inicio").removeClass('hide');
-//     var elem = arr('login',4,'',119,$("#idproceso").val(),0,0,0)[0];
-//     for (var i = 0, len = elem.length; i < len; i++) {
-//         var faltante = parseInt(elem[i][6] - elem[i][5]);
-//         if (faltante > 0) {
-//             faltante = 0;
-//         }else{
-//             faltante = Math.abs(faltante);
-//         }
-//         $("#detproc").append('<li class="collection-item"><div class="row mbotcero"><div class="col s6 m6 l6"><span id="d'+elem[i][0]+'">'+elem[i][3]+'</span></div><div class="col s2 m2 l2"><span>Cantidad: <span id="c'+elem[i][0]+'">'+elem[i][5]+'</span></span></div><div class="col s2 m2 l2"><span>Actual: <span id="a'+elem[i][0]+'">'+elem[i][6]+'</span></span></div><div class="col s2 m2 l2"><span>Faltante: <span id="f'+elem[i][0]+'">'+faltante+'</span></span></div></div></li>');
-//     }
-//     $("#detproc").append('<div><a class="waves-effect waves-light btn" id="toBuy" disabled>Ir a Compras</a></div>')
-//     //tareas
-//     var task = arr('login',4,'',147,$(this).val(),0,0,0)[0];
-//     for (var i = 0, len = task.length; i < len; i++) {
-//         $("#taskprod").append('<li class="collection-item itask" id="t'+task[i][5]+'"><div class="row mbotcero"><div class="col s6 m6 l6"><span id="task'+task[i][1]+'"></span>'+task[i][2]+'</div><div class="col s4 m4 l4"><span id="e'+task[i][1]+'">'+task[i][3]+'</span> <span id="u'+task[i][1]+'">'+task[i][4]+'</span></div><div class="col s2 m2 l2"><i class="material-icons pbtn btn-color nexttask" id="s'+task[i][1]+'" idorden="'+task[i][5]+'" style="margin-left: 15px">stop</i></div></div></li>');
-//     }
-
-// }else{
-//     Materialize.toast('Proceso no Existe', 4000, 'amber lighten-2');
-// }
-
-$(document).on("click","#start",function(){
-    console.log(1)
-    inicio();
-    // $("#t1").css('background-color','rgba(76,175,80,0.5');
-    interval = setInterval(parpadear,500);
+$(document).on("keyup","#cantidad",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13)
+        addprocess($("#idproceso").val(),$("#proceso").val(),$("#linea").val(),parseInt($(this).val()));
 });
 
 $(document).on("click","#toBuy",function(){
@@ -245,14 +266,6 @@ $(document).on("click","#chrecipe",function(){
 //     }
 
 // });
-
-$(document).on("keyup","#proceso",function(e){
-    $(".autocomplete-content").show('500');
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        $("#linea").focus();
-    }
-});
 
 $(document).on("click","#addprodline",function(){
     addprodline(1);
@@ -532,7 +545,7 @@ $(document).on("keyup","#vprecio",function(e){
 });
 
 $(document).on("click","#addrecipe",function(){
-	var id = parseInt($("#count").val());
+    var id = parseInt($("#count").val());
     var nombre = $("#vnombre").val();
     var codigo = $("#vcodigo").val();
     addrecipe(id,nombre,codigo);
@@ -962,6 +975,38 @@ function cronometro () {
 
 // TERMINA CRONOMETRO //
 
+function addprocess(idproceso,proceso,linea,cantidad) {
+    // validar proceso
+    var count = parseInt($("#count").val());
+    var cnt = cantidad;
+    count++;
+    $("#inicio").append('<div class="row"><div class="col s12 m12 l12"><span class="reloj" id="horas'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="minutos'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="segundos'+count+'">00</span><span class="reloj hide" id="Centesimas'+count+'">:00</span><input type="button" class="waves-effect waves-light btn blue start" id="start'+count+'" value="Iniciar &#9658;" idproceso="'+idproceso+'" idlinea="'+linea+'" cantidad="'+cantidad+'" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue pause hide" id="pause'+count+'" value="Pausar &#9208;" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue stop" id="stop'+count+'" value="Detener &#8718;" disabled></div></div><div class="row"><div class="col s12 m7 l7"><ul class="collection with-header" id="detproc'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Elementos para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li></ul></div><div class="col s12 m5 l5"><ul class="collection with-header" id="taskprod'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Tareas para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li><input type="hidden" id="o" value="1"></ul></div></div>');
+    cnt = 'NaN' ? 1 : cantidad;
+    //detalleprocesos
+    $("#inicio").removeClass('hide');
+    var elem = arr('login',4,'',119,$("#idproceso").val(),0,0,0)[0];
+    for (var i = 0, len = elem.length; i < len; i++) {
+        var cant = parseInt(elem[i][5]);
+        cnt = cant * cnt;
+        var faltante = parseInt(elem[i][6] - cnt);
+        if (faltante > 0) {
+            faltante = 0;
+        }else{
+            faltante = Math.abs(faltante);
+        }
+        $("#detproc"+count).append('<li class="collection-item"><div class="row mbotcero"><div class="col s4 m6 l6"><span id="d'+elem[i][0]+'">'+elem[i][3]+'</span></div><div class="col s4 m2 l2"><span>Cantidad: <span id="c'+elem[i][0]+'">'+cnt+'</span></span></div><div class="col s4 m2 l2"><span>Actual: <span id="a'+elem[i][0]+'">'+elem[i][6]+'</span></span></div><div class="col s4 m2 l2"><span>Faltante: <span id="f'+elem[i][0]+'">'+faltante+'</span></span></div></div></li>');
+    }
+    $("#detproc"+count).append('<div><a class="waves-effect waves-light btn" id="toBuy" disabled>Ir a Compras</a></div>')
+    //tareas
+    var task = arr('login',4,'',147,linea,0,0,0)[0];
+    for (var i = 0, len = task.length; i < len; i++) {
+        var tiempo = parseInt(task[i][3]) * cantidad;
+        $("#taskprod"+count).append('<li class="collection-item itask" id="t'+task[i][5]+'"><div class="row mbotcero"><div class="col s6 m6 l6"><span id="task'+task[i][1]+'"></span>'+task[i][2]+'</div><div class="col s4 m4 l4"><span id="e'+task[i][1]+'">'+tiempo+'</span> <span id="u'+task[i][1]+'">'+task[i][4]+'</span></div><div class="col s2 m2 l2"><i class="material-icons pbtn btn-color nexttask" id="s'+task[i][1]+'" idorden="'+task[i][5]+'" style="margin-left: 15px">stop</i></div></div></li>');
+    }
+    $("#start"+count).attr('idtarea',task[0][0][1])
+    $("#count").val(count);
+}
+
 function totalizar(id,ganancia,manoobra) {
     var total = parseFloat($("#htotal"+id).val());
     if (manoobra != 0)
@@ -1066,12 +1111,12 @@ function vaciar(modulo) {
 }
 
 function validar (varreglo,vmodulo) {
-	
-	var salida = {}
-	
-		/*VALIDACION FRONT END*/
-	
-	switch(vmodulo['modulo']) {
+    
+    var salida = {}
+    
+        /*VALIDACION FRONT END*/
+    
+    switch(vmodulo['modulo']) {
         case 'tareaproduccione':
             if (vmodulo['tip'] == '') {
                 err = validarlinea();
@@ -1080,13 +1125,13 @@ function validar (varreglo,vmodulo) {
                 }
             }
             break;
-		default:
-			return 'Módulo no Existente';
-			break;
-	}
+        default:
+            return 'Módulo no Existente';
+            break;
+    }
 
-	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	return salida;
+    salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+    return salida;
 
 }
 
@@ -1137,22 +1182,22 @@ function validateprodline(tipo) {
 }
 
 function cargar(vmodulo,vid) {
-	switch(vmodulo['modulo']) {
+    switch(vmodulo['modulo']) {
         case 'tareaproduccione':
             vmodulo['sel'] = 'id as vid,nombre as vnombre';
             vmodulo['tbl'] = 134;
             vmodulo['where'] ='id = '+vid;
             break;
-		default:
-			return 'Módulo no Existente';
-			break;
-	}
-	
-	return vmodulo;
+        default:
+            return 'Módulo no Existente';
+            break;
+    }
+    
+    return vmodulo;
 }
 
 function cargarSintax(vtabla){
-	switch(vtabla) {
+    switch(vtabla) {
         case 'gastos':
             var arr = {};
             arr['sel'] = 'id,nombre,precio';
