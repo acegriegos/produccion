@@ -253,7 +253,6 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
     var salida = 1;
     var arr = {};
 
-
     if(vref == 'login' && vaccion == 7){
         arr['accion'] = vsel;
         arr['tabla'] = vtbl;
