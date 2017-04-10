@@ -110,6 +110,10 @@ $(function(){
 		}
 	});
 
+	$("#vidpais").change(function(){
+		$("#prefijo").html('('+$('option:selected',this).attr('cod')+')')
+	});
+
 	$("#correo_in").keyup(function(e){
 		var code = e.which || e.keyCode
 		var idfila = $(this).attr('idfila')
