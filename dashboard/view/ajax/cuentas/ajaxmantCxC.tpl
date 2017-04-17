@@ -52,7 +52,7 @@
                             </thead>
                             <tbody id="listaCuentasxC">
                                { section name= LE loop = $CLI }
-                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][0]}">
+                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][0]}" tipo ='1'>
                                 <td>{$CLI[LE][3]}</td>
                                 <td>{$CLI[LE][1]}</td>
                                 <td>{$CLI[LE][2]}</td>
@@ -71,6 +71,8 @@
                 </div>
             </div>
         </div>
+        
+
     </div>
     <ul id="acciones" class="side-nav side-nav-cuentas"  style="width: 60%">
 
@@ -82,37 +84,70 @@
             <div class="col s12 m12">
               <div class="card blue z-depth-5">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
-                  <span class="card-title ">Factura: 23021</span> </div>
-                                  <div class="card-content white-text " style="padding-top: 0.1% !important">
+                    <span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> </div>
+                    <br>
+                    <div class="card-content white-text " style="padding-top: 0.1% !important">
 
-                  <div class="row ">
-                      <div class="col s6 m4 l2">
-                        <p>Nombre: Pepito</p>
-                    </div>
-                    <div class="col s12 m4 l2">
-                        <p>Fecha: 10/05/1995</p>
-                    </div>
-                    <div class="col s12 m4 l2">
-                        <p>Saldo: 20,2563</p>
-                    </div>
-                    <div class="col s12 m4 l2">
-                        <p>Plazo: 30 días</p>
-                    </div>
-                    <div class="col s12 m6 l2">
-                        <p>Dias del credito : 30 días</p>
+                      <div class="row ">
+                          <div class="col s6 m4 l3">
+                              <p>Nombre: <span id="inombr"> </span></p>
+                          </div>
+                          <div class="col s12 m4 l3">
+                            <p>Fecha: <span id="ifecha"> </span></p>
+                        </div>
+                        <div class="col s12 m4 l2">
+                            <p>Saldo: <span id="isaldo"> </span></p>
+                        </div>
+                        <div class="col s12 m4 l2">
+                            <p>Plazo: <span id="iplazo"> </span></p>
+                        </div>
+                        <div class="col s12 m6 l2">
+                            <p>Dias del credito : <span id="idias"> </span></p>
+                        </div>
                     </div>
                 </div>
-                </div>
 
 
 
-           
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col s12">
+                <table id="data-table-cuentas-detalle" class="table centered highlight bordered responsive-table z-depth-5 ">
+                    <thead>
+                        <tr>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody id="listaCuentasxC">
+                       { section name= LE loop = $CLI }
+                       <tr id="f{$CLI[LE][0]}">
+                       <td>{$CLI[LE][5]}</td>
+                        <td>{$CLI[LE][5]}</td>
+                        <td>{$CLI[LE][8]}</td>
+
+
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
+            <br>
 
         </div>
     </div>
 </div>
 
+
 </ul>
+
 
 
 
