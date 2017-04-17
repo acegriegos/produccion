@@ -1,4 +1,5 @@
 $(function(){
+
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -596,7 +597,7 @@ function validarFactura() {
         $("#vidtipopago").material_select('update');
     }
     
-    return false;
+    return 'mantenimiento';
 }
 
 function cargar(vmodulo,vid) {

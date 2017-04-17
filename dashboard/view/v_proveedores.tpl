@@ -288,7 +288,7 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/proveedores.js?v=1.1"></script>
+<script src="../assets/js/modulos/proveedores.js?v=1.2"></script>
 
 </body>
 </html>
