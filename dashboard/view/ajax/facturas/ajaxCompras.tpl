@@ -286,4 +286,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=2.14"></script>
+<script src="../assets/js/modulos/compras.js?v=2.13"></script>

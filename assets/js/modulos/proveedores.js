@@ -52,6 +52,9 @@ $(function(){
 		$("#ln1").click();
 		$("#videstado").val(1);
 		$('#videstado').material_select('update');
+		$("#vidpais").val(52);
+		$("#vidpais").change();
+		$("#vidpais").material_select('update');
 		ind_1 = 1;
 		$("#shtelefonos").html('');
 		$("#shcorreos").html('');
@@ -146,7 +149,7 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1})
+	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1});
 
 });
 
