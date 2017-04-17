@@ -23,6 +23,20 @@
                         <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
 
                     </div>
+                    <div class="col s5">
+                        <div class="col s4">
+                            <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
+                            <label for="all">Todo</label>
+                        </div>
+                        <div class="col s4">
+                            <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
+                            <label for="vencidas">Vencidas</label>
+                        </div>
+                        <div class="col s4">
+                            <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
+                            <label for="porvencer">Por Vencer</label>
+                        </div>
+                    </div>
                     
 
                 </div>
@@ -48,14 +62,14 @@
                         </thead>
                         <tbody id="listaCuentasxP">
                          { section name= LE loop = $PRO }
-                         <tr id="f{$PRO[LE][0]}">
+                         <tr id="f{$PRO[LE][0]}" class="detalle" tp="{if $PRO[LE][7] lt 0}1{else}0{/if}">
                             <td>{$PRO[LE][3]}</td>
                              <td>{$PRO[LE][4]}</td>
                             <td>{$PRO[LE][1]}</td>
                             <td>{$PRO[LE][5]}</td>
                             <td>{$PRO[LE][6]}</td>
                             <td>{$PRO[LE][8]}</td>
-                            <td>{$PRO[LE][7]}</td>
+                            <td style="{if $PRO[LE][7] lt 0}color:red;{else}color:green{/if}">{math equation='abs(x)' x=$PRO[LE][7] }</td>
                             <td>{$PRO[LE][9]}</td>
                             
                         </tr>

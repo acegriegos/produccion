@@ -228,7 +228,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     if(stack.length <= 2){
         p = 'Get Lost';
     }else{
-        
+        // source.close();
         $.ajax({
                 async: false,
                 url: '../dashboard/'+vmodulo,
@@ -246,6 +246,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     }
                 });
     }
+    // setTimeout(function(){source = new EventSource("../sse.php")},5000);
     return p;
 }
 

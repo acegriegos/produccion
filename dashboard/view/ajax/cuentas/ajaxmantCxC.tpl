@@ -15,7 +15,7 @@
             <div class="row">
                 <br><br>
 
-                <div class="input-field col s10 m6 l6">
+                <div class="input-field col s7">
 
                     <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                     <ul id='filtr_1' class='dropdown-content'>
@@ -26,6 +26,20 @@
                     <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
                     <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
 
+                </div>
+                <div class="col s5">
+                    <div class="col s4">
+                        <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
+                        <label for="all">Todo</label>
+                    </div>
+                    <div class="col s4">
+                        <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
+                        <label for="vencidas">Vencidas</label>
+                    </div>
+                    <div class="col s4">
+                        <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
+                        <label for="porvencer">Por Vencer</label>
+                    </div>
                 </div>
 
 
@@ -52,14 +66,14 @@
                             </thead>
                             <tbody id="listaCuentasxC">
                                { section name= LE loop = $CLI }
-                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][0]}" tipo ='1'>
+                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][0]}" tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
                                 <td>{$CLI[LE][3]}</td>
                                 <td>{$CLI[LE][1]}</td>
                                 <td>{$CLI[LE][2]}</td>
                                 <td>{$CLI[LE][5]}</td>
                                 <td>{$CLI[LE][6]}</td>
                                 <td>{$CLI[LE][8]}</td>
-                                <td>{$CLI[LE][7]}</td>
+                                <td style="{if $CLI[LE][7] lt 0}color:red;{else}color:green{/if}">{math equation='abs(x)' x=$CLI[LE][7] }</td>
                                 <td>{$CLI[LE][9]}</td>
 
                             </tr>
