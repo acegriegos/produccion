@@ -21,12 +21,36 @@ $(function(){
 		order : [],
 		"bLengthChange": false
 	});
+
+$("#data-table-cuentas-detalle").dataTable({
+
+		bFilter: false,
+		order : [],
+		"bLengthChange": false
+	});
 	
 
 
 	
 
 });
+
+$(document).on("change","[name='ctas']",function(){
+	$(".detalle").show();
+
+	switch(parseInt($(this).attr('value'))){
+		case 2:
+			$(".detalle[tp=0]").hide()
+			break;
+		case 3:
+			$(".detalle[tp=1]").hide()
+			break;
+		default:
+			break;
+	}
+    
+})
+
 
 $(document).on("change","#cobInteres",function(){
 	var totInt = parseFloat($("#totInt").val());
@@ -52,6 +76,18 @@ $(document).on("click",".detalle",function(){
         }
     );
     $(this).sideNav('show');
+
+    var id = $(this).attr('id').substr(1);
+    var tipo = $(this).attr('tipo');
+    var datos =  arr('login',4,'',208,tipo+','+id,0,0,0)[0][0];
+    $("#ifac").text(datos[3]);
+    $("#inombr").text(datos[1]);
+    $("#ifecha").text(datos[5]);
+    $("#isaldo").text(datos[6]);
+    $("#iplazo").text(datos[8]);
+    $("#idias").text(datos[7]);
+    
+
 })
 
 $(document).on("click","#Iadd",function(){

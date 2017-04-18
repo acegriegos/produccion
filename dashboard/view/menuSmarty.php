@@ -16,9 +16,12 @@
         <a href="#!user" class="center"><i class="medium material-icons" style="color:#fff" aria-hidden="true">person_pin</i></a>
         <div class="input-field col s12 white-text">
           <select id="lgt">
-            <option value="0" class="logout" id="x1" disabled selected>{$smarty.session.NOM}</option>
-            <option value="1" class="logout" id="x2">Cerrar Sesion</option>
+            <option value="0" class="logout" id="x1" disabled selected>{$smarty.session.NOM} </option>
+            <option value="1" class="logout" id="x2">Información</option>
+            <option value="2" class="logout" id="x2">Notificaciones</option>
+            <option value="3" class="logout" id="x2">Cierre de Caja</option>
           </select>
+          <span class="new badge" data-badge-caption="Notificacion(es) sin Leer" id="newnot"></span>
         </div>
         <a href="#!name" class="center"><span class="white-text name"></span></a>
         <a href="#!email" class="center"><span class="white-text email">{$smarty.session.MAIL}</span></a>
@@ -93,9 +96,9 @@
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/mask/jquery.mask.js"></script>
 <script src="../assets/js/materialize.js?v=1.8"></script>
-<script src="../assets/js/modulos/menu.js?v=1.2"></script>
+<script src="../assets/js/modulos/menu.js?v=1.4"></script>
 <script src="../assets/libs/charts/chart.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-<script src="../assets/js/asgard.js?v=1.12"></script>
+<script src="../assets/js/asgard.js?v=1.13"></script>
 

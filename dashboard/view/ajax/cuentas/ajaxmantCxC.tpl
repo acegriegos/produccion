@@ -15,7 +15,7 @@
             <div class="row">
                 <br><br>
 
-                <div class="input-field col s10 m6 l6">
+                <div class="input-field col s7">
 
                     <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                     <ul id='filtr_1' class='dropdown-content'>
@@ -26,6 +26,20 @@
                     <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
                     <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
 
+                </div>
+                <div class="col s5">
+                    <div class="col s4">
+                        <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
+                        <label for="all">Todo</label>
+                    </div>
+                    <div class="col s4">
+                        <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
+                        <label for="vencidas">Vencidas</label>
+                    </div>
+                    <div class="col s4">
+                        <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
+                        <label for="porvencer">Por Vencer</label>
+                    </div>
                 </div>
 
 
@@ -52,14 +66,14 @@
                             </thead>
                             <tbody id="listaCuentasxC">
                                { section name= LE loop = $CLI }
-                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][0]}">
+                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][0]}" tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
                                 <td>{$CLI[LE][3]}</td>
                                 <td>{$CLI[LE][1]}</td>
                                 <td>{$CLI[LE][2]}</td>
                                 <td>{$CLI[LE][5]}</td>
                                 <td>{$CLI[LE][6]}</td>
                                 <td>{$CLI[LE][8]}</td>
-                                <td>{$CLI[LE][7]}</td>
+                                <td style="{if $CLI[LE][7] lt 0}color:red;{else}color:green{/if}">{math equation='abs(x)' x=$CLI[LE][7] }</td>
                                 <td>{$CLI[LE][9]}</td>
 
                             </tr>
@@ -71,6 +85,8 @@
                 </div>
             </div>
         </div>
+        
+
     </div>
     <ul id="acciones" class="side-nav side-nav-cuentas"  style="width: 60%">
 
@@ -82,37 +98,70 @@
             <div class="col s12 m12">
               <div class="card blue z-depth-5">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
-                  <span class="card-title ">Factura: 23021</span> </div>
-                                  <div class="card-content white-text " style="padding-top: 0.1% !important">
+                    <span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> </div>
+                    <br>
+                    <div class="card-content white-text " style="padding-top: 0.1% !important">
 
-                  <div class="row ">
-                      <div class="col s6 m4 l2">
-                        <p>Nombre: Pepito</p>
-                    </div>
-                    <div class="col s12 m4 l2">
-                        <p>Fecha: 10/05/1995</p>
-                    </div>
-                    <div class="col s12 m4 l2">
-                        <p>Saldo: 20,2563</p>
-                    </div>
-                    <div class="col s12 m4 l2">
-                        <p>Plazo: 30 días</p>
-                    </div>
-                    <div class="col s12 m6 l2">
-                        <p>Dias del credito : 30 días</p>
+                      <div class="row ">
+                          <div class="col s6 m4 l3">
+                              <p>Nombre: <span id="inombr"> </span></p>
+                          </div>
+                          <div class="col s12 m4 l3">
+                            <p>Fecha: <span id="ifecha"> </span></p>
+                        </div>
+                        <div class="col s12 m4 l2">
+                            <p>Saldo: <span id="isaldo"> </span></p>
+                        </div>
+                        <div class="col s12 m4 l2">
+                            <p>Plazo: <span id="iplazo"> </span></p>
+                        </div>
+                        <div class="col s12 m6 l2">
+                            <p>Dias del credito : <span id="idias"> </span></p>
+                        </div>
                     </div>
                 </div>
-                </div>
 
 
 
-           
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col s12">
+                <table id="data-table-cuentas-detalle" class="table centered highlight bordered responsive-table z-depth-5 ">
+                    <thead>
+                        <tr>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody id="listaCuentasxC">
+                       { section name= LE loop = $CLI }
+                       <tr id="f{$CLI[LE][0]}">
+                       <td>{$CLI[LE][5]}</td>
+                        <td>{$CLI[LE][5]}</td>
+                        <td>{$CLI[LE][8]}</td>
+
+
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
+            <br>
 
         </div>
     </div>
 </div>
 
+
 </ul>
+
 
 
 

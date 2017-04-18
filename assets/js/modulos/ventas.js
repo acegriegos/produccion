@@ -23,10 +23,10 @@ $(function(){
         
         if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
-        
+          
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2)) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
             });
 
             $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
@@ -182,7 +182,7 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vextrapagos : 0});
+    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vextrapagos : 0, saldo : 0, notific : 0});
 
     $(".modal").modal();
 })//READY
@@ -202,6 +202,7 @@ $(document).on("click","#chg_tipo",function(){
         $(".cre").show();
         if ($(".zelda").data('triforce')['vidcliente'] != 0) {
             var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
+            var saldo = arr('login',205,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
             $("#vplazo").val(plazo);
         }
         $(".zelda").data('triforce')['vidtipo'] = 2
@@ -611,8 +612,7 @@ function searchClient(vvariable,visprv){
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0]
         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
-        $("#ncli").val(vclie[1]);
-        $("#ced").val(vclie[2]);
+        $("#ncli").val(vclie[1]+' '+vclie[2]);
 
         if (vclie[3] > 0){ 
             $("#chg_tipo").removeAttr('disabled')
@@ -628,6 +628,16 @@ function searchClient(vvariable,visprv){
         }else{
             $("#vplazo").val(0);
         }
+
+        $("#msaldo").html(parseFloat(vclie[11]).formatMoney(2,'.',','));
+        var porcen = vclie[12] == 0 ? 100 : (parseFloat(vclie[11])*100)/parseFloat(vclie[12]);
+        console.log(porcen)
+        if (porcen <= 75)
+            $("#msaldo").css('color','green');
+        else if (porcen > 75 && porcen < 100)
+            $("#msaldo").css('color','yellow');
+        else if (porcen >= 100)
+            $("#msaldo").css('color','red');
         
         $("#vdescuentop").val(vclie[4]);
         $("#vdescuentop").data('valor',vclie[4])

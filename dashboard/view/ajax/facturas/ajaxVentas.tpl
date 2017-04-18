@@ -45,15 +45,14 @@
       <label for="vplazo">Plazo en Días</label>
     </div>
 
-    <div class="input-field col s12 m3 l3">
+    <div class="input-field col s10 m4">
       <i class="fa fa-user prefix"></i>
-      <label class="truncate" for="ncli">Nombre de Cliente</label>
+      <label class="truncate" for="ncli">Nombre o Cédula del Cliente</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
-    </div>
+    </div> 
 
-    <div class="input-field col s12 m3 l3">
-      <label for="ced">Cédula del Cliente</label>
-      <input type="text" id="ced" class="validate sclie" />
+    <div class="col s2 cre" style="display: none;">
+      <label>Saldo Actual: <label id="msaldo"></label> </label> 
     </div> 
     
   </div>
@@ -285,4 +284,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=3.0"></script>
+<script src="../assets/js/modulos/ventas.js?v=3.2"></script>
