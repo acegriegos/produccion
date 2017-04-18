@@ -34,7 +34,7 @@
                         <a href="facturacion?tf=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Compras">Compras</a>
                       </div>
                       <div class="col s12 m6 l6">
-                        <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Orde de Compra">Orden de Compra</a>
+                        <a href="facturacion?tf=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Orden de Compra">Orden de Compra</a>
                       </div>
                       <div class="col s12 m6 l6">
                         <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>

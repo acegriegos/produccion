@@ -43,11 +43,11 @@
 	   			break;
 	   		case 4:
 	   			$pagina = 1;
-	   			require_once '../_config/mySmarty.php';
-	   			$smarty  = new mySmarty();
-	   			$smarty->setModule('dashboard');
-	   			$smarty->display('ajax/produccion/seguimiento.tpl');
-	   			break;
+	   			// require_once '../_config/mySmarty.php';
+	   			// $smarty  = new mySmarty();
+	   			// $smarty->setModule('dashboard');
+	   			// $smarty->display('ajax/produccion/seguimiento.tpl');
+	   			include 'view/seguimiento.php';
 	   			break;
 	   		case 5:
 	   			
