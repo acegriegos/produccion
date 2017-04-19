@@ -129,8 +129,8 @@ $(document).on("click",".start",function(){
     var idlinea = $(this).attr('idlinea');
     var cantidad = $(this).attr('cantidad');
     var idtarea = $(this).attr('idtarea');
-    arr('login',4,'',148,'1,0,'+idproceso+','+idlinea+','+cantidad,0,0,0);
-    arr('login',4,'',149,'1,0,1,'+idtarea+',now(),@@usr,@@impresa',0,0,0);
+    var identity = arr('login',4,'',148,'1,0,'+idproceso+','+idlinea+','+cantidad,0,0,0)[0][0];
+    arr('login',4,'',149,'1,0,1,'+idtarea+','+identity+',now(),@@usr,@@impresa',0,0,0);
 
 });
 

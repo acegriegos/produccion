@@ -73,9 +73,9 @@
           <!-- <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
           <th style="width: 10%;" class="center-align">Código</th>
           <th style="width: 20%;" class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width: 7%;" class="center-align">Cantidad</th>
           <th style="width: 10%;" class="center-align"><span class="truncate">Costo.Unit</span></th>
           <th style="width: 9%;" class="center-align"><span class="truncate">Descuento</span></th>
-          <th style="width: 7%;" class="center-align">Cantidad</th>
           <th style="width: 12%;" class="center-align">Total</th>
           <th style="width: 17%;" class="center-align">
           <div class="hide-on-small-only">
@@ -99,14 +99,14 @@
           <td style="width: 20%;" class="input-field">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
+          <td style="width: 7%;" class="input-field">
+            <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+          </td>
           <td style="width: 10%;" class="input-field">
             <input type="text" id="precp" class="f center" value="0.00">
           </td>
           <td style="width: 9%;" class="input-field">
             <input type="number" class="f center" id="descup" min="0" data-mask="999999999.99" placeholder="Descuento">
-          </td>
-          <td style="width: 7%;" class="input-field">
-            <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
           <td style="width: 12%;" class="input-field">
             <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">

@@ -77,7 +77,7 @@ $(function(){
                 data: arr('login',4,'',6,'"'+$("#descp").val()+'",5',0,0,0,1)
             })
 
-            $("#descp").siblings($(".autocomplete-content")).css('width','50%');
+            $("#descp").siblings($(".autocomplete-content")).css('width','25%');
         }
     });
 
