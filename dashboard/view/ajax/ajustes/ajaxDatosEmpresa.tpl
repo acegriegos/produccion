@@ -299,7 +299,7 @@
                 <tbody id="listatipopagos">
                     {section name=LE loop=$TPAG}
                     <tr id="c_{$TPAG[LE][0]}">
-                        <td><input class="center-align" type="text"  value="{$TPAG[LE][1]}" readonly style="border: 0px;margin: 0px; padding: 0px;"></td>
+                        <td {if $TPAG[LE][2] neq 0} class="tooltipped" style="background-color: rgba(99, 190, 29, 0.3);" data-position="top" data-tooltip="Tipo Pago Principal"{/if}><input class="center-align" type="text"  value="{$TPAG[LE][1]}" readonly style="border: 0px;margin: 0px; padding: 0px;"></td>
                         <td >
                             <a class="waves-effect waves-light load_x" modulo="tipopago" id="e{$TPAG[LE][0]}" title="Editar Tipo Pago" href='#modal-tipopagos' ><i class="material-icons left">mode_edit</i></a>
                             {if $TPAG[LE][0] neq 0}
