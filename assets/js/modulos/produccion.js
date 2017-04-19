@@ -128,9 +128,9 @@ $(document).on("click",".start",function(){
     var idproceso = $(this).attr('idproceso');
     var idlinea = $(this).attr('idlinea');
     var cantidad = $(this).attr('cantidad');
-    var idtarea = 
+    var idtarea = $(this).attr('idtarea');
     arr('login',4,'',148,'1,0,'+idproceso+','+idlinea+','+cantidad,0,0,0);
-    arr('login',4,'',149,'1,0,1,tarea,now(),@@usr,@@impresa',vcambio,vch,velemto,vjson)
+    arr('login',4,'',149,'1,0,1,'+idtarea+',now(),@@usr,@@impresa',0,0,0);
 
 });
 
@@ -177,12 +177,14 @@ $(document).on("blur","#proceso",function(){
         var idlinea = arr('login',4,'idlinea',146,'nombre = "'+$(this).val()+'"',0,0,0)[0][0][0];
         $("#idproceso").val(id[0]);
         $("#linea").val(idlinea);
+        Materialize.updateTextFields();
         $(this).css('border-bottom','1px solid #4CAF50');
         $(this).css('box-shadow','0 1px 0 0 #4CAF50');
     }else{
         $("#idproceso").val(0);
-        $(this).css('border-bottom','1px solid #F44336');
-        $(this).css('box-shadow','0 1px 0 0 #F44336');
+        if ($(this).val() != '')
+            $(this).css('border-bottom','1px solid #9e9e9e');
+            $(this).css('box-shadow','none');
     }
     
 });
@@ -981,13 +983,14 @@ function addprocess(idproceso,proceso,linea,cantidad) {
     var cnt = cantidad;
     count++;
     $("#inicio").append('<div class="row"><div class="col s12 m12 l12"><span class="reloj" id="horas'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="minutos'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="segundos'+count+'">00</span><span class="reloj hide" id="Centesimas'+count+'">:00</span><input type="button" class="waves-effect waves-light btn blue start" id="start'+count+'" value="Iniciar &#9658;" idproceso="'+idproceso+'" idlinea="'+linea+'" cantidad="'+cantidad+'" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue pause hide" id="pause'+count+'" value="Pausar &#9208;" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue stop" id="stop'+count+'" value="Detener &#8718;" disabled></div></div><div class="row"><div class="col s12 m7 l7"><ul class="collection with-header" id="detproc'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Elementos para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li></ul></div><div class="col s12 m5 l5"><ul class="collection with-header" id="taskprod'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Tareas para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li><input type="hidden" id="o" value="1"></ul></div></div>');
-    cnt = 'NaN' ? 1 : cantidad;
+    // cnt = 'NaN' ? 1 : cantidad;
     //detalleprocesos
     $("#inicio").removeClass('hide');
     var elem = arr('login',4,'',119,$("#idproceso").val(),0,0,0)[0];
     for (var i = 0, len = elem.length; i < len; i++) {
         var cant = parseInt(elem[i][5]);
         cnt = cant * cnt;
+
         var faltante = parseInt(elem[i][6] - cnt);
         if (faltante > 0) {
             faltante = 0;
@@ -1003,8 +1006,19 @@ function addprocess(idproceso,proceso,linea,cantidad) {
         var tiempo = parseInt(task[i][3]) * cantidad;
         $("#taskprod"+count).append('<li class="collection-item itask" id="t'+task[i][5]+'"><div class="row mbotcero"><div class="col s6 m6 l6"><span id="task'+task[i][1]+'"></span>'+task[i][2]+'</div><div class="col s4 m4 l4"><span id="e'+task[i][1]+'">'+tiempo+'</span> <span id="u'+task[i][1]+'">'+task[i][4]+'</span></div><div class="col s2 m2 l2"><i class="material-icons pbtn btn-color nexttask" id="s'+task[i][1]+'" idorden="'+task[i][5]+'" style="margin-left: 15px">stop</i></div></div></li>');
     }
-    $("#start"+count).attr('idtarea',task[0][0][1])
+    $("#start"+count).attr('idtarea',task[0][1])
     $("#count").val(count);
+
+    //vaciar
+    $("#proceso").val('');
+    $("#linea").val('');
+    $("#cantidad").val('');
+    $("#proceso").focus();
+    $("#proceso").css('border-bottom','1px solid #9e9e9e');
+    $("#proceso").css('box-shadow','none');
+    $("#linea").css('border-bottom','1px solid #9e9e9e');
+    $("#linea").css('box-shadow','none');
+    Materialize.updateTextFields();
 }
 
 function totalizar(id,ganancia,manoobra) {
