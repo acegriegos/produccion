@@ -50,7 +50,6 @@ $(document).on("click",".delete",function(){
     var modulo = $(this).attr('modulo');
     var id = $(this).attr('id').substr(1);
     vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
-    console.log(vari)
     doGlobal(3,modulo,id,0);
 });
 
@@ -138,7 +137,6 @@ function baseValidar(vaccion,vmodulo){
         if (vmodulo['tip'] != '') {
             salida[vari] = vmodulo['tip'];
         }
-        // console.log(salida)
     }else{
         console.error('error en Base Validar')
         return varreglo;
@@ -151,7 +149,6 @@ function loadpool(vmodulo,vid,vvarias){
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
-    console.log(columns)
 
     for (var i = 0; columns[0][1].length > i; i++) {
 
@@ -172,7 +169,10 @@ function loadpool(vmodulo,vid,vvarias){
 
             case 'radio':
             case 'checkbox':
-                $("#"+vform+" input[name="+columns[0][1][i]['name']+']:checked').val(columns[0][0][0][i]);
+                var obj = $("#"+vform+" input[name="+columns[0][1][i]['name']+']');
+                obj.val(columns[0][0][0][i]);
+                obj.prop('checked',columns[0][0][0][i]);
+                obj.change();
                 break;
 
             case 'html':
@@ -218,6 +218,10 @@ function loadpool(vmodulo,vid,vvarias){
 
     Materialize.updateTextFields();
 
+    try{
+        postload(vmodulo['modulo']);
+    }catch(e){
+    }
 }
 
 function mantenimiento(vmodulo,vaccion,varreglo,vjson){
@@ -476,7 +480,6 @@ function odin(varreglo,vform) {
     }//end FOR
     break;
     }//end SWITCH
-    console.log(salida)
     return salida;
 }
 
