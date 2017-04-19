@@ -70,7 +70,7 @@
             <div class="col s12 m12 l6">
                 <div class="row">
                   <div class="col s9 m4 l6 offset-s3">
-                    <a href='#modal-wsdl' id="mantWsdl" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="left" data-tooltip="WSDL" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Actualizar WSDL</a>
+                    <a href='#modal-wsdl' id="mantWsdl" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="left" data-tooltip="WSDL" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Manenimiento WSDL</a>
                 </div>
                 <div class="col s10 m4 l6 offset-s3 offset-m1">
                     <a href='#modal-monedas' id="addMoneda" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="top" data-tooltip="Ingresar Moneda" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Agregar Moneda</a>
@@ -97,9 +97,9 @@
                         <td>{$MON[LE][1]}</td>
                         <td>{$MON[LE][2]}</td>
                         <td>
-                         <a class="waves-effect waves-light load_x" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="material-icons left">mode_edit</i></a>
+                         <a class="waves-effect waves-light load" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="material-icons left">mode_edit</i></a>
 
-                         <a class="waves-effect waves-light load_x" modulo="moneda" id="b{$MON[LE][0]}"  title="Eliminar Moneda"><i class="material-icons left">delete</i></a>
+                         <a class="waves-effect waves-light delete" modulo="moneda" id="b{$MON[LE][0]}"  title="Eliminar Moneda"><i class="material-icons left">delete</i></a>
 
                      </td>
                  </tr>
@@ -163,22 +163,16 @@
                         <input type="text" value="{$TUSR[LE][1]}"  class="fast-edit center-align" style="border: 0px; margin: 0;">
                     </td>
                     <td style="margin:0;">
-                        {if $TUSR[LE][2] eq 0}
-                        <a href='#modal-tusuarios' id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
-                            <i class="small material-icons ">info_outline</i></a>
-                    <!-- <a href='#modal-tusuarios' class="btn valorestu" id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
-                        <i class="fa fa-gg-circle"></i>
-                    </a> -->
+                    {if $TUSR[LE][2] eq 0}
+                    <a href='#modal-tusuarios' id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
+                    <i class="small material-icons ">info_outline</i></a>
                     <a href="#" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small material-icons ">delete</i></a>
-                    <!-- <a href="#" class="btn delete" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario">
-                        <i class="fa fa-times"  style="color: #D9534F" readonly></i>
-                    </a> -->
-                </td>
-                {/if}
-            </tr>
-            {/section}
-        </tbody>
-    </table>
+                    </td>
+                    {/if}
+                </tr>
+                {/section}
+            </tbody>
+        </table>
 </div></div>
 </div><br></div>
 <!-- Datos de las Usuarios -->
@@ -224,7 +218,7 @@
                         <div class="modal-content">
 
                             <div class="row">
-                                <div class="col s12 m5">
+                                <div class="col s12">
                                     <div class="input-field">    
                                         <input type="text" id="tmp_pagos">
                                         <label id="tmp_l_pagos" for="tmp_pagos">Nombre del Pago</label>
@@ -232,41 +226,52 @@
 
                                 </div>
 
-                                <div class="input-field col s12 m7 mix">
+                                <div class="input-field col s12" style="margin-top: 0px;">
 
-                                    <div class="row">
+                                    <div class="row mix">
                                         <div class="col s6">
-                                            <input class="with-gap" name="vbancos" type="radio" id="vbancos" value="1" />
-                                            <label for="acr">Acredita Bancos</label>
+                                            <input class="with-gap" name="vbancos" type="radio" id="vbancos" value="0" checked />
+                                            <label for="vbancos">No Aplica Bancos</label><br>
+                                        </div>
+                                        <div class="col s6">
+                                            <input class="with-gap" name="vbancos" type="radio" id="acr" value="1" />
+                                            <label for="acr">Acredita Bancos</label><br>
                                         </div>
                                         <div class="col s6">
                                             <input class="with-gap" name="vbancos" type="radio" id="dat" value="2" />
-                                            <label for="dat">Uso de Datáfono</label>
+                                            <label for="dat">Uso de Datáfono</label><br>
+                                        </div>
+                                        <div class="col s6">
+                                            <input class="with-gap" name="vbancos" type="radio" id="cons" value="3" />
+                                            <label for="cons">Consignacion</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row mix">
+                                        <div class="col s4">
+                                            <input type="checkbox" id="extra" />
+                                            <label for="extra">Tiene Extras</label>
+                                        </div>
+
+                                        <div class="input-field col s4 extra hide">
+                                            <input type="text" id="vextra">
+                                            <label for="vextra">Nombre de la Extra</label>
+                                        </div>
+
+                                        <div class="input-field col s4 extra hide">
+                                            <input type="text" id="vregex">
+                                            <label for="vregex">Expresión regular</label>
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            <input type="checkbox" name="vprincipal" id="vprincipal" />
+                                            <label for="vprincipal">Pago Principal</label>
                                         </div>
                                     </div>
 
-                                    <p>
-                                        <input type="checkbox" name="vprincipal" id="vprincipal" />
-                                        <label for="vprincipal">Pago Principal</label>
-                                    </p>
-
-                                    <p>
-                                        <input type="checkbox" id="extra" />
-                                        <label for="extra">Tiene Extras</label>
-                                    </p>
-
-                                </div>
-                            </div>
-
-                            <div class="row extra hide">
-                                <div class="input-field col s12 m6">
-                                    <input type="text" id="vextra">
-                                    <label for="vextra">Nombre de la Extra</label>
-                                </div>
-
-                                <div class="input-field col s12 m6">
-                                    <input type="text" id="vregex">
-                                    <label for="vregex">Expresión regular</label>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +303,7 @@
                         <td >
                             <a class="waves-effect waves-light load_x" modulo="tipopago" id="e{$TPAG[LE][0]}" title="Editar Tipo Pago" href='#modal-tipopagos' ><i class="material-icons left">mode_edit</i></a>
                             {if $TPAG[LE][0] neq 0}
-                            <a class="waves-effect waves-light " modulo="tipopago" id="f{$TPAG[LE][0]}"  title="Eliminar Tipo Pago"><i class="material-icons left">delete</i></a>
+                            <a class="waves-effect waves-light delete" modulo="tipopago" id="f{$TPAG[LE][0]}"  title="Eliminar Tipo Pago"><i class="material-icons left">delete</i></a>
                             {/if}
 
                         </td>
@@ -584,7 +589,7 @@
 
     <div class="modal-content">
         <div id="fmonedas">
-            <input type="hidden" name="vid" value="0">
+            <input type="hidden" id="vid" value="0">
             <div class="row">
 
                 <div class="input-field col s12 m6">
@@ -610,8 +615,9 @@
 
             <label class="row">
                 <div class="input-field col s6">
-                    <input type="checkbox" name="vprincipal" id="vprincipal" value="0" stay="0" />
-                    <label for="vprincipal">Moneda Principal</label>
+                    <input type="checkbox" name="vprincipal" id="principal" value="0" />
+                    <label for="principal">Moneda Principal</label>
+                    <input type="hidden" id="vprincipal" value="0">
                 </div>
 
                 <div class="input-field col s6">
@@ -622,15 +628,25 @@
 
             <div class="wsdl-op">
               <br>
-              <div class="input-field" >
-                <select id="vwsdl" type="select" noClear="1">
-                    <option value="0">Seleccione un WSDL</option>
-                    {section name=LE loop=$WSDL}
-                    <option value="{$WSDL[LE][0]}">{$WSDL[LE][1]}</option>
-                    {/section}
-                </select>
-                <label>WSDL</label>
-            </div>
+                <div class="input-field" >
+                    <select id="vwsdl" type="select" noClear="1">
+                        <option value="0">Seleccione un WSDL</option>
+                        {section name=LE loop=$WSDL}
+                        <option value="{$WSDL[LE][0]}">{$WSDL[LE][1]}</option>
+                        {/section}
+                    </select>
+                    <label>WSDL</label>
+                </div>
+
+                <div class="row">
+
+                <div class="input-field col s6">
+                    <input type="text" id="vsuma" />
+                    <label for="vsuma">Sumar al Valor del WSDL</label>
+                </div>
+
+                </div>
+
 
         </div>
     </div>
@@ -638,7 +654,7 @@
 <br>
 <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-    <button type="button" class="btn btn-primary add" modulo="moneda">Agregar</button>
+    <button type="button" class="btn btn-primary add" modulo="moneda" id="monbtn">Agregar</button>
 </div>
 
 </div><!-- /.modal -->
