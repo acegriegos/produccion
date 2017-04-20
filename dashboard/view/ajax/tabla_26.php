@@ -3,7 +3,7 @@
 
 
 <tr id="c_<?php echo $obj[0]; ?>">
-    <td>
+    <td <?php echo $obj[2] != 0 ? 'class="tooltipped" style="background-color: rgba(99, 190, 29, 0.3);" data-position="top" data-tooltip="Tipo Moneda Principal"' : '' ?>>
         <input class="center-align" type="text"  value="<?php echo $obj[1]; ?>" readonly style="border: 0px;margin: 0px; padding: 0px;">
     </td>
     <td>

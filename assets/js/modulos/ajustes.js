@@ -1113,7 +1113,7 @@ function cargarSintax(vtabla){
 			arr['where'] = 'id > 0';
 			break;
 		case 'tipopagos':
-			arr['sel'] = '*';
+			arr['sel'] = 'id,nombre,principal';
 			arr['tbl'] = 26;
 			arr['where'] = 'id >= 0 order by id';
 			break;

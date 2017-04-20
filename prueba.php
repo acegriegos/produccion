@@ -49,7 +49,7 @@
     <td><b>TIEMPO</b></td>
 </tr>
 <?php $base = new DBClass(); 
-$procesos = $base->ejecutar("select id,tarea,proceso,date_format(inicio,'%H:%i:%s') as hora from prueba order by id")->fetch_all(); 
+$procesos = $base->ejecutar("select id,tarea,proceso,timediff(now(),inicio) as hora from prueba order by id")->fetch_all(); 
 
 foreach ($procesos as $obj) { ?>
 
@@ -57,7 +57,7 @@ foreach ($procesos as $obj) { ?>
     <td><?php echo $obj[0]; ?></td>
     <td><?php echo $obj[1]; ?></td>
     <td><?php echo $obj[2]; ?></td>
-    <td id="t<?php echo $obj[0]; ?>"> <span class="hora">00</span>:<span class="minuto">00</span>:<span class="segundo">00</span> <button class="comenzar" begin="1" time="<?php echo $obj[3]; ?>" id="c<?php echo $obj[0]; ?>">COMENZAR</button></td>
+    <td id="t<?php echo $obj[0]; ?>"> <span class="reloj"><span class="hora">00</span>:<span class="minuto">00</span>:<span class="segundo">00</span></span> <button class="comenzar" begin="1" time="<?php echo $obj[3]; ?>" id="c<?php echo $obj[0]; ?>">COMENZAR</button></td>
 </tr>
 
 <?php $max = $obj[0]; } $_SESSION['max'] = $max;?>
@@ -81,7 +81,7 @@ $(function(){
             
             if(data != ''){
                 $.each(data,function(index){
-                    $("#tblprocesos").append('<tr> <td>'+data[index][0]+'</td> <td>'+data[index][1]+'</td> <td>'+data[index][2]+'</td> <td id="t'+data[index][0]+'"> <span class="hora">00</span>:<span class="minuto">00</span>:<span class="segundo">00</span> <button class="comenzar" begin="1" time="'+data[index][3]+'" id="c'+data[index][0]+'">COMENZAR</button> </td> </tr>');
+                    $("#tblprocesos").append('<tr> <td>'+data[index][0]+'</td> <td>'+data[index][1]+'</td> <td>'+data[index][2]+'</td> <td id="t'+data[index][0]+'"> <span class="reloj"><span class="hora">00</span>:<span class="minuto">00</span>:<span class="segundo">00</span></span> <button class="comenzar" begin="1" time="'+data[index][3]+'" id="c'+data[index][0]+'">COMENZAR</button> </td> </tr>');
                 });
                 $(".comenzar[begin='1']").click();
             }
@@ -96,20 +96,30 @@ $(function(){
 
     $(document).on("click",".comenzar",function(){
         var id = $(this).attr('id').substr(1);
-        tiempo_corriendo[id] = null;
-        time[id] = {
-            hora: 0,
-            minuto: 0,
-            segundo: 0
-        };
-        time[id].hora = parseInt($(this).attr('time').substr(0,2));
-        time[id].minuto = parseInt($(this).attr('time').substring(3,5));
-        time[id].segundo = parseInt($(this).attr('time').substr(6));
 
         if ( $(this).attr('begin') == 1 )
         {
+            tiempo_corriendo[id] = null;
+            time[id] = {
+                    hora: 0,
+                    minuto: 0,
+                    segundo: 0
+                };
+            var clock = '<span class="hora">00</span>:<span class="minuto">00</span>:<span class="segundo">00</span>';   
+            if($("#t"+id+" .reloj").html() == clock ){
+                
+                var mytime = $(this).attr('time');
+                time[id].hora = parseInt(mytime.substr(0,2));
+                time[id].minuto = parseInt(mytime.substring(3,5));
+                time[id].segundo = parseInt(mytime.substr(6));
+            }else{
+                time[id].hora = parseInt($("#t"+id+" .hora").html());
+                time[id].minuto = parseInt($("#t"+id+" .minuto").html());
+                time[id].segundo = parseInt($("#t"+id+" .segundo").html());
+            }
+
             $(this).attr('begin',0);
-            $(this).text('Detener');                         
+            $(this).text('Pausar');                         
             tiempo_corriendo[id] = setInterval(function(){ cronometro(id,time);}, 1000);
         }
         else 
