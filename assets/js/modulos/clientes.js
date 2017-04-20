@@ -124,6 +124,11 @@ $(function(){
 
 });
 
+$(document).on("click",".optns",function(){
+	var tipo = $(this).attr('tipo');
+	$("#search_clientes").attr('var',tipo);
+});
+
 $(document).on("click",".delcta",function(){
 	tp = $(this).attr('tp');
 	$("#vidcuenta").val(1);
@@ -169,6 +174,7 @@ $(document).on("click","input[name='tipoclie']",function(){
 		default:
 			$("#titInfo").html('<b>Información Jurídica<b/>');
 			$("#nomClie").html('Razón Social');
+			$("label[for=vcedula]").text('Cédula Jurídica');
 			$(".hid").css('display','none');
 			break;
 	}
@@ -332,7 +338,7 @@ function addIM(vidcuenta,vimpuesto,vnombre,vvalor,vexoneracion){
 
 function endDetail(vid,vacc,modulo){
 
-	setTimeout(function(){ deadclear('cliente'); }, 2500);
+	setTimeout(function(){ deadclear('cliente'); }, 500);
     thorload('cliente');
     if (vacc == 1) {
 	    $("#shcorreos").html('');
