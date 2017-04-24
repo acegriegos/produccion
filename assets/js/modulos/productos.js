@@ -432,7 +432,7 @@ $(document).on("click","#addimp",function(){
     if ($("#vimv"+id).val() == undefined) {
         $("#impuestos").removeClass('hide');
         if ($("#imp option:selected").val() != 0) {
-            $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+id+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+id+'" value="'+valor+'">'+nombre+' - '+valor+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+id+'" type="number" class="validate eder calcvv" value="0" style="margin: 0px;width: 50%"></div></div></li>')
+            $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+id+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+id+'" value="'+valor+'" defecto="0">'+nombre+' - '+valor+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+id+'" type="number" class="validate eder calcvv" value="0" style="margin: 0px;width: 50%"></div></div></li>')
             totalizar($("#hvcosto").val(),$("#vganancia").val());
         }
     }else{
@@ -501,10 +501,11 @@ $(document).on("click","#addprod",function(){
                 //agregar impuestos
                 $(".impuestos").each(function(){
                     var idimpuesto = $(this).attr('id').substr(4);
-                    if ($(this).attr('defecto') && $("#impexo"+idimpuesto).val() == '' || $("#impexo"+idimpuesto).val() == 0) {
+                    if ($(this).attr('defecto') == 1 && ($("#impexo"+idimpuesto).val() == '' || $("#impexo"+idimpuesto).val()) == 0) {
                         return false;
                     }else{
-                        var imp = arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),'',0,'');
+                        console.log(1)
+                        arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),0,0,0);
                     }
                 });
                 //agrega niveles productos
@@ -582,6 +583,7 @@ $(document).on("click",".editprod",function(){
 	var id = $(this).attr('id').substr(1);
 	var p = arr('login',4,'',83,id,'',0,'');
 	var q = p[0][0];
+    console.log(q[1])
 	var precios = arr('login',4,'',110,id,0,0,0)[0];
     $("#dinventario").addClass('hide');
 	$(".accmodal").html("Actualizar Producto "+q[5]);
@@ -590,35 +592,39 @@ $(document).on("click",".editprod",function(){
 	$("#editprod").attr('idprod',id);
 	$("#impuestos").removeClass('hide');
 	$("#vidfamilia").val(q[0]);
-	$("#vidtipo").val(q[1]);
-	$("#vidmarca").val(q[2]);
-	$("#vidunidad").val(q[3]);
+    $("#vfamilia").val(q[1]);
+	$("#vidtipo").val(q[2]);
+    $("#vtipo").val(q[3]);
+	$("#vidmarca").val(q[4]);
+    $("#vmarca").val(q[5]);
+    $("#vpeso").val(q[6])
+	$("#vidunidad").val(q[7]);
 	$("#vidunidad").material_select();
-	$("#vidinventario").val(q[4]);
+	$("#vidinventario").val(q[8]);
 	$("#vidinventario").material_select();
-	$("#vnombre").val(q[5]);
-	$("#vcodigo").val(q[6]);
-	$("#vminimo").val(q[7]);
-	$("#vmaximo").val(q[8]);
-	$("#vmaxdescuento").val(q[9]);
-	$("#vcosto").val(q[10]);
-	$("#hvcosto").val(q[10]);
-	$("#vganancia").val(q[11]);
-	$("#vventa").val(q[12]);
-	$("#hventa").val(q[13]);
-    $("#vexoneracion").val(q[15]);
+	$("#vnombre").val(q[9]);
+	$("#vcodigo").val(q[10]);
+	$("#vminimo").val(q[11]);
+	$("#vmaximo").val(q[12]);
+	$("#vmaxdescuento").val(q[13]);
+	$("#vcosto").val(q[14]);
+	$("#hvcosto").val(q[15]);
+	$("#vganancia").val(q[15]);
+	$("#vventa").val(q[18]);
+	$("#hventa").val(q[17]);
+    $("#vexoneracion").val(q[19]);
 
     $("#impuestos").html('')
 	for (var i = 0; i < p[0].length; i++) {
 		q = p[0][i]
-		if (q[12] != '') {
+		if (q[16] != '') {
 			defecto = '';
-			if (q[15] == 0)
-				defecto = '<a class="secondary-content delimp" id="dimp'+q[12]+'"><i class="material-icons">delete</i></a>';
+			if (q[20] == 0)
+				defecto = '<a class="secondary-content delimp" id="dimp'+q[15]+'"><i class="material-icons">delete</i></a>';
 
             $("#impuestos").removeClass('hide');
-            $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+q[16]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+q[16]+'" value="'+q[18]+'">'+q[17]+' - '+q[18]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+q[16]+'" type="number" class="validate eder" value="'+q[19]+'" style="margin: 0px;width: 50%"></div></div></li>');
-            $("#newimp"+q[16]).data('defecto',q[19]);
+            $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+q[19]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+q[19]+'" value="'+q[32]+'">'+q[20]+' - '+q[21]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+q[19]+'" type="number" class="validate eder" value="'+q[22]+'" style="margin: 0px;width: 50%"></div></div></li>');
+            $("#newimp"+q[19]).data('defecto',q[22]);
         }
     }
 

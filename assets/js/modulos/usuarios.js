@@ -209,6 +209,10 @@ function validarusuarios() {
 		$('#vcedula').focus();
 		return 'Cédula Requerida';
 	}
+	if ($("#vcorreo").val() == '') {
+		$("#vcorreo").focus();
+		return 'Correo Requerido';
+	}
 	if ($('#vidTipoUsuario option:selected').val() == 0) {
 		$('#vidTipoUsuario').focus();
 		return 'Tipo de Usuario Requerido';
