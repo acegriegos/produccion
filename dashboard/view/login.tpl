@@ -9,8 +9,9 @@
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <link href="../assets/css/materialize.css" rel="stylesheet">
     <link href="../assets/libs/iconos/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css">
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,7 +25,7 @@
 <div class="bdy ">
 <div class="row"><br><br>
 
-    <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px; margin-top: 7%; background-color: rgba(11,56,97,0.7) "><br>
+    <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px; margin-top: 5%; background-color: #063B61;/*rgba(11,56,97,0.7)*/ "><br>
     <div class="card-header"><p class="flow-text center white-text"><b>Sistema BMS</b></p></div>
     <div class="card-content">
     
@@ -32,12 +33,12 @@
     <input type="hidden" name="vdir" value="" id="vdir">
         <div class="input-field col s12">
         
-            <input id="user" type="text" name="usr" class="validate">
-            <label for="user" class="white-text"><b>Ingrese su Usuario</b></label>
+            <input id="user" type="text" name="usr" class="validate" style="padding-left: 2%;border: 1px solid #e2e2e2;font-size: 20px;">
+            <label for="user" class="white-text" style="padding-bottom: 8px;"><b>Ingrese su Usuario</b></label>
         </div>
         <div class="input-field col s12">
-            <input id="pass" type="password" name="pss" class="validate">
-            <label for="pass" class="white-text"><b>Contraseña</b></label>
+            <input id="pass" type="password" name="pss" class="validate" style="padding-left: 2%;border: 1px solid #e2e2e2;font-size: 20px;">
+            <label for="pass" class="white-text" style="padding-bottom: 8px;"><b>Contraseña</b></label>
         </div>
         <div class="row">
             <div class="col s12"><br>
