@@ -1,13 +1,15 @@
 <div id="mantProd">
     <div class="row">
         <div class="input-field col s11 m8 l5">
-            <a class="prefix dropdown-button tooltipped" data-activates='fgrande' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons pbtn">search</i></a>
-            <ul id='fgrande' class='dropdown-content'>
-                <li><a href="#!" vfiltros="1">Nombre</a></li>
-                <li><a href="#!" vfiltros="2">Código</a></li>
+            <a class="prefix dropdown-button tooltipped small material-icons"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro">search</a>
+            <ul id='filtr_1' class='dropdown-content'>
+                <li><a class="optns" tipo="codigo" href="#!" fltr="1">Código</a></li>
+                <li><a class="optns" tipo="nombre" href="#!" fltr="2">Nombre</a></li>
+                <li><a class="optns" tipo="marca" href="#!" fltr="3">Marca</a></li>
             </ul>
-            <input type="text" id="search_productos" maxlength="100" num="v14" var="nombre">
-            <label for="search_productos" class="truncate">Buscar Producto por Nombre o Código</label>
+            <input type="text" id="search_productos" maxlength="100" num="v14" var="codigo">
+            <label class="truncate" for="search_productos">Buscar Producto por Código</label>
+
         </div>
         <div class="col s12 m4 l7">
             <a id="addproduct" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-productos"><i class="material-icons">add</i></a>
@@ -37,10 +39,10 @@
                     <td style="width: 10%">{$PROD[LE][5]}</td>
                     <td style="width: 10%">{$PROD[LE][6]}</td>
                     <td style="width: 10%">
-                        <a class="btn-color pbtn descuentos" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Agregar Descuentos"><img src="../assets/img/icon/percent.svg"></a>
-                        <a class="btn-color pbtn salidainv" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"><i class="material-icons">compare_arrows</i></a>
-                        <a class="btn-color pbtn editprod" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"><i class="material-icons">edit</i></a>
-                        <a class="btn-color pbtn cdel delprod" id="d{$PROD[LE][0]}" title="Eliminar Producto"><i class="material-icons">close</i></a>
+                        <a class="btn-color pbtn descuentos" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"><img src="../assets/img/icon/percent.svg"></a>
+                        <a class="btn-color pbtn salidainv material-icons" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario">compare_arrows</a>
+                        <a class="btn-color pbtn editprod material-icons" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto">edit</a>
+                        <a class="btn-color pbtn cdel delprod material-icons" id="d{$PROD[LE][0]}" title="Eliminar Producto">close</a>
                     </td>
                 </tr>
             {/section}
@@ -343,33 +345,30 @@
     </div>
 </div>
 
-<div id="modal-descuentos" class="modal modal-fixed-footer" style="width:70%;height:90%">
+<div id="modal-descuentos" class="modal modal-fixed-footer" style="width:45%;height:90%">
     <div class="modal-header">
         <ul class="tabs white-text" style="background-color:#0B3861">
-            <li class="tab col s3"><a class="white-text">AGREGAR DESCUENTO A <span id="dprod"></span></a></li>
+            <li class="tab col s3"><a class="white-text">Mostrar Descuentos de Producto <span id="dprod"></span></a></li>
         </ul>
     </div>
     <div class="modal-content" stylle="padding: 0px;">
         <div class="row">
-            <div class="col s11 m6">
-                <div class="input-field col s10">
-                    <select id="dscts"></select>
-                    <label>Seleccione un Descuento</label>
-                    <input type="hidden" id="idproducto" class="form-control" value="">
-                </div>
-                <div class="col s1 m2">
-                    <button type="button" class="btn-floating waves-effect waves-light blue z-depth-5" id="adddsct"><i class="material-icons">add</i></button>
-                </div>
-            </div>
-            <div class="col s6" id="tbldesc">
-                <h5>Descuentos</h5>
-                <ul class="collection " id="listadescuentos"></ul>
-            </div>
+            <ul class="collection with-header" id="listadescuentos">
+                <!-- <li class="collection-item">
+                    <div class="row">
+                        <div class="col s6 m6 l6">
+                            Nombre del Descuento: <span id="nmdesc1">Leche</span>
+                        </div>
+                        <div class="col s6 m6 l6">
+                            <a class="secondary-content">Valor: <span id="valdesc1">15%</span></a>
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
         </div>
     </div>
     <div class="modal-footer">
-        <a class="modal-action waves-effect waves-light btn-flat white-text blue z-depth-5" id="gdesc">Guardar</a>
-        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text  z-depth-5" style="margin-right: 2% !important;"> Salir</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
     </div>
 </div>
 </div> <!-- End mantProductos -->

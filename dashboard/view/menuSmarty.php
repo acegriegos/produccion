@@ -21,7 +21,7 @@
             <option value="2" class="logout" id="x2">Notificaciones</option>
             <option value="3" class="logout" id="x2">Cierre de Caja</option>
           </select>
-          <span class="new badge" data-badge-caption="Notificacion(es) sin Leer" id="newnot"></span>
+          <!-- <span class="new badge" data-badge-caption="Notificacion(es) sin Leer" id="newnot"></span> -->
         </div>
         <a href="#!name" class="center"><span class="white-text name"></span></a>
         <a href="#!email" class="center"><span class="white-text email">{$smarty.session.MAIL}</span></a>
@@ -95,10 +95,10 @@
   
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/mask/jquery.mask.js"></script>
-<script src="../assets/js/materialize.js?v=1.8"></script>
-<script src="../assets/js/modulos/menu.js?v=1.4"></script>
+<script src="../assets/js/materialize.js?v=0.1"></script>
+<script src="../assets/js/modulos/menu.js?v=0.1"></script>
 <script src="../assets/libs/charts/chart.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-<script src="../assets/js/asgard.js?v=1.16"></script>
+<script src="../assets/js/asgard.js?v=0.3"></script>
 

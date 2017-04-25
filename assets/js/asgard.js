@@ -100,17 +100,16 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
             endDetail(1,1,modulo+"s");
         }else{
            
             var tmsj = "Ingresado";
-            if (accion == 2){
+            if (accion == 2) {
                 tmsj = "Actualizado";
                 acc = 2;
-            }else if(accion == 3){
+            }else if(accion == 3) {
                 tmsj = "Eliminado";
                 acc = 3;
             }
@@ -600,6 +599,15 @@ function change_load(vto,vtabla,vval,vset){
         $('#'+vto).material_select('update');
     }
 };
+
+function convert(a, b, c, d) {
+    // a = idproducto | b = cantidad | c = unidad a convertir | d = precio
+    // console.log(a+" "+b+" "+c+" "+d)
+    var precio = arr('login',4,'',154,a+','+b+','+c+','+d,0,0,0)[0][0];
+    console.log(precio)
+    return precio
+
+}
 
 $(document).on("change","._det",function(){
     var vto = $(this).attr('id');

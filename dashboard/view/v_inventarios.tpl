@@ -48,6 +48,6 @@
           </div>
         </div>
     </div>
-    <script src="../assets/js/modulos/inventarios.js"></script>
+    <script src="../assets/js/modulos/inventarios.js?v=0.1"></script>
   </body>
 </html>

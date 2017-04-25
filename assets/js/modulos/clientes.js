@@ -127,6 +127,7 @@ $(function(){
 $(document).on("click",".optns",function(){
 	var tipo = $(this).attr('tipo');
 	$("#search_clientes").attr('var',tipo);
+	$("label[for=search_clientes]").text('Buscar Cliente por '+$(this).text());
 });
 
 $(document).on("click",".delcta",function(){

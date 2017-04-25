@@ -20,6 +20,6 @@
     <div class="bdy">
 
     </div>
-    <script src="../assets/js/modulos/proyeccion.js"></script>
+    <script src="../assets/js/modulos/proyeccion.js?v=0.1"></script>
   </body>
 </html>

@@ -401,7 +401,7 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/clientes.js?v=1.2"></script>
+<script src="../assets/js/modulos/clientes.js?v=0.1"></script>
 
 </body>
 </html>

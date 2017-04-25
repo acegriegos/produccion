@@ -132,13 +132,17 @@ $(document).on("keyup",".formprod",function(e){
 // });
 // Fin Quick add
 
+$(document).on("click",".optns",function(){
+    var tipo = $(this).attr('tipo');
+    $("#search_productos").attr('var',tipo);
+    $("label[for=search_productos]").text('Buscar Producto por '+$(this).text());
+});
+
 $(document).on("keyup","#vpeso",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
         $("#vidunidad").material_select();
         $("#vidunidad").click();
-
-        console.log(1)
     }
 });
 
@@ -466,6 +470,18 @@ $(document).on("click","#addprod",function(){
         var idinventario =  $("#vidinventario option:selected").val();
         var pass = 1;
 
+        if (idunidad == 1) {
+            peso = peso * 1000;
+        }else if (idunidad == 3) {
+            peso = peso / 1000;
+        }else if (idunidad == 4) {
+            peso = peso * 1000;
+        }else if (idunidad == 6) {
+            peso = peso / 1000;
+        }else if (idunidad == 8) {
+            peso = peso / 100;
+        }
+
         if ($("#vidfamilia").val() == 0) {
             var familia = arr('login',4,'',106,'1,0,\"'+$("#vfamilia").val()+'\"',0,0,0);
             if (familia[0][0] != undefined) {
@@ -504,7 +520,6 @@ $(document).on("click","#addprod",function(){
                     if ($(this).attr('defecto') == 1 && ($("#impexo"+idimpuesto).val() == '' || $("#impexo"+idimpuesto).val()) == 0) {
                         return false;
                     }else{
-                        console.log(1)
                         arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),0,0,0);
                     }
                 });
@@ -516,12 +531,14 @@ $(document).on("click","#addprod",function(){
                     }
                 });
                 Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
-                arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+                arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
                 vaciar('productos');
                 var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
                 for (var i = 0, len = imp.length; i < len; i++) {
                     $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'" defecto="1">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder calcvv" value="0" style="margin: 0px;width: 50%"></div></div></li>');
                 }
+                $(".validate").css('border-bottom','1px solid #9e9e9e');
+                $(".validate").css('box-shadow','none');
                 Materialize.updateTextFields();
                 $("#vfamilia").focus();
             }else{
@@ -566,7 +583,7 @@ $(document).on("click","#editprod",function(){
                 }
             });
             Materialize.toast('Producto Editado Correctamente', 6000, 'green');
-            arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+            arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
             // vaciar('productos');
             Materialize.updateTextFields();
             $("#impuestos").addClass('hide');
@@ -582,8 +599,8 @@ $(document).on("click",".editprod",function(){
     $(".autocomplete-content").hide();
 	var id = $(this).attr('id').substr(1);
 	var p = arr('login',4,'',83,id,'',0,'');
+    console.log(1)
 	var q = p[0][0];
-    console.log(q[1])
 	var precios = arr('login',4,'',110,id,0,0,0)[0];
     $("#dinventario").addClass('hide');
 	$(".accmodal").html("Actualizar Producto "+q[5]);
@@ -615,18 +632,9 @@ $(document).on("click",".editprod",function(){
     $("#vexoneracion").val(q[19]);
 
     $("#impuestos").html('')
-	for (var i = 0; i < p[0].length; i++) {
-		q = p[0][i]
-		if (q[16] != '') {
-			defecto = '';
-			if (q[20] == 0)
-				defecto = '<a class="secondary-content delimp" id="dimp'+q[15]+'"><i class="material-icons">delete</i></a>';
-
-            $("#impuestos").removeClass('hide');
-            $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+q[19]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+q[19]+'" value="'+q[32]+'">'+q[20]+' - '+q[21]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+q[19]+'" type="number" class="validate eder" value="'+q[22]+'" style="margin: 0px;width: 50%"></div></div></li>');
-            $("#newimp"+q[19]).data('defecto',q[22]);
-        }
-    }
+    arr('login',6,'',153,id,0,1,$("#impuestos"))
+    $("#impuestos").removeClass('hide');
+    // $("#newimp"+q[19]).data('defecto',q[22]);
 
     for (var i = 0; i < precios.length; i++) {
       $("#vganancia"+precios[i][0]).val(precios[i][1]);
@@ -638,27 +646,12 @@ $(document).on("click",".editprod",function(){
 });
 
 $(document).on("click",".descuentos",function(){
+
     var id = $(this).attr('id').substr(4);
     var prod = arr('login',4,'nombre',11,'id = '+id,'',0,'')[0];
-    $("#tbldesc").addClass('hide');
-    $("#listadescuentos").html('');
-    $("#idproducto").val(id);
-    $("#dprod").text(prod);[]
-    arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#dscts"));
-    $('select').material_select();
-
-    var desc = arr('login',4,'iddescuento,descuento,replace(valor,".00","")',115,'idfila = '+id+' and idtabla = 11',0,0,0)[0];
-    if (desc != '') {
-        for (var i = 0, len = desc.length; i < len; i++) {
-            $("#tbldesc").removeClass('hide');
-            $("#listadescuentos").append('<li class="collection-item dismissable" id="ld'+desc[i][0]+'"><div>'+desc[i][1]+' - <span class="descprod" id="vdesc'+desc[i][0]+'">'+desc[i][2]+'%</span><a class="secondary-content"><i class="material-icons but deldesc" id="deldesc'+desc[i][0]+'">delete</i></a></div></li>');
-        }
-        $("#gdesc").attr('action',2)
-    }else{
-        $("#tbldesc").addClass('hide');
-        $("#listadescuentos").html('');
-        $("#gdesc").attr('action',1)
-    }
+    $("#dprod").text(prod);
+    var descuento = arr('login',6,'',152,id,0,1,$("#listadescuentos"));
+    console.log(descuento)
 });
 
 $(document).on("click",".delprod",function(){
@@ -672,8 +665,8 @@ $(document).on("click",".delprod",function(){
 
 $(document).on("click",".accept",function(){
     var id = $(this).attr('id').substr(3);
-    arr('login',4,'',78,'3,'+id+',"","",0,0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""','',0,'');
-    arr('login',6,'id,codigo,nombre,marca,scosto,sventa,sganancia',14,'id > 0 order by nombre','',1,$("#listaproductos"));
+    arr('login',4,'',78,'3,'+id+',"","",0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""','',0,'');
+    arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
     $('#toast-container').remove();
     Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
 });
@@ -1730,7 +1723,7 @@ function validarproductos() {
         $("#vidinventario").focus();
         return 'Inventario Requerido';
     }
-    if ($("#vidunidad").val() == '') {
+    if ($("#vidunidad").val() == undefined) {
         $("#tb1").click();
         return 'Unidad Requerida';
     }
@@ -1838,7 +1831,7 @@ function cargar(vmodulo,vid) {
 
     switch(vmodulo['modulo']) {
         case 'producto':
-        vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idbodega as vidbodega,cantidad as vcantidad,minimo as vminimo,maximo as vmaximo';
+        vmodulo['sel'] = 'vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idbodega as vidbodega,cantidad as vcantidad,minimo as vminimo,maximo as vmaximo';
         vmodulo['tbl'] = 14;
         vmodulo['where'] ='id = '+vid;
         break;

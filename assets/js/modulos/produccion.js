@@ -80,7 +80,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m3").click();
+    $("#m1").click();
 });
 
 $(document).ready(function(){
@@ -600,33 +600,52 @@ $(document).on("keydown","#vcantidad",function(e){
     var code = e.which || e.keyCode;
     var nombre = $("#vproducto").val();
     var cantidad = $("#vcantidad").val();
-    var idmedida = $("#vidunidad").val();
-    var medida = $("#vidunidad option:selected").attr('unidad');
+    var idunidad = $("#vidunidad").val();
+    var unidad = $("#vidunidad option:selected").attr('unidad');
     if (code == 13) {
-        var validacion = arr('login',4,'precio / '+cantidad,116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
-        // ? precio o costo
-        if (validacion[0] != undefined)
-            addproduct(nombre,cantidad,idmedida,medida,validacion[0]);
-        else
+        var prod = arr('login',4,'id,replace(precio,",","")',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+        if (prod != undefined) {
+            // conversion
+            var precio = convert(prod[0],cantidad,idunidad,prod[1]);
+            addproduct(nombre,cantidad,idunidad,unidad,precio);
+        }else{
             Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
             $("#vcantidad").val('');
             $("#vproducto").select();
-        
+        }
     }
 });
 
 $(document).on("change","#vidunidad",function(){
     var nombre = $("#vproducto").val();
     var cantidad = $("#vcantidad").val();
-    var idmedida = $("#vidunidad").val();
+    var idunidad = $("#vidunidad").val();
     var medida = $("#vidunidad option:selected").attr('unidad');
-    var precio = arr('login',4,'precio / '+cantidad,116,'nombre = \"'+nombre+'\"',0,0,0)[0];
-    if (precio != undefined)
-        addproduct(nombre,cantidad,idmedida,medida,precio);
-    else
+    var prod = arr('login',4,'id,replace(precio,",","")',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+    if (prod != undefined) {
+        var precio = convert(prod[0],cantidad,idunidad,prod[1]);
+        addproduct(nombre,cantidad,idunidad,medida,precio);
+    }else{
         Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
         $("#vcantidad").val('');
         $("#vproducto").select();
+    }
+});
+
+$(document).on("click","#addproduct",function(){
+    var nombre = $("#vproducto").val();
+    var cantidad = $("#vcantidad").val();
+    var idunidad = $("#vidunidad").val();
+    var medida = $("#vidunidad option:selected").attr('unidad');
+    var prod = arr('login',4,'id,replace(precio,",","")',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+    if (prod != undefined) {
+        var precio = convert(prod[0],cantidad,idunidad,prod[1]);
+        addproduct(nombre,cantidad,idunidad,medida,precio);
+    }else{
+        Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
+        $("#vcantidad").val('');
+        $("#vproducto").select();
+    }
 });
 
 $(document).on("blur","#vproducto",function(){
@@ -634,21 +653,6 @@ $(document).on("blur","#vproducto",function(){
     var idunidad = arr('login',4,'idunidad',116,'nombre = \"'+nombre+"\"",0,0,0)[0][0];
     $("#vidunidad").val(idunidad);
     $('select').material_select();
-});
-
-$(document).on("click","#addproduct",function(){
-    var nombre = $("#vproducto").val();
-    var cantidad = $("#vcantidad").val();
-    var idmedida = $("#vidunidad").val();
-    var medida = $("#vidunidad option:selected").attr('unidad');
-    var precio = arr('login',4,'precio / '+cantidad,116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
-    if (precio != undefined)
-        addproduct(nombre,cantidad,idmedida,medida,precio);
-    else
-        Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
-        $("#vcantidad").val('');
-        $("#vproducto").select();
-    
 });
 
 $(document).on("click",".titrecipe",function(){
@@ -782,7 +786,6 @@ $(document).on("click",".actrecipe",function(){
             Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
         }
         arr('login',6,'idproducto,producto,precioventa',99,'idproceso > 0 order by producto limit 20',0,1,$("#listaprocesos"));
-        // 'idproducto,producto,precioventa',99,'1'
         $("#makerecipe").html('');
 
     }else{
@@ -905,7 +908,27 @@ function addprodline(tipo) {
     }
 }
 
-function parpadear(){
+function validateaddprod(nom,cant,uni) {
+    if (nom == ''){
+        $("#vproducto").focus();
+        return 'Insumo Requerido';
+    }
+    if (cant <= 0){
+        $("#vcantidad").focus();
+        return 'Cantidad debe ser mayor a 0';
+    }
+    if (cant == ''){
+        $("#vcantidad").focus();
+        return 'Cantidad Requerida';
+    }
+    if (uni == 0){
+        $("#vidunidad").focus();
+        return 'Unidad Requerida';
+    }
+    return false;
+}
+
+function parpadear() {
     var o = parseInt($("#o").val());
     if (o == 1) {
         $("#t1").css('background-color','rgba(76,175,80,0.3');
@@ -1034,16 +1057,16 @@ function totalizar(id,ganancia,manoobra) {
 
 function addproduct(nombre,cantidad,idmedida,medida,precio) {
     var id = $("#spot").val();
-    var idproducto = arr('login',4,'id',14,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
+    var idproducto = arr('login',4,'vid',14,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
     var tiempo = $("#vestimado"+id).val() == '' ? 0 : parseFloat($("#vestimado"+id).val());
     var horash = $("#vhorasmaquina"+id).val() == '' ? 0 : parseFloat($("#vestimado"+id).val());
     var horasm = $("#vhorashombre"+id).val() == '' ? 0 : parseFloat($("#vhorashombre"+id).val());
     var prectot = 0;
     var validac = 1;
-
     // validacion
-    if (nombre != ''  && cantidad != '') {
-        $(".product").each(function(){
+    var validate = validateaddprod(nombre,cantidad,idmedida);
+    if (validate == false) {
+        $(".product").each(function() {
             var idprod = $(this).attr('id').substr(4);
             if ($("#prec"+idprod).attr('spot') == id && idprod == idproducto) {
                 validac = 0;
@@ -1051,37 +1074,31 @@ function addproduct(nombre,cantidad,idmedida,medida,precio) {
                 return false;
             }
         });
-    }
-    // fin validacion
-    if (validac == 1) {
-        $("#productos"+id).append('<li class="collection-item dismissable" id="p'+idproducto+'"><div id="groupprodcts'+idproducto+'"><span id="prod'+idproducto+'" class="product">'+nombre+'</span><input type="hidden" id="prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="cant'+idproducto+'">'+cantidad+'</span> (<span id="idmedida'+idproducto+'">'+medida+'<span>)<i class="material-icons right red-text del but" id="d'+idproducto+'">close</i></div></li>');
-    }else{
-        cantidad = parseFloat($("#cant"+idproducto).text()) + parseFloat(cantidad);
-        $("#cant"+idproducto).text(cantidad);
-    }
-
-    vaciar('insumos');
-
-    // calculo
-    $(".product").each(function(){
-        var idprod = $(this).attr('id').substr(4);
-        if ($("#prec"+idprod).attr('spot') == id) {
-            var precio = parseFloat($("#prec"+idprod).val());
-            var cantidad = parseFloat($("#cant"+idprod).text());
-            var tprecio = 0;
-            tprecio = precio * cantidad;
-            prectot += tprecio;
+        // fin validacion
+        if (validac == 1) {
+            $("#productos"+id).append('<li class="collection-item dismissable" id="p'+idproducto+'"><div id="groupprodcts'+idproducto+'"><span id="prod'+idproducto+'" class="product">'+nombre+'</span><input type="hidden" id="prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="cant'+idproducto+'">'+cantidad+'</span> (<span id="idmedida'+idproducto+'">'+medida+'<span>)<i class="material-icons right red-text del but" id="d'+idproducto+'">close</i></div></li>');
+        }else{
+            cantidad = parseFloat($("#cant"+idproducto).text()) + parseFloat(cantidad);
+            $("#cant"+idproducto).text(cantidad);
         }
-    });
-    // fin calculo
-
-    /*
-    Adiciones
-    */
-
-    $("#total"+id).text('¢ '+(prectot).toFixed(2));
-    $("#htotal"+id).val(prectot);
-
+        vaciar('insumos');
+        // calculo
+        $(".product").each(function(){
+            var idprod = $(this).attr('id').substr(4);
+            if ($("#prec"+idprod).attr('spot') == id) {
+                var precio = parseFloat($("#prec"+idprod).val());
+                var cantidad = parseFloat($("#cant"+idprod).text());
+                var tprecio = 0;
+                tprecio = precio;
+                prectot += tprecio;
+            }
+        });
+        // fin calculo
+        $("#total"+id).text('¢ '+(prectot).toFixed(2));
+        $("#htotal"+id).val(prectot);
+    }else{
+         Materialize.toast(validate, 6000, 'red');
+    }
 }
 
 function addrecipe(id,nombre,codigo) {

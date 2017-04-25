@@ -73,6 +73,6 @@
 
 
     </div>
-    <script src="../assets/js/modulos/comercial.js"></script>
+    <script src="../assets/js/modulos/comercial.js?v=0.1"></script>
   </body>
   </html>
