@@ -54,3 +54,13 @@ input:focus, input:active, button:focus, button:active, .btn:focus, .btn:active 
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.mbox{
+  font-size: 20px;
+  border: 1px solid #e2e2e2;
+  padding-left: 2%;
+}
+
+.mlabel{
+  padding-bottom: 8px;
+}

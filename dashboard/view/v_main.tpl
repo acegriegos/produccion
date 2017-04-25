@@ -12,8 +12,10 @@
   <body>
     {$NAV}
     <div class="bdy">
+
+    <div class="row" style="border-bottom: 1px solid #e2e2e2">
     {if $smarty.session.TIPO eq 1}
-        <div class="row">
+        
             <div class="input-field col s12 m6 l3">
 
                 <select>
@@ -24,10 +26,11 @@
                 </select>
                 <label>Seleccione una Sucursal</label>
             </div>
-        </div>
     {/if}
+    <a href="#" class="btn-floating der"><i class="material-icons">add</i></a>
+    </div>
 
-    <form id="checkout-form" action="main" method="post">
+    <!-- <form id="checkout-form" action="main" method="post">
       <div id="error-message"></div>
 
       <label for="card-number">Card Number</label>
@@ -46,7 +49,7 @@
     </form>
 
     <script src="https://js.braintreegateway.com/web/3.11.1/js/client.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.11.1/js/hosted-fields.js "></script>
+    <script src="https://js.braintreegateway.com/web/3.11.1/js/hosted-fields.js "></script> -->
 
     <script src="../assets/js/main.js?v=0.1"></script>
 
