@@ -33,6 +33,6 @@
 	<div id="bdymantInventario"></div>
 </div>
 </div> <!-- END BDY -->
-<script src="../assets/js/modulos/productos.js?v=0.1"></script>
+<script src="../assets/js/modulos/productos.js?v=0.2"></script>
 </body>
 </html>
