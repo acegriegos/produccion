@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
 	<body>{$NAV}
 		<div class="bdy">
-			
 			<div class="card z-depth-5">
 				<div class="card-header center blue-grey white-text z-depth-1">
 					<p class="flow-text"  style="background-color:#0B3861; padding-bottom: 1%; padding-top: 1%;" >Productos</p>
@@ -29,10 +28,10 @@
 						</li>
 					</ul>
 				</nav>
-	<br>
-	<div id="bdymantInventario"></div>
-</div>
-</div> <!-- END BDY -->
-<script src="../assets/js/modulos/productos.js?v=0.1"></script>
+				<br>
+				<div id="bdymantInventario"></div>
+			</div>
+		</div> <!-- END BDY -->
+	<script src="../assets/js/modulos/productos.js?v=0.5"></script>
 </body>
 </html>

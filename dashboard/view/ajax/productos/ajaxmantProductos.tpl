@@ -78,7 +78,7 @@
                         <label for="vmarca">Marca</label>
                         <input type="hidden" id="vidmarca" value="0">
                     </div>
-                    <div class="input-field marginzero">
+                    <div class="input-field marginzero hide" id="dvpeso">
                         <input id="vpeso" type="number" class="validate" min="0" autocomplete="off">
                         <label for="vpeso">Peso</label>
                     </div>
@@ -138,7 +138,7 @@
                     <label>Precio Costo</label>
                     <div class="input-field">
                         <i class="material-icons prefix">¢</i>
-                        <input type="text" id="vcosto" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vganancia">
+                        <input type="text" id="vcosto" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
                         <input type="hidden" id="hvcosto" value="">
                     </div>
                 </div>
@@ -146,14 +146,14 @@
                     <label>Ganancia</label>
                     <div class="input-field">
                         <i class="material-icons prefix">%</i>
-                        <input type="text" id="vganancia" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vventa">
+                        <input type="text" id="vganancia" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2">
                     </div>
                 </div>
                 <div class="col s12 m6 l3 center-align">
                     <label>Precio Venta</label>
                     <div class="input-field">
                         <i class="material-icons prefix">¢</i>
-                        <input type="text" id="vventa" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion">
+                        <input type="text" id="vventa" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3">
                         <input type="hidden" id="hventa" value="">
                     </div>
                 </div>

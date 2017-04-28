@@ -26,7 +26,7 @@
 <div class="row"><br><br>
 
     <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px; margin-top: 5%; background-color: #063B61;/*rgba(11,56,97,0.7)*/ "><br>
-    <div class="card-header"><p class="flow-text center white-text"><b>Sistema BMS</b></p></div>
+    <div class="card-header"><p class="flow-text center white-text"><b>Sistema BMSA</b></p></div>
     <div class="card-content">
     
     <form role="form" id="logF" action="index.php" method="POST">
