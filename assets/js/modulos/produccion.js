@@ -80,7 +80,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m3").click();
+    $("#m1").click();
 });
 
 $(document).ready(function(){
@@ -128,9 +128,9 @@ $(document).on("click",".start",function(){
     var idproceso = $(this).attr('idproceso');
     var idlinea = $(this).attr('idlinea');
     var cantidad = $(this).attr('cantidad');
-    var idtarea = 
-    arr('login',4,'',148,'1,0,'+idproceso+','+idlinea+','+cantidad,0,0,0);
-    arr('login',4,'',149,'1,0,1,tarea,now(),@@usr,@@impresa',vcambio,vch,velemto,vjson)
+    var idtarea = $(this).attr('idtarea');
+    var identity = arr('login',4,'',148,'1,0,'+idproceso+','+idlinea+','+cantidad,0,0,0)[0][0];
+    arr('login',4,'',149,'1,0,1,'+idtarea+','+identity+',now(),@@usr,@@impresa',0,0,0);
 
 });
 
@@ -177,12 +177,14 @@ $(document).on("blur","#proceso",function(){
         var idlinea = arr('login',4,'idlinea',146,'nombre = "'+$(this).val()+'"',0,0,0)[0][0][0];
         $("#idproceso").val(id[0]);
         $("#linea").val(idlinea);
+        Materialize.updateTextFields();
         $(this).css('border-bottom','1px solid #4CAF50');
         $(this).css('box-shadow','0 1px 0 0 #4CAF50');
     }else{
         $("#idproceso").val(0);
-        $(this).css('border-bottom','1px solid #F44336');
-        $(this).css('box-shadow','0 1px 0 0 #F44336');
+        if ($(this).val() != '')
+            $(this).css('border-bottom','1px solid #9e9e9e');
+            $(this).css('box-shadow','none');
     }
     
 });
@@ -598,33 +600,52 @@ $(document).on("keydown","#vcantidad",function(e){
     var code = e.which || e.keyCode;
     var nombre = $("#vproducto").val();
     var cantidad = $("#vcantidad").val();
-    var idmedida = $("#vidunidad").val();
-    var medida = $("#vidunidad option:selected").attr('unidad');
+    var idunidad = $("#vidunidad").val();
+    var unidad = $("#vidunidad option:selected").attr('unidad');
     if (code == 13) {
-        var validacion = arr('login',4,'precio / '+cantidad,116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
-        // ? precio o costo
-        if (validacion[0] != undefined)
-            addproduct(nombre,cantidad,idmedida,medida,validacion[0]);
-        else
+        var prod = arr('login',4,'id,replace(precio,",","")',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+        if (prod != undefined) {
+            // conversion
+            var precio = convert(prod[0],cantidad,idunidad,prod[1]);
+            addproduct(nombre,cantidad,idunidad,unidad,precio);
+        }else{
             Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
             $("#vcantidad").val('');
             $("#vproducto").select();
-        
+        }
     }
 });
 
 $(document).on("change","#vidunidad",function(){
     var nombre = $("#vproducto").val();
     var cantidad = $("#vcantidad").val();
-    var idmedida = $("#vidunidad").val();
+    var idunidad = $("#vidunidad").val();
     var medida = $("#vidunidad option:selected").attr('unidad');
-    var precio = arr('login',4,'precio / '+cantidad,116,'nombre = \"'+nombre+'\"',0,0,0)[0];
-    if (precio != undefined)
-        addproduct(nombre,cantidad,idmedida,medida,precio);
-    else
+    var prod = arr('login',4,'id,replace(precio,",","")',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+    if (prod != undefined) {
+        var precio = convert(prod[0],cantidad,idunidad,prod[1]);
+        addproduct(nombre,cantidad,idunidad,medida,precio);
+    }else{
         Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
         $("#vcantidad").val('');
         $("#vproducto").select();
+    }
+});
+
+$(document).on("click","#addproduct",function(){
+    var nombre = $("#vproducto").val();
+    var cantidad = $("#vcantidad").val();
+    var idunidad = $("#vidunidad").val();
+    var medida = $("#vidunidad option:selected").attr('unidad');
+    var prod = arr('login',4,'id,replace(precio,",","")',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+    if (prod != undefined) {
+        var precio = convert(prod[0],cantidad,idunidad,prod[1]);
+        addproduct(nombre,cantidad,idunidad,medida,precio);
+    }else{
+        Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
+        $("#vcantidad").val('');
+        $("#vproducto").select();
+    }
 });
 
 $(document).on("blur","#vproducto",function(){
@@ -632,21 +653,6 @@ $(document).on("blur","#vproducto",function(){
     var idunidad = arr('login',4,'idunidad',116,'nombre = \"'+nombre+"\"",0,0,0)[0][0];
     $("#vidunidad").val(idunidad);
     $('select').material_select();
-});
-
-$(document).on("click","#addproduct",function(){
-    var nombre = $("#vproducto").val();
-    var cantidad = $("#vcantidad").val();
-    var idmedida = $("#vidunidad").val();
-    var medida = $("#vidunidad option:selected").attr('unidad');
-    var precio = arr('login',4,'precio / '+cantidad,116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
-    if (precio != undefined)
-        addproduct(nombre,cantidad,idmedida,medida,precio);
-    else
-        Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
-        $("#vcantidad").val('');
-        $("#vproducto").select();
-    
 });
 
 $(document).on("click",".titrecipe",function(){
@@ -780,7 +786,6 @@ $(document).on("click",".actrecipe",function(){
             Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
         }
         arr('login',6,'idproducto,producto,precioventa',99,'idproceso > 0 order by producto limit 20',0,1,$("#listaprocesos"));
-        // 'idproducto,producto,precioventa',99,'1'
         $("#makerecipe").html('');
 
     }else{
@@ -903,7 +908,27 @@ function addprodline(tipo) {
     }
 }
 
-function parpadear(){
+function validateaddprod(nom,cant,uni) {
+    if (nom == ''){
+        $("#vproducto").focus();
+        return 'Insumo Requerido';
+    }
+    if (cant <= 0){
+        $("#vcantidad").focus();
+        return 'Cantidad debe ser mayor a 0';
+    }
+    if (cant == ''){
+        $("#vcantidad").focus();
+        return 'Cantidad Requerida';
+    }
+    if (uni == 0){
+        $("#vidunidad").focus();
+        return 'Unidad Requerida';
+    }
+    return false;
+}
+
+function parpadear() {
     var o = parseInt($("#o").val());
     if (o == 1) {
         $("#t1").css('background-color','rgba(76,175,80,0.3');
@@ -981,13 +1006,14 @@ function addprocess(idproceso,proceso,linea,cantidad) {
     var cnt = cantidad;
     count++;
     $("#inicio").append('<div class="row"><div class="col s12 m12 l12"><span class="reloj" id="horas'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="minutos'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="segundos'+count+'">00</span><span class="reloj hide" id="Centesimas'+count+'">:00</span><input type="button" class="waves-effect waves-light btn blue start" id="start'+count+'" value="Iniciar &#9658;" idproceso="'+idproceso+'" idlinea="'+linea+'" cantidad="'+cantidad+'" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue pause hide" id="pause'+count+'" value="Pausar &#9208;" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue stop" id="stop'+count+'" value="Detener &#8718;" disabled></div></div><div class="row"><div class="col s12 m7 l7"><ul class="collection with-header" id="detproc'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Elementos para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li></ul></div><div class="col s12 m5 l5"><ul class="collection with-header" id="taskprod'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Tareas para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li><input type="hidden" id="o" value="1"></ul></div></div>');
-    cnt = 'NaN' ? 1 : cantidad;
+    // cnt = 'NaN' ? 1 : cantidad;
     //detalleprocesos
     $("#inicio").removeClass('hide');
     var elem = arr('login',4,'',119,$("#idproceso").val(),0,0,0)[0];
     for (var i = 0, len = elem.length; i < len; i++) {
         var cant = parseInt(elem[i][5]);
         cnt = cant * cnt;
+
         var faltante = parseInt(elem[i][6] - cnt);
         if (faltante > 0) {
             faltante = 0;
@@ -1003,8 +1029,19 @@ function addprocess(idproceso,proceso,linea,cantidad) {
         var tiempo = parseInt(task[i][3]) * cantidad;
         $("#taskprod"+count).append('<li class="collection-item itask" id="t'+task[i][5]+'"><div class="row mbotcero"><div class="col s6 m6 l6"><span id="task'+task[i][1]+'"></span>'+task[i][2]+'</div><div class="col s4 m4 l4"><span id="e'+task[i][1]+'">'+tiempo+'</span> <span id="u'+task[i][1]+'">'+task[i][4]+'</span></div><div class="col s2 m2 l2"><i class="material-icons pbtn btn-color nexttask" id="s'+task[i][1]+'" idorden="'+task[i][5]+'" style="margin-left: 15px">stop</i></div></div></li>');
     }
-    $("#start"+count).attr('idtarea',task[0][0][1])
+    $("#start"+count).attr('idtarea',task[0][1])
     $("#count").val(count);
+
+    //vaciar
+    $("#proceso").val('');
+    $("#linea").val('');
+    $("#cantidad").val('');
+    $("#proceso").focus();
+    $("#proceso").css('border-bottom','1px solid #9e9e9e');
+    $("#proceso").css('box-shadow','none');
+    $("#linea").css('border-bottom','1px solid #9e9e9e');
+    $("#linea").css('box-shadow','none');
+    Materialize.updateTextFields();
 }
 
 function totalizar(id,ganancia,manoobra) {
@@ -1020,16 +1057,16 @@ function totalizar(id,ganancia,manoobra) {
 
 function addproduct(nombre,cantidad,idmedida,medida,precio) {
     var id = $("#spot").val();
-    var idproducto = arr('login',4,'id',14,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
+    var idproducto = arr('login',4,'vid',14,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
     var tiempo = $("#vestimado"+id).val() == '' ? 0 : parseFloat($("#vestimado"+id).val());
     var horash = $("#vhorasmaquina"+id).val() == '' ? 0 : parseFloat($("#vestimado"+id).val());
     var horasm = $("#vhorashombre"+id).val() == '' ? 0 : parseFloat($("#vhorashombre"+id).val());
     var prectot = 0;
     var validac = 1;
-
     // validacion
-    if (nombre != ''  && cantidad != '') {
-        $(".product").each(function(){
+    var validate = validateaddprod(nombre,cantidad,idmedida);
+    if (validate == false) {
+        $(".product").each(function() {
             var idprod = $(this).attr('id').substr(4);
             if ($("#prec"+idprod).attr('spot') == id && idprod == idproducto) {
                 validac = 0;
@@ -1037,37 +1074,31 @@ function addproduct(nombre,cantidad,idmedida,medida,precio) {
                 return false;
             }
         });
-    }
-    // fin validacion
-    if (validac == 1) {
-        $("#productos"+id).append('<li class="collection-item dismissable" id="p'+idproducto+'"><div id="groupprodcts'+idproducto+'"><span id="prod'+idproducto+'" class="product">'+nombre+'</span><input type="hidden" id="prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="cant'+idproducto+'">'+cantidad+'</span> (<span id="idmedida'+idproducto+'">'+medida+'<span>)<i class="material-icons right red-text del but" id="d'+idproducto+'">close</i></div></li>');
-    }else{
-        cantidad = parseFloat($("#cant"+idproducto).text()) + parseFloat(cantidad);
-        $("#cant"+idproducto).text(cantidad);
-    }
-
-    vaciar('insumos');
-
-    // calculo
-    $(".product").each(function(){
-        var idprod = $(this).attr('id').substr(4);
-        if ($("#prec"+idprod).attr('spot') == id) {
-            var precio = parseFloat($("#prec"+idprod).val());
-            var cantidad = parseFloat($("#cant"+idprod).text());
-            var tprecio = 0;
-            tprecio = precio * cantidad;
-            prectot += tprecio;
+        // fin validacion
+        if (validac == 1) {
+            $("#productos"+id).append('<li class="collection-item dismissable" id="p'+idproducto+'"><div id="groupprodcts'+idproducto+'"><span id="prod'+idproducto+'" class="product">'+nombre+'</span><input type="hidden" id="prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="cant'+idproducto+'">'+cantidad+'</span> (<span id="idmedida'+idproducto+'">'+medida+'<span>)<i class="material-icons right red-text del but" id="d'+idproducto+'">close</i></div></li>');
+        }else{
+            cantidad = parseFloat($("#cant"+idproducto).text()) + parseFloat(cantidad);
+            $("#cant"+idproducto).text(cantidad);
         }
-    });
-    // fin calculo
-
-    /*
-    Adiciones
-    */
-
-    $("#total"+id).text('¢ '+(prectot).toFixed(2));
-    $("#htotal"+id).val(prectot);
-
+        vaciar('insumos');
+        // calculo
+        $(".product").each(function(){
+            var idprod = $(this).attr('id').substr(4);
+            if ($("#prec"+idprod).attr('spot') == id) {
+                var precio = parseFloat($("#prec"+idprod).val());
+                var cantidad = parseFloat($("#cant"+idprod).text());
+                var tprecio = 0;
+                tprecio = precio;
+                prectot += tprecio;
+            }
+        });
+        // fin calculo
+        $("#total"+id).text('¢ '+(prectot).toFixed(2));
+        $("#htotal"+id).val(prectot);
+    }else{
+         Materialize.toast(validate, 6000, 'red');
+    }
 }
 
 function addrecipe(id,nombre,codigo) {

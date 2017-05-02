@@ -40,7 +40,7 @@
 <!-- //modal-mail// -->
 
 </div>
-<script src="../assets/js/modulos/usuarios.js?v=1.0"></script>
+<script src="../assets/js/modulos/usuarios.js?v=0.1"></script>
 
 </body>
 </html>

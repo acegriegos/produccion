@@ -50,7 +50,6 @@ $(document).on("click",".delete",function(){
     var modulo = $(this).attr('modulo');
     var id = $(this).attr('id').substr(1);
     vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
-    console.log(vari)
     doGlobal(3,modulo,id,0);
 });
 
@@ -101,17 +100,16 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
             endDetail(1,1,modulo+"s");
         }else{
            
             var tmsj = "Ingresado";
-            if (accion == 2){
+            if (accion == 2) {
                 tmsj = "Actualizado";
                 acc = 2;
-            }else if(accion == 3){
+            }else if(accion == 3) {
                 tmsj = "Eliminado";
                 acc = 3;
             }
@@ -138,7 +136,6 @@ function baseValidar(vaccion,vmodulo){
         if (vmodulo['tip'] != '') {
             salida[vari] = vmodulo['tip'];
         }
-        // console.log(salida)
     }else{
         console.error('error en Base Validar')
         return varreglo;
@@ -151,7 +148,6 @@ function loadpool(vmodulo,vid,vvarias){
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
-    console.log(columns)
 
     for (var i = 0; columns[0][1].length > i; i++) {
 
@@ -172,7 +168,10 @@ function loadpool(vmodulo,vid,vvarias){
 
             case 'radio':
             case 'checkbox':
-                $("#"+vform+" input[name="+columns[0][1][i]['name']+']:checked').val(columns[0][0][0][i]);
+                var obj = $("#"+vform+" input[name="+columns[0][1][i]['name']+']');
+                obj.val(columns[0][0][0][i]);
+                obj.prop('checked',columns[0][0][0][i]);
+                obj.change();
                 break;
 
             case 'html':
@@ -218,6 +217,10 @@ function loadpool(vmodulo,vid,vvarias){
 
     Materialize.updateTextFields();
 
+    try{
+        postload(vmodulo['modulo']);
+    }catch(e){
+    }
 }
 
 function mantenimiento(vmodulo,vaccion,varreglo,vjson){
@@ -228,7 +231,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     if(stack.length <= 2){
         p = 'Get Lost';
     }else{
-        
+        // source.close();
         $.ajax({
                 async: false,
                 url: '../dashboard/'+vmodulo,
@@ -246,6 +249,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     }
                 });
     }
+    // setTimeout(function(){source = new EventSource("../sse.php")},5000);
     return p;
 }
 
@@ -475,7 +479,6 @@ function odin(varreglo,vform) {
     }//end FOR
     break;
     }//end SWITCH
-    console.log(salida)
     return salida;
 }
 
@@ -596,6 +599,15 @@ function change_load(vto,vtabla,vval,vset){
         $('#'+vto).material_select('update');
     }
 };
+
+function convert(a, b, c, d) {
+    // a = idproducto | b = cantidad | c = unidad a convertir | d = precio
+    // console.log(a+" "+b+" "+c+" "+d)
+    var precio = arr('login',4,'',154,a+','+b+','+c+','+d,0,0,0)[0][0];
+    console.log(precio)
+    return precio
+
+}
 
 $(document).on("change","._det",function(){
     var vto = $(this).attr('id');

@@ -1,6 +1,6 @@
 $(function(){
 	$(".modal").modal();
-	$("#m3").click();
+	$("#m1").click();
 	$("#addMoneda").click(function(){
 		deadclear('moneda');
 	});
@@ -667,13 +667,20 @@ $(document).on("click",".load",function(){
 	$("#accsuc").html("Guardar");
 });
 
-$(document).on("click","#vprincipal",function(){
+$(document).on("click","#ftipopagos #vprincipal",function(){
 
 	if($(this).is(":checked"))
 		$(this).attr('value',1)
-	
 	else
 		$(this).attr('value',0)
+	
+});
+
+$(document).on("click","#fmonedas #principal",function(){
+	if($(this).is(":checked"))
+		$("#fmonedas #vprincipal").attr('value',1)
+	else
+		$("#fmonedas #vprincipal").attr('value',0)
 	
 });
 
@@ -984,6 +991,11 @@ function validarMonedas(vmod){
 		$("#f"+vmod+"s #vsimbolo").focus();
 		return "Símbolo de la Moneda Requerido";
 	}
+
+	if ($("#f"+vmod+"s #vsuma").val() == '' || isNaN($("#f"+vmod+"s #vsuma").val()) ) {
+		$("#f"+vmod+"s #vsuma").val(0.00);
+	}
+
 	return false;
 }
 
@@ -1047,10 +1059,9 @@ function validarImpuesto() {
 }
 
 function cargar(vmodulo,vid) {
-	console.log(vmodulo['modulo'])
 	switch(vmodulo['modulo']) {
 		case 'sucursale':
-			vmodulo['sel'] = 'vid,vconsecutivo,vfactura,vidusuario,vnombre,vtelefono,vidprovincia,vidcanton';
+			vmodulo['sel'] = 'vid,vconsecutivo,vfactura,vidusuario,vnombre,vidprovincia,vidcanton';
 			vmodulo['tbl'] = 57;
 			vmodulo['where'] ='vid = '+vid;
 			break;
@@ -1072,6 +1083,11 @@ function cargar(vmodulo,vid) {
 		case 'impuesto':
 			vmodulo['sel'] = 'id as vid,nombre as vnombre,resumen as vresumen,valor as vvalor';
 			vmodulo['tbl'] = 51;
+			vmodulo['where'] = 'id = '+vid;
+			break;
+		case 'moneda':
+			vmodulo['sel'] = 'id as vid,nombre as vnombremon,simbolo as vsimbolo,valor as vvalor,suma as vsuma,principal as vprincipal,wsdl as vwsdl';
+			vmodulo['tbl'] = 54;
 			vmodulo['where'] = 'id = '+vid;
 			break;
 		default:
@@ -1097,7 +1113,7 @@ function cargarSintax(vtabla){
 			arr['where'] = 'id > 0';
 			break;
 		case 'tipopagos':
-			arr['sel'] = '*';
+			arr['sel'] = 'id,nombre,principal';
 			arr['tbl'] = 26;
 			arr['where'] = 'id >= 0 order by id';
 			break;
@@ -1126,6 +1142,10 @@ function cargarSintax(vtabla){
 			arr['tbl'] = 51;
 			arr['where'] = 'id > 0 order by nombre limit 100';
 			break;
+		case 'monedas':
+			arr['sel'] = 'id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo';
+			arr['tbl'] = 54;
+			arr['where'] = 'id > 0 order by principal desc,nombre';
 		default:
 			console.error('ERROR: autodestrucción: '+vtabla);
 			break;
@@ -1190,6 +1210,18 @@ $(document).on("change","#vgenero",function(){
 	}
 });
 
+$(document).on("click","#listamonedas .load",function(){
+    $("#monbtn").html('Guardar');
+    $("#monbtn").removeClass('add');
+    $("#monbtn").addClass('edit');
+});
+
+$(document).on("click","#addMoneda",function(){
+    $("#monbtn").html('Aceptar');
+    $("#monbtn").removeClass('edit');
+    $("#monbtn").addClass('add');
+});
+
 $(document).on("keyup",".fast-edit-r",function(e){
     var code = e.which || e.keyCode
     if(code == 13)
@@ -1223,14 +1255,17 @@ $(document).on("click",".load_x",function(){
     	$(".mix").show();
     	
     	switch(parseInt(p[2])){
-    		case 1:
+    		case 0:
     			$("#ftipopagos #vbancos").click();
+    			break;
+    		case 1:
+    			$("#ftipopagos #acr").click();
     			break;
     		case 2:
     			$("#ftipopagos #dat").click();
     			break;
     		default:
-    			$('input:radio[name=vbancos]:checked').prop('checked', false);
+    			// $('input:radio[name=vbancos]:checked').prop('checked', false);
     			break;
     	}
 	    
@@ -1240,11 +1275,11 @@ $(document).on("click",".load_x",function(){
 	    	$("#ftipopagos #vprincipal").attr('checked',false);
 	    
 	    if(p[3]){
-	    	$("#ftipopagos #extra").attr('checked',true);
+	    	$("#ftipopagos #extra").prop('checked',true);
 	    	$("#ftipopagos #vextra").val(p[3]);
 	    	$("#ftipopagos #vregex").val(p[4]);
 	    }else{
-	    	$("#ftipopagos #extra").attr('checked',false);
+	    	$("#ftipopagos #extra").prop('checked',false);
 	    	$("#ftipopagos #vextra").val('');
 	    	$("#ftipopagos #vregex").val('');
 	    }
@@ -1337,5 +1372,22 @@ function endDetail(vid,vacc,modulo){
 			setTimeout(function(){ deadclear(modulo); }, 2500);
     		thorload(modulo);
 			break;
+	}
+}
+
+function postload(vmodulo){
+	console.log(vmodulo)
+	switch(vmodulo){
+		case 'moneda':
+			if( $("#vwsdl option:selected").val() != 0)
+				$("#iswsdl").prop('checked',1);
+			else
+				$("#iswsdl").prop('checked',0);
+				$("#iswsdl").change();
+
+			$("#f"+vmodulo+"s #vprincipal").attr('value') == 1 ? $("#principal").prop('checked',1) : $("#principal").prop('checked',0);
+			$("#principal").change();
+
+		break;
 	}
 }

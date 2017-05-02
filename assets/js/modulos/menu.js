@@ -1,14 +1,19 @@
+// var source;
+
 $(document).ready(function(){
 
-    if(typeof(EventSource) !== "undefined") {
-        var source = new EventSource("../sse.php");
-        source.onmessage = function(event) {
-            Materialize.toast(event.data,4000,"green");
-        };
-    } else {
-        Materialize.toast("Sorry, your browser does not support server-sent events...",4000,"red");
-    }
-    
+    // if(typeof(EventSource) !== "undefined") {
+    //     source = new EventSource("../sse.php");
+    //     source.onmessage = function(event) {
+    //         var data=JSON.parse(event.data);
+    //         if(data['data'] != '')
+    //             Materialize.toast('<a href="notificaciones" class="white-text">'+data["data"]+'</a>',4000,"green");
+    //         $("#newnot").html(data['cantidad']);
+    //     };
+    // } else {
+    //     Materialize.toast("Sorry, your browser does not support server-sent events...",4000,"red");
+    // }
+
     $('.button-collapse').sideNav({
         menuWidth: 300, // Default is 240
         edge: 'left', // Choose the horizontal origin
@@ -17,8 +22,16 @@ $(document).ready(function(){
     });
 
     $("#lgt").change(function(){
-        if ($(this).val() == 1) {
-            window.open("logout","_self");
+        switch(parseInt($(this).val())){
+            case 1:
+                window.open("informacion","_self");
+                break;
+            case 2: 
+                window.open("notificaciones","_self");
+                break;
+            default:
+                window.open("cierres","_self");
+                break;
         }
         
     });

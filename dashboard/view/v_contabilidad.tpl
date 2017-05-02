@@ -32,6 +32,6 @@
 </div>
 
 </div>
-<script src="../assets/js/modulos/contabilidad.js?v=1.10"></script>
+<script src="../assets/js/modulos/contabilidad.js?v=0.1"></script>
 </body>
 </html>

@@ -20,7 +20,7 @@
           <li class="tab col s3 menu3" id="m2"><a>Descuentos</a></li>
           <li class="tab col s3 menu3" id="m3"><a>Impuestos</a></li>
           <li class="tab col s3 menu3" id="m4"><a>Cuentas Contables</a></li>
-          <li class="tab col s3 menu3" id="m5"><a>Surcusales</a></li>
+          <li class="tab col s3 menu3" id="m5"><a>Sucusales</a></li>
           <li class="tab col s3 menu3" id="m6"><a>Bodegas</a></li>
         </ul>
       </div>
@@ -30,7 +30,7 @@
         
     </div>
     
-    <script src="../assets/js/modulos/ajustes.js?v=1.1.3"></script>
+    <script src="../assets/js/modulos/ajustes.js?v=0.1"></script>
     
   </body>
 

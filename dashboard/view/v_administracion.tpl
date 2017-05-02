@@ -67,6 +67,6 @@
 
 
     </div>
-    <script src="../assets/js/modulos/administracion.js"></script>
+    <script src="../assets/js/modulos/administracion.js?v=0.1"></script>
   </body>
 </html>

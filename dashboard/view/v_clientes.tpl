@@ -22,11 +22,11 @@
 
                     <div class="input-field col s10 m6 l6">
 
-                        <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+                        <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                         <ul id='filtr_1' class='dropdown-content'>
-                            <li><a href="#!" fltr="1">Nombre</a></li>
-                            <li><a href="#!" fltr="2">Cédula</a></li>
-                            <li><a href="#!" fltr="3">Teléfono</a></li>
+                            <li><a class="optns" tipo="nombre" href="#!" fltr="1">Nombre</a></li>
+                            <li><a class="optns" tipo="vcedula" href="#!" fltr="2">Cédula</a></li>
+                            <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
                         </ul>
                         <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
                         <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
@@ -125,7 +125,7 @@
                                 <input type="hidden" id="vbisproveedor" value="0">
                             </div>
 
-                            <div class="input-field col s12 m6 col l4 hid">
+                            <div class="input-field col s12 m6 l4 hid">
                                 <label for="vapellido1">Primer Apellido</label>
                                 <input type="text" class="form-control" id="vapellido1">
                             </div>
@@ -401,7 +401,7 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/clientes.js?v=1.1"></script>
+<script src="../assets/js/modulos/clientes.js?v=0.1"></script>
 
 </body>
 </html>

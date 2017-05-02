@@ -109,6 +109,6 @@
         </div>
     </div>
     </div>
-    <script src="../assets/js/modulos/rutas.js"></script>
+    <script src="../assets/js/modulos/rutas.js?v=0.1"></script>
   </body>
 </html>

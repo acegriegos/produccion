@@ -35,6 +35,23 @@ $("#data-table-cuentas-detalle").dataTable({
 
 });
 
+$(document).on("change","[name='ctas']",function(){
+	$(".detalle").show();
+
+	switch(parseInt($(this).attr('value'))){
+		case 2:
+			$(".detalle[tp=0]").hide()
+			break;
+		case 3:
+			$(".detalle[tp=1]").hide()
+			break;
+		default:
+			break;
+	}
+    
+})
+
+
 $(document).on("change","#cobInteres",function(){
 	var totInt = parseFloat($("#totInt").val());
 	var totSaldoVig = parseFloat($("#totSaldoVig").val());

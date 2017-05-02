@@ -25,7 +25,7 @@
 	   			$smarty->assign('WSDL',$kakaroto->kamehameha('wsid,wsname',100,'wsid > 0 order by wsname'));
 	   			
 	   			$smarty->assign('TUSR',$kakaroto->kamehameha('id,nombre,defecto',27,'id > 0 order by defecto desc'));
-	   			$smarty->assign('TPAG',$kakaroto->kamehameha('id,nombre,bancos',26,'id >= 0 order by id'));
+	   			$smarty->assign('TPAG',$kakaroto->kamehameha('id,nombre,principal',26,'id >= 0 order by id'));
 	   			$smarty->assign('CATC',$kakaroto->kamehameha('id,nombre',69,'id > 0'));
 	   			$smarty->assign('CUE',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and !ispadre order by nombre'));	
 	   			$smarty->assign('BNK',$kakaroto->kamehameha('id,nombre',202,'id > 0 order by nombre'));
@@ -56,8 +56,7 @@
 	   			$pagina = 1;
 			   	$smarty->assign('SUC',$kakaroto->kamehameha('id,nombre',39,'id > 0 order by nombre'));
 			   	$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0 order by nombre'));
-			   	print_r($kakaroto->kamehameha('id,nombre,telefono',39,'id > 0 order by nombre'));
-			   	//$smarty->display('ajax/ajustes/ajaxSucursales.tpl');
+			   	$smarty->display('ajax/ajustes/ajaxSucursales.tpl');
 	   			break;
 	   		case 6:
 	   			$pagina = 1;

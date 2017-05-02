@@ -76,6 +76,6 @@
         </div>
       </div>
     </div>
-    <script src="../assets/js/modulos/financiero.js"></script>
+    <script src="../assets/js/modulos/financiero.js?v=0.1"></script>
   </body>
 </html>
