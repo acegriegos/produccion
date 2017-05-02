@@ -62,7 +62,7 @@ $(document).on("click",".detalle",function(){
 
     var id = $(this).attr('id').substr(1);
     var tipo = $(this).attr('tipo');
-    var datos =  arr('login',4,'',208,tipo+','+id,0,0,0)[0][0];
+    var datos =  arr('login',4,'',209,tipo+','+id,0,0,0)[0][0];
     $("#ifac").text(datos[3]);
     $("#inombr").text(datos[1]);
     $("#ifecha").text(datos[5]);
