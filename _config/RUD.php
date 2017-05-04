@@ -28,7 +28,7 @@
 			if (isset($rs->num_rows)) {
 				return $rs->fetch_all();
 			}else{
-				return $rs;//." ".$this->sql;
+				return $rs." ".$this->sql;
 			}
 		}
 

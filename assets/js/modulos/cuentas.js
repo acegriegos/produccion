@@ -1,18 +1,18 @@
 $(function(){
-	 param = parseInt(getParameterByName('tf'));
-	 switch(param){
-	 	case 1:
-	 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-	 		break;
-	 	case 2:
-	 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-	 		break;	
-	 	default:
-	 		$("#bdymantCuentas").html("Valor no Valido")
-	 		break; 
+	param = parseInt(getParameterByName('tf'));
+	switch(param){
+		case 1:
+		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+		break;
+		case 2:
+		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+		break;	
+		default:
+		$("#bdymantCuentas").html("Valor no Valido")
+		break; 
 
 
-	 }
+	}
 
 	$("#fcuentass").submit(function(){return false});
 	$("#data-table-cuentas").dataTable({
@@ -22,7 +22,7 @@ $(function(){
 		"bLengthChange": false
 	});
 
-$("#data-table-cuentas-detalle").dataTable({
+	$("#data-table-cuentas-detalle").dataTable({
 
 		bFilter: false,
 		order : [],
@@ -40,15 +40,15 @@ $(document).on("change","[name='ctas']",function(){
 
 	switch(parseInt($(this).attr('value'))){
 		case 2:
-			$(".detalle[tp=0]").hide()
-			break;
+		$(".detalle[tp=0]").hide()
+		break;
 		case 3:
-			$(".detalle[tp=1]").hide()
-			break;
+		$(".detalle[tp=1]").hide()
+		break;
 		default:
-			break;
+		break;
 	}
-    
+
 })
 
 
@@ -74,21 +74,25 @@ $(document).on("click",".detalle",function(){
             edge: 'left', // Choose the horizontal origin
             closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
         }
-    );
-    $(this).sideNav('show');
+        );
+	$(this).sideNav('show');
 
-    var id = $(this).attr('id').substr(1);
-    var tipo = $(this).attr('tipo');
-    var datos =  arr('login',4,'',209,tipo+','+id,0,0,0)[0][0];
+	var id = $(this).attr('id').substr(1);
+	var tipo = $(this).attr('tipo');
+	var datos =  arr('login',4,'',208,tipo+','+id,0,0,0)[0][0];
+    var datos_cue =  arr('login',6,'',209,tipo+','+id,0,1,$("#listaCuentasxCDetalle"));
+    var dias = parseInt(datos[7]);
     $("#ifac").text(datos[3]);
+    $("#isaldo").text(datos[6]);
+    if (dias < 0) {
+    	$("#idias").css('color','red');
+    }
     $("#inombr").text(datos[1]);
     $("#ifecha").text(datos[5]);
-    $("#isaldo").text(datos[6]);
     $("#iplazo").text(datos[8]);
-    $("#idias").text(datos[7]);
-    
+    $("#idias").text(Math.abs(dias));
 
-})
+});
 
 $(document).on("click","#Iadd",function(){
 	deadclear('cuentas');
@@ -105,19 +109,19 @@ $(document).on("click","#p",function(){
 
 $(document).on("keyup","#totAbonoF",function(e){
 
-		var rs = kpress($(this).val());
-		
-		$("#errF").html('');
+	var rs = kpress($(this).val());
 
-		if (isNaN(rs)) {
-		 	$("#errF").html(rs);
-		 	$("#inpG").addClass('has-danger');
-		 	$("#totAbonoF").addClass('form-control-danger');
-		}else{
-			$("#totSaldoVig").val(rs);
-			$("#inpG").removeClass('has-danger');
-		 	$("#totAbonoF").removeClass('form-control-danger');
-		}
+	$("#errF").html('');
+
+	if (isNaN(rs)) {
+		$("#errF").html(rs);
+		$("#inpG").addClass('has-danger');
+		$("#totAbonoF").addClass('form-control-danger');
+	}else{
+		$("#totSaldoVig").val(rs);
+		$("#inpG").removeClass('has-danger');
+		$("#totAbonoF").removeClass('form-control-danger');
+	}
 
 });
 
@@ -127,81 +131,81 @@ function kpress(valor) {
 	var saldo = $("#totSaldoAdeud").val().replace(/,/g,"");
 
 	switch( parseInt(valor) ){
-			case -1:
-				$("#totAbonoF").val('0');
-				$("#totAbonoF").select();
-				$("#totSaldoVig").val($("#totSaldoAdeud").val());
-				return 'El valor ingresado debe ser un valor numérico';
-				break;
+		case -1:
+		$("#totAbonoF").val('0');
+		$("#totAbonoF").select();
+		$("#totSaldoVig").val($("#totSaldoAdeud").val());
+		return 'El valor ingresado debe ser un valor numérico';
+		break;
 
-			default:
-				saldo = saldo - valor;
-				if (saldo < 0) {
-					return 'El valor excede el monto del saldo adeudado';
-				}
+		default:
+		saldo = saldo - valor;
+		if (saldo < 0) {
+			return 'El valor excede el monto del saldo adeudado';
+		}
 				// INGRESAR ABONO
 
 				return saldo;
 				break;
-		}
-}
-
-function validar (varreglo,vmodulo) {
-	
-	var salida = {}
-	
-		/*VALIDACION FRONT END*/
-	
-	switch(vmodulo['modulo']) {
-		case 'cuentas':
-			if (vmodulo['tip'] == '') {
-				err = validarcuentas();
-				if ( err ) {
-					return err;
-				}
 			}
-			
-			break;
-		default:
-			return 'Módulo no Existente';
-			break;
-	}
+		}
 
-	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	return salida;
+		function validar (varreglo,vmodulo) {
 
-}
+			var salida = {}
 
-function validarcuentas() {
+			/*VALIDACION FRONT END*/
 
-	
+			switch(vmodulo['modulo']) {
+				case 'cuentas':
+				if (vmodulo['tip'] == '') {
+					err = validarcuentas();
+					if ( err ) {
+						return err;
+					}
+				}
 
-	return false;
-}
+				break;
+				default:
+				return 'Módulo no Existente';
+				break;
+			}
 
-function cargar(vmodulo,vid) {
+			salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+			return salida;
+
+		}
+
+		function validarcuentas() {
 
 
-	switch(vmodulo['modulo']) {
-		case 'cuentas':
-			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 3;
-			vmodulo['where'] ='';
-			break;
-		default:
-			return 'Módulo no Existente';
-			break;
-	}
-	
-	return vmodulo;
-}
 
-function cargarSintax(){
-	var arr = {}
+			return false;
+		}
 
-	arr['sel'] = '';
-	arr['tbl'] = 4;
-	arr['where'] = '';
+		function cargar(vmodulo,vid) {
 
-	return arr;
-}
+
+			switch(vmodulo['modulo']) {
+				case 'cuentas':
+				vmodulo['sel'] = '';
+				vmodulo['tbl'] = 3;
+				vmodulo['where'] ='';
+				break;
+				default:
+				return 'Módulo no Existente';
+				break;
+			}
+
+			return vmodulo;
+		}
+
+		function cargarSintax(){
+			var arr = {}
+
+			arr['sel'] = '';
+			arr['tbl'] = 4;
+			arr['where'] = '';
+
+			return arr;
+		}

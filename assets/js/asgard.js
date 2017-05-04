@@ -242,7 +242,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     
                     try {
                         p = JSON.parse(data);
-                        // console.error(p)
+                        console.error(p)
                     }
                     catch(err){
                         p = data;
