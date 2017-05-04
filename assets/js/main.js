@@ -1,5 +1,4 @@
 $(function(){
-    $('select').material_select();
 
     permisos(1,50);
 

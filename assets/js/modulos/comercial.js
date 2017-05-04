@@ -1,38 +1,5 @@
-var config1 = {
-    type: 'bar',
-    data: {
-        labels: ['Al Día','1 Mes','2 Meses','3 Meses','+4 Meses'],
-        datasets: [{
-            label: 'Morosidad Clientes',
-            data: ['80000','200000','300000','400000','500000'],
-            backgroundColor: [
-            "#9c27b0",
-            "#3f51b5",
-            "#2196f3",
-            "#03a9f4",
-            "#00bcd4 "
-            ]
-        }],
-    },
-    options: {
-        responsive: true,
-        legend: {
-            position: 'top',
-        },
-        title: {
-            display: true,
-            text: 'Reporte de Ventas'
-        },
-        animation: {
-            animateScale: true,
-            animateRotate: true
-        }
-    }
-};
-
 $(function(){
-	var ctx = $("#chartG1");
-    var myChart = new Chart(ctx, config1);
+    dibujarGrafico("chartG1",'Reporte Morosidad de Ventas','Clientes','bar',{sel:'',tbl:212,where:'0,1'});
 
 });
 

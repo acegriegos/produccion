@@ -4,7 +4,7 @@ $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
-
+    $('select').material_select();
 });
 
 $(window).keydown(function(e){
@@ -232,6 +232,9 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
         p = 'Get Lost';
     }else{
         // source.close();
+        if (vjson)
+            varreglo['JSON'] = vjson
+
         $.ajax({
                 async: false,
                 url: '../dashboard/'+vmodulo,
@@ -242,7 +245,6 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     
                     try {
                         p = JSON.parse(data);
-                        // console.error(p)
                     }
                     catch(err){
                         p = data;
@@ -269,8 +271,8 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
         if (vcambio != '') 
             arr['cambio'] = vcambio;
 
-        if (vjson != undefined)
-            arr['JSON'] = vjson;
+        if (vjson == undefined)
+            vjson = 0;
     }
 
     if (vch){
@@ -607,12 +609,81 @@ function change_load(vto,vtabla,vval,vset){
     }
 };
 
+
 function convert(a, b, c, d) {
     // a = idproducto | b = cantidad | c = unidad a convertir | d = precio
     // console.log(a+" "+b+" "+c+" "+d)
     var precio = arr('login',4,'',154,a+','+b+','+c+','+d,0,0,0)[0][0];
     return precio
+}
 
+function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
+
+    arr['JSON'] = 1;
+
+    var jsonData = $.ajax({
+        url: 'login',
+        Type: 'POST',
+        data: {accion:4,arreglo:varr},
+    }).done(function (results) {
+        results = JSON.parse(results);
+    var labels = [], data=[];
+
+    results[0].forEach(function(packet) {
+      labels.push(packet[1]);
+      data.push(packet[0]);
+    });
+
+    var config1 = {
+        type: tipo,
+        data: {
+            labels: labels,
+            datasets: [{
+                label: etiqueta,
+                data: data,
+                 backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ]
+                /*fillColor             : "rgba(151,187,205,0.2)",
+                strokeColor           : "rgba(151,187,205,1)",
+                pointColor            : "rgba(151,187,205,1)",
+                pointStrokeColor      : "#fff",
+                pointHighlightFill    : "#fff",
+                pointHighlightStroke  : "rgba(151,187,205,1)",*/
+            }],
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: texto
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        }
+    };
+
+    var ctx = document.getElementById(elemento).getContext("2d");
+    var myLineChart = new Chart(ctx,config1);
+  });
 }
 
 $(document).on("change","._det",function(){

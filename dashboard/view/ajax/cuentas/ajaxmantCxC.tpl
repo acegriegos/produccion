@@ -65,8 +65,8 @@
                                 </tr>
                             </thead>
                             <tbody id="listaCuentasxC">
-                               { section name= LE loop = $CLI }
-                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][0]}" tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
+                             { section name= LE loop = $CLI }
+                             <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
                                 <td>{$CLI[LE][3]}</td>
                                 <td>{$CLI[LE][1]}</td>
                                 <td>{$CLI[LE][2]}</td>
@@ -98,7 +98,15 @@
             <div class="col s12 m12">
               <div class="card blue z-depth-5">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
-                    <span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> </div>
+                    <div class="row">
+                    <div class="col s12 m9 right-align" style="padding-right: 17% !important; padding-top: 3% !important"><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
+                        </div>
+                    <div class="col s12 m3  ">
+                        <br>
+                    <a class="waves-effect waves-light btn rigth z-depth-5 " style="background-color:#0B3861"><i class="material-icons left">credit_card</i>Abonar</a>
+                    </div>
+                    </div>
+</div>
                     <br>
                     <div class="card-content white-text " style="padding-top: 0.1% !important">
 
@@ -118,7 +126,10 @@
                         <div class="col s12 m6 l2">
                             <p>Dias del credito : <span id="idias"> </span></p>
                         </div>
+
+
                     </div>
+
                 </div>
 
 
@@ -136,28 +147,22 @@
                         <tr>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
 
 
                         </tr>
                     </thead>
-                    <tbody id="listaCuentasxC">
-                       { section name= LE loop = $CLI }
-                       <tr id="f{$CLI[LE][0]}">
-                       <td>{$CLI[LE][5]}</td>
-                        <td>{$CLI[LE][5]}</td>
-                        <td>{$CLI[LE][8]}</td>
+                    <tbody id="listaCuentasxCDetalle">
 
+                    </tbody>
+                </table>
+                <br>
 
-                    </tr>
-                    {/section}
-                </tbody>
-            </table>
-            <br>
-
+            </div>
         </div>
     </div>
-</div>
 
 
 </ul>

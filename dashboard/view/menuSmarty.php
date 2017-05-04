@@ -27,9 +27,9 @@
         <a href="#!email" class="center"><span class="white-text email">{$smarty.session.MAIL}</span></a>
       </div>
     </li>
-    <div class="row">
+    <div class="row" style="margin-bottom: 3px;">
     <div class="input-field col s10">
-      <input id="numtrans" type="text" class="validate">
+      <input id="numtrans" type="text" class="validate" style="margin-bottom: 0px;">
       <label for="numtrans"># Transacción</label>
     </div>
     </div>
@@ -101,4 +101,3 @@
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
 <script src="../assets/js/asgard.js?v=0.11"></script>
-
