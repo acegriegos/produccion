@@ -26,7 +26,7 @@
 <div class="row"><br><br>
 
     <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px; margin-top: 5%; background-color: #063B61;/*rgba(11,56,97,0.7)*/ "><br>
-    <div class="card-header"><p class="flow-text center white-text"><b>Sistema BMSA</b></p></div>
+    <div class="card-header"><p class="flow-text center white-text"><b>Sistema BMS</b></p></div>
     <div class="card-content">
     
     <form role="form" id="logF" action="index.php" method="POST">
@@ -37,8 +37,8 @@
             <label for="user" class="white-text" style="padding-bottom: 8px;"><b>Ingrese su Usuario</b></label>
         </div>
         <div class="input-field col s12">
-            <input id="pass" type="password" name="pss" class="validate" style="padding-left: 2%;border: 1px solid #e2e2e2;font-size: 20px;">
             <label for="pass" class="white-text" style="padding-bottom: 8px;"><b>Contraseña</b></label>
+            <input id="pass" type="password" name="pss" class="validate" style="padding-left: 2%;border: 1px solid #e2e2e2;font-size: 20px;">
         </div>
         <div class="row">
             <div class="col s12"><br>

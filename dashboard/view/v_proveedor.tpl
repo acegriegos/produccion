@@ -57,7 +57,7 @@
         </div>
 
       </div>
-      <script src="../assets/libs/charts/dist/Chart.bundle.min.js"></script>
-      <script src="../assets/js/modulos/proveedor.js?v=0.1"></script>
+      <!-- <script src="../assets/libs/charts/dist/Chart.bundle.min.js"></scrsipt> -->
+      <script src="../assets/js/modulos/proveedor.js?v=0.2"></script>
     </body>
     </html>

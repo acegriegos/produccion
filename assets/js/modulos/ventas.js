@@ -1,3 +1,10 @@
+$(document).keydown(function(e){
+   if(e.altKey &&  e.which == 67){
+        e.preventDefault();
+        $("#chg_tipo").click().change();
+   }
+});
+
 $(function(){
     $("#ffacturas").submit(function(){
         return false;
@@ -116,9 +123,7 @@ $(function(){
                 var modselec = $("input[name='modselected']:checked").val();
                 if (modselec == 1) {
                     
-                    $("#cantp").val(cantidad);
-                    $("#cantp").focus();
-                    $("#cantp").select();
+                    $("#cantp").val(cantidad).focus().select();
                 }else{
                     
                     var e = jQuery.Event("keyup");
@@ -148,17 +153,18 @@ $(function(){
                 $("#descp").val(cod[2]);
                 $("#precp").val(cod[3]);
                 $("#hprec").val(cod[3]);
-                
+                $("#totp").val((parseFloat(cod[3])*$("#cantp").val()).formatMoney(2,',','.'))
+
                 if (cod[4] == '?') {
                     $("#cantI").html('∞');
                 }else{
                     $("#cantI").html(cod[4]);
                 }
+
+                 $("#valores").data("elemento",{idp : cod[0],hcodp : cod[5],hprec : cod[3],hdesc : cod[6],hdescm : cod[13], hinv : cod[14], hbod:cod[15]})
             }
             
-            $("#cantp").val(1);
-            $("#cantp").focus();
-            $("#cantp").select();
+            $("#cantp").val(1).focus().select();
             Materialize.updateTextFields()
         }
     });
@@ -631,7 +637,7 @@ function searchClient(vvariable,visprv){
 
         $("#msaldo").html(parseFloat(vclie[11]).formatMoney(2,'.',','));
         var porcen = vclie[12] == 0 ? 100 : (parseFloat(vclie[11])*100)/parseFloat(vclie[12]);
-        console.log(porcen)
+
         if (porcen <= 75)
             $("#msaldo").css('color','green');
         else if (porcen > 75 && porcen < 100)
