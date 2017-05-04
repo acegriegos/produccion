@@ -79,8 +79,8 @@ $(document).on("click",".detalle",function(){
 
 	var id = $(this).attr('id').substr(1);
 	var tipo = $(this).attr('tipo');
-	var datos =  arr('login',4,'',208,tipo+','+id,0,0,0)[0][0];
-    var datos_cue =  arr('login',6,'',209,tipo+','+id,0,1,$("#listaCuentasxCDetalle"));
+	var datos =  arr('login',4,'',214,tipo+','+id,0,0,0)[0][0];
+    var datos_cue =  arr('login',6,'',213,tipo+','+id,0,1,$("#listaCuentasxCDetalle"));
     var dias = parseInt(datos[7]);
     $("#ifac").text(datos[3]);
     $("#isaldo").text(datos[6]);
