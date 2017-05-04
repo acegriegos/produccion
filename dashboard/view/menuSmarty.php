@@ -100,6 +100,4 @@
 <script src="../assets/libs/charts/chart.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-
-<script src="../assets/js/asgard.js?v=0.5"></script>
-
+<script src="../assets/js/asgard.js?v=0.11"></script>

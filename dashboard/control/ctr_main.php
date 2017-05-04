@@ -9,7 +9,7 @@
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	    
-	    $smarty->assign('SUC',$kakaroto->kamehameha('id,nombre',39,'id > 0 order by nombre'));
+	    $smarty->assign('SUC',$kakaroto->kamehameha('',155,'@@usr'));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_main.tpl');
 	   }else{

@@ -245,10 +245,6 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     
                     try {
                         p = JSON.parse(data);
-<<<<<<< HEAD
-                        console.error(p)
-=======
->>>>>>> 6639c4258a9c1fd66d2698a6f31f9ddd9f601578
                     }
                     catch(err){
                         p = data;
@@ -380,6 +376,7 @@ function odin(varreglo,vform) {
                             case 'text':
                             case 'textarea':
                             case 'hidden':
+
                             case 'number':
                                 salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                                 break;
@@ -454,13 +451,19 @@ function odin(varreglo,vform) {
                     
                     switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                         case 'select':
-                            salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
+                                salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]).val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            }else{
+                                salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+
+                            }
                             break;
                         case 'text':
                         case 'textarea':
                         case 'hidden':
+                        case 'password':
+                        case 'time':
                         case 'number':
-                            
                             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                             break;
                         case 'html':
@@ -605,6 +608,14 @@ function change_load(vto,vtabla,vval,vset){
         $('#'+vto).material_select('update');
     }
 };
+
+
+function convert(a, b, c, d) {
+    // a = idproducto | b = cantidad | c = unidad a convertir | d = precio
+    // console.log(a+" "+b+" "+c+" "+d)
+    var precio = arr('login',4,'',154,a+','+b+','+c+','+d,0,0,0)[0][0];
+    return precio
+}
 
 function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
 
