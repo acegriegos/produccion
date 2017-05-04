@@ -88,9 +88,9 @@
             
    			if (!is_array($transaccion)) {
    				$pagina = 0;
-   			}else
+   			}else{
           include 'view/ajax/tabla_'.$_REQUEST['arreglo']['tbl'].'.php';
-   				
+        }
    			break;
    		case 7:
    			$transaccion = $log->genkidama($_REQUEST['arreglo']['accion'],$_REQUEST['arreglo']['tabla'],$_REQUEST['arreglo']['arg1'],$_REQUEST['arreglo']['arg2']);

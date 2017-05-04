@@ -1,4 +1,5 @@
 $(function(){
+	
 	$('select').material_select();
 		
 	$("#fusuarios").submit(function(){
@@ -77,6 +78,11 @@ $(function(){
 
 	$("#m1").click();
 
+});
+
+$(document).on("change","#prueba",function(){
+	var id = $(this).val();
+	console.log(id)
 });
 
 $(document).on('change','#selectUser',function(){
@@ -351,4 +357,9 @@ function cambiar(x1,x2,x3){
 	arr['tipo'] = x3;
 	arr['permiso'] = x2;
 	mantenimiento("usuarios",3,arr);
+}
+
+function endDetail(id,acc,modulo) {
+	deadclear(modulo);
+	thorload(modulo);
 }

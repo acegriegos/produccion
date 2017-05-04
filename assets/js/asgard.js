@@ -374,6 +374,7 @@ function odin(varreglo,vform) {
                             case 'text':
                             case 'textarea':
                             case 'hidden':
+
                             case 'number':
                                 salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                                 break;
@@ -448,13 +449,19 @@ function odin(varreglo,vform) {
                     
                     switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                         case 'select':
-                            salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
+                                salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]).val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            }else{
+                                salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+
+                            }
                             break;
                         case 'text':
                         case 'textarea':
                         case 'hidden':
+                        case 'password':
+                        case 'time':
                         case 'number':
-                            
                             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                             break;
                         case 'html':
@@ -604,7 +611,6 @@ function convert(a, b, c, d) {
     // a = idproducto | b = cantidad | c = unidad a convertir | d = precio
     // console.log(a+" "+b+" "+c+" "+d)
     var precio = arr('login',4,'',154,a+','+b+','+c+','+d,0,0,0)[0][0];
-    console.log(precio)
     return precio
 
 }

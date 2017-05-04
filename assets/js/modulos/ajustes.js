@@ -1,4 +1,5 @@
 $(function(){
+	
 	$(".modal").modal();
 	$("#m1").click();
 	$("#addMoneda").click(function(){
@@ -158,6 +159,21 @@ $(document).on("click",".menu3",function(){
 			$("#tmp").attr('id','vnombre_banco');
 		}
 	});
+});
+
+$(document).on("keyup","#vcorreo",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+			$(this).css('border-bottom','1px solid #4CAF50');
+	        $(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		}else{
+			$(this).css('border-bottom','1px solid #9e9e9e');
+	        $(this).css('box-shadow','none');
+			Materialize.toast('Correo Inválido', 6000, 'red');
+		}
+	}
+	
 });
 
 $(document).on("click",".editdesc",function(){
@@ -686,9 +702,15 @@ $(document).on("click","#fmonedas #principal",function(){
 
 $(document).on("change","#vidprovincia",function(){
 	var id = $("option:selected",this).val();
-	arr('login',6,'id,nombre',9,'idprovincia = '+id+' and id > 0 order by nombre','',1,$("#vidcanton"))
+	arr('login',6,'id,nombre',9,'idprovincia = '+id+' and id > 0 order by nombre',0,1,$("#vidcanton"));
+	$("#vidcanton").material_select();
 });
 
+$(document).on("change","#vidcanton",function(){
+	var id = $("option:selected",this).val();
+	var factura = arr('login',4,'',156,id,0,0,0)[0][0];
+	$("#vfactura").val(factura);
+});
 
 $(document).on("click",".numcon",function(){
 	var vdeep = parseInt($(this).parent().parent().attr('deep'));
@@ -1099,6 +1121,7 @@ function cargar(vmodulo,vid) {
 }
 
 function cargarSintax(vtabla){
+	console.log(vtabla)
 	var arr = {}
 
 	switch(vtabla){
@@ -1146,6 +1169,12 @@ function cargarSintax(vtabla){
 			arr['sel'] = 'id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo';
 			arr['tbl'] = 54;
 			arr['where'] = 'id > 0 order by principal desc,nombre';
+			break;
+		// case 'sucursales':
+		// 	arr['sel'] = '';
+		// 	arr['tbl'] = ;
+		// 	arr['where'] = '';
+		// 	break;
 		default:
 			console.error('ERROR: autodestrucción: '+vtabla);
 			break;

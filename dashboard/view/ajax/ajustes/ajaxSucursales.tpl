@@ -19,13 +19,21 @@
                             <input type="hidden" id="vidsucursal" value="">
                             <input type="hidden" id="vfactura" value="AB">
                             <input type="hidden" id="vconsecutivo" value="1">
+                            <input type="hidden" id="vconsecutivo1" value="1">
+                            <input type="hidden" id="vconsecutivo2" value="1">
                             <input type="hidden" id="vid" value="0">
                         </div>
                     </div>
-                    <div class="col s12 m6">
+                    <div class="col s12 m6" id="ftelefonos" vtabla="telefono" hasTabla="1">
                         <div class="input-group">
                             <div class="input-group-addon"><b>Teléfono</b></div>
                             <input type="text" class="form-control" id="vtelefono" placeholder="Teléfono Sucursal">
+                        </div>
+                    </div>
+                    <div class="col s12 m6" id="fcorreos" vtabla="correos" hasTabla="1">
+                        <div class="input-group">
+                            <div class="input-group-addon"><b>Correo</b></div>
+                            <input type="text" class="form-control" id="vcorreo" placeholder="Correo Sucursal">
                         </div>
                     </div>
                 </div><br>
@@ -36,7 +44,7 @@
                     <div class="col s12 m6">
                         <div class="input-group">
                             <div class="input-group-addon"><b>Provincia</b></div>
-                            <select type="text" id="vidprovincia" class="form-control" required="required" cambio="1">
+                            <select type="text" id="vidprovincia" cambio="1">
                                 <option value="0">Seleccione una Provincia</option>
                                 {section name=LE loop=$PROV}
                                 <option value="{$PROV[LE][0]}">{$PROV[LE][1]}</option>
@@ -47,7 +55,7 @@
                     <div class="col s12 m6">
                         <div class="input-group">
                             <div class="input-group-addon"><b>Cantón</b></div>
-                            <select type="text" id="vidcanton" class="form-control" required="required">
+                            <select type="text" id="vidcanton" required="required">
                                 <option value="0">Seleccione un Cantón</option>
                             </select>
                         </div>
@@ -55,7 +63,7 @@
                 </div><br>
                 <div class="row">    
                     <div class="col m12">
-                        <button type="button" class="btn btn-primary der add z-depth-5" id="accsuc" codigo="1" modulo="sucursale">Agregar</button>
+                        <button type="button" class="btn btn-primary der add z-depth-5 blue" id="accsuc" codigo="1" modulo="sucursale" varias="1">Agregar</button>
                     </div>
                 </div>
             </form>
@@ -64,7 +72,6 @@
 
         <div class="col s12 m12 l6">
         <br>
-
             <div class="table-responsive">
             <br>
                 <table class="table centered highlight bordered responsive-table z-depth-3" id="data-table-sucursales" cellspacing="0" width="100%" >
@@ -90,23 +97,8 @@
                 </table>
                 <br>
             </div>
-
-
         </div>
-
-
-
-
     </div>
-
-
-
-
-
-
-
-
-
 </div>
 </div>
 </div>
