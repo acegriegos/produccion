@@ -19,7 +19,7 @@ if (!isset($_REQUEST['accion'])) {
 		require_once '../_config/mySmarty.php';
 		$smarty  = new mySmarty();
 		$smarty->setModule('dashboard');
-		$smarty->assign('PRO',$kakaroto->kamehameha('',208,'2,0'));
+		$smarty->assign('PRO',$kakaroto->kamehameha('',214,'2,0'));
 		$smarty->display('ajax/cuentas/ajaxmantCxP.tpl');
 		break;
 		case 2:
@@ -27,8 +27,8 @@ if (!isset($_REQUEST['accion'])) {
 		require_once '../_config/mySmarty.php';
 		$smarty  = new mySmarty();
 		$smarty->setModule('dashboard');
-		$smarty->assign('CLI',$kakaroto->kamehameha('',208,'1,0'));
-		$smarty->assign('CLIDeta',$kakaroto->kamehameha('',209,'1,0'));
+		$smarty->assign('CLI',$kakaroto->kamehameha('',214,'1,0'));
+		$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
 		$smarty->display('ajax/cuentas/ajaxmantCxC.tpl');
 		break;
 		case 3:
