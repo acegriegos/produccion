@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Sistema BMS</title>
+    {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 
   </head>
@@ -50,7 +51,7 @@
 
     <script src="https://js.braintreegateway.com/web/3.11.1/js/client.js"></script>
     <script src="https://js.braintreegateway.com/web/3.11.1/js/hosted-fields.js "></script> -->
-
+    {$SCR}
     <script src="../assets/js/main.js?v=1.0"></script>
 
 

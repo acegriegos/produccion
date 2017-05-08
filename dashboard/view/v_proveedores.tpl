@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Proveedores</title>
+    {$STY}
 </head>
 
 <body>
@@ -287,7 +288,7 @@
 </div>
 </div>
 </div>
-
+{$SCR}
 <script src="../assets/js/modulos/proveedores.js?v=0.1"></script>
 
 </body>

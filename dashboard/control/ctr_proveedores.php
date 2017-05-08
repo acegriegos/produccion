@@ -8,7 +8,12 @@
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
-	    
+	    $pg = $smarty->fetch('../view/menuSmarty.php');
+	    $sty = $smarty->fetch('../view/scripts.php');
+		$scr = $smarty->fetch('../view/styles.php');
+	
+		$smarty->assign('STY',$sty);
+		$smarty->assign('SCR',$scr);
 	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'id > 0 order by id'));
 	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
 	    $smarty->assign('PAISES',$kakaroto->kamehameha('*',209,'id > 0 order by nombre'));

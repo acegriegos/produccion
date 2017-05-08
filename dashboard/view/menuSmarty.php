@@ -1,12 +1,3 @@
-<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" href="../assets/css/materialize.css">
-<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
-<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
-<link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
-
 <ul id="slide" class="side-nav blue-text text-darken-2 " style="max-width: 400px !important;">
     <li>
       <div class="userView">
@@ -92,12 +83,3 @@
 
   <a style="background-color:#0B3861 " href="#" data-activates="slide" class="hide-on-med-and-down button-collapse  z-depth-5 menu-btn" ><p class="white-text menu-txt" >MENU</p></a>
   <!-- hide-on-med-and-down  -->
-  
-<script src="../assets/js/jquery.js"></script>
-<script src="../assets/js/mask/jquery.mask.js"></script>
-<script src="../assets/js/materialize.js?v=0.1"></script>
-<script src="../assets/js/modulos/menu.js?v=0.1"></script>
-<script src="../assets/libs/charts/chart.js"></script>
-<script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
-<script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-<script src="../assets/js/asgard.js?v=0.11"></script>

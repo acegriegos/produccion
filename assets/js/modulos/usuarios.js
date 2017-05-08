@@ -80,9 +80,79 @@ $(function(){
 
 });
 
-$(document).on("change","#prueba",function(){
-	var id = $(this).val();
-	console.log(id)
+$(document).on("blur","#vmail",function(){
+	if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+		$(this).css('border-bottom','1px solid #4CAF50');
+    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+	}else{
+		Materialize.toast('Correo no Válido',4000,'red');
+		$(this).css('border-bottom','1px solid #F44336');
+        $(this).css('box-shadow','0 1px 0 0 #F44336');
+	}
+});
+
+$(document).on("keyup","#vmail",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+			$(this).css('border-bottom','1px solid #4CAF50');
+        	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		}else{
+			Materialize.toast('Correo no Válido',4000,'red');
+			$(this).css('border-bottom','1px solid #F44336');
+            $(this).css('box-shadow','0 1px 0 0 #F44336');
+		}
+	}
+});
+
+$(document).on("blur","#vclave",function(e){
+	if ($(this).val().length < 8) {
+		Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
+		$(this).css('border-bottom','1px solid #F44336');
+        $(this).css('box-shadow','0 1px 0 0 #F44336');
+	}else{
+		$(this).css('border-bottom','1px solid #4CAF50');
+    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+	}
+});
+
+$(document).on("keyup","#vclave",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+			$(this).css('border-bottom','1px solid #4CAF50');
+        	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		}else{
+			Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos',4000,'red');
+			$(this).css('border-bottom','1px solid #F44336');
+            $(this).css('box-shadow','0 1px 0 0 #F44336');
+		}
+	}
+});
+
+$(document).on("blur","#clave",function(e){
+	if ($(this).val().length < 8) {
+		Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
+		$(this).css('border-bottom','1px solid #F44336');
+        $(this).css('box-shadow','0 1px 0 0 #F44336');
+	}else{
+		$(this).css('border-bottom','1px solid #4CAF50');
+    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+	}
+});
+
+$(document).on("keyup","#clave",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+			$(this).css('border-bottom','1px solid #4CAF50');
+        	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		}else{
+			Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos',4000,'red');
+			$(this).css('border-bottom','1px solid #F44336');
+            $(this).css('box-shadow','0 1px 0 0 #F44336');
+		}
+	}
 });
 
 $(document).on('change','#selectUser',function(){
@@ -360,6 +430,13 @@ function cambiar(x1,x2,x3){
 }
 
 function endDetail(id,acc,modulo) {
-	deadclear(modulo);
-	thorload(modulo);
+
+	switch(modulo){
+		case 'usuario':
+			
+			// deadclear(modulo);
+			// thorload(modulo);
+			break
+	}
+	
 }

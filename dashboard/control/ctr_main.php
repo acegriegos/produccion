@@ -8,9 +8,13 @@
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	   	$sty = $smarty->fetch('../view/scripts.php');
+	   	$scr = $smarty->fetch('../view/styles.php');
 	    
 	    $smarty->assign('SUC',$kakaroto->kamehameha('',155,'@@usr'));
 	   	$smarty->assign('NAV',$pg);
+	   	$smarty->assign('STY',$sty);
+	   	$smarty->assign('SCR',$scr);
 	   	$smarty->display('v_main.tpl');
 	   }else{
 	   $pagina = 0;

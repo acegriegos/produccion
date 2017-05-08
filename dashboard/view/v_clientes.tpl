@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
+    {$STY}
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
 </head>
 <!-- #0B3861 -->
 <body>
     {$NAV}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
+
     <div class="bdy">
         <div class="card z-depth-5">
 
@@ -400,7 +402,7 @@
 </div>
 </div>
 </div>
-
+{$SCR}
 <script src="../assets/js/modulos/clientes.js?v=0.1"></script>
 
 </body>

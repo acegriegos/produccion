@@ -8,7 +8,11 @@
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
-	   
+	   	$sty = $smarty->fetch('../view/scripts.php');
+		$scr = $smarty->fetch('../view/styles.php');
+	
+		$smarty->assign('STY',$sty);
+		$smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
 	   	$smarty->display('v_inventarios.tpl');

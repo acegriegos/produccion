@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title></title>
-   
+    {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-administracion.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -67,6 +67,7 @@
 
 
     </div>
+    {$SCR}
     <script src="../assets/js/modulos/administracion.js?v=0.1"></script>
   </body>
 </html>
