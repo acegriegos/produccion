@@ -26,6 +26,6 @@
         <div id="bdymantCuentas"></div> 
 
       </div>
-      <script src="../assets/js/modulos/cuentas.js?v=0.2"></script>
+      <script src="../assets/js/modulos/cuentas.js?v=0.3"></script>
       </body>
       </html>
