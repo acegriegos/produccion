@@ -76,12 +76,15 @@ $(document).on("click",".detalle",function(){
         }
         );
 	$(this).sideNav('show');
-
 	var id = $(this).attr('id').substr(1);
 	var tipo = $(this).attr('tipo');
 	var datos =  arr('login',4,'',214,tipo+','+id,0,0,0)[0][0];
+	  var tabla= $("#data-table-cuentas-detalle").DataTable();
+    tabla.destroy();
     var datos_cue =  arr('login',6,'',213,tipo+','+id,0,1,$("#listaCuentasxCDetalle"));
     var dias = parseInt(datos[7]);
+  	
+  	$('select').material_select();
     $("#ifac").text(datos[3]);
     $("#isaldo").text(datos[6]);
     if (dias < 0) {
@@ -91,7 +94,24 @@ $(document).on("click",".detalle",function(){
     $("#ifecha").text(datos[5]);
     $("#iplazo").text(datos[8]);
     $("#idias").text(Math.abs(dias));
+    $("#data-table-cuentas-detalle").dataTable({
 
+		bFilter: false,
+		order : [],
+		"bLengthChange": false
+	});
+		
+		$("#btn-div").click(function(){
+			var vi = $(".divabono").attr('visible');
+			console.log(vi);
+			if (vi == 0) {
+				$(".divabono").show();
+				$(".divabono").attr('visible',1);
+			}else{
+				$(".divabono").hide();
+				$(".divabono").attr('visible',0);
+			}
+		});
 });
 
 $(document).on("click","#Iadd",function(){

@@ -32,6 +32,7 @@
     </div>
     {$SCR}
     <script src="../assets/js/modulos/ajustes.js?v=0.6"></script>
+
     
   </body>
 

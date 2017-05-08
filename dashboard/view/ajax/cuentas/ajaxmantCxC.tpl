@@ -6,7 +6,7 @@
 
         </div>
     </nav>
-    <div id="mantCxC">
+    <div id="mantCxC" style="font-size: 1.2em !important">
 
 
 
@@ -65,8 +65,8 @@
                                 </tr>
                             </thead>
                             <tbody id="listaCuentasxC">
-                             { section name= LE loop = $CLI }
-                             <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
+                               { section name= LE loop = $CLI }
+                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
                                 <td>{$CLI[LE][3]}</td>
                                 <td>{$CLI[LE][1]}</td>
                                 <td>{$CLI[LE][2]}</td>
@@ -91,57 +91,96 @@
     <ul id="acciones" class="side-nav side-nav-cuentas"  style="width: 60%">
 
 
-        <div class="card-header center white-text" style="background-color:#0B3861" >
-            <p class="flow-text" style="font-size: 1.9em;">Detalle de la Cuenta</p>
+        <div class="card-header center white-text" style="background-color:#0B3861; margin: 0 !important" >
+            <p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Cuenta</p>
         </div>
         <div class="row">
             <div class="col s12 m12">
               <div class="card blue z-depth-5">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
-                    <div class="row">
-                    <div class="col s12 m9 right-align" style="padding-right: 17% !important; padding-top: 3% !important"><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
-                        </div>
-                    <div class="col s12 m3  ">
-                        <br>
-                    <a class="waves-effect waves-light btn rigth z-depth-5 " style="background-color:#0B3861"><i class="material-icons left">credit_card</i>Abonar</a>
-                    </div>
-                    </div>
-</div>
-                    <br>
-                    <div class="card-content white-text " style="padding-top: 0.1% !important">
-
-                      <div class="row ">
-                          <div class="col s6 m4 l3">
-                              <p>Nombre: <span id="inombr"> </span></p>
-                          </div>
-                          <div class="col s12 m4 l3">
-                            <p>Fecha: <span id="ifecha"> </span></p>
-                        </div>
-                        <div class="col s12 m4 l2">
-                            <p>Saldo: <span id="isaldo"> </span></p>
-                        </div>
-                        <div class="col s12 m4 l2">
-                            <p>Plazo: <span id="iplazo"> </span></p>
-                        </div>
-                        <div class="col s12 m6 l2">
-                            <p>Dias del credito : <span id="idias"> </span></p>
-                        </div>
+                    <div class="row" id="festadoscuentas">
+                        <input type="hidden" id="vid" value="0">
+                        <input type="hidden" id="vidtipo" value="3">
+                        <input type="hidden" id="videstado" value="1">
+                        <input type="hidden" id="vidfactura" value="">
+                        <input type="hidden" id="vidusuario" value="">
 
 
+                        <div class="col s12 m9 right-align" style="padding-right: 17% !important; padding-top: 1% !important"><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
+                        </div>
+                        <div class="col s12 m3  ">
+                       <!--      <br>
+                            < id="btn-div">DIV</button> -->
+                            <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861"><i class="material-icons left">credit_card</i>Abonar</button>
+                        </div>
                     </div>
+                </div>
+                <br>
+                <div class="card-content white-text " style="padding: 0.1% !important">
+
+                  <div class="row ">
+                      <div class="col s6 m4 l3">
+                          <p>Nombre: <span id="inombr"> </span></p>
+                      </div>
+                      <div class="col s12 m4 l3">
+                        <p>Fecha: <span id="ifecha"> </span></p>
+                    </div>
+                    <div class="col s12 m4 l2">
+                        <p>Saldo: <span id="isaldo"> </span></p>
+                    </div>
+                    <div class="col s12 m4 l2">
+                        <p>Plazo: <span id="iplazo"> </span></p>
+                    </div>
+                    <div class="col s12 m6 l2">
+                        <p>Dias del credito : <span id="idias"> </span></p>
+                    </div>
+
 
                 </div>
 
 
-
-
-
             </div>
+
+            <div class="divabono" visible="0">
+
+                <div class="row">
+                    <div class="col s12 ">
+                        <div class="card" style="background-color:#0B3861">
+                            <div class="card-content white-text">
+                                <span class="card-title">Abonos</span>
+
+                                <div class="row">
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">credit_card</i>
+                                        <input id="icon_prefix" type="text" class="validate eder">
+                                        <label for="icon_prefix" style="font-size: 1.2em !important">Monto</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <select>
+                                            <option value="" disabled selected style="font-size: 1.2em !important">Tipo de Pago</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+            </div> <!-- end divabono -->
+
         </div>
     </div>
+
+
     <div class="card-block">
         <div class="row">
             <div class="col s12">
+
                 <table id="data-table-cuentas-detalle" class="table centered highlight bordered responsive-table z-depth-5 ">
                     <thead>
                         <tr>

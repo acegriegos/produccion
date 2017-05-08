@@ -78,6 +78,15 @@
                         <label for="vmarca">Marca</label>
                         <input type="hidden" id="vidmarca" value="0">
                     </div>
+                    <div class="input-field marginzero" id="dinventario">
+                        <select type="select" id="vidinventario">
+                            <option value="0">Seleccione un Inventario</option>
+                            {section name=LE loop=$INV}
+                            <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label for="vidinventario">Inventario</label>
+                    </div>
                     <div class="input-field marginzero hide" id="dvpeso">
                         <input id="vpeso" type="number" class="validate" min="0" autocomplete="off">
                         <label for="vpeso">Peso</label>
@@ -90,15 +99,6 @@
                             {/section}
                         </select>
                         <label for="vidunidad">Unidad</label>
-                    </div>
-                    <div class="input-field marginzero" id="dinventario">
-                        <select type="select" id="vidinventario">
-                            <option value="0">Seleccione un Inventario</option>
-                            {section name=LE loop=$INV}
-                            <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <label for="vidinventario">Inventario</label>
                     </div>
                 </div>
                 <div class="col s12 m12 l6" id="col2">
@@ -161,7 +161,7 @@
                     <label>Exoneración</label>
                     <div class="input-field">
                         <i class="material-icons prefix">%</i>
-                        <input type="text" id="vexoneracion" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
+                        <input type="text" id="vexoneracion" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="impuesto">
                     </div>
                 </div>
             </div>

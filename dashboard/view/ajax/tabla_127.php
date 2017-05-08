@@ -41,10 +41,12 @@
 </tbody>
 <tfoot>
     <tr>
+        <?php $sz = sizeof($transaccion);?>
         <td>Costo Total</td>
-        <td colspan="4"><?php echo $transaccion[0][16] ?></td>
-        <td colspan="2">Costo Contable [<?php echo $transaccion[0][14] ?>]</td>
-        <th colspan="3"><?php echo $transaccion[0][15] ?></th>
+        <td colspan="4"><?php echo $sz ? $transaccion[0][16] : 0 ?></td>
+        <td colspan="2">Costo Contable [<?php echo $sz ? $transaccion[0][14] : '-' ?>]</td>
+        <th colspan="3"><?php echo $sz ? $transaccion[0][15] : 0 ?></th>
+        
     </tr>
 </tfoot>
 </table>

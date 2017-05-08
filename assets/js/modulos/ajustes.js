@@ -67,7 +67,7 @@ $(document).on("click",".menu3",function(){
 			arr['sel'] = '';
 			arr['tbl'] = 142;
 			arr['where'] = '0';
-			var desc = mantenimiento('login',4,arr)[0][0][0];
+			var desc = mantenimiento('login',4,arr);
 			if (desc != null) {
 				var vdesc = mantenimiento('login',6,arr);
 				$("#listadescuentos").html(vdesc);
