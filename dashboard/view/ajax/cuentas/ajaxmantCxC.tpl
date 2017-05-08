@@ -153,11 +153,11 @@
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">credit_card</i>
                                         <input id="icon_prefix" type="text" class="validate eder">
-                                        <label for="icon_prefix" style="font-size: 1.2em !important">Monto</label>
+                                        <label for="icon_prefix" style="font-size: 1.2em !important">Moasdnto</label>
                                     </div>
                                     <div class="input-field col s12 m6">
                                         <select>
-                                            <option value="" disabled selected style="font-size: 1.2em !important">Tipo de Pago</option>
+                                            <option value="" disabled selected style="font-size: 1.2em !important">Tipo de Pagosa</option>
                                             <option value="1">Option 1</option>
                                             <option value="2">Option 2</option>
                                             <option value="3">Option 3</option>
