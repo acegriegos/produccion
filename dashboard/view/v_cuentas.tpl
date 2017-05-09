@@ -21,7 +21,7 @@
 
       </div>
       {$SCR}
-      <script src="../assets/js/modulos/cuentas.js?v=0.2"></script>
+      <script src="../assets/js/modulos/cuentas.js?v=0.5"></script>
 
       </body>
       </html>

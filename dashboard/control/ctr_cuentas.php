@@ -8,8 +8,8 @@ if (!isset($_REQUEST['accion'])) {
 	$smarty  = new mySmarty();
 	$smarty->setModule('dashboard');
 	$pg = $smarty->fetch('../view/menuSmarty.php');
-	$sty = $smarty->fetch('../view/scripts.php');
-	$scr = $smarty->fetch('../view/styles.php');
+	$sty = $smarty->fetch('../view/styles.php');
+	$scr = $smarty->fetch('../view/scripts.php');
 	
 	$smarty->assign('STY',$sty);
 	$smarty->assign('SCR',$scr);
@@ -24,6 +24,9 @@ if (!isset($_REQUEST['accion'])) {
 		$smarty  = new mySmarty();
 		$smarty->setModule('dashboard');
 		$smarty->assign('PRO',$kakaroto->kamehameha('',214,'2,0'));
+		$smarty->assign('TIPOPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by principal desc, nombre'));
+		$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
+
 		$smarty->display('ajax/cuentas/ajaxmantCxP.tpl');
 		break;
 		case 2:
@@ -32,6 +35,7 @@ if (!isset($_REQUEST['accion'])) {
 		$smarty  = new mySmarty();
 		$smarty->setModule('dashboard');
 		$smarty->assign('CLI',$kakaroto->kamehameha('',214,'1,0'));
+		$smarty->assign('TIPOPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by principal desc, nombre'));
 		$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
 		$smarty->display('ajax/cuentas/ajaxmantCxC.tpl');
 		break;

@@ -131,22 +131,15 @@
 
                     <div class="input-field col s12 ">
                        <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario" style="padding-right: 5% !important;"><i class="small material-icons ">add</i></a>
-
-                       <input type="text" id="vnombre_tusuario" style="margin-left: 15% !important;">
+                       <input type="hidden" id="vid_tusuario" value="0">
+                       <input type="hidden" id="vdefecto_tusuario" value="0">
+                       <input type="text" id="vnombre_tusuario" value="" style="margin-left: 15% !important;">
                        <label for="vnombre_tusuario" style="margin-left: 15% !important;">Ingresar Tipo Usuario</label>
-
                    </div>
-
-
-
                </div>
                <br>
            </div>
-
-
-
        </div>
-
        <br>
        <div class="col s12 m12 l5 ">
         <table class="table highlight responsive-table z-depth-3 centered" id="data-table-tipousuarios">
@@ -498,7 +491,9 @@
                                 <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="nivelescliente" data-position="top" data-tooltip="Ingresar Categoría" style="padding-right: 5% !important;"><i class="small material-icons">add</i></a>
 
 
+                                <input type="hidden" id="vid_nivel" value="0">
                                 <input type="text" id="vnombre_nivel" style="margin-left: 15% !important;">
+                                <input type="hidden" id="vbisproveedor" value="0">
                                 <label for="vnombre_nivel" style="margin-left: 15% !important;">Ingresar Categoría</label>
                             </div>
                             
@@ -532,8 +527,6 @@
                                 <a class="waves-effect waves-light load_x" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="material-icons left">mode_edit</i></a>
 
                                 <a class="waves-effect waves-light load_x" modulo="nivelescliente" id="h{$CATC[LE][0]}" title="Eliminar Nivel de Cliente"><i class="material-icons left">delete</i></a>
-
-
                             </td>
                         </tr>
                         {/section}

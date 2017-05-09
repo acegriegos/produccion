@@ -9,8 +9,8 @@
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	    $pg = $smarty->fetch('../view/menuSmarty.php');
-	    $sty = $smarty->fetch('../view/scripts.php');
-		$scr = $smarty->fetch('../view/styles.php');
+	    $sty = $smarty->fetch('../view/styles.php');
+		$scr = $smarty->fetch('../view/scripts.php');
 	
 		$smarty->assign('STY',$sty);
 		$smarty->assign('SCR',$scr);
@@ -18,7 +18,7 @@
 	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
 	    $smarty->assign('PAISES',$kakaroto->kamehameha('*',209,'id > 0 order by nombre'));
 	    $smarty->assign('PROV',$kakaroto->kamehameha('*',30,'1 order by nombre'));
-	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('id,nombre',68,'id > 0 order by nombre limit 10'));
+	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('id,nombre',68,'1 order by nombre limit 10'));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_proveedores.tpl');
 	   	

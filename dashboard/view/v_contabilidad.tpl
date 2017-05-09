@@ -18,8 +18,8 @@
           <div class="nav-wrapper">
   
             <ul class="tabs tabs-transparent">
-              <li class="tab col s6 menu3" id="m1"><a class="active">Cuentas</a></li>
-              <li class="tab col s6 menu3" id="m2"><a>Transacciones</a></li>
+              <li class="tab col s6 menu3 per3001" id="m1"><a class="active">Cuentas</a></li>
+              <li class="tab col s6 menu3 per3002" id="m2"><a>Transacciones</a></li>
               
           </ul>
       </div>

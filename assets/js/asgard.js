@@ -184,6 +184,8 @@ function loadpool(vmodulo,vid,vvarias){
             case 'textarea':
             case 'text':
             case 'number':
+            case 'password':
+            case 'time':
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 break;
 
@@ -200,21 +202,21 @@ function loadpool(vmodulo,vid,vvarias){
         
     }
 
-    if (vvarias != undefined)
-        $("#"+vform+" [vtabla][detalle]").each(function(){
+    // if (vvarias != undefined)
+    //     $("#"+vform+" [vtabla][detalle]").each(function(){
             
-            var tpdetail = $(this).attr('detalle')
-            var tbl = $(this).attr('vnum');
+    //         var tpdetail = $(this).attr('detalle')
+    //         var tbl = $(this).attr('vnum');
             
-            switch(tpdetail){
-                case "1"://ENVIA DATOS EN FORMA DE ARREGLO
-                    arr('login',6,'-',tbl,columns[0][0],0,1,$("#fdetalle"+vmodulo['modulo']+"s"));
-                default:
-                    break;
-            }
+    //         switch(tpdetail){
+    //             case "1"://ENVIA DATOS EN FORMA DE ARREGLO
+    //                 arr('login',6,'-',tbl,columns[0][0],0,1,$("#fdetalle"+vmodulo['modulo']+"s"));
+    //             default:
+    //                 break;
+    //         }
             
-        });
-
+    //     });
+    $("select").material_select();
     Materialize.updateTextFields();
 
     try{
@@ -456,7 +458,6 @@ function odin(varreglo,vform) {
                                 salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]).val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
                             }else{
                                 salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
-
                             }
                             break;
                         case 'text':
@@ -512,10 +513,14 @@ function deadclear(vform) {
                     case 'number':
                     case 'textarea':
                     case 'text':
+                    case 'password':
+                    case 'time':
                         $(vform+" #"+$(this).prop('id')).val('');
                         break;
                     case 'select':
                         $(vform+" #"+$(this).prop('id')).val("");
+                        if ($(vform+" #"+$(this).prop('id')).val() == undefined)
+                            $(vform+" #"+$(this).prop('id')).val(0)
                         $(vform+" #"+$(this).prop('id')).material_select('update');
                         break;
                     default:

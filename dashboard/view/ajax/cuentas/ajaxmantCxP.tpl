@@ -1,11 +1,13 @@
-<nav class="nav-extended  white-text z-depth-5" style="background-color:#0B3861">
+ <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css">
+
+      <nav class="nav-extended  white-text z-depth-5" style="background-color:#0B3861">
   <div class="nav-wrapper">
 <h4 align="center">Cuentas por Pagar</h4>
     
 </div>
 </nav>
         
-<div id="mantCxP">
+<div id="mantCxP"  style="font-size: 1.2em !important">
 <div class="card z-depth-5">
         
         <div class="row">
@@ -45,7 +47,7 @@
         <div class="card-block">
             <div class="row">
                 <div class="col s12">
-                    <table class="table centered highlight bordered responsive-table z-depth-5 ">
+                    <table id="data-table-cuentas-xP" class="table centered highlight bordered responsive-table z-depth-5 ">
                         <thead>
                             <tr>
                                 <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Factura</th>
@@ -62,7 +64,8 @@
                         </thead>
                         <tbody id="listaCuentasxP">
                          { section name= LE loop = $PRO }
-                         <tr id="f{$PRO[LE][0]}" class="detalle" tp="{if $PRO[LE][7] lt 0}1{else}0{/if}">
+                         <tr class="button-collapse detalle" data-activates="acciones" id="f{$PRO[LE][12]}"  tipo ='1' tp="{if $PRO[LE][7] lt 0}1{else}0{/if}">
+
                             <td>{$PRO[LE][3]}</td>
                              <td>{$PRO[LE][4]}</td>
                             <td>{$PRO[LE][1]}</td>
@@ -83,277 +86,145 @@
     </div>
 </div>
 
+<ul id="acciones" class="side-nav side-nav-cuentas"  style="width: 60%">
+
+
+        <div class="card-header center white-text" style="background-color:#0B3861; margin: 0 !important" >
+            <p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Cuenta</p>
+        </div>
+        <div class="row">
+            <div class="col s12 m12">
+              <div class="card blue z-depth-5">
+                <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
 
 
 
+                    <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; "><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
+                    </div>
+                    <div class="col s12 m4 l4 " style=" padding-top: 1% !important">
+                       <!--      <br>
+                       < id="btn-div">DIV</button> -->
+                       <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Abonar</button>
+                   </div>
+               </div>
+               <br>
+               <div class="card-content white-text  " style="padding: 0.1% !important">
+
+                  <div class="row  ">
+                  <br>
+                      <div class="col s6 m4 l4">
+                          <p>Nombre: <span id="inombr"> </span></p>
+                      </div>
+                      <div class="col s12 m4 l4">
+                        <p>Fecha: <span id="ifecha"> </span></p>
+                    </div>
+                    <div class="col s12 m4 l4">
+                        <p>Saldo: <span id="isaldo"> </span></p>
+                    </div>
+                    <div class="col s12 m4 l4">
+                        <p>Plazo: <span id="iplazo"> </span></p>
+                    </div>
+                    <div class="col s12 m6 l4">
+                        <p>Dias del credito : <span id="idias"> </span></p>
+                    </div>
 
 
 
+                </div>
 
 
+            </div>
+
+            <div id="festadoscuentas" class="divabono" visible="0">
+                <input type="hidden" id="vid" value="0">
+                <input type="hidden" id="vidtipo" value="3">
+                <input type="hidden" id="videstado" value="1">
+                <input type="hidden" id="vidfactura" value="">
+                <input type="hidden" id="vdebe" value="0">
+                <input type="hidden" id="vhaber" value="0">
+                <input type="hidden" id="vconsecutivo" value="0">
+
+                <div class="row">
+                    <div class="col s12 ">
+                        <div class="card" style="background-color:#0B3861">
+                            <div class="card-content white-text ">
+                                <div class="center-align"><span class="card-title  ">Abonos</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 ">
+                                        <p>Saldo Actual: <span id="isaldovista"> </span></p>
+                                        <br>
+                                    </div>
 
 
-<div class="modal fade" id="modal-desgloce">
-    <div class="modal-dialog" style="width: 70%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <div class="col-md-6 col-lg-6" align="left" style="margin-top: 2%">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6">
-                            <h4 class="modal-title form-horizontal" id="titmCxP"><small>Detalle Desglosado: </small></h4>
-                            <h5 class="form-horizontal"><b>Factura-<span id="numFCxP">5489</span></b></h5>
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">credit_card</i>
+                                        <input id="vvalor" type="text"  class="validate eder">
+                                        <label for="vvalor" style="font-size: 1.2em !important">Monto</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <select type="select" id="vidtipopago">
+                                            <option value="" disabled selected style="font-size: 1.2em !important">Tipo de Pago</option>
+                                            {section name=LE loop=$TIPOPAGO}
+                                            <option value="{$TIPOPAGO[LE][0]}">{$TIPOPAGO[LE][1]}</option>
+                                            {/section}
+                                        </select>
+                                    </div>
+                                    <div class="col s12 m8 offset-m4 ">
+                                        <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Pago</button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-6" align="center">
-                        <button type="button" id="expExcel" class="btn btn-success der" style="margin-right: 15px; padding: 3px 9px; border-radius: 42px;" title="Exportar a Excel"><i class="fa fa-file-excel-o" aria-hidden="true" style="font-size: 0.9em"></i></button>
-                        <button type="button" id="expExcel" class="btn der" style="background: #D9534F; color: #fff; margin-right: 15px; padding: 3px 9px; border-radius: 42px;" title="Exportar a PDF"><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 0.9em"></i></button>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div class="input-group">
-                        <span class="input-group-addon">Proveedor</span>
-                        <input type="text" class="form-control" id="nomProvCxP" value="Logintech S.A" readonly>
-                    </div>
-                </div>
-                </div>
-                <div class="row eder" style="margin-top: 0.5%">
-                <div class="col-md-3 col-lg-3">
-                    <div class="input-group">
-                        <span class="input-group-addon">Plazo</span>
-                        <input type="text" class="form-control form-control-sm" value="60" readonly>
-                        <span class="input-group-addon">días</span>
-                    </div>
-                </div>
-                <div class="col-md-3 col-lg-3">
-                    <div class="input-group">
-                        <span class="input-group-addon">Restantes</span>
-                        <input type="text" class="form-control form-control-sm" value="-30" readonly>
-                        <span class="input-group-addon">días</span>
-                    </div>                        
-                </div>
-                </div>
-                <hr>
-                <!-- Fecha del Rubro Usuario Tipo    Saldo   Monto   Debe    Haber -->
-                <table class="table table-sm" align="center">
-                    <thead align="center">
-                        <tr>
-                            <th>Fecha de Rubro</th>
-                            <th>Usuario</th>
-                            <th>Tipo</th>
-                            <th>Saldo</th>
-                            <th>Monto</th>
-                            <th>Debe</th>
-                            <th>Haber</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>21 de abril del 2016, 13:03:32</td>
-                            <td>ESTEBAN VARGAS</td>
-                            <td>Ingreso</td>
-                            <td>142,764.45</td>
-                            <td>142764.45</td>
-                            <td>0.00</td>
-                            <td>142,764.45</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-            </div>
+                </div>  
+
+            </div> <!-- end divabono -->
+
         </div>
     </div>
-</div>
-<!--  -->
-<div class="modal fade" id="modal-pago">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <h4 class="modal-title form-horizontal" id="titmCxP"><small>Realizar Pago a: </small></h4>
-                        <h5 class="form-horizontal"><b>Factura-<span id="numFCxP">5489</span></b></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-7 col-lg-7">
-                    <div class="input-group">
-                        <span class="input-group-addon">Saldo adeudado</span>    
-                        <input type="text" class="form-control" value="0" id="totSaldoAdeud" readonly>
-                    </div>
-                    </div>
-                    <div class="col-md-5 col-lg-5">
-                        <div class="input-group">
-                            <span class="input-group-addon"><b>Saldo</b></span>    
-                            <input type="text" class="form-control" value="0" id="totSaldoVig" readonly style="font-weight: 800">
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-10 col-lg-10">
-                        <div class="input-group" id="inpG">
-                            <span class="input-group-addon">Monto</span>    
-                            <input type="text" class="form-control" value="0.00" id="totAbonoF" placeholder="Valor a Pagar" data-mask="999999999.99">
-                            <span class="input-group-addon">¢</span>
-                        </div>
-                        <span id="errF" class="text-muted" style="color: #D9534F; margin-left: 19%"></span>
-                    </div>
-                    <div class="col-md-2 col-lg-2">
-                        <button type="button" id="realPagoCxP" class="btn btn-primary der" style="margin-right: 15px; padding: 12px 13px; border-radius: 42px;" title="Realizar Pago"><i class="fa fa-money fa-lg" aria-hidden="true"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--  -->
-<div class="modal fade" id="modal-nota">
-    <div class="modal-dialog" style="width: 50%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <h4 class="modal-title form-horizontal" id="titmCxP"><small>Nota de Crédito para: </small></h4>
-                        <h5 class="form-horizontal"><b>Factura-<span id="numFCxP">5489</span></b></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                    <div class="input-group">
-                        <span class="input-group-addon">Total de Factura</span>    
-                        <input type="text" class="form-control" value="0" id="totSaldoFact" readonly>
-                    </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <span class="input-group-addon"><b>Saldo a Favor</b></span>    
-                            <input type="text" class="form-control" value="0" id="totSaldoVig" aria-label="Amount (rounded to the nearest dollar)" readonly style="font-weight: 800">
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-10 col-lg-10">
-                        <div class="input-group" id="inpG">
-                            <span class="input-group-addon">Monto</span>    
-                            <input type="text" class="form-control" value="0.00" id="totAbonoN" aria-label="Amount (rounded to the nearest dollar)" placeholder="Valor de la Nota" data-mask="999999999.99">
-                            <span class="input-group-addon">¢</span>
-                        </div>
-                        <span id="errN" class="text-muted" style="color: #D9534F; margin-left: 19%"></span>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="card-header"><h6>Detalle de Nota</h6></div><br>
-                    <div class="col-md-5 col-lg-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">Referencia</span>
-                            <input type="text" class="form-control" id="numRefN" placeholder="Num. Referencia" data-mask="999999999">
-                        </div>
-                    </div>
-                    <div class="col-md-7 col-lg-7">
-                    <div class="input-group">
-                        <span class="input-group-addon">Comentario</span>
-                        <textarea name="" id="comentN" class="form-control" rows="2" required="required" placeholder="Detalle..."></textarea>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-primary">Crear</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--  -->
-<div class="modal fade" id="modal-devolucion">
-    <div class="modal-dialog" style="width: 50%">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <h4 class="modal-title form-horizontal" id="titmCxP"><small>Devolución de: </small></h4>
-                        <h5 class="form-horizontal"><b>Factura-<span id="numFCxP">5489</span></b></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <table class="table table-hover table-striped">
+
+
+    <div class="card-block">
+        <div class="row">
+            <div class="col s12">
+
+                <table id="data-table-cuentas-detalle" class="table centered highlight bordered responsive-table z-depth-5 ">
                     <thead>
                         <tr>
-                            <td style="width: 10%"></td>
-                            <th>Producto</th>
-                            <th>Precio Unit</th>
-                            <th>Cantidad</th>
-                            <th>Total</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
+
+
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td style="width: 10%">
-                                <label class="c-input c-checkbox">
-                                    <input type="checkbox" id="elemet">
-                                    <span class="c-indicator"></span>
-                                </label>
-                            </td>
-                            <td>Producto 1</td>
-                            <td>¢12,050.00</td>
-                            <td style="width: 20%">
-                                <div class="row">
-                                    <span>3</span>
-                                    <div class="col-md-10 col-lg-10" hidden>
-                                        <input type="number" class="form-control" min="0">
-                                    </div>
-                                </div>
-                            </td>
-                            <td>¢36,150.00</td>
-                        </tr>
+                    <tbody id="listaCuentasxCDetalle">
+
                     </tbody>
                 </table>
-                <hr>
+                <br>
 
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div class="input-group">
-                        <span class="input-group-addon">Comentario</span>
-                        <textarea id="comentD" class="form-control" rows="2" placeholder="Detalle..."></textarea>
-                    </div>
-                </div>
-            </div><br>
-            <div class="row">
-                <div class="col-md-5 col-lg-5"></div>
-                <div class="col-md-7 col-lg-7">
-                    <div class="input-group">
-                        <span class="input-group-addon">Total Devolución</span>    
-                        <input type="text" class="form-control" id="totDevo" value="0" readonly>
-                    </div>    
-                </div>
-            </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-primary">Crear</button>
             </div>
         </div>
     </div>
-</div>
+
+
+</ul>
+
+
+
+
+
+
+
+
+
 
 </div> <!-- CxP -->
 
-<script src="../assets/js/jquery.mask.min.js"></script>

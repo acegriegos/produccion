@@ -11,7 +11,7 @@
             <label class="truncate" for="search_productos">Buscar Producto por Código</label>
 
         </div>
-        <div class="col s12 m4 l7">
+        <div class="col s12 m4 l7 per4102">
             <a id="addproduct" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-productos"><i class="material-icons">add</i></a>
         </div>
     </div>
@@ -39,10 +39,10 @@
                     <td style="width: 10%">{$PROD[LE][5]}</td>
                     <td style="width: 10%">{$PROD[LE][6]}</td>
                     <td style="width: 10%">
-                        <a class="btn-color pbtn descuentos" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"><img src="../assets/img/icon/percent.svg"></a>
-                        <a class="btn-color pbtn salidainv material-icons" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario">compare_arrows</a>
-                        <a class="btn-color pbtn editprod material-icons" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto">edit</a>
-                        <a class="btn-color pbtn cdel delprod material-icons" id="d{$PROD[LE][0]}" title="Eliminar Producto">close</a>
+                        <a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"><img src="../assets/img/icon/percent.svg"></a>
+                        <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario">compare_arrows</a>
+                        <a class="btn-color pbtn editprod material-icons per4108" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto">edit</a>
+                        <a class="btn-color pbtn cdel delprod material-icons per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto">close</a>
                     </td>
                 </tr>
             {/section}
@@ -223,9 +223,9 @@
 <div id="modal-movinventario" class="modal modal-fixed-footer" style="width:70%;height:90%">
     <div class="modal-content" style="padding: 0px;">
         <ul class="tabs white-text" style="background-color:#0B3861">
-            <li class="tab col s3 minvent but" id="mv1"><a class="white-text">Entrada Inventario</a></li>
-            <li class="tab col s3 minvent but" id="mv2"><a class="white-text">Salida Inventario</a></li>
-            <li class="tab col s3 minvent but" id="mv3"><a class="white-text">Movimiento Inventario</a></li>
+            <li class="tab col s3 minvent but per4105" id="mv1"><a class="white-text">Entrada Inventario</a></li>
+            <li class="tab col s3 minvent but per4106" id="mv2"><a class="white-text">Salida Inventario</a></li>
+            <li class="tab col s3 minvent but per4107" id="mv3"><a class="white-text">Movimiento Inventario</a></li>
         </ul>
         <ul class="tabs blue">
             <li class="tab col s3" style="width: 100%">

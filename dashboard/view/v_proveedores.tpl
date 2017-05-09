@@ -28,8 +28,8 @@
                         <input type="text" id="search_clientes" maxlength="100" num="v30" var="nombre">
                         <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
                     </div>
-                    <div class="col s2 m6">
-                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large material-icons">add</i></a>
+                    <div class="col s2 m6 per2001">
+                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5 " data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large material-icons">add</i></a>
                     </div>
                 </div>
                 <div class="card-block">
@@ -53,8 +53,8 @@
                                 <td  padding: 10px;">{$PROV[LE][5]}</td>
                                 <td  padding: 10px;">{$PROV[LE][6]}</td>
                                 <td>
-                                    <a href="#modal-clientes" style="font-size: 2em; color: #607d8b"><i class="load material-icons pbtn" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
-                                    <a href="#" style="font-size: 2em; color: #607d8b"><i class="delete material-icons pbtn" modulo="cliente" id="d{$PROV[LE][0]}">delete</i></a>
+                                    <a href="#modal-clientes" style="font-size: 2em; color: #607d8b"><i class="load material-icons pbtn per2002" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
+                                    <a href="#" style="font-size: 2em; color: #607d8b"><i class="delete material-icons pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}">delete</i></a>
                                 </td>
                             </tr>
                             {/section}
@@ -101,7 +101,7 @@
                                           <label for="cdimex">DIMEX</label>
                                       </p>
                                   </div>
-                                  <div class="input-field col s6 m4">
+                                  <div class="input-field col s6 m4 hide">
                                     <select class="icons" type="select" id="vidpais">
                                     {section name=LE loop=$PAISES}
                                         <option value="{$PAISES[LE][0]}" cod="{$PAISES[LE][1]}" data-icon="{$PAISES[LE][2]}" class="circle">{$PAISES[LE][3]}</option>
@@ -133,7 +133,7 @@
                             
                             <div class="input-field col s12 m6 l4">
                                 <label for="vcedula">Cédula del Proveedor</label>
-                                <input type="text" class="validate" id="vcedula" data-mask="9-9999-9999">
+                                <input type="text" class="validate" id="vcedula" data-mask="9-9999-99999">
                             </div>
 
                             <div class="input-field col s12 m6 col l4">
@@ -156,7 +156,7 @@
                                     <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                                     <input type="hidden" id="vcorreo" fill="18">
                                     <label for="correo_in">Ingresar Correo</label>
-                                    <ul class="collapsible hide" data-collapsible="accordion" id="shcorreos"></ul>
+                                    <ul class="collapsible" data-collapsible="accordion" id="shcorreos"></ul>
                                 </div>
                             </div>
                             <div class="col s12 m12 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3">
@@ -179,7 +179,7 @@
                                             <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
                                             <input type="hidden" id="vtelefono" fill="19">
                                             <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
-                                            <ul class="collapsible hide" data-collapsible="accordion" id="shtelefonos"></ul>
+                                            <ul class="collapsible" data-collapsible="accordion" id="shtelefonos"></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +289,8 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=0.1"></script>
+<script src="../assets/js/modulos/proveedores.js?v=0.2"></script>
+<script src="../assets/js/jquery.mask.min.js"></script>
 
 </body>
 </html>

@@ -28,7 +28,7 @@
                 <label>Seleccione una Sucursal</label>
             </div>
     {/if}
-    <a href="#" class="btn-floating der"><i class="material-icons">add</i></a>
+    <a href="#" class="btn-floating der per100"><i class="material-icons">add</i></a>
     </div>
 
     <!-- <form id="checkout-form" action="main" method="post">

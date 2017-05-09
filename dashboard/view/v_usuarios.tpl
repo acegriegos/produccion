@@ -37,7 +37,7 @@
 
 </div>
 {$SCR}
-<script src="../assets/js/modulos/usuarios.js?v=0.6"></script>
+<script src="../assets/js/modulos/usuarios.js?v=0.11"></script>
 
 </body>
 </html>

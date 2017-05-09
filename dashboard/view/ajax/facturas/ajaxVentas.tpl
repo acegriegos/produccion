@@ -284,4 +284,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=3.3"></script>
+<script src="../assets/js/modulos/ventas.js?v=0.3"></script>

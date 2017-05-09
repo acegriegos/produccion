@@ -7,14 +7,17 @@
     <!-- <meta http-equiv="Cache-Control" content="max-age=86400"/> -->
     <title>Facturación</title>
   </head>
-
+  {$STY}
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css">
+  
   <body>
   {$NAV}
-
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css">
-  <script src="../assets/js/modulos/facturacion.js?v=0.1"></script>
+  
+  
 
   <div class="bdy">
       <div id="mfacturacion" style="background-color: white;"></div>
   </body>
+  {$SCR}
+  <script src="../assets/js/modulos/facturacion.js?v=0.1"></script>
 </html>

@@ -12,18 +12,14 @@
 <!-- #0B3861 -->
 <body>
     {$NAV}
-
-    <div class="bdy">
+    <div class="bdy"  style="font-size: 1.2em !important">
         <div class="card z-depth-5">
-
         <div class="card-header center white-text" style="background-color:#0B3861">
                 <p class="flow-text" style="font-size: 1.9em;">Clientes</p>
             </div>
             <div class="card-content">
                 <div class="row">
-
                     <div class="input-field col s10 m6 l6">
-
                         <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                         <ul id='filtr_1' class='dropdown-content'>
                             <li><a class="optns" tipo="nombre" href="#!" fltr="1">Nombre</a></li>
@@ -32,16 +28,12 @@
                         </ul>
                         <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
                         <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
-
                     </div>
-                    <div class="col s2 m6">
+                    <div class="col s2 m6 per1001">
                         <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="large material-icons ">add</i></a>
                     </div>
-
                 </div>
-
                 <div class="card-block">
-
                     <table  class="table centered highlight bordered responsive-table z-depth-3" id="data-table-clientes">
                         <thead>
                             <tr>
@@ -62,8 +54,8 @@
                                 <td style=" padding: 10px;">{$CLIE[LE][5]}</td>
                                 <td style=" padding: 10px;">{$CLIE[LE][6]}</td>
                                 <td>
-                                    <a href="#modal-clientes" class="load material-icons pbtn" id="m{$CLIE[LE][0]}" modulo="cliente" style="font-size: 2em; color: #607d8b">edit</a>
-                                    <a href="#" class="delete material-icons pbtn" modulo="cliente" id="d{$CLIE[LE][0]}" style="font-size: 2em; color: #607d8b">delete</a>
+                                    <a href="#modal-clientes" class="load material-icons pbtn per1002" id="m{$CLIE[LE][0]}" modulo="cliente" style="font-size: 2em; color: #607d8b">edit</a>
+                                    <a href="#" class="delete material-icons pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="font-size: 2em; color: #607d8b">delete</a>
                                 </td>
                             </tr>
                             {/section}
@@ -72,7 +64,6 @@
                 </div>
 
                 <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 80%; width: 75%">
-
                     <div class="modal-header">
                         <ul class="tabs tabs-fixed-width blue">
                             <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
@@ -81,7 +72,6 @@
                             <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
                         </ul>
                     </div>
-
                     <div class="modal-content" style="padding: 0px;">
                         <div id="fclientes">
                             <input type="hidden" id="zelda">
@@ -403,7 +393,7 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=0.1"></script>
+<script src="../assets/js/modulos/clientes.js?v=0.5"></script>
 
 </body>
 </html>

@@ -2,17 +2,14 @@
 ?>
 
 <tr id="b_<?php echo $obj[0]; ?>">
-    <td>
-        <input type="text" value="<?php echo $obj[1]; ?>" style="border: 0px;margin: 0px; padding: 0px;" class="fast-edit">
+    <td style="margin:0;">
+        <input type="text" value="<?php echo $obj[1]; ?>"  class="fast-edit center-align" style="border: 0px; margin: 0;">
     </td>
-    <td align="right">
+    <td style="margin:0;">
     <?php if ($obj[2] == 0){ ?>
-        <a href='#modal-tusuarios' class="btn valorestu" id="c<?php echo $obj[0]; ?>" modulo="moneda" title="Valores en el Sistema">
-            <i class="fa fa-gg-circle"></i>
-        </a>
-        <a href="#" class="btn delete" modulo="tipousuario" id="d<?php echo $obj[0]; ?>" title="Eliminar Tipo Usuario">
-            <i class="fa fa-times"  style="color: #D9534F" readonly></i>
-        </a>
+        <a href='#modal-tusuarios' id="c<?php echo $obj[0]; ?>" modulo="moneda" title="Valores en el Sistema">
+        <i class="small material-icons ">info_outline</i></a>
+        <a href="#" modulo="tipousuario" id="d<?php echo $obj[0]; ?>" title="Eliminar Tipo Usuario"><i class="small material-icons ">delete</i></a>
     </td>
     <?php } ?>
 </tr>

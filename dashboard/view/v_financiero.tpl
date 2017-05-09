@@ -25,26 +25,26 @@
                   <div class="card-panel ">
 
                     <div class="row">
-                     <div class="col s12 m6 l6">
+                     <div class="col s12 m6 l6 per3000">
                       <a href="contabilidad" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Contabilidad
                       ">Contabilidad</a>
                     </div>
-                    <div class="col s12 m6 l6">
+                    <div class="col s12 m6 l6 per3100">
                       <a href="presupuesto" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Presupuesto">Presupuesto</a>
                     </div>
-                    <div class="col s12 m6 l6">
+                    <div class="col s12 m6 l6 per3200">
                       <a href="cuentas?tf=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Cuentas por Cobrar</a>
                     </div>
-                    <div class="col s12 m6 l6">
+                    <div class="col s12 m6 l6 per3300">
                       <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Cuentas por Pagar</a>
                     </div>
-                     <div class="col s12 m6 l6">
+                     <div class="col s12 m6 l6 per3400">
                       <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Notas de Crédito y debito</a>
                     </div>
-                      <div class="col s12 m6 l6">
+                      <div class="col s12 m6 l6 per3500">
                       <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Devoluciones</a>
                     </div>
-                    <div class="col s12 m6 l6">
+                    <div class="col s12 m6 l6 per3600">
                       <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
                     </div>
 
@@ -56,7 +56,7 @@
             </div>
 
             <div class="col s12 m12 l6">
-              <div class="card z-depth-5">
+              <div class="card z-depth-5 per3700">
                 <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
                 <div class="card-content">
                   <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>

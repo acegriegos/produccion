@@ -2,6 +2,7 @@ var cuentas = '<option value="0">Seleccione una Cuenta</option>';
 var ind_1 = ind_2 = 1;
 
 $(function(){
+	console.log(1)
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	
@@ -124,6 +125,10 @@ $(function(){
 
 });
 
+$(document).on("change","#vidnivel",function(){
+	console.log($("#vidnivel option:selected").val())
+});
+
 $(document).on("click",".optns",function(){
 	var tipo = $(this).attr('tipo');
 	$("#search_clientes").attr('var',tipo);
@@ -160,22 +165,26 @@ $(document).on("click","input[name='tipoclie']",function(){
 		case 1:
 			$("#titInfo").html('<b>Datos Personales<b/>');
 			$("#nomClie").html('Nombre');
+			$("#vcedula").attr('data-mask','9-9999-9999')
 			$(".hid").show(300);
 			break;
 		case 3:
 			$("#titInfo").html('<b>Información Tributaria<b/>');
 			$("#nomClie").html('Razón Social');
 			$(".hid").css('display','none');
+			$("#vcedula").removeAttr('data-mask');
 			break;
 		case 4:
 			$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
 			$("#nomClie").html('Nombre');
+			$("#vcedula").removeAttr('data-mask');
 			$(".hid").show(300);
 			break;
 		default:
 			$("#titInfo").html('<b>Información Jurídica<b/>');
 			$("#nomClie").html('Razón Social');
 			$("label[for=vcedula]").text('Cédula Jurídica');
+			$("#vcedula").attr('data-mask','9-999-999999-99')
 			$(".hid").css('display','none');
 			break;
 	}

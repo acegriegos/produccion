@@ -14,11 +14,10 @@
 }else{  
     ?>
 
-    <div class="panel-body">
+    <div class="card">
        <div class="row">
-        <div class="col-md-6 col-lg-6">
+        <div class="col s12 m6 l6">
             <label for="selectUserh" >Elegir Usuario a Desplegar</label>
-            
             <select id="selectUserH" class="form-control" style="width: 70%">
                 <option value="0">--Selecione un Usuario--</option>
                 <?php foreach ($usr as $obj) { ?>
@@ -26,7 +25,6 @@
                 <?php } ?>
             </select>
         </div>
-        
     </div>
     <br><br>
     <div class="row">

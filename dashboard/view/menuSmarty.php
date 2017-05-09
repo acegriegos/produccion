@@ -24,13 +24,13 @@
       <label for="numtrans"># Transacción</label>
     </div>
     </div>
-    <li><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b>Inicio</b></a></li>
-    <li><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b>Área Comercial</b></a></li>
-    <li><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b>Área de Operaciones</b></a></li>
-    <li><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b>Área Financiera</b></a></li>
-    <li><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b>Área de Inventarios</b></a></li>
-    <li><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><b>Área de Producción</b></a></li>
-    <li><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><b>Área Administrativa</b></a></li>
+    <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b>Inicio</b></a></li>
+    <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b>Área Comercial</b></a></li>
+    <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b>Área de Operaciones</b></a></li>
+    <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b>Área Financiera</b></a></li>
+    <li class="per5"><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b>Área de Inventarios</b></a></li>
+    <li class="per6"><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><b>Área de Producción</b></a></li>
+    <li class="per7"><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><b>Área Administrativa</b></a></li>
     <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><b>Reportes</b></a></li>
     <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><b>Cerrar Sesión</b></a></li>
     <!-- <li><div class="divider"></div></li> -->

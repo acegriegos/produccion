@@ -1,5 +1,5 @@
 $(function(){
-	
+	console.log(2)
 	$('select').material_select();
 		
 	$("#fusuarios").submit(function(){
@@ -38,17 +38,19 @@ $(function(){
         		bLengthChange : false
 			});
 			$("select").material_select('update');
-		}
-		else if (id == 2)
+		}else if (id == 2) {
 			$("#data-table-usuariosPermisos").dataTable({
 				bFilter :  false,
 				bLengthChange : false
 			});
-		else
+			$("select").material_select();
+
+		}else
 			$("#data-table-usuariosHistorial").dataTable({
 				bFilter :  false,
 				bLengthChange : false
 			});
+			$("select").material_select('update');
 	});
 
 	$("#back").click(function(){
@@ -105,52 +107,91 @@ $(document).on("keyup","#vmail",function(e){
 	}
 });
 
-$(document).on("blur","#vclave",function(e){
-	if ($(this).val().length < 8) {
-		Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
-		$(this).css('border-bottom','1px solid #F44336');
-        $(this).css('box-shadow','0 1px 0 0 #F44336');
+$(document).on("blur","#vclave",function(){
+	if ($(this).val().length != 0) {
+		if ($(this).val().length < 8) {
+			Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
+			$(this).css('border-bottom','1px solid #F44336');
+	        $(this).css('box-shadow','0 1px 0 0 #F44336');
+		}else{
+			$(this).css('border-bottom','1px solid #4CAF50');
+	    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		}
 	}else{
-		$(this).css('border-bottom','1px solid #4CAF50');
-    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		$(this).css('border-bottom','1px solid #9e9e9e');
+    	$(this).css('box-shadow','none');
 	}
 });
 
 $(document).on("keyup","#vclave",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-			$(this).css('border-bottom','1px solid #4CAF50');
-        	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		if ($(this).val().length != 0) {
+			if ($(this).val().length < 8) {
+				Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
+				$(this).css('border-bottom','1px solid #F44336');
+	            $(this).css('box-shadow','0 1px 0 0 #F44336');
+			}else{
+				$(this).css('border-bottom','1px solid #4CAF50');
+	        	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+			}
 		}else{
-			Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos',4000,'red');
-			$(this).css('border-bottom','1px solid #F44336');
-            $(this).css('box-shadow','0 1px 0 0 #F44336');
+			$(this).css('border-bottom','1px solid #9e9e9e');
+    		$(this).css('box-shadow','none');
 		}
 	}
 });
 
-$(document).on("blur","#clave",function(e){
-	if ($(this).val().length < 8) {
-		Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
-		$(this).css('border-bottom','1px solid #F44336');
-        $(this).css('box-shadow','0 1px 0 0 #F44336');
+$(document).on("blur","#clave",function(){
+	if ($(this).val().length != 0) {
+		if ($(this).val().length < 8) {
+			Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
+			$(this).css('border-bottom','1px solid #F44336');
+	        $(this).css('box-shadow','0 1px 0 0 #F44336');
+		}else{
+			$(this).css('border-bottom','1px solid #4CAF50');
+	    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		}
+
+		if ($(this).val() != $("#vclave").val()) {
+			Materialize.toast('Contraseñas Deben ser Iguales', 4000, 'red');
+			$(this).css('border-bottom','1px solid #F44336');
+	        $(this).css('box-shadow','0 1px 0 0 #F44336');
+		}else{
+			$(this).css('border-bottom','1px solid #4CAF50');
+	    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		}
 	}else{
-		$(this).css('border-bottom','1px solid #4CAF50');
-    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		$(this).css('border-bottom','1px solid #9e9e9e');
+		$(this).css('box-shadow','none');
 	}
+	
 });
 
 $(document).on("keyup","#clave",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-			$(this).css('border-bottom','1px solid #4CAF50');
-        	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		if ($(this).val().length != 0) {
+			if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+				$(this).css('border-bottom','1px solid #4CAF50');
+	        	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+			}else{
+				Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos',4000,'red');
+				$(this).css('border-bottom','1px solid #F44336');
+	            $(this).css('box-shadow','0 1px 0 0 #F44336');
+			}
+
+			if ($(this).val() != $("#vclave").val()) {
+				Materialize.toast('Contraseñas Deben ser Iguales', 4000, 'red');
+				$(this).css('border-bottom','1px solid #F44336');
+		        $(this).css('box-shadow','0 1px 0 0 #F44336');
+			}else{
+				$(this).css('border-bottom','1px solid #4CAF50');
+		    	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+			}
 		}else{
-			Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos',4000,'red');
-			$(this).css('border-bottom','1px solid #F44336');
-            $(this).css('box-shadow','0 1px 0 0 #F44336');
+			$(this).css('border-bottom','1px solid #9e9e9e');
+			$(this).css('box-shadow','none');
 		}
 	}
 });
@@ -336,10 +377,11 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'usuario':
-			vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave, aes_decrypt(clave,"lt2016") as clave,idsucursal as vidsucursal';
+			vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave,aes_decrypt(clave,"lt2016") as clave,idsucursal as vidsuc';
 			vmodulo['tbl'] = 1;
 			vmodulo['where'] = 'id = "'+vid+'"';
-			$("#vid").focus();
+			$("#vuser").focus();
+			$("#vuser").select();
 			break;
 		default:
 			return 'Módulo no Existente'//.vmodulo['modulo'];
@@ -438,10 +480,17 @@ function endDetail(id,acc,modulo) {
 
 	switch(modulo){
 		case 'usuario':
-			console.log(enviarCorreo())
-			// deadclear(modulo);
-			// thorload(modulo);
+			var msj = '<div align="center"><b>Bienvenido al Sistema BMS de Logintech S.A</b></div><hr><b>Nombre del Usuario: </b>'+$("#vnombre").val()+'<br><b>Usuario: </b>'+$("#vuser").val()+'<br><b>Contraseña del Usuario: </b>'+$("#vclave").val()+' <br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
+			if (acc == 1)			
+				enviarCorreo(1,$("#vmail").val(),'Bienvenido '+$("#vnombre").val(),msj,'');
+			
+			deadclear(modulo);
+			thorload(modulo);
 			break
 	}
 	
+}
+
+function postload(modulo) {
+
 }

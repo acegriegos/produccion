@@ -1,5 +1,5 @@
 $(function(){
-	
+	console.log(1)
 	$(".modal").modal();
 	$("#m1").click();
 	$("#addMoneda").click(function(){
@@ -808,6 +808,13 @@ function validar (varreglo,vmodulo) {
 					return err
 			}
 			break;
+		case 'tipousuario':
+			if (vmodulo['tip'] == '') {
+				err = validartipousuario(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
 		case 'sucursale':
 			if (vmodulo['tip'] == '') {
 				err = validarsucursales();
@@ -924,6 +931,13 @@ function validarTP(vmod){
 	}
 
 	return 0;
+}
+
+function validartipousuario(vmod) {
+	if ($("#f"+vmod+"s vnombre_tusuario").val() == '') {
+		$("#f"+vmod+"s vnombre_tusuario").focus();
+		return 'Nombre tipo usuario requerido';
+	}
 }
 
 function validarCategoria(vmod){
@@ -1169,6 +1183,11 @@ function cargarSintax(vtabla){
 			arr['sel'] = 'id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo';
 			arr['tbl'] = 54;
 			arr['where'] = 'id > 0 order by principal desc,nombre';
+			break;
+		case 'tipousuarios':
+			arr['sel'] = 'id,nombre,defecto';
+			arr['tbl'] = 27;
+			arr['where'] = 'id > 0 order by defecto,nombre';
 			break;
 		// case 'sucursales':
 		// 	arr['sel'] = '';

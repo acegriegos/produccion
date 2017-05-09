@@ -12,16 +12,16 @@ class correo
       	include_once 'mysqlDB.php';
 		$base = new DBClass();
 		$res = $base->ejecutar('(select aes_decrypt(valor, "Login2Help") from ajustes where descr = "smtpp")union(select valor from ajustes where descr in ("smtp","smtphost","smtpport"))')->fetch_all();
-
+    print_r($rs);
       	$transport = Swift_SmtpTransport::newInstance($res[2][0],$res[3][0])
       		->setUsername($res[1][0])
       		->setPassword($res[0][0]);
 
      	$this->mailer = Swift_Mailer::newInstance($transport);
      	$this->message = Swift_Message::newInstance($tit)
-     		->setFrom($res[1][0])
+     		->setFrom(array($res[1][0] => 'BMS'))
      		->setTo(array( $pr ))
-     		->setBody($msj,'text/html');
+     		->setBody('<div style="min-height:250px;background-color: #0B3861; margin-left:15%;margin-right: 15%;color: white">'.$msj.'</div>','text/html');
     }
 
     function enviar(){
