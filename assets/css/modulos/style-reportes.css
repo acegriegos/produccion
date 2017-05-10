@@ -1,6 +1,6 @@
 .tbl01>tbody>tr>td {
 	border-right	: 1px solid black;
-	
+	}
 
 .tbl01{
 	float: right;
@@ -17,14 +17,16 @@
   border-top: 1px dashed #eee;
 }
 
-body{
-	
-	background-color: #e4e4e4;
-}
+
 
 .hoja{
 	background-color: white;
 	padding: 1%;
+}
+
+
+.colordefondo{
+	background-color:#0B3861 !important;
 }
 
 @media print {
