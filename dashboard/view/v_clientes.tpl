@@ -129,7 +129,7 @@
                             
                             <div class="input-field col s12 m6 l4">
                                 <label for="vcedula">Cédula del Cliente</label>
-                                <input type="text" class="validate" id="vcedula" data-mask="9-9999-9999">
+                                <input type="text" class="validate" id="vcedula">
                             </div>
 
                             <div class="input-field col s12 m6 col l4">

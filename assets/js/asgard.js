@@ -150,11 +150,9 @@ function loadpool(vmodulo,vid,vvarias){
     var columns = mantenimiento('login',5,vmodulo);
 
     for (var i = 0; columns[0][1].length > i; i++) {
-
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
-
             case 'select':
-                
+
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
                 
@@ -168,6 +166,7 @@ function loadpool(vmodulo,vid,vvarias){
 
             case 'radio':
             case 'checkbox':
+
                 var obj = $("#"+vform+" input[name="+columns[0][1][i]['name']+']');
                 obj.val(columns[0][0][0][i]);
                 obj.prop('checked',columns[0][0][0][i]);
@@ -188,10 +187,10 @@ function loadpool(vmodulo,vid,vvarias){
             case 'time':
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 break;
-
             case 'hidden':
-                if ($("#"+vform+" #"+columns[0][1][i]['name']).attr("fill") == undefined)
+                if ($("#"+vform+" #"+columns[0][1][i]['name']).attr("fill") == undefined){
                     $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
+                }
                 else
                     arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]))
                 break;
@@ -409,7 +408,6 @@ function odin(varreglo,vform) {
             salida[index] = {};
             for (var i = 0; i < varreglo.length; i++) {
                 salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
-                console.log(varreglo[i]+" "+salida[index][varreglo[i]])
             }// end FOR
         });//end EACH
     break;

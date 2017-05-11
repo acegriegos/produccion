@@ -164,7 +164,6 @@ $(document).on("click",".edit_phone",function(){
 	$("#telefono_in").attr('idfila',id);
 	$("#telefono_in").val(tel);
 	Materialize.updateTextFields();
-	console.log(tel)
 });
 
 $(document).on("click",".del_mail",function(){
@@ -178,7 +177,6 @@ $(document).on("click",".edit_mail",function(){
 	$("#correo_in").attr('idfila',id);
 	$("#correo_in").val(mail);
 	Materialize.updateTextFields();
-	console.log(mail)
 });
 
 $(document).on("click",".acctel",function(){
@@ -223,25 +221,21 @@ $(document).on("click","input[name='tipoclie']",function(){
 		case 1:
 			$("#titInfo").html('<b>Datos Personales<b/>');
 			$("#nomClie").html('Nombre');
-			$("#vcedula").attr('data-mask','9-9999-9999')
 			$(".hid").show(300);
 			break;
 		case 3:
 			$("#titInfo").html('<b>Información Tributaria<b/>');
 			$("#nomClie").html('Razón Social');
 			$(".hid").css('display','none');
-			$("#vcedula").removeAttr('data-mask');
 			break;
 		case 4:
 			$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
 			$("#nomClie").html('Nombre');
-			$("#vcedula").removeAttr('data-mask');
 			$(".hid").show(300);
 			break;
 		default:
 			$("#titInfo").html('<b>Información Jurídica<b/>');
 			$("#nomClie").html('Razón Social');
-			$("#vcedula").attr('data-mask','9-999-999999-99')
 			$(".hid").css('display','none');
 			break;
 	}
@@ -331,7 +325,6 @@ function validarclientes() {
 }
 
 function cargar(vmodulo,vid) {
-
 	switch(vmodulo['modulo']) {
 		case 'cliente':
 			vmodulo['sel'] = '';
@@ -404,4 +397,14 @@ function endDetail(vid,vacc,modulo){
 	    $("#shcorreos").html('');
 	    $("#shtelefonos").html('');
     }
+}
+
+function postload(modulo) {
+	switch(modulo) {
+		case 'cliente':
+			var tipo = $("#vidtipocliente").val();
+			$("[tipoclie="+tipo+"]").prop('checked',true);
+			$("[tipoclie="+tipo+"]").click();
+			break;
+	}
 }

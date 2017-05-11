@@ -619,7 +619,7 @@ function cargarSintax(){
 }
 
 function endDetail(vid) {
-    // window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+    window.open('facturacion?accion=7&id='+vid);
     return false;
 }
 

@@ -1,5 +1,4 @@
 $(function(){
-    
     $(".menu3").click(function(){
         var id = $(this).attr('id').substr(1);
         $(".menu3").removeClass('active');
@@ -1424,10 +1423,7 @@ $(document).on("click","#addproduct",function(){
     $("#editprod").addClass('hide');
     $(".accmodalProd").html('Agregar Producto');
     $("#dinventario").removeClass('hide');
-    $("#vfamilia").autocomplete({
-        limit: 10,
-        data: arr('login',4,'nombre,null',20,'nombre like \"%'+$("#vfamilia").val()+'%\" limit 10',0,0,0,1)
-    })
+    
     var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
     vaciar('productos');
     $("#impuestos").removeClass('hide');
@@ -1788,19 +1784,19 @@ function validar (varreglo,vmodulo) {
 
 function validarproductos() {
 
-    if ($("#vidfamilia").val() == 0) {
+    if ($("#vfamilia").val() == '') {
         $("#tb1").click();
-        $("#vidfamilia").focus();
+        $("#vfamilia").focus();
         return "Familia Requerido";
     }
-    if ($("#vidtipo").val() == 0) {
+    if ($("#vtipo").val() == '') {
         $("#tb1").click();
-        $("#vidtipo").focus();
+        $("#vtipo").focus();
         return "Tipo Requerido";
     }
-    if ($("#vidmarca").val() == 0) {
+    if ($("#vmarca").val() == '') {
         $("#tb1").click();
-        $("#vidmarca").focus();
+        $("#vmarca").focus();
         return "Marca Requerido";
     }
     if ($("#vpeso").val() == '') {
