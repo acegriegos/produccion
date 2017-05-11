@@ -25,6 +25,10 @@ $(function(){
 
 });
 
+fecha = new Date();
+    $('#vfecha').pickadate().pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+    $('select').material_select();
+
 $(document).on("click","#Iadd",function(){
 	deadclear('reportes')
 
