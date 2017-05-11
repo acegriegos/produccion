@@ -165,26 +165,22 @@ $(document).on("click","input[name='tipoclie']",function(){
 		case 1:
 			$("#titInfo").html('<b>Datos Personales<b/>');
 			$("#nomClie").html('Nombre');
-			$("#vcedula").attr('data-mask','9-9999-9999')
 			$(".hid").show(300);
 			break;
 		case 3:
 			$("#titInfo").html('<b>Información Tributaria<b/>');
 			$("#nomClie").html('Razón Social');
 			$(".hid").css('display','none');
-			$("#vcedula").removeAttr('data-mask');
 			break;
 		case 4:
 			$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
 			$("#nomClie").html('Nombre');
-			$("#vcedula").removeAttr('data-mask');
 			$(".hid").show(300);
 			break;
 		default:
 			$("#titInfo").html('<b>Información Jurídica<b/>');
 			$("#nomClie").html('Razón Social');
 			$("label[for=vcedula]").text('Cédula Jurídica');
-			$("#vcedula").attr('data-mask','9-999-999999-99')
 			$(".hid").css('display','none');
 			break;
 	}
@@ -354,4 +350,14 @@ function endDetail(vid,vacc,modulo){
 	    $("#shcorreos").html('');
 	    $("#shtelefonos").html('');
     }
+}
+
+function postload(modulo) {
+	switch(modulo) {
+		case 'cliente':
+			var tipo = $("#vidtipocliente").val();
+			$("[tipoclie="+tipo+"]").prop('checked',true);
+			$("[tipoclie="+tipo+"]").click();
+			break;
+	}
 }

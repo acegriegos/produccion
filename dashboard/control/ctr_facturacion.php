@@ -72,7 +72,13 @@
 	   			else
 	   				require_once 'view/reportes/compraPV.php';
 	   			break;
-
+	   		case 7:
+	   			$pagina = 1;
+	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+	   			$transaccion = $kakaroto->kamehameha('',157,$_REQUEST['id']);
+	   			$datos = $transaccion[0];
+	   			require 'view/ajax/facturas/orden.php';
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion) or die(header("Location: error"))){
