@@ -210,20 +210,33 @@
 
 </div>
 
-<div id="fechas" class="modal">
-  <div class="modal-content">
+<div id="fechas" class="modal" >
+  <div class="modal-content" style="padding-top: 0;">
 
     <div class="row">
+    <br>
       <div class="col s12 center-align">
-        <div class="card-header center white-text z-depth-3"  style="background-color:#0B3861">
-      <p class="flow-text " style="font-size: 1.9em; margin-bottom: 0.3% !important">Entre Fechas</p>
+        <div class="card-header center white-text z-depth-3"  style="background-color:#0B3861; margin-top: 0;">
+      <p class="flow-text " style="font-size: 1.9em; margin-bottom: 0.3% !important; ">Entre Fechas</p>
     </div> 
       </div>
     </div>
+    <div class="card-content">
 
     <div class="row">
-      <div class="col s6">
+    <div class="col 1">
       <i class="fa fa-calendar-o prefix"></i>
+    </div>
+      <div class="col s5">
+      
+      <input type="date" class="datepicker" id="vfecha" value="" />
+       
+      </div> 
+       <div class="col 1">
+      <i class="fa fa-calendar-o prefix"></i>
+    </div>
+      <div class="col s5">
+      
       <input type="date" class="datepicker" id="vfecha" value="" />
        
       </div> 
@@ -235,6 +248,7 @@
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
   </div>
 </div>
 </DIV>
@@ -257,6 +271,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=0.2"></script>
+<script src="../assets/js/modulos/reportes.js?v=0.4"></script>
 </body>
 </html>
