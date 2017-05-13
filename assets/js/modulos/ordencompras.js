@@ -1,4 +1,5 @@
 $(function(){
+    console.log(3)
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -36,7 +37,7 @@ $(function(){
             $(".autocomplete-content").remove();
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'id > 0 and bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
             });
             $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
         }

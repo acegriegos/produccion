@@ -158,4 +158,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/ordencompras.js?v=0.3"></script>
+<script src="../assets/js/modulos/ordencompras.js?v=0.5"></script>
