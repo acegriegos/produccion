@@ -56,7 +56,28 @@
 			   	$smarty->display('ajax/facturas/ajaxOrdenesCompras.tpl');
 	   			break;
 	   		case 4:
+	   			//cotizacion
+	   			$pagina = 1;
+	   			require '../_config/mySmarty.php';
+			   	$smarty  = new mySmarty();
+			   	$smarty->setModule('dashboard');
+			   	$smarty->assign('CONS',$kakaroto->kamehameha('lpad(consecutivo3+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
+			   	$smarty->display('ajax/facturas/ajaxCotizacion.tpl');
+	   			break;
+	   			break;
 	   		case 5:
+	   			//pedidos
+	   			$pagina = 1;
+	   			require '../_config/mySmarty.php';
+			   	$smarty  = new mySmarty();
+			   	$smarty->setModule('dashboard');
+			   	$smarty->assign('CONS',$kakaroto->kamehameha('lpad(consecutivo4+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
+			   	// $smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by id'));
+			   	// quitar ->
+			   	// $smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
+			   	// $smarty->assign('IVI',$kakaroto->kamehameha('',200,'64,0')[0][3]);
+			   	// quitar <-
+			   	$smarty->display('ajax/facturas/ajaxPedidos.tpl');
 	   			break;
 	   		case 6:
 	   			$pagina = 1;
@@ -79,6 +100,24 @@
 	   			$datos = $transaccion[0];
 	   			require 'view/ajax/facturas/orden.php';
 	   			break;
+	   		case 8:
+	   			$pagina = 1;
+	   			require '../_config/mySmarty.php';
+	   
+			   	$smarty  = new mySmarty();
+			   	$smarty->setModule('dashboard');
+			   	$pg = $smarty->fetch('../view/menuSmarty.php');
+			    $sty = $smarty->fetch('../view/styles.php');
+				$scr = $smarty->fetch('../view/scripts.php');
+			
+				$smarty->assign('STY',$sty);
+				$smarty->assign('SCR',$scr);
+			   	$smarty->assign('NAV',$pg);
+	   			$smarty->assign('TF',$_REQUEST['tf']);
+
+	   			$smarty->display('v_verFacturas.tpl');
+	   			break;
+
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion) or die(header("Location: error"))){

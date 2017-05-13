@@ -149,7 +149,7 @@
 <label>ODT</label> -->
 </div>
 <div class="col s12 m4">
-<button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Realizar Compra</button>
+<button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Realizar Orden</button>
 </div>
 </div>
 </div>
@@ -157,5 +157,6 @@
 </div>
 </div>
 </div>
+
 
 <script src="../assets/js/modulos/ordencompras.js?v=0.5"></script>

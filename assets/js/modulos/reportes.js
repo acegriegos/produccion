@@ -25,6 +25,9 @@ $(function(){
 
 });
 
+
+    $('select').material_select();
+
 $(document).on("click","#Iadd",function(){
 	deadclear('reportes')
 

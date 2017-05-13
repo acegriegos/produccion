@@ -39,7 +39,6 @@
 
 						$detalles['vaccion'] = $accion;
 						$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
-						echo $rs;
 					}
 				}
 			}
