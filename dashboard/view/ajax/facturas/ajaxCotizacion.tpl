@@ -3,7 +3,7 @@
 <div class="card ">
 <div class="card-header center blue-grey white-text"> 
 <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
-<a href="facturacion?accion=8&tf=4" class="btn" style="float: left;color: white;font-size: 14px;"> Ver Cotizaciones</a>
+<a href="facturacion?accion=8&tf=4" class="btn" style="float: right;color: white;font-size: 14px;"> Ver Cotizaciones</a>
 Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
