@@ -15,7 +15,6 @@
     <div class="bdy">
 
         <div class="card z-depth-5 ">
-            <div class="card ">
             <div class="card-header center blue-grey white-text"> 
             <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
             Vista de Facturas {$smarty.session.EMPRESA|upper}</p>
@@ -54,11 +53,10 @@
                 </div>
             </div>
             <br><br>
-            </div>
         </div>
 
     </div>
-    {$SRC}
+    {$SCR}
     <script src="../assets/js/modulos/verfacturas.js?v=0.1"></script>
   </body>
 </html>
