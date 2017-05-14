@@ -1,7 +1,6 @@
 acc = 1;
 
 $(function(){
-    console.log(2)
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
