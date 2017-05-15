@@ -32,16 +32,19 @@
                       <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
                     </div>
                     <div class="col s12 m6 l6 hide">
-                      <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">CRM</a>
+                      <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="CRM">CRM</a>
                     </div>
                     <div class="col s12 m6 l6 per1200">
                     <a href="rutas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Rutas</a>
                     </div>
                      <div class="col s12 m6 l6 per1300">
-                    <a href="facturacion?tf=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cotizaciones">Cotizaciones</a>
+                    <a href="facturacion?tf=4" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cotizaciones">Cotizaciones</a>
                     </div>
                     <div class="col s12 m6 l6 per1400">
-                      <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
+                      <a href="facturacion?tf=5" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Pedidos">Pedidos</a>
+                    </div>
+                    <div class="col s12 m6 l6 per1400">
+                      <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
 
 

@@ -31,7 +31,7 @@
         
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/ajustes.js?v=0.7"></script>
+    <script src="../assets/js/modulos/ajustes.js?v=0.9"></script>
 
     
   </body>

@@ -36,7 +36,7 @@ $(function(){
             $(".autocomplete-content").remove();
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'id > 0 and bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
             });
             $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
         }
@@ -620,11 +620,14 @@ function cargarSintax(){
 
 function endDetail(vid) {
     window.open('facturacion?accion=7&id='+vid);
+    
+    location.reload();
     return false;
 }
 
 function searchClient(vvariable,visprv) {
-    var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
+    var clie = arr('login',4,'',63,'"'+vvariable+'",'+visprv,0,0,0);
+    console.log(clie)
 
     if (clie[0][0][0] != 0) {
         
