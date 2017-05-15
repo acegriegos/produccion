@@ -47,6 +47,10 @@
                     <div class="col s12 m6 l6 per3600">
                       <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
                     </div>
+                     <div class="col s12 m6 l6 per3600">
+                      <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Regalias">Regalias</a>
+                    </div>
+
 
                   </div>
                 </div>

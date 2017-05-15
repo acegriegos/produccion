@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title></title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-administracion.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-administracion.css?v=0.1">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -16,10 +16,10 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body class="tamLetra">
   <br>
     {$NAV}
-    <div class="bdy">
+    <div class="bdy ">
       <div class="card z-depth-5">
           <div class="card-header center  white-text" style="background-color:#0B3861 "><p class="flow-text">Área Administrativa</p></div>
           <div class="card-content ">

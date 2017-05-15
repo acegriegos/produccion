@@ -1,3 +1,6 @@
+.tamLetra{
+   font-size: 1.2em !important
+}
 .tbl01>tbody>tr>td {
 	border-right	: 1px solid black;
 	}

@@ -4,6 +4,9 @@
   border: 0;
   border-top: 1px dashed #eee;
 }
+.tamLetra{
+   font-size: 1.2em !important
+}
 
 body{
 	padding-left: 14%;

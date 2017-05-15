@@ -1,4 +1,4 @@
-<div class="card">
+<div class="tamLetra"><div class="card">
     
     <div class="card-block">
         <h3>Ingresar Cuenta</h3>
@@ -126,4 +126,5 @@
           </div>
          
     </div>
+</div>
 </div>
