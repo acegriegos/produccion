@@ -144,7 +144,7 @@ $(function(){
         var code = e.which || e.keyCode;
         if (code == 13) {
                 var cant = parseFloat($("#cantp").val()),
-                    precio = parseFloat($("#valores").data('elemento')['hprec']),
+                    precio = parseFloat($("#precp").val()),
                     total = precio * cant;
                 var cod = $("#valores").data('elemento')['hcodp'];
                 var inv = $("#valores").data('elemento')['hinv'];
@@ -178,6 +178,8 @@ $(function(){
     $("#precp").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
+            $("#totp").val( (parseFloat($(this).val()) * parseFloat($("#cantp").val())).formatMoney(2,',','.') )
+            $("#valores").data('elemento')['hprec'] = $(this).val();
             $("#descup").select().focus();
         }
     });
