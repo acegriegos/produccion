@@ -210,7 +210,7 @@
 
 </div>
 
-<div id="fechas" class="modal" >
+<!-- <div id="fechas" class="modal" >
   <div class="modal-content" style="padding-top: 0;">
 
     <div class="row">
@@ -241,16 +241,17 @@
        
       </div> 
          </div>
-
+         <div class="row">
+           <div class="col s12"></div>
+           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+         </div>
   
 
 
   </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  
   </div>
-  </div>
-</div>
+</div> -->
 </DIV>
 
 
