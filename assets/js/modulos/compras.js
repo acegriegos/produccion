@@ -6,7 +6,6 @@ $(document).keydown(function(e){
 });
 
 $(function(){
-
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -243,6 +242,10 @@ $(function(){
     $("#vidtipopago").change(function(){
         setTimeout(function(){$("#ncli").focus();},300)
     });
+
+    var pagoprincipal = arr('login',4,'id',26,'principal = 1',0,0,0)[0][0];
+    $("#vidtipopago").val(pagoprincipal);
+    $("#vidtipopago").material_select();
 
     $(".modal").modal();
 
@@ -665,6 +668,10 @@ function cargarSintax(){
 function endDetail(vid) {
     // window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
     return false;
+}
+
+function vercompras() {
+    window.open("facturacion?accion=8&tf=2");
 }
 
 function searchClient(vvariable,visprv) {

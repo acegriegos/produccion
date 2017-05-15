@@ -1,7 +1,10 @@
 <div id="ffacturas">
 <div class="card z-depth-5 ">
 <div class="card ">
-<div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%; background-color:#0B3861">VENTAS {$smarty.session.EMPRESA|upper}</p></div>
+<div class="card-header center blue-grey white-text">
+<p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
+<a class="btn" style="float: right;color: white;font-size: 14px;" onclick="verfacturas();"> Ver Facturas</a>
+VENTAS {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
@@ -284,4 +287,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=0.3"></script>
+<script src="../assets/js/modulos/ventas.js?v=0.4"></script>

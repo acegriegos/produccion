@@ -6,6 +6,7 @@ $(document).keydown(function(e){
 });
 
 $(function(){
+    console.log(12)
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -609,6 +610,10 @@ function cargarSintax(){
 function endDetail(vid) {
     window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
     return false;
+}
+
+function verfacturas() {
+    window.open("facturacion?accion=8&tf=1");
 }
 
 function searchClient(vvariable,visprv){

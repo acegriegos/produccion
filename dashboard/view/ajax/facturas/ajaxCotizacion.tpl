@@ -3,7 +3,7 @@
 <div class="card ">
 <div class="card-header center blue-grey white-text"> 
 <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
-<a href="facturacion?accion=8&tf=4" class="btn" style="float: right;color: white;font-size: 14px;"> Ver Cotizaciones</a>
+<a class="btn" style="float: right;color: white;font-size: 14px;" onclick="vercotizaciones();"> Ver Cotizaciones</a>
 Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
@@ -36,9 +36,6 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="input-field con col s6 m3 l3" >
       <select id="vidtipopago" type="select" class="hide">
-        {section name=LE loop=$TPAGO}
-        <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
-        {/section}
       </select>
       <label class="hide">Forma de Pago</label>
     </div>
@@ -212,7 +209,7 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
         </div>
 
         <div class="col s12 m4">
-          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">REALIZAR PEDIDO</button>
+          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">REALIZAR</button>
           <br>
         </div>
 
@@ -287,4 +284,4 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/cotizacion.js?v=0.1"></script>
+<script src="../assets/js/modulos/cotizacion.js?v=0.3"></script>

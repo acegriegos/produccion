@@ -51,12 +51,45 @@
                 <div class="col s12">
                     <span>Filtros</span>
                 </div>
+                <div class="col s12" id="vfacturas">
+                     <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
+                        <thead>
+                            <tr>
+                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Factura</th>
+                                <th class="white-text blue" rm="1" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Referencia</th>
+                                <th class="white-text blue" rm="2" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Tipo</th>
+                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Fecha</th>
+                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cliente</th>
+                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Total</th>
+                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Comentario</th>
+                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listafacturas">
+                            {section name=LE loop=$FACT}
+                            <tr>
+                                <td style="width: 10%">{$FACT[LE][1]}</td>
+                                <td style="width: 10%" rm="1">{$FACT[LE][2]}</td>
+                                <td style="width: 10%" rm="2">{$FACT[LE][4]}</td>
+                                <td style="width: 10%">{$FACT[LE][5]}</td>
+                                <td style="width: 10%">{$FACT[LE][6]}</td>
+                                <td style="width: 10%">{$FACT[LE][7]}</td>
+                                <td style="width: 10%">{$FACT[LE][8]}</td>
+                                <td style="width: 10%">
+                                    <a class="btn-color pbtn material-icons print blueh" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" tp="{$FACT[LE][10]}" title="Visualizar Factura">local_printshop</a>
+                                    <!-- <a class="btn-color pbtn material-icons" id="b{$FACT[LE][0]}" title="">close</a> -->
+                                </td>
+                            </tr>
+                            {/section}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <br><br>
         </div>
 
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/verfacturas.js?v=0.1"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=0.4"></script>
   </body>
 </html>
