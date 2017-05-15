@@ -215,7 +215,7 @@ $(function(){
     $(".modal").modal();
 
     setTimeout(function(){$("#ncli").focus();},300);
-    $("#ffacturas .zelda").data('triforce',{vid:0, vidtipoventa:3, vidtipo:1, vidtipopago:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente : 0, vsubtotal:0, vexento:0, vdescuento:0, vflete:0, vajuste:0, vplazo:0, vreferencia:0, vimv:0, vcomodin:'', vextra : '', vidodt:0, vlista1: '', vlista2 : '', vextrapagos : '' , idline : 0});
+    $("#ffacturas .zelda").data('triforce',{vid:0, vidtipoventa:3, vidtipo:0, vidtipopago:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente : 0, vsubtotal:0, vexento:0, vdescuento:0, vflete:0, vajuste:0, vplazo:0, vreferencia:0, vimv:0, vcomodin:'', vextra : '', vidodt:0, vlista1: '', vlista2 : '', vextrapagos : '' , idline : 0});
 });//READY
 
 // $(document).on("click",".chinv",function(){
@@ -623,6 +623,10 @@ function endDetail(vid) {
     
     location.reload();
     return false;
+}
+
+function verordenescompras() {
+    window.open("facturacion?accion=8&tf=3");
 }
 
 function searchClient(vvariable,visprv) {
