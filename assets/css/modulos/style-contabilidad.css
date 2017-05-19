@@ -1,6 +1,9 @@
 .myh3{
     color: green;
 }
+.tamLetra{
+   font-size: 1.2em !important
+}
 
 #vcuentas{
     max-height: 300px;

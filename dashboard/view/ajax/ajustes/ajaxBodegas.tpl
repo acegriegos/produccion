@@ -1,4 +1,4 @@
-<div class="card card-block z-depth-5">
+<div class="tamLetra"><div class="card card-block z-depth-5">
     <span class="accmodulo">Agregar Bodegas</span><hr>
     <div class="row">
         <div id="fbodegas">
@@ -97,4 +97,5 @@
             </table>
         </div>
     </div>
+</div>
 </div>

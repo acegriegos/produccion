@@ -1,4 +1,4 @@
-<div id="ffacturas">
+<div class="tamLetra"> <div id="ffacturas">
 <div class="card z-depth-5 ">
 <div class="card ">
 <div class="card-header center blue-grey white-text">
@@ -12,11 +12,11 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="col s6">
       <div class="switch">
-        <label>
-          Contado
+        <label style="color: black">
+          <b>Contado</b>
           <input type="checkbox" id="chg_tipo" value="1" disabled>
           <span class="lever"></span>
-          Crédito
+          <b>Crédito</b>
         </label>
       </div>
     </div>
@@ -40,7 +40,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
         {/section}
       </select>
-      <label>Forma de Pago</label>
+      <label style="color: black"><b>Forma de Pago</b></label>
     </div>
    
     <div class="input-field cre col s6 m3 l3" style="display: none;">
@@ -50,7 +50,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="input-field col s10 m4">
       <i class="fa fa-user prefix"></i>
-      <label class="truncate" for="ncli">Nombre o Cédula del Cliente</label>
+      <label class="truncate" for="ncli" style="color: black"> <b>Nombre o Cédula del Cliente</b></label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
     </div> 
 
@@ -142,20 +142,20 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
       <br>
         <div class="col s12 m4 input-field">
           <div class="prefix"><img src="../assets/img/icon/percent.svg"/></div>
-          <input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled>
-          <label>DESCUENTO</label>
+                    <label style="color: black"><b>DESCUENTO</b></label>
+<input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled style="color: black" >
         </div>
 
         <div class="col s12 m4 input-field">
           <div class="prefix">¢</div>
-          <label for="vflete">FLETE</label>
+          <label for="vflete" style="color: black"><b>FLETE</b></label>
           <input type="text" id="vflete" class="eder" value="0">
         </div>
 
         <div class="col s12 m4 input-field">
           <div class="prefix" id="btnAjuste" accion="1">+</div>
-          <label for="vajuste">AJUSTE</label>
-          <input type="text" id="vajuste" class="eder" value="0">
+          <label for="vajuste" style="color: black"><b>AJUSTE</b></label>
+          <input type="text" id="vajuste" class="eder" value="0" style="color: black">
         </div>
 
       </div>
@@ -166,7 +166,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           <tr>
             <td>SUBTOTAL:</td>
             <td style="float: right;">
-              <span><b>¢</b></span><span id="subtot" type="html" value="0">0.00</span>
+              <span><b>¢</b></span><span id="subtot" type="html" value="0" style="color: black">0.00</span>
             </td>
           </tr>
         </thead>
@@ -200,13 +200,13 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
         <div class="col s12 m4">
           <p>
             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
-            <label for="p_v">Punto Venta</label>
+            <label for="p_v" style="color: black">Punto Venta</label>
           </p>
         </div>
 
         <div class="col s12 m4">
           <select id="vidodt" type="select">
-            <option value="0">Selecione una ODT</option>
+            <option value="0" style="color: black"><b>Selecione una ODT</b></option>
           </select>
           <label>ODT</label>
         </div>
@@ -286,5 +286,6 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
 </div>
 </div>
+<div class="tamLetra">
 
 <script src="../assets/js/modulos/ventas.js?v=0.6"></script>

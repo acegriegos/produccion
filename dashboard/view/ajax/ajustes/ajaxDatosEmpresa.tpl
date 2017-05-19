@@ -1,3 +1,4 @@
+<div class="tamLetra">
 <div class="card z-depth-5">
     <ul class="collapsible" data-collapsible="accordion">
       <li>
@@ -805,4 +806,5 @@
         <button type="button" class="btn btn-primary edit" modulo="detallenivelescliente">Guardar</button>
     </div>
 
+</div>
 </div>

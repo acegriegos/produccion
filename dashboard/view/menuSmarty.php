@@ -1,4 +1,4 @@
-<ul id="slide" class="side-nav blue-text text-darken-2 " style="max-width: 400px !important;">
+<ul id="slide" class="side-nav blue-text text-darken-2 " style="max-width: 400px !important; font-size: 2.4em !important">
     <li>
       <div class="userView">
         <div class="background">
@@ -21,23 +21,23 @@
     <div class="row" style="margin-bottom: 3px;">
     <div class="input-field col s10">
       <input id="numtrans" type="text" class="validate" style="margin-bottom: 0px;">
-      <label for="numtrans"># Transacción</label>
+      <label for="numtrans" style="font-size: 0.6em !important"># Transacción</label>
     </div>
     </div>
-    <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b>Inicio</b></a></li>
-    <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b>Área Comercial</b></a></li>
-    <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b>Área de Operaciones</b></a></li>
-    <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b>Área Financiera</b></a></li>
-    <li class="per5"><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b>Área de Inventarios</b></a></li>
-    <li class="per6"><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><b>Área de Producción</b></a></li>
-    <li class="per7"><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><b>Área Administrativa</b></a></li>
-    <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><b>Reportes</b></a></li>
-    <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><b>Cerrar Sesión</b></a></li>
+    <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b style="font-size: 1.2em !important" >Inicio</b></a></li>
+    <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b style="font-size: 1.2em !important">Área Comercial</b></a></li>
+    <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b style="font-size: 1.2em !important">Área de Operaciones</b></a></li>
+    <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b style="font-size: 1.2em !important">Área Financiera</b></a></li>
+    <li class="per5"><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b style="font-size: 1.2em !important">Área de Inventarios</b></a></li>
+    <li class="per6"><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><b style="font-size: 1.2em !important">Área de Producción</b></a></li>
+    <li class="per7"><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><b style="font-size: 1.2em !important">Área Administrativa</b></a></li>
+    <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><b style="font-size: 1.2em !important">Reportes</b></a></li>
+    <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><b style="font-size: 1.2em !important">Cerrar Sesión</b></a></li>
     <!-- <li><div class="divider"></div></li> -->
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
   </ul>
   <!-- menu pequeño -->
-<ul id="out" class="side-nav" style="max-width: 400px !important;">
+<ul id="out" class="side-nav" style="max-width: 400px !important; font-size: 2.4em !important">
     <li>
       <div class="userView">
         <div class="background">

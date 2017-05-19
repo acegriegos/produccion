@@ -1,3 +1,6 @@
+.tamLetra{
+   font-size: 1.2em !important
+}
 header, main, footer {
   padding-left: 400px;
 }
