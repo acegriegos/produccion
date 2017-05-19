@@ -1,8 +1,8 @@
 <meta charset="utf-8">
-<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+<link rel="icon" type="image/png" href="../../assets/img/favicon.ico">
 <link href="../assets/css/materialize.css" rel="stylesheet">
 <link href="../assets/css/modulos/style-factura.css" rel="stylesheet">
-<?php $hide = $datos[24] > 2 ? 'hide':'' ?>
+
 <body class="grey darken-4" style="font-size: 1.1em;" >
   <div class="hoja grey lighten-3">
     <!-- HEADER -->
@@ -29,11 +29,11 @@
       <div class="col s6 left-align">
        <div class="row">
          <div class="col s12" id="infofact" >
-          <b id="fact"><?php echo $datos[25]; ?> N°</b>
+          <b id="fact">Pedido N°</b>
             <span id="numfact"> <?php echo $datos[0]; ?> </span>
           </div>
-          <div class="col s12 <?php echo $hide ?>">
-           <b> Factura de: </b><?php echo $datos[1]; ?>
+          <div class="col s12">
+           <!-- <b> Factura de: </b><?php echo $datos[1]; ?> -->
          </div>
 
        </div>
@@ -64,11 +64,16 @@
 
    </div>   
  </div>
-
- <div class="col s6">
-
-  <div class="col s6 center-align ">
-  <div class="card  blue-grey white-text imprimirSINBOR <?php echo $hide ?>" >
+ <div class="col s3 center-align">
+  <div class="card blue-grey white-text imprimirSINBOR">
+    <div class=" card-content white-text imprimirSINBOR">
+      <p>Fecha:
+        <?php echo $datos[3]; ?> </p>
+      </div>
+    </div>
+  </div>
+  <div class="col s3 center-align">
+  <div class="card  blue-grey white-text imprimirSINBOR">
     <div class=" card-content ">
     <?php if ($datos[2] === 'N/A'){ ?>
       <p>Plazo en Días:
@@ -81,17 +86,6 @@
      <?php } ?>
       </div>
     </div>
-  </div>
-
-  <div class="col s6 center-align">
-  <div class="card blue-grey white-text imprimirSINBOR">
-    <div class=" card-content white-text imprimirSINBOR">
-      <p>Fecha:
-        <?php echo $datos[3]; ?> </p>
-      </div>
-    </div>
-  </div>
-
   </div>
   <!-- /INFO CONTACTO -->
 
@@ -158,7 +152,7 @@
   <br>
     <div class="col s8 offset-s2">
     <br><br>
-      <section id="sqre">
+      <!-- <section id="sqre">
         <table id="infotot" width="100%">
           <tfoot>
             <th class="center-align">Firma Representante</th>
@@ -173,66 +167,15 @@
             </tr>
           </tbody>
         </table>
-      </section>
+      </section> -->
     </div>
-
-
-    <!-- <div class="col s7">
-   
-      <div class="totalpha">
-        <?php 
-        $decimales =  substr($datos[10], strpos($datos[10], '.'));
-        $entero = str_replace(',', '', substr($datos[10],0,strpos($datos[10], '.')));
-        $nombres = array(1=>'Uno',2=>'Dos',3=>'Tres',4=>'Cuatro',5=>'Cinco',6=>'Seis',7=>'Siete',8=>'Ocho',9=>'Nueve',0=>'Cero',10=>'Diez',11=>'Once',12=>'Doce',13=>'Trece',14=>'Catorce',15=>'Quince','10+'=>'Dieci',20=>'Veinte','20+'=>'Veinti',30=>'Treinta y',40=>'Cuarenta y',50=>'Cincuenta y',60=>'Sesenta y',70=>'Setenta',80=>'Ochenta y',90=>'Noventa y',100=>'Cien','100+'=>'Ciento',200=>'Doscientos',300=>'Trescientos',400=>'Cuatrocientos',500=>'Quinientos',600=>'Seiscientos',700=>'Sietecientos',800=>'Ochocientos',900=>'Novecientos',1000=>'Mil',100000=>'Millón');
-        $diviciones = round(strlen($entero) / 3,0)-1;
-        $salida = '';
-
-        /*for ($i=1; $i <= $diviciones; $i++) { 
-          $pos = pow(1000, $i);
-          $base = round($entero/$pos,0);
-          $centena = round($base/100,0);
-          $decena = abs(round(($centena*100-$base)/10,0));
-          $unidad = abs(round(($centena*100+$decena*10-$base),0));
-
-          $centena = $centena != 0 ? $nombres[$centena*100] : '';
-          $decena = $decena != 0 ? $unidad == 0 ? $nombres[$decena*10] : $nombres[($decena*10).'+'] : '';
-          $unidad = $unidad == 0 ? '' : $nombres[$unidad];
-          $salida .= $centena.' '.$decena.' '.$unidad.' '.$nombres[$pos];
-        }
-
-          $base = substr($entero, -3);
-          $centena = round($base/100,0);
-          $decena = abs(round(($centena*100-$base)/10,0));
-          $unidad = abs(round(($centena*100+$decena*10-$base),0));
-
-          $centena = $centena != 0 ? $nombres[$centena*100] : '';
-          $decena = $decena != 0 ? $unidad == 0 ? $nombres[$decena*10] : $nombres[($decena*10).'+'] : '';
-          $unidad = $unidad == 0 ? '' : $nombres[$unidad];
-          $salida .= ' '.$centena.' '.$decena.' '.$unidad.' '.$datos[14];
-*/
-
-          ?> 
-          <span class="labelalpha"><?php echo $salida; ?></span>
-        </div>
-      </div> -->
     </div>
     <!-- /INFO FACT -->
     <!-- FOOTER -->
     <hr>
-    <?php switch($datos[24]){
-        case 1:
-            $msj = $datos[26] == 2 ? 'La misma deberá ser cancelada en el plazo que indica, posteriormente al mismo devengará intereses del 5% mensual, no queriendo decir esto que el pago de los intereses sea una prórroga para su cancelación.' : '';
-            break;
-        case 4:
-            $msj = 'La presente Cotización tiene una durabilidad de OCHO días.';
-            break;
-        default:
-            $msj = '';
-            break;
-      } ?>
-    <footer class="imprimirSINBOR">
-      <p class="center-align">Autorizado mediante la resolución # 11--97 de la Dirección General de Tributación Directa, publicado en el diario La Gaceta #171 el 5 de Setiembre de 1997   <b>|</b>   <span class="leyfooter">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p>
-    </footer>
+    <!-- <footer class="imprimirSINBOR">
+      <p class="center-align">Autorizado mediante la resolución # 11--97 de la Dirección General de Tributación Directa, publicado en el diario La Gaceta #171 el 5 de Setiembre de 1997   <b>|</b>   <span class="leyfooter">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. La misma deberá ser cancelada en el plazo que indica, posteriormente al mismo devengará intereses del 5% mensual, no queriendo decir esto que el pago de los intereses sea una prórroga para su cancelación.</span></p>
+    </footer> -->
     <!-- /FOOTER -->
   </div>
 

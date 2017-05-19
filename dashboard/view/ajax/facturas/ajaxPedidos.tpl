@@ -1,7 +1,9 @@
 <div id="ffacturas">
 <div class="card z-depth-5 ">
 <div class="card ">
-<div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%; background-color:#0B3861">Pedidos {$smarty.session.EMPRESA|upper}</p></div>
+<div class="card-header center blue-grey white-text"><p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
+<a class="btn" style="float: right;color: white;font-size: 14px;" onclick="verpedidos();"> Ver Pedidos</a>
+Pedidos {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
@@ -32,7 +34,7 @@
     </div>
 
     <div class="input-field con col s6 m3 l3" >
-      <select id="vidtipopago" type="select" class="hide">
+      <select id="idtipopago" class="hide">
         {section name=LE loop=$TPAGO}
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
         {/section}
@@ -196,7 +198,7 @@
       <div class="row">
         <div class="col s12 m4">
           <p>
-            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" value="0" />
             <label for="p_v">Punto Venta</label>
           </p>
         </div>
@@ -284,4 +286,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/pedidos.js?v=0.1"></script>
+<script src="../assets/js/modulos/pedidos.js?v=0.5"></script>

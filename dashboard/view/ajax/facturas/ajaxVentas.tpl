@@ -287,4 +287,4 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=0.4"></script>
+<script src="../assets/js/modulos/ventas.js?v=0.6"></script>

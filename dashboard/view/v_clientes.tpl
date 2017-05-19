@@ -54,7 +54,12 @@
                                 <td style=" padding: 10px;">{$CLIE[LE][5]}</td>
                                 <td style=" padding: 10px;">{$CLIE[LE][6]}</td>
                                 <td>
+                                     {if $PROV[LE][13] neq 1}
+                                    <a href="modal-contactos" style="font-size: 2em; color: #607d8b" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
+                                    {/if}
+
                                     <a href="#modal-clientes" class="load material-icons pbtn per1002" id="m{$CLIE[LE][0]}" modulo="cliente" style="font-size: 2em; color: #607d8b">edit</a>
+                                    
                                     <a href="#" class="delete material-icons pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="font-size: 2em; color: #607d8b">delete</a>
                                 </td>
                             </tr>
@@ -132,7 +137,7 @@
                                 <input type="text" class="validate" id="vcedula">
                             </div>
 
-                            <div class="input-field col s12 m6 col l4">
+                            <div class="input-field col s12 m6 col l4 hide vweb">
                                 <label for="vweb">Web</label>
                                 <input type="text" class="form-control" id="vweb" placeholder="www.webempresa.com">
                             </div>
@@ -147,6 +152,8 @@
                                 <label for="videstado">Estado</label>
                             </div>
                             
+                            </div>
+                            <div class="row">
 
                             <div class="input-field col s12 m12 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
                                 <div class="ciclos">
@@ -393,7 +400,7 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=0.5"></script>
+<script src="../assets/js/modulos/clientes.js?v=0.6"></script>
 
 </body>
 </html>

@@ -82,9 +82,7 @@
 	   		case 6:
 	   			$pagina = 1;
 	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
-	   			//$factura = $kakaroto->kamehameha('idfactura,tipofactura,tipopago,fecha,cliente,fsubtotal,imv,tdescuento,flete,ajuste,ftotal,plazo,comentario,referencia,simbolo,usuario',72,'idfactura = "'.$_REQUEST['id'].'"')[0]; //or die(header("Location: error"));
-	   			//$detalle = $kakaroto->kamehameha('idfactura,idproducto,nombreproducto,codigoproducto,precio,cantidad,descuento,ftotal,ftotaldesc',73,'idfactura = "'.$_REQUEST['id'].'"');
-
+ 	
 	   			$transaccion = $kakaroto->kamehameha('',72,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
 	   			
@@ -116,6 +114,13 @@
 	   			$smarty->assign('TF',$_REQUEST['tf']);
 	   			$smarty->assign('FACT',$kakaroto->kamehameha('',158,'0,'.$_REQUEST['tf'].',0'));
 	   			$smarty->display('v_verFacturas.tpl');
+	   			break;
+	   		case 9:
+	   			$pagina = 1;
+	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+	   			$transaccion = $kakaroto->kamehameha('',157,$_REQUEST['id']);
+	   			$datos = $transaccion[0];
+	   			require 'view/ajax/facturas/orden.php';
 	   			break;
 
 	   	}

@@ -77,7 +77,7 @@
                                 <td style="width: 10%">{$FACT[LE][8]}</td>
                                 <td style="width: 10%">
                                     <a class="btn-color pbtn material-icons print blueh" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" tp="{$FACT[LE][10]}" title="Visualizar Factura">local_printshop</a>
-                                    <!-- <a class="btn-color pbtn material-icons" id="b{$FACT[LE][0]}" title="">close</a> -->
+                                    <a class="btn-color pbtn material-icons process blueh modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" title="Procesar Factura" rm="3">settings</a>
                                 </td>
                             </tr>
                             {/section}
@@ -87,9 +87,37 @@
             </div>
             <br><br>
         </div>
-
     </div>
+
+    <div id="modal-process" class="modal modal-fixed-footer" style="width:70%;height:90%">
+    <div class="modal-header">
+        <div class="card-header center blue-grey white-text z-depth-1">
+            <p class="flow-text marginzero"  style="background-color:#0B3861;" >Procesar <span id="nomproc"></span></p>
+        </div>
+    </div>
+    <div class="modal-content">
+        <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
+            <thead>
+                <tr>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nombre</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Código</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Código Interno</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cantidad</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="listaproductos">
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+        <button type="button" class="waves-effect waves-green btn-flat" id="process">Comprar</button>
+    </div>
+  </div>
+
     {$SCR}
-    <script src="../assets/js/modulos/verfacturas.js?v=0.4"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=0.8"></script>
   </body>
 </html>

@@ -404,7 +404,7 @@ function postload(modulo) {
 		case 'cliente':
 			var tipo = $("#vidtipocliente").val();
 			$("[tipoclie="+tipo+"]").prop('checked',true);
-			$("[tipoclie="+tipo+"]").click();
+			$("[tipoclie="+tipo+"]").change();
 			break;
 	}
 }
