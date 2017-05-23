@@ -1,0 +1,4 @@
+#!/bin/bash
+for file in /opt/lampp/htdocs/demo2.0/assets/img/banderas/*.svg; do
+ mv "${file}" "${file%.svg}.png"
+done

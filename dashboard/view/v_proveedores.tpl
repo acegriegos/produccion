@@ -45,7 +45,7 @@
                         </thead>
                         <tbody id="listaclientes">
                             {section name=LE loop=$PROV}
-                            <tr id="f{$PROV[LE][0]}">
+                            <tr id="f{$PROV[LE][0]}" class="pbtn">
                                 <td  padding: 10px;">{$PROV[LE][1]}</td>
                                 <td  padding: 10px;">{$PROV[LE][2]}</td>
                                 <td  padding: 10px;">{$PROV[LE][4]}</td>
@@ -95,11 +95,19 @@
                                       </p>
                                   </div>
                                   <div class="col s6 m3 l2">
-                                    <p>
-                                      <input class="with-gap" name="tipoclie" type="radio" id="cdimex" tipoClie="4" />
-                                      <label for="cdimex">DIMEX</label>
-                                  </p>
-                              </div>
+                                        <p>
+                                          <input class="with-gap" name="tipoclie" type="radio" id="cdimex" tipoClie="4" />
+                                          <label for="cdimex">DIMEX</label>
+                                      </p>
+                                  </div>
+                                  <div class="input-field col s6 m4">
+                                    <select class="icons" type="select" id="vidpais">
+                                    {section name=LE loop=$PAISES}
+                                        <option value="{$PAISES[LE][0]}" cod="{$PAISES[LE][1]}" data-icon="{$PAISES[LE][2]}" class="circle">{$PAISES[LE][3]}</option>
+                                    {/section}
+                                    </select>
+                                    <label>País</label>
+                                  </div>
                               <input type="hidden" id="vidtipocliente" value="1">
                           </div>
                           <div class="card-title" id="titInfo"><b>Datos Personales</b></div>
@@ -153,7 +161,9 @@
                             <div class="col s12 m12 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3">
                                 <div class="ciclos">
                                     <div class="row">
+                                        
                                         <div class="input-field col s12 m6">
+                                            <div class="prefix"><i class="fa fa-phone"></i></div>
                                             <select type="select" id="tptel">
                                                 <option value="" disabled selected>Seleccione Tipo de Tel.</option>
                                                 {section name=LE loop=$TPTEL}
@@ -163,7 +173,8 @@
                                             <label for="tptel">Tipo Teléfono</label>
                                         </div>
                                         <div class="input-field col s12 m6">
-                                            <div class="prefix"><i class="fa fa-phone"></i></div>
+                                            
+                                            <span class="prefix" id="prefijo" style="font-size: 14px;margin-top: 14px">(+)</span>
                                             <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
                                             <input type="hidden" id="vtelefono" fill="19">
                                             <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
@@ -277,7 +288,7 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/proveedores.js?v=1.0"></script>
+<script src="../assets/js/modulos/proveedores.js?v=1.1"></script>
 
 </body>
 </html>
