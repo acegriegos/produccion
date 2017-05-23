@@ -647,30 +647,24 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
                 label: etiqueta,
                 data: data,
                  backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)'
                 ],
                 borderColor: [
-                    'rgba(255,99,132,1)',
                     'rgba(54, 162, 235, 1)',
+                    'rgba(153, 102, 255, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
+                    'rgba(255,99,132,1)',
                     'rgba(255, 159, 64, 1)'
                 ]
-                /*fillColor             : "rgba(151,187,205,0.2)",
-                strokeColor           : "rgba(151,187,205,1)",
-                pointColor            : "rgba(151,187,205,1)",
-                pointStrokeColor      : "#fff",
-                pointHighlightFill    : "#fff",
-                pointHighlightStroke  : "rgba(151,187,205,1)",*/
             }],
         },
-        options: {
+        options: [{
             responsive: true,
             legend: {
                 position: 'top',
@@ -683,20 +677,26 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
                 animateScale: true,
                 animateRotate: true
             },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-        }]
-    }
-        }
+            // scales: {
+            //     yAxes: [{
+            //         ticks: {
+            //             beginAtZero: true
+            //         }
+        }],
     };
+
+    switch(tipo){
+        case 'bar':
+            config1
+            break;
+        default:
+            break;
+    }
 
     var ctx = document.getElementById(elemento).getContext("2d");
     var myLineChart = new Chart(ctx,config1);
   });
-}
+};
 
 $(document).on("change","._det",function(){
     var vto = $(this).attr('id');
