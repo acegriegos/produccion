@@ -1,28 +1,34 @@
-<div class="tamLetra"> <div id="ffacturas">
+<?php /* Smarty version 2.6.17, created on 2017-05-19 17:29:10
+         compiled from ajax/facturas/ajaxCotizacion.tpl */ ?>
+<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'upper', 'ajax/facturas/ajaxCotizacion.tpl', 7, false),)), $this); ?>
+<div id="ffacturas">
 <div class="card z-depth-5 ">
 <div class="card ">
-<div class="card-header center blue-grey white-text">
+<div class="card-header center blue-grey white-text"> 
 <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
-<a class="btn" style="float: right;color: white;font-size: 14px;" onclick="verfacturas();"> Ver Facturas</a>
-VENTAS {$smarty.session.EMPRESA|upper}</p></div>
+<a class="btn" style="float: right;color: white;font-size: 14px;" onclick="vercotizaciones();"> Ver Cotizaciones</a>
+Cotizaciones <?php echo ((is_array($_tmp=$_SESSION['EMPRESA'])) ? $this->_run_mod_handler('upper', true, $_tmp) : smarty_modifier_upper($_tmp)); ?>
+</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
   <div class="row">
 
     <div class="col s6">
-      <div class="switch">
-        <label style="color: black">
-          <b>Contado</b>
+      <div class="switch hide">
+        <label>
+          Contado
           <input type="checkbox" id="chg_tipo" value="1" disabled>
           <span class="lever"></span>
-          <b>Crédito</b>
+          Crédito
         </label>
       </div>
     </div>
 
     <div class="col s6">
-      <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
+      <label class="der black-text" style="font-size: 18px;"><b>N° Cotización: </b> <span class="red-text" id="idfact"><?php echo $this->_tpl_vars['CONS']; ?>
+</span></label>
     </div>
 
   </div>
@@ -35,12 +41,9 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
     </div>
 
     <div class="input-field con col s6 m3 l3" >
-      <select id="vidtipopago" type="select">
-        {section name=LE loop=$TPAGO}
-        <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
-        {/section}
+      <select id="idtipopago" class="hide">
       </select>
-      <label style="color: black"><b>Forma de Pago</b></label>
+      <label class="hide">Forma de Pago</label>
     </div>
    
     <div class="input-field cre col s6 m3 l3" style="display: none;">
@@ -50,7 +53,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="input-field col s10 m4">
       <i class="fa fa-user prefix"></i>
-      <label class="truncate" for="ncli" style="color: black"> <b>Nombre o Cédula del Cliente</b></label>
+      <label class="truncate" for="ncli">Nombre o Cédula del Cliente</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
     </div> 
 
@@ -142,20 +145,20 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
       <br>
         <div class="col s12 m4 input-field">
           <div class="prefix"><img src="../assets/img/icon/percent.svg"/></div>
-                    <label style="color: black"><b>DESCUENTO</b></label>
-<input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled style="color: black" >
+          <input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled>
+          <label>DESCUENTO</label>
         </div>
 
         <div class="col s12 m4 input-field">
           <div class="prefix">¢</div>
-          <label for="vflete" style="color: black"><b>FLETE</b></label>
+          <label for="vflete">FLETE</label>
           <input type="text" id="vflete" class="eder" value="0">
         </div>
 
         <div class="col s12 m4 input-field">
           <div class="prefix" id="btnAjuste" accion="1">+</div>
-          <label for="vajuste" style="color: black"><b>AJUSTE</b></label>
-          <input type="text" id="vajuste" class="eder" value="0" style="color: black">
+          <label for="vajuste">AJUSTE</label>
+          <input type="text" id="vajuste" class="eder" value="0">
         </div>
 
       </div>
@@ -166,7 +169,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           <tr>
             <td>SUBTOTAL:</td>
             <td style="float: right;">
-              <span><b>¢</b></span><span id="subtot" type="html" value="0" style="color: black">0.00</span>
+              <span><b>¢</b></span><span id="subtot" type="html" value="0">0.00</span>
             </td>
           </tr>
         </thead>
@@ -199,20 +202,20 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
       <div class="row">
         <div class="col s12 m4">
           <p>
-            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
-            <label for="p_v" style="color: black">Punto Venta</label>
+            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" value="0" />
+            <label for="p_v">Punto Venta</label>
           </p>
         </div>
 
         <div class="col s12 m4">
           <select id="vidodt" type="select">
-            <option value="0" style="color: black"><b>Selecione una ODT</b></option>
+            <option value="0">Selecione una ODT</option>
           </select>
           <label>ODT</label>
         </div>
 
         <div class="col s12 m4">
-          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button>
+          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">REALIZAR</button>
           <br>
         </div>
 
@@ -264,9 +267,34 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           <div class="input-field col s6">
               <select type="select" id="xidbodega" class="_det" det="bodega" sig="xidinventario" prev="" d-b="41">
                   <option value="" disabled selected>Seleccione una Bodega</option>
-                  {section name=LE loop=$BOD}
-                  <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
-                  {/section}
+                  <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['BOD']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+                  <option value="<?php echo $this->_tpl_vars['BOD'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['BOD'][$this->_sections['LE']['index']][1]; ?>
+</option>
+                  <?php endfor; endif; ?>
               </select>
               <label for="idbodega">Bodegas</label>
           </div>
@@ -286,6 +314,5 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
 </div>
 </div>
-<div class="tamLetra">
 
-<script src="../assets/js/modulos/ventas.js?v=0.2"></script>
+<script src="../assets/js/modulos/cotizacion.js?v=0.6"></script>

@@ -1,10 +1,15 @@
+<?php /* Smarty version 2.6.17, created on 2017-05-23 17:30:36
+         compiled from ajax/facturas/ajaxVentas.tpl */ ?>
+<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'upper', 'ajax/facturas/ajaxVentas.tpl', 7, false),)), $this); ?>
 <div class="tamLetra"> <div id="ffacturas">
 <div class="card z-depth-5 ">
 <div class="card ">
 <div class="card-header center blue-grey white-text">
 <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
 <a class="btn" style="float: right;color: white;font-size: 14px;" onclick="verfacturas();"> Ver Facturas</a>
-VENTAS {$smarty.session.EMPRESA|upper}</p></div>
+VENTAS <?php echo ((is_array($_tmp=$_SESSION['EMPRESA'])) ? $this->_run_mod_handler('upper', true, $_tmp) : smarty_modifier_upper($_tmp)); ?>
+</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
@@ -22,7 +27,8 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
     </div>
 
     <div class="col s6">
-      <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
+      <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"><?php echo $this->_tpl_vars['NFACT']; ?>
+</span></label>
     </div>
 
   </div>
@@ -36,9 +42,34 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="input-field con col s6 m3 l3" >
       <select id="vidtipopago" type="select">
-        {section name=LE loop=$TPAGO}
-        <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
-        {/section}
+        <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['TPAGO']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+        <option value="<?php echo $this->_tpl_vars['TPAGO'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['TPAGO'][$this->_sections['LE']['index']][1]; ?>
+</option>
+        <?php endfor; endif; ?>
       </select>
       <label style="color: black"><b>Forma de Pago</b></label>
     </div>
@@ -264,9 +295,34 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           <div class="input-field col s6">
               <select type="select" id="xidbodega" class="_det" det="bodega" sig="xidinventario" prev="" d-b="41">
                   <option value="" disabled selected>Seleccione una Bodega</option>
-                  {section name=LE loop=$BOD}
-                  <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
-                  {/section}
+                  <?php unset($this->_sections['LE']);
+$this->_sections['LE']['name'] = 'LE';
+$this->_sections['LE']['loop'] = is_array($_loop=$this->_tpl_vars['BOD']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['LE']['show'] = true;
+$this->_sections['LE']['max'] = $this->_sections['LE']['loop'];
+$this->_sections['LE']['step'] = 1;
+$this->_sections['LE']['start'] = $this->_sections['LE']['step'] > 0 ? 0 : $this->_sections['LE']['loop']-1;
+if ($this->_sections['LE']['show']) {
+    $this->_sections['LE']['total'] = $this->_sections['LE']['loop'];
+    if ($this->_sections['LE']['total'] == 0)
+        $this->_sections['LE']['show'] = false;
+} else
+    $this->_sections['LE']['total'] = 0;
+if ($this->_sections['LE']['show']):
+
+            for ($this->_sections['LE']['index'] = $this->_sections['LE']['start'], $this->_sections['LE']['iteration'] = 1;
+                 $this->_sections['LE']['iteration'] <= $this->_sections['LE']['total'];
+                 $this->_sections['LE']['index'] += $this->_sections['LE']['step'], $this->_sections['LE']['iteration']++):
+$this->_sections['LE']['rownum'] = $this->_sections['LE']['iteration'];
+$this->_sections['LE']['index_prev'] = $this->_sections['LE']['index'] - $this->_sections['LE']['step'];
+$this->_sections['LE']['index_next'] = $this->_sections['LE']['index'] + $this->_sections['LE']['step'];
+$this->_sections['LE']['first']      = ($this->_sections['LE']['iteration'] == 1);
+$this->_sections['LE']['last']       = ($this->_sections['LE']['iteration'] == $this->_sections['LE']['total']);
+?>
+                  <option value="<?php echo $this->_tpl_vars['BOD'][$this->_sections['LE']['index']][0]; ?>
+"><?php echo $this->_tpl_vars['BOD'][$this->_sections['LE']['index']][1]; ?>
+</option>
+                  <?php endfor; endif; ?>
               </select>
               <label for="idbodega">Bodegas</label>
           </div>
