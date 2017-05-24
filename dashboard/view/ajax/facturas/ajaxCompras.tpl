@@ -202,7 +202,7 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
       <div class="row">
         <div class="col s12 m4">
           <p>
-            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" value="0" />
             <label for="p_v">Punto Venta</label>
           </p>
         </div>
@@ -288,4 +288,4 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=0.17"></script>
+<script src="../assets/js/modulos/compras.js?v=0.23"></script>

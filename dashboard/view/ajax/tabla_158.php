@@ -13,7 +13,7 @@
 <td style="width: 10%"><?php echo $obj[8] ?></td>
 <td style="width: 10%">
     <a class="btn-color pbtn material-icons print blueh" id="a<?php echo $obj[0] ?>" tv="<?php echo $obj[9] ?>" tp="<?php echo $obj[10] ?>" title="Visualizar Factura">local_printshop</a>
-    <!-- <a class="btn-color pbtn material-icons" id="b{$FACT[LE][0]}" title="">close</a> -->
+    <a class="btn-color pbtn material-icons process blueh modal-trigger waves-effect waves-light" id="b<?php echo $obj[0] ?>" href="#modal-process" title="Procesar Factura" rm="3">settings</a>
 </td>
 </tr>
 

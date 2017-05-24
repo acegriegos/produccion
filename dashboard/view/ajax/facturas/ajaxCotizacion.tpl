@@ -35,7 +35,7 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
     </div>
 
     <div class="input-field con col s6 m3 l3" >
-      <select id="vidtipopago" type="select" class="hide">
+      <select id="idtipopago" class="hide">
       </select>
       <label class="hide">Forma de Pago</label>
     </div>
@@ -196,7 +196,7 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
       <div class="row">
         <div class="col s12 m4">
           <p>
-            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" value="0" />
             <label for="p_v">Punto Venta</label>
           </p>
         </div>
@@ -284,4 +284,4 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/cotizacion.js?v=0.3"></script>
+<script src="../assets/js/modulos/cotizacion.js?v=0.6"></script>

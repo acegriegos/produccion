@@ -1,4 +1,5 @@
 $(function(){
+    console.log("c")
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -620,7 +621,7 @@ function cargarSintax(){
 
 function endDetail(vid) {
     window.open('facturacion?accion=7&id='+vid);
-    
+    arr('login',7,'1',159,'','null,'+vid+','+$("#p_v").is(':checked'),0,0,0);
     location.reload();
     return false;
 }

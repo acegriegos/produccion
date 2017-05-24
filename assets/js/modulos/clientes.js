@@ -165,22 +165,26 @@ $(document).on("click","input[name='tipoclie']",function(){
 		case 1:
 			$("#titInfo").html('<b>Datos Personales<b/>');
 			$("#nomClie").html('Nombre');
+			$(".vweb").addClass('hide');
 			$(".hid").show(300);
 			break;
 		case 3:
 			$("#titInfo").html('<b>Información Tributaria<b/>');
 			$("#nomClie").html('Razón Social');
+			$(".vweb").removeClass('hide');
 			$(".hid").css('display','none');
 			break;
 		case 4:
 			$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
 			$("#nomClie").html('Nombre');
+			$(".vweb").removeClass('hide');
 			$(".hid").show(300);
 			break;
 		default:
 			$("#titInfo").html('<b>Información Jurídica<b/>');
 			$("#nomClie").html('Razón Social');
 			$("label[for=vcedula]").text('Cédula Jurídica');
+			$(".vweb").removeClass('hide');
 			$(".hid").css('display','none');
 			break;
 	}

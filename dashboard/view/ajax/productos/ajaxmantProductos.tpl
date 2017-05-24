@@ -21,6 +21,7 @@
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Código</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Código Interno</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Nombre</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Marca</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Precio Costo</th>
@@ -38,6 +39,7 @@
                     <td style="width: 10%">{$PROD[LE][4]}</td>
                     <td style="width: 10%">{$PROD[LE][5]}</td>
                     <td style="width: 10%">{$PROD[LE][6]}</td>
+                    <td style="width: 10%">{$PROD[LE][1]}</td>
                     <td style="width: 10%">
                         <a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"><img src="../assets/img/icon/percent.svg"></a>
                         <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario">compare_arrows</a>
@@ -107,13 +109,17 @@
                     <label for="vnombre">Nombre</label>
                 </div>
                 <div class="input-field marginzero">
-                    <input type="text" id="vcodigo" class="formprod validate" value="" focus="1vminimo" autocomplete="off">
+                    <input type="text" id="vcodigo" class="formprod validate" value="" focus="1vcodigointerno" autocomplete="off">
                     <label class="active" for="vcodigo">Código</label>
                     <input type="hidden" id="vid" value="0">
                     <input type="hidden" id="vidmoneda" value="1">
                     <input type="hidden" id="vidusuario" value="">
                     <input type="hidden" id="vidsucursal" value="">
                     <input type="hidden" id="vimg" value="">
+                </div>
+                <div class="input-field marginzero">
+                    <input type="text" id="vcodigointerno" class="formprod validate" value="" focus="1vminimo" autocomplete="off">
+                    <label class="active" for="vcodigointerno">Código Interno</label>
                 </div>
                 <div class="input-field marginzero">
                     <input type="number" id="vminimo" class="formprod validate" value="" min="0" focus="1vmaximo" autocomplete="off">

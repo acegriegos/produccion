@@ -49,6 +49,7 @@
 	   			$smarty->display('ajax/productos/ajaxmantPaquetes.tpl');
 	   			break;
 	   		case 4:
+	   		/*REPORTE DE MOVIMIENTO DE INVENTARIO*/
 	   			break;
 	   		case 5:
 	   			break;

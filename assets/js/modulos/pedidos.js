@@ -6,6 +6,7 @@ $(document).keydown(function(e){
 });
 
 $(function(){
+    console.log("e")
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -187,8 +188,8 @@ $(function(){
         $("#cantI").html(p[0]);
         $("#bname-inv").html(p[0]);
     });
-
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:5, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vextrapagos : 0, saldo : 0, notific : 0});
+    
+    $(".zelda").data('triforce',{vidtipo:1, vidtipopago:0, vidtipoventa:5, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vextrapagos : 0, saldo : 0, notific : 0});
 
     $(".modal").modal();
 })//READY
@@ -555,7 +556,6 @@ function validar (varreglo,vmodulo) {
 }
 
 function validarFactura() {
-
     if ($("#subtot").text() == '0.00') {
         $("#codp").focus()
         return "No se Han Ingresado Productos";
@@ -565,17 +565,9 @@ function validarFactura() {
         $("#vcomentario").val('');
     }
 
-    if ($(".zelda").data('triforce')['vidcliente'] == 0)
-        $(".zelda").data('triforce')['vcomodin'] = $("#ncli").val();
-
-    if($(".zelda").data('triforce')['vidtipo'] == 2){
-        $("#vidtipopago").val(0)
-        $("#vidtipopago").material_select('update');
-
-        // var p = arr('login',4,'',205,$(".zelda").data('triforce')['vidcliente'],0,0,0);
-        // if(p['succed'] == 0){
-        //     return p[0]['ERROR'] 
-        // }
+    if ($(".zelda").data('triforce')['vidcliente'] == 0){
+        $(".ncli").focus();
+        return 'Cliente Requerido';
     }
     
     return false;
@@ -608,7 +600,12 @@ function cargarSintax(){
 
 function endDetail(vid) {
     window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+    arr('login',7,'1',159,'','null,'+vid+','+$("#p_v").is(':checked'),0,0,0);
     return false;
+}
+
+function verpedidos() {
+    window.open("facturacion?accion=8&tf=5");
 }
 
 function searchClient(vvariable,visprv){

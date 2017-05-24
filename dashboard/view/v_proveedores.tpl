@@ -53,7 +53,12 @@
                                 <td  padding: 10px;">{$PROV[LE][5]}</td>
                                 <td  padding: 10px;">{$PROV[LE][6]}</td>
                                 <td>
+                                    {if $PROV[LE][13] neq 1}
+                                    <a href="modal-contactos" style="font-size: 2em; color: #607d8b" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
+                                    {/if}
+
                                     <a href="#modal-clientes" style="font-size: 2em; color: #607d8b"><i class="load material-icons pbtn per2002" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
+
                                     <a href="#" style="font-size: 2em; color: #607d8b"><i class="delete material-icons pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}">delete</i></a>
                                 </td>
                             </tr>
@@ -150,6 +155,9 @@
                                 </select>
                                 <label for="videstado">Estado</label>
                             </div>
+
+                            </div>
+                            <div class="row">
                             <div class="input-field col s12 m12 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
                                 <div class="ciclos">
                                     <div class="prefix"><i class="material-icons">email</i></div>
@@ -185,6 +193,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div id="fina" class="col s12">
@@ -289,7 +298,7 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=0.2"></script>
+<script src="../assets/js/modulos/proveedores.js?v=0.3"></script>
 <script src="../assets/js/jquery.mask.min.js"></script>
 
 </body>

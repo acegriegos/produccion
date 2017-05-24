@@ -1,0 +1,72 @@
+UPDATE `idemo2`.`tablas` SET `nombre`='sp_cambiocompra' WHERE `id`='162';
+insert into tablas (id,nombre) values (163,'sp_cambiarfactura');
+
+DELIMITER $$
+CREATE DEFINER=`itech01`@`localhost` PROCEDURE `sp_cambiocompra`(vid int,detalle varchar(100))
+begin
+set @mysql = concat("select a.idcliente,concat(c.nombre,' ',c.apellido1,' ',c.apellido2,' *',c.cedula,'*') as cliente,
+if(b.idservicio is null or b.idpaquete is null,d.id,if(b.idproducto is null or b.idpaquete is null,e.id,
+if(b.idproducto is null or b.idservicio is null,f.id,'ERROR'))) as idproducto,
+if(b.idservicio is null or b.idpaquete is null,d.codigo,if(b.idproducto is null or b.idpaquete is null,e.codigo,
+if(b.idproducto is null or b.idservicio is null,f.codigo,'ERROR'))) as codigo,
+if(b.idservicio is null or b.idpaquete is null,d.nombre,if(b.idproducto is null or b.idpaquete is null,e.nombre,
+if(b.idproducto is null or b.idservicio is null,f.nombre,'ERROR'))) as producto,
+if(b.idservicio is null or b.idpaquete is null,d.costo,if(b.idproducto is null or b.idpaquete is null,e.pbase,
+if(b.idproducto is null or b.idservicio is null,f.total,'ERROR'))) as precio,b.cantidad,
+ifnull(j.id,k.id) as idimpuesto,ifnull(j.valor,k.valor) as valor,upper(ifnull(j.nombre,k.nombre)) as impuesto,ifnull(max(i.id),0) as clip,
+min(l.idinventario) as idinventario
+from facturas a
+join detallefacturas b on b.idfactura = a.id
+join clientes c on a.idcliente = c.id
+left join productos d on b.idproducto = d.id and d.id in (",detalle,")
+left join servicios e on b.idservicio = e.id and e.id in (",detalle,")
+left join paquetes f on b.idpaquete = f.id and f.id in (",detalle,")
+left join defectoimpuestos g on g.id > 0
+left join defectoimpuestos h on g.id = h.id and h.idtabla = 11 and !h.idfila
+left join defectoimpuestos i on g.id = i.id and i.idtabla = 11 and i.idfila = d.id
+left join impuestos j on h.idimpuesto = j.id
+left join impuestos k on i.idimpuesto = k.id
+join detalleinventarios l on l.idproducto = d.id
+where a.id = ",vid," group by b.idproducto having precio is not null");
+prepare stmt1 from @mysql;
+execute stmt1;
+end$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`itech01`@`localhost` PROCEDURE `sp_cambiofactura`(vid int,detalle varchar(100))
+begin
+set @mysql = concat("select a.id,a.idcliente,concat(c.nombre,' ',c.apellido1,' ',c.apellido2,' *',replace(c.cedula,'-',''),'*') as cliente,
+if(b.idservicio is null or b.idpaquete is null,d.id,if(b.idproducto is null or b.idpaquete is null,e.id,
+if(b.idproducto is null or b.idservicio is null,f.id,'ERROR'))) as idproducto,
+if(b.idservicio is null or b.idpaquete is null,d.codigo,if(b.idproducto is null or b.idpaquete is null,e.codigo,
+if(b.idproducto is null or b.idservicio is null,f.codigo,'ERROR'))) as codigo,
+if(b.idservicio is null or b.idpaquete is null,d.nombre,if(b.idproducto is null or b.idpaquete is null,e.nombre,
+if(b.idproducto is null or b.idservicio is null,f.nombre,'ERROR'))) as producto,
+if(b.idservicio is null or b.idpaquete is null,d.costo,if(b.idproducto is null or b.idpaquete is null,e.pbase,
+if(b.idproducto is null or b.idservicio is null,f.total,'ERROR'))) as precio,
+b.cantidad,ifnull(j.id,k.id) as idimpuesto,ifnull(j.valor,k.valor) as valorimp,upper(ifnull(j.nombre,k.nombre)) as impuesto,ifnull(max(i.id),0) as clip,
+ifnull(h.exoneracion,i.exoneracion) as exoneracion,min(l.idinventario) as idinventario,ifnull(p.id,q.id) as iddescuento,ifnull(n.valor,o.valor) as valordesc
+from facturas a
+join detallefacturas b on b.idfactura = a.id
+join clientes c on a.idcliente = c.id
+left join productos d on b.idproducto = d.id and d.id in (",detalle,")
+left join servicios e on b.idservicio = e.id and e.id in (",detalle,")
+left join paquetes f on b.idpaquete = f.id and f.id in (",detalle,")
+left join defectoimpuestos g on g.id > 0
+left join defectoimpuestos h on g.id = h.id and h.idtabla = 11 and !h.idfila
+left join defectoimpuestos i on g.id = i.id and i.idtabla = 11 and i.idfila = d.id
+left join impuestos j on h.idimpuesto = j.id
+left join impuestos k on i.idimpuesto = k.id
+left join detalleinventarios l on l.idproducto = d.id
+left join detalledescuentos m on m.id > 0
+left join detalledescuentos n on m.id = n.id and n.idtabla = 11 and !n.idfila
+left join detalledescuentos o on m.id = o.id and o.idtabla = 11 and n.idfila = d.id
+left join descuentos p on p.id = n.iddescuento
+left join descuentos q on q.id = o.iddescuento
+where a.id = ",vid," group by b.idproducto having precio is not null");
+prepare stmt1 from @mysql;
+execute stmt1;
+end$$
+DELIMITER ;
