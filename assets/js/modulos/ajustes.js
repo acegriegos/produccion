@@ -412,7 +412,6 @@ $(document).on("click","#adddesc",function(){
 		Materialize.toast('Valor debe ser mayor a 0', 6000, 'red');
 	}else{
 		var dsc = arr('login',4,'',95,'1,0,'+idciclo+','+iddescuento+',"'+f1+'","'+f2+'",'+idfila+','+tabla+','+valor+',\"'+extra+"\"",0,0,0);
-		console.log(dsc)
 		Materialize.toast('Descuento Agregado Correctamente', 4000, 'green');
 		$("#vidciclo").val(0);
 		$("#vidciclo").change();
@@ -445,7 +444,6 @@ $(document).on("click","#editdesc",function(){
 		f1 = f2 = null;
 	}
 	var desc = arr('login',4,'',95,'2,'+id+','+idciclo+','+iddescuento+','+f1+','+f2+','+idfila+','+idtabla+','+valor+',\"'+extra+'\"',0,0,0);
-	console.log(desc)
 	Materialize.toast('Descuento Actualizado Correctamente', 4000, 'green');
 	$("#tpdsc").val(0);
 	$("#descue").val(0);
@@ -704,8 +702,6 @@ $(document).on("click","#actinfo",function(){
 			arr['where'] = '\"'+valor+'\",\"'+campo+'\"';
 			mantenimiento('login',4,arr);
 		});
-
-		console.log($(".infoempresa :file").length);
 		
 		Materialize.toast('Datos Ingresados Correctamente',4000,'green');
 	}else
@@ -1193,7 +1189,6 @@ function cargar(vmodulo,vid) {
 }
 
 function cargarSintax(vtabla){
-	console.log(vtabla)
 	var arr = {}
 
 	switch(vtabla){
@@ -1482,7 +1477,6 @@ function endDetail(vid,vacc,modulo){
 }
 
 function postload(vmodulo){
-	console.log(vmodulo)
 	switch(vmodulo){
 		case 'moneda':
 			if( $("#vwsdl option:selected").val() != 0)

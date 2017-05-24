@@ -1,72 +1,219 @@
-UPDATE `idemo2`.`tablas` SET `nombre`='sp_cambiocompra' WHERE `id`='162';
-insert into tablas (id,nombre) values (163,'sp_cambiarfactura');
+ALTER TABLE `idemo2`.`paquetes` CHANGE COLUMN `codigo` `codigo` VARCHAR(10) NULL ,CHANGE COLUMN `nombre` `nombre` VARCHAR(64) NULL ,CHANGE COLUMN `total` `total` DECIMAL(10,2) NULL ,ADD COLUMN `descuento` DECIMAL(10,2) NULL AFTER `total`;
 
 DELIMITER $$
-CREATE DEFINER=`itech01`@`localhost` PROCEDURE `sp_cambiocompra`(vid int,detalle varchar(100))
-begin
-set @mysql = concat("select a.idcliente,concat(c.nombre,' ',c.apellido1,' ',c.apellido2,' *',c.cedula,'*') as cliente,
-if(b.idservicio is null or b.idpaquete is null,d.id,if(b.idproducto is null or b.idpaquete is null,e.id,
-if(b.idproducto is null or b.idservicio is null,f.id,'ERROR'))) as idproducto,
-if(b.idservicio is null or b.idpaquete is null,d.codigo,if(b.idproducto is null or b.idpaquete is null,e.codigo,
-if(b.idproducto is null or b.idservicio is null,f.codigo,'ERROR'))) as codigo,
-if(b.idservicio is null or b.idpaquete is null,d.nombre,if(b.idproducto is null or b.idpaquete is null,e.nombre,
-if(b.idproducto is null or b.idservicio is null,f.nombre,'ERROR'))) as producto,
-if(b.idservicio is null or b.idpaquete is null,d.costo,if(b.idproducto is null or b.idpaquete is null,e.pbase,
-if(b.idproducto is null or b.idservicio is null,f.total,'ERROR'))) as precio,b.cantidad,
-ifnull(j.id,k.id) as idimpuesto,ifnull(j.valor,k.valor) as valor,upper(ifnull(j.nombre,k.nombre)) as impuesto,ifnull(max(i.id),0) as clip,
-min(l.idinventario) as idinventario
-from facturas a
-join detallefacturas b on b.idfactura = a.id
-join clientes c on a.idcliente = c.id
-left join productos d on b.idproducto = d.id and d.id in (",detalle,")
-left join servicios e on b.idservicio = e.id and e.id in (",detalle,")
-left join paquetes f on b.idpaquete = f.id and f.id in (",detalle,")
-left join defectoimpuestos g on g.id > 0
-left join defectoimpuestos h on g.id = h.id and h.idtabla = 11 and !h.idfila
-left join defectoimpuestos i on g.id = i.id and i.idtabla = 11 and i.idfila = d.id
-left join impuestos j on h.idimpuesto = j.id
-left join impuestos k on i.idimpuesto = k.id
-join detalleinventarios l on l.idproducto = d.id
-where a.id = ",vid," group by b.idproducto having precio is not null");
-prepare stmt1 from @mysql;
-execute stmt1;
-end$$
+CREATE DEFINER=`itech01`@`localhost` PROCEDURE `sp_mantpaquetes`(vaccion tinyint(2),vid int(11),vcodigo varchar(10),vnombre varchar(64),vdescuento decimal(10,2),vtotal decimal(10,2),vidusuario int(11),vidsucursal int(3))
+BEGIN 
+
+IF (SELECT COUNT(id) FROM paquetes WHERE codigo = vcodigo AND id > 0) > 0 AND vaccion = 1 THEN 
+	 SET @msj = CONCAT('Código de Paquete \'',vcodigo,'\' Existente');
+     SIGNAL SQLSTATE '45000'
+     SET MESSAGE_TEXT = @msj;
+END IF;
+
+IF (SELECT COUNT(id) FROM paquetes WHERE nombre = vnombre AND id > 0) > 0 AND vaccion = 1 THEN 
+	 SET @msj = CONCAT('Nombre de Paquete \'',vnombre,'\' Existente');
+     SIGNAL SQLSTATE '45000'
+     SET MESSAGE_TEXT = @msj;
+END IF;
+
+CASE vaccion WHEN 1 THEN  
+	INSERT INTO paquetes VALUES(null,vcodigo,vnombre,vtotal,vdescuento);
+	SELECT @@identity INTO @vid;
+	INSERT INTO log VALUES(null,58,1,concat('Ingreso Paquete Nuevo: ',vnombre),vidusuario,now(),vidsucursal,@vid);
+	select @vid;
+WHEN 2 THEN  
+	UPDATE paquetes SET codigo = vcodigo,nombre = vnombre,total = vtotal,descuento = vdescuento
+	WHERE id = vid;
+    DELETE FROM detallepaquetes WHERE idpaquete = vid;
+	INSERT INTO log VALUES(null,58,2,concat('Actualización Paquete: ',vnombre),vidusuario,now(),vidsucursal,vid);
+    SELECT vid;
+WHEN 3 THEN
+	SELECT ifnull(min(id),-1)-1 FROM paquetes INTO @id;  
+	UPDATE paquetes set id = @id where id = vid;
+	INSERT INTO log VALUES(null,58,3,concat('Paquete Eliminado: ',vnombre),vidusuario,now(),vidsucursal,@id);
+    SELECT @id;
+END CASE; 
+END$$
 DELIMITER ;
 
+USE `idemo2`;
+DROP procedure IF EXISTS `sp_mantdetallefacturas`;
 
 DELIMITER $$
-CREATE DEFINER=`itech01`@`localhost` PROCEDURE `sp_cambiofactura`(vid int,detalle varchar(100))
-begin
-set @mysql = concat("select a.id,a.idcliente,concat(c.nombre,' ',c.apellido1,' ',c.apellido2,' *',replace(c.cedula,'-',''),'*') as cliente,
-if(b.idservicio is null or b.idpaquete is null,d.id,if(b.idproducto is null or b.idpaquete is null,e.id,
-if(b.idproducto is null or b.idservicio is null,f.id,'ERROR'))) as idproducto,
-if(b.idservicio is null or b.idpaquete is null,d.codigo,if(b.idproducto is null or b.idpaquete is null,e.codigo,
-if(b.idproducto is null or b.idservicio is null,f.codigo,'ERROR'))) as codigo,
-if(b.idservicio is null or b.idpaquete is null,d.nombre,if(b.idproducto is null or b.idpaquete is null,e.nombre,
-if(b.idproducto is null or b.idservicio is null,f.nombre,'ERROR'))) as producto,
-if(b.idservicio is null or b.idpaquete is null,d.costo,if(b.idproducto is null or b.idpaquete is null,e.pbase,
-if(b.idproducto is null or b.idservicio is null,f.total,'ERROR'))) as precio,
-b.cantidad,ifnull(j.id,k.id) as idimpuesto,ifnull(j.valor,k.valor) as valorimp,upper(ifnull(j.nombre,k.nombre)) as impuesto,ifnull(max(i.id),0) as clip,
-ifnull(h.exoneracion,i.exoneracion) as exoneracion,min(l.idinventario) as idinventario,ifnull(p.id,q.id) as iddescuento,ifnull(n.valor,o.valor) as valordesc
-from facturas a
-join detallefacturas b on b.idfactura = a.id
-join clientes c on a.idcliente = c.id
-left join productos d on b.idproducto = d.id and d.id in (",detalle,")
-left join servicios e on b.idservicio = e.id and e.id in (",detalle,")
-left join paquetes f on b.idpaquete = f.id and f.id in (",detalle,")
-left join defectoimpuestos g on g.id > 0
-left join defectoimpuestos h on g.id = h.id and h.idtabla = 11 and !h.idfila
-left join defectoimpuestos i on g.id = i.id and i.idtabla = 11 and i.idfila = d.id
-left join impuestos j on h.idimpuesto = j.id
-left join impuestos k on i.idimpuesto = k.id
-left join detalleinventarios l on l.idproducto = d.id
-left join detalledescuentos m on m.id > 0
-left join detalledescuentos n on m.id = n.id and n.idtabla = 11 and !n.idfila
-left join detalledescuentos o on m.id = o.id and o.idtabla = 11 and n.idfila = d.id
-left join descuentos p on p.id = n.iddescuento
-left join descuentos q on q.id = o.iddescuento
-where a.id = ",vid," group by b.idproducto having precio is not null");
-prepare stmt1 from @mysql;
-execute stmt1;
-end$$
+USE `idemo2`$$
+CREATE DEFINER=`itech01`@`localhost` PROCEDURE `sp_mantdetallefacturas`(vaccion tinyint(2),
+vid int(11),vidfactura int(11),videntrada varchar(13)
+,vcantidad decimal(10,2),
+vprecio decimal(10,2),vdesc decimal(10,2),vidinventario int,vidodt int)
+BEGIN 
+
+declare vidproducto int default null;
+declare vidservicio int default null;
+declare vidpaquete int default null;
+
+case substring(videntrada,1,1) 
+when '-' then
+	set vidservicio = substring(videntrada,2);
+when '+' then
+	set vidpaquete = substring(videntrada,2);
+else
+	set vidproducto = videntrada;
+end case;
+
+CASE vaccion WHEN 1 THEN 
+ 
+	INSERT INTO detallefacturas VALUES(null,vidfactura,vidproducto,vidservicio,
+    vidpaquete,vcantidad,vprecio,vdesc);
+    
+    update temporalcuentas set debe = debe - (vprecio*vcantidad)
+    where idfactura = vidfactura and detalle = 'Conteo' limit 1;
+    
+    select debe,idodt,idcuenta from temporalcuentas
+    where idfactura = vidfactura and detalle = 'Conteo' into @subt,@costo,@transacc;
+   select idtipoventa from facturas where id = vidfactura into @tipo;
+    
+    case @tipo when 1 then
+        
+		if vidproducto is not null then
+
+			UPDATE detalleinventarios SET cantidad = cantidad - vcantidad 
+			WHERE idproducto = vidproducto and idinventario = vidinventario limit 1;
+            
+			if (select count(idtransaccion) from temporalcuentas where idfactura = vidfactura 
+            and idtransaccion = 0 and idcuenta <> 0) > 0 then
+            
+				insert into transacciones 
+				select null,now(),concat('Costo de Venta Factura: ',vidfactura)
+				,idusuario,idempresa,idmoneda,64,vidfactura from transacciones 
+				where idtabla = 64 and idfila = vidfactura;
+			
+				select @@identity into @transaccion;
+            
+				update temporalcuentas set idtransaccion = @transaccion 
+				where idtransaccion = 0 and idfactura = vidfactura limit 100;
+                
+                update temporalcuentas set idodt = @transaccion
+				where idfactura = vidfactura and detalle = 'Conteo' limit 1;
+                set @costo = @transaccion;
+			end if;
+        
+            update temporalcuentas set haber = haber +(vprecio*vcantidad) 
+            where idfactura = vidfactura and
+            detalle = 'Venta' limit 1;
+			
+			select idcuenta from defectocuentas where idtipo = 10 and idfila = 0 limit 1 into @tmpcta;
+            update temporalcuentas set haber = haber +(vprecio*vcantidad) 
+            where idfactura = vidfactura and
+            idcuenta = @tmpcta limit 1;
+            
+            select idcuenta from defectocuentas where idtipo = 8 and idfila = 0 limit 1 into @tmpcta;
+			update temporalcuentas set debe = debe +(vprecio*vcantidad) 
+            where idfactura = vidfactura and
+            idcuenta = @tmpcta limit 1;
+    
+		elseif vidservicio is not null then
+			select idcuenta from defectocuentas where idtipo = 9 and idfila = 0 limit 1 into @tmpcta;
+			update temporalcuentas set haber = haber +(vprecio*vcantidad) 
+            where idfactura = vidfactura and
+            idcuenta = @tmpcta limit 1;
+		end if;
+        
+		if vidinventario <> 0  then
+		select ifnull(c.idcuenta,b.idcuenta) 
+        from defectocuentas a 
+        left join defectocuentas b on a.id = b.id and b.idfila = 0
+        left join defectocuentas c on a.id = c.id and c.idfila = vidinventario 
+        where a.idtipo = 10 limit 1 into @tmpcta;
+        
+        if (select count(idcuenta) from temporalcuentas where idcuenta = @tmpcta
+        and idfactura = vidfactura) = 0 then
+			insert into temporalcuentas values(@costo,vidfactura,@tmpcta,0,vprecio,vidodt,'Inventario',
+            null,null);
+		else
+			update temporalcuentas set haber = haber + vprecio where idcuenta = @tmpcta
+        and idfactura = vidfactura;
+		end if;
+    end if;
+        
+    when 2 then
+    
+        if vidproducto is not null then
+        
+			UPDATE detalleinventarios SET cantidad = cantidad + vcantidad 
+            WHERE idproducto = vidproducto and idinventario = vidinventario limit 1;
+	
+			UPDATE productos set costo = vprecio where id = vidproducto;
+            
+			if (select count(idtransaccion) from temporalcuentas where idfactura = vidfactura 
+            and idtransaccion = 0 and idcuenta <> 0) > 0 then
+            
+				insert into transacciones 
+				select null,now(),concat('Costo Venta: ',vidfactura)
+				,idusuario,idempresa,idmoneda,64,vidfactura from transacciones 
+				where idtabla = 64 and idfila = vidfactura;
+			
+				select @@identity into @transaccion;
+            
+				update temporalcuentas set idtransaccion = @transaccion 
+				where idtransaccion = 0 and idfactura = vidfactura limit 100;
+                
+                update temporalcuentas set idodt = @transaccion
+				where idfactura = vidfactura and detalle = 'Conteo' limit 1;
+                set @costo = @transaccion;
+			end if;
+        
+        
+        elseif vidservicio is not null then
+			select idcuenta from defectocuentas where idtipo = 9 and idfila = 0 limit 1 into @tmpcta;
+			update temporalcuentas set haber = haber +(vprecio*vcantidad) 
+            where idfactura = vidfactura and
+            idcuenta = @tmpcta limit 1;
+		end if;
+
+            select idcuenta from defectocuentas where idtipo = 8 and idfila = 0 limit 1 into @tmpcta;
+			update temporalcuentas set haber = haber +(vprecio*vcantidad) 
+            where idfactura = vidfactura and
+            idcuenta = @tmpcta limit 1;
+            
+		select idcuenta from defectocuentas where idtipo = 14 and idfila = 0 limit 1 into @tmpcta;
+        update temporalcuentas set debe = debe+(vprecio*vcantidad)
+		where idcuenta = @tmpcta and idfactura = vidfactura limit 1;
+        
+        if vidinventario <> 0  then
+        
+		select ifnull(c.idcuenta,b.idcuenta) 
+        from defectocuentas a 
+        left join defectocuentas b on a.id = b.id and b.idfila = 0
+        left join defectocuentas c on a.id = c.id and c.idfila = vidinventario 
+        where a.idtipo = 10 limit 1 into @tmpcta;
+		
+        if (select count(idcuenta) from temporalcuentas where idcuenta = @tmpcta
+        and idfactura = vidfactura) = 0 then
+			insert into temporalcuentas values(@costo,vidfactura,@tmpcta,vprecio*vcantidad,0,vidodt,'Inventario',
+            null,null);
+		else
+			update temporalcuentas set debe = debe + vprecio where idcuenta = @tmpcta
+			and idfactura = vidfactura;
+		end if;
+        
+		end if;
+    end case;
+            
+    select vidfactura;
+	if @subt = 0 then
+		call activarTMPfact(vidfactura);
+	end if;
+    
+WHEN 2 THEN  
+    UPDATE detallefacturas SET idfactura = vidfactura,idproducto = vidproducto,cantidad = vcantidad,precio = vprecio,descuento = vdesc
+WHERE id = vid;
+    SELECT vid;
+WHEN 3 THEN
+    SELECT ifnull(min(id),-1)-1 FROM detallefacturas INTO @id;  
+    UPDATE detallefacturas set id = @id where id = vid;
+    SELECT @id;
+END CASE; 
+END$$
+
 DELIMITER ;
+

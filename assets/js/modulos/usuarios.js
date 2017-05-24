@@ -1,5 +1,4 @@
 $(function(){
-	console.log(2)
 	$('select').material_select();
 		
 	$("#fusuarios").submit(function(){

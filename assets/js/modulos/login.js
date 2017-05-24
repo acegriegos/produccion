@@ -1,7 +1,6 @@
 var crr = '';
 
 $(document).ready(function(){
-    // console.log(4)
     setTimeout(function(){$("#user").focus();},100)
     
     $("#logF").submit(function(){
@@ -32,7 +31,6 @@ $(document).ready(function(){
             $("#user").focus();
         }else{
             var result = arr('login',4,'mail, concat(substring(mail,1,3),"****@", substring_index(mail,"@",-1))',1,'user = "'+$("#user").val()+'" and id > 0','',0,'');
-            console.log(result);
             if (result[0].length) {
                 $("#msjrecupss").html('<img src="../assets/img/icon/mail_recovery.svg" width="100px"><br><h5>Recuperar Contraseña</h5><p>Enviar código de recuperación al correo:<br><b class="truncate">'+result[0][0][1]+'</b></p><a href="#!" id="sendrecupss" class="modal-action modal-close waves-effect waves-green btn-flat grey lighten-3">Enviar</a>');
                 crr = result[0][0][0];

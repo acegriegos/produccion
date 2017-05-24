@@ -39,7 +39,7 @@
                     <td style="width: 10%">{$PROD[LE][4]}</td>
                     <td style="width: 10%">{$PROD[LE][5]}</td>
                     <td style="width: 10%">{$PROD[LE][6]}</td>
-                    <td style="width: 10%">{$PROD[LE][1]}</td>
+                    <td style="width: 10%">{$PROD[LE][7]}</td>
                     <td style="width: 10%">
                         <a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"><img src="../assets/img/icon/percent.svg"></a>
                         <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario">compare_arrows</a>

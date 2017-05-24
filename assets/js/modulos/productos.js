@@ -54,11 +54,7 @@ $(function(){
             in_duration: 300, // Transition in duration
             out_duration: 100, // Transition out duration
             startingTop: '4%', // Starting top style attribute
-            endingTop: '4%', // Ending top style attribute
-            ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-                // alert("Ready");
-                // console.log(modal, trigger);
-            }
+            endingTop: '4%' // Ending top style attribute
         });
         $('ul.tabs').tabs();
     });
@@ -112,7 +108,6 @@ $(document).on("keyup",".formprod",function(e){
 //     var idant = $("#vid"+ant).val();
 //     if (nombre != '') {
 //         if (ant != undefined) {
-//             console.log(db+' '+'1,0,\"'+nombre+'\",'+idant)
 //             id = arr('login',4,'',db,'1,0,\"'+nombre+'\",'+idant,0,0,0)
 //         }else{
 //             id = arr('login',4,'',db,'1,0,\"'+nombre+'\"',0,0,0);
@@ -126,7 +121,6 @@ $(document).on("keyup",".formprod",function(e){
 //             $("#v"+elemento).addClass('autocomplete')
 //             $("#vid"+elemento).val(id[0][0][0])
 //             $("#v"+elemento).val(id[0][0][1]);
-//             console.log(id[0][0][1])
 //             $("#v"+elemento).focus();
 //         }else{
 //             Materialize.toast(id[0]['ERROR'], 6000, 'red');
@@ -816,9 +810,9 @@ $(document).on("click",".del",function(){
     $("#totpqt").val(total.formatMoney(2,',','.'));
 });
 
-$(document).on("change","#vdescuento",function(){
+$(document).on("keyup","#vdescuento",function(){
     var total = 0;
-    var desc = $("option:selected",this).attr('valor') == '' ? 0 : parseFloat($("option:selected",this).attr('valor'));
+    var desc = $(this).val();
     var totpqt = parseFloat($("#htotal").val());
     total = totpqt / ((desc/100)+1);
     $("#totpqt").val(total.formatMoney(2,'.',','));
@@ -1618,7 +1612,7 @@ function vaciar(modulo){
             $("#hprod").val('');
             $("#cantidad").val('');
             $("#vdescuento").val(0);
-            $("#vdescuento").material_select();
+            $("#vdescuento").val(0);
             $("#totpqt").val('0.00');
             $("#htotal").val('');
             break;
@@ -1689,7 +1683,7 @@ function totalizar(costo,ganancia,tipo) {
 
 function addprod(prod,cant) {
     var info = arr('login',4,'id,precio,nombreprecio',77,'nombre = \"'+prod+'\"','',0,'')[0][0];
-    var desc = $("#vdescuento option:selected").attr('valor') == '' ? 0 : parseFloat($("#vdescuento option:selected").attr('valor'));
+    var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
     var ptotal = info[1] * cant;
     var total = 0;
     var idprod = 0;

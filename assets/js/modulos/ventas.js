@@ -6,7 +6,7 @@ $(document).keydown(function(e){
 });
 
 $(function(){
-    console.log("ironman")
+    
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -60,7 +60,7 @@ $(function(){
                 data: arr('login',4,'',6,'"'+$("#descp").val()+'",1',0,0,0,1)
             })
 
-             $("#descp").siblings($(".autocomplete-content")).css('width','50%');
+            $("#descp").siblings($(".autocomplete-content")).css('width','50%');
         }
     });
 
@@ -106,17 +106,17 @@ $(function(){
 
                     var exo = fimv[i][9]*(1-(fimv[i][10]/100));
 
-                    if($("#imp_"+fimv[i][7]).length == 0){
+                    if($("#imp_"+fimv[i][8]).length == 0){
                         
                         if(fimv[i][12] != 0) clip = 'vclipd="'+fimv[0][0]+'"';
 
-                        $("#sh_imp").append('<tr id="imp_'+fimv[i][7]+'" '+clip+'><td>'+fimv[i][11]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][7]+'" type="html">0.00</span></td></tr>');
-                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
-                        $("#imv_"+fimv[i][7]).data('incl',fimv[i][0]+",");
+                        $("#sh_imp").append('<tr id="imp_'+fimv[i][8]+'" '+clip+'><td>'+fimv[i][11]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][8]+'" type="html">0.00</span></td></tr>');
+                        $("#imv_"+fimv[i][8]).data('imv'+fimv[i][0],exo);
+                        $("#imv_"+fimv[i][8]).data('incl',fimv[i][0]+",");
                     }else{
-                        var incl = $("#imv_"+fimv[i][7]).data('incl');
-                        $("#imv_"+fimv[i][7]).data('incl',incl+fimv[i][0]+",");
-                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
+                        var incl = $("#imv_"+fimv[i][8]).data('incl');
+                        $("#imv_"+fimv[i][8]).data('incl',incl+fimv[i][0]+",");
+                        $("#imv_"+fimv[i][8]).data('imv'+fimv[i][0],exo);
                     }
                     
                 }
@@ -230,7 +230,7 @@ $(function(){
          $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:vf[2], vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vextrapagos : 0, saldo : 0, notific : 0});
 
         var line = 0;
-        var fimv = vf[0];
+        var fimv = vfacturap2[0];
         $("#fdetallefacturas tr").each(function(){
             var id = $(this).attr('id').substr(2);
             var p = $('#h_'+id).attr('idprod');
@@ -240,23 +240,25 @@ $(function(){
             var h = $('#h_'+id).attr('hdesc');
             var m = $('#h_'+id).attr('hdescm');
             var t = r * c;
-
+            
             for (var i = 0; i < fimv.length; i++) {
+                var exo = fimv[i][9]*(1-(fimv[i][12]/100));
                 if($("#imp_"+fimv[i][8]).length == 0){
                     var clip = 0;
                     if(fimv[i][11] != 0) clip = 'vclipd="'+fimv[i][3]+'"';
 
-                    $("#sh_imp").append('<tr id="imp_'+fimv[i][8]+'" '+clip+'><td>'+fimv[i][10]+' ['+fimv[i][9]+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][8]+'" type="html">0.00</span></td></tr>');
+                    $("#sh_imp").append('<tr id="imp_'+fimv[i][8]+'" '+clip+'><td>'+fimv[i][10]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][8]+'" type="html">0.00</span></td></tr>');
                     $("#imv_"+fimv[i][8]).data('incl',fimv[i][3]+",");
                 }else{
                     var incl = $("#imv_"+fimv[i][8]).data('incl');
                     $("#imv_"+fimv[i][8]).data('incl',incl+fimv[i][3]+",");
                 }
+                $("#imv_"+fimv[i][8]).data({'imv':fimv[i][9]})
             }
             
             $(this).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:p, vcantidad:c, vprecio:r, hdesc:h,hdescm:m, vtotal:t, vidinventario:i,vidodt : 0});
-            $("#descu"+id).data('valor',0);
-            
+            // $("#descu"+id).data('valor',0);
+            $("#vdesc"+id).data({'valor':h,'max':m})
             line += 1;
             $('#h_'+id).remove();
         });
@@ -515,7 +517,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
 
 }
 
-function totalizar() {
+function totalizar(){
     
     var totd = 0;
     var total = 0;
@@ -541,24 +543,23 @@ function totalizar() {
         var decindv = parseFloat($("#vdesc"+vidlinea).data('valor'));
         var descmax = parseFloat($("#vdesc"+vidlinea).data('max'));
         var desct = decindv+desc > descmax ? descmax : decindv+desc;
+        
         $("#fd"+vidlinea).data('triforce')['vdesc'] = desct;
         $("#vdesc"+vidlinea).val(desct+"%");
         precio = precio * cantidad
-
         totd += precio;
         tmpdesc = precio * (1-(desct/100));
         idesc += precio * (desct/100);
-        tdesc += tmpdesc; 
+        tdesc += tmpdesc;
 
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc;
         $("#tota"+vidlinea).html(tmpdesc.formatMoney(2,',','.'))
 
         $("[id^=imv_").each(function(){
-
             var incl = $(this).data('incl');
             var idimv = $(this).prop('id').substr(4);
-            incl = incl.indexOf('*') === -1 ? incl.indexOf(vid+",") : 0
-
+            incl = incl.indexOf('*') === -1 ? incl.indexOf(vid+",") : 0;
+            
             if(incl !== -1){
                 var im0 = parseFloat($(this).data('imv'));
                 var im1 = $(this).data('imv'+vid) == undefined ? 100 : parseFloat($(this).data('imv'+vid)) ;
@@ -569,6 +570,7 @@ function totalizar() {
                 else{
                     var dimv = tmpdesc*(rimv/100);
                     impuesto += dimv;
+
                     var tmimv = $(this).attr('tmp_imv') == undefined ? dimv :parseFloat($(this).attr('tmp_imv'))+dimv;
                     $(this).attr('tmp_imv',tmimv)
                     $(this).html(parseFloat($(this).attr('tmp_imv')).formatMoney(2,'.',','))
@@ -579,7 +581,6 @@ function totalizar() {
     $("[id^=imv_]").removeAttr('tmp_imv');
 
     total = tdesc + impuesto;
-
     if (flete != 0) {
         $("#vflete").html(flete.formatMoney(2,'.',','));
         total = total + flete;
