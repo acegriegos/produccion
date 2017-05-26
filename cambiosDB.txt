@@ -217,3 +217,45 @@ END$$
 
 DELIMITER ;
 
+CREATE TABLE `precioxclientes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idproducto` int(11) DEFAULT NULL,
+  `idcliente` int(11) DEFAULT NULL,
+  `ganancia` decimal(10,2) DEFAULT NULL,
+  `exoneracion` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+UPDATE `idemo2`.`tablas` SET `nombre`='sp_mantprecioxclientes' WHERE `id`='162';
+insert into tablas (id,nombre) values (164,'precioxclientes');
+
+USE `idemo2`;
+DROP procedure IF EXISTS `sp_mantprecioxclientes`;
+
+DELIMITER $$
+USE `idemo2`$$
+CREATE DEFINER=`itech01`@`localhost` PROCEDURE `sp_mantprecioxclientes`(vaccion tinyint(2),vid int(11),vidproducto int(11),vidcliente int(11),
+vganancia decimal(10,2),vexoneracion decimal(5,2),vidusuario int,vidsucursal int)
+BEGIN 
+CASE vaccion 
+WHEN 1 THEN  
+	INSERT INTO precioxclientes VALUES(null,vidproducto,vidcliente,vganancia,vexoneracion);
+	SELECT @@identity INTO @vid;
+	INSERT INTO log values(null,0,1,'',vidusuario,now(),vidsucursal,@vid);
+    SELECT @vid;
+WHEN 2 THEN  
+	UPDATE precioxclientes SET idproducto = vidproducto,idcliente = vidcliente,ganancia = vganancia,exoneracion = vexoneracion
+    WHERE id = vid;
+	SELECT vid;
+	INSERT INTO log values(null,0,2,'',vidusuario,now(),vidsucursal,vid);
+
+WHEN 3 THEN
+	SELECT ifnull(if(min(id)-1 = 0,-1,min(id)-1),-1) FROM precioxclientes INTO @id;  
+	UPDATE precioxclientes set id = @id where id = vid;
+	SELECT @id;
+	INSERT INTO log values(null,0,3,'',vidusuario,now(),vidsucursal,vid);
+END CASE; 
+END$$
+
+DELIMITER ;
+

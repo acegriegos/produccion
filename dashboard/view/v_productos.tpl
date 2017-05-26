@@ -35,7 +35,7 @@
 			</div>
 		</div> <!-- END BDY -->
 	{$SCR}
-	<script src="../assets/js/modulos/productos.js?v=0.11"></script>
+	<script src="../assets/js/modulos/productos.js?v=0.14"></script>
 
 </body>
 </html>

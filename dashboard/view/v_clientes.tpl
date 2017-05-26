@@ -400,7 +400,7 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=0.6"></script>
+<script src="../assets/js/modulos/clientes.js?v=0.8"></script>
 
 </body>
 </html>

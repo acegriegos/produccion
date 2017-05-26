@@ -106,17 +106,17 @@ $(function(){
 
                     var exo = fimv[i][9]*(1-(fimv[i][10]/100));
 
-                    if($("#imp_"+fimv[i][8]).length == 0){
+                    if($("#imp_"+fimv[i][7]).length == 0){
                         
-                        if(fimv[i][12] != 0) clip = 'vclipd="'+fimv[0][0]+'"';
+                        if(fimv[i][12] != 0) var clip = 'vclipd="'+fimv[0][0]+'"';
 
-                        $("#sh_imp").append('<tr id="imp_'+fimv[i][8]+'" '+clip+'><td>'+fimv[i][11]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][8]+'" type="html">0.00</span></td></tr>');
-                        $("#imv_"+fimv[i][8]).data('imv'+fimv[i][0],exo);
-                        $("#imv_"+fimv[i][8]).data('incl',fimv[i][0]+",");
+                        $("#sh_imp").append('<tr id="imp_'+fimv[i][7]+'" '+clip+'><td>'+fimv[i][11]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][7]+'" type="html">0.00</span></td></tr>');
+                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
+                        $("#imv_"+fimv[i][7]).data('incl',fimv[i][0]+",");
                     }else{
-                        var incl = $("#imv_"+fimv[i][8]).data('incl');
-                        $("#imv_"+fimv[i][8]).data('incl',incl+fimv[i][0]+",");
-                        $("#imv_"+fimv[i][8]).data('imv'+fimv[i][0],exo);
+                        var incl = $("#imv_"+fimv[i][7]).data('incl');
+                        $("#imv_"+fimv[i][7]).data('incl',incl+fimv[i][0]+",");
+                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
                     }
                     
                 }

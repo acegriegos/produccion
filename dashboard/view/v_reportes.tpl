@@ -16,195 +16,195 @@
 
    <div class="card z-depth-5">
     <div class="card-header center white-text" style="background-color:#0B3861">
-      <p class="flow-text " style="font-size: 1.9em; margin-bottom: 0.3% !important">Reportes</p>
+      <p class="flow-text" style="font-size: 1.9em; margin-bottom: 0.3% !important">Reportes</p>
     </div>
 
-    <div class="card-content ">
+    <div class="card-content">
 
-      <div class="row ">
+      <div class="row">
         <div class="input-field col s10 m6 l5">
-          <a  class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+          <a  class="prefix dropdown-button tooltipped"  data-activates="filtr_1" data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
           <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
           <label class="truncate" for="search_clientes">Buscar Reporte por Nombre</label>
         </div>
       </div>
-      <DIV class="row">
+      <div class="row">
 
         <div class="col s4 m3 l2 center-align padd">
-          <a href="#fechas"><i class="large material-icons padd " >insert_chart</i></a>
+          <a href="#fechas"><i class="large material-icons padd">insert_chart</i></a>
           <div class="row">
            <div class="col s12">
-             <p>Ventas Totales</p>
+             <p>Clientes</p>
            </div>
          </div>
 
        </div>
-       <div class="col s4 m3 l2 center-align ">
-        <a href="#fechas"><i class="large material-icons padd " >business</i>
+       <div class="col s4 m3 l2 center-align">
+        <a href="#fechas"><i class="large material-icons padd">business</i>
         </a>
         <div class="row">
          <div class="col s12">
-           <p>Ventas Totales</p>
+           <p>Cotizaciones</p>
          </div>
        </div>
 
      </div>
-     <div class="col s4 m3 l2 center-align ">
-       <a href="#fechas"> <i class="large material-icons  " >equalizer</i>
+     <div class="col s4 m3 l2 center-align">
+       <a href="#fechas"><i class="large material-icons">equalizer</i>
        </a>
        <div class="row">
          <div class="col s12">
-           <p>Ventas Totales</p>
+           <p>Pedidos</p>
          </div>
        </div>
 
      </div>
-     <div class="col s4 m3 l2 center-align ">
-       <a href="#fechas"> <i class="large material-icons  " >location_on</i>
+     <div class="col s4 m3 l2 center-align">
+       <a href="#fechas"><i class="large material-icons">location_on</i>
        </a>
        <div class="row">
          <div class="col s12">
-           <p>Ventas Totales</p>
+           <p>Rutas</p>
          </div>
        </div>
 
      </div>
-     <div class="col s4 m3 l2 center-align ">
-       <a href="#fechas"> <i class="large material-icons  " >shopping_basket</i>
+     <div class="col s4 m3 l2 center-align">
+       <a href="#fechas"><i class="large material-icons">shopping_basket</i>
        </a>
        <div class="row">
          <div class="col s12">
-           <p>Ventas Totales</p>
+           <p>Compras</p>
          </div>
        </div>
 
      </div>
-     <div class="col s4 m3 l2 center-align ">
-       <a href="#fechas"> <i class="large material-icons  " >shopping_cart</i>
+     <div class="col s4 m3 l2 center-align">
+       <a href="#fechas"><i class="large material-icons">shopping_cart</i>
        </a>
        <div class="row">
          <div class="col s12">
-           <p>Ventas Totales</p>
+           <p>Ordenes de Compras</p>
          </div>
        </div>
 
      </div>
-     <div class="col s4 m3 l2 center-align ">
-       <a href="#fechas"> <i class="large material-icons  " >store</i>
+     <div class="col s4 m3 l2 center-align">
+       <a href="#fechas"><i class="large material-icons">store</i>
        </a>
        <div class="row">
          <div class="col s12">
-           <p>Ventas Totales</p>
+           <p>Proveedores</p>
          </div>
        </div>
 
      </div>
-     <div class="col s4 m3 l2 center-align ">
-       <a href="#fechas"> <i class="large material-icons  " >markunread_mailbox</i>
+     <div class="col s4 m3 l2 center-align">
+       <a href="#fechas"><i class="large material-icons">markunread_mailbox</i>
        </a>
        <div class="row">
          <div class="col s12">
-           <p>Ventas Totales</p>
+           <p>Contabilidad</p>
          </div>
        </div>
 
      </div>
-     <div class="col s4 m3 l2 center-align ">
-      <a href="#fechas"><i class="large material-icons  " >assignment</i>
+     <div class="col s4 m3 l2 center-align">
+      <a href="#fechas"><i class="large material-icons">assignment</i>
       </a>
       <div class="row">
        <div class="col s12">
-         <p>Ventas Totales</p>
+         <p>Cuentas por Cobrar</p>
        </div>
      </div>
 
    </div>
-   <div class="col s4 m3 l2 center-align ">
-     <a href="#fechas"> <i class="large material-icons  " >assignment_ind</i>
+   <div class="col s4 m3 l2 center-align">
+     <a href="#fechas"><i class="large material-icons">assignment_ind</i>
      </a>
      <div class="row">
        <div class="col s12">
-         <p>Ventas Totales</p>
+         <p>Cuentas por Pagar</p>
        </div>
      </div>
 
    </div>
-   <div class="col s4 m3 l2 center-align ">
-    <a href="#fechas">  <i class="large material-icons  " >info</i>
+   <div class="col s4 m3 l2 center-align">
+    <a href="#fechas"><i class="large material-icons">info</i>
     </a>
     <div class="row">
      <div class="col s12">
-       <p>Ventas Totales</p>
+       <p>Devoluciones</p>
      </div>
    </div>
 
  </div>
- <div class="col s4 m3 l2 center-align ">
-   <a href="#fechas"> <i class="large material-icons  " >turned_in</i>
+ <div class="col s4 m3 l2 center-align">
+   <a href="#fechas"><i class="large material-icons">turned_in</i>
    </a>
    <div class="row">
      <div class="col s12">
-       <p>Ventas Totales</p>
+       <p>Notas</p>
      </div>
    </div>
 
  </div>
- <div class="col s4 m3 l2 center-align ">
-  <a href="#fechas">  <i class="large material-icons  " >offline_pin</i>
+ <div class="col s4 m3 l2 center-align">
+  <a href="#fechas"><i class="large material-icons">offline_pin</i>
   </a>
   <div class="row">
    <div class="col s12">
-     <p>Ventas Totales</p>
+     <p>Presupuesto</p>
    </div>
  </div>
 
 </div>
-<div class="col s4 m3 l2 center-align ">
-  <a href="#fechas">  <i class="large material-icons  " >open_in_browser</i>
+<div class="col s4 m3 l2 center-align">
+  <a href="#fechas"><i class="large material-icons">open_in_browser</i>
   </a>
   <div class="row">
    <div class="col s12">
-     <p>Ventas Totales</p>
+     <p>Regalías</p>
    </div>
  </div>
 
 </div>
-<div class="col s4 m3 l2 center-align ">
-  <a href="#fechas">  <i class="large material-icons  " >supervisor_account</i></a>
+<div class="col s4 m3 l2 center-align">
+  <a href="#fechas"><i class="large material-icons">supervisor_account</i></a>
 
   <div class="row">
    <div class="col s12">
-     <p>Ventas Totales</p>
+     <p>Inventarios</p>
    </div>
  </div>
 
 </div>
-<div class="col s4 m3 l2 center-align ">
- <a href="#fechas"> <i class="large material-icons  " >view_column</i>
+<div class="col s4 m3 l2 center-align">
+ <a href="#fechas"><i class="large material-icons">view_column</i>
  </a>
  <div class="row">
    <div class="col s12">
-     <p>Ventas Totales</p>
+     <p>Productos</p>
    </div>
  </div>
 
 </div>
-<div class="col s4 m3 l2 center-align ">
-  <a href="#fechas">  <i class="large material-icons  " >view_carousel</i>
+<div class="col s4 m3 l2 center-align">
+  <a href="#fechas"><i class="large material-icons">view_carousel</i>
   </a>
   <div class="row">
    <div class="col s12">
-     <p>Ventas Totales</p>
+     <p>Ventas</p>
    </div>
  </div>
 
 </div>
-<div class="col s4 m3 l2 center-align ">
-  <a href="#fechas">  <i class="large material-icons  " >verified_user</i>
+<div class="col s4 m3 l2 center-align">
+  <a href="#fechas"><i class="large material-icons">verified_user</i>
   </a>
   <div class="row">
    <div class="col s12">
-     <p>Ventas Totales</p>
+     <p>Ventas</p>
    </div>
  </div>
 

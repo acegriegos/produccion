@@ -6,7 +6,6 @@ $(document).keydown(function(e){
 });
 
 $(function(){
-    
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -108,7 +107,7 @@ $(function(){
                 var fimv = cod[0];
                 cod = cod[0][0];
 
-                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : 0,hdescm : 0, hinv : cod[5], hbod:cod[4],hdescu : 0})
+                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : 0,hdescm : 0, hinv : cod[14], hbod:cod[15],hdescu : 0})
 
                 for (var i = 0; i < fimv.length; i++) {
 
@@ -756,7 +755,7 @@ function cargarSintax(){
 function endDetail(vid,vacc,vmodulo) {
     // window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
     arr('login',7,'1',159,'','null,'+vid+','+$("#p_v").is(':checked'),0,0,0);
-    setTimeout(function(){location.reload();},4000);
+    // setTimeout(function(){location.reload();}, |4000);
     return false;
 }
 
