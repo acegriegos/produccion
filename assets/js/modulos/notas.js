@@ -2,6 +2,17 @@ $(function(){
 	$("#fnotass").submit(function(){return false});
 	$("#data-table-notass").dataTable();
 	$("[id^=ftr]").hide();
+	$(".chg_tipo").change(function(){
+		var id=$(this).prop('value')
+		if ($(this).is(':checked')){
+			$("#ftr"+id).removeClass("hide");
+			$("#ftr"+id).show();
+		}
+		else
+			$("#ftr"+id).addClass("hide");
+
+	})
+		$("#ftr0").show();
 	
 
 
@@ -15,39 +26,39 @@ $('.datepicker').pickadate({
     	selectMonths: true, // Creates a dropdown to control month
     	selectYears: 15, // Creates a dropdown of 15 years to control year
     	format: 'yyyy-mm-dd'
-  	});
-   fecha = new Date();
-    $('.vfecha').pickadate();
+    });
+fecha = new Date();
+$('.vfecha').pickadate();
 
-	$('select').material_select();
+$('select').material_select();
 
 $("#data-table-Notas").dataTable({
 
-		bFilter: false,
-		order : [],
-		"bLengthChange": false
-	});
+	bFilter: false,
+	order : [],
+	"bLengthChange": false
+});
 
 
 function validar (varreglo,vmodulo) {
 	
 	var salida = {}
 	
-		/*VALIDACION FRONT END*/
+	/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
 		case 'notas':
-			if (vmodulo['tip'] == '') {
-				err = validarnotas();
-				if ( err ) {
-					return err;
-				}
+		if (vmodulo['tip'] == '') {
+			err = validarnotas();
+			if ( err ) {
+				return err;
 			}
-			
-			break;
+		}
+
+		break;
 		default:
-			return 'Módulo no Existente';
-			break;
+		return 'Módulo no Existente';
+		break;
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
@@ -63,7 +74,7 @@ function validarnotas() {
 
 function endDetail(vid){
 
-    return false;
+	return false;
 }
 
 function cargar(vmodulo,vid) {
@@ -71,13 +82,13 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'notas':
-			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 3;
-			vmodulo['where'] ='';
-			break;
+		vmodulo['sel'] = '';
+		vmodulo['tbl'] = 3;
+		vmodulo['where'] ='';
+		break;
 		default:
-			return 'Módulo no Existente';
-			break;
+		return 'Módulo no Existente';
+		break;
 	}
 	
 	return vmodulo;

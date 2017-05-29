@@ -23,16 +23,20 @@
           <div class="col s12 m5 ">
 
            <div class="row">
-            <div class="col s12 ">
+            <div class="col s12 m6 ">
               <div class="switch">
                 <label style="color: black; font-size: 1.5em">
                   <b>Clientes</b>
-                  <input type="checkbox" id="chg_tipo" value="1" >
+                  <input type="checkbox" class="chg" value="1" >
                   <span class="lever"></span>
                   <b>Proveedor</b>
                 </label>
               </div>
             </div>
+             <div class="col s12 m2 offset-m4">
+                  <a class="waves-effect waves-light btn">Buscar</a>
+
+                </div>
 
           </div>
           
@@ -41,7 +45,7 @@
                 <div class="switch ">
                   <label style="color: black; font-size: 1.5em">
 
-                    <input type="checkbox" id="chg_tipo" value="0" checked="1">
+                    <input type="checkbox" class="chg_tipo" value="0" checked="1">
                     <span class="lever"></span>
                     <b>Por Numero de Factura</b>
                   </label>
@@ -59,37 +63,36 @@
                 <div class="switch">
                   <label style="color: black; font-size: 1.5em">
                     <b></b>
-                    <input type="checkbox" id="chg_tipo" value="1" >
+                    <input type="checkbox" class="chg_tipo" value="1" >
                     <span class="lever"></span>
                     <b>Por Cliente</b>
                   </label>
                 </div>
               </div>
               </div>
-              <div class="row">
+              <div class="row hide" id="ftr1">
             <div class="input-field col s7">
 
               <a class="prefix  tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
 
               <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
               <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
-
-            </div>
+            </div> 
           </div>
           <div class="row">
-              <br>
+                  
                 <div class="col s6">
                   <div class="switch">
                   <label style="color: black; font-size: 1.5em">
                     <b></b>
-                    <input type="checkbox" id="chg_tipo" value="2" >
+                    <input type="checkbox" class="chg_tipo" value="2" >
                     <span class="lever"></span>
                     <b>Entre Fechas</b>
                   </label>
                 </div>
                 </div>  
               </div>
-               <div class="row " id="ftr2">
+               <div class="row hide " id="ftr2">
                 <div class="input-field col s6">
 
 
@@ -112,7 +115,36 @@
 
              </div> 
            </div>
+           <div class="row">
+                  
+                <div class="col s12">
+                  <div class="switch">
+                  <label style="color: black; font-size: 1.5em">
+                    <b></b>
+                    <input type="checkbox" class="chg_tipo" value="3" >
+                    <span class="lever"></span>
+                    <b>Entre Numero de Facturas</b>
+                  </label>
+                </div>
+                </div>  
+              </div>
 
+              <div class="row hide"  id="ftr3">
+                
+              <div class="input-field col s12 m6 ">
+
+                <i class="material-icons prefix">description</i>
+                <input id="vvalor" type="text"  class="validate eder">
+                <label for="vvalor" style="font-size: 1.2em !important">Desde la Factura</label>
+              </div>
+              <div class="input-field col s12 m6 " id="ASD">
+
+                <i class="material-icons prefix">description</i>
+                <input id="vvalor" type="text"  class="validate eder">
+                <label for="vvalor" style="font-size: 1.2em !important">Hasta la Factura</label>
+              </div>
+
+              </div>
 
 
 
@@ -168,6 +200,6 @@
 
 
 {$SCR}
-<script src="../assets/js/modulos/notas.js?v=0.2"></script>
+<script src="../assets/js/modulos/notas.js?v=0.4"></script>
 </body>
 </html>

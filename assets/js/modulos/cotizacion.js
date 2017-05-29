@@ -6,7 +6,6 @@ $(document).keydown(function(e){
 });
 
 $(function(){
-    console.log("d")
     $("#ffacturas").submit(function(){
         return false;
     });

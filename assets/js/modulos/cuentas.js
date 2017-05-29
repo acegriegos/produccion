@@ -111,7 +111,6 @@ $(document).on("click",".detalle",function(){
 
 	$("#btn-div").click(function(){
 		var vi = $(".divabono").attr('visible');
-		console.log(vi);
 		if (vi == 0) {
 			$(".divabono").show();
 			$(".divabono").attr('visible',1);
