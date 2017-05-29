@@ -664,7 +664,7 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
                 ]
             }],
         },
-        options: [{
+        options: {
             responsive: true,
             legend: {
                 position: 'top',
@@ -679,19 +679,24 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
             },
             // scales: {
             //     yAxes: [{
+            //         display: true,
             //         ticks: {
-            //             beginAtZero: true
+            //             beginAtZero: true,
             //         }
-        }],
+            //     }]
+            // },
+        },
     };
 
     switch(tipo){
         case 'bar':
-            config1
+            config1['options']['scales'] = {yAxes:[{ticks:{beginAtZero:true,}}]}
+            console.log(config1['options']);
             break;
         default:
             break;
     }
+
 
     var ctx = document.getElementById(elemento).getContext("2d");
     var myLineChart = new Chart(ctx,config1);

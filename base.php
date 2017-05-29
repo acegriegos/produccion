@@ -41,25 +41,17 @@
 	   	\$smarty  = new mySmarty();
 	   	\$smarty->setModule('dashboard');
 	   	\$pg = \$smarty->fetch('../view/menuSmarty.php');
-	   
+	    \$sty = \$smarty->fetch('../view/styles.php');
+        \$scr = \$smarty->fetch('../view/scripts.php');
+    
+        \$smarty->assign('STY',\$sty);
+        \$smarty->assign('SRC',\$scr);
 	   	\$smarty->assign('NAV',\$pg);
 	   	\$smarty->display('v_".$modulo.".tpl');
 	   }else{
 	   \$pagina = 0;
 	   	switch (\$_REQUEST['accion']) {
 	   		case 1:
-
-	   			break;
-	   		case 2:
-
-	   			break;
-	   		case 3:
-	   			
-	   			break;
-	   		case 4:
-	   			
-	   			break;
-	   		case 5:
 	   			
 	   			break;
 	   	}
@@ -114,7 +106,7 @@
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
     <meta http-equiv=\"Cache-Control\" content=\"max-age=86400\"/>
     <title></title>
-   
+   {\$STY}
     <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/css/modulos/style-".$modulo.".css\">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -130,6 +122,7 @@
     <div class=\"bdy\">
 
     </div>
+    {\$SRC}
     <script src=\"../assets/js/modulos/".$modulo.".js\"></script>
   </body>
 </html>";
