@@ -58,18 +58,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="input-field marginzero col s6">
-                <select id="vidtipo" type="select">
-                    <option value="1">Mercadería</option>
-                    <option value="2">Producción</option>
-                    <option value="3">Consignación</option>
-                    <option value="4">Gastos</option>
-                    <option value="5">Activos</option>
-                    <option value="6">Neutro</option>
-                </select>
-                <label for="vidtipo">Tipo Inventario</label>
-            </div>
-            <div class="input-field col s5 marginzero">
+            <div class="input-field col s6 marginzero">
                 <select id="vidcuenta" type="select">
                     <option value="0">Cuenta Por Defecto</option>
                     {section name=LE loop=$CDEF}
@@ -79,7 +68,7 @@
                 <label for="vidcuenta">Cuenta</label>
             </div>
             <div class="col s1">
-                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="inventario" id="addinv">add</button>
+                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="inventario" id="addinv" title="Agregar Inventario">add</button>
             </div>
         </div>
 
