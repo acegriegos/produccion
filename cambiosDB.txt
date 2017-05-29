@@ -229,11 +229,9 @@ CREATE TABLE `precioxclientes` (
 UPDATE `idemo2`.`tablas` SET `nombre`='sp_mantprecioxclientes' WHERE `id`='162';
 insert into tablas (id,nombre) values (164,'precioxclientes');
 
-USE `idemo2`;
-DROP procedure IF EXISTS `sp_mantprecioxclientes`;
 
+DROP procedure IF EXISTS `sp_mantprecioxclientes`;
 DELIMITER $$
-USE `idemo2`$$
 CREATE DEFINER=`itech01`@`localhost` PROCEDURE `sp_mantprecioxclientes`(vaccion tinyint(2),vid int(11),vidproducto int(11),vidcliente int(11),
 vganancia decimal(10,2),vexoneracion decimal(5,2),vidusuario int,vidsucursal int)
 BEGIN 
@@ -250,12 +248,28 @@ WHEN 2 THEN
 	INSERT INTO log values(null,0,2,'',vidusuario,now(),vidsucursal,vid);
 
 WHEN 3 THEN
-	SELECT ifnull(if(min(id)-1 = 0,-1,min(id)-1),-1) FROM precioxclientes INTO @id;  
-	UPDATE precioxclientes set id = @id where id = vid;
-	SELECT @id;
-	INSERT INTO log values(null,0,3,'',vidusuario,now(),vidsucursal,vid);
+	DELETE FROM precioxclientes WHERE idproducto = vidproducto and idcliente = vidcliente;
+    select vidproducto;
+	INSERT INTO log values(null,0,3,'',vidusuario,now(),vidsucursal,vidproducto);
 END CASE; 
 END$$
 
 DELIMITER ;
 
+delimiter //
+drop procedure if exists sp_getprecprodxcli //
+create procedure sp_getprecprodxcli(vid int)
+begin
+
+select a.idproducto,a.ganancia,format(b.costo * ((((sum(i.valor) - (sum(i.valor)*(a.exoneracion/100)))) / 100)+1) * ((a.ganancia / 100)+1),2) as precio,
+a.exoneracion
+from precioxclientes a
+join productos b on b.id = a.idproducto
+left join defectoimpuestos d on d.idfila in(0,vid) and idtabla = 11
+left join impuestos i on d.idimpuesto = i.id
+where idproducto = vid group by a.id;
+
+end //
+delimiter ;
+
+insert into tablas (id,nombre) values (165,'sp_getprecprodxcli');

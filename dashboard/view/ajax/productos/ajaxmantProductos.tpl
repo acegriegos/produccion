@@ -213,37 +213,7 @@
             </div>
             {/section}
             <div class="row chg1">
-            <div class="row preciocliente" id="c1">
-                <div class="col s12 m6 l3 center-align"><br>
-                    <label>Nombre Cliente</label>
-                    <div class="input-field">
-                        <input type="text" id="vcliente1" class="validate autocomplete rem2" value="">
-                        <input type="hidden" class="vidcliente rem2" id="vidcliente1" value="">
-                    </div>
-                </div>
-                <div class="col s12 m6 l3 center-align"><br>
-                    <label>Ganancia</label>
-                    <div class="input-field">
-                        <i class="material-icons prefix">%</i>
-                        <input type="text" id="vganancia1" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="1" line="1">
-                    </div>
-                </div>
-                <div class="col s12 m6 l3 center-align"><br>
-                    <label>Precio Venta</label>
-                    <div class="input-field">
-                        <i class="material-icons prefix">¢</i>
-                        <input type="text" id="vventa1" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="2" line="1">
-                        <input type="hidden" id="hventa1" value="">
-                    </div>
-                </div>
-                <div class="col s12 m6 l3 center-align"><br>
-                    <label>Exoneración</label>
-                    <div class="input-field">
-                        <i class="material-icons prefix">%</i>
-                        <input type="text" id="vexoneracion1" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" num="3" line="1">
-                    </div>
-                </div>
-            </div>
+            
             </div>
         </div>
         <div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
