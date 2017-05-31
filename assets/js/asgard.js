@@ -247,8 +247,8 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     
                     try {
                         p = JSON.parse(data);
-                        console.log(p)
-                    }
+/*                        console.log(p)
+*/                    }
                     catch(err){
                         p = data;
                     }
