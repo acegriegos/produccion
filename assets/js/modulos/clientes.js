@@ -61,6 +61,9 @@ $(function(){
 		if($("#tipocliente").attr("tp") != 1)
 			$("#tipocliente").click();
 
+		setTimeout(function(){$("#vnombre").focus();},300);
+		
+
 	});
 
 	$("[id^=ln]").click(function(){
@@ -82,6 +85,10 @@ $(function(){
 		}
 	});
 
+	$("#tptel").change(function(){
+		$("#telefono_in").focus();
+	});
+
 	$("#telefono_in").keyup(function(e){
 		var code = e.which || e.keyCode
 		if (code == 13) {
@@ -90,7 +97,7 @@ $(function(){
 				$("#tptel").focus()
 			}else{
 				rgex = arr('login',4,'regex,img',4,'id = ' + $("#tptel option:selected").val(),0,0,0)[0][0];
-				if($(this).val().match(new RegExp(rgex[0]))){
+				if($(this).val().match(new RegExp(rgex[0])) && $("#telefono_in").val() != ''){
 					$("#shtelefonos").append('<li id="0_'+ind_1+'" tp="'+$("#tptel option:selected").val()+'"> <div class="collapsible-header" ><span class="badge">'+$(this).val()+'</span><i class="fa '+rgex[1]+'"></i></div> <div class="collapsible-body"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Teléfono"><i class="fa fa-pencil-square-o"></i></a> <a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Teléfono"><i class="fa fa-times"></i></a></div> </li>');
 					$(this).val('');
 					ind_1 += 1;
@@ -165,6 +172,7 @@ $(document).on("click","input[name='tipoclie']",function(){
 		case 1:
 			$("#titInfo").html('<b>Datos Personales<b/>');
 			$("#nomClie").html('Nombre');
+			$("label[for=vcedula]").text('Cédula Física');
 			$(".vweb").addClass('hide');
 			$(".hid").show(300);
 			break;

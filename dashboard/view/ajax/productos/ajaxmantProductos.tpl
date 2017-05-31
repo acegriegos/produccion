@@ -39,7 +39,7 @@
                     <td style="width: 10%">{$PROD[LE][4]}</td>
                     <td style="width: 10%">{$PROD[LE][5]}</td>
                     <td style="width: 10%">{$PROD[LE][6]}</td>
-                    <td style="width: 10%">{$PROD[LE][1]}</td>
+                    <td style="width: 10%">{$PROD[LE][7]}</td>
                     <td style="width: 10%">
                         <a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"><img src="../assets/img/icon/percent.svg"></a>
                         <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario">compare_arrows</a>
@@ -167,12 +167,24 @@
                     <label>Exoneración</label>
                     <div class="input-field">
                         <i class="material-icons prefix">%</i>
-                        <input type="text" id="vexoneracion" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="impuesto">
+                        <input type="text" id="vexoneracion" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m3 l3">
+                    <div class="switch">
+                        <label>
+                            Cliente
+                            <input type="checkbox" class="chg" value="0">
+                            <span class="lever"></span>
+                            Categoria
+                        </label>
                     </div>
                 </div>
             </div>
             {section name=LE loop=$NIV}
-            <div class="row precionivel" id="f{$NIV[LE][0]}">
+            <div class="row precionivel chg0 hide" id="f{$NIV[LE][0]}">
                 <div class="col s12 m12 l3">
                     <label><b>Precio para Categoria: {$NIV[LE][1]}</b></label><br>
                 </div>
@@ -180,14 +192,14 @@
                     <label>Ganancia</label>
                     <div class="input-field">
                         <i class="material-icons prefix">%</i>
-                        <input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
+                        <input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="1">
                     </div>
                 </div>
                 <div class="col s12 m6 l3 center-align"><br>
                     <label>Precio Venta</label>
                     <div class="input-field">
                         <i class="material-icons prefix">¢</i>
-                        <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
+                        <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="2">
                         <input type="hidden" id="hventa{$NIV[LE][0]}" value="">
                     </div>
                 </div>
@@ -195,12 +207,14 @@
                     <label>Exoneración</label>
                     <div class="input-field">
                         <i class="material-icons prefix">%</i>
-                        <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
+                        <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="3">
                     </div>
                 </div>
-
             </div>
             {/section}
+            <div class="row chg1">
+            
+            </div>
         </div>
         <div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
         <div class="col s12">

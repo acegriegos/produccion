@@ -120,11 +120,11 @@
     </div><br><hr><br>
     <div class="row">
         <div class="input-field col s12 m6">
-            <select id="vdescuento"></select>
-            <label>Seleccione un Descuento</label>
+            <input type="text" class="validate" id="vdescuento" value="">
+            <label>Descuento</label>
         </div>
         <div class="input-field col s12 m6">
-            <input id="totpqt" type="text" class="validate" value="0.00" disabled>
+            <input id="totpqt" type="text" class="validate" value="0.00" readonly>
             <input type="hidden" id="htotal" value="0.00">
             <label for="totpqt">Total</label>
         </div>

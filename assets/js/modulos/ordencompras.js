@@ -1,5 +1,4 @@
 $(function(){
-    console.log("c")
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -632,7 +631,6 @@ function verordenescompras() {
 
 function searchClient(vvariable,visprv) {
     var clie = arr('login',4,'',63,'"'+vvariable+'",'+visprv,0,0,0);
-    console.log(clie)
 
     if (clie[0][0][0] != 0) {
         

@@ -6,7 +6,6 @@ $(document).keydown(function(e){
 });
 
 $(function(){
-    console.log("e")
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -88,7 +87,7 @@ $(function(){
                 var fimv = cod[0];
                 cod = cod[0][0];
 
-                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[5],hprec : cod[3],hdesc : cod[6],hdescm : cod[13], hinv : cod[14], hbod:cod[15]})
+                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[6],hdescm : cod[13], hinv : cod[14], hbod:cod[15]})
 
                 $("#codp").val(cod[1]);
                 $("#descp").val(cod[2]);
@@ -229,23 +228,21 @@ $(document).on("keyup","#cantp",function(e){
     if (code == 13) {
         
         if (cant > 0) {
-            var cod = $("#valores").data('elemento')['idp'];
+            var idprd = $("#valores").data('elemento')['idp'];
+            var cod = $("#valores").data('elemento')['hcodp'];
             var inv = $("#valores").data('elemento')['hinv'];
 
-            var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
-            
+            var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idprd+'" and idinventario = '+inv,'',0,'')[0][0][0];
             if (cant > cnt) {
-               Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
-            }else if (cant <= cnt || cnt == '∞') {
-                var idprd = $("#valores").data('elemento')['hcodp'];
-                var dcs = $("#valores").data('elemento')['hdesc'];
-                var mdcs = $("#valores").data('elemento')['hdescm'];
-                var desc = $("#descp").val();
-                var hinv = $("#valores").data('elemento')['hinv'];
-
-                $("#valores").removeData('elemento');
-                addline(idprd,cod,desc,cant,precio,total,cnt,dcs,mdcs,hinv);
+                Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
             }
+            var dcs = $("#valores").data('elemento')['hdesc'];
+            var mdcs = $("#valores").data('elemento')['hdescm'];
+            var desc = $("#descp").val();
+            var hinv = $("#valores").data('elemento')['hinv'];
+
+            addline(idprd,cod,desc,cant,precio,total,cnt,dcs,mdcs,hinv);
+            $("#valores").removeData('elemento');
         }else{
             Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
         }

@@ -54,11 +54,7 @@ $(function(){
             in_duration: 300, // Transition in duration
             out_duration: 100, // Transition out duration
             startingTop: '4%', // Starting top style attribute
-            endingTop: '4%', // Ending top style attribute
-            ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-                // alert("Ready");
-                // console.log(modal, trigger);
-            }
+            endingTop: '4%' // Ending top style attribute
         });
         $('ul.tabs').tabs();
     });
@@ -112,7 +108,6 @@ $(document).on("keyup",".formprod",function(e){
 //     var idant = $("#vid"+ant).val();
 //     if (nombre != '') {
 //         if (ant != undefined) {
-//             console.log(db+' '+'1,0,\"'+nombre+'\",'+idant)
 //             id = arr('login',4,'',db,'1,0,\"'+nombre+'\",'+idant,0,0,0)
 //         }else{
 //             id = arr('login',4,'',db,'1,0,\"'+nombre+'\"',0,0,0);
@@ -126,7 +121,6 @@ $(document).on("keyup",".formprod",function(e){
 //             $("#v"+elemento).addClass('autocomplete')
 //             $("#vid"+elemento).val(id[0][0][0])
 //             $("#v"+elemento).val(id[0][0][1]);
-//             console.log(id[0][0][1])
 //             $("#v"+elemento).focus();
 //         }else{
 //             Materialize.toast(id[0]['ERROR'], 6000, 'red');
@@ -140,6 +134,73 @@ $(document).on("keyup",".formprod",function(e){
 //     } 
 // });
 // Fin Quick add
+
+$(document).on("change",".chg",function(){
+    if (!$(this).is(':checked')){
+        $(".chg0").addClass('hide');
+        $(".chg1").removeClass('hide');
+    }else{
+        $(".chg1").addClass('hide');
+        $(".chg0").removeClass('hide');
+    }
+
+});
+
+$(document).on("keydown","[id^=vcliente]",function(e){
+    if ($(this).hasClass('autocomplete') == true) {  
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        var id = $(this).attr('id').substr(8);
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+            $("#vcliente"+id).autocomplete({
+                limit: 10,
+                data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2),null',2,'concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#vcliente"+id).val()+'%\" and id > 0 limit 10',0,0,0,1)
+            });
+            $("#vcliente"+id).siblings($(".autocomplete-content")).css('width','25%');
+        }
+    }
+});
+
+$(document).on("keyup","[id^=vcliente]",function(e){
+    var code = e.which || e.keyCode;
+    var id = $(this).attr('id').substr(8);
+    if (code == 13)
+        $("#vganancia"+id).select();
+});
+
+$(document).on("focus","[id^=vcliente]",function(){
+    var id = $(this).attr('id').substr(8);
+    $("#vidcliente"+id).val(0);
+});
+
+$(document).on("blur","[id^=vcliente]",function(){
+    var nombre = $(this).val();
+    var id = $(this).attr('id').substr(8);
+    if (nombre != '') {
+        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2) like "%'+nombre+'%"',0,0,0)[0][0][0];
+        $(".vidcliente").each(function(){
+            var idcli = $(this).val();
+            if (idcli == id) {
+                Materialize.toast('Cliente '+nombre+' ya se encuentra en la lista', 6000, 'red');
+            }
+        });
+        $("#vidcliente"+id).val(id);
+    }
+});
+
+$(document).on("keyup","[id^=vexoneracion]",function(e){
+    var code  = e.which || e.keyCode;
+    var line = parseInt($(this).attr('line'));
+    if (code == 13) {
+        if ($(this).attr('nc') != undefined) {
+            line++;
+            $(".chg1").append('<div class="row preciocliente rem" id="c'+line+'"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+line+'" class="validate autocomplete" value=""><input type="hidden" class="vidcliente" id="vidcliente'+line+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vganancia'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="1" line="'+line+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="material-icons prefix">¢</i><input type="text" id="vventa'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="2" line="'+line+'"><input type="hidden" id="hventa'+line+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vexoneracion'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" num="3" line="'+line+'"></div></div></div>');
+            $("#vcliente"+line).focus();
+        }
+    }
+
+});
 
 $(document).on("click",".optns",function(){
     var tipo = $(this).attr('tipo');
@@ -166,7 +227,7 @@ $(document).on("blur","#vfamilia",function(){
 
 $(document).on("blur","#vtipo",function(){
     var nombre = $(this).val();
-    var idtipo = arr('login',4,'id',21,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+    var idtipo = arr('login',4,'id',21,'nombre = \"'+nombre+'\" and idfamilia = '+$("#vidfamilia").val(),0,0,0)[0][0];
     if (idtipo != undefined)
         $("#vidtipo").val(idtipo);
     else
@@ -175,7 +236,7 @@ $(document).on("blur","#vtipo",function(){
 
 $(document).on("blur","#vmarca",function(){
     var nombre = $(this).val();
-    var idmarca = arr('login',4,'id',22,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
+    var idmarca = arr('login',4,'id',22,'nombre = \"'+nombre+'\" and idtipo = '+$("#vidtipo").val(),0,0,0)[0][0];
     if (idmarca != undefined)
         $("#vidmarca").val(idmarca);
     else
@@ -514,6 +575,7 @@ $(document).on("click","#addprod",function(){
             var marca = arr('login',4,'',136,'1,0,\"'+$("#vmarca").val()+'\",'+$("#vidtipo").val(),0,0,0);
             if (marca[0][0] != undefined) {
                 $("#vidmarca").val(marca[0][0][0])
+                
             }else{
                 Materialize.toast(marca[0]['ERROR'], 6000, 'red');
                 pass = 0;
@@ -538,6 +600,13 @@ $(document).on("click","#addprod",function(){
                     var idfila = $(this).attr('id').substr(1);
                     if ($("#vventa"+idfila).val() > 0) {
                         arr('login',4,'',108,'1,0,'+idproducto[0][0]+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
+                    }
+                });
+
+                $(".preciocliente").each(function(){
+                    var idfila = $(this).attr('id').substr(1);
+                    if ($("#vventa"+idfila).val() > 0) {
+                        arr('login',4,'',162,'1,0,'+idproducto[0][0]+','+$("#vidcliente"+idfila).val()+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
                     }
                 });
                 Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
@@ -636,6 +705,14 @@ $(document).on("click","#editprod",function(){
                         arr('login',4,'',108,'1,null,'+idproducto[0][0]+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
                     }
                 });
+
+                $(".preciocliente").each(function(){
+                    var idfila = $(this).attr('id').substr(1);
+                    arr('login',4,'162',108,'3,null,'+idproducto[0][0]+','+$("#vidcliente"+idfila).val()+',0,0,@@usr,@@impresa',0,0,0);
+                    if ($("#vventa"+idfila).val() > 0) {
+                        arr('login',4,'',162,'1,0,'+idproducto[0][0]+','+$("#vidcliente"+idfila).val()+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
+                    }
+                });
                 Materialize.toast('Producto Editado Correctamente', 6000, 'green');
                 arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
                 vaciar('productos');
@@ -662,7 +739,9 @@ $(document).on("click",".editprod",function(){
     var id = $(this).attr('id').substr(1);
     var p = arr('login',4,'',83,id,0,0,0);
     var q = p[0][0];
-    var precios = arr('login',4,'',110,id,0,0,0)[0];
+    var preccat = arr('login',4,'',110,id,0,0,0)[0];
+    var preccli = arr('login',4,'',165,id,0,0,0)[0];
+    var line = arr('login',4,'count(id)',69,'id > 0',0,0,0)[0][0];
     $("#dinventario").addClass('hide');
     $(".accmodal").html("Actualizar Producto "+q[5]);
     $("#addprod").addClass('hide');
@@ -692,13 +771,18 @@ $(document).on("click",".editprod",function(){
     $("#vventa").val(q[19]);
     $("#hventa").val(q[18]);
     $("#vexoneracion").val(q[20]);
-    $("#impuestos").html('')
+    $("#impuestos").html('');
+    $(".chg1").html('');
     arr('login',6,'',153,id,0,1,$("#impuestos"))
     $("#impuestos").removeClass('hide');
-    for (var i = 0; i < precios.length; i++) {
-        $("#vganancia"+precios[i][0]).val(precios[i][1]);
-        $("#vventa"+precios[i][0]).val(precios[i][2]);
-        $("#vexoneracion"+precios[i][0]).val(precios[i][3]);
+    for (var i = 0; i < preccat.length; i++) {
+        $("#vganancia"+preccat[i][0]).val(preccat[i][1]);
+        $("#vventa"+preccat[i][0]).val(preccat[i][2]);
+        $("#vexoneracion"+preccat[i][0]).val(preccat[i][3]);
+    }
+    for (var i = 0; i < preccli.length; i++) {
+        line++
+        $(".chg1").append('<div class="row preciocliente rem" id="c'+line+'"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+line+'" class="validate autocomplete" value="'+preccli[i][2]+'"><input type="hidden" class="vidcliente" id="vidcliente'+line+'" value="'+preccli[i][1]+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vganancia'+line+'" class="validate calcnc eder" value="'+preccli[i][3]+'" data-mask="9999999999.99" focus="vventa" num="1" line="'+line+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="material-icons prefix">¢</i><input type="text" id="vventa'+line+'" class="validate calcnc eder" value="'+preccli[i][4]+'" data-mask="9999999999.99" focus="vexoneracion" num="2" line="'+line+'"><input type="hidden" id="hventa'+line+'" value="'+preccli[i][4]+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vexoneracion'+line+'" class="validate calcnc eder" value="'+preccli[i][5]+'" data-mask="9999999999.99" nc="1" num="3" line="'+line+'"></div></div></div>');
     }
 
   Materialize.updateTextFields();
@@ -816,9 +900,9 @@ $(document).on("click",".del",function(){
     $("#totpqt").val(total.formatMoney(2,',','.'));
 });
 
-$(document).on("change","#vdescuento",function(){
+$(document).on("keyup","#vdescuento",function(){
     var total = 0;
-    var desc = $("option:selected",this).attr('valor') == '' ? 0 : parseFloat($("option:selected",this).attr('valor'));
+    var desc = $(this).val();
     var totpqt = parseFloat($("#htotal").val());
     total = totpqt / ((desc/100)+1);
     $("#totpqt").val(total.formatMoney(2,'.',','));
@@ -1365,6 +1449,21 @@ $(document).on("keyup",".calcvv",function(e){
     // $("#vventa").val( (venta).toFixed(2) );
 });
 
+$(document).on("keyup",".calcnc",function(e){
+    var code = e.which || e.keyCode;
+    var ln = $(this).attr('line');
+    var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
+    var costo = isNaN($("#vcosto").val()) || $("#vcosto").val() == '' ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
+    var ganancia = isNaN($("#vganancia"+ln).val()) || $("#vganancia"+ln).val() == '' ?  0 : parseFloat($("#vganancia"+ln).val().replace(/,/g,""));
+    $("#hvcosto").val(costo);
+    totalizar(costo,ganancia,num,ln);
+    if (code == 13) {
+        var focus = $(this).attr('focus');
+        $("#"+focus+ln).select();
+        
+    }
+});
+
 $(document).on("keyup",".vcalcserv",function(){
 
     var base = isNaN($("#vpbase").val()) || $("#vpbase").val() == '' ? 0 : parseFloat($("#vpbase").val().replace(/,/g,""));
@@ -1429,7 +1528,9 @@ $(document).on("click","#addproduct",function(){
     $("#editprod").addClass('hide');
     $(".accmodalProd").html('Agregar Producto');
     $("#dinventario").removeClass('hide');
-    
+    var countniv = arr('login',4,'count(id)+1',69,'id > 0',0,0,0)[0][0];
+    $(".chg1").append('<div class="row preciocliente" id="c'+countniv+'"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+countniv+'" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vganancia'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="1" line="'+countniv+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="material-icons prefix">¢</i><input type="text" id="vventa'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="2" line="'+countniv+'"><input type="hidden" id="hventa'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vexoneracion'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" num="3" line="'+countniv+'"></div></div></div>');
+
     var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
     vaciar('productos');
     $("#impuestos").removeClass('hide');
@@ -1607,7 +1708,11 @@ function vaciar(modulo){
             $("select").material_select();
             $("#vpeso").val('');
             $(".formprod").val('');
-            $(".calcvv").val('0.00'); 
+            $("#dvpeso").addClass('hide');
+            $(".calcvv").val('0.00');
+            $(".rem").remove();
+            $(".rem2").val('');
+            $(".calcnc").val('0.00');
             $("#impuestos").html('');
             $("#tb1").click();
             break;
@@ -1618,7 +1723,7 @@ function vaciar(modulo){
             $("#hprod").val('');
             $("#cantidad").val('');
             $("#vdescuento").val(0);
-            $("#vdescuento").material_select();
+            $("#vdescuento").val(0);
             $("#totpqt").val('0.00');
             $("#htotal").val('');
             break;
@@ -1634,11 +1739,14 @@ function vaciar(modulo){
     }
 }
 
-function totalizar(costo,ganancia,tipo) {
+function totalizar(costo,ganancia,tipo,line) {
     var subtotal = 0;
     var hsubtotal = 0;
     var impuestos = 0;
-    var exoneracion = $("#vexoneracion").val() == '' ? 0 : parseFloat($("#vexoneracion").val());
+    if (line == undefined) {
+        line = '';
+    }
+    var exoneracion = $("#vexoneracion"+line).val() == '' ? 0 : parseFloat($("#vexoneracion"+line).val());
     
     $(".impuestos").each(function(){
         var id = $(this).attr('id').substr(4);
@@ -1656,22 +1764,22 @@ function totalizar(costo,ganancia,tipo) {
                 subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1) * ((ganancia / 100)+1);
             }
             // $("#vcosto").val(costo.toFixed(2));
-            $("#hventa").val(hsubtotal.toFixed(2));
-            $("#vventa").val(subtotal.toFixed(2));
+            $("#hventa"+line).val(hsubtotal.toFixed(2));
+            $("#vventa"+line).val(subtotal.toFixed(2));
             break;
         case 2:
             hsubtotal = costo * ((impuestos / 100)+1) * ((ganancia / 100)+1);
             subtotal = costo * (((impuestos - (impuestos*(exoneracion/100))) / 100)+1) * ((ganancia / 100)+1);
-            $("#hventa").val(hsubtotal.toFixed(2));
-            $("#vventa").val(subtotal.toFixed(2));
+            $("#hventa"+line).val(hsubtotal.toFixed(2));
+            $("#vventa"+line).val(subtotal.toFixed(2));
             break;
         case 3:
-            subtotal = ((($("#vventa").val() / (1+( ((impuestos - (impuestos*(exoneracion/100)))) /100)) ) / costo) -1) * 100;
-            $("#vganancia").val(subtotal.toFixed(2));
+            subtotal = ((($("#vventa"+line).val() / (1+( ((impuestos - (impuestos*(exoneracion/100)))) /100)) ) / costo) -1) * 100;
+            $("#vganancia"+line).val(subtotal.toFixed(2));
             break;
         default:
-            subtotal = ((($("#vventa").val() / (1+( ((impuestos - (impuestos*(exoneracion/100)))) /100)) ) / costo) -1) * 100;
-            $("#vganancia").val(subtotal.toFixed(2));
+            subtotal = ((($("#vventa"+line).val() / (1+( ((impuestos - (impuestos*(exoneracion/100)))) /100)) ) / costo) -1) * 100;
+            $("#vganancia"+line).val(subtotal.toFixed(2));
             break
     }
     
@@ -1685,11 +1793,21 @@ function totalizar(costo,ganancia,tipo) {
             $("#vventa"+id).val(subtotal.toFixed(2));
         }
     });
+
+    $(".preciocliente").each(function(){
+        var id = $(this).attr('id').substr(1);
+        ganancia = $("#vganancia"+id).val();
+        exoneracion = $("#vexoneracion"+id).val();
+        if (ganancia != 0 || exoneracion != 0) {
+            subtotal = costo * (((impuestos - (impuestos*(exoneracion / 100))) / 100)+1) * ((ganancia / 100)+1);
+            $("#vventa"+id).val(subtotal.toFixed(2));
+        }
+    });
 }
 
 function addprod(prod,cant) {
     var info = arr('login',4,'id,precio,nombreprecio',77,'nombre = \"'+prod+'\"','',0,'')[0][0];
-    var desc = $("#vdescuento option:selected").attr('valor') == '' ? 0 : parseFloat($("#vdescuento option:selected").attr('valor'));
+    var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
     var ptotal = info[1] * cant;
     var total = 0;
     var idprod = 0;

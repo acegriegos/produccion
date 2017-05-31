@@ -103,6 +103,7 @@
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Código</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Código Interno</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cantidad</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cantidad Inventario</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
                 </tr>
             </thead>
@@ -118,6 +119,6 @@
   </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/verfacturas.js?v=0.8"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=0.9"></script>
   </body>
 </html>
