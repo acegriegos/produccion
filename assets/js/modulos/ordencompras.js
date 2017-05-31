@@ -92,6 +92,7 @@ $(function(){
             if ($("#codp").val().substr(0,1) == '-') {
                 kbrota = 'S'+$(this).val();
             }
+            // cambiar por tabla 43 //
             var cod = arr('login',4,'',140, $(".zelda").data('triforce')['vidcliente']+',@@impresa,"'+ kbrota +'"',0,0,0);
             
             if (cod[0][0][0] != null) {
