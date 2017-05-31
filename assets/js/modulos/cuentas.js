@@ -1,11 +1,15 @@
+var gtipo;
+
 $(function(){
 	param = parseInt(getParameterByName('tf'));
 	switch(param){
 		case 1:
 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+		arr('login',6,'',214,2+',0',0,1,$("#listaCuentasx"));
 		break;
 		case 2:
 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+		arr('login',6,'',214,1+',0',0,1,$("#listaCuentasx"));
 		break;	
 		default:
 		$("#bdymantCuentas").html("Valor no Valido")
@@ -13,6 +17,8 @@ $(function(){
 
 
 	}
+
+
 
 	$("#fcuentass").submit(function(){return false});
 	$("#data-table-cuentas").dataTable({
@@ -34,9 +40,6 @@ $(function(){
 		order : [],
 		"bLengthChange": false
 	});
-	
-
-
 	
 
 });
@@ -83,11 +86,11 @@ $(document).on("click",".detalle",function(){
         );
 	$(this).sideNav('show');
 	var id = $(this).attr('id').substr(1);
-	var tipo = $(this).attr('tipo');
-	var datos =  arr('login',4,'',214,tipo+','+id,0,0,0)[0][0];
+	gtipo = $(this).attr('tipo');
+	var datos =  arr('login',4,'',214,gtipo+','+id,0,0,0)[0][0];
 	var tabla= $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
-	var datos_cue =  arr('login',6,'',213,tipo+','+id,0,1,$("#listaCuentasxCDetalle"));
+	arr('login',6,'',213,gtipo+','+id,0,1,$("#listaCuentasxCDetalle"));
 	var dias = parseInt(datos[7]);
 
 	$('select').material_select();
@@ -111,10 +114,10 @@ $(document).on("click",".detalle",function(){
 
 	$("#btn-div").click(function(){
 		var vi = $(".divabono").attr('visible');
-		console.log(vi);
 		if (vi == 0) {
 			$(".divabono").show();
 			$(".divabono").attr('visible',1);
+			$("#vvalor").val(0.00).focus().select();
 		}else{
 			$(".divabono").hide();
 			$(".divabono").attr('visible',0);
@@ -268,3 +271,19 @@ function kpress(valor) {
 
 			return arr;
 		}
+
+		function endDetail(vid,vacc,modulo){
+
+	    if (vacc == 1) {
+	    	$("#isaldo").html(parseFloat($("#isaldo").html()) - parseFloat($("#vvalor").val()) );
+
+		    $("#vidtipopago").val('');
+		    $("#vvalor").val(0.00);
+		    arr('login',6,'',213,gtipo+','+$("#vidfactura").val(),0,1,$("#listaCuentasxCDetalle"));
+		    arr('login',6,'',214,gtipo+',0',0,1,$("#listaCuentasx"));
+
+		    $("#btn-div").click();
+
+		    window.open('cuentas?accion=4&id='+vid);
+	    }
+	}

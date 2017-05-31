@@ -1,6 +1,5 @@
 $(function(){
 	$("#fnotass").submit(function(){return false});
-	$("#data-table-notass").dataTable();
 	$("[id^=ftr]").hide();
 	$(".chg_tipo").change(function(){
 		var id=$(this).prop('value')
@@ -12,12 +11,82 @@ $(function(){
 			$("#ftr"+id).addClass("hide");
 
 	})
-		$("#ftr0").show();
-	
+	$("#ftr0").show();
+	$("#busnota").click(function(){
+		var cliente = factura = num1 = num2 = 0;
+		var desde = hasta = "";
+
+		if ($("#search_clientes").val() != '') {
+			cliente= $("#search_clientes").prop("idc"); 
+		}
+		if ($("#vvalor").val() != '') {
+			factura= $("#vvalor").val() == '' ?0: $("#vvalor").val();
+		}
+		if ($("#vnum1").val() != '') {
+			num1= $("#vnum1").val() == '' ?0: $("#vnum1").val();
+			num2= $("#vnum2").val() == ''?0: $("#vnum2").val();
+
+		}
+		if ($("#desde").val() != '') {
+			desde= $("#desde").val();
+			hasta= $("#hasta").val();
+
+		}
+		$("#data-table-Notas").DataTable().destroy();
+
+		var p = arr('login', 4, "" , 302, $("#cp").is(":checked")+','+ factura+','+ cliente +',"'+ desde +'","'+ hasta +'",'+ num1 +','+ num2, 0,0,0   )[0]
+		$("#listaclientes").html('');
+		$.each(p,function(i){
+			$("#listaclientes").append('<tr class="button-collapse detalle" data-activates="acciones" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
+		});
+
+		$("#data-table-Notas").dataTable({
+
+			bFilter: false,
+			order : [],
+			"bLengthChange": false
+		});
+
+
+
+	})
 
 
 });
 
+$(document).on("click",".detalle",function(){
+	$(this).sideNav({
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+        }
+        );
+	$(this).sideNav('show');
+	var id = $(this).attr('id').substr(1);
+	console.log(id);
+var tabla= $("#data-table-cuentas-detalle").DataTable();
+tabla.destroy();
+var  datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
+
+
+$('select').material_select();
+$("#data-table-cuentas-detalle").dataTable({
+
+	bFilter: false,
+	order : [],
+	"bLengthChange": false
+});
+
+$("#btn-div").click(function(){
+	var vi = $(".divabono").attr('visible');
+	if (vi == 0) {
+		$(".divabono").show();
+		$(".divabono").attr('visible',1);
+	}else{
+		$(".divabono").hide();
+		$(".divabono").attr('visible',0);
+	}
+});
+});
 $(document).on("click","#Iadd",function(){
 	deadclear('notas')
 
@@ -32,7 +101,7 @@ $('.vfecha').pickadate();
 
 $('select').material_select();
 
-$("#data-table-Notas").dataTable({
+$("#data-table-Notas").DataTable({
 
 	bFilter: false,
 	order : [],
