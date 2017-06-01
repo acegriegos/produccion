@@ -11,10 +11,11 @@
 
 
     </head>
+    
 
     <body>
       {$NAV}
-
+      
       <div class="bdy">
 
         <div id="bdymantCuentas"></div> 
