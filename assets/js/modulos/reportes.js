@@ -19,10 +19,17 @@ $(function(){
 				$("#mreportes").html(p);
 				break;
 		}
-	})
+	});
 
+	$(".report").click(function(){
+		var id = parseInt($(this).attr('id').substr(3));
+		switch(id) {
+			case 1:
+         		window.open('?accion=2','',"width=2000, height=650");
+				break;
+		}
+	});
 	$("#m1").click();
-
 });
 
 

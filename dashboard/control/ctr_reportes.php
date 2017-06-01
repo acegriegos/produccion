@@ -27,7 +27,9 @@
 			   	$smarty->display('ajax/reportegeneral.tpl');
 	   			break;
 	   		case 2:
-	   			
+	   			$pagina = 1;
+	            $rep = $kakaroto->kamehameha('',167,'0,0,@@impresa');
+	            include 'view/reportes/ventas.php';
 	   			break;
 	   		case 3:
 	   			
