@@ -36,6 +36,7 @@ $(function(){
                     bInfo : false
                 });
                 $("#mantproduccion").addClass('nopadding');
+                $("#ftareaproducciones .zelda").data('triforce',{vidusuario:'',vidsucursal:''});
                 setTimeout(function(){$("#vnombre").focus()},200);
                 // setTimeout(function(){$("#vproceso").focus()},200);
                 break;
@@ -311,7 +312,7 @@ $(document).on("click","#changerecipe",function(){
 
 $(document).on("click","#savelinea",function(){
     var idproceso = $(".nameproceso").attr('id').substr(1);
-    var idlinea = arr('login',4,'',132,'1,0,'+idproceso,0,0,0);
+    var idlinea = arr('login',4,'',132,'1,0,'+idproceso+',@@usr,@@impresa',0,0,0);
 
     if (idlinea[0]['ERROR'] == undefined) {
         $(".aplines").each(function(){
@@ -319,7 +320,7 @@ $(document).on("click","#savelinea",function(){
             var idunidad = $("#auni"+idtarea).attr('idunidad');
             var order = $("#atorder"+idtarea).attr('orden');
             var estimado = $("#aest"+idtarea).attr('estimado');
-            arr('login',4,'',131,'1,0,'+idtarea+','+idlinea[0][0]+','+estimado+','+idunidad+','+order,0,0,0)[0];
+            arr('login',4,'',131,'1,0,'+idtarea+','+idlinea[0][0]+','+estimado+','+idunidad+','+order+',@@usr,@@impresa',0,0,0)[0];
         });
         $("#listadetalles").html('');
         $("#tablelineas").addClass('hide');
@@ -427,7 +428,7 @@ $(document).on("keyup","#vproceso",function(e){
                 $(this).val('');
                 $("#atarea").focus();
             }else{
-                   Materialize.toast('proceso "'+nombre+'" no Existente', 4000, 'red');
+                   Materialize.toast('Proceso "'+nombre+'" no Existente', 4000, 'red');
             }
         }else{
              Materialize.toast('Ya existe una linea de produccion asignada a esta proceso', 6000, 'amber lighten-2');
@@ -494,7 +495,7 @@ $(document).on("click","#actlinea",function(){
 });
 
 $(document).on("click",".instoproduct",function(){
-    var def = arr('login',4,'nombre',111,'id = 7',0,0,0)[0][0];
+    var def = arr('login',4,'nombre',111,'id = 6',0,0,0)[0][0];
     var idprod = $(this).attr('id').substr(1);
     $("#savetoprod").attr('idproducto',idprod);
     $("#inventdefault").text(def);
@@ -715,7 +716,7 @@ $(document).on("click",".delproceso",function(){
 $(document).on("click",".accdelrec",function(){
     var id = $(this).attr('id').substr(9);
     $('#toast-container').remove();
-    arr('login',4,'',120,'3,'+id+',"",0,0,0',0,0,0);
+    // arr('login',4,'',120,'3,'+id+',"",0,0,0',0,0,0);
     arr('login',6,'idproceso,producto,precioventa',99,'id > 0 order by nombre limit 20',0,1,$("#listaprocesos"));
 
 });
@@ -727,14 +728,15 @@ $(document).on("click",".saveproceso",function(){
     var total = $("#total"+id).text().substr(2);
     if (total != '0.00') {
         //guarda proceso en tabla prodcutos
-        var idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
+        var idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
         if (idproceso[0] != '[object Object]') {
             //guarda productos de la proceso
             $(".product").each(function(){
                 var idproducto = $(this).attr('id').substr(4);
                 if ($("#prec"+idproducto).attr('spot') == id) {
                     var cantidad = $("#cant"+idproducto).text();
-                    arr('login',4,'',121,'1,0,'+idproceso[0][0]+','+idproducto+','+cantidad,0,0,0);
+                    // var idunidad
+                    arr('login',4,'',121,'1,0,'+idproceso[0][0]+','+idproducto+','+cantidad+',@@usr,@@impresa',0,0,0);
                 }
             });
             arr('login',6,'idproceso,proceso,precioventa',99,'idproceso > 0 order by proceso limit 20',0,1,$("#listaprocesos"));
@@ -762,7 +764,7 @@ $(document).on("click",".actrecipe",function(){
     var horashombre = $("#vhorashombre"+id).val() == '' ? 0 : $("#vhorashombre"+id).val();
     if (total != '0.00') {
         //guarda proceso en tabla productos
-        var idproceso = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,8,@@usr,1,@@impresa,""',0,0,0);
+        var idproceso = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,8,@@usr,1,@@impresa,""',0,0,0);
         if (idproceso[0] != '[object Object]') {
             //guarda detalles de la proceso
             arr('login',4,'',120,'2,0,'+idproceso[0][0]+','+testimado+','+horasmaquina+','+horashombre,0,0,0);
@@ -781,7 +783,7 @@ $(document).on("click",".actrecipe",function(){
         }else{
             Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
         }
-        arr('login',6,'idproducto,producto,precioventa',99,'idproceso > 0 order by producto limit 20',0,1,$("#listaprocesos"));
+        arr('login',6,'idproceso,proceso,precioventa',99,'idproceso > 0 order by proceso limit 20',0,1,$("#listaprocesos"));
         $("#makerecipe").html('');
 
     }else{
@@ -806,7 +808,7 @@ $(document).on("click",".editproceso",function(){
     $("#makerecipe").html('');
     $("#makerecipe").append('<div class="col s12 m12 l12 recipes" id="r'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="productos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="titproceso'+id+'" class="titrecipe but">'+vproceso[1]+'</span> - [Cod: <span id="codproceso'+id+'">'+vproceso[2]+'</span>]<i class="material-icons deltit right pbtn cdel btn-color" id="dt'+id+'">close</i><i class="material-icons actrecipe right pbtn blueh btn-color" id="ar'+id+'">save</i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="total'+id+'">¢ '+vproceso[4]+'</span><input type="hidden" id="htotal'+id+'" value="'+vproceso[4]+'"></h4></div></div></div></div>');
     for (var i = 0, len = detalle.length; i < len; i++) {
-        $("#productos"+id).append('<li class="collection-item dismissable" id="p'+detalle[i][2]+'"><div id="groupprodcts'+detalle[i][2]+'"><span id="prod'+detalle[i][2]+'" class="product">'+detalle[i][3]+'</span><input type="hidden" id="prec'+detalle[i][2]+'" spot="'+id+'" value="'+detalle[i][5]+'"> - Cantidad: <span id="cant'+detalle[i][2]+'">'+detalle[i][4]+'</span> (<span id="idmedida'+detalle[i][2]+'">'+detalle[i][6]+'<span>)<i class="material-icons right red-text del but" id="d'+detalle[i][2]+'">close</i></div></li>');
+        $("#productos"+id).append('<li class="collection-item dismissable" id="p'+detalle[i][1]+'"><div id="groupprodcts'+detalle[i][1]+'"><span id="prod'+detalle[i][1]+'" class="product">'+detalle[i][3]+'</span><input type="hidden" id="prec'+detalle[i][1]+'" spot="'+id+'" value="'+detalle[i][4]+'"> - Cantidad: <span id="cant'+detalle[i][1]+'">'+detalle[i][5]+'</span> (<span id="idmedida'+detalle[i][1]+'">'+detalle[i][7]+'<span>)<i class="material-icons right red-text del but" id="d'+detalle[i][1]+'">close</i></div></li>');
     }
     $("#daddprod").removeClass('hide');
     
@@ -1000,23 +1002,25 @@ function addprocess(idproceso,proceso,linea,cantidad) {
     // validar proceso
     var count = parseInt($("#count").val());
     var cnt = cantidad;
+    var cantot = 0;
     count++;
     $("#inicio").append('<div class="row"><div class="col s12 m12 l12"><span class="reloj" id="horas'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="minutos'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="segundos'+count+'">00</span><span class="reloj hide" id="Centesimas'+count+'">:00</span><input type="button" class="waves-effect waves-light btn blue start" id="start'+count+'" value="Iniciar &#9658;" idproceso="'+idproceso+'" idlinea="'+linea+'" cantidad="'+cantidad+'" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue pause hide" id="pause'+count+'" value="Pausar &#9208;" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue stop" id="stop'+count+'" value="Detener &#8718;" disabled></div></div><div class="row"><div class="col s12 m7 l7"><ul class="collection with-header" id="detproc'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Elementos para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li></ul></div><div class="col s12 m5 l5"><ul class="collection with-header" id="taskprod'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Tareas para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li><input type="hidden" id="o" value="1"></ul></div></div>');
     // cnt = 'NaN' ? 1 : cantidad;
     //detalleprocesos
     $("#inicio").removeClass('hide');
     var elem = arr('login',4,'',119,$("#idproceso").val(),0,0,0)[0];
+    
     for (var i = 0, len = elem.length; i < len; i++) {
         var cant = parseInt(elem[i][5]);
-        cnt = cant * cnt;
-
-        var faltante = parseInt(elem[i][6] - cnt);
+        cantot = cant * cnt;
+        
+        var faltante = parseInt(elem[i][6] - cantot);
         if (faltante > 0) {
             faltante = 0;
         }else{
             faltante = Math.abs(faltante);
         }
-        $("#detproc"+count).append('<li class="collection-item"><div class="row mbotcero"><div class="col s4 m6 l6"><span id="d'+elem[i][0]+'">'+elem[i][3]+'</span></div><div class="col s4 m2 l2"><span>Cantidad: <span id="c'+elem[i][0]+'">'+cnt+'</span></span></div><div class="col s4 m2 l2"><span>Actual: <span id="a'+elem[i][0]+'">'+elem[i][6]+'</span></span></div><div class="col s4 m2 l2"><span>Faltante: <span id="f'+elem[i][0]+'">'+faltante+'</span></span></div></div></li>');
+        $("#detproc"+count).append('<li class="collection-item"><div class="row mbotcero"><div class="col s4 m6 l6"><span id="d'+elem[i][0]+'">'+elem[i][3]+'</span></div><div class="col s4 m2 l2"><span>Cantidad: <span id="c'+elem[i][0]+'">'+cantot+'</span></span></div><div class="col s4 m2 l2"><span>Actual: <span id="a'+elem[i][0]+'">'+elem[i][6]+'</span></span></div><div class="col s4 m2 l2"><span>Faltante: <span id="f'+elem[i][0]+'">'+faltante+'</span></span></div></div></li>');
     }
     $("#detproc"+count).append('<div><a class="waves-effect waves-light btn" id="toBuy" disabled>Ir a Compras</a></div>')
     //tareas

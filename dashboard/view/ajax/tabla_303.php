@@ -51,10 +51,11 @@
               <input type="hidden" id="vid" value="0">
               <input type="hidden" id="vidtipo" value="3">
               <input type="hidden" id="videstado" value="1">
-              <input type="hidden" id="vidfactura" value="">
+              <input type="hidden" id="vidfactura" value="<?php echo $transaccion[0][0]; ?>">
               <input type="hidden" id="vdebe" value="0">
               <input type="hidden" id="vhaber" value="0">
               <input type="hidden" id="vconsecutivo" value="0">
+              <input type="hidden" id="vidtipopago" value="0">
 
               <div class="row">
                 <div class="col s12 ">
@@ -68,10 +69,10 @@
                         <div class="col s12 m12 center-align ">
                           <div class="switch">
                             <label style="color: white; font-size: 1.2em">
-                              <b>Credito</b>
+                              <b>Débito</b>
                               <input type="checkbox" class="dcn" value="1" id="ncd">
                               <span class="lever"></span>
-                              <b>Débito</b>
+                              <b>Credito</b>
                             </label>
                           </div>
                         </div>
@@ -81,8 +82,8 @@
                           <label for="vvalor" style="font-size: 1.2em !important">Monto</label>
                         </div>
                         <div class="input-field col s12">
-                          <textarea id="textarea1" class="materialize-textarea"></textarea>
-                          <label for="textarea1">Comentario:</label>
+                          <textarea id="vcomentario" class="materialize-textarea" type="textarea"></textarea>
+                          <label for="vcomentario">Comentario:</label>
                         </div>
                         <div class="col s12 m8 offset-m4 ">
                           <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Pago</button>

@@ -54,8 +54,8 @@
             <div class="input-field col s12 m6 " id="ftr0">
 
               <i class="material-icons prefix">description</i>
-              <input id="vvalor" type="text"  class="validate eder">
-              <label for="vvalor" style="font-size: 1.2em !important">Numero de Factura</label>
+              <input id="vfac" type="text"  class="validate eder">
+              <label for="vfac" style="font-size: 1.2em !important">Numero de Factura</label>
             </div>
           </div>
           <div class="row">
@@ -72,9 +72,9 @@
             <div class="input-field col hide s12 m6" id="ftr1">
 
               <a class="prefix  tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
-
-              <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
-              <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
+<label class="truncate" for="ncli" style="font-size: 1.2em !important"> <b>Nombre o Cédula del Cliente</b></label>
+      <input type="text" id="ncli" var="nombre" class="autocomplete validate sclie" maxlength="64" />
+              
             </div> 
           </div>
 
@@ -198,6 +198,6 @@
 
 
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=0.9"></script>
+  <script src="../assets/js/modulos/notas.js?v=0.11"></script>
 </body>
 </html>
