@@ -16,11 +16,11 @@ $(function(){
 		var cliente = factura = num1 = num2 = 0;
 		var desde = hasta = "";
 
-		if ($("#search_clientes").val() != '') {
-			cliente= $("#search_clientes").prop("idc"); 
+		if ($("#ncli").val() != '') {
+			cliente= $("#ncli").prop("idc"); 
 		}
-		if ($("#vvalor").val() != '') {
-			factura= $("#vvalor").val() == '' ?0: $("#vvalor").val();
+		if ($("#vfac").val() != '') {
+			factura= $("#vfac").val() == '' ?0: $("#vfac").val();
 		}
 		if ($("#vnum1").val() != '') {
 			num1= $("#vnum1").val() == '' ?0: $("#vnum1").val();
@@ -45,11 +45,27 @@ $(function(){
 			bFilter: false,
 			order : [],
 			"bLengthChange": false
-		});
+		}); 
 
 
 
 	})
+
+	$("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+          
+            $("#ncli").autocomplete({
+                limit: 20,
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+            });
+
+            $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
+        }
+    });
 
 
 });
@@ -62,7 +78,7 @@ $(document).on("click",".detalle",function(){
         );
 	$(this).sideNav('show');
 	var id = $(this).attr('id').substr(1);
-	console.log(id);
+	
 var tabla= $("#data-table-cuentas-detalle").DataTable();
 tabla.destroy();
 var  datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
@@ -116,7 +132,7 @@ function validar (varreglo,vmodulo) {
 	/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
-		case 'notas':
+		case 'estadoscuenta':
 		if (vmodulo['tip'] == '') {
 			err = validarnotas();
 			if ( err ) {
@@ -125,8 +141,9 @@ function validar (varreglo,vmodulo) {
 		}
 
 		break;
+
 		default:
-		return 'Módulo no Existente';
+		return 'Módulo no Existente '  ;
 		break;
 	}
 
@@ -137,6 +154,15 @@ function validar (varreglo,vmodulo) {
 
 function validarnotas() {
 
+	if($('#vvalor').val()==0 || isNaN($('#vvalor').val())){
+		$('#vvalor').focus().select();
+		return 'El Valor no es Correcto' ;
+	}
+	if ($('#vcomentario').val() == '') {
+		$('#vcomentario').focus().select();
+		return 'Comentario Requerido';
+	}
+	$("#vidtipo").val( $("#ncd").is(":checked") ? 5 : 6 );
 
 	return false;
 }
