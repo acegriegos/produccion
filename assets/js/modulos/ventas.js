@@ -6,7 +6,6 @@ $(document).keydown(function(e){
 });
 
 $(function(){
-    
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -34,7 +33,7 @@ $(function(){
           
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
             });
 
             $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
@@ -82,7 +81,7 @@ $(function(){
                 kbrota = 'P-'+$(this).val().substr(1);
             }
 
-            var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa','',0,'');
+            var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
             
             if (cod[0][0] != undefined) {
                 var fimv = cod[0];
@@ -145,7 +144,7 @@ $(function(){
     $("#descp").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
-            var cod = arr('login',4,'',43,'"'+ $(this).val() +'",@@impresa','',0,'')[0][0];
+            var cod = arr('login',4,'',43,'"'+$(this).val() +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],0,0,0);
 
              if (cod[0][0] != undefined) {
                 var fimv = cod[0];
@@ -494,7 +493,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
         var id = parseInt($(".zelda").data('triforce')['idline'])+1;
         $(".zelda").data('triforce')['idline'] = id;
 
-        $("#fdetallefacturas").append('<tr id="fd'+id+'" class="ciclos"><td style="padding: 0"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td  class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center" id="prec'+id+'">'+precio.formatMoney(2,',','.')+'</td><td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp" id="tota'+id+'"></td><td id="desctd'+id+'" align="left" ><input type="text" id="vdesc'+id+'" value="" placeholder="0" style="width: 50px" disabled><a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr>');
+        $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td  class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center" id="prec'+id+'">'+precio.formatMoney(2,',','.')+'</td><td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp" id="tota'+id+'"></td><td id="desctd'+id+'" align="left" ><input type="text" id="vdesc'+id+'" value="" placeholder="0" style="width: 50px" disabled><a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr>');
 
         $("#vdesc"+id).data('valor',dcs);
         $("#vdesc"+id).data('max',mdcs);
@@ -698,7 +697,9 @@ function searchClient(vvariable,visprv){
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
     
     if (clie[0][0][0] != 0) {
-        var vclie = clie[0][0]
+        var vclie = clie[0][0];
+        
+
         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
         $("#ncli").val(vclie[1]+' '+vclie[2]);
 
