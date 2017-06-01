@@ -64,7 +64,20 @@ $(document).on("keyup","[id^=search_]",function(e){
 
         tabla = $("#data-table-"+b).DataTable();
         tabla.destroy();
-        arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,1,$("#lista"+b))
+        if (e.replace(/,/g,'').length == e.length)
+            arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,1,$("#lista"+b));
+        else{
+            var f = d+'id >= 0 and (';
+            e = e.split(",");
+            for (var i = 0; i < e.length; i++) {
+                f += e[i]+' like "%'+a+'%" or ';
+            }
+            f = f.substring(0,f.length-3)
+            f += ")";
+      
+            console.log(arr('login',6,'*',c,f,0,1,$("#lista"+b)));
+        }
+
         
         $("#data-table-"+b).DataTable({
             bFilter :  false,

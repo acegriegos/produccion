@@ -2,13 +2,15 @@
     <div class="row">
         <div class="input-field col s11 m8 l5">
             <a class="prefix dropdown-button tooltipped small material-icons"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro">search</a>
-            <ul id='filtr_1' class='dropdown-content'>
-                <li><a class="optns" tipo="codigo" href="#!" fltr="1">Código</a></li>
+            <ul id='filtr_1' class='dropdown-content' style="width: auto;">
+                <li><a class="optns" tipo="codigo,codigointerno,nombre" href="#!" fltr="1">Código, Código Interno o Nombre</a></li>
+                <li><a class="optns" tipo="codigo" href="#!" fltr="4">Código</a></li>
+                <li><a class="optns" tipo="codigointerno" href="#!" fltr="5">Código Interno</a></li>
                 <li><a class="optns" tipo="nombre" href="#!" fltr="2">Nombre</a></li>
                 <li><a class="optns" tipo="marca" href="#!" fltr="3">Marca</a></li>
             </ul>
-            <input type="text" id="search_productos" maxlength="100" num="v14" var="codigo">
-            <label class="truncate" for="search_productos">Buscar Producto por Código</label>
+            <input type="text" id="search_productos" maxlength="100" num="v14" var="codigo,codigointerno,nombre">
+            <label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
 
         </div>
         <div class="col s12 m4 l7 per4102">
@@ -33,14 +35,14 @@
             <tbody id="listaproductos">
             {section name=LE loop=$PROD}
                 <tr>
-                    <td style="width: 10%">{$PROD[LE][1]}</td>
-                    <td style="width: 10%">{$PROD[LE][2]}</td>
-                    <td style="width: 10%">{$PROD[LE][3]}</td>
+                    <td style="width: 12%">{$PROD[LE][1]}</td>
+                    <td style="width: 12%">{$PROD[LE][2]}</td>
+                    <td style="width: 25%">{$PROD[LE][3]}</td>
                     <td style="width: 10%">{$PROD[LE][4]}</td>
                     <td style="width: 10%">{$PROD[LE][5]}</td>
                     <td style="width: 10%">{$PROD[LE][6]}</td>
-                    <td style="width: 10%">{$PROD[LE][7]}</td>
-                    <td style="width: 10%">
+                    <td style="width: 5%">{$PROD[LE][7]}</td>
+                    <td style="width: 16%">
                         <a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"><img src="../assets/img/icon/percent.svg"></a>
                         <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario">compare_arrows</a>
                         <a class="btn-color pbtn editprod material-icons per4108" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto">edit</a>
