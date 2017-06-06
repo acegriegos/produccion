@@ -143,7 +143,7 @@ function baseValidar(vaccion,vmodulo){
     
     var salida = {}
     var varreglo = mantenimiento('login',vaccion,vmodulo);
-
+    console.log(varreglo)
     if (varreglo == "[object Object]"){
         salida = validar(varreglo[0],vmodulo);
         
@@ -716,6 +716,40 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
   });
 };
 
+function generarReporte(){
+    var filtros = $(".inpreport").length;
+    var elem = $(".principal .filtros").attr('elem')
+    var tbl = $(".principal .filtros").attr('sp');
+    var modulo = {};
+    modulo['modulo'] = $(".principal .filtros").attr('modulo');
+    var search = '';
+
+    var datos = baseValidar(1,modulo);
+    console.log(datos)
+    // $(".inpreport").each(function(){
+    //     if ($(this).attr('str') == 1) {
+    //         search = '\"'+$(this).val()+'\"';
+    //     }else{
+    //         search = $(this).val();
+    //     }
+    //     if ($(this).val() != '') {
+    //         var id = $(this).attr('id').substr(1,3);
+    //         if ($("#x"+id).is(":checked")) {
+    //             // elem += search+',';
+    //         }
+            
+    //     }
+    // });
+
+    // $("#xcli").is(":checked") == true ? elem += $("#codcliente").val() +',' : elem += 0 +',';
+    // $("#xusu").is(":checked") == true ? elem += $("#idusuario").val() +',' : elem += 0 +',';
+    // $("#xnum").is(":checked") == true ? elem += $("#num1").val()+","+$("#num2").val() +',' : elem += 0,0 +',';
+    // $("#xfecha").is(":checked") == true ? elem += '"'+$("#f1").val()+'","'+$("#f2").val() +'",' : elem += '"1990-01-01","1990-01-01"' +',';
+    // $("#xtipo").is(":checked") == true ? elem += $("#xtipo").val() +',' : elem += 0+',';
+    // elem = elem.substr(0,elem.length-1);
+    // var query = arr('login',6,'',tbl,elem,0,1,$(".detrep"));
+}
+
 $(document).on("change","._det",function(){
     var vto = $(this).attr('id');
     // ver xq putas sale el undefined
@@ -775,8 +809,6 @@ $(document).on("keyup","[id^=ing_]",function(e){
         }
     }
 });
-
-
 
 //TELEFONOS Y CORREOS
 

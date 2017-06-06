@@ -272,6 +272,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=0.5"></script>
+<script src="../assets/js/modulos/reportes.js?v=0.6"></script>
 </body>
 </html>
