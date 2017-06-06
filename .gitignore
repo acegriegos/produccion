@@ -1,2 +1,2 @@
-_config/mysqlDB.php
-dashboard/view/compile/*
+_config/mysqlDB.php 
+dashboard/view/compiled/*
