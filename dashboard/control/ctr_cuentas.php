@@ -23,7 +23,7 @@ if (!isset($_REQUEST['accion'])) {
 		require_once '../_config/mySmarty.php';
 		$smarty  = new mySmarty();
 		$smarty->setModule('dashboard');
-		$smarty->assign('PRO',$kakaroto->kamehameha('',214,'2,0'));
+		//$smarty->assign('PRO',$kakaroto->kamehameha('',214,'2,0'));
 		$smarty->assign('TIPOPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by principal desc, nombre'));
 		$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
 
@@ -47,8 +47,9 @@ if (!isset($_REQUEST['accion'])) {
 		$smarty->display('ajax/cuentas/ajaxVerNotaPago.tpl');
 		break;
 		case 4:
-
-		break;
+			$pagina = 1;
+			echo "Aqui va el reporte de abonos numero: ".$_REQUEST['id'];
+			break;
 		case 5:
 
 		break;

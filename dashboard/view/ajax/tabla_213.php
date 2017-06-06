@@ -3,6 +3,8 @@
     foreach ($transaccion as $obj) {
 ?>
 
+
+
  <tr>
     <td><?php echo $obj[9] ?></td>
     <td><?php echo $obj[4] ?></td>
@@ -15,9 +17,3 @@
 <?php }
 
  ?>
-
- <script type="text/javascript">
-    $(function(){
-        permisos(310,311);
-    })
- </script>

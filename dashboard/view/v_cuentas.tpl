@@ -11,17 +11,18 @@
 
 
     </head>
+    
 
     <body>
       {$NAV}
-
+      
       <div class="bdy">
 
         <div id="bdymantCuentas"></div> 
 
       </div>
       {$SCR}
-      <script src="../assets/js/modulos/cuentas.js?v=0.5"></script>
+      <script src="../assets/js/modulos/cuentas.js?v=0.6"></script>
 
       </body>
       </html>

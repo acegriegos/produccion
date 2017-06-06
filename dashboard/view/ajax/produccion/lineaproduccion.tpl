@@ -1,6 +1,6 @@
 <ul class="collapsible" data-collapsible="accordion">
     <li class="productline per5101" id="pl1">
-        <div class="collapsible-header"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
+        <div class="collapsible-header active"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks">
             <div class="col s12 m6 l6 per5102">
                 <div class="row" id="ftareaproducciones">
@@ -8,6 +8,7 @@
                         <input id="vnombre" type="text" class="validate" ku="1" autocomplete="off">
                         <label for="vnombre">Tarea de Producción</label>
                         <input type="hidden" id="vid" value="0">
+                        <input type="hidden" class="zelda">
                     </div>
                     <div class="col s1 m1 l1">
                         <a class="waves-effect waves-light btn-floating white-text blue add mbutton z-depth-5" id="addlinea" modulo="tareaproduccione"><i class="material-icons">add</i></a>
@@ -40,7 +41,7 @@
         </div>
     </li>
     <li class="productline per5103" id="pl2">
-        <div class="collapsible-header active"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
+        <div class="collapsible-header"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row" id="drecipe">
                 <div class="input-field col s12 m6 l4 dcline" id="nac">

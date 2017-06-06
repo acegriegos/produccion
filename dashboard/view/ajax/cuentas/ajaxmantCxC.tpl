@@ -64,9 +64,9 @@
 
                                 </tr>
                             </thead>
-                            <tbody id="listaCuentasxC">
-                               { section name= LE loop = $CLI }
-                               <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
+                            <tbody id="listaCuentasx">
+                             { section name= LE loop = $CLI }
+                             <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
                                 <td>{$CLI[LE][3]}</td>
                                 <td>{$CLI[LE][1]}</td>
                                 <td>{$CLI[LE][2]}</td>
@@ -113,7 +113,7 @@
                <div class="card-content white-text  " style="padding: 0.1% !important">
 
                   <div class="row  ">
-                  <br>
+                      <br>
                       <div class="col s6 m4 l4">
                           <p>Nombre: <span id="inombr"> </span></p>
                       </div>
@@ -145,7 +145,7 @@
                 <input type="hidden" id="vdebe" value="0">
                 <input type="hidden" id="vhaber" value="0">
                 <input type="hidden" id="vconsecutivo" value="0">
-
+                <input type="hidden" id="vcomentario" value="">
                 <div class="row">
                     <div class="col s12 ">
                         <div class="card" style="background-color:#0B3861">
@@ -161,7 +161,7 @@
 
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">credit_card</i>
-                                        <input id="vvalor" type="text"  class="validate eder">
+                                        <input id="vvalor" type="text"  class="validate eder" value="0.00">
                                         <label for="vvalor" style="font-size: 1.2em !important">Monto</label>
                                     </div>
                                     <div class="input-field col s12 m6">

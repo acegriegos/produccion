@@ -22,7 +22,7 @@ class DBClass
 	function __construct()
 	{
 		$this->encrypt = new _cy();
-		$this->db  = trim($this->encrypt->decy('Uyp/p/7Y5S+7mmilYzGx/URNNNoD3yRx62G/GJXtSr0='));
+		$this->db  = 'logintech'; //trim($this->encrypt->decy('Uyp/p/7Y5S+7mmilYzGx/URNNNoD3yRx62G/GJXtSr0='));
 		$this->usr = trim($this->encrypt->decy("dvywc7DJzGEs7FG3xzA3149kB4NoWJ/180efl9v3EkI="));
 	    $this->pss = trim($this->encrypt->decy("1eKYMc9PrUoktk7U7n5oiko86fKxQ/FiTOMD8SER7bY="));
 		

@@ -40,7 +40,7 @@
                     </div>
                      <div class="col s12 m6 l6 per3400">
 
-                      <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Notas de Crédito y Débito">Notas de Crédito y Débito</a>
+                      <a href="notas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Notas de Crédito y Débito">Notas de Crédito y Débito</a>
 
                     </div>
                       <div class="col s12 m6 l6 per3500">

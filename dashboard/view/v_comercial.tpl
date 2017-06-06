@@ -35,7 +35,7 @@
                       <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="CRM">CRM</a>
                     </div>
                     <div class="col s12 m6 l6 per1200">
-                    <a href="rutas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Rutas</a>
+                    <a href="rutas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Rutas">Rutas</a>
                     </div>
                      <div class="col s12 m6 l6 per1300">
                     <a href="facturacion?tf=4" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cotizaciones">Cotizaciones</a>
@@ -46,12 +46,8 @@
                     <div class="col s12 m6 l6 per1400">
                       <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
-
-
                   </div>
                 </div>
-
-                
               </div>
             </div>
 
@@ -63,15 +59,11 @@
                 </div>
               </div>
             </div>
-
           </div>
- 
         </div>
       </div>
-
-
     </div>
     {$SCR}
     <script src="../assets/js/modulos/comercial.js?v=1.1"></script>
   </body>
-  </html>
+</html>

@@ -37,7 +37,7 @@
     <div id="modal-addtoproducts" class="modal modal-fixed-footer" style="width:70%;height:90%">
         <div class="modal-header">
             <div class="card-header center white-text" style="background-color:#0B3861">
-                <p class="flow-text marginzero">Agregar Receta a Inventario de {$DEF}</p>
+                <p class="flow-text marginzero">Agregar Receta a Inventario de <span id="inventdefault"></span></p>
             </div>
         </div>
         <div class="modal-content">
@@ -104,6 +104,6 @@
     </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/produccion.js?v=0.3"></script>
+<script src="../assets/js/modulos/produccion.js?v=0.4"></script>
 </body>
 </html>

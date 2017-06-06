@@ -62,8 +62,8 @@
                                 
                             </tr>
                         </thead>
-                        <tbody id="listaCuentasxP">
-                         { section name= LE loop = $PRO }
+                        <tbody id="listaCuentasx">
+                         <!-- { section name= LE loop = $PRO }
                          <tr class="button-collapse detalle" data-activates="acciones" id="f{$PRO[LE][12]}"  tipo ='2' tp="{if $PRO[LE][7] lt 0}1{else}0{/if}">
 
                             <td>{$PRO[LE][3]}</td>
@@ -76,7 +76,7 @@
                             <td>{$PRO[LE][9]}</td>
                             
                         </tr>
-                        {/section}
+                        {/section} -->
                     </tbody>
                 </table>
                 <br>
@@ -143,6 +143,7 @@
                 <input type="hidden" id="vdebe" value="0">
                 <input type="hidden" id="vhaber" value="0">
                 <input type="hidden" id="vconsecutivo" value="0">
+                                    <input type="hidden" id="vcomentario" value="">
 
                 <div class="row">
                     <div class="col s12 ">
@@ -159,7 +160,7 @@
 
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">credit_card</i>
-                                        <input id="vvalor" type="text"  class="validate eder">
+                                        <input id="vvalor" type="text"  class="validate eder" value="0.00">
                                         <label for="vvalor" style="font-size: 1.2em !important">Monto</label>
                                     </div>
                                     <div class="input-field col s12 m6">
