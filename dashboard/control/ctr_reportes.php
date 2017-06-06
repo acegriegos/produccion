@@ -29,6 +29,8 @@
 	   		case 2:
 	   			$pagina = 1;
 	            $rep = $kakaroto->kamehameha('',167,'0,0,@@impresa');
+
+	            $miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
 	            include 'view/reportes/ventas.php';
 	   			break;
 	   		case 3:
@@ -40,7 +42,6 @@
 	   		case 5:
 	   			
 	   			break;
-
 	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   	}
 		if(!$pagina){
