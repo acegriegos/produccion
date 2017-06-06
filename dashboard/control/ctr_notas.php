@@ -19,8 +19,7 @@ if (!isset($_REQUEST['accion'])) {
 	$pagina = 0;
 	switch ($_REQUEST['accion']) {
 		case 1:
-
-		break;
+			
 		case 2:
 
 		break;
