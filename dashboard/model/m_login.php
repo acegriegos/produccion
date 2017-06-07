@@ -48,6 +48,7 @@
 
 		function analizarTabla($arreglo){
 			$salida = array();
+
 			$this->sql = "SHOW CREATE PROCEDURE sp_mant".$arreglo['modulo']."s";
 			$rs = $this->ejecutarSelect()[0][2] or die("No existe SP asociado: ".$arreglo['modulo']."s");
 			$rs = substr($rs, strpos($rs,"(")+1);

@@ -2,12 +2,6 @@ $(function(){
     $('select').material_select();
 });
 
-
-
-$(document).ready(function(){
-	
-});
-
 $(document).on("change","#vidinventario",function(){
 	var id = $(this).val();
 	var tabla = $("#data-table-inventarios").DataTable();

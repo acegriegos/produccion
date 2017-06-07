@@ -1,13 +1,49 @@
 $(function(){
-	$("#frutass").submit(function(){return false});
-	$("#data-table-rutass").dataTable();
+	$(".menu").click(function(){
+		var id = $(this).attr('id').substr(1);
+		var bdy = $("#mainbdy");
+		var p;
+		bdy.html('');
+		arr('rutas',id,'','','',0,1,bdy);
+		$(".menu").removeClass('active');
+		$("#m"+id).addClass('active');
+        switch(parseInt(id)) {
+        	case 1:
+			    $("#data-table-rutas").dataTable({
+					bFilter: false,
+					order : [],
+					"bLengthChange": false
+				});
+        		break;
+        	case 2:
+        		break;
+        	case 3:
+        		break;
+        	default:
+        	 	break;
+        }
+
+        $('.modal').modal(); 
+	});
+
+	$("#m1").click();
 
 });
 
-$(document).on("click","#Iadd",function(){
-	deadclear('rutas')
-
+$(document).on("click","#ingRut",function(){
+	deadclear('ruta');
+	$("#vnombre").focus();
+	$("#titrut").html('Ingresar Ruta');
+	$("#garuta").removeClass('edit');
+	$("#garuta").addClass('add');
 });
+
+$(document).on("click",".load",function(){
+    $("#vnombre").select().focus();
+    $("#titrut").html('Actualizar Ruta');
+    $("#garuta").removeClass('add');
+    $("#garuta").addClass('edit');
+})
 
 function validar (varreglo,vmodulo) {
 	
@@ -16,7 +52,7 @@ function validar (varreglo,vmodulo) {
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
-		case 'rutas':
+		case 'ruta':
 			if (vmodulo['tip'] == '') {
 				err = validarrutas();
 				if ( err ) {
@@ -37,11 +73,21 @@ function validar (varreglo,vmodulo) {
 
 function validarrutas() {
 
+	if ($("#vnombre").val() == '') {
+		$("#vnombre").focus();
+		return 'Nombre de Ruta Requerido';
+	}
 
 	return false;
 }
 
-function endDetail(vid){
+function endDetail(vid,vacc,modulo){
+
+	if (vacc == 1) {
+		setTimeout(function(){ deadclear('ruta'); }, 500);
+	}
+	
+    thorload('ruta');
 
     return false;
 }
@@ -50,10 +96,10 @@ function cargar(vmodulo,vid) {
 
 
 	switch(vmodulo['modulo']) {
-		case 'rutas':
-			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 3;
-			vmodulo['where'] ='';
+		case 'ruta':
+			vmodulo['sel'] = 'id as vid,nombre as vnombre,codigoruta as vcodigoruta';
+			vmodulo['tbl'] = 208;
+			vmodulo['where'] ='id = '+vid;
 			break;
 		default:
 			return 'Módulo no Existente';
@@ -66,14 +112,9 @@ function cargar(vmodulo,vid) {
 function cargarSintax(){
 	var arr = {}
 
-	arr['sel'] = '';
-	arr['tbl'] = 4;
-	arr['where'] = '';
+	arr['sel'] = '*';
+	arr['tbl'] = 208;
+	arr['where'] = 'id > 0';
 
 	return arr;
-}
-
-function endDetail(vid) {
-	setTimeout(function(){ console.log('Registro Ingresado') }, 2000);
-	return false;
 }
