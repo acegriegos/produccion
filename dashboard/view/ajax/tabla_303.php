@@ -113,7 +113,7 @@
                     <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
                     <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
                     <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;"><?php echo $transaccion[0][12] == 1 ? "Valor Factura" : "Saldo" ?> </th>
                     <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
 
 

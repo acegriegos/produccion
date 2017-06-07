@@ -19,7 +19,7 @@
             <p class="flow-text" style="font-size: 1.9em;margin: 0px;">Rutas</p>
         </div>
 
-        <nav class="navbar navbar-dark blue z-depth-5">
+        <nav class="navbar navbar-dark blue">
             <ul class="nav navbar-nav">
                 <li class="nav-item menu active" id="m1">
                     <a class="nav-link" href="#" title="Mantenimiento">Mantenimiento</a>
@@ -33,13 +33,13 @@
             </ul>
         </nav>
 
-        <div>
+        <div id="mainbdy" class="card-content">
             
         </div>
    
     </div>
     </div>
     {$SRC}
-    <script src="../assets/js/modulos/rutas.js?v=0.1"></script>
+    <script src="../assets/js/modulos/rutas.js?v=0.5"></script>
   </body>
 </html>

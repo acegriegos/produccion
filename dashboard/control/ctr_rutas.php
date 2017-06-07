@@ -19,8 +19,14 @@
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-
-	   			break;
+	   			$pagina = 1;
+				require '../_config/mySmarty.php';
+	
+				$smarty  = new mySmarty();
+				$smarty->setModule('dashboard');
+				$smarty->assign('RUT',$kakaroto->kamehameha('*',208,'id>0'));
+				$smarty->display('ajax/rutas/mantenimiento.tpl');
+				break;
 	   		case 2:
 
 	   			break;

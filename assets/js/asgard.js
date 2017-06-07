@@ -9,11 +9,20 @@ $(function(){
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
-    if(code == 113){
-        $(".menu-btn").click();
-        $("#numtrans").focus();
+    switch(code){
+        case 113:
+            $(".menu-btn").click();
+            $("#numtrans").focus();
+            break;
+        case 107: //CLICK EN AGREGAR
+            $(".pluskey").click();
+            break;
+        default:
+            break;
     }
 });
+
+
 
 $(document).on("blur",".autocomplete",function(){
     $(".autocomplete-content").hide('500')
@@ -116,6 +125,7 @@ function doGlobal(accion,modulo,tip,varias){
         
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
+            //QUITAR EL SEGUNDO UNO PONER UN 4
             endDetail(1,1,modulo+"s");
         }else{
            

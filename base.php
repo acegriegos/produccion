@@ -180,7 +180,7 @@ function validar".$modulo."() {
 	return false;
 }
 
-function endDetail(vid){
+function endDetail(vid,vacc,modulo){
 
     return false;
 }
@@ -210,11 +210,6 @@ function cargarSintax(){
 	arr['where'] = '';
 
 	return arr;
-}
-
-function endDetail(vid) {
-	setTimeout(function(){ console.log('Registro Ingresado') }, 2000);
-	return false;
 }";
 
 			fwrite($nuevoarchivo,$contenido); 
