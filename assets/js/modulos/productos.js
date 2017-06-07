@@ -1465,7 +1465,6 @@ $(document).on("keyup",".calcnc",function(e){
     if (code == 13) {
         var focus = $(this).attr('focus');
         $("#"+focus+ln).select();
-        
     }
 });
 
@@ -1745,6 +1744,7 @@ function vaciar(modulo){
 }
 
 function totalizar(costo,ganancia,tipo,line) {
+    console.log(costo+" "+ganancia+" "+tipo+" "+line)
     var subtotal = 0;
     var hsubtotal = 0;
     var impuestos = 0;
@@ -1799,15 +1799,15 @@ function totalizar(costo,ganancia,tipo,line) {
         }
     });
 
-    $(".preciocliente").each(function(){
-        var id = $(this).attr('id').substr(1);
-        ganancia = $("#vganancia"+id).val();
-        exoneracion = $("#vexoneracion"+id).val();
-        if (ganancia != 0 || exoneracion != 0) {
-            subtotal = costo * (((impuestos - (impuestos*(exoneracion / 100))) / 100)+1) * ((ganancia / 100)+1);
-            $("#vventa"+id).val(subtotal.toFixed(2));
-        }
-    });
+    // $(".preciocliente").each(function(){
+    //     var id = $(this).attr('id').substr(1);
+    //     ganancia = $("#vganancia"+id).val();
+    //     exoneracion = $("#vexoneracion"+id).val();
+    //     if (ganancia != 0 || exoneracion != 0) {
+    //         subtotal = costo * (((impuestos - (impuestos*(exoneracion / 100))) / 100)+1) * ((ganancia / 100)+1);
+    //         $("#vventa"+id).val(subtotal.toFixed(2));
+    //     }
+    // });
 }
 
 function addprod(prod,cant) {
