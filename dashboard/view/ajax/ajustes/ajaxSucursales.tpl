@@ -81,8 +81,8 @@
                             <td>{$SUC[LE][1]}</td>
                             <td>{$SUC[LE][2]}</td>
                             <td>
-                                <i class="fa fa-pencil btn load" id="e{$SUC[LE][0]}" codigo="1" modulo="sucursale"></i>
-                                <i class="fa fa-times btn delete" id="d{$SUC[LE][0]}" codigo="1" modulo="sucursale"></i>
+                                <i class="material-icons btn-color pbtn load" id="e{$SUC[LE][0]}" codigo="1" modulo="sucursale">edit</i>
+                                <i class="material-icons btn-color pbtn delete" id="d{$SUC[LE][0]}" codigo="1" modulo="sucursale">delete</i>
                             </td>
                         </tr>
                         {/section}

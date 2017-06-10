@@ -6,7 +6,7 @@
 <tr><?php echo $obj[1] ?>
     <td style="width: 10%"><?php echo $obj[1] ?></td>
     <td style="width: 10%"><?php echo $obj[2] ?></td>
-    <td style="width: 10%"><?php echo $obj[24] ?></td>
+    <td style="width: 10%"><?php echo $obj[25] ?></td>
     <td style="width: 10%"><?php echo $obj[4] ?></td>
     <td style="width: 10%"><?php echo $obj[9] ?></td>
     <td style="width: 10%"><?php echo $obj[7] ?></td>

@@ -78,7 +78,7 @@
                         <label for="vmarca">Marca</label>
                         <input type="hidden" id="vidmarca" value="0">
                     </div>
-                    <div class="input-field marginzero">
+                    <div class="input-field marginzero hide" id="dvpeso">
                         <input id="vpeso" type="number" class="validate" min="0" autocomplete="off">
                         <label for="vpeso">Peso</label>
                     </div>

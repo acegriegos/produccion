@@ -1061,7 +1061,7 @@ function validarImpuesto() {
 function cargar(vmodulo,vid) {
 	switch(vmodulo['modulo']) {
 		case 'sucursale':
-			vmodulo['sel'] = 'vid,vconsecutivo,vfactura,vidusuario,vnombre,vtelefono,vidprovincia,vidcanton';
+			vmodulo['sel'] = 'vid,vconsecutivo,vfactura,vidusuario,vnombre,vidprovincia,vidcanton';
 			vmodulo['tbl'] = 57;
 			vmodulo['where'] ='vid = '+vid;
 			break;

@@ -3,7 +3,6 @@ var crr = '';
 $(document).ready(function(){
     // console.log(4)
     setTimeout(function(){$("#user").focus();},100)
-    Materialize.updateTextFields();
     
     $("#logF").submit(function(){
         return getIn();
@@ -45,6 +44,8 @@ $(document).ready(function(){
             }
         }
     });
+
+    Materialize.updateTextFields();
 });
 
 $(document).on("click","#sendrecupss",function(){

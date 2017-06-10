@@ -51,7 +51,7 @@
     <script src="https://js.braintreegateway.com/web/3.11.1/js/client.js"></script>
     <script src="https://js.braintreegateway.com/web/3.11.1/js/hosted-fields.js "></script> -->
 
-    <script src="../assets/js/main.js?v=0.1"></script>
+    <script src="../assets/js/main.js?v=1.0"></script>
 
 
   </body>
