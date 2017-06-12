@@ -82,13 +82,11 @@ $(function(){
             }
 
             var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
-            
             if (cod[0][0] != undefined) {
                 var fimv = cod[0];
                 cod = cod[0][0];
-
-                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[5],hprec : cod[3],hdesc : cod[6],hdescm : cod[13], hinv : cod[14], hbod:cod[15]})
-
+                console.log(cod[5])
+                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14]})
                 $("#codp").val(cod[1]);
                 $("#descp").val(cod[2]);
                 $("#precp").val(parseFloat(cod[3]).formatMoney(2,',','.'));
@@ -101,21 +99,22 @@ $(function(){
                     $("#bname-inv").html(cod[4]);
                 }
 
+
                 for (var i = 0; i < fimv.length; i++) {
 
-                    var exo = fimv[i][9]*(1-(fimv[i][10]/100));
+                    var exo = fimv[i][8]*(1-(fimv[i][9]/100));
 
-                    if($("#imp_"+fimv[i][7]).length == 0){
+                    if($("#imp_"+fimv[i][6]).length == 0){
                         
-                        if(fimv[i][12] != 0) var clip = 'vclipd="'+fimv[0][0]+'"';
+                        if(fimv[i][11] != 0) var clip = 'vclipd="'+fimv[0][0]+'"';
 
-                        $("#sh_imp").append('<tr id="imp_'+fimv[i][7]+'" '+clip+'><td>'+fimv[i][11]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][7]+'" type="html">0.00</span></td></tr>');
-                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
-                        $("#imv_"+fimv[i][7]).data('incl',fimv[i][0]+",");
+                        $("#sh_imp").append('<tr id="imp_'+fimv[i][6]+'" '+clip+'><td>'+fimv[i][10]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][6]+'" type="html">0.00</span></td></tr>');
+                        $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
+                        $("#imv_"+fimv[i][6]).data('incl',fimv[i][0]+",");
                     }else{
-                        var incl = $("#imv_"+fimv[i][7]).data('incl');
-                        $("#imv_"+fimv[i][7]).data('incl',incl+fimv[i][0]+",");
-                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
+                        var incl = $("#imv_"+fimv[i][6]).data('incl');
+                        $("#imv_"+fimv[i][6]).data('incl',incl+fimv[i][0]+",");
+                        $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
                     }
                     
                 }
@@ -145,41 +144,39 @@ $(function(){
         var code = e.which || e.keyCode;
         if (code == 13) {
             var cod = arr('login',4,'',43,'"'+$(this).val() +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],0,0,0);
-
+            console.log(1)
              if (cod[0][0] != undefined) {
                 var fimv = cod[0];
                 cod = cod[0][0];
                 $("#idp").val(cod[0]);
                 $("#codp").val(cod[1]);
-                $("#hcodp").val(cod[5]);
                 $("#descp").val(cod[2]);
                 $("#precp").val(cod[3]);
                 $("#hprec").val(cod[3]);
                 $("#totp").val((parseFloat(cod[3])*$("#cantp").val()).formatMoney(2,',','.'))
-
+                console.log(1)
                 if (cod[4] == '?') {
                     $("#cantI").html('∞');
                 }else{
                     $("#cantI").html(cod[4]);
                 }
-
-                 $("#valores").data("elemento",{idp : cod[0],hcodp : cod[5],hprec : cod[3],hdesc : cod[6],hdescm : cod[13], hinv : cod[14], hbod:cod[15]});
+                 $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14]});
 
                  for (var i = 0; i < fimv.length; i++) {
 
-                        var exo = fimv[i][9]*(1-(fimv[i][10]/100));
+                        var exo = fimv[i][8]*(1-(fimv[i][9]/100));
 
-                        if($("#imp_"+fimv[i][7]).length == 0){
+                        if($("#imp_"+fimv[i][6]).length == 0){
                             
-                            if(fimv[i][12] != 0) clip = 'vclipd="'+fimv[0][0]+'"';
+                            if(fimv[i][11] != 0) clip = 'vclipd="'+fimv[0][0]+'"';
 
-                            $("#sh_imp").append('<tr id="imp_'+fimv[i][7]+'" '+clip+'><td>'+fimv[i][11]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][7]+'" type="html">0.00</span></td></tr>');
-                            $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
-                            $("#imv_"+fimv[i][7]).data('incl',fimv[i][0]+",");
+                            $("#sh_imp").append('<tr id="imp_'+fimv[i][6]+'" '+clip+'><td>'+fimv[i][10]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][6]+'" type="html">0.00</span></td></tr>');
+                            $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
+                            $("#imv_"+fimv[i][6]).data('incl',fimv[i][0]+",");
                         }else{
-                            var incl = $("#imv_"+fimv[i][7]).data('incl');
-                            $("#imv_"+fimv[i][7]).data('incl',incl+fimv[i][0]+",");
-                            $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
+                            var incl = $("#imv_"+fimv[i][6]).data('incl');
+                            $("#imv_"+fimv[i][6]).data('incl',incl+fimv[i][0]+",");
+                            $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
                         }
                         
                     }
@@ -306,15 +303,16 @@ $(document).on("keyup","#cantp",function(e){
     if (code == 13) {
         
         if (cant > 0) {
-            var cod = $("#valores").data('elemento')['idp'];
+            var idp = $("#valores").data('elemento')['idp'];
+            var cod = $("#valores").data('elemento')['hcodp'];
             var inv = $("#valores").data('elemento')['hinv'];
 
-            var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
+            var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
             
             if (cant > cnt) {
                Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
             }else if (cant <= cnt || cnt == '∞') {
-                var idprd = $("#valores").data('elemento')['hcodp'];
+                var idprd = $("#valores").data('elemento')['idp'];
                 var dcs = $("#valores").data('elemento')['hdesc'];
                 var mdcs = $("#valores").data('elemento')['hdescm'];
                 var desc = $("#descp").val();
@@ -465,6 +463,7 @@ $(document).on("click","#btnAjuste",function(){
 
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
+    console.log(mdcs)
     var err = 0;
     var existe = 0;
     var precio = parseFloat(prec);
@@ -493,11 +492,11 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
         var id = parseInt($(".zelda").data('triforce')['idline'])+1;
         $(".zelda").data('triforce')['idline'] = id;
 
-        $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td  class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center" id="prec'+id+'">'+precio.formatMoney(2,',','.')+'</td><td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp" id="tota'+id+'"></td><td id="desctd'+id+'" align="left" ><input type="text" id="vdesc'+id+'" value="" placeholder="0" style="width: 50px" disabled><a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr>');
+        $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td  class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center" id="prec'+id+'">'+precio.formatMoney(2,',','.')+'</td><td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp" id="tota'+id+'"></td><td id="desctd'+id+'" align="left" ><input type="text" id="vdesc'+id+'" value="'+dcs+'" placeholder="0" style="width: 50px" disabled><a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a></td></tr>');
 
         $("#vdesc"+id).data('valor',dcs);
         $("#vdesc"+id).data('max',mdcs);
-        $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:0, vtotal:0, vidinventario:hinv,vidodt : 0});
+        $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:dcs, vtotal:0, vidinventario:hinv,vidodt : 0});
        
     }
     totalizar();
@@ -541,6 +540,7 @@ function totalizar(){
         var precio = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']);
         var decindv = parseFloat($("#vdesc"+vidlinea).data('valor'));
         var descmax = parseFloat($("#vdesc"+vidlinea).data('max'));
+
         var desct = decindv+desc > descmax ? descmax : decindv+desc;
         
         $("#fd"+vidlinea).data('triforce')['vdesc'] = desct;
@@ -701,6 +701,7 @@ function searchClient(vvariable,visprv){
         
 
         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
+
         $("#ncli").val(vclie[1]+' '+vclie[2]);
 
         if (vclie[3] > 0){ 

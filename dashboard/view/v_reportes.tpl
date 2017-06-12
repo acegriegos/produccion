@@ -32,7 +32,7 @@
 
 {if $TR eq 1}
 <div class="col s4 m3 l2 center-align padd">
-<a class="report" id="rep"><i class="large material-icons padd">insert_chart</i></a>
+<a class="report pbtn" id="rep"><i class="large material-icons padd">insert_chart</i></a>
 <div class="row">
 <div class="col s12">
 <p>Clientes</p>
@@ -42,7 +42,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons padd">business</i>
+<a class="report pbtn"><i class="large material-icons padd">business</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -53,7 +53,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">equalizer</i>
+<a class="report pbtn"><i class="large material-icons">equalizer</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -64,7 +64,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">location_on</i>
+<a class="report pbtn"><i class="large material-icons">location_on</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -75,7 +75,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">shopping_basket</i>
+<a class="report pbtn"><i class="large material-icons">shopping_basket</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -86,7 +86,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">shopping_cart</i>
+<a class="report pbtn"><i class="large material-icons">shopping_cart</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -97,7 +97,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">store</i>
+<a class="report pbtn"><i class="large material-icons">store</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -108,7 +108,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">markunread_mailbox</i>
+<a class="report pbtn"><i class="large material-icons">markunread_mailbox</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -119,7 +119,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">assignment</i>
+<a class="report pbtn"><i class="large material-icons">assignment</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -130,7 +130,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">assignment_ind</i>
+<a class="report pbtn"><i class="large material-icons">assignment_ind</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -141,7 +141,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">info</i>
+<a class="report pbtn"><i class="large material-icons">info</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -152,7 +152,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">turned_in</i>
+<a class="report pbtn"><i class="large material-icons">turned_in</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -163,7 +163,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">offline_pin</i>
+<a class="report pbtn"><i class="large material-icons">offline_pin</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -174,7 +174,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">open_in_browser</i>
+<a class="report pbtn"><i class="large material-icons">open_in_browser</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -184,7 +184,7 @@
 </div>
 {/if}
 <!-- <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">supervisor_account</i></a>
+<a class="report pbtn"><i class="large material-icons">supervisor_account</i></a>
 <div class="row">
 <div class="col s12">
 <p>Inventarios</p>
@@ -192,7 +192,7 @@
 </div>
 </div> -->
 <!-- <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">view_column</i>
+<a class="report pbtn"><i class="large material-icons">view_column</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -212,7 +212,7 @@
 </div>
 {/if}
 <!-- <div class="col s4 m3 l2 center-align">
-<a class="report"><i class="large material-icons">verified_user</i>
+<a class="report pbtn"><i class="large material-icons">verified_user</i>
 </a>
 <div class="row">
 <div class="col s12">

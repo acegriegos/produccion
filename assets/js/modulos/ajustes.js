@@ -402,7 +402,7 @@ $(document).on("click","#adddesc",function(){
 
 	if (idciclo == 2) {
 		extra = $("#vmonths").val();
-	}else if (vidciclo == 3) {
+	}else if (idciclo == 3) {
 		extra = $("#vdays").val() == '' ? 0 : $("#vdays").val();
 	}
 

@@ -29,10 +29,19 @@
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
-	            $rep = $kakaroto->kamehameha('',167,'0,0,@@impresa');
+	   			require '../_config/mySmarty.php';
+			   	$smarty  = new mySmarty();
+			   	$smarty->setModule('dashboard');
+			   	$sty = $smarty->fetch('../view/styles.php');
+				$scr = $smarty->fetch('../view/scripts.php');
+				$smarty->assign('STY',$sty);
+				$smarty->assign('SCR',$scr);
 
+	            $rep = $kakaroto->kamehameha('',167,'0,0,@@impresa');
 	            $miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
-	            include 'view/reportes/ventas.php';
+	            
+	            $smarty->display('reportes/ventas.tpl');
+	            // include 'view/reportes/ventas.php';
 	   			break;
 	   		case 3:
 	   			
