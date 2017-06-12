@@ -101,7 +101,7 @@
 			if (isset($rs->num_rows)) {
 				return $rs->fetch_all();
 			}else{
-				return "call shadow($accion,$tabl,'$arg1','$args2')";//$rs." ".$this->sql;
+				return $rs;//"call shadow($accion,$tabl,'$arg1','$args2')";//$rs." ".$this->sql;
 			}
 		}
 
