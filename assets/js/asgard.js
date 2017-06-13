@@ -22,10 +22,8 @@ $(window).keydown(function(e){
     }
 });
 
-
-
 $(document).on("blur",".autocomplete",function(){
-    $(".autocomplete-content").hide('500')
+    $(".autocomplete-content").hide('500');
 });
 
 $(document).on("keyup",".autocomplete",function(e){
@@ -150,11 +148,10 @@ function doGlobal(accion,modulo,tip,varias){
 };
 
 function baseValidar(vaccion,vmodulo){
-    
     var salida = {}
     var varreglo = mantenimiento('login',vaccion,vmodulo);
-    console.log(varreglo)
     if (varreglo == "[object Object]"){
+
         salida = validar(varreglo[0],vmodulo);
         
         if (vmodulo['tip'] != '') {
@@ -172,6 +169,7 @@ function loadpool(vmodulo,vid,vvarias){
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
+    console.log(columns)
 
     for (var i = 0; columns[0][1].length > i; i++) {
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
@@ -728,36 +726,32 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
 
 function generarReporte(){
     var filtros = $(".inpreport").length;
-    var elem = $(".principal .filtros").attr('elem')
+    var elem = $(".principal .filtros").attr('elem').split(',');
+    elem.splice(3,1);
     var tbl = $(".principal .filtros").attr('sp');
-    var modulo = {};
-    modulo['modulo'] = $(".principal .filtros").attr('modulo');
-    var search = '';
-
-    var datos = baseValidar(1,modulo);
-    console.log(datos)
-    // $(".inpreport").each(function(){
-    //     if ($(this).attr('str') == 1) {
-    //         search = '\"'+$(this).val()+'\"';
-    //     }else{
-    //         search = $(this).val();
-    //     }
-    //     if ($(this).val() != '') {
-    //         var id = $(this).attr('id').substr(1,3);
-    //         if ($("#x"+id).is(":checked")) {
-    //             // elem += search+',';
-    //         }
-            
-    //     }
-    // });
-
-    // $("#xcli").is(":checked") == true ? elem += $("#codcliente").val() +',' : elem += 0 +',';
-    // $("#xusu").is(":checked") == true ? elem += $("#idusuario").val() +',' : elem += 0 +',';
-    // $("#xnum").is(":checked") == true ? elem += $("#num1").val()+","+$("#num2").val() +',' : elem += 0,0 +',';
-    // $("#xfecha").is(":checked") == true ? elem += '"'+$("#f1").val()+'","'+$("#f2").val() +'",' : elem += '"1990-01-01","1990-01-01"' +',';
-    // $("#xtipo").is(":checked") == true ? elem += $("#xtipo").val() +',' : elem += 0+',';
-    // elem = elem.substr(0,elem.length-1);
-    // var query = arr('login',6,'',tbl,elem,0,1,$(".detrep"));
+    var atributos = '';
+    var vmodulo = {};
+    vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
+    var search = new Array;
+    var datos = mantenimiento('login',1,vmodulo);
+    datos = datos[0].splice(elem.length,datos[0].length-elem.length);
+    for (var i = 0, len = datos.length; i < len; i++) {
+        if ($("#"+datos[i]).attr('str') != undefined) {
+            if ($("#"+datos[i]).attr('type') == 'date') {
+                search[i] = '"1990-01-01"';
+            }else
+            search[i] = '"'+$("#"+datos[i]).val()+'"';
+        }else{
+            search[i] = $("#"+datos[i]).val();
+        }
+    }
+    var string = elem.concat(search);
+    $.each(string,function(index){
+        atributos += string[index]+',';
+    });
+    console.log(atributos)
+    atributos = atributos.substr(0,atributos.length-1);
+    arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 }
 
 $(document).on("change","._det",function(){

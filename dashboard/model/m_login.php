@@ -72,7 +72,6 @@
 					array_push($salida, $cadena);
 				
 			}
-
 			return $salida;
 		}
 

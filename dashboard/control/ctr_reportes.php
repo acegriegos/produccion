@@ -11,6 +11,7 @@
 	   	$sty = $smarty->fetch('../view/styles.php');
 		$scr = $smarty->fetch('../view/scripts.php');
 	
+		$smarty->assign('TR',$_REQUEST['tr']);
 		$smarty->assign('STY',$sty);
 		$smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
@@ -28,13 +29,32 @@
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
-	            $rep = $kakaroto->kamehameha('',167,'0,0,@@impresa');
+	   			require '../_config/mySmarty.php';
+			   	$smarty  = new mySmarty();
+			   	$smarty->setModule('dashboard');
+			   	$sty = $smarty->fetch('../view/styles.php');
+				$scr = $smarty->fetch('../view/scripts.php');
+				$smarty->assign('STY',$sty);
+				$smarty->assign('SCR',$scr);
 
+	            $rep = $kakaroto->kamehameha('',167,'0,0,@@impresa');
 	            $miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
-	            include 'view/reportes/ventas.php';
+	            
+	            $smarty->display('reportes/ventas.tpl');
+	            // include 'view/reportes/ventas.php';
 	   			break;
 	   		case 3:
-	   			
+	   			$pagina = 1;
+	   			for ($i=0; $i < $_REQUEST['fact']; $i++) { 
+	   				$rs = $kakaroto->genkidama(1,64,'','null,1,1,1,now(),1,1,0,1300,10000,0,0,0,0,0,"","",1,1,"",1,"",""');
+	   				echo "Factura: ";
+	   				print_r($rs[0][0]);
+	   				echo "<br>";
+	   				for ($u=0; $u < $_REQUEST['cant']; $u++) { 
+	   					$rs1 = $kakaroto->genkidama(1,65,'','null,'.$rs[0][0].',1,0,0,1,1130,0');
+	   					echo "Detalle No: ".($u+1)."<br>";
+	   				}
+	   			}
 	   			break;
 	   		case 4:
 	   			

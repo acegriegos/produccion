@@ -6,18 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Ventas Totales</title>
-  <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-  <link rel="stylesheet" href="../assets/css/materialize.css">
-  <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css">
-  <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
-  <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=0.3">
-  <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+  {$STY}
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=0.2">
 </head>
 <body>
   <div class="container principal">
-      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,1,@@impresa," sp="167" modulo="reporteFacturas"></div>
+      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,1,@@impresa," sp="167" modulo="reporteFactura"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -29,7 +23,7 @@
           <b>Cédula:</b> <?php echo $miscelaneos[1][0]; ?><br>
           <b>Teléfono:</b>  <?php echo $miscelaneos[2][0]; ?><br>
         </font>
-        <i class="fa fa-level-down btn btn-success der" title="Mostrar Filtros" style="display:none;"></i>
+        <i class="waves-effect waves-light material-icons btn blue der sfiltr" title="Mostrar Filtros" style="display:none;">keyboard_arrow_down</i>
       </div>
       <div class="col s4 m4 l4">
         <input type="hidden" class="zelda">
@@ -54,14 +48,8 @@
     </table>
   <br><br>
   </div>
-  <script src="../assets/js/jquery.js"></script>
-  <script src="../assets/js/jquery.mask.min.js"></script>
-  <script src="../assets/js/materialize.js?v=0.1"></script>
-  <script src="../assets/js/modulos/menu.js?v=0.1"></script>
-  <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
-  <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-  <script src="../assets/js/asgard.js?v=0.2"></script>
-  <script src="../assets/js/modulos/reportes/reportes.js?v=0.3"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=0.3"></script>
+  {$SCR}
+  <script src="../assets/js/modulos/reportes/reportes.js?v=0.6"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=0.6"></script>
 </body>
 </html>

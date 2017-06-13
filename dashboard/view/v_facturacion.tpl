@@ -9,12 +9,8 @@
   </head>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=0.1">
-  
   <body>
   {$NAV}
-  
-  
-
   <div class="bdy">
       <div id="mfacturacion" style="background-color: white;"></div>
   </body>

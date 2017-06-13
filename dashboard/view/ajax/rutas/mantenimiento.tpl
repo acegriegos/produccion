@@ -80,6 +80,34 @@
         <span>Ruteros</span>
     </div>
     <div class="modal-content" >
+
+        <div class="row">
+            <div class="col s8">
+                <div class="row">
+
+                    <div class="input-field col s6">
+                        <label>Tipo de Rutero</label>
+                        <select class="browser-default">
+                            <option value="1" selected>Usuarios</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label>Usuario</label>
+                        <select class="browser-default">
+                            <option value="1" selected>Usuarios</option>
+                        </select>
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="col s4">
+                <div class="collection">
+                    <a href="#!" class="collection-item">Alan</a>
+                </div>
+            </div>
+        </div>  
         
     </div>
 </div>
