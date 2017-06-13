@@ -102,7 +102,7 @@ $(function(){
                 kbrota = 'S'+$(this).val();
             }
             
-            var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa','',0,'');
+            var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
               if (cod[0][0] != undefined) {
                 var fimv = cod[0];
                 cod = cod[0][0];
@@ -207,7 +207,7 @@ $(function(){
     $("#descp").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
-            var cod = arr('login',4,'',43,'"'+ $(this).val() +'",@@impresa','',0,'');
+            var cod = arr('login',4,'',43,'"'+ $(this).val() +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
 
              if (cod[0][0] != undefined) {
                 var fimv = cod[0];

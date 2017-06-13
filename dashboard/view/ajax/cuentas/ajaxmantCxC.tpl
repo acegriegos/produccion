@@ -1,8 +1,8 @@
-      <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css">
+      <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=0.7">
 
       <nav class="nav-extended  white-text z-depth-5" style="background-color:#0B3861">
           <div class="nav-wrapper">
-            <h4 align="center">Cuentas por Cobrar</h4>
+            <h4 align="center" >Cuentas por Cobrar</h4>
 
         </div>
     </nav>
@@ -49,7 +49,7 @@
             <div class="card-block">
                 <div class="row">
                     <div class="col s12">
-                        <table id="data-table-cuentas" class="table centered highlight bordered responsive-table z-depth-5 ">
+                        <table id="data-table-cuentas" class="table centered highlight bordered responsive-table z-depth-5 pbtns">
                             <thead>
                                 <tr>
                                     <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Factura</th>
@@ -65,8 +65,8 @@
                                 </tr>
                             </thead>
                             <tbody id="listaCuentasx">
-                             { section name= LE loop = $CLI }
-                             <tr class="button-collapse detalle" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}">
+                               { section name= LE loop = $CLI }
+                               <tr class="button-collapse detalle pbtna" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}" >
                                 <td>{$CLI[LE][3]}</td>
                                 <td>{$CLI[LE][1]}</td>
                                 <td>{$CLI[LE][2]}</td>
@@ -172,49 +172,58 @@
                                             {/section}
                                         </select>
                                     </div>
-                                    <div class="col s12 m8 offset-m4 ">
+                                    <div class="row">
+                                        <div class="col s12 m6">
+                                          <p>
+                                            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+                                            <label for="p_v" style="color: white">Punto Venta</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s12 m6  ">
                                         <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Pago</button>
 
                                     </div>
-
                                 </div>
 
+
                             </div>
+
                         </div>
                     </div>
-                </div>  
+                </div>
+            </div>  
 
-            </div> <!-- end divabono -->
+        </div> <!-- end divabono -->
+
+    </div>
+</div>
+
+
+<div class="card-block">
+    <div class="row">
+        <div class="col s12">
+
+            <table id="data-table-cuentas-detalle" class="table centered highlight bordered responsive-table z-depth-5 ">
+                <thead>
+                    <tr>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
+                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
+
+
+                    </tr>
+                </thead>
+                <tbody id="listaCuentasxCDetalle">
+
+                </tbody>
+            </table>
+            <br>
 
         </div>
     </div>
-
-
-    <div class="card-block">
-        <div class="row">
-            <div class="col s12">
-
-                <table id="data-table-cuentas-detalle" class="table centered highlight bordered responsive-table z-depth-5 ">
-                    <thead>
-                        <tr>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
-
-
-                        </tr>
-                    </thead>
-                    <tbody id="listaCuentasxCDetalle">
-
-                    </tbody>
-                </table>
-                <br>
-
-            </div>
-        </div>
-    </div>
+</div>
 
 
 </ul>

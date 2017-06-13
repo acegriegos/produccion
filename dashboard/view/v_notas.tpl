@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=0.2">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=0.4">
 
 
 </head>
@@ -159,7 +159,7 @@
 
       <div class="row">
         <div class="col s12">
-          <table  class="table centered highlight bordered responsive-table z-depth-3" id="data-table-Notas">
+          <table  class="table centered highlight bordered responsive-table z-depth-3 pbtns" id="data-table-Notas">
             <thead>
               <tr>
                 <th class="sinborde white-text blue" >Factura</th>
@@ -198,6 +198,6 @@
 
 
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=0.11"></script>
+  <script src="../assets/js/modulos/notas.js?v=0.13"></script>
 </body>
 </html>
