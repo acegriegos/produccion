@@ -47,7 +47,7 @@
         <div class="card-block">
             <div class="row">
                 <div class="col s12">
-                    <table id="data-table-cuentas-xP" class="table centered highlight bordered responsive-table z-depth-5 ">
+                    <table id="data-table-cuentas-xP" class="table centered highlight bordered responsive-table z-depth-5 pbtns">
                         <thead>
                             <tr>
                                 <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Factura</th>
@@ -171,10 +171,18 @@
                                             {/section}
                                         </select>
                                     </div>
-                                    <div class="col s12 m8 offset-m4 ">
+                                    <div class="row">
+                                        <div class="col s12 m6">
+                                          <p>
+                                            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+                                            <label for="p_v" style="color: white">Punto Venta</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s12 m6  ">
                                         <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Pago</button>
 
                                     </div>
+                                </div>
 
                                 </div>
 

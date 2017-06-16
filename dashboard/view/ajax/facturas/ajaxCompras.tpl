@@ -288,4 +288,4 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/compras.js?v=0.24"></script>
+<script src="../assets/js/modulos/compras.js?v=0.25"></script>

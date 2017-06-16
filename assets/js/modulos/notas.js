@@ -199,7 +199,25 @@ function cargarSintax(){
 	return arr;
 }
 
-function endDetail(vid) {
-	setTimeout(function(){ console.log('Registro Ingresado') }, 2000);
-	return false;
-}
+function endDetail(vid,vacc,modulo){
+
+	    if (vacc == 1) {
+	    	$("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
+
+		   
+		    $("#vvalor").val(0.00);
+		    $('#vcomentario').val('');
+		     arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
+		     $("#data-table-cuentas-detalle").dataTable({
+
+	bFilter: false,
+	order : [],
+	"bLengthChange": false
+});
+
+
+		    $("#btn-div").click();
+
+		    /*window.open('cuentas?accion=4&id='+vid);*/
+	    }
+	}

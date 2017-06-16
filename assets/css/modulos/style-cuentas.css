@@ -5,6 +5,10 @@
    font-size: 1.2em !important
 }
 
+table.pbtns td:hover{
+  cursor:pointer !important;
+}
+
 /*CONTRASEÑA*/
 .divabono {
   z-index: 500 !important;
@@ -13,7 +17,7 @@
   /*bottom: -115px\9 !important;*/
 
   right: 45px !important;
-  width: 450px !important;
+  width: 550px !important;
   /*padding: 15px !important;*/
   background: #fefefe !important;
   font-size: .875em !important;
