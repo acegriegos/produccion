@@ -46,12 +46,12 @@
 	   		case 3:
 	   			$pagina = 1;
 	   			for ($i=0; $i < $_REQUEST['fact']; $i++) { 
-	   				$rs = $kakaroto->genkidama(1,64,'','null,1,1,1,now(),1,1,0,1300,10000,0,0,0,0,0,"","",1,1,"",1,"",""');
+	   				$rs = $kakaroto->genkidama(1,64,'','null,1,1,1,now(),'.$i.',1,0,1300,10000,0,0,0,0,0,"","",1,1,"",1,"",""');
 	   				echo "Factura: ";
 	   				print_r($rs[0][0]);
 	   				echo "<br>";
 	   				for ($u=0; $u < $_REQUEST['cant']; $u++) { 
-	   					$rs1 = $kakaroto->genkidama(1,65,'','null,'.$rs[0][0].',1,0,0,1,1130,0');
+	   					$rs1 = $kakaroto->genkidama(1,65,'','null,'.$rs[0][0].','.$u.',0,0,1,1130,0');
 	   					echo "Detalle No: ".($u+1)."<br>";
 	   				}
 	   			}

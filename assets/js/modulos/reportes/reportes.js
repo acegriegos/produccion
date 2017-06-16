@@ -82,6 +82,22 @@ $(function(){
     $("[id^=fltr].auto").prev().children().children().prop('checked',true);
 });
 
+$(document).on("blur","#nclie",function(){
+    var id = arr('login',4,'id',2,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
+    if (id != undefined)
+        $("#vidcliente").val(id);
+    else
+        $("#vidcliente").val(0);
+});
+
+$(document).on("blur","#nuser",function(){
+    var id = arr('login',4,'id',1,'nombre = "'+$(this).val()+'" or user = "'+$(this).val()+'"',0,0,0)[0][0];
+    if (id != undefined)
+        $("#vidusuario").val(id);
+    else
+        $("#vidusuario").val(0);
+});
+
 $(document).on("click",".detail",function(){
     var id = $(this).attr('id').substr(2);
     $("#dt"+id).text('[ - ]');

@@ -31,6 +31,7 @@
     </div>
     <h2 align="center">Ventas Totales</h2>
     <small id="leyenda"></small>
+    
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>

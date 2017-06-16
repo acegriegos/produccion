@@ -1,6 +1,6 @@
 $(function(){
 	$(".modal").modal();
-	$("#m1").click();
+	$("#m7").click();
 	$("#addMoneda").click(function(){
 		deadclear('moneda');
 	});
@@ -14,7 +14,7 @@ $(document).on("click",".menu3",function(){
 	$(this).addClass('active');
 	
 	var id = parseInt($(this).attr('id').substr(1));
-	switch(id){
+	switch(id) {
 		case 1:
 			var p = mantenimiento('ajustes',1,'');
 			$("#majustes").html(p);
@@ -64,14 +64,14 @@ $(document).on("click",".menu3",function(){
 			    name = file.name;
 			    size = file.size;
 			    type = file.type;
-
 			    if(file.name.length < 1) {
+
 			    }
 			    else if(file.size > 100000) {
-			        alert("The file is too big");
+			        console.log("The file is too big");
 			    }
 			    else if(file.type != 'image/png' && file.type != 'image/jpg' && file.type != 'image/gif' && file.type != 'image/jpeg' ) {
-			        alert("The file does not match png, jpg or gif");
+			        console.log("The file does not match png, jpg or gif");
 			    }
 			    else { 
 			        $(':submit').click(function(){
@@ -114,7 +114,6 @@ $(document).on("click",".menu3",function(){
 			        });
 			    }
 			});
-
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
@@ -185,7 +184,17 @@ $(document).on("click",".menu3",function(){
 			arr['where'] = 'idfila = 0 and idtipo = 10';
 			var def = mantenimiento('login',4,arr)[0][0];
 			$("#vidcuenta").val(def);
-
+			break;
+		case 7:
+			var p = mantenimiento('ajustes',7,'');
+			$("#majustes").html('');
+			$("#majustes").html(p);
+			$("#vnombre").focus();
+			$("#data-table-vp").dataTable({
+				bFilter : false,
+				bLengthChange : false,
+				order : []
+			});
 			break;
 	}
 
@@ -199,7 +208,6 @@ $(document).on("click",".menu3",function(){
     	selectYears: 15, // Creates a dropdown of 15 years to control year
     	format: 'yyyy-mm-dd'
   	});
-
 
 	$("#modal-tipopagos").modal({
 		complete: function(){
@@ -215,6 +223,68 @@ $(document).on("click",".menu3",function(){
 			$("#tmp").attr('id','vnombre_banco');
 		}
 	});
+});
+
+$(document).on("click",".addserv",function() {
+	var id = $(this).attr('id').substr(1);
+	var variable = arr('login',4,'nombre',169,'id = '+id,0,0,0)[0][0];
+	$(".varprod").text(variable);
+	arr('login',6,'id,nombre',41,'id > 0 order by nombre',15,1,$("#vidbodega"));
+	$("#vidbodega").material_select();
+	$("#addservprod").attr('idvariable',id);
+});
+
+$(document).on("click",".shserv",function(){
+	var id = $(this).attr('id').substr(1);
+	var variable = arr('login',4,'nombre',169,'id = '+id,0,0,0)[0][0];
+	console.log(variable)
+	var datos = arr('login',6,'id,servicio,inventario',175,'idvariable = '+id,0,1,$("#listaserviciosasociados"))
+	$(".varprod").text(variable);
+	$("#data-table-servsasoc").DataTable({
+    	bFilter :  false,
+        bLengthChange : false,
+        order : []
+    });
+
+});
+
+$(document).on("click","#addservprod",function(){
+	var idvariable = $(this).attr('idvariable');
+	var idinventario = $("#vidinventario").val();
+	var idservicio = $("#vidservicio").val().toString().split(',');
+	$.each(idservicio,function(index,value){
+		var servs = arr('login',4,'',173,'1,0,'+idvariable+','+idinventario+','+idservicio[index]+',@@usr,@@impresa',0,0,0);
+		if (servs[0][0] != undefined)
+			Materialize.toast('Servicio Asociado Correctamente', 4000, 'green');
+		else
+			Materialize.toast(servs[0]['ERROR'], 4000, 'red');
+	});
+});
+
+$(document).on("change","#vidbodega",function(){
+	var id = $(this).val();
+	arr('login',6,'id,nombre',111,'id > 0 and idbodega = '+id+' order by nombre',15,1,$("#vidinventario"));
+	$("#vidinventario").material_select();
+	$("#dinvent").show(500);
+});
+
+$(document).on("change","#vidinventario",function(){
+	var id = $(this).val();
+	arr('login',6,'id,nombre',172,'idinventario = '+id+' order by nombre',0,1,$("#vidservicio"))
+	$("#vidservicio").material_select();
+	$("#dserv").show(500);
+});
+
+$(document).on("keyup","#vvalor",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13)
+		$("#addvarprod").click();
+});
+
+$(document).on("keyup","#vnombre",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13)
+		$("#vvalor").focus();
 });
 
 $(document).on("keyup","#vcorreo",function(e){
@@ -952,6 +1022,15 @@ function validar (varreglo,vmodulo) {
 				$("#vvalor").val()
 			}
 			break;
+		case 'variablesproduccione':
+			if (vmodulo['tip'] == '') {
+				err = validarVariables(vmodulo['modulo']);
+				if (err)
+					return err
+			}else{
+				$("#vvalor").val('0.00')
+			}
+			break;
 		default:
 			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
 			break;
@@ -960,6 +1039,20 @@ function validar (varreglo,vmodulo) {
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
 	// console.log(salida)
 	return salida;
+
+}
+
+function validarVariables(vmod) {
+
+	if($("#f"+vmod+"s #vnombre").val() == ''){
+		$("#f"+vmod+"s #vnombre").focus();
+		return "Campo Nombre Requerido";
+	}
+
+	if($("#f"+vmod+"s #vvalor").val() == ''){
+		$("#f"+vmod+"s #vvalor").focus();
+		return "Campo Valor Requerido";
+	}
 
 }
 
@@ -1180,6 +1273,11 @@ function cargar(vmodulo,vid) {
 			vmodulo['tbl'] = 54;
 			vmodulo['where'] = 'id = '+vid;
 			break;
+		case 'variablesproduccione':
+			vmodulo['sel'] = 'id,nombre,valor';
+			vmodulo['tbl'] = 169;
+			vmodulo['where'] = 'vid = '+vid+' order by vnombre';
+			break;
 		default:
 			console.log('Cargar Módulo no Existente');
 			break;
@@ -1190,7 +1288,6 @@ function cargar(vmodulo,vid) {
 
 function cargarSintax(vtabla){
 	var arr = {}
-
 	switch(vtabla){
 		case 'monedas':
 			arr['sel'] = 'id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo';
@@ -1242,16 +1339,15 @@ function cargarSintax(vtabla){
 			arr['tbl'] = 27;
 			arr['where'] = 'id > 0 order by defecto,nombre';
 			break;
-		// case 'sucursales':
-		// 	arr['sel'] = '';
-		// 	arr['tbl'] = ;
-		// 	arr['where'] = '';
-		// 	break;
+		case 'variablesproducciones':
+			arr['sel'] = 'vid,vnombre,vvalor';
+			arr['tbl'] = 171;
+			arr['where'] = '1 order by vnombre';
+			break;
 		default:
 			console.error('ERROR: autodestrucción: '+vtabla);
 			break;
 	}
-
 	return arr;
 }
 $(document).on("click",".moveL",function(){
@@ -1469,8 +1565,14 @@ function endDetail(vid,vacc,modulo){
 			setTimeout(function(){ deadclear(modulo)}, 100);
 			thorload(modulo);
 			break;
+		case 'variablesproduccione':
+			setTimeout(function(){ deadclear(modulo)}, 100);
+			thorload(modulo);
+			$("#f"+modulo+"s #vnombre").focus();
+			Materialize.updateTextFields();
+			break;
 		default:
-			setTimeout(function(){ deadclear(modulo); }, 2500);
+			setTimeout(function(){ deadclear(modulo); }, 100);
     		thorload(modulo);
 			break;
 	}

@@ -68,6 +68,11 @@
 	   			$smarty->assign('CDEF',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and !ispadre order by nombre'));
 	   			$smarty->display('ajax/ajustes/ajaxBodegas.tpl');
 	   			break;
+	   		case 7:
+	   			$pagina = 1;
+	   			$smarty->assign('VP',$kakaroto->kamehameha('vid,vnombre,vvalor',171,'1 order by vnombre'));
+	   			$smarty->display('ajax/ajustes/ajaxProduccion.tpl');
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

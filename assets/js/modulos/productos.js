@@ -1557,7 +1557,7 @@ $(document).on("click","#addservice",function(){
 
     // deadclear('servicio');
     // Materialize.updateTextFields();
-    
+    arr('login',6,'id,nombre',111,'id > 0',15,1,$("#vidinventario"));
     $("#vdescripcion").characterCounter();
     $('select').material_select();
     $("#vidtipo").val(0);

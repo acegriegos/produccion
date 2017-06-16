@@ -169,7 +169,6 @@ function loadpool(vmodulo,vid,vvarias){
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
-    console.log(columns)
 
     for (var i = 0; columns[0][1].length > i; i++) {
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
@@ -472,7 +471,6 @@ function odin(varreglo,vform) {
                             '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
                     }else{
-                    
                     switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                         case 'select':
                             if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
@@ -749,7 +747,6 @@ function generarReporte(){
     $.each(string,function(index){
         atributos += string[index]+',';
     });
-    console.log(atributos)
     atributos = atributos.substr(0,atributos.length-1);
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 }
