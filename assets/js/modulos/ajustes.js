@@ -197,8 +197,14 @@ $(document).on("click",".menu3",function(){
 			});
 			break;
 	}
-
-	$(".modal").modal()	
+	$(".modal").modal({
+		dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        in_duration: 300, // Transition in duration
+        out_duration: 100, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '4%' // Ending top style attribute
+	});
 	$('.tooltipped').tooltip({delay: 50});
 	$('.dropdown-button').dropdown();
 	$('select').material_select();
@@ -225,6 +231,20 @@ $(document).on("click",".menu3",function(){
 	});
 });
 
+$(document).on("change","#videtapa",function(){
+	arr('login',6,'id,nombre',41,'id > 0',15,1,$("#xidbodega"));
+	$("#xidbodega").material_select();
+	$("#dbod").show(500);
+});
+
+$(document).on("change","#xidbodega",function(){
+	var id = $(this).val();
+	arr('login',6,'id,nombre',111,'idbodega = '+id,15,1,$("#xidinventario"));
+	$("#xidinventario").material_select();
+	$("#dinv").show(500);
+	$("a[modulo=produccioninventarios]").show();
+});
+
 $(document).on("click",".addserv",function() {
 	var id = $(this).attr('id').substr(1);
 	var variable = arr('login',4,'nombre',169,'id = '+id,0,0,0)[0][0];
@@ -238,7 +258,7 @@ $(document).on("click",".shserv",function(){
 	var id = $(this).attr('id').substr(1);
 	var variable = arr('login',4,'nombre',169,'id = '+id,0,0,0)[0][0];
 	console.log(variable)
-	var datos = arr('login',6,'id,servicio,inventario',175,'idvariable = '+id,0,1,$("#listaserviciosasociados"))
+	var datos = arr('login',6,'id,servicio,inventario',175,'idvariable = '+id,0,1,$("#listaserviciosproducciones"))
 	$(".varprod").text(variable);
 	$("#data-table-servsasoc").DataTable({
     	bFilter :  false,
@@ -250,8 +270,8 @@ $(document).on("click",".shserv",function(){
 
 $(document).on("click","#addservprod",function(){
 	var idvariable = $(this).attr('idvariable');
-	var idinventario = $("#vidinventario").val();
-	var idservicio = $("#vidservicio").val().toString().split(',');
+	var idinventario = $("#vidinvent").val();
+	var idservicio = $("#vidserv").val().toString().split(',');
 	$.each(idservicio,function(index,value){
 		var servs = arr('login',4,'',173,'1,0,'+idvariable+','+idinventario+','+idservicio[index]+',@@usr,@@impresa',0,0,0);
 		if (servs[0][0] != undefined)
@@ -263,15 +283,15 @@ $(document).on("click","#addservprod",function(){
 
 $(document).on("change","#vidbodega",function(){
 	var id = $(this).val();
-	arr('login',6,'id,nombre',111,'id > 0 and idbodega = '+id+' order by nombre',15,1,$("#vidinventario"));
-	$("#vidinventario").material_select();
+	arr('login',6,'id,nombre',111,'id > 0 and idbodega = '+id+' order by nombre',15,1,$("#vidinvent"));
+	$("#vidinvent").material_select();
 	$("#dinvent").show(500);
 });
 
-$(document).on("change","#vidinventario",function(){
+$(document).on("change","#vidinvent",function(){
 	var id = $(this).val();
-	arr('login',6,'id,nombre',172,'idinventario = '+id+' order by nombre',0,1,$("#vidservicio"))
-	$("#vidservicio").material_select();
+	arr('login',6,'id,nombre',172,'idinventario = '+id+' order by nombre',0,1,$("#vidserv"))
+	$("#vidserv").material_select();
 	$("#dserv").show(500);
 });
 
@@ -1031,6 +1051,13 @@ function validar (varreglo,vmodulo) {
 				$("#vvalor").val('0.00')
 			}
 			break;
+		case 'produccioninventario':
+			if (vmodulo['tip'] == '') {
+				err = validarprodinv(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
 		default:
 			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
 			break;
@@ -1040,6 +1067,22 @@ function validar (varreglo,vmodulo) {
 	// console.log(salida)
 	return salida;
 
+}
+
+function validarprodinv(vmod) {
+	if($("#f"+vmod+"s #videtapa").val() == 0){
+		$("#f"+vmod+"s #videtapa").focus();
+		return "Etapa Requerida";
+	}
+
+	if($("#f"+vmod+"s #xidinventario").val() == 0){
+		$("#f"+vmod+"s #xidinventario").focus();
+		return "Etapa Requerida";
+	}
+}
+
+function validarServprod() {
+	return false;
 }
 
 function validarVariables(vmod) {
@@ -1343,6 +1386,11 @@ function cargarSintax(vtabla){
 			arr['sel'] = 'vid,vnombre,vvalor';
 			arr['tbl'] = 171;
 			arr['where'] = '1 order by vnombre';
+			break;
+		case 'serviciosproducciones':
+			arr['sel'] = 'idvariable,servicio,inventario';
+			arr['tbl'] = 175;
+			arr['where'] = '1 order by servicio';
 			break;
 		default:
 			console.error('ERROR: autodestrucción: '+vtabla);

@@ -1,4 +1,3 @@
-<div class="tamLetra">
 <div class="card card-block z-depth-5">
     <span class="accmodulo">Variables de Producción</span><hr>
     <div class="row">
@@ -52,13 +51,60 @@
 
 <div class="card card-block z-depth-5">
     <span class="accmodulo">Asignar Inventarios a Producción</span><hr>
+    <div class="row" id="fproduccioninventarios">
+        <div class="col s12 m4 l4">
+        	<input type="hidden" id="xid" value="0">
+        	<input type="hidden" id="vidsucursal" value="">
+        	<label for="videtapa">Seleccione una Etapa de Producción</label>
+        	<select id="videtapa" type="select">
+        		<option value="0">Seleccione una Opción</option>
+        		{section name=LE loop=$ET}
+        		<option value="{$ET[LE][0]}">{$ET[LE][1]}</option>
+        		{/section}
+        	</select>
+        </div>
+        <div class="col s12 m4 l4 inv" id="dbod">
+        	<label for="xidbodega">Seleccione una Bodea</label>
+        	<select id="xidbodega" type="select"></select>
+        </div>
+        <div class="col s12 m4 l4 inv" id="dinv">
+        	<label for="xidinventario">Seleccione un Inventario</label>
+        	<select id="xidinventario" type="select"></select>
+        </div>
+    </div>
     <div class="row">
-        
+    	<a class="waves-effect waves-light blue btn right add inv" modulo="produccioninventarios">Guardar</a>
+    </div>
+    <div class="row">
+    	<div class="col s12 m12 l12">
+    		<table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
+            <thead>
+                <tr>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Etapa</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Inventario</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%" >Acciones</th>
+                </tr>
+            </thead>
+            <!-- aqui quede -->
+            <tbody id="listaproduccioninventarios">
+            	{section name=LE loop=$PINV}
+                <tr>
+                    <td style=" padding: 10px;">{$PINV[LE][1]}</td>
+                    <td style=" padding: 10px;">{$PINV[LE][2]}</td>
+                    <td>
+                        <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PINV[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="font-size: 2em; color: #607d8b">compare_arrows</a>
+                        <a class="btn-color pbtn editprod material-icons per4108" id="m{$PINV[LE][0]}" href="#modal-productos" title="Editar Producto" style="font-size: 2em; color: #607d8b">edit</a>
+                        <a class="btn-color pbtn cdel delprod material-icons per4109" id="d{$PINV[LE][0]}" title="Eliminar Producto" style="font-size: 2em; color: #607d8b">close</a>
+                    </td>
+                </tr>
+            {/section}
+            </tbody>
+        </table>
+    	</div>
     </div>
 </div>
-</div>
 
-<div id="modal-assignservices" class="modal modal-fixed-footer">
+<div id="modal-assignservices" class="modal modal-fixed-footer" style="width:70%;height:90%">
 	<div class="modal-header">
 		<h4 class="modal-title" style="background-color:#0B3861">Asignar Servicios a Variables de Producción <span class="varprod"></span></h4>
 	</div>
@@ -69,13 +115,13 @@
 				<select id="vidbodega" type="select"></select>
 			</div>
 			<div class="col s6 m6 l6 inv" id="dinvent">
-				<label for="vidinventario">Seleccionar Inventario</label>
-				<select id="vidinventario" type="select"></select>
+				<label for="vidinvent">Seleccionar Inventario</label>
+				<select id="vidinvent" type="select"></select>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s6 m6 l6 inv" id="dserv">
-				<select id="vidservicio" type="select" multiple></select>
+				<select id="vidserv" type="select" multiple></select>
 				<label>Seleccione un Servicio</label>
 			</div>
 		</div>
@@ -86,22 +132,31 @@
 	</div>
 </div>
 
-<div id="modal-servsasoc" class="modal modal-fixed-footer">
+<div id="modal-servsasoc" class="modal modal-fixed-footer" style="width:70%;height:90%">
 	<div class="modal-header">
 		<h4 class="modal-title" style="background-color:#0B3861">Servicios Asociados a Variable de Producción <span class="varprod"></span></h4>
 	</div>
 	<div class="modal-content">
 		<div class="row">
 			<table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-servsasoc" cellspacing="0" width="100%" >
-            <thead>
-                <tr>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 40%">Servicio</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 40%">Inventario</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 20%">Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="listaserviciosasociados"></tbody>
-        </table>
+	            <thead>
+	                <tr>
+	                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 40%">Servicio</th>
+	                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 40%">Inventario</th>
+	                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 20%">Acciones</th>
+	                </tr>
+	            </thead>
+	            <tbody id="listaserviciosproducciones"></tbody>
+	        </table>
+        <div id="fserviciosproducciones">
+			<input type="hidden" id="vid" value="0">
+			<input type="hidden" id="vidvariable" value="0">
+			<input type="hidden" id="vidinventario" value="0">
+			<input type="hidden" id="vidservicio" value="0">
+			<input type="hidden" id="vidsucursal" value="">
+			<input type="hidden" id="vidusuario" value="">
+
+        </div>
 		</div>
 	</div>
 	<div class="modal-footer">

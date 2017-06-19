@@ -71,6 +71,7 @@
 	   		case 7:
 	   			$pagina = 1;
 	   			$smarty->assign('VP',$kakaroto->kamehameha('vid,vnombre,vvalor',171,'1 order by vnombre'));
+	   			$smarty->assign('ET',$kakaroto->kamehameha('id,nombre',176,'id > 0 order by id'));
 	   			$smarty->display('ajax/ajustes/ajaxProduccion.tpl');
 	   			break;
 	   	}

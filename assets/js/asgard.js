@@ -505,6 +505,7 @@ function odin(varreglo,vform) {
                     break;
             }//end SWITCH
         }//end IF
+        console.log(varreglo[i]+" "+salida[varreglo[i]])
     }//end FOR
     break;
     }//end SWITCH
