@@ -1788,19 +1788,19 @@ function validar (varreglo,vmodulo) {
 
 function validarproductos() {
 
-    if ($("#vfamilia").val() == '') {
+    if ($("#vidfamilia").val() == 0) {
         $("#tb1").click();
-        $("#vfamilia").focus();
+        $("#vidfamilia").focus();
         return "Familia Requerido";
     }
-    if ($("#vtipo").val() == '') {
+    if ($("#vidtipo").val() == 0) {
         $("#tb1").click();
-        $("#vtipo").focus();
+        $("#vidtipo").focus();
         return "Tipo Requerido";
     }
-    if ($("#vmarca").val() == '') {
+    if ($("#vidmarca").val() == 0) {
         $("#tb1").click();
-        $("#vmarca").focus();
+        $("#vidmarca").focus();
         return "Marca Requerido";
     }
     if ($("#vpeso").val() == '') {
