@@ -223,6 +223,11 @@ function validarusuarios() {
 		$('#vidTipoUsuario').focus();
 		return 'Tipo de Usuario Requerido';
 	}
+	if ($('#vidsuc').val() == 0) {
+		$('#vidsuc').focus();
+		return 'Seleccione una Sucursal';
+	}
+
 	if ($('#vclave').val() == '') {
 		$('#vclave').focus();
 		return 'Contraseña Requerida';

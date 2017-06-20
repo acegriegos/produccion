@@ -13,7 +13,7 @@
 		<div class="bdy">
 			<div class="card z-depth-5">
 				<div class="card-header center blue-grey white-text z-depth-1">
-					<p class="flow-text"  style="background-color:#0B3861; padding-bottom: 1%; padding-top: 1%;" >Productos</p>
+					<p class="flow-text"  style="background-color:#0B3861;" >Productos</p>
 				</div>
 				<nav class="navbar navbar-dark blue z-depth-1" style="margin-top: -25px;">
 					<ul class="nav navbar-nav">
@@ -32,6 +32,6 @@
 				<div id="bdymantInventario"></div>
 			</div>
 		</div> <!-- END BDY -->
-	<script src="../assets/js/modulos/productos.js?v=0.5"></script>
+	<script src="../assets/js/modulos/productos.js?v=0.6"></script>
 </body>
 </html>

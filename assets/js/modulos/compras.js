@@ -211,12 +211,14 @@ $(function(){
 
     $("#vplazo").keyup(function(e){
         var code = e.which || e.keyCode
-        if(code == 13)
+        if(code == 13){
             doplazo($(this).val());
+            $("#ncli").focus();
+        }
     });
 
     $("#vplazo").blur(function(){
-        doplazo($(this).val());
+        //doplazo($(this).val());
     })
 
     $("#sinv").click(function(){
@@ -451,7 +453,6 @@ function doplazo(vval){
         $("#vplazo").select().focus();
         return false;
     }
-    $("#ncli").focus();
     return true;
 }
 
