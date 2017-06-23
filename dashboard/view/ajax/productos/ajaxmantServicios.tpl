@@ -21,7 +21,7 @@
         </ul>            
     </div>
     <div class="col s12 m6">
-        <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-servicios"><i class="material-icons">add</i></a>
+        <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5 per4111" href="#modal-servicios"><i class="material-icons">add</i></a>
     </div>
 </div>
 
@@ -48,8 +48,8 @@
                         <td style="padding: 10px;">{$SERV[LE][4]}</td>
                         <td style="padding: 10px;">{$SERV[LE][5]}</td>
                         <td style="padding: 10px;">
-                            <a class="btn-color pbtn loadserv" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i></a>
-                            <a class="btn-color pbtn cdel delete" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="fa fa-times"></i></a>
+                            <a class="btn-color pbtn loadserv per4112" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="btn-color pbtn cdel delete 4113" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     {/section}

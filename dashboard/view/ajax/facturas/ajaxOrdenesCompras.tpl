@@ -27,10 +27,10 @@
 <!-- <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
 <th style="width: 10%;" class="center-align">Código</th>
 <th style="width: 20%;" class="center-align"><span class="truncate">Descripción</span></th>
-<th style="width: 10%;" class="center-align"><span class="truncate">Costo.Unit</span></th>
+<!-- <th style="width: 10%;" class="center-align"><span class="truncate">Costo.Unit</span></th> -->
 <!-- <th style="width: 9%;" class="center-align"><span class="truncate">Descuento</span></th> -->
 <th style="width: 7%;" class="center-align">Cantidad</th>
-<th style="width: 12%;" class="center-align">Total</th>
+<!-- <th style="width: 12%;" class="center-align">Total</th> -->
 <th style="width: 17%;" class="center-align">
 <div class="hide-on-small-only">
 <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
@@ -50,18 +50,18 @@
 <td style="width: 20%;" class="input-field">
 <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
 </td>
-<td style="width: 10%;" class="input-field">
+<!-- <td style="width: 10%;" class="input-field">
 <input type="text" id="precp" class="f center" value="0.00">
-</td>
+</td> -->
 <!-- <td style="width: 9%;" class="input-field">
 <input type="number" class="f center" id="descup" min="0" data-mask="999999999.99" placeholder="Descuento">
 </td> -->
 <td style="width: 7%;" class="input-field">
 <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
 </td>
-<td style="width: 12%;" class="input-field">
+<!-- <td style="width: 12%;" class="input-field">
 <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
-</td>
+</td> -->
 <td class="center" style="font-size: 1em; width: 17%; ">
 <div class="col s12 m4 l4">
 <!-- <a href="#modal-inventario" id="sinv"><i class="fa fa-archive" ></i>
@@ -127,11 +127,11 @@
 <td>FLETE:</td>
 <td style="float: right;"><span><b>¢</b></span><span id="flete" type="html" value="0">0.00</span></td>
 </tr> -->
-<tr style="border-top:1px solid black">
+<!-- <tr style="border-top:1px solid black">
 <td>TOTAL:</td>
 <td style="float: right;"><span><b>¢</b></span><span id="tot" type="html" value="0">0.00</span>
 </td>
-</tr>
+</tr> -->
 </tfoot>
 </table>
 <br>
@@ -158,4 +158,4 @@
 </div>
 </div>
 
-<script src="../assets/js/modulos/ordencompras.js?v=0.2"></script>
+<script src="../assets/js/modulos/ordencompras.js?v=0.3"></script>

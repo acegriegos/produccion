@@ -32,14 +32,14 @@
                   <div class="card-panel ">
 
                     <div class="row">
-                     <div class="col s12 m6 l6">
+                     <div class="col s12 m6 l6 per6000">
                       <a href="ajustes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Configuración">Configuración</a>
                     </div>
-                    <div class="col s12 m6 l6">
+                    <div class="col s12 m6 l6 per6100">
                       <a href="usuarios" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Usuarios">Usuarios</a>
                     </div>
                     
-                    <div class="col s12 m6 l6">
+                    <div class="col s12 m6 l6 per6200">
                       <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
                     </div>
 
@@ -52,7 +52,7 @@
             </div>
 
             <div class="col s12 m12 l6">
-              <div class="card z-depth-5">
+              <div class="card z-depth-5 per6300">
                 <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
                 <div class="card-content">
                   <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>

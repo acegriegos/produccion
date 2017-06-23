@@ -409,6 +409,7 @@ function odin(varreglo,vform) {
             salida[index] = {};
             for (var i = 0; i < varreglo.length; i++) {
                 salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
+                console.log(varreglo[i]+" "+salida[index][varreglo[i]])
             }// end FOR
         });//end EACH
     break;
@@ -486,7 +487,6 @@ function odin(varreglo,vform) {
                     break;
             }//end SWITCH
         }//end IF
-
     }//end FOR
     break;
     }//end SWITCH

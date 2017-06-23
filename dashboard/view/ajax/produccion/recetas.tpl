@@ -1,6 +1,6 @@
 <!-- hacer 2 div en donde cada uno tenga como encabezado creacion de procesos y edicion de procesos para futura version, esto para hacer que el sistema permita agregar varias procesos a las vez mientras que tambien pueda editar procesos mientras agrega procesos -->
 <div class="row">
-    <div class="col s12 m12 l8">
+    <div class="col s12 m12 l8 per5001">
         <div class="row raddproceso">
             <div class="input-field col s12 m5 l5">
                 <input id="vnombre" type="text" autocomplete="off">

@@ -19,16 +19,16 @@
     </div>
     <nav class="navbar navbar-dark blue z-depth-5">
         <ul class="nav navbar-nav">
-            <li class="nav-item menu active" id="m1">
+            <li class="nav-item menu active per5000" id="m1">
                 <a class="nav-link" href="#" title="Recetas">Procesos</a>
             </li>
-            <li class="nav-item menu" id="m2">
+            <li class="nav-item menu per5100" id="m2">
                 <a class="nav-link" href="#" title="Linea Producción">Linea Producción</a>
             </li>
-            <li class="nav-item menu" id="m3">
+            <li class="nav-item menu per5200" id="m3">
                 <a class="nav-link" href="#" title="Inicio Produccion">Inicio Produccion</a>
             </li>
-            <li class="nav-item menu" id="m4">
+            <li class="nav-item menu per5300" id="m4">
                 <a class="nav-link" href="#" title="Seguimiento">Seguimiento</a>
             </li>
         </ul>

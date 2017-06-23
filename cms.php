@@ -23,6 +23,7 @@
     <div style="width: 12%; background-color: #766363; height: 100vh;float: left;position: fixed;">
         MENU<br>
         <a href="#" class="btn place" tp="1">TEXTO</a><br>
+        <a href="#" class="btn place" tp="2">LABEL</a><br>
         <hr>
         <a href="#" class="btn green rbtn mkcss">CSS</a><br>
         <a href="#" class="btn blue rbtn mkhtml">HTML</a><br>
@@ -30,7 +31,7 @@
     </div>
 <div style="width: 88%;padding-top: 1%;margin-left: 12%;">
     <div class="canvas" style="border: 1px dashed black; height: 95vh;width: 95%; margin-left: 2%;background-color: white;/*overflow: scroll;*/">
-        
+        <span id="mymsj"></span>
     </div>
 </div>
 
@@ -78,13 +79,41 @@
             });
         });
 
+        $(document).on("dblclick",".mv",function(){
+            if($(this).attr('mv') == undefined){
+                $(this).css({
+                  borderWidth: "2px",
+                  borderColor: "grey",
+                  borderStyle: "dashed",
+                  position: "absolute"
+                });
+                $(".canvas").bind("click", function(e){
+                {
+                $("#mymsj").html("<b style='cursor: pointer; font-family: verdana; color: black;'>Detener Movimiento(alt+d)...</b>");
+                $('.mv[rz=1]').animate({left: e.pageX, top: e.pageY})
+                 }
+                });
+                $(this).attr('rz',1);
+            }
+        });
+
+        $("#mymsj").click(function(){
+            $(".canvas").unbind("click");
+            $("#mymsj").html("");
+            $(".mv[rz=1]").css('border',"0px");
+            $(".mv[rz=1]").removeAttr('rz');
+        });
+
         function placeObject(posX,posY){
             var obj = '';
             cobj += 1;
 
             switch(parseInt(tp)){
                 case 1:
-                    obj = '<input type="text" class="resize" id="elem_'+cobj+'" placeholder="Texto"/>';
+                    obj = '<input type="text" class="resize mv" id="elem_'+cobj+'" placeholder="Texto" readonly/>';
+                    break;
+                case 2:
+                    obj = '<label id="elem_'+cobj+'" class="mklabel">Texto</label>';
                     break;
                 default:
                     break;

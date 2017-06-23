@@ -1,8 +1,8 @@
 <ul class="collapsible" data-collapsible="accordion">
-    <li class="productline" id="pl1">
+    <li class="productline per5101" id="pl1">
         <div class="collapsible-header"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks">
-            <div class="col s12 m6 l6">
+            <div class="col s12 m6 l6 per5102">
                 <div class="row" id="ftareaproducciones">
                     <div class="input-field col s10 m8 l6">
                         <input id="vnombre" type="text" class="validate" ku="1" autocomplete="off">
@@ -39,7 +39,7 @@
             </div>
         </div>
     </li>
-    <li class="productline" id="pl2">
+    <li class="productline per5103" id="pl2">
         <div class="collapsible-header active"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row" id="drecipe">
@@ -102,7 +102,7 @@
             </div>
         </div>
     </li>
-    <li class="productline" id="pl3">
+    <li class="productline per5104" id="pl3">
         <div class="collapsible-header"><i class="material-icons">build</i>Mantenimeinto Lineas de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row">
