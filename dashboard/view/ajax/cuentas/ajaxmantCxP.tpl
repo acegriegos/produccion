@@ -64,7 +64,7 @@
                         </thead>
                         <tbody id="listaCuentasxP">
                          { section name= LE loop = $PRO }
-                         <tr class="button-collapse detalle" data-activates="acciones" id="f{$PRO[LE][12]}"  tipo ='1' tp="{if $PRO[LE][7] lt 0}1{else}0{/if}">
+                         <tr class="button-collapse detalle" data-activates="acciones" id="f{$PRO[LE][12]}"  tipo ='2' tp="{if $PRO[LE][7] lt 0}1{else}0{/if}">
 
                             <td>{$PRO[LE][3]}</td>
                              <td>{$PRO[LE][4]}</td>
@@ -113,7 +113,7 @@
                   <div class="row  ">
                   <br>
                       <div class="col s6 m4 l4">
-                          <p>Nombre: <span id="inombr"> </span></p>
+                          <p>Proveedor: <span id="inombr"> </span></p>
                       </div>
                       <div class="col s12 m4 l4">
                         <p>Fecha: <span id="ifecha"> </span></p>
@@ -137,7 +137,7 @@
 
             <div id="festadoscuentas" class="divabono" visible="0">
                 <input type="hidden" id="vid" value="0">
-                <input type="hidden" id="vidtipo" value="3">
+                <input type="hidden" id="vidtipo" value="4">
                 <input type="hidden" id="videstado" value="1">
                 <input type="hidden" id="vidfactura" value="">
                 <input type="hidden" id="vdebe" value="0">
