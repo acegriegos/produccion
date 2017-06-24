@@ -101,20 +101,18 @@
 
   <div class="row">
   <br>
-    <div class="col s8 offset-s2">
+    <div class="col s6 offset-s3">
     <br><br>
       <section id="sqre">
         <table id="infotot" width="100%">
           <tfoot>
             <th class="center-align">Firma Representante</th>
             <th class="infospace"></th>
-            <th class="center-align">Firma de Cliente</th>
           </tfoot>
           <tbody>
             <tr class="ttdr">
               <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
               <td class=""></td>
-              <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
             </tr>
           </tbody>
         </table>

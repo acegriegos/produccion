@@ -1,5 +1,3 @@
-
-
 <div class="card z-depth-5">
     <ul class="collapsible" data-collapsible="accordion">
       <li>
@@ -36,15 +34,18 @@
                     <div class="col s6 m4">
                         <img src="#" class="responsive-img" alt="Image" width="200px" height="100px" id="vlogo">
                     </div>
-                    <div class="col s6 m6">
+                    <div class="col s6 m8">
 
-                        <div class="file-field ">
-                          <div class="btn z-depth-5">
-                            <i class="small material-icons right">perm_media</i>Logo
-                            <input type="file" id="archivo" name="imagen" multiple="false" class="file-loading">
+                        <div class="file-field input-field">
+                            <div class="btn z-depth-5">
+                                <i class="small material-icons right">perm_media</i>Logo
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
                         </div>
                     </div>
-                </div>
 
             </div>
 
@@ -323,21 +324,16 @@
                     <input type="text" id="search_bancos" maxlength="100" num="+202" var="nombre" style="margin-left: 15% !important;">
                     <label for="search_bancos" style="margin-left: 15% !important;">Buscar Banco</label>
                 </div>
-
                 <div id="fbancos" class="col s11 m9 l11">
-
                     <div class="row">
-
                         <div class="input-field col s12">
                             <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="banco" varias="1" data-position="top" data-tooltip="Ingresar Banco" style="padding-right: 5% !important;"><i class="small material-icons">add</i></a>
                             <input type="text" id="vnombre_banco" noClear="1"style="margin-left: 15% !important;">
                             <label for="vnombre_banco" style="margin-left: 15% !important;">Ingresar Banco</label>
+                            <input type="hidden" id="vidusuario" value="">
+                            <input type="hidden" id="vidsucursal" value="">
                         </div>
-
-
-
                     </div>
-
                     <div class="modal modal-fixed-footer" id="modal-bancos" style="width: 65%;min-height: 550px">
 
                         <div class="modal-header" style="background-color:#0B3861">
