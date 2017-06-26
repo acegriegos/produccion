@@ -24,26 +24,23 @@
 	   			require '../_config/mySmarty.php';
 			   	$smarty  = new mySmarty();
 			   	$smarty->setModule('dashboard');
-			   	// $smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by id'));
-			   	$smarty->display('ajax/reportegeneral.tpl');
-	   			break;
-	   		case 2:
-	   			$pagina = 1;
-	   			require '../_config/mySmarty.php';
-			   	$smarty  = new mySmarty();
-			   	$smarty->setModule('dashboard');
 			   	$sty = $smarty->fetch('../view/styles.php');
 				$scr = $smarty->fetch('../view/scripts.php');
 				$smarty->assign('STY',$sty);
 				$smarty->assign('SCR',$scr);
-
-	            $rep = $kakaroto->kamehameha('',167,'0,0,@@impresa');
-	            $miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
-	            
-	            $smarty->display('reportes/ventas.tpl');
-	            // include 'view/reportes/ventas.php';
+				$smarty->assign('MIS',$kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")'));
+	            $smarty->display('reportes/'.$_REQUEST['rep'].'.tpl');
+	   			break;
+	   		case 2:
+	   			
 	   			break;
 	   		case 3:
+	   			
+	   			break;
+	   		case 4:
+	   			
+	   			break;
+	   		case 5:
 	   			$pagina = 1;
 	   			for ($i=0; $i < $_REQUEST['fact']; $i++) { 
 	   				$rs = $kakaroto->genkidama(1,64,'','null,1,1,1,now(),'.$i.',1,0,1300,10000,0,0,0,0,0,"","",1,1,"",1,"",""');
@@ -55,12 +52,6 @@
 	   					echo "Detalle No: ".($u+1)."<br>";
 	   				}
 	   			}
-	   			break;
-	   		case 4:
-	   			
-	   			break;
-	   		case 5:
-	   			
 	   			break;
 	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   	}

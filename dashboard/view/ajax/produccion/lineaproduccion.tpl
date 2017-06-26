@@ -1,26 +1,41 @@
 <ul class="collapsible" data-collapsible="accordion">
-    <li class="productline per5101" id="pl1">
-        <div class="collapsible-header active"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
+    <li class="per5101" id="pl1">
+        <div class="collapsible-header productline active"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks">
-            <div class="col s12 m6 l6 per5102">
-                <div class="row" id="ftareaproducciones">
-                    <div class="input-field col s10 m8 l6">
+            <div class="col s12 m6 l6 per5102" id="ftareaproducciones">
+                <div class="row">
+                    <div class="input-field col s12 m8 l6">
                         <input id="vnombre" type="text" class="validate" ku="1" autocomplete="off">
                         <label for="vnombre">Tarea de Producción</label>
                         <input type="hidden" id="vid" value="0">
                         <input type="hidden" class="zelda">
                     </div>
-                    <div class="col s1 m1 l1">
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m4 l4">
+                        <input type="number" id="vhorahombre" min="0" class="validate">
+                        <label for="vhorahombre">Horas Hombre</label>
+                    </div>
+                    <div class="input-field col s12 m4 l4">
+                        <input type="number" id="vhoramaquina" min="0" class="validate">
+                        <label for="vhoramaquina">Horas Maquina</label>
+                    </div>
+                    <div class="col s2 m1 l1">
                         <a class="waves-effect waves-light btn-floating white-text blue add mbutton z-depth-5" id="addlinea" modulo="tareaproduccione"><i class="material-icons">add</i></a>
                     </div>
                 </div>
             </div>
-            <div class="col s12 m6 l4">
-            <br>
+            <div class="col s12 m6 l6">
+                <div class="input-field col s6 m6 l6 offset-s6 offset-m6 offset-l6">
+                    <input type="text" id="search_tareaproducciones" class="validate" num="v180" var="vnombre" cambio="134">
+                    <label for="search_tareaproducciones">Buscar por nombre</label>
+                </div>
                 <table class="table responsive-table striped bordered highlight z-depth-3" id="data-table-tareaproducciones" cellspacing="0" >
                     <thead>
                         <tr>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Horas Hombre</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Horas Maquina</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Acciones</th>
                         </tr>
                     </thead>
@@ -28,6 +43,8 @@
                         {section name=LE loop=$LPR}
                         <tr>
                             <td style=" padding: 10px;">{$LPR[LE][1]}</td>
+                            <td style=" padding: 10px;">{$LPR[LE][2]}</td>
+                            <td style=" padding: 10px;">{$LPR[LE][3]}</td>
                             <td style=" padding: 10px;">
                                 <a class="btn-color pbtn load" id="m{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">edit</i></a>
                                 <a class="btn-color pbtn cdel delete" id="d{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">close</i></a>
@@ -40,8 +57,8 @@
             </div>
         </div>
     </li>
-    <li class="productline per5103" id="pl2">
-        <div class="collapsible-header"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
+    <li class="per5103" id="pl2">
+        <div class="collapsible-header productline"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row" id="drecipe">
                 <div class="input-field col s12 m6 l4 dcline" id="nac">
@@ -103,8 +120,8 @@
             </div>
         </div>
     </li>
-    <li class="productline per5104" id="pl3">
-        <div class="collapsible-header"><i class="material-icons">build</i>Mantenimeinto Lineas de Producción</div>
+    <li class="per5104" id="pl3">
+        <div class="collapsible-header productline"><i class="material-icons">build</i>Mantenimeinto Lineas de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row">
                 <div class="col s12 m6 l6">

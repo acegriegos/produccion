@@ -155,7 +155,6 @@
 			<input type="hidden" id="vidservicio" value="0">
 			<input type="hidden" id="vidsucursal" value="">
 			<input type="hidden" id="vidusuario" value="">
-
         </div>
 		</div>
 	</div>

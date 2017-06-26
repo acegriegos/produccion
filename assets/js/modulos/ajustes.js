@@ -256,16 +256,16 @@ $(document).on("click",".addserv",function() {
 
 $(document).on("click",".shserv",function(){
 	var id = $(this).attr('id').substr(1);
+	var tabla = $("#data-table-servsasoc").DataTable();
 	var variable = arr('login',4,'nombre',169,'id = '+id,0,0,0)[0][0];
-	console.log(variable)
-	var datos = arr('login',6,'id,servicio,inventario',175,'idvariable = '+id,0,1,$("#listaserviciosproducciones"))
+	tabla.destroy();
+	arr('login',6,'id,servicio,inventario',175,'idvariable = '+id,0,1,$("#listaserviciosproducciones"))
 	$(".varprod").text(variable);
 	$("#data-table-servsasoc").DataTable({
     	bFilter :  false,
         bLengthChange : false,
         order : []
     });
-
 });
 
 $(document).on("click","#addservprod",function(){
