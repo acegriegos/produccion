@@ -2,7 +2,7 @@ var cuentas = '<option value="0">Seleccione una Cuenta</option>';
 var ind_1 = ind_2 = 1;
 
 $(function(){
-	console.log(1)
+
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	

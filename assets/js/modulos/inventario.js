@@ -1,11 +1,4 @@
 $(function(){
-	$("#finventarios").submit(function(){return false});
-	$("#data-table-inventarios").dataTable();
-
-});
-
-$(document).on("click","#Iadd",function(){
-	deadclear('inventario')
 
 });
 

@@ -1459,7 +1459,7 @@ function endDetail(vid,vacc,modulo){
 		case 'detallenivelescliente':
 			$("#f"+modulo+"s #viddetalle").val(vid);
 			break;
-		case 'bancos':
+		case 'banco':
 			break;
 		case 'bodega':
 			setTimeout(function(){ deadclear(modulo); $("#vbodega").focus()}, 100);

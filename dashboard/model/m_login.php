@@ -50,7 +50,11 @@
 			$salida = array();
 
 			$this->sql = "SHOW CREATE PROCEDURE sp_mant".$arreglo['modulo']."s";
-			$rs = $this->ejecutarSelect()[0][2] or die("No existe SP asociado: ".$arreglo['modulo']."s");
+			$rs = $this->ejecutarSelect();
+			if (!isset($rs[0][2])) {
+				return "No existe SP asociado: ".$arreglo['modulo']."s, <a style='color: black;' href='../DB.php?tabla=".$arreglo['modulo']."s' target='new'>AGREGARLO</a>";
+			}else
+				$rs = $rs[0][2];
 			$rs = substr($rs, strpos($rs,"(")+1);
 			$rs = substr($rs, 0,strpos($rs,"BEGIN"));
 			$rs = str_replace("\n", " ", $rs);
