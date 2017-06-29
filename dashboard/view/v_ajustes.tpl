@@ -28,6 +28,6 @@
     <div id="majustes"></div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/ajustes.js?v=0.10"></script>
+    <script src="../assets/js/modulos/ajustes.js?v=0.11"></script>
   </body>
 </html>

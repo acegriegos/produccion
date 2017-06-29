@@ -677,7 +677,7 @@ function cargarSintax(){
     var arr = {}
     arr['sel'] = '*';
     arr['tbl'] = 4;
-    arr['where'] = '1 and Id > 0 order by `Razón Social`';
+    arr['where'] = 'Id > 0 order by `Razón Social`';
     return arr;
 }
 

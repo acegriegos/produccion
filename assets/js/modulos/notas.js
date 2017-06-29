@@ -11,13 +11,97 @@ $(function(){
 			$("#ftr"+id).addClass("hide");
 
 	})
+
+	$("#ncli").keydown(function(e){
+		var charCode = e.which || e.keyCode;
+		var charStr = String.fromCharCode(charCode);
+
+		if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+			$(".autocomplete-content").remove();
+
+			$("#ncli").autocomplete({
+				limit: 20,
+				data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+			});
+
+			$("#ncli").siblings($(".autocomplete-content")).css('width','25%');
+		}
+	});
+
+	$(".sclie").blur(function(){
+		console.log(1)
+		var bisclie = 0;
+		var nombre = $("#ncli").val()
+		if (!$("#cp").is(":checked")) {
+			bisclie=1
+			nombre = $("#nprov").val()
+		}
+		var id = arr('login',4,'id',2,'bisproveedor = '+bisclie+' where nombre = "%'+nombre+'%" limit 20',0,0,0)[0][0];
+		if (id != undefined) {
+			$(".sclie").attr('idc',id);	
+		}else{
+			$(".sclie").attr('idc',0);
+		}
+		
+
+	})
+
+	$("#cp").change(function(){
+		if ($(this).is(':checked')) {
+			$("#nprov").val('')
+			$(".tipoclie").text('Proveedor')
+			$(".sclie").attr('id','nprov')
+			$("label[for=ncli]").attr('for','nprov')
+			$("#nprov").keydown(function(e){
+				var charCode = e.which || e.keyCode;
+				var charStr = String.fromCharCode(charCode);
+
+				if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+				$(".autocomplete-content").remove();
+
+				$("#nprov").autocomplete({
+					limit: 20,
+					data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#nprov").val()+'%" limit 20',0,0,0,1)
+					});
+
+					$("#nprov").siblings($(".autocomplete-content")).css('width','25%');
+				}
+			});
+
+		}else{
+			$(".tipoclie").text('Cliente')
+			$(".sclie").attr('id','ncli')
+			$("label[for=nprov]").attr('for','ncli')
+			$("#ncli").keydown(function(e){
+				var charCode = e.which || e.keyCode;
+				var charStr = String.fromCharCode(charCode);
+
+				if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+					$(".autocomplete-content").remove();
+
+					$("#ncli").autocomplete({
+						limit: 20,
+						data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+					});
+
+					$("#ncli").siblings($(".autocomplete-content")).css('width','25%');
+				}
+			});
+		}
+	})
+
 	$("#ftr0").show();
 	$("#busnota").click(function(){
 		var cliente = factura = num1 = num2 = 0;
 		var desde = hasta = "";
-
-		if ($("#ncli").val() != '') {
-			cliente= $("#ncli").prop("idc"); 
+		if ($("#cp").is(":checked")) {
+			if ($("#nprov").val() != '') {
+				cliente= $("#nprov").attr("idc"); 
+			}
+		}else{
+			if ($("#ncli").val() != '') {
+				cliente= $("#ncli").attr("idc"); 
+			}
 		}
 		if ($("#vfac").val() != '') {
 			factura= $("#vfac").val() == '' ?0: $("#vfac").val();
@@ -51,21 +135,9 @@ $(function(){
 
 	})
 
-	$("#ncli").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
-          
-            $("#ncli").autocomplete({
-                limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
-            });
+	
 
-            $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
-        }
-    });
+
 
 
 });
@@ -79,29 +151,29 @@ $(document).on("click",".detalle",function(){
 	$(this).sideNav('show');
 	var id = $(this).attr('id').substr(1);
 	
-var tabla= $("#data-table-cuentas-detalle").DataTable();
-tabla.destroy();
-var  datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
+	var tabla= $("#data-table-cuentas-detalle").DataTable();
+	tabla.destroy();
+	var  datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
 
 
-$('select').material_select();
-$("#data-table-cuentas-detalle").dataTable({
+	$('select').material_select();
+	$("#data-table-cuentas-detalle").dataTable({
 
-	bFilter: false,
-	order : [],
-	"bLengthChange": false
-});
+		bFilter: false,
+		order : [],
+		"bLengthChange": false
+	});
 
-$("#btn-div").click(function(){
-	var vi = $(".divabono").attr('visible');
-	if (vi == 0) {
-		$(".divabono").show();
-		$(".divabono").attr('visible',1);
-	}else{
-		$(".divabono").hide();
-		$(".divabono").attr('visible',0);
-	}
-});
+	$("#btn-div").click(function(){
+		var vi = $(".divabono").attr('visible');
+		if (vi == 0) {
+			$(".divabono").show();
+			$(".divabono").attr('visible',1);
+		}else{
+			$(".divabono").hide();
+			$(".divabono").attr('visible',0);
+		}
+	});
 });
 $(document).on("click","#Iadd",function(){
 	deadclear('notas')
@@ -201,23 +273,24 @@ function cargarSintax(){
 
 function endDetail(vid,vacc,modulo){
 
-	    if (vacc == 1) {
-	    	$("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
-
-		   
-		    $("#vvalor").val(0.00);
-		    $('#vcomentario').val('');
-		     arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
-		     $("#data-table-cuentas-detalle").dataTable({
-
-	bFilter: false,
-	order : [],
-	"bLengthChange": false
-});
+	if (vacc == 1) {
+		$("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
 
 
-		    $("#btn-div").click();
+		$("#vvalor").val(0.00);
+		$('#vcomentario').val('');
+		arr('login',4,'',304,'1,0,3,'+$("#tipoimpresion").val(),0,0,0);
+		arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
+		$("#data-table-cuentas-detalle").dataTable({
 
-		    /*window.open('cuentas?accion=4&id='+vid);*/
-	    }
+			bFilter: false,
+			order : [],
+			"bLengthChange": false
+		});
+
+
+		$("#btn-div").click();
+
+		window.open('cuentas?accion=4&id='+vid+'&tn='+$("#tn").val());
 	}
+}

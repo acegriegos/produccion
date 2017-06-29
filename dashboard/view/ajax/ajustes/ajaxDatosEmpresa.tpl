@@ -535,62 +535,7 @@
     </div></div>
     <!-- Datos de las Categorías -->
 </li>
-<li>
-    <div class="collapsible-header"><i class="material-icons">print</i><h5>Tipo de Impresión</h5></div>
 
-    <div class="collapsible-body"><div class="class-block">
-        <br>
-                   <h4 style="padding-left: 1% !important">Modificar Impresión</h4>
-
-        <div class="card " style="padding-left: 11% !important; padding-right: 11% !important">
-        <div class="row">
-
-           <br>
-           <div class="z-depth-5" id="vcuentas">
-            <div class="collection">
-
-                <a class="collection-item blue" style="color: black;">
-                  <b><div class="row">
-                    <div class="col s4 left blue   white-text">
-                        Nombre del documento
-                    </div>
-                    <div class="col s4 right blue  white-text">
-                        Acciones
-                    </div>
-                </div></b>
-            </a>
-            
-            {section name=LE loop=$VCUE}
-            <a href="#!" class="collection-item cuecon" style="max-height:220px;padding:0;padding-top: 2px; {if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="{$VCUE[LE][4]}">
-              <div class="row">
-                
-                <div class="col s4 numcon left" style="cursor: pointer; min-height: 40px; margin: 0 auto;">
-                    {$VCUE[LE][2]} 
-                </div>
-                <div class="col s4 right">
-                    {if $VCUE[LE][4] neq 1}
-
-                    <input type="checkbox" class="ispadr" id="ip{$VCUE[LE][0]}" title="Cuenta Padre" {if $VCUE[LE][5] eq 1} checked {/if}>
-                    <label for="ip{$VCUE[LE][0]}"></label>
-
-                    <i class="material-icons" id="ec{$VCUE[LE][0]}" title="Eliminar Cuenta">delete</i>
-                    {/if}
-                </div>
-            </div>
-        </a>
-        {/section}
-    </div>
-</div>
-<br><br>
-
-
-
-</div>
-</div>
-
-</div></div>
-<!-- Datos de las Categorías -->
-</li>
 <li>
     <div class="collapsible-header"><i class="material-icons">schedule</i><h5>Período Fiscal</h5></div>
 
