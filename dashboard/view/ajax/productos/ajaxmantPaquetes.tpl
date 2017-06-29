@@ -131,8 +131,8 @@
     </div>
 </div>
 <div class="modal-footer">
-    <a class="waves-effect waves-light btn-flat modal-action blue white-text" id="addpqt" style="margin-left: 2%; ">Agregar</a>
-    <a class="waves-effect waves-light btn-flat modal-action modal-close grey lighten-1 white-text" style="margin-left: 3% !important;">Salir</a>
+    <a class="waves-effect waves-green btn-flat modal-action" id="addpqt" style="margin-left: 2%; ">Agregar</a>
+    <a class="waves-effect waves-red btn-flat modal-action modal-close" style="margin-left: 3% !important;">Salir</a>
 </div>
 </div>
 

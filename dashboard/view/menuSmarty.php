@@ -21,7 +21,7 @@
     <div class="row" style="margin-bottom: 3px;">
     <div class="input-field col s10">
       <input id="numtrans" type="text" class="validate" style="margin-bottom: 0px;">
-      <label for="numtrans" style="font-size: 0.6em !important"># Transacción</label>
+      <label for="numtrans" style="font-size: 0.4em !important"># Transacción</label>
     </div>
     </div>
     <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b style="font-size: 1.2em !important" >Inicio</b></a></li>

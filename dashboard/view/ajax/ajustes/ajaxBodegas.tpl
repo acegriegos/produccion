@@ -7,6 +7,7 @@
                 <input id="vbodega" type="text" class="validate">
                 <label for="vbodega">Agregar Bodega</label>
                 <input type="hidden" id="vidbodega" value="0">
+                <input type="hidden" id="vidsucursal" value="">
             </div>
             <div class="col s1 m1 l1 mrgn">
             <br>

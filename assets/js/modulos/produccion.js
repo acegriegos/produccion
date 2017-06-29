@@ -77,7 +77,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m1").click();
+    $("#m2").click();
 });
 
 $(document).ready(function(){
@@ -204,10 +204,10 @@ $(document).on("click","#toBuy",function(){
 });
 
 $(document).on("click",".productline",function(){
-    var id = parseInt($(this).attr('id').substr(2));
-    switch(id) {
+    var tata = parseInt($(this).parent().attr('id').substr(2));
+    switch(tata) {
         case 1:
-            arr('login',6,'id,nombre',134,'id > 0 order by nombre limit 10',0,1,$("#listatareaproducciones"));
+            arr('login',6,'id,nombre,horahombre,horamaquina',134,'id > 0 order by nombre limit 10',0,1,$("#listatareaproducciones"));
             $("#vnombre").focus();
             break;
         case 2:
@@ -559,9 +559,22 @@ $(document).on("keyup","#vnombre",function(e){
 $(document).on("keyup","#vnombre[ku=1]",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
+        $("#vhorahombre").focus();
+    }
+});
+
+$(document).on("keyup","#vhorahombre",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        $("#vhoramaquina").focus();
+    }
+});
+
+$(document).on("keyup","#vhoramaquina",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
         $("#addlinea").click();
     }
-    
 });
 
 $(document).on("keyup","#vcodigo",function(e){
@@ -1167,10 +1180,19 @@ function validar (varreglo,vmodulo) {
 }
 
 function validarlinea() {
-    if ($("#vnombre").val() == ''){
+    if ($("#vnombre").val() == '') {
         $("#vnombre").focus();
         return 'Nombre Requerido';
     }
+    if ($("#vhorahombre").val() == '') {
+        $("#vhorahombre").focus();
+        return 'Hora Hombre Requerido';
+    }
+    if ($("#vhoramaquina").val() == '') {
+        $("#vhoramaquina").focus();
+        return 'Hora Máquina Requerido';
+    }
+
     return false;
 }
 
@@ -1215,7 +1237,7 @@ function validateprodline(tipo) {
 function cargar(vmodulo,vid) {
     switch(vmodulo['modulo']) {
         case 'tareaproduccione':
-            vmodulo['sel'] = 'id as vid,nombre as vnombre';
+            vmodulo['sel'] = 'id as vid,nombre as vnombre,horahombre as vhorahombre,horamaquina as vhoramaquina';
             vmodulo['tbl'] = 134;
             vmodulo['where'] ='id = '+vid;
             break;
@@ -1237,7 +1259,7 @@ function cargarSintax(vtabla){
             break;
         case 'tareaproducciones':
             var arr = {};
-            arr['sel'] = 'id,nombre';
+            arr['sel'] = 'id,nombre,horahombre,horamaquina';
             arr['tbl'] = 134;
             arr['where'] = 'id > 0 order by nombre limit 20';
             break;
@@ -1250,10 +1272,6 @@ function endDetail(id,acc,modulo) {
         case 'tareaproduccione':
             thorload(modulo);
             deadclear(modulo);
-            $("#vnombre").focus();
-            break;
-        case 'tareaproducciones':
-            deadclear(modulo.substring(0, modulo.length - 1));
             $("#vnombre").focus();
             break;
     }

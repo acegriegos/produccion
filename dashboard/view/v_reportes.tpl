@@ -11,16 +11,12 @@
 </head>
 {$NAV}
 <body>
-
 <div class="bdy"  style="font-size: 1.2em !important" >
-
 <div class="card z-depth-5">
 <div class="card-header center white-text" style="background-color:#0B3861">
 <p class="flow-text" style="font-size: 1.9em; margin-bottom: 0.3% !important">Reportes</p>
 </div>
-
 <div class="card-content">
-
 <div class="row">
 <div class="input-field col s10 m6 l5">
 <a  class="prefix dropdown-button tooltipped"  data-activates="filtr_1" data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
@@ -29,10 +25,9 @@
 </div>
 </div>
 <div class="row">
-
 {if $TR eq 1}
 <div class="col s4 m3 l2 center-align padd">
-<a class="report pbtn" id="rep"><i class="large material-icons padd">insert_chart</i></a>
+<a class="report pbtn" rep="clientes"><i class="large material-icons padd">insert_chart</i></a>
 <div class="row">
 <div class="col s12">
 <p>Clientes</p>
@@ -183,26 +178,9 @@
 </div>
 </div>
 {/if}
-<!-- <div class="col s4 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">supervisor_account</i></a>
-<div class="row">
-<div class="col s12">
-<p>Inventarios</p>
-</div>
-</div>
-</div> -->
-<!-- <div class="col s4 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">view_column</i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Productos</p>
-</div>
-</div>
-</div> -->
 {if $TR eq 1}
 <div class="col s4 m3 l2 center-align">
-<a class="report pbtn" id="rep1"><i class="large material-icons">view_carousel</i>
+<a class="report pbtn" rep="ventas"><i class="large material-icons">view_carousel</i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -211,64 +189,11 @@
 </div>
 </div>
 {/if}
-<!-- <div class="col s4 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">verified_user</i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Ventas</p>
-</div>
-</div>
-</div> -->
-
-<!-- <div id="fechas" class="modal" >
-<div class="modal-content" style="padding-top: 0;">
-
-<div class="row">
-<br>
-<div class="col s12 center-align">
-<div class="card-header center white-text z-depth-3"  style="background-color:#0B3861; margin-top: 0;">
-<p class="flow-text " style="font-size: 1.9em; margin-bottom: 0.3% !important; ">Entre Fechas</p>
-</div> 
-</div>
-</div>
-<div class="card-content">
-
-<div class="row">
-<div class="col 1">
-<i class="fa fa-calendar-o prefix"></i>
-</div>
-<div class="col s5">
-
-<input type="date" class="datepicker" id="vfecha" value="" />
-
-</div> 
-<div class="col 1">
-<i class="fa fa-calendar-o prefix"></i>
-</div>
-<div class="col s5">
-
-<input type="date" class="datepicker" id="vfecha" value="" />
-
-</div> 
-</div>
-<div class="row">
-<div class="col s12"></div>
-<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-</div>
-
-
-
-</div>
-
-</div>
-</div> -->
 </div>
 </div>
 </div>
 <br>
-<div id="mreportes">
-</div>
+<div id="mreportes"></div>
 </div>
 {$SCR}
 <script src="../assets/js/modulos/reportes.js?v=0.6"></script>

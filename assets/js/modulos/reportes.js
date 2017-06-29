@@ -22,12 +22,9 @@ $(function(){
 	});
 
 	$(".report").click(function(){
-		var id = parseInt($(this).attr('id').substr(3));
-		switch(id) {
-			case 1:
-         		window.open('?accion=2','',"width=2000, height=650");
-				break;
-		}
+		var rep = $(this).attr('rep');
+		window.open('?accion=1&rep='+rep,'',"width=2000, height=650");
+		
 	});
 	$("#m1").click();
 });

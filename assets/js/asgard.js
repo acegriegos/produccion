@@ -68,11 +68,12 @@ $(document).on("keyup","[id^=search_]",function(e){
         var c = $(this).attr('num').substr(1);
         var d = $(this).attr('num').substring(0,1).replace('+','');
         var e = $(this).attr('var');
+        var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
 
         tabla = $("#data-table-"+b).DataTable();
         tabla.destroy();
         if (e.replace(/,/g,'').length == e.length)
-            arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,1,$("#lista"+b));
+            arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%"',g,1,$("#lista"+b));
         else{
             var f = d+'id >= 0 and (';
             e = e.split(",");
@@ -81,8 +82,9 @@ $(document).on("keyup","[id^=search_]",function(e){
             }
             f = f.substring(0,f.length-3)
             f += ")";
+
       
-            console.log(arr('login',6,'*',c,f,0,1,$("#lista"+b)));
+            console.log(arr('login',6,'*',c,f,g,1,$("#lista"+b)));
         }
 
         
@@ -169,7 +171,6 @@ function loadpool(vmodulo,vid,vvarias){
     vmodulo = cargar(vmodulo,vid);
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
-    console.log(columns)
 
     for (var i = 0; columns[0][1].length > i; i++) {
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
@@ -472,7 +473,6 @@ function odin(varreglo,vform) {
                             '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
                     }else{
-                    
                     switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                         case 'select':
                             if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
@@ -507,6 +507,7 @@ function odin(varreglo,vform) {
                     break;
             }//end SWITCH
         }//end IF
+        console.log(varreglo[i]+" "+salida[varreglo[i]])
     }//end FOR
     break;
     }//end SWITCH
@@ -727,7 +728,7 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
 function generarReporte(){
     var filtros = $(".inpreport").length;
     var elem = $(".principal .filtros").attr('elem').split(',');
-    elem.splice(3,1);
+    elem.splice(elem.length-1,1);
     var tbl = $(".principal .filtros").attr('sp');
     var atributos = '';
     var vmodulo = {};
@@ -735,6 +736,7 @@ function generarReporte(){
     var search = new Array;
     var datos = mantenimiento('login',1,vmodulo);
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
+    console.error(datos)
     for (var i = 0, len = datos.length; i < len; i++) {
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
@@ -742,15 +744,20 @@ function generarReporte(){
             }else
             search[i] = '"'+$("#"+datos[i]).val()+'"';
         }else{
-            search[i] = $("#"+datos[i]).val();
+            if ($("#"+datos[i]).val() == '') {
+                search[i] = "''";
+            }else{
+                console.log(datos[i]+": "+$("#"+datos[i]).val())
+                search[i] = $("#"+datos[i]).val();
+            }
         }
     }
     var string = elem.concat(search);
     $.each(string,function(index){
         atributos += string[index]+',';
     });
-    console.log(atributos)
     atributos = atributos.substr(0,atributos.length-1);
+    console.log(atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 }
 
