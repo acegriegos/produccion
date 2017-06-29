@@ -85,12 +85,13 @@ $(document).on("keyup","[id^=search_]",function(e){
 
         arr('login',6,'*',c,f,g,1,$("#lista"+b));
 
-        
         $("#data-table-"+b).DataTable({
             bFilter :  false,
             bLengthChange : false,
             order : []
         });
+
+        }
     }
 });
 
