@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=0.4">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=0.6">
 
 
 </head>
@@ -65,14 +65,15 @@
                   <b></b>
                   <input type="checkbox" class="chg_tipo" value="1" >
                   <span class="lever"></span>
-                  <b>Por Cliente</b>
+                  <b>Por <span class="tipoclie">Cliente</span></b>
                 </label>
               </div>
             </div>
+              
             <div class="input-field col hide s12 m6" id="ftr1">
 
               <a class="prefix  tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
-<label class="truncate" for="ncli" style="font-size: 1.2em !important"> <b>Nombre o Cédula del Cliente</b></label>
+<label class="truncate" for="ncli" style="font-size: 1.2em !important"> <b>Nombre o Cédula del <span class="tipoclie">Cliente</span></b></label>
       <input type="text" id="ncli" var="nombre" class="autocomplete validate sclie" maxlength="64" />
               
             </div> 
@@ -198,6 +199,6 @@
 
 
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=0.13"></script>
+  <script src="../assets/js/modulos/notas.js?v=0.15"></script>
 </body>
 </html>

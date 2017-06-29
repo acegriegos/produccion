@@ -29,7 +29,7 @@
 
                 </div>
                 <div class="col s12 m6">
-                  <p style="padding-top: 1%"><b>Saldo:</b> <span id="isaldo"> <?php $length=sizeof($transaccion)-1; echo $transaccion[$length][5]; ?></span></p>
+                  <p style="padding-top: 1%"><b>Saldo Actual:</b> <span id="isaldo"> <?php $length=sizeof($transaccion)-1; echo $transaccion[$length][5]; ?></span></p>
 
                 </div>
                 <div class="col s12 m4 l4">
@@ -38,8 +38,8 @@
                 </div>
 
                 </div>
-                <div class="col s12 m12 l4 "  >
-                <div class="row " style="padding: 5%; padding-top: 6%;">
+                <div class="col s12 m12 l4  "  >
+                <div class="row " style=" padding-top: 10%;">
                       <div class="col s12">
                         <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Realizar Nota</button>
                       </div>
@@ -94,12 +94,19 @@
                           <textarea id="vcomentario" class="materialize-textarea" type="textarea"></textarea>
                           <label for="vcomentario">Comentario:</label>
                         </div>
-                        <div class="col s12 m8 offset-m4 ">
-                          <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Pago</button>
+                         <div class="row">
+                                        <div class="col s12 m6">
+                                          <p>
+                                            <input type="checkbox" id="tipoimpresion" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+                                            <label for="tipoimpresion" style="color: white">Punto Venta</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s12 m6  ">
+                                        <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Nota</button>
 
-                        </div>
+                                    </div>
+                                </div>
 
-                      </div>
 
                     </div>
                   </div>

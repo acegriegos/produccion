@@ -1,4 +1,4 @@
-      <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=0.7">
+      <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=0.8">
 
       <nav class="nav-extended  white-text z-depth-5" style="background-color:#0B3861">
           <div class="nav-wrapper">
@@ -103,35 +103,43 @@
 
                     <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; "><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
                     </div>
-                    <div class="col s12 m4 l4 " style=" padding-top: 1% !important">
-                       <!--      <br>
-                       < id="btn-div">DIV</button> -->
-                       <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Abonar</button>
-                   </div>
+                    
                </div>
                <br>
                <div class="card-content white-text  " style="padding: 0.1% !important">
 
                   <div class="row  ">
+                   <div class="col s12 m8">
                       <br>
-                      <div class="col s6 m4 l4">
-                          <p>Nombre: <span id="inombr"> </span></p>
+                      <div class="col s6 m6">
+                          <p><b>Nombre:</b> <span id="inombr"> </span></p>
                       </div>
-                      <div class="col s12 m4 l4">
-                        <p>Fecha: <span id="ifecha"> </span></p>
+                      <div class="col s12 m6">
+                        <p><b>Fecha: </b><span id="ifecha"> </span></p>
                     </div>
-                    <div class="col s12 m4 l4">
-                        <p>Saldo: <span id="isaldo"> </span></p>
+                    <div class="col s12 m6">
+                        <p><b>Saldo: </b><span id="isaldo"> </span></p>
                     </div>
-                    <div class="col s12 m4 l4">
-                        <p>Plazo: <span id="iplazo"> </span></p>
+                    <div class="col s12 m6">
+                        <p><b>Plazo: </b><span id="iplazo"> </span></p>
                     </div>
-                    <div class="col s12 m6 l4">
-                        <p>Dias del credito : <span id="idias"> </span></p>
+                    <div class="col s12 m6">
+                        <p><b>Dias del credito :</b> <span id="idias"> </span></p>
                     </div>
 
 
+                    </div>
+                    <div class="col s12 m12 l4  "  >
+                <div class="row " style=" padding-top: 10%;">
+                      <div class="col s12">
+                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Realizar Abono</button>
+                      </div>
+                    </div>
+                   
 
+
+
+                </div>
                 </div>
 
 

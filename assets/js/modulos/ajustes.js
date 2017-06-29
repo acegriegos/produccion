@@ -1,4 +1,5 @@
 $(function(){
+	console.log(1)
 	$(".modal").modal();
 	$("#m1").click();
 	$("#addMoneda").click(function(){
@@ -755,13 +756,13 @@ $(document).on("click","#fmonedas #principal",function(){
 });
 
 $(document).on("change","#vidprovincia",function(){
-	var id = $("option:selected",this).val();
+	var id = $(this).val();
 	arr('login',6,'id,nombre',9,'idprovincia = '+id+' and id > 0 order by nombre',0,1,$("#vidcanton"));
 	$("#vidcanton").material_select();
 });
 
 $(document).on("change","#vidcanton",function(){
-	var id = $("option:selected",this).val();
+	var id = $(this).val();
 	var factura = arr('login',4,'',156,id,0,0,0)[0][0];
 	$("#vfactura").val(factura);
 });
