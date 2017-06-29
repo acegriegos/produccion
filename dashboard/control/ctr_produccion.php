@@ -21,7 +21,7 @@
 	   		case 1:
 	   			$pagina = 1;
 	   			require_once '../_config/mySmarty.php';
-	   			$smarty  = new mySmarty();
+	   			$smarty = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('REC',$kakaroto->kamehameha('idproceso,proceso,precioventa',99,'1'));
 	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
@@ -31,16 +31,16 @@
 	   		case 2:
 	   			$pagina = 1;
 	   			require_once '../_config/mySmarty.php';
-	   			$smarty  = new mySmarty();
+	   			$smarty = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('LPR',$kakaroto->kamehameha('id,nombre',134,'id > 0 order by nombre limit 10'));
+	   			$smarty->assign('LPR',$kakaroto->kamehameha('id,nombre,horahombre,horamaquina',134,'id > 0 order by nombre limit 10'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('*',12,'idtipo = 2 order by idunidad'));
 	   			$smarty->display('ajax/produccion/lineaproduccion.tpl');
 	   			break;
 	   		case 3:
 	   			$pagina = 1;
 	   			require_once '../_config/mySmarty.php';
-	   			$smarty  = new mySmarty();
+	   			$smarty = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->display('ajax/produccion/inicio.tpl');
 	   			break;

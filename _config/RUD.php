@@ -2,6 +2,7 @@
 
 	require_once 'mysqlDB.php';
 	require_once '../_config/ecy.php';
+	ini_set("memory_limit",-1);
 	/**
 	* RUP crea los metodos para insertar,actualizar y eliminar de forma abstracta
 	*/

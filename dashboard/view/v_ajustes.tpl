@@ -11,9 +11,7 @@
   </head>
   <body>
     {$NAV}
-    
     <div class="bdy tamLetra">
-    
      <nav class="nav-extended z-depth-5 " style="background-color:#0B3861">
       <div class="nav-wrapper ">
         <ul class="tabs tabs-transparent">
@@ -23,17 +21,13 @@
           <li class="tab col s3 menu3" id="m4"><a class="tamLetra">Cuentas Contables</a></li>
           <li class="tab col s3 menu3" id="m5"><a class="tamLetra">Sucursales</a></li>
           <li class="tab col s3 menu3" id="m6"><a class="tamLetra">Bodegas</a></li>
+          <li class="tab col s3 menu3" id="m7"><a class="tamLetra">Producción</a></li>
         </ul>
       </div>
     </nav>
-    
     <div id="majustes"></div>
-        
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/ajustes.js?v=0.10"></script>
-
-    
+    <script src="../assets/js/modulos/ajustes.js?v=0.11"></script>
   </body>
-
 </html>

@@ -1,117 +1,117 @@
 <div class="tamLetra">
-<div class="card z-depth-5">
-    <ul class="collapsible" data-collapsible="accordion">
-      <li>
-          <div class="collapsible-header "><i class="small material-icons">work</i><h5>Datos de la Empresa</h5></div>
+    <div class="card z-depth-5">
+        <ul class="collapsible" data-collapsible="accordion">
+          <li>
+              <div class="collapsible-header "><i class="small material-icons">work</i><h5>Datos de la Empresa</h5></div>
 
-          <div class="collapsible-body"><div class="card-block">
-            <div class="row">
-                <div class="col s12 m12 l6">
-                    <label for="vnombre">Nombre de la Empresa</label>
-                    <input type="text" class="infoempresa validate" id="vnombre" field="empresa">
-                </div>
-                <div class="col s12 m12 l6">
-                    <label for="vcedula">Cédula Jurídica</label>
-                    <input type="text" class="infoempresa validate" id="vcedula" field="CJuridica">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12 m12 l6">
-                    <label for="vtelefono">Teléfonos de la Empresa</label>
-                    <input type="text" class="infoempresa validate" id="vtelefono" field="telefonos">
-                </div>
-                <div class="col s12 m12 l6">
-                    <label for="vcorreo">Correo Principal de la Empresa</label>
-                    <input type="email" class="infoempresa validate" id="vcorreo" field="correo">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col s12 m12 l6">
-                    <label for="vdireccion">Dirección de la Empresa</label>
-                    <input type="text" class="infoempresa validate" id="vdireccion" field="direccion">
-                </div>
-                <div class="col s12 m12 l6">
-                    <div class="col s6 m4">
-                        <img src="#" class="responsive-img" alt="Image" width="200px" height="100px" id="vlogo">
+              <div class="collapsible-body"><div class="card-block">
+                <div class="row">
+                    <div class="col s12 m12 l6">
+                        <label for="vnombre">Nombre de la Empresa</label>
+                        <input type="text" class="infoempresa validate" id="vnombre" field="empresa">
                     </div>
-                    <div class="col s6 m8">
+                    <div class="col s12 m12 l6">
+                        <label for="vcedula">Cédula Jurídica</label>
+                        <input type="text" class="infoempresa validate" id="vcedula" field="CJuridica">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l6">
+                        <label for="vtelefono">Teléfonos de la Empresa</label>
+                        <input type="text" class="infoempresa validate" id="vtelefono" field="telefonos">
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <label for="vcorreo">Correo Principal de la Empresa</label>
+                        <input type="email" class="infoempresa validate" id="vcorreo" field="correo">
+                    </div>
+                </div>
 
-                        <div class="file-field input-field">
-                            <div class="btn z-depth-5">
-                                <i class="small material-icons right">perm_media</i>Logo
-                                <input type="file">
-                            </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text">
+                <div class="row">
+                    <div class="col s12 m12 l6">
+                        <label for="vdireccion">Dirección de la Empresa</label>
+                        <input type="text" class="infoempresa validate" id="vdireccion" field="direccion">
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <div class="col s6 m4">
+                            <img src="#" class="responsive-img" alt="Image" width="200px" height="100px" id="vlogo">
+                        </div>
+                        <div class="col s6 m8">
+
+                            <div class="file-field input-field">
+                                <div class="btn z-depth-5">
+                                    <i class="small material-icons right">perm_media</i>Logo
+                                    <input type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
-            </div>
+                    <div class="col s12 m12 pull-s2">
 
-            <div class="col s12 m12 pull-s2">
-
-             <button type="button" class="btn btn-primary der z-depth-5" id="actinfo"><i class="small material-icons right">loop</i>Actualizar</button>
-         </div>
-     </div>
+                       <button type="button" class="btn btn-primary der z-depth-5" id="actinfo"><i class="small material-icons right">loop</i>Actualizar</button>
+                   </div>
+               </div>
 
 
- </div></div>
- <!-- Datos de la empresa -->
-</li>
-<li>
-    <div class="collapsible-header"><i class="material-icons">verified_user</i><h5>Monedas</h5></div>
+           </div></div>
+           <!-- Datos de la empresa -->
+       </li>
+       <li>
+        <div class="collapsible-header"><i class="material-icons">verified_user</i><h5>Monedas</h5></div>
 
-    <div class="collapsible-body"><div class="class-block">
+        <div class="collapsible-body"><div class="class-block">
 
 
-        <br>
-        <div class="row"> 
-
-            <div class="col s12 m12 l6">
-                <div class="row">
-                  <div class="col s9 m4 l6 offset-s3">
-                    <a href='#modal-wsdl' id="mantWsdl" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="left" data-tooltip="WSDL" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Manenimiento WSDL</a>
-                </div>
-                <div class="col s10 m4 l6 offset-s3 offset-m1">
-                    <a href='#modal-monedas' id="addMoneda" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="top" data-tooltip="Ingresar Moneda" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Agregar Moneda</a>
-                </div>
-
-            </div>
             <br>
-        </div>
+            <div class="row"> 
 
-        <div class="col s12 m12 l5">
-            <table class="table bordered highlight responsive-table z-depth-3 centered" id="data-table-monedas" style="margin: 1%;">
-                <thead>
-                    <tr>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Símbolo</th> 
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Moneda</th> 
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Valor</th> 
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="listamonedas">
-                    {section name=LE loop=$MON}
-                    <tr id="a_{$MON[LE][0]}">
-                        <td {if $MON[LE][3] neq ''} class="tooltipped" style="background-color: rgba(99, 190, 29, 0.3);" data-position="top" data-tooltip="Moneda por Defecto"{/if}>{$MON[LE][4]}</td>
-                        <td>{$MON[LE][1]}</td>
-                        <td>{$MON[LE][2]}</td>
-                        <td>
-                         <a class="waves-effect waves-light load" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="material-icons left">mode_edit</i></a>
+                <div class="col s12 m12 l6">
+                    <div class="row">
+                      <div class="col s9 m4 l6 offset-s3">
+                        <a href='#modal-wsdl' id="mantWsdl" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="left" data-tooltip="WSDL" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Manenimiento WSDL</a>
+                    </div>
+                    <div class="col s10 m4 l6 offset-s3 offset-m1">
+                        <a href='#modal-monedas' id="addMoneda" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="top" data-tooltip="Ingresar Moneda" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Agregar Moneda</a>
+                    </div>
 
-                         <a class="waves-effect waves-light delete" modulo="moneda" id="b{$MON[LE][0]}"  title="Eliminar Moneda"><i class="material-icons left">delete</i></a>
+                </div>
+                <br>
+            </div>
 
-                     </td>
-                 </tr>
-                 {/section}
-             </tbody>
-         </table>
-     </div>
- </div>
-</div>    <br></div>
-<!-- Datos de las monedas -->
+            <div class="col s12 m12 l5">
+                <table class="table bordered highlight responsive-table z-depth-3 centered" id="data-table-monedas" style="margin: 1%;">
+                    <thead>
+                        <tr>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Símbolo</th> 
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Moneda</th> 
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Valor</th> 
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listamonedas">
+                        {section name=LE loop=$MON}
+                        <tr id="a_{$MON[LE][0]}">
+                            <td {if $MON[LE][3] neq ''} class="tooltipped" style="background-color: rgba(99, 190, 29, 0.3);" data-position="top" data-tooltip="Moneda por Defecto"{/if}>{$MON[LE][4]}</td>
+                            <td>{$MON[LE][1]}</td>
+                            <td>{$MON[LE][2]}</td>
+                            <td>
+                               <a class="waves-effect waves-light load" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="material-icons left">mode_edit</i></a>
+
+                               <a class="waves-effect waves-light delete" modulo="moneda" id="b{$MON[LE][0]}"  title="Eliminar Moneda"><i class="material-icons left">delete</i></a>
+
+                           </td>
+                       </tr>
+                       {/section}
+                   </tbody>
+               </table>
+           </div>
+       </div>
+   </div>    <br></div>
+   <!-- Datos de las monedas -->
 </li>
 <li>
     <div class="collapsible-header"><i class="material-icons">supervisor_account</i><h5>Tipo de Usuarios</h5></div>
@@ -122,7 +122,7 @@
         <div class="row">
             <div class="col s12 m12 l5">
 
-               <div class="input-field col s11 m9 l11">
+             <div class="input-field col s11 m9 l11">
                 <a class="prefix" style="margin-left: 5% !important;"><i class="small material-icons">search</i></a>
                 <input type="text" id="search_tipousuarios" maxlength="45" num="+27" var="nombre" style="margin-left: 15% !important;">
                 <label for="search_tipousuarios" style="margin-left: 15% !important;">Buscar Tipo de Usuario</label>
@@ -132,18 +132,18 @@
                 <div class="row">
 
                     <div class="input-field col s12 ">
-                       <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario" style="padding-right: 5% !important;"><i class="small material-icons ">add</i></a>
-                       <input type="hidden" id="vid_tusuario" value="0">
-                       <input type="hidden" id="vdefecto_tusuario" value="0">
-                       <input type="text" id="vnombre_tusuario" value="" style="margin-left: 15% !important;">
-                       <label for="vnombre_tusuario" style="margin-left: 15% !important;">Ingresar Tipo Usuario</label>
-                   </div>
-               </div>
-               <br>
-           </div>
-       </div>
-       <br>
-       <div class="col s12 m12 l5 ">
+                     <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario" style="padding-right: 5% !important;"><i class="small material-icons ">add</i></a>
+                     <input type="hidden" id="vid_tusuario" value="0">
+                     <input type="hidden" id="vdefecto_tusuario" value="0">
+                     <input type="text" id="vnombre_tusuario" value="" style="margin-left: 15% !important;">
+                     <label for="vnombre_tusuario" style="margin-left: 15% !important;">Ingresar Tipo Usuario</label>
+                 </div>
+             </div>
+             <br>
+         </div>
+     </div>
+     <br>
+     <div class="col s12 m12 l5 ">
         <table class="table highlight responsive-table z-depth-3 centered" id="data-table-tipousuarios">
             <thead>
                 <tr>
@@ -158,19 +158,19 @@
                         <input type="text" value="{$TUSR[LE][1]}"  class="fast-edit center-align" style="border: 0px; margin: 0;">
                     </td>
                     <td style="margin:0;">
-                    {if $TUSR[LE][2] eq 0}
-                    <a href='#modal-tusuarios' id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
-                    <i class="small material-icons ">info_outline</i></a>
-                    <a href="#" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small material-icons ">delete</i></a>
-                    </td>
-                    {/if}
-                </tr>
-                {/section}
-            </tbody>
-        </table>
-</div></div>
-</div><br></div>
-<!-- Datos de las Usuarios -->
+                        {if $TUSR[LE][2] eq 0}
+                        <a href='#modal-tusuarios' id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
+                            <i class="small material-icons ">info_outline</i></a>
+                            <a href="#" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small material-icons ">delete</i></a>
+                        </td>
+                        {/if}
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
+        </div></div>
+    </div><br></div>
+    <!-- Datos de las Usuarios -->
 </li>
 <li>
     <div class="collapsible-header"><i class="medium material-icons">credit_card</i><h5>Tipo de Pagos</h5></div>
@@ -285,7 +285,7 @@
 
             <div class="col s12 m12 l5">
                 <table class="table highlight centered responsive-table z-depth-3" id="data-table-tipopagos">
-                   <thead>
+                 <thead>
                     <tr>
                         <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Tipo</th>
                         <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width: 100%">Accion</th>
@@ -451,19 +451,19 @@
                             <td><input type="text" value="{$BNK[LE][1]}" class="fast-edit center-align" style="border: 0px;margin: 0px; padding: 0px;"></td>
                             <td style="width: 50% !important">
 
-                               <a class="waves-effect load" modulo="banco" varias="1" id="i{$BNK[LE][0]}" href='#modal-bancos' title="Valores del Banco" ><i class="material-icons left">mode_edit</i></a>
+                             <a class="waves-effect load" modulo="banco" varias="1" id="i{$BNK[LE][0]}" href='#modal-bancos' title="Valores del Banco" ><i class="material-icons left">mode_edit</i></a>
 
-                               <a class="waves-effect" modulo="banco" id="j{$BNK[LE][0]}"  title="Eliminar Banco"><i class="material-icons left">delete</i></a>
+                             <a class="waves-effect" modulo="banco" id="j{$BNK[LE][0]}"  title="Eliminar Banco"><i class="material-icons left">delete</i></a>
 
-                           </td>
-                       </tr>
-                       {/section}
-                   </tbody>
-               </table>
-           </div>
-       </div>
-   </div><br></div>
-   <!-- Datos de los Bancos  -->
+                         </td>
+                     </tr>
+                     {/section}
+                 </tbody>
+             </table>
+         </div>
+     </div>
+ </div><br></div>
+ <!-- Datos de los Bancos  -->
 </li>
 <li>
     <div class="collapsible-header"><i class="material-icons">settings</i><h5>Categorías</h5></div>
@@ -475,7 +475,7 @@
 
             <div class="col s12 m12 l5">
                 <div class="row">
-                <div class="input-field col s11 m9 l11">
+                    <div class="input-field col s11 m9 l11">
                         <a class="prefix" style="margin-left: 5% !important;"><i class="small material-icons">search</i></a>
                         <input type="text" id="search_nivelesclientes" maxlength="100" num="+69" var="nombre" style="margin-left: 15% !important;">
                         <label for="search_nivelesclientes" style="margin-left: 15% !important;">Buscar Categoría</label>
@@ -535,6 +535,7 @@
     </div></div>
     <!-- Datos de las Categorías -->
 </li>
+
 <li>
     <div class="collapsible-header"><i class="material-icons">schedule</i><h5>Período Fiscal</h5></div>
 
@@ -557,18 +558,19 @@
                 </div>
             </div>
             <div class="col s12 m1">
-               <br>
-               <button type="button" class="btn btn-primary z-depth-5" id="sfechafiscal" style="margin-top: 5%;">Guardar</button>
-           </div>
-       </div><br>
-       <div class="row">
+             <br>
+             <button type="button" class="btn btn-primary z-depth-5" id="sfechafiscal" style="margin-top: 5%;">Guardar</button>
+         </div>
+     </div><br>
+     <div class="row">
 
-       </div>
-   </div>
+     </div>
+ </div>
 
 </div></div>
 <!-- Datos del Período Fiscal -->
 </li>
+
 </ul>
 
 
@@ -618,24 +620,24 @@
 
             <div class="wsdl-op">
               <br>
-                <div class="input-field" >
-                    <select id="vwsdl" type="select" noClear="1">
-                        <option value="0">Seleccione un WSDL</option>
-                        {section name=LE loop=$WSDL}
-                        <option value="{$WSDL[LE][0]}">{$WSDL[LE][1]}</option>
-                        {/section}
-                    </select>
-                    <label>WSDL</label>
-                </div>
+              <div class="input-field" >
+                <select id="vwsdl" type="select" noClear="1">
+                    <option value="0">Seleccione un WSDL</option>
+                    {section name=LE loop=$WSDL}
+                    <option value="{$WSDL[LE][0]}">{$WSDL[LE][1]}</option>
+                    {/section}
+                </select>
+                <label>WSDL</label>
+            </div>
 
-                <div class="row">
+            <div class="row">
 
                 <div class="input-field col s6">
                     <input type="text" id="vsuma" />
                     <label for="vsuma">Sumar al Valor del WSDL</label>
                 </div>
 
-                </div>
+            </div>
 
 
         </div>

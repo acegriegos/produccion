@@ -12,7 +12,7 @@
 <!-- #0B3861 -->
 <body>
     {$NAV}
-    <div class="bdy"  style="font-size: 1.2em !important">
+    <div class="bdy" style="font-size: 1.2em !important">
         <div class="card z-depth-5">
         <div class="card-header center white-text" style="background-color:#0B3861">
                 <p class="flow-text" style="font-size: 1.9em;">Clientes</p>

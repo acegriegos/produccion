@@ -10,36 +10,45 @@
 
                 <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; "><span class="card-title "><b>Factura: <span > <?php echo $transaccion[0][2]; ?></span></b></span> 
                 </div>
-                <div class="col s12 m4 l4 " style=" padding-top: 1% !important">
-
-                 <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Realizar Nota</button>
-               </div>
+               
                <br>
              </div>
              <div class="card-content white-text  " style="padding: 0.1% !important">
 
-              <div class="row ">
+              <div class="row " style="font-size: 1.2em !important">
+              <div class="col s12 m8">
                 <br>
-                <div class="col s6 m4 l4">
-                  <p>Nombre: <span> <?php echo $transaccion[0][1]; ?> </span></p>
+                <div class="col s12 m6">
+                  <p style="padding-top: 1%"><b>Nombre: </b><span> <?php echo $transaccion[0][1]; ?> </span></p>
                 </div>
-                <div class="col s12 m4 l4">
-                  <p>Fecha: <span id="ifecha"> <?php echo $transaccion[0][4]; ?></span></p>
+                <div class="col s12 m6">
+                  <p style="padding-top: 1%"> <b>Fecha: </b><span id="ifecha"> <?php echo $transaccion[0][4]; ?></span></p>
                 </div>
-                <div class="col s12 m4 l4">
-                  <p>Monto: <span id="imonto"> <?php echo $transaccion[0][8]; ?></span></p>
+                <div class="col s12 m6">
+                  <p style="padding-top: 1%"><b>Monto Original de la Factura: </b><span id="imonto"> <?php echo $transaccion[0][8]; ?></span></p>
+
+                </div>
+                <div class="col s12 m6">
+                  <p style="padding-top: 1%"><b>Saldo Actual:</b> <span id="isaldo"> <?php $length=sizeof($transaccion)-1; echo $transaccion[$length][5]; ?></span></p>
 
                 </div>
                 <div class="col s12 m4 l4">
-                  <p>Saldo: <span id="isaldo"> <?php $length=sizeof($transaccion)-1; echo $transaccion[$length][5]; ?></span></p>
-
-                </div>
-                <div class="col s12 m4 l4">
-                  <p>Tipo de Factura: <span id="isaldo"> <?php echo $transaccion[0][11]; ?></span></p>
+                  <p style="padding-top: 1%"><b>Tipo de Factura: </b><span id="isaldo"> <?php echo $transaccion[0][11]; ?></span></p>
 
                 </div>
 
+                </div>
+                <div class="col s12 m12 l4  "  >
+                <div class="row " style=" padding-top: 10%;">
+                      <div class="col s12">
+                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Realizar Nota</button>
+                      </div>
+                    </div>
+                   
 
+
+
+                </div>
 
 
               </div>
@@ -85,12 +94,19 @@
                           <textarea id="vcomentario" class="materialize-textarea" type="textarea"></textarea>
                           <label for="vcomentario">Comentario:</label>
                         </div>
-                        <div class="col s12 m8 offset-m4 ">
-                          <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Pago</button>
+                         <div class="row">
+                                        <div class="col s12 m6">
+                                          <p>
+                                            <input type="checkbox" id="tipoimpresion" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+                                            <label for="tipoimpresion" style="color: white">Punto Venta</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s12 m6  ">
+                                        <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Nota</button>
 
-                        </div>
+                                    </div>
+                                </div>
 
-                      </div>
 
                     </div>
                   </div>

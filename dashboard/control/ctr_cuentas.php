@@ -47,9 +47,18 @@ if (!isset($_REQUEST['accion'])) {
 		$smarty->display('ajax/cuentas/ajaxVerNotaPago.tpl');
 		break;
 		case 4:
-			$pagina = 1;
-			echo "Aqui va el reporte de abonos numero: ".$_REQUEST['id'];
-			break;
+		$pagina = 1;
+		$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+		
+/*		$transaccion = $kakaroto->kamehameha('',72,$_REQUEST['id']);
+*/		$datos = $transaccion[0];
+		
+		if($_REQUEST['tn'] == 1)
+			require_once 'view/ajax/cuentas/recibopv.php';
+		else
+			require_once 'view/ajax/cuentas/recibo.php';
+		break;
+		
 		case 5:
 
 		break;

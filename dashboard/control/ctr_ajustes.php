@@ -1,28 +1,27 @@
 <?php  
-	    require_once 'model/m_general.php';
-	    $kakaroto = new _general();
+require_once 'model/m_general.php';
+$kakaroto = new _general();
 
-	    if (!isset($_REQUEST['accion'])) {
-	   	require '../_config/mySmarty.php';
-	   
-	   	$smarty  = new mySmarty();
-	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
-	   	$sty = $smarty->fetch('../view/styles.php');
-		$scr = $smarty->fetch('../view/scripts.php');
+if (!isset($_REQUEST['accion'])) {
+	require '../_config/mySmarty.php';
+
+	$smarty  = new mySmarty();
+	$smarty->setModule('dashboard');
+	$pg = $smarty->fetch('../view/menuSmarty.php');
+	$sty = $smarty->fetch('../view/styles.php');
+	$scr = $smarty->fetch('../view/scripts.php');
 	
-		$smarty->assign('STY',$sty);
-		$smarty->assign('SCR',$scr);
-	   	
-	   	$smarty->assign('NAV',$pg);
-	   	$smarty->display('v_ajustes.tpl');
-	   }else{
-	   $pagina = 0;
-	   require '../_config/mySmarty.php';
-	   	$smarty  = new mySmarty();
-	   	$smarty->setModule('dashboard');
-	   	switch ($_REQUEST['accion']) {
+	$smarty->assign('STY',$sty);
+	$smarty->assign('SCR',$scr);
 
+	$smarty->assign('NAV',$pg);
+	$smarty->display('v_ajustes.tpl');
+}else{
+	$pagina = 0;
+	require '../_config/mySmarty.php';
+	$smarty  = new mySmarty();
+	$smarty->setModule('dashboard');
+	switch ($_REQUEST['accion']) {
 	   		case 1:
 	   			$pagina = 1;
 	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo',54,'id > 0 order by principal desc,nombre'));
@@ -68,6 +67,12 @@
 	   			$smarty->assign('CDEF',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and !ispadre order by nombre'));
 	   			$smarty->display('ajax/ajustes/ajaxBodegas.tpl');
 	   			break;
+	   		case 7:
+	   			$pagina = 1;
+	   			$smarty->assign('VP',$kakaroto->kamehameha('vid,vnombre,vvalor',171,'1 order by vnombre'));
+	   			$smarty->assign('ET',$kakaroto->kamehameha('id,nombre',176,'id > 0 order by id'));
+	   			$smarty->display('ajax/ajustes/ajaxProduccion.tpl');
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){
@@ -78,11 +83,11 @@
 					$succed = 0;
 				}
 		
-				$salida = array('succed'=>$succed);
-				array_push($salida, $marcas);
-				print_r(json_encode($salida));	
+		$salida = array('succed'=>$succed);
+		array_push($salida, $marcas);
+		print_r(json_encode($salida));	
 		
-		   }
-	    }	
-			   
+	}
+}	
+
 ?>

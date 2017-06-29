@@ -71,7 +71,7 @@
                 <input type="hidden" id="vidmoneda" value="1">
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vidproveedor" value="0">
-                <input type="hidden" id="vidusuario" value="">
+                <input type="hidden" id="vidsucursal" value="">
                 <div class="row">
                     <div class="input-field col s12 m6 l6" style="margin: 0">
                         <input id="vcodigo" type="text" class="validate">
@@ -121,9 +121,9 @@
                                 <input id="vdias" type="number" class="validate" min="1" value="0">
                                 <label for="vdias">Período en Días</label>
                             </div>
-                        </div>
+                        </div><br>
                     </div>
-                </div><br>
+                </div>
                 <div class="row">
                     <div class="col s12 m3">
                         <input type="checkbox" id="outsourcing" value="0">
@@ -132,7 +132,7 @@
                     </div>
                     <!-- </div> -->
                     <!-- <div class="row"> -->
-                    <div class="input-field col s12 m12 ">
+                    <div class="input-field col s12 m6 ">
                         <select id="prov" disabled>
                             <br><option value="0" disabled selected>Seleccione un Proveedor</option>
                             {section name=LE loop=$CLI}
@@ -142,7 +142,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="col s6 m6 l6">
+                        <label for="vidinventario">Seleccione un Inventario</label>
+                        <select id="vidinventario" type="select"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 m6">
                         <a class="prefix" href="#hextra"><i class="material-icons pbtn">help</i></a>
                         <input type="text" id="vextra">
                         <label for="vextra">Extra Automática del Nombre</label>
@@ -172,8 +178,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a class="modal-action waves-effect waves-light btn-flat blue white-text add" id="addserv" modulo="servicio">Agregar</a>
-        <a class="modal-action modal-close waves-effect waves-light btn-flat grey lighten-1 white-text">Salir</a>
+        <a class="modal-action waves-effect waves-green btn-flat add" id="addserv" modulo="servicio">Agregar</a>
+        <a class="modal-action modal-close waves-effect waves-red btn-flat">Salir</a>
     </div>
 </div>
 

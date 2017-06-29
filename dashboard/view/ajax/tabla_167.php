@@ -3,7 +3,7 @@ $idfactura = 0;
    	foreach ($transaccion as $obj) {
    		if ($obj[0] != $idfactura) {
    			echo '<tr>
-   				<td class="detail" id="dt'.$obj[0].'"><span class="dts">[+]</span></td>
+   				<td class="detail pbtn" id="dt'.$obj[0].'"><span class="dts">[+]</span></td>
    				<td style="text-align: center">'.$obj[1].'</td>
 				<td style="text-align: center">'.$obj[5].'</td>
 				<td style="text-align: center">'.$obj[7].'</td>
