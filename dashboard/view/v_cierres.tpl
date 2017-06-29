@@ -29,8 +29,8 @@
           <ul class="collection with-header" id="listacierrespendientes"></ul>
         </div>
         <div class="col s9 m9 l9">
-          <h4></h4>
-          <br><table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-cierres" cellspacing="0" width="100%" >
+          <h4>Facturas</h4>
+          <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
@@ -43,23 +43,67 @@
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Acciones</th>
                 </tr>
             </thead>
-            <tbody id="listaproductos">
+            <tbody id="listafacturas">
+              <!-- <tr>
+                <td style=" padding: 10px;"></td>
+                <td style=" padding: 10px;"></td>
+                <td style=" padding: 10px;"></td>
+                <td style=" padding: 10px;"></td>
+                <td style=" padding: 10px;"></td>
+                <td style=" padding: 10px;"></td>
+                <td style=" padding: 10px;"></td>
+                <td>
+                  <a class="btn-color pbtn cdel material-icons" id="d{$CCP[LE][0]}" title="" style="font-size: 2em; color: #607d8b">close</a>
+                </td>
+              </tr> -->
+            
+            </tbody>
+        </table>
+        <div class="row marginzero">
+          <div class="col s3 m3 l3">
+            Total contado: <span id="tcontado"></span>
+          </div>
+          <div class="col s3 m3 l3">
+            Total crédito: <span id="tcredito"></span>
+          </div>
+          <div class="col s3 m3 l3">
+            
+          </div>
+          <div class="col s3 m3 l3">
+            
+          </div>
+        </div>
+        <h4>Notas y abonos</h4>
+          <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-estadocuenta" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Fecha</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cliente</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo Pago</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Total</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Usuario</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="listanotasabonos">
             
                 <!-- <tr>
-                    <td style=" padding: 10px;"></td>
-                    <td style=" padding: 10px;"></td>
-                    <td style=" padding: 10px;"></td>
-                    <td style=" padding: 10px;"></td>
-                    <td style=" padding: 10px;"></td>
-                    <td style=" padding: 10px;"></td>
-                    <td style=" padding: 10px;"></td>
+                    <td style="padding: 10px;"></td>
+                    <td style="padding: 10px;"></td>
+                    <td style="padding: 10px;"></td>
+                    <td style="padding: 10px;"></td>
+                    <td style="padding: 10px;"></td>
+                    <td style="padding: 10px;"></td>
+                    <td style="padding: 10px;"></td>
                     <td>
                         <a class="btn-color pbtn cdel material-icons" id="d{$CCP[LE][0]}" title="" style="font-size: 2em; color: #607d8b">close</a>
                     </td>
                 </tr> -->
             
             </tbody>
-        </table>
+          </table>
         </div>
       </div>
     </div>

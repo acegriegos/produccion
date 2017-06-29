@@ -24,9 +24,20 @@
                         <a class="waves-effect waves-light btn-floating white-text blue add mbutton z-depth-5" id="addlinea" modulo="tareaproduccione"><i class="material-icons">add</i></a>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s4 m4 l4">
+                        <input type="text" id="bandejas" class="validate">
+                        <label for="bandejas">Bandejas</label>
+                    </div>
+                    <div class="input-field col s4 m4 l4">
+                        <input type="text" id="maquina" class="validate">
+                        <label for="maquina">Maquina</label>
+                    </div>
+                </div>
             </div>
             <div class="col s12 m6 l6">
                 <div class="input-field col s6 m6 l6 offset-s6 offset-m6 offset-l6">
+                    <i class="material-icons prefix blue-text">search</i>
                     <input type="text" id="search_tareaproducciones" class="validate" num="v180" var="vnombre" cambio="134">
                     <label for="search_tareaproducciones">Buscar por nombre</label>
                 </div>
