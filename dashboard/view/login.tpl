@@ -20,12 +20,12 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="background-image: url(../assets/img/1.jpg);  background-attachment: fixed;">
+  <body>
   
 <div class="bdy ">
-<div class="row"><br><br>
+<div class="row" style="margin-top: 3%">
 
-    <div class="card" style="width: 340px; margin: 0 auto; min-width: 350px; margin-top: 5%; background-color: #063B61;/*rgba(11,56,97,0.7)*/ "><br>
+    <div class="card z-depth-5" style="width: 340px; margin: 0 auto; min-width: 350px; background-color: #063B61;/*rgba(11,56,97,0.7)*/ "><br>
     <div class="card-header"><p class="flow-text center white-text"><b>Sistema BMS</b></p></div>
     <div class="card-content">
     
@@ -33,12 +33,12 @@
     <input type="hidden" name="vdir" value="" id="vdir">
         <div class="input-field col s12">
         
-            <input id="user" type="text" name="usr" class="validate" style="padding-left: 2%;border: 1px solid #e2e2e2;font-size: 20px;">
+            <input id="user" type="text" name="usr" class="validate white-text" style="padding-left: 2%;border: 1px solid #e2e2e2;font-size: 20px;">
             <label for="user" class="white-text" style="padding-bottom: 8px;"><b>Ingrese su Usuario</b></label>
         </div>
         <div class="input-field col s12">
             <label for="pass" class="white-text" style="padding-bottom: 8px;"><b>Contraseña</b></label>
-            <input id="pass" type="password" name="pss" class="validate" style="padding-left: 2%;border: 1px solid #e2e2e2;font-size: 20px;">
+            <input id="pass" type="password" name="pss" class="validate white-text" style="padding-left: 2%;border: 1px solid #e2e2e2;font-size: 20px;">
         </div>
         <div class="row">
             <div class="col s12"><br>
@@ -65,6 +65,10 @@
     </form>
     </div>
     
+    </div>
+
+    <div class="col s6 hide">
+        <img src="../assets/img/logo.png" align="center">
     </div>
 </div>
 <div id="modal1" class="modal bottom-sheet">

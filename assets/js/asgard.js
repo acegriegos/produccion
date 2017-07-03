@@ -83,16 +83,15 @@ $(document).on("keyup","[id^=search_]",function(e){
             f = f.substring(0,f.length-3)
             f += ")";
 
-      
-            console.log(arr('login',6,'*',c,f,g,1,$("#lista"+b)));
-        }
+        arr('login',6,'*',c,f,g,1,$("#lista"+b));
 
-        
         $("#data-table-"+b).DataTable({
             bFilter :  false,
             bLengthChange : false,
             order : []
         });
+
+        }
     }
 });
 
@@ -152,16 +151,15 @@ function doGlobal(accion,modulo,tip,varias){
 function baseValidar(vaccion,vmodulo){
     var salida = {}
     var varreglo = mantenimiento('login',vaccion,vmodulo);
-    if (varreglo == "[object Object]"){
+
+    if ( varreglo['succed'] == 1){
 
         salida = validar(varreglo[0],vmodulo);
-        
         if (vmodulo['tip'] != '') {
             salida[vari] = vmodulo['tip'];
         }
     }else{
-        console.error('error en Base Validar')
-        return varreglo;
+        return varreglo[0]['ERROR'];
     }
 
     return salida;
@@ -169,6 +167,12 @@ function baseValidar(vaccion,vmodulo){
 
 function loadpool(vmodulo,vid,vvarias){
     vmodulo = cargar(vmodulo,vid);
+
+    if (vmodulo['sel'] == undefined){
+        Materialize.toast(vmodulo,4000,'red');
+        return false
+    }
+
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
 
@@ -178,7 +182,7 @@ function loadpool(vmodulo,vid,vvarias){
 
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
-                
+                console.log(columns[0][0][0][i]);
                 if (columns[0][0][0][i] != '') 
                     $("#"+vform+" #"+columns[0][1][i]['name']).change();
 
@@ -269,7 +273,6 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     
                     try {
                         p = JSON.parse(data);
-                        console.log(p)
                     }
                     catch(err){
                         p = data;
@@ -640,7 +643,6 @@ function change_load(vto,vtabla,vval,vset){
 
 function convert(a, b, c, d) {
     // a = idproducto | b = cantidad | c = unidad a convertir | d = precio
-    // console.log(a+" "+b+" "+c+" "+d)
     var precio = arr('login',4,'',154,a+','+b+','+c+','+d,0,0,0)[0][0];
     return precio
 }
@@ -700,21 +702,12 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
                 animateScale: true,
                 animateRotate: true
             },
-            // scales: {
-            //     yAxes: [{
-            //         display: true,
-            //         ticks: {
-            //             beginAtZero: true,
-            //         }
-            //     }]
-            // },
         },
     };
 
     switch(tipo){
         case 'bar':
             config1['options']['scales'] = {yAxes:[{ticks:{beginAtZero:true,}}]}
-            console.log(config1['options']);
             break;
         default:
             break;

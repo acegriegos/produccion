@@ -24,11 +24,23 @@
 	
 				$smarty  = new mySmarty();
 				$smarty->setModule('dashboard');
+				$smarty->assign('USRS',$kakaroto->kamehameha('id,nombre',1,'id > 0'));
+				$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0'));
+				$smarty->assign('FLOT',$kakaroto->kamehameha('id,nombre',216,'id > 0 and tipo = 1'));
+
 				$smarty->assign('RUT',$kakaroto->kamehameha('*',208,'id>0'));
 				$smarty->display('ajax/rutas/mantenimiento.tpl');
 				break;
 	   		case 2:
+	   			$pagina = 1;
+				require '../_config/mySmarty.php';
+	
+				$smarty  = new mySmarty();
+				$smarty->setModule('dashboard');
 
+				$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0'));
+				$smarty->assign('RUT',$kakaroto->kamehameha('*',208,'id>0'));
+				$smarty->display('ajax/rutas/zona.tpl');
 	   			break;
 	   		case 3:
 	   			

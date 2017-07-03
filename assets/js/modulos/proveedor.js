@@ -70,9 +70,3 @@ function cargarSintax(){
 
 	return arr;
 }
-
-
-function endDetail(vid) {
-	setTimeout(function(){ console.log('Registro Ingresado') }, 2000);
-	return false;
-}
