@@ -101,29 +101,29 @@ $(function(){
             if ($("#codp").val().substr(0,1) == '-') {
                 kbrota = 'S'+$(this).val();
             }
-            
+
             var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
               if (cod[0][0] != undefined) {
                 var fimv = cod[0];
                 cod = cod[0][0];
 
-                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : 0,hdescm : 0, hinv : cod[14], hbod:cod[15],hdescu : 0})
+                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14],hdescu : 0})
 
                 for (var i = 0; i < fimv.length; i++) {
 
-                    var exo = fimv[i][9]*(1-(fimv[i][10]/100));
+                    var exo = fimv[i][8]*(1-(fimv[i][9]/100));
 
-                    if($("#imp_"+fimv[i][7]).length == 0){
+                    if($("#imp_"+fimv[i][6]).length == 0){
                         var clip = 0;
-                        if(fimv[i][12] != 0) clip = 'vclipd="'+fimv[0][0]+'"';
+                        if(fimv[i][11] != 0) clip = 'vclipd="'+fimv[0][0]+'"';
 
-                        $("#sh_imp").append('<tr id="imp_'+fimv[i][7]+'" '+clip+'><td>'+fimv[i][11]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][7]+'" type="html">0.00</span></td></tr>');
-                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
-                        $("#imv_"+fimv[i][7]).data('incl',fimv[i][0]+",");
+                        $("#sh_imp").append('<tr id="imp_'+fimv[i][6]+'" '+clip+'><td>'+fimv[i][10]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][6]+'" type="html">0.00</span></td></tr>');
+                        $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
+                        $("#imv_"+fimv[i][6]).data('incl',fimv[i][0]+",");
                     }else{
-                        var incl = $("#imv_"+fimv[i][7]).data('incl');
-                        $("#imv_"+fimv[i][7]).data('incl',incl+fimv[i][0]+",");
-                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
+                        var incl = $("#imv_"+fimv[i][6]).data('incl');
+                        $("#imv_"+fimv[i][6]).data('incl',incl+fimv[i][0]+",");
+                        $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
                     }
                     
                 }
@@ -754,7 +754,7 @@ function cargarSintax(){
 
 function endDetail(vid,vacc,vmodulo) {
     // window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
-    arr('login',7,'1',159,'','null,'+vid+','+$("#p_v").is(':checked'),0,0,0);
+    arr('login',7,'1',184,'','null,'+vid+',2,'+$("#p_v").is(':checked'),0,0,0);
     // setTimeout(function(){location.reload();}, |4000);
     return false;
 }

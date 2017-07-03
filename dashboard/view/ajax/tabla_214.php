@@ -1,5 +1,5 @@
 <?php 
-if ($transaccion[0][13]==1) {
+if ($transaccion[0][13] == 1) {
 
 foreach ($transaccion as $obj) {
     ?>

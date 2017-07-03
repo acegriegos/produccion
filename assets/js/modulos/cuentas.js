@@ -4,60 +4,48 @@ $(function(){
 	param = parseInt(getParameterByName('tf'));
 	switch(param){
 		case 1:
-		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-		arr('login',6,'',214,2+',0',0,1,$("#listaCuentasx"));
-		break;
+			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+			arr('login',6,'',214,2+',0',0,1,$("#listaCuentasx"));
+			break;
 		case 2:
-		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-		arr('login',6,'',214,1+',0',0,1,$("#listaCuentasx"));
-		break;	
+			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+			arr('login',6,'',214,1+',0',0,1,$("#listaCuentasx"));
+			break;	
 		default:
-		$("#bdymantCuentas").html("Valor no Valido")
-		break; 
-
-
-	}
-
-
-
-	$("#fcuentass").submit(function(){return false});
+			$("#bdymantCuentas").html("Valor no Valido")
+			break; 
+	};
 	$("#data-table-cuentas").dataTable({
-
 		bFilter: false,
 		order : [],
 		"bLengthChange": false
 	});
-	$("#data-table-cuentas-xP").dataTable({
 
+	$("#data-table-cuentas-xP").dataTable({
 		bFilter: false,
 		order : [],
 		"bLengthChange": false
 	});
 
 	$("#data-table-cuentas-detalle").dataTable({
-
 		bFilter: false,
 		order : [],
 		"bLengthChange": false
 	});
-	
-
 });
 
 $(document).on("change","[name='ctas']",function(){
 	$(".detalle").show();
-
 	switch(parseInt($(this).attr('value'))){
 		case 2:
-		$(".detalle[tp=0]").hide()
-		break;
+			$(".detalle[tp=0]").hide()
+			break;
 		case 3:
-		$(".detalle[tp=1]").hide()
-		break;
+			$(".detalle[tp=1]").hide()
+			break;
 		default:
-		break;
+			break;
 	}
-
 })
 
 

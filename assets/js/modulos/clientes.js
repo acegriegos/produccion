@@ -2,7 +2,6 @@ var cuentas = '<option value="0">Seleccione una Cuenta</option>';
 var ind_1 = ind_2 = 1;
 
 $(function(){
-	console.log(1)
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	
@@ -13,7 +12,7 @@ $(function(){
 		order : [],
 		"bLengthChange": false
 	});
-	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
+	var cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
 	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
@@ -133,7 +132,7 @@ $(function(){
 });
 
 $(document).on("change","#vidnivel",function(){
-	console.log($("#vidnivel option:selected").val())
+	// console.log($("#vidnivel option:selected").val())
 });
 
 $(document).on("click",".optns",function(){
@@ -368,8 +367,19 @@ function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
 			var tipo = $("#vidtipocliente").val();
+			var cred = $("#vcredito").val();
+
 			$("[tipoclie="+tipo+"]").prop('checked',true);
 			$("[tipoclie="+tipo+"]").click();
+
+			if (cred != 0) {
+				$("#tipocliente").prop('checked',true);
+				$(".cre").show();
+			}else{
+				$("#tipocliente").prop('checked',false);
+				$(".cre").hide();
+			}
+
 			break;
 	}
 }

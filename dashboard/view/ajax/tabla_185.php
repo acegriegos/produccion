@@ -10,7 +10,6 @@
 	<td style="padding: 10px;"><?php echo $obj[5]?></td>
 	<td style="padding: 10px;"><?php echo $obj[6]?></td>
 	<td style="padding: 10px;"><?php echo $obj[7]?></td>
-	<td style="padding: 10px;"><?php echo $obj[8]?></td>
 </tr>
 
 <?php } ?>

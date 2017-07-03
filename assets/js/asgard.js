@@ -269,8 +269,8 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                     
                     try {
                         p = JSON.parse(data);
-/*                        console.log(p)
-*/                    }
+                        console.log(p)
+                    }
                     catch(err){
                         p = data;
                     }
@@ -496,6 +496,7 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
                             break;
                         case 'checkbox':
+                            console.log(varreglo[i])
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:

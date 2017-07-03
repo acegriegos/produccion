@@ -34,30 +34,16 @@
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo Factura</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Fecha</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cliente</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo Pago</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Total</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Usuario</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Acciones</th>
                 </tr>
             </thead>
-            <tbody id="listafacturas">
-              <!-- <tr>
-                <td style=" padding: 10px;"></td>
-                <td style=" padding: 10px;"></td>
-                <td style=" padding: 10px;"></td>
-                <td style=" padding: 10px;"></td>
-                <td style=" padding: 10px;"></td>
-                <td style=" padding: 10px;"></td>
-                <td style=" padding: 10px;"></td>
-                <td>
-                  <a class="btn-color pbtn cdel material-icons" id="d{$CCP[LE][0]}" title="" style="font-size: 2em; color: #607d8b">close</a>
-                </td>
-              </tr> -->
-            
-            </tbody>
+            <tbody id="listafacturas"></tbody>
         </table>
         <div class="row marginzero">
           <div class="col s3 m3 l3">
@@ -78,31 +64,16 @@
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nota/Abono</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Fecha</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cliente</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo Pago</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Total</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Saldo</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Usuario</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Acciones</th>
+                    
                 </tr>
             </thead>
-            <tbody id="listanotasabonos">
-            
-                <!-- <tr>
-                    <td style="padding: 10px;"></td>
-                    <td style="padding: 10px;"></td>
-                    <td style="padding: 10px;"></td>
-                    <td style="padding: 10px;"></td>
-                    <td style="padding: 10px;"></td>
-                    <td style="padding: 10px;"></td>
-                    <td style="padding: 10px;"></td>
-                    <td>
-                        <a class="btn-color pbtn cdel material-icons" id="d{$CCP[LE][0]}" title="" style="font-size: 2em; color: #607d8b">close</a>
-                    </td>
-                </tr> -->
-            
-            </tbody>
+            <tbody id="listanotasabonos"></tbody>
           </table>
         </div>
       </div>

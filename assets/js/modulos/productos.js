@@ -1971,6 +1971,10 @@ function validarproductos() {
         $("#vcosto").select()
         return 'Precio Costo Debe ser Mayor a 0';
     }
+
+    if ($("#vganancia").val() == '') {
+        $("#vganancia").val(0);
+    }
     
     if ($("#vventa").val() == '' || $("#vventa").val() == '0.00') {
         $("#tb2").click();
