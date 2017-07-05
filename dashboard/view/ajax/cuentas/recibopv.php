@@ -2,7 +2,7 @@
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 <link href="../assets/css/materialize.css" rel="stylesheet">
 <link href="../assets/css/modulos/style-factura.css" rel="stylesheet">
-<?php $hide = $datos[24] > 2 ? 'hide':'' ?>
+<!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
 <body class="grey darken-4" style="font-size: 1.1em;" >
   <div class="hoja grey lighten-3">
     <!-- HEADER -->
@@ -30,7 +30,7 @@
        <div class="row">
          <div class="col s12" id="infofact" >
           <b id="fact">Recibo N°</b>
-            <span id="numfact"> <?php echo $datos[0]; ?> </span>
+            <span id="numfact"> <?php echo $datos[1]; ?> </span>
           </div>
          
 
@@ -49,11 +49,11 @@
       </div>
       <div class="col s12">
       <span class=""><b>Usuario:</b></span>
-        <span class=""><i><?php echo $datos[16]; ?> </i></span>
+        <span class=""><i><?php echo $datos[10]; ?> </i></span>
       </div>
       <div class="col s12">
         <span class=""><b>Comentario:</b></span>
-        <span class=""><?php echo $datos[12]; ?> </span>
+        <span class=""><?php echo $datos[7]; ?> </span>
       </div>
       
 
@@ -68,15 +68,9 @@
   <div class="col s6 center-align ">
   <div class="card  blue-grey white-text imprimirSINBOR <?php echo $hide ?>" >
     <div class=" card-content ">
-    <?php if ($datos[2] === 'N/A'){ ?>
-      <p>Plazo en Días:
-        <?php echo $datos[11]; ?> 
-      </p>
-     <?php }else{ ?>
       <p>Tipo de Pago:
-        <?php echo $datos[2]; ?> 
+        <?php echo $datos[8]; ?> 
       </p>
-     <?php } ?>
       </div>
     </div>
   </div>
@@ -98,30 +92,28 @@
     <thead class=" blue-grey white-text imprimirSINBOR margen">
       <tr>
         <th class="center-align sinborde" id="th1">Tipo de movimiento</th>
-        <th class="center-align sinborde"  id="th2">Fecha</th>
-        <th class="center-align sinborde"   id="th3">Monto</th>
-        <th class="center-align sinborde"   id="th6">Saldo</th>
+        <th class="center-align sinborde" id="th2">Fecha</th>
+        <th class="center-align sinborde" id="th3">Monto</th>
+        <th class="center-align sinborde" id="th6">Saldo</th>
         
       </tr>
     </thead>
     <tbody >
-      <?php foreach ($transaccion as $obj) {?>
-     
+
        <tr class="tr" >
-        <td class="td center-align" ><span id="cant"><?php echo $obj[18]; ?></span></td>
-        <td class="td center-align"  ><span id="desc"><?php echo $obj[19]; ?></span></td>
-        <td class="td center-align"  ><span id="punit"><?php echo $obj[20]; ?></span></td>
-        <td class="td center-align"  ><span id="desc"><?php echo $obj[23]; ?></span></td>
+        <td class="td center-align"><span id="cant"><?php echo $datos[9]; ?></span></td>
+        <td class="td center-align"><span id="desc"><?php echo $datos[3]; ?></span></td>
+        <td class="td center-align"><span id="punit"><?php echo $datos[11]; ?><?php echo $datos[5]; ?></span></td>
+        <td class="td center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[6]; ?></span></td>
        
       </tr>
 
-      <?php } ?>
     </tbody>
     <tfoot>
     <tr>
     <td class="margen" colspan="4">&nbsp;</td>
       <td  class="left-align blue-grey white-text sinborde imprimirSINBOR"><b>TOTAL</b></td>
-      <td  class="right-align blue-grey white-text sinborde imprimirSINBOR"><b><?php echo $datos[15]; ?><?php echo $datos[10]; ?></b></td>
+      <td  class="right-align blue-grey white-text sinborde imprimirSINBOR"><b><?php echo $datos[11]; ?><?php echo $datos[5]; ?></b></td>
       
     </tr>
 

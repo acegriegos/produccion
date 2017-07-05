@@ -21,7 +21,7 @@ $(function(){
 
 $(document).on("click",".getfacturas",function(){
 	var date = new Date();
-	var curdate = date.getFullYear()+'-'+addZero(date.getMonth()+1,2)+'-'+date.getDate();
+	var curdate = date.getFullYear()+'-'+addZero(date.getMonth()+1,2)+'-'+addZero(date.getDate(),2);
 	var fecha = $(this).attr('vfecha') == 'HOY' ? curdate : $(this).attr('vfecha');
 	arr('login',6,'',183,'"'+fecha+'"',0,1,$("#listafacturas"));
 	arr('login',6,'',185,'"'+fecha+'"',0,1,$("#listanotasabonos"));

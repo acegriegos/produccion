@@ -103,14 +103,27 @@ $(document).on("click",".detalle",function(){
 	$("#btn-div").click(function(){
 		var vi = $(".divabono").attr('visible');
 		if (vi == 0) {
+			var tp = arr('login',4,'idtipoabono',39,'id = @@impresa',0,0,0)[0][0];
 			$(".divabono").show();
 			$(".divabono").attr('visible',1);
+			if (tp == 1)
+				$("#p_v").prop('checked',true);
+			else
+				$("#p_v").prop('checked',false);
+			
 			$("#vvalor").val(0.00).focus().select();
 		}else{
 			$(".divabono").hide();
 			$(".divabono").attr('visible',0);
 		}
 	});
+});
+
+$(document).on("keyup","#vvalor",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		console.log($("#p_v").is(":checked") == true ? 1 : 2)
+	}
 });
 
 $(document).on("click","#Iadd",function(){
@@ -271,7 +284,7 @@ function kpress(valor) {
 		    arr('login',6,'',214,gtipo+',0',0,1,$("#listaCuentasx"));
 
 		    $("#btn-div").click();
-
-		    window.open('cuentas?accion=4&id='+vid);
+		    var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+		    window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 	    }
 	}
