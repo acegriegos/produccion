@@ -24,12 +24,12 @@
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Código</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Código Interno</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Nombre</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Marca</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Precio Costo</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Precio Venta</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Ganancia</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%" >Acciones</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nombre</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Marca</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Precio Costo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Precio Venta</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Ganancia</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 20%">Acciones</th>
                 </tr>
             </thead>
             <tbody id="listaproductos">

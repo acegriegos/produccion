@@ -210,7 +210,7 @@
                               <div class="switch" align="center">
                                 <label>
                                    Contado
-                                  <input type="checkbox" tp="1" id="tipocliente">
+                                  <input type="checkbox" tp="1" name="tipocliente" id="tipocliente">
                                   <span class="lever"></span>
                                    Crédito
                               </label>

@@ -179,7 +179,7 @@
                                         </p>
                                     </div>
                                     <div class="col s12 m6  ">
-                                        <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="estadoscuenta" >Realizar Pago</button>
+                                        <button href="#!" class="waves-effect btn waves-light z-depth-5 add" tipo="2" modulo="estadoscuenta" >Realizar Pago</button>
 
                                     </div>
                                 </div>

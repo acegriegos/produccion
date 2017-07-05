@@ -4,60 +4,48 @@ $(function(){
 	param = parseInt(getParameterByName('tf'));
 	switch(param){
 		case 1:
-		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-		arr('login',6,'',214,2+',0',0,1,$("#listaCuentasx"));
-		break;
+			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+			arr('login',6,'',214,2+',0',0,1,$("#listaCuentasx"));
+			break;
 		case 2:
-		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-		arr('login',6,'',214,1+',0',0,1,$("#listaCuentasx"));
-		break;	
+			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+			arr('login',6,'',214,1+',0',0,1,$("#listaCuentasx"));
+			break;	
 		default:
-		$("#bdymantCuentas").html("Valor no Valido")
-		break; 
-
-
-	}
-
-
-
-	$("#fcuentass").submit(function(){return false});
+			$("#bdymantCuentas").html("Valor no Valido")
+			break; 
+	};
 	$("#data-table-cuentas").dataTable({
-
 		bFilter: false,
 		order : [],
 		"bLengthChange": false
 	});
-	$("#data-table-cuentas-xP").dataTable({
 
+	$("#data-table-cuentas-xP").dataTable({
 		bFilter: false,
 		order : [],
 		"bLengthChange": false
 	});
 
 	$("#data-table-cuentas-detalle").dataTable({
-
 		bFilter: false,
 		order : [],
 		"bLengthChange": false
 	});
-	
-
 });
 
 $(document).on("change","[name='ctas']",function(){
 	$(".detalle").show();
-
 	switch(parseInt($(this).attr('value'))){
 		case 2:
-		$(".detalle[tp=0]").hide()
-		break;
+			$(".detalle[tp=0]").hide()
+			break;
 		case 3:
-		$(".detalle[tp=1]").hide()
-		break;
+			$(".detalle[tp=1]").hide()
+			break;
 		default:
-		break;
+			break;
 	}
-
 })
 
 
@@ -115,14 +103,27 @@ $(document).on("click",".detalle",function(){
 	$("#btn-div").click(function(){
 		var vi = $(".divabono").attr('visible');
 		if (vi == 0) {
+			var tp = arr('login',4,'idtipoabono',39,'id = @@impresa',0,0,0)[0][0];
 			$(".divabono").show();
 			$(".divabono").attr('visible',1);
+			if (tp == 1)
+				$("#p_v").prop('checked',true);
+			else
+				$("#p_v").prop('checked',false);
+			
 			$("#vvalor").val(0.00).focus().select();
 		}else{
 			$(".divabono").hide();
 			$(".divabono").attr('visible',0);
 		}
 	});
+});
+
+$(document).on("keyup","#vvalor",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		console.log($("#p_v").is(":checked") == true ? 1 : 2)
+	}
 });
 
 $(document).on("click","#Iadd",function(){
@@ -283,7 +284,7 @@ function kpress(valor) {
 		    arr('login',6,'',214,gtipo+',0',0,1,$("#listaCuentasx"));
 
 		    $("#btn-div").click();
-
-		    window.open('cuentas?accion=4&id='+vid);
+		    var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+		    window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 	    }
 	}

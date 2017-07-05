@@ -21,9 +21,10 @@ $(function(){
 
 $(document).on("click",".getfacturas",function(){
 	var date = new Date();
-	var curdate = date.getFullYear()+'-'+addZero(date.getMonth()+1,2)+'-'+date.getDate();
+	var curdate = date.getFullYear()+'-'+addZero(date.getMonth()+1,2)+'-'+addZero(date.getDate(),2);
 	var fecha = $(this).attr('vfecha') == 'HOY' ? curdate : $(this).attr('vfecha');
 	arr('login',6,'',183,'"'+fecha+'"',0,1,$("#listafacturas"));
+	arr('login',6,'',185,'"'+fecha+'"',0,1,$("#listanotasabonos"));
 	
 	var totcont = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idtipo = 1 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
 	var totcred = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idtipo = 2 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
