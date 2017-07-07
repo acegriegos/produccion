@@ -21,6 +21,8 @@
                             <input type="hidden" id="vconsecutivo" value="1">
                             <input type="hidden" id="vconsecutivo1" value="1">
                             <input type="hidden" id="vconsecutivo2" value="1">
+                            <input type="hidden" id="vconsecutivo3" value="1">
+                            <input type="hidden" id="vconsecutivo4" value="1">
                             <input type="hidden" id="vid" value="0">
                         </div>
                     </div>
