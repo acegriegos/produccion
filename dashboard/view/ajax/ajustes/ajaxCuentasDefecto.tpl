@@ -94,7 +94,7 @@
             <tbody>
              {section name=LE loop=$DCUE}
                 <tr id="def{$DCUE[LE][0]}">
-                    <td style="width:20%">{$DCUE[LE][3]} {$DCUE[LE][5]}</td>
+                    <td style="width:20%">{$DCUE[LE][4]} {$DCUE[LE][6]}</td>
                     <td style="width:50%" id="cta{$DCUE[LE][0]}" pr="{$DCUE[LE][1]}">{$DCUE[LE][2]}</td>
                     <td style="width:50%">
                       <input name="cta-def" type="radio" id="r{$DCUE[LE][0]}"/>

@@ -44,18 +44,18 @@
         <div class="col s12 l6" id="finventarios">
         <div class="row">
             <div class="input-field col s6">
-                <select id="vidbode" type="select">
+                <select id="vidbodega" type="select">
                     <option value="0">Seleccione una Bodega</option>
                     {section name=LE loop=$BOD}
                     <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
                     {/section}
                 </select>
-                <label for="vidbode">Bodega</label>
+                <label for="vidbodega">Bodega</label>
             </div>
             <div class="input-field col s6">
                 <input id="vinventario" type="text" class="validate">
                 <label for="vinventario">Nombre Inventario</label>
-                <input type="hidden" id="vidinventario" value="0">
+                <input type="hidden" id="vid" value="0">
             </div>
         </div>
         <div class="row">

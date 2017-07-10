@@ -153,7 +153,6 @@ function baseValidar(vaccion,vmodulo){
     var varreglo = mantenimiento('login',vaccion,vmodulo);
 
     if ( varreglo['succed'] == 1){
-
         salida = validar(varreglo[0],vmodulo);
         if (vmodulo['tip'] != '') {
             salida[vari] = vmodulo['tip'];
@@ -499,10 +498,10 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
                             break;
                         case 'checkbox':
-                            console.log(varreglo[i])
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
+                            console.log(varreglo[i]+" "+salida[varreglo[i]])
                             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             break;
                     }
@@ -511,7 +510,7 @@ function odin(varreglo,vform) {
                     break;
             }//end SWITCH
         }//end IF
-        console.log(varreglo[i]+" "+salida[varreglo[i]])
+        
     }//end FOR
     break;
     }//end SWITCH

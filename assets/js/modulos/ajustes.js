@@ -63,7 +63,18 @@ $(document).on("click",".menu3",function(){
 			
 			$(".wsdl-op").hide();
 
-			
+			myDropzone = new Dropzone("#registro-upload", {
+			    url: '../cargar.php',
+			    autoProcessQueue:false,
+			    maxFilesize: 3,
+			    addRemoveLinks:true,
+			    uploadMultiple: true,
+			    init: function() {
+			      this.on("uploadprogress", function(file, progress) {
+			        console.log("File progress", progress);
+			      });
+			    }
+			  });
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
