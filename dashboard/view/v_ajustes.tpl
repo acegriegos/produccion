@@ -7,6 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Configuración</title>
     {$STY}
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=0.1">
   </head>
   <body>
@@ -28,6 +29,7 @@
     <div id="majustes"></div>
     </div>
     {$SCR}
+    <script src="../assets/js/dropzone.js"></script>
     <script src="../assets/js/modulos/ajustes.js?v=0.11"></script>
   </body>
 </html>

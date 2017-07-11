@@ -78,11 +78,15 @@
             <div class="col s12 input-field" align="center">
                 <span id="invname" nv="" style="float: left;">NOMBRE DE INVENTARIO</span>
 
-                <a href="#" class="btn-floating green cargar" title="Cargar Inventario"><i class="fa fa-caret-up"></i></a>
+                <a href="#" class="btn-floating green cargar load_inv" title="Cargar Inventario"><i class="fa fa-caret-up"></i></a>
 
                 <a href="#" class="btn-floating red descargar" title="Descargar Inventario"><i class="fa fa-caret-down"></i></a>
 
-                <a href="#" class="btn-floating" title="Imprimir Inventario de Ruta"><i class="fa fa-print"></i></a>
+                <a href="#" class="btn-floating cargar load_ped" title="Cargar Pedidos"><i class="fa fa-file-o"></i></a>
+
+                <a href="#" class="btn-floating cargar save" title="Guardar Inventario"><i class="fa fa-save"></i></a>
+
+                <a href="#" class="btn-floating print" title="Imprimir Inventario de Ruta"><i class="fa fa-print"></i></a>
 
             </div>
 
