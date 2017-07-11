@@ -28,6 +28,12 @@
                     </div>
                     <div class="col s12 m6" id="ftelefonos" vtabla="telefonoS" hasTabla="1">
                         <div class="input-group">
+                            <div class="input-group-addon"><b>Cédula</b></div>
+                            <input type="text" class="form-control" id="vtelefono" placeholder="Teléfono Sucursal">
+                        </div>
+                    </div>
+                    <div class="col s12 m6" id="ftelefonos" vtabla="telefonoS" hasTabla="1">
+                        <div class="input-group">
                             <div class="input-group-addon"><b>Teléfono</b></div>
                             <input type="text" class="form-control" id="vtelefono" placeholder="Teléfono Sucursal">
                         </div>
