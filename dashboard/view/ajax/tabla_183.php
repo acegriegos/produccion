@@ -9,8 +9,7 @@
 	<td style="padding: 10px;"><?php echo $obj[4]?></td>
 	<td style="padding: 10px;"><?php echo $obj[5]?></td>
 	<td style="padding: 10px;"><?php echo $obj[6]?></td>
-	<td style="padding: 10px;"><?php echo $obj[7]?></td>
-	<td style="padding: 10px;"><?php echo $obj[8]?></td>
+	<td style="padding: 10px;"><?php echo $obj[7]?></td>s
 </tr>
 
 <?php } ?>
@@ -19,4 +18,4 @@
 	$(function(){
 	    permisos(310,311);
 	})
-</script>
+</script

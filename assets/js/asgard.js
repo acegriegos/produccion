@@ -270,7 +270,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                 data: {accion: vaccion,arreglo : varreglo}
                 })
                 .done(function(data) {
-                    
+                    console.log(data)
                     try {
                         p = JSON.parse(data);
                     }
@@ -562,13 +562,14 @@ function deadclear(vform) {
 
 function thorload(vtabla) {
     vtabla += "s";
-
+    
     if ($("#search_"+vtabla).val() != undefined && $("#search_"+vtabla).val() != ""){
         var e = jQuery.Event("keyup");
         e.which = 13;
         $("#search_"+vtabla).trigger(e);
     }
     else{
+        console.log(vtabla)
         var arreglo = cargarSintax(vtabla);
         var tbl = mantenimiento('login',6,arreglo);
         var tabla = $("#data-table-"+vtabla).DataTable();

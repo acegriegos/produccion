@@ -22,7 +22,7 @@
     <div class="bdy">
     <div class="row">
       <div class="col s12 m12 l12">
-        <a class="waves-effect waves-light btn blue right" id="docierre">Realizar Cierre</a>
+        <a class="waves-effect waves-light btn blue right" id="chkcierre">Realizar Cierre</a>
       </div>
       <div class="row">
         <div class="col s3 m3 l3">
@@ -34,7 +34,6 @@
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo Factura</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Fecha</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cliente</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo</th>
@@ -52,12 +51,7 @@
           <div class="col s3 m3 l3">
             Total crédito: <span id="tcredito"></span>
           </div>
-          <div class="col s3 m3 l3">
-            
-          </div>
-          <div class="col s3 m3 l3">
-            
-          </div>
+          <div class="col s6 m6 l6"></div>
         </div>
         <h4>Notas y abonos</h4>
           <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-estadocuenta" cellspacing="0" width="100%">
@@ -75,6 +69,17 @@
             </thead>
             <tbody id="listanotasabonos"></tbody>
           </table>
+          <div class="row marginzero">
+            <div class="col s4 m4 l4">
+              Total Abonos Cliente: <span id="tabono"></span>
+            </div>
+            <div class="col s4 m4 l4">
+              Total Notas Crédito Cliente: <span id="tnotcre"></span>
+            </div>
+            <div class="col s4 m4 l4 ">
+              Total Notas Débito Cliente: <span id="tnotdeb"></span> 
+            </div>
+          </div>
         </div>
       </div>
     </div>

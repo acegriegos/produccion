@@ -1,7 +1,6 @@
 $(function(){
-	console.log(1)
 	$(".modal").modal();
-	$("#m7").click();
+	$("#m1").click();
 	$("#addMoneda").click(function(){
 		deadclear('moneda');
 	});
@@ -1605,6 +1604,8 @@ function endDetail(vid,vacc,modulo){
 			$("#f"+modulo+"s #viddetalle").val(vid);
 			break;
 		case 'banco':
+			setTimeout(function(){ deadclear(modulo); $("#vnombre_banco").focus()}, 100);
+			thorload(modulo);
 			break;
 		case 'bodega':
 			setTimeout(function(){ deadclear(modulo); $("#vbodega").focus()}, 100);

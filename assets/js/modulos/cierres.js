@@ -1,15 +1,15 @@
 $(function(){
-	arr('login',6,'pendientes,fecha',182,'1 order by fecha desc',0,1,$("#listacierrespendientes"));
+	arr('login',6,'sum(contador) as pendientes,fecha',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
 
 	$('.chips').material_chip();
 
-	$("#data-table-facturas").DataTable({
+	$("#data-table-facturas").dataTable({
         bFilter :  false,
         bLengthChange : false,
         order : []
     });
 
-    $("#data-table-estadocuenta").DataTable({
+    $("#data-table-estadocuenta").dataTable({
         bFilter :  false,
         bLengthChange : false,
         order : []
@@ -19,16 +19,50 @@ $(function(){
 
 });
 
+$(document).on("click","#chkcierre",function(){
+	if ($(this).attr('vfecha') != undefined)
+		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="fa fa-times"></i></button>', 10000, 'rounded');
+	else
+		Materialize.toast('Seleccione un cierre', 4000, 'green');
+});
+
+$(document).on("click","#docierre",function(){
+	var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
+	var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
+	var idcierre = arr('login',4,'',189,'@@usr,"'+$(this).attr('vfecha')+'",@@impresa',0,0,0)[0][0];
+
+	for (var i = 0, len = idfactura.length ; i < len; i++) {
+		arr('login',4,'',190,'1,0,'+idcierre+','+idfactura[i]+',1',0,0,0)
+	}
+	for (var a = 0, leng = idestadocuenta.length; a < leng; a++) {
+		arr('login',4,'',190,'1,0,'+idcierre+','+idestadocuenta[a]+',2',0,0,0)
+	}
+
+	$('#toast-container').remove();
+	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
+
+	window.open('cierres?accion=1&id='+idcierre+'fecha='+$(this).attr('vfecha'));
+
+});
+
+$(document).on("click",".cancel",function(){
+    $('#toast-container').remove();
+});
+
 $(document).on("click",".getfacturas",function(){
 	var date = new Date();
 	var curdate = date.getFullYear()+'-'+addZero(date.getMonth()+1,2)+'-'+addZero(date.getDate(),2);
 	var fecha = $(this).attr('vfecha') == 'HOY' ? curdate : $(this).attr('vfecha');
-	arr('login',6,'',183,'"'+fecha+'"',0,1,$("#listafacturas"));
-	arr('login',6,'',185,'"'+fecha+'"',0,1,$("#listanotasabonos"));
-	
-	var totcont = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idtipo = 1 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
-	var totcred = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idtipo = 2 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
-
+	$("#chkcierre").attr('vfecha',fecha);
+	arr('login',6,'',183,'"'+fecha+'",@@usr',0,1,$("#listafacturas"));
+	arr('login',6,'',185,'"'+fecha+'",@@usr',0,1,$("#listanotasabonos"));
+	// cambiar
+	var totcont = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idusuario = @@usr and idtipoventa = 1 and idtipo = 1 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
+	var totcred = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idusuario = @@usr and idtipoventa = 1 and idtipo = 2 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
+	var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and idusuario = @@usr',0,0,0)[0][0][0];
+	var tnotcre = arr('login',4,'monto',187,'idusuario = @@usr',0,0,0)[0][0];
+	var tnotdeb = arr('login',4,'monto',188,'idusuario = @@usr',0,0,0)[0][0];
+	// end cambiar
 	if (totcont != null)
 		$("#tcontado").text(totcont);
 	else
@@ -38,6 +72,21 @@ $(document).on("click",".getfacturas",function(){
 		$("#tcredito").text(totcred);
 	else
 		$("#tcredito").text('0.00')
+
+	if (tabono != null)
+		$("#tabono").text(tabono);
+	else
+		$("#tabono").text('0.00')
+
+	if (tnotcre != null)
+		$("#tnotcre").text(tnotcre);
+	else
+		$("#tnotcre").text('0.00')
+
+	if (tnotdeb != null)
+		$("#tnotdeb").text(tnotdeb);
+	else
+		$("#tnotdeb").text('0.00')
 });
 
 $(document).on("click","#filtro",function(){

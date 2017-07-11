@@ -19,7 +19,14 @@
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
+	   			$pagina = 1;
+	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+
+	   			$cierre = $kakaroto->kamehameha('',192,$_REQUEST['id'].',@@usr')[0];
+	   			$facturas = $kakaroto->kamehameha('',183,'"'.$_REQUEST['fecha'].'",@@usr');
+	   			$estados = $kakaroto->kamehameha('',185,'"'.$_REQUEST['fecha'].'",@@usr');
 	   			
+   				require_once 'view/reportes/cierrexusuario.php';
 	   			break;
 	   	}
 		if(!$pagina){

@@ -161,7 +161,7 @@
                         {if $TUSR[LE][2] eq 0}
                         <a href='#modal-tusuarios' id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
                             <i class="small material-icons ">info_outline</i></a>
-                            <a href="#" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small material-icons ">delete</i></a>
+                            <a class="delete pbtn" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small material-icons ">delete</i></a>
                         </td>
                         {/if}
                     </tr>
