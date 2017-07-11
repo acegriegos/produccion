@@ -5,19 +5,20 @@
 
 
             <div class="col s12 m12 l6">
-                <br>
+                <div class="col s12 ">
+                     <h4> Datos :</h4>
+                 </div>
                 
                 <form id="fsucursales">
                     <div class="row">
                        <br>
                        <div class="col s12 m6">
 
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Nombre</b></div>
-                            <input type="text" class="form-control" id="vnombre" placeholder="Nombre Sucursal">
+                        <div class="input-field">
+                            <label for="vnombre">Nombre</label>
+                            <input type="text" class="form-control" id="vnombre">
                             <input type="hidden" id="vidusuario" value="">
                             <input type="hidden" id="vidsucursal" value="">
-                            <input type="hidden" id="vfactura" value="AB">
                             <input type="hidden" id="vconsecutivo" value="1">
                             <input type="hidden" id="vconsecutivo1" value="1">
                             <input type="hidden" id="vconsecutivo2" value="1">
@@ -26,46 +27,63 @@
                             <input type="hidden" id="vid" value="0">
                         </div>
                     </div>
-                    <div class="col s12 m6" id="ftelefonos" vtabla="telefonoS" hasTabla="1">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Cédula</b></div>
-                            <input type="text" class="form-control" id="vtelefono" placeholder="Teléfono Sucursal">
+                    <div class="col s12 m6">
+                        <div class="input-field">
+                            <label for="vcedula">Cédula</label>
+                            <input type="text" class="form-control" id="vcedula">
                         </div>
                     </div>
                     <div class="col s12 m6" id="ftelefonos" vtabla="telefonoS" hasTabla="1">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Teléfono</b></div>
-                            <input type="text" class="form-control" id="vtelefono" placeholder="Teléfono Sucursal">
+                        <div class="input-field">
+                            <label for="vtelefono">Teléfono</label>
+                            <input type="text" class="form-control" id="vtelefono">
                         </div>
                     </div>
                     <div class="col s12 m6" id="fcorreos" vtabla="correos" hasTabla="1">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Correo</b></div>
-                            <input type="text" class="form-control" id="vcorreo" placeholder="Correo Sucursal">
+                        <div class="input-field">
+                            <label for="vcorreo">Correo</label>
+                            <input type="text" class="form-control" id="vcorreo">
                         </div>
                     </div>
+
+                    <div class="col s12 m6">
+                        <div class="input-field">
+                            <label for="vencabezado">Encabezado de Factura</label>
+                            <input type="text" class="form-control" id="vencabezado" maxlength="2">
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <form class="dropzone" id="registro-upload">
+                            <input type="file" name="file"  />
+                        </form>
+                    </div>
+
                 </div><br>
                 <div class="row">
                     <div class="col s6 m7 l7">
                         <h4>Ubicación:</h4>
                     </div>
                     <div class="col s12 m6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Provincia</b></div>
+                        <div class="input-field">
+                            
                             <select type="select" id="vidprovincia" cambio="1">
                                 <option value="0">Seleccione una Provincia</option>
                                 {section name=LE loop=$PROV}
                                 <option value="{$PROV[LE][0]}">{$PROV[LE][1]}</option>
                                 {/section}
                             </select>
+
+                            <label for="vidprovincia">Provincia</label>
                         </div>
                     </div>
                     <div class="col s12 m6">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Cantón</b></div>
+                        <div class="input-field">
+                            
                             <select type="select" id="vidcanton">
                                 <option value="0">Seleccione un Cantón</option>
                             </select>
+
+                            <label for="vidcanton">Cantón</label>
                         </div>
                     </div>
                 </div><br>
@@ -74,33 +92,40 @@
                      <h4> Impresión :</h4>
                  </div>
                  <div class="col s4 ">
-                    <div class="input-group">
-                        <div class="input-group-addon"><b>Factura</b></div>
+                    <div class="input-field">
+                        
                         <select type="select" id="vidtipofactura">
                             {section name=LE loop=$IMPR}
                             <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
                             {/section}
                         </select>
+
+                        <label for="vidtipofactura">Factura</label>
                     </div>
                 </div>
                 <div class="col s4 ">
-                    <div class="input-group">
-                        <div class="input-group-addon"><b>Recibo de Abonos</b></div>
-                        <select type="select" id="vidtipoabono" required="required">
+                    <div class="input-field">
+                        
+                        <select type="select" id="vidtipoabono">
                             {section name=LE loop=$IMPR}
                             <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
-                            {/section}                            </select>
-                        </div>
+                            {/section}                            
+                        </select>
+                        <label for="vidtipoabono">Recibo de Abonos</label>
+                    </div>
+
                     </div>
                     <div class="col s4 ">
-                        <div class="input-group">
-                            <div class="input-group-addon"><b>Notas</b></div>
-                            <select type="select" id="vidtiponota" required="required">
+                        <div class="input-field">
+                            
+                            <select type="select" id="vidtiponota">
                             {section name=LE loop=$IMPR}
                                 <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
-                                {/section}                            </select>
-                            </div>
+                                {/section}                            
+                            </select>
+                            <label for="vidtiponota">Notas</label>
                         </div>
+                    </div>
 
 
                     </div><br>
