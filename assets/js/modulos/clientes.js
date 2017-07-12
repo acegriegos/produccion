@@ -132,8 +132,8 @@ $(function(){
 
 });
 
-$(document).on("change","#vidnivel",function(){
-	// console.log($("#vidnivel option:selected").val())
+$(document).on("change","#videstado",function(){
+	$("#correo_in").focus();
 });
 
 $(document).on("click",".optns",function(){
