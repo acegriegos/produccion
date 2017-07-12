@@ -1,4 +1,4 @@
-<div id="mantProd">
+<div id="mantProd" style="font-size: 1.2em !important">
     <div class="row">
         <div class="input-field col s11 m8 l5">
             <a class="prefix dropdown-button tooltipped small material-icons"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro">search</a>
@@ -35,18 +35,18 @@
             <tbody id="listaproductos">
             {section name=LE loop=$PROD}
                 <tr>
-                    <td style=" padding: 10px;">{$PROD[LE][1]}</td>
-                    <td style=" padding: 10px;">{$PROD[LE][2]}</td>
-                    <td style=" padding: 10px;">{$PROD[LE][3]}</td>
-                    <td style=" padding: 10px;">{$PROD[LE][4]}</td>
-                    <td style=" padding: 10px;">{$PROD[LE][5]}</td>
-                    <td style=" padding: 10px;">{$PROD[LE][6]}</td>
-                    <td style=" padding: 10px;">{$PROD[LE][7]}</td>
+                    <td style=" padding: 10px; color:black;">{$PROD[LE][1]}</td>
+                    <td style=" padding: 10px; color:black;">{$PROD[LE][2]}</td>
+                    <td style=" padding: 10px; color:black;">{$PROD[LE][3]}</td>
+                    <td style=" padding: 10px; color:black;">{$PROD[LE][4]}</td>
+                    <td style=" padding: 10px; color:black;">{$PROD[LE][5]}</td>
+                    <td style=" padding: 10px; color:black;">{$PROD[LE][6]}</td>
+                    <td style=" padding: 10px; color:black;">{$PROD[LE][7]}</td>
                     <td>
-                        <a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="font-size: 2em; color: #607d8b"><img src="../assets/img/icon/percent.svg"></a>
-                        <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="font-size: 2em; color: #607d8b">compare_arrows</a>
-                        <a class="btn-color pbtn editprod material-icons per4108" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" style="font-size: 2em; color: #607d8b">edit</a>
-                        <a class="btn-color pbtn cdel delprod material-icons per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" style="font-size: 2em; color: #607d8b">close</a>
+                        <a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" sstyle="color:black;"><img src="../assets/img/icon/percent.svg"></a>
+                        <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="color:black;">compare_arrows</a>
+                        <a class="btn-color pbtn editprod material-icons per4108" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" style="color:black;">edit</a>
+                        <a class="btn-color pbtn cdel delprod material-icons per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" style="color:black;">close</a>
                     </td>
                 </tr>
             {/section}

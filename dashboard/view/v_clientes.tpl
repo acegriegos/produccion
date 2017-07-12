@@ -47,19 +47,19 @@
                         <tbody id="listaclientes">
                             {section name=LE loop=$CLIE}
                             <tr id="f{$CLIE[LE][0]}">
-                                <td style=" padding: 10px;">{$CLIE[LE][1]}</td>
-                                <td style=" padding: 10px;">{$CLIE[LE][2]}</td>
-                                <td style=" padding: 10px;">{$CLIE[LE][4]}</td>
-                                <td style=" padding: 10px;">{$CLIE[LE][5]}</td>
-                                <td style=" padding: 10px;">{$CLIE[LE][6]}</td>
+                                <td style=" padding: 10px;color:black">{$CLIE[LE][1]}</td>
+                                <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
+                                <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
+                                <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
+                                <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
                                 <td>
                                      {if $PROV[LE][13] neq 1}
-                                    <a href="modal-contactos" style="font-size: 2em; color: #607d8b" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
+                                    <a href="modal-contactos" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
                                     {/if}
 
-                                    <a href="#modal-clientes" class="load material-icons pbtn per1002" id="m{$CLIE[LE][0]}" modulo="cliente" style="font-size: 2em; color: #607d8b">edit</a>
+                                    <a href="#modal-clientes" class="load material-icons pbtn per1002" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black">edit</a>
                                     
-                                    <a href="#" class="delete material-icons pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="font-size: 2em; color: #607d8b">delete</a>
+                                    <a href="#" class="delete material-icons pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="color:black">delete</a>
                                 </td>
                             </tr>
                             {/section}

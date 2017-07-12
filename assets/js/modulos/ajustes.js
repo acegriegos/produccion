@@ -123,6 +123,8 @@ $(document).on("click",".menu3",function(){
 			});
 			$("#majustes").html('');
 			$("#majustes").html(p);
+
+			$("select").material_select('update');
 			break;
 		case 6:
 			var p = mantenimiento('ajustes',6,'');

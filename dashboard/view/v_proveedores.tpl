@@ -12,7 +12,7 @@
 <body>
         {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
-    <div class="bdy">
+    <div class="bdy" style="font-size: 1.2em !important">
         <div class="card">
             <div class="card-header center white-text" style="background-color:#0B3861"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
             </div>
@@ -36,30 +36,30 @@
                     <table class="table centered highlight bordered responsive-table z-depth-2" id="data-table-clientes">
                         <thead>
                             <tr>
-                                <th class="sinborde white-text blue"   border-radius: 0px !important;">Cédula</th>
-                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Nombre</th>
-                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Teléfonos</th>
-                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Correo</th>
-                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Tipo</th>
-                                <th class="sinborde white-text blue"  border-radius: 0px !important;">Acciones</th>
+                                <th class="sinborde white-text blue" style="  padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
+                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Nombre</th>
+                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Teléfonos</th>
+                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Correo</th>
+                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Tipo</th>
+                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listaclientes">
                             {section name=LE loop=$PROV}
                             <tr id="f{$PROV[LE][0]}" class="pbtn">
-                                <td  padding: 10px;">{$PROV[LE][1]}</td>
-                                <td  padding: 10px;">{$PROV[LE][2]}</td>
-                                <td  padding: 10px;">{$PROV[LE][4]}</td>
-                                <td  padding: 10px;">{$PROV[LE][5]}</td>
-                                <td  padding: 10px;">{$PROV[LE][6]}</td>
+                                <td  style="padding: 10px;">{$PROV[LE][1]}</td>
+                                <td  style="padding: 10px;">{$PROV[LE][2]}</td>
+                                <td  style="padding: 10px;">{$PROV[LE][4]}</td>
+                                <td  style="padding: 10px;">{$PROV[LE][5]}</td>
+                                <td  style="padding: 10px;">{$PROV[LE][6]}</td>
                                 <td>
                                     {if $PROV[LE][13] neq 1}
-                                    <a href="modal-contactos" style="font-size: 2em; color: #607d8b" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
+                                    <a href="modal-contactos" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
                                     {/if}
 
-                                    <a href="#modal-clientes" style="font-size: 2em; color: #607d8b"><i class="load material-icons pbtn per2002" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
+                                    <a href="#modal-clientes" style="color:black"><i class="load material-icons pbtn per2002" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
 
-                                    <a href="#" style="font-size: 2em; color: #607d8b"><i class="delete material-icons pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}">delete</i></a>
+                                    <a href="#" style="color:black"><i class="delete material-icons pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}">delete</i></a>
                                 </td>
                             </tr>
                             {/section}

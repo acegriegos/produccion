@@ -35,18 +35,13 @@
                         <div class="col s6 m4">
                             <img src="#" class="responsive-img" alt="Image" width="200px" height="100px" id="vlogo">
                         </div>
-                        <div class="col s6 m8">
 
-                            <div class="file-field input-field">
-                                <div class="btn z-depth-5">
-                                    <i class="small material-icons right">perm_media</i>Logo
-                                    <input type="file">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text">
-                                </div>
-                            </div>
+                        <div class="col s6 m8 ">
+                            <form class="dropzone" id="registro-upload">
+                                <input type="file" name="file"  />
+                            </form>
                         </div>
+                        
 
                     </div>
 
