@@ -1,5 +1,5 @@
-<div class="tamLetra"> <div id="ffacturas">
-<div class="card z-depth-5 ">
+<div class="pequeño"><div class="tamLetra pequeño"> <div id="ffacturas">
+<div class="card z-depth-5 pequeño">
 <div class="card ">
 <div class="card-header center blue-grey white-text">
 <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
@@ -10,7 +10,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
   <div class="row">
 
-    <div class="col s6">
+    <div class="col s12 m6 centro ">
       <div class="switch">
         <label style="color: black">
           <b>Contado</b>
@@ -21,7 +21,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
       </div>
     </div>
 
-    <div class="col s6">
+    <div class="col s12 m6 centro2">
       <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
     </div>
 
@@ -29,12 +29,12 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 <br>
   <div class="row">
 
-   <div class="input-field col s6 m3 l3">
+   <div class="input-field col s12 m3 l3">
       <i class="fa fa-calendar-o prefix"></i>
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
 
-    <div class="input-field con col s6 m3 l3" >
+    <div class="input-field con col s12 m3 l3" >
       <select id="vidtipopago" type="select">
         {section name=LE loop=$TPAGO}
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
@@ -48,7 +48,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
       <label for="vplazo">Plazo en Días</label>
     </div>
 
-    <div class="input-field col s10 m4">
+    <div class="input-field col s12 m4">
       <i class="fa fa-user prefix"></i>
       <label class="truncate" for="ncli" style="color: black"> <b>Nombre o Cédula del Cliente</b></label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
@@ -64,7 +64,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="card-header blue-grey center"><p class="white-text" style="background-color:#0B3861">DETALLE DE FACTURA</p></div>
 
-    <table class="table" id="data-table-detalle" cellspacing="0">
+    <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead>
         <tr>
           <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
@@ -89,7 +89,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           </td>
 
           <td style="width: 10%; " class="input-field">
-            <input type="text" id="codp" class="f prod center" placeholder="Código">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
             <input type="hidden" id="valores">
           </td>
 
@@ -286,6 +286,5 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
 </div>
 </div>
-<div class="tamLetra">
 
 <script src="../assets/js/modulos/ventas.js?v=0.8"></script>

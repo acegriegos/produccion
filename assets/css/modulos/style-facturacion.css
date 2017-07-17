@@ -25,3 +25,42 @@ td, th{
     padding: 0px 10px;
     margin: 2px;
 }
+@media only screen and (max-width:769px){
+.detalle{
+    font-size: 0.5em !important;
+}
+
+
+.centro2{
+    padding-right:28% !important;
+    padding-top: 2% !important;
+    
+}
+
+.padd{
+    
+    padding-bottom: 10% !important;
+    padding-top: 5% !important;
+}
+.tamañoimg{
+
+    font-size: 0.5em !important
+
+}
+.tda{
+    width: 15% !important;
+}
+.tdb{  
+    width: 27% !important;
+}
+.tdc{
+    width: 10% !important;
+}
+.tdd{
+    width: 25% !important;
+}
+
+
+
+
+}

@@ -11,19 +11,19 @@
 
   </head>
   <body>
-  <br>
+ 
     {$NAV}
-    <div class="bdy">
-      <div class="card z-depth-5">
-          <div class="card-header center  white-text" style="background-color:#0B3861 "><p class="flow-text">Área Inventarios</p></div>
-          <div class="card-content ">
+    <div class="bdy pequeño">
+      <div class="card z-depth-5 pequeño">
+          <div class="card-header center  pequeño hide-on-small-only white-text" style="background-color:#0B3861 "><p class="flow-text">Área Inventarios</p></div>
+          <div class="card-content pequeño">
             <div class="row">
 
-              <div class="col s12 m12 l6">
-                <div class="card z-depth-5">
+              <div class="col s12 m12 l6 pequeño">
+                <div class="card z-depth-5 pequeño">
                   <div class="card-title blue-grey white-text center ">&nbsp;Opciones</div>
 
-                  <div class="card-panel ">
+                  <div class="card-panel pequeño">
 
                     <div class="row">
                      <div class="col s12 m6 l6 per4000 ">
@@ -44,10 +44,10 @@
               </div>
             </div>
 
-            <div class="col s12 m12 l6">
-              <div class="card z-depth-5 per4300">
+            <div class="col s12 m12 l6 pequeño">
+              <div class="card z-depth-5 per4300 pequeño">
                 <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
-                <div class="card-content">
+                <div class="card-content pequeño">
                   <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
                 </div>
               </div>

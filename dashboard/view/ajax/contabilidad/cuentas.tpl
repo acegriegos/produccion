@@ -5,7 +5,7 @@
     <div class="card z-depth-5" id="show_cuentas">
         <div class="card-header">
             <div class="row">
-                <div class="col s3" >
+                <div class="col s3 centro" >
                     <h3>Cuentas</h3>
                 </div>
             </div>

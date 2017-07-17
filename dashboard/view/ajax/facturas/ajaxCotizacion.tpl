@@ -3,14 +3,14 @@
 <div class="card ">
 <div class="card-header center blue-grey white-text"> 
 <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
-<a class="btn" style="float: right;color: white;font-size: 14px;" onclick="vercotizaciones();"> Ver Cotizaciones</a>
+<a class="btn" style="float: right;color: white;font-size: 12px;" onclick="vercotizaciones();"> Ver Cotizaciones</a>
 Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
   <div class="row">
 
-    <div class="col s6">
+    <div class="col s12 m6 centro">
       <div class="switch hide">
         <label>
           Contado
@@ -21,7 +21,7 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
       </div>
     </div>
 
-    <div class="col s6">
+    <div class="col s12 m6 centro2">
       <label class="der black-text" style="font-size: 18px;"><b>N° Cotización: </b> <span class="red-text" id="idfact">{$CONS}</span></label>
     </div>
 
@@ -29,23 +29,23 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
 <br>
   <div class="row">
 
-   <div class="input-field col s6 m3 l3">
+   <div class="input-field col s12 m3 l3">
       <i class="fa fa-calendar-o prefix"></i>
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
 
-    <div class="input-field con col s6 m3 l3" >
+    <div class="input-field con col s12 m3 l3" >
       <select id="idtipopago" class="hide">
       </select>
       <label class="hide">Forma de Pago</label>
     </div>
    
-    <div class="input-field cre col s6 m3 l3" style="display: none;">
+    <div class="input-field cre col s12 m3 l3" style="display: none;">
       <input type="text" id="vplazo" value="0" class="eder" readonly />
       <label for="vplazo">Plazo en Días</label>
     </div>
 
-    <div class="input-field col s10 m4">
+    <div class="input-field col s12 m4">
       <i class="fa fa-user prefix"></i>
       <label class="truncate" for="ncli">Nombre o Cédula del Cliente</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
@@ -61,7 +61,7 @@ Cotizaciones {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="card-header blue-grey center"><p class="white-text" style="background-color:#0B3861">DETALLE DE FACTURA</p></div>
 
-    <table class="table" id="data-table-detalle" cellspacing="0">
+    <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead>
         <tr>
           <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>

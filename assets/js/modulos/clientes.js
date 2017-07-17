@@ -322,7 +322,7 @@ function getFila(valor,vtipo,vdh,vtp){
 	//<i class="fa fa-times delcta" delcetap tp="'+valor+'"></i>
 	//<input type="number" noClear="1" class="form-control eder" id="pr'+valor+'" value="100">
 
-	return '<div class="row ctas" id="fl'+valor+'"><div class="col s2">'+vtipo+'</div> <div class="col s10"><select noClear="1" class="browser-default cta-array der" tp="'+vtp+'" dh="'+vdh+'" id="my-array'+valor+'" >'+cuentas+'</select></div></div>';
+	return '<div class="row pequeño ctas" id="fl'+valor+'"><div class="col s3 m2 pequeño" style=" padding-left: 1% !important;">'+vtipo+'</div> <div class="col s9 m10 pequeño "style=" padding-left: 1% !important;"><select noClear="1" class="browser-default cta-array der" tp="'+vtp+'" dh="'+vdh+'" id="my-array'+valor+'" >'+cuentas+'</select></div></div>';
 }
 
 function obtenerCuentas(vid){

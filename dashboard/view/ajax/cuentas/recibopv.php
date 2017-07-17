@@ -4,7 +4,7 @@
 <link href="../assets/css/modulos/style-factura.css" rel="stylesheet">
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
 <body class="grey darken-4" style="font-size: 1.1em;" >
-  <div class="hoja grey lighten-3">
+  <div class="hoja grey lighten-3" style="margin-top: 8%">
     <!-- HEADER -->
     <div class="row">
       <div class="col s6 m5 l3">
@@ -51,10 +51,7 @@
       <span class=""><b>Usuario:</b></span>
         <span class=""><i><?php echo $datos[10]; ?> </i></span>
       </div>
-      <div class="col s12">
-        <span class=""><b>Comentario:</b></span>
-        <span class=""><?php echo $datos[7]; ?> </span>
-      </div>
+      
       
 
 
@@ -93,8 +90,9 @@
       <tr>
         <th class="center-align sinborde" id="th1">Tipo de movimiento</th>
         <th class="center-align sinborde" id="th2">Fecha</th>
-        <th class="center-align sinborde" id="th3">Monto</th>
-        <th class="center-align sinborde" id="th6">Saldo</th>
+        <th class="center-align sinborde" id="th3">Saldo anterior</th>
+        <th class="center-align sinborde" id="th6">Monto abonado</th>
+        <th class="center-align sinborde" id="th6">Saldo actual</th>
         
       </tr>
     </thead>
@@ -103,17 +101,21 @@
        <tr class="tr" >
         <td class="td center-align"><span id="cant"><?php echo $datos[9]; ?></span></td>
         <td class="td center-align"><span id="desc"><?php echo $datos[3]; ?></span></td>
-        <td class="td center-align"><span id="punit"><?php echo $datos[11]; ?><?php echo $datos[5]; ?></span></td>
-        <td class="td center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[6]; ?></span></td>
-       
+        <td class="td center-align"><span id="punit"><?php echo $datos[11]; ?><?php echo $datos[12]; ?></span></td>
+        <td class="td center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[5]; ?></span></td>
+               <td class="td center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[6]; ?></span></td>
+
       </tr>
 
     </tbody>
     <tfoot>
     <tr>
-    <td class="margen" colspan="4">&nbsp;</td>
-      <td  class="left-align blue-grey white-text sinborde imprimirSINBOR"><b>TOTAL</b></td>
-      <td  class="right-align blue-grey white-text sinborde imprimirSINBOR"><b><?php echo $datos[11]; ?><?php echo $datos[5]; ?></b></td>
+    <td class="margen" colspan="3">&nbsp;</td>
+    <tr></tr>
+        <td class="margen" colspan="3">&nbsp;</td>
+
+      <td  class="  blue-grey white-text sinborde imprimirSINBOR center-align"><b>SALDO TOTAL</b></td>
+      <td  class=" blue-grey white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11]; ?><?php echo $datos[6]; ?></b></td>
       
     </tr>
 
@@ -126,25 +128,7 @@
 
   <div class="row">
   <br>
-    <div class="col s8 offset-s2">
-    <br><br>
-      <section id="sqre">
-        <table id="infotot" width="100%">
-          <tfoot>
-            <th class="center-align">Firma Representante</th>
-            <th class="infospace"></th>
-            <th class="center-align">Firma de Cliente</th>
-          </tfoot>
-          <tbody>
-            <tr class="ttdr">
-              <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
-              <td class=""></td>
-              <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-    </div>
+   
 
 
 

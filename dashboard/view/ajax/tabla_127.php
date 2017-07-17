@@ -1,4 +1,4 @@
-<table class="table striped bordered highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
+<table class="table striped pequeño bordered highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
     <thead>
         <tr>
             <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Codigo</th>

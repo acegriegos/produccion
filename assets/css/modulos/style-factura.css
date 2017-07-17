@@ -11,6 +11,7 @@
 body{
 	padding-left: 14%;
 	padding-right: 14%;
+	background-color: red;
 }
 
 .hoja{
@@ -36,30 +37,7 @@ body{
 .sinborde{
 	border-radius: 0px !important;
 }
-@media only screen and (min-width:941px) and (max-width:1050px){
-	body{
-	padding-left: 10%;
-	padding-right: 10%;
-	background-color: #e4e4e4;
-}
-}
-/*Movil*/
-@media only screen and (max-width:599px){
-	body{
-	padding-left: 0%;
-	padding-right: 0%;
-	background-color: #e4e4e4;
-}
-}
-	
-/*Tabletas*/
-@media only screen and (min-width:600px) and (max-width:940px){
-	body{
-	padding-left: 5%;
-	padding-right: 5%;
-	background-color: #e4e4e4;
-}
-}
+
 
 @media print {
 
@@ -106,3 +84,4 @@ body{
 	}
 
 }
+
