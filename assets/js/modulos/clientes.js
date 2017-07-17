@@ -132,6 +132,10 @@ $(function(){
 
 });
 
+$(document).on("change","#tptel",function(){
+	$("#telefono_in").focus();
+})
+
 $(document).on("change","#videstado",function(){
 	$("#correo_in").focus();
 });
@@ -355,13 +359,14 @@ function addIM(vidcuenta,vimpuesto,vnombre,vvalor,vexoneracion){
 }
 
 function endDetail(vid,vacc,modulo){
-
 	setTimeout(function(){ deadclear('cliente'); }, 500);
     thorload('cliente');
     if (vacc == 1) {
 	    $("#shcorreos").html('');
 	    $("#shtelefonos").html('');
     }
+    $("#videstado").val(1);
+    $("#videstado").material_select('update');
 }
 
 function postload(modulo) {
