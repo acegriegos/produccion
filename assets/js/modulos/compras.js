@@ -101,7 +101,7 @@ $(function(){
             if ($("#codp").val().substr(0,1) == '-') {
                 kbrota = 'S'+$(this).val();
             }
-
+            console.log('"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'])
             var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
               if (cod[0][0] != undefined) {
                 var fimv = cod[0];
