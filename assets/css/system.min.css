@@ -1,7 +1,9 @@
 html{
     font-family: "logintech";
 }
-
+body{
+font-size: 1.2em !important;
+}
 @font-face {
   font-family: "logintech";
   src: url("../fonts/roboto/Roboto-Light.eot") format("embedded-opentype"),
@@ -94,13 +96,7 @@ html{
 .inv{
     display: none;
 }
-@media(max-width:766px) {
-    .bdy {
-    padding-left: 2%;
-    margin-top: 2%;
-    font-family: "logintech";
-    }
-}
+
 .der {
     float: right;
 }
@@ -181,3 +177,50 @@ body {
 }
 [data-notify="message"] {
     font-size: 80%}
+label{
+ color: black !important;
+}
+
+@media only screen and (max-width:769px){
+.tablatitulos{
+  font-size: 0.7em !important;
+}
+.pequeño{
+    padding: 0% !important;
+    padding-bottom: 1% !important; 
+}
+.input-field{
+  padding: 0% !important;
+    padding-bottom: 1% !important;
+}
+.grandemodal .modal-content{
+  width: 98% !important;
+}
+.grandemodal{
+  width: 98% !important;
+  height: 90% !important;
+
+}
+   .bdy {
+    padding-left: 2%;
+    margin-top: 2%;
+    font-family: "logintech";
+    }
+    .centro{
+    margin-left:  20% !important;
+    
+}
+.centro2{
+    padding-right:28% !important;
+    padding-top: 2% !important;
+    
+}
+.detalle{
+    font-size: 0.9em !important;
+}
+
+body{
+   font-size: 0.9em !important;
+}
+
+}

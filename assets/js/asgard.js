@@ -22,6 +22,36 @@ $(window).keydown(function(e){
     }
 });
 
+$(document).on("click",".tc-show",function(){
+
+    if ($("#slide-tc").length == 0) {
+
+        var ul = '<ul id="slide-tc" class="side-nav"> <li><div class="user-view"> <span class="ntit"></span></a></div></li> <li><div class="divider"></div></li> <li><a class="subheader">Subheader</a> </li></ul>';
+
+        $(".bdy").append(ul);
+
+    }else{
+
+        var code = parseInt($(this).data('num'));
+        var titulo = cuerpo = '';
+
+        switch(code){
+            case 1: // TELEFONOS
+        }
+    }
+
+    $(this).sideNav({
+        menuWidth: 300,
+        edge: 'right',
+        closeOnClick: true,
+        draggable: true
+    });
+    
+    $(this).click();
+    
+});
+
+
 $(document).on("blur",".autocomplete",function(){
     $(".autocomplete-content").hide('500');
 });

@@ -10,19 +10,19 @@
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedor.css">
     
     </head>
-    <body>
+    <body >
       {$NAV}
-      <div class="bdy">
+      <div class="bdy pequeño">
         <div class="card z-depth-5">
-          <div class="card-header center white-text" style="background-color:#0B3861"><p class="flow-text">Área de Operaciones</p></div>
-          <div class="card-content">
+          <div class="card-header hide-on-small-only  center white-text" style="background-color:#0B3861"><p class="flow-text">Área de Operaciones</p></div>
+          <div class="card-content pequeño">
             <div class="row">
-              <div class="col s12 m12 l6">
+              <div class="col s12 m12 l6 pequeño">
                 <div class="card  z-depth-5">
-                  <div class="card-title blue-grey white-text center">&nbsp;Opciones</div>
-                  <div class="card-panel">
+                  <div class="card-title blue-grey white-text center pequeño">&nbsp;Opciones</div>
+                  <div class="card-panel pequeño ">
                     <div class="row ">
-                      <div class="col s12 m6 l6 per2000">
+                      <div class="col s12 m6 l6 per2000 " >
                         <a href="proveedores" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Proveedores">Proveedores</a>
                       </div>
                       <div class="col s12 m6 l6 per2100">
@@ -38,10 +38,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col s12 m12 l6">
-                <div class="card z-depth-5 per2400">
+              <div class="col s12 m12 l6 pequeño">
+                <div class="card z-depth-5 per2400 pequeño">
                   <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
-                  <div class="card-content">
+                  <div class="card-content pequeño">
                     <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
                   </div>
                 </div>

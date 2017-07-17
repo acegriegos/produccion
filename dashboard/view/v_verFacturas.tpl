@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css">
   </head>
   <body>
-  <br>
+  
     {$NAV}
     <div class="bdy">
 
@@ -21,25 +21,25 @@
             </div>
 
             <div class="row">
-            <div class="col s6 m2">
+            <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf1" {if $TF eq 1}checked{/if}/>
                 <label for="tf1">Ventas</label>
             </div>
-            <div class="col s6 m2">
+            <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf2" {if $TF eq 2}checked{/if}/>
                 <label for="tf2">Compras</label>
             </div>
 
-            <div class="col s6 m2">
+            <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf3" {if $TF eq 3}checked{/if}/>
                 <label for="tf3">Ordenes de Compras</label>
             </div>
-            <div class="col s6 m2">
+            <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf4" {if $TF eq 4}checked{/if}/>
                 <label for="tf4">Cotizaciones</label>
             </div>
 
-            <div class="col s6 m2">
+            <div class="col s12 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf5" {if $TF eq 5}checked{/if}/>
                 <label for="tf5">Orden de Pedidos</label>
             </div>      
@@ -52,7 +52,7 @@
                     <span>Filtros</span>
                 </div>
                 <div class="col s12" id="vfacturas">
-                     <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
+                     <table class="table tablatitulos responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
                         <thead>
                             <tr>
                                 <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Factura</th>

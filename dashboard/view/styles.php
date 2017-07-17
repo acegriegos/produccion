@@ -5,4 +5,4 @@
 <link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=1.1">

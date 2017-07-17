@@ -9,10 +9,13 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
 
   <div class="row">
 
-    <div class="col s6">
+    <div class="col s12">
     <div class="row">
-
-      <div class="switch col s12 m4">
+     
+      <div class="col s12 centro2">
+      <label class="der black-text" style="font-size: 18px;"><b>N° Compra: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
+    </div>
+     <div class="switch col s12 m2 padd centro">
         <label>
           Contado
           <input type="checkbox" id="chg_tipo" value="1">
@@ -20,30 +23,7 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
           Crédito
         </label>
       </div>
-
-      <div class="input-field col s12 m8">
-        <label for="vreferencia">Número de Referencia</label>
-        <input type="text" id="vreferencia" class="validate" />
-      </div>
-
-    </div>
-      
-    </div>
-
-    <div class="col s6">
-      <label class="der black-text" style="font-size: 18px;"><b>N° Compra: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
-    </div>
-
-  </div>
-<br>
-  <div class="row">
-
-   <div class="input-field col s6 m3 l3">
-      <i class="fa fa-calendar-o prefix"></i>
-      <input type="date" class="datepicker" id="vfecha" value="" />
-    </div>
-
-    <div class="input-field con col s6 m3 l3" >
+       <div class="input-field con col s12 m3 "  >
       <select id="vidtipopago" type="select">
         {section name=LE loop=$TPAGO}
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
@@ -52,16 +32,36 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
       <label>Forma de Pago</label>
     </div>
    
-    <div class="input-field cre col s6 m3 l3" style="display: none;">
+    <div class="input-field cre col s12 m6 m3 l3" style="display: none;">
       <input type="text" id="vplazo" value="0" class="eder"/>
       <label for="vplazo">Plazo en Días</label>
     </div>
 
-    <div class="input-field col s6">
+    </div>
+      
+    </div>
+
+  </div>
+
+  <div class="row">
+   <div class="input-field col s12 m3">
       <i class="fa fa-user prefix"></i>
       <label class="truncate" for="ncli">Nombre o Cédula del Proveedor</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
     </div> 
+  <div class="input-field col s12 m3">
+        <label for="vreferencia">Número de Referencia</label>
+        <input type="text" id="vreferencia" class="validate" />
+      </div>
+
+   <div class="input-field col s12 m6 m3 l3">
+      <i class="fa fa-calendar-o prefix"></i>
+      <input type="date" class="datepicker" id="vfecha" value="" />
+    </div>
+
+   
+
+   
     
   </div>
 
@@ -69,7 +69,7 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="card-header center"><p class="white-text" style="background-color:#0B3861">DETALLE DE FACTURA</p></div>
 
-    <table class="table" id="data-table-detalle" cellspacing="0">
+    <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead>
         <tr>
           <!-- <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
@@ -98,7 +98,7 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
             <input type="text" id="codp" class="f prod center" placeholder="Código">
             <input type="hidden" id="valores">
           </td>
-          <td style="width: 20%;" class="input-field">
+          <td style="width: 20%;" class="input-field tdb">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
           <td style="width: 7%;" class="input-field">
@@ -113,14 +113,14 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
           <td style="width: 12%;" class="input-field">
             <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
           </td>
-          <td class="center" style="font-size: 1em; width: 17%; ">
-            <div class="col s12 m4 l4">
+          <td class="center tdc" style="font-size: 1em; width: 17%; ">
+            <div class="col s12 m4 l4 pequeño">
               <a href="#modal-inventario" id="sinv"><i class="fa fa-archive" ></i>
                 <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI" title="Cantidad en Inventario">0</span>
               </a>
             </div>
-            <div class="col s12 m8 l5">
-              <a title="Limpiar Campos" class="pbtn" id="limpiar"><img class="responsive-img" src="../assets/img/icon/broom.svg"></a>
+            <div class="col s12 m8 l5 pequeño">
+              <a title="Limpiar Campos" class="pbtn" id="limpiar"><img class="responsive-img tamañoimg" src="../assets/img/icon/broom.svg"></a>
             </div>
             <!-- <div class="col s12 m8 l5">
               <input type="number" >

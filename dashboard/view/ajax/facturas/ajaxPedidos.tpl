@@ -9,7 +9,7 @@ Pedidos {$smarty.session.EMPRESA|upper}</p></div>
 
   <div class="row">
 
-    <div class="col s6">
+    <div class="col s12 m6">
       <div class="switch hide">
         <label>
           Contado
@@ -20,7 +20,7 @@ Pedidos {$smarty.session.EMPRESA|upper}</p></div>
       </div>
     </div>
 
-    <div class="col s6">
+    <div class="col s12 m6 centro2">
       <label class="der black-text" style="font-size: 18px;"><b>N° Pedido: </b> <span class="red-text" id="idfact">{$CONS}</span></label>
     </div>
 
@@ -28,12 +28,12 @@ Pedidos {$smarty.session.EMPRESA|upper}</p></div>
 <br>
   <div class="row">
 
-   <div class="input-field col s6 m3 l3">
+   <div class="input-field col s12 m3 l3">
       <i class="fa fa-calendar-o prefix"></i>
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
 
-    <div class="input-field con col s6 m3 l3" >
+    <div class="input-field con col s12 m3 l3" >
       <select id="idtipopago" class="hide">
         {section name=LE loop=$TPAGO}
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
@@ -42,12 +42,12 @@ Pedidos {$smarty.session.EMPRESA|upper}</p></div>
       <label class="hide">Forma de Pago</label>
     </div>
    
-    <div class="input-field cre col s6 m3 l3" style="display: none;">
+    <div class="input-field cre col s12 m3 l3" style="display: none;">
       <input type="text" id="vplazo" value="0" class="eder" readonly />
       <label for="vplazo">Plazo en Días</label>
     </div>
 
-    <div class="input-field col s10 m4">
+    <div class="input-field col s12 m4">
       <i class="fa fa-user prefix"></i>
       <label class="truncate" for="ncli">Nombre o Cédula del Cliente</label>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
@@ -63,7 +63,7 @@ Pedidos {$smarty.session.EMPRESA|upper}</p></div>
 
     <div class="card-header blue-grey center"><p class="white-text" style="background-color:#0B3861">DETALLE DE FACTURA</p></div>
 
-    <table class="table" id="data-table-detalle" cellspacing="0">
+    <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead>
         <tr>
           <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>

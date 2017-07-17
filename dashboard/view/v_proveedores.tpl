@@ -12,11 +12,11 @@
 <body>
         {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
-    <div class="bdy" style="font-size: 1.2em !important">
+    <div class="bdy pequeño" style="font-size: 1.2em !important">
         <div class="card">
             <div class="card-header center white-text" style="background-color:#0B3861"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
             </div>
-            <div class="card-content">
+            <div class="card-content pequeño">
                 <div class="row">
                     <div class="input-field col s10 m6">
                         <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="card-block">
-                    <table class="table centered highlight bordered responsive-table z-depth-2" id="data-table-clientes">
+                    <table class="table tabladetalles centered highlight bordered responsive-table z-depth-2" id="data-table-clientes">
                         <thead>
                             <tr>
                                 <th class="sinborde white-text blue" style="  padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
@@ -66,7 +66,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 80%; width: 75%">
+                <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 80%; width: 75%">
                     <div class="modal-header">
                         <ul class="tabs tabs-fixed-width blue">
                             <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
@@ -116,7 +116,7 @@
                                   </div>
                               <input type="hidden" id="vidtipocliente" value="1">
                           </div>
-                          <div class="card-title" id="titInfo"><b>Datos Personales</b></div>
+                          <div class="card-title pequeño" id="titInfo"  align="center"><b>Datos Personales</b></div>
 
                           <div class="row">
                             <div class="input-field col s12 m6 l4">
@@ -221,7 +221,7 @@
                     <div id="logis" class="col s12">
                         <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
                             <div class="ciclos">
-                                <div class="card-title" align="center"><b>Direcciones</b></div>
+                                <div class="card-title" align="center"><b>Direcciones</b><br></div>
                                 <input type="hidden" id="vbisnacional" value="1">
                                 <div class="row"><br>
                                     <div class="input-field col s12 m6 l4">
@@ -235,7 +235,7 @@
                                                 {/section}
                                             </select>
                                             <label for="vidprovincia">Provincia</label>
-                                        </div><br>
+                                        </div>
                                     </div>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="canton">
@@ -244,7 +244,7 @@
                                                 <option value="">Seleccione un Cantón</option>
                                             </select>
                                             <label for="vidcanton">Cantón</label>
-                                        </div><br>
+                                        </div>
                                     </div>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="distrito">
