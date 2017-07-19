@@ -12,6 +12,7 @@
     <td style="width: 10%"><?php echo $obj[10] ?></td>
     <td style="width: 5%"><?php echo $obj[8] ?></td>
     <td style="width: 16%">
+        <a class="btn-color pbtn info material-icons blueh 4110" id="info<?php echo $obj[0] ?>" href="#modal-info" title="Mostrar Informacion del Producto">info</a>
         <a class="btn-color pbtn descuentos" id="desc<?php echo $obj[0] ?>" href="#modal-descuentos" title="Agregar Descuentos"><img src="../assets/img/icon/percent.svg"></a>
         <a class="btn-color pbtn salidainv" id="s<?php echo $obj[0] ?>" href="#modal-movinventario" title="Movimiento de Inventario"><i class="material-icons">compare_arrows</i></a>
         <a class="btn-color pbtn editprod" id="m<?php echo $obj[0] ?>" href="#modal-productos" title="Editar Producto"><i class="material-icons">edit</i></a>

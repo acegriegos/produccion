@@ -42,7 +42,8 @@
 <td style=" padding: 10px; color:black;">{$PROD[LE][6]}</td>
 <td style=" padding: 10px; color:black;">{$PROD[LE][7]}</td>
 <td>
-<a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" sstyle="color:black;"><img src="../assets/img/icon/percent.svg"></a>
+<a class="btn-color pbtn info material-icons blueh 4110" id="info{$PROD[LE][0]}" href="#modal-info" title="Mostrar Informacion del Producto">info</a>
+<a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="color:black;"><img src="../assets/img/icon/percent.svg"></a>
 <a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="color:black;">compare_arrows</a>
 <a class="btn-color pbtn editprod material-icons per4108" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" style="color:black;">edit</a>
 <a class="btn-color pbtn cdel delprod material-icons per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" style="color:black;">close</a>
@@ -395,10 +396,11 @@ Categoria
 <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue  z-depth-5" style="margin-right: 2%">Salir</a>
 </div>
 </div>
+
 <div id="modal-descuentos" class="modal modal-fixed-footer" style="width:45%;height:90%">
 <div class="modal-header">
 <ul class="tabs white-text" style="background-color:#0B3861">
-<li class="tab col s3"><a class="white-text">Mostrar Descuentos de Producto <span id="dprod"></span></a></li>
+<li class="tab col s3"><a class="white-text">Mostrar Descuentos de Producto <span class="dprod"></span></a></li>
 </ul>
 </div>
 <div class="modal-content" stylle="padding: 0px;">
@@ -412,6 +414,31 @@ Categoria
 <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
 </div>
 </div>
+
+<div id="modal-info" class="modal modal-fixed-footer" style="width:45%;height:90%">
+<div class="modal-header">
+<ul class="tabs white-text" style="background-color:#0B3861">
+<li class="tab col s3"><a class="white-text">Mostrar Características del Producto <span id="dprd"></span></a></li>
+</ul>
+</div>
+<div class="modal-content" stylle="padding: 0px;">
+<div class="row">
+<table class="table responsive-table centered striped bordered highlight z-depth-5" cellspacing="0" width="100%" >
+<thead>
+<tr>
+<th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nombre</th>
+<th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Valor</th>
+</tr>
+</thead>
+<tbody id="listainfo"></tbody>
+</table>
+</div>
+</div>
+<div class="modal-footer">
+<a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
+</div>
+</div>
+
 </div> <!-- End mantProductos -->
 
 <script src="../assets/js/jquery.mask.min.js"></script>

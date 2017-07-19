@@ -359,14 +359,13 @@ function addIM(vidcuenta,vimpuesto,vnombre,vvalor,vexoneracion){
 }
 
 function endDetail(vid,vacc,modulo){
-	setTimeout(function(){ deadclear('cliente'); }, 500);
+	setTimeout(function(){ deadclear('cliente');$("#videstado").val(1);$("#videstado").material_select('update'); }, 500);
     thorload('cliente');
     if (vacc == 1) {
 	    $("#shcorreos").html('');
 	    $("#shtelefonos").html('');
     }
-    $("#videstado").val(1);
-    $("#videstado").material_select('update');
+    
 }
 
 function postload(modulo) {

@@ -484,6 +484,13 @@ $(document).on("click",".filtropqt",function(){
     }
 });
 
+$(document).on("click",".info",function(){
+    var id = $(this).attr('id').substr(4);
+    var prod = arr('login',4,'nombre',11,'id = '+id,0,0,0)[0][0];
+    $("#dprd").text(prod);
+    arr('login',6,'nombre,valor',193,'idproducto = '+id,0,1,$("#listainfo"))
+});
+
 $(document).on("click","#addfeat",function(){
     var nombre = $("#nom").val();
     var val = $("#val").val();
@@ -558,124 +565,118 @@ $(document).on("click",".delimp",function(){
 });
 
 $(document).on("click","#addprod",function(){
-    // var valprod = validarproductos();
-    // if (valprod == false) {
-    //     var codigo = $("#vcodigo").val();
-    //     var codigointerno = $("#vcodigointerno").val();
-    //     var nombre = $("#vnombre").val();
-    //     var costo = $("#vcosto").val();
-    //     var ganancia = $("#vganancia").val();
-    //     var venta = $("#vventa").val();
-    //     var exoneracion = $("#vexoneracion").val() == '' || $("#vexoneracion").val() == '0.00' ? 0 : $("#vexoneracion").val();
-    //     var peso = $("#vpeso").val();
-    //     var idunidad = $("#vidunidad option:selected").val();
-    //     var minimo = $("#vminimo").val();
-    //     var maximo = $("#vmaximo").val();
-    //     var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
-    //     var idmoneda = $("#vidmoneda").val();
-    //     var idinventario =  $("#vidinventario option:selected").val();
+    var valprod = validarproductos();
+    if (valprod == false) {
+        var codigo = $("#vcodigo").val();
+        var codigointerno = $("#vcodigointerno").val();
+        var nombre = $("#vnombre").val();
+        var costo = $("#vcosto").val();
+        var ganancia = $("#vganancia").val();
+        var venta = $("#vventa").val();
+        var exoneracion = $("#vexoneracion").val() == '' || $("#vexoneracion").val() == '0.00' ? 0 : $("#vexoneracion").val();
+        var peso = $("#vpeso").val();
+        var idunidad = $("#vidunidad option:selected").val();
+        var minimo = $("#vminimo").val();
+        var maximo = $("#vmaximo").val();
+        var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
+        var idmoneda = $("#vidmoneda").val();
+        var idinventario =  $("#vidinventario option:selected").val();
         var vari = $(".variables");
-    //     var pass = 1;
+        var pass = 1;
 
-    //     if (idunidad == 1) {
-    //         peso = peso * 1000;
-    //     }else if (idunidad == 3) {
-    //         peso = peso / 1000;
-    //     }else if (idunidad == 4) {
-    //         peso = peso * 1000;
-    //     }else if (idunidad == 6) {
-    //         peso = peso / 1000;
-    //     }else if (idunidad == 8) {
-    //         peso = peso / 100;
-    //     }
+        if (idunidad == 1) {
+            peso = peso * 1000;
+        }else if (idunidad == 3) {
+            peso = peso / 1000;
+        }else if (idunidad == 4) {
+            peso = peso * 1000;
+        }else if (idunidad == 6) {
+            peso = peso / 1000;
+        }else if (idunidad == 8) {
+            peso = peso / 100;
+        }
 
-    //     if ($("#vidfamilia").val() == 0) {
-    //         var familia = arr('login',4,'',106,'1,0,\"'+$("#vfamilia").val()+'\"',0,0,0);
-    //         if (familia[0][0] != undefined) {
-    //             $("#vidfamilia").val(familia[0][0][0])
-    //         }else{
-    //             Materialize.toast(familia[0]['ERROR'], 6000, 'red');
-    //             pass = 0;
-    //         }
-    //     }
-    //     if ($("#vidtipo").val() == 0) {
-    //         var tipo = arr('login',4,'',135,'1,0,\"'+$("#vtipo").val()+'\",'+$("#vidfamilia").val(),0,0,0);
-    //         if (tipo[0][0] != undefined) {
-    //             $("#vidtipo").val(tipo[0][0][0])
-    //         }else{
-    //             Materialize.toast(tipo[0]['ERROR'], 6000, 'red');
-    //             pass = 0;
-    //         }
-    //     }
-    //     if ($("#vidmarca").val() == 0) {
-    //         var marca = arr('login',4,'',136,'1,0,\"'+$("#vmarca").val()+'\",'+$("#vidtipo").val(),0,0,0);
-    //         if (marca[0][0] != undefined) {
-    //             $("#vidmarca").val(marca[0][0][0])
+        if ($("#vidfamilia").val() == 0) {
+            var familia = arr('login',4,'',106,'1,0,\"'+$("#vfamilia").val()+'\"',0,0,0);
+            if (familia[0][0] != undefined) {
+                $("#vidfamilia").val(familia[0][0][0])
+            }else{
+                Materialize.toast(familia[0]['ERROR'], 6000, 'red');
+                pass = 0;
+            }
+        }
+        if ($("#vidtipo").val() == 0) {
+            var tipo = arr('login',4,'',135,'1,0,\"'+$("#vtipo").val()+'\",'+$("#vidfamilia").val(),0,0,0);
+            if (tipo[0][0] != undefined) {
+                $("#vidtipo").val(tipo[0][0][0])
+            }else{
+                Materialize.toast(tipo[0]['ERROR'], 6000, 'red');
+                pass = 0;
+            }
+        }
+        if ($("#vidmarca").val() == 0) {
+            var marca = arr('login',4,'',136,'1,0,\"'+$("#vmarca").val()+'\",'+$("#vidtipo").val(),0,0,0);
+            if (marca[0][0] != undefined) {
+                $("#vidmarca").val(marca[0][0][0])
                 
-    //         }else{
-    //             Materialize.toast(marca[0]['ERROR'], 6000, 'red');
-    //             pass = 0;
-    //         }
-    //     }
+            }else{
+                Materialize.toast(marca[0]['ERROR'], 6000, 'red');
+                pass = 0;
+            }
+        }
 
-    //     if (pass == 1) {
-    //         var idmarca = $("#vidmarca").val();
-    //         var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigointerno+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+peso+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+','+idinventario+',@@usr,'+idmoneda+',@@impresa,""',0,0,0);
-    //         if (idproducto[0][0] != undefined) {//validar su guarda correctamente
-    //             //agregar impuestos
-    //             $(".impuestos").each(function(){
-    //                 var idimpuesto = $(this).attr('id').substr(4);
-    //                 if ($(this).attr('defecto') == 1 && ($("#impexo"+idimpuesto).val() == '' || $("#impexo"+idimpuesto).val()) == 0) {
-    //                     return false;
-    //                 }else{
-    //                     arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),0,0,0);
-    //                 }
-    //             });
-    //             //agrega niveles productos
-    //             $(".precionivel").each(function(){
-    //                 var idfila = $(this).attr('id').substr(1);
-    //                 if ($("#vventa"+idfila).val() > 0) {
-    //                     arr('login',4,'',108,'1,0,'+idproducto[0][0]+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
-    //                 }
-    //             });
-
-    //             $(".preciocliente").each(function(){
-    //                 var idfila = $(this).attr('id').substr(1);
-    //                 if ($("#vventa"+idfila).val() > 0) {
-    //                     arr('login',4,'',162,'1,0,'+idproducto[0][0]+','+$("#vidcliente"+idfila).val()+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
-    //                 }
-    //             });
-
-                    if (vari.length > 0) {
-                        console.log(vari.length)
-                        for (var i = 0, len = vari.length; i < len; i++) {
-                            var idfila = vari.attr('id').substr(2);
-                            console.log(idfila)
-                            // var nm = vari.attr('nom');
-                            // var val = vari.attr('var');
-                            // console.log(nm+" "+val)
-                            // arr('login',4,'',194,'1,0,"'+nm+'","'+val+'",'+idproducto[0]+',@@usr,@@impresa',0,0,0)
-                        };
+        if (pass == 1) {
+            var idmarca = $("#vidmarca").val();
+            var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigointerno+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+peso+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+','+idinventario+',@@usr,'+idmoneda+',@@impresa,""',0,0,0);
+            if (idproducto[0][0] != undefined) {//validar su guarda correctamente
+                //agregar impuestos
+                $(".impuestos").each(function(){
+                    var idimpuesto = $(this).attr('id').substr(4);
+                    if ($(this).attr('defecto') == 1 && ($("#impexo"+idimpuesto).val() == '' || $("#impexo"+idimpuesto).val()) == 0) {
+                        return false;
+                    }else{
+                        arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),0,0,0);
                     }
+                });
+                //agrega niveles productos
+                $(".precionivel").each(function(){
+                    var idfila = $(this).attr('id').substr(1);
+                    if ($("#vventa"+idfila).val() > 0) {
+                        arr('login',4,'',108,'1,0,'+idproducto[0][0]+','+idfila+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
+                    }
+                });
 
-    //             Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
-    //             arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
-    //             vaciar('productos');
-    //             var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
-    //             for (var i = 0, len = imp.length; i < len; i++) {
-    //                 $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'" defecto="1">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder calcvv" value="0" style="margin: 0px;width: 50%"></div></div></li>');
-    //             }
-    //             $(".validate").css('border-bottom','1px solid #9e9e9e');
-    //             $(".validate").css('box-shadow','none');
-    //             Materialize.updateTextFields();
-    //             $("#vfamilia").focus();
-    //         }else{
-    //             Materialize.toast(idproducto[0]['ERROR'], 6000, 'red');
-    //         }
-    //     }
-    // }else{
-    //     Materialize.toast(valprod, 6000, 'red');
-    // }
+                $(".preciocliente").each(function(){
+                    var idfila = $(this).attr('id').substr(1);
+                    if ($("#vventa"+idfila).val() > 0) {
+                        arr('login',4,'',162,'1,0,'+idproducto[0][0]+','+$("#vidcliente"+idfila).val()+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
+                    }
+                });
+
+                if (vari.length > 0) {
+                    vari.each(function(){
+                        arr('login',4,'',194,'1,0,"'+$(this).attr('nom')+'","'+$(this).attr('var')+'",'+idproducto[0]+',@@usr,@@impresa',0,0,0)
+                    });
+                }
+
+                Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
+                arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
+                vaciar('productos');
+                var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
+                for (var i = 0, len = imp.length; i < len; i++) {
+                    $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'" defecto="1">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder calcvv" value="0" style="margin: 0px;width: 50%"></div></div></li>');
+                }
+                $(".validate").css('border-bottom','1px solid #9e9e9e');
+                $(".validate").css('box-shadow','none');
+                Materialize.updateTextFields();
+                $("#vfamilia").focus();
+            }else{
+                Materialize.toast(idproducto[0]['ERROR'], 6000, 'red');
+            }
+        }
+    }else{
+        Materialize.toast(valprod, 6000, 'red');
+    }
 });
 
 $(document).on("click","#editprod",function(){
@@ -695,6 +696,7 @@ $(document).on("click","#editprod",function(){
         var maximo = $("#vmaximo").val();
         var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
         var idmoneda = $("#vidmoneda").val();
+        var vari = $(".variables");
         var pass = 1;
 
         if (idunidad == 1) {
@@ -762,6 +764,14 @@ $(document).on("click","#editprod",function(){
                         arr('login',4,'',162,'1,0,'+idproducto[0][0]+','+$("#vidcliente"+idfila).val()+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
                     }
                 });
+
+                if (vari.length > 0) {
+                    arr('login',4,'',194,'3,0,"","",'+idproducto[0][0]+',@@usr,@@impresa',0,0,0)
+                    vari.each(function(){
+                        arr('login',4,'',194,'1,0,"'+$(this).attr('nom')+'","'+$(this).attr('var')+'",'+idproducto[0][0]+',@@usr,@@impresa',0,0,0)
+                    });
+                }
+
                 Materialize.toast('Producto Editado Correctamente', 6000, 'green');
                 arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
                 vaciar('productos');
@@ -790,6 +800,8 @@ $(document).on("click",".editprod",function(){
     var q = p[0][0];
     var preccat = arr('login',4,'',110,id,0,0,0)[0];
     var preccli = arr('login',4,'',165,id,0,0,0)[0];
+    $("#listavariables").html('');
+    var car = arr('login',6,'id,nombre,valor',193,'idproducto = '+id,194,1,$("#listavariables"))[0];
     var line = arr('login',4,'count(id)',69,'id > 0',0,0,0)[0][0];
     $("#dinventario").addClass('hide');
     $(".accmodal").html("Actualizar Producto "+q[5]);
@@ -846,12 +858,12 @@ $(document).on("click",".descuentos",function(){
 
     var id = $(this).attr('id').substr(4);
     var prod = arr('login',4,'nombre',11,'id = '+id,'',0,'')[0];
-    $("#dprod").text(prod);
+    $(".dprod").text(prod);
     var desc = arr('login',4,'',152,id,0,0,0)[0][0];
     if (desc != undefined) {
         arr('login',6,'',152,id,0,1,$("#listadescuentos"));
     }else{
-        $("#listadescuentos").append('<span style="font-size: 1.5em;">No se encuentran descuentos ligados a este producto</span>')
+        $("#listadescuentos").append('<span style="font-size: 1.5em;">No se encuentran descuentos asociados a este producto</span>')
     }
 });
 
@@ -1581,6 +1593,7 @@ $(document).on("click","#addproduct",function(){
     $("#editprod").addClass('hide');
     $(".accmodalProd").html('Agregar Producto');
     $("#dinventario").removeClass('hide');
+    $("#listavariables").html('');
     if ($("[id^=vcliente]").length == 0) {
         var countniv = arr('login',4,'count(id)+1',69,'id > 0',0,0,0)[0][0];
         $(".chg1").append('<div class="row preciocliente" id="c'+countniv+'"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+countniv+'" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vganancia'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" line="'+countniv+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="material-icons prefix">¢</i><input type="text" id="vventa'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" line="'+countniv+'"><input type="hidden" id="hventa'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vexoneracion'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" line="'+countniv+'"></div></div></div>');
@@ -1699,7 +1712,7 @@ function addfeat(nom,val) {
         var cnt = parseInt($("#cnt").val());
         
         cnt++;
-        $("#listavariables").append('<tr id="dv'+cnt+'" class="variables" nom="'+nom+'" var="'+val+'"><td style=" padding: 10px; color:black;">'+nom+'</td><td style=" padding: 10px; color:black;">'+val+'</td><td><a class="btn-color pbtn cdel delvar material-icons" id="d'+cnt+'" title="Eliminar Producto" style="color:black;">close</a></td></tr>');
+        $("#listavariables").append('<tr id="dv'+cnt+'" class="variables" nom="'+nom+'" var="'+val+'"><td style=" padding: 10px; color:black;">'+nom+'</td><td style=" padding: 10px; color:black;">'+val+'</td><td><a class="btn-color pbtn cdel delvar material-icons" id="d'+cnt+'" title="Eliminar Característica" style="color:black;">close</a></td></tr>');
         
         $("#nom").val('');
         $("#val").val('');
