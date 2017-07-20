@@ -1,10 +1,10 @@
-<div class="row">
-    <div class="col s12">
-      <div class="card z-depth-5">
-        <div class="row">
+<div class="row pequeño">
+    <div class="col s12 pequeño">
+      <div class="card z-depth-5 pequeño ">
+        <div class="row pequeño">
 
 
-            <div class="col s12 m12 l6">
+            <div class="col s12 m12 l6 pequeño">
                 <div class="col s12 ">
                      <h4> Datos :</h4>
                  </div>
@@ -91,7 +91,7 @@
                   <div class="col s12 ">
                      <h4> Impresión :</h4>
                  </div>
-                 <div class="col s4 ">
+                 <div class="col s12 m4 ">
                     <div class="input-field">
                         
                         <select type="select" id="vidtipofactura">
@@ -103,7 +103,7 @@
                         <label for="vidtipofactura">Factura</label>
                     </div>
                 </div>
-                <div class="col s4 ">
+                <div class="col s12 m4 ">
                     <div class="input-field">
                         
                         <select type="select" id="vidtipoabono">
@@ -115,7 +115,7 @@
                     </div>
 
                     </div>
-                    <div class="col s4 ">
+                    <div class="col s12 m4 ">
                         <div class="input-field">
                             
                             <select type="select" id="vidtiponota">
@@ -140,11 +140,11 @@
 
             </div>
 
-            <div class="col s12 m12 l6">
+            <div class="col s12 m12 l6 pequeño">
                 <br>
-                <div class="table-responsive">
+                <div class="table-responsive pequeño " >
                     <br>
-                    <table class="table centered highlight bordered responsive-table z-depth-3" id="data-table-sucursales" cellspacing="0" width="100%" >
+                    <table class="table centered highlight pequeño bordered responsive-table z-depth-3" id="data-table-sucursales" cellspacing="0" width="100%" >
                         <thead>
                             <tr>
                                 <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>

@@ -1,47 +1,44 @@
-<div class="card">
-    <div class="card-block">
-        <h3>Descuentos del Sistema</h3>
+<div class="card pequeño">
+    <div class="card-block pequeño">
+        <h3 class="center-align">Descuentos del Sistema</h3>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12 pequeño">
                 <div class="row">
                     <div class="col s12">
                         <p>Descuento en Factura de Venta:</p>
                     </div>
-                    <div class="col s6 m2">
-                        <p class="der">
+                    <div class="col s12 m2">
                         <input type="radio" class="descfactc with-gap z-depth-5" name="descfact" tp="1" id="sum" {if $DESCF eq 1} checked {/if} />
                         <label for="sum">Suma</label>
-                        </p>
                     </div>
-                        <div class="col s6 m2">
-                        <p class="der">
+                        <div class="col s12 m2">
                         <input type="radio" class="descfactc with-gap z-depth-5" name="descfact" tp="2" id="may" {if $DESCF eq 2} checked {/if}>
                         <label for="may">Mayor</label>
-                        </p><br>
+                        <br>
                     </div>
                 </div>
             </div>
         </div>
         <a href="#modal-descuentos" class="btn z-depth-5 right" style="margin: 1%;" id="gendesc">Generar Descuento</a><br><br>
-        <table class="table responsive-table z-depth-5 highlight centered" id="data-table-descuentos"><br><br>
+        <table class="table  pequeño responsive-table z-depth-5 highlight centered" id="data-table-descuentos"><br><br>
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Nombre</th>
                     <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Estado</th>
                     <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Realizado(Veces)</th>
                     <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Usuario</th>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width: 20%">Acciones</th>
+                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Acciones</th>
                 </tr>
             </thead>
             <tbody id="listadescuentos"></tbody>
         </table>
     </div>
 
-    <div class="modal modal-fixed-footer" id="modal-descuentos" style="overflow-y: inherit !important;">
+    <div class="modal modal-fixed-footer grandemodal" id="modal-descuentos" style="overflow-y: inherit !important;">
         <div class="modal-header">
-            <h4 class="modal-title" style="background-color:#0B3861">Crear Descuento</h4>
+            <h4 class="modal-title white-text center-align" style="background-color:#0B3861">Crear Descuento</h4>
         </div>
-        <div class="modal-content" id="fdescuentos">
+        <div class="modal-content pequeño" id="fdescuentos">
             <div class="row">
                 <div class="input-field col s12 m6">
                     <input type="text" id="vnombre">
@@ -54,9 +51,9 @@
                     <select type="select" id="videstado"></select>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s6 m6 l6">
-                    <span style="font-size: 1em">Cuenta: </span>
+            <div class="row pequeño">
+                <div class="col s12 m6 l6 pequeño">
+                    <span >Cuenta: </span>
                     <select type="select" id="vidcuenta"></select>
                 </div> 
             </div>
