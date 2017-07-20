@@ -628,11 +628,11 @@ $(document).on("click","#actbod",function(){
     $("#addbod").text('add');
 });
 
-$(document).on("change","#vidbode",function(){
+$(document).on("change","#vidbodega",function(){
     var id = $(this).val();
     var tabla = $("#data-table-inventarios").DataTable();
     tabla.destroy();
-    arr('login',6,'id,nombre',111,'idbodega = '+id,'',1,$("#listainventarios"));
+    arr('login',6,'id,nombre',111,'idbodega = '+id+' and idsucursal = @@impresa',0,1,$("#listainventarios"));
     $("#data-table-inventarios").DataTable({
     	bFilter :  false,
         bLengthChange : false,

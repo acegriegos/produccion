@@ -6,6 +6,7 @@ $(document).keydown(function(e){
 });
 
 $(function(){
+    console.log(2)
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -80,12 +81,11 @@ $(function(){
             }else if($("#codp").val().substr(0,1) == '+') {
                 kbrota = 'P-'+$(this).val().substr(1);
             }
-
-            var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
+            console.log('1: "'+ kbrota +'"')
+            var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+',1',0,0,0);
             if (cod[0][0] != undefined) {
                 var fimv = cod[0];
                 cod = cod[0][0];
-                console.log(cod[5])
                 $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14]})
                 $("#codp").val(cod[1]);
                 $("#descp").val(cod[2]);
@@ -143,8 +143,7 @@ $(function(){
     $("#descp").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
-            var cod = arr('login',4,'',43,'"'+$(this).val() +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],0,0,0);
-            console.log(1)
+            var cod = arr('login',4,'',43,'"'+$(this).val() +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+',1',0,0,0);
              if (cod[0][0] != undefined) {
                 var fimv = cod[0];
                 cod = cod[0][0];
@@ -154,7 +153,6 @@ $(function(){
                 $("#precp").val(cod[3]);
                 $("#hprec").val(cod[3]);
                 $("#totp").val((parseFloat(cod[3])*$("#cantp").val()).formatMoney(2,',','.'))
-                console.log(1)
                 if (cod[4] == '?') {
                     $("#cantI").html('∞');
                 }else{
@@ -463,7 +461,6 @@ $(document).on("click","#btnAjuste",function(){
 
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
-    console.log(mdcs)
     var err = 0;
     var existe = 0;
     var precio = parseFloat(prec);

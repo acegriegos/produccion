@@ -299,6 +299,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                 data: {accion: vaccion,arreglo : varreglo}
                 })
                 .done(function(data) {
+                    
                     try {
                         p = JSON.parse(data);
                     }
@@ -597,7 +598,6 @@ function thorload(vtabla) {
         $("#search_"+vtabla).trigger(e);
     }
     else{
-        console.log(vtabla)
         var arreglo = cargarSintax(vtabla);
         var tbl = mantenimiento('login',6,arreglo);
         var tabla = $("#data-table-"+vtabla).DataTable();

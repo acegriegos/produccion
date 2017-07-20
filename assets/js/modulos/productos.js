@@ -1,3 +1,5 @@
+var variables = [];
+
 $(function(){
     $(".menu3").click(function(){
         var id = $(this).attr('id').substr(1);
@@ -65,6 +67,26 @@ $(document).ready(function(){
 
 });
 
+$(document).on("click",".delvar",function(){
+    var id = $(this).attr('id').substr(1);
+    $("#dv"+id).remove();
+});
+
+$(document).on("keyup","#nom",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13)
+        $("#val").focus();
+});
+
+$(document).on("keyup","#val",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        var nom = $("#nom").val();
+        var val = $(this).val();
+        addfeat(nom,val)
+    }
+});
+
 $(document).on("change","#vidinventario",function(){
     if ($(this).val() != 1) {
         $("#dvpeso").addClass('hide');
@@ -85,6 +107,12 @@ $(document).on("keyup",".formprod",function(e){
     }
     
 });
+
+$(document).on("keyup",".ffeat",function(e){
+    var code = e.which || e.keyCode;
+    
+});
+
 // end focus
 
 // Quick add
@@ -317,25 +345,39 @@ $(document).on("click",".menuP",function(){
     $(this).addClass('active');
     switch(id){
         case 1:
-        $("#financiero").addClass('hide');
-        $("#dimpuestos").addClass('hide');
-        $("#datosproductos").removeClass('hide');
-        break;
+            $("#financiero").addClass('hide');
+            $("#dimpuestos").addClass('hide');
+            $("#datosproductos").removeClass('hide');
+            $("#features").addClass('hide');
+            // $("#modal-productos").css('width','70%');
+            break;
         case 2:
-        $("#datosproductos").addClass('hide');
-        $("#dimpuestos").addClass('hide');
-        $("#financiero").removeClass('hide');
-        $("#vcosto").select();
-        break;
+            $("#datosproductos").addClass('hide');
+            $("#dimpuestos").addClass('hide');
+            $("#financiero").removeClass('hide');
+            $("#features").addClass('hide');
+            $("#vcosto").select();
+            // $("#modal-productos").css('width','70%');
+            break;
         case 3:
-        $("#datosproductos").addClass('hide');
-        $("#financiero").addClass('hide');
-        $("#dimpuestos").removeClass('hide');
-        arr('login',6,'*',51,'id > 0',48,1,$("#imp"));
-        $('select').material_select();
-        break;
+            $("#datosproductos").addClass('hide');
+            $("#financiero").addClass('hide');
+            $("#dimpuestos").removeClass('hide');
+            $("#features").addClass('hide');
+            arr('login',6,'*',51,'id > 0',48,1,$("#imp"));
+            $('select').material_select();
+            // $("#modal-productos").css('width','70%');
+            break;
+        case 4:
+            $("#datosproductos").addClass('hide');
+            $("#financiero").addClass('hide');
+            $("#dimpuestos").addClass('hide');
+            $("#features").removeClass('hide');
+            // $("#modal-productos").css('width','80%');
+            break;
     }
 });
+
 $(document).on("click",".minvent",function(){
     var id = parseInt($(this).attr('id').substr(2));
     $(".minvent").removeClass('active');
@@ -442,24 +484,24 @@ $(document).on("click",".filtropqt",function(){
     }
 });
 
-function cambio_select(vto,vtabla,vval,vset){
-    var tmp = $('#'+vto+' option').first().html();
+$(document).on("click",".info",function(){
+    var id = $(this).attr('id').substr(4);
+    var prod = arr('login',4,'nombre',11,'id = '+id,0,0,0)[0][0];
+    $("#dprd").text(prod);
+    arr('login',6,'nombre,valor',193,'idproducto = '+id,0,1,$("#listainfo"))
+});
 
-    $('#'+vto).html('<option value="">'+tmp+'</option>');
-    var res = arr('login',4,vval,vtabla,vset,0,0,0)[0];
-
-    for (var i = 0; i < res.length; i++) {
-        $('#'+vto).append('<option value="'+res[i][0]+'">'+res[i][1]+'</option>');
-    }
-    $('#'+vto).material_select('update');
-};
+$(document).on("click","#addfeat",function(){
+    var nombre = $("#nom").val();
+    var val = $("#val").val();
+    addfeat(nombre,val);
+});
 
 $(document).on("click","#adddsct",function(){
     var desc = $("#dscts option:selected").val();
     var valor = $("#dscts option:selected").attr('valor');
     var nombre = $("#dscts option:selected").html();
     nombre = nombre.substr(0,nombre.indexOf('-'));
-
     adddesc(desc,valor,nombre);
 });
 
@@ -539,6 +581,7 @@ $(document).on("click","#addprod",function(){
         var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
         var idmoneda = $("#vidmoneda").val();
         var idinventario =  $("#vidinventario option:selected").val();
+        var vari = $(".variables");
         var pass = 1;
 
         if (idunidad == 1) {
@@ -609,6 +652,13 @@ $(document).on("click","#addprod",function(){
                         arr('login',4,'',162,'1,0,'+idproducto[0][0]+','+$("#vidcliente"+idfila).val()+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
                     }
                 });
+
+                if (vari.length > 0) {
+                    vari.each(function(){
+                        arr('login',4,'',194,'1,0,"'+$(this).attr('nom')+'","'+$(this).attr('var')+'",'+idproducto[0]+',@@usr,@@impresa',0,0,0)
+                    });
+                }
+
                 Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
                 arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
                 vaciar('productos');
@@ -646,6 +696,7 @@ $(document).on("click","#editprod",function(){
         var maximo = $("#vmaximo").val();
         var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
         var idmoneda = $("#vidmoneda").val();
+        var vari = $(".variables");
         var pass = 1;
 
         if (idunidad == 1) {
@@ -713,6 +764,14 @@ $(document).on("click","#editprod",function(){
                         arr('login',4,'',162,'1,0,'+idproducto[0][0]+','+$("#vidcliente"+idfila).val()+','+$("#vganancia"+idfila).val()+','+$("#vexoneracion"+idfila).val()+',@@usr,@@impresa',0,0,0)
                     }
                 });
+
+                if (vari.length > 0) {
+                    arr('login',4,'',194,'3,0,"","",'+idproducto[0][0]+',@@usr,@@impresa',0,0,0)
+                    vari.each(function(){
+                        arr('login',4,'',194,'1,0,"'+$(this).attr('nom')+'","'+$(this).attr('var')+'",'+idproducto[0][0]+',@@usr,@@impresa',0,0,0)
+                    });
+                }
+
                 Materialize.toast('Producto Editado Correctamente', 6000, 'green');
                 arr('login',6,'*',14,'vid > 0 order by nombre','',1,$("#listaproductos"));
                 vaciar('productos');
@@ -741,6 +800,8 @@ $(document).on("click",".editprod",function(){
     var q = p[0][0];
     var preccat = arr('login',4,'',110,id,0,0,0)[0];
     var preccli = arr('login',4,'',165,id,0,0,0)[0];
+    $("#listavariables").html('');
+    var car = arr('login',6,'id,nombre,valor',193,'idproducto = '+id,194,1,$("#listavariables"))[0];
     var line = arr('login',4,'count(id)',69,'id > 0',0,0,0)[0][0];
     $("#dinventario").addClass('hide');
     $(".accmodal").html("Actualizar Producto "+q[5]);
@@ -797,12 +858,12 @@ $(document).on("click",".descuentos",function(){
 
     var id = $(this).attr('id').substr(4);
     var prod = arr('login',4,'nombre',11,'id = '+id,'',0,'')[0];
-    $("#dprod").text(prod);
+    $(".dprod").text(prod);
     var desc = arr('login',4,'',152,id,0,0,0)[0][0];
     if (desc != undefined) {
         arr('login',6,'',152,id,0,1,$("#listadescuentos"));
     }else{
-        $("#listadescuentos").append('<span style="font-size: 1.5em;">No se encuentran descuentos ligados a este producto</span>')
+        $("#listadescuentos").append('<span style="font-size: 1.5em;">No se encuentran descuentos asociados a este producto</span>')
     }
 });
 
@@ -1532,6 +1593,7 @@ $(document).on("click","#addproduct",function(){
     $("#editprod").addClass('hide');
     $(".accmodalProd").html('Agregar Producto');
     $("#dinventario").removeClass('hide');
+    $("#listavariables").html('');
     if ($("[id^=vcliente]").length == 0) {
         var countniv = arr('login',4,'count(id)+1',69,'id > 0',0,0,0)[0][0];
         $(".chg1").append('<div class="row preciocliente" id="c'+countniv+'"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+countniv+'" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vganancia'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" line="'+countniv+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="material-icons prefix">¢</i><input type="text" id="vventa'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" line="'+countniv+'"><input type="hidden" id="hventa'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vexoneracion'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" line="'+countniv+'"></div></div></div>');
@@ -1644,6 +1706,37 @@ $(document).on("change","#prov",function(){
     var id = $(this).val();
     $("#vidproveedor").val(id)
 });
+
+function addfeat(nom,val) {
+    if (nom != '' && val != '') {
+        var cnt = parseInt($("#cnt").val());
+        
+        cnt++;
+        $("#listavariables").append('<tr id="dv'+cnt+'" class="variables" nom="'+nom+'" var="'+val+'"><td style=" padding: 10px; color:black;">'+nom+'</td><td style=" padding: 10px; color:black;">'+val+'</td><td><a class="btn-color pbtn cdel delvar material-icons" id="d'+cnt+'" title="Eliminar Característica" style="color:black;">close</a></td></tr>');
+        
+        $("#nom").val('');
+        $("#val").val('');
+        $("#nom").focus();
+        $("#cnt").val(cnt);
+
+        // var vari = arr('login',4,'',194,acc+','+id+',"'+nom+'","'+val+'",@@usr,@@impresa',0,0,0)[0];
+        // console.log(vari+" "+vari[0])
+    }else{
+
+    }
+}
+
+function cambio_select(vto,vtabla,vval,vset){
+    var tmp = $('#'+vto+' option').first().html();
+
+    $('#'+vto).html('<option value="">'+tmp+'</option>');
+    var res = arr('login',4,vval,vtabla,vset,0,0,0)[0];
+
+    for (var i = 0; i < res.length; i++) {
+        $('#'+vto).append('<option value="'+res[i][0]+'">'+res[i][1]+'</option>');
+    }
+    $('#'+vto).material_select('update');
+};
 
 function change_bodega(id,elem) {
     var inv = arr('login',4,'id,nombre',111,'id > 0 and idbodega = '+id+' order by id',0,0,0)[0];
@@ -2074,47 +2167,47 @@ function cargar(vmodulo,vid) {
 function cargarSintax(vtabla){
     switch(vtabla) {
         case 'productos':
-        var arr = {};
-        arr['sel'] = 'id,codigo,nombre,isprod,scosto,sventa,sganancia';
-        arr['tbl'] = 14;
-        arr['where'] = 'id > 0 order by nombre limit 10';
-        break;
+            var arr = {};
+            arr['sel'] = 'id,codigo,nombre,isprod,scosto,sventa,sganancia';
+            arr['tbl'] = 14;
+            arr['where'] = 'id > 0 order by nombre limit 10';
+            break;
         case 'servicios':
-        var arr = {};
-        arr['sel'] = '*';
-        arr['tbl'] = 13;
-        arr['where'] = 'id > 0 order by nombre limit 10';
-        break;
+            var arr = {};
+            arr['sel'] = '*';
+            arr['tbl'] = 13;
+            arr['where'] = 'id > 0 order by nombre limit 10';
+            break;
         case 'paquetes':
-        var arr = {};
-        arr['sel'] = 'vid,vcodigo,vnombre,vdescuento,totpqt';
-        arr['tbl'] = 72;
-        arr['where'] = 'vid > 0 order by nombre limit 10';
-        break;
+            var arr = {};
+            arr['sel'] = 'vid,vcodigo,vnombre,vdescuento,totpqt';
+            arr['tbl'] = 72;
+            arr['where'] = 'vid > 0 order by nombre limit 10';
+            break;
         case 'familia':
-        var arr = {};
-        arr['sel'] = 'id,nombre';
-        arr['tbl'] = 20;
-        arr['where'] = 'id > 0 order by id';
-        break;
+            var arr = {};
+            arr['sel'] = 'id,nombre';
+            arr['tbl'] = 20;
+            arr['where'] = 'id > 0 order by id';
+            break;
         case 'tipo':
-        var arr = {};
-        arr['sel'] = 'id,nombre';
-        arr['tbl'] = 21;
-        arr['where'] = 'id > 0 and idfamilia = '+$("#vidfamilia option:selected").val()+' order by id';
-        break;
+            var arr = {};
+            arr['sel'] = 'id,nombre';
+            arr['tbl'] = 21;
+            arr['where'] = 'id > 0 and idfamilia = '+$("#vidfamilia option:selected").val()+' order by id';
+            break;
         case 'marca':
-        var arr = {};
-        arr['sel'] = 'id,nombre';
-        arr['tbl'] = 22;
-        arr['where'] = 'id > 0 order by id';
-        break;
+            var arr = {};
+            arr['sel'] = 'id,nombre';
+            arr['tbl'] = 22;
+            arr['where'] = 'id > 0 order by id';
+            break;
         case 'modelo':
-        var arr = {};
-        arr['sel'] = 'id,nombre';
-        arr['tbl'] = 23;
-        arr['where'] = 'id > 0 and idmarca = '+$("#vidmarca option:selected").val()+' order by id';
-        break;
+            var arr = {};
+            arr['sel'] = 'id,nombre';
+            arr['tbl'] = 23;
+            arr['where'] = 'id > 0 and idmarca = '+$("#vidmarca option:selected").val()+' order by id';
+            break;
     }
     return arr;
 }

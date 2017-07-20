@@ -79,8 +79,8 @@
             <table class="table highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
                 <thead>
                     <tr>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Acciones</th>
+                        <th class="white-text blue" style="border: 0px;  border-radius: 0px width:70% !important">Nombre</th>
+                        <th class="white-text blue" style="border: 0px;  border-radius: 0px width:30% !important">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="listainventarios"></tbody>

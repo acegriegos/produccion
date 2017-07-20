@@ -101,14 +101,15 @@ $(function(){
             if ($("#codp").val().substr(0,1) == '-') {
                 kbrota = 'S'+$(this).val();
             }
-            console.log('"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'])
-            var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
+
+            var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+',2',0,0,0);
+            console.log(cod)
               if (cod[0][0] != undefined) {
                 var fimv = cod[0];
                 cod = cod[0][0];
-
+                
                 $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14],hdescu : 0})
-
+                
                 for (var i = 0; i < fimv.length; i++) {
 
                     var exo = fimv[i][8]*(1-(fimv[i][9]/100));
@@ -207,7 +208,7 @@ $(function(){
     $("#descp").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
-            var cod = arr('login',4,'',43,'"'+ $(this).val() +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente'],'',0,'');
+            var cod = arr('login',4,'',43,'"'+ $(this).val() +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+',2','',0,'');
 
              if (cod[0][0] != undefined) {
                 var fimv = cod[0];
