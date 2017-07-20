@@ -12,7 +12,7 @@
 <body>
         {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
-    <div class="bdy pequeño" style="font-size: 1.2em !important">
+    <div class="bdy pequeño" >
         <div class="card">
             <div class="card-header center white-text" style="background-color:#0B3861"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
             </div>

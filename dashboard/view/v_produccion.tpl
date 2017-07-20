@@ -12,7 +12,7 @@
 </head>
 <body>
 {$NAV}
-<div class="bdy">
+<div class="bdy pequeño">
 
     <div class="card-header  white-text z-depth-5" style="background-color:#0B3861">
         <p class="flow-text center-align">Producción</p>
@@ -34,7 +34,7 @@
         </ul>
     </nav>
     <div class="card z-depth-5" id="mantproduccion"></div>
-    <div id="modal-addtoproducts" class="modal modal-fixed-footer" style="width:70%;height:90%">
+    <div id="modal-addtoproducts" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
         <div class="modal-header">
             <div class="card-header center white-text" style="background-color:#0B3861">
                 <p class="flow-text marginzero">Agregar Receta a Inventario de <span id="inventdefault"></span></p>

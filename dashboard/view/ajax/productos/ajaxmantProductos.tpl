@@ -1,4 +1,4 @@
-<div id="mantProd" style="font-size: 1.2em !important">
+<div class="pequeño" id="mantProd" style="font-size: 1.2em !important">
     <div class="row">
         <div class="input-field col s11 m8 l5">
             <a class="prefix dropdown-button tooltipped small material-icons"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro">search</a>
@@ -17,19 +17,19 @@
             <a id="addproduct" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-productos"><i class="material-icons">add</i></a>
         </div>
     </div>
-<div class="row">
-    <div class="col s12 m12 l12">
-        <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
+<div class="row pequeño">
+    <div class="col s12 m12 l12 pequeño">
+        <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-productos" cellspacing="0" width="100%" >
             <thead>
                 <tr>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Código</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Código Interno</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nombre</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Marca</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Precio Costo</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Precio Venta</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Ganancia</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 20%">Acciones</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código Interno</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Marca</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Costo</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Venta</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Ganancia</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important; ">Acciones</th>
                 </tr>
             </thead>
             <tbody id="listaproductos">
@@ -55,7 +55,7 @@
         <br><br><br>
     </div>
 </div>
-<div id="modal-productos" class="modal modal-fixed-footer" style="width:70%;height:90%">
+<div id="modal-productos" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
     <div class="modal-header">
         <ul class="tabs white-text" style="background-color:#0B3861">
             <li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
@@ -242,7 +242,7 @@
     </div>
 </div>
 
-<div id="modal-movinventario" class="modal modal-fixed-footer" style="width:70%;height:90%">
+<div id="modal-movinventario" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
     <div class="modal-content" style="padding: 0px;">
         <ul class="tabs white-text" style="background-color:#0B3861">
             <li class="tab col s3 minvent but per4105" id="mv1"><a class="white-text">Entrada Inventario</a></li>
@@ -367,7 +367,7 @@
     </div>
 </div>
 
-<div id="modal-descuentos" class="modal modal-fixed-footer" style="width:45%;height:90%">
+<div id="modal-descuentos" class="modal modal-fixed-footer grandemodal" style="width:45%;height:90%">
     <div class="modal-header">
         <ul class="tabs white-text" style="background-color:#0B3861">
             <li class="tab col s3"><a class="white-text">Mostrar Descuentos de Producto <span id="dprod"></span></a></li>

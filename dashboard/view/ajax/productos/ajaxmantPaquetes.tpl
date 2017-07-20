@@ -27,7 +27,7 @@
 </div>
 <br>
 <div class="row">
-   <div class="col s12 m12">
+   <div class="col s12 m12 pequeño">
     <div class="table">
 
         <table class="table striped bordered highlight centered responsive-table z-depth-3" id="data-table-paquetes" cellspacing="0"  >
@@ -61,7 +61,7 @@
 </div>
 <br>
 
-<div id="modal-paquetes" class="modal modal-fixed-footer" style="width:70%;height:90%">
+<div id="modal-paquetes" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
     <div class="modal-header">
         <ul class="tabs " style="background-color:#0B3861">
             <li class="tab col s3" ><a class="white-text" id="titpqt">AGREGAR PAQUETE</a></li>

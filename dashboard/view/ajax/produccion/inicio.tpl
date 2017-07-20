@@ -1,16 +1,16 @@
 <div class="row">
-    <div class="input-field col s4 m4 l4">
+    <div class="input-field col s4 m4 l4 grandemodal">
         <input id="proceso" type="text" class="validate autocomplete">
         <input type="hidden" id="idproceso" value="0">
         <input type="hidden" id="count" value="0">
         <label for="proceso">Proceso</label>
     </div>
-    <div class="input-field col s5 m2 l2">
+    <div class="input-field col s5 m2 l2 grandemodal">
         <input id="linea" type="text" class="validate">
         <input type="hidden" id="idlinea" value="0">
         <label for="linea">Linea Producción</label>
     </div>
-    <div class="input-field col s3 m2 l2">
+    <div class="input-field col s3 m2 l2 grandemodal">
         <input id="cantidad" type="number" class="autocomplete">
         <label for="cantidad">Cantidad</label>
     </div>

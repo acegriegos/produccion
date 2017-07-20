@@ -6,11 +6,11 @@
     margin-bottom: 0px;
 }
 
-.modal-header{
-    background-color: #196028;
+.titulos{
+    background-color: #0B3861;
     color: white;
     text-align: center;
-    font-size: 24px;
+    font-size: 1.3em;
 }
 
 #addMoneda{
@@ -35,6 +35,12 @@
     font-size: 1.3em;
     font-weight: bold;
 }
-.tamLetra{
-   font-size: 1.2em !important
+@media only screen and (max-width:769px){
+
+    .centrobot{
+    margin-left:  15% !important;
+    
+}
+
+
 }
