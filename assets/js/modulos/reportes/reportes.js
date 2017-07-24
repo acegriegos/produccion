@@ -4,7 +4,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="material-icons ofiltr">keyboard_arrow_up</i></a><a class="waves-effect waves-light fa fa-check btn der blue" title="Generar Reporte">Generar</a></div><br>');
+    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="material-icons ofiltr">keyboard_arrow_up</i></a><a class="waves-effect waves-light btn der blue" title="Generar Reporte">Generar</a></div><br>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){

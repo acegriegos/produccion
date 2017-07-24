@@ -31,7 +31,7 @@
     <h2 align="center">Clientes</h2>
     <small id="leyenda"></small>
     
-    <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
+    <table class="table responsive-table striped highlight centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
         <td style="text-align: center"><b>Cédula</b></td>

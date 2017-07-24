@@ -1,7 +1,8 @@
-<div class="card card-block z-depth-5">
-    <span class="accmodulo">Variables de Producción</span><hr>
-    <div class="row">
-        <div id="fvariablesproducciones" class="col s12 m5">
+<div class="card card-block z-depth-5 pequeño">
+ <h3 class=" center-align">Variables de Producción</h3>
+  
+    <div class="row pequeño">
+        <div id="fvariablesproducciones" class="col s12 m5 pequeño">
             <div class="input-field col s12 l5">
                 <input id="vnombre" type="text" class="validate">
                 <label for="vnombre">Nombre de la variable</label>
@@ -18,8 +19,9 @@
   				<button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="variablesproduccione" title="Agregar Variable de Producción" id="addvarprod">add</button>
             </div>
         </div>
-        <div class="col s12 l7">
-            <table class="table highlight centered responsive-table striped z-depth-3" id="data-table-vp" cellspacing="0" width="100%">
+        <div class="col s12 l7 pequeño">
+        <br>
+            <table class="table highlight pequeño centered responsive-table striped z-depth-3" id="data-table-vp" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Variables</th>
@@ -49,10 +51,11 @@
         
     </div>
 
-<div class="card card-block z-depth-5">
-    <span class="accmodulo">Asignar Inventarios a Producción</span><hr>
-    <div class="row" id="fproduccioninventarios">
-        <div class="col s12 m4 l4">
+<div class="card card-block z-depth-5 pequeño">
+ <h3 class=" center-align">Asignar Inventarios a Producción</h3>
+
+    <div class="row pequeño" id="fproduccioninventarios">
+        <div class="col s12 m4 l4 pequeño">
         	<input type="hidden" id="xid" value="0">
         	<input type="hidden" id="vidsucursal" value="">
         	<label for="videtapa">Seleccione una Etapa de Producción</label>
@@ -76,8 +79,8 @@
     	<a class="waves-effect waves-light blue btn right add inv" modulo="produccioninventarios">Guardar</a>
     </div>
     <div class="row">
-    	<div class="col s12 m12 l12">
-    		<table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
+    	<div class="col s12 m12 l12 pequeño">
+    		<table class="table responsive-table pequeño centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Etapa</th>

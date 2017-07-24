@@ -13,12 +13,12 @@
 </head>
 <body>
   {$NAV}
-  <div class="bdy">
+  <div class="bdy pequeño">
     <div class="card z-depth-5">
       <div class="card-header center white-text" style="background-color:#0B3861">
         <p class="flow-text" style="font-size: 1.9em;">Notas</p>
       </div>
-      <div class="card-content">
+      <div class="card-content pequeño">
         <div class="row">
           <div class="col s12 m12 l5 ">
 
