@@ -534,12 +534,12 @@ $(document).on("change","[name=tipodesc]",function(){
 			arr('login',6,'id,nombre',tbl,'id >= 0',15,1,$("#voptns"));
 			$("#voptns").material_select();
 		}else{
-			if (tp == 1) {
+			if (tbl == 11) {
 				$("#voptns").addClass('hide');
 				$("#vproducto").removeClass('hide');
 				$("#vcliente").addClass('hide')
 				$("#voptns").material_select();
-			}else{
+			}else if (tbl == 2){
 				$("#voptns").addClass('hide');
 				$("#vproducto").addClass('hide');
 				$("#vcliente").removeClass('hide')
@@ -590,6 +590,10 @@ $(document).on("blur","#vcliente",function(){
 		$(this).css('border-bottom','1px solid #F44336');
 		$(this).css('box-shadow','0 1px 0 0 #F44336');
 	}
+});
+
+$(document).on("","",function(){
+	
 });
 
 $(document).on("keydown","#vcliente",function(e){
