@@ -16,7 +16,7 @@
     <body>
       {$NAV}
       
-      <div class="bdy">
+      <div class="bdy pequeño">
 
         <div id="bdymantCuentas"></div> 
 

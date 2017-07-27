@@ -26,7 +26,7 @@
 </div>
 
 <div class="row">
-    <div class="col s12 m12">
+    <div class="col s12 m12 pequeño">
         <div class="table">
             <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-servicios" cellspacing="0" width="100%">
                 <thead>
@@ -58,7 +58,7 @@
         </div>
     </div>
 </div><br><br>
-<div id="modal-servicios" class="modal modal-fixed-footer" style="width:70%;height:90%">
+<div id="modal-servicios" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
     <div class="modal-header">
         <ul class="tabs blue">
             <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
@@ -184,7 +184,7 @@
 </div>
 
 <div id="hextra" class="modal">
-    <div class="modal-content">
+    <div class="modal-content grandemodal">
       <h4>Extra en el Nombre del Servicio</h4>
       <p>Se Utiliza para asignar variables cuando el servicio es Facturado</p>
       <br>

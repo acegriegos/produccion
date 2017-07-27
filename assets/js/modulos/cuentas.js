@@ -4,16 +4,16 @@ $(function(){
 	param = parseInt(getParameterByName('tf'));
 	switch(param){
 		case 1:
-			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-			arr('login',6,'',214,2+',0',0,1,$("#listaCuentasx"));
-			break;
+		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+		arr('login',6,'',214,2+',0',0,1,$("#listaCuentasx"));
+		break;
 		case 2:
-			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-			arr('login',6,'',214,1+',0',0,1,$("#listaCuentasx"));
-			break;	
+		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+		arr('login',6,'',214,1+',0',0,1,$("#listaCuentasx"));
+		break;	
 		default:
-			$("#bdymantCuentas").html("Valor no Valido")
-			break; 
+		$("#bdymantCuentas").html("Valor no Valido")
+		break; 
 	};
 	$("#data-table-cuentas").dataTable({
 		bFilter: false,
@@ -38,13 +38,13 @@ $(document).on("change","[name='ctas']",function(){
 	$(".detalle").show();
 	switch(parseInt($(this).attr('value'))){
 		case 2:
-			$(".detalle[tp=0]").hide()
-			break;
+		$(".detalle[tp=0]").hide()
+		break;
 		case 3:
-			$(".detalle[tp=1]").hide()
-			break;
+		$(".detalle[tp=1]").hide()
+		break;
 		default:
-			break;
+		break;
 	}
 })
 
@@ -100,8 +100,18 @@ $(document).on("click",".detalle",function(){
 		"bLengthChange": false
 	});
 
+
+
+	$("#btn-divsalir").click(function(){
+
+		$(".divabono").hide();
+		$(".divabono").attr('visible',0);
+
+	});
+
 	$("#btn-div").click(function(){
 		var vi = $(".divabono").attr('visible');
+
 		if (vi == 0) {
 			var tp = arr('login',4,'idtipoabono',39,'id = @@impresa',0,0,0)[0][0];
 			$(".divabono").show();
@@ -117,64 +127,66 @@ $(document).on("click",".detalle",function(){
 			$(".divabono").attr('visible',0);
 		}
 	});
-});
-
-$(document).on("keyup","#vvalor",function(e){
-	var code = e.which || e.keyCode;
-	if (code == 13) {
-		console.log($("#p_v").is(":checked") == true ? 1 : 2)
-	}
-});
-
-$(document).on("click","#Iadd",function(){
-	deadclear('cuentas');
-});
-
-$(document).on("click","#p",function(){
-
-	deadclear('cuenta');
-
-	var debe = parseFloat($("#totSaldoAdeud").val());
-	$("#totSaldoVig").val(debe).toFixed(2);
-});
-
-
-$(document).on("keyup","#totAbonoF",function(e){
-
-	var rs = kpress($(this).val());
-
-	$("#errF").html('');
-
-	if (isNaN(rs)) {
-		$("#errF").html(rs);
-		$("#inpG").addClass('has-danger');
-		$("#totAbonoF").addClass('form-control-danger');
-	}else{
-		$("#totSaldoVig").val(rs);
-		$("#inpG").removeClass('has-danger');
-		$("#totAbonoF").removeClass('form-control-danger');
-	}
 
 });
 
-function kpress(valor) {
-	
-	valor = isNaN(valor) || valor == '' ? -1 : parseFloat(valor);
-	var saldo = $("#totSaldoAdeud").val().replace(/,/g,"");
 
-	switch( parseInt(valor) ){
-		case -1:
-		$("#totAbonoF").val('0');
-		$("#totAbonoF").select();
-		$("#totSaldoVig").val($("#totSaldoAdeud").val());
-		return 'El valor ingresado debe ser un valor numérico';
-		break;
-
-		default:
-		saldo = saldo - valor;
-		if (saldo < 0) {
-			return 'El valor excede el monto del saldo adeudado';
+	$(document).on("keyup","#vvalor",function(e){
+		var code = e.which || e.keyCode;
+		if (code == 13) {
+			console.log($("#p_v").is(":checked") == true ? 1 : 2)
 		}
+	});
+
+	$(document).on("click","#Iadd",function(){
+		deadclear('cuentas');
+	});
+
+	$(document).on("click","#p",function(){
+
+		deadclear('cuenta');
+
+		var debe = parseFloat($("#totSaldoAdeud").val());
+		$("#totSaldoVig").val(debe).toFixed(2);
+	});
+
+
+	$(document).on("keyup","#totAbonoF",function(e){
+
+		var rs = kpress($(this).val());
+
+		$("#errF").html('');
+
+		if (isNaN(rs)) {
+			$("#errF").html(rs);
+			$("#inpG").addClass('has-danger');
+			$("#totAbonoF").addClass('form-control-danger');
+		}else{
+			$("#totSaldoVig").val(rs);
+			$("#inpG").removeClass('has-danger');
+			$("#totAbonoF").removeClass('form-control-danger');
+		}
+
+	});
+
+	function kpress(valor) {
+
+		valor = isNaN(valor) || valor == '' ? -1 : parseFloat(valor);
+		var saldo = $("#totSaldoAdeud").val().replace(/,/g,"");
+
+		switch( parseInt(valor) ){
+			case -1:
+			$("#totAbonoF").val('0');
+			$("#totAbonoF").select();
+			$("#totSaldoVig").val($("#totSaldoAdeud").val());
+			return 'El valor ingresado debe ser un valor numérico';
+			break;
+
+			default:
+			saldo = saldo - valor;
+			if (saldo < 0) {
+				return 'El valor excede el monto del saldo adeudado';
+			}
 				// INGRESAR ABONO
 
 				return saldo;
@@ -275,16 +287,16 @@ function kpress(valor) {
 
 		function endDetail(vid,vacc,modulo){
 
-	    if (vacc == 1) {
-	    	$("#isaldo").html(parseFloat($("#isaldo").html()) - parseFloat($("#vvalor").val()) );
+			if (vacc == 1) {
+				$("#isaldo").html(parseFloat($("#isaldo").html()) - parseFloat($("#vvalor").val()) );
 
-		    $("#vidtipopago").val('');
-		    $("#vvalor").val(0.00);
-		    arr('login',6,'',213,gtipo+','+$("#vidfactura").val(),0,1,$("#listaCuentasxCDetalle"));
-		    arr('login',6,'',214,gtipo+',0',0,1,$("#listaCuentasx"));
+				$("#vidtipopago").val('');
+				$("#vvalor").val(0.00);
+				arr('login',6,'',213,gtipo+','+$("#vidfactura").val(),0,1,$("#listaCuentasxCDetalle"));
+				arr('login',6,'',214,gtipo+',0',0,1,$("#listaCuentasx"));
 
-		    $("#btn-div").click();
-		    var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-		    window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-	    }
-	}
+				$("#btn-div").click();
+				var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+				window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+			}
+		}

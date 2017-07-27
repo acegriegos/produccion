@@ -1,11 +1,11 @@
-<div class="tamLetra"><div class="card">
+<div class="card pequeño">
     
-    <div class="card-block">
-        <h3>Ingresar Cuenta</h3>
-        <div class="row">
+    <div class="card-block pequeño">
+        <h3 class="center-align">Ingresar Cuenta</h3>
+        <div class="row pequeño">
 
-            <div class="input-field col s12 m6">
-                <div class="prefix addglobal pbtn" title="Agregar Cuenta"><i class="material-icons">add</i></div>
+            <div class="input-field col s12 m6 pequeño">
+                <div class="prefix addglobal pbtn pequeño" title="Agregar Cuenta"><i class="material-icons">add</i></div>
                 <select class="slide" cod="1" id="vgenero" lvl="0">
                     <option value="0">Seleccione una Opción</option>
                     {section name=LE loop=$CUE}
@@ -15,15 +15,15 @@
                 <label for="vgenero">Cuenta</label>
             </div>
            
-            <div class="col s12 m6 addcta" cod="2">
-                <div class="row">
-                    <div class="col s9 input-field">
+            <div class="col s12 m6 addcta pequeño" cod="2">
+                <div class="row pequeño">
+                    <div class="col s12 m9 input-field pequeño">
                     <i class="fa fa-arrow-left moveL prefix pbtn" style="display: none"></i>
                     <input type="text" class="slide" id="vnombre" maxlength="40">
                     <label for="vnombre">Nombre de la Cuenta</label>
                     </div>
 
-                    <div class="col s3">
+                    <div class="col s12 m3 pequeño">
                     <p>
                         <input type="checkbox" id="continuo" checked title="Cuenta Padre">
                         <label for="continuo">Cuenta Padre</label> 
@@ -37,7 +37,7 @@
         <span id="myub">Ubicación Actual: Raíz</span>
         <br>
 
-         <h3>Modificar Cuentas</h3>
+         <h3 class="center-align">Modificar Cuentas</h3>
         <div class="z-depth-5" id="vcuentas">
             <div class="collection">
 
@@ -80,12 +80,12 @@
         </div>
 
         <br>
-         <h3>Cuentas por Defecto Sistema</h3>
+         <h3 class="center-align">Cuentas por Defecto Sistema</h3>
 
-         <div class="row">
+         <div class="row pequeño">
 
-            <div class="col s12">
-            <table class="centered highlight bordered responsive-table z-depth-5 " id="data-table-defecto">
+            <div class="col s12 pequeño">
+            <table class=" pequeño centered highlight bordered responsive-table z-depth-5 " id="data-table-defecto">
             <thead>
                 <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
                 <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width: 100%;">Cuenta</th>
@@ -126,5 +126,4 @@
           </div>
          
     </div>
-</div>
 </div>

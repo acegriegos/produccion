@@ -15,7 +15,7 @@
 
 {$NAV}
 
-<div class="bdy">
+<div class="bdy pequeño">
 <nav class="nav-extended  white-text" style="background-color:#0B3861">
 <div class="nav-wrapper">
 <a class="brand-logo center">Usuarios</a>

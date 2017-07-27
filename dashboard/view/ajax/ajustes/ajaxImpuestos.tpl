@@ -1,6 +1,6 @@
-<div class="card">
-    <h3 class="card-block">Impuestos</h3>
-    <div class="card-block">
+<div class="card pequeño">
+    <h3 class="card-block center-align">Impuestos</h3>
+    <div class="card-block pequeño">
         <div class="row" id="fimpuestos">
             <div class="input-field col s12 m3 l3">
                 <input type="text" class="validate" id="vnombre">
@@ -15,15 +15,17 @@
                 <input type="number" class="validate" id="vvalor" placeholder="%">
                 <label for="vvalor">Valor de impuesto</label>
                 <button type="button" class="btn btn-primary der z-depth-5 blue add" modulo="impuesto" id="addimp">Agregar</button>
+                <br>
             </div>
-            <div class="col s12 m5 l5">
-                <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-impuestos" cellspacing="0" width="100%" >
+            <div class="col s12 m5 l5 pequeño ">
+            <br>
+                <table class="table  pequeño responsive-table centered striped bordered highlight z-depth-5" id="data-table-impuestos" cellspacing="0" width="100%" >
                     <thead>
                         <tr>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 25%">Nombre</th>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 25%">Abreviatura</th>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 25%">Valor</th>
-                            <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 20%" >Acciones</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; ">Nombre</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; ">Abreviatura</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; ">Valor</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; " >Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="listaimpuestos">

@@ -1,8 +1,8 @@
-<ul class="collapsible" data-collapsible="accordion">
+<ul class="collapsible pequeño" data-collapsible="accordion">
     <li class="per5101" id="pl1">
-        <div class="collapsible-header productline active"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
-        <div class="collapsible-body row tasks">
-            <div class="col s12 m6 l6 per5102" id="ftareaproducciones">
+        <div class="collapsible-header productline active centro3"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
+        <div class="collapsible-body row tasks pequeño">
+            <div class="col s12 m6 l6 per5102 pequeño" id="ftareaproducciones">
                 <div class="row">
                     <div class="input-field col s12 m8 l6">
                         <input id="vnombre" type="text" class="validate" ku="1" autocomplete="off">
@@ -20,34 +20,39 @@
                         <input type="number" id="vhoramaquina" min="0" class="validate">
                         <label for="vhoramaquina">Horas Maquina</label>
                     </div>
-                    <div class="col s2 m1 l1">
-                        <a class="waves-effect waves-light btn-floating white-text blue add mbutton z-depth-5" id="addlinea" modulo="tareaproduccione"><i class="material-icons">add</i></a>
-                    </div>
+                    
                 </div>
                 <div class="row">
-                    <div class="input-field col s4 m4 l4">
+                    <div class="input-field col s12 m4 l4">
                         <input type="text" id="bandejas" class="validate">
                         <label for="bandejas">Bandejas</label>
                     </div>
-                    <div class="input-field col s4 m4 l4">
+                    <div class="input-field col s12 m4 l4">
                         <input type="text" id="maquina" class="validate">
                         <label for="maquina">Maquina</label>
                     </div>
                 </div>
+                <div class="row pequeño">
+                      <div class="col s12 m12 offset-m6   offset-s4 pequeño">
+                        <a class="waves-effect waves-light btn blue z-depth-3 white-text blue add mbutton" id="addlinea" modulo="tareaproduccione">Agregar</a>
+                    </div> 
+                    </div>
+               
+                    <br>
             </div>
-            <div class="col s12 m6 l6">
-                <div class="input-field col s6 m6 l6 offset-s6 offset-m6 offset-l6">
+            <div class="col s12 m6 l6 pequeño">
+                <div class="input-field col s12 m6 l6" style="padding-left: 0%">
                     <i class="material-icons prefix blue-text">search</i>
                     <input type="text" id="search_tareaproducciones" class="validate" num="v180" var="vnombre" cambio="134">
                     <label for="search_tareaproducciones">Buscar por nombre</label>
                 </div>
-                <table class="table responsive-table striped bordered highlight z-depth-3" id="data-table-tareaproducciones" cellspacing="0" >
+                <table class="table pequeño responsive-table striped bordered highlight z-depth-3" id="data-table-tareaproducciones"  >
                     <thead>
                         <tr>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Horas Hombre</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Horas Maquina</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%;">Acciones</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="listatareaproducciones">
@@ -85,15 +90,15 @@
                 </div>
             </div>
             <div class="row hide dcline">
-                <div class="input-field col s3 m3 l3 mtopcero">
+                <div class="input-field col s12 m3 l3 mtopcero">
                     <input id="atarea" type="text" class="validate autocomplete faddline tarea">
                     <label for="atarea">Tarea de Producción</label>
                 </div>
-                <div class="input-field col s3 m3 l3 mtopcero">
+                <div class="input-field col s12 m3 l3 mtopcero">
                     <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
                     <label for="aestimado">Tiempo Estimado</label>
                 </div>
-                <div class="input-field col s2 m2 l2 mtopcero">
+                <div class="input-field col s12 m2 l2 mtopcero">
                     <select type="select" id="aunidad" class="faddline">
                         <option value="0">Seleccione una Opción</option>
                         {section name=LE loop=$UNI}

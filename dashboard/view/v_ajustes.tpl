@@ -8,11 +8,11 @@
     <title>Configuración</title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=0.1">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=0.2">
   </head>
   <body>
     {$NAV}
-    <div class="bdy tamLetra">
+    <div class="bdy  pequeño">
      <nav class="nav-extended z-depth-5 " style="background-color:#0B3861">
       <div class="nav-wrapper ">
         <ul class="tabs tabs-transparent">
@@ -26,7 +26,7 @@
         </ul>
       </div>
     </nav>
-    <div id="majustes"></div>
+    <div id="majustes" class="pequeño"></div>
     </div>
     {$SCR}
     <script src="../assets/js/dropzone.js"></script>

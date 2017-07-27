@@ -10,16 +10,16 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventarios.css">
   </head>
 
-  <body>
+  <body class="pequeño">
     {$NAV}
     <div class="bdy pequeño">
-        <div class=" card center blue-grey white-text mbotcero" >
+        <div class=" card center blue-grey white-text mbotcero pequeño" >
           <h4 class="center-align white-text mbotcero z-depth-5" style="background-color:#0B3861">Inventario</h4>
         </div>
         
-        <div class="card card-content mdinvent z-depth-5 pequeño">
+        <div class="card pequeño card-content mdinvent z-depth-5 ">
           <div class="row pequeño">
-            <div class="input-field col s12 m6 l6">
+            <div class="input-field col s12 m6 l6 pequeño" >
               <select type="select" class="_det" id="vidbodega" det="bodega" sig="vidinventario" prev="" d-b="41">
                 <option value="0">Seleccione una Bodega</option>
                 {section name=LE loop=$BOD}
@@ -28,7 +28,7 @@
               </select>
               <label for="vidbodega">Bodega</label>
             </div>
-            <div class="input-field col s12 m6 l6">
+            <div class="input-field col s12 m6 l6 pequeño">
               <select type="select" det="inventario" id="vidinventario" d-b="111">
                 <option value="0">Seleccione un Inventario</option>
               </select>

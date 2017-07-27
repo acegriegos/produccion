@@ -1,4 +1,4 @@
-      <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=0.8">
+      <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=0.10">
 
       <nav class="nav-extended  white-text z-depth-5" style="background-color:#0B3861">
           <div class="nav-wrapper">
@@ -6,16 +6,16 @@
 
         </div>
     </nav>
-    <div id="mantCxC" style="font-size: 1.2em !important">
+    <div id="mantCxC" class="pequeño" >
 
 
 
-        <div class="card z-depth-5">
+        <div class="card z-depth-5 pequeño">
 
             <div class="row">
                 <br><br>
 
-                <div class="input-field col s7">
+                <div class="input-field col s12 m7">
 
                     <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
                     <ul id='filtr_1' class='dropdown-content'>
@@ -27,16 +27,16 @@
                     <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
 
                 </div>
-                <div class="col s5">
-                    <div class="col s4">
+                <div class="col s12 m5">
+                    <div class="col s12 m4">
                         <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
                         <label for="all">Todo</label>
                     </div>
-                    <div class="col s4">
+                    <div class="col s12 m4">
                         <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
                         <label for="vencidas">Vencidas</label>
                     </div>
-                    <div class="col s4">
+                    <div class="col s12 m4">
                         <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
                         <label for="porvencer">Por Vencer</label>
                     </div>
@@ -46,38 +46,38 @@
             </div>
             <br>
 
-            <div class="card-block">
-                <div class="row">
-                    <div class="col s12">
-                        <table id="data-table-cuentas" class="table centered highlight bordered responsive-table z-depth-5 pbtns">
+            <div class="card-block pequeño">
+                <div class="row  pequeño">
+                    <div class="col s12 pequeño">
+                        <table id="data-table-cuentas" class="pequeño  table centered highlight bordered responsive-table z-depth-5 pbtns">
                             <thead>
                                 <tr>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Factura</th>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 13%">Nombre</th>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cédula</th>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Plazo</th>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Días</th>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Sucursal</th>
-
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important; ">Nombre</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Cédula</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Fecha</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Plazo</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Días</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Sucursal</th>
+ 
 
                                 </tr>
                             </thead>
                             <tbody id="listaCuentasx">
-                               { section name= LE loop = $CLI }
+                              <!--  { section name= LE loop = $CLI }
                                <tr class="button-collapse detalle pbtna" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}" >
-                                <td>{$CLI[LE][3]}</td>
-                                <td>{$CLI[LE][1]}</td>
-                                <td>{$CLI[LE][2]}</td>
-                                <td>{$CLI[LE][5]}</td>
-                                <td>{$CLI[LE][6]}</td>
-                                <td>{$CLI[LE][8]}</td>
-                                <td style="{if $CLI[LE][7] lt 0}color:red;{else}color:green{/if}">{math equation='abs(x)' x=$CLI[LE][7] }</td>
-                                <td>{$CLI[LE][9]}</td>
+                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][3]}</td>
+                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][1]}</td>
+                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][2]}</td>
+                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][5]}</td>
+                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][6]}</td>
+                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][8]}</td>
+                                <td style=" padding: 10px !important ; color:black !important; {if $CLI[LE][7] lt 0}color:red;{else}color:green{/if}">{math equation='abs(x)' x=$CLI[LE][7] }</td> 
+                                <td style=" padding: 10px; color:black;">{$CLI[LE][9]}</td>
 
                             </tr>
-                            {/section}
+                            {/section} -->
                         </tbody>
                     </table>
                     <br>
@@ -91,12 +91,12 @@
     <ul id="acciones" class="side-nav side-nav-cuentas"  style="width: 60%">
 
 
-        <div class="card-header center white-text" style="background-color:#0B3861; margin: 0 !important" >
+        <div class="card-header center white-text pequeño" style="background-color:#0B3861; margin: 0 !important" >
             <p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Cuenta</p>
         </div>
-        <div class="row">
-            <div class="col s12 m12">
-              <div class="card blue z-depth-5">
+        <div class="row pequeño">
+            <div class="col s12 m12 pequeño">
+              <div class="card blue z-depth-5 pequeño">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
 
 
@@ -108,10 +108,10 @@
                <br>
                <div class="card-content white-text  " style="padding: 0.1% !important">
 
-                  <div class="row  ">
+                  <div class="row  pequeño">
                    <div class="col s12 m8">
                       <br>
-                      <div class="col s6 m6">
+                      <div class="col s12 m6">
                           <p><b>Nombre:</b> <span id="inombr"> </span></p>
                       </div>
                       <div class="col s12 m6">
@@ -129,7 +129,7 @@
 
 
                     </div>
-                    <div class="col s12 m12 l4  "  >
+                    <div class="col s12 m12 l4  pequeño"  >
                 <div class="row " style=" padding-top: 10%;">
                       <div class="col s12">
                         <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Realizar Abono</button>
@@ -145,7 +145,7 @@
 
             </div>
 
-            <div id="festadoscuentas" class="divabono" visible="0">
+            <div id="festadoscuentas" class="divabono " visible="0">
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vidtipo" value="3">
                 <input type="hidden" id="videstado" value="1">
@@ -170,7 +170,7 @@
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">credit_card</i>
                                         <input id="vvalor" type="text"  class="validate eder" value="0.00">
-                                        <label for="vvalor" style="font-size: 1.2em !important">Monto</label>
+                                        <label for="vvalor" style="color: white !important">Monto</label>
                                     </div>
                                     <div class="input-field col s12 m6">
                                         <select type="select" id="vidtipopago">
@@ -184,12 +184,13 @@
                                         <div class="col s12 m6">
                                           <p>
                                             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
-                                            <label for="p_v" style="color: white">Punto Venta</label>
+                                            <label for="p_v" style="color: white !important">Punto Venta</label>
                                         </p>
                                     </div>
                                     <div class="col s12 m6  ">
                                         <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" tipo="1" modulo="estadoscuenta" >Realizar Pago</button>
 
+                                        <button href="#!" class="waves-effec btn waves-light  z-depth-5" id="btn-divsalir">Salir</button>
                                     </div>
                                 </div>
 
@@ -207,11 +208,11 @@
 </div>
 
 
-<div class="card-block">
-    <div class="row">
-        <div class="col s12">
+<div class="card-block pequeño" >
+    <div class="row pequeño">
+        <div class="col s12 pequeño">
 
-            <table id="data-table-cuentas-detalle" class="table centered highlight bordered responsive-table z-depth-5 ">
+            <table id="data-table-cuentas-detalle" class="pequeño table centered highlight bordered responsive-table z-depth-5 ">
                 <thead>
                     <tr>
                         <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>

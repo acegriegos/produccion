@@ -1,4 +1,4 @@
-<div class="panel-body" >
+<div class="panel-body pequeño" >
 
   <form id="fusuarios">
     <div class="row">
@@ -50,11 +50,11 @@
         <label for="clave">Repetir Contraseña</label>
       </div>
 
-      <div class="col s12 m6 l2" style="margin-bottom: 20px;">
+      <div class="col s12 m6 l2 pequeño" style="margin-bottom: 20px;">
         <label>Hora de Entrada</label>
         <input id="vlimite" type="time" class="validate">
       </div>
-      <div class=" col s12 m6 l2" style="margin-bottom: 20px;">
+      <div class=" col s12 m6 l2 pequeño" style="margin-bottom: 20px;">
         <label>Hora de Salida</label>
         <input id="vlimite2" type="time" class="validate">
       </div>
@@ -69,11 +69,11 @@
 
 
 </div>
-<div class="row">
-  <div class="col s12 m12 l12">
+<div class="row pequeño" >
+  <div class="col s12 m12 l12 pequeño">
     <br>
-    <div class="table-responsive">
-      <table class="table bordered highlight responsive-table z-depth-5 centered" id="data-table-usuarios" cellspacing="0" width="100%">
+    <div class="table-responsive pequeño">
+      <table class="table bordered highlight pequeño responsive-table z-depth-5 centered" id="data-table-usuarios" cellspacing="0" width="100%">
         <thead>
           <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
           <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
