@@ -33,25 +33,25 @@
                     </div>
                 </div>
                 <div class="card-block">
-                    <table class="table tabladetalles centered highlight bordered responsive-table z-depth-2" id="data-table-clientes">
+                    <table class="dt-responsive nowrap tabladetalles centered highlight bordered z-depth-2" id="data-table-clientes" style="width: 100%">
                         <thead>
                             <tr>
-                                <th class="sinborde white-text blue" style="  padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Nombre</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Teléfonos</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Correo</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Tipo</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Acciones</th>
+                                <th class="sinborde white-text blue" style=" color:black; border-radius: 0px!important;" >Cédula</th>
+                                <th class="sinborde white-text blue"  style="color:black; border-radius: 0px!important;">Nombre</th>
+                                <th class="sinborde white-text blue"  style="color:black; border-radius: 0px!important;">Teléfonos</th>
+                                <th class="sinborde white-text blue"  style="color:black; border-radius: 0px!important;">Correo</th>
+                                <th class="sinborde white-text blue"  style="color:black; border-radius: 0px!important;">Tipo</th>
+                                <th class="sinborde white-text blue"  style="color:black; border-radius: 0px!important;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listaclientes">
                             {section name=LE loop=$PROV}
                             <tr id="f{$PROV[LE][0]}" class="pbtn">
-                                <td  style="padding: 10px;">{$PROV[LE][1]}</td>
-                                <td  style="padding: 10px;">{$PROV[LE][2]}</td>
-                                <td  style="padding: 10px;">{$PROV[LE][4]}</td>
-                                <td  style="padding: 10px;">{$PROV[LE][5]}</td>
-                                <td  style="padding: 10px;">{$PROV[LE][6]}</td>
+                                <td>{$PROV[LE][1]}</td>
+                                <td>{$PROV[LE][2]}</td>
+                                <td>{$PROV[LE][4]}</td>
+                                <td>{$PROV[LE][5]}</td>
+                                <td>{$PROV[LE][6]}</td>
                                 <td>
                                     {if $PROV[LE][13] neq 1}
                                     <a href="modal-contactos" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
@@ -124,6 +124,7 @@
                                 <input type="text" class="validate" id="vnombre">
                                 <input type="hidden" id="vid" value="0">
                                 <input type="hidden" id="vbisproveedor" value="1">
+
                             </div>
 
                             <div class="input-field col s12 m6 col l4 hid">

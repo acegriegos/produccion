@@ -182,6 +182,10 @@ label{
 }
 
 @media only screen and (max-width:769px){
+  .padd{
+    padding-left: 2% !important;
+    padding-right: 3% !important;
+}
 .tablatitulos{
   font-size: 0.7em !important;
 }
@@ -202,8 +206,7 @@ label{
 
 }
    .bdy {
-    padding-left: 2%;
-    margin-top: 2%;
+ 
     font-family: "logintech";
     }
     .centro{
@@ -223,8 +226,15 @@ label{
     font-size: 0.9em !important;
 }
 
+
 body{
    font-size: 0.9em !important;
+}
+
+}
+@media only screen and (max-width:400px){
+.tabla-pad{
+  padding-left: 8% !important;
 }
 
 }

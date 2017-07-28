@@ -234,6 +234,10 @@
                                             <input class="with-gap" name="vbancos" type="radio" id="cons" value="3" />
                                             <label for="cons">Consignacion</label>
                                         </div>
+                                        <div class="col s12 m6 pequeño">
+                                            <input class="with-gap" name="vbancos" type="radio" id="mxt" value="4" />
+                                            <label for="cons">Consignacion</label>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="row mix">

@@ -6,7 +6,7 @@ $(document).keydown(function(e){
 });
 
 $(function(){
-    console.log(2)
+
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -25,19 +25,21 @@ $(function(){
         searchClient($(this).val(),0);
     });
 
-    $("#ncli").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
+    $("#ncli").keydown(function(){
+        //var charCode = e.which || e.keyCode;
+        var charStr = $(this).val().substr(-1);//String.fromCharCode(charCode);
         
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        // if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        if (charStr.search(/[a-zA-Z0-9-_. ]/i) >= 0 || charCode == 8) {
             $(".autocomplete-content").remove();
-          
+
             $("#ncli").autocomplete({
                 limit: 20,
                 data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
             });
 
-            $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
+        }else{
+            alert(charStr)
         }
     });
 

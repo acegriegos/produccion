@@ -7,57 +7,56 @@
 </div>
 </nav>
         
-<div id="mantCxP"  style="font-size: 1.2em !important">
+<div id="mantCxP"  class="pequeño">
 <div class="card z-depth-5">
         
-        <div class="row">
+        <div class="row padd">
         <br><br>
 
-                    <div class="input-field col s10 m6 l6">
+                    <div class="input-field col s12 m7">
 
-                        <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
-                        <ul id='filtr_1' class='dropdown-content'>
-                            <li><a href="#!" fltr="1">Nombre</a></li>
-                            <li><a href="#!" fltr="2">Cédula</a></li>
-                            <li><a href="#!" fltr="3">Teléfono</a></li>
-                        </ul>
-                        <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
-                        <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
+                       <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+                    <ul id='filtr_1' class='dropdown-content'>
+                        <li><a href="#!" fltr="1">Nombre</a></li>
+                        <li><a href="#!" fltr="2">Cédula</a></li>
+                        <li><a href="#!" fltr="3">Teléfono</a></li>
+                    </ul>
+                    <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
+                    <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
 
                     </div>
-                    <div class="col s5">
-                        <div class="col s4">
-                            <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
-                            <label for="all">Todo</label>
-                        </div>
-                        <div class="col s4">
-                            <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
-                            <label for="vencidas">Vencidas</label>
-                        </div>
-                        <div class="col s4">
-                            <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
-                            <label for="porvencer">Por Vencer</label>
-                        </div>
+                   <div class="col s12 m5">
+                    <div class="col s12 m4">
+                        <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
+                        <label for="all">Todo</label>
                     </div>
+                    <div class="col s12 m4">
+                        <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
+                        <label for="vencidas">Vencidas</label>
+                    </div>
+                    <div class="col s12 m4">
+                        <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
+                        <label for="porvencer">Por Vencer</label>
+                    </div>
+                </div>
                     
 
                 </div>
         <br>
 
-        <div class="card-block">
-            <div class="row">
-                <div class="col s12">
-                    <table id="data-table-cuentas-xP" class="table centered highlight bordered responsive-table z-depth-5 pbtns">
+       <div class="card-block pequeño">
+                <div class="row  pequeño">
+                    <div class="col s12 pequeño">
+                    <table id="data-table-cuentas-xP" class="pequeñotable centered highlight bordered responsive-table z-depth-5 pbtns">
                         <thead>
-                            <tr>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Factura</th>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Refencia</th>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 10%">Proveedor</th>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Plazo</th>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Días</th>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Sucursal</th>
+                            <tr><th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
+                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Refencia</th>
+                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Proveedor</th>
+                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Fecha</th>
+                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
+                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Plazo</th>
+                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Días</th>
+                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Sucursal</th>
 
                                 
                             </tr>
@@ -89,45 +88,55 @@
 <ul id="acciones" class="side-nav side-nav-cuentas"  style="width: 60%">
 
 
-        <div class="card-header center white-text" style="background-color:#0B3861; margin: 0 !important" >
+        <div class="card-header center white-text pequeño" style="background-color:#0B3861; margin: 0 !important" >
             <p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Cuenta</p>
         </div>
-        <div class="row">
-            <div class="col s12 m12">
-              <div class="card blue z-depth-5">
+        <div class="row  pequeño">
+            <div class="col s12 m12 pequeño">
+              <div class="card blue z-depth-5 pequeño">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
 
 
 
                     <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; "><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
                     </div>
-                    <div class="col s12 m4 l4 " style=" padding-top: 1% !important">
-                       <!--      <br>
-                       < id="btn-div">DIV</button> -->
-                       <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Abonar</button>
-                   </div>
+                   
                </div>
                <br>
                <div class="card-content white-text  " style="padding: 0.1% !important">
 
-                  <div class="row  ">
-                  <br>
-                      <div class="col s6 m4 l4">
-                          <p>Proveedor: <span id="inombr"> </span></p>
+                  <div class="row pequeño ">
+                  <div class="col s12 m8 ">
+                      <br>
+                      <div class="col s12 m6">
+                          <p><b>Nombre:</b> <span id="inombr"> </span></p>
                       </div>
-                      <div class="col s12 m4 l4">
-                        <p>Fecha: <span id="ifecha"> </span></p>
+                      <div class="col s12 m6">
+                        <p><b>Fecha: </b><span id="ifecha"> </span></p>
                     </div>
-                    <div class="col s12 m4 l4">
-                        <p>Saldo: <span id="isaldo"> </span></p>
+                    <div class="col s12 m6">
+                        <p><b>Saldo: </b><span id="isaldo"> </span></p>
                     </div>
-                    <div class="col s12 m4 l4">
-                        <p>Plazo: <span id="iplazo"> </span></p>
+                    <div class="col s12 m6">
+                        <p><b>Plazo: </b><span id="iplazo"> </span></p>
                     </div>
-                    <div class="col s12 m6 l4">
-                        <p>Dias del credito : <span id="idias"> </span></p>
+                    <div class="col s12 m6">
+                        <p><b>Dias del credito :</b> <span id="idias"> </span></p>
                     </div>
 
+
+                    </div>
+<div class="col s12 m12 l4  pequeño"  >
+                <div class="row " style=" padding-top: 10%;">
+                      <div class="col s12">
+                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Realizar Abono</button>
+                      </div>
+                    </div>
+                   
+
+
+
+                </div>
 
 
                 </div>
@@ -161,7 +170,7 @@
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">credit_card</i>
                                         <input id="vvalor" type="text"  class="validate eder" value="0.00">
-                                        <label for="vvalor" style="font-size: 1.2em !important">Monto</label>
+                                        <label for="vvalor" style="color: white !important">Monto</label>
                                     </div>
                                     <div class="input-field col s12 m6">
                                         <select type="select" id="vidtipopago">
@@ -175,12 +184,20 @@
                                         <div class="col s12 m6">
                                           <p>
                                             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
-                                            <label for="p_v" style="color: white">Punto Venta</label>
+                                            <label for="p_v" style="color: white !important">Punto Venta</label>
                                         </p>
-                                    </div>
-                                    <div class="col s12 m6  ">
-                                        <button href="#!" class="waves-effect btn waves-light z-depth-5 add" tipo="2" modulo="estadoscuenta" >Realizar Pago</button>
+                                                                            <br>
 
+                                    </div>
+                                    <div class="row">
+                                    <br>
+                                    <div class="col s12 m8 offset-m4 ">
+                                        <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" tipo="2" modulo="estadoscuenta" >Realizar Pago</button>
+                                        <button href="#!" class="waves-effec btn waves-light  z-depth-5" id="btn-divsalir">Salir</button>
+
+                                       
+                                    </div>
+                                    <div class="col s12 m6 "> </div>
                                     </div>
                                 </div>
 
@@ -197,14 +214,14 @@
     </div>
 
 
-    <div class="card-block">
-        <div class="row">
-            <div class="col s12">
+    <div class="card-block  pequeño">
+        <div class="row  pequeño">
+            <div class="col s12 pequeño">
 
-                <table id="data-table-cuentas-detalle" class="table centered highlight bordered responsive-table z-depth-5 ">
+                <table id="data-table-cuentas-detalle" class="table centered highlight bordered dt-responsive nowrap z-depth-5 ">
                     <thead>
                         <tr>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
+                            <th class="white-text blue " style="border: 0; border-radius: 0px !important;">Movimientos</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
@@ -217,10 +234,16 @@
 
                     </tbody>
                 </table>
-                <br>
+<br><br>
+                
 
             </div>
+            <div class="col s4 offset-s8  l2 offset-l10">
+   <button href="#!" class="waves-effec btn waves-light  z-depth-5 " id="btn-navsalir">Salir</button>
+   <br></div>
+            <br>
         </div>
+        <br>
     </div>
 
 
