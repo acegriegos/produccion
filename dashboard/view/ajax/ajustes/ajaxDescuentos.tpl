@@ -123,7 +123,7 @@
                 </div>
             <div class="col s12 m6 l6">
                 <p>
-                    <input name="tipodesc" type="radio" id="td5" class="with-gap" value="5" tbl="2" text="2"/>
+                    <input name="tipodesc" type="radio" id="td5" class="with-gap" value="5" tbl="2" text="1"/>
                     <label for="td5">Cliente</label>
                 </p>
                 <p>
