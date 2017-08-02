@@ -9,7 +9,7 @@ $(function(){
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
 
-        html = '<div class="row col s6 rous"><div class="col s3"><input type="checkbox" id="xcli" name="filtros" value="3" class="repcheck" elemlength="1"><label for="xcli" class="pbtn">Por Cliente</label></div><div class="col s9 '+mdate+'" id="fltr3"><div class="input-field"><label for="nclie" class="width:100%">Nombre o Cédula</label><input type="text" class="validate init eder autocomplete" id="nclie"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
+        html = '<div class="row col s6 rous"><div class="col s12"><input type="checkbox" id="xcli" name="filtros" value="3" class="repcheck" elemlength="1"><label for="xcli" class="pbtn">Por Cliente</label></div><div class="col s12 '+mdate+'" id="fltr3"><div class="input-field"><label for="nclie" class="width:100%">Nombre o Cédula</label><input type="text" class="validate init eder autocomplete" id="nclie"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
 
         $(".principal .filtros").append(html);
 

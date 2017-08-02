@@ -101,8 +101,9 @@ $(document).on("click",".detalle",function(){
 		"bLengthChange": false
 	});
 	$("#btn-navsalir").click(function(){
-		console.log(2);
+	
 		$('.side-nav-cuentas').sideNav('hide');
+		 $('.button-collapse').sideNav('destroy');
 
 	});
 

@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=0.6">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=0.8">
 
 
 </head>
@@ -20,20 +20,21 @@
       </div>
       <div class="card-content pequeño">
         <div class="row">
-          <div class="col s12 m12 l5 ">
+          <div class="col s12 m12 l5  ">
 
            <div class="row">
             <div class="col s12 m6 ">
               <div class="switch">
                 <label style="color: black; font-size: 1.5em">
-                  <b>Clientes</b>
+                  <b >Clientes</b>
                   <input type="checkbox" class="chg" value="1" id="cp">
                   <span class="lever"></span>
-                  <b>Proveedor</b>
+                  <b >Proveedor</b>
                 </label>
               </div>
             </div>
-            <div class="col s12 m2 offset-m4">
+            <div class="col s8 m2 offset-m4 offset-s3">
+            <br>
               <a class="waves-effect waves-light btn" id="busnota">Buscar</a>
 
             </div>
@@ -41,7 +42,7 @@
           </div>
           
           <div class="row">
-            <div class="col s6">
+            <div class="col s12 m6">
               <div class="switch ">
                 <label style="color: black; font-size: 1.5em">
 
@@ -81,7 +82,7 @@
 
           <div class="row">
 
-            <div class="col s6">
+            <div class="col s12 m6">
               <div class="switch">
                 <label style="color: black; font-size: 1.5em">
                   <b></b>
@@ -93,7 +94,7 @@
             </div>  
           </div>
           <div class="row hide " id="ftr2">
-            <div class="input-field col s6">
+            <div class="input-field col s12 m6">
 
 
              <i class="fa fa-calendar-o prefix"></i>
@@ -102,7 +103,7 @@
 
            </div> 
 
-           <div class="col s6">
+           <div class="col s12 m6">
 
             <div class="input-field">
 
@@ -156,11 +157,11 @@
 
     </div>
     <!--lado derecho de la pantalla -->
-    <div class="col s12 m12 l7">
+    <div class="col s12 m12 l7 pequeño ">
 
-      <div class="row">
-        <div class="col s12">
-          <table  class="table centered highlight bordered responsive-table z-depth-3 pbtns" id="data-table-Notas">
+      <div class="row pequeño ">
+        <div class="col s12 pequeño ">
+          <table  class="table centered  pequeño highlight bordered responsive-table z-depth-3 pbtns" id="data-table-Notas">
             <thead>
               <tr>
                 <th class="sinborde white-text blue" >Factura</th>
@@ -179,7 +180,7 @@
         </div>      
       </div>
 
-      <ul id="acciones" class="side-nav side-nav-cuentas"  style="width: 60%">
+      <ul id="acciones" class="side-nav side-nav-cuentas asd"  style="width: 60%">
 
       <div id="listaCuentasNotaDetalle"></div>
 
@@ -199,6 +200,6 @@
 
 
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=0.15"></script>
+  <script src="../assets/js/modulos/notas.js?v=0.16"></script>
 </body>
 </html>
