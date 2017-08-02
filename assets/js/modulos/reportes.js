@@ -1,6 +1,5 @@
 $(function(){
 	$("#freportess").submit(function(){return false});
-	$("#data-table-reportess").dataTable();
 
 	$(".menu5").click(function(){
 		var id = $(this).attr('id').substr(1);

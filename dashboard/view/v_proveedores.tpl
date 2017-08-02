@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="card-block">
-                    <table class="table tabladetalles centered highlight bordered responsive-table z-depth-2" id="data-table-clientes">
+                    <table class="dt-responsive nowrap tabladetalles centered highlight bordered z-depth-2" id="data-table-clientes" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="sinborde white-text blue" style="  padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
@@ -127,6 +127,7 @@
                                 <input type="hidden" id="vid" value="0">
                                 <input type="hidden" id="vidsucursal" value="">
                                 <input type="hidden" id="vbisproveedor" value="1">
+
                             </div>
 
                             <div class="input-field col s12 m6 col l4 hid">

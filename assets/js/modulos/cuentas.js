@@ -66,6 +66,7 @@ $(document).on("change","#cobInteres",function(){
 	}
 });
 
+
 $(document).on("click",".detalle",function(){
 	$(this).sideNav({
             edge: 'left', // Choose the horizontal origin
@@ -99,8 +100,12 @@ $(document).on("click",".detalle",function(){
 		order : [],
 		"bLengthChange": false
 	});
+	$("#btn-navsalir").click(function(){
+	
+		$('.side-nav-cuentas').sideNav('hide');
+		 $('.button-collapse').sideNav('destroy');
 
-
+	});
 
 	$("#btn-divsalir").click(function(){
 
@@ -131,62 +136,62 @@ $(document).on("click",".detalle",function(){
 });
 
 
-	$(document).on("keyup","#vvalor",function(e){
-		var code = e.which || e.keyCode;
-		if (code == 13) {
-			console.log($("#p_v").is(":checked") == true ? 1 : 2)
+$(document).on("keyup","#vvalor",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		console.log($("#p_v").is(":checked") == true ? 1 : 2)
+	}
+});
+
+$(document).on("click","#Iadd",function(){
+	deadclear('cuentas');
+});
+
+$(document).on("click","#p",function(){
+
+	deadclear('cuenta');
+
+	var debe = parseFloat($("#totSaldoAdeud").val());
+	$("#totSaldoVig").val(debe).toFixed(2);
+});
+
+
+$(document).on("keyup","#totAbonoF",function(e){
+
+	var rs = kpress($(this).val());
+
+	$("#errF").html('');
+
+	if (isNaN(rs)) {
+		$("#errF").html(rs);
+		$("#inpG").addClass('has-danger');
+		$("#totAbonoF").addClass('form-control-danger');
+	}else{
+		$("#totSaldoVig").val(rs);
+		$("#inpG").removeClass('has-danger');
+		$("#totAbonoF").removeClass('form-control-danger');
+	}
+
+});
+
+function kpress(valor) {
+
+	valor = isNaN(valor) || valor == '' ? -1 : parseFloat(valor);
+	var saldo = $("#totSaldoAdeud").val().replace(/,/g,"");
+
+	switch( parseInt(valor) ){
+		case -1:
+		$("#totAbonoF").val('0');
+		$("#totAbonoF").select();
+		$("#totSaldoVig").val($("#totSaldoAdeud").val());
+		return 'El valor ingresado debe ser un valor numérico';
+		break;
+
+		default:
+		saldo = saldo - valor;
+		if (saldo < 0) {
+			return 'El valor excede el monto del saldo adeudado';
 		}
-	});
-
-	$(document).on("click","#Iadd",function(){
-		deadclear('cuentas');
-	});
-
-	$(document).on("click","#p",function(){
-
-		deadclear('cuenta');
-
-		var debe = parseFloat($("#totSaldoAdeud").val());
-		$("#totSaldoVig").val(debe).toFixed(2);
-	});
-
-
-	$(document).on("keyup","#totAbonoF",function(e){
-
-		var rs = kpress($(this).val());
-
-		$("#errF").html('');
-
-		if (isNaN(rs)) {
-			$("#errF").html(rs);
-			$("#inpG").addClass('has-danger');
-			$("#totAbonoF").addClass('form-control-danger');
-		}else{
-			$("#totSaldoVig").val(rs);
-			$("#inpG").removeClass('has-danger');
-			$("#totAbonoF").removeClass('form-control-danger');
-		}
-
-	});
-
-	function kpress(valor) {
-
-		valor = isNaN(valor) || valor == '' ? -1 : parseFloat(valor);
-		var saldo = $("#totSaldoAdeud").val().replace(/,/g,"");
-
-		switch( parseInt(valor) ){
-			case -1:
-			$("#totAbonoF").val('0');
-			$("#totAbonoF").select();
-			$("#totSaldoVig").val($("#totSaldoAdeud").val());
-			return 'El valor ingresado debe ser un valor numérico';
-			break;
-
-			default:
-			saldo = saldo - valor;
-			if (saldo < 0) {
-				return 'El valor excede el monto del saldo adeudado';
-			}
 				// INGRESAR ABONO
 
 				return saldo;

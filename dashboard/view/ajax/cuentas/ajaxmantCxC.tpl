@@ -10,9 +10,9 @@
 
 
 
-        <div class="card z-depth-5 pequeño">
+        <div class="card z-depth-5 ">
 
-            <div class="row">
+            <div class="row padd">
                 <br><br>
 
                 <div class="input-field col s12 m7">
@@ -186,13 +186,17 @@
                                             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
                                             <label for="p_v" style="color: white !important">Punto Venta</label>
                                         </p>
+                                    </div> 
                                     </div>
-                                    <div class="col s12 m6  ">
+                                    <div class="row">
+                                    <div class="col s12 m8 offset-m4 ">
                                         <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" tipo="1" modulo="estadoscuenta" >Realizar Pago</button>
-
                                         <button href="#!" class="waves-effec btn waves-light  z-depth-5" id="btn-divsalir">Salir</button>
+
+                                       
                                     </div>
-                                </div>
+                                    </div>
+                               
 
 
                             </div>
@@ -212,7 +216,7 @@
     <div class="row pequeño">
         <div class="col s12 pequeño">
 
-            <table id="data-table-cuentas-detalle" class="pequeño table centered highlight bordered responsive-table z-depth-5 ">
+            <table id="data-table-cuentas-detalle" class="dt-responsive nowrap pequeño table centered highlight bordered  z-depth-5 ">
                 <thead>
                     <tr>
                         <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Movimientos</th>
@@ -229,9 +233,15 @@
                 </tbody>
             </table>
             <br>
-
+<br>
         </div>
+           <div class="col s4 offset-s8  l2 offset-l10">
+   <button href="#!" class="waves-effec btn waves-light  z-depth-5 " id="btn-navsalir">Salir</button></div>
+
+   <br>
     </div>
+    <br>
+
 </div>
 
 

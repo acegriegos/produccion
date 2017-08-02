@@ -81,6 +81,6 @@
       </nav>
       </div>
 
-  <a style="background-color:#0B3861 " href="#" data-activates="slide" class="hide-on-med-and-down button-collapse  z-depth-5 menu-btn" ><p class="white-text menu-txt" >MENU</p></a>
+  <a style="background-color:#0B3861 " href="#" data-activates="slide" class="hide-on-med-and-down button-collapses  z-depth-5 menu-btn" ><p class="white-text menu-txt" >MENU</p></a>
   <!-- hide-on-med-and-down  -->
 

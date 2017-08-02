@@ -163,6 +163,19 @@ $(document).on("click",".detalle",function(){
 		order : [],
 		"bLengthChange": false
 	});
+	$("#btn-navsalir").click(function(){
+		
+		$('.side-nav-cuentas').sideNav('hide');
+		  $('.button-collapse').sideNav('destroy');
+
+	});
+	
+	$("#btn-divsalir").click(function(){
+
+		$(".divabono").hide();
+		$(".divabono").attr('visible',0);
+
+	});
 
 	$("#btn-div").click(function(){
 		var vi = $(".divabono").attr('visible');

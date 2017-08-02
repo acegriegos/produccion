@@ -25,11 +25,22 @@ td, th{
     padding: 0px 10px;
     margin: 2px;
 }
+#ncli + .autocomplete-content{
+    width: 30% !important;
+
+}
 @media only screen and (max-width:769px){
 .detalle{
     font-size: 0.5em !important;
 }
+#ncli + .autocomplete-content{
+    width: 100% !important;
 
+}
+.padd{
+    padding-left: 2% !important;
+    padding-right: 2% !important;
+}
 
 .centro2{
     padding-right:28% !important;
@@ -37,7 +48,7 @@ td, th{
     
 }
 
-.padd{
+.padds{
     
     padding-bottom: 10% !important;
     padding-top: 5% !important;

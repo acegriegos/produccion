@@ -1,6 +1,5 @@
-<div class="pequeño"><div class="tamLetra pequeño"> <div id="ffacturas">
-<div class="card z-depth-5 pequeño">
-<div class="card ">
+<div id="ffacturas">
+<div class="card z-depth-5 ">
 <div class="card-header center blue-grey white-text">
 <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
 <a class="btn" style="float: right;color: white;font-size: 14px;" onclick="verfacturas();"> Ver Facturas</a>
@@ -27,7 +26,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
   </div>
 <br>
-  <div class="row">
+  <div class="row padd">
 
    <div class="input-field col s12 m3 l3">
       <i class="fa fa-calendar-o prefix"></i>
@@ -35,6 +34,8 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
     </div>
 
     <div class="input-field con col s12 m3 l3" >
+
+    <i class="material-icons prefix">attach_money</i>
       <select id="vidtipopago" type="select">
         {section name=LE loop=$TPAGO}
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
@@ -223,13 +224,12 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
     </div>
 
-  </div>
-</div>
+ 
 
 
 </div> <!-- ffacturas -->
 
-</div> <!-- bdy --> 
+ <!-- bdy --> 
 
 
 <div class="modal modal-fixed-footer" id="modal-cambio">
@@ -287,4 +287,4 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=0.9"></script>
+<script src="../assets/js/modulos/ventas.js?v=0.13"></script>
