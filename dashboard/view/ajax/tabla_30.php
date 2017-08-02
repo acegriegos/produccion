@@ -6,6 +6,7 @@
 <tr>
     <td><?php echo $obj[1] ?></td>
     <td><?php echo $obj[2] ?></td>
+    <td><?php echo $obj[15] ?></td>
     <td><?php echo $obj[4] ?></td>
     <td><?php echo $obj[5] ?></td>
     <td><?php echo $obj[6] ?></td>

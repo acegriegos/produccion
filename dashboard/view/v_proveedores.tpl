@@ -38,6 +38,7 @@
                             <tr>
                                 <th class="sinborde white-text blue" style="  padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
                                 <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Nombre</th>
+                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Código</th>
                                 <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Teléfonos</th>
                                 <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Correo</th>
                                 <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Tipo</th>
@@ -49,6 +50,7 @@
                             <tr id="f{$PROV[LE][0]}" class="pbtn">
                                 <td  style="padding: 10px;">{$PROV[LE][1]}</td>
                                 <td  style="padding: 10px;">{$PROV[LE][2]}</td>
+                                <td  style="padding: 10px;">{$PROV[LE][15]}</td>
                                 <td  style="padding: 10px;">{$PROV[LE][4]}</td>
                                 <td  style="padding: 10px;">{$PROV[LE][5]}</td>
                                 <td  style="padding: 10px;">{$PROV[LE][6]}</td>
@@ -123,6 +125,7 @@
                                 <label id="nomClie" for="vnombre">Nombre</label>
                                 <input type="text" class="validate" id="vnombre">
                                 <input type="hidden" id="vid" value="0">
+                                <input type="hidden" id="vidsucursal" value="">
                                 <input type="hidden" id="vbisproveedor" value="1">
                             </div>
 
@@ -139,6 +142,11 @@
                             <div class="input-field col s12 m6 l4">
                                 <label for="vcedula">Cédula del Proveedor</label>
                                 <input type="text" class="validate" id="vcedula">
+                            </div>
+
+                            <div class="input-field col s12 m6 l4">
+                                <label for="vcodigo">Código del Cliente</label>
+                                <input type="text" class="validate" id="vcodigo">
                             </div>
 
                             <div class="input-field col s12 m6 col l4">

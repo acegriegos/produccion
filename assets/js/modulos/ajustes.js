@@ -625,11 +625,26 @@ $(document).on("click",".load[modulo=inventario]",function(){
     $("#vinventario").select();
 });
 
+$(document).on("click",".load[modulo=variablesproduccione]",function(){
+    $("#addvarprod").attr('id','actvarprod');
+    $("#actvarprod").removeClass('add');
+    $("#actvarprod").addClass('edit');
+    $("#actvarprod").text('save');
+    $("#vnombre").focus();
+});
+
 $(document).on("click","#actbod",function(){
     $("#actbod").attr('id','addbod');
     $("#addbod").removeClass('edit');
     $("#addbod").addClass('add');
     $("#addbod").text('add');
+});
+
+$(document).on("click","#actvarprod",function(){
+    $("#actvarprod").attr('id','addbod');
+    $("#addvarprod").removeClass('edit');
+    $("#addvarprod").addClass('add');
+    $("#addvarprod").text('add');
 });
 
 $(document).on("change","#vidbodega",function(){
@@ -1283,9 +1298,9 @@ function cargar(vmodulo,vid) {
 			vmodulo['where'] = 'id = '+vid;
 			break;
 		case 'variablesproduccione':
-			vmodulo['sel'] = 'id,nombre,valor';
+			vmodulo['sel'] = 'id as vid,nombre as vnombre,valor as vvalor';
 			vmodulo['tbl'] = 169;
-			vmodulo['where'] = 'vid = '+vid+' order by vnombre';
+			vmodulo['where'] = 'id = '+vid+' order by nombre';
 			break;
 		default:
 			console.log('Cargar Módulo no Existente');

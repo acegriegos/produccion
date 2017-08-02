@@ -211,7 +211,6 @@ function loadpool(vmodulo,vid,vvarias){
 
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
-                console.log(columns[0][0][0][i]);
                 if (columns[0][0][0][i] != '') 
                     $("#"+vform+" #"+columns[0][1][i]['name']).change();
 
@@ -531,16 +530,14 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
-                            console.log(varreglo[i]+" "+salida[varreglo[i]])
                             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             break;
                     }
                     }
-                          
+                        
                     break;
             }//end SWITCH
         }//end IF
-        
     }//end FOR
     break;
     }//end SWITCH
@@ -759,7 +756,7 @@ function generarReporte(){
     var search = new Array;
     var datos = mantenimiento('login',1,vmodulo);
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
-    console.error(datos)
+    
     for (var i = 0, len = datos.length; i < len; i++) {
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
@@ -770,7 +767,7 @@ function generarReporte(){
             if ($("#"+datos[i]).val() == '') {
                 search[i] = "''";
             }else{
-                console.log(datos[i]+": "+$("#"+datos[i]).val())
+                
                 search[i] = $("#"+datos[i]).val();
             }
         }
@@ -780,7 +777,7 @@ function generarReporte(){
         atributos += string[index]+',';
     });
     atributos = atributos.substr(0,atributos.length-1);
-    console.log(atributos)
+    
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 }
 

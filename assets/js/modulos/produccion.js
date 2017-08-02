@@ -77,7 +77,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m2").click();
+    $("#m1").click();
 });
 
 $(document).ready(function(){
@@ -777,7 +777,7 @@ $(document).on("click",".actrecipe",function(){
     var horashombre = $("#vhorashombre"+id).val() == '' ? 0 : $("#vhorashombre"+id).val();
     if (total != '0.00') {
         //guarda proceso en tabla productos
-        var idproceso = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,8,@@usr,1,@@impresa,""',0,0,0);
+        var idproceso = arr('login',4,'',78,'2,'+id+',\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,8,@@usr,1,@@impresa,null',0,0,0);
         if (idproceso[0] != '[object Object]') {
             //guarda detalles de la proceso
             arr('login',4,'',120,'2,0,'+idproceso[0][0]+','+testimado+','+horasmaquina+','+horashombre,0,0,0);
@@ -836,8 +836,8 @@ $(document).on("click","#edtitcod",function(){
     $("#codproceso"+id).text(codigo);
     $(this).addClass('hide');
     $("#addrecipe").removeClass('hide');
-    $("#vnombre").val('');
-    $("#vcodigo").val('');
+    // $("#vnombre").val('');
+    // $("#vcodigo").val('');
 });
 
 $(document).on("click",".acctit",function(){

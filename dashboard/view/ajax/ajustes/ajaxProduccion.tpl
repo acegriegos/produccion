@@ -76,7 +76,7 @@
         </div>
     </div>
     <div class="row">
-    	<a class="waves-effect waves-light blue btn right add inv" modulo="produccioninventarios">Guardar</a>
+    	<a class="waves-effect waves-light blue btn right add inv" modulo="produccioninventario">Guardar</a>
     </div>
     <div class="row">
     	<div class="col s12 m12 l12 pequeño">

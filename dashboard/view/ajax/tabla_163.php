@@ -1,6 +1,6 @@
 <?php 
 	if ($transaccion[0][17] == 1) {
-		foreach ($transaccion as $index =>  $obj) {
+		foreach ($transaccion as $index => $obj) {
 			$total = $obj[6] * $obj[7];
 			$index++;
 ?>
@@ -14,7 +14,7 @@
 <td id="desctd<?php echo $index ?>" align="left" ><input type="text" id="vdesc<?php echo $index ?>" value="0.00" placeholder="0" style="width: 50px" disabled><a href="#" id="edit<?php echo $index ?>" visible="0" class="material-icons pbtn black-text fedit faccion">edit</a><a href="#" id="del<?php echo $index ?>" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion">close</a><input type="hidden" id="h_<?php echo $index ?>" idprod="<?php echo $obj[3] ?>" cant="<?php echo $obj[7] ?>" prec="<?php echo $obj[6] ?>" inv="<?php echo $obj[13] ?>" hdesc="<?php echo $obj[15] ?>" hdescm="<?php echo $obj[16] ?>"></td></tr>
 <?php }
 	}else{
-		foreach ($transaccion as $index =>  $obj) {
+		foreach ($transaccion as $index => $obj) {
 			$total = $obj[6] * $obj[7];
 			$index++;
 ?>
