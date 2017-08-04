@@ -29,7 +29,7 @@
                         <label for="continuo">Cuenta Padre</label> 
                     </p>
                     
-                    <input type="hidden" id="vispadre" value="1">
+                 <!--    <input type="hidden" id="vispadre" value="1"> -->
                     </div>
                 </div>
             </div>
