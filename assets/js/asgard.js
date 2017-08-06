@@ -1,6 +1,7 @@
 acc = 1;
 
 $(function(){
+   
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
@@ -545,6 +546,7 @@ function odin(varreglo,vform) {
 }
 
 function deadclear(vform) {
+    
     if (acc == 1) {
         vform = "#f"+vform+"s";
         /*REGLAS PARA VACIAR CAMPOS*/

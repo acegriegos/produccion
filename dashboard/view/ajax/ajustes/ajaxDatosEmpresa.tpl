@@ -15,27 +15,40 @@
                     </div>
                 </div>
                 <div class="row pequeño">
+
+                <div class="col s12 m12 l6 pequeño">
+                        <label for="vpfisico">Persona Física</label>
+                        <input type="text" class="infoempresa validate" id="vpfisico">
+                    </div>
+
                     <div class="col s12 m12 l6 pequeño">
                         <a href="#" data-activates="slide-tc" data-num="1" class="button-collapse der tc-show black-text" title="Administrar Teléfonos de la Empresa"><i class="material-icons">phone</i></a>
                         <label for="vtelefono">Teléfonos de la Empresa</label>
                         <input type="text" class="infoempresa" id="vtelefono" field="telefonos" readonly>
                         
                     </div>
-                    <div class="col s12 m12 l6 pequeño">
+                   
+                </div>
+
+                <div class="row pequeño">
+
+                 <div class="col s12 m12 l6 pequeño">
                         <a href="#" data-activates="slide-tc" data-num="2" class="button-collapse der tc-show black-text" title="Administrar Correos de la Empresa"><i class="material-icons">email</i></a>
                         <label for="vcorreo">Correos de la Empresa</label>
                         <input type="email" class="infoempresa" id="vcorreo" field="correo" readonly>
                         
                     </div>
-                </div>
 
-                <div class="row pequeño">
                     <div class="col s12 m12 l6 pequeño">
                         <a href="#" data-activates="slide-tc" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa"><i class="material-icons">my_location</i></a>
                         <label for="vdireccion">Dirección de la Empresa</label>
                         <input type="text" class="infoempresa validate" id="vdireccion" field="direccion" readonly>
                     </div>
-                    <div class="col s12 m12 l6 pequeño">
+
+                    
+
+
+                    <div class="col s12 pequeño">
                         <div class="col s6 m4">
                             <img src="#" class="responsive-img" alt="Image" width="200px" height="100px" id="vlogo">
                         </div>
@@ -52,6 +65,7 @@
                    </div>
                </div>
 
+                 
 
            </div></div>
            <!-- Datos de la empresa -->

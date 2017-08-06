@@ -10,7 +10,7 @@
         <td  style=" padding: 10px;color:black"><?php echo $obj[6] ?></td>
         <td  style=" padding: 10px;color:black">
         <?php if ($obj[13] != 1 ) {?>
-           <a href="modal-contactos" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c<?php echo $obj[0]; ?>">contact_phone</i></a>
+           <a href="modal-contactos" class="hide" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c<?php echo $obj[0]; ?>">contact_phone</i></a>
            
            <?php } ?>
 

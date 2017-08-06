@@ -24,8 +24,8 @@ $(function(){
         searchClient($(this).val(),0);
     });
 
-    $("#ncli").keydown(function(){
-        //var charCode = e.which || e.keyCode;
+    $("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
         var charStr = $(this).val().substr(-1);//String.fromCharCode(charCode);
         
         // if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {

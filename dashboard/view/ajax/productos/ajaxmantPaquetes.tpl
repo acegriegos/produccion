@@ -45,9 +45,11 @@
             <tr>
                 <td style="padding: 10px;">{$PAQ[LE][1]}</td>
                 <td style="padding: 10px;">{$PAQ[LE][2]}</td>
-                <td style="padding: 10px;">{$PAQ[LE][3]}</td>
                 <td style="padding: 10px;">{$PAQ[LE][4]}</td>
+                <td style="padding: 10px;">{$PAQ[LE][3]}</td>
                 <td style="padding: 10px;">
+                                            <a class="btn-color pbtn loadserv per4112" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i></a>
+
                     <a class="btn-color pbtn loadpck" id="e{$PAQ[LE][0]}" href="#modal-paquetes" title="Editar Paquete"><i class="material-icons">edit</i></a>
                     <a class="btn-color pbtn cdel delpck" id="d{$PAQ[LE][0]}" title="Eliminar Paquete"><i class="material-icons">close</i></a>
                 </td>

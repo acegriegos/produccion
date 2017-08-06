@@ -22,25 +22,25 @@
 <thead>
 <tr>
 <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código Interno</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Marca</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Costo</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Venta</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Ganancia</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important; ">Acciones</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código Interno</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Marca</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Costo</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Venta</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Ganancia</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 18%">Acciones</th>
 </tr>
 </thead>
 <tbody id="listaproductos">
 {section name=LE loop=$PROD}
 <tr>
-<td style=" padding: 10px; color:black;">{$PROD[LE][1]}</td>
-<td style=" padding: 10px; color:black;">{$PROD[LE][2]}</td>
-<td style=" padding: 10px; color:black;">{$PROD[LE][3]}</td>
-<td style=" padding: 10px; color:black;">{$PROD[LE][4]}</td>
-<td style=" padding: 10px; color:black;">{$PROD[LE][5]}</td>
-<td style=" padding: 10px; color:black;">{$PROD[LE][6]}</td>
-<td style=" padding: 10px; color:black;">{$PROD[LE][7]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][1]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][2]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][3]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][4]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][5]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][6]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][7]}</td>
 <td>
 <a class="btn-color pbtn info material-icons blueh 4110" id="info{$PROD[LE][0]}" href="#modal-info" title="Mostrar Informacion del Producto">info</a>
 <a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="color:black;"><img src="../assets/img/icon/percent.svg"></a>
@@ -317,43 +317,43 @@ Categoria
 <label for="vincantidad">Cantidad Entrante</label>
 </div>
 <div class="input-field col s12  l8">
-<input type="text" id="vincomentario" class="materialize-textarea marginzero" length="150">
+<input type="text" id="vincomentario" class="validate" length="150">
 <label for="vincomentario">Comentario</label>
 </div>
 </div>
 </div>
 <div id="outinvent" class="movsinvent hide">
 <div class="row">
-<div class="input-field col s12 l6">
+<!-- <div class="input-field col s12 l6">
 <select type="select" id="outidbodega">
 <option value="0">Seleccione una Bodega</option>
 </select>
 <label for="outidbodega">Bodega Origen</label>
+</div> -->
+<!-- <div class="input-field col s12 l6">
+<select type="select" id="outidinventario">
+<option value="0">Seleccione un Inventario</option>
+</select>
+<label for="outidinventario">Inventario Origen</label>
+</div> -->
+<div class="input-field col s12 l6">
+<select type="select" id="destidbodega">
+<option value="0">Seleccione una Bodega</option>
+</select>
+<label for="destidbodega">Bodega</label>
 </div>
 <div class="input-field col s12 l6">
 <select type="select" id="outidinventario">
 <option value="0">Seleccione un Inventario</option>
 </select>
-<label for="outidinventario">Inventario Origen</label>
-</div>
-<div class="input-field col s12 l6">
-<select type="select" id="destidbodega">
-<option value="0">Seleccione una Bodega</option>
-</select>
-<label for="destidbodega">Bodega Destino</label>
-</div>
-<div class="input-field col s12 l6">
-<select type="select" id="destidinventario">
-<option value="0">Seleccione un Inventario</option>
-</select>
-<label for="destidinventario">Inventario Destino</label>
+<label for="outidinventario">Inventario</label>
 </div>
 <div class="input-field col s12 l6">
 <input id="voutcantidad" type="text" class="validate">
 <label for="voutcantidad">Cantidad Saliente</label>
 </div>
 <div class="input-field col s12 l6">
-<input type="text" id="voutcomentario" class="materialize-textarea marginzero" length="150">
+<input type="text" id="voutcomentario" class="validate" length="150">
 <label for="voutcomentario">Comentario</label>
 </div>
 </div>
@@ -384,8 +384,12 @@ Categoria
 </select>
 <label for="didinventario">Inventario Destino</label>
 </div>
-<div class="input-field col s12 l12">
-<input type="text" id="vmovcomentario" class="materialize-textarea marginzero" length="150">
+<div class="input-field col s12 l6">
+<input id="vmovcantidad" type="text" class="validate">
+<label for="vmovcantidad">Cantidad</label>
+</div>
+<div class="input-field col s12 l6">
+<input type="text" id="vmovcomentario" class="validate" length="150">
 <label for="vmovcomentario">Comentario</label>
 </div>
 </div>

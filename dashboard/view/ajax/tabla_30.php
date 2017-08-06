@@ -12,7 +12,7 @@
     <td><?php echo $obj[6] ?></td>
     <td>
         <?php if (($obj[13]) != 1){ ?>
-        <a href="modal-contactos" style="font-size: 2em; color: #607d8b" title="Contactos"><i class="contact material-icons pbtn" id="c<?php echo $obj[0] ?>">contact_phone</i></a>
+        <a href="modal-contactos" class="hide" style="font-size: 2em; color: #607d8b" title="Contactos"><i class="contact material-icons pbtn" id="c<?php echo $obj[0] ?>">contact_phone</i></a>
         <?php } ?>
 
         <a href="#modal-clientes" style="font-size: 2em; color: #607d8b"><i class="load material-icons pbtn" id="m<?php echo $obj[0] ?>" modulo="cliente">edit</i></a>

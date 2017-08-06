@@ -107,9 +107,10 @@
             </div>
          </div>
 
-         <div id="modal-defcta" class="modal bottom-sheet" style="min-height:220px;" >
+         <div id="modal-defcta" class="modal bottom-sheet" style="min-height:520px;" >
             <div class="modal-content">
               <h4>Cambio de Cuenta por Defecto</h4>
+              <br>
               <div class="input-field">
                   <select id="vdefecto">
                     <option value="0" disabled>Seleccione una Opción</option>

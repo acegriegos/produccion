@@ -28,10 +28,11 @@ $(document).on("click",".menu3",function(){
 			var e = mantenimiento('login',4,arr)[0][0];
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);
-			$("#vtelefono").val(e[2]);
+			$("#vpfisico").val(e[2]);
+			$("#vtelefono").val(e[3]);
 			$("#vcorreo").val(e[3]);
 			$("#vdireccion").val(e[4]);
-			$("#vlogo").attr('src',e[5]);
+			$("#vlogo").attr('src',e[6]);
 			$("#vfechainicio").val(e[6]);
 			$("#vfechafinal").val(e[7]);
 			$("#data-table-monedas").dataTable({

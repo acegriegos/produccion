@@ -56,7 +56,7 @@
                                 <td  style="padding: 10px;">{$PROV[LE][6]}</td>
                                 <td>
                                     {if $PROV[LE][13] neq 1}
-                                    <a href="modal-contactos" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
+                                    <a href="modal-contactos" class="hide" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
                                     {/if}
 
                                     <a href="#modal-clientes" style="color:black"><i class="load material-icons pbtn per2002" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
@@ -146,7 +146,7 @@
                             </div>
 
                             <div class="input-field col s12 m6 l4">
-                                <label for="vcodigo">Código del Cliente</label>
+                                <label for="vcodigo">Código Interno de Cliente</label>
                                 <input type="text" class="validate" id="vcodigo">
                             </div>
 
