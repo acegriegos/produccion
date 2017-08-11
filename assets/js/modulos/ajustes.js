@@ -194,6 +194,18 @@ $(document).on("click",".menu3",function(){
 	});
 });
 
+$(document).on("change", ".ispadr",function(){
+ 	var id= $(this).attr('id').substr(2);
+ 
+ 	var ispadre= $(this).is(":checked") == true ? 1 : 0;
+ 	var p = arr('login',7,2,36,'ispadre ='+ispadre,'id = '+id, 0,0,0)[0];
+ 	if (p['ERROR'] != undefined){
+ 		Materialize.toast(p['ERROR'],4000,'red')
+ 		$(this).prop('checked',true)
+ 	} 
+
+});
+
 $(document).on("change","#videtapa",function(){
 	arr('login',6,'id,nombre',41,'id > 0',15,1,$("#xidbodega"));
 	$("#xidbodega").material_select();
@@ -1540,10 +1552,24 @@ $(document).on("click",".addglobal",function(){
 		return false;
 	}
 
+		var vispadre= 0;
+
+	if ($("#continuo").is(':checked')) {
+		
+		vispadre = 1 ;
+		
+
+	}else{
+		
+		vispadre = 0;
+	
+	}
+
+console.log(vispadre);
 	var arr = {}
 	arr['sel'] = '';
 	arr['tbl'] = 37;
-	arr['where'] = '1,0,'+$("#vgenero").data('lvl')+',"'+$('#vnombre').val()+'",@@usr,'+$("#vispadre").val();
+	arr['where'] = '1,0,'+$("#vgenero").data('lvl')+',"'+$('#vnombre').val()+'",@@usr,'+ vispadre;
 
 	var p = mantenimiento('login',4,arr);//INGRESAR CUENTA
 	if(p['succed'] != 0){
