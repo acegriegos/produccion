@@ -2,6 +2,7 @@ var cuentas = '<option value="0">Seleccione una Cuenta</option>';
 var ind_1 = ind_2 = 1;
 
 $(function(){
+
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	
@@ -51,7 +52,7 @@ $(function(){
 
 		$("#ln1").click();
 		$("#videstado").val(1);
-		$('#videstado').material_select('update');
+		// $('#videstado').material_select('update');
 		$("#vidpais").val(52);
 		$("#vidpais").change();
 		$("#vidpais").material_select('update');
@@ -77,8 +78,7 @@ $(function(){
 		if($(this).attr('tp') == 2){
 			$(".cre").hide();
 			$(this).attr('tp',1);
-		}
-		else{
+		}else{
 			$(".cre").show();
 			$(this).attr('tp',2);
 		}
@@ -91,7 +91,7 @@ $(function(){
 			if (idfila == undefined) {
 				if($("#tptel option:selected").val() == ''){
 					Materialize.toast("Debe Seleccionar un Tipo de Teléfono",4000,'danger');
-					$("#tptel").focus()
+					$("#tptel").focus();
 				}else{
 					rgex = arr('login',4,'regex,img',4,'id = ' + $("#tptel option:selected").val(),0,0,0)[0][0];
 					if($(this).val().match(new RegExp(rgex[0]))){
@@ -109,7 +109,6 @@ $(function(){
 				$(this).removeAttr('idfila');
 				$(this).val('');
 			}
-			
 		}
 	});
 
@@ -226,6 +225,8 @@ $(document).on("click","input[name='tipoclie']",function(){
 		case 3:
 			$("#titInfo").html('<b>Información Tributaria<b/>');
 			$("#nomClie").html('Razón Social');
+			$("#vapellido1").val('');
+			$("#vapellido2").val('');
 			$(".hid").css('display','none');
 			break;
 		case 4:
@@ -236,6 +237,8 @@ $(document).on("click","input[name='tipoclie']",function(){
 		default:
 			$("#titInfo").html('<b>Información Jurídica<b/>');
 			$("#nomClie").html('Razón Social');
+			$("#vapellido1").val('');
+			$("#vapellido2").val('');
 			$(".hid").css('display','none');
 			break;
 	}
@@ -390,7 +393,6 @@ function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
 }
 
 function endDetail(vid,vacc,modulo){
-
 	setTimeout(function(){ deadclear('cliente'); }, 2500);
     thorload('cliente');
     if (vacc == 1) {
@@ -407,4 +409,8 @@ function postload(modulo) {
 			$("[tipoclie="+tipo+"]").change();
 			break;
 	}
+}
+
+function addonblur(){
+
 }

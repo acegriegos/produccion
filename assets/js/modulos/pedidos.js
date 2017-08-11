@@ -6,6 +6,7 @@ $(document).keydown(function(e){
 });
 
 $(function(){
+    console.log("hola")
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -597,6 +598,7 @@ function cargarSintax(){
 function endDetail(vid) {
     window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
     arr('login',7,'1',195,'','null,'+vid+',5,'+$("#p_v").is(':checked'),0,0,0);
+    setTimeout(function(){location.reload();},1000);
     return false;
 }
 

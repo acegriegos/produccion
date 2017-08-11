@@ -2,6 +2,9 @@
 	display: inline-block;
 }
 
+#buscarcli{
+  margin-top: 8px !important;
+}
 
 table.pbtns td:hover{
   cursor:pointer !important;

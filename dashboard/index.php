@@ -4,16 +4,6 @@
 	
 	require_once '../_config/expiracion.php';
 
-	// include '../_config/mysqlDB.php';
-	// include_once '../_config/ecy.php';
-
-	// $cy = new _cy();
-	// $db = new DBClass();
-	// $usr = $cy->decy($_SESSION['USR']);
-
-	// $rs = $db->ejecutar("SELECT 10")->fetch_all()[0][0];
-
-	//tipo from permisosUsuarios p join permisos m on p.idpermiso = m.id where p.idusuario = '".$usr."' and m.nombre = '".$modulo."'"
 
 	if (is_file('control/ctr_'.$modulo.'.php') ) {
 		require_once 'control/ctr_'.$modulo.'.php';

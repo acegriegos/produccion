@@ -33,6 +33,11 @@ label[for=xnum] {
     width: 100%;
 }
 
+#ofiltr {
+    display: none;
+
+}
+
 @media print {
 
 
@@ -76,6 +81,9 @@ label[for=xnum] {
         width: auto;
     }
     
+    #ofiltr {
+        display: none;
+    }
     /*@page {
       size: A4 landscape; 
     }*/

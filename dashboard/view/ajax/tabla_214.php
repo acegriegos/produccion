@@ -11,7 +11,7 @@ foreach ($transaccion as $obj) {
         <td style=" padding: 11px !important ; color:black !important;"><?php echo $obj[5];?></td>
         <td style=" padding: 11px !important ; color:black !important;"><?php echo $obj[6];?></td>
         <td style=" padding: 11px !important ; color:black !important;"><?php echo $obj[8];?></td>
-        <td style=" padding: 11px !important ; <?php echo $obj[7] < 0 ? 'color:red' : 'color:green'; ?>"><?php echo abs($obj[7]); ?></td>
+        <td style=" padding: 11px !important" class="center-align"><span class="<?php echo $obj[7] < 0 ? 'new badge red lighten-2 ' : 'new badge green lighten-2'; ?> " data-badge-caption="" style="font-size: 0.9em; float: none !important;"><?php echo abs($obj[7]); ?></span></td>
         <td style=" padding: 11px !important ; color:black !important;"><?php echo $obj[9];?></td>
 
     </tr>

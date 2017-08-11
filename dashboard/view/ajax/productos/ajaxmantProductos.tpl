@@ -93,7 +93,7 @@
 </select>
 <label for="vidinventario">Inventario</label>
 </div>
-<div class="input-field marginzero hide" id="dvpeso">
+<div class="input-field marginzero">
 <input id="vpeso" type="number" class="validate" min="0" autocomplete="off">
 <label for="vpeso">Peso</label>
 </div>

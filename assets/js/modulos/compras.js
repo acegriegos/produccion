@@ -44,7 +44,7 @@ $(function(){
           
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
             });
 
             $("#ncli").siblings($(".autocomplete-content")).css('width','25%');

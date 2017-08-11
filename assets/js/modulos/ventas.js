@@ -26,10 +26,10 @@ $(function(){
 
     $("#ncli").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = $(this).val().substr(-1);//String.fromCharCode(charCode);
+        var charStr = String.fromCharCode(charCode);//$(this).val().substr(-1);
         
-        // if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-        if (charStr.search(/[a-zA-Z0-9-_. ]/i) >= 0 || charCode == 8) {
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        // if (charStr.search(/[a-zA-Z0-9-_. ]/i) >= 0 || charCode == 8) {
             $(".autocomplete-content").remove();
 
             $("#ncli").autocomplete({
@@ -37,8 +37,6 @@ $(function(){
                 data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
             });
 
-        }else{
-            alert(charStr)
         }
     });
 
@@ -99,24 +97,25 @@ $(function(){
                     $("#bname-inv").html(cod[4]);
                 }
 
+                if (cod[6] != 0) {
+                    for (var i = 0; i < fimv.length; i++) {
 
-                for (var i = 0; i < fimv.length; i++) {
+                        var exo = fimv[i][8]*(1-(fimv[i][9]/100));
 
-                    var exo = fimv[i][8]*(1-(fimv[i][9]/100));
+                        if($("#imp_"+fimv[i][6]).length == 0){
+                            
+                            if(fimv[i][11] != 0) var clip = 'vclipd="'+fimv[0][0]+'"';
 
-                    if($("#imp_"+fimv[i][6]).length == 0){
+                            $("#sh_imp").append('<tr id="imp_'+fimv[i][6]+'" '+clip+'><td>'+fimv[i][10]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][6]+'" type="html">0.00</span></td></tr>');
+                            $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
+                            $("#imv_"+fimv[i][6]).data('incl',fimv[i][0]+",");
+                        }else{
+                            var incl = $("#imv_"+fimv[i][6]).data('incl');
+                            $("#imv_"+fimv[i][6]).data('incl',incl+fimv[i][0]+",");
+                            $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
+                        }
                         
-                        if(fimv[i][11] != 0) var clip = 'vclipd="'+fimv[0][0]+'"';
-
-                        $("#sh_imp").append('<tr id="imp_'+fimv[i][6]+'" '+clip+'><td>'+fimv[i][10]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][6]+'" type="html">0.00</span></td></tr>');
-                        $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
-                        $("#imv_"+fimv[i][6]).data('incl',fimv[i][0]+",");
-                    }else{
-                        var incl = $("#imv_"+fimv[i][6]).data('incl');
-                        $("#imv_"+fimv[i][6]).data('incl',incl+fimv[i][0]+",");
-                        $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
                     }
-                    
                 }
 
                 var modselec = $("input[name='modselected']:checked").val();
@@ -293,13 +292,9 @@ $(document).on("keyup","#cantp",function(e){
     var cant = parseFloat($(this).val()),
         precio = parseFloat($("#valores").data('elemento')['hprec']),
         total = precio * cant;
-
     $("#totp").val(total.formatMoney(2,'.',','));
-
     var code = e.which || e.keyCode;
-    
     if (code == 13) {
-        
         if (cant > 0) {
             var idp = $("#valores").data('elemento')['idp'];
             var cod = $("#valores").data('elemento')['hcodp'];

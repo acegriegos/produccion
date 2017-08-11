@@ -1,7 +1,6 @@
 acc = 1;
 
 $(function(){
-   
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
@@ -155,8 +154,8 @@ function doGlobal(accion,modulo,tip,varias){
         
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
-            //QUITAR EL SEGUNDO UNO PONER UN 4
-            endDetail(1,1,modulo+"s");
+            // //QUITAR EL SEGUNDO UNO PONER UN 4
+            // endDetail(1,4,modulo+"s");
         }else{
            
             var tmsj = "Ingresado";
@@ -464,7 +463,9 @@ function odin(varreglo,vform) {
             for (var i = 0; i < varreglo.length; i++) {
                 salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
             }// end FOR
+            
         });//end EACH
+        
     break;
 
     default:
@@ -740,17 +741,14 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
         default:
             break;
     }
-
-
     var ctx = document.getElementById(elemento).getContext("2d");
     var myLineChart = new Chart(ctx,config1);
   });
 };
 
-function generarReporte(){
+function doreport() {
     var filtros = $(".inpreport").length;
     var elem = $(".principal .filtros").attr('elem').split(',');
-    elem.splice(elem.length-1,1);
     var tbl = $(".principal .filtros").attr('sp');
     var atributos = '';
     var vmodulo = {};
@@ -758,18 +756,20 @@ function generarReporte(){
     var search = new Array;
     var datos = mantenimiento('login',1,vmodulo);
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
-    
+    console.log(datos)
+
     for (var i = 0, len = datos.length; i < len; i++) {
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
                 search[i] = '"1990-01-01"';
-            }else
-            search[i] = '"'+$("#"+datos[i]).val()+'"';
+            }else{
+                search[i] = '"'+$("#"+datos[i]).val()+'"';
+            }
         }else{
             if ($("#"+datos[i]).val() == '') {
                 search[i] = "''";
             }else{
-                
+                $("#chk"+datos[i].substr(3)).is(":checked") == false ? $("#"+datos[i]).val(0) : true;
                 search[i] = $("#"+datos[i]).val();
             }
         }
@@ -779,7 +779,7 @@ function generarReporte(){
         atributos += string[index]+',';
     });
     atributos = atributos.substr(0,atributos.length-1);
-    
+    console.log(atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 }
 

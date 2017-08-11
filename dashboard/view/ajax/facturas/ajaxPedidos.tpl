@@ -286,4 +286,4 @@ Pedidos {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/pedidos.js?v=0.8"></script>
+<script src="../assets/js/modulos/pedidos.js?v=0.9"></script>

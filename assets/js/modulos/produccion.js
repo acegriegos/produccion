@@ -77,7 +77,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m1").click();
+    $("#m2").click();
 });
 
 $(document).ready(function(){
@@ -763,7 +763,7 @@ $(document).on("click",".saveproceso",function(){
         }
         
     }else{
-        Materialize.toast('Es necesario agregar productos a la proceso', 6000, 'orange lighten-2');
+        Materialize.toast('Es necesario agregar productos al proceso', 6000, 'orange lighten-2');
     }
 });
 
@@ -1138,7 +1138,7 @@ function addrecipe(id,nombre,codigo) {
         setTimeout(function(){$("#vproducto").focus();},100);
         
     }else{
-        Materialize.toast('proceso&nbsp;&nbsp;<b>'+nombre+'</b>&nbsp;&nbsp;ha sido creada&nbsp;&nbsp;<i class="material-icons but cancel">close</i>', 6000, 'red');
+        Materialize.toast('Proceso &nbsp;&nbsp;<b>'+nombre+'</b>&nbsp;&nbsp; creado anteriormente&nbsp;&nbsp;<i class="material-icons but cancel">close</i>', 6000, 'red');
     }
 }
 

@@ -88,12 +88,7 @@ $(document).on("keyup","#val",function(e){
 });
 
 $(document).on("change","#vidinventario",function(){
-    if ($(this).val() != 1) {
-        $("#dvpeso").addClass('hide');
-    }else{
-        $("#dvpeso").removeClass('hide');
-        $("#vpeso").focus();
-    }
+    $("#vpeso").focus();
 });
 
 // focus
@@ -628,7 +623,7 @@ $(document).on("click","#addprod",function(){
         if (pass == 1) {
             var idmarca = $("#vidmarca").val();
             var idproducto = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigointerno+'\",\"'+nombre+'\",'+costo+','+ganancia+','+venta+','+exoneracion+','+peso+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+','+idinventario+',@@usr,'+idmoneda+',@@impresa,""',0,0,0);
-            if (idproducto[0][0] != undefined) {//validar su guarda correctamente
+            if (idproducto[0][0] != undefined) {//validar si guarda correctamente
                 //agregar impuestos
                 $(".impuestos").each(function(){
                     var idimpuesto = $(this).attr('id').substr(4);
@@ -655,7 +650,7 @@ $(document).on("click","#addprod",function(){
 
                 if (vari.length > 0) {
                     vari.each(function(){
-                        arr('login',4,'',194,'1,0,"'+$(this).attr('nom')+'","'+$(this).attr('var')+'",'+idproducto[0]+',@@usr,@@impresa',0,0,0)
+                        arr('login',4,'',194,'1,0,"'+$(this).attr('nom')+'","'+$(this).attr('var')+'",'+idproducto[0][0]+',@@usr,@@impresa',0,0,0)
                     });
                 }
 

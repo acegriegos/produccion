@@ -4,57 +4,57 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="material-icons ofiltr">keyboard_arrow_up</i></a><a class="waves-effect waves-light btn der blue" title="Generar Reporte">Generar</a></div><br>');
+    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="material-icons ofiltr">keyboard_arrow_up</i></a><a class="waves-effect waves-light btn der blue" title="Generar Reporte" onclick="doreport()">Generar</a></div><br>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
 
-        html = '<div class="row col s6 rous"><div class="col s12"><input type="checkbox" id="xcli" name="filtros" value="3" class="repcheck" elemlength="1"><label for="xcli" class="pbtn">Por Cliente</label></div><div class="col s12 '+mdate+'" id="fltr3"><div class="input-field"><label for="nclie" class="width:100%">Nombre o Cédula</label><input type="text" class="validate init eder autocomplete" id="nclie"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
+        html = '<div class="row col s6 rous"><div class="col s12"><input type="checkbox" id="chkcliente" value="3" class="repcheck"><label for="chkcliente" class="pbtn">Por Cliente</label></div><div class="col s12 '+mdate+'" id="fltr3"><div class="input-field"><label for="cliente" class="width:100%">Nombre</label><input type="text" class="validate init eder autocomplete" id="cliente"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
 
         $(".principal .filtros").append(html);
 
-        $("#nclie").on("keydown",function(e){
+        $("#cliente").on("keydown",function(e){
             var charCode = e.which || e.keyCode;
             var charStr = String.fromCharCode(charCode);
             if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
                 $(".autocomplete-content").remove();
-                $("#nclie").autocomplete({
+                $("#cliente").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2),null',2,'concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#nclie").val()+'%\" limit 10',0,0,0,1)
+                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2),null',2,'concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" limit 10',0,0,0,1)
                 });
-                $("#nclie").siblings($(".autocomplete-content")).css('width','25%');
+                $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
             }
         });
     }
 
     mdate = $(".principal .filtros").attr('porusuario');
     if (mdate != undefined) {
-        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xusu" name="filtros" value="4" class="repcheck" elemlength="1"><label for="xusu" class="pbtn">Por Usuario</label></div><div class="col s9 '+mdate+'" id="fltr4"><div class="input-field"><label for="nuser">Usuario o Nombre</label><input type="text" class="validate init eder autocomplete" id="nuser"><input type="hidden" id="vidusuario" class="inpreport" value="0" ></div></div></div>';
+        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="chkusuario" value="4" class="repcheck"><label for="chkusuario" class="pbtn">Por Usuario</label></div><div class="col s9 '+mdate+'" id="fltr4"><div class="input-field"><label for="usuario">Usuario o Nombre</label><input type="text" class="validate init eder autocomplete" id="usuario"><input type="hidden" id="vidusuario" class="inpreport" value="0" ></div></div></div>';
         $(".principal .filtros").append(html);
 
-        $("#nuser").on("keydown",function(e){
+        $("#usuario").on("keydown",function(e){
             var charCode = e.which || e.keyCode;
             var charStr = String.fromCharCode(charCode);
             if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
                 $(".autocomplete-content").remove();
-                $("#nuser").autocomplete({
+                $("#usuario").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#nuser").val()+'%\" or user like \"%'+$("#nuser").val()+'%\" limit 10',0,0,0,1)
+                    data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" limit 10',0,0,0,1)
                 });
-                $("#nuser").siblings($(".autocomplete-content")).css('width','25%');
+                $("#usuario").siblings($(".autocomplete-content")).css('width','25%');
             }
         });
     }
 
     mdate = $(".principal .filtros").attr('entrenumeros');
     if (mdate != undefined) {
-        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xnum" name="filtros" value="2" class="repcheck" elemlength="2"><label class="pbtn" for="xnum">Entre <label class="variable-s">NÚMEROS</label></label></div><div class="col s9 '+mdate+'" id="fltr2"><div class="col s6"><div class="input-field"><input type="number" class="validate init eder inpreport" id="vnum1" value="0"><label for="vnum1">Numero1</label></div></div><div class="col s6"><div class="input-field"><input type="number" class="validate eder inpreport" id="vnum2" value="0" ><label for="vnum2">Numero2</label></div></div></div></div>';
+        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xnum" value="2" class="repcheck"><label class="pbtn" for="xnum">Entre <label class="variable-s">NÚMEROS</label></label></div><div class="col s9 '+mdate+'" id="fltr2"><div class="col s6"><div class="input-field"><input type="number" class="validate init eder inpreport" id="vnum1" value="0"><label for="vnum1">Numero1</label></div></div><div class="col s6"><div class="input-field"><input type="number" class="validate eder inpreport" id="vnum2" value="0" ><label for="vnum2">Numero2</label></div></div></div></div>';
         $(".principal .filtros").append(html);
     }
 
     mdate = $(".principal .filtros").attr('entrefechas');
     if (mdate != undefined){
-        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xfec" name="filtros" value="1" class="repcheck" elemlength="2"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s9 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport" id="vhasta" value="" str="1"></div></div></div>';
+        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s9 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport" id="vhasta" value="" str="1"></div></div></div>';
 
         $(".principal .filtros").append(html);
     }
@@ -75,7 +75,7 @@ $(function(){
                 }else{
                     type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
                 }
-                html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xtip'+inc+'" name="filtros" value="'+filtro+'" class="repcheck" elemlength="1"><label for="xtip'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field">'+type+'</div></div></div>';
+                html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field">'+type+'</div></div></div>';
                 $(".principal .filtros").append(html);
                 arr('login',6,'id,nombre',vtbl[i],'id >= 0 order by id',15,1,$("#vidtipo"+inc));
                 filtro += 1;
@@ -89,15 +89,15 @@ $(function(){
     $("[id^=fltr].auto").prev().children().children().prop('checked',true);
 });
 
-$(document).on("blur","#nclie",function(){
-    var id = arr('login',4,'id',2,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
+$(document).on("blur","#cliente",function(){
+    var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2) like "%'+$(this).val()+'%"',0,0,0)[0][0];
     if (id != undefined)
         $("#vidcliente").val(id);
     else
         $("#vidcliente").val(0);
 });
 
-$(document).on("blur","#nuser",function(){
+$(document).on("blur","#usuario",function(){
     var id = arr('login',4,'id',1,'nombre = "'+$(this).val()+'" or user = "'+$(this).val()+'"',0,0,0)[0][0];
     if (id != undefined)
         $("#vidusuario").val(id);
@@ -175,12 +175,12 @@ function validar (varreglo,vmodulo) {
 
 function validarReporte() {
     if ($("#xcli").is(":checked") && $("#hcli").val() == 0) {
-        $("#nclie").select();
+        $("#cliente").select();
         return 'Cliente no válido';
     }
 
     if ($("#xusu").is(":checked") && $("#husu").val() == 0) {
-        $("#nuser").select();
+        $("#usuario").select();
         return 'Usuario no válido';
     }
 

@@ -2,45 +2,43 @@
     <li class="per5101" id="pl1">
         <div class="collapsible-header productline active centro3"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks pequeño">
-            <div class="col s12 m6 l6 per5102 pequeño" id="ftareaproducciones">
+            <div class="col s12 m4 l4 per5102 pequeño" id="ftareaproducciones">
                 <div class="row">
-                    <div class="input-field col s12 m8 l6">
-                        <input id="vnombre" type="text" class="validate" ku="1" autocomplete="off">
+                    <div class="input-field col s12 m12 l12">
+                        <input type="text" id="vnombre" class="validate" ku="1" autocomplete="off">
                         <label for="vnombre">Tarea de Producción</label>
                         <input type="hidden" id="vid" value="0">
                         <input type="hidden" class="zelda">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12 m4 l4">
-                        <input type="number" id="vhorahombre" min="0" class="validate">
-                        <label for="vhorahombre">Horas Hombre</label>
+                    <div class="input-field col s10 m10 l10">
+                        <input type="number" id="vhorahombre" class="validate">
+                        <label for="vhorahombre">Duración Hombre</label>
                     </div>
-                    <div class="input-field col s12 m4 l4">
-                        <input type="number" id="vhoramaquina" min="0" class="validate">
-                        <label for="vhoramaquina">Horas Maquina</label>
+                    <div class="col s2 m2 l2">
+                        <select type="select" id="vidunidad1" class="vidunidad"></select>
                     </div>
                     
                 </div>
                 <div class="row">
-                    <div class="input-field col s12 m4 l4">
-                        <input type="text" id="bandejas" class="validate">
-                        <label for="bandejas">Bandejas</label>
+                    <div class="input-field col s2 m2 l2">
+                        <input type="number" id="vhoramaquina" class="validate">
+                        <label for="vhoramaquina">Duración Máquina</label>
                     </div>
-                    <div class="input-field col s12 m4 l4">
-                        <input type="text" id="maquina" class="validate">
-                        <label for="maquina">Maquina</label>
+                    <div class="col s3 m3 l3">
+                        <select type="select" id="vidunidad2" class="vidunidad"></select>
                     </div>
                 </div>
-                <div class="row pequeño">
-                      <div class="col s12 m12 offset-m6   offset-s4 pequeño">
-                        <a class="waves-effect waves-light btn blue z-depth-3 white-text blue add mbutton" id="addlinea" modulo="tareaproduccione">Agregar</a>
-                    </div> 
+                <div class="row">
+                    <div class="input-field col s8 m4 l4">
+                        <input type="text" id="vbandejas" class="validate">
+                        <label for="vbandejas">Bandejas</label>
                     </div>
-               
-                    <br>
+                    <a class="waves-effect waves-light btn blue z-depth-3 white-text blue add mbutton" id="addlinea" modulo="tareaproduccione">Agregar</a>
+                </div>
             </div>
-            <div class="col s12 m6 l6 pequeño">
+            <div class="col s12 m8 l8 pequeño">
                 <div class="input-field col s12 m6 l6" style="padding-left: 0%">
                     <i class="material-icons prefix blue-text">search</i>
                     <input type="text" id="search_tareaproducciones" class="validate" num="v180" var="vnombre" cambio="134">
@@ -52,6 +50,7 @@
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Horas Hombre</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Horas Maquina</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Bandejas</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
                         </tr>
                     </thead>
@@ -61,6 +60,7 @@
                             <td style=" padding: 10px;">{$LPR[LE][1]}</td>
                             <td style=" padding: 10px;">{$LPR[LE][2]}</td>
                             <td style=" padding: 10px;">{$LPR[LE][3]}</td>
+                            <td style=" padding: 10px;">{$LPR[LE][4]}</td>
                             <td style=" padding: 10px;">
                                 <a class="btn-color pbtn load" id="m{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">edit</i></a>
                                 <a class="btn-color pbtn cdel delete" id="d{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">close</i></a>
@@ -137,7 +137,7 @@
         </div>
     </li>
     <li class="per5104" id="pl3">
-        <div class="collapsible-header productline"><i class="material-icons">build</i>Mantenimeinto Lineas de Producción</div>
+        <div class="collapsible-header productline"><i class="material-icons">build</i>Mantenimiento Lineas de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row">
                 <div class="col s12 m6 l6">

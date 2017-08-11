@@ -101,7 +101,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
             <input type="text" id="precp" class="f center" value="0.00" readonly>
           </td>
           <td style="width: 10%; " class="input-field">
-            <input type="number" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
           <td style="width: 14%; " class="input-field">
             <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
@@ -287,4 +287,4 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=0.14"></script>
+<script src="../assets/js/modulos/ventas.js?v=0.18"></script>

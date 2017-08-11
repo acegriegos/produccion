@@ -6,6 +6,7 @@ $(document).keydown(function(e){
 });
 
 $(function(){
+    console.log("hm")
     $("#ffacturas").submit(function(){
         return false;
     });
@@ -255,7 +256,7 @@ $(document).on("keyup","#cantp",function(e){
             var inv = $("#valores").data('elemento')['hinv'];
 
                 var cnt = 0
-                var idprd = $("#valores").data('elemento')['hcodp'];
+                var idprd = $("#valores").data('elemento')['idp'];
                 var dcs = $("#valores").data('elemento')['hdesc'];
                 var mdcs = $("#valores").data('elemento')['hdescm'];
                 var desc = $("#descp").val();
@@ -405,6 +406,7 @@ $(document).on("click","#btnAjuste",function(){
 
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
+    console.log(idprod)
     var err = 0;
     var existe = 0;
     var precio = parseFloat(prec);
@@ -609,9 +611,9 @@ function cargarSintax(){
 }
 
 function endDetail(vid) {
-    // window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
-    // arr('login',7,'1',195,'','null,'+vid+',4,'+$("#p_v").is(':checked'),0,0,0);
-    // setTimeout(function(){location.reload();},1000);
+    window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+    arr('login',7,'1',195,'','null,'+vid+',4,'+$("#p_v").is(':checked'),0,0,0);
+    setTimeout(function(){location.reload();},1000);
     return false;
 }
 

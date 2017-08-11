@@ -41,6 +41,7 @@
                         <label for="porvencer">Por Vencer</label>
                     </div>
                 </div>
+                <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu">Pago Multiple</a>
 
 
             </div>
@@ -58,7 +59,7 @@
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Fecha</th>
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Plazo</th>
-                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Días</th>
+                                    <th class="white-text blue " style=" padding: 10px; color:black; border-radius: 0px!important;">Días</th>
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Sucursal</th>
  
 
@@ -248,7 +249,35 @@
 </ul>
 
 
+<ul id="pagomultiples" class="side-nav"  style="width: 60%">
+        <div class="card-header center white-text pequeño" style="background-color:#0B3861; margin: 0 !important" >
+            <p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Cuenta</p>
+            <p class="flow-text">Pago Multiple</p>
+            <br>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m7">
+                    <span id="buscarcli" class="prefix medium material-icons blue-text ">search</span>   
+                    <input  type="text" id="ncli" maxlength="100" num="v29" var="nombre">
+                    <label for="ncli">Buscar Cliente</label>
+            </div>
+            <div class="card-block pequeño">
+                <div class="row  pequeño">
+                    <div class="col s12 pequeño">
+                        <table id="data-table-facturas" class="pequeño  table centered highlight bordered responsive-table z-depth-5 pbtns">
+                            <thead>
+                                <tr>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">No Factura</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important; ">Fecha</th>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaCuentasx"> 
 
+                        </tbody>
+                    </table>
+            </div>
+</ul>
 
 
 

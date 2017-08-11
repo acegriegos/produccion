@@ -1,7 +1,9 @@
 var gtipo;
+var paramTemp;
 
 $(function(){
 	param = parseInt(getParameterByName('tf'));
+	paramTemp = param;
 	switch(param){
 		case 1:
 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
@@ -15,6 +17,41 @@ $(function(){
 		$("#bdymantCuentas").html("Valor no Valido")
 		break; 
 	};
+	    $("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);//$(this).val().substr(-1);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        // if (charStr.search(/[a-zA-Z0-9-_. ]/i) >= 0 || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#ncli").autocomplete({
+                limit: 20,
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+            });
+
+        }
+    });
+	        $("#ncli").blur(function(e){
+	        	var sql = "id > 0 and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"'";
+        var id = arr('login',4,'id','2',sql,0,0,0);
+        
+        if(id[0].length == 0) {
+        	Materialize.toast('Cliente no existente', 4000, 'red');
+        } else {
+
+        	var p = arr('login',4,'',214,paramTemp+','+id[0][0][0],0,0,0);
+        }
+ console.log(p);
+    });
+	            $("#ncli").keyup(function(e){
+        var charCode = e.which || e.keyCode;
+        
+        
+        if (charCode == 13) {
+        $(this).blur();
+        }
+    });
 	$("#data-table-cuentas").dataTable({
 		bFilter: false,
 		order : [],
@@ -65,7 +102,13 @@ $(document).on("change","#cobInteres",function(){
 		$("#totSaldoVig").val(totSaldo);
 	}
 });
-
+$(document).on("click",".pagomu",function(){
+	$(this).sideNav({
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+        }
+        );
+	});
 
 $(document).on("click",".detalle",function(){
 	$(this).sideNav({

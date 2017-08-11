@@ -80,8 +80,8 @@
                         <div id="fclientes">
                             <input type="hidden" class="zelda">
                             <div class="row">
-                                <br>
-                                <div class="col s12 m12 l12">
+<!--  -->
+                                <div class="col s12 m9 l9"><br><br>
                                     <div class="row parte1 col s12" id="info">
                                         <div class="row" style="margin: 0px">
                                             <div class="col s6 m3 l2">
@@ -118,8 +118,9 @@
                                   </div>
                               <input type="hidden" id="vidtipocliente" value="1">
                           </div>
+                          <br>
                           <div class="card-title pequeño" id="titInfo"  align="center"><b>Datos Personales</b></div>
-
+                          <br>
                           <div class="row">
                             <div class="input-field col s12 m6 l4">
                                 <label id="nomClie" for="vnombre">Nombre</label>
@@ -155,16 +156,6 @@
                                 <input type="text" class="form-control" id="vweb" placeholder="www.webempresa.com">
                             </div>
 
-                            <div class="input-field col s12 m6 l4">
-                                <select id="videstado" type="select">
-                                    <option value="" disabled selected>Seleccione un Estado</option>
-                                    {section name=LE loop=$ESTCLIE}
-                                    <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
-                                    {/section}
-                                </select>
-                                <label for="videstado">Estado</label>
-                            </div>
-
                             </div>
                             <div class="row">
                             <div class="input-field col s12 m12 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
@@ -192,7 +183,7 @@
                                         </div>
                                         <div class="input-field col s12 m6">
                                             
-                                            <span class="prefix" id="prefijo" style="font-size: 14px;margin-top: 14px">(+)</span>
+                                            <!-- <span class="prefix" id="prefijo" style="font-size: 14px;margin-top: 14px">(+)</span> -->
                                             <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
                                             <input type="hidden" id="vtelefono" fill="19">
                                             <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
@@ -290,8 +281,69 @@
                     </div>
 
                 </div>
+            <!-- CARD -->
+                <div class="col s12 m3 l3">
+                    <div class="row" style="background: #DEDEDE">
+                    <div>
+                        <div class="s12 m12 l12 col" align="center">
+                            <ul>
+                                <li>
+                                    <h5><b>Jhon Doe</b></h5>
+                                    <label>Cliente de <span>Crédito</span></label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="s5 m5 l5 col" align="center">
+                            <ul>
+                                <li style="font-size: 0.8em"><b>Cédula</b></li><br>
+                                <li style="font-size: 0.8em"><b>Correo</b></li>
+                                <li style="font-size: 0.8em">&nbsp;</li><br>
+                                <li style="font-size: 0.8em"><b>Teléfono</b></li>
+                                <li style="font-size: 0.8em">&nbsp;</li><br>
+                                <li style="font-size: 0.8em"><b>Código</b></li><br>
+                                <li style="font-size: 0.8em"><b>Web</b></li><br>
+                                <li style="font-size: 0.8em"><b>Provincia</b></li>
+                                <li style="font-size: 0.8em"><b>Cantón</b></li>
+                                <li style="font-size: 0.8em"><b>Distrito</b></li><br>
+                                <li style="font-size: 0.8em"><b>Direccion</b></li><br>
+                                <li style="font-size: 0.8em">&nbsp;</li>
+                            </ul>
+                        </div>
+                        <div class="s7 m7 l7 col" align="left">
+                            <ul>
+                                <li style="font-size: 0.8em">204980736</li><br>
+                                <li style="font-size: 0.8em">info@jhondoe.com</li>
+                                <li style="font-size: 0.8em">info@jhondoe.com</li><br>
+                                <li style="font-size: 0.8em">(506) 2493-87728</li>
+                                <li style="font-size: 0.8em">(506) 8773-8725</li><br>
+                                <li style="font-size: 0.8em">JDO389</li><br>
+                                <li style="font-size: 0.8em">www.jhondoe.com</li><br>
+                                <li style="font-size: 0.8em">Alajuela</li>
+                                <li style="font-size: 0.8em">Grecia</li>
+                                <li style="font-size: 0.8em">San José</li><br>
+                                <li style="font-size: 0.8em">500 mts Sur Gasolinera Sta Gertrudis Norte</li><br>
+                            </ul>
+                        </div>
+                        <div class="s12 m12 l12 col" align="center">
+                        <ul>
+                            <li style="font-size: 0.8em">
+                            <label><b>Estado de Cliente</b></label>
+                            <div class="switch">
+                                <label>
+                                  Inactivo
+                                  <input type="checkbox" id="videstado" value="">
+                                  <span class="lever"></span>
+                                  Activo
+                                </label>
+                              </div>
+                            </li>
+                        </ul><br>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+            <!-- END CARD -->
             </div>
-
         </div>
     </div>
 
