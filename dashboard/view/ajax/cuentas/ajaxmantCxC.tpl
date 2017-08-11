@@ -272,7 +272,7 @@
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
                                 </tr>
                             </thead>
-                            <tbody id="listaCuentasx"> 
+                            <tbody id="listaCuentasPm"> 
 
                         </tbody>
                     </table>

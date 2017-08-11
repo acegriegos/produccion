@@ -7,11 +7,11 @@ $(function(){
 	switch(param){
 		case 1:
 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-		arr('login',6,'',214,2+',0',0,1,$("#listaCuentasx"));
+		arr('login',6,'',214,2+',0,0',0,1,$("#listaCuentasx"));
 		break;
 		case 2:
 		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-		arr('login',6,'',214,1+',0',0,1,$("#listaCuentasx"));
+		arr('login',6,'',214,1+',0,0',0,1,$("#listaCuentasx"));
 		break;	
 		default:
 		$("#bdymantCuentas").html("Valor no Valido")
@@ -39,8 +39,25 @@ $(function(){
         if(id[0].length == 0) {
         	Materialize.toast('Cliente no existente', 4000, 'red');
         } else {
+            var pr = paramTemp == 2?1:2;
 
-        	var p = arr('login',4,'',214,paramTemp+','+id[0][0][0],0,0,0);
+        	var p = arr('login',4,'',214,pr+',0,'+id[0][0][0],0,0,0);
+            console.log(p);
+ 
+           var tabla = $("#listaCuentasPm");	
+           for (var i = 0; i <= p[0].length; i++) {
+           
+           var q = p[0][i];
+         
+           var tdFecha = '<td>'+q[5]+'</td>';
+
+           var tdSaldo = '<td>'+q[6]+'</td>';
+             var trIdFactura = '<tr><td>'+q[3]+'</td>'+tdFecha+tdSaldo+'</tr>';
+             console.log(trIdFactura);    
+           tabla.append(trIdFactura);
+           
+           }
+
         }
  console.log(p);
     });
@@ -119,7 +136,7 @@ $(document).on("click",".detalle",function(){
 	$(this).sideNav('show');
 	var id = $(this).attr('id').substr(1);
 	gtipo = $(this).attr('tipo');
-	var datos =  arr('login',4,'',214,gtipo+','+id,0,0,0)[0][0];
+	var datos =  arr('login',4,'',214,gtipo+','+id+',0',0,0,0)[0][0];
 	var tabla= $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
 	arr('login',6,'',213,gtipo+','+id,0,1,$("#listaCuentasxCDetalle"));
@@ -341,7 +358,7 @@ function kpress(valor) {
 				$("#vidtipopago").val('');
 				$("#vvalor").val(0.00);
 				arr('login',6,'',213,gtipo+','+$("#vidfactura").val(),0,1,$("#listaCuentasxCDetalle"));
-				arr('login',6,'',214,gtipo+',0',0,1,$("#listaCuentasx"));
+				arr('login',6,'',214,gtipo+',0,0',0,1,$("#listaCuentasx"));
 
 				$("#btn-div").click();
 				var tp = $("#p_v").is(":checked") == true ? 1 : 2;

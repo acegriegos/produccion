@@ -8,8 +8,8 @@ $(function(){
 	
 	$("#fclientes").submit(function(){return false});
 
-	$("#data-table-clientes").dataTable({
 		bFilter: false,
+	$("#data-table-clientes").dataTable({
 		order : [],
 		"bLengthChange": false
 	});
