@@ -33,7 +33,7 @@ $(function(){
         }
     });
 	        $("#ncli").blur(function(e){
-	        	var sql = "id > 0 and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"'";
+	    var sql = "id > 0 and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"'";
         var id = arr('login',4,'id','2',sql,0,0,0);
         
         if(id[0].length == 0) {
@@ -48,12 +48,12 @@ $(function(){
            for (var i = 0; i <= p[0].length; i++) {
            
            var q = p[0][i];
-         
+           var  check= '<td> <input type="checkbox" id="check'+i+'" value="'+q[12]+'"/><label for="check'+i+'"></label> </td>'; 
            var tdFecha = '<td>'+q[5]+'</td>';
-
+           
            var tdSaldo = '<td>'+q[6]+'</td>';
-             var trIdFactura = '<tr><td>'+q[3]+'</td>'+tdFecha+tdSaldo+'</tr>';
-             console.log(trIdFactura);    
+             var trIdFactura = '<tr>'+check+'<td>'+q[3]+'</td>'+tdFecha+tdSaldo+'</tr>';
+              
            tabla.append(trIdFactura);
            
            }
@@ -127,6 +127,19 @@ $(document).on("click",".pagomu",function(){
         );
 	});
 
+$(document).on("click","#btnPagar",function(){
+	var sList ="";
+	$('input[type=checkbox]').each(function () {
+	if(this.checked == "1")	
+    sList += $(this).val()+",";
+});
+	console.log(sList);
+if(sList.length > 1 && $('#monto').val() > 0) {
+alert('ejecutar');
+}
+});
+
+	
 $(document).on("click",".detalle",function(){
 	$(this).sideNav({
             edge: 'left', // Choose the horizontal origin

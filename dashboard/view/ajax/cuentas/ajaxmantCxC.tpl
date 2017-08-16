@@ -267,6 +267,7 @@
                         <table id="data-table-facturas" class="pequeño  table centered highlight bordered responsive-table z-depth-5 pbtns">
                             <thead>
                                 <tr>
+                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;"></th>
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">No Factura</th>
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important; ">Fecha</th>
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
@@ -275,8 +276,20 @@
                             <tbody id="listaCuentasPm"> 
 
                         </tbody>
+
+              
                     </table>
-            </div>
+                    
+                <div class="col s12 m12" style="margin-top:20px;">
+                    <div class="input-field col s6 m6">
+                        <input class="eder"  min="0" id="monto" type="number" name="monto">
+                        <label for="monto">Digitar Monto</label>
+                    </div>
+                    <div class="input-field col s6 m6">
+                        <button id="btnPagar" type="button" class="btn btn-flat blue white-text waves-effect">Pagar</button>
+                    </div>
+                </div>
+
 </ul>
 
 

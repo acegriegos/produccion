@@ -87,4 +87,10 @@ table.pbtns td:hover{
   display: block !important;
 }
 
+#transaccion {
+  background-color: red;
+}
+
+
+
 }
