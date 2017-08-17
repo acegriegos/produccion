@@ -72,10 +72,11 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           <th style="width: 10%; " class="center-align">Código</th>
           <th style="width: 30%; " class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 14%; " class="center-align"><span class="truncate">Prec.Unit</span></th>
+          <th style="width: 5%;" class="center-align"><span class="truncate">Unidad</span></th>
           <th style="width: 10%; " class="center-align">Cantidad</th>
           <th style="width: 14%; " class="center-align">Total</th>
           <th style="width: 17%; " class="center-align">
-          <div class="hide-on-small-only">
+          <div class="hide-on-small-only der">
             <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
             <label for="barras"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
 
@@ -100,6 +101,11 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           <td style="width: 14%; " class="input-field">
             <input type="text" id="precp" class="f center" value="0.00" readonly>
           </td>
+          <td style="width: 5%; " class="input-field">
+            <select id="uni" readonly >
+              <option>UN</option>
+            </select>
+          </td>
           <td style="width: 10%; " class="input-field">
             <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
@@ -108,14 +114,14 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           </td>
           <td class="center" style="font-size: 1em; width: 17%; ">
             
-            <div class="col s12 m4 l4">
+            <div class="col s12">
                 <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
                  <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
                 </a>
           </div>
           <div class="col s12 m8 l5"">
          
-             <a href="#!" title="Limpiar Campos" ><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+             <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
           </div>
   
           </td>
@@ -132,10 +138,6 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 <div class="card z-depth-5" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
   <p class="white-text card-header center" style="margin-top: 0px; background-color:#0B3861">DESGLOCE DE FACTURA</p>
   <div class="row">
-
-
-
-    
 
     <div class="col s12 m12 l6">
       <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
@@ -287,4 +289,18 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=0.18"></script>
+  <!-- Cambio del pago -->
+ <!-- Modal Structure -->
+  <div id="modalcambio" class="modal modal-fixed-footer modcambio">
+    <div class="modal-content">
+      <h4>Cambio</h4>
+      <p>A bunch of text</p>
+      <p>Pagó Con:</p>
+      <p>Su Cambio</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+    </div>
+  </div>
+
+<script src="../assets/js/modulos/ventas.js?v=0.20"></script>

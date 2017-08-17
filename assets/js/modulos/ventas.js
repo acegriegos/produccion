@@ -81,6 +81,7 @@ $(function(){
                 kbrota = 'P-'+$(this).val().substr(1);
             }
             var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+',1',0,0,0);
+
             if (cod[0][0] != undefined) {
                 var fimv = cod[0];
                 cod = cod[0][0];
@@ -488,7 +489,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
 
         $("#vdesc"+id).data('valor',dcs);
         $("#vdesc"+id).data('max',mdcs);
-        $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:dcs, vtotal:0, vidinventario:hinv,vidodt : 0});
+        $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:dcs, vtotal:0, vidinventario:hinv,vidodt : 0,vimv:0});
        
     }
     totalizar();
@@ -561,6 +562,7 @@ function totalizar(){
                 else{
                     var dimv = tmpdesc*(rimv/100);
                     impuesto += dimv;
+                    $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
 
                     var tmimv = $(this).attr('tmp_imv') == undefined ? dimv :parseFloat($(this).attr('tmp_imv'))+dimv;
                     $(this).attr('tmp_imv',tmimv)
@@ -627,6 +629,8 @@ function validarFactura() {
 
     if ($("#subtot").text() == '0.00') {
         $("#codp").focus()
+        
+        $('#modalcambio').modal('open');
         return "No se Han Ingresado Productos";
     }
 
@@ -645,9 +649,11 @@ function validarFactura() {
         // if(p['succed'] == 0){
         //     return p[0]['ERROR'] 
         // }
-    }
-    
-    return false;
+
+    }   
+         $('#modalcambio').modal('open');
+
+    return 'En Mantenimiento';
 }
 
 function cargar(vmodulo,vid) {

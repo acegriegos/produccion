@@ -124,7 +124,7 @@
                           <div class="row">
                             <div class="input-field col s12 m6 l4">
                                 <label id="nomClie" for="vnombre">Nombre</label>
-                                <input type="text" class="validate" id="vnombre">
+                                <input type="text" class="validate onblur" id="vnombre">
                                 <input type="hidden" id="vid" value="0">
                                 <input type="hidden" id="vidsucursal" value="">
                                 <input type="hidden" id="vbisproveedor" value="1">
@@ -133,46 +133,53 @@
 
                             <div class="input-field col s12 m6 col l4 hid">
                                 <label for="vapellido1">Primer Apellido</label>
-                                <input type="text" class="form-control" id="vapellido1">
+                                <input type="text" class="form-control onblur" id="vapellido1">
                             </div>
 
                             <div class="input-field col s12 m6 l4 hid">
                                 <label for="vapellido2">Segundo Apellido</label>
-                                <input type="text" class="form-control" id="vapellido2">
+                                <input type="text" class="form-control onblur" id="vapellido2">
                             </div>
                             
                             <div class="input-field col s12 m6 l4">
                                 <label for="vcedula">Cédula del Proveedor</label>
-                                <input type="text" class="validate" id="vcedula">
+                                <input type="text" class="validate onblur" id="vcedula">
                             </div>
 
                             <div class="input-field col s12 m6 l4">
                                 <label for="vcodigo">Código Interno de Cliente</label>
-                                <input type="text" class="validate" id="vcodigo">
+                                <input type="text" class="validate onblur" id="vcodigo">
                             </div>
 
                             <div class="input-field col s12 m6 col l4">
                                 <label for="vweb">Web</label>
-                                <input type="text" class="form-control" id="vweb" placeholder="www.webempresa.com">
+                                <input type="text" class="form-control onblur" id="vweb" placeholder="www.webempresa.com">
                             </div>
 
                             </div>
-                            <div class="row">
-                            <div class="input-field col s12 m12 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
+                            <div class="row" style="background: transparent">
+                            <div class="input-field col s12 m5 l5 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3" style="background: transparent">
                                 <div class="ciclos">
-                                    <div class="prefix"><i class="material-icons">email</i></div>
-                                    <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
+                                <div class="row">
+                                    <div class="l10 m10 s12 col">
+                                        <i class="material-icons prefix">email</i>
+                                        <input id="correo_in" type="text" class="validate tooltipped onblur" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
+                                        <label for="correo_in">Ingresar Correo</label>
+                                    </div>
+                                    <div class="l2 m2 s12 col">
+                                        <a href="#!" id="btnaddcorreo"><i class="material-icons">add_box</i></a>    
+                                    </div>
+                                </div>
                                     <input type="hidden" id="vcorreo" fill="18">
-                                    <label for="correo_in">Ingresar Correo</label>
-                                    <ul class="collapsible" data-collapsible="accordion" id="shcorreos"></ul>
+                                    <!-- class="collapsible" data-collapsible="accordion" es un ul -->
+                                    <div id="shcorreos"></div>
                                 </div>
                             </div>
-                            <div class="col s12 m12 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3">
+                            <div class="col s12 m7 l7 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3" style="background: transparent;">
                                 <div class="ciclos">
                                     <div class="row">
-                                        
-                                        <div class="input-field col s12 m6">
-                                            <div class="prefix"><i class="fa fa-phone"></i></div>
+                                        <div class="input-field col s4 m4">
+                                            <!-- <div class="prefix"><i class="fa fa-phone"></i></div> -->
                                             <select type="select" id="tptel">
                                                 <option value="" disabled selected>Seleccione Tipo de Tel.</option>
                                                 {section name=LE loop=$TPTEL}
@@ -181,13 +188,20 @@
                                             </select>
                                             <label for="tptel">Tipo Teléfono</label>
                                         </div>
-                                        <div class="input-field col s12 m6">
+                                        <div class="input-field col s8 m8">
                                             
-                                            <!-- <span class="prefix" id="prefijo" style="font-size: 14px;margin-top: 14px">(+)</span> -->
-                                            <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+                                            <div class="l10 m10 s10 col">
+                                                <i class="material-icons prefix">phone</i>
+                                                <input type="tel" class="validate tooltipped onblur" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+                                                <label for="telefono_in">Teléfono</label>
+                                            </div>
+                                            <div class="l2 m2 s2 col">
+                                                <a href="#!"><i class="material-icons">add_box</i></a>    
+                                            </div>
+                                            
                                             <input type="hidden" id="vtelefono" fill="19">
-                                            <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
-                                            <ul class="collapsible" data-collapsible="accordion" id="shtelefonos"></ul>
+                                            <!-- <label class="truncate" for="telefono_in">Ingresar Teléfono</label> -->
+                                            <!-- <ul class="collapsible" data-collapsible="accordion" id="shtelefonos"></ul> -->
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +242,7 @@
                                         <div class="provincia">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
 
-                                            <select id="vidprovincia" type="select" class="_det" primary="1">
+                                            <select id="vidprovincia" type="select" class="_det onblur" primary="1">
                                                 <option value="0">Seleccione una Provincia</option>
                                                 {section name=LE loop=$PRO}
                                                 <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
@@ -240,7 +254,7 @@
                                     <div class="input-field col s12 m6 l4">
                                         <div class="canton">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="material-icons">add</i></a>
-                                            <select id="vidcanton" type="select" class="_det">
+                                            <select id="vidcanton" type="select" class="_det onblur">
                                                 <option value="">Seleccione un Cantón</option>
                                             </select>
                                             <label for="vidcanton">Cantón</label>
@@ -250,7 +264,7 @@
                                         <div class="distrito">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="material-icons">add</i></a>
 
-                                            <select id="viddistrito" type="select" class="_det">
+                                            <select id="viddistrito" type="select" class="_det onblur">
                                                 <option value="">Seleccione un Distrito</option>
                                             </select>
                                             <label for="viddistrito">Distrito</label>
@@ -288,7 +302,7 @@
                         <div class="s12 m12 l12 col" align="center">
                             <ul>
                                 <li>
-                                    <h5><b>Jhon Doe</b></h5>
+                                    <h5><b><span id="infvnombre0"></b></span></h5>
                                     <label>Cliente de <span>Crédito</span></label>
                                 </li>
                             </ul>
@@ -311,17 +325,17 @@
                         </div>
                         <div class="s7 m7 l7 col" align="left">
                             <ul>
-                                <li style="font-size: 0.8em">204980736</li><br>
-                                <li style="font-size: 0.8em">info@jhondoe.com</li>
-                                <li style="font-size: 0.8em">info@jhondoe.com</li><br>
-                                <li style="font-size: 0.8em">(506) 2493-87728</li>
-                                <li style="font-size: 0.8em">(506) 8773-8725</li><br>
-                                <li style="font-size: 0.8em">JDO389</li><br>
-                                <li style="font-size: 0.8em">www.jhondoe.com</li><br>
-                                <li style="font-size: 0.8em">Alajuela</li>
-                                <li style="font-size: 0.8em">Grecia</li>
-                                <li style="font-size: 0.8em">San José</li><br>
-                                <li style="font-size: 0.8em">500 mts Sur Gasolinera Sta Gertrudis Norte</li><br>
+                                <li style="font-size: 0.8em"><span id="infcedula1"></span></li><br>
+                                <li style="font-size: 0.8em"><span id="infcorreo2"></span></li>
+                                <li style="font-size: 0.8em"><span id="infcorreo3"></span></li><br>
+                                <li style="font-size: 0.8em"><span id="inftelefono4"></span></li>
+                                <li style="font-size: 0.8em"><span id="inftelefono5"></span></li><br>
+                                <li style="font-size: 0.8em"><span id="infcodigo6"></span></li><br>
+                                <li style="font-size: 0.8em"><span id="infweb7"></span></li><br>
+                                <li style="font-size: 0.8em"><span id="infprovincia8"></span></li>
+                                <li style="font-size: 0.8em"><span id="infcanton9"></span></li>
+                                <li style="font-size: 0.8em"><span id="infdistrito10"></span></li><br>
+                                <li style="font-size: 0.8em"><span id="infdireccion11"></span></li><br>
                             </ul>
                         </div>
                         <div class="s12 m12 l12 col" align="center">

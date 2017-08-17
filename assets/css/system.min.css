@@ -66,9 +66,9 @@ font-size: 1.2em !important;
 }
 
 .bdy {
-  padding-left: 3%;
+  margin-left: 4%;
   margin-top: 1%;
-  padding-right: 3%;
+  margin-right: 2%;
   /*background-color: #0B3861;*/
 }
 

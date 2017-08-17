@@ -8,8 +8,9 @@ $(function(){
 	
 	$("#fclientes").submit(function(){return false});
 
-		bFilter: false,
+		
 	$("#data-table-clientes").dataTable({
+		bFilter: false, 
 		order : [],
 		"bLengthChange": false
 	});
@@ -116,27 +117,16 @@ $(function(){
 		$("#prefijo").html('('+$('option:selected',this).attr('cod')+')')
 	});
 
+	$("#btnaddcorreo").click(function(){
+		var idfila = $(this).attr('idfila');
+		addon_ckub(idfila);
+	});
+
 	$("#correo_in").keyup(function(e){
+		var idfila = $(this).attr('idfila');
 		var code = e.which || e.keyCode
-		var idfila = $(this).attr('idfila')
 		if (code == 13) {
-			if (idfila == undefined) {
-				if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-					$("#shcorreos").append('<li id="0_'+ind_2+'"><div class="collapsible-header"><span class="badge" id="mail'+ind_2+'">'+$(this).val()+'</span></div> <div class="collapsible-body row"><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light blue edit_mail" id="m0_'+ind_2+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a></div><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light red del_mail" id="d0_'+ind_2+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div></div></li>');
-						$("#shcorreos").removeClass('hide');
-						$(this).val('');
-						ind_2 += 1;
-						$('.collapsible').collapsible();
-				}else{
-					Materialize.toast('Correo no Válido',4000,'danger');
-					$(this).select();
-				}
-			}else{
-				$("#mail"+idfila).text($(this).val());
-				$(this).removeAttr('idfila');
-				$(this).val('');
-			}
-			
+			addon_ckub(idfila);
 		}
 	});
 
@@ -149,6 +139,7 @@ $(function(){
 	});
 
 	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1});
+
 
 });
 
@@ -411,6 +402,23 @@ function postload(modulo) {
 	}
 }
 
-function addonblur(){
+function addon_ckub(vfila){
 
+	if (vfila == undefined) {
+		if ($("#correo_in").val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+			$("#shcorreos").append('<div class="chip">'+$("#correo_in").val()+'<i class="close material-icons">close</i></div>');
+  // <li id="0_'+ind_2+'"><div class="collapsible-header"><span class="badge" id="mail'+ind_2+'">'+$("#correo_in").val()+'</span></div> <div class="collapsible-body row"><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light blue edit_mail" id="m0_'+ind_2+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a></div><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light red del_mail" id="d0_'+ind_2+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div></div></li>');
+				$("#shcorreos").removeClass('hide');
+				$("#correo_in").val('');
+				ind_2 += 1;
+				$('.collapsible').collapsible();
+		}else{
+			Materialize.toast('Correo no Válido',4000,'danger');
+			$("#correo_in").select();
+		}
+	}else{
+		$("#mail"+vfila).text($("#correo_in").val());
+		$("#correo_in").removeAttr('idfila');
+		$("#correo_in").val('');
+	}
 }

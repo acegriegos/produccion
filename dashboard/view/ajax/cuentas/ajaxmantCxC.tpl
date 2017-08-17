@@ -268,9 +268,9 @@
                             <thead>
                                 <tr>
                                     <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;"></th>
-                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">No Factura</th>
-                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important; ">Fecha</th>
-                                    <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
+                                    <th class="white-text blue sorting" style=" padding: 10px; color:black; border-radius: 0px!important;">No Factura</th>
+                                    <th class="white-text blue sorting" style=" padding: 10px; color:black; border-radius: 0px!important; ">Fecha</th>
+                                    <th class="white-text blue sorting" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
                                 </tr>
                             </thead>
                             <tbody id="listaCuentasPm"> 

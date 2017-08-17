@@ -12,22 +12,30 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s10 m10 l10">
-                        <input type="number" id="vhorahombre" class="validate">
+                    <div class="input-field col s6 m6 l6">
+                        <input type="number" id="vhorahombre" class="validate" min="0">
                         <label for="vhorahombre">Duración Hombre</label>
                     </div>
-                    <div class="col s2 m2 l2">
-                        <select type="select" id="vidunidad1" class="vidunidad"></select>
+                    <div class="input-field col s6 m6 l6">
+                        <select type="select" id="vidunidad1" class="vidunidad">
+                            {section name=LE loop=$UNI}
+                                <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
+                            {/section}
+                        </select>
                     </div>
                     
                 </div>
                 <div class="row">
-                    <div class="input-field col s2 m2 l2">
-                        <input type="number" id="vhoramaquina" class="validate">
+                    <div class="input-field col s6 m6 l6">
+                        <input type="number" id="vhoramaquina" class="validate" min="0">
                         <label for="vhoramaquina">Duración Máquina</label>
                     </div>
-                    <div class="col s3 m3 l3">
-                        <select type="select" id="vidunidad2" class="vidunidad"></select>
+                    <div class="input-field col s6 m6 l6">
+                        <select type="select" id="vidunidad2" class="vidunidad">
+                            {section name=LE loop=$UNI}
+                                <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
+                            {/section}
+                        </select>
                     </div>
                 </div>
                 <div class="row">

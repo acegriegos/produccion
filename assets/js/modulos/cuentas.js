@@ -42,9 +42,8 @@ $(function(){
             var pr = paramTemp == 2?1:2;
 
         	var p = arr('login',4,'',214,pr+',0,'+id[0][0][0],0,0,0);
-            console.log(p);
- 
-           var tabla = $("#listaCuentasPm");	
+           var tabla = $("#listaCuentasPm");
+           tabla.html("");	
            for (var i = 0; i <= p[0].length; i++) {
            
            var q = p[0][i];
@@ -57,9 +56,13 @@ $(function(){
            tabla.append(trIdFactura);
            
            }
-
+        $("#data-table-facturas").dataTable({
+		bFilter: false,
+		order : [],
+		"bLengthChange": false
+	});
         }
- console.log(p);
+
     });
 	            $("#ncli").keyup(function(e){
         var charCode = e.which || e.keyCode;
@@ -74,6 +77,7 @@ $(function(){
 		order : [],
 		"bLengthChange": false
 	});
+
 
 	$("#data-table-cuentas-xP").dataTable({
 		bFilter: false,
@@ -133,11 +137,33 @@ $(document).on("click","#btnPagar",function(){
 	if(this.checked == "1")	
     sList += $(this).val()+",";
 });
-	console.log(sList);
-if(sList.length > 1 && $('#monto').val() > 0) {
-alert('ejecutar');
-}
-});
+	
+    if($('#monto').val() <= 0) {
+           Materialize.toast('El monto a pagar debe ser superior a 0', 4000, 'red');
+    } else {
+    	if(sList.length < 1) {
+    		sList = ""; 	
+          $('input[type=checkbox]').each(function () {
+         if(!isNaN($(this).val())) 	
+          sList += $(this).val()+",";
+       });  
+    	} 
+            //Llamar al procedimiento
+            if(sList.length > 0) {
+            var result = arr('login',4,'',229,'"'+sList+'",'+$('#monto').val()+',@@usr,1',0,0,0)[0][0];
+                
+                var id = result[0];
+                var residuo = result[1];
+                alert(residuo);
+            	Materialize.toast('Pago realizado', 4000, 'green');
+            	window.open("cuentas?accion=5&id="+id); 
+            } else {
+            	Materialize.toast('Seleccione a un cliente', 4000, 'red');
+            }
+    	}
+
+    }
+  );
 
 	
 $(document).on("click",".detalle",function(){
