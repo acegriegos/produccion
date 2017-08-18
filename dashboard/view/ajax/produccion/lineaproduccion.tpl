@@ -13,8 +13,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 m6 l6">
-                        <input type="number" id="vhorahombre" class="validate" min="0">
-                        <label for="vhorahombre">Duración Hombre</label>
+                        <input type="number" id="vhombre" class="validate" min="0">
+                        <label for="vhombre">Duración Hombre</label>
                     </div>
                     <div class="input-field col s6 m6 l6">
                         <select type="select" id="vidunidad1" class="vidunidad">
@@ -27,8 +27,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 m6 l6">
-                        <input type="number" id="vhoramaquina" class="validate" min="0">
-                        <label for="vhoramaquina">Duración Máquina</label>
+                        <input type="number" id="vmaquina" class="validate" min="0">
+                        <label for="vmaquina">Duración Máquina</label>
                     </div>
                     <div class="input-field col s6 m6 l6">
                         <select type="select" id="vidunidad2" class="vidunidad">
