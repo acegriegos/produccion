@@ -1184,13 +1184,25 @@ function validarlinea() {
         $("#vnombre").focus();
         return 'Nombre Requerido';
     }
-    if ($("#vhorahombre").val() == '') {
-        $("#vhorahombre").focus();
-        return 'Hora Hombre Requerido';
+    if ($("#vhombre").val() == '') {
+        $("#vhombre").focus();
+        return 'Duración Hombre Requerido';
     }
-    if ($("#vhoramaquina").val() == '') {
-        $("#vhoramaquina").focus();
-        return 'Hora Máquina Requerido';
+    if ($("#vidunidad1").val() == 0) {
+        $("#vidunidad").focus();
+        return 'Unidad Requerido';
+    }
+    if ($("#vmaquina").val() == '') {
+        $("#vmaquina").focus();
+        return 'Duración Máquina Requerido';
+    }
+    if ($("#vidunidad2").val() == 0) {
+        $("#vidunidad2").focus();
+        return 'Unidad Requerido';
+    }
+    if ($("#vbandejas").val() == 0) {
+        $("#vbandejas").focus();
+        return 'Bandejas Requerido';
     }
 
     return false;
@@ -1237,7 +1249,7 @@ function validateprodline(tipo) {
 function cargar(vmodulo,vid) {
     switch(vmodulo['modulo']) {
         case 'tareaproduccione':
-            vmodulo['sel'] = 'id as vid,nombre as vnombre,horahombre as vhorahombre,horamaquina as vhoramaquina';
+            vmodulo['sel'] = 'id as vid,nombre as vnombre,hombre as vhombre,idunidad1 as vidunidad1,maquina as vmaquina,idunidad2 as vidunidad2, bandejas as vbandejas';
             vmodulo['tbl'] = 134;
             vmodulo['where'] ='id = '+vid;
             break;
@@ -1259,8 +1271,8 @@ function cargarSintax(vtabla){
             break;
         case 'tareaproducciones':
             var arr = {};
-            arr['sel'] = 'id,nombre,horahombre,horamaquina';
-            arr['tbl'] = 134;
+            arr['sel'] = 'id,nombre,hombre,maquina,bandejas';
+            arr['tbl'] = 180;
             arr['where'] = 'id > 0 order by nombre limit 20';
             break;
     }
