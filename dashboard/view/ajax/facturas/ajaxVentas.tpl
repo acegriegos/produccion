@@ -288,8 +288,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
 </div>
 </div>
-
-  <!-- Cambio del pago -->
+<!-- Cambio del pago -->
  <!-- Modal Structure -->
   <div id="modalcambio" class="modal modal-fixed-footer modcambio">
     <div class="modal-content">

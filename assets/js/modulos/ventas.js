@@ -302,7 +302,7 @@ $(document).on("keyup","#cantp",function(e){
             var inv = $("#valores").data('elemento')['hinv'];
 
             var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
-            
+            alert(cnt)
             if (cant > cnt) {
                Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
             }else if (cant <= cnt || cnt == '∞') {
@@ -630,8 +630,8 @@ function validarFactura() {
     if ($("#subtot").text() == '0.00') {
         $("#codp").focus()
         
-        $('#modalcambio').modal('open');
-        return "No se Han Ingresado Productos";
+/*        $('#modalcambio').modal('open');
+*/        return "No se Han Ingresado Productos";
     }
 
     if ($("#vcomentario").val() == '') {
@@ -651,9 +651,9 @@ function validarFactura() {
         // }
 
     }   
-         $('#modalcambio').modal('open');
+       /*  $('#modalcambio').modal('open');*/
 
-    return 'En Mantenimiento';
+    return false;
 }
 
 function cargar(vmodulo,vid) {

@@ -19,7 +19,6 @@
           <b>Teléfono:</b>  <?php echo $miscelaneos[2][0]; ?><br>
           <b>Correo:</b> <?php echo $miscelaneos[3][0]; ?><br>
           <b>Dirección:</b> <?php echo $miscelaneos[4][0]; ?><br>
-          
         </font>
       </div>
 
@@ -30,7 +29,7 @@
        <div class="row">
          <div class="col s12" id="infofact" >
           <b id="fact">Recibo N°</b>
-            <span id="numfact"> <?php echo $datos[1]; ?> </span>
+            <span id="numfact"><?php echo $transaccion[0][0]; ?> </span>
           </div>
          
 
@@ -45,18 +44,21 @@
      <div class="row">
        <div class="col s12">
         <span class=""><b>Cliente:</b></span>   
-        <span class=""><?php echo $datos[4]; ?></span>
+        <span class=""><?php echo $transaccion[0][1]; ?></span>
+        <br>
+        <span class=""><b>Cedula:</b></span>   
+        <span class=""><?php echo $transaccion[0][2]; ?></span>
+        <br>
+        <span class=""><b>Direccion:</b></span>   
+        <span class=""><?php echo $transaccion[0][4]; ?></span>
+        <br>
+        <span class=""><b>Telefono 1:</b></span>   
+        <span class=""><?php echo $transaccion[0][5]; ?></span>
+        <br>
+        <span class=""><b>Telefono 2:</b></span>   
+        <span class=""><?php echo $transaccion[0][3]; ?></span>
       </div>
-      <div class="col s12">
-      <span class=""><b>Usuario:</b></span>
-        <span class=""><i><?php echo $datos[10]; ?> </i></span>
-      </div>
-      
-      
-
-
-
-
+     
    </div>   
  </div>
 
@@ -66,7 +68,7 @@
   <div class="card  blue-grey white-text imprimirSINBOR <?php echo $hide ?>" >
     <div class=" card-content ">
       <p>Tipo de Pago:
-        <?php echo $datos[8]; ?> 
+       Efectivo
       </p>
       </div>
     </div>
@@ -76,7 +78,7 @@
   <div class="card blue-grey white-text imprimirSINBOR">
     <div class=" card-content white-text imprimirSINBOR">
       <p>Fecha:
-        <?php echo $datos[3]; ?> </p>
+       <?php echo $transaccion[0][6]; ?>
       </div>
     </div>
   </div>
@@ -88,52 +90,39 @@
   <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
     <thead class=" blue-grey white-text imprimirSINBOR margen">
       <tr>
-        <th class="center-align sinborde" id="th1">Tipo de movimiento</th>
-        <th class="center-align sinborde" id="th2">Fecha</th>
+        <th class="center-align sinborde" id="th1">No de factura</th>
         <th class="center-align sinborde" id="th3">Saldo anterior</th>
         <th class="center-align sinborde" id="th6">Monto abonado</th>
         <th class="center-align sinborde" id="th6">Saldo actual</th>
-        
       </tr>
     </thead>
     <tbody >
-
-       <tr class="tr" >
-        <td class="td center-align"><span id="cant"><?php echo $datos[9]; ?></span></td>
-        <td class="td center-align"><span id="desc"><?php echo $datos[3]; ?></span></td>
-        <td class="td center-align"><span id="punit"><?php echo $datos[11]; ?><?php echo $datos[12]; ?></span></td>
-        <td class="td center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[5]; ?></span></td>
-               <td class="td center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[6]; ?></span></td>
-
+       <?php  for ($i = 0; $i < count($transaccion); $i++) { ?>
+      <tr class="tr" >
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][8]; ?> </span>
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][10]; ?> </span>
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][9]; ?> </span> <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][11]; ?> </span>
+        </td>
       </tr>
-
+<?php } ?>
     </tbody>
     <tfoot>
     <tr>
-    <td class="margen" colspan="3">&nbsp;</td>
+    <td class="margen" colspan="1">&nbsp;</td>
     <tr></tr>
-        <td class="margen" colspan="3">&nbsp;</td>
+        <td class="margen" colspan="1">&nbsp;</td>
 
       <td  class="  blue-grey white-text sinborde imprimirSINBOR center-align"><b>SALDO TOTAL</b></td>
-      <td  class=" blue-grey white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11]; ?><?php echo $datos[6]; ?></b></td>
-      
+      <td  class=" blue-grey white-text sinborde imprimirSINBOR center-align"><b><?php echo $transaccion[0][11]; ?></b></td> 
     </tr>
-
-
     </tfoot>
   </table>
   <!-- /DETALLE FACT -->
   <br>
   <!-- INFO FACT -->
-
   <div class="row">
   <br>
-   
-
-
-
-    </div>
-    
+  </div>
   </div>
 
   <script src="../assets/js/jquery.js"></script>

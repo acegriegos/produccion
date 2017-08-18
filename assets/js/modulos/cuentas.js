@@ -154,7 +154,6 @@ $(document).on("click","#btnPagar",function(){
                 
                 var id = result[0];
                 var residuo = result[1];
-                alert(residuo);
             	Materialize.toast('Pago realizado', 4000, 'green');
             	window.open("cuentas?accion=5&id="+id); 
             } else {
@@ -164,6 +163,19 @@ $(document).on("click","#btnPagar",function(){
 
     }
   );
+/**
+[0] no factura
+[1] nombre rolando
+[2] cedula
+    telefono
+    telefono
+    ubicacion
+    saldo del cliente
+    nombre del usuario
+     
+*/
+
+
 
 	
 $(document).on("click",".detalle",function(){

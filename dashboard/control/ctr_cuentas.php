@@ -61,6 +61,7 @@ if (!isset($_REQUEST['accion'])) {
 			$transaccion = $kakaroto->kamehameha('',230,$_REQUEST['id']);
 			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
 			require_once 'view/ajax/cuentas/reciboVarias.php';
+			//echo '<pre>'; print_r($transaccion[0]); echo '</pre>';
 			break;
 	}
 	if(!$pagina){
