@@ -130,6 +130,11 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
+	var add = getParameterByName("add") //accesos
+	if (add) {
+		$("#ingClie").click()
+	}
+
 });
 
 $(document).on("change","#tptel",function(){

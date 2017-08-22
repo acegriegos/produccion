@@ -301,8 +301,8 @@ $(document).on("keyup","#cantp",function(e){
             var cod = $("#valores").data('elemento')['hcodp'];
             var inv = $("#valores").data('elemento')['hinv'];
 
-            var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
-            alert(cnt)
+            var cnt = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
+            
             if (cant > cnt) {
                Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
             }else if (cant <= cnt || cnt == '∞') {

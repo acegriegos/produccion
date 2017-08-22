@@ -13,7 +13,7 @@
     <body >
       {$NAV}
       <div class="bdy pequeño">
-        <div class="card z-depth-5">
+        <div class="card z-depth-5 pequeño">
           <div class="card-header hide-on-small-only  center white-text" style="background-color:#0B3861"><p class="flow-text">Área de Operaciones</p></div>
           <div class="card-content pequeño">
             <div class="row">

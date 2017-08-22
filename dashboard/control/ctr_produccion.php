@@ -33,7 +33,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('LPR',$kakaroto->kamehameha('id,nombre,horahombre,horamaquina',134,'id > 0 order by nombre limit 10'));
+	   			$smarty->assign('LPR',$kakaroto->kamehameha('id,nombre,hombre,maquina,bandejas',180,'id > 0 order by nombre limit 10'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('*',12,'idtipo = 2 order by idunidad'));
 	   			$smarty->display('ajax/produccion/lineaproduccion.tpl');
 	   			break;

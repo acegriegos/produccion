@@ -58,6 +58,10 @@
    }else{
    $pagina = 0;
 
+    if (!isset($_REQUEST['arreglo'])) {
+      header("Location: login");
+    }
+
    	switch ($_REQUEST['accion']) {
    		case 1:
    			$transaccion = $log->analizarTabla($_POST['arreglo']);
@@ -77,6 +81,7 @@
    			break;
    		case 6:
    			$pagina = 1;
+
    			$transaccion = $_REQUEST['arreglo']['sel'] == '-' ? $_REQUEST['arreglo']['where'] : $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
         
    			if (isset($_REQUEST['arreglo']['join'])) {

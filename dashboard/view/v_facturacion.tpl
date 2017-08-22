@@ -8,10 +8,10 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=0.7">
-  <body>
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=0.8">
+  <body >
   {$NAV}
-  <div class="bdy pequeño">
+  <div class="bdy pequeño" >
       <div id="mfacturacion"></div>
       </div>
   </body>

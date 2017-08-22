@@ -27,7 +27,7 @@ $(function(){
 	// 		// act = parseInt($(".navbar-nav > a.active").attr('id').substr(2));
 	// 		// if(act != cnt)
 	// 		// 	$("#ln"+(act+1)).click()
-	// 		// else
+	// 		// elsef
 	// 			$("#agClie").click()
 	// 	}
 	// });
@@ -140,8 +140,40 @@ $(function(){
 
 	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1});
 
+	var add = getParameterByName("add") //accesos
+	if (add) {
+		$("#ingClie").click()
+	}
+
+
 
 });
+
+$(document).on("blur",".onblur",function(){
+	var id = $(this).attr('id');
+	console.log(id);
+
+	 if (id == 'vnombre')
+	 	{ $("#infvnombre0").html($("#vnombre").val()).show('slow'); }
+
+	 if (id == 'vapellido1')
+	 	{ $("#infvapellido0").html($("#vapellido1").val()); }
+
+	 if (id == 'vapellido2')
+	 	{ $("#infvapellido1").html($("#vapellido2").val()); }
+
+	 if (id == 'vcedula')
+	 	{ $("#infcedula1").html($("#vcedula").val()); }
+
+	 if (id == 'vcodigo')
+	 	{ $("#infcodigo6").html($("#vcodigo").val()); }
+
+	 if (id == 'vweb')
+	 	{ $("#infweb7").html($("#vweb").val()); }
+	 
+});
+
+
 
 $(document).on("click",".del_phone",function(){
 	var id = $(this).attr('id').substr(3);
@@ -403,15 +435,15 @@ function postload(modulo) {
 }
 
 function addon_ckub(vfila){
-
+	var cont = parseInt($(".chpcrr").length) + 1;
 	if (vfila == undefined) {
 		if ($("#correo_in").val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-			$("#shcorreos").append('<div class="chip">'+$("#correo_in").val()+'<i class="close material-icons">close</i></div>');
-  // <li id="0_'+ind_2+'"><div class="collapsible-header"><span class="badge" id="mail'+ind_2+'">'+$("#correo_in").val()+'</span></div> <div class="collapsible-body row"><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light blue edit_mail" id="m0_'+ind_2+'" title="Editar Correo"><i class="fa fa-pencil-square-o"></i></a></div><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light red del_mail" id="d0_'+ind_2+'" title="Eliminar Correo"><i class="fa fa-times"></i></a></div></div></li>');
+			$("#shcorreos").append('<div class="chpcrr chip">'+$("#correo_in").val()+'<i class="close material-icons" id="dc'+cont+'">close</i></div>');
 				$("#shcorreos").removeClass('hide');
 				$("#correo_in").val('');
 				ind_2 += 1;
 				$('.collapsible').collapsible();
+	 			$("#infcorreo2").append('<span id="crr'+cont+'">'+ $("#correo_in").val() +'</span>');
 		}else{
 			Materialize.toast('Correo no Válido',4000,'danger');
 			$("#correo_in").select();
@@ -422,3 +454,12 @@ function addon_ckub(vfila){
 		$("#correo_in").val('');
 	}
 }
+
+$(document).on('click','[id^=dc]',function(){
+	var id = $(this).attr('id').substr(2);
+})
+
+
+
+
+

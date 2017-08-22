@@ -18,6 +18,7 @@
                     </div>
                     <div class="input-field col s6 m6 l6">
                         <select type="select" id="vidunidad1" class="vidunidad">
+                        <option value="0">Seleccione una opcion</option>
                             {section name=LE loop=$UNI}
                                 <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
                             {/section}
@@ -32,6 +33,7 @@
                     </div>
                     <div class="input-field col s6 m6 l6">
                         <select type="select" id="vidunidad2" class="vidunidad">
+                            <option value="0">Seleccione una opción</option>
                             {section name=LE loop=$UNI}
                                 <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
                             {/section}
@@ -56,8 +58,8 @@
                     <thead>
                         <tr>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Horas Hombre</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Horas Maquina</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 30%">Duración hombre</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 30%">Duración maquina</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Bandejas</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
                         </tr>
@@ -102,11 +104,19 @@
                     <input id="atarea" type="text" class="validate autocomplete faddline tarea">
                     <label for="atarea">Tarea de Producción</label>
                 </div>
-                <div class="input-field col s12 m3 l3 mtopcero">
-                    <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
-                    <label for="aestimado">Tiempo Estimado</label>
+                <div class="input-field col s12 m3 l2 mtopcero">
+                    <input id="adh" type="text" class="validate faddline adh" min="0" disabled>
+                    <label for="adh">Duracion Hombre</label>
+                    <!-- <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
+                    <label for="aestimado">Tiempo Estimado</label> -->
                 </div>
-                <div class="input-field col s12 m2 l2 mtopcero">
+                <div class="input-field col s12 m3 l2 mtopcero">
+                    <input id="adm" type="text" class="validate faddline adm" min="0" disabled>
+                    <label for="adm">Duracion Máquina</label>
+                    <!-- <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
+                    <label for="aestimado">Tiempo Estimado</label> -->
+                </div>
+                <!-- <div class="input-field col s12 m2 l3 mtopcero">
                     <select type="select" id="aunidad" class="faddline">
                         <option value="0">Seleccione una Opción</option>
                         {section name=LE loop=$UNI}
@@ -114,7 +124,7 @@
                         {/section}
                     </select>
                     <label for="aunidad">Unidad</label>
-                </div>
+                </div> -->
                 <div class="col s1 m1 l1">
                     <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline z-depth-5" id="addprodline"><i class="material-icons">add</i></button>
                 </div>

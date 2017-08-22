@@ -40,8 +40,9 @@ $(function(){
         	Materialize.toast('Cliente no existente', 4000, 'red');
         } else {
             var pr = paramTemp == 2?1:2;
-
+            console.log(pr)
         	var p = arr('login',4,'',214,pr+',0,'+id[0][0][0],0,0,0);
+            console.log(p)
            var tabla = $("#listaCuentasPm");
            tabla.html("");	
            for (var i = 0; i <= p[0].length; i++) {
@@ -132,11 +133,11 @@ $(document).on("click",".pagomu",function(){
 	});
 
 $(document).on("click","#btnPagar",function(){
-	var sList ="";
+	var sList = "";
 	$('input[type=checkbox]').each(function () {
-	if(this.checked == "1")	
-    sList += $(this).val()+",";
-});
+        if(this.checked == 1)	
+            sList += $(this).val()+",";
+    });
 	
     if($('#monto').val() <= 0) {
            Materialize.toast('El monto a pagar debe ser superior a 0', 4000, 'red');
@@ -150,8 +151,13 @@ $(document).on("click","#btnPagar",function(){
     	} 
             //Llamar al procedimiento
             if(sList.length > 0) {
+
+            
+            console.log('"'+sList+'",'+$('#monto').val()+',@@usr,1');
+            
             var result = arr('login',4,'',229,'"'+sList+'",'+$('#monto').val()+',@@usr,1',0,0,0)[0][0];
-                
+            console.log(result)
+            return false;
                 var id = result[0];
                 var residuo = result[1];
             	Materialize.toast('Pago realizado', 4000, 'green');

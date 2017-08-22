@@ -302,41 +302,36 @@
                         <div class="s12 m12 l12 col" align="center">
                             <ul>
                                 <li>
-                                    <h5><b><span id="infvnombre0"></b></span></h5>
+                                    <h5><b><span id="infvnombre0"><span class="placeh">Nombre Cliente</span></span> <span id="infvapellido0">&nbsp;</span> <span id="infvapellido1">&nbsp;</span></b></h5>
                                     <label>Cliente de <span>Crédito</span></label>
                                 </li>
                             </ul>
                         </div>
                         <div class="s5 m5 l5 col" align="center">
-                            <ul>
-                                <li style="font-size: 0.8em"><b>Cédula</b></li><br>
-                                <li style="font-size: 0.8em"><b>Correo</b></li>
-                                <li style="font-size: 0.8em">&nbsp;</li><br>
-                                <li style="font-size: 0.8em"><b>Teléfono</b></li>
-                                <li style="font-size: 0.8em">&nbsp;</li><br>
-                                <li style="font-size: 0.8em"><b>Código</b></li><br>
-                                <li style="font-size: 0.8em"><b>Web</b></li><br>
-                                <li style="font-size: 0.8em"><b>Provincia</b></li>
-                                <li style="font-size: 0.8em"><b>Cantón</b></li>
-                                <li style="font-size: 0.8em"><b>Distrito</b></li><br>
-                                <li style="font-size: 0.8em"><b>Direccion</b></li><br>
-                                <li style="font-size: 0.8em">&nbsp;</li>
-                            </ul>
+                            <table>
+                                <tr><td style="font-size: 0.8em"><b>Cédula</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Correo</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Teléfono</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Código</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Web</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Provincia</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Cantón</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Distrito</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Direccion</b></td></tr>
+                            </table>
                         </div>
                         <div class="s7 m7 l7 col" align="left">
-                            <ul>
-                                <li style="font-size: 0.8em"><span id="infcedula1"></span></li><br>
-                                <li style="font-size: 0.8em"><span id="infcorreo2"></span></li>
-                                <li style="font-size: 0.8em"><span id="infcorreo3"></span></li><br>
-                                <li style="font-size: 0.8em"><span id="inftelefono4"></span></li>
-                                <li style="font-size: 0.8em"><span id="inftelefono5"></span></li><br>
-                                <li style="font-size: 0.8em"><span id="infcodigo6"></span></li><br>
-                                <li style="font-size: 0.8em"><span id="infweb7"></span></li><br>
-                                <li style="font-size: 0.8em"><span id="infprovincia8"></span></li>
-                                <li style="font-size: 0.8em"><span id="infcanton9"></span></li>
-                                <li style="font-size: 0.8em"><span id="infdistrito10"></span></li><br>
-                                <li style="font-size: 0.8em"><span id="infdireccion11"></span></li><br>
-                            </ul>
+                            <table>
+                                <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh">8088800888</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><div id="infcorreo2"><!-- <span class="placeh">mail@example.com</span> --></div></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="inftelefono4"><span class="placeh">88888888</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infcodigo6"><span class="placeh">COD01</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infweb7"><span class="placeh">www.example.com</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infprovincia8"><span class="placeh">Provincia</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infcanton9"><span class="placeh">Cantón</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infdistrito10"><span class="placeh">Distrito</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infdireccion11"><span class="placeh">Dirección</span></span></td></tr>
+                            </table>
                         </div>
                         <div class="s12 m12 l12 col" align="center">
                         <ul>
@@ -373,7 +368,7 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=0.3"></script>
+<script src="../assets/js/modulos/proveedores.js?v=0.4"></script>
 <script src="../assets/js/jquery.mask.min.js"></script>
 
 </body>

@@ -6,7 +6,6 @@ var op2 = 4;
 var vdate1 = vdate2 = null;
 
 $(function(){
-
 	$(".menu3").click(function(){
 		var id = parseInt($(this).attr('id').substr(1));
 		$(".menu3").removeClass('active');
@@ -35,7 +34,20 @@ $(function(){
 	});
 	$('select').material_select();
 
-	$("#m1").click();
+	var cuentas = getParameterByName("cuentas") //accesos
+	var realizar = getParameterByName("realizar")
+	var ver = getParameterByName("ver")
+
+	if (cuentas) {
+		$("#m1").click();
+	}else if (realizar) {
+		$("#m2").click();
+	}else if (ver) {
+		$("#mcontabilidad").html(mantenimiento("contabilidad",2,''));
+		$('#fn2').click();
+		$('#ftransacciones').hide();
+	}else
+		$("#m1").click(); 
 
 });
 

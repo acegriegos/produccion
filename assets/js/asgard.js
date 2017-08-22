@@ -536,7 +536,6 @@ function odin(varreglo,vform) {
                             break;
                     }
                     }
-                        
                     break;
             }//end SWITCH
         }//end IF

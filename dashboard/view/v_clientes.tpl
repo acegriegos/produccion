@@ -405,7 +405,7 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=0.8"></script>
+<script src="../assets/js/modulos/clientes.js?v=0.9"></script>
 
 </body>
 </html>

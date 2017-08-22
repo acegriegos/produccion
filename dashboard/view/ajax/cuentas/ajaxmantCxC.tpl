@@ -193,15 +193,9 @@
                                     <div class="col s12 m8 offset-m4 ">
                                         <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" tipo="1" modulo="estadoscuenta" >Realizar Pago</button>
                                         <button href="#!" class="waves-effec btn waves-light  z-depth-5" id="btn-divsalir">Salir</button>
-
-                                       
                                     </div>
                                     </div>
-                               
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -289,12 +283,5 @@
                         <button id="btnPagar" type="button" class="btn btn-flat blue white-text waves-effect">Pagar</button>
                     </div>
                 </div>
-
 </ul>
-
-
-
-
-
-
 </div> <!-- mantCxC -->

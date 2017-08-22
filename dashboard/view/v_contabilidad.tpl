@@ -34,6 +34,6 @@
 
 </div>
 {$SCR}
-<script src="../assets/js/modulos/contabilidad.js?v=0.1"></script>
+<script src="../assets/js/modulos/contabilidad.js?v=0.3"></script>
 </body>
 </html>

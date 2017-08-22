@@ -183,7 +183,6 @@ $(document).on("blur","#proceso",function(){
             $(this).css('border-bottom','1px solid #9e9e9e');
             $(this).css('box-shadow','none');
     }
-    
 });
 
 $(document).on("keyup","#linea",function(e){
@@ -219,11 +218,14 @@ $(document).on("click",".productline",function(){
     }
 });
 
+$(document).on("blur",".tarea",function(){
+    chTareas($(this).val());
+});
+
 $(document).on("keyup",".tarea",function(e){
     var code = e.which || e.keyCode;
     if (code == 13)
-        var tipo = $(this).attr('id').substr(0,1);
-        $("#"+tipo+"estimado").focus();
+        chTareas($(this).val());
 });
 
 $(document).on("keydown",".tarea",function(e){
@@ -863,6 +865,14 @@ $(document).on("keyup",".ganancia",function(){
     totalizar(id,ganancia,manoobra)
 });
 
+function chTareas(nom) {
+    console.log(nom)
+    var tr = arr('login',4,'hombre,maquina',180,'nombre like "%'+nom+'%"',0,0,0)[0][0];
+    $("#adh").val(tr[0]);
+    $("#adm").val(tr[1])
+    Materialize.updateTextFields();
+}
+
 function addprodline(tipo) {
     var tabla = "";
     if (tipo == 1) {
@@ -1189,12 +1199,11 @@ function validarlinea() {
         return 'Duración Hombre Requerido';
     }
     if ($("#vidunidad1").val() == 0) {
-        $("#vidunidad").focus();
+        $("#vidunidad1").focus();
         return 'Unidad Requerido';
     }
     if ($("#vmaquina").val() == '') {
-        $("#vmaquina").focus();
-        return 'Duración Máquina Requerido';
+        $("#vmaquina").val(0);
     }
     if ($("#vidunidad2").val() == 0) {
         $("#vidunidad2").focus();
