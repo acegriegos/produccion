@@ -104,18 +104,18 @@
                     <input id="atarea" type="text" class="validate autocomplete faddline tarea">
                     <label for="atarea">Tarea de Producción</label>
                 </div>
-                <div class="input-field col s12 m3 l2 mtopcero">
+                <!-- <div class="input-field col s12 m3 l2 mtopcero">
                     <input id="adh" type="text" class="validate faddline adh" min="0" disabled>
-                    <label for="adh">Duracion Hombre</label>
+                    <label for="adh">Duracion Hombre</label> -->
                     <!-- <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
                     <label for="aestimado">Tiempo Estimado</label> -->
-                </div>
-                <div class="input-field col s12 m3 l2 mtopcero">
+                <!-- </div> -->
+               <!--  <div class="input-field col s12 m3 l2 mtopcero">
                     <input id="adm" type="text" class="validate faddline adm" min="0" disabled>
-                    <label for="adm">Duracion Máquina</label>
+                    <label for="adm">Duracion Máquina</label> -->
                     <!-- <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
                     <label for="aestimado">Tiempo Estimado</label> -->
-                </div>
+                <!-- </div> -->
                 <!-- <div class="input-field col s12 m2 l3 mtopcero">
                     <select type="select" id="aunidad" class="faddline">
                         <option value="0">Seleccione una Opción</option>
@@ -140,14 +140,15 @@
                             </tr>
                             <tr>
                                 <th>Tarea</th>
-                                <th>Tiempo Est.</th>
-                                <th>Unidad</th>
+                                <th>Duracion Hombre</th>
+                                <th>Duracion Máquina</th>
+                                <th>Bandejas</th>
                                 <th style="width: 20%">Orden</th>
                                 <th style="width: 20%">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listadetalles">
-
+                            
                         </tbody>
                     </table>
                 </div>
