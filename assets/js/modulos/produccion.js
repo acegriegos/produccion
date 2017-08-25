@@ -218,14 +218,10 @@ $(document).on("click",".productline",function(){
     }
 });
 
-$(document).on("blur",".tarea",function(){
-    chTareas($(this).val());
-});
-
 $(document).on("keyup",".tarea",function(e){
     var code = e.which || e.keyCode;
     if (code == 13)
-        chTareas($(this).val());
+        addprodline(1)
 });
 
 $(document).on("keydown",".tarea",function(e){
@@ -287,14 +283,6 @@ $(document).on("blur",".horder",function(){
     $("#asorder"+id).removeClass('hide');
     $("#asorder"+id).text(orden);
     $("#atorder"+id).attr('orden',orden);
-});
-
-$(document).on("change","#aunidad",function(){
-    addprodline(1);
-});
-
-$(document).on("change","#bunidad",function(){
-    addprodline(2);
 });
 
 $(document).on("click","#changerecipe",function(){
@@ -865,14 +853,6 @@ $(document).on("keyup",".ganancia",function(){
     totalizar(id,ganancia,manoobra)
 });
 
-function chTareas(nom) {
-    console.log(nom)
-    var tr = arr('login',4,'hombre,maquina',180,'nombre like "%'+nom+'%"',0,0,0)[0][0];
-    $("#adh").val(tr[0]);
-    $("#adm").val(tr[1])
-    Materialize.updateTextFields();
-}
-
 function addprodline(tipo) {
     var tabla = "";
     if (tipo == 1) {
@@ -882,50 +862,45 @@ function addprodline(tipo) {
         tipo = "b";
         tabla = "listadetprod";
     }
-
     var pass = 1;
     var nombre = $("#"+tipo+"tarea").val();
-    var estimado = $("#"+tipo+"estimado").val();
-    var idunidad = $("#"+tipo+"unidad").val();
-    var unidad = $("#"+tipo+"unidad option:selected").text();
-    var orden = 0;
     var count = parseInt($("#"+tipo+"autoinc").val());
-    var line = arr('login',4,'id,nombre',134,'nombre = \"'+nombre+'\"',0,0,0)[0];
+    var tsk = arr('login',4,'id,nombre,hombre,maquina,bandejas',180,'nombre = \"'+nombre+'\"',0,0,0)[0];
     var validar = validateprodline(tipo);
-    if (line != '') {
+    if (tsk != '') {
         if (validar == false) {
             $("."+tipo+"plines").each(function(){
                 var id = $(this).attr('id').substr(2);
-                if (line[0][0] == id) {
+                if (tsk[0][0] == id) {
                     pass = 0;
                 }
             });
             if (pass == 1) {
                 count ++;
-                $("#"+tabla).append('<tr class="'+tipo+'plines" id="'+tipo+'p'+line[0][0]+'"><td id="'+tipo+'task'+line[0][0]+'">'+line[0][1]+'</td><td id="'+tipo+'est'+line[0][0]+'" estimado="'+estimado+'">'+estimado+'</td><td id="'+tipo+'uni'+line[0][0]+'" idunidad="'+idunidad+'">'+unidad+'</td><td orden="'+count+'" id="'+tipo+'torder'+line[0][0]+'"><span class="order" id="'+tipo+'sorder'+line[0][0]+'">'+count+'</span><input type="hidden" class="horder" id="'+tipo+'eorder'+line[0][0]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="'+tipo+'del'+line[0][0]+'">close</i></td></tr>');
-                //aqui quede
-                $("#atarea").val('');
-                $("#aestimado").val('');
-                $("#aunidad").val(0);
-                $("#aunidad").material_select();
-                $("#aautoinc").val(count);
-                $("#atarea").focus();
+                $("#"+tabla).append('<tr class="'+tipo+'plines" id="'+tipo+'p'+tsk[0][0]+'"><td id="atask'+tsk[0][0]+'">'+tsk[0][1]+'</td><td id="'+tipo+'esth'+tsk[0][0]+'" esth="'+tsk[0][2]+'">'+tsk[0][2]+'</td><td id="'+tipo+'estm'+tsk[0][0]+'" estm="'+tsk[0][3]+'">'+tsk[0][3]+'</td><td id="'+tipo+'band'+tsk[0][0]+'" bandejas="'+tsk[0][4]+'">'+tsk[0][4]+'</td><td orden="'+count+'" id="'+tipo+'torder'+tsk[0][0]+'"><span class="order" id="'+tipo+'sorder'+tsk[0][0]+'">'+count+'</span><input type="hidden" class="horder" id="'+tipo+'eorder'+tsk[0][0]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="'+tipo+'del'+tsk[0][0]+'">close</i></td></tr>');
+                
+                $("#"+tipo+"tarea").val('');
+                $("#"+tipo+"estimado").val('');
+                $("#"+tipo+"unidad").val(0);
+                $("#"+tipo+"unidad").material_select();
+                $("#"+tipo+"autoinc").val(count);
+                $("#"+tipo+"tarea").focus();
             }else{
                 Materialize.toast('Tarea de Produccion ha sido agregada anteriormente', 6000, 'amber lighten-2');
-                $("#atarea").val('');
-                $("#aestimado").val('');
-                $("#atarea").focus();
+                $("#"+tipo+"tarea").val('');
+                $("#"+tipo+"estimado").val('');
+                $("#"+tipo+"tarea").focus();
             }
         }else{
             Materialize.toast(validar, 6000, 'red');
         }
     }else{
         Materialize.toast('Tarea de Producción no existe', 6000, 'red');
-        $("#atarea").val('');
-        $("#aestimado").val('');
-        $("#aunidad").val(0);
-        $("#aunidad").material_select();
-        $("#atarea").focus();
+        $("#"+tipo+"tarea").val('');
+        $("#"+tipo+"estimado").val('');
+        $("#"+tipo+"unidad").val(0);
+        $("#"+tipo+"unidad").material_select();
+        $("#"+tipo+"tarea").focus();
     }
 }
 
