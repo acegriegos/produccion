@@ -23,6 +23,7 @@
           <li class="tab col s3 menu3" id="m5"><a class="tamLetra">Sucursales</a></li>
           <li class="tab col s3 menu3" id="m6"><a class="tamLetra">Bodegas</a></li>
           <li class="tab col s3 menu3" id="m7"><a class="tamLetra">Producción</a></li>
+          <li class="tab col s3 menu3" id="m8"><a class="tamLetra">Accesos</a></li>
         </ul>
       </div>
     </nav>

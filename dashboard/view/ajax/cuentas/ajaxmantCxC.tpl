@@ -66,19 +66,6 @@
                                 </tr>
                             </thead>
                             <tbody id="listaCuentasx">
-                              <!--  { section name= LE loop = $CLI }
-                               <tr class="button-collapse detalle pbtna" data-activates="acciones" id="f{$CLI[LE][12]}"  tipo ='1' tp="{if $CLI[LE][7] lt 0}1{else}0{/if}" >
-                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][3]}</td>
-                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][1]}</td>
-                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][2]}</td>
-                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][5]}</td>
-                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][6]}</td>
-                                <td style=" padding: 10px !important ; color:black !important;">{$CLI[LE][8]}</td>
-                                <td style=" padding: 10px !important ; color:black !important; {if $CLI[LE][7] lt 0}color:red;{else}color:green{/if}">{math equation='abs(x)' x=$CLI[LE][7] }</td> 
-                                <td style=" padding: 10px; color:black;">{$CLI[LE][9]}</td>
-
-                            </tr>
-                            {/section} -->
                         </tbody>
                     </table>
                     <br>

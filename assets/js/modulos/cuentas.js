@@ -150,18 +150,15 @@ $(document).on("click","#btnPagar",function(){
        });  
     	} 
             //Llamar al procedimiento
-            if(sList.length > 0) {
-
-            
-            console.log('"'+sList+'",'+$('#monto').val()+',@@usr,1');
-            
+            if(sList.length > 0) {   
             var result = arr('login',4,'',229,'"'+sList+'",'+$('#monto').val()+',@@usr,1',0,0,0)[0][0];
-            console.log(result)
-            return false;
                 var id = result[0];
                 var residuo = result[1];
-            	Materialize.toast('Pago realizado', 4000, 'green');
-            	window.open("cuentas?accion=5&id="+id); 
+            	Materialize.toast('Pago realizado', 4000, 'green');       
+
+               arr('login',6,'',214,1+',0,0',0,1,$("#listaCuentasx"));
+               window.open("cuentas?accion=5&id="+id); 
+               $("#ncli").blur();
             } else {
             	Materialize.toast('Seleccione a un cliente', 4000, 'red');
             }
@@ -169,19 +166,6 @@ $(document).on("click","#btnPagar",function(){
 
     }
   );
-/**
-[0] no factura
-[1] nombre rolando
-[2] cedula
-    telefono
-    telefono
-    ubicacion
-    saldo del cliente
-    nombre del usuario
-     
-*/
-
-
 
 	
 $(document).on("click",".detalle",function(){

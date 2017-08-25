@@ -159,6 +159,17 @@ $(document).on("click",".menu3",function(){
 				order : []
 			});
 			break;
+		case 8:
+			var p = mantenimiento('ajustes',8,'');
+			$("#majustes").html('');
+			$("#majustes").html(p);
+			$("#vnombre").focus();
+			$("#data-table-accesos").dataTable({
+				bFilter : false,
+				bLengthChange : false,
+				order : []
+			});
+			break;
 	}
 	$(".modal").modal({
 		dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -1052,6 +1063,13 @@ function validar (varreglo,vmodulo) {
 					return err
 			}
 			break;
+		case 'acceso':
+			if (vmodulo['tip'] == '') {
+				err = validaracceso(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
 		default:
 			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
 			break;
@@ -1061,6 +1079,21 @@ function validar (varreglo,vmodulo) {
 	// console.log(salida)
 	return salida;
 
+}
+
+function validaracceso(vmod) {
+
+	if($("#f"+vmod+"s #vid").val() == 0){
+		return "Seleccione una Transacción";
+	}
+
+	if($("#f"+vmod+"s #vcodigo").val() == ''){
+		$("#f"+vmod+"s #vcodigo").focus();
+		return "Código Requerido";
+	}
+
+
+	return false;
 }
 
 function validarprodinv(vmod) {
@@ -1315,8 +1348,13 @@ function cargar(vmodulo,vid) {
 			vmodulo['tbl'] = 169;
 			vmodulo['where'] = 'id = '+vid+' order by nombre';
 			break;
+		case 'acceso':
+			vmodulo['sel'] = 'id as vid,nombre as vnombre,codigo as vcodigo';
+			vmodulo['tbl'] = 196;
+			vmodulo['where'] = 'id = '+vid;
+			break;
 		default:
-			console.log('Cargar Módulo no Existente');
+			console.log('Cargar Módulo no Existente '+vmodulo['modulo']);
 			break;
 	}
 	

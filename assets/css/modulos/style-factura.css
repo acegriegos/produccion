@@ -1,17 +1,19 @@
+*{font-size: 13px;}
+
+h3{font-size: 1.8em; text-decoration: bold;}
+
 .hr1{
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border: 0;
-  border-top: 1px dashed #eee;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 0;
+	border-top: 1px dashed #eee;
 }
 .tamLetra{
-   font-size: 1.2em !important
+	font-size: 1.2em !important
 }
 
-body{
-	padding-left: 14%;
-	padding-right: 14%;
-	background-color: red;
+.fac{
+	padding-left: 3% !important;
 }
 
 .hoja{
@@ -37,8 +39,21 @@ body{
 .sinborde{
 	border-radius: 0px !important;
 }
+.btnenviar{
+	margin-top: 1%; 
+	margin-left: 73%;
+	position: fixed;
+}
+@media only screen and (max-width:769px){
+body{
+	
+    padding: 0% !important;
+    padding-bottom: 1% !important; 
+}
+}
 
 
+}
 @media print {
 
 	
@@ -47,8 +62,8 @@ body{
 		background-color: red;
 	}
 
- 	header, nav, aside {
-	  display: none;
+	header, nav, aside {
+		display: none;
 	}
 	footer{
 		font-size: 10px;
@@ -64,12 +79,12 @@ body{
 
 	body{
 		padding-left: 10px;
-	  	padding-right: 10px;
-	  	color: black !important;
+		padding-right: 10px;
+		color: black !important;
 	}
 
 	@page {
-	  size: A4 ; 
+		size: A4 ; 
 	}
 
 	.hoja{
@@ -80,7 +95,7 @@ body{
 		border: 0px !important;
 		box-shadow: none !important;
 		color: black !important;
-
+		padding: 2% 0% !important;
 	}
 
 }

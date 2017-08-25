@@ -5,6 +5,8 @@ $(function(){
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
     $('select').material_select();
+
+    cargarMoneda(0)
 });
 
 $(window).keydown(function(e){
@@ -51,6 +53,15 @@ $(document).on("click",".tc-show",function(){
     
 });
 
+$(document).on("keyup",".numeric",function(e){
+    var code = e.wich || e.keyCode
+    if(code == 13)
+        $(this).blur()
+});
+
+$(document).on("blur",".numeric",function(){
+    $(this).val(parseFloat($(this).val().replace(/,/g,'')).formatMoney(2,'.',',') )
+})
 
 $(document).on("blur",".autocomplete",function(){
     $(".autocomplete-content").hide('500');
@@ -841,6 +852,54 @@ $(document).on("keyup","[id^=ing_]",function(e){
         }
     }
 });
+
+function getDatos(vsel,vtbl,vwhere,vcambio,velemto,vjson){
+    var vch = velemto == '' || velemto == 0 ? 0: 1;
+    return arr('login',4,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson)
+}
+
+function cargarMoneda(idmoneda,elemento){
+
+    var divisas = undefined;
+
+    if (elemento == undefined){
+        elemento = $(".moneda");
+        divisas = $(".divisa");
+    }
+    else{
+        elemento = $("#"+elemento+" .moneda");
+        divisas = $("#"+elemento+" .divisa");
+    }
+
+    var moneda = getDatos('nombre,simbolo,valor+suma as valor,id',54,'if( '+idmoneda+' = 0,principal = 1,id = '+idmoneda+')',0,0)[0][0];
+
+    elemento.html('<b>'+moneda[1]+'</b>');
+   
+    if (idmoneda != 0) {
+        var valor = elemento.first().data("triforce")["valor"];
+        var pmonto = parseFloat(moneda[2]);
+
+        divisas.each(function(){
+            var monto = pre = tot = 0;
+
+            if ($(this).is("input")){
+                monto = parseFloat($(this).val().replace(/,/g,''));
+                pre = monto / pmonto; 
+                tot = (pre * valor).formatMoney(2,'.',',');
+                $(this).val(tot);
+            }
+            else{
+                monto = parseFloat($(this).html().replace(/,/g,''));
+                pre = monto / pmonto; 
+                tot = (pre * valor).formatMoney(2,'.',',');
+                $(this).html(tot);
+            }
+            
+        })
+    }
+
+    elemento.first().data("triforce",{nombre:moneda[0], simbolo: moneda[1], valor: moneda[2], id: moneda[3]}); 
+}
 
 //TELEFONOS Y CORREOS
 

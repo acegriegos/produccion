@@ -10,7 +10,7 @@ $(function(){
 
 		
 	$("#data-table-clientes").dataTable({
-		bFilter: false, 
+		bFilter: false,
 		order : [],
 		"bLengthChange": false
 	});
@@ -85,53 +85,75 @@ $(function(){
 		}
 	});
 
-	$("#telefono_in").keyup(function(e){
-		var code = e.which || e.keyCode
-		var idfila = $(this).attr('idfila');
-		if (code == 13) {
-			if (idfila == undefined) {
-				if($("#tptel option:selected").val() == ''){
-					Materialize.toast("Debe Seleccionar un Tipo de Teléfono",4000,'danger');
-					$("#tptel").focus();
-				}else{
-					rgex = arr('login',4,'regex,img',4,'id = ' + $("#tptel option:selected").val(),0,0,0)[0][0];
-					if($(this).val().match(new RegExp(rgex[0]))){
-						$("#shtelefonos").append('<li id="0_'+ind_1+'" tp="'+$("#tptel option:selected").val()+'"> <div class="collapsible-header" ><span class="badge" id="tel'+ind_1+'">'+$(this).val()+'</span><i class="fa '+rgex[1]+'"></i></div> <div class="collapsible-body row"><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Teléfono"><i class="fa fa-pencil-square-o"></i></a></div><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Teléfono"><i class="fa fa-times"></i></a></div></div> </li>');
-						$("#shtelefonos").removeClass('hide');
-						$(this).val('');
-						ind_1 += 1;
-						$('.collapsible').collapsible();
-					}else{
-						Materialize.toast("Número de Teléfono Inválido",4000,'danger');
-					}
-				}
-			}else{
-				$("#tel"+idfila).text($(this).val());
-				$(this).removeAttr('idfila');
-				$(this).val('');
-			}
-		}
-	});
+	// $("#telefono_in").keyup(function(e){
+	// 	var code = e.which || e.keyCode
+	// 	var idfila = $(this).attr('idfila');
+	// 	if (code == 13) {
+	// 		if (idfila == undefined) {
+	// 			if($("#tptel option:selected").val() == ''){
+	// 				Materialize.toast("Debe Seleccionar un Tipo de Teléfono",4000,'danger');
+	// 				$("#tptel").focus();
+	// 			}else{
+	// 				rgex = arr('login',4,'regex,img',4,'id = ' + $("#tptel option:selected").val(),0,0,0)[0][0];
+	// 				if($(this).val().match(new RegExp(rgex[0]))){
+	// 					$("#shtelefonos").append('<li id="0_'+ind_1+'" tp="'+$("#tptel option:selected").val()+'"> <div class="collapsible-header" ><span class="badge" id="tel'+ind_1+'">'+$(this).val()+'</span><i class="fa '+rgex[1]+'"></i></div> <div class="collapsible-body row"><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light blue edit_phone" id="m0_'+ind_1+'" title="Editar Teléfono"><i class="fa fa-pencil-square-o"></i></a></div><div class="col s6 m6 l6 center"><a class="btn-floating waves-effect waves-light red del_phone" id="d0_'+ind_1+'" title="Eliminar Teléfono"><i class="fa fa-times"></i></a></div></div> </li>');
+	// 					$("#shtelefonos").removeClass('hide');
+	// 					$(this).val('');
+	// 					ind_1 += 1;
+	// 					$('.collapsible').collapsible();
+	// 				}else{
+	// 					Materialize.toast("Número de Teléfono Inválido",4000,'danger');
+	// 				}
+	// 			}
+	// 		}else{
+	// 			$("#tel"+idfila).text($(this).val());
+	// 			$(this).removeAttr('idfila');
+	// 			$(this).val('');
+	// 		}
+	// 	}
+	// });
 
 	$("#vidpais").change(function(){
 		$("#prefijo").html('('+$('option:selected',this).attr('cod')+')')
 	});
 
 	$("#btnaddcorreo").click(function(){
+		var correo = $("#correo_in").val();
 		var idfila = $(this).attr('idfila');
-		addon_ckub(idfila);
+		crreo_addon_ckub(idfila,correo);
 	});
 
 	$("#correo_in").keyup(function(e){
+		var correo = $("#correo_in").val();
 		var idfila = $(this).attr('idfila');
 		var code = e.which || e.keyCode
 		if (code == 13) {
-			addon_ckub(idfila);
+			crreo_addon_ckub(idfila,correo);
 		}
 	});
 
-	$("#vidprovincia").change(function(){
-		change_load('vidcanton',9,'id,nombre','id > 0 and idprovincia = '+$('option:selected',this).val());
+	$("#btnaddphone").click(function(){
+		var telefono = $("#telefono_in").val();
+		var idfila = $(this).attr('idfila');
+		var htipo = $("#htipo").val();
+		phone_addon_ckub(idfila,telefono,htipo);
+	});
+
+	$("#telefono_in").keyup(function(e){
+		var telefono = $("#telefono_in").val();
+		var idfila = $(this).attr('idfila');
+		var htipo = $("#htipo").val();
+
+		var code = e.which || e.keyCode
+		if (code == 13) {
+			phone_addon_ckub(idfila,telefono,htipo);
+		}
+	});
+
+	$("#tptel").change(function(){
+		var tipo = $(this).val();
+		$("#htipo").val(tipo);
+		console.log(tipo)
 	});
 
 	$("#idcanton").change(function(){
@@ -145,35 +167,78 @@ $(function(){
 		$("#ingClie").click()
 	}
 
-
-
 });
 
 $(document).on("blur",".onblur",function(){
 	var id = $(this).attr('id');
-	console.log(id);
 
-	 if (id == 'vnombre')
-	 	{ $("#infvnombre0").html($("#vnombre").val()).show('slow'); }
+	 if (id == 'vnombre') /*{*/
+	 	$("#infvnombre0").html($("#vnombre").val());
+	 // }else{ $("#infvnombre0").html('<span class="placeh">Nombre Cliente</span>') }
 
-	 if (id == 'vapellido1')
-	 	{ $("#infvapellido0").html($("#vapellido1").val()); }
+	 if (id == 'vapellido1') /*{*/
+	 	$("#infvapellido0").html($("#vapellido1").val()); 
+	 // }else{ $("#infvapellido0").html('<span class="placeh">Nombre Cliente</span>') }
 
-	 if (id == 'vapellido2')
-	 	{ $("#infvapellido1").html($("#vapellido2").val()); }
+	 if (id == 'vapellido2') /*{*/
+	 	$("#infvapellido1").html($("#vapellido2").val());
+	 // }else{ $("#infvapellido1").html('<span class="placeh">Nombre Cliente</span>') }
 
-	 if (id == 'vcedula')
-	 	{ $("#infcedula1").html($("#vcedula").val()); }
+	 if (id == 'vcedula') /*{*/
+	 	$("#infcedula1").html($("#vcedula").val());
+	 // }else{ $("#infcedula1").html('<span class="placeh">808880888</span>') }
 
-	 if (id == 'vcodigo')
-	 	{ $("#infcodigo6").html($("#vcodigo").val()); }
+	 if (id == 'vcodigo') /*{*/
+	 	$("#infcodigo6").html($("#vcodigo").val()); 
+	// }else{ $("#infcodigo6").html('<span class="placeh">COD01</span>') }
 
-	 if (id == 'vweb')
-	 	{ $("#infweb7").html($("#vweb").val()); }
-	 
+	 if (id == 'vweb') /*{*/
+	 	$("#infweb7").html($("#vweb").val());
+	 // }else{ $("#infweb7").html('<span class="placeh">www.example.com</span>') }
+});
+
+$("#correo_in").focus(function(){
+	 $(".icorr").css({"height": "100px", "transition": "0.5s ease"});
+});
+$("#correo_in").blur(function(){
+	 $(".icorr").css({"height": "50px", "transition": "0.5s ease"});
+});
+$("#telefono_in").focus(function(){
+	 $(".iphone").css({"height": "100px", "transition": "0.5s ease"});
+});
+$("#telefono_in").blur(function(){
+	 $(".iphone").css({"height": "50px", "transition": "0.5s ease"});
+});
+
+$(document).on("click",".chpcrr",function(){
+	var id = $(this).attr('id').substr(4);
+	$("#schp"+id).remove();
+	$("#ichp"+id).remove();
+});
+
+$(document).on("click",".chpphone",function(){
+	var id = $(this).attr('id').substr(5);
+	$("#stchp"+id).remove();
+	$("#itchp"+id).remove();
 });
 
 
+$("#vidprovincia").change(function(){
+	var prov = $("#vidprovincia option:selected").text();
+	$("#infprovincia8").html(prov);
+});
+$("#vidcanton").change(function(){
+	var prov = $("#vidcanton option:selected").text();
+	$("#infcanton9").html(prov);
+});
+$("#viddistrito").change(function(){
+	var prov = $("#viddistrito option:selected").text();
+	$("#infdistrito10").html(prov);
+});
+$("#vdireccion").keyup(function(){
+	var dir = $(this).val();
+	$("#infdireccion11").html(dir)
+});
 
 $(document).on("click",".del_phone",function(){
 	var id = $(this).attr('id').substr(3);
@@ -321,7 +386,7 @@ function validarclientes() {
 
 			if($("#my-array"+vid).val() == 0 ){
 				$('#ln2').click();
-				$("#my-array"+vid).focus()
+				$("#my-array"+vidprovincia).focus()
 				salida = 'Campo Contable no Válido';
 			}
 
@@ -434,25 +499,51 @@ function postload(modulo) {
 	}
 }
 
-function addon_ckub(vfila){
+function crreo_addon_ckub(vfila,vcorreo){
 	var cont = parseInt($(".chpcrr").length) + 1;
-	if (vfila == undefined) {
+	//if (vfila == undefined) {
 		if ($("#correo_in").val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-			$("#shcorreos").append('<div class="chpcrr chip">'+$("#correo_in").val()+'<i class="close material-icons" id="dc'+cont+'">close</i></div>');
+			$("#shcorreos").append('<div id="schp'+cont+'" class="chpcrr chip">'+$("#correo_in").val()+'<i class="close material-icons">close</i></div>');
 				$("#shcorreos").removeClass('hide');
 				$("#correo_in").val('');
 				ind_2 += 1;
 				$('.collapsible').collapsible();
-	 			$("#infcorreo2").append('<span id="crr'+cont+'">'+ $("#correo_in").val() +'</span>');
+				$(".chpcr").remove();
+	 			$("#infcorreo2").append('<div id="ichp'+cont+'" class="chpcrr chip">'+vcorreo+'</div>');
 		}else{
 			Materialize.toast('Correo no Válido',4000,'danger');
 			$("#correo_in").select();
 		}
-	}else{
-		$("#mail"+vfila).text($("#correo_in").val());
-		$("#correo_in").removeAttr('idfila');
-		$("#correo_in").val('');
-	}
+	// }else{
+	// 	$("#mail"+vfila).text($("#correo_in").val());
+	// 	$("#correo_in").removeAttr('idfila');
+	// 	$("#correo_in").val('');
+	// }
+}
+
+function phone_addon_ckub(vfila,vphone,vtipo){
+	var tipotel;
+	var cont = parseInt($(".chpphone").length) + 1;
+	
+	if (vtipo == 1) { tipotel = 'home'; }else if (vtipo == 2) { tipotel = 'business'; }else if (vtipo == 3) { tipotel = 'phone'; }
+	//if (vfila == undefined) {
+		if ($("#telefono_in").val()) {
+			$("#shtelefonos").append('<div id="stchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+$("#telefono_in").val()+'<i class="close material-icons">close</i></div>');
+				$("#shtelefonos").removeClass('hide');
+				$("#telefono_in").val('');
+				ind_2 += 1;
+				$('.collapsible').collapsible();
+				$(".chpph").remove();
+				$("#inftelefono4").append('<div id="itchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
+		}else{
+			Materialize.toast('Correo no Válido',4000,'danger');2
+			$("#telefono_in").select();
+		}
+	// }else{
+	// 	$("#mail"+vfila).text($("#correo_in").val());
+	// 	$("#correo_in").removeAttr('idfila');
+	// 	$("#correo_in").val('');
+	// }
 }
 
 $(document).on('click','[id^=dc]',function(){

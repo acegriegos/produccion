@@ -157,8 +157,8 @@
                             </div>
 
                             </div>
-                            <div class="row" style="background: transparent">
-                            <div class="input-field col s12 m5 l5 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3" style="background: transparent">
+                            <div class="row" style="background: transparent;">
+                            <div class="input-field col s12 m5 l5 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
                                 <div class="ciclos">
                                 <div class="row">
                                     <div class="l10 m10 s12 col">
@@ -172,7 +172,7 @@
                                 </div>
                                     <input type="hidden" id="vcorreo" fill="18">
                                     <!-- class="collapsible" data-collapsible="accordion" es un ul -->
-                                    <div id="shcorreos"></div>
+                                    
                                 </div>
                             </div>
                             <div class="col s12 m7 l7 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3" style="background: transparent;">
@@ -187,27 +187,36 @@
                                                 {/section}
                                             </select>
                                             <label for="tptel">Tipo Teléfono</label>
+                                            <input type="hidden" id="htipo">
                                         </div>
-                                        <div class="input-field col s8 m8">
                                             
+                                        <div class="input-field col s8 m8">
                                             <div class="l10 m10 s10 col">
                                                 <i class="material-icons prefix">phone</i>
                                                 <input type="tel" class="validate tooltipped onblur" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
                                                 <label for="telefono_in">Teléfono</label>
                                             </div>
-                                            <div class="l2 m2 s2 col">
+                                            <div id="btnaddphone" class="l2 m2 s2 col">
                                                 <a href="#!"><i class="material-icons">add_box</i></a>    
                                             </div>
                                             
                                             <input type="hidden" id="vtelefono" fill="19">
                                             <!-- <label class="truncate" for="telefono_in">Ingresar Teléfono</label> -->
-                                            <!-- <ul class="collapsible" data-collapsible="accordion" id="shtelefonos"></ul> -->
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-
+                        <div class="l4 m4 s6 col">
+                            <div id="shcorreos"></div>
+                            <!-- <div style="background: red" id="shtelefonos"></div> -->
+                        </div>
+                        <div class="l4 m4 s6 col">&nbsp;</div>
+                        <div class="l4 m4 s6 col">
+                            <!-- <div style="background: blue" id="shcorreos"></div> -->
+                            <div id="shtelefonos"></div>
+                        </div>
                     </div>
 
                     <div id="fina" class="col s12">
@@ -242,7 +251,7 @@
                                         <div class="provincia">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
 
-                                            <select id="vidprovincia" type="select" class="_det onblur" primary="1">
+                                            <select id="vidprovincia" type="select" class="_det" primary="1">
                                                 <option value="0">Seleccione una Provincia</option>
                                                 {section name=LE loop=$PRO}
                                                 <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
@@ -254,7 +263,7 @@
                                     <div class="input-field col s12 m6 l4">
                                         <div class="canton">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="material-icons">add</i></a>
-                                            <select id="vidcanton" type="select" class="_det onblur">
+                                            <select id="vidcanton" type="select" class="_det">
                                                 <option value="">Seleccione un Cantón</option>
                                             </select>
                                             <label for="vidcanton">Cantón</label>
@@ -264,7 +273,7 @@
                                         <div class="distrito">
                                             <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="material-icons">add</i></a>
 
-                                            <select id="viddistrito" type="select" class="_det onblur">
+                                            <select id="viddistrito" type="select" class="_det">
                                                 <option value="">Seleccione un Distrito</option>
                                             </select>
                                             <label for="viddistrito">Distrito</label>
@@ -297,21 +306,19 @@
                 </div>
             <!-- CARD -->
                 <div class="col s12 m3 l3">
-                    <div class="row" style="background: #DEDEDE">
-                    <div>
+                    <div class="row" style="background: #DEDEDE"><br>
+                        <div class="s1 m1 l1 col pbtn"><i class="material-icons">chevron_left</i></div>
+                        <div class="s10 m10 l10 col" align="center">&nbsp;</div>
+                        <div class="s1 m1 l1 col pbtn"><i class="material-icons">chevron_right</i></div>
+                        
                         <div class="s12 m12 l12 col" align="center">
-                            <ul>
-                                <li>
-                                    <h5><b><span id="infvnombre0"><span class="placeh">Nombre Cliente</span></span> <span id="infvapellido0">&nbsp;</span> <span id="infvapellido1">&nbsp;</span></b></h5>
-                                    <label>Cliente de <span>Crédito</span></label>
-                                </li>
-                            </ul>
+                            <h5><b><span id="infvnombre0"><span class="placeh">Nombre Cliente</span></span> <span id="infvapellido0">&nbsp;</span> <span id="infvapellido1">&nbsp;</span></b></h5>
                         </div>
-                        <div class="s5 m5 l5 col" align="center">
+                        <div class="s4 m4 l4 col" align="center">
                             <table>
                                 <tr><td style="font-size: 0.8em"><b>Cédula</b></td></tr>
-                                <tr><td style="font-size: 0.8em"><b>Correo</b></td></tr>
-                                <tr><td style="font-size: 0.8em"><b>Teléfono</b></td></tr>
+                                <tr class="icorr"><td style="font-size: 0.8em"><b>Correo</b></td></tr>
+                                <tr class="iphone"><td style="font-size: 0.8em"><b>Teléfono</b></td></tr>
                                 <tr><td style="font-size: 0.8em"><b>Código</b></td></tr>
                                 <tr><td style="font-size: 0.8em"><b>Web</b></td></tr>
                                 <tr><td style="font-size: 0.8em"><b>Provincia</b></td></tr>
@@ -320,11 +327,11 @@
                                 <tr><td style="font-size: 0.8em"><b>Direccion</b></td></tr>
                             </table>
                         </div>
-                        <div class="s7 m7 l7 col" align="left">
+                        <div class="s8 m8 l8 col" align="center">
                             <table>
                                 <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh">8088800888</span></span></td></tr>
-                                <tr><td style="font-size: 0.8em"><div id="infcorreo2"><!-- <span class="placeh">mail@example.com</span> --></div></td></tr>
-                                <tr><td style="font-size: 0.8em"><span id="inftelefono4"><span class="placeh">88888888</span></span></td></tr>
+                                <tr class="icorr"><td style="padding: 0 !important; font-size: 0.8em"><div id="infcorreo2"><div class="placeh chip chpcr">mail@example.com</div></div></td></tr>
+                                <tr class="iphone"><td style="padding: 0 !important; font-size: 0.8em"><div id="inftelefono4"><div class="placeh chip chpph">88888888</div></div></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infcodigo6"><span class="placeh">COD01</span></span></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infweb7"><span class="placeh">www.example.com</span></span></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infprovincia8"><span class="placeh">Provincia</span></span></td></tr>
@@ -348,7 +355,6 @@
                             </li>
                         </ul><br>
                         </div>
-                    </div>
                     </div>
                     </div>
             <!-- END CARD -->

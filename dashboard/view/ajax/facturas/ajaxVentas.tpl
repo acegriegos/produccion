@@ -2,6 +2,7 @@
 <div class="card z-depth-5 pequeño">
 <div class="card-header center blue-grey white-text">
 <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
+
 <a class="btn" style="float: right;color: white;font-size: 14px;" onclick="verfacturas();"> Ver Facturas</a>
 VENTAS {$smarty.session.EMPRESA|upper}</p></div>
   <input type="hidden" class="zelda">
@@ -56,7 +57,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
     </div> 
 
     <div class="col s2 cre" style="display: none;">
-      <label>Saldo Actual: <label id="msaldo"></label> </label> 
+      <label>Saldo Actual: <span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div> 
     
   </div>
@@ -99,7 +100,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
           <td style="width: 14%; " class="input-field">
-            <input type="text" id="precp" class="f center" value="0.00" readonly>
+            <input type="text" id="precp" class="f center divisa" value="0.00" readonly>
           </td>
           <td style="width: 5%; " class="input-field">
             <select id="uni" readonly >
@@ -110,7 +111,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
             <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
           <td style="width: 14%; " class="input-field">
-            <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
+            <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
           </td>
           <td class="center" style="font-size: 1em; width: 17%; ">
             
@@ -140,6 +141,17 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
   <div class="row">
 
     <div class="col s12 m12 l6">
+
+      <div class="input-field">
+        <select id="monedas">
+          {section name="LE" loop=$MON}
+            <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
+          {/section}
+        </select>
+
+        <label for="monedas">Divisa</label>
+      </div>
+
       <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
       <div class="row">
       <br>
@@ -150,9 +162,9 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
         </div>
 
         <div class="col s12 m4 input-field">
-          <div class="prefix">¢</div>
+          <div class="prefix moneda"></div>
           <label for="vflete" style="color: black"><b>FLETE</b></label>
-          <input type="text" id="vflete" class="eder" value="0">
+          <input type="text" id="vflete" class="eder divisa" value="0">
         </div>
 
         <div class="col s12 m4 input-field">
@@ -169,7 +181,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
           <tr>
             <td>SUBTOTAL:</td>
             <td style="float: right;">
-              <span><b>¢</b></span><span id="subtot" type="html" value="0" style="color: black">0.00</span>
+              <span class="moneda"></span><span id="subtot" class="divisa" type="html" value="0" style="color: black">0.00</span>
             </td>
           </tr>
         </thead>
@@ -181,17 +193,17 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
         <tfoot>  
           <tr>
             <td>DESCUENTO:</td>
-            <td style="float: right;"><span><b>¢</b></span><span id="descuento_v" type="html" value="0">0.00</span></td>
+            <td style="float: right;"><span class="moneda"></span><span id="descuento_v" class="divisa" type="html" value="0">0.00</span></td>
           </tr>
 
           <tr>
             <td>FLETE:</td>
-            <td style="float: right;"><span><b>¢</b></span><span id="flete" type="html" value="0">0.00</span></td>
+            <td style="float: right;"><span class="moneda"></span><span id="flete" class="divisa" type="html" value="0">0.00</span></td>
           </tr>
 
           <tr style="border-top:1px solid black">
             <td>TOTAL:</td>
-            <td style="float: right;"><span><b>¢</b></span><span id="tot" type="html" value="0">0.00</span>
+            <td style="float: right;"><span class="moneda"></span><span id="tot" class="divisa" type="html" value="0">0.00</span>
             </td>
           </tr>
        
@@ -205,6 +217,8 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
             <label for="p_v" style="color: black">Punto Venta</label>
           </p>
+          <br>
+
         </div>
 
         <div class="col s12 m4">
@@ -288,6 +302,8 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
 </div>
 </div>
+ <a id="prueba" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modalcambio"><i class="large material-icons ">add</i></a>
+
 <!-- Cambio del pago -->
  <!-- Modal Structure -->
   <div id="modalcambio" class="modal modal-fixed-footer modcambio">
@@ -295,11 +311,11 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
       <h4>Cambio</h4>
       <p>A bunch of text</p>
       <p>Pagó Con:</p>
-      <p>Su Cambio</p>
+      <p>Su Cambio:</p>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
     </div>
   </div>
 
-<script src="../assets/js/modulos/ventas.js?v=0.21"></script>
+<script src="../assets/js/modulos/ventas.js?v=0.25"></script>

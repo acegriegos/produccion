@@ -59,8 +59,35 @@ $(function(){
             endingTop: '4%' // Ending top style attribute
         });
         $('ul.tabs').tabs();
-    });
-    $("#m1").click();
+
+});
+
+    var pr = getParameterByName("pr") //accesos
+    var sr = getParameterByName("sr")
+    var pq = getParameterByName("pq")
+    var addpr = getParameterByName("addpr")
+    var addsr = getParameterByName("addsr")
+    var addpq = getParameterByName("addpq")
+
+    if (pr) {
+        $("#m1").click();
+    }else if (sr) {
+        $("#m2").click();
+    }else if (pq) {
+        $("#m3").click();
+    }else if (addpr) {
+        $("#m1").click();
+        $("#addproduct").click();
+    }else if (addsr) {
+        $("#m2").click();
+        $("#addservice").click();
+    }else if (addpq) {
+        $("#m3").click();
+        $("#addpackage").click();
+    }else
+        $("#m1").click();
+
+
 });
 
 $(document).ready(function(){
