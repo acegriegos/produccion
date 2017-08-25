@@ -24,7 +24,9 @@
       <label for="numtrans" style="font-size: 0.4em !important"># Transacción</label>
     </div>
     </div>
+    <div>
     <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b style="font-size: 1.2em !important" >Inicio</b></a></li>
+    <li class="per8"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Laboratorios</b></a></li>
     <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b style="font-size: 1.2em !important">Área Comercial</b></a></li>
     <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b style="font-size: 1.2em !important">Área de Operaciones</b></a></li>
     <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b style="font-size: 1.2em !important">Área Financiera</b></a></li>
@@ -35,6 +37,7 @@
     <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><b style="font-size: 1.2em !important">Cerrar Sesión</b></a></li>
     <!-- <li><div class="divider"></div></li> -->
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
+    </div>
   </ul>
   <!-- menu pequeño -->
 <ul id="out" class="side-nav" style="max-width: 400px !important; font-size: 2.4em !important">
