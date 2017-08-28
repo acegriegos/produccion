@@ -8,14 +8,16 @@
     <title>Configuración</title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=0.2">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=0.3">
   </head>
   <body>
     {$NAV}
     <div class="bdy  pequeño">
-     <nav class="nav-extended z-depth-5 " style="background-color:#0B3861">
+    
+       <nav class="nav-extended z-depth-5 " style="background-color:#0B3861">
       <div class="nav-wrapper ">
-        <ul class="tabs tabs-transparent">
+       <div class="nav-content">
+        <ul class="tabs tabs-transparent ">
           <li class="tab col s3 menu3" id="m1"><a class="tamLetra" class="active">Empresa</a></li>
           <li class="tab col s3 menu3" id="m2"><a class="tamLetra">Descuentos</a></li>
           <li class="tab col s3 menu3" id="m3"><a class="tamLetra">Impuestos</a></li>
@@ -25,6 +27,7 @@
           <li class="tab col s3 menu3" id="m7"><a class="tamLetra">Producción</a></li>
           <li class="tab col s3 menu3" id="m8"><a class="tamLetra">Accesos</a></li>
         </ul>
+        </div>
       </div>
     </nav>
     <div id="majustes" class="pequeño"></div>

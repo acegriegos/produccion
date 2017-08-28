@@ -4,6 +4,7 @@
 <link href="../assets/css/materialize.css" rel="stylesheet">
 <link href="../assets/css/modulos/style-factura.css?v=0.1" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
+<link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
 <!--   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 -->
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -248,11 +249,13 @@
 <div class="row">
     <form class="col s12">
       <div class="row" id="correosclie">
-         <input type="hidden" id="vid" value="<?php echo $datos[28]; ?>" >
-        <div class="input-field col s12">
-        <a href="#" id="lcorreos"><i href="#" id="lcorreos"  class="small   material-icons">email</i></a>
-             <textarea id="textarea1" class="materialize-textarea"></textarea>
-        </div>
+         <input type="hidden" id="vid" value="<?php echo $datos[27]; ?>" >
+
+        <a href="#" id="lcorreos"><i  class="small   material-icons">email</i></a> <span id="smail"></span>
+             <div class="chips chips-initial white-text" id="listcorreos" style="color: white;">
+               
+             </div> 
+      
       </div>
     </form>
   </div>
@@ -266,6 +269,7 @@
 
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/materialize.js"></script>
-<script src="../assets/js/modulos/recibos.js?v=0.1"></script>
+<script src="../assets/js/asgard.js"></script>
+<script src="../assets/js/modulos/recibos.js?v=0.3"></script>
 
 </body>

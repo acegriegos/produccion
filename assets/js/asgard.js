@@ -371,7 +371,17 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
             catch(err){
                 p = data;
             }
-        });
+
+            if($("#smail").is(':visible')){
+                 Materialize.toast('Correo Enviado <i class="fa fa-check"></i>',4000,"green")
+                // setTimeout(function(){$("#smail").html('')},2000)
+                $("#smail").html('')
+            }
+           
+        })
+          .fail(function() {
+            alert( "error" );
+          });
 }
 
 function odin(varreglo,vform) {
@@ -899,6 +909,10 @@ function cargarMoneda(idmoneda,elemento){
     }
 
     elemento.first().data("triforce",{nombre:moneda[0], simbolo: moneda[1], valor: moneda[2], id: moneda[3]}); 
+}
+
+function mostrar_cargar(){
+    $("#smail").html('Enviando... <div class="preloader-wrapper big active">      <div class="spinner-layer spinner-blue">        <div class="circle-clipper left">          <div class="circle"></div>         </div><div class="gap-patch">          <div class="circle"></div>        </div><div class="circle-clipper right">          <div class="circle"></div>        </div>      </div>');
 }
 
 //TELEFONOS Y CORREOS
