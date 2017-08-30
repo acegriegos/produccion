@@ -35,9 +35,10 @@ class correo
     }
 
     function enviar_adjunto($vAdjunto){
-      $this->message->attach(Swift_Attachment::fromPath($vAdjunto));
+      $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vAdjunto));
 
       if ($this->mailer->send($this->message)) {
+          unlink('../assets/'.$vAdjunto);
           return 1;
        } else {
           return 0;

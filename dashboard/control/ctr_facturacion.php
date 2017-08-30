@@ -123,6 +123,9 @@
 	   			$datos = $transaccion[0];
 	   			require 'view/ajax/facturas/orden.php';
 	   			break;
+	   		case 10:
+	   			
+        	break;
 
 	   	}
 		if(!$pagina){

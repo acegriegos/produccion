@@ -40,8 +40,8 @@
   width: 100% !important;
 }
 
-.selectusr ul span{
-  color: white !important;
+.selectusr ul li span{
+  /*color: white !important;*/
 }
 
 header, main, footer {

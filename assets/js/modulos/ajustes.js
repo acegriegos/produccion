@@ -1,21 +1,35 @@
 Dropzone.autoDiscover = false;
-var myDropzone;
+var myDr1opzone;
 
 $(function(){
 	$(".modal").modal();
 	$("#m1").click();
-	$("#addMoneda").click(function(){
-		deadclear('moneda');
-	});
+	// $("#addMoneda").click(function(){
+	// 	deadclear('moneda');
+	// });
 	$("script").each(function(){
 		$(this).remove();
 	});
+
+
+  $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: false, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+        
 });
 
 $(document).on("click",".menu3",function(){
 	$(".menu3").removeClass('active');
 	$(this).addClass('active');
-	
+	$("#titulo").html($(this).html());
 	var id = parseInt($(this).attr('id').substr(1));
 	switch(id) {
 		case 1:

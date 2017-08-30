@@ -365,6 +365,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
         data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
         })
         .done(function(data) {
+
             try {
                 p = JSON.parse(data);
             }
@@ -373,7 +374,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
             }
 
             if($("#smail").is(':visible')){
-                 Materialize.toast('Correo Enviado <i class="fa fa-check"></i>',4000,"green")
+                 Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="material-icons">check</i>',4000,"green")
                 // setTimeout(function(){$("#smail").html('')},2000)
                 $("#smail").html('')
             }
@@ -912,7 +913,7 @@ function cargarMoneda(idmoneda,elemento){
 }
 
 function mostrar_cargar(){
-    $("#smail").html('Enviando... <div class="preloader-wrapper big active">      <div class="spinner-layer spinner-blue">        <div class="circle-clipper left">          <div class="circle"></div>         </div><div class="gap-patch">          <div class="circle"></div>        </div><div class="circle-clipper right">          <div class="circle"></div>        </div>      </div>');
+    $("#smail").html('<div class="preloader-wrapper small active"><div class="spinner-layer spinner-green-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div> <br> Enviando...');
 }
 
 //TELEFONOS Y CORREOS
