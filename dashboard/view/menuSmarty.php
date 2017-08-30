@@ -25,8 +25,8 @@
     </div>
     <div>
     <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b style="font-size: 1.2em !important" >Inicio</b></a></li>
-    <li class="per8"><a href="medicina"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Medicina</b></a></li>
-    <li class="per8"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Laboratorios</b></a></li>
+    <li class="per8 hide"><a href="medicina"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Medicina</b></a></li>
+    <li class="per8 hide"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Laboratorios</b></a></li>
     <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b style="font-size: 1.2em !important">Área Comercial</b></a></li>
     <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b style="font-size: 1.2em !important">Área de Operaciones</b></a></li>
     <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b style="font-size: 1.2em !important">Área Financiera</b></a></li>

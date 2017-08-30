@@ -77,7 +77,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m3").click();
+    $("#m1").click();
 });
 
 $(document).ready(function(){
