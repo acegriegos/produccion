@@ -29,7 +29,7 @@ $(document).ready(function(){
     setTimeout(function(){$("#user").focus();},100)
     
     $("#logF").submit(function(){
-        return getIn();
+         return getIn();
     });
 
     $("#changepssw").click(function(){
@@ -116,7 +116,7 @@ function getIn(){
         return false;
     }
 
-    var p = mantenimiento('login',3,{user: $('#user').val(), pss: $('#pass').val()})
+    var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
     if(p.length == 0){
         Materialize.toast('Archivo Conf. Inválido', 4000, 'red');
         return false;

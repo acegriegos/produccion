@@ -1,6 +1,49 @@
 .tamLetra{
    font-size: 1.2em !important
 }
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: black;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: black;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: black;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: black;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color: black;
+}
+
+.let{
+  color: black;
+}
+
+.transac-menu{
+  padding: 0 !important;
+  padding-left: 6% !important;
+  margin-bottom: 0;
+  margin-top: -35px;
+}
+
+.side-nav .userView{
+  padding: 25px 32px 0 !important;
+}
+
+.side-nav a{
+  font-size: 12px !important;
+  width: 100% !important;
+}
+
+.selectusr ul li span{
+  /*color: white !important;*/
+}
+
 header, main, footer {
   padding-left: 400px;
 }

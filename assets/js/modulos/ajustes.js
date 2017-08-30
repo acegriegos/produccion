@@ -1,21 +1,35 @@
 Dropzone.autoDiscover = false;
-var myDropzone;
+var myDr1opzone;
 
 $(function(){
 	$(".modal").modal();
 	$("#m1").click();
-	$("#addMoneda").click(function(){
-		deadclear('moneda');
-	});
+	// $("#addMoneda").click(function(){
+	// 	deadclear('moneda');
+	// });
 	$("script").each(function(){
 		$(this).remove();
 	});
+
+
+  $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: false, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+        
 });
 
 $(document).on("click",".menu3",function(){
 	$(".menu3").removeClass('active');
 	$(this).addClass('active');
-	
+	$("#titulo").html($(this).html());
 	var id = parseInt($(this).attr('id').substr(1));
 	switch(id) {
 		case 1:
@@ -154,6 +168,17 @@ $(document).on("click",".menu3",function(){
 			$("#majustes").html(p);
 			$("#vnombre").focus();
 			$("#data-table-vp").dataTable({
+				bFilter : false,
+				bLengthChange : false,
+				order : []
+			});
+			break;
+		case 8:
+			var p = mantenimiento('ajustes',8,'');
+			$("#majustes").html('');
+			$("#majustes").html(p);
+			$("#vnombre").focus();
+			$("#data-table-accesos").dataTable({
 				bFilter : false,
 				bLengthChange : false,
 				order : []
@@ -1052,6 +1077,13 @@ function validar (varreglo,vmodulo) {
 					return err
 			}
 			break;
+		case 'acceso':
+			if (vmodulo['tip'] == '') {
+				err = validaracceso(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
 		default:
 			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
 			break;
@@ -1061,6 +1093,21 @@ function validar (varreglo,vmodulo) {
 	// console.log(salida)
 	return salida;
 
+}
+
+function validaracceso(vmod) {
+
+	if($("#f"+vmod+"s #vid").val() == 0){
+		return "Seleccione una Transacción";
+	}
+
+	if($("#f"+vmod+"s #vcodigo").val() == ''){
+		$("#f"+vmod+"s #vcodigo").focus();
+		return "Código Requerido";
+	}
+
+
+	return false;
 }
 
 function validarprodinv(vmod) {
@@ -1315,8 +1362,13 @@ function cargar(vmodulo,vid) {
 			vmodulo['tbl'] = 169;
 			vmodulo['where'] = 'id = '+vid+' order by nombre';
 			break;
+		case 'acceso':
+			vmodulo['sel'] = 'id as vid,nombre as vnombre,codigo as vcodigo';
+			vmodulo['tbl'] = 196;
+			vmodulo['where'] = 'id = '+vid;
+			break;
 		default:
-			console.log('Cargar Módulo no Existente');
+			console.log('Cargar Módulo no Existente '+vmodulo['modulo']);
 			break;
 	}
 	

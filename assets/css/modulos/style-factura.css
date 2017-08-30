@@ -1,17 +1,24 @@
+*{font-size: 13px;}
+
+h3{font-size: 1.8em; text-decoration: bold;}
+
+/*.chip input{
+	background: #3960A7 !important;
+	color: white !important;
+}*/
+
 .hr1{
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border: 0;
-  border-top: 1px dashed #eee;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 0;
+	border-top: 1px dashed #eee;
 }
 .tamLetra{
-   font-size: 1.2em !important
+	font-size: 1.2em !important
 }
 
-body{
-	padding-left: 14%;
-	padding-right: 14%;
-	background-color: red;
+.fac{
+	padding-left: 3% !important;
 }
 
 .hoja{
@@ -30,26 +37,34 @@ body{
 .margen2{
 	margin-top:0px !important;
 	margin-bottom:0px !important;
-	padding-top:5x !important;
+	padding-top:5px !important;
 	padding-bottom:2px !important;
 
 }
+
 .sinborde{
 	border-radius: 0px !important;
 }
 
-
 @media print {
 
-	
+	#imglogo{
+		width: 90% !important;
+		margin: 0 auto !important;
+	}
+
+	.hideonprint{
+		display: none;
+	}
 
 	thead{
 		background-color: red;
 	}
 
- 	header, nav, aside {
-	  display: none;
+	header, nav, aside {
+		display: none;
 	}
+
 	footer{
 		font-size: 10px;
 	}
@@ -64,12 +79,12 @@ body{
 
 	body{
 		padding-left: 10px;
-	  	padding-right: 10px;
-	  	color: black !important;
+		padding-right: 10px;
+		color: black !important;
 	}
 
-	@page {
-	  size: A4 ; 
+	.hoideonprint{
+		display: none;
 	}
 
 	.hoja{
@@ -80,8 +95,19 @@ body{
 		border: 0px !important;
 		box-shadow: none !important;
 		color: black !important;
-
+		padding: 2% 0% !important;
+	}
+	
+	footer{
+		position: fixed;
+		bottom: 0;
 	}
 
 }
 
+@page {
+	size: letter;
+	size:  auto;
+    margin: 0mm;
+
+}

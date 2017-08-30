@@ -20,8 +20,10 @@ class correo
      	$this->mailer = Swift_Mailer::newInstance($transport);
      	$this->message = Swift_Message::newInstance($tit)
      		->setFrom(array($res[1][0] => 'BMS'))
-     		->setTo(array( $pr ))
-     		->setBody('<div style="min-height:250px;background-color: #0B3861; margin-left:15%;margin-right: 15%;color: white">'.$msj.'</div>','text/html');
+     		->setTo( explode(',',$pr) )
+     		->setBody($msj,'text/html');
+
+        //'<div style="min-height:250px;background-color: #0B3861; margin-left:15%;margin-right: 15%;color: white">'. .'</div>'
     }
 
     function enviar(){
@@ -33,9 +35,10 @@ class correo
     }
 
     function enviar_adjunto($vAdjunto){
-      $this->message->attach(Swift_Attachment::fromPath($vAdjunto));
+      $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vAdjunto));
 
       if ($this->mailer->send($this->message)) {
+          unlink('../assets/'.$vAdjunto);
           return 1;
        } else {
           return 0;

@@ -100,8 +100,21 @@
    		case 7:
    			$transaccion = $log->genkidama($_REQUEST['arreglo']['accion'],$_REQUEST['arreglo']['tabla'],$_REQUEST['arreglo']['arg1'],$_REQUEST['arreglo']['arg2']);
    			break;
-   		case 8:
-   			
+   		case 8:  //MOSTRAR SOLO PDFs
+          $pagina = 1;
+
+          if (isset($_REQUEST['arreglo']['sel'])) {
+            $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+            $datos = $transaccion[0];
+          }
+          
+          if (isset($_REQUEST['arreglo']['mic']))
+            $miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+
+          if (isset($_REQUEST['arreglo']['id']))
+            $id = $_REQUEST['arreglo']['id'];
+
+          include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
 		   	break;
 
    	}

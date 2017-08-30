@@ -2,10 +2,10 @@
     <li>
       <div class="userView">
         <div class="background">
-          <img src="../assets/img/bckground.jpg">
+          <img src="../assets/img/menubgb.svg">
         </div>
         <a href="#!user" class="center"><i class="medium material-icons" style="color:#fff" aria-hidden="true">person_pin</i></a>
-        <div class="input-field col s12 white-text">
+        <div class="input-field col s12 white-text selectusr">
           <select id="lgt">
             <option value="0" class="logout" id="x1" disabled selected>{$smarty.session.NOM} </option>
             <option value="1" class="logout" id="x2">Información</option>
@@ -18,13 +18,15 @@
         <a href="#!email" class="center"><span class="white-text email">{$smarty.session.MAIL}</span></a>
       </div>
     </li>
-    <div class="row" style="margin-bottom: 3px;">
+    <div class="row transac-menu">
     <div class="input-field col s10">
-      <input id="numtrans" type="text" class="validate" style="margin-bottom: 0px;">
-      <label for="numtrans" style="font-size: 0.4em !important"># Transacción</label>
+      <input id="numtrans" type="text" class="validate let" placeholder="Transaccion">
     </div>
     </div>
+    <div>
     <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b style="font-size: 1.2em !important" >Inicio</b></a></li>
+    <li class="per8"><a href="medicina"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Medicina</b></a></li>
+    <li class="per8"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Laboratorios</b></a></li>
     <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b style="font-size: 1.2em !important">Área Comercial</b></a></li>
     <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b style="font-size: 1.2em !important">Área de Operaciones</b></a></li>
     <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b style="font-size: 1.2em !important">Área Financiera</b></a></li>
@@ -35,6 +37,7 @@
     <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><b style="font-size: 1.2em !important">Cerrar Sesión</b></a></li>
     <!-- <li><div class="divider"></div></li> -->
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
+    </div>
   </ul>
   <!-- menu pequeño -->
 <ul id="out" class="side-nav" style="max-width: 400px !important; font-size: 2.4em !important">

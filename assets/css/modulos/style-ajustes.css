@@ -1,10 +1,13 @@
 .tipodes{
     width: 18%;
 }
-
+.oflow {
+    overflow-x: scroll !important;
+}
 .row{
     margin-bottom: 0px;
 }
+
 
 .titulos{
     background-color: #0B3861;
