@@ -77,7 +77,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m2").click();
+    $("#m3").click();
 });
 
 $(document).ready(function(){
@@ -164,16 +164,20 @@ $(document).on("keydown","#proceso",function(e){
 
 $(document).on("keyup","#proceso",function(e){
     var code = e.which || e.keyCode;
-    if (code == 13)
-        $("#linea").focus();
+    if (code == 13) {
+        arr('login',6,'',197,'"'+$(this).val()+'"',0,1,$("#listatareaxprocesos"));
+        $("#data-table-tareaxprocesos").show(500);
+        $("#cantidad").val(1);
+        $("#cantidad").select();
+    }
 });
 
 $(document).on("blur","#proceso",function(){
     var id = arr('login',4,'id',11,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
     if (id != undefined) {
-        var idlinea = arr('login',4,'idlinea',146,'nombre = "'+$(this).val()+'"',0,0,0)[0][0][0];
-        $("#idproceso").val(id[0]);
-        $("#linea").val(idlinea);
+        var idlinea = arr('login',4,'idlinea,idproducto',146,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
+        $("#idlinea").val(idlinea[0]);
+        $("#idproceso").val(idlinea[1]);
         Materialize.updateTextFields();
         $(this).css('border-bottom','1px solid #4CAF50');
         $(this).css('box-shadow','0 1px 0 0 #4CAF50');
@@ -185,17 +189,17 @@ $(document).on("blur","#proceso",function(){
     }
 });
 
-$(document).on("keyup","#linea",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13)
-        $("#cantidad").val(1);
-        $("#cantidad").select();
-});
+// $(document).on("keyup","#linea",function(e){
+//     var code = e.which || e.keyCode;
+//     if (code == 13)
+//         $("#cantidad").val(1);
+//         $("#cantidad").select();
+// });
 
 $(document).on("keyup","#cantidad",function(e){
     var code = e.which || e.keyCode;
     if (code == 13)
-        addprocess($("#idproceso").val(),$("#proceso").val(),$("#linea").val(),parseInt($(this).val()));
+        addprocess($("#idproceso").val(),$("#proceso").val(),$("#idlinea").val(),parseInt($(this).val()));
 });
 
 $(document).on("click","#toBuy",function(){
@@ -221,7 +225,7 @@ $(document).on("click",".productline",function(){
 $(document).on("keyup",".tarea",function(e){
     var code = e.which || e.keyCode;
     if (code == 13)
-        addprodline(1)
+        addprodline($(this).attr('id').substr(0,1))
 });
 
 $(document).on("keydown",".tarea",function(e){
@@ -232,7 +236,7 @@ $(document).on("keydown",".tarea",function(e){
         $(".autocomplete-content").remove();
         $("#"+tipo+"tarea").autocomplete({
             limit: 10,
-            data: arr('login',4,'nombre,null',134,'nombre like \"%'+$("#"+tipo+"tarea").val()+'%\" and id > 0 limit 10',0,0,0,1)
+            data: console.log(arr('login',4,'nombre,null',134,'nombre like \"%'+$("#"+tipo+"tarea").val()+'%\" and id > 0 limit 10',0,0,0,1))
         });
         $("#"+tipo+"tarea").siblings($(".autocomplete-content")).css('width','25%');
     }
@@ -265,7 +269,7 @@ $(document).on("click","#chrecipe",function(){
 // });
 
 $(document).on("click","#addprodline",function(){
-    addprodline(1);
+    addprodline("a");
 });
 
 $(document).on("click",".order",function(){
@@ -307,10 +311,8 @@ $(document).on("click","#savelinea",function(){
     if (idlinea[0]['ERROR'] == undefined) {
         $(".aplines").each(function(){
             var idtarea = $(this).attr('id').substr(2);
-            var idunidad = $("#auni"+idtarea).attr('idunidad');
             var order = $("#atorder"+idtarea).attr('orden');
-            var estimado = $("#aest"+idtarea).attr('estimado');
-            arr('login',4,'',131,'1,0,'+idtarea+','+idlinea[0][0]+','+estimado+','+idunidad+','+order+',@@usr,@@impresa',0,0,0)[0];
+            arr('login',4,'',131,'1,0,'+idtarea+','+idlinea[0][0]+','+order+',@@usr,@@impresa',0,0,0);
         });
         $("#listadetalles").html('');
         $("#tablelineas").addClass('hide');
@@ -326,15 +328,13 @@ $(document).on("click","#savelinea",function(){
 $(document).on("click","#dsavelinea",function(){
     var idproceso = $(".nameproceso").attr('id').substr(1);
     var nombre = $("#nombrelinea").val();
-    var idlinea = arr('login',4,'',132,'1,0,\"'+nombre+'\",'+idproceso,0,0,0);
+    var idlinea = arr('login',4,'',132,'1,0,'+idproceso+',@@usr,@@impresa',0,0,0);
 
     if (idlinea[0]['ERROR'] == undefined) {
-        $(".aplines").each(function(){
+        $(".bplines").each(function(){
             var idtarea = $(this).attr('id').substr(2);
-            var idunidad = $("#uni"+idtarea).attr('idunidad');
-            var order = $("#torder"+idtarea).attr('orden');
-            var estimado = $("#est"+idtarea).attr('estimado');
-            arr('login',4,'',131,'1,0,'+idtarea+','+idlinea[0][0]+','+estimado+','+idunidad+','+order,0,0,0)[0];
+            var order = $("#btorder"+idtarea).attr('orden');
+            arr('login',4,'',131,'1,0,'+idtarea+','+idlinea[0][0]+','+order+',@@usr,@@impresa',0,0,0);
         });
         Materialize.toast('Linea de produccion '+nombre+' Guardada Correctamente', 6000, 'green');
     }else{
@@ -346,13 +346,20 @@ $(document).on("click",".actlinea",function(){
     var id = $(this).attr('id').substr(1);
     var idproceso = $(this).attr('idproceso');
     var detalle = arr('login',4,'',138,id+','+idproceso,0,0,0)[0];
+    var autoinc = 0;
     $("#actrec").val(detalle[0][2]);
     $("#actrec").attr('idproceso',detalle[0][1])
     $("#listadetprod").html('');
 
     for (var i = 0, len = detalle.length; i < len; i++) {
-        $("#listadetprod").append('<tr class="bpline" id="bp'+detalle[i][3]+'"><td id="btask'+detalle[i][3]+'">'+detalle[i][4]+'</td><td id="best'+detalle[i][3]+'" estimado="'+detalle[i][5]+'">'+detalle[i][6]+'</td><td id="buni'+detalle[i][3]+'" idunidad="'+detalle[i][6]+'">'+detalle[i][8]+'</td><td orden="'+detalle[i][8]+'" id="btorder'+detalle[i][3]+'"><span class="order" id="bsorder'+detalle[i][3]+'">'+detalle[i][9]+'</span><input type="hidden" class="horder" id="beorder'+detalle[i][3]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="bdel'+detalle[i][3]+'">close</i></td></tr>');
+        $("#listadetprod").append('<tr class="bplines" id="bp'+detalle[i][3]+'"><td id="btask'+detalle[i][3]+'">'+detalle[i][4]+'</td><td id="besth'+detalle[i][3]+'" esth="'+detalle[i][6]+'">'+detalle[i][6]+'</td><td id="bestm'+detalle[i][3]+'" estm="'+detalle[i][7]+'">'+detalle[i][7]+'</td><td id="bband'+detalle[i][3]+'" bandejas="'+detalle[i][8]+'">'+detalle[i][8]+'</td><td orden="'+detalle[i][9]+'" id="btorder'+detalle[i][3]+'"><span class="order" id="bsorder'+detalle[i][0]+'">'+detalle[i][9]+'</span><input type="hidden" class="horder" id="beorder'+detalle[i][3]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="bdel'+detalle[i][3]+'">close</i></td></tr>');
+        autoinc++;
     }
+    
+    $("#bautoinc").val(autoinc);
+
+    // <tr class="bpline" id="bp'+detalle[i][3]+'"><td id="btask'+detalle[i][3]+'">'+detalle[i][4]+'</td><td id="best'+detalle[i][3]+'" estimado="'+detalle[i][5]+'">'+detalle[i][6]+'</td><td id="buni'+detalle[i][3]+'" idunidad="'+detalle[i][6]+'">'+detalle[i][8]+'</td><td orden="'+detalle[i][8]+'" id="btorder'+detalle[i][3]+'"><span class="order" id="bsorder'+detalle[i][3]+'">'+detalle[i][9]+'</span><input type="hidden" class="horder" id="beorder'+detalle[i][3]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="bdel'+detalle[i][3]+'">close</i></td></tr>
+
     Materialize.updateTextFields();
     $("#dactrec").removeClass('hide');
     $("#atarea").focus();
@@ -424,8 +431,6 @@ $(document).on("keyup","#vproceso",function(e){
              Materialize.toast('Ya existe una linea de produccion asignada a esta proceso', 6000, 'amber lighten-2');
              $(this).val('');
         }
-        
-        
     }
 });
 
@@ -855,11 +860,9 @@ $(document).on("keyup",".ganancia",function(){
 
 function addprodline(tipo) {
     var tabla = "";
-    if (tipo == 1) {
-        tipo = "a";
+    if (tipo == "a") {
         tabla = "listadetalles";
     }else{
-        tipo = "b";
         tabla = "listadetprod";
     }
     var pass = 1;
@@ -877,7 +880,7 @@ function addprodline(tipo) {
             });
             if (pass == 1) {
                 count ++;
-                $("#"+tabla).append('<tr class="'+tipo+'plines" id="'+tipo+'p'+tsk[0][0]+'"><td id="atask'+tsk[0][0]+'">'+tsk[0][1]+'</td><td id="'+tipo+'esth'+tsk[0][0]+'" esth="'+tsk[0][2]+'">'+tsk[0][2]+'</td><td id="'+tipo+'estm'+tsk[0][0]+'" estm="'+tsk[0][3]+'">'+tsk[0][3]+'</td><td id="'+tipo+'band'+tsk[0][0]+'" bandejas="'+tsk[0][4]+'">'+tsk[0][4]+'</td><td orden="'+count+'" id="'+tipo+'torder'+tsk[0][0]+'"><span class="order" id="'+tipo+'sorder'+tsk[0][0]+'">'+count+'</span><input type="hidden" class="horder" id="'+tipo+'eorder'+tsk[0][0]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="'+tipo+'del'+tsk[0][0]+'">close</i></td></tr>');
+                $("#"+tabla).append('<tr class="'+tipo+'plines" id="'+tipo+'p'+tsk[0][0]+'"><td id="'+tipo+'task'+tsk[0][0]+'">'+tsk[0][1]+'</td><td id="'+tipo+'esth'+tsk[0][0]+'" esth="'+tsk[0][2]+'">'+tsk[0][2]+'</td><td id="'+tipo+'estm'+tsk[0][0]+'" estm="'+tsk[0][3]+'">'+tsk[0][3]+'</td><td id="'+tipo+'band'+tsk[0][0]+'" bandejas="'+tsk[0][4]+'">'+tsk[0][4]+'</td><td orden="'+count+'" id="'+tipo+'torder'+tsk[0][0]+'"><span class="order" id="'+tipo+'sorder'+tsk[0][0]+'">'+count+'</span><input type="hidden" class="horder" id="'+tipo+'eorder'+tsk[0][0]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="'+tipo+'del'+tsk[0][0]+'">close</i></td></tr>');
                 
                 $("#"+tipo+"tarea").val('');
                 $("#"+tipo+"estimado").val('');
@@ -996,13 +999,13 @@ function cronometro () {
 
 // TERMINA CRONOMETRO //
 
-function addprocess(idproceso,proceso,linea,cantidad) {
+function addprocess(idproceso,proceso,idlinea,cantidad) {
     // validar proceso
     var count = parseInt($("#count").val());
     var cnt = cantidad;
     var cantot = 0;
     count++;
-    $("#inicio").append('<div class="row"><div class="col s12 m12 l12"><span class="reloj" id="horas'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="minutos'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="segundos'+count+'">00</span><span class="reloj hide" id="Centesimas'+count+'">:00</span><input type="button" class="waves-effect waves-light btn blue start" id="start'+count+'" value="Iniciar &#9658;" idproceso="'+idproceso+'" idlinea="'+linea+'" cantidad="'+cantidad+'" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue pause hide" id="pause'+count+'" value="Pausar &#9208;" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue stop" id="stop'+count+'" value="Detener &#8718;" disabled></div></div><div class="row"><div class="col s12 m7 l7"><ul class="collection with-header" id="detproc'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Elementos para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li></ul></div><div class="col s12 m5 l5"><ul class="collection with-header" id="taskprod'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Tareas para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li><input type="hidden" id="o" value="1"></ul></div></div>');
+    $("#inicio").append('<div class="row"><div class="col s12 m12 l12"><span class="reloj" id="horas'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="minutos'+count+'">00</span><span class="reloj">:</span><span class="reloj" id="segundos'+count+'">00</span><span class="reloj hide" id="Centesimas'+count+'">:00</span><input type="button" class="waves-effect waves-light btn blue start" id="start'+count+'" value="Iniciar &#9658;" idproceso="'+idproceso+'" idlinea="'+idlinea+'" cantidad="'+cantidad+'" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue pause hide" id="pause'+count+'" value="Pausar &#9208;" style="margin-left: 15px"><input type="button" class="waves-effect waves-light btn blue stop" id="stop'+count+'" value="Detener &#8718;" disabled></div></div><div class="row"><div class="col s12 m7 l7"><ul class="collection with-header" id="detproc'+count+'"><li class="collection-header"><p class="marginzero" style="font-size: 1.5em;">Lista de Elementos para Proceso <span class="proc'+count+'">'+proceso+'</span></p></li></ul></div></div>');
     // cnt = 'NaN' ? 1 : cantidad;
     //detalleprocesos
     $("#inicio").removeClass('hide');
@@ -1021,24 +1024,13 @@ function addprocess(idproceso,proceso,linea,cantidad) {
         $("#detproc"+count).append('<li class="collection-item"><div class="row mbotcero"><div class="col s4 m6 l6"><span id="d'+elem[i][0]+'">'+elem[i][3]+'</span></div><div class="col s4 m2 l2"><span>Cantidad: <span id="c'+elem[i][0]+'">'+cantot+'</span></span></div><div class="col s4 m2 l2"><span>Actual: <span id="a'+elem[i][0]+'">'+elem[i][6]+'</span></span></div><div class="col s4 m2 l2"><span>Faltante: <span id="f'+elem[i][0]+'">'+faltante+'</span></span></div></div></li>');
     }
     $("#detproc"+count).append('<div><a class="waves-effect waves-light btn" id="toBuy" disabled>Ir a Compras</a></div>')
-    //tareas
-    var task = arr('login',4,'',147,linea,0,0,0)[0];
-    for (var i = 0, len = task.length; i < len; i++) {
-        var tiempo = parseInt(task[i][3]) * cantidad;
-        $("#taskprod"+count).append('<li class="collection-item itask" id="t'+task[i][5]+'"><div class="row mbotcero"><div class="col s6 m6 l6"><span id="task'+task[i][1]+'"></span>'+task[i][2]+'</div><div class="col s4 m4 l4"><span id="e'+task[i][1]+'">'+tiempo+'</span> <span id="u'+task[i][1]+'">'+task[i][4]+'</span></div><div class="col s2 m2 l2"><i class="material-icons pbtn btn-color nexttask" id="s'+task[i][1]+'" idorden="'+task[i][5]+'" style="margin-left: 15px">stop</i></div></div></li>');
-    }
-    $("#start"+count).attr('idtarea',task[0][1])
     $("#count").val(count);
-
     //vaciar
     $("#proceso").val('');
-    $("#linea").val('');
     $("#cantidad").val('');
     $("#proceso").focus();
     $("#proceso").css('border-bottom','1px solid #9e9e9e');
     $("#proceso").css('box-shadow','none');
-    $("#linea").css('border-bottom','1px solid #9e9e9e');
-    $("#linea").css('box-shadow','none');
     Materialize.updateTextFields();
 }
 

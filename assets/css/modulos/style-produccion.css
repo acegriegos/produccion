@@ -86,6 +86,10 @@ tr.prodlines > td {
 label[for=atarea] {
     width: 100% !important;
 }
+
+label[for=btarea] {
+    width: 100% !important;
+}
 /*
 ul.autocomplete-content > li{
     min-height: 40px;

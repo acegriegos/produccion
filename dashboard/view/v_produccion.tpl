@@ -104,6 +104,6 @@
     </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/produccion.js?v=0.4"></script>
+<script src="../assets/js/modulos/produccion.js?v=0.5"></script>
 </body>
 </html>

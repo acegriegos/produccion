@@ -90,7 +90,7 @@
                 <div class="input-field col s12 m6 l4 dcline" id="nac">
                     <a class="material-icons prefix pbtn blue-text mbutton" id="searchprocesos" href="#modal-search">search</a>
                     <input id="vproceso" type="text" class="validate autocomplete" autocomplete="off">
-                    <label for="vproceso">proceso</label>
+                    <label for="vproceso">Proceso</label>
                 </div>
             </div>
             <div class="row hide dcline mbotcero">
@@ -104,27 +104,6 @@
                     <input id="atarea" type="text" class="validate autocomplete faddline tarea">
                     <label for="atarea">Tarea de Producción</label>
                 </div>
-                <!-- <div class="input-field col s12 m3 l2 mtopcero">
-                    <input id="adh" type="text" class="validate faddline adh" min="0" disabled>
-                    <label for="adh">Duracion Hombre</label> -->
-                    <!-- <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
-                    <label for="aestimado">Tiempo Estimado</label> -->
-                <!-- </div> -->
-               <!--  <div class="input-field col s12 m3 l2 mtopcero">
-                    <input id="adm" type="text" class="validate faddline adm" min="0" disabled>
-                    <label for="adm">Duracion Máquina</label> -->
-                    <!-- <input id="aestimado" type="number" class="validate faddline aestimado" min="0">
-                    <label for="aestimado">Tiempo Estimado</label> -->
-                <!-- </div> -->
-                <!-- <div class="input-field col s12 m2 l3 mtopcero">
-                    <select type="select" id="aunidad" class="faddline">
-                        <option value="0">Seleccione una Opción</option>
-                        {section name=LE loop=$UNI}
-                        <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
-                        {/section}
-                    </select>
-                    <label for="aunidad">Unidad</label>
-                </div> -->
                 <div class="col s1 m1 l1">
                     <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline z-depth-5" id="addprodline"><i class="material-icons">add</i></button>
                 </div>
@@ -164,7 +143,7 @@
                     <table class="table striped bordered highlight centered z-depth-3" id="data-table-mantlinea" cellspacing="0" width="100%" >
                         <thead>
                             <tr>
-                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">proceso</th>
+                                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Proceso</th>
                                 <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
                             </tr>
                         </thead>
@@ -179,19 +158,6 @@
                             <input id="btarea" type="text" class="validate autocomplete tarea">
                             <label for="btarea">Tarea Producción</label>
                         </div>
-                        <div class="input-field col s3 m3 l3">
-                            <input id="bestimado" type="number" class="validate bestimado">
-                            <label for="bestimado">Estimado</label>
-                        </div>
-                        <div class="input-field col s3 m3 l3">
-                            <select id="bunidad" type="select">
-                                <option value="0">Seleccione una Opción</option>
-                                {section name=LE loop=$UNI}
-                                <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
-                                {/section}
-                            </select>
-                            <label for="bunidad">Unidad</label>
-                        </div>
                         <div class="col s2 m2 l2">
                             <button type="button" class="btn-floating waves-effect waves-light blue z-depth-5"><i class="material-icons">add</i></button>
                         </div>
@@ -205,8 +171,9 @@
                             </tr>
                             <tr>
                                 <th>Tarea</th>
-                                <th>Tiempo Est.</th>
-                                <th>Unidad</th>
+                                <th>Duracion Hombre</th>
+                                <th>Duracion Máquina</th>
+                                <th>Bandejas</th>
                                 <th style="width: 20%">Orden</th>
                                 <th style="width: 20%">Acciones</th>
                             </tr>

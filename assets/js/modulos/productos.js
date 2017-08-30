@@ -1944,18 +1944,6 @@ function addprod(prod,cant) {
 
 }
 
-function filtrarprod(variable,filtro){
-    arr('login',6,'',93,'\''+variable+'\','+filtro,14,1,$("#listaproductos"));
-}
-
-function filterpck(variable,filtro){
-    arr('login',6,'',96,'\''+variable+'\','+filtro,76,1,$("#listapqts"));
-}
-
-function filterserv(variable,filtro){
-    arr('login',6,'',98,'\''+variable+'\','+filtro,13,1,$("#listaservicios"));
-}
-
 function validar (varreglo,vmodulo) {
 
     var salida = {}
@@ -2210,6 +2198,7 @@ function cargarSintax(vtabla){
 function endDetail(id,acc,modulo) {
     if (acc == 1) {
         deadclear(modulo);
+        thorload(modulo);
     }else if (acc == 2) {
         thorload(modulo);
     }

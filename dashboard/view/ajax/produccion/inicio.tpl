@@ -3,16 +3,28 @@
         <input id="proceso" type="text" class="validate autocomplete">
         <input type="hidden" id="idproceso" value="0">
         <input type="hidden" id="count" value="0">
-        <label for="proceso">Proceso</label>
-    </div>
-    <div class="input-field col s5 m2 l2 grandemodal">
-        <input id="linea" type="text" class="validate">
         <input type="hidden" id="idlinea" value="0">
-        <label for="linea">Linea Producción</label>
+        <label for="proceso">Proceso</label>
     </div>
     <div class="input-field col s3 m2 l2 grandemodal">
         <input id="cantidad" type="number" class="autocomplete">
         <label for="cantidad">Cantidad</label>
+    </div>
+    <div class="input-field col s5 m6 l6">
+        <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-tareaxprocesos" cellspacing="0" width="100%" style="display: none;">
+        <thead>
+        <tr>
+        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Tarea</th>
+        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hombre</th>
+        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Maquina</th>
+        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Bandejas</th>
+        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Orden</th>
+        </tr>
+        </thead>
+        <tbody id="listatareaxprocesos">
+
+        </tbody>
+        </table>
     </div>
 </div>
 <div class="hide" id="inicio">
