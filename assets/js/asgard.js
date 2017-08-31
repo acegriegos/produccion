@@ -322,6 +322,39 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     return p;
 }
 
+function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
+    var p;
+    var stack = new Error().stack || '';
+    stack = stack.split('\n').map(function (line) { return line.trim(); });
+    stack = stack.splice(stack[0] == 'Error' ? 2 : 1);
+    if(stack.length <= 2){
+        p = 'Get Lost';
+    }else{
+        // source.close();
+        if (vjson)
+            varreglo['JSON'] = vjson
+
+        $.ajax({
+                url: '../dashboard/'+vmodulo,
+                type: 'POST',
+                data: {accion: vaccion,arreglo : varreglo}
+                })
+                .done(function(data) {
+                    
+                    try {
+                        p = JSON.parse(data);
+                    }
+                    catch(err){
+                        p = data;
+                    }
+
+                    postExcecute(vid,p);
+                });
+    }
+    // setTimeout(function(){source = new EventSource("../sse.php")},5000);
+    return p;
+}
+
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
     var salida = 1;
     var arr = {};

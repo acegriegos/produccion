@@ -12,7 +12,7 @@ $(function(){
                 var tabla = $("#data-table-presupuestos").DataTable();
                 tabla.destroy();
                 arr('login',6,'',225,'"","",0,"","",0,0,0',0,1,$("#listapresupuestos"));
-
+                
                 $("#data-table-presupuestos").DataTable({
                     bFilter: false,
                     bLengthChange : false,

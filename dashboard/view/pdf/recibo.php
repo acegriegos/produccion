@@ -3,16 +3,32 @@ ob_start();
 
 require_once('../_config/rep_TCPDF.php');
 
-class myPDF extends TCPDF {}
+class myPDF extends TCPDF {
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function Footer() {
+        $html = '<div align="center">
+            <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución # 11--97 de la Dirección General de Tributación Directa, publicado en el diario La Gaceta #171 el 5 de Setiembre de 1997.
+              <br> 
+              <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
+            </div>';
+
+        $this->writeHTML($html, true, false, true, false, '');
+    }
+}
 
 // create new PDF document
 $pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
-$pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor(PDF_AUTHOR);
-$pdf->SetTitle('Factura Logintech');
-$pdf->SetSubject('Factura Logintech');
+// $pdf->SetCreator(PDF_CREATOR);
+// $pdf->SetAuthor(PDF_AUTHOR);
+$pdf->SetTitle($tit);
+$pdf->SetSubject($tit);
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
@@ -27,10 +43,11 @@ $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(5, 37, 5);
+// $pdf->SetMargins(5, 2, 5);
 $pdf->SetHeaderMargin(10);
-$pdf->SetFooterMargin(70);
-$pdf->setPrintFooter(false);
+$pdf->SetFooterMargin(25);
+$pdf->setPrintFooter(true);
+$pdf->setPrintHeader(false);
 // set auto page breaks
 $pdf->SetAutoPageBreak(TRUE, 0);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -46,9 +63,301 @@ $pdf->SetFont('dejavusans', '', 10, '', true);
 $pdf->AddPage();
 $total = 0;
 
-$html = '<meta charset="UTF-8">'.
-    '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">'.
-    '<style type="text/css">'.'*{font-family: "Roboto", sans-serif; color: #303030; font-size: 14px; background: #FAFAFA}'.'</style>'.'<div style="width: 40%;>'.'<table border="0" cellpadding="0" cellspacing="0">'.'<tr>'.'<td colspan="3" align="center">'.'<img src="https://logintechcr.com/img/logo.png" width="200"></img>'.'</td>'.'<td colspan="3">'.'<b>Demostración</b><br><br>'.'<b>Cédula:</b> 3-1015-1444<br>'.'<b>Teléfono:</b> 2265-7354 / 2265-0524<br>'.'<b>Correo:</b> correos.logintechcr@gmail.com<br>'.'<b>Dirección:</b><br>'.'75 mtrs oeste del salón multiusos Barrio Santa Elena, San Joaquín de Flores'.'</td>'.'</tr>'.'<tr><td colspan="6">&nbsp;</td></tr>'.'<tr><td colspan="6">&nbsp;</td></tr>'.'<tr>'.'<td colspan="3">'.'<div style="margin-left: 15%">'.'<h2>Factura Original</h2><br>'.'<b>Venta N°</b> 000027<br>'.'<b>Cliente:</b><br>'.'<br>'.'JUAN DIEGO MIRANDA CASTRO<br>'.'<br>'.'<b>Vende:</b> Super Administradorbr<br>'.'<b>Comentario:</b><br>'.'N/A'.'</div>'.'</td>'.'<td colspan="3">'.'<div style="color: #fff; background: #3960A7; padding: 4.8%; width: 50%;" align="center"><b style="color:"#fff;">Factura de:</b> Contado</div><br>'.'<div style="color: #fff; background: #3960A7; padding: 4.8%; width: 50%;" align="center"><b style="color:"#fff;">Fecha:</b> 28/08/2017</div>'.'</td>'.'</tr>'.'<tr><td colspan="6">&nbsp;</td></tr>'.'<tr><td colspan="6">&nbsp;</td></tr>'.'<tr>'.'<th style="color: #fff; background: #3960A7; padding: 1.8%; width: 15%;">Cantidad</th>'.'<th style="color: #fff; background: #3960A7; padding: 1.8%; width: 25%;">Descricpión</th>'.'<th style="color: #fff; background: #3960A7; padding: 1.8%; width: 15%;">P. Unit</th>'.'<th style="color: #fff; background: #3960A7; padding: 1.8%; width: 15%;">Tipo</th>'.'<th style="color: #fff; background: #3960A7; padding: 1.8%; width: 15%;">Descuento</th>'.'<th style="color: #fff; background: #3960A7; padding: 1.8%; width: 15%;">Importe</th>'.'</tr>'.'<tr>'.'<td style="width: 15%; border-bottom: 1px solid #BCBCBC !important" align="center">3.00</td>'.'<td style="width: 25%; border-bottom: 1px solid #BCBCBC !important" align="center">ASUS VG248QE</td>'.'<td style="width: 15%; border-bottom: 1px solid #BCBCBC !important" align="center">117,614.19</td>'.'<td style="width: 15%; border-bottom: 1px solid #BCBCBC !important" align="center">Unidad</td>'.'<td style="width: 15%; border-bottom: 1px solid #BCBCBC !important" align="center">0.00%</td>'.'<td style="width: 15%; border-bottom: 1px solid #BCBCBC !important" align="center">352,842.57</td>'.'</tr>'.'</table>'.'</div>';
+$html = '<!doctype html>'.
+'<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">'.
+'<head>'.
+
+'<meta charset="UTF-8">'.
+'<meta http-equiv="X-UA-Compatible" content="IE=edge">'.
+'<meta name="viewport" content="width=device-width, initial-scale=1">'.
+'<title>FACTURA</title>'.
+
+'</head>'.
+'<body style="width: 100%"; >'.
+'<center>'.
+'<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">'.
+'<tr>'.
+'<td align="left" valign="top" id="bodyCell">'.
+
+'<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">'.
+'<tr>'.
+'<td valign="top" id="templateHeader"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">'.
+'<tbody class="mcnCaptionBlockOuter">'.
+'<tr>'.
+'<td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">'.
+
+'<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">'.
+'<tbody><tr>'.
+'<td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">'.
+
+'<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">'.
+'<tbody><tr>'.
+'<td class="mcnCaptionRightImageContent" valign="top">'.
+'<br>'.
+
+'<img src="https://gallery.mailchimp.com/236c3cf9c0e643d2694f51e4c/images/daa0fc73-6e22-4be3-8a43-807258016801.png" width="264" style="max-width:339px;" class="mcnImage">'.
+
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+'</td><td>'.  //DIVISOR
+'<table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264"> '.
+'<tbody><tr>'.
+'<td valign="top" class="mcnTextContent" style="font-size: 13px;font-family: Helvetica;">'.
+'<div style="text-align: left; color: #494949;">'.
+'<strong>Demostración</strong><br>'.
+'<strong>Cédula:</strong> 3-1015-1444<br>'.
+'<strong>Teléfono:</strong> 2265-7354 / 2265-0524<br>'.
+'<strong>Correo:</strong> correos.logintechcr@gmail.com<br>'.
+'<strong>Dirección:</strong><br>'.
+'75 mtrs oeste del salón multiusos Barrio Santa Elena, San Joaquín de Flores</div>'.
+
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+
+'<br>'.
+
+// // DIVIISOR TABLA
+// '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width:100%;">'.
+// '<tbody class="mcnDividerBlockOuter">'.
+// '<tr>'.
+// '<td class="mcnDividerBlockInner" style="min-width:100%; padding:18px;">'.
+// '<table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-top: 2px solid #EAEAEA;">'.
+// '<tbody><tr>'.
+// '<td>'.
+// '<span></span>'.
+// '</td>'.
+// '</tr>'.
+// '</tbody></table>'.
+// '</td>'.
+// '</tr>'.
+// '</tbody>'.
+// '</table>'.
+// // DIVIISOR TABLA
+
+'<br>'.
+
+
+
+'</td>'.
+'</tr>'.
+'<tr>'.
+'<td valign="top" id="templateBody"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">'.
+
+'<tbody class="mcnBoxedTextBlockOuter">'.
+'<tr>'.
+'<td valign="top" class="mcnBoxedTextBlockInner">'.
+
+'<table align="left" border="0" cellpadding="0" cellspacing="0" width="390" class="mcnBoxedTextContentContainer">'.
+'<tbody><tr>'.
+
+'<td class="mcnBoxedTextContentColumn" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">'.
+
+'<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
+'<tbody><tr>'.
+'<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
+'<div style="text-align: left;"><span style="font-size:18px">Factura Original</span><br>'.
+'<br>'.
+'<strong>Venta N°</strong> 000027<br>'.
+'<strong>Cliente:</strong><br>'.
+'<br>'.
+'JUAN DIEGO MIRANDA CASTRO<br>'.
+'<br>'.
+'<strong>Vende:</strong> Super Administrador<br>'.
+'<strong>Comentario:</strong><br>'.
+'N/A</div>'.
+
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+'</td><td>'.  //DIVISOR
+'<table align="left" border="0" cellpadding="0" cellspacing="0" width="210" class="mcnBoxedTextContentContainer">'.
+'<tbody><tr>'.
+
+'<td class="mcnBoxedTextContentColumn" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">'.
+
+'<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
+'<tbody><tr>'.
+'<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
+'<div style="text-align: center;"><br>'.
+'<br>'.
+'<strong>Factura de:</strong><br>'.
+'Contado<br>'.
+'<br>'.
+'<strong>Fecha:</strong>&nbsp;<br>'.
+'28/AGO/2017</div>'.
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+
+'</td>'.
+'</tr>'.
+'</tbody>'.
+'</table></td>'.
+'</tr>'.
+'<tr>'.
+'<td valign="top" id="templateFooter"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">'.
+'<tbody class="mcnTextBlockOuter">'.
+'<tr>'.
+'<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">'.
+
+'<br><br>'.
+
+
+'<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%;" class="mcnTextContentContainer">'.
+'<tbody><tr>'.
+
+'<td valign="top" class="mcnTextContent" style="<<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;font-family: Helvetica;" align="center">'.
+'<strong>Cantidad</strong>'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<strong>Descripcion</strong>'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<strong>P. Unitario</strong>'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<strong>Tipo</strong>'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<strong>Descuento</strong>'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<strong>Importe</strong>'.
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+
+'<!-- DETALLE FACTURA -->'.
+'<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">'.
+'<tbody><tr>'.
+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'3.00'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'ASUS VG248QE'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'117,614.19'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'Unidad'.
+'</td>'.
+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'0.00%'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'352,842.57'.
+'</td>'.
+'</tr>'.
+
+'</tbody>'.
+'</table>'.
+
+'<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width:100%;">'.
+'<tbody class="mcnDividerBlockOuter">'.
+'<tr>'.
+'<td class="mcnDividerBlockInner" style="min-width:100%; padding:18px;">'.
+'<table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-top: 2px solid #EAEAEA;">'.
+'<tbody><tr>'.
+'<td>'.
+'<span></span>'.
+'</td>'.
+'</tr>'.
+'</tbody></table>'.
+
+'</td>'.
+'</tr>'.
+'</tbody>'.
+'</table>'.
+'<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">'.
+'<tbody>'.
+'<!-- SUBTOTAL -->'.
+
+'<br>'.
+'<br>'.
+
+'<tr>'.
+'<td width="42%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'&nbsp;'.
+'</td>'.
+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;font-family: Helvetica;">'.
+'Subtotal'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'352,842.57'.
+'</td>'.
+'</tr>'.
+'<tr>'.
+'<td width="42%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'&nbsp;'.
+'</td>'.
+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;font-family: Helvetica;">'.
+'Impuesto'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'0.00'.
+'</td>'.
+'</tr>'.
+'<tr>'.
+'<td width="42%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'&nbsp;'.
+'</td>'.
+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;font-family: Helvetica;">'.
+'Descuento'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'0.00'.
+'</td>'.
+'</tr>'.
+'<tr>'.
+'<td width="42%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'&nbsp;'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;font-family: Helvetica;">'.
+'<strong>Total</strong>'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'<strong>352,842.57</strong>'.
+'</td>'.
+'</tr>'.
+'<!-- SUBTOTAL -->'.
+'</tbody></table>'.
+'<!-- /DETALLE FACTURA -->'.
+
+'</td>'.
+'</tr>'.
+'</tbody>'.
+'</table>'.
+'</td>'.
+'</tr>'.
+'</table>'.
+
+'</td>'.
+'</tr>'.
+'</table>'.
+'</center>'.
+'</body></html>';
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.
 $pdf->writeHTML($html, true, false, true, false, '');
 
@@ -56,6 +365,6 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('../assets/pdf/Factura '.$id.'.pdf','F');
+$pdf->Output('../assets/pdf/Factura '.$id.'.pdf','I');
 
 ?>

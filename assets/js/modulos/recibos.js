@@ -1,3 +1,6 @@
+var vpara = vbody = "";
+var mid = 0;
+
 $(function(){
 
      $('.chips-initial').material_chip({
@@ -13,22 +16,34 @@ $(function(){
         mostrar_cargar();
          var para = $('.chips-initial').material_chip('data');
          $("#listcorreos").html("");
-         var vbody = generarhoja();
-         var vpara=""
+         vbody = generarhoja();
+  
          for (var i = 0; i < para.length; i++) {
             vpara += para[i].tag+',';
          }
          vpara=vpara.substring(0,vpara.length -1);
-         var mid = getParameterByName('id');
+         mid = getParameterByName('id');
 
-         var f = mantenimiento('login',8,{arch:'recibo',id:mid});
-         var e = enviarCorreo(3,vpara,"Factura",vbody,'pdf/Factura '+mid+'.pdf');
+         var f = mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura',sel:'',tbl:72,where:mid},1);
+
 
          $('.chips-initial').material_chip();
          $(".chips .input").css("color","white");
      });
 
 });
+
+function postExcecute(vid,p){
+    switch(parseInt(vid)){
+        case 1:
+            var e = enviarCorreo(3,vpara,"Factura",vbody,'pdf/Factura '+mid+'.pdf');
+            vpara = vbody = "";
+            mid = 0;
+            break;
+        default:
+            break;
+    }
+}
 
 function getCorreos(){
     var salida = "[";
@@ -48,7 +63,7 @@ function getCorreos(){
 
 function generarhoja(){
 
-return '<!doctype html>'+
+var salida = '<!doctype html>'+
 '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">'+
 '<head>'+
 
@@ -128,7 +143,8 @@ return '<!doctype html>'+
 'padding:10px;'+
 '}'+
 '.templateContainer{'+
-'max-width:600px !important;'+
+'align: center;'+
+'max-width: 800px !important;'+
 '}'+
 'a.mcnButton{'+
 'display:block;'+
@@ -263,8 +279,13 @@ return '<!doctype html>'+
 'text-decoration:underline;'+
 '}'+
 '@media only screen and (min-width:768px){'+
+
+// 'div.m15e35539aa25fc51 .m_1169369238308866651templateContainer{max-width: 800px !important}'+
+// 'div.m15e35539aa25fc51 .m_1169369238308866651templateContainer{width: 800px !important}'+
+
 '.templateContainer{'+
-'width:600px !important;'+
+'align: center;'+
+'width:800px !important;'+
 '}'+
 
 '}   @media only screen and (max-width: 480px){'+
@@ -288,7 +309,8 @@ return '<!doctype html>'+
 'width:100% !important;'+
 '}'+
 
-'}   @media only screen and (max-width: 480px){.mcnCartContainer,.mcnCaptionTopContent,.mcnRecContentContainer,.mcnCaptionBottomContent,.mcnTextContentContainer,.mcnBoxedTextContentContainer,.mcnImageGroupContentContainer,.mcnCaptionLeftTextContentContainer,.mcnCaptionRightTextContentContainer,.mcnCaptionLeftImageContentContainer,.mcnCaptionRightImageContentContainer,.mcnImageCardLeftTextContentContainer,.mcnImageCardRightTextContentContainer{'+
+'}   @media only screen and (max-width: 480px){'+
+'.mcnCartContainer,.mcnCaptionTopContent,.mcnRecContentContainer,.mcnCaptionBottomContent,.mcnTextContentContainer,.mcnBoxedTextContentContainer,.mcnImageGroupContentContainer,.mcnCaptionLeftTextContentContainer,.mcnCaptionRightTextContentContainer,.mcnCaptionLeftImageContentContainer,.mcnCaptionRightImageContentContainer,.mcnImageCardLeftTextContentContainer,.mcnImageCardRightTextContentContainer{'+
 'max-width:100% !important;'+
 'width:100% !important;'+
 '}'+
@@ -406,7 +428,7 @@ return '<!doctype html>'+
 '}'+
 
 '}</style></head>'+
-'<body>'+
+'<body style="min-width: 800px !important">'+
 '<span class="mcnPreviewText" style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;"> FACTURA </span>'+
 '<center>'+
 '<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">'+
@@ -421,13 +443,13 @@ return '<!doctype html>'+
 '<td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">'+
 
 
+
 '<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">'+
 '<tbody><tr>'+
 '<td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">'+
 '<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">'+
 '<tbody><tr>'+
 '<td class="mcnCaptionRightImageContent" valign="top">'+
-
 '<br>'+
 
 '<img alt="logintechcr.com" src="https://logintechcr.com/img/logo.png" width="264" style="max-width:339px;" class="mcnImage">'+
@@ -437,13 +459,14 @@ return '<!doctype html>'+
 '</tbody></table>'+
 '<table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264">'+
 '<tbody><tr>'+
-'<td valign="top" class="mcnTextContent" style="color: #494949;font-size: 12px;">'+
-'<div style="text-align: left;"><strong>Demostración</strong><br>'+
-    '<strong>Cédula:</strong> 3-1015-1444<br>'+
-    '<strong>Teléfono:</strong> 2265-7354 / 2265-0524<br>'+
-    '<strong>Correo:</strong> correos.logintechcr@gmail.com<br>'+
-    '<strong>Dirección:</strong><br>'+
-    '75 mtrs oeste del salón multiusos Barrio Santa Elena, San Joaquín de Flores</div>'+
+'<td valign="top" class="mcnTextContent" style="font-size: 12px;">'+
+'<div style="text-align: left; color: #494949;">'+
+'<strong>'+$("#fnombre").html()+'</strong><br>'+
+'<strong>Cédula:</strong> '+$("#fcedula").html()+'<br>'+
+'<strong>Teléfono:</strong> '+$("ftelefono").html()+'<br>'+
+'<strong>Correo:</strong> '+$("#fcorreo").html()+'<br>'+
+'<strong>Dirección:</strong><br>'+
+''+$("#fdireccion").html()+'</div>'+
 
 '</td>'+
 '</tr>'+
@@ -460,7 +483,7 @@ return '<!doctype html>'+
 '<tbody class="mcnDividerBlockOuter">'+
 '<tr>'+
 '<td class="mcnDividerBlockInner" style="min-width:100%; padding:18px;">'+
-'<table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%; border-top: 2px solid #EAEAEA;">'+
+'<table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-top: 2px solid #EAEAEA;">'+
 '<tbody><tr>'+
 '<td>'+
 '<span></span>'+
@@ -471,7 +494,8 @@ return '<!doctype html>'+
 '</td>'+
 '</tr>'+
 '</tbody>'+
-'</table></td>'+
+'</table>'+
+'</td>'+
 '</tr>'+
 '<tr>'+
 '<td valign="top" id="templateBody"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">'+
@@ -483,21 +507,22 @@ return '<!doctype html>'+
 '<table align="left" border="0" cellpadding="0" cellspacing="0" width="390" class="mcnBoxedTextContentContainer">'+
 '<tbody><tr>'+
 
-'<td class="mcnBoxedTextContentColumn" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left: 18px;">'+
+'<td class="mcnBoxedTextContentColumn" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">'+
 
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'+
 '<tbody><tr>'+
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'+
-'<div style="text-align: left;"><span style="font-size:18px">Factura Original</span><br>'+
-    '<br>'+
-    '<strong>Venta N°</strong> 000027<br>'+
-    '<strong>Cliente:</strong><br>'+
-    '<br>'+
-    'JUAN DIEGO MIRANDA CASTRO<br>'+
-    '<br>'+
-    '<strong>Vende:</strong> Super Administrador<br>'+
-    '<strong>Comentario:</strong><br>'+
-    'N/A</div>'+
+'<div style="text-align: left;"><span style="font-size:18px">'+$("#ftipo").html()+'</span><br>'+
+'<br>'+
+'<strong>'+$("#fact").html()+' N°</strong> '+$("#numfact").html()+'<br>'+
+'<strong>Factura de: </strong>'+$("#fclase").html()+'<br>'+
+'<strong>Cliente:</strong><br>'+
+'<br>'+
+$("#fcliente").html()+'<br>'+
+'<br>'+
+'<strong>Vende:</strong> '+$("#fvendedor").html()+'<br>'+
+'<strong>Comentario:</strong><br>'+
+$("#fcomentario").html()+'</div>'+
 
 '</td>'+
 '</tr>'+
@@ -509,19 +534,18 @@ return '<!doctype html>'+
 '<table align="left" border="0" cellpadding="0" cellspacing="0" width="210" class="mcnBoxedTextContentContainer">'+
 '<tbody><tr>'+
 
-'<td class="mcnBoxedTextContentColumn" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left: 18px;">'+
+'<td class="mcnBoxedTextContentColumn" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">'+
 
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'+
 '<tbody><tr>'+
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'+
-    '<div style="text-align: center;"><br>'+
-        '<br>'+
-        '<strong>Factura de:</strong><br>'+
-        'Contado<br>'+
-        '<br>'+
-        '<strong>Fecha:</strong>&nbsp;<br>'+
-        '28/AGO/2017</div>'+
-    '</td>'+
+'<div style="text-align: center;"><br>'+
+'<br>'+
+'<strong>Tipo de Pago:</strong><br>'+$(".ftipofact").html()+'<br>'+
+'<br>'+
+'<strong>Fecha:</strong>&nbsp;<br>'+
+$("#ffecha").html()+'</div>'+
+'</td>'+
 '</tr>'+
 '</tbody></table>'+
 '</td>'+
@@ -534,7 +558,7 @@ return '<!doctype html>'+
 '</table></td>'+
 '</tr>'+
 '<tr>'+
-'<td valign="top" id="templateFooter"><table border="0" cellpadding="0" cellspacing="0" width="100%" class=" mcnTextBlock" style="min-width:100%;">'+
+'<td valign="top" id="templateFooter"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">'+
 '<tbody class="mcnTextBlockOuter">'+
 '<tr>'+
 '<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">'+
@@ -542,22 +566,22 @@ return '<!doctype html>'+
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">'+
 '<tbody><tr>'+
 
-'<td valign="top" class="mcnTextContent" style="color: #fafafa;font-size: 14px;text-align: center;" align="center">'+
+'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
 '<strong>Cantidad</strong>'+
 '</td>'+
-'<td valign="top" class="mcnTextContent" style="color: #fafafa;font-size: 14px;text-align: center;" align="center">'+
+'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
 '<strong>Descripcion</strong>'+
 '</td>'+
-'<td valign="top" class="mcnTextContent" style="color: #fafafa;font-size: 14px;text-align: center;" align="center">'+
+'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
 '<strong>P. Unitario</strong>'+
 '</td>'+
-'<td valign="top" class="mcnTextContent" style="color: #fafafa;font-size: 14px;text-align: center;" align="center">'+
+'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
 '<strong>Tipo</strong>'+
 '</td>'+
-'<td valign="top" class="mcnTextContent" style="color: #fafafa;font-size: 14px;text-align: center;" align="center">'+
+'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
 '<strong>Descuento</strong>'+
 '</td>'+
-'<td valign="top" class="mcnTextContent" style="color: #fafafa;font-size: 14px;text-align: center;" align="center">'+
+'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
 '<strong>Importe</strong>'+
 '</td>'+
 '</tr>'+
@@ -565,87 +589,109 @@ return '<!doctype html>'+
 
 '<!-- DETALLE FACTURA -->'+
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">'+
-'<tbody><tr>'+
+'<tbody>';
 
+$("#ftbody tr").each(function(){
+
+salida += '<tr>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'3.00'+
+$(this).find('.flista1').html()+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'ASUS VG248QE'+
+$(this).find('.flista2').html()+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'117,614.19'+
+$(this).find('.flista3').html()+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'Unidad'+
+$(this).find('.flista4').html()+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'0.00%'+
+$(this).find('.flista5').html()+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'352,842.57'+
+$(this).find('.flista6').html()+
+'</td>'+
+'</tr>';
+
+});
+
+salida += '</tbody>'+
+'</table>'+
+
+'<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width:100%;">'+
+'<tbody class="mcnDividerBlockOuter">'+
+'<tr>'+
+'<td class="mcnDividerBlockInner" style="min-width:100%; padding:18px;">'+
+'<table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-top: 2px solid #EAEAEA;">'+
+'<tbody><tr>'+
+'<td>'+
+'<span></span>'+
 '</td>'+
 '</tr>'+
+'</tbody></table>'+
 
+'</td>'+
+'</tr>'+
+'</tbody>'+
+'</table>'+
 
+'<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">'+
+'<tbody>'+
 '<!-- SUBTOTAL -->'+
 '<tr>'+
-'<td colspan="3" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+'&nbsp;'+'</td>'+
+'<td width="65%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
+'&nbsp;'+
+'</td>'+
 
-'<td colspan="2" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;">'+
 'Subtotal'+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'352,842.57'+
-'</td>'+
+$("#fsubtotal").html()+'</td>'+
 '</tr>'+
 '<tr>'+
-'<td colspan="3" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
+'<td width="65%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
 '&nbsp;'+
 '</td>'+
 
-'<td colspan="2" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;">'+
 'Impuesto'+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'0.00'+
-'</td>'+
+$("#fimv").html()+'</td>'+
 '</tr>'+
 '<tr>'+
-'<td colspan="3" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
+'<td width="60%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
 '&nbsp;'+
 '</td>'+
 
-'<td colspan="2" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;">'+
 'Descuento'+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'0.00'+
-'</td>'+
+$("#fdescuento").html()+'</td>'+
 '</tr>'+
-
 '<tr>'+
-'<td colspan="3" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
+'<td width="60%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
 '&nbsp;'+
 '</td>'+
-
-'<td colspan="2" valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center;">'+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;">'+
 '<strong>Total</strong>'+
 '</td>'+
-'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center;">'+
-'<strong>352,842.57</strong>'+
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
+'<strong>'+$("#ftotal").html()+'</strong>'+
 '</td>'+
 '</tr>'+
-
 '<!-- SUBTOTAL -->'+
-
 '</tbody></table>'+
 '<!-- /DETALLE FACTURA -->'+
 
 '</td>'+
 '</tr>'+
 '</tbody>'+
-'</table></td>'+
+'</table>'+
+'</td>'+
 '</tr>'+
 '</table>'+
 
@@ -656,4 +702,5 @@ return '<!doctype html>'+
 '</body>'+
 '</html>'
 
+return salida;
 }
