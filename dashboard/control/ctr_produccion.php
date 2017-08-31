@@ -26,7 +26,7 @@
 	   			$smarty->assign('REC',$kakaroto->kamehameha('idproceso,proceso,precioventa',99,'1'));
 	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
 	   			$smarty->assign('UNIP',$kakaroto->kamehameha('*',12,'idtipo in(0,1) order by idunidad'));
-	   			$smarty->display('ajax/produccion/recetas.tpl');
+	   			$smarty->display('ajax/produccion/procesos.tpl');
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
