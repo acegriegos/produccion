@@ -2,7 +2,7 @@
     <li>
       <div class="userView">
         <div class="background">
-          <img src="../assets/img/menubgb.svg">
+          <!-- CSS -->          
         </div>
         <a href="#!user" class="center"><i class="medium material-icons" style="color:#fff" aria-hidden="true">person_pin</i></a>
         <div class="input-field col s12 white-text selectusr">
@@ -23,28 +23,29 @@
       <input id="numtrans" type="text" class="validate let" placeholder="Transaccion">
     </div>
     </div>
-    <div>
-    <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b style="font-size: 1.2em !important" >Inicio</b></a></li>
-    <li class="per8 hide"><a href="medicina"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Medicina</b></a></li>
-    <li class="per8 hide"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><b style="font-size: 1.2em !important">Área Laboratorios</b></a></li>
-    <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b style="font-size: 1.2em !important">Área Comercial</b></a></li>
-    <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b style="font-size: 1.2em !important">Área de Operaciones</b></a></li>
-    <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b style="font-size: 1.2em !important">Área Financiera</b></a></li>
-    <li class="per5"><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b style="font-size: 1.2em !important">Área de Inventarios</b></a></li>
-    <li class="per6"><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><b style="font-size: 1.2em !important">Área de Producción</b></a></li>
-    <li class="per7"><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><b style="font-size: 1.2em !important">Área Administrativa</b></a></li>
-    <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><b style="font-size: 1.2em !important">Reportes</b></a></li>
-    <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><b style="font-size: 1.2em !important">Cerrar Sesión</b></a></li>
+  <div class="options">
+    <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
+    <li class="per8 hide"><a href="medicina"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
+    <li class="per8 hide"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
+    <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
+    <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
+    <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
+    <li class="per5"><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
+    <li class="per6"><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
+    <li class="per7"><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
+    <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+    <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
+    <br>
     <!-- <li><div class="divider"></div></li> -->
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
     </div>
   </ul>
   <!-- menu pequeño -->
-<ul id="out" class="side-nav" style="max-width: 400px !important; font-size: 2.4em !important">
+<ul id="out" class="side-nav" style="max-width: 400px !important; font-size: 2.4em !important;">
     <li>
       <div class="userView">
         <div class="background">
-          <img src="../assets/img/bckground.jpg">
+        <!-- CSS -->
         </div>
         <a href="#!user" class="center"><i class="medium material-icons" style="color:#fff" aria-hidden="true">person_pin</i></a>
         <div class="input-field col s12 white-text">
@@ -63,17 +64,20 @@
       <label for="numtrans"># Transacción</label>
     </div>
     </div>
-   <li><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><b>Inicio</b></a></li>
-    <li><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><b>Área Comercial</b></a></li>
-    <li><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><b>Área de Operaciones</b></a></li>
-    <li><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><b>Área Financiera</b></a></li>
-    <li><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><b>Área de Inventarios</b></a></li>
-    <li><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><b>Área de Producción</b></a></li>
-    <li><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><b>Área Administrativa</b></a></li>
-    <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><b>Reportes</b></a></li>
-    <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><b>Cerrar Sesión</b></a></li>
+  <div class="options">
+    <li><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><span>Inicio</span></a></li>
+    <li><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><span>Área Comercial</span></a></li>
+    <li><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><span>Área de Operaciones</span></a></li>
+    <li><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><span>Área Financiera</span></a></li>
+    <li><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><span>Área de Inventarios</span></a></li>
+    <li><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><span>Área de Producción</span></a></li>
+    <li><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><span>Área Administrativa</span></a></li>
+    <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><span>Reportes</span></a></li>
+    <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><span>Cerrar Sesión</span></a></li>
+    <br>
     <!-- <li><div class="divider"></div></li> -->
     <!-- <li><a class="waves-effect" href="logout"><i class="material-icons right" aria-hidden="true">input</i>Cerrar Sessión</a></li> -->
+  </div>
   </ul>
   <!-- fin -->
   <div class="navbar-fixed hide-on-large-only">
@@ -84,6 +88,6 @@
       </nav>
       </div>
 
-  <a style="background-color:#0B3861 " href="#" data-activates="slide" class="hide-on-med-and-down button-collapses  z-depth-5 menu-btn" ><p class="white-text menu-txt" >MENU</p></a>
+  <a style="background-color:#0B3861;" href="#" data-activates="slide" class="hide-on-med-and-down button-collapses  z-depth-5 menu-btn" ><p class="white-text menu-txt" >MENU</p></a>
   <!-- hide-on-med-and-down  -->
 

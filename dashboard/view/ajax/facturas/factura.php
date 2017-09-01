@@ -27,39 +27,39 @@
           <div class="col s5 m4 l4 left-align">
             <br><br>
             <font size="2.5">
-              <b><?php echo $miscelaneos[0][0]; ?></b><br>
-              <b>Cédula:</b> <?php echo $miscelaneos[1][0]; ?><br>
-              <b>Teléfono:</b>  <?php echo $miscelaneos[2][0]; ?><br>
-              <b>Correo:</b> <?php echo $miscelaneos[3][0]; ?><br>
-              <b>Dirección:</b><br> <?php echo $miscelaneos[4][0]; ?><br>
+              <b><span id="fnombre"><?php echo $miscelaneos[0][0]; ?></span></b><br>
+              <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1][0]; ?></span><br>
+              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[2][0]; ?></span><br>
+              <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[3][0]; ?></span><br>
+              <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[4][0]; ?></span><br>
             </font>
           </div>
         </div>
 
         <div class="row" style="padding: 0% 2% 0% 5%">
-          <b><h3><?php echo $co ? "Factura Original" : "Copia de Factura";  ?></h3></b>
+          <b><h3 id="ftipo"><?php echo $co ? "Factura Original" : "Copia de Factura";  ?></h3></b>
           <div class="col s6 m6 l6" id="infofact">
             <div class="row" style="padding: 0% 0% 0% 5%">
               <!--  -->
               <div class="col s12">
-                <b id="fact"><?php echo $datos[25]; ?> N°</b>
+                <b id="fact"><?php echo $datos[25]; ?></b>
                 <span id="numfact"> <?php echo $datos[0]; ?> </span>
               </div>
               <div class="col s12 <?php echo $hide ?>">
-               <b> Factura de: </b><?php echo $datos[1]; ?>
+               <b> Factura de: </b><span id="fclase"><?php echo $datos[1]; ?></span>
              </div>
              <!--  -->
              <div class="col s12">
               <p><b>Cliente:</b></p>
-              <span><?php echo $datos[4]; ?></span>
+              <span id="fcliente"><?php echo $datos[4]; ?></span>
             </div>
             <div class="col s12"><br>
-              <span class=""><b>Vende:</b></span>
-              <span class=""><?php echo $datos[16]; ?> </span>
+              <span><b>Vende:</b></span>
+              <span id="fvendedor"><?php echo $datos[16]; ?> </span>
             </div>
             <div class="col s12">
-              <span class=""><b>Comentario:</b></span><br>
-              <span class=""><?php echo $datos[12]; ?> </span>
+              <span><b>Comentario:</b></span><br>
+              <span id="fcomentario"><?php echo $datos[12]; ?> </span>
             </div>
           </div> 
         </div>
@@ -70,21 +70,21 @@
             <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
               <div class=" card-content white-text imprimirSINBOR">
                 <p><b>Fecha:</b>
-                  <?php echo $datos[3]; ?> </p>
+                  <span id="ffecha"><?php echo $datos[3]; ?> </p></span>
                 </div>
               </div>
             </div>
 
             <div class="col s8 right">
               <div class="card white-text imprimirSINBOR <?php echo $hide ?>" style="background-color: #3960A7;">
-                <div class=" card-content ">
+                <div class="card-content ">
                   <?php if ($datos[2] === 'N/A'){ ?>
-                  <p><b>Plazo en Días:</b>
-                    <?php echo $datos[11]; ?> 
+                  <p><b class="ftipofact">Plazo en Días: </b>
+                    <span class="ftipofa"><?php echo $datos[11]; ?></span>
                   </p>
                   <?php }else{ ?>
-                  <p><b>Tipo de Pago:</b>
-                    <?php echo $datos[2]; ?> 
+                  <p><b class="ftipofact">Tipo de Pago: </b>
+                    <span class="ftipofa"><?php echo $datos[2]; ?></span>
                   </p>
                   <?php } ?>
                 </div>
@@ -106,16 +106,16 @@
               <th class="center-align sinborde" id="th5">Importe</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody id="ftbody">
             <?php foreach ($transaccion as $obj) {?>
 
             <tr class="tr" >
-              <td class="td center-align" ><span id="cant"><?php echo $obj[18]; ?></span></td>
-              <td class="td center-align"  ><span id="desc"><?php echo $obj[19]; ?></span></td>
-              <td class="td center-align"  ><span id="punit"><?php echo $obj[20]; ?></span></td>
-              <td class="td center-align"  ><span id="desc"><?php echo $obj[23]; ?></span></td>
-              <td class="td center-align"  ><span id="desc"><?php echo $obj[21]; ?></span>%</td>
-              <td class="td right-align"><span id="import" ><?php echo $obj[22]; ?></span></td>
+              <td class="flista1 td center-align"><span id="cant"><?php echo $obj[18]; ?></span></td>
+              <td class="flista2 td center-align"><span id="desc"><?php echo $obj[19]; ?></span></td>
+              <td class="flista3 td center-align"><span id="punit"><?php echo $obj[20]; ?></span></td>
+              <td class="flista4 td center-align"><span id="desc"><?php echo $obj[23]; ?></span></td>
+              <td class="flista5 td center-align"><span id="desc"><?php echo $obj[21]; ?></span>%</td>
+              <td class="flista6 td right-align"><span id="import" ><?php echo $obj[22]; ?></span></td>
             </tr>
 
             <?php } ?>
@@ -125,25 +125,25 @@
             <tr>
               <td class="margen" colspan="4">&nbsp;</td>
               <td class="left-align sinborde margen2">Subtotal</td>
-              <td class="right-align sinborde margen2"><?php echo $datos[15]; ?><?php echo $datos[9]; ?></td>
+              <td class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15]; ?><?php echo $datos[9]; ?></span></td>
 
             </tr>
             <tr>
               <td class="margen" colspan="4">&nbsp;</td>
               <td class="left-align sinborde margen">Imv</td>
-              <td class="right-align sinborde margen"><?php echo $datos[15]; ?><?php echo $datos[5]; ?></td>
+              <td class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15]; ?><?php echo $datos[5]; ?></span></td>
 
             </tr>
             <tr>
               <td class="margen" colspan="4">&nbsp;</td>
               <td  class="left-align sinborde margen">Descuento</td>
-              <td  class="right-align sinborde margen"><?php echo $datos[15]; ?><?php echo $datos[6]; ?></td>
+              <td  class="right-align sinborde margen"><span id="fdescuento"><?php echo $datos[15]; ?><?php echo $datos[6]; ?></span></td>
 
             </tr>
             <tr>
               <td class="margen" colspan="4">&nbsp;</td>
               <td  class="left-align white-text sinborde imprimirSINBOR" style="background-color: #3960A7;"><b>TOTAL</b></td>
-              <td  class="right-align white-text sinborde imprimirSINBOR" style="background-color: #3960A7;"><b><?php echo $datos[15]; ?><?php echo $datos[10]; ?></b></td>
+              <td  class="right-align white-text sinborde imprimirSINBOR" style="background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15]; ?><?php echo $datos[10]; ?></span></b></td>
             </tr>
 
           </tfoot>
@@ -249,7 +249,7 @@
 
 <script src="../assets/js/jquery.js"></script>
 <script src="../assets/js/materialize.js"></script>
-<script src="../assets/js/asgard.js"></script>
-<script src="../assets/js/modulos/recibos.js?v=0.4"></script>
+<script src="../assets/js/asgard.js?v=0.1"></script>
+<script src="../assets/js/modulos/recibos.js?v=0.5"></script>
 
 </body>

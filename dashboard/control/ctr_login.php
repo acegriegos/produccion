@@ -105,16 +105,19 @@
 
           if (isset($_REQUEST['arreglo']['sel'])) {
             $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
-            $datos = $transaccion[0];
+            $datos = $transaccion;
           }
           
           if (isset($_REQUEST['arreglo']['mic']))
-            $miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+            $miscelaneos = $log->kamehameha('*',50,'')[0];
 
           if (isset($_REQUEST['arreglo']['id']))
             $id = $_REQUEST['arreglo']['id'];
 
-          include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
+          if (isset($_REQUEST['arreglo']['tit']))
+            $tit = $_REQUEST['arreglo']['tit'];
+           
+           include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
 		   	break;
 
    	}

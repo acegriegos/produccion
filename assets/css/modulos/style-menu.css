@@ -2,6 +2,12 @@
    font-size: 1.2em !important
 }
 
+.background{
+  background-image: url("../../../assets/img/mbg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: black;
 }
@@ -29,6 +35,10 @@
   padding-left: 6% !important;
   margin-bottom: 0;
   margin-top: -35px;
+}
+
+.side-nav{
+  overflow: none !important;
 }
 
 .side-nav .userView{

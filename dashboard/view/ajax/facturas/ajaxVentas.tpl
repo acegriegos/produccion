@@ -1,16 +1,17 @@
-<div id="ffacturas">
-<div class="card z-depth-5 pequeño">
-<div class="card-header center blue-grey white-text">
-<p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
+<section id="ffacturas">
 
-<a class="btn" style="float: right;color: white;font-size: 14px;" onclick="verfacturas();"> Ver Facturas</a>
-VENTAS {$smarty.session.EMPRESA|upper}</p></div>
+<div class="row">
+  <div class="l9 m9 s12 col">
+
+<div class="card z-depth-3 pequeño">
+<div class="card-header center light-blue darken-4 white-text">
+  <p class="flow-text" style="margin-top: 0%;">VENTAS {$smarty.session.EMPRESA|upper}</p>
+</div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
 
   <div class="row pequeño">
-
-    <div class="col s12 m6 centro ">
+    <div class="col s12 m3 l3" align="center">
       <div class="switch">
         <label style="color: black">
           <b>Contado</b>
@@ -21,12 +22,21 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
       </div>
     </div>
 
-    <div class="col s12 m6 centro2">
-      <label class="der black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
+    <div class="col s12 m3 l3" align="center">
+      <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
+    </div>
+
+    <div class="col s12 m3 l3 " align="center">
+      <label class="cre" style="display: none;"><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
+    </div>
+
+    <div class="s12 m3 l3 col">
+      <a class="btn" onclick="verfacturas();"> Ver Facturas</a>
     </div>
 
   </div>
-<br>
+  <hr style="border: 1px solid #F9F9F9; width: 90%">
+  <br>
   <div class="row padd">
 
    <div class="input-field col s12 m3 l3">
@@ -45,83 +55,84 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
       <label style="color: black"><b>Forma de Pago</b></label>
     </div>
    
-    <div class="input-field cre col s6 m3 l3" style="display: none;">
-      <input type="text" id="vplazo" value="0" class="eder" readonly />
-      <label for="vplazo">Plazo en Días</label>
+    <div class="input-field cre col s12 m3 l3" style="display: none;">
+      <i class="material-icons prefix">today</i>
+      <input type="text" id="vplazo" value="0" class="eder" disabled />
+      <label style="color: black"><b>Plazo en Días</b></label>
     </div>
-
-    <div class="input-field col s12 m4">
-      <i class="fa fa-user prefix"></i>
-      <label class="truncate" for="ncli" style="color: black"> <b>Nombre o Cédula del Cliente</b></label>
-      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
-    </div> 
-
-    <div class="col s2 cre" style="display: none;">
-      <label>Saldo Actual: <span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
+    
+    <div class="input-field col s12 m6">
+      <i class="material-icons prefix">account_circle</i>
+      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" placeholder="Nombre o Cédula del Cliente" />
     </div> 
     
   </div>
+  </div>
+
+
+<!-- DETALLE FACTURA -->
+  <div class="card center z-depth-3">
+  <div class="card-header light-blue darken-4 center"><p class="white-text">DETALLE DE FACTURA</p></div>
 
   <div class="row">
+    <div class="s12 m12 l12 col hide-on-med-and-down">
+    <section class="right">
+        <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
+        <label for="barras"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
 
-    <div class="card-header blue-grey center"><p class="white-text" style="background-color:#0B3861">DETALLE DE FACTURA</p></div>
-
+        <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" checked/>
+        <label for="teclado"><i class="fa fa-keyboard-o" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
+    </section>
+    </div>
+    
+    <div class="s12 m12 l12 col">
     <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead>
         <tr>
-          <th style="width: 5%;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
-          <th style="width: 10%; " class="center-align">Código</th>
-          <th style="width: 30%; " class="center-align"><span class="truncate">Descripción</span></th>
-          <th style="width: 14%; " class="center-align"><span class="truncate">Prec.Unit</span></th>
-          <th style="width: 5%;" class="center-align"><span class="truncate">Unidad</span></th>
-          <th style="width: 10%; " class="center-align">Cantidad</th>
-          <th style="width: 14%; " class="center-align">Total</th>
-          <th style="width: 17%; " class="center-align">
-          <div class="hide-on-small-only der">
-            <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
-            <label for="barras"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
-
-            <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" checked/>
-            <label for="teclado"><i class="fa fa-keyboard-o" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
-            </div>  
-          </th>
+          <th style="width:  5%; padding: 0 !important;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
+          <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width: 14%; padding: 0 !important;" class="center-align"><span class="truncate">Prec.Unit</span></th>
+          <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
+          <th style="width: 10%; padding: 0 !important;" class="center-align">Cantidad</th>
+          <th style="width: 14%; padding: 0 !important;" class="center-align">Total</th>
+          <th style="width: 17%; padding: 0 !important;" class="center-align"></th>
         </tr>
 
         <tr>
-          <td style="width: 5%">
+          <td style="width: 5%; padding: 0 !important">
           </td>
 
-          <td style="width: 10%; " class="input-field">
+          <td style="width: 10%; padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
             <input type="hidden" id="valores">
           </td>
 
-          <td style="width: 30%; " class="input-field">
+          <td style="width: 30%; padding: 0 !important" class="input-field">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
-          <td style="width: 14%; " class="input-field">
+          <td style="width: 14%; padding: 0 !important" class="input-field">
             <input type="text" id="precp" class="f center divisa" value="0.00" readonly>
           </td>
-          <td style="width: 5%; " class="input-field">
+          <td style="width: 5%; padding: 0 !important" class="input-field">
             <select id="uni" readonly >
               <option>UN</option>
             </select>
           </td>
-          <td style="width: 10%; " class="input-field">
+          <td style="width: 10%; padding: 0 !important" class="input-field">
             <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
-          <td style="width: 14%; " class="input-field">
+          <td style="width: 14%; padding: 0 !important" class="input-field">
             <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
           </td>
-          <td class="center" style="font-size: 1em; width: 17%; ">
-            
-            <div class="col s12">
-                <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
-                 <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-                </a>
+          <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
+
+          <div class="col s12">
+            <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
+              <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
+            </a>
           </div>
-          <div class="col s12 m8 l5"">
-         
+          <div class="col s12">
              <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
           </div>
   
@@ -129,54 +140,84 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
         </tr>
       </thead>
 
-        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" style="max-height: 20%; overflow: auto;">
+        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4">
+         <!-- style="max-height: 20%; overflow: auto;" -->
          
         </tbody>
-      </table>
-    </div>
-</div> <!-- card footer -->
 
-<div class="card z-depth-5" style="max-height:20%;overflow-y:auto;border-top:1px solid rgba(0,0,0,0.1);bottom:0px;display: block;">
-  <p class="white-text card-header center" style="margin-top: 0px; background-color:#0B3861">DESGLOCE DE FACTURA</p>
+      </table>
+      </div>
+
+    </div>
+</div>
+<!-- /DETALLE FACTURA -->
+
+</div>
+
+<!-- DIVISOR -->
+
+<div class="l3 m3 s12 col">
+
+<div class="card z-depth-3">
+  <div class="white-text light-blue darken-4 card-header center" style="margin-top: 0px;">DESGLOCE DE FACTURA</div>
+  
   <div class="row">
 
-    <div class="col s12 m12 l6">
-
+    <div class="col s12 m12 l12" style="margin-top: -20px">
+    <br>
+      <!-- <label for="monedas">Divisa</label> -->
       <div class="input-field">
         <select id="monedas">
           {section name="LE" loop=$MON}
             <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
           {/section}
         </select>
-
-        <label for="monedas">Divisa</label>
       </div>
+    </div>
 
-      <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="max-height: 100px; height: 60px; max-width:100%; width: 100%; "></textarea><br>
-      <div class="row">
-      <br>
-        <div class="col s12 m4 input-field">
-          <div class="prefix"><img src="../assets/img/icon/percent.svg"/></div>
-                    <label style="color: black"><b>DESCUENTO</b></label>
-<input type="text" id="vdescuentop" class="eder" value="0" placeholder="0.00" disabled style="color: black" >
+
+    <div class="col s12 m12 l12">
+
+        <div class="col s12 m12 l12">
+          <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%; "></textarea>
+          <br>
+        </div>
+        <div class="row">
+          <div class="col s4 m4 l4"><br>
+            <label for="vdescuentop">Descuento</label>
+            <!-- <img src="../assets/img/icon/percent.svg"/> -->
+          </div>
+          <div class="col s8 m8 l8 input-field">
+              <input type="text" id="vdescuentop" class="eder" value="0" disabled style="color: black" placeholder="DESCUENTO">
+          </div>
         </div>
 
-        <div class="col s12 m4 input-field">
-          <div class="prefix moneda"></div>
-          <label for="vflete" style="color: black"><b>FLETE</b></label>
-          <input type="text" id="vflete" class="eder divisa" value="0">
+        <div class="row">
+          <div class="col s4 m4 l4"><br>
+            <!-- <div class="prefix moneda"></div> -->
+            <label for="vflete">Flete</label>
+          </div>
+          <div class="col s8 m8 l8 input-field">
+            <input type="text" id="vflete" class="eder divisa" value="0" placeholder="FLETE">
+          </div>
         </div>
 
-        <div class="col s12 m4 input-field">
-          <div class="prefix" id="btnAjuste" accion="1">+</div>
-          <label for="vajuste" style="color: black"><b>AJUSTE</b></label>
-          <input type="text" id="vajuste" class="eder" value="0" style="color: black">
+        <div class="row">
+          <div class="col s4 m4 l4"><br>
+            <div class="prefix pbtn" id="btnAjuste" accion="1"><i class="material-icons">add</i></div>
+          </div>
+          <div class="col s8 m8 l8 input-field">
+            <input type="text" id="vajuste" class="eder" value="0" style="color: black" placeholder="AJUSTE">
+          </div>
         </div>
 
       </div>
-      </div>
-      <div class="col s12 m12 l6">
-      <table class="table table-striped table-hover" style="border: 1px solid #e2e2e2;">
+
+
+      <div class="col s12 m12 l12">
+      <hr style="border: 1px solid #F9F9F9">
+      <!-- style="border: 1px solid #e2e2e2;" -->
+      <table class="table table-striped table-hover">
         <thead style="border: 0px">
           <tr>
             <td>SUBTOTAL:</td>
@@ -201,50 +242,44 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
             <td style="float: right;"><span class="moneda"></span><span id="flete" class="divisa" type="html" value="0">0.00</span></td>
           </tr>
 
-          <tr style="border-top:1px solid black">
-            <td>TOTAL:</td>
-            <td style="float: right;"><span class="moneda"></span><span id="tot" class="divisa" type="html" value="0">0.00</span>
+          <tr style="border-top:1px solid #E9E9E9">
+            <td><b>TOTAL:</b></td>
+            <td style="float: right;"><b><span class="moneda"></span><span id="tot" class="divisa" type="html" value="0">0.00</span></b>
             </td>
           </tr>
-       
         </tfoot>
-          
       </table>
-      <br>
-      <div class="row">
-        <div class="col s12 m4">
-          <p>
-            <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
-            <label for="p_v" style="color: black">Punto Venta</label>
-          </p>
-          <br>
+      </div>
 
+      <div class="col s12 m12 l12"><br>
+        <div class="row">
+          <div class="col s12 m6 l6">
+              <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+              <label for="p_v" style="color: black">Punto Venta</label>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <select id="vidodt" type="select">
+              <option value="0" style="color: black"><b>ODT</b></option>
+            </select>
+          </div>
+
+          <div class="col s12 m12 l12" align="center">
+            <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button>
+          </div>
+
+          </div>
         </div>
 
-        <div class="col s12 m4">
-          <select id="vidodt" type="select">
-            <option value="0" style="color: black"><b>Selecione una ODT</b></option>
-          </select>
-          <label>ODT</label>
-        </div>
+      </div>
 
-        <div class="col s12 m4">
-          <button class="btn btn-primary-outline der add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button>
-          <br>
-        </div>
-
-        </div>
-      
-
-    </div>
-
-    </div>
-
- 
+  </div>
 
 
-</div> <!-- ffacturas -->
+</div>
 
+<!-- ffacturas -->
+</div>
  <!-- bdy --> 
 
 
@@ -302,10 +337,12 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
 
 </div>
 </div>
- <a id="prueba" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modalcambio"><i class="large material-icons ">add</i></a>
+ 
 
 <!-- Cambio del pago -->
  <!-- Modal Structure -->
+<!--  <a id="prueba" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modalcambio"><i class="large material-icons ">add</i></a>
+
   <div id="modalcambio" class="modal modal-fixed-footer modcambio">
     <div class="modal-content">
       <h4>Cambio</h4>
@@ -316,6 +353,7 @@ VENTAS {$smarty.session.EMPRESA|upper}</p></div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
     </div>
-  </div>
+  </div> -->
+</section>
 
 <script src="../assets/js/modulos/ventas.js?v=0.25"></script>
