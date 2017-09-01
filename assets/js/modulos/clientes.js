@@ -10,11 +10,15 @@ $(function(){
 
 	$("#data-table-clientes").dataTable({
 		bFilter: false,
-		order : [],
-		"bLengthChange": false
+		bScrollInfinite: true,
+		bSort: false,
+		bLengthChange: false,
+		bPaginate: false,
+		bInfo: false,
+		order : []
 	});
+
 	var cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
-	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
@@ -130,10 +134,12 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	var add = getParameterByName("add") //accesos
+	var add = getParameterByName("add"); //accesos
 	if (add) {
-		$("#ingClie").click()
+		$("#ingClie").click();
 	}
+
+	paginate($("ul.pagination").attr('vtbl'))
 
 });
 
@@ -313,7 +319,7 @@ function cargar(vmodulo,vid) {
 	return vmodulo;
 }
 
-function cargarSintax(){
+function cargarSintax() {
 	var arr = {}
 
 	arr['sel'] = '*';
@@ -365,12 +371,16 @@ function addIM(vidcuenta,vimpuesto,vnombre,vvalor,vexoneracion){
 
 function endDetail(vid,vacc,modulo){
 	setTimeout(function(){ deadclear('cliente');$("#videstado").val(1);$("#videstado").material_select('update'); }, 500);
-    thorload('cliente');
+    thorload(modulo);
+    $(".validate").removeClass('valid');
     if (vacc == 1) {
 	    $("#shcorreos").html('');
 	    $("#shtelefonos").html('');
+	    $(".cre").hide();
+	    $("#tipocliente").attr('tp',1);
+    	$("#tipocliente").prop('checked',false);
     }
-    
+    $("#ln1").click();
 }
 
 function postload(modulo) {

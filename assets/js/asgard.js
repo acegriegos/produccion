@@ -1,18 +1,20 @@
 acc = 1;
 
 $(function(){
+	
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
     $('select').material_select();
 
-    cargarMoneda(0)
+    cargarMoneda(0);
+	
 });
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
-        case 113:
+        case 113: //ABRIR MENU
             $(".menu-btn").click();
             $("#numtrans").focus();
             break;
@@ -915,6 +917,153 @@ function cargarMoneda(idmoneda,elemento){
 function mostrar_cargar(){
     $("#smail").html('<div class="preloader-wrapper small active"><div class="spinner-layer spinner-green-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div> <br> Enviando...');
 }
+
+// <-- pagination
+function paginate(vtbl) {
+	var countpag = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
+    countpag = 1;
+	if (countpag >= 9) {
+		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+		$(".pagination").attr('ultimo', 9);
+	} else if (parseInt(countpag) == 0) {
+        return false;
+    } else {
+		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
+		for (var i = 1; i <= countpag; i++) {
+			i = parseInt(i);
+			if (i == 1)
+				$(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0"><a href="#!">' + i + '</a></li>');
+			else
+				$(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+			$(".pagination").attr('ultimo', i);
+		}
+		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+	}
+}
+
+$(document).on("click", ".paginate", function () {
+	var modulo = $("ul.pagination").attr('modulo');
+    var vtbl = $("ul.pagination").attr('vtbl');
+	var id = $(this).attr('id').substr(1);
+	var limit = $(this).attr('limit');
+	$(".paginate").removeClass('active')
+	$(this).addClass('active');
+	var tabla = $("#data-table-"+modulo).DataTable();
+	tabla.destroy();
+	arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+	$("#data-table-"+modulo).DataTable({
+		bFilter: false,
+		bLengthChange: false,
+		order: [],
+		bPaginate: false,
+		info: false
+	});
+});
+
+$(document).on("click", ".nxt", function () {
+    var modulo = $("ul.pagination").attr('modulo');
+	var vtbl = $("ul.pagination").attr('vtbl');
+	var count = $(".pagination").attr('ultimo');
+	var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
+	var next = id + 1;
+
+	if (count == id) {
+		$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
+		for (var i = next - 8; i <= next; i++) {
+			i = parseInt(i);
+			$(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+			if (i == next) {
+				$(".pagination").attr('ultimo', i);
+			}
+		}
+		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+		$(".paginate").removeClass('active');
+		$("#z" + next).addClass('active');
+		var limit = $("#z" + next).attr('limit');
+		var tabla = $("#data-table-"+modulo).DataTable();
+		tabla.destroy();
+		arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+		$("#data-table-"+modulo).DataTable({
+			bFilter: false,
+			bLengthChange: false,
+			order: [],
+			bPaginate: false,
+			info: false
+		});
+	} else {
+		var limit = $("#z" + next).attr('limit');
+		$(".paginate").removeClass('active');
+		$("#z" + next).addClass('active');
+		var tabla = $("#data-table-"+modulo).DataTable();
+		tabla.destroy();
+		arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+		$("#data-table-"+modulo).DataTable({
+			bFilter: false,
+			bLengthChange: false,
+			order: [],
+			bPaginate: false,
+			info: false
+		});
+	}
+});
+
+$(document).on("click", ".prv", function () {
+	var modulo = $("ul.pagination").attr('modulo');
+    var vtbl = $("ul.pagination").attr('vtbl');
+	var count = $(".pagination").attr('ultimo');
+	var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
+	var prev = id - 1;
+	if (prev == 0)
+		return false
+	else {
+		if (count == id) {
+			var prv = prev - 8;
+			console.log(prv)
+			$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
+			if (prv != 0) {
+				for (var i = prev - 8; i <= prev; i++) {
+					i = parseInt(i);
+					$(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+					if (i == prev) {
+						$(".pagination").attr('ultimo', i);
+					}
+				}
+				$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+			} else {
+				$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+				$(".pagination").attr('ultimo', 9);
+			}
+			$(".paginate").removeClass('active');
+			$("#z" + prev).addClass('active');
+			var limit = $("#z" + prev).attr('limit');
+			var tabla = $("#data-table-"+modulo).DataTable();
+			tabla.destroy();
+			arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+			$("#data-table-"+modulo).DataTable({
+				bFilter: false,
+				bLengthChange: false,
+				order: [],
+				bPaginate: false,
+				info: false
+			});
+		} else {
+			var limit = $("#z" + prev).attr('limit');
+			$(".paginate").removeClass('active');
+			$("#z" + prev).addClass('active');
+			var tabla = $("#data-table-"+modulo).DataTable();
+			tabla.destroy();
+			arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+			$("#data-table-"+modulo).DataTable({
+				bFilter: false,
+				bLengthChange: false,
+				order: [],
+				bPaginate: false,
+				info: false
+			});
+		}
+	}
+});
+// pagination -->
 
 //TELEFONOS Y CORREOS
 

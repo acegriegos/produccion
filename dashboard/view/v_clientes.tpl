@@ -67,6 +67,7 @@
                             {/section}
                         </tbody>
                     </table>
+                    <ul class="pagination right" vtbl="29" modulo="clientes"></ul>
                 </div>
 
                 <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 80%; width: 75%">
