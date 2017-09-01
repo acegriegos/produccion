@@ -541,7 +541,7 @@ $("#fcomentario").html()+'</div>'+
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'+
 '<div style="text-align: center;"><br>'+
 '<br>'+
-'<strong>Tipo de Pago:</strong><br>'+$(".ftipofact").html()+'<br>'+
+'<strong >'+$(".ftipofact").html()+'</strong><br>'+$(".ftipofa").html()+'<br>'+
 '<br>'+
 '<strong>Fecha:</strong>&nbsp;<br>'+
 $("#ffecha").html()+'</div>'+

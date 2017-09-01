@@ -77,14 +77,14 @@
 
             <div class="col s8 right">
               <div class="card white-text imprimirSINBOR <?php echo $hide ?>" style="background-color: #3960A7;">
-                <div class="ftipofact card-content ">
+                <div class="card-content ">
                   <?php if ($datos[2] === 'N/A'){ ?>
-                  <p><b>Plazo en Días:</b>
-                    <?php echo $datos[11]; ?>
+                  <p><b class="ftipofact">Plazo en Días: </b>
+                    <span class="ftipofa"><?php echo $datos[11]; ?></span>
                   </p>
                   <?php }else{ ?>
-                  <p><b>Tipo de Pago:</b>
-                    <?php echo $datos[2]; ?>
+                  <p><b class="ftipofact">Tipo de Pago: </b>
+                    <span class="ftipofa"><?php echo $datos[2]; ?></span>
                   </p>
                   <?php } ?>
                 </div>

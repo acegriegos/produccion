@@ -109,15 +109,15 @@
           }
           
           if (isset($_REQUEST['arreglo']['mic']))
-            $miscelaneos = $log->kamehameha('*',50,'');
+            $miscelaneos = $log->kamehameha('*',50,'')[0];
 
           if (isset($_REQUEST['arreglo']['id']))
             $id = $_REQUEST['arreglo']['id'];
 
           if (isset($_REQUEST['arreglo']['tit']))
             $tit = $_REQUEST['arreglo']['tit'];
-           print_r($datos);
-          //include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
+           
+           include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
 		   	break;
 
    	}

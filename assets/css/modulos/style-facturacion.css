@@ -1,3 +1,8 @@
+*{
+    font-size: 16px !important;
+}
+
+
 .input-field{
     margin-top: 0px;
 }
@@ -9,8 +14,9 @@
 html{
     line-height: 1.5;
 }
+
 .tamLetra{
-   font-size: 1.2em !important
+   font-size: 1.2em !important;
 }
 
 .bdy{
@@ -18,64 +24,62 @@ html{
 }
 
 td, th{
-    padding: 1px 3px;
+    padding: 1px 7px;
+}
+
+.ciclos{
+    padding: 0% !important;
+    background: #F8F8F8;
+    border-bottom: 1px solid #E0E0E0;
 }
 
 .faccion{
     padding: 0px 10px;
     margin: 2px;
 }
+
 #ncli + .autocomplete-content{
     width: 30% !important;
-
 }
+
 .modcambio{
     width: 30% !important;
     height: 30% !important
 }
+
+input:not([type]), input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="time"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="tel"], input[type="number"], input[type="search"], textarea.materialize-textarea{
+    height: 2.5em !important;
+}
+
 @media only screen and (max-width:769px){
-.detalle{
-    font-size: 0.5em !important;
-}
-#ncli + .autocomplete-content{
-    width: 100% !important;
 
-}
-.padd{
-    padding-left: 2% !important;
-    padding-right: 2% !important;
-}
+    .detalle{
+        font-size: 0.5em !important;
+    }
 
-.centro2{
-    padding-right:28% !important;
-    padding-top: 2% !important;
-    
-}
+    #ncli + .autocomplete-content{
+        width: 100% !important;
+    }
 
-.padds{
-    
-    padding-bottom: 10% !important;
-    padding-top: 5% !important;
-}
-.tamañoimg{
+    .tamañoimg{
+        font-size: 0.5em !important
+    }
 
-    font-size: 0.5em !important
+    .fs14{
+        font-size: 14px !important;
+    }
 
-}
-.tda{
-    width: 15% !important;
-}
-.tdb{  
-    width: 27% !important;
-}
-.tdc{
-    width: 10% !important;
-}
-.tdd{
-    width: 25% !important;
-}
-
-
-
+    .tda{
+        width: 15% !important;
+    }
+    .tdb{  
+        width: 27% !important;
+    }
+    .tdc{
+        width: 10% !important;
+    }
+    .tdd{
+        width: 25% !important;
+    }
 
 }

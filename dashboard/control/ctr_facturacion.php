@@ -65,7 +65,6 @@
 			   	$smarty->assign('CONS',$kakaroto->kamehameha('lpad(consecutivo3+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
 			   	$smarty->display('ajax/facturas/ajaxCotizacion.tpl');
 	   			break;
-	   			break;
 	   		case 5:
 	   			//pedidos
 	   			$pagina = 1;
