@@ -10,6 +10,7 @@ $(function(){
     $("#ffacturas").submit(function(){
         return false;
     });
+
     fecha = new Date();
     $('#vfecha').pickadate().pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
 
@@ -114,6 +115,7 @@ $(function(){
     });
 
     cargarMoneda(0);
+
 })//READY
 
 $(document).on("click","#chg_tipo",function(){
@@ -190,7 +192,7 @@ $(document).on("keyup","[id^=vcantidad]",function(e){
         $("#fd"+id).data('triforce')['vtotal'] = total;
         $("#tota"+id).html(total.formatMoney(2,'.',','))
         
-        totalizar()
+        totalizar();
 
     }
 });
@@ -249,8 +251,54 @@ $(document).on("click",".fedit",function(){
         
     }
 
+});
+
+$(document).on("click","#facturar",function(){
+    var tpago = $("#vidtipopago option:selected").val();
+    var tfact = $(".zelda").data('triforce')['vidtipo'];
+    var p = getDatos('',231,tpago+','+tfact,0,0)[0][0];
+
+    if (p[0] == 4) {
+        $(".modal-tpago").addClass('hide');
+        $("#m-efectivo").removeClass('hide');
+        retrasarFocus('pcon');
+        
+    }else if (p[0] == 2) {
+        $(".modal-tpago").addClass('hide');
+        $("#m-tarjeta").removeClass('hide');
+        $("#labeltarjeta").text(p[1]);
+        retrasarFocus('carddigito');
+        $("#icono").html(p[3]);
+
+    }else if (p[0] == 1) {
+        alert('CAREN ALGAS');
+
+    }else if (p[0] == 0) {
+        $("#factreal").click();
+        return false;
+    }
+
+    var span = $("#tot").text();
+    $(".totalfact").html(span);
+});
 
 
+$("#pcon").keyup(function(e){
+    var code = e.which || e.keyCode;
+    var paga = parseFloat( $(this).val().replace(/,/g,'') );
+    var totalfact = parseFloat( $(".totalfact").text().replace(/,/g,'') );
+    if (code == 13) {
+        console.log(paga)
+        console.log(totalfact)
+       var cambio = (paga - totalfact);
+       $("#pcam").text(cambio.formatMoney(2,'.',','));
+
+       if (cambio > 0) {
+            $("#pcam").css('color','#2196F3');
+        }else{
+            $("#pcam").css('color','#F3213F');
+        }
+    }
 });
 
 $(document).on("click","input[name=modo]",function(){
@@ -341,7 +389,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
 
         $("#vdesc"+id).data('valor',dcs);
         $("#vdesc"+id).data('max',mdcs);
-        $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:dcs, vtotal:0, vidinventario:hinv,vidodt : 0,vimv:0});
+        $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:idprod, vcantidad:cant, vprecio:precio, vdesc:dcs, vtotal:0, vidinventario:hinv,vidodt : 0,vimv:0,vcomodin:''});
        
     }
     totalizar();
@@ -481,9 +529,7 @@ function validarFactura() {
 
     if ($("#subtot").text() == '0.00') {
         $("#codp").focus()
-        
-/*        $('#modalcambio').modal('open');
-*/        return "No se Han Ingresado Productos";
+        return "No se Han Ingresado Productos";
     }
 
     if ($("#vcomentario").val() == '') {
@@ -502,7 +548,11 @@ function validarFactura() {
         //     return p[0]['ERROR'] 
         // }
 
-    }   
+    }
+
+        if ( !$("#carddigito").val().match(new RegExp(p[2])) ){
+            Materialize.toast("Formato de tarjeta incorrecto",4000,'danger');
+        }
        /*  $('#modalcambio').modal('open');*/
 
        $("#ffacturas .zelda").data("triforce")['vidmoneda'] = $(".moneda").first().data("triforce")['id'];
@@ -698,4 +748,10 @@ function searchClient(vvariable,visprv){
     $("#codp").focus();
     Materialize.updateTextFields()
     
+}
+
+function retrasarFocus(vinput){
+    setTimeout(function(){
+        $("#"+vinput).focus().select();
+    },100);
 }

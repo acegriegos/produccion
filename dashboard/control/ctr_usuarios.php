@@ -33,7 +33,8 @@ if (!isset($_REQUEST['accion'])) {
 				$usr = $kakaroto->kamehameha('id,Nombre',1,"");
 			else{ 
 				$usr = $kakaroto->kamehameha('id,Nombre',1,"");
-				$log = $kakaroto->kamehameha('Usuario,accion,descripcion,Fecha',11,$_REQUEST['arreglo']['where']);
+				$acc = $kakaroto->kamehameha('id,nombre',305,"");
+				$log = $kakaroto->kamehameha('',304,$_REQUEST['arreglo']['where']);
 				if($_REQUEST['arreglo']['id'] == 2)
 					$tbl = 1;
 				$_REQUEST['arreglo'] = 3;

@@ -25,7 +25,7 @@
 			$modulo = "login";
 			break;
 		default:
-			session_start();
+			session_start(['cache_expire' => 0]); //, 'name' => 
 
 			if (!isset($_SESSION['USR'])) {
 				$modulo = 'login';

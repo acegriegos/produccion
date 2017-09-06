@@ -18,6 +18,7 @@
         <ul id="fserv" class="dropdown-content" filter="1">
             <li><a class="dropdown-item filtersrv" filtro="f1">Código</a></li>
             <li><a class="dropdown-item filtersrv" filtro="f2">Nombre</a></li>
+            <li><a class="dropdown-item filtersrv hide" filtro="f3">Clientes</a></li>
         </ul>            
     </div>
     <div class="col s12 m6">
@@ -78,6 +79,7 @@
                         <label for="vcodigo">Código de Servicio</label>
                     </div>
                     <div class="input-field col s12  m6 l6" style="margin: 0">
+                        <a class="prefix" href="#hextra"><i class="material-icons pbtn">help</i></a>
                         <input id="vnombre" type="text" class="validate">
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
@@ -140,18 +142,27 @@
                             {/section}
                         </select>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s6 m6 l6">
-                        <label for="vidinventario">Seleccione un Inventario</label>
-                        <select id="vidinventario" type="select"></select>
+                    <div class="col s12 m3">
+                        <div class="switch">
+                            <label>
+                            <input type="checkbox" id="servpro">
+                            <span class="lever"></span>
+                            Servicio Profesional
+                            </label>
+                            <input type="hidden" id="vservprofesional">
+                        </div>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col s6 m6 l6 input-field">
+                        <!-- <label for="vidinventario">Seleccione un Inventario</label> -->
+                        <select id="vidinventario" type="select"></select>
+                    </div>
+
                     <div class="input-field col s6 m6">
-                        <a class="prefix" href="#hextra"><i class="material-icons pbtn">help</i></a>
-                        <input type="text" id="vextra">
-                        <label for="vextra">Extra Automática del Nombre</label>
+                        
+                        <!-- <input type="text" id="vextra">
+                        <label for="vextra">Extra Automática del Nombre</label> -->
                     </div>
                 </div>
             </div>
@@ -165,7 +176,7 @@
                     </div>
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">%</i>
-                        <input id="vpganancia" type="number" class="validate vcalcserv" min="1" value="0.00" num="2">
+                        <input id="vpganancia" type="number" class="validate vcalcserv eder" min="1" value="0.00" num="2">
                         <label for="vganancia">Ganancia</label>
                     </div>
                     <div class="input-field col s12 m6">
@@ -190,9 +201,9 @@
       <br>
       <ul>
           <li><b>%HOY%</b>, Despliega la Fecha del Día en Formato dd-mm-yyyy</li>
-          <li><b>%ANO%</b></li>  
-          <li><b>%MES%</b></li>
-          <li><b>%DIA%</b></li>
+          <li><b>%ANO%</b>, Despliega el Año</li>  
+          <li><b>%MES%</b>, Despliega el Mes</li>
+          <li><b>%DIA%</b>, Despliega el Día</li>
 
       </ul>
     </div>

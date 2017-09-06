@@ -5,7 +5,7 @@
 
 <div class="card z-depth-3 pequeño">
 <div class="card-header center light-blue darken-4 white-text">
-  <p class="flow-text" style="margin-top: 0%;">VENTAS {$smarty.session.EMPRESA|upper}</p>
+  <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
 </div>
   <input type="hidden" class="zelda">
   <input type="hidden" id="vidusuario" value="">
@@ -45,7 +45,6 @@
     </div>
 
     <div class="input-field con col s12 m3 l3" >
-
     <i class="material-icons prefix">attach_money</i>
       <select id="vidtipopago" type="select">
         {section name=LE loop=$TPAGO}
@@ -62,7 +61,7 @@
     </div>
     
     <div class="input-field col s12 m6">
-      <i class="material-icons prefix">account_circle</i>
+      <i class="material-icons prefix" style="font-size: 1.6em !important">face</i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" placeholder="Nombre o Cédula del Cliente" />
     </div> 
     
@@ -265,7 +264,8 @@
           </div>
 
           <div class="col s12 m12 l12" align="center">
-            <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button>
+            <!-- <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button> -->
+            <a href="#modal-tpago" class="btn btn-primary-outline modal-trigger" id="facturar" style="margin-bottom: 3%;">Facturar</a>
           </div>
 
           </div>
@@ -280,33 +280,10 @@
 
 <!-- ffacturas -->
 </div>
- <!-- bdy --> 
+ <!-- bdy -->
 
 
-<div class="modal modal-fixed-footer" id="modal-cambio">
-  
-  <div class="modal-content">
-    <div class="modal-header" style="background: #4098CB">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title" style="color: #fff">CÁLCULO DE CAMBIO</h4>
-    </div>
-    <div class="modal-body" align="center">
-      <div class="input-group input-group" style="width: 60%">
-        <span class="input-group-addon">PAGA CON:</span>
-        <input type="text" class="form-control form-control-lg" id="pcon" placeholder="0.00" value="">
-      </div><br>
-      <div class="input-group input-group" style="width: 60%">
-        <span class="input-group-addon">CAMBIO DE:</span>
-        <input type="text" class="form-control form-control-lg" id="pcam" placeholder="0.00" value="0.00" readonly>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-  </div>
-
-</div>
 
 <div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
 
@@ -336,24 +313,50 @@
   </div>
 
 </div>
+
+
+<div id="modal-tpago" class="modal" align="center">
+<!--  -->
+<section id="m-efectivo" class="modal-tpago">
+  <div class="modal-content">
+  <b><span style="color: #2196F3; font-size: 1.8em !important;">Efectivo</span></b><hr style="border: 1px solid #F0F0F0">
+    <span>TOTAL:</span><br>
+    <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
+    <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
+      <span>PAGA CON:</span>
+      <input type="text" class="form-control form-control-sm center numeric" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;">
+    </div>
+    <br>
+    <span>SU CAMBIO ES DE:</span><br>
+    <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
+  </div>
+</section>
+<!--  -->
+<section id="m-tarjeta" class="modal-tpago">
+  <div class="modal-content">
+  <b><span style="color: #2196F3; font-size: 1.8em !important;">Tarjeta</span></b><hr style="border: 1px solid #F0F0F0">
+  <span>TOTAL:</span><br>
+  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
+  <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p>
+  <br>
+  <div class="row center-align">
+    <div class="input-field col s12">
+      <i class="material-icons prefix" id="icono" style="font-size: 2em !important">credit_card</i>
+      <input id="carddigito" type="text" class="validate center-align" value="0000" style="width: 20%; font-size: 2em !important;">
+      <label for="carddigito" id="labeltarjeta"></label>
+    </div>
+  </div>
+  <br>
+  </div>
+</section>
+<!--  -->
+<!-- FOOTER -->
+  <div class="modal-footer">
+    <a href="#!" class="add modal-action modal-close waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
+  </div>
 </div>
- 
 
-<!-- Cambio del pago -->
- <!-- Modal Structure -->
-<!--  <a id="prueba" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modalcambio"><i class="large material-icons ">add</i></a>
 
-  <div id="modalcambio" class="modal modal-fixed-footer modcambio">
-    <div class="modal-content">
-      <h4>Cambio</h4>
-      <p>A bunch of text</p>
-      <p>Pagó Con:</p>
-      <p>Su Cambio:</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-    </div>
-  </div> -->
 </section>
 
-<script src="../assets/js/modulos/ventas.js?v=0.25"></script>
+<script src="../assets/js/modulos/ventas.js?v=0.26"></script>

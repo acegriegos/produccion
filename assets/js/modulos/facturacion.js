@@ -32,7 +32,11 @@ $(document).ready(function(){
     var asoc = getParameterByName('arr');
 
     switch(param){
+        case 2:
+            $("#titfact").html("COMPRAS");
+            break;
         default:
+            $("#titfact").html("VENTAS");
             break;
     }
 
@@ -76,7 +80,7 @@ $(document).ready(function(){
                 $("#imv_"+fimv[i][8]).data({'imv':fimv[i][9]})
             }
             
-            $(this).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:p, vcantidad:c, vprecio:r, hdesc:h,hdescm:m, vtotal:t, vidinventario:i,vidodt : 0});
+            $(this).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:p, vcantidad:c, vprecio:r, hdesc:h,hdescm:m, vtotal:t, vidinventario:i,vidodt : 0,vcomodin:''});
             // $("#descu"+id).data('valor',0);
             $("#vdesc"+id).data({'valor':h,'max':m})
             line += 1;

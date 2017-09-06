@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <a class="btn-floating waves-effect waves-light blue right add z-depth-5" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="material-icons">add</i></a>
+    <a class="btn-floating waves-effect waves-green blue right add z-depth-5" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="material-icons">add</i></a>
     <br>
     <input type="hidden" id="vbcambioPSSW" value="0">
     <input type="hidden" id="vcodigo" value="">

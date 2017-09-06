@@ -12,7 +12,7 @@ $(function(){
                 var tabla = $("#data-table-presupuestos").DataTable();
                 tabla.destroy();
                 arr('login',6,'',225,'"","",0,"","",0,0,0',0,1,$("#listapresupuestos"));
-                
+               
                 $("#data-table-presupuestos").DataTable({
                     bFilter: false,
                     bLengthChange : false,
@@ -53,7 +53,7 @@ $(function(){
         // $('ul.tabs').tabs();
         $('.collapsible').collapsible();
     });
-    $("#m2").click();
+    $("#m1").click();
 
 });
 
@@ -183,7 +183,7 @@ function validar (varreglo,vmodulo) {
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-    // console.log(salida)
+
 	return salida;
 
 }

@@ -63,7 +63,7 @@
 
                 <div class="col s6 m4 input-field">
                     <label for="vidmoneda">Monto</label>
-                    <select id="vidmoneda" class="prefix" type="select">
+                    <select id="vidmoneda" class="prefix" type="select" noClear="1">
                         {section name=LE loop=$MON}
                             <option value="{$MON[LE][0]}" title="{$MON[LE][2]}">{$MON[LE][1]}</option>
                         {/section}
@@ -127,7 +127,7 @@
                     <label for="vidtoempresa">Sucursal Acredora</label>
                     <select id="vidtoempresa" type="select">
                         {section name=LE loop=$SUC}
-                            <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
+                            <option name="{$SUC[LE][1]}" value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
                         {/section}
                     </select>
                 </div>
