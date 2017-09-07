@@ -1282,7 +1282,13 @@ $(document).on("keyup","#searchsrv",function(e){
 });
 
 $(document).on("change","#servpro",function(){
-    $(this).is(":checked") ? $("[filtro=f2]").addClass('hide') : $("[filtro=f2]").removeClass('hide')
+    if($(this).is(":checked") ){
+        $("#ms2").addClass('hide');
+        $("#vservprofesional").val(1);
+    }else{
+        $("#ms2").removeClass('hide')
+        $("#vservprofesional").val(0);
+    }
 });
 
 $(document).on("click",".loadserv",function(){
@@ -1330,6 +1336,7 @@ $(document).on("click",".loadserv",function(){
         $("#isPeriodo").prop('checked',false).change();
         $("#vdias").val(0);
     }
+    $("#vperiodo").val(serv[5]);
     $("#vidproveedor").val(serv[7]);
     if (serv[7] != 0) {
         $("#outsourcing").prop('checked',true);
@@ -1346,7 +1353,7 @@ $(document).on("click",".loadserv",function(){
 
     }
 
-    if (serv[13] != 0)
+    if (serv[13] == 0)
         $("#servpro").prop('checked',false);
     else
         $("#servpro").prop('checked',true);
@@ -1652,7 +1659,8 @@ $(document).on("click","#addservice",function(){
     $("#outsourcing").prop('checked',false);
     $("#servpro").prop('checked',false);
     $("#servpro").change();
-    // Materialize.updateTextFields();
+    $(".cper").attr('disabled',true);
+    $(".cper").prop('checked',false);
     arr('login',6,'id,nombre',111,'id > 0',15,1,$("#vidinventario"));
     $("#vdescripcion").characterCounter();
     $('select').material_select();
@@ -2145,11 +2153,6 @@ function validarservicios() {
 
     if (!$("#isPeriodo").is(":checked"))
         $("#vdias").val(0);
-
-    if ($("#servpro").is(":checked"))
-        $("#vservprofesional").val(1);
-    else
-        $("#vservprofesional").val(0);
 
     return false;
 }

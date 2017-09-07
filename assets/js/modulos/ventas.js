@@ -257,25 +257,35 @@ $(document).on("click","#facturar",function(){
     var tpago = $("#vidtipopago option:selected").val();
     var tfact = $(".zelda").data('triforce')['vidtipo'];
     var p = getDatos('',231,tpago+','+tfact,0,0)[0][0];
+    $(this).attr('regex',p[2]);
 
-    if (p[0] == 4) {
-        $(".modal-tpago").addClass('hide');
-        $("#m-efectivo").removeClass('hide');
-        retrasarFocus('pcon');
-        
-    }else if (p[0] == 2) {
-        $(".modal-tpago").addClass('hide');
-        $("#m-tarjeta").removeClass('hide');
-        $("#labeltarjeta").text(p[1]);
-        retrasarFocus('carddigito');
-        $("#icono").html(p[3]);
+    switch(parseInt( p[0]) ){
+        case 4:
+            $(".modal-tpago").addClass('hide');
+            $("#m-efectivo").removeClass('hide');
+            retrasarFocus('pcon');
+        break;
 
-    }else if (p[0] == 1) {
-        alert('CAREN ALGAS');
+        case 2:
+            $(".modal-tpago").addClass('hide');
+            $("#m-tarjeta").removeClass('hide');
+            $("#labeltarjeta").text(p[1]);
+            retrasarFocus('carddigito');
+            $("#icono").html(p[3]);
+        break;
 
-    }else if (p[0] == 0) {
-        $("#factreal").click();
-        return false;
+        case 1:
+           $(".modal-tpago").addClass('hide');
+            $("#m-tarjeta").removeClass('hide');
+            $("#labeltarjeta").text(p[1]);
+            retrasarFocus('carddigito');
+            $("#icono").html(p[3]);
+        break;
+
+        default:
+            $("#factreal").click();
+            return false;
+        break;
     }
 
     var span = $("#tot").text();
@@ -550,10 +560,9 @@ function validarFactura() {
 
     }
 
-        if ( !$("#carddigito").val().match(new RegExp(p[2])) ){
+        if ( !$("#carddigito").val().match(new RegExp($("#facturar").attr('regex'))) ){
             Materialize.toast("Formato de tarjeta incorrecto",4000,'danger');
         }
-       /*  $('#modalcambio').modal('open');*/
 
        $("#ffacturas .zelda").data("triforce")['vidmoneda'] = $(".moneda").first().data("triforce")['id'];
        $("#ffacturas .zelda").data("triforce")['vdivisa'] = $(".moneda").first().data("triforce")['valor'];
@@ -678,7 +687,7 @@ function verfacturas() {
 function searchClient(vvariable,visprv){
     
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
-    
+    console.log(clie)
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
         
@@ -688,7 +697,7 @@ function searchClient(vvariable,visprv){
         $("#ncli").val(vclie[1]+' '+vclie[2]);
 
         if (vclie[3] > 0){ 
-            $("#chg_tipo").removeAttr('disabled')
+            $("#chg_tipo").removeAttr('disabled');
         }
         else{
             $("#chg_tipo").val(2);

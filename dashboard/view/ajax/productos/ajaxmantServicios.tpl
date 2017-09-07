@@ -18,7 +18,6 @@
         <ul id="fserv" class="dropdown-content" filter="1">
             <li><a class="dropdown-item filtersrv" filtro="f1">Código</a></li>
             <li><a class="dropdown-item filtersrv" filtro="f2">Nombre</a></li>
-            <li><a class="dropdown-item filtersrv hide" filtro="f3">Clientes</a></li>
         </ul>            
     </div>
     <div class="col s12 m6">
@@ -64,6 +63,7 @@
         <ul class="tabs blue">
             <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
             <li class="tab col s3"><a class="white-text menuS" id="ms2" href="#">Financiero</a></li>
+            <li class="tab col s3"><a class="white-text menuS hide" id="ms3">Clientes</a></li>
         </ul>
     </div>
     <div class="modal-content" style="padding: 0px;">

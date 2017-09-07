@@ -266,6 +266,7 @@
           <div class="col s12 m12 l12" align="center">
             <!-- <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button> -->
             <a href="#modal-tpago" class="btn btn-primary-outline modal-trigger" id="facturar" style="margin-bottom: 3%;">Facturar</a>
+            <i class="mdi mdi-baby-buggy"></i>
           </div>
 
           </div>
@@ -315,7 +316,7 @@
 </div>
 
 
-<div id="modal-tpago" class="modal" align="center">
+<div id="modal-tpago" class="modal" align="center" style="margin-top: -5% !important">
 <!--  -->
 <section id="m-efectivo" class="modal-tpago">
   <div class="modal-content">
@@ -341,9 +342,10 @@
   <br>
   <div class="row center-align">
     <div class="input-field col s12">
-      <i class="material-icons prefix" id="icono" style="font-size: 2em !important">credit_card</i>
+      <i class="material-icons prefix" id="icono" style="font-size: 2em !important"></i>
       <input id="carddigito" type="text" class="validate center-align" value="0000" style="width: 20%; font-size: 2em !important;">
       <label for="carddigito" id="labeltarjeta"></label>
+
     </div>
   </div>
   <br>
