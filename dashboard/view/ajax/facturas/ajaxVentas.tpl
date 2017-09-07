@@ -266,7 +266,6 @@
           <div class="col s12 m12 l12" align="center">
             <!-- <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button> -->
             <a href="#modal-tpago" class="btn btn-primary-outline modal-trigger" id="facturar" style="margin-bottom: 3%;">Facturar</a>
-            <i class="mdi mdi-baby-buggy"></i>
           </div>
 
           </div>

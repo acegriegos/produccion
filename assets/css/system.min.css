@@ -24,22 +24,6 @@ font-size: 1.2em !important;
   /*src: url("../fonts/material-icons/material-icons.woff") format("woff");*/
 }
 
-/*.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
-}
-*/
 
 .border-left {
   border-left: 1px solid #000;
@@ -112,7 +96,7 @@ body {
 .asterisco {
     color: red;
 }
-@-moz-keyframesspin {
+@-moz-keyframes spin {
     0% {
     -moz-transform: rotate(0);
 }
@@ -120,7 +104,7 @@ body {
     -moz-transform: rotate(359deg);
 }
 }
-@-webkit-keyframesspin {
+@-webkit-keyframes spin {
     0% {
     -webkit-transform: rotate(0);
 }
@@ -128,7 +112,7 @@ body {
     -webkit-transform: rotate(359deg);
 }
 }
-@-o-keyframesspin {
+@-o-keyframes spin {
     0% {
     -o-transform: rotate(0);
 }
@@ -144,7 +128,7 @@ body {
     -ms-transform: rotate(359deg);
 }
 }
-@keyframesspin {
+@keyframes spin {
     0% {
     transform: rotate(0);
 }
