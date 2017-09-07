@@ -41,7 +41,8 @@ $(document).ready(function(){
             break;
     }
 
-    inicial.focus();
+    //inicial.focus();
+    console.log(inicial)
     cargarGlobal();
 
     if (asoc == '') {
