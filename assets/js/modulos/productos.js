@@ -15,6 +15,8 @@ $(function () {
 				$("#bdymantInventario").html(p);
 				$("#data-table-productos").DataTable({
 					bFilter: false,
+					bScrollInfinite: true,
+					bSort: false,
 					bLengthChange: false,
 					order: [],
 					bPaginate: false,
@@ -30,7 +32,12 @@ $(function () {
 				$("#bdymantInventario").html(p);
 				$("#data-table-servicios").dataTable({
 					bFilter: false,
-					bLengthChange: false
+					bScrollInfinite: true,
+					bSort: false,
+					bLengthChange: false,
+					order: [],
+					bPaginate: false,
+					info: false
 				});
 				$("#prove").hide();
 				$(".ganServ").hide();
@@ -46,8 +53,9 @@ $(function () {
 					bScrollInfinite: true,
 					bSort: false,
 					bLengthChange: false,
+					order: [],
 					bPaginate: false,
-					bInfo: false
+					info: false
 				});
 				break;
 		}
@@ -685,7 +693,9 @@ $(document).on("click", "#addprod", function () {
 				}
 
 				Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
-				arr('login', 6, '*', 14, 'vid > 0 order by nombre', '', 1, $("#listaproductos"));
+				arr('login', 6, '*', 14, 'vid > 0 order by nombre limit 10', '', 1, $("#listaproductos"));
+				$(".pagination").htmll('');
+				paginate(14);
 				vaciar('productos');
 				var imp = arr('login', 4, 'impuesto,nombre,valor', 109, '', 0, 0, 0)[0];
 				for (var i = 0, len = imp.length; i < len; i++) {
@@ -724,17 +734,17 @@ $(document).on("click", "#editprod", function () {
 		var vari = $(".variables");
 		var pass = 1;
 
-		if (idunidad == 1) {
+		if (idunidad == 1)
 			peso = peso * 1000;
-		} else if (idunidad == 3) {
+		else if (idunidad == 3)
 			peso = peso / 1000;
-		} else if (idunidad == 4) {
+		else if (idunidad == 4)
 			peso = peso * 1000;
-		} else if (idunidad == 6) {
+		else if (idunidad == 6)
 			peso = peso / 1000;
-		} else if (idunidad == 8) {
+		else if (idunidad == 8)
 			peso = peso / 100;
-		}
+		
 
 		if ($("#vidfamilia").val() == 0) {
 			var familia = arr('login', 4, '', 106, '1,0,\"' + $("#vfamilia").val() + '\"', 0, 0, 0);
@@ -798,7 +808,9 @@ $(document).on("click", "#editprod", function () {
 				}
 
 				Materialize.toast('Producto Editado Correctamente', 6000, 'green');
-				arr('login', 6, '*', 14, 'vid > 0 order by nombre', '', 1, $("#listaproductos"));
+				arr('login', 6, '*', 14, 'vid > 0 order by nombre limit 10', '', 1, $("#listaproductos"));
+				$(".pagination").html('');
+				paginate(14);
 				// vaciar('productos');
 				// var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
 				// for (var i = 0, len = imp.length; i < len; i++) {
@@ -1757,7 +1769,6 @@ function addfeat(nom, val) {
 		$("#cnt").val(cnt);
 
 		// var vari = arr('login',4,'',194,acc+','+id+',"'+nom+'","'+val+'",@@usr,@@impresa',0,0,0)[0];
-		// console.log(vari+" "+vari[0])
 	} else {
 
 	}
@@ -1875,7 +1886,6 @@ function vaciar(modulo) {
 }
 
 function totalizar(costo, ganancia, tipo, line) {
-	console.log(costo + " " + ganancia + " " + tipo + " " + line)
 	var subtotal = 0;
 	var hsubtotal = 0;
 	var impuestos = 0;
@@ -2192,22 +2202,13 @@ function cargar(vmodulo, vid) {
 function cargarSintax(vtabla) {
 	switch (vtabla) {
 		case 'productos':
-			var arr = {};
-			arr['sel'] = 'id,codigo,nombre,isprod,scosto,sventa,sganancia';
-			arr['tbl'] = 14;
-			arr['where'] = 'id > 0 order by nombre limit 10';
+			
 			break;
 		case 'servicios':
-			var arr = {};
-			arr['sel'] = '*';
-			arr['tbl'] = 13;
-			arr['where'] = 'id > 0 order by nombre limit 10';
+			
 			break;
 		case 'paquetes':
-			var arr = {};
-			arr['sel'] = 'vid,vcodigo,vnombre,vdescuento,totpqt';
-			arr['tbl'] = 72;
-			arr['where'] = 'vid > 0 order by nombre limit 10';
+			
 			break;
 		case 'familia':
 			var arr = {};
@@ -2228,10 +2229,7 @@ function cargarSintax(vtabla) {
 			arr['where'] = 'id > 0 order by id';
 			break;
 		case 'modelo':
-			var arr = {};
-			arr['sel'] = 'id,nombre';
-			arr['tbl'] = 23;
-			arr['where'] = 'id > 0 and idmarca = ' + $("#vidmarca option:selected").val() + ' order by id';
+			
 			break;
 	}
 	return arr;
@@ -2239,6 +2237,7 @@ function cargarSintax(vtabla) {
 
 
 function endDetail(id, acc, modulo) {
+
 	if (acc == 1) {
 		deadclear(modulo);
 		thorload(modulo);

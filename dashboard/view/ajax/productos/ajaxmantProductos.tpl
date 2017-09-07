@@ -28,7 +28,7 @@
 <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Costo</th>
 <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Venta</th>
 <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Ganancia</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 18%">Acciones</th>
+<th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 18%;">Acciones</th>
 </tr>
 </thead>
 <tbody id="listaproductos">

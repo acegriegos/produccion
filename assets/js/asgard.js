@@ -112,29 +112,36 @@ $(document).on("keyup","[id^=search_]",function(e){
         var d = $(this).attr('num').substring(0,1).replace('+','');
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
-
+        var h;
         tabla = $("#data-table-"+b).DataTable();
         tabla.destroy();
-        if (e.replace(/,/g,'').length == e.length)
-            arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%"',g,1,$("#lista"+b));
-        else{
+        if (e.replace(/,/g,'').length == e.length) {
+            h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,0,0)[0][0];
+            arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%" order by nombre limit 10',g,1,$("#lista"+b));
+        }else{
             var f = d+'id >= 0 and (';
             e = e.split(",");
             for (var i = 0; i < e.length; i++) {
                 f += e[i]+' like "%'+a+'%" or ';
             }
             f = f.substring(0,f.length-3)
-            f += ")";
+            f += ") order by nombre";
+            h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,f,0,0,0)[0][0];
+            arr('login',6,'*',c,f+' limit 10',g,1,$("#lista"+b));
 
-        arr('login',6,'*',c,f,g,1,$("#lista"+b));
-
-        $("#data-table-"+b).DataTable({
-            bFilter :  false,
-            bLengthChange : false,
-            order : []
-        });
+            $("#data-table-"+b).DataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            });
 
         }
+        $(".pagination").html('');
+        paginate(c,h)
     }
 });
 
@@ -660,9 +667,13 @@ function thorload(vtabla) {
         tabla.destroy();
         $("#lista"+vtabla).html(tbl);
         $("#data-table-"+vtabla).DataTable({
-            bFilter :  false,
-            bLengthChange : false,
-            order : []
+            bFilter: false,
+            bScrollInfinite: true,
+            bSort: false,
+            bLengthChange: false,
+            order: [],
+            bPaginate: false,
+            info: false
         });
     }
 
@@ -812,7 +823,6 @@ function doreport() {
     var search = new Array;
     var datos = mantenimiento('login',1,vmodulo);
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
-    console.log(datos)
 
     for (var i = 0, len = datos.length; i < len; i++) {
         if ($("#"+datos[i]).attr('str') != undefined) {
@@ -835,7 +845,6 @@ function doreport() {
         atributos += string[index]+',';
     });
     atributos = atributos.substr(0,atributos.length-1);
-    console.log(atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 }
 
@@ -952,9 +961,13 @@ function mostrar_cargar(){
 }
 
 // <-- pagination
-function paginate(vtbl) {
-	var countpag = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
-    countpag = 1;
+function paginate(vtbl,len) {
+    var countpag = 0;
+    if (len == undefined)
+        countpag = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
+    else
+        countpag = len;
+    
 	if (countpag >= 9) {
 		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
 		$(".pagination").attr('ultimo', 9);
@@ -962,7 +975,7 @@ function paginate(vtbl) {
         return false;
     } else {
 		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
-		for (var i = 1; i <= countpag; i++) {
+		for (var i = 1; i <= Math.ceil(countpag); i++) {
 			i = parseInt(i);
 			if (i == 1)
 				$(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0"><a href="#!">' + i + '</a></li>');
@@ -979,63 +992,114 @@ $(document).on("click", ".paginate", function () {
     var vtbl = $("ul.pagination").attr('vtbl');
 	var id = $(this).attr('id').substr(1);
 	var limit = $(this).attr('limit');
+    var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var b = $("#search_"+modulo).attr('var');
+    if (a != '') {
+        var c = ' and (';
+            b = b.split(",");
+            for (var i = 0; i < b.length; i++) {
+                c += b[i]+' like "%'+a+'%" or ';
+            }
+            c = c.substring(0,c.length-3)
+            c += ")";
+    } else {
+        var c = '';
+    }
 	$(".paginate").removeClass('active')
 	$(this).addClass('active');
 	var tabla = $("#data-table-"+modulo).DataTable();
 	tabla.destroy();
-	arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+	arr('login', 6, '*', vtbl, 'vid > 0 '+c+' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
 	$("#data-table-"+modulo).DataTable({
 		bFilter: false,
-		bLengthChange: false,
-		order: [],
-		bPaginate: false,
-		info: false
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
 	});
 });
 
 $(document).on("click", ".nxt", function () {
     var modulo = $("ul.pagination").attr('modulo');
 	var vtbl = $("ul.pagination").attr('vtbl');
-	var count = $(".pagination").attr('ultimo');
+	var ultimo = $(".pagination").attr('ultimo');
 	var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
 	var next = id + 1;
+    var pags = next - 8;
 
-	if (count == id) {
-		$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
-		for (var i = next - 8; i <= next; i++) {
-			i = parseInt(i);
-			$(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
-			if (i == next) {
-				$(".pagination").attr('ultimo', i);
-			}
-		}
-		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
-		$(".paginate").removeClass('active');
-		$("#z" + next).addClass('active');
-		var limit = $("#z" + next).attr('limit');
-		var tabla = $("#data-table-"+modulo).DataTable();
-		tabla.destroy();
-		arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
-		$("#data-table-"+modulo).DataTable({
-			bFilter: false,
-			bLengthChange: false,
-			order: [],
-			bPaginate: false,
-			info: false
-		});
+    if (pags <= 0)
+        pags = 1;
+
+	if (ultimo == id) {
+        var count = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
+        if (Math.ceil(count) != ultimo) {
+            $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
+            for (var i = pags; i <= next; i++) {
+                i = parseInt(i);
+                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+                if (i == next)
+                    $(".pagination").attr('ultimo', i);
+            }
+            $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+            $(".paginate").removeClass('active');
+            $("#z" + next).addClass('active');
+            var limit = $("#z" + next).attr('limit');
+            var tabla = $("#data-table-"+modulo).DataTable();
+            tabla.destroy();
+            var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+            var b = $("#search_"+modulo).attr('var');
+            if (a != '') {
+                var c = 'and (';
+                    b = b.split(",");
+                    for (var i = 0; i < b.length; i++) {
+                        c += b[i]+' like "%'+a+'%" or ';
+                    }
+                    c = c.substring(0,c.length-3)
+                    c += ")";
+            } else {
+                var c = '';
+            }
+            arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+            $("#data-table-"+modulo).DataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            });
+        }	
 	} else {
 		var limit = $("#z" + next).attr('limit');
 		$(".paginate").removeClass('active');
 		$("#z" + next).addClass('active');
 		var tabla = $("#data-table-"+modulo).DataTable();
 		tabla.destroy();
-		arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+        var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+        var b = $("#search_"+modulo).attr('var');
+        if (a != '') {
+            var c = 'and (';
+                b = b.split(",");
+                for (var i = 0; i < b.length; i++) {
+                    c += b[i]+' like "%'+a+'%" or ';
+                }
+                c = c.substring(0,c.length-3)
+                c += ")";
+        } else {
+            var c = '';
+        }
+		arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
 		$("#data-table-"+modulo).DataTable({
 			bFilter: false,
-			bLengthChange: false,
-			order: [],
-			bPaginate: false,
-			info: false
+            bScrollInfinite: true,
+            bSort: false,
+            bLengthChange: false,
+            order: [],
+            bPaginate: false,
+            info: false
 		});
 	}
 });
@@ -1046,52 +1110,111 @@ $(document).on("click", ".prv", function () {
 	var count = $(".pagination").attr('ultimo');
 	var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
 	var prev = id - 1;
+    var prv = prev - 8;
 	if (prev == 0)
-		return false
+		return false;
 	else {
 		if (count == id) {
-			var prv = prev - 8;
-			console.log(prv)
-			$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
-			if (prv != 0) {
-				for (var i = prev - 8; i <= prev; i++) {
-					i = parseInt(i);
-					$(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
-					if (i == prev) {
-						$(".pagination").attr('ultimo', i);
-					}
-				}
-				$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
-			} else {
-				$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
-				$(".pagination").attr('ultimo', 9);
-			}
-			$(".paginate").removeClass('active');
-			$("#z" + prev).addClass('active');
-			var limit = $("#z" + prev).attr('limit');
-			var tabla = $("#data-table-"+modulo).DataTable();
-			tabla.destroy();
-			arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
-			$("#data-table-"+modulo).DataTable({
-				bFilter: false,
-				bLengthChange: false,
-				order: [],
-				bPaginate: false,
-				info: false
-			});
+			if (prv > 0 && prev > 0) {
+    			$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
+    			if (prv != 0) {
+    				for (var i = prv; i <= prev; i++) {
+    					i = parseInt(i);
+    					$(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+    					if (i == prev)
+    						$(".pagination").attr('ultimo', i);
+    				}
+    				$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+    			} else {
+    				$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+    				$(".pagination").attr('ultimo', 9);
+    			}
+    			$(".paginate").removeClass('active');
+    			$("#z" + prev).addClass('active');
+    			var limit = $("#z" + prev).attr('limit');
+    			var tabla = $("#data-table-"+modulo).DataTable();
+                var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+                var b = $("#search_"+modulo).attr('var');
+                if (a != '') {
+                    var c = 'and (';
+                        b = b.split(",");
+                        for (var i = 0; i < b.length; i++) {
+                            c += b[i]+' like "%'+a+'%" or ';
+                        }
+                        c = c.substring(0,c.length-3)
+                        c += ")";
+                } else {
+                    var c = '';
+                }
+    			tabla.destroy();
+    			arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+    			$("#data-table-"+modulo).DataTable({
+    				bFilter: false,
+                    bScrollInfinite: true,
+                    bSort: false,
+                    bLengthChange: false,
+                    order: [],
+                    bPaginate: false,
+                    info: false
+    			});
+            } else {
+                $(".paginate").removeClass('active');
+                $("#z" + prev).addClass('active');
+                var limit = $("#z" + prev).attr('limit');
+                var tabla = $("#data-table-"+modulo).DataTable();
+                var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+                var b = $("#search_"+modulo).attr('var');
+                if (a != '') {
+                    var c = 'and (';
+                        b = b.split(",");
+                        for (var i = 0; i < b.length; i++) {
+                            c += b[i]+' like "%'+a+'%" or ';
+                        }
+                        c = c.substring(0,c.length-3)
+                        c += ")";
+                } else {
+                    var c = '';
+                }
+                tabla.destroy();
+                arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+                $("#data-table-"+modulo).DataTable({
+                    bFilter: false,
+                    bScrollInfinite: true,
+                    bSort: false,
+                    bLengthChange: false,
+                    order: [],
+                    bPaginate: false,
+                    info: false
+                });
+            }
 		} else {
 			var limit = $("#z" + prev).attr('limit');
 			$(".paginate").removeClass('active');
 			$("#z" + prev).addClass('active');
 			var tabla = $("#data-table-"+modulo).DataTable();
+            var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+            var b = $("#search_"+modulo).attr('var');
+            if (a != '') {
+                var c = 'and (';
+                    b = b.split(",");
+                    for (var i = 0; i < b.length; i++) {
+                        c += b[i]+' like "%'+a+'%" or ';
+                    }
+                    c = c.substring(0,c.length-3)
+                    c += ")";
+            } else {
+                var c = '';
+            }
 			tabla.destroy();
-			arr('login', 6, '*', vtbl, 'vid > 0 order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+			arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
 			$("#data-table-"+modulo).DataTable({
 				bFilter: false,
-				bLengthChange: false,
-				order: [],
-				bPaginate: false,
-				info: false
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
 			});
 		}
 	}

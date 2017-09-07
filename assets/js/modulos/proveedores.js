@@ -2,17 +2,18 @@ var cuentas = '<option value="0">Seleccione una Cuenta</option>';
 var ind_1 = ind_2 = 1;
 
 $(function(){
-
 	$('ul.tabs').tabs();
 	$('select').material_select();
-	
 	$("#fclientes").submit(function(){return false});
-
-		
+	
 	$("#data-table-clientes").dataTable({
 		bFilter: false,
-		order : [],
-		"bLengthChange": false
+		bScrollInfinite: true,
+		bSort: false,
+		bLengthChange: false,
+		order: [],
+		bPaginate: false,
+		info: false
 	});
 	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
 	

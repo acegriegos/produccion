@@ -28,6 +28,7 @@
 	   			$smarty->assign('PROD',$kakaroto->kamehameha('vid,codigo,codigointerno,nombre,marca,scosto,sventa,sganancia',14,'vid > 0 order by nombre limit 10'));
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by id'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
+	   			// print_r($kakaroto->kamehameha('vid,codigo,codigointerno,nombre,marca,scosto,sventa,sganancia',14,'vid > 0 order by nombre limit 10'));
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
