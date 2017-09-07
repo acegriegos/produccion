@@ -30,15 +30,19 @@ $(document).ready(function(){
  });
 
     var asoc = getParameterByName('arr');
-
+    var inicial = $("#ncli");
     switch(param){
         case 2:
-            $("#titfact").html("COMPRAS");
+            inicial = $("#reference");
+            cargarCompras();
             break;
         default:
-            $("#titfact").html("VENTAS");
+            cargarVentas();
             break;
     }
+
+    inicial.focus();
+    cargarGlobal();
 
     if (asoc == '') {
         setTimeout(function(){$("#ncli").focus();},300);
@@ -94,3 +98,80 @@ $(document).ready(function(){
     }
 
 });
+
+function cargarCompras(){
+    $("#titfact").html("COMPRAS");
+    $("#reference").removeClass('hide');
+
+    $("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#ncli").autocomplete({
+                limit: 20,
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+            });
+
+        }
+    });
+}
+
+
+function cargarVentas(){
+    $("#titfact").html("VENTAS");
+
+    $("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#ncli").autocomplete({
+                limit: 20,
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+            });
+
+        }
+    });
+}
+
+function cargarGlobal(){
+    var cons = param-1 == 0 ? '' : param-1;
+    var ncons = getDatos('lpad(consecutivo'+cons+'+1,6,0)',39,'id = @@impresa',0,0)[0][0];
+    $("#idfact").html(ncons);
+
+    var fecha = new Date();
+    var dpick = $('#vfecha').pickadate()
+    dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+    dpick.pickadate('picker').on({close: function() {
+        if($(".con").is(":visible")){
+            $(".con .select-wrapper .select-dropdown").click();
+            $(".con .select-wrapper .select-dropdown").addClass('active');
+            $(".con .select-wrapper .select-dropdown").focus();
+            $(".con .select-wrapper .select-dropdown").first('li').addClass('selected');
+        }else{
+            $("#vplazo").focus();
+        }
+        $("#vfecha").blur();
+    } })
+
+    $("#descp").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+       
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+            $(".autocomplete-content").remove();
+            
+            $("#descp").autocomplete({
+                limit: 20,
+                data: arr('login',4,'',6,'"'+$("#descp").val()+'",1',0,0,0,1)
+            })
+
+            $("#descp").siblings($(".autocomplete-content")).css('width','50%');
+        }
+    });
+}

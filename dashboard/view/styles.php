@@ -4,4 +4,5 @@
 <link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-menu.css">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=1.2">

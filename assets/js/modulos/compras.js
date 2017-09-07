@@ -10,21 +10,6 @@ $(function(){
         return false;
     });
 
-    var fecha = new Date();
-    var dpick = $('#vfecha').pickadate()
-    dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
-    dpick.pickadate('picker').on({close: function() {
-        if($(".con").is(":visible")){
-            $(".con .select-wrapper .select-dropdown").click();
-            $(".con .select-wrapper .select-dropdown").addClass('active');
-            $(".con .select-wrapper .select-dropdown").focus();
-            $(".con .select-wrapper .select-dropdown").first('li').addClass('selected');
-        }else{
-            $("#vplazo").focus();
-        }
-        $("#vfecha").blur();
-    } })
-
     $('select').material_select();
 
     $(".autocomplete").blur(function(){ 
