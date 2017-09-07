@@ -25,9 +25,10 @@
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'idtipo in(0,1) order by idunidad'));
 	   			$smarty->assign('INV',$kakaroto->kamehameha('*',111,'id > 0 and idbodega = 1 order by id'));
-	   			$smarty->assign('PROD',$kakaroto->kamehameha('vid,codigo,codigointerno,nombre,marca,scosto,sventa,sganancia',14,'vid > 0 order by nombre limit 20'));
+	   			$smarty->assign('PROD',$kakaroto->kamehameha('vid,codigo,codigointerno,nombre,marca,scosto,sventa,sganancia',14,'vid > 0 order by nombre limit 10'));
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by id'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
+	   			// print_r($kakaroto->kamehameha('vid,codigo,codigointerno,nombre,marca,scosto,sventa,sganancia',14,'vid > 0 order by nombre limit 10'));
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
@@ -55,6 +56,16 @@
 	   			break;
 	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   		case 6:
+	   			for ($i=0; $i < $_REQUEST['prod']; $i++) { 
+	   				$rs = $kakaroto->genkidama(1,11,'','null,"z00'.$i.'","z000'.$i.'","z0prod'.$i.'",20*'.$i.',1*'.$i.',30*'.$i.',0,0,1,1,100,20,1,1,1,0,1,""');
+	   				echo "Producto: ";
+	   				print_r($rs[0][0]);
+	   				echo "<br>";
+	   				for ($u=0; $u < 1; $u++) { 
+	   					$rs1 = $kakaroto->genkidama(1,97,'','null,6,'.$rs[0][0].',30');
+	   					echo "Detalle No: ".($u+1)."<br>";
+	   				}
+	   			}
 	   			
 	   			break;
 	   	}

@@ -11,3 +11,6 @@
 .tamLetra{
    font-size: 1.2em !important
 }
+ul.pagination > li.active {
+    background-color: #2196F3 !important;
+}
