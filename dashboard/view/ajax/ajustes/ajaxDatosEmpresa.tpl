@@ -249,8 +249,12 @@
                                             <label for="cons">Consignacion</label>
                                         </div>
                                         <div class="col s12 m6 pequeño">
-                                            <input class="with-gap" name="vbancos" type="radio" id="mxt" value="4" />
-                                            <label for="cons">Consignacion</label>
+                                            <input class="with-gap" name="vbancos" type="radio" id="efec" value="4" />
+                                            <label for="cons">Efectivo</label>
+                                        </div>
+                                        <div class="col s12 m6 pequeño">
+                                            <input class="with-gap" name="vbancos" type="radio" id="mxt" value="5" />
+                                            <label for="cons">Mixto</label>
                                         </div>
                                     </div>
                                     <br>

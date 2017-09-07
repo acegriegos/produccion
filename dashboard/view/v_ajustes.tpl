@@ -18,35 +18,28 @@
       <div class="nav-wrapper ">
        <div class="nav-content">
 
-        <span id="titulo" class="text-white"></span>
-        <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Ajustes</a>
+       
+        <div class="row">
+    <div class="col s12">
+      <ul class="tabs tabs-fixed-width" style="background-color:#0B3861; padding-bottom: 4% !important">
+            <li class="menu3 tab "  id="m1" ><a class=" white-text tamLetra" class="active">Empresa</a></li>
+            <li class="menu3 tab " id="m2"><a class=" white-text tamLetra">Descuentos</a></li>
+            <li class="menu3 tab " id="m3"><a class=" white-text tamLetra">Impuestos</a></li>
+            <li class="menu3 tab " id="m4"><a class=" white-text tamLetra">Cuentas Contables</a></li>
+            <li class="menu3 tab " id="m5"><a class=" white-text tamLetra">Sucursales</a></li>
+            <li class="menu3 tab " id="m6"><a class=" white-text tamLetra">Bodegas</a></li>
+            <li class="menu3 tab " id="m7"><a class=" white-text tamLetra">Producción</a></li>
+            <li class="menu3 tab " id="m8"><a class=" white-text tamLetra">Accesos</a></li>
+            <li class="menu3 tab " id="m8"><a class=" white-text tamLetra">Productos</a></li>
+       
+      </ul>
+    </div>
+   
+  </div>
 
-          <ul id='dropdown1' class='dropdown-content'>
-            <li class="menu3" id="m1"><a class="tamLetra" class="active">Empresa</a></li>
-            <li class="menu3" id="m2"><a class="tamLetra">Descuentos</a></li>
-            <li class="menu3" id="m3"><a class="tamLetra">Impuestos</a></li>
-            <li class="menu3" id="m4"><a class="tamLetra">Cuentas Contables</a></li>
-            <li class="menu3" id="m5"><a class="tamLetra">Sucursales</a></li>
-            <li class="menu3" id="m6"><a class="tamLetra">Bodegas</a></li>
-            <li class="menu3" id="m7"><a class="tamLetra">Producción</a></li>
-            <li class="menu3" id="m8"><a class="tamLetra">Accesos</a></li>
-            <li class="menu3" id="m8"><a class="tamLetra">Productos</a></li>
-          </ul>
-
-
-       <!--  <ul class="tabs tabs-transparent ">
-                    
-        <li class="tab col s3 menu3" id="m8"> 
-          
-          <a class='dropdown-button btn' href='#' data-activates='dropdown1' class="tamLetra active">Acciones</a>
-
-         
-          <ul id='dropdown1' class='dropdown-content'>
-                  
-          </ul> 
-        </li> 
-
-        </ul> -->
+     
+      
+     
         </div>
       </div>
     </nav>

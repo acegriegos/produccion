@@ -123,21 +123,21 @@
           <tfoot>
 
             <tr>
-              <td class="margen" colspan="4">&nbsp;</td>
-              <td class="left-align sinborde margen2">Subtotal</td>
-              <td class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15]; ?><?php echo $datos[9]; ?></span></td>
+              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+              <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Subtotal</td>
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15]; ?><?php echo $datos[9]; ?></span></td>
 
             </tr>
             <tr>
-              <td class="margen" colspan="4">&nbsp;</td>
-              <td class="left-align sinborde margen">Imv</td>
-              <td class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15]; ?><?php echo $datos[5]; ?></span></td>
+              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Imv</td>
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15]; ?><?php echo $datos[5]; ?></span></td>
 
             </tr>
             <tr>
-              <td class="margen" colspan="4">&nbsp;</td>
-              <td  class="left-align sinborde margen">Descuento</td>
-              <td  class="right-align sinborde margen"><span id="fdescuento"><?php echo $datos[15]; ?><?php echo $datos[6]; ?></span></td>
+              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Descuento</td>
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fdescuento"><?php echo $datos[15]; ?><?php echo $datos[6]; ?></span></td>
 
             </tr>
             <tr>

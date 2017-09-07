@@ -23,6 +23,9 @@ $(function(){
       stopPropagation: false // Stops event propagation
     }
   );
+   $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
         
 });
 
@@ -1554,6 +1557,15 @@ $(document).on("click",".load_x",function(){
     			break;
     		case 2:
     			$("#ftipopagos #dat").click();
+    			break;
+    		case 3:
+    			$("#ftipopagos #cons").click();
+    			break;
+    		case 4:
+    			$("#ftipopagos #efec").click();
+    			break;
+    		case 5:
+    			$("#ftipopagos #mxt").click();
     			break;
     		default:
     			// $('input:radio[name=vbancos]:checked').prop('checked', false);

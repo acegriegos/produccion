@@ -118,7 +118,7 @@ $(function(){
 		}
 		$("#data-table-Notas").DataTable().destroy();
 
-		var p = arr('login', 4, "" , 302, $("#cp").is(":checked")+','+ factura+','+ cliente +',"'+ desde +'","'+ hasta +'",'+ num1 +','+ num2, 0,0,0   )[0]
+		var p = arr('login', 4, "" , 302, $("#cp").is(":checked")+','+ factura+','+ cliente +',"'+ desde +'","'+ hasta +'",'+ num1 +','+ num2, 0,0,0   )[0];
 		$("#listaclientes").html('');
 		$.each(p,function(i){
 			$("#listaclientes").append('<tr class="button-collapse detalle" data-activates="acciones" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');

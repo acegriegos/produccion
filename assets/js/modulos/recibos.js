@@ -587,7 +587,7 @@ $("#ffecha").html()+'</div>'+
 '</tr>'+
 '</tbody></table>'+
 
-'<!-- DETALLE FACTURA -->'+
+//'<!-- DETALLE FACTURA -->'+
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">'+
 '<tbody>';
 
@@ -638,7 +638,7 @@ salida += '</tbody>'+
 
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">'+
 '<tbody>'+
-'<!-- SUBTOTAL -->'+
+//'<!-- SUBTOTAL -->'+
 '<tr>'+
 '<td width="65%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
 '&nbsp;'+
@@ -683,9 +683,9 @@ $("#fdescuento").html()+'</td>'+
 '<strong>'+$("#ftotal").html()+'</strong>'+
 '</td>'+
 '</tr>'+
-'<!-- SUBTOTAL -->'+
+//'<!-- SUBTOTAL -->'+
 '</tbody></table>'+
-'<!-- /DETALLE FACTURA -->'+
+//'<!-- /DETALLE FACTURA -->'+
 
 '</td>'+
 '</tr>'+

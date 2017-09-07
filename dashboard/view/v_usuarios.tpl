@@ -20,10 +20,10 @@
 <div class="nav-wrapper">
 <a class="brand-logo center">Usuarios</a>
 <br>
-<ul class="tabs tabs-transparent">
-<li class="tab menu2" id="m1"><a href="#">Mantenimiento</a></li>
-<li class="tab menu2" id="m2"><a href="#">Permisos</a></li>
-<li class="tab menu2" id="m3"><a href="#">Historial</a></li>
+<ul class="tabs tabs-transparent  tabs-fixed-width">
+<li class="tab menu2 " id="m1"><a class="tamLetra" href="#">Mantenimiento</a></li>
+<li class="tab menu2 " id="m2"><a class="tamLetra" href="#">Permisos</a></li>
+<li class="tab menu2 " id="m3"><a class="tamLetra" href="#">Historial</a></li>
 </ul>
 </div>
 </nav>

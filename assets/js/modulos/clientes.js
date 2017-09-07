@@ -324,7 +324,7 @@ function cargarSintax() {
 
 	arr['sel'] = '*';
 	arr['tbl'] = 29;
-	arr['where'] = 'vid > 0 order by nombre';
+	arr['where'] = '1 order by nombre';
 
 	return arr;
 }

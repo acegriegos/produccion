@@ -158,6 +158,7 @@
 
                             </div>
                             <div class="row" style="background: transparent;">
+                            
                             <div class="input-field col s12 m5 l5 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
                                 <div class="ciclos">
                                 <div class="row">
@@ -175,6 +176,7 @@
                                     
                                 </div>
                             </div>
+
                             <div class="col s12 m7 l7 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3" style="background: transparent;">
                                 <div class="ciclos">
                                     <div class="row">
@@ -324,7 +326,7 @@
                                 <tr><td style="font-size: 0.8em"><b>Provincia</b></td></tr>
                                 <tr><td style="font-size: 0.8em"><b>Cantón</b></td></tr>
                                 <tr><td style="font-size: 0.8em"><b>Distrito</b></td></tr>
-                                <tr><td style="font-size: 0.8em"><b>Direccion</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Direccion</b></td></tr><tr><td style="font-size: 0.8em"><b>Estado</b></td></tr>
                             </table>
                         </div>
                         <div class="s8 m8 l8 col" align="center">
@@ -338,23 +340,16 @@
                                 <tr><td style="font-size: 0.8em"><span id="infcanton9"><span class="placeh">Cantón</span></span></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infdistrito10"><span class="placeh">Distrito</span></span></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infdireccion11"><span class="placeh">Dirección</span></span></td></tr>
+                                </tr>
+                                <tr><td style="font-size: 0.8em"><select id="videstado" type="select">
+                                    <option value="" disabled selected>Seleccione un Estado</option>
+                                    {section name=LE loop=$ESTCLIE}
+                                    <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
+                                    {/section}
+                                </select></td></tr>
                             </table>
                         </div>
-                        <div class="s12 m12 l12 col" align="center">
-                        <ul>
-                            <li style="font-size: 0.8em">
-                            <label><b>Estado de Cliente</b></label>
-                            <div class="switch">
-                                <label>
-                                  Inactivo
-                                  <input type="checkbox" id="videstado" value="">
-                                  <span class="lever"></span>
-                                  Activo
-                                </label>
-                              </div>
-                            </li>
-                        </ul><br>
-                        </div>
+                         
                     </div>
                     </div>
             <!-- END CARD -->

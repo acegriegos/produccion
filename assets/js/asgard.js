@@ -548,6 +548,13 @@ function odin(varreglo,vform) {
                         salida[varreglo[i]] = $("#"+vform+" #vidusuario").val();
                     }
                     break;
+                case 'vidsucursal':             
+                    if (typeof $("#"+vform+" #vidsucursal").val() == 'undefined') {
+                        salida[varreglo[i]] = '';
+                    }else{
+                        salida[varreglo[i]] = $("#"+vform+" #vidsucursal").val();
+                    }
+                    break;
                 case 'vid':
                     if (typeof $("#"+vform+" #vid").val() == 'undefined') {
                         salida[varreglo[i]] = 0;

@@ -9,9 +9,8 @@
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventarios.css">
   </head>
-
-  <body class="pequeño">
-    {$NAV}
+<body>
+  {$NAV}
     <div class="bdy pequeño">
         <div class=" card center blue-grey white-text mbotcero pequeño" >
           <h4 class="center-align white-text mbotcero z-depth-5" style="background-color:#0B3861">Laboratorio</h4>
