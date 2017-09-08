@@ -15,7 +15,7 @@
       <div class="switch">
         <label style="color: black">
           <b>Contado</b>
-          <input type="checkbox" id="chg_tipo" value="1" disabled>
+          <input type="checkbox" id="chg_tipo" val="1" disabled>
           <span class="lever"></span>
           <b>Crédito</b>
         </label>
@@ -92,7 +92,8 @@
     <div class="s12 m12 l12 col">
     <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead>
-        <tr>
+
+        <tr class="hide trVenta">
           <th style="width:  5%; padding: 0 !important;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
@@ -103,7 +104,20 @@
           <th style="width: 17%; padding: 0 !important;" class="center-align"></th>
         </tr>
 
-        <tr>
+        <tr class="hide trCompra">
+          <th style="width:  5%; padding: 0 !important;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
+          <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
+          <th style="width: 14%; padding: 0 !important;" class="center-align">Prec.Unit</th>
+          <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
+          <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Descuento</span></th>
+          <th style="width: 14%; padding: 0 !important;" class="center-align">Total</th>
+          <th style="width: 17%; padding: 0 !important;" class="center-align"></th>
+        </tr>
+
+        <tr class="trVenta hide trsec">
+
           <td style="width: 5%; padding: 0 !important">
           </td>
 
@@ -116,7 +130,7 @@
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
           <td style="width: 14%; padding: 0 !important" class="input-field">
-            <input type="text" id="precp" class="f center divisa" value="0.00" readonly>
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
           </td>
           <td style="width: 5%; padding: 0 !important" class="input-field">
             <select id="uni" readonly >
@@ -132,7 +146,7 @@
           <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
 
           <div class="col s12">
-            <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="fa fa-archive" ></i>
+            <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
               <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
             </a>
           </div>
@@ -142,6 +156,56 @@
   
           </td>
         </tr>
+
+        <tr class="trCompra hide trsec">
+
+          <td style="width: 5%; padding: 0 !important">
+          </td>
+
+          <td style="width: 10%; padding: 0 !important" class="input-field">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
+            <input type="hidden" id="valores">
+          </td>
+
+          <td style="width: 30%; padding: 0 !important" class="input-field">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
+          </td>
+
+          <td style="width: 10%; padding: 0 !important" class="input-field">
+            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+          </td>
+
+          <td style="width: 14%; padding: 0 !important" class="input-field">
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
+          </td>
+
+          <td style="width: 5%; padding: 0 !important" class="input-field">
+            <select id="uni" readonly >
+              <option>UN</option>
+            </select>
+          </td>
+
+          <td style="width: 9%;" class="input-field">
+            <input type="number" class="f center" id="descup" min="0" data-mask="999999999.99" placeholder="Descuento" value="0.00">
+          </td>
+          
+          <td style="width: 14%; padding: 0 !important" class="input-field">
+            <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
+          </td>
+          <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
+
+          <div class="col s12">
+            <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
+              <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
+            </a>
+          </div>
+          <div class="col s12">
+             <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+          </div>
+  
+          </td>
+        </tr>
+
       </thead>
 
         <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4">
@@ -290,7 +354,7 @@
 
 
 
-<div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
+<!-- <div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
 
   <div class="modal-content">
       <div class="row">
@@ -317,6 +381,34 @@
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
   </div>
 
+</div> -->
+
+<div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
+
+  <div class="modal-content">
+      <div class="row">
+          <div class="input-field col s6">
+              <select type="select" id="xidbodega" class="_det" det="bodega" sig="xidinventario" prev="" d-b="41">
+                  <option value="" disabled selected>Seleccione una Bodega</option>
+                  {section name=LE loop=$BOD}
+                  <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
+                  {/section}
+              </select>
+              <label for="idbodega">Bodegas</label>
+          </div>
+          <div class="input-field col s6">
+              <select type="select" id="xidinventario" det="inventario" d-b="111">
+                  <option value="" disabled>Seleccione un Inventario</option>
+              </select>
+              <label for="idinventario">Inventarios</label>
+          </div>
+      </div>
+      <p>Cantidad de Producto en el Inventario: <b><span id="bname-inv" type="html">0.00</span></b></p>
+  </div>
+
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
 </div>
 
 

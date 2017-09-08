@@ -13,10 +13,6 @@ $(function(){
         $(".autocomplete-content").hide('500'); 
     });
 
-    $(".sclie").blur(function(){
-        searchClient($(this).val(),0);
-    });
-
     $(".sclie").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
@@ -395,6 +391,12 @@ function totalizar(){
     desc = isNaN(parseFloat(desc)) || parseFloat(desc) == '' ? 0 : parseFloat(desc);
     ajuste = isNaN(parseFloat(ajuste)) || parseFloat(ajuste) == '' ? 0 : parseFloat(ajuste);
 
+    if ($(".totp").length == 0)
+         $("[id^=imv_").each(function(){    
+            $(this).html('0.00')
+        });
+    else
+
     $(".totp").each(function(){
         var vidlinea = $(this).prop('id').substr(4);
         var vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
@@ -402,7 +404,7 @@ function totalizar(){
         var precio = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']);
         var decindv = parseFloat($("#vdesc"+vidlinea).data('valor'));
         var descmax = parseFloat($("#vdesc"+vidlinea).data('max'));
-
+        var impuesto = 0;
         var desct = decindv+desc > descmax ? descmax : decindv+desc;
         
         $("#fd"+vidlinea).data('triforce')['vdesc'] = desct;
@@ -415,7 +417,7 @@ function totalizar(){
         
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc;
         $("#tota"+vidlinea).html(tmpdesc.formatMoney(2,'.',','))
-
+        
         $("[id^=imv_").each(function(){
             var incl = $(this).data('incl');
             var idimv = $(this).prop('id').substr(4);
@@ -440,6 +442,7 @@ function totalizar(){
             }
         });
     });
+
     $("[id^=imv_]").removeAttr('tmp_imv');
 
     total = tdesc + impuesto;
@@ -501,12 +504,31 @@ function validarFactura() {
         return "No se Han Ingresado Productos";
     }
 
-    if ($("#vcomentario").val() == '') {
-        $("#vcomentario").val('');
+    // if ($("#vcomentario").val() == '') {
+    //     $("#vcomentario").val('');
+    // }
+
+    switch(parseInt($(".zelda").data('triforce')['vidtipoventa'])){
+        case 2:
+        case 3:
+            if ($(".zelda").data('triforce')['vidcliente'] == 0){
+                $("#ncli").focus();
+                return "No se Ha Ingresado Proveedor";
+            }
+            break;
+        case 4:
+        case 5:
+            if ($(".zelda").data('triforce')['vidcliente'] == 0){
+                $("#ncli").focus();
+                return "No se Ha Ingresado Cliente";
+            }
+            break;
+        default:
+            if ($(".zelda").data('triforce')['vidcliente'] == 0)
+            $(".zelda").data('triforce')['vcomodin'] = $("#ncli").val();
+            break;
     }
 
-    if ($(".zelda").data('triforce')['vidcliente'] == 0)
-        $(".zelda").data('triforce')['vcomodin'] = $("#ncli").val();
 
     if($(".zelda").data('triforce')['vidtipo'] == 2){
         $("#vidtipopago").val(0)
@@ -646,11 +668,9 @@ function verfacturas() {
 function searchClient(vvariable,visprv){
     
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
-    console.log(clie)
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
         
-
         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
 
         $("#ncli").val(vclie[1]+' '+vclie[2]);

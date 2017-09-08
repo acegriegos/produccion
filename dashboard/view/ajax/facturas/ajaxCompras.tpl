@@ -107,9 +107,7 @@ COMPRAS {$smarty.session.EMPRESA|upper}</p></div>
           <td style="width: 10%;" class="input-field">
             <input type="text" id="precp" class="f center" value="0.00">
           </td>
-          <td style="width: 9%;" class="input-field">
-            <input type="number" class="f center" id="descup" min="0" data-mask="999999999.99" placeholder="Descuento" value="0.00">
-          </td>
+          
           <td style="width: 12%;" class="input-field">
             <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
           </td>

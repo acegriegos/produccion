@@ -237,44 +237,7 @@ $(function(){
         }
     });
 
-    $("#vplazo").keyup(function(e){
-        var code = e.which || e.keyCode
-        if(code == 13){
-            doplazo($(this).val());
-            $("#ncli").focus();
-        }
-    });
-
-    $("#vplazo").blur(function(){
-        //doplazo($(this).val());
-    })
-
-    $("#sinv").click(function(){
-        if($("#valores").data('elemento') != undefined){
-            $("#xidbodega").val($("#valores").data('elemento')['hbod']);
-            $("#xidbodega").material_select('update');
-            $("#xidbodega").change()
-            $("#xidinventario").val($("#valores").data('elemento')['hinv'])
-            $("#xidinventario").material_select('update');
-        }
-    });
-
-    $("#xidinventario").change(function(){
-        var p = arr('login',4,'cantidad',97,'idinventario ='+$('option:selected',this).val()+' and idproducto = '+$("#valores").data('elemento')['idp']);
-        
-        $("#valores").data('elemento')['hbod'] = $("#xidbodega option:selected").val();
-        $("#valores").data('elemento')['hinv'] = $('option:selected',this).val();
-        $("#cantI").html(p[0]);
-        $("#bname-inv").html(p[0]);
-    });
-
-    $("#vidtipopago").change(function(){
-        setTimeout(function(){$("#ncli").focus();},300)
-    });
-
-    var pagoprincipal = arr('login',4,'id',26,'principal = 1',0,0,0)[0][0];
-    $("#vidtipopago").val(pagoprincipal);
-    $("#vidtipopago").material_select();
+    
 
     $(".modal").modal();
 
@@ -331,60 +294,8 @@ $(function(){
     }
 
 
-});//READY
+});//READ
 
-$(document).on("click",".chinv",function(){
-    var id = $(this).attr('id').substr(3);
-    var inv = $("#fd"+id).data('triforce')['vidinventario'];
-    var bod = arr('login',4,'idbodega',111,'id = '+inv,0,0,0)[0][0];
-    $("#xidbodega").val(bod);
-    $("#xidbodega").material_select();
-    $("#xidbodega").change();
-    $("#xidinventario").val(inv);
-    $("#xidinventario").material_select();
-    $("#fd"+id).data('triforce')['vidinventario'] = inv;
-});
-
-
-$(document).on("keyup","#vreferencia",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13)
-        $("#codp").focus();
-});
-
-$(document).on("change",".chkivi",function(){
-    var id = $(this).attr('id').substr(4);
-    if ($(this).is(":checked")) {
-        $("#ivi"+id).val(arr('login',4,'',200,'64,0',0,0,0)[0][0][3]);
-        $("#ivi"+id).prop('disabled',false);
-    }else{
-        $("#ivi"+id).val(0);
-        $("#ivi"+id).prop('disabled',true);
-    }
-
-    totalizar();
-});
-
-$(document).on("click","#chg_tipo",function(){
-    var value = parseInt($(this).val())
-
-    if (value == 2) {
-        $(".cre").hide();
-        $(".con").show();
-        $("#vplazo").val(0);
-        $(this).val(1)
-        $(".zelda").data('triforce')['vidtipo'] = 1
-    }else{
-        $(".con").hide();
-        $(".cre").show();
-        if ($(".zelda").data('triforce')['vidcliente'] != 0) {
-            var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
-            $("#vplazo").val(plazo);
-        }
-        $(".zelda").data('triforce')['vidtipo'] = 2
-        $(this).val(2)
-    }
-});
 
 $(document).on("change","#cantp",function(){
     var cant = parseFloat($(this).val()),
@@ -530,14 +441,7 @@ $(document).on("click","#btnAjuste",function(){
 });
 
 
-function doplazo(vval){
-    if(isNaN(vval)){
-        Materialize.toast('Plazo no Válido',4000,'red');
-        $("#vplazo").select().focus();
-        return false;
-    }
-    return true;
-}
+
 
 function addline(idprod,cod,desc,cant,prec,tot,descu,defi,cntinv,hinv) {
     var err = 0;
@@ -699,11 +603,6 @@ function validarFactura() {
 
     if ($("#vcomentario").val() == '') {
         $("#vcomentario").val('');
-    }
-
-    if ($(".zelda").data('triforce')['vidcliente'] == 0){
-        $("#ncli").focus();
-        return "No se Ha Ingresado Proveedor";
     }
 
     if($(".zelda").data('triforce')['vidtipo'] == 2){
