@@ -50,13 +50,13 @@
         <label for="clave">Repetir Contraseña</label>
       </div>
 
-      <div class="col s12 m6 l2 pequeño" style="margin-bottom: 20px;">
-        <label>Hora de Entrada</label>
-        <input id="vlimite" type="time" class="validate">
+      <div class="input-field col s12 m6 l2 pequeño" style="margin-bottom: 20px;">
+        <label for="vlimite">Hora de Entrada</label>
+        <input id="vlimite" type="text" class="timepicker">
       </div>
-      <div class=" col s12 m6 l2 pequeño" style="margin-bottom: 20px;">
-        <label>Hora de Salida</label>
-        <input id="vlimite2" type="time" class="validate">
+      <div class="input-field col s12 m6 l2 pequeño" style="margin-bottom: 20px;">
+        <label for="vlimite2">Hora de Salida</label>
+        <input id="vlimite2" type="text" class="timepicker">
       </div>
     </div>
 

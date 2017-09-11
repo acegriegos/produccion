@@ -31,8 +31,6 @@ $(function(){
 
 			id = {}
 			id['id'] = 1;
-			//$("#selectUserH option:selected").val() $("#selectAcc option:selected").val()$("#desde").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ?  '' : $("#desde").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
-			//$("#hasta").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ?  '' : $("#hasta").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');  
 
 			id['where'] = "0,0,'',''";
 		}
@@ -44,6 +42,19 @@ $(function(){
 		    	selectYears: 15, // Creates a dropdown of 15 years to control year
 		    	format: 'yyyy-mm-dd'
 		    });
+		
+		// $('.timepicker').pickatime({
+		//     default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+		//     fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+		//     twelvehour: false, // Use AM/PM or 24-hour format
+		//     donetext: 'OK', // text for done-button
+		//     cleartext: 'Clear', // text for clear-button
+		//     canceltext: 'Cancel', // Text for cancel-button
+		//     autoclose: false, // automatic close timepicker
+		//     ampmclickable: true, // make AM PM clickable
+		//     aftershow: function(){} //Function for after opening timepicker
+		//   });
+
 		$("#hist").click(function(){
 
 			var vdesde = $("#desde").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ?  '' : $("#desde").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
@@ -278,14 +289,6 @@ $(document).on('change','#selectType',function(){
 	$('#selectUser').val(0)
 });
 
-// $(document).on('change','#selectUserH',function(){
-// 	var opcion = $(this).val();
-// 	$("#lista").html('')
-
-// 	if(opcion == 0)
-// 		$("#lista").html('')
-// });
-
 $(document).on('click','.correo',function(){
 	var id = $(this).attr('id').substr(1)
 	var arr = {}
@@ -316,15 +319,6 @@ $(document).on('click','.cargar',function(){
 function validar (varreglo,vmodulo) {
 	var salida = {}
 
-	/*VALIDACION FRONT END*/
-
-	// if (vmodulo['tip'] == '') {
-	// 			err = validarformularios();
-	// 			if ( err ) {
-	// 				return err;
-	// 			}
-	// 		}
-
 	switch(vmodulo['modulo']) {
 		case 'usuario':
 		if (vmodulo['tip'] == '') {
@@ -343,7 +337,7 @@ function validar (varreglo,vmodulo) {
 	}
 	
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	//console.log(salida);
+	console.log(salida);
 	return salida;
 
 }

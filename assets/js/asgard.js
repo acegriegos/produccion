@@ -491,7 +491,12 @@ function odin(varreglo,vform) {
                     }else{
                         switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                             case 'select':
-                                salida[index][varreglo[i]] =    $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+
+                                if($("#"+vform+" #"+ varreglo[i]).attr('multiple') == undefined)
+                                    salida[index][varreglo[i]] =  $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                                else
+                                    salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]).val().toString();
+
                                 break;
                             case 'text':
                             case 'textarea':
@@ -582,7 +587,7 @@ function odin(varreglo,vform) {
                             if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
                                 salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]).val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
                             }else{
-                                salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                                salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().toString();
                             }
                             break;
                         case 'text':
