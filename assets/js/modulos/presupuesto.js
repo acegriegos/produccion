@@ -85,6 +85,7 @@ $(document).on("click",".proyect",function(){
     $("#gid").attr('tr',id);
 
     var p = getDatos('',228,id,0,0);
+    console.log(p);
     if(p['succed'] == 1){
         p = p[0];
         var str = '';

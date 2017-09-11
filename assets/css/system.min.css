@@ -1,9 +1,10 @@
 html{
-    font-family: "logintech";
+  font-family: "logintech";
 }
 body{
-font-size: 1.2em !important;
+  font-size: 1.2em !important;
 }
+
 @font-face {
   font-family: "logintech";
   src: url("../fonts/roboto/Roboto-Light.eot") format("embedded-opentype"),
@@ -14,6 +15,16 @@ font-size: 1.2em !important;
 }
 
 @font-face {
+  font-family: 'Material Design Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/materialdesignicons/materialdesignicons.eot") format("embedded-opentype"),
+    url("../fonts/materialdesignicons/materialdesignicons.woff") format("woff"),
+    url("../fonts/materialdesignicons/materialdesignicons.svg#logintech") format("svg");
+  /*src: url("../fonts/material-icons/material-icons.woff") format("woff");*/
+}
+
+@font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
@@ -21,7 +32,6 @@ font-size: 1.2em !important;
     url("../fonts/material-icons/material-icons.woff") format("woff"),
     url("../fonts/material-icons/material-icons.ttf") format("truetype"),
     url("../fonts/material-icons/material-icons.svg#logintech") format("svg");
-  /*src: url("../fonts/material-icons/material-icons.woff") format("woff");*/
 }
 
 
@@ -36,6 +46,7 @@ font-size: 1.2em !important;
 .cdel:hover {
   color: #d9534f;
 }
+
 .blueh:hover {
   color: #2196F3;
 }

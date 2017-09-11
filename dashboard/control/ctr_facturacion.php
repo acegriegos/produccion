@@ -25,7 +25,6 @@
 			   	$smarty  = new mySmarty();
 			   	$smarty->setModule('dashboard');
 			   	$smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id >= 0 order by principal desc,nombre'));
-			   	$smarty->assign('NFACT',$kakaroto->kamehameha('lpad(consecutivo+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
 			   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
 			   	$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 			   	$smarty->display('ajax/facturas/ajaxVentas.tpl');

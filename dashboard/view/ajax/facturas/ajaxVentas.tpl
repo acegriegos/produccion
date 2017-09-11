@@ -23,8 +23,13 @@
     </div>
 
     <div class="col s12 m3 l3" align="center">
-      <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact">{$NFACT}</span></label>
+      <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"></span></label>
     </div>
+
+    <div class="input-field col s12 m3 l3 hide" id="reference">
+        <label for="vreferencia">Número de Referencia</label>
+        <input type="text" id="vreferencia" class="validate" />
+      </div>
 
     <div class="col s12 m3 l3 " align="center">
       <label class="cre" style="display: none;"><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
@@ -40,12 +45,12 @@
   <div class="row padd">
 
    <div class="input-field col s12 m3 l3">
-      <i class="fa fa-calendar-o prefix"></i>
+      <i class="mdi mdi-calendar mdi-24px prefix"></i>
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
 
     <div class="input-field con col s12 m3 l3" >
-    <i class="material-icons prefix">attach_money</i>
+    <i class="mdi mdi-coin mdi-24px prefix"></i>
       <select id="vidtipopago" type="select">
         {section name=LE loop=$TPAGO}
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
@@ -61,7 +66,7 @@
     </div>
     
     <div class="input-field col s12 m6">
-      <i class="material-icons prefix" style="font-size: 1.6em !important">face</i>
+      <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" placeholder="Nombre o Cédula del Cliente" />
     </div> 
     
@@ -77,10 +82,10 @@
     <div class="s12 m12 l12 col hide-on-med-and-down">
     <section class="right">
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
-        <label for="barras"><i class="fa fa-barcode" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
+        <label for="barras"><i class="mdi mdi-barcode mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
 
         <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" checked/>
-        <label for="teclado"><i class="fa fa-keyboard-o" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
+        <label for="teclado"><i class="mdi mdi-keyboard mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
     </section>
     </div>
     
