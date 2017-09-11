@@ -58,9 +58,9 @@
                     <thead>
                         <tr>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 30%">Duración hombre</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 30%">Duración maquina</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Bandejas</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 35% !important">Duración hombre</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 35% !important">Duración maquina</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 30% !important">Bandejas</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
                         </tr>
                     </thead>
@@ -179,6 +179,45 @@
                             </tr>
                         </thead>
                         <tbody id="listadetprod"></tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="per5105" id="pl4">
+        <div class="collapsible-header productline"><i class="material-icons">input</i>Asignar Linea de Producción a Proceso</div>
+            <div class="collapsible-body tasks">
+                <div class="row">
+                    <div class="row marginzero">
+                        <div class="input-field col s3 m3 l3">
+                            <input type="text" id="proc" class="validate autocomplete" autocomplete="off">
+                            <label>Proceso</label>
+                        </div>
+                        <div class="input-field col s3 m3 l3">
+                            <input type="text" id="ctarea" class="validate autocomplete tarea">
+                            <label for="ctarea">Tarea Producción</label>
+                        </div>
+                    </div>
+                    <div class=" col s9 m9 l9">
+                        <table class="table responsive-table striped bordered highlight centered" id="data-table-assTasktoProc" cellspacing="0" width="100%" >
+                        <thead>
+                            <tr>
+                                <td colspan="4"></td>
+                                <td class="right"><i class="material-icons btn-color pbtn blueh" id="savelinea">save</i></td>
+                            </tr>
+                            <tr>
+                                <th>Tarea</th>
+                                <th>Duracion Hombre</th>
+                                <th>Duracion Máquina</th>
+                                <th>Bandejas</th>
+                                <th style="width: 20%">Orden</th>
+                                <th style="width: 20%">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaasstp">
+                            
+                        </tbody>
                     </table>
                     </div>
                 </div>

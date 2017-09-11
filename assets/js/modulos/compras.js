@@ -10,6 +10,21 @@ $(function(){
         return false;
     });
 
+    var fecha = new Date();
+    var dpick = $('#vfecha').pickadate()
+    dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+    dpick.pickadate('picker').on({close: function() {
+        if($(".con").is(":visible")){
+            $(".con .select-wrapper .select-dropdown").click();
+            $(".con .select-wrapper .select-dropdown").addClass('active');
+            $(".con .select-wrapper .select-dropdown").focus();
+            $(".con .select-wrapper .select-dropdown").first('li').addClass('selected');
+        }else{
+            $("#vplazo").focus();
+        }
+        $("#vfecha").blur();
+    }  })
+
     $('select').material_select();
 
     $(".autocomplete").blur(function(){ 
@@ -248,7 +263,6 @@ $(function(){
         $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0, vidmoneda:1, vbisproveedor:1, vidcliente : 0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1: '',vlista2 : '', vextrapagos : '' , idline : 0});
     }else{
         var vidp = getParameterByName('id');
-        console.log()
         var vfacturap = arr('login',6,'',163,vidp+',\"'+asoc+'\"',0,1,$("#fdetallefacturas"));
         var vfacturap2 = arr('login',4,'',163,vidp+',\"'+asoc+'\"',0,0,0);
 
