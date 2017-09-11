@@ -90,6 +90,9 @@ label[for=atarea] {
 label[for=btarea] {
     width: 100% !important;
 }
+label[for=ctarea] {
+    width: 100% !important;
+}
 /*
 ul.autocomplete-content > li{
     min-height: 40px;

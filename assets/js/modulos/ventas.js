@@ -5,8 +5,7 @@ $(document).keydown(function(e){
    }
 });
 
-$(function(){
-
+$(function(){    
     $("#ffacturas").submit(function(){
         return false;
     });

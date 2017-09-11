@@ -1,6 +1,8 @@
 var atiempo = [];
 $(function(){
     $(".menu").click(function(){
+        $(".menu").removeClass('active');
+        $(this).addClass('active');
         var id = $(this).attr('id').substr(1);
         switch(parseInt(id)) {
             case 1:
@@ -159,6 +161,32 @@ $(document).on("keydown","#proceso",function(e){
             data: arr('login',4,'nombre,null',146,'nombre like \"%'+$("#proceso").val()+'%\" limit 10',0,0,0,1)
         });
         $("#proceso").siblings($(".autocomplete-content")).css('width','25%');
+    }
+});
+
+$(document).on("keydown","#proc",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("#proc").autocomplete({
+            limit: 10,
+            data: arr('login',4,'nombre,null',146,'nombre like \"%'+$("#proc").val()+'%\" limit 10',0,0,0,1)
+        });
+        $("#proc").siblings($(".autocomplete-content")).css('width','25%');
+    }
+});
+
+$(document).on("keydown","#tsk",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("#tsk").autocomplete({
+            limit: 10,
+            data: arr('login',4,'nombre,null',134,'nombre like \"%'+$("#tsk").val()+'%\" limit 10',0,0,0,1)
+        });
+        $("#tsk").siblings($(".autocomplete-content")).css('width','25%');
     }
 });
 
@@ -554,22 +582,38 @@ $(document).on("keyup","#vnombre",function(e){
 $(document).on("keyup","#vnombre[ku=1]",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
-        $("#vhorahombre").focus();
+        $("#vhombre").focus();
     }
 });
 
-$(document).on("keyup","#vhorahombre",function(e){
+$(document).on("keyup","#vhombre",function(e){
     var code = e.which || e.keyCode;
-    if (code == 13) {
-        $("#vhoramaquina").focus();
-    }
+    if (code == 13)
+        $("#vidunidad1").prevAll('input.select-dropdown').trigger('open').focus();
 });
 
-$(document).on("keyup","#vhoramaquina",function(e){
+$(document).on("change","#vidunidad1",function(){
+    setTimeout(function(){
+        $("#vmaquina").focus();
+    },100);
+});
+
+$(document).on("keyup","#vmaquina",function(e){
     var code = e.which || e.keyCode;
-    if (code == 13) {
+    if (code == 13)
+        $("#vidunidad2").prevAll('input.select-dropdown').trigger('open').focus(); 
+});
+
+$(document).on("change","#vidunidad2",function(){
+    setTimeout(function(){
+        $("#vbandejas").focus();
+    },100);
+});
+
+$(document).on("keyup","#vbandejas",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13)
         $("#addlinea").click();
-    }
 });
 
 $(document).on("keyup","#vcodigo",function(e){
@@ -734,17 +778,19 @@ $(document).on("click",".saveproceso",function(){
     var nombre = $("#titproceso"+id).text();
     var codigo = $("#codproceso"+id).text() == '' ? 'N/A' : $("#codproceso"+id).text();
     var total = $("#total"+id).text().substr(2);
+    var imp = arr('login',4,'',200,'11,0',0,0,0)[0][0][3];
+
     if (total != '0.00') {
         //guarda proceso en tabla prodcutos
-        var idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+total+',100,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
+        var idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+(total * ((imp/100)+1) )+',100,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
         if (idproceso[0] != '[object Object]') {
             //guarda productos de la proceso
             $(".product").each(function(){
                 var idproducto = $(this).attr('id').substr(4);
                 if ($("#prec"+idproducto).attr('spot') == id) {
                     var cantidad = $("#cant"+idproducto).text();
-                    // var idunidad
-                    arr('login',4,'',121,'1,0,'+idproceso[0][0]+','+idproducto+','+cantidad+',@@usr,@@impresa',0,0,0);
+                    var idunidad = $("#idmedida"+idproducto).attr('medida');
+                    arr('login',4,'',121,'1,0,'+idproceso[0][0]+','+idproducto+','+cantidad+','+idunidad+',@@usr,@@impresa',0,0,0);
                 }
             });
             arr('login',6,'idproceso,proceso,precioventa',99,'idproceso > 0 order by proceso limit 20',0,1,$("#listaprocesos"));
@@ -752,11 +798,12 @@ $(document).on("click",".saveproceso",function(){
             $("#vnombre").val('');
             $("#vcodigo").val('');
             $("#daddprod").addClass('hide');
-             Materialize.toast('Proceso Guardado Correctamente', 6000, 'green');
+            $(".validate").css('border-bottom', '1px solid #9e9e9e');
+            $(".validate").css('box-shadow', 'none');
+            Materialize.toast('Proceso Guardado Correctamente', 6000, 'green');
         }else{
             Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
-        }
-        
+        }        
     }else{
         Materialize.toast('Es necesario agregar productos al proceso', 6000, 'orange lighten-2');
     }
@@ -778,16 +825,19 @@ $(document).on("click",".actrecipe",function(){
             arr('login',4,'',120,'2,0,'+idproceso[0][0]+','+testimado+','+horasmaquina+','+horashombre,0,0,0);
             //borrar todos los productos de la proceso
                 arr('login',4,'',121,'3,0,'+idproceso[0][0]+',0,0',0,0,0);
-                var det = arr('login',4,'',121,'3,0,'+idproceso[0][0]+',0,0',0,0,0);
+                // var det = arr('login',4,'',121,'3,0,'+idproceso[0][0]+',0,0',0,0,0);
             //guarda productos de la proceso
             $(".product").each(function(){
                 var idproducto = $(this).attr('id').substr(4);
                 if ($("#prec"+idproducto).attr('spot') == id) {
                     var cantidad = $("#cant"+idproducto).text();
-                    arr('login',4,'',121,'1,0,'+idproceso[0][0]+','+idproducto+','+cantidad,0,0,0);
+                    var idunidad = $("#idmedida"+idproducto).attr('medida');
+                    arr('login',4,'',121,'1,0,'+idproceso[0][0]+','+idproducto+','+cantidad+','+idunidad+',@@usr,@impresa',0,0,0);
                 }
             });
-            Materialize.toast('proceso '+nombre+' Agregada Correctamente', 6000, 'green');
+            $(".validate").css('border-bottom', '1px solid #9e9e9e');
+            $(".validate").css('box-shadow', 'none');
+            Materialize.toast('Proceso '+nombre+' Agregada Correctamente', 6000, 'green');
         }else{
             Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
         }
@@ -795,7 +845,7 @@ $(document).on("click",".actrecipe",function(){
         $("#makerecipe").html('');
 
     }else{
-        Materialize.toast('Es necesario agregar productos a la proceso', 6000, 'orange lighten-2');
+        Materialize.toast('Es necesario agregar productos al proceso', 6000, 'orange lighten-2');
     }
 });
 
@@ -862,9 +912,12 @@ function addprodline(tipo) {
     var tabla = "";
     if (tipo == "a") {
         tabla = "listadetalles";
-    }else{
+    }else if (tipo == b) {
         tabla = "listadetprod";
+    }else{
+        tabla = "listaasstp";
     }
+
     var pass = 1;
     var nombre = $("#"+tipo+"tarea").val();
     var count = parseInt($("#"+tipo+"autoinc").val());
@@ -1001,6 +1054,7 @@ function cronometro () {
 
 function addprocess(idproceso,proceso,idlinea,cantidad) {
     // validar proceso
+    console.log(1)
     var count = parseInt($("#count").val());
     var cnt = cantidad;
     var cantot = 0;
@@ -1010,8 +1064,10 @@ function addprocess(idproceso,proceso,idlinea,cantidad) {
     //detalleprocesos
     $("#inicio").removeClass('hide');
     var elem = arr('login',4,'',119,$("#idproceso").val(),0,0,0)[0];
+    console.log(elem)
     
     for (var i = 0, len = elem.length; i < len; i++) {
+        console.log(elem[i])
         var cant = parseInt(elem[i][5]);
         cantot = cant * cnt;
         
@@ -1066,7 +1122,7 @@ function addproduct(nombre,cantidad,idmedida,medida,precio) {
         });
         // fin validacion
         if (validac == 1) {
-            $("#productos"+id).append('<li class="collection-item dismissable" id="p'+idproducto+'"><div id="groupprodcts'+idproducto+'"><span id="prod'+idproducto+'" class="product">'+nombre+'</span><input type="hidden" id="prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="cant'+idproducto+'">'+cantidad+'</span> (<span id="idmedida'+idproducto+'">'+medida+'<span>)<i class="material-icons right red-text del but" id="d'+idproducto+'">close</i></div></li>');
+            $("#productos"+id).append('<li class="collection-item dismissable" id="p'+idproducto+'"><div id="groupprodcts'+idproducto+'"><span id="prod'+idproducto+'" class="product">'+nombre+'</span><input type="hidden" id="prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="cant'+idproducto+'">'+cantidad+'</span> (<span id="idmedida'+idproducto+'" medida="'+idmedida+'">'+medida+'<span>)<i class="material-icons right red-text del but" id="d'+idproducto+'">close</i></div></li>');
         }else{
             cantidad = parseFloat($("#cant"+idproducto).text()) + parseFloat(cantidad);
             $("#cant"+idproducto).text(cantidad);
@@ -1260,6 +1316,8 @@ function endDetail(id,acc,modulo) {
         case 'tareaproduccione':
             thorload(modulo);
             deadclear(modulo);
+            $(".validate").css('border-bottom', '1px solid #9e9e9e');
+            $(".validate").css('box-shadow', 'none');
             $("#vnombre").focus();
             break;
     }

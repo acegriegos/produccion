@@ -1,8 +1,9 @@
 var param = '';
 $(document).ready(function(){
+    console.log(2)
   param = parseInt(getParameterByName('tf'));
 
-  $("#mfacturacion").html(mantenimiento('facturacion',1,''));
+  $("#mfacturacion").html(mantenimiento('facturacion',2,''));
 
   $('.datepicker').pickadate({
      labelMonthNext: 'Siguiente',
