@@ -60,7 +60,7 @@
     </div>
    
     <div class="input-field cre col s12 m3 l3" style="display: none;">
-      <i class="material-icons prefix">today</i>
+      <i class="mdi mdi-calendar-clock mdi-24px prefix"></i>
       <input type="text" id="vplazo" value="0" class="eder" disabled />
       <label style="color: black"><b>Plazo en Días</b></label>
     </div>

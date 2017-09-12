@@ -226,13 +226,24 @@ function loadpool(vmodulo,vid,vvarias){
     var columns = mantenimiento('login',5,vmodulo);
 
     for (var i = 0; columns[0][1].length > i; i++) {
+
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
             case 'select':
 
-                $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
-                $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
-                if (columns[0][0][0][i] != '') 
-                    $("#"+vform+" #"+columns[0][1][i]['name']).change();
+                if ($("#"+vform+" #"+columns[0][1][i]['name']).attr('multiple') == undefined){
+                    $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
+                    $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
+
+                    if (columns[0][0][0][i] != '') 
+                        $("#"+vform+" #"+columns[0][1][i]['name']).change();
+                }
+                else{
+                    $("#"+vform+" #"+columns[0][1][i]['name']).material_select('destroy');
+                    $.each(columns[0][0][0][i].split(","), function(j,e){
+                        $("#"+vform+" #"+columns[0][1][i]['name']+" option[value='" + e + "']").attr("selected", true);
+                    });
+
+                }
 
                 if ($("#"+vform+" #"+columns[0][1][i]['name']).attr('defecto') != undefined)
                     $("#"+vform+" #"+columns[0][1][i]['name']).attr('defecto',columns[0][0][0][i])
@@ -276,20 +287,6 @@ function loadpool(vmodulo,vid,vvarias){
         
     }
 
-    // if (vvarias != undefined)
-    //     $("#"+vform+" [vtabla][detalle]").each(function(){
-            
-    //         var tpdetail = $(this).attr('detalle')
-    //         var tbl = $(this).attr('vnum');
-            
-    //         switch(tpdetail){
-    //             case "1"://ENVIA DATOS EN FORMA DE ARREGLO
-    //                 arr('login',6,'-',tbl,columns[0][0],0,1,$("#fdetalle"+vmodulo['modulo']+"s"));
-    //             default:
-    //                 break;
-    //         }
-            
-    //     });
     $("select").material_select();
     Materialize.updateTextFields();
 
