@@ -10,7 +10,7 @@
 {literal}
 <script type="text/javascript">
     $(function(){
-        document.title = "-DEV- "+document.title;
+        document.title = "-TEST- "+document.title;
     })
 </script>
 {/literal}
