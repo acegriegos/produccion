@@ -45,7 +45,7 @@
         \$scr = \$smarty->fetch('../view/scripts.php');
     
         \$smarty->assign('STY',\$sty);
-        \$smarty->assign('SRC',\$scr);
+        \$smarty->assign('SCR',\$scr);
 	   	\$smarty->assign('NAV',\$pg);
 	   	\$smarty->display('v_".$modulo.".tpl');
 	   }else{

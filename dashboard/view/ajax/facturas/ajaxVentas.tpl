@@ -352,37 +352,6 @@
  <!-- bdy -->
 
 
-
-
-<!-- <div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
-
-  <div class="modal-content">
-      <div class="row">
-          <div class="input-field col s6">
-              <select type="select" id="xidbodega" class="_det" det="bodega" sig="xidinventario" prev="" d-b="41">
-                  <option value="" disabled selected>Seleccione una Bodega</option>
-                  {section name=LE loop=$BOD}
-                  <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
-                  {/section}
-              </select>
-              <label for="idbodega">Bodegas</label>
-          </div>
-          <div class="input-field col s6">
-              <select type="select" id="xidinventario" det="inventario" d-b="111">
-                  <option value="" disabled>Seleccione un Inventario</option>
-              </select>
-              <label for="idinventario">Inventarios</label>
-          </div>
-      </div>
-      <p>Cantidad de Producto en el Inventario: <b><span id="bname-inv" type="html">0.00</span></b></p>
-  </div>
-
-  <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-  </div>
-
-</div> -->
-
 <div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
 
   <div class="modal-content">
@@ -434,15 +403,75 @@
   <b><span style="color: #2196F3; font-size: 1.8em !important;">Tarjeta</span></b><hr style="border: 1px solid #F0F0F0">
   <span>TOTAL:</span><br>
   <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
-  <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p>
+  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
   <br>
   <div class="row center-align">
     <div class="input-field col s12">
-      <i class="material-icons prefix" id="icono" style="font-size: 2em !important"></i>
-      <input id="carddigito" type="text" class="validate center-align" value="0000" style="width: 20%; font-size: 2em !important;">
-      <label for="carddigito" id="labeltarjeta"></label>
 
+      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
+      <input id="carddigito" type="text" class="validate center-align" value="0000" style="width: 20%; font-size: 2em !important;">
     </div>
+      <label for="carddigito" id="labeltarjeta"></label>
+  </div>
+  <br>
+  </div>
+</section>
+<!--  -->
+<section id="m-deposito" class="modal-tpago">
+  <div class="modal-content">
+  <b><span style="color: #2196F3; font-size: 1.8em !important;">Depósito</span></b><hr style="border: 1px solid #F0F0F0">
+  <span>TOTAL:</span><br>
+  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
+  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
+  <br>
+  <div class="row center-align">
+    <div class="input-field col s12">
+
+      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
+      <input id="ndeposito" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
+    </div>
+      <label for="ndeposito" id="labeldeposito"></label>
+  </div>
+  <br>
+  </div>
+</section>
+<!--  -->
+<section id="m-cheque" class="modal-tpago">
+  <div class="modal-content">
+  <b><span style="color: #2196F3; font-size: 1.8em !important;">Cheque</span></b><hr style="border: 1px solid #F0F0F0">
+  <span>TOTAL:</span><br>
+  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
+  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
+  <br>
+  <div class="row center-align" align="center">
+    <div class="input-field col s12">
+
+      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
+      <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
+    </div>
+      <label for="ncheque" id="labelcheque"></label>
+  </div>
+  <br>
+  </div>
+</section>
+<!--  -->
+<section id="m-mixto" class="modal-tpago">
+  <div class="modal-content">
+  <b><span style="color: #2196F3; font-size: 1.8em !important;">Pago Mixto</span></b><hr style="border: 1px solid #F0F0F0">
+  <span>TOTAL:</span><br>
+  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
+  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
+  <br>
+  <div class="row center-align" align="center">
+    <div class="input-field col s3">
+      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
+      <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
+    </div>
+    <div class="input-field col s9">
+      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
+      <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
+    </div>
+      <label for="ncheque" id="labelcheque"></label>
   </div>
   <br>
   </div>
