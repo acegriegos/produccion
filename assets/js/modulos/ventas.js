@@ -215,6 +215,14 @@ $(document).on("click","#facturar",function(){
     $(this).attr('regex',p[2]);
 
     switch(parseInt( p[0]) ){
+        case 5:
+           $(".modal-tpago").addClass('hide');
+            $("#m-mixto").removeClass('hide');
+            $("#labelcheque").text(p[1]);
+            retrasarFocus('ncheque');
+            $(".icono").html(p[3]);
+        break;
+
         case 4:
             $(".modal-tpago").addClass('hide');
             $("#m-efectivo").removeClass('hide');
@@ -226,16 +234,25 @@ $(document).on("click","#facturar",function(){
             $("#m-tarjeta").removeClass('hide');
             $("#labeltarjeta").text(p[1]);
             retrasarFocus('carddigito');
-            $("#icono").html(p[3]);
+            $(".icono").html(p[3]);
         break;
 
         case 1:
            $(".modal-tpago").addClass('hide');
-            $("#m-tarjeta").removeClass('hide');
-            $("#labeltarjeta").text(p[1]);
-            retrasarFocus('carddigito');
-            $("#icono").html(p[3]);
+            $("#m-deposito").removeClass('hide');
+            $("#labeldeposito").text(p[1]);
+            retrasarFocus('ndeposito');
+            $(".icono").html(p[3]);
         break;
+
+        case 0:
+           $(".modal-tpago").addClass('hide');
+            $("#m-cheque").removeClass('hide');
+            $("#labelcheque").text(p[1]);
+            retrasarFocus('ncheque');
+            $(".icono").html(p[3]);
+        break;
+
 
         default:
             $("#factreal").click();

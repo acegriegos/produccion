@@ -1,25 +1,16 @@
 <?php  
-	    require_once 'model/m_general.php';
-	    $kakaroto = new _general();
+	   require_once 'model/m_general.php';
+	   $kakaroto = new _general();
 
-	    if (!isset($_REQUEST['accion'])) {
-	   	require '../_config/mySmarty.php';
-	   
-	   	$smarty  = new mySmarty();
-	   	$smarty->setModule('dashboard');
-	   	$pg = $smarty->fetch('../view/menuSmarty.php');
-	    $sty = $smarty->fetch('../view/styles.php');
-        $scr = $smarty->fetch('../view/scripts.php');
-    
-        $smarty->assign('STY',$sty);
-        $smarty->assign('SRC',$scr);
-	   	$smarty->assign('NAV',$pg);
-	   	$smarty->display('v_laboratorio.tpl');
+	   if (!isset($_REQUEST['accion'])) {
+
+	   		make_smarty()->display('v_laboratorio.tpl');
+
 	   }else{
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-	   			
+	   			make_smarty()->display('ajax/laboratorio/entrada.tpl');
 	   			break;
 	   	}
 		if(!$pagina){

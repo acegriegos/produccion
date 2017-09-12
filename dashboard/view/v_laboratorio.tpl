@@ -5,60 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Inventarios</title>
+    <title>Laboratorio</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventarios.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css">
   </head>
 <body>
   {$NAV}
     <div class="bdy pequeño">
-        <div class=" card center blue-grey white-text mbotcero pequeño" >
-          <h4 class="center-align white-text mbotcero z-depth-5" style="background-color:#0B3861">Laboratorio</h4>
-        </div>
-        
-        <div class="card pequeño card-content mdinvent z-depth-5 ">
+        <div class="card-header center  white-text hide-on-small-only" style="background-color:#0B3861 "><p class="flow-text">Área Laboratorio</p></div>
+          <div class="card-content pequeño">
+            <div class="row">
 
-          <div class="row pequeño">
-            <div class="col s12 m12 l12 pequeño">
-              <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Nombre o cedula cliente</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Nombre o codigo de producto</label>
-        </div>
-            <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Nombre o codigo de producto</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-          <label for="disabled">Disabled</label>
-        </div>
-      </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          This is an inline input field:
-          <div class="input-field inline">
-            <input id="email" type="email" class="validate">
-            <label for="email" data-error="wrong" data-success="right">Email</label>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
+              <div class="col s12 m12 l6 pequeño">
+                <div class="card z-depth-5">
+                  <div class="card-title blue-grey white-text center ">&nbsp;Opciones</div>
+
+                  <div class="card-panel pequeño ">
+
+                    <div class="row">
+                     <div class="col s12 m6 l6 per6000">
+                      <a href="ajustes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="laboratorio?accion=1">Entradas</a>
+                    </div>
+                    <div class="col s12 m6 l6 per6100">
+                      <a href="usuarios" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="laboratorio?accion=2">Seguimiento</a>
+                    </div>
+                    
+                    <div class="col s12 m6 l6 per6200">
+                      <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="laboratorio?accion=3">Procesos</a>
+                    </div>
+
+
+                  </div>
+                </div>
+
+                
+              </div>
             </div>
+
+            <div class="col s12 m12 l6 pequeño">
+              <div class="card z-depth-5 per6300">
+                <div class="card-title blue-grey white-text center">&nbsp;Gráficos</div>
+                <div class="card-content pequeño">
+                  <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
+                </div>
+              </div>
+            </div>
+
           </div>
+ 
         </div>
+      </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/inventarios.js?v=0.1"></script>
+    <script src="../assets/js/modulos/laboratorio.js?v=0.1"></script>
   </body>
 </html>
