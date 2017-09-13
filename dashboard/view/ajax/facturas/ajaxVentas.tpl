@@ -461,17 +461,35 @@
   <span>TOTAL:</span><br>
   <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
   <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
-  <br>
+  <br><br>
   <div class="row center-align" align="center">
-    <div class="input-field col s3">
-      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
-      <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
+    <div class="col s12">
+
+      <div class="input-field col s6">
+        <label for="ncheque">Cheque</label>
+        <i class="material-icons prefix icono" style="font-size: 2em !important">image_aspect_ratio</i>
+        <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 80%; ont-size: 2em !important;">
+      </div>
+
+      <div class="input-field col s6">
+        <label for="ndeposito">Deposito</label>
+        <i class="material-icons prefix icono" style="font-size: 2em !important">description</i>
+        <input id="ndeposito" type="text" class="validate center-align" value="00000000" style="width: 80%; ont-size: 2em !important;">
+      </div>
+
+       <div class="input-field col s6">
+        <label for="carddigito">Tarjeta</label>
+        <i class="material-icons prefix icono" style="font-size: 2em !important">credit_card</i>
+        <input id="carddigito" type="text" class="validate center-align" value="0000" style="width: 80%; ont-size: 2em !important;">
+      </div>
+
+      <div class="input-field col s6">
+        <label for="mefectivo">Efectivo</label>
+        <i class="material-icons prefix icono" style="font-size: 2em !important">money</i>
+        <input id="mefectivo" type="text" class="validate center-align" value="0.00" style="width: 80%; ont-size: 2em !important;">
+      </div>
+
     </div>
-    <div class="input-field col s9">
-      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
-      <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
-    </div>
-      <label for="ncheque" id="labelcheque"></label>
   </div>
   <br>
   </div>

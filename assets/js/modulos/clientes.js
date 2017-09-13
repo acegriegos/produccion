@@ -244,6 +244,7 @@ function validar (varreglo,vmodulo) {
 			return 'Módulo no Existente';
 			break;
 	}
+	console.log(odin(varreglo,"f"+vmodulo['modulo']+"s"));
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
 	return salida;
