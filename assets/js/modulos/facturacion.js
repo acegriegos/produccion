@@ -36,6 +36,9 @@ $(document).ready(function(){
             inicial = $("#vreferencia");
             cargarCompras();
             break;
+        case 3:
+            cargarOCompras();
+            break;
         default:
             cargarVentas();
             break;
@@ -96,8 +99,33 @@ $(document).ready(function(){
         Materialize.updateTextFields();
         totalizar();
     }
-
 });
+
+function cargarOCompras(){
+    $("#titfact").html("ORDEN DE COMPRA");
+    $(".concre").addClass('hide');
+    $("#vplazo").addClass('hide');
+    $(".tp_all").addClass('hide');
+    $(".isfast").addClass('hide');
+    $("#sclie").attr('placeholder',"Nombre o Cédula del Proveedor");
+
+    $("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#ncli").autocomplete({
+                limit: 20,
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+            });
+
+        }
+    });
+
+    $(".trOCompra").removeClass('hide');
+}//cargar ORDEN COMPRA
 
 function cargarCompras(){
     $("#titfact").html("COMPRAS");
@@ -106,6 +134,7 @@ function cargarCompras(){
     $("#vplazo").attr('disabled',false);
     $("#precp").attr('readonly',false);
     $(".trCompra").removeClass('hide');
+    $("#lcliente").attr("Nombre o Cédula del Proveedor");
 
     $("#ncli").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -169,12 +198,104 @@ function cargarCompras(){
         $("#ncli").focus();
     });
 
-}
+    $("#descup").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+                var cant = parseFloat($("#cantp").val()),
+                    precio = parseFloat($("#precp").val().replace(/,/g,'')),
+                    total = precio * cant;
+                var cod = $("#valores").data('elemento')['hcodp'];
+                var inv = $("#valores").data('elemento')['hinv'];
+                var cnt = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
+                var idprd = $("#valores").data('elemento')['idp'];
+                var desc = $("#descp").val();
+                var hinv = $("#valores").data('elemento')['hinv'];
+                var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
+                $("#valores").removeData('elemento');
+                addline(idprd,cod,desc,cant,precio,total,$(this).val(),defi,cnt,hinv);
+        }
+    });
 
+    $("#cantp").keyup(function(e){
+        var code = e.which || e.keyCode;
+        var cant = parseFloat($(this).val()),
+            precio = parseFloat($("#valores").data('elemento')['hprec']),
+            total = precio * cant;
+
+        $("#totp").val(total.formatMoney(2,'.',','));
+
+        if (code == 13) {
+            if (cant > 0) {
+                $("#precp").select().focus();
+            }else{
+                Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
+            }
+        }
+    });
+
+    $("#precp").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            var valor = $(this).val().replace(/,/g,'');
+            $("#totp").val( (parseFloat(valor) * parseFloat($("#cantp").val())).formatMoney(2,'.',',') )
+            $("#valores").data('elemento')['hprec'] = valor;
+            $("#descup").select().focus();
+        }
+    });
+
+    $("#descp").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            var cod = arr('login',4,'',43,'"'+ $(this).val() +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+',2','',0,'');
+
+             if (cod[0][0] != undefined) {
+                var fimv = cod[0];
+                cod = cod[0][0];
+                $("#idp").val(cod[0]);
+                $("#codp").val(cod[1]);
+                $("#hcodp").val(cod[5]);
+                $("#descp").val(cod[2]);
+                $("#precp").val(cod[3]);
+                $("#hprec").val(cod[3]);
+
+                $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : 0,hdescm : 100, hinv : cod[14], hbod:cod[15],hdescu : 0});
+
+                for (var i = 0; i < fimv.length; i++) {
+
+                    var exo = fimv[i][9]*(1-(fimv[i][10]/100));
+
+                    if($("#imp_"+fimv[i][7]).length == 0){
+                        var clip = 0;
+                        if(fimv[i][12] != 0) clip = 'vclipd="'+fimv[0][0]+'"';
+
+                        $("#sh_imp").append('<tr id="imp_'+fimv[i][7]+'" '+clip+'><td>'+fimv[i][11]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span><b>¢</b></span><span id="imv_'+fimv[i][7]+'" type="html">0.00</span></td></tr>');
+                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
+                        $("#imv_"+fimv[i][7]).data('incl',fimv[i][0]+",");
+                    }else{
+                        var incl = $("#imv_"+fimv[i][7]).data('incl');
+                        $("#imv_"+fimv[i][7]).data('incl',incl+fimv[i][0]+",");
+                        $("#imv_"+fimv[i][7]).data('imv'+fimv[i][0],exo);
+                    }
+                    
+                }
+
+                if (cod[4] == '?') {
+                    $("#cantI").html('∞');
+                }else{
+                    $("#cantI").html(cod[4]);
+                }
+            }
+            
+            $("#cantp").val(1).select().focus();
+            Materialize.updateTextFields()
+        }
+    });
+}//cagar COMPRAS
 
 function cargarVentas(){
     $("#titfact").html("VENTAS");
     $(".trVenta").removeClass('hide');
+    $("#lcliente").html("Nombre o Cédula del Cliente");
 
     $("#ncli").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -191,10 +312,49 @@ function cargarVentas(){
         }
     });
 
+    $(document).on("keyup","#cantp",function(e){
+        var cant = parseFloat($(this).val()),
+            precio = parseFloat($("#valores").data('elemento')['hprec']),
+            total = precio * cant;
+        $("#totp").val(total.formatMoney(2,'.',','));
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            if (cant > 0) {
+                var idp = $("#valores").data('elemento')['idp'];
+                var cod = $("#valores").data('elemento')['hcodp'];
+                var inv = $("#valores").data('elemento')['hinv'];
+
+                var cnt = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
+                
+                if (cant > cnt) {
+                   Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
+                }else if (cant <= cnt || cnt == '∞') {
+                    var idprd = $("#valores").data('elemento')['idp'];
+                    var dcs = $("#valores").data('elemento')['hdesc'];
+                    var mdcs = $("#valores").data('elemento')['hdescm'];
+                    var desc = $("#descp").val();
+                    var hinv = $("#valores").data('elemento')['hinv'];
+
+                    $("#valores").removeData('elemento');
+                    addline(idprd,cod,desc,cant,precio,total,cnt,dcs,mdcs,hinv);
+                }
+            }else{
+                Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
+            }
+        }
+    });
+
+    $(document).on("change","#cantp",function(){
+        var cant = parseFloat($(this).val()),
+            precio = parseFloat($("#valores").data('elemento')['hprec']),
+            total = precio * cant;
+        $("#totp").val(total.formatMoney(2,'.',','));
+    });
+
     $(".sclie").blur(function(){
         searchClient($(this).val(),0);
     });
-}
+}//cargar VENTAS
 
 function cargarGlobal(){
     var cons = param-1 == 0 ? '' : param-1;
@@ -256,7 +416,7 @@ function cargarGlobal(){
             $(this).attr('val',2)
         }
     });
-}
+}//cargar GLOBAL
 
 function doplazo(vval){
     if(isNaN(vval)){

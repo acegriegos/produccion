@@ -71,70 +71,42 @@ $(function(){
 
     cargarMoneda(0);
 
+
+
+    $(".ckmisto").click(function(){
+        var id = $(this).attr('id').substr(2);
+        var estado = $("#tp"+id).is(':checked');
+
+        if ( estado )
+            $(".tp-"+id).removeClass('hide');
+        else
+            $(".tp-"+id).addClass('hide');
+    });
+
 })//READY
 
-$(document).on("click","#chg_tipo",function(){
+// $(document).on("click","#chg_tipo",function(){
     
-    var value = parseInt($(this).val())
+//     var value = parseInt($(this).val())
 
-    if (value == 2) {
-        $(".cre").hide();
-        $(".con").show();
-        $("#vplazo").val(0);
-        $(this).val(1)
-        $(".zelda").data('triforce')['vidtipo'] = 1
-    }else{
-        $(".con").hide();
-        $(".cre").show();
-        if ($(".zelda").data('triforce')['vidcliente'] != 0) {
-            var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
-            var saldo = arr('login',205,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
-            $("#vplazo").val(plazo);
-        }
-        $(".zelda").data('triforce')['vidtipo'] = 2
-        $(this).val(2)
-    }
-});
-
-$(document).on("keyup","#cantp",function(e){
-    var cant = parseFloat($(this).val()),
-        precio = parseFloat($("#valores").data('elemento')['hprec']),
-        total = precio * cant;
-    $("#totp").val(total.formatMoney(2,'.',','));
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        if (cant > 0) {
-            var idp = $("#valores").data('elemento')['idp'];
-            var cod = $("#valores").data('elemento')['hcodp'];
-            var inv = $("#valores").data('elemento')['hinv'];
-
-            var cnt = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
-            
-            if (cant > cnt) {
-               Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
-            }else if (cant <= cnt || cnt == '∞') {
-                var idprd = $("#valores").data('elemento')['idp'];
-                var dcs = $("#valores").data('elemento')['hdesc'];
-                var mdcs = $("#valores").data('elemento')['hdescm'];
-                var desc = $("#descp").val();
-                var hinv = $("#valores").data('elemento')['hinv'];
-
-                $("#valores").removeData('elemento');
-                addline(idprd,cod,desc,cant,precio,total,cnt,dcs,mdcs,hinv);
-            }
-        }else{
-            Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
-        }
-    }
-  
-});
-
-$(document).on("change","#cantp",function(){
-    var cant = parseFloat($(this).val()),
-        precio = parseFloat($("#valores").data('elemento')['hprec']),
-        total = precio * cant;
-    $("#totp").val(total.formatMoney(2,'.',','));
-});
+//     if (value == 2) {
+//         $(".cre").hide();
+//         $(".con").show();
+//         $("#vplazo").val(0);
+//         $(this).val(1)
+//         $(".zelda").data('triforce')['vidtipo'] = 1
+//     }else{
+//         $(".con").hide();
+//         $(".cre").show();
+//         if ($(".zelda").data('triforce')['vidcliente'] != 0) {
+//             var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
+//             var saldo = arr('login',205,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
+//             $("#vplazo").val(plazo);
+//         }
+//         $(".zelda").data('triforce')['vidtipo'] = 2
+//         $(this).val(2)
+//     }
+// });
 
 $(document).on("keyup","[id^=vcantidad]",function(e){
     var code = e.which || e.keyCode;
@@ -216,11 +188,12 @@ $(document).on("click","#facturar",function(){
 
     switch(parseInt( p[0]) ){
         case 5:
-           $(".modal-tpago").addClass('hide');
+        // AQUI RESOLVIENDO ANTES DE QUE PELON NOS ECHARA
+            for (var i = 0; i < p.length; i++) {
+                $("#mtpagos").append('<p><input type="checkbox" class="ckmisto" id="tp" /><label for="tp"> {$TPAGO[LE][1]} </label></p>');
+            }
+            $(".modal-tpago").addClass('hide');
             $("#m-mixto").removeClass('hide');
-            $("#labelcheque").text(p[1]);
-            retrasarFocus('ncheque');
-            $(".icono").html(p[3]);
         break;
 
         case 4:
@@ -699,6 +672,10 @@ function searchClient(vvariable,visprv){
             $("#chg_tipo").val(2);
             $("#chg_tipo").click();
             $("#chg_tipo").attr('disabled','true')
+        }
+
+        if (param == 2){
+            $("#chg_tipo").attr('disabled','false')
         }
 
         if ($("#vidtipo").val() == 2) {
