@@ -42,18 +42,18 @@ $(function(){
 		    	selectYears: 15, // Creates a dropdown of 15 years to control year
 		    	format: 'yyyy-mm-dd'
 		    });
-
-		$('.timepicker').pickatime({
-		    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-		    fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-		    twelvehour: false, // Use AM/PM or 24-hour format
-		    donetext: 'OK', // text for done-button
-		    cleartext: 'Clear', // text for clear-button
-		    canceltext: 'Cancel', // Text for cancel-button
-		    autoclose: false, // automatic close timepicker
-		    ampmclickable: true, // make AM PM clickable
-		    aftershow: function(){} //Function for after opening timepicker
-		  });
+		
+		// $('.timepicker').pickatime({
+		//     default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+		//     fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+		//     twelvehour: false, // Use AM/PM or 24-hour format
+		//     donetext: 'OK', // text for done-button
+		//     cleartext: 'Clear', // text for clear-button
+		//     canceltext: 'Cancel', // Text for cancel-button
+		//     autoclose: false, // automatic close timepicker
+		//     ampmclickable: true, // make AM PM clickable
+		//     aftershow: function(){} //Function for after opening timepicker
+		//   });
 
 		$("#hist").click(function(){
 
@@ -131,9 +131,6 @@ $(function(){
 
 });
 
-$(document).on("change","#allsuc",function(){
-	alert(14)
-});
 
 $(document).on("blur","#vmail",function(){
 	if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
@@ -340,7 +337,6 @@ function validar (varreglo,vmodulo) {
 	}
 	
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	console.log(salida);
 	return salida;
 
 }
@@ -367,8 +363,8 @@ function validarusuarios() {
 		$('#vidTipoUsuario').focus();
 		return 'Tipo de Usuario Requerido';
 	}
-	if ($('#vidsucursal').val() == 0) {
-		$('#vidsucursal').focus();
+	if ($('#vidsuc option:selected').length <= 1) {
+		$('#vidsuc').focus();
 		return 'Seleccione una Sucursal';
 	}
 
@@ -410,7 +406,7 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'usuario':
-		vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave,aes_decrypt(clave,"lt2016") as clave,idsucursal as vidsucursal';
+		vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave,aes_decrypt(clave,"lt2016") as clave,idsucursal as vidsuc';
 		vmodulo['tbl'] = 1;
 		vmodulo['where'] = 'id = "'+vid+'"';
 		$("#vuser").focus();

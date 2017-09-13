@@ -6,6 +6,7 @@
         <input id="vuser" type="text" class="validate">
         <input type="hidden" id="vid" value="0">
         <input type="hidden" id="vidusuario" value="">
+        <input type="hidden" id="vidsucursal" value="">
         <label for="vuser">Usuario</label>
       </div>
       <div class="input-field col s12 m6 l4" style="margin-bottom: 0 !important">
@@ -32,9 +33,8 @@
         </select>
       </div>
       <div class="input-field col s12 m6 l4" >
-        <select id="vidsucursal" type="select" style="margin-bottom: 0 !important" multiple>
-          <option value="" selected disabled>Seleccione una Sucursal</option>
-          <option value="-1" id="allsuc">Todas las Sucursales</option>
+        <select id="vidsuc" type="select" style="margin-bottom: 0 !important" multiple>
+          <option value="0" selected disabled>Seleccione una Sucursal</option>
           <?php  foreach ($suc as $obj) { ?>
           <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
           <?php } ?>
