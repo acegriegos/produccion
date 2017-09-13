@@ -463,13 +463,11 @@
   <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
   <br>
   <div class="row center-align" align="center">
-    <div class="input-field col s3">
-      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
-      <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
+    <div class="col s3" style="background: red">
+      
     </div>
-    <div class="input-field col s9">
-      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
-      <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
+    <div class="col s9" style="background: green">
+      
     </div>
       <label for="ncheque" id="labelcheque"></label>
   </div>
