@@ -35,7 +35,7 @@
       <label class="cre" style="display: none;"><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div>
 
-    <div class="s12 m3 l3 col">
+    <div class="show_facts col s12 m3">
       <a class="btn" onclick="verfacturas();"> Ver Facturas</a>
     </div>
 
@@ -65,7 +65,7 @@
       <label style="color: black"><b>Plazo en Días</b></label>
     </div>
     
-    <div class="input-field col s12 m6">
+    <div class="input-field col s12 m6 show_cliente">
       <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
     </div> 
@@ -107,7 +107,7 @@
         <tr class="hide trCompra">
           <th style="width:  5%; padding: 0 !important;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
-          <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width: 20%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
           <th style="width: 14%; padding: 0 !important;" class="center-align">Prec.Unit</th>
           <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
@@ -122,47 +122,6 @@
           <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
           <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
-        </tr>
-
-        <tr class="trVenta hide trsec">
-
-          <td style="width: 5%; padding: 0 !important">
-          </td>
-
-          <td style="width: 10%; padding: 0 !important" class="input-field">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
-            <input type="hidden" id="valores">
-          </td>
-
-          <td style="width: 30%; padding: 0 !important" class="input-field">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
-          </td>
-          <td style="width: 14%; padding: 0 !important" class="input-field">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
-          </td>
-          <td style="width: 5%; padding: 0 !important" class="input-field">
-            <select id="uni" readonly >
-              <option>UN</option>
-            </select>
-          </td>
-          <td style="width: 10%; padding: 0 !important" class="input-field">
-            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
-          </td>
-          <td style="width: 14%; padding: 0 !important" class="input-field">
-            <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
-          </td>
-          <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
-
-          <div class="col s12">
-            <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
-              <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-            </a>
-          </div>
-          <div class="col s12">
-             <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
-          </div>
-  
-          </td>
         </tr>
 
         <tr class="trVenta hide trsec">
@@ -261,7 +220,7 @@
             <input type="hidden" id="valores">
           </td>
 
-          <td style="width: 30%; padding: 0 !important" class="input-field">
+          <td style="width: 20%; padding: 0 !important" class="input-field">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
 
@@ -280,7 +239,7 @@
           </td>
 
           <td style="width: 9%;" class="input-field">
-            <input type="number" class="f center" id="descup" min="0" data-mask="999999999.99" placeholder="Descuento" value="0.00">
+            <input type="text" class="f center" id="descup" min="0" value="0" data-mask="999999999.99" placeholder="Descuento" value="0.00">
           </td>
           
           <td style="width: 14%; padding: 0 !important" class="input-field">
