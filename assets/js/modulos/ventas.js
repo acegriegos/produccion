@@ -64,19 +64,16 @@ $(function(){
 
     cargarMoneda(0);
 
-
-
-    $(".ckmisto").click(function(){
-        var id = $(this).attr('id').substr(2);
-        var estado = $("#tp"+id).is(':checked');
-
-        if ( estado )
-            $(".tp-"+id).removeClass('hide');
-        else
-            $(".tp-"+id).addClass('hide');
-    });
-
 })//READY
+
+$(document).on("click",".ckmixto",function(){
+    var id = $(this).attr('id').substr(2);
+    var estado = $("#tp"+id).is(':checked');
+    if ( estado )
+        $(".tp-"+id).removeClass('hide');
+    else
+        $(".tp-"+id).addClass('hide');
+});
 
 $(document).on("keyup","[id^=vcantidad]",function(e){
     var code = e.which || e.keyCode;
@@ -152,18 +149,22 @@ $(document).on("click",".fedit",function(){
 
 $(document).on("click","#facturar",function(){
     if ( $(".zelda").data('triforce')['vidtipo'] == 1) {
+
     $("#modal-tpagos").modal('open');
     var tpago = $("#vidtipopago option:selected").val();
     var tfact = $(".zelda").data('triforce')['vidtipo'];
-    var p = getDatos('',231,tpago+','+tfact,0,0)[0][0];
-    $(this).attr('regex',p[2]);
+    var p = getDatos('',231,tpago+','+tfact,0,0)[0];
+    $(this).attr('regex',p[0][2]);
 
-    switch(parseInt( p[0]) ){
+    switch(parseInt( p[0][0]) ){
         case 5:
-        for (var i = 0; i < p.length; i++) {
-            $(".mtpagos").html('');
-            $(".mtpagos").append('<div class="col s2"> <p> <input type="checkbox" id="tp'+p[1]+'" /> <label for="tp'+p[1]+'">'+p[1]+'</label> </p> </div>');
-        }
+            $("#mtpagos").html('');
+            for (var i = 0; i < p.length; i++) {
+                $("#mtpagos").append('<div class="col s2"> <p> <input type="checkbox"  class="ckmixto" id="tp'+p[i][1]+'" var="'+p[i][0]+'"/> <label for="tp'+p[i][1]+'">'+p[i][1]+'</label> </p> </div>');
+            }
+            $("#mCheque").val(p[0][3]);
+            $("#mDeposito").val(p[0][3]);
+            $("#mTarjeta").val(p[0][3]);
             $(".modal-tpago").addClass('hide');
             $("#m-mixto").removeClass('hide');
         break;
@@ -177,25 +178,25 @@ $(document).on("click","#facturar",function(){
         case 2:
             $(".modal-tpago").addClass('hide');
             $("#m-tarjeta").removeClass('hide');
-            $("#labeltarjeta").text(p[1]);
+            $("#labeltarjeta").text(p[0][1]);
             retrasarFocus('carddigito');
-            $(".icono").html(p[3]);
+            $(".icono").html(p[0][3]);
         break;
 
         case 1:
            $(".modal-tpago").addClass('hide');
             $("#m-deposito").removeClass('hide');
-            $("#labeldeposito").text(p[1]);
+            $("#labeldeposito").text(p[0][1]);
             retrasarFocus('ndeposito');
-            $(".icono").html(p[3]);
+            $(".icono").html(p[0][3]);
         break;
 
         case 0:
            $(".modal-tpago").addClass('hide');
             $("#m-cheque").removeClass('hide');
-            $("#labelcheque").text(p[1]);
+            $("#labelcheque").text(p[0][1]);
             retrasarFocus('ncheque');
-            $(".icono").html(p[3]);
+            $(".icono").html(p[0][3]);
         break;
 
 
@@ -214,23 +215,18 @@ $(document).on("click","#facturar",function(){
 });
 
 
+$("#pcon").blur(function(){
+        calcVuelto();
+});
+
 $("#pcon").keyup(function(e){
     var code = e.which || e.keyCode;
-    var paga = parseFloat( $(this).val().replace(/,/g,'') );
-    var totalfact = parseFloat( $(".totalfact").text().replace(/,/g,'') );
     if (code == 13) {
-        console.log(paga)
-        console.log(totalfact)
-       var cambio = (paga - totalfact);
-       $("#pcam").text(cambio.formatMoney(2,'.',','));
-
-       if (cambio > 0) {
-            $("#pcam").css('color','#2196F3');
-        }else{
-            $("#pcam").css('color','#F3213F');
-        }
+        calcVuelto();       
     }
 });
+
+
 
 $(document).on("click","input[name=modo]",function(){
     var id = $(this).attr('id').substr(4);
@@ -458,7 +454,7 @@ function validar (varreglo,vmodulo) {
     }
 
     salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-    console.log(salida);
+    
     return salida;
 
 }
@@ -711,4 +707,18 @@ function retrasarFocus(vinput){
     setTimeout(function(){
         $("#"+vinput).focus().select();
     },100);
+}
+
+function calcVuelto(){
+    var paga = parseFloat( $("#pcon").val().replace(/,/g,'') );
+    var totalfact = parseFloat( $(".totalfact").text().replace(/,/g,'') );
+    var cambio = (paga - totalfact);
+   
+   $("#pcam").text(cambio.formatMoney(2,'.',','));
+
+   if (cambio > 0) {
+        $("#pcam").css('color','#2196F3');
+    }else{
+        $("#pcam").css('color','#F3213F');
+    }
 }

@@ -118,7 +118,7 @@ input, button {
   width: 22rem;
   height: 100%;
   padding-left: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 14px !important;
   background: transparent;
   color: #FDFCFD;
 }
@@ -126,7 +126,7 @@ input, button {
   position: relative;
   width: 100%;
   height: 4rem;
-  margin: 5rem 0 2.2rem;
+  margin: 1rem 0 2.2rem;
   color: rgba(255, 255, 255, 0.8);
   background: #0B3861;
   font-size: 1.5rem;
@@ -181,7 +181,8 @@ input, button {
 }
 .login__signup {
   font-size: 1.2rem;
-  color: #ABA8AE;
+  color: rgba(255, 255, 255, 0.8);
+  padding-left: 10%;
 }
 .login__signup a {
   color: #fff;
@@ -243,73 +244,3 @@ input, button {
 }
 
 
-
-
-/*.tamLetra{
-   font-size: 1.2em !important
-}
-
-body {
-  background-size: cover;
-  background-position: center;
-  font-family: "logintech";
-}
-
-@font-face {
-  font-family: "logintech";
-  src: url("../fonts/roboto/Roboto-Light.eot") format("embedded-opentype"),
-  /*src: url("Roboto-Regular.eot?#logintech") format("embedded-opentype"),*/
- /*   url("../fonts/roboto/Roboto-Light.woff") format("woff"),
-    url("../fonts/roboto/Roboto-Light.ttf") format("truetype"),
-    url("../fonts/roboto/Roboto-Light.svg#logintech") format("svg");
-}
-
-input:focus, input:active, button:focus, button:active, .btn:focus, .btn:active {
-  box-shadow: none;
-  outline: none;
-}
-
-
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.mbox{
-  font-size: 20px;
-  border: 1px solid #e2e2e2;
-  padding-left: 2%;
-}
-
-.mlabel{
-  padding-bottom: 8px;
-}*/
