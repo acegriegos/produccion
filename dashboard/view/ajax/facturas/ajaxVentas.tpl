@@ -387,7 +387,7 @@
 
           <div class="col s12 m12 l12" align="center">
             <!-- <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button> -->
-            <a href="#modal-tpagos" class="btn btn-primary-outline modal-trigger" id="facturar" style="margin-bottom: 3%;">Facturar</a>
+            <a href="#modal-tpagos" class="btn btn-primary-outline" id="facturar" style="margin-bottom: 3%;">Facturar</a>
           </div>
 
           </div>
@@ -434,7 +434,7 @@
 </div>
 
 
-<div id="modal-tpagos" class="modal" align="center" style="margin-top: -5% !important">
+<div id="modal-tpagos" class="modal" align="center" style="margin-top: -3% !important; width: 90%; height: 85% !important;">
 <!--  -->
 <section id="m-efectivo" class="modal-tpago">
   <div class="modal-content">
@@ -519,7 +519,7 @@
     <div class="col s12">
 
     <p>Seleccione los metodos de pago:</p>
-    <div class="col s2 mtpagos">
+    <div class="col s12 mtpagos">
       
     </div>
 

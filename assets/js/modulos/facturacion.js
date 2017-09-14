@@ -114,22 +114,6 @@ function cargarOCompras(){
     $(".trsec:hidden").remove();
 
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
-
-    $("#ncli").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
-
-            $("#ncli").autocomplete({
-                limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
-            });
-
-        }
-    });
-
     $(".trOCompra").removeClass('hide');
 }//cargar ORDEN COMPRA
 
@@ -144,21 +128,6 @@ function cargarCompras(){
 
     $("#precp").attr('readonly',false);
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
-
-    $("#ncli").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
-
-            $("#ncli").autocomplete({
-                limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
-            });
-
-        }
-    });
 
     $("#vreferencia").keyup(function(e){
         var code = e.which || e.keyCode;
@@ -257,21 +226,6 @@ function cargarVentas(){
 
     $("#ncli").attr('plcaeholder',"Nombre o Cédula del Cliente");
 
-    $("#ncli").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
-
-            $("#ncli").autocomplete({
-                limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
-            });
-
-        }
-    });
-
     $(document).on("keyup","#cantp",function(e){
         var cant = parseFloat($(this).val()),
             precio = parseFloat($("#valores").data('elemento')['hprec']),
@@ -326,10 +280,6 @@ function cargarGlobal(){
         $("#vfecha").blur();
     } });
 
-    $("#vidtipopago").change(function(){
-        setTimeout(function(){$("#ncli").focus();},300)
-    });
-
     $("#descp").keydown(function(e){
         var charCode = e.which || e.keyCode;
         var charStr = String.fromCharCode(charCode);
@@ -364,6 +314,33 @@ function cargarGlobal(){
             }
             $(".zelda").data('triforce')['vidtipo'] = 2
             $(this).attr('val',2)
+        }
+    });
+
+    $("#ncli").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            $(this).blur();
+        }
+    });
+
+    $("#ncli").blur(function(){
+        var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
+        searchClient($(this).val(),isproveedor);
+    });
+
+    $("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#ncli").autocomplete({
+                limit: 20,
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,param.toString().match(new RegExp(/[23]/i)) ? '' : '!' + 'bisproveedor having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+            });
+
         }
     });
 
