@@ -82,9 +82,6 @@ $(document).on("click",".load",function(){
     arreglo['modulo'] = modulo;
     deadclear(modulo);
     var varreglo = loadpool(arreglo,$(this).attr('id').substr(1),$(this).attr('varias'));
-    
-    if ($(this).attr('href') != undefined)
-        $($(this).attr('href')).modal('open');
 });
 
 $(document).on("click",".add",function(){
@@ -361,7 +358,7 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
                 });
     }
     // setTimeout(function(){source = new EventSource("../sse.php")},5000);
-    return p;
+    return true;
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){

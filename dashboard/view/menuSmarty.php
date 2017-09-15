@@ -57,6 +57,24 @@
   </nav>
 </div>
 
-  <a style="background-color:#0B3861;" href="#" data-activates="slide" class="hide-on-med-and-down button-collapses  z-depth-5 menu-btn" ><p class="white-text menu-txt" >MENU</p></a>
+  <a style="background-color:#0B3861;" href="#" data-activates="slide" class="hide-on-med-and-down button-collapses  z-depth-5 menu-btn" ><span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span><br class="sse_cnt hide"> <p class="white-text menu-txt" >MENU</p></a>
   <!-- hide-on-med-and-down  -->
 
+ <div class="modal modal-fixed-footer grandemodal" id="modal-info" style="height: 80%; width: 75%">
+
+  <div class="modal-header">
+    <ul class="tabs tabs-fixed-width blue">
+      Información del Usuario
+    </ul>
+  </div>
+
+  <div class="modal-content " style="padding: 0px;">
+  </div>
+
+  <div class="modal-footer">
+
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button><!-- 
+    <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" codigo="1" modulo="cliente" varias="1" >Guardar</button> -->
+  </div>
+
+ </div>

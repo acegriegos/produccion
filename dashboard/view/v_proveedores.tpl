@@ -59,7 +59,7 @@
                                     <a href="#modal-contactos" class="hide" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
                                     {/if}
 
-                                    <a href="#modal-clientes" style="color:black" class="load material-icons pbtn per2002" id="m{$PROV[LE][0]}" modulo="cliente">edit</a>
+                                    <a href="#modal-clientes" style="color:black" class="load material-icons pbtn per2002 modal-trigger" id="m{$PROV[LE][0]}" modulo="cliente">edit</a>
 
                                     <a href="#" style="color:black" class="delete material-icons pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}">delete</a>
                                 </td>
