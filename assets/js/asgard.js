@@ -1,14 +1,14 @@
 acc = 1;
 
 $(function(){
-	
+    
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
     $('select').material_select();
 
     cargarMoneda(0);
-	
+    
 });
 
 $(window).keydown(function(e){
@@ -171,7 +171,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
+  
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
             // //QUITAR EL SEGUNDO UNO PONER UN 4
@@ -358,7 +358,7 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
                 });
     }
     // setTimeout(function(){source = new EventSource("../sse.php")},5000);
-    return p;
+    return true;
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
@@ -404,7 +404,6 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
         data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
         })
         .done(function(data) {
-
             try {
                 p = JSON.parse(data);
             }
@@ -413,8 +412,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
             }
 
             if($("#smail").is(':visible')){
-                 Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="material-icons">check</i>',4000,"green")
-                // setTimeout(function(){$("#smail").html('')},2000)
+                Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check">check</i>',4000,"green")
                 $("#smail").html('')
             }
            
@@ -605,7 +603,6 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
-                            console.log(varreglo[i])
                             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             break;
                     }
@@ -686,6 +683,8 @@ function thorload(vtabla) {
             info: false
         });
     }
+
+    $('.modal').modal();
 
 }
 
@@ -978,30 +977,30 @@ function paginate(vtbl,len) {
     else
         countpag = len;
     
-	if (countpag >= 9) {
-		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
-		$(".pagination").attr('ultimo', 9);
-	} else if (parseInt(countpag) == 0) {
+    if (countpag >= 9) {
+        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+        $(".pagination").attr('ultimo', 9);
+    } else if (parseInt(countpag) == 0) {
         return false;
     } else {
-		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
-		for (var i = 1; i <= Math.ceil(countpag); i++) {
-			i = parseInt(i);
-			if (i == 1)
-				$(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0"><a href="#!">' + i + '</a></li>');
-			else
-				$(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
-			$(".pagination").attr('ultimo', i);
-		}
-		$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
-	}
+        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
+        for (var i = 1; i <= Math.ceil(countpag); i++) {
+            i = parseInt(i);
+            if (i == 1)
+                $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0"><a href="#!">' + i + '</a></li>');
+            else
+                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+            $(".pagination").attr('ultimo', i);
+        }
+        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+    }
 }
 
 $(document).on("click", ".paginate", function () {
-	var modulo = $("ul.pagination").attr('modulo');
+    var modulo = $("ul.pagination").attr('modulo');
     var vtbl = $("ul.pagination").attr('vtbl');
-	var id = $(this).attr('id').substr(1);
-	var limit = $(this).attr('limit');
+    var id = $(this).attr('id').substr(1);
+    var limit = $(this).attr('limit');
     var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
     var b = $("#search_"+modulo).attr('var');
     if (a != '') {
@@ -1015,34 +1014,34 @@ $(document).on("click", ".paginate", function () {
     } else {
         var c = '';
     }
-	$(".paginate").removeClass('active')
-	$(this).addClass('active');
-	var tabla = $("#data-table-"+modulo).DataTable();
-	tabla.destroy();
-	arr('login', 6, '*', vtbl, 'vid > 0 '+c+' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
-	$("#data-table-"+modulo).DataTable({
-		bFilter: false,
+    $(".paginate").removeClass('active')
+    $(this).addClass('active');
+    var tabla = $("#data-table-"+modulo).DataTable();
+    tabla.destroy();
+    arr('login', 6, '*', vtbl, 'vid > 0 '+c+' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+    $("#data-table-"+modulo).DataTable({
+        bFilter: false,
         bScrollInfinite: true,
         bSort: false,
         bLengthChange: false,
         order: [],
         bPaginate: false,
         info: false
-	});
+    });
 });
 
 $(document).on("click", ".nxt", function () {
     var modulo = $("ul.pagination").attr('modulo');
-	var vtbl = $("ul.pagination").attr('vtbl');
-	var ultimo = $(".pagination").attr('ultimo');
-	var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
-	var next = id + 1;
+    var vtbl = $("ul.pagination").attr('vtbl');
+    var ultimo = $(".pagination").attr('ultimo');
+    var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
+    var next = id + 1;
     var pags = next - 8;
 
     if (pags <= 0)
         pags = 1;
 
-	if (ultimo == id) {
+    if (ultimo == id) {
         var count = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
         if (Math.ceil(count) != ultimo) {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
@@ -1081,13 +1080,13 @@ $(document).on("click", ".nxt", function () {
                 bPaginate: false,
                 info: false
             });
-        }	
-	} else {
-		var limit = $("#z" + next).attr('limit');
-		$(".paginate").removeClass('active');
-		$("#z" + next).addClass('active');
-		var tabla = $("#data-table-"+modulo).DataTable();
-		tabla.destroy();
+        }   
+    } else {
+        var limit = $("#z" + next).attr('limit');
+        $(".paginate").removeClass('active');
+        $("#z" + next).addClass('active');
+        var tabla = $("#data-table-"+modulo).DataTable();
+        tabla.destroy();
         var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
         var b = $("#search_"+modulo).attr('var');
         if (a != '') {
@@ -1101,48 +1100,48 @@ $(document).on("click", ".nxt", function () {
         } else {
             var c = '';
         }
-		arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
-		$("#data-table-"+modulo).DataTable({
-			bFilter: false,
+        arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+        $("#data-table-"+modulo).DataTable({
+            bFilter: false,
             bScrollInfinite: true,
             bSort: false,
             bLengthChange: false,
             order: [],
             bPaginate: false,
             info: false
-		});
-	}
+        });
+    }
 });
 
 $(document).on("click", ".prv", function () {
-	var modulo = $("ul.pagination").attr('modulo');
+    var modulo = $("ul.pagination").attr('modulo');
     var vtbl = $("ul.pagination").attr('vtbl');
-	var count = $(".pagination").attr('ultimo');
-	var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
-	var prev = id - 1;
+    var count = $(".pagination").attr('ultimo');
+    var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
+    var prev = id - 1;
     var prv = prev - 8;
-	if (prev == 0)
-		return false;
-	else {
-		if (count == id) {
-			if (prv > 0 && prev > 0) {
-    			$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
-    			if (prv != 0) {
-    				for (var i = prv; i <= prev; i++) {
-    					i = parseInt(i);
-    					$(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
-    					if (i == prev)
-    						$(".pagination").attr('ultimo', i);
-    				}
-    				$(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
-    			} else {
-    				$(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
-    				$(".pagination").attr('ultimo', 9);
-    			}
-    			$(".paginate").removeClass('active');
-    			$("#z" + prev).addClass('active');
-    			var limit = $("#z" + prev).attr('limit');
-    			var tabla = $("#data-table-"+modulo).DataTable();
+    if (prev == 0)
+        return false;
+    else {
+        if (count == id) {
+            if (prv > 0 && prev > 0) {
+                $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li>');
+                if (prv != 0) {
+                    for (var i = prv; i <= prev; i++) {
+                        i = parseInt(i);
+                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+                        if (i == prev)
+                            $(".pagination").attr('ultimo', i);
+                    }
+                    $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+                } else {
+                    $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="material-icons prv">chevron_left</i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="material-icons nxt">chevron_right</i></a></li>');
+                    $(".pagination").attr('ultimo', 9);
+                }
+                $(".paginate").removeClass('active');
+                $("#z" + prev).addClass('active');
+                var limit = $("#z" + prev).attr('limit');
+                var tabla = $("#data-table-"+modulo).DataTable();
                 var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 var b = $("#search_"+modulo).attr('var');
                 if (a != '') {
@@ -1156,17 +1155,17 @@ $(document).on("click", ".prv", function () {
                 } else {
                     var c = '';
                 }
-    			tabla.destroy();
-    			arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
-    			$("#data-table-"+modulo).DataTable({
-    				bFilter: false,
+                tabla.destroy();
+                arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+                $("#data-table-"+modulo).DataTable({
+                    bFilter: false,
                     bScrollInfinite: true,
                     bSort: false,
                     bLengthChange: false,
                     order: [],
                     bPaginate: false,
                     info: false
-    			});
+                });
             } else {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
@@ -1197,11 +1196,11 @@ $(document).on("click", ".prv", function () {
                     info: false
                 });
             }
-		} else {
-			var limit = $("#z" + prev).attr('limit');
-			$(".paginate").removeClass('active');
-			$("#z" + prev).addClass('active');
-			var tabla = $("#data-table-"+modulo).DataTable();
+        } else {
+            var limit = $("#z" + prev).attr('limit');
+            $(".paginate").removeClass('active');
+            $("#z" + prev).addClass('active');
+            var tabla = $("#data-table-"+modulo).DataTable();
             var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             var b = $("#search_"+modulo).attr('var');
             if (a != '') {
@@ -1215,19 +1214,19 @@ $(document).on("click", ".prv", function () {
             } else {
                 var c = '';
             }
-			tabla.destroy();
-			arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
-			$("#data-table-"+modulo).DataTable({
-				bFilter: false,
+            tabla.destroy();
+            arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+            $("#data-table-"+modulo).DataTable({
+                bFilter: false,
                 bScrollInfinite: true,
                 bSort: false,
                 bLengthChange: false,
                 order: [],
                 bPaginate: false,
                 info: false
-			});
-		}
-	}
+            });
+        }
+    }
 });
 // pagination -->
 

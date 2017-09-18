@@ -56,10 +56,10 @@
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
                                 <td>
                                      {if $CLIE[LE][13] neq 1}
-                                    <a href="modal-contactos" class="hide" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$CLIE[LE][0]}">contact_phone</i></a>
+                                    <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$CLIE[LE][0]}">contact_phone</i></a>
                                     {/if}
 
-                                    <a href="#modal-clientes" class="load material-icons pbtn per1002" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black">edit</a>
+                                    <a href="#modal-clientes" class="load material-icons pbtn per1002 modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black">edit</a>
                                     
                                     <a href="#" class="delete material-icons pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="color:black">delete</a>
                                 </td>

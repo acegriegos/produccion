@@ -30,6 +30,7 @@
           </ul>
         </nav>
         <br>
+        
         <div id="bdymantPresupuesto"></div>
       </div>
     </div> <!-- END BDY -->
