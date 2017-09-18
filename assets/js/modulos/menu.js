@@ -30,7 +30,7 @@ $(document).ready(function(){
 	$("#lgt").change(function(){
 		switch(parseInt($(this).val())){
 			case 1:
-				window.open("informacion","_self");
+				$("#modal-info").modal('open');
 			break;
 			case 2: 
 				window.open("notificaciones","_self");

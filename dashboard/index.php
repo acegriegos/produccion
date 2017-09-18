@@ -10,6 +10,30 @@
 	}else{
 		require_once '../_config/error.php';
 	}
+
+	function make_smarty(){
+		require '../_config/mySmarty.php';
+
+		$smarty  = new mySmarty();
+	   	$smarty->setModule('dashboard');
+	   	$pg = $smarty->fetch('../view/menuSmarty.php');
+	    $sty = $smarty->fetch('../view/styles.php');
+        $scr = $smarty->fetch('../view/scripts.php');
+    
+        $smarty->assign('STY',$sty);
+        $smarty->assign('SCR',$scr);
+	   	$smarty->assign('NAV',$pg);
+	 	return $smarty;
+	}
+
+	function make_smarty_ajax(){
+		require '../_config/mySmarty.php';
+
+		$smarty  = new mySmarty();
+	   	$smarty->setModule('dashboard');
+
+	 	return $smarty;
+	}
 	
 	function parse_path() {
 	  $path = array();

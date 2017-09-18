@@ -1156,14 +1156,12 @@ function addrecipe(id,nombre,codigo) {
         if ($(this).attr('nombre') == rnombre) {
             opc = 1;
             return false;
-        }else{
-            opc = 0;
         }
     });
 
     if (opc != 1) {
         if (nombre != '') {
-            $("#makerecipe").append('<div class="col s12 m12 l12 recipes" id="r'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="productos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="titproceso'+id+'" class="titrecipe but">'+nombre+'</span> - [Cod: <span id="codproceso'+id+'">'+codigo+'</span>]<i class="material-icons deltit right pbtn cdel btn-color" id="dt'+id+'">close</i><i class="material-icons saveproceso right pbtn blueh btn-color" id="st'+id+'">save</i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="total'+id+'">¢ 0.00</span><input type="hidden" id="htotal'+id+'" value="0"></h4></div></div></div></div>');
+            $("#makerecipe").append('<div class="col s12 m12 l12 recipes" id="r'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="productos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="titproceso'+id+'" class="titrecipe but">'+nombre+'</span> - [Cod: <span id="codproceso'+id+'">'+codigo+'</span>]<i class="mdi mdi-window-close mdi-24px right pbtn cdel deltit btn-color" id="dt'+id+'"></i><i class="mdi mdi-content-save mdi-24px right pbtn blueh deltit btn-color" id="st'+id+'"></i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="total'+id+'">¢ 0.00</span><input type="hidden" id="htotal'+id+'" value="0"></h4></div></div></div></div>');
         }
         $("#daddprod").removeClass('hide');
         $("#count").val(id);

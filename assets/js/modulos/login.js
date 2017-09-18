@@ -1,9 +1,10 @@
 var crr = '';
+var conteo = 1;
 
 $(document).ready(function(){
 
-
-
+ $(".modal").modal();
+ 
  var animating = false,
       submitPhase1 = 1100,
       submitPhase2 = 400,
@@ -22,10 +23,6 @@ $(document).ready(function(){
     elem.append($ripple);
   };
 
-
-
-
-    
     setTimeout(function(){$("#user").focus();},100)
     
     $("#logF").submit(function(){
@@ -55,13 +52,13 @@ $(document).ready(function(){
             $("#msjrecupss").addClass('red white-text');
             $("#user").focus();
         }else{
-            var result = arr('login',4,'mail, concat(substring(mail,1,3),"****@", substring_index(mail,"@",-1))',1,'user = "'+$("#user").val()+'" and id > 0','',0,'');
+            var result = arr('login',4,'',233,'"'+$("#user").val()+'"','',0,'');
             if (result[0].length) {
                 $("#msjrecupss").html('<img src="../assets/img/icon/mail_recovery.svg" width="100px"><br><h5>Recuperar Contraseña</h5><p>Enviar código de recuperación al correo:<br><b class="truncate">'+result[0][0][1]+'</b></p><a href="#!" id="sendrecupss" class="modal-action modal-close waves-effect waves-green btn-flat grey lighten-3">Enviar</a>');
                 crr = result[0][0][0];
                 $("#msjrecupss").removeClass('red white-text');
             }else{
-               $("#msjrecupss").html('Usuario no existe, por favor verifique los datos e intente de nuevo.');
+                $("#msjrecupss").html('Usuario no existe, por favor verifique los datos e intente de nuevo.');
                 $("#msjrecupss").addClass('red white-text');
                 $("#user").focus(); 
             }
@@ -72,9 +69,12 @@ $(document).ready(function(){
 });
 
 $(document).on("click","#sendrecupss",function(){
-    var bdy = '';
+    var p = getDatos('',232,"'"+crr+"'",0,0);
 
-        enviarCorreo(1,crr,'<b>Petición</b> Cambio de Contraseña',bdy);
+    var bdy = p[0][0][0];
+    
+    enviarCorreo(1,crr,'Petición de Cambio de Contraseña',bdy);
+
 });
 
 function validarcambio(){
@@ -135,14 +135,19 @@ function getIn(){
             rs = arr('login',4,'*',92,'correos like \"%'+ $('#user').val() +'%\"',0,0,'')[0];
             correo = rs[0][0];
             varibale = rs[0][1];
-        }else
-            correo = arr('login',4,'mail',1,'user = \"'+ $('#user').val() +'\"',0,0,'')[0][0][0];
+        }else{
+            if (conteo % 3 == 0) {
+                correo = arr('login',4,'mail',1,'user = \"'+ $('#user').val() +'\"',0,0,'')[0][0][0];
 
-            if (correo != ''){
-                var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ varibale +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
+                if (correo != ''){
+                    var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ varibale +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
 
-                enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
+                    enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
+                }
             }
+            
+        }
+
         });
         salida = false;
         break;

@@ -1,9 +1,8 @@
 var param = '';
 $(document).ready(function(){
-    console.log(2)
   param = parseInt(getParameterByName('tf'));
 
-  $("#mfacturacion").html(mantenimiento('facturacion',2,''));
+  $("#mfacturacion").html(mantenimiento('facturacion',1,''));
 
   $('.datepicker').pickadate({
      labelMonthNext: 'Siguiente',
@@ -21,12 +20,13 @@ $(document).ready(function(){
  });
 
     //function
-    $("#cleanspace").click(function(){
+$("#cleanspace").click(function(){
      $("#codp").val('');
      $("#descp").val('');
      $("#precp").val(0.00);
      $("#cantp").val(1);
      $("#precp").val(0.00);
+     $("#descup").val(0);
      $("#cantI").text(0);
  });
 
@@ -37,12 +37,14 @@ $(document).ready(function(){
             inicial = $("#vreferencia");
             cargarCompras();
             break;
+        case 3:
+            cargarOCompras();
+            break;
         default:
             cargarVentas();
             break;
     }
 
-    $(".trsec:hidden").remove();
     cargarGlobal();
 
     if (asoc == '') {
@@ -97,40 +99,40 @@ $(document).ready(function(){
         Materialize.updateTextFields();
         totalizar();
     }
-
 });
+
+function cargarOCompras(){
+    $("#titfact").html("ORDEN DE COMPRA");
+    $(".concre").addClass('hide');
+    $("#vplazo").addClass('hide');
+    $(".tp_all").addClass('hide');
+    $(".isfast").addClass('hide');
+    $(".show_facts").removeClass('m6').addClass('m9');
+    $(".show_cliente").removeClass('m3').addClass('m9');
+
+    $(".trOCompra").removeClass('hide');
+    $(".trsec:hidden").remove();
+
+    $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
+    $(".trOCompra").removeClass('hide');
+}//cargar ORDEN COMPRA
 
 function cargarCompras(){
     $("#titfact").html("COMPRAS");
     $("#reference").removeClass('hide');
     $("#chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
-    $("#precp").attr('readonly',false);
+
     $(".trCompra").removeClass('hide');
+    $(".trsec:hidden").remove();
 
-    $("#ncli").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
-
-            $("#ncli").autocomplete({
-                limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
-            });
-
-        }
-    });
+    $("#precp").attr('readonly',false);
+    $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
 
     $("#vreferencia").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13)
             $("#vfecha").focus();
-    });
-
-    $(".sclie").blur(function(){
-        searchClient($(this).val(),1);
     });
 
     $(document).on("click",".chinv",function(){
@@ -167,35 +169,96 @@ function cargarCompras(){
 
     $("#vplazo").blur(function(){
         doplazo($(this).val());
-        $("#ncli").focus();
+        $(".zelda").data("triforce")['vidcliente'] == 0 ? $("#ncli").focus() : $("#codp").focus();
     });
 
-}
-
-
-function cargarVentas(){
-    $("#titfact").html("VENTAS");
-    $(".trVenta").removeClass('hide');
-
-    $("#ncli").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
-
-            $("#ncli").autocomplete({
-                limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
-            });
-
+    $("#descup").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+                var cant = parseFloat($("#cantp").val()),
+                    precio = parseFloat($("#precp").val().replace(/,/g,'')),
+                    total = precio * cant;
+                var cod = $("#valores").data('elemento')['hcodp'];
+                var inv = $("#valores").data('elemento')['hinv'];
+                var cnti = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
+                var idprd = $("#valores").data('elemento')['idp'];
+                var desc = $("#descp").val();
+                var hinv = $("#valores").data('elemento')['hinv'];
+                var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
+                $("#valores").removeData('elemento');
+                addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi);
         }
     });
 
-    $(".sclie").blur(function(){
-        searchClient($(this).val(),0);
+    $("#cantp").keyup(function(e){
+        var code = e.which || e.keyCode;
+        var cant = parseFloat($(this).val()),
+            precio = parseFloat($("#valores").data('elemento')['hprec']),
+            total = precio * cant;
+
+        $("#totp").val(total.formatMoney(2,'.',','));
+
+        if (code == 13) {
+            if (cant > 0) {
+                $("#precp").select().focus();
+            }else{
+                Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
+            }
+        }
     });
-}
+
+    $("#precp").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            var valor = $(this).val().replace(/,/g,'');
+            $("#totp").val( (parseFloat(valor) * parseFloat($("#cantp").val())).formatMoney(2,'.',',') )
+            $("#valores").data('elemento')['hprec'] = valor;
+            $("#descup").select().focus();
+        }
+    });
+}//cagar COMPRAS
+
+function cargarVentas(){
+    $("#titfact").html("VENTAS");
+
+    $(".trVenta").removeClass('hide');
+    $(".trsec:hidden").remove();
+
+    $("#ncli").attr('plcaeholder',"Nombre o Cédula del Cliente");
+
+    $(document).on("keyup","#cantp",function(e){
+        var cant = parseFloat($(this).val()),
+            precio = parseFloat($("#valores").data('elemento')['hprec']),
+            total = precio * cant;
+        $("#totp").val(total.formatMoney(2,'.',','));
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            if (cant > 0) {
+                var idp = $("#valores").data('elemento')['idp'];
+                var cod = $("#valores").data('elemento')['hcodp'];
+                var inv = $("#valores").data('elemento')['hinv'];
+
+                var cnti = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
+                
+                if (cant > cnti) {
+                   Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
+                }else if (cant <= cnti || cnti == '∞') {
+                    var idprd = $("#valores").data('elemento')['idp'];
+                    var dcs = $("#valores").data('elemento')['hdesc'];
+                    var mdcs = $("#valores").data('elemento')['hdescm'];
+                    var desc = $("#descp").val();
+                    var hinv = $("#valores").data('elemento')['hinv'];
+
+                    $("#valores").removeData('elemento');
+                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0);
+                }
+            }else{
+                Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
+            }
+        }
+    });
+
+}//cargar VENTAS
 
 function cargarGlobal(){
     var cons = param-1 == 0 ? '' : param-1;
@@ -216,10 +279,6 @@ function cargarGlobal(){
         }
         $("#vfecha").blur();
     } });
-
-    $("#vidtipopago").change(function(){
-        setTimeout(function(){$("#ncli").focus();},300)
-    });
 
     $("#descp").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -257,7 +316,35 @@ function cargarGlobal(){
             $(this).attr('val',2)
         }
     });
-}
+
+    $("#ncli").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) {
+            $(this).blur();
+        }
+    });
+
+    $("#ncli").blur(function(){
+        var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
+        searchClient($(this).val(),isproveedor);
+    });
+
+    $("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#ncli").autocomplete({
+                limit: 20,
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,param.toString().match(new RegExp(/[23]/i)) ? '' : '!' + 'bisproveedor having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+            });
+
+        }
+    });
+
+}//cargar GLOBAL
 
 function doplazo(vval){
     if(isNaN(vval)){

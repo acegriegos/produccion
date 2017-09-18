@@ -2,6 +2,13 @@
     font-size: 16px !important;
 }
 
+.mcancelar{
+    width: 40% !important;
+}
+
+.modal{
+    max-height: 85% !important;
+}
 
 .input-field{
     margin-top: 0px;

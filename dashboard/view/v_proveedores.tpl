@@ -56,12 +56,12 @@
                                 <td  style="padding: 10px;">{$PROV[LE][6]}</td>
                                 <td>
                                     {if $PROV[LE][13] neq 1}
-                                    <a href="modal-contactos" class="hide" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
+                                    <a href="#modal-contactos" class="hide" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
                                     {/if}
 
-                                    <a href="#modal-clientes" style="color:black"><i class="load material-icons pbtn per2002" id="m{$PROV[LE][0]}" modulo="cliente">edit</i></a>
+                                    <a href="#modal-clientes" style="color:black" class="load material-icons pbtn per2002 modal-trigger" id="m{$PROV[LE][0]}" modulo="cliente">edit</a>
 
-                                    <a href="#" style="color:black"><i class="delete material-icons pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}">delete</i></a>
+                                    <a href="#" style="color:black" class="delete material-icons pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}">delete</a>
                                 </td>
                             </tr>
                             {/section}

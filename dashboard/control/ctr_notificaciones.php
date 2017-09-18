@@ -12,9 +12,9 @@
         $scr = $smarty->fetch('../view/scripts.php');
     
         $smarty->assign('STY',$sty);
-        $smarty->assign('SRC',$scr);
+        $smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->display('v_helpdesk.tpl');
+	   	$smarty->display('v_notificaciones.tpl');
 	   }else{
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {

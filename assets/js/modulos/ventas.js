@@ -13,13 +13,6 @@ $(function(){
         $(".autocomplete-content").hide('500'); 
     });
 
-    $(".sclie").keyup(function(e){
-        var code = e.which || e.keyCode;
-        if (code == 13) {
-            $(this).blur()
-        }
-    });
-
     $("#codp").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
@@ -73,67 +66,13 @@ $(function(){
 
 })//READY
 
-$(document).on("click","#chg_tipo",function(){
-    
-    var value = parseInt($(this).val())
-
-    if (value == 2) {
-        $(".cre").hide();
-        $(".con").show();
-        $("#vplazo").val(0);
-        $(this).val(1)
-        $(".zelda").data('triforce')['vidtipo'] = 1
-    }else{
-        $(".con").hide();
-        $(".cre").show();
-        if ($(".zelda").data('triforce')['vidcliente'] != 0) {
-            var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
-            var saldo = arr('login',205,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
-            $("#vplazo").val(plazo);
-        }
-        $(".zelda").data('triforce')['vidtipo'] = 2
-        $(this).val(2)
-    }
-});
-
-$(document).on("keyup","#cantp",function(e){
-    var cant = parseFloat($(this).val()),
-        precio = parseFloat($("#valores").data('elemento')['hprec']),
-        total = precio * cant;
-    $("#totp").val(total.formatMoney(2,'.',','));
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        if (cant > 0) {
-            var idp = $("#valores").data('elemento')['idp'];
-            var cod = $("#valores").data('elemento')['hcodp'];
-            var inv = $("#valores").data('elemento')['hinv'];
-
-            var cnt = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
-            
-            if (cant > cnt) {
-               Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
-            }else if (cant <= cnt || cnt == '∞') {
-                var idprd = $("#valores").data('elemento')['idp'];
-                var dcs = $("#valores").data('elemento')['hdesc'];
-                var mdcs = $("#valores").data('elemento')['hdescm'];
-                var desc = $("#descp").val();
-                var hinv = $("#valores").data('elemento')['hinv'];
-
-                $("#valores").removeData('elemento');
-                addline(idprd,cod,desc,cant,precio,total,cnt,dcs,mdcs,hinv);
-            }
-        }else{
-            Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
-        }
-    }
-  
-});
-
-$(document).on("change","#cantp",function(){
-    var cant = parseFloat($(this).val()),
-        precio = parseFloat($("#valores").data('elemento')['hprec']),
-        total = precio * cant;
-    $("#totp").val(total.formatMoney(2,'.',','));
+$(document).on("click",".ckmixto",function(){
+    var id = $(this).attr('id').substr(2);
+    var estado = $("#tp"+id).is(':checked');
+    if ( estado )
+        $(".tp-"+id).removeClass('hide');
+    else
+        $(".tp-"+id).addClass('hide');
 });
 
 $(document).on("keyup","[id^=vcantidad]",function(e){
@@ -209,12 +148,27 @@ $(document).on("click",".fedit",function(){
 });
 
 $(document).on("click","#facturar",function(){
+    if ( $(".zelda").data('triforce')['vidtipo'] == 1) {
+
+    $("#modal-tpagos").modal('open');
     var tpago = $("#vidtipopago option:selected").val();
     var tfact = $(".zelda").data('triforce')['vidtipo'];
-    var p = getDatos('',231,tpago+','+tfact,0,0)[0][0];
-    $(this).attr('regex',p[2]);
+    var p = getDatos('',231,tpago+','+tfact,0,0)[0];
+    $(this).attr('regex',p[0][2]);
 
-    switch(parseInt( p[0]) ){
+    switch(parseInt( p[0][0]) ){
+        case 5:
+            $("#mtpagos").html('');
+            for (var i = 0; i < p.length; i++) {
+                $("#mtpagos").append('<div class="col s2"> <p> <input type="checkbox"  class="ckmixto" id="tp'+p[i][1]+'" var="'+p[i][0]+'"/> <label for="tp'+p[i][1]+'">'+p[i][1]+'</label> </p> </div>');
+            }
+            $("#mCheque").val(p[0][3]);
+            $("#mDeposito").val(p[0][3]);
+            $("#mTarjeta").val(p[0][3]);
+            $(".modal-tpago").addClass('hide');
+            $("#m-mixto").removeClass('hide');
+        break;
+
         case 4:
             $(".modal-tpago").addClass('hide');
             $("#m-efectivo").removeClass('hide');
@@ -224,47 +178,55 @@ $(document).on("click","#facturar",function(){
         case 2:
             $(".modal-tpago").addClass('hide');
             $("#m-tarjeta").removeClass('hide');
-            $("#labeltarjeta").text(p[1]);
+            $("#labeltarjeta").text(p[0][1]);
             retrasarFocus('carddigito');
-            $("#icono").html(p[3]);
+            $(".icono").html(p[0][3]);
         break;
 
         case 1:
            $(".modal-tpago").addClass('hide');
-            $("#m-tarjeta").removeClass('hide');
-            $("#labeltarjeta").text(p[1]);
-            retrasarFocus('carddigito');
-            $("#icono").html(p[3]);
+            $("#m-deposito").removeClass('hide');
+            $("#labeldeposito").text(p[0][1]);
+            retrasarFocus('ndeposito');
+            $(".icono").html(p[0][3]);
         break;
+
+        case 0:
+           $(".modal-tpago").addClass('hide');
+            $("#m-cheque").removeClass('hide');
+            $("#labelcheque").text(p[0][1]);
+            retrasarFocus('ncheque');
+            $(".icono").html(p[0][3]);
+        break;
+
 
         default:
             $("#factreal").click();
             return false;
         break;
     }
-
+    
     var span = $("#tot").text();
     $(".totalfact").html(span);
+    
+    }else{
+        $("#factreal").click();
+    }
 });
 
+
+$("#pcon").blur(function(){
+        calcVuelto();
+});
 
 $("#pcon").keyup(function(e){
     var code = e.which || e.keyCode;
-    var paga = parseFloat( $(this).val().replace(/,/g,'') );
-    var totalfact = parseFloat( $(".totalfact").text().replace(/,/g,'') );
     if (code == 13) {
-        console.log(paga)
-        console.log(totalfact)
-       var cambio = (paga - totalfact);
-       $("#pcam").text(cambio.formatMoney(2,'.',','));
-
-       if (cambio > 0) {
-            $("#pcam").css('color','#2196F3');
-        }else{
-            $("#pcam").css('color','#F3213F');
-        }
+        calcVuelto();       
     }
 });
+
+
 
 $(document).on("click","input[name=modo]",function(){
     var id = $(this).attr('id').substr(4);
@@ -492,7 +454,7 @@ function validar (varreglo,vmodulo) {
     }
 
     salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-    console.log(salida);
+    
     return salida;
 
 }
@@ -666,7 +628,6 @@ function verfacturas() {
 }
 
 function searchClient(vvariable,visprv){
-    
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
@@ -684,6 +645,10 @@ function searchClient(vvariable,visprv){
             $("#chg_tipo").attr('disabled','true')
         }
 
+        if (param == 2){
+            $("#chg_tipo").attr('disabled','false')
+        }
+
         if ($("#vidtipo").val() == 2) {
             $("#vplazo").val(vclie[3]);
         }else{
@@ -691,14 +656,14 @@ function searchClient(vvariable,visprv){
         }
 
         $("#msaldo").html(parseFloat(vclie[11]).formatMoney(2,'.',','));
-        var porcen = vclie[12] == 0 ? 100 : (parseFloat(vclie[11])*100)/parseFloat(vclie[12]);
+        var porcen = vclie[12] == 0 ? 0 : (parseFloat(vclie[11])*100)/parseFloat(vclie[12]);
 
         if (porcen <= 75)
-            $("#msaldo").css('color','green');
+            $("#msaldo").addClass('green-text');
         else if (porcen > 75 && porcen < 100)
-            $("#msaldo").css('color','yellow');
+            $("#msaldo").addClass('yellow-text');
         else if (porcen >= 100)
-            $("#msaldo").css('color','red');
+            $("#msaldo").addClass('red-text');
         
         $("#vdescuentop").val(vclie[4]);
         $("#vdescuentop").data('valor',vclie[4])
@@ -742,4 +707,18 @@ function retrasarFocus(vinput){
     setTimeout(function(){
         $("#"+vinput).focus().select();
     },100);
+}
+
+function calcVuelto(){
+    var paga = parseFloat( $("#pcon").val().replace(/,/g,'') );
+    var totalfact = parseFloat( $(".totalfact").text().replace(/,/g,'') );
+    var cambio = (paga - totalfact);
+   
+   $("#pcam").text(cambio.formatMoney(2,'.',','));
+
+   if (cambio > 0) {
+        $("#pcam").css('color','#2196F3');
+    }else{
+        $("#pcam").css('color','#F3213F');
+    }
 }

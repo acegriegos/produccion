@@ -10,11 +10,11 @@
         <td  style=" padding: 10px;color:black"><?php echo $obj[6] ?></td>
         <td  style=" padding: 10px;color:black">
         <?php if ($obj[13] != 1 ) {?>
-           <a href="modal-contactos" class="hide" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c<?php echo $obj[0]; ?>">contact_phone</i></a>
+           <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c<?php echo $obj[0]; ?>">contact_phone</i></a>
            
            <?php } ?>
 
-           <a href="#modal-clientes" class="load material-icons pbtn per1002" id="m<?php echo $obj[0]; ?>" modulo="cliente" style="color:black">edit</a>
+           <a href="#modal-clientes" class="load material-icons pbtn per1002 modal-trigger" id="m<?php echo $obj[0]; ?>" modulo="cliente" style="color:black">edit</a>
 
            <a href="#" class="delete material-icons pbtn per1003" modulo="cliente" id="d<?php echo $obj[0]; ?>" style="color:black">delete</a>
        </td>

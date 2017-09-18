@@ -1,11 +1,11 @@
 $(function(){
-	$("#fhelpdesks").submit(function(){return false});
-	$("#data-table-helpdesks").dataTable();
+	$("#fnotificacioness").submit(function(){return false});
+	$("#data-table-notificacioness").dataTable();
 
 });
 
 $(document).on("click","#Iadd",function(){
-	deadclear('helpdesk')
+	deadclear('notificaciones')
 
 });
 
@@ -16,9 +16,9 @@ function validar (varreglo,vmodulo) {
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
-		case 'helpdesk':
+		case 'notificaciones':
 			if (vmodulo['tip'] == '') {
-				err = validarhelpdesk();
+				err = validarnotificaciones();
 				if ( err ) {
 					return err;
 				}
@@ -35,7 +35,7 @@ function validar (varreglo,vmodulo) {
 
 }
 
-function validarhelpdesk() {
+function validarnotificaciones() {
 
 
 	return false;
@@ -50,7 +50,7 @@ function cargar(vmodulo,vid) {
 
 
 	switch(vmodulo['modulo']) {
-		case 'helpdesk':
+		case 'notificaciones':
 			vmodulo['sel'] = '';
 			vmodulo['tbl'] = 3;
 			vmodulo['where'] ='';
