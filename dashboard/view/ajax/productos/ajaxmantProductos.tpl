@@ -13,7 +13,7 @@
 <label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
 </div>
 <div class="col s12 m4 l7 per4102">
-<a id="addproduct" class="btn-floating waves-effect waves-light right blue z-depth-5" href="#modal-productos"><i class="material-icons">add</i></a>
+<a id="addproduct" class="btn-floating waves-effect waves-light right blue z-depth-5 modal-trigger" href="#modal-productos"><i class="material-icons">add</i></a>
 </div>
 </div>
 <div class="row pequeño">
@@ -42,10 +42,10 @@
 <td style="padding: 10px; color:black;">{$PROD[LE][6]}</td>
 <td style="padding: 10px; color:black;">{$PROD[LE][7]}</td>
 <td>
-<a class="btn-color pbtn info material-icons blueh 4110" id="info{$PROD[LE][0]}" href="#modal-info" title="Mostrar Informacion del Producto">info</a>
-<a class="btn-color pbtn descuentos per4103" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="color:black;"><img src="../assets/img/icon/percent.svg"></a>
-<a class="btn-color pbtn salidainv material-icons per4104" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="color:black;">compare_arrows</a>
-<a class="btn-color pbtn editprod material-icons per4108" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" style="color:black;">edit</a>
+<a class="btn-color pbtn info material-icons blueh 4110 modal-trigger" id="info{$PROD[LE][0]}" href="#modal-info" title="Mostrar Informacion del Producto">info</a>
+<a class="btn-color pbtn descuentos per4103 modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="color:black;"><img src="../assets/img/icon/percent.svg"></a>
+<a class="btn-color pbtn salidainv material-icons per4104 modal-trigger" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="color:black;">compare_arrows</a>
+<a class="btn-color pbtn editprod material-icons per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" style="color:black;">edit</a>
 <a class="btn-color pbtn cdel delprod material-icons per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" style="color:black;">close</a>
 </td>
 </tr>

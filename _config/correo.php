@@ -11,7 +11,7 @@ class correo
     {
       	include_once 'mysqlDB.php';
 		$base = new DBClass();
-		$res = $base->ejecutar('(select aes_decrypt(valor, "Login2Help") from ajustes where descr = "smtpp")union(select valor from ajustes where descr in ("smtp","smtphost","smtpport"))')->fetch_all();
+		$res = $base->ejecutar('call sp_getGeneralMail();')->fetch_all();
 
       	$transport = Swift_SmtpTransport::newInstance($res[2][0],$res[3][0])
       		->setUsername($res[1][0])
