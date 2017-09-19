@@ -26,9 +26,9 @@
   <div class="options" style="padding-bottom: 20%">
     <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
 
-    <li class="per8"><a href="medicina"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
+    <li class="per8 hide"><a href="medicina"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
 
-    <li class="per9"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
+    <li class="per9 hide"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
 
     <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
 
