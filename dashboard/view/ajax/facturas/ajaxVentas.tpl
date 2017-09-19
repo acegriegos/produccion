@@ -512,7 +512,8 @@
   <div class="modal-content">
   <b><span style="color: #2196F3; font-size: 1.8em !important;">Pago Mixto</span></b><hr style="border: 1px solid #F0F0F0">
   <span>TOTAL:</span><br>
-  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
+  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
+  <span class="totfact"></span><br>
   <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
   <br>
   <div class="row center-align" align="center">
@@ -523,49 +524,56 @@
       
     </div>
     <br><br><br>
-      <div class="input-field col s12 row tp-Cheque hide"><br>
-        <div class="col s3">
+      <div class="col s12 row tp-Cheque hide">
+        <div class="col s1">
           <i class="material-icons prefix icono" style="font-size: 2em !important">image_aspect_ratio</i>
-          <input id="mCheque" type="text" class="validate center-align" value="00000000" style="width: 80%; ont-size: 2em !important;">
+        </div>
+        <div class="col input-field s3">
+          <input id="mCheque" type="text" class="validate center-align" value="00000000" style="font-size: 2em !important;">
           <label for="mCheque">Cheque</label>
         </div>
-        <div class="col s9">
-          <input type="text" class="mcancelar" placeholder="monto a cancelar">
-        </div><hr>
+        <div class="col input-field s8">
+          <input type="text" id="pconcheque" class="mcancelar" placeholder="monto a cancelar" value="0" style="font-size: 2em !important;">
+        </div>
       </div>
 
-      <div class="input-field col s12 row tp-Deposito hide"><br>
-        <div class="col s3">
+      <div class="col s12 row tp-Deposito hide">
+        <div class="col s1">
           <i class="material-icons prefix icono" style="font-size: 2em !important">description</i>
-          <input id="mDeposito" type="text" class="validate center-align" value="00000000" style="width: 80%; ont-size: 2em !important;">
+        </div>
+        <div class="col input-field s3">
+          <input id="mDeposito" type="text" class="validate center-align" value="00000000" style="font-size: 2em !important">
           <label for="mDeposito">Deposito</label>
         </div>
-        <div class="col s9">
-          <input type="text" class="mcancelar" placeholder="monto a cancelar">
+        <div class="col input-field s8">
+          <input type="text" id="pcondeposito" class="mcancelar" placeholder="monto a cancelar" value="0" style="font-size: 2em !important;">
         </div>
-        <hr>
       </div>
 
-       <div class="input-field col s12 row tp-Tarjeta hide"><br>
-        <div class="col s3">
+       <div class="col s12 row tp-Tarjeta hide">
+        <div class="col s1">
           <i class="material-icons prefix icono" style="font-size: 2em !important">credit_card</i>
-          <input id="mTarjeta" type="text" class="validate center-align" value="0000" style="width: 80%; ont-size: 2em !important;">
+        </div>
+        <div class="col input-field s3">
+          <input id="mTarjeta" type="text" class="validate center-align" value="0000" style="font-size: 2em !important;">
           <label for="mTarjeta">Tarjeta</label>
         </div>
-        <div class="col s9">
-          <input type="text" class="mcancelar" placeholder="monto a cancelar">
-        </div><hr>
+        <div class="col input-field s8">
+          <input type="text" id="pcontarjeta" class="mcancelar" placeholder="monto a cancelar" value="0" style="font-size: 2em !important;">
+        </div>
       </div>
 
-      <div class="input-field col s12 row tp-Efectivo hide"><br>
-        <div class="col s3">
+      <div class="col s12 row tp-Efectivo hide">
+        <div class="col s1">
           <i class="material-icons prefix icono" style="font-size: 2em !important">monetization_on</i>
-          <input id="mEfectivo" type="text" class="validate center-align" value="0.00" style="width: 80%; ont-size: 2em !important;">
+        </div>
+        <div class="col input-field s3">
+          <input id="mEfectivo" type="text" class="validate center-align" value="0.00" style="font-size: 2em !important;">
           <label for="mEfectivo">Efectivo</label>
         </div>
-        <div class="col s9">
-          <input type="text" class="mcancelar" placeholder="monto a cancelar">
-        </div><hr>
+        <div class="col input-field s8">
+          <!-- <input type="text" class="mcancelar" placeholder="monto a cancelar" style="font-size: 2em !important;"> -->
+        </div>
       </div>
       
     </div>

@@ -219,6 +219,24 @@ $("#pcon").blur(function(){
         calcVuelto();
 });
 
+
+$(".mcancelar").blur(function(){
+    var id = $(this).attr('id');
+    var total = 0;
+    var totfact = parseFloat( $(".totalfact").text() );
+
+    $(".mcancelar:visible").each(function(){
+        var valor = isNaN( $(this).val() ) ? 0 : $(this).val();
+        total += parseFloat(valor);
+        console.log('total:' +total)
+        console.log('valor:' +valor)
+    });
+
+    var result = totfact - total;
+    $(".totfact").html(result);
+});
+
+
 $("#pcon").keyup(function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
