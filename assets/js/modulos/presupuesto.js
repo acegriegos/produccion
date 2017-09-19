@@ -77,13 +77,31 @@ $(document).on("click",".shpre",function(){
     }
 
 })
-
+$(document).on("click",".",function(){
+    var nom = $(this).parent().parent().find('td').first().html();
+    var id = $(this).parent().attr('tid');
+    $("#gid").html(nom);
+    $("#gid").attr('tr',id);
+ 
+    var p = getDatos('',228,id,0,0);
+    console.log(p);
+    if(p['succed'] == 1){
+        p = p[0];
+        var str = '';
+        $(".listaodt").html('');
+        
+        for (var i = 0; i < p.length; i++) {
+            str += '<p><input type="checkbox" id="ck'+p[i][1]+'" title="'+p[i][3]+'"/> <label for="ck'+p[i][1]+'">'+p[i][2]+'</label></p>';
+        }
+        $(".listaodt").append(str);
+    }
+});
 $(document).on("click",".proyect",function(){
     var nom = $(this).parent().parent().find('td').first().html();
     var id = $(this).parent().attr('tid');
     $("#gid").html(nom);
     $("#gid").attr('tr',id);
-
+ 
     var p = getDatos('',228,id,0,0);
     console.log(p);
     if(p['succed'] == 1){

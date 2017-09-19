@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
   <link href="../assets/css/materialize.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css">
   <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css"> 
   <link rel="stylesheet"  href="../assets/css/modulos/style-login.css?v=0.1">
 

@@ -15,7 +15,7 @@
                     <input type="text" id="vcodigo" placeholder="Código" maxlength="10">
                     <input type="text" id="vdescripcion" placeholder="Descripción" maxlength="255">
 
-                    <a href="#" class="btn-floating der add" modulo="odt" title="Crear ODT"><i class="fa fa-plus small"></i></a>
+                    <a href="#" class="btn-floating der add proyect" modulo="odt" title="Crear ODT"><i class="mdi mdi-plus small"></i></a>
 
                 </div>
 
@@ -174,4 +174,5 @@
 <tbody id="listapresupuestos">
 
 </tbody>
+
 </table>
