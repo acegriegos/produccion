@@ -8,6 +8,10 @@
   background-size: cover;
 }
 
+span.badge{
+  margin-top: -40% !important;
+}
+
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: black;
 }

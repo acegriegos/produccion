@@ -7,6 +7,13 @@
 .input-field {
     /*margin-top: 0 !important;*/
 }
+
+.autocomplete-content{
+    z-index: 3000 !important;
+    position: absolute !important;
+    width: 100% !important;
+}
+
 #groupprodcts {
     font-size: 1.4em;
 }
@@ -91,6 +98,9 @@ label[for=btarea] {
     width: 100% !important;
 }
 label[for=ctarea] {
+    width: 100% !important;
+}
+label[for=cprod] {
     width: 100% !important;
 }
 /*

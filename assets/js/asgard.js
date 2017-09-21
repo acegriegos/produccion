@@ -315,7 +315,6 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                 data: {accion: vaccion,arreglo : varreglo}
                 })
                 .done(function(data) {
-                    
                     try {
                         p = JSON.parse(data);
                     }
