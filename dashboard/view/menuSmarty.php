@@ -24,7 +24,7 @@
     </div>
     </div>
   <div class="options" style="padding-bottom: 20%">
-    <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
+    <li class="per1"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true" style="color: #000000 ">dashboard</i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
 
     <li class="per8"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
 
@@ -32,19 +32,17 @@
 
     <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
 
-    <li class="per3"><a href="proveedor"><i class="material-icons right" aria-hidden="true" style="color: #000000">store</i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
+    <li class="per3"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true" style="color: #000000">store</i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
 
-    <li class="per4"><a href="financiero"><i class="material-icons right" aria-hidden="true" style="color: #000000">credit_card</i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
+    <li class="per4"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true" style="color: #000000">credit_card</i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
 
-    <li class="per5"><a href="inventario"><i class="material-icons right" aria-hidden="true" style="color: #000000">shopping_basket</i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
+    <li class="per5"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true" style="color: #000000">shopping_basket</i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
 
-    <li class="per6"><a href="produccion"><i class="material-icons right" aria-hidden="true" style="color: #000000">high_quality</i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
+    <li class="per6"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true" style="color: #000000">high_quality</i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
 
-    <li class="per7"><a href="administracion"><i class="material-icons right" aria-hidden="true" style="color: #000000">settings</i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
+    <li class="per7"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true" style="color: #000000">settings</i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
 
-    <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><span style="font-size: 1.2em !important">Reportes</span></a></li>
-
-    <li><a href="logout"><i class="mdi mdi-logout-variant right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
+    <li class="hide"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true" style="color: #000000;">trending_up</i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 
     </div>
   </ul>

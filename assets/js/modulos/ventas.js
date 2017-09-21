@@ -54,7 +54,7 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'',vextrapagos : 0, vdivisa : 0, idline:0,  saldo : 0, notific : 0});
+    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'',vextrapagos : 0, vdivisa : 0, idline:0,  saldo : 0, notific : 0});
 
     $(".modal").modal();
 
@@ -149,7 +149,7 @@ $(document).on("click",".fedit",function(){
 
 $(document).on("click","#facturar",function(){
 
-    if ( $(".zelda").data('triforce')['vidtipo'] == 1) {
+    if ( $(".zelda").data('triforce')['vidtipo'] == 1 && $("#vidtipopago").is(":visible") ) {
 
     $("#modal-tpagos").modal('open');
     var tpago = $("#vidtipopago option:selected").val();
@@ -313,6 +313,9 @@ $(document).on("click","#btnAjuste",function(){
 
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi) {
+
+    $("#valores").removeData('elemento');
+
     var err = 0;
     var existe = 0;
     var precio = parseFloat(prec);
@@ -343,11 +346,16 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi) {
         
         switch(parseInt(param)){
             case 1:
+            case 4:
+            case 5:
             case 6:
                 $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+cod+'</td> <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="'+dcs+'" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion" style="padding="0.2%">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion" style="padding="0.2%">close</a></td> </tr>');
                     break;
             case 2:
                 $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td> <td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">KG</td> <td id="vdesc'+id+'" class="center"> '+dcs+'% </td> <td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion" style="padding="0.2%">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion" style="padding="0.2%">close</a></td> </tr>');
+                break;
+            case 3:
+                $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;"></div></td> <td class="center divisa hide" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">KG</td> <td id="vdesc'+id+'" class="center hide"> '+dcs+'% </td> <td class="center totp divisa hide" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion" style="padding="0.2%;font-size: 12px;">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion" style="padding="0.2%;font-size: 12px;">close</a></td> </tr>');
                 break;
         }
 
@@ -514,7 +522,6 @@ function validarFactura() {
 
     switch(parseInt($(".zelda").data('triforce')['vidtipoventa'])){
         case 2:
-        case 3:
             if ($(".zelda").data('triforce')['vidcliente'] == 0){
                 $("#ncli").focus();
                 return "No se Ha Ingresado Proveedor";
@@ -666,7 +673,7 @@ function endDetail(vid) {
 }
 
 function verfacturas() {
-    window.open("facturacion?accion=8&tf=1");
+    window.open("facturacion?accion=8&tf="+param);
 }
 
 function searchClient(vvariable,visprv){

@@ -40,6 +40,14 @@ $(document).ready(function(){
         case 3:
             cargarOCompras();
             break;
+        case 4:
+            cargarVentas();
+            cargarResembled('COTIZACIONES');
+            break;
+        case 5:
+            cargarVentas();
+            cargarResembled('PEDIDOS');
+            break;
         default:
             cargarVentas();
             break;
@@ -107,6 +115,10 @@ function cargarOCompras(){
     $("#vplazo").addClass('hide');
     $(".tp_all").addClass('hide');
     $(".isfast").addClass('hide');
+    $("._desc").hide();
+    $("._flete").hide();
+    $("._ajuste").hide();
+    $("._odt").hide();
     $(".show_facts").removeClass('m6').addClass('m9');
     $(".show_cliente").removeClass('m3').addClass('m9');
 
@@ -117,9 +129,28 @@ function cargarOCompras(){
     $(".trOCompra").removeClass('hide');
 
     $("#cantp").keyup(function(e){
+        var code = e.which || e.keyCode
         if (code == 13) {
-            
+            var cant = isNaN($(this).val()) ? 0 : parseFloat($(this).val());
+            if ( cant > 0) {
+                var precio = parseFloat($("#precp").val().replace(/,/g,'')),
+                    total = precio * cant;
+                var idp = $("#valores").data('elemento')['idp'];
+                var cod = $("#valores").data('elemento')['hcodp'];
+                var inv = 0;
+                var cnti = 0
+                var idprd = $("#valores").data('elemento')['idp'];
+                var dcs = 0;
+                var mdcs = 0;
+                var desc = $("#descp").val();
+                var hinv = 0;
+
+                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0);
+            }else{
+                Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
+            }
         }
+
     });
 }//cargar ORDEN COMPRA
 
@@ -192,7 +223,7 @@ function cargarCompras(){
                 var desc = $("#descp").val();
                 var hinv = $("#valores").data('elemento')['hinv'];
                 var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
-                $("#valores").removeData('elemento');
+                
                 addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi);
         }
     });
@@ -231,7 +262,7 @@ function cargarVentas(){
     $(".trVenta").removeClass('hide');
     $(".trsec:hidden").remove();
 
-    $("#ncli").attr('plcaeholder',"Nombre o Cédula del Cliente");
+    $("#ncli").attr('placeholder',"Nombre o Cédula del Cliente");
 
     $(document).on("keyup","#cantp",function(e){
         var cant = parseFloat($(this).val()),
@@ -256,7 +287,6 @@ function cargarVentas(){
                     var desc = $("#descp").val();
                     var hinv = $("#valores").data('elemento')['hinv'];
 
-                    $("#valores").removeData('elemento');
                     addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0);
                 }
             }else{
@@ -265,6 +295,14 @@ function cargarVentas(){
         }
     });
 }//cargar VENTAS
+
+function cargarResembled(vnombre) {
+    $("#titfact").html(vnombre);
+
+    $(".concre").addClass('hide');
+    $("#vplazo").addClass('hide');
+    $(".tp_all").addClass('hide');
+}//cargar Cotizaciones
 
 function cargarGlobal(){
     var cons = param-1 == 0 ? '' : param-1;
