@@ -44,6 +44,8 @@
 
     <li class="hide"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true" style="color: #000000;"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 
+    <li><a href="logout"><i class="mdi mdi-airplane-takeoff mdi-24px right" aria-hidden="true" style="color: #000000;"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
+
     </div>
   </ul>
 
