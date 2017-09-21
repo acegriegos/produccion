@@ -389,7 +389,7 @@ function totalizar(){
     var tdesc = 0;
     var tmpdesc = 0;
     var exento = 0;
-    var flete = $("#vflete").val();
+    var flete = isNaN($("#vflete").val()) ? 0 : parseFloat($("#vflete").val()) > 0 ? parseFloat($("#vflete").val()) : 0;
     var desc = $("#vdescuentop").data('valor');
     var ajuste = $("#vajuste").val();
     var actajuste = $("#btnAjuste").attr('accion') == 1 ? '' : '-';
@@ -472,6 +472,7 @@ function totalizar(){
     $(".zelda").data('triforce')['vsubtotal'] = totd.toFixed(2);
 
     $("#descuento_v").html(idesc.formatMoney(2,'.',','));
+    $("#flete").html(flete.formatMoney(2,'.',','));
     $(".zelda").data('triforce')['vdescuento'] = idesc.toFixed(2);
     $(".zelda").data('triforce')['vimv'] = impuesto.toFixed(2);
     $(".zelda").data('triforce')['vexento'] = exento.toFixed(2);
@@ -515,10 +516,6 @@ function validarFactura() {
         $("#codp").focus()
         return "No se Han Ingresado Productos";
     }
-
-    // if ($("#vcomentario").val() == '') {
-    //     $("#vcomentario").val('');
-    // }
 
     switch(parseInt($(".zelda").data('triforce')['vidtipoventa'])){
         case 2:

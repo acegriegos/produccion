@@ -326,7 +326,7 @@
 
         <div class="row _ajuste">
           <div class="col s4 m4 l4"><br>
-            <div class="prefix pbtn" id="btnAjuste" accion="1"><i class="material-icons">add</i></div>
+            <div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div>
           </div>
           <div class="col s8 m8 l8 input-field">
             <input type="text" id="vajuste" class="eder" value="0" style="color: black" placeholder="AJUSTE">
