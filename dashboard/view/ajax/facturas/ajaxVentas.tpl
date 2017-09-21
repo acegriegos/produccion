@@ -94,7 +94,7 @@
       <thead>
 
         <tr class="hide trVenta">
-          <th style="width:  5%; padding: 0 !important;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 14%; padding: 0 !important;" class="center-align"><span class="truncate">Prec.Unit</span></th>
@@ -105,7 +105,7 @@
         </tr>
 
         <tr class="hide trCompra">
-          <th style="width:  5%; padding: 0 !important;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 20%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
@@ -117,11 +117,12 @@
         </tr>
 
         <tr class="hide trOCompra">
-          <th style="width:  5%; padding: 0 !important;"><i class="fa fa-trash pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
-          <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
-          <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
+          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <th style="width: 20%; padding: 0 !important;" class="center-align">Código</th>
+          <th style="width: 45%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
           <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
+          <th style="width: 25%; padding: 0 !important;" class="center-align"></th>
         </tr>
 
         <tr class="trVenta hide trsec">
@@ -167,33 +168,33 @@
 
         <tr class="trOCompra hide trsec">
 
-          <td style="width: 5%; padding: 0 !important">
+          <td style="padding: 0 !important">
           </td>
 
-          <td style="width: 10%; padding: 0 !important" class="input-field">
+          <td style="padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
             <input type="hidden" id="valores">
           </td>
 
-          <td style="width: 70%; padding: 0 !important" class="input-field">
+          <td style="padding: 0 !important" class="input-field">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
           </td>
 
-          <td style="width: 14%; padding: 0 !important" class="input-field hide">
+          <td style="padding: 0 !important" class="input-field hide">
             <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
           </td>
 
-          <td style="width: 10%; padding: 0 !important" class="input-field">
+          <td style="padding: 0 !important" class="input-field">
             <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
           </td>
 
-          <td style="width: 5%; padding: 0 !important" class="input-field">
+          <td style="padding: 0 !important" class="input-field">
             <select id="uni" readonly >
               <option>UN</option>
             </select>
           </td>
           
-          <td style="width: 14%; padding: 0 !important" class="input-field">
+          <td style="padding: 0 !important" class="input-field hide">
             <input type="text" id="totp" class="f center divisa hide" value="0.00" readonly placeholder="Total">
           </td>
           <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
@@ -303,7 +304,7 @@
           <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%; "></textarea>
           <br>
         </div>
-        <div class="row">
+        <div class="row _desc">
           <div class="col s4 m4 l4"><br>
             <label for="vdescuentop">Descuento</label>
             <!-- <img src="../assets/img/icon/percent.svg"/> -->
@@ -313,7 +314,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row _flete">
           <div class="col s4 m4 l4"><br>
             <!-- <div class="prefix moneda"></div> -->
             <label for="vflete">Flete</label>
@@ -323,9 +324,9 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row _ajuste">
           <div class="col s4 m4 l4"><br>
-            <div class="prefix pbtn" id="btnAjuste" accion="1"><i class="material-icons">add</i></div>
+            <div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div>
           </div>
           <div class="col s8 m8 l8 input-field">
             <input type="text" id="vajuste" class="eder" value="0" style="color: black" placeholder="AJUSTE">
@@ -353,12 +354,12 @@
         </tbody>  
 
         <tfoot>  
-          <tr>
+          <tr class="_desc">
             <td>DESCUENTO:</td>
             <td style="float: right;"><span class="moneda"></span><span id="descuento_v" class="divisa" type="html" value="0">0.00</span></td>
           </tr>
 
-          <tr>
+          <tr class="_flete">
             <td>FLETE:</td>
             <td style="float: right;"><span class="moneda"></span><span id="flete" class="divisa" type="html" value="0">0.00</span></td>
           </tr>
@@ -376,10 +377,10 @@
         <div class="row">
           <div class="col s12 m6 l6">
               <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
-              <label for="p_v" style="color: black">Punto Venta</label>
+              <label for="p_v" style="color: black; padding-left: 20px;">Punto Venta</label>
           </div>
 
-          <div class="col s12 m6 l6">
+          <div class="col s12 m6 l6 _odt">
             <select id="vidodt" type="select">
               <option value="0" style="color: black"><b>ODT</b></option>
             </select>
@@ -513,7 +514,7 @@
   <b><span style="color: #2196F3; font-size: 1.8em !important;">Pago Mixto</span></b><hr style="border: 1px solid #F0F0F0">
   <span>TOTAL:</span><br>
   <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
-  <span class="totfact"></span><br>
+  <br>Saldo: <span class="totfact numeric" style="font-size: 1.4em;"></span><br>
   <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
   <br>
   <div class="row center-align" align="center">
@@ -568,7 +569,7 @@
           <i class="material-icons prefix icono" style="font-size: 2em !important">monetization_on</i>
         </div>
         <div class="col input-field s3">
-          <input id="mEfectivo" type="text" class="validate center-align" value="0.00" style="font-size: 2em !important;">
+          <input id="mEfectivo" type="text" class="validate center-align mcancelar" value="0.00" style="font-size: 2em !important;">
           <label for="mEfectivo">Efectivo</label>
         </div>
         <div class="col input-field s8">

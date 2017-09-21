@@ -5,22 +5,22 @@ $(document).ready(function(){
   $("#mfacturacion").html(mantenimiento('facturacion',1,''));
 
   $('.datepicker').pickadate({
-     labelMonthNext: 'Siguiente',
-     labelMonthPrev: 'Anterior',
-     labelMonthSelect: 'Seleccione un Mes',
-     labelYearSelect: 'Seleccione un Año',
-     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
-     monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-     weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-     weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-     weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
-     today: 'Hoy',
-     clear: 'Limpiar',
-     close: 'Cerrar'
- });
+         labelMonthNext: 'Siguiente',
+         labelMonthPrev: 'Anterior',
+         labelMonthSelect: 'Seleccione un Mes',
+         labelYearSelect: 'Seleccione un Año',
+         monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
+         monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+         weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+         weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+         weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+         today: 'Hoy',
+         clear: 'Limpiar',
+         close: 'Cerrar'
+    });
 
     //function
-$("#cleanspace").click(function(){
+    $("#cleanspace").click(function(){
      $("#codp").val('');
      $("#descp").val('');
      $("#precp").val(0.00);
@@ -39,6 +39,14 @@ $("#cleanspace").click(function(){
             break;
         case 3:
             cargarOCompras();
+            break;
+        case 4:
+            cargarVentas();
+            cargarResembled('COTIZACIONES');
+            break;
+        case 5:
+            cargarVentas();
+            cargarResembled('PEDIDOS');
             break;
         default:
             cargarVentas();
@@ -107,6 +115,10 @@ function cargarOCompras(){
     $("#vplazo").addClass('hide');
     $(".tp_all").addClass('hide');
     $(".isfast").addClass('hide');
+    $("._desc").hide();
+    $("._flete").hide();
+    $("._ajuste").hide();
+    $("._odt").hide();
     $(".show_facts").removeClass('m6').addClass('m9');
     $(".show_cliente").removeClass('m3').addClass('m9');
 
@@ -115,6 +127,31 @@ function cargarOCompras(){
 
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
     $(".trOCompra").removeClass('hide');
+
+    $("#cantp").keyup(function(e){
+        var code = e.which || e.keyCode
+        if (code == 13) {
+            var cant = isNaN($(this).val()) ? 0 : parseFloat($(this).val());
+            if ( cant > 0) {
+                var precio = parseFloat($("#precp").val().replace(/,/g,'')),
+                    total = precio * cant;
+                var idp = $("#valores").data('elemento')['idp'];
+                var cod = $("#valores").data('elemento')['hcodp'];
+                var inv = 0;
+                var cnti = 0
+                var idprd = $("#valores").data('elemento')['idp'];
+                var dcs = 0;
+                var mdcs = 0;
+                var desc = $("#descp").val();
+                var hinv = 0;
+
+                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0);
+            }else{
+                Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
+            }
+        }
+
+    });
 }//cargar ORDEN COMPRA
 
 function cargarCompras(){
@@ -128,6 +165,7 @@ function cargarCompras(){
 
     $("#precp").attr('readonly',false);
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
+    $("#vdescuentop").removeAttr('disabled')
 
     $("#vreferencia").keyup(function(e){
         var code = e.which || e.keyCode;
@@ -185,7 +223,7 @@ function cargarCompras(){
                 var desc = $("#descp").val();
                 var hinv = $("#valores").data('elemento')['hinv'];
                 var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
-                $("#valores").removeData('elemento');
+                
                 addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi);
         }
     });
@@ -224,7 +262,7 @@ function cargarVentas(){
     $(".trVenta").removeClass('hide');
     $(".trsec:hidden").remove();
 
-    $("#ncli").attr('plcaeholder',"Nombre o Cédula del Cliente");
+    $("#ncli").attr('placeholder',"Nombre o Cédula del Cliente");
 
     $(document).on("keyup","#cantp",function(e){
         var cant = parseFloat($(this).val()),
@@ -249,7 +287,6 @@ function cargarVentas(){
                     var desc = $("#descp").val();
                     var hinv = $("#valores").data('elemento')['hinv'];
 
-                    $("#valores").removeData('elemento');
                     addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0);
                 }
             }else{
@@ -257,8 +294,15 @@ function cargarVentas(){
             }
         }
     });
-
 }//cargar VENTAS
+
+function cargarResembled(vnombre) {
+    $("#titfact").html(vnombre);
+
+    $(".concre").addClass('hide');
+    $("#vplazo").addClass('hide');
+    $(".tp_all").addClass('hide');
+}//cargar Cotizaciones
 
 function cargarGlobal(){
     var cons = param-1 == 0 ? '' : param-1;
@@ -338,13 +382,16 @@ function cargarGlobal(){
 
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,param.toString().match(new RegExp(/[23]/i)) ? '' : '!' + 'bisproveedor having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
             });
 
         }
     });
-
 }//cargar GLOBAL
+
+function gkeydown(){
+    return param.toString().match(new RegExp(/[23]/i)) ? '' : '!';
+}
 
 function doplazo(vval){
     if(isNaN(vval)){

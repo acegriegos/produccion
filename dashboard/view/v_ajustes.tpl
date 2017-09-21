@@ -30,7 +30,7 @@
             <li class="menu3 tab " id="m6"><a class=" white-text tamLetra">Bodegas</a></li>
             <li class="menu3 tab " id="m7"><a class=" white-text tamLetra">Producción</a></li>
             <li class="menu3 tab " id="m8"><a class=" white-text tamLetra">Accesos</a></li>
-            <li class="menu3 tab " id="m8"><a class=" white-text tamLetra">Productos</a></li>
+            <li class="menu3 tab " id="m9"><a class=" white-text tamLetra">Productos</a></li>
        
       </ul>
     </div>

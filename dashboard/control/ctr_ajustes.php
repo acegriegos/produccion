@@ -79,6 +79,11 @@ if (!isset($_REQUEST['accion'])) {
 	   			$smarty->assign('ACC',$kakaroto->kamehameha('id,nombre,codigo',196,'id > 0 order by id'));
 	   			$smarty->display('ajax/ajustes/ajaxAccesos.tpl');
 	   			break;
+	   		case 9:
+	   			$pagina = 1;
+	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
+	   			$smarty->display('ajax/ajustes/ajaxProductos.tpl');
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

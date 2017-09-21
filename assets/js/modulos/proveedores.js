@@ -124,6 +124,28 @@ $(function(){
 		}
 	});
 
+	$(".btn-expand").click(function(){
+		var estado = $(this).attr('estado');
+		console.log(estado)
+		if (estado == 1) {
+			$(".expand-2").removeClass('animated fadeOutRight');
+			$(".expand-2").addClass('animated fadeInRight');
+			$(".expand-2").removeClass('hide');
+			$(".expand-2").addClass('col s12 m4 l3');
+			$(".expand-1").removeClass('col s12 m12 l12');
+			$(".expand-1").addClass('col s12 m8 l9');
+			$(".btn-expand").attr('estado',0);
+		}else{	
+			$(".expand-2").removeClass('animated fadeInRight');
+			$(".expand-2").addClass('animated fadeOutRight');
+			$(".expand-2").removeClass('col s12 m4 l3');
+			$(".expand-2").addClass('hide');
+			$(".expand-1").removeClass('col s12 m8 l9');
+			$(".expand-1").addClass('col s12 m12 l12');
+			$(".btn-expand").attr('estado',1);
+		}
+	});
+
 	$("#tptel").change(function(){
 		var tipo = $(this).val();
 		$("#htipo").val(tipo);

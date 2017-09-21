@@ -14,7 +14,6 @@
 		$smarty->assign('STY',$sty);
 		$smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
-
 	   	$smarty->display('v_facturacion.tpl');
 	   }else{
 	   $pagina = 0;

@@ -14,42 +14,7 @@ $(document).ready(function(){
 	//     Materialize.toast("Sorry, your browser does not support server-sent events...",4000,"red");
 	// }
 
-	$('.button-collapses').sideNav({
-		menuWidth: 300, // Default is 240
-		edge: 'left', // Choose the horizontal origin
-		closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-		draggable: true // Choose whether you can drag to open on touch screens
-	});
-	$('.button-collapse').sideNav({
-		menuWidth: 300, // Default is 240
-		edge: 'left', // Choose the horizontal origin
-		closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-		draggable: true // Choose whether you can drag to open on touch screens
-	});
-
-	$("#lgt").change(function(){
-		switch(parseInt($(this).val())){
-			case 1:
-				$("#modal-info").modal('open');
-			break;
-			case 2: 
-				window.open("notificaciones","_self");
-			break;
-			default:
-				window.open("cierres","_self");
-			break;
-		}
-		
-	});
-
-	$("#numtrans").keyup(function(e){ //accesos
-		var code = e.which || e.keyCode;
-		if (code == 13) {
-			var numtrans = $(this).val();
-			var ruta = arr('login',4,'direccion',196,'codigo = "'+numtrans+'" or codigointerno = '+numtrans,0,0,0)[0][0];
-			window.open(ruta,'_self');
-		}
-	});
+	
 	
 
 });//end
