@@ -74,6 +74,7 @@
                             <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
                             <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
                             <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
+                            <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
                         </ul>
                     </div>
                     <div class="modal-content" style="padding: 0px;">
@@ -81,7 +82,7 @@
                             <input type="hidden" class="zelda">
                             <div class="row">
 <!--  -->
-                                <div class="col s12 m9 l9"><br><br>
+                                <div class="col s12 m8 l9 expand-1"><br><br>
                                     <div class="row parte1 col s12" id="info">
                                         <div class="row" style="margin: 0px">
                                             <div class="col s6 m3 l2">
@@ -307,12 +308,13 @@
 
                 </div>
             <!-- CARD -->
-                <div class="col s12 m3 l3">
+                <div class="col s12 m4 l3 expand-2">
                     <div class="row" style="background: #DEDEDE"><br>
+                        <div class="row">
                         <div class="s1 m1 l1 col pbtn"><i class="material-icons">chevron_left</i></div>
-                        <div class="s10 m10 l10 col" align="center">&nbsp;</div>
+                        <div class="s9 m9 l9 col" align="center">&nbsp;</div>
                         <div class="s1 m1 l1 col pbtn"><i class="material-icons">chevron_right</i></div>
-                        
+                        </div>
                         <div class="s12 m12 l12 col" align="center">
                             <h5><b><span id="infvnombre0"><span class="placeh">Nombre Cliente</span></span> <span id="infvapellido0">&nbsp;</span> <span id="infvapellido1">&nbsp;</span></b></h5>
                         </div>
@@ -351,7 +353,7 @@
                         </div>
                          
                     </div>
-                    </div>
+                </div>
             <!-- END CARD -->
             </div>
         </div>

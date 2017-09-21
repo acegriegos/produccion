@@ -513,7 +513,7 @@
   <b><span style="color: #2196F3; font-size: 1.8em !important;">Pago Mixto</span></b><hr style="border: 1px solid #F0F0F0">
   <span>TOTAL:</span><br>
   <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
-  <span class="totfact"></span><br>
+  <br>Saldo: <span class="totfact numeric" style="font-size: 1.4em;"></span><br>
   <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
   <br>
   <div class="row center-align" align="center">
@@ -568,7 +568,7 @@
           <i class="material-icons prefix icono" style="font-size: 2em !important">monetization_on</i>
         </div>
         <div class="col input-field s3">
-          <input id="mEfectivo" type="text" class="validate center-align" value="0.00" style="font-size: 2em !important;">
+          <input id="mEfectivo" type="text" class="validate center-align mcancelar" value="0.00" style="font-size: 2em !important;">
           <label for="mEfectivo">Efectivo</label>
         </div>
         <div class="col input-field s8">

@@ -148,6 +148,7 @@ $(document).on("click",".fedit",function(){
 });
 
 $(document).on("click","#facturar",function(){
+
     if ( $(".zelda").data('triforce')['vidtipo'] == 1) {
 
     $("#modal-tpagos").modal('open');
@@ -207,7 +208,7 @@ $(document).on("click","#facturar",function(){
     }
     
     var span = $("#tot").text();
-    $(".totalfact").html(span);
+    $(".totalfact").html( span );
     
     }else{
         $("#factreal").click();
@@ -221,19 +222,31 @@ $("#pcon").blur(function(){
 
 
 $(".mcancelar").blur(function(){
-    var id = $(this).attr('id');
     var total = 0;
-    var totfact = parseFloat( $(".totalfact").text() );
+    var totfact = parseFloat( $(".totalfact").text().replace(/,/g,'') ).toFixed(2);
 
     $(".mcancelar:visible").each(function(){
         var valor = isNaN( $(this).val() ) ? 0 : $(this).val();
         total += parseFloat(valor);
-        console.log('total:' +total)
-        console.log('valor:' +valor)
     });
 
     var result = totfact - total;
-    $(".totfact").html(result);
+
+    if (result >= 1) {
+        $(".totfact").removeClass('teal-text');
+        $(".totfact").removeClass('red-text');
+        $(".totfact").addClass('blue-text');
+    }else if (result <= -1) {
+        $(".totfact").removeClass('teal-text');
+        $(".totfact").removeClass('blue-text');
+        $(".totfact").addClass('red-text');
+    }else{
+        $(".totfact").removeClass('blue-text');
+        $(".totfact").removeClass('red-text');
+        $(".totfact").addClass('teal-text');
+    }
+
+    $(".totfact").html(result.formatMoney(0,',','.'));
 });
 
 
@@ -299,7 +312,7 @@ $(document).on("click","#btnAjuste",function(){
 });
 
 
-function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
+function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi) {
     var err = 0;
     var existe = 0;
     var precio = parseFloat(prec);
@@ -309,7 +322,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
 
         if (idprod == $(this).data('triforce')['videntrada'] && hinv == $(this).data('triforce')['vidinventario']) {
             existe = 1;
-            if ( parseFloat($("#cant"+vid).text())+cant > cntinv ) {
+            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[16]/i))) {
                 //EXCEDE EL NUMERO EN INVENTARIO
                 Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
                 $("#cantp").select();
@@ -327,10 +340,16 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv) {
     if (!existe) {
         var id = parseInt($(".zelda").data('triforce')['idline'])+1;
         $(".zelda").data('triforce')['idline'] = id;
-   
-        $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+cod+'</td> <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="'+dcs+'" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion" style="padding="0.2%">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion" style="padding="0.2%">close</a></td> </tr>');
-
-        // <td id="desctd'+id+'" align="left" ><a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion" style="padding="0.2%">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion" style="padding="0.2%">close</a></td>
+        
+        switch(parseInt(param)){
+            case 1:
+            case 6:
+                $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+cod+'</td> <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="'+dcs+'" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion" style="padding="0.2%">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion" style="padding="0.2%">close</a></td> </tr>');
+                    break;
+            case 2:
+                $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" class="ciclos"><td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td><td class="center" id="codprod'+id+'">'+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td> <td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">KG</td> <td id="vdesc'+id+'" class="center"> '+dcs+'% </td> <td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#" id="edit'+id+'" visible="0" class="material-icons pbtn black-text fedit faccion" style="padding="0.2%">edit</a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="material-icons pbtn black-text delf faccion" style="padding="0.2%">close</a></td> </tr>');
+                break;
+        }
 
         $("#vdesc"+id).data('valor',dcs);
         $("#vdesc"+id).data('max',mdcs);
@@ -384,8 +403,7 @@ function totalizar(){
         var precio = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']);
         var decindv = parseFloat($("#vdesc"+vidlinea).data('valor'));
         var descmax = parseFloat($("#vdesc"+vidlinea).data('max'));
-        var impuesto = 0;
-        var desct = decindv+desc > descmax ? descmax : decindv+desc;
+        var desct = param.toString().match(new RegExp(/[2]/i)) ? decindv : decindv+desc > descmax ? descmax : decindv+desc;
         
         $("#fd"+vidlinea).data('triforce')['vdesc'] = desct;
         $("#vdesc"+vidlinea).val(desct+"%");
@@ -411,7 +429,7 @@ function totalizar(){
                 if(rimv == 0)
                     exento += tmpdesc;
                 else{
-                    var dimv = tmpdesc*(rimv/100);
+                    var dimv = param.toString().match(new RegExp(/[2]/i)) ? ((tmpdesc*(rimv/100))/((rimv/100)+1)) : tmpdesc*(rimv/100);
                     impuesto += dimv;
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
 
@@ -425,7 +443,13 @@ function totalizar(){
 
     $("[id^=imv_]").removeAttr('tmp_imv');
 
-    total = tdesc + impuesto;
+    if (param.toString().match(new RegExp(/[2]/i))) {
+        totd = tdesc - impuesto;
+        total = tdesc;
+    }else{
+        total = tdesc + impuesto;
+    }
+    
     if (flete != 0) {
         $("#vflete").html(flete.formatMoney(2,'.',','));
         total = total + flete;
@@ -647,6 +671,7 @@ function verfacturas() {
 
 function searchClient(vvariable,visprv){
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
+
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
         
@@ -664,7 +689,7 @@ function searchClient(vvariable,visprv){
         }
 
         if (param == 2){
-            $("#chg_tipo").attr('disabled','false')
+            $("#chg_tipo").removeAttr('disabled')
         }
 
         if ($("#vidtipo").val() == 2) {

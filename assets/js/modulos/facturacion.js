@@ -5,22 +5,22 @@ $(document).ready(function(){
   $("#mfacturacion").html(mantenimiento('facturacion',1,''));
 
   $('.datepicker').pickadate({
-     labelMonthNext: 'Siguiente',
-     labelMonthPrev: 'Anterior',
-     labelMonthSelect: 'Seleccione un Mes',
-     labelYearSelect: 'Seleccione un Año',
-     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
-     monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-     weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-     weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-     weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
-     today: 'Hoy',
-     clear: 'Limpiar',
-     close: 'Cerrar'
- });
+         labelMonthNext: 'Siguiente',
+         labelMonthPrev: 'Anterior',
+         labelMonthSelect: 'Seleccione un Mes',
+         labelYearSelect: 'Seleccione un Año',
+         monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
+         monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+         weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+         weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+         weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+         today: 'Hoy',
+         clear: 'Limpiar',
+         close: 'Cerrar'
+    });
 
     //function
-$("#cleanspace").click(function(){
+    $("#cleanspace").click(function(){
      $("#codp").val('');
      $("#descp").val('');
      $("#precp").val(0.00);
@@ -115,6 +115,12 @@ function cargarOCompras(){
 
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
     $(".trOCompra").removeClass('hide');
+
+    $("#cantp").keyup(function(e){
+        if (code == 13) {
+            
+        }
+    });
 }//cargar ORDEN COMPRA
 
 function cargarCompras(){
@@ -128,6 +134,7 @@ function cargarCompras(){
 
     $("#precp").attr('readonly',false);
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
+    $("#vdescuentop").removeAttr('disabled')
 
     $("#vreferencia").keyup(function(e){
         var code = e.which || e.keyCode;
@@ -257,7 +264,6 @@ function cargarVentas(){
             }
         }
     });
-
 }//cargar VENTAS
 
 function cargarGlobal(){
@@ -338,13 +344,16 @@ function cargarGlobal(){
 
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,param.toString().match(new RegExp(/[23]/i)) ? '' : '!' + 'bisproveedor having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
             });
 
         }
     });
-
 }//cargar GLOBAL
+
+function gkeydown(){
+    return param.toString().match(new RegExp(/[23]/i)) ? '' : '!';
+}
 
 function doplazo(vval){
     if(isNaN(vval)){

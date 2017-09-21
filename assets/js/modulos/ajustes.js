@@ -4,9 +4,7 @@ var myDr1opzone;
 $(function(){
 	$(".modal").modal();
 	$("#m1").click();
-	// $("#addMoneda").click(function(){
-	// 	deadclear('moneda');
-	// });
+
 	$("script").each(function(){
 		$(this).remove();
 	});
@@ -186,6 +184,10 @@ $(document).on("click",".menu3",function(){
 				bLengthChange : false,
 				order : []
 			});
+			break;
+		case 9:
+			var p = mantenimiento('ajustes',9,'');
+			$("#majustes").html(p);
 			break;
 	}
 	$(".modal").modal({

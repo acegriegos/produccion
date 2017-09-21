@@ -26,9 +26,9 @@
   <div class="options" style="padding-bottom: 20%">
     <li class="per1"><a href="dashboard" class="black-text"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">dashboard</i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
 
-    <li class="per8"><a href="medicina"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
+    <li class="per8"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
 
-    <li class="per9"><a href="laboratorio"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">colorize</i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
+    <li class="per9"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
 
     <li class="per2"><a href="comercial"><i class="material-icons right" aria-hidden="true" style="color: #000000 ">business</i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
 
@@ -44,7 +44,7 @@
 
     <li class="hide"><a href="reportes"><i class="material-icons right" aria-hidden="true" style="color: #000000;">trending_up</i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 
-    <li><a href="logout"><i class="material-icons right" aria-hidden="true" style="color: #000000">flight_takeoff</i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
+    <li><a href="logout"><i class="mdi mdi-logout-variant right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
 
     </div>
   </ul>
