@@ -96,7 +96,7 @@ $(document).ready(function(){
             }
             
             $(this).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:p, vcantidad:c, vprecio:r, hdesc:h,hdescm:m, vtotal:t, vidinventario:i,vidodt : 0,vcomodin:''});
-            // $("#descu"+id).data('valor',0);
+  
             $("#vdesc"+id).data({'valor':h,'max':m})
             line += 1;
             $('#h_'+id).remove();
@@ -302,7 +302,7 @@ function cargarResembled(vnombre) {
     $(".concre").addClass('hide');
     $("#vplazo").addClass('hide');
     $(".tp_all").addClass('hide');
-}//cargar Cotizaciones
+}//cargar Resembled
 
 function cargarGlobal(){
     var cons = param-1 == 0 ? '' : param-1;
