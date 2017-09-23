@@ -33,7 +33,7 @@
               $_SESSION['TIPO']    = $user[0][3];
               $_SESSION['EMPRESA'] = $user[0][4];
               $_SESSION['IMPRESA'] = $user[0][5];
-              $_SESSION['TMP_CIA'] = 0;
+              $_SESSION['TMP_CIA'] = -1;
               
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'main' : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");

@@ -12,7 +12,7 @@
             <option value="2" class="logout" id="x2">Notificaciones</option>
             <option value="3" class="logout" id="x2">Cierre de Caja</option>
           </select>
-          <!-- <span class="new badge" data-badge-caption="Notificacion(es) sin Leer" id="newnot"></span> -->
+          
         </div>
         <a href="#!name" class="center"><span class="white-text name"></span></a>
         <a href="#!email" class="center"><span class="white-text email">{$smarty.session.MAIL}</span></a>

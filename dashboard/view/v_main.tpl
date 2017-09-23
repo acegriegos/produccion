@@ -19,41 +19,17 @@
         
             <div class="input-field col s12 m6 l3">
 
-                <select>
-                    <option value="0">Todas las Sucursales</option>
-                    {section name=LE loop=$SUC}
-                    <option value="{$SUC[LE][0]}">{$SUC[LE][1]}</option>
-                    {/section}
+                <select class="ssuc" id="mchange" sel="{$smarty.session.IMPRESA}">
+                    
                 </select>
                 <label>Seleccione una Sucursal</label>
             </div>
     {/if}
+
     <a href="#" class="btn-floating der per100"><i class="material-icons">add</i></a>
     </div>
-
-    <!-- <form id="checkout-form" action="main" method="post">
-      <div id="error-message"></div>
-
-      <label for="card-number">Card Number</label>
-      <div class="hosted-field" id="card-number"></div>
-
-      <label for="cvv">CVV</label>
-      <div class="hosted-field" id="cvv"></div>
-
-      <label for="expiration-date">Expiration Date</label>
-      <div class="hosted-field" id="expiration-date"></div>
-
-      <input type="hidden" name="payment_method_nonce">
-      <input type="hidden" name="accion" value="1">
-
-      <input type="submit" value="Pay $10" disabled>
-    </form>
-
-    <script src="https://js.braintreegateway.com/web/3.11.1/js/client.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.11.1/js/hosted-fields.js "></script> -->
     {$SCR}
-    <script src="../assets/js/main.js?v=1.0"></script>
 
-
+    <script src="../assets/js/modulos/main.js"></script>
   </body>
 </html>

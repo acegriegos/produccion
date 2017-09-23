@@ -10,8 +10,7 @@
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	   	$sty = $smarty->fetch('../view/styles.php');
 		$scr = $smarty->fetch('../view/scripts.php');
-	    
-	    $smarty->assign('SUC',$kakaroto->kamehameha('',155,'@@usr'));
+
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->assign('STY',$sty);
 	   	$smarty->assign('SCR',$scr);
@@ -42,7 +41,17 @@
 				$transaccion = Braintree_ClientToken::generate();
 	   			break;
 	   		case 3:
-	   			
+
+	   			$idsuc = $_POST['arreglo'] >= 0 ? $_POST['arreglo'] : 0;
+	   				
+	   			$sucursal = $kakaroto->kamehameha('id,nombre',39,'id = '.$idsuc)[0][0];
+
+	   			$_SESSION['EMPRESA'] = $sucursal[1];
+              	$_SESSION['IMPRESA'] = $sucursal[0];
+              	$_SESSION['TMP_CIA'] = $_POST['arreglo'] >= 0 ? 1 : 0;
+
+              	$transaccion = $sucursal;
+
 	   			break;
 	   		case 4:
 	   			

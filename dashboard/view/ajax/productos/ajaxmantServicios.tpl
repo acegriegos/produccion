@@ -155,16 +155,17 @@
                 </div>
                 <div class="row">
                     <div class="col s6 m6 l6 input-field">
-                        <!-- <label for="vidinventario">Seleccione un Inventario</label> -->
+                        <!--  -->
                         <select id="vidinventario" type="select"></select>
+                        <label for="vidinventario">Inventarios</label>
                     </div>
 
                     <div class="input-field col s6 m6">
-                        
-                        <!-- <input type="text" id="vextra">
-                        <label for="vextra">Extra Automática del Nombre</label> -->
+                        <select id="vsucursales" type="select"></select>
+                        <label for="vidinventario">Sucursales</label>
                     </div>
                 </div>
+                <br>
             </div>
             <div id="financiero" class="hide" style="padding: 25px 10px 0 10px">
                 <div class="row">

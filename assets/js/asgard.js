@@ -298,12 +298,12 @@ function loadpool(vmodulo,vid,vvarias){
 
 function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     var p;
-    var stack = new Error().stack || '';
+   /* var stack = new Error().stack || '';
     stack = stack.split('\n').map(function (line) { return line.trim(); });
     stack = stack.splice(stack[0] == 'Error' ? 2 : 1);
     if(stack.length <= 2){
         p = 'Get Lost';
-    }else{
+    }else{*/
         // source.close();
         if (vjson)
             varreglo['JSON'] = vjson
@@ -322,7 +322,7 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                         p = data;
                     }
                 });
-    }
+    /*}*/
     // setTimeout(function(){source = new EventSource("../sse.php")},5000);
     return p;
 }
@@ -603,6 +603,7 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
+                            console.log(varreglo[i])
                             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             break;
                     }
