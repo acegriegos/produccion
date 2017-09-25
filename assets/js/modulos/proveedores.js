@@ -238,7 +238,7 @@ $("#vdireccion").keyup(function(){
 
 $(document).on("click",".del_phone",function(){
 	var id = $(this).attr('id').substr(3);
-	Materialize.toast('Desea Borrar este Telefono? <button type="button" class="waves-effect waves-light btn blue acctel" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="material-icons">close</i></button>', 10000, 'rounded');
+	Materialize.toast('Desea Borrar este Telefono? <button type="button" class="waves-effect waves-light btn blue acctel" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i id="del'+id+'" class="material-icons">close</i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".edit_phone",function(){
@@ -249,9 +249,9 @@ $(document).on("click",".edit_phone",function(){
 	Materialize.updateTextFields();
 });
 
-$(document).on("click",".del_mail",function(){
+$(document).on("click",".close",function(){
 	var id = $(this).attr('id').substr(3);
-	Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="material-icons">close</i></button>', 10000, 'rounded');
+	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="material-icons">close</i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".edit_mail",function(){
@@ -520,7 +520,7 @@ function crreo_addon_ckub(vfila,vcorreo){
 	var cont = parseInt($(".chpcrr").length) + 1;
 	//if (vfila == undefined) {
 		if ($("#correo_in").val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-			$("#shcorreos").append('<div id="0_'+cont+'" class="chpcrr chip"><span class="vcoo">'+$("#correo_in").val()+'</span><i class="close material-icons">close</i></div>');
+			$("#shcorreos").append('<div id="0_'+cont+'" class="chpcrr chip"><span class="vcoo">'+$("#correo_in").val()+'</span><i id="del'+cont+'" class="close material-icons">close</i></div>');
 			$("#shcorreos").removeClass('hide');
 			$("#correo_in").val('');
 			ind_2 += 1;

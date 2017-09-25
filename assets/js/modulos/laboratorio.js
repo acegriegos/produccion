@@ -16,7 +16,7 @@ $(function(){
     });
 
     param = getParameterByName('accion');
-    param = param == '' ? 1 : parseInt(param)
+    param = param == '' ? 0 : parseInt(param)
 
     $(".modal").modal();
     
@@ -24,12 +24,13 @@ $(function(){
     	case 1:
     		loadRecepcion();
     		break;
+        default:
+            break;
     }
 
 });
 
 function loadRecepcion(){
-	console.log(12)
 	var fecha = new Date();
     var dpick = $('#vfecha').pickadate()
     dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
