@@ -18,7 +18,7 @@
 	    $smarty->assign('NVLCLIE',$kakaroto->kamehameha('*',69,'id > 0 and !bisproveedor order by id'));
 	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
 	    $smarty->assign('IMP',$kakaroto->kamehameha('*',51,'id > 0 order by nombre'));
-	    $smarty->assign('CLIE',$kakaroto->kamehameha('*',29,'1 order by nombre limit 10'));
+	    $smarty->assign('CLIE',$kakaroto->kamehameha('',29,''));
 
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_clientes.tpl');

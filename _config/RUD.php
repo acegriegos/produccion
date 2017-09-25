@@ -133,7 +133,7 @@
 			$wher = addslashes($wher);
 			
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");
-
+			
 			if (isset($rs->num_rows)) {
 				return $rs->fetch_all();
 			}else{
