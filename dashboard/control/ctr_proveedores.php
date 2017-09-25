@@ -17,7 +17,7 @@
 	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'id > 0 order by id'));
 	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
 	    // $smarty->assign('PAISES',$kakaroto->kamehameha('*',209,'id > 0 order by nombre'));
-	    $smarty->assign('PROV',$kakaroto->kamehameha('*',30,'1 order by nombre'));
+	    $smarty->assign('PROV',$kakaroto->kamehameha('',30,''));
 	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('id,nombre',68,'1 order by nombre limit 10'));
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->display('v_proveedores.tpl');
