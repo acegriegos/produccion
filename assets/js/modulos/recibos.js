@@ -451,7 +451,7 @@ var salida = '<!doctype html>'+
 '<tbody><tr>'+
 '<td class="mcnCaptionRightImageContent" valign="top">'+
 '<br>'+
-
+/*Aqui se cambia el logo del correo*/
 '<img alt="logintechcr.com" src="https://logintechcr.com/img/logo.png" width="264" style="max-width:339px;" class="mcnImage">'+
 
 '</td>'+

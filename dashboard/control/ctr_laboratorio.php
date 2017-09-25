@@ -10,6 +10,7 @@
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
+	   			$pagina = 1;
 	   			make_smarty()->display('ajax/laboratorio/entrada.tpl');
 	   			break;
 	   	}

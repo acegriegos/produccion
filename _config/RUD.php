@@ -123,10 +123,6 @@
 			if (strpos($wher,'@impresa')) {
 				$impresa = $_SESSION['IMPRESA'];
 				$wher = str_replace('@@impresa', $impresa, $wher);
-
-				if (($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0)) {
-					$wher = str_replace('and idempresa = '.$impresa ,'', $wher);
-				}
 			}
 
 			if (strpos($wher, '@tmp')) {

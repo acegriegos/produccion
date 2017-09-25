@@ -45,7 +45,7 @@
             </div>
 
             <div class="col s12 m12 l6 pequeño">
-              <div class="card z-depth-5 per4300 pequeño">
+              <div class="card z-depth-5 per1500 pequeño">
                 <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
                 <div class="card-content pequeño">
                   <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>

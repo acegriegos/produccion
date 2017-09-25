@@ -1,5 +1,4 @@
 Dropzone.autoDiscover = false;
-var myDr1opzone;
 
 $(function(){
 	$(".modal").modal();
@@ -44,12 +43,12 @@ $(document).on("click",".menu3",function(){
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);
 			$("#vpfisico").val(e[2]);
-			$("#vtelefono").val(e[3]);
-			$("#vcorreo").val(e[3]);
-			$("#vdireccion").val(e[4]);
-			$("#vlogo").attr('src',e[6]);
-			$("#vfechainicio").val(e[6]);
-			$("#vfechafinal").val(e[7]);
+			$("#vtelefono").val(e[5]);
+			$("#vcorreo").val(e[4]);
+			$("#vdireccion").val(e[6]);
+			$("#vlogo").attr('src',e[3]);
+			$("#vfechainicio").val(e[7]);
+			$("#vfechafinal").val(e[8]);
 			$("#data-table-monedas").dataTable({
 				bFilter : false,
 				bLengthChange : false,
@@ -79,11 +78,11 @@ $(document).on("click",".menu3",function(){
 			$(".wsdl-op").hide();
 
 			myDropzone = new Dropzone("#registro-upload", {
-			    url: '../cargar.php',
+			    url: '../cargar.php?accion=1',
 			    autoProcessQueue:false,
-			    maxFilesize: 3,
+			    maxFilesize: 1,
 			    addRemoveLinks:true,
-			    uploadMultiple: true,
+			    uploadMultiple: false,
 			    init: function() {
 			      this.on("uploadprogress", function(file, progress) {
 			        console.log("File progress", progress);
