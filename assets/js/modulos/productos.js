@@ -126,7 +126,7 @@ $(document).on("keyup", "#val", function (e) {
 });
 
 $(document).on("change", "#vidinventario", function () {
-	$("#vpeso").focus();
+	setTimeout(function(){$("#vpeso").focus();},100);
 });
 
 // focus
@@ -272,9 +272,12 @@ $(document).on("click", ".optns", function () {
 $(document).on("keyup", "#vpeso", function (e) {
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		$("#vidunidad").material_select();
-		$("#vidunidad").click();
+		$("#vidunidad").prevAll('input.select-dropdown').trigger('open').focus();
 	}
+});
+
+$(document).on("change","#vidunidad",function(){
+	setTimeout(function(){$("#vnombre").focus()},500);
 });
 
 $(document).on("blur", "#vfamilia", function () {
@@ -350,7 +353,7 @@ $(document).on("keydown", "#vtipo", function (e) {
 $(document).on("keyup", "#vmarca", function (e) {
 	var charCode = e.which || e.keyCode;
 	if (charCode == 13)
-		$("#vpeso").focus();
+		$("#vidinventario").prevAll('input.select-dropdown').trigger('open').focus();
 });
 
 $(document).on("keydown", "#vmarca", function (e) {
@@ -694,7 +697,7 @@ $(document).on("click", "#addprod", function () {
 
 				Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
 				arr('login', 6, '*', 14, 'vid > 0 order by nombre limit 10', '', 1, $("#listaproductos"));
-				$(".pagination").htmll('');
+				$(".pagination").html('');
 				paginate(14);
 				vaciar('productos');
 				var imp = arr('login', 4, 'impuesto,nombre,valor', 109, '', 0, 0, 0)[0];
