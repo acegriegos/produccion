@@ -8,7 +8,6 @@
 		<title>Productos</title>
 	</head>
 	{$STY}
-	<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
 	<body>
 	{$NAV}

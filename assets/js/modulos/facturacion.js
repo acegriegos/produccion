@@ -1,6 +1,8 @@
 var param = '';
+
 $(document).ready(function(){
-  param = parseInt(getParameterByName('tf'));
+  param = getParameterByName('tf');
+  param = param == '' ? 1 : parseInt(param) ;
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,''));
 
@@ -31,6 +33,7 @@ $(document).ready(function(){
  });
 
     var asoc = getParameterByName('arr');
+
     var inicial = $("#ncli");
     switch(param){
         case 2:
@@ -333,7 +336,7 @@ function cargarGlobal(){
             
             $("#descp").autocomplete({
                 limit: 20,
-                data: arr('login',4,'',6,'"'+$("#descp").val()+'",1',0,0,0,1)
+                data: arr('login',4,'',6,'"'+$("#descp").val()+'",1,@@impresa',0,0,0,1)
             })
 
             $("#descp").siblings($(".autocomplete-content")).css('width','50%');

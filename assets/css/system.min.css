@@ -5,6 +5,12 @@ body{
   font-size: 1em !important;
 }
 
+.grandemodal {
+  width: 70%;
+  min-height: 90%;
+  height: 100%;
+}
+
 @font-face {
   font-family: "logintech";
   src: url("../fonts/roboto/Roboto-Light.eot") format("embedded-opentype"),

@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
 <div class="pequeño" id="mantProd" >
 <div class="row">
 <div class="input-field col s11 m8 l5">
@@ -59,7 +60,7 @@
 </div>
 </div>
 
-<div id="modal-productos" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
+<div id="modal-productos" class="modal modal-fixed-footer grandemodal">
 <div class="modal-header">
 <ul class="tabs white-text" style="background-color:#0B3861">
 <li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
