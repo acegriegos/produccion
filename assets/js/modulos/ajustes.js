@@ -36,7 +36,7 @@ $(document).on("click",".menu3",function(){
 			var p = mantenimiento('ajustes',1,'');
 			$("#majustes").html(p);
 			var arr = {};
-			arr['sel'] = '*';
+			arr['sel'] = '';
 			arr['tbl'] = 50;
 			arr['where'] = '';
 			var e = mantenimiento('login',4,arr)[0][0];

@@ -7,18 +7,18 @@
                 <div class="row pequeño">
                     <div class="col s12 m12 l6  pequeño">
                         <label for="vnombre">Nombre de la Empresa</label>
-                        <input type="text" class="infoempresa validate" id="vnombre" field="empresa">
+                        <input type="text" class="infoempresa" id="vnombre" field="empresa">
                     </div>
                     <div class="col s12 m12 l6 pequeño">
                         <label for="vcedula">Cédula Jurídica</label>
-                        <input type="text" class="infoempresa validate" id="vcedula" field="CJuridica">
+                        <input type="text" class="infoempresa" id="vcedula" field="CJuridica">
                     </div>
                 </div>
                 <div class="row pequeño">
 
                 <div class="col s12 m12 l6 pequeño">
                         <label for="vpfisico">Persona Física</label>
-                        <input type="text" class="infoempresa validate" id="vpfisico">
+                        <input type="text" class="infoempresa" id="vpfisico">
                     </div>
 
                     <div class="col s12 m12 l6 pequeño">
@@ -42,7 +42,7 @@
                     <div class="col s12 m12 l6 pequeño">
                         <a href="#" data-activates="slide-tc" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa"><i class="material-icons">my_location</i></a>
                         <label for="vdireccion">Dirección de la Empresa</label>
-                        <input type="text" class="infoempresa validate" id="vdireccion" field="direccion" readonly>
+                        <input type="text" class="infoempresa" id="vdireccion" field="direccion" readonly>
                     </div>
 
                     
