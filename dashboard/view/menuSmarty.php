@@ -4,7 +4,7 @@
         <div class="background">
           <!-- CSS -->          
         </div>
-        <a href="#!user" class="center"><i class="medium material-icons" style="color:#fff" aria-hidden="true">person_pin</i></a>
+        <a href="#!user" class="center"><i class="medium material-icons" style="color:#fff;padding-left: 25%;" aria-hidden="true">person_pin</i></a>
         <div class="input-field col s12 white-text selectusr">
           <select id="lgt">
             <option value="0" class="logout" id="x1" disabled selected>{$smarty.session.NOM} </option>
@@ -12,7 +12,7 @@
             <option value="2" class="logout" id="x2">Notificaciones</option>
             <option value="3" class="logout" id="x2">Cierre de Caja</option>
           </select>
-          <!-- <span class="new badge" data-badge-caption="Notificacion(es) sin Leer" id="newnot"></span> -->
+          
         </div>
         <a href="#!name" class="center"><span class="white-text name"></span></a>
         <a href="#!email" class="center"><span class="white-text email">{$smarty.session.MAIL}</span></a>
@@ -26,9 +26,11 @@
   <div class="options" style="padding-bottom: 20%">
     <li class="per1"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true" style="color: #000000 "></i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
 
-    <li class="per8"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
+    <li class="per8 hide"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
 
-    <li class="per9"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
+    <li class="per9 hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
+
+    <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
 
     <li class="per2"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" style="color: #000000 "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
 
@@ -43,6 +45,8 @@
     <li class="per7"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
 
     <li class="hide"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true" style="color: #000000;"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+
+    <li><a href="logout"><i class="mdi mdi-airplane-takeoff mdi-24px right" aria-hidden="true" style="color: #000000;"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
 
     </div>
   </ul>

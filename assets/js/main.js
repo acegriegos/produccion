@@ -1,6 +1,5 @@
 $(function(){
 
-
     $('.button-collapses').sideNav({
         menuWidth: 300, // Default is 240
         edge: 'left', // Choose the horizontal origin
@@ -37,6 +36,7 @@ $(function(){
             window.open(ruta,'_self');
         }
     });
+    
     
     // permisos(1,50);
     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
@@ -83,4 +83,17 @@ function sse_response(vid,p) {
             }
             break;
     }
+}
+
+function generarSSuc(){
+
+    var p = getDatos('',155,'@@usr',0,0)[0];
+    var sucursales = '<option value="-1">Todas las Sucursales</option>';
+
+    for (var i = 0; i < p.length; i++) {
+        sucursales += '<option value="'+p[i][0]+'">'+p[i][1]+'</option>';
+    }
+    $(".ssuc").material_select('destroy');
+    $(".ssuc").append(sucursales);
+    $(".ssuc").material_select();
 }

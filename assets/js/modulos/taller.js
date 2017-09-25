@@ -1,5 +1,12 @@
 $(function(){
- dibujarGrafico("chartG1",'Reporte Morosidad de Ventas','Clientes','bar',{sel:'',tbl:212,where:'0,1'});
+	$("#ftallers").submit(function(){return false});
+	$("#data-table-tallers").dataTable();
+
+});
+
+$(document).on("click","#Iadd",function(){
+	deadclear('taller')
+
 });
 
 function validar (varreglo,vmodulo) {
@@ -9,9 +16,9 @@ function validar (varreglo,vmodulo) {
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
-		case 'inventario':
+		case 'taller':
 			if (vmodulo['tip'] == '') {
-				err = validarinventario();
+				err = validartaller();
 				if ( err ) {
 					return err;
 				}
@@ -28,13 +35,13 @@ function validar (varreglo,vmodulo) {
 
 }
 
-function validarinventario() {
+function validartaller() {
 
 
 	return false;
 }
 
-function endDetail(vid){
+function endDetail(vid,vacc,modulo){
 
     return false;
 }
@@ -43,7 +50,7 @@ function cargar(vmodulo,vid) {
 
 
 	switch(vmodulo['modulo']) {
-		case 'inventario':
+		case 'taller':
 			vmodulo['sel'] = '';
 			vmodulo['tbl'] = 3;
 			vmodulo['where'] ='';
@@ -64,9 +71,4 @@ function cargarSintax(){
 	arr['where'] = '';
 
 	return arr;
-}
-
-function endDetail(vid) {
-	setTimeout(function(){ console.log('Registro Ingresado') }, 2000);
-	return false;
 }

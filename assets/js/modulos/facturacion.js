@@ -1,6 +1,8 @@
 var param = '';
+
 $(document).ready(function(){
-  param = parseInt(getParameterByName('tf'));
+  param = getParameterByName('tf');
+  param = param == '' ? 1 : parseInt(param) ;
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,''));
 
@@ -31,6 +33,7 @@ $(document).ready(function(){
  });
 
     var asoc = getParameterByName('arr');
+
     var inicial = $("#ncli");
     switch(param){
         case 2:
@@ -96,7 +99,7 @@ $(document).ready(function(){
             }
             
             $(this).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:p, vcantidad:c, vprecio:r, hdesc:h,hdescm:m, vtotal:t, vidinventario:i,vidodt : 0,vcomodin:''});
-            // $("#descu"+id).data('valor',0);
+  
             $("#vdesc"+id).data({'valor':h,'max':m})
             line += 1;
             $('#h_'+id).remove();
@@ -302,7 +305,7 @@ function cargarResembled(vnombre) {
     $(".concre").addClass('hide');
     $("#vplazo").addClass('hide');
     $(".tp_all").addClass('hide');
-}//cargar Cotizaciones
+}//cargar Resembled
 
 function cargarGlobal(){
     var cons = param-1 == 0 ? '' : param-1;
@@ -333,7 +336,7 @@ function cargarGlobal(){
             
             $("#descp").autocomplete({
                 limit: 20,
-                data: arr('login',4,'',6,'"'+$("#descp").val()+'",1',0,0,0,1)
+                data: arr('login',4,'',6,'"'+$("#descp").val()+'",1,@@impresa',0,0,0,1)
             })
 
             $("#descp").siblings($(".autocomplete-content")).css('width','50%');
