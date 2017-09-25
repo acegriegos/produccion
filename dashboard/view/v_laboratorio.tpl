@@ -24,14 +24,14 @@
 
                     <div class="row">
                      <div class="col s12 m6 l6 per6000">
-                      <a href="ajustes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="laboratorio?accion=1">Entradas</a>
+                      <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" >Recepción</a>
                     </div>
                     <div class="col s12 m6 l6 per6100">
-                      <a href="usuarios" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="laboratorio?accion=2">Seguimiento</a>
+                      <a href="aboratorio?accion=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>
                     </div>
                     
                     <div class="col s12 m6 l6 per6200">
-                      <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="laboratorio?accion=3">Procesos</a>
+                      <a href="laboratorio?accion=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" >Procesos</a>
                     </div>
 
 
