@@ -314,12 +314,12 @@ if ($grabado > 0){
   $html .= '<tr>
     <td></td>
     <td align="right">Grabado:</td>
-    <td align="right">'.number_format($grabado+str_replace(',', '', $obj[6]),2).'</td>
+    <td align="right">'.$datos[15].number_format($grabado+str_replace(',', '', $obj[6]),2).'</td>
   </tr>
   <tr>
     <td></td>
     <td align="right">Impuesto:</td>
-    <td align="right">'.$datos[0][5].'</td>
+    <td align="right">'.$datos[15].$datos[0][5].'</td>
   </tr>';
 }
 
@@ -327,7 +327,7 @@ if ($exento > 0) {
   $html .= '<tr>
     <td></td>
     <td align="right">Exento:</td>
-    <td align="right">'.number_format($exento,2).'</td>
+    <td align="right">'.$datos[15].number_format($exento,2).'</td>
   </tr>';
 }
 
@@ -335,7 +335,7 @@ if (str_replace(',', '', $datos[0][6]) > 0){
   $html .= '<tr>
     <td></td>
     <td align="right">Descuento:</td>
-    <td align="right">'.$datos[0][6].'</td>
+    <td align="right">'.$datos[15].$datos[0][6].'</td>
   </tr>';
 } 
 
@@ -343,7 +343,7 @@ if ($datos[0][7] > 0){
   $html .= '<tr>
     <td></td>
     <td align="right">Flete:</td>
-    <td align="right">'.number_format($datos[0][7],2).'</td>
+    <td align="right">'.$datos[15].number_format($datos[0][7],2).'</td>
   </tr>';
 }
 
@@ -351,7 +351,7 @@ if ($datos[0][8] > 0){
   $html .= '<tr>
     <td></td>
     <td align="right">Ajuste:</td>
-    <td align="right">'.number_format($datos[0][8],2).'</td>
+    <td align="right">'.$datos[15].number_format($datos[0][8],2).'</td>
   </tr>';
 } 
 
@@ -359,7 +359,7 @@ if ($datos[0][8] > 0){
 $html .= '<tr>
     <td></td>
     <td align="right" style="color: #494949;font-family: Helvetica;"><strong>TOTAL:</strong></td>
-    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>'.$datos[0][10].'</strong></td>
+    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>'.$datos[15].$datos[0][10].'</strong></td>
   </tr></table>'.
 
 

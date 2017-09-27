@@ -1102,7 +1102,7 @@ function totalizar(id,ganancia,manoobra) {
 
 function addproduct(nombre,cantidad,idmedida,medida,precio,tipo) {
     var id = $("#"+tipo+"spot").val();
-    var idproducto = arr('login',4,'vid',14,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
+    var idproducto = arr('login',4,'id',11,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
     var prectot = 0;
     var validac = 1;
     // validacion

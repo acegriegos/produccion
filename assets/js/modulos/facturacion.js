@@ -147,8 +147,11 @@ function cargarOCompras(){
                 var mdcs = 0;
                 var desc = $("#descp").val();
                 var hinv = 0;
+                var unidad= $("#valores").data('elemento')['hunidad'];
+                var comodin= $("#valores").data('elemento')['hcomodin'];
+                var desgloce= $("#valores").data('elemento')['isdesgloce'];
 
-                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0);
+                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad, comodin,isdesgloce);
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
             }
@@ -226,8 +229,11 @@ function cargarCompras(){
                 var desc = $("#descp").val();
                 var hinv = $("#valores").data('elemento')['hinv'];
                 var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
+                var unidad= $("#valores").data('elemento')['hunidad'];
+                var comodin= $("#valores").data('elemento')['hcomodin'];
+                var desgloce= $("#valores").data('elemento')['isdesgloce'];
                 
-                addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi);
+                addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi, unidad, comodin,isdesgloce);
         }
     });
 
@@ -289,8 +295,11 @@ function cargarVentas(){
                     var mdcs = $("#valores").data('elemento')['hdescm'];
                     var desc = $("#descp").val();
                     var hinv = $("#valores").data('elemento')['hinv'];
+                    var unidad= $("#valores").data('elemento')['hunidad'];
+                    var comodin= $("#valores").data('elemento')['hcomodin'];
+                    var desgloce= $("#valores").data('elemento')['isdesgloce'];
 
-                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0);
+                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce);
                 }
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');

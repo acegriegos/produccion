@@ -21,17 +21,20 @@
         <div class="row">
           <div class="col s12 m1 l1 hide-on-med-and-down">&nbsp;</div>
           <div class="col s5 m3 l3" align="center" style="padding: 6% 0% 0% 0%;">
-            <img src="../assets/img/logo.png" id="imglogo" class="img-responsive" width="90%">
+            <img src="<?php echo $miscelaneos[3]; ?>" id="imglogo" class="img-responsive" width="90%">
           </div>
           <div class="col s2 m4 l4 hide-for-small-only">&nbsp;</div>
           <div class="col s5 m4 l4 left-align">
             <br><br>
             <font size="2.5">
-              <b><span id="fnombre"><?php echo $miscelaneos[0][0]; ?></span></b><br>
-              <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1][0]; ?></span><br>
-              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[2][0]; ?></span><br>
-              <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[3][0]; ?></span><br>
-              <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[4][0]; ?></span><br>
+              <b><span id="fnombre"><?php echo $miscelaneos[0]; ?></span></b><br>
+              <?php if ($miscelaneos[2]) 
+                echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+              ?>
+              <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
+              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
+              <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
+              <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
             </font>
           </div>
         </div>
@@ -107,10 +110,14 @@
             </tr>
           </thead>
           <tbody id="ftbody">
-            <?php foreach ($transaccion as $obj) {?>
+            <?php $grabado = $exento = 0; foreach ($transaccion as $obj) {
+              if ($obj[28] > 0) 
+                $grabado += str_replace(',', '', $obj[20]);
+              else
+                $exento += str_replace(',', '', $obj[20]);?>
 
             <tr class="tr" >
-              <td class="flista1 td center-align"><span id="cant"><?php echo $obj[18]; ?></span></td>
+              <td class="flista1 td center-align"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
               <td class="flista2 td center-align"><span id="desc"><?php echo $obj[19]; ?></span></td>
               <td class="flista3 td center-align"><span id="punit"><?php echo $obj[20]; ?></span></td>
               <td class="flista4 td center-align"><span id="desc"><?php echo $obj[23]; ?></span></td>
@@ -120,30 +127,60 @@
 
             <?php } ?>
           </tbody>
+          *Producto Exento
           <tfoot>
 
+            <?php if ($grabado > 0){ ?>
             <tr>
               <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-              <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Subtotal</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15]; ?><?php echo $datos[9]; ?></span></td>
-
+              <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Grabado</td>
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado+str_replace(',', '', $obj[6]),2); ?></span></td>
             </tr>
+            
             <tr>
               <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
               <td style="padding: 6px 5px !important" class="left-align sinborde margen">Imv</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15]; ?><?php echo $datos[5]; ?></span></td>
-
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
             </tr>
+
+            <?php } ?>
+
+            <?php if ($exento > 0) { ?>
+            <tr>
+              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Exento</td>
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
+            </tr>
+            <?php } ?>
+
+            <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
             <tr>
               <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
               <td style="padding: 6px 5px !important" class="left-align sinborde margen">Descuento</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fdescuento"><?php echo $datos[15]; ?><?php echo $datos[6]; ?></span></td>
-
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
             </tr>
+            <?php } ?>
+
+            <?php if ($datos[7] > 0){ ?>
+            <tr>
+              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Flete</td>
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
+            </tr>
+            <?php } ?>
+
+            <?php if ($datos[8] > 0){ ?>
+            <tr>
+              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Ajuste</td>
+              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
+            </tr>
+          <?php } ?>
+
             <tr>
               <td class="margen" colspan="4">&nbsp;</td>
               <td  class="left-align white-text sinborde imprimirSINBOR" style="background-color: #3960A7;"><b>TOTAL</b></td>
-              <td  class="right-align white-text sinborde imprimirSINBOR" style="background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15]; ?><?php echo $datos[10]; ?></span></b></td>
+              <td  class="right-align white-text sinborde imprimirSINBOR" style="background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
             </tr>
 
           </tfoot>

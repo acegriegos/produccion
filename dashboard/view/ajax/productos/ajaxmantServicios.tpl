@@ -5,7 +5,7 @@
 
            <div class="input-field col s2 m2 l1">
 
-            <a class="dropdown-button btn-floating waves-effect waves-light blue z-depth-5" data-activates="fserv" ><i class="material-icons">search</i></a>
+            <a class="dropdown-button btn-floating waves-effect waves-light blue z-depth-5" data-activates="fserv" ><i class="mdi mdi-magnify"></i></a>
 
         </div>
 
@@ -21,7 +21,7 @@
         </ul>            
     </div>
     <div class="col s12 m6">
-        <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5 per4111 modal-trigger" href="#modal-servicios"><i class="material-icons">add</i></a>
+        <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5 per4111 modal-trigger" href="#modal-servicios"><i class="mdi mdi-plus"></i></a>
     </div>
 </div>
 
@@ -48,8 +48,8 @@
                         <td style="padding: 10px;">{$SERV[LE][4]}</td>
                         <td style="padding: 10px;">{$SERV[LE][5]}</td>
                         <td style="padding: 10px;">
-                            <a class="btn-color pbtn loadserv per4112 modal-trigger" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i></a>
-                            <a class="btn-color pbtn cdel delete 4113" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="fa fa-times"></i></a>
+                            <a class="btn-color pbtn loadserv per4112 modal-trigger" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="mdi mdi-pencil"></i></a>
+                            <a class="btn-color pbtn cdel delete 4113" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="mdi mdi-close"></i></a>
                         </td>
                     </tr>
                     {/section}
@@ -73,13 +73,15 @@
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vidproveedor" value="0">
                 <input type="hidden" id="vidsucursal" value="">
+                <input type="hidden" id="vidsuc" value="-1" >
+
                 <div class="row">
                     <div class="input-field col s12 m6 l6" style="margin: 0">
                         <input id="vcodigo" type="text" class="validate">
                         <label for="vcodigo">Código de Servicio</label>
                     </div>
                     <div class="input-field col s12  m6 l6" style="margin: 0">
-                        <a class="prefix" href="#hextra"><i class="material-icons pbtn">help</i></a>
+                        <a class="prefix modal-trigger" href="#hextra"><i class="mdi mdi-help pbtn"></i></a>
                         <input id="vnombre" type="text" class="validate">
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
@@ -198,7 +200,7 @@
 <div id="hextra" class="modal">
     <div class="modal-content grandemodal">
       <h4>Extra en el Nombre del Servicio</h4>
-      <p>Se Utiliza para asignar variables cuando el servicio es Facturado</p>
+      <p>Se Utiliza para asignar variables cuando el servicio es mdicturado</p>
       <br>
       <ul>
           <li><b>%HOY%</b>, Despliega la Fecha del Día en Formato dd-mm-yyyy</li>

@@ -38,7 +38,7 @@ $(document).on("click",".menu3",function(){
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 50;
-			arr['where'] = '';
+			arr['where'] = '0';
 			var e = mantenimiento('login',4,arr)[0][0];
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);

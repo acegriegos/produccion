@@ -4,7 +4,7 @@
         <div class="background">
           <!-- CSS -->          
         </div>
-        <a href="#!user" class="center"><i class="medium material-icons" style="color:#fff;padding-left: 25%;" aria-hidden="true">person_pin</i></a>
+        <a href="#!user" class="center"><i class="medium mdi mdi-account-circle" style="color:#fff;padding-left: 25%;" aria-hidden="true"></i></a>
         <div class="input-field col s12 white-text selectusr">
           <select id="lgt">
             <option value="0" class="logout" id="x1" disabled selected>{$smarty.session.NOM} </option>
