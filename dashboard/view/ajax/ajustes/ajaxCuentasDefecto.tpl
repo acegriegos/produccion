@@ -5,7 +5,7 @@
         <div class="row pequeño">
 
             <div class="input-field col s12 m6 pequeño">
-                <div class="prefix addglobal pbtn pequeño" title="Agregar Cuenta"><i class="material-icons">add</i></div>
+                <div class="prefix addglobal pbtn pequeño" title="Agregar Cuenta"><i class="mdi mdi-plus"></i></div>
                 <select class="slide" cod="1" id="vgenero" lvl="0">
                     <option value="0">Seleccione una Opción</option>
                     {section name=LE loop=$CUE}

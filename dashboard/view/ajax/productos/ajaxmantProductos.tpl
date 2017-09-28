@@ -2,7 +2,7 @@
 <div class="pequeño" id="mantProd" >
 <div class="row">
 <div class="input-field col s11 m8 l5">
-<a class="prefix dropdown-button tooltipped small material-icons"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro">search</a>
+<a class="prefix dropdown-button tooltipped small mdi mdi-magnify pbtn"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"></a>
 <ul id='filtr_1' class='dropdown-content' style="width: auto;">
 <li><a class="optns" tipo="codigo,codigointerno,nombre" href="#!" fltr="1">Código, Código Interno o Nombre</a></li>
 <li><a class="optns" tipo="codigo" href="#!" fltr="4">Código</a></li>
@@ -14,7 +14,7 @@
 <label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
 </div>
 <div class="col s12 m4 l7 per4102">
-<a id="addproduct" class="btn-floating waves-effect waves-light right blue z-depth-5 modal-trigger" href="#modal-productos"><i class="material-icons">add</i></a>
+<a id="addproduct" class="btn-floating waves-effect waves-light blue right z-depth-5 modal-trigger" href="#modal-productos"><i class="mdi mdi-plus"></i></a>
 </div>
 </div>
 <div class="row pequeño">
@@ -43,11 +43,11 @@
 <td style="padding: 10px; color:black;">{$PROD[LE][6]}</td>
 <td style="padding: 10px; color:black;">{$PROD[LE][7]}</td>
 <td>
-<a class="btn-color pbtn info material-icons blueh 4110 modal-trigger" id="info{$PROD[LE][0]}" href="#modal-info" title="Mostrar Informacion del Producto">info</a>
+<a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh 4110 modal-trigger" id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
 <a class="btn-color pbtn descuentos per4103 modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="color:black;"><img src="../assets/img/icon/percent.svg"></a>
-<a class="btn-color pbtn salidainv material-icons per4104 modal-trigger" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="color:black;">compare_arrows</a>
-<a class="btn-color pbtn editprod material-icons per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" style="color:black;">edit</a>
-<a class="btn-color pbtn cdel delprod material-icons per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" style="color:black;">close</a>
+<a class="btn-color pbtn salidainv mdi mdi-arrow-down-bold-box mdi-24px per4104 modal-trigger" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="color:black;"></a>
+<a class="btn-color pbtn editprod mdi mdi-pencil mdi-24px per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" style="color:black;"></a>
+<a class="btn-color pbtn cdel delprod mdi mdi-close mdi-24px per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" style="color:black;"></a>
 </td>
 </tr>
 {/section}
@@ -97,10 +97,7 @@
 </select>
 <label for="vidinventario">Inventario</label>
 </div>
-<div class="input-field marginzero">
-<input id="vpeso" type="number" class="validate" min="0" autocomplete="off">
-<label for="vpeso">Peso</label>
-</div>
+
 <div class="input-field marginzero">
 <select type="select" id="vidunidad">
 <option value="">Seleccione un Unidad</option>
@@ -109,6 +106,10 @@
 {/section}
 </select>
 <label for="vidunidad">Unidad</label>
+</div>
+<div class="input-field marginzero hide" id="dpeso">
+<input id="vpeso" type="number" class="validate" min="0" autocomplete="off">
+<label for="vpeso">Peso</label>
 </div>
 </div>
 <div class="col s12 m12 l6" id="col2">
@@ -138,7 +139,7 @@
 <label class="active" for="vmaximo">Máximo</label>
 </div>
 <div class="input-field marginzero">
-<i class="material-icons prefix">%</i>
+<i class="mdi prefix">%</i>
 <input type="number" id="vmaxdescuento" class="formprod validate" value="" min="0" focus="2vcosto" autocomplete="off">
 <label class="active" for="vmaxdescuento">Descuento Máximo</label>
 </div><br><br>
@@ -151,7 +152,7 @@
 <div class="col s12 m6 l3  center-align">
 <label>Precio Costo</label>
 <div class="input-field">
-<i class="material-icons prefix">¢</i>
+<i class="mdi prefix">¢</i>
 <input type="text" id="vcosto" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
 <input type="hidden" id="hvcosto" value="">
 </div>
@@ -159,14 +160,14 @@
 <div class="col s12 m6 l3 center-align">
 <label>Ganancia</label>
 <div class="input-field">
-<i class="material-icons prefix">%</i>
+<i class="mdi prefix">%</i>
 <input type="text" id="vganancia" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2">
 </div>
 </div>
 <div class="col s12 m6 l3 center-align">
 <label>Precio Venta</label>
 <div class="input-field">
-<i class="material-icons prefix">¢</i>
+<i class="mdi prefix">¢</i>
 <input type="text" id="vventa" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3">
 <input type="hidden" id="hventa" value="">
 </div>
@@ -174,7 +175,7 @@
 <div class="col s12 m6 l3 center-align">
 <label>Exoneración</label>
 <div class="input-field">
-<i class="material-icons prefix">%</i>
+<i class="mdi prefix">%</i>
 <input type="text" id="vexoneracion" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
 </div>
 </div>
@@ -199,14 +200,14 @@ Categoria
 <div class="col s12 m6 l3 center-align"><br>
 <label>Ganancia</label>
 <div class="input-field">
-<i class="material-icons prefix">%</i>
+<i class="mdi prefix">%</i>
 <input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="1">
 </div>
 </div>
 <div class="col s12 m6 l3 center-align"><br>
 <label>Precio Venta</label>
 <div class="input-field">
-<i class="material-icons prefix">¢</i>
+<i class="mdi prefix">¢</i>
 <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="2">
 <input type="hidden" id="hventa{$NIV[LE][0]}" value="">
 </div>
@@ -214,7 +215,7 @@ Categoria
 <div class="col s12 m6 l3 center-align"><br>
 <label>Exoneración</label>
 <div class="input-field">
-<i class="material-icons prefix">%</i>
+<i class="mdi prefix">%</i>
 <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="3">
 </div>
 </div>
@@ -225,7 +226,7 @@ Categoria
 <div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
 <div class="col s12">
 <div class="col s2">
-<button type="button" class="btn-floating waves-effect waves-light blue  z-depth-5" id="addimp"><i class="material-icons">add</i></button>
+<button type="button" class="btn-floating waves-effect waves-light blue  z-depth-5" id="addimp"><i class="mdi mdi-plus">add</i></button>
 </div>
 <div class="row">
 <div class="col s12">
@@ -246,7 +247,7 @@ Categoria
 <label for="val">Valor</label>
 </div>
 <div class="col s1 m1 l1">
-<button type="button" class="btn-floating waves-effect waves-light blue z-depth-4" id="addfeat"><i class="material-icons">add</i></button>
+<button type="button" class="btn-floating waves-effect waves-light blue z-depth-4" id="addfeat"><i class="mdi mdi-plus">add</i></button>
 </div>
 </div>
 <div class="col s7 m7 l7">
@@ -423,7 +424,7 @@ Categoria
 </div>
 </div>
 
-<div id="modal-info" class="modal modal-fixed-footer grandemodal" >
+<div id="modal-info2" class="modal modal-fixed-footer grandemodal" >
 <div class="modal-header">
 <ul class="tabs white-text" style="background-color:#0B3861">
 <li class="tab col s3"><a class="white-text">Mostrar Características del Producto <span id="dprd"></span></a></li>
