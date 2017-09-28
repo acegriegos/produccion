@@ -207,17 +207,18 @@ $("#telefono_in").blur(function(){
 });
 
 $(document).on("click",".chpcrr",function(){
-	var id = $(this).attr('id').substr(4);
+	var id = $(this).attr('id');
+
 	$("#schp"+id).remove();
 	$("#ichp"+id).remove();
 });
 
 $(document).on("click",".chpphone",function(){
 	var id = $(this).attr('id').substr(5);
+
 	$("#stchp"+id).remove();
 	$("#itchp"+id).remove();
 });
-
 
 $("#vidprovincia").change(function(){
 	var prov = $("#vidprovincia option:selected").text();
@@ -238,7 +239,7 @@ $("#vdireccion").keyup(function(){
 
 $(document).on("click",".del_phone",function(){
 	var id = $(this).attr('id').substr(3);
-	Materialize.toast('Desea Borrar este Telefono? <button type="button" class="waves-effect waves-light btn blue acctel" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i id="delc'+id+'" class="material-icons">close</i></button>', 10000, 'rounded');
+	Materialize.toast('Desea Borrar este Telefono? <button type="button" class="waves-effect waves-light btn blue acctel" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i id="delc'+id+'" class="mdi mdi-close"></i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".edit_phone",function(){
@@ -251,7 +252,8 @@ $(document).on("click",".edit_phone",function(){
 
 $(document).on("click",".close",function(){
 	var id = $(this).attr('id').substr(3);
-	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="material-icons">close</i></button>', 10000, 'rounded');
+	console.log(id)
+	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".edit_mail",function(){
@@ -281,7 +283,7 @@ $(document).on("click",".delcta",function(){
 });
 
 $(document).on("change",".cta-array",function(){
-	$("#vidcuenta").val(1)
+	$("#vidcuenta").val(1);
 });
 
 $(document).on("click",".load",function(){
@@ -369,7 +371,7 @@ function validarclientes() {
 
 	if ($("#vnombre").val() == ''){ $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == ''){	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
-	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
+	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado'; };
 	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
 		if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
 
@@ -382,7 +384,7 @@ function validarclientes() {
 
 					if($("#my-array"+vid).val() == 0 ){
 						$('#ln2').click();
-						$("#my-array"+vidprovincia).focus()
+						$("#my-array"+vidprovincia).focus();
 						salida = 'Campo Contable no Válido';
 					}
 
@@ -396,15 +398,15 @@ function validarclientes() {
 			}
 
 			$("#vtelefono").val('');
-			$("#shtelefonos li[id^=0_]").each(function(){
-				t_valor = $("#vtelefono").val()
-				$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.collapsible-header > .badge',this).html()+'",?]:')
+			$("#shtelefonos .chip[id^=0_]").each(function(){
+				t_valor = $("#vtelefono").val();
+				$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.chip > .badge',this).html()+'",?]:');
 			});
 
 			$("#vcorreo").val('');
 			$("#shcorreos .chip[id^=0_]").each(function(){
-				t_valor = $("#vcorreo").val()
-				$("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:')
+				t_valor = $("#vcorreo").val();
+				$("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:');
 			});
 
 			return false;
@@ -473,7 +475,7 @@ function obtenerImpuestos(vid){
 }
 
 function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
-	$("#showimpuestos").append('<li class="collection-item dismissable" id="newimp'+vid+'"><div><span class="impuestos" id="vimv'+vid+'" value="'+vvalor+'" timv="'+vimpuesto+'">'+vnombre+' - '+vvalor+'%</span><a class="secondary-content delimp" id="dimp'+vid+'"><i class="material-icons">delete</i></a></div></li>')
+	$("#showimpuestos").append('<li class="collection-item dismissable" id="newimp'+vid+'"><div><span class="impuestos" id="vimv'+vid+'" value="'+vvalor+'" timv="'+vimpuesto+'">'+vnombre+' - '+vvalor+'%</span><a class="secondary-content delimp" id="dimp'+vid+'"><i class="mdi mdi-delete"></i></a></div></li>')
 }
 
 function endDetail(vid,vacc,modulo){
@@ -488,29 +490,28 @@ function endDetail(vid,vacc,modulo){
 function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
-		var tipo = $("#vidtipocliente").val();
-		$("[tipoclie="+tipo+"]").prop('checked',true);
-		$("[tipoclie="+tipo+"]").change();
-		$("#infvnombre0").html($("#vnombre").val());
-		$("#infvapellido0").html($("#vapellido1").val()); 
-		$("#infvapellido1").html($("#vapellido2").val());
-		$("#infcedula1").html($("#vcedula").val()); 
-		$("#shcorreos .chip[id^=0_]").each(function(){
-				t_valor = $("#vcorreo").val()
-				$("#infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'))
+			var tipo = $("#vidtipocliente").val();
+			$("[tipoclie="+tipo+"]").prop('checked',true);
+			$("[tipoclie="+tipo+"]").change();
+			$("#infvnombre0").html($("#vnombre").val());
+			$("#infvapellido0").html($("#vapellido1").val());
+			$("#infvapellido1").html($("#vapellido2").val());
+			$("#infcedula1").html($("#vcedula").val());
+			$("#shcorreos .chip[id^=0_]").each(function(){
+				console.log('T_VALOR = '+t_valor)
+				var t_valor = $("#vcorreo").val();
+				$(".infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
 			});
-		$("#infcodigo6").html($("#vcodigo").val()); 
-		$("#infweb7").html($("#vweb").val());
-		$("#infprovincia8").html($("#vidprovincia").val());
-		/*$("#infcanton9").html($("#vidcanton").val());
-		$("#infdistrito10").html($("#viddistrito").val());
-		$("#infdireccion11").html($("#vdireccion").val());
-		$("#inftelefono4").html($("#telefono_in").val());*/
+			$("#infcodigo6").html($("#vcodigo").val());
+			$("#infweb7").html($("#vweb").val());
 
-
-
-
-
+			// $("#inftelefono4").html($("#telefono_in").val());
+			
+			$("#infprovincia8").html( $("#vidcprovincia option:selected").val() );
+			$("#infcanton9").val( $("#vidcanton option:selected").val() );
+			$("#infdistrito10").val( $("#viddistrito option:selected").val() );
+			$("#infdireccion11").html( $("#vdireccion").val() );
+			$("#videstado option:selected").val();
 
 		break;
 	}
@@ -520,13 +521,13 @@ function crreo_addon_ckub(vfila,vcorreo){
 	var cont = parseInt($(".chpcrr").length) + 1;
 	//if (vfila == undefined) {
 		if ($("#correo_in").val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-			$("#shcorreos").append('<div id="0_'+cont+'" class="chpcrr chip"><span class="vcoo">'+$("#correo_in").val()+'</span><i id="delc'+cont+'" class="close material-icons">close</i></div>');
+			$("#shcorreos").append('<div id="0_'+cont+'" class="chpcrr chip"><span class="vcoo">'+$("#correo_in").val()+'</span><i id="'+cont+'" class="close mdi mdi-close"></i></div>');
 			$("#shcorreos").removeClass('hide');
 			$("#correo_in").val('');
 			ind_2 += 1;
 			$('.collapsible').collapsible();
 			$(".chpcr").remove();
-			$("#infcorreo2").append('<div id="ichp'+cont+'" class="chpcrr chip">'+vcorreo+'</div>');
+			$(".infcorreo2").append('<div id="ichp'+cont+'" class="chpcrr chip">'+vcorreo+'</div>');
 		}else{
 			Materialize.toast('Correo no Válido',4000,'danger');
 			$("#correo_in").select();
@@ -545,7 +546,7 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 	if (vtipo == 1) { tipotel = 'home'; }else if (vtipo == 2) { tipotel = 'business'; }else if (vtipo == 3) { tipotel = 'phone'; }
 	//if (vfila == undefined) {
 		if ($("#telefono_in").val()) {
-			$("#shtelefonos").append('<div id="stchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+$("#telefono_in").val()+'<i class="close material-icons">close</i></div>');
+			$("#shtelefonos").append('<div id="stchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+$("#telefono_in").val()+'<i class="mdi mdi-close right"></i></div>');
 			$("#shtelefonos").removeClass('hide');
 			$("#telefono_in").val('');
 			ind_2 += 1;
@@ -553,7 +554,7 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 			$(".chpph").remove();
 			$("#inftelefono4").append('<div id="itchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
 		}else{
-			Materialize.toast('Correo no Válido',4000,'danger');2
+			Materialize.toast('Teléfono no Válido',4000,'danger');2
 			$("#telefono_in").select();
 		}
 	// }else{

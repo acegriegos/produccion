@@ -13,7 +13,7 @@
             </div>
             <div class="input-field col s12 m2 l2">
                 <input type="number" class="validate" id="vvalor" placeholder="%">
-                <label for="vvalor">Valor de impuesto</label>
+                <label for="vvalor" style="margin-left: 4%;">Valor de impuesto</label>
                 <button type="button" class="btn btn-primary der z-depth-5 blue add" modulo="impuesto" id="addimp">Agregar</button>
                 <br>
             </div>
@@ -35,8 +35,8 @@
                             <td style="width: 10%">{$IMP[LE][2]}</td>
                             <td style="width: 10%">{$IMP[LE][3]}</td>
                             <td style="width: 10%">
-                                <a class="load material-icons pbtn btn-color" id="m{$IMP[LE][0]}" modulo="impuesto">edit</a>
-                                <a class="delete material-icons pbtn btn-color cdel" modulo="impuesto" id="d{$IMP[LE][0]}">delete</a>
+                                <a class="load  mdi-24px mdi mdi-pencil pbtn btn-color" id="m{$IMP[LE][0]}" modulo="impuesto"></a>
+                                <a class="delete  mdi-24px mdi mdi-close pbtn btn-color cdel" modulo="impuesto" id="d{$IMP[LE][0]}"></a>
                             </td>
                         </tr>
                     {/section}

@@ -23,12 +23,11 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'idtipo in(0,1) order by idunidad'));
+	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre',12,'idtipo in(0,1,3) order by idtipo desc'));
 	   			$smarty->assign('INV',$kakaroto->kamehameha('*',111,'id > 0 and idbodega = 1 order by id'));
-	   			$smarty->assign('PROD',$kakaroto->kamehameha('vid,codigo,codigointerno,nombre,marca,scosto,sventa,sganancia',14,'vid > 0 and idsucursal in(@@impresa,-1) order by nombre limit 10'));
+	   			$smarty->assign('PROD',$kakaroto->kamehameha('',306,''));
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by id'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
-	   			// print_r($kakaroto->kamehameha('vid,codigo,codigointerno,nombre,marca,scosto,sventa,sganancia',14,'vid > 0 order by nombre limit 10'));
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
@@ -36,7 +35,7 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('CLI',$kakaroto->kamehameha("id,nombre",2,"bisproveedor = 1"));
-	   			$smarty->assign('SERV',$kakaroto->kamehameha('*',13,'id > 0 limit 20'));
+	   			$smarty->assign('SERV',$kakaroto->kamehameha('',13,''));
 	   			$smarty->display('ajax/productos/ajaxmantServicios.tpl');
 	   			break;
 	   		case 3:
@@ -44,13 +43,12 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('PAQ',$kakaroto->kamehameha('id, codigo, nombre, total, descuento',58,'id > 0 order by nombre'));
-	   			//PROD
-	   			//SERV
+	   			$smarty->assign('PAQ',$kakaroto->kamehameha('',62,'0,0'));
+	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre,simbolo',12,'idtipo in(0,1,3) order by idtipo desc'));
 	   			$smarty->display('ajax/productos/ajaxmantPaquetes.tpl');
 	   			break;
 	   		case 4:
-	   		/*REPORTE DE MOVIMIENTO DE INVENTARIO*/
+	   			/*REPORTE DE MOVIMIENTO DE INVENTARIO*/
 	   			break;
 	   		case 5:
 	   			break;

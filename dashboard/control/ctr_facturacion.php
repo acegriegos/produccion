@@ -28,58 +28,9 @@
 			   	$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 			   	$smarty->display('ajax/facturas/ajaxVentas.tpl');
 	   			break;
-	   		case 2:
-	   			$pagina = 1;
-	   			require '../_config/mySmarty.php';
-			   	$smarty  = new mySmarty();
-			   	$smarty->setModule('dashboard');
-			   	$smarty->assign('NFACT',$kakaroto->kamehameha('lpad(consecutivo1+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
-			   	$smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id >= 0 order by id'));
-			   	// quitar ->
-			   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
-			   	$smarty->assign('IVI',$kakaroto->kamehameha('',200,'64,0')[0][3]);
-			   	// quitar <-
-			   	$smarty->display('ajax/facturas/ajaxCompras.tpl');
-	   			break;
-	   		case 3:
-	   			$pagina = 1;
-	   			require '../_config/mySmarty.php';
-			   	$smarty  = new mySmarty();
-			   	$smarty->setModule('dashboard');
-			   	$smarty->assign('CONS',$kakaroto->kamehameha('lpad(consecutivo2+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
-			   	// $smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by id'));
-			   	// quitar ->
-			   	// $smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
-			   	// $smarty->assign('IVI',$kakaroto->kamehameha('',200,'64,0')[0][3]);
-			   	// quitar <-
-			   	$smarty->display('ajax/facturas/ajaxOrdenesCompras.tpl');
-	   			break;
-	   		case 4:
-	   			//cotizacion
-	   			$pagina = 1;
-	   			require '../_config/mySmarty.php';
-			   	$smarty  = new mySmarty();
-			   	$smarty->setModule('dashboard');
-			   	$smarty->assign('CONS',$kakaroto->kamehameha('lpad(consecutivo3+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
-			   	$smarty->display('ajax/facturas/ajaxCotizacion.tpl');
-	   			break;
-	   		case 5:
-	   			//pedidos
-	   			$pagina = 1;
-	   			require '../_config/mySmarty.php';
-			   	$smarty  = new mySmarty();
-			   	$smarty->setModule('dashboard');
-			   	$smarty->assign('CONS',$kakaroto->kamehameha('lpad(consecutivo4+1,6,0)',39,'id = '.$_SESSION['IMPRESA'])[0][0]);
-			   	// $smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by id'));
-			   	// quitar ->
-			   	// $smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
-			   	// $smarty->assign('IVI',$kakaroto->kamehameha('',200,'64,0')[0][3]);
-			   	// quitar <-
-			   	$smarty->display('ajax/facturas/ajaxPedidos.tpl');
-	   			break;
 	   		case 6:
 	   			$pagina = 1;
-	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
  	
 	   			$transaccion = $kakaroto->kamehameha('',72,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
@@ -91,7 +42,7 @@
 	   			break;
 	   		case 7:
 	   			$pagina = 1;
-	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
 	   			$transaccion = $kakaroto->kamehameha('',157,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
 	   			require 'view/ajax/facturas/orden.php';
@@ -115,7 +66,7 @@
 	   			break;
 	   		case 9:
 	   			$pagina = 1;
-	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
 	   			$transaccion = $kakaroto->kamehameha('',157,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
 	   			require 'view/ajax/facturas/orden.php';

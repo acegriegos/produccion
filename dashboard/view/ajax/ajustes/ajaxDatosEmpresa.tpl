@@ -1,7 +1,7 @@
     <div class="card z-depth-5 pequeño">
         <ul class="collapsible" data-collapsible="accordion">
           <li>
-              <div class="collapsible-header "><i class="small material-icons">work</i><h5>Datos de la Empresa</h5></div>
+              <div class="collapsible-header "><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
 
               <div class="collapsible-body pequeño"><div class="card-block">
                 <div class="row pequeño">
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="1" class="button-collapse der tc-show black-text" title="Administrar Teléfonos de la Empresa"><i class="material-icons">phone</i></a>
+                        <a href="#" data-activates="slide-tc" data-num="1" class="button-collapse der tc-show black-text" title="Administrar Teléfonos de la Empresa"><i class="mdi mdi-phone  mdi-24px"></i></a>
                         <label for="vtelefono">Teléfonos de la Empresa</label>
                         <input type="text" class="infoempresa" id="vtelefono" field="telefonos" readonly>
                         
@@ -33,14 +33,14 @@
                 <div class="row pequeño">
 
                  <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="2" class="button-collapse der tc-show black-text" title="Administrar Correos de la Empresa"><i class="material-icons">email</i></a>
+                        <a href="#" data-activates="slide-tc" data-num="2" class="button-collapse der tc-show black-text" title="Administrar Correos de la Empresa"><i class="mdi mdi-email  mdi-24px"></i></a>
                         <label for="vcorreo">Correos de la Empresa</label>
                         <input type="email" class="infoempresa" id="vcorreo" field="correo" readonly>
                         
                     </div>
 
                     <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa"><i class="material-icons">my_location</i></a>
+                        <a href="#" data-activates="slide-tc" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
                         <label for="vdireccion">Dirección de la Empresa</label>
                         <input type="text" class="infoempresa" id="vdireccion" field="direccion" readonly>
                     </div>
@@ -61,7 +61,7 @@
 
                     <div class="col s12 m12 pull-s2">
 
-                       <button type="button" class="btn btn-primary der z-depth-5" id="actinfo"><i class="small material-icons right">loop</i>Actualizar</button>
+                       <button type="button" class="btn btn-primary der z-depth-5" id="actinfo"><i class="small mdi mdi-refresh right  mdi-24px"></i>Actualizar</button>
                    </div>
                </div>
 
@@ -71,7 +71,7 @@
            <!-- Datos de la empresa -->
        </li>
        <li>
-        <div class="collapsible-header"><i class="material-icons">verified_user</i><h5>Monedas</h5></div>
+        <div class="collapsible-header"><i class="mdi mdi-marker-check  mdi-24px"></i><h5>Monedas</h5></div>
 
         <div class="collapsible-body"><div class="class-block">
 
@@ -109,9 +109,9 @@
                             <td style="padding: 10px;color:black">{$MON[LE][1]}</td>
                             <td style="padding: 10px;color:black">{$MON[LE][2]}</td>
                             <td style="padding: 10px;color:black">
-                               <a class="waves-effect waves-light load" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="material-icons left">mode_edit</i></a>
+                               <a class="waves-effect waves-light load modal-trigger" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="mdi mdi-pencil left  mdi-24px"></i></a>
 
-                               <a class="waves-effect waves-light delete" modulo="moneda" id="b{$MON[LE][0]}"  title="Eliminar Moneda"><i class="material-icons left">delete</i></a>
+                               <a class="waves-effect waves-light delete" modulo="moneda" id="b{$MON[LE][0]}"  title="Eliminar Moneda"><i class="mdi mdi-close left  mdi-24px"></i></a>
 
                            </td>
                        </tr>
@@ -124,7 +124,7 @@
    <!-- Datos de las monedas -->
 </li>
 <li>
-    <div class="collapsible-header"><i class="material-icons">supervisor_account</i><h5>Tipo de Usuarios</h5></div>
+    <div class="collapsible-header"><i class="mdi mdi-account-multiple  mdi-24px"></i><h5>Tipo de Usuarios</h5></div>
 
     <div class="collapsible-body"><div class="class-block">
         <br>
@@ -133,7 +133,7 @@
             <div class="col s12 m12 l5 pequeño">
 
              <div class="input-field col s11 m9 l11 pequeño">
-                <a class="prefix" style="margin-left: 5% !important;"><i class="small material-icons">search</i></a>
+                <a class="prefix" style="margin-left: 5% !important;"><i class="small mdi mdi-magnify  mdi-24px"></i></a>
                 <input type="text" id="search_tipousuarios" maxlength="45" num="+27" var="nombre" style="margin-left: 15% !important;">
                 <label for="search_tipousuarios" style="margin-left: 15% !important;">Buscar Tipo de Usuario</label>
             </div>
@@ -142,7 +142,7 @@
                 <div class="row">
 
                     <div class="input-field col s12 ">
-                     <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario" style="padding-right: 5% !important;"><i class="small material-icons ">add</i></a>
+                     <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
                      <input type="hidden" id="vid_tusuario" value="0">
                      <input type="hidden" id="vdefecto_tusuario" value="0">
                      <input type="text" id="vnombre_tusuario" value="" style="margin-left: 15% !important;">
@@ -169,9 +169,9 @@
                     </td>
                     <td style="margin:0;">
                         {if $TUSR[LE][2] eq 0}
-                        <a href='#modal-tusuarios' id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
-                            <i class="small material-icons ">info_outline</i></a>
-                            <a class="delete pbtn" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small material-icons ">delete</i></a>
+                        <a href='#modal-tusuarios modal-trigger' id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
+                            <i class="small mdi mdi-account-settings  mdi-24px "></i></a>
+                            <a class="delete pbtn" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small mdi mdi-close  mdi-24px"></i></a>
                         </td>
                         {/if}
                     </tr>
@@ -183,7 +183,7 @@
     <!-- Datos de las Usuarios -->
 </li>
 <li>
-    <div class="collapsible-header"><i class="medium material-icons">credit_card</i><h5>Tipo de Pagos</h5></div>
+    <div class="collapsible-header"><i class="medium mdi mdi-credit-card  mdi-24px"></i><h5>Tipo de Pagos</h5></div>
 
     <div class="collapsible-body"><div class="class-block">
         <br>
@@ -191,7 +191,7 @@
         <div class="row  pequeño">
             <div class="col s12 m12 l5 pequeño">
                 <div class="input-field col s11 m9 l11 pequeño">
-                    <a class="prefix" style="margin-left: 5% !important;"><i class="small material-icons">search</i></a>
+                    <a class="prefix" style="margin-left: 5% !important;"><i class="small mdi mdi-magnify  mdi-24px"></i></a>
                     <input type="text" id="search_tipopagos" maxlength="100" num="+26" var="nombre" style="margin-left: 15% !important;">
                     <label for="search_tipopagos" style="margin-left: 15% !important;">Buscar Tipo Pago</label>
                 </div>
@@ -201,7 +201,7 @@
                     <div class="row">
                         <div class="input-field col s12 pequeño">
 
-                            <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipopago" data-position="top" data-tooltip="Ingresar Tipo de Pago" style="padding-right: 5% !important;"><i class="small material-icons">add</i></a>
+                            <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipopago" data-position="top" data-tooltip="Ingresar Tipo de Pago" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
 
                             <input type="text" id="vnombre_pago" style="margin-left: 15% !important;">
                             <label for="vnombre_pago" style="margin-left: 15% !important;">Ingresar Tipo Pago</label>
@@ -312,9 +312,9 @@
                     <tr id="c_{$TPAG[LE][0]}">
                         <td {if $TPAG[LE][2] neq 0} class="tooltipped" style="background-color: rgba(99, 190, 29, 0.3);" data-position="top" data-tooltip="Tipo Pago Principal"{/if}><input class="center-align" type="text"  value="{$TPAG[LE][1]}" readonly style="border: 0px;margin: 0px; padding: 0px;"></td>
                         <td >
-                            <a class="waves-effect waves-light load_x" modulo="tipopago" id="e{$TPAG[LE][0]}" title="Editar Tipo Pago" href='#modal-tipopagos' ><i class="material-icons left">mode_edit</i></a>
+                            <a class="waves-effect waves-light load_x modal-trigger" modulo="tipopago" id="e{$TPAG[LE][0]}" title="Editar Tipo Pago" href='#modal-tipopagos' ><i class="mdi mdi-pencil left  mdi-24px"></i></a>
                             {if $TPAG[LE][0] neq 0}
-                            <a class="waves-effect waves-light delete" modulo="tipopago" id="f{$TPAG[LE][0]}"  title="Eliminar Tipo Pago"><i class="material-icons left">delete</i></a>
+                            <a class="waves-effect waves-light delete" modulo="tipopago" id="f{$TPAG[LE][0]}"  title="Eliminar Tipo Pago"><i class="mdi mdi-close left  mdi-24px"></i></a>
                             {/if}
 
                         </td>
@@ -329,7 +329,7 @@
 <!-- Datos de Tipos de Pagos  -->
 </li>
 <li>
-    <div class="collapsible-header"><i class="material-icons">business</i><h5>Bancos</h5></div>
+    <div class="collapsible-header"><i class="mdi mdi-bank  mdi-24px"></i><h5>Bancos</h5></div>
 
     <div class="collapsible-body"><div class="class-block">
         <br>
@@ -337,14 +337,14 @@
         <div class="row pequeño">
             <div class="col s12 m12 l5 pequeño">
                 <div class="input-field col s11 m9 l11 pequeño">
-                    <a class="prefix" style="margin-left: 5% !important;"><i class="small material-icons">search</i></a>
+                    <a class="prefix" style="margin-left: 5% !important;"><i class="small mdi mdi-magnify  mdi-24px"></i></a>
                     <input type="text" id="search_bancos" maxlength="100" num="+202" var="nombre" style="margin-left: 15% !important;">
                     <label for="search_bancos" style="margin-left: 15% !important;">Buscar Banco</label>
                 </div>
                 <div id="fbancos" class="col s11 m9 l11 pequeño">
                     <div class="row">
                         <div class="input-field col s12 pequeño">
-                            <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="banco" varias="1" data-position="top" data-tooltip="Ingresar Banco" style="padding-right: 5% !important;"><i class="small material-icons">add</i></a>
+                            <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="banco" varias="1" data-position="top" data-tooltip="Ingresar Banco" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
                             <input type="text" id="vnombre_banco" noClear="1"style="margin-left: 15% !important;">
                             <label for="vnombre_banco" style="margin-left: 15% !important;">Ingresar Banco</label>
                             <input type="hidden" id="vidusuario" value="">
@@ -424,7 +424,7 @@
                                                 <label for="vctabnk">Cuenta Contable Asociada</label>
                                             </div>
                                         </div>
-                                        <a class="btn-floating small der z-depth-5" id="add_x"><i class="material-icons blue">add</i></a>
+                                        <a class="btn-floating small der z-depth-5" id="add_x"><i class="mdi mdi-plus blue  mdi-24px"></i></a>
                                     </div>
                                     <br>
 
@@ -468,9 +468,9 @@
                             <td><input type="text" value="{$BNK[LE][1]}" class="fast-edit center-align" style="border: 0px;margin: 0px; padding: 0px;"></td>
                             <td style="width: 50% !important">
 
-                             <a class="waves-effect load" modulo="banco" varias="1" id="i{$BNK[LE][0]}" href='#modal-bancos' title="Valores del Banco" ><i class="material-icons left">mode_edit</i></a>
+                             <a class="waves-effect load modal-trigger" modulo="banco" varias="1" id="i{$BNK[LE][0]}" href='#modal-bancos' title="Valores del Banco" ><i class="mdi mdi-pencil left   mdi-24px"></i></a>
 
-                             <a class="waves-effect" modulo="banco" id="j{$BNK[LE][0]}"  title="Eliminar Banco"><i class="material-icons left">delete</i></a>
+                             <a class="waves-effect" modulo="banco" id="j{$BNK[LE][0]}"  title="Eliminar Banco"><i class="mdi mdi-close left  mdi-24px"></i></a>
 
                          </td>
                      </tr>
@@ -483,7 +483,7 @@
  <!-- Datos de los Bancos  -->
 </li>
 <li>
-    <div class="collapsible-header"><i class="material-icons">settings</i><h5>Categorías</h5></div>
+    <div class="collapsible-header"><i class="mdi mdi-settings"></i><h5>Categorías</h5></div>
 
     <div class="collapsible-body"><div class="class-block">
         <br>
@@ -493,7 +493,7 @@
             <div class="col s12 m12 l5 pequeño">
                 <div class="row">
                     <div class="input-field col s11 m9 l11 pequeño">
-                        <a class="prefix" style="margin-left: 5% !important;"><i class="small material-icons">search</i></a>
+                        <a class="prefix" style="margin-left: 5% !important;"><i class="small mdi mdi-magnify"></i></a>
                         <input type="text" id="search_nivelesclientes" maxlength="100" num="+69" var="nombre" style="margin-left: 15% !important;">
                         <label for="search_nivelesclientes" style="margin-left: 15% !important;">Buscar Categoría</label>
                     </div>
@@ -502,7 +502,7 @@
 
                         <div class="row pequeño">
                             <div class="input-field col s12 pequeño">
-                                <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="nivelescliente" data-position="top" data-tooltip="Ingresar Categoría" style="padding-right: 5% !important;"><i class="small material-icons">add</i></a>
+                                <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="nivelescliente" data-position="top" data-tooltip="Ingresar Categoría" style="padding-right: 5% !important;"><i class="small mdi mdi-plus"></i></a>
 
 
                                 <input type="hidden" id="vid_nivel" value="0">
@@ -538,9 +538,9 @@
                         <tr id="d_{$CATC[LE][0]}">
                             <td><input type="text" id="vnombre" class="fast-edit fast-edit-r center-align" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" maxlength="20"></td>
                             <td style=" width: 50%;">
-                                <a class="waves-effect waves-light load_x" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="material-icons left">mode_edit</i></a>
+                                <a class="waves-effect waves-light load_x modal-trigger" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="mdi mdi-pencil left"></i></a>
 
-                                <a class="waves-effect waves-light load_x" modulo="nivelescliente" id="h{$CATC[LE][0]}" title="Eliminar Nivel de Cliente"><i class="material-icons left">delete</i></a>
+                                <a class="waves-effect waves-light load_x" modulo="nivelescliente" id="h{$CATC[LE][0]}" title="Eliminar Nivel de Cliente"><i class="mdi mdi-close left"></i></a>
                             </td>
                         </tr>
                         {/section}
@@ -554,7 +554,7 @@
 </li>
 
 <li>
-    <div class="collapsible-header"><i class="material-icons">schedule</i><h5>Período Fiscal</h5></div>
+    <div class="collapsible-header"><i class="mdi mdi-clock"></i><h5>Período Fiscal</h5></div>
 
     <div class="collapsible-body"><div class="card-block">
         <div class="row pequeño">
@@ -673,11 +673,11 @@
 
         <ul class="collection z-depth-5" id="showWSDL">
             {section name=LE loop=$WSDL}
-            <li class="collection-item dismissable" style="cursor: pointer;" id="ws_{$WSDL[LE][0]}"><div><span class="wsdls" id="wsid_{$WSDL[LE][0]}">{$WSDL[LE][1]}</span><a class="secondary-content delws" id="delws{$WSDL[LE][0]}"><i class="material-icons">delete</i></a></div></li>
+            <li class="collection-item dismissable" style="cursor: pointer;" id="ws_{$WSDL[LE][0]}"><div><span class="wsdls" id="wsid_{$WSDL[LE][0]}">{$WSDL[LE][1]}</span><a class="secondary-content delws" id="delws{$WSDL[LE][0]}"><i class="mdi mdi-pencil"></i></a></div></li>
             {/section}
 
         </ul>
-        <a href='#modal-wsdl-bt' id="mantWsdl-bt" class="btn-floating right btn-medium waves-effect waves-light modal-trigger z-depth-2" data-position="top" data-tooltip="Ingresar Moneda"><i class="material-icons">add</i></a>
+        <a href='#modal-wsdl-bt' id="mantWsdl-bt" class="btn-floating right btn-medium waves-effect waves-light modal-trigger z-depth-2" data-position="top" data-tooltip="Ingresar Moneda"><i class="mdi mdi-plus"></i></a>
 
 
     </div>
@@ -713,7 +713,7 @@
                 
                 <div class="fixed-action-btn">
                     <a class="btn-floating btn-large red" modulo="wsdl" detalle="1">
-                      <i class="large material-icons">add</i>
+                      <i class="large mdi mdi-plus"></i>
                   </a>
               </div>
           </div>
