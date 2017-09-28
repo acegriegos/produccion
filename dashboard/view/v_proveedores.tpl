@@ -336,7 +336,7 @@
                                 <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh">8088800888</span></span></td></tr>
                                 <tr class="icorr">
                                     <td style="padding: 0 !important; font-size: 0.8em">
-                                    <div id="fcorreos" fill="17" class="ciclos infcorreo2" vtabla="correo" hasTabla="1" tp="3">
+                                    <div id="infcorreo2">
                                         <div class="placeh chip chpcr">mail@example.com</div>
                                     </div>
                                     </td>
