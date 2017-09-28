@@ -208,14 +208,14 @@ $("#telefono_in").blur(function(){
 
 $(document).on("click",".chpcrr",function(){
 	var id = $(this).attr('id');
-	console.log(id)
+
 	$("#schp"+id).remove();
 	$("#ichp"+id).remove();
 });
 
 $(document).on("click",".chpphone",function(){
 	var id = $(this).attr('id').substr(5);
-	console.log(id)
+
 	$("#stchp"+id).remove();
 	$("#itchp"+id).remove();
 });
@@ -371,7 +371,7 @@ function validarclientes() {
 
 	if ($("#vnombre").val() == ''){ $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == ''){	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
-	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado';}
+	if ($("#videstado").val() == '') {$('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado'; };
 	if ($("#vcredito").val() == ''){$("#vcredito").val(0)}
 		if ($("#vplazo").val() == '') {$("#vplazo").val(0)}
 
@@ -398,15 +398,15 @@ function validarclientes() {
 			}
 
 			$("#vtelefono").val('');
-			$("#shtelefonos li[id^=0_]").each(function(){
+			$("#shtelefonos .chip[id^=0_]").each(function(){
 				t_valor = $("#vtelefono").val();
-				$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.collapsible-header > .badge',this).html()+'",?]:')
+				$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.chip > .badge',this).html()+'",?]:');
 			});
 
 			$("#vcorreo").val('');
 			$("#shcorreos .chip[id^=0_]").each(function(){
 				t_valor = $("#vcorreo").val();
-				$("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:')
+				$("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:');
 			});
 
 			return false;
@@ -490,27 +490,28 @@ function endDetail(vid,vacc,modulo){
 function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
-		var tipo = $("#vidtipocliente").val();
-		$("[tipoclie="+tipo+"]").prop('checked',true);
-		$("[tipoclie="+tipo+"]").change();
-		$("#infvnombre0").html($("#vnombre").val());
-		$("#infvapellido0").html($("#vapellido1").val());
-		$("#infvapellido1").html($("#vapellido2").val());
-		$("#infcedula1").html($("#vcedula").val()); 
-		$("#shcorreos .chip[id^=0_]").each(function(){
-			t_valor = $("#vcorreo").val()
-			$(".infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'))
-		});
-		$("#infcodigo6").html($("#vcodigo").val());
-		$("#infweb7").html($("#vweb").val());
-		$("#infprovincia8").html($("#vidprovincia").val());
+			var tipo = $("#vidtipocliente").val();
+			$("[tipoclie="+tipo+"]").prop('checked',true);
+			$("[tipoclie="+tipo+"]").change();
+			$("#infvnombre0").html($("#vnombre").val());
+			$("#infvapellido0").html($("#vapellido1").val());
+			$("#infvapellido1").html($("#vapellido2").val());
+			$("#infcedula1").html($("#vcedula").val());
+			$("#shcorreos .chip[id^=0_]").each(function(){
+				console.log('T_VALOR = '+t_valor)
+				var t_valor = $("#vcorreo").val();
+				$(".infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+			});
+			$("#infcodigo6").html($("#vcodigo").val());
+			$("#infweb7").html($("#vweb").val());
 
-		// <div id="ichp"'.$obj[0].'" class="chpcrr chip">'.$obj[3].'</div>
-		$(".infcorreo2").html();
-		/*$("#infcanton9").html($("#vidcanton").val());
-		$("#infdistrito10").html($("#viddistrito").val());
-		$("#infdireccion11").html($("#vdireccion").val());
-		$("#inftelefono4").html($("#telefono_in").val());*/
+			// $("#inftelefono4").html($("#telefono_in").val());
+			
+			$("#infprovincia8").html( $("#vidcprovincia option:selected").val() );
+			$("#infcanton9").val( $("#vidcanton option:selected").val() );
+			$("#infdistrito10").val( $("#viddistrito option:selected").val() );
+			$("#infdireccion11").html( $("#vdireccion").val() );
+			$("#videstado option:selected").val();
 
 		break;
 	}
@@ -553,7 +554,7 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 			$(".chpph").remove();
 			$("#inftelefono4").append('<div id="itchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
 		}else{
-			Materialize.toast('Correo no Válido',4000,'danger');2
+			Materialize.toast('Teléfono no Válido',4000,'danger');2
 			$("#telefono_in").select();
 		}
 	// }else{

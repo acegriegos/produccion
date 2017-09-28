@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <a href="#modal-descuentos" class="btn z-depth-5 right" style="margin: 1%;" id="gendesc">Generar Descuento</a><br><br>
+        <a href="#modal-descuentos" class="btn z-depth-5 right modal-trigger" style="margin: 1%;" id="gendesc">Generar Descuento</a><br><br>
         <table class="table  pequeño responsive-table z-depth-5 highlight centered" id="data-table-descuentos"><br><br>
             <thead>
                 <tr>

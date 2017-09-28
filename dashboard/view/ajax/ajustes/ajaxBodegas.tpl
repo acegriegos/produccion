@@ -13,7 +13,7 @@
             </div>
             <div class="col s12 m1 l1 ">
             <br>
-                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="bodega" id="addbod">add</button>
+                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="bodega" id="addbod"><i class="mdi mdi-plus  mdi-24px"></i></button>
             </div>
         </div>
         <div class="col s12 l6 pequeño">
@@ -30,8 +30,8 @@
                     <tr>
                         <td>{$BOD[LE][1]}</td>
                         <td>
-                            <i class="pbtn btn-color material-icons load" id="m{$BOD[LE][0]}" modulo="bodega">edit</i>
-                            <i class="pbtn btn-color cdel material-icons delete" id="d{$BOD[LE][0]}" modulo="bodega" tip="vidbodega">close</i>
+                            <i class="pbtn btn-color  load mdi mdi-pencil  mdi-24px" id="m{$BOD[LE][0]}" modulo="bodega"></i>
+                            <i class="pbtn btn-color cdel mdi mdi-close delete  mdi-24px" id="d{$BOD[LE][0]}" modulo="bodega" tip="vidbodega"></i>
                         </td>
                     </tr>
                     {/section}
@@ -71,7 +71,7 @@
                 <label for="vidcuenta">Cuenta</label>
             </div>
             <div class="col s12 m1">
-                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="inventario" id="addinv" title="Agregar Inventario">add</button>
+                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="inventario" id="addinv" title="Agregar Inventario"><i class="mdi mdi-plus"></i></button>
             </div>
         </div>
 
