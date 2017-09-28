@@ -1,6 +1,6 @@
 $(function(){
     $("#mchange").change(function(){
-        mantenimiento('main',3,$(this).val());
+        console.log(mantenimiento('main',3,$(this).val()));
     });
 
     generarSSuc();

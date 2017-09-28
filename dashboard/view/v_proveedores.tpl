@@ -19,7 +19,7 @@
             <div class="card-content pequeño">
                 <div class="row">
                     <div class="input-field col s10 m6">
-                        <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+                        <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small mdi mdi-magnify"></i></a>
                         <ul id='filtr_1' class='dropdown-content'>
                             <li><a href="#!" fltr="1">Nombre</a></li>
                             <li><a href="#!" fltr="2">Cédula</a></li>
@@ -29,7 +29,7 @@
                         <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
                     </div>
                     <div class="col s2 m6 per2001">
-                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5 " data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large material-icons">add</i></a>
+                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5 " data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large mdi mdi-plus"></i></a>
                     </div>
                 </div>
                 <div class="card-block">
@@ -59,9 +59,9 @@
                                     <a href="#modal-contactos" class="hide" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$PROV[LE][0]}">contact_phone</i></a>
                                     {/if}
 
-                                    <a href="#modal-clientes" style="color:black" class="load material-icons pbtn per2002 modal-trigger" id="m{$PROV[LE][0]}" modulo="cliente">edit</a>
+                                    <a href="#modal-clientes" style="color:black" class="load mdi mdi-pencil mdi-24px pbtn per2002 modal-trigger" id="m{$PROV[LE][0]}" modulo="cliente"></a>
 
-                                    <a href="#" style="color:black" class="delete material-icons pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}">delete</a>
+                                    <a href="#" style="color:black" class="delete mdi mdi-delete mdi-24px pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}"></a>
                                 </td>
                             </tr>
                             {/section}
@@ -164,12 +164,12 @@
                                 <div class="ciclos">
                                 <div class="row">
                                     <div class="l10 m10 s12 col">
-                                        <i class="material-icons prefix">email</i>
+                                        <i class="mdi mdi-email prefix"></i>
                                         <input id="correo_in" type="text" class="validate tooltipped onblur" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                                         <label for="correo_in">Ingresar Correo</label>
                                     </div>
                                     <div class="l2 m2 s12 col">
-                                        <a href="#!" id="btnaddcorreo"><i class="material-icons">add_box</i></a>    
+                                        <a href="#!" id="btnaddcorreo"><i class="mdi mdi-plus-box mdi-24px"></i></a>    
                                     </div>
                                 </div>
                                     <input type="hidden" id="vcorreo" fill="18">
@@ -195,12 +195,12 @@
                                             
                                         <div class="input-field col s8 m8">
                                             <div class="l10 m10 s10 col">
-                                                <i class="material-icons prefix">phone</i>
+                                                <i class="mdi mdi-phone prefix"></i>
                                                 <input type="tel" class="validate tooltipped onblur" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
                                                 <label for="telefono_in">Teléfono</label>
                                             </div>
                                             <div id="btnaddphone" class="l2 m2 s2 col">
-                                                <a href="#!"><i class="material-icons">add_box</i></a>    
+                                                <a href="#!"><i class="mdi mdi-plus-box mdi-24px"></i></a>    
                                             </div>
                                             
                                             <input type="hidden" id="vtelefono" fill="19">
@@ -252,7 +252,7 @@
                                 <div class="row"><br>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="provincia">
-                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
+                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus"></i></a>
 
                                             <select id="vidprovincia" type="select" class="_det" primary="1">
                                                 <option value="0">Seleccione una Provincia</option>
@@ -265,7 +265,7 @@
                                     </div>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="canton">
-                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="material-icons">add</i></a>
+                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus"></i></a>
                                             <select id="vidcanton" type="select" class="_det">
                                                 <option value="">Seleccione un Cantón</option>
                                             </select>
@@ -274,7 +274,7 @@
                                     </div>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="distrito">
-                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="material-icons">add</i></a>
+                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus"></i></a>
 
                                             <select id="viddistrito" type="select" class="_det">
                                                 <option value="">Seleccione un Distrito</option>
@@ -311,9 +311,9 @@
                 <div class="col s12 m4 l3 expand-2">
                     <div class="row" style="background: #DEDEDE"><br>
                         <div class="row">
-                        <div class="s1 m1 l1 col pbtn"><i class="material-icons">chevron_left</i></div>
+                        <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-left mdi-24px"></i></div>
                         <div class="s9 m9 l9 col" align="center">&nbsp;</div>
-                        <div class="s1 m1 l1 col pbtn"><i class="material-icons">chevron_right</i></div>
+                        <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-right mdi-24px"></i></div>
                         </div>
                         <div class="s12 m12 l12 col" align="center">
                             <h5><b><span id="infvnombre0"><span class="placeh">Nombre Cliente</span></span> <span id="infvapellido0">&nbsp;</span> <span id="infvapellido1">&nbsp;</span></b></h5>
@@ -334,7 +334,13 @@
                         <div class="s8 m8 l8 col" align="center">
                             <table>
                                 <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh">8088800888</span></span></td></tr>
-                                <tr class="icorr"><td style="padding: 0 !important; font-size: 0.8em"><div id="infcorreo2"><div class="placeh chip chpcr">mail@example.com</div></div></td></tr>
+                                <tr class="icorr">
+                                    <td style="padding: 0 !important; font-size: 0.8em">
+                                    <div id="fcorreos" fill="17" class="ciclos infcorreo2" vtabla="correo" hasTabla="1" tp="3">
+                                        <div class="placeh chip chpcr">mail@example.com</div>
+                                    </div>
+                                    </td>
+                                </tr>
                                 <tr class="iphone"><td style="padding: 0 !important; font-size: 0.8em"><div id="inftelefono4"><div class="placeh chip chpph">88888888</div></div></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infcodigo6"><span class="placeh">COD01</span></span></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infweb7"><span class="placeh">www.example.com</span></span></td></tr>

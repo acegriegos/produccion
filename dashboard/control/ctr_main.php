@@ -44,11 +44,11 @@
 
 	   			$idsuc = $_POST['arreglo'] >= 0 ? $_POST['arreglo'] : 0;
 	   				
-	   			$sucursal = $kakaroto->kamehameha('id,nombre',39,'id = '.$idsuc)[0][0];
+	   			$sucursal = $kakaroto->kamehameha('id,nombre',39,'id = '.$idsuc)[0];
 
 	   			$_SESSION['EMPRESA'] = $sucursal[1];
               	$_SESSION['IMPRESA'] = $sucursal[0];
-              	$_SESSION['TMP_CIA'] = $_POST['arreglo'] >= 0 ? 1 : 0;
+              	$_SESSION['TMP_CIA'] = $_POST['arreglo'] >= 0 ? 1 : -1;
 
               	$transaccion = $sucursal;
 
