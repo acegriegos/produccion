@@ -13,6 +13,11 @@
 	   			$pagina = 1;
 	   			make_smarty()->display('ajax/laboratorio/entrada.tpl');
 	   			break;
+	   		case 2:
+	   			$pagina = 1;
+	   			$categorias = $kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by nombre');
+	   			require_once 'view/ajax/laboratorio/recepcion.php';
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

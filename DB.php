@@ -8,17 +8,11 @@
      <title>SP-LT</title>
  
      <link href="assets/css/bootstrap.css" rel="stylesheet">
- 
-     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-     <!--[if lt IE 9]>
-       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-     <![endif]-->
    </head>
    <body>
    	 
    	 <?php 
+
    	 if (!isset($_REQUEST['tabla'])) { ?>
 		<div class="alert alert-danger" style="text-align: center; margin-top:5%">
 			<strong>ACCESO DENEGADO!</strong><br> No tiene Permisos
@@ -30,13 +24,16 @@
 	 	require_once '_config/mysqlDB.php';
 	 	$mysql = new DBClass();
 	 	$tabla = $_REQUEST['tabla'];
-	 	$rs = $mysql->ejecutar("DESCRIBE $tabla");
-	 
-	 	if ($rs->num_rows > 0) {
+        $schema = isset($_REQUEST['schema']) ? $_REQUEST['schema'].'.' : '';
+        $log = isset($_REQUEST['schema']) ? 'developer.' : '';
+
+	 	$rs = $mysql->ejecutar("DESCRIBE ".$schema.$tabla);
+	   
+	 	if (isset($rs->num_rows)) { 
 	 		$cols = $rs->fetch_all();
-	 		print_r($mysql->ejecutar('DROP PROCEDURE IF EXISTS sp_mant'.$tabla));
+	 		print_r($mysql->ejecutar('DROP PROCEDURE IF EXISTS '.$schema.'sp_mant'.$tabla));
 	 		echo "<hr>";
-	 		$param = 'CREATE PROCEDURE sp_mant'.$tabla.'(vaccion tinyint(2),';
+	 		$param = 'CREATE PROCEDURE '.$schema.'sp_mant'.$tabla.'(vaccion tinyint(2),';
 	 		foreach ($cols as $obj) {
 	 			$param .= 'v'.$obj[0].' '.$obj[1].',';
 	 		}
@@ -44,7 +41,7 @@
 	 		$param .= ')BEGIN 
 CASE vaccion 
 WHEN 1 THEN  
-	INSERT INTO '.$tabla.' VALUES(';
+	INSERT INTO '.$schema.$tabla.' VALUES(';
 
 foreach ($cols as $obj) {
 	switch ($obj[1]) {
@@ -73,10 +70,10 @@ $param = substr($param, 0,-1);
 
 	$param .= ');
 SELECT @@identity;
-/*INSERT INTO log values(null,0,1,\'\',vidusuario,now());*/  
+/*INSERT INTO '.$log.'log values(null,0,1,\'\',vidusuario,now());*/  
 
 WHEN 2 THEN  
-	UPDATE '.$tabla.' SET ';
+	UPDATE '.$schema.$tabla.' SET ';
 
 foreach ($cols as $obj) {
 	switch ($obj[1]) {
@@ -103,19 +100,20 @@ $param = substr($param, 0,-1);
 $param .= '
     WHERE id = vid;
 	SELECT vid;
-	/*INSERT INTO log values(null,0,2,\'\',vidusuario,now());*/
+	/*INSERT INTO '.$log.'log values(null,0,2,\'\',vidusuario,now());*/
 
 WHEN 3 THEN
 	SELECT ifnull(if(min(id)-1 = 0,-1,min(id)-1),-1) FROM '.$tabla.' INTO @id;  
 	UPDATE '.$tabla.' set id = @id where id = vid;
 	SELECT @id;
-	/*INSERT INTO log values(null,0,3,\'\',vidusuario,now());*/
+	/*INSERT INTO '.$log.'log values(null,0,3,\'\',vidusuario,now());*/
 END CASE; 
 END;';
 	 		 print_r($mysql->ejecutar($param));
 
 	 	}else{
-	 		echo "Tabla \"$tabla\" no Existe";
+	 		echo "Tabla ".$schema.$tabla." no Existe<br>";
+            print_r($rs);
 	 	}
 	  }?>			 
  		</div>

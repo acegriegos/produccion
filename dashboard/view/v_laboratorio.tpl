@@ -23,17 +23,18 @@
                   <div class="card-panel pequeño ">
 
                     <div class="row">
-                     <div class="col s12 m6 l6 per6000">
-                      <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" >Recepción</a>
-                    </div>
-                    <div class="col s12 m6 l6 per6100">
-                      <a href="aboratorio?accion=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>
-                    </div>
-                    
-                    <div class="col s12 m6 l6 per6200">
-                      <a href="laboratorio?accion=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" >Procesos</a>
-                    </div>
 
+                      <div class="col s12 m6 l6 per6000">
+                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" >Procesos</a>
+                      </div>
+
+                      <div class="col s12 m6 l6 per6100">
+                        <a href="aboratorio?accion=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>
+                      </div>
+
+                      <div class="col s12 m6 l6 per6100">
+                        <a href="aboratorio?accion=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;">Ajustes</a>
+                      </div>
 
                   </div>
                 </div>
