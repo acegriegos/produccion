@@ -12,8 +12,8 @@
 <td style="width: 10%"><?php echo $obj[7] ?></td>
 <td style="width: 10%"><?php echo $obj[8] ?></td>
 <td style="width: 10%">
-    <a class="btn-color pbtn material-icons print blueh" id="a<?php echo $obj[0] ?>" tv="<?php echo $obj[9] ?>" tp="<?php echo $obj[10] ?>" title="Visualizar Factura">local_printshop</a>
-    <a class="btn-color pbtn material-icons process blueh modal-trigger waves-effect waves-light" id="b<?php echo $obj[0] ?>" href="#modal-process" title="Procesar Factura" rm="3">settings</a>
+    <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh" id="a<?php echo $obj[0] ?>" tv="<?php echo $obj[9] ?>" tp="<?php echo $obj[10] ?>" title="Visualizar Factura"></a>
+    <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh modal-trigger waves-effect waves-light" id="b<?php echo $obj[0] ?>" href="#modal-process" title="Procesar Factura" rm="3"></a>
 </td>
 </tr>
 

@@ -18,10 +18,10 @@
         <td style="width: 10%"><?php echo $obj[5]; ?></td>
         <td style="width: 10%"><?php echo $obj[6]; ?></td>
         <td style="width: 10%">
-            <a class="btn-color pbtn material-icons" id="a<?php echo $obj[0]; ?>" title="">close</a>
-            <a class="btn-color pbtn material-icons" id="b<?php echo $obj[0]; ?>" title="">close</a>
-            <a class="btn-color pbtn material-icons" id="c<?php echo $obj[0]; ?>" title="">close</a>
-            <a class="btn-color pbtn material-icons" id="d<?php echo $obj[0]; ?>" title="">close</a>
+            <a class="btn-color pbtn mdi mdi-24px mdi-close" id="a<?php echo $obj[0]; ?>" title="">close</a>
+            <a class="btn-color pbtn mdi mdi-24px mdi-close" id="b<?php echo $obj[0]; ?>" title="">close</a>
+            <a class="btn-color pbtn mdi mdi-24px mdi-close" id="c<?php echo $obj[0]; ?>" title="">close</a>
+            <a class="btn-color pbtn mdi mdi-24px mdi-close" id="d<?php echo $obj[0]; ?>" title="">close</a>
         </td>
     </tbody>
 </table>
