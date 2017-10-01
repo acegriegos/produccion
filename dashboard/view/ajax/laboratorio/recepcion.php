@@ -24,7 +24,7 @@
                   </div>
 
                   <div class="input-field">
-                    <input type="text" id="vvariedad" class="eder" placeholder="Nombre de la Variedad">
+                    <input type="text" id="vvariedad" class="eder autocomplete" placeholder="Nombre de la Variedad">
                     <label for="vvariedad">Variedad</label>
                   </div>
 
@@ -45,6 +45,7 @@
                    <table class="responsive-table highlight">
                     <thead>
                       <tr>
+                          <th></th>
                           <th>Dirección</th>
                           <th>Región</th>
                           <th>Finca <a class="btn-floating blue z-depth-5 der" id="addFin" style="padding-right: 5% !important;height:30px; width: 30px"><i class="mdi mdi-plus mdi-10px"></i></a></th>
@@ -63,21 +64,25 @@
 
               <div class="row">
 
-                <div class="col s3">
+                <div class="col s1">
+                  <span class="prefix">Rango:</span>
+                </div>
+
+                <div class="col s2">
                   <div class="input-field">
-                    <input type="text" id="vdesde" class="eder">
-                    <label for="vdesde">Desde</label>
+                    <input type="text" id="vrango1" class="eder" value="0">
+                    <label for="vrango1">Desde</label>
                   </div>
                 </div>
 
-                <div class="col s3">
+                <div class="col s2">
                   <div class="input-field">
-                    <input type="text" id="vhasta" class="eder">
-                    <label for="vhasta">Hasta</label>
+                    <input type="text" id="vrango2" class="eder" value="0">
+                    <label for="vrango2">Hasta</label>
                   </div>
                 </div>
                 <a href="#!" class="btn add der" modulo="laboratorio-explante">Ingresar</a>
-                <a href="#!" class="btn der" modulo="laboratorio-explante" style="margin-right: 10px;">Listado de Recepciones</a>
+                <a href="#!" class="btn der" style="margin-right: 10px;">Listado de Recepciones</a>
               </div>
 </div> 
 
@@ -91,7 +96,26 @@
 
       <div class="modal-content">
 
-        <div class="row cli" style="margin: 0px">
+        <div class="serv">
+
+          <div class="col s6 m4 input-field">
+            <input type="text" id="vnombre_serv" />
+            <label for="vnombre_serv">Nombre</label>
+          </div>
+
+          <div class="col s6 m4 input-field">
+            <input type="text" id="vcodigo_serv" />
+            <label for="vcodigo_serv">Código</label>
+          </div>
+
+          <div class="col s6 m4 input-field">
+            <input type="text" id="vdescripcion_serv" />
+            <label for="vdescripcion_serv">Descripción</label>
+          </div>
+
+        </div>
+
+        <div class="row cli nserv" style="margin: 0px">
 
           <div class="col s6 m3 l2">
             <p>
@@ -128,9 +152,9 @@
 
       </div>
 
-      <div class="row cli">
+      <div class="row cli nserv">
 
-         <div class="col s6 m4 input-field">
+        <div class="col s6 m4 input-field">
             <input type="text" id="vnombre" />
             <label for="vnombre">Nombre</label>
         </div>
@@ -147,7 +171,7 @@
 
       </div>
 
-        <div class="row">
+        <div class="row nserv">
                 <div class="col s6 m3 input-field">
                   <input type="text" id="pais" class="autocomplete">
                   <label for="pais">País</label>
@@ -180,7 +204,7 @@
                 
               </div>
 
-              <div class="row cli">
+              <div class="row cli nserv">
 
                 <div class="col s6 m4 input-field">  
                   <select id="vcategoria">
@@ -204,7 +228,7 @@
 
               </div>
               
-              <div class="row">  
+              <div class="row nserv">  
                 <div class="col s12 input-field">  
                   <textarea id="vdireccion" class="materialize-textarea"></textarea>
                   <label for="vdireccion">Otras Señas</label>

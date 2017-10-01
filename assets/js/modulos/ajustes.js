@@ -155,12 +155,27 @@ $(document).on("click",".menu3",function(){
 				bLengthChange : false,
 				order : []
 			});
-			var arr = {};
-			arr['sel'] = 'idcuenta';
-			arr['tbl'] = 88;
-			arr['where'] = 'idfila = 0 and idtipo = 10';
-			var def = mantenimiento('login',4,arr)[0][0];
+			var varr = {};
+			varr['sel'] = 'idcuenta';
+			varr['tbl'] = 88;
+			varr['where'] = 'idfila = 0 and idtipo = 10';
+			var def = mantenimiento('login',4,varr)[0][0];
 			$("#vidcuenta").val(def);
+
+			$(document).on("change","#vidbodega",function(){
+			    var id = $(this).val();
+			    var tabla = $("#data-table-inventarios").DataTable();
+			    tabla.destroy();
+
+			    $("#listainventarios").html(mantenimiento('login',6,{sel:'id,nombre',tbl:111,where:'idbodega = '+id+' and idsucursal in(@@impresa,-1)'}));
+
+			    $("#data-table-inventarios").DataTable({
+			    	bFilter :  false,
+			        bLengthChange : false,
+			        order : []
+			    });
+			});
+
 			break;
 		case 7:
 			var p = mantenimiento('ajustes',7,'');
@@ -171,6 +186,13 @@ $(document).on("click",".menu3",function(){
 				bFilter : false,
 				bLengthChange : false,
 				order : []
+			});
+
+			$(document).on("change","#vidbodega",function(){
+				var id = $(this).val();
+				arr('login',6,'id,nombre',111,'id > 0 and idbodega = '+id+' order by nombre',15,1,$("#vidinvent"));
+				$("#vidinvent").material_select();
+				$("#dinvent").show(500);
 			});
 			break;
 		case 8:
@@ -283,13 +305,6 @@ $(document).on("click","#addservprod",function(){
 		else
 			Materialize.toast(servs[0]['ERROR'], 4000, 'red');
 	});
-});
-
-$(document).on("change","#vidbodega",function(){
-	var id = $(this).val();
-	arr('login',6,'id,nombre',111,'id > 0 and idbodega = '+id+' order by nombre',15,1,$("#vidinvent"));
-	$("#vidinvent").material_select();
-	$("#dinvent").show(500);
 });
 
 $(document).on("change","#vidinvent",function(){
@@ -689,17 +704,6 @@ $(document).on("click","#actvarprod",function(){
     $("#addvarprod").text('add');
 });
 
-$(document).on("change","#vidbodega",function(){
-    var id = $(this).val();
-    var tabla = $("#data-table-inventarios").DataTable();
-    tabla.destroy();
-    arr('login',6,'id,nombre',111,'idbodega = '+id+' and idsucursal = @@impresa',0,1,$("#listainventarios"));
-    $("#data-table-inventarios").DataTable({
-    	bFilter :  false,
-        bLengthChange : false,
-        order : []
-    });
-});
 
 $(document).on("click",".load[id^=i]",function(){
 	$("#vnombre_banco").attr('id','tmp');
@@ -1630,14 +1634,13 @@ $(document).on("click",".addglobal",function(){
 	
 	}
 
-console.log(vispadre);
 	var arr = {}
 	arr['sel'] = '';
 	arr['tbl'] = 37;
 	arr['where'] = '1,0,'+$("#vgenero").data('lvl')+',"'+$('#vnombre').val()+'",@@usr,'+ vispadre;
 
 	var p = mantenimiento('login',4,arr);//INGRESAR CUENTA
-	if(p['succed'] != 0){
+	if(p['succed']){
 		// arr = {};
 		// arr['sel'] = 'id,nombre,numero';
 		// arr['tbl'] = 36;
