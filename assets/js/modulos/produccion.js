@@ -607,7 +607,14 @@ $(document).on("keydown",".vproducto",function(e){
     var tipo = $(this).attr('id').substr(0,1);
     var charCode = e.which || e.keyCode;
     var charStr = String.fromCharCode(charCode);
-    autocomplete(charCode,charStr,tipo+'producto',116)
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+            $('#'+tipo+'producto').autocomplete({
+                limit: 10,
+                data: arr('login',4,'',77,'0,0,1,"'+$(this).val()+'"',0,0,0,1)
+            }); 
+        $('.'+tipo+'producto').siblings($(".autocomplete-content")).css('width','25%');
+    }
 
     if (charCode == 13) {
         setTimeout(function(){$("#"+tipo+"cantidad").focus();},100);
@@ -642,15 +649,30 @@ $(document).on("keyup",".vcantidad",function(e){
 $(document).on("click",".addproduct",function(){
     var tipo = $(this).attr('tipo');
     var nombre = $("#"+tipo+"producto").val();
+    if (nombre.substr(0,1) != '[') {
+        nombre = nombre.substr(0,nombre.indexOf('-'));
+    }else{
+        nombre = nombre.substring(0, nombre.indexOf(' - ')).replace('[SERV] ','');
+    }
     var cantidad = $("#"+tipo+"cantidad").val();
     var idunidad = $("#"+tipo+"idunidad").val();
     var medida = $("#"+tipo+"idunidad option:selected").attr('unidad');
-    var prod = arr('login',4,'id,replace(precio,",","") as precio',116,'nombre = \"'+nombre+'\"',0,0,0)[0][0];
-    if (prod != undefined) {
-        var precio = convert(prod[0],cantidad,idunidad,prod[1]);
-        addproduct(nombre,cantidad,idunidad,medida,precio,tipo);
+    var prod = arr('login',4,'',116,'0,"'+nombre+'"',0,0,0);
+    console.log(prod['succed'])
+    // id,replace(precio,",","") as precio
+    if (prod['succed'] == 1) {
+        if (prod[0][0] != undefined) {
+            prod = prod[0]
+            var precio = convert(prod[0],cantidad,idunidad,prod[3]);
+            addproduct(nombre,cantidad,idunidad,medida,precio,tipo);
+        }else{
+
+        }
+
+        
     }else{
         Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
+        
         $("#"+tipo+"cantidad").val('');
         $("#"+tipo+"producto").select();
     }
@@ -704,7 +726,6 @@ $(document).on("click",".accept",function(){
     $("#"+tipo+"p"+id).remove();
     $("."+tipo+"product").each(function(){
         var idprod = $(this).attr('id').substr(5);
-        console.log($("#"+tipo+"prec"+idprod).attr('spot')+" "+spot)
         if ($("#"+tipo+"prec"+idprod).attr('spot') == spot) {
             var precio = parseFloat($("#"+tipo+"prec"+idprod).val());
             prectot += precio;
@@ -744,7 +765,6 @@ $(document).on("click",".saveproceso",function(){
 
     if (total != '0.00') {
         var prod =  arr('login',4,'id',11,'nombre = "'+nombre+'"',0,0,0)[0][0];
-        console.log(prod)
         if (prod == undefined) {
             //guarda proceso en tabla prodcutos
             idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+(total * ((imp/100)+1) )+',0,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
@@ -1102,7 +1122,7 @@ function totalizar(id,ganancia,manoobra) {
 
 function addproduct(nombre,cantidad,idmedida,medida,precio,tipo) {
     var id = $("#"+tipo+"spot").val();
-    var idproducto = arr('login',4,'vid',14,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
+    var idproducto = arr('login',4,'id',11,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
     var prectot = 0;
     var validac = 1;
     // validacion
@@ -1162,7 +1182,6 @@ function makeprocess(id,nombre,codigo,tipo) {
     var opc = 0;
     var rnombre = nombre.replace(/\s+/g, '');
     if (tipo == 1) {id += 1;}
-    console.log(id)
     $("."+tipo+"recipes").each(function(){
         if ($(this).attr(tipo+'nombre') == rnombre) {
             opc = 1;

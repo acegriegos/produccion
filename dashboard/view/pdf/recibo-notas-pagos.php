@@ -12,9 +12,7 @@ class myPDF extends TCPDF {
 
     public function Footer() {
         $html = '<div align="center">
-            <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución # 11--97 de la Dirección General de Tributación Directa, publicado en el diario La Gaceta #171 el 5 de Setiembre de 1997.
-              <br> 
-              <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
+            <br>
             </div>';
 
         $this->writeHTML($html, true, false, true, false, '');
@@ -70,7 +68,7 @@ $html = '<!doctype html>'.
 '<meta charset="UTF-8">'.
 '<meta http-equiv="X-UA-Compatible" content="IE=edge">'.
 '<meta name="viewport" content="width=device-width, initial-scale=1">'.
-'<title>FACTURA</title>'.
+'<title>Recibo</title>'.
 
 '</head>'.
 '<body style="width: 100%"; >'.
@@ -171,15 +169,14 @@ $miscelaneos[6].'</div>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
 '<div style="text-align: left;"><span style="font-size:18px">Factura Original</span><br>'.
 '<br>'.
-'<strong>Venta N°</strong> '.$datos[0][0].'<br>'.
-'<strong>Factura de: </strong> '.$datos[0][1].'<br>'.
+'<strong>Recibo N°</strong> '.$datos[0][1].'<br>'.
 '<strong>Cliente:</strong><br>'.
 '<br>'.
 $datos[0][4].'<br>'.
 '<br>'.
-'<strong>Vende:</strong> '.$datos[0][16].'<br>'.
+'<strong>Usuario:</strong> '.$datos[0][10].'<br>'.
 '<strong>Comentario:</strong><br>'.
-$datos[0][12].'</div>'.
+$datos[0][8].'</div>'.
 
 '</td>'.
 '</tr>'.

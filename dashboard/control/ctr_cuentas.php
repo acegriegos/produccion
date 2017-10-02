@@ -46,14 +46,14 @@ if (!isset($_REQUEST['accion'])) {
 			break;
 		case 4:
 			$pagina = 1;
-			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
 			$transaccion = $kakaroto->kamehameha('',186,$_REQUEST['id']);
 			$datos = $transaccion[0];
 			
 			if($_REQUEST['tp'] == 1)
 				require_once 'view/ajax/cuentas/recibopv.php';
 			else
-				require_once 'view/ajax/cuentas/recibo.php';
+				require_once 'view/ajax/cuentas/recibopv.php';
 			break;
 		case 5:
 			$pagina = 1;

@@ -14,9 +14,9 @@
            
            <?php } ?>
 
-           <a href="#modal-clientes" class="load material-icons pbtn per1002 modal-trigger" id="m<?php echo $obj[0]; ?>" modulo="cliente" style="color:black">edit</a>
+           <a href="#modal-clientes" class="load mdi-pencil mdi mdi-24px pbtn per1002 modal-trigger" id="m<?php echo $obj[0]; ?>" modulo="cliente" style="color:black"></a>
 
-           <a href="#" class="delete material-icons pbtn per1003" modulo="cliente" id="d<?php echo $obj[0]; ?>" style="color:black">delete</a>
+           <a href="#" class="delete mdi-close mdi mdi-24px pbtn per1003" modulo="cliente" id="d<?php echo $obj[0]; ?>" style="color:black"></a>
        </td>
    </tr>
 

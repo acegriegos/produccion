@@ -6,15 +6,15 @@ $(function(){
 	paramTemp = param;
 	switch(param){
 		case 1:
-		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-		arr('login',6,'',214,2+',0,0',0,1,$("#listaCuentasx"));
+    		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+    		arr('login',6,'',214,2+',0,0',0,1,$("#listaCuentasx"));
 		break;
 		case 2:
-		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-		arr('login',6,'',214,1+',0,0',0,1,$("#listaCuentasx"));
+    		arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+    		arr('login',6,'',214,1+',0,0',0,1,$("#listaCuentasx"));
 		break;	
 		default:
-		$("#bdymantCuentas").html("Valor no Valido")
+		  $("#bdymantCuentas").html("Valor no Valido")
 		break; 
 	};
 	    $("#ncli").keydown(function(e){
@@ -167,7 +167,7 @@ $(document).on("click","#btnPagar",function(){
     }
   );
 
-	
+
 $(document).on("click",".detalle",function(){
 	$(this).sideNav({
             edge: 'left', // Choose the horizontal origin

@@ -25,7 +25,7 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 
-				$smarty->assign('VCUE',$kakaroto->kamehameha('*',33,'1 limit 20'));
+				$smarty->assign('VCUE',$kakaroto->kamehameha('',33,''));
 				
 				$smarty->display('ajax/contabilidad/cuentas.tpl');
 	   			break;
@@ -36,7 +36,7 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 
-	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre',54,'1 > 0'));
+	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,simbolo',54,'1 > 0'));
 	   			$smarty->display('ajax/contabilidad/asientos.tpl');
 	   			break;
 	   		case 3:

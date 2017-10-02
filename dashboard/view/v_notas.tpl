@@ -20,10 +20,10 @@
       </div>
       <div class="card-content pequeño">
         <div class="row">
-          <div class="col s12 m12 l5  ">
+          <div class="col s12 m12 l12  ">
 
            <div class="row">
-            <div class="col s12 m6 ">
+            <div class="col s12 m8 l6 ">
               <div class="switch">
                 <label style="color: black; font-size: 1.5em">
                   <b >Clientes</b>
@@ -33,7 +33,7 @@
                 </label>
               </div>
             </div>
-            <div class="col s8 m2 offset-m4 offset-s3">
+            <div class="col s8 m2   offset-m4 offset-s3">
             <br>
               <a class="waves-effect waves-light btn" id="busnota">Buscar</a>
 
@@ -42,7 +42,7 @@
           </div>
           
           <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m12 l6">
               <div class="switch ">
                 <label style="color: black; font-size: 1.5em">
 
@@ -54,7 +54,7 @@
             </div>
             <div class="input-field col s12 m6 " id="ftr0">
 
-              <i class="material-icons prefix">description</i>
+              <i class=" mdi mdi-magnify mdi-24px prefix"></i>
               <input id="vfac" type="text"  class="validate eder">
               <label for="vfac" style="font-size: 1.2em !important">Numero de Factura</label>
             </div>
@@ -73,8 +73,8 @@
               
             <div class="input-field col hide s12 m6" id="ftr1">
 
-              <a class="prefix  tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
-<label class="truncate" for="ncli" style="font-size: 1.2em !important"> <b>Nombre o Cédula del <span class="tipoclie">Cliente</span></b></label>
+              <a class="prefix  tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small mdi mdi-magnify mdi-24px"></i></a>
+<label class="truncate" for="ncli" style="font-size: 1.2em !important"> Nombre o Cédula del <span class="tipoclie">Cliente</span></label>
       <input type="text" id="ncli" var="nombre" class="autocomplete validate sclie" maxlength="64" />
               
             </div> 
@@ -97,7 +97,7 @@
             <div class="input-field col s12 m6">
 
 
-             <i class="fa fa-calendar-o prefix"></i>
+             <i class="mdi mdi-24px mdi-calendar-question prefix"></i>
              <label for="desde">DESDE</label>
              <input type="date" class="datepicker " id="desde" value="" style="font-size: 1.5em; color: black; font-weight: bold;">
 
@@ -108,7 +108,7 @@
             <div class="input-field">
 
 
-             <i class="fa fa-calendar-o prefix"></i>
+             <i class="mdi mdi-24px mdi-calendar-question prefix"></i>
              <label for="hasta">HASTA</label>
              <input type="date" class="datepicker vfecha" id="hasta" value="" style="font-size: 1.5em; color: black; font-weight: bold;">
 
@@ -134,13 +134,13 @@
 
         <div class="input-field col s12 m6 ">
 
-          <i class="material-icons prefix">description</i>
+          <i class="mdi mdi-sort-numeric mdi-24px prefix"></i>
           <input id="vnum1" type="text"  class="validate eder">
           <label for="vnum1" style="font-size: 1.2em !important">Desde la Factura</label>
         </div>
         <div class="input-field col s12 m6 " id="ASD">
 
-          <i class="material-icons prefix">description</i>
+          <i class="mdi mdi-sort-numeric mdi-24px prefix"></i>
           <input id="vnum2" type="text"  class="validate eder">
           <label for="vnum2" style="font-size: 1.2em !important">Hasta la Factura</label>
         </div>
@@ -157,7 +157,7 @@
 
     </div>
     <!--lado derecho de la pantalla -->
-    <div class="col s12 m12 l7 pequeño ">
+    <div class="col s12 m12 l12 pequeño ">
 
       <div class="row pequeño ">
         <div class="col s12 pequeño ">
