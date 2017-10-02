@@ -109,6 +109,9 @@ function loadRecepcion(){
     			arr('laboratorio',2,'',0,'',0,1,$("#labajax"));
     			cargarExplantes();
     			break;
+    		default:
+    			$("#labajax").html('')
+    			break;
     	}
     	
     });
@@ -320,11 +323,11 @@ function cargarExplantes(){
 		    	case 3:
 
 		    		var _servicio = arr('login',7,1,16,'','null,"'+$("#addClie #vcodigo_serv").val()+'","'+$("#addClie #vnombre_serv").val()+'","'+$("#addClie #vdescripcion_serv").val()+'",0,0,0,0,0,0,now(),@@usr,1,1,-1',0,0)[0][0][0];
-		    		
+		    		$(".zelda").data('triforce')['vidservicio'] = _servicio;
+
 		    		var _inventario = invvar.indexOf(",") >= 0 ? invvar.substring(0,invvar.indexOf(',')) : invvar;
 
 		    		arr('login',7,1,97,'','null,'+_inventario+','+parseInt(_servicio)*-1+',0',0,0);
-		    		$(".zelda").data('triforce')['vidservicio'] = _servicio;
 		    		
 		    		Materialize.toast('Variedad Agregada Correctamente',4000,'green');
 		    		break;
@@ -335,6 +338,12 @@ function cargarExplantes(){
     		$("#addClie").modal('close');
     		
     	}
+    });
+
+    $(document).on("click","[id^=r]",function(){
+    	var id = $(this).attr('id').substr(1)
+    	$(".zelda").data('triforce')['vidfinca'] = id;
+    	$("#s"+id).prop('checked',true);
     });
 
 } //END CARGAR EXPLANTES
@@ -447,7 +456,7 @@ function cargarTblFincas(){
 	if(fincas['succed']){
 		lista = '';
 		for (var i = 0; i < fincas[0].length; i++) {
-			lista += '<tr><td><input type="radio" name="selfinca" id="s'+fincas[0][i][3]+'" class="der with-gap"/>  <label for="s'+fincas[0][i][3]+'"></label></td><td>'+fincas[0][i][0]+'</td><td>'+fincas[0][i][1]+'</td><td>'+fincas[0][i][2]+' </td></tr>';
+			lista += '<tr id="r'+fincas[0][i][3]+'"><td><input type="radio" name="selfinca" id="s'+fincas[0][i][3]+'" class="der with-gap"/>  <label for="s'+fincas[0][i][3]+'"></label></td><td>'+fincas[0][i][0]+'</td><td>'+fincas[0][i][1]+'</td><td>'+fincas[0][i][2]+' </td></tr>';
 		}
 	}
 	
@@ -520,7 +529,11 @@ function validarCliente(){
 }
 
 function endDetail(vid,vacc,modulo){
-
+	switch(modulo){
+		case 'laboratorio.explante':
+			$("#m1").click();
+			break
+	}
     return false;
 }
 

@@ -63,7 +63,7 @@
               </div>
 
               <div class="row">
-
+                <input type="hidden" id="vresponsable">
                 <div class="col s1">
                   <span class="prefix">Rango:</span>
                 </div>

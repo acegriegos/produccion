@@ -49,10 +49,11 @@
 		function analizarTabla($arreglo){
 			$salida = array();
 			$posicion = strpos($arreglo['modulo'], '-');
-			$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion+1) : '';
+			$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : '';
 			$arreglo['modulo'] = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
 
 			$this->sql = "SHOW CREATE PROCEDURE ".$schema."sp_mant".$arreglo['modulo']."s";
+
 			$rs = $this->ejecutarSelect();
 			if (!isset($rs[0][2])) {
 				$err = $posicion ? "No existe SP asociado: ".$arreglo['modulo']."s, <a style='color: black;' href='../DB.php?tabla=".$arreglo['modulo']."s&schema=".substr($schema,0,strlen($schema)-1)."' target='new'>AGREGARLO</a>" : "No existe SP asociado: ".$arreglo['modulo']."s, <a style='color: black;' href='../DB.php?tabla=".$arreglo['modulo']."s' target='new'>AGREGARLO</a>";
