@@ -285,7 +285,6 @@ function cargarSintax(){
 }
 
 function endDetail(vid,vacc,modulo){
-
 	if (vacc == 1) {
 		$("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
 

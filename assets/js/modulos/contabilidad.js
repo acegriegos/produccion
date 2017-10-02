@@ -359,13 +359,14 @@ function cargarTransacciones(){
         
         if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
-            console.log(getDatos('nombre',36,'id > 0 and !bispadre having nombre like "'+$(this).val()+'"',0,0,1))
+
             $(this).autocomplete({
                 limit: 20,
-                data: getDatos('nombre',36,'id > 0 and !bispadre having nombre like "'+$(this).val()+'"',0,0,1)
+                data: getDatos('nombre,null',36,'id > 0 and !ispadre having nombre like "%'+$(this).val()+'%" limit 10',0,0,1)
             });
 
             $(".autocomplete-content").css('width','30%');
+            $(".autocomplete-content").css('position','absolute');
 
         }
 	});
@@ -430,7 +431,7 @@ function validartransacciones() {
 
 	if (parseFloat($('#ftransacciones').find('#totDebe').html()) == 0.00 && parseFloat($('#ftransacciones').find('#totHber').html()) == 0.00) 
 		return 'No Existe Movimiento Contable';
-	else if(parseFloat($('#ftransacciones').find('#totDebe').html()) !=  parseFloat($('#ftransacciones').find('#totHber').html()))
+	else if(parseFloat($('#totDebe').html().replace(/,/g,'')) !=  parseFloat($('#totHber').html().replace(/,/g,'')))
 		return 'Asientos no Cierran Adecuadamente';
 
 	return false;
@@ -462,5 +463,5 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext autocomplete" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>'
+	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>'
 }
