@@ -7,7 +7,7 @@
 
 <link href="../assets/css/modulos/style-factura.css" rel="stylesheet">
 
-<title>Recibo de Abono</title>
+<title>Recibo de Dinero</title>
 
 
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
@@ -181,5 +181,5 @@
 
 <script src="../assets/js/materialize.js"></script>
 <script src="../assets/js/asgard.js?v=0.1"></script>
-<script src="../assets/js/modulos/recibos.js?v=0.5"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=0.5"></script>
 </body>

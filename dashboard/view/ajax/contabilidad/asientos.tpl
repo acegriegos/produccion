@@ -32,8 +32,8 @@
                   <input type="date" class="datepicker eder" id="vfecha" value="" placeholder="Fecha de la Transacción" />
 
               </div>
-              <div class="input-field col s12 m12 l4" id="vidmoneda">
-            <select>
+              <div class="input-field col s12 m12 l4" >
+            <select id="vidmoneda" type="select">
               <option value="" disabled selected>Monedas</option>
               {section name=LE loop=$MON}
             <option value="{$MON[LE][0]}">{$MON[LE][1]} {$MON[LE][2]}</option>
