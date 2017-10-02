@@ -8,7 +8,7 @@ foreach ($transaccion as $obj) {
         $id = '-'.$obj[2];
     }
 
-    echo '<div class="chip blue lighten-3" id="l'.$id.'"><input type="hidden" id="htot'.$id.'" value="'.$obj[6].'" precio="'.$obj[5].'"><span class="nomprod" id="n'.$id.'" idproducto="'.$obj[1].'" idservicio="'.$obj[2].'">'.$obj[3].'</span> (<span class="hcant" id="c'.$id.'">'.$obj[4].'</span><span class="huni" id="u'.$obj[0].'" idunidad="'.$obj[5].'">'.$obj[6].'</span>)<i class="close material-icons del" id="d'.$id.'">close</i></div>';
+    echo '<div class="chip blue lighten-3" id="l'.$id.'"><input type="hidden" id="htot'.$id.'" value="'.$obj[7].'" precio="'.$obj[5].'"><span class="nomprod" id="n'.$id.'" idproducto="'.$obj[1].'" idservicio="'.$obj[2].'">'.$obj[3].'</span> (<span class="hcant" id="c'.$id.'">'.$obj[4].'</span><span class="huni" id="u'.$id.'" idunidad="'.$obj[5].'">'.$obj[6].'</span>)<i class="close mdi mdi-close del" id="d'.$id.'"></i></div>';
 }
  ?>
 
