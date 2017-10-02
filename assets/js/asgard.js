@@ -1,7 +1,7 @@
 acc = 1;
 
 $(function(){
-    console.log(2)
+
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
@@ -388,9 +388,9 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
         salida = mantenimiento(vref,vaccion,arr,vjson);
     
     return salida;
-}
+};
 
- function getParameterByName(name) {
+function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));

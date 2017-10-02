@@ -29,11 +29,11 @@
                       </div>
 
                       <div class="col s12 m6 l6 per6100">
-                        <a href="aboratorio?accion=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>
+                        <a href="laboratorio?accion=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>
                       </div>
 
                       <div class="col s12 m6 l6 per6100">
-                        <a href="aboratorio?accion=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;">Ajustes</a>
+                        <a href="laboratorio?accion=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;">Ajustes</a>
                       </div>
 
                   </div>

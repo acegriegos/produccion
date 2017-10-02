@@ -148,10 +148,10 @@
 
 		public function mant($tabla,$args,$ant = ''){
 			$posicion = strpos($tabla, '-');
-			$schema = $posicion ? substr($tabla, 0,$posicion+1) : '';
+			$schema = $posicion ? substr($tabla, 0,$posicion).'.' : '';
 			$tabla = $posicion ? substr($tabla, $posicion+1) : $tabla;
 
-			$this->sql = "call sp_mant".$tabla."s(".$this->_values($args,$ant);
+			$this->sql = "call ".$schema."sp_mant".$tabla."s(".$this->_values($args,$ant);
 			return $this->ejecutarSelect();
 		}
 

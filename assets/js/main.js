@@ -93,6 +93,13 @@ function generarSSuc(){
     for (var i = 0; i < p.length; i++) {
         sucursales += '<option value="'+p[i][0]+'">'+p[i][1]+'</option>';
     }
+
+    // if ($(".ssuc").attr('multiple')) {
+    //     $(".ssuc").change(function(){
+    //         alert($('option:selected',this).val())
+    //     })
+    // }
+
     $(".ssuc").material_select('destroy');
     $(".ssuc").append(sucursales);
     $(".ssuc").material_select();
