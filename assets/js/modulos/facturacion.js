@@ -233,7 +233,7 @@ function cargarCompras(){
                 var comodin= $("#valores").data('elemento')['hcomodin'];
                 var desgloce= $("#valores").data('elemento')['isdesgloce'];
                 
-                addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi, unidad, comodin,isdesgloce);
+                addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi, unidad, comodin,desgloce);
         }
     });
 

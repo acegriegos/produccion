@@ -20,7 +20,7 @@
             <div class="card-content pequeño">
                 <div class="row">
                     <div class="input-field col s10 m6 l6">
-                        <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+                        <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
                         <ul id='filtr_1' class='dropdown-content'>
                             <li><a class="optns" tipo="nombre,vcedula" href="#!" fltr="1">Nombre o Cédula</a></li>
                             <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
@@ -29,7 +29,7 @@
                         <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
                     </div>
                     <div class="col s2 m6 per1001">
-                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="large material-icons ">add</i></a>
+                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
                     </div>
                 </div>
                 <div class="card-block">
@@ -56,18 +56,20 @@
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
                                 <td>
                                      {if $CLIE[LE][13] neq 1}
-                                    <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c{$CLIE[LE][0]}">contact_phone</i></a>
+                                    <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact mdi-contacts pbtn" id="c{$CLIE[LE][0]}"></i></a>
                                     {/if}
 
-                                    <a href="#modal-clientes" class="load material-icons pbtn per1002 modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black">edit</a>
+                                    <a href="#modal-clientes" class="load mdi mdi-pencil mdi-24px pbtn per1002 modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black"></a>
                                     
-                                    <a href="#" class="delete material-icons pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="color:black">delete</a>
+                                    <a href="#" class="delete mdi mdi-close mdi-24px pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="color:black"></a>
                                 </td>
                             </tr>
                             {/section}
                         </tbody>
                     </table>
                     <ul class="pagination right" vtbl="29" modulo="clientes"></ul>
+                    <br>
+                    <br>
                 </div>
 
                 <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 80%; width: 75%">
@@ -165,7 +167,7 @@
 
                             <div class="input-field col s12 m12 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
                                 <div class="ciclos">
-                                    <div class="prefix"><i class="material-icons">email</i></div>
+                                    <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
                                     <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                                     <input type="hidden" id="vcorreo" fill="18">
                                     <label for="correo_in">Ingresar Correo</label>
@@ -241,13 +243,13 @@
                 <div class="row cre" style="display: none;"> 
 
                     <div class="input-field col s12 m6 l6">
-                        <div class="prefix"><i class="material-icons">today</i></div>
+                        <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
                         <label for="vplazo">Plazo en Días</label>
                         <input type="number" class="eder" id="vplazo">
                     </div>
 
                     <div class="input-field col s12 m6 l6">
-                        <div class="prefix"><i class="material-icons">money_off</i></div>
+                        <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
                         <label for="vcredito">Crédito del Cliente</label>
                         <input type="number" class="eder" id="vcredito">
                     </div>
@@ -293,7 +295,7 @@
                             <div class="row"><br>
                                 <div class=" col s12 m12 l4">
                                  <div class="provincia input-field">
-                                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="material-icons">add</i></a>
+                                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
 
                                     <select id="vidprovincia" type="select" class="_det" primary="1">
                                         <option value="0">Seleccione una Provincia</option>
@@ -310,7 +312,7 @@
                              
                              <div class="canton input-field">
 
-                                <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="material-icons">add</i></a>
+                                <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
 
 
                                 <select id="vidcanton" type="select" class="_det">
@@ -324,7 +326,7 @@
                         <div class="col s12 m12 l4">
 
                          <div class="distrito input-field ">
-                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="material-icons">add</i></a>
+                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
 
                             <select id="viddistrito" type="select" class="_det">
                                 <option value="">Seleccione un Distrito</option>

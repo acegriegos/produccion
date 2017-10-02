@@ -97,13 +97,14 @@ $(document).on("click",".",function(){
     }
 });
 $(document).on("click",".proyect",function(){
+    console.log("hola " + p);
     var nom = $(this).parent().parent().find('td').first().html();
     var id = $(this).parent().attr('tid');
     $("#gid").html(nom);
     $("#gid").attr('tr',id);
  
     var p = getDatos('',228,id,0,0);
-    console.log(p);
+    
     if(p['succed'] == 1){
         p = p[0];
         var str = '';

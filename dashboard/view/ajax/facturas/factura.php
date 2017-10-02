@@ -53,7 +53,7 @@
              </div>
              <!--  -->
              <div class="col s12">
-              <p><b>Cliente:</b></p>
+              <p><b><?php echo $datos[30]; ?></span>:</b></p>
               <span id="fcliente"><?php echo $datos[4]; ?></span>
             </div>
             <div class="col s12"><br>

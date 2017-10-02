@@ -83,7 +83,7 @@
    			$pagina = 1;
 
    			$transaccion = $_REQUEST['arreglo']['sel'] == '-' ? $_REQUEST['arreglo']['where'] : $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
-        
+
    			if (isset($_REQUEST['arreglo']['join'])) {
    				$join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
    			}
@@ -127,9 +127,12 @@
       if (isset($_REQUEST['arreglo']['JSON'])) {
         $salida = array();
         
-        foreach ($transaccion as $obj) {
-          $salida[$obj[0]] = $obj[1];
-        }
+        if (is_array($transaccion))
+          foreach ($transaccion as $obj) {
+            $salida[$obj[0]] = $obj[1];
+          }
+        else
+          print_r($transaccion);
       }else{
         
   	   	if (is_array($transaccion)){
