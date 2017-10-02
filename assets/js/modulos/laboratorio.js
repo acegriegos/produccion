@@ -122,7 +122,7 @@ function loadRecepcion(){
 function cargarExplantes(){
 
 	var fecha = new Date();
-	var dpick = $('#vfecha').pickadate()
+	var dpick = $('#vfecha');
     dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
 
     $(".zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0});
