@@ -13,25 +13,37 @@ $(function(){
 		
 		$("#mcontabilidad").html(mantenimiento("contabilidad",id,''));
 
+		$('.datepicker').pickadate({
+	         labelMonthNext: 'Siguiente',
+	         labelMonthPrev: 'Anterior',
+	         labelMonthSelect: 'Seleccione un Mes',
+	         labelYearSelect: 'Seleccione un Año',
+	         monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
+	         monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+	         weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+	         weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+	         weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+	         today: 'Hoy',
+	         clear: 'Limpiar',
+	         close: 'Cerrar'
+	    });
+
 		switch(id){
 			case 1:			
-			$("[modulo=scontabilidad]").attr('max',$("[cod]").length / 2);
-			break;
+				$("[modulo=scontabilidad]").attr('max',$("[cod]").length / 2);
+				break;
 			case 2:
-			$('#fn1').click();
-			break;
+				cargarTransacciones();
+				$('#fn1').click();
+				break;
 		}
 
 		$('select').material_select();
 		$('.modal').modal();
 		$('.dropdown-button').dropdown();
-		$('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
-});
-
 
 	});
+	
 	$('select').material_select();
 
 	var cuentas = getParameterByName("cuentas") //accesos
@@ -335,7 +347,29 @@ $(document).on("keyup","#vbusqueda",function(e){
 });
 
 
+function cargarTransacciones(){
 
+	var fecha = new Date();
+	var dpick = $('#vfecha');
+	dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+
+	 $(document).on('keydown','.autocomplete',function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+            console.log(getDatos('nombre',36,'id > 0 and !bispadre having nombre like "'+$(this).val()+'"',0,0,1))
+            $(this).autocomplete({
+                limit: 20,
+                data: getDatos('nombre',36,'id > 0 and !bispadre having nombre like "'+$(this).val()+'"',0,0,1)
+            });
+
+            $(".autocomplete-content").css('width','30%');
+
+        }
+	});
+}
 
 function totalizar(){
 	var vdebe = vhaber = 0;
@@ -428,5 +462,5 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>'
+	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="hidden" id="vidcuenta'+i+'" class="constante'+i+'" value=""><input type="hidden" id="vidtransaccion'+i+'" value="?"><input type="text" class="tdtext autocomplete" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext" id="vhaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>'
 }

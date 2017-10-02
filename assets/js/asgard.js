@@ -1,7 +1,7 @@
 acc = 1;
 
 $(function(){
-    console.log(2)
+
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
@@ -388,9 +388,9 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
         salida = mantenimiento(vref,vaccion,arr,vjson);
     
     return salida;
-}
+};
 
- function getParameterByName(name) {
+function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -403,7 +403,6 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
         data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
         })
         .done(function(data) {
-            // console.log(data)
             try {
                 p = JSON.parse(data);
             }
@@ -603,8 +602,13 @@ function odin(varreglo,vform) {
                             salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                             break;
                         default:
-                            // console.log(varreglo[i])
-                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                            try{
+                                salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                            }
+                            catch(e){
+                                console.log(varreglo[i]+" No Existe");
+                                return "Error en Interno, Codigo: Odin"
+                            } 
                             break;
                     }
                     }
@@ -1254,5 +1258,17 @@ $(document).on('click','.del_phone',function(){
         $(this).parent().parent().remove();
     }
 });
+
+// autocomplete
+function autocomplete(charCode,charStr,nom,tabla) {
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+            $("#"+nom).autocomplete({
+                limit: 10,
+                data: arr('login',4,'',tabla,'nombre like \"%'+$("#"+nom).val()+'%\" limit 10',0,0,0,1)
+            }); 
+        $("#"+nom).siblings($(".autocomplete-content")).css('width','25%');
+    }   
+}
 
 // Login Technologies S.A.

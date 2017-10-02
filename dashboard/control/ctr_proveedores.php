@@ -8,7 +8,6 @@
 	   	$smarty  = new mySmarty();
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
-	    $pg = $smarty->fetch('../view/menuSmarty.php');
 	    $sty = $smarty->fetch('../view/styles.php');
 		$scr = $smarty->fetch('../view/scripts.php');
 	

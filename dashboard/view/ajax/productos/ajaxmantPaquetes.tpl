@@ -40,8 +40,8 @@
 <td style="padding: 10px;">{$PAQ[LE][4]}</td>
 <td style="padding: 10px;">
 <!-- <a class="btn-color pbtn loadserv per4112" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i></a> -->
-<a class="btn-color pbtn loadpck modal-trigger" id="e{$PAQ[LE][0]}" href="#modal-paquetes" title="Editar Paquete"><i class="material-icons">edit</i></a>
-<a class="btn-color pbtn cdel delpck" id="d{$PAQ[LE][0]}" title="Eliminar Paquete"><i class="material-icons">close</i></a>
+<a class="btn-color pbtn loadpck modal-trigger" id="e{$PAQ[LE][0]}" href="#modal-paquetes" title="Editar Paquete"><i class="mdi mdi-pencil mdi-24px"></i></a>
+<a class="btn-color pbtn cdel delpck" id="d{$PAQ[LE][0]}" title="Eliminar Paquete"><i class="mdi mdi-close mdi-24px"></i></a>
 </td>
 </tr>
 {/section}
@@ -83,7 +83,7 @@
 <tbody>
 <tr>
 <td  style="padding: 10px;">
-<input type="text" id="prod" class="autocomplete">
+<input type="text" id="prod" class="autocomplete" autocomplete="off">
 <input type="hidden" id="hprod" value="">
 </td>
 <td  style="padding: 10px;">
@@ -97,7 +97,7 @@
 </select>
 </td>
 <td  style="padding: 10px;">
-<button type="button" id="bProd" class="btn-floating waves-effect waves-light blue"><i class="material-icons">add</i></button>
+<button type="button" id="bProd" class="btn-floating waves-effect waves-light blue"><i class="mdi mdi-plus">add</i></button>
 </td>
 </tr>
 </tbody>

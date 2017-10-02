@@ -152,7 +152,9 @@
 
 <div class="row">
     <div class="input-field col s12 m6">
-        <a class="prefix small material-icons pbtn">search</a>
+        <a class="prefix small material-icons">search</a>
+        <i class="material-icons mdi mdi-search"></i>
+        <i class="material-icons"></i>
         <input type="text" id=".search_productos" maxlength="100" num="v14" var="codigo,descripcion" placeholder="Filtros">
     </div>
 
