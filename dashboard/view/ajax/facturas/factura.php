@@ -4,7 +4,6 @@
 <link href="../assets/css/materialize.css" rel="stylesheet">
 <link href="../assets/css/modulos/style-factura.css?v=0.2" media="print" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
-<link rel="stylesheet" type="text/css" href="../assets/libs/iconos/css/font-awesome.min.css">
 <!--   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 -->
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
