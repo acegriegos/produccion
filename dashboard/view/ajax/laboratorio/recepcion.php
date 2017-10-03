@@ -4,7 +4,7 @@
 
                 <div class="col s6 input-field">
                   <input type="text" id="vnombre" class="eder">
-                  <label for="vnombre">Explante</label>
+                  <label for="vnombre">Identificación</label>
                 </div>
 
                 <div class="col s6 input-field">
