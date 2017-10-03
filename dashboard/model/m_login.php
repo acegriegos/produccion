@@ -33,8 +33,8 @@
 					foreach ($varios['atributos'] as $detalles) {
 
 						if ($varios['hasTabla']) {
-							$detalles['vidfila'] = $id_new[0][0];
-							$detalles['vidtabla'] = $id_tabla;
+							$detalles['vidfila'] = isset($detalles['vidfila']) ? $detalles['vidfila'] : $id_new[0][0];
+							$detalles['vidtabla'] = isset($detalles['vidtabla']) ? $detalles['vidtabla'] : $id_tabla;
 						}
 
 						$detalles['vaccion'] = $accion;
