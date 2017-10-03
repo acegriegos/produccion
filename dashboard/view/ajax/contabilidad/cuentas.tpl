@@ -79,7 +79,6 @@
 </div>
 <!--  -->
 <div class="row">
-
     <div class="col s12 m12 l6">
 
         <div class="colDetalle"></div>
@@ -87,85 +86,87 @@
     </div>
 </div>
 
-<div class="row" style="padding: 2%;">
 
-    <ul id="transacciones" class="side-nav side-nav-conta" >
 
-        <div class="card-header center white-text" style="background-color:#0B3861">
-            <h3 class="flow-text">Detalle de Transacción</h3>
+<div class="row">
+
+<ul id="transacciones" class="side-nav side-nav-conta">
+
+<div class="card-header center white-text" style="background-color:#0B3861; padding: 1.5%;">
+    <h3 class="flow-text">Detalle de Transacción</h3>
+</div>
+
+<div class="card-content" style="padding: 2%;">
+
+     <div class="row">    
+
+        <div class="col s12 m12 l6">
+            <h5><b>N° Transacción: <span id="dtranN"></span></b></h5>
+            
         </div>
 
-        <div class="card-content" style="padding: 2%;">
+        <div class="col s12 m12 l6">
+            <h5><b>Fecha: <span id="dtranF"></span></b></h5>
+            
+        </div>
 
-             <div class="row">    
+        <div class="col s12 m12 l6">
+            <h5><b>Usuario: <span id="dtranU"></span></b></h5>
+            
+        </div>
 
-                <div class="col s12 m12 l6">
-                    <h5><b>N° Transacción: <span id="dtranN"></span></b></h5>
-                    
-                </div>
+        <div class="col s12 m12 l6">
+            <h5><b>Empresa: <span id="dtranE"></span></b></h5>
+            
+        </div>
 
-                <div class="col s12 m12 l6">
-                    <h5><b>Fecha: <span id="dtranF"></span></b></h5>
-                    
-                </div>
-
-                <div class="col s12 m12 l6">
-                    <h5><b>Usuario: <span id="dtranU"></span></b></h5>
-                    
-                </div>
-
-                <div class="col s12 m12 l6">
-                    <h5><b>Empresa: <span id="dtranE"></span></b></h5>
-                    
-                </div>
-
-                <div class="col s12 m12 l12">
-                    <h5><b>Descripción: <span id="dtranD"></span></b></h5>
-                    
-                    <br><br>
-                </div>   
+        <div class="col s12 m12 l12">
+            <h5><b>Descripción: <span id="dtranD"></span></b></h5>
+            
+            <br><br>
+        </div>   
 
 
-                <div class="col s12 ">
-                    <div class="card-block ">
-                        <b><div class="row">
-
-                            <div class="col s2 m3 white-text blue" align="center" style="padding: 0.8%">
-                                Cuenta
-                            </div>
-                            <div class="col s4 m3 white-text blue" align="center" style="padding: 0.8%">
-                                Comentario
-                            </div>
-                            <div class="col s3 white-text blue" align="center" style="padding: 0.8%">
-                                Debe
-                            </div>
-                            <div class="col s3 white-text blue" align="center" style="padding: 0.8%">
-                                Haber
-                            </div>
-                        </div></b>
-                        <div id="dtranDet"></div>
+        <div class="col s12 ">
+            <div class="card-block ">
+                <b><div class="row">
+                    <div class="col s2 m3 white-text blue" align="center" style="padding: 0.8%">
+                        Cuenta
                     </div>
-                    <div class="card-block sh-cta-card"> <div class="row">
-                        <div class="col s3" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-                            <b>TOTAL</b>
-                        </div>
-                        <div class="col s3" align="center" style="border-bottom: 1px solid black;color: white; font-size: 1.2em; margin: 0; height: 1.9em;">
-                        </div>
-                        <div class="col s3 numeros" align="center" style="border-bottom: 1px solid black;  font-size: 1.2em; margin: 0; height: 1.9em;">
-                            <span id="tdebe" class="tdettran"></span>
-                        </div>
-                        <div class="col s3 numeros" align="center" style="border-bottom: 1px solid black; font-size: 1.2em; margin: 0; height: 1.9em;">
-                            <span id="thaber" class="tdettran"></span>
-                        </div>
-                    </div> </div>
-                </div>
-
-
-
+                    <div class="col s4 m3 white-text blue" align="center" style="padding: 0.8%">
+                        Comentario
+                    </div>
+                    <div class="col s3 white-text blue" align="center" style="padding: 0.8%">
+                        Debe
+                    </div>
+                    <div class="col s3 white-text blue" align="center" style="padding: 0.8%">
+                        Haber
+                    </div>
+                </div></b>
+                <div id="dtranDet"></div>
             </div>
+            <div class="card-block sh-cta-card">
+                <div class="row">
+                <div class="col s3" align="center" style="height: 5px;">
+                    <b>TOTAL</b>
+                </div>
+                <div class="col s3" align="center" style="height: 5px;">
+                </div>
+                <div class="col s3 numeros" align="center" style="height: 5px;">
+                    <span id="tdebe" class="tdettran"></span>
+                </div>
+                <div class="col s3 numeros" align="center" style="height: 5px;">
+                    <span id="thaber" class="tdettran"></span>
+                </div>
+            </div> </div>
+        </div>
+
 
 
     </div>
+
+
+</div>
 
 </ul>
 

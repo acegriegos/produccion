@@ -28,11 +28,14 @@
         <div class="col s6 m7 l9 right-align">
           <font size="3">
             <br>
-            <b><?php echo $miscelaneos[0]; ?></b><br>
-            <b>Cédula:</b> <?php echo $miscelaneos[1]; ?><br>
-            <b>Teléfono:</b>  <?php echo $miscelaneos[2]; ?><br>
-            <b>Correo:</b> <?php echo $miscelaneos[4]; ?><br>
-            <b>Dirección:</b> <?php echo $miscelaneos[6]; ?><br>
+             <b><span id="fnombre"><?php echo $miscelaneos[0]; ?></span></b><br>
+              <?php if ($miscelaneos[2]) 
+                echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+              ?>
+              <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
+              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[2]; ?></span><br>
+              <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
+              <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
 
           </font>
         </div>
@@ -59,11 +62,11 @@
        <div class="row">
          <div class="col s12">
           <span class=""><b>Cliente:</b></span>   
-          <span class=""><?php echo $datos[4]; ?></span>
+          <span  id="fcliente" class=""><?php echo $datos[4]; ?></span>
         </div>
-        <div class="col s12">
+        <div  class="col s12">
           <span class=""><b>Usuario:</b></span>
-          <span class=""><i><?php echo $datos[10]; ?> </i></span>
+          <span id="fvendedor" class=""><i><?php echo $datos[10]; ?> </i></span>
         </div>
 
 
@@ -97,7 +100,7 @@
 
       </div>
       <!-- /INFO CONTACTO -->
-
+       <input type="hidden" id="fcomentario" value="<?php echo $datos[3]; ?>">
       <!-- DETALLE FACT -->
       <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
         <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
@@ -110,14 +113,14 @@
 
           </tr>
         </thead>
-        <tbody >
+        <tbody id="ftbody">
 
          <tr class="tr" >
-          <td class="td center-align"><span id="cant"><?php echo $datos[9]; ?></span></td>
-          <td class="td center-align"><span id="desc"><?php echo $datos[3]; ?></span></td>
-          <td class="td center-align"><span id="punit"><?php echo $datos[11]; ?><?php echo $datos[12]; ?></span></td>
-          <td class="td center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[5]; ?></span></td>
-          <td class="td center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[6]; ?></span></td>
+          <td class="td flista1 center-align"><span id="cant"><?php echo $datos[9]; ?></span></td>
+          <td class="td flista2 center-align"><span id="ffecha"><?php echo $datos[3]; ?></span></td>
+          <td class="td flista3 center-align"><span id="punit"><?php echo $datos[11]; ?><?php echo $datos[12]; ?></span></td>
+          <td class="td flista4 center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[5]; ?></span></td>
+          <td class="td flista5 center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[6]; ?></span></td>
 
         </tr>
 
@@ -181,5 +184,5 @@
 
 <script src="../assets/js/materialize.js"></script>
 <script src="../assets/js/asgard.js?v=0.1"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=0.5"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=0.6"></script>
 </body>

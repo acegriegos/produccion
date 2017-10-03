@@ -24,6 +24,11 @@
 	   			$smarty->assign('INV',$kakaroto->kamehameha('id,nombre',111,'id > 0 and idsucursal in(@@impresa,-1) order by nombre'));
 	   			$smarty->display('ajax/laboratorio/ajustes.tpl');
 	   			break;
+	   		case 4:
+	   			$pagina = 1;
+	   			$categorias = $kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by nombre');
+	   			require_once 'view/ajax/laboratorio/iniciacion.php';
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){
