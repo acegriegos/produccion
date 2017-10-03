@@ -15,7 +15,7 @@
         <div class="card-header center  white-text hide-on-small-only" style="background-color:#0B3861 "><p class="flow-text"></p>
          <div class="col s12">
             <ul class="tabs tabs-fixed-width" style="background-color:#0B3861; padding-bottom: 4% !important">
-              <li class="menu3 tab "  id="m1" ><a class=" white-text tamLetra" class="active">Recepción de Explante</a></li>
+              <li class="menu3 tab "  id="m1" ><a class=" white-text tamLetra" class="active">Recepción de Explantes</a></li>
               <li class="menu3 tab " id="m2"><a class=" white-text tamLetra">Iniciación</a></li>
               <li class="menu3 tab " id="m3"><a class=" white-text tamLetra">Multiplicación</a></li>
               <li class="menu3 tab " id="m4"><a class=" white-text tamLetra">Enraizamiento</a></li>

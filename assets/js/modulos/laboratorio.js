@@ -109,6 +109,10 @@ function loadRecepcion(){
     			arr('laboratorio',2,'',0,'',0,1,$("#labajax"));
     			cargarExplantes();
     			break;
+            case 2:
+                arr('laboratorio',4,'',0,'',0,1,$("#labajax"));
+                cargarIniciacion();
+                break;
     		default:
     			$("#labajax").html('')
     			break;
@@ -117,6 +121,10 @@ function loadRecepcion(){
     });
 
     $("#m1").click();
+}
+
+function cargarIniciacion(){
+    
 }
 
 function cargarExplantes(){
