@@ -24,7 +24,7 @@ if (!isset($_REQUEST['accion'])) {
 		case 2:
 			$pagina = 1;
 			if ($_REQUEST['arreglo'] == 1){ 
-				$usr = $kakaroto->kamehameha('Id,Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`',7,"");
+				$usr = $kakaroto->kamehameha('',7,'');
 				$cia = $kakaroto->kamehameha('id,nombre',13,'id > 0');
 				$suc = $kakaroto->kamehameha('id,nombre',39,'id >= 0');
 				$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0');

@@ -189,7 +189,7 @@ $(document).on("keyup",".tdtext",function(e){
 				$('#vdebe'+id).focus();
 			}else{
 				$('#vdebe'+id).val('0.00');
-				$('#c'+(id+1)).focus()
+				$('#c'+(id+1)).focus();
 			}
 			totalizar();
 			break;
@@ -290,16 +290,18 @@ $(document).on("click",".func",function(){
 		$('#ftransacciones').find('#vdescripcion').val('')
 		$('#ftransacciones').find('#vdescripcion').focus()
 		break;
+
 		default:
 		break;
 	}	
 });
+
 $(document).on("click",".dettran",function(){
 	var num = parseInt($(this).html());
 	var dtran = arr('login',4,'',207,num,0,0,0)[0];
 	$("#dtranN").html(dtran[0][0]);
 	$("#dtranF").html(dtran[0][1]);
-	$("#dtranD").html('<a href="#" class="button-collapse detextra truncate" data-activates="extra"> <h5><b>'+dtran[0][2]+"</b></h5></a>");
+	$("#dtranD").html('<a href="#" class="button-collapse detextra truncate" data-activates="extra"><h5><b>'+dtran[0][2]+"</b></h5></a>");
 	$("#dtranE").html(dtran[0][9]);
 	$("#dtranU").html(dtran[0][8]);
 

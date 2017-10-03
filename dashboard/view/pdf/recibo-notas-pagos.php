@@ -167,7 +167,7 @@ $miscelaneos[6].'</div>'.
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
-'<div style="text-align: left;"><span style="font-size:18px">Factura Original</span><br>'.
+'<div style="text-align: left;"><span style="font-size:18px">Recibo Original</span><br>'.
 '<br>'.
 '<strong>Recibo N°</strong> '.$datos[0][1].'<br>'.
 '<strong>Cliente:</strong><br>'.
@@ -196,12 +196,12 @@ $datos[0][8].'</div>'.
 '<div style="text-align: center;"><br>'.
 '<br>';
 
-if ($datos[0][2] === 'N/A') 
+/*if ($datos[0][2] === 'N/A') 
     $html .= '<strong>Plazo en Días: </strong><br>'.$datos[0][11].'<br>';
 else
      $html .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';
 
-$html .= '<br>'.
+$html .= '<br>'.*/
 '<strong>Fecha:</strong>&nbsp;<br>'.
 $datos[0][3].'</div>'.
 '</td>'.
@@ -229,22 +229,19 @@ $datos[0][3].'</div>'.
 '<tbody><tr>'.
 
 '<td valign="top" class="mcnTextContent" style="<<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;font-family: Helvetica;" align="center">'.
-'<strong>Cantidad</strong>'.
+'<strong>Tipo de movimiento</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>Descripcion</strong>'.
+'<strong>Fecha</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>P. Unitario</strong>'.
+'<strong>Saldo anterior</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>Tipo</strong>'.
+'<strong>Monto abonado</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>Descuento</strong>'.
-'</td>'.
-'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>Importe</strong>'.
+'<strong>Saldo actual</strong>'.
 '</td>'.
 '</tr>'.
 '</tbody></table>'.
@@ -252,15 +249,7 @@ $datos[0][3].'</div>'.
 '<!-- DETALLE FACTURA -->'.
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer"><tbody>';
 
-$grabado = $exento = 0;
 
-foreach ($datos as $obj) {
-
-  if ($obj[28] > 0) 
-    $grabado += str_replace(',', '', $obj[22]);
-  else
-    $exento += str_replace(',', '', $obj[22]);
-  
   $html .= '<tr><td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
 $obj[29].$obj[18].
 '</td>'.
