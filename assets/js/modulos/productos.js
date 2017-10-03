@@ -95,7 +95,7 @@ $(function () {
 		$("#m3").click();
 		$("#addpackage").click();
 	} else
-		$("#m3").click();
+		$("#m1").click();
 	
 	paginate($("ul.pagination").attr('vtbl'))
 
@@ -946,51 +946,60 @@ $(document).on("keyup", "#prod", function (e) {
 	if ($(this).val() != '') {
 		if (code == 13) {
 			var nombre = $("#prod").val();
+			var unidad = 0;
+			
 			identify = nombre.substring(1,0);
 			if (identify != '[') {
+				unidad = arr('login',4,'idunidad',11,'id > 0 and nombre = "'+nombre+'"',0,0,0)[0][0];
 			    nombre = nombre.substring(0, nombre.indexOf(' - '));
 			}else{
+				unidad = -1;
 			    nombre = nombre.substring(0, nombre.indexOf(' - ')).replace('[SERV] ','');
 			}
-			var prod = arr('login',4,'idunidad',11,'nombre = "'+nombre+'"',0,0,0)[0][0];
-			if (prod != 1) {
+			
+			if (unidad != 1 && unidad != -1) {
 				$(".tduni").removeClass('hide');
 			}else{
 				$(".tduni").addClass('hide');
 			}
 			$("#cantidad").focus();
 		}
-	} else {
-		$('#prod').autocomplete({
-			limit: 10,
-			data: arr('login', 4, 'concat(nombre," - ¢",replace(precio,".00","")),null', 77, 'nombre like "%' + $("#prod").val() + '%" limit 10', 0, 0, 0, 1)
-		});
 	}
-
 });
 
-// $(document).on("blur","#prod",function(){
-//  var nombre = $(this).val();
-//  identify = nombre.substring(1,0);
+$(document).on("keydown","#prod",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+            $("#prod").autocomplete({
+                limit: 10,
+                data: arr('login',4,'',77,'0,0,1,"'+$("#prod").val()+'"',0,0,0,1)
+            }); 
+        $("#prod").siblings($(".autocomplete-content")).css('width','25%');
+    } 
+});
 
-//  if (identify != '[') {
-//      nombre = nombre.substring(0, nombre.indexOf(' - '));
-//  }else{
-//      nombre = nombre.substring(0, nombre.indexOf(' - ')).replace('[SERV] ','');
-//  }
-//  $("#hprod").val(nombre);
-// });
-
-$(document).on("focus","#cantidad",function(){
-    var nombre = $("#prod").val();
+$(document).on("blur","#prod",function(){
+    var nombre = $(this).val();
+    var id = 0;
     identify = nombre.substring(1,0);
 
     if (identify != '[') {
         nombre = nombre.substring(0, nombre.indexOf(' - '));
+        id = arr('login',4,'id',11,'id > 0 and nombre = "'+nombre+'"',0,0,0)[0][0];
     }else{
         nombre = nombre.substring(0, nombre.indexOf(' - ')).replace('[SERV] ','');
+        id = arr('login',4,'concat("-",id)',16,'id > 0 and nombre = "'+nombre+'"',0,0,0)[0][0];
     }
     $("#hprod").val(nombre);
+    if (id != undefined)
+    	$("#hprod").attr('identify',id);
+    else
+    	$("#hprod").attr('identify',0);
+    
+    
+    
 });
 
 $(document).on("click","#bProd",function(){
@@ -1728,10 +1737,6 @@ $(document).on("click","#addpackage",function(){
     arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
     $('select').material_select();
     Materialize.updateTextFields();
-    $('#prod').autocomplete({
-        limit: 10,
-        data: arr('login',4,'concat(nombre," - ¢",replace(precio,".00","")),null',77,'nombre like "%'+$("#prod").val()+'%" limit 10',0,0,0,1)
-    });
     $("#editpck").attr('id','addpqt');
     $("#addpqt").html('Agregar');
     $("#listapaquetes").html('')
@@ -2011,35 +2016,48 @@ function totalizar(costo, ganancia, tipo, line) {
 }
 
 function addprod(prod, cant, uni, sim) {
-	var info = arr('login', 4, 'id,precio,nombreprecio', 77, 'nombre = \"' + prod + '\"', '', 0, '')[0][0];
+	var id = $("#hprod").attr('identify');
+	if (id.substr(0,1) == '-') {
+		tipo = 2;
+		id = id.substr(1)
+	}else{
+		tipo = 1;
+	}
+	var info = arr('login',4,'',77,id+','+tipo+',0,""',0,0,0)[0][0];
+	console.log(info)
+	// var info = arr('login', 4, 'id,precio,nombreprecio', 77, 'nombre = \"' + prod + '\"', '', 0, '')[0][0];
 	var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
 	var ptotal = 0;
-	console.log(uni)
+	var total = 0;
+	var idprod = 0;
+	var idserv = 0;
+	var scant = '';
+
 	if (uni == 1) {
-		ptotal = info[1] * cant;
+		ptotal = info[4] * cant;
+		console.log("ptotal: "+info[4])
 	}else{
 		var precio = arr('login',4,'',306,info[0],0,0,0)[0][0];
 		// a = idproducto | b = cantidad | c = unidad a convertir | d = precio
 		ptotal = convert(info[0],cant,uni,precio[9]);
 	}
 	
-	var total = 0;
-	var idprod = 0;
-	var idserv = 0;
-	if (sim == undefined) {
-		sim = '';
-	}
-
-	if (info[2].substr(0, 1) == '[') {
+	if (info[3].substr(0, 1) == '[') {
 		idserv = info[0].substr(1);
 		idprod = 0;
+		scant = '';
+		sim = undefined;
 	} else {
 		idprod = info[0];
 		idserv = 0;
 	}
 
+	if (sim == undefined) {
+		sim = '';
+	}
+
 	if ($("#l" + info[0]).html() == undefined) {
-		$("#listapaquetes").append('<div class="chip blue lighten-3" id="l' + info[0] + '"><input type="hidden" id="htot' + info[0] + '" value="' + ptotal + '" precio="' + info[1] + '"><span class="nomprod" id="n' + info[0] + '" idproducto="' + idprod + '" idservicio="' + idserv + '">' + prod + '</span> (<span class="hcant" id="c' + info[0] + '">' + cant + '</span><span class="huni" id="u' + info[0] + '" idunidad="' + uni + '">' + sim + '</span>)<i class="close mdi mdi-close mdi-24px del" id="d' + info[0] + '"></i></div>');
+		$("#listapaquetes").append('<div class="chip blue lighten-3" id="l' + info[0] + '"><input type="hidden" id="htot' + info[0] + '" value="' + ptotal + '" precio="' + info[4] + '"><span class="nomprod" id="n' + info[0] + '" idproducto="' + idprod + '" idservicio="' + idserv + '">' + prod + '</span> (<span class="hcant" id="c' + info[0] + '">' + cant + '</span><span class="huni" id="u' + info[0] + '" idunidad="' + uni + '">' + sim + '</span>)<i class="close mdi mdi-close mdi-24px del" id="d' + info[0] + '"></i></div>');
 	} else {
 		$("#c" + info[0]).text(parseInt($("#c" + info[0]).text()) + parseInt(cant));
 		var precio = parseFloat($("#htot" + info[0]).attr('precio'));
@@ -2312,7 +2330,6 @@ function cargarSintax(vtabla) {
 
 
 function endDetail(id, acc, modulo) {
-
 	if (acc == 1) {
 		deadclear(modulo);
 		thorload(modulo);

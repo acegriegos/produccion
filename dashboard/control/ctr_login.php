@@ -133,6 +133,7 @@
           }
         else
           print_r($transaccion);
+        
       }else{
         
   	   	if (is_array($transaccion)){

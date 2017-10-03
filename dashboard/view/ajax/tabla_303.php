@@ -41,7 +41,7 @@
                   <div class="col s12 m12 l4  "  >
                     <div class="row " style=" padding-top: 10%;">
                       <div class="col s12">
-                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Realizar Nota</button>
+                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Nota</button>
                       </div>
                     </div>
 
@@ -86,7 +86,7 @@
                             </div>
                           </div>
                           <div class="input-field col s12 m12 padd">
-                            <i class="material-icons prefix">credit_card</i>
+                            <i class="mdi mdi-24px mdi-credit-card prefix"></i>
                             <input id="vvalor" type="text"  class="validate eder">
                             <label for="vvalor" style="color: white !important">Monto</label>
                           </div>

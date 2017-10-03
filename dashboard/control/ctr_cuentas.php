@@ -53,7 +53,7 @@ if (!isset($_REQUEST['accion'])) {
 			if($_REQUEST['tp'] == 1)
 				require_once 'view/ajax/cuentas/recibopv.php';
 			else
-				require_once 'view/ajax/cuentas/recibo.php';
+				require_once 'view/ajax/cuentas/recibopv.php';
 			break;
 		case 5:
 			$pagina = 1;
