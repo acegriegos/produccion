@@ -36,7 +36,7 @@ $(function(){
 function postExcecute(vid,p){
     switch(parseInt(vid)){
         case 1:
-            var e = enviarCorreo(3,vpara,"Factura",vbody,'pdf/Factura '+mid+'.pdf');
+            var e = enviarCorreo(3,vpara,"Recibo",vbody,'pdf/Factura '+mid+'.pdf');
             vpara = vbody = "";
             mid = 0;
             break;
@@ -70,7 +70,7 @@ var salida = '<!doctype html>'+
 '<meta charset="UTF-8">'+
 '<meta http-equiv="X-UA-Compatible" content="IE=edge">'+
 '<meta name="viewport" content="width=device-width, initial-scale=1">'+
-'<title>FACTURA</title>'+
+'<title>Recibo</title>'+
 
 '<style type="text/css">'+
 'p{'+
@@ -512,15 +512,14 @@ var salida = '<!doctype html>'+
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'+
 '<tbody><tr>'+
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'+
-'<div style="text-align: left;"><span style="font-size:18px">'+$("#ftipo").html()+'</span><br>'+
+'<div style="text-align: left;"><span style="font-size:18px">Recibo Original</span><br>'+
 '<br>'+
 '<strong>'+$("#fact").html()+' </strong> '+$("#numfact").html()+'<br>'+
-'<strong>Factura de: </strong>'+$("#fclase").html()+'<br>'+
 '<strong>Cliente:</strong><br>'+
 '<br>'+
 $("#fcliente").html()+'<br>'+
 '<br>'+
-'<strong>Vende:</strong> '+$("#fvendedor").html()+'<br>'+
+'<strong>Usuario:</strong> '+$("#fvendedor").html()+'<br>'+
 '<strong>Comentario:</strong><br>'+
 $("#fcomentario").html()+'</div>'+
 
@@ -540,8 +539,6 @@ $("#fcomentario").html()+'</div>'+
 '<tbody><tr>'+
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'+
 '<div style="text-align: center;"><br>'+
-'<br>'+
-'<strong >'+$(".ftipofact").html()+'</strong><br>'+$(".ftipofa").html()+'<br>'+
 '<br>'+
 '<strong>Fecha:</strong>&nbsp;<br>'+
 $("#ffecha").html()+'</div>'+
@@ -567,23 +564,21 @@ $("#ffecha").html()+'</div>'+
 '<tbody><tr>'+
 
 '<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
-'<strong>Cantidad</strong>'+
+'<strong>Tipo de movimiento</strong>'+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
-'<strong>Descripcion</strong>'+
+'<strong>Fecha</strong>'+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
-'<strong>P. Unitario</strong>'+
+'<strong>Saldo anterior</strong>'+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
-'<strong>Tipo</strong>'+
+'<strong>Monto abonado</strong>'+
 '</td>'+
 '<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
-'<strong>Descuento</strong>'+
+'<strong>Saldo actual</strong>'+
 '</td>'+
-'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;" align="center">'+
-'<strong>Importe</strong>'+
-'</td>'+
+
 '</tr>'+
 '</tbody></table>'+
 
@@ -609,9 +604,6 @@ $(this).find('.flista4').html()+
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
 $(this).find('.flista5').html()+
 '</td>'+
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-$(this).find('.flista6').html()+
-'</td>'+
 '</tr>';
 
 });
@@ -636,55 +628,7 @@ salida += '</tbody>'+
 '</tbody>'+
 '</table>'+
 
-'<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">'+
-'<tbody>'+
-//'<!-- SUBTOTAL -->'+
-'<tr>'+
-'<td width="65%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'&nbsp;'+
-'</td>'+
 
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;">'+
-'Subtotal'+
-'</td>'+
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-$("#fsubtotal").html()+'</td>'+
-'</tr>'+
-'<tr>'+
-'<td width="65%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'&nbsp;'+
-'</td>'+
-
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;">'+
-'Impuesto'+
-'</td>'+
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-$("#fimv").html()+'</td>'+
-'</tr>'+
-'<tr>'+
-'<td width="60%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'&nbsp;'+
-'</td>'+
-
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;">'+
-'Descuento'+
-'</td>'+
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-$("#fdescuento").html()+'</td>'+
-'</tr>'+
-'<tr>'+
-'<td width="60%" valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'&nbsp;'+
-'</td>'+
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: right;">'+
-'<strong>Total</strong>'+
-'</td>'+
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;">'+
-'<strong>'+$("#ftotal").html()+'</strong>'+
-'</td>'+
-'</tr>'+
-//'<!-- SUBTOTAL -->'+
-'</tbody></table>'+
 //'<!-- /DETALLE FACTURA -->'+
 
 '</td>'+

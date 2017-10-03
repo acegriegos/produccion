@@ -26,7 +26,7 @@
             </div>
     {/if}
 
-    <a href="#" class="btn-floating der per100"><i class="mdi mdi-plus"></i></a>
+    <a href="#" class="btn-floating der per100 hide"><i class="mdi mdi-plus"></i></a>
     </div>
     {$SCR}
 

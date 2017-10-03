@@ -167,7 +167,7 @@ $miscelaneos[6].'</div>'.
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
-'<div style="text-align: left;"><span style="font-size:18px">Factura Original</span><br>'.
+'<div style="text-align: left;"><span style="font-size:18px">Recibo Original</span><br>'.
 '<br>'.
 '<strong>Recibo N°</strong> '.$datos[0][1].'<br>'.
 '<strong>Cliente:</strong><br>'.
@@ -196,10 +196,10 @@ $datos[0][8].'</div>'.
 '<div style="text-align: center;"><br>'.
 '<br>';
 
-if ($datos[0][2] === 'N/A') 
+/*if ($datos[0][2] === 'N/A') 
     $html .= '<strong>Plazo en Días: </strong><br>'.$datos[0][11].'<br>';
 else
-     $html .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';
+     $html .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';*/
 
 $html .= '<br>'.
 '<strong>Fecha:</strong>&nbsp;<br>'.
@@ -228,23 +228,20 @@ $datos[0][3].'</div>'.
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%;" class="mcnTextContentContainer">'.
 '<tbody><tr>'.
 
-'<td valign="top" class="mcnTextContent" style="<<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;font-family: Helvetica;" align="center">'.
-'<strong>Cantidad</strong>'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<strong>Tipo de movimiento</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>Descripcion</strong>'.
+'<strong>Fecha</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>P. Unitario</strong>'.
+'<strong>Saldo anterior</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>Tipo</strong>'.
+'<strong>Monto abonado</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>Descuento</strong>'.
-'</td>'.
-'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
-'<strong>Importe</strong>'.
+'<strong>Saldo actual</strong>'.
 '</td>'.
 '</tr>'.
 '</tbody></table>'.
@@ -262,24 +259,24 @@ foreach ($datos as $obj) {
     $exento += str_replace(',', '', $obj[22]);
   
   $html .= '<tr><td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
-$obj[29].$obj[18].
+$datos[0][9].
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
-$obj[19].
+$datos[0][3].
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
-$obj[20].
+$datos[0][12].
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
-$obj[23].
+$datos[0][5].
 '</td>'.
 
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
-$obj[21].'%'.
-'</td>'.
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;"><strong>'.
+$datos[0][6].
+'</strong> </td>'.
+/*'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
 $obj[22].
-'</td>'.
+'</td>'.*/
 '</tr>';
 }
 
@@ -304,7 +301,7 @@ $html .= '</tbody>'.
 '</tbody>'.
 '</table>'.
 
-'*Producto Exento <table style="width: 100%">';
+'<table style="width: 100%">';
 
 if ($grabado > 0){
 
@@ -320,7 +317,7 @@ if ($grabado > 0){
   </tr>';
 }
 
-if ($exento > 0) {
+/*if ($exento > 0) {
   $html .= '<tr>
     <td></td>
     <td align="right">Exento:</td>
@@ -350,13 +347,13 @@ if ($datos[0][8] > 0){
     <td align="right">Ajuste:</td>
     <td align="right">'.$datos[15].number_format($datos[0][8],2).'</td>
   </tr>';
-} 
+} */
 
 
 $html .= '<tr>
     <td></td>
-    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>TOTAL:</strong></td>
-    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>'.$datos[15].$datos[0][10].'</strong></td>
+    <td align="right" style="color: #494949;font-family: Helvetica;"><strong></strong></td>
+    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>'.$datos[0][66].'</strong></td>
   </tr></table>'.
 
 
