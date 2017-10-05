@@ -92,43 +92,48 @@
 
 <ul id="transacciones" class="side-nav side-nav-conta">
 
-<div class="card-header center white-text" style="background-color:#0B3861; padding: 0.3%;">
+<div class="card-header center white-text" style="background-color:#0B3861; padding: 0.5%;">
     <h3 class="flow-text">Detalle de Transacción</h3>
 </div>
 
 <div class="card-content" style="padding: 2%;">
 
-<div class="row pequeño">
+<div class="row">
+
+<div class="row pequeño blue z-depth-5">
     <div class="col s12 m12 pequeño">
-      <div class="card blue z-depth-5 pequeño">
+        <div class="card pequeño">
+            <div class="card-content white-text" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
+                <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; ">
+                    <span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
+                </div>
 
-        <div class="col s12 m12 l6">
-            <p class="fsize"><b>N° Transacción:</b> <span id="dtranN"></span></p>
-        </div>
+                <div class="col s12 m12 l6">
+                    <p class="fsize"><b>N° Transacción:</b> <span id="dtranN"></span></p>
+                </div>
 
-        <div class="col s12 m12 l6">
-            <p class="fsize"><b>Fecha:</b> <span id="dtranF"></span></p> 
-        </div>
+                <div class="col s12 m12 l6">
+                    <p class="fsize"><b>Fecha:</b> <span id="dtranF"></span></p> 
+                </div>
 
-        <div class="col s12 m12 l6">
-            <p class="fsize"><b>Usuario:</b> <span id="dtranU"></span></p>
-        </div>
+                <div class="col s12 m12 l6">
+                    <p class="fsize"><b>Usuario:</b> <span id="dtranU"></span></p>
+                </div>
 
-        <div class="col s12 m12 l6">
-            <p class="fsize"><b>Empresa:</b> <span id="dtranE"></span></p>
-        </div>
+                <div class="col s12 m12 l6">
+                    <p class="fsize"><b>Empresa:</b> <span id="dtranE"></span></p>
+                </div>
 
-        <div class="col s12 m12 l12">
-            <p class="fsize"><b>Descripción:</b> <span id="dtranD"></span></p>
-            <br><br>
-        </div>
+                <div class="col s12 m12 l12">
+                    <p class="fsize"><b>Descripción:</b> <span id="dtranD"></span></p>
+                    <br><br>
+                </div>
 
+            </div>
         </div>
     </div>
 </div>
 
-<div class="row pequeño">
-    <div class="col s12 m12 pequeño">
 
         <div class="col s12 ">
             <div class="card-block ">
@@ -153,22 +158,21 @@
             </div>
             <div class="card-block sh-cta-card">
                 <div class="row">
-                    <div class="col s3" align="center" style="height: 5px;">
-                        <b>TOTAL</b>
-                    </div>
-                    <div class="col s3" align="center" style="height: 5px;">
-                    </div>
-                    <div class="col s3 numeros" align="center" style="height: 5px;">
-                        <span id="tdebe" class="tdettran"></span>
-                    </div>
-                    <div class="col s3 numeros" align="center" style="height: 5px;">
-                        <span id="thaber" class="tdettran"></span>
-                    </div>
+                <div class="col s3" align="center" style="height: 5px;">
+                    <b>TOTAL</b>
                 </div>
-            </div>
+                <div class="col s3" align="center" style="height: 5px;">
+                </div>
+                <div class="col s3 numeros" align="center" style="height: 5px;">
+                    <span id="tdebe" class="tdettran"></span>
+                </div>
+                <div class="col s3 numeros" align="center" style="height: 5px;">
+                    <span id="thaber" class="tdettran"></span>
+                </div>
+            </div> </div>
         </div>
 
-    </div>
+
 </div>
 
 
