@@ -109,6 +109,10 @@ function loadRecepcion(){
     			arr('laboratorio',2,'',0,'',0,1,$("#labajax"));
     			cargarExplantes();
     			break;
+            case 2:
+                arr('laboratorio',4,'',0,'',0,1,$("#labajax"));
+                cargarIniciacion();
+                break;
     		default:
     			$("#labajax").html('')
     			break;
@@ -119,10 +123,14 @@ function loadRecepcion(){
     $("#m1").click();
 }
 
+function cargarIniciacion(){
+    
+}
+
 function cargarExplantes(){
 
 	var fecha = new Date();
-	var dpick = $('#vfecha').pickadate()
+	var dpick = $('#vfecha');
     dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
 
     $(".zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0});

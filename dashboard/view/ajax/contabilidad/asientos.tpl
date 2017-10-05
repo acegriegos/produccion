@@ -20,7 +20,7 @@
 
         <div id='ftransacciones'>  
             <div  class="sub-tran" id="t1">
-
+                <input type="hidden" class="zelda">
                 <div class="row">
                    <div class="input-field col s12 m6 l4">
                   <input  id="vdescripcion" type="text" class="validate" >
@@ -29,14 +29,14 @@
 
               <div class="input-field col s12 m6 l4">
                   <i class="fa fa-calendar-o prefix"></i>
-                  <input type="date" class="datepicker" id="vfecha" value="" placeholder="Fecha de la Transacción" />
+                  <input type="date" class="datepicker eder" id="vfecha" value="" placeholder="Fecha de la Transacción" />
 
               </div>
-              <div class="input-field col s12 m12 l4" id="vidmoneda">
-            <select>
+              <div class="input-field col s12 m12 l4" >
+            <select id="vidmoneda" type="select">
               <option value="" disabled selected>Monedas</option>
               {section name=LE loop=$MON}
-            <option value="{$MON[LE][0]}">{$MON[LE][1]}</option>
+            <option value="{$MON[LE][0]}">{$MON[LE][1]} {$MON[LE][2]}</option>
             {/section}
           </select>
           <label>Seleccione la Monedas</label>
@@ -80,9 +80,6 @@
         </tr>
         <tr>
             <td colspan="6">
-                <input type="hidden" id="vidempresa" value="{$smarty.session.IMPRESA}">
-                <input type="hidden" id="vidtabla" value="0">
-                <input type="hidden" id="idfila" value="0">
                 <button type="button" class="btn z-depth-5 btn-primary add der" codigo="1" modulo="transaccione" detalle="1">Aceptar</button>
                 <div class="alert alert-danger" align="center" style="height: 38px; padding: 6px;display: none" id="err1">
                     <small><strong id="errm1"></strong></small>

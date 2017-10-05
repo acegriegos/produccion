@@ -57,11 +57,11 @@ $(function(){
 				var charStr = String.fromCharCode(charCode);
 
 				if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-				$(".autocomplete-content").remove();
+					$(".autocomplete-content").remove();
 
-				$("#nprov").autocomplete({
-					limit: 20,
-					data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#nprov").val()+'%" limit 20',0,0,0,1)
+					$("#nprov").autocomplete({
+						limit: 20,
+						data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#nprov").val()+'%" limit 20',0,0,0,1)
 					});
 
 					$("#nprov").siblings($(".autocomplete-content")).css('width','25%');
@@ -166,7 +166,7 @@ $(document).on("click",".detalle",function(){
 	$("#btn-navsalir").click(function(){
 		
 		$('.side-nav-cuentas').sideNav('hide');
-		  $('.button-collapse').sideNav('destroy');
+		$('.button-collapse').sideNav('destroy');
 
 	});
 	
@@ -285,7 +285,6 @@ function cargarSintax(){
 }
 
 function endDetail(vid,vacc,modulo){
-
 	if (vacc == 1) {
 		$("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
 
@@ -304,6 +303,7 @@ function endDetail(vid,vacc,modulo){
 
 		$("#btn-div").click();
 
-		window.open('cuentas?accion=4&id='+vid+'&tn='+$("#tn").val());
+		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+		window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 	}
 }

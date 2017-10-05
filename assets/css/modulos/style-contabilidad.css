@@ -49,9 +49,14 @@
 }
 
 .sh-cta-card{
-    padding-top: 0px;
-    padding-bottom: 0px;
+  padding: 0%;
+  border: none !important;
 }
+
+.fsize{
+   font-size: 1.1em !important
+}
+
 @media only screen and (max-width:769px){
 
 .{

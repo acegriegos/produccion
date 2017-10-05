@@ -15,7 +15,7 @@
 
                     <div class="input-field col s12 m7">
 
-                       <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+                       <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
                     <ul id='filtr_1' class='dropdown-content'>
                         <li><a href="#!" fltr="1">Nombre</a></li>
                         <li><a href="#!" fltr="2">Cédula</a></li>
@@ -129,7 +129,7 @@
 <div class="col s12 m12 l4  pequeño"  >
                 <div class="row " style=" padding-top: 10%;">
                       <div class="col s12">
-                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="material-icons left">credit_card</i>Realizar Abono</button>
+                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Abono</button>
                       </div>
                     </div>
                    
@@ -168,7 +168,7 @@
 
 
                                     <div class="input-field col s12 m6">
-                                        <i class="material-icons prefix">credit_card</i>
+                                        <i class="mdi mdi-24px mdi-credit-card prefix"></i>
                                         <input id="vvalor" type="text"  class="validate eder" value="0.00">
                                         <label for="vvalor" style="color: white !important">Monto</label>
                                     </div>

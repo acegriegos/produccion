@@ -91,8 +91,6 @@
               <div class="card blue z-depth-5 pequeño">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
 
-
-
                     <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; "><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
                     </div>
                     
@@ -127,9 +125,6 @@
                         <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Abono</button>
                       </div>
                     </div>
-                   
-
-
 
                 </div>
                 </div>
