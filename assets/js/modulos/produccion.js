@@ -109,7 +109,7 @@ $(document).on("click",".start",function(){
         if(tiempo.segundo >= 60) {
             tiempo.segundo = 0;
             tiempo.minuto++;
-        }      
+        }
 
         // Minutos
         if(tiempo.minuto >= 60) {
@@ -147,11 +147,33 @@ $(document).on("click",".nexttask",function(){
     var id = $(this).attr('id').substr(1);
 });
 
+// $(document).on("keydown","#cprod",function(e){
+//     var charCode = e.which || e.keyCode;
+//     var charStr = String.fromCharCode(charCode);
+//     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+//         $(".autocomplete-content").remove();
+//             $("#cprod").autocomplete({
+//                 limit: 10,
+//                 data: console.log(arr('login',4,'nombre,null',11,'nombre like "%'+$(this).val()+'%" limit 10',0,0,0,1))
+//             }); 
+//         $("#cprod").siblings($(".autocomplete-content")).css('width','25%');
+//     }
+// });
 $(document).on("keydown","#cprod",function(e){
     var charCode = e.which || e.keyCode;
     var charStr = String.fromCharCode(charCode);
-    autocomplete(charCode,charStr,'cprod',11);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+            $("#cprod").autocomplete({
+                limit: 10,
+                data: arr('login',4,'',198,'1,"'+$(this).val()+'",0',0,0,0,1)
+            });
+        $("#cprod").siblings($(".autocomplete-content")).css('width','25%');
+    } 
 });
+
+
+
 
 $(document).on("keyup","#cprod",function(e){
     var code = e.which || e.keyCode;
@@ -337,7 +359,7 @@ $(document).on("click","#savelinea",function(){
         Materialize.toast('Linea de produccion guardada correctamente', 6000, 'green');
     }else{
         Materialize.toast(idlinea[0]['ERROR'], 6000, 'red');
-    }    
+    }
 });
 
 $(document).on("click","#dsavelinea",function(){
@@ -354,7 +376,7 @@ $(document).on("click","#dsavelinea",function(){
         Materialize.toast('Linea de produccion '+nombre+' Guardada Correctamente', 6000, 'green');
     }else{
         Materialize.toast(idlinea[0]['ERROR'], 6000, 'red');
-    }    
+    }
 });
 
 $(document).on("click",".actlinea",function(){
@@ -370,7 +392,7 @@ $(document).on("click",".actlinea",function(){
         $("#listadetprod").append('<tr class="bplines" id="bp'+detalle[i][3]+'"><td id="btask'+detalle[i][3]+'">'+detalle[i][4]+'</td><td id="besth'+detalle[i][3]+'" esth="'+detalle[i][6]+'">'+detalle[i][6]+'</td><td id="bestm'+detalle[i][3]+'" estm="'+detalle[i][7]+'">'+detalle[i][7]+'</td><td id="bband'+detalle[i][3]+'" bandejas="'+detalle[i][8]+'">'+detalle[i][8]+'</td><td orden="'+detalle[i][9]+'" id="btorder'+detalle[i][3]+'"><span class="order" id="bsorder'+detalle[i][0]+'">'+detalle[i][9]+'</span><input type="hidden" class="horder" id="beorder'+detalle[i][3]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="bdel'+detalle[i][3]+'">close</i></td></tr>');
         autoinc++;
     }
-    
+
     $("#bautoinc").val(autoinc);
 
     // <tr class="bpline" id="bp'+detalle[i][3]+'"><td id="btask'+detalle[i][3]+'">'+detalle[i][4]+'</td><td id="best'+detalle[i][3]+'" estimado="'+detalle[i][5]+'">'+detalle[i][6]+'</td><td id="buni'+detalle[i][3]+'" idunidad="'+detalle[i][6]+'">'+detalle[i][8]+'</td><td orden="'+detalle[i][8]+'" id="btorder'+detalle[i][3]+'"><span class="order" id="bsorder'+detalle[i][3]+'">'+detalle[i][9]+'</span><input type="hidden" class="horder" id="beorder'+detalle[i][3]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="bdel'+detalle[i][3]+'">close</i></td></tr>
@@ -539,7 +561,7 @@ $(document).on("keyup","#vgasto",function(e){
 $(document).on("keyup","#vprecio",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
-        
+
     }
 });
 
@@ -578,7 +600,7 @@ $(document).on("change","#vidunidad1",function(){
 $(document).on("keyup","#vmaquina",function(e){
     var code = e.which || e.keyCode;
     if (code == 13)
-        $("#vidunidad2").prevAll('input.select-dropdown').trigger('open').focus(); 
+        $("#vidunidad2").prevAll('input.select-dropdown').trigger('open').focus();
 });
 
 $(document).on("change","#vidunidad2",function(){
@@ -598,7 +620,7 @@ $(document).on("keyup","#vcodigo",function(e){
     var id = parseInt($("#acount").val());
     var nombre = $("#vnombre").val();
     var codigo = $(this).val();
-    if (code == 13) 
+    if (code == 13)
         makeprocess(id,nombre,codigo,'a');
 
 });
@@ -612,7 +634,7 @@ $(document).on("keydown",".vproducto",function(e){
             $('#'+tipo+'producto').autocomplete({
                 limit: 10,
                 data: arr('login',4,'',77,'0,0,1,"'+$(this).val()+'"',0,0,0,1)
-            }); 
+            });
         $('.'+tipo+'producto').siblings($(".autocomplete-content")).css('width','25%');
     }
 
@@ -658,21 +680,20 @@ $(document).on("click",".addproduct",function(){
     var idunidad = $("#"+tipo+"idunidad").val();
     var medida = $("#"+tipo+"idunidad option:selected").attr('unidad');
     var prod = arr('login',4,'',116,'0,"'+nombre+'"',0,0,0);
-    console.log(prod['succed'])
     // id,replace(precio,",","") as precio
     if (prod['succed'] == 1) {
         if (prod[0][0] != undefined) {
-            prod = prod[0]
+            prod = prod[0][0]
             var precio = convert(prod[0],cantidad,idunidad,prod[3]);
             addproduct(nombre,cantidad,idunidad,medida,precio,tipo);
         }else{
 
         }
 
-        
+
     }else{
         Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
-        
+
         $("#"+tipo+"cantidad").val('');
         $("#"+tipo+"producto").select();
     }
@@ -697,13 +718,13 @@ $(document).on("click",".del",function(){
     var id = $(this).attr('id').substr(2);
     var tipo = $(this).attr('id').substr(0,1);
     var spot = $("#"+tipo+"prec"+id).attr('spot');
-    Materialize.toast('Desea Borrar este Producto? <button type="button" class="waves-effect waves-light btn blue accept" id="'+tipo+'acc'+id+'" spot="'+spot+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="material-icons">close</i></button>', 10000, 'rounded');
+    Materialize.toast('Desea Borrar este Producto?&nbsp;&nbsp;&nbsp;<button type="button" class="waves-effect waves-light btn blue accept" id="'+tipo+'acc'+id+'" spot="'+spot+'"><i class="mdi mdi-check mdi-24px"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close mdi-24px"></i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".deltarea",function(){
     var id = $(this).attr('id').substr(4);
     var tipo = $(this).attr('id').substr(0,1);
-    Materialize.toast('Desea Borrar esta Tarea? <button type="button" class="waves-effect waves-light btn blue acctar" id="acc'+id+'" tipo="'+tipo+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="material-icons">close</i></button>', 10000, 'rounded');
+    Materialize.toast('Desea Borrar esta Tarea?&nbsp;&nbsp;&nbsp;<button type="button" class="waves-effect waves-light btn blue acctar" id="acc'+id+'" tipo="'+tipo+'"><i class="mdi mdi-check mdi-24px"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close mdi-24px"></i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".acctar",function(){
@@ -795,7 +816,7 @@ $(document).on("click",".saveproceso",function(){
             Materialize.toast('Proceso Guardado Correctamente', 6000, 'green');
         }else{
             Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
-        }        
+        }
     }else{
         Materialize.toast('Es necesario agregar productos al proceso', 6000, 'orange lighten-2');
     }
@@ -859,7 +880,7 @@ $(document).on("click",".editproceso",function(){
         $("#aproductos"+id).append('<li class="collection-item dismissable" id="ap'+detalle[i][1]+'"><div id="agroupprodcts'+detalle[i][1]+'"><span id="aprod'+detalle[i][1]+'" class="aproduct">'+detalle[i][3]+'</span><input type="hidden" id="aprec'+detalle[i][1]+'" spot="'+id+'" value="'+precioconv+'"> - Cantidad: <span id="acant'+detalle[i][1]+'">'+detalle[i][5]+'</span> (<span id="aidmedida'+detalle[i][1]+'" medida="'+detalle[i][8]+'">'+detalle[i][7]+'<span>)<i class="material-icons right red-text del but" id="ad'+detalle[i][1]+'">close</i></div></li>');
     }
     $("#adaddprod").removeClass('hide');
-    
+
     Materialize.updateTextFields()
 });
 
@@ -956,7 +977,7 @@ function addprodline(tipo) {
             if (pass == 1) {
                 count ++;
                 $("#"+tabla).append('<tr class="'+tipo+'plines" id="'+tipo+'p'+tsk[0][0]+'"><td id="'+tipo+'task'+tsk[0][0]+'">'+tsk[0][1]+'</td><td id="'+tipo+'esth'+tsk[0][0]+'" esth="'+tsk[0][2]+'">'+tsk[0][2]+'</td><td id="'+tipo+'estm'+tsk[0][0]+'" estm="'+tsk[0][3]+'">'+tsk[0][3]+'</td><td id="'+tipo+'band'+tsk[0][0]+'" bandejas="'+tsk[0][4]+'">'+tsk[0][4]+'</td><td orden="'+count+'" id="'+tipo+'torder'+tsk[0][0]+'"><span class="order" id="'+tipo+'sorder'+tsk[0][0]+'">'+count+'</span><input type="hidden" class="horder" id="'+tipo+'eorder'+tsk[0][0]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="'+tipo+'del'+tsk[0][0]+'">close</i></td></tr>');
-                
+
                 $("#"+tipo+"tarea").val('');
                 $("#"+tipo+"estimado").val('');
                 $("#"+tipo+"unidad").val(0);
@@ -1085,11 +1106,11 @@ function addprocess(idproceso,proceso,idlinea,cantidad) {
     //detalleprocesos
     $("#inicio").removeClass('hide');
     var elem = arr('login',4,'',119,$("#idproceso").val(),0,0,0)[0];
-    
+
     for (var i = 0, len = elem.length; i < len; i++) {
         var cant = parseInt(elem[i][5]);
         cantot = cant * cnt;
-        
+
         var faltante = parseInt(elem[i][6] - cantot);
         if (faltante > 0) {
             faltante = 0;
@@ -1122,7 +1143,7 @@ function totalizar(id,ganancia,manoobra) {
 
 function addproduct(nombre,cantidad,idmedida,medida,precio,tipo) {
     var id = $("#"+tipo+"spot").val();
-    var idproducto = arr('login',4,'id',11,'nombre like \"'+nombre+'\"',0,0,0)[0][0];
+    var idproducto = arr('login',4,'id',11,'nombre = "'+nombre+'"',0,0,0)[0][0];
     var prectot = 0;
     var validac = 1;
     // validacion
@@ -1138,7 +1159,7 @@ function addproduct(nombre,cantidad,idmedida,medida,precio,tipo) {
         });
         // fin validacion
         if (validac == 1) {
-            $("#"+tipo+"productos"+id).append('<li class="collection-item dismissable" id="'+tipo+'p'+idproducto+'"><div id="'+tipo+'groupprodcts'+idproducto+'"><span id="'+tipo+'prod'+idproducto+'" class="'+tipo+'product">'+nombre+'</span><input type="hidden" id="'+tipo+'prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="'+tipo+'cant'+idproducto+'">'+cantidad+'</span> (<span id="'+tipo+'idmedida'+idproducto+'" medida="'+idmedida+'">'+medida+'<span>)<i class="material-icons right red-text del but" id="'+tipo+'d'+idproducto+'">close</i></div></li>');
+            $("#"+tipo+"productos"+id).append('<li class="collection-item dismissable" id="'+tipo+'p'+idproducto+'"><div id="'+tipo+'groupprodcts'+idproducto+'"><span id="'+tipo+'prod'+idproducto+'" class="'+tipo+'product">'+nombre+'</span><input type="hidden" id="'+tipo+'prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="'+tipo+'cant'+idproducto+'">'+cantidad+'</span> (<span id="'+tipo+'idmedida'+idproducto+'" medida="'+idmedida+'">'+medida+'<span>)<i class="mdi mdi-close mdi-24px right red-text del but" id="'+tipo+'d'+idproducto+'"></i></div></li>');
         }else{
             cantidad = parseFloat($("#"+tipo+"cant"+idproducto).text()) + parseFloat(cantidad);
             $("#"+tipo+"cant"+idproducto).text(cantidad);
@@ -1175,7 +1196,7 @@ $(document).on("change","#aidunidad",function(){
 });
 
 $(document).on("click","#insprod",function(){
-    
+
 });
 
 function makeprocess(id,nombre,codigo,tipo) {
@@ -1199,7 +1220,7 @@ function makeprocess(id,nombre,codigo,tipo) {
             $("#"+tipo+"count").val(id);
             $("#"+tipo+"spot").val($("#"+tipo+"count").val());
             setTimeout(function(){$("#"+tipo+"producto").focus();},100);
-            
+
         }else{
             Materialize.toast('Proceso &nbsp;&nbsp;<b>'+nombre+'</b>&nbsp;&nbsp; creado anteriormente&nbsp;&nbsp;<i class="material-icons but cancel">close</i>', 6000, 'red');
         }
@@ -1222,11 +1243,11 @@ function vaciar(modulo) {
 }
 
 function validar (varreglo,vmodulo) {
-    
+
     var salida = {}
-    
+
         /*VALIDACION FRONT END*/
-    
+
     switch(vmodulo['modulo']) {
         case 'tareaproduccione':
             if (vmodulo['tip'] == '') {
@@ -1323,7 +1344,7 @@ function cargar(vmodulo,vid) {
             return 'Módulo no Existente';
             break;
     }
-    
+
     return vmodulo;
 }
 
@@ -1355,5 +1376,5 @@ function endDetail(id,acc,modulo) {
             $("#vnombre").focus();
             break;
     }
-    
+
 }
