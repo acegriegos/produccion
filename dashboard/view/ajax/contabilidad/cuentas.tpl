@@ -37,38 +37,39 @@
     </div>
 </div>
 
-<div class="card-block blc1" style="padding: 2%;">
-    <div class="row" style="padding: 2%;">
-        <div class="col s4 card-title white-text blue truncate " align="center" style="padding: 0.8%; font-size: 1em">
-            Número de Cuenta
-        </div>
-        <div class="col s4 card-title white-text blue " align="center" style="padding: 0.8%; font-size: 1em">
-            Descripción
-        </div>
-        <div class="col s4 card-title white-text blue " align="center" style="padding: 0.8%; font-size: 1em">
-            Saldo(CRC)
-        </div>
-    </div>
+<div class="card-block blc1" style="padding: 2%; height: 700px; max-height: 700px; overflow-y: scroll">
+<table>
+    <thead class="row" style="padding: 2%;">
+        <tr>
+            <td class="col s4 card-title white-text blue truncate " align="center" style="padding: 0.8%; font-size: 1em">
+                Número de Cuenta
+            </td>
+            <td class="col s4 card-title white-text blue " align="center" style="padding: 0.8%; font-size: 1em">
+                Descripción
+            </td>
+            <td class="col s4 card-title white-text blue " align="center" style="padding: 0.8%; font-size: 1em">
+                Saldo(CRC)
+            </td>
+        </tr>
+    </thead>
 
-
-<ul class="list-group list-group-flush" id="vcuentas">
+<tbody id="vcuentas">
 {section name=LE loop=$VCUE}
-    <li class="list-group-item view-cuenta" style="cursor: pointer;" id="c{$VCUE[LE][3]}">
-        <div class="row">
-            <div class="col s4 center-align" style="font-size: 1.2em">
-                {$VCUE[LE][0]}
-            </div>
-            <div class="col s4 center-align" style="font-size: 1.2em" id="n{$VCUE[LE][3]}">
-                {$VCUE[LE][1]}
-            </div>
-            <div class="col s4 center-align" style="font-size: 1.2em">
-                {$VCUE[LE][2]}
-            </div>
-        </div>
-    </li>
+    <tr class="list-group-item view-cuenta" style="cursor: pointer;" id="c{$VCUE[LE][3]}">
+        <td class="col s4 center-align" style="font-size: 1.2em">
+            {$VCUE[LE][0]}
+        </td>
+        <td class="col s4 center-align" style="font-size: 1.2em" id="n{$VCUE[LE][3]}">
+            {$VCUE[LE][1]}
+        </td>
+        <td class="col s4 center-align" style="font-size: 1.2em">
+            {$VCUE[LE][2]}
+        </td>
+    </tr>
 {/section}
-</ul>
+</tbody>
 
+</table>
 </div>
 
 </div>
@@ -104,10 +105,7 @@
     <div class="col s12 m12 pequeño">
         <div class="card pequeño">
             <div class="card-content white-text" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
-                <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; ">
-                    <span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
-                </div>
-
+            
                 <div class="col s12 m12 l6">
                     <p class="fsize"><b>N° Transacción:</b> <span id="dtranN"></span></p>
                 </div>

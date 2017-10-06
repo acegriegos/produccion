@@ -431,9 +431,9 @@ function validarclientes() {
 		function cargarSintax(){
 			var arr = {}
 
-			arr['sel'] = '*';
+			arr['sel'] = '';
 			arr['tbl'] = 30;
-			arr['where'] = 'vid > 0 order by nombre';
+			arr['where'] = '';
 
 			return arr;
 		}
