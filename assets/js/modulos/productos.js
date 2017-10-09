@@ -2292,13 +2292,23 @@ function cargar(vmodulo, vid) {
 function cargarSintax(vtabla) {
 	switch (vtabla) {
 		case 'productos':
-			
+			var arr = {};
+			arr['sel'] = '';
+			arr['tbl'] = 14;
+			arr['where'] = '0';
 			break;
 		case 'servicios':
-			
+			var arr = {};
+			arr['sel'] = '';
+			arr['tbl'] = 13;
+			arr['where'] = '';
 			break;
 		case 'paquetes':
-			
+			var arr = {};
+			arr['sel'] = '';
+			arr['tbl'] = 62;
+			arr['where'] = '';
+			break;
 			break;
 		case 'familia':
 			var arr = {};

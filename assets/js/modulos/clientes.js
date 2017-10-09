@@ -323,9 +323,9 @@ function cargar(vmodulo,vid) {
 function cargarSintax() {
 	var arr = {}
 
-	arr['sel'] = '*';
+	arr['sel'] = '';
 	arr['tbl'] = 29;
-	arr['where'] = '1 order by nombre';
+	arr['where'] = '';
 
 	return arr;
 }
