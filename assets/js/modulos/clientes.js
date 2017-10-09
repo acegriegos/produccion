@@ -18,7 +18,7 @@ $(function(){
 		order : []
 	});
 
-	var cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
+	var cuentas_arr = arr('login',4,'',33,'','',0,'');
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
@@ -339,7 +339,7 @@ function getFila(valor,vtipo,vdh,vtp){
 
 function obtenerCuentas(vid){
 	var cuentasg = arr('login',4,'',85,'2,'+vid+',"1,2"','',0,'');
-
+console.log(vid);
 	$("#ctacontado").html('');
 	$("#ctacredito").html('');
 

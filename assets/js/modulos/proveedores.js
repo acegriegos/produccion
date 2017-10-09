@@ -15,7 +15,7 @@ $(function(){
 		bPaginate: false,
 		info: false
 	});
-	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
+	cuentas_arr = arr('login',4,'',33,'','',0,'');
 	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
 		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
