@@ -791,19 +791,24 @@ $(document).on("click",".saveproceso",function(){
             idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+(total * ((imp/100)+1) )+',0,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
         }else{
             var inv = arr('login',4,'id',97,'idproducto = '+id+' and idinventario = 7',0,0,0)[0][0];
-            if (inv != undefined) {
+            if (inv == undefined) {
                 arr('login',7,'1',97,'','null,7,'+id+',0',0,0);
             }
-            idproceso = id;
+            idproceso = {};
+            idproceso[0] = {};
+            idproceso[0][0] = id;
         }
-        if (idproceso[0] != '[object Object]') {
+        console.log(idproceso)
+        if (idproceso[0][0] != '[object Object]') {
+            console.log(1)
+            return false;
             //guarda productos de la proceso
             $("."+tipo+"product").each(function(){
                 var idproducto = $(this).attr('id').substr(5);
                 if ($("#"+tipo+"prec"+idproducto).attr('spot') == id) {
                     var cantidad = $("#"+tipo+"cant"+idproducto).text();
                     var idunidad = $("#"+tipo+"idmedida"+idproducto).attr('medida');
-                    arr('login',4,'',121,'1,0,'+idproceso[0][0]+','+idproducto+','+cantidad+','+idunidad+',@@usr,@@impresa',0,0,0);
+                    arr('login',4,'',121,'1,0,'+idproceso+','+idproducto+','+cantidad+','+idunidad+',@@usr,@@impresa',0,0,0);
                 }
             });
             arr('login',6,'idproceso,proceso,precioventa',99,'idproceso > 0 order by proceso limit 20',0,1,$("#listaprocesos"));
@@ -815,6 +820,8 @@ $(document).on("click",".saveproceso",function(){
             $(".validate").css('box-shadow', 'none');
             Materialize.toast('Proceso Guardado Correctamente', 6000, 'green');
         }else{
+            console.log(2)
+            return false;
             Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
         }
     }else{
