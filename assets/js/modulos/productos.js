@@ -219,7 +219,7 @@ $(document).on("keydown", "[id^=vcliente]", function (e) {
 			$(".autocomplete-content").remove();
 			$("#vcliente" + id).autocomplete({
 				limit: 10,
-				data: arr('login', 4, 'concat(nombre," ",apellido1," ",apellido2),null', 2, 'concat(nombre," ",apellido1," ",apellido2) like \"%' + $("#vcliente" + id).val() + '%\" and id > 0 limit 10', 0, 0, 0, 1)
+				data: arr('login', 4, 'concat(nombre," ",apellido1," ",apellido2),null', 2, 'concat(nombre," ",apellido1," ",apellido2) like \"%' + $("#vcliente" + id).val() + '%\" and id > 0 and bisproveedor !=1 limit 10', 0, 0, 0, 1)
 			});
 			$("#vcliente" + id).siblings($(".autocomplete-content")).css('width', '25%');
 		}
@@ -810,7 +810,9 @@ $(document).on("click", "#editprod", function () {
 
 				$(".preciocliente").each(function () {
 					var idfila = $(this).attr('id').substr(1);
-					arr('login', 4, '162', 108, '3,null,' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',0,0,@@usr,@@impresa', 0, 0, 0);
+
+					arr('login', 4, '', 108, '3,null,' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',0,0,@@usr,@@impresa', 0, 0, 0);
+
 					if ($("#vventa" + idfila).val() > 0) {
 						arr('login', 4, '', 162, '1,0,' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',' + $("#vganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa', 0, 0, 0)
 					}

@@ -6,7 +6,7 @@
 <div class="card z-depth-5" id="show_cuentas">
 <div class="card-header">
     <div class="row">
-        <div class="col s3 centro" >
+        <div class="col s3 centro">
             <h3>Cuentas</h3>
         </div>
     </div>
@@ -18,7 +18,7 @@
             <div class="input-field col s12 m6 l6">
                 <a class="prefix"><i class="small mdi mdi-magnify mdi-24px"></i></a>
                 <input type="text" id="vbusqueda" maxlength="45" num="+27" var="nombre">
-                <label for="vbusqueda">Número / Descripción</label>
+                <label for="vbusqueda" class="truncate">Número / Descripción</label>
             </div>
 
             <div class="col s10 offset-s2 m6 l6">
@@ -28,52 +28,51 @@
                     <li><a class="dropdown-item vfiltros" href="#" filtro="f3">Saldo Mayor o Igual a</a></li>
                     <li><a class="dropdown-item vfiltros" href="#" filtro="f4">Saldo Menor o Igual a</a></li>
                     <li><a class="dropdown-item" href="#" id="refresh">Refrescar</a></li>
-                    <li>  <a class="dropdown-item" href="#" id="refresh4ever">Refrescar Contínuo</a></li>
+                    <li><a class="dropdown-item" href="#" id="refresh4ever">Refrescar Contínuo</a></li>
                 </ul>
-                <a class="btn dropdown-button z-depth-5" href="#!" data-activates="dropdown2">Filtro de Busqueda<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <a class="btn dropdown-button z-depth-5 truncate" href="#!" data-activates="dropdown2">Filtro de Busqueda<i class="mdi-navigation-arrow-drop-down right"></i></a>
             </div>
 
         </div>
     </div>
 </div>
 
-<div class="card-block blc1" style="padding: 2%; height: 700px; max-height: 700px; overflow-y: scroll">
-<table>
-    <thead class="row" style="padding: 2%;">
+<div class="card-block blc1" style="padding: 2%; height: 500px; max-height: 500px; overflow-y: scroll">
+<table class="striped highlight centered bordered">
+    <thead class="row blue" style="padding: 2%;">
         <tr>
-            <td class="col s4 card-title white-text blue truncate " align="center" style="padding: 0.8%; font-size: 1em">
+            <td class="white-text truncate" style="font-size: 1.2em">
                 Número de Cuenta
             </td>
-            <td class="col s4 card-title white-text blue " align="center" style="padding: 0.8%; font-size: 1em">
+            <td class="white-text" style="font-size: 1.2em">
                 Descripción
             </td>
-            <td class="col s4 card-title white-text blue " align="center" style="padding: 0.8%; font-size: 1em">
+            <td class="white-text" style="font-size: 1.2em">
                 Saldo(CRC)
             </td>
         </tr>
     </thead>
 
-<tbody id="vcuentas">
-{section name=LE loop=$VCUE}
-    <tr class="list-group-item view-cuenta" style="cursor: pointer;" id="c{$VCUE[LE][3]}">
-        <td class="col s4 center-align" style="font-size: 1.2em">
-            {$VCUE[LE][0]}
-        </td>
-        <td class="col s4 center-align" style="font-size: 1.2em" id="n{$VCUE[LE][3]}">
-            {$VCUE[LE][1]}
-        </td>
-        <td class="col s4 center-align" style="font-size: 1.2em">
-            {$VCUE[LE][2]}
-        </td>
-    </tr>
-{/section}
-</tbody>
+    <tbody id="vcuentas">
+    {section name=LE loop=$VCUE}
+        <tr class="view-cuenta" style="cursor: pointer;" id="c{$VCUE[LE][3]}">
+            <td class="center-align" style="font-size: 1.2em">
+                {$VCUE[LE][0]}
+            </td>
+            <td class="center-align" style="font-size: 1.2em" id="n{$VCUE[LE][3]}">
+                {$VCUE[LE][1]}
+            </td>
+            <td class="center-align" style="font-size: 1.2em">
+                {$VCUE[LE][2]}
+            </td>
+        </tr>
+    {/section}
+    </tbody>
 
 </table>
 </div>
 
 </div>
-
 
 <br>
 </div>
@@ -81,7 +80,6 @@
 <!--  -->
 <div class="row">
     <div class="col s12 m12 l6">
-
         <div class="colDetalle"></div>
         <!-- <small class="myh3"></small> -->
     </div>
