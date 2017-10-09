@@ -285,11 +285,11 @@ $(document).on("change","#vidunidad",function(){
 	if (id != 1) {
 		console.log(1)
 		$("#dpeso").removeClass('hide');
-		setTimeout(function(){$("#vnombre").focus();},100);
+		setTimeout(function(){$("#vpeso").focus();},100);
 	}else{
-		console.log(2)
+		$("#vpeso").val(0);
 		$("#dpeso").addClass('hide');
-		$("#vpeso").focus();
+		setTimeout(function(){$("#vnombre").focus();},100);
 	}
 	
 });
