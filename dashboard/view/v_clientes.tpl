@@ -86,7 +86,7 @@
                             <input type="hidden" id="zelda">
                             <div class="row">
                                 <br>
-                                <div class="col s12 m12 l12">
+                                <div class="col s12 m8 l9">
                                     <div class="row parte1 col s12" id="info">
                                         <div class="row" style="margin: 0px">
                                             <div class="col s6 m3 l2">
@@ -391,6 +391,59 @@
 </div>
 
 </div>
+  <div class="col s12 m4 l3 expand-2">
+                    <div class="row" style="background: #DEDEDE"><br>
+                        <div class="row hide">
+                        <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-left mdi-24px"></i></div>
+                        <div class="s9 m9 l9 col" align="center">&nbsp;</div>
+                        <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-right mdi-24px"></i></div>
+                        </div>
+                        <div class="s12 m12 l12 col" align="center">
+                            <h5><b><span id="infvnombre0"><span class="placeh">Nombre Cliente</span></span> <span id="infvapellido0">&nbsp;</span> <span id="infvapellido1">&nbsp;</span></b></h5>
+                        </div>
+                        <div class="s4 m4 l4 col" align="center">
+                            <table>
+                                <tr><td style="font-size: 0.8em"><b>Cédula</b></td></tr>
+                                <tr class="icorr"><td style="font-size: 0.8em"><b>Correo</b></td></tr>
+                                <tr class="iphone"><td style="font-size: 0.8em"><b>Teléfono</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Código</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Web</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Provincia</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Cantón</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Distrito</b></td></tr>
+                                <tr><td style="font-size: 0.8em"><b>Direccion</b></td></tr><tr><td style="font-size: 0.8em"><b>Estado</b></td></tr>
+                            </table>
+                        </div>
+                        <div class="s8 m8 l8 col" align="center">
+                            <table>
+                                <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh">8088800888</span></span></td></tr>
+                                <tr class="icorr">
+                                    <td style="padding: 0 !important; font-size: 0.8em">
+                                    <div id="infcorreo2">
+                                        <div class="placeh chip chpcr">mail@example.com</div>
+                                    </div>
+                                    </td>
+                                </tr>
+                                <tr class="iphone"><td style="padding: 0 !important; font-size: 0.8em"><div id="inftelefono4"><div class="placeh chip chpph">88888888</div></div></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infcodigo6"><span class="placeh">COD01</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infweb7"><span class="placeh">www.example.com</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infprovincia8"><span class="placeh">Provincia</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infcanton9"><span class="placeh">Cantón</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infdistrito10"><span class="placeh">Distrito</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infdireccion11"><span class="placeh">Dirección</span></span></td></tr>
+                                </tr>
+                                <tr><td style="font-size: 0.8em"><select id="videstado" type="select">
+                                    <!-- <option value="" disabled selected>Seleccione un Estado</option> -->
+                                    {section name=LE loop=$ESTCLIE}
+                                    <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
+                                    {/section}
+                                </select></td></tr>
+                            </table>
+                        </div>
+                         
+                    </div>
+                </div>
+
 </div>
 
 </div>

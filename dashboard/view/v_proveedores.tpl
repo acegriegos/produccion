@@ -310,7 +310,7 @@
             <!-- CARD -->
                 <div class="col s12 m4 l3 expand-2">
                     <div class="row" style="background: #DEDEDE"><br>
-                        <div class="row">
+                        <div class="row hide">
                         <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-left mdi-24px"></i></div>
                         <div class="s9 m9 l9 col" align="center">&nbsp;</div>
                         <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-right mdi-24px"></i></div>
@@ -350,7 +350,7 @@
                                 <tr><td style="font-size: 0.8em"><span id="infdireccion11"><span class="placeh">Dirección</span></span></td></tr>
                                 </tr>
                                 <tr><td style="font-size: 0.8em"><select id="videstado" type="select">
-                                    <option value="" disabled selected>Seleccione un Estado</option>
+                                    <!-- <option value="" disabled selected>Seleccione un Estado</option> -->
                                     {section name=LE loop=$ESTCLIE}
                                     <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
                                     {/section}
