@@ -152,13 +152,11 @@
 
 <div class="row">
     <div class="input-field col s12 m6">
-        <a class="prefix small material-icons">search</a>
-        <i class="material-icons mdi mdi-search"></i>
-        <i class="material-icons"></i>
+        <a class="prefix mdi mdi-magnify"></a>
         <input type="text" id=".search_productos" maxlength="100" num="v14" var="codigo,descripcion" placeholder="Filtros">
     </div>
 
-    <a href="#addPre" class="btn-floating der pluskey" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="fa fa-plus"></i></a>
+    <a href="#addPre" class="btn-floating der pluskey" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
 
 </div>
 
