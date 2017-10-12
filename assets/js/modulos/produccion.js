@@ -75,7 +75,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m1").click();
+    $("#m2").click();
 });
 
 $(document).ready(function(){
@@ -171,9 +171,6 @@ $(document).on("keydown","#cprod",function(e){
         $("#cprod").siblings($(".autocomplete-content")).css('width','25%');
     } 
 });
-
-
-
 
 $(document).on("keyup","#cprod",function(e){
     var code = e.which || e.keyCode;
@@ -789,45 +786,50 @@ $(document).on("click",".saveproceso",function(){
         if (prod == undefined) {
             //guarda proceso en tabla prodcutos
             idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+(total * ((imp/100)+1) )+',0,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
+            adddetail(idproceso,tipo,1);
         }else{
-            var inv = arr('login',4,'id',97,'idproducto = '+id+' and idinventario = 7',0,0,0)[0][0];
-            if (inv == undefined) {
-                arr('login',7,'1',97,'','null,7,'+id+',0',0,0);
-            }
-            idproceso = {};
-            idproceso[0] = {};
-            idproceso[0][0] = id;
+            adddetail(id,tipo);
+            // var inv = arr('login',4,'id',97,'idproducto = '+id+' and idinventario = 7',0,0,0)[0][0];
+            // if (inv == undefined) {
+            //     arr('login',7,'1',97,'','null,7,'+id+',0',0,0);
+            // }
         }
-        console.log(idproceso)
-        if (idproceso[0][0] != '[object Object]') {
-            console.log(1)
-            return false;
-            //guarda productos de la proceso
-            $("."+tipo+"product").each(function(){
-                var idproducto = $(this).attr('id').substr(5);
-                if ($("#"+tipo+"prec"+idproducto).attr('spot') == id) {
-                    var cantidad = $("#"+tipo+"cant"+idproducto).text();
-                    var idunidad = $("#"+tipo+"idmedida"+idproducto).attr('medida');
-                    arr('login',4,'',121,'1,0,'+idproceso+','+idproducto+','+cantidad+','+idunidad+',@@usr,@@impresa',0,0,0);
-                }
-            });
-            arr('login',6,'idproceso,proceso,precioventa',99,'idproceso > 0 order by proceso limit 20',0,1,$("#listaprocesos"));
-            $("#"+tipo+"makerecipe").html('');
-            $("#vnombre").val('');
-            $("#vcodigo").val('');
-            $("#"+tipo+"daddprod").addClass('hide');
-            $(".validate").css('border-bottom', '1px solid #9e9e9e');
-            $(".validate").css('box-shadow', 'none');
-            Materialize.toast('Proceso Guardado Correctamente', 6000, 'green');
-        }else{
-            console.log(2)
-            return false;
-            Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
-        }
+        return false;
     }else{
         Materialize.toast('Es necesario agregar productos al proceso', 6000, 'orange lighten-2');
     }
 });
+
+function adddetail(id,tipo,chk) {
+    // tipo 1 ( id = [object Object] )
+    var validacion = 1;
+    if (chk != undefined) {
+        if (id[0][0] == '[object Object]') {
+            Materialize.toast(id[0]['ERROR'], 6000, 'red');
+            return false;
+        }
+    }
+
+    if (validacion == 1) {
+        $("."+tipo+"product").each(function(){
+            var idproducto = $(this).attr('id').substr(5);
+            // if ($("#"+tipo+"prec"+idproducto).attr('spot') == id[0][0]) {
+            var cantidad = $("#"+tipo+"cant"+idproducto).text();
+            var idunidad = $("#"+tipo+"idmedida"+idproducto).attr('medida');
+            arr('login',4,'',121,'1,0,'+id[0][0]+','+idproducto+','+cantidad+','+idunidad+',@@usr,@@impresa',0,0,0);
+            // }
+        });
+        arr('login',6,'idproceso,proceso,precioventa',99,'idproceso > 0 order by proceso limit 20',0,1,$("#listaprocesos"));
+        $("#"+tipo+"makerecipe").html('');
+        $("#vnombre").val('');
+        $("#vcodigo").val('');
+        $("#"+tipo+"daddprod").addClass('hide');
+        $(".validate").css('border-bottom', '1px solid #9e9e9e');
+        $(".validate").css('box-shadow', 'none');
+        Materialize.toast('Proceso Guardado Correctamente', 6000, 'green');
+    }
+        
+}
 
 $(document).on("click",".actrecipe",function(){
     var id = $(this).attr('id').substr(3);
