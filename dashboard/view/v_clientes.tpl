@@ -52,37 +52,9 @@
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td>
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
-                                <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
+                                <td style=" padding: 10px ;color:black">{$CLIE[LE][5]}</td>
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
                                 <td>
-<<<<<<< HEAD
-                                   {if $CLIE[LE][13] neq 1}
-                                   <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact mdi-contacts pbtn" id="c{$CLIE[LE][0]}"></i></a>
-                                   {/if}
-
-                                   <a href="#modal-clientes" class="load mdi mdi-pencil mdi-24px pbtn per1002 modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black"></a>
-                                   
-                                   <a href="#" class="delete mdi mdi-close mdi-24px pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="color:black"></a>
-                               </td>
-                           </tr>
-                           {/section}
-                       </tbody>
-                   </table>
-                   <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
-                   <br>
-                   <br>
-               </div>
-
-               <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 80%; width: 75%">
-                <div class="modal-header">
-                    <ul class="tabs tabs-fixed-width blue">
-                        <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
-                        <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
-                        <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
-                        <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
-                        <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
-                    </ul>
-=======
                                      {if $CLIE[LE][13] neq 1}
                                     <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact mdi-contacts pbtn" id="c{$CLIE[LE][0]}"></i></a>
                                     {/if}
@@ -98,7 +70,7 @@
                     <ul class="pagination right" vtbl="76" modulo="clientes"></ul>
                     <br>
                     <br>
->>>>>>> 480951530976db7f0d5506e576e1045004184f21
+
                 </div>
                 <div class="modal-content " style="padding: 0px;">
                     <div id="fclientes">
