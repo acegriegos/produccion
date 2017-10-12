@@ -1,6 +1,6 @@
 <ul class="collapsible pequeño" data-collapsible="accordion">
     <li class="per5101" id="pl1">
-        <div class="collapsible-header productline active centro3"><i class="material-icons">add_circle</i>Agregar Tareas de Producción</div>
+        <div class="collapsible-header productline active centro3"><i class="mdi mdi-plus-circle mdi-36px blue-text"></i>Agregar Tareas de Producción</div>
         <div class="collapsible-body row tasks pequeño">
             <div class="col s12 m4 l4 per5102 pequeño" id="ftareaproducciones">
                 <div class="row">
@@ -50,7 +50,7 @@
             </div>
             <div class="col s12 m8 l8 pequeño">
                 <div class="input-field col s12 m6 l6" style="padding-left: 0%">
-                    <i class="material-icons prefix blue-text">search</i>
+                    <i class="mdi mdi-magnify prefix blue-text"></i>
                     <input type="text" id="search_tareaproducciones" class="validate" num="v180" var="vnombre" cambio="134">
                     <label for="search_tareaproducciones">Buscar por nombre</label>
                 </div>
@@ -72,8 +72,8 @@
                             <td style=" padding: 10px;">{$LPR[LE][3]}</td>
                             <td style=" padding: 10px;">{$LPR[LE][4]}</td>
                             <td style=" padding: 10px;">
-                                <a class="btn-color pbtn load" id="m{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">edit</i></a>
-                                <a class="btn-color pbtn cdel delete" id="d{$LPR[LE][0]}" modulo="tareaproduccione"><i class="material-icons">close</i></a>
+                                <a class="btn-color pbtn load" id="m{$LPR[LE][0]}" modulo="tareaproduccione"><i class="mdi mdi-pencil mdi-24px"></i></a>
+                                <a class="btn-color pbtn cdel delete" id="d{$LPR[LE][0]}" modulo="tareaproduccione"><i class="mdi mdi-close mdi-24px"></i></a>
                             </td>
                         </tr>
                         {/section}
