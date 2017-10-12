@@ -37,18 +37,21 @@ $(function(){
 		$("#titModal").html('Agregar Cliente');
 		$("#agClie").html('Agregar');
 
-
 		$("#agClie").removeClass('edit');
 		$("#agClie").addClass('add');
-		
+
 		$("#infvnombre0").html('Nombre Cliente');
 		$("#infvapellido0").html('');
 		$("#infvapellido1").html('');
 		$("#infcedula1").html('');
 		$("#infcodigo6").html('');
 		$("#infweb7").html('');
-
-
+		$("#telefono_in").focus(function(){
+	$(".iphone").css({"height": "100px", "transition": "0.5s ease"});
+});
+$("#telefono_in").blur(function(){
+	$(".iphone").css({"height": "50px", "transition": "0.5s ease"});
+});
 		deadclear('cliente');
 
 		$("#ln1").click();
@@ -160,7 +163,7 @@ $(function(){
 	if (add) {
 		$("#ingClie").click()
 	}
-	    paginate($("ul.pagination").attr('vtbl'))
+		    paginate($("ul.pagination").attr('vtbl'))
 
 
 });
@@ -295,7 +298,6 @@ $(document).on("click",".load",function(){
 	$("#ln1").click();
 	obtenerCuentas($(this).attr('id').substr(1));
 	obtenerImpuestos($(this).attr('id').substr(1));
-
 });
 
 $(document).on("click","input[name='tipoclie']",function(){
@@ -332,7 +334,6 @@ $(document).on("click","input[name='tipoclie']",function(){
 
 $(document).on("click","#Iadd",function(){
 	deadclear('clientes')
-
 });
 
 function validar (varreglo,vmodulo) {
@@ -447,18 +448,18 @@ function validarclientes() {
 }
 
 function obtenerCuentas(vid){
-	var cuentasg = arr('login',4,'',85,'2,'+vid+',"1,2"','',0,'');
+    var cuentasg = arr('login',4,'',85,'2,'+vid+',"1,2"','',0,'');
+
 	$("#ctacontado").html('');
 	$("#ctacredito").html('');
 
 	for (var i = 0; i < cuentasg[0].length; i++) {
-		if (cuentasg[0][i][5] == 1) {
+		if (cuentasg[0][i][5] == 5) {
 			$("#ctacontado").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
 		}else{
 			$("#ctacredito").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
 		}
 		$("#my-array"+cuentasg[0][i][0]).val(cuentasg[0][i][1]);
-		
 	}
 
 	$("#vidcuenta").val('');
@@ -491,7 +492,7 @@ function endDetail(vid,vacc,modulo){
 function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
-		llenarTarjeta(1);
+			llenarTarjeta(1);
 		break;
 	}
 }
