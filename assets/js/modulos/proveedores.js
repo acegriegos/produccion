@@ -40,7 +40,7 @@ $(function(){
 		$("#agClie").removeClass('edit');
 		$("#agClie").addClass('add');
 
-		$("#infvnombre0").html('Nombre Cliente');
+		$("#infvnombre0").html('Nombre Proveedor');
 		$("#infvapellido0").html('');
 		$("#infvapellido1").html('');
 		$("#infcedula1").html('');
