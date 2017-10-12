@@ -66,7 +66,7 @@ $(document).on("click",".shpre",function(){
         
         cuerpo.html('<div class="preloader-wrapper big active" style="margin-left:45%;">    <div class="spinner-layer spinner-blue-only">      <div class="circle-clipper left">        <div class="circle"></div>      </div><div class="gap-patch">        <div class="circle"></div>      </div><div class="circle-clipper right">        <div class="circle"></div>      </div>    </div>  </div>');
 
-        var p = getDatos('',228,id,0,0,'@@@impresa')[0];
+        var p = getDatos('',228,id,0,0,'@@impresa')[0];
         var str = '<div class="row lista'+id+'">';
         for (var i = 0; i < p.length; i++) {
             str += '<div class="col s2 m3 cuadro" style="margin-left:2%; margin-top:1%;">'+p[i][2]+'<br>'+p[i][3]+'<div class="row"><a href="#modal-view" class="pbtn der view black-text"><i class="fa fa-money" title="Vista de la ODT"></i></a><a href="#modal-cotiza" class="pbtn der cotiza black-text" title="Adjuntar Cotización Proveedor"><i class="fa fa-file-o"></i></a><a href="#modal-compras" class="pbtn der compra black-text" title="Adjuntar Compra"><i class="fa fa-hdd-o"></i></a><a href="#modal-ocompras" class="pbtn der ocompra black-text" title="Adjuntar Orden Compra"><i class="fa fa-clone"></i></a></div></div>';

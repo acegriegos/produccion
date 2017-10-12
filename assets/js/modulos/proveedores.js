@@ -18,20 +18,10 @@ $(function(){
 	cuentas_arr = arr('login',4,'',33,'','',0,'');
 	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
-		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
+		cuentas += '<option value="'+cuentas_arr[0][i][3]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
 
-	// $("#fclientes input").keyup(function(e){
-	// 	var code = e.which || e.keyCode;
-	// 	if (code == 13) {
-	// 		// cnt = $(".navbar-nav > a").length;
-	// 		// act = parseInt($(".navbar-nav > a.active").attr('id').substr(2));
-	// 		// if(act != cnt)
-	// 		// 	$("#ln"+(act+1)).click()
-	// 		// elsef
-	// 			$("#agClie").click()
-	// 	}
-	// });
+
 
 	$(".addcta").click(function(){
 		tp = $(this).attr('tp');
@@ -155,7 +145,6 @@ $(function(){
 	$("#tptel").change(function(){
 		var tipo = $(this).val();
 		$("#htipo").val(tipo);
-		console.log(tipo)
 	});
 
 	$("#idcanton").change(function(){
@@ -168,6 +157,8 @@ $(function(){
 	if (add) {
 		$("#ingClie").click()
 	}
+		    paginate($("ul.pagination").attr('vtbl'))
+
 
 });
 
@@ -258,7 +249,6 @@ $(document).on("click",".edit_phone",function(){
 
 $(document).on("click",".close",function(){
 	var id = $(this).attr('id').substr(3);
-	console.log(id)
 	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 });
 
@@ -404,9 +394,9 @@ function validarclientes() {
 			}
 
 			$("#vtelefono").val('');
-			$("#shtelefonos .chip[id^=0_]").each(function(){
+			$("#shtelefonos .chip[id^=stchp]").each(function(){
 				t_valor = $("#vtelefono").val();
-				$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.chip > .badge',this).html()+'",?]:')
+				$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('._tel',this).html()+'",?]:')
 			});
 
 			$("#vcorreo").val('');
@@ -530,7 +520,7 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 	if (vtipo == 1) { tipotel = 'home'; }else if (vtipo == 2) { tipotel = 'business'; }else if (vtipo == 3) { tipotel = 'phone'; }
 	//if (vfila == undefined) {
 		if ($("#telefono_in").val()) {
-			$("#shtelefonos").append('<div id="stchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+$("#telefono_in").val()+'<i class="mdi mdi-close right"></i></div>');
+			$("#shtelefonos").append('<div id="stchp'+cont+'" class="chpphone chip" tp="'+vtipo+'"><img src="../../assets/img/icon/'+tipotel+'.png"><span class="_tel">'+$("#telefono_in").val()+'</span><i class="mdi mdi-close right"></i></div>');
 			$("#shtelefonos").removeClass('hide');
 			$("#telefono_in").val('');
 			ind_2 += 1;
