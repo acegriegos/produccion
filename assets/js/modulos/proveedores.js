@@ -15,23 +15,13 @@ $(function(){
 		bPaginate: false,
 		info: false
 	});
-	cuentas_arr = arr('login',4,'id,nombre',33,'','',0,'');
+	cuentas_arr = arr('login',4,'',33,'','',0,'');
 	
 	for (var i = 0; i < cuentas_arr[0].length; i++) {
-		cuentas += '<option value="'+cuentas_arr[0][i][0]+'">'+cuentas_arr[0][i][1]+'</option>';
+		cuentas += '<option value="'+cuentas_arr[0][i][3]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
 
-	// $("#fclientes input").keyup(function(e){
-	// 	var code = e.which || e.keyCode;
-	// 	if (code == 13) {
-	// 		// cnt = $(".navbar-nav > a").length;
-	// 		// act = parseInt($(".navbar-nav > a.active").attr('id').substr(2));
-	// 		// if(act != cnt)
-	// 		// 	$("#ln"+(act+1)).click()
-	// 		// elsef
-	// 			$("#agClie").click()
-	// 	}
-	// });
+
 
 	$(".addcta").click(function(){
 		tp = $(this).attr('tp');
@@ -50,11 +40,17 @@ $(function(){
 		$("#agClie").removeClass('edit');
 		$("#agClie").addClass('add');
 
+		$("#infvnombre0").html('Nombre Cliente');
+		$("#infvapellido0").html('');
+		$("#infvapellido1").html('');
+		$("#infcedula1").html('');
+		$("#infcodigo6").html('');
+		$("#infweb7").html('');
 		deadclear('cliente');
 
 		$("#ln1").click();
 		$("#videstado").val(1);
-		// $('#videstado').material_select('update');
+		$('#videstado').material_select('update');
 		$("#vidpais").val(52);
 		$("#vidpais").change();
 		$("#vidpais").material_select('update');
@@ -126,7 +122,7 @@ $(function(){
 
 	$(".btn-expand").click(function(){
 		var estado = $(this).attr('estado');
-		console.log(estado)
+		// console.log(estado)
 		if (estado == 1) {
 			$(".expand-2").removeClass('animated fadeOutRight');
 			$(".expand-2").addClass('animated fadeInRight');
@@ -149,7 +145,6 @@ $(function(){
 	$("#tptel").change(function(){
 		var tipo = $(this).val();
 		$("#htipo").val(tipo);
-		console.log(tipo)
 	});
 
 	$("#idcanton").change(function(){
@@ -162,6 +157,8 @@ $(function(){
 	if (add) {
 		$("#ingClie").click()
 	}
+		    paginate($("ul.pagination").attr('vtbl'))
+
 
 });
 
@@ -252,7 +249,6 @@ $(document).on("click",".edit_phone",function(){
 
 $(document).on("click",".close",function(){
 	var id = $(this).attr('id').substr(3);
-	console.log(id)
 	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 });
 
@@ -398,9 +394,9 @@ function validarclientes() {
 			}
 
 			$("#vtelefono").val('');
-			$("#shtelefonos .chip[id^=0_]").each(function(){
+			$("#shtelefonos .chip[id^=stchp]").each(function(){
 				t_valor = $("#vtelefono").val();
-				$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('.chip > .badge',this).html()+'",?]:')
+				$("#vtelefono").val(t_valor+'[null,'+$(this).attr('tp')+',"'+$('._tel',this).html()+'",?]:')
 			});
 
 			$("#vcorreo").val('');
@@ -431,9 +427,9 @@ function validarclientes() {
 		function cargarSintax(){
 			var arr = {}
 
-			arr['sel'] = '*';
+			arr['sel'] = '';
 			arr['tbl'] = 30;
-			arr['where'] = 'vid > 0 order by nombre';
+			arr['where'] = '';
 
 			return arr;
 		}
@@ -490,33 +486,7 @@ function endDetail(vid,vacc,modulo){
 function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
-			var tipo = $("#vidtipocliente").val();
-			$("[tipoclie="+tipo+"]").prop('checked',true);
-			$("[tipoclie="+tipo+"]").change();
-			$("#infvnombre0").html($("#vnombre").val());
-			$("#infvapellido0").html($("#vapellido1").val());
-			$("#infvapellido1").html($("#vapellido2").val());
-			$("#infcedula1").html($("#vcedula").val());
-			$("#shcorreos .chip [id^=0_]").each(function(){
-				t_valor = $("#vcorreo").val();
-				console.log('T_VALOR = '+t_valor)
-				$("#infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
-			});
-			$("#shtelefonos .chip [id^=0_]").each(function(){
-				t_valor = $("#vtelefono").val();
-				$("#inftelefono4").html($("#vtelefono").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
-			});
-			$("#infcodigo6").html($("#vcodigo").val());
-			$("#infweb7").html($("#vweb").val());
-
-			// $("#inftelefono4").html($("#telefono_in").val());
-			
-			$("#infprovincia8").html( $("#vidcprovincia option:selected").val() );
-			$("#infcanton9").val( $("#vidcanton option:selected").val() );
-			$("#infdistrito10").val( $("#viddistrito option:selected").val() );
-			$("#infdireccion11").html( $("#vdireccion").val() );
-			$("#videstado option:selected").val();
-
+			llenarTarjeta(1);
 		break;
 	}
 }
@@ -550,7 +520,7 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 	if (vtipo == 1) { tipotel = 'home'; }else if (vtipo == 2) { tipotel = 'business'; }else if (vtipo == 3) { tipotel = 'phone'; }
 	//if (vfila == undefined) {
 		if ($("#telefono_in").val()) {
-			$("#shtelefonos").append('<div id="stchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+$("#telefono_in").val()+'<i class="mdi mdi-close right"></i></div>');
+			$("#shtelefonos").append('<div id="stchp'+cont+'" class="chpphone chip" tp="'+vtipo+'"><img src="../../assets/img/icon/'+tipotel+'.png"><span class="_tel">'+$("#telefono_in").val()+'</span><i class="mdi mdi-close right"></i></div>');
 			$("#shtelefonos").removeClass('hide');
 			$("#telefono_in").val('');
 			ind_2 += 1;
@@ -572,7 +542,58 @@ $(document).on('click','[id^=dc]',function(){
 	var id = $(this).attr('id').substr(2);
 })
 
+function llenarTarjeta(vis){
 
+	if (vis) {
+		var tipo = $("#vidtipocliente").val();
+		$("[tipoclie="+tipo+"]").prop('checked',true);
+		$("[tipoclie="+tipo+"]").change();
+		$("#infvnombre0").html($("#vnombre").val());
+		$("#infvapellido0").html($("#vapellido1").val());
+		$("#infvapellido1").html($("#vapellido2").val());
+		$("#infcedula1").html($("#vcedula").val());
+		var t_valor;
+		
+		$("#shcorreos .chip [id^=0_]").each(function(){
+			t_valor = $("#vcorreo").val();
+			$("#infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+		});
+		$("#shtelefonos .chip [id^=0_]").each(function(){
+			t_valor = $("#vtelefono").val();
+			$("#inftelefono4").html($("#vtelefono").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+		});
+		$("#infcodigo6").html($("#vcodigo").val());
+		$("#infweb7").html($("#vweb").val());
 
+		$("#infprovincia8").html( $("#vidcprovincia option:selected").val() );
+		$("#infcanton9").val( $("#vidcanton option:selected").val() );
+		$("#infdistrito10").val( $("#viddistrito option:selected").val() );
+		$("#infdireccion11").html( $("#vdireccion").val() );
+	}else{
 
+		$("[tipoclie=1]").prop('checked',true);
+		$("[tipoclie=1]").change();
+		$("#infvnombre0").html("Nombre Cliente");
+		$("#infvapellido0").html('');
+		$("#infvapellido1").html('');
+		$("#infcedula1").html('8088800888');
+		var t_valor;
+		
+		$("#shcorreos .chip [id^=0_]").each(function(){
+			t_valor = $("#vcorreo").val();
+			$("#infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+		});
+		$("#shtelefonos .chip [id^=0_]").each(function(){
+			t_valor = $("#vtelefono").val();
+			$("#inftelefono4").html($("#vtelefono").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+		});
+		$("#infcodigo6").html($("#vcodigo").val());
+		$("#infweb7").html($("#vweb").val());
 
+		$("#infprovincia8").html( $("#vidcprovincia option:selected").val() );
+		$("#infcanton9").val( $("#vidcanton option:selected").val() );
+		$("#infdistrito10").val( $("#viddistrito option:selected").val() );
+		$("#infdireccion11").html( $("#vdireccion").val() );
+	}
+	
+}

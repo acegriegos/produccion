@@ -115,31 +115,32 @@ $(document).on("keyup","[id^=search_]",function(e){
         var h;
         tabla = $("#data-table-"+b).DataTable();
         tabla.destroy();
-        if (e.replace(/,/g,'').length == e.length) {
-            h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,0,0)[0][0];
-            arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%" order by nombre limit 10',g,1,$("#lista"+b));
-        }else{
-            var f = d+'id >= 0 and (';
-            e = e.split(",");
-            for (var i = 0; i < e.length; i++) {
-                f += e[i]+' like "%'+a+'%" or ';
-            }
-            f = f.substring(0,f.length-3)
-            f += ") order by nombre";
-            h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,f,0,0,0)[0][0];
-            arr('login',6,'*',c,f+' limit 10',g,1,$("#lista"+b));
+        // if (e.replace(/,/g,'').length == e.length) {
+            // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,0,0)[0][0];
+            // arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%" order by nombre limit 10',g,1,$("#lista"+b));
+        h = arr('login',4,'',c,e,0,0,0)[0][0];
+        arr('login',6,'',c,'0,0,"'+a+'"',g,1,$("#lista"+b));
+        // }else{
+            // var f = d+'id >= 0 and (';
+            // e = e.split(",");
+            // for (var i = 0; i < e.length; i++) {
+            //     f += e[i]+' like "%'+a+'%" or ';
+            // }
+            // f = f.substring(0,f.length-3)
+            // f += ") order by nombre";
+            // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,f,0,0,0)[0][0];
+            // arr('login',6,'*',c,f+' limit 10',g,1,$("#lista"+b));
 
-            $("#data-table-"+b).DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
-
-        }
+        $("#data-table-"+b).DataTable({
+            bFilter: false,
+            bScrollInfinite: true,
+            bSort: false,
+            bLengthChange: false,
+            order: [],
+            bPaginate: false,
+            info: false
+        });
+        // }
         $(".pagination").html('');
         paginate(c,h)
     }
@@ -171,7 +172,8 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-  
+        console.log(p);
+        
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
             // //QUITAR EL SEGUNDO UNO PONER UN 4
@@ -508,8 +510,15 @@ function odin(varreglo,vform) {
                                 salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                                 break;
                             default:
-                                salida[index][varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]]
+                                try{
+                                    salida[index][varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                                }
+                                catch(e){
+                                    console.log(varreglo[i]+" No Existe");
+                                    return "Error en Interno, Codigo: Odin"
+                                } 
                                 break;
+                            
                         }//END SWITCH
                 }//end if
                 }//end SWITCH
@@ -975,16 +984,19 @@ function mostrar_cargar(){
 
 // <-- pagination
 function paginate(vtbl,len) {
+    $(".pagination").html('');
     var countpag = 0;
-    if (len == undefined)
-        countpag = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
-    else
+    if (len == undefined) {
+        countpag = arr('login',4,'',vtbl,'0,1,"",0',0,0,0)[0][0];
+    }else
         countpag = len;
+
+    console.log(Math.ceil(countpag))
     
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
         $(".pagination").attr('ultimo', 9);
-    } else if (parseInt(countpag) == 0) {
+    } else if (parseInt(countpag) == 0 || parseInt(countpag) < 1) {
         return false;
     } else {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
@@ -1003,26 +1015,17 @@ function paginate(vtbl,len) {
 $(document).on("click", ".paginate", function () {
     var modulo = $("ul.pagination").attr('modulo');
     var vtbl = $("ul.pagination").attr('vtbl');
+    var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var id = $(this).attr('id').substr(1);
     var limit = $(this).attr('limit');
-    var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-    var b = $("#search_"+modulo).attr('var');
-    if (a != '') {
-        var c = ' and (';
-            b = b.split(",");
-            for (var i = 0; i < b.length; i++) {
-                c += b[i]+' like "%'+a+'%" or ';
-            }
-            c = c.substring(0,c.length-3)
-            c += ")";
-    } else {
-        var c = '';
-    }
+    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"') == '' ? "" : $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    console.log(limit)
     $(".paginate").removeClass('active')
     $(this).addClass('active');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
-    arr('login', 6, '*', vtbl, 'vid > 0 '+c+' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+    console.log(arr('login', 4, '', vtbl, '0,0,'+filtro+','+limit, 0, 0, 0));
+    arr('login', 6, '', vtbl, '0,0,'+filtro+','+limit, cambio, 1, $("#lista"+modulo));
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1267,7 +1270,7 @@ function autocomplete(charCode,charStr,nom,tabla) {
                 data: arr('login',4,'',tabla,'nombre like \"%'+$("#"+nom).val()+'%\" limit 10',0,0,0,1)
             }); 
         $("#"+nom).siblings($(".autocomplete-content")).css('width','25%');
-    }   
+    }
 }
 
 // Login Technologies S.A.

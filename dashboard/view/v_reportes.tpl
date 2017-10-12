@@ -19,7 +19,7 @@
 <div class="card-content">
 <div class="row">
 <div class="input-field col s12 m6 l5">
-<a  class="prefix dropdown-button tooltipped"  data-activates="filtr_1" data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+<a  class="prefix dropdown-button tooltipped"  data-activates="filtr_1" data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
 <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
 <label class="truncate" for="search_clientes">Buscar Reporte por Nombre</label>
 </div>
@@ -27,7 +27,7 @@
 <div class="row">
 {if $TR eq 1}
 <div class="col s6 m3 l2 center-align padd">
-<a class="report pbtn" rep="clientes"><i class="large material-icons padd">insert_chart</i></a>
+<a class="report pbtn" rep="clientes"><i class="mdi mdi-account-multiple  mdi-48px padd"></i></a>
 <div class="row">
 <div class="col s12">
 <p>Clientes</p>
@@ -37,7 +37,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons padd">business</i>
+<a class="report pbtn" rep="cotizaciones"><i class="mdi-clipboard-outline mdi-48px mdi padd"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -48,7 +48,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">equalizer</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-cube-send"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -59,7 +59,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">location_on</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-truck-fast"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -70,7 +70,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">shopping_basket</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-chart-pie"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -81,7 +81,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">shopping_cart</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-cart-plus"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -92,7 +92,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">store</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-account-switch"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -103,7 +103,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">markunread_mailbox</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-chart-bar"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -114,7 +114,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">assignment</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-account-card-details"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -125,7 +125,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">assignment_ind</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-account-card-details"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -136,7 +136,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">info</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-briefcase-download"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -147,7 +147,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">turned_in</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-library-books"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -158,7 +158,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">offline_pin</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-chart-gantt"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -169,7 +169,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="large material-icons">open_in_browser</i>
+<a class="report pbtn"><i class="mdi-48px mdi mdi-gift"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -180,7 +180,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="ventas"><i class="large material-icons">view_carousel</i>
+<a class="report pbtn" rep="ventas"><i class="mdi-48px mdi mdi-chart-areaspline"></i>
 </a>
 <div class="row">
 <div class="col s12">

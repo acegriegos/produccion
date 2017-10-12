@@ -10,7 +10,7 @@
 <li><a class="optns" tipo="nombre" href="#!" fltr="2">Nombre</a></li>
 <li><a class="optns" tipo="marca" href="#!" fltr="3">Marca</a></li>
 </ul>
-<input type="text" id="search_productos" maxlength="100" num="v14" var="codigo,codigointerno,nombre">
+<input type="text" id="search_productos" maxlength="100" num="v14" var="0,1">
 <label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
 </div>
 <div class="col s12 m4 l7 per4102">
@@ -38,10 +38,10 @@
 <td style="padding: 10px; color:black;">{$PROD[LE][1]}</td>
 <td style="padding: 10px; color:black;">{$PROD[LE][2]}</td>
 <td style="padding: 10px; color:black;">{$PROD[LE][3]}</td>
-<td style="padding: 10px; color:black;">{$PROD[LE][4]}</td>
-<td style="padding: 10px; color:black;">{$PROD[LE][5]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][29]}</td>
 <td style="padding: 10px; color:black;">{$PROD[LE][6]}</td>
-<td style="padding: 10px; color:black;">{$PROD[LE][7]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][12]}</td>
+<td style="padding: 10px; color:black;">{$PROD[LE][9]}</td>
 <td>
 <a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh 4110 modal-trigger" id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
 <a class="btn-color pbtn descuentos per4103 modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="color:black;"><img src="../assets/img/icon/percent.svg"></a>

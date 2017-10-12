@@ -65,9 +65,9 @@
                                     <td style=" padding: 10px;">{$REC[LE][1]}</td>
                                     <td style=" padding: 10px;">{$REC[LE][2]}</td>
                                     <td style=" padding: 10px;">
-                                        <a class="btn-color pbtn instoproduct material-icons modal-trigger" href="#modal-addtoproducts" id="i{$REC[LE][0]}" title="Ingresar proceso a Inventario Producto Final">system_update_alt</a>
-                                        <a class="btn-color pbtn editproceso material-icons" id="m{$REC[LE][0]}">edit</a>
-                                        <a class="btn-color pbtn cdel delproceso material-icons" id="d{$REC[LE][0]}">close</a>
+                                        <a class="btn-color pbtn instoproduct mdi mdi-basket-fill mdi-24px modal-trigger" href="#modal-addtoproducts" id="i{$REC[LE][0]}" title="Ingresar proceso a Inventario Producto Final"></a>
+                                        <a class="btn-color pbtn editproceso mdi mdi-pencil mdi-24px" id="m{$REC[LE][0]}"></a>
+                                        <a class="btn-color pbtn cdel delproceso mdi mdi-close mdi-24px" id="d{$REC[LE][0]}"></a>
                                     </td>
                                 </tr>
                                 {/section}

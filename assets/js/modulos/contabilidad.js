@@ -306,11 +306,11 @@ $(document).on("click",".func",function(){
 $(document).on("click",".dettran",function(){
 	var num = parseInt($(this).html());
 	var dtran = arr('login',4,'',207,num,0,0,0)[0];
-	$("#dtranN").html('<br>'+dtran[0][0]);
-	$("#dtranF").html('<br>'+dtran[0][1]);
-	$("#dtranD").html('<a href="#" class="button-collapse detextra truncate" data-activates="extra"><h6 style="font">'+dtran[0][2]+"</h6></a>");
-	$("#dtranE").html('<br>'+dtran[0][9]);
-	$("#dtranU").html('<br>'+dtran[0][8]);
+	$("#dtranN").html(' '+dtran[0][0]);
+	$("#dtranF").html(' '+dtran[0][1]);
+	$("#dtranD").html('<a href="#" class="button-collapse detextra truncate" data-activates="extra"><h6 style="font" class="white-text'+dtran[0][2]+"</h6></a>");
+	$("#dtranE").html(' '+dtran[0][9]);
+	$("#dtranU").html(' '+dtran[0][8]);
 
 	var tdebe = thaber = debe = haber = 0;
 	$("#dtranDet").html('');

@@ -48,8 +48,6 @@
                 <div id="noisprdct">
                     <div class="input-field col s12 m12 l6">
                         <div class="familia">
-                            <a class="prefix btn-floating blue btn-small tooltipped z-depth-5" data-position="button" data-tooltip="Ingresar Familia" style="width: 2.5rem" det="familia" d-b="20" prev="" sig="vidtipo"><i class="fa fa-plus"></i></a>
-
                             <select type="select" id="vidfamilia" class="_det" primary="1">
                                 <option value="0">Seleccione una Familia</option>
                                 {section name=LE loop=$FAM}
@@ -60,7 +58,6 @@
                         </div>
                         <div class="input-field">
                             <div class="tipo">
-                                <a class="prefix btn-floating blue btn-small tooltipped z-depth-5" data-position="button" data-tooltip="Ingresar Tipo" style="width: 2.5rem" det="tipo" d-b="21" prev="vidfamilia" sig="vidmarca"><i class="fa fa-plus"></i></a>
                                 <select type="select" id="vidtipo" class="_det">
                                 <option value="0">Seleccione un Tipo</option>
                                 </select>
@@ -69,7 +66,6 @@
                         </div>
                         <div class="input-field">
                             <div class="marca">
-                                <a class="prefix btn-floating blue btn-small tooltipped z-depth-5" data-position="button" data-tooltip="Ingresar Marca" style="width: 2.5rem" det="marca" d-b="22" prev="vidtipo" sig=""><i class="fa fa-plus"></i></a>
                                 <select type="select" id="vidmarca" class="_det">
                                 <option value="0">Seleccione un Marca</option>
                                 </select>
