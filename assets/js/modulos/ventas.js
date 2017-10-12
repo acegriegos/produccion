@@ -526,8 +526,9 @@ function validar (varreglo,vmodulo) {
 
 function validarDetalleFactura(){
     var ciclos = $(".ciclos");
+    var fila;
     for (var i = 1; i <= ciclos.length; i++) {
-        var fila = $("#fd"+i)
+        fila = $("#fd"+i);
         if(fila.data('triforce')['vcomodin'] == "1")
             fila.data('triforce')['vcomodin'] = $("#desc"+i).html();
     }
@@ -606,7 +607,7 @@ function cargarSintax(){
     return arr;
 }
 
-function cargarProducto(kbrota,elemento){
+function cargarProducto(kbrota,elemento) {
     var cantidad = 1;
 
     if($("#codp").val() == '' && $("#descp").val() == '')
@@ -625,6 +626,7 @@ function cargarProducto(kbrota,elemento){
     }
 
     var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+',1',0,0,0);
+    console.log(cod)
 
     if (cod[0][0] != undefined) {
         var fimv = cod[0];
@@ -668,16 +670,15 @@ function cargarProducto(kbrota,elemento){
 
         var modselec = $("input[name='modselected']:checked").val();
         if (modselec == 1) {
-            
             $("#cantp").val(cantidad).focus().select();
         }else{
-            
             var e = jQuery.Event("keyup");
             e.which = 13;
             $("#cantp").val(cantidad);
             $("#cantp").trigger(e);
         }
-
+        // cod[15] = unidad
+        var uni = getDatos('id,concat(nombre,"(",simbolo,")")',107,'id > 0 ',0,0,0)
         Materialize.updateTextFields()
     }else{
 

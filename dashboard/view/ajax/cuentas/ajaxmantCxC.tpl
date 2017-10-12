@@ -51,7 +51,7 @@
                     <div class="col s12">      
                               <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu">Pago Multiple</a>
                               <br>
-</div>
+                    </div>
                     <div class="col s12 pequeño">
                         <br>
                         <table id="data-table-cuentas" class="pequeño  table centered highlight bordered responsive-table z-depth-5 pbtns">
@@ -91,12 +91,12 @@
               <div class="card blue z-depth-5 pequeño">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
 
-                    <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; "><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span> 
+                    <div class="col s12 m8 l8 right-align " style="padding-right: 10% !important; "><span class="card-title "><b>Factura: <span id="ifac"> </span></b></span>
                     </div>
                     
                </div>
                <br>
-               <div class="card-content white-text  " style="padding: 0.1% !important">
+               <div class="card-content white-text" style="padding: 0.1% !important">
 
                   <div class="row  pequeño">
                    <div class="col s12 m8">
@@ -116,9 +116,8 @@
                     <div class="col s12 m6">
                         <p><b>Dias del credito :</b> <span id="idias"> </span></p>
                     </div>
-
-
                     </div>
+
                     <div class="col s12 m12 l4  pequeño"  >
                 <div class="row " style=" padding-top: 10%;">
                       <div class="col s12">

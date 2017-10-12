@@ -33,12 +33,13 @@
 					foreach ($varios['atributos'] as $detalles) {
 
 						if ($varios['hasTabla']) {
-							$detalles['vidfila'] = isset($detalles['vidfila']) ? $detalles['vidfila'] : $id_new[0][0];
-							$detalles['vidtabla'] = isset($detalles['vidtabla']) ? $detalles['vidtabla'] : $id_tabla;
+							$detalles['vidfila'] = isset($detalles['vidfila']) ? $detalles['vidfila'] == 0 ? $id_new[0][0] : $detalles['vidfila'] : $id_new[0][0];
+							$detalles['vidtabla'] = isset($detalles['vidtabla']) ? $detalles['vidtabla'] == 0 ? $id_tabla : $detalles['vidtabla'] : $id_tabla;
 						}
 
 						$detalles['vaccion'] = $accion;
 						$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
+
 					}
 				}
 			}

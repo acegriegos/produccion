@@ -61,12 +61,15 @@
 
                                     <a href="#modal-clientes" style="color:black" class="load mdi mdi-pencil mdi-24px pbtn per2002 modal-trigger" id="m{$PROV[LE][0]}" modulo="cliente"></a>
 
-                                    <a href="#" style="color:black" class="delete mdi mdi-delete mdi-24px pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}"></a>
+                                    <a href="#" style="color:black" class="delete mdi mdi-close mdi-24px pbtn per2003" modulo="cliente" id="d{$PROV[LE][0]}"></a>
                                 </td>
                             </tr>
                             {/section}
                         </tbody>
                     </table>
+                     <ul class="pagination right" vtbl="306" modulo="clientes" cambio="29"></ul>
+                   <br>
+                   <br>
                 </div>
                 <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 80%; width: 75%">
                     <div class="modal-header">
@@ -249,6 +252,7 @@
                             <div class="ciclos">
                                 <div class="card-title" align="center"><b>Direcciones</b><br></div>
                                 <input type="hidden" id="vbisnacional" value="1">
+                                <input type="hidden" id="vidubicacion" value="0">
                                 <div class="row"><br>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="provincia">
@@ -310,7 +314,7 @@
             <!-- CARD -->
                 <div class="col s12 m4 l3 expand-2">
                     <div class="row" style="background: #DEDEDE"><br>
-                        <div class="row">
+                        <div class="row hide">
                         <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-left mdi-24px"></i></div>
                         <div class="s9 m9 l9 col" align="center">&nbsp;</div>
                         <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-right mdi-24px"></i></div>
@@ -350,7 +354,7 @@
                                 <tr><td style="font-size: 0.8em"><span id="infdireccion11"><span class="placeh">Dirección</span></span></td></tr>
                                 </tr>
                                 <tr><td style="font-size: 0.8em"><select id="videstado" type="select">
-                                    <option value="" disabled selected>Seleccione un Estado</option>
+                                    <!-- <option value="" disabled selected>Seleccione un Estado</option> -->
                                     {section name=LE loop=$ESTCLIE}
                                     <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
                                     {/section}
