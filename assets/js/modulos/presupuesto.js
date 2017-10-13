@@ -83,8 +83,8 @@ $(document).on("click",".",function(){
     $("#gid").html(nom);
     $("#gid").attr('tr',id);
  
-    var p = getDatos('',228,id,0,0);
-    console.log(p);
+    var p = getDatos('',228,id+',@@impresa',0,0)[0];
+    console.log('holis'+p);
     if(p['succed'] == 1){
         p = p[0];
         var str = '';

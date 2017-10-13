@@ -844,9 +844,11 @@ function doreport() {
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
     var search = new Array;
     var datos = mantenimiento('login',1,vmodulo);
+
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
+
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
                 search[i] = '"1990-01-01"';
@@ -861,6 +863,9 @@ function doreport() {
                 search[i] = $("#"+datos[i]).val();
             }
         }
+
+        if (datos[i] == 'vidsucursal')
+            search[i] = '@@impresa';
     }
     var string = elem.concat(search);
     $.each(string,function(index){
@@ -1018,14 +1023,13 @@ $(document).on("click", ".paginate", function () {
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var id = $(this).attr('id').substr(1);
     var limit = $(this).attr('limit');
-    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"') == '' ? "" : $("#search_"+modulo).val().replace(/"/g,'\\\"');
-    console.log(limit)
+    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
     $(".paginate").removeClass('active')
     $(this).addClass('active');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
-    console.log(arr('login', 4, '', vtbl, '0,0,'+filtro+','+limit, 0, 0, 0));
-    arr('login', 6, '', vtbl, '0,0,'+filtro+','+limit, cambio, 1, $("#lista"+modulo));
+    
+    arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1041,6 +1045,7 @@ $(document).on("click", ".nxt", function () {
     var modulo = $("ul.pagination").attr('modulo');
     var vtbl = $("ul.pagination").attr('vtbl');
     var ultimo = $(".pagination").attr('ultimo');
+    var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var next = id + 1;
     var pags = next - 8;
@@ -1049,7 +1054,8 @@ $(document).on("click", ".nxt", function () {
         pags = 1;
 
     if (ultimo == id) {
-        var count = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
+        var count = arr('login',4,'',vtbl,'0,1,"",0',0,0,0)[0][0];
+        // var count = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
         if (Math.ceil(count) != ultimo) {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
@@ -1064,20 +1070,9 @@ $(document).on("click", ".nxt", function () {
             var limit = $("#z" + next).attr('limit');
             var tabla = $("#data-table-"+modulo).DataTable();
             tabla.destroy();
-            var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            var b = $("#search_"+modulo).attr('var');
-            if (a != '') {
-                var c = 'and (';
-                    b = b.split(",");
-                    for (var i = 0; i < b.length; i++) {
-                        c += b[i]+' like "%'+a+'%" or ';
-                    }
-                    c = c.substring(0,c.length-3)
-                    c += ")";
-            } else {
-                var c = '';
-            }
-            arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+            var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+            // arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,
@@ -1094,20 +1089,8 @@ $(document).on("click", ".nxt", function () {
         $("#z" + next).addClass('active');
         var tabla = $("#data-table-"+modulo).DataTable();
         tabla.destroy();
-        var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-        var b = $("#search_"+modulo).attr('var');
-        if (a != '') {
-            var c = 'and (';
-                b = b.split(",");
-                for (var i = 0; i < b.length; i++) {
-                    c += b[i]+' like "%'+a+'%" or ';
-                }
-                c = c.substring(0,c.length-3)
-                c += ")";
-        } else {
-            var c = '';
-        }
-        arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+        var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+        arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
         $("#data-table-"+modulo).DataTable({
             bFilter: false,
             bScrollInfinite: true,
@@ -1124,6 +1107,7 @@ $(document).on("click", ".prv", function () {
     var modulo = $("ul.pagination").attr('modulo');
     var vtbl = $("ul.pagination").attr('vtbl');
     var count = $(".pagination").attr('ultimo');
+    var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var prev = id - 1;
     var prv = prev - 8;
@@ -1149,21 +1133,9 @@ $(document).on("click", ".prv", function () {
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
                 var tabla = $("#data-table-"+modulo).DataTable();
-                var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-                var b = $("#search_"+modulo).attr('var');
-                if (a != '') {
-                    var c = 'and (';
-                        b = b.split(",");
-                        for (var i = 0; i < b.length; i++) {
-                            c += b[i]+' like "%'+a+'%" or ';
-                        }
-                        c = c.substring(0,c.length-3)
-                        c += ")";
-                } else {
-                    var c = '';
-                }
+                var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+                arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1178,21 +1150,9 @@ $(document).on("click", ".prv", function () {
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
                 var tabla = $("#data-table-"+modulo).DataTable();
-                var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-                var b = $("#search_"+modulo).attr('var');
-                if (a != '') {
-                    var c = 'and (';
-                        b = b.split(",");
-                        for (var i = 0; i < b.length; i++) {
-                            c += b[i]+' like "%'+a+'%" or ';
-                        }
-                        c = c.substring(0,c.length-3)
-                        c += ")";
-                } else {
-                    var c = '';
-                }
+                var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+                arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1208,21 +1168,9 @@ $(document).on("click", ".prv", function () {
             $(".paginate").removeClass('active');
             $("#z" + prev).addClass('active');
             var tabla = $("#data-table-"+modulo).DataTable();
-            var a = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            var b = $("#search_"+modulo).attr('var');
-            if (a != '') {
-                var c = 'and (';
-                    b = b.split(",");
-                    for (var i = 0; i < b.length; i++) {
-                        c += b[i]+' like "%'+a+'%" or ';
-                    }
-                    c = c.substring(0,c.length-3)
-                    c += ")";
-            } else {
-                var c = '';
-            }
+            var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             tabla.destroy();
-            arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,

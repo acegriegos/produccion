@@ -45,12 +45,11 @@
         <td style="text-align: center"><b>I.V.</b></td>
       </tr>
       </thead>
-      <tbody class="detrep"></tbody>
+      <tbody id="detrep"></tbody>
     </table>
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=0.6"></script>
-  <script src="../assets/js/modulos/reportes/cotizaciones.js?v=0.6"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=0.8"></script>
 </body>
 </html>

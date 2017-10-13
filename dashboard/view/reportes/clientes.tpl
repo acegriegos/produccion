@@ -25,7 +25,7 @@
       </div>
       <div class="col s4 m4 l4">
         <input type="hidden" class="zelda">
-        <i class="waves-effect waves-light material-icons btn blue der sfiltr" id="ofiltr" title="Mostrar Filtros">keyboard_arrow_down</i>
+        <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" id="ofiltr" title="Mostrar Filtros"></i>
       </div>
     </div>
     <h2 align="center">Clientes</h2>
