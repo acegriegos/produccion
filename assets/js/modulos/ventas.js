@@ -349,7 +349,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         
         var codedg = '';
         if (desgloce == 1)
-            codedg = '<span class="pbtn addesgloce">[<i class="mdi mdi-plus"></i>]</span>';
+            codedg = '<span class="pbtn addesgloce" style="font-size:10px">[<i class="mdi mdi-plus"></i>]</span>';
 
         switch(parseInt(param)){
             case 1:
