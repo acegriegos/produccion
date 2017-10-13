@@ -53,7 +53,6 @@
 	   				}
 	   			}
 	   			break;
-	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

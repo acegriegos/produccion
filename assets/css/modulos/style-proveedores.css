@@ -55,3 +55,4 @@ td, th{
 rgba(3,229,173,0.1)*/
 .chpcrr{background: rgba(3,155,229,0.1) !important;}
 .chpphone{background: rgba(3,184,229,0.1) !important;}
+ul.pagination > li.active {background-color: #2196F3 !important;}
