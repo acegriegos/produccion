@@ -1,4 +1,7 @@
 $(function(){
+
+
+
 	$("#freportess").submit(function(){return false});
 
 	$(".menu5").click(function(){
@@ -20,12 +23,8 @@ $(function(){
 		}
 	});
 
-	$(".report").click(function(){
-		var rep = $(this).attr('rep');
-		window.open('?accion=1&rep='+rep,'',"width=2000, height=650");
-		
-	});
 	$("#m1").click();
+	
 });
 
 

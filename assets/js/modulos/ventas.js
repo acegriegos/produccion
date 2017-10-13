@@ -348,7 +348,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         $(".zelda").data('triforce')['idline'] = id;
         
         var codedg = '';
-        if (desgloce)
+        if (desgloce == 1)
             codedg = '<span class="pbtn addesgloce">[<i class="mdi mdi-plus"></i>]</span>';
 
         switch(parseInt(param)){
@@ -625,8 +625,7 @@ function cargarProducto(kbrota,elemento) {
         kbrota = 'P-'+$(this).val().substr(1);
     }
 
-    var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+',1',0,0,0);
-    console.log(cod)
+    var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+','+$(".zelda").data('triforce')['vidtipoventa'],0,0,0);
 
     if (cod[0][0] != undefined) {
         var fimv = cod[0];

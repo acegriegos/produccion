@@ -844,9 +844,11 @@ function doreport() {
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
     var search = new Array;
     var datos = mantenimiento('login',1,vmodulo);
+
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
+
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
                 search[i] = '"1990-01-01"';
@@ -861,6 +863,9 @@ function doreport() {
                 search[i] = $("#"+datos[i]).val();
             }
         }
+
+        if (datos[i] == 'vidsucursal')
+            search[i] = '@@impresa';
     }
     var string = elem.concat(search);
     $.each(string,function(index){
