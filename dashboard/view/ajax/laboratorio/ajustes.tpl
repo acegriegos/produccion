@@ -21,7 +21,7 @@
             
             <div class="row">
               
-              <div class="col s12 m4 input-field">
+              <div class="col s12 m3 input-field">
                 <select multiple id="invVariedad">
                   <option disabled selected value="0">Seleccione una Opción</option>
                   {section name=LE loop=$INV}
@@ -29,6 +29,52 @@
                   {/section}
                 </select>
                 <label for="invVariedad">Inventarios Variedades</label>
+              </div>
+
+              <div class="col s12 m3 input-field">
+                <select multiple id="invreactivos">
+                  <option disabled selected value="0">Seleccione una Opción</option>
+                  {section name=LE loop=$INV}
+                    <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                  {/section}
+                </select>
+                <label for="invreactivos">Inventarios Reactivos</label>
+              </div>
+
+              <div class="col s12 m3 input-field">
+                <select multiple id="invactivos">
+                  <option disabled selected value="0">Seleccione una Opción</option>
+                  {section name=LE loop=$INV}
+                    <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                  {/section}
+                </select>
+                <label for="invactivos">Inventarios Lab. Activos</label>
+              </div>
+
+              <div class="col s12 m3 input-field">
+                <select multiple id="invcomp">
+                  <option disabled selected value="0">Seleccione una Opción</option>
+                  {section name=LE loop=$INV}
+                    <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                  {/section}
+                </select>
+                <label for="invcomp">Inventarios Componentes</label>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col s12 m3">
+                <a href="#modal-medios" class="btn" ty="1">Medio Multiplicación</a>
+              </div>
+
+              <div class="col s12 m3">
+                <a href="#modal-medios" class="btn" ty="2">Medio Enraizamiento</a>
+              </div>
+
+              <div class="col s12 m3">
+                <a href="#modal-medios" class="btn" ty="3">Medio Ápice Líquido</a>
               </div>
 
             </div>
