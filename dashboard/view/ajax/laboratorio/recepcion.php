@@ -29,13 +29,13 @@
                   </div>
 
                   <div class="input-field">
-                    <input type="text" id="vcantidad" class="eder" value="0.00">
-                    <label for="vcantidad">Cantidad</label>
+                    <input type="text" id="cantidad" class="eder numeric" value="0.00">
+                    <label for="cantidad">Cantidad</label>
                   </div>
 
                   <div class="input-field">
-                    <input type="text" id="vexpectativa" class="eder" value="0">
-                    <label for="vexpectativa">Expectativa</label>
+                    <input type="text" id="expectativa" class="eder numeric" value="0">
+                    <label for="expectativa">Expectativa</label>
                   </div>
                   
                 </div>
@@ -48,7 +48,7 @@
                           <th></th>
                           <th>Dirección</th>
                           <th>Región</th>
-                          <th>Finca <a class="btn-floating blue z-depth-5 der" id="addFin" style="padding-right: 5% !important;height:30px; width: 30px"><i class="mdi mdi-plus mdi-10px"></i></a></th>
+                          <th>Finca <a class="der" id="addFin" style="height:30px; width: 30px"> <button class="mdi mdi-plus btn-floating blue z-depth-5"></button></a></th>
                       </tr>
                     </thead>
 

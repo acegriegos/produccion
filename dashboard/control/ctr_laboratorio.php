@@ -26,8 +26,24 @@
 	   			break;
 	   		case 4:
 	   			$pagina = 1;
-	   			$categorias = $kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by nombre');
+	   			$users = $kakaroto->kamehameha('id,nombre',1,'id > 0');
 	   			require_once 'view/ajax/laboratorio/iniciacion.php';
+	   			break;
+	   		case 5:
+	   			$pagina = 1;
+	   			require_once 'view/ajax/laboratorio/multiplicacion.php';
+	   			break;
+	   		case 6:
+	   			$pagina = 1;
+	   			require_once 'view/ajax/laboratorio/enraizamiento.php';
+	   			break;
+	   		case 7:
+	   			$pagina = 1;
+	   			require_once 'view/ajax/laboratorio/aclimatacion.php';
+	   			break;
+	   		case 8:
+	   			$pagina = 1;
+	   			require_once 'view/ajax/laboratorio/qos.php';
 	   			break;
 	   	}
 		if(!$pagina){
