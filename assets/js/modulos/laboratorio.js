@@ -1,9 +1,9 @@
-var invvar = getDatos('valor',15,'descr = "Inv. Lab. Variedades"',0,0)[0][0][0];
+var invvar = getDatos('valor',15,'descr in("Inv. Lab. Variedades","Inv. Lab. Reactivos","Inv. Lab. Activos","Inv. Lab. Comp.") order by id',0,0)[0];
 
 $(function(){
 
-	if (invvar == '') 
-		Materialize.toast('No hay Iventario de Variedade Seleecionado',10000,'')
+	if (invvar[0][0] == '') 
+		Materialize.toast('No hay Iventario de Variedade Seleccionado',10000,'')
 
     param = getParameterByName('accion');
     param = param == '' ? 0 : parseInt(param)
@@ -20,21 +20,6 @@ $(function(){
 
     $(".modal").modal();
     $("select").material_select();
-
-    $('.datepicker').pickadate({
-         labelMonthNext: 'Siguiente',
-         labelMonthPrev: 'Anterior',
-         labelMonthSelect: 'Seleccione un Mes',
-         labelYearSelect: 'Seleccione un Año',
-         monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
-         monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-         weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-         weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-         weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
-         today: 'Hoy',
-         clear: 'Limpiar',
-         close: 'Cerrar'
-    });
 
 });
 
@@ -93,12 +78,62 @@ $(document).on('click','.addClie',function(){
 function loadAjustes(){
 
 	$("#invVariedad").material_select('destroy');
-	$.each(invvar.split(","), function(j,e){
+ 
+	$.each(invvar[0][0].split(","), function(j,e){
         $("#invVariedad option[value='" + e + "']").attr("selected", true);
+    });
+
+    $.each(invvar[1][0].split(","), function(j,e){
+        $("#invactivos option[value='" + e + "']").attr("selected", true);
+    });
+
+    $.each(invvar[2][0].split(","), function(j,e){
+        $("#invreactivos option[value='" + e + "']").attr("selected", true);
+    });
+
+    $.each(invvar[3][0].split(","), function(j,e){
+        $("#invcomp option[value='" + e + "']").attr("selected", true);
     });
 
     $("#invVariedad").material_select();
 };
+
+function cargarArr(vid,velemento){
+    arr('laboratorio',vid,'',0,'',0,1,velemento);
+
+    $('.datepicker').pickadate({
+         labelMonthNext: 'Siguiente',
+         labelMonthPrev: 'Anterior',
+         labelMonthSelect: 'Seleccione un Mes',
+         labelYearSelect: 'Seleccione un Año',
+         monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
+         monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+         weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+         weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+         weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+         today: 'Hoy',
+         clear: 'Limpiar',
+         close: 'Cerrar'
+    });
+
+    var fecha = new Date();
+    var dpick = $('#vfecha');
+    dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+
+    $('select').material_select();
+    $(".comentario").characterCounter();
+    $(".modal").modal();
+
+    $("#mkformula").click(function(){
+        $("#modal-formula").modal('open')
+    });
+
+    $("#mkbandeja").click(function(){
+        $("#modal-bandeja").modal('open')
+    });
+
+    Materialize.updateTextFields();
+}
 
 function loadRecepcion(){
 
@@ -106,15 +141,31 @@ function loadRecepcion(){
     	var id = $(this).attr('id').substr(1);
     	switch(parseInt(id)){
     		case 1:
-    			arr('laboratorio',2,'',0,'',0,1,$("#labajax"));
+    			cargarArr(2,$("#labajax"));
     			cargarExplantes();
     			break;
             case 2:
-                arr('laboratorio',4,'',0,'',0,1,$("#labajax"));
+                cargarArr(4,$("#labajax"));
                 cargarIniciacion();
                 break;
+            case 3:
+                cargarArr(5,$("#labajax"));
+                cargarMultiplicacion();
+                break;
+            case 4:
+                cargarArr(6,$("#labajax"));
+                cargarEnraizamiento();
+                break;
+            case 5:
+                cargarArr(7,$("#labajax"));
+                cargarAclimatacion();
+                break;
+            case 6:
+                cargarArr(8,$("#labajax"));
+                cargarQoS();
+                break;
     		default:
-    			$("#labajax").html('')
+    			$("#labajax").html('Laboratorio sin Procesar')
     			break;
     	}
     	
@@ -123,19 +174,116 @@ function loadRecepcion(){
     $("#m1").click();
 }
 
+function cargarQoS(){
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+}//cargar QOS
+
+function cargarAclimatacion(){
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+}//cargar Aclimatacion
+
+function cargarEnraizamiento(){
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:3,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+}//cargar Enraizamiento
+
+function cargarMultiplicacion(){
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:2,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+}//cargar Multiplicacion
+
 function cargarIniciacion(){
-    
-}
+
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:1,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+
+    $("#vvariedad").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#vvariedad").autocomplete({
+                limit: 20,
+                data: getVariedad_Down($(this).val())
+            });
+
+            $(".autocomplete-content").css('width','30%');
+
+        }
+    });
+
+    $("#vvariedad").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13)
+            $(this).blur();
+    });
+
+    $("#vvariedad").blur(function(){
+        if($(this).val().length <= 3)
+            $(this).val('');
+        else
+            iniciarVaridad();
+    });
+
+    $(document).on('click','[id^=_c]',function(){
+        var id = $(this).attr('id').substr(2);
+        var elemento = $("#c"+id);
+        var num = parseFloat($('#_n'+id).val());
+        var tot = parseFloat($("#tplt").html());
+
+        if(elemento.is(":checked")){
+            elemento.attr('checked',false);
+            $("#tplt").html(tot-num);
+        }else{
+            elemento.attr('checked',true);
+            $("#tplt").html(tot+num);
+        }
+    });
+
+    $(document).on('focus','[id^=_n]',function(){
+        var elemento = $("#c"+$(this).attr('id').substr(2));
+        elemento.change();
+    });
+
+    $(document).on('blur','[id^=_n]',function(){
+        var id = $(this).attr('id').substr(2);
+        var elemento = $("#c"+id);
+        var valor = $(this).val();
+
+        if (isNaN(valor)) {
+            $(this).focus().select();
+            Materialize.toast('Valor no es Numérico',4000,'red');
+            elemento.attr('checked',false).change();
+        }else{
+            if (valor < 0 || valor > parseFloat($("#o"+id).data('cantidad')) ) {
+                $(this).focus().select();
+                Materialize.toast('Valor no es Válido',4000,'red');
+                elemento.attr('checked',false).change();
+            }
+        }
+        
+    });
+
+}//cargar Iniciacion
 
 function cargarExplantes(){
 
-	var fecha = new Date();
-	var dpick = $('#vfecha');
-    dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+    $(".zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0,vexpectativa: 0,vcantidad: 0,vguia:0});
 
-    $(".zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0});
+    getIDExplante();
 
-    $("#vnombre").val(getDatos('concat(date_format(curdate(),"%Y"),lpad(count(id)+1,4,0)) as id',900,'',0,0)[0][0][0]);
+    $('#vfecha').change(function(){
+        getIDExplante();
+    });
+
+    $("#expectativa").blur(function(){
+        var num = isNaN($(this).val().replace(/,/g,'')) ? 0 : $(this).val().replace(/,/g,'');
+        $("#flaboratorio-explantes .zelda").data('triforce')['vexpectativa'] = num;
+    });
+
+    $("#cantidad").blur(function(){
+        var num = isNaN($(this).val().replace(/,/g,'')) ? 0 : $(this).val().replace(/,/g,'');
+        $("#flaboratorio-explantes .zelda").data('triforce')['vcantidad'] = num;
+    });
 
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -333,7 +481,7 @@ function cargarExplantes(){
 		    		var _servicio = arr('login',7,1,16,'','null,"'+$("#addClie #vcodigo_serv").val()+'","'+$("#addClie #vnombre_serv").val()+'","'+$("#addClie #vdescripcion_serv").val()+'",0,0,0,0,0,0,now(),@@usr,1,1,-1',0,0)[0][0][0];
 		    		$(".zelda").data('triforce')['vidservicio'] = _servicio;
 
-		    		var _inventario = invvar.indexOf(",") >= 0 ? invvar.substring(0,invvar.indexOf(',')) : invvar;
+		    		var _inventario = invvar[0][0].indexOf(",") >= 0 ? invvar[0][0].substring(0,invvar[0][0].indexOf(',')) : invvar[0][0];
 
 		    		arr('login',7,1,97,'','null,'+_inventario+','+parseInt(_servicio)*-1+',0',0,0);
 		    		
@@ -356,8 +504,18 @@ function cargarExplantes(){
 
 } //END CARGAR EXPLANTES
 
+function getIDExplante(){
+    var fch = $("#vfecha").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 'curdate()' : '"'+$("#vfecha").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd')+'"';
+
+    var rs = getDatos('concat(date_format('+fch+',"%Y%m%d"),lpad(count(id)+1,2,0)) as id',900,'fecha = "'+fch.replace(/"/g,"")+' 00:00:00" group by date_format(fecha,"%Y%m%d")',0,0)[0];
+
+    rs = rs.length > 0 ? rs[0][0] : fch.replace(/-/g,'').replace(/"/g,"")+'01';
+
+    $("#flaboratorio-explantes #vnombre").val(rs);
+}
+
 function getVariedad_Down(variedad) {
-	return getDatos('',906,'"'+variedad+'",'+invvar,0,0,1);
+	return getDatos('',906,'"'+variedad+'",'+invvar[0][0],0,0,1);
 }
 
 function cargarProvincias(){
@@ -417,13 +575,33 @@ function cargarDistritos(vidcanton){
     
 };
 
+function iniciarVaridad(){
+    var servicio = arr('login',4,'',907,'"'+$("#vvariedad").val()+'"','',0,'');
+
+    if (servicio[0].length) {
+        var obj;
+        var str = '<table class="responsive-table highlight" id="resulti00"><tr style="border-bottom: 1px solid #e2e2e2;"><td colspan="4" class="center" style="padding:0px; margin:0px"><b>Variedad: '+servicio[0][0][1]+'</b></td></tr> <tr> <td style="padding:0px; margin:0px"></td> <td style="padding:0px; margin:0px"><b>Cantidad</b></td> <td style="padding:0px; margin:0px"><b>Procedencia</b></td> <td style="padding:0px; margin:0px"><b>Fecha</b></td> </tr><tbody id="bdyi00">';
+
+        for (var i = 0; i < servicio[0].length; i++) {
+            obj = servicio[0][i];
+            str += '<tr id="o'+obj[4]+'" data-cantidad="'+obj[0]+'"><td style="padding:0px; margin:0px" id="_c'+obj[4]+'"><input type="checkbox" id="c'+obj[4]+'" />  <label for="c'+obj[4]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px"><input type="text" id="_n'+obj[4]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /></td><td style="padding:0px; margin:0px">'+obj[2]+'</td><td style="padding:0px; margin:0px">'+obj[3]+' </td></tr>';
+        }
+
+        $("#result00").html(str+'</tbody></table>');
+
+    }else{
+        Materialize.toast("Variedad no Existente en Recepción", 4000,'red');
+        $("#result00").html('No se ha Elegido la Variedad')
+    }
+}
+
 function cargarVaridad(){
 	var servicio = arr('login',4,'',43,'\"[SERV] '+$("#vvariedad").val()+'\",0,0,0','',0,'');
 
     if (servicio[0].length) {
         var vservicio = servicio[0][0];
         
-        $(".zelda").data('triforce')['vidservicio'] = vservicio[0];
+        $(".zelda").data('triforce')['vidservicio'] = parseInt(vservicio[0])*-1;
 
         $("#vvariedad").val(vservicio[2].substr(7));
 
@@ -438,7 +616,7 @@ function cargarVaridad(){
 
 function cargarCliente(){
 	var clie = arr('login',4,'',63,'\"'+$("#ncli").val()+'\",0','',0,'');
-	console.log(clie)
+
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
         
@@ -456,7 +634,7 @@ function cargarCliente(){
 
 function cargarTblFincas(){
 	var fincas = getDatos('',902,$(".zelda").data('triforce')['vidcliente'],0,0);
-	console.log(fincas)
+
 	$("#fincas").html('');
 
 	var lista = '<tr><td colspan="3" class="center">No Hay Datos Registrados</td></tr>';
@@ -488,6 +666,17 @@ function validar (varreglo,vmodulo) {
 			}
 			
 			break;
+
+        case 'laboratorio-ciclo':
+            if (vmodulo['tip'] == '') {
+                err = validarCiclos();
+                if ( err ) {
+                    return err;
+                }
+            }
+            
+            break;
+
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -496,6 +685,42 @@ function validar (varreglo,vmodulo) {
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
 	return salida;
 
+}
+
+function validarCiclos(){
+     var idtipo = parseInt($(".zelda").data('triforce')['vidtipo']);
+
+    switch(idtipo){
+        case 1: //INICIACION
+
+            var id  = 0;
+
+            $("#bdyi00 tr").each(function(){
+                id = $(this).attr('id').substr(1);
+                if($("#c"+id).is(":checked")){
+                    $(".zelda").data('triforce')['vidciclo'] += id+',';
+                }
+            })
+
+            if ($(".zelda").data('triforce')['vidciclo'] == '' ) {
+                return 'No se a Seleccionado una Recepción';
+            }
+
+            if ($("#videncargado option:selected").val() == 0 ) {
+                $("#videncargado").focus();
+                return 'No se a Seleccionado el Operario';
+            }
+
+            if ($("#vcomentario").val() == 0 ) {
+                $("#vcomentario").focus();
+                return 'Comentario Requerido';
+            }
+
+            break;
+        default:
+            break;
+    }
+    return false;
 }
 
 function validarExplantes() {
@@ -537,11 +762,30 @@ function validarCliente(){
 }
 
 function endDetail(vid,vacc,modulo){
-	switch(modulo){
-		case 'laboratorio.explante':
-			$("#m1").click();
-			break
-	}
+    if (vacc == 1) {
+    	switch(modulo){
+    		case 'laboratorio-explante':
+    			$("#m1").click();
+    			break;
+            case 'laboratorio-ciclo':
+                var idtipo = parseInt($(".zelda").data('triforce')['vidtipo']);
+
+                switch(idtipo){
+                    case 1: //INICIACION
+
+                        //INGRESAR INV. ESTADISTICA
+                        arr('login',7,1,909,'','null,'+vid[0][0]+',6,0,0,'+$("#tplt").html()+',now(),@@usr',0,0);
+
+                        break;
+                    default:
+                        break;
+                }
+
+                break;
+            default:
+                break;
+    	}
+    }
     return false;
 }
 

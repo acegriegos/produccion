@@ -4,7 +4,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="material-icons ofiltr">keyboard_arrow_up</i></a><a class="waves-effect waves-light btn der blue" title="Generar Reporte" onclick="doreport()">Generar</a></div><br>');
+    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" title="Generar Reporte" onclick="doreport()">Generar</a></div><br>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -77,7 +77,7 @@ $(function(){
                 }
                 html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field">'+type+'</div></div></div>';
                 $(".principal .filtros").append(html);
-                arr('login',6,'id,nombre',vtbl[i],'id >= 0 order by id',15,1,$("#vidtipo"+inc));
+                arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
                 filtro += 1;
             }
             $('select').material_select();

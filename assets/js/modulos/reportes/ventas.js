@@ -1,3 +1,20 @@
+var tipo = 1;
+
 $(function(){
-	arr('login',6,'',167,'0,1,@@impresa,0,0,0,0,"1990-01-01","1990-01-01",0,0',0,1,$(".detrep"));
+
+    var param = getParameterByName('rep');
+    var ajax = 167;
+
+    switch(param){
+        case 'compras':
+            tipo = 2;
+            ajax = 170;
+            break;
+        case 'pedidos':
+            tipo = 5;
+        default:
+            break;
+    }
+
+	arr('login',6,'',167,'0,'+tipo+',@@impresa,0,0,0,0,"1990-01-01","1990-01-01",0,0',ajax,1,$(".detrep"));
 });

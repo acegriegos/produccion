@@ -122,7 +122,7 @@
     <div class=\"bdy\">
 
     </div>
-    {\$SRC}
+    {\$SCR}
     <script src=\"../assets/js/modulos/".$modulo.".js\"></script>
   </body>
 </html>";
