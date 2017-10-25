@@ -43,7 +43,7 @@
 <td style="padding: 10px; color:black;">{$PROD[LE][12]}</td>
 <td style="padding: 10px; color:black;">{$PROD[LE][9]}</td>
 <td>
-<a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh 4110 modal-trigger" id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
+<a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh 4110" id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
 <a class="btn-color pbtn descuentos per4103 modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="color:black;"><img src="../assets/img/icon/percent.svg"></a>
 <a class="btn-color pbtn salidainv mdi mdi-arrow-down-bold-box mdi-24px per4104 modal-trigger" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario" style="color:black;"></a>
 <a class="btn-color pbtn editprod mdi mdi-pencil mdi-24px per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" style="color:black;"></a>

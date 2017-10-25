@@ -537,8 +537,15 @@ $(document).on("click", ".filtropqt", function () {
 $(document).on("click", ".info", function () {
 	var id = $(this).attr('id').substr(4);
 	var prod = arr('login', 4, 'nombre', 11, 'id = ' + id, 0, 0, 0)[0][0];
-	$("#dprd").text(prod);
-	arr('login', 6, 'nombre,valor', 193, 'idproducto = ' + id, 0, 1, $("#listainfo"))
+	var char = arr('login',4,'count(id)',193,'idproducto = ' + id,0,0,0)[0][0];
+	if (char != 0) {
+		$("#modal-info2").modal('open');
+		$("#dprd").text(prod);
+		arr('login', 6, 'nombre,valor', 193, 'idproducto = ' + id, 0, 1, $("#listainfo"))
+	}else{
+		Materialize.toast('No se encuentra caracteristicas relacionadas con este producto', 6000, 'red');
+	}
+	
 });
 
 $(document).on("click", "#addfeat", function () {
@@ -710,7 +717,7 @@ $(document).on("click", "#addprod", function () {
 				}
 
 				Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
-				arr('login', 6, '',14, '0,0,""', 0, 1, $("#listaproductos"));
+				arr('login', 6, '',14, '0,0,"",10', 0, 1, $("#listaproductos"));
 				paginate(14);
 				vaciar('productos');
 				var imp = arr('login', 4, 'impuesto,nombre,valor', 109, '', 0, 0, 0)[0];
@@ -826,7 +833,7 @@ $(document).on("click", "#editprod", function () {
 				}
 
 				Materialize.toast('Producto Editado Correctamente', 6000, 'green');
-				arr('login', 6, '',14, '0,0,""', '', 1, $("#listaproductos"));
+				arr('login', 6, '',14, '0,0,"",10', '', 1, $("#listaproductos"));
 				paginate(14);
 				// vaciar('productos');
 				// var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
@@ -850,7 +857,7 @@ $(document).on("click", "#editprod", function () {
 $(document).on("click", ".editprod", function () {
 	$(".autocomplete-content").hide();
 	var id = $(this).attr('id').substr(1);
-	var p = arr('login', 4, '',14, id+',0,""', 0, 0, 0);
+	var p = arr('login', 4, '',14, id+',0,"",1', 0, 0, 0);
 	var q = p[0][0];
 	var preccat = arr('login', 4, '', 110, id, 0, 0, 0)[0];
 	var preccli = arr('login', 4, '', 165, id, 0, 0, 0)[0];
@@ -909,12 +916,10 @@ $(document).on("click", ".editprod", function () {
 		var countniv = arr('login', 4, 'count(id)+1', 69, 'id > 0', 0, 0, 0)[0][0];
 		$(".chg1").append('<div class="row preciocliente" id="c' + countniv + '"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente' + countniv + '" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente' + countniv + '" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vganancia' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" line="' + countniv + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="mdi prefix">¢</i><input type="text" id="vventa' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" line="' + countniv + '"><input type="hidden" id="hventa' + countniv + '" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vexoneracion' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" line="' + countniv + '"></div></div></div>');
 	}
-
 	Materialize.updateTextFields();
 });
 
-$(document).on("click", ".descuentos", function () {
-
+$(document).on("click",".descuentos",function() {
 	var id = $(this).attr('id').substr(4);
 	var prod = arr('login', 4, 'nombre', 11, 'id = ' + id, '', 0, '')[0];
 	$(".dprod").text(prod);
