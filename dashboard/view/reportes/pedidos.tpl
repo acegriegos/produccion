@@ -5,13 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Cotitaciones Totales</title>
+  <title>Pedidos Totales</title>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=0.2">
 </head>
 <body>
   <div class="container principal">
-      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,4" sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
+      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,1" sp="167" modulo="reporteFactura" types="1,1"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -29,14 +29,14 @@
         <input type="hidden" class="zelda">
       </div>
     </div>
-    <h2 align="center">Cotizaciones Totales</h2>
+    <h2 align="center">Pedidos Totales</h2>
     <small id="leyenda"></small>
     
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
         <td style="width: 1%"></td>
-        <td style="text-align: center"><b>Número de Cotización</b></td>
+        <td style="text-align: center"><b>Número de Factura</b></td>
         <td style="text-align: center"><b>Fecha</b></td>
         <td style="text-align: center"><b>Cliente</b></td>
         <td style="text-align: center"><b>Tipo</b></td>

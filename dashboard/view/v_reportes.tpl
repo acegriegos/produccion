@@ -48,7 +48,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-cube-send"></i>
+<a class="report pbtn" rep="pedidos"><i class="mdi-48px mdi mdi-cube-send"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -70,7 +70,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-chart-pie"></i>
+<a class="report pbtn"  rep="compras"><i class="mdi-48px mdi mdi-chart-pie"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -92,7 +92,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-account-switch"></i>
+<a class="report pbtn" rep="proveedores"> <i class="mdi-48px mdi mdi-account-switch"></i>
 </a>
 <div class="row">
 <div class="col s12">

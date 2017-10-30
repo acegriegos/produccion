@@ -4,13 +4,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Clientes</title>
+  <title>Proveedores</title>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=0.3">
 </head>
 <body>
   <div class="container principal">
-      <div class="filtros row" porcliente portipo="varios" tbltipos="5,68,0" tipos="Tipo Cliente,Estado,Cédula" types="1,1,2" elem="0,0" sp="181" modulo="reporteCliente" bisprov="0"></div>
+      <div class="filtros row" porcliente portipo="varios" tbltipos="5,68,0" tipos="Tipo Cliente,Estado,Cédula" types="1,1,2" elem="0,1" sp="181" modulo="reporteCliente" bisprov="1"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -28,7 +28,7 @@
         <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" id="ofiltr" title="Mostrar Filtros"></i>
       </div>
     </div>
-    <h2 align="center">Clientes</h2>
+    <h2 align="center">Proveedores</h2>
     <small id="leyenda"></small>
     
     <table class="table responsive-table striped highlight centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">

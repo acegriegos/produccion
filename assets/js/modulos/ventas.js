@@ -664,7 +664,7 @@ function cargarProducto(kbrota,elemento) {
 function endDetail(vid) {
     window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
     arr('login',7,'1',195,'','null,'+vid+',1,'+$("#p_v").is(':checked'),0,0,0);
-    setTimeout(function(){location.reload();},1000);
+    //setTimeout(function(){location.reload();},1000);
     return false;
 }
 

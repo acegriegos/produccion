@@ -155,6 +155,32 @@
 			return $this->ejecutarSelect();
 		}
 
+		public function startTransaccion(){
+			$this->db->conect();
+
+			mysqli_begin_transaction($this->db->mysql_conexion);
+		}
+
+		public function mantTransaccion($tabla,$args,$ant = ''){
+			$posicion = strpos($tabla, '-');
+			$schema = $posicion ? substr($tabla, 0,$posicion).'.' : '';
+			$tabla = $posicion ? substr($tabla, $posicion+1) : $tabla;
+			return $this->db->mysql_conexion->query("call ".$schema."sp_mant".$tabla."s(".$this->_values($args,$ant));
+
+		}
+
+		public function endTransaccion(){
+			$salida = '';
+			try {
+				$salida = $this->db->mysql_conexion->mysqli_commit();
+			} catch (Exception $e) {
+				$salida = $e->getMessage();
+			}finally{
+				$this->db->close();
+			}
+			return $salida;
+		}
+
 		private function _values($arg,$ant){
 			$salida = '';
 			

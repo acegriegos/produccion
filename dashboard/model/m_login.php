@@ -22,8 +22,9 @@
 					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
 				}
 			}
-			
-			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
+			$this->startTransaccion();
+
+			$id_new = $this->mantTransaccion($arreglo['modulo'],$arreglo['atributos'])->fetch_all();
 			$accion = $arreglo['atributos']['vaccion'];
 
 			if (isset($arreglo['varios']) && $accion != 3 && isset($arreglo['varios'][0]['atributos'])) {
@@ -38,13 +39,16 @@
 						}
 
 						$detalles['vaccion'] = $accion;
-						$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
+
+						$this->mantTransaccion($varios['modulo'],$detalles,$id_new[0][0]);
 
 					}
 				}
 			}
-
-			return is_array($id_new) ? array('0' => $id_new) : $id_new;
+			
+			$etran = $this->endTransaccion();
+			
+			return $etran;// is_array($id_new) ? array('0' => $id_new) : $id_new;
 		}
 
 		function analizarTabla($arreglo){

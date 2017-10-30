@@ -11,7 +11,8 @@
 </head>
 <body>
   <div class="container principal">
-      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,1" sp="167" modulo="reporteFactura" types="1,1"></div>
+           <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,1" sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
+
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -19,9 +20,9 @@
       </div>
       <div class="col s4 m4 l4" align="center">
         <font size="3">
-          <b>{$MIS[0][0]}</b><br>
-          <b>Cédula:</b> {$MIS[1][0]}<br>
-          <b>Teléfono:</b> {$MIS[2][0]}<br>
+          <b>{$MIS[2]}</b><br>
+          <b>Cédula:</b> {$MIS[1]}<br>
+          <b>Teléfono:</b> {$MIS[5]}<br>
         </font>
         <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" title="Mostrar Filtros" style="display:none;"></i>
       </div>
