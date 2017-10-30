@@ -118,8 +118,9 @@ $(document).on("keyup","[id^=search_]",function(e){
         // if (e.replace(/,/g,'').length == e.length) {
             // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,0,0)[0][0];
             // arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%" order by nombre limit 10',g,1,$("#lista"+b));
-            h = arr('login',4,'',c,e,0,0,0)[0][0];
-            arr('login',6,'',c,'0,0,"'+a+'"',g,1,$("#lista"+b));
+
+        h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
+        arr('login',6,'',c,'0,0,"'+a+'","0,10"',g,1,$("#lista"+b));
         // }else{
             // var f = d+'id >= 0 and (';
             // e = e.split(",");
@@ -1000,11 +1001,11 @@ function paginate(vtbl,len) {
     $(".pagination").html('');
     var countpag = 0;
     if (len == undefined) {
-        countpag = arr('login',4,'',vtbl,'0,1,"",0',0,0,0)[0][0];
+        countpag = arr('login',4,'',vtbl,'0,1,"","0,10"',0,0,0)[0][0];
     }else
     countpag = len;
 
-    console.log(Math.ceil(countpag))
+    console.log("count: "+countpag)
     
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
@@ -1016,9 +1017,10 @@ function paginate(vtbl,len) {
         for (var i = 1; i <= Math.ceil(countpag); i++) {
             i = parseInt(i);
             if (i == 1)
-                $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0"><a href="#!">' + i + '</a></li>');
+                $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0,10"><a href="#!">' + i + '</a></li>');
             else
-                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+                $(".pagination").append('<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
+            
             $(".pagination").attr('ultimo', i);
         }
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
@@ -1036,8 +1038,7 @@ $(document).on("click", ".paginate", function () {
     $(this).addClass('active');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
-    
-    arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+    arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1054,6 +1055,7 @@ $(document).on("click", ".nxt", function () {
     var vtbl = $("ul.pagination").attr('vtbl');
     var ultimo = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
+    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var next = id + 1;
     var pags = next - 8;
@@ -1062,13 +1064,13 @@ $(document).on("click", ".nxt", function () {
         pags = 1;
 
     if (ultimo == id) {
-        var count = arr('login',4,'',vtbl,'0,1,"",0',0,0,0)[0][0];
-        // var count = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
+        var count = arr('login',4,'',vtbl,'0,1,"'+filtro+'",""',0,0,0)[0][0];
         if (Math.ceil(count) != ultimo) {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
                 i = parseInt(i);
-                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+                console.log("i: "+i)
+                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
                 if (i == next)
                     $(".pagination").attr('ultimo', i);
             }
@@ -1079,7 +1081,7 @@ $(document).on("click", ".nxt", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             tabla.destroy();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit+'"', cambio, 1, $("#lista"+modulo));
             // arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
@@ -1098,7 +1100,7 @@ $(document).on("click", ".nxt", function () {
         var tabla = $("#data-table-"+modulo).DataTable();
         tabla.destroy();
         var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-        arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+        arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
         $("#data-table-"+modulo).DataTable({
             bFilter: false,
             bScrollInfinite: true,
@@ -1128,7 +1130,7 @@ $(document).on("click", ".prv", function () {
                 if (prv != 0) {
                     for (var i = prv; i <= prev; i++) {
                         i = parseInt(i);
-                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
                         if (i == prev)
                             $(".pagination").attr('ultimo', i);
                     }
@@ -1143,7 +1145,7 @@ $(document).on("click", ".prv", function () {
                 var tabla = $("#data-table-"+modulo).DataTable();
                 var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+                arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1160,7 +1162,7 @@ $(document).on("click", ".prv", function () {
                 var tabla = $("#data-table-"+modulo).DataTable();
                 var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+                arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1178,7 +1180,7 @@ $(document).on("click", ".prv", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             tabla.destroy();
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,

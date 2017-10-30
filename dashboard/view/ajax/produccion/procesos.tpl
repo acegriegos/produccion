@@ -73,6 +73,7 @@
                                 {/section}
                             </tbody>
                         </table>
+                        <ul class="pagination right" vtbl="99" modulo="procesos"></ul>
                     </div>
                 </div>
             </li>

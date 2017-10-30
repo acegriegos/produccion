@@ -108,3 +108,7 @@ ul.autocomplete-content > li{
     min-height: 40px;
     height: 40px;
 }*/
+
+ul.pagination > li.active {
+    background-color: #2196F3 !important;
+}
