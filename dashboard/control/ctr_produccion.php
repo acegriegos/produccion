@@ -23,7 +23,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('REC',$kakaroto->kamehameha('idproceso,proceso,precioventa',99,'1'));
+	   			$smarty->assign('REC',$kakaroto->kamehameha('',99,'0,0,"","0,10"'));
 	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
 	   			$smarty->assign('UNIP',$kakaroto->kamehameha('',12,'"1,2"'));
 	   			$smarty->display('ajax/produccion/procesos.tpl');
@@ -33,7 +33,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('LPR',$kakaroto->kamehameha('id,nombre,hombre,maquina,bandejas',180,'id > 0 order by nombre limit 10'));
+	   			$smarty->assign('LPR',$kakaroto->kamehameha('',180,'0,0,"","0,10"'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('',12,'"2,3"'));
 	   			$smarty->display('ajax/produccion/lineaproduccion.tpl');
 	   			break;

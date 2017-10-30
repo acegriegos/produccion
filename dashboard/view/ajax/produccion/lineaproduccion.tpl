@@ -71,7 +71,7 @@
                             <td style=" padding: 10px;">{$LPR[LE][2]}</td>
                             <td style=" padding: 10px;">{$LPR[LE][3]}</td>
                             <td style=" padding: 10px;">{$LPR[LE][4]}</td>
-                            <td style=" padding: 10px;">
+                            <td style=" padding: 10px; width: 20%">
                                 <a class="btn-color pbtn load" id="m{$LPR[LE][0]}" modulo="tareaproduccione"><i class="mdi mdi-pencil mdi-24px"></i></a>
                                 <a class="btn-color pbtn cdel delete" id="d{$LPR[LE][0]}" modulo="tareaproduccione"><i class="mdi mdi-close mdi-24px"></i></a>
                             </td>
@@ -79,16 +79,17 @@
                         {/section}
                     </tbody>
                 </table>
+                <ul class="pagination right" vtbl="180" modulo="tareaproducciones"></ul>
                 <br>
             </div>
         </div>
     </li>
     <li class="per5103" id="pl2">
-        <div class="collapsible-header productline"><i class="material-icons">assignment</i>Crear Linea de Producción</div>
+        <div class="collapsible-header productline"><i class="mdi mdi-format-list-numbers blue-text"></i>Crear Linea de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row" id="drecipe">
                 <div class="input-field col s12 m6 l4 dcline" id="nac">
-                    <a class="material-icons prefix pbtn blue-text mbutton" id="searchprocesos" href="#modal-search">search</a>
+                    <a class="mdi mdi-magnify prefix pbtn blue-text mbutton" id="searchprocesos" href="#modal-search"></a>
                     <input id="vproceso" type="text" class="validate autocomplete" autocomplete="off">
                     <label for="vproceso">Proceso</label>
                 </div>
@@ -135,7 +136,7 @@
         </div>
     </li>
     <li class="per5104" id="pl3">
-        <div class="collapsible-header productline"><i class="material-icons">build</i>Mantenimiento Lineas de Producción</div>
+        <div class="collapsible-header productline"><i class="mdi mdi-settings blue-text"></i>Mantenimiento Lineas de Producción</div>
         <div class="collapsible-body tasks">
             <div class="row">
                 <div class="col s12 m6 l6">
@@ -186,7 +187,7 @@
         </div>
     </li>
     <li class="per5105" id="pl4">
-        <div class="collapsible-header productline"><i class="material-icons">input</i>Asignar Linea de Producción a Proceso</div>
+        <div class="collapsible-header productline"><i class="mdi mdi-table-column-plus-after blue-text"></i>Asignar Linea de Producción a Proceso</div>
             <div class="collapsible-body tasks">
                 <div class="row">
                     <div class="row marginzero">
