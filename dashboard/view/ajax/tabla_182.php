@@ -8,7 +8,7 @@
 		<div class="row marginzero">
 			<div class="col s12 m12 l12">
 				<span class="blue-text pbtn" id="filtro">Filtro</span>
-				<span class="right blue-text inv">Ordenar por fecha: <i class="material-icons pbtn" id="order" value="1">swap_vert</i></span>
+				<span class="right blue-text inv">Ordenar por fecha: <i class="mdi mdi-swap-vertical mdi-24px pbtn" id="order" value="1"></i></span>
 			</div>
 		</div>
 		<div class="row marginzero inv">
