@@ -1,6 +1,14 @@
 body{
     background-color: #e9e9e9;
 }
+.contenedor{
+    padding: 10px !important; 
+    margin-left: 5%; 
+    margin-right: 5%;
+}
+.sinborde{
+    border-radius: 0px !important;
+}
 
 .principal{
     background-color: white;
@@ -40,7 +48,11 @@ label[for=xnum] {
 
 @media print {
 
-
+.contenedor{
+    padding: 0px !important; 
+    margin-left: 0%; 
+    margin-right:0%;
+}
     header, footer, nav, aside {
       display: none;
     }

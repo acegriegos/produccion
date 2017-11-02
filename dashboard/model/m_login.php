@@ -8,6 +8,7 @@
 		var $user;
 		var $pass;
 
+
 		function mantenimiento($arreglo){
 			
 			if (isset($arreglo['atributos']['vidusuario'])) {
@@ -22,9 +23,8 @@
 					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
 				}
 			}
-			$this->startTransaccion();
-
-			$id_new = $this->mantTransaccion($arreglo['modulo'],$arreglo['atributos'])->fetch_all();
+			
+			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 			$accion = $arreglo['atributos']['vaccion'];
 
 			if (isset($arreglo['varios']) && $accion != 3 && isset($arreglo['varios'][0]['atributos'])) {
@@ -39,16 +39,52 @@
 						}
 
 						$detalles['vaccion'] = $accion;
+						$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
 
-						$this->mantTransaccion($varios['modulo'],$detalles,$id_new[0][0]);
+					}
+				}
+			}
+
+			return is_array($id_new) ? array('0' => $id_new) : $id_new;
+		}
+
+		function mantenimientoTransaccion($arreglo){
+
+			if (isset($arreglo['atributos']['vidusuario'])) {
+				if ($arreglo['atributos']['vidusuario'] == '') {
+					$cy = new _cy();
+					$arreglo['atributos']['vidusuario'] = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				}
+			}
+
+			if (isset($arreglo['atributos']['vidsucursal'])) {
+				if ($arreglo['atributos']['vidsucursal'] == '') {
+					$arreglo['atributos']['vidsucursal'] = $_SESSION['IMPRESA'];
+				}
+			}
+
+			$this->setSQL($this->mantTransaccion($arreglo['modulo'],$arreglo['atributos']));
+			$accion = $arreglo['atributos']['vaccion'];
+			
+			if (isset($arreglo['varios']) && $accion != 3 && isset($arreglo['varios'][0]['atributos'])) {
+			$id_tabla = $this->kamehameha('id',70,'nombre like "'.$arreglo['modulo'].'s"')[0][0];
+				foreach ($arreglo['varios'] as $index => $varios) {
+
+					foreach ($varios['atributos'] as $detalles) {
+
+						if ($varios['hasTabla']) {
+							$detalles['vidfila'] = isset($detalles['vidfila']) ? $detalles['vidfila'] == 0 ? '?' : $detalles['vidfila'] : '?';
+							$detalles['vidtabla'] = isset($detalles['vidtabla']) ? $detalles['vidtabla'] == 0 ? $id_tabla : $detalles['vidtabla'] : $id_tabla;
+						}
+
+						$detalles['vaccion'] = $accion;
+						$this->setSQL($this->mantTransaccion($varios['modulo'],$detalles,'?'));
 
 					}
 				}
 			}
 			
-			$etran = $this->endTransaccion();
-			
-			return $etran;// is_array($id_new) ? array('0' => $id_new) : $id_new;
+			return $this->startTransaccion($arreglo['modulo'].'s');
 		}
 
 		function analizarTabla($arreglo){

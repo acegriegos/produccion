@@ -11,6 +11,7 @@
 		
 		var $db;
 		var $sql;
+		var $lsql = [];
 		var $cy;
 
 		function __construct()
@@ -21,6 +22,10 @@
 
 		public function getDB(){
 			return $this->db;
+		}
+
+		public function setSQL($str){
+			$this->lsql[] = $str;
 		}
 
 		public function ejecutarSelect(){
@@ -155,30 +160,52 @@
 			return $this->ejecutarSelect();
 		}
 
-		public function startTransaccion(){
+		public function startTransaccion($tabla){
 			$this->db->conect();
+			$this->db->mysql_conexion->autocommit(FALSE);
 
-			mysqli_begin_transaction($this->db->mysql_conexion);
+			try {
+				mysqli_begin_transaction($this->db->mysql_conexion);
+
+				$id_new = mysqli_query($this->db->mysql_conexion,$this->lsql[0]);
+
+				if ($id_new) {
+					$id_new = $id_new->fetch_all();
+				}else{
+					throw new Exception($this->db->mysql_conexion->error, 1);
+				}
+
+				array_shift($this->lsql);
+
+				if (sizeof($this->lsql)) { //TIENE DETALLE
+					
+					foreach ($this->lsql as $obj) {
+						$msql = str_replace('?', $id_new[0][0], $obj);
+						$rs = mysqli_query($this->db->mysql_conexion,$msql);
+						
+						// $rs = str_replace('?', $id_new[0][0], $obj);
+						if( !$rs )
+							throw new Exception($this->db->mysql_conexion->error, 1);
+					}
+					
+				}
+				mysqli_commit($this->db->mysql_conexion);
+			} catch (Exception $e) {
+				$id_new = $e->getMessage();
+				$this->db->mysql_conexion->rollback();
+			}
+			$this->db->mysql_conexion->autocommit(TRUE);
+			mysqli_close($this->db->mysql_conexion);
+			
+			return $id_new.' - ';//is_array($id_new) ? array('0' => $id_new) : $id_new;
+			
 		}
 
 		public function mantTransaccion($tabla,$args,$ant = ''){
 			$posicion = strpos($tabla, '-');
 			$schema = $posicion ? substr($tabla, 0,$posicion).'.' : '';
 			$tabla = $posicion ? substr($tabla, $posicion+1) : $tabla;
-			return $this->db->mysql_conexion->query("call ".$schema."sp_mant".$tabla."s(".$this->_values($args,$ant));
-
-		}
-
-		public function endTransaccion(){
-			$salida = '';
-			try {
-				$salida = $this->db->mysql_conexion->mysqli_commit();
-			} catch (Exception $e) {
-				$salida = $e->getMessage();
-			}finally{
-				$this->db->close();
-			}
-			return $salida;
+			return "call ".$schema."sp_mant".$tabla."s(".$this->_values($args,$ant);
 		}
 
 		private function _values($arg,$ant){

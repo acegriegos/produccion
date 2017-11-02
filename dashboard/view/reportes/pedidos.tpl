@@ -11,7 +11,7 @@
 </head>
 <body>
   <div class="container principal">
-      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,1" sp="167" modulo="reporteFactura" types="1,1"></div>
+      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,5" sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
