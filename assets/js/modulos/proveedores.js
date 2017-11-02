@@ -157,7 +157,8 @@ $(function(){
 	if (add) {
 		$("#ingClie").click()
 	}
-		    paginate($("ul.pagination").attr('vtbl'))
+	
+	paginate($("ul.pagination").attr('vtbl'))
 
 
 });
