@@ -15,14 +15,14 @@ $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
         case 113: //ABRIR MENU
-            $(".menu-btn").click();
-            $("#numtrans").focus();
-            break;
+        $(".menu-btn").click();
+        $("#numtrans").focus();
+        break;
         case 107: //CLICK EN AGREGAR
-            $(".pluskey").click();
-            break;
+        $(".pluskey").click();
+        break;
         default:
-            break;
+        break;
     }
 });
 
@@ -72,8 +72,8 @@ $(document).on("blur",".autocomplete",function(){
 $(document).on("keyup",".autocomplete",function(e){
     var code = e.which || e.keyCode;
     if (code == 27)
-       $(".autocomplete-content").hide('500');
-    
+     $(".autocomplete-content").hide('500');
+ 
 });
 
 $(document).on("click",".load",function(){
@@ -118,8 +118,9 @@ $(document).on("keyup","[id^=search_]",function(e){
         // if (e.replace(/,/g,'').length == e.length) {
             // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,0,0)[0][0];
             // arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%" order by nombre limit 10',g,1,$("#lista"+b));
-        h = arr('login',4,'',c,e,0,0,0)[0][0];
-        arr('login',6,'',c,'0,0,"'+a+'"',g,1,$("#lista"+b));
+
+        h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
+        arr('login',6,'',c,'0,0,"'+a+'","0,10"',g,1,$("#lista"+b));
         // }else{
             // var f = d+'id >= 0 and (';
             // e = e.split(",");
@@ -131,15 +132,15 @@ $(document).on("keyup","[id^=search_]",function(e){
             // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,f,0,0,0)[0][0];
             // arr('login',6,'*',c,f+' limit 10',g,1,$("#lista"+b));
 
-        $("#data-table-"+b).DataTable({
-            bFilter: false,
-            bScrollInfinite: true,
-            bSort: false,
-            bLengthChange: false,
-            order: [],
-            bPaginate: false,
-            info: false
-        });
+            $("#data-table-"+b).DataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            });
         // }
         $(".pagination").html('');
         paginate(c,h)
@@ -179,7 +180,7 @@ function doGlobal(accion,modulo,tip,varias){
             // //QUITAR EL SEGUNDO UNO PONER UN 4
             // endDetail(1,4,modulo+"s");
         }else{
-           
+         
             var tmsj = "Ingresado";
             if (accion == 2) {
                 tmsj = "Actualizado";
@@ -231,58 +232,58 @@ function loadpool(vmodulo,vid,vvarias){
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
             case 'select':
 
-                if ($("#"+vform+" #"+columns[0][1][i]['name']).attr('multiple') == undefined){
-                    $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
-                    $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
+            if ($("#"+vform+" #"+columns[0][1][i]['name']).attr('multiple') == undefined){
+                $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
+                $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
 
-                    if (columns[0][0][0][i] != '') 
-                        $("#"+vform+" #"+columns[0][1][i]['name']).change();
-                }
-                else{
-                    $("#"+vform+" #"+columns[0][1][i]['name']).material_select('destroy');
-                    $.each(columns[0][0][0][i].split(","), function(j,e){
-                        $("#"+vform+" #"+columns[0][1][i]['name']+" option[value='" + e + "']").attr("selected", true);
-                    });
+                if (columns[0][0][0][i] != '') 
+                    $("#"+vform+" #"+columns[0][1][i]['name']).change();
+            }
+            else{
+                $("#"+vform+" #"+columns[0][1][i]['name']).material_select('destroy');
+                $.each(columns[0][0][0][i].split(","), function(j,e){
+                    $("#"+vform+" #"+columns[0][1][i]['name']+" option[value='" + e + "']").attr("selected", true);
+                });
 
-                }
+            }
 
-                if ($("#"+vform+" #"+columns[0][1][i]['name']).attr('defecto') != undefined)
-                    $("#"+vform+" #"+columns[0][1][i]['name']).attr('defecto',columns[0][0][0][i])
+            if ($("#"+vform+" #"+columns[0][1][i]['name']).attr('defecto') != undefined)
+                $("#"+vform+" #"+columns[0][1][i]['name']).attr('defecto',columns[0][0][0][i])
 
-                break;
+            break;
 
             case 'radio':
             case 'checkbox':
 
-                var obj = $("#"+vform+" input[name="+columns[0][1][i]['name']+']');
-                obj.val(columns[0][0][0][i]);
-                obj.prop('checked',columns[0][0][0][i]);
-                obj.change();
-                break;
+            var obj = $("#"+vform+" input[name="+columns[0][1][i]['name']+']');
+            obj.val(columns[0][0][0][i]);
+            obj.prop('checked',columns[0][0][0][i]);
+            obj.change();
+            break;
 
             case 'html':
-                $("#"+vform+" #"+columns[0][1][i]['name']).html(columns[0][0][0][i]);
-                break;
+            $("#"+vform+" #"+columns[0][1][i]['name']).html(columns[0][0][0][i]);
+            break;
 
             case 'date':
-                $("#"+vform+" #"+columns[0][1][i]['name']).pickadate().pickadate('picker').set('select', columns[0][0][0][i]);
-                break;
+            $("#"+vform+" #"+columns[0][1][i]['name']).pickadate().pickadate('picker').set('select', columns[0][0][0][i]);
+            break;
             case 'textarea':
             case 'text':
             case 'number':
             case 'password':
             case 'time':
-                $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
-                break;
+            $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
+            break;
             case 'hidden':
-                if ($("#"+vform+" #"+columns[0][1][i]['name']).attr("fill") == undefined){
-                    $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
-                }
-                else
-                    arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]))
-                break;
+            if ($("#"+vform+" #"+columns[0][1][i]['name']).attr("fill") == undefined){
+                $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
+            }
+            else
+                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]))
+            break;
             default:
-                break;
+            break;
 
         };           
         
@@ -310,20 +311,20 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
             varreglo['JSON'] = vjson
 
         $.ajax({
-                async: false,
-                url: '../dashboard/'+vmodulo,
-                type: 'POST',
-                data: {accion: vaccion,arreglo : varreglo}
-                })
-                .done(function(data) {
-                    try {
-                        p = JSON.parse(data);
-                    }
-                    catch(err){
-                        p = data;
-                    }
-                });
-    /*}*/
+            async: false,
+            url: '../dashboard/'+vmodulo,
+            type: 'POST',
+            data: {accion: vaccion,arreglo : varreglo}
+        })
+        .done(function(data) {
+            try {
+                p = JSON.parse(data);
+            }
+            catch(err){
+                p = data;
+            }
+        });
+        /*}*/
     // setTimeout(function(){source = new EventSource("../sse.php")},5000);
     return p;
 }
@@ -341,21 +342,21 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
             varreglo['JSON'] = vjson
 
         $.ajax({
-                url: '../dashboard/'+vmodulo,
-                type: 'POST',
-                data: {accion: vaccion,arreglo : varreglo}
-                })
-                .done(function(data) {
-                    
-                    try {
-                        p = JSON.parse(data);
-                    }
-                    catch(err){
-                        p = data;
-                    }
+            url: '../dashboard/'+vmodulo,
+            type: 'POST',
+            data: {accion: vaccion,arreglo : varreglo}
+        })
+        .done(function(data) {
+            
+            try {
+                p = JSON.parse(data);
+            }
+            catch(err){
+                p = data;
+            }
 
-                    postExcecute(vid,p);
-                });
+            postExcecute(vid,p);
+        });
     }
     // setTimeout(function(){source = new EventSource("../sse.php")},5000);
     return true;
@@ -398,28 +399,28 @@ function getParameterByName(name) {
 };
 
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
-     $.ajax({
-        url: '../_config/correoAjax.php',
-        type: 'POST',
-        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
-        })
-        .done(function(data) {
-            try {
-                p = JSON.parse(data);
-            }
-            catch(err){
-                p = data;
-            }
+   $.ajax({
+    url: '../_config/correoAjax.php',
+    type: 'POST',
+    data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
+})
+   .done(function(data) {
+    try {
+        p = JSON.parse(data);
+    }
+    catch(err){
+        p = data;
+    }
 
-            if($("#smail").is(':visible')){
-                Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green")
-                $("#smail").html('')
-            }
-           
-        })
-          .fail(function() {
-            alert( "error" );
-          });
+    if($("#smail").is(':visible')){
+        Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green")
+        $("#smail").html('')
+    }
+    
+})
+   .fail(function() {
+    alert( "error" );
+});
 }
 
 function odin(varreglo,vform) {
@@ -427,54 +428,54 @@ function odin(varreglo,vform) {
     var salida = {};
 
     switch($("#"+vform).attr('tp')){
-    case "1":
+        case "1":
     //LLENADO DE VARIABLES POR ATRIBUTO EN DETALLE
-        $("#"+vform+" .ciclos").each(function(index){
-            salida[index] = {};
-            for (var i = 0; i < varreglo.length; i++) {
-                salida[index][varreglo[i]] = $(this).attr(varreglo[i]);
+    $("#"+vform+" .ciclos").each(function(index){
+        salida[index] = {};
+        for (var i = 0; i < varreglo.length; i++) {
+            salida[index][varreglo[i]] = $(this).attr(varreglo[i]);
             }// end FOR
         });//end EACH
     break;
 
     case "2":
     //LLENADO DE VARIABLES POR ATRIBUTO SIN DETALLE
-        for (var i = 0; i < varreglo.length; i++) {
-            salida[varreglo[i]] = $("#"+vform+" .uniq").attr(varreglo[i]);
+    for (var i = 0; i < varreglo.length; i++) {
+        salida[varreglo[i]] = $("#"+vform+" .uniq").attr(varreglo[i]);
         }// end FOR
-    break;
+        break;
 
-    case "3":
+        case "3":
     //LLENADO DE VARIABLES POR ID EN DETALLE
-        $("#"+vform+" .ciclos").each(function(index){
-            salida[index] = {};
-            for (var i = 0; i < varreglo.length; i++) {
+    $("#"+vform+" .ciclos").each(function(index){
+        salida[index] = {};
+        for (var i = 0; i < varreglo.length; i++) {
             if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
                 salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
             else{
-            switch(varreglo[i]) {
-                case 'vidusuario':                
+                switch(varreglo[i]) {
+                    case 'vidusuario':                
                     if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
                         salida[index][varreglo[i]] = '';
                     }else{
                         salida[index][varreglo[i]] = $("#"+vform+" #vidusuario").val();
                     }
                     break;
-                case 'vid':
+                    case 'vid':
                     if (typeof $("#"+vform+" #vid"+id).val() == 'undefined') {
                         salida[index][varreglo[i]] = 0;
                     }else{
                         salida[index][varreglo[i]] = $("#"+vform+" #vid").val();
                     }
                     break;
-                case 'vaccion':
+                    case 'vaccion':
                     salida[index][varreglo[i]] = 0;
                     break
-                case 'vidtabla':
-                case 'vidfila':
+                    case 'vidtabla':
+                    case 'vidfila':
                     salida[index][varreglo[i]] = 0;//$("#"+vform+" #vtabla").val();
                     break;
-                default:
+                    default:
 
                     if (/vfecha/.test(varreglo[i])){
                         if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
@@ -487,37 +488,37 @@ function odin(varreglo,vform) {
                         switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                             case 'select':
 
-                                if($("#"+vform+" #"+ varreglo[i]).attr('multiple') == undefined)
-                                    salida[index][varreglo[i]] =  $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
-                                else
-                                    salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]).val().toString();
+                            if($("#"+vform+" #"+ varreglo[i]).attr('multiple') == undefined)
+                                salida[index][varreglo[i]] =  $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            else
+                                salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]).val().toString();
 
-                                break;
+                            break;
                             case 'text':
                             case 'textarea':
                             case 'hidden':
 
                             case 'number':
-                                salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
-                                break;
+                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                            break;
                             case 'html':
-                                salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
-                                break;
+                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                            break;
                             case 'radio':
-                                salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
-                                break;
+                            salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                            break;
                             case 'checkbox':
-                                salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
-                                break;
+                            salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                            break;
                             default:
-                                try{
-                                    salida[index][varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
-                                }
-                                catch(e){
-                                    console.log(varreglo[i]+" No Existe");
-                                    return "Error en Interno, Codigo: Odin"
-                                } 
-                                break;
+                            try{
+                                salida[index][varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                            }
+                            catch(e){
+                                console.log(varreglo[i]+" No Existe");
+                                return "Error en Interno, Codigo: Odin"
+                            } 
+                            break;
                             
                         }//END SWITCH
                 }//end if
@@ -525,18 +526,18 @@ function odin(varreglo,vform) {
             }//end IF
             }// end FOR
         });//end EACH
-    break;
+break;
 
-    case "4":
+case "4":
     //LLENADO DE VARIABLES POR DATA EN DETALLE
-        $("#"+vform+" .ciclos").each(function(index){
-            salida[index] = {};
-            for (var i = 0; i < varreglo.length; i++) {
-                salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
+    $("#"+vform+" .ciclos").each(function(index){
+        salida[index] = {};
+        for (var i = 0; i < varreglo.length; i++) {
+            salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
             }// end FOR
             
         });//end EACH
-        
+    
     break;
 
     default:
@@ -549,78 +550,78 @@ function odin(varreglo,vform) {
         else{
             switch(varreglo[i]) {
                 case 'vidusuario':             
-                    if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
-                        salida[varreglo[i]] = '';
-                    }else{
-                        salida[varreglo[i]] = $("#"+vform+" #vidusuario").val();
-                    }
-                    break;
+                if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
+                    salida[varreglo[i]] = '';
+                }else{
+                    salida[varreglo[i]] = $("#"+vform+" #vidusuario").val();
+                }
+                break;
                 case 'vidsucursal':             
-                    if (typeof $("#"+vform+" #vidsucursal").val() == 'undefined') {
-                        salida[varreglo[i]] = '';
-                    }else{
-                        salida[varreglo[i]] = $("#"+vform+" #vidsucursal").val();
-                    }
-                    break;
+                if (typeof $("#"+vform+" #vidsucursal").val() == 'undefined') {
+                    salida[varreglo[i]] = '';
+                }else{
+                    salida[varreglo[i]] = $("#"+vform+" #vidsucursal").val();
+                }
+                break;
                 case 'vid':
-                    if (typeof $("#"+vform+" #vid").val() == 'undefined') {
-                        salida[varreglo[i]] = 0;
-                    }else{
-                        salida[varreglo[i]] = $("#"+vform+" #vid").val();
-                    }
-                    break;
-                case 'vaccion':
+                if (typeof $("#"+vform+" #vid").val() == 'undefined') {
                     salida[varreglo[i]] = 0;
-                    break
+                }else{
+                    salida[varreglo[i]] = $("#"+vform+" #vid").val();
+                }
+                break;
+                case 'vaccion':
+                salida[varreglo[i]] = 0;
+                break
                 case 'vidtabla':
-                    salida[varreglo[i]] = $("#"+vform+" #vtabla").val();
-                    break;
+                salida[varreglo[i]] = $("#"+vform+" #vtabla").val();
+                break;
                 default:
-                    if (/vfecha/.test(varreglo[i])){
-                        if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
-                            salida[varreglo[i]] = '1990-01-01';
-                        }else{
-                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
-                            '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
-                        }
+                if (/vfecha/.test(varreglo[i])){
+                    if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
+                        salida[varreglo[i]] = '1990-01-01';
                     }else{
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                        '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                    }
+                }else{
                     switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                         case 'select':
-                            if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
-                                salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]).val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
-                            }else{
-                                salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().toString();
-                            }
-                            break;
+                        if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
+                            salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]).val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                        }else{
+                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().toString();
+                        }
+                        break;
                         case 'text':
                         case 'textarea':
                         case 'hidden':
                         case 'password':
                         case 'time':
                         case 'number':
-                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
-                            break;
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                        break;
                         case 'html':
-                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
-                            break;
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                        break;
                         case 'radio':
-                            salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
-                            break;
+                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                        break;
                         case 'checkbox':
-                            salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
-                            break;
+                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                        break;
                         default:
-                            try{
-                                salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
-                            }
-                            catch(e){
-                                console.log(varreglo[i]+" No Existe");
-                                return "Error en Interno, Codigo: Odin"
-                            } 
-                            break;
+                        try{
+                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                        }
+                        catch(e){
+                            console.log(varreglo[i]+" No Existe");
+                            return "Error en Interno, Codigo: Odin"
+                        } 
+                        break;
                     }
-                    }
-                    break;
+                }
+                break;
             }//end SWITCH
         }//end IF
     }//end FOR
@@ -638,38 +639,38 @@ function deadclear(vform) {
             if ($(this).attr('noClear') == undefined && $(this).prop('id') != '') { 
                 switch($(this).attr('type')){
                     case 'checkbox':
-                        $(vform+" :input[name='"+$(this).prop('name')+"'][stay='1']").prop('checked', true);
-                        $(vform+" :input[name='"+$(this).prop('name')+"'][stay='0']").prop('checked',false);
-                        
-                        $(this).change();
-                        break;
+                    $(vform+" :input[name='"+$(this).prop('name')+"'][stay='1']").prop('checked', true);
+                    $(vform+" :input[name='"+$(this).prop('name')+"'][stay='0']").prop('checked',false);
+                    
+                    $(this).change();
+                    break;
                     case 'radio':
                     //SI ES RADIO SOLO PONER ATRIBUTO PRINCIPAL PARA EL CUAL QUIERE MANTENER CHECKED
-                        $(vform+" :input[name='"+$(this).prop('name')+"'][principal='1']").click();
-                        break;
+                    $(vform+" :input[name='"+$(this).prop('name')+"'][principal='1']").click();
+                    break;
                     case 'number':
                     case 'textarea':
                     case 'text':
                     case 'password':
                     case 'time':
-                        $(vform+" #"+$(this).prop('id')).val('');
-                        break;
+                    $(vform+" #"+$(this).prop('id')).val('');
+                    break;
                     case 'select':
-                        $(vform+" #"+$(this).prop('id')).val("");
-                        if ($(vform+" #"+$(this).prop('id')).val() == undefined)
-                            $(vform+" #"+$(this).prop('id')).val(0)
-                        $(vform+" #"+$(this).prop('id')).material_select('update');
-                        break;
+                    $(vform+" #"+$(this).prop('id')).val("");
+                    if ($(vform+" #"+$(this).prop('id')).val() == undefined)
+                        $(vform+" #"+$(this).prop('id')).val(0)
+                    $(vform+" #"+$(this).prop('id')).material_select('update');
+                    break;
                     default:
-                        break;
+                    break;
                 };
-            
+                
             }
         });
         Materialize.updateTextFields();
-    
+        
     } else
-        acc = 1;
+    acc = 1;
 }
 
 function thorload(vtabla) {
@@ -707,44 +708,44 @@ function addZero(n, len) {
 
 function permisos(vnumber,vnumber2) {
     $.ajax({
-            async: false,
-            url: '../_config/permisos.php',
-            type: 'POST',
-            data: {x1 : vnumber, x2 : vnumber2}
-            })
-            .done(function(data) {
-                p = JSON.parse(data);
-                for (var i = 0; i < p.length; i++) {
-                    var op = parseInt(p[i][1]);
+        async: false,
+        url: '../_config/permisos.php',
+        type: 'POST',
+        data: {x1 : vnumber, x2 : vnumber2}
+    })
+    .done(function(data) {
+        p = JSON.parse(data);
+        for (var i = 0; i < p.length; i++) {
+            var op = parseInt(p[i][1]);
 
-                    switch(op){
-                        case 1:
-                            $(".per"+p[i][0]).css('display','in-line');
-                            break;
-                        case 2:
-                            $(".per"+p[i][0]).attr('disabled',true);
-                            break;
-                        case 3:
-                            $(".per"+p[i][0]).css('display','none');
-                            break;
-                    }
-                };
-            })
-            .fail(function(x,y,z) {
-                
-            });
+            switch(op){
+                case 1:
+                $(".per"+p[i][0]).css('display','in-line');
+                break;
+                case 2:
+                $(".per"+p[i][0]).attr('disabled',true);
+                break;
+                case 3:
+                $(".per"+p[i][0]).css('display','none');
+                break;
+            }
+        };
+    })
+    .fail(function(x,y,z) {
+        
+    });
 }
 
 Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
+    var n = this, 
     c = isNaN(c = Math.abs(c)) ? 2 : c, 
     d = d == undefined ? "." : d, 
     t = t == undefined ? "," : t, 
     s = n < 0 ? "-" : "", 
     i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
     j = (j = i.length) > 3 ? j % 3 : 0;
-   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
- };
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
 
 function change_load(vto,vtabla,vval,vset){
     if (vto != '') {
@@ -775,64 +776,64 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
         data: {accion:4,arreglo:varr},
     }).done(function (results) {
         results = JSON.parse(results);
-    var labels = [], data=[];
+        var labels = [], data=[];
 
-    results[0].forEach(function(packet) {
-      labels.push(packet[1]);
-      data.push(packet[0]);
-    });
+        results[0].forEach(function(packet) {
+          labels.push(packet[1]);
+          data.push(packet[0]);
+      });
 
-    var config1 = {
-        type: tipo,
-        data: {
-            labels: labels,
-            datasets: [{
-                label: etiqueta,
-                data: data,
-                 backgroundColor: [
-                'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(255, 99, 132)',
-                'rgb(255, 159, 64)'
-                ],
-                borderColor: [
+        var config1 = {
+            type: tipo,
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: etiqueta,
+                    data: data,
+                    backgroundColor: [
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(255, 206, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)'
+                    ],
+                    borderColor: [
                     'rgba(54, 162, 235, 1)',
                     'rgba(153, 102, 255, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(255,99,132,1)',
                     'rgba(255, 159, 64, 1)'
-                ]
-            }],
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'top',
+                    ]
+                }],
             },
-            title: {
-                display: true,
-                text: texto
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: texto
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
             },
-            animation: {
-                animateScale: true,
-                animateRotate: true
-            },
-        },
-    };
+        };
 
-    switch(tipo){
-        case 'bar':
+        switch(tipo){
+            case 'bar':
             config1['options']['scales'] = {yAxes:[{ticks:{beginAtZero:true,}}]}
             break;
-        default:
+            default:
             break;
-    }
-    var ctx = document.getElementById(elemento).getContext("2d");
-    var myLineChart = new Chart(ctx,config1);
-  });
+        }
+        var ctx = document.getElementById(elemento).getContext("2d");
+        var myLineChart = new Chart(ctx,config1);
+    });
 };
 
 function doreport() {
@@ -848,10 +849,14 @@ function doreport() {
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
-                search[i] = '"1990-01-01"';
+                if ( $("#"+datos[i]).val()=='' ){
+                    search[i] = '"1990-01-01"';
+                }else{
+                    console.log($("#"+datos[i]).val())
+                    search[i] = '"'+$("#"+datos[i]).val()+'"';
+                }
             }else{
                 search[i] = '"'+$("#"+datos[i]).val()+'"';
             }
@@ -859,20 +864,24 @@ function doreport() {
             if ($("#"+datos[i]).val() == '') {
                 search[i] = "''";
             }else{
+                
+                search[i] = $("#"+datos[i]).val();    
                 $("#chk"+datos[i].substr(3)).is(":checked") == false ? $("#"+datos[i]).val(0) : true;
-                search[i] = $("#"+datos[i]).val();
+
             }
         }
 
         if (datos[i] == 'vidsucursal')
             search[i] = '@@impresa';
     }
+
     var string = elem.concat(search);
     $.each(string,function(index){
         atributos += string[index]+',';
-    });
+    });  
     atributos = atributos.substr(0,atributos.length-1);
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
+    console.log(atributos)
 }
 
 $(document).on("change","._det",function(){
@@ -956,7 +965,7 @@ function cargarMoneda(idmoneda,elemento){
     var moneda = getDatos('nombre,simbolo,valor+suma as valor,id',54,'if( '+idmoneda+' = 0,principal = 1,id = '+idmoneda+')',0,0)[0][0];
 
     elemento.html('<b>'+moneda[1]+'</b>');
-   
+    
     if (idmoneda != 0) {
         var valor = elemento.first().data("triforce")["valor"];
         var pmonto = parseFloat(moneda[2]);
@@ -992,11 +1001,11 @@ function paginate(vtbl,len) {
     $(".pagination").html('');
     var countpag = 0;
     if (len == undefined) {
-        countpag = arr('login',4,'',vtbl,'0,1,"",0',0,0,0)[0][0];
+        countpag = arr('login',4,'',vtbl,'0,1,"",""',0,0,0)[0][0];
     }else
-        countpag = len;
+    countpag = len;
 
-    console.log(Math.ceil(countpag))
+    console.log("count: "+countpag)
     
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
@@ -1008,9 +1017,10 @@ function paginate(vtbl,len) {
         for (var i = 1; i <= Math.ceil(countpag); i++) {
             i = parseInt(i);
             if (i == 1)
-                $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0"><a href="#!">' + i + '</a></li>');
+                $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0,10"><a href="#!">' + i + '</a></li>');
             else
-                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+                $(".pagination").append('<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
+            
             $(".pagination").attr('ultimo', i);
         }
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
@@ -1028,8 +1038,7 @@ $(document).on("click", ".paginate", function () {
     $(this).addClass('active');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
-    
-    arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+    arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1046,6 +1055,7 @@ $(document).on("click", ".nxt", function () {
     var vtbl = $("ul.pagination").attr('vtbl');
     var ultimo = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
+    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var next = id + 1;
     var pags = next - 8;
@@ -1054,13 +1064,13 @@ $(document).on("click", ".nxt", function () {
         pags = 1;
 
     if (ultimo == id) {
-        var count = arr('login',4,'',vtbl,'0,1,"",0',0,0,0)[0][0];
-        // var count = arr('login',4,'truncate(count(vid)/10,2)',vtbl,'vid > 0',0,0,0)[0][0];
+        var count = arr('login',4,'',vtbl,'0,1,"'+filtro+'",""',0,0,0)[0][0];
         if (Math.ceil(count) != ultimo) {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
                 i = parseInt(i);
-                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+                console.log("i: "+i)
+                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
                 if (i == next)
                     $(".pagination").attr('ultimo', i);
             }
@@ -1071,7 +1081,7 @@ $(document).on("click", ".nxt", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             tabla.destroy();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit+'"', cambio, 1, $("#lista"+modulo));
             // arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
@@ -1090,7 +1100,7 @@ $(document).on("click", ".nxt", function () {
         var tabla = $("#data-table-"+modulo).DataTable();
         tabla.destroy();
         var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-        arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+        arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
         $("#data-table-"+modulo).DataTable({
             bFilter: false,
             bScrollInfinite: true,
@@ -1120,7 +1130,7 @@ $(document).on("click", ".prv", function () {
                 if (prv != 0) {
                     for (var i = prv; i <= prev; i++) {
                         i = parseInt(i);
-                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="' + (i - 1) + '0"><a href="#!">' + i + '</a></li>');
+                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
                         if (i == prev)
                             $(".pagination").attr('ultimo', i);
                     }
@@ -1135,7 +1145,7 @@ $(document).on("click", ".prv", function () {
                 var tabla = $("#data-table-"+modulo).DataTable();
                 var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+                arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1152,7 +1162,7 @@ $(document).on("click", ".prv", function () {
                 var tabla = $("#data-table-"+modulo).DataTable();
                 var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+                arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1170,7 +1180,7 @@ $(document).on("click", ".prv", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             tabla.destroy();
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit, cambio, 1, $("#lista"+modulo));
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,
@@ -1213,10 +1223,10 @@ $(document).on('click','.del_phone',function(){
 function autocomplete(charCode,charStr,nom,tabla) {
     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
         $(".autocomplete-content").remove();
-            $("#"+nom).autocomplete({
-                limit: 10,
-                data: arr('login',4,'',tabla,'nombre like \"%'+$("#"+nom).val()+'%\" limit 10',0,0,0,1)
-            }); 
+        $("#"+nom).autocomplete({
+            limit: 10,
+            data: arr('login',4,'',tabla,'nombre like \"%'+$("#"+nom).val()+'%\" limit 10',0,0,0,1)
+        }); 
         $("#"+nom).siblings($(".autocomplete-content")).css('width','25%');
     }
 }

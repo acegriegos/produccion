@@ -24,6 +24,7 @@ $(function(){
                 $("#mantproduccion").removeClass('nopadding');
                 setTimeout(function(){$("#vnombre").focus()},200);
                 Materialize.updateTextFields();
+                paginate($("ul.pagination[modulo=procesos]").attr('vtbl'));
                 break;
             case 2:
                 $("#mantproduccion").html('');
@@ -41,6 +42,7 @@ $(function(){
                 $("#ftareaproducciones .zelda").data('triforce',{vidusuario:'',vidsucursal:''});
                 setTimeout(function(){$("#vnombre").focus()},200);
                 // setTimeout(function(){$("#vproceso").focus()},200);
+                paginate($("ul.pagination[modulo=tareaproducciones]").attr('vtbl'));
                 break;
             case 3:
                 $("#mantproduccion").html('');
@@ -251,7 +253,7 @@ $(document).on("click",".productline",function(){
     var tata = parseInt($(this).parent().attr('id').substr(2));
     switch(tata) {
         case 1:
-            arr('login',6,'id,nombre,horahombre,horamaquina',134,'id > 0 order by nombre limit 10',0,1,$("#listatareaproducciones"));
+            arr('login',6,'',180,'0,0,"","0,10"',0,1,$("#listatareaproducciones"));
             $("#vnombre").focus();
             break;
         case 2:
@@ -447,9 +449,14 @@ $(document).on("keyup","#vproceso",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
         var nombre = $(this).val();
-        var proceso = arr('login',4,'',139,'\"'+nombre+'\"',0,0,0)[0];
-        if (proceso[0][2] == null) {
-            if (proceso != '') {
+        var proceso = arr('login',4,'',139,'0,0,"'+nombre+'"',0,0,0);
+        console.log(proceso['succed'])
+        return false;
+        if (nombre != '') {
+            // if (proceso[0][0]) {
+
+            // }
+            if (proceso[0][2] == null) {
                 $("#drecipe").addClass('hide');
                 $(".dcline").removeClass('hide');
                 $("#tablelineas").removeClass('hide');
@@ -459,19 +466,24 @@ $(document).on("keyup","#vproceso",function(e){
                 $(this).val('');
                 $("#atarea").focus();
             }else{
-                   Materialize.toast('Proceso "'+nombre+'" no Existente', 4000, 'red');
+                 Materialize.toast('Ya existe una linea de produccion asignada a esta proceso', 6000, 'amber lighten-2');
+                 $(this).val('');
             }
-        }else{
-             Materialize.toast('Ya existe una linea de produccion asignada a esta proceso', 6000, 'amber lighten-2');
-             $(this).val('');
-        }
+        } 
     }
 });
 
 $(document).on("keydown","#vproceso",function(e){
     var charCode = e.which || e.keyCode;
     var charStr = String.fromCharCode(charCode);
-    autocomplete(charCode,charStr,'vproceso',99);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+            $("#vproceso").autocomplete({
+                limit: 10,
+                data: arr('login',4,'',139,'0,1,"'+$("#vproceso").val()+'"',0,0,0,1)
+            }); 
+        $("#vproceso").siblings($(".autocomplete-content")).css('width','25%');
+    }
 });
 
 // $(document).on("keyup","#anombre",function(e){
@@ -504,6 +516,13 @@ $(document).on("click",".load[modulo=lineaproduccione]",function(){
     $("#actlinea").removeClass('add');
     $("#actlinea").addClass('edit');
     $("#actlinea").text('save');
+});
+
+$(document).on("click",".load[modulo=tareaproduccione]",function(){
+    $("#addlinea").attr('id','actlinea');
+    $("#actlinea").removeClass('add');
+    $("#actlinea").addClass('edit');
+    $("#actlinea").text('Guardar');
 });
 
 $(document).on("click","#actlinea",function(){
@@ -630,7 +649,7 @@ $(document).on("keydown",".vproducto",function(e){
         $(".autocomplete-content").remove();
             $('#'+tipo+'producto').autocomplete({
                 limit: 10,
-                data: arr('login',4,'',77,'0,0,1,"'+$(this).val()+'"',0,0,0,1)
+                data: arr('login',4,'',199,'0,1,"'+$(this).val()+'"',0,0,0,1)
             });
         $('.'+tipo+'producto').siblings($(".autocomplete-content")).css('width','25%');
     }
@@ -668,29 +687,21 @@ $(document).on("keyup",".vcantidad",function(e){
 $(document).on("click",".addproduct",function(){
     var tipo = $(this).attr('tipo');
     var nombre = $("#"+tipo+"producto").val();
-    if (nombre.substr(0,1) != '[') {
-        nombre = nombre.substr(0,nombre.indexOf('-'));
-    }else{
+    if (nombre.substr(0,1) == '[') {
         nombre = nombre.substring(0, nombre.indexOf(' - ')).replace('[SERV] ','');
     }
     var cantidad = $("#"+tipo+"cantidad").val();
     var idunidad = $("#"+tipo+"idunidad").val();
     var medida = $("#"+tipo+"idunidad option:selected").attr('unidad');
     var prod = arr('login',4,'',116,'0,"'+nombre+'"',0,0,0);
-    // id,replace(precio,",","") as precio
     if (prod['succed'] == 1) {
         if (prod[0][0] != undefined) {
             prod = prod[0][0]
             var precio = convert(prod[0],cantidad,idunidad,prod[3]);
             addproduct(nombre,cantidad,idunidad,medida,precio,tipo);
-        }else{
-
         }
-
-
     }else{
         Materialize.toast('Nombre de Producto no Valido', 4000, 'red');
-
         $("#"+tipo+"cantidad").val('');
         $("#"+tipo+"producto").select();
     }
@@ -768,7 +779,7 @@ $(document).on("click",".accdelrec",function(){
     var id = $(this).attr('id').substr(9);
     $('#toast-container').remove();
     // arr('login',4,'',120,'3,'+id+',"",0,0,0',0,0,0);
-    arr('login',6,'idproceso,producto,precioventa',99,'id > 0 order by nombre limit 20',0,1,$("#listaprocesos"));
+    arr('login',6,'',99,'0,0,"","0,10"',0,1,$("#listaprocesos"));
 
 });
 
@@ -788,12 +799,13 @@ $(document).on("click",".saveproceso",function(){
             idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+(total * ((imp/100)+1) )+',0,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
             adddetail(idproceso,tipo,1);
         }else{
+            var inv = arr('login',4,'id',97,'idproducto = '+id+' and idinventario = 7',0,0,0)[0][0];
+            if (inv == undefined) {
+                arr('login',7,'1',97,'','null,7,'+id+',0',0,0);
+            }
             adddetail(id,tipo);
-            // var inv = arr('login',4,'id',97,'idproducto = '+id+' and idinventario = 7',0,0,0)[0][0];
-            // if (inv == undefined) {
-            //     arr('login',7,'1',97,'','null,7,'+id+',0',0,0);
-            // }
         }
+        paginate($("ul.pagination[modulo=procesos]").attr('vtbl'));
         return false;
     }else{
         Materialize.toast('Es necesario agregar productos al proceso', 6000, 'orange lighten-2');
@@ -819,7 +831,7 @@ function adddetail(id,tipo,chk) {
             arr('login',4,'',121,'1,0,'+id[0][0]+','+idproducto+','+cantidad+','+idunidad+',@@usr,@@impresa',0,0,0);
             // }
         });
-        arr('login',6,'idproceso,proceso,precioventa',99,'idproceso > 0 order by proceso limit 20',0,1,$("#listaprocesos"));
+        arr('login',6,'',99,'0,0,"","0,10"',0,1,$("#listaprocesos"));
         $("#"+tipo+"makerecipe").html('');
         $("#vnombre").val('');
         $("#vcodigo").val('');
@@ -859,9 +871,9 @@ $(document).on("click",".actrecipe",function(){
         }else{
             Materialize.toast(idproceso[0]['ERROR'], 6000, 'red');
         }
-        arr('login',6,'idproceso,proceso,precioventa',99,'idproceso > 0 order by proceso limit 20',0,1,$("#listaprocesos"));
+        arr('login',6,'',99,'0,0,"","0,10"',0,1,$("#listaprocesos"));
         $("#amakerecipe").html('');
-
+        paginate($("ul.pagination[modulo=procesos]").attr('vtbl'));
     }else{
         Materialize.toast('Es necesario agregar productos al proceso', 6000, 'orange lighten-2');
     }
@@ -869,7 +881,7 @@ $(document).on("click",".actrecipe",function(){
 
 $(document).on("click",".editproceso",function(){
     var id = $(this).attr('id').substr(1);
-    var vproceso = arr('login',4,'idproceso,proceso,codigo,precioventa,preciocosto',99,'idproceso = '+id,0,0,0)[0][0];
+    var vproceso = arr('login',4,'',99,id+',0,"","0,1"',0,0,0)[0][0];
     var detalle = arr('login',4,'',119,id,0,0,0)[0];
     var rnombre = vproceso[1].replace(/\s+/g, '');
     var count = parseInt($("#count").val());
@@ -883,10 +895,10 @@ $(document).on("click",".editproceso",function(){
     $("#spot").val(id);
     $("#count").val(count);
     $("#amakerecipe").html('');
-    $("#amakerecipe").append('<div class="col s12 m12 l12 recipes" id="ar'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="aproductos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="atitproceso'+id+'" class="titrecipe but">'+vproceso[1]+'</span> - [Cod: <span id="acodproceso'+id+'">'+vproceso[2]+'</span>]<i class="material-icons deltit right pbtn cdel btn-color" id="adt'+id+'">close</i><i class="material-icons actrecipe right pbtn blueh btn-color" id="aar'+id+'">save</i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="atotal'+id+'">¢ '+vproceso[4]+'</span><input type="hidden" id="ahtotal'+id+'" value="'+vproceso[4]+'"></h4></div></div></div></div>');
+    $("#amakerecipe").append('<div class="col s12 m12 l12 recipes" id="ar'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="aproductos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="atitproceso'+id+'" class="titrecipe but">'+vproceso[1]+'</span> - [Cod: <span id="acodproceso'+id+'">'+vproceso[2]+'</span>]<i class="mdi mdi-close deltit right pbtn cdel btn-color" id="adt'+id+'"></i><i class="mdi mdi-content-save actrecipe right pbtn blueh btn-color" id="aar'+id+'"></i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="atotal'+id+'">¢ '+vproceso[4]+'</span><input type="hidden" id="ahtotal'+id+'" value="'+vproceso[4]+'"></h4></div></div></div></div>');
     for (var i = 0, len = detalle.length; i < len; i++) {
         precioconv = convert(detalle[i][1],detalle[i][5],detalle[i][8],detalle[i][4]);
-        $("#aproductos"+id).append('<li class="collection-item dismissable" id="ap'+detalle[i][1]+'"><div id="agroupprodcts'+detalle[i][1]+'"><span id="aprod'+detalle[i][1]+'" class="aproduct">'+detalle[i][3]+'</span><input type="hidden" id="aprec'+detalle[i][1]+'" spot="'+id+'" value="'+precioconv+'"> - Cantidad: <span id="acant'+detalle[i][1]+'">'+detalle[i][5]+'</span> (<span id="aidmedida'+detalle[i][1]+'" medida="'+detalle[i][8]+'">'+detalle[i][7]+'<span>)<i class="material-icons right red-text del but" id="ad'+detalle[i][1]+'">close</i></div></li>');
+        $("#aproductos"+id).append('<li class="collection-item dismissable" id="ap'+detalle[i][1]+'"><div id="agroupprodcts'+detalle[i][1]+'"><span id="aprod'+detalle[i][1]+'" class="aproduct">'+detalle[i][3]+'</span><input type="hidden" id="aprec'+detalle[i][1]+'" spot="'+id+'" value="'+precioconv+'"> - Cantidad: <span id="acant'+detalle[i][1]+'">'+detalle[i][5]+'</span> (<span id="aidmedida'+detalle[i][1]+'" medida="'+detalle[i][8]+'">'+detalle[i][7]+'<span>)<i class="mdi mdi-close mdi-24px right red-text del but" id="ad'+detalle[i][1]+'"></i></div></li>');
     }
     $("#adaddprod").removeClass('hide');
 
@@ -962,18 +974,12 @@ function chargeprod(prod) {
 }
 
 function addprodline(tipo) {
-    // if (tipo == 'a') {
-    //     tabla = "listadetalles";
-    // }else if (tipo == 'b') {
-    //     tabla = "listadetprod";
-    // }else{
-    //     tabla = "listaasstp";
-    // }
     var tabla = "lista"+tipo;
     var pass = 1;
     var nombre = $("#"+tipo+"tarea").val();
     var count = parseInt($("#"+tipo+"autoinc").val());
-    var tsk = arr('login',4,'id,nombre,hombre,maquina,bandejas',180,'nombre = \"'+nombre+'\"',0,0,0)[0];
+    var tsk = arr('login',4,'',180,'0,0,"'+nombre+'","0,1"',0,0,0)[0];
+    console.log(tsk)
     var validar = validateprodline(tipo);
     if (tsk != '') {
         if (validar == false) {
@@ -1151,6 +1157,7 @@ function totalizar(id,ganancia,manoobra) {
 }
 
 function addproduct(nombre,cantidad,idmedida,medida,precio,tipo) {
+    
     var id = $("#"+tipo+"spot").val();
     var idproducto = arr('login',4,'id',11,'nombre = "'+nombre+'"',0,0,0)[0][0];
     var prectot = 0;
@@ -1162,12 +1169,11 @@ function addproduct(nombre,cantidad,idmedida,medida,precio,tipo) {
             var idprod = $(this).attr('id').substr(5);
             if ($("#"+tipo+"prec"+idprod).attr('spot') == id && idprod == idproducto) {
                 validac = 0;
-            }else{
-                return false;
             }
         });
         // fin validacion
         if (validac == 1) {
+            console.log(tipo+" "+id)
             $("#"+tipo+"productos"+id).append('<li class="collection-item dismissable" id="'+tipo+'p'+idproducto+'"><div id="'+tipo+'groupprodcts'+idproducto+'"><span id="'+tipo+'prod'+idproducto+'" class="'+tipo+'product">'+nombre+'</span><input type="hidden" id="'+tipo+'prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="'+tipo+'cant'+idproducto+'">'+cantidad+'</span> (<span id="'+tipo+'idmedida'+idproducto+'" medida="'+idmedida+'">'+medida+'<span>)<i class="mdi mdi-close mdi-24px right red-text del but" id="'+tipo+'d'+idproducto+'"></i></div></li>');
         }else{
             cantidad = parseFloat($("#"+tipo+"cant"+idproducto).text()) + parseFloat(cantidad);
@@ -1367,9 +1373,9 @@ function cargarSintax(vtabla){
             break;
         case 'tareaproducciones':
             var arr = {};
-            arr['sel'] = 'id,nombre,hombre,maquina,bandejas';
+            arr['sel'] = '';
             arr['tbl'] = 180;
-            arr['where'] = 'id > 0 order by nombre limit 20';
+            arr['where'] = '0,0,"","0,10"';
             break;
     }
     return arr;
@@ -1385,5 +1391,5 @@ function endDetail(id,acc,modulo) {
             $("#vnombre").focus();
             break;
     }
-
+    paginate($("ul.pagination[modulo=procesos]").attr('vtbl'));
 }

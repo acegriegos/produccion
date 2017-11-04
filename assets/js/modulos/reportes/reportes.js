@@ -1,6 +1,7 @@
 $(function(){
     var html = '';
     var mdate;
+
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
@@ -8,8 +9,9 @@ $(function(){
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
+        var pc = parseInt($(".principal .filtros").attr('bisprov')) ? 'Proveedor' : 'Cliente';
 
-        html = '<div class="row col s6 rous"><div class="col s12"><input type="checkbox" id="chkcliente" value="3" class="repcheck"><label for="chkcliente" class="pbtn">Por Cliente</label></div><div class="col s12 '+mdate+'" id="fltr3"><div class="input-field"><label for="cliente" class="width:100%">Nombre</label><input type="text" class="validate init eder autocomplete" id="cliente"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
+        html = '<div class="row col s6 rous"><div class="col s12"><input type="checkbox" id="chkcliente" value="3" class="repcheck"><label for="chkcliente" class="pbtn">Por '+pc+'</label></div><div class="col s12 '+mdate+'" id="fltr3"><div class="input-field"><label for="cliente" class="width:100%">Nombre</label><input type="text" class="validate init eder autocomplete" id="cliente"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
 
         $(".principal .filtros").append(html);
 
@@ -20,7 +22,7 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#cliente").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2),null',2,'concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" limit 10',0,0,0,1)
+                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2),null',2,'id >0 and bisproveedor='+$(".principal .filtros").attr('bisprov')+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\"limit 10',0,0,0,1)
                 });
                 $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -107,7 +109,7 @@ $(document).on("blur","#usuario",function(){
 
 $(document).on("click",".detail",function(){
     var id = $(this).attr('id').substr(2);
-    $("#dt"+id).text('[ - ]');
+    $("#dt"+id).text('[-]');
     $(this).removeClass('detail');
     $(this).addClass('lessdetail')
     $("#xa"+id).removeClass('hide');

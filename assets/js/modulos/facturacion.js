@@ -104,6 +104,7 @@ $(document).ready(function(){
             line += 1;
             $('#h_'+id).remove();
         });
+
         $("#ncli").val(vf[1]);
         $("#ncli").prop('readonly',true);
         $(".zelda").data('triforce')['idline'] = line;
@@ -399,6 +400,45 @@ function cargarGlobal(){
 
         }
     });
+
+    $(document).on("keyup",".rubro",function(e){
+        var code = e.which || e.keyCode
+        if (code == 13){
+            $(this).blur();
+        }                    
+    });
+    
+    $(document).on("blur",".rubro",function(e){
+        var id = $(this).attr('id').substr(5);
+        $("#precd"+id).focus().select();           
+    });
+
+    $(document).on("keyup",".precd",function(e){
+        var code = e.which || e.keyCode
+        if (code == 13){
+            $(this).blur();
+        }                    
+    });
+    
+    $(document).on("blur",".precd",function(e){
+        var id = $(this).attr('id').substr(5);
+        $("#fd"+id).data('triforce')['vprecio'] = $(this).val();
+        
+        $("#cantd"+id).focus();          
+    });
+
+     $(document).on("keyup",".cantd",function(e){
+        var code = e.which || e.keyCode
+        if (code == 13){
+            $(this).blur();
+        }                    
+    });
+    
+    $(document).on("blur",".cantd",function(e){
+        totalizar();
+        $("#codp").focus();           
+    });
+
 }//cargar GLOBAL
 
 function gkeydown(){

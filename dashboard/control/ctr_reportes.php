@@ -28,7 +28,7 @@
 				$scr = $smarty->fetch('../view/scripts.php');
 				$smarty->assign('STY',$sty);
 				$smarty->assign('SCR',$scr);
-				$smarty->assign('MIS',$kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")'));
+				$smarty->assign('MIS',$kakaroto->kamehameha('',50,'@@impresa')[0]);
 	            $smarty->display('reportes/'.$_REQUEST['rep'].'.tpl');
 	   			break;
 	   		case 2:

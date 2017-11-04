@@ -287,7 +287,18 @@ $(document).on("click","#btnAjuste",function(){
 });
 
 $(document).on("click",".addesgloce",function(){
+    var id = parseInt($(".zelda").data('triforce')['idline'])+1;
+    var vidprod = $(this).parent().parent().data("triforce")['videntrada'];
+
+    $(".zelda").data('triforce')['idline'] = id;
     
+    $('<tr id="fd'+id+'" class="ciclos"><td style="padding: 0.2%"></td><td class="center" id="codprod'+id+'" colspan="2"> <i class="mdi mdi-subdirectory-arrow-right" style="float:left;"></i> <input type="text" placeholder="RUBRO" style="width:85%;margin: 0px;" id="rubro'+id+'" class="rubro"/> </td> <td class="center divisa" id="prec'+id+'"> <input type="text" value="0" class="eder precd" id="precd'+id+'" style="margin: 0px;" /> </td> <td id="unitprod'+id+'"> <select id="unid'+id+'" class="unid" readonly style="margin: 0px;"><option>UN</option></select> </td> <td class="center"> <div id="divcnt" class="form-group"><input type="text" value="1" class="eder cantd" id="cantd'+id+'" style="margin: 0px;" /></div></td><td class="center totp divisa" id="tota'+id+'">0</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="0" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></td> </tr>').insertAfter($(this).closest('tr'));
+
+    $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:vidprod, vcantidad:0, vprecio:0, vdesc:0, vtotal:0, vidinventario:0,vidodt : 0,vimv:0,vcomodin:''});
+    
+    $("#rubro"+id).focus();
+    $("#unid"+id).material_select();
+    $("#fdetallefacturas .select-wrapper input.select-dropdown").css('margin','0px');
 });
 
 
@@ -381,11 +392,7 @@ function totalizar(){
     desc = isNaN(parseFloat(desc)) || parseFloat(desc) == '' ? 0 : parseFloat(desc);
     ajuste = isNaN(parseFloat(ajuste)) || parseFloat(ajuste) == '' ? 0 : parseFloat(ajuste);
 
-    if ($(".totp").length == 0)
-         $("[id^=imv_").each(function(){    
-            $(this).html('0.00')
-        });
-    else
+    $("[id^=imv_").html('0.00')
 
     $(".totp").each(function(){
         var vidlinea = $(this).prop('id').substr(4);
@@ -410,7 +417,8 @@ function totalizar(){
         $("[id^=imv_").each(function(){
             var incl = $(this).data('incl');
             var idimv = $(this).prop('id').substr(4);
-            incl = incl.indexOf('*') === -1 ? incl.indexOf(vid+",") : 0;
+
+            incl = incl.indexOf('*') === -1 ? incl.indexOf(vid+",") : -1;
             
             if(incl !== -1){
                 var im0 = parseFloat($(this).data('imv'));
@@ -604,6 +612,7 @@ function cargarProducto(kbrota,elemento) {
 
     if (cod[0][0] != undefined) {
         var fimv = cod[0];
+
         cod = cod[0][0];
         $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17]})
         $("#codp").val(cod[1]);
@@ -632,10 +641,10 @@ function cargarProducto(kbrota,elemento) {
 
                     $("#sh_imp").append('<tr id="imp_'+fimv[i][6]+'" '+clip+'><td>'+fimv[i][10]+' ['+(0+exo).toFixed(2)+'%]:</td><td style="float: right;"><span class="moneda"><b>'+sm+'</b></span><span id="imv_'+fimv[i][6]+'" type="html" class="divisa">0.00</span></td></tr>');
                     $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
-                    $("#imv_"+fimv[i][6]).data('incl',fimv[i][0]+",");
+                    $("#imv_"+fimv[i][6]).data('incl',cod[0]+",");
                 }else{
                     var incl = $("#imv_"+fimv[i][6]).data('incl');
-                    $("#imv_"+fimv[i][6]).data('incl',incl+fimv[i][0]+",");
+                    $("#imv_"+fimv[i][6]).data('incl',incl+cod[0]+",");
                     $("#imv_"+fimv[i][6]).data('imv'+fimv[i][0],exo);
                 }
                 
@@ -686,8 +695,8 @@ function searchClient(vvariable,visprv){
             $("#chg_tipo").removeAttr('disabled');
         }
         else{
-            $("#chg_tipo").val(2);
-            $("#chg_tipo").click();
+            // $("#chg_tipo").val(2);
+            // $("#chg_tipo").click();
             $("#chg_tipo").attr('disabled','true')
         }
 
@@ -732,7 +741,7 @@ function searchClient(vvariable,visprv){
         if($("#imp_"+clie[0][i][5]).length == 0){
             var exo = clie[0][i][7]*(1-(clie[0][i][8]/100));
             var clip = incl = '';
-            if(clie[0][i][10] != 0) {incl = "*";clip = 'vclip="'+clie[0][0][0]+'"';}
+            if(clie[0][i][10] != 0) {incl = "";clip = 'vclip="'+clie[0][0][0]+'"';}
 
             var sm = $(".moneda").first().data("triforce")['simbolo'];
 

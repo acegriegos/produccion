@@ -1,33 +1,75 @@
 $(function(){
 	arr('login',6,'sum(contador) as pendientes,fecha',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
+	// arr('login',6,'',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
 
 	$('.chips').material_chip();
 
-	$("#data-table-facturas").dataTable({
-        bFilter :  false,
-        bLengthChange : false,
-        order : []
-    });
+	$("#data-table-facturas").DataTable({
+	    bFilter: false,
+	    bScrollInfinite: true,
+	    bSort: false,
+	    bLengthChange: false,
+	    order: [],
+	    bPaginate: false,
+	    info: false
+	});
 
-    $("#data-table-estadocuenta").dataTable({
-        bFilter :  false,
-        bLengthChange : false,
-        order : []
+    $("#data-table-estadocuenta").DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
     });
 
     Materialize.updateTextFields();
 
 });
 
+$(document).on("click","#refresh",function(){
+	var tabla1 = $("#data-table-facturas").DataTable();
+	var tabla2 = $("#data-table-estadocuenta").DataTable();
+	tabla1.destroy();
+	tabla2.destroy();
+	arr('login',6,'sum(contador) as pendientes,fecha',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
+	$("#data-table-facturas").DataTable({
+	    bFilter: false,
+	    bScrollInfinite: true,
+	    bSort: false,
+	    bLengthChange: false,
+	    order: [],
+	    bPaginate: false,
+	    info: false
+	});
+	$("#data-table-estadocuenta").DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+	$("#tcontado").text('0.00');
+	$("#tcredito").text('0.00');
+	$("#tabono").text('0.00');
+	$("#tnotcre").text('0.00');
+	$("#tnotdeb").text('0.00');
+	$("#chkcierre").removeAttr('vfecha');
+});
+
 $(document).on("click","#chkcierre",function(){
 	if ($(this).attr('vfecha') != undefined)
-		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="fa fa-times"></i></button>', 10000, 'rounded');
+		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 	else
 		Materialize.toast('Seleccione un cierre', 4000, 'green');
 });
 
 $(document).on("click","#docierre",function(){
 	var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
+	console.log(idfactura);
 	var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 	var idcierre = arr('login',4,'',189,'@@usr,"'+$(this).attr('vfecha')+'",@@impresa',0,0,0)[0][0];
 
@@ -53,15 +95,16 @@ $(document).on("click",".getfacturas",function(){
 	var date = new Date();
 	var curdate = date.getFullYear()+'-'+addZero(date.getMonth()+1,2)+'-'+addZero(date.getDate(),2);
 	var fecha = $(this).attr('vfecha') == 'HOY' ? curdate : $(this).attr('vfecha');
+	
 	$("#chkcierre").attr('vfecha',fecha);
 	arr('login',6,'',183,'"'+fecha+'",@@usr',0,1,$("#listafacturas"));
 	arr('login',6,'',185,'"'+fecha+'",@@usr',0,1,$("#listanotasabonos"));
 	// cambiar
 	var totcont = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idusuario = @@usr and idtipoventa = 1 and idtipo = 1 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
 	var totcred = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idusuario = @@usr and idtipoventa = 1 and idtipo = 2 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
-	var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and idusuario = @@usr',0,0,0)[0][0][0];
-	var tnotcre = arr('login',4,'monto',187,'idusuario = @@usr',0,0,0)[0][0];
-	var tnotdeb = arr('login',4,'monto',188,'idusuario = @@usr',0,0,0)[0][0];
+	var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
+	var tnotcre = arr('login',4,'monto',187,'idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0];
+	var tnotdeb = arr('login',4,'monto',188,'idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0];
 	// end cambiar
 	if (totcont != null)
 		$("#tcontado").text(totcont);
@@ -95,10 +138,10 @@ $(document).on("click","#filtro",function(){
 
 $(document).on("click","#order",function(){
 	if ($(this).attr('value') == 1) {
-		arr('login',6,'pendientes,fecha',182,'1 order by fecha asc',0,1,$("#listacierrespendientes"));
+		arr('login',6,'contador,fecha',182,'idusuario = @@usr order by fecha asc',0,1,$("#listacierrespendientes"));
 		$("#order").attr('value',2);
 	}else{
-		arr('login',6,'pendientes,fecha',182,'1 order by fecha desc',0,1,$("#listacierrespendientes"));
+		arr('login',6,'contador,fecha',182,'idusuario = @@usr order by fecha desc',0,1,$("#listacierrespendientes"));
 		$("#order").attr('value',1);
 	}
 });
@@ -106,18 +149,15 @@ $(document).on("click","#order",function(){
 $(document).on("keyup","#vfecha",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		console.log("asd")
 		var fecha = $(this).val();
-		var dates = arr('login',6,'pendientes,fecha',182,'fecha = "'+fecha+'" or date_format(fecha,"%d/%m/%Y") = "'+fecha+'"',0,1,$("#listacierrespendientes"));
-		console.log(dates)
-		console.log(1)
+		var dates = arr('login',6,'contador,fecha',182,'fecha = "'+fecha+'" or date_format(fecha,"%d/%m/%Y") = "'+fecha+'"',0,1,$("#listacierrespendientes"));
 		$("#vfecha").focus();
 	}
 });
 
 $(document).on("change","#vfecha",function(e){
 	var fecha = $(this).val();
-	arr('login',6,'pendientes,fecha',182,'fecha = "'+fecha+'" or date_format(fecha,"%d/%m/%Y") = "'+fecha+'"',0,1,$("#listacierrespendientes"));
+	arr('login',6,'contador,fecha',182,'fecha = "'+fecha+'" or date_format(fecha,"%d/%m/%Y") = "'+fecha+'"',0,1,$("#listacierrespendientes"));
 	$("#vfecha").focus();
 });
 
