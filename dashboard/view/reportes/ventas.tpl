@@ -41,9 +41,10 @@
         <td class="white-text blue sinborde" style="text-align: center"><b>Fecha</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Cliente</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Tipo</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Monto</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Descuento</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>I.V.</b></td>
+                <td class="white-text blue sinborde" style="text-align: center"><b>Monto</b></td>
+
       </tr>
       </thead>
       <tbody class="detrep"></tbody>
