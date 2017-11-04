@@ -18,4 +18,4 @@
 	$(function(){
 	    permisos(310,311);
 	})
-</script
+</script>

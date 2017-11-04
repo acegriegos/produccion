@@ -28,7 +28,7 @@
             <font size="2.5">
               <b><span id="fnombre"><?php echo $miscelaneos[0]; ?></span></b><br>
               <?php if ($miscelaneos[2]) 
-                echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+              echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
               <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
@@ -100,192 +100,193 @@
         <table class=" bordered  dt-responsive nowrap " style="border: 0px; font-size: 1.1em;" id="detalle">
           <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
             <tr>
-              <th class="center-align sinborde" id="th1">Cantidad</th>
-              <th class="center-align sinborde" id="th2">Descricpión</th>
-              <th class="center-align sinborde" id="th3">P. Unit</th>
-              <th class="center-align sinborde" id="th6">Tipo</th>
-              <th class="center-align sinborde" id="th4">Descuento</th>
-              <th class="center-align sinborde" id="th5">Importe</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Cantidad</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descricpión</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">P. Unit</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Tipo</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">Descuento</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th5">Importe</th>
             </tr>
           </thead>
           <tbody id="ftbody">
             <?php $grabado = $exento = 0; foreach ($transaccion as $obj) {
+
               if ($obj[28] > 0) 
-                $grabado += str_replace(',', '', $obj[20]);
+                $grabado += str_replace(',', '', $obj[20])*$obj[18];
               else
-                $exento += str_replace(',', '', $obj[20]);?>
+                $exento += str_replace(',', '', $obj[20])*$obj[18];?>
 
-            <tr class="tr" >
-              <td class="flista1 td center-align"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
-              <td class="flista2 td center-align"><span id="desc"><?php echo $obj[19]; ?></span></td>
-              <td class="flista3 td center-align"><span id="punit"><?php echo $obj[20]; ?></span></td>
-              <td class="flista4 td center-align"><span id="desc"><?php echo $obj[23]; ?></span></td>
-              <td class="flista5 td center-align"><span id="desc"><?php echo $obj[21]; ?></span>%</td>
-              <td class="flista6 td right-align"><span id="import" ><?php echo $obj[22]; ?></span></td>
-            </tr>
+              <tr class="tr" >
+                <td class="flista1 td center-align"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
+                <td class="flista2 td center-align"><span id="desc"><?php echo $obj[19]; ?></span></td>
+                <td class="flista3 td center-align"><span id="punit"><?php echo $obj[20]; ?></span></td>
+                <td class="flista4 td center-align"><span id="desc"><?php echo $obj[23]; ?></span></td>
+                <td class="flista5 td center-align"><span id="desc"><?php echo $obj[21]; ?></span>%</td>
+                <td class="flista6 td right-align"><span id="import" ><?php echo $obj[22]; ?></span></td>
+              </tr>
 
-            <?php } ?>
-          </tbody>
-          *Producto Exento
-          <tfoot>
+              <?php } ?>
+            </tbody>
+            *Producto Exento
+            <tfoot>
 
-            <?php if ($grabado > 0){ ?>
-            <tr>
-              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-              <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Grabado</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado+str_replace(',', '', $obj[6]),2); ?></span></td>
-            </tr>
-            
-            <tr>
-              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Imv</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
-            </tr>
+              <?php if ($grabado > 0){ ?>
+              <tr>
+                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+                <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Grabado</td>
+                <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado+str_replace(',', '', $obj[6]),2); ?></span></td>
+              </tr>
 
-            <?php } ?>
+              <tr>
+                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Imv</td>
+                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
+              </tr>
 
-            <?php if ($exento > 0) { ?>
-            <tr>
-              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Exento</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
-            </tr>
-            <?php } ?>
+              <?php } ?>
 
-            <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
-            <tr>
-              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Descuento</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
-            </tr>
-            <?php } ?>
+              <?php if ($exento > 0) { ?>
+              <tr>
+                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Exento</td>
+                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
+              </tr>
+              <?php } ?>
 
-            <?php if ($datos[7] > 0){ ?>
-            <tr>
-              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Flete</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
-            </tr>
-            <?php } ?>
+              <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
+              <tr>
+                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Descuento</td>
+                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
+              </tr>
+              <?php } ?>
 
-            <?php if ($datos[8] > 0){ ?>
-            <tr>
-              <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-              <td style="padding: 6px 5px !important" class="left-align sinborde margen">Ajuste</td>
-              <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
-            </tr>
-          <?php } ?>
+              <?php if ($datos[7] > 0){ ?>
+              <tr>
+                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Flete</td>
+                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
+              </tr>
+              <?php } ?>
 
-            <tr>
-              <td class="margen" colspan="4">&nbsp;</td>
-              <td  class="left-align white-text sinborde imprimirSINBOR" style="background-color: #3960A7;"><b>TOTAL</b></td>
-              <td  class="right-align white-text sinborde imprimirSINBOR" style="background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
-            </tr>
+              <?php if ($datos[8] > 0){ ?>
+              <tr>
+                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
+                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Ajuste</td>
+                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
+              </tr>
+              <?php } ?>
 
-          </tfoot>
-        </table>
+              <tr>
+                <td class="margen" colspan="4">&nbsp;</td>
+                <td  class="left-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; background-color: #3960A7;"><b>TOTAL</b></td>
+                <td  class="right-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+              </tr>
+
+            </tfoot>
+          </table>
 
 
-        <!-- @PRINT -->
-        <section class="hideonprint">
-          <div class="row">
-            <br>
-            <div class="col s12 m8 offset-m2">
-              <br><br>
-              <section id="sqre">
-                <table id="infotot" width="100%">
-                  <tfoot>
-                    <th class="center-align">Firma Representante</th>
-                    <th class="infospace"></th>
-                    <th class="center-align">Firma de Cliente</th>
-                  </tfoot>
-                  <tbody>
-                    <tr class="ttdr">
-                      <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
-                      <td class=""></td>
-                      <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-            </div>
-
-          </section>
           <!-- @PRINT -->
+          <section class="hideonprint">
+            <div class="row">
+              <br>
+              <div class="col s12 m8 offset-m2">
+                <br><br>
+                <section id="sqre">
+                  <table id="infotot" width="100%">
+                    <tfoot>
+                      <th class="center-align">Firma Representante</th>
+                      <th class="infospace"></th>
+                      <th class="center-align">Firma de Cliente</th>
+                    </tfoot>
+                    <tbody>
+                      <tr class="ttdr">
+                        <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
+                        <td class=""></td>
+                        <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
+              </div>
 
-          <?php 
-          $decimales =  substr($datos[10], strpos($datos[10], '.'));
-          $entero = str_replace(',', '', substr($datos[10],0,strpos($datos[10], '.')));
-          $nombres = array(1=>'Uno',2=>'Dos',3=>'Tres',4=>'Cuatro',5=>'Cinco',6=>'Seis',7=>'Siete',8=>'Ocho',9=>'Nueve',0=>'Cero',10=>'Diez',11=>'Once',12=>'Doce',13=>'Trece',14=>'Catorce',15=>'Quince','10+'=>'Dieci',20=>'Veinte','20+'=>'Veinti',30=>'Treinta y',40=>'Cuarenta y',50=>'Cincuenta y',60=>'Sesenta y',70=>'Setenta',80=>'Ochenta y',90=>'Noventa y',100=>'Cien','100+'=>'Ciento',200=>'Doscientos',300=>'Trescientos',400=>'Cuatrocientos',500=>'Quinientos',600=>'Seiscientos',700=>'Sietecientos',800=>'Ochocientos',900=>'Novecientos',1000=>'Mil',100000=>'Millón');
-          $diviciones = round(strlen($entero) / 3,0)-1;
-          $salida = '';
-          ?> 
-          <span class="labelalpha"><?php echo $salida; ?></span>
-        
+            </section>
+            <!-- @PRINT -->
 
-        <!-- FOOTER -->
-        <?php switch($datos[24]){
-          case 1:
-          $msj = $datos[26] == 2 ? 'La misma deberá ser cancelada en el plazo que indica, posteriormente al mismo devengará intereses del 5% mensual, no queriendo decir esto que el pago de los intereses sea una prórroga para su cancelación.' : '';
-          break;
-          case 4:
-          $msj = 'La presente Cotización tiene una durabilidad de OCHO días.';
-          break;
-          default:
-          $msj = '';
-          break;
-        } ?>
-        <footer class="imprimirSINBOR" align="center-align">
-        <hr>
-          <div style="padding: 0% 12%">
-            <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución # 11--97 de la Dirección General de Tributación Directa, publicado en el diario La Gaceta #171 el 5 de Setiembre de 1997.
-              <br> 
-              <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
+            <?php 
+            $decimales =  substr($datos[10], strpos($datos[10], '.'));
+            $entero = str_replace(',', '', substr($datos[10],0,strpos($datos[10], '.')));
+            $nombres = array(1=>'Uno',2=>'Dos',3=>'Tres',4=>'Cuatro',5=>'Cinco',6=>'Seis',7=>'Siete',8=>'Ocho',9=>'Nueve',0=>'Cero',10=>'Diez',11=>'Once',12=>'Doce',13=>'Trece',14=>'Catorce',15=>'Quince','10+'=>'Dieci',20=>'Veinte','20+'=>'Veinti',30=>'Treinta y',40=>'Cuarenta y',50=>'Cincuenta y',60=>'Sesenta y',70=>'Setenta',80=>'Ochenta y',90=>'Noventa y',100=>'Cien','100+'=>'Ciento',200=>'Doscientos',300=>'Trescientos',400=>'Cuatrocientos',500=>'Quinientos',600=>'Seiscientos',700=>'Sietecientos',800=>'Ochocientos',900=>'Novecientos',1000=>'Mil',100000=>'Millón');
+            $diviciones = round(strlen($entero) / 3,0)-1;
+            $salida = '';
+            ?> 
+            <span class="labelalpha"><?php echo $salida; ?></span>
+
+
+            <!-- FOOTER -->
+            <?php switch($datos[24]){
+              case 1:
+              $msj = $datos[26] == 2 ? 'La misma deberá ser cancelada en el plazo que indica, posteriormente al mismo devengará intereses del 5% mensual, no queriendo decir esto que el pago de los intereses sea una prórroga para su cancelación.' : '';
+              break;
+              case 4:
+              $msj = 'La presente Cotización tiene una durabilidad de OCHO días.';
+              break;
+              default:
+              $msj = '';
+              break;
+            } ?>
+            <footer class="imprimirSINBOR" align="center-align">
+              <hr>
+              <div style="padding: 0% 12%">
+                <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución # 11--97 de la Dirección General de Tributación Directa, publicado en el diario La Gaceta #171 el 5 de Setiembre de 1997.
+                  <br> 
+                  <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
+                </div>
+              </footer>
+              <!-- /FOOTER -->
+
             </div>
-          </footer>
-          <!-- /FOOTER -->
+            <!-- /MAIN -->
 
-        </div>
-        <!-- /MAIN -->
+          </div>
 
-      </div>
-  
-  <!-- @PRINT -->
-  <section class="hideonprint">
-    <div class="col s12 m3 l3 white-text">
-    <br>
-    <div id="correosclie">
-     <input type="hidden" id="vid" value="<?php echo $datos[27]; ?>">
-    </div>
-      <label>Enviar factura por correo a:</label>
-      <div class="row">
-        <div class="s10 col">
-          <div class="chips chips-initial white-text" id="listcorreos" style="color: white;"></div>
-        </div>
-        <div class="s2 col">
-          <a href="#" id="lcorreos" class="right"><i class="small white-text material-icons">send</i></a>
-        </div>
+          <!-- @PRINT -->
+          <section class="hideonprint">
+            <div class="col s12 m3 l3 white-text">
+              <br>
+              <div id="correosclie">
+               <input type="hidden" id="vid" value="<?php echo $datos[27]; ?>">
+             </div>
+             <label>Enviar factura por correo a:</label>
+             <div class="row">
+              <div class="s10 col">
+                <div class="chips chips-initial white-text" id="listcorreos" style="color: white;"></div>
+              </div>
+              <div class="s2 col">
+                <a href="#" id="lcorreos" class="right"><i class="small white-text material-icons">send</i></a>
+              </div>
+            </div>
+            <div class="row">
+             <div class="s12 col" align="center">
+               <span id="smail"></span>
+             </div>
+           </div>
+
+         </div>
+
+       </section>
+       <!-- @PRINT -->
+
+
      </div>
-     <div class="row">
-       <div class="s12 col" align="center">
-         <span id="smail"></span>
-       </div>
-     </div>
-
-   </div>
-
- </section>
- <!-- @PRINT -->
-    
-
-    </div>
 
 
 
 
-<script src="../assets/js/jquery.js"></script>
-<script src="../assets/js/materialize.js"></script>
-<script src="../assets/js/asgard.js?v=0.1"></script>
-<script src="../assets/js/modulos/recibos.js?v=0.5"></script>
+     <script src="../assets/js/jquery.js"></script>
+     <script src="../assets/js/materialize.js"></script>
+     <script src="../assets/js/asgard.js?v=0.1"></script>
+     <script src="../assets/js/modulos/recibos.js?v=0.5"></script>
 
-</body>
+   </body>

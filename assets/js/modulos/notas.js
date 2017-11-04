@@ -29,7 +29,6 @@ $(function(){
 	});
 
 	$(".sclie").blur(function(){
-		console.log(1)
 		var bisclie = 0;
 		var nombre = $("#ncli").val()
 		if (!$("#cp").is(":checked")) {

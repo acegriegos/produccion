@@ -5,13 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Cotitaciones Totales</title>
+  <title>Compras Totales</title>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=0.2">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,4" sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
+      <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,2" sp="167" modulo="reporteFactura" types="1,1"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -29,20 +29,20 @@
         <input type="hidden" class="zelda">
       </div>
     </div>
-    <h2 align="center">Cotizaciones Totales</h2>
+    <h2 align="center">Compras Totales</h2>
     <small id="leyenda"></small>
     
-    <table class="table striped responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
+    <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
-        <td  class="white-text blue sinborde"style="width: 1%"></td>
-        <td  class="white-text blue sinborde"style="text-align: center"><b>Número de Cotización</b></td>
-        <td  class="white-text blue sinborde"style="text-align: center"><b>Fecha</b></td>
-        <td  class="white-text blue sinborde"style="text-align: center"><b>Cliente</b></td>
-        <td  class="white-text blue sinborde"style="text-align: center"><b>Tipo</b></td>
-        <td  class="white-text blue sinborde"style="text-align: center"><b>Descuento</b></td>
-        <td  class="white-text blue sinborde"style="text-align: center"><b>I.V.</b></td>
-        <td  class="white-text blue sinborde"style="text-align: center"><b>Monto</b></td>
+        <td class="white-text blue sinborde" style="width: 1%"></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Número de Factura</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Fecha</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Cliente</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Tipo</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Monto</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Descuento</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>I.V.</b></td>
       </tr>
       </thead>
       <tbody class="detrep"></tbody>
