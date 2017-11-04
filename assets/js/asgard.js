@@ -1001,7 +1001,7 @@ function paginate(vtbl,len) {
     $(".pagination").html('');
     var countpag = 0;
     if (len == undefined) {
-        countpag = arr('login',4,'',vtbl,'0,1,"","0,10"',0,0,0)[0][0];
+        countpag = arr('login',4,'',vtbl,'0,1,"",""',0,0,0)[0][0];
     }else
     countpag = len;
 
