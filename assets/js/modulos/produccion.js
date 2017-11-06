@@ -148,7 +148,6 @@ $(document).on("click",".stop",function(){
 $(document).on("click",".nexttask",function(){
     var id = $(this).attr('id').substr(1);
 });
-
 // $(document).on("keydown","#cprod",function(e){
 //     var charCode = e.which || e.keyCode;
 //     var charStr = String.fromCharCode(charCode);
@@ -156,7 +155,7 @@ $(document).on("click",".nexttask",function(){
 //         $(".autocomplete-content").remove();
 //             $("#cprod").autocomplete({
 //                 limit: 10,
-//                 data: console.log(arr('login',4,'nombre,null',11,'nombre like "%'+$(this).val()+'%" limit 10',0,0,0,1))
+//                 data: arr('login',4,'nombre,null',11,'nombre like "%'+$(this).val()+'%" limit 10',0,0,0,1)
 //             }); 
 //         $("#cprod").siblings($(".autocomplete-content")).css('width','25%');
 //     }
@@ -275,7 +274,14 @@ $(document).on("keydown",".tarea",function(e){
     var charCode = e.which || e.keyCode;
     var charStr = String.fromCharCode(charCode);
     var tipo = $(this).attr('id').substr(0,1);
-    autocomplete(charCode,charStr,tipo+'tarea',134);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("#"+tipo+"tarea").autocomplete({
+            limit: 10,
+            data: arr('login',4,'',147,'0,0,1,"'+$("#"+tipo+"tarea").val()+'"',0,0,0,1)
+        }); 
+        $("#"+tipo+"tarea").siblings($(".autocomplete-content")).css('width','25%');
+    }
 });
 
 $(document).on("click","#chrecipe",function(){
@@ -310,19 +316,21 @@ $(document).on("click","#addprodline",function(){
 
 $(document).on("click",".order",function(){
     var id = $(this).attr('id').substr(7);
-    var orden = $("#asorder"+id).text();
-    $("#asorder"+id).addClass('hide');
-    $("#aeorder"+id).attr('type','number');
-    $("#aeorder"+id).val(orden).select();
+    var tipo = $(this).attr('id').substr(0,1);
+    var orden = $("#"+tipo+"sorder"+id).text();
+    $("#"+tipo+"sorder"+id).addClass('hide');
+    $("#"+tipo+"eorder"+id).attr('type','number');
+    $("#"+tipo+"eorder"+id).val(orden).select();
 });
 
 $(document).on("blur",".horder",function(){
     var id = $(this).attr('id').substr(7);
+    var tipo = $(this).attr('id').substr(0,1);
     var orden = $(this).val();
     $(this).attr('type','hidden');
-    $("#asorder"+id).removeClass('hide');
-    $("#asorder"+id).text(orden);
-    $("#atorder"+id).attr('orden',orden);
+    $("#"+tipo+"sorder"+id).removeClass('hide');
+    $("#"+tipo+"sorder"+id).text(orden);
+    $("#"+tipo+"torder"+id).attr('orden',orden);
 });
 
 $(document).on("click","#changerecipe",function(){
@@ -388,7 +396,7 @@ $(document).on("click",".actlinea",function(){
     $("#listadetprod").html('');
 
     for (var i = 0, len = detalle.length; i < len; i++) {
-        $("#listadetprod").append('<tr class="bplines" id="bp'+detalle[i][3]+'"><td id="btask'+detalle[i][3]+'">'+detalle[i][4]+'</td><td id="besth'+detalle[i][3]+'" esth="'+detalle[i][6]+'">'+detalle[i][6]+'</td><td id="bestm'+detalle[i][3]+'" estm="'+detalle[i][7]+'">'+detalle[i][7]+'</td><td id="bband'+detalle[i][3]+'" bandejas="'+detalle[i][8]+'">'+detalle[i][8]+'</td><td orden="'+detalle[i][9]+'" id="btorder'+detalle[i][3]+'"><span class="order" id="bsorder'+detalle[i][0]+'">'+detalle[i][9]+'</span><input type="hidden" class="horder" id="beorder'+detalle[i][3]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="bdel'+detalle[i][3]+'">close</i></td></tr>');
+        $("#listadetprod").append('<tr class="bplines" id="bp'+detalle[i][3]+'"><td id="btask'+detalle[i][3]+'">'+detalle[i][4]+'</td><td id="besth'+detalle[i][3]+'" esth="'+detalle[i][6]+'">'+detalle[i][6]+'</td><td id="bestm'+detalle[i][3]+'" estm="'+detalle[i][7]+'">'+detalle[i][7]+'</td><td id="bband'+detalle[i][3]+'" bandejas="'+detalle[i][8]+'">'+detalle[i][8]+'</td><td orden="'+detalle[i][9]+'" id="btorder'+detalle[i][3]+'"><span class="order" id="bsorder'+detalle[i][0]+'">'+detalle[i][9]+'</span><input type="hidden" class="horder" id="beorder'+detalle[i][3]+'"></td><td><i class="mdi mdi-close mdi-24px btn-color pbtn cdel deltarea" id="bdel'+detalle[i][3]+'"></i></td></tr>');
         autoinc++;
     }
 
@@ -449,20 +457,15 @@ $(document).on("keyup","#vproceso",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
         var nombre = $(this).val();
-        var proceso = arr('login',4,'',139,'0,0,"'+nombre+'"',0,0,0);
-        console.log(proceso['succed'])
-        return false;
+        var proceso = arr('login',4,'',139,'0,0,"'+nombre+'"',0,0,0)[0];
         if (nombre != '') {
-            // if (proceso[0][0]) {
-
-            // }
             if (proceso[0][2] == null) {
                 $("#drecipe").addClass('hide');
                 $(".dcline").removeClass('hide');
                 $("#tablelineas").removeClass('hide');
                 $(".nameproceso").text('');
                 $(".nameproceso").attr('id','r'+proceso[0][0]);
-                $(".nameproceso").append(proceso[0][1]+'<a class="material-icons pbtn blue-text mbutton" id="changerecipe" href="#modal-search">search</a>');
+                $(".nameproceso").append(proceso[0][1]+'<a class="mdi mdi-magnify mdi-24px pbtn blue-text mbutton" id="changerecipe" href="#modal-search"></a>');
                 $(this).val('');
                 $("#atarea").focus();
             }else{
@@ -740,6 +743,7 @@ $(document).on("click",".acctar",function(){
     var tipo = $(this).attr('tipo');
     $("#"+tipo+"p"+id).remove();
     $('#toast-container').remove();
+    ordenar(tipo,1,0)
 });
 
 $(document).on("click",".cancel",function(){
@@ -790,40 +794,51 @@ $(document).on("click",".saveproceso",function(){
     var codigo = $("#"+tipo+"codproceso"+id).text() == '' ? 'N/A' : $("#"+tipo+"codproceso"+id).text();
     var total = $("#"+tipo+"total"+id).text().substr(2);
     var imp = arr('login',4,'',200,'11,0',0,0,0)[0][0][3];
+    var prod = arr('login',4,'id,ganancia',11,'nombre = "'+nombre+'"',0,0,0)[0];
     var idproceso = 0;
-
     if (total != '0.00') {
-        var prod =  arr('login',4,'id',11,'nombre = "'+nombre+'"',0,0,0)[0][0];
-        if (prod == undefined) {
-            //guarda proceso en tabla prodcutos
-            idproceso = arr('login',4,'',78,'1,0,\"'+codigo+'\",\"'+codigo+'\",\"'+nombre+'\",'+total+',0,'+(total * ((imp/100)+1) )+',0,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
-            adddetail(idproceso,tipo,1);
+        if (tipo == 'a') {
+            saveprocess(id,prod,1,tipo,codigo,nombre,total,imp)
         }else{
-            var inv = arr('login',4,'id',97,'idproducto = '+id+' and idinventario = 7',0,0,0)[0][0];
-            if (inv == undefined) {
-                arr('login',7,'1',97,'','null,7,'+id+',0',0,0);
-            }
-            adddetail(id,tipo);
+            saveprocess(id,prod[0],2,tipo,codigo,nombre,total,imp)
         }
-        paginate($("ul.pagination[modulo=procesos]").attr('vtbl'));
-        return false;
     }else{
-        Materialize.toast('Es necesario agregar productos al proceso', 6000, 'orange lighten-2');
+        Materialize.toast('Es necesario agregar productos al proceso',6000,'orange lighten-2');
     }
+    paginate($("ul.pagination[modulo=procesos]").attr('vtbl'));
+    
 });
 
+function saveprocess(id,p,tp,tipo,cod,nom,tot,imp) {
+    if (tp == 1) {
+        if (p[0] == undefined) {
+            var id = arr('login',4,'',78,'1,0,"'+cod+'","'+cod+'","'+nom+'",'+tot+',0,'+(tot * ((imp/100)+1) )+',0,0,1,1,0,0,0,7,@@usr,1,@@impresa,""',0,0,0);
+            adddetail(id,tipo,1);
+        }else{
+            Materialize.toast('Nombre de producto o codigo existente<i class="mdi mdi-close mdi-24px but"></i>', 6000, 'red');
+        }
+    }else{
+        console.log("det")
+        arr('login',7,'2',11,'costo = '+tot+',venta = '+(tot * ((p[1]/100)+1) * ((imp/100)+1)),'id = '+id,0,0);
+        var inv = arr('login',4,'id',97,'idproducto = '+id+' and idinventario = 7',0,0,0)[0][0];
+        if (inv == undefined) {
+            arr('login',4,'',114,'1,'+id+',7,0,0,"Ingreso Producto '+nom+' a Inventario Procesos",@@usr,@@impresa',0,0,0);
+        }
+        adddetail(id,tipo);
+    }
+}
+
 function adddetail(id,tipo,chk) {
-    // tipo 1 ( id = [object Object] )
     var validacion = 1;
-    if (chk != undefined) {
-        if (id[0][0] == '[object Object]') {
+    if (chk == 1) {
+        if (id[0] == '[object Object]') {
             Materialize.toast(id[0]['ERROR'], 6000, 'red');
             return false;
         }
     }
 
     if (validacion == 1) {
-        $("."+tipo+"product").each(function(){
+        $("."+tipo+"product").each(function(){  
             var idproducto = $(this).attr('id').substr(5);
             // if ($("#"+tipo+"prec"+idproducto).attr('spot') == id[0][0]) {
             var cantidad = $("#"+tipo+"cant"+idproducto).text();
@@ -895,7 +910,7 @@ $(document).on("click",".editproceso",function(){
     $("#spot").val(id);
     $("#count").val(count);
     $("#amakerecipe").html('');
-    $("#amakerecipe").append('<div class="col s12 m12 l12 recipes" id="ar'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="aproductos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="atitproceso'+id+'" class="titrecipe but">'+vproceso[1]+'</span> - [Cod: <span id="acodproceso'+id+'">'+vproceso[2]+'</span>]<i class="mdi mdi-close deltit right pbtn cdel btn-color" id="adt'+id+'"></i><i class="mdi mdi-content-save actrecipe right pbtn blueh btn-color" id="aar'+id+'"></i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="atotal'+id+'">¢ '+vproceso[4]+'</span><input type="hidden" id="ahtotal'+id+'" value="'+vproceso[4]+'"></h4></div></div></div></div>');
+    $("#amakerecipe").append('<div class="col s12 m12 l12 recipes" id="ar'+id+'" nombre="'+rnombre+'"><ul class="collection with-header" id="aproductos'+id+'"><li class="collection-header"><h4 class="marginzero"><span id="atitproceso'+id+'" class="titrecipe but">'+vproceso[1]+'</span> - [Cod: <span id="acodproceso'+id+'">'+vproceso[2]+'</span>]<i class="mdi mdi-close deltit right pbtn cdel btn-color" id="adt'+id+'"></i><i class="mdi mdi-content-save actrecipe right pbtn blueh btn-color" id="aar'+id+'"></i></h4></li></ul><div class="card row"><div class="col s12 m12"><div class="col s2 m2"><h4 class="hide-on-small-only">Total:</h4></div><div class="col s10 m10"><h4 class="right"><span class="red-text" id="atotal'+id+'">¢ '+vproceso[5]+'</span><input type="hidden" id="ahtotal'+id+'" value="'+vproceso[5]+'"></h4></div></div></div></div>');
     for (var i = 0, len = detalle.length; i < len; i++) {
         precioconv = convert(detalle[i][1],detalle[i][5],detalle[i][8],detalle[i][4]);
         $("#aproductos"+id).append('<li class="collection-item dismissable" id="ap'+detalle[i][1]+'"><div id="agroupprodcts'+detalle[i][1]+'"><span id="aprod'+detalle[i][1]+'" class="aproduct">'+detalle[i][3]+'</span><input type="hidden" id="aprec'+detalle[i][1]+'" spot="'+id+'" value="'+precioconv+'"> - Cantidad: <span id="acant'+detalle[i][1]+'">'+detalle[i][5]+'</span> (<span id="aidmedida'+detalle[i][1]+'" medida="'+detalle[i][8]+'">'+detalle[i][7]+'<span>)<i class="mdi mdi-close mdi-24px right red-text del but" id="ad'+detalle[i][1]+'"></i></div></li>');
@@ -979,7 +994,6 @@ function addprodline(tipo) {
     var nombre = $("#"+tipo+"tarea").val();
     var count = parseInt($("#"+tipo+"autoinc").val());
     var tsk = arr('login',4,'',180,'0,0,"'+nombre+'","0,1"',0,0,0)[0];
-    console.log(tsk)
     var validar = validateprodline(tipo);
     if (tsk != '') {
         if (validar == false) {
@@ -991,8 +1005,9 @@ function addprodline(tipo) {
             });
             if (pass == 1) {
                 count ++;
-                $("#"+tabla).append('<tr class="'+tipo+'plines" id="'+tipo+'p'+tsk[0][0]+'"><td id="'+tipo+'task'+tsk[0][0]+'">'+tsk[0][1]+'</td><td id="'+tipo+'esth'+tsk[0][0]+'" esth="'+tsk[0][2]+'">'+tsk[0][2]+'</td><td id="'+tipo+'estm'+tsk[0][0]+'" estm="'+tsk[0][3]+'">'+tsk[0][3]+'</td><td id="'+tipo+'band'+tsk[0][0]+'" bandejas="'+tsk[0][4]+'">'+tsk[0][4]+'</td><td orden="'+count+'" id="'+tipo+'torder'+tsk[0][0]+'"><span class="order" id="'+tipo+'sorder'+tsk[0][0]+'">'+count+'</span><input type="hidden" class="horder" id="'+tipo+'eorder'+tsk[0][0]+'"></td><td><i class="material-icons btn-color pbtn cdel deltarea" id="'+tipo+'del'+tsk[0][0]+'">close</i></td></tr>');
-
+                $("#"+tabla).append('<tr class="'+tipo+'plines" id="'+tipo+'p'+tsk[0][0]+'"><td id="'+tipo+'task'+tsk[0][0]+'">'+tsk[0][1]+'</td><td id="'+tipo+'esth'+tsk[0][0]+'" esth="'+tsk[0][2]+'">'+tsk[0][2]+'</td><td id="'+tipo+'estm'+tsk[0][0]+'" estm="'+tsk[0][3]+'">'+tsk[0][3]+'</td><td id="'+tipo+'band'+tsk[0][0]+'" bandejas="'+tsk[0][4]+'">'+tsk[0][4]+'</td><td orden="'+count+'" id="'+tipo+'torder'+tsk[0][0]+'"><span class="order" id="'+tipo+'sorder'+tsk[0][0]+'">'+count+'</span><input type="hidden" class="horder" id="'+tipo+'eorder'+tsk[0][0]+'"></td><td><i class="mdi mdi-close mdi-24px btn-color pbtn cdel deltarea" id="'+tipo+'del'+tsk[0][0]+'"></i></td></tr>');
+                //ordenar
+                ordenar(tipo,1,tsk[0][0]);
                 $("#"+tipo+"tarea").val('');
                 $("#"+tipo+"estimado").val('');
                 $("#"+tipo+"unidad").val(0);
@@ -1016,6 +1031,17 @@ function addprodline(tipo) {
         $("#"+tipo+"unidad").material_select();
         $("#"+tipo+"tarea").focus();
     }
+}
+
+function ordenar(tipo,ready,tsk) {
+    if (ready == 1) {
+        $(".order").each(function(index){
+            index++
+            var tipo = $(this).attr('id').substr(0,1);
+            var id = $(this).attr('id').substr(7)
+            $("#"+tipo+"sorder"+id).text(index)
+        });
+    } 
 }
 
 function validateaddprod(nom,cant,uni) {
@@ -1173,7 +1199,6 @@ function addproduct(nombre,cantidad,idmedida,medida,precio,tipo) {
         });
         // fin validacion
         if (validac == 1) {
-            console.log(tipo+" "+id)
             $("#"+tipo+"productos"+id).append('<li class="collection-item dismissable" id="'+tipo+'p'+idproducto+'"><div id="'+tipo+'groupprodcts'+idproducto+'"><span id="'+tipo+'prod'+idproducto+'" class="'+tipo+'product">'+nombre+'</span><input type="hidden" id="'+tipo+'prec'+idproducto+'" spot="'+id+'" value="'+precio+'"> - Cantidad: <span id="'+tipo+'cant'+idproducto+'">'+cantidad+'</span> (<span id="'+tipo+'idmedida'+idproducto+'" medida="'+idmedida+'">'+medida+'<span>)<i class="mdi mdi-close mdi-24px right red-text del but" id="'+tipo+'d'+idproducto+'"></i></div></li>');
         }else{
             cantidad = parseFloat($("#"+tipo+"cant"+idproducto).text()) + parseFloat(cantidad);
@@ -1237,7 +1262,7 @@ function makeprocess(id,nombre,codigo,tipo) {
             setTimeout(function(){$("#"+tipo+"producto").focus();},100);
 
         }else{
-            Materialize.toast('Proceso &nbsp;&nbsp;<b>'+nombre+'</b>&nbsp;&nbsp; creado anteriormente&nbsp;&nbsp;<i class="material-icons but cancel">close</i>', 6000, 'red');
+            Materialize.toast('Proceso &nbsp;&nbsp;<b>'+nombre+'</b>&nbsp;&nbsp; creado anteriormente&nbsp;&nbsp;<i class="mdi mdi-close mdi-24px but cancel"></i>', 6000, 'red');
         }
     }else
         Materialize.toast('Nombre y Código requeridos', 6000, 'red');
@@ -1288,24 +1313,26 @@ function validarlinea() {
         return 'Nombre Requerido';
     }
     if ($("#vhombre").val() == '') {
-        $("#vhombre").focus();
-        return 'Duración Hombre Requerido';
+        $("#vhombre").val(0);
+        Materialize.updateTextFields();
     }
     if ($("#vidunidad1").val() == 0) {
-        $("#vidunidad1").focus();
-        return 'Unidad Requerido';
+        $("#vidunidad1").val(10);
+        $("#vidunidad1").material_select();
     }
     if ($("#vmaquina").val() == '') {
         $("#vmaquina").val(0);
+        Materialize.updateTextFields();
     }
     if ($("#vidunidad2").val() == 0) {
-        $("#vidunidad2").focus();
-        return 'Unidad Requerido';
+        $("#vidunidad2").val(10);
+        $("#vidunidad2").material_select();
     }
     if ($("#vbandejas").val() == 0) {
         $("#vbandejas").focus();
         return 'Bandejas Requerido';
     }
+    
 
     return false;
 }
@@ -1391,5 +1418,5 @@ function endDetail(id,acc,modulo) {
             $("#vnombre").focus();
             break;
     }
-    paginate($("ul.pagination[modulo=procesos]").attr('vtbl'));
+    paginate($("ul.pagination[modulo=tareaproducciones]").attr('vtbl'));
 }
