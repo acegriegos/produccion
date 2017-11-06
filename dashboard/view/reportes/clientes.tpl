@@ -8,13 +8,13 @@
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=0.3">
 </head>
-<body>
-  <div class="container principal">
+<body class="black">
+  <div class=" principal contenedor" >
       <div class="filtros row" porcliente portipo="varios" tbltipos="5,68,0" tipos="Tipo Cliente,Estado,Cédula" types="1,1,2" elem="0,0" sp="181" modulo="reporteCliente" bisprov="0"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
-        <img src="../assets/img/logo.png" class="img-responsive" style="width: 90%">
+        <img src="../assets/img/logo.png" class="img-responsive" style="width: 60%">
       </div>
       <div class="col s4 m4 l4" align="center">
         <font size="3">
@@ -34,14 +34,14 @@
     <table class="table responsive-table striped highlight centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
-        <td style="text-align: center"><b>Cédula</b></td>
-        <td style="text-align: center"><b>Nombre</b></td>
-        <td style="text-align: center"><b>Telefonos</b></td>
-        <td style="text-align: center"><b>Correos</b></td>
-        <td style="text-align: center"><b>Tipo</b></td>
-        <td style="text-align: center"><b>Descuento Máximo</b></td>
-        <td style="text-align: center"><b>Crédito</b></td>
-        <td style="text-align: center"><b>Plazo</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Cédula</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Nombre</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Telefonos</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Correos</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Tipo</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Descuento Máximo</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Crédito</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Plazo</b></td>
       </tr>
       </thead>
       <tbody class="detrep"></tbody>
