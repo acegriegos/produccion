@@ -6,8 +6,8 @@
  <tr>
     <td><?php echo $obj[2] ?></td>
     <td>
-        <a class="btn-color pbtn actlinea" id="a<?php echo $obj[0] ?>" idproceso="<?php echo $obj[1]?>"><i class="material-icons">edit</i></a>
-        <a class="btn-color pbtn cdel" id="b<?php echo $obj[0] ?>" idproceso="<?php echo $obj[1]?>"><i class="material-icons">close</i></a>
+        <a class="btn-color pbtn actlinea" id="a<?php echo $obj[0] ?>" idproceso="<?php echo $obj[1]?>"><i class="mdi mdi-pencil mdi-24px"></i></a>
+        <a class="btn-color pbtn cdel" id="b<?php echo $obj[0] ?>" idproceso="<?php echo $obj[1]?>"><i class="mdi mdi-close mdi-24px"></i></a>
     </td>
 </tr>
 
