@@ -5,7 +5,7 @@
 
  <tr>
     <td><?php echo $obj[1] ?></td>
-    <td><?php echo $obj[2] ?></td>
+    <td><?php echo $obj[6] ?></td>
     <td>
         <a class="btn-color pbtn instoproduct mdi mdi-basket-fill mdi-24px modal-trigger" href="#modal-addtoproducts" id="i<?php echo $obj[0] ?>" title="Ingresar proceso a Inventario Producto Final"></a>
         <a class="btn-color pbtn editproceso mdi mdi-pencil mdi-24px" id="m<?php echo $obj[0] ?>"></a>

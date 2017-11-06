@@ -86,7 +86,7 @@
     </li>
     <li class="per5103" id="pl2">
         <div class="collapsible-header productline"><i class="mdi mdi-format-list-numbers blue-text"></i>Crear Linea de Producción</div>
-        <div class="collapsible-body tasks">
+        <div class="collapsible-body tasks" style="margin-top: -30px !important">
             <div class="row" id="drecipe">
                 <div class="input-field col s12 m6 l4 dcline" id="nac">
                     <a class="mdi mdi-magnify prefix pbtn blue-text mbutton" id="searchprocesos" href="#modal-search"></a>
@@ -100,13 +100,13 @@
                     <input type="hidden" id="aautoinc" value="0">
                 </div>
             </div>
-            <div class="row hide dcline">
+            <div class="row hide dcline" style="margin-top: 15px">
                 <div class="input-field col s12 m3 l3 mtopcero">
                     <input id="atarea" type="text" class="validate autocomplete faddline tarea">
                     <label for="atarea">Tarea de Producción</label>
                 </div>
                 <div class="col s1 m1 l1">
-                    <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline z-depth-5" id="addprodline"><i class="material-icons">add</i></button>
+                    <button type="button" class="btn-floating waves-effect waves-light blue mbutton faddline z-depth-5" id="addprodline"><i class="mdi mdi-plus"></i></button>
                 </div>
             </div>
             <div class="row hide" id="tablelineas">
@@ -116,7 +116,7 @@
                         <thead>
                             <tr>
                                 <td colspan="4"></td>
-                                <td class="right"><i class="material-icons btn-color pbtn blueh" id="savelinea">save</i></td>
+                                <td class="right"><i class="mdi mdi-content-save mdi-36px btn-color pbtn blueh" id="savelinea"></i></td>
                             </tr>
                             <tr>
                                 <th>Tarea</th>
@@ -127,7 +127,7 @@
                                 <th style="width: 20%">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="listadetalles">
+                        <tbody id="listaa">
                             
                         </tbody>
                     </table>
@@ -160,7 +160,7 @@
                             <label for="btarea">Tarea Producción</label>
                         </div>
                         <div class="col s2 m2 l2">
-                            <button type="button" class="btn-floating waves-effect waves-light blue z-depth-5"><i class="material-icons">add</i></button>
+                            <button type="button" class="btn-floating waves-effect waves-light blue z-depth-5"><i class="mdi mdi-plus mdi-24px"></i></button>
                         </div>
                     </div>
                     <div class="row">
@@ -168,7 +168,7 @@
                         <thead>
                             <tr>
                                 <td colspan="4"></td>
-                                <td class="right"><i class="material-icons btn-color pbtn blueh" id="dsavelinea">save</i></td>
+                                <td class="right"><i class="mdi mdi-content-save mdi-36px btn-color pbtn blueh" id="dsavelinea"></i></td>
                             </tr>
                             <tr>
                                 <th>Tarea</th>
