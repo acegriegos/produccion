@@ -1039,6 +1039,7 @@ $(document).on("click", ".paginate", function () {
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    console.log(arr('login',4,'',vtbl,'0,0,"'+filtro+'","'+limit+'"',0,0,0))
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
