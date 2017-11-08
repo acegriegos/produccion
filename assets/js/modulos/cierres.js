@@ -1,5 +1,5 @@
 $(function(){
-	arr('login',6,'sum(contador) as pendientes,fecha',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
+	arr('login',6,'',182,'@@usr',0,1,$("#listacierrespendientes"));
 	// arr('login',6,'',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
 
 	$('.chips').material_chip();

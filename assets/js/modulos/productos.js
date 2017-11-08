@@ -684,7 +684,8 @@ $(document).on("click", "#addprod", function () {
 
 		if (pass == 1) {
 			var idmarca = $("#vidmarca").val();
-			var idproducto = arr('login', 4, '', 78, '1,0,\"' + codigo + '\",\"' + codigointerno + '\",\"' + nombre + '\",' + costo + ',' + ganancia + ',' + venta + ',' + exoneracion + ',' + peso + ',' + idunidad + ',' + minimo + ',' + maximo + ',' + maxdesc + ',' + idmarca + ',' + idinventario + ',@@usr,' + idmoneda + ',@@impresa,""', 0, 0, 0);
+			var idproducto = arr('login',4,'',78,'1,0,"'+codigo+'","'+codigointerno+'","'+nombre+'",'+costo+','+ganancia+','+venta+','+exoneracion+','+peso+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+','+idinventario +',@@usr,'+idmoneda+',@@impresa,""',0,0,0);
+			console.log(idproducto)
 			if (idproducto[0][0] != undefined) { //validar si guarda correctamente
 				//agregar impuestos
 				$(".impuestos").each(function () {
