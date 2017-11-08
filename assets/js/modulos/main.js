@@ -7,7 +7,7 @@ $(function(){
     $("#mchange").val($("#mchange").attr('sel'));
     $("#mchange").material_select('update');
 
-     var f = mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura',sel:'',tbl:186,where:mid},1);
-
+     /*var f = mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura',sel:'',tbl:186,where:mid},1);*/
+     dibujarGrafico(0,$('#graf1'),'pinga','picha','line',{sel:'',tbl:307,where:'1,"","",0,0,0,0,0,0'});
      
 })
