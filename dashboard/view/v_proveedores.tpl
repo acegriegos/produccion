@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="card-block">
-                    <table class="dt-responsive nowrap tabladetalles centered highlight bordered z-depth-2" id="data-table-clientes" style="width: 100%">
+                    <table class="dt-responsive nowrap tabladetalles striped centered highlight bordered z-depth-2" id="data-table-clientes" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="sinborde white-text blue" style="  padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
