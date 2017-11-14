@@ -63,7 +63,7 @@
                                 {section name=LE loop=$REC}
                                 <tr>
                                     <td style=" padding: 10px;">{$REC[LE][1]}</td>
-                                    <td style=" padding: 10px;">{$REC[LE][2]}</td>
+                                    <td style=" padding: 10px;">{$REC[LE][6]}</td>
                                     <td style=" padding: 10px;">
                                         <a class="btn-color pbtn instoproduct mdi mdi-basket-fill mdi-24px modal-trigger" href="#modal-addtoproducts" id="i{$REC[LE][0]}" title="Ingresar proceso a Inventario Producto Final"></a>
                                         <a class="btn-color pbtn editproceso mdi mdi-pencil mdi-24px" id="m{$REC[LE][0]}"></a>
