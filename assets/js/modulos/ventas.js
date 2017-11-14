@@ -665,9 +665,19 @@ function cargarProducto(kbrota,elemento) {
         var uni = getDatos('id,concat(nombre,"(",simbolo,")")',107,'id > 0 ',0,0,0)
         Materialize.updateTextFields()
     }else{
+        switch(param) {
+            case 2:
+                var $toastContent = $('<span>Producto no Existente</span>').add($('<button class="btn-flat toast-action green white-text addProduct">Agregarlo</button>'));
+                Materialize.toast($toastContent, 10000);
 
-        Materialize.toast('Producto no Existente',4000,'red');
-        elemento.select()
+                $(".addProduct").focus();
+                break;
+            default:
+                Materialize.toast('Producto no Existente',4000,'red');
+                elemento.select()
+                break;
+        }
+        
     }
 }
 
