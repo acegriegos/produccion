@@ -205,6 +205,16 @@ function cargarCompras(){
         totalizar();
     });
 
+    $(document).on("click",".addProduct",function(){
+        $("#ecodprod").val($("#codp").val());
+        $("#enomprod").val($("#descp").val());
+        Materialize.updateTextFields();
+
+        $("#fproductos .zelda").data('triforce',{vid:0,vcodigo:'', vcodigointerno:'',vnombre:'',vcosto:0,vganancia:0,vventa:0,vexoneracion:0, vpeso:0,vidunidad:1,vminimo:0,vmaximo:0,vmaxdescuento:0,vidmarca:0,vidinventario:0,vidmoneda:1,vimg:''});
+        
+        $("#modal-producto").modal('open');
+    });
+
     $("#vplazo").keyup(function(e){
         var code = e.which || e.keyCode
         if(code == 13){

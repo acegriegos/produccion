@@ -162,14 +162,14 @@
      function indicadores($log){
         require_once '../assets/libs/nusoapLT/nusoap.php';
 
-        $wsdls = $log->kamehameha('*',102,'id > 0');
+        $wsdls = $log->kamehameha('',102,'');
         $tipoCambio = "";
         foreach ($wsdls as $obj) {
 
-          $parametros = $log->kamehameha('detalle,valordetwsdl',103,'idwsdl = '.$obj[4]);
+          $parametros = $log->kamehameha('',103,$obj[4]);
           $param_salida = array();
           foreach ($parametros as $obj1) {
-            $param_salida[$obj1[0]] = $obj1[1];
+            $param_salida[$obj1[1]] = $obj1[2];
           };
 
           $oSoapClient = new nusoap_client($obj[1],true);
