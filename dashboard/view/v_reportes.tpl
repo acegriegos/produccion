@@ -36,6 +36,16 @@
 </div>
 {/if}
 {if $TR eq 1}
+<div class="col s6 m3 l2 center-align padd">
+<a class="report pbtn" rep="ganancias"><i class="mdi mdi-chart-line  mdi-48px padd"></i></a>
+<div class="row">
+<div class="col s12">
+<p>Ganancias</p>
+</div>
+</div>
+</div>
+{/if}
+{if $TR eq 1}
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="cotizaciones"><i class="mdi-clipboard-outline mdi-48px mdi padd"></i>
 </a>
