@@ -36,6 +36,13 @@
         {/if}
         </div>
     </div>
+
+    <div class="row">
+          <div class="col s12 m12 " id="graf1">
+              
+              
+          </div>
+        </div>
     {$SCR}
 
     <script src="../assets/js/modulos/main.js"></script>
