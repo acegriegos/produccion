@@ -11,7 +11,7 @@
     </td>
     <td style="margin:0;">
         <p>
-            <input type="checkbox" class="vbincierre" id="tp<?php echo $obj[0]; ?>" value="<?php echo $obj[3]; ?>" $checked>
+            <input type="checkbox" class="vbincierre" id="tp<?php echo $obj[0]; ?>" value="<?php echo $obj[3]; ?>" <?php echo $checked; ?>>
             <label for="tp<?php echo $obj[0]; ?>">Aut. realizar cierre</label>
         </p>
     </td>

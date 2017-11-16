@@ -33,7 +33,7 @@ $(document).on("click","#refresh",function(){
 	var tabla2 = $("#data-table-estadocuenta").DataTable();
 	tabla1.destroy();
 	tabla2.destroy();
-	arr('login',6,'sum(contador) as pendientes,fecha',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
+	arr('login',6,'',182,'@@usr',0,1,$("#listacierrespendientes"));
 	$("#data-table-facturas").DataTable({
 	    bFilter: false,
 	    bScrollInfinite: true,
@@ -69,7 +69,6 @@ $(document).on("click","#chkcierre",function(){
 
 $(document).on("click","#docierre",function(){
 	var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
-	console.log(idfactura);
 	var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 	var idcierre = arr('login',4,'',189,'@@usr,"'+$(this).attr('vfecha')+'",@@impresa',0,0,0)[0][0];
 
