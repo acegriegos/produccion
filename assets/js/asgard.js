@@ -1220,16 +1220,22 @@ $(document).on('click','.del_phone',function(){
     }
 });
 
-// autocomplete
-function autocomplete(charCode,charStr,nom,tabla) {
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-        $(".autocomplete-content").remove();
-        $("#"+nom).autocomplete({
-            limit: 10,
-            data: arr('login',4,'',tabla,'nombre like \"%'+$("#"+nom).val()+'%\" limit 10',0,0,0,1)
-        }); 
-        $("#"+nom).siblings($(".autocomplete-content")).css('width','25%');
-    }
+function now() {
+    var date = new Date();
+    date = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+    return date;
 }
+
+// autocomplete
+// function autocomplete(charCode,charStr,nom,tabla) {
+//     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+//         $(".autocomplete-content").remove();
+//         $("#"+nom).autocomplete({
+//             limit: 10,
+//             data: arr('login',4,'',tabla,'nombre like \"%'+$("#"+nom).val()+'%\" limit 10',0,0,0,1)
+//         }); 
+//         $("#"+nom).siblings($(".autocomplete-content")).css('width','25%');
+//     }
+// }
 
 // Login Technologies S.A.
