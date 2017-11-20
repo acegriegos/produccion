@@ -1,6 +1,14 @@
 $(function(){
 	arr('login',6,'',182,'@@usr',0,1,$("#listacierrespendientes"));
-	// arr('login',6,'',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
+	var monto = arr('login',4,'monto',404,'idusuario = @@usr and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
+	if (monto == undefined) {
+		console.log(1)
+		$(".tt").removeAttr('id')
+		$(".tt").addClass('tooltipped')
+		$('.tt').tooltip({delay: 50,tooltip: 'Debe iniciar caja'});
+	}else{
+		$(".tt").attr('id','chkcierre');
+	}
 
 	$('.chips').material_chip();
 
@@ -26,6 +34,14 @@ $(function(){
 
     Materialize.updateTextFields();
 
+	$('#modal-tipomonedas').modal({
+		dismissible: true, // Modal can be dismissed by clicking outside of the modal
+		opacity: .5, // Opacity of modal background
+		inDuration: 300, // Transition in duration
+		outDuration: 200, // Transition out duration
+		startingTop: '4%', // Starting top style attribute
+		endingTop: '2%' // Ending top style attribute
+	});
 });
 
 $(document).on("click","#refresh",function(){
@@ -33,7 +49,7 @@ $(document).on("click","#refresh",function(){
 	var tabla2 = $("#data-table-estadocuenta").DataTable();
 	tabla1.destroy();
 	tabla2.destroy();
-	arr('login',6,'sum(contador) as pendientes,fecha',182,'idusuario = @@usr group by fecha order by fecha desc',0,1,$("#listacierrespendientes"));
+	arr('login',6,'',182,'@@usr',0,1,$("#listacierrespendientes"));
 	$("#data-table-facturas").DataTable({
 	    bFilter: false,
 	    bScrollInfinite: true,
@@ -60,7 +76,68 @@ $(document).on("click","#refresh",function(){
 	$("#chkcierre").removeAttr('vfecha');
 });
 
+// $(document).on("click","#chkcierre",function(){
+// 	if ($(this).attr('vfecha') != undefined)
+// 		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
+// 	else
+// 		Materialize.toast('Seleccione un cierre', 4000, 'green');
+// });
+
 $(document).on("click","#chkcierre",function(){
+	$("#totalizar").attr('vfecha',$(this).attr('vfecha'));
+});
+
+$(document).on("blur",".mnd",function(e){
+	var id = $(this).attr('id').substr(1);
+	var valor = arr('login',4,'valor',405,'id > 0 and id = '+id,0,0,0)[0][0];
+	var total = parseInt($("#stot").val());
+	var monto = $("#m"+id).val()
+	if (monto != 0 || monto != '') {
+		console.log("if")
+		$("#m"+id).attr('monto',parseFloat(monto * valor[0]))
+		parseFloat(total += monto * valor[0]);
+	}else{
+		console.log("else")
+		monto = $("#m"+id).attr('monto')
+		monto == undefined ? monto = 0 : monto
+		total = parseFloat(total -  monto);
+	}
+
+
+	// for (var i = 0, len = valor[0].length; i < len; i++) {
+	// 	if (monto != 0 || monto != '') {
+	// 		if ( $(this).attr('id').substr(1) == valor[0][i][0] ) {
+	// 			parseFloat(total += monto * valor[0][i][1]);
+	// 		}
+	// 	}else{
+	// 		console.log("else")
+	// 		total = parseFloat(total - $(this).val());
+	// 		// console.log(total)
+	// 	}
+	// }
+	$("#stot").val(total)
+	$("#totcashier").text(total.formatMoney(2,'.',','))
+});
+
+$(document).on("click","#totalizar",function(){
+	var valor = arr('login',4,'id,valor',405,'id > 0',0,0,0);
+	var total = 0;
+	for (var i = 0, len = valor[0].length; i < len; i++) {
+		var monto = $("#m"+valor[0][i][0]).val();
+		if (monto != 0 || monto != '') {
+			if ( $("#m"+valor[0][i][0]).attr('id').substr(1) == valor[0][i][0] ) {
+				total += monto * valor[0][i][1];
+			}
+		}
+	}
+	if (total != 0) {
+		arr('login',4,'',404,'1,0,@@usr,'+total+',@@impresa,2',0,0,0);
+	}else{
+		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
+	}
+	
+
+	// chkcierre
 	if ($(this).attr('vfecha') != undefined)
 		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 	else
@@ -69,7 +146,6 @@ $(document).on("click","#chkcierre",function(){
 
 $(document).on("click","#docierre",function(){
 	var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
-	console.log(idfactura);
 	var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 	var idcierre = arr('login',4,'',189,'@@usr,"'+$(this).attr('vfecha')+'",@@impresa',0,0,0)[0][0];
 

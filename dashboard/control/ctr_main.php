@@ -14,6 +14,8 @@
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->assign('STY',$sty);
 	   	$smarty->assign('SCR',$scr);
+	   	$smarty->assign('USRCIERRE',$kakaroto->kamehameha('',403,'@@usr')[0][0]);
+	   	$smarty->assign('MONEDA',$kakaroto->kamehameha('simbolo',54,'principal = 1')[0][0]);
 	   	$smarty->display('v_main.tpl');
 	   }else{
 	   $pagina = 0;
