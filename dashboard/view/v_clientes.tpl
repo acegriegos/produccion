@@ -86,7 +86,7 @@
                     </div>
                 <div class="modal-content " style="padding: 0px;">
                     <div id="fclientes">
-                        <input type="hidden" id="zelda">
+                        <input type="hidden" class="zelda">
                         <div class="row">
                             <br>
                             <div class="col s12 m8 l9">

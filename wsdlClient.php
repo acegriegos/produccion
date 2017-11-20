@@ -37,21 +37,32 @@
     // print_r($client);
 
     $url = 'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/';
-    $data = array('key1' => 'value1', 'key2' => 'value2');
+    $data = array('Authorization' => array('bearer' => ''));
 
     // use key 'http' even if you send the request to https://...
     $options = array(
-        'http' => array(
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method'  => 'POST'//,
-            //'content' => http_build_query($data)
+        'https' => array(
+            'header'  => "Content-type: application/json\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query($data)
         )
     );
     
     $context  = stream_context_create($options);
-    $result = file_get_contents($url, false, $context);
+    $result = file_get_contents($url, false, null);
+    print_r($result);
     if ($result === FALSE) { /* Handle error */ }
 
     var_dump($result);
 
 ?>
+
+<!-- <script src="assets/js/jquery.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.get( "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion", { clave: "50601011600310112345600100010100000000011999999999"})
+        .done(function( data ) {
+            alert( "Data Loaded: " + data );
+        });
+    })
+</script> -->

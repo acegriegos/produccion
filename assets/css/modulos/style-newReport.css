@@ -15,6 +15,9 @@ body{
 /*    height: 100vh;*/
     padding-top: 10px;
 }
+td{
+    padding: 2px;
+}
 .filtros{
     border-bottom: 1px dashed black;
     padding-bottom: 10px;
@@ -48,6 +51,10 @@ label[for=xnum] {
 
 @media print {
 
+body{
+        padding: 1px !important;
+        font-size: 0.8em!important;
+    }
 .contenedor{
     padding: 0px !important; 
     margin-left: 0%; 
@@ -96,7 +103,7 @@ label[for=xnum] {
     #ofiltr {
         display: none;
     }
-    /*@page {
+    @page {
       size: A4 landscape; 
-    }*/
+    }
 }

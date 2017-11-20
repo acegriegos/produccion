@@ -128,7 +128,7 @@ $("#telefono_in").blur(function(){
 
 	$(".btn-expand").click(function(){
 		var estado = $(this).attr('estado');
-		// console.log(estado)
+
 		if (estado == 1) {
 			$(".expand-2").removeClass('animated fadeOutRight');
 			$(".expand-2").addClass('animated fadeInRight');
@@ -157,7 +157,8 @@ $("#telefono_in").blur(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1});
+	$(".zelda").data('triforce',{_sid:'@@@'});
+	//vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1,
 
 	var add = getParameterByName("add") //accesos
 	if (add) {
@@ -481,12 +482,15 @@ function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
 }
 
 function endDetail(vid,vacc,modulo){
-	setTimeout(function(){ deadclear('cliente'); }, 2500);
-	thorload('cliente');
+	
 	if (vacc == 1) {
 		$("#shcorreos").html('');
 		$("#shtelefonos").html('');
+		setTimeout(function(){ deadclear('cliente'); }, 2500);
 	}
+	
+	thorload('cliente');
+	paginate($("ul.pagination").attr('vtbl'));
 }
 
 function postload(modulo) {

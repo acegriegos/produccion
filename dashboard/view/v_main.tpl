@@ -30,8 +30,8 @@
     </div>
 
     <div class="row">
-          <div class="col s12 m12 " id="graf1">
-              
+          <div class="col s12 m6 pequeño " id="graf1">
+              <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
               
           </div>
         </div>

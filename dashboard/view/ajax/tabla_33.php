@@ -1,19 +1,17 @@
 <?php
 
 foreach ($transaccion as $obj) {
-	echo ' <li class="list-group-item" style="cursor: pointer;">
-              <div class="row">
-                <div class="col-md-4 col-lg-4">
-                    '.$obj[0].'
-                </div>
-                <div class="col-md-4 col-lg-4" align="center">
-                    '.$obj[1].'
-                </div>
-                <div class="col-md-4 col-lg-4" align="right">
-                    '.$obj[2].'
-                </div>
-              </div>
-            </li>';
+	echo ' <tr class="view-cuenta" style="cursor: pointer;" id="c'.$obj[3].'">
+            <td class="center-align" style="font-size: 1.2em">
+                '.$obj[0].'
+            </td>
+            <td class="center-align" style="font-size: 1.2em" id="n'.$obj[3].'">
+                '.$obj[1].'
+            </td>
+            <td class="center-align" style="font-size: 1.2em">
+                '.$obj[2].'
+            </td>
+        </tr>';
 }
 
 ?>

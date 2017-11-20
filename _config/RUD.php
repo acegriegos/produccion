@@ -212,8 +212,10 @@
 			$salida = '';
 			
 			while (list($clave,$param) = each($arg)) {
+
 				if ($param == '?')
 					$param = $ant;
+
 				if (is_array($param)) {
 					$it = '';
 					foreach ($param as $obj) {
@@ -224,7 +226,10 @@
 				$param = str_replace("'", '\\\'', $param);
 				$param = str_replace('"', '\\"', $param);
 				
-			    $salida .= "'".$param."',";
+				if ($param == '@@@')
+					$salida .= "@var,";
+				else
+			    	$salida .= "'".$param."',";
 			}
 			$salida = substr($salida,0,-1);
 			$salida .= ")";
