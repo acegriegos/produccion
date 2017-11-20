@@ -5,20 +5,16 @@ $(function(){
     generarSSuc();
     $("#mchange").val($("#mchange").attr('sel'));
     $("#mchange").material_select('update');
-<<<<<<< HEAD
 
-     var fecha = new Date();
-    fecha=fecha.getFullYear()+'-'+(fecha.getMonth()+1)+'-'+fecha.getDate();
-    dibujarGrafico("chartG1",'Ganancias por Dia','Ganancias','line',{sel:'',tbl:307,where:'3,0,0,0,"'+fecha+'","",0,0,0'},2,0,2);
-=======
+   
+    dibujarGrafico("chartG1",'Ganancias por Dia','Ganancias','line',{sel:'',tbl:307,where:'3,0,0,0,"'+now()+'","",0,0,0'},2,0,2);
+
     var hasiniciate = arr('login',4,'count(id),monto',404,'idusuario = @@usr AND date_format(fecha,"%Y-%m-%d") = "'+now()+'"',0,0,0)[0][0];
     if (hasiniciate[1] != null) {
         $("#vmonto").val(hasiniciate[1]);
         $("#vmonto").attr('disabled',true);
     }
-     /*var f = mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura',sel:'',tbl:186,where:mid},1);*/
->>>>>>> bf3de7aaef551d3a7e397d13c7c32c8afb264866
-     
+
 });
 
 $(document).on("click","#iniciar",function(){
