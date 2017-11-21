@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="card-block">
-                    <table  class="table tabladetalles centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes" style="width: 100%">
+                   <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="sinborde white-text blue" ><b>Cédula</b></th>
@@ -52,7 +52,7 @@
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td>
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
-                                <td style=" padding: 10px ;color:black">{$CLIE[LE][5]}</td>
+                                <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
                                 <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
                                 <td>
                                      {if $CLIE[LE][13] neq 1}
@@ -86,7 +86,7 @@
                     </div>
                 <div class="modal-content " style="padding: 0px;">
                     <div id="fclientes">
-                        <input type="hidden" id="zelda">
+                        <input type="hidden" class="zelda">
                         <div class="row">
                             <br>
                             <div class="col s12 m8 l9">

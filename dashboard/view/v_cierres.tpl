@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col s12 m12 l12">
         <a class="btn waves-effect waves-light blue right" id="refresh" style="margin-left: 15px;"><i class="mdi mdi-refresh mdi-24px"></i>Actualizar</a>
-        <a class="waves-effect waves-light btn blue right" id="chkcierre">Realizar Cierre</a>
+        <a class="waves-effect waves-light btn blue right tt modal-trigger" data-position="bottom" data-delay="50" id="chkcierre" href="#modal-tipomonedas">Realizar Cierre</a>
       </div>
       <div class="row">
         <div class="col s3 m3 l3">
@@ -85,6 +85,30 @@
       </div>
     </div>
     </div>
+    
+    <!-- Modal Structure -->
+    <div id="modal-tipomonedas" class="modal modal-fixed-footer">
+        <div class="modal-content" style="padding: 0px;">
+          <ul class="tabs white-text" style="background-color:#0B3861">
+          <li class="tab col s6"><a class="white-text">TOTAL EN CAJA {$MON} <span id="totcashier">0.00</span></a></li>
+          </ul>
+          <div class="row">
+            <input type="hidden" id="stot" value="0">
+            {section name=LE loop=$TMON}
+            <div class="input-field col s4 m4 l4">
+              <input type="number" id="m{$TMON[LE][0]}" class="mnd" value="" placeholder="0.00" autofocus>
+              <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
+            </div>
+            {/section}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="waves-effect waves-green btn-flat" id="totalizar">Guardar</button>
+          <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+      </div>
+    </div>
+
+
     {$SRC}
     <script src="../assets/js/modulos/cierres.js"></script>
   </body>

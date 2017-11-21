@@ -145,6 +145,7 @@
                      <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
                      <input type="hidden" id="vid_tusuario" value="0">
                      <input type="hidden" id="vdefecto_tusuario" value="0">
+                     <input type="hidden" id="vbincierre_tusuario" value="0">
                      <input type="text" id="vnombre_tusuario" value="" style="margin-left: 15% !important;">
                      <label for="vnombre_tusuario" style="margin-left: 15% !important;">Ingresar Tipo Usuario</label>
                  </div>
@@ -158,6 +159,7 @@
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0px; border-radius: 0px !important;">Tipo</th>
+                    <th class="white-text blue" style="border: 0px; border-radius: 0px !important;">Aut. Cierre</th>
                     <th class="white-text blue" style="border: 0px; border-radius: 0px !important; width: 100% ">Acciones</th>
                 </tr>
             </thead>
@@ -168,13 +170,20 @@
                         <input type="text" value="{$TUSR[LE][1]}"  class="fast-edit center-align" style="border: 0px; margin: 0;">
                     </td>
                     <td style="margin:0;">
+                        <p>
+                            <input type="checkbox" class="vbincierre" id="tp{$TUSR[LE][0]}" value="{$TUSR[LE][3]}" {if $TUSR[LE][3] eq 1}checked{/if}>
+                            <label for="tp{$TUSR[LE][0]}">Aut. realizar cierre</label>
+                        </p>
+                    </td>
+                    <td style="margin:0;">
                         {if $TUSR[LE][2] eq 0}
                         <a href='#modal-tusuarios modal-trigger' id="c{$TUSR[LE][0]}" modulo="moneda" title="Valores en el Sistema">
-                            <i class="small mdi mdi-account-settings  mdi-24px "></i></a>
-                            <a class="delete pbtn" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small mdi mdi-close  mdi-24px"></i></a>
-                        </td>
+                        <i class="small mdi mdi-account-settings  mdi-24px "></i></a>
+                        <a class="delete pbtn" modulo="tipousuario" id="d{$TUSR[LE][0]}" title="Eliminar Tipo Usuario"><i class="small mdi mdi-close  mdi-24px"></i></a>
                         {/if}
-                    </tr>
+                    </td>
+                        
+                </tr>
                     {/section}
                 </tbody>
             </table>

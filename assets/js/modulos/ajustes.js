@@ -243,6 +243,48 @@ $(document).on("click",".menu3",function(){
 			$("#tmp").attr('id','vnombre_banco');
 		}
 	});
+
+
+});
+
+$(document).on("change",".vbincierre",function(){
+	var id = $(this).attr('id').substr(2);
+	var valor = $(this).val();
+	console.log(valor)
+	if ($(this).is(":checked"))
+		console.log(arr('login',7,'2',27,'bincierre = 1','id = '+id,0,0));
+	else
+		console.log(arr('login',7,'2',27,'bincierre = 0','id = '+id,0,0));
+});
+
+$(document).on("click","#addtypeuser",function(){
+	var p = '';
+	var arreglo = {};
+	arreglo['modulo'] = $(this).attr('modulo');
+	arreglo['tip'] = '';
+	arreglo['atributos'] = baseValidar(1,arreglo);
+	if (arreglo['atributos'] == "[object Object]"){
+        arreglo['atributos']['vaccion'] = 1;
+        for (var i = 0; i < arreglo['atributos']['vidtipousuario'].split(',').length; i++) {
+   			arreglo['atributos']['vidtipousuario'] = arreglo['atributos']['vidtipousuario'].split(',')[i];
+   			console.log(arreglo['atributos']['vidtipousuario'])
+			p = mantenimiento('login',2,arreglo);
+		}
+
+        // if (p['succed'] == 0) {
+            // Materialize.toast(p[0]['ERROR'], 4000, 'red');
+            // //QUITAR EL SEGUNDO UNO PONER UN 4
+            // endDetail(1,4,modulo+"s");
+        // }else{
+            // Materialize.toast('Registro Ingresado Correctamente', 4000, 'green');
+
+            // var id = p[0][0];
+            // endDetail(id,acc,modulo);
+        // }
+
+    }else{
+        Materialize.toast(arreglo['atributos'], 4000, 'red');
+    }
 });
 
 $(document).on("change", ".ispadr",function(){
@@ -969,7 +1011,6 @@ $(document).on("click",".descfactc",function(){
 });
 
 function validar (varreglo,vmodulo) {
-	
 	var salida = {}
 	switch(vmodulo['modulo']) {
 		case 'ajustes':
@@ -1092,6 +1133,13 @@ function validar (varreglo,vmodulo) {
 					return err
 			}
 			break;
+		case 'ajustecierre':
+			if (vmodulo['tip'] == '') {
+				err = validarajustecierre(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
 		default:
 			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
 			break;
@@ -1101,6 +1149,12 @@ function validar (varreglo,vmodulo) {
 	// console.log(salida)
 	return salida;
 
+}
+
+function validarajustecierre(vmod) {
+	if($("#f"+vmod+"s #vidtipousuario").val() == 0){
+		return "Seleccione un Tipo de usuario";
+	}
 }
 
 function validaracceso(vmod) {
@@ -1432,9 +1486,9 @@ function cargarSintax(vtabla){
 			arr['where'] = 'id > 0 order by principal desc,nombre';
 			break;
 		case 'tipousuarios':
-			arr['sel'] = 'id,nombre,defecto';
-			arr['tbl'] = 27;
-			arr['where'] = 'id > 0 order by defecto,nombre';
+			arr['sel'] = '';
+			arr['tbl'] = 402;
+			arr['where'] = '0';
 			break;
 		case 'variablesproducciones':
 			arr['sel'] = 'vid,vnombre,vvalor';

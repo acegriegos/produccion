@@ -627,4 +627,29 @@
   </div>
 </div>
 
+<div id="modal-producto" class="modal modal-fixed-footer">
+  <div class="modal-content" id="fproductos">
+    <h4>Agregar Producto</h4>
+    <input type="hidden" class="zelda">
+    <div class="row">
+
+      <div class="input-field col s6 edescu">
+        <input type="text" id="ecodprod">
+        <label for="ecodprod">Código</label>
+      </div>
+
+      <div class="input-field col s6 eimp">
+        <input type="text" id="enomprod">
+        <label for="enomprod">Nombre</label>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Aceptar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+  </div>
+</div>
+
 <script src="../assets/js/modulos/ventas.js?v=0.26"></script>

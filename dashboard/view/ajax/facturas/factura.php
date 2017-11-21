@@ -109,7 +109,9 @@
             </tr>
           </thead>
           <tbody id="ftbody">
-            <?php $grabado = $exento = 0; foreach ($transaccion as $obj) {
+            <?php 
+            $grabado = $exento = 0; 
+            foreach ($transaccion as $obj) {
 
               if ($obj[28] > 0) 
                 $grabado += str_replace(',', '', $obj[20])*$obj[18];
@@ -134,7 +136,7 @@
               <tr>
                 <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
                 <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Grabado</td>
-                <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado+str_replace(',', '', $obj[6]),2); ?></span></td>
+                <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
               </tr>
 
               <tr>

@@ -25,8 +25,9 @@
 					<td style="padding: 10px; color:black;">{$ACC[LE][1]}</td>
 					<td style="padding: 10px; color:black;">{$ACC[LE][2]}</td>
 					<td>
-						<a class="btn-color pbtn load material-icons per4108" id="m{$ACC[LE][0]}" title="Editar Acceso" style="color:black;" modulo="acceso">edit</a>
+						<a class="pbtn load per4108 mdi mdi-pencil mdi-24px" id="m{$ACC[LE][0]}" title="Editar Acceso" style="color:black;" modulo="acceso"></a>
 					</td>
+                                  
 				</tr>
 				{/section}
 			</tbody>

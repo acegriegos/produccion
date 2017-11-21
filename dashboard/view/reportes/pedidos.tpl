@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Pedidos Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=0.2">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css">
 </head>
 <body class="black">
   <div class=" principal contenedor" >

@@ -13,21 +13,37 @@
   <body>
     {$NAV}
     <div class="bdy">
-
-    <div class="row" style="border-bottom: 1px solid #e2e2e2">
-    {if $smarty.session.TIPO eq 1}
-        
-            <div class="input-field col s12 m6 l3">
-
-                <select class="ssuc" id="mchange" sel="{$smarty.session.IMPRESA}">
-                    
-                </select>
-                <label>Seleccione una Sucursal</label>
+        <div class="row" style="border-bottom: 1px solid #e2e2e2">
+        {if $smarty.session.TIPO eq 1}
+                <div class="input-field col s12 m6 l3">
+                    <select class="ssuc" id="mchange" sel="{$smarty.session.IMPRESA}"></select>
+                    <label>Seleccione una Sucursal</label>
+                </div>
+        {/if}
+        {if $USRCIERRE eq 1}
+        <div id="fcajainicialusuarios">
+            <div class="input-field col s12 m6 l3" style="border: 3px">
+                <i class="prefix">{$MONEDA}</i>
+                <input type="number" id="vmonto">
+                <input type="hidden" id="vid" value="0">
+                <input type="hidden" id="vidsucursal" value="0">
+                <input type="hidden" id="vidaccion" value="1">
+                <label for="vmonto">Monto Caja Inicial</label>
             </div>
-    {/if}
-
-    <a href="#" class="btn-floating der per100 hide"><i class="mdi mdi-plus"></i></a>
+            <div class="col s3 m3 l3">
+                <button class="waves-effect waves-light blue btn" id="iniciar" modulo="cajainicialusuario">Iniciar Caja</button>
+            </div>
+        </div>
+        {/if}
+        </div>
     </div>
+
+    <div class="row">
+          <div class="col s12 m6 pequeño " id="graf1">
+              <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
+              
+          </div>
+        </div>
     {$SCR}
 
     <script src="../assets/js/modulos/main.js"></script>

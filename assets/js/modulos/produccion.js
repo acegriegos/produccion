@@ -77,7 +77,7 @@ $(function(){
         bPaginate :  false,
         bInfo : false
     });
-    $("#m2").click();
+    $("#m3").click();
 });
 
 $(document).ready(function(){
@@ -125,7 +125,7 @@ $(document).on("click",".start",function(){
     var idproceso = $(this).attr('idproceso');
     var idlinea = $(this).attr('idlinea');
     var cantidad = $(this).attr('cantidad');
-    var idtarea = $(this).attr('idtarea');
+    // var idtarea = $(this).attr('idtarea');
     var identity = arr('login',4,'',148,'1,0,'+idproceso+','+idlinea+','+cantidad,0,0,0)[0][0];
     arr('login',4,'',149,'1,0,1,'+idtarea+','+identity+',now(),@@usr,@@impresa',0,0,0);
 
@@ -189,7 +189,14 @@ $(document).on("click","#chargeprod",function(){
 $(document).on("keydown","#proceso",function(e){
     var charCode = e.which || e.keyCode;
     var charStr = String.fromCharCode(charCode);
-    autocomplete(charCode,charStr,'proceso',146);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("#proceso").autocomplete({
+            limit: 10,
+            data: arr('login',4,'',400,'"%'+$("#proceso").val()+'%",1',0,0,0,1)
+        }); 
+        $("#proceso").siblings($(".autocomplete-content")).css('width','25%');
+    }
 });
 
 $(document).on("keydown","#proc",function(e){
@@ -207,7 +214,7 @@ $(document).on("keydown","#tsk",function(e){
 $(document).on("keyup","#proceso",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
-        arr('login',6,'',197,'"'+$(this).val()+'"',0,1,$("#listatareaxprocesos"));
+        arr('login',6,'',197,'"'+$(this).val()+'",0',0,1,$("#listatareaxprocesos"));
         $("#data-table-tareaxprocesos").show(500);
         $("#cantidad").val(1);
         $("#cantidad").select();
@@ -238,10 +245,15 @@ $(document).on("blur","#proceso",function(){
 //         $("#cantidad").select();
 // });
 
-$(document).on("keyup","#cantidad",function(e){
+$(document).on("keyup","#cantidad",function(e) {
     var code = e.which || e.keyCode;
-    if (code == 13)
+    if (code == 13) {
+        var tabla = $("#data-table-tareaxprocesos").DataTable();
+        tabla.destroy();
+        arr('login',6,'',197,'"'+$("#proceso").val()+'",'+$(this).val(),0,1,$("#listatareaxprocesos"));
+        // $("#data-table-tareaxprocesos").show(500);
         addprocess($("#idproceso").val(),$("#proceso").val(),$("#idlinea").val(),parseInt($(this).val()));
+    }
 });
 
 $(document).on("click","#toBuy",function(){
@@ -818,7 +830,6 @@ function saveprocess(id,p,tp,tipo,cod,nom,tot,imp) {
             Materialize.toast('Nombre de producto o codigo existente<i class="mdi mdi-close mdi-24px but"></i>', 6000, 'red');
         }
     }else{
-        console.log("det")
         arr('login',7,'2',11,'costo = '+tot+',venta = '+(tot * ((p[1]/100)+1) * ((imp/100)+1)),'id = '+id,0,0);
         var inv = arr('login',4,'id',97,'idproducto = '+id+' and idinventario = 7',0,0,0)[0][0];
         if (inv == undefined) {
@@ -1152,13 +1163,14 @@ function addprocess(idproceso,proceso,idlinea,cantidad) {
         var cant = parseInt(elem[i][5]);
         cantot = cant * cnt;
 
-        var faltante = parseInt(elem[i][6] - cantot);
-        if (faltante > 0) {
-            faltante = 0;
-        }else{
-            faltante = Math.abs(faltante);
-        }
-        $("#detproc"+count).append('<li class="collection-item"><div class="row mbotcero"><div class="col s4 m6 l6"><span id="d'+elem[i][0]+'">'+elem[i][3]+'</span></div><div class="col s4 m2 l2"><span>Cantidad: <span id="c'+elem[i][0]+'">'+cantot+'</span></span></div><div class="col s4 m2 l2"><span>Actual: <span id="a'+elem[i][0]+'">'+elem[i][6]+'</span></span></div><div class="col s4 m2 l2"><span>Faltante: <span id="f'+elem[i][0]+'">'+faltante+'</span></span></div></div></li>');
+        // var faltante = parseInt(elem[i][6] - cantot);
+        // if (faltante > 0) {
+        //     faltante = 0;
+        // }else{
+        //     faltante = Math.abs(faltante);
+        // }
+        $("#detproc"+count).append('<li class="collection-item"><div class="row mbotcero"><div class="col s4 m6 l6"><span id="d'+elem[i][0]+'">'+elem[i][3]+'</span></div><div class="col s4 m2 l2"><span>Cantidad: <span id="c'+elem[i][0]+'">'+cantot+elem[i][7]+'</span></span></div><div class="col s4 m2 l2"><span>Actual: <span id="a'+elem[i][0]+'">'+elem[i][6]+elem[i][8]+'</span></span></div></div></li>');
+        // <div class="col s4 m2 l2"><span>Faltante: <span id="f'+elem[i][0]+'">'+faltante+'</span></span></div>
     }
     $("#detproc"+count).append('<div><a class="waves-effect waves-light btn" id="toBuy" disabled>Ir a Compras</a></div>')
     $("#count").val(count);

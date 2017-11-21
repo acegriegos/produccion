@@ -1,6 +1,3 @@
-.tamLetra{
-   font-size: 1.2em !important
-}
 .input-field{
     margin: 0px;
 }
@@ -11,10 +8,17 @@
 .sinborde{
     border-radius: 0px !important;
 }
-
-td, th{
-    padding: 15px 15px !important;
+.tamLetra{
+   font-size: 1.2em !important
 }
+ul.pagination > li.active {
+    background-color: #2196F3 !important;
+}
+
+
+/*td, th{
+    padding: 15px 15px !important;
+}*/
 
 .placeh{
     color: rgba(0,0,0,0.2);
