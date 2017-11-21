@@ -151,7 +151,7 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1});
+	$(".zelda").data('triforce',{vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1,_sid:'@@@'});
 
 	var add = getParameterByName("add") //accesos
 	if (add) {
@@ -386,6 +386,7 @@ function validarclientes() {
 					}
 
 					vdefecto += '[null,'+$("#my-array"+vid).val()+',2,?,100,'+$("#my-array"+vid).attr('tp')+','+$("#my-array"+vid).attr('dh')+']:';
+
 				});
 
 				if (salida != '')  
