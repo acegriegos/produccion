@@ -216,10 +216,11 @@ $(document).on("keydown", "[id^=vcliente]", function (e) {
 		var charStr = String.fromCharCode(charCode);
 		var id = $(this).attr('id').substr(8);
 		if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+
 			$(".autocomplete-content").remove();
 			$("#vcliente" + id).autocomplete({
 				limit: 10,
-				data: arr('login', 4, 'concat(nombre," ",apellido1," ",apellido2),null', 2, 'concat(nombre," ",apellido1," ",apellido2) like \"%' + $("#vcliente" + id).val() + '%\" and id > 0 and bisproveedor !=1 limit 10', 0, 0, 0, 1)
+				data:arr('login', 4, 'concat(nombre," ",apellido1," ",apellido2," [",replace(cedula,"-",""),"]") as nom ,null', 2, ' id > 0 and !bisproveedor having nom like "%'+$(this).val()+'%" limit 10', 0, 0, 0, 1)
 			});
 			$("#vcliente" + id).siblings($(".autocomplete-content")).css('width', '25%');
 		}
@@ -242,14 +243,15 @@ $(document).on("blur", "[id^=vcliente]", function () {
 	var nombre = $(this).val();
 	var id = $(this).attr('id').substr(8);
 	if (nombre != '') {
-		var id = arr('login', 4, 'id', 2, 'concat(nombre," ",apellido1," ",apellido2) like "%' + nombre + '%"', 0, 0, 0)[0][0][0];
+		var idc = arr('login', 4, 'id', 2, 'concat(nombre," ",apellido1," ",apellido2," [",replace(cedula,"-",""),"]") like "%' + nombre + '%"', 0, 0, 0)[0][0][0];
+
 		$(".vidcliente").each(function () {
 			var idcli = $(this).val();
-			if (idcli == id) {
+			if (idcli == idc) {
 				Materialize.toast('Cliente ' + nombre + ' ya se encuentra en la lista', 6000, 'red');
 			}
 		});
-		$("#vidcliente" + id).val(id);
+		$("#vidcliente" + id).val(idc);
 	}
 });
 
@@ -259,11 +261,21 @@ $(document).on("keyup","[id^=vexoneracion]",function(e){
     if (code == 13) {
         if ($(this).attr('nc') != undefined) {
             line++;
-            $(".chg1").append('<div class="row preciocliente rem" id="c'+line+'"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+line+'" class="validate autocomplete" value=""><input type="hidden" class="vidcliente" id="vidcliente'+line+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vganancia'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="1" line="'+line+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="material-icons prefix">¢</i><input type="text" id="vventa'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="2" line="'+line+'"><input type="hidden" id="hventa'+line+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vexoneracion'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" num="3" line="'+line+'"></div></div></div>');
+            $(".chg1").append('<div class="row preciocliente rem" id="c'+line+'" accion="1" idf="0"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+line+'" class="validate autocomplete" value=""><input type="hidden" class="vidcliente" id="vidcliente'+line+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" id="vganancia'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="1" line="'+line+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="material-icons prefix">¢</i><input type="text" id="vventa'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="2" line="'+line+'"><input type="hidden" id="hventa'+line+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="material-icons prefix">%</i><input type="text" style="width: 70%" id="vexoneracion'+line+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" num="3" line="'+line+'"> <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i></div></div></div>');
             $("#vcliente"+line).focus();
         }
     }
 
+});
+
+$(document).on("click", ".cl", function () {
+	var idf = $(this).parent().parent().parent();
+	if (idf.attr('idf') == 0)
+		idf.remove()
+	else{
+		idf.addClass('hide');
+		idf.attr('accion','3');
+	}
 });
 
 $(document).on("click", ".optns", function () {
@@ -629,7 +641,7 @@ $(document).on("click", "#addprod", function () {
 		var nombre = $("#vnombre").val();
 		var costo = $("#vcosto").val();
 		var ganancia = $("#vganancia").val();
-		var venta = $("#vventa").val();
+		var venta = parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia").val().replace(/,/g,""))/100)+1);
 		var exoneracion = $("#vexoneracion").val() == '' || $("#vexoneracion").val() == '0.00' ? 0 : $("#vexoneracion").val();
 		var peso = $("#vpeso").val();
 		var idunidad = $("#vidunidad option:selected").val();
@@ -685,7 +697,7 @@ $(document).on("click", "#addprod", function () {
 		if (pass == 1) {
 			var idmarca = $("#vidmarca").val();
 			var idproducto = arr('login',4,'',78,'1,0,"'+codigo+'","'+codigointerno+'","'+nombre+'",'+costo+','+ganancia+','+venta+','+exoneracion+','+peso+','+idunidad+','+minimo+','+maximo+','+maxdesc+','+idmarca+','+idinventario +',@@usr,'+idmoneda+',@@impresa,""',0,0,0);
-			console.log(idproducto)
+
 			if (idproducto[0][0] != undefined) { //validar si guarda correctamente
 				//agregar impuestos
 				$(".impuestos").each(function () {
@@ -707,7 +719,7 @@ $(document).on("click", "#addprod", function () {
 				$(".preciocliente").each(function () {
 					var idfila = $(this).attr('id').substr(1);
 					if ($("#vventa" + idfila).val() > 0) {
-						arr('login', 4, '', 162, '1,0,' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',' + $("#vganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa', 0, 0, 0)
+						arr('login', 4, '', 162, '1,0,' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',' + $("#vganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa,'+parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia"+idfila).val().replace(/,/g,""))/100)+1), 0, 0, 0)
 					}
 				});
 
@@ -747,7 +759,7 @@ $(document).on("click", "#editprod", function () {
 		var nombre = $("#vnombre").val();
 		var costo = $("#vcosto").val();
 		var ganancia = $("#vganancia").val();
-		var venta = $("#vventa").val();
+		var venta = parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia").val().replace(/,/g,""))/100)+1);
 		var exoneracion = $("#vexoneracion").val() == '' || $("#vexoneracion").val() == '0.00' ? 0 : $("#vexoneracion").val();
 		var peso = $("#vpeso").val();
 		var idunidad = $("#vidunidad option:selected").val();
@@ -799,30 +811,37 @@ $(document).on("click", "#editprod", function () {
 		}
 
 		if (pass == 1) {
+
 			var idmarca = $("#vidmarca").val();
 			var idproducto = arr('login', 4, '', 78, '2,' + id + ',\"' + codigo + '\",\"' + codigointerno + '\",\"' + nombre + '\",' + costo + ',' + ganancia + ',' + venta + ',' + exoneracion + ',' + peso + ',' + idunidad + ',' + minimo + ',' + maximo + ',' + maxdesc + ',' + idmarca + ',0,@@usr,1,@@impresa,""', '', 0, '');
 			if (idproducto[0][0] != undefined) {
+
 				$(".impuestos").each(function () {
+
 					var idimpuesto = $(this).attr('id').substr(4);
 					if ($(this).data('defecto') != $("#impexo" + idimpuesto).val()) {
 						var imp = arr('login', 4, '', 86, '2,0,' + idproducto[0][0] + ',11,' + idimpuesto + ',' + $("#impexo" + idimpuesto).val(), '', 0, '');
 					}
 				});
+
 				$(".precionivel").each(function () {
+		
 					var idfila = $(this).attr('id').substr(1);
 					arr('login', 4, '', 108, '3,null,' + idproducto[0][0] + ',' + idfila + ',0,0,@@usr,@@impresa', 0, 0, 0);
 					if ($("#vventa" + idfila).val() > 0) {
 						arr('login', 4, '', 108, '1,null,' + idproducto[0][0] + ',' + idfila + ',' + $("#vganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa', 0, 0, 0)
 					}
 				});
-
+	
 				$(".preciocliente").each(function () {
+				
 					var idfila = $(this).attr('id').substr(1);
-
-					arr('login', 4, '', 108, '3,null,' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',0,0,@@usr,@@impresa', 0, 0, 0);
-
-					if ($("#vventa" + idfila).val() > 0) {
-						arr('login', 4, '', 162, '1,0,' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',' + $("#vganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa', 0, 0, 0)
+					var idpxp = $(this).attr('idf');
+					var accion = $(this).attr('accion');
+					var valor = parseFloat($("#vventa" + idfila).val().replace(/,/g,''));
+					// arr('login', 4, '', 108, '3,null,' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',0,0,@@usr,@@impresa', 0, 0, 0);
+					if ( valor > 0) {
+						arr('login', 4, '', 162, accion+','+idpxp+',' + idproducto[0][0] + ',' + $("#vidcliente" + idfila).val() + ',' + $("#vganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa,'+parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia"+ idfila).val().replace(/,/g,""))/100)+1), 0, 0, 0);
 					}
 				});
 
@@ -836,11 +855,7 @@ $(document).on("click", "#editprod", function () {
 				Materialize.toast('Producto Editado Correctamente', 6000, 'green');
 				arr('login', 6, '',14, '0,0,"",10', '', 1, $("#listaproductos"));
 				paginate(14);
-				// vaciar('productos');
-				// var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
-				// for (var i = 0, len = imp.length; i < len; i++) {
-				//     $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][0]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][0]+'" value="'+imp[i][2]+'" defecto="1">'+imp[i][1]+' - '+imp[i][2]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][0]+'" type="number" class="validate eder calcvv" value="0" style="margin: 0px;width: 50%"></div></div></li>');
-				// }
+
 				$(".validate").css('border-bottom', '1px solid #9e9e9e');
 				$(".validate").css('box-shadow', 'none');
 				Materialize.updateTextFields();
@@ -863,7 +878,6 @@ $(document).on("click", ".editprod", function () {
 	var preccat = arr('login', 4, '', 110, id, 0, 0, 0)[0];
 	var preccli = arr('login', 4, '', 165, id, 0, 0, 0)[0];
 
-	console.log(preccli);
 	$("#listavariables").html('');
 	var car = arr('login', 6, 'id,nombre,valor', 193, 'idproducto = ' + id, 194, 1, $("#listavariables"))[0];
 	var line = arr('login', 4, 'count(id)', 69, 'id > 0', 0, 0, 0)[0][0];
@@ -913,11 +927,11 @@ $(document).on("click", ".editprod", function () {
 	if (preccli != '') {
 		for (var i = 0; i < preccli.length; i++) {
 			line++
-			$(".chg1").append('<div class="row preciocliente rem" id="c' + line + '"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente' + line + '" class="validate autocomplete" value="' + preccli[i][2] + '"><input type="hidden" class="vidcliente" id="vidcliente' + line + '" value="' + preccli[i][1] + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vganancia' + line + '" class="validate calcnc eder" value="' + preccli[i][3] + '" data-mask="9999999999.99" focus="vventa" num="2" line="' + line + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="mdi prefix">¢</i><input type="text" id="vventa' + line + '" class="validate calcnc eder" value="' + preccli[i][4] + '" data-mask="9999999999.99" focus="vexoneracion" num="3" line="' + line + '"><input type="hidden" id="hventa' + line + '" value="' + preccli[i][4] + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vexoneracion' + line + '" class="validate calcnc eder" value="' + preccli[i][5] + '" data-mask="9999999999.99" nc="1" line="' + line + '"></div></div></div>');
+			$(".chg1").append('<div class="row preciocliente rem" id="c' + line + '" accion="2" idf="'+ preccli[i][6] +'"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente' + line + '" class="validate autocomplete" value="' + preccli[i][2] + '"><input type="hidden" class="vidcliente" id="vidcliente' + line + '" value="' + preccli[i][1] + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vganancia' + line + '" class="validate calcnc eder" value="' + preccli[i][3] + '" data-mask="9999999999.99" focus="vventa" num="2" line="' + line + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="mdi prefix">¢</i><input type="text" id="vventa' + line + '" class="validate calcnc eder" value="' + preccli[i][4] + '" data-mask="9999999999.99" focus="vexoneracion" num="3" line="' + line + '"><input type="hidden" id="hventa' + line + '" value="' + preccli[i][4] + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vexoneracion' + line + '" style="width: 70%" class="validate calcnc eder" value="' + preccli[i][5] + '" data-mask="9999999999.99" nc="1" line="' + line + '"> <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i> </div></div></div>');
 		}
 	} else {
 		var countniv = arr('login', 4, 'count(id)+1', 69, 'id > 0', 0, 0, 0)[0][0];
-		$(".chg1").append('<div class="row preciocliente" id="c' + countniv + '"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente' + countniv + '" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente' + countniv + '" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vganancia' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" line="' + countniv + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="mdi prefix">¢</i><input type="text" id="vventa' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" line="' + countniv + '"><input type="hidden" id="hventa' + countniv + '" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vexoneracion' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" line="' + countniv + '"></div></div></div>');
+		$(".chg1").append('<div class="row preciocliente" id="c' + countniv + '" accion="1" idf="0"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente' + countniv + '" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente' + countniv + '" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vganancia' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" line="' + countniv + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="mdi prefix">¢</i><input type="text" id="vventa' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" line="' + countniv + '"><input type="hidden" id="hventa' + countniv + '" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" style="width: 70%" id="vexoneracion' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" line="' + countniv + '"> <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i></div></div></div>');
 	}
 	Materialize.updateTextFields();
 });
@@ -1705,7 +1719,7 @@ $(document).on("click","#addproduct",function(){
     $("#listavariables").html('');
     if ($("[id^=vcliente]").length == 0) {
         var countniv = arr('login',4,'count(id)+1',69,'id > 0',0,0,0)[0][0];
-        $(".chg1").append('<div class="row preciocliente" id="c'+countniv+'"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+countniv+'" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vganancia'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" line="'+countniv+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="mdi prefix">¢</i><input type="text" id="vventa'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" line="'+countniv+'"><input type="hidden" id="hventa'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vexoneracion'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" line="'+countniv+'"></div></div></div>');
+        $(".chg1").append('<div class="row preciocliente" id="c'+countniv+'" accion="1" idf="0"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente'+countniv+'" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vganancia'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" line="'+countniv+'"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="mdi prefix">¢</i><input type="text" id="vventa'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" line="'+countniv+'"><input type="hidden" id="hventa'+countniv+'" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" style="width: 70%" id="vexoneracion'+countniv+'" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" line="'+countniv+'"> <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i></div></div></div>');
     }
     var imp = arr('login',4,'impuesto,nombre,valor',109,'',0,0,0)[0];
     vaciar('productos');

@@ -24,7 +24,7 @@
                     <div class="col s12 m12 l6 pequeño">
                         <a href="#" data-activates="slide-tc" data-num="1" class="button-collapse der tc-show black-text" title="Administrar Teléfonos de la Empresa"><i class="mdi mdi-phone  mdi-24px"></i></a>
                         <label for="vtelefono">Teléfonos de la Empresa</label>
-                        <input type="text" class="infoempresa" id="vtelefono" field="telefonos" readonly>
+                        <input type="text"  id="vtelefono" field="telefonos" readonly>
                         
                     </div>
                    
