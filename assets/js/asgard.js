@@ -29,7 +29,6 @@ $(window).keydown(function(e){
 $(document).on("click",".tc-show",function(){
 
     if ($("#slide-tc").length == 0) {
-
         var ul = '<ul id="slide-tc" class="side-nav"> <li><div class="user-view"> <span class="ntit"></span></a></div></li> <li><div class="divider"></div></li> <li><a class="subheader">Subheader</a> </li></ul>';
 
         $(".bdy").append(ul);
@@ -40,8 +39,20 @@ $(document).on("click",".tc-show",function(){
         var titulo = cuerpo = '';
 
         switch(code){
-            case 1: // TELEFONOS
+            case 1: 
+                titulo = 'Teléfonos';
+                break;
+            case 2: 
+                titulo = 'Correos';
+                break;
+            case 3: 
+                titulo = 'Ubicación';
+                break;
+            default:
+                break;
         }
+
+        $(".ntit").html(titulo);
     }
 
     $(this).sideNav({
@@ -402,6 +413,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
     data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
 })
    .done(function(data) {
+    console.log(data)
     try {
         p = JSON.parse(data);
     }
