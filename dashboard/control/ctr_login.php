@@ -109,7 +109,7 @@
           }
           
           if (isset($_REQUEST['arreglo']['mic']))
-            $miscelaneos = $log->kamehameha('',50,'0')[0];
+            $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
 
           if (isset($_REQUEST['arreglo']['id']))
             $id = $_REQUEST['arreglo']['id'];

@@ -93,11 +93,13 @@ $html = '<!doctype html>'.
 '<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">'.
 '<tbody><tr>'.
 '<td class="mcnCaptionRightImageContent" valign="top">'.
-'<br>'.
+'<br>';
 
-'<img src="https://gallery.mailchimp.com/236c3cf9c0e643d2694f51e4c/images/daa0fc73-6e22-4be3-8a43-807258016801.png" width="264" style="max-width:339px;" class="mcnImage">'.
+if ($miscelaneos[3]) {
+   $html .= '<img src="https://gallery.mailchimp.com/236c3cf9c0e643d2694f51e4c/images/daa0fc73-6e22-4be3-8a43-807258016801.png" width="264" style="max-width:339px;" class="mcnImage">';
+}
 
-'</td>'.
+$html .= '</td>'.
 '</tr>'.
 '</tbody></table>'.
 '</td><td>'.  //DIVISOR

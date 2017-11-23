@@ -20,7 +20,10 @@
         <div class="row">
           <div class="col s12 m1 l1 hide-on-med-and-down">&nbsp;</div>
           <div class="col s5 m3 l3" align="center" style="padding: 6% 0% 0% 0%;">
-            <img src="<?php echo $miscelaneos[3]; ?>" id="imglogo" class="img-responsive" width="90%">
+            <?php if ($miscelaneos[3]) {
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="90%">';
+            } ?>
+            
           </div>
           <div class="col s2 m4 l4 hide-for-small-only">&nbsp;</div>
           <div class="col s5 m4 l4 left-align">
