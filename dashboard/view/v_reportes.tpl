@@ -36,11 +36,42 @@
 </div>
 {/if}
 {if $TR eq 1}
-<div class="col s6 m3 l2 center-align padd">
-<a class="report pbtn" rep="ganancias"><i class="mdi mdi-chart-line  mdi-48px padd"></i></a>
+<div class="col s6 m3 l2 center-align ">
+<a class="report pbtn" rep="ventas"><i class="mdi-48px mdi mdi-chart-areaspline"></i>
+</a>
 <div class="row">
 <div class="col s12">
-<p>Ganancias</p>
+<p>Ventas</p>
+</div>
+</div>
+</div>
+{/if}
+{if $TR eq 1}
+<div class="col s6 m3 l2 center-align padd">
+<a class="report pbtn" rep="gananciasdtf"><i class="mdi mdi-chart-line  mdi-48px padd"></i></a>
+<div class="row">
+<div class="col s12">
+<p>Ganancias Detallada Por Facturas </p>
+</div>
+</div>
+</div>
+{/if}
+{if $TR eq 1}
+<div class="col s6 m3 l2 center-align padd">
+<a class="report pbtn" rep="gananciaspf"><i class="mdi mdi-google-analytics  mdi-48px padd"></i></a>
+<div class="row">
+<div class="col s12">
+<p>Ganancias Por Facturas </p>
+</div>
+</div>
+</div>
+{/if}
+{if $TR eq 1}
+<div class="col s6 m3 l2 center-align padd">
+<a class="report pbtn" rep="gananciasdxp"><i class="mdi mdi-elevator  mdi-48px padd"></i></a>
+<div class="row">
+<div class="col s12">
+<p>Ganancias Por Productos </p>
 </div>
 </div>
 </div>
@@ -188,17 +219,7 @@
 </div>
 </div>
 {/if}
-{if $TR eq 1}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="ventas"><i class="mdi-48px mdi mdi-chart-areaspline"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Ventas</p>
-</div>
-</div>
-</div>
-{/if}
+
 </div>
 </div>
 </div>
