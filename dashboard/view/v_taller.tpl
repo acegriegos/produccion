@@ -24,7 +24,7 @@
         <div class="row">
           <div class="col s12 m6">
             <div class="card white lighten-2">
-              <div class="card-content black-text">
+             <div class="card-content black-text">
                 <div class="card blue-grey darken-1">
                   <span class="center-align card-title">Buscar Vehículo</span>
                 </div>
