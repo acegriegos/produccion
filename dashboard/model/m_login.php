@@ -106,7 +106,7 @@
 			$rs = str_replace("\n", " ", $rs);
 			$rs = str_replace("inout ", "", $rs);
 			$rs = explode(',', $rs);
-
+			
 			$arreglo = $rs;
 
 			foreach ($arreglo as $obj) {
