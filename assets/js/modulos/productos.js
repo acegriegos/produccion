@@ -873,7 +873,8 @@ $(document).on("click", "#editprod", function () {
 $(document).on("click", ".editprod", function () {
 	$(".autocomplete-content").hide();
 	var id = $(this).attr('id').substr(1);
-	var p = arr('login', 4, '',14, id+',0,"",1', 0, 0, 0);
+	var p = arr('login', 4, '',14, id+',0,"","0,1"', 0, 0, 0);
+
 	var q = p[0][0];
 	var preccat = arr('login', 4, '', 110, id, 0, 0, 0)[0];
 	var preccli = arr('login', 4, '', 165, id, 0, 0, 0)[0];
@@ -904,10 +905,10 @@ $(document).on("click", ".editprod", function () {
 	$("#vminimo").val(q[19]);
 	$("#vmaximo").val(q[20]);
 	$("#vmaxdescuento").val(q[22]);
-	$("#vcosto").val(q[4]);
+	$("#vcosto").val(q[5]);
 	$("#hvcosto").val(q[4]);
-	$("#vganancia").val(q[7]);
-	$("#vventa").val(q[10]);
+	$("#vganancia").val(q[8]);
+	$("#vventa").val(q[11]);
 	$("#hventa").val(q[10]);
 	$("#vexoneracion").val(q[13]);
 	if (q[15] != 1) {
@@ -1614,29 +1615,64 @@ $(document).on("change","input[name=visgravado]",function(){
     }
 });
 
-$(document).on("keyup",".calcvv",function(e){
-    var code = e.which || e.keyCode;
-    var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
-    var costo = isNaN($("#vcosto").val()) || $("#vcosto").val() == '' ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
-    var ganancia = isNaN($("#vganancia").val()) || $("#vganancia").val() == '' ?  0 : parseFloat($("#vganancia").val().replace(/,/g,""));
-    $("#hvcosto").val(costo);
-    totalizar(costo,ganancia,num);
-    if (code == 13) {
-        var focus = $(this).attr('focus');
-        if (focus == 'impuesto') {
-            $("#tb3").click();
-        }else{
-            $("#"+focus).select();
-        }
+// $(document).on("keyup",".calcvv",function(e){
+//     var code = e.which || e.keyCode;
+//     var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
+//     var costo = isNaN($("#vcosto").val()) || $("#vcosto").val() == '' ? 0 : parseFloat($("#vcosto").val().replace(/,/g,""));
+//     var ganancia = isNaN($("#vganancia").val()) || $("#vganancia").val() == '' ?  0 : parseFloat($("#vganancia").val().replace(/,/g,""));
+//     $("#hvcosto").val(costo);
+//     totalizar(costo,ganancia,num);
+//     if (code == 13) {
+//         var focus = $(this).attr('focus');
+//         if (focus == 'impuesto') {
+//             $("#tb3").click();
+//         }else{
+//             $("#"+focus).select();
+//         }
         
-    }
-    // if (imv == undefined && ganancia == 0) {
-    //  venta = costo;
-    // }else{
-    //  venta = costo * ((ganancia/100)+1);
-    // }
-    // $("#vventa").val( (venta).toFixed(2) );
+//     }
+// });
+
+$(document).on("keyup",".calcvv",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) 
+		$(this).blur();
 });
+
+$(document).on("blur",".calcvv",function(){
+	var padre = $(this).parent().parent().parent();
+	var costo = $("#vcosto").val().replace(/,/,'');
+	var ganancia = padre.find('.gan').val().replace(/,/g,'');
+	var exoneracion = padre.find('.exo').val().replace(/,/g,'');
+	var venta = padre.find('.ven').val().replace(/,/g,'');
+	var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
+	var tgan = tven = hven = impuestos = 0;
+
+	costo = isNaN(costo) ? 0 : costo;
+	ganancia = isNaN(ganancia) ? 0 : ganancia;
+	exoneracion = isNaN(exoneracion) ? 0 : exoneracion;
+	venta = isNaN(venta) ? 0 : venta;
+
+	$(".impuestos").each(function () {
+		var id = $(this).attr('id').substr(4);
+		impuestos += parseFloat($(this).attr('value') * (1 - parseFloat($("#impexo" + id).val()) / 100));
+	});
+
+
+	switch(num){
+		case 1: //GENERAL COSTO
+			break;
+		case 2: //POR GANANCIA
+			hven = costo * ((impuestos / 100) + 1) * ((ganancia / 100) + 1);
+			tven = costo * (((impuestos - (impuestos * (exoneracion / 100))) / 100) + 1) * ((ganancia / 100) + 1);
+
+			padre.find('.ven').val(tven);
+			padre.find('.hven').val(hven);
+			console.log((impuestos * (exoneracion / 100)))
+			break;
+	}
+
+});	
 
 $(document).on("keyup",".calcnc",function(e){
     var code = e.which || e.keyCode;

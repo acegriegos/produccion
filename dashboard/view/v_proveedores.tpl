@@ -112,14 +112,6 @@
                                           <label for="cdimex">DIMEX</label>
                                       </p>
                                   </div>
-                                  <div class="input-field col s6 m4 hide">
-                                    <select class="icons" type="select" id="vidpais">
-                                    {section name=LE loop=$PAISES}
-                                        <option value="{$PAISES[LE][0]}" cod="{$PAISES[LE][1]}" data-icon="{$PAISES[LE][2]}" class="circle">{$PAISES[LE][3]}</option>
-                                    {/section}
-                                    </select>
-                                    <label>País</label>
-                                  </div>
                               <input type="hidden" id="vidtipocliente" value="1">
                           </div>
                           <br>

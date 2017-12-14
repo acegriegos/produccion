@@ -16,7 +16,7 @@
 
                         <div class="input-field">
                             <label for="vnombre">Nombre</label>
-                            <input type="text" class="form-control" id="vnombre">
+                            <input type="text" class="validate" id="vnombre">
                             <input type="hidden" id="vidusuario" value="">
                             <input type="hidden" id="vidsucursal" value="">
                             <input type="hidden" id="vconsecutivo" value="1">
@@ -30,26 +30,44 @@
                     <div class="col s12 m6">
                         <div class="input-field">
                             <label for="vcedula">Cédula</label>
-                            <input type="text" class="form-control" id="vcedula">
+                            <input type="text" class="validate" id="vcedula">
                         </div>
                     </div>
                     <div class="col s12 m6" id="ftelefonos" vtabla="telefonoS" hasTabla="1">
                         <div class="input-field">
                             <label for="vtelefono">Teléfono</label>
-                            <input type="text" class="form-control" id="vtelefono">
+                            <input type="text" class="validate" id="vtelefono">
                         </div>
                     </div>
                     <div class="col s12 m6" id="fcorreos" vtabla="correos" hasTabla="1">
                         <div class="input-field">
                             <label for="vcorreo">Correo</label>
-                            <input type="text" class="form-control" id="vcorreo">
+                            <input type="text" class="validate" id="vcorreo">
                         </div>
                     </div>
 
                     <div class="col s12 m6">
                         <div class="input-field">
                             <label for="vencabezado">Encabezado de Factura</label>
-                            <input type="text" class="form-control" id="vencabezado" maxlength="2">
+                            <input type="text" class="validate" id="vencabezado" maxlength="2">
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <p>
+                            <input type="radio" id="juridico" name="isfisico" value="0" class="with-gap" checked>
+                            <label for="juridico">Jurídico</label>
+                        </p>
+                    </div>
+                    <div class="col s12 m6">
+                        <p>
+                            <input type="radio" id="fisico" name="isfisico" value="1" class="with-gap">
+                            <label for="fisico">Físico</label>
+                        </p>
+                    </div>
+                    <div class="col s12 m6 hide" id="pfisico">
+                        <div class="input-field">
+                            <label for="vfactura">Correo</label>
+                            <input type="text" class="validate" id="vfactura">
                         </div>
                     </div>
                     <div class="col s12 m6">

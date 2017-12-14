@@ -19,7 +19,11 @@
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-	   			
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->display('ajax/taller/ingresarBoleta.tpl');
 	   			break;
 	   	}
 		if(!$pagina){

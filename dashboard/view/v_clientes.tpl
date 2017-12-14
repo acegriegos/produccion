@@ -33,57 +33,56 @@
                     </div>
                 </div>
                 <div class="card-block">
-                   <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th class="sinborde white-text blue" ><b>Cédula</b></th>
-                                <th class="sinborde white-text blue" >Nombre</th>
-                                <th class="sinborde white-text blue" >Código</th>
-                                <th class="sinborde white-text blue" >Teléfonos</th>
-                                <th class="sinborde white-text blue" >Correo</th>
-                                <th class="sinborde white-text blue" >Tipo</th>
-                                <th class="sinborde white-text blue" >Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="listaclientes">
-                            {section name=LE loop=$CLIE}
-                            <tr id="f{$CLIE[LE][0]}">
-                                <td style=" padding: 10px;color:black">{$CLIE[LE][1]}</td>
-                                <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
-                                <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td>
-                                <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
-                                <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
-                                <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
-                                <td>
-                                     {if $CLIE[LE][13] neq 1}
-                                    <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact mdi-contacts pbtn" id="c{$CLIE[LE][0]}"></i></a>
-                                    {/if}
+                 <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th class="sinborde white-text blue" ><b>Cédula</b></th>
+                            <th class="sinborde white-text blue" >Nombre</th>
+                            <th class="sinborde white-text blue" >Código</th>
+                            <th class="sinborde white-text blue" >Teléfonos</th>
+                            <th class="sinborde white-text blue" >Correo</th>
+                            <th class="sinborde white-text blue" >Tipo</th>
+                            <th class="sinborde white-text blue" >Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaclientes">
+                        {section name=LE loop=$CLIE}
+                        <tr id="f{$CLIE[LE][0]}">
+                            <td style=" padding: 10px;color:black">{$CLIE[LE][1]}</td>
+                            <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
+                            <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td>
+                            <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
+                            <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
+                            <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
+                            <td>
+                               {if $CLIE[LE][13] neq 1}
+                               <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact mdi-contacts pbtn" id="c{$CLIE[LE][0]}"></i></a>
+                               {/if}
 
-                                    <a href="#modal-clientes" class="load mdi mdi-pencil mdi-24px pbtn per1002 modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black"></a>
-                                    
-                                    <a href="#" class="delete mdi mdi-close mdi-24px pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="color:black"></a>
-                                </td>
-                            </tr>
-                            {/section}
-                        </tbody>
-                    </table>
-                    <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
-                    <br>
-                    <br>
+                               <a href="#modal-clientes" class="load mdi mdi-pencil mdi-24px pbtn per1002 modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black"></a>
 
+                               <a href="#" class="delete mdi mdi-close mdi-24px pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="color:black"></a>
+                           </td>
+                       </tr>
+                       {/section}
+                   </tbody>
+               </table>
+               <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
+               <br>
+               <br>
+
+           </div>
+           <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 100%; width: 75%">
+            <div class="modal-header">
+                <ul class="tabs tabs-fixed-width blue">
+                    <ul class="tabs tabs-fixed-width blue">
+                        <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
+                        <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
+                        <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
+                        <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
+                        <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
+                    </ul>
                 </div>
-                 <div class="modal modal-fixed-footer " id="modal-clientes" style="height: 80%; width: 75%">
-                    <div class="modal-header">
-                        <ul class="tabs tabs-fixed-width blue">
-                            <ul class="tabs tabs-fixed-width blue">
-                            <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
-                            <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
-                            <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
-                            <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
-                       
-                            <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
-                        </ul>
-                    </div>
                 <div class="modal-content " style="padding: 0px;">
                     <div id="fclientes">
                         <input type="hidden" class="zelda">
@@ -177,194 +176,199 @@
                                 <ul class="collection" id="shcorreos"></ul>
                             </div>
                         </div>
-                        <div class="col s12 m7 l7 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3" style="background: transparent;">
-                                <div class="ciclos">
-                                    <div class="row">
-                                        <div class="input-field col s4 m4">
-                                            <!-- <div class="prefix"><i class="fa fa-phone"></i></div> -->
-                                            <select type="select" id="tptel">
-                                                <option value="" disabled selected>Seleccione Tipo de Tel.</option>
-                                                {section name=LE loop=$TPTEL}
-                                                <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
-                                                {/section}
-                                            </select>
-                                            <label for="tptel">Tipo Teléfono</label>
-                                            <input type="hidden" id="htipo">
-                                        </div>
-
-                                    <div class="input-field col s12 m6">
-                                        <div class="prefix"><i class="fa fa-phone"></i></div>
-                                        <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
-                                        <input type="hidden" id="vtelefono" fill="19">
-                                        <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
-                                        
-                                        <ul class="collection" id="shtelefonos"></ul>
-
+                        <div class="col s12 m7 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3" style="background: transparent;">
+                            <div class="ciclos">
+                                <div class="row ">
+                                    <div class="col s6 m3 input-field">
+                                        <div class="prefix"><i class="mdi-phone mdi mdi-24px"></i></div>
+                                        <input type="text" id="pais" class="autocomplete">
+                                        <input type="hidden" id="vidpais" value="0">
+                                      <label for="pais">País</label>
                                     </div>
+                                    <div class="input-field col s4 m4">
+                                    <!-- <div class="prefix"><i class="fa fa-phone"></i></div> -->
+                                      <select type="select" id="tptel">
+                                          <option value="" disabled selected>Seleccione Tipo de Tel.</option>
+                                          {section name=LE loop=$TPTEL}
+                                          <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
+                                          {/section}
+                                      </select>
+                                      <label for="tptel">Tipo Teléfono</label>
+                                      <input type="hidden" id="htipo">
+                                    </div>
+
+                                <div class="input-field col s12 m5">
+                                    <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+                                    <input type="hidden" id="vtelefono" fill="19">
+                                    <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
+
+                                    <ul class="collection" id="shtelefonos"></ul>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div id="fina" class="col s12">
-                    <div class="row"><br>
-                        <div class="input-field col s12 m6 l6">
-                            <select type="select" id="vidnivel">
-                                <option value="0">Seleccione una Categoría</option>
-                                {section name=LE loop=$NVLCLIE}
-                                <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
-                                {/section}
-                            </select>
-                            <label for="vidnivel">Categoría del Cliente</label>
-                        </div>
-
-                        <div class="col s12 m6 l6">
-
-                          <div class="switch" align="center">
-                            <label>
-                             Contado
-                             <input type="checkbox" tp="1" name="tipocliente" id="tipocliente">
-                             <span class="lever"></span>
-                             Crédito
-                         </label>
-                     </div>
-
-                 </div>
-             </div> 
-
-             <div class="row">
-
-                <div class="input-field col s12 m6 l6">
-                    <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
-                    <input type="number" class="eder center" id="vdescuentom">
-                    <label for="vdescuentom">Descuento Máximo</label>
-                </div>
-
             </div>
 
-            <div class="row cre" style="display: none;"> 
+            <div id="fina" class="col s12">
+                <div class="row"><br>
+                    <div class="input-field col s12 m6 l6">
+                        <select type="select" id="vidnivel">
+                            <option value="0">Seleccione una Categoría</option>
+                            {section name=LE loop=$NVLCLIE}
+                            <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label for="vidnivel">Categoría del Cliente</label>
+                    </div>
 
-                <div class="input-field col s12 m6 l6">
-                    <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
-                    <label for="vplazo">Plazo en Días</label>
-                    <input type="number" class="eder" id="vplazo">
-                </div>
+                    <div class="col s12 m6 l6">
 
-                <div class="input-field col s12 m6 l6">
-                    <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
-                    <label for="vcredito">Crédito del Cliente</label>
-                    <input type="number" class="eder" id="vcredito">
-                </div>
+                      <div class="switch" align="center">
+                        <label>
+                           Contado
+                           <input type="checkbox" tp="1" name="tipocliente" id="tipocliente">
+                           <span class="lever"></span>
+                           Crédito
+                       </label>
+                   </div>
 
+               </div>
+           </div> 
+
+           <div class="row">
+
+            <div class="input-field col s12 m6 l6">
+                <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
+                <input type="number" class="eder center" id="vdescuentom">
+                <label for="vdescuentom">Descuento Máximo</label>
             </div>
 
+        </div>
+
+        <div class="row cre" style="display: none;"> 
+
+            <div class="input-field col s12 m6 l6">
+                <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
+                <label for="vplazo">Plazo en Días</label>
+                <input type="number" class="eder" id="vplazo">
+            </div>
+
+            <div class="input-field col s12 m6 l6">
+                <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
+                <label for="vcredito">Crédito del Cliente</label>
+                <input type="number" class="eder" id="vcredito">
+            </div>
+
+        </div>
 
 
-            <div vtabla="defectocuenta" id="fdefectocuentas" hasTabla="1" tp="3">
-                <div class="ciclos">
-                    <input type="hidden" id="videstadocontable" value="1">
-                    <input type="hidden" id="vidcuenta" value="">
 
-                    <div class="row">
-                        <div class="col s12 m6 l6 pequeño">
-                            <div class="card-title"><b> Cuentas Contado </b></div>
-                            
-                            <div class="pequeño" id="ctacontado">
+        <div vtabla="defectocuenta" id="fdefectocuentas" hasTabla="1" tp="3">
+            <div class="ciclos">
+                <input type="hidden" id="videstadocontable" value="1">
+                <input type="hidden" id="vidcuenta" value="">
 
-                            </div>
+                <div class="row">
+                    <div class="col s12 m6 l6 pequeño">
+                        <div class="card-title"><b> Cuentas Contado </b></div>
+
+                        <div class="pequeño" id="ctacontado">
+
                         </div>
+                    </div>
 
-                        <div class="col s12 m6 cre pequeño" style="display: none;">
-                            <div class="card-title pequeño"><b> Cuentas Crédito </b></div>
-                            <div class="pequeño" id="ctacredito">
+                    <div class="col s12 m6 cre pequeño" style="display: none;">
+                        <div class="card-title pequeño"><b> Cuentas Crédito </b></div>
+                        <div class="pequeño" id="ctacredito">
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div id="logis" class="col s12">
-            <div class="row">
+    <div id="logis" class="col s12">
+        <div class="row">
 
-                <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
-                    <div class="ciclos">
-                        <div class="card-title" align="center"><b>Direcciones</b></div>
+            <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
+                <div class="ciclos">
+                    <div class="card-title" align="center"><b>Direcciones</b></div>
 
-                        <input type="hidden" id="vbisnacional" value="1">
-                        <input type="hidden" id="vidubicacion" value="0">
+                    <input type="hidden" id="vbisnacional" value="1">
+                    <input type="hidden" id="vidubicacion" value="0">
 
-                        <div class="row"><br>
-                            <div class=" col s12 m12 l4">
-                               <div class="provincia input-field">
-                                <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
+                    <div class="row"><br>
+                        <div class=" col s12 m12 l4">
+                         <div class="provincia input-field">
+                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
 
-                                <select id="vidprovincia" type="select" class="_det" primary="1">
-                                    <option value="0">Seleccione una Provincia</option>
-                                    {section name=LE loop=$PRO}
-                                    <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
-                                    {/section}
-                                </select>
-                                <label for="vidprovincia">Provincia</label>
-                            </div>
-
-                        </div>
-
-                        <div class="col s12 m12 l4">
-                           
-                           <div class="canton input-field">
-
-                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
-
-
-                            <select id="vidcanton" type="select" class="_det">
-                                <option value="">Seleccione un Cantón</option>
+                            <select id="vidprovincia" type="select" class="_det" primary="1">
+                                <option value="0">Seleccione una Provincia</option>
+                                {section name=LE loop=$PRO}
+                                <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
+                                {/section}
                             </select>
-                            <label for="vidcanton">Cantón</label>
+                            <label for="vidprovincia">Provincia</label>
                         </div>
 
                     </div>
 
                     <div class="col s12 m12 l4">
 
-                       <div class="distrito input-field ">
-                        <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
+                     <div class="canton input-field">
 
-                        <select id="viddistrito" type="select" class="_det">
-                            <option value="">Seleccione un Distrito</option>
+                        <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
+
+
+                        <select id="vidcanton" type="select" class="_det">
+                            <option value="">Seleccione un Cantón</option>
                         </select>
-                        <label for="viddistrito">Distrito</label>
+                        <label for="vidcanton">Cantón</label>
                     </div>
 
                 </div>
-                <div class="input-field col s12 m12 l6">
-                    <label for="vdireccion">Dirección Exacta</label>
-                    <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
+
+                <div class="col s12 m12 l4">
+
+                 <div class="distrito input-field ">
+                    <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
+
+                    <select id="viddistrito" type="select" class="_det">
+                        <option value="">Seleccione un Distrito</option>
+                    </select>
+                    <label for="viddistrito">Distrito</label>
                 </div>
 
             </div>
-
-            <div class="row">
-
-
-
-                <div class="input-field col s12 hide-on-med-and-up">
-                    <div class="prefix"><i class="material-icons">location_on</i></div>
-                    <label for="vlatitud">Latitud</label>
-                    <input type="text" class="eder" id="vlatitud">
-                </div>
-                
-                <div class="input-field col s12 hide-on-med-and-up">
-                    <div class="prefix"><i class="material-icons">location_on</i></div>
-                    <label for="vlongitud">Longitud</label>
-                    <input type="text" class="eder" id="vlongitud">
-                </div>
-
+            <div class="input-field col s12 m12 l6">
+                <label for="vdireccion">Dirección Exacta</label>
+                <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
             </div>
-        </div>    
-    </div>
+
+        </div>
+
+        <div class="row">
+
+
+
+            <div class="input-field col s12 hide-on-med-and-up">
+                <div class="prefix"><i class="material-icons">location_on</i></div>
+                <label for="vlatitud">Latitud</label>
+                <input type="text" class="eder" id="vlatitud">
+            </div>
+
+            <div class="input-field col s12 hide-on-med-and-up">
+                <div class="prefix"><i class="material-icons">location_on</i></div>
+                <label for="vlongitud">Longitud</label>
+                <input type="text" class="eder" id="vlongitud">
+            </div>
+
+        </div>
+    </div>    
+</div>
 </div>
 </div>  
 

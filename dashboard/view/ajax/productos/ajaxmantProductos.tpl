@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../assets/css/system.min.css">
+
 <div class="pequeño" id="mantProd" >
 <div class="row">
 <div class="input-field col s11 m8 l5">
@@ -153,7 +153,7 @@
 <label>Precio Costo</label>
 <div class="input-field">
 <i class="mdi prefix">¢</i>
-<input type="text" id="vcosto" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
+<input type="text" id="vcosto" class="validate eder numeric cos" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
 <input type="hidden" id="hvcosto" value="">
 </div>
 </div>
@@ -161,14 +161,14 @@
 <label>Ganancia</label>
 <div class="input-field">
 <i class="mdi prefix">%</i>
-<input type="text" id="vganancia" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2">
+<input type="text" id="vganancia" class="validate calcvv eder numeric gan" value="0.00" data-mask="9999999999.99" focus="vventa" num="2">
 </div>
 </div>
 <div class="col s12 m6 l3 center-align">
 <label>Precio Venta</label>
 <div class="input-field">
 <i class="mdi prefix">¢</i>
-<input type="text" id="vventa" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3">
+<input type="text" id="vventa" class="validate calcvv eder numeric ven" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3">
 <input type="hidden" id="hventa" value="">
 </div>
 </div>
@@ -176,24 +176,24 @@
 <label>Exoneración</label>
 <div class="input-field">
 <i class="mdi prefix">%</i>
-<input type="text" id="vexoneracion" class="validate calcvv eder" value="0.00" data-mask="9999999999.99">
+<input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" value="0.00" data-mask="9999999999.99">
 </div>
 </div>
 </div>
 <div class="row">
 <div class="col s12 m3 l3">
 <div class="switch">
-<label>
+<!-- <label>
 Cliente
 <input type="checkbox" class="chg" value="0">
 <span class="lever"></span>
 Categoria
-</label>
+</label> -->
 </div>
 </div>
 </div>
 {section name=LE loop=$NIV}
-<div class="row precionivel chg0 hide" id="f{$NIV[LE][0]}">
+<div class="row precionivel chg0" id="f{$NIV[LE][0]}">
 <div class="col s12 m12 l3">
 <label><b>Precio para Categoria: {$NIV[LE][1]}</b></label><br>
 </div>
@@ -201,32 +201,32 @@ Categoria
 <label>Ganancia</label>
 <div class="input-field">
 <i class="mdi prefix">%</i>
-<input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="1">
+<input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder gan" value="0.00" data-mask="9999999999.99" num="1">
 </div>
 </div>
 <div class="col s12 m6 l3 center-align"><br>
 <label>Precio Venta</label>
 <div class="input-field">
 <i class="mdi prefix">¢</i>
-<input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="2">
-<input type="hidden" id="hventa{$NIV[LE][0]}" value="">
+<input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven" value="0.00" data-mask="9999999999.99" num="2">
+<input type="hidden" id="hventa{$NIV[LE][0]}" class="hven" value="">
 </div>
 </div>
 <div class="col s12 m6 l3 center-align"><br>
 <label>Exoneración</label>
 <div class="input-field">
 <i class="mdi prefix">%</i>
-<input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder" value="0.00" data-mask="9999999999.99" num="3">
+<input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo" value="0.00" data-mask="9999999999.99" num="3">
 </div>
 </div>
 </div>
 {/section}
-<div class="row chg1"></div>
+<div class="row chg1 hide"></div>
 </div>
 <div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
 <div class="col s12">
 <div class="col s2">
-<button type="button" class="btn-floating waves-effect waves-light blue  z-depth-5" id="addimp"><i class="mdi mdi-plus">add</i></button>
+
 </div>
 <div class="row">
 <div class="col s12">
@@ -450,4 +450,4 @@ Categoria
 
 </div> <!-- End mantProductos -->
 
-<script src="../assets/js/jquery.mask.min.js"></script>
+<!-- <script src="../assets/js/jquery.mask.min.js"></script> -->

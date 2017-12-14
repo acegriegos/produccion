@@ -1,42 +1,48 @@
 <?php 
     require_once '_config/mysqlDB.php';
-    $id = !isset($_REQUEST['id']) ? 42 : $_REQUEST['id'];
-    $accion = !isset($_REQUEST['accion']) ? 1 : $_REQUEST['accion'];
+    if (isset($_REQUEST['accion'])) {
+        $id = !isset($_REQUEST['id']) ? 42 : $_REQUEST['id'];
+        $accion = $_REQUEST['accion'];
 
-    $fe = new facturaElectronica($id);
+        $fe = new facturaElectronica($id);
 
-    switch ($accion) {
-        case 1:
-            //RECIBO DE FACTURA
-            print_r($fe->recepcion());
-            break;
-        case 2:
-            //GET XML
-            header("Content-type: text/xml; encoding='UTF-8'");
-            print $fe->getXMLRecepcion();
-            break;
-        case 3:
-            //BEARER
-            echo "<pre>";
-                print_r($fe->getBearer());
-            echo "<?pre>";
-            break;
-        case 4:
-            //Consulta ESTADO;
-            print_r($fe->estado());
-            break;
-        case 5:
-            //Consulta General de Recibos
-            $offset     = !isset($_REQUEST['offset']) ? '' : $_REQUEST['offset'];
-            $limit      = !isset($_REQUEST['limit']) ? '' : $_REQUEST['limit'];
-            $emisor   = !isset($_REQUEST['emisor']) ? 0 : $_REQUEST['emisor'];
-            $receptor   = !isset($_REQUEST['receptor']) ? 0 : $_REQUEST['receptor'];
-            print_r($fe->getRecibos($id,$offset,$limit,$emisor,$receptor));
-            break;
-        default:
-            print_r(json_encode(['ERROR'=>'Accion no Valida']));
-            break;
+        switch ($accion) {
+            case 1:
+                //RECIBO DE FACTURA
+                print_r($fe->recepcion());
+                break;
+            case 2:
+                //GET XML
+                header("Content-type: text/xml; encoding='UTF-8'");
+                print $fe->getXMLRecepcion();
+                break;
+            case 3:
+                //BEARER
+                echo "<pre>";
+                    print_r($fe->getBearer());
+                echo "<?pre>";
+                break;
+            case 4:
+                //Consulta ESTADO;
+                print_r($fe->estado());
+                break;
+            case 5:
+                //Consulta General de Recibos
+                $offset     = !isset($_REQUEST['offset']) ? '' : $_REQUEST['offset'];
+                $limit      = !isset($_REQUEST['limit']) ? '' : $_REQUEST['limit'];
+                $emisor   = !isset($_REQUEST['emisor']) ? 0 : $_REQUEST['emisor'];
+                $receptor   = !isset($_REQUEST['receptor']) ? 0 : $_REQUEST['receptor'];
+                print_r($fe->getRecibos($id,$offset,$limit,$emisor,$receptor));
+                break;
+            default:
+                print_r(json_encode(['ERROR'=>'Accion no Valida']));
+                break;
+        }
+    }else{
+        $db = new DBClass();
+        $db->ejecutar('insert into pruebas values(null,"'.json_encode($_POST).'")');
     }
+    
 
     class facturaElectronica
     {
@@ -141,11 +147,13 @@
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
 
-            $params = json_encode(array('clave'     =>  $this->info['clave'],
-                                        'fecha'     =>  $this->info['FechaEmision'],
-                                        'emisor'    =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Emisor']['Identificacion']['Numero']],
-                                        'receptor'  =>  ['tipoIdentificacion' => $this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']],
-                                        'comprobanteXml' => base64_encode($xml)));
+            $params = json_encode(array('clave'                 =>  $this->info['clave'],
+                                        'fecha'                 =>  $this->info['FechaEmision'],
+                                        'emisor'                =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Emisor']['Identificacion']['Numero']],
+                                        'receptor'              =>  ['tipoIdentificacion' => $this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']],
+                                        'callbackUrl'           => 'http://erp.logintechcr.com/wsdlClient.php',
+                                        'consecutivoReceptor'   => '',
+                                        'comprobanteXml'        => base64_encode($xml)));
 
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 
@@ -218,7 +226,7 @@
 
             $data = [];
             $this->info = $this->getJSON('call fe_getencabezado('.$this->id.')');
-
+            
             $data['FacturaElectronica'] = $this->info;
             $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle('.$this->id.')');
             $data['ResumenFactura'] = $this->getJSON('call fe_getResumen('.$this->id.')');
@@ -226,7 +234,7 @@
             $data['Normativa'] = ['NumeroResolucion' => 'Resolución DGT-R-13-2017', 'FechaResolucion' => '20-02-2017 08:05:00'];
             $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             $data['Signature'] = '';
-
+            
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
             <xs:schema xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
                 <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2008/REC-xmldsig-core-20080610/xmldsig-core-schema.xsd"/>     
