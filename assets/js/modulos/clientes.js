@@ -15,7 +15,6 @@ $(function(){
 $(document).on("click",".contacto",function(){
 	var id = $(this).attr('id').substr(1);
 	var cli = arr('login',4,'',4,id+',0,"","0,1"',0,0,0)[0][0];
-	console.log(cli)
 	$("#ncli").text(cli[1]);
 	$("#tel1").val(cli[5]);
 	$("#tel2").val(cli[6]);
@@ -116,11 +115,22 @@ function validarprestamo() {
 	if ($("#vcredito").val() == '' || $("#vcredito").val() == 0) {
 		return 'Valor debe ser mayor a 0';
 	}
-
 	return false;
 }
 
 function endDetail(vid,vacc,modulo){
+	
+	if (vacc == 1) {
+		$("#shcorreos").html('');
+		$("#shtelefonos").html('');
+		setTimeout(function(){ deadclear('cliente'); }, 2500);
+	}
+	
+	thorload('cliente');
+	paginate($("ul.pagination").attr('vtbl'));
+}
+
+function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
 			if (vacc == 1) {

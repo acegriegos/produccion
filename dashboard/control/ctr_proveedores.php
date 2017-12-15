@@ -9,22 +9,21 @@
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	    $sty = $smarty->fetch('../view/styles.php');
-        $scr = $smarty->fetch('../view/scripts.php');
-    
-        $smarty->assign('STY',$sty);
-        $smarty->assign('SCR',$scr);
+		$scr = $smarty->fetch('../view/scripts.php');
+	
+		$smarty->assign('STY',$sty);
+		$smarty->assign('SCR',$scr);
+	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'id > 0 order by id'));
+	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
+	    $smarty->assign('PROV',$kakaroto->kamehameha('',30,''));
+	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('id,nombre',68,'1 order by nombre limit 10'));
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->assign('HIS',$kakaroto->kamehameha('',4,'0,0,"","0,10"'));
-	   	$smarty->display('v_historial.tpl');
+	   	$smarty->display('v_proveedores.tpl');
+	   	
 	   }else{
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-	   			$pagina = 1;
-	   			require_once '../_config/mySmarty.php';
-	   			$smarty  = new mySmarty();
-	   			$smarty->setModule('dashboard');
-	   			$smarty->display('ajax/taller/ingresarBoleta.tpl');
 	   			break;
 	   	}
 		if(!$pagina){
@@ -38,8 +37,7 @@
 		
 				$salida = array('succed'=>$succed);
 				array_push($salida, $marcas);
-				print_r(json_encode($salida));	
-		
+				print_r(json_encode($salida));
 		   }
 	    }	
 			   

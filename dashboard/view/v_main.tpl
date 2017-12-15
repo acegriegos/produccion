@@ -14,12 +14,11 @@
     {$NAV}
     <div class="bdy">
         <div class="row" style="border-bottom: 1px solid #e2e2e2">
-        {if $smarty.session.TIPO eq 1}
-                <div class="input-field col s12 m6 l3">
-                    <select class="ssuc" id="mchange" sel="{$smarty.session.IMPRESA}"></select>
-                    <label>Seleccione una Sucursal</label>
-                </div>
-        {/if}
+        
+            <div class="input-field col s12 m6 l3">
+                <select class="ssuc" id="mchange" sel="{$smarty.session.IMPRESA}"></select>
+                <label>Seleccione una Sucursal</label>
+            </div>
         {if $USRCIERRE eq 1}
         <div id="fcajainicialusuarios">
             <div class="input-field col s12 m6 l3" style="border: 3px">
@@ -39,8 +38,8 @@
     </div>
 
     <div class="row">
-          <div class="col s12 m12 " id="graf1">
-              
+          <div class="col s12 m6 pequeño " id="graf1">
+              <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
               
           </div>
         </div>

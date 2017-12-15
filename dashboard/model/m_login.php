@@ -104,13 +104,14 @@
 			$rs = substr($rs, strpos($rs,"(")+1);
 			$rs = substr($rs, 0,strpos($rs,"BEGIN"));
 			$rs = str_replace("\n", " ", $rs);
+			$rs = str_replace("inout ", "", $rs);
 			$rs = explode(',', $rs);
-
+			
 			$arreglo = $rs;
 
 			foreach ($arreglo as $obj) {
 				$primer = substr($obj, 0,1);
-				
+
 				if ($primer == ' ') 
 					$obj = substr($obj, 1);
 				elseif (is_numeric($primer)) {

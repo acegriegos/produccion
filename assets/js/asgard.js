@@ -29,7 +29,6 @@ $(window).keydown(function(e){
 $(document).on("click",".tc-show",function(){
 
     if ($("#slide-tc").length == 0) {
-
         var ul = '<ul id="slide-tc" class="side-nav"> <li><div class="user-view"> <span class="ntit"></span></a></div></li> <li><div class="divider"></div></li> <li><a class="subheader">Subheader</a> </li></ul>';
 
         $(".bdy").append(ul);
@@ -40,8 +39,20 @@ $(document).on("click",".tc-show",function(){
         var titulo = cuerpo = '';
 
         switch(code){
-            case 1: // TELEFONOS
+            case 1: 
+                titulo = 'Teléfonos';
+                break;
+            case 2: 
+                titulo = 'Correos';
+                break;
+            case 3: 
+                titulo = 'Ubicación';
+                break;
+            default:
+                break;
         }
+
+        $(".ntit").html(titulo);
     }
 
     $(this).sideNav({
@@ -173,12 +184,9 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p);
         
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
-            // //QUITAR EL SEGUNDO UNO PONER UN 4
-            // endDetail(1,4,modulo+"s");
         }else{
          
             var tmsj = "Ingresado";
@@ -405,6 +413,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
     data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
 })
    .done(function(data) {
+    console.log(data)
     try {
         p = JSON.parse(data);
     }
@@ -698,7 +707,7 @@ function thorload(vtabla) {
         });
     }
 
-    $('.modal').modal();
+    // $('.modal').modal();
 
 }
 
@@ -766,7 +775,34 @@ function convert(a, b, c, d) {
     return precio
 }
 
-function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
+var barChartData = {
+  labels: ["2002", "2003", "2004", "2005", "2006", "2007", "2008", "2010", "2011", "2011", "2012", "2013", "2014", "2015"],
+  datasets: [{
+    label: 'Revenues',
+    backgroundColor: "#BBB",
+    data: [1450000, 1750000, 1700000, 1510000, 1400000, 1400000, 1535000, 1590000, 1620000, 1590000, 1630000, 1350000, 1350000, 1700000]
+  }, {
+    label: 'Expenses',
+    backgroundColor: "#ceb947",
+    data: [1650000, 1600000, 1350000, 1550000, 1300000, 1350000, 1350000, 1390000, 1410000, 1400000, 1700000, 1300000, 1300000, 1455000]
+  }, {
+    label: 'Poly. (Revenues)',
+    type: 'line',
+    borderWidth: 0.1,
+    pointRadius: 0,
+    backgroundColor: "rgba(187, 187, 187, 0.25)",
+    data: [1450000, 1750000, 1700000, 1510000, 1400000, 1400000, 1535000, 1590000, 1620000, 1590000, 1630000, 1350000, 1350000, 1700000]
+  }, {
+    label: 'Poly. (Expenses)',
+    type: 'line',
+    borderWidth: 0.1,
+    pointRadius: 0,
+    backgroundColor: "rgba(206, 185, 71, 0.25)",
+    data: [1650000, 1600000, 1350000, 1550000, 1300000, 1350000, 1350000, 1390000, 1410000, 1400000, 1700000, 1300000, 1300000, 1455000]
+  }]
+};
+
+function dibujarGrafico(elemento,texto,etiqueta,tipo,varr,colbase,coldata,colbel) {
 
     arr['JSON'] = 1;
 
@@ -775,39 +811,29 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
         Type: 'POST',
         data: {accion:4,arreglo:varr},
     }).done(function (results) {
+        
         results = JSON.parse(results);
-        var labels = [], data=[];
 
-        results[0].forEach(function(packet) {
-          labels.push(packet[1]);
-          data.push(packet[0]);
-      });
+        var backgroundColor = [
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(255, 206, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)'
+        ];
+        var borderColor = [
+        'rgba(54, 162, 235, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(255,99,132,1)',
+        'rgba(255, 159, 64, 1)'
+        ];
 
         var config1 = {
             type: tipo,
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: etiqueta,
-                    data: data,
-                    backgroundColor: [
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(255, 206, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)'
-                    ],
-                    borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255,99,132,1)',
-                    'rgba(255, 159, 64, 1)'
-                    ]
-                }],
-            },
+            datasets:[],
             options: {
                 responsive: true,
                 legend: {
@@ -823,18 +849,44 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
                 },
             },
         };
+        var vbase = '';
+        var dataset = [];
+ 
+        for ( var i = 0;i < results[0].length; i++) {
+
+            if (vbase != results[0][i][colbase]) {
+                if (vbase != ''){
+                    console.log(123)
+                    config1['datasets'] = dataset;
+                    vbase = results[0][i][colbase];
+                }
+
+                dataset = [];
+                dataset.push({'label':results[0][i][colbel]});
+                dataset.push({'backgroundColor':backgroundColor[i]});
+                dataset.push({'borderColor': borderColor[i]});
+                dataset.push({'data':[] });
+                    
+            }       
+            
+            // dataset['data'].push(results[0][i][coldata]);
+        }
+
+        config1['datasets'] = dataset;
 
         switch(tipo){
             case 'bar':
-            config1['options']['scales'] = {yAxes:[{ticks:{beginAtZero:true,}}]}
-            break;
+                config1['options']['scales'] = {yAxes:[{ticks:{beginAtZero:true,}}]}
+                break;
             default:
-            break;
-        }
-        var ctx = document.getElementById(elemento).getContext("2d");
-        var myLineChart = new Chart(ctx,config1);
+                break;
+        };
+        
+        // var ctx = document.getElementById(elemento).getContext("2d");
+        // var myLineChart = new Chart(ctx,config1);
     });
 };
+
 
 function doreport() {
     var filtros = $(".inpreport").length;
@@ -1003,8 +1055,6 @@ function paginate(vtbl,len) {
         countpag = arr('login',4,'',vtbl,'0,1,"",""',0,0,0)[0][0];
     }else
     countpag = len;
-
-    console.log("count: "+countpag)
     
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,20"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,30"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,40"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,50"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,60"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,70"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,80"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,90"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');

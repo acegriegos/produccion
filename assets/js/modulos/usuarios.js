@@ -131,6 +131,10 @@ $(function(){
 
 });
 
+$(document).on("click","#test",function(){
+	console.log($("#vidsuc").val().toString())
+});
+
 
 $(document).on("blur","#vmail",function(){
 	if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
