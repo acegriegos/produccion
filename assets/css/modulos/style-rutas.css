@@ -1,0 +1,22 @@
+.tamLetra{
+   font-size: 1.2em !important
+}
+
+.darkholder::placeholder{
+    color: black;
+}
+/*.darkholder::-webkit-input-placeholder {
+  color: black;
+}
+
+.darkholder::-moz-placeholder { 
+  color: black;
+}
+
+.darkholder:-ms-input-placeholder { 
+  color: pink;
+}
+
+.darkholder:-moz-placeholder { 
+  color: pink;
+}*/

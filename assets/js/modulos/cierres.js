@@ -2,6 +2,7 @@ $(function(){
 	arr('login',6,'',182,'@@usr',0,1,$("#listacierrespendientes"));
 	var monto = arr('login',4,'monto',404,'idusuario = @@usr and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
 	if (monto == undefined) {
+		console.log(1)
 		$(".tt").removeAttr('id')
 		$(".tt").addClass('tooltipped')
 		$('.tt').tooltip({delay: 50,tooltip: 'Debe iniciar caja'});
@@ -41,8 +42,6 @@ $(function(){
 		startingTop: '4%', // Starting top style attribute
 		endingTop: '2%' // Ending top style attribute
 	});
-
-	$(".zelda").data('triforce',{ vtotal:0 });
 });
 
 $(document).on("click","#refresh",function(){
@@ -75,7 +74,6 @@ $(document).on("click","#refresh",function(){
 	$("#tnotcre").text('0.00');
 	$("#tnotdeb").text('0.00');
 	$("#chkcierre").removeAttr('vfecha');
-	$(".tt").removeClass('modal-trigger');
 });
 
 // $(document).on("click","#chkcierre",function(){
@@ -86,24 +84,59 @@ $(document).on("click","#refresh",function(){
 // });
 
 $(document).on("click","#chkcierre",function(){
-	if (!$(this).hasClass('tooltipped')) {
-		if ($(this).attr('vfecha') == undefined) {
-			Materialize.toast('Seleccione un cierre', 4000, 'green');
-		}else{
-			$(this).addClass('modal-trigger');
-			$("#modal-tipomonedas").modal('open');
-			$("#totalizar").attr('vfecha',$(this).attr('vfecha'));
-		}
-	}
-	
+	$("#totalizar").attr('vfecha',$(this).attr('vfecha'));
 });
 
 $(document).on("blur",".mnd",function(e){
-	var total = totalizar();
+	var id = $(this).attr('id').substr(1);
+	var valor = arr('login',4,'valor',405,'id > 0 and id = '+id,0,0,0)[0][0];
+	var total = parseInt($("#stot").val());
+	var monto = $("#m"+id).val()
+	if (monto != 0 || monto != '') {
+		console.log("if")
+		$("#m"+id).attr('monto',parseFloat(monto * valor[0]))
+		parseFloat(total += monto * valor[0]);
+	}else{
+		console.log("else")
+		monto = $("#m"+id).attr('monto')
+		monto == undefined ? monto = 0 : monto
+		total = parseFloat(total -  monto);
+	}
+
+
+	// for (var i = 0, len = valor[0].length; i < len; i++) {
+	// 	if (monto != 0 || monto != '') {
+	// 		if ( $(this).attr('id').substr(1) == valor[0][i][0] ) {
+	// 			parseFloat(total += monto * valor[0][i][1]);
+	// 		}
+	// 	}else{
+	// 		console.log("else")
+	// 		total = parseFloat(total - $(this).val());
+	// 		// console.log(total)
+	// 	}
+	// }
+	$("#stot").val(total)
 	$("#totcashier").text(total.formatMoney(2,'.',','))
 });
 
 $(document).on("click","#totalizar",function(){
+	var valor = arr('login',4,'id,valor',405,'id > 0',0,0,0);
+	var total = 0;
+	for (var i = 0, len = valor[0].length; i < len; i++) {
+		var monto = $("#m"+valor[0][i][0]).val();
+		if (monto != 0 || monto != '') {
+			if ( $("#m"+valor[0][i][0]).attr('id').substr(1) == valor[0][i][0] ) {
+				total += monto * valor[0][i][1];
+			}
+		}
+	}
+	if (total != 0) {
+		arr('login',4,'',404,'1,0,@@usr,'+total+',@@impresa,2',0,0,0);
+	}else{
+		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
+	}
+	
+
 	// chkcierre
 	if ($(this).attr('vfecha') != undefined)
 		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
@@ -112,17 +145,9 @@ $(document).on("click","#totalizar",function(){
 });
 
 $(document).on("click","#docierre",function(){
-	var total = $(".zelda").data('triforce')['vtotal'];
 	var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
 	var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 	var idcierre = arr('login',4,'',189,'@@usr,"'+$(this).attr('vfecha')+'",@@impresa',0,0,0)[0][0];
-
-	if (total != 0)
-		arr('login',4,'',404,'1,0,@@usr,'+total+',@@impresa,2',0,0,0);
-	else{
-		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
-		return false;
-	}
 
 	for (var i = 0, len = idfactura.length ; i < len; i++) {
 		arr('login',4,'',190,'1,0,'+idcierre+','+idfactura[i]+',1',0,0,0)
@@ -134,7 +159,7 @@ $(document).on("click","#docierre",function(){
 	$('#toast-container').remove();
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
 
-	window.open('cierres?accion=1&id='+idcierre+'&fecha='+$(this).attr('vfecha'));
+	window.open('cierres?accion=1&id='+idcierre+'fecha='+$(this).attr('vfecha'));
 
 });
 
@@ -143,13 +168,13 @@ $(document).on("click",".cancel",function(){
 });
 
 $(document).on("click",".getfacturas",function(){
-	var curdate = now();
+	var date = new Date();
+	var curdate = date.getFullYear()+'-'+addZero(date.getMonth()+1,2)+'-'+addZero(date.getDate(),2);
 	var fecha = $(this).attr('vfecha') == 'HOY' ? curdate : $(this).attr('vfecha');
 	
 	$("#chkcierre").attr('vfecha',fecha);
 	arr('login',6,'',183,'"'+fecha+'",@@usr',0,1,$("#listafacturas"));
 	arr('login',6,'',185,'"'+fecha+'",@@usr',0,1,$("#listanotasabonos"));
-	
 	// cambiar
 	var totcont = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idusuario = @@usr and idtipoventa = 1 and idtipo = 1 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
 	var totcred = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idusuario = @@usr and idtipoventa = 1 and idtipo = 2 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
@@ -212,19 +237,6 @@ $(document).on("change","#vfecha",function(e){
 	$("#vfecha").focus();
 });
 
-function totalizar() {
-	var valor = arr('login',4,'id,valor',405,'id > 0',0,0,0)[0];
-	var total = 0;
-	for (var i = 0, len = valor.length; i < len; i++) {
-		var monto = $("#m"+valor[i][0]).val();
-		if (monto != 0 || monto != '') {
-			if ( $("#m"+valor[i][0]).attr('id').substr(1) == valor[i][0] )
-				total += monto * valor[i][1];
-		}
-	}
-	$(".zelda").data('triforce')['vtotal'] = total;
-	return total;
-}
 
 function validar (varreglo,vmodulo) {
 	

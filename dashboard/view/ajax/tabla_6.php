@@ -1,25 +1,26 @@
 <?php 
     
-    foreach ($transaccion as $obj) {
+    foreach ($transaccion as $obj) 
 ?>
 
-
-
- <tr>
-    <td style="padding: 10px; color:black;"><?php echo $obj[1]?></td>
-	<td style="padding: 10px; color:black;"><?php echo $obj[2]?></td>
-	<td style="padding: 10px; color:black;"><?php echo $obj[3]?></td>
-	<td style="padding: 10px; color:black;"><?php echo $obj[4]?></td>
-	<td style="padding: 10px; color:black;"><?php echo $obj[5]?></td>
-    <td style="padding: 10px; color:black;"><?php echo $obj[7]?></td>
+<tr>
+<td><?php echo $obj[3]?></td>
+<td><?php echo $obj[1]?></td>
+<td><?php echo $obj[4]?></td>
+<td><?php echo $obj[5]?></td>
+<td><?php echo $obj[6]?></td>
+<td>
+<i class="fa fa-pencil-square-o btn load" id="m<?php echo $obj[0]?>" data-toggle="modal" href='#modal-clientes' modulo="cliente"></i>
+<i class="fa fa-times btn delete" codigo="1" modulo="cliente" id="d<?php echo $obj[0]?>" style="color: #D9534F"></i>
+</td>
 </tr>
 
-<?php }
-	
+<?php ?>
+
  ?>
 
  <script type="text/javascript">
-    $(function(){
+    $(function()
         permisos(310,311);
-    })
+    ?>)
  </script>

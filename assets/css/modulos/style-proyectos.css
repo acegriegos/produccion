@@ -1,0 +1,10 @@
+.tamLetra{
+   font-size: 1.2em !important
+}
+.input-field{
+    margin: 0px;
+}
+
+.delete:hover{
+    color: #ea454b;
+}

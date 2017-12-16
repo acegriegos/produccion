@@ -23,7 +23,7 @@
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
 	   			$pagina = 1;
-	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
+	   			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
 
 	   			$cierre = $kakaroto->kamehameha('',192,$_REQUEST['id'].',@@usr')[0];
 	   			$facturas = $kakaroto->kamehameha('',183,'"'.$_REQUEST['fecha'].'",@@usr');

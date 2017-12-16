@@ -39,11 +39,11 @@ $(function(){
     
     
     // permisos(1,50);
-    // SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
+    SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
 
-    // setInterval(function(){
-    //     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
-    // },5000);
+    setInterval(function(){
+        SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
+    },5000);
 });
 
 function SSE_SERVER(vmodulo,vaccion,varreglo,vid,vjson) {
