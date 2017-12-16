@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.17, created on 2017-12-16 03:31:47
+<?php /* Smarty version 2.6.17, created on 2017-12-16 03:32:46
          compiled from ../view/menuSmarty.php */ ?>
 <ul id="slide" class="side-nav blue-text text-darken-2 " style="max-width: 400px !important; font-size: 2.4em !important">
     <li>
@@ -39,7 +39,7 @@
     <li class="per2"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" style="color: #000000 "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
 
     <li class="per3"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
-a
+
     <li class="per4"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
 
     <li class="per5"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
