@@ -35,14 +35,14 @@
               $_SESSION['IMPRESA'] = $user[0][5];
               $_SESSION['TMP_CIA'] = -1;
               
-              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'main' : $_POST['vdir'];
+              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'historial' : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
            }
   
 		   }
     	}else{
     		if (isset($_SESSION['USR'])) {
-		        header("Location: ../dashboard/main");
+		        header("Location: ../dashboard/historial");
 		    }else{
 		   	require '../_config/mySmarty.php';
 		   

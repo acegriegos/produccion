@@ -7,7 +7,7 @@ $(function(){
     $('.modal').modal();   
     $('select').material_select();
 
-    cargarMoneda(0);
+    // cargarMoneda(0);
     
 });
 
@@ -906,7 +906,6 @@ function doreport() {
                 if ( $("#"+datos[i]).val()=='' ){
                     search[i] = '"1990-01-01"';
                 }else{
-                    console.log($("#"+datos[i]).val())
                     search[i] = '"'+$("#"+datos[i]).val()+'"';
                 }
             }else{
@@ -1089,7 +1088,6 @@ $(document).on("click", ".paginate", function () {
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-//    console.log(arr('login',4,'',vtbl,'0,0,"'+filtro+'","'+limit+'"',0,0,0))
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1120,7 +1118,6 @@ $(document).on("click", ".nxt", function () {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
                 i = parseInt(i);
-                console.log("i: "+i)
                 $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
                 if (i == next)
                     $(".pagination").attr('ultimo', i);
@@ -1272,7 +1269,7 @@ $(document).on('click','.del_phone',function(){
 
 function now() {
     var date = new Date();
-    date = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+    date = date.getFullYear()+'-'+addZero(date.getMonth()+1,2)+'-'+addZero(date.getDate(),2);
     return date;
 }
 

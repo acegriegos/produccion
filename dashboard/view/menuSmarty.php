@@ -9,8 +9,8 @@
           <select id="lgt">
             <option value="0" class="logout" id="x1" disabled selected>{$smarty.session.NOM} </option>
             <option value="1" class="logout" id="x2">Información</option>
-            <option value="2" class="logout" id="x2">Notificaciones</option>
-            <option value="3" class="logout" id="x2">Cierre de Caja</option>
+            <option value="2" class="logout" id="x3">Notificaciones</option>
+            <option value="3" class="logout" id="x4">Cierre de Caja</option>
           </select>
           
         </div>
@@ -26,23 +26,9 @@
   <div class="options" style="padding-bottom: 20%">
     <li class="per1"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true" style="color: #000000 "></i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
 
-    <li class="per8 hide"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
+    <li class="per2"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
 
-    <li class="per9 hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
-
-    <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
-
-    <li class="per2"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" style="color: #000000 "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
-
-    <li class="per3"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
-
-    <li class="per4"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
-
-    <li class="per5"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
-
-    <li class="per6"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
-
-    <li class="per7"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
+    <li class="per2"><a href="historial"><i class="mdi mdi-account-card-details mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Historial Clientes</span></a></li>
 
     <li class="hide"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true" style="color: #000000;"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 
