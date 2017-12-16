@@ -549,7 +549,7 @@
                             <td><input type="text" id="vnombre" class="fast-edit fast-edit-r center-align" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" maxlength="20"></td>
                             <td style=" width: 50%;">
                                 <a class="waves-effect waves-light load_x modal-trigger" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="mdi mdi-pencil left"></i></a>
-                                <a class="waves-effect waves-light load_x modal-trigger" id="g{$CATC[LE][0]}" href='#modal-clientexcategoria' title="Valores en el Sistema"><i class="mdi mdi-account-multiple left"></i></a>
+                                <a class="waves-effect waves-light catcli modal-trigger" id="g{$CATC[LE][0]}" href='#modal-clientexcategoria' title="Valores en el Sistema"><i class="mdi mdi-account-multiple left"></i></a>
                                 <a class="waves-effect waves-light load_x" modulo="nivelescliente" id="h{$CATC[LE][0]}" title="Eliminar Nivel de Cliente"><i class="mdi mdi-close left"></i></a>
                             </td>
                         </tr>
@@ -839,32 +839,23 @@
  <div class="modal modal-fixed-footer grandemodal" id="modal-clientexcategoria" >
 
     <div class="modal-header titulos">
-       Clientes de la Categoría 
+       Clientes de la Categoría <span id="catego"></span>
     </div>
 
-    <div class="modal-content pequeño" id="fdetallenivelesclientes">
+    <div class="modal-content pequeño" >
         <h3 class="center-align">Clientes</h3>
          <div>
                             <div class="card-block">
-                 <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes" style="width: 100%">
+                 <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes-Categoria" style="width: 100%">
                     <thead>
                         <tr>
-                            <th class="sinborde white-text blue" ><b>Cédula</b></th>
-                            <th class="sinborde white-text blue" >Nombre</th>
+                            <th class="sinborde white-text blue" style="width: 50%; border: none;" >Nombre</th>
+                            <th class="sinborde white-text blue" style="width: 50%; border: none;" >Cédula</th>
                            
                         </tr>
                     </thead>
                     <tbody id="listacategoriasclie">
-                        {section name=LE loop=$CLIEX}
-                        <tr id="f{$CLIE[LE][0]}">
-                            <td style=" padding: 10px;color:black">{$CLIEX[LE][2]}</td>
-                            <td style=" padding: 10px;color:black">{$CLIEX[LE][1]}</td>
-                            
-                            <td>
-          
-                           </td>
-                       </tr>
-                       {/section}
+                      
                    </tbody>
                </table>
                

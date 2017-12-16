@@ -872,6 +872,7 @@ $(document).on("click", "#editprod", function () {
 
 $(document).on("click", ".editprod", function () {
 	$(".autocomplete-content").hide();
+	$(".calcvv").val('0.00');
 	var id = $(this).attr('id').substr(1);
 	var p = arr('login', 4, '',14, id+',0,"","0,1"', 0, 0, 0);
 
@@ -934,6 +935,7 @@ $(document).on("click", ".editprod", function () {
 		var countniv = arr('login', 4, 'count(id)+1', 69, 'id > 0', 0, 0, 0)[0][0];
 		$(".chg1").append('<div class="row preciocliente" id="c' + countniv + '" accion="1" idf="0"><div class="col s12 m6 l3 center-align"><br><label>Nombre Cliente</label><div class="input-field"><input type="text" id="vcliente' + countniv + '" class="validate autocomplete rem2" value=""><input type="hidden" class="vidcliente rem2" id="vidcliente' + countniv + '" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Ganancia</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" id="vganancia' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" line="' + countniv + '"></div></div><div class="col s12 m6 l3 center-align"><br><label>Precio Venta</label><div class="input-field"><i class="mdi prefix">¢</i><input type="text" id="vventa' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" line="' + countniv + '"><input type="hidden" id="hventa' + countniv + '" value=""></div></div><div class="col s12 m6 l3 center-align"><br><label>Exoneración</label><div class="input-field"><i class="mdi prefix">%</i><input type="text" style="width: 70%" id="vexoneracion' + countniv + '" class="validate calcnc eder" value="0.00" data-mask="9999999999.99" nc="1" line="' + countniv + '"> <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i></div></div></div>');
 	}
+	$("#vcosto").blur();
 	Materialize.updateTextFields();
 });
 
@@ -1640,37 +1642,54 @@ $(document).on("keyup",".calcvv",function(e){
 });
 
 $(document).on("blur",".calcvv",function(){
-	var padre = $(this).parent().parent().parent();
-	var costo = $("#vcosto").val().replace(/,/,'');
-	var ganancia = padre.find('.gan').val().replace(/,/g,'');
-	var exoneracion = padre.find('.exo').val().replace(/,/g,'');
-	var venta = padre.find('.ven').val().replace(/,/g,'');
 	var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
-	var tgan = tven = hven = impuestos = 0;
-
-	costo = isNaN(costo) ? 0 : costo;
-	ganancia = isNaN(ganancia) ? 0 : ganancia;
-	exoneracion = isNaN(exoneracion) ? 0 : exoneracion;
-	venta = isNaN(venta) ? 0 : venta;
+	var costo = $("#vcosto").val().replace(/,/,'');
+	var impuestos = 0;
 
 	$(".impuestos").each(function () {
 		var id = $(this).attr('id').substr(4);
 		impuestos += parseFloat($(this).attr('value') * (1 - parseFloat($("#impexo" + id).val()) / 100));
 	});
 
+	if (parseInt(num) == 1) {
+		$(".gan").each(function(){
+			var padre = $(this).parent().parent().parent();
+			var ganancia = padre.find('.gan').val().replace(/,/g,'');
+			var exoneracion = padre.find('.exo').val().replace(/,/g,'');
+			var venta = padre.find('.ven').val().replace(/,/g,'');
+			tven = parseInt(venta) ? (((venta / (1 + (((impuestos - (impuestos * (exoneracion / 100)))) / 100))) / costo) - 1) * 100 : 0;
+			padre.find('.gan').val(tven.formatMoney(2,'.',','));
+		});
+	}else{
+		var padre = $(this).parent().parent().parent();
+		var ganancia = padre.find('.gan').val().replace(/,/g,'');
+		var exoneracion = padre.find('.exo').val().replace(/,/g,'');
+		var venta = padre.find('.ven').val().replace(/,/g,'');
+		var tgan = tven = hven = 0;
 
-	switch(num){
-		case 1: //GENERAL COSTO
-			break;
-		case 2: //POR GANANCIA
-			hven = costo * ((impuestos / 100) + 1) * ((ganancia / 100) + 1);
-			tven = costo * (((impuestos - (impuestos * (exoneracion / 100))) / 100) + 1) * ((ganancia / 100) + 1);
+		costo = isNaN(costo) ? 0 : costo;
+		ganancia = isNaN(ganancia) ? 0 : ganancia;
+		exoneracion = isNaN(exoneracion) ? 0 : exoneracion;
+		venta = isNaN(venta) ? 0 : venta;
 
-			padre.find('.ven').val(tven);
-			padre.find('.hven').val(hven);
-			console.log((impuestos * (exoneracion / 100)))
-			break;
+		switch(num){
+			case 2: //POR GANANCIA
+				hven = costo * ((impuestos / 100) + 1) * ((ganancia / 100) + 1);
+				tven = costo * (((impuestos - (impuestos * (exoneracion / 100))) / 100) + 1) * ((ganancia / 100) + 1);
+
+				padre.find('.ven').val(tven.formatMoney(2,'.',','));
+				padre.find('.hven').val(hven.formatMoney(2,'.',','));
+				break;
+			case 3: //POR VENTA
+			case 4: //POR EXONERACION
+				tven = parseInt(venta) ? (((venta / (1 + (((impuestos - (impuestos * (exoneracion / 100)))) / 100))) / costo) - 1) * 100 : 0;
+				padre.find('.gan').val(tven.formatMoney(2,'.',','));
+				break;
+			default:
+				break;
+		}	
 	}
+	
 
 });	
 

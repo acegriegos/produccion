@@ -286,6 +286,20 @@ $(document).on("click","#addtypeuser",function(){
         Materialize.toast(arreglo['atributos'], 4000, 'red');
     }
 });
+$(document).on("click",".catcli",function(){
+	
+	var id = $(this).attr('id').substr(1);
+	var tabla = $("#data-table-clientes-Categoria").DataTable();
+	tabla.destroy();
+	arr('login',6,'',309,id,0,1,$("#listacategoriasclie"));
+	var cat = arr('login',4,'',309,id,0,0,0)[0][0][0];
+	$("#catego").text(cat);
+	$("#data-table-clientes-Categoria").DataTable({
+    	bFilter :  false,
+        bLengthChange : false,
+        order : []
+    });	
+});
 
 $(document).on("change", ".ispadr",function(){
  	var id= $(this).attr('id').substr(2);

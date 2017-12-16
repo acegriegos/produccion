@@ -153,7 +153,7 @@
 <label>Precio Costo</label>
 <div class="input-field">
 <i class="mdi prefix">¢</i>
-<input type="text" id="vcosto" class="validate eder numeric cos" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
+<input type="text" id="vcosto" class="validate eder numeric cos calcvv" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
 <input type="hidden" id="hvcosto" value="">
 </div>
 </div>
@@ -201,14 +201,14 @@ Categoria
 <label>Ganancia</label>
 <div class="input-field">
 <i class="mdi prefix">%</i>
-<input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder gan" value="0.00" data-mask="9999999999.99" num="1">
+<input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder gan numeric" value="0.00" data-mask="9999999999.99" num="2">
 </div>
 </div>
 <div class="col s12 m6 l3 center-align"><br>
 <label>Precio Venta</label>
 <div class="input-field">
 <i class="mdi prefix">¢</i>
-<input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven" value="0.00" data-mask="9999999999.99" num="2">
+<input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven numeric" value="0.00" data-mask="9999999999.99" num="3">
 <input type="hidden" id="hventa{$NIV[LE][0]}" class="hven" value="">
 </div>
 </div>
@@ -216,7 +216,7 @@ Categoria
 <label>Exoneración</label>
 <div class="input-field">
 <i class="mdi prefix">%</i>
-<input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo" value="0.00" data-mask="9999999999.99" num="3">
+<input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo numeric" value="0.00" data-mask="9999999999.99" num="4">
 </div>
 </div>
 </div>
