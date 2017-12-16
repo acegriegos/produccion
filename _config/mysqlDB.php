@@ -22,10 +22,10 @@ class DBClass
 	function __construct()
 	{
 		$this->encrypt = new _cy();
-		$this->db  = trim($this->encrypt->decy("BrnicYnl4ypdgLrYT/FBhqiN0Gg/d+Cz/+UG1EgnYy8="));
-		$this->usr = trim($this->encrypt->decy("jGk0ie27CGHGs6cEn/lb1vc3tksHkMGDlNV7V5tSha0="));
+		$this->db  = trim($this->encrypt->decy("5SSsCZ05itLNp5BGcQQk09ITSJRZ/uspGBJw36JDGcc="));
+		$this->usr = trim($this->encrypt->decy("dvywc7DJzGEs7FG3xzA3149kB4NoWJ/180efl9v3EkI="));
 	    $this->pss = trim($this->encrypt->decy("1eKYMc9PrUoktk7U7n5oiko86fKxQ/FiTOMD8SER7bY="));
-	    
+		
 		$this->host = '127.0.0.1';
 	}
 
@@ -33,8 +33,6 @@ class DBClass
 		$this->mysql_conexion = new mysqli($this->host,$this->usr,$this->pss,$this->db);
 		
 		if($this->mysql_conexion->connect_error){
-			//die("ERROR DE CONEXION: ". $this->mysql_conexionion->connect_errno.", " . $this->mysql_conexion->connect_error);
-			$this->mysql_conexion->set_charset('utf8');
 			return false;
 		}
 		else {
@@ -57,9 +55,20 @@ class DBClass
 	function ejecutar($sql){
 		$this->conect();
 		$salida = $this->mysql_conexion->query($sql);
+
 		/*CONOCER EL ERROR*/
 		if (!$salida) {
-			$salida = $this->mysql_conexion->error; 
+			// $_SESSION['ERRNO'] = $this->mysql_conexion->errno;
+			switch ($this->mysql_conexion->errno) {
+				case '1318':
+					$salida = "Prámetros Incompatibles entre el SP y la Vista(".$sql.")";
+					break;
+				
+				default:
+					$salida = $this->mysql_conexion->error; 
+					break;
+			}
+			
 		}
 		$this->close();
 		return $salida;
