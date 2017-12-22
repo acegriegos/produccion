@@ -301,6 +301,8 @@ $(document).on("click",".catcli",function(){
     });	
 });
 
+/*	var cat = arr('login',4,'',309,id,0,0,0)[0][0][0];
+*/	
 $(document).on("change", ".ispadr",function(){
  	var id= $(this).attr('id').substr(2);
  
@@ -894,6 +896,18 @@ $(document).on("click","#actimp",function(){
 		mantenimiento('login',4,arr);
 	});
 	
+});
+$(document).on("click",".catimpuesto",function(){
+	console.log(2);
+	var id = $(this).attr('id').substr(1);
+	var tabla = $("#data-table-impuesto").DataTable();
+	tabla.destroy();
+	arr('login',6,'',310,'2,3',0,1,$("#listaimpuesto"));
+$("#data-table-impuesto").DataTable({
+    	bFilter :  false,
+        bLengthChange : false,
+        order : []
+    });	
 });
 
 $(document).on("click","#sfechafiscal",function(){

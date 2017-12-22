@@ -757,8 +757,8 @@ $(document).on("click", "#editprod", function () {
 		var codigo = $("#vcodigo").val();
 		var codigointerno = $("#vcodigointerno").val();
 		var nombre = $("#vnombre").val();
-		var costo = $("#vcosto").val();
-		var ganancia = $("#vganancia").val();
+		var costo = $("#vcosto").val().replace(/,/g,'');
+		var ganancia = $("#vganancia").val().replace(/,/g,'');
 		var venta = parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia").val().replace(/,/g,""))/100)+1);
 		var exoneracion = $("#vexoneracion").val() == '' || $("#vexoneracion").val() == '0.00' ? 0 : $("#vexoneracion").val();
 		var peso = $("#vpeso").val();

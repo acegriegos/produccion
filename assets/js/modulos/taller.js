@@ -10,13 +10,26 @@ $(document).ready(function(){
 				$("#mtaller").html(p);
     			break;
     		case 2:
-
+                var p = mantenimiento('taller', 2, '');
+                $("#mtaller").html(p);
     			break;
     		case 3:
-
+                var p = mantenimiento('taller', 3, '');
+                $("#mtaller").html(p);
     			break;
     	}
     });
+
+    $("#data-table-vehiculos").DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+
     $("#t1").click();
 });
 

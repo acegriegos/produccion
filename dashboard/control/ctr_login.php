@@ -34,6 +34,7 @@
               $_SESSION['EMPRESA'] = $user[0][4];
               $_SESSION['IMPRESA'] = $user[0][5];
               $_SESSION['TMP_CIA'] = -1;
+              $_SESSION['TMPT']    = $user[0][11];
               
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'main' : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");

@@ -48,10 +48,32 @@
     </div>
 
     <div id="modal-vimpuestos" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
-        <div class="modal-content" style="padding: 0px;">
-            <h3>Productos</h3>
-            <h3>Clientes</h3>
-        </div>
+        <ul class="collapsible" data-collapsible="accordion">
+    <li>                             
+
+      <div class="collapsible-header">
+        <a class="mdi-clipboard-account mdi mdi-24px catimpuesto" ></a> Cliente Físicos o Jurídicos</div>
+      <div class="collapsible-body">
+             <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-impuesto" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th class="sinborde white-text blue" style="width: 50%; border: none;" >Nombre</th>
+                            <th class="sinborde white-text blue" style="width: 50%; border: none;" >Cédula</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody id="listaimpuesto">
+                      
+                   </tbody>
+               </table>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="mdi-clipboard-text mdi mdi-24px "></i>Productos</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    
+  </ul>
         <div class="modal-footer">
             <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue  z-depth-5" style="margin-right: 2%">Salir</a>
         </div>

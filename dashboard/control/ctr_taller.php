@@ -25,6 +25,20 @@
 	   			$smarty->setModule('dashboard');
 	   			$smarty->display('ajax/taller/ingresarBoleta.tpl');
 	   			break;
+	   		case 2:
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->display('ajax/taller/buscarBoleta.tpl');
+	   			break;
+	   		case 3:
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->display('ajax/taller/vehiculos.tpl');
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

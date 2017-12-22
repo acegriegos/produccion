@@ -388,7 +388,7 @@
 
           <div class="col s12 m12 l12" align="center">
             <!-- <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button> -->
-            <a href="#modal-tpagos" class="btn btn-primary-outline" id="facturar" style="margin-bottom: 3%;">Facturar</a>
+            <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar"  {/if} class="btn btn-primary-outline"  style="margin-bottom: 3%;">Facturar</a>
           </div>
 
           </div>

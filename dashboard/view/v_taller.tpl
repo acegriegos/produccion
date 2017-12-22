@@ -29,7 +29,6 @@
             </li>
           </ul>
         </nav>
-        <br>
         <div id="mtaller"></div>
       </div>
     </div> <!-- END BDY -->

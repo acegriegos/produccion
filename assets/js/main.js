@@ -17,13 +17,26 @@ $(function(){
         switch(parseInt($(this).val())){
             case 1:
                 $("#modal-info").modal('open');
-            break;
+                break;
             case 2: 
                 window.open("notificaciones","_self");
-            break;
-            default:
+                break;
+            case 3:
                 window.open("cierres","_self");
-            break;
+                break;
+            case 4:
+                var datos = getDatos('',245,'',0,0)[0];
+                var data = datos[3][0].split(',');
+                
+                $("#tsystem").html(datos[0][0]);
+                $("#fsystem").html(datos[1][0]);
+                $("#dsystem").html(datos[2][0]);
+                $("#psystem").html(data[0]);
+                $("#msystem").html(data[1]);
+                $("#modal-system").modal('open');
+                break;
+            default:
+                break
         }
         
     });

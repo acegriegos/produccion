@@ -176,7 +176,7 @@
 <label>Exoneración</label>
 <div class="input-field">
 <i class="mdi prefix">%</i>
-<input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" value="0.00" data-mask="9999999999.99">
+<input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" value="0.00" data-mask="9999999999.99" num="4">
 </div>
 </div>
 </div>

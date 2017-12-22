@@ -11,6 +11,7 @@
             <option value="1" class="logout" id="x2">Información</option>
             <option value="2" class="logout" id="x2">Notificaciones</option>
             <option value="3" class="logout" id="x2">Cierre de Caja</option>
+            <option value="4" class="logout" id="x2">Info Sistema</option>
           </select>
           
         </div>
@@ -66,7 +67,7 @@
 
   <div class="modal-header">
     <ul class="tabs tabs-fixed-width blue">
-      Información del Usuario
+      <li class="tab col s3 white-text">Información del Usuario</li>
     </ul>
   </div>
 
@@ -75,8 +76,39 @@
 
   <div class="modal-footer">
 
-    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button><!-- 
-    <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" codigo="1" modulo="cliente" varias="1" >Guardar</button> -->
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+  </div>
+
+ </div>
+
+  <div class="modal modal-fixed-footer" id="modal-system" style="height: 80%; width: 90%">
+
+  <div class="modal-header">
+    <ul class="tabs tabs-fixed-width blue">
+      <li class="tab col s3 white-text">Información del Sistema</li>
+    </ul>
+  </div>
+
+  <div class="modal-content " style="padding: 0px;">
+
+    <table>
+      <tbody>
+        <tr style="border-bottom: 1px solid black"> <td><b>Plan:</b></td> <td id="psystem" align="right"></td></tr>
+        <tr style="border-bottom: 1px solid black"> <td><b>Modalidad de Sistema:</b></td> <td id="msystem" align="right"></td> </tr>
+        <tr style="border-bottom: 1px solid black"> <td><b>Tipo de Pago:</b></td> <td id="tsystem" align="right"></td> </tr>
+        <tr style="border-bottom: 1px solid black"> <td><b>Fecha Siguiente Pago:</b></td> <td id="fsystem" align="right"></td> </tr>
+        <tr style="border-bottom: 1px solid black"> <td><b>Días de Pago:</b></td> <td id="dsystem" align="right"></td> </tr>
+      </tbody>
+    </table>
+    
+    <!-- <span>Consula o duda favor comunicarse a <span class="blue-text">info@logintechcr.com</span></span><br> -->
+    <img src="../../assets/img/login/logo_azulG.png" width="100px" height="100px" style="margin-left: 48%">
+
+  </div>
+
+  <div class="modal-footer">
+
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
 
  </div>
