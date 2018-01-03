@@ -57,7 +57,7 @@
 			if (strpos($wher,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
@@ -84,7 +84,7 @@
 			if (strpos($args2,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 
 
 				$args2 = str_replace('@@usr', $usr, $args2);
@@ -116,7 +116,7 @@
 			if (strpos($wher,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
@@ -148,7 +148,7 @@
 
 		public function usrDecy()
 		{
-			return $this->cy->decy($_SESSION['USR']);
+			return base64_decode($_SESSION['USR']);//$this->cy->decy($_SESSION['USR']);
 		}
 
 		public function mant($tabla,$args,$ant = ''){

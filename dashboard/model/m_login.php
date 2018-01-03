@@ -14,7 +14,7 @@
 			if (isset($arreglo['atributos']['vidusuario'])) {
 				if ($arreglo['atributos']['vidusuario'] == '') {
 					$cy = new _cy();
-					$arreglo['atributos']['vidusuario'] = str_replace("\0","",$cy->decy($_SESSION['USR']));
+					$arreglo['atributos']['vidusuario'] = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 				}
 			}
 
@@ -53,7 +53,7 @@
 			if (isset($arreglo['atributos']['vidusuario'])) {
 				if ($arreglo['atributos']['vidusuario'] == '') {
 					$cy = new _cy();
-					$arreglo['atributos']['vidusuario'] = str_replace("\0","",$cy->decy($_SESSION['USR']));
+					$arreglo['atributos']['vidusuario'] = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 				}
 			}
 
