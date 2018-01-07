@@ -1,7 +1,6 @@
 acc = 1;
 
 $(function(){
-
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
@@ -166,7 +165,6 @@ function doGlobal(accion,modulo,tip,varias){
     arreglo['atributos'] = baseValidar(1,arreglo);
 
     if (varias == 1) {
-
         arreglo['varios'] = {};
 
         $("#f"+modulo+"s [vtabla]").each(function(index){
@@ -176,7 +174,7 @@ function doGlobal(accion,modulo,tip,varias){
             arr['tip'] = tip;
             arr['atributos'] = baseValidar(1,arr);
             arr['hasTabla'] = $(this).attr('hasTabla') == undefined ? 0 : 1;
-
+            arr['rollback'] = $(this).attr('rollback') == undefined ? 0 : $(this).attr('rollback');
             arreglo['varios'][index] = arr;
         });
     }
@@ -184,7 +182,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -413,7 +411,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
     data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
 })
    .done(function(data) {
-    console.log(data)
+
     try {
         p = JSON.parse(data);
     }
@@ -433,7 +431,6 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
 }
 
 function odin(varreglo,vform) {
-    
     var salida = {};
 
     switch($("#"+vform).attr('tp')){
@@ -454,7 +451,7 @@ function odin(varreglo,vform) {
         }// end FOR
         break;
 
-        case "3":
+    case "3":
     //LLENADO DE VARIABLES POR ID EN DETALLE
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
@@ -471,11 +468,7 @@ function odin(varreglo,vform) {
                     }
                     break;
                     case 'vid':
-                    if (typeof $("#"+vform+" #vid"+id).val() == 'undefined') {
-                        salida[index][varreglo[i]] = 0;
-                    }else{
-                        salida[index][varreglo[i]] = $("#"+vform+" #vid").val();
-                    }
+                    salida[index][varreglo[i]] = typeof $("#"+vform+" #vid").val() == 'undefined' ? 0 : $("#"+vform+" #vid").val();
                     break;
                     case 'vaccion':
                     salida[index][varreglo[i]] = 0;
@@ -633,6 +626,7 @@ case "4":
                 break;
             }//end SWITCH
         }//end IF
+        
     }//end FOR
     break;
     }//end SWITCH
@@ -676,10 +670,10 @@ function deadclear(vform) {
                 
             }
         });
-        Materialize.updateTextFields();
         
     } else
     acc = 1;
+    // Materialize.updateTextFields();
 }
 
 function thorload(vtabla) {
@@ -856,7 +850,6 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr,colbase,coldata,colbel
 
             if (vbase != results[0][i][colbase]) {
                 if (vbase != ''){
-                    console.log(123)
                     config1['datasets'] = dataset;
                     vbase = results[0][i][colbase];
                 }
@@ -906,7 +899,6 @@ function doreport() {
                 if ( $("#"+datos[i]).val()=='' ){
                     search[i] = '"1990-01-01"';
                 }else{
-                    console.log($("#"+datos[i]).val())
                     search[i] = '"'+$("#"+datos[i]).val()+'"';
                 }
             }else{
@@ -933,7 +925,6 @@ function doreport() {
     });  
     atributos = atributos.substr(0,atributos.length-1);
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
-    console.log(atributos)
 }
 
 $(document).on("change","._det",function(){
@@ -1089,7 +1080,7 @@ $(document).on("click", ".paginate", function () {
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-//    console.log(arr('login',4,'',vtbl,'0,0,"'+filtro+'","'+limit+'"',0,0,0))
+
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1120,7 +1111,7 @@ $(document).on("click", ".nxt", function () {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
                 i = parseInt(i);
-                console.log("i: "+i)
+
                 $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
                 if (i == next)
                     $(".pagination").attr('ultimo', i);

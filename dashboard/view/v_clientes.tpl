@@ -167,22 +167,22 @@
                     </div>
                     <div class="row">
 
-                        <div class="input-field col s12 m12 l4 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
-                            <div class="ciclos">
+                        <div class="input-field col s12 m12 l4">
+                            <div>
                                 <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
                                 <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
                                 <input type="hidden" id="vcorreo" fill="18">
                                 <label for="correo_in">Ingresar Correo</label>
-                                <ul class="collection" id="shcorreos"></ul>
+                                <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
                             </div>
                         </div>
-                        <div class="col s12 m7 l8 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3" style="background: transparent;">
+                        <div class="col s12 m7 l8"  style="background: transparent;">
                             <div class="ciclos">
                                 <div class="row ">
                                     <div class="col s6 m3 input-field">
                                         <div class="prefix"><i class="mdi-phone mdi mdi-24px"></i></div>
                                         <input type="text" id="pais" class="autocomplete">
-                                        <input type="hidden" id="vidpais" value="0">
+                                        <input type="hidden" id="vidpais" value="52">
                                       <label for="pais">País</label>
                                     </div>
                                     <div class="input-field col s4 m4">
@@ -202,7 +202,7 @@
                                     <input type="hidden" id="vtelefono" fill="19">
                                     <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
 
-                                    <ul class="collection" id="shtelefonos"></ul>
+                                    <ul class="collection" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="4" style="border: 0;"></ul>
 
                                 </div>
                             </div>

@@ -639,7 +639,7 @@ $(document).on("click", "#addprod", function () {
 		var codigo = $("#vcodigo").val();
 		var codigointerno = $("#vcodigointerno").val();
 		var nombre = $("#vnombre").val();
-		var costo = $("#vcosto").val();
+		var costo = $("#vcosto").val().replace(/,/g,'');
 		var ganancia = $("#vganancia").val();
 		var venta = parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia").val().replace(/,/g,""))/100)+1);
 		var exoneracion = $("#vexoneracion").val() == '' || $("#vexoneracion").val() == '0.00' ? 0 : $("#vexoneracion").val();
@@ -827,10 +827,15 @@ $(document).on("click", "#editprod", function () {
 				$(".precionivel").each(function () {
 		
 					var idfila = $(this).attr('id').substr(1);
-					arr('login', 4, '', 108, '3,null,' + idproducto[0][0] + ',' + idfila + ',0,0,@@usr,@@impresa', 0, 0, 0);
-					if ($("#vventa" + idfila).val() > 0) {
-						arr('login', 4, '', 108, '1,null,' + idproducto[0][0] + ',' + idfila + ',' + $("#vganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa', 0, 0, 0)
+					arr('login', 4, '', 108, '3,null,1,' + idproducto[0][0] + ',' + idfila + ',0,0,0,@@usr,@@impresa', 0, 0, 0);
+
+					if ($("#vventa" + idfila).val().replace(/,/g,'') > 0) {
+						 arr('login', 4, '', 108, '1,null,1,' + idproducto[0][0] + ',' + idfila + ',' + $("#vganancia" + idfila).val().replace(/,/g,'') + ',' + $("#vexoneracion" + idfila).val().replace(/,/g,'') + ','+ parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia"+ idfila).val().replace(/,/g,""))/100)+1)+', @@usr,@@impresa', 0, 0, 0)
+
+
+						
 					}
+					
 				});
 	
 				$(".preciocliente").each(function () {
@@ -860,7 +865,7 @@ $(document).on("click", "#editprod", function () {
 				$(".validate").css('box-shadow', 'none');
 				Materialize.updateTextFields();
 				$("#vfamilia").focus();
-				$("#impuestos").addClass('hide');
+				/*$("#impuestos").addClass('hide');*/
 			} else {
 				Materialize.toast(idproducto[0]['ERROR'], 6000, 'red');
 			}
@@ -2374,7 +2379,7 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 14;
-			arr['where'] = '0';
+			arr['where'] = '0,0,"","0,10"';
 			break;
 		case 'servicios':
 			var arr = {};

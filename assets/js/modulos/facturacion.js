@@ -431,6 +431,7 @@ function cargarGlobal(){
     });
     
     $(document).on("blur",".precd",function(e){
+        alert(1)
         var id = $(this).attr('id').substr(5);
         $("#fd"+id).data('triforce')['vprecio'] = $(this).val();
         

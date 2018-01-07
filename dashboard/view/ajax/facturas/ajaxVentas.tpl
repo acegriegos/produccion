@@ -262,8 +262,7 @@
 
       </thead>
 
-        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4">
-         <!-- style="max-height: 20%; overflow: auto;" -->
+        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="">
          
         </tbody>
 
