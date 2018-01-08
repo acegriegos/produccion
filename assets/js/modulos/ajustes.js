@@ -16,7 +16,7 @@ $(function(){
 		stopPropagation: false // Stops event propagation
 	});
 	$(".modal").modal();
-	$("#m5").click();
+	$("#m1").click();
 });
 
 $(document).ready(function(){
@@ -85,19 +85,6 @@ $(document).on("click",".menu3",function(){
 			});
 
 			$(".wsdl-op").hide();
-
-			// myDropzone = new Dropzone("#registro-upload", {
-			// 	url: '../cargar.php?accion=1',
-			// 	autoProcessQueue:false,
-			// 	maxFilesize: 1,
-			// 	addRemoveLinks:true,
-			// 	uploadMultiple: false,
-			// 	init: function() {
-			// 	this.on("uploadprogress", function(file, progress) {
-			// 	console.log("File progress", progress);
-			// 	});
-			// 	}
-			// });
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
@@ -148,7 +135,7 @@ $(document).on("click",".menu3",function(){
 			$("#majustes").html('');
 			$("#majustes").html(p);
 			$("select").material_select('update');
-			$(".dz-message").show();
+			
 			break;
 		case 6:
 			var p = mantenimiento('ajustes',6,'');
@@ -222,6 +209,7 @@ $(document).on("click",".menu3",function(){
 		url: '../cargar.php',
 		autoProcessQueue:false,
 		maxFilesize: 1,
+		maxFiles: 1,
 		addRemoveLinks:true,
 		uploadMultiple: false,
 		init: function() {
@@ -235,11 +223,12 @@ $(document).on("click",".menu3",function(){
 				
 			});
 			this.on("uploadprogress", function(file, progress) {
-				console.log(1)
 				console.log("File progress", progress);
 			});
 		}
 	});
+
+	$(".dz-message").show();
 
 	$(".modal").modal({
 		dismissible: true, // Modal can be dismissed by clicking outside of the modal

@@ -8,7 +8,7 @@
     <title>Configuración</title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=0.3">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
   </head>
 <body>
   {$NAV}

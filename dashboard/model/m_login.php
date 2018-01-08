@@ -35,7 +35,7 @@
 				foreach ($arreglo['varios'] as $index => $varios) {
 					if (isset($varios['atributos'])) 
 					foreach ($varios['atributos'] as $detalles) {
-
+	
 						if ($varios['hasTabla']) {
 							$detalles['vidfila'] = isset($detalles['vidfila']) ? $detalles['vidfila'] == 0 ? $id_new[0][0] : $detalles['vidfila'] : $id_new[0][0];
 							$detalles['vidtabla'] = isset($detalles['vidtabla']) ? $detalles['vidtabla'] == 0 ? $id_tabla : $detalles['vidtabla'] : $id_tabla;

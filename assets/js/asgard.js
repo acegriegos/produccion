@@ -31,9 +31,7 @@ $(document).on("click",".tc-show",function(){
         var ul = '<ul id="slide-tc" class="side-nav"> <li><div class="user-view"> <span class="ntit"></span></a></div></li> <li><div class="divider"></div></li> <li><a class="subheader">Subheader</a> </li></ul>';
 
         $(".bdy").append(ul);
-
-    }else{
-
+    }
         var code = parseInt($(this).data('num'));
         var titulo = cuerpo = '';
 
@@ -52,16 +50,15 @@ $(document).on("click",".tc-show",function(){
         }
 
         $(".ntit").html(titulo);
-    }
-
+    
+    $('.tc-show').sideNav('destroy');
     $(this).sideNav({
         menuWidth: 300,
         edge: 'right',
         closeOnClick: true,
         draggable: true
     });
-    
-    $(this).click();
+    $(this).sideNav('show');
     
 });
 
@@ -182,7 +179,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
+        //console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{

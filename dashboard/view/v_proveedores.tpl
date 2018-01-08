@@ -153,68 +153,50 @@
                             </div>
 
                             </div>
-                            <div class="row" style="background: transparent;">
-                            
-                            <div class="input-field col s12 m5 l5 ciclos" vtabla="correo" id="fcorreos" hasTabla="1" tp="3">
-                                <div class="ciclos">
-                                <div class="row">
-                                    <div class="l10 m10 s12 col">
-                                        <i class="mdi mdi-email prefix"></i>
-                                        <input id="correo_in" type="text" class="validate tooltipped onblur" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
-                                        <label for="correo_in">Ingresar Correo</label>
-                                    </div>
-                                    <div class="l2 m2 s12 col">
-                                        <a href="#!" id="btnaddcorreo"><i class="mdi mdi-plus-box mdi-24px"></i></a>    
-                                    </div>
-                                </div>
-                                    <input type="hidden" id="vcorreo" fill="18">
-                                    <!-- class="collapsible" data-collapsible="accordion" es un ul -->
-                                    
-                                </div>
-                            </div>
+                            <div class="row">
 
-                            <div class="col s12 m7 l7 ciclos" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="3" style="background: transparent;">
-                                <div class="ciclos">
-                                    <div class="row">
-                                        <div class="input-field col s4 m4">
-                                            <!-- <div class="prefix"><i class="fa fa-phone"></i></div> -->
-                                            <select type="select" id="tptel">
-                                                <option value="" disabled selected>Seleccione Tipo de Tel.</option>
-                                                {section name=LE loop=$TPTEL}
-                                                <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
-                                                {/section}
-                                            </select>
-                                            <label for="tptel">Tipo Teléfono</label>
-                                            <input type="hidden" id="htipo">
-                                        </div>
-                                            
-                                        <div class="input-field col s8 m8">
-                                            <div class="l10 m10 s10 col">
-                                                <i class="mdi mdi-phone prefix"></i>
-                                                <input type="tel" class="validate tooltipped onblur" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
-                                                <label for="telefono_in">Teléfono</label>
-                                            </div>
-                                            <div id="btnaddphone" class="l2 m2 s2 col">
-                                                <a href="#!"><i class="mdi mdi-plus-box mdi-24px"></i></a>    
-                                            </div>
-                                            
-                                            <input type="hidden" id="vtelefono" fill="19">
-                                            <!-- <label class="truncate" for="telefono_in">Ingresar Teléfono</label> -->
-                                        </div>
+                        <div class="input-field col s12 m12 l4">
+                            <div>
+                                <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
+                                <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
+                                <input type="hidden" id="vcorreo" fill="18">
+                                <label for="correo_in">Ingresar Correo</label>
+                                <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
+                            </div>
+                        </div>
+                        <div class="col s12 m7 l8"  style="background: transparent;">
+                            <div class="ciclos">
+                                <div class="row ">
+                                    <div class="col s6 m3 input-field">
+                                        <div class="prefix"><i class="mdi-phone mdi mdi-24px"></i></div>
+                                        <input type="text" id="pais" class="autocomplete">
+                                        <input type="hidden" id="vidpais" value="52">
+                                      <label for="pais">País</label>
                                     </div>
+                                    <div class="input-field col s4 m4">
+                                    <!-- <div class="prefix"><i class="fa fa-phone"></i></div> -->
+                                      <select type="select" id="tptel">
+                                          <option value="" disabled selected>Seleccione Tipo de Tel.</option>
+                                          {section name=LE loop=$TPTEL}
+                                          <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
+                                          {/section}
+                                      </select>
+                                      <label for="tptel">Tipo Teléfono</label>
+                                      <input type="hidden" id="htipo">
+                                    </div>
+
+                                <div class="input-field col s12 m5">
+                                    <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+                                    <input type="hidden" id="vtelefono" fill="19">
+                                    <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
+
+                                    <ul class="collection" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="4" style="border: 0;"></ul>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="l4 m4 s6 col">
-                            <div id="shcorreos"></div>
-                            <!-- <div style="background: red" id="shtelefonos"></div> -->
-                        </div>
-                        <div class="l4 m4 s6 col">&nbsp;</div>
-                        <div class="l4 m4 s6 col">
-                            <!-- <div style="background: blue" id="shcorreos"></div> -->
-                            <div id="shtelefonos"></div>
-                        </div>
+                    </div>
+                </div>
                     </div>
 
                     <div id="fina" class="col s12">

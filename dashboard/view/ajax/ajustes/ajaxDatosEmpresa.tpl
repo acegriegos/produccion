@@ -33,14 +33,14 @@
                 <div class="row pequeño">
 
                  <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="2" class="button-collapse der tc-show black-text" title="Administrar Correos de la Empresa"><i class="mdi mdi-email  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show black-text" title="Administrar Correos de la Empresa"><i class="mdi mdi-email  mdi-24px"></i></a>
                         <label for="vcorreo">Correos de la Empresa</label>
                         <input type="email" class="infoempresa" id="vcorreo" field="correo" readonly>
                         
                     </div>
 
                     <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
                         <label for="vdireccion">Dirección de la Empresa</label>
                         <input type="text" class="infoempresa" id="vdireccion" field="direccion" readonly>
                     </div>
@@ -49,15 +49,16 @@
 
 
                     <div class="col s12 pequeño">
-                        <div class="col s6 m4">
-                            <img src="#" class="responsive-img" alt="Image" width="200px" height="100px" id="vlogo">
+                        <div class="col s6">
+                            <img src="#" class="responsive-img" alt="Image" width="400" height="200px" id="vlogo">
                         </div>
 
-                        <div class="col s12 m8 pequeño ">
-                            <form class="dropzone truncate " id="registro-upload">
-                                <input type="file" name="file"  />
-
-                    </div>
+                        <div class="col s6 pequeño ">
+                             <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
+                                <input type="hidden" name="idsucursal" />
+                                <span class="dz-message needsclick text-center ico-reg"><img id="fotosvg" src="../assets/img/foto.svg" style="margin-top: 25px; width: 80px;" /></span>
+                            </form>
+                        </div>
 
                     <div class="col s12 m12 pull-s2">
 
