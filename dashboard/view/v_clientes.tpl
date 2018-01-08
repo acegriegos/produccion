@@ -72,7 +72,7 @@
                <br>
 
            </div>
-           <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 100%; width: 75%">
+           <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 100%; width: 75%">
             <div class="modal-header">
                 <ul class="tabs tabs-fixed-width blue">
                     <ul class="tabs tabs-fixed-width blue">
@@ -378,7 +378,7 @@
         <div class="card-title" align="center"><b>Impuestos</b></div>
 
         
-        <div class="input-field col s12 m12 l6">
+        <div class="input-field col s12 m12 l6 hide">
             <select id="sel_impuestos" type="select">
                 <option value="" disabled selected>Ingrese un Impuesto</option>
                 {section name=LE loop=$IMP}

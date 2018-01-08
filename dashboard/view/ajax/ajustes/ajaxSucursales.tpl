@@ -33,8 +33,9 @@
                             <div class="ciclos">
                                 <label for="vtelefono">Teléfono</label>
                                 <input type="text" class="validate" id="vtelefono">
+                                <input type="hidden" id="vidtelefono" value="0">
                                 <input type="hidden" id="vidpais" value="52">
-                                <input type="hidden" id="vidtipotel" value="1">
+                                <input type="hidden" id="vidtipotel" value="2">
                             </div>
                             
                         </div>

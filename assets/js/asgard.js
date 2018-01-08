@@ -286,7 +286,7 @@ function loadpool(vmodulo,vid,vvarias){
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
             }
             else
-                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]))
+                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]));
             break;
             default:
             break;
@@ -538,7 +538,7 @@ case "4":
             salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
             }// end FOR
             
-        });//end EACH
+    });//end EACH
     
     break;
 

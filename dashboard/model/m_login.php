@@ -33,7 +33,7 @@
 			$roll_tbl = 0;
 			
 				foreach ($arreglo['varios'] as $index => $varios) {
-
+					if (isset($varios['atributos'])) 
 					foreach ($varios['atributos'] as $detalles) {
 
 						if ($varios['hasTabla']) {
@@ -41,9 +41,9 @@
 							$detalles['vidtabla'] = isset($detalles['vidtabla']) ? $detalles['vidtabla'] == 0 ? $id_tabla : $detalles['vidtabla'] : $id_tabla;
 						}
 
-						$detalles['vaccion'] = $accion;
+						$detalles['vaccion'] = $detalles['vaccion'] == 0 ? $accion : $detalles['vaccion'];
 						$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
-						
+
 						if (!is_array($rs)){
 							$rollback = $rs." Modulo: ".$varios['modulo'];
 							$roll_tbl = $varios['rollback'];

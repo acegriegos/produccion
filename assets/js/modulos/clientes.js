@@ -107,35 +107,23 @@ $("#telefono_in").blur(function(){
         }
     });
 
-	$("#btnaddcorreo").click(function(){
-		var correo = $("#correo_in").val();
-		var idfila = $(this).attr('idfila');
-		crreo_addon_ckub(idfila,correo);
-	});
-
 	$("#correo_in").keyup(function(e){
-		var correo = $("#correo_in").val();
-		var idfila = $(this).attr('idfila');
 		var code = e.which || e.keyCode
 		if (code == 13) {
+			var correo = $("#correo_in").val();
+			var idfila = $(this).attr('idfila');
+
 			crreo_addon_ckub(idfila,correo);
+
 		}
 	});
 
-	$("#btnaddphone").click(function(){
-		var telefono = $("#telefono_in").val();
-		var idfila = $(this).attr('idfila');
-		var htipo = $("#htipo").val();
-		phone_addon_ckub(idfila,telefono,htipo);
-	});
-
 	$("#telefono_in").keyup(function(e){
-		var telefono = $("#telefono_in").val();
-		var idfila = $(this).attr('idfila');
-		var htipo = $("#htipo").val();
-
 		var code = e.which || e.keyCode
 		if (code == 13) {
+			var telefono = $(this).val();
+			var idfila = $(this).attr('idfila');
+			var htipo = $("#tptel").val();
 			phone_addon_ckub(idfila,telefono,htipo);
 		}
 	});
@@ -231,12 +219,12 @@ $(document).on("click",".chpcrr",function(){
 	$("#ichp"+id).remove();
 });
 
-$(document).on("click",".chpphone",function(){
-	var id = $(this).attr('id').substr(5);
+// $(document).on("click",".chpphone",function(){
+// 	var id = $(this).attr('id').substr(5);
 
-	$("#stchp"+id).remove();
-	$("#itchp"+id).remove();
-});
+// 	$("#stchp"+id).remove();
+// 	$("#itchp"+id).remove();
+// });
 
 $("#vidprovincia").change(function(){
 	var prov = $("#vidprovincia option:selected").text();
@@ -264,42 +252,31 @@ $(document).on("blur","#pais",function(){
 		$("#vidpais").val(0);
 });
 
-$(document).on("click",".del_phone",function(){
-	var id = $(this).attr('id').substr(3);
-	Materialize.toast('Desea Borrar este Telefono? <button type="button" class="waves-effect waves-light btn blue acctel" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i id="delc'+id+'" class="mdi mdi-close"></i></button>', 10000, 'rounded');
-});
 
-$(document).on("click",".edit_phone",function(){
-	var id = $(this).attr('id').substr(3);
-	var tel = $("#tel"+id).text();
-	$("#telefono_in").attr('idfila',id);
-	$("#telefono_in").val(tel);
-	Materialize.updateTextFields();
-});
 
-$(document).on("click",".close",function(){
-	var id = $(this).attr('id').substr(3);
+$(document).on("click",".close_mail",function(){
+	$(this).parent().data('triforce')['vaccion'] = 3;
 	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 });
 
-$(document).on("click",".edit_mail",function(){
+$(document).on("click",".close_phone",function(){
+	$(this).parent().data('triforce')['vaccion'] = 3;
+});
+
+$(document).on("click",".vcoo",function(){
 	var id = $(this).attr('id').substr(3);
-	var mail = $("#mail"+id).text();
-	$("#correo_in").attr('idfila',id);
-	$("#correo_in").val(mail);
+	$("#correo_in").val($(this).html()).select().focus();
+	$("#correo_in").attr('idfila',$(this).attr('id'));
 	Materialize.updateTextFields();
 });
 
-$(document).on("click",".acctel",function(){
+$(document).on("click","._tel",function(){
 	var id = $(this).attr('id').substr(3);
-	$("#ftelefonos #0_"+id).remove();
-	$('#toast-container').remove();
-});
-
-$(document).on("click",".accmail",function(){
-	var id = $(this).attr('id').substr(3);
-	$("#fcorreos #0_"+id).remove();
-	$('#toast-container').remove();
+	$("#telefono_in").val($(this).html()).select().focus();
+	$("#telefono_in").attr('idfila',$(this).attr('id'));
+	$("#tptel").val($(this).attr('tp'));
+	$("#tptel").material_select('update');
+	Materialize.updateTextFields();
 });
 
 $(document).on("click",".delcta",function(){
@@ -389,7 +366,7 @@ function validar (varreglo,vmodulo) {
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	console.log(salida)
+	//console.log(salida)
 	return salida;
 
 }
@@ -462,12 +439,12 @@ function validarclientes() {
 
 function obtenerCuentas(vid){
     var cuentasg = arr('login',4,'',85,'2,'+vid+',"1,2"','',0,'');
-
+    console.log(cuentasg);
 	$("#ctacontado").html('');
 	$("#ctacredito").html('');
 
 	for (var i = 0; i < cuentasg[0].length; i++) {
-		if (cuentasg[0][i][5] == 5) {
+		if (cuentasg[0][i][5] == 1) {
 			$("#ctacontado").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
 		}else{
 			$("#ctacredito").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
@@ -495,14 +472,16 @@ function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
 
 function endDetail(vid,vacc,modulo){
 	
-	// if (vacc == 1) {
-	// 	$("#fcorreos").html('');
-	// 	$("#ftelefonos").html('');
-	// 	setTimeout(function(){ deadclear('cliente'); }, 2500);
-	// }
+	if (vacc == 1) {
+		$("#fcorreos").html('');
+		$("#ftelefonos").html('');
+		$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+		$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
+		setTimeout(function(){ deadclear('cliente'); }, 2500);
+	}
 	
-	// thorload('cliente');
-	// paginate($("ul.pagination").attr('vtbl'));
+	thorload('cliente');
+	paginate($("ul.pagination").attr('vtbl'));
 }
 
 function postload(modulo) {
@@ -515,26 +494,29 @@ function postload(modulo) {
 
 function crreo_addon_ckub(vfila,vcorreo){
 	var cont = parseInt($(".chpcrr").length) + 1;
-	//if (vfila == undefined) {
-		if ($("#correo_in").val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-			$("#fcorreos").append('<div id="0_'+cont+'" class="chpcrr chip ciclos"><span class="vcoo">'+$("#correo_in").val()+'</span><i id="'+cont+'" class="close mdi mdi-close"></i></div>');
-			$("#0_"+cont).data('triforce',{vaccion:1,vcorreo:$("#correo_in").val()});
+
+	if (vcorreo.match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+		if (vfila == undefined) {
+			$("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close close_mail mdi mdi-close"></i></div>');
+			$("#cgl"+cont).data('triforce',{vaccion:1,vidcorreo:0,vcorreo:$("#correo_in").val()});
 			
-			$("#fcorreos").removeClass('hide');
 			$("#correo_in").val('');
 			ind_2 += 1;
 			$('.collapsible').collapsible();
 			$(".chpcr").remove();
-			$("#infcorreo2").append('<div id="ichp'+cont+'" class="chpcrr chip">'+vcorreo+'</div>');
+			$("#infcorreo2").append('<div id="ichpc0_'+cont+'" class="chpcrr chip">'+vcorreo+'</div>');
 		}else{
-			Materialize.toast('Correo no Válido',4000,'danger');
-			$("#correo_in").select();
+			$("#ichp"+vfila).html(vcorreo);
+			$("#"+vfila).html(vcorreo);
+			$("#"+vfila).parent().data('triforce')['vcorreo'] = vcorreo;
+			$("#correo_in").removeAttr('idfila');
+			$("#correo_in").val('');
 		}
-	// }else{
-	// 	$("#mail"+vfila).text($("#correo_in").val());
-	// 	$("#correo_in").removeAttr('idfila');
-	// 	$("#correo_in").val('');
-	// }
+		
+	}else{
+		Materialize.toast('Correo no Válido',4000,'danger');
+		$("#correo_in").select();
+	}
 }
 
 function phone_addon_ckub(vfila,vphone,vtipo){
@@ -542,26 +524,31 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 	var cont = parseInt($(".chpphone").length) + 1;
 	
 	if (vtipo == 1) { tipotel = 'home'; }else if (vtipo == 2) { tipotel = 'business'; }else if (vtipo == 3) { tipotel = 'phone'; }
-	//if (vfila == undefined) {
-		if ($("#telefono_in").val()) {
-			$("#ftelefonos").append('<div id="stchp'+cont+'" class="chpphone chip" tp="'+vtipo+'">  <img src="../../assets/img/icon/'+tipotel+'.png"><span class="_tel">'+$("#telefono_in").val()+'</span><i class="mdi mdi-close right"></i></div>');
-			$("#stchp"+cont).data('triforce',{vaccion:1,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:52});
 
-			$("#ftelefonos").removeClass('hide');
+	if (vtelefono && vtipo) {
+		if (vfila == undefined) {
+			$("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right"></i></div>');
+			$("#tgl"+cont).data('triforce',{vaccion:1,vidtelefono:0,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:52});
+
 			$("#telefono_in").val('');
 			ind_2 += 1;
 			$('.collapsible').collapsible();
 			$(".chpph").remove();
-			$("#inftelefono4").append('<div id="itchp'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
+			$("#inftelefono4").append('<div id="itchpt0_'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
 		}else{
-			Materialize.toast('Teléfono no Válido',4000,'danger');2
-			$("#telefono_in").select();
+
+			$("#itchp"+vfila).html('<img src="../../assets/img/icon/'+tipotel+'.png">'+vphone);
+			$("#"+vfila).html(vphone);
+			$("#ftp"+vfila).attr('src','img src="../../assets/img/icon/'+tipotel+'.png"');
+			$("#"+vfila).parent().data('triforce')['vtelefono'] = vphone;
+			$("#"+vfila).parent().data('triforce')['vidtipotel'] = vtipo;
+			$("#telefono_in").removeAttr('idfila');
+			$("#telefono_in").val('');
 		}
-	// }else{
-	// 	$("#mail"+vfila).text($("#correo_in").val());
-	// 	$("#correo_in").removeAttr('idfila');
-	// 	$("#correo_in").val('');
-	// }
+	}else{
+		Materialize.toast('Teléfono no Válido '+vphone+' '+vtipo,4000,'danger');2
+		$("#telefono_in").select();
+	}
 }
 
 $(document).on('click','[id^=dc]',function(){
@@ -569,6 +556,9 @@ $(document).on('click','[id^=dc]',function(){
 })
 
 function llenarTarjeta(vis){
+
+	$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+	$("#inftelefono4").html('<div class="placeh chip chpph"></div>');	
 
 	if (vis) {
 		var tipo = $("#vidtipocliente").val();
@@ -580,14 +570,25 @@ function llenarTarjeta(vis){
 		$("#infcedula1").html($("#vcedula").val());
 		var t_valor;
 		
-		$("#fcorreos .chip [id^=0_]").each(function(){
-			t_valor = $("#vcorreo").val();
-			$("#infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+		$("#fcorreos .ciclos").each(function(index){
+			if(index == 0)
+				$("#infcorreo2").html('');
+			t_valor = $(this).data('triforce')['vcorreo'];
+
+			$("#infcorreo2").append('<div id="ichpce_'+$(this).data('triforce')['vidcorreo']+'" class="chpcrr chip">'+t_valor+'</div>');
 		});
-		$("#ftelefonos .chip [id^=0_]").each(function(){
-			t_valor = $("#vtelefono").val();
-			$("#inftelefono4").html($("#vtelefono").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+
+		$("#ftelefonos .ciclos").each(function(index){
+			if(index == 0)
+				$("#inftelefono4").html('');
+
+			t_valor = $(this).data('triforce')['vtelefono'];
+			var tnum = $(this).data('triforce')['vtipotel'];
+			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
+
+			$("#inftelefono4").append('<div id="itchptt_'+$(this).data('triforce')['vidtelefono']+'" class="chpphone chip"><img src="../../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
 		});
+
 		$("#infcodigo6").html($("#vcodigo").val());
 		$("#infweb7").html($("#vweb").val());
 
@@ -605,14 +606,25 @@ function llenarTarjeta(vis){
 		$("#infcedula1").html('8088800888');
 		var t_valor;
 		
-		$("#fcorreos .chip [id^=0_]").each(function(){
-			t_valor = $("#vcorreo").val();
-			$("#infcorreo2").html($("#vcorreo").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+		$("#fcorreos .ciclos").each(function(index){
+			if(index == 0)
+				$("#infcorreo2").html('');
+			t_valor = $(this).data('triforce')['vcorreo'];
+
+			$("#infcorreo2").append('<div id="ichpce_'+$(this).data('triforce')['vidcorreo']+'" class="chpcrr chip">'+t_valor+'</div>');
 		});
-		$("#ftelefonos .chip [id^=0_]").each(function(){
-			t_valor = $("#vtelefono").val();
-			$("#inftelefono4").html($("#vtelefono").val(t_valor+'[null,?,"'+$(".vcoo",this).html()+'"]:'));
+		
+		$("#ftelefonos .ciclos").each(function(index){
+			if(index == 0)
+				$("#inftelefono4").html('');
+
+			t_valor = $(this).data('triforce')['vtelefono'];
+			var tnum = $(this).data('triforce')['vtipotel'];
+			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
+			
+			$("#inftelefono4").append('<div id="itchptt_'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
 		});
+
 		$("#infcodigo6").html($("#vcodigo").val());
 		$("#infweb7").html($("#vweb").val());
 
