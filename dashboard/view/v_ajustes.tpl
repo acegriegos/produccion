@@ -18,7 +18,7 @@
         <div class="nav-content">
           <div class="row">
             <div class="col s12">
-              <ul class="tabs tabs-fixed-width" style="background-color:#0B3861; padding-bottom: 4% !important">
+              <ul class="tabs tabs-fixed-width" style="background-color:#0B3861; padding-bottom: 5% !important">
                 <li class="menu3 tab "  id="m1" ><a class=" white-text tamLetra" class="active">Empresa</a></li>
                 <li class="menu3 tab " id="m2"><a class=" white-text tamLetra">Descuentos</a></li>
                 <li class="menu3 tab " id="m3"><a class=" white-text tamLetra">Impuestos</a></li>

@@ -101,7 +101,7 @@ function sse_response(vid,p) {
 function generarSSuc(){
 
     var p = getDatos('',155,'@@usr',0,0)[0];
-    var sucursales = '<option value="-1">Todas las Sucursales</option>';
+    var sucursales = '';
 
     for (var i = 0; i < p.length; i++) {
         sucursales += '<option value="'+p[i][0]+'">'+p[i][1]+'</option>';
@@ -112,8 +112,10 @@ function generarSSuc(){
     //         alert($('option:selected',this).val())
     //     })
     // }
-
+    
     $(".ssuc").material_select('destroy');
+    var valor = $(".ssuc").attr("sel");
     $(".ssuc").append(sucursales);
+    $(".ssuc").val(valor);
     $(".ssuc").material_select();
 }

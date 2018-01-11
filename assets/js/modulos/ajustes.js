@@ -85,6 +85,7 @@ $(document).on("click",".menu3",function(){
 			});
 
 			$(".wsdl-op").hide();
+			InitDropzone(1,false,'../cargar.php',"#registro-upload",false);
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
@@ -135,7 +136,7 @@ $(document).on("click",".menu3",function(){
 			$("#majustes").html('');
 			$("#majustes").html(p);
 			$("select").material_select('update');
-			
+			InitDropzone(1,false,'../cargar.php',"#registro-upload",false);
 			break;
 		case 6:
 			var p = mantenimiento('ajustes',6,'');
@@ -204,31 +205,6 @@ $(document).on("click",".menu3",function(){
 			$("#majustes").html(p);
 			break;
 	}
-
-	myDropzone = new Dropzone("#registro-upload", {
-		url: '../cargar.php',
-		autoProcessQueue:false,
-		maxFilesize: 1,
-		maxFiles: 1,
-		addRemoveLinks:true,
-		uploadMultiple: false,
-		init: function() {
-			this.on("addedfile", function(file) {
-				$("#fotosvg").hide();
-			});
-			this.on("removedfile", function(file) {
-				if (!$(".dz-preview").length) {
-					$("#fotosvg").show();
-				}
-				
-			});
-			this.on("uploadprogress", function(file, progress) {
-				console.log("File progress", progress);
-			});
-		}
-	});
-
-	$(".dz-message").show();
 
 	$(".modal").modal({
 		dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -342,6 +318,17 @@ $(document).on("change","#videtapa",function(){
 	arr('login',6,'id,nombre',41,'id > 0',15,1,$("#xidbodega"));
 	$("#xidbodega").material_select();
 	$("#dbod").show(500);
+});
+
+$(document).on("click","[id^=ec]",function(){
+	var id = $(this).attr('id').substr(2);
+	// var p = arr('login',7,3,36,'','id = '+id, 0,0,0)[0];
+	// if (p['ERROR'] != undefined) {
+	// 	Materialize.toast(p['ERROR'],4000,'red');
+	// 	$(this).prop('checked',true);
+	// }else{
+	// 	alert("deleted")
+	// }
 });
 
 $(document).on("change","#xidbodega",function(){

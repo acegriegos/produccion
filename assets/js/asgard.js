@@ -747,6 +747,33 @@ Number.prototype.formatMoney = function(c, d, t){
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
 
+function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess){
+    myDropzone = new Dropzone(velemento, {
+        url: vurl,
+        autoProcessQueue:vautoprocess,
+        maxFilesize: 1,
+        maxFiles: vmaxfiles,
+        addRemoveLinks:true,
+        uploadMultiple: vmultiple,
+        init: function() {
+            this.on("addedfile", function(file) {
+                $("#fotosvg").hide();
+            });
+            this.on("removedfile", function(file) {
+                if (!$(".dz-preview").length) {
+                    $("#fotosvg").show();
+                }
+                
+            });
+            this.on("uploadprogress", function(file, progress) {
+                console.log("File progress", progress);
+            });
+        }
+    });
+
+    $(".dz-message").show();
+}
+
 function change_load(vto,vtabla,vval,vset){
     if (vto != '') {
         var tmp = $('#'+vto+' option').first().html();
