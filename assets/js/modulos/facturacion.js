@@ -450,6 +450,45 @@ function cargarGlobal(){
         $("#codp").focus();           
     });
 
+    $(document).on("click",".fedit",function(){
+        var id = $(this).attr('id').substr(4);
+
+        var tipo = getParameterByName('tf');
+        $("#titmod").html($("#desc"+id).html());
+        $("#hdnprd").val(id);
+        $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
+        $("#edescuento").val($("#fd"+id).data('triforce')['vdesc']);
+        $("#eunitario").val($("#fd"+id).data('triforce')['vprecio']);
+        if (tipo == 1) {
+            $(".eunit").addClass('hide');
+            $(".eimp").addClass('hide');
+        }else if (tipo == 2)
+            $(".eimp").addClass('hide');
+        else
+            console.log('otros');
+
+        Materialize.updateTextFields();
+
+    });
+
+    $(document).on("click","#editprod",function(){
+        console.log(1)
+        var id = $("#hdnprd").val();
+        var cant,desc,prec = 0;
+        cant = $("#ecantidad").val();
+        desc = $("#edescuento").val();
+        prec = $("#eunitario").val();
+
+        console.log("cantidad: "+cant+"\ndescuento: "+desc+"\nprecio: "+prec)
+        $("#fd"+id).data('triforce')['vcantidad'] = cant;
+        $("#fd"+id).data('triforce')['vdesc'] = desc;
+        $("#fd"+id).data('triforce')['vprecio'] = prec;
+        totalizar();
+        $("#cant"+id).text(cant);
+        $("#prec"+id).text(prec);
+        $("#vdesc"+id).text(desc+'%');
+    });
+
 }//cargar GLOBAL
 
 function gkeydown(){

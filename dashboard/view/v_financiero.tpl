@@ -43,7 +43,7 @@
 
                     </div>
                       <div class="col s12 m6 l6 per3500">
-                      <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
+                      <a href="devoluciones" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
                     </div>
                     <div class="col s12 m6 l6 per3600">
                       <a href="reportes?tr=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>

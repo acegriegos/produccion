@@ -1,8 +1,6 @@
-
 <?php
+
 switch ($transaccion[0][19]) {
-
-
     case 1:
     /*Ganancias detalladas por facturas desglosada por productos  
     */

@@ -116,11 +116,44 @@ $(document).on("blur","[id^=vcantidad]",function(){
     $("#cant"+id).show();
 });
 
-$(document).on("click",".fedit",function(){
-    var id = $(this).attr('id').substr(4);
-   $("#titmod").html($("#desc"+id).html());
+// $(document).on("click",".fedit",function(){
+//     var id = $(this).attr('id').substr(4);
+//     var tipo = getParameterByName('tf');
+//    $("#titmod").html($("#desc"+id).html());
+//    $("#hdnprd").val(id);
+//    if (tipo == 1) {
+//         $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
+//         $("#edescuento").val($("#fd"+id).data('triforce')['vdesc']);
+//         $("#eunitario").val($("#fd"+id).data('triforce')['vprecio']);
+//         $(".eunit").addClass('hide');
+//         $(".eimp").addClass('hide');
+//    }else if (tipo == 2)
+//         $(".eimp").addClass('hide');
+//    else
+//         console.log('otros');
 
-});
+//     Materialize.updateTextFields();
+   
+// });
+
+// $(document).on("click","#editprod",function(){
+//     //aqui
+//     var id = $("#hdnprd").val();
+//     var cant,desc,prec = 0;
+//     cant = $("#ecantidad").val();
+//     desc = $("#edescuento").val();
+//     prec = $("#eunitario").val();
+
+//     console.log("cantidad: "+cant+"\ndescuento: "+desc+"\nprecio: "+prec)
+//     $("#fd"+id).data('triforce')['vcantidad'] = cant;
+//     $("#fd"+id).data('triforce')['vdesc'] = desc;
+//     $("#fd"+id).data('triforce')['vprecio'] = prec;
+//     totalizar();
+//     $("#cant"+id).text(cant);
+//     $("#prec"+id).text(prec);
+//     $("#vdesc"+id).text(desc+'%')
+
+// });
 
 $(document).on("click","#facturar",function(){
 

@@ -132,7 +132,7 @@ $(function(){
 
 
 
-	})
+	});
 
 	
 
@@ -187,22 +187,18 @@ $(document).on("click",".detalle",function(){
 		}
 	});
 });
-$(document).on("click","#Iadd",function(){
-	deadclear('notas')
 
-});
 $('.datepicker').pickadate({
-    	selectMonths: true, // Creates a dropdown to control month
-    	selectYears: 15, // Creates a dropdown of 15 years to control year
-    	format: 'yyyy-mm-dd'
-    });
+	selectMonths: true, // Creates a dropdown to control month
+	selectYears: 15, // Creates a dropdown of 15 years to control year
+	format: 'yyyy-mm-dd'
+});
+
 fecha = new Date();
 $('.vfecha').pickadate();
-
 $('select').material_select();
 
 $("#data-table-Notas").DataTable({
-
 	bFilter: false,
 	order : [],
 	"bLengthChange": false

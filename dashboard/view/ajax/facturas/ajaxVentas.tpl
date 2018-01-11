@@ -591,7 +591,7 @@
 
 </section>
 
-<div id="modal-edit" class="modal modal-fixed-footer">
+<!-- <div id="modal-edit" class="modal modal-fixed-footer">
   <div class="modal-content">
     <h4 id="titmod">Modal Header</h4>
     
@@ -616,15 +616,15 @@
         <input type="text" id="eimpuesto">
         <label for="eimpuesto">Impuesto</label>
       </div>
-
+      <input type="hidden" id="hdnprd" value="0">
     </div>
 
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
   </div>
-</div>
+</div> -->
 
 <div id="modal-producto" class="modal modal-fixed-footer">
   <div class="modal-content" id="fproductos">
