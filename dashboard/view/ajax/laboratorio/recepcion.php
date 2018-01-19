@@ -33,8 +33,8 @@
                     <label for="cantidad">Cantidad</label>
                   </div>
 
-                  <div class="input-field">
-                    <input type="text" id="expectativa" class="eder numeric" value="0">
+                  <div class="input-field hide">
+                    <input type="text" id="expectativa hide" class="eder numeric" value="0">
                     <label for="expectativa">Expectativa</label>
                   </div>
                   
@@ -65,18 +65,18 @@
               <div class="row">
                 <input type="hidden" id="vresponsable">
                 <div class="col s1">
-                  <span class="prefix">Rango:</span>
+                  <span class="prefix hide">Rango:</span>
                 </div>
 
                 <div class="col s2">
-                  <div class="input-field">
+                  <div class="input-field hide">
                     <input type="text" id="vrango1" class="eder" value="0">
                     <label for="vrango1">Desde</label>
                   </div>
                 </div>
 
                 <div class="col s2">
-                  <div class="input-field">
+                  <div class="input-field hide">
                     <input type="text" id="vrango2" class="eder" value="0">
                     <label for="vrango2">Hasta</label>
                   </div>

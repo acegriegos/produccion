@@ -19,8 +19,33 @@
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-	   			
-	   			break;
+	   			// hacer devoluciones
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->display('ajax/devoluciones/doDevolucion.tpl');
+				break;
+			case 2:
+				// ver devoluciones
+				$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->display('ajax/devoluciones/showDevolucion.tpl');
+				break;
+			case 3:
+				// recibo devoluciones
+				$pagina = 1;
+				$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
+				$transaccion = $kakaroto->kamehameha('',406,$_REQUEST['id']);
+				$datos = $transaccion[0];
+				
+				if($_REQUEST['tp'] == 1)
+					require_once 'view/ajax/cuentas/devolucionpv.php';
+				else
+					require_once 'view/ajax/cuentas/devolucion.php';
+				break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

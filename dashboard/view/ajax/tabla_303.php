@@ -2,10 +2,11 @@
 	<p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Factura</p>
 </div>
 <div class="row">
-	<div class="col s12 m12 pequeño">
+	<div class="col s12 m12 pequeño" id="fdevoluciones">
 		<div class="card blue z-depth-5">
 			<div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 1% !important">
-				<div class="col s12 m8 l8 right-align" style="padding-right: 10% !important; "><span class="card-title"><b>Factura: <span > <?php echo $transaccion[0][2]; ?></span></b></span> 
+				<div class="col s12 m8 l8 right-align" style="padding-right: 10% !important; "><span class="card-title"><b>Factura: <span > <?php echo $transaccion[0][2]; ?></span></b></span>
+					<input type="hidden" class="zelda">
 				</div>
 			</div>
 			<div class="card-content white-text" style="padding: 0.1% !important">
@@ -30,7 +31,7 @@
 					<div class="col s12 m12 l4">
 						<div class="row" style=" padding-top: 10%;">
 							<div class="col s12">
-								<button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Devolución</button>
+								<button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Nota</button>
 							</div>
 						</div>
 					</div>
@@ -49,7 +50,7 @@
 					<div class="col s12">
 						<div class="card" style="background-color:#0B3861">
 							<div class="card-content pequeño white-text">
-								<div class="center-align"><span class="card-title">Devoluciones</span></div>
+								<div class="center-align"><span class="card-title">Notas</span></div>
 								<div class="row padd">
 									<div class="col s12 m12 center-align ">
 										<div class="switch">

@@ -51,7 +51,7 @@ $(function(){
     });
     
     
-    // permisos(1,50);
+    permisos(1,50);
     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
 
     setInterval(function(){

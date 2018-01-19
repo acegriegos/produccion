@@ -297,7 +297,7 @@ function endDetail(vid,vacc,modulo){
 
 
 		$("#btn-div").click();
-
+		
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
 		window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 	}

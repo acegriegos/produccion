@@ -21,10 +21,10 @@
 		    }else if (sizeof($user) == 1)
 		    {
 
-          if($user[0][6] == '')
-            print_r($user);
-            // header("Location: ../bienvenida/bienvenida.html");
-          else{
+          // if($user[0][6] == '')
+          //   print_r($user);
+          //   // header("Location: ../bienvenida/bienvenida.html");
+          // else{
             if ($user[0][7] == 0)
               cambioDia($log);
      
@@ -42,7 +42,7 @@
               header("Location: ../dashboard/$vdir");
            }
   
-		   }
+		   // }
     	}else{
     		if (isset($_SESSION['USR'])) {
 		        header("Location: ../dashboard/main");

@@ -3,7 +3,6 @@ $(function(){
         mantenimiento('main',3,$(this).val());
     });
     generarSSuc();
-
    
     // dibujarGrafico("chartG1",'Ganancias por Dia','Ganancias','line',{sel:'',tbl:307,where:'3,0,0,0,"'+now()+'","",0,0,0'},2,0,2);
 

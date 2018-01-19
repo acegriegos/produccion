@@ -3,24 +3,32 @@
 <link href="../assets/css/materialize.css" rel="stylesheet">
 <link href="../assets/css/modulos/style-factura.css" rel="stylesheet">
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
+<title>Recibo de Dinero Multiple</title>
+
 <body class="grey darken-4" style="font-size: 1.1em;" >
   <div class="hoja grey lighten-3" style="margin-top: 8%">
     <!-- HEADER -->
     <div class="row">
-      <div class="col s6 m5 l3">
-      <br>
-        <img src="../assets/img/logo.png" class="img-responsive" width="100%">
-      </div>
-      <div class="col s6 m7 l9 right-align">
-        <font size="3">
+     <div class="col s6 m5 l3">
           <br>
-          <b><?php echo $miscelaneos[0][0]; ?></b><br>
-          <b>Cédula:</b> <?php echo $miscelaneos[1][0]; ?><br>
-          <b>Teléfono:</b>  <?php echo $miscelaneos[2][0]; ?><br>
-          <b>Correo:</b> <?php echo $miscelaneos[3][0]; ?><br>
-          <b>Dirección:</b> <?php echo $miscelaneos[4][0]; ?><br>
-        </font>
-      </div>
+       <?php if ($miscelaneos[3]) {
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="90%">';
+            } ?>
+        </div>
+        <div class="col s6 m7 l9 right-align">
+          <font size="3">
+            <br>
+             <b><span id="fnombre"><?php echo $miscelaneos[0]; ?></span></b><br>
+              <?php if ($miscelaneos[2]) 
+                echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+              ?>
+              <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
+              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[2]; ?></span><br>
+              <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
+              <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
+
+          </font>
+        </div>
 
 
     </div>
@@ -65,7 +73,7 @@
  <div class="col s6">
 
   <div class="col s6 center-align ">
-  <div class="card  blue-grey white-text imprimirSINBOR <?php echo $hide ?>" >
+  <div class="card  white-text imprimirSINBOR <?php echo $hide ?>" style="background-color: #3960A7;">
     <div class=" card-content ">
       <p>Tipo de Pago:
        Efectivo
@@ -75,7 +83,7 @@
   </div>
 
   <div class="col s6 center-align">
-  <div class="card blue-grey white-text imprimirSINBOR">
+  <div class="card  white-text imprimirSINBOR" style="background-color: #3960A7;">
     <div class=" card-content white-text imprimirSINBOR">
       <p>Fecha:
        <?php echo $transaccion[0][6]; ?>
@@ -88,7 +96,7 @@
 
   <!-- DETALLE FACT -->
   <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
-    <thead class=" blue-grey white-text imprimirSINBOR margen">
+        <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
       <tr>
         <th class="center-align sinborde" id="th1">No de factura</th>
         <th class="center-align sinborde" id="th3">Saldo anterior</th>
@@ -112,8 +120,8 @@
     <tr></tr>
         <td class="margen" colspan="1">&nbsp;</td>
 
-      <td  class="  blue-grey white-text sinborde imprimirSINBOR center-align"><b>SALDO TOTAL</b></td>
-      <td  class=" blue-grey white-text sinborde imprimirSINBOR center-align"><b><?php echo $transaccion[0][11]; ?></b></td> 
+      <td  class="   white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b>SALDO TOTAL</b></td>
+      <td  class="  white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b><?php echo $transaccion[0][11]; ?></b></td> 
     </tr>
     </tfoot>
   </table>
@@ -125,6 +133,9 @@
   </div>
   </div>
 
-  <script src="../assets/js/jquery.js"></script>
-  <script src="../assets/js/materialize.js"></script>
+<script src="../assets/js/jquery.js"></script>
+
+<script src="../assets/js/materialize.js"></script>
+<script src="../assets/js/asgard.js?v=0.1"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=0.6"></script>
 </body>

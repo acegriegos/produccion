@@ -7,7 +7,7 @@
         <a href="#!user" class="center"><i class="medium mdi mdi-account-circle" style="color:#fff;padding-left: 25%;" aria-hidden="true"></i></a>
         <div class="input-field col s12 white-text selectusr">
           <select id="lgt">
-            <option value="0" class="logout" id="x1" disabled selected>{$smarty.session.NOM} </option>
+            <option value="0" class="logout " id="x1" disabled selected>{$smarty.session.NOM} </option>
             <option value="1" class="logout" id="x2">Información</option>
             <option value="2" class="logout" id="x2">Notificaciones</option>
             <option value="3" class="logout" id="x2">Cierre de Caja</option>

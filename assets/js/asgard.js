@@ -26,30 +26,31 @@ $(window).keydown(function(e){
 });
 
 $(document).on("click",".tc-show",function(){
-
     if ($("#slide-tc").length == 0) {
-        var ul = '<ul id="slide-tc" class="side-nav"> <li><div class="user-view"> <span class="ntit"></span></a></div></li> <li><div class="divider"></div></li> <li><a class="subheader">Subheader</a> </li></ul>';
-
+        var ul = '<ul id="slide-tc" class="side-nav"><li><div class="user-view"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div></li></ul>';
         $(".bdy").append(ul);
     }
-        var code = parseInt($(this).data('num'));
-        var titulo = cuerpo = '';
+    var code = parseInt($(this).data('num'));
+    var titulo = cuerpo = '';
 
-        switch(code){
-            case 1: 
-                titulo = 'Teléfonos';
-                break;
-            case 2: 
-                titulo = 'Correos';
-                break;
-            case 3: 
-                titulo = 'Ubicación';
-                break;
-            default:
-                break;
-        }
+    switch(code){
+        case 1: 
+            titulo = 'Teléfonos';
+            cuerpo = mantenimiento('ajustes',10,'');
+            break;
+        case 2: 
+            titulo = 'Correos';
+            break;
+        case 3: 
+            titulo = 'Ubicación';
+            break;
+        default:
+            break;
+    }
 
-        $(".ntit").html(titulo);
+    $(".ntit").html(titulo);
+    $("#unico").html(cuerpo);
+    Materialize.updateTextFields();
     
     $('.tc-show').sideNav('destroy');
     $(this).sideNav({
@@ -59,7 +60,6 @@ $(document).on("click",".tc-show",function(){
         draggable: true
     });
     $(this).sideNav('show');
-    
 });
 
 $(document).on("keyup",".numeric",function(e){
@@ -163,7 +163,6 @@ function doGlobal(accion,modulo,tip,varias){
 
     if (varias == 1) {
         arreglo['varios'] = {};
-
         $("#f"+modulo+"s [vtabla]").each(function(index){
             var arr = {}
             
@@ -179,7 +178,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        //console.log(p)
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -245,6 +244,7 @@ function loadpool(vmodulo,vid,vvarias){
             else{
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('destroy');
                 $.each(columns[0][0][0][i].split(","), function(j,e){
+                    console.log(e)
                     $("#"+vform+" #"+columns[0][1][i]['name']+" option[value='" + e + "']").attr("selected", true);
                 });
 
@@ -423,11 +423,12 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
     
 })
    .fail(function() {
-    alert( "error" );
+    alert( "Error Enviando Correo" );
 });
 }
 
 function odin(varreglo,vform) {
+    //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
 
     switch($("#"+vform).attr('tp')){
@@ -475,7 +476,6 @@ function odin(varreglo,vform) {
                     salida[index][varreglo[i]] = 0;//$("#"+vform+" #vtabla").val();
                     break;
                     default:
-
                     if (/vfecha/.test(varreglo[i])){
                         if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
                             salida[index][varreglo[i]] = '1990-01-01';
@@ -523,6 +523,7 @@ function odin(varreglo,vform) {
                 }//end if
                 }//end SWITCH
             }//end IF
+            $("#"+vform+" .zelda").data('triforce')
             }// end FOR
         });//end EACH
 break;
@@ -534,9 +535,13 @@ case "4":
         for (var i = 0; i < varreglo.length; i++) {
             salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
             }// end FOR
-            
     });//end EACH
     
+    break;
+case "5":
+    for (var i = 0; i < varreglo.length; i++) {
+        salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+    }
     break;
 
     default:
@@ -715,18 +720,19 @@ function permisos(vnumber,vnumber2) {
     })
     .done(function(data) {
         p = JSON.parse(data);
+        
         for (var i = 0; i < p.length; i++) {
-            var op = parseInt(p[i][1]);
+            var op = parseInt(p[i][3]);
 
             switch(op){
                 case 1:
-                $(".per"+p[i][0]).css('display','in-line');
+                $(".per"+p[i][1]).css('display','in-line');
                 break;
                 case 2:
-                $(".per"+p[i][0]).attr('disabled',true);
+                $(".per"+p[i][1]).attr('disabled',true);
                 break;
                 case 3:
-                $(".per"+p[i][0]).css('display','none');
+                $(".per"+p[i][1]).css('display','none');
                 break;
             }
         };

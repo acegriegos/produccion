@@ -487,10 +487,14 @@ function totalizar(){
         $("#vflete").html(flete.formatMoney(2,'.',','));
         total = total + flete;
     }
-
+    
     if (ajuste != 0) {
-        ajuste = parseFloat(actajuste*ajuste);
-        total += ajuste;
+        if (actajuste != '') {
+            ajuste = parseFloat(actajuste*ajuste);
+            total = total + ajuste;
+        }else{
+            total = total + ajuste;
+        }
     }
     
     $("#subtot").html(totd.formatMoney(2,'.',','));

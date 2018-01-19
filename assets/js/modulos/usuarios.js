@@ -367,7 +367,7 @@ function validarusuarios() {
 		$('#vidTipoUsuario').focus();
 		return 'Tipo de Usuario Requerido';
 	}
-	if ($('#vidsuc option:selected').length <= 1) {
+	if ($('#vidsuc option:selected').length == 0) {
 		$('#vidsuc').focus();
 		return 'Seleccione una Sucursal';
 	}
@@ -427,9 +427,9 @@ function cargar(vmodulo,vid) {
 	function cargarSintax(){
 		var arr = {}
 
-		arr['sel'] = 'Id,Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`';
+		arr['sel'] = '';
 		arr['tbl'] = 7;
-		arr['where'] = 'Id > 0';
+		arr['where'] = '';
 
 		return arr;
 	}
@@ -519,11 +519,7 @@ function cargar(vmodulo,vid) {
 			
 			deadclear(modulo);
 			thorload(modulo);
-			break
+			break;
 		}
-
-	}
-
-	function postload(modulo) {
 
 	}
