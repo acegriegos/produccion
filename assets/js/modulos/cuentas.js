@@ -98,7 +98,6 @@ $(document).on("change","[name='ctas']",function(){
 			break;
 		case 3:
 			arr('login',6,'',214,getParameterByName('tf')+',0,0,1',0,1,$("#listaCuentasx"));
-			console.log()
 			break;
 		default:
 			arr('login',6,'',214,getParameterByName('tf')+',0,0,0',0,1,$("#listaCuentasx"));
@@ -349,6 +348,13 @@ function validarcuentas() {
 }
 
 function validarestadocuenta(){
+	var saldo = $("#isaldovista").text();
+	saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
+
+	if (parseFloat($("#vvalor").val()) > saldo) {
+		return "Monto no debe exceder al saldo";
+	}
+
 	if (isNaN($("#vvalor").val())) {
 		$("#vvalor").select().focus(); 
 		return "El Valor No es Numérico";
@@ -363,6 +369,7 @@ function validarestadocuenta(){
 		$("#vidtipopago").focus(); 
 		return "Tipo de Pago Requerido";
 	}
+
 return false;
 }
 
@@ -390,7 +397,10 @@ function cargarSintax(){
 
 function endDetail(vid,vacc,modulo) {
 	if (vacc == 1) {
-		$("#isaldo").html(parseFloat($("#isaldo").html()) - parseFloat($("#vvalor").val()) );
+		var saldo = $("#isaldovista").text();
+		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
+		console.log(saldo - parseFloat($("#vvalor").val()))
+		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ) );
 		$("#vidtipopago").val('');
 		$("#vvalor").val(0.00);
 		arr('login',6,'',213,gtipo+','+$("#vidfactura").val(),0,1,$("#listaCuentasxCDetalle"));

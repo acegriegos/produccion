@@ -222,6 +222,7 @@
                     <thead>
                         <tr>
                             <th class="white-text blue " style="border: 0; border-radius: 0px !important;">Movimientos</th>
+                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Consecutivo</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
                             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
