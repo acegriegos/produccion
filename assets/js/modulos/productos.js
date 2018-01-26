@@ -1365,10 +1365,9 @@ $(document).on("keyup","#searchsrv",function(e){
 });
 
 $(document).on("change","#servpro",function(){
-    if($(this).is(":checked") ){
-        $("#ms2").addClass('hide');
+    if($(this).is(":checked") )
         $("#vservprofesional").val(1);
-    }else{
+    else{
         $("#ms2").removeClass('hide')
         $("#vservprofesional").val(0);
         $("#vpbase").val('');
