@@ -21,8 +21,6 @@ $(function(){
 		cuentas += '<option value="'+cuentas_arr[0][i][3]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
 
-
-
 	$(".addcta").click(function(){
 		tp = $(this).attr('tp');
 		det = "ctacontado";
@@ -337,6 +335,33 @@ $(document).on("click","#Iadd",function(){
 	deadclear('clientes')
 });
 
+$(document).on("change","#vidmarca",function(){
+	var id = $(this).val();
+	var modelos = arr('login',6,'id,nombre',501,'id > 0 and idmarca = '+id+' and nombre <> "" order by nombre');
+	$("#vidmodelo").html(modelos);
+	$("select").material_select();
+});
+
+$(document).on("click",".car",function(){
+	var id = $(this).attr('id').substr(1);
+	$("#vidcliente").val(id);
+	arr('login',6,'id,nombre',500,'id > 0 and nombre <> "" order by nombre',0,1,$("#vidmarca"));
+	arr('login',6,'id,nombre',502,'id > 0 and nombre <> "" order by nombre',0,1,$("#vidtipo"));
+	var tabla = $("#data-table-vehiculos").DataTable();
+    tabla.destroy();
+	arr('login',6,'',504,id+',""',0,1,$("#listavehiculos"));
+	$("select").material_select();
+	$("#data-table-vehiculos").DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+});
+
 function validar (varreglo,vmodulo) {
 	
 	var salida = {}
@@ -352,6 +377,14 @@ function validar (varreglo,vmodulo) {
 			}
 		}
 		break;
+		case 'taller-vehiculo':
+			if (vmodulo['tip'] == '') {
+				err = validarvehiculo();
+				if ( err ) {
+					return err;
+				}
+			}
+			break;
 		case 'telefono':
 		break;
 		case 'ubicacione':
@@ -369,6 +402,10 @@ function validar (varreglo,vmodulo) {
 	//console.log(salida)
 	return salida;
 
+}
+
+function validarvehiculo() {
+	if ( $("#vplaca").val() == '' ) { $("#vplaca").focus() ; return 'Placa Requerida'}
 }
 
 function validarclientes() {
@@ -422,11 +459,18 @@ function validarclientes() {
 
 		function cargarSintax(){
 			var arr = {}
-
-			arr['sel'] = '';
-			arr['tbl'] = 29;
-			arr['where'] = '';
-
+			switch(modulo) {
+				case 'clientes':
+					arr['sel'] = '';
+					arr['tbl'] = 29;
+					arr['where'] = '';
+					break;
+				case 'vehiculos':
+					arr['sel'] = '';
+					arr['tbl'] = 504;
+					arr['where'] = $("#vidcliente").val();
+					break;
+			}
 			return arr;
 		}
 
@@ -471,17 +515,25 @@ function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
 }
 
 function endDetail(vid,vacc,modulo){
-	
-	if (vacc == 1) {
-		$("#fcorreos").html('');
-		$("#ftelefonos").html('');
-		$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
-		$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
-		setTimeout(function(){ deadclear('cliente'); }, 2500);
+	switch (modulo) {
+		case 'cliente':
+			setTimeout(function(){ deadclear('cliente'); }, 2500);
+			thorload('cliente');
+			if (vacc == 1) {
+				$("#fcorreos").html('');
+				$("#ftelefonos").html('');
+				$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+				$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
+			}
+			break;
+		case 'taller-vehiculo':
+			deadclear('taller-vehiculo');
+			thorload('vehiculo');
+			break
 	}
-	
-	thorload('cliente');
 	paginate($("ul.pagination").attr('vtbl'));
+	$(".validate").css('border-bottom', '1px solid #9e9e9e');
+	$(".validate").css('box-shadow', 'none');
 }
 
 function postload(modulo) {

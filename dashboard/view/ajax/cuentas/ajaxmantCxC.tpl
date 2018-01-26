@@ -14,8 +14,8 @@
                     <li><a href="#!" fltr="2">Cédula</a></li>
                     <li><a href="#!" fltr="3">Teléfono</a></li>
                 </ul>
-                <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
-                <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
+                <input type="text" id="searchCuentas" maxlength="100" num="313" modulo="Cuentasx">
+                <label class="truncate" for="searchCuentas">Buscar por nombre de clientes o factura</label>
             </div>
             <div class="col s12 m5">
                 <div class="col s12 m4">
@@ -38,7 +38,7 @@
                     <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Multiple</a>
                 </div>
                 <div class="col s12 pequeño">
-                    <table id="data-table-cuentas" class="pequeño  table centered highlight bordered responsive-table z-depth-5 pbtns">
+                    <table id="data-table-Cuentasx" class="pequeño  table centered highlight bordered responsive-table z-depth-5 pbtns">
                         <thead>
                             <tr>
                                 <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>

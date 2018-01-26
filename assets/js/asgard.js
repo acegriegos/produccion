@@ -119,36 +119,8 @@ $(document).on("keyup","[id^=search_]",function(e){
         var d = $(this).attr('num').substring(0,1).replace('+','');
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
-        var h;
-        tabla = $("#data-table-"+b).DataTable();
-        tabla.destroy();
-        // if (e.replace(/,/g,'').length == e.length) {
-            // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,0,0)[0][0];
-            // arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%" order by nombre limit 10',g,1,$("#lista"+b));
-
-        h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
-        arr('login',6,'',c,'0,0,"'+a+'","0,10"',g,1,$("#lista"+b));
-        // }else{
-            // var f = d+'id >= 0 and (';
-            // e = e.split(",");
-            // for (var i = 0; i < e.length; i++) {
-            //     f += e[i]+' like "%'+a+'%" or ';
-            // }
-            // f = f.substring(0,f.length-3)
-            // f += ") order by nombre";
-            // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,f,0,0,0)[0][0];
-            // arr('login',6,'*',c,f+' limit 10',g,1,$("#lista"+b));
-
-            $("#data-table-"+b).DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
-        // }
+        var h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
+        filltable(a,b,c,g);
         $(".pagination").html('');
         paginate(c,h)
     }
@@ -532,7 +504,7 @@ case "4":
     //LLENADO DE VARIABLES POR DATA EN DETALLE
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
-        for (var i = 0; i < varreglo.length; i++) {
+        for (var i = 0;  i < varreglo.length; i++) {
             salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
             }// end FOR
     });//end EACH
@@ -1070,6 +1042,21 @@ function mostrar_cargar(){
 }
 
 // <-- pagination
+function filltable(a,b,c,g) {
+    var tabla = $("#data-table-"+b).DataTable();
+    tabla.destroy();
+    arr('login',6,'',c,'0,0,"'+a+'","0,10"',g,1,$("#lista"+b));
+    $("#data-table-"+b).DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+}
+
 function paginate(vtbl,len) {
     $(".pagination").html('');
     var countpag = 0;

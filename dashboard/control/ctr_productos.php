@@ -44,7 +44,7 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('PAQ',$kakaroto->kamehameha('',62,'0,0'));
-	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre,simbolo',12,'idtipo in(0,1,3) order by idtipo desc'));
+	   			$smarty->assign('UNI',$kakaroto->kamehameha('',12,'"0,1,3"'));
 	   			$smarty->display('ajax/productos/ajaxmantPaquetes.tpl');
 	   			break;
 	   		case 4:

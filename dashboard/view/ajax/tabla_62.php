@@ -18,8 +18,8 @@ foreach ($transaccion as $obj) {
 <td><?php echo $obj[3] ?></td>
 <td><?php echo $obj[4] ?></td>
 <td>
-<a class="btn-color pbtn loadpck" id="e<?php echo $obj[0]?>" href="#modal-paquetes" title="Editar Paquete"><i class="material-icons">edit</i></a>
-<a class="btn-color pbtn cdel delpck" id="d<?php echo $obj[0]?>" title="Eliminar Paquete"><i class="material-icons">close</i></a>
+<a class="btn-color pbtn loadpck modal-trigger" id="e<?php echo $obj[0] ?>" href="#modal-paquetes" title="Editar Paquete"><i class="mdi mdi-pencil mdi-24px"></i></a>
+<a class="btn-color pbtn cdel delpck" id="d<?php echo $obj[0] ?>" title="Eliminar Paquete"><i class="mdi mdi-close mdi-24px"></i></a>
 </td>
 </tr>
 <?php

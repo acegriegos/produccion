@@ -256,7 +256,8 @@ $(document).on('change','#selectUser',function(){
 		ajaxUsuarios(opcion,0)
 	}
 
-	$('#selectType').val(0)
+	$('#selectType').val(0);
+	$('#selectType').material_select('update');
 });
 
 $(document).on('blur',"#inUsuer",function(){
@@ -290,7 +291,8 @@ $(document).on('change','#selectType',function(){
 	if(opcion != 0){
 		ajaxUsuarios(opcion,1)
 	}
-	$('#selectUser').val(0)
+	$('#selectUser').val(0);
+	$("#selectUser").material_select('update');
 });
 
 $(document).on('click','.correo',function(){
@@ -318,6 +320,14 @@ $(document).on('click','.cargar',function(){
 	$("#userSubmit").removeClass('blue');
 	$("#userSubmit").addClass('green');
 	$("#userSubmit").attr('title','Actualizar Usuario');
+});
+
+$(document).on('click','[name^=row]',function(){
+	var tipo = $(this).attr('tp');
+	var id = $(this).attr('id').substr(1);
+	var tabla = $("#selectUser").val() == 0 ? 249 : 248;
+
+	console.log(arr("login",7,2,tabla,'tipo='+tipo,'id='+id,0,0));
 });
 
 function validar (varreglo,vmodulo) {
@@ -436,69 +446,51 @@ function cargar(vmodulo,vid) {
 
 	function ajaxUsuarios(opcion,tipo){
 
-		var arr = {}
-		if (tipo != 1){
-			arr['tbl'] = 9;
-			arr['where'] = 'id_user = \"'+opcion+'\"';
-		}
-		else{
-			arr['tbl'] = 10;
-			arr['where'] = 'id_tipo = '+opcion;
-		}
-
-		arr['sel'] = '*';
-
-		p = mantenimiento("login",4,arr);	
-
 		var pg = '';
 
-
 		$('#data-table-usuariosPermisos').dataTable().fnDestroy();
-		$('#lista').html('');
+		
+		var p = arr('login',4,'',247,tipo+','+opcion,0,0,0);
 
 		for (var i = 0; i < p[0].length; i++) {
 			pg +=
 			'<tr>'+
-			'<td> '+p[0][i][2]+' </td>'+
+			'<td> '+p[0][i][3]+' </td>'+
 			'<td align="center">'+
-			'<div class="radio">'+
-			'<label>'+
-			'<input type="radio" name="row'+i+'"';
+			'<input type="radio" name="row'+i+'" id="h'+p[0][i][0]+'" class="with-gap" tp="1"';
 
-			if (p[0][i][3] == 1)
+			if (p[0][i][4] == 1)
 				pg += ' checked="checked"';
 
-			pg += ' onclick="cambiar('+p[0][i][5]+',1,'+tipo+')"></label>'+
-			'</div>'+
+			pg += '/>'+
+			'<label for="h'+p[0][i][0]+'"></label>'+
 			'</td>'+
 			'<td align="center">'+
-			'<div class="radio">'+
-			'<label>'+
-			'<input type="radio" name="row'+i+'"';
+			'<input type="radio" name="row'+i+'" id="d'+p[0][i][0]+'" class="with-gap" tp="2"';
 
-			if (p[0][i][3] == 2)
+			if (p[0][i][4] == 2)
 				pg += ' checked="checked"';
 
-			pg += ' onclick="cambiar('+p[0][i][5]+',2,'+tipo+')"></label>'+
-			'</div>'+
+			pg += '/>'+
+			'<label for="d'+p[0][i][0]+'"></label>'+
 			'</td>'+
 			'<td align="center">'+
-			'<div class="radio">'+
-			'<label>'+
-			'<input type="radio" name="row'+i+'"';
+			'<input type="radio" name="row'+i+'" id="i'+p[0][i][0]+'" class="with-gap" tp="3"';
 
-			if (p[0][i][3] == 3)
+			if (p[0][i][4] == 3)
 				pg += ' checked="checked"';
 
-			pg += ' onclick="cambiar('+p[0][i][5]+',3,'+tipo+')"></label>'+
-			'</div>'+
+			pg += '/>'+
+			'<label for="i'+p[0][i][0]+'"></label>'+
 			'</td>'+		
 			'</tr>';
 		}
 
-		$('#lista').html($('#lista').html() + pg);
+		$('#lista').html(pg);
 
-		$('#data-table-usuariosPermisos').dataTable();
+		$("#data-table-usuariosPermisos").dataTable({
+				bLengthChange : false
+			});
 	}
 
 	function cambiar(x1,x2,x3){

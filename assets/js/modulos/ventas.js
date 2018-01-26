@@ -6,7 +6,6 @@ $(document).keydown(function(e){
 });
 
 $(function(){
-
     $('select').material_select();
 
     $(".autocomplete").blur(function(){ 
@@ -736,6 +735,7 @@ function verfacturas() {
 
 function searchClient(vvariable,visprv){
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
+    console.log(clie)
     
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];

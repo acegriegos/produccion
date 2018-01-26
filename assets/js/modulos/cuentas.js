@@ -12,10 +12,10 @@ $(function(){
 		case 2:
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,2+',0,0,0',0,1,$("#listaCuentasx"));
-			break;	
+			break;
 		default:
 			$("#bdymantCuentas").html("Valor no Valido")
-			break; 
+			break;
 	};
 
 	$("#ncli").keydown(function(e){
@@ -86,6 +86,16 @@ $(function(){
 		order : [],
 		"bLengthChange": false
 	});
+});
+
+$(document).on("keyup","#searchCuentas",function(e){
+	var code = e.which || e.keyCode;
+	if (code == 13) {
+		var filtro = ($(this).val()+'^'+getParameterByName("tf")+'^'+$("[name=ctas]:checked").val()).toString();
+		var modulo = $(this).attr('modulo');
+		var tbl = $(this).attr('num');
+		filltable(filtro,modulo,tbl,0)
+	}
 });
 
 $(document).on("change","[name='ctas']",function(){
@@ -399,8 +409,8 @@ function endDetail(vid,vacc,modulo) {
 	if (vacc == 1) {
 		var saldo = $("#isaldovista").text();
 		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
-		console.log(saldo - parseFloat($("#vvalor").val()))
-		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ) );
+		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',',') );
+		$("#isaldo").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',','));
 		$("#vidtipopago").val('');
 		$("#vvalor").val(0.00);
 		arr('login',6,'',213,gtipo+','+$("#vidfactura").val(),0,1,$("#listaCuentasxCDetalle"));

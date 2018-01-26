@@ -13,11 +13,11 @@
       <div class="col s6 m7 l9 right-align">
         <font size="3">
           <br>
-          <b><?php echo $miscelaneos[0][0]; ?></b><br>
-          <b>Cédula:</b> <?php echo $miscelaneos[1][0]; ?><br>
-          <b>Teléfono:</b>  <?php echo $miscelaneos[2][0]; ?><br>
-          <b>Correo:</b> <?php echo $miscelaneos[3][0]; ?><br>
-          <b>Dirección:</b> <?php echo $miscelaneos[4][0]; ?><br>
+          <b><?php echo $miscelaneos[0]; ?></b><br>
+          <b>Cédula:</b> <?php echo $miscelaneos[1]; ?><br>
+          <b>Teléfono:</b>  <?php echo $miscelaneos[5]; ?><br>
+          <b>Correo:</b> <?php echo $miscelaneos[4]; ?><br>
+          <b>Dirección:</b> <?php echo $miscelaneos[6]; ?><br>
           
         </font>
       </div>
