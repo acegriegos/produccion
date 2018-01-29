@@ -4,7 +4,7 @@
 		$total = $obj[6] * $obj[7];
 			$index++;
 ?>
-<tr id="fd<?php echo $index ?>" xtr="<?php echo $obj[0] ?>" class="ciclos">
+<tr id="fd<?php echo $index ?>" xtr="<?php echo $obj[0] ?>" idprod="<?php echo $obj[3]?>" class="ciclos">
 	<td style="padding: 0.2%">
 		<input type="checkbox" class="delf" name="eliminarf" id="d<?php echo $index ?>"/>
 		<label for="d<?php echo $index ?>"></label>
@@ -32,7 +32,7 @@
 			$total = $obj[6] * $obj[7];
 			$index++;
 ?>
-<tr id="fd<?php echo $index ?>" xtr="<?php echo $obj[2] ?>" class="ciclos" data-triforce="">
+<tr id="fd<?php echo $index ?>" xtr="<?php echo $obj[2] ?>" idprod="<?php echo $obj[3]?>" class="ciclos" data-triforce="">
 	<td style="padding: 0.2%">
 		<input type="checkbox" class="delf" name="eliminarf" id="d<?php echo $index ?>"/>
 		<label for="d<?php echo $index ?>"></label>
