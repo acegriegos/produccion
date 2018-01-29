@@ -73,7 +73,6 @@ $(document).ready(function(){
         var line = 0;
         var fimv = vfacturap2[0];
         $("#fdetallefacturas tr").each(function(){
-            console.log(1)
             // var id = $(this).attr('id').substr(2);
             // var p = $('#h_'+id).attr('idprod');
             // var c = parseFloat($('#h_'+id).attr('cant'));
