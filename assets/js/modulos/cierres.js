@@ -42,7 +42,7 @@ $(function(){
 		endingTop: '2%' // Ending top style attribute
 	});
 
-	// $(".zelda").data('triforce',{ vtotal:0 });
+	$(".zelda").data('triforce',{ vtotal:0 });
 });
 
 $(document).on("click","#refresh",function(){
