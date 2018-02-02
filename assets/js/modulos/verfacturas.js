@@ -54,18 +54,27 @@ $(document).ready(function(){
 $(document).on("click","#process",function(){
 	var idfactura = $("#process").attr('idfactura');
 	var tf = $("#process").attr('tipo');
-	var id = new Array();		
+	var idproducto = new Array();
+	var idinventario = new Array();
 	$("[name=processitem]:checked").each(function(){
-		id.push($(this).attr('id').substr(7));
+		idproducto.push($(this).attr('idproducto'));
+		idinventario.push($(this).attr('idinventario'));
 	});
-	window.open('facturacion?tf='+tf+'&arr='+id+'&id='+idfactura,'_self')
+	window.open('facturacion?tf='+tf+'&arr='+idproducto+'&idinventario='+idinventario+'&id='+idfactura);
 
 });
 
 $(document).on("click",".process",function(){
 	var id = $(this).attr('id').substr(1);
+	var tabla = $("#data-table-productos").DataTable();
+	tabla.destroy();
 	var prod = arr('login',6,'',161,id,0,1,$("#listaproductos"));
-	
+	$("#data-table-productos").DataTable({
+				bFilter :  false,
+	            bLengthChange : false,
+	            order : []
+			});
+
 	var tipo = arr('login',4,'',161,id,0,0,0)[0];
 	$("#process").attr('idfactura',tipo[0][0]);
 	$("#process").attr('tipo',tipo[0][7]);

@@ -511,10 +511,10 @@ case "4":
     
     break;
 case "5":
-    for (var i = 0; i < varreglo.length; i++) {
-        salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
-    }
-    break;
+        for (var i = 0; i < varreglo.length; i++) {
+            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+        }
+        break;
 
     default:
     //LLENADO DE VARIABLES POR ID SIN DETALLE

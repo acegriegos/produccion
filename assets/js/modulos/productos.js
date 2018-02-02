@@ -634,11 +634,13 @@ $(document).on("click", ".delimp", function () {
 });
 
 $(document).on("click", "#addprod", function () {
-	var valprod = validarproductos();
+	var valprod = false;//validarproductos();
 	if (valprod == false) {
-		var codigo = $("#vcodigo").val();
-		var codigointerno = $("#vcodigointerno").val();
-		var nombre = $("#vnombre").val();
+		var codigo = $("#vcodigo").val().replace(/"/g,'\\"');
+		var codigointerno = $("#vcodigointerno").val().replace(/"/g,'\\"');
+		var nombre = $("#vnombre").val().replace(/"/g,'\\"');
+		// console.log(codigo+" "+codigointerno+" "+nombre)
+		// return false;
 		var costo = $("#vcosto").val().replace(/,/g,'');
 		var ganancia = $("#vganancia").val();
 		var venta = parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia").val().replace(/,/g,""))/100)+1);
@@ -1229,7 +1231,7 @@ $(document).on("change","#vtipoinv",function(){
 $(document).on("click",".salidainv",function(){
     var id = $(this).attr('id').substr(1);
     var bod = arr('login',4,'*',41,'id > 0',0,0,0)[0];
-    var p = arr('login',4,'producto,sum(cantidad)',113,'idproducto = '+id,0,0,0)[0][0];
+    var p = arr('login',4,'',410,id+',0',0,0,0)[0][0];
     var cant = arr('login',4,'replace(sum(cantidad),".00","")',97,'1',0,0,0)[0][0];
     $("#cantinv").text(cant);
     $("#inidbodega").val(0);
@@ -1287,15 +1289,15 @@ $(document).on("click","#actinv",function(){
     var validar = validarMovimiento(elem);
 
     if (validar == false){
-        // var mov = arr('login',4,'',114,vacc+","+idprod+","+idinv+","+newinv+","+cantidad+",\""+comentario+"\",@@usr,@@impresa",0,0,0);
-        console.log(vacc+","+idprod+","+idinv+","+newinv+","+cantidad+",\""+comentario+"\",@@usr,@@impresa")
-        // var max = arr('login',4,'maximo',11,'id = '+idprod,0,0,0)[0][0];
-        // if (parseFloat(mov[0]) > parseFloat(max)) {
-        //     Materialize.toast('Alerta: Producto está sobre el maximo de cantidad', 6000, 'amber lighten-2');
-        // }else{
-        //     Materialize.toast('Entrada Realizada Correctamente', 6000, 'green');
-        // }
-        // $("#prodcant").text(mov[0])
+        var mov = arr('login',4,'',114,vacc+","+idprod+","+idinv+","+newinv+","+cantidad+",\""+comentario+"\",@@usr,@@impresa",0,0,0)[0][0];
+        console.log(mov)
+        var max = arr('login',4,'maximo',11,'id = '+idprod,0,0,0)[0][0];
+        if (parseFloat(mov[0]) > parseFloat(max)) {
+            Materialize.toast('Alerta: Producto está sobre el maximo de cantidad', 6000, 'amber lighten-2');
+        }else{
+            Materialize.toast('Entrada Realizada Correctamente', 6000, 'green');
+        }
+        $("#prodcant").text(mov[0])
         // window.open('productos?accion=4&id='+mov[1]);
     }else{
     Materialize.toast(validar, 6000, 'red');
@@ -1657,6 +1659,7 @@ $(document).on("blur",".calcvv",function(){
 			var exoneracion = padre.find('.exo').val().replace(/,/g,'');
 			var venta = padre.find('.ven').val().replace(/,/g,'');
 			tven = parseInt(venta) ? (((venta / (1 + (((impuestos - (impuestos * (exoneracion / 100)))) / 100))) / costo) - 1) * 100 : 0;
+			tven = isNaN(tven) ? 0 : tven;
 			padre.find('.gan').val(tven.formatMoney(2,'.',','));
 		});
 	}else{
@@ -2258,26 +2261,34 @@ function validarproductos() {
 	if ($("#vmaxdescuento").val() == '') {
 		$("#vmaxdescuento").val(0);
 	}
-	if ($("#vcosto").val() == '0.00') {
+	// if ($("#vcosto").val() == '0.00') {
+	// 	$("#tb2").click();
+	// 	$("#vcosto").select()
+	// 	return 'Precio Costo Requerido';
+	// }
+	// if ($("#vcosto").val() <= 0) {
+	// 	$("#tb2").click();
+	// 	$("#vcosto").select()
+	// 	return 'Precio Costo Debe ser Mayor a 0';
+	// }
+
+	if (isNaN($("#vcosto").val().replace(/,/g,''))) {
 		$("#tb2").click();
 		$("#vcosto").select()
-		return 'Precio Costo Requerido';
-	}
-	if ($("#vcosto").val() <= 0) {
-		$("#tb2").click();
-		$("#vcosto").select()
-		return 'Precio Costo Debe ser Mayor a 0';
+		return 'Precio Costo Inválido';
 	}
 
-	if ($("#vganancia").val() == '') {
+	if (isNaN($("#vganancia").val().replace(/,/g,''))) {
 		$("#vganancia").val(0);
 	}
 
-	if ($("#vventa").val() == '' || $("#vventa").val() == '0.00') {
-		$("#tb2").click();
-		$("#vventa").focus();
-		return 'Precio de Venta Requerido';
-	}
+
+
+	// if ($("#vventa").val() == '' || $("#vventa").val() == '0.00') {
+	// 	$("#tb2").click();
+	// 	$("#vventa").focus();
+	// 	return 'Precio de Venta Requerido';
+	// }
 
 	return false;
 

@@ -70,14 +70,15 @@ $(document).ready(function(){
         var line = 0;
         var fimv = vfacturap2[0];
         $("#fdetallefacturas tr").each(function(){
-
             $(this).data('triforce',{vcantidad : vf[7],vidimpuestos : '',viddescuentos : '',vidunidad : vf[18]});
             // $(this).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:p, vcantidad:c, vprecio:r, hdesc:h,hdescm:m, vtotal:t, vidinventario:i,vidodt : 0,vcomodin:''});
             line += 1;
         });
         $(".zelda").data('triforce')['idline'] = line;
         searchClient(vf[1],vf[2]);
-        // $("#ncli").val(vf[1]).blur();
+        setTimeout(function(){
+            $("#ncli").val(vf[1]).blur();
+        },200);
         Materialize.updateTextFields();
     }
 });

@@ -37,6 +37,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
+	   			$smarty->assign('MARCA',$kakaroto->kamehameha('id,nombre',500,'id > 0'));
 	   			$smarty->display('ajax/taller/vehiculos.tpl');
 	   			break;
 	   	}

@@ -1,3 +1,4 @@
+<title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 <link href="../assets/css/materialize.css" rel="stylesheet">
@@ -170,8 +171,8 @@
         <td class="td center-align"><span id="cli"><?php echo $obj[3]; ?></span></td>
         <td class="td center-align"><span id="tip"><?php echo $obj[4]; ?></span></td>
         <td class="td center-align"><span id="pag"><?php echo $obj[5]; ?></span></td>
-        <td class="td right-align" ><span id="tot"><?php echo $obj[6]; ?></span></td>
-        <td class="td right-align" ><span id="usu"><?php echo $obj[7]; ?></span></td>
+        <td class="td center-align" ><span id="tot"><?php echo $obj[6]; ?></span></td>
+        <td class="td center-align" ><span id="usu"><?php echo $obj[7]; ?></span></td>
       </tr>
 
       <?php } ?>
@@ -190,13 +191,11 @@
           <tfoot>
             <th class="center-align">Firma Representante</th>
             <th class="infospace"></th>
-            <th class="center-align">Firma de Cliente</th>
           </tfoot>
           <tbody>
             <tr class="ttdr">
               <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
               <td class=""></td>
-              <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
             </tr>
           </tbody>
         </table>

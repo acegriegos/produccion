@@ -457,7 +457,7 @@ function validarclientes() {
 			return vmodulo;
 		}
 
-		function cargarSintax(){
+		function cargarSintax(modulo){
 			var arr = {}
 			switch(modulo) {
 				case 'clientes':

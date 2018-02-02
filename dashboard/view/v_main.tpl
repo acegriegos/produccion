@@ -26,7 +26,7 @@
                 <input type="number" id="vmonto" value="0">
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vidsucursal" value="0">
-                <input type="hidden" id="vidaccion" value="1">
+                <input type="hidden" id="vfmonto" value="1">
                 <label for="vmonto">Monto Caja Inicial</label>
             </div>
             <div class="col s3 m3 l3">

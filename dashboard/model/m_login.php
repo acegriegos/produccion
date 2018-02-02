@@ -28,7 +28,11 @@
 			$accion = $arreglo['atributos']['vaccion'];
 			$rollback = '';
 			if (isset($arreglo['varios']) && $accion != 3 && isset($arreglo['varios'][0]['atributos'])) {
-			$id_tabla = $this->kamehameha('id',70,'nombre like "'.$arreglo['modulo'].'s"')[0][0];
+
+			$posicion = strpos($arreglo['modulo'], '-');
+			$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : '';
+			$modulo = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
+			$id_tabla = $this->kamehameha('id',70,'nombre like "'.$schema.$modulo.'s"')[0][0];
 			$rollback = '';
 			$roll_tbl = 0;
 			
