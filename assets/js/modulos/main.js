@@ -5,13 +5,11 @@ $(function(){
     generarSSuc();
    
     // dibujarGrafico("chartG1",'Ganancias por Dia','Ganancias','line',{sel:'',tbl:307,where:'3,0,0,0,"'+now()+'","",0,0,0'},2,0,2);
-
     var hasiniciate = arr('login',4,'count(id),monto',404,'idusuario = @@usr AND date_format(fecha,"%Y-%m-%d") = "'+now()+'"',0,0,0)[0][0];
     if (hasiniciate[1] != null) {
         $("#vmonto").val(hasiniciate[1]);
         $("#vmonto").attr('disabled',true);
     }
-
 });
 
 $(document).on("click","#iniciar",function(){

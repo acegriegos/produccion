@@ -634,13 +634,11 @@ $(document).on("click", ".delimp", function () {
 });
 
 $(document).on("click", "#addprod", function () {
-	var valprod = false;//validarproductos();
+	var valprod = false;
 	if (valprod == false) {
 		var codigo = $("#vcodigo").val().replace(/"/g,'\\"');
 		var codigointerno = $("#vcodigointerno").val().replace(/"/g,'\\"');
 		var nombre = $("#vnombre").val().replace(/"/g,'\\"');
-		// console.log(codigo+" "+codigointerno+" "+nombre)
-		// return false;
 		var costo = $("#vcosto").val().replace(/,/g,'');
 		var ganancia = $("#vganancia").val();
 		var venta = parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vganancia").val().replace(/,/g,""))/100)+1);
