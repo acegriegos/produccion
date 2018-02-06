@@ -55,7 +55,7 @@
                   <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
                   <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
                   <td>
-                    <a href="#modal-addvehiculos" class="modal-trigger" style="color:black" title="Contactos"><i class="car mdi mdi-car pbtn mdi-24px" id="v{$CLIE[LE][0]}"></i></a>
+                    <a href="#modal-addvehiculos" class="modal-trigger hide" style="color:black" title="Vehículos"><i class="car mdi mdi-car pbtn mdi-24px" id="v{$CLIE[LE][0]}"></i></a>
                     {if $CLIE[LE][13] neq 1}
                     <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact mdi-contacts pbtn" id="c{$CLIE[LE][0]}"></i></a>
                     {/if}

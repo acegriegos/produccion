@@ -62,7 +62,7 @@
 			<li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
 			<li class="tab col s3 menuP but" id="tb2"><a class="white-text">Financiero</a></li>
 			<li class="tab col s3 menuP but" id="tb3"><a class="white-text">Impuestos</a></li>
-			<li class="tab col s3 menuP but" id="tb4"><a class="white-text">Características</a></li>
+			<li class="tab col s3 menuP but" id="tb4"><a class="white-text hide">Características</a></li>
 		</ul>
 	</div>
 	<div class="modal-content" style="padding: 0px;">

@@ -9,7 +9,7 @@
         <td  style=" padding: 10px;color:black"><?php echo $obj[5] ?></td>
         <td  style=" padding: 10px;color:black"><?php echo $obj[6] ?></td>
         <td  style=" padding: 10px;color:black">
-          <a href="#modal-addvehiculos" class="modal-trigger" style="color:black" title="Contactos"><i class="car mdi mdi-car pbtn mdi-24px" id="v<?php echo $obj[0]; ?>"></i></a>
+          <a href="#modal-addvehiculos" class="modal-trigger hide" style="color:black" title="Contactos"><i class="car mdi mdi-car pbtn mdi-24px" id="v<?php echo $obj[0]; ?>"></i></a>
         <?php if ($obj[13] != 1 ) {?>
            <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c<?php echo $obj[0]; ?>">contact_phone</i></a>
            
