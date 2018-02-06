@@ -515,6 +515,7 @@ var salida = '<!doctype html>'+
 '<div style="text-align: left;"><span style="font-size:18px">Recibo Original</span><br>'+
 '<br>'+
 '<strong>'+$("#fact").html()+' </strong> '+$("#numfact").html()+'<br>'+
+'<strong>Factura:</strong><br>'+$("#numfactori").html()+'<br>'+
 '<strong>Cliente:</strong><br>'+
 '<br>'+
 $("#fcliente").html()+'<br>'+

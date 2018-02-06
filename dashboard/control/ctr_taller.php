@@ -19,7 +19,26 @@
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
-	   			
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->display('ajax/taller/ingresarBoleta.tpl');
+	   			break;
+	   		case 2:
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->display('ajax/taller/buscarBoleta.tpl');
+	   			break;
+	   		case 3:
+	   			$pagina = 1;
+	   			require_once '../_config/mySmarty.php';
+	   			$smarty  = new mySmarty();
+	   			$smarty->setModule('dashboard');
+	   			$smarty->assign('MARCA',$kakaroto->kamehameha('id,nombre',500,'id > 0'));
+	   			$smarty->display('ajax/taller/vehiculos.tpl');
 	   			break;
 	   	}
 		if(!$pagina){

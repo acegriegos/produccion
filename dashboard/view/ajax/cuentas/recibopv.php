@@ -23,7 +23,9 @@
       <div class="row">
         <div class="col s6 m5 l3">
           <br>
-        <img src="<?php echo $miscelaneos[3]; ?>" id="imglogo" class="img-responsive" width="90%">
+       <?php if ($miscelaneos[3]) {
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="90%">';
+            } ?>
         </div>
         <div class="col s6 m7 l9 right-align">
           <font size="3">
@@ -39,8 +41,6 @@
 
           </font>
         </div>
-
-
       </div>
       <div class="row">
         <div class="col s6 left-align">
@@ -49,10 +49,11 @@
             <b id="fact">Recibo N°</b>
             <span id="numfact"> <?php echo $datos[1]; ?> </span>
           </div>
-
-
+        <div class="col s12" id="infofact" >
+            <b id="fact">Factura N°</b>
+            <span id="numfactori"> <?php echo $datos[13]; ?> </span>
+          </div>
         </div>
-
       </div>
     </div>
     <!-- /HEADER -->
@@ -68,11 +69,6 @@
           <span class=""><b>Usuario:</b></span>
           <span id="fvendedor" class=""><i><?php echo $datos[10]; ?> </i></span>
         </div>
-
-
-
-
-
 
       </div>   
     </div>
@@ -135,20 +131,13 @@
           <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11]; ?><?php echo $datos[6]; ?></b></td>
 
         </tr>
-
-
       </tfoot>
     </table>
     <!-- /DETALLE FACT -->
     <br>
     <!-- INFO FACT -->
-
     <div class="row">
       <br>
-
-
-
-
     </div>
     
   </div>

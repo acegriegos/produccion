@@ -56,7 +56,7 @@ if (!isset($_REQUEST['accion'])) {
 	   			break;
 	   		case 5:
 	   			$pagina = 1;
-			   	$smarty->assign('SUC',$kakaroto->kamehameha('id,nombre',39,'id > 0 order by nombre'));
+			   	$smarty->assign('SUC',$kakaroto->kamehameha('',50,0));
 			   	$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0 order by nombre'));
 			   	$smarty->assign('IMPR',$kakaroto->kamehameha('id,nombre',159,'id > 0 order by nombre'));
 			   	$smarty->display('ajax/ajustes/ajaxSucursales.tpl');
@@ -82,6 +82,18 @@ if (!isset($_REQUEST['accion'])) {
 	   			$pagina = 1;
 	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
 	   			$smarty->display('ajax/ajustes/ajaxProductos.tpl');
+	   			break;
+	   		case 10:
+	   			$pagina = 1;
+	   			$smarty->display('ajax/ajustes/addphone.tpl');
+	   			break;
+	   		case 11:
+	   			$pagina = 1;
+	   			$smarty->display('ajax/ajustes/addmail.tpl');
+	   			break;
+	   		case 12:
+	   			$pagina = 1;
+	   			$smarty->display('ajax/ajustes/addaddress.tpl');
 	   			break;
 	   	}
 		if(!$pagina){

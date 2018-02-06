@@ -10,8 +10,8 @@
     <td><?php echo $obj[4] ?></td>
     <td><?php echo $obj[5] ?></td>
     <td>
-        <a class="btn-color pbtn loadserv" id="m<?php echo $obj[0] ?>" href="#modal-servicios" title="Editar Servicio"><i class="mdi mdi-pencil"></i></a>
-        <a class="btn-color pbtn cdel delete" modulo="servicio" id="d<?php echo $obj[0] ?>" title="Eliminar Producto"><i class="mdi mdi-close"></i></a>
+        <a class="btn-color pbtn loadserv per4112 modal-trigger" id="m<?php echo $obj[0]; ?>" href="#modal-servicios" title="Editar Servicio"><i class="mdi mdi-pencil mdi-24px"></i></a>
+        <a class="btn-color pbtn cdel delete 4113" modulo="servicio" id="d<?php echo $obj[0]; ?>" title="Eliminar Producto"><i class="mdi mdi-close mdi-24px"></i></a>
     </td>
 </tr>
 

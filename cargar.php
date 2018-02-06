@@ -18,10 +18,11 @@
 
                     switch ($_REQUEST['accion']) {
                         case 1:
-                            $folder = 'assets/img';
+                            $folder = 'assets/img/logos';
                             $name = $_FILES['file']['name'][$i];
                             $ext = end(explode('.', $name));
-                            $destination_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo.'.$ext;
+                            $destination_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$REQUEST['idsucursal'].$ext;
+                            $base->ejecutar("UPDATE sucursales SET logo = '.."$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
                             break;
                         
                         default:

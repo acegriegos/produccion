@@ -142,48 +142,48 @@ $(document).on("blur","[id^=vcantidad]",function(){
     $("#cant"+id).show();
 });
 
-$(document).on("click",".fedit",function(){
-    var id = $(this).attr('id').substr(4);
-    var visible = $(this).attr('visible');
+// $(document).on("click",".fedit",function(){
+//     var id = $(this).attr('id').substr(4);
+//     var visible = $(this).attr('visible');
 
-    if (visible == 0) {
-        $("#errcnt").hide();
-        $("#cant"+id).hide();
-        $("#prec"+id).hide();
-        $("#descu"+id).hide();
-        $("#hprc"+id).show();
-        $("#hdsc"+id).show();
-        $("#vcantidad"+id).show();
-        $(this).attr('visible','1');
-        $("#hprc"+id).select();
-    }else{
-        var precio = parseFloat($("#hprc"+id).val());
-        var desc = parseFloat($("#hdsc"+id).val());
-        var cant = parseFloat($("#vcantidad"+id).val());
+//     if (visible == 0) {
+//         $("#errcnt").hide();
+//         $("#cant"+id).hide();
+//         $("#prec"+id).hide();
+//         $("#descu"+id).hide();
+//         $("#hprc"+id).show();
+//         $("#hdsc"+id).show();
+//         $("#vcantidad"+id).show();
+//         $(this).attr('visible','1');
+//         $("#hprc"+id).select();
+//     }else{
+//         var precio = parseFloat($("#hprc"+id).val());
+//         var desc = parseFloat($("#hdsc"+id).val());
+//         var cant = parseFloat($("#vcantidad"+id).val());
 
-        $("#prec"+id).text(precio);
-        $("#descu"+id).text(desc);
-        $("#cant"+id).text(cant);
-        $(".zelda").data('triforce')['vlista2'][id+'-'+$("#fd"+id).data('triforce')['vidinventario']] = desc;
+//         $("#prec"+id).text(precio);
+//         $("#descu"+id).text(desc);
+//         $("#cant"+id).text(cant);
+//         $(".zelda").data('triforce')['vlista2'][id+'-'+$("#fd"+id).data('triforce')['vidinventario']] = desc;
 
-        $("#hprc"+id).hide();
-        $("#hdsc"+id).hide();
-        $("#vcantidad"+id).hide();
+//         $("#hprc"+id).hide();
+//         $("#hdsc"+id).hide();
+//         $("#vcantidad"+id).hide();
 
-        $("#prec"+id).show();
-        $("#descu"+id).show();
-        $("#cant"+id).show();
+//         $("#prec"+id).show();
+//         $("#descu"+id).show();
+//         $("#cant"+id).show();
 
-        $(this).attr('visible','0');
-        $("#errcnt").hide();
+//         $(this).attr('visible','0');
+//         $("#errcnt").hide();
 
-        $("#fd"+id).data('triforce')['vprecio'] = $("#prec"+id).text();
-        $("#fd"+id).data('triforce')['vdesc'] = $("#descu"+id).text();
-        $("#fd"+id).data('triforce')['vcantidad'] = $("#cant"+id).text();
+//         $("#fd"+id).data('triforce')['vprecio'] = $("#prec"+id).text();
+//         $("#fd"+id).data('triforce')['vdesc'] = $("#descu"+id).text();
+//         $("#fd"+id).data('triforce')['vcantidad'] = $("#cant"+id).text();
 
-        totalizar();
-    }
-});
+//         totalizar();
+//     }
+// });
 
 $(document).on("click","input[name=modo]",function(){
     var id = $(this).attr('id').substr(4);

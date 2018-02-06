@@ -159,6 +159,4 @@ Ordenes de Compra {$smarty.session.EMPRESA|upper}</p></div>
 </div>
 </div>
 </div>
-
-
-<script src="../assets/js/modulos/ordencompras.js?v=0.9"></script>
+<script src="../assets/js/modulos/ventas.js"></script>

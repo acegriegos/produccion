@@ -1,3 +1,4 @@
+<title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 <link href="../assets/css/materialize.css" rel="stylesheet">
@@ -13,11 +14,11 @@
       <div class="col s6 m7 l9 right-align">
         <font size="3">
           <br>
-          <b><?php echo $miscelaneos[0][0]; ?></b><br>
-          <b>Cédula:</b> <?php echo $miscelaneos[1][0]; ?><br>
-          <b>Teléfono:</b>  <?php echo $miscelaneos[2][0]; ?><br>
-          <b>Correo:</b> <?php echo $miscelaneos[3][0]; ?><br>
-          <b>Dirección:</b> <?php echo $miscelaneos[4][0]; ?><br>
+          <b><?php echo $miscelaneos[0]; ?></b><br>
+          <b>Cédula:</b> <?php echo $miscelaneos[1]; ?><br>
+          <b>Teléfono:</b>  <?php echo $miscelaneos[5]; ?><br>
+          <b>Correo:</b> <?php echo $miscelaneos[4]; ?><br>
+          <b>Dirección:</b> <?php echo $miscelaneos[6]; ?><br>
           
         </font>
       </div>
@@ -170,8 +171,8 @@
         <td class="td center-align"><span id="cli"><?php echo $obj[3]; ?></span></td>
         <td class="td center-align"><span id="tip"><?php echo $obj[4]; ?></span></td>
         <td class="td center-align"><span id="pag"><?php echo $obj[5]; ?></span></td>
-        <td class="td right-align" ><span id="tot"><?php echo $obj[6]; ?></span></td>
-        <td class="td right-align" ><span id="usu"><?php echo $obj[7]; ?></span></td>
+        <td class="td center-align" ><span id="tot"><?php echo $obj[6]; ?></span></td>
+        <td class="td center-align" ><span id="usu"><?php echo $obj[7]; ?></span></td>
       </tr>
 
       <?php } ?>
@@ -190,13 +191,11 @@
           <tfoot>
             <th class="center-align">Firma Representante</th>
             <th class="infospace"></th>
-            <th class="center-align">Firma de Cliente</th>
           </tfoot>
           <tbody>
             <tr class="ttdr">
               <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
               <td class=""></td>
-              <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
             </tr>
           </tbody>
         </table>

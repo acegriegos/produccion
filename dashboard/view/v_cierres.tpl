@@ -23,7 +23,8 @@
     <div class="row">
       <div class="col s12 m12 l12">
         <a class="btn waves-effect waves-light blue right" id="refresh" style="margin-left: 15px;"><i class="mdi mdi-refresh mdi-24px"></i>Actualizar</a>
-        <a class="waves-effect waves-light btn blue right tt modal-trigger" data-position="bottom" data-delay="50" id="chkcierre" href="#modal-tipomonedas">Realizar Cierre</a>
+        <a class="waves-effect waves-light btn blue right tt" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
+        <input type="hidden" class="zelda">
       </div>
       <div class="row">
         <div class="col s3 m3 l3">

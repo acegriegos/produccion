@@ -21,25 +21,28 @@
 		    }else if (sizeof($user) == 1)
 		    {
 
-          if($user[0][6] == '')
-            header("Location: ../bienvenida/bienvenida.html");
-          else{
+          // if($user[0][6] == '')
+          //   print_r($user);
+          //   // header("Location: ../bienvenida/bienvenida.html");
+          // else{
             if ($user[0][7] == 0)
               cambioDia($log);
-
-              $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
-              $_SESSION['NUM']     = trim($encrypt->ency($user[0][1]));
+     
+              $_SESSION['USR']     = base64_encode($user[0][0]);//trim($encrypt->ency($user[0][0]));
+              $_SESSION['NUM']     = base64_encode($user[0][1]);//trim($encrypt->ency($user[0][1]));
               $_SESSION['NOM']     = $user[0][2];
               $_SESSION['TIPO']    = $user[0][3];
               $_SESSION['EMPRESA'] = $user[0][4];
               $_SESSION['IMPRESA'] = $user[0][5];
               $_SESSION['TMP_CIA'] = -1;
+              $_SESSION['TMPT']    = $user[0][11];
+              $_SESSION['CRR']     = $user[0][8];
               
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'main' : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
            }
   
-		   }
+		   // }
     	}else{
     		if (isset($_SESSION['USR'])) {
 		        header("Location: ../dashboard/main");

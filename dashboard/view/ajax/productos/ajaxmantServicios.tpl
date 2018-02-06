@@ -48,8 +48,8 @@
                         <td style="padding: 10px;">{$SERV[LE][4]}</td>
                         <td style="padding: 10px;">{$SERV[LE][5]}</td>
                         <td style="padding: 10px;">
-                            <a class="btn-color pbtn loadserv per4112 modal-trigger" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="mdi mdi-pencil"></i></a>
-                            <a class="btn-color pbtn cdel delete 4113" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="mdi mdi-close"></i></a>
+                            <a class="btn-color pbtn loadserv per4112 modal-trigger" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="mdi mdi-pencil mdi-24px"></i></a>
+                            <a class="btn-color pbtn cdel delete 4113" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="mdi mdi-close mdi-24px"></i></a>
                         </td>
                     </tr>
                     {/section}
@@ -77,12 +77,12 @@
 
                 <div class="row">
                     <div class="input-field col s12 m6 l6" style="margin: 0">
-                        <input id="vcodigo" type="text" class="validate">
+                        <input id="vcodigo" type="text" class="validate" autocomplete="off">
                         <label for="vcodigo">Código de Servicio</label>
                     </div>
                     <div class="input-field col s12  m6 l6" style="margin: 0">
                         <a class="prefix modal-trigger" href="#hextra"><i class="mdi mdi-help pbtn"></i></a>
-                        <input id="vnombre" type="text" class="validate">
+                        <input id="vnombre" type="text" class="validate" autocomplete="off">
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
                     <div class="input-field col s12 " style="margin: 0">
@@ -156,15 +156,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s6 m6 l6 input-field">
+                    <div class="col s6 m6 l6 input-field" id="dinvent">
                         <!--  -->
                         <select id="vidinventario" type="select"></select>
                         <label for="vidinventario">Inventarios</label>
                     </div>
 
-                    <div class="input-field col s6 m6">
+                    <div class="input-field col s6 m6 hide">
                         <select id="vsucursales" type="select"></select>
-                        <label for="vidinventario">Sucursales</label>
+                        <label for="vsucursales">Sucursales</label>
                     </div>
                 </div>
                 <br>
@@ -179,7 +179,7 @@
                     </div>
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">%</i>
-                        <input id="vpganancia" type="number" class="validate vcalcserv eder" min="1" value="0.00" num="2">
+                        <input id="vpganancia" type="number" class="validate vcalcserv" min="1" value="0.00" num="2">
                         <label for="vganancia">Ganancia</label>
                     </div>
                     <div class="input-field col s12 m6">
@@ -200,7 +200,7 @@
 <div id="hextra" class="modal">
     <div class="modal-content grandemodal">
       <h4>Extra en el Nombre del Servicio</h4>
-      <p>Se Utiliza para asignar variables cuando el servicio es mdicturado</p>
+      <p>Se Utiliza para asignar variables cuando el servicio es facturado</p>
       <br>
       <ul>
           <li><b>%HOY%</b>, Despliega la Fecha del Día en Formato dd-mm-yyyy</li>

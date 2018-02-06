@@ -35,14 +35,47 @@
                             <td style="width: 10%">{$IMP[LE][2]}</td>
                             <td style="width: 10%">{$IMP[LE][3]}</td>
                             <td style="width: 10%">
-                                <a class="load  mdi-24px mdi mdi-pencil pbtn btn-color" id="m{$IMP[LE][0]}" modulo="impuesto"></a>
-                                <a class="delete  mdi-24px mdi mdi-close pbtn btn-color cdel" modulo="impuesto" id="d{$IMP[LE][0]}"></a>
+                                <a href="#modal-vimpuestos" class="mdi-24px mdi vimpuesto mdi-playlist-plus pbtn btn-color modal-trigger" id="v{$IMP[LE][0]}" title="Ver Asignaciones del Impuesto"></a>
+                                <a class="load  mdi-24px mdi  mdi-playlist-check pbtn btn-color" id="m{$IMP[LE][0]}" modulo="impuesto" title="Editar Impuesto"></a>
+                                <a class="delete  mdi-24px mdi  mdi-playlist-remove pbtn btn-color cdel" modulo="impuesto" id="d{$IMP[LE][0]}" title="Eliminar Impuesto"></a>
                             </td>
                         </tr>
                     {/section}
                     </tbody>
                 </table>   
             </div>
+        </div>
+    </div>
+
+    <div id="modal-vimpuestos" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
+        <ul class="collapsible" data-collapsible="accordion">
+    <li>                             
+
+      <div class="collapsible-header">
+        <a class="mdi-clipboard-account mdi mdi-24px catimpuesto" ></a> Cliente Físicos o Jurídicos</div>
+      <div class="collapsible-body">
+             <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-impuesto" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th class="sinborde white-text blue" style="width: 50%; border: none;" >Nombre</th>
+                            <th class="sinborde white-text blue" style="width: 50%; border: none;" >Cédula</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody id="listaimpuesto">
+                      
+                   </tbody>
+               </table>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="mdi-clipboard-text mdi mdi-24px "></i>Productos</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    
+  </ul>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue  z-depth-5" style="margin-right: 2%">Salir</a>
         </div>
     </div>
 </div>

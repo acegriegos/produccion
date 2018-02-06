@@ -17,13 +17,26 @@ $(function(){
         switch(parseInt($(this).val())){
             case 1:
                 $("#modal-info").modal('open');
-            break;
+                break;
             case 2: 
                 window.open("notificaciones","_self");
-            break;
-            default:
+                break;
+            case 3:
                 window.open("cierres","_self");
-            break;
+                break;
+            case 4:
+                var datos = getDatos('',245,'',0,0)[0];
+                var data = datos[3][0].split(',');
+                
+                $("#tsystem").html(datos[0][0]);
+                $("#fsystem").html(datos[1][0]);
+                $("#dsystem").html(datos[2][0]);
+                $("#psystem").html(data[0]);
+                $("#msystem").html(data[1]);
+                $("#modal-system").modal('open');
+                break;
+            default:
+                break
         }
         
     });
@@ -38,7 +51,7 @@ $(function(){
     });
     
     
-    // permisos(1,50);
+    permisos(1,50);
     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
 
     setInterval(function(){
@@ -88,7 +101,7 @@ function sse_response(vid,p) {
 function generarSSuc(){
 
     var p = getDatos('',155,'@@usr',0,0)[0];
-    var sucursales = '<option value="-1">Todas las Sucursales</option>';
+    var sucursales = '';
 
     for (var i = 0; i < p.length; i++) {
         sucursales += '<option value="'+p[i][0]+'">'+p[i][1]+'</option>';
@@ -99,8 +112,10 @@ function generarSSuc(){
     //         alert($('option:selected',this).val())
     //     })
     // }
-
+    
     $(".ssuc").material_select('destroy');
+    var valor = $(".ssuc").attr("sel");
     $(".ssuc").append(sucursales);
+    $(".ssuc").val(valor);
     $(".ssuc").material_select();
 }

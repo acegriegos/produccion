@@ -262,8 +262,7 @@
 
       </thead>
 
-        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4">
-         <!-- style="max-height: 20%; overflow: auto;" -->
+        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="">
          
         </tbody>
 
@@ -388,7 +387,7 @@
 
           <div class="col s12 m12 l12" align="center">
             <!-- <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button> -->
-            <a href="#modal-tpagos" class="btn btn-primary-outline" id="facturar" style="margin-bottom: 3%;">Facturar</a>
+            <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar"  {/if} class="btn btn-primary-outline"  style="margin-bottom: 3%;">Facturar</a>
           </div>
 
           </div>
@@ -592,7 +591,7 @@
 
 </section>
 
-<div id="modal-edit" class="modal modal-fixed-footer">
+<!-- <div id="modal-edit" class="modal modal-fixed-footer">
   <div class="modal-content">
     <h4 id="titmod">Modal Header</h4>
     
@@ -617,15 +616,15 @@
         <input type="text" id="eimpuesto">
         <label for="eimpuesto">Impuesto</label>
       </div>
-
+      <input type="hidden" id="hdnprd" value="0">
     </div>
 
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
   </div>
-</div>
+</div> -->
 
 <div id="modal-producto" class="modal modal-fixed-footer">
   <div class="modal-content" id="fproductos">

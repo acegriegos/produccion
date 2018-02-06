@@ -1,7 +1,6 @@
 acc = 1;
 
 $(function(){
-
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
@@ -10,6 +9,10 @@ $(function(){
     cargarMoneda(0);
     
 });
+
+$(function () {
+    console.log($("head").html())
+  });
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
@@ -27,43 +30,40 @@ $(window).keydown(function(e){
 });
 
 $(document).on("click",".tc-show",function(){
-
     if ($("#slide-tc").length == 0) {
-        var ul = '<ul id="slide-tc" class="side-nav"> <li><div class="user-view"> <span class="ntit"></span></a></div></li> <li><div class="divider"></div></li> <li><a class="subheader">Subheader</a> </li></ul>';
-
+        var ul = '<ul id="slide-tc" class="side-nav"><li><div class="user-view"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div></li></ul>';
         $(".bdy").append(ul);
+    }
+    var code = parseInt($(this).data('num'));
+    var titulo = cuerpo = '';
 
-    }else{
-
-        var code = parseInt($(this).data('num'));
-        var titulo = cuerpo = '';
-
-        switch(code){
-            case 1: 
-                titulo = 'Teléfonos';
-                break;
-            case 2: 
-                titulo = 'Correos';
-                break;
-            case 3: 
-                titulo = 'Ubicación';
-                break;
-            default:
-                break;
-        }
-
-        $(".ntit").html(titulo);
+    switch(code){
+        case 1: 
+            titulo = 'Teléfonos';
+            cuerpo = mantenimiento('ajustes',10,'');
+            break;
+        case 2: 
+            titulo = 'Correos';
+            break;
+        case 3: 
+            titulo = 'Ubicación';
+            break;
+        default:
+            break;
     }
 
+    $(".ntit").html(titulo);
+    $("#unico").html(cuerpo);
+    Materialize.updateTextFields();
+    
+    $('.tc-show').sideNav('destroy');
     $(this).sideNav({
         menuWidth: 300,
         edge: 'right',
         closeOnClick: true,
         draggable: true
     });
-    
-    $(this).click();
-    
+    $(this).sideNav('show');
 });
 
 $(document).on("keyup",".numeric",function(e){
@@ -123,36 +123,8 @@ $(document).on("keyup","[id^=search_]",function(e){
         var d = $(this).attr('num').substring(0,1).replace('+','');
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
-        var h;
-        tabla = $("#data-table-"+b).DataTable();
-        tabla.destroy();
-        // if (e.replace(/,/g,'').length == e.length) {
-            // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,0,0)[0][0];
-            // arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%" order by nombre limit 10',g,1,$("#lista"+b));
-
-        h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
-        arr('login',6,'',c,'0,0,"'+a+'","0,10"',g,1,$("#lista"+b));
-        // }else{
-            // var f = d+'id >= 0 and (';
-            // e = e.split(",");
-            // for (var i = 0; i < e.length; i++) {
-            //     f += e[i]+' like "%'+a+'%" or ';
-            // }
-            // f = f.substring(0,f.length-3)
-            // f += ") order by nombre";
-            // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,f,0,0,0)[0][0];
-            // arr('login',6,'*',c,f+' limit 10',g,1,$("#lista"+b));
-
-            $("#data-table-"+b).DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
-        // }
+        var h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
+        filltable(a,b,c,g);
         $(".pagination").html('');
         paginate(c,h)
     }
@@ -166,9 +138,7 @@ function doGlobal(accion,modulo,tip,varias){
     arreglo['atributos'] = baseValidar(1,arreglo);
 
     if (varias == 1) {
-
         arreglo['varios'] = {};
-
         $("#f"+modulo+"s [vtabla]").each(function(index){
             var arr = {}
             
@@ -176,7 +146,7 @@ function doGlobal(accion,modulo,tip,varias){
             arr['tip'] = tip;
             arr['atributos'] = baseValidar(1,arr);
             arr['hasTabla'] = $(this).attr('hasTabla') == undefined ? 0 : 1;
-
+            arr['rollback'] = $(this).attr('rollback') == undefined ? 0 : $(this).attr('rollback');
             arreglo['varios'][index] = arr;
         });
     }
@@ -184,7 +154,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -250,6 +220,7 @@ function loadpool(vmodulo,vid,vvarias){
             else{
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('destroy');
                 $.each(columns[0][0][0][i].split(","), function(j,e){
+                    console.log(e)
                     $("#"+vform+" #"+columns[0][1][i]['name']+" option[value='" + e + "']").attr("selected", true);
                 });
 
@@ -288,7 +259,7 @@ function loadpool(vmodulo,vid,vvarias){
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
             }
             else
-                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]))
+                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]));
             break;
             default:
             break;
@@ -413,7 +384,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
     data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
 })
    .done(function(data) {
-    console.log(data)
+
     try {
         p = JSON.parse(data);
     }
@@ -428,12 +399,12 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
     
 })
    .fail(function() {
-    alert( "error" );
+    alert( "Error Enviando Correo" );
 });
 }
 
 function odin(varreglo,vform) {
-    
+    //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
 
     switch($("#"+vform).attr('tp')){
@@ -454,7 +425,7 @@ function odin(varreglo,vform) {
         }// end FOR
         break;
 
-        case "3":
+    case "3":
     //LLENADO DE VARIABLES POR ID EN DETALLE
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
@@ -471,11 +442,7 @@ function odin(varreglo,vform) {
                     }
                     break;
                     case 'vid':
-                    if (typeof $("#"+vform+" #vid"+id).val() == 'undefined') {
-                        salida[index][varreglo[i]] = 0;
-                    }else{
-                        salida[index][varreglo[i]] = $("#"+vform+" #vid").val();
-                    }
+                    salida[index][varreglo[i]] = typeof $("#"+vform+" #vid").val() == 'undefined' ? 0 : $("#"+vform+" #vid").val();
                     break;
                     case 'vaccion':
                     salida[index][varreglo[i]] = 0;
@@ -485,7 +452,6 @@ function odin(varreglo,vform) {
                     salida[index][varreglo[i]] = 0;//$("#"+vform+" #vtabla").val();
                     break;
                     default:
-
                     if (/vfecha/.test(varreglo[i])){
                         if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
                             salida[index][varreglo[i]] = '1990-01-01';
@@ -505,8 +471,9 @@ function odin(varreglo,vform) {
                             break;
                             case 'text':
                             case 'textarea':
+                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                            break;
                             case 'hidden':
-
                             case 'number':
                             salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                             break;
@@ -533,6 +500,7 @@ function odin(varreglo,vform) {
                 }//end if
                 }//end SWITCH
             }//end IF
+            $("#"+vform+" .zelda").data('triforce')
             }// end FOR
         });//end EACH
 break;
@@ -541,13 +509,17 @@ case "4":
     //LLENADO DE VARIABLES POR DATA EN DETALLE
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
-        for (var i = 0; i < varreglo.length; i++) {
+        for (var i = 0;  i < varreglo.length; i++) {
             salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
             }// end FOR
-            
-        });//end EACH
+    });//end EACH
     
     break;
+case "5":
+        for (var i = 0; i < varreglo.length; i++) {
+            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+        }
+        break;
 
     default:
     //LLENADO DE VARIABLES POR ID SIN DETALLE
@@ -604,6 +576,8 @@ case "4":
                         break;
                         case 'text':
                         case 'textarea':
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                        break;
                         case 'hidden':
                         case 'password':
                         case 'time':
@@ -633,6 +607,7 @@ case "4":
                 break;
             }//end SWITCH
         }//end IF
+        
     }//end FOR
     break;
     }//end SWITCH
@@ -676,10 +651,10 @@ function deadclear(vform) {
                 
             }
         });
-        Materialize.updateTextFields();
         
     } else
     acc = 1;
+    // Materialize.updateTextFields();
 }
 
 function thorload(vtabla) {
@@ -724,18 +699,19 @@ function permisos(vnumber,vnumber2) {
     })
     .done(function(data) {
         p = JSON.parse(data);
+        
         for (var i = 0; i < p.length; i++) {
-            var op = parseInt(p[i][1]);
+            var op = parseInt(p[i][3]);
 
             switch(op){
                 case 1:
-                $(".per"+p[i][0]).css('display','in-line');
+                $(".per"+p[i][1]).css('display','in-line');
                 break;
                 case 2:
-                $(".per"+p[i][0]).attr('disabled',true);
+                $(".per"+p[i][1]).attr('disabled',true);
                 break;
                 case 3:
-                $(".per"+p[i][0]).css('display','none');
+                $(".per"+p[i][1]).css('display','none');
                 break;
             }
         };
@@ -755,6 +731,33 @@ Number.prototype.formatMoney = function(c, d, t){
     j = (j = i.length) > 3 ? j % 3 : 0;
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
+
+function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess){
+    myDropzone = new Dropzone(velemento, {
+        url: vurl,
+        autoProcessQueue:vautoprocess,
+        maxFilesize: 1,
+        maxFiles: vmaxfiles,
+        addRemoveLinks:true,
+        uploadMultiple: vmultiple,
+        init: function() {
+            this.on("addedfile", function(file) {
+                $("#fotosvg").hide();
+            });
+            this.on("removedfile", function(file) {
+                if (!$(".dz-preview").length) {
+                    $("#fotosvg").show();
+                }
+                
+            });
+            this.on("uploadprogress", function(file, progress) {
+                console.log("File progress", progress);
+            });
+        }
+    });
+
+    $(".dz-message").show();
+}
 
 function change_load(vto,vtabla,vval,vset){
     if (vto != '') {
@@ -856,7 +859,6 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr,colbase,coldata,colbel
 
             if (vbase != results[0][i][colbase]) {
                 if (vbase != ''){
-                    console.log(123)
                     config1['datasets'] = dataset;
                     vbase = results[0][i][colbase];
                 }
@@ -906,7 +908,6 @@ function doreport() {
                 if ( $("#"+datos[i]).val()=='' ){
                     search[i] = '"1990-01-01"';
                 }else{
-                    console.log($("#"+datos[i]).val())
                     search[i] = '"'+$("#"+datos[i]).val()+'"';
                 }
             }else{
@@ -933,7 +934,6 @@ function doreport() {
     });  
     atributos = atributos.substr(0,atributos.length-1);
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
-    console.log(atributos)
 }
 
 $(document).on("change","._det",function(){
@@ -1049,6 +1049,21 @@ function mostrar_cargar(){
 }
 
 // <-- pagination
+function filltable(a,b,c,g) {
+    var tabla = $("#data-table-"+b).DataTable();
+    tabla.destroy();
+    arr('login',6,'',c,'0,0,"'+a+'","0,10"',g,1,$("#lista"+b));
+    $("#data-table-"+b).DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+}
+
 function paginate(vtbl,len) {
     $(".pagination").html('');
     var countpag = 0;
@@ -1089,7 +1104,7 @@ $(document).on("click", ".paginate", function () {
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-//    console.log(arr('login',4,'',vtbl,'0,0,"'+filtro+'","'+limit+'"',0,0,0))
+
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1120,7 +1135,7 @@ $(document).on("click", ".nxt", function () {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
                 i = parseInt(i);
-                console.log("i: "+i)
+
                 $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
                 if (i == next)
                     $(".pagination").attr('ultimo', i);
@@ -1272,7 +1287,7 @@ $(document).on('click','.del_phone',function(){
 
 function now() {
     var date = new Date();
-    date = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+    date = date.getFullYear()+"-"+addZero(date.getMonth()+1,2)+"-"+addZero(date.getDate(),2);
     return date;
 }
 

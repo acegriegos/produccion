@@ -23,10 +23,10 @@
         <div id="fcajainicialusuarios">
             <div class="input-field col s12 m6 l3" style="border: 3px">
                 <i class="prefix">{$MONEDA}</i>
-                <input type="number" id="vmonto">
+                <input type="number" id="vmonto" value="0">
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vidsucursal" value="0">
-                <input type="hidden" id="vidaccion" value="1">
+                <input type="hidden" id="vfmonto" value="1">
                 <label for="vmonto">Monto Caja Inicial</label>
             </div>
             <div class="col s3 m3 l3">
@@ -34,6 +34,11 @@
             </div>
         </div>
         {/if}
+
+        <div class="col s12 m6 l3">
+            <label class="red-text">{$MSJ}</label>
+        </div>
+
         </div>
     </div>
 

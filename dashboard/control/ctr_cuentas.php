@@ -22,20 +22,20 @@ if (!isset($_REQUEST['accion'])) {
 			require_once '../_config/mySmarty.php';
 			$smarty  = new mySmarty();
 			$smarty->setModule('dashboard');
-			//$smarty->assign('PRO',$kakaroto->kamehameha('',214,'2,0'));
+			$smarty->assign('CLI',$kakaroto->kamehameha('',214,'1,0'));
 			$smarty->assign('TIPOPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by principal desc, nombre'));
 			$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
-			$smarty->display('ajax/cuentas/ajaxmantCxP.tpl');
+			$smarty->display('ajax/cuentas/ajaxmantCxC.tpl');
 			break;
 		case 2:
 			$pagina = 1;
 			require_once '../_config/mySmarty.php';
 			$smarty  = new mySmarty();
 			$smarty->setModule('dashboard');
-			$smarty->assign('CLI',$kakaroto->kamehameha('',214,'1,0'));
+			//$smarty->assign('PRO',$kakaroto->kamehameha('',214,'2,0'));
 			$smarty->assign('TIPOPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by principal desc, nombre'));
 			$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
-			$smarty->display('ajax/cuentas/ajaxmantCxC.tpl');
+			$smarty->display('ajax/cuentas/ajaxmantCxP.tpl');
 			break;
 		case 3:
 			$pagina = 1;
@@ -59,7 +59,7 @@ if (!isset($_REQUEST['accion'])) {
 			$pagina = 1;
 
 			$transaccion = $kakaroto->kamehameha('',230,$_REQUEST['id']);
-			$miscelaneos = $kakaroto->kamehameha('valor',15,'`descr` in("empresa","CJuridica","telefonos","correo","direccion")');
+			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
 			require_once 'view/ajax/cuentas/reciboVarias.php';
 			//echo '<pre>'; print_r($transaccion[0]); echo '</pre>';
 			break;

@@ -57,7 +57,7 @@
 			if (strpos($wher,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
@@ -65,8 +65,7 @@
 				$sel = str_replace('@@tp', 'idtipousuario', $sel);
 			}
 
-			$wher = str_replace("'", '\\\'', $wher);
-			$wher = str_replace('"', '\\"', $wher);
+			$wher = addslashes($wher);
 
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");
 			if (isset($rs->num_rows)) {
@@ -84,7 +83,7 @@
 			if (strpos($args2,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 
 
 				$args2 = str_replace('@@usr', $usr, $args2);
@@ -99,8 +98,7 @@
 				}
 			}
 
-			$args2 = str_replace("'", '\\\'', $args2);
-			$args2 = str_replace('"', '\\"', $args2);
+			$args2 = addslashes($args2);
 
 			$rs = $this->db->ejecutar("call shadow($accion,$tabl,'$arg1','$args2')");
 
@@ -116,7 +114,7 @@
 			if (strpos($wher,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
@@ -136,7 +134,7 @@
 			}
 
 			$wher = addslashes($wher);
-			
+
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");
 			
 			if (isset($rs->num_rows)) {
@@ -148,7 +146,7 @@
 
 		public function usrDecy()
 		{
-			return $this->cy->decy($_SESSION['USR']);
+			return base64_decode($_SESSION['USR']);//$this->cy->decy($_SESSION['USR']);
 		}
 
 		public function mant($tabla,$args,$ant = ''){
@@ -223,8 +221,8 @@
 					}
 					$param = $it;
 				}
-				$param = str_replace("'", '\\\'', $param);
-				$param = str_replace('"', '\\"', $param);
+
+				$param = addslashes($param);
 				
 				if ($param == '@@@')
 					$salida .= "@var,";
