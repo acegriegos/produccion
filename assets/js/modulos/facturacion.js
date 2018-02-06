@@ -76,7 +76,9 @@ $(document).ready(function(){
         });
         $(".zelda").data('triforce')['idline'] = line;
         searchClient(vf[1],vf[2]);
-        // $("#ncli").val(vf[1]).blur();
+        setTimeout(function(){
+            $("#ncli").val(vf[1]).blur();
+        },200);
         Materialize.updateTextFields();
     }
 });

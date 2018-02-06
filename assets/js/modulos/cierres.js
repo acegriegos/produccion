@@ -117,19 +117,15 @@ $(document).on("click","#docierre",function(){
 	var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 	var idcierre = arr('login',4,'',189,'@@usr,"'+$(this).attr('vfecha')+'",@@impresa',0,0,0)[0][0];
 
-	if (total != 0)
-		arr('login',4,'',404,'1,0,@@usr,'+total+',@@impresa,2',0,0,0);
-	else{
+	if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
-		return false;
-	}
 
-	for (var i = 0, len = idfactura.length ; i < len; i++) {
-		arr('login',4,'',190,'1,0,'+idcierre+','+idfactura[i]+',1',0,0,0)
-	}
-	for (var a = 0, leng = idestadocuenta.length; a < leng; a++) {
-		arr('login',4,'',190,'1,0,'+idcierre+','+idestadocuenta[a]+',2',0,0,0)
-	}
+	// for (var i = 0, len = idfactura.length ; i < len; i++) {
+	// 	arr('login',4,'',190,'1,0,'+idcierre+','+idfactura[i]+',1',0,0,0)
+	// }
+	// for (var a = 0, leng = idestadocuenta.length; a < leng; a++) {
+	// 	arr('login',4,'',190,'1,0,'+idcierre+','+idestadocuenta[a]+',2',0,0,0)
+	// }
 
 	$('#toast-container').remove();
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();

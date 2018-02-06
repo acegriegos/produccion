@@ -10,6 +10,10 @@ $(function(){
     
 });
 
+$(function () {
+    console.log($("head").html())
+  });
+
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
@@ -467,8 +471,9 @@ function odin(varreglo,vform) {
                             break;
                             case 'text':
                             case 'textarea':
+                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                            break;
                             case 'hidden':
-
                             case 'number':
                             salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                             break;
@@ -511,10 +516,10 @@ case "4":
     
     break;
 case "5":
-    for (var i = 0; i < varreglo.length; i++) {
-        salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
-    }
-    break;
+        for (var i = 0; i < varreglo.length; i++) {
+            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+        }
+        break;
 
     default:
     //LLENADO DE VARIABLES POR ID SIN DETALLE
@@ -571,6 +576,8 @@ case "5":
                         break;
                         case 'text':
                         case 'textarea':
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                        break;
                         case 'hidden':
                         case 'password':
                         case 'time':
@@ -1280,7 +1287,7 @@ $(document).on('click','.del_phone',function(){
 
 function now() {
     var date = new Date();
-    date = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+    date = date.getFullYear()+"-"+addZero(date.getMonth()+1,2)+"-"+addZero(date.getDate(),2);
     return date;
 }
 

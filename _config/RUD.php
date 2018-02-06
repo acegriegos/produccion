@@ -65,8 +65,7 @@
 				$sel = str_replace('@@tp', 'idtipousuario', $sel);
 			}
 
-			$wher = str_replace("'", '\\\'', $wher);
-			$wher = str_replace('"', '\\"', $wher);
+			$wher = addslashes($wher);
 
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");
 			if (isset($rs->num_rows)) {
@@ -99,8 +98,7 @@
 				}
 			}
 
-			$args2 = str_replace("'", '\\\'', $args2);
-			$args2 = str_replace('"', '\\"', $args2);
+			$args2 = addslashes($args2);
 
 			$rs = $this->db->ejecutar("call shadow($accion,$tabl,'$arg1','$args2')");
 
@@ -136,7 +134,7 @@
 			}
 
 			$wher = addslashes($wher);
-			
+
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");
 			
 			if (isset($rs->num_rows)) {
@@ -223,8 +221,8 @@
 					}
 					$param = $it;
 				}
-				$param = str_replace("'", '\\\'', $param);
-				$param = str_replace('"', '\\"', $param);
+
+				$param = addslashes($param);
 				
 				if ($param == '@@@')
 					$salida .= "@var,";

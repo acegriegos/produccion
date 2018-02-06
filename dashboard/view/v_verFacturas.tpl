@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    <div id="modal-process" class="modal modal-fixed-footer" style="width:80%;height:90%">
+    <div id="modal-process" class="modal modal-fixed-footer" style="width:80% !important; height:90%;">
     <div class="modal-header">
         <div class="card-header center blue-grey white-text z-depth-1">
             <p class="flow-text marginzero"  style="background-color:#0B3861;" >Procesar <span id="nomproc"></span></p>
@@ -115,7 +115,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-        <button type="button" class="waves-effect waves-green btn-flat" id="process">Comprar</button>
+        <button type="button" class="waves-effect waves-green btn-flat" id="process">Procesar</button>
     </div>
   </div>
 
