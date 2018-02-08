@@ -11,7 +11,7 @@ $(function(){
 });
 
 $(function () {
-    console.log($("head").html())
+    // console.log($("head").html())
   });
 
 $(window).keydown(function(e){

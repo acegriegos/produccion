@@ -94,7 +94,7 @@
       <thead>
 
         <tr class="hide trVenta">
-          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
           <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 14%; padding: 0 !important;" class="center-align"><span class="truncate">Prec.Unit</span></th>
@@ -105,7 +105,7 @@
         </tr>
 
         <tr class="hide trCompra">
-          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
           <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 20%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
@@ -117,7 +117,7 @@
         </tr>
 
         <tr class="hide trOCompra">
-          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
           <th style="width: 20%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 45%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
@@ -127,8 +127,7 @@
 
         <tr class="trVenta hide trsec">
 
-          <td style="width: 5%; padding: 0 !important">
-          </td>
+          <!-- <td style="width: 5%; padding: 0 !important"></td> -->
 
           <td style="width: 10%; padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
@@ -168,8 +167,7 @@
 
         <tr class="trOCompra hide trsec">
 
-          <td style="padding: 0 !important">
-          </td>
+          <!-- <td style="padding: 0 !important"></td> -->
 
           <td style="padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
@@ -213,8 +211,7 @@
 
         <tr class="trCompra hide trsec">
 
-          <td style="width: 5%; padding: 0 !important">
-          </td>
+          <!-- <td style="width: 5%; padding: 0 !important"></td> -->
 
           <td style="width: 10%; padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
@@ -249,23 +246,22 @@
           <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
 
           <div class="col s12">
+              <input type="checkbox" name="hasimpuesto" id="iva">
+              <label for="iva">IVA</label>
+              <!-- <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a> -->
+          </div>
+
+          <div class="col s12">
             <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
               <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
             </a>
           </div>
-          <div class="col s12">
-             <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
-          </div>
-  
           </td>
         </tr>
-
       </thead>
-
-        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="">
-         
-        </tbody>
-
+      <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="">
+       
+      </tbody>
       </table>
       </div>
 

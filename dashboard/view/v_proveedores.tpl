@@ -38,7 +38,7 @@
                             <tr>
                                 <th class="sinborde white-text blue" style="  padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
                                 <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Nombre</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Código</th>
+                                <!-- <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Código</th> -->
                                 <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Teléfonos</th>
                                 <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Correo</th>
                                 <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Tipo</th>
@@ -50,7 +50,7 @@
                             <tr id="f{$PROV[LE][0]}" class="pbtn">
                                 <td  style="padding: 10px;">{$PROV[LE][1]}</td>
                                 <td  style="padding: 10px;">{$PROV[LE][2]}</td>
-                                <td  style="padding: 10px;">{$PROV[LE][15]}</td>
+                                <!-- <td  style="padding: 10px;">{$PROV[LE][15]}</td> -->
                                 <td  style="padding: 10px;">{$PROV[LE][4]}</td>
                                 <td  style="padding: 10px;">{$PROV[LE][5]}</td>
                                 <td  style="padding: 10px;">{$PROV[LE][6]}</td>
@@ -142,7 +142,7 @@
                                 <input type="text" class="validate onblur" id="vcedula">
                             </div>
 
-                            <div class="input-field col s12 m6 l4">
+                            <div class="input-field col s12 m6 l4 hide">
                                 <label for="vcodigo">Código Interno de Cliente</label>
                                 <input type="text" class="validate onblur" id="vcodigo">
                             </div>

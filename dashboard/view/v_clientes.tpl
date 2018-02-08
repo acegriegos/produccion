@@ -38,7 +38,7 @@
                 <tr>
                   <th class="sinborde white-text blue"><b>Cédula</b></th>
                   <th class="sinborde white-text blue">Nombre</th>
-                  <th class="sinborde white-text blue">Código</th>
+                  <!-- <th class="sinborde white-text blue">Código</th> -->
                   <th class="sinborde white-text blue">Teléfonos</th>
                   <th class="sinborde white-text blue">Correo</th>
                   <th class="sinborde white-text blue">Tipo</th>
@@ -50,7 +50,7 @@
                 <tr id="f{$CLIE[LE][0]}">
                   <td style=" padding: 10px;color:black">{$CLIE[LE][1]}</td>
                   <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td>
+                  <!-- <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td> -->
                   <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
                   <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
                   <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
@@ -137,7 +137,7 @@
                           <label for="vcedula">Cédula del Cliente</label>
                           <input type="text" class="validate" id="vcedula">
                         </div>
-                        <div class="input-field col s12 m6 l4">
+                        <div class="input-field col s12 m6 l4 hide">
                           <label for="vcodigo">Código del Cliente</label>
                           <input type="text" class="validate" id="vcodigo">
                         </div>

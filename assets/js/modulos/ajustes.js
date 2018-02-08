@@ -1585,7 +1585,7 @@ function cargarSintax(vtabla){
 		case 'sucursales':
 			arr['sel'] = '';
 			arr['tbl'] = 50;
-			arr['where'] = '0';
+			arr['where'] = '-1';
 			break;
 		default:
 			console.error('ERROR: autodestrucción: '+vtabla);
