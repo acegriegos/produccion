@@ -34,18 +34,14 @@ $(function(){
 	$("#ingClie").click(function(){
 		$("#titModal").html('Agregar Cliente');
 		$("#agClie").html('Agregar');
-
 		$("#agClie").removeClass('edit');
 		$("#agClie").addClass('add');
 
-		$("#infvnombre0").html('Nombre Cliente');
-		$("#infvapellido0").html('');
-		$("#infvapellido1").html('');
-		$("#infcedula1").html('');
-		$("#infcodigo6").html('');
-		$("#infweb7").html('');
+		clearcard();
 		$("#telefono_in").focus(function(){
-	$(".iphone").css({"height": "100px", "transition": "0.5s ease"});
+		$(".iphone").css({"height": "100px", "transition": "0.5s ease"});
+		$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+		$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
 });
 $("#telefono_in").blur(function(){
 	$(".iphone").css({"height": "50px", "transition": "0.5s ease"});
@@ -497,13 +493,15 @@ function clearcard() {
 	$("#infvnombre0").text('Nombre '+$("label[for=vcedula]").text().substr(11));
 	$("#infvapellido0").text('');
 	$("#infvapellido1").text('');
-	$("#infcedula1").text('<span class="placeh">0-0000-0000</span>');
+	$("#infcedula1").html('<span class="placeh">0-0000-0000</span>');
 	$("#infcodigo6").text('');
 	$("#infweb7").text('');
 	$("#infprovincia8").text('');
 	$("#infcanton9").text('');
 	$("#infdistrito10").text('');
 	$("#infdireccion11").text('');
+	$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+	$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
 }
 
 function endDetail(vid,vacc,modulo){
@@ -531,11 +529,13 @@ function endDetail(vid,vacc,modulo){
 }
 
 
-
 function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
 			llenarTarjeta(1);
+			var idtipo = $("#vidtipocliente").val();
+			$("[tipoclie = "+idtipo+"]").prop('checked', true);
+			$("[tipoclie = "+idtipo+"]").click();
 			setTimeout(function(){
 				$(".close_phone").removeClass('close');
 				$(".close_mail").removeClass('close');

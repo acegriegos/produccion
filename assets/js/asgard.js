@@ -29,6 +29,11 @@ $(window).keydown(function(e){
     }
 });
 
+$(document).on('click','.alv',function(){
+    $(this).attr('disabled',true);
+    setTimeout(function(){ $(".alv").removeAttr('disabled'); },2000);
+});
+
 $(document).on("click",".tc-show",function(){   
 
     var code = parseInt($(this).data('num'));

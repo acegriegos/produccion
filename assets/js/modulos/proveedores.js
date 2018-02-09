@@ -57,6 +57,9 @@ $(function(){
 		$("#fcorreos").html('');
 		obtenerCuentas(0);
 		obtenerImpuestos(0);
+		clearcard();
+		$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+		$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
 		if($("#tipocliente").attr("tp") != 1)
 			$("#tipocliente").click();
 
@@ -467,13 +470,15 @@ function clearcard() {
 	$("#infvnombre0").text('Nombre '+$("label[for=vcedula]").text().substr(11));
 	$("#infvapellido0").text('');
 	$("#infvapellido1").text('');
-	$("#infcedula1").text('<span class="placeh">0-0000-0000</span>');
+	$("#infcedula1").text('');
 	$("#infcodigo6").text('');
 	$("#infweb7").text('');
 	$("#infprovincia8").text('');
 	$("#infcanton9").text('');
 	$("#infdistrito10").text('');
 	$("#infdireccion11").text('');
+	$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+	$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
 }
 
 function postload(modulo) {
@@ -481,8 +486,8 @@ function postload(modulo) {
 		case 'cliente':
 			llenarTarjeta(1);
 			var idtipo = $("#vidtipocliente").val();
-			// $("[tipoclie = "+idtipo+"]").prop('checked', true);
-			// $("[tipoclie = "+idtipo+"]").click();
+			$("[tipoclie = "+idtipo+"]").prop('checked', true);
+			$("[tipoclie = "+idtipo+"]").click();
 			setTimeout(function(){
 				$(".close_phone").removeClass('close');
 				$(".close_mail").removeClass('close');
