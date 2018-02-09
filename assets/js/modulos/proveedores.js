@@ -481,12 +481,12 @@ function postload(modulo) {
 		case 'cliente':
 			llenarTarjeta(1);
 			var idtipo = $("#vidtipocliente").val();
-			$("[tipoclie = "+idtipo+"]").prop('checked', true);
-			$("[tipoclie = "+idtipo+"]").click();
+			// $("[tipoclie = "+idtipo+"]").prop('checked', true);
+			// $("[tipoclie = "+idtipo+"]").click();
 			setTimeout(function(){
 				$(".close_phone").removeClass('close');
 				$(".close_mail").removeClass('close');
-			},1000);
+			},500);
 			
 		break;
 	}

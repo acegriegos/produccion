@@ -83,29 +83,29 @@ $(document).on("keyup",".numeric",function(e){
         $(this).blur()
 });
 
-$(document).on('keydown','#pais',function(e){
+$(document).on('keydown','.pais',function(e){
     var charCode = e.which || e.keyCode;
     var charStr = String.fromCharCode(charCode);
     
     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
         $(".autocomplete-content").remove();
 
-        $("#pais").autocomplete({
+        $(this).autocomplete({
             limit: 20,
             data: arr('login',4,'nombre as nom,bandera',209,'id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
         });
 
-        $(".autocomplete-content").css('width','25%');
+        $(".autocomplete-content").css('width','100%');
 
     }
 });
 
-$(document).on("blur","#pais",function(){
+$(document).on("blur",".pais",function(){
     var nombre = $(this).val();
     var idpais = arr('login',4,'id',209,'nombre = "'+nombre+'"',0,0,0)[0][0];
 
     idpais != undefined ? 0 : idpais;
-   
+    $(this).attr('vid',idpais);
 });
 
 $(document).on("blur",".numeric",function(){

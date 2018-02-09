@@ -228,12 +228,15 @@ $("#vdireccion").keyup(function(){
 
 
 $(document).on("click",".close_mail",function(){
-	$(this).parent().data('triforce')['vaccion'] = 3;
-	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
+	$(this).parent().removeClass('chip');
+	$(this).parent().addClass('hide');
+	$(this).parent().data('triforce').vaccion = 3;
 });
 
 $(document).on("click",".close_phone",function(){
-	$(this).parent().data('triforce')['vaccion'] = 3;
+	$(this).parent().removeClass('chip');
+	$(this).parent().addClass('hide');
+	$(this).parent().data('triforce').vaccion = 3;
 });
 
 $(document).on("click",".vcoo",function(){
@@ -490,6 +493,19 @@ function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
 	$("#showimpuestos").append('<li class="collection-item dismissable" id="newimp'+vid+'"><div><span class="impuestos" id="vimv'+vid+'" value="'+vvalor+'" timv="'+vimpuesto+'">'+vnombre+' - '+vvalor+'%</span><a class="secondary-content delimp" id="dimp'+vid+'"><i class="mdi mdi-delete"></i></a></div></li>')
 }
 
+function clearcard() {
+	$("#infvnombre0").text('Nombre '+$("label[for=vcedula]").text().substr(11));
+	$("#infvapellido0").text('');
+	$("#infvapellido1").text('');
+	$("#infcedula1").text('<span class="placeh">0-0000-0000</span>');
+	$("#infcodigo6").text('');
+	$("#infweb7").text('');
+	$("#infprovincia8").text('');
+	$("#infcanton9").text('');
+	$("#infdistrito10").text('');
+	$("#infdireccion11").text('');
+}
+
 function endDetail(vid,vacc,modulo){
 	switch (modulo) {
 		case 'cliente':
@@ -500,6 +516,8 @@ function endDetail(vid,vacc,modulo){
 				$("#ftelefonos").html('');
 				$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
 				$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
+				setTimeout(function(){ deadclear('cliente');$("#videstado").val(1);$("#videstado").material_select();}, 500);
+				clearcard();
 			}
 			break;
 		case 'taller-vehiculo':
@@ -512,10 +530,16 @@ function endDetail(vid,vacc,modulo){
 	$(".validate").css('box-shadow', 'none');
 }
 
+
+
 function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
 			llenarTarjeta(1);
+			setTimeout(function(){
+				$(".close_phone").removeClass('close');
+				$(".close_mail").removeClass('close');
+			},500);
 		break;
 	}
 }
