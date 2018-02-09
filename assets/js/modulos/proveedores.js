@@ -483,10 +483,11 @@ function postload(modulo) {
 			var idtipo = $("#vidtipocliente").val();
 			$("[tipoclie = "+idtipo+"]").prop('checked', true);
 			$("[tipoclie = "+idtipo+"]").click();
-		setTimeout(function(){
-			$(".close_phone").removeClass('close');
-			$(".close_mail").removeClass('close');
-		},1000);
+			setTimeout(function(){
+				$(".close_phone").removeClass('close');
+				$(".close_mail").removeClass('close');
+			},1000);
+			
 		break;
 	}
 }

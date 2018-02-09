@@ -21,7 +21,7 @@
                                     <input type="hidden" id="vconsecutivo4" value="0">
                                     <input type="hidden" id="vconsecutivo5" value="0">
                                     <input type="hidden" id="vid" value="0">
-                                    <input type="hidden" id="vlogo" value="asd">
+                                    <input type="hidden" id="vlogo" value="../assets/img/logo.png">
                                     <input type="hidden" id="vidtipocliente" value="2">
                                 </div>
                             </div>

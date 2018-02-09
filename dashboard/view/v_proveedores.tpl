@@ -8,9 +8,8 @@
     <title>Proveedores</title>
     {$STY}
 </head>
-
 <body>
-        {$NAV}
+    {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
     <div class="bdy pequeño" >
         <div class="card">
@@ -84,7 +83,6 @@
                         <div id="fclientes">
                             <input type="hidden" class="zelda">
                             <div class="row">
-<!--  -->
                                 <div class="col s12 m8 l9 expand-1"><br><br>
                                     <div class="row parte1 col s12" id="info">
                                         <div class="row" style="margin: 0px">
@@ -164,7 +162,7 @@
                                 <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
                             </div>
                         </div>
-                        <div class="col s12 m7 l8"  style="background: transparent;">
+                        <div class="col s12 m7 l8" style="background: transparent;">
                             <div class="ciclos">
                                 <div class="row ">
                                     <div class="col s6 m3 input-field hide">

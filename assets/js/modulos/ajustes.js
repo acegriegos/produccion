@@ -19,38 +19,12 @@ $(function(){
 	$("#m1").click();
 });
 
-$(document).on("click","#addphone",function(){
-	
-});
-
-// $(document).on("click",".tc-show",function(){
-// 	var id = parseInt($(this).attr('data-num'));
-// 	switch(id) {
-// 		case 1:
-// 			var p = mantenimiento('ajustes',10,'');
-// 			$(".subheader").html(p);
-// 			Materialize.updateTextFields();
-// 			break;
-// 		case 2:
-// 			var p = mantenimiento('ajustes',11,'');
-// 			$(".subheader").html(p);
-// 			break;
-// 		case 3:
-// 			var p = mantenimiento('ajustes',12,'');
-// 			$(".subheader").html(p);
-// 			break;
-// 	}
-// 	// setTimeout(function(){ Materialize.updateTextFields(); },2000);
-	
-// });
-
 $(document).ready(function(){
 	$('ul.tabs').tabs();
 });
 
 $(document).on("click","#test",function(){
 	var logo = $("#vlogo").val();
-	console.log(logo)
 });
 
 $(document).on("click",".menu3",function(){
