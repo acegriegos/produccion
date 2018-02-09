@@ -88,22 +88,7 @@ $("#telefono_in").blur(function(){
 	// $("#vidpais").change(function(){
 	// 	$("#prefijo").html('('+$('option:selected',this).attr('cod')+')')
 	// });
-	$("#pais").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
-
-            $("#pais").autocomplete({
-                limit: 20,
-                data: arr('login',4,'nombre as nom,bandera',209,'id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
-            });
-
-            $(".autocomplete-content").css('width','25%');
-
-        }
-    });
+	
 
 	$("#correo_in").keyup(function(e){
 		var code = e.which || e.keyCode
@@ -240,16 +225,6 @@ $("#vdireccion").keyup(function(){
 	var dir = $(this).val();
 	$("#infdireccion11").html(dir)
 });
-
-$(document).on("blur","#pais",function(){
-	var nombre = $(this).val();
-	var idpais = arr('login',4,'id',209,'nombre = "'+nombre+'"',0,0,0)[0][0];
-	if (idpais != undefined)
-		$("#vidpais").val(idpais)
-	else
-		$("#vidpais").val(0);
-});
-
 
 
 $(document).on("click",".close_mail",function(){

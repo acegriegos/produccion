@@ -19,19 +19,19 @@
                         <input type="text" class="infoempresa" id="vpfisico">
                     </div>
                     <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="1" class="button-collapse der tc-show black-text" title="Administrar Teléfonos de la Empresa"><i class="mdi mdi-phone  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" data-num="1" class="button-collapse der tc-show  black-text" title="Administrar Teléfonos de la Empresa" id="tc-t"><i class="mdi mdi-phone  mdi-24px"></i></a>
                         <label for="vtelefono">Teléfonos de la Empresa</label>
                         <input type="text"  id="vtelefono" field="telefonos" readonly>
                     </div>
                 </div>
                 <div class="row pequeño">
                     <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show black-text" title="Administrar Correos de la Empresa"><i class="mdi mdi-email  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show  black-text" title="Administrar Correos de la Empresa" id="tc-c"><i class="mdi mdi-email  mdi-24px"></i></a>
                         <label for="vcorreo">Correos de la Empresa</label>
                         <input type="email" class="infoempresa" id="vcorreo" field="correo" readonly>
                     </div>
                     <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa" id="tc-u"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
                         <label for="vdireccion">Dirección de la Empresa</label>
                         <input type="text" class="infoempresa" id="vdireccion" field="direccion" readonly>
                     </div>

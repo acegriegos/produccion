@@ -25,7 +25,7 @@
                             <li><a href="#!" fltr="2">Cédula</a></li>
                             <li><a href="#!" fltr="3">Teléfono</a></li>
                         </ul>
-                        <input type="text" id="search_clientes" maxlength="100" num="v30" var="nombre">
+                        <input type="text" id="search_clientes" maxlength="100" num="v306" var="0,1" cambio="30">
                         <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
                     </div>
                     <div class="col s2 m6 per2001">
@@ -120,26 +120,25 @@
                           <div class="row">
                             <div class="input-field col s12 m6 l4">
                                 <label id="nomClie" for="vnombre">Nombre</label>
-                                <input type="text" class="validate onblur" id="vnombre">
+                                <input type="text" class="validate onblur" id="vnombre" autocomplete="off">
                                 <input type="hidden" id="vid" value="0">
                                 <input type="hidden" id="vidsucursal" value="">
                                 <input type="hidden" id="vbisproveedor" value="1">
-
                             </div>
 
                             <div class="input-field col s12 m6 col l4 hid">
                                 <label for="vapellido1">Primer Apellido</label>
-                                <input type="text" class="form-control onblur" id="vapellido1">
+                                <input type="text" class="form-control onblur" id="vapellido1" autocomplete="off">
                             </div>
 
                             <div class="input-field col s12 m6 l4 hid">
                                 <label for="vapellido2">Segundo Apellido</label>
-                                <input type="text" class="form-control onblur" id="vapellido2">
+                                <input type="text" class="form-control onblur" id="vapellido2" autocomplete="off">
                             </div>
                             
                             <div class="input-field col s12 m6 l4">
                                 <label for="vcedula">Cédula del Proveedor</label>
-                                <input type="text" class="validate onblur" id="vcedula">
+                                <input type="text" class="validate onblur" id="vcedula" autocomplete="off">
                             </div>
 
                             <div class="input-field col s12 m6 l4 hide">
@@ -149,7 +148,7 @@
 
                             <div class="input-field col s12 m6 col l4">
                                 <label for="vweb">Web</label>
-                                <input type="text" class="form-control onblur" id="vweb" placeholder="www.webempresa.com">
+                                <input type="text" class="form-control onblur" id="vweb" placeholder="www.webempresa.com" autocomplete="off">
                             </div>
 
                             </div>
@@ -167,9 +166,9 @@
                         <div class="col s12 m7 l8"  style="background: transparent;">
                             <div class="ciclos">
                                 <div class="row ">
-                                    <div class="col s6 m3 input-field">
+                                    <div class="col s6 m3 input-field hide">
                                         <div class="prefix"><i class="mdi-phone mdi mdi-24px"></i></div>
-                                        <input type="text" id="pais" class="autocomplete">
+                                        <input type="text" id="pais" class="autocomplete" autocomplete="off">
                                         <input type="hidden" id="vidpais" value="52">
                                       <label for="pais">País</label>
                                     </div>

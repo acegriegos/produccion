@@ -1,7 +1,5 @@
 <?php
     session_start();
-    require_once '_config/ecy.php';
-    $cy = new _cy();
 
     if(!empty($_FILES)){
         require_once '_config/mysqlDB.php';
@@ -22,7 +20,7 @@
                             $name = $_FILES['file']['name'][$i];
                             $ext = end(explode('.', $name));
                             $destination_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$REQUEST['idsucursal'].$ext;
-                            $base->ejecutar("UPDATE sucursales SET logo = '.."$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
+                            $base->ejecutar("UPDATE sucursales SET logo = '.".$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
                             break;
                         
                         default:
