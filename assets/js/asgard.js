@@ -10,10 +10,6 @@ $(function(){
     
 });
 
-$(function () {
-    // console.log($("head").html())
-  });
-
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
