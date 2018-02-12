@@ -1,16 +1,39 @@
+
 <div class="row">
-	<div class="input-field col s10 m10 l10" style="padding-right: 0px">
-		<input id="tc-mail" type="text" class="validate">
-		<label for="tc-mail">Correo</label>
-	</div>
-	<div class="input-text col s2 m2 l2" style="padding-top: 15px;padding-left: 0px">
-		<i class="mdi mdi-plus mdi-36px blueh" id="addphone"></i>
-	</div>
+    <div class="col s12 input-field">
+      <input type="text" id="pais" class="autocomplete pais">
+      <input type="hidden" id="vidpais" value="52">
+      <label for="pais">País</label>
+    </div>
+
+    <div class="input-field col s12">
+      <select type="select" id="tptel">
+        
+      </select>
+      <input type="hidden" id="htipo">
+    </div>
+
+    <div class="input-field col s12">
+      <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+      <input type="hidden" id="vtelefono" fill="19">
+      <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
+    <ul class="collection" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="4" style="border: 0;"></ul>
+  </div>
 </div>
-<div class="divider"></div>
-<div class="row" id="dphone">
-	<div class="input-field col s12 m12 l12">
-		<input id="tc-mail1" type="text" class="validate">
-		<label for="tc-mail1">Correo</label>
-	</div>
-</div>
+
+{literal}
+<script type="text/javascript">
+	$(function(){
+		var tp = getDatos('*',4,'id > 0 order by id',0,0)[0];
+		var sel = '<option value="" disabled selected>Seleccione Tipo de Teléfono</option>';
+		
+		for (var i = 0; i < tp.length; i++) {
+			sel += '<option value="'+tp[i][0]+'">'+tp[i][1]+'</option>';
+		}
+
+		$("#tptel").html(sel);
+		$("#tptel").material_select('update');
+
+	});
+</script>
+{/literal}

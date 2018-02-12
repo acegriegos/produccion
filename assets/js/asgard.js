@@ -25,47 +25,88 @@ $(window).keydown(function(e){
     }
 });
 
-$(document).on("click",".tc-show",function(){
+$(document).on('click','.alv',function(){
+    $(this).attr('disabled',true);
+    setTimeout(function(){ $(".alv").removeAttr('disabled'); },2000);
+});
+
+$(document).on("click",".tc-show",function(){   
+
+    var code = parseInt($(this).data('num'));
+
     if ($("#slide-tc").length == 0) {
         var ul = '<ul id="slide-tc" class="side-nav"><li><div class="user-view"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div></li></ul>';
         $(".bdy").append(ul);
     }
-    var code = parseInt($(this).data('num'));
-    var titulo = cuerpo = '';
-
-    switch(code){
-        case 1: 
-            titulo = 'Teléfonos';
-            cuerpo = mantenimiento('ajustes',10,'');
-            break;
-        case 2: 
-            titulo = 'Correos';
-            break;
-        case 3: 
-            titulo = 'Ubicación';
-            break;
-        default:
-            break;
-    }
-
-    $(".ntit").html(titulo);
-    $("#unico").html(cuerpo);
-    Materialize.updateTextFields();
     
-    $('.tc-show').sideNav('destroy');
+    $("#slide-tc").attr('num',code);
+    $("#slide-tc").attr('el',$(this).attr('id'));
+
+    $(".tc-show").sideNav('destroy');
+    
     $(this).sideNav({
         menuWidth: 300,
         edge: 'right',
         closeOnClick: true,
-        draggable: true
+        draggable: true,
+        onOpen: function(){
+            var titulo = cuerpo = '';
+
+            switch(code){
+                case 1: 
+                    titulo = 'Teléfonos';
+                    cuerpo = mantenimiento('ajustes',10,'');
+                    break;
+                case 2: 
+                    titulo = 'Correos';
+                    break;
+                case 3: 
+                    titulo = 'Ubicación';
+                    break;
+                default:
+                    break;
+            }
+
+            $(".ntit").html(titulo);
+            $("#unico").html(cuerpo);
+        
+            Materialize.updateTextFields();
+        }
     });
+
     $(this).sideNav('show');
+    
 });
 
 $(document).on("keyup",".numeric",function(e){
     var code = e.wich || e.keyCode
     if(code == 13)
         $(this).blur()
+});
+
+$(document).on('keydown','.pais',function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+
+        $(this).autocomplete({
+            limit: 20,
+            data: arr('login',4,'nombre as nom,bandera',209,'id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+        });
+
+        $(".autocomplete-content").css('width','100%');
+
+    }
+});
+
+$(document).on("blur",".pais",function(){
+    var nombre = $(this).val();
+    var idpais = arr('login',4,'id',209,'nombre = "'+nombre+'"',0,0,0)[0][0];
+
+    idpais != undefined ? 0 : idpais;
+    $(this).attr('vid',idpais);
 });
 
 $(document).on("blur",".numeric",function(){
@@ -746,8 +787,11 @@ function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess){
                 }
                 
             });
-            this.on("uploadprogress", function(file, progress) {
-                console.log("File progress", progress);
+            this.on('error', function(file, response) {
+                console.log(response)
+            });
+            this.on('success', function(file, response) {
+                console.log(response)
             });
         }
     });

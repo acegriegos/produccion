@@ -525,6 +525,7 @@ function validar (varreglo,vmodulo) {
     switch(vmodulo['modulo']) {
         case 'factura':
             if (vmodulo['tip'] == '') {
+                
                 err = validarFactura();
                 if ( err ) {
                     return err;

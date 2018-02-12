@@ -42,7 +42,7 @@
                       <a href="notas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Notas de Crédito y Débito">Notas de Crédito y Débito</a>
 
                     </div>
-                    <div class="col s12 m6 l6 per3500 hide">
+                    <div class="col s12 m6 l6 per3500">
                       <a href="devoluciones" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
                     </div>
                     <div class="col s12 m6 l6 per3600">
