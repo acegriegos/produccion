@@ -37,9 +37,9 @@
                             
                             <a href="#!" class="der pbtn" id="z{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck"></i></a>
 
-                            <a href="#modal-ruser" class="der luser pbtn modal-trigger" id="u{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-vcard-o"></i></a>
+                            <a href="#modal-ruser" class="der luser pbtn modal-trigger" id="u{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
 
-                            <a href="#modal-rcliente" class="der lcliente pbtn modal-trigger" id="c{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-group"></i></a>
+                            <a href="#modal-rcliente" class="der lcliente pbtn modal-trigger" id="c{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
                         </td>
                     </tr>
                     {/section}
@@ -87,7 +87,7 @@
                 <div class="input-field">
                     <i class="mdi mdi-24px mdi-user prefix"></i>
                     <label for="ncli" style="color: black"> <b>Ingresar Cliente</b></label>
-                    <input type="text" id="ncli" value="" class="autocomplete validate" maxlength="64" />
+                    <input type="text" id="ncli" value="" class="autocomplete" maxlength="64" />
                     <input type="hidden" id="idcli">
                 </div>
                 <div class="input-field">
