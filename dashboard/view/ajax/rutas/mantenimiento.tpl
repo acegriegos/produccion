@@ -1,11 +1,11 @@
 
-<a id="ingRut" class="der btn-floating tooltipped modal-trigger pluskey der" data-position="left" data-tooltip="Ingresar Ruta" href="#modal-rutas"><i class="large material-icons ">add</i></a>
+<a id="ingRut" class="der btn-floating tooltipped modal-trigger pluskey der" data-position="left" data-tooltip="Ingresar Ruta" href="#modal-rutas"><i class="mdi mdi-24px mdi-plus"></i></a>
 
 
 <div class="row">
 
     <div class="input-field col s4">
-        <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small material-icons">search</i></a>
+        <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-24px mdi-magnify"></i></a>
         <ul id='filtr_1' class='dropdown-content'>
             <li><a class="optns" tipo="nombre" href="#!" fltr="1">Nombre</a></li>
             <li class="hide"><a class="optns" tipo="vcedula" href="#!" fltr="2">Encargado</a></li>
@@ -31,15 +31,15 @@
                         <td style=" padding: 10px;" id="rn{$RUT[LE][0]}">{$RUT[LE][1]}</td>
                         <td>
                         
-                            <a href="#" class="der delete pbtn" modulo="ruta" id="d{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b"><i class="fa fa-trash"></i></a>    
+                            <a href="#" class="der delete pbtn" modulo="ruta" id="d{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Eliminar Ruta"><i class="mdi mdi-24px mdi-delete"></i></a>    
                             
-                            <a href="#modal-rutas" class="der load pbtn crut" id="m{$RUT[LE][0]}" modulo="ruta" style="font-size: 2em; color: #607d8b"><i class="fa fa-pencil"></i></a>
+                            <a href="#modal-rutas" class="der load pbtn crut modal-trigger" id="m{$RUT[LE][0]}" modulo="ruta" style="font-size: 2em; color: #607d8b"><i class="mdi mdi-24px mdi-pencil" title="Editar Ruta"></i></a>
                             
-                            <a href="#!" class="der pbtn" id="z{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Zona de Carga y Descarga"><i class="fa fa-truck"></i></a>
+                            <a href="#!" class="der pbtn" id="z{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck"></i></a>
 
-                            <a href="#modal-ruser" class="der luser pbtn" id="u{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Encargados de la Ruta"><i class="fa fa-vcard-o"></i></a>
+                            <a href="#modal-ruser" class="der luser pbtn modal-trigger" id="u{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
 
-                            <a href="#modal-rcliente" class="der lcliente pbtn" id="c{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Clientes de la Ruta"><i class="fa fa-group"></i></a>
+                            <a href="#modal-rcliente" class="der lcliente pbtn modal-trigger" id="c{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
                         </td>
                     </tr>
                     {/section}
@@ -85,13 +85,13 @@
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
-                    <i class="fa fa-user prefix"></i>
+                    <i class="mdi mdi-24px mdi-user prefix"></i>
                     <label for="ncli" style="color: black"> <b>Ingresar Cliente</b></label>
-                    <input type="text" id="ncli" value="" class="autocomplete validate" maxlength="64" />
+                    <input type="text" id="ncli" value="" class="autocomplete" maxlength="64" />
                     <input type="hidden" id="idcli">
                 </div>
                 <div class="input-field">
-                    <i class="fa fa-search prefix"></i>
+                    <i class="mdi mdi-24px mdi-search prefix"></i>
                     <label for="seachcliente" style="color: black"> <b>Buscar Cliente</b></label>
                     <input type="text" id="seachcliente" class="validate" maxlength="64" />
                 </div>
@@ -190,22 +190,22 @@
 
                 <div class="row">
                     <a class="btn btn-info der add" id="ingdetrut" href="#" data-delay="50">Ingresar</a>
-                    <a class="btn btn-default edd der white black-text" id="goback" href="#"><i class="fa fa-angle-left"></i></a>
+                    <a class="btn btn-default edd der white black-text" id="goback" href="#"><i class="mdi mdi-24px mdi-angle-left"></i></a>
                 </div>
 
                 <div class="fixed-action-btn horizontal edd">
                 <a class="btn-floating btn-large red tooltipped" data-position="top" title="Información del Rutero">
-                  <i class="large fa fa-info"></i>
+                  <i class="large mdi mdi-24px mdi-info"></i>
                 </a>
                 <ul>
 
-                  <li><a class="btn-floating tooltipped red" data-position="top" title="Ventas"><i class="fa fa-line-chart"></i></a></li>
+                  <li><a class="btn-floating tooltipped red" data-position="top" title="Ventas"><i class="mdi mdi-24px mdi-line-chart"></i></a></li>
 
-                  <li><a class="btn-floating tooltipped yellow darken-1" data-position="top" title="Devoluciones"><i class="fa fa-exchange"></i></a></li>
+                  <li><a class="btn-floating tooltipped yellow darken-1" data-position="top" title="Devoluciones"><i class="mdi mdi-24px mdi-exchange"></i></a></li>
 
-                  <li><a class="btn-floating tooltipped green" data-position="top" title="Inventario"><i class="fa fa-book"></i></a></li>
+                  <li><a class="btn-floating tooltipped green" data-position="top" title="Inventario"><i class="mdi mdi-24px mdi-book"></i></a></li>
 
-                  <li><a class="btn-floating tooltipped blue" data-position="top" title="Financiero"><i class="fa fa-money"></i></a></li>
+                  <li><a class="btn-floating tooltipped blue" data-position="top" title="Financiero"><i class="mdi mdi-24px mdi-money"></i></a></li>
 
                 </ul>
               </div>

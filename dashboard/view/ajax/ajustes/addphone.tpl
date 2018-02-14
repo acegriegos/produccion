@@ -1,7 +1,9 @@
 
 <div class="row">
     <div class="col s12 input-field">
-      <input type="text" id="pais" class="autocomplete">
+
+      <input type="text" id="pais" class="autocomplete pais">
+
       <input type="hidden" id="vidpais" value="52">
       <label for="pais">País</label>
     </div>

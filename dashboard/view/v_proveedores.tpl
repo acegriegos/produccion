@@ -8,9 +8,8 @@
     <title>Proveedores</title>
     {$STY}
 </head>
-
 <body>
-        {$NAV}
+    {$NAV}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
     <div class="bdy pequeño" >
         <div class="card">
@@ -84,7 +83,6 @@
                         <div id="fclientes">
                             <input type="hidden" class="zelda">
                             <div class="row">
-<!--  -->
                                 <div class="col s12 m8 l9 expand-1"><br><br>
                                     <div class="row parte1 col s12" id="info">
                                         <div class="row" style="margin: 0px">
@@ -157,13 +155,14 @@
                         <div class="input-field col s12 m12 l4">
                             <div>
                                 <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
-                                <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]">
+                                <!-- <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]"> -->
+                                <input type="email" class="validate" id="correo_in">
                                 <input type="hidden" id="vcorreo" fill="18">
                                 <label for="correo_in">Ingresar Correo</label>
                                 <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
                             </div>
                         </div>
-                        <div class="col s12 m7 l8"  style="background: transparent;">
+                        <div class="col s12 m7 l8" style="background: transparent;">
                             <div class="ciclos">
                                 <div class="row ">
                                     <div class="col s6 m3 input-field hide">
@@ -185,7 +184,8 @@
                                     </div>
 
                                 <div class="input-field col s12 m5">
-                                    <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]">
+                                    <!-- <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]"> -->
+                                    <input type="text" class="validate" id="telefono_in" data-mask="9999-9999">
                                     <input type="hidden" id="vtelefono" fill="19">
                                     <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
 
@@ -300,7 +300,7 @@
                                 <tr><td style="font-size: 0.8em"><b>Cédula</b></td></tr>
                                 <tr class="icorr"><td style="font-size: 0.8em"><b>Correo</b></td></tr>
                                 <tr class="iphone"><td style="font-size: 0.8em"><b>Teléfono</b></td></tr>
-                                <tr><td style="font-size: 0.8em"><b>Código</b></td></tr>
+                                <!-- <tr><td style="font-size: 0.8em"><b>Código</b></td></tr> -->
                                 <tr><td style="font-size: 0.8em"><b>Web</b></td></tr>
                                 <tr><td style="font-size: 0.8em"><b>Provincia</b></td></tr>
                                 <tr><td style="font-size: 0.8em"><b>Cantón</b></td></tr>
@@ -308,9 +308,9 @@
                                 <tr><td style="font-size: 0.8em"><b>Direccion</b></td></tr><tr><td style="font-size: 0.8em"><b>Estado</b></td></tr>
                             </table>
                         </div>
-                        <div class="s8 m8 l8 col" align="center">
+                        <div class="s8 m8 l8 col asd" align="center" style="padding-top: 35px !important">
                             <table>
-                                <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh">8088800888</span></span></td></tr>
+                                <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh">0-0000-0000</span></span></td></tr>
                                 <tr class="icorr">
                                     <td style="padding: 0 !important; font-size: 0.8em">
                                     <div id="infcorreo2">
@@ -319,7 +319,7 @@
                                     </td>
                                 </tr>
                                 <tr class="iphone"><td style="padding: 0 !important; font-size: 0.8em"><div id="inftelefono4"><div class="placeh chip chpph">88888888</div></div></td></tr>
-                                <tr><td style="font-size: 0.8em"><span id="infcodigo6"><span class="placeh">COD01</span></span></td></tr>
+                                <!-- <tr><td style="font-size: 0.8em"><span id="infcodigo6"><span class="placeh">COD01</span></span></td></tr> -->
                                 <tr><td style="font-size: 0.8em"><span id="infweb7"><span class="placeh">www.example.com</span></span></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infprovincia8"><span class="placeh">Provincia</span></span></td></tr>
                                 <tr><td style="font-size: 0.8em"><span id="infcanton9"><span class="placeh">Cantón</span></span></td></tr>
@@ -359,3 +359,7 @@
 
 </body>
 </html>
+<!-- mejoras
+-cuando se estan agregando telefonos y correos, hacer una funcion q valide el formate y cuando 
+agarre un formato valido q lo ingrese en un blur
+- -->

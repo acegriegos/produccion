@@ -57,6 +57,9 @@ $(function(){
 		$("#fcorreos").html('');
 		obtenerCuentas(0);
 		obtenerImpuestos(0);
+		clearcard();
+		$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+		$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
 		if($("#tipocliente").attr("tp") != 1)
 			$("#tipocliente").click();
 
@@ -229,15 +232,14 @@ $("#vdireccion").keyup(function(){
 $(document).on("click",".close_mail",function(){
 	$(this).parent().removeClass('chip');
 	$(this).parent().addClass('hide');
-	console.log($(this).parent().data('triforce')['vaccion'])
-	$(this).parent().data('triforce')['vaccion'] = 3;
+	$(this).parent().data('triforce').vaccion = 3;
 	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".close_phone",function(){
 	$(this).parent().removeClass('chip');
 	$(this).parent().addClass('hide');
-	$(this).parent().data('triforce')['vaccion'] = 3;
+	$(this).parent().data('triforce').vaccion = 3;
 });
 
 $(document).on("click",".vcoo",function(){
@@ -455,10 +457,28 @@ function endDetail(vid,vacc,modulo){
 		$("#ftelefonos").html('');
 		$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
 		$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
-		setTimeout(function(){ deadclear('cliente'); }, 1000);
+		setTimeout(function(){ deadclear('cliente');$("#videstado").val(1);$("#videstado").material_select();}, 500);
+		clearcard();
 	}
-	
 	thorload('cliente');
+	$("videstado").material_select();
+	$(".validate").css('border-bottom', '1px solid #9e9e9e');
+	$(".validate").css('box-shadow', 'none');
+}
+
+function clearcard() {
+	$("#infvnombre0").text('Nombre '+$("label[for=vcedula]").text().substr(11));
+	$("#infvapellido0").text('');
+	$("#infvapellido1").text('');
+	$("#infcedula1").text('');
+	$("#infcodigo6").text('');
+	$("#infweb7").text('');
+	$("#infprovincia8").text('');
+	$("#infcanton9").text('');
+	$("#infdistrito10").text('');
+	$("#infdireccion11").text('');
+	$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
+	$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
 }
 
 function postload(modulo) {
@@ -468,10 +488,10 @@ function postload(modulo) {
 			var idtipo = $("#vidtipocliente").val();
 			$("[tipoclie = "+idtipo+"]").prop('checked', true);
 			$("[tipoclie = "+idtipo+"]").click();
-		setTimeout(function(){
-			$(".close_phone").removeClass('close');
-			$(".close_mail").removeClass('close');
-		},1000);
+			setTimeout(function(){
+				$(".close_phone").removeClass('close');
+				$(".close_mail").removeClass('close');
+			},500);
 		break;
 	}
 }
