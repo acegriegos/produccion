@@ -131,11 +131,6 @@ $(function(){
 
 });
 
-$(document).on("click","#test",function(){
-	console.log($("#vidsuc").val().toString())
-});
-
-
 $(document).on("blur","#vmail",function(){
 	if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
 		$(this).css('border-bottom','1px solid #4CAF50');
@@ -369,15 +364,16 @@ function validarusuarios() {
 		$('#vcedula').focus();
 		return 'Cédula Requerida';
 	}
-	if ($("#vcorreo").val() == '') {
-		$("#vcorreo").focus();
+	if ($("#vmail").val() == '') {
+		$("#vmail").focus();
 		return 'Correo Requerido';
 	}
 	if ($('#vidTipoUsuario option:selected').val() == 0) {
 		$('#vidTipoUsuario').focus();
 		return 'Tipo de Usuario Requerido';
 	}
-	if ($('#vidsuc option:selected').length == 0) {
+	
+	if ($('#vidsuc').val() == '') {
 		$('#vidsuc').focus();
 		return 'Seleccione una Sucursal';
 	}
@@ -511,6 +507,8 @@ function cargar(vmodulo,vid) {
 			
 			deadclear(modulo);
 			thorload(modulo);
+			$(".validate").css('border-bottom', '1px solid #9e9e9e');
+			$(".validate").css('box-shadow', 'none');
 			break;
 		}
 

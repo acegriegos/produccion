@@ -41,6 +41,7 @@
                         </div>
                         <div class="input-field col s12 m6" id="fcorreos" vtabla="correo" hasTabla="1" tp="3">
                             <div class="ciclos">
+                                <input type="hidden" id="vidcorreo" value="0">
                                 <label for="vcorreo">Correo</label>
                                 <input type="text" class="validate" id="vcorreo">
                             </div>
@@ -141,8 +142,8 @@
                             <tbody id="listasucursales">
                                 {section name=LE loop=$SUC}
                                 <tr>
-                                    <td>{$SUC[LE][1]}</td>
-                                    <td>{$SUC[LE][6]}</td>
+                                    <td>{$SUC[LE][0]}</td>
+                                    <td>{$SUC[LE][5]}</td>
                                     <td>
                                         <i class="mdi mdi-24px mdi-pencil btn-color pbtn load " id="e{$SUC[LE][0]}" codigo="1" modulo="sucursale"></i>
                                         <i class="mdi mdi-24px mdi-close btn-color pbtn delete" id="d{$SUC[LE][0]}" codigo="1" modulo="sucursale"></i>

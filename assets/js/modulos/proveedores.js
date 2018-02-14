@@ -21,8 +21,6 @@ $(function(){
 		cuentas += '<option value="'+cuentas_arr[0][i][3]+'">'+cuentas_arr[0][i][1]+'</option>';
 	}
 
-
-
 	$(".addcta").click(function(){
 		tp = $(this).attr('tp');
 		det = "ctacontado";
@@ -162,7 +160,7 @@ $(function(){
 
 
 });
-
+//comprimir codigo
 $(document).on("blur",".onblur",function(){
 	var id = $(this).attr('id');
 
@@ -204,19 +202,7 @@ $("#telefono_in").blur(function(){
 	$(".iphone").css({"height": "50px", "transition": "0.5s ease"});
 });
 
-$(document).on("click",".chpcrr",function(){
-	var id = $(this).attr('id');
 
-	$("#schp"+id).remove();
-	$("#ichp"+id).remove();
-});
-
-$(document).on("click",".chpphone",function(){
-	var id = $(this).attr('id').substr(5);
-
-	$("#stchp"+id).remove();
-	$("#itchp"+id).remove();
-});
 
 $("#vidprovincia").change(function(){
 	var prov = $("#vidprovincia option:selected").text();
@@ -241,11 +227,16 @@ $("#vdireccion").keyup(function(){
 // });
 
 $(document).on("click",".close_mail",function(){
+	$(this).parent().removeClass('chip');
+	$(this).parent().addClass('hide');
+	console.log($(this).parent().data('triforce')['vaccion'])
 	$(this).parent().data('triforce')['vaccion'] = 3;
 	// Materialize.toast('Desea Borrar este Correo? <button type="button" class="waves-effect waves-light btn blue accmail" id="acc'+id+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".close_phone",function(){
+	$(this).parent().removeClass('chip');
+	$(this).parent().addClass('hide');
 	$(this).parent().data('triforce')['vaccion'] = 3;
 });
 
@@ -464,7 +455,7 @@ function endDetail(vid,vacc,modulo){
 		$("#ftelefonos").html('');
 		$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
 		$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
-		setTimeout(function(){ deadclear('cliente'); }, 2500);
+		setTimeout(function(){ deadclear('cliente'); }, 1000);
 	}
 	
 	thorload('cliente');
@@ -474,6 +465,13 @@ function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
 			llenarTarjeta(1);
+			var idtipo = $("#vidtipocliente").val();
+			$("[tipoclie = "+idtipo+"]").prop('checked', true);
+			$("[tipoclie = "+idtipo+"]").click();
+		setTimeout(function(){
+			$(".close_phone").removeClass('close');
+			$(".close_mail").removeClass('close');
+		},1000);
 		break;
 	}
 }
@@ -483,7 +481,7 @@ function crreo_addon_ckub(vfila,vcorreo){
 
 	if (vcorreo.match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
 		if (vfila == undefined) {
-			$("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close close_mail mdi mdi-close"></i></div>');
+			$("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close_mail mdi mdi-close"></i></div>');
 			$("#cgl"+cont).data('triforce',{vaccion:1,vidcorreo:0,vcorreo:$("#correo_in").val()});
 			
 			$("#correo_in").val('');
@@ -514,6 +512,8 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 	if (vtelefono && vtipo) {
 		if (vfila == undefined) {
 			$("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right"></i></div>');
+			$("#td_"+cont).removeClass('close');
+			$("#td_"+cont).attr('atri', 'ab');
 			$("#tgl"+cont).data('triforce',{vaccion:1,vidtelefono:0,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:52});
 
 			$("#telefono_in").val('');
@@ -522,7 +522,6 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 			$(".chpph").remove();
 			$("#inftelefono4").append('<div id="itchpt0_'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
 		}else{
-
 			$("#itchp"+vfila).html('<img src="../../assets/img/icon/'+tipotel+'.png">'+vphone);
 			$("#"+vfila).html(vphone);
 			$("#ftp"+vfila).attr('src','img src="../../assets/img/icon/'+tipotel+'.png"');
@@ -566,7 +565,7 @@ function llenarTarjeta(vis){
 				$("#inftelefono4").html('');
 
 			t_valor = $(this).data('triforce')['vtelefono'];
-			var tnum = $(this).data('triforce')['vtipotel'];
+			var tnum = $(this).data('triforce')['vidtipotel'];
 			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
 
 			$("#inftelefono4").append('<div id="itchptt_'+$(this).data('triforce')['vidtelefono']+'" class="chpphone chip"><img src="../../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
@@ -602,7 +601,7 @@ function llenarTarjeta(vis){
 				$("#inftelefono4").html('');
 
 			t_valor = $(this).data('triforce')['vtelefono'];
-			var tnum = $(this).data('triforce')['vtipotel'];
+			var tnum = $(this).data('triforce')['vidtipotel'];
 			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
 
 			$("#inftelefono4").append('<div id="itchptt_'+$(this).data('triforce')['vidtelefono']+'" class="chpphone chip"><img src="../../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');

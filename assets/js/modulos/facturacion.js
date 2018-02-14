@@ -118,9 +118,9 @@ function cargarOCompras(){
                 var mdcs = 0;
                 var desc = $("#descp").val();
                 var hinv = 0;
-                var unidad= $("#valores").data('elemento')['hunidad'];
-                var comodin= $("#valores").data('elemento')['hcomodin'];
-                var desgloce= $("#valores").data('elemento')['isdesgloce'];
+                var unidad = $("#uni").val();//$("#valores").data('elemento')['hunidad'];
+                var comodin = $("#valores").data('elemento')['hcomodin'];
+                var desgloce = $("#valores").data('elemento')['isdesgloce'];
 
                 addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce);
             }else{
@@ -209,7 +209,7 @@ function cargarCompras(){
                 var desc = $("#descp").val();
                 var hinv = $("#valores").data('elemento')['hinv'];
                 var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
-                var unidad= $("#valores").data('elemento')['hunidad'];
+                var unidad= $("#uni").val();//$("#valores").data('elemento')['hunidad'];
                 var comodin= $("#valores").data('elemento')['hcomodin'];
                 var desgloce= $("#valores").data('elemento')['isdesgloce'];
                 
@@ -275,7 +275,7 @@ function cargarVentas(){
                     var mdcs = $("#valores").data('elemento')['hdescm'];
                     var desc = $("#descp").val();
                     var hinv = $("#valores").data('elemento')['hinv'];
-                    var unidad= $("#valores").data('elemento')['hunidad'];
+                    var unidad= $("#uni").val();//$("#valores").data('elemento')['hunidad'];
                     var comodin= $("#valores").data('elemento')['hcomodin'];
                     var desgloce= $("#valores").data('elemento')['isdesgloce'];
 

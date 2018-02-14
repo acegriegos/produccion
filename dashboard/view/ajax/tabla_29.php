@@ -4,7 +4,7 @@
     <tr id="f<?php echo $obj[0] ?>">
         <td  style=" padding: 10px;color:black"><?php echo $obj[1] ?></td>
         <td  style=" padding: 10px;color:black"><?php echo $obj[2] ?></td>
-        <td  style=" padding: 10px;color:black"><?php echo $obj[18] ?></td>
+        <!-- <td  style=" padding: 10px;color:black"><?php echo $obj[18] ?></td> -->
         <td  style=" padding: 10px;color:black"><?php echo $obj[4] ?></td>
         <td  style=" padding: 10px;color:black"><?php echo $obj[5] ?></td>
         <td  style=" padding: 10px;color:black"><?php echo $obj[6] ?></td>
