@@ -8,7 +8,6 @@
   <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
 </div>
   <input type="hidden" class="zelda">
-  <input type="hidden" id="vidusuario" value="">
 
   <div class="row pequeño">
     <div class="col s12 m3 l3 concre" align="center">
@@ -51,7 +50,7 @@
 
     <div class="input-field con col s12 m3 l3 tp_all" >
     <i class="mdi mdi-coin mdi-24px prefix"></i>
-      <select id="vidtipopago" type="select">
+      <select id="idtipopago" type="select">
         {section name=LE loop=$TPAGO}
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
         {/section}
@@ -376,7 +375,7 @@
           </div>
 
           <div class="col s12 m6 l6 _odt">
-            <select id="vidodt" type="select">
+            <select id="idodt" type="select">
               <option value="0" style="color: black"><b>ODT</b></option>
             </select>
           </div>

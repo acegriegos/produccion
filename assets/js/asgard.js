@@ -1115,7 +1115,7 @@ function paginate(vtbl,len) {
     countpag = len;
     
     if (countpag >= 9) {
-        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,20"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,30"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,40"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,50"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,60"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,70"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,80"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,90"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
+        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
         $(".pagination").attr('ultimo', 9);
     } else if (parseInt(countpag) == 0 || parseInt(countpag) < 1) {
         return false;
@@ -1126,7 +1126,7 @@ function paginate(vtbl,len) {
             if (i == 1)
                 $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0,10"><a href="#!">' + i + '</a></li>');
             else
-                $(".pagination").append('<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
+                $(".pagination").append('<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>');
             
             $(".pagination").attr('ultimo', i);
         }
@@ -1145,7 +1145,9 @@ $(document).on("click", ".paginate", function () {
     $(this).addClass('active');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
-    arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    $("#lista"+modulo).html('');
+    arr('login',6,'',vtbl,'0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    console.log('0,0,"'+filtro+'","'+limit+'"')
 
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
