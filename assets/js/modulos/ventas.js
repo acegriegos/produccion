@@ -5,6 +5,10 @@ $(document).keydown(function(e){
    }
 });
 
+$(document).on("change","#idtipopago",function(){
+    $(".zelda").data('triforce')['vidtipopago'] = $(this).val();
+});
+
 $(function(){
     $('select').material_select();
 
@@ -53,7 +57,7 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'',vextrapagos : 0, vdivisa : 0, idline:0,  saldo : 0, notific : 0});
+    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'',vextrapagos : 0, vdivisa : 0,vidusuario:0,vidtipopago:0, idline:0,  saldo : 0, notific : 0});
 
     $(".modal").modal();
 
@@ -156,10 +160,10 @@ $(document).on("blur","[id^=vcantidad]",function(){
 
 $(document).on("click","#facturar",function(){
 
-    if ( $(".zelda").data('triforce')['vidtipo'] == 1 && $("#vidtipopago").is(":visible") ) {
+    if ( $(".zelda").data('triforce')['vidtipo'] == 1 && $("#idtipopago").is(":visible") ) {
 
     $("#modal-tpagos").modal('open');
-    var tpago = $("#vidtipopago option:selected").val();
+    var tpago = $("#idtipopago option:selected").val();
     var tfact = $(".zelda").data('triforce')['vidtipo'];
     var p = getDatos('',231,tpago+','+tfact,0,0)[0];
     $(this).attr('regex',p[0][2]);
@@ -596,8 +600,8 @@ function validarFactura() {
 
 
     if($(".zelda").data('triforce')['vidtipo'] == 2){
-        $("#vidtipopago").val(0)
-        $("#vidtipopago").material_select('update');
+        $("#idtipopago").val(0)
+        $("#idtipopago").material_select('update');
 
         // var p = arr('login',4,'',205,$(".zelda").data('triforce')['vidcliente'],0,0,0);
         // if(p['succed'] == 0){

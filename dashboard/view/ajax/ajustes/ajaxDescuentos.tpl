@@ -25,7 +25,7 @@
                 <tr>
                     <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Nombre</th>
                     <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Estado</th>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Realizado(Veces)</th>
+                    <!-- <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Realizado(Veces)</th> -->
                     <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Usuario</th>
                     <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Acciones</th>
                 </tr>

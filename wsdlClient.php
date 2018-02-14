@@ -1,7 +1,7 @@
 <?php 
     require_once '_config/mysqlDB.php';
     if (isset($_REQUEST['accion'])) {
-        $id = !isset($_REQUEST['id']) ? 42 : $_REQUEST['id'];
+        $id = $_REQUEST['id'];
         $accion = $_REQUEST['accion'];
 
         $fe = new facturaElectronica($id);
@@ -20,7 +20,7 @@
                 //BEARER
                 echo "<pre>";
                     print_r($fe->getBearer());
-                echo "<?pre>";
+                echo "</pre>";
                 break;
             case 4:
                 //Consulta ESTADO;
@@ -65,8 +65,8 @@
               "client_id" => "api-stag",
               "client_secret" => "",
               "scope" => "",
-              "username" => "cpj-3-101-697761@stag.comprobanteselectronicos.go.cr",
-              "password" => ')b](-&P>C?vC6>c*XeU$',
+              "username" => "cpf-02-0665-0577@stag.comprobanteselectronicos.go.cr",
+              "password" => ']|$b%%pN@@yvaNV%S]W_',
               "grant_type" => "password");
 
             $postData = "";
@@ -146,7 +146,7 @@
             curl_setopt($curl,CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
-
+   
             $params = json_encode(array('clave'                 =>  $this->info['clave'],
                                         'fecha'                 =>  $this->info['FechaEmision'],
                                         'emisor'                =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Emisor']['Identificacion']['Numero']],
@@ -166,7 +166,11 @@
                     $json_response = json_encode(['rs'=>'Factura Electronica Recibida']);
                     break;
                 case 400:
-                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id]);
+                    /*AGARRAR ERROR*/
+                    print_r($rs);
+                    $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
+                    $rs = substr($rs, 0, strpos($rs,'X-')-3);
+                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs]);
                     break;
                 default:
                     break;
@@ -233,7 +237,7 @@
             $data['InformacionReferencia'] = ['TipoDoc' => '', 'Numero' => '', 'FechaEmision' => '', 'Codigo' => '', 'Razon' => '' ];
             $data['Normativa'] = ['NumeroResolucion' => 'Resolución DGT-R-13-2017', 'FechaResolucion' => '20-02-2017 08:05:00'];
             $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
-            $data['Signature'] = '';
+            $data['Signature'] = str_replace(' ', '', '14 00 02 FB AC CE B5 18 30 25 51 90 69 00 00 00 02 FB AC');
             
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
             <xs:schema xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
