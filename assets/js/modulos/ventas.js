@@ -66,6 +66,7 @@ $(function(){
     });
 
     cargarMoneda(0);
+    $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
 
 })//READY
 

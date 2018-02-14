@@ -1,6 +1,6 @@
 var param = '';
 
-$(document).ready(function(){
+$(function(){
   param = getParameterByName('tf');
   param = param == '' ? 1 : parseInt(param) ;
 
@@ -30,6 +30,7 @@ $(document).ready(function(){
      $("#precp").val(0.00);
      $("#descup").val(0);
      $("#cantI").text(0);
+
  });
 
     var asoc = getParameterByName('arr');
@@ -341,7 +342,7 @@ function cargarGlobal(){
             $("#vplazo").val(0);
             $(this).attr('val',1)
             $(".zelda").data('triforce')['vidtipo'] = 1;
-            $(".zelda").data('triforce')['vidtipo'] = $("#idtipopago").val();
+            $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
         }else{
             $(".con").hide();
             $(".cre").show();
