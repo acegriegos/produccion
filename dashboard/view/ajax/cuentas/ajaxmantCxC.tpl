@@ -34,7 +34,7 @@
         </div>
         <div class="card-block pequeño">
             <div class="row  pequeño">
-                <div class="col s12">      
+                <div class="col s12 hide">      
                     <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Multiple</a>
                 </div>
                 <div class="col s12 pequeño">

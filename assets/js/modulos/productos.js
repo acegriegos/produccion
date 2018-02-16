@@ -22,6 +22,7 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
+				paginate($("ul.pagination").attr('vtbl'));
 				break;
 			case 2:
 				$("#mantProd").remove();

@@ -381,7 +381,7 @@
           </div>
 
           <div class="col s12 m12 l12" align="center">
-            <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar"  {/if} class="btn btn-primary-outline alv"  style="margin-bottom: 3%;">Facturar</a>
+            <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn-primary-outline alv modal-trigger"  style="margin-bottom: 3%;">Facturar</a>
           </div>
 
           </div>

@@ -20,6 +20,9 @@
 	   	$smarty->display('v_main.tpl');
 	   }else{
 	   $pagina = 0;
+	   require '../_config/mySmarty.php';
+		$smarty  = new mySmarty();
+		$smarty->setModule('dashboard');
 	   	switch ($_POST['accion']) {
 	   		case 1:
 	   			$pagina = 1;
@@ -57,10 +60,15 @@
 
 	   			break;
 	   		case 4:
-	   			
+	   			// ingresar general
+	   			$pagina = 1;
+	   			$prov = $kakaroto->kamehameha('id,nombre',8,'id > 0');
+				$smarty->display('ajax/addGeneral/modalGeneral'.$_POST['arreglo'].'.php');
 	   			break;
 	   		case 5:
-	   			
+	   			// reconstruir modal
+	   			$pagina = 1;
+	   			$smarty->display('ajax/addGeneral/modalClientes.php');
 	   			break;
 	   	}
 		if(!$pagina){

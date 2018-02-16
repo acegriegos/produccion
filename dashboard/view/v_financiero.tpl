@@ -24,7 +24,7 @@
                   <div class="card-panel pequeño ">
 
                     <div class="row">
-                     <div class="col s12 m6 l6 per3000 ">
+                     <div class="col s12 m6 l6 per3000 hide">
                       <a href="contabilidad" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Contabilidad
                       ">Contabilidad</a>
                     </div>

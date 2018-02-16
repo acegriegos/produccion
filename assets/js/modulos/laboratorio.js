@@ -23,6 +23,22 @@ $(function(){
 
 });
 
+$(document).on("keyup","cedula",function(){
+    $(".zelda").data('triforce')['vcedula'] = $(this).val();
+});
+
+$(document).on("keyup","nombre",function(){
+    $(".zelda").data('triforce')['vnombre'] = $(this).val();
+});
+
+$(document).on("keyup","apellido1",function(){
+    $(".zelda").data('triforce')['vapellido1'] = $(this).val();
+});
+
+$(document).on("keyup","apellido2",function(){
+    $(".zelda").data('triforce')['vapellido2'] = $(this).val();
+});
+
 $(document).on('click','#addFin',function(){
 
 	if ($(".zelda").data('triforce')['vidcliente'] != 0) {
@@ -51,29 +67,29 @@ $(document).on('click','.addVariedad',function(){
 
 });
 
-$(document).on('click','.addClie',function(){
-	$(".titadd").html("Agregar Cliente");
-	$(".cli").show();
-	$(".prod").hide();
-	$(".serv").hide();
-	$("#ingresar").attr('codigo',"1");
-	$("#pais").val('Costa Rica');
-	$("#pais").blur();
+// $(document).on('click','.addClie',function(){
+// 	$(".titadd").html("Agregar Cliente");
+// 	$(".cli").show();
+// 	$(".prod").hide();
+// 	$(".serv").hide();
+// 	$("#ingresar").attr('codigo',"1");
+// 	$("#pais").val('Costa Rica');
+// 	$("#pais").blur();
 
-	var tmpname = $("#flaboratorio-explantes #ncli").val();
+// 	var tmpname = $("#flaboratorio-explantes #ncli").val();
 
-	$("#addClie #vnombre").val(tmpname.substring(0,tmpname.indexOf(' ')));
-	tmpname = tmpname.substring(tmpname.indexOf(' ')+1);
+// 	$("#addClie #vnombre").val(tmpname.substring(0,tmpname.indexOf(' ')));
+// 	tmpname = tmpname.substring(tmpname.indexOf(' ')+1);
 	
-	$("#addClie #vapellido1").val(tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname);
-	tmpname = tmpname.indexOf(' ') > 0 ? tmpname.substring(tmpname.indexOf(' ')+1) : '';
+// 	$("#addClie #vapellido1").val(tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname);
+// 	tmpname = tmpname.indexOf(' ') > 0 ? tmpname.substring(tmpname.indexOf(' ')+1) : '';
 
-	$("#addClie #vapellido2").val(tmpname);
-	Materialize.updateTextFields();
-	$("#addClie").modal('open');
-	$("#vcedula").focus();
+// 	$("#addClie #vapellido2").val(tmpname);
+// 	Materialize.updateTextFields();
+// 	$("#addClie").modal('open');
+// 	$("#vcedula").focus();
 
-});
+// });
 
 function loadAjustes(){
 
@@ -315,35 +331,22 @@ function cargarExplantes(){
     		cargarVaridad();
     });
 
-    $("#ncli").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
+    // $("#ncli").keydown(function(e){
+    //     var charCode = e.which || e.keyCode;
+    //     var charStr = String.fromCharCode(charCode);
         
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
+    //     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    //         $(".autocomplete-content").remove();
 
-            $("#ncli").autocomplete({
-                limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
-            });
+    //         $("#ncli").autocomplete({
+    //             limit: 20,
+    //             data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+    //         });
 
-            $(".autocomplete-content").css('width','30%');
+    //         $(".autocomplete-content").css('width','30%');
 
-        }
-    });
-
-    $("#ncli").keyup(function(e){
-    	var code = e.which || e.keyCode;
-    	if (code == 13)
-    		$(this).blur();
-    });
-
-    $("#ncli").blur(function(){
-    	if($(this).val().length <= 3)
-    		$(this).val('');
-    	else
-    		cargarCliente();
-    });
+    //     }
+    // });
 
     $("#finca").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -442,59 +445,62 @@ function cargarExplantes(){
     	cargarDistritos($('option:selected',this).val());
     });
 
-    $("#ingresar").click(function(){
-    	var validacion = validarCliente();
-    	if(validacion)
-    		Materialize.toast(validacion,4000,'red');
-    	else{
+    // $("#ingresar").click(function(){
+    // 	var validacion = validarCliente();
+    // 	if(validacion)
+    // 		Materialize.toast(validacion,4000,'red');
+    // 	else{
 
-    		switch(parseInt($(this).attr('codigo'))){
-    			case 1:
-    				var _idcliente = arr('login',7,1,2,'','null,"'+$("#addClie #vapellido1").val()+'","'+$("#addClie #vapellido2").val()+'","'+$("#addClie #vnombre").val()+'","'+$("#addClie #vcedula").val()+'",'+$('[name="tipoclie"]:checked').attr('tipoclie')+',1,0,'+$("#addClie #vcategoria option:selected").val()+',0,0,1,1,"",now(),@@usr,0,""',0,0)[0][0][0];
+    // 		switch(parseInt($(this).attr('codigo'))){
+    // 			case 1:
+    // 				var _idcliente = arr('login',7,1,2,'','null,"'+$("#addClie #vapellido1").val()+'","'+$("#addClie #vapellido2").val()+'","'+$("#addClie #vnombre").val()+'","'+$("#addClie #vcedula").val()+'",'+$('[name="tipoclie"]:checked').attr('tipoclie')+',1,0,'+$("#addClie #vcategoria option:selected").val()+',0,0,1,1,"",now(),@@usr,0,""',0,0)[0][0][0];
     		
-		    		arr('login',7,1,239,'','null,'+$("#addClie #vdistrito option:selected").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+_idcliente,0,0);
+		  //   		arr('login',7,1,239,'','null,'+$("#addClie #vdistrito option:selected").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+_idcliente,0,0);
 
-		    		arr('login',7,1,238,'','null,2,"'+$("#addClie #vtelefono").val()+'",2,'+_idcliente,0,0);
+		  //   		arr('login',7,1,238,'','null,2,"'+$("#addClie #vtelefono").val()+'",2,'+_idcliente,0,0);
 
-		    		arr('login',7,1,17,'','null,'+_idcliente+',2,"'+$("#addClie #vcorreo").val()+'"',0,0);
+		  //   		arr('login',7,1,17,'','null,'+_idcliente+',2,"'+$("#addClie #vcorreo").val()+'"',0,0);
 
-		    		Materialize.toast('Cliente Agregado Correctamente',4000,'green');
-		    		var ncompleto = trim($("#addClie #vnombre").val()+" "+$("#addClie #vapellido1").val()+" "+$("#addClie #vapellido2").val());
-		    		$("#flaboratorio-explantes #ncli").val(ncompleto+" *"+$("#addClie #vcedula").val()+"*");
-		    		$("#flaboratorio-explantes #ncli").blur();
-		    		break;
-		    	case 2:
-		    		var id = $(".zelda").data('triforce')['vidcliente'];
+		  //   		Materialize.toast('Cliente Agregado Correctamente',4000,'green');
+		  //   		var ncompleto = ($("#addClie #vnombre").val()+" "+$("#addClie #vapellido1").val()+" "+$("#addClie #vapellido2").val()).trim();
+		  //   		$("#flaboratorio-explantes #ncli").val(ncompleto+" *"+$("#addClie #vcedula").val()+"*");
+		  //   		$("#flaboratorio-explantes #ncli").blur();
+    //                 endDetail(0,1,'cliente');
+		  //   		break;
+		  //   	case 2:
+		  //   		var id = $(".zelda").data('triforce')['vidcliente'];
+    //                 // console.log(id)
+		  //   		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vdistrito").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
 
-		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vdistrito option:selected").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0][0];
+		  //   		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0];
 
-		    		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0][0];
+		  //   		var _idFinca = getDatos('',901,'1,0,"'+$("#finca").val()+'",'+_idregion,0,0);
 
-		    		var _idFinca = getDatos('',901,'1,0,"'+$("#finca").val()+'",'+_idregion,0,0)[0][0][0];
+		  //   		Materialize.toast('Finca Agregada Correctamente',4000,'green');
 
-		    		Materialize.toast('Finca Agregada Correctamente',4000,'green');
+		  //   		cargarTblFincas();
+    //                 endDetail(0,1,'finca');
+		  //   		break;
+		  //   	case 3:
 
-		    		cargarTblFincas();
-		    		break;
-		    	case 3:
+		  //   		var _servicio = arr('login',7,1,16,'','null,"'+$("#addClie #vcodigo_serv").val()+'","'+$("#addClie #vnombre_serv").val()+'","'+$("#addClie #vdescripcion_serv").val()+'",0,0,0,0,0,0,now(),@@usr,1,1,-1',0,0)[0][0][0];
+		  //   		$(".zelda").data('triforce')['vidservicio'] = _servicio;
 
-		    		var _servicio = arr('login',7,1,16,'','null,"'+$("#addClie #vcodigo_serv").val()+'","'+$("#addClie #vnombre_serv").val()+'","'+$("#addClie #vdescripcion_serv").val()+'",0,0,0,0,0,0,now(),@@usr,1,1,-1',0,0)[0][0][0];
-		    		$(".zelda").data('triforce')['vidservicio'] = _servicio;
+		  //   		var _inventario = invvar[0][0].indexOf(",") >= 0 ? invvar[0][0].substring(0,invvar[0][0].indexOf(',')) : invvar[0][0];
 
-		    		var _inventario = invvar[0][0].indexOf(",") >= 0 ? invvar[0][0].substring(0,invvar[0][0].indexOf(',')) : invvar[0][0];
-
-		    		arr('login',7,1,97,'','null,'+_inventario+','+parseInt(_servicio)*-1+',0',0,0);
+		  //   		arr('login',7,1,97,'','null,'+_inventario+','+parseInt(_servicio)*-1+',0',0,0);
 		    		
-		    		Materialize.toast('Variedad Agregada Correctamente',4000,'green');
-		    		break;
-		    	default: 
-		    		break;
-    		}
+		  //   		Materialize.toast('Variedad Agregada Correctamente',4000,'green');
+    //                 endDetail(0,1,'servicio');
+		  //   		break;
+		  //   	default: 
+		  //   		break;
+    // 		}
 
-    		$("#addClie").modal('close');
+    // 		$("#addClie").modal('close');
     		
-    	}
-    });
+    // 	}
+    // });
 
     $(document).on("click","[id^=r]",function(){
     	var id = $(this).attr('id').substr(1)
@@ -614,40 +620,39 @@ function cargarVaridad(){
 }
 
 
-function cargarCliente(){
-	var clie = arr('login',4,'',63,'\"'+$("#ncli").val()+'\",0','',0,'');
+// function cargarCliente(){
+// 	var clie = arr('login',4,'',63,'\"'+$("#ncli").val()+'\",0','',0,'');
 
-    if (clie[0][0][0] != 0) {
-        var vclie = clie[0][0];
+//     if (clie[0][0][0] != 0) {
+//         var vclie = clie[0][0];
         
-        $(".zelda").data('triforce')['vidcliente'] = vclie[0];
+//         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
 
-        $("#ncli").val(vclie[1]+' '+vclie[2]);
-        cargarTblFincas();
-    }else{
-    	$(".zelda").data('triforce')['vidcliente'] = 0;
-    	$(".zelda").data('triforce')['vidfinca'] = 0;
-	 	var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text addClie">Agregarlo</button>'));
-		Materialize.toast($toastContent, 10000);
-    }
-}
+//         $("#ncli").val(vclie[1]+' '+vclie[2]);
+//         cargarTblFincas();
+//     }else{
+//     	$(".zelda").data('triforce')['vidcliente'] = 0;
+//     	$(".zelda").data('triforce')['vidfinca'] = 0;
+// 	 	var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text addClie">Agregarlo</button>'));
+// 		Materialize.toast($toastContent, 10000);
+//     }
+// }
 
 function cargarTblFincas(){
 	var fincas = getDatos('',902,$(".zelda").data('triforce')['vidcliente'],0,0);
-
 	$("#fincas").html('');
-
 	var lista = '<tr><td colspan="3" class="center">No Hay Datos Registrados</td></tr>';
-
+    var checked = '';
 	if(fincas['succed']){
 		lista = '';
 		for (var i = 0; i < fincas[0].length; i++) {
-			lista += '<tr id="r'+fincas[0][i][3]+'"><td><input type="radio" name="selfinca" id="s'+fincas[0][i][3]+'" class="der with-gap"/>  <label for="s'+fincas[0][i][3]+'"></label></td><td>'+fincas[0][i][0]+'</td><td>'+fincas[0][i][1]+'</td><td>'+fincas[0][i][2]+' </td></tr>';
+            if (fincas[0].length == 1) {
+                checked = 'checked';
+            }
+			lista += '<tr id="r'+fincas[0][i][3]+'"><td><input type="radio" name="selfinca" id="s'+fincas[0][i][3]+'" class="der with-gap" '+checked+'/>  <label for="s'+fincas[0][i][3]+'"></label></td><td>'+fincas[0][i][0]+'</td><td>'+fincas[0][i][1]+'</td><td>'+fincas[0][i][2]+' </td></tr>';
 		}
 	}
-	
 	$("#fincas").append(lista);
-	
 }
 
 function validar (varreglo,vmodulo) {
@@ -780,13 +785,62 @@ function endDetail(vid,vacc,modulo){
                     default:
                         break;
                 }
-
+                break;
+            case 'cliente':
+                clearform('cliente');
+                break;
+            case 'finca':
+                clearform('finca');
+                break;
+            case 'servicio':
+                clearform('servicio');
                 break;
             default:
                 break;
     	}
     }
     return false;
+}
+
+function clearform(vform) {
+    switch (vform) {
+        case 'cliente':
+            $("#ncli").val($("#addClie #vnombre").val()+' '+$("#addClie #vapellido1").val()+' '+$("#addClie #vapellido2").val())
+            $("[tipoclie=1]").prop('checked', true);
+            $("[tipoclie=1]").click();
+            $("#addClie #vcedula").val('');
+            $("#addClie #vnombre").val('');
+            $("#addClie #vapellido1").val('');
+            $("#addClie #vapellido2").val('');
+            $("#addClie #pais").val('');
+            $("#addClie #provincia").val(0);
+            $("#addClie #canton").val(0);
+            $("#addClie #vdistrito").val(0);
+            $("#addClie #vcategoria").val(0);
+            $("#addClie #vcorreo").val('');
+            $("#addClie #vtelefono").val('');
+            $("#addClie #vdireccion").val('');
+            break;
+        case 'finca':
+            $("#addClie #pais").val('');
+            $("#addClie #provincia").val(0);
+            $("#addClie #canton").val(0);
+            $("#addClie #vdistrito").val(0);
+            $("#addClie #vregion").val('');
+            $("#addClie #finca").val('');
+            $("#addClie #vdireccion").val('');
+            $("#addClie #vlatitud").val(0);
+            $("#addClie #vlongitud").val(0);
+            break;
+        case 'servicio':
+            $("#vvariedad").val($("#addClie #vnombre_serv").val())
+            $("#vnombre_serv").val('');
+            $("#vcodigo_serv").val('');
+            $("#vdescripcion_serv").val('');
+            break;
+        $("select").material_select();
+        Materialize.updateTextFields();
+    }
 }
 
 function cargar(vmodulo,vid) {

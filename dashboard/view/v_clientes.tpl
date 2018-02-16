@@ -25,7 +25,7 @@
                 <li><a class="optns" tipo="nombre,vcedula" href="#!" fltr="1">Nombre o Cédula</a></li>
                 <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
               </ul>
-              <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre,vcedula">
+              <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre,vcedula" addG="1">
               <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
             </div>
             <div class="col s2 m6 per1001">

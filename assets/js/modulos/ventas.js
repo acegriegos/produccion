@@ -183,12 +183,14 @@ $(document).on("click","#facturar",function(){
         break;
 
         case 4:
+            alert('efectivo');
             $(".modal-tpago").addClass('hide');
             $("#m-efectivo").removeClass('hide');
             retrasarFocus('pcon');
         break;
 
         case 2:
+            alert('tarjeta');
             $(".modal-tpago").addClass('hide');
             $("#m-tarjeta").removeClass('hide');
             $("#labeltarjeta").text(p[0][1]);
@@ -197,6 +199,7 @@ $(document).on("click","#facturar",function(){
         break;
 
         case 1:
+            alert('deposito');
            $(".modal-tpago").addClass('hide');
             $("#m-deposito").removeClass('hide');
             $("#labeldeposito").text(p[0][1]);
@@ -205,6 +208,7 @@ $(document).on("click","#facturar",function(){
         break;
 
         case 0:
+            alert('cheque');
            $(".modal-tpago").addClass('hide');
             $("#m-cheque").removeClass('hide');
             $("#labelcheque").text(p[0][1]);

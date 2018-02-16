@@ -7,21 +7,20 @@ $(function(){
     $('select').material_select();
 
     cargarMoneda(0);
-    
 });
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
         case 113: //ABRIR MENU
-        $(".menu-btn").click();
-        $("#numtrans").focus();
-        break;
+            $(".menu-btn").click();
+            $("#numtrans").focus();
+            break;
         case 107: //CLICK EN AGREGAR
-        $(".pluskey").click();
-        break;
+            $(".pluskey").click();
+            break;
         default:
-        break;
+            break;
     }
 });
 
@@ -101,6 +100,54 @@ $(document).on('keydown','.pais',function(e){
     }
 });
 
+$(document).on('keydown','[addG=1]',function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+
+        $("[addG=1]").autocomplete({
+            limit: 20,
+            data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+        });
+
+        $(".autocomplete-content").css('width','30%');
+
+    }
+});
+$(document).on('blur','[addG=1]',function(e){
+    var clie = getDatos('',63,'\"'+$("#ncli").val()+'\",0',0,0,0);
+    if (clie[0][0][0] != 0) {
+        var vclie = clie[0][0];
+        $(".zelda").data('triforce')['vidcliente'] = vclie[0];
+        $("#ncli").val(vclie[1]+' '+vclie[2]);
+    }else{
+        $(".zelda").data('triforce')['vidcliente'] = 0;
+        var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));
+        Materialize.toast($toastContent, 10000);
+    }
+});
+
+$(document).on('click','.clientNotFound',function(){
+    if ($(this).attr('tp') == 1) {
+        $(".titadd").html("Agregar Cliente");
+    }
+    $("#pais").val('Costa Rica');
+    $("#pais").blur();
+    var tmpname = $("#ncli").val();
+    $("#modal-generalCliente #vnombre").val(tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname);
+    tmpname = tmpname.substring(tmpname.indexOf(' ')+1);
+    $("#modal-generalCliente #vapellido1").val(tmpname.substring(0,tmpname.indexOf(' ')));
+    tmpname = tmpname.indexOf(' ') > 0 ? tmpname.substring(tmpname.indexOf(' ')+1) : '';
+    $("#modal-generalCliente #vapellido2").val(tmpname);
+    Materialize.updateTextFields();
+    $("#modal-generalCliente").modal();
+    $("#modal-generalCliente").modal('open');
+    $("#vcedula").focus();
+
+});
+
 $(document).on("blur",".pais",function(){
     var nombre = $(this).val();
     var idpais = arr('login',4,'id',209,'nombre = "'+nombre+'"',0,0,0)[0][0];
@@ -135,6 +182,7 @@ $(document).on("click",".load",function(){
 $(document).on("click",".add",function(){
     var modulo = $(this).attr('modulo');
     var varias = $(this).attr('varias');
+    var general = $(this).attr('general');
     doGlobal(1,modulo,'',varias);
 });
 
@@ -257,7 +305,6 @@ function loadpool(vmodulo,vid,vvarias){
             else{
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('destroy');
                 $.each(columns[0][0][0][i].split(","), function(j,e){
-                    console.log(e)
                     $("#"+vform+" #"+columns[0][1][i]['name']+" option[value='" + e + "']").attr("selected", true);
                 });
 
@@ -1145,7 +1192,6 @@ $(document).on("click", ".paginate", function () {
     tabla.destroy();
     $("#lista"+modulo).html('');
     arr('login',6,'',vtbl,'0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-    console.log('0,0,"'+filtro+'","'+limit+'"')
 
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
@@ -1178,7 +1224,7 @@ $(document).on("click", ".nxt", function () {
             for (var i = pags; i <= next; i++) {
                 i = parseInt(i);
 
-                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
+                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>');
                 if (i == next)
                     $(".pagination").attr('ultimo', i);
             }
@@ -1189,8 +1235,7 @@ $(document).on("click", ".nxt", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             tabla.destroy();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit+'"', cambio, 1, $("#lista"+modulo));
-            // arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,
@@ -1238,13 +1283,13 @@ $(document).on("click", ".prv", function () {
                 if (prv != 0) {
                     for (var i = prv; i <= prev; i++) {
                         i = parseInt(i);
-                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
+                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>');
                         if (i == prev)
                             $(".pagination").attr('ultimo', i);
                     }
                     $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
                 } else {
-                    $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
+                    $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
                     $(".pagination").attr('ultimo', 9);
                 }
                 $(".paginate").removeClass('active');
@@ -1332,6 +1377,60 @@ function now() {
     date = date.getFullYear()+"-"+addZero(date.getMonth()+1,2)+"-"+addZero(date.getDate(),2);
     return date;
 }
+
+//addgeneral
+$(document).on("keyup","[addG]",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        var op = parseInt($(this).attr('addG'));
+        addGeneral(op)
+    }
+});
+$(document).on("blur","[addG]",function(){
+    var op = parseInt($(this).attr('addG'));
+    addGeneral(op);
+});
+function addGeneral(op) {
+    switch (op) {
+        case 1: //clientes
+            if ($("#fclientes").length > 0) {
+                $("#modal-clientes").html('');
+                ingGeneral(1);
+            }else{
+                reconstruirModal(1);
+            }
+            break;
+        case 2: //productos
+            if ($("#fproductos").length > 0) {
+                $("#modal-productos").html('');
+                ingGeneral(2);
+            }else{
+                reconstruirModal(2);
+            }
+            break;
+        case 3: //fincas
+            if ($("#ffincas").length > 0) {
+                $("#modal-fincas").html('');
+                ingGeneral(3);
+            }else{
+                reconstruirModal(3);
+            }
+            break;
+    }
+}
+function ingGeneral(tp) {
+
+}
+
+function reconstruirModal(tp) {
+        var p = mantenimiento('main',4,tp);
+        $("#modalMainGeneral").html(p);
+        Materialize.updateTextFields();
+        $("select").material_select();
+        $(".zelda").removeData();
+        $(".zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 1,_sid : '@@var'});
+}
+//addgeneral
 
 // autocomplete
 // function autocomplete(charCode,charStr,nom,tabla) {

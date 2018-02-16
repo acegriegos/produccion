@@ -38,7 +38,6 @@ $(function(){
             default:
                 break
         }
-        
     });
 
     $("#numtrans").keyup(function(e){ //accesos
@@ -49,8 +48,7 @@ $(function(){
             window.open(ruta,'_self');
         }
     });
-    
-    
+
     permisos(1,50);
     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
 
