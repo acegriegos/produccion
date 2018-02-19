@@ -1,4 +1,3 @@
-<?php trim('asd asd asd asd ');?>
 <div class="modal modal-fixed-footer grandemodal" id="modal-generalCliente" style="height: 80%; width: 75%">
   <div class="modal-header">
     <ul class="tabs tabs-fixed-width blue">
@@ -58,23 +57,22 @@
       </div>
       
       <div class="col s6 m3 input-field">
-        <select id="provincia">
+        <select id="provincia" tipo="1" vtbl="9">
           <option value="0">Seleccione una Opción</option>
-          <?php foreach ($transaccion as $obj) { ?>
-            <option value="<?php $obj[0];?>"><?php $obj[1];?></option>
-          <?php } ?>
+          {section name=LE loop=$PROV}
+            <option value="{$PROV[LE][0]}">{$PROV[LE][1]}</option>
+          {/section}
         </select>
         <label for="provincia">Provincia</label>
       </div>
-      
       <div class="col s6 m3 input-field">
-        <select id="canton"> <option value="0" disabled>Seleccione una Opción</option></select>
+        <select id="canton" tipo="2" vtbl="10"> <option value="0" disabled>Seleccione una Opción</option></select>
         <label for="canton">Cantón</label>
       </div>
       
       <div class="col s6 m3 input-field">
-        <select id="distrito"><option value="0" disabled>Seleccione una Opción</option></select>
-        <label for="distrito">Distrito</label>
+        <select id="vdistrito" tipo="3"><option value="0" disabled>Seleccione una Opción</option></select>
+        <label for="vdistrito">Distrito</label>
       </div>
     </div>
     <div class="row cli">
@@ -83,14 +81,6 @@
           <option selected value="0" disabled>Seleccione una Opción</option>
         </select>
         <label for="categoria">Categoría</label>
-      </div>
-      <div class="col s6 m4 input-field">
-        <input type="text" id="correo">
-        <label for="correo">Correo</label>
-      </div>
-      <div class="col s6 m4 input-field">
-        <input type="text" id="telefono">
-        <label for="telefono">Teléfono</label>
       </div>
     </div>
     
@@ -112,6 +102,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-    <button type="button" class="waves-effect waves-green btn-flat" id="ingresar" >Guardar</button>
+    <button type="button" class="waves-effect waves-green btn-flat add" modulo="clientes" >Guardar</button>
   </div>
 </div>

@@ -62,7 +62,7 @@
 	   		case 4:
 	   			// ingresar general
 	   			$pagina = 1;
-	   			$prov = $kakaroto->kamehameha('id,nombre',8,'id > 0');
+	   			$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0'));
 				$smarty->display('ajax/addGeneral/modalGeneral'.$_POST['arreglo'].'.php');
 	   			break;
 	   		case 5:

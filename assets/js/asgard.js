@@ -100,6 +100,38 @@ $(document).on('keydown','.pais',function(e){
     }
 });
 
+// direcciones
+
+$(document).on("change","#provincia[tipo=1]",function(){
+    var tipo = parseInt($(this).attr('tipo'));
+    var tbl = $(this).attr('vtbl');
+    llenarDireccion(tipo,tbl,$(this).val());
+});
+
+$(document).on("change","#canton[tipo=2]",function(){
+    var tipo = parseInt($(this).attr('tipo'));
+    var tbl = $(this).attr('vtbl');
+    llenarDireccion(tipo,tbl,$(this).val());
+}); 
+
+function llenarDireccion(tp,tbl,id) {
+    var elem = '';
+    var whr = 'id > 0';
+    if (tp == 1) {
+        elem = 'canton';
+        whr += ' and idprovincia = '+id+' order by nombre';
+    }else{
+        elem = 'vdistrito';
+        whr += ' and idcanton = '+id+' order by nombre';
+    }
+    tp++;
+    $("#"+elem+"[tipo="+tp+"]").prop('disabled',false);
+    arr('login',6,'id,nombre',tbl,whr,15,1,$("#"+elem+"[tipo="+tp+"]"))
+    $("#"+elem+"[tipo="+tp+"]").material_select();
+}
+
+// direcciones
+
 $(document).on('keydown','[addG=1]',function(e){
     var charCode = e.which || e.keyCode;
     var charStr = String.fromCharCode(charCode);
@@ -182,7 +214,6 @@ $(document).on("click",".load",function(){
 $(document).on("click",".add",function(){
     var modulo = $(this).attr('modulo');
     var varias = $(this).attr('varias');
-    var general = $(this).attr('general');
     doGlobal(1,modulo,'',varias);
 });
 

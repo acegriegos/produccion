@@ -23,20 +23,30 @@ $(function(){
 
 });
 
+$(document).on("change","[name=tipoclie]",function(){
+    var tipo = $(this).attr('tipoclie');
+    $("#fclientes .zelda").data('triforce')['vidtipocliente'] = $(this).val();
+});
+
 $(document).on("keyup","cedula",function(){
-    $(".zelda").data('triforce')['vcedula'] = $(this).val();
+    $("#fclientes .zelda").data('triforce')['vcedula'] = $(this).val();
 });
 
 $(document).on("keyup","nombre",function(){
-    $(".zelda").data('triforce')['vnombre'] = $(this).val();
+    $("#fclientes .zelda").data('triforce')['vnombre'] = $(this).val();
 });
 
 $(document).on("keyup","apellido1",function(){
-    $(".zelda").data('triforce')['vapellido1'] = $(this).val();
+    $("#fclientes .zelda").data('triforce')['vapellido1'] = $(this).val();
 });
 
 $(document).on("keyup","apellido2",function(){
-    $(".zelda").data('triforce')['vapellido2'] = $(this).val();
+    $("#fclientes .zelda").data('triforce')['vapellido2'] = $(this).val();
+});
+
+$(document).on("change","#viddistrito",function(){
+    var id = $(this).val();
+    $(".zelda").data('triforce')['vidubicacion'] = id;
 });
 
 $(document).on('click','#addFin',function(){

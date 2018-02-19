@@ -26,7 +26,7 @@
 
                     <div class="row">
                      <div class="col s12 m6 l6 per1000">
-                      <a href="clientes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
+                      <a href="clientes" class="waves-effect waves-light btn-large blue z-depth-3 per1000" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
                     </div>
                     <div class="col s12 m6 l6 per1100">
                       <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>

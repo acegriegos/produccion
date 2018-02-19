@@ -160,72 +160,74 @@ $(document).on("blur","[id^=vcantidad]",function(){
 // });
 
 $(document).on("click","#facturar",function(){
-
-    if ( $(".zelda").data('triforce')['vidtipo'] == 1 && $("#idtipopago").is(":visible") ) {
-
-    $("#modal-tpagos").modal('open');
-    var tpago = $("#idtipopago option:selected").val();
-    var tfact = $(".zelda").data('triforce')['vidtipo'];
-    var p = getDatos('',231,tpago+','+tfact,0,0)[0];
-    $(this).attr('regex',p[0][2]);
-
-    switch(parseInt( p[0][0]) ){
-        case 5:
-            $("#mtpagos").html('');
-            for (var i = 0; i < p.length; i++) {
-                $("#mtpagos").append('<div class="col s2"> <p> <input type="checkbox"  class="ckmixto" id="tp'+p[i][1]+'" var="'+p[i][0]+'"/> <label for="tp'+p[i][1]+'">'+p[i][1]+'</label> </p> </div>');
-            }
-            $("#mCheque").val(p[0][3]);
-            $("#mDeposito").val(p[0][3]);
-            $("#mTarjeta").val(p[0][3]);
-            $(".modal-tpago").addClass('hide');
-            $("#m-mixto").removeClass('hide');
-        break;
-
-        case 4:
-            alert('efectivo');
-            $(".modal-tpago").addClass('hide');
-            $("#m-efectivo").removeClass('hide');
-            retrasarFocus('pcon');
-        break;
-
-        case 2:
-            alert('tarjeta');
-            $(".modal-tpago").addClass('hide');
-            $("#m-tarjeta").removeClass('hide');
-            $("#labeltarjeta").text(p[0][1]);
-            retrasarFocus('carddigito');
-            $(".icono").html(p[0][3]);
-        break;
-
-        case 1:
-            alert('deposito');
-           $(".modal-tpago").addClass('hide');
-            $("#m-deposito").removeClass('hide');
-            $("#labeldeposito").text(p[0][1]);
-            retrasarFocus('ndeposito');
-            $(".icono").html(p[0][3]);
-        break;
-
-        case 0:
-            alert('cheque');
-           $(".modal-tpago").addClass('hide');
-            $("#m-cheque").removeClass('hide');
-            $("#labelcheque").text(p[0][1]);
-            retrasarFocus('ncheque');
-            $(".icono").html(p[0][3]);
-        break;
-
-
-        default:
-            $("#factreal").click();
-            return false;
-        break;
+    
+    var err = validarFactura();
+    if (err){
+        Materialize.toast(err,'4000','red');
+        return false;
     }
-    
-    var span = $("#tot").text();
-    $(".totalfact").html( span );
-    
+
+    if ( $(".zelda").data('triforce')['vidtipo'] == 1 && $(".zelda").data('triforce')['vidtipoventa'] == 1) {
+
+        var tpago = $("#idtipopago option:selected").val();
+        var tfact = $(".zelda").data('triforce')['vidtipo'];
+        var p = getDatos('',231,tpago+','+tfact,0,0)[0];
+        $(this).attr('regex',p[0][2]);
+
+        switch(parseInt( p[0][0]) ){
+            case 5:
+                $("#mtpagos").html('');
+                for (var i = 0; i < p.length; i++) {
+                    $("#mtpagos").append('<div class="col s2"> <p> <input type="checkbox"  class="ckmixto" id="tp'+p[i][1]+'" var="'+p[i][0]+'"/> <label for="tp'+p[i][1]+'">'+p[i][1]+'</label> </p> </div>');
+                }
+                $("#mCheque").val(p[0][3]);
+                $("#mDeposito").val(p[0][3]);
+                $("#mTarjeta").val(p[0][3]);
+                $(".modal-tpago").addClass('hide');
+                $("#m-mixto").removeClass('hide');
+            break;
+
+            case 4:
+                $(".modal-tpago").addClass('hide');
+                $("#m-efectivo").removeClass('hide');
+                retrasarFocus('pcon');
+            break;
+
+            case 2:
+                $(".modal-tpago").addClass('hide');
+                $("#m-tarjeta").removeClass('hide');
+                $("#labeltarjeta").text(p[0][1]);
+                retrasarFocus('carddigito');
+                $(".icono").html(p[0][3]);
+            break;
+
+            case 1:
+               $(".modal-tpago").addClass('hide');
+                $("#m-deposito").removeClass('hide');
+                $("#labeldeposito").text(p[0][1]);
+                retrasarFocus('ndeposito');
+                $(".icono").html(p[0][3]);
+            break;
+
+            case 0:
+               $(".modal-tpago").addClass('hide');
+                $("#m-cheque").removeClass('hide');
+                $("#labelcheque").text(p[0][1]);
+                retrasarFocus('ncheque');
+                $(".icono").html(p[0][3]);
+            break;
+
+
+            default:
+                $("#factreal").click();
+                return false;
+            break;
+        }
+        
+        var span = $("#tot").text();
+        $(".totalfact").html( span );
+        $("#modal-tpagos").modal('open');
+        
     }else{
         $("#factreal").click();
     }
@@ -233,7 +235,7 @@ $(document).on("click","#facturar",function(){
 
 
 $("#pcon").blur(function(){
-        calcVuelto();
+    calcVuelto();
 });
 
 
@@ -533,13 +535,13 @@ function validar (varreglo,vmodulo) {
     
     switch(vmodulo['modulo']) {
         case 'factura':
-            if (vmodulo['tip'] == '') {
+            // if (vmodulo['tip'] == '') {
                 
-                err = validarFactura();
-                if ( err ) {
-                    return err;
-                }
-            }
+            //     err = validarFactura();
+            //     if ( err ) {
+            //         return err;
+            //     }
+            // }
             break;
         case 'detallefactura':
             if (vmodulo['tip'] == '') {
