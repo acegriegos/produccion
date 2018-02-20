@@ -63,6 +63,7 @@
 	   			// ingresar general
 	   			$pagina = 1;
 	   			$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0'));
+	   			$smarty->assign('NIV',$kakaroto->kamehameha('id,nombre',69,'id > 0'));
 				$smarty->display('ajax/addGeneral/modalGeneral'.$_POST['arreglo'].'.php');
 	   			break;
 	   		case 5:

@@ -238,6 +238,10 @@ $("#pcon").blur(function(){
     calcVuelto();
 });
 
+$("#pcon").keyup(function(){
+    calcVuelto();
+});
+
 
 $(".mcancelar").blur(function(){
     var total = 0;
@@ -868,7 +872,7 @@ function calcVuelto(){
     var totalfact = parseFloat( $(".totalfact").text().replace(/,/g,'') );
     var cambio = (paga - totalfact);
    
-   $("#pcam").text(cambio.formatMoney(2,'.',','));
+   $("#pcam").text(cambio.formatMoney(0,'.',','));
 
    if (cambio > 0) {
         $("#pcam").css('color','#2196F3');

@@ -3,7 +3,7 @@ var invvar = getDatos('valor',15,'descr in("Inv. Lab. Variedades","Inv. Lab. Rea
 $(function(){
 
 	if (invvar[0][0] == '') 
-		Materialize.toast('No hay Iventario de Variedade Seleccionado',10000,'')
+		Materialize.toast('No hay Inventario de Variedades Seleccionado',3000,'')
 
     param = getParameterByName('accion');
     param = param == '' ? 0 : parseInt(param)
@@ -23,34 +23,31 @@ $(function(){
 
 });
 
-$(document).on("change","[name=tipoclie]",function(){
-    var tipo = $(this).attr('tipoclie');
-    $("#fclientes .zelda").data('triforce')['vidtipocliente'] = $(this).val();
+$(document).on("change","[name=tipoclie]",function() {
+    $("#fclientes .zelda").data('triforce')['vidtipocliente'] = $(this).attr('tipoclie');
 });
 
-$(document).on("keyup","cedula",function(){
+$(document).on("keyup","#cedula",function() {
     $("#fclientes .zelda").data('triforce')['vcedula'] = $(this).val();
 });
 
-$(document).on("keyup","nombre",function(){
+$(document).on("keyup","#nombre",function() {
     $("#fclientes .zelda").data('triforce')['vnombre'] = $(this).val();
 });
 
-$(document).on("keyup","apellido1",function(){
+$(document).on("keyup","#apellido1",function() {
     $("#fclientes .zelda").data('triforce')['vapellido1'] = $(this).val();
 });
 
-$(document).on("keyup","apellido2",function(){
+$(document).on("keyup","#apellido2",function() {
     $("#fclientes .zelda").data('triforce')['vapellido2'] = $(this).val();
 });
 
-$(document).on("change","#viddistrito",function(){
-    var id = $(this).val();
-    $(".zelda").data('triforce')['vidubicacion'] = id;
+$(document).on("change","#categoria",function() {
+   $("#fclientes .zelda").data('triforce')['vidnivel'] = $(this).val();
 });
 
-$(document).on('click','#addFin',function(){
-
+$(document).on('click','#addFin',function() {
 	if ($(".zelda").data('triforce')['vidcliente'] != 0) {
 		$(".titadd").html("Agregar Finca");
 		$(".cli").hide();
@@ -679,9 +676,7 @@ function validar (varreglo,vmodulo) {
 					return err;
 				}
 			}
-			
 			break;
-
         case 'laboratorio-ciclo':
             if (vmodulo['tip'] == '') {
                 err = validarCiclos();
@@ -689,9 +684,17 @@ function validar (varreglo,vmodulo) {
                     return err;
                 }
             }
-            
             break;
-
+        case 'cliente':
+            if (vmodulo['tip'] == '') {
+                err = validarClientes(vmodulo['modulo']);
+                if ( err ) {
+                    return err;
+                }
+            }
+            break;
+        case 'ubicacione':
+            break;
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -699,6 +702,19 @@ function validar (varreglo,vmodulo) {
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
 	return salida;
+
+}
+
+function validarClientes(mod) {
+    if ($("#f"+mod+"s #cedula").val() == '') {
+        $("#f"+mod+"s #cedula").focus();
+        return 'El campo Cédula es requerido';
+    }
+
+    if ($("#f"+mod+"s #nombre").val() == '') {
+        $("#f"+mod+"s #nombre").focus();
+        return 'El campo Nombre es requerido';
+    }
 
 }
 
@@ -797,13 +813,13 @@ function endDetail(vid,vacc,modulo){
                 }
                 break;
             case 'cliente':
-                clearform('cliente');
+                deadclear('cliente');
                 break;
             case 'finca':
-                clearform('finca');
+                // clearform('finca');
                 break;
             case 'servicio':
-                clearform('servicio');
+                // clearform('servicio');
                 break;
             default:
                 break;

@@ -20,7 +20,7 @@
           break;
           
           case 'gananciaspf':
-          /* Ganancias detalladas por productos      */
+          /* Ganancias detalladas por factura  */
           tipo = 3;
           
           break;
