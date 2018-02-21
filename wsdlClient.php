@@ -14,7 +14,8 @@
             case 2:
                 //GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
-                print $fe->getXMLRecepcion();
+                print_r($fe->getXMLRecepcion());
+                // print $fe->getXMLRecepcion();
                 break;
             case 3:
                 //BEARER
@@ -28,10 +29,10 @@
                 break;
             case 5:
                 //Consulta General de Recibos
-                $offset     = !isset($_REQUEST['offset']) ? '' : $_REQUEST['offset'];
-                $limit      = !isset($_REQUEST['limit']) ? '' : $_REQUEST['limit'];
-                $emisor   = !isset($_REQUEST['emisor']) ? 0 : $_REQUEST['emisor'];
-                $receptor   = !isset($_REQUEST['receptor']) ? 0 : $_REQUEST['receptor'];
+                $offset     =   !isset($_REQUEST['offset'])     ?   ''  :   $_REQUEST['offset'];
+                $limit      =   !isset($_REQUEST['limit'])      ?   ''  :   $_REQUEST['limit'];
+                $emisor     =   !isset($_REQUEST['emisor'])     ?   0   :   $_REQUEST['emisor'];
+                $receptor   =   !isset($_REQUEST['receptor'])   ?   0   :   $_REQUEST['receptor'];
                 print_r($fe->getRecibos($id,$offset,$limit,$emisor,$receptor));
                 break;
             default:
@@ -100,6 +101,7 @@
             $receptor = $this->getReceptor($vreceptor);
             //offset:$offset&limit:$limit&emisor:$emisor&receptor:$receptor
             $clave = $id == 0 ? '' : $this->getClave();
+            print_r($clave.'\n');
 
             $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/".$clave);
             curl_setopt($curl, CURLOPT_HEADER, true);

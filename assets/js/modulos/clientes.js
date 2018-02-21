@@ -273,37 +273,37 @@ $(document).on("click",".load",function(){
 	obtenerImpuestos($(this).attr('id').substr(1));
 });
 
-$(document).on("click","input[name='tipoclie']",function(){
-	var tipo = parseInt($(this).attr('tipoClie'));
-	$("#vidtipocliente").val(tipo);
+// $(document).on("click","input[name='tipoclie']",function(){
+// 	var tipo = parseInt($(this).attr('tipoClie'));
+// 	$("#vidtipocliente").val(tipo);
 
-	switch(tipo){
-		case 1:
-		$("#titInfo").html('<b>Datos Personales<b/>');
-		$("#nomClie").html('Nombre');
-		$(".hid").show(300);
-		break;
-		case 3:
-		$("#titInfo").html('<b>Información Tributaria<b/>');
-		$("#nomClie").html('Razón Social');
-		$("#vapellido1").val('');
-		$("#vapellido2").val('');
-		$(".hid").css('display','none');
-		break;
-		case 4:
-		$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
-		$("#nomClie").html('Nombre');
-		$(".hid").show(300);
-		break;
-		default:
-		$("#titInfo").html('<b>Información Jurídica<b/>');
-		$("#nomClie").html('Razón Social');
-		$("#vapellido1").val('');
-		$("#vapellido2").val('');
-		$(".hid").css('display','none');
-		break;
-	}
-});
+// 	switch(tipo){
+// 		case 1:
+// 		$("#titInfo").html('<b>Datos Personales<b/>');
+// 		$("#nomClie").html('Nombre');
+// 		$(".hid").show(300);
+// 		break;
+// 		case 3:
+// 		$("#titInfo").html('<b>Información Tributaria<b/>');
+// 		$("#nomClie").html('Razón Social');
+// 		$("#vapellido1").val('');
+// 		$("#vapellido2").val('');
+// 		$(".hid").css('display','none');
+// 		break;
+// 		case 4:
+// 		$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
+// 		$("#nomClie").html('Nombre');
+// 		$(".hid").show(300);
+// 		break;
+// 		default:
+// 		$("#titInfo").html('<b>Información Jurídica<b/>');
+// 		$("#nomClie").html('Razón Social');
+// 		$("#vapellido1").val('');
+// 		$("#vapellido2").val('');
+// 		$(".hid").css('display','none');
+// 		break;
+// 	}
+// });
 
 $(document).on("click","#Iadd",function(){
 	deadclear('clientes')

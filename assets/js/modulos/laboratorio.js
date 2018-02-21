@@ -690,10 +690,17 @@ function validar (varreglo,vmodulo) {
                 err = validarClientes(vmodulo['modulo']);
                 if ( err ) {
                     return err;
+                }else{
+                    if ($("#viddistrito").val() == null) {
+                        $("#viddistrito").children('option').prop('disabled',false);
+                        $("#viddistrito").val(0);
+                        $("#viddistrito").material_select();
+                    }
                 }
             }
             break;
         case 'ubicacione':
+            
             break;
 		default:
 			return 'Módulo no Existente';

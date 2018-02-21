@@ -197,6 +197,41 @@ $(document).on("blur",".pais",function(){
     $(this).attr('vid',idpais);
 });
 
+// tipocliente
+$(document).on("click","#fclientes [name='tipoclie']",function(){
+    var tipo = parseInt($(this).attr('tipoClie'));
+    // console.log(tipo)
+    // return false;
+
+    switch(tipo){
+        case 1:
+        $("#titInfo").html('<b>Datos Personales<b/>');
+        $("#nomClie").html('Nombre');
+        $(".hid").show(300);
+        break;
+        case 3:
+        $("#titInfo").html('<b>Información Tributaria<b/>');
+        $("#nomClie").html('Razón Social');
+        $("#vapellido1").val('');
+        $("#vapellido2").val('');
+        $(".hid").css('display','none');
+        break;
+        case 4:
+        $("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
+        $("#nomClie").html('Nombre');
+        $(".hid").show(300);
+        break;
+        default:
+        $("#titInfo").html('<b>Información Jurídica<b/>');
+        $("#nomClie").html('Razón Social');
+        $("#vapellido1").val('');
+        $("#vapellido2").val('');
+        $(".hid").css('display','none');
+        break;
+    }
+});
+//
+
 $(document).on("blur",".numeric",function(){
     $(this).val(parseFloat($(this).val().replace(/,/g,'')).formatMoney(2,'.',',') )
 })
@@ -557,7 +592,8 @@ function odin(varreglo,vform) {
             if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
                 salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
             else{
-                console.log(varreglo[i])
+                console.log(varreglo[i]+" "+$("#"+vform+" #"+varreglo[i]).attr("type"))
+
                 switch(varreglo[i]) {
                     case 'vidusuario':                
                     if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
@@ -587,7 +623,6 @@ function odin(varreglo,vform) {
                     }else{
                         switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                             case 'select':
-
                             if($("#"+vform+" #"+ varreglo[i]).attr('multiple') == undefined)
                                 salida[index][varreglo[i]] =  $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
                             else
@@ -1469,7 +1504,7 @@ function reconstruirModal(tp) {
         Materialize.updateTextFields();
         $("select").material_select();
         $(".zelda").removeData();
-        $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@var'});
+        $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
 }
 //addgeneral
 

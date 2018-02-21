@@ -38,15 +38,15 @@
         </div>
       </div>
       <div class="row cli">
-        <div class="col s6 m4 input-field">
+        <div class="col s6 m4 input-field ">
           <input type="text" id="nombre" />
-          <label for="nombre">Nombre</label>
+          <label id="nomClie" for="nombre">Nombre</label>
         </div>
-        <div class="col s6 m4 input-field">
+        <div class="col s6 m4 input-field hid">
           <input type="text" id="apellido1" />
           <label for="apellido1">Apellido 1</label>
         </div>
-        <div class="col s6 m4 input-field">
+        <div class="col s6 m4 input-field hid">
           <input type="text" id="apellido2" />
           <label for="apellido2">Apellido 2</label>
         </div>
@@ -74,13 +74,13 @@
               <label for="canton">Cantón</label>
             </div>
             <div class="col s6 m3 input-field">
-              <select id="viddistrito" tipo="3"><option value="0" disabled>Seleccione una Opción</option></select>
+              <select id="viddistrito" tipo="3" type="select"><option value="0" disabled>Seleccione una Opción</option></select>
               <label for="viddistrito">Distrito</label>
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 input-field">
-              <input id="vdireccion" class="validate">
+              <input id="vdireccion" class="validate" type="text">
               <label for="vdireccion">Otras Señas</label>
             </div>
             <div class="col s6 m3 prod input-field">
@@ -94,7 +94,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row hid">
         <div class="col s6 m4 input-field">
           <select id="categoria">
             <option selected value="0">Seleccione una Opción</option>
