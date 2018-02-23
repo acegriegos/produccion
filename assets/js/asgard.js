@@ -130,65 +130,6 @@ function llenarDireccion(tp,tbl,id) {
     $("#"+elem+"[tipo="+tp+"]").material_select();
 }
 
-// direcciones
-
-$(document).on('keydown','[addG=1]',function(e){
-    var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
-    
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-        $(".autocomplete-content").remove();
-
-        $("[addG=1]").autocomplete({
-            limit: 20,
-            data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
-        });
-
-        $(".autocomplete-content").css('width','30%');
-
-    }
-});
-$(document).on('blur','[addG=1]',function(e){
-    var clie = getDatos('',63,'\"'+$("#ncli").val()+'\",0',0,0,0);
-    if (clie[0][0][0] != 0) {
-        var vclie = clie[0][0];
-        $(".zelda").data('triforce')['vidcliente'] = vclie[0];
-        $("#ncli").val(vclie[1]+' '+vclie[2]);
-    }else{
-        $(".zelda").data('triforce')['vidcliente'] = 0;
-        var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));
-        Materialize.toast($toastContent, 10000);
-    }
-});
-
-$(document).on('click','.clientNotFound',function(){
-    if ($(this).attr('tp') == 1) {
-        $(".titadd").html("Agregar Cliente");
-    }
-    $("#pais").val('Costa Rica');
-    $("#pais").blur();
-    var tmpname = $("#ncli").val();
-    $("#modal-generalCliente #nombre").val(tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname);
-
-    $("#fclientes .zelda").data('triforce')['vnombre'] = tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname;
-
-    tmpname = tmpname.substring(tmpname.indexOf(' ')+1);
-
-    $("#fclientes .zelda").data('triforce')['vapellido1'] = tmpname.substring(0,tmpname.indexOf(' '));
-
-    $("#modal-generalCliente #apellido1").val(tmpname.substring(0,tmpname.indexOf(' ')));
-    tmpname = tmpname.indexOf(' ') > 0 ? tmpname.substring(tmpname.indexOf(' ')+1) : '';
-
-    $("#fclientes .zelda").data('triforce')['vapellido2'] = tmpname;
-
-    $("#modal-generalCliente #apellido2").val(tmpname);
-    Materialize.updateTextFields();
-    $("#modal-generalCliente").modal();
-    $("#modal-generalCliente").modal('open');
-    $("#cedula").focus();
-
-});
-
 $(document).on("blur",".pais",function(){
     var nombre = $(this).val();
     var idpais = arr('login',4,'id',209,'nombre = "'+nombre+'"',0,0,0)[0][0];
@@ -200,9 +141,6 @@ $(document).on("blur",".pais",function(){
 // tipocliente
 $(document).on("click","#fclientes [name='tipoclie']",function(){
     var tipo = parseInt($(this).attr('tipoClie'));
-    // console.log(tipo)
-    // return false;
-
     switch(tipo){
         case 1:
         $("#titInfo").html('<b>Datos Personales<b/>');
@@ -563,6 +501,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
 }
 
 function odin(varreglo,vform) {
+    console.log($("#"+vform).attr('tp'))
     //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
 
@@ -592,8 +531,6 @@ function odin(varreglo,vform) {
             if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
                 salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
             else{
-                console.log(varreglo[i]+" "+$("#"+vform+" #"+varreglo[i]).attr("type"))
-
                 switch(varreglo[i]) {
                     case 'vidusuario':                
                     if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
@@ -1454,17 +1391,147 @@ function now() {
     return date;
 }
 
-//addgeneral
-$(document).on("keyup","[addG]",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        var op = parseInt($(this).attr('addG'));
-        addGeneral(op)
+// fast client
+$(document).on('keydown','[addG=1]',function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("[addG=1]").autocomplete({
+            limit: 20,
+            data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+        });
+        $(".autocomplete-content").css('width','30%');
     }
 });
-$(document).on("blur","[addG]",function(){
-    var op = parseInt($(this).attr('addG'));
-    addGeneral(op);
+$(document).on('keyup','[addG=1]',function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        var isClie = findClient($(this).val(),0);
+        if (!isClie) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
+    }
+});
+$(document).on('blur','[addG=1]',function(){
+    var isClie = findClient($(this).val(),1);
+    if (!isClie) {
+        var op = parseInt($(this).attr('addG'));
+        addGeneral(op);
+    }
+});
+function findClient(nom,blr) {
+    var clie = getDatos('',63,'\"'+nom+'\",0',0,0,0);
+    if (nom != '') {
+        if (clie[0][0][0] != 0) {
+            var vclie = clie[0][0];
+            $(".zelda").data('triforce')['vidcliente'] = vclie[0];
+            $("#ncli").val(vclie[1]+' '+vclie[2]);
+            return true;
+        }else{
+            $(".zelda").data('triforce')['vidcliente'] = 0;
+            if (!$(".clientNotFound").is(':visible')) {
+                var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));
+                Materialize.toast($toastContent, 5000);
+            }else{
+                if (blr == 0)
+                    $(".clientNotFound").click();
+            }
+            return false;
+        }
+    }
+}
+
+$(document).on('click','.clientNotFound',function(){
+    if ($(this).attr('tp') == 1) {
+        $(".titadd").html("Agregar Cliente");
+    }
+    $("#pais").val('Costa Rica');
+    $("#pais").blur();
+    var tmpname = $("#ncli").val();
+    $("#modal-generalCliente #nombre").val(tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname);
+
+    $("#fclientes .zelda").data('triforce')['vnombre'] = tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname;
+
+    tmpname = tmpname.substring(tmpname.indexOf(' ')+1);
+
+    $("#fclientes .zelda").data('triforce')['vapellido1'] = tmpname.substring(0,tmpname.indexOf(' '));
+
+    $("#modal-generalCliente #apellido1").val(tmpname.substring(0,tmpname.indexOf(' ')));
+    tmpname = tmpname.indexOf(' ') > 0 ? tmpname.substring(tmpname.indexOf(' ')+1) : '';
+
+    $("#fclientes .zelda").data('triforce')['vapellido2'] = tmpname;
+
+    $("#modal-generalCliente #apellido2").val(tmpname);
+    Materialize.updateTextFields();
+    $("#modal-generalCliente").modal();
+    $("#modal-generalCliente").modal('open');
+    $("#cedula").focus();
+
+});
+
+// fast product
+$(document).on('keydown','[addG=2]',function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("[addG=2]").autocomplete({
+            limit: 20,
+            data: arr('login',4,'nombre,null',16,'id > 0 having nombre like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+        });
+        $(".autocomplete-content").css('width','30%');
+    }
+});
+$(document).on('keyup','[addG=2]',function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        var isServ = findService($(this).val(),0);
+        if (!isServ) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
+        $(".autocomplete-content").remove();
+    }
+});
+$(document).on('blur','[addG=2]',function(){
+    var isServ = findService($(this).val(),1);
+    if (!isServ) {
+        var op = parseInt($(this).attr('addG'));
+        addGeneral(op);
+    }
+});
+function findService(nom,blr) {
+    var vserv = getDatos('id,nombre',16,'nombre = "'+nom+'"',0,0,0);
+    if (nom != '') {
+        if (vserv[0][0] != undefined) {
+            vserv = vserv[0][0];
+            $(".zelda").data('triforce')['vidservicio'] = vserv[0];
+            $("#vvariedad").val(vserv[1]);
+            return true;
+        }else{
+            $(".zelda").data('triforce')['vidservicio'] = 0;
+            if (!$(".serviceNotFound").is(":visible")) {
+                var $toastContent = $('<span>Variedad no Existente</span>').add($('<button class="btn-flat toast-action green white-text serviceNotFound" tp="2">Agregarlo</button>'));
+                Materialize.toast($toastContent, 5000);
+            }else{
+                if (blr == 0)
+                    $(".serviceNotFound").click();
+            }
+            return false;
+        }
+    }
+}
+$(document).on('click','.serviceNotFound',function(){
+    var tmpname = $("#vvariedad").val();
+    $("#modal-generalServicio #vnombre").val(tmpname);
+    $("#fservicios .zelda").data('triforce')['vnombre'] = tmpname;
+    Materialize.updateTextFields();
+    $("#modal-generalServicio").modal();
+    $("#modal-generalServicio").modal('open');
+    $("#modal-generalServicio #vcodigo").focus();
+
 });
 function addGeneral(op) {
     switch (op) {
@@ -1476,9 +1543,9 @@ function addGeneral(op) {
                 reconstruirModal(1);
             }
             break;
-        case 2: //productos
-            if ($("#fproductos").length > 0) {
-                $("#modal-productos").html('');
+        case 2: //servicios
+            if ($("#fservicios").length > 0) {
+                $("#modal-servicios").html('');
                 ingGeneral(2);
             }else{
                 reconstruirModal(2);
@@ -1492,6 +1559,7 @@ function addGeneral(op) {
                 reconstruirModal(3);
             }
             break;
+        case 4: //productos
     }
 }
 function ingGeneral(tp) {
@@ -1499,14 +1567,18 @@ function ingGeneral(tp) {
 }
 
 function reconstruirModal(tp) {
-        var p = mantenimiento('main',4,tp);
-        $("#modalMainGeneral").html(p);
-        Materialize.updateTextFields();
-        $("select").material_select();
-        $(".zelda").removeData();
+    var p = mantenimiento('main',4,tp);
+    $("#modalMainGeneral").html(p);
+    Materialize.updateTextFields();
+    $("select").material_select();
+    $(".zelda").removeData();
+    if (tp == 1) {
         $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
+    }else if (tp == 2) {
+        $("#fservicios .zelda").data('triforce',{vid : 0,vcodigo : '',vnombre : '',vdescripcion : '',vpbase : 0,vperiodo : 0,vdias : 0,vidproveedor : 0,vprecio : 0,vpganancia : 0,vidinventario : 0,vidmoneda : 1,vservprofesional : 0,vidsuc : -1});
+    }
 }
-//addgeneral
+// addgeneral
 
 // autocomplete
 // function autocomplete(charCode,charStr,nom,tabla) {

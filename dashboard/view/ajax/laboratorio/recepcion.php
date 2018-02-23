@@ -16,7 +16,7 @@
         <label for="ncli">Procedencia</label>
       </div>
       <div class="input-field">
-        <input type="text" id="vvariedad" class="eder autocomplete" placeholder="Nombre de la Variedad">
+        <input type="text" id="vvariedad" class="eder autocomplete" placeholder="Nombre de la Variedad" addG="2">
         <label for="vvariedad">Variedad</label>
       </div>
       <div class="input-field">
@@ -66,5 +66,65 @@
     </div>
     <a href="#!" class="btn add der" modulo="laboratorio-explante">Ingresar</a>
     <a href="#!" class="btn der" style="margin-right: 10px;">Listado de Recepciones</a>
+  </div>
+</div>
+
+<div class="modal modal-fixed-footer grandemodal" id="addClie" style="height: 80%; width: 75%">
+  <div class="modal-header">
+    <ul class="tabs tabs-fixed-width blue">
+      <li class="tab"><a class="active white-text titadd" href="#!" style="cursor: default;"></a></li>
+    </ul>
+  </div>
+  <div class="modal-content">
+    <div class="row nserv">
+      <div class="col s6 m3 input-field">
+        <input type="text" id="pais" class="autocomplete">
+        <label for="pais">País</label>
+      </div>
+      
+      <div class="col s6 m3 input-field">
+        <select id="provincia"> <option value="0" disabled>Seleccione una Opción</option></select>
+        <label for="provincia">Provincia</label>
+      </div>
+      
+      <div class="col s6 m3 input-field">
+        <select id="canton"> <option value="0" disabled>Seleccione una Opción</option></select>
+        <label for="canton">Cantón</label>
+      </div>
+      
+      <div class="col s6 m3 input-field">
+        <select id="vdistrito"><option value="0" disabled>Seleccione una Opción</option></select>
+        <label for="vdistrito">Distrito</label>
+      </div>
+      
+      <div class="col s6 m3 prod input-field">
+        <input type="text" id="vregion" class="autocomplete">
+        <label for="vregion">Región</label>
+      </div>
+      
+      <div class="col s6 m3 prod input-field">
+        <input type="text" id="finca" class="autocomplete">
+        <label for="finca">Finca</label>
+      </div>
+    </div>
+    <div class="row nserv">
+      <div class="col s12 input-field">
+        <textarea id="vdireccion" class="materialize-textarea"></textarea>
+        <label for="vdireccion">Otras Señas</label>
+      </div>
+      
+      <div class="col s6 m3 prod input-field">
+        <input type="text" id="vlatitud" value="0">
+        <label for="vlatitud">Latitud</label>
+      </div>
+      <div class="col s6 m3 prod input-field">
+        <input type="text" id="vlongitud" value="0">
+        <label for="vlongitud">Longitud</label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+    <button type="button" class="waves-effect waves-green btn-flat" id="ingresar" >Guardar</button>
   </div>
 </div>

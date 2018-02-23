@@ -107,8 +107,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
       <button type="button" class="waves-effect waves-green btn-flat add" modulo="cliente" varias="1" tp="5">Guardar</button>
+      <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
     </div>
   </div>
 </div>

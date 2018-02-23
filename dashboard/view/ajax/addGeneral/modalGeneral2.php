@@ -1,79 +1,20 @@
-<div id="mantServ">
-    <div class="row">
-        <div class="col s12 m6">
-           <div class="input-field col s2 m2 l1">
-            <a class="dropdown-button btn-floating waves-effect waves-light blue z-depth-5" data-activates="fserv" ><i class="mdi mdi-magnify"></i></a>
+<div id="modal-generalServicio" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
+    <div id="fservicios">
+        <div class="modal-header">
+            <ul class="tabs blue">
+                <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
+            </ul>
         </div>
-        <div class="input-field col s9 m9">
-            <input id="searchsrv" type="text" class="validate" style="margin-left: 1% !important;">
-            <label for="searchsrv" id="phs" style="margin-left: 1% !important;">Buscar por Código</label>
-        </div>
-        <ul id="fserv" class="dropdown-content" filter="1">
-            <li><a class="dropdown-item filtersrv" filtro="f1">Código</a></li>
-            <li><a class="dropdown-item filtersrv" filtro="f2">Nombre</a></li>
-        </ul>            
-    </div>
-    <div class="col s12 m6">
-        <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5 per4111 modal-trigger" href="#modal-servicios"><i class="mdi mdi-plus"></i></a>
-    </div>
-</div>
-<div class="row">
-    <div class="col s12 m12 pequeño">
-        <div class="table">
-            <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-servicios" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Período</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Outsourcing</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="listaservicios">
-                    {section name=LE loop=$SERV}
-                    <tr>
-                        <td style="padding: 10px;">{$SERV[LE][1]}</td>
-                        <td style="padding: 10px;">{$SERV[LE][2]}</td>
-                        <td style="padding: 10px;">{$SERV[LE][3]}</td>
-                        <td style="padding: 10px;">{$SERV[LE][4]}</td>
-                        <td style="padding: 10px;">{$SERV[LE][5]}</td>
-                        <td style="padding: 10px;">
-                            <a class="btn-color pbtn loadserv per4112 modal-trigger" id="m{$SERV[LE][0]}" href="#modal-servicios" title="Editar Servicio"><i class="mdi mdi-pencil mdi-24px"></i></a>
-                            <a class="btn-color pbtn cdel delete 4113" modulo="servicio" id="d{$SERV[LE][0]}" title="Eliminar Producto"><i class="mdi mdi-close mdi-24px"></i></a>
-                        </td>
-                    </tr>
-                    {/section}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div><br><br>
-<div id="modal-servicios" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
-    <div class="modal-header">
-        <ul class="tabs blue">
-            <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
-            <li class="tab col s3 hide"><a class="white-text menuS" id="ms2" href="#">Financiero</a></li>
-            <li class="tab col s3"><a class="white-text menuS hide" id="ms3">Clientes</a></li>
-        </ul>
-    </div>
-    <div class="modal-content" style="padding: 0px;">
-        <form id="fservicios">
+        <div class="modal-content" style="padding: 0px;">
+            <input type="hidden" class="zelda">
             <div id="datosservicios" style="padding: 25px 10px 0 10px">
-                <input type="hidden" id="vidmoneda" value="1">
-                <input type="hidden" id="vid" value="0">
-                <input type="hidden" id="vidproveedor" value="0">
-                <input type="hidden" id="vidsucursal" value="">
-                <input type="hidden" id="vidsuc" value="-1" >
-
                 <div class="row">
                     <div class="input-field col s12 m6 l6" style="margin: 0">
                         <input id="vcodigo" type="text" class="validate" autocomplete="off">
                         <label for="vcodigo">Código de Servicio</label>
                     </div>
                     <div class="input-field col s12  m6 l6" style="margin: 0">
-                        <a class="prefix modal-trigger" href="#hextra"><i class="mdi mdi-help pbtn"></i></a>
+                        <!-- <a class="prefix modal-trigger" href="#hextra"><i class="mdi mdi-help pbtn"></i></a> -->
                         <input id="vnombre" type="text" class="validate" autocomplete="off">
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
@@ -181,29 +122,10 @@
             </div>
                 <br>
             </div>
-            
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a class="modal-action waves-effect waves-green btn-flat add" id="addserv" modulo="servicio">Agregar</a>
-        <a class="modal-action modal-close waves-effect waves-red btn-flat">Salir</a>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="waves-effect waves-green btn-flat add" modulo="servicio" tp="5">Guardar</button>
+            <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+        </div>
     </div>
 </div>
-
-<div id="hextra" class="modal">
-    <div class="modal-content grandemodal">
-      <h4>Extra en el Nombre del Servicio</h4>
-      <p>Se Utiliza para asignar variables cuando el servicio es facturado</p>
-      <br>
-      <ul>
-          <li><b>%HOY%</b>, Despliega la Fecha del Día en Formato dd-mm-yyyy</li>
-          <li><b>%ANO%</b>, Despliega el Año</li>  
-          <li><b>%MES%</b>, Despliega el Mes</li>
-          <li><b>%DIA%</b>, Despliega el Día</li>
-
-      </ul>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-    </div>
-  </div>
