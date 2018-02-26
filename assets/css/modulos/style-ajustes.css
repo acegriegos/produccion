@@ -41,7 +41,8 @@ h5{
     font-size: 1.3em;
     font-weight: bold;
 }
-/*dropzone*/
+
+
 .dropzone.dz-clickable {
     cursor: pointer;
 }
@@ -85,7 +86,8 @@ form.dropzone {
     color: #ED5151;
     font-style: none;
 }
-/*dropzone*/
+
+
 @media only screen and (max-width:769px){
 
     .centrobot{

@@ -15,11 +15,11 @@ table.pbtns td:hover{
   z-index: 500 !important;
   position: absolute !important;
   top: 135px !important;
-  /*bottom: -115px\9 !important;*/
+  
 
   right: 45px !important;
   width: 550px !important;
-  /*padding: 15px !important;*/
+  
   background: #fefefe !important;
   font-size: .875em !important;
   border-radius: 5px !important;
@@ -46,7 +46,7 @@ table.pbtns td:hover{
 .divabono {
   display: none;
 }
-/*END CONTRASEÑA*/
+
 
 @media only screen and (max-width:769px){
  .side-nav-cuentas{
@@ -59,11 +59,11 @@ table.pbtns td:hover{
   z-index: 100 !important;
   position: absolute !important;
   top: 0px !important;
-  /*bottom: -115px\9 !important;*/
+
 
   right: 0px !important;
   width: 100% !important;
-  /*padding: 15px !important;*/
+
   background: #fefefe !important;
   font-size: .875em !important;
   border-radius: 5px !important;

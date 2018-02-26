@@ -26,7 +26,7 @@
 	   			break;
 	   		case 4:
 	   			$pagina = 1;
-	   			$users = $kakaroto->kamehameha('id,nombre',1,'id > 0');
+	   			$users = $kakaroto->kamehameha('id,nombre',1,'id > 0 and idtipousuario = 3');
 	   			require_once 'view/ajax/laboratorio/iniciacion.php';
 	   			break;
 	   		case 5:

@@ -1,0 +1,19 @@
+.side-nav-conta {
+  min-width: 50% !important;
+}
+
+.side-nav-conta1 {
+  min-width: 45% !important;
+}
+
+.fsize {
+  font-size: 1.1em !important;
+}
+
+@media only screen and (max-width: 769px) {
+  .side-nav-conta {
+    min-width: 80% !important;
+    font: bold !important;
+    font-size: 0.9em !important;
+  }
+}

@@ -22,6 +22,12 @@
                         <textarea id="vdescripcion" type="textarea" class="materialize-textarea" length="150" style="margin: 0"></textarea>
                         <label for="vdescripcion">Descripción del Servicio</label>
                     </div>
+                    <div class="input-field col s6">
+                        <select type="select" id="vidinventario">
+                            <option value="0">Seleccione una opción</option>
+                        </select>
+                        <label for="vidinventario">Seleccione un inventario</label>
+                    </div>
                 </div>
                 <div class="row hide">
                     <div class="col s12 m12">
@@ -102,7 +108,7 @@
                 </div>
                 <div id="financiero"  style="padding: 25px 10px 0 10px">
                 <div class="row">
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m6 hide">
                         <i class="material-icons prefix">¢</i>
                         <input id="vpbase" type="number" class="validate vcalcserv" min="1" num="1">
                         <label for="vpbase">Precio</label>

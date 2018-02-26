@@ -78,8 +78,8 @@
   <div class="modal-content">
     <div class="row nserv">
       <div class="col s6 m3 input-field">
-        <input type="text" id="pais" class="autocomplete">
-        <label for="pais">País</label>
+        <input type="text" id="vpais" class="autocomplete pais">
+        <label for="vpais">País</label>
       </div>
       
       <div class="col s6 m3 input-field">

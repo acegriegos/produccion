@@ -12,7 +12,7 @@
 <body>
   {$NAV}
     <div class="bdy pequeño">
-        <div class="card-header center  white-text hide-on-small-only" style="background-color:#0B3861 "><p class="flow-text">Área Laboratorio</p></div>
+        <div class="card-header center  white-text hide-on-small-only" style="background-color:#0B3861"><p class="flow-text">Área Laboratorio</p></div>
           <div class="card-content pequeño">
             <div class="row">
 
@@ -39,7 +39,6 @@
                   </div>
                 </div>
 
-                
               </div>
             </div>
 

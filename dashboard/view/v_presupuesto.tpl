@@ -36,6 +36,6 @@
     </div> <!-- END BDY -->
     </div>
     {$SRC}
-    <script src="../assets/js/modulos/presupuesto.js"></script>
+    <script src="../assets/js/modulos/presupuesto.js?v=0.1"></script>
   </body>
 </html>

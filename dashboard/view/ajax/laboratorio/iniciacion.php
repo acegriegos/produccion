@@ -4,7 +4,7 @@
     <div class="row">
 
     <div class="col s6 input-field">
-      <input type="text" id="vvariedad" class="eder">
+      <input type="text" id="vvariedad" class="autocomplete eder">
       <label for="vvariedad">Variedad</label>
     </div>
 
@@ -40,14 +40,14 @@
         </div>
 
         <div class="col s12 input-field">
-          <input type="text" id="vlote" value="-">
+          <input type="text" id="vlote" value="">
           <label for="vlote">Lote</label>
         </div>
 
-        <div class="col s12 input-field">
+        <!-- <div class="col s12 input-field">
           <input type="text" id="vapendice" class="eder" value="0">
           <label for="vapendice">Apéndice</label>
-        </div>
+        </div> -->
 
         <div class="col s12 input-field">
           <button class="prefix btn-floating blue mdi mdi-plus z-depth-5" id="mkformula" style="width: 40px"></button>

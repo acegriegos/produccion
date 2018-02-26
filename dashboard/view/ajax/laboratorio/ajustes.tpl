@@ -23,7 +23,7 @@
               
               <div class="col s12 m3 input-field">
                 <select multiple id="invVariedad">
-                  <option disabled selected value="0">Seleccione una Opción</option>
+                  <option disabled selected value="0" class="role_inv" tp="1">Seleccione una Opción</option>
                   {section name=LE loop=$INV}
                     <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
                   {/section}
@@ -33,7 +33,7 @@
 
               <div class="col s12 m3 input-field">
                 <select multiple id="invreactivos">
-                  <option disabled selected value="0">Seleccione una Opción</option>
+                  <option disabled selected value="0" class="role_inv" tp="2">Seleccione una Opción</option>
                   {section name=LE loop=$INV}
                     <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
                   {/section}
@@ -43,7 +43,7 @@
 
               <div class="col s12 m3 input-field">
                 <select multiple id="invactivos">
-                  <option disabled selected value="0">Seleccione una Opción</option>
+                  <option disabled selected value="0" class="role_inv" tp="3">Seleccione una Opción</option>
                   {section name=LE loop=$INV}
                     <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
                   {/section}
@@ -53,7 +53,7 @@
 
               <div class="col s12 m3 input-field">
                 <select multiple id="invcomp">
-                  <option disabled selected value="0">Seleccione una Opción</option>
+                  <option disabled selected value="0" class="role_inv" tp="4">Seleccione una Opción</option>
                   {section name=LE loop=$INV}
                     <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
                   {/section}

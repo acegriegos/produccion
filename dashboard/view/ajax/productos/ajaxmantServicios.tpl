@@ -147,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row hide">
+                <div class="row">
                     <div class="col s6 m6 l6 input-field" id="dinvent">
                         <!--  -->
                         <select id="vidinventario" type="select"></select>

@@ -59,7 +59,7 @@
 
 @media only screen and (max-width:769px){
 
-.{
+*{
   font-size: 0.9em !important;
   padding-bottom: 2% !important;
 }

@@ -1,5 +1,5 @@
 $(function(){
-	$(".menu3").click(function(){
+    	$(".menu3").click(function(){
         var id = $(this).attr('id').substr(1);
         $(".menu3").removeClass('active');
         $(this).addClass('active');
@@ -56,11 +56,27 @@ $(function(){
     $("#m1").click();
 
 });
+$(document).on("keydown","#nodt",function(e){   
+     var charCode = e.which || e.keyCode;
+     var charStr = String.fromCharCode(charCode);
+
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#nodt").autocomplete({
+                limit: 20,
+
+                data: arr('login',4,'descripcion,null',226,'id > 0  and descripcion like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+            });
+
+            $(".autocomplete-content").css('width','30%');
+
+        }
+    });
 
 $(document).on("click",".shpre",function(){
     var cuerpo = $(this).parent().find(".collapsible-body");
     var id = $(this).prop('id').substr(1);
-    console.log(cuerpo)
     if (!$(".lista"+id).is(":visible")) {
         $(".collapsible-body").html('');
         
@@ -77,33 +93,16 @@ $(document).on("click",".shpre",function(){
     }
 
 })
-$(document).on("click",".",function(){
-    var nom = $(this).parent().parent().find('td').first().html();
-    var id = $(this).parent().attr('tid');
-    $("#gid").html(nom);
-    $("#gid").attr('tr',id);
- 
-    var p = getDatos('',228,id+',@@impresa',0,0)[0];
-    console.log('holis'+p);
-    if(p['succed'] == 1){
-        p = p[0];
-        var str = '';
-        $(".listaodt").html('');
-        
-        for (var i = 0; i < p.length; i++) {
-            str += '<p><input type="checkbox" id="ck'+p[i][1]+'" title="'+p[i][3]+'"/> <label for="ck'+p[i][1]+'">'+p[i][2]+'</label></p>';
-        }
-        $(".listaodt").append(str);
-    }
-});
+
+
+
 $(document).on("click",".proyect",function(){
-    console.log("hola " + p);
     var nom = $(this).parent().parent().find('td').first().html();
     var id = $(this).parent().attr('tid');
     $("#gid").html(nom);
     $("#gid").attr('tr',id);
- 
-    var p = getDatos('',228,id,0,0);
+
+    var p = getDatos('',228,id+',@@impresa',0,0);
     
     if(p['succed'] == 1){
         p = p[0];
@@ -114,6 +113,7 @@ $(document).on("click",".proyect",function(){
             str += '<p><input type="checkbox" id="ck'+p[i][1]+'" title="'+p[i][3]+'"/> <label for="ck'+p[i][1]+'">'+p[i][2]+'</label></p>';
         }
         $(".listaodt").append(str);
+
     }
 });
 
@@ -275,7 +275,10 @@ function endDetail(vid,vacc,modulo){
             }
             break;
         case 'odt':
-            str += '<p><input type="checkbox" id="ck'+vid[0][0]+'" title="'+$("#f"+modulo+"s #vdescripcion").val()+'"/> <label for="ck'+vsid[0][0]+'">'+$("#f"+modulo+"s #vcodigo").val()+'</label></p>';
+        var id=vid[0][0];
+        var des=$("#f"+modulo+"s #vdescripcion").val();
+        var cod=$("#f"+modulo+"s #vcodigo").val();
+           var  str = '<p><input type="checkbox" id="ck'+id+'" title="'+des+'"/> <label for="ck'+id+'">'+cod+'</label></p>';
         
             $(".listaodt").append(str);
             deadclear(modulo);

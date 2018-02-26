@@ -28,7 +28,7 @@
                       <a href="contabilidad" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Contabilidad
                       ">Contabilidad</a>
                     </div>
-                    <div class="col s12 m6 l6 per3100 hide">
+                    <div class="col s12 m6 l6 per3100">
                       <a href="presupuesto" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Presupuesto">Presupuesto</a>
                     </div>
                     <div class="col s12 m6 l6 per3200 ">

@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.scss">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -19,6 +19,7 @@
         </div>
         <div class="card-content pequeño">
           <div class="row">
+            <p class="bgcolor">BOTON DE PRUEBA SCSS</p>
             <div class="input-field col s10 m6 l6">
               <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
               <ul id='filtr_1' class='dropdown-content'>
