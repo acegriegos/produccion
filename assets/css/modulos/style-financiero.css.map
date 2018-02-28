@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,MAAM;EACF,UAAU,EC6BN,OAAO;ED5BX,KAAK,ECkBE,IAAI;;;ADff,MAAM;EACF,UAAU,ECyBN,OAAO;EDxBX,KAAK,ECcE,IAAI;;;ADXf,KAAK;EACD,UAAU,ECcP,OAAO;EDbV,KAAK,ECMC,IAAI;;;ADHd,SAAU;EACR,SAAS,EAAE,gBAAgB",
+"sources": ["../../scss/modulos/style-financiero.scss","../../scss/modulos/colors.scss"],
+"names": [],
+"file": "style-financiero.css"
+}

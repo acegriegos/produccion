@@ -14,37 +14,37 @@
       {$NAV}
       <div class="bdy pequeño">
         <div class="card z-depth-5">
-          <div class="card-header center  pequeño hide-on-small-only hite-text" style="background-color:#0B3861; color: white !important "><p class="flow-text">Área Comercial</p></div>
+          <div class="card-header center  pequeño hide-on-small-only white-text bgprim"><p class="flow-text">Área Comercial</p></div>
           <div class="card-content  pequeño">
             <div class="row">
 
               <div class="col s12 m12 l6 pequeño">
                 <div class="card z-depth-5">
-                  <div class="card-title blue-grey white-text center ">&nbsp;Opciones</div>
+                  <div class="card-title bgthird white-text center ">&nbsp;Opciones</div>
 
                   <div class="card-panel  pequeño ">
 
                     <div class="row">
                      <div class="col s12 m6 l6 per1000">
-                      <a href="clientes" class="waves-effect waves-light btn-large blue z-depth-3 per1000" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
+                      <a href="clientes" class="waves-effect waves-light btn-large bgsecond z-depth-3 per1000" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
                     </div>
                     <div class="col s12 m6 l6 per1100">
-                      <a href="facturacion?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
+                      <a href="facturacion?tf=1" class="waves-effect waves-light btn-large bgsecond z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
                     </div>
                     <div class="col s12 m6 l6 hide">
-                      <a href="#" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="CRM">CRM</a>
+                      <a href="#" class="waves-effect waves-light btn-large bgsecond z-depth-3" style="margin-top:4%; width: 100%;" title="CRM">CRM</a>
                     </div>
                     <div class="col s12 m6 l6 per1200">
-                    <a href="rutas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Rutas">Rutas</a>
+                    <a href="rutas" class="waves-effect waves-light btn-large bgsecond z-depth-3" style="margin-top:4%; width: 100%;" title="Rutas">Rutas</a>
                     </div>
                      <div class="col s12 m6 l6 per1300">
-                    <a href="facturacion?tf=4" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cotizaciones">Cotizaciones</a>
+                    <a href="facturacion?tf=4" class="waves-effect waves-light btn-large bgsecond z-depth-3" style="margin-top:4%; width: 100%;" title="Cotizaciones">Cotizaciones</a>
                     </div>
                     <div class="col s12 m6 l6 per1400">
-                      <a href="facturacion?tf=5" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Pedidos">Pedidos</a>
+                      <a href="facturacion?tf=5" class="waves-effect waves-light btn-large bgsecond z-depth-3" style="margin-top:4%; width: 100%;" title="Pedidos">Pedidos</a>
                     </div>
                     <div class="col s12 m6 l6 per1400">
-                      <a href="reportes?tr=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
+                      <a href="reportes?tr=1" class="waves-effect waves-light btn-large bgsecond z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
                   </div>
                 </div>
@@ -53,7 +53,7 @@
 
             <div class="col s12 m12 l6 pequeño">
               <div class="card z-depth-5 per1500 pequeño">
-                <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
+                <div class="card-title bgthird white-text center">&nbsp;Gráfico</div>
                 <div class="card-content pequeño">
                   <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
                 </div>

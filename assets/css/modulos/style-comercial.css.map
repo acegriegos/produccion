@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGA,OAAO;EACL,UAAU,ECDJ,OAAO;;;ADGf,SAAS;EACP,UAAU,ECNL,OAAO;;;ADQd,QAAQ;EACN,UAAU,ECRH,OAAO;;;ADWhB,MAAO;EACL,MAAM,EAAE,EAAE;EACV,KAAK,EAAE,GAAG;;;AAGZ,MAAO;EACL,WAAW,EAAE,eAAe;EAC5B,MAAM,EAAE,IAAI;;;AAGd,KAAM;EACJ,KAAK,EAAE,OAAe;;AACtB,WAAQ;EACN,KAAK,EAAE,KAAK;;;AAIhB,SAAU;EACR,SAAS,EAAE,gBAAgB",
+"sources": ["../../scss/modulos/style-comercial.scss","../../scss/modulos/colors.scss"],
+"names": [],
+"file": "style-comercial.css"
+}

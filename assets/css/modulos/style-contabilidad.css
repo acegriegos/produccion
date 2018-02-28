@@ -1,67 +1,56 @@
-.myh3{
-    color: green;
-}
-.tamLetra{
-   font-size: 1.2em !important
-}
+.myh3 {
+  color: green; }
 
-#vcuentas{
-    max-height: 300px;
-    overflow-y: scroll;
-}
+.tamLetra {
+  font-size: 1.2em !important; }
 
-.list-group-item:hover{
-    background-color: #60605F;
-    color: white;
-}
+#vcuentas {
+  max-height: 300px;
+  overflow-y: scroll; }
 
-.trtable{
-    background-color: white;
-    color: black;
-}
+.list-group-item:hover {
+  background-color: #60605F;
+  color: white; }
 
-.trtable tr td,thead th{
-    border: 1px solid #e2e2e2;
-}
+.trtable {
+  background-color: white;
+  color: black; }
+  .trtable tr td {
+    border: 1px solid #e2e2e2; }
 
-.trtable thead th{
-    text-align: center;
-}
+thead th {
+  border: 1px solid #e2e2e2; }
 
-.blc1{
-    background-color: white;
-    padding-top: 3px;
-    margin-top: 0px;
-}
+.trtable thead th {
+  text-align: center; }
 
-.tdtext{
-    width: 100%;
-    margin: 0px;
-    border: 0px;
-}
+.blc1 {
+  background-color: white;
+  padding-top: 3px;
+  margin-top: 0px; }
 
-.numTransacc{
+.tdtext {
+  width: 100%;
+  margin: 0px;
+  border: 0px; }
+
+.numTransacc {
   font-size: 0.8em;
-  color:#fff;
-  background:#D9534F;
+  color: #fff;
+  background: #D9534F;
   padding: 0px 7px;
-  border-radius: 42px;
-}
+  border-radius: 42px; }
 
-.sh-cta-card{
+.sh-cta-card {
   padding: 0%;
-  border: none !important;
-}
+  border: none !important; }
 
-.fsize{
-   font-size: 1.1em !important
-}
+.fsize {
+  font-size: 1.1em !important; }
 
-@media only screen and (max-width:769px){
+@media only screen and (max-width: 769px) {
+  * {
+    font-size: 0.9em !important;
+    padding-bottom: 2% !important; } }
 
-*{
-  font-size: 0.9em !important;
-  padding-bottom: 2% !important;
-}
-  
-}
+/*# sourceMappingURL=style-contabilidad.css.map */

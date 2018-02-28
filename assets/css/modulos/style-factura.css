@@ -1,113 +1,131 @@
-*{font-size: 13px;}
+.bgprim {
+  background: #0080C6;
+}
 
-h3{font-size: 1.8em; text-decoration: bold;}
+.bgsecond {
+  background: #A6CE39;
+}
+
+.bgthird {
+  background: #45b97c;
+}
+
+.delete:hover {
+  color: #EC545A;
+}
+
+* {
+  font-size: 13px;
+}
+
+h3 {
+  font-size: 1.8em;
+  text-decoration: bold;
+}
 
 /*.chip input{
-	background: #3960A7 !important;
-	color: white !important;
+    background: #3960A7 !important;
+    color: white !important;
 }*/
-
-.hr1{
-	margin-top: 5px;
-	margin-bottom: 5px;
-	border: 0;
-	border-top: 1px dashed #eee;
-}
-.tamLetra{
-	font-size: 1.2em !important
+.hr1 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 0;
+  border-top: 1px dashed #eee;
 }
 
-.fac{
-	padding-left: 3% !important;
+.tamLetra {
+  font-size: 1.2em !important;
 }
 
-.hoja{
-	padding: 1%;
-	width: 100%;
+.fac {
+  padding-left: 3% !important;
 }
 
-.margen{
-	margin-top:0px !important;
-	margin-bottom:0px !important;
-	padding-top:2px !important;
-	padding-bottom:2px !important;
-
+.hoja {
+  padding: 1%;
+  width: 100%;
 }
 
-.margen2{
-	margin-top:0px !important;
-	margin-bottom:0px !important;
-	padding-top:5px !important;
-	padding-bottom:2px !important;
-
+.margen {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
 }
 
-.sinborde{
-	border-radius: 0px !important;
+.margen2 {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  padding-top: 5px !important;
+  padding-bottom: 2px !important;
+}
+
+.sinborde {
+  border-radius: 0px !important;
 }
 
 @media print {
+  #imglogo {
+    width: 90% !important;
+    margin: 0 auto !important;
+  }
 
-	#imglogo{
-		width: 90% !important;
-		margin: 0 auto !important;
-	}
+  .hideonprint {
+    display: none;
+  }
 
-	.hideonprint{
-		display: none;
-	}
+  thead {
+    background-color: red;
+  }
 
-	thead{
-		background-color: red;
-	}
+  header, nav, aside {
+    display: none;
+  }
 
-	header, nav, aside {
-		display: none;
-	}
+  footer {
+    font-size: 10px;
+  }
 
-	footer{
-		font-size: 10px;
-	}
+  .salto {
+    page-break-before: always;
+  }
 
-	.salto {
-		page-break-before: always;
-	}
+  ul, img {
+    page-break-inside: avoid;
+  }
 
-	ul, img {
-		page-break-inside: avoid;
-	}
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black !important;
+  }
 
-	body{
-		padding-left: 10px;
-		padding-right: 10px;
-		color: black !important;
-	}
+  .hoideonprint {
+    display: none;
+  }
 
-	.hoideonprint{
-		display: none;
-	}
+  .hoja {
+    background-color: black;
+    padding: 0 !important;
+  }
 
-	.hoja{
-		background-color: black;
-		padding: 0 !important;
-	}
-	.imprimirSINBOR{
-		border: 0px !important;
-		box-shadow: none !important;
-		color: black !important;
-		padding: 2% 0% !important;
-	}
-	
-	footer{
-		position: fixed;
-		bottom: 0;
-	}
+  .imprimirSINBOR {
+    border: 0px !important;
+    box-shadow: none !important;
+    color: black !important;
+    padding: 2% 0% !important;
+  }
 
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
 }
-
 @page {
-	size: letter;
-	size:  auto;
-    margin: 0mm;
-
+  size: letter;
+  size: auto;
+  margin: 0mm;
 }
+
+/*# sourceMappingURL=style-factura.css.map */

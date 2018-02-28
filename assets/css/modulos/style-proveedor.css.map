@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,MAAM;EACF,UAAU,EC6BN,OAAO;ED5BX,KAAK,ECkBE,IAAI;;;ADff,MAAM;EACF,UAAU,ECyBN,OAAO;EDxBX,KAAK,ECcE,IAAI;;;ADXf,KAAK;EACD,UAAU,ECcP,OAAO;EDbV,KAAK,ECMC,IAAI;;;ADHd,SAAU;EACR,SAAS,EAAE,gBAAgB;;;AAG7B,MAAO;EACL,MAAM,EAAE,EAAE;EACV,KAAK,EAAE,GAAG;;;AAGZ,MAAO;EACL,WAAW,EAAE,eAAe;EAC5B,MAAM,EAAE,IAAI;;;AAGd,KAAM;EACJ,KAAK,EAAE,OAAO;;AACd,WAAQ;EACN,KAAK,EAAE,KAAK",
+"sources": ["../../scss/modulos/style-proveedor.scss","../../scss/modulos/colors.scss"],
+"names": [],
+"file": "style-proveedor.css"
+}

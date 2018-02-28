@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,gBAAiB;EACf,KAAK,EAAE,eAAe;;AAGxB,qBAAsB;EACpB,OAAO,EAAE,eAAe;EACxB,QAAQ,EAAE,mBAAmB;EAC7B,KAAK,EAAE,eAAe",
+"sources": ["../../scss/modulos/style-taller.scss"],
+"names": [],
+"file": "style-taller.css"
+}

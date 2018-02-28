@@ -1,3 +1,20 @@
+@import 'colors.scss';
+
+.bgprim{
+  background: $prim;
+}
+.bgsecond{
+  background: $second;
+}
+.bgthird{
+  background: $third;
+}
+
+.delete:hover {
+  color: $danger;
+}
+
+
 .bdy {
   font-size: 16px !important;
 }

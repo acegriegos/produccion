@@ -57,10 +57,17 @@ $(document).on("change","#vidinventario",function(){
     $("#fservicios .zelda").data('triforce')['vidinventario'] = $(this).val();
 });
 
-// fill data
+// fill data //
+$(document).on("click","#m2",function(){
+    var date = new Date();
+    date = date.getFullYear()+addZero(date.getMonth()+1,2)+addZero(date.getDate(),2);
+    $("#vlote").val(date);
+    Materialize.updateTextFields();
+});
+    
 
 $(document).on('click','#addFin',function() {
-	if ($(".zelda").data('triforce')['vidcliente'] != 0) {
+	if ($("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] != 0) {
 		$(".titadd").html("Agregar Finca");
 		$(".cli").hide();
 		$(".serv").hide();
@@ -68,8 +75,9 @@ $(document).on('click','#addFin',function() {
 		$(".prod").show();
 		$("#ingresar").attr('codigo',"2");
 		$("#addClie").modal('open');
-        $("#pais").val('Costa Rica');
-        $("#pais").blur();
+        $("#vpais").val('Costa Rica');
+        $("#vpais").blur();
+        cargarProvincias();
         Materialize.updateTextFields();
 	}else{
 		Materialize.toast('Cliente Requerido',4000,'red');
@@ -264,10 +272,10 @@ function cargarIniciacion(){
         else
             iniciarVaridad();
     });
-    var date = new Date();
-    date = date.getFullYear()+addZero(date.getMonth()+1,2)+addZero(date.getDate(),2);
-    $("#vlote").val(date);
-    Materialize.updateTextFields();
+
+    $(document).on("change","#videncargado",function(){
+        
+    });
 
     $(document).on('click','[id^=_c]',function(){
         var id = $(this).attr('id').substr(2);
@@ -311,7 +319,7 @@ function cargarIniciacion(){
 }//cargar Iniciacion
 
 function cargarExplantes(){
-    $(".zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0,vexpectativa: 0,vcantidad: 0,vguia:0});
+    $("#flaboratorio-explantes .zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0,vexpectativa: 0,vcantidad: 0,vguia:0});
 
     getIDExplante();
 
@@ -385,7 +393,7 @@ function cargarExplantes(){
 
             $("#finca").autocomplete({
                 limit: 20,
-                data: arr('login',4,'nombre as nom,null',904,'id > 0 and idregion = '+$(".zelda").data('triforce')['vidregion']+' having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'nombre as nom,null',904,'id > 0 and idregion = '+$("#flaboratorio-explantes .zelda").data('triforce')['vidregion']+' having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
             });
 
             $(".autocomplete-content").css('width','25%');
@@ -396,12 +404,12 @@ function cargarExplantes(){
     $("#finca").keyup(function(e){
     	var code = e.which || e.keyCode;
     	if (code == 13){
-    		var idfinca = getDatos('id',904,'nombre = '+$(this).val()+' and idregion = '.$(".zelda").data('triforce')['idregion'],0,0);
+    		var idfinca = getDatos('id',904,'nombre = '+$(this).val()+' and idregion = '.$("#flaboratorio-explantes .zelda").data('triforce')['idregion'],0,0);
 	    	if (idfinca['succed'] == 1) {
-	    		$(".zelda").data('triforce')['vidfinca'] = idfinca[0][0][0];
+	    		$("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = idfinca[0][0][0];
 	    		$("#finca").focus();
 	    	}else
-	    		$(".zelda").data('triforce')['vidfinca'] = 0;
+	    		$("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = 0;
     	}
     });
 
@@ -426,10 +434,10 @@ function cargarExplantes(){
 	    	if (idregion['succed'] == 1) {
 	   //  		var $toastContent = $('<span>Región no Existente</span>').add($('<button class="btn-flat toast-action green white-text addRegion">Agregarla</button>'));
 				// Materialize.toast($toastContent, 10000);
-	    		$(".zelda").data('triforce')['vidregion'] = idregion[0][0][0];
+	    		$("#flaboratorio-explantes .zelda").data('triforce')['vidregion'] = idregion[0][0][0];
 	    		$("#finca").focus();
 	    	}else
-	    		$(".zelda").data('triforce')['vidregion'] = 0;
+	    		$("#flaboratorio-explantes .zelda").data('triforce')['vidregion'] = 0;
     	}
     });
 
@@ -472,8 +480,7 @@ function cargarExplantes(){
 
     		switch(parseInt($(this).attr('codigo'))){
 		    	case 2:
-		    		var id = $(".zelda").data('triforce')['vidcliente'];
-                    console.log(id)
+		    		var id = $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'];
 		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vdistrito").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
 
 		    		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0];
@@ -496,7 +503,7 @@ function cargarExplantes(){
 
     $(document).on("click","[id^=r]",function(){
     	var id = $(this).attr('id').substr(1)
-    	$(".zelda").data('triforce')['vidfinca'] = id;
+    	$("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = id;
     	$("#s"+id).prop('checked',true);
     });
 
@@ -517,28 +524,23 @@ function getVariedad_Down(variedad) {
 }
 
 function cargarProvincias(){
-	var provincias = arr('login',4,'id,nombre',8,'idpais = (select id from developer.paises where nombre = \"'+$("#pais").val()+'\")','',0,'');
-	
-	$("#provincia").html('');
-
+	var provincias = arr('login',4,'id,nombre',8,'idpais = (select id from developer.paises where nombre = \"'+$("#vpais").val()+'\")',0,0,0);
+	$("#addClie #provincia").html('');
 	var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
-
     if (provincias['succed']) {
     	for (var i = 0; i < provincias[0].length; i++) {
     		lprov += '<option value="'+provincias[0][i][0]+'">'+provincias[0][i][1]+'</option>';
     	}
     }
-
-    $("#provincia").append(lprov);
-    $("#provincia").val(0);
-    $("#provincia").material_select('update');
-    
+    $("#addClie #provincia").append(lprov);
+    $("#addClie #provincia").val(0);
+    $("#addClie #provincia").material_select('update');
 };
 
 function cargarCantones(vidprovincia){
 	var cantones = arr('login',4,'id,nombre',9,'idprovincia = '+vidprovincia,'',0,'');
 	
-	$("#canton").html('');
+	$("#addClie #canton").html('');
 
 	var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
 
@@ -548,16 +550,16 @@ function cargarCantones(vidprovincia){
     	}
     }
 
-    $("#canton").append(lprov);
-    $("#canton").val(0);
-    $("#canton").material_select('update');
+    $("#addClie #canton").append(lprov);
+    $("#addClie #canton").val(0);
+    $("#addClie #canton").material_select('update');
     
 };
 
 function cargarDistritos(vidcanton){
 	var distritos = arr('login',4,'id,nombre',10,'idcanton = '+vidcanton,'',0,'');
 	
-	$("#vdistrito").html('');
+	$("#addClie #vdistrito").html('');
 
 	var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
 
@@ -567,27 +569,24 @@ function cargarDistritos(vidcanton){
     	}
     }
 
-    $("#vdistrito").append(lprov);
-    $("#vdistrito").val(0);
-    $("#vdistrito").material_select('update');
+    $("#addClie #vdistrito").append(lprov);
+    $("#addClie #vdistrito").val(0);
+    $("#addClie #vdistrito").material_select('update');
     
 };
 
 function iniciarVaridad(){
-    var servicio = arr('login',4,'',907,'"'+$("#vvariedad").val()+'"',0,0,0);
+    var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
     if (servicio[0].length) {
         var obj;
         var str = '<table class="responsive-table highlight" id="resulti00"><tr style="border-bottom: 1px solid #e2e2e2;"><td colspan="4" class="center" style="padding:0px; margin:0px"><b>Variedad: '+servicio[0][0][1]+'</b></td></tr> <tr> <td style="padding:0px; margin:0px"></td> <td style="padding:0px; margin:0px"><b>Cantidad</b></td> <td style="padding:0px; margin:0px"><b>Procedencia</b></td> <td style="padding:0px; margin:0px"><b>Fecha</b></td> </tr><tbody id="bdyi00">';
 
         for (var i = 0; i < servicio[0].length; i++) {
             obj = servicio[0][i];
-            str += '<tr id="o'+obj[4]+'" data-cantidad="'+obj[0]+'"><td style="padding:0px; margin:0px" id="_c'+obj[4]+'"><input type="checkbox" id="c'+obj[4]+'" />  <label for="c'+obj[4]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px"><input type="text" id="_n'+obj[4]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /></td><td style="padding:0px; margin:0px">'+obj[2]+'</td><td style="padding:0px; margin:0px">'+obj[3]+' </td></tr>';
+            str += '<tr id="o'+obj[2]+'" data-cantidad="'+obj[0]+'"><td style="padding:0px; margin:0px" id="_c'+obj[2]+'"><input type="checkbox" id="c'+obj[2]+'" />  <label for="c'+obj[2]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[2]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /></td><td style="padding:0px; margin:0px">'+obj[4]+'</td><td style="padding:0px; margin:0px">'+obj[5]+' </td></tr>';
         }
-        var date = new Date();
-        date = date.getFullYear()+addZero(date.getMonth()+1,2)+addZero(date.getDate(),2);
-        $("#vlote").val(date+'01'+addZero($("#videncargado").val(),1));
+        $("#vlote").val(servicio[0][0][6]);
         $("#result00").html(str+'</tbody></table>');
-
     }else{
         Materialize.toast("Variedad no Existente en Recepción", 4000,'red');
         $("#result00").html('No se ha Elegido la Variedad')
@@ -600,12 +599,12 @@ function cargarVaridad(){
     if (servicio[0].length) {
         var vservicio = servicio[0][0];
         
-        $(".zelda").data('triforce')['vidservicio'] = parseInt(vservicio[0])*-1;
+        $("#flaboratorio-explantes .zelda").data('triforce')['vidservicio'] = parseInt(vservicio[0])*-1;
 
         $("#vvariedad").val(vservicio[2].substr(7));
 
     }else{
-    	$(".zelda").data('triforce')['vidservicio'] = 0;
+    	$("#flaboratorio-explantes .zelda").data('triforce')['vidservicio'] = 0;
 
 	 	var $toastContent = $('<span>Variedad no Existente</span>').add($('<button class="btn-flat toast-action green white-text addVariedad">Agregarla</button>'));
 		Materialize.toast($toastContent, 10000);
@@ -632,7 +631,8 @@ function cargarVaridad(){
 // }
 
 function cargarTblFincas(){
-	var fincas = getDatos('',902,$(".zelda").data('triforce')['vidcliente'],0,0);
+	var fincas = getDatos('',902,$("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'],0,0);
+
 	$("#fincas").html('');
 	var lista = '<tr><td colspan="3" class="center">No Hay Datos Registrados</td></tr>';
     var checked = '';
@@ -646,7 +646,7 @@ function cargarTblFincas(){
 		}
 	}
 
-    $(".zelda").data('triforce')['vidfinca'] = fincas[0][0][3];
+    $("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = fincas[0][0][3];
 	$("#fincas").append(lista);
 }
 
@@ -833,17 +833,17 @@ function endDetail(vid,vacc,modulo){
                 $("#ncli").val($("#fclientes .zelda").data('triforce')['vnombre']+" "+$("#fclientes .zelda").data('triforce')['vapellido1']+" "+$("#fclientes .zelda").data('triforce')['vapellido2']);
                 $("#fclientes .zelda").removeData();
                 $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
-                $(".zelda").data('triforce')['vidcliente'] = vid;
+                $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] = vid[0][0];
                 break;
             case 'finca':
-                // clearform('finca');
+                clearform('finca');
                 break;
             case 'servicio':
                 deadclear('servicio');
                 $("#vvariedad").val($("#fservicios .zelda").data('triforce')['vnombre']);
                 $("#fservicios .zelda").removeData();
                 $("#fservicios .zelda").data('triforce',{vid : 0,vcodigo : '',vnombre : '',vdescripcion : '',vpbase : 0,vperiodo : 0,vdias : 0,vidproveedor : 0,vprecio : 0,vpganancia : 0,vidinventario : 0,vidmoneda : 1,vservprofesional : 0,vidsuc : -1});
-                $(".zelda").data('triforce')['vidservicio'] = vid;
+                $("#flaboratorio-explantes .zelda").data('triforce')['vidservicio'] = vid[0][0];
                 break;
             default:
                 break;

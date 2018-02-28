@@ -1,64 +1,84 @@
-.input-field{
-    margin: 0px;
+.input-field {
+  margin: 0px;
 }
 
-.delete:hover{
-    color: #ea454b;
+.bgprim {
+  background: #0080C6;
 }
-.sinborde{
-    border-radius: 0px !important;
+
+.bgsecond {
+  background: #A6CE39;
 }
-.tamLetra{
-   font-size: 1.2em !important
+
+.bgthird {
+  background: #45b97c;
 }
+
+.delete:hover {
+  color: #EC545A;
+}
+
+.sinborde {
+  border-radius: 0px !important;
+}
+
+.tamLetra {
+  font-size: 1.2em !important;
+}
+
 ul.pagination > li.active {
-    background-color: #2196F3 !important;
+  background-color: #0080C6 !important;
 }
 
-.autocomplete-content{
-    z-index: 3000 !important;
-    position: absolute !important;
-    width: 100% !important;
+.autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important;
 }
 
-
-.placeh{
-    color: rgba(0,0,0,0.2);
+.placeh {
+  color: rgba(0, 0, 0, 0.2);
 }
 
-.corad{
-    display: block;
+.corad {
+  display: block;
 }
 
-#infcorreo2{
-    width: 100%;
-    max-width: 100%;
-    max-height: 50px;
-    height: auto;
-    overflow-y: scroll;
+#infcorreo2 {
+  width: 100%;
+  max-width: 100%;
+  max-height: 50px;
+  height: auto;
+  overflow-y: scroll;
 }
 
-.icorr{
-    height: 50px;
-}
-.iphone{
-    height: 50px;
+.icorr, .iphone {
+  height: 50px;
 }
 
-#inftelefono4{
-    width: 100%;
-    max-width: 100%;
-    max-height: 50px;
-    height: auto;
-    overflow-y: scroll;
+#inftelefono4 {
+  width: 100%;
+  max-width: 100%;
+  max-height: 50px;
+  height: auto;
+  overflow-y: scroll;
 }
 
-.chip{    
-    display: block !important;
-    font-size: 0.8em !important;
+.chip {
+  display: block !important;
+  font-size: 0.8em !important;
 }
 
+.chpcrr {
+  background: rgba(3, 155, 229, 0.1) !important;
+}
 
-.chpcrr{background: rgba(3,155,229,0.1) !important;}
-.chpphone{background: rgba(3,184,229,0.1) !important;}
-ul.pagination > li.active {background-color: #2196F3 !important;}
+.chpphone {
+  background: rgba(3, 184, 229, 0.1) !important;
+}
+
+ul.pagination > li.active {
+  background-color: #0080C6 !important;
+}
+
+/*# sourceMappingURL=style-clientes.css.map */

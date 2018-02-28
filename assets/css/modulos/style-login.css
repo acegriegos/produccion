@@ -1,5 +1,9 @@
-
-*, *:before, *:after {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+*:before, *:after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -10,12 +14,12 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
+
 @media (max-width: 768px) {
   html, body {
     font-size: 50%;
   }
 }
-
 svg {
   display: inline-block;
   width: 2rem;
@@ -67,20 +71,17 @@ input, button {
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25), -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
 .login.inactive {
   opacity: 0;
   -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-}
-.login__check {
+  transform: scale(1.1);
 }
 
-#img{
+#img {
   margin-top: 15%;
   width: 50%;
-
 }
 
 .login__form {
@@ -92,11 +93,13 @@ input, button {
   padding: 1.5rem 2.5rem;
   text-align: center;
 }
+
 .login__row {
   height: 5rem;
   padding-top: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .login__icon {
   margin-bottom: -0.4rem;
   margin-right: 0.5rem;
@@ -105,14 +108,15 @@ input, button {
   stroke-dasharray: 73.50196075439453;
   stroke-dashoffset: 73.50196075439453;
   -webkit-animation: animatePath 2s 0.5s forwards;
-          animation: animatePath 2s 0.5s forwards;
+  animation: animatePath 2s 0.5s forwards;
 }
 .login__icon.pass path {
   stroke-dasharray: 92.10662841796875;
   stroke-dashoffset: 92.10662841796875;
   -webkit-animation: animatePath 2s 0.5s forwards;
-          animation: animatePath 2s 0.5s forwards;
+  animation: animatePath 2s 0.5s forwards;
 }
+
 .login__input {
   display: inline-block;
   width: 22rem;
@@ -122,6 +126,7 @@ input, button {
   background: transparent;
   color: #FDFCFD;
 }
+
 .login__submit {
   position: relative;
   width: 100%;
@@ -136,7 +141,11 @@ input, button {
   -webkit-transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
   transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
 }
-.login__input::placeholder { color: #EFE9E9; }
+
+.login__input::placeholder {
+  color: #EFE9E9;
+}
+
 .login__submit:after {
   content: "";
   position: absolute;
@@ -161,7 +170,7 @@ input, button {
 .login__submit.processing:after {
   opacity: 1;
   -webkit-animation: rotate 0.5s 0.4s infinite linear;
-          animation: rotate 0.5s 0.4s infinite linear;
+  animation: rotate 0.5s 0.4s infinite linear;
 }
 .login__submit.success {
   -webkit-transition: opacity 0.1s 0.3s, background-color 0.1s 0.3s, -webkit-transform 0.3s 0.1s ease-out;
@@ -169,7 +178,7 @@ input, button {
   transition: transform 0.3s 0.1s ease-out, opacity 0.1s 0.3s, background-color 0.1s 0.3s;
   transition: transform 0.3s 0.1s ease-out, opacity 0.1s 0.3s, background-color 0.1s 0.3s, -webkit-transform 0.3s 0.1s ease-out;
   -webkit-transform: scale(30);
-          transform: scale(30);
+  transform: scale(30);
   opacity: 0.9;
 }
 .login__submit.success:after {
@@ -177,8 +186,9 @@ input, button {
   transition: opacity 0.1s 0s;
   opacity: 0;
   -webkit-animation: none;
-          animation: none;
+  animation: none;
 }
+
 .login__signup {
   font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.8);
@@ -189,8 +199,6 @@ input, button {
   cursor: pointer;
 }
 
-
-
 .ripple {
   position: absolute;
   width: 15rem;
@@ -199,37 +207,36 @@ input, button {
   margin-top: -7.5rem;
   background: rgba(0, 0, 0, 0.4);
   -webkit-transform: scale(0);
-          transform: scale(0);
+  transform: scale(0);
   -webkit-animation: animRipple 0.4s;
-          animation: animRipple 0.4s;
+  animation: animRipple 0.4s;
   border-radius: 50%;
 }
 
 @-webkit-keyframes animRipple {
   to {
     -webkit-transform: scale(3.5);
-            transform: scale(3.5);
+    transform: scale(3.5);
     opacity: 0;
   }
 }
-
 @keyframes animRipple {
   to {
     -webkit-transform: scale(3.5);
-            transform: scale(3.5);
+    transform: scale(3.5);
     opacity: 0;
   }
 }
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 @keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 @-webkit-keyframes animatePath {
@@ -243,4 +250,4 @@ input, button {
   }
 }
 
-
+/*# sourceMappingURL=style-login.css.map */

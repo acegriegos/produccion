@@ -4,7 +4,7 @@
   <div class="l9 m9 s12 col">
 
 <div class="card z-depth-3 pequeño">
-<div class="card-header center light-blue darken-4 white-text">
+<div class="card-header center bgsecond white-text">
   <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
 </div>
   <input type="hidden" class="zelda">

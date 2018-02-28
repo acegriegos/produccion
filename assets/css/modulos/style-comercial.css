@@ -1,20 +1,34 @@
-.mybtn{
-	margin: 3%;
-	width: 25%;
+.bgprim {
+  background: #45b97c;
 }
 
-.mycol{
-	border-left: 1px solid black;
-	height: 100%;
+.bgsecond {
+  background: #0080C6;
 }
 
-.myah{
-	color: rgb(55,68,60);
+.bgthird {
+  background: #A6CE39;
 }
 
-.myah:hover{
-	color: black;
+.mybtn {
+  margin: 3%;
+  width: 25%;
 }
-.tamLetra{
-   font-size: 1.2em !important
+
+.mycol {
+  border-left: 1px solid black;
+  height: 100%;
 }
+
+.myah {
+  color: #37443c;
+}
+.myah:hover {
+  color: black;
+}
+
+.tamLetra {
+  font-size: 1.2em !important;
+}
+
+/*# sourceMappingURL=style-comercial.css.map */

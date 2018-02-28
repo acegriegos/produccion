@@ -497,6 +497,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
 }
 
 function odin(varreglo,vform) {
+    console.log(vform)
     //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
 
@@ -1420,12 +1421,12 @@ function findClient(nom,blr) {
     if (nom != '') {
         if (clie[0][0][0] != 0) {
             var vclie = clie[0][0];
-            $(".zelda").data('triforce')['vidcliente'] = vclie[0];
+            $("#flaboratorio-explantes  .zelda").data('triforce')['vidcliente'] = vclie[0];
             $("#ncli").val(vclie[1]+' '+vclie[2]);
             cargarTblFincas();
             return true;
         }else{
-            $(".zelda").data('triforce')['vidcliente'] = 0;
+            $("#flaboratorio-explantes  .zelda").data('triforce')['vidcliente'] = 0;
             if (!$(".clientNotFound").is(':visible')) {
                 var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));
                 Materialize.toast($toastContent, 5000);
@@ -1573,7 +1574,7 @@ function reconstruirModal(tp) {
     $("#vidinventario").append(str);
     Materialize.updateTextFields();
     $("select").material_select();
-    $(".zelda").removeData();
+    // $(".zelda").removeData();
     if (tp == 1) {
         $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
     }else if (tp == 2) {

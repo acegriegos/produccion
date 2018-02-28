@@ -1,15 +1,21 @@
+@import 'colors.scss';
+
 .input-field {
   margin: 0px;
 }
 
-.delete:hover {
-  color: #ea454b;
+.bgprim{
+  background: $prim;
+}
+.bgsecond{
+  background: $second;
+}
+.bgthird{
+  background: $third;
 }
 
-$redbg: #F26D6D;
-
-.bgcolor{
-  background: $redbg !important;
+.delete:hover {
+  color: $danger;
 }
 
 .sinborde {
@@ -21,7 +27,7 @@ $redbg: #F26D6D;
 }
 
 ul.pagination > li.active {
-  background-color: #2196F3 !important;
+  background-color: $prim !important;
 }
 
 .autocomplete-content {
@@ -72,5 +78,5 @@ ul.pagination > li.active {
 }
 
 ul.pagination > li.active {
-  background-color: #2196F3 !important;
+  background-color: $prim !important;
 }

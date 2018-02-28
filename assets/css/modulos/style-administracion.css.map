@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,SAAU;EACR,SAAS,EAAE,gBAAgB",
+"sources": ["../../scss/modulos/style-administracion.scss"],
+"names": [],
+"file": "style-administracion.css"
+}

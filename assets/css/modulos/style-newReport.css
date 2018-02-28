@@ -1,109 +1,80 @@
-body{
-    background-color: #e9e9e9;
-}
-.contenedor{
-    padding: 10px !important; 
-    margin-left: 5%; 
-    margin-right: 5%;
-}
-.sinborde{
-    border-radius: 0px !important;
-}
+body {
+  background-color: #e9e9e9; }
 
-.principal{
-    background-color: white;
-/*    height: 100vh;*/
-    padding-top: 10px;
-}
-td{
-    padding: 2px;
-}
-.filtros{
-    border-bottom: 1px dashed black;
-    padding-bottom: 10px;
-}
+.contenedor {
+  padding: 10px !important;
+  margin-left: 5%;
+  margin-right: 5%; }
 
-.rous{
-    padding-bottom: 15px;
-}
+.sinborde {
+  border-radius: 0px !important; }
 
-.repcheck{
-    padding: 0px; 
-    margin: 0px;
-}
+.principal {
+  background-color: white;
+  /*    height: 100vh;*/
+  padding-top: 10px; }
 
-.pbtn{
-    cursor: pointer;
-}
+td {
+  padding: 2px; }
 
-label[for=nclie] {
-    width: 100%;
-}
+.filtros {
+  border-bottom: 1px dashed black;
+  padding-bottom: 10px; }
 
-label[for=xnum] {
-    width: 100%;
-}
+.rous {
+  padding-bottom: 15px; }
+
+.repcheck {
+  padding: 0px;
+  margin: 0px; }
+
+.pbtn {
+  cursor: pointer; }
+
+label[for=nclie], label[for=xnum] {
+  width: 100%; }
 
 #ofiltr {
-    display: none;
-
-}
+  display: none; }
 
 @media print {
+  body {
+    padding: 1px !important;
+    font-size: 0.8em !important; }
 
-body{
-        padding: 1px !important;
-        font-size: 0.8em!important;
-    }
-.contenedor{
-    padding: 0px !important; 
-    margin-left: 0%; 
-    margin-right:0%;
-}
-    header, footer, nav, aside {
-      display: none;
-    }
+  .contenedor {
+    padding: 0px !important;
+    margin-left: 0%;
+    margin-right: 0%; }
 
-    .filtros {
-        display: none;
-    }
+  header, footer, nav, aside, .filtros, .fa-level-down {
+    display: none; }
 
-    .fa-level-down {
-        display: none;
-    }
+  ul, img {
+    page-break-inside: avoid; }
 
-    ul, img {
-        page-break-inside: avoid;
-    }
+  .principal {
+    /*padding-top: -30px;*/
+    width: 100%; }
 
-    .principal{
-        /*padding-top: -30px;*/
-        width: 100%;
-    }
+  table {
+    border: 1px solid #e2e2e2;
+    width: 100%; }
+    table tr td {
+      border: 1px solid #e2e2e2;
+      padding: 0;
+      margin: 0; }
 
-    table {
-        border: 1px solid #e2e2e2;
-        width: 100%;
-    }
+  .dts {
+    display: none; }
 
-    table tr td{
-        border: 1px solid #e2e2e2;
-        padding: 0;
-        margin: 0;
-    }
+  .img-responsive {
+    width: auto; }
 
-    .dts {
-        display: none;
-    }
+  #ofiltr {
+    display: none; }
 
-    .img-responsive{
-        width: auto;
-    }
-    
-    #ofiltr {
-        display: none;
-    }
-    @page {
-      size: A4 landscape; 
-    }
-}
+  @page {
+    size: A4 landscape; } }
+
+/*# sourceMappingURL=style-newReport.css.map */

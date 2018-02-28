@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,SAAU;EACR,SAAS,EAAE,gBAAgB;;AAG7B,iBAAkB;EAChB,MAAM,EAAE,GAAG;;AAGb,WAAY;EACV,OAAO,EAAE,gBAAgB;;AAG3B,gBAAiB;EACf,gBAAgB,EAAE,gBAAgB;;AAGpC,yBAA0B;EACxB,gBAAgB,EAAE,kBAAkB;;AAGtC,qBAAsB;EACpB,OAAO,EAAE,eAAe;EACxB,QAAQ,EAAE,mBAAmB;EAC7B,KAAK,EAAE,eAAe",
+"sources": ["../../scss/modulos/style-productos.scss"],
+"names": [],
+"file": "style-productos.css"
+}

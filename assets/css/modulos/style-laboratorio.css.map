@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,MAAM;EACF,UAAU,EC6BN,OAAO;ED5BX,KAAK,ECkBE,IAAI;;;ADff,MAAM;EACF,UAAU,ECyBN,OAAO;EDxBX,KAAK,ECcE,IAAI;;;ADXf,KAAK;EACD,UAAU,ECcP,OAAO;EDbV,KAAK,ECMC,IAAI;;;ADHd,OAAQ;EACN,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI",
+"sources": ["../../scss/modulos/style-laboratorio.scss","../../scss/modulos/colors.scss"],
+"names": [],
+"file": "style-laboratorio.css"
+}

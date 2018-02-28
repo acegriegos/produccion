@@ -1,10 +1,12 @@
+<link rel="stylesheet" href="../assets/scss/modulos/style-menu.scss">
+
 <ul id="slide" class="side-nav blue-text text-darken-2 " style="max-width: 400px !important; font-size: 2.4em !important">
   <li>
     <div class="userView">
       <div class="background">
         <!-- CSS -->
       </div>
-      <a href="#!user" class="center"><i class="medium mdi mdi-account-circle" style="color:#fff;padding-left: 25%;" aria-hidden="true"></i></a>
+      <a href="#!user" class="center"><i class="medium mdi mdi-account-circle" style="color: #fff; padding-left: 25%;" aria-hidden="true"></i></a>
       <div class="input-field col s12 white-text selectusr">
         <select id="lgt">
           <option value="0" class="logout " id="x1" disabled selected>{$smarty.session.NOM} </option>
@@ -24,18 +26,18 @@
     </div>
   </div>
   <div class="options" style="padding-bottom: 20%">
-    <li class="per1"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true" style="color: #000000 "></i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
-    <li class="per8 hide"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
-    <li class="per900"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
-    <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right" aria-hidden="true" style="color: #000000; font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
-    <li class="per2"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" style="color: #000000 "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
-    <li class="per3"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
-    <li class="per4"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
-    <li class="per5"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
-    <li class="per6"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
-    <li class="per7"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true" style="color: #000000"></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
-    <li class="hide"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true" style="color: #000000;"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
-    <li><a href="logout"><i class="mdi mdi-airplane-takeoff mdi-24px right" aria-hidden="true" style="color: #000000;"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
+    <li class="per1 gtext"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
+    <li class="per8 hide gtext"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
+    <li class="per900 gtext"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
+    <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
+    <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
+    <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
+    <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
+    <li class="per5 gtext"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
+    <li class="per6 gtext"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
+    <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
+    <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+    <li><a href="logout gtext"><i class="mdi mdi-airplane-takeoff mdi-24px right" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
 </ul>
 <div class="navbar-fixed hide-on-large-only">
@@ -45,7 +47,7 @@
     </div>
   </nav>
 </div>
-<a style="background-color:#0B3861;" href="#" data-activates="slide" class="hide-on-med-and-down button-collapses  z-depth-5 menu-btn" ><span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span><br class="sse_cnt hide"> <p class="white-text menu-txt" >MENU</p></a>
+<a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" ><span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span><br class="sse_cnt hide"> <p class="white-text menu-txt" >MENU</p></a>
 <!-- hide-on-med-and-down  -->
 <div class="modal modal-fixed-footer grandemodal" id="modal-info" style="height: 80%; width: 75%">
   <div class="modal-header">
