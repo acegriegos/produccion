@@ -1,13 +1,16 @@
-.bgprim {
-  background: #45b97c;
+.head1 {
+  background: #0B3861;
+  color: #fff;
 }
 
-.bgsecond {
-  background: #0080C6;
+.head2 {
+  background: #607d8b;
+  color: #fff;
 }
 
-.bgthird {
-  background: #A6CE39;
+.btn1 {
+  background: #2196F3;
+  color: #fff;
 }
 
 .mybtn {
