@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAAA,SAAU;EACR,SAAS,EAAE,gBAAgB;;AAG7B,wBAAyB;EACvB,KAAK,EAAE,KAAK;;AAGd;;;;;;;;;;;;;;GAcG",
-"sources": ["../../scss/modulos/style-rutas.scss"],
+"mappings": "AAEA,MAAM;EACF,UAAU,ECiCN,OAAO;EDhCX,KAAK,ECoBE,IAAI;;;ADjBf,MAAM;EACF,UAAU,EC6BN,OAAO;ED5BX,KAAK,ECgBE,IAAI;;;ADbf,KAAK;EACD,UAAU,ECiBP,OAAO;EDhBV,KAAK,ECOC,IAAI;;;ADJd,KAAK;EACD,UAAU,ECaP,OAAO;EDZV,KAAK,ECGC,IAAI;;;ADAd,KAAK;EACD,UAAU,ECSP,OAAO;EDRV,KAAK,ECDC,IAAI;;;ADId,MAAM;EACF,UAAU,ECUN,OAAO;;;ADPf,KAAK;EACD,UAAU,ECSP,OAAO;;;ADNd,KAAK;EACD,KAAK,ECrBF,OAAO;;;ADwBd,SAAU;EACR,SAAS,EAAE,gBAAgB;;;AAG7B,wBAAyB;EACvB,KAAK,EAAE,KAAK;;;AAGd;;;;;;;;;;;;;;GAcG",
+"sources": ["../../scss/modulos/style-rutas.scss","../../scss/modulos/colors.scss"],
 "names": [],
 "file": "style-rutas.css"
 }

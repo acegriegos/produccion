@@ -1,15 +1,30 @@
 .head1 {
-  background: #0B3861;
+  background: #0080C6 !important;
   color: #fff;
 }
 
 .head2 {
-  background: #607d8b;
+  background: #45b97c !important;
   color: #fff;
 }
 
 .btn1 {
-  background: #2196F3;
+  background: #0080C6 !important;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345 !important;
+  color: #fff;
+}
+
+.btn3 {
+  background: #937CB9 !important;
+  color: #fff;
+}
+
+.head3 {
+  background: #A6CE39 !important;
   color: #fff;
 }
 

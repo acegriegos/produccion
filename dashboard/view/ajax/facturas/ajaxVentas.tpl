@@ -35,7 +35,7 @@
     </div>
 
     <div class="show_facts col s12 m3">
-      <a class="btn" onclick="verfacturas();"> Ver Facturas</a>
+      <a class="btn btn1" onclick="verfacturas();"> Ver Facturas</a>
     </div>
 
   </div>
@@ -75,7 +75,7 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card center z-depth-3">
-  <div class="card-header light-blue darken-4 center"><p class="white-text">DETALLE DE FACTURA</p></div>
+  <div class="card-header head1 center"><p class="white-text">DETALLE DE FACTURA</p></div>
 
   <div class="row">
     <div class="s12 m12 l12 col hide-on-med-and-down">
@@ -275,7 +275,7 @@
 <div class="l3 m3 s12 col">
 
 <div class="card z-depth-3">
-  <div class="white-text light-blue darken-4 card-header center" style="margin-top: 0px;">DESGLOCE DE FACTURA</div>
+  <div class="white-text head1 card-header center" style="margin-top: 0px;">DESGLOCE DE FACTURA</div>
   
   <div class="row">
 
@@ -381,7 +381,7 @@
           </div>
 
           <div class="col s12 m12 l12" align="center">
-            <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn-primary-outline alv"  style="margin-bottom: 3%;">Facturar</a>
+            <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1 alv"  style="margin-bottom: 3%;">Facturar</a>
           </div>
 
           </div>

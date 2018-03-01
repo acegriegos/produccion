@@ -4,7 +4,6 @@
   <li>
     <div class="userView">
       <div class="background">
-        <!-- CSS -->
       </div>
       <a href="#!user" class="center"><i class="medium mdi mdi-account-circle" style="color: #fff; padding-left: 25%;" aria-hidden="true"></i></a>
       <div class="input-field col s12 white-text selectusr">
@@ -52,7 +51,7 @@
 <div class="modal modal-fixed-footer grandemodal" id="modal-info" style="height: 80%; width: 75%">
   <div class="modal-header">
     <ul class="tabs tabs-fixed-width blue">
-      <li class="tab col s3 white-text">Información del Usuario</li>
+      <li class="tab col s3 white-text"><a>Información del Usuario</a></li>
     </ul>
   </div>
   <div class="modal-content " style="padding: 0px;">
@@ -64,7 +63,7 @@
 <div class="modal modal-fixed-footer grandemodal" id="modal-system" style="height: 85%; width: 90%">
   <div class="modal-header">
     <ul class="tabs tabs-fixed-width blue">
-      <li class="tab col s3 white-text">LOGINTECH S.A.</li>
+      <li class="tab col s3 white-text"><a>LOGINTECH S.A.</a></li>
     </ul>
   </div>
   <div class="modal-content " style="padding: 0px;">

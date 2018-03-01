@@ -12,16 +12,16 @@
 <body>
   {$NAV}
     <div class="bdy pequeño">
-        <div class="card-header center  white-text hide-on-small-only" style="background-color:#0B3861 "><p class="flow-text"></p>
+        <div class="card-header center white-text hide-on-small-only head2"><p class="flow-text"></p>
          <div class="col s12">
-            <ul class="tabs tabs-fixed-width" style="background-color:#0B3861; padding-bottom: 4% !important; cursor: pointer;">
-              <li class="menu3 tab "  id="m1" ><a class=" white-text tamLetra" class="active">Recepción de Explantes</a></li>
-              <li class="menu3 tab " id="m2"><a class=" white-text tamLetra">Iniciación</a></li>
-              <li class="menu3 tab " id="m3"><a class=" white-text tamLetra">Multiplicación</a></li>
-              <li class="menu3 tab " id="m4"><a class=" white-text tamLetra">Enraizamiento</a></li>
-              <li class="menu3 tab " id="m5"><a class=" white-text tamLetra">Aclimatación</a></li>
-              <li class="menu3 tab " id="m6"><a class=" white-text tamLetra">QoS</a></li>
-              <li class="menu3 tab " id="m7"><a class=" white-text tamLetra">Reporte</a></li>
+            <ul class="tabs tabs-fixed-width head1" style="padding-bottom: 4% !important; cursor: pointer;">
+              <li class="menu3 tab" id="m1"><a class="white-text tamLetra" class="active">Recepción de Explantes</a></li>
+              <li class="menu3 tab" id="m2"><a class="white-text tamLetra">Iniciación</a></li>
+              <li class="menu3 tab" id="m3"><a class="white-text tamLetra">Multiplicación</a></li>
+              <li class="menu3 tab" id="m4"><a class="white-text tamLetra">Enraizamiento</a></li>
+              <li class="menu3 tab" id="m5"><a class="white-text tamLetra">Aclimatación</a></li>
+              <li class="menu3 tab" id="m6"><a class="white-text tamLetra">QoS</a></li>
+              <li class="menu3 tab" id="m7"><a class="white-text tamLetra">Reporte</a></li>
             </ul>
           </div>
         </div>

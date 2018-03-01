@@ -12,11 +12,10 @@
 <body>
   {$NAV}
     <div class="bdy pequeño">
-        <div class="card-header center  white-text hide-on-small-only" style="background-color:#0B3861 "><p class="flow-text"></p>
-         <div class="col s12">
-            Ajustes de Laboratorio
+      <div class="card pequeño">
+         <div class="card center mbotcero pequeño">
+            <h4 class="center-align white-text mbotcero head1">Ajustes de Laboratorio</h4>
           </div>
-        </div>
           <div class="card-panel pequeño">
             
             <div class="row">
@@ -66,15 +65,15 @@
             <div class="row">
 
               <div class="col s12 m3">
-                <a href="#modal-medios" class="btn" ty="1">Medio Multiplicación</a>
+                <a href="#modal-medios" class="btn btn1" ty="1">Medio Multiplicación</a>
               </div>
 
               <div class="col s12 m3">
-                <a href="#modal-medios" class="btn" ty="2">Medio Enraizamiento</a>
+                <a href="#modal-medios" class="btn btn1" ty="2">Medio Enraizamiento</a>
               </div>
 
               <div class="col s12 m3">
-                <a href="#modal-medios" class="btn" ty="3">Medio Ápice Líquido</a>
+                <a href="#modal-medios" class="btn btn1" ty="3">Medio Ápice Líquido</a>
               </div>
 
             </div>

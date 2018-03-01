@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAAA,SAAS;EACN,SAAS,EAAE,gBACd",
-"sources": ["../../scss/modulos/style-inventario.scss"],
+"mappings": "AAEA,MAAM;EACF,UAAU,ECiCN,OAAO;EDhCX,KAAK,ECoBE,IAAI;;;ADjBf,MAAM;EACF,UAAU,EC6BN,OAAO;ED5BX,KAAK,ECgBE,IAAI;;;ADbf,KAAK;EACD,UAAU,ECiBP,OAAO;EDhBV,KAAK,ECOC,IAAI;;;ADJd,SAAS;EACN,SAAS,EAAE,gBACd",
+"sources": ["../../scss/modulos/style-inventario.scss","../../scss/modulos/colors.scss"],
 "names": [],
 "file": "style-inventario.css"
 }

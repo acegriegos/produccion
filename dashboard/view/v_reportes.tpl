@@ -12,8 +12,8 @@
 {$NAV}
 <body>
 <div class="bdy pequeño"  style="font-size: 1.2em !important" >
-<div class="card pequeño z-depth-5">
-<div class="card-header  center white-text" style="background-color:#0B3861">
+<div class="card pequeño z-depth-3">
+<div class="card-header center head1">
 <p class="flow-text" style="font-size: 1.9em; margin-bottom: 0.3% !important">Reportes</p>
 </div>
 <div class="card-content">

@@ -1,17 +1,38 @@
-.input-field {
-  margin: 0px;
-}
-
-.bgprim {
+.head1 {
   background: #0080C6;
+  color: #fff;
 }
 
-.bgsecond {
+.head2 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345;
+  color: #fff;
+}
+
+.btn3 {
+  background: #937CB9;
+  color: #fff;
+}
+
+.head3 {
   background: #A6CE39;
 }
 
-.bgthird {
-  background: #45b97c;
+.tab1 {
+  background: #0080C6;
+}
+
+.input-field {
+  margin: 0px;
 }
 
 .delete:hover {

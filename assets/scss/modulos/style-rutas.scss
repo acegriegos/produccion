@@ -1,3 +1,42 @@
+@import 'colors.scss';
+
+.head1{
+    background: $head1;
+    color: $head1txt;
+}
+
+.head2{
+    background: $head2;
+    color: $head2txt;
+}
+
+.btn1{
+    background: $btn1;
+    color: $btn1txt;
+}
+
+.btn2{
+    background: $btn2;
+    color: $btn2txt;
+}
+
+.btn3{
+    background: $btn3;
+    color: $btn3txt;
+  }    
+
+.head3{
+    background: $head3;
+}
+
+.tab1{
+    background: $tab1;
+}
+
+.gtxt{
+    color: $gtxt;
+}
+
 .tamLetra {
   font-size: 1.2em !important;
 }

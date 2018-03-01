@@ -29,7 +29,7 @@
                     <label for="vmonto">Monto Caja Inicial</label>
                 </div>
                 <div class="col s3 m3 l3">
-                    <button class="waves-effect waves-light blue btn" id="iniciar" modulo="cajainicialusuario">Iniciar Caja</button>
+                    <button class="waves-effect waves-light btn1 btn" id="iniciar" modulo="cajainicialusuario">Iniciar Caja</button>
                 </div>
             </div>
             {/if}

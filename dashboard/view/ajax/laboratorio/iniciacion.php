@@ -20,8 +20,8 @@
         <div class="center" id="result00" >No se ha Elegido la Variedad</div>
         <div class="der">
             <br>
-            <a href="#!" class="btn add der" modulo="laboratorio-ciclo">Registrar</a>
-            <a href="#!" class="btn der" style="margin-right: 10px;">Listado de Iniciaciones</a>
+            <a href="#!" class="btn btn1 add der" modulo="laboratorio-ciclo">Registrar</a>
+            <a href="#!" class="btn btn1 der" style="margin-right: 10px;">Listado de Iniciaciones</a>
             <span style="padding-right: 15px">Total Plantas: <span><b id="tplt">0</b></span></span>
         </div>
     </div>
@@ -50,13 +50,13 @@
         </div> -->
 
         <div class="col s12 input-field">
-          <button class="prefix btn-floating blue mdi mdi-plus z-depth-5" id="mkformula" style="width: 40px"></button>
+          <button class="prefix btn-floating btn2 mdi mdi-plus z-depth-2" id="mkformula" style="width: 40px"></button>
           <input type="text" id="cultivo" readonly value="-">
           <label for="cultivo">Medio Cultivo</label>
         </div>
 
         <div class="col s12 input-field">
-          <button class="prefix btn-floating blue mdi mdi-plus z-depth-5" id="mkbandeja" style="width: 40px"></button>
+          <button class="prefix btn-floating btn2 mdi mdi-plus z-depth-2" id="mkbandeja" style="width: 40px"></button>
           <input type="text" id="bandeja" readonly value="-">
           <label for="bandeja">Bandeja</label>
         </div>

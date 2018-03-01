@@ -1,11 +1,7 @@
-
-<a id="ingRut" class="der btn-floating tooltipped modal-trigger pluskey der" data-position="left" data-tooltip="Ingresar Ruta" href="#modal-rutas"><i class="mdi mdi-24px mdi-plus"></i></a>
-
-
 <div class="row">
 
-    <div class="input-field col s4">
-        <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-24px mdi-magnify"></i></a>
+    <div class="input-field col m6 s8">
+        <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify"></i></a>
         <ul id='filtr_1' class='dropdown-content'>
             <li><a class="optns" tipo="nombre" href="#!" fltr="1">Nombre</a></li>
             <li class="hide"><a class="optns" tipo="vcedula" href="#!" fltr="2">Encargado</a></li>
@@ -14,11 +10,15 @@
         <input type="text" id="search_rutas" maxlength="100" num="v208" var="nombre">
         <label class="truncate" for="search_rutas">Buscar Ruta por Nombre</label>
     </div>
+    
+    <div class="input-field col m6 s4 right">
+        <a id="ingRut" class="der btn-floating tooltipped btn2 modal-trigger pluskey der" data-position="left" data-tooltip="Ingresar Ruta" href="#modal-rutas"><i class="mdi mdi-24px mdi-plus"></i></a>
+    </div>
 
-    <div class="card-block col s8">
+    <div class="card-block col s12">
             <table  class="table centered highlight bordered responsive-table z-depth-3" id="data-table-rutas">
                 <thead>
-                    <tr class="white-text blue">
+                    <tr class="white-text tab1">
                         <th class="sinborde" >Código</th>
                         <th class="sinborde" >Ruta</th>
                         <th class="sinborde" >Acciones</th>
@@ -31,15 +31,15 @@
                         <td style=" padding: 10px;" id="rn{$RUT[LE][0]}">{$RUT[LE][1]}</td>
                         <td>
                         
-                            <a href="#" class="der delete pbtn" modulo="ruta" id="d{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Eliminar Ruta"><i class="mdi mdi-24px mdi-delete"></i></a>    
+                            <a href="#" class="delete pbtn gtxt" modulo="ruta" id="d{$RUT[LE][0]}" style="font-size: 2em;" title="Eliminar Ruta"><i class="mdi mdi-24px mdi-delete"></i></a>    
                             
-                            <a href="#modal-rutas" class="der load pbtn crut modal-trigger" id="m{$RUT[LE][0]}" modulo="ruta" style="font-size: 2em; color: #607d8b"><i class="mdi mdi-24px mdi-pencil" title="Editar Ruta"></i></a>
+                            <a href="#modal-rutas" class="load pbtn gtxt crut modal-trigger" id="m{$RUT[LE][0]}" modulo="ruta" style="font-size: 2em;"><i class="mdi mdi-24px mdi-pencil" title="Editar Ruta"></i></a>
                             
-                            <a href="#!" class="der pbtn" id="z{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck"></i></a>
+                            <a href="#!" class="pbtn gtxt" id="z{$RUT[LE][0]}" style="font-size: 2em;" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck"></i></a>
 
-                            <a href="#modal-ruser" class="der luser pbtn modal-trigger" id="u{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
+                            <a href="#modal-ruser" class="luser pbtn gtxt modal-trigger" id="u{$RUT[LE][0]}" style="font-size: 2em;" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
 
-                            <a href="#modal-rcliente" class="der lcliente pbtn modal-trigger" id="c{$RUT[LE][0]}" style="font-size: 2em; color: #607d8b" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
+                            <a href="#modal-rcliente" class="lcliente pbtn gtxt modal-trigger" id="c{$RUT[LE][0]}" style="font-size: 2em;" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
                         </td>
                     </tr>
                     {/section}

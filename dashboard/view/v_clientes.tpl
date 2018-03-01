@@ -15,7 +15,7 @@
 
     <div class="bdy pequeño" >
       <div class="card z-depth-5 pequeño">
-        <div class="card-header center white-text bgprim">
+        <div class="card-header center white-text head1">
           <p class="flow-text" style="font-size: 1.9em;">Clientes</p>
         </div>
         <div class="card-content pequeño">
@@ -30,19 +30,19 @@
               <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
             </div>
             <div class="col s2 m6 ">
-              <a id="ingClie" class="der per1001 btn-floating bgsecond tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
+              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
             </div>
           </div>
           <div class="card-block">
             <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes" style="width: 100%">
               <thead>
                 <tr>
-                  <th class="sinborde white-text bgthird"><b>Cédula</b></th>
-                  <th class="sinborde white-text bgthird">Nombre</th>
-                  <th class="sinborde white-text bgthird">Teléfonos</th>
-                  <th class="sinborde white-text bgthird">Correo</th>
-                  <th class="sinborde white-text bgthird">Tipo</th>
-                  <th class="sinborde white-text bgthird">Acciones</th>
+                  <th class="sinborde white-text tab1"><b>Cédula</b></th>
+                  <th class="sinborde white-text tab1">Nombre</th>
+                  <th class="sinborde white-text tab1">Teléfonos</th>
+                  <th class="sinborde white-text tab1">Correo</th>
+                  <th class="sinborde white-text tab1">Tipo</th>
+                  <th class="sinborde white-text tab1">Acciones</th>
                 </tr>
               </thead>
               <tbody id="listaclientes">
@@ -72,8 +72,8 @@
         </div>
         <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 100%; width: 75%">
           <div class="modal-header">
-            <ul class="tabs tabs-fixed-width bgsecond">
-              <ul class="tabs tabs-fixed-width bgsecond">
+            <ul class="tabs tabs-fixed-width head2">
+              <ul class="tabs tabs-fixed-width head2">
                 <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
                 <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
                 <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>

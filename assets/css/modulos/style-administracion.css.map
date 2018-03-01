@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAAA,SAAU;EACR,SAAS,EAAE,gBAAgB",
-"sources": ["../../scss/modulos/style-administracion.scss"],
+"mappings": "AAEA,MAAM;EACF,UAAU,ECiCN,OAAO;EDhCX,KAAK,ECoBE,IAAI;;;ADjBf,MAAM;EACF,UAAU,EC6BN,OAAO;ED5BX,KAAK,ECgBE,IAAI;;;ADbf,KAAK;EACD,UAAU,ECiBP,OAAO;EDhBV,KAAK,ECOC,IAAI;;;ADJd,SAAU;EACR,SAAS,EAAE,gBAAgB",
+"sources": ["../../scss/modulos/style-administracion.scss","../../scss/modulos/colors.scss"],
 "names": [],
 "file": "style-administracion.css"
 }

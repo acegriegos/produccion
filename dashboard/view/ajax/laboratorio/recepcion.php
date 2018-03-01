@@ -36,7 +36,7 @@
             <th></th>
             <th>Dirección</th>
             <th>Región</th>
-            <th>Finca <a class="der" id="addFin" style="height:30px; width: 30px"> <button class="mdi mdi-plus btn-floating blue z-depth-5"></button></a></th>
+            <th>Finca <a class="der" id="addFin" style="height:30px; width: 30px"> <button class="mdi mdi-plus btn-floating btn2 z-depth-2"></button></a></th>
           </tr>
         </thead>
         <tbody id="fincas">
@@ -64,8 +64,8 @@
         <label for="vrango2">Hasta</label>
       </div>
     </div>
-    <a href="#!" class="btn add der" modulo="laboratorio-explante">Ingresar</a>
-    <a href="#!" class="btn der" style="margin-right: 10px;">Listado de Recepciones</a>
+    <a href="#!" class="btn btn1 add der" modulo="laboratorio-explante">Ingresar</a>
+    <a href="#!" class="btn btn1 der" style="margin-right: 10px;">Listado de Recepciones</a>
   </div>
 </div>
 

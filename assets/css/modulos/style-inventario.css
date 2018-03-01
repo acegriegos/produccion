@@ -1,4 +1,20 @@
+.head1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.head2 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn1 {
+  background: #0080C6;
+  color: #fff;
+}
+
 .tamLetra {
-  font-size: 1.2em !important; }
+  font-size: 1.2em !important;
+}
 
 /*# sourceMappingURL=style-inventario.css.map */

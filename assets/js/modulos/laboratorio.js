@@ -583,7 +583,7 @@ function iniciarVaridad(){
 
         for (var i = 0; i < servicio[0].length; i++) {
             obj = servicio[0][i];
-            str += '<tr id="o'+obj[2]+'" data-cantidad="'+obj[0]+'"><td style="padding:0px; margin:0px" id="_c'+obj[2]+'"><input type="checkbox" id="c'+obj[2]+'" />  <label for="c'+obj[2]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[2]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /></td><td style="padding:0px; margin:0px">'+obj[4]+'</td><td style="padding:0px; margin:0px">'+obj[5]+' </td></tr>';
+            str += '<tr id="o'+obj[7]+'" data-cantidad="'+obj[0]+'"><td style="padding:0px; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="cantexplante"/>  <label for="c'+obj[7]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /></td><td style="padding:0px; margin:0px">'+obj[4]+'</td><td style="padding:0px; margin:0px">'+obj[5]+' </td></tr>';
         }
         $("#vlote").val(servicio[0][0][6]);
         $("#result00").html(str+'</tbody></table>');
