@@ -124,29 +124,80 @@ $(document).on('click','.addVariedad',function(){
 function loadAjustes(){
 
 	$("#invVariedad").material_select('destroy');
- 
-	$.each(invvar[0][0].split(","), function(j,e){
+    var opciones = $("#invVariedad").html();
+
+	$.each(invvar[0][0].split("1,"), function(j,e){
         $("#invVariedad option[value='" + e + "']").attr("selected", true);
     });
 
-    $.each(invvar[1][0].split(","), function(j,e){
-        $("#invactivos option[value='" + e + "']").attr("selected", true);
-    });
+    // $.each(invvar[1][0].split(","), function(j,e){
+    //     $("#invactivos option[value='" + e + "']").attr("selected", true);
+    // });
 
-    $.each(invvar[2][0].split(","), function(j,e){
+    $("#invreactivos").html(opciones);
+    $.each(invvar[1][0].split(","), function(j,e){
         $("#invreactivos option[value='" + e + "']").attr("selected", true);
     });
 
-    $.each(invvar[3][0].split(","), function(j,e){
+    $("#invcomp").html(opciones);
+    $.each(invvar[4][0].split(","), function(j,e){
         $("#invcomp option[value='" + e + "']").attr("selected", true);
     });
 
+    $("#inv-bandejas").html(opciones);
+    $("#inv-bandejas").val(invvar[2][0]);
+
+    $("#inv-frascos").html(opciones);
+    $("#inv-frascos").val(invvar[3][0]);
+
     $(document).on("change",".role_inv",function(){
-        alert($(this).attr('tp'));
+        if($(this).attr('tp') != undefined){
+            arr('login',7,2,907,'idinventario = "'+$(this).val()+'"','id='+$(this).attr('tp'));
+        }
+    });
+    $("#invVariedad").material_select();
+
+    $(document).on("click","#gomodalbandejas",function(){
+        arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas1"))
+        arr('login',6,'',411,invvar[3][0],15,1,$("#frascos1"))
+        $("select").material_select();
+        $("#rw1").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1})
+        $("#modal-bandejas").modal('open');
     });
 
-    $("#invVariedad").material_select();
+    // $(document).on("click",".addline",function(){
+        
+    // });
+
+    $(document).on("change","[id^=bandejas]",function(){
+        var id = $(this).attr('id').substr(8);
+        var idbandeja = $(this).val();
+        $(".zelda").data('triforce')['vidbandeja'] = idbandeja;
+        $("#caben"+id).select();
+    });
+
+    $(document).on("change","[id^=frascos]",function(){
+        var idfrasco = $(this).val();
+        console.log(idfrasco)
+        $(".zelda").data('triforce')['vidfrasco'] = idfrasco;
+    });
+
+    // $(document).on("change",".invfrascos",function(){
+
+    // });
 };
+
+$(document).on("click",".delline",function(){
+    var id = $(this).attr('id').substr(2);
+    if ($(".rowrel").length <= 1) {
+        $("#bandejas"+id).val(0);
+        $("#frascos"+id).val(0);
+        $("#caben"+id).val(1);
+        $("select").material_select();
+    }else{
+        $("#rw"+id).remove();
+    }
+});
 
 function cargarArr(vid,velemento){
     arr('laboratorio',vid,'',0,'',0,1,velemento);
@@ -179,7 +230,9 @@ function cargarArr(vid,velemento){
     });
 
     $("#mkbandeja").click(function(){
-        $("#modal-bandeja").modal('open')
+        arr('login',6,'',411,invvar[0][2],15,1,$("#invactivlab"))
+        $("#invactivlab").material_select();
+        $("#modal-bandeja").modal('open');
     });
 
     Materialize.updateTextFields();
@@ -698,6 +751,9 @@ function validar (varreglo,vmodulo) {
         case 'ubicacione':
             
             break;
+        case 'laboratorio-relacione':
+
+            break;
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -844,6 +900,18 @@ function endDetail(vid,vacc,modulo){
                 $("#fservicios .zelda").removeData();
                 $("#fservicios .zelda").data('triforce',{vid : 0,vcodigo : '',vnombre : '',vdescripcion : '',vpbase : 0,vperiodo : 0,vdias : 0,vidproveedor : 0,vprecio : 0,vpganancia : 0,vidinventario : 0,vidmoneda : 1,vservprofesional : 0,vidsuc : -1});
                 $("#flaboratorio-explantes .zelda").data('triforce')['vidservicio'] = vid[0][0];
+                break;
+            case 'laboratorio-relacione':
+                var id = parseInt($(this).attr('id').substr(2));
+                console.log(id)
+                id++;
+                $("#frelaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="bandejas'+id+'" class="invbandejas"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light blue btn-floating addline" id="al'+id+'"><i class="mdi mdi-plus"></i></a><a class="waves-effect waves-light red btn-floating delline" id="dl'+id+'"><i class="mdi mdi-close"></i></a></td></tr>');
+                // setTimeout(function(){
+                    arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas"+id));
+                    arr('login',6,'',411,invvar[3][0],15,1,$("#frascos"+id));
+                    $("select").material_select();
+                    $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1})
+                // },100);
                 break;
             default:
                 break;

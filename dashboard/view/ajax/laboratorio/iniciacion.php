@@ -74,11 +74,9 @@
 </div>
 
 <div class="modal modal-fixed-footer grandemodal" id="modal-formula" style="height: 80%; width: 75%">
-    
     <div class="modal-header">
         Agregar Medio de Cultivo
     </div>
-
     <div class="modal-content">
     </div>
 
@@ -93,10 +91,11 @@
     <div class="modal-header">
         Agregar Bandeja
     </div>
-
-    <div class="modal-content">
+    <div class="modal-content row">
+      <div class="col s6 m6 l6">
+        <select type="select" id="invactivlab"></select>
+      </div>
     </div>
-
     <div class="modal-footer">
       <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
       <button type="button" class="waves-effect waves-green btn-flat" id="mbandeja" >Guardar</button>

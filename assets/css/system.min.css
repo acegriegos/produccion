@@ -5,6 +5,10 @@ body{
   font-size: 1em !important;
 }
 
+.modal{
+  margin-top: 0 !important;
+}
+
 .grandemodal {
   width: 70%;
   min-height: 90%;

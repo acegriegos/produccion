@@ -4,7 +4,7 @@
   <div class="l9 m9 s12 col">
 
 <div class="card z-depth-3 pequeño">
-<div class="card-header center bgsecond white-text">
+<div class="card-header center head1 white-text">
   <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
 </div>
   <input type="hidden" class="zelda">
@@ -12,12 +12,18 @@
   <div class="row pequeño">
     <div class="col s12 m3 l3 concre" align="center">
       <div class="switch">
-        <label style="color: black">
+        <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocont" val="1" checked/>
+        <label for="chg_tipo"><b>Contado</b></label>
+  <br>
+        <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocred" val="0"/>
+        <label for="chg_tipocred"><b>Crédito</b></label>
+
+        <!-- <label style="color: black">
           <b>Contado</b>
           <input type="checkbox" id="chg_tipo" val="1" disabled>
           <span class="lever"></span>
           <b>Crédito</b>
-        </label>
+        </label> -->
       </div>
     </div>
 
@@ -75,7 +81,7 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card center z-depth-3">
-  <div class="card-header head1 center"><p class="white-text">DETALLE DE FACTURA</p></div>
+  <div class="card-header head1 center"><b class="head1">DETALLE DE FACTURA</b></div>
 
   <div class="row">
     <div class="s12 m12 l12 col hide-on-med-and-down">
@@ -275,7 +281,7 @@
 <div class="l3 m3 s12 col">
 
 <div class="card z-depth-3">
-  <div class="white-text head1 card-header center" style="margin-top: 0px;">DESGLOCE DE FACTURA</div>
+  <div class="white-text head1 card-header center" style="margin-top: 0px;"><b class="head1">DESGLOCE DE FACTURA</b></div>
   
   <div class="row">
 
@@ -297,35 +303,21 @@
         <div class="col s12 m12 l12">
           <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%; "></textarea>
           <br>
-        </div>
-        <div class="row _desc">
-          <div class="col s4 m4 l4"><br>
-            <label for="vdescuentop">Descuento</label>
-            <!-- <img src="../assets/img/icon/percent.svg"/> -->
-          </div>
-          <div class="col s8 m8 l8 input-field">
-              <input type="text" id="vdescuentop" class="eder" value="0" disabled style="color: black" placeholder="DESCUENTO">
-          </div>
-        </div>
-
-        <div class="row _flete">
-          <div class="col s4 m4 l4"><br>
-            <!-- <div class="prefix moneda"></div> -->
-            <label for="vflete">Flete</label>
-          </div>
-          <div class="col s8 m8 l8 input-field">
-            <input type="text" id="vflete" class="eder divisa" value="0" placeholder="FLETE">
-          </div>
-        </div>
-
-        <div class="row _ajuste">
-          <div class="col s4 m4 l4"><br>
-            <div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div>
-          </div>
-          <div class="col s8 m8 l8 input-field">
-            <input type="text" id="vajuste" class="eder" value="0" style="color: black" placeholder="AJUSTE">
-          </div>
-        </div>
+        </div><br><br>
+        <table>
+          <tr>
+            <td><label for="vdescuentop">Descuento</label></td>
+            <td><input type="text" id="vdescuentop" class="eder _txtaside" value="0" disabled style="height: 0.5% !important" placeholder="DESCUENTO"></td>
+          </tr>
+          <tr>
+            <td><label for="vflete">Flete</label></td>
+            <td><input type="text" id="vflete" class="eder _txtaside divisa" value="0" placeholder="FLETE" style="height: 0.5% !important"></td>
+          </tr>
+          <tr>
+            <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
+            <td><input type="text" id="vajuste" class="eder _txtaside" value="0" style="height: 0.5% !important" placeholder="AJUSTE"></td>
+          </tr>
+        </table>
 
       </div>
 

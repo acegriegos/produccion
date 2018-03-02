@@ -1,19 +1,33 @@
 @import 'colors.scss';
 
-.bgprim{
-  background: $prim;
-}
-.bgsecond{
-  background: $second;
-}
-.bgthird{
-  background: $third;
+.head1{
+    background: $head1;
+    color: $head1txt;
 }
 
-.delete:hover {
-  color: $danger;
+.head2{
+    background: $head2;
+    color: $head2txt;
 }
 
+.btn1{
+    background: $btn1;
+    color: $btn1txt;
+}
+
+.btn2{
+    background: $btn2;
+    color: $btn2txt;
+}
+
+.btn3{
+    background: $btn3;
+    color: $btn3txt;
+}
+
+.head3{
+    background: $head3;
+}
 
 .bdy {
   font-size: 16px !important;
