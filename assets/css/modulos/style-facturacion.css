@@ -1,31 +1,31 @@
 @charset "UTF-8";
 .head1 {
-  background: #0080C6;
-  color: #fff;
+  background: #0080C6 !important;
+  color: #fff !important;
 }
 
 .head2 {
-  background: #45b97c;
-  color: #fff;
+  background: #45b97c !important;
+  color: #fff !important;
 }
 
 .btn1 {
-  background: #0080C6;
-  color: #fff;
+  background: #0080C6 !important;
+  color: #fff !important;
 }
 
 .btn2 {
-  background: #F58345;
-  color: #fff;
+  background: #F58345 !important;
+  color: #fff !important;
 }
 
 .btn3 {
-  background: #937CB9;
-  color: #fff;
+  background: #937CB9 !important;
+  color: #fff !important;
 }
 
 .head3 {
-  background: #A6CE39;
+  background: #A6CE39 !important;
 }
 
 .bdy {

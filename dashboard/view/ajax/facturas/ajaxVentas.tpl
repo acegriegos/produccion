@@ -32,9 +32,9 @@
     </div>
 
     <div class="input-field col s12 m3 l3 hide" id="reference">
-        <label for="vreferencia">Número de Referencia</label>
-        <input type="text" id="vreferencia" class="validate" />
-      </div>
+      <label for="vreferencia">Número de Referencia</label>
+      <input type="text" id="vreferencia" class="validate" />
+    </div>
 
     <div class="col s12 m3 l3 " align="center">
       <label class="cre" style="display: none;"><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 

@@ -135,6 +135,8 @@
               </tr>
             </thead>
             <tbody id="flaboratorio-relaciones">
+              <input type="hidden" id="autoinc" value="1">
+              <input type="hidden" id="curpos" value="0">
             <!-- section -->
               <tr id="rw1" class="rowrel zelda">
                 <td style="padding: 10px; color : black;">
@@ -153,8 +155,8 @@
                   </div>
                 </td>
                 <td style="padding: 10px; color : black;">
-                  <a class="waves-effect waves-light blue btn-floating addline add" modulo="laboratorio-relacione" id="al1"><i class="mdi mdi-plus"></i></a>
-                  <a class="waves-effect waves-light red btn-floating delline" id="dl1"><i class="mdi mdi-close"></i></a>
+                  <a class="waves-effect waves-light blue btn-floating addline add" modulo="laboratorio-relacione" id="al1" tp="5"><i class="mdi mdi-plus"></i></a>
+                  <a class="waves-effect waves-light red btn-floating delline delete" modulo="laboratorio-relacione" id="dl1" tp="5"><i class="mdi mdi-close"></i></a>
                 </td>
               </tr>
             <!-- section -->

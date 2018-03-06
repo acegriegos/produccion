@@ -45,6 +45,13 @@
 	   			$pagina = 1;
 	   			require_once 'view/ajax/laboratorio/qos.php';
 	   			break;
+	   		case 9:
+	   			$pagina = 1;
+	   			$transaccion = $kakaroto->kamehameha('id,idbandeja,idfrasco,cantidad',911,'id > 0 and idsucursal = @@impresa');
+	   			$bandejas = $kakaroto->kamehameha('',411,$_REQUEST['arreglo']['invbandejas']);
+	   			$frascos = $kakaroto->kamehameha('',411,$_REQUEST['arreglo']['invfrascos']);
+	   			require_once 'view/ajax/laboratorio/relaciones.php';
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

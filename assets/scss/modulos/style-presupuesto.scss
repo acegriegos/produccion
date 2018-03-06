@@ -1,3 +1,35 @@
+@import 'colors.scss';
+
+.head1{
+    background: $head1 !important;
+    color: $head1txt;
+}
+
+.head2{
+    background: $head2 !important;
+    color: $head2txt;
+}
+
+.btn1{
+    background: $btn1 !important;
+    color: $btn1txt;
+}
+
+.btn2{
+    background: $btn2 !important;
+    color: $btn2txt;
+} 
+
+.btn3{
+    background: $btn3 !important;
+    color: $btn3txt;
+}
+
+.head3{
+    background: $head3 !important;
+    color: $head3txt;
+}
+
 .cuadro {
   width: 100px;
   background-color: #2196F3;

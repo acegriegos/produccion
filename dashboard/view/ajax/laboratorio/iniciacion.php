@@ -98,6 +98,6 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-      <button type="button" class="waves-effect waves-green btn-flat" id="mbandeja" >Guardar</button>
+      <button type="button" class="modal-action modal-close waves-effect waves-green btn-flat" id="mbandeja" >Guardar</button>
     </div>
 </div>

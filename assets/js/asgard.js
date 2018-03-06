@@ -497,10 +497,8 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
 }
 
 function odin(varreglo,vform) {
-    console.log(vform)
     //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
-
     switch($("#"+vform).attr('tp')){
         case "1":
     //LLENADO DE VARIABLES POR ATRIBUTO EN DETALLE
@@ -686,8 +684,7 @@ case "5":
                         salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                         break;
                         default:
-                        try{
-                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                        try{                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                         }
                         catch(e){
                             console.log(varreglo[i]+" No Existe");
@@ -699,7 +696,7 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
-        
+
     }//end FOR
     break;
     }//end SWITCH
@@ -1579,7 +1576,6 @@ function reconstruirModal(tp) {
         $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
     }else if (tp == 2) {
         var vinv = getDatos('idinventario',907,'idsucursal = @@impresa order by idtipoinventario',0,0)[0];
-        console.log(vinv)
         $("#fservicios .zelda").data('triforce',{vid : 0,vcodigo : '',vnombre : '',vdescripcion : '',vpbase : 0,vperiodo : 0,vdias : 0,vidproveedor : 0,vprecio : 0,vpganancia : 0,vidinventario : vinv,vidmoneda : 1,vservprofesional : 0,vidsuc : -1});
     }
 }

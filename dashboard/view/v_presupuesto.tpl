@@ -17,9 +17,9 @@
       <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
         <div class="card-header center blue-grey white-text z-depth-1 pequeño">
-          <p class="flow-text"  style="background-color:#0B3861;" >Presupuesto</p>
+          <p class="flow-text head1" >Presupuesto</p>
         </div>
-        <nav class="navbar navbar-dark blue z-depth-1" style="margin-top: -25px;">
+        <nav class="navbar navbar-dark head2 z-depth-1" style="margin-top: -25px;">
           <ul class="nav navbar-nav">
             <li class="nav-item menu3 active" id="m1">
               <a class="nav-link" href="#" title="Mantenimiento">Mantenimiento</a>

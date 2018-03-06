@@ -1,8 +1,39 @@
+.head1 {
+  background: #0080C6 !important;
+  color: #fff;
+}
+
+.head2 {
+  background: #45b97c !important;
+  color: #fff;
+}
+
+.btn1 {
+  background: #0080C6 !important;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345 !important;
+  color: #fff;
+}
+
+.btn3 {
+  background: #937CB9 !important;
+  color: #fff;
+}
+
+.head3 {
+  background: #A6CE39 !important;
+  color: #fff;
+}
+
 .cuadro {
   width: 100px;
   background-color: #2196F3;
   color: white;
   text-align: center;
-  height: 100px; }
+  height: 100px;
+}
 
 /*# sourceMappingURL=style-presupuesto.css.map */

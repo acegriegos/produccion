@@ -62,22 +62,28 @@
 }
 
 @media print {
+  
   body {
     font-size: 0.8em !important;
   }
+  
   header, footer, nav, aside {
     display: none;
   }
+  
   .salto {
     page-break-before: always;
   }
+  
   ul, img {
     page-break-inside: avoid;
   }
+  
   td {
     padding: 1px !important;
     font-size: 1em !important;
   }
+  
   @page {
     size: A4 landscape;
   }
@@ -87,7 +93,7 @@
     padding: 0;
   }
   
-  #pageFooter:before {
+  #pageFooter:beorfe {
     counter-increment: hoja;
     counter-reset: hoja (+1);
     position: fixed;
@@ -99,4 +105,5 @@
     background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
     background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
   }
+
 }
