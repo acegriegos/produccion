@@ -51,7 +51,7 @@
                 <span id="numfact"> <?php echo $datos[0]; ?> </span>
               </div>
               <div class="col s12 <?php echo $hide ?>">
-               <b> Factura de: </b><span id="fclase"><?php echo $datos[1]; ?></span>
+               <b> Factura de: </b><span id="fclase"><?php echo $datos[1].$datos[31]; ?></span>
              </div>
              <!--  -->
              <div class="col s12">

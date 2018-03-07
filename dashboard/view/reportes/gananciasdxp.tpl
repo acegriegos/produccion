@@ -10,7 +10,25 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" porcliente  entrefechas portipo="varios"  tbltipos="64" tipos=" Por Factura" types="2" elem="1,0,0,0" sp="307"  bisprov="0"></div>
+   <div class="row" id="ftr2">
+              <div class="input-field col s12 m6">
+                <i class="mdi mdi-24px mdi-calendar-question prefix"></i>
+                <label for="desde">DESDE</label>
+                <input type="date" class="datepicker vfecha " id="desde" value="" style="font-size: 1.5em; color: black; font-weight: bold;">
+              </div>
+              <div class="col s12 m6">
+                <div class="input-field">
+                  <i class="mdi mdi-24px mdi-calendar-question prefix"></i>
+                  <label for="hasta">HASTA</label>
+                  <input type="date" class="datepicker vfecha" id="hasta" value="" style="font-size: 1.5em; color: black; font-weight: bold;">
+                </div>
+              </div> 
+              <div class="col s8   offset-m10 offset-s3"><br>
+                <a class="waves-effect waves-light btn" id="bus">Buscar</a>
+              </div>
+            </div>
+
+     <!--  <div class="filtros row" entrefechas portipo="varios" tbltipos="20,21,22,64,2" tipos="Por Familia,Por Tipo,Por Marca,Por Factura,Por Cliente" types="1,1,1,2,1" elem="" sp="307" modulo="ganancia"  bisprov="0"></div> -->
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -42,7 +60,7 @@
   
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=0.1"></script>
-  <script src="../assets/js/modulos/reportes/ganancias.js?v=0.1"></script>
+<!--   <script src="../assets/js/modulos/reportes/reportes.js?v=0.1"></script>
+ -->  <script src="../assets/js/modulos/reportes/ganancias.js?v=0.2"></script>
 </body>
 </html>

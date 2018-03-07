@@ -34,8 +34,12 @@
  	
 	   			$transaccion = $kakaroto->kamehameha('',72,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
-	   			
+	   			$ocultar = '';
+	   			$oc = '';
+	   			$repetir = isset($_REQUEST['x']) ? 1 : 0;
+
 	   			if($_REQUEST['tp'] == 'true')
+
 	   				require_once 'view/ajax/facturas/facturapv.php';
 	   			else
    					require_once 'view/ajax/facturas/factura.php';
@@ -45,6 +49,7 @@
 	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
 	   			$transaccion = $kakaroto->kamehameha('',157,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
+	   			
 	   			require 'view/ajax/facturas/orden.php';
 	   			break;
 	   		case 8:

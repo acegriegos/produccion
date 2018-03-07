@@ -77,6 +77,8 @@
                                 <td style="width: 10%">{$FACT[LE][8]}</td>
                                 <td style="width: 10%">
                                     <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" tp="{$FACT[LE][10]}" title="Visualizar Factura"></a>
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-format-page-break print-x blueh" id="a{$FACT[LE][0]}"  title="PV"></a>
+
                                     <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" title="Procesar Factura" rm="3"></a>
                                 </td>
                             </tr>

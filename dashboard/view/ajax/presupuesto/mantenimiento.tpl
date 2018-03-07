@@ -1,49 +1,42 @@
 <div class="modal modal-fixed-footer" id="modal-odt">
-    <div class="modal-header center">
+    <div class="modal-header center head3" style="padding: 1%">
         Asignar ODT al Presupuesto <span id="gid" tr="0"></span>
     </div>
     <div class="modal-content">
         <div class="row">
-            <div class="col s5">
-                <label for="nodt">ODT</label>
+            <div class="col s12">
+                <h6 for="nodt" class="center"><b>ODT</b></h6>
                 <input type="text" class=" autocomplete" id="nodt" placeholder="Buscar y Asignar ODT">
-
-                <div id="fodts" style="border: 1px solid #e2e2e2;padding: 1%;">
-
+                <br><br>
+                <div id="fodts" style="padding: 1%;">
                     <input type="hidden" class="zelda">
-                    <label class="center">Crear y Asignar ODT</label>
+                    <h6 class="center"><b>Crear y Asignar ODT</b></h6>
                     <input type="text" id="vcodigo" placeholder="Código" maxlength="10">
                     <input type="text" id="vdescripcion" placeholder="Descripción" maxlength="255">
-
-                    <a href="#" class="btn-floating der add proyect" modulo="odt" title="Crear ODT"><i class="mdi mdi-plus small"></i></a>
-
                 </div>
-
+                <a href="#" class="btn-floating der btn2 add proyect" modulo="odt" title="Crear ODT"><i class="mdi mdi-plus small"></i></a>
             </div>
-
+            </div>
+            <div class="col s1" style="border-right: 1px solid; height: 100%;"></div>
             <div class="col s5">
-                <label>Lista de ODT Asignadas</label>
-                <div class="listaodt">
-                    
-                </div>
+                <h6 class="center"><b>Lista de ODT Asignadas</b></h6>
+                <div class="listaodt"><!-- JS --></div>
             </div>
-
-            <div class="col s2">
-                <i class="fa fa-trash pbtn black-text" id="qodt" title="Quitar ODT"></i>
+            <div class="col s1">
+                <i class="pbtn mdi mdi-plus small" id="qodt" title="Quitar ODT"></i>
             </div>
         </div>
-        
     </div>
 
     <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-        </div>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+    </div>
 </div>
 
-<div id="addPre" class="modal modal-fixed-footer" style="width: 90%">
-    <div class="modal-header center" id="titpre">
 
-    </div>  
+
+<div id="addPre" class="modal modal-fixed-footer" style="width: 90%">
+    <div class="modal-header center head3" style="padding: 1%" id="titpre"></div>  
     <div class="modal-content">
       <section id="fpresupuestos">
 
@@ -151,12 +144,15 @@
   </div>
 
 <div class="row">
-    <div class="input-field col s12 m6">
+    <div class="input-field col s8 m6">
         <a class="prefix mdi mdi-magnify"></a>
         <input type="text" id=".search_productos" maxlength="100" num="v14" var="codigo,descripcion" placeholder="Filtros">
     </div>
-
-    <a href="#addPre" class="btn-floating der pluskey modal-trigger" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
+    <div class=" s4 m6 col">
+        <div class="container">
+            <a href="#addPre" class="btn-floating pluskey der modal-trigger btn2" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
+        </div>
+    </div>
 
 </div>
     <div class="card-block" style="padding: 0 1% 0 1% ; ">

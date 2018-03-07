@@ -12,8 +12,8 @@
 {$NAV}
 <body>
 <div class="bdy pequeño"  style="font-size: 1.2em !important" >
-<div class="card pequeño z-depth-3">
-<div class="card-header center head1">
+<div class="card pequeño z-depth-5">
+<div class="card-header  center white-text" style="background-color:#0B3861">
 <p class="flow-text" style="font-size: 1.9em; margin-bottom: 0.3% !important">Reportes</p>
 </div>
 <div class="card-content">
@@ -77,7 +77,7 @@
 </div>
 {/if}
 {if $TR eq 1}
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn" rep="cotizaciones"><i class="mdi-clipboard-outline mdi-48px mdi padd"></i>
 </a>
 <div class="row">
@@ -88,7 +88,7 @@
 </div>
 {/if}
 {if $TR eq 1}
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn" rep="pedidos"><i class="mdi-48px mdi mdi-cube-send"></i>
 </a>
 <div class="row">
@@ -99,10 +99,10 @@
 </div>
 {/if}
 {if $TR eq 1}
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn"><i class="mdi-48px mdi mdi-truck-fast"></i>
 </a>
-<div class="row">
+<div class="row hide">
 <div class="col s12">
 <p>Rutas</p>
 </div>
@@ -110,7 +110,7 @@
 </div>
 {/if}
 {if $TR eq 2}
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn"  rep="compras"><i class="mdi-48px mdi mdi-chart-pie"></i>
 </a>
 <div class="row">

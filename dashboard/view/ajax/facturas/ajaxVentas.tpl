@@ -12,18 +12,19 @@
   <div class="row pequeño">
     <div class="col s12 m3 l3 concre" align="center">
       <div class="switch">
-        <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocont" val="1" checked/>
+        
+        <!-- <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocont" val="1" checked/>
         <label for="chg_tipo"><b>Contado</b></label>
-  <br>
+        <br>
         <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocred" val="0"/>
-        <label for="chg_tipocred"><b>Crédito</b></label>
+        <label for="chg_tipocred"><b>Crédito</b></label> -->
 
-        <!-- <label style="color: black">
+        <label>
           <b>Contado</b>
           <input type="checkbox" id="chg_tipo" val="1" disabled>
           <span class="lever"></span>
           <b>Crédito</b>
-        </label> -->
+        </label>
       </div>
     </div>
 

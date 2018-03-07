@@ -159,3 +159,10 @@ $(document).on("click",".print",function(){
 	console.log('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
 	window.open('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
 });
+$(document).on("click",".mdi-format-page-break",function(){
+	var id = $(this).attr('id').substr(1);
+	var tv = 6;
+	var tp = 'true';//$(this).attr('tp');
+
+	window.open('facturacion?accion='+tv+'&id='+id+'&tp='+tp+'&x=1');
+});

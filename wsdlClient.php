@@ -15,7 +15,6 @@
                 //GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
                 print_r($fe->getXMLRecepcion());
-                // print $fe->getXMLRecepcion();
                 break;
             case 3:
                 //BEARER
@@ -34,6 +33,20 @@
                 $emisor     =   !isset($_REQUEST['emisor'])     ?   0   :   $_REQUEST['emisor'];
                 $receptor   =   !isset($_REQUEST['receptor'])   ?   0   :   $_REQUEST['receptor'];
                 print_r($fe->getRecibos($id,$offset,$limit,$emisor,$receptor));
+                break;
+            case 6:
+                // $file = fopen("prueba.xml", "w+");
+                // fwrite($file, $fe->getXMLRecepcion());
+                // fclose($file);
+                // print_r(shell_exec("java -jar /opt/lampp/htdocs/firmar-xades.jar assets/p12/310169776129.p12 prueba.xml prueba-firmada.xml"));
+
+                if (openssl_pkcs12_read(file_get_contents('assets/p12/310169776129.p12'), $certs, '6969')) {
+                  $publicKey = openssl_x509_read($certs['cert']);
+                  $privateKey = openssl_pkey_get_private($certs['pkey']);
+                }
+                print_r(openssl_x509_parse($publicKey)); 
+                echo "<hr>";
+                print_r(openssl_x509_fingerprint($publicKey, "sha1", true));
                 break;
             default:
                 print_r(json_encode(['ERROR'=>'Accion no Valida']));
@@ -66,8 +79,8 @@
               "client_id" => "api-stag",
               "client_secret" => "",
               "scope" => "",
-              "username" => "cpf-02-0665-0577@stag.comprobanteselectronicos.go.cr",
-              "password" => ']|$b%%pN@@yvaNV%S]W_',
+              "username" => "cpj-3-101-697761@stag.comprobanteselectronicos.go.cr",
+              "password" => 'l[&qq[o$f$+c8Ro|x_@]',
               "grant_type" => "password");
 
             $postData = "";
@@ -172,6 +185,7 @@
                     print_r($rs);
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
+                    print_r($rs);
                     $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs]);
                     break;
                 default:

@@ -134,7 +134,7 @@ function cargarOCompras(){
 function cargarCompras(){
     $("#titfact").html("COMPRAS");
     $("#reference").removeClass('hide');
-    $(".chg_tipo").attr('disabled',false);
+    $("#chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
 
     $(".trCompra").removeClass('hide');
@@ -333,7 +333,7 @@ function cargarGlobal(){
         }
     });
 
-    $(".chg_tipo").change(function(){
+    $("#chg_tipo").change(function(){
         var value = parseInt($(this).attr('val'));
 
         if (value == 2) {
