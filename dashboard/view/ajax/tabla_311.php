@@ -1,9 +1,9 @@
-<div class="card-header center white-text" style="background-color:#0B3861; margin: 0 !important">
+<div class="card-header center head1" style="margin: 0 !important">
 	<p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Factura</p>
 </div>
 <div id="fdevoluciones" class="row">
 	<div class="col s12 m12 pequeño">
-		<div class="card blue z-depth-5">
+		<div class="card bg1 z-depth-3">
 			<div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 1% !important">
 				<div class="col s12 m8 l8 right-align" style="padding-right: 10% !important; "><span class="card-title"><b>Factura: <span><?php echo $transaccion[0][0]; ?></span></b></span> 
 				</div>
@@ -30,7 +30,7 @@
 					<div class="col s12 m12 l4">
 						<div class="row" style=" padding-top: 10%;">
 							<div class="col s12">
-								<button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Devolución</button>
+								<button href="#!" class="waves-effect waves-light btn btn2 rigth z-depth-3" id="btn-div"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Devolución</button>
 							</div>
 						</div>
 					</div>
@@ -49,7 +49,7 @@
 				<input type="hidden" class="zelda">
 				<div class="row">
 					<div class="col s12">
-						<div class="card" style="background-color:#0B3861">
+						<div class="card bg1">
 							<div class="card-content pequeño white-text">
 								<div class="center-align"><span class="card-title">Devoluciones</span></div>
 								<div class="row padd">
@@ -81,9 +81,9 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col s12 m10 offset-m2 ">
-											<button href="#!" class="waves-effect btn waves-light  z-depth-5 add" modulo="devolucione" varias="1" tp="5">Devolver</button>
-											<button href="#!" class="waves-effec btn waves-light  z-depth-5" id="btn-divsalir">Salir</button>
+										<div class="col s12 m10 offset-m2">
+											<button href="#!" class="waves-effect btn btn2 waves-light z-depth-3 add" modulo="devolucione" varias="1" tp="5">Devolver</button>
+											<button href="#!" class="waves-effec btn btn1 waves-light z-depth-3" id="btn-divsalir">Salir</button>
 										</div>
 									</div>
 								</div>
@@ -96,14 +96,14 @@
 		<div class="card-block pequeño" >
 			<div class="row pequeño">
 				<div class="col s12 pequeño">
-					<table id="data-table-cuentas-detalle" class="table centered highlight bordered dt-responsive nowrap pequeño z-depth-5 ">
+					<table id="data-table-cuentas-detalle" class="table centered highlight bordered dt-responsive nowrap pequeño z-depth-3 ">
 						<thead>
 							<tr>
-								<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Devolver</th>
-								<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Producto</th>
-								<th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 15%">Cantidad</th>
-								<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Unidad</th>
-								<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Motivo</th>
+								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Devolver</th>
+								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Producto</th>
+								<th class="white-text tab1" style="border: 0; border-radius: 0px !important; width: 15%">Cantidad</th>
+								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Unidad</th>
+								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Motivo</th>
 							</tr>
 						</thead>
 						<tbody vtabla="detalledevolucione" id="fdetalledevoluciones" tp="4" rollback>
@@ -137,7 +137,7 @@
 					</table>
 				</div>
 				<div class="col s4 offset-s8  l2 offset-l10"><br>
-				<button href="#!" class="waves-effec btn waves-light  z-depth-5 " id="btn-navsalir">Salir</button></div>
+				<button href="#!" class="waves-effec btn btn1 waves-light z-depth-3" id="btn-navsalir">Salir</button></div>
 			</div>
 		</div>
 	</div>

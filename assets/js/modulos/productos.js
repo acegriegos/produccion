@@ -955,7 +955,7 @@ $(document).on("click",".descuentos",function() {
 
 $(document).on("click", ".delprod", function () {
 	var id = $(this).attr('id').substr(1);
-	Materialize.toast('Desea Borrar este Producto?&nbsp;&nbsp;&nbsp;<button type="button" class="waves-effect waves-light btn blue accept" id="acc' + id + '"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-window-close"></i></button>', 10000, 'rounded');
+	Materialize.toast('Desea Borrar este Producto?&nbsp;&nbsp;&nbsp;<button type="button" class="waves-effect waves-light btn btn2 accept" id="acc' + id + '"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn btn1 cancel"><i class="mdi mdi-window-close"></i></button>', 10000);
 });
 
 $(document).on("click", ".accept", function () {
@@ -2137,7 +2137,7 @@ function addprod(prod, cant, uni, sim) {
 		sim = '';
 
 	if ($("#l"+info[0]).html() == undefined) {
-		$("#listapaquetes").append('<div class="chip blue lighten-3" id="l'+info[0]+'"><input type="hidden" id="htot'+info[0]+'" value="'+ptotal+'" precio="'+info[4]+'"><span class="nomprod" id="n'+info[0]+'" idproducto="'+idprod+'" idservicio="'+idserv+'">'+prod+'</span> (<span class="hcant" id="c'+info[0]+'">'+cant+'</span><span class="huni" id="u'+info[0]+'" idunidad="'+uni+'">'+sim+'</span>)<i class="close mdi mdi-close mdi-24px cdel del" id="d'+info[0]+'"></i></div>');
+		$("#listapaquetes").append('<div class="chip head2 lighten-3" id="l'+info[0]+'"><input type="hidden" id="htot'+info[0]+'" value="'+ptotal+'" precio="'+info[4]+'"><span class="nomprod" id="n'+info[0]+'" idproducto="'+idprod+'" idservicio="'+idserv+'">'+prod+'</span> (<span class="hcant" id="c'+info[0]+'">'+cant+'</span><span class="huni" id="u'+info[0]+'" idunidad="'+uni+'">'+sim+'</span>)<i class="close mdi mdi-close mdi-24px cdel del" id="d'+info[0]+'"></i></div>');
 	} else {
 		$("#c"+info[0]).text(parseInt($("#c"+info[0]).text()) + parseInt(cant));
 		var precio = parseFloat($("#htot"+info[0]).attr('precio'));

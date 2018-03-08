@@ -1,21 +1,108 @@
+.head1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.head2 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.head3 {
+  background: #F58345;
+  color: #fff;
+}
+
+.head4 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345;
+  color: #fff;
+}
+
+.btn3 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff;
+}
+
+.btn5 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.tab1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.tab3 {
+  background: #F58345;
+  color: #fff;
+}
+
+.tab4 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.bg1 {
+  background: #4D4D4D;
+}
+
+.delete:hover {
+  color: #EC545A !important;
+}
+
+.bgtransparent {
+  background: transparent;
+}
+
+.gtext {
+  color: #5A5A5A;
+}
+
 .tamLetra {
-  font-size: 1.2em !important; }
+  font-size: 1.2em !important;
+}
 
 .bdy .input-field {
-  margin: 0px; }
+  margin: 0px;
+}
 
 .movsinvent {
-  padding: 15px 10px 0 10px; }
+  padding: 15px 10px 0 10px;
+}
 
 .tabs .indicator {
-  background-color: white !important; }
+  background-color: white !important;
+}
 
 ul.pagination > li.active {
-  background-color: #2196F3 !important; }
+  background-color: #2196F3 !important;
+}
 
 .autocomplete-content {
   z-index: 3000 !important;
   position: absolute !important;
-  width: 100% !important; }
+  width: 100% !important;
+}
 
 /*# sourceMappingURL=style-productos.css.map */

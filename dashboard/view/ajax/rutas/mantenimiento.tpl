@@ -30,16 +30,11 @@
                         <td style=" padding: 10px;">{$RUT[LE][2]}</td>
                         <td style=" padding: 10px;" id="rn{$RUT[LE][0]}">{$RUT[LE][1]}</td>
                         <td>
-                        
-                            <a href="#" class="delete pbtn gtxt" modulo="ruta" id="d{$RUT[LE][0]}" style="font-size: 2em;" title="Eliminar Ruta"><i class="mdi mdi-24px mdi-delete"></i></a>    
-                            
-                            <a href="#modal-rutas" class="load pbtn gtxt crut modal-trigger" id="m{$RUT[LE][0]}" modulo="ruta" style="font-size: 2em;"><i class="mdi mdi-24px mdi-pencil" title="Editar Ruta"></i></a>
-                            
-                            <a href="#!" class="pbtn gtxt" id="z{$RUT[LE][0]}" style="font-size: 2em;" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck"></i></a>
-
-                            <a href="#modal-ruser" class="luser pbtn gtxt modal-trigger" id="u{$RUT[LE][0]}" style="font-size: 2em;" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
-
-                            <a href="#modal-rcliente" class="lcliente pbtn gtxt modal-trigger" id="c{$RUT[LE][0]}" style="font-size: 2em;" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
+                            <a href="#modal-rutas" class="load pbtn crut modal-trigger gtext" id="m{$RUT[LE][0]}" modulo="ruta" style="font-size: 2em;"><i class="mdi mdi-24px mdi-pencil" title="Editar Ruta"></i></a>
+                            <a href="#!" class="pbtn gtext" id="z{$RUT[LE][0]}" style="font-size: 2em;" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck gtxt"></i></a>
+                            <a href="#modal-ruser" class="luser pbtn modal-trigger gtext" id="u{$RUT[LE][0]}" style="font-size: 2em;" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
+                            <a href="#modal-rcliente" class="lcliente pbtn modal-trigger gtext" id="c{$RUT[LE][0]}" style="font-size: 2em;" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
+                            <a href="#" class="delete pbtn gtext" modulo="ruta" id="d{$RUT[LE][0]}" style="font-size: 2em;" title="Eliminar Ruta"><i class="mdi mdi-24px mdi-delete"></i></a>
                         </td>
                     </tr>
                     {/section}
@@ -49,7 +44,7 @@
 </div>
 
  <div class="modal modal-fixed-footer" id="modal-rutas" style="height: 210px;">
-    <div class="modal-header blue white-text center">
+    <div class="modal-header head3 center">
         <span id="titrut" style="font-size: 22px">Ingresar Ruta</span>
     </div>
     <div class="modal-content" >
@@ -77,40 +72,42 @@
 
 
 <div class="modal modal-fixed-footer" id="modal-rcliente" style="width: 95%;">
-    <div class="modal-header blue white-text center">
-        <span style="font-size: 22px">Clientes de la Ruta <span class="titr"></span> </span>
+    <div class="modal-header head3 center">
+        <span class="flow-text">Clientes de la Ruta <span class="titr"></span> </span>
     </div>
     <div class="modal-content" >
         <input type="hidden" id="cidruta">
         <div class="row">
-            <div class="col s12 m4">
+            <div class="col s12 m6">
                 <div class="input-field">
-                    <i class="mdi mdi-24px mdi-user prefix"></i>
-                    <label for="ncli" style="color: black"> <b>Ingresar Cliente</b></label>
+                    <i class="mdi mdi-24px mdi-account prefix"></i>
+                    <label for="ncli">Ingresar Cliente</label>
                     <input type="text" id="ncli" value="" class="autocomplete" maxlength="64" />
                     <input type="hidden" id="idcli">
                 </div>
+            </div>
+            <div class="col s12 m6">
                 <div class="input-field">
-                    <i class="mdi mdi-24px mdi-search prefix"></i>
-                    <label for="seachcliente" style="color: black"> <b>Buscar Cliente</b></label>
+                    <i class="mdi mdi-24px mdi-magnify prefix"></i>
+                    <label for="seachcliente">Buscar Cliente</label>
                     <input type="text" id="seachcliente" class="validate" maxlength="64" />
                 </div>
             </div>
 
-            <div class="col s12 m8">
-                <table  class="table centered highlight bordered responsive-table z-depth-3" id="data-table-rutaclientes">
+            <div class="col s12 m12">
+                <table class="table centered highlight responsive-table" id="data-table-rutaclientes">
                     <thead>
-                        <tr class="white-text blue">
+                        <tr class="tab2">
                             <th class="sinborde">Cliente</th>
                             <th class="sinborde">Ventas</th>
                             <th class="sinborde">Pedidos</th>
                             <th class="sinborde">Cobros</th>
                             <th class="sinborde">Notas</th>
                             <th class="sinborde">Devoluciones</th>
+                            <td class="sinborde">&nbsp;</td>
                         </tr>
                     </thead>
-                    <tbody id="listarutaclientes">
-                    </tbody>
+                    <tbody id="listarutaclientes"><!-- JS --></tbody>
                 </table>
             </div>
         </div>
@@ -118,7 +115,7 @@
 </div>
 
  <div class="modal modal-fixed-footer" id="modal-ruser" style="width: 85%;">
-    <div class="modal-header blue white-text center">
+    <div class="modal-header head3 center">
         <span style="font-size: 22px">Ruteros <span class="titr"></span> </span>
     </div>
     <div class="modal-content" >
@@ -189,7 +186,7 @@
                 </div>
 
                 <div class="row">
-                    <a class="btn btn-info der add" id="ingdetrut" href="#" data-delay="50">Ingresar</a>
+                    <a class="btn btn-info der add btn1" id="ingdetrut" href="#" data-delay="50">Ingresar</a>
                     <a class="btn btn-default edd der white black-text" id="goback" href="#"><i class="mdi mdi-24px mdi-angle-left"></i></a>
                 </div>
 
@@ -199,13 +196,13 @@
                 </a>
                 <ul>
 
-                  <li><a class="btn-floating tooltipped red" data-position="top" title="Ventas"><i class="mdi mdi-24px mdi-line-chart"></i></a></li>
+                  <li><a class="tooltipped" data-position="top" title="Ventas"><i class="mdi mdi-24px mdi-line-chart"></i></a></li>
 
-                  <li><a class="btn-floating tooltipped yellow darken-1" data-position="top" title="Devoluciones"><i class="mdi mdi-24px mdi-exchange"></i></a></li>
+                  <li><a class="tooltipped darken-1" data-position="top" title="Devoluciones"><i class="mdi mdi-24px mdi-exchange"></i></a></li>
 
-                  <li><a class="btn-floating tooltipped green" data-position="top" title="Inventario"><i class="mdi mdi-24px mdi-book"></i></a></li>
+                  <li><a class="tooltipped" data-position="top" title="Inventario"><i class="mdi mdi-24px mdi-book"></i></a></li>
 
-                  <li><a class="btn-floating tooltipped blue" data-position="top" title="Financiero"><i class="mdi mdi-24px mdi-money"></i></a></li>
+                  <li><a class="tooltipped" data-position="top" title="Financiero"><i class="mdi mdi-24px mdi-money"></i></a></li>
 
                 </ul>
               </div>

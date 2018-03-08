@@ -22,7 +22,7 @@ $(document).on("change","#vidinventario",function(){
 
 $(document).on("click",".del",function(){
     var id = $(this).attr('id').substr(1);
-    Materialize.toast('Desea Borrar este Insumo? <button type="button" class="waves-effect waves-light btn blue accept" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="fa fa-times"></i></button>', 10000, 'rounded');
+    Materialize.toast('Desea Borrar este Insumo? <button type="button" class="waves-effect waves-light btn blue accept" id="acc'+id+'"><i class="mdi mdi-plus"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-delete"></i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".cancel",function(){

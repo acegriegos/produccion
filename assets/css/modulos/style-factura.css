@@ -1,17 +1,82 @@
-.bgprim {
+.head1 {
   background: #0080C6;
+  color: #fff;
 }
 
-.bgsecond {
-  background: #A6CE39;
+.head2 {
+  background: #5B5B5B;
+  color: #fff;
 }
 
-.bgthird {
+.head3 {
+  background: #F58345;
+  color: #fff;
+}
+
+.head4 {
   background: #45b97c;
+  color: #fff;
+}
+
+.btn1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345;
+  color: #fff;
+}
+
+.btn3 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff;
+}
+
+.btn5 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.tab1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.tab3 {
+  background: #F58345;
+  color: #fff;
+}
+
+.tab4 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.bg1 {
+  background: #4D4D4D;
 }
 
 .delete:hover {
-  color: #EC545A;
+  color: #EC545A !important;
+}
+
+.bgtransparent {
+  background: transparent;
+}
+
+.gtext {
+  color: #5A5A5A;
 }
 
 * {

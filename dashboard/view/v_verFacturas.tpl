@@ -14,9 +14,9 @@
     {$NAV}
     <div class="bdy">
 
-        <div class="card z-depth-5 ">
-            <div class="card-header center blue-grey white-text"> 
-            <p class="flow-text" style="margin-top: 0%; background-color:#0B3861">
+        <div class="card z-depth-3 ">
+            <div class="card-header center"> 
+            <p class="flow-text head1">
             Vista de Facturas {$smarty.session.EMPRESA|upper}</p>
             </div>
 
@@ -52,17 +52,17 @@
                     <span>Filtros</span>
                 </div>
                 <div class="col s12" id="vfacturas">
-                     <table class="table tablatitulos responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
-                        <thead>
+                     <table class="table tablatitulos responsive-table centered striped bordered highlight z-depth-3" id="data-table-facturas" cellspacing="0" width="100%" >
+                        <thead class="tab1">
                             <tr>
-                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Factura</th>
-                                <th class="white-text blue" rm="1" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Referencia</th>
-                                <th class="white-text blue" rm="2" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Tipo</th>
-                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Fecha</th>
-                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cliente</th>
-                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Total</th>
-                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Comentario</th>
-                                <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Factura</th>
+                                <th class="white-text" rm="1" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Referencia</th>
+                                <th class="white-text" rm="2" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Tipo</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Fecha</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cliente</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Total</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Comentario</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listafacturas">
@@ -98,7 +98,7 @@
         </div>
     </div>
     <div class="modal-content">
-        <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
+        <table class="table responsive-table centered striped bordered highlight z-depth-3" id="data-table-productos" cellspacing="0" width="100%" >
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nombre</th>

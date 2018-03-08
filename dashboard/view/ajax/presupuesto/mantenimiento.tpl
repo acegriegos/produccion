@@ -4,26 +4,36 @@
     </div>
     <div class="modal-content">
         <div class="row">
-            <div class="col s12">
-                <h6 for="nodt" class="center"><b>ODT</b></h6>
-                <input type="text" class=" autocomplete" id="nodt" placeholder="Buscar y Asignar ODT">
-                <br><br>
-                <div id="fodts" style="padding: 1%;">
-                    <input type="hidden" class="zelda">
-                    <h6 class="center"><b>Crear y Asignar ODT</b></h6>
-                    <input type="text" id="vcodigo" placeholder="Código" maxlength="10">
-                    <input type="text" id="vdescripcion" placeholder="Descripción" maxlength="255">
+            <div class="col s5">
+                <div class="row">
+                    <div class="col s12">
+                        <h6 for="nodt" class="center"><b>ODT</b></h6>
+                        <input type="text" class=" autocomplete" id="nodt" placeholder="Buscar y Asignar ODT">
+                    </div>
                 </div>
-                <a href="#" class="btn-floating der btn2 add proyect" modulo="odt" title="Crear ODT"><i class="mdi mdi-plus small"></i></a>
+                <div class="row">
+                    <div class="col s10">
+                        <div id="fodts" style="padding: 1%;">
+                            <input type="hidden" class="zelda">
+                            <h6 class="center"><b>Crear y Asignar ODT</b></h6>
+                            <input type="text" id="vcodigo" placeholder="Código" maxlength="10">
+                            <input type="text" id="vdescripcion" placeholder="Descripción" maxlength="255">
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <a href="#" class="btn-floating der btn2 add proyect" modulo="odt" title="Crear ODT"><i class="mdi mdi-plus small"></i></a>
+                    </div>
+                </div>
             </div>
+            <div class="col s1">
+                &nbsp;
             </div>
-            <div class="col s1" style="border-right: 1px solid; height: 100%;"></div>
             <div class="col s5">
                 <h6 class="center"><b>Lista de ODT Asignadas</b></h6>
                 <div class="listaodt"><!-- JS --></div>
             </div>
             <div class="col s1">
-                <i class="pbtn mdi mdi-plus small" id="qodt" title="Quitar ODT"></i>
+                <i class="pbtn mdi mdi-delete small" id="qodt" title="Quitar ODT"></i>
             </div>
         </div>
     </div>
@@ -90,12 +100,12 @@
                 </div>
 
                 <div class="col s6 m4 input-field general">
-                    <i class="fa fa-calendar-o prefix"></i>
+                    <label for="vfecha_inicio">Fecha Inicio</label>
                     <input type="date" id="vfecha_inicio" class="datepicker">
                 </div>
 
                 <div class="col s6 m4 input-field general">
-                    <i class="fa fa-calendar-o prefix"></i>
+                    <label for="vfecha_fin">Fecha Final</label>
                     <input type="date" id="vfecha_fin" class="datepicker">
                 </div>
 
@@ -105,11 +115,7 @@
                 </div>
 
                 <div class="col s6 m4 input-field rest0 hide">
-                    
-                    <select id="periodo">
-                        
-                    </select>
-
+                    <select id="periodo"><!-- JS --></select>
                     <label for="periodo" id="plabel">Período</label>
                 </div>
 
@@ -143,28 +149,27 @@
     </div>
   </div>
 
-<div class="row">
-    <div class="input-field col s8 m6">
-        <a class="prefix mdi mdi-magnify"></a>
-        <input type="text" id=".search_productos" maxlength="100" num="v14" var="codigo,descripcion" placeholder="Filtros">
-    </div>
-    <div class=" s4 m6 col">
-        <div class="container">
-            <a href="#addPre" class="btn-floating pluskey der modal-trigger btn2" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
+    <div class="row">
+        <div class="input-field col s8 m6">
+            <a class="prefix mdi mdi-magnify"></a>
+            <input type="text" id=".search_productos" maxlength="100" num="v14" var="codigo,descripcion" placeholder="Filtros">
+        </div>
+        <div class=" s4 m6 col">
+            <div class="container">
+                <a href="#addPre" class="btn-floating pluskey der modal-trigger btn2" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
+            </div>
         </div>
     </div>
-
-</div>
     <div class="card-block" style="padding: 0 1% 0 1% ; ">
         <table class="table  bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-presupuestos" cellspacing="0" width="100%" >
             <thead>
                 <tr>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Descripción</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Estado</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Sucursal</th>
-                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Descripción</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Monto</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Estado</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Sucursal</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Acciones</th>
                 </tr>
             </thead>
             <tbody id="listapresupuestos">

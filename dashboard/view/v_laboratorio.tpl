@@ -12,7 +12,8 @@
 <body>
   {$NAV}
     <div class="bdy pequeño">
-        <div class="card-header center  white-text hide-on-small-only head1"><p class="flow-text">Área Laboratorio</p></div>
+        <div class="card-header center  white-text hide-on-small-only head1">
+          <p class="flow-text">Área Laboratorio</p></div>
           <div class="card-content pequeño">
             <div class="row">
 

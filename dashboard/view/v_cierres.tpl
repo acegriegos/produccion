@@ -129,7 +129,7 @@
                 </div>
             </div>
            
-            <div class="row">
+            <!-- <div class="row">
               <div class="col s12 m6">
                 <h2>Diferencia de caja: </h2>
               </div>
@@ -137,7 +137,7 @@
                 <span id="sobrante" style="font-size: 44px;color: green">0.00</span>
               </div>
                
-             </div>
+             </div> -->
             <br>
             
           </div>

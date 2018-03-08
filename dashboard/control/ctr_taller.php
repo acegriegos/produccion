@@ -23,6 +23,8 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
+	   			$smarty->assign('GAS',$kakaroto->kamehameha('*',508,'id > 0'));
+	   			$smarty->assign('MEC',$kakaroto->kamehameha('',506,'"",0'));
 	   			$smarty->display('ajax/taller/ingresarBoleta.tpl');
 	   			break;
 	   		case 2:
@@ -39,6 +41,11 @@
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('MARCA',$kakaroto->kamehameha('id,nombre',500,'id > 0'));
 	   			$smarty->display('ajax/taller/vehiculos.tpl');
+	   			break;
+	   		case 4:
+	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
+	   			$transaccion = $kakaroto->kamehameha('',72,$_REQUEST['id']);
+	   			require_once 'view/ajax/taller/boleta.php';
 	   			break;
 	   	}
 		if(!$pagina){

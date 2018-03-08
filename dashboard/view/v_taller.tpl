@@ -21,10 +21,10 @@
                         <li class="nav-item menu active per4101" id="t1">
                             <a class="nav-link" href="#" title="Ingresar Boleta">Ingresar Boleta</a>
                         </li>
-                        <li class="nav-item menu per4110" id="t2">
+                        <li class="nav-item menu per4102" id="t2">
                             <a class="nav-link" href="#" title="Buscar Boleta">Buscar Boleta</a>
                         </li>
-                        <li class="nav-item menu per4114" id="t3">
+                        <li class="nav-item menu per4103" id="t3">
                             <a class="nav-link" href="#" title="Vehículos">Vehículos</a>
                         </li>
                     </ul>

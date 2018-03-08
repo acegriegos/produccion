@@ -166,6 +166,7 @@ $(document).on("click","#docierre",function(){
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
 
 	window.open('cierres?accion=1&id='+idcierre);
+	location.reload();
 });
 
 $(document).on("click",".cancel",function(){

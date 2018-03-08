@@ -1,23 +1,5 @@
 @import 'colors.scss';
-
-.head1{
-    background: $head1;
-    color: $head1txt;
-}
-
-.head2{
-    background: $head2;
-    color: $head2txt;
-}
-
-.btn1{
-    background: $btn1;
-    color: $btn1txt;
-}
-
-.gtext{
-  color: $gtxt;
-}
+@import 'general.scss';
 
 .menu-btn {
   position: fixed;

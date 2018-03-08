@@ -5,8 +5,11 @@ $(function(){
     generarSSuc();
    
     // dibujarGrafico("chartG1",'Ganancias por Dia','Ganancias','line',{sel:'',tbl:307,where:'3,0,0,0,"'+now()+'","",0,0,0'},2,0,2);
-    var hasiniciate = arr('login',4,'count(id),monto',404,'idusuario = @@usr AND date_format(fecha,"%Y-%m-%d") = "'+now()+'"',0,0,0)[0][0];
-    if (hasiniciate[1] != null) {
+    var hasiniciate = arr('login',4,'id,monto,fmonto',404,'idusuario = @@usr and fmonto is null',0,0,0)[0][0];
+    if (hasiniciate[2] == '') {
+        $("#vmonto").val(0);
+        $("#vmonto").attr('disabled',false);
+    }else{
         $("#vmonto").val(hasiniciate[1]);
         $("#vmonto").attr('disabled',true);
     }

@@ -21,65 +21,68 @@
 		</div>
 		<div class="card white darken-1 z-depth-3">
 			<div class="card-content">
+				<div class="row marginzero"> <!-- vtabla="danocarroceria" id="fdanocarrocerias" hasTabla="1" tp="4" -->
+					<div class="input-field col s12 m12 l12">
+						<textarea id="danos" class="materialize-textarea" data-length="1000"></textarea>
+						<label for="danos">Daños en carroceria</label>
+					</div>
+				</div>
+				<div class="row marginzero" vtabla="accesorio" id="faccesorios" hasTabla="1" tp="4">
+					<div class="input-field col s12 m12 l12">
+						<textarea id="accesorios" class="materialize-textarea" data-length="1000"></textarea>
+						<label for="accesorios">Accesorios dentro del auto</label>
+					</div>
+				</div>
 				<div class="row marginzero">
-					<div class="input-field col s2 m2 l2">
+					<div class="input-field col s3 m3 l3">
 						<input type="text" id="vkm" class="validate">
-						<label for="vkm">Kilometraje</label>
+						<label for="vkm">Kilometraje actual</label>
 					</div>
 					<div class="input-field col s3 m3 l3">
-						<input type="text" id="vreferencia" class="validate">
-						<label for="vreferencia">Referencia</label>
+						<select type="select" id="gasolina">
+							<option value="0">Seleccione una opción</option>
+							{section name=LE loop=$GAS}
+							<option value="{$GAS[LE][0]}">{$GAS[LE][1]}</option>
+							{/section}
+						</select>
+						<label for="gasolina">Cantidad combustible</label>
 					</div>
-					<div class="input-field col s4 m4 l4">
-						<input type="text" id="mecanico" class="validate autocomplete">
-						<input type="hidden" id="vidmecanico" value="">
-						<label for="mecanico">Mecánico</label>
+					<div class="input-field col s6 m6 l6">
+						<input id="descfalla" type="text" data-length="200">
+            			<label for="descfalla">Descripción de la falla</label>
 					</div>
-					<div class="col s3 m3 l3"></div>
 				</div>
 			</div>
 		</div>
 		<div class="card white darken-1 z-depth-3">
 			<div class="card-content">
 				<div class="row marginzero">
-					<div class="input-field col s3 m3 l3">
-						<input type="text" id="serv" class="validate autocomplete servs">
-						<label for="serv">Servicio</label>
+					<div class="col s3 m3 l3">
+						<select type="select" id="idmecanico">
+							{section name=LE loop=$MEC}
+							<option value="{$MEC[LE][0]}">{$MEC[LE][1]}</option>
+							{/section}
+						</select>
+						<label for="idmecanico" style="padding-top: 30px">Asignar mecánico</label>
 					</div>
-					<div class="input-field col s1 m1 l1">
-						<a class="waves-effect waves-light blue btn-floating" id="addserv"><i class="mdi mdi-plus"></i></a>
+					<div class="col s9 m9 l9">
+						<a class="waves-effect waves-light green btn right add" modulo="taller-boleta" tp="5">Crear Boleta</a>
 					</div>
-					<div class="input-field col s3 m3 l3">
-						<input type="text" id="prod" class="validate autocomplete prods">
-						<label for="prod">Producto</label>
-					</div>
-					<div class="input-field col s1 m1 l1">
-						<input type="number" id="cant" class="validate">
-						<label for="cant">Cantidad</label>
-					</div>
-					<div class="input-field col s2 m2 l2">
-						<input type="number" id="tot" readonly>
-						<input type="hidden" id="htot" value="0">
-						<input type="hidden" id="vsubtotal" value="0">
-						<label for="tot">Total</label>
-					</div>
-					<div class="input-field col s2 m2 l2">
-						<a class="waves-effect waves-light blue btn-floating" id="addprod"><i class="mdi mdi-plus"></i></a>
-					</div>
+					<!-- <a class="waves-effect waves-light blue btn right" style="margin-left: 10px">Facturar Boleta</a> -->
 				</div>
 			</div>
 		</div>
-		<div class="card white darken-1 z-depth-3">
+		<!-- <div class="card white darken-1 z-depth-3">
 			<div class="card-content">
 				<div class="row marginzero" vtabla="detalleboleta" id="fdetalleboletas" hasTabla="1" tp="4">
-					<div class="col s3 m3 l3" id="servicios" style="padding: 0">
+					<div class="col s3 m3 l3" id="servicios" style="padding: 0"> -->
 						<!-- <div class="input-field">
 							<input type="text" id="serv1" class="validate">
 							<label for="serv1">Servicio</label>
 						</div> -->
-					</div>
+					<!-- </div>
 					<div class="col s1 m1 l1"></div>
-					<div class="col s8 m8 l8" id="productos" style="padding: 0">
+					<div class="col s8 m8 l8" id="productos" style="padding: 0"> -->
 						<!-- <div class="row marginzero">
 							<div class="input-field col s5 m5 l5" style="width: 38%">
 									<input type="text" id="prod1" class="validate autocomplete">
@@ -94,7 +97,7 @@
 								<label for="tot1">Total</label>
 							</div>
 						</div> -->
-					</div>
+					<!-- </div>
 					<span class="right" style="margin-right: 240px;font-size: 2em;padding-bottom: 2%">TOTAL: ¢0.00</span>
 				</div>
 				<div class="row marginzero">
@@ -102,7 +105,7 @@
 					<a class="waves-effect waves-light green btn right add" modulo="taller-boleta" varias="1" tp="5">Crear Boleta</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 

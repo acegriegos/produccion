@@ -72,7 +72,7 @@
                 </div>
                 <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 80%; width: 75%">
                     <div class="modal-header">
-                        <ul class="tabs tabs-fixed-width head2">
+                        <ul class="tabs tabs-fixed-width head3">
                             <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
                             <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
                             <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>

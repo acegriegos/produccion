@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col s6">
+    <div class="col s5">
       <div class="input-field">
         <input type="text" id="ncli" placeholder="Nombre o Cédula del Cliente" class="eder autocomplete" addG="1">
         <label for="ncli">Procedencia</label>
@@ -29,7 +29,7 @@
       </div>
       
     </div>
-    <div class="col s6">
+    <div class="col s7">
       <table class="responsive-table highlight">
         <thead>
           <tr>
@@ -71,7 +71,7 @@
 
 <div class="modal modal-fixed-footer grandemodal" id="addClie" style="height: 80%; width: 75%">
   <div class="modal-header">
-    <ul class="tabs tabs-fixed-width blue">
+    <ul class="tabs tabs-fixed-width head3">
       <li class="tab"><a class="active white-text titadd" href="#!" style="cursor: default;"></a></li>
     </ul>
   </div>

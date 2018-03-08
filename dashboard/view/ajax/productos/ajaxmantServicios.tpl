@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col s12 m6">
            <div class="input-field col s2 m2 l1">
-            <a class="dropdown-button btn-floating waves-effect waves-light blue z-depth-5" data-activates="fserv" ><i class="mdi mdi-magnify"></i></a>
+            <a class="prefix dropdown-button tooltipped small mdi mdi-magnify pbtn" data-activates="fserv" data-position="button" data-tooltip="Cambiar Filtro"></a>
         </div>
         <div class="input-field col s9 m9">
             <input id="searchsrv" type="text" class="validate" style="margin-left: 1% !important;">
@@ -14,21 +14,21 @@
         </ul>            
     </div>
     <div class="col s12 m6">
-        <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5 per4111 modal-trigger" href="#modal-servicios"><i class="mdi mdi-plus"></i></a>
+        <a id="addservice" class="btn-floating waves-effect waves-light right btn2 z-depth-3 per4111 modal-trigger" href="#modal-servicios"><i class="mdi mdi-plus"></i></a>
     </div>
 </div>
 <div class="row">
     <div class="col s12 m12 pequeño">
         <div class="table">
-            <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-servicios" cellspacing="0" width="100%">
+            <table class="table responsive-table centered striped bordered highlight z-depth-3" id="data-table-servicios" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Período</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Outsourcing</th>
-                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Precio</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Período</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Outsourcing</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="listaservicios">
@@ -52,7 +52,7 @@
 </div><br><br>
 <div id="modal-servicios" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
     <div class="modal-header">
-        <ul class="tabs blue">
+        <ul class="tabs head3 center">
             <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
             <li class="tab col s3 hide"><a class="white-text menuS" id="ms2" href="#">Financiero</a></li>
             <li class="tab col s3"><a class="white-text menuS hide" id="ms3">Clientes</a></li>
@@ -191,19 +191,39 @@
 </div>
 
 <div id="hextra" class="modal">
-    <div class="modal-content grandemodal">
-      <h4>Extra en el Nombre del Servicio</h4>
-      <p>Se Utiliza para asignar variables cuando el servicio es facturado</p>
-      <br>
-      <ul>
-          <li><b>%HOY%</b>, Despliega la Fecha del Día en Formato dd-mm-yyyy</li>
-          <li><b>%ANO%</b>, Despliega el Año</li>  
-          <li><b>%MES%</b>, Despliega el Mes</li>
-          <li><b>%DIA%</b>, Despliega el Día</li>
-
-      </ul>
+    <div class="modal-header center head4" style="padding: 1%">
+        Extra en el Nombre del Servicio
+    </div>
+    <div class="modal-content grandemodal center">
+      <p>Se Utiliza para asignar variables cuando el servicio es facturado: </p>
+      <table class="striped" align="center">
+            <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>%HOY%</b></td>
+                    <td>Despliega la Fecha del Día en Formato dd-mm-yyyy</td>
+                </tr>
+                <tr>
+                    <td><b>%ANO%</b></td>
+                    <td>Despliega el Año</td>
+                </tr>
+                <tr>
+                    <td><b>%MES%</b></td>
+                    <td>Despliega el Mes</td>
+                </tr>
+                <tr>
+                    <td><b>%DIA%</b></td>
+                    <td>Despliega el Día</td>
+                </tr>
+            </tbody>
+      </table>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</a>
     </div>
   </div>

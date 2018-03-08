@@ -11,6 +11,9 @@ $pcolc: #937CB9;
 $pcold: #F26D6A;
 $pcole: #23bfcd;
 $pcolf: #F4D44C;
+$pcolg: #4D4D4D;
+$pcolh: #343222;
+$pcoli: #5B5B5B;
 
 // Text
 $gtxt: #5A5A5A;
@@ -22,24 +25,36 @@ $warning: #EEED73;
 $btn1txt: #fff;
 $btn2txt: #fff;
 $btn3txt: #fff;
+$btn4txt: #fff;
+$btn5txt: #fff;
 $head1txt: #fff;
 $head2txt: #fff;
 $head3txt: #fff;
+$head4txt: #fff;
 $tab1txt: #fff;
+$tab2txt: #fff;
+$tab3txt: #fff;
+$tab4txt: #fff;
 
 // Button
-$btn1: #0080C6;
-$btn2: #F58345;
-$btn3: #937CB9;
-$btnmenu: #343222;
+$btn1: $prim;
+$btn2: $pcolb;
+$btn3: $third;
+$btn4: $second;
+$btn5: $pcoli;
+$btnmenu: $pcolh;
 
 // Header
-$head1: #0080C6;
-$head2: #45b97c;
-$head3: #A6CE39;
+$head1: $prim;
+$head2: $pcoli;
+$head3: $pcolb;
+$head4: $third;
 
 // Tables
-$tab1: #0080C6;
+$tab1: $prim;
+$tab2: $pcoli;
+$tab3: $pcolb;
+$tab4: $third;
 
 // ** Logintech Default Colors **
 // #2196F3

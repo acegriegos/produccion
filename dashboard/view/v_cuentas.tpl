@@ -8,21 +8,18 @@
   <title>Cuentas</title>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cuentas.css?v=0.9">
-
-
-    </head>
+</head>
     
+  <body>
+    {$NAV}
 
-    <body>
-      {$NAV}
-      
-      <div class="bdy pequeño">
-
-        <div id="bdymantCuentas"></div> 
-
-      </div>
-      {$SCR}
-      <script src="../assets/js/modulos/cuentas.js?v=0.11"></script>
-
-      </body>
-      </html>
+    <div class="bdy pequeño">
+      <div id="bdymantCuentas"></div> 
+    </div>
+    
+    {$SCR}
+    
+    <script src="../assets/js/modulos/cuentas.js?v=0.11"></script>
+    
+  </body>
+</html>

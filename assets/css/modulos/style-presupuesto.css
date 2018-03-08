@@ -1,39 +1,86 @@
 .head1 {
-  background: #0080C6 !important;
+  background: #0080C6;
   color: #fff;
 }
 
 .head2 {
-  background: #45b97c !important;
-  color: #fff;
-}
-
-.btn1 {
-  background: #0080C6 !important;
-  color: #fff;
-}
-
-.btn2 {
-  background: #F58345 !important;
-  color: #fff;
-}
-
-.btn3 {
-  background: #937CB9 !important;
+  background: #5B5B5B;
   color: #fff;
 }
 
 .head3 {
-  background: #A6CE39 !important;
+  background: #F58345;
   color: #fff;
 }
 
-.cuadro {
-  width: 100px;
-  background-color: #2196F3;
-  color: white;
-  text-align: center;
-  height: 100px;
+.head4 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345;
+  color: #fff;
+}
+
+.btn3 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff;
+}
+
+.btn5 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.tab1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.tab3 {
+  background: #F58345;
+  color: #fff;
+}
+
+.tab4 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.bg1 {
+  background: #4D4D4D;
+}
+
+.delete:hover {
+  color: #EC545A !important;
+}
+
+.bgtransparent {
+  background: transparent;
+}
+
+.gtext {
+  color: #5A5A5A;
+}
+
+.tdcollap {
+  padding: 0 2% 0 2% !important;
 }
 
 /*# sourceMappingURL=style-presupuesto.css.map */

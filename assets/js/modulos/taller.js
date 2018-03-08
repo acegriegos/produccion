@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $("#t1").click();
     $('.modal').modal();
-    $("select").material_select();
+    $("input#descfalla, textarea#danos, textarea#accesorios").characterCounter();
 });
 
 $(document).on("click",".menu",function(){
@@ -10,16 +10,26 @@ $(document).on("click",".menu",function(){
     $(this).addClass('active');
     switch(parseInt(id)) {
         case 1:
-            var p = mantenimiento('taller', 1, '');
+            var p = mantenimiento('taller',1,'');
             $("#mtaller").html(p);
-            $(".zelda").data('triforce',{vid : 0,vidvehiculo : 0,vkm : 0, vidmecanico : 0,vsubtotal : 0,vreferencia : '',vfcreacion : '1990-01-01',vidsucursal : ''});
+            $(".zelda").data('triforce',{vid : 0,vidvehiculo : 0,vdanos : '',vaccesorios : '',vkm : 0,vgasolina : 0,vobservaciones : 0,vidmecanico : 0,vidusuario : 0,vidsucursal : ''});
+            $("select").material_select();
             break;
         case 2:
-            var p = mantenimiento('taller', 2, '');
+            var p = mantenimiento('taller',2,'');
             $("#mtaller").html(p);
+            $("#data-table-boletas").DataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            });
             break;
         case 3:
-            var p = mantenimiento('taller', 3, '');
+            var p = mantenimiento('taller',3,'');
             $("#mtaller").html(p);
             $("#data-table-vehiculos").DataTable({
                 bFilter: false,
@@ -124,14 +134,22 @@ $(document).on("blur","#vreferencia",function(){
 
 $(document).on("keyup","#vkm",function(e){
     var code = e.which || e.keyCode;
+    $(".zelda").data('triforce')['vkm'] = $(this).val();
     if (code == 13) {
         $("#vreferencia").focus();
     }
 });
 
-$(document).on("blur","#vkm",function(){
-    $(".zelda").data('triforce')['vkm'] = $(this).val();
+$(document).on("change","#gasolina",function(){
+    $(".zelda").data('triforce')['vgasolina'] = $(this).val();
 });
+
+$(document).on("keyup","#descfalla",function(){
+    $(".zelda").data('triforce')['vobservaciones'] = $(this).val();
+});
+// $(document).on("blur","#vkm",function(){
+//     $(".zelda").data('triforce')['vkm'] = $(this).val();
+// });
 
 $(document).on("click","#infoVehiculo",function(){
     var idcliente = $("#iclie").val();
@@ -183,7 +201,7 @@ $(document).on("change","#placa",function(){
             $("#vidvehiculo").val($(this).val());
             $("#infoVehiculo").addClass('modal-trigger');
             $(".zelda").data('triforce')['vidvehiculo'] = $(this).val();
-            setTimeout(function(){$("#vkm").focus()},200);
+            setTimeout(function(){$("#danos").focus()},200);
         }else
             $("#infoVehiculo").removeClass('modal-trigger');
     }
@@ -237,10 +255,16 @@ $(document).on("keyup","#nclie",function(e){
                 $("#placa").material_select();
                 $("#placa").prevAll('input.select-dropdown').trigger('open').focus();
             }else{
-                $("#vidvehiculo").val(placa[0][0]);
-                $("#placa").val(placa[0][1]);
-                $("#vkm").focus();
-                $("#infoVehiculo").addClass('modal-trigger');
+                if (placa[0] != undefined) {
+                    $("#vidvehiculo").val(placa[0][0]);
+                    $("#placa").val(placa[0][1]);
+                    $("#vkm").focus();
+                    $("#infoVehiculo").addClass('modal-trigger');
+                }else{
+                    Materialize.toast('Cliente no posee vehiculos,&nbsp&nbsp<a class="waves-effect waves-light white green-text btn modal-trigger" href="#modal-addcar">Agregar<a>', 5000, 'green');
+                    $(this).select();
+                    // $("#zelda").
+                }
             }
             Materialize.updateTextFields();
         }
@@ -266,6 +290,16 @@ $(document).on("keydown","#nclie",function(e){
         $("#nclie").siblings($(".autocomplete-content")).css('width','25%');
     } 
 });
+
+$(document).on("keyup","#danos",function() {
+    $(".zelda").data('triforce')['vdanos'] = $(this).val()
+});
+
+$(document).on("keyup","#accesorios",function() {
+    $(".zelda").data('triforce')['vaccesorios'] = $(this).val()
+});
+
+
 
 $(document).on("keydown",".servs",function(e){
     var charCode = e.which || e.keyCode;
@@ -301,7 +335,7 @@ $(document).on("keydown","#mecanico",function(e){
         $(".autocomplete-content").remove();
             $("#mecanico").autocomplete({
                 limit: 10,
-                data: arr('login',4,'',506,'"'+$(this).val()+'"',0,0,0,1)
+                data: arr('login',4,'',506,'"'+$(this).val()+'",1',0,0,0,1)
             });
         $("#mecanico").siblings($(".autocomplete-content")).css('width','25%');
     } 
@@ -350,7 +384,7 @@ function addprod() {
 
 function addserv(nom) {
     var count = $(".ciclos").length;
-    var serv = arr('login',4,'id,precio',16,'if(locate("%",nombre),substr(nombre,1,locate("%",nombre)-2),nombre) = "'+nom+'"',0,0,0)[0];
+    var serv = arr('login',4,'id,precio',16,'if(locate("%",nombre),substr(nombre,1,locate("%",nombre)-2),nombre) = "'+nom+'"',0,0,0)[0][0];
     if (serv != undefined) {
         count++
         $("#servicios").append('<div class="input-field ciclos" id="db'+count+'"></i><input type="text" id="serv'+count+'" class="validate autocomplete servs" value="'+nom+'"><label for="serv'+count+'">Servicio</label><i class="mdi mdi-close prefix pbtn cdel delserv" id="dlt'+count+'"></div>');
@@ -392,10 +426,10 @@ function validarboleta() {
         return "Placa del cliente requerido";
     }
 
-    if ($(".zelda").data('triforce')['vidmecanico'] == 0) {
-        $("#mecanico").focus();
-        return "Nombre del mecánico requerido";
-    }
+    // if ($(".zelda").data('triforce')['vidmecanico'] == 0) {
+    //     $("#mecanico").focus();
+    //     return "Nombre del mecánico requerido";
+    // }
     return false;
 }
 
@@ -424,4 +458,16 @@ function cargarSintax(modulo){
             break;
     }
     return arr;
+}
+
+function endDetail(vid,vacc,vmodulo) {
+    switch(vmodulo) {
+        case 'taller-boleta':
+            if (vacc == 1) {
+                deadclear(vmodulo);
+                window.open('taller?accion=4&id='+vid);
+                $(".zelda").data('triforce',{vid : 0,vidvehiculo : 0,vdanos : '',vaccesorios : '',vkm : 0,vgasolina : 0,vobservaciones : 0});
+            }
+            break;
+    }
 }
