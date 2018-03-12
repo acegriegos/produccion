@@ -1,4 +1,39 @@
-.accbtn{
-    width: 35px;
-    height: 35px;
+.head1 {
+  background: #0080C6;
+  color: #fff;
 }
+
+.head2 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345;
+  color: #fff;
+}
+
+.btn3 {
+  background: #937CB9;
+  color: #fff;
+}
+
+.head3 {
+  background: #A6CE39;
+}
+
+.accbtn {
+  width: 35px;
+  height: 35px;
+}
+
+.input-field .prefix {
+  font-size: 1em;
+}
+
+/*# sourceMappingURL=style-laboratorio.css.map */

@@ -1,8 +1,8 @@
 <div class="card z-depth-5 pequeño">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
-            <div class="collapsible-header "><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
-            <div class="collapsible-body pequeño"><div class="card-block">
+<!--             <div class="collapsible-header "><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
+ -->            <div class="collapsible-body pequeño"><div class="card-block">
                 <div class="row pequeño">
                     <div class="col s12 m12 l6  pequeño">
                         <label for="vnombre">Nombre de la Empresa</label>

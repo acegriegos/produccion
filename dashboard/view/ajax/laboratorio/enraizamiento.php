@@ -22,11 +22,11 @@
                   <td>28</td>
                   <td>30-09-2017</td>
                   <td>
-                    <button class="btn-floating accbtn mdi mdi-refresh" title="Procesar Enraizamiento"></button>
-                    <button class="btn-floating accbtn mdi mdi-view-list" title="Ver Medio Cultivo y Bandejas"></button>
-                    <button class="btn-floating accbtn mdi mdi-checkbox-multiple-marked-outline" title="Procesar Activos"></button>
-                    <button class="btn-floating accbtn mdi mdi-arrow-left-box" title="Ver Trayectoria"></button>
-                    <button class="btn-floating accbtn mdi mdi-arrow-collapse-right" title="Procesar a Aclimatacion"></button>
+                    <button class="btn-floating btn2 mdi mdi-refresh" title="Procesar Enraizamiento"></button>
+                    <button class="btn-floating btn2 mdi mdi-view-list" title="Ver Medio Cultivo y Bandejas"></button>
+                    <button class="btn-floating btn2 mdi mdi-checkbox-multiple-marked-outline" title="Procesar Activos"></button>
+                    <button class="btn-floating btn2 mdi mdi-arrow-left-box" title="Ver Trayectoria"></button>
+                    <button class="btn-floating btn2 mdi mdi-arrow-collapse-right" title="Procesar a Aclimatacion"></button>
                   </td>
               </tr>
           </tbody>

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,MAAM;EACF,UAAU,ECiCN,OAAO;EDhCX,KAAK,ECoBE,IAAI;;;ADjBf,MAAM;EACF,UAAU,EC6BN,OAAO;ED5BX,KAAK,ECgBE,IAAI;;;ADbf,KAAK;EACD,UAAU,ECiBP,OAAO;EDhBV,KAAK,ECOC,IAAI;;;ADJd,KAAK;EACD,UAAU,ECaP,OAAO;EDZV,KAAK,ECGC,IAAI;;;ADAd,KAAK;EACD,UAAU,ECSP,OAAO;EDRV,KAAK,ECDC,IAAI;;;ADId,MAAM;EACF,UAAU,ECUN,OAAO;;;ADPf,OAAQ;EACN,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;;;AAGd,oBAAoB;EAChB,SAAS,EAAE,GAAG",
+"sources": ["../../scss/modulos/style-laboratorio.scss","../../scss/modulos/colors.scss"],
+"names": [],
+"file": "style-laboratorio.css"
+}

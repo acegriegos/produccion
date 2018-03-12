@@ -13,13 +13,13 @@
   <br>
     {$NAV}
     <div class="bdy" style="font-size: 1.2em !important">
-    <div class="card z-depth-5">
+    <div class="card z-depth-3">
 
-        <div class="card-header center white-text" style="background-color:#0B3861">
-            <p class="flow-text" style="font-size: 1.9em;margin: 0px;">Rutas</p>
+        <div class="card-header center head1">
+            <p class="flow-text" style="font-size: 1.9em; margin: 0px;">Rutas</p>
         </div>
 
-        <nav class="navbar navbar-dark blue">
+        <nav class="navbar navbar-dark head2">
             <ul class="nav navbar-nav">
                 <li class="nav-item menu active" id="m1">
                     <a class="nav-link" href="#" title="Mantenimiento">Mantenimiento</a>

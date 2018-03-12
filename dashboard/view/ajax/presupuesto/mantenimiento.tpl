@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col s5">
                 <label for="nodt">ODT</label>
-                <input type="text" id="nodt" placeholder="Buscar y Asignar ODT">
+                <input type="text" class=" autocomplete" id="nodt" placeholder="Buscar y Asignar ODT">
 
                 <div id="fodts" style="border: 1px solid #e2e2e2;padding: 1%;">
 
@@ -156,23 +156,27 @@
         <input type="text" id=".search_productos" maxlength="100" num="v14" var="codigo,descripcion" placeholder="Filtros">
     </div>
 
-    <a href="#addPre" class="btn-floating der pluskey" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
+    <a href="#addPre" class="btn-floating der pluskey modal-trigger" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
 
 </div>
+    <div class="card-block" style="padding: 0 1% 0 1% ; ">
+        <table class="table  bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-presupuestos" cellspacing="0" width="100%" >
+            <thead>
+                <tr>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Descripción</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Estado</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Sucursal</th>
+                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="listapresupuestos">
 
-<table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-presupuestos" cellspacing="0" width="100%" >
-<thead>
-<tr>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Descripción</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Estado</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Sucursal</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
-</tr>
-</thead>
-<tbody id="listapresupuestos">
+            </tbody>
 
-</tbody>
-
-</table>
+        </table>
+        <ul class="pagination right" vtbl="" modulo="" cambio=""></ul>
+          <br>
+          <br>
+    </div>

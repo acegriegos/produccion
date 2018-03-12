@@ -12,9 +12,10 @@
   <!-- #0B3861 -->
   <body>
     {$NAV}
+
     <div class="bdy pequeño" >
       <div class="card z-depth-5 pequeño">
-        <div class="card-header center white-text" style="background-color:#0B3861">
+        <div class="card-header center white-text head1">
           <p class="flow-text" style="font-size: 1.9em;">Clientes</p>
         </div>
         <div class="card-content pequeño">
@@ -25,24 +26,23 @@
                 <li><a class="optns" tipo="nombre,vcedula" href="#!" fltr="1">Nombre o Cédula</a></li>
                 <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
               </ul>
-              <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre,vcedula">
+              <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre,vcedula" addG="1">
               <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
             </div>
-            <div class="col s2 m6 per1001">
-              <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
+            <div class="col s2 m6 ">
+              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
             </div>
           </div>
           <div class="card-block">
             <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes" style="width: 100%">
               <thead>
                 <tr>
-                  <th class="sinborde white-text blue"><b>Cédula</b></th>
-                  <th class="sinborde white-text blue">Nombre</th>
-                  <!-- <th class="sinborde white-text blue">Código</th> -->
-                  <th class="sinborde white-text blue">Teléfonos</th>
-                  <th class="sinborde white-text blue">Correo</th>
-                  <th class="sinborde white-text blue">Tipo</th>
-                  <th class="sinborde white-text blue">Acciones</th>
+                  <th class="sinborde white-text tab1"><b>Cédula</b></th>
+                  <th class="sinborde white-text tab1">Nombre</th>
+                  <th class="sinborde white-text tab1">Teléfonos</th>
+                  <th class="sinborde white-text tab1">Correo</th>
+                  <th class="sinborde white-text tab1">Tipo</th>
+                  <th class="sinborde white-text tab1">Acciones</th>
                 </tr>
               </thead>
               <tbody id="listaclientes">
@@ -72,8 +72,8 @@
         </div>
         <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 100%; width: 75%">
           <div class="modal-header">
-            <ul class="tabs tabs-fixed-width blue">
-              <ul class="tabs tabs-fixed-width blue">
+            <ul class="tabs tabs-fixed-width head2">
+              <ul class="tabs tabs-fixed-width head2">
                 <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
                 <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
                 <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
@@ -257,7 +257,7 @@
                         <div class="row"><br>
                           <div class=" col s12 m12 l4">
                             <div class="provincia input-field">
-                              <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="prefix btn-floating bgthird tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidprovincia" type="select" class="_det" primary="1">
                                 <option value="0">Seleccione una Provincia</option>
                                 {section name=LE loop=$PRO}
@@ -269,7 +269,7 @@
                           </div>
                           <div class="col s12 m12 l4">
                             <div class="canton input-field">
-                              <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="prefix btn-floating bgthird tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidcanton" type="select" class="_det">
                                 <option value="">Seleccione un Cantón</option>
                               </select>
@@ -278,7 +278,7 @@
                           </div>
                           <div class="col s12 m12 l4">
                             <div class="distrito input-field ">
-                              <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="prefix btn-floating bgthird tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="viddistrito" type="select" class="_det">
                                 <option value="">Seleccione un Distrito</option>
                               </select>
@@ -390,7 +390,7 @@
 </div>
 <div id="modal-addvehiculos" class="modal modal-fixed-footer">
 <div class="modal-header">
-  <ul class="tabs white-text" style="background-color:#0B3861">
+  <ul class="tabs white-text bgcardhead">
     <li class="tab col s3"><a class="white-text">Agregar Vehículo</a></li>
   </ul>
 </div>

@@ -1,10 +1,48 @@
-.tamLetra{
-   font-size: 1.2em !important
+.head1 {
+  background: #0080C6;
+  color: #fff;
 }
 
-.darkholder::placeholder{
-    color: black;
+.head2 {
+  background: #45b97c;
+  color: #fff;
 }
+
+.btn1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345;
+  color: #fff;
+}
+
+.btn3 {
+  background: #937CB9;
+  color: #fff;
+}
+
+.head3 {
+  background: #A6CE39;
+}
+
+.tab1 {
+  background: #0080C6;
+}
+
+.gtxt {
+  color: #5A5A5A;
+}
+
+.tamLetra {
+  font-size: 1.2em !important;
+}
+
+.darkholder::placeholder {
+  color: black;
+}
+
 /*.darkholder::-webkit-input-placeholder {
   color: black;
 }
@@ -20,3 +58,5 @@
 .darkholder:-moz-placeholder { 
   color: pink;
 }*/
+
+/*# sourceMappingURL=style-rutas.css.map */

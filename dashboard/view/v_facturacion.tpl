@@ -8,12 +8,12 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=0.8">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.scss">
   <body >
   {$NAV}
-  <div class="bdy pequeño" >
+    <div class="bdy pequeño" >
       <div id="mfacturacion"></div>
-      </div>
+    </div>
   </body>
   {$SCR}
   <script src="../assets/js/modulos/facturacion.js?v=0.1"></script>

@@ -22,11 +22,11 @@
                   <td>28</td>
                   <td>30-09-2017</td>
                   <td>
-                    <button class="btn-floating accbtn mdi mdi-refresh" title="Procesar Multiplicacion"></button>
-                    <button class="btn-floating accbtn mdi mdi-view-list" title="Ver Medio Cultivo y Bandejas"></button>
-                    <button class="btn-floating accbtn mdi mdi-checkbox-multiple-marked-outline" title="Procesar Activos"></button>
-                    <button class="btn-floating accbtn mdi mdi-arrow-left-box" title="Ver Trayectoria"></button>
-                    <button class="btn-floating accbtn mdi mdi-arrow-collapse-right" title="Procesar a Enraizamiento"></button>
+                    <button class="btn btn-floating btn2 mdi mdi-16px mdi-refresh" title="Procesar Multiplicacion"></button>
+                    <button class="btn btn-floating btn2 mdi mdi-16px mdi-view-list" title="Ver Medio Cultivo y Bandejas"></button>
+                    <button class="btn btn-floating btn2 mdi mdi-16px mdi-checkbox-multiple-marked-outline" title="Procesar Activos"></button>
+                    <button class="btn btn-floating btn2 mdi mdi-16px mdi-arrow-left-box" title="Ver Trayectoria"></button>
+                    <button class="btn btn-floating btn2 mdi mdi-16px mdi-arrow-collapse-right" title="Procesar a Enraizamiento"></button>
                   </td>
               </tr>
           </tbody>

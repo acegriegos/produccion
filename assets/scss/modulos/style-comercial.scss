@@ -1,0 +1,52 @@
+@import 'colors.scss';
+
+.head1{
+    background: $head1 !important;
+    color: $head1txt;
+}
+
+.head2{
+    background: $head2 !important;
+    color: $head2txt;
+}
+
+.btn1{
+    background: $btn1 !important;
+    color: $btn1txt;
+}
+
+.btn2{
+    background: $btn2 !important;
+    color: $btn2txt;
+} 
+
+.btn3{
+    background: $btn3 !important;
+    color: $btn3txt;
+}
+
+.head3{
+    background: $head3 !important;
+    color: $head3txt;
+}
+
+.mybtn {
+  margin: 3%;
+  width: 25%;
+}
+
+.mycol {
+  border-left: 1px solid black;
+  height: 100%;
+}
+
+.myah {
+  color: rgb(55, 68, 60);
+  &:hover {
+    color: black;
+  }
+}
+
+.tamLetra {
+  font-size: 1.2em !important;
+}

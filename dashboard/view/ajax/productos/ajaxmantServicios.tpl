@@ -1,19 +1,12 @@
 <div id="mantServ">
     <div class="row">
         <div class="col s12 m6">
-
-
            <div class="input-field col s2 m2 l1">
-
             <a class="dropdown-button btn-floating waves-effect waves-light blue z-depth-5" data-activates="fserv" ><i class="mdi mdi-magnify"></i></a>
-
         </div>
-
-
         <div class="input-field col s9 m9">
             <input id="searchsrv" type="text" class="validate" style="margin-left: 1% !important;">
             <label for="searchsrv" id="phs" style="margin-left: 1% !important;">Buscar por Código</label>
-
         </div>
         <ul id="fserv" class="dropdown-content" filter="1">
             <li><a class="dropdown-item filtersrv" filtro="f1">Código</a></li>
@@ -24,7 +17,6 @@
         <a id="addservice" class="btn-floating waves-effect waves-light right blue z-depth-5 per4111 modal-trigger" href="#modal-servicios"><i class="mdi mdi-plus"></i></a>
     </div>
 </div>
-
 <div class="row">
     <div class="col s12 m12 pequeño">
         <div class="table">
@@ -62,7 +54,7 @@
     <div class="modal-header">
         <ul class="tabs blue">
             <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
-            <li class="tab col s3"><a class="white-text menuS" id="ms2" href="#">Financiero</a></li>
+            <li class="tab col s3 hide"><a class="white-text menuS" id="ms2" href="#">Financiero</a></li>
             <li class="tab col s3"><a class="white-text menuS hide" id="ms3">Clientes</a></li>
         </ul>
     </div>
@@ -90,7 +82,7 @@
                         <label for="vdescripcion">Descripción del Servicio</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row hide">
                     <div class="col s12 m12">
                         <div class="row" style="margin: 0">
                             <div class="col s12 m12 l3">
@@ -128,7 +120,7 @@
                         </div><br>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row hide">
                     <div class="col s12 m3">
                         <input type="checkbox" id="outsourcing" value="0">
                         <label for="outsourcing">Outsourcing</label>
@@ -167,28 +159,29 @@
                         <label for="vsucursales">Sucursales</label>
                     </div>
                 </div>
-                <br>
-            </div>
-            <div id="financiero" class="hide" style="padding: 25px 10px 0 10px">
+                <div id="financiero"  style="padding: 25px 10px 0 10px">
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">¢</i>
                         <input id="vpbase" type="number" class="validate vcalcserv" min="1" num="1">
-                        <label for="vpbase">Precio Base</label>
+                        <label for="vpbase">Precio</label>
 
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m6 hide">
                         <i class="material-icons prefix">%</i>
-                        <input id="vpganancia" type="number" class="validate vcalcserv" min="1" value="0.00" num="2">
+                        <input id="vpganancia" type="number" class="validate vcalcserv" min="1" value="100.00" num="2">
                         <label for="vganancia">Ganancia</label>
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m6 hide">
                         <i class="material-icons prefix">¢</i>
                         <input id="vprecio" type="number" class="validate vcalcserv" num="3">
                         <label for="vprecio">Precio Total</label>
                     </div>
                 </div>
             </div>
+                <br>
+            </div>
+            
         </form>
     </div>
     <div class="modal-footer">

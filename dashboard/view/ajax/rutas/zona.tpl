@@ -24,9 +24,9 @@
     </div>
 
     <div class="col s4 f2 hide">
-          <table  class="table centered highlight bordered responsive-table z-depth-3" id="data-table-rutashow">
+          <table  class="table centered highlight bordered responsive-table" id="data-table-rutashow">
             <thead>
-                <tr class="white-text blue">
+                <tr class="white-text tab1">
                     <th class="sinborde">Pedidos</th>
                     <th class="sinborde">Cobros</th>
                     <th class="sinborde">Notas</th>

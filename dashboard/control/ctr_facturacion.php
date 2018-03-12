@@ -35,10 +35,10 @@
 	   			$transaccion = $kakaroto->kamehameha('',72,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
 	   			
-	   			if($_REQUEST['tp'] == 0)
-   					require_once 'view/ajax/facturas/factura.php';
+	   			if($_REQUEST['tp'] == 'true')
+	   				require_once 'view/ajax/facturas/facturapv.php';
 	   			else
-	   				require_once 'view/reportes/compra.php';
+   					require_once 'view/ajax/facturas/factura.php';
 	   			break;
 	   		case 7:
 	   			$pagina = 1;
@@ -50,7 +50,7 @@
 	   		case 8:
 	   			$pagina = 1;
 	   			require '../_config/mySmarty.php';
-	   
+	   			
 			   	$smarty  = new mySmarty();
 			   	$smarty->setModule('dashboard');
 			   	$pg = $smarty->fetch('../view/menuSmarty.php');

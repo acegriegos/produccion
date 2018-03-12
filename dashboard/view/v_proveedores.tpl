@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
     <div class="bdy pequeño" >
         <div class="card">
-            <div class="card-header center white-text" style="background-color:#0B3861"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
+            <div class="card-header center head1"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
             </div>
             <div class="card-content pequeño">
                 <div class="row">
@@ -28,20 +28,20 @@
                         <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
                     </div>
                     <div class="col s2 m6 per2001">
-                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-5 " data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large mdi mdi-plus"></i></a>
+                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-3 btn2" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large mdi mdi-plus"></i></a>
                     </div>
                 </div>
                 <div class="card-block">
                     <table class="dt-responsive nowrap tabladetalles striped centered highlight bordered z-depth-2" id="data-table-clientes" style="width: 100%">
                         <thead>
                             <tr>
-                                <th class="sinborde white-text blue" style="  padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Nombre</th>
+                                <th class="sinborde white-text tab1" style=" padding: 10px;color:black; border-radius: 0px!important;" >Cédula</th>
+                                <th class="sinborde white-text tab1"  style=" padding: 10px;color:black; border-radius: 0px!important;">Nombre</th>
                                 <!-- <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Código</th> -->
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Teléfonos</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Correo</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Tipo</th>
-                                <th class="sinborde white-text blue"  style=" padding: 10px;color:black; border-radius: 0px!important;">Acciones</th>
+                                <th class="sinborde white-text tab1"  style=" padding: 10px;color:black; border-radius: 0px!important;">Teléfonos</th>
+                                <th class="sinborde white-text tab1"  style=" padding: 10px;color:black; border-radius: 0px!important;">Correo</th>
+                                <th class="sinborde white-text tab1"  style=" padding: 10px;color:black; border-radius: 0px!important;">Tipo</th>
+                                <th class="sinborde white-text tab1"  style=" padding: 10px;color:black; border-radius: 0px!important;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listaclientes">
@@ -72,7 +72,7 @@
                 </div>
                 <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 80%; width: 75%">
                     <div class="modal-header">
-                        <ul class="tabs tabs-fixed-width blue">
+                        <ul class="tabs tabs-fixed-width head3">
                             <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
                             <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
                             <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
@@ -133,7 +133,7 @@
                                 <label for="vapellido2">Segundo Apellido</label>
                                 <input type="text" class="form-control onblur" id="vapellido2" autocomplete="off">
                             </div>
-                            
+
                             <div class="input-field col s12 m6 l4">
                                 <label for="vcedula">Cédula del Proveedor</label>
                                 <input type="text" class="validate onblur" id="vcedula" autocomplete="off">

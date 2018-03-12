@@ -15,25 +15,25 @@
     {$NAV}
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
-          <div class="card-header center  pequeño hide-on-small-only white-text" style="background-color:#0B3861 "><p class="flow-text">Área Inventarios</p></div>
+          <div class="card-header center pequeño hide-on-small-only head1"><p class="flow-text">Área Inventarios</p></div>
           <div class="card-content pequeño">
             <div class="row">
 
               <div class="col s12 m12 l6 pequeño">
                 <div class="card z-depth-5 pequeño">
-                  <div class="card-title blue-grey white-text center ">&nbsp;Opciones</div>
+                  <div class="card-title center head2">&nbsp;Opciones</div>
 
                   <div class="card-panel pequeño">
 
                     <div class="row">
                      <div class="col s12 m6 l6 per4000 ">
-                      <a href="inventarios" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Inventarios">Inventarios</a>
+                      <a href="inventarios" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Inventarios">Inventarios</a>
                     </div>
                     <div class="col s12 m6 l6 per4100">
-                      <a href="productos" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Productos">Productos</a>
+                      <a href="productos" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Productos">Productos</a>
                     </div>
                     <div class="col s12 m6 l6 per4200">
-                      <a href="reportes" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
+                      <a href="reportes" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
                     </div>
 
 
@@ -46,7 +46,7 @@
 
             <div class="col s12 m12 l6 pequeño">
               <div class="card z-depth-5 per1500 pequeño">
-                <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
+                <div class="card-title center head2">&nbsp;Gráfico</div>
                 <div class="card-content pequeño">
                   <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
                 </div>

@@ -13,43 +13,43 @@
     {$NAV}
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
-          <div class="card-header pequeño center hide-on-small-only white-text" style="background-color:#0B3861 "><p class="flow-text">Área Financiera</p></div>
+          <div class="card-header pequeño center hide-on-small-only head1"><p class="flow-text">Área Financiera</p></div>
           <div class="card-content pequeño">
             <div class="row">
 
               <div class="col s12 m12 l6 pequeño">
                 <div class="card z-depth-5 pequeño">
-                  <div class="card-title pequeño blue-grey white-text center ">&nbsp;Opciones</div>
+                  <div class="card-title pequeño center head2">&nbsp;Opciones</div>
 
-                  <div class="card-panel pequeño ">
+                  <div class="card-panel pequeño">
 
                     <div class="row">
-                     <div class="col s12 m6 l6 per3000 ">
-                      <a href="contabilidad" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Contabilidad
+                     <div class="col s12 m6 l6 per3000 hide">
+                      <a href="contabilidad" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Contabilidad
                       ">Contabilidad</a>
                     </div>
-                    <div class="col s12 m6 l6 per3100 hide">
-                      <a href="presupuesto" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Presupuesto">Presupuesto</a>
+                    <div class="col s12 m6 l6 per3100">
+                      <a href="presupuesto" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Presupuesto">Presupuesto</a>
                     </div>
-                    <div class="col s12 m6 l6 per3200 ">
-                      <a href="cuentas?tf=1" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Cuentas por Cobrar</a>
+                    <div class="col s12 m6 l6 per3200">
+                      <a href="cuentas?tf=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Cuentas por Cobrar</a>
                     </div>
                     <div class="col s12 m6 l6 per3300">
-                      <a href="cuentas?tf=2" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Cuentas por Pagar</a>
+                      <a href="cuentas?tf=2" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Cuentas por Pagar</a>
                     </div>
                      <div class="col s12 m6 l6 per3400">
 
-                      <a href="notas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Notas de Crédito y Débito">Notas de Crédito y Débito</a>
+                      <a href="notas" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Notas de Crédito y Débito">Notas de Crédito y Débito</a>
 
                     </div>
                     <div class="col s12 m6 l6 per3500">
-                      <a href="devoluciones" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
+                      <a href="devoluciones" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
                     </div>
                     <div class="col s12 m6 l6 per3600">
-                      <a href="reportes?tr=3" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
+                      <a href="reportes?tr=3" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
                      <div class="col s12 m6 l6 per3600 hide">
-                      <a href="notas" class="waves-effect waves-light btn-large blue z-depth-3" style="margin-top:4%; width: 100%;" title="Regalias">Regalias</a>
+                      <a href="notas" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Regalias">Regalias</a>
                     </div>
 
 
@@ -62,7 +62,7 @@
 
             <div class="col s12 m12 l6 pequeño">
               <div class="card pequeño z-depth-5 per3700">
-                <div class="card-title blue-grey white-text center">&nbsp;Gráfico</div>
+                <div class="card-title center head2">&nbsp;Gráfico</div>
                 <div class="card-content pequeño">
                   <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
                 </div>

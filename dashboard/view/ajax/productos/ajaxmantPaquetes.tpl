@@ -76,7 +76,7 @@
 							<tr>
 								<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Producto o servicio</th>
 								<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad</th>
-								<th class="white-text blue tduni hide" style="border: 0; border-radius: 0px !important;">Unidad</th>
+								<th class="white-text blue tduni" style="border: 0; border-radius: 0px !important;">Unidad</th>
 								<th class="white-text blue" style="border: 0; border-radius: 0px !important;"></th>
 							</tr>
 						</thead>
@@ -89,7 +89,7 @@
 								<td  style="padding: 10px;">
 									<input id="cantidad" type="number" min="1">
 								</td>
-								<td  style="padding: 10px;" class="tduni hide">
+								<td  style="padding: 10px;" class="tduni">
 									<select id="pqtunidad" class="select">
 										{section name=LE loop=$UNI}
 										<option value="{$UNI[LE][0]}" simbolo="{$UNI[LE][2]}">{$UNI[LE][1]}</option>

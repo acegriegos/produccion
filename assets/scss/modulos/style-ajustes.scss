@@ -1,0 +1,100 @@
+.tipodes {
+  width: 18%;
+}
+
+.oflow {
+  overflow-x: scroll !important;
+}
+
+.row {
+  margin-bottom: 0px;
+}
+
+h5 {
+  font-size: 1.2em !important;
+}
+
+.titulos {
+  background-color: #0B3861;
+  color: white;
+  text-align: center;
+  font-size: 1.3em;
+}
+
+#addMoneda {
+  margin-left: 1%;
+}
+
+.fast-edit {
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.mrgn {
+  margin-top: 15px;
+}
+
+.card-block {
+  padding: 5px 15px 15px 15px;
+}
+
+.accmodulo {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.dropzone {
+  &.dz-clickable {
+    cursor: pointer;
+  }
+  border: 2px dashed #000 !important;
+  border-radius: 5px !important;
+  background: transparent !important;
+  min-height: 120px !important;
+  max-height: 120px !important;
+  padding: 0px 0px !important;
+}
+
+form.dropzone {
+  display: block;
+  min-height: 135px !important;
+  max-height: 135px !important;
+  overflow: auto;
+}
+
+.dropzone {
+  .dz-preview {
+    &.dz-image-preview {
+      background: rgba(220, 221, 222, 0.5) !important;
+    }
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 6px;
+    height: 50px;
+  }
+  &.dz-clickable * {
+    cursor: default;
+  }
+}
+
+.dz-image {
+  height: 100px !important;
+  width: 100px !important;
+}
+
+.dz-remove {
+  color: #EC8585;
+  font-style: none;
+  &:hover {
+    color: #ED5151;
+    font-style: none;
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .centrobot {
+    margin-left: 15% !important;
+  }
+}

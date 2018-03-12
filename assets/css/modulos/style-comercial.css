@@ -1,20 +1,52 @@
-.mybtn{
-	margin: 3%;
-	width: 25%;
+.head1 {
+  background: #0080C6 !important;
+  color: #fff;
 }
 
-.mycol{
-	border-left: 1px solid black;
-	height: 100%;
+.head2 {
+  background: #45b97c !important;
+  color: #fff;
 }
 
-.myah{
-	color: rgb(55,68,60);
+.btn1 {
+  background: #0080C6 !important;
+  color: #fff;
 }
 
-.myah:hover{
-	color: black;
+.btn2 {
+  background: #F58345 !important;
+  color: #fff;
 }
-.tamLetra{
-   font-size: 1.2em !important
+
+.btn3 {
+  background: #937CB9 !important;
+  color: #fff;
 }
+
+.head3 {
+  background: #A6CE39 !important;
+  color: #fff;
+}
+
+.mybtn {
+  margin: 3%;
+  width: 25%;
+}
+
+.mycol {
+  border-left: 1px solid black;
+  height: 100%;
+}
+
+.myah {
+  color: #37443c;
+}
+.myah:hover {
+  color: black;
+}
+
+.tamLetra {
+  font-size: 1.2em !important;
+}
+
+/*# sourceMappingURL=style-comercial.css.map */

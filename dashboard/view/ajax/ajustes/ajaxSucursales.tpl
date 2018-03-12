@@ -93,7 +93,7 @@
                             <label for="vidcanton">Cantón</label>
                         </div>
                         </div><br>
-                        <div class="row">
+                       <!--  <div class="row">
                             <div class="col s12 ">
                                 <h4> Impresión :</h4>
                             </div>
@@ -121,7 +121,7 @@
                             </select>
                             <label for="vidtiponota">Notas</label>
                         </div>
-                        </div><br>
+                        </div> --><br>
                         <div class="row">    
                             <div class="col m12">
                                 <button type="button" class="btn btn-primary der add z-depth-5 blue" id="accsuc" modulo="sucursale" varias="1">Agregar</button>

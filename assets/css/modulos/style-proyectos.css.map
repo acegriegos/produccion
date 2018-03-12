@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,SAAU;EACR,SAAS,EAAE,gBAAgB;;AAG7B,YAAa;EACX,MAAM,EAAE,GAAG;;AAGb,aAAc;EACZ,KAAK,EAAE,OAAO",
+"sources": ["../../scss/modulos/style-proyectos.scss"],
+"names": [],
+"file": "style-proyectos.css"
+}

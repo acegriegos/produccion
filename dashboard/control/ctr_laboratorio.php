@@ -26,7 +26,7 @@
 	   			break;
 	   		case 4:
 	   			$pagina = 1;
-	   			$users = $kakaroto->kamehameha('id,nombre',1,'id > 0');
+	   			$users = $kakaroto->kamehameha('id,nombre',1,'id > 0 and idtipousuario = 3');
 	   			require_once 'view/ajax/laboratorio/iniciacion.php';
 	   			break;
 	   		case 5:
@@ -44,6 +44,13 @@
 	   		case 8:
 	   			$pagina = 1;
 	   			require_once 'view/ajax/laboratorio/qos.php';
+	   			break;
+	   		case 9:
+	   			$pagina = 1;
+	   			$transaccion = $kakaroto->kamehameha('id,idbandeja,idfrasco,cantidad',911,'id > 0 and idsucursal = @@impresa');
+	   			$bandejas = $kakaroto->kamehameha('',411,$_REQUEST['arreglo']['invbandejas']);
+	   			$frascos = $kakaroto->kamehameha('',411,$_REQUEST['arreglo']['invfrascos']);
+	   			require_once 'view/ajax/laboratorio/relaciones.php';
 	   			break;
 	   	}
 		if(!$pagina){

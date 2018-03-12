@@ -1,0 +1,105 @@
+@import 'colors.scss';
+
+.head1{
+    background: $head1;
+    color: $head1txt;
+}
+
+.head2{
+    background: $head2;
+    color: $head2txt;
+}
+
+.btn1{
+    background: $btn1;
+    color: $btn1txt;
+}
+
+.btn2{
+    background: $btn2;
+    color: $btn2txt;
+}
+
+.btn3{
+    background: $btn3;
+    color: $btn3txt;
+  }    
+
+.head3{
+    background: $head3;
+}
+
+.tab1{
+    background: $tab1;
+}
+
+.input-field {
+  margin: 0px;
+}
+
+.delete:hover {
+  color: $danger;
+}
+
+.sinborde {
+  border-radius: 0px !important;
+}
+
+.tamLetra {
+  font-size: 1.2em !important;
+}
+
+ul.pagination > li.active {
+  background-color: $prim !important;
+}
+
+.autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important;
+}
+
+.placeh {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.corad {
+  display: block;
+}
+
+#infcorreo2 {
+  width: 100%;
+  max-width: 100%;
+  max-height: 50px;
+  height: auto;
+  overflow-y: scroll;
+}
+
+.icorr, .iphone {
+  height: 50px;
+}
+
+#inftelefono4 {
+  width: 100%;
+  max-width: 100%;
+  max-height: 50px;
+  height: auto;
+  overflow-y: scroll;
+}
+
+.chip {
+  display: block !important;
+  font-size: 0.8em !important;
+}
+
+.chpcrr {
+  background: rgba(3, 155, 229, 0.1) !important;
+}
+
+.chpphone {
+  background: rgba(3, 184, 229, 0.1) !important;
+}
+
+ul.pagination > li.active {
+  background-color: $prim !important;
+}

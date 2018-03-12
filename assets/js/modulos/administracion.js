@@ -9,10 +9,9 @@ $(document).on("click","#Iadd",function(){
 
 });
 
-function validar (varreglo,vmodulo) {
+function validar (varreglo,vmodulo,gen) {
 	
 	var salida = {}
-	
 		/*VALIDACION FRONT END*/
 	
 	switch(vmodulo['modulo']) {
@@ -30,7 +29,7 @@ function validar (varreglo,vmodulo) {
 			break;
 	}
 
-	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+	salida = odin(varreglo,gen+vmodulo['modulo']+"s");
 	return salida;
 
 }
