@@ -13,22 +13,22 @@
 			<label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
 		</div>
 		<div class="col s12 m4 l7 per4102">
-			<a id="addproduct" class="btn-floating waves-effect waves-light blue right z-depth-5 modal-trigger" href="#modal-productos"><i class="mdi mdi-plus"></i></a>
+			<a id="addproduct" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger" href="#modal-productos"><i class="mdi mdi-plus"></i></a>
 		</div>
 	</div>
 	<div class="row pequeño">
 		<div class="col s12 m12 l12 pequeño">
-			<table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-productos" cellspacing="0" width="100%" >
+			<table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-productos" cellspacing="0" width="100%" >
 				<thead>
 					<tr>
-						<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
-						<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código Interno</th>
-						<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-						<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Marca</th>
-						<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Costo</th>
-						<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Precio Venta</th>
-						<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Ganancia</th>
-						<th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 18%;">Acciones</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código Interno</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Marca</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Precio Costo</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Precio Venta</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Ganancia</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important; width: 18%;">Acciones</th>
 					</tr>
 				</thead>
 				<tbody id="listaproductos">
@@ -58,7 +58,7 @@
 </div>
 <div id="modal-productos" class="modal modal-fixed-footer grandemodal">
 	<div class="modal-header">
-		<ul class="tabs white-text" style="background-color:#0B3861">
+		<ul class="tabs head3">
 			<li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
 			<li class="tab col s3 menuP but" id="tb2"><a class="white-text">Financiero</a></li>
 			<li class="tab col s3 menuP but" id="tb3"><a class="white-text">Impuestos</a></li>
@@ -224,7 +224,7 @@
 				</div>
 				<div class="row">
 					<div class="col s12">
-					<ul class="collection hide  z-depth-5" id="impuestos"></ul>
+					<ul class="collection hide  z-depth-3" id="impuestos"></ul>
 				</div>
 			</div>
 		</div>
@@ -250,7 +250,7 @@
 				<label for="fltr">Filtro:</label>
 			</div>
 			<div class="col s12 m12 l12 pequeño">
-				<table class="table responsive-table pequeño centered striped bordered highlight z-depth-5" cellspacing="0" width="100%" >
+				<table class="table responsive-table pequeño centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
 					<thead>
 						<tr>
 							<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
@@ -265,19 +265,19 @@
 </div>
 </div>
 <div class="modal-footer ">
-<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
-<a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="addprod">Agregar</a>
-<a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="editprod">Guardar</a>
+<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+<a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="addprod">Agregar</a>
+<a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="editprod">Guardar</a>
 </div>
 </div>
 <div id="modal-movinventario" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
 <div class="modal-content" style="padding: 0px;">
-<ul class="tabs white-text" style="background-color:#0B3861">
+<ul class="tabs head1">
 	<li class="tab col s3 minvent but per4105" id="mv1"><a class="white-text">Entrada Inventario</a></li>
 	<li class="tab col s3 minvent but per4106" id="mv2"><a class="white-text">Salida Inventario</a></li>
 	<li class="tab col s3 minvent but per4107" id="mv3"><a class="white-text">Movimiento Inventario</a></li>
 </ul>
-<ul class="tabs blue">
+<ul class="tabs head2">
 	<li class="tab col s3" style="width: 100%">
 		<div class="row">
 			<div class="col s12 l6">
@@ -394,13 +394,13 @@
 </div>
 </div>
 <div class="modal-footer">
-<a class="modal-action waves-effect waves-light btn-flat white-text blue  z-depth-5" id="actinv">Guardar</a>
-<a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue  z-depth-5" style="margin-right: 2%">Salir</a>
+<a class="modal-action waves-effect waves-light waves-green btn-flat z-depth-3" id="actinv">Guardar</a>
+<a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 </div>
 </div>
 <div id="modal-descuentos" class="modal modal-fixed-footer grandemodal" style="width:45%;height:90%">
 <div class="modal-header">
-<ul class="tabs white-text" style="background-color:#0B3861">
+<ul class="tabs head2">
 	<li class="tab col s3"><a class="white-text">Mostrar Descuentos de Producto <span class="dprod"></span></a></li>
 </ul>
 </div>
@@ -412,18 +412,18 @@
 </div>
 </div>
 <div class="modal-footer">
-<a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
+<a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 </div>
 </div>
 <div id="modal-info2" class="modal modal-fixed-footer grandemodal" >
 <div class="modal-header">
-<ul class="tabs white-text" style="background-color:#0B3861">
+<ul class="tabs head2">
 	<li class="tab col s3"><a class="white-text">Mostrar Características del Producto <span id="dprd"></span></a></li>
 </ul>
 </div>
 <div class="modal-content pequeño" stylle="padding: 0px;">
 <div class="row pequeño"><br>
-	<table class="table pequeño responsive-table centered striped bordered highlight z-depth-5" cellspacing="0" width="100%" >
+	<table class="table pequeño responsive-table centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
 		<thead>
 			<tr>
 				<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
@@ -435,7 +435,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
+<a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 </div>
 </div>
 </div> <!-- End mantProductos -->

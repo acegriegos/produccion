@@ -13,8 +13,9 @@ $(function(){
         draggable: true // Choose whether you can drag to open on touch screens
     });
 
-    $("#lgt").change(function(){
-        switch(parseInt($(this).val())){
+    $(".otpmenu").click(function(){
+        var opt = parseInt($(this).attr('value'));
+        switch(opt){
             case 1:
                 $("#modal-info").modal('open');
                 break;

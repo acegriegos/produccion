@@ -1,16 +1,16 @@
 <table class="table striped pequeño bordered highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
     <thead>
         <tr>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Codigo</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Producto</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Costo</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Costo Total</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Minimo</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Maximo</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Cantidad</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Compras</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Ventas</th>
-            <th class="white-text blue" style="border: 0;  border-radius: 0px !important;">Acciones</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Codigo</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Producto</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Costo</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Costo Total</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Minimo</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Maximo</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Cantidad</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Compras</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Ventas</th>
+            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -30,8 +30,8 @@
         <td style=" padding: 10px;"><?php echo $obj[10] ?></td>
         <td style=" padding: 10px;"><?php echo $obj[11] ?></td>
         <td style=" padding: 10px;">
-          <!--   <a class="btn-color pbtn load" id="m<?php echo $obj[0] ?>"><i class="material-icons">edit</i></a>
-            <a class="btn-color pbtn cdel delete" id="d<?php echo $obj[0] ?>"><i class="material-icons">close</i></a> -->
+<!--             <a class="btn-color pbtn load" id="m<?php echo $obj[0] ?>"><i class="mdi mdi-pencil"></i></a>
+            <a class="btn-color pbtn cdel delete" id="d<?php echo $obj[0] ?>"><i class="mdi mdi-delete"></i></a> -->
         </td>
     </tr>
 

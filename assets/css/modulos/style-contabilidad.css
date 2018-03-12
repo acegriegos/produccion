@@ -1,56 +1,152 @@
+.head1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.head2 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.head3 {
+  background: #F58345;
+  color: #fff;
+}
+
+.head4 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.btn2 {
+  background: #F58345;
+  color: #fff;
+}
+
+.btn3 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff;
+}
+
+.btn5 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.tab1 {
+  background: #0080C6;
+  color: #fff;
+}
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff;
+}
+
+.tab3 {
+  background: #F58345;
+  color: #fff;
+}
+
+.tab4 {
+  background: #45b97c;
+  color: #fff;
+}
+
+.bg1 {
+  background: #4D4D4D;
+}
+
+.delete:hover {
+  color: #EC545A !important;
+}
+
+.bgtransparent {
+  background: transparent;
+}
+
+.gtext {
+  color: #5A5A5A;
+}
+
 .myh3 {
-  color: green; }
+  color: green;
+}
 
 .tamLetra {
-  font-size: 1.2em !important; }
+  font-size: 1.2em !important;
+}
 
 #vcuentas {
   max-height: 300px;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+}
 
 .list-group-item:hover {
   background-color: #60605F;
-  color: white; }
+  color: white;
+}
 
 .trtable {
   background-color: white;
-  color: black; }
-  .trtable tr td {
-    border: 1px solid #e2e2e2; }
+  color: black;
+}
+.trtable tr td {
+  border: 1px solid #e2e2e2;
+}
 
 thead th {
-  border: 1px solid #e2e2e2; }
+  border: 1px solid #e2e2e2;
+}
 
 .trtable thead th {
-  text-align: center; }
+  text-align: center;
+}
 
 .blc1 {
   background-color: white;
   padding-top: 3px;
-  margin-top: 0px; }
+  margin-top: 0px;
+}
 
 .tdtext {
   width: 100%;
   margin: 0px;
-  border: 0px; }
+  border: 0px;
+}
 
 .numTransacc {
   font-size: 0.8em;
   color: #fff;
   background: #D9534F;
   padding: 0px 7px;
-  border-radius: 42px; }
+  border-radius: 42px;
+}
 
 .sh-cta-card {
   padding: 0%;
-  border: none !important; }
+  border: none !important;
+}
 
 .fsize {
-  font-size: 1.1em !important; }
+  font-size: 1.1em !important;
+}
 
 @media only screen and (max-width: 769px) {
   * {
     font-size: 0.9em !important;
-    padding-bottom: 2% !important; } }
+    padding-bottom: 2% !important;
+  }
+}
 
 /*# sourceMappingURL=style-contabilidad.css.map */

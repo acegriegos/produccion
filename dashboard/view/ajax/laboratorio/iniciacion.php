@@ -21,6 +21,7 @@
         <div class="der">
             <br>
             <a href="#!" class="btn btn1 add der" modulo="laboratorio-ciclo">Registrar</a>
+            <a href="#!" class="btn btn1 der" style="margin-right: 10px;">Pérdidas</a>
             <a href="#!" class="btn btn1 der" style="margin-right: 10px;">Listado de Iniciaciones</a>
             <span style="padding-right: 15px">Total Plantas: <span><b id="tplt">0</b></span></span>
         </div>

@@ -72,14 +72,13 @@
         </div>
         <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 100%; width: 75%">
           <div class="modal-header">
-            <ul class="tabs tabs-fixed-width head2">
-              <ul class="tabs tabs-fixed-width head2">
-                <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
-                <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
-                <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
-                <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
-                <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
-              </ul>
+            <ul class="tabs tabs-fixed-width head3">
+              <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
+              <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
+              <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
+              <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
+              <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
+            </ul>
             </div>
             <div class="modal-content " style="padding: 0px;">
               <div id="fclientes">
@@ -116,7 +115,7 @@
                         <input type="hidden" id="vidtipocliente" value="1">
                       </div>
                       <br>
-                      <div class="card-title pequeño" id="titInfo" align="center"><b>Datos Personales</b></div>
+                      <div class="card-title pequeño" id="titInfo" align="center"><b>Datos Personales</b></div><br>
                       <div class="row ">
                         <div class="input-field col s12 m6 l4 pequeño">
                           <label id="nomClie" for="vnombre">Nombre</label>
@@ -212,7 +211,7 @@
                   <div class="row">
                     <div class="input-field col s12 m6 l6">
                       <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
-                      <input type="number" class="eder center" id="vdescuentom">
+                      <input type="number" class="eder center" id="vdescuentom" value="0">
                       <label for="vdescuentom">Descuento Máximo</label>
                     </div>
                   </div>
@@ -257,7 +256,7 @@
                         <div class="row"><br>
                           <div class=" col s12 m12 l4">
                             <div class="provincia input-field">
-                              <a class="prefix btn-floating bgthird tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidprovincia" type="select" class="_det" primary="1">
                                 <option value="0">Seleccione una Provincia</option>
                                 {section name=LE loop=$PRO}
@@ -269,7 +268,7 @@
                           </div>
                           <div class="col s12 m12 l4">
                             <div class="canton input-field">
-                              <a class="prefix btn-floating bgthird tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidcanton" type="select" class="_det">
                                 <option value="">Seleccione un Cantón</option>
                               </select>
@@ -278,7 +277,7 @@
                           </div>
                           <div class="col s12 m12 l4">
                             <div class="distrito input-field ">
-                              <a class="prefix btn-floating bgthird tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="viddistrito" type="select" class="_det">
                                 <option value="">Seleccione un Distrito</option>
                               </select>

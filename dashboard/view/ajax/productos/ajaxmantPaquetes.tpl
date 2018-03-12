@@ -14,7 +14,7 @@
 			</ul>
 		</div>
 		<div class="col s12 m6">
-			<a id="addpackage" class="btn-floating waves-effect waves-light blue right z-depth-5 modal-trigger" href="#modal-paquetes"><i class="mdi mdi-plus"></i></a>
+			<a id="addpackage" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger" href="#modal-paquetes"><i class="mdi mdi-plus"></i></a>
 		</div>
 	</div>
 	<br>
@@ -24,11 +24,11 @@
 				<table class="table striped bordered highlight centered responsive-table z-depth-3" id="data-table-paquetes" cellspacing="0"  >
 					<thead>
 						<tr>
-							<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
-							<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-							<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Descuento</th>
-							<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Total</th>
-							<th class="white-text blue" style="border: 0; border-radius: 0px !important;" >Acciones</th>
+							<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
+							<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
+							<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Descuento</th>
+							<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Total</th>
+							<th class="white-text tab1" style="border: 0; border-radius: 0px !important;" >Acciones</th>
 						</tr>
 					</thead>
 					<tbody id="listapqts">
@@ -52,9 +52,9 @@
 	</div>
 	<br>
 	<div id="modal-paquetes" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
-		<div class="modal-header">
-			<ul class="tabs " style="background-color:#0B3861">
-				<li class="tab col s3" ><a class="white-text" id="titpqt">AGREGAR PAQUETE</a></li>
+		<div class="modal-header center">
+			<ul class="tabs head3">
+				<li class="tab col s12" ><a class="white-text" id="titpqt">AGREGAR PAQUETE</a></li>
 			</ul>
 		</div>
 		<div class="modal-content">
@@ -70,14 +70,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s12 m12 l6">
+				<div class="col s12 m12 l8">
 					<table class="responsive-table bordered highlight">
 						<thead>
 							<tr>
-								<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Producto o servicio</th>
-								<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad</th>
-								<th class="white-text blue tduni" style="border: 0; border-radius: 0px !important;">Unidad</th>
-								<th class="white-text blue" style="border: 0; border-radius: 0px !important;"></th>
+								<th class="white-text tab2" style="border: 0; border-radius: 0px !important;">Producto o servicio</th>
+								<th class="white-text tab2" style="border: 0; border-radius: 0px !important;">Cantidad</th>
+								<th class="white-text tab2 tduni" style="border: 0; border-radius: 0px !important;">Unidad</th>
+								<th class="white-text tab2" style="border: 0; border-radius: 0px !important;"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -97,21 +97,15 @@
 									</select>
 								</td>
 								<td  style="padding: 10px;">
-									<button type="button" id="bProd" class="btn-floating waves-effect waves-light blue"><i class="mdi mdi-plus">add</i></button>
+									<button type="button" id="bProd" class="btn-floating waves-effect waves-light btn2"><i class="mdi mdi-plus">add</i></button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="col s12 m12 l6"><br><br><br>
-					<!-- <li class="list-group-item" id="l'+info[0]+'"><input type="hidden" id="htot'+info[0]+'" value="'+ptotal+'" precio="'+info[1]+'"><span class="tag tag-default tag-pill pull-xs-right hcant" id="c'+info[0]+'">'+cant+'</span><label class="nomprod" id="n'+info[0]+'" idproducto="'+idprod+'" idservicio="'+idserv+'">'+prod+'</label><i class="fa fa-times btn del inv" id="d'+info[0]+'"></i></li> -->
-					<div id="listapaquetes">
-						<!-- <div class="chip blue lighten-3" id="l1">
-							<input type="hidden" id="htot1" value="ptotal" precio="info[1]">
-							<span class="nomprod" id="n1" idproducto="idprod" idservicio="idserv">Producto1</span> (<span class="hcant" id="c1">1</span>)
-							<i class="close material-icons">close</i>
-						</div> -->
-					</div>
+				<div class="col s12 m12 l4">
+					<span><b>Productos en paquete:</b></span>
+					<section id="listapaquetes"><!-- JS --></section>
 				</div>
 			</div><br><hr><br>
 			<div class="row">

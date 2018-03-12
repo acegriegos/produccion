@@ -166,7 +166,7 @@ $(document).on("click","#facturar",function(){
         Materialize.toast(err,'4000','red');
         return false;
     }
-
+    $("#pcam").text(0.00).css('color','black');
     if ( $(".zelda").data('triforce')['vidtipo'] == 1 && $(".zelda").data('triforce')['vidtipoventa'] == 1) {
 
         var tpago = $("#idtipopago option:selected").val();
@@ -236,10 +236,15 @@ $(document).on("click","#facturar",function(){
 
 $("#pcon").blur(function(){
     calcVuelto();
+    $("#factreal").focus();
 });
 
-$("#pcon").keyup(function(){
-    calcVuelto();
+
+$("#pcon").keyup(function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        $(this).blur()      
+    }
 });
 
 
@@ -269,14 +274,6 @@ $(".mcancelar").blur(function(){
     }
 
     $(".totfact").html(result.formatMoney(0,',','.'));
-});
-
-
-$("#pcon").keyup(function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        calcVuelto();       
-    }
 });
 
 
@@ -678,7 +675,7 @@ function cargarProducto(kbrota,elemento) {
         var fimv = cod[0];
 
         cod = cod[0][0];
-        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17]})
+        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3]/parseFloat($("#monedas option:selected").attr('dv')),hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17]})
         $("#codp").val(cod[1]);
         $("#descp").val(cod[2]);
         $("#precp").val(parseFloat(cod[3]).formatMoney(2,'.',','));
@@ -871,8 +868,8 @@ function calcVuelto(){
     var paga = parseFloat( $("#pcon").val().replace(/,/g,'') );
     var totalfact = parseFloat( $(".totalfact").text().replace(/,/g,'') );
     var cambio = (paga - totalfact);
-   
-   $("#pcam").text(cambio.formatMoney(0,'.',','));
+
+   $("#pcam").text(cambio*parseFloat($("#monedas option:selected").attr('dv')).formatMoney(0,'.',','));
 
    if (cambio > 0) {
         $("#pcam").css('color','#2196F3');

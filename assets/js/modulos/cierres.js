@@ -31,6 +31,8 @@ $(function(){
         info: false
     });
 
+
+
     Materialize.updateTextFields();
 
 	$('#modal-tipomonedas').modal({
@@ -40,6 +42,19 @@ $(function(){
 		outDuration: 200, // Transition out duration
 		startingTop: '4%', // Starting top style attribute
 		endingTop: '2%' // Ending top style attribute
+	});
+
+	$("#shcierre").click(function(){
+		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'idusuario = @@usr',0,0)[0];
+		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
+
+		for (var i = 0; i < datos.length; i++) {
+			str += '<tr id="'+datos[i][0]+'" class="pbtn filacierre"><td>'+datos[i][0]+'</td><td>'+datos[i][1]+'</td></tr>'
+		}
+
+		str += "</table>";
+
+		$("#lista-cierres").html(str);
 	});
 
 	$(".zelda").data('triforce',{ vtotal:0 });
@@ -86,6 +101,9 @@ $(document).on("click","#refresh",function(){
 // });
 
 $(document).on("click","#chkcierre",function(){
+
+	var cajainicial = arr('login',4,'monto',404,'idusuario =@@usr and idsucursal=@@impresa and fmonto is null',0,0,0,0)[0][0][0];
+	$("#totcashier").text(cajainicial);
 	if (!$(this).hasClass('tooltipped')) {
 		if ($(this).attr('vfecha') == undefined) {
 			Materialize.toast('Seleccione un cierre', 4000, 'green');
@@ -98,9 +116,25 @@ $(document).on("click","#chkcierre",function(){
 	
 });
 
-$(document).on("blur",".mnd",function(e){
+$(document).on("click",".filacierre",function(){
+	var id = $(this).attr('id');
+	window.open('cierres?accion=1&id='+id);
+});
+
+$(document).on("keyup",".mnd",function(e){
+	var code = e.which || e.keyCode;
+	if(code == 13){
+		$(this).blur();
+	}
+});
+
+$(document).on("blur",".mnd",function(){
 	var total = totalizar();
-	$("#totcashier").text(total.formatMoney(2,'.',','));
+	$("#tcaja").text(total.formatMoney(2,'.',','));
+	var efectivo = $("#tefectivo").html().replace(/,/g,'');
+	var caja = $("#totcashier").html().replace(/,/g,'');
+	$("#sobrante").text((total-efectivo-caja).formatMoney(2,'.',','));
+	// $(this).next().focus();
 });
 
 $(document).on("click","#totalizar",function(){
@@ -115,7 +149,8 @@ $(document).on("click","#docierre",function(){
 	var total = $(".zelda").data('triforce')['vtotal'];
 	var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
 	var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
-	var idcierre = arr('login',4,'',189,'@@usr,"'+$(this).attr('vfecha')+'",@@impresa',0,0,0)[0][0];
+
+	var idcierre = arr('login',4,'',189,'@@usr,@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
 
 	if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
@@ -130,7 +165,8 @@ $(document).on("click","#docierre",function(){
 	$('#toast-container').remove();
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
 
-	window.open('cierres?accion=1&id='+idcierre+'&fecha='+$(this).attr('vfecha'));
+	window.open('cierres?accion=1&id='+idcierre);
+	location.reload();
 });
 
 $(document).on("click",".cancel",function(){
@@ -142,24 +178,32 @@ $(document).on("click",".getfacturas",function(){
 	var fecha = $(this).attr('vfecha') == 'HOY' ? curdate : $(this).attr('vfecha');
 	
 	$("#chkcierre").attr('vfecha',fecha);
-	arr('login',6,'',183,'"'+fecha+'",@@usr',0,1,$("#listafacturas"));
+
+	var tabla = $("#data-table-facturas").DataTable();
+	tabla.destroy();
+   
+    arr('login',6,'',183,'"'+fecha+'",@@usr,@@impresa',0,1,$("#listafacturas"));
+	$("#tcontado").text($("#hidet").attr('tcon'));
+	$("#tcredito").text($("#hidet").attr('tcre'));
+	$("#tefectivo").text($("#hidet").attr('tefe'));
+	$("#ttarjeta").text($("#hidet").attr('ttar'));
+	
+	$("#data-table-facturas").DataTable({
+	    bFilter: false,
+	    bScrollInfinite: true,
+	    bSort: false,
+	    bLengthChange: false,
+	    order: [],
+	    bPaginate: false,
+	    info: false
+	});
+
 	arr('login',6,'',185,'"'+fecha+'",@@usr',0,1,$("#listanotasabonos"));
 	// cambiar
-	var totcont = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idusuario = @@usr and idtipoventa = 1 and idtipo = 1 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
-	var totcred = arr('login',4,'format(sum(subtotal+imv-descuento+flete+ajuste+plazo),2) as total',64,'idusuario = @@usr and idtipoventa = 1 and idtipo = 2 and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
-	var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
+var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
 	var tnotcre = arr('login',4,'monto',187,'idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0];
 	var tnotdeb = arr('login',4,'monto',188,'idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0];
 	// end cambiar
-	if (totcont != null)
-		$("#tcontado").text(totcont);
-	else
-		$("#tcontado").text('0.00')
-
-	if (totcred != null)
-		$("#tcredito").text(totcred);
-	else
-		$("#tcredito").text('0.00')
 
 	if (tabono != null)
 		$("#tabono").text(tabono);
@@ -199,7 +243,7 @@ $(document).on("keyup","#vfecha",function(e){
 		$("#vfecha").focus();
 	}
 });
-
+var valor = arr('login',4,'id,valor',405,'id > 0',0,0,0)[0];
 $(document).on("change","#vfecha",function(e){
 	var fecha = $(this).val();
 	arr('login',6,'contador,fecha',182,'fecha = "'+fecha+'" or date_format(fecha,"%d/%m/%Y") = "'+fecha+'"',0,1,$("#listacierrespendientes"));
@@ -207,7 +251,7 @@ $(document).on("change","#vfecha",function(e){
 });
 
 function totalizar() {
-	var valor = arr('login',4,'id,valor',405,'id > 0',0,0,0)[0];
+	
 	var total = 0;
 	for (var i = 0, len = valor.length; i < len; i++) {
 		var monto = $("#m"+valor[i][0]).val();

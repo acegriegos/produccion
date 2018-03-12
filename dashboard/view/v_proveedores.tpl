@@ -229,7 +229,7 @@
                                 <div class="row"><br>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="provincia">
-                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus"></i></a>
+                                            <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus"></i></a>
 
                                             <select id="vidprovincia" type="select" class="_det" primary="1">
                                                 <option value="0">Seleccione una Provincia</option>
@@ -242,7 +242,7 @@
                                     </div>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="canton">
-                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus"></i></a>
+                                            <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus"></i></a>
                                             <select id="vidcanton" type="select" class="_det">
                                                 <option value="">Seleccione un Cantón</option>
                                             </select>
@@ -251,7 +251,7 @@
                                     </div>
                                     <div class="input-field col s12 m6 l4">
                                         <div class="distrito">
-                                            <a class="prefix btn-floating blue tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus"></i></a>
+                                            <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus"></i></a>
 
                                             <select id="viddistrito" type="select" class="_det">
                                                 <option value="">Seleccione un Distrito</option>

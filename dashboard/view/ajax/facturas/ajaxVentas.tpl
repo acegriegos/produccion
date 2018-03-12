@@ -12,18 +12,19 @@
   <div class="row pequeño">
     <div class="col s12 m3 l3 concre" align="center">
       <div class="switch">
-        <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocont" val="1" checked/>
+        
+        <!-- <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocont" val="1" checked/>
         <label for="chg_tipo"><b>Contado</b></label>
-  <br>
+        <br>
         <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocred" val="0"/>
-        <label for="chg_tipocred"><b>Crédito</b></label>
+        <label for="chg_tipocred"><b>Crédito</b></label> -->
 
-        <!-- <label style="color: black">
+        <label>
           <b>Contado</b>
           <input type="checkbox" id="chg_tipo" val="1" disabled>
           <span class="lever"></span>
           <b>Crédito</b>
-        </label> -->
+        </label>
       </div>
     </div>
 
@@ -81,7 +82,7 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card center z-depth-3">
-  <div class="card-header head1 center"><b class="head1">DETALLE DE FACTURA</b></div>
+  <div class="card-header head2 center" style="padding: 0.5%"><b>DETALLE DE FACTURA</b></div>
 
   <div class="row">
     <div class="s12 m12 l12 col hide-on-med-and-down">
@@ -280,8 +281,8 @@
 
 <div class="l3 m3 s12 col">
 
-<div class="card z-depth-3">
-  <div class="white-text head1 card-header center" style="margin-top: 0px;"><b class="head1">DESGLOCE DE FACTURA</b></div>
+<div class="card center z-depth-3">
+  <div class="card-header center head2 center" style="padding: 1%"><b>DESGLOCE DE FACTURA</b></div>
   
   <div class="row">
 
@@ -435,6 +436,7 @@
     <span>SU CAMBIO ES DE:</span><br>
     <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
   </div>
+
 </section>
 <!--  -->
 <section id="m-tarjeta" class="modal-tpago">
@@ -447,7 +449,7 @@
   <div class="row center-align">
     <div class="input-field col s12">
 
-      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
+      <i class="mdi-24px mdi mdi-card prefix icono" style="font-size: 2em !important"></i>
       <input id="carddigito" type="text" class="validate center-align" value="0000" style="width: 20%; font-size: 2em !important;">
     </div>
       <label for="carddigito" id="labeltarjeta"></label>
@@ -538,7 +540,7 @@
 
        <div class="col s12 row tp-Tarjeta hide">
         <div class="col s1">
-          <i class="material-icons prefix icono" style="font-size: 2em !important">credit_card</i>
+          <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
         </div>
         <div class="col input-field s3">
           <input id="mTarjeta" type="text" class="validate center-align" value="0000" style="font-size: 2em !important;">

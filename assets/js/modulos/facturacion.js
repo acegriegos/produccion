@@ -134,7 +134,7 @@ function cargarOCompras(){
 function cargarCompras(){
     $("#titfact").html("COMPRAS");
     $("#reference").removeClass('hide');
-    $(".chg_tipo").attr('disabled',false);
+    $("#chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
 
     $(".trCompra").removeClass('hide');
@@ -279,7 +279,7 @@ function cargarVentas(){
                     var unidad= $("#uni").val();//$("#valores").data('elemento')['hunidad'];
                     var comodin= $("#valores").data('elemento')['hcomodin'];
                     var desgloce= $("#valores").data('elemento')['isdesgloce'];
-
+                    console.log(dcs);
                     addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce);
                 }
             }else{
@@ -333,7 +333,7 @@ function cargarGlobal(){
         }
     });
 
-    $(".chg_tipo").change(function(){
+    $("#chg_tipo").change(function(){
         var value = parseInt($(this).attr('val'));
 
         if (value == 2) {

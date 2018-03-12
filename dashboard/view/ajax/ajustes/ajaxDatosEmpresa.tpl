@@ -484,10 +484,18 @@
                         <input type="text" id="vsimbolo" maxlength="1">
                     </div>
                 </div>
-                <div class="class">
-                    <div class="input-field col s12 pequeño">
+                <div class="row">
+                    <div class="input-field col s6 pequeño">
                         <label for="vvalor" class="truncate">Valor de Moneda</label>
                         <input type="number" id="vvalor" value="0.00" class="eder">
+                    </div>
+                    <div class="input-field col s6 pequeño">
+                        <label for="vsuma" class="truncate">Suma Adicional</label>
+                        <input type="number" id="vsuma" value="0.00" class="eder">
+                    </div>
+                    <div class="input-field col s6 pequeño">
+                        <label for="vcodigo" class="truncate">Código de la Moneda</label>
+                        <input type="number" id="vcodigo" value=" " class="eder" maxlength="4" readonly="">
                     </div>
                 </div>
                 <label class="row">
@@ -497,7 +505,7 @@
                         <input type="hidden" id="vprincipal" value="0">
                     </div>
                     <div class="input-field col s12 m6 pequeño">
-                        <input type="checkbox" id="iswsdl" name="iswsdl" stay="0" changed="1" />
+                        <input type="checkbox" id="iswsdl" name="iswsdl" />  <!-- stay="0" changed="1" -->
                         <label for="iswsdl">Valor por WSDL</label>
                     </div>
                 </label>

@@ -14,10 +14,10 @@
     {$NAV}
     <div class="bdy pequeño">
         <div class=" card center blue-grey white-text mbotcero pequeño" >
-          <h4 class="center-align white-text mbotcero z-depth-5" style="background-color:#0B3861">Inventario</h4>
+          <h4 class="center-align mbotcero z-depth-3 head1">Inventario</h4>
         </div>
-        
-        <div class="card pequeño card-content mdinvent z-depth-5 ">
+
+        <div class="card pequeño card-content mdinvent z-depth-3 ">
           <div class="row pequeño">
             <div class="input-field col s12 m6 l6 pequeño" >
               <select type="select" class="_det" id="vidbodega" det="bodega" sig="vidinventario" prev="" d-b="41">
@@ -37,7 +37,7 @@
           </div>
           <div class="row pequeño">
             <div class="col s12 m12 l12 pequeño">
-              <div class="pequeño" id="listainventarios"></div>
+              <div class="pequeño" id="listainventarios"><!-- JS --></div>
             </div>
           </div>
         </div>
