@@ -16,7 +16,7 @@
         <div class=" card center blue-grey white-text mbotcero pequeño" >
           <h4 class="center-align mbotcero z-depth-3 head1">Inventario</h4>
         </div>
-        
+
         <div class="card pequeño card-content mdinvent z-depth-3 ">
           <div class="row pequeño">
             <div class="input-field col s12 m6 l6 pequeño" >

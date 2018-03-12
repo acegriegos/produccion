@@ -147,6 +147,10 @@ $(document).on("change","#gasolina",function(){
 $(document).on("keyup","#descfalla",function(){
     $(".zelda").data('triforce')['vobservaciones'] = $(this).val();
 });
+
+$(document).on("change","#idmecanico",function(){
+   $(".zelda").data('triforce')['vidmecanico'] = $(this).val(); 
+});
 // $(document).on("blur","#vkm",function(){
 //     $(".zelda").data('triforce')['vkm'] = $(this).val();
 // });
@@ -263,7 +267,6 @@ $(document).on("keyup","#nclie",function(e){
                 }else{
                     Materialize.toast('Cliente no posee vehiculos,&nbsp&nbsp<a class="waves-effect waves-light white green-text btn modal-trigger" href="#modal-addcar">Agregar<a>', 5000, 'green');
                     $(this).select();
-                    // $("#zelda").
                 }
             }
             Materialize.updateTextFields();
@@ -465,8 +468,20 @@ function endDetail(vid,vacc,vmodulo) {
         case 'taller-boleta':
             if (vacc == 1) {
                 deadclear(vmodulo);
-                window.open('taller?accion=4&id='+vid);
-                $(".zelda").data('triforce',{vid : 0,vidvehiculo : 0,vdanos : '',vaccesorios : '',vkm : 0,vgasolina : 0,vobservaciones : 0});
+                $("#nclie").parent().next().html('');
+                $("#nclie").parent().next().html('<input type="text" id="placa" class="validate"><label for="placa">Placa o VIN del vehículo</label>');
+                $("#nclie").parent().next().next().html('');
+                $("#nclie").parent().next().next().html('<a class="waves-effect waves-light green btn right" href="#modal-infoVehiculo" id="infoVehiculo">Información</a>');
+                $("#infoVehiculo").removeClass('modal-trigger');
+                $("select").material_select();
+                $("#danos").val('');
+                $("#accesorios").val('');
+                Materialize.updateTextFields();
+                $(".validate").css('border-bottom', '1px solid #9e9e9e');
+                $(".validate").css('box-shadow', 'none');
+                $("#nclie").focus();
+                // window.open('taller?accion=4&id='+vid);
+                $(".zelda").data('triforce',{vid : 0,vidvehiculo : 0,vdanos : '',vaccesorios : '',vkm : 0,vgasolina : 0,vobservaciones : 0,vidmecanico : 0,vidusuario : 0,vidsucursal : ''});
             }
             break;
     }

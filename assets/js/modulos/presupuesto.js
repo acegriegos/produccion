@@ -85,7 +85,7 @@ $(document).on("click",".shpre",function(){
         var p = getDatos('',228,id+',@@impresa',0,0)[0];
         var str = '<table class="striped highlight lista'+id+'"><thead class="tdcollap"><th>Cod</th><th class="tdcollap">Descripcioón</th><th class="tdcollap">Acciones</th></thead>';
         for (var i = 0; i < p.length; i++) {
-            str += '<tr><td class="tdcollap"><b>'+p[i][2]+'</b></td><td class="tdcollap"><span>'+p[i][3]+'</span></td><td class="tdcollap"><a href="#modal-view" class="pbtn view secondary-content"><i class="mdi mdi-credit-card mdi-24px" title="Vista de la ODT"></i></a><a href="#modal-cotiza" class="pbtn cotiza secondary-content" title="Adjuntar Cotización Proveedor"><i class="mdi mdi-archive mdi-24px"></i></a><a href="#modal-compras" class="pbtn compra secondary-content" title="Adjuntar Compra"><i class="mdi mdi-note-plus-outline mdi-24px"></i></a><a href="#modal-ocompras" class="pbtn ocompra secondary-content" title="Adjuntar Orden Compra"><i class="mdi mdi-note-plus mdi-24px"></i></a></td></tr>';
+            str += '<tr><td class="tdcollap"><b>'+p[i][2]+'</b></td><td class="tdcollap"><span>'+p[i][3]+'</span></td><td class="tdcollap"><a href="#modal-view" class="pbtn view secondary-content gtext"><i class="mdi mdi-file-outline mdi-24px" title="Vista de la ODT"></i></a><a href="#modal-cotiza" class="pbtn cotiza secondary-content gtext" title="Adjuntar Cotización Proveedor"><i class="mdi mdi-file-document-box mdi-24px"></i></a><a href="#modal-compras" class="pbtn compra secondary-content gtext" title="Adjuntar Compra"><i class="mdi mdi-note-plus-outline mdi-24px"></i></a><a href="#modal-ocompras" class="pbtn ocompra secondary-content gtext" title="Adjuntar Orden Compra"><i class="mdi mdi-note-plus mdi-24px"></i></a></td></tr>';
         }
 
         cuerpo.html(str+"</table>")
@@ -270,7 +270,6 @@ function endDetail(vid,vacc,modulo){
                 var fecha = new Date();
                 $("#tp1").click();
                 $('#vfecha_inicio').pickadate().pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
-
                 $('#vfecha_fin').pickadate().pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
             }
             break;

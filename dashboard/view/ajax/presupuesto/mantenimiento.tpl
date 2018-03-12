@@ -172,9 +172,7 @@
                     <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Acciones</th>
                 </tr>
             </thead>
-            <tbody id="listapresupuestos">
-
-            </tbody>
+            <tbody id="listapresupuestos"><!-- JS --></tbody>
 
         </table>
         <ul class="pagination right" vtbl="" modulo="" cambio=""></ul>

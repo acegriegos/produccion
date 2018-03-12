@@ -59,6 +59,7 @@
 				<div class="row marginzero">
 					<div class="col s3 m3 l3">
 						<select type="select" id="idmecanico">
+							<option value="0">Seleccione una opción</option>
 							{section name=LE loop=$MEC}
 							<option value="{$MEC[LE][0]}">{$MEC[LE][1]}</option>
 							{/section}

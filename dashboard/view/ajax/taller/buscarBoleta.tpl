@@ -12,21 +12,23 @@
 									<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cliente</th>
 									<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Placa</th>
 									<th class="white-text blue" style="border: 0; border-radius: 0px !important;">VIN</th>
+									<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha Ingreso</th>
 									<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
 								</tr>
 							</thead>
 							<tbody id="listaboletas">
-							<!-- section -->
+							{section name=LE loop=$BOL}
 								<tr>
-									<td style="padding: 10px; color:black;"></td>
-									<td style="padding: 10px; color:black;"></td>
-									<td style="padding: 10px; color:black;"></td>
-									<td style="padding: 10px; color:black;"></td>
+									<td style="padding: 10px; color:black;">{$BOL[LE][0]}</td>
+									<td style="padding: 10px; color:black;">{$BOL[LE][1]}</td>
+									<td style="padding: 10px; color:black;">{$BOL[LE][2]}</td>
+									<td style="padding: 10px; color:black;">{$BOL[LE][3]}</td>
+									<td style="padding: 10px; color:black;">{$BOL[LE][4]}</td>
 									<td>
-										<a class="btn-color pbtn cdel mdi mdi-clipboard-text mdi-24px" id="vdet" title="Detalle boleta" style="color:black;"></a>
+										<a class="btn-color pbtn cdel mdi mdi-clipboard-text mdi-24px" id="vdet{$BOL[LE][0]}" title="Detalle boleta" style="color:black;"></a>
 									</td>
 								</tr>
-							<!-- section -->
+							{/section}
 							</tbody>
 						</table>
 					</div>

@@ -194,7 +194,7 @@
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="fec"><?php echo $obj[1]; ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="cli"><?php echo $obj[2]; ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="tip"><?php echo $obj[3]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="pag"><?php echo $obj[4]; ?></span></td>
+            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="pag"><?php echo number_format($obj[4],2); ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;" ><span id="tot"><?php echo $obj[5]; ?></span></td>
           </tr>
           <?php } ?>

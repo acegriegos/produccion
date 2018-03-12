@@ -32,6 +32,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
+	   			$smarty->assign('BOL',$kakaroto->kamehameha('',509,'0,0,"","0,10"'));
 	   			$smarty->display('ajax/taller/buscarBoleta.tpl');
 	   			break;
 	   		case 3:
