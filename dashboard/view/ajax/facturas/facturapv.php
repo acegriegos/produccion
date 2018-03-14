@@ -281,6 +281,5 @@ echo '<tr>
     window.onafterprint = afterPrint;
 */
  });
- </script> -->
-
-}
+ </script> 
+}-->

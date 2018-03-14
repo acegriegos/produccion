@@ -90,7 +90,7 @@
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
         <label for="barras"><i class="mdi mdi-barcode mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
 
-        <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" checked/>
+        <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" />
         <label for="teclado"><i class="mdi mdi-keyboard mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
     </section>
     </div>
@@ -363,7 +363,7 @@
       <div class="col s12 m12 l12"><br>
         <div class="row">
           <div class="col s12 m6 l6">
-              <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+              <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" checked />
               <label for="p_v" style="color: black; padding-left: 20px;">Punto Venta</label>
           </div>
 

@@ -16,7 +16,22 @@
               </tr>
           </thead>
           <tbody>
-              <tr>
+            {section name=LE loop=$CIC}
+            <tr>
+              <td>{$CIC[LE][2]}</td>
+              <td>{$CIC[LE][3]}</td>
+              <td>{$CIC[LE][4]}</td>
+              <td>{$CIC[LE][5]}</td>
+              <td>
+              <button class="btn btn-floating btn2 mdi mdi-16px mdi-refresh procmult" id="a{$CIC[LE][0]}" title="Procesar Multiplicacion"></button>
+              <button class="btn btn-floating btn2 mdi mdi-16px mdi-view-list mcb" id="b{$CIC[LE][0]}" title="Ver Medio Cultivo y Bandejas"></button>
+              <button class="btn btn-floating btn2 mdi mdi-16px mdi-checkbox-multiple-marked-outline procact" id="c{$CIC[LE][0]}" title="Procesar Activos"></button>
+              <button class="btn btn-floating btn2 mdi mdi-16px mdi-arrow-left-box history" id="d{$CIC[LE][0]}" title="Ver Trayectoria"></button>
+              <button class="btn btn-floating btn2 mdi mdi-16px mdi-arrow-collapse-right procenr" id="e{$CIC[LE][0]}" title="Procesar a Enraizamiento"></button>
+            </td>
+            </tr>
+            {/section}
+              <!-- <tr>
                   <td>M01</td>
                   <td>G01_001_TR</td>
                   <td>28</td>
@@ -28,7 +43,7 @@
                     <button class="btn btn-floating btn2 mdi mdi-16px mdi-arrow-left-box" title="Ver Trayectoria"></button>
                     <button class="btn btn-floating btn2 mdi mdi-16px mdi-arrow-collapse-right" title="Procesar a Enraizamiento"></button>
                   </td>
-              </tr>
+              </tr> -->
           </tbody>
       </table>
     </div>

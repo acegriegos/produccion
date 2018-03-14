@@ -58,20 +58,12 @@ $(document).on("change","#vidinventario",function(){
 });
 
 // fill data //
-$(document).on("click","#m2",function(){
-    var date = new Date();
-    date = date.getFullYear()+addZero(date.getMonth()+1,2)+addZero(date.getDate(),2);
-    $("#vlote").val(date);
-    Materialize.updateTextFields();
-});
-    
 
 $(document).on('click','#addFin',function() {
 	if ($("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] != 0) {
 		$(".titadd").html("Agregar Finca");
 		$(".cli").hide();
 		$(".serv").hide();
-
 		$(".prod").show();
 		$("#ingresar").attr('codigo',"2");
 		$("#addClie").modal('open');
@@ -83,6 +75,12 @@ $(document).on('click','#addFin',function() {
 		Materialize.toast('Cliente Requerido',4000,'red');
 		$("#ncli").focus();
 	}
+});
+
+$(document).on("click",".procmult",function(){
+    var id = $(this).attr('id').substr(1);
+    var tipo = $(".menu").children()
+    console.log(tipo)
 });
 
 $(document).on('click','.addVariedad',function(){
@@ -101,6 +99,8 @@ $(document).on("click","#mbandeja",function(){
     var id = $("#invactivlab").val();
     if (id != 0) {
         $(".zelda").data('triforce')['vidbandeja'] = id;
+        var bandeja = $("#invactivlab option:selected").text();
+        $("#bandeja").val(bandeja);
         Materialize.toast('Bandeja seleccionada', 4000, 'green');
     }
 });
@@ -264,27 +264,27 @@ function loadRecepcion(){
     $(".menu3").click(function(){
     	var id = $(this).attr('id').substr(1);
     	switch(parseInt(id)){
-    		case 1:
+    		case 0:
     			cargarArr(2,$("#labajax"));
     			cargarExplantes();
     			break;
-            case 2:
+            case 1:
                 cargarArr(4,$("#labajax"));
                 cargarIniciacion();
                 break;
-            case 3:
+            case 2:
                 cargarArr(5,$("#labajax"));
                 cargarMultiplicacion();
                 break;
-            case 4:
+            case 3:
                 cargarArr(6,$("#labajax"));
                 cargarEnraizamiento();
                 break;
-            case 5:
+            case 4:
                 cargarArr(7,$("#labajax"));
                 cargarAclimatacion();
                 break;
-            case 6:
+            case 5:
                 cargarArr(8,$("#labajax"));
                 cargarQoS();
                 break;
@@ -295,28 +295,27 @@ function loadRecepcion(){
     	
     });
 
-    $("#m1").click();
+    $("#m0").click();
 }
 
 function cargarQoS(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
 }//cargar QOS
 
 function cargarAclimatacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
 }//cargar Aclimatacion
 
 function cargarEnraizamiento(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:3,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:3,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
 }//cargar Enraizamiento
 
 function cargarMultiplicacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:2,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:2,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
 }//cargar Multiplicacion
 
 function cargarIniciacion(){
-
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:1,vidciclo:'',vidformula:0,vidbandeja:0,vguia:0,vcomentario:''});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:''});
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
         var charStr = String.fromCharCode(charCode);
@@ -346,7 +345,7 @@ function cargarIniciacion(){
     });
 
     $(document).on("change","#videncargado",function(){
-        
+        $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] = $(this).val();
     });
 
     $(document).on('click','[id^=_c]',function(){
@@ -822,11 +821,11 @@ function validarCiclos(){
             $("#bdyi00 tr").each(function(){
                 id = $(this).attr('id').substr(1);
                 if($("#c"+id).is(":checked")){
-                    $(".zelda").data('triforce')['vidciclo'] += id+',';
+                    $("#flaboratorio-ciclos .zelda").data('triforce')['vidciclo'] += id+',';
                 }
             })
 
-            if ($(".zelda").data('triforce')['vidciclo'] == '' ) {
+            if ($("#flaboratorio-ciclos .zelda").data('triforce')['vidciclo'] == '' ) {
                 return 'No se a Seleccionado una Recepción';
             }
 
