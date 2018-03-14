@@ -42,6 +42,24 @@
                 shell_exec("java -jar assets/libs/firmaXadesEpes/firmar-xades.jar assets/p12/310169776129.p12 6969 assets/xml/prueba.xml assets/xml/prueba-firmada.xml");
                 echo "Archivo Firmado<br>";
                 break;
+            case 7: //ENCABEZADO
+                echo json_encode($fe->info);
+                break;
+            case 8: //RECEPCION
+                break;
+            case 9: //PAYLOAD 
+
+                $xml = $fe->getXMLRecepcion();
+       
+                $params = json_encode(array('clave'                 =>  $fe->info['clave'],
+                                            'fecha'                 =>  $fe->info['FechaEmision'],
+                                            'emisor'                =>  ['tipoIdentificacion' => $fe->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Emisor']['Identificacion']['Numero']],
+                                            'receptor'              =>  ['tipoIdentificacion' => $fe->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Receptor']['Identificacion']['Numero']],
+                                            'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
+                                            'consecutivoReceptor'   => '',
+                                            'comprobanteXml'        => base64_encode($xml)));
+                echo $params;
+                break;
             default:
                 print_r(json_encode(['ERROR'=>'Accion no Valida']));
                 break;
@@ -165,9 +183,9 @@
                                         'fecha'                 =>  $this->info['FechaEmision'],
                                         'emisor'                =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Emisor']['Identificacion']['Numero']],
                                         'receptor'              =>  ['tipoIdentificacion' => $this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']],
-                                        'callbackUrl'           => 'http://erp.logintechcr.com/wsdlClient.php',
+                                        'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
                                         'consecutivoReceptor'   => '',
-                                        'comprobanteXml'        => $xml));
+                                        'comprobanteXml'        => base64_encode($xml)));
             /*base64_encode(file_get_contents("assets/xml/".$this->info['clave']."-firmada.xml))"*/
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 
@@ -230,7 +248,8 @@
 
         function getClave()
         {
-            return $this->getJSON('call fe_getencabezado('.$this->id.')')['clave'];
+            $encabezado = $this->getJSON('call fe_getencabezado('.$this->id.')');
+            return isset($encabezado['clave']) ? $encabezado['clave'] : die("Factura no Existente");
         }
 
         function getEmisor($id){

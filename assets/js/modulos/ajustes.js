@@ -33,6 +33,7 @@ $(document).on("click",".menu3",function(){
 	$(this).addClass('active');
 	$("#titulo").html($(this).html());
 	var id = parseInt($(this).attr('id').substr(1));
+
 	switch(id) {
 		case 1:
 			var p = mantenimiento('ajustes',1,'');

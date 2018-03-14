@@ -26,12 +26,16 @@
 	   			break;
 	   		case 4:
 	   			$pagina = 1;
-	   			$users = $kakaroto->kamehameha('id,nombre',1,'id > 0 and idtipousuario = 3');
-	   			require_once 'view/ajax/laboratorio/iniciacion.php';
+	   			$smarty = make_smarty();
+	   			$smarty->assign('USR',$kakaroto->kamehameha('id,nombre',1,'id > 0 and idtipousuario = 4'));
+	   			$smarty->assign('PER',$kakaroto->kamehameha('id,nombre',913,'id > 0'));
+	   			$smarty->display('ajax/laboratorio/iniciacion.tpl');
 	   			break;
 	   		case 5:
 	   			$pagina = 1;
-	   			require_once 'view/ajax/laboratorio/multiplicacion.php';
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"1","0,10"'));
+	   			$smarty->display('ajax/laboratorio/multiplicacion.tpl');
 	   			break;
 	   		case 6:
 	   			$pagina = 1;

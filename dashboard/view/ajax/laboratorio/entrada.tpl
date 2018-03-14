@@ -16,13 +16,13 @@
         <div class="card-header center head1 z-depth-1">
           <h5>Laboratorio</h5>
             <ul class="tabs tabs-fixed-width head2" style="cursor: pointer;">
-              <li class="menu3 tab" id="m1"><a class="white-text tamLetra" class="active">Recepción de Explantes</a></li>
-              <li class="menu3 tab" id="m2"><a class="white-text tamLetra">Iniciación</a></li>
-              <li class="menu3 tab" id="m3"><a class="white-text tamLetra">Multiplicación</a></li>
-              <li class="menu3 tab" id="m4"><a class="white-text tamLetra">Enraizamiento</a></li>
-              <li class="menu3 tab" id="m5"><a class="white-text tamLetra">Aclimatación</a></li>
-              <li class="menu3 tab" id="m6"><a class="white-text tamLetra">QoS</a></li>
-              <li class="menu3 tab" id="m7"><a class="white-text tamLetra">Reporte</a></li>
+              <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Recepción de Explantes</a></li>
+              <li class="menu3 tab" id="m1"><a class="white-text tamLetra">Iniciación</a></li>
+              <li class="menu3 tab" id="m2"><a class="white-text tamLetra">Multiplicación</a></li>
+              <li class="menu3 tab" id="m3"><a class="white-text tamLetra">Enraizamiento</a></li>
+              <li class="menu3 tab" id="m4"><a class="white-text tamLetra">Aclimatación</a></li>
+              <li class="menu3 tab" id="m5"><a class="white-text tamLetra">QoS</a></li>
+              <li class="menu3 tab" id="m6"><a class="white-text tamLetra">Reporte</a></li>
             </ul>
         </div>
           <div class="card-panel pequeño" id="labajax"><!-- AJAX --></div>

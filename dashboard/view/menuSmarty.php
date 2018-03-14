@@ -109,11 +109,11 @@
       </div>
       <div class="row">
         <div class="col s8 input-field">
-          <label for="vresponse">Responer Correo a</label>
+          <label for="vresponse">Enviar info a:</label>
           <input type="text" id="vresponse" value="{$smarty.session.CRR}">
         </div>
         <div class="col s4">
-          <a href="#" id="vvalidar"><i class="mdi mdi-send btn2"></i></a>
+          <a href="#" id="vvalidar" class="waves-effect btn btn2"><i class="mdi mdi-send"></i>&nbsp;Enviar</a>
         </div>
       </div>
       </section>
@@ -138,7 +138,7 @@
             <input type="text" id="vcodigoIn">
           </div>
           <div class="col s6">
-            <a href="#" id="vvalidar" class="btn blue der">Validar Código</a>
+            <a href="#" id="vvalidar" class="btn btn2 eder">Validar Código</a>
           </div>
         </div> 
       </section>
@@ -147,6 +147,7 @@
   </div>
 
   <div class="modal-footer">
+    <hr>
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
 
