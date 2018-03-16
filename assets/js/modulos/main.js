@@ -15,6 +15,19 @@ $(function(){
         $("#vmonto").attr('disabled',true);
     }      
 
+
+    $.ajax({
+        url: 'http://191.102.38.53:5382/_config/pagoenlineabac.php',
+        type: "POST",
+        data: {response: 1,responsetext:"Transaction received and approved::799181", authcode:799181, transactionid : 4027774653, avsresponse : "U", cvvresponse : "P", orderid : "O-00015", type : "sale", response_code : 100, username : 9243270, time : 1521069701, amount : 100.00, hash : "05bdd9def56a16cff451d8ed0417e49e"},
+        success: function (result) {
+            console.log(result);    
+        },
+        error: function () {
+            console.log("error");
+        }
+    }); 
+
     // $.ajax({
     //     url: 'http://191.102.38.53:5381/wsdlServer.php',
     //     type: "POST",

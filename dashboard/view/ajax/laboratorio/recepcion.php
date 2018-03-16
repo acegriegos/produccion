@@ -64,8 +64,8 @@
         <label for="vrango2">Hasta</label>
       </div>
     </div>
-    <a href="#!" class="btn btn1 add der" modulo="laboratorio-explante">Ingresar</a>
-    <a href="#!" class="btn btn1 der" style="margin-right: 10px;">Listado de Recepciones</a>
+    <a class="btn btn1 der">Listado de Recepciones</a>
+    <a class="btn btn1 add der" modulo="laboratorio-explante" style="margin-right: 10px;">Ingresar</a>
   </div>
 </div>
 

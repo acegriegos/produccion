@@ -79,8 +79,9 @@ $(document).on('click','#addFin',function() {
 
 $(document).on("click",".procmult",function(){
     var id = $(this).attr('id').substr(1);
-    var tipo = $(".menu").children()
-    console.log(tipo)
+    var idtipo = $("li.menu3 >a.active").parent().attr('id').substr(1);
+    var ciclo = arr('login',4,'',914,id+','+idtipo,0,0,0)[0][0];
+    console.log(ciclo)
 });
 
 $(document).on('click','.addVariedad',function(){
@@ -348,42 +349,84 @@ function cargarIniciacion(){
         $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] = $(this).val();
     });
 
-    $(document).on('click','[id^=_c]',function(){
-        var id = $(this).attr('id').substr(2);
-        var elemento = $("#c"+id);
-        var num = parseFloat($('#_n'+id).val());
-        var tot = parseFloat($("#tplt").html());
+    // $(document).on('click','[id^=_c]',function(){
+    //     var id = $(this).attr('id').substr(2);
+    //     var elemento = $("#c"+id);
+    //     var num = parseFloat($('#_n'+id).val());
+    //     var tot = parseFloat($("#tplt").html());
 
-        if(elemento.is(":checked")){
-            elemento.attr('checked',false);
-            $("#tplt").html(tot-num);
+    //     if(elemento.is(":checked")){
+    //         elemento.attr('checked',false);
+    //         $("#tplt").html(tot-num);
+    //     }else{
+    //         elemento.attr('checked',true);
+    //         $("#tplt").html(tot+num);
+    //     }
+    // });
+
+    $(document).on("click","[id^=_c]",function(){
+        var id = $(this).attr('id').substr(2);
+        if ($("#c"+id).is(":checked")) {
+            $("#c"+id).attr('checked',false);
         }else{
-            elemento.attr('checked',true);
-            $("#tplt").html(tot+num);
+            $("#c"+id).attr('checked',true);
         }
+        sumavariedad(id,0);
+
     });
 
-    $(document).on('focus','[id^=_n]',function(){
-        var elemento = $("#c"+$(this).attr('id').substr(2));
-        elemento.change();
-    });
-
-    $(document).on('blur','[id^=_n]',function(){
-        var id = $(this).attr('id').substr(2);
-        var elemento = $("#c"+id);
-        var valor = $(this).val();
-        if (isNaN(valor)) {
-            $(this).focus().select();
-            Materialize.toast('Valor no es Numérico',4000,'red');
-            elemento.attr('checked',false).change();
-        }else{
-            if (valor < 0 || valor > parseFloat($("#o"+id).data('cantidad')) ) {
-                $(this).focus().select();
-                Materialize.toast('Valor no es Válido',4000,'red');
-                elemento.attr('checked',false).change();
+    $(document).on("keyup","[id^=_n]",function(e){
+        var code = e.which || e.keyCode;
+        if (code != 8) {
+            var id = $(this).attr('id').substr(2);
+            if ($("#c"+id).is(":checked")) {
+                var cant = parseFloat($("#_n"+id).val());
+                if (!isNaN(cant)) {
+                    sumavariedad(id,cant);
+                }else{
+                    Materialize.toast('Valor no válido', 4000, 'green');
+                }
             }
         }
     });
+
+    function sumavariedad(id,cant) {
+        var total = 0;
+        $("[name=serv]").each(function(){
+            var vid = $(this).attr('id').substr(1);
+            var cantidad = parseFloat($("#_n"+vid).val());
+            if ($(this).is(":checked")) {    
+                total += cantidad;
+                $("#tplt").text(total);
+            }else if ($("[name=serv]:checked").length == 0) {
+                $("#tplt").text(0);
+            }
+        });
+    }
+
+    // $(document).on('focus','[id^=_n]',function(){
+    //     var elemento = $("#c"+$(this).attr('id').substr(2));
+    //     elemento.change();
+    // });
+
+    // $(document).on('blur','[id^=_n]',function(){
+    //     var id = $(this).attr('id').substr(2);
+    //     // var elemento = $("#c"+id);
+    //     var valor = $(this).val();
+    //     if (isNaN(valor)) {
+    //         $(this).focus().select();
+    //         Materialize.toast('Valor no es Numérico',4000,'red');
+    //         // elemento.attr('checked',false).change();
+    //     }else{
+    //         if (valor < 0 || valor > parseFloat($("#o"+id).data('cantidad')) ) {
+    //             $(this).focus().select();
+    //             Materialize.toast('Valor no es Válido',4000,'red');
+    //             // elemento.attr('checked',false).change();
+    //         }else{
+
+    //         }
+    //     }
+    // });
 
     $(document).on("keyup","#vcomentario",function(){
         $(".zelda").data('triforce')['vcomentario'] = $(this).val();
@@ -550,36 +593,31 @@ function cargarExplantes(){
     	if(validacion)
     		Materialize.toast(validacion,4000,'red');
     	else{
-
     		switch(parseInt($(this).attr('codigo'))){
 		    	case 2:
 		    		var id = $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'];
 		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vdistrito").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
-
 		    		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0];
-
 		    		var _idFinca = getDatos('',901,'1,0,"'+$("#finca").val()+'",'+_idregion,0,0);
-
 		    		Materialize.toast('Finca Agregada Correctamente',4000,'green');
-
 		    		cargarTblFincas();
                     endDetail(0,1,'finca');
 		    		break;
 		    	default: 
 		    		break;
     		}
-
     		$("#addClie").modal('close');
-    		
     	}
     });
 
     $(document).on("click","[id^=r]",function(){
-    	var id = $(this).attr('id').substr(1)
-    	$("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = id;
-    	$("#s"+id).prop('checked',true);
+    	var id = $(this).attr('id').substr(1);
+        if (!isNaN(id)) {
+            $("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = id;
+            $("#s"+id).prop('checked',true);
+        }
     });
-
+    Materialize.updateTextFields();
 } //END CARGAR EXPLANTES
 
 function getIDExplante(){
@@ -656,9 +694,10 @@ function iniciarVaridad(){
 
         for (var i = 0; i < servicio[0].length; i++) {
             obj = servicio[0][i];
-            str += '<tr id="o'+obj[7]+'" data-cantidad="'+obj[0]+'"><td style="padding:0px; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="cantexplante"/>  <label for="c'+obj[7]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /></td><td style="padding:0px; margin:0px">'+obj[4]+'</td><td style="padding:0px; margin:0px">'+obj[5]+' </td></tr>';
+            str += '<tr id="o'+obj[7]+'" data-cantidad="'+obj[0]+'"><td style="padding:0px; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0px; margin:0px">'+obj[4]+'</td><td style="padding:0px; margin:0px">'+obj[5]+' </td></tr>';
         }
         $("#vlote").val(servicio[0][0][6]);
+        Materialize.updateTextFields();
         $("#result00").html(str+'</tbody></table>');
     }else{
         Materialize.toast("Variedad no Existente en Recepción", 4000,'red');
@@ -888,14 +927,13 @@ function endDetail(vid,vacc,modulo){
     if (vacc == 1) {
     	switch(modulo){
     		case 'laboratorio-explante':
-    			$("#m1").click();
+    			$("#m0").click();
     			break;
             case 'laboratorio-ciclo':
                 var idtipo = parseInt($(".zelda").data('triforce')['vidtipo']);
 
                 switch(idtipo){
                     case 1: //INICIACION
-
                         //INGRESAR INV. ESTADISTICA
                         arr('login',7,1,909,'','null,'+vid[0][0]+',6,0,0,'+$("#tplt").html()+',now(),@@usr',0,0);
 
@@ -903,6 +941,9 @@ function endDetail(vid,vacc,modulo){
                     default:
                         break;
                 }
+                deadclear(modulo);
+                $("#result00").html('No se ha Elegido la Variedad');
+
                 break;
             case 'cliente':
                 deadclear('cliente');

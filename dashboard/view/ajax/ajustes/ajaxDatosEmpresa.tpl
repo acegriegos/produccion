@@ -1,4 +1,4 @@
-<div class="card z-depth-5 pequeño">
+<div class="card z-depth-3 pequeño">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
 <!--             <div class="collapsible-header "><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
@@ -46,7 +46,7 @@
                             </form>
                         </div>
                         <div class="col s12 m12 pull-s2">
-                            <button type="button" class="btn btn-primary der z-depth-5" id="actinfo"><i class="small mdi mdi-refresh right  mdi-24px"></i>Actualizar</button>
+                            <button type="button" class="btn btn-primary der z-depth-3" id="actinfo"><i class="small mdi mdi-refresh right  mdi-24px"></i>Actualizar</button>
                         </div>
                     </div>
                 </div></div>
@@ -59,10 +59,10 @@
                         <div class="col s12 m12 l6 pequeño">
                             <div class="row">
                                 <div class="col s12 m4 l6 centrobot">
-                                    <a href='#modal-wsdl' id="mantWsdl" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="left" data-tooltip="WSDL" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Manenimiento WSDL</a>
+                                    <a href='#modal-wsdl' id="mantWsdl" class="btn btn2 tooltipped modal-trigger z-depth-3 truncate" data-position="left" data-tooltip="WSDL" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Manenimiento WSDL</a>
                                 </div>
                                 <div class="col s12 m4 l6  offset-m1 pequeño centro">
-                                    <a href='#modal-monedas' id="addMoneda" class="btn-large  tooltipped modal-trigger z-depth-5 truncate" data-position="top" data-tooltip="Ingresar Moneda" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Agregar Moneda</a>
+                                    <a href='#modal-monedas' id="addMoneda" class="btn btn3  tooltipped modal-trigger z-depth-3 truncate" data-position="top" data-tooltip="Ingresar Moneda" style="margin-top: 5%; margin-bottom: 1%; margin-right: 1%;">Agregar Moneda</a>
                                 </div>
                             </div>
                         </div>
@@ -70,10 +70,10 @@
                             <table class="table bordered pequeño highlight responsive-table z-depth-3 centered" id="data-table-monedas" style="margin: 1%;">
                                 <thead>
                                     <tr>
-                                        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Símbolo</th>
-                                        <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%">Moneda</th>
-                                        <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%">Valor</th>
-                                        <th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 100%">Acciones</th>
+                                        <th class="tab1" style="border: 0; border-radius: 0px !important;">Símbolo</th>
+                                        <th class="tab1" style="border: 0; border-radius: 0px !important; width: 100%">Moneda</th>
+                                        <th class="tab1" style="border: 0; border-radius: 0px !important; width: 100%">Valor</th>
+                                        <th class="tab1" style="border: 0; border-radius: 0px !important; width: 100%">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="listamonedas">
@@ -108,7 +108,7 @@
                             <div id="ftipousuarios" class="col s11 m9 l11 pequeño">
                                 <div class="row">
                                     <div class="input-field col s12 ">
-                                        <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
+                                        <a class="prefix btn-floating blue add tooltipped z-depth-3" modulo="tipousuario" data-position="top" data-tooltip="Ingresar Tipo de Usuario" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
                                         <input type="hidden" id="vid_tusuario" value="0">
                                         <input type="hidden" id="vdefecto_tusuario" value="0">
                                         <input type="hidden" id="vbincierre_tusuario" value="0">
@@ -167,7 +167,7 @@
                                 <div id="ftipopagos" class="col s11 m9 l11  pequeño">
                                     <div class="row">
                                         <div class="input-field col s12 pequeño">
-                                            <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="tipopago" data-position="top" data-tooltip="Ingresar Tipo de Pago" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
+                                            <a class="prefix btn-floating blue add tooltipped z-depth-3" modulo="tipopago" data-position="top" data-tooltip="Ingresar Tipo de Pago" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
                                             <input type="text" id="vnombre_pago" style="margin-left: 15% !important;">
                                             <label for="vnombre_pago" style="margin-left: 15% !important;">Ingresar Tipo Pago</label>
                                         </div>
@@ -283,7 +283,7 @@
                             <div id="fbancos" class="col s11 m9 l11 pequeño">
                                 <div class="row">
                                     <div class="input-field col s12 pequeño">
-                                        <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="banco" varias="1" data-position="top" data-tooltip="Ingresar Banco" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
+                                        <a class="prefix btn-floating blue add tooltipped z-depth-3" modulo="banco" varias="1" data-position="top" data-tooltip="Ingresar Banco" style="padding-right: 5% !important;"><i class="small mdi mdi-plus  mdi-24px"></i></a>
                                         <input type="text" id="vnombre_banco" noClear="1"style="margin-left: 15% !important;">
                                         <label for="vnombre_banco" style="margin-left: 15% !important;">Ingresar Banco</label>
                                         <input type="hidden" id="vidusuario" value="">
@@ -354,7 +354,7 @@
                                                             <label for="vctabnk">Cuenta Contable Asociada</label>
                                                         </div>
                                                     </div>
-                                                    <a class="btn-floating small der z-depth-5" id="add_x"><i class="mdi mdi-plus blue  mdi-24px"></i></a>
+                                                    <a class="btn-floating small der z-depth-3" id="add_x"><i class="mdi mdi-plus blue  mdi-24px"></i></a>
                                                 </div>
                                             </div>
                                             <div class="col s6">
@@ -364,8 +364,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat z-depth-5">Salir</a>
-                                        <button type="button" class="btn btn-primary edit  z-depth-5" modulo="banco" varias="1">Guardar</button>
+                                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat z-depth-3">Salir</a>
+                                        <button type="button" class="btn btn-primary edit  z-depth-3" modulo="banco" varias="1">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -409,7 +409,7 @@
                                 <div id="fnivelesclientes" class="col s11 m9 l11  pequeño">
                                     <div class="row pequeño">
                                         <div class="input-field col s12 pequeño">
-                                            <a class="prefix btn-floating blue add tooltipped z-depth-5" modulo="nivelescliente" data-position="top" data-tooltip="Ingresar Categoría" style="padding-right: 5% !important;"><i class="small mdi mdi-plus"></i></a>
+                                            <a class="prefix btn-floating blue add tooltipped z-depth-3" modulo="nivelescliente" data-position="top" data-tooltip="Ingresar Categoría" style="padding-right: 5% !important;"><i class="small mdi mdi-plus"></i></a>
                                             <input type="hidden" id="vid_nivel" value="0">
                                             <input type="text" id="vnombre_nivel" style="margin-left: 15% !important;">
                                             <input type="hidden" id="vbisproveedor" value="0">
@@ -462,7 +462,7 @@
                             </div>
                         </div>
                         <div class="col s12 m1 pequeño">
-                            <button type="button" class="btn btn-primary z-depth-5" id="sfechafiscal" style="margin-top: 5%;">Guardar</button>
+                            <button type="button" class="btn btn-primary z-depth-3" id="sfechafiscal" style="margin-top: 5%;">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -535,7 +535,7 @@
         </div><!-- /.modal -->
         <div class="modal grandemodal" id="modal-wsdl">
             <div class="modal-content">
-                <ul class="collection z-depth-5" id="showWSDL">
+                <ul class="collection z-depth-3" id="showWSDL">
                     {section name=LE loop=$WSDL}
                     <li class="collection-item dismissable" style="cursor: pointer;" id="ws_{$WSDL[LE][0]}"><div><span class="wsdls" id="wsid_{$WSDL[LE][0]}">{$WSDL[LE][1]}</span><a class="secondary-content delws" id="delws{$WSDL[LE][0]}"><i class="mdi mdi-pencil"></i></a></div></li>
                     {/section}
