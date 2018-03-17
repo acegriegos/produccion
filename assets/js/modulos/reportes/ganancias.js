@@ -46,7 +46,6 @@
 
       }
 
-      arr('login',6,'',307,''+tipo+',0,0,0,"'+fecha+'","",0,0,0',0,1,$(".detrep"));
 
 
           $('.datepicker').pickadate({
@@ -80,7 +79,11 @@
             bFilter: false,
             order : [],
             "bLengthChange": false
-          });
+          });  
+
+          console.log(dpick)
+              arr('login',6,'',307,''+tipo+',0,0,0,"'+fecha+'","",0,0,0',0,1,$(".detrep"));
+
   
   });
 
