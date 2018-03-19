@@ -472,28 +472,29 @@ function getParameterByName(name) {
 
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
    $.ajax({
-    url: '../_config/correoAjax.php',
-    type: 'POST',
-    data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
-})
+        url: '../_config/correoAjax.php',
+        type: 'POST',
+        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
+    })
    .done(function(data) {
 
-    try {
-        p = JSON.parse(data);
-    }
-    catch(err){
-        p = data;
-    }
+        try {
+            p = JSON.parse(data);
+        }
+        catch(err){
+            p = data;
+        }
 
-    if($("#smail").is(':visible')){
-        Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green")
-        $("#smail").html('')
-    }
-    
-})
-   .fail(function() {
-    alert( "Error Enviando Correo" );
-});
+        if($("#smail").is(':visible')){
+            Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green")
+            $("#smail").html('')
+        }
+        
+    })
+   .fail(function(x) {
+        console.log("ERROR de Correo: "+x)
+        alert( "Error Enviando Correo" );
+    });
 }
 
 function odin(varreglo,vform) {

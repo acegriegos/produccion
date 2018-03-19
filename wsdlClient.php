@@ -60,13 +60,18 @@
                                             'comprobanteXml'        => base64_encode($xml)));
                 echo $params;
                 break;
+            case 10: //XML-ESTADO
+                header("Content-type: text/xml; encoding='UTF-8'");
+                $result = $fe->estado();
+                print_r(base64_decode($result['xml']));
+                break;
             default:
                 print_r(json_encode(['ERROR'=>'Accion no Valida']));
                 break;
         }
     }else{
         $db = new DBClass();
-        $db->ejecutar('insert into pruebas values(null,"'.json_encode($_POST).'")');
+        $db->ejecutar('insert into pruebas values(null,"'.json_encode($_POST).'",now())');
     }
     
 
@@ -237,6 +242,7 @@
                 $salida['factura']  = $this->id;
                 $salida['estado']   = $json['ind-estado'];
                 $salida['rs']       = ((array) simplexml_load_string(base64_decode($json['respuesta-xml']))->DetalleMensaje)[0];
+                $salida['xml']      = $json['respuesta-xml'];
             }else{
                 $salida['factura']  = $this->id;
                 $salida['estado']   = 'Sin Subir';
