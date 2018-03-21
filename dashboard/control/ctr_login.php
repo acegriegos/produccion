@@ -20,7 +20,7 @@
 		    	print_r($user);
 		    }else if (sizeof($user) == 1)
 		    {
-
+          
           // if($user[0][6] == '')
           //   print_r($user);
           //   // header("Location: ../bienvenida/bienvenida.html");
