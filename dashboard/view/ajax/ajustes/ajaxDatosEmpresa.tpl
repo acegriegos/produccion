@@ -472,6 +472,7 @@
     </ul>
     <div class="modal modal-fixed-footer grandemodal " id="modal-monedas">
         <div class="modal-content  pequeño ">
+            <h4>Moneda</h4>
             <div id="fmonedas">
                 <input type="hidden" id="vid" value="0">
                 <div class="row">
@@ -499,13 +500,9 @@
                     </div>
                 </div>
                 <label class="row">
-                    <div class="input-field col s12 m6 pequeño">
-                        <input type="checkbox" name="vprincipal" id="principal" value="0" />
-                        <label for="principal">Moneda Principal</label>
-                        <input type="hidden" id="vprincipal" value="0">
-                    </div>
-                    <div class="input-field col s12 m6 pequeño">
-                        <input type="checkbox" id="iswsdl" name="iswsdl" />  <!-- stay="0" changed="1" -->
+                    
+                    <div class="input-field col s12 m6 pequeño"><!-- stay="0" changed="1" -->
+                        <input type="checkbox" id="iswsdl" name="iswsdl" />  
                         <label for="iswsdl">Valor por WSDL</label>
                     </div>
                 </label>
