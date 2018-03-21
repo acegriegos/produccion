@@ -1,2 +1,3 @@
 _config/mysqlDB.php 
 dashboard/view/compiled/*
+subirVersion.sh

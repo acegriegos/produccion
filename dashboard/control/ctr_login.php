@@ -21,6 +21,10 @@
 		    }else if (sizeof($user) == 1)
 		    {
 
+          if($user[0][10] != ''){
+            header("Location: ../dashboard/cambioPasswd.php?sr=".base64_encode($user[0][1])."&cr=".base64_encode($user[0][8])."&tr=".base64_encode($user[0][2]) );
+            return false;
+          }
           // if($user[0][6] == '')
           //   print_r($user);
           //   // header("Location: ../bienvenida/bienvenida.html");
@@ -125,6 +129,8 @@
            
            include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
 		   	break;
+      default:
+        break;
 
    	}
 
