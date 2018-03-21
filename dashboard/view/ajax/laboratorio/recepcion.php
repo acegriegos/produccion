@@ -12,11 +12,11 @@
   <div class="row">
     <div class="col s5">
       <div class="input-field">
-        <input type="text" id="ncli" placeholder="Nombre o Cédula del Cliente" class="eder autocomplete" addG="1">
+        <input type="text" id="ncli" placeholder="Nombre o Cédula del Cliente" class="eder autocomplete" addG="1" autocomplete="off">
         <label for="ncli">Procedencia</label>
       </div>
       <div class="input-field">
-        <input type="text" id="vvariedad" class="eder autocomplete" placeholder="Nombre de la Variedad" addG="2">
+        <input type="text" id="vvariedad" class="eder autocomplete" placeholder="Nombre de la Variedad" addG="2" autocomplete="off">
         <label for="vvariedad">Variedad</label>
       </div>
       <div class="input-field">
@@ -126,5 +126,36 @@
   <div class="modal-footer">
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
     <button type="button" class="waves-effect waves-green btn-flat" id="ingresar">Guardar</button>
+  </div>
+</div>
+
+<div id="modal-listaRecepciones" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+        <div class="card-header center white-text" style="background-color:#0B3861">
+            <p class="flow-text marginzero">Listado de Recepciones</p>
+        </div>
+    </div>
+  <div class="modal-content">
+    <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-recepciones" cellspacing="0" width="100%" >
+      <thead>
+        <tr>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;"></th>
+        </tr>
+      </thead>
+      <tbody id="listarecepciones">
+      <!-- section -->
+        <!-- <tr>
+          <td style="padding: 10px; color:black;"></td>
+          <td>
+            <a class="btn-color pbtn mdi mdi- mdi-24px" id="" title="" style="color:black;"></a>
+            <a class="btn-color pbtn cdel mdi mdi-close mdi-24px" id="" title="" style="color:black;"></a>
+          </td>
+        </tr> -->
+      <!-- section -->
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer ">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
   </div>
 </div>

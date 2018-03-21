@@ -1,8 +1,8 @@
-<div id="flaboratorio-ciclos" tp="5">
+<div id="flaboratorio-ciclos">
     <input type="hidden" class="zelda">
     <div class="row">
     <div class="col s6 input-field">
-      <input type="text" id="vvariedad" class="autocomplete eder">
+      <input type="text" id="vvariedad" class="autocomplete eder" autocomplete="off">
       <label for="vvariedad">Variedad</label>
     </div>
     <div class="col s6 input-field">
@@ -14,10 +14,11 @@
         <div class="center" id="result00" >No se ha Elegido la Variedad</div>
         <div class="der">
             <br>
-            <a href="#!" class="btn btn1 add der" modulo="laboratorio-ciclo">Registrar</a>
-            <!-- <a class="btn btn1 der modal-trigger" href="#modal-perdidas" style="margin-right: 10px;">Pérdidas</a> -->
+            <!-- <a href="#!" class="btn btn1 add der" modulo="laboratorio-ciclo" varias="1">Registrar</a> -->
+            <a href="#modal-registrar" class="btn btn1 der" id="registrar">Registrar</a>
             <a href="#!" class="btn btn1 der" style="margin-right: 10px;">Listado de Iniciaciones</a>
             <span style="padding-right: 15px">Total Plantas: <span><b id="tplt">0</b></span></span>
+            <input type="hidden" value="" id="vidsrvs">
         </div>
     </div>
     <div class="col s4">
@@ -57,60 +58,67 @@
     </div>
   </div>
 </div>
-<div class="modal modal-fixed-footer grandemodal" id="modal-formula" style="height: 80%; width: 75%">
-    <div class="modal-header">
-        Agregar Medio de Cultivo
-    </div>
-    <div class="modal-content">
-    </div>
 
-    <div class="modal-footer">
-      <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-      <button type="button" class="waves-effect waves-green btn-flat" id="mcultivo" >Guardar</button>
+<div id="modal-formula" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+        <div class="card-header center white-text" style="background-color:#0B3861">
+            <p class="flow-text marginzero">Agregar Medio de Cultivo</p>
+        </div>
     </div>
-
+  <div class="modal-content">
+    
+  </div>
+  <div class="modal-footer ">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="mcultivo">Guardar</a>
+  </div>
 </div>
 
-<div class="modal modal-fixed-footer grandemodal" id="modal-bandeja" style="height: 80%; width: 75%">
-    <div class="modal-header">
-        Agregar Bandeja
+<div id="modal-bandeja" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+        <div class="card-header center white-text" style="background-color:#0B3861">
+            <p class="flow-text marginzero">Agregar bandeja</p>
+        </div>
     </div>
-    <div class="modal-content row">
-      <div class="col s6 m6 l6">
-        <select type="select" id="invactivlab"></select>
-      </div>
+  <div class="modal-content row">
+    <div class="col s6 m6 l6">
+      <select type="select" id="invactivlab"></select>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-      <button type="button" class="modal-action modal-close waves-effect waves-green btn-flat" id="mbandeja" >Guardar</button>
-    </div>
+  </div>
+  <div class="modal-footer ">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="mbandeja">Guardar</a>
+  </div>
 </div>
 
-<!-- <div class="modal modal-fixed-footer grandemodal" id="modal-perdidas" style="height: 80%; width: 75%">
-    <div class="modal-header">
-        Registrar perdidas
-    </div>
-    <div class="modal-content row">
-      <div class="input-field col s6 m6 l6">
-        <select type="select" id="tperdidas">
-          <option value="0" disabled selected>Seleccione una opción</option>
-          {section name=LE loop=$PER}
-          <option value="{$PER[LE][0]}">{$PER[LE][1]}</option>
-          {/section}
-        </select>
-        <label for="tperdidas">Tipo pérdidas</label>
+<div id="modal-registrar" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+      <div class="card-header center white-text" style="background-color:#0B3861">
+          <p class="flow-text marginzero">Iniciación</p>
       </div>
-      <div class="input-field col s6 m6 l6">
-        <input type="number" id="lperdidas" class="validate">
-        <label for="lperdidas">Pérdidas</label>
-      </div>
-      <div class="input-field col s6 m6 l6">
-        <input type="text" id="pcomentario" class="validate">
-        <label for="pcomentario">Comentario</label>
-      </div>
+  </div>
+  <div class="modal-content row">
+    <div class="input-field col s3 m3 l3">
+      <select id="vidrazon"></select>
+      <label for="vidrazon">Razón</label>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-      <button type="button" class="modal-action modal-close waves-effect waves-green btn-flat" id="rperdidas" >Guardar</button>
+    <div class="input-field col s5 m5 l5">
+      <input type="text" id="nomact" class="validate autocomplete" autocomplete="off">
+      <input type="hidden" id="vidciclo" value="0">
+      <input type="hidden" id="hnomact" value="0">
+      <label for="nomact">Nombre activo</label>
     </div>
-</div> -->
+    <div class="input-field col s4 m4 l4">
+      <input type="number" id="cantact" class="validate">
+      <label for="cantact">Cantidad</label>
+    </div>
+    <div class="input-field col s12 m12 l12">
+      <textarea id="comentproc" class="materialize-textarea"></textarea>
+      <label for="comentproc">Comentario</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="prcactivo">Agregar</a>
+  </div>
+</div>

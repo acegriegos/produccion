@@ -607,7 +607,6 @@ case "4":
     
     break;
 case "5":
-    console.log(5)
         for (var i = 0; i < varreglo.length; i++) {
             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
             console.log(varreglo[i]+" "+$("#"+vform+" .zelda").data('triforce')[varreglo[i]])
@@ -1578,7 +1577,9 @@ function reconstruirModal(tp) {
         $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
     }else if (tp == 2) {
         var vinv = getDatos('idinventario',907,'idsucursal = @@impresa order by idtipoinventario',0,0)[0];
-        $("#fservicios .zelda").data('triforce',{vid : 0,vcodigo : '',vnombre : '',vdescripcion : '',vpbase : 0,vperiodo : 0,vdias : 0,vidproveedor : 0,vprecio : 0,vpganancia : 0,vidinventario : vinv,vidmoneda : 1,vservprofesional : 0,vidsuc : -1});
+        $("#fservicios .zelda").data('triforce',{vaccion:0,vid:0,vcodigo:'',vnombre:'',vdescripcion:'',vpbase:0,vperiodo:0,vdias:0,vidproveedor:0,vprecio:0,vpganancia:0,vidinventario:vinv,vidusuario:0,vidmoneda:1,vidsucursal:'',vservprofesional:0,vidsuc:-1});
+
+        // vaccion,vid,vcodigo,vnombre,vdescripcion,vpbase,vperiodo,vdias,vidproveedor,vprecio,vpganancia,vidinventario,vidusuario,vidmoneda,vidsucursal,vservprofesional,vidsuc
     }
 }
 // addgeneral

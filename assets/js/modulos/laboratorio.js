@@ -1,5 +1,5 @@
 var invvar = getDatos('',909,'@@impresa',0,0)[0];
-
+// tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
 $(function(){
 
 	if (invvar[0][0] == '') 
@@ -56,7 +56,6 @@ $(document).on("keyup","#vpbase",function() {
 $(document).on("change","#vidinventario",function(){
     $("#fservicios .zelda").data('triforce')['vidinventario'] = $(this).val();
 });
-
 // fill data //
 
 $(document).on('click','#addFin',function() {
@@ -77,11 +76,148 @@ $(document).on('click','#addFin',function() {
 	}
 });
 
+$(document).on("click","#registrar",function(){
+    var id = $(this).attr('id').substr(1);
+    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
+    var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
+    $("#modal-registrar").modal('open');
+    $("#vidrazon").material_select();
+
+    $("#nomact").keydown(function(e) {
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        var servs = $("#vidsrvs").val();
+        servs = servs.slice(0,-1);
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+            $(".autocomplete-content").remove();
+            $("#nomact").autocomplete({
+                limit: 20,
+                data: arr('login',4,'nombre',16,'id in('+servs+')',0,0,0,1)
+            })
+            $("#nomact").siblings($(".autocomplete-content")).css('width','50%');
+        }
+    });
+});
+//aqui
+
 $(document).on("click",".procmult",function(){
     var id = $(this).attr('id').substr(1);
+    var $toastContent = $('<span>Proceder a multiplicación?</span>').add($('<button class="btn-flat toast-action green white-text" id="domult" idciclo="'+id+'">Aceptar</button>'));
+    Materialize.toast($toastContent, 10000);
+});
+
+$(document).on("click","#domult",function(){
+    var id = $(this).attr('idciclo');
     var idtipo = $("li.menu3 >a.active").parent().attr('id').substr(1);
-    var ciclo = arr('login',4,'',914,id+','+idtipo,0,0,0)[0][0];
-    console.log(ciclo)
+    var ciclo = arr('login',4,'',914,id+','+idtipo,0,0,0);
+    if (ciclo['succed'] == 1) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+    }
+});
+
+$(document).on("click",".mcb",function(){
+    var id = $(this).attr('id').substr(1);
+    $("#modal-vmediocultivo").modal('open');
+    var bdy = '';
+    var mats = arr('login',4,'',916,id+',@@impresa',0,0,0)[0];
+
+    for (var i = 0, len = mats.length; i < len;i++) {
+        bdy += '<tr><td style="padding: 10px; color:black;">'+mats[i][1]+'</td><td style="padding: 10px; color:black;">'+mats[i][2]+'</td></tr>';
+    }
+    // Falta medios de cultivo
+    $("#listamediocultivos").html(bdy)
+
+});
+
+// $(document).on("click",".procact",function(){
+//     var id = $(this).attr('id').substr(1);
+//     $("#vidciclo").val(id);
+//     arr('login',6,'id,nombre',913,'id > 0 and isActivo = 1',15,1,$("#vidrazon"))
+//     var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
+//     $("#modal-procActivos").modal('open');
+//     $("#vidrazon").material_select();
+
+//     $("#nomact").keydown(function(e) {
+//         var charCode = e.which || e.keyCode;
+//         var charStr = String.fromCharCode(charCode);
+//         if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+//             $(".autocomplete-content").remove();
+//             $("#nomact").autocomplete({
+//                 limit: 20,
+//                 data: arr('login',4,'',917,'"'+$("#nomact").val()+'",'+id+',@@impresa',0,0,0,1)
+//             })
+//             $("#nomact").siblings($(".autocomplete-content")).css('width','50%');
+//         }
+//     });
+// });
+
+$(document).on("click",".invstats",function(){
+    var id = $(this).attr('id').substr(1);
+    var tipo = $(this).attr('tipo');
+    if (tipo == 1) {
+        $("#titinvstat").html('Procesar Activos');
+    }else{
+        $("#titinvstat").html('Registrar Pérdidas');
+    }
+    $("#vidciclo").val(id);
+    arr('login',6,'id,nombre',913,'id > 0 and isActivo = '+tipo,15,1,$("#vidrazon"))
+    var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
+    $("#modal-invstats").modal('open');
+    $("#vidrazon").material_select();
+
+    $("#nomact").keydown(function(e) {
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+            $(".autocomplete-content").remove();
+            $("#nomact").autocomplete({
+                limit: 20,
+                data: arr('login',4,'',917,'"'+$("#nomact").val()+'",'+id+',@@impresa',0,0,0,1)
+            })
+            $("#nomact").siblings($(".autocomplete-content")).css('width','50%');
+        }
+    });
+});
+
+$(document).on("blur","#nomact",function(){
+    var nombre = $(this).val();
+    var prod = arr('login',4,'id',11,'nombre = "'+nombre+'"',0,0,0);
+    if (prod[0][0] != undefined) {
+        $("#hnomact").val(prod[0]);
+    }else{
+        $("#hnomact").val(0);
+    }
+});
+
+$(document).on("click","#prcactivo",function(){
+    // vaccion,vid,vidciclo,vidtipo,vidservicio,vidproducto,vcantidad,vidusuario,vcomentario
+    var idciclo = $("#vidciclo").val(),
+    idrazon = $("#vidrazon").val(),
+    idproducto = $("#hnomact").val(),
+    cantidad = $("#cantact").val(),
+    comentario = $("#comentproc").val();
+    var idinv = arr('login',4,'',918,'1,0,'+idciclo+','+idrazon+',0,'+idproducto+','+cantidad+',@@impresa,"'+comentario+'"',0,0,0);
+    
+});
+
+$(document).on("click",".procenr",function(){
+    var id = $(this).attr('id').substr(1);
+    var $toastContent = $('<span>Proceder a enraizamiento?</span>').add($('<button class="btn-flat toast-action green white-text" id="doenr" idciclo="'+id+'">Aceptar</button>'));
+    Materialize.toast($toastContent, 10000);
+    
+});
+
+$(document).on("click","#doenr",function(){
+    var id = $(this).attr('idciclo');
+    var idtipo = parseInt($("li.menu3 >a.active").parent().attr('id').substr(1))+1;
+    var ciclo = arr('login',4,'',914,id+','+idtipo,0,0,0);
+    if (ciclo['succed'] == 1) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+    }
+});
+
+$(document).on("click",".perdidas",function(){
+    $("#modal-perdidas").modal('open');
 });
 
 $(document).on('click','.addVariedad',function(){
@@ -103,6 +239,9 @@ $(document).on("click","#mbandeja",function(){
         var bandeja = $("#invactivlab option:selected").text();
         $("#bandeja").val(bandeja);
         Materialize.toast('Bandeja seleccionada', 4000, 'green');
+    }else{
+        $(".zelda").data('triforce')['vidbandeja'] = 0;
+        $("#bandeja").val('');
     }
 });
 
@@ -253,8 +392,12 @@ function cargarArr(vid,velemento){
 
     $("#mkbandeja").click(function(){
         arr('login',6,'',411,invvar[2][0],15,1,$("#invactivlab"))
-        $("#invactivlab").material_select();
+        // $("#invactivlab").material_select();
         $("#modal-bandeja").modal('open');
+        if ($("#bandeja").val() != '') {
+            $("#invactivlab").val($(".zelda").data('triforce')['vidbandeja'])
+        }
+        $("#invactivlab").material_select();
     });
 
     Materialize.updateTextFields();
@@ -316,7 +459,7 @@ function cargarMultiplicacion(){
 }//cargar Multiplicacion
 
 function cargarIniciacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:''});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
         var charStr = String.fromCharCode(charCode);
@@ -370,6 +513,7 @@ function cargarIniciacion(){
             $("#c"+id).attr('checked',false);
         }else{
             $("#c"+id).attr('checked',true);
+            $("#_n"+id).select();
         }
         sumavariedad(id,0);
 
@@ -392,16 +536,20 @@ function cargarIniciacion(){
 
     function sumavariedad(id,cant) {
         var total = 0;
+        var servs = '';
         $("[name=serv]").each(function(){
             var vid = $(this).attr('id').substr(1);
             var cantidad = parseFloat($("#_n"+vid).val());
-            if ($(this).is(":checked")) {    
+            if ($(this).is(":checked")) {
+                servs += $(this).attr('id').substr(1)+',';
                 total += cantidad;
                 $("#tplt").text(total);
             }else if ($("[name=serv]:checked").length == 0) {
+                $("#vidsrvs").val("");
                 $("#tplt").text(0);
             }
         });
+        $("#vidsrvs").val(servs);
     }
 
     // $(document).on('focus','[id^=_n]',function(){
@@ -690,13 +838,14 @@ function iniciarVaridad(){
     var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
     if (servicio[0].length) {
         var obj;
-        var str = '<table class="responsive-table highlight" id="resulti00"><tr style="border-bottom: 1px solid #e2e2e2;"><td colspan="4" class="center" style="padding:0px; margin:0px"><b>Variedad: '+servicio[0][0][1]+'</b></td></tr> <tr> <td style="padding:0px; margin:0px"></td> <td style="padding:0px; margin:0px"><b>Cantidad</b></td> <td style="padding:0px; margin:0px"><b>Procedencia</b></td> <td style="padding:0px; margin:0px"><b>Fecha</b></td> </tr><tbody id="bdyi00">';
+        var str = '<table class="responsive-table highlight" id="resulti00"><tr style="border-bottom: 1px solid #e2e2e2;"><td colspan="4" class="center" style="padding:0px; margin:0px"><b>Variedad: '+servicio[0][0][1]+'</b></td></tr> <tr> <td style="padding:0px; margin:0px"></td> <td style="padding:0px; margin:0px"><b>Cantidad</b></td> <td style="padding:0px; margin:0px"><b>Procedencia</b></td> <td style="padding:0px; margin:0px"><b>Fecha</b></td></tr><tbody vtabla="laboratorio-investadistica" id="flaboratorio-investadisticas" tp="4" rollback="">'; // id="bdyi00"
 
         for (var i = 0; i < servicio[0].length; i++) {
             obj = servicio[0][i];
-            str += '<tr id="o'+obj[7]+'" data-cantidad="'+obj[0]+'"><td style="padding:0px; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0px; margin:0px">'+obj[4]+'</td><td style="padding:0px; margin:0px">'+obj[5]+' </td></tr>';
+            str += '<tr id="o'+obj[7]+'" idservicio="'+obj[2]+'" data-cantidad="'+obj[0]+'" class="ciclos"><td style="padding:0px; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0px; margin:0px">'+obj[4]+'</td><td style="padding:0px; margin:0px">'+obj[5]+' </td></tr>';
         }
         $("#vlote").val(servicio[0][0][6]);
+        $("#flaboratorio-ciclos .zelda").data('triforce')['vlote'] = servicio[0][0][6];
         Materialize.updateTextFields();
         $("#result00").html(str+'</tbody></table>');
     }else{
@@ -813,6 +962,9 @@ function validar (varreglo,vmodulo) {
         case 'laboratorio-relacione':
 
             break;
+        case 'laboratorio-investadistica':
+
+            break;
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -857,10 +1009,12 @@ function validarCiclos(){
 
             var id  = 0;
 
-            $("#bdyi00 tr").each(function(){
+            $("#flaboratorio-investadisticas tr").each(function(){
                 id = $(this).attr('id').substr(1);
                 if($("#c"+id).is(":checked")){
                     $("#flaboratorio-ciclos .zelda").data('triforce')['vidciclo'] += id+',';
+                    // vid,vidciclo,vidtipo,vidservicio,vidproducto,vcantidad,vfecha datetime,vidusuario,vcomentario
+                    $("#o"+id).data('triforce',{vaccion:0,vid:0,vidciclo:'?,'+id,vidtipo:$("li.menu3 >a.active").parent().attr('id').substr(1),vidservicio:$("#o"+id).attr('idservicio'),vidproducto:0,vcantidad:$("#_n"+id).val(),vidusuario:0,vcomentario:''});
                 }
             })
 
@@ -935,7 +1089,7 @@ function endDetail(vid,vacc,modulo){
                 switch(idtipo){
                     case 1: //INICIACION
                         //INGRESAR INV. ESTADISTICA
-                        arr('login',7,1,909,'','null,'+vid[0][0]+',6,0,0,'+$("#tplt").html()+',now(),@@usr',0,0);
+                        // arr('login',7,1,909,'','null,'+vid[0][0]+',6,0,0,'+$("#tplt").html()+',now(),@@usr',0,0);
 
                         break;
                     default:
@@ -943,7 +1097,7 @@ function endDetail(vid,vacc,modulo){
                 }
                 deadclear(modulo);
                 $("#result00").html('No se ha Elegido la Variedad');
-
+                $("#tplt").text(0);
                 break;
             case 'cliente':
                 deadclear('cliente');
