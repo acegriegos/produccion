@@ -754,7 +754,7 @@ $(document).on("click",".load[modulo=variablesproduccione]",function(){
 $("#addvarprod").attr('id','actvarprod');
 $("#actvarprod").removeClass('add');
 $("#actvarprod").addClass('edit');
-$("#actvarprod").text('save');
+$("#actvarprod").html('<i class="mdi mdi-content-save"></i>');
 $("#vnombre").focus();
 });
 
@@ -769,7 +769,7 @@ $(document).on("click","#actvarprod",function(){
 $("#actvarprod").attr('id','addbod');
 $("#addvarprod").removeClass('edit');
 $("#addvarprod").addClass('add');
-$("#addvarprod").text('add');
+$("#addvarprod").html('<i class="mdi mdi-plus"></i>');
 });
 
 
@@ -1779,13 +1779,14 @@ $("#vnombre").focus();
 
 $(document).on('change','#iswsdl',function(){
 
-if ($(this).is(':checked'))
-$(".wsdl-op").show()
-else{
-$(".wsdl-op").hide()
-$("#vwsdl").val(0);
-$("#vwsdl").material_select();
-}
+	if ($(this).is(':checked'))
+		$(".wsdl-op").show()
+	else{
+		$(".wsdl-op").hide()
+	}
+
+	// $("#vwsdl").val(0);
+	// $("#vwsdl").material_select();
 });
 
 
@@ -1830,17 +1831,19 @@ function endDetail(vid,vacc,modulo){
 }
 
 function postload(vmodulo){
-switch(vmodulo){
-case 'moneda':
-if( $("#vwsdl option:selected").val() != 0)
-$("#iswsdl").prop('checked',1);
-else
-$("#iswsdl").prop('checked',0);
-$("#iswsdl").change();
+	switch(vmodulo){
+		case 'moneda':
 
-$("#f"+vmodulo+"s #vprincipal").attr('value') == 1 ? $("#principal").prop('checked',1) : $("#principal").prop('checked',0);
-$("#principal").change();
+		if( $("#vwsdl option:selected").val() != 0)
+			$("#iswsdl").prop('checked',1);
+		else{
+			$("#iswsdl").prop('checked',0);
+			$("#iswsdl").change();
+		}
 
-break;
+		$("#f"+vmodulo+"s #vprincipal").attr('value') == 1 ? $("#principal").prop('checked',1) : $("#principal").prop('checked',0);
+		$("#principal").change();
+
+		break;
 }
 }

@@ -445,10 +445,18 @@ function totalizar(){
     $("[id^=imv_").html('0.00')
 
     $(".totp").each(function(){
+
         var vidlinea = $(this).prop('id').substr(4);
         var vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
+
+        if ($("#iva").is(":checked")) {
+            $("#fd"+vidlinea).data('triforce')['vprecio'] = $("#fd"+vidlinea).data('triforce')['vprecio']/1.13;
+        }else{
+            $("#fd"+vidlinea).data('triforce')['vprecio'] = $("#fd"+vidlinea).data('triforce')['vprecio']*1.13;
+        }
+       
         var cantidad = parseFloat($("#fd"+vidlinea).data('triforce')['vcantidad']);
-        var precio = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']);
+        var precio =  parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']);
         var decindv = parseFloat($("#vdesc"+vidlinea).data('valor'));
         var descmax = parseFloat($("#vdesc"+vidlinea).data('max'));
         var desct = param.toString().match(new RegExp(/[2]/i)) ? decindv : decindv+desc > descmax ? descmax : decindv+desc;
@@ -478,8 +486,8 @@ function totalizar(){
                 if(rimv == 0)
                     exento += tmpdesc;
                 else{
-                    // param.toString().match(new RegExp(/[2]/i))
-                    var dimv = $("#iva").is(":checked") ? ((tmpdesc*(rimv/100))/((rimv/100)+1)) : tmpdesc*(rimv/100);
+                    // param.toString().match(new RegExp(/[2]/i)  ---- $("#iva").is(":checked") ? ((tmpdesc*(rimv/100))/((rimv/100)+1)) :)
+                    var dimv =  tmpdesc*(rimv/100);
                     impuesto += dimv;
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
 
@@ -493,12 +501,7 @@ function totalizar(){
 
     $("[id^=imv_]").removeAttr('tmp_imv');
 
-    if ($("#iva").is(":checked")) {
-        totd = tdesc - impuesto;
-        total = tdesc;
-    }else{
-        total = tdesc + impuesto;
-    }
+    total = tdesc + impuesto;
     
     if (flete != 0) {
         $("#vflete").html(flete.formatMoney(2,'.',','));

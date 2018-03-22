@@ -211,8 +211,10 @@
 			
 			while (list($clave,$param) = each($arg)) {
 
-				if ($param == '?')
-					$param = $ant;
+				// if ($param == '?')
+				// 	$param = $ant;
+
+				$param = str_replace('?', $ant, $param);
 
 				if (is_array($param)) {
 					$it = '';
