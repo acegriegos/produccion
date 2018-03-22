@@ -34,8 +34,8 @@
     </div>
 
     <div class="col s2 input-field">
+      <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
       <input type="date" id="vfecha" class="datepicker eder">
-      
     </div>
 
   </div>
