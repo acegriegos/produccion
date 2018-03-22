@@ -82,21 +82,9 @@ $(document).on("click","#registrar",function(){
     var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
     $("#modal-registrar").modal('open');
     $("#vidrazon").material_select();
-
-    $("#nomact").keydown(function(e) {
-        var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        var servs = $("#vidsrvs").val();
-        servs = servs.slice(0,-1);
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
-            $(".autocomplete-content").remove();
-            $("#nomact").autocomplete({
-                limit: 20,
-                data: arr('login',4,'nombre',16,'id in('+servs+')',0,0,0,1)
-            })
-            $("#nomact").siblings($(".autocomplete-content")).css('width','50%');
-        }
-    });
+    $("#nomvar").val($("#vvariedad").val());
+    $("#nomvar").attr('disabled',true);
+    Materialize.updateTextFields();
 });
 //aqui
 

@@ -103,10 +103,8 @@
       <label for="vidrazon">Razón</label>
     </div>
     <div class="input-field col s5 m5 l5">
-      <input type="text" id="nomact" class="validate autocomplete" autocomplete="off">
-      <input type="hidden" id="vidciclo" value="0">
-      <input type="hidden" id="hnomact" value="0">
-      <label for="nomact">Nombre activo</label>
+      <input type="text" id="nomvar" class="validate autocomplete" autocomplete="off">
+      <label for="nomvar">Variedad</label>
     </div>
     <div class="input-field col s4 m4 l4">
       <input type="number" id="cantact" class="validate">
