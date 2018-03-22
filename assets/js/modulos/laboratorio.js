@@ -22,6 +22,7 @@ $(function(){
     $("select").material_select();
 
 });
+
 //fill data
 $(document).on("change","[name=tipoclie]",function() {
     $("#fclientes .zelda").data('triforce')['vidtipocliente'] = $(this).attr('tipoclie');
@@ -89,9 +90,16 @@ $(document).on("click","#registrar",function(){
 //aqui
 
 $(document).on("click",".procmult",function(){
-    var id = $(this).attr('id').substr(1);
-    var $toastContent = $('<span>Proceder a multiplicación?</span>').add($('<button class="btn-flat toast-action green white-text" id="domult" idciclo="'+id+'">Aceptar</button>'));
-    Materialize.toast($toastContent, 10000);
+    $("#modal-invstats").modal('open');
+    $("#titinvstat").html('Procesar a multiplicación');
+    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
+    $("#vidrazon").material_select();
+});
+
+$(document).on("click","#assbandeja",function(){
+    $("#modal-bandeja").modal('open');
+    arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
+    $("#cbandeja").material_select();
 });
 
 $(document).on("click","#domult",function(){
@@ -1073,12 +1081,22 @@ function endDetail(vid,vacc,modulo){
     			break;
             case 'laboratorio-ciclo':
                 var idtipo = parseInt($(".zelda").data('triforce')['vidtipo']);
-
                 switch(idtipo){
                     case 1: //INICIACION
                         //INGRESAR INV. ESTADISTICA
-                        // arr('login',7,1,909,'','null,'+vid[0][0]+',6,0,0,'+$("#tplt").html()+',now(),@@usr',0,0);
-
+                        // vaccion,vid,vidciclo,vidtipo,vidservicio,vidproducto,vcantidad,vidusuario,vcomentario
+                        var tipo = $("#vidrazon").val(),
+                        serv = arr('login',4,'id',16,'nombre = "'+$("#nomvar").val()+'"',0,0,0)[0][0],
+                        prod = 0,
+                        cant = $("#cantact").val(),
+                        comen = $("#comentproc").val();
+                        arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
+                        $("#vidrazon").val(0);
+                        $("#nomvar").val('');
+                        $("#cantact").val(0);
+                        $("#comentproc").val('');
+                        $("#vidrazon").material_select();
+                        $("#modal-registrar").modal('close');
                         break;
                     default:
                         break;
