@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.scss">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css">
   <body >
   {$NAV}
     <div class="bdy pequeño" >
