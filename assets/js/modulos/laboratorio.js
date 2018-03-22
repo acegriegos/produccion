@@ -834,11 +834,11 @@ function iniciarVaridad(){
     var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
     if (servicio[0].length) {
         var obj;
-        var str = '<table class="responsive-table highlight" id="resulti00"><tr style="border-bottom: 1px solid #e2e2e2;"><td colspan="4" class="center" style="padding:0px; margin:0px"><b>Variedad: '+servicio[0][0][1]+'</b></td></tr> <tr> <td style="padding:0px; margin:0px"></td> <td style="padding:0px; margin:0px"><b>Cantidad</b></td> <td style="padding:0px; margin:0px"><b>Procedencia</b></td> <td style="padding:0px; margin:0px"><b>Fecha</b></td></tr><tbody vtabla="laboratorio-investadistica" id="flaboratorio-investadisticas" tp="4" rollback="">'; // id="bdyi00"
+        var str = '<div class="col s12 head1 padding1"><h6>Variedad: <b>'+servicio[0][0][1]+'</b></h6></div><table class="responsive-table highlight z-depth-3" id="resulti00"><thead class="tab2"><tr><th colspan="2" class="center">Cantidad</th> <th class="center">Procedencia</th> <th class="center">Fecha</th> </tr> </thead> <tbody vtabla="laboratorio-investadistica" id="flaboratorio-investadisticas" tp="4" rollback="">'; // id="bdyi00"
 
         for (var i = 0; i < servicio[0].length; i++) {
             obj = servicio[0][i];
-            str += '<tr id="o'+obj[7]+'" idservicio="'+obj[2]+'" data-cantidad="'+obj[0]+'" class="ciclos"><td style="padding:0px; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0px; margin:0px;height:1rem;width=80%" class="eder" /> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0px; margin:0px">'+obj[4]+'</td><td style="padding:0px; margin:0px">'+obj[5]+' </td></tr>';
+            str += '<tr id="o'+obj[7]+'" idservicio="'+obj[2]+'" data-cantidad="'+obj[0]+'" class="ciclos"><td style="padding:0.5%; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0.5px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0.5px; margin:0px;height:1rem;width=80%" class="eder" /> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0.5%; margin:0px">'+obj[4]+'</td><td style="padding:0.5%; margin:0px">'+obj[5]+' </td></tr>';
         }
         $("#vlote").val(servicio[0][0][6]);
         $("#flaboratorio-ciclos .zelda").data('triforce')['vlote'] = servicio[0][0][6];

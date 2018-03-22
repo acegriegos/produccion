@@ -4,29 +4,29 @@
     <div class="row">
 
     <div class="col s10 input-field">
-      <div class="center"><b>Listado de Procesos Actuales</b></div>
+      <div class="col s12 head1 padding1 center"><b><h6>Listado de Procesos Actuales</h6></b></div>
       <table class="responsive-table highlight">
-          <thead>
+          <thead class="tab2">
               <tr>
-                  <td>Etapa</td>
-                  <td>Variedad</td>
-                  <td>Días</td>
-                  <td>Fecha Inicio</td>
-                  <td>Acciones</td>
+                  <th class="center">Etapa</th>
+                  <th class="center">Variedad</th>
+                  <th class="center">Días</th>
+                  <th class="center">Fecha Inicio</th>
+                  <th class="center">Acciones</th>
               </tr>
           </thead>
           <tbody>
               <tr>
-                  <td>R01</td>
-                  <td>G01_001_TR</td>
-                  <td>28</td>
-                  <td>30-09-2017</td>
-                  <td>
-                    <button class="btn-floating btn2 mdi mdi-refresh" title="Procesar Enraizamiento"></button>
-                    <button class="btn-floating btn2 mdi mdi-view-list" title="Ver Medio Cultivo y Bandejas"></button>
-                    <button class="btn-floating btn2 mdi mdi-checkbox-multiple-marked-outline" title="Procesar Activos"></button>
-                    <button class="btn-floating btn2 mdi mdi-arrow-left-box" title="Ver Trayectoria"></button>
-                    <button class="btn-floating btn2 mdi mdi-arrow-collapse-right" title="Procesar a Aclimatacion"></button>
+                  <td class="center">R01</td>
+                  <td class="center">G01_001_TR</td>
+                  <td class="center">28</td>
+                  <td class="center">30-09-2017</td>
+                  <td class="center">
+                    <a class="gtext mdi-24px mdi mdi-refresh" title="Procesar Enraizamiento"></a>
+                    <a class="gtext mdi-24px mdi mdi-view-list" title="Ver Medio Cultivo y Bandejas"></a>
+                    <a class="gtext mdi-24px mdi mdi-checkbox-multiple-marked-outline" title="Procesar Activos"></a>
+                    <a class="gtext mdi-24px mdi mdi-arrow-left-box" title="Ver Trayectoria"></a>
+                    <a class="gtext mdi-24px mdi mdi-arrow-collapse-right" title="Procesar a Aclimatacion"></a>
                   </td>
               </tr>
           </tbody>
@@ -34,8 +34,8 @@
     </div>
 
     <div class="col s2 input-field">
+      <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
       <input type="date" id="vfecha" class="datepicker eder">
-      
     </div>
 
   </div>

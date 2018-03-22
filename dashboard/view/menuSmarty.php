@@ -1,4 +1,3 @@
-
 <ul id="slide" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
   <li>
     <div class="userView">

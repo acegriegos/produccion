@@ -754,7 +754,7 @@ $(document).on("click",".load[modulo=variablesproduccione]",function(){
 $("#addvarprod").attr('id','actvarprod');
 $("#actvarprod").removeClass('add');
 $("#actvarprod").addClass('edit');
-$("#actvarprod").text('save');
+$("#actvarprod").html('<i class="mdi mdi-content-save"></i>');
 $("#vnombre").focus();
 });
 
@@ -769,7 +769,7 @@ $(document).on("click","#actvarprod",function(){
 $("#actvarprod").attr('id','addbod');
 $("#addvarprod").removeClass('edit');
 $("#addvarprod").addClass('add');
-$("#addvarprod").text('add');
+$("#addvarprod").html('<i class="mdi mdi-plus"></i>');
 });
 
 

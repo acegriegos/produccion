@@ -11,14 +11,19 @@
   </div>
   <div class="row">
     <div class="col s8 input-field">
-        <div class="center" id="result00" >No se ha Elegido la Variedad</div>
         <div class="der">
-            <br>
+
             <!-- <a href="#!" class="btn btn1 add der" modulo="laboratorio-ciclo" varias="1">Registrar</a> -->
-            <a href="#modal-registrar" class="btn btn1 der" id="registrar">Registrar</a>
+            <a href="#modal-registrar" class="btn btn3 der" id="registrar">Registrar</a>
             <a href="#!" class="btn btn1 der" style="margin-right: 10px;">Listado de Iniciaciones</a>
             <span style="padding-right: 15px">Total Plantas: <span><b id="tplt">0</b></span></span>
             <input type="hidden" value="" id="vidsrvs">
+            <br><br><br>
+        </div>
+        <div class="center" id="result00">
+          <div class="col s12 head2 padding1">No se ha elegido variedad</h6></div>
+          <!-- TABLA JS -->
+
         </div>
     </div>
     <div class="col s4">
@@ -41,13 +46,13 @@
           <label for="vapendice">Apéndice</label>
         </div> -->
         <div class="col s12 input-field">
-          <button class="prefix btn-floating btn2 mdi mdi-plus z-depth-2" id="mkformula" style="width: 40px"></button>
-          <input type="text" id="cultivo" readonly value="-">
+          <a class="prefix btn-floating btn2 z-depth-2" id="mkformula"><i class="mdi mdi-plus mdi-24px"></i></a>
+          <input type="text" id="cultivo" readonly value="- - -" class="center">
           <label for="cultivo">Medio Cultivo</label>
         </div>
         <div class="col s12 input-field">
-          <button class="prefix btn-floating btn2 mdi mdi-plus z-depth-2" id="mkbandeja" style="width: 40px"></button>
-          <input type="text" id="bandeja" readonly value="-">
+          <a class="prefix btn-floating btn2 z-depth-2" id="mkbandeja"><i class="mdi mdi-plus mdi-24px"></i></a>
+          <input type="text" id="bandeja" readonly value="- - -" class="center">
           <label for="bandeja">Bandeja</label>
         </div>
         <div class="col s12 input-field">
@@ -60,25 +65,27 @@
 </div>
 
 <div id="modal-formula" class="modal modal-fixed-footer grandemodal">
-  <div class="modal-header">
-        <div class="card-header center white-text" style="background-color:#0B3861">
-            <p class="flow-text marginzero">Agregar Medio de Cultivo</p>
-        </div>
+
+    <div class="modal-header head2 padding1">
+        <h5 class="modal-title center-align">Agregar medio de cultivo</h5>
     </div>
+
   <div class="modal-content">
     
   </div>
   <div class="modal-footer ">
-    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
-    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="mcultivo">Guardar</a>
+
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="mcultivo">Guardar</a>
+
   </div>
 </div>
 
 <div id="modal-bandeja" class="modal modal-fixed-footer grandemodal">
-  <div class="modal-header">
-        <div class="card-header center white-text" style="background-color:#0B3861">
-            <p class="flow-text marginzero">Agregar bandeja</p>
-        </div>
+
+    <div class="modal-header head2 padding1">
+        <h5 class="modal-title center-align">Agregar bandeja</h5>
+
     </div>
   <div class="modal-content row">
     <div class="col s6 m6 l6">
@@ -88,19 +95,21 @@
   <div class="modal-footer">
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
     <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="mbandeja">Guardar</a>
+
   </div>
 </div>
 
 <div id="modal-registrar" class="modal modal-fixed-footer grandemodal">
-  <div class="modal-header">
-      <div class="card-header center white-text" style="background-color:#0B3861">
-          <p class="flow-text marginzero">Iniciación</p>
-      </div>
-  </div>
+
+    <div class="modal-header head2 padding1">
+        <h5 class="modal-title center-align">Iniciación</h5>
+    </div>
+
   <div class="modal-content row">
     <div class="input-field col s3 m3 l3">
       <select id="vidrazon"></select>
       <label for="vidrazon">Razón</label>
+
     </div>
     <div class="input-field col s5 m5 l5">
       <input type="text" id="nomvar" class="validate autocomplete" autocomplete="off">
@@ -110,13 +119,21 @@
       <input type="number" id="cantact" class="validate">
       <label for="cantact">Cantidad</label>
     </div>
+
     <div class="input-field col s12 m12 l12">
       <textarea id="comentproc" class="materialize-textarea"></textarea>
       <label for="comentproc">Comentario</label>
     </div>
   </div>
   <div class="modal-footer">
+<<<<<<< HEAD
     <a class="modal-action waves-effect waves-green btn-flat z-depth-5 add" modulo="laboratorio-ciclo" varias="1">Agregar</a>
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+=======
+
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="prcactivo">Agregar</a>
+
+>>>>>>> b904075c6d3d5b6d58324f3e81e9418bd2772709
   </div>
 </div>

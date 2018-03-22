@@ -8,26 +8,26 @@
                         <p>Descuento en Factura de Venta:</p>
                     </div>
                     <div class="col s12 m2">
-                        <input type="radio" class="descfactc with-gap z-depth-5" name="descfact" tp="1" id="sum" {if $DESCF eq 1} checked {/if} />
+                        <input type="radio" class="descfactc with-gap z-depth-3" name="descfact" tp="1" id="sum" {if $DESCF eq 1} checked {/if} />
                         <label for="sum">Suma</label>
                     </div>
                         <div class="col s12 m2">
-                        <input type="radio" class="descfactc with-gap z-depth-5" name="descfact" tp="2" id="may" {if $DESCF eq 2} checked {/if}>
+                        <input type="radio" class="descfactc with-gap z-depth-3" name="descfact" tp="2" id="may" {if $DESCF eq 2} checked {/if}>
                         <label for="may">Mayor</label>
                         <br>
                     </div>
                 </div>
             </div>
         </div>
-        <a href="#modal-descuentos" class="btn z-depth-5 right modal-trigger" style="margin: 1%;" id="gendesc">Generar Descuento</a><br><br>
-        <table class="table  pequeño responsive-table z-depth-5 highlight centered" id="data-table-descuentos"><br><br>
+        <a href="#modal-descuentos" class="btn btn1 z-depth-3 right modal-trigger" style="margin: 1%;" id="gendesc">Generar Descuento</a><br><br>
+        <table class="table pequeño responsive-table z-depth-3 highlight centered" id="data-table-descuentos"><br><br>
             <thead>
-                <tr>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Nombre</th>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Estado</th>
-                    <!-- <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Realizado(Veces)</th> -->
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Usuario</th>
-                    <th class="white-text blue" style="border: 0px;  border-radius: 0px !important;">Acciones</th>
+                <tr class="tab1">
+                    <th style="border: 0px;  border-radius: 0px !important;">Nombre</th>
+                    <th style="border: 0px;  border-radius: 0px !important;">Estado</th>
+                    <!-- <th style="border: 0px;  border-radius: 0px !important;">Realizado(Veces)</th> -->
+                    <th style="border: 0px;  border-radius: 0px !important;">Usuario</th>
+                    <th style="border: 0px;  border-radius: 0px !important;">Acciones</th>
                 </tr>
             </thead>
             <tbody id="listadescuentos"></tbody>
@@ -35,8 +35,8 @@
     </div>
 
     <div class="modal modal-fixed-footer grandemodal" id="modal-descuentos" style="overflow-y: inherit !important;">
-        <div class="modal-header">
-            <h4 class="modal-title white-text center-align" style="background-color:#0B3861">Crear Descuento</h4>
+        <div class="modal-header head2 padding1">
+            <h5 class="modal-title center-align">Crear Descuento</h5>
         </div>
         <div class="modal-content pequeño" id="fdescuentos">
             <div class="row">
@@ -59,14 +59,14 @@
             </div>
         </div><!-- /.modal-content -->
         <div class="modal-footer">
-            <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" data-dismiss="modal" style="margin-left: 2%; ">Salir</button>
-            <button type="button" class="btn btn-primary add" modulo="descuento">Agregar</button>
+            <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" data-dismiss="modal" style="margin-left: 2%; ">Salir</button>
+            <button type="button" class="add btn-flat waves-effect waves-green" modulo="descuento">Agregar</button>
         </div>
     </div><!-- /.modal -->
 
     <div id="modal-assgndsct" class="modal modal-fixed-footer">
-        <div class="modal-header">
-            <h4 class="modal-title white-text center-align" style="background-color:#0B3861">Asignar Descuento</h4>
+        <div class="modal-header head2 padding1">
+            <h5 class="modal-title center-align">Asignar Descuento</h5>
         </div>
         <div class="modal-content" style="padding-top: 0">
             <div class="row">
@@ -162,13 +162,13 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a class="modal-action waves-effect waves-light btn-flat white-text blue z-depth-5" id="adddesc">Guardar</a>
-            <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
+            <a class="modal-action waves-effect waves-light btn-flat waves-green z-depth-3" id="adddesc">Guardar</a>
+            <a class="modal-action modal-close waves-effect waves-light btn-flat waves-red z-depth-3" style="margin-right: 2%">Salir</a>
         </div>
     </div>
     <div id="modal-editdesc" class="modal modal-fixed-footer">
-        <div class="modal-header">
-            <h4 class="modal-title white-text center-align" style="background-color:#0B3861">Editar Descuento</h4>
+        <div class="modal-header head2 padding1">
+            <h5 class="modal-title center-align">Editar Descuento</h5>
         </div>
         <div class="modal-content" style="padding-top: 0">
         <input type="hidden" id="iddescuento">
@@ -226,8 +226,8 @@
             
         </div>
         <div class="modal-footer">
-            <a class="modal-action waves-effect waves-light btn-flat white-text blue z-depth-5" id="editdesc">Guardar</a>
-            <a class="modal-action modal-close waves-effect waves-light btn-flat white-text blue z-depth-5" style="margin-right: 2%">Salir</a>
+            <a class="modal-action waves-effect waves-light waves-green btn-flat z-depth-3" id="editdesc">Guardar</a>
+            <a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
         </div>
   </div>
 </div>

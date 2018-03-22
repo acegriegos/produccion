@@ -29,14 +29,14 @@
       </div>
       
     </div>
-    <div class="col s7">
+    <div class="col s6">
       <table class="responsive-table highlight">
-        <thead>
+        <thead class="tab1">
           <tr>
             <th></th>
             <th>Dirección</th>
             <th>Región</th>
-            <th>Finca <a class="der" id="addFin" style="height:30px; width: 30px"> <button class="mdi mdi-plus btn-floating btn2 z-depth-2"></button></a></th>
+            <th>Finca</th>
           </tr>
         </thead>
         <tbody id="fincas">
@@ -45,6 +45,9 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="col s1">
+      <a class="der btn-floating btn2 z-depth-2" id="addFin"><i class="mdi mdi-plus"></i></a>
     </div>
   </div>
   <div class="row">
@@ -64,7 +67,7 @@
         <label for="vrango2">Hasta</label>
       </div>
     </div>
-    <a class="btn btn1 der">Listado de Recepciones</a>
+    <a class="btn btn3 der">Listado de Recepciones</a>
     <a class="btn btn1 add der" modulo="laboratorio-explante" style="margin-right: 10px;">Ingresar</a>
   </div>
 </div>
@@ -136,7 +139,9 @@
         </div>
     </div>
   <div class="modal-content">
-    <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-recepciones" cellspacing="0" width="100%" >
+
+    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-recepciones" cellspacing="0" width="100%" >
+
       <thead>
         <tr>
           <th class="white-text blue" style="border: 0; border-radius: 0px !important;"></th>
@@ -156,6 +161,8 @@
     </table>
   </div>
   <div class="modal-footer ">
-    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+
   </div>
 </div>
