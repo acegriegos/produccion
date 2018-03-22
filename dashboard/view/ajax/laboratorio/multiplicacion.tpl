@@ -169,3 +169,64 @@
     <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="prcactivo">Agregar</a>
   </div>
 </div>
+
+<div id="modal-vmediocultivo" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+        <div class="card-header center white-text" style="background-color:#0B3861">
+            <p class="flow-text marginzero">Ver medio cultivo y bandejas</p>
+        </div>
+    </div>
+  <div class="modal-content" style="padding: 0px;">
+    <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%" >
+      <thead>
+        <tr>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
+          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad</th>
+        </tr>
+      </thead>
+      <tbody id="listamediocultivos">
+      <!-- section -->
+        <!-- <tr>
+          <td style="padding: 10px; color:black;">abc</td>
+          <td style="padding: 10px; color:black;">def</td>
+        </tr> -->
+      <!-- section -->
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer ">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+  </div>
+</div>
+
+<div id="modal-invstats" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+      <div class="card-header center white-text" style="background-color:#0B3861">
+          <p class="flow-text marginzero" id="titinvstat"></p>
+      </div>
+  </div>
+  <div class="modal-content row">
+    <div class="input-field col s3 m3 l3">
+      <select id="vidrazon"></select>
+      <label for="vidrazon">Razón</label>
+    </div>
+    <div class="input-field col s5 m5 l5">
+      <input type="text" id="nomact" class="validate autocomplete">
+      <input type="hidden" id="vidciclo" value="0">
+      <input type="hidden" id="hnomact" value="0">
+      <label for="nomact">Nombre activo</label>
+    </div>
+    <div class="input-field col s4 m4 l4">
+      <input type="number" id="cantact" class="validate">
+      <label for="cantact">Cantidad</label>
+    </div>
+    <div class="input-field col s12 m12 l12">
+      <textarea id="comentproc" class="materialize-textarea"></textarea>
+      <label for="comentproc">Comentario</label>
+    </div>
+  </div>
+  <div class="modal-footer ">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="prcactivo">Agregar</a>
+  </div>
+</div>

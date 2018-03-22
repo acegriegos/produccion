@@ -826,7 +826,6 @@ function iniciarVaridad(){
     var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
     if (servicio[0].length) {
         var obj;
-
         var str = '<div class="col s12 head1 padding1"><h6>Variedad: <b>'+servicio[0][0][1]+'</b></h6></div><table class="responsive-table highlight z-depth-3" id="resulti00"><thead class="tab2"><tr><th colspan="2" class="center">Cantidad</th> <th class="center">Procedencia</th> <th class="center">Fecha</th> </tr> </thead> <tbody vtabla="laboratorio-investadistica" id="flaboratorio-investadisticas" tp="4" rollback="">'; // id="bdyi00"
 
         for (var i = 0; i < servicio[0].length; i++) {

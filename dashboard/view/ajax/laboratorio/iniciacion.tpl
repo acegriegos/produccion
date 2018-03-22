@@ -110,6 +110,7 @@
     <div class="input-field col s3 m3 l3">
       <select id="vidrazon"></select>
       <label for="vidrazon">Razón</label>
+
     </div>
     <div class="input-field col s5 m5 l5">
       <input type="text" id="nomvar" class="validate autocomplete" autocomplete="off">
@@ -119,6 +120,7 @@
       <input type="number" id="cantact" class="validate">
       <label for="cantact">Cantidad</label>
     </div>
+
     <div class="input-field col s12 m12 l12">
       <textarea id="comentproc" class="materialize-textarea"></textarea>
       <label for="comentproc">Comentario</label>

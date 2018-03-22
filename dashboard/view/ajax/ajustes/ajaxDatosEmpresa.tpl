@@ -480,6 +480,7 @@
             <h5 class="modal-title center-align">Moneda</h5>
         </div>
         <div class="modal-content  pequeño ">
+            <h4>Moneda</h4>
             <div id="fmonedas">
                 <input type="hidden" id="vid" value="0">
                 <div class="row">
