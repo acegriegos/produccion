@@ -3,3 +3,6 @@ dashboard/view/compiled/*
 subirVersion.sh
 assets/style=expanded
 assets/css/scss_cache/*
+_config/.DS_Store
+cambiosDB.txt
+.DS_Store

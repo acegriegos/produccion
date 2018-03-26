@@ -100,40 +100,31 @@
 </div>
 
 <div id="modal-registrar" class="modal modal-fixed-footer grandemodal">
-
-    <div class="modal-header head2 padding1">
-        <h5 class="modal-title center-align">Iniciación</h5>
-    </div>
-
-  <div class="modal-content row">
-    <div class="input-field col s3 m3 l3">
-      <select id="vidrazon"></select>
-      <label for="vidrazon">Razón</label>
-
-    </div>
-    <div class="input-field col s5 m5 l5">
-      <input type="text" id="nomvar" class="validate autocomplete" autocomplete="off">
-      <label for="nomvar">Variedad</label>
-    </div>
-    <div class="input-field col s4 m4 l4">
-      <input type="number" id="cantact" class="validate">
-      <label for="cantact">Cantidad</label>
-    </div>
-
-    <div class="input-field col s12 m12 l12">
-      <textarea id="comentproc" class="materialize-textarea"></textarea>
-      <label for="comentproc">Comentario</label>
+  <div class="modal-header head2 padding1">
+      <h5 class="modal-title center-align">Iniciación</h5>
+  </div>
+  <div class="modal-content" style="margin-bottom: 0 !important">
+    <div class="row">
+      <div class="input-field col s3 m3 l3">
+        <select id="vidrazon"></select>
+        <label for="vidrazon">Razón</label>
+      </div>
+      <div class="input-field col s5 m5 l5">
+        <input type="text" id="nomvar" class="validate autocomplete" autocomplete="off">
+        <label for="nomvar">Variedad</label>
+      </div>
+      <div class="input-field col s4 m4 l4">
+        <input type="number" id="cantact" class="validate">
+        <label for="cantact">Cantidad</label>
+      </div>
+      <div class="input-field col s12 m12 l12">
+        <textarea id="comentproc" class="materialize-textarea"></textarea>
+        <label for="comentproc">Comentario</label>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
-<<<<<<< HEAD
     <a class="modal-action waves-effect waves-green btn-flat z-depth-5 add" modulo="laboratorio-ciclo" varias="1">Agregar</a>
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
-=======
-
-    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
-    <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="prcactivo">Agregar</a>
-
->>>>>>> b904075c6d3d5b6d58324f3e81e9418bd2772709
   </div>
 </div>

@@ -87,14 +87,6 @@ $(document).on("click","#registrar",function(){
     $("#nomvar").attr('disabled',true);
     Materialize.updateTextFields();
 });
-//aqui
-
-$(document).on("click",".procmult",function(){
-    $("#modal-invstats").modal('open');
-    $("#titinvstat").html('Procesar a multiplicación');
-    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
-    $("#vidrazon").material_select();
-});
 
 $(document).on("click","#assbandeja",function(){
     $("#modal-bandeja").modal('open');
@@ -102,13 +94,43 @@ $(document).on("click","#assbandeja",function(){
     $("#cbandeja").material_select();
 });
 
+$(document).on("click","#chgbandeja",function(){
+    var idbandeja = $("#cbandeja").val();
+    $("#hidbandeja").val(idbandeja);
+    Materialize.toast('Bandeja seleccionada', 4000, 'green');
+});
+
+$(document).on("click",".procmult",function(){
+    var id = $(this).attr('id').substr(1);
+    $("#domult").attr('idciclo',id);
+    $("#modal-invstats").modal('open');
+    $("#titinvstat").html('Procesar a multiplicación');
+    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
+    $("#vidrazon").material_select();
+});
+
 $(document).on("click","#domult",function(){
+    //multiplicacion
     var id = $(this).attr('idciclo');
     var idtipo = $("li.menu3 >a.active").parent().attr('id').substr(1);
-    var ciclo = arr('login',4,'',914,id+','+idtipo,0,0,0);
+    var idbandeja = $("#hidbandeja").val(),
+    idmedio = $("#hidmediocultivo").val();
+    var ciclo = arr('login',4,'',914,id+','+idtipo+','+idbandeja+','+idmedio,0,0,0);
     if (ciclo['succed'] == 1) {
+        //investadisticas
+        var idrazon = $("#vidrazon").val(),
+        serv = $("#idserv").val(),
+        prod = 0,
+        cant = $("#cantact").val() == '' ? 0 : $("#cantact").val(),
+        comen = $("#comentproc").val();
+        arr('login',4,'',918,'1,0,'+id+','+idrazon+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
         Materialize.toast('Registro guardado correctamente', 4000, 'green');
     }
+});
+
+$(document).on("click","#addchip",function(){
+    $("#srv1").text('Servicio1');
+    $("#cnt1").text('1')
 });
 
 $(document).on("click",".mcb",function(){
