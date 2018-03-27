@@ -709,6 +709,21 @@ function endDetail(vid,vacc,vmodulo) {
 
     switch(param){
         case 1:
+            setTimeout(function() { window.focus() },500);
+            Materialize.toast('Generando Factura Electrónica...',4000,'green');
+            $.post( "../wsdlClient.php", { id: vid[0][0], accion : 1,empresa : 0 })
+              .done(function( data ) {
+                var p;
+                try {
+                    p = JSON.parse(data);
+                    p = p['rs'];
+                }
+                catch(err){
+                    p = data;
+                }
+                Materialize.toast(p,4000,'green');
+              });
+            break;
         case 6:
             setTimeout(function() { window.focus() },500);
             break;

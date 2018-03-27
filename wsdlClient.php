@@ -18,16 +18,17 @@
                 echo "<pre>";
                     print_r($fe->getBearer());
                 echo "</pre>";
-                break;
+                break;  
             case 4://Consulta ESTADO;
-                header("Content-type: text/xml; encoding='UTF-8'");
-                print_r(base64_decode($fe->estado()['xml']));
+                // header("Content-type: text/xml; encoding='UTF-8'");
+                // print_r(base64_decode($fe->estado()['xml']));
+                print_r($fe->estado());
                 break;
             case 5://Consulta General de Recibos
-                $offset     =   !isset($_REQUEST['offset'])     ?   ''  :   $_REQUEST['offset'];
-                $limit      =   !isset($_REQUEST['limit'])      ?   ''  :   $_REQUEST['limit'];
-                $emisor     =   !isset($_REQUEST['emisor'])     ?   0   :   $_REQUEST['emisor'];
-                $receptor   =   !isset($_REQUEST['receptor'])   ?   0   :   $_REQUEST['receptor'];
+                $offset     =   !isset($_REQUEST['offset'])     ?   0  :   $_REQUEST['offset'];
+                $limit      =   !isset($_REQUEST['limit'])      ?   50  :   $_REQUEST['limit'];
+                $emisor     =   $fe->info['Emisor']['Identificacion']['Tipo'].$fe->info['Emisor']['Identificacion']['Numero'];
+                $receptor   =   !isset($_REQUEST['receptor'])   ?   ''   :   $_REQUEST['receptor'];
                 print_r($fe->getRecibos($id,$offset,$limit,$emisor,$receptor));
                 break;
             case 6://ENCABEZADO
@@ -40,9 +41,9 @@
                 $params = json_encode(array('clave'                 =>  $fe->info['Clave'],
                                             'fecha'                 =>  $fe->info['FechaEmision'],
                                             'emisor'                =>  ['tipoIdentificacion' => $fe->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Emisor']['Identificacion']['Numero']],
-                                            'receptor'              =>  ['tipoIdentificacion' => $fe->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Receptor']['Identificacion']['Numero']],
+                                            // 'receptor'              =>  ['tipoIdentificacion' => $fe->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Receptor']['Identificacion']['Numero']],
                                             'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
-                                            'consecutivoReceptor'   => '',
+                                            // 'consecutivoReceptor'   => '',
                                             'comprobanteXml'        => base64_encode($xml)));
                 echo $params;
                 break;
@@ -57,7 +58,7 @@
                 $privateKey   =$certs["pkey"];
                 
                 $certData   = openssl_x509_parse($publicKey);
-                $certDigest =base64_encode(openssl_x509_fingerprint($publicKey, "sha256", true));
+                $certDigest =base64_encode(openssl_x509_fingerprint($publicKey, "sha1", true));
                 echo "<pre>";
                 print_r($certData);
                 echo "</pre>";
@@ -127,12 +128,13 @@
         function getRecibos($id,$offset,$limit,$vemisor,$vreceptor){
             $this->getBearer();
             $emisor = $this->getEmisor($vemisor);
-            $receptor = $this->getReceptor($vreceptor);
-            //offset:$offset&limit:$limit&emisor:$emisor&receptor:$receptor
-            $clave = $id == 0 ? '' : $this->getClave();
-            print_r($clave.'\n');
+            //$receptor = $this->getReceptor($vreceptor);
 
-            $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/".$clave);
+            if ($id == 0) 
+                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/");
+            else
+                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/".$this->getClave());
+            
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl,CURLINFO_HEADER_OUT,true);
@@ -143,7 +145,7 @@
               "offset" => $offset,
               "limit" => $limit,
               "emisor" => $emisor,
-              "receptor" => $receptor);
+              /* "receptor" => $receptor*/);
 
             $postData = "";
 
@@ -187,7 +189,7 @@
                                         'emisor'                =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Emisor']['Identificacion']['Numero']],
                                         'receptor'              =>  '',
                                         'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
-                                        'consecutivoReceptor'   => '',
+                                        // 'consecutivoReceptor'   => '',
                                         'comprobanteXml'        => base64_encode($xml));
             if (isset($this->info['Receptor'])) 
                 $valores['receptor'] = [$this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']];
@@ -348,18 +350,13 @@
 
 
             $certData   = openssl_x509_parse($publicKey);
-            $certDigest =base64_encode(openssl_x509_fingerprint($publicKey, "sha256", true));
+            $certDigest = base64_encode(openssl_x509_fingerprint($publicKey, "sha1", true));
 
-            // $certIssuer = array();
-            // foreach ($certData['issuer'] as $item=>$value) {
-            //   $certIssuer[] = $item . '=' . $value;
-            // }
-            // $certIssuer = implode(', ', array_reverse($certIssuer));
-            // $certIssuer = 'CN='.$certData['subject']['CN'].', O='.$certData['subject']['O'];
-            $certIssuer = 'CN='.$certData['issuer']['CN'];
-            $serialNumber = $certData['serialNumber'];
-            // $serialNumber = $certData['subject']['serialNumber'];
-            // $certIssuer   = $certData['issuer']['CN'];
+            $certIssuer = array();
+            foreach ($certData['issuer'] as $item=>$value) {
+              $certIssuer[] = $item . '=' . $value;
+            }
+            $certIssuer = implode(', ', array_reverse($certIssuer));
 
             $prop = '<xades:SignedProperties Id="' . $SignedProperties .  '">' .
               '<xades:SignedSignatureProperties>'.
@@ -367,12 +364,12 @@
                   '<xades:SigningCertificate>'.
                       '<xades:Cert>'.
                           '<xades:CertDigest>' .
-                              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />'.
+                              '<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />'.
                               '<ds:DigestValue>' . $certDigest . '</ds:DigestValue>'.
                           '</xades:CertDigest>'.
                           '<xades:IssuerSerial>' .
                               '<ds:X509IssuerName>'   . $certIssuer       . '</ds:X509IssuerName>'.
-                              '<ds:X509SerialNumber>' . $serialNumber . '</ds:X509SerialNumber>' .
+                              '<ds:X509SerialNumber>' . $certData['serialNumber'] . '</ds:X509SerialNumber>' .
                           '</xades:IssuerSerial>'.
                       '</xades:Cert>'.
                   '</xades:SigningCertificate>' .
@@ -383,7 +380,7 @@
                               '<xades:Description />'.
                           '</xades:SigPolicyId>'.
                           '<xades:SigPolicyHash>' .
-                              '<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />'. 
+                              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />'. 
                               '<ds:DigestValue>' . $signPolicy['digest'] . '</ds:DigestValue>'.
                           '</xades:SigPolicyHash>'.
                       '</xades:SignaturePolicyId>' .
@@ -631,8 +628,8 @@
            $signature = $Signature->getElementsByTagName('SignatureValue')->item(0)->nodeValue;
            $pub_key = $Signature->getElementsByTagName('X509Certificate')->item(0)->nodeValue;
            // verificar firma
-           if (!$this->verify($signed_info, $signature, $pub_key,'SHA256'))
-                return 'VERIFICACION OPENSSL FALLIDA';
+           // if (!$this->verify($signed_info, $signature, $pub_key,'SHA256'))
+           //      return 'VERIFICACION OPENSSL FALLIDA';
            // verificar digest
            $digest_original = $Signature->getElementsByTagName('DigestValue')->item(0)->nodeValue;
            if ($tag) {
@@ -646,7 +643,7 @@
        public function verify($data, $signature, $pub_key = null, $signature_alg = OPENSSL_ALGO_SHA1)
        {    
            $pub_key = $this->normalizeCert($pub_key);
-           print_r($data);
+           
            return openssl_verify($data, base64_decode($signature), $pub_key, $signature_alg) == 1 ? 1 : 0;
        }
 
