@@ -7,51 +7,37 @@
         $fe = new facturaElectronica($id);
 
         switch ($accion) {
-            case 1:
-                //RECIBO DE FACTURA
+            case 1://RECIBO DE FACTURA
                 print_r($fe->recepcion());
                 break;
-            case 2:
-                //GET XML
+            case 2://GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
                 print_r($fe->getXMLRecepcion());
                 break;
-            case 3:
-                //BEARER
+            case 3://BEARER
                 echo "<pre>";
                     print_r($fe->getBearer());
                 echo "</pre>";
                 break;
-            case 4:
-                //Consulta ESTADO;
-                print_r($fe->estado());
+            case 4://Consulta ESTADO;
+                header("Content-type: text/xml; encoding='UTF-8'");
+                print_r(base64_decode($fe->estado()['xml']));
                 break;
-            case 5:
-                //Consulta General de Recibos
+            case 5://Consulta General de Recibos
                 $offset     =   !isset($_REQUEST['offset'])     ?   ''  :   $_REQUEST['offset'];
                 $limit      =   !isset($_REQUEST['limit'])      ?   ''  :   $_REQUEST['limit'];
                 $emisor     =   !isset($_REQUEST['emisor'])     ?   0   :   $_REQUEST['emisor'];
                 $receptor   =   !isset($_REQUEST['receptor'])   ?   0   :   $_REQUEST['receptor'];
                 print_r($fe->getRecibos($id,$offset,$limit,$emisor,$receptor));
                 break;
-            case 6:
-                $file = fopen("assets/xml/prueba.xml", "w+");
-                fwrite($file, $fe->getXMLRecepcion());
-                fclose($file);
-                echo "Archivo Creado<br>";
-                shell_exec("java -jar assets/libs/firmaXadesEpes/firmar-xades.jar assets/p12/310169776129.p12 6969 assets/xml/prueba.xml assets/xml/prueba-firmada.xml");
-                echo "Archivo Firmado<br>";
-                break;
-            case 7: //ENCABEZADO
+            case 6://ENCABEZADO
                 echo json_encode($fe->info);
                 break;
-            case 8: //RECEPCION
-                break;
-            case 9: //PAYLOAD 
+            case 7://PAYLOAD 
 
                 $xml = $fe->getXMLRecepcion();
        
-                $params = json_encode(array('clave'                 =>  $fe->info['clave'],
+                $params = json_encode(array('clave'                 =>  $fe->info['Clave'],
                                             'fecha'                 =>  $fe->info['FechaEmision'],
                                             'emisor'                =>  ['tipoIdentificacion' => $fe->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Emisor']['Identificacion']['Numero']],
                                             'receptor'              =>  ['tipoIdentificacion' => $fe->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Receptor']['Identificacion']['Numero']],
@@ -60,30 +46,44 @@
                                             'comprobanteXml'        => base64_encode($xml)));
                 echo $params;
                 break;
-            case 10: //XML-ESTADO
+            case 8: //XML-ESTADO
                 header("Content-type: text/xml; encoding='UTF-8'");
                 $result = $fe->estado();
                 print_r(base64_decode($result['xml']));
+                break;
+            case 9: //P12
+                openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[3]);
+                $publicKey    =$certs["cert"];
+                $privateKey   =$certs["pkey"];
+                
+                $certData   = openssl_x509_parse($publicKey);
+                $certDigest =base64_encode(openssl_x509_fingerprint($publicKey, "sha256", true));
+                echo "<pre>";
+                print_r($certData);
+                echo "</pre>";
+                break;
+            case 10://VERIFY
+                print_r($fe->verifyXML($fe->getXMLRecepcion()));
                 break;
             default:
                 print_r(json_encode(['ERROR'=>'Accion no Valida']));
                 break;
         }
-    }else{
-        $db = new DBClass();
-        $db->ejecutar('insert into pruebas values(null,"'.json_encode($_POST).'",now())');
     }
-    
 
     class facturaElectronica
     {
         var $info;
         var $id;
         var $bearer;
+        var $credenciales;
 
         function __construct($vid){
             $this->id = $vid;
             $this->info = $this->getJSON('call fe_getencabezado('.$this->id.')');
+            $db = new DBClass();
+            
+            $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_REQUEST['empresa'].')')->fetch_all()[0];
         }
 
         function getBearer(){
@@ -97,8 +97,8 @@
               "client_id" => "api-stag",
               "client_secret" => "",
               "scope" => "",
-              "username" => "cpj-3-101-697761@stag.comprobanteselectronicos.go.cr",
-              "password" => 'l[&qq[o$f$+c8Ro|x_@]',
+              "username" => $this->credenciales[1],
+              "password" => $this->credenciales[2],
               "grant_type" => "password");
 
             $postData = "";
@@ -168,7 +168,11 @@
         function recepcion()
         {
             $this->getBearer();
-            
+
+            if (!isset($this->info['Clave'])) {
+                return "Factura no Existente";
+            }
+
             $xml = $this->getXMLRecepcion();
 
             $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
@@ -177,15 +181,21 @@
             curl_setopt($curl, CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
-   
-            $params = json_encode(array('clave'                 =>  $this->info['clave'],
+
+            $valores = array('clave'  =>  $this->info['Clave'],
                                         'fecha'                 =>  $this->info['FechaEmision'],
                                         'emisor'                =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Emisor']['Identificacion']['Numero']],
-                                        'receptor'              =>  ['tipoIdentificacion' => $this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']],
+                                        'receptor'              =>  '',
                                         'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
                                         'consecutivoReceptor'   => '',
-                                        'comprobanteXml'        => base64_encode($xml)));
-            
+                                        'comprobanteXml'        => base64_encode($xml));
+            if (isset($this->info['Receptor'])) 
+                $valores['receptor'] = [$this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']];
+            else
+                unset($valores['receptor']);
+   
+            $params = json_encode($valores);
+
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 
             $rs = curl_exec($curl);
@@ -230,10 +240,12 @@
             curl_close($curl);
             $body = substr($json_response, strpos($json_response, 'CF-RAY'));
             $json = (array) json_decode(substr($body,strpos($body, '{')));
+            $arreglo = isset($json['respuesta-xml']) ? (Array) simplexml_load_string(base64_decode($json['respuesta-xml'])) : 'Factura no Existente';
+
             if (isset($json['ind-estado'])) {
                 $salida['factura']  = $this->id;
                 $salida['estado']   = $json['ind-estado'];
-                $salida['rs']       = ((array) simplexml_load_string(base64_decode($json['respuesta-xml']))->DetalleMensaje)[0];
+                $salida['rs']       = $arreglo['DetalleMensaje'];
                 $salida['xml']      = $json['respuesta-xml'];
             }else{
                 $salida['factura']  = $this->id;
@@ -247,7 +259,7 @@
         function getClave()
         {
             $encabezado = $this->getJSON('call fe_getencabezado('.$this->id.')');
-            return isset($encabezado['clave']) ? $encabezado['clave'] : die("Factura no Existente");
+            return isset($encabezado['Clave']) ? $encabezado['Clave'] : die("Factura no Existente");
         }
 
         function getEmisor($id){
@@ -267,10 +279,10 @@
             $data[] = $this->info;
             $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle('.$this->id.')');
             $data['ResumenFactura'] = $this->getJSON('call fe_getResumen('.$this->id.')');
-            $data['InformacionReferencia'] = ['TipoDoc' => '', 'Numero' => '', 'FechaEmision' => '', 'Codigo' => '', 'Razon' => '' ];
+
+            // $data['InformacionReferencia'] = ['TipoDoc' => '', 'Numero' => '', 'FechaEmision' => '', 'Codigo' => '', 'Razon' => '' ];
             $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-13-2017', 'FechaResolucion' => '20-02-2017 08:05:00'];
-            $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
-            $data['LT'] = '';
+            // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
 
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
@@ -286,17 +298,15 @@
             $cerROOT = NULL;
             $cerINTERMEDIO = NULL;
 
-            $dgst = openssl_digest('assets/p12/310169776129.p12', 'sha1');
-            $dgst = base64_encode(openssl_encrypt($dgst, 'AES-256-CBC',sha1('00006969'),0,1234567890123456));
-            $dgst = '7oGix0gf6Idp76+tIoS0N6AOEU0=';
+            $digest = base64_encode(hash('sha256' , $xml, true ));
 
             $POLITICA_FIRMA = array(
                 "name"      => "",
                 "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
-                "digest"    => $dgst //"V8lVVNGDCPen6VELRD1Ja8HARFk=" //digest en sha1 y base64
+                "digest"    => $dgst
             );
 
-            openssl_pkcs12_read(file_get_contents('assets/p12/310169776129.p12'), $certs, 6969);
+            openssl_pkcs12_read(file_get_contents($this->credenciales[0]), $certs, $this->credenciales[3]);
             $publicKey    =$certs["cert"];
             $privateKey   =$certs["pkey"];
             $complem = openssl_pkey_get_details(openssl_pkey_get_private($privateKey));
@@ -304,12 +314,12 @@
             $Exponent= base64_encode($complem['rsa']['e']);
 
             $signPolicy       = $POLITICA_FIRMA;
-            $signatureID      = "Signature-ddb543c7-ea0c-4b00-95b9-d4bfa2b4e411";
-            $signatureValue   = "SignatureValue-ddb543c7-ea0c-4b00-95b9-d4bfa2b4e411";
-            $XadesObjectId    = "XadesObjectId-43208d10-650c-4f42-af80-fc889962c9ac";
+            $signatureID      = "Signature-".$this->random();
+            $signatureValue   = "SignatureValue-".$this->random();
+            $XadesObjectId    = "XadesObjectId-".$this->random();
             $KeyInfoId        = "KeyInfoId-".$signatureID;
             
-            $Reference0Id     = "Reference-0e79b719-635c-476f-a59e-8ac3ba14365d";
+            $Reference0Id     = "Reference-".$this->random();
             $Reference1Id     = "ReferenceKeyInfo";
             
             $SignedProperties = "SignedProperties-".$signatureID;
@@ -341,11 +351,16 @@
             $certData   = openssl_x509_parse($publicKey);
             $certDigest =base64_encode(openssl_x509_fingerprint($publicKey, "sha256", true));
 
-            $certIssuer = array();
-            foreach ($certData['issuer'] as $item=>$value) {
-              $certIssuer[] = $item . '=' . $value;
-            }
-            $certIssuer = implode(', ', array_reverse($certIssuer));
+            // $certIssuer = array();
+            // foreach ($certData['issuer'] as $item=>$value) {
+            //   $certIssuer[] = $item . '=' . $value;
+            // }
+            // $certIssuer = implode(', ', array_reverse($certIssuer));
+            // $certIssuer = 'CN='.$certData['subject']['CN'].', O='.$certData['subject']['O'];
+            $certIssuer = 'CN='.$certData['issuer']['CN'];
+            $serialNumber = $certData['serialNumber'];
+            // $serialNumber = $certData['subject']['serialNumber'];
+            // $certIssuer   = $certData['issuer']['CN'];
 
             $prop = '<xades:SignedProperties Id="' . $SignedProperties .  '">' .
               '<xades:SignedSignatureProperties>'.
@@ -358,7 +373,7 @@
                           '</xades:CertDigest>'.
                           '<xades:IssuerSerial>' .
                               '<ds:X509IssuerName>'   . $certIssuer       . '</ds:X509IssuerName>'.
-                              '<ds:X509SerialNumber>' . $certData['serialNumber'] . '</ds:X509SerialNumber>' .
+                              '<ds:X509SerialNumber>' . $serialNumber . '</ds:X509SerialNumber>' .
                           '</xades:IssuerSerial>'.
                       '</xades:Cert>'.
                   '</xades:SigningCertificate>' .
@@ -405,10 +420,8 @@
             $aconop=str_replace('<xades:SignedProperties', '<xades:SignedProperties ' . $xmnls_signedprops, $prop);
             $propDigest=$this->retC14DigestSha256($aconop);
 
-            
             $keyinfo_para_hash1=str_replace('<ds:KeyInfo', '<ds:KeyInfo ' . $xmlns_keyinfo, $kInfo);
             $kInfoDigest=$this->retC14DigestSha256($keyinfo_para_hash1);
-
 
             $documentDigest = base64_encode(hash('sha256' , $canonizadoreal, true ));
 
@@ -436,7 +449,13 @@
 
             $signaturePayload = str_replace('<ds:SignedInfo', '<ds:SignedInfo ' . $xmnls_signeg, $sInfo);
 
-            
+            $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $signatureID . '">'. 
+               $sInfo . 
+              '<ds:SignatureValue Id="' . $signatureValue . '"></ds:SignatureValue>'  . $kInfo . 
+              '<ds:Object Id="'.$XadesObjectId .'">'.
+              '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $signatureID . '">' . $prop .
+              '</xades:QualifyingProperties></ds:Object></ds:Signature>';
+
             $d1p = new DOMDocument('1.0','UTF-8');
             $d1p->loadXML($signaturePayload);
             $signaturePayload=$d1p->C14N();
@@ -447,15 +466,8 @@
             openssl_sign($signaturePayload, $signatureResult, $privateKey,$algo);
             $signatureResult = base64_encode($signatureResult);
 
-            $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $signatureID . '">'. 
-               $sInfo . 
-              '<ds:SignatureValue Id="' . $signatureValue . '">' . 
-              $signatureResult .  '</ds:SignatureValue>'  . $kInfo . 
-              '<ds:Object Id="'.$XadesObjectId .'">'.
-              '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $signatureID . '">' . $prop .
-              '</xades:QualifyingProperties></ds:Object></ds:Signature>';
-
-            $xml = str_replace('<LT/>', $sig , $xml);
+            $sig = str_replace('</ds:SignatureValue>', $signatureResult.'</ds:SignatureValue>', $sig);
+            $xml = str_replace('</FacturaElectronica>', $sig.'</FacturaElectronica>' , $xml);
             return $xml;
         }
 
@@ -502,9 +514,18 @@
                         $detalle['NaturalezaDescuento'] = $value[10];
                         $detalle['SubTotal'] = $value[11];
                         $exoneracion = ['TipoDocumento' => '', 'NumeroDocumento' => '', 'NombreInstitucion' => '','FechaEmision' => '', 'MontoImpuesto' => '', 'PorcentajeCompra' => '', 'PorcentajeCompra' => ''];
-                        $impuesto = ['Codigo'=>$value[12],'Tarifa'=>$value[15],'Monto'=>$value[13], 'Exoneracion' =>  $exoneracion];
-                        $detalle['Impuesto'] = $impuesto;
-                        $detalle['MontoTotalLinea'] = $value[16];
+
+                        if ($value[12] != '') {
+                            $impuesto = ['Codigo'=>$value[12],'Tarifa'=>$value[13],'Monto'=>$value[14]];
+
+                            if ($value[16] != '') 
+                                $impuesto['Exoneracion'] = $exoneracion;
+
+                            $detalle['Impuesto'] = $impuesto;
+                        }
+                        
+                        
+                        $detalle['MontoTotalLinea'] = $value[15];
                         array_push($linea, ['LineaDetalle'=>$detalle]);
                     }
                     
@@ -529,11 +550,14 @@
                 foreach ($entrada[1] as $key => $obj) {
                     if(!sizeof($entrada[0]))
                         return $salida;
+                    
+                    if ($entrada[0][0][$key] == '') 
+                        continue;
 
                     if (strpos($entrada[0][0][$key], ',')) {
                         $salida2 = [];
                         $narr = explode(',', $entrada[0][0][$key]);
-       
+                        
                         for ($i=0; $i < sizeof($narr); $i++) { 
                             if ($i%2 == 0) {
                                 if (strpos( $narr[$i+1],':')) {
@@ -592,6 +616,50 @@
             $d1p->loadXML($strcadena);
             $strcadena=$d1p->C14N();
             return base64_encode(hash('sha256' , $strcadena, true ));
+        }
+
+        public function verifyXML($xml_data, $tag = null)
+       {
+           $doc = new DOMDocument('1.0','UTF-8');
+           $doc->loadXML($xml_data);
+
+           // preparar datos que se verificarán
+           $SignaturesElements = $doc->documentElement->getElementsByTagName('Signature');
+           $Signature = $doc->documentElement->removeChild($SignaturesElements->item($SignaturesElements->length-1));
+           $SignedInfo = $Signature->getElementsByTagName('SignedInfo')->item(0);
+           $SignedInfo->setAttribute('xmlns', $Signature->getAttribute('xmlns'));
+           $signed_info = $doc->saveHTML($SignedInfo);
+           $signature = $Signature->getElementsByTagName('SignatureValue')->item(0)->nodeValue;
+           $pub_key = $Signature->getElementsByTagName('X509Certificate')->item(0)->nodeValue;
+           // verificar firma
+           if (!$this->verify($signed_info, $signature, $pub_key,'SHA256'))
+                return 'VERIFICACION OPENSSL FALLIDA';
+           // verificar digest
+           $digest_original = $Signature->getElementsByTagName('DigestValue')->item(0)->nodeValue;
+           if ($tag) {
+                $digest_calculado = base64_encode(sha1($doc->documentElement->getElementsByTagName($tag)->item(0)->C14N(), true));
+           } else {
+                $digest_calculado = base64_encode(sha1($doc->C14N(), true));
+           }
+           return $digest_original == $digest_calculado;
+       }
+
+       public function verify($data, $signature, $pub_key = null, $signature_alg = OPENSSL_ALGO_SHA1)
+       {    
+           $pub_key = $this->normalizeCert($pub_key);
+           print_r($data);
+           return openssl_verify($data, base64_decode($signature), $pub_key, $signature_alg) == 1 ? 1 : 0;
+       }
+
+       private function normalizeCert($cert)
+       {
+           if (strpos($cert, '-----BEGIN CERTIFICATE-----')===false) {
+               $body = trim($cert);
+               $cert = '-----BEGIN CERTIFICATE-----'."\n";
+               $cert .= $body."\n";
+               $cert .= '-----END CERTIFICATE-----'."\n";
+           }
+           return $cert;
         }
     }   
 

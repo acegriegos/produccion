@@ -5,3 +5,6 @@ assets/style=expanded
 assets/css/scss_cache/*
 assets/xml/*
 assets/p12/*
+_config/.DS_Store
+cambiosDB.txt
+.DS_Store

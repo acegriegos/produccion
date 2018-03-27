@@ -252,7 +252,7 @@
           <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
 
           <div class="col s12">
-              <input type="checkbox" name="hasimpuesto" id="iva">
+              <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
               <label for="iva">IVA</label>
               <!-- <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a> -->
           </div>
@@ -316,7 +316,7 @@
           </tr>
           <tr>
             <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
-            <td><input type="text" id="vajuste" class="eder _txtaside" value="0" style="height: 0.5% !important" placeholder="AJUSTE"></td>
+            <td><input type="text" id="ajuste" class="eder _txtaside" value="0" style="height: 0.5% !important" placeholder="AJUSTE" maxlength="4"></td>
           </tr>
         </table>
 
@@ -421,7 +421,7 @@
 </div>
 
 
-<div id="modal-tpagos" class="modal modal-fixed-footer" align="center" style="margin-top: -3% !important; width: 70%; height: 85% !important;">
+<div id="modal-tpagos" class="modal modal-fixed-footer" gfort="0" align="center" style="margin-top: -3% !important; width: 70%; height: 90% !important;">
 <!--  -->
 <section id="m-efectivo" class="modal-tpago">
   <div class="modal-content">
@@ -572,7 +572,7 @@
 <!--  -->
 <!-- FOOTER -->
   <div class="modal-footer">
-    <a href="#!" class="add modal-action modal-close waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
+    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
   </div>
 </div>
 
