@@ -281,13 +281,14 @@
             $data[] = $this->info;
             $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle('.$this->id.')');
             $data['ResumenFactura'] = $this->getJSON('call fe_getResumen('.$this->id.')');
+
             // $data['InformacionReferencia'] = ['TipoDoc' => '', 'Numero' => '', 'FechaEmision' => '', 'Codigo' => '', 'Razon' => '' ];
             $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-13-2017', 'FechaResolucion' => '20-02-2017 08:05:00'];
             // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
-            
 
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>');
+<FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
+<import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2008/REC-xmldsig-core-20080610/xmldsig-core-schema.xsd"/></FacturaElectronica>');
             $this->array_to_xml($data,$xml_data);
 
             $xml = $xml_data->asXML();
@@ -304,7 +305,7 @@
             $POLITICA_FIRMA = array(
                 "name"      => "",
                 "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
-                "digest"    =>  $digest //digest en sha1 y base64
+                "digest"    => $dgst
             );
 
             openssl_pkcs12_read(file_get_contents($this->credenciales[0]), $certs, $this->credenciales[3]);

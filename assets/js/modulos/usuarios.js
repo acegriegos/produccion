@@ -70,10 +70,6 @@ $(function(){
 				order : [],
 				"bLengthChange": false
 			}); 
-
-
-
-
 		})
 
 		if (id == 1){
@@ -83,10 +79,10 @@ $(function(){
 			});
 			$("select").material_select('update');
 		}else if (id == 2) {
-			$("#data-table-usuariosPermisos").dataTable({
-				bFilter :  false,
-				bLengthChange : false
-			});
+			// $("#data-table-usuariosPermisos").dataTable({
+			// 	bFilter :  false,
+			// 	bLengthChange : false
+			// });
 			$("select").material_select();
 
 		}else
@@ -103,11 +99,10 @@ $(function(){
 	});
 
 	$("#back").click(function(){
-		$("#userSubmit").removeClass('btn-info');
 		$("#userSubmit").removeClass('edit');
-		$("#userSubmit").addClass('btn-success');
 		$("#userSubmit").addClass('add');
 		$("#userSubmit").attr('title','Agregar Usuario');
+		$("#userSubmit").html('<i class="mdi mdi-plus mdi-24px"></i>')
 		$(this).hide();
 		deadclear('usuario');
 		$("#vnombre").focus();
@@ -283,8 +278,7 @@ $(document).on('click','.correo',function(){
 $(document).on('click','.cargar',function(){
 	$("#userSubmit").removeClass('add');
 	$("#userSubmit").addClass('edit');
-	$("#userSubmit").removeClass('blue');
-	$("#userSubmit").addClass('green');
+	$("#userSubmit").html('<i class="mdi mdi-content-save mdi-24px"></i>');
 	$("#userSubmit").attr('title','Actualizar Usuario');
 });
 

@@ -3,6 +3,7 @@
     <div class="row">
     <div class="col s10 input-field">
       <div class="center">
+
         <h5 class="center-align head2 padding1">Listado de Procesos Actuales</h5>
       </div>
     </div>
@@ -44,6 +45,11 @@
             {/section}
           </tbody>
       </table>
+      </div>
+    </div>
+    <div class="col s2 input-field">
+      <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
+      <input type="date" id="vfecha" class="datepicker eder">
     </div>
   </div>
 </div>
