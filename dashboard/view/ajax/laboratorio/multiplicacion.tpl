@@ -3,16 +3,9 @@
     <div class="row">
     <div class="col s10 input-field">
       <div class="center">
-        <h5 class="center-align head2 padding1">Asignaciones de Impuesto</h5>
-      </div>
-    </div>
-    <div class="col s2 input-field">
-      <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
-      <input type="date" id="vfecha" class="datepicker eder">
-    </div>
-    <div class="col s12">
-        <table class="responsive-table highlight z-depth-3">
-          <thead class="tab1">
+        <div class="col s12 head1 padding1"><h6>Asignación de Impuesto</h6></div>
+        <table class="responsive-table highlight striped">
+          <thead class="tab2">
               <tr>
                   <td>Etapa</td>
                   <td>Variedad</td>
@@ -44,6 +37,11 @@
             {/section}
           </tbody>
       </table>
+      </div>
+    </div>
+    <div class="col s2 input-field">
+      <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
+      <input type="date" id="vfecha" class="datepicker eder">
     </div>
   </div>
 </div>

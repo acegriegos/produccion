@@ -5,7 +5,7 @@
 
     <div class="col s10 input-field">
       <div class="col s12 head1 padding1 center"><b><h6>Listado de Procesos Actuales</h6></b></div>
-      <table class="responsive-table highlight">
+      <table class="responsive-table highlight striped">
           <thead class="tab2">
               <tr>
                   <th class="center">Etapa</th>

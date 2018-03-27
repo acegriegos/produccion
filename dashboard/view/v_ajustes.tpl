@@ -12,7 +12,7 @@
   </head>
 <body>
   {$NAV}
-  <div class="bdy  pequeño">
+  <div class="bdy pequeño">
     <nav class="nav-extended z-depth-3 head1">
       <div class="nav-wrapper">
         <div class="nav-content">

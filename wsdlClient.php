@@ -168,13 +168,7 @@
         function recepcion()
         {
             $this->getBearer();
-
-            /*//FIRMAR
-            $file = fopen("assets/xml/".$this->info['clave'].".xml", "w+");
-            fwrite($file, $this->getXMLRecepcion());
-            fclose($file);
             
-            shell_exec("java -jar ./assets/libs/firmaXadesEpes/firmar-xades.jar ./assets/p12/310169776129.p12 6969 ./assets/xml/".$this->info['clave'].".xml ./assets/xml/".$this->info['clave']."-firmada.xml");*/
             $xml = $this->getXMLRecepcion();
 
             $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
@@ -214,8 +208,6 @@
             }
 
             curl_close($curl);
-            // unlink("assets/xml/".$this->info['clave']."-firmada.xml");
-            // unlink("assets/xml/".$this->info['clave'].".xml");
 
             return $json_response;
         }
@@ -276,16 +268,13 @@
             $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle('.$this->id.')');
             $data['ResumenFactura'] = $this->getJSON('call fe_getResumen('.$this->id.')');
             $data['InformacionReferencia'] = ['TipoDoc' => '', 'Numero' => '', 'FechaEmision' => '', 'Codigo' => '', 'Razon' => '' ];
-            $data['Normativa'] = ['NumeroResolucion' => 'Resolución DGT-R-13-2017', 'FechaResolucion' => '20-02-2017 08:05:00'];
+            $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-13-2017', 'FechaResolucion' => '20-02-2017 08:05:00'];
             $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             $data['LT'] = '';
-            
-            /*<xs:schema xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
-                <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2008/REC-xmldsig-core-20080610/xmldsig-core-schema.xsd"/>     
-            </xs:schema>*/
 
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>');
+<FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
+<import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2008/REC-xmldsig-core-20080610/xmldsig-core-schema.xsd"/></FacturaElectronica>');
             $this->array_to_xml($data,$xml_data);
 
             $xml = $xml_data->asXML();
@@ -297,10 +286,14 @@
             $cerROOT = NULL;
             $cerINTERMEDIO = NULL;
 
+            $dgst = openssl_digest('assets/p12/310169776129.p12', 'sha1');
+            $dgst = base64_encode(openssl_encrypt($dgst, 'AES-256-CBC',sha1('00006969'),0,1234567890123456));
+            $dgst = '7oGix0gf6Idp76+tIoS0N6AOEU0=';
+
             $POLITICA_FIRMA = array(
                 "name"      => "",
                 "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
-                "digest"    => "V8lVVNGDCPen6VELRD1Ja8HARFk=" //digest en sha1 y base64
+                "digest"    => $dgst //"V8lVVNGDCPen6VELRD1Ja8HARFk=" //digest en sha1 y base64
             );
 
             openssl_pkcs12_read(file_get_contents('assets/p12/310169776129.p12'), $certs, 6969);
