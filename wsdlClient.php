@@ -13,12 +13,34 @@
             case 2://GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
                 print_r($fe->getXMLRecepcion());
+                // $mxml = file_get_contents('assets/p12/prueba.xml');
+                // $doc = new DOMDocument('1.0','UTF-8');
+                // $doc->loadXML($mxml);
+
+                // $SignaturesElements = $doc->documentElement->getElementsByTagName('Signature');
+                // $Signature = $doc->documentElement->removeChild($SignaturesElements->item($SignaturesElements->length-1));
+                // $SignedInfo = $Signature->getElementsByTagName('SignedInfo')->item(0);
+                // $SignedInfo->setAttribute('xmlns', $Signature->getAttribute('xmlns'));
+
+                // $signed_info = $doc->saveHTML($SignedInfo);
+                // $signature = $Signature->getElementsByTagName('SignatureValue')->item(0)->nodeValue;
+                // $pub_key = $Signature->getElementsByTagName('X509Certificate')->item(0)->nodeValue;
+
+                // $body = trim($pub_key);
+                // $cert = '-----BEGIN CERTIFICATE-----'."\n";
+                // $cert .= $body."\n";
+                // $cert .= '-----END CERTIFICATE-----'."\n";
+
+                // $pub_key = $cert;
+                // openssl_verify($signed_info, base64_decode($signature), $pub_key,'sha256');
+                
+                // print_r(openssl_x509_parse($pub_key));
                 break;
             case 3://BEARER
                 echo "<pre>";
                     print_r($fe->getBearer());
                 echo "</pre>";
-                break;  
+                break;
             case 4://Consulta ESTADO;
                 // header("Content-type: text/xml; encoding='UTF-8'");
                 // print_r(base64_decode($fe->estado()['xml']));
@@ -38,14 +60,7 @@
 
                 $xml = $fe->getXMLRecepcion();
        
-                $params = json_encode(array('clave'                 =>  $fe->info['Clave'],
-                                            'fecha'                 =>  $fe->info['FechaEmision'],
-                                            'emisor'                =>  ['tipoIdentificacion' => $fe->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Emisor']['Identificacion']['Numero']],
-                                            // 'receptor'              =>  ['tipoIdentificacion' => $fe->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $fe->info['Receptor']['Identificacion']['Numero']],
-                                            'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
-                                            // 'consecutivoReceptor'   => '',
-                                            'comprobanteXml'        => base64_encode($xml)));
-                echo $params;
+                echo json_encode($fe->getPayload($xml));
                 break;
             case 8: //XML-ESTADO
                 header("Content-type: text/xml; encoding='UTF-8'");
@@ -184,19 +199,7 @@
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
 
-            $valores = array('clave'  =>  $this->info['Clave'],
-                                        'fecha'                 =>  $this->info['FechaEmision'],
-                                        'emisor'                =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Emisor']['Identificacion']['Numero']],
-                                        'receptor'              =>  '',
-                                        'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
-                                        // 'consecutivoReceptor'   => '',
-                                        'comprobanteXml'        => base64_encode($xml));
-            if (isset($this->info['Receptor'])) 
-                $valores['receptor'] = [$this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']];
-            else
-                unset($valores['receptor']);
-   
-            $params = json_encode($valores);
+            $params = json_encode($this->getPayload($xml));
 
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 
@@ -281,193 +284,37 @@
             $data[] = $this->info;
             $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle('.$this->id.')');
             $data['ResumenFactura'] = $this->getJSON('call fe_getResumen('.$this->id.')');
-
             // $data['InformacionReferencia'] = ['TipoDoc' => '', 'Numero' => '', 'FechaEmision' => '', 'Codigo' => '', 'Razon' => '' ];
-            $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-13-2017', 'FechaResolucion' => '20-02-2017 08:05:00'];
+            $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
             // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
+            
 
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
-<import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2008/REC-xmldsig-core-20080610/xmldsig-core-schema.xsd"/></FacturaElectronica>');
+            <FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
             $this->array_to_xml($data,$xml_data);
 
             $xml = $xml_data->asXML();
  
-            $signTime = NULL;
-            $signPolicy = NULL;
-            $publicKey = NULL;
-            $privateKey = NULL;
-            $cerROOT = NULL;
-            $cerINTERMEDIO = NULL;
+            $this->firmarXML($xml);
 
-            $digest = base64_encode(hash('sha256' , $xml, true ));
-
-            $POLITICA_FIRMA = array(
-                "name"      => "",
-                "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
-                "digest"    => $dgst
-            );
-
-            openssl_pkcs12_read(file_get_contents($this->credenciales[0]), $certs, $this->credenciales[3]);
-            $publicKey    =$certs["cert"];
-            $privateKey   =$certs["pkey"];
-            $complem = openssl_pkey_get_details(openssl_pkey_get_private($privateKey));
-            $Modulus = base64_encode($complem['rsa']['n']);
-            $Exponent= base64_encode($complem['rsa']['e']);
-
-            $signPolicy       = $POLITICA_FIRMA;
-            $signatureID      = "Signature-".$this->random();
-            $signatureValue   = "SignatureValue-".$this->random();
-            $XadesObjectId    = "XadesObjectId-".$this->random();
-            $KeyInfoId        = "KeyInfoId-".$signatureID;
-            
-            $Reference0Id     = "Reference-".$this->random();
-            $Reference1Id     = "ReferenceKeyInfo";
-            
-            $SignedProperties = "SignedProperties-".$signatureID;
-
-            $d = new DOMDocument('1.0');
-            $d->loadXML($xml);
-            $canonizadoreal=$d->C14N(); 
-
-            $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
-             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
-             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
-             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
-             
-            $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
-            'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
-            'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" '.
-            'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
-            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
-
-            
-            $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
-            'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
-            'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
-            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
-            
-            $signTime1 = date('Y-m-d\TH:i:s-06:00');
-
-
-            $certData   = openssl_x509_parse($publicKey);
-            $certDigest = base64_encode(openssl_x509_fingerprint($publicKey, "sha1", true));
-
-            $certIssuer = array();
-            foreach ($certData['issuer'] as $item=>$value) {
-              $certIssuer[] = $item . '=' . $value;
-            }
-            $certIssuer = implode(', ', array_reverse($certIssuer));
-
-            $prop = '<xades:SignedProperties Id="' . $SignedProperties .  '">' .
-              '<xades:SignedSignatureProperties>'.
-                  '<xades:SigningTime>' .  $signTime1 . '</xades:SigningTime>' .
-                  '<xades:SigningCertificate>'.
-                      '<xades:Cert>'.
-                          '<xades:CertDigest>' .
-                              '<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />'.
-                              '<ds:DigestValue>' . $certDigest . '</ds:DigestValue>'.
-                          '</xades:CertDigest>'.
-                          '<xades:IssuerSerial>' .
-                              '<ds:X509IssuerName>'   . $certIssuer       . '</ds:X509IssuerName>'.
-                              '<ds:X509SerialNumber>' . $certData['serialNumber'] . '</ds:X509SerialNumber>' .
-                          '</xades:IssuerSerial>'.
-                      '</xades:Cert>'.
-                  '</xades:SigningCertificate>' .
-                  '<xades:SignaturePolicyIdentifier>'.
-                      '<xades:SignaturePolicyId>' .
-                          '<xades:SigPolicyId>'.
-                              '<xades:Identifier>' . $signPolicy['url'] .  '</xades:Identifier>'.
-                              '<xades:Description />'.
-                          '</xades:SigPolicyId>'.
-                          '<xades:SigPolicyHash>' .
-                              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />'. 
-                              '<ds:DigestValue>' . $signPolicy['digest'] . '</ds:DigestValue>'.
-                          '</xades:SigPolicyHash>'.
-                      '</xades:SignaturePolicyId>' .
-                  '</xades:SignaturePolicyIdentifier>'.
-              '</xades:SignedSignatureProperties>'.
-              '<xades:SignedDataObjectProperties>'.
-                  '<xades:DataObjectFormat ObjectReference="#'. $Reference0Id . '">'.
-                      '<xades:MimeType>text/xml</xades:MimeType>'.
-                      '<xades:Encoding>UTF-8</xades:Encoding>'.
-                  '</xades:DataObjectFormat>'.
-              '</xades:SignedDataObjectProperties>'.
-              '</xades:SignedProperties>';
-
-              // Prepare key info
-            $publicPEM = "";
-            openssl_x509_export($publicKey, $publicPEM);
-            $publicPEM = str_replace("-----BEGIN CERTIFICATE-----", "", $publicPEM);
-            $publicPEM = str_replace("-----END CERTIFICATE-----", "", $publicPEM);
-            $publicPEM = str_replace("\r", "", str_replace("\n", "", $publicPEM));  
-         
-            $kInfo = '<ds:KeyInfo Id="'.$KeyInfoId.'">' . 
-                        '<ds:X509Data>'  .  
-                            '<ds:X509Certificate>'  . $publicPEM .'</ds:X509Certificate>' .
-                        '</ds:X509Data>' .
-                        '<ds:KeyValue>'.                
-                        '<ds:RSAKeyValue>'.
-                            '<ds:Modulus>'.$Modulus .'</ds:Modulus>'.
-                            '<ds:Exponent>'.$Exponent .'</ds:Exponent>'.
-                        '</ds:RSAKeyValue>'.
-                        '</ds:KeyValue>'.
-                     '</ds:KeyInfo>';
-
-            $aconop=str_replace('<xades:SignedProperties', '<xades:SignedProperties ' . $xmnls_signedprops, $prop);
-            $propDigest=$this->retC14DigestSha256($aconop);
-
-            $keyinfo_para_hash1=str_replace('<ds:KeyInfo', '<ds:KeyInfo ' . $xmlns_keyinfo, $kInfo);
-            $kInfoDigest=$this->retC14DigestSha256($keyinfo_para_hash1);
-
-            $documentDigest = base64_encode(hash('sha256' , $canonizadoreal, true ));
-
-            // Prepare signed info
-            $sInfo = '<ds:SignedInfo>' . 
-              '<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />' . 
-              '<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />' . 
-              '<ds:Reference Id="' . $Reference0Id . '" URI="">' . 
-              '<ds:Transforms>' . 
-              '<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />' .  
-              '</ds:Transforms>' . 
-              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' .
-              '<ds:DigestValue>' . $documentDigest . '</ds:DigestValue>' . 
-              '</ds:Reference>' . 
-              '<ds:Reference Id="'.  $Reference1Id . '" URI="#'.$KeyInfoId .'">' . 
-              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' .
-              '<ds:DigestValue>' . $kInfoDigest . '</ds:DigestValue>' . 
-              '</ds:Reference>' . 
-              '<ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#' . $SignedProperties . '">' . 
-              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' . 
-              '<ds:DigestValue>' . $propDigest . '</ds:DigestValue>' . 
-              '</ds:Reference>' . 
-              '</ds:SignedInfo>';
-
-
-            $signaturePayload = str_replace('<ds:SignedInfo', '<ds:SignedInfo ' . $xmnls_signeg, $sInfo);
-
-            $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $signatureID . '">'. 
-               $sInfo . 
-              '<ds:SignatureValue Id="' . $signatureValue . '"></ds:SignatureValue>'  . $kInfo . 
-              '<ds:Object Id="'.$XadesObjectId .'">'.
-              '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $signatureID . '">' . $prop .
-              '</xades:QualifyingProperties></ds:Object></ds:Signature>';
-
-            $d1p = new DOMDocument('1.0','UTF-8');
-            $d1p->loadXML($signaturePayload);
-            $signaturePayload=$d1p->C14N();
-            
-            $signatureResult = "";
-            $algo = "SHA256";
-
-            openssl_sign($signaturePayload, $signatureResult, $privateKey,$algo);
-            $signatureResult = base64_encode($signatureResult);
-
-            $sig = str_replace('</ds:SignatureValue>', $signatureResult.'</ds:SignatureValue>', $sig);
-            $xml = str_replace('</FacturaElectronica>', $sig.'</FacturaElectronica>' , $xml);
             return $xml;
         }
 
+        function getPayload($xml){
+            $valores = array('clave'  =>  $this->info['Clave'],
+                                        'fecha'                 =>  $this->info['FechaEmision'],
+                                        'emisor'                =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => str_pad($this->info['Emisor']['Identificacion']['Numero'], 12,0,STR_PAD_LEFT)],
+                                        'receptor'              =>  '',
+                                        'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
+                                        // 'consecutivoReceptor'   => '',
+                                        'comprobanteXml'        => base64_encode($xml));
+            if (isset($this->info['Receptor'])) 
+                $valores['receptor'] = [$this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']];
+            else
+                unset($valores['receptor']);
+
+            return $valores;
+        }
 
         function array_to_xml( $data, &$xml_data ) {
             foreach( $data as $key => $value ) {
@@ -615,49 +462,304 @@
             return base64_encode(hash('sha256' , $strcadena, true ));
         }
 
-        public function verifyXML($xml_data, $tag = null)
-       {
-           $doc = new DOMDocument('1.0','UTF-8');
-           $doc->loadXML($xml_data);
+       private function firmarXML(&$xml){
+            $signTime = NULL;
+            $signPolicy = NULL;
+            $publicKey = NULL;
+            $privateKey = NULL;
+            $cerROOT = NULL;
+            $cerINTERMEDIO = NULL;
 
-           // preparar datos que se verificarán
-           $SignaturesElements = $doc->documentElement->getElementsByTagName('Signature');
-           $Signature = $doc->documentElement->removeChild($SignaturesElements->item($SignaturesElements->length-1));
-           $SignedInfo = $Signature->getElementsByTagName('SignedInfo')->item(0);
-           $SignedInfo->setAttribute('xmlns', $Signature->getAttribute('xmlns'));
-           $signed_info = $doc->saveHTML($SignedInfo);
-           $signature = $Signature->getElementsByTagName('SignatureValue')->item(0)->nodeValue;
-           $pub_key = $Signature->getElementsByTagName('X509Certificate')->item(0)->nodeValue;
-           // verificar firma
-           // if (!$this->verify($signed_info, $signature, $pub_key,'SHA256'))
-           //      return 'VERIFICACION OPENSSL FALLIDA';
-           // verificar digest
-           $digest_original = $Signature->getElementsByTagName('DigestValue')->item(0)->nodeValue;
-           if ($tag) {
-                $digest_calculado = base64_encode(sha1($doc->documentElement->getElementsByTagName($tag)->item(0)->C14N(), true));
-           } else {
-                $digest_calculado = base64_encode(sha1($doc->C14N(), true));
-           }
-           return $digest_original == $digest_calculado;
+
+            $d = new DOMDocument('1.0');
+            $d->loadXML($xml);
+            $canonizadoreal=$d->C14N();
+
+            $digest = base64_encode(hash('sha1' , $xml, true ));
+
+            $POLITICA_FIRMA = array(
+                "name"      => "",
+                "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
+                "digest"    =>  $digest //digest en sha1 y base64
+            );
+
+            openssl_pkcs12_read(file_get_contents($this->credenciales[0]), $certs, $this->credenciales[3]);
+            $publicKey    =$certs["cert"];
+            $privateKey   =$certs["pkey"];
+            $complem = openssl_pkey_get_details(openssl_pkey_get_private($privateKey));
+            $Modulus = base64_encode($complem['rsa']['n']);
+            $Exponent= base64_encode($complem['rsa']['e']);
+
+            $signPolicy       = $POLITICA_FIRMA;
+            $signatureID      = "Signature-".$this->random();
+            $signatureValue   = "SignatureValue-".$this->random();
+            $XadesObjectId    = "XadesObjectId-".$this->random();
+            $KeyInfoId        = "KeyInfoId-".$signatureID;
+            
+            $Reference0Id     = "Reference-".$this->random();
+            $Reference1Id     = "ReferenceKeyInfo";
+            
+            $SignedProperties = "SignedProperties-".$signatureID; 
+
+            $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
+             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
+             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
+             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
+             
+            $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
+            'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
+            'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" '.
+            'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
+
+            
+            $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
+            'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
+            'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
+            
+            $signTime1 = date('Y-m-d\TH:i:s-06:00');
+
+
+            $certData   = openssl_x509_parse($publicKey);
+            $certDigest = base64_encode(openssl_x509_fingerprint($publicKey, "sha1", true));
+
+            $certIssuer = array();
+            foreach ($certData['issuer'] as $item=>$value) {
+              $certIssuer[] = $item . '=' . $value;
+            }
+            $certIssuer = implode(', ', array_reverse($certIssuer));
+
+            $prop = '<xades:SignedProperties Id="' . $SignedProperties .  '">' .
+              '<xades:SignedSignatureProperties>'.
+                  '<xades:SigningTime>' .  $signTime1 . '</xades:SigningTime>' .
+                  '<xades:SigningCertificate>'.
+                      '<xades:Cert>'.
+                          '<xades:CertDigest>' .
+                              '<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />'.
+                              '<ds:DigestValue>' . $certDigest . '</ds:DigestValue>'.
+                          '</xades:CertDigest>'.
+                          '<xades:IssuerSerial>' .
+                              '<ds:X509IssuerName>'   . $certIssuer       . '</ds:X509IssuerName>'.
+                              '<ds:X509SerialNumber>' . $certData['serialNumber'] . '</ds:X509SerialNumber>' .
+                          '</xades:IssuerSerial>'.
+                      '</xades:Cert>'.
+                  '</xades:SigningCertificate>' .
+                  '<xades:SignaturePolicyIdentifier>'.
+                      '<xades:SignaturePolicyId>' .
+                          '<xades:SigPolicyId>'.
+                              '<xades:Identifier>' . $signPolicy['url'] .  '</xades:Identifier>'.
+                              '<xades:Description />'.
+                          '</xades:SigPolicyId>'.
+                          '<xades:SigPolicyHash>' .
+                              '<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />'. 
+                              '<ds:DigestValue>' . $signPolicy['digest'] . '</ds:DigestValue>'.
+                          '</xades:SigPolicyHash>'.
+                      '</xades:SignaturePolicyId>' .
+                  '</xades:SignaturePolicyIdentifier>'.
+              '</xades:SignedSignatureProperties>'.
+              '<xades:SignedDataObjectProperties>'.
+                  '<xades:DataObjectFormat ObjectReference="#'. $Reference0Id . '">'.
+                      '<xades:MimeType>text/xml</xades:MimeType>'.
+                      '<xades:Encoding>UTF-8</xades:Encoding>'.
+                  '</xades:DataObjectFormat>'.
+              '</xades:SignedDataObjectProperties>'.
+              '</xades:SignedProperties>';
+
+              // Prepare key info
+            $publicPEM = "";
+            openssl_x509_export($publicKey, $publicPEM);
+            $publicPEM = str_replace("-----BEGIN CERTIFICATE-----", "", $publicPEM);
+            $publicPEM = str_replace("-----END CERTIFICATE-----", "", $publicPEM);
+            $publicPEM = str_replace("\r", "", str_replace("\n", "", $publicPEM));  
+         
+            $kInfo = '<ds:KeyInfo Id="'.$KeyInfoId.'">' . 
+                        '<ds:X509Data>'  .  
+                            '<ds:X509Certificate>'  . $publicPEM .'</ds:X509Certificate>' .
+                        '</ds:X509Data>' .
+                        '<ds:KeyValue>'.                
+                        '<ds:RSAKeyValue>'.
+                            '<ds:Modulus>'.$Modulus .'</ds:Modulus>'.
+                            '<ds:Exponent>'.$Exponent .'</ds:Exponent>'.
+                        '</ds:RSAKeyValue>'.
+                        '</ds:KeyValue>'.
+                     '</ds:KeyInfo>';
+
+            $aconop=str_replace('<xades:SignedProperties', '<xades:SignedProperties ' . $xmnls_signedprops, $prop);
+            $propDigest=$this->retC14DigestSha256($aconop);
+
+            $keyinfo_para_hash1=str_replace('<ds:KeyInfo', '<ds:KeyInfo ' . $xmlns_keyinfo, $kInfo);
+            $kInfoDigest=$this->retC14DigestSha256($keyinfo_para_hash1);
+
+            $documentDigest = base64_encode(hash('sha256' , $canonizadoreal, true ));
+
+            // Prepare signed info
+            $sInfo = '<ds:SignedInfo>' . 
+              '<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />' . 
+              '<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />' . 
+              '<ds:Reference Id="' . $Reference0Id . '" URI="">' . 
+              '<ds:Transforms>' . 
+              '<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />' .  
+              '</ds:Transforms>' . 
+              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' .
+              '<ds:DigestValue>' . $documentDigest . '</ds:DigestValue>' . 
+              '</ds:Reference>' . 
+              '<ds:Reference Id="'.  $Reference1Id . '" URI="#'.$KeyInfoId .'">' . 
+              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' .
+              '<ds:DigestValue>' . $kInfoDigest . '</ds:DigestValue>' . 
+              '</ds:Reference>' . 
+              '<ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#' . $SignedProperties . '">' . 
+              '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' . 
+              '<ds:DigestValue>' . $propDigest . '</ds:DigestValue>' . 
+              '</ds:Reference>' . 
+              '</ds:SignedInfo>';
+
+
+            $signaturePayload = str_replace('<ds:SignedInfo', '<ds:SignedInfo ' . $xmnls_signeg, $sInfo);
+
+            $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $signatureID . '">'. 
+               $sInfo . 
+              '<ds:SignatureValue Id="' . $signatureValue . '"></ds:SignatureValue>'  . $kInfo . 
+              '<ds:Object Id="'.$XadesObjectId .'">'.
+              '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $signatureID . '">' . $prop .
+              '</xades:QualifyingProperties></ds:Object></ds:Signature>';
+
+            $d1p = new DOMDocument('1.0','UTF-8');
+            $d1p->loadXML($signaturePayload);
+            $signaturePayload=$d1p->C14N();
+            
+            $signatureResult = "";
+            $algo = "SHA256";
+
+            openssl_sign($signaturePayload, $signatureResult, $privateKey,$algo);
+            $signatureResult = base64_encode($signatureResult);
+
+            $sig = str_replace('</ds:SignatureValue>', $signatureResult.'</ds:SignatureValue>', $sig);
+            $xml = str_replace('</FacturaElectronica>', $sig.'</FacturaElectronica>' , $xml);
        }
 
-       public function verify($data, $signature, $pub_key = null, $signature_alg = OPENSSL_ALGO_SHA1)
-       {    
-           $pub_key = $this->normalizeCert($pub_key);
-           
-           return openssl_verify($data, base64_decode($signature), $pub_key, $signature_alg) == 1 ? 1 : 0;
-       }
+       private function firmarXMLA(&$xml){
 
-       private function normalizeCert($cert)
-       {
-           if (strpos($cert, '-----BEGIN CERTIFICATE-----')===false) {
-               $body = trim($cert);
-               $cert = '-----BEGIN CERTIFICATE-----'."\n";
-               $cert .= $body."\n";
-               $cert .= '-----END CERTIFICATE-----'."\n";
-           }
-           return $cert;
+        $signatureID    = 'id-'.$this->random();
+        $reference1Id   = 'r-id1-'.$this->random(); 
+        $propID         = 'xades-'.$this->random(); 
+        $sigValue       = 'id'.$this->random(); 
+
+        openssl_pkcs12_read(file_get_contents($this->credenciales[0]), $certs, $this->credenciales[3]);
+        $publicKey    =$certs["cert"];
+        $privateKey   =$certs["pkey"];
+
+        $certData   = openssl_x509_parse($publicKey);
+        $certDigest = base64_encode(openssl_x509_fingerprint($publicKey, "sha1", true));
+
+        $publicPEM = "";
+        openssl_x509_export($publicKey, $publicPEM);
+        $publicPEM = str_replace("-----BEGIN CERTIFICATE-----", "", $publicPEM);
+        $publicPEM = str_replace("-----END CERTIFICATE-----", "", $publicPEM);
+        $publicPEM = str_replace("\r", "", str_replace("\n", "", $publicPEM));
+
+        $kInfo = '<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">'.
+        '<ds:X509Data>'.
+        '<ds:X509Certificate>'.$publicPEM.'</ds:X509Certificate>'.
+        '</ds:X509Data>'.
+        '</ds:KeyInfo>';
+
+        $kInfoDigest=$this->retC14DigestSha256($kInfo);
+
+        $signTime1 = date('Y-m-d\TH:i:s-06:00');
+        $digest = base64_encode(hash('sha1' , $xml, true ));
+
+        $certData   = openssl_x509_parse($publicKey);
+        $certDigest = base64_encode(openssl_x509_fingerprint($publicKey, "sha1", true));
+
+        $certIssuer = array();
+        foreach ($certData['issuer'] as $item=>$value) {
+          $certIssuer[] = $item . '=' . $value;
         }
+        $certIssuer = implode(', ', array_reverse($certIssuer));
+
+        $sigProp = '<xades:SignedProperties Id="xades-'.$signatureID.'" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#">'.
+        '<xades:SignedSignatureProperties>'.
+        '<xades:SigningTime>'.$signTime1.'</xades:SigningTime>'.
+        '<xades:SigningCertificate>'.
+        '<xades:Cert>'.
+        '<xades:CertDigest>'.
+        '<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>'.
+        '<ds:DigestValue>'.$certDigest.'</ds:DigestValue>'.
+        '</xades:CertDigest>'.
+        '<xades:IssuerSerial>'.
+        '<ds:X509IssuerName>'.$certIssuer.'</ds:X509IssuerName>'.
+        '<ds:X509SerialNumber>'.$certData['serialNumber'].'</ds:X509SerialNumber>'.
+        '</xades:IssuerSerial>'.
+        '</xades:Cert>'.
+        '</xades:SigningCertificate>'.
+        '<xades:SignaturePolicyIdentifier>'.
+        '<xades:SignaturePolicyId>'.
+        '<xades:SigPolicyId>'.
+        '<xades:Identifier>'.
+            'https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.1/Resolucion_Comprobantes_Electronicos_DGT-R-48-2016.pdf</xades:Identifier>'.
+        '</xades:SigPolicyId>'.
+        '<xades:SigPolicyHash>'.
+        '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>'.
+        '<ds:DigestValue>'.$digest.'</ds:DigestValue>'.
+        '</xades:SigPolicyHash>'.
+        '</xades:SignaturePolicyId>'.
+        '</xades:SignaturePolicyIdentifier>'.
+        '</xades:SignedSignatureProperties>'.
+        '<xades:SignedDataObjectProperties>'.
+        '<xades:DataObjectFormat ObjectReference="#'.$reference1Id.'">'.
+        '<xades:MimeType>application/octet-stream</xades:MimeType>'.
+        '</xades:DataObjectFormat>'.
+        '</xades:SignedDataObjectProperties>'.
+        '</xades:SignedProperties>';
+
+        $propDigest=$this->retC14DigestSha256($sigProp);
+
+        $sigInfo = '<ds:SignedInfo>'.
+        '<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>'.
+        '<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>'.
+        '<ds:Reference Id="'.$reference1Id.'" Type="" URI="">'.
+        '<ds:Transforms>'.
+        '<ds:Transform Algorithm="http://www.w3.org/TR/1999/REC-xpath-19991116">'.
+        '<ds:XPath>not(ancestor-or-self::ds:Signature)</ds:XPath>'.
+        '</ds:Transform>'.
+        '<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>'.
+        '</ds:Transforms>'.
+        '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>'.
+        '<ds:DigestValue>'.$kInfoDigest.'</ds:DigestValue>'.
+        '</ds:Reference>'.
+        '<ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#'.$propID.'">'.
+        '<ds:Transforms>'.
+        '<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>'.
+        '</ds:Transforms>'.
+        '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>'.
+        '<ds:DigestValue>'.$propDigest.'</ds:DigestValue>'.
+        '</ds:Reference>'.
+        '</ds:SignedInfo>';
+
+        $sinature = '<ds:Signature Id="'.$signatureID.'" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">'.
+        $sigInfo.
+        '<ds:SignatureValue Id="'.$sigValue.'"></ds:SignatureValue>'.$kInfo.
+        '<ds:Object>'.
+        '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Target="#'.$sigValue.'">'.
+        $sigProp.
+        '</xades:QualifyingProperties>'.
+        '</ds:Object>'.
+        '</ds:Signature>';
+
+        // $d1p = new DOMDocument('1.0','UTF-8');
+        // $d1p->loadXML($sinature);
+        // $signaturePayload=$d1p->C14N();
+        
+        $signatureResult = "";
+        $algo = "SHA256";
+
+        openssl_sign($sinature, $signatureResult, $privateKey,$algo);
+        $signatureResult = base64_encode($signatureResult);
+
+        $sinature = str_replace('</ds:SignatureValue>', $signatureResult.'</ds:SignatureValue>', $sinature);
+        $xml = str_replace('</FacturaElectronica>', $sinature.'</FacturaElectronica>' , $xml);
+       }
     }   
 
  ?>
