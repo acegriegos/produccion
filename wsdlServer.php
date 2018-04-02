@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }  
 
 $file = fopen("assets/xml/".date('YmdHis').".txt", "w+");
-    fwrite($file, implode(" ", $_POST));
+    fwrite($file, implode(" ", $_REQUEST));
     fclose($file);
 
 // if (isset($_POST['respuestaXml'])) {

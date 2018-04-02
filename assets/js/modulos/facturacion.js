@@ -119,7 +119,7 @@ function cargarOCompras(){
                 var mdcs = 0;
                 var desc = $("#descp").val();
                 var hinv = 0;
-                var unidad = $("#uni").val();//$("#valores").data('elemento')['hunidad'];
+                var unidad = $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
                 var comodin = $("#valores").data('elemento')['hcomodin'];
                 var desgloce = $("#valores").data('elemento')['isdesgloce'];
 
@@ -139,6 +139,7 @@ function cargarCompras(){
 
     $(".trCompra").removeClass('hide');
     $(".trsec:hidden").remove();
+    $(".isfast").addClass('hide');
 
     $("#precp").attr('readonly',false);
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
@@ -207,10 +208,10 @@ function cargarCompras(){
                 var inv = $("#valores").data('elemento')['hinv'];
                 var cnti = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
                 var idprd = $("#valores").data('elemento')['idp'];
-                var desc = $("#descp").val();
+                var desc = 0;//$("#descp").val();
                 var hinv = $("#valores").data('elemento')['hinv'];
                 var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
-                var unidad= $("#uni").val();//$("#valores").data('elemento')['hunidad'];
+                var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
                 var comodin= $("#valores").data('elemento')['hcomodin'];
                 var desgloce= $("#valores").data('elemento')['isdesgloce'];
                 
@@ -261,6 +262,7 @@ function cargarVentas(){
         $("#totp").val(total.formatMoney(2,'.',','));
         var code = e.which || e.keyCode;
         if (code == 13) {
+
             if (cant > 0) {
                 var idp = $("#valores").data('elemento')['idp'];
                 var cod = $("#valores").data('elemento')['hcodp'];
@@ -276,10 +278,10 @@ function cargarVentas(){
                     var mdcs = $("#valores").data('elemento')['hdescm'];
                     var desc = $("#descp").val();
                     var hinv = $("#valores").data('elemento')['hinv'];
-                    var unidad= $("#uni").val();//$("#valores").data('elemento')['hunidad'];
+                    var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
                     var comodin= $("#valores").data('elemento')['hcomodin'];
                     var desgloce= $("#valores").data('elemento')['isdesgloce'];
-                    console.log(dcs);
+
                     addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce);
                 }
             }else{

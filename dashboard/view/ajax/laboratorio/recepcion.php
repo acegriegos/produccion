@@ -30,7 +30,7 @@
       
     </div>
     <div class="col s6">
-      <table class="responsive-table highlight">
+      <table class="responsive-table highlight striped">
         <thead class="tab1">
           <tr>
             <th></th>

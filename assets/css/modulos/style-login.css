@@ -106,7 +106,7 @@ svg {
 .svg-icon {
   cursor: pointer; }
   .svg-icon path {
-    stroke: rgba(255, 255, 255, 0.9);
+    stroke: #5A5A5A;
     fill: none;
     stroke-width: 1; }
 
@@ -117,8 +117,7 @@ input, button {
 .cont {
   position: relative;
   height: 100%;
-  background-image: url("../../img/login/fondo-log.jpg");
-  background-size: cover;
+  background: #4D4D4D;
   overflow: auto;
   font-family: "Open Sans", Helvetica, Arial, sans-serif; }
 
@@ -135,8 +134,7 @@ input, button {
 .login {
   position: relative;
   height: 100%;
-  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+  background: #e9e9e9;
   -webkit-transition: opacity 0.1s, -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
@@ -167,6 +165,7 @@ input, button {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
 
 .login__icon {
+  color: #5A5A5A;
   margin-bottom: -0.4rem;
   margin-right: 0.5rem; }
   .login__icon.name path {
@@ -187,24 +186,20 @@ input, button {
   padding-left: 1.5rem;
   font-size: 14px !important;
   background: transparent;
-  color: #FDFCFD; }
+  color: #5A5A5A; }
 
 .login__submit {
   position: relative;
   width: 100%;
   height: 4rem;
   margin: 1rem 0 2.2rem;
-  color: rgba(255, 255, 255, 0.8);
-  background: #0B3861;
+  color: #fafafa;
   font-size: 1.5rem;
   border-radius: 3rem;
   cursor: pointer;
   overflow: hidden;
   -webkit-transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
   transition: width 0.3s 0.15s, font-size 0.1s 0.15s; }
-
-.login__input::placeholder {
-  color: #EFE9E9; }
 
 .login__submit:after {
   content: "";
@@ -246,10 +241,10 @@ input, button {
 
 .login__signup {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #5A5A5A;
   padding-left: 10%; }
   .login__signup a {
-    color: #fff;
+    color: #5A5A5A;
     cursor: pointer; }
 
 .ripple {

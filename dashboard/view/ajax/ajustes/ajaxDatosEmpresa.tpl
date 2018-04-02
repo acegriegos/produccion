@@ -1,8 +1,8 @@
 <div class="card z-depth-3 pequeño">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
-<!--             <div class="collapsible-header "><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
- -->            <div class="collapsible-body pequeño"><div class="card-block">
+            <div class="collapsible-header "><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
+            <div class="collapsible-body pequeño"><div class="card-block">
                 <div class="row pequeño">
                     <div class="col s12 m12 l6  pequeño">
                         <label for="vnombre">Nombre de la Empresa</label>
@@ -15,11 +15,11 @@
                 </div>
                 <div class="row pequeño">
                     <div class="col s12 m12 l6 pequeño">
-                        <label for="vpfisico">Persona Física</label>
-                        <input type="text" class="infoempresa" id="vpfisico">
+                        <label for="vpfisico">Persona Física o Nombre de Fantasía</label>
+                        <input type="text" class="infoempresa" id="vpfisico" style="padding-top: 14px">
                     </div>
                     <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="1" class="button-collapse der tc-show  black-text" title="Administrar Teléfonos de la Empresa" id="tc-t"><i class="mdi mdi-phone  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone  mdi-24px button-collapse der tc-show  black-text" title="Administrar Teléfonos de la Empresa" id="tc-t"></a>
                         <label for="vtelefono">Teléfonos de la Empresa</label>
                         <input type="text"  id="vtelefono" field="telefonos" readonly>
                     </div>

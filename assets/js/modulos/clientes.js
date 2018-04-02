@@ -217,6 +217,10 @@ $("#viddistrito").change(function(){
 	var prov = $("#viddistrito option:selected").text();
 	$("#infdistrito10").html(prov);
 });
+$("#vidbarrio").change(function(){
+	var prov = $("#vidbarrio option:selected").text();
+	$("#infbarrio12").html(prov);
+});
 $("#vdireccion").keyup(function(){
 	var dir = $(this).val();
 	$("#infdireccion11").html(dir)
@@ -500,6 +504,7 @@ function clearcard() {
 	$("#infcanton9").text('');
 	$("#infdistrito10").text('');
 	$("#infdireccion11").text('');
+	$("#infbarrio12").text('');
 	$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
 	$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
 }
@@ -648,6 +653,7 @@ function llenarTarjeta(vis){
 		$("#infcanton9").val( $("#vidcanton option:selected").val() );
 		$("#infdistrito10").val( $("#viddistrito option:selected").val() );
 		$("#infdireccion11").html( $("#vdireccion").val() );
+		$("#infbarrio12").val( $("#vidbarrio option:selected").val() );
 	}else{
 
 		$("[tipoclie=1]").prop('checked',true);
@@ -684,6 +690,7 @@ function llenarTarjeta(vis){
 		$("#infcanton9").val( $("#vidcanton option:selected").val() );
 		$("#infdistrito10").val( $("#viddistrito option:selected").val() );
 		$("#infdireccion11").html( $("#vdireccion").val() );
+		$("#infbarrio12").html( $("#vidbarrio option:selected").val() )
 	}
 	
 }

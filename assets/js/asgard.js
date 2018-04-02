@@ -19,10 +19,19 @@ $(window).keydown(function(e){
         case 107: //CLICK EN AGREGAR
             $(".pluskey").click();
             break;
+        case 123: //F12
+            return false;
+            break;
         default:
             break;
     }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 73) // Prevent Ctrl+Shift+I        
+        return false;
 });
+
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
 $(document).on('click','.alv',function(){
     $(this).attr('disabled',true);
@@ -68,7 +77,9 @@ $(document).on("click",".tc-show",function(){
 
             $(".ntit").html(titulo);
             $("#unico").html(cuerpo);
-        
+            
+            $("#unico").find(".pais").val("Costa Rica");
+            $("#unico").find("#vidpais").val(52);
             Materialize.updateTextFields();
         }
     });
