@@ -77,7 +77,9 @@ $(document).on("click",".tc-show",function(){
 
             $(".ntit").html(titulo);
             $("#unico").html(cuerpo);
-        
+            
+            $("#unico").find(".pais").val("Costa Rica");
+            $("#unico").find("#vidpais").val(52);
             Materialize.updateTextFields();
         }
     });
