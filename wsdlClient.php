@@ -13,28 +13,6 @@
             case 2://GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
                 print_r($fe->getXMLRecepcion());
-                // $mxml = file_get_contents('assets/p12/prueba.xml');
-                // $doc = new DOMDocument('1.0','UTF-8');
-                // $doc->loadXML($mxml);
-
-                // $SignaturesElements = $doc->documentElement->getElementsByTagName('Signature');
-                // $Signature = $doc->documentElement->removeChild($SignaturesElements->item($SignaturesElements->length-1));
-                // $SignedInfo = $Signature->getElementsByTagName('SignedInfo')->item(0);
-                // $SignedInfo->setAttribute('xmlns', $Signature->getAttribute('xmlns'));
-
-                // $signed_info = $doc->saveHTML($SignedInfo);
-                // $signature = $Signature->getElementsByTagName('SignatureValue')->item(0)->nodeValue;
-                // $pub_key = $Signature->getElementsByTagName('X509Certificate')->item(0)->nodeValue;
-
-                // $body = trim($pub_key);
-                // $cert = '-----BEGIN CERTIFICATE-----'."\n";
-                // $cert .= $body."\n";
-                // $cert .= '-----END CERTIFICATE-----'."\n";
-
-                // $pub_key = $cert;
-                // openssl_verify($signed_info, base64_decode($signature), $pub_key,'sha256');
-                
-                // print_r(openssl_x509_parse($pub_key));
                 break;
             case 3://BEARER
                 echo "<pre>";
@@ -42,8 +20,6 @@
                 echo "</pre>";
                 break;
             case 4://Consulta ESTADO;
-                // header("Content-type: text/xml; encoding='UTF-8'");
-                // print_r(base64_decode($fe->estado()['xml']));
                 print_r($fe->estado());
                 break;
             case 5://Consulta General de Recibos
@@ -77,9 +53,6 @@
                 echo "<pre>";
                 print_r($certData);
                 echo "</pre>";
-                break;
-            case 10://VERIFY
-                print_r($fe->verifyXML($fe->getXMLRecepcion()));
                 break;
             default:
                 print_r(json_encode(['ERROR'=>'Accion no Valida']));
