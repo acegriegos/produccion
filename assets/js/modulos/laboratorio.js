@@ -112,7 +112,7 @@ $(document).on("click",".procmult",function(){
 $(document).on("click","#domult",function(){
     //multiplicacion
     var id = $(this).attr('idciclo');
-    var idtipo = $("li.menu3 >a.active").parent().attr('id').substr(1);
+    var idtipo = $("li.menu3 > a.active").parent().attr('id').substr(1);
     var idbandeja = $("#hidbandeja").val(),
     idmedio = $("#hidmediocultivo").val();
     var ciclo = arr('login',4,'',914,id+','+idtipo+','+idbandeja+','+idmedio,0,0,0);
@@ -125,6 +125,7 @@ $(document).on("click","#domult",function(){
         comen = $("#comentproc").val();
         arr('login',4,'',918,'1,0,'+id+','+idrazon+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
         Materialize.toast('Registro guardado correctamente', 4000, 'green');
+        arr('login',6,'',912,'0,0,"'+idtipo+',@@impresa","0,10"',0,1,$("#listaciclos"))
     }
 });
 
@@ -465,19 +466,22 @@ function cargarQoS(){
 }//cargar QOS
 
 function cargarAclimatacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
+    arr('login',6,'',912,'0,0,"4,@@impresa","0,10"',0,1,$("#listaciclos"))
 }//cargar Aclimatacion
 
 function cargarEnraizamiento(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:3,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
+    arr('login',6,'',912,'0,0,"3,@@impresa","0,10"',0,1,$("#listaciclos"))
 }//cargar Enraizamiento
 
 function cargarMultiplicacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:2,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
+    arr('login',6,'',912,'0,0,"2,@@impresa","0,10"',0,1,$("#listaciclos"))
 }//cargar Multiplicacion
 
 function cargarIniciacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
         var charStr = String.fromCharCode(charCode);

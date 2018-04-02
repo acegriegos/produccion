@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody id="listaciclos">
-          {section name=LE loop=$CIC}
+          <!-- {section name=LE loop=$CIC}
           <tr>
             <td>{$CIC[LE][2]}</td>
             <td>{$CIC[LE][3]}</td>
@@ -31,7 +31,7 @@
               <a class="pbtn gtext mdi mdi-24px mdi-arrow-collapse-right procenr" id="e{$CIC[LE][0]}" title="Procesar a Enraizamiento"></a>
             </td>
           </tr>
-          {/section}
+          {/section} -->
         </tbody>
       </table>
     </div>
@@ -41,7 +41,6 @@
     </div>
   </div>
 </div>
-
 <div id="modal-vmediocultivo" class="modal modal-fixed-footer grandemodal">
   <div class="modal-header">
     <div class="card-header center white-text" style="background-color:#0B3861">
