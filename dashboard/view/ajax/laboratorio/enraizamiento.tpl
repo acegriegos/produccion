@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody id="listaciclos">
-          {section name=LE loop=$CIC}
+          <!-- {section name=LE loop=$CIC}
           <tr>
             <td>{$CIC[LE][2]}</td>
             <td>{$CIC[LE][3]}</td>
@@ -31,7 +31,7 @@
               <a class="pbtn gtext mdi mdi-24px mdi-arrow-collapse-right procenr" id="e{$CIC[LE][0]}" title="Procesar a Enraizamiento"></a>
             </td>
           </tr>
-          {/section}
+          {/section} -->
         </tbody>
       </table>
     </div>
@@ -39,47 +39,8 @@
       <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
       <input type="date" id="vfecha" class="datepicker eder">
     </div>
-    <div class="col s12">
-        <table class="responsive-table highlight z-depth-3">
-          <thead class="tab1">
-              <tr>
-                  <td>Etapa</td>
-                  <td>Variedad</td>
-                  <td>Días</td>
-                  <td>Fecha Inicio</td>
-                  <td>Lote</td>
-                  <td>Acciones</td>
-              </tr>
-          </thead>
-          <tbody>
-            {section name=LE loop=$CIC}
-            <tr>
-              <td>{$CIC[LE][2]}</td>
-              <td>{$CIC[LE][3]}</td>
-              <td>{$CIC[LE][4]}</td>
-              <td>{$CIC[LE][5]}</td>
-              <td>{$CIC[LE][6]}</td>
-              <td>
-                <a class="pbtn gtext mdi mdi-24px mdi-refresh procmult" id="a{$CIC[LE][0]}" title="Procesar Multiplicacion"></a>
-                <a class="pbtn gtext mdi mdi-24px mdi-view-list mcb" id="b{$CIC[LE][0]}" title="Ver Medio Cultivo y Bandejas"></a>
-                <a class="pbtn gtext mdi mdi-24px mdi-checkbox-multiple-marked-outline invstats" id="c{$CIC[LE][0]}" title="Procesar Activos" tipo="1"></a>
-                <a class="pbtn gtext mdi mdi-24px mdi-arrow-left-box history" id="d{$CIC[LE][0]}" title="Ver Trayectoria"></a>
-                <a class="pbtn gtext mdi mdi-24px mdi-basket-unfill invstats" id="f{$CIC[LE][0]}" title="Registrar Pérdidas" tipo="0"></a>
-                <a class="pbtn gtext mdi mdi-24px mdi-arrow-collapse-right procenr" id="e{$CIC[LE][0]}" title="Procesar a Enraizamiento"></a>
-              </td>
-            </tr>
-            {/section}
-          </tbody>
-      </table>
-      </div>
-    </div>
-    <div class="col s2 input-field">
-      <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
-      <input type="date" id="vfecha" class="datepicker eder">
-    </div>
   </div>
 </div>
-
 <div id="modal-vmediocultivo" class="modal modal-fixed-footer grandemodal">
   <div class="modal-header">
     <div class="card-header center white-text" style="background-color:#0B3861">
