@@ -22,7 +22,7 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
-				paginate($("ul.pagination").attr('vtbl'));
+				// paginate($("ul.pagination").attr('vtbl'));
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -554,7 +554,7 @@ $(document).on("click", ".info", function () {
 		$("#dprd").text(prod);
 		arr('login', 6, 'nombre,valor', 193, 'id > 0 and idproducto = ' + id, 0, 1, $("#listainfo"))
 	}else{
-		Materialize.toast('No se encuentra caracteristicas relacionadas con este producto', 6000, 'red');
+		Materialize.toast('No se encuentra caracteristicas relacionadas con este producto', 3000, 'red');
 	}
 	
 });
@@ -930,7 +930,7 @@ $(document).on("click",".descuentos",function() {
 	if (desc != undefined) {
 		arr('login', 6, '', 152, id, 0, 1, $("#listadescuentos"));
 	} else {
-		$("#listadescuentos").append('<span style="font-size: 1.5em;">No se encuentran descuentos asociados a este producto</span>')
+		$("#listadescuentos").html('<span style="font-size: 1.5em;">No se encuentran descuentos asociados a este producto</span>')
 	}
 });
 
@@ -1198,7 +1198,7 @@ $(document).on("click",".delpck",function(){
 // $(document).on("blur",".ihcant",function(){
 //     var id = $(this).attr('id').substr(5);
 //     var valor = $(this).val();
-//     $("#c"+id).text(valor);
+//     $("#c"+id).text(valor);v
 //     $("#editoff").click();
 // });
 
@@ -1208,7 +1208,7 @@ $(document).on("change","#vtipoinv",function(){
 
 $(document).on("click",".salidainv",function(){
     var id = $(this).attr('id').substr(1);
-    var bod = arr('login',4,'*',41,'id > 0',0,0,0)[0];
+    var bod = arr('login',4,'*',41,'id > 0 and idsucursal = @@impresa',0,0,0)[0];
     var p = arr('login',4,'',410,id+',0',0,0,0)[0][0];
     var cant = arr('login',4,'replace(sum(cantidad),".00","")',97,'1',0,0,0)[0][0];
     $("#cantinv").text(cant);
@@ -1224,16 +1224,17 @@ $(document).on("click",".salidainv",function(){
     $("#destidbodega").text('');
     $("#movidbodega").text('');
     $("#didbodega").text('');
+    $("#inidbodega").append('<option value="0">Seleccione una bodega</option>');
+    $("#outidbodega").append('<option value="0">Seleccione una bodega</option>');
+    $("#destidbodega").append('<option value="0">Seleccione una bodega</option>');
+    $("#movidbodega").append('<option value="0">Seleccione una bodega</option>');
+	$("#didbodega").append('<option value="0">Seleccione una bodega</option>');
+
     for (var i = 0, len = bod.length; i < len; i++) {
-    	$("#inidbodega").append('<option value="0">Seleccione una bodega</option>');
     	$("#inidbodega").append('<option value="'+bod[i][0]+'">'+bod[i][1]+'</option>');
-        $("#outidbodega").append('<option value="0">Seleccione una bodega</option>');
         $("#outidbodega").append('<option value="'+bod[i][0]+'">'+bod[i][1]+'</option>');
-        $("#destidbodega").append('<option value="0">Seleccione una bodega</option>');
         $("#destidbodega").append('<option value="'+bod[i][0]+'">'+bod[i][1]+'</option>');
-        $("#movidbodega").append('<option value="0">Seleccione una bodega</option>');
         $("#movidbodega").append('<option value="'+bod[i][0]+'">'+bod[i][1]+'</option>');
-        $("#didbodega").append('<option value="0">Seleccione una bodega</option>');
         $("#didbodega").append('<option value="'+bod[i][0]+'">'+bod[i][1]+'</option>');
     };
     $('select').material_select();
@@ -1242,6 +1243,7 @@ $(document).on("click",".salidainv",function(){
 
 $(document).on("click","#actinv",function(){
     var spot = parseInt($("#spot").val());
+    console.log(spot)
     var elem = '';
     var vtbl = 0;
     var vacc = 0;
@@ -1268,7 +1270,6 @@ $(document).on("click","#actinv",function(){
 
     if (validar == false){
         var mov = arr('login',4,'',114,vacc+","+idprod+","+idinv+","+newinv+","+cantidad+",\""+comentario+"\",@@usr,@@impresa",0,0,0)[0][0];
-        console.log(mov)
         var max = arr('login',4,'maximo',11,'id = '+idprod,0,0,0)[0][0];
         if (parseFloat(mov[0]) > parseFloat(max)) {
             Materialize.toast('Alerta: Producto está sobre el maximo de cantidad', 6000, 'amber lighten-2');
@@ -1277,6 +1278,33 @@ $(document).on("click","#actinv",function(){
         }
         $("#prodcant").text(mov[0])
         // window.open('productos?accion=4&id='+mov[1]);
+        //clearform
+        switch (parseInt(spot)) {
+        	case 1:
+        	case 2:
+        		$("#"+elem+"idbodega").val(0);
+        		$("#"+elem+"idinventario").val(0);
+        		$("#v"+elem+"cantidad").val(0);
+        		$("#v"+elem+"comentario").val('');
+        		$("select").material_select();
+        		$(".validate").css('border-bottom', '1px solid #9e9e9e');
+        		$(".validate").css('box-shadow', 'none');
+        		break;
+        	case 3:
+        		$("#"+elem+"idbodega").val(0);
+        		$("#didbodega").val(0);
+        		$("#"+elem+"idinventario").val(0);
+        		$("#didinventario").val(0);
+        		$("#v"+elem+"cantidad").val(0);
+        		$("#v"+elem+"comentario").val('');
+        		$("select").material_select();
+        		$(".validate").css('border-bottom', '1px solid #9e9e9e');
+        		$(".validate").css('box-shadow', 'none');
+        		break;
+        	default:
+        		break;
+        }
+        //clearform
     }else{
     Materialize.toast(validar, 6000, 'red');
     }

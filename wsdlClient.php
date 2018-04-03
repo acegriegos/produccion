@@ -158,7 +158,7 @@
         function recepcion()
         {
             $this->getBearer();
-
+            
             if (!isset($this->info['Clave'])) {
                 return "Factura no Existente";
             }
@@ -178,7 +178,7 @@
 
             $rs = curl_exec($curl);
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
- 
+
             switch ($status) {
                 case 201:
                 case 202:
@@ -196,7 +196,7 @@
             }
 
             curl_close($curl);
-
+            
             return $json_response;
         }
 
@@ -282,7 +282,7 @@
                                         // 'consecutivoReceptor'   => '',
                                         'comprobanteXml'        => base64_encode($xml));
             if (isset($this->info['Receptor'])) 
-                $valores['receptor'] = [$this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']];
+                $valores['receptor'] = ['tipoIdentificacion' => $this->info['Receptor']['Identificacion']['Tipo'], 'numeroIdentificacion' => $this->info['Receptor']['Identificacion']['Numero']];
             else
                 unset($valores['receptor']);
 

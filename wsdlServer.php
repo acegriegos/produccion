@@ -15,16 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");  
 }
 
-$file = fopen("assets/xml/".date('YmdHis').".txt", "w+");
-fwrite($file, implode(" ", $_REQUEST));
-fwrite($file,'FACTURA ELECTRONICA\r\n');
-//fwrite($file,$_REQUEST['respuestaXML'];
-fclose($file);
 
-// if (isset($_POST['respuestaXml'])) {
-//     $file = fopen("assets/xml/".date('YmdHis').".xml", "w+");
-//             fwrite($file, base64_decode($_POST['respuestaXml']));
-//             fclose($file);
-// }
+if (isset($_POST['respuestaXml'])) {
+    echo "string";
+    //CAMBIAR ESTADO DE FACTURA A 1
+}else{
+    echo "string";
+    //CREAR NOTIFICACION DE ERROR
+}
 
 ?>

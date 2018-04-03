@@ -218,6 +218,7 @@ $("#vidcanton").change(function(){
 $("#viddistrito").change(function(){
 	var prov = $("#viddistrito option:selected").text();
 	$("#infdistrito10").html(prov);
+	change_load('vidbarrio',84,'id,nombre','id > 0 and iddistrito = '+$('option:selected',this).val());
 });
 $("#vdireccion").keyup(function(){
 	var dir = $(this).val();

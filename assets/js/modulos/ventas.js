@@ -316,7 +316,7 @@ $(document).on("click",".addesgloce",function(){
     
     $('<tr id="fd'+id+'" class="ciclos"><td style="padding: 0.2%"></td><td class="center" id="codprod'+id+'" colspan="2"> <i class="mdi mdi-subdirectory-arrow-right" style="float:left;"></i> <input type="text" placeholder="RUBRO" style="width:85%;margin: 0px;" id="rubro'+id+'" class="rubro"/> </td> <td class="center divisa" id="prec'+id+'"> <input type="text" value="0" class="eder precd" id="precd'+id+'" style="margin: 0px;" /> </td> <td id="unitprod'+id+'"> <select id="unid'+id+'" class="unid" readonly style="margin: 0px;"><option>UN</option></select> </td> <td class="center"> <div id="divcnt" class="form-group"><input type="text" value="1" class="eder cantd" id="cantd'+id+'" style="margin: 0px;" /></div></td><td class="center totp divisa" id="tota'+id+'">0</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="0" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></td> </tr>').insertAfter($(this).closest('tr'));
 
-    $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:vidprod, vcantidad:0, vprecio:0, vdesc:0, vtotal:0, vidinventario:0,vidodt : 0,vimv:0,vcomodin:'',vidunidad:0,vidimpuestos:'01,13,121.19',viddescuentos:'1,50,540.75'});
+    $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:vidprod, vcantidad:0, vprecio:0, vdesc:0, vtotal:0, vidinventario:0,vidodt : 0,vimv:0,vcomodin:'',vidunidad:0,vidimpuestos:'',viddescuentos:''});
   
     $("#rubro"+id).focus();
     $("#unid"+id).material_select();
@@ -457,20 +457,24 @@ function totalizar(){
         
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc;
         $("#tota"+vidlinea).html(tmpdesc.formatMoney(2,'.',','))
-        
+        $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
+        // 01,13,121.19
         $(".dimpuesto").each(function(){
             
             eimv = $(this).data('valores')['vexo'];
             rimv = parseFloat($(this).data('valores')['vmonto'])*parseFloat((1-(eimv/100))).toFixed(5);
             iimv = $(this).data('valores')['vid'];
+            
 
-            if(eimv == 100)
+            if(eimv == 100) {
                 exento += tmpdesc;
-            else{
+                $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+',0';
+            }else{
                 dimv =  tmpdesc*(rimv/100);
                 impuesto += dimv;
                 $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
                 dimv += parseFloat($("#imv_"+iimv).html().replace(/,/g,''));
+                $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+dimv
                 $("#imv_"+iimv).html(parseFloat(dimv).formatMoney(2,'.',','));
             }
 

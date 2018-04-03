@@ -8,3 +8,4 @@ assets/p12/*
 _config/.DS_Store
 cambiosDB.txt
 .DS_Store
+assets/libs/phpqrcode/*

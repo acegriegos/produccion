@@ -221,67 +221,73 @@
                         </div>
                     </div>
                     <div id="logis" class="col s12">
-                        <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
-                            <div class="ciclos">
-                                <div class="card-title" align="center"><b>Direcciones</b><br></div>
-                                <input type="hidden" id="vbisnacional" value="1">
-                                <input type="hidden" id="vidubicacion" value="0">
-                                <div class="row"><br>
-                                    <div class="input-field col s12 m6 l4">
-                                        <div class="provincia">
-                                            <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus"></i></a>
-
-                                            <select id="vidprovincia" type="select" class="_det" primary="1">
-                                                <option value="0">Seleccione una Provincia</option>
-                                                {section name=LE loop=$PRO}
-                                                <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
-                                                {/section}
-                                            </select>
-                                            <label for="vidprovincia">Provincia</label>
-                                        </div>
-                                    </div>
-                                    <div class="input-field col s12 m6 l4">
-                                        <div class="canton">
-                                            <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus"></i></a>
-                                            <select id="vidcanton" type="select" class="_det">
-                                                <option value="">Seleccione un Cantón</option>
-                                            </select>
-                                            <label for="vidcanton">Cantón</label>
-                                        </div>
-                                    </div>
-                                    <div class="input-field col s12 m6 l4">
-                                        <div class="distrito">
-                                            <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig=""><i class="mdi mdi-plus"></i></a>
-
-                                            <select id="viddistrito" type="select" class="_det">
-                                                <option value="">Seleccione un Distrito</option>
-                                            </select>
-                                            <label for="viddistrito">Distrito</label>
-                                        </div><br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <label for="vdireccion">Dirección Exacta</label>
-                                        <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
-                                    </div>
-
-                                    <div class="input-field col s12 hide-on-med-and-up">
-                                        <div class="prefix"><i class="material-icons">location_on</i></div>
-                                        <label for="vlatitud">Latitud</label>
-                                        <input type="text" class="eder" id="vlatitud">
-                                    </div>
-                                    
-                                    <div class="input-field col s12 hide-on-med-and-up">
-                                        <div class="prefix"><i class="material-icons">location_on</i></div>
-                                        <label for="vlongitud">Longitud</label>
-                                        <input type="text" class="eder" id="vlongitud">
-                                    </div>
-
-                                </div>
-                            </div>    
+                  <div class="row">
+                    <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
+                      <div class="ciclos">
+                        <div class="card-title" align="center"><b>Direcciones</b></div>
+                        <input type="hidden" id="vbisnacional" value="1">
+                        <input type="hidden" id="vidubicacion" value="0">
+                        <div class="row"><br>
+                          <div class=" col s6">
+                            <div class="provincia input-field">
+                              <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <select id="vidprovincia" type="select" class="_det" primary="1">
+                                <option value="0">Seleccione una Provincia</option>
+                                {section name=LE loop=$PRO}
+                                <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
+                                {/section}
+                              </select>
+                              <label for="vidprovincia">Provincia</label>
+                            </div>
+                          </div>
+                          <div class="col s6">
+                            <div class="canton input-field">
+                              <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <select id="vidcanton" type="select" class="_det">
+                                <option value="">Seleccione un Cantón</option>
+                              </select>
+                              <label for="vidcanton">Cantón</label>
+                            </div>
+                          </div>
+                          <div class="col s6">
+                            <div class="distrito input-field ">
+                              <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig="vidbarrio"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <select id="viddistrito" type="select" class="_det">
+                                <option value="">Seleccione un Distrito</option>
+                              </select>
+                              <label for="viddistrito">Distrito</label>
+                            </div>
+                          </div>
+                          <div class="col s6">
+                            <div class="distrito input-field ">
+                              <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Barrio" href="#!" style="width: 2.5rem" det="barrio" d-b="84" prev="viddistrito" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <select id="vidbarrio" type="select" class="_det">
+                                <option value="">Seleccione un Barrio</option>
+                              </select>
+                              <label for="vidbarrio">Barrio</label>
+                            </div>
+                          </div>
+                          <div class="input-field col s12">
+                            <label for="vdireccion">Dirección Exacta</label>
+                            <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
+                          </div>
                         </div>
+                        <div class="row">
+                          <div class="input-field col s12 hide-on-med-and-up">
+                            <div class="prefix"><i class="material-icons">location_on</i></div>
+                            <label for="vlatitud">Latitud</label>
+                            <input type="text" class="eder" id="vlatitud">
+                          </div>
+                          <div class="input-field col s12 hide-on-med-and-up">
+                            <div class="prefix"><i class="material-icons">location_on</i></div>
+                            <label for="vlongitud">Longitud</label>
+                            <input type="text" class="eder" id="vlongitud">
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                </div>
 
                 </div>
             <!-- CARD -->
