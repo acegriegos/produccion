@@ -70,10 +70,6 @@ $(function(){
 				order : [],
 				"bLengthChange": false
 			}); 
-
-
-
-
 		})
 
 		if (id == 1){
@@ -83,10 +79,10 @@ $(function(){
 			});
 			$("select").material_select('update');
 		}else if (id == 2) {
-			$("#data-table-usuariosPermisos").dataTable({
-				bFilter :  false,
-				bLengthChange : false
-			});
+			// $("#data-table-usuariosPermisos").dataTable({
+			// 	bFilter :  false,
+			// 	bLengthChange : false
+			// });
 			$("select").material_select();
 
 		}else
@@ -103,11 +99,10 @@ $(function(){
 	});
 
 	$("#back").click(function(){
-		$("#userSubmit").removeClass('btn-info');
 		$("#userSubmit").removeClass('edit');
-		$("#userSubmit").addClass('btn-success');
 		$("#userSubmit").addClass('add');
 		$("#userSubmit").attr('title','Agregar Usuario');
+		$("#userSubmit").html('<i class="mdi mdi-plus mdi-24px"></i>')
 		$(this).hide();
 		deadclear('usuario');
 		$("#vnombre").focus();
@@ -175,24 +170,16 @@ $(document).on("blur","#vclave",function(){
 $(document).on("keyup","#vclave",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		if ($(this).val().length != 0) {
-			if ($(this).val().length < 8) {
-				Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
-				$(this).css('border-bottom','1px solid #F44336');
-				$(this).css('box-shadow','0 1px 0 0 #F44336');
-			}else{
-				$(this).css('border-bottom','1px solid #4CAF50');
-				$(this).css('box-shadow','0 1px 0 0 #4CAF50');
-			}
-		}else{
-			$(this).css('border-bottom','1px solid #9e9e9e');
-			$(this).css('box-shadow','none');
-		}
+		$(this).blur()
 	}
 });
 
 $(document).on("blur","#clave",function(){
 	if ($(this).val().length != 0) {
+		// if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+		// 	$(this).css('border-bottom','1px solid #4CAF50');
+		// 	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		// }
 		if ($(this).val().length < 8) {
 			Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
 			$(this).css('border-bottom','1px solid #F44336');
@@ -220,28 +207,7 @@ $(document).on("blur","#clave",function(){
 $(document).on("keyup","#clave",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		if ($(this).val().length != 0) {
-			if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-				$(this).css('border-bottom','1px solid #4CAF50');
-				$(this).css('box-shadow','0 1px 0 0 #4CAF50');
-			}else{
-				Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos',4000,'red');
-				$(this).css('border-bottom','1px solid #F44336');
-				$(this).css('box-shadow','0 1px 0 0 #F44336');
-			}
-
-			if ($(this).val() != $("#vclave").val()) {
-				Materialize.toast('Contraseñas Deben ser Iguales', 4000, 'red');
-				$(this).css('border-bottom','1px solid #F44336');
-				$(this).css('box-shadow','0 1px 0 0 #F44336');
-			}else{
-				$(this).css('border-bottom','1px solid #4CAF50');
-				$(this).css('box-shadow','0 1px 0 0 #4CAF50');
-			}
-		}else{
-			$(this).css('border-bottom','1px solid #9e9e9e');
-			$(this).css('box-shadow','none');
-		}
+		$(this).blur();
 	}
 });
 
@@ -312,8 +278,7 @@ $(document).on('click','.correo',function(){
 $(document).on('click','.cargar',function(){
 	$("#userSubmit").removeClass('add');
 	$("#userSubmit").addClass('edit');
-	$("#userSubmit").removeClass('blue');
-	$("#userSubmit").addClass('green');
+	$("#userSubmit").html('<i class="mdi mdi-content-save mdi-24px"></i>');
 	$("#userSubmit").attr('title','Actualizar Usuario');
 });
 

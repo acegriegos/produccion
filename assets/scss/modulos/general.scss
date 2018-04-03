@@ -23,9 +23,17 @@ background: $btn1;
 color: $btn1txt;
 }
 
+.btn1:hover{
+background: darken($btn1, 20%) !important;
+}
+
 .btn2{
 background: $btn2;
 color: $btn2txt;
+}
+
+.btn2:hover{
+background: darken($btn2, 20%) !important;
 }
 
 .btn3{
@@ -33,14 +41,26 @@ background: $btn3;
 color: $btn3txt;
 }
 
+.btn3:hover{
+background: darken($btn3, 20%) !important;
+}
+
 .btn4{
 background: $btn4;
 color: $btn4txt;
 }
 
+.btn4:hover{
+background: darken($btn4, 20%) !important;
+}
+
 .btn5{
 background: $btn5;
 color: $btn5txt;
+}
+
+.btn5:hover{
+background: darken($btn5, 20%) !important;
 }
 
 .tab1{
@@ -77,4 +97,8 @@ background: transparent;
 
 .gtext{
 color: $gtxt;
+}
+
+.padding1{
+padding: 1%;
 }

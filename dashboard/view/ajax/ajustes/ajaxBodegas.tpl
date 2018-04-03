@@ -1,6 +1,6 @@
-<div class="card card-block z-depth-5 pequeño">
+<div class="card card-block z-depth-3 pequeño">
 
-        <h3 class=" center-align">Agregar Bodegas</h3>
+        <h5 class="head1 padding1 center">Agregar Bodegas</h5>
 
     <div class="row pequeño">
         <div id="fbodegas">
@@ -13,16 +13,16 @@
             </div>
             <div class="col s12 m1 l1 ">
             <br>
-                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="bodega" id="addbod"><i class="mdi mdi-plus  mdi-24px"></i></button>
+                <button type="button" class="btn-floating waves-effect waves-light btn2 add material-icons z-depth-3" modulo="bodega" id="addbod"><i class="mdi mdi-plus mdi-24px"></i></button>
             </div>
         </div>
         <div class="col s12 l6 pequeño">
         <br> 
             <table class="table pequeño highlight centered responsive-table striped z-depth-3" id="data-table-bodegas" cellspacing="0" width="100%">
-                <thead>
+                <thead class="tab2">
                     <tr>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Acciones</th>
+                        <th style="border: 0px;  border-radius: 0px !important">Nombre</th>
+                        <th style="border: 0px;  border-radius: 0px !important">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="listabodegas">
@@ -40,8 +40,8 @@
         </div>
     </div>
 </div>
-<div class="card card-block z-depth-5 pequeño">
-    <h3 class=" center-align">Agregar Inventarios</h3>
+<div class="card card-block z-depth-3 pequeño">
+    <h5 class="head1 padding1 center">Agregar Inventarios</h5>
     <div class="row pequeño">
         <div class="col s12 l6 pequeño" id="finventarios">
         <div class="row">
@@ -71,7 +71,7 @@
                 <label for="vidcuenta">Cuenta</label>
             </div>
             <div class="col s12 m1">
-                <button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="inventario" id="addinv" title="Agregar Inventario"><i class="mdi mdi-plus"></i></button>
+                <button type="button" class="btn-floating waves-effect waves-light btn2 add material-icons z-depth-3" modulo="inventario" id="addinv" title="Agregar Inventario"><i class="mdi mdi-plus"></i></button>
             </div>
         </div>
 
@@ -80,10 +80,10 @@
         <div class="col s12 l6 pequeño">
         <br>
             <table class="table pequeño highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
-                <thead>
+                <thead class="tab2">
                     <tr>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width:70% !important">Nombre</th>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width:30% !important">Acciones</th>
+                        <th style="border: 0px;  border-radius: 0px !important; width:70% !important">Nombre</th>
+                        <th style="border: 0px;  border-radius: 0px !important; width:30% !important">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="listainventarios"></tbody>

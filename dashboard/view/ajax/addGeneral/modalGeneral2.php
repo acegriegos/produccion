@@ -1,5 +1,5 @@
 <div id="modal-generalServicio" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
-    <div id="fservicios">
+    <div id="fservicios" tp="5">
         <div class="modal-header">
             <ul class="tabs blue">
                 <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
@@ -130,7 +130,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="waves-effect waves-green btn-flat add" modulo="servicio" tp="5">Guardar</button>
+            <button type="button" class="waves-effect waves-green btn-flat add" modulo="servicio">Guardar</button>
             <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
         </div>
     </div>

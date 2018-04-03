@@ -1,144 +1,131 @@
 .head1 {
   background: #0080C6;
-  color: #fff;
-}
+  color: #fff; }
 
 .head2 {
   background: #5B5B5B;
-  color: #fff;
-}
+  color: #fff; }
 
 .head3 {
   background: #F58345;
-  color: #fff;
-}
+  color: #fff; }
 
 .head4 {
   background: #45b97c;
-  color: #fff;
-}
+  color: #fff; }
 
 .btn1 {
   background: #0080C6;
-  color: #fff;
-}
+  color: #fff; }
+
+.btn1:hover {
+  background: #003e60 !important; }
 
 .btn2 {
   background: #F58345;
-  color: #fff;
-}
+  color: #fff; }
+
+.btn2:hover {
+  background: #c94e0b !important; }
 
 .btn3 {
-  background: #45b97c;
-  color: #fff;
-}
+  background: #5B5B5B;
+  color: #fff; }
+
+.btn3:hover {
+  background: #282828 !important; }
 
 .btn4 {
   background: #A6CE39;
-  color: #fff;
-}
+  color: #fff; }
+
+.btn4:hover {
+  background: #678120 !important; }
 
 .btn5 {
-  background: #5B5B5B;
-  color: #fff;
-}
+  background: #45b97c;
+  color: #fff; }
+
+.btn5:hover {
+  background: #296f4a !important; }
 
 .tab1 {
   background: #0080C6;
-  color: #fff;
-}
+  color: #fff; }
 
 .tab2 {
   background: #5B5B5B;
-  color: #fff;
-}
+  color: #fff; }
 
 .tab3 {
   background: #F58345;
-  color: #fff;
-}
+  color: #fff; }
 
 .tab4 {
   background: #45b97c;
-  color: #fff;
-}
+  color: #fff; }
 
 .bg1 {
-  background: #4D4D4D;
-}
+  background: #4D4D4D; }
 
 .delete:hover {
-  color: #EC545A !important;
-}
+  color: #EC545A !important; }
 
 .bgtransparent {
-  background: transparent;
-}
+  background: transparent; }
 
 .gtext {
-  color: #5A5A5A;
-}
+  color: #5A5A5A; }
+
+.padding1 {
+  padding: 1%; }
 
 .tamLetra {
-  font-size: 1.2em !important;
-}
+  font-size: 1.2em !important; }
 
 .tbl01 {
-  float: right;
-}
-.tbl01 > tbody > tr > td {
-  border-right: 1px solid black;
-}
+  float: right; }
+  .tbl01 > tbody > tr > td {
+    border-right: 1px solid black; }
 
 .tbl02 {
-  width: 100%;
-}
+  width: 100%; }
 
 .hr1 {
   margin-top: 5px;
   margin-bottom: 5px;
   border: 0;
-  border-top: 1px dashed #eee;
-}
+  border-top: 1px dashed #eee; }
 
 .hoja {
   background-color: white;
-  padding: 1%;
-}
+  padding: 1%; }
 
 .colordefondo {
-  background-color: #0B3861 !important;
-}
+  background-color: #0B3861 !important; }
 
 @media print {
   body {
-    font-size: 0.8em !important;
-  }
+    font-size: 0.8em !important; }
 
   header, footer, nav, aside {
-    display: none;
-  }
+    display: none; }
 
   .salto {
-    page-break-before: always;
-  }
+    page-break-before: always; }
 
   ul, img {
-    page-break-inside: avoid;
-  }
+    page-break-inside: avoid; }
 
   td {
     padding: 1px !important;
-    font-size: 1em !important;
-  }
+    font-size: 1em !important; }
 
   @page {
-    size: A4 landscape;
-  }
+    size: A4 landscape; }
   .hoja {
     background-color: white;
-    padding: 0;
-  }
+    padding: 0; }
 
   #pageFooter:beorfe {
     counter-increment: hoja;
@@ -150,8 +137,6 @@
     -moz-border-radius: 5px;
     -moz-box-shadow: 0px 0px 4px #222;
     background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-  }
-}
+    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc); } }
 
 /*# sourceMappingURL=style-reportes.css.map */

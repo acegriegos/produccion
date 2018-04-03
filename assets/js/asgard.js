@@ -20,11 +20,15 @@ $(window).keydown(function(e){
         case 107: //CLICK EN AGREGAR
             $(".pluskey").click();
             break;
+        case 123: //F12
+            return false;
+            break;
         default:
             break;
     }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 73) // Prevent Ctrl+Shift+I        
+        return false;
 });
-
 
 $(document).on('click','.alv',function(){
     $(this).attr('disabled',true);
@@ -70,7 +74,9 @@ $(document).on("click",".tc-show",function(){
 
             $(".ntit").html(titulo);
             $("#unico").html(cuerpo);
-        
+            
+            $("#unico").find(".pais").val("Costa Rica");
+            $("#unico").find("#vidpais").val(52);
             Materialize.updateTextFields();
         }
     });
@@ -475,28 +481,29 @@ function getParameterByName(name) {
 
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
    $.ajax({
-    url: '../_config/correoAjax.php',
-    type: 'POST',
-    data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
-})
+        url: '../_config/correoAjax.php',
+        type: 'POST',
+        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
+    })
    .done(function(data) {
 
-    try {
-        p = JSON.parse(data);
-    }
-    catch(err){
-        p = data;
-    }
+        try {
+            p = JSON.parse(data);
+        }
+        catch(err){
+            p = data;
+        }
 
-    if($("#smail").is(':visible')){
-        Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green")
-        $("#smail").html('')
-    }
-    
-})
-   .fail(function() {
-    alert( "Error Enviando Correo" );
-});
+        if($("#smail").is(':visible')){
+            Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green")
+            $("#smail").html('')
+        }
+        
+    })
+   .fail(function(x) {
+        console.log("ERROR de Correo: "+x)
+        alert( "Error Enviando Correo" );
+    });
 }
 
 function odin(varreglo,vform) {
@@ -610,7 +617,6 @@ case "4":
     
     break;
 case "5":
-    console.log(5)
         for (var i = 0; i < varreglo.length; i++) {
             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
             console.log(varreglo[i]+" "+$("#"+vform+" .zelda").data('triforce')[varreglo[i]])
@@ -1581,7 +1587,9 @@ function reconstruirModal(tp) {
         $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
     }else if (tp == 2) {
         var vinv = getDatos('idinventario',907,'idsucursal = @@impresa order by idtipoinventario',0,0)[0];
-        $("#fservicios .zelda").data('triforce',{vid : 0,vcodigo : '',vnombre : '',vdescripcion : '',vpbase : 0,vperiodo : 0,vdias : 0,vidproveedor : 0,vprecio : 0,vpganancia : 0,vidinventario : vinv,vidmoneda : 1,vservprofesional : 0,vidsuc : -1});
+        $("#fservicios .zelda").data('triforce',{vaccion:0,vid:0,vcodigo:'',vnombre:'',vdescripcion:'',vpbase:0,vperiodo:0,vdias:0,vidproveedor:0,vprecio:0,vpganancia:0,vidinventario:vinv,vidusuario:0,vidmoneda:1,vidsucursal:'',vservprofesional:0,vidsuc:-1});
+
+        // vaccion,vid,vcodigo,vnombre,vdescripcion,vpbase,vperiodo,vdias,vidproveedor,vprecio,vpganancia,vidinventario,vidusuario,vidmoneda,vidsucursal,vservprofesional,vidsuc
     }
 }
 // addgeneral

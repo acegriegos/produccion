@@ -1,184 +1,162 @@
 .head1 {
   background: #0080C6;
-  color: #fff;
-}
+  color: #fff; }
 
 .head2 {
   background: #5B5B5B;
-  color: #fff;
-}
+  color: #fff; }
 
 .head3 {
   background: #F58345;
-  color: #fff;
-}
+  color: #fff; }
 
 .head4 {
   background: #45b97c;
-  color: #fff;
-}
+  color: #fff; }
 
 .btn1 {
   background: #0080C6;
-  color: #fff;
-}
+  color: #fff; }
+
+.btn1:hover {
+  background: #003e60 !important; }
 
 .btn2 {
   background: #F58345;
-  color: #fff;
-}
+  color: #fff; }
+
+.btn2:hover {
+  background: #c94e0b !important; }
 
 .btn3 {
-  background: #45b97c;
-  color: #fff;
-}
+  background: #5B5B5B;
+  color: #fff; }
+
+.btn3:hover {
+  background: #282828 !important; }
 
 .btn4 {
   background: #A6CE39;
-  color: #fff;
-}
+  color: #fff; }
+
+.btn4:hover {
+  background: #678120 !important; }
 
 .btn5 {
-  background: #5B5B5B;
-  color: #fff;
-}
+  background: #45b97c;
+  color: #fff; }
+
+.btn5:hover {
+  background: #296f4a !important; }
 
 .tab1 {
   background: #0080C6;
-  color: #fff;
-}
+  color: #fff; }
 
 .tab2 {
   background: #5B5B5B;
-  color: #fff;
-}
+  color: #fff; }
 
 .tab3 {
   background: #F58345;
-  color: #fff;
-}
+  color: #fff; }
 
 .tab4 {
   background: #45b97c;
-  color: #fff;
-}
+  color: #fff; }
 
 .bg1 {
-  background: #4D4D4D;
-}
+  background: #4D4D4D; }
 
 .delete:hover {
-  color: #EC545A !important;
-}
+  color: #EC545A !important; }
 
 .bgtransparent {
-  background: transparent;
-}
+  background: transparent; }
 
 .gtext {
-  color: #5A5A5A;
-}
+  color: #5A5A5A; }
+
+.padding1 {
+  padding: 1%; }
 
 body {
-  background-color: #e9e9e9;
-}
+  background-color: #e9e9e9; }
 
 .contenedor {
   padding: 10px !important;
   margin-left: 5%;
-  margin-right: 5%;
-}
+  margin-right: 5%; }
 
 .sinborde {
-  border-radius: 0px !important;
-}
+  border-radius: 0px !important; }
 
 .principal {
   background-color: white;
   /*    height: 100vh;*/
-  padding-top: 10px;
-}
+  padding-top: 10px; }
 
 td {
-  padding: 2px;
-}
+  padding: 2px; }
 
 .filtros {
   border-bottom: 1px dashed black;
-  padding-bottom: 10px;
-}
+  padding-bottom: 10px; }
 
 .rous {
-  padding-bottom: 15px;
-}
+  padding-bottom: 15px; }
 
 .repcheck {
   padding: 0px;
-  margin: 0px;
-}
+  margin: 0px; }
 
 .pbtn {
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 label[for=nclie], label[for=xnum] {
-  width: 100%;
-}
+  width: 100%; }
 
 #ofiltr {
-  display: none;
-}
+  display: none; }
 
 @media print {
   body {
     padding: 1px !important;
-    font-size: 0.8em !important;
-  }
+    font-size: 0.8em !important; }
 
   .contenedor {
     padding: 0px !important;
     margin-left: 0%;
-    margin-right: 0%;
-  }
+    margin-right: 0%; }
 
   header, footer, nav, aside, .filtros, .fa-level-down {
-    display: none;
-  }
+    display: none; }
 
   ul, img {
-    page-break-inside: avoid;
-  }
+    page-break-inside: avoid; }
 
   .principal {
     /*padding-top: -30px;*/
-    width: 100%;
-  }
+    width: 100%; }
 
   table {
     border: 1px solid #e2e2e2;
-    width: 100%;
-  }
-  table tr td {
-    border: 1px solid #e2e2e2;
-    padding: 0;
-    margin: 0;
-  }
+    width: 100%; }
+    table tr td {
+      border: 1px solid #e2e2e2;
+      padding: 0;
+      margin: 0; }
 
   .dts {
-    display: none;
-  }
+    display: none; }
 
   .img-responsive {
-    width: auto;
-  }
+    width: auto; }
 
   #ofiltr {
-    display: none;
-  }
+    display: none; }
 
   @page {
-    size: A4 landscape;
-  }
-}
+    size: A4 landscape; } }
 
 /*# sourceMappingURL=style-newReport.css.map */

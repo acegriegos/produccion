@@ -1,5 +1,5 @@
-<div class="card card-block z-depth-5 pequeño">
- <h3 class=" center-align">Variables de Producción</h3>
+<div class="card card-block z-depth-3 pequeño">
+    <h5 class="head1 padding1 center">Variables de Producción</h5>
   
     <div class="row pequeño">
         <div id="fvariablesproducciones" class="col s12 m5 pequeño">
@@ -16,17 +16,17 @@
             	<input type="hidden" id="vidsucursal" value="">
             </div>
             <div class="input-field col s12 l2">
-  				<button type="button" class="btn-floating waves-effect waves-light blue add material-icons z-depth-5" modulo="variablesproduccione" title="Agregar Variable de Producción" id="addvarprod">add</button>
+  				<button class="btn-floating waves-effect waves-light btn2 add z-depth-3" modulo="variablesproduccione" title="Agregar Variable de Producción" id="addvarprod"><i class="mdi mdi-plus"></i></button>
             </div>
         </div>
         <div class="col s12 l7 pequeño">
         <br>
             <table class="table highlight pequeño centered responsive-table striped z-depth-3" id="data-table-vp" cellspacing="0" width="100%">
-                <thead>
+                <thead class="tab2">
                     <tr>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Variables</th>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Valor</th>
-                        <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Acciones</th>
+                        <th style="border: 0px;  border-radius: 0px !important">Variables</th>
+                        <th style="border: 0px;  border-radius: 0px !important">Valor</th>
+                        <th style="border: 0px;  border-radius: 0px !important">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="listavariablesproducciones">
@@ -35,11 +35,11 @@
                         <td>{$VP[LE][1]}</td>
                         <td>{$VP[LE][2]}</td>
                         <td>
-                        	<a class="pbtn btn-color material-icons addserv blueh modal-trigger" id="a{$VP[LE][0]}" href="#modal-assignservices">info_outline</a>
-                        	<a class="pbtn btn-color material-icons shserv blueh modal-trigger" id="s{$VP[LE][0]}" href="#modal-servsasoc">announcement</a>
-                            <i class="pbtn btn-color material-icons load" id="m{$VP[LE][0]}" modulo="variablesproduccione">edit</i>
+                        	<a class="pbtn btn-color addserv modal-trigger" id="a{$VP[LE][0]}" href="#modal-assignservices"><i class="mdi mdi-information-outline mdi-24px"></i></a>
+                        	<a class="pbtn btn-color shserv modal-trigger" id="s{$VP[LE][0]}" href="#modal-servsasoc"><i class="mdi mdi-message-alert mdi-24px"></i></a>
+                            <i class="pbtn btn-color load" id="m{$VP[LE][0]}" modulo="variablesproduccione"><i class="mdi mdi-pencil mdi-24px"></i></i>
                             {if ($VP[LE][0] neq 1) and ($VP[LE][0] neq 2) and ($VP[LE][0] neq 3)}
-                            <i class="pbtn btn-color cdel material-icons delete" id="d{$VP[LE][0]}" modulo="variablesproduccione">close</i>
+                            <i class="mdi mdi-close mdi-24px cdel delete pbtn" id="d{$VP[LE][0]}" modulo="variablesproduccione"></i>
                             {/if}
                         </td>
                     </tr>
@@ -51,8 +51,8 @@
         
     </div>
 
-<div class="card card-block z-depth-5 pequeño">
- <h3 class=" center-align">Asignar Inventarios a Producción</h3>
+<div class="card card-block z-depth-3 pequeño">
+ <h5 class="head1 padding1 center">Asignar Inventarios a Producción</h5>
 
     <div class="row pequeño" id="fproduccioninventarios">
         <div class="col s12 m4 l4 pequeño">
@@ -76,16 +76,16 @@
         </div>
     </div>
     <div class="row">
-    	<a class="waves-effect waves-light blue btn right add inv" modulo="produccioninventario">Guardar</a>
+    	<a class="waves-effect waves-light btn2 btn right add inv" modulo="produccioninventario"><i class="mdi mdi-content-save"></i></a>
     </div>
     <div class="row">
     	<div class="col s12 m12 l12 pequeño">
-    		<table class="table responsive-table pequeño centered striped bordered highlight z-depth-5" id="data-table-productos" cellspacing="0" width="100%" >
-            <thead>
+    		<table class="table responsive-table pequeño centered striped bordered highlight z-depth-3" id="data-table-productos" cellspacing="0" width="100%" >
+            <thead class="tab2">
                 <tr>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Etapa</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Inventario</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%" >Acciones</th>
+                    <th style="border: 0;">Etapa</th>
+                    <th style="border: 0;">Inventario</th>
+                    <th style="border: 0;" >Acciones</th>
                 </tr>
             </thead>
             <!-- aqui quede -->
@@ -108,9 +108,9 @@
 </div>
 
 <div id="modal-assignservices" class="modal modal-fixed-footer" style="width:70%;height:90%">
-	<div class="modal-header">
-		<h4 class="modal-title" style="background-color:#0B3861">Asignar Servicios a Variables de Producción <span class="varprod"></span></h4>
-	</div>
+	<div class="modal-header head2 padding1">
+        <h5 class="modal-title center-align">Asignar Servicios a Variables de Producción <b><span class="varprod"></span></b></h5>
+    </div>
 	<div class="modal-content" id="fserviciosproducciones">
 		<div class="row">
 			<div class="col s6 m6 l6">
@@ -136,17 +136,17 @@
 </div>
 
 <div id="modal-servsasoc" class="modal modal-fixed-footer" style="width:70%;height:90%">
-	<div class="modal-header">
-		<h4 class="modal-title" style="background-color:#0B3861">Servicios Asociados a Variable de Producción <span class="varprod"></span></h4>
-	</div>
+    <div class="modal-header head2 padding1">
+        <h5 class="modal-title center-align">Servicios Asociados a Variable de Producción <b><span class="varprod"></span></b></h5>
+    </div>
 	<div class="modal-content">
 		<div class="row">
-			<table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-servsasoc" cellspacing="0" width="100%" >
-	            <thead>
+			<table class="table responsive-table centered striped bordered highlight z-depth-3" id="data-table-servsasoc" cellspacing="0" width="100%" >
+	            <thead class="tab3">
 	                <tr>
-	                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 40%">Servicio</th>
-	                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 40%">Inventario</th>
-	                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 20%">Acciones</th>
+	                    <th style="border: 0; width: 40%">Servicio</th>
+	                    <th style="border: 0; width: 40%">Inventario</th>
+	                    <th style="border: 0; width: 20%">Acciones</th>
 	                </tr>
 	            </thead>
 	            <tbody id="listaserviciosproducciones"></tbody>

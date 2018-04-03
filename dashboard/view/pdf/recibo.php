@@ -12,7 +12,7 @@ class myPDF extends TCPDF {
 
     public function Footer() {
         $html = '<div align="center">
-            <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución # 11--97 de la Dirección General de Tributación Directa, publicado en el diario La Gaceta #171 el 5 de Setiembre de 1997.
+            <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
               <br> 
               <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
             </div>';
@@ -171,7 +171,7 @@ $miscelaneos[6].'</div>'.
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
-'<div style="text-align: left;"><span style="font-size:18px">Factura Original</span><br>'.
+'<div style="text-align: left;"><span style="font-size:18px">Factura Electrónica</span><br>'.
 '<br>'.
 '<strong>Venta N°</strong> '.$datos[0][0].'<br>'.
 '<strong>Factura de: </strong> '.$datos[0][1].'<br>'.

@@ -34,17 +34,20 @@
 	   		case 5:
 	   			$pagina = 1;
 	   			$smarty = make_smarty();
-	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"1","0,10"'));
+	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"2,@@impresa","0,10"'));
 	   			$smarty->display('ajax/laboratorio/multiplicacion.tpl');
 	   			break;
 	   		case 6:
 	   			$pagina = 1;
-	   			require_once 'view/ajax/laboratorio/enraizamiento.php';
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"3,@@impresa","0,10"'));
+	   			$smarty->display('ajax/laboratorio/enraizamiento.tpl');
 	   			break;
 	   		case 7:
 	   			$pagina = 1;
-	   			require_once 'view/ajax/laboratorio/aclimatacion.php';
-	   			break;
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"4,@@impresa","0,10"'));
+	   			$smarty->display('ajax/laboratorio/aclimatacion.tpl');
 	   		case 8:
 	   			$pagina = 1;
 	   			require_once 'view/ajax/laboratorio/qos.php';

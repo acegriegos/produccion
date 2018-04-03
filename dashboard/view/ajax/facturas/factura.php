@@ -42,7 +42,7 @@
         </div>
 
         <div class="row" style="padding: 0% 2% 0% 5%">
-          <b><h3 id="ftipo"><?php echo $co ? "Factura Original" : "Copia de Factura";  ?></h3></b>
+          <b><h3 id="ftipo">Factura Electrónica</h3></b>
           <div class="col s6 m6 l6" id="infofact">
             <div class="row" style="padding: 0% 0% 0% 5%">
               <!--  -->
@@ -134,58 +134,80 @@
             </tbody>
             *Producto Exento
             <tfoot>
-
-              <?php if ($grabado > 0){ ?>
               <tr>
-                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-                <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Grabado</td>
-                <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
-              </tr>
+                <td style="padding: 6px 5px !important" colspan="4" class="center">
+                  <?php 
+                                              
+                      require_once('../assets/libs/phpqrcode/qrlib.php'); 
+     
+                      $codeContents = 'https://erp.logintechcr.com'; 
+                       
+                      $text = QRcode::text($codeContents); 
+                      $raw = join("<br/>", $text); 
+                       
+                      $raw = strtr($raw, array( 
+                          '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
+                          '1' => '&#9608;&#9608;' 
+                      )); 
+                       
+                      echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
+                      
+                   ?>
+                </td>
+                <td colspan="2">
+                  <table>
 
-              <tr>
-                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Imv</td>
-                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
-              </tr>
+                    <tr>
+                      <?php if ($grabado > 0){ ?>
 
-              <?php } ?>
+                      <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Grabado</td>
+                      <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
+                    </tr>
 
-              <?php if ($exento > 0) { ?>
-              <tr>
-                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Exento</td>
-                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
-              </tr>
-              <?php } ?>
+                    <tr>
+                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Imv</td>
+                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
+                    </tr>
 
-              <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
-              <tr>
-                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Descuento</td>
-                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
-              </tr>
-              <?php } ?>
+                    <?php } ?>
 
-              <?php if ($datos[7] > 0){ ?>
-              <tr>
-                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Flete</td>
-                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
-              </tr>
-              <?php } ?>
+                    <?php if ($exento > 0) { ?>
 
-              <?php if ($datos[8] > 0){ ?>
-              <tr>
-                <td style="padding: 6px 5px !important" class="margen" colspan="4">&nbsp;</td>
-                <td style="padding: 6px 5px !important" class="left-align sinborde margen">Ajuste</td>
-                <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
-              </tr>
-              <?php } ?>
+                    <tr>
+                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Exento</td>
+                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
+                    </tr>
 
-              <tr>
-                <td class="margen" colspan="4">&nbsp;</td>
-                <td  class="left-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; background-color: #3960A7;"><b>TOTAL</b></td>
-                <td  class="right-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+                     <?php } ?>
+
+                    <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
+
+                    <tr>
+                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Descuento</td>
+                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
+                    </tr>
+                    <?php } ?>
+
+                    <?php if ($datos[7] > 0){ ?>
+                    <tr>
+                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Flete</td>
+                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
+                    </tr>
+                    <?php } ?>
+
+                    <?php if ($datos[8] > 0){ ?>
+                    <tr>
+                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Ajuste</td>
+                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
+                    </tr>
+                    <?php } ?>
+
+                    <tr>
+                      <td  class="left-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; background-color: #3960A7;"><b>TOTAL</b></td>
+                      <td  class="right-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+                    </tr>
+                  </table>
+                </td>
               </tr>
 
             </tfoot>
@@ -193,7 +215,7 @@
 
 
           <!-- @PRINT -->
-          <section class="hideonprint">
+          <section class="hideonprint hide">
             <div class="row">
               <br>
               <div class="col s12 m8 offset-m2">
@@ -244,7 +266,7 @@
             <footer class="imprimirSINBOR" align="center-align">
               <hr>
               <div style="padding: 0% 12%">
-                <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución # 11--97 de la Dirección General de Tributación Directa, publicado en el diario La Gaceta #171 el 5 de Setiembre de 1997.
+                <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
                   <br> 
                   <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
                 </div>

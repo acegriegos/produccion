@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="../assets/scss/modulos/style-menu.css">
-
-
 <ul id="slide" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
   <li>
     <div class="userView">
@@ -40,7 +37,7 @@
     <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
     <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
     <li class="per5 gtext"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
-    <li class="per6 gtext"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
+    <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
     <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
     <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>

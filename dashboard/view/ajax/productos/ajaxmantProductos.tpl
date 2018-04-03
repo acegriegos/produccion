@@ -335,10 +335,10 @@
 			<label for="outidinventario">Inventario Origen</label>
 		</div> -->
 		<div class="input-field col s12 l6">
-			<select type="select" id="destidbodega">
+			<select type="select" id="outidbodega">
 				<option value="0">Seleccione una Bodega</option>
 			</select>
-			<label for="destidbodega">Bodega</label>
+			<label for="outidbodega">Bodega</label>
 		</div>
 		<div class="input-field col s12 l6">
 			<select type="select" id="outidinventario">
@@ -346,11 +346,11 @@
 			</select>
 			<label for="outidinventario">Inventario</label>
 		</div>
-		<div class="input-field col s12 l6">
+		<div class="input-field col s12 l4">
 			<input id="voutcantidad" type="text" class="validate">
 			<label for="voutcantidad">Cantidad Saliente</label>
 		</div>
-		<div class="input-field col s12 l6">
+		<div class="input-field col s12 l8">
 			<input type="text" id="voutcomentario" class="validate" length="150">
 			<label for="voutcomentario">Comentario</label>
 		</div>
@@ -382,11 +382,11 @@
 			</select>
 			<label for="didinventario">Inventario Destino</label>
 		</div>
-		<div class="input-field col s12 l6">
+		<div class="input-field col s12 l4">
 			<input id="vmovcantidad" type="text" class="validate">
 			<label for="vmovcantidad">Cantidad</label>
 		</div>
-		<div class="input-field col s12 l6">
+		<div class="input-field col s12 l8">
 			<input type="text" id="vmovcomentario" class="validate" length="150">
 			<label for="vmovcomentario">Comentario</label>
 		</div>
