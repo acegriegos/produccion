@@ -47,17 +47,13 @@
 				$transaccion = Braintree_ClientToken::generate();
 	   			break;
 	   		case 3:
-
-	   			$idsuc = $_POST['arreglo'] >= 0 ? $_POST['arreglo'] : 0;
-	   				
+	   			$idsuc = $_POST['arreglo'] == -1 ? $_SESSION['TMP_CIA'] : $_POST['arreglo'];
+	   			print_r($idsuc);
 	   			$sucursal = $kakaroto->kamehameha('id,nombre',39,'id = '.$idsuc)[0];
-
 	   			$_SESSION['EMPRESA'] = $sucursal[1];
               	$_SESSION['IMPRESA'] = $sucursal[0];
-              	$_SESSION['TMP_CIA'] = $_POST['arreglo'] >= 0 ? 1 : -1;
-
+              	$_SESSION['TMP_CIA'] = $_POST['arreglo'] >= 0 ? $_POST['arreglo'] : -1;
               	$transaccion = $sucursal;
-
 	   			break;
 	   		case 4:
 	   			// ingresar general

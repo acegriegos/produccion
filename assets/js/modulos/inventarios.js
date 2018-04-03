@@ -15,10 +15,11 @@ $(document).on("change","#vidinventario",function(){
         bPaginate :  false,
         bInfo : false
     });
-    
 });
 
-
+$(document).on("change","#vidbodega",function(){
+	$("#listainventarios").html('');
+});
 
 $(document).on("click",".del",function(){
     var id = $(this).attr('id').substr(1);

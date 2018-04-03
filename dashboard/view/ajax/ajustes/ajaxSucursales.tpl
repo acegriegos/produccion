@@ -4,7 +4,7 @@
             <div class="row pequeño">
                 <div class="col s12 m12 l6 pequeño">
                     <div class="col s12 ">
-                        <h5 class="modal-title center-align head1 padding1">Productos</h5>
+                        <h5 class="modal-title center-align head1 padding1">Datos de Sucursal</h5>
                     </div>
                     <div id="fsucursales">
                         <div class="row">
@@ -93,9 +93,9 @@
                             <label for="vidcanton">Cantón</label>
                         </div>
                         </div><br>
-                       <!--  <div class="row">
+                        <div class="row">
                             <div class="col s12 ">
-                                <h4> Impresión :</h4>
+                                <h5 class="modal-title center-align head1 padding1">Impresión</h5>
                             </div>
                         <div class="input-field col s12 m4">
                             <select type="select" id="vidtipofactura">
@@ -121,7 +121,8 @@
                             </select>
                             <label for="vidtiponota">Notas</label>
                         </div>
-                        </div> --><br>
+                        </div>
+                        <br>
                         <div class="row">    
                             <div class="col m12">
                                 <button class="btn btn1 der add z-depth-3" id="accsuc" modulo="sucursale" varias="1">Agregar</button>
