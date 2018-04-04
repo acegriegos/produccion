@@ -85,8 +85,8 @@ $(document).on("click",".menu3",function(){
 			});
 
 			$(".wsdl-op").hide();
-			InitDropzone(1,false,'../cargar.php',"#registro-upload",false);
-			InitDropzone(1,false,'../cargar.php',"#p12-upload",false);
+
+			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false);
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
@@ -137,7 +137,8 @@ $(document).on("click",".menu3",function(){
 			$("#majustes").html('');
 			$("#majustes").html(p);
 			$("select").material_select('update');
-			InitDropzone(1,false,'../cargar.php',"#registro-upload",false);
+			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false);
+			InitDropzone(1,false,'../cargar.php?accion=2',"#p12-upload",false,'.p12');
 			break;
 		case 6:
 			var p = mantenimiento('ajustes',6,'');
@@ -239,19 +240,6 @@ $(document).on("click",".menu3",function(){
 			$("#tmp").attr('id','vnombre_banco');
 		}
 	});
-});
-
-$(document).on("change","[name=isfisico]",function(){
-	var idtc = $(this).val();
-	if (idtc == 1) {
-		$("#pfisico").removeClass('hide');
-		$("#vfactura").focus();
-		$("#vidtipocliente").val(idtc)
-	}else{
-		$("#pfisico").addClass('hide');
-		$("#vfactura").val('');
-		$("#vidtipocliente").val(idtc)
-	}
 });
 
 $(document).on("change",".vbincierre",function(){

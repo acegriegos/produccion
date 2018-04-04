@@ -8,9 +8,23 @@
                     </div>
                     <div id="fsucursales">
                         <div class="row">
-                            <div class="col s12 m6">
+                            <div class="col s4">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <input type="radio" id="juridico" name="isfisico" value="2" class="with-gap" checked>
+                                        <label for="juridico">Jurídico</label>
+                                    </div>
+                                    <div class="col s12">
+                                            <input type="radio" id="fisico" name="isfisico" value="1" class="with-gap">
+                                            <label for="fisico">Físico</label>
+                                    </div>
+                                </div>
+                                 
+                            </div>
+                           
+                            <div class="col s8">
                                 <div class="input-field">
-                                    <label for="vnombre">Nombre Sucursal</label>
+                                    <label for="vnombre">Razón Social</label>
                                     <input type="text" class="validate" id="vnombre">
                                     <input type="hidden" id="vidusuario" value="">
                                     <input type="hidden" id="vidsucursal" value="">
@@ -21,13 +35,21 @@
                                     <input type="hidden" id="vconsecutivo4" value="0">
                                     <input type="hidden" id="vconsecutivo5" value="0">
                                     <input type="hidden" id="vid" value="0">
-                                    <input type="hidden" id="vlogo" value="../assets/img/logo.png">
+                                    <input type="hidden" id="vlogo" value="">
                                     <input type="hidden" id="vidtipocliente" value="2">
+                                    <input type="hidden" id="vp12" value="">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s6">
                                 <label for="vcedula">Cédula</label>
                                 <input type="text" class="validate" id="vcedula">
+                            </div>
+
+                            <div class="input-field col s6">
+                                <label for="vpfisico">Nombre Comercial</label>
+                                <input type="text" class="validate" id="vpfisico">
                             </div>
                         </div>
                         <div class="row">
@@ -53,36 +75,29 @@
                                 <label for="vencabezado">Encabezado de Factura</label>
                                 <input type="text" class="validate" id="vencabezado" maxlength="2">
                             </div>
-                            <div class="col s6 m6">
-                                    <input type="radio" id="juridico" name="isfisico" value="2" class="with-gap" checked>
-                                    <label for="juridico">Jurídico</label>
-                            </div>
-                            <div class="col s6 m6">
-                                    <input type="radio" id="fisico" name="isfisico" value="1" class="with-gap">
-                                    <label for="fisico">Físico</label>
-                            </div>
-                            <div class="input-field col s6 hide" id="pfisico">
-                                <label for="vfactura">Nombre Persona Física</label>
-                                <input type="text" class="validate" id="vfactura">
+                            
+                           <div class="input-field col s6">
+                                <label for="vpass_n">Clave Llave Criptografica</label>
+                                <input type="text" class="validate" id="vpass_n">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s6"><br>
-                                <form class="dropzone needsclick dz-clickable dz-started center" id="registro-upload" style="padding: 5% !important">
+                                <form class="dropzone needsclick dz-clickable dz-started center" id="registro-upload" style="padding: 5% !important" >
                                     <input type="hidden" name="idsucursal" />
                                     <span class="dz-message needsclick text-center ico-reg" >
                                         <!-- <img id="fotosvg" src="../assets/img/foto.svg" style="margin-top: 25px; width: 80px;" /> -->
-                                        <i class="mdi mdi-image-area mdi-48px"></i>
+                                        <i class="mdi mdi-image-area mdi-48px imgDrop"></i>
                                     </span>
                                 </form>
                                 <label for="registro-upload" class="right">LOGO DE EMPRESA</label>
                             </div>
                             <div class="col s6"><br>
-                                <form class="dropzone needsclick dz-clickable dz-started center" id="p12-upload" style="padding: 5% !important">
+                                <form class="dropzone needsclick dz-clickable dz-started center" id="p12-upload" style="padding: 5% !important" >
                                     <input type="hidden" name="idsucursal" />
                                     <span class="dz-message needsclick text-center ico-reg" >
                                         <!-- <img id="fotosvg" src="../assets/img/foto.svg" style="margin-top: 25px; width: 80px;" /> -->
-                                        <i class="mdi mdi-image-area mdi-48px"></i>
+                                        <i class="mdi mdi-image-area mdi-48px imgDrop"></i>
                                     </span>
                                 </form>
                                 <label for="p12-upload" class="right">LLAVE CRIPTOGRAFICA</label>
@@ -90,23 +105,9 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <label for="vuser_e">Usuario ATV</label>
-                                <input type="text" class="validate" id="vuser_e">
+                                
                             </div>
-                            <div class="input-field col s6">
-                                <label for="vpass_n">Clave Criptografica</label>
-                                <input type="password" class="validate" id="vpass_n">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <label for="vpass_e">Clave ATV</label>
-                                <input type="password" class="validate" id="vpass_e">
-                            </div>
-                            <div class="input-field col s6">
-                                <label for="vpass_e">Clave ATV</label>
-                                <input type="password" class="validate" id="vpass_e">
-                            </div>
+                            
                         </div>
                         <br>
                         <div class="row hide">
@@ -128,6 +129,12 @@
                             </select>
                             <label for="vidcanton">Cantón</label>
                         </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col s12 ">
+                                <h5 class="modal-title center-align head1 padding1">Ajustes</h5>
+                            </div>
+                            
                         </div><br>
                         <div class="row">
                             <div class="col s12 ">

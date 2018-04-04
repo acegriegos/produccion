@@ -22,7 +22,12 @@
           <div class="col s5 m3 l3" align="center" style="padding: 6% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
               echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="90%">';
-            } ?>
+            }else{
+              $nom = explode(' ', $miscelaneos[2]);
+              $luno = substr($nom[0], 0,1);
+              $ldos = isset($nom[1]) ? substr($nom[1], 0,1) : substr($nom[0], 1,1);
+              echo strtoupper($luno.$ldos);
+            }?>
             
           </div>
           <div class="col s2 m4 l4 hide-for-small-only">&nbsp;</div>
@@ -31,7 +36,7 @@
             <font size="2.5">
               <b><span id="fnombre"><?php echo $miscelaneos[0]; ?></span></b><br>
               <?php if ($miscelaneos[2]) 
-              echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+              echo '<b><span id="_fnombre">'.$miscelaneos[2].'</span></b><br>';
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
               <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>

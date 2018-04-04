@@ -42,13 +42,13 @@
           <label>Medios de Cultivo por Ciclo</label>
           <div class="row">
             <div class="col s12 m4">
-              <a class="btn btn1 modalmedios" tm="1">Medio Multiplicación</a>
+              <a class="btn btn1 modalmedios" tm="2">Medio Multiplicación</a>
             </div>
             <div class="col s12 m4">
-              <a class="btn btn1 modalmedios" tm="2">Medio Enraizamiento</a>
+              <a class="btn btn1 modalmedios" tm="3">Medio Enraizamiento</a>
             </div>
             <div class="col s12 m4">
-              <a class="btn btn1 modalmedios" tm="3">Medio Ápice Líquido</a>
+              <a class="btn btn1 modalmedios" tm="4">Medio Ápice Líquido</a>
             </div>
           </div>
           <label>Bandejas-Frascos</label>
@@ -71,7 +71,7 @@
       </div>
     </div>
     
-    <div id="modal-medios" class="modal modal-fixed-footer grandemodal">
+    <div id="modal-medios" class="modal modal-fixed-footer">
       <div class="modal-header head2 padding1">
         <div class="card-header center white-text">
             <p class="flow-text marginzero">Medios de cultivos</p>
@@ -79,25 +79,52 @@
       </div>
       <div class="modal-content" style="padding: 0px;">
         <div class="row">
-          <div class="input-field col s12 m4 l4">
-            <input type="text" id="_vnombre" class="validate autocomplete">
+          <div class="input-field col s12 m3 l3">
+            <input type="text" id="_vnombre" class="validate autocomplete" autocomplete="off">
+            <input type="hidden" id="_vidciclo" value="0">
             <label for="_vnombre">Nombre del producto o paquete</label>
           </div>
           <div class="input-field col s12 m3 l3">
-            <input type="text" id="_vcodigo" class="validate autocomplete">
+            <input type="text" id="_vcodigo" class="validate autocomplete" autocomplete="off">
             <label for="_vcodigo">Código del producto o paquete</label>
           </div>
-          <div class="input-field col s12 m2 l2">
+          <div class="input-field col s12 m1 l1">
             <input type="number" id="_vcantidad" class="validate">
             <label for="_vcantidad">Cantidad</label>
           </div>
           <div class="input-field col s12 m2 l2">
+            <select type="select" id="_vidunidad"></select>
+            <label for="_vidunidad">Unidad</label>
+          </div>
+          <div class="input-field col s12 m2 l2">
             <select type="select" id="_vidreferencia"></select>
-            <label for="_vreferencia">Referencia</label>
+            <label for="_vidreferencia">Referencia</label>
           </div>
           <div class="input-field col s12 m1 l1">
-            <a class="btn btn1 btn-floating mdi mdi-plus"></a>
+            <a class="btn btn1 btn-floating mdi mdi-plus" id="addmedio"></a>
           </div>
+        </div>
+        <div class="row">
+          <div class="col s1 m2 l2"></div>
+          <div class="col s10 m8 l8 center">
+            <table class="responsive-table highlight z-depth-3">
+              <thead class="tab2">
+                <tr>
+                  <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Componente</th>
+                  <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad a tomar</th>
+                </tr>
+              </thead>
+              <tbody id="listamedioscultivos">
+              <!-- section -->
+                <!-- <tr>
+                  <td style="padding: 10px; color:black;"></td>
+                  <td style="padding: 10px; color:black;"></td>
+                </tr> -->
+              <!-- section -->
+              </tbody>
+            </table>
+          </div>
+          <div class="col s1 m2 l2"></div>
         </div>
       </div>
       <div class="modal-footer ">

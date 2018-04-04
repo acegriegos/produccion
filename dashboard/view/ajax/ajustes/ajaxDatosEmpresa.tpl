@@ -42,7 +42,7 @@
                         <div class="col s6 pequeño ">
                             <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
                                 <input type="hidden" name="idsucursal"/>
-                                <span class="dz-message needsclick text-center ico-reg"><img id="fotosvg" src="../assets/img/foto.svg" style="margin-top: 25px; width: 80px;" /></span>
+                                <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;" /></span>
                             </form>
                         </div>
                         <div class="col s12 m12 pull-s2">

@@ -834,7 +834,10 @@ Number.prototype.formatMoney = function(c, d, t){
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
 
-function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess){
+function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess,vfiles,funcionAdded,funcionRemoved){
+    if(!vfiles){
+        vfiles = '*';
+    }
     myDropzone = new Dropzone(velemento, {
         url: vurl,
         autoProcessQueue:vautoprocess,
@@ -842,15 +845,24 @@ function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess){
         maxFiles: vmaxfiles,
         addRemoveLinks:true,
         uploadMultiple: vmultiple,
+        acceptedFiles: vfiles,
         init: function() {
             this.on("addedfile", function(file) {
-                $("#fotosvg").hide();
+                $(velemento).find('.imgDrop').hide();
+                if (isNaN(funcionAdded))
+                    funcionAdded
+                else{
+                    switch(funcionAdded){
+                        default:
+                            break;
+                    }
+                }
             });
             this.on("removedfile", function(file) {
                 if (!$(".dz-preview").length) {
-                    $("#fotosvg").show();
+                    $(velemento).find('.imgDrop').show();
                 }
-                
+                funcionRemoved(file)
             });
             this.on('error', function(file, response) {
                 console.log(response)

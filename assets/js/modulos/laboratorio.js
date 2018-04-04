@@ -67,19 +67,54 @@ $(document).on("keydown","#_vnombre",function(e) {
         $(".autocomplete-content").remove();
         $("#_vnombre").autocomplete({
             limit: 10,
-            data: arr('login',4,'',917,'"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
+            data: arr('login',4,'',917,'1,"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
         });
         $("#_vnombre").siblings($(".autocomplete-content")).css('width', '25%');
+    }else if(charCode ==13 ) {
+        $("#_vcantidad").focus();
     }
 });
 
-$(document).on("click",".modalmedios",function(){
+// $(document).on("keydown","#_vcodigo",function(e){
+//     console.log(arr('login',4,'',917,'2,"'+$(this).val()+'","'+inventario+'"',0,0,0))
+//     var charCode = e.which || e.keyCode;
+//     var charStr = String.fromCharCode(charCode);
+//     var inventario = invvar[1][0]+','+invvar[4][0];
+//     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+//         $(".autocomplete-content").remove();
+//         $("#_vcodigo").autocomplete({
+//             limit: 20,
+//             data: arr('login',4,'',917,'2,"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
+//         });
+//     }
+// });
+
+$(document).on("click","#addmedio",function() {
+    // vaccion,vid,vidusuario,vfecha,vidreferencia,vidsucursal,vidciclo
+
+    // var elemento = $("#_vnombre").val();
+    // var cantidad = $("#_vcantidad").val();
+    // var unidad = $("#_vidunidad").val();
+    var referencia = $("#_vidreferencia").val();
+    var idciclo = $("#_vidciclo").val();
+    var solucion = arr('login',4,'',918,'1,0,@@usr,now(),'+referencia+',@@impresa,'+idciclo,0,0,0);
+    console.log(solucion['succed'])
+    if (solucion['succed'] == 1) {
+        console.log(1)
+    }
+
+});
+
+$(document).on("click",".modalmedios",function() {
     var tm = $(this).attr('tm');
     var referencias = arr('login',4,'',916,'0',0,0,0)[0];
     for (var i = 0, len = referencias.length; i < len; i++) {
-        $("#vidreferencia").append('<option value="'+referencias[i][0]+'">'+referencias[i][1]+'</option>')
+        $("#_vidreferencia").append('<option value="'+referencias[i][0]+'">'+referencias[i][1]+'</option>')
     }
-    $("#vidreferencia").material_select();
+    arr('login',6,'id,concat(nombre,"(",simbolo,")")',107,'id > 0 order by nombre',15,1,$("#_vidunidad"))
+    $("#_vidciclo").val(tm)
+    $("#_vidreferencia").material_select();
+    $("#_vidunidad").material_select();
     $("#modal-medios").modal('open');
 });
 
@@ -101,7 +136,7 @@ $(document).on('click','#addFin',function() {
 	}
 });
 
-$(document).on("click","#registrar",function(){
+$(document).on("click","#registrar",function() {
     var id = $(this).attr('id').substr(1);
     arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
     var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
@@ -112,19 +147,19 @@ $(document).on("click","#registrar",function(){
     Materialize.updateTextFields();
 });
 
-$(document).on("click","#assbandeja",function(){
+$(document).on("click","#assbandeja",function() {
     $("#modal-bandeja").modal('open');
     arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
     $("#cbandeja").material_select();
 });
 
-$(document).on("click","#chgbandeja",function(){
+$(document).on("click","#chgbandeja",function() {
     var idbandeja = $("#cbandeja").val();
     $("#hidbandeja").val(idbandeja);
     Materialize.toast('Bandeja seleccionada', 4000, 'green');
 });
 
-$(document).on("click",".procmult",function(){
+$(document).on("click",".procmult",function() {
     var id = $(this).attr('id').substr(1);
     $("#domult").attr('idciclo',id);
     $("#modal-invstats").modal('open');
@@ -133,7 +168,7 @@ $(document).on("click",".procmult",function(){
     $("#vidrazon").material_select();
 });
 
-$(document).on("click","#domult",function(){
+$(document).on("click","#domult",function() {
     //multiplicacion
     var id = $(this).attr('idciclo');
     var idtipo = $("li.menu3 > a.active").parent().attr('id').substr(1);
@@ -153,12 +188,12 @@ $(document).on("click","#domult",function(){
     }
 });
 
-$(document).on("click","#addchip",function(){
+$(document).on("click","#addchip",function() {
     $("#srv1").text('Servicio1');
     $("#cnt1").text('1')
 });
 
-$(document).on("click",".mcb",function(){
+$(document).on("click",".mcb",function() {
     var id = $(this).attr('id').substr(1);
     $("#modal-vmediocultivo").modal('open');
     var bdy = '';
