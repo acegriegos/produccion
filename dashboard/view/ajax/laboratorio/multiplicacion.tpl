@@ -42,8 +42,8 @@
   </div>
 </div>
 <div id="modal-vmediocultivo" class="modal modal-fixed-footer grandemodal">
-  <div class="modal-header">
-    <div class="card-header center white-text" style="background-color:#0B3861">
+  <div class="modal-header head2 padding1">
+    <div class="card-header center white-text">
       <p class="flow-text marginzero">Ver medio cultivo y bandejas</p>
     </div>
   </div>

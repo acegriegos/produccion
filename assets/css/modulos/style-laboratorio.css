@@ -87,4 +87,11 @@
 .input-field .prefix {
   font-size: 1em; }
 
+label[for="_vnombre"] {
+  width: 100% !important;
+}
+label[for="_vcodigo"] {
+  width: 100% !important;
+}
+
 /*# sourceMappingURL=style-laboratorio.css.map */

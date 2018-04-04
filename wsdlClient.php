@@ -71,8 +71,10 @@
             $this->id = $vid;
             $this->info = $this->getJSON('call fe_getencabezado('.$this->id.')');
             $db = new DBClass();
-            
-            $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_REQUEST['empresa'].')')->fetch_all()[0];
+            if (!isset($_SESSION['IMPRESA']))
+                session_start();
+
+            $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
         }
 
         function getBearer(){
@@ -160,7 +162,7 @@
             $this->getBearer();
             
             if (!isset($this->info['Clave'])) {
-                return "Factura no Existente";
+                return "Factura no Existente - Clave no Valida";
             }
 
             $xml = $this->getXMLRecepcion();

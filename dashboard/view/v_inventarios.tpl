@@ -41,6 +41,6 @@
       </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/inventarios.js?v=0.1"></script>
+    <script src="../assets/js/modulos/inventarios.js"></script>
   </body>
 </html>

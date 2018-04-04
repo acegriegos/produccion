@@ -17,10 +17,10 @@ $(function(){
         default:
             break;
     }
-
+    console.log(invvar[1][0]+' '+invvar[1][1])
+    console.log(invvar[4][0]+' '+invvar[4][1])
     $(".modal").modal();
     $("select").material_select();
-
 });
 
 //fill data
@@ -58,6 +58,30 @@ $(document).on("change","#vidinventario",function(){
     $("#fservicios .zelda").data('triforce')['vidinventario'] = $(this).val();
 });
 // fill data //
+
+$(document).on("keydown","#_vnombre",function(e) {
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    var inventario = invvar[1][0]+','+invvar[4][0];
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("#_vnombre").autocomplete({
+            limit: 10,
+            data: arr('login',4,'',917,'"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
+        });
+        $("#_vnombre").siblings($(".autocomplete-content")).css('width', '25%');
+    }
+});
+
+$(document).on("click",".modalmedios",function(){
+    var tm = $(this).attr('tm');
+    var referencias = arr('login',4,'',916,'0',0,0,0)[0];
+    for (var i = 0, len = referencias.length; i < len; i++) {
+        $("#vidreferencia").append('<option value="'+referencias[i][0]+'">'+referencias[i][1]+'</option>')
+    }
+    $("#vidreferencia").material_select();
+    $("#modal-medios").modal('open');
+});
 
 $(document).on('click','#addFin',function() {
 	if ($("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] != 0) {

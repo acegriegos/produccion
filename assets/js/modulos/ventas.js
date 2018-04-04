@@ -715,7 +715,7 @@ function endDetail(vid,vacc,vmodulo) {
         case 1:
             setTimeout(function() { window.focus() },500);
             Materialize.toast('Generando Factura Electrónica...',4000,'green');
-            $.post( "../wsdlClient.php", { id: vid[0][0], accion : 1,empresa : 0 })
+            $.post( "../wsdlClient.php", { id: vid[0][0], accion : 1 })
               .done(function( data ) {
                 var p;
                 try {

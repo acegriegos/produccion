@@ -643,6 +643,7 @@ function llenarTarjeta(vis){
 			var tnum = $(this).data('triforce')['vtipotel'];
 			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
 
+
 			$("#inftelefono4").append('<div id="itchptt_'+$(this).data('triforce')['vidtelefono']+'" class="chpphone chip"><img src="../../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
 		});
 

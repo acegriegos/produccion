@@ -86,6 +86,7 @@ $(document).on("click",".menu3",function(){
 
 			$(".wsdl-op").hide();
 			InitDropzone(1,false,'../cargar.php',"#registro-upload",false);
+			InitDropzone(1,false,'../cargar.php',"#p12-upload",false);
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
