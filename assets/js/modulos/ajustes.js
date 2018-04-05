@@ -136,6 +136,26 @@ $(document).on("click",".menu3",function(){
 			});
 			$("#majustes").html('');
 			$("#majustes").html(p);
+
+			$("#valid_p12").click(function(){
+				var myDropzone = Dropzone.forElement("#p12-upload");
+				var data = new FormData();
+				data.append('file-0',myDropzone.getQueuedFiles()[0]);
+				data.append('clave',$("#vpass_n").val());
+				console.log(data)
+				jQuery.ajax({
+				    url: '../cargar.php?accion=3',
+				    data: data,
+				    cache: false,
+				    contentType: false,
+				    processData: false,
+				    method: 'POST',
+				    type: 'POST',
+				    success: function(data){
+				        console.log(data);
+				    }
+				});
+			});
 			$("select").material_select('update');
 			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false);
 			InitDropzone(1,false,'../cargar.php?accion=2',"#p12-upload",false,'.p12');

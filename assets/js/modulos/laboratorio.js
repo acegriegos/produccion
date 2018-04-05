@@ -92,15 +92,26 @@ $(document).on("keydown","#_vnombre",function(e) {
 $(document).on("click","#addmedio",function() {
     // vaccion,vid,vidusuario,vfecha,vidreferencia,vidsucursal,vidciclo
 
-    // var elemento = $("#_vnombre").val();
-    // var cantidad = $("#_vcantidad").val();
-    // var unidad = $("#_vidunidad").val();
+    var elemento = $("#_vnombre").val();
+    
+    
     var referencia = $("#_vidreferencia").val();
     var idciclo = $("#_vidciclo").val();
-    var solucion = arr('login',4,'',918,'1,0,@@usr,now(),'+referencia+',@@impresa,'+idciclo,0,0,0);
-    console.log(solucion['succed'])
-    if (solucion['succed'] == 1) {
-        console.log(1)
+    // var idsolucion = arr('login',4,'',918,'1,0,@@usr,now(),'+referencia+',@@impresa,'+idciclo,0,0,0);
+    // console.log(idsolucion[0][0])
+    if (idsolucion['succed'] == 1) {
+        // vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
+        var nombre = elemento.substr(0,elemento.lastIndexOf('-'));
+        var inventario = elemento.substr(elemento.lastIndexOf('-')+2);
+        var idproducto = 0;
+        var idunidad = $("#_vidunidad").val();
+        var idinventario = 0;
+        var cantidad = $("#_vcantidad").val();
+
+        var iddetalle = arr('login',4,'',919,'1,0,'+idsolucion[0][0]+','+idproducto+','+idunidad+','+idinventario+','+cantidad,0,0,0);
+        if (iddetalle['succed'] == 1) {
+            console.log(1)
+        }
     }
 
 });

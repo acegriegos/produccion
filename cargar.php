@@ -4,7 +4,7 @@
     if(!empty($_FILES)){
         require_once '_config/mysqlDB.php';
         $base = new DBClass();
-
+        print_r($_REQUEST);
         if (isset($_REQUEST['accion'])) {
 
             if (is_array($_FILES['file']['name'])) {
@@ -29,6 +29,14 @@
                             $ext = end(explode('.', $name));
                             $destination_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$REQUEST['idsucursal'].$ext;
                             $base->ejecutar("UPDATE sucursales SET p12 = '.".$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
+                            break;
+                        case 3: //VALIDAR P12
+
+                            if ($_POST['clave'] == '') {
+                                $arr_json = 'Clave de Llave Vacia';
+                            }
+
+                            echo $arr_json;
                             break;
                         default:
                             $index = $base->ejecutar('select lpad(count(id)+1, 2,0) from adjuntos where idtabla = 12 and idfila = "'.$_REQUEST['idcompra'].'"')->fetch_all()[0][0];

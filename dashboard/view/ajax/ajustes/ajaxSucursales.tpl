@@ -75,10 +75,14 @@
                                 <label for="vencabezado">Encabezado de Factura</label>
                                 <input type="text" class="validate" id="vencabezado" maxlength="2">
                             </div>
-                            
-                           <div class="input-field col s6">
+                        
+                            <div class="input-field col s4">
+                                
                                 <label for="vpass_n">Clave Llave Criptografica</label>
-                                <input type="text" class="validate" id="vpass_n">
+                                <input type="text" class="validate" id="vpass_n" maxlength="4">
+                            </div>
+                            <div class="col s2">
+                                <a class="btn1" style="padding: 6%" id="valid_p12">Validar</a>
                             </div>
                         </div>
                         <div class="row">
@@ -102,12 +106,6 @@
                                 </form>
                                 <label for="p12-upload" class="right">LLAVE CRIPTOGRAFICA</label>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                
-                            </div>
-                            
                         </div>
                         <br>
                         <div class="row hide">
