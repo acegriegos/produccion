@@ -44,12 +44,11 @@
                 print_r(base64_decode($result['xml']));
                 break;
             case 9: //P12
-                openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[3]);
+
+                openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[1]);
                 $publicKey    =$certs["cert"];
-                $privateKey   =$certs["pkey"];
                 
                 $certData   = openssl_x509_parse($publicKey);
-                $certDigest =base64_encode(openssl_x509_fingerprint($publicKey, "sha1", true));
                 echo "<pre>";
                 print_r($certData);
                 echo "</pre>";

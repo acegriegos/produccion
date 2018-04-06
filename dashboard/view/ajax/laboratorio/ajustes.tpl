@@ -97,7 +97,7 @@
             <label for="_vidunidad">Unidad</label>
           </div>
           <div class="input-field col s12 m2 l2">
-            <select type="select" id="_vidreferencia"></select>
+            <select type="select" id="_vidreferencia" disabled></select>
             <label for="_vidreferencia">Referencia</label>
           </div>
           <div class="input-field col s12 m1 l1">
@@ -110,9 +110,14 @@
             <table class="responsive-table highlight z-depth-3">
               <thead class="tab2">
                 <tr>
-                  <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Componente</th>
-                  <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad a tomar</th>
+                  <th colspan="3" class="tab3 center" style="padding: 0;">Medio de Cultivo de <span id="cantmediocultivo">1 L</span></th>
                 </tr>
+                <tr>
+                  <th class="white-text blue center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Componente</th>
+                  <th class="white-text blue center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Cantidad a tomar</th>
+                  <th class="white-text blue center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Acciones</th>
+                </tr>
+                
               </thead>
               <tbody id="listamedioscultivos">
               <!-- section -->

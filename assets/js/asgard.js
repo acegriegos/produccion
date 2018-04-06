@@ -862,7 +862,15 @@ function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess,vfiles,fun
                 if (!$(".dz-preview").length) {
                     $(velemento).find('.imgDrop').show();
                 }
-                funcionRemoved(file)
+            
+                if (isNaN(funcionRemoved))
+                    funcionRemoved
+                else{
+                    switch(funcionRemoved){
+                        default:
+                            break;
+                    }
+                }
             });
             this.on('error', function(file, response) {
                 console.log(response)

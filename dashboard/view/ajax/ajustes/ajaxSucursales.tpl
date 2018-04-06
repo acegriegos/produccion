@@ -76,16 +76,15 @@
                                 <input type="text" class="validate" id="vencabezado" maxlength="2">
                             </div>
                         
-                            <div class="input-field col s4">
+                            <div class="input-field col s4 fe">
                                 
                                 <label for="vpass_n">Clave Llave Criptografica</label>
                                 <input type="text" class="validate" id="vpass_n" maxlength="4">
                             </div>
-                            <div class="col s2">
+                            <div class="col s2 fe">
                                 <a class="btn1" style="padding: 6%" id="valid_p12">Validar</a>
                             </div>
-                        </div>
-                        <div class="row">
+
                             <div class="col s6"><br>
                                 <form class="dropzone needsclick dz-clickable dz-started center" id="registro-upload" style="padding: 5% !important" >
                                     <input type="hidden" name="idsucursal" />
@@ -96,7 +95,7 @@
                                 </form>
                                 <label for="registro-upload" class="right">LOGO DE EMPRESA</label>
                             </div>
-                            <div class="col s6"><br>
+                            <div class="col s6 fe"><br>
                                 <form class="dropzone needsclick dz-clickable dz-started center" id="p12-upload" style="padding: 5% !important" >
                                     <input type="hidden" name="idsucursal" />
                                     <span class="dz-message needsclick text-center ico-reg" >
@@ -132,7 +131,13 @@
                             <div class="col s12 ">
                                 <h5 class="modal-title center-align head1 padding1">Ajustes</h5>
                             </div>
-                            
+                            <div class="col s12">
+                                <input type="checkbox" id="visinventariado" name="isfisico" value="2" class="with-gap" checked>
+                                <label for="visinventariado">Control de Inventario</label>
+                                
+                                <input type="checkbox" id="isfe" name="isfisico" value="2" class="with-gap" checked>
+                                <label for="isfe">Factura Electrónica</label>
+                            </div>
                         </div><br>
                         <div class="row">
                             <div class="col s12 ">
