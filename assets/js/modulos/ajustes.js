@@ -85,7 +85,8 @@ $(document).on("click",".menu3",function(){
 			});
 
 			$(".wsdl-op").hide();
-			InitDropzone(1,false,'../cargar.php',"#registro-upload",false);
+
+			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*');
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
@@ -135,8 +136,51 @@ $(document).on("click",".menu3",function(){
 			});
 			$("#majustes").html('');
 			$("#majustes").html(p);
+
+			$("#isfe").change(function(){
+				if ($(this).is(":checked"))
+					$(".fe").show()
+				else
+					$(".fe").hide()
+			});
+
+			$("#valid_p12").click(function(){
+				var myDropzone = Dropzone.forElement("#p12-upload");
+				var data = new FormData();
+
+				data.append('accion',3);
+				data.append('clave',$("#vpass_n").val());
+				data.append('file',myDropzone.getQueuedFiles()[0]);
+
+				jQuery.ajax({
+				    url: '../cargar.php',
+				    data: data,
+				    cache: false,
+				    contentType: false,
+				    processData: false,
+				    method: 'POST',
+				    type: 'POST',
+				    success: function(data){
+				        try {
+			                p = JSON.parse(data);
+			                $("#vnombre").val(p['CN']);
+			                $("#vcedula").val(p['cedula']);
+			                if (p['tipo'])
+			                	$("#juridico").click()
+			                else
+			                	$("#fisico").click()
+			                Materialize.updateTextFields();
+			            }
+			            catch(err){
+			                p = data;
+			                Materialize.toast(p,4000,'red');
+			            }
+				    }
+				});
+			});
 			$("select").material_select('update');
-			InitDropzone(1,false,'../cargar.php',"#registro-upload",false);
+			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*');
+			InitDropzone(1,false,'../cargar.php?accion=2',"#p12-upload",false,'.p12',null,removep12());
 			break;
 		case 6:
 			var p = mantenimiento('ajustes',6,'');
@@ -238,19 +282,6 @@ $(document).on("click",".menu3",function(){
 			$("#tmp").attr('id','vnombre_banco');
 		}
 	});
-});
-
-$(document).on("change","[name=isfisico]",function(){
-	var idtc = $(this).val();
-	if (idtc == 1) {
-		$("#pfisico").removeClass('hide');
-		$("#vfactura").focus();
-		$("#vidtipocliente").val(idtc)
-	}else{
-		$("#pfisico").addClass('hide');
-		$("#vfactura").val('');
-		$("#vidtipocliente").val(idtc)
-	}
 });
 
 $(document).on("change",".vbincierre",function(){
@@ -1306,36 +1337,24 @@ return false;
 
 function validarsucursales() {
 	if ($("#vnombre").val() == '') {
-		$("#vnombre").val(null);
-		// $("#vnombre").focus();
-		// return "Nombre de la Sucursal Requerido";
+		$("#vnombre").focus();
+		return "Razón Jurídica Requerida";
 	}
 
 	if ($("#vcedula").val() == '') {
 		$("#vcedula").focus();
-		return "Cédula de la Sucursal Requerido";
+		return "Cédula Requerida";
 	}
 
 	if ($("#vtelefono").val() == '') {
 		$("#vtelefono").focus();
-		return "Teléfono de la Sucursal Requerido";
+		return "Teléfono Requerido";
 	}
 
-	if ($("#vidprovincia").val() == 0) {
-		$("#vidprovincia").focus();
-		return "Provincia Requerido";
-	}
-
-	if ($("#vidcanton").val() == 0) {
-		$("#vidcanton").focus();
-		return "Cantón Requerido";
-	}
 	if ($("#fisico").is(":checked")) {
-		if ($("#vfactura").val() == '') {
-			$("#vfactura").val(null);
-		}
+		$("#vidtipocliente").val(1);
 	}else
-		$("#vfactura").val(null);
+		$("#vidtipocliente").val(2);
 	
 }
 
@@ -1846,4 +1865,12 @@ function postload(vmodulo){
 
 		break;
 }
+}
+
+
+function removep12(){
+	$("#vnombre").val('');
+    $("#vcedula").val('');
+    $("#juridico").click()
+    Materialize.updateTextFields();
 }

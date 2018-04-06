@@ -119,7 +119,7 @@
 			}
 
 			if (strpos($sel,'@tp')) {
-				require_once '../_config/ecy.php';
+				// require_once '../_config/ecy.php';
 				$sel = str_replace('@@tp', 'idtipousuario', $sel);
 			}
 

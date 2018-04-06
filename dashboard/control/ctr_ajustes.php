@@ -56,7 +56,7 @@ if (!isset($_REQUEST['accion'])) {
 	   			break;
 	   		case 5:
 	   			$pagina = 1;
-			   	$smarty->assign('SUC',$kakaroto->kamehameha('',50,0));
+			   	$smarty->assign('SUC',$kakaroto->kamehameha('nombre',50,-1));
 			   	$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0 order by nombre'));
 			   	$smarty->assign('IMPR',$kakaroto->kamehameha('id,nombre',159,'id > 0 order by nombre'));
 			   	$smarty->display('ajax/ajustes/ajaxSucursales.tpl');

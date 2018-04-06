@@ -17,10 +17,10 @@ $(function(){
         default:
             break;
     }
-
+    console.log(invvar[1][0]+' '+invvar[1][1])
+    console.log(invvar[4][0]+' '+invvar[4][1])
     $(".modal").modal();
     $("select").material_select();
-
 });
 
 //fill data
@@ -59,6 +59,76 @@ $(document).on("change","#vidinventario",function(){
 });
 // fill data //
 
+$(document).on("keydown","#_vnombre",function(e) {
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    var inventario = invvar[1][0]+','+invvar[4][0];
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("#_vnombre").autocomplete({
+            limit: 10,
+            data: arr('login',4,'',917,'1,"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
+        });
+        $("#_vnombre").siblings($(".autocomplete-content")).css('width', '25%');
+    }else if(charCode ==13 ) {
+        $("#_vcantidad").focus();
+    }
+});
+
+// $(document).on("keydown","#_vcodigo",function(e){
+//     console.log(arr('login',4,'',917,'2,"'+$(this).val()+'","'+inventario+'"',0,0,0))
+//     var charCode = e.which || e.keyCode;
+//     var charStr = String.fromCharCode(charCode);
+//     var inventario = invvar[1][0]+','+invvar[4][0];
+//     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+//         $(".autocomplete-content").remove();
+//         $("#_vcodigo").autocomplete({
+//             limit: 20,
+//             data: arr('login',4,'',917,'2,"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
+//         });
+//     }
+// });
+
+$(document).on("click","#addmedio",function() {
+    var elemento = $("#_vnombre").val();
+    var referencia = $("#_vidreferencia").val();
+    var idciclo = $("#_vidciclo").val();
+    var idsolucion = arr('login',4,'',918,'1,0,@@usr,now(),'+referencia+',@@impresa,'+idciclo,0,0,0);
+    if (idsolucion['succed'] == 1) {
+        var nombre = elemento.substr(0,elemento.lastIndexOf('-')-1);
+        var inventario = elemento.substr(elemento.lastIndexOf('-')+2);
+        var datos = arr('login',4,'',920,'"'+nombre+'","'+inventario+'"',0,0,0)[0][0];
+        var idproducto = datos[0];
+        var idunidad = $("#_vidunidad").val();
+        var idinventario = datos[3];
+        var cantidad = $("#_vcantidad").val();
+        // vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
+        var iddetalle = arr('login',4,'',919,'1,0,'+idsolucion[0][0]+','+idproducto+','+idunidad+','+idinventario+','+cantidad,0,0,0);
+        if (iddetalle['succed'] == 1) {
+            Materialize.toast('Registro Guardado Correctamente', 4000, 'green');
+            endDetail(0,1,'mediocultivo')
+        }else{
+            Materialize.toast('Error en detalle', 4000, 'red');
+        }
+    }else{
+        Materialize.toast('Error en insercion', 4000, 'red');
+    }
+});
+
+$(document).on("click",".modalmedios",function() {
+    var tm = $(this).attr('tm');
+    var referencias = arr('login',4,'',916,'0',0,0,0)[0];
+    for (var i = 0, len = referencias.length; i < len; i++) {
+        $("#_vidreferencia").append('<option value="'+referencias[i][0]+'">'+referencias[i][1]+'</option>')
+    }
+    arr('login',6,'id,concat(nombre,"(",simbolo,")")',107,'id > 0 order by nombre',15,1,$("#_vidunidad"))
+    $("#_vidciclo").val(tm)
+    $("#_vidreferencia").material_select();
+    $("#_vidunidad").material_select();
+    $("#modal-medios").modal('open');
+    arr('login',6,'',921,tm+',@@impresa',0,1,$("#listamedioscultivos"));
+});
+
 $(document).on('click','#addFin',function() {
 	if ($("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] != 0) {
 		$(".titadd").html("Agregar Finca");
@@ -77,7 +147,7 @@ $(document).on('click','#addFin',function() {
 	}
 });
 
-$(document).on("click","#registrar",function(){
+$(document).on("click","#registrar",function() {
     var id = $(this).attr('id').substr(1);
     arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
     var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
@@ -88,19 +158,19 @@ $(document).on("click","#registrar",function(){
     Materialize.updateTextFields();
 });
 
-$(document).on("click","#assbandeja",function(){
+$(document).on("click","#assbandeja",function() {
     $("#modal-bandeja").modal('open');
     arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
     $("#cbandeja").material_select();
 });
 
-$(document).on("click","#chgbandeja",function(){
+$(document).on("click","#chgbandeja",function() {
     var idbandeja = $("#cbandeja").val();
     $("#hidbandeja").val(idbandeja);
     Materialize.toast('Bandeja seleccionada', 4000, 'green');
 });
 
-$(document).on("click",".procmult",function(){
+$(document).on("click",".procmult",function() {
     var id = $(this).attr('id').substr(1);
     $("#domult").attr('idciclo',id);
     $("#modal-invstats").modal('open');
@@ -109,7 +179,7 @@ $(document).on("click",".procmult",function(){
     $("#vidrazon").material_select();
 });
 
-$(document).on("click","#domult",function(){
+$(document).on("click","#domult",function() {
     //multiplicacion
     var id = $(this).attr('idciclo');
     var idtipo = $("li.menu3 > a.active").parent().attr('id').substr(1);
@@ -129,12 +199,12 @@ $(document).on("click","#domult",function(){
     }
 });
 
-$(document).on("click","#addchip",function(){
+$(document).on("click","#addchip",function() {
     $("#srv1").text('Servicio1');
     $("#cnt1").text('1')
 });
 
-$(document).on("click",".mcb",function(){
+$(document).on("click",".mcb",function() {
     var id = $(this).attr('id').substr(1);
     $("#modal-vmediocultivo").modal('open');
     var bdy = '';
@@ -1100,6 +1170,7 @@ function validarCliente(){
 }
 
 function endDetail(vid,vacc,modulo){
+    console.log(modulo)
     if (vacc == 1) {
     	switch(modulo){
     		case 'laboratorio-explante':
@@ -1160,6 +1231,17 @@ function endDetail(vid,vacc,modulo){
                     // $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1})
                 },100);
                 $("#autoinc").val(id)
+                break;
+            case 'mediocultivo':
+                var idciclo = $("#_vidciclo").val();
+                console.log(1)
+                arr('login',6,'',921,idciclo+',@@impresa',0,1,$("#listamedioscultivos"));
+                $("#_vnombre").val('');
+                $("#_vcodigo").val('');
+                $("#_vcantidad").val('');
+                $("#_vidunidad").val('');
+                $("#_vidreferencia").val(1);
+                $("select").material_select();
                 break;
             default:
                 break;
