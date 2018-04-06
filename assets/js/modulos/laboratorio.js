@@ -1,4 +1,5 @@
 var invvar = getDatos('',909,'@@impresa',0,0)[0];
+var ifila = 0;
 // tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
 $(function(){
 
@@ -19,7 +20,14 @@ $(function(){
     }
     console.log(invvar[1][0]+' '+invvar[1][1])
     console.log(invvar[4][0]+' '+invvar[4][1])
-    $(".modal").modal();
+    $('.modal').modal({
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '2%', // Starting top style attribute
+        endingTop: '2%' // Ending top style attribute
+    });
     $("select").material_select();
 });
 
@@ -89,31 +97,65 @@ $(document).on("keydown","#_vnombre",function(e) {
 //     }
 // });
 
-$(document).on("click","#addmedio",function() {
+$(document).on("click","#savemedio",function(){
+    //base: vaccion,vid,vidusuario,vfecha,vidreferencia,vidsucursal,vidciclo
+    //detalle: vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
+    console.log($("#listamedioscultivos").data())
+});
+
+$(document).on("click","#addmedio",function(){
     var elemento = $("#_vnombre").val();
-    var referencia = $("#_vidreferencia").val();
-    var idciclo = $("#_vidciclo").val();
-    var idsolucion = arr('login',4,'',918,'1,0,@@usr,now(),'+referencia+',@@impresa,'+idciclo,0,0,0);
-    if (idsolucion['succed'] == 1) {
-        var nombre = elemento.substr(0,elemento.lastIndexOf('-')-1);
-        var inventario = elemento.substr(elemento.lastIndexOf('-')+2);
-        var datos = arr('login',4,'',920,'"'+nombre+'","'+inventario+'"',0,0,0)[0][0];
-        var idproducto = datos[0];
-        var idunidad = $("#_vidunidad").val();
-        var idinventario = datos[3];
+    var nombre = elemento.substr(0,elemento.lastIndexOf('-')-1) == '' ? $("#_vnombre").val() : elemento.substr(0,elemento.lastIndexOf('-')-1);
+    var inventario = elemento.indexOf('-') < 0 ? '' : elemento.substr(elemento.lastIndexOf('-')+2);
+    var comp = arr('login',4,'',920,'"'+nombre+'","'+inventario+'"',0,0,0);
+    // console.log(comp[0][0])
+    if (comp['succed'] == 1) {
+        var idref = $("#_vidreferencia").val();
+        var idciclo = $("#_vidciclo").val();
         var cantidad = $("#_vcantidad").val();
-        // vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
-        var iddetalle = arr('login',4,'',919,'1,0,'+idsolucion[0][0]+','+idproducto+','+idunidad+','+idinventario+','+cantidad,0,0,0);
-        if (iddetalle['succed'] == 1) {
-            Materialize.toast('Registro Guardado Correctamente', 4000, 'green');
-            endDetail(0,1,'mediocultivo')
-        }else{
-            Materialize.toast('Error en detalle', 4000, 'red');
-        }
-    }else{
-        Materialize.toast('Error en insercion', 4000, 'red');
+        var idunidad = $("#_vidunidad").val();
+        var simbolo = arr('login',4,'UPPER(simbolo)',107,'id > 0 and id = '+idunidad,0,0,0)[0][0];
+
+        $("#listamedioscultivos").attr({
+            'data-idreferencia': idref,
+            'data-idciclo': idciclo
+        });
+        ifila++;
+        //vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
+        $("#listamedioscultivos").append(
+            '<tr id="ifila'+ifila+'">'+
+                '<td class="center" style="padding: 1% !important;">'+nombre+'</td>'+
+                '<td class="center" style="padding: 1% !important;">'+cantidad+' '+simbolo+'</td>'+
+                '<td class="center" style="padding: 1% !important;">'+
+                    '<i class="btn-color cdel mdi mdi-close mdi-24px"></i>'+
+                    '<i class="btn-color mdi mdi-pencil mdi-24px" style="margin-left:10px"></i>'+
+                '</td>'+
+            '</tr>');
+        $("#ifila"+ifila).attr({
+            'data-idproducto': comp[0][0][0],
+            'data-idunidad': idunidad,
+            'data-idinventario': comp[0][0][3],
+            'data-cantidad': cantidad
+        });
+        emptymedio();
+        ifila++;
+    }
+    else{
+        Materialize.toast(comp[0]['ERROR'], 4000, 'red');
+        $("#_vnombre").select()
     }
 });
+
+function emptymedio() {
+    $("#_vnombre").val('');
+    $("#_vcodigo").val('');
+    $("#_vcantidad").val('');
+    $("#_vidunidad").val(0);
+    $("#_vidunidad").material_select();
+    $(".validate").css('border-bottom', '1px solid #9e9e9e');
+    $(".validate").css('box-shadow', 'none');
+    $("#_vnombre").focus();
+}
 
 $(document).on("click",".modalmedios",function() {
     var tm = $(this).attr('tm');
@@ -126,7 +168,7 @@ $(document).on("click",".modalmedios",function() {
     $("#_vidreferencia").material_select();
     $("#_vidunidad").material_select();
     $("#modal-medios").modal('open');
-    arr('login',6,'',921,tm+',@@impresa',0,1,$("#listamedioscultivos"));
+    // arr('login',6,'',921,tm+',@@impresa',0,1,$("#listamedioscultivos"));
 });
 
 $(document).on('click','#addFin',function() {
