@@ -4,9 +4,14 @@ subirVersion.sh
 assets/style=expanded
 assets/css/scss_cache/*
 assets/xml/*
+assets/xml/.gitkeep
 assets/p12/*
+!assets/p12/.gitkeep
+assets/update/*
+!assets/update/.gitkeep
+assets/pdf/*
+!assets/pdf/.gitkeep
 _config/.DS_Store
 cambiosDB.txt
 .DS_Store
-assets/libs/phpqrcode/*
 
