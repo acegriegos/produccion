@@ -1,6 +1,6 @@
 <?php 
     
-    require_once 'config/mysqlDB.php';
+    require_once '_config/mysqlDB.php';
 
     $db = new DBClass();
     $mdb = $db->getDB();
