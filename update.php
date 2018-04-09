@@ -15,7 +15,7 @@
         shell_exec("curl -f https://logintechcr.com/descargas/struct.lt -o ./assets/update/struct.lt");
         shell_exec("openssl enc -aes256 -in ./assets/update/struct.lt -out ./assets/update/update.sql -d -k Login2Help");
         shell_exec("sed -i -e 's/`root`/`itech01`/g' ./assets/update/update.sql");
-        shell_exec("sed -i -e 's/`%`/`localhost`/g' ./assets/update/update.sql";); 
+        shell_exec("sed -i -e 's/`%`/`localhost`/g' ./assets/update/update.sql"); 
         shell_exec("sed -i -e 's/developer/'".$mdb."'/g' ./assets/update/update.sql");
     }
 
