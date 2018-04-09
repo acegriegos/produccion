@@ -70,7 +70,7 @@ $html = '<!doctype html>'.
 '<meta charset="UTF-8">'.
 '<meta http-equiv="X-UA-Compatible" content="IE=edge">'.
 '<meta name="viewport" content="width=device-width, initial-scale=1">'.
-'<title>FACTURA</title>'.
+'<title>FACTURA ELECTRONICA</title>'.
 
 '</head>'.
 '<body style="width: 100%"; >'.
@@ -86,9 +86,9 @@ $html = '<!doctype html>'.
 '<tr>'.
 '<td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">'.
 
-'<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">'.
-'<tbody><tr>'.
-'<td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">'.
+// '<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">'.
+// '<tbody><tr>'.
+// '<td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">'.
 
 '<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">'.
 '<tbody><tr>'.
@@ -96,21 +96,33 @@ $html = '<!doctype html>'.
 '<br>';
 
 if ($miscelaneos[3]) {
-   $html .= '<img src="https://gallery.mailchimp.com/236c3cf9c0e643d2694f51e4c/images/daa0fc73-6e22-4be3-8a43-807258016801.png" width="264" style="max-width:339px;" class="mcnImage">';
+   $html .= '<img src="'.$miscelaneos[3].'" width="264" style="max-width:339px;" class="mcnImage">';
 }
 
 $html .= '</td>'.
 '</tr>'.
 '</tbody></table>'.
 '</td><td>'.  //DIVISOR
-'<table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264"> '.
+'<table class="mcnCaptionRightTextContentContainer" align="right" boridder="0" cellpadding="0" cellspacing="0"> '.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="font-size: 13px;font-family: Helvetica;">'.
-'<div style="text-align: left; color: #494949;">'.
-'<strong>'.$miscelaneos[0].'</strong><br>';
-
-if($miscelaneos[2] != '') 
-  $html .= '<strong>'.$miscelaneos[2].'</strong><br>';
+'<div style="text-align: left; color: #494949;">';
+$fact = $miscelaneos[0];
+if ($miscelaneos[10] == 2) {
+   if ($miscelaneos[2] != ''){ 
+      $html .= '<strong>'.$miscelaneos[2].'</strong><br>';
+      $fact = $miscelaneos[2];
+    }
+   else
+      $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
+}else{
+   if ($miscelaneos[2] != ''){
+      $html .= '<strong>'.$miscelaneos[2].'</strong><br>';
+      $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
+   }
+   else
+      $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
+}   
 
 $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 '<strong>Teléfono:</strong> '.$miscelaneos[5].'<br>'.
@@ -122,9 +134,9 @@ $miscelaneos[6].'</div>'.
 '</tr>'.
 '</tbody></table>'.
 
-'</td>'.
-'</tr>'.
-'</tbody></table>'.
+// '</td>'.
+// '</tr>'.
+// '</tbody></table>'.
 
 '</td>'.
 '</tr>'.
@@ -316,12 +328,12 @@ if ($grabado > 0){
   $html .= '<tr>
     <td></td>
     <td align="right">Grabado:</td>
-    <td align="right">'.$datos[15].number_format($grabado+str_replace(',', '', $obj[6]),2).'</td>
+    <td align="right">'.$datos[0][15].number_format($grabado+str_replace(',', '', $obj[6]),2).'</td>
   </tr>
   <tr>
     <td></td>
     <td align="right">Impuesto:</td>
-    <td align="right">'.$datos[15].$datos[0][5].'</td>
+    <td align="right">'.$datos[0][15].$datos[0][5].'</td>
   </tr>';
 }
 
@@ -329,7 +341,7 @@ if ($exento > 0) {
   $html .= '<tr>
     <td></td>
     <td align="right">Exento:</td>
-    <td align="right">'.$datos[15].number_format($exento,2).'</td>
+    <td align="right">'.$datos[0][15].number_format($exento,2).'</td>
   </tr>';
 }
 
@@ -337,7 +349,7 @@ if (str_replace(',', '', $datos[0][6]) > 0){
   $html .= '<tr>
     <td></td>
     <td align="right">Descuento:</td>
-    <td align="right">'.$datos[15].$datos[0][6].'</td>
+    <td align="right">'.$datos[0][15].$datos[0][6].'</td>
   </tr>';
 } 
 
@@ -345,7 +357,7 @@ if ($datos[0][7] > 0){
   $html .= '<tr>
     <td></td>
     <td align="right">Flete:</td>
-    <td align="right">'.$datos[15].number_format($datos[0][7],2).'</td>
+    <td align="right">'.$datos[0][15].number_format($datos[0][7],2).'</td>
   </tr>';
 }
 
@@ -353,15 +365,14 @@ if ($datos[0][8] > 0){
   $html .= '<tr>
     <td></td>
     <td align="right">Ajuste:</td>
-    <td align="right">'.$datos[15].number_format($datos[0][8],2).'</td>
+    <td align="right">'.$datos[0][15].number_format($datos[0][8],2).'</td>
   </tr>';
 } 
-
 
 $html .= '<tr>
     <td></td>
     <td align="right" style="color: #494949;font-family: Helvetica;"><strong>TOTAL:</strong></td>
-    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>'.$datos[15].$datos[0][10].'</strong></td>
+    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>'.$datos[0][15].$datos[0][10].'</strong></td>
   </tr></table>'.
 
 
@@ -388,6 +399,6 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('../assets/pdf/Factura '.$id.'.pdf','F');
+$pdf->Output('../assets/pdf/Factura N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','F');
 
 ?>

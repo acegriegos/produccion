@@ -125,8 +125,9 @@ function cargarOCompras(){
                 var unidad = $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
                 var comodin = $("#valores").data('elemento')['hcomodin'];
                 var desgloce = $("#valores").data('elemento')['isdesgloce'];
+                var strimp = $("#valores").data('elemento')['strimp'];
 
-                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce);
+                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce,strimp);
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
             }
@@ -217,8 +218,9 @@ function cargarCompras(){
                 var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
                 var comodin= $("#valores").data('elemento')['hcomodin'];
                 var desgloce= $("#valores").data('elemento')['isdesgloce'];
-                
-                addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi, unidad, comodin,desgloce);
+                var strimp = $("#valores").data('elemento')['strimp'];
+
+                addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi, unidad, comodin,desgloce,strimp);
         }
     });
 
@@ -284,8 +286,9 @@ function cargarVentas(){
                     var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
                     var comodin= $("#valores").data('elemento')['hcomodin'];
                     var desgloce= $("#valores").data('elemento')['isdesgloce'];
+                    var strimp = $("#valores").data('elemento')['strimp'];
 
-                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce);
+                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce,strimp);
                 }
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
