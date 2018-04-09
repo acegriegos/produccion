@@ -651,7 +651,6 @@ function cargarProducto(kbrota,elemento) {
     }
 
     var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+','+$(".zelda").data('triforce')['vidtipoventa'],0,0,0);
-
     if (cod[0][0] != undefined) {
 
         cod = cod[0][0];

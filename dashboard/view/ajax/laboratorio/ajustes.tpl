@@ -108,14 +108,14 @@
           <div class="col s1 m2 l2"></div>
           <div class="col s10 m8 l8 center">
             <table class="responsive-table highlight z-depth-3">
-              <thead class="tab2">
+              <thead class="tab1">
                 <tr>
-                  <th colspan="3" class="tab3 center" style="padding: 0;">Medio de Cultivo de <span id="cantmediocultivo">1 L</span></th>
+                  <th colspan="3" class="tab2 center" style="padding: 0;">Medio de Cultivo de <span id="cantmediocultivo">1 L</span></th>
                 </tr>
                 <tr>
-                  <th class="white-text blue center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Componente</th>
-                  <th class="white-text blue center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Cantidad a tomar</th>
-                  <th class="white-text blue center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Acciones</th>
+                  <th class="center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Componente</th>
+                  <th class="center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Cantidad a tomar</th>
+                  <th class="center" style="border: 0; border-radius: 0px !important; padding: 1% !important;">Acciones</th>
                 </tr>
                 
               </thead>
