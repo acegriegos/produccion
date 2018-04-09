@@ -36,7 +36,7 @@ $(function(){
 function postExcecute(vid,p){
     switch(parseInt(vid)){
         case 1:
-            var e = enviarCorreo(3,vpara,"Factura",vbody,'pdf/Factura '+mid+'.pdf');
+            var e = enviarCorreo(3,vpara,"Factura",vbody,'pdf/Factura N° '+mid+'.pdf');
             vpara = vbody = "";
             mid = 0;
             break;

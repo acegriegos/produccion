@@ -8,7 +8,7 @@
 
         switch ($accion) {
             case 1://RECIBO DE FACTURA
-                print_r($fe->recepcion());
+                echo $fe->recepcion();
                 break;
             case 2://GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
@@ -54,7 +54,7 @@
                 echo "</pre>";
                 break;
             default:
-                print_r(json_encode(['ERROR'=>'Accion no Valida']));
+                echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
         }
     }
@@ -65,14 +65,15 @@
         var $id;
         var $bearer;
         var $credenciales;
-
+        var $preUbicacion = '';
         function __construct($vid){
             $this->id = $vid;
             $this->info = $this->getJSON('call fe_getencabezado('.$this->id.')');
             $db = new DBClass();
             if (!isset($_SESSION['IMPRESA']))
                 session_start();
-
+            if (!isset($_REQUEST['accion']))
+                $this->preUbicacion = '../';
             $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
         }
 
@@ -183,13 +184,13 @@
             switch ($status) {
                 case 201:
                 case 202:
-                    $json_response = json_encode(['rs'=>'Factura Electronica Recibida','response'=>$rs]);
+                    $json_response = json_encode(['rs'=>'Factura Electronica Recibida','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'response'=>$rs,'succes'=>1]);
                     break;
                 case 400:
                     /*AGARRAR ERROR*/
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
-                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs]);
+                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0]);
                     break;
                 default:
                     $json_response = $rs;
@@ -328,11 +329,14 @@
                         $detalle['Detalle'] = $value[6];
                         $detalle['PrecioUnitario'] = $value[7];
                         $detalle['MontoTotal'] = $value[8];
-                        $detalle['MontoDescuento'] = $value[9];
-                        $detalle['NaturalezaDescuento'] = $value[10];
                         $detalle['SubTotal'] = $value[11];
                         $exoneracion = ['TipoDocumento' => '', 'NumeroDocumento' => '', 'NombreInstitucion' => '','FechaEmision' => '', 'MontoImpuesto' => '', 'PorcentajeCompra' => '', 'PorcentajeCompra' => ''];
 
+                        if ($value[9] > 0) {
+                            $detalle['MontoDescuento'] = $value[9];
+                            $detalle['NaturalezaDescuento'] = $value[10];
+                        }
+                        
                         if ($value[12] != '') {
                             $impuesto = ['Codigo'=>$value[12],'Tarifa'=>$value[13],'Monto'=>$value[14]];
 
@@ -457,7 +461,7 @@
                 "digest"    =>  $digest //digest en sha1 y base64
             );
 
-            openssl_pkcs12_read(file_get_contents($this->credenciales[0]), $certs, $this->credenciales[1]);
+            openssl_pkcs12_read(file_get_contents($this->preUbicacion.$this->credenciales[0]), $certs, $this->credenciales[1]);
             $publicKey    =$certs["cert"];
             $privateKey   =$certs["pkey"];
             $complem = openssl_pkey_get_details(openssl_pkey_get_private($privateKey));

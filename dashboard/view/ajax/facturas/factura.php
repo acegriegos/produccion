@@ -34,9 +34,22 @@
           <div class="col s5 m4 l4 left-align">
             <br><br>
             <font size="2.5">
-              <b><span id="fnombre"><?php echo $miscelaneos[0]; ?></span></b><br>
-              <?php if ($miscelaneos[2]) 
-              echo '<b><span id="_fnombre">'.$miscelaneos[2].'</span></b><br>';
+  
+              <?php
+                if ($miscelaneos[10] == 2) {
+                   if ($miscelaneos[2] != '') 
+                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                   else
+                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                }else{
+                   if ($miscelaneos[2] != ''){
+                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                   }
+                   else
+                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                } 
+                
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
               <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
@@ -143,19 +156,19 @@
                 <td style="padding: 6px 5px !important" colspan="4" class="center">
                   <?php 
                                               
-                      require_once('../assets/libs/phpqrcode/qrlib.php'); 
+                      // require_once('../assets/libs/phpqrcode/qrlib.php'); 
      
-                      $codeContents = 'https://erp.logintechcr.com'; 
+                      // $codeContents = 'https://erp.logintechcr.com'; 
                        
-                      $text = QRcode::text($codeContents); 
-                      $raw = join("<br/>", $text); 
+                      // $text = QRcode::text($codeContents); 
+                      // $raw = join("<br/>", $text); 
                        
-                      $raw = strtr($raw, array( 
-                          '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
-                          '1' => '&#9608;&#9608;' 
-                      )); 
+                      // $raw = strtr($raw, array( 
+                      //     '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
+                      //     '1' => '&#9608;&#9608;' 
+                      // )); 
                        
-                      echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
+                      // echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
                       
                    ?>
                 </td>

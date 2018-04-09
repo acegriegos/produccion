@@ -96,5 +96,8 @@ label[for="_vcodigo"] {
 
 #modal-medios {
   width: 90% !important;
+  max-height: 100% !important;
+  height: 90% !important;
+
 }
 /*# sourceMappingURL=style-laboratorio.css.map */

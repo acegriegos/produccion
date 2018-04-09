@@ -119,14 +119,7 @@
                 </tr>
                 
               </thead>
-              <tbody id="listamedioscultivos">
-              <!-- section -->
-                <!-- <tr>
-                  <td style="padding: 10px; color:black;"></td>
-                  <td style="padding: 10px; color:black;"></td>
-                </tr> -->
-              <!-- section -->
-              </tbody>
+              <tbody id="listamedioscultivos"></tbody>
             </table>
           </div>
           <div class="col s1 m2 l2"></div>
@@ -134,7 +127,7 @@
       </div>
       <div class="modal-footer ">
         <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
-        <!-- <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="">Agregar</a> -->
+        <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="savemedio">Agregar</a>
       </div>
     </div>
 

@@ -316,7 +316,7 @@ $(document).on("click",".addesgloce",function(){
     
     $('<tr id="fd'+id+'" class="ciclos"><td style="padding: 0.2%"></td><td class="center" id="codprod'+id+'" colspan="2"> <i class="mdi mdi-subdirectory-arrow-right" style="float:left;"></i> <input type="text" placeholder="RUBRO" style="width:85%;margin: 0px;" id="rubro'+id+'" class="rubro"/> </td> <td class="center divisa" id="prec'+id+'"> <input type="text" value="0" class="eder precd" id="precd'+id+'" style="margin: 0px;" /> </td> <td id="unitprod'+id+'"> <select id="unid'+id+'" class="unid" readonly style="margin: 0px;"><option>UN</option></select> </td> <td class="center"> <div id="divcnt" class="form-group"><input type="text" value="1" class="eder cantd" id="cantd'+id+'" style="margin: 0px;" /></div></td><td class="center totp divisa" id="tota'+id+'">0</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="0" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></td> </tr>').insertAfter($(this).closest('tr'));
 
-    $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:vidprod, vcantidad:0, vprecio:0, vdesc:0, vtotal:0, vidinventario:0,vidodt : 0,vimv:0,vcomodin:'',vidunidad:0,vidimpuestos:'',viddescuentos:''});
+    $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:vidprod, vcantidad:0, vprecio:0, vdesc:0, vtotal:0, vidinventario:0,vidodt : 0,vimv:0,vcomodin:'',vidunidad:0,vidimpuestos:'',viddescuentos:'',strimp:''});
   
     $("#rubro"+id).focus();
     $("#unid"+id).material_select();
@@ -328,7 +328,7 @@ $(document).on("change","#iva",function(){
     totalizar();
 });
 
-function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce) {
+function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp) {
     $("#valores").removeData('elemento');
 
     var err = 0;
@@ -340,7 +340,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
         if (idprod == $(this).data('triforce')['videntrada'] && hinv == $(this).data('triforce')['vidinventario']) {
             existe = 1;
-            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[16]/i))) {
+            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[16]/i)) && config[1] == 1) {
                 //EXCEDE EL NUMERO EN INVENTARIO
                 Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
                 $("#cantp").select();
@@ -371,6 +371,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             case 5:
             case 6:
             // <td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td>
+
                 $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="'+dcs+'" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></td> </tr>');
                     break;
             case 2:
@@ -384,7 +385,8 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         $("#vdesc"+id).data('valor',dcs);
         $("#vdesc"+id).data('max',mdcs);
 
-        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : dcs,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : uni,vidimpuestos:'01,13,70.29750',viddescuentos:'1,50,540.75'});
+        //1,50,540.75
+        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : dcs,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : uni,vidimpuestos:'',viddescuentos:'',strimp : vstrimp});
        
     }
     totalizar();
@@ -458,24 +460,27 @@ function totalizar(){
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc;
         $("#tota"+vidlinea).html(tmpdesc.formatMoney(2,'.',','))
         $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
-        // 01,13,121.19
+
         $(".dimpuesto").each(function(){
             
-            eimv = $(this).data('valores')['vexo'];
-            rimv = parseFloat($(this).data('valores')['vmonto'])*parseFloat((1-(eimv/100))).toFixed(5);
-            iimv = $(this).data('valores')['vid'];
-            
+            if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
 
-            if(eimv == 100) {
-                exento += tmpdesc;
-                $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+',0';
-            }else{
-                dimv =  tmpdesc*(rimv/100);
-                impuesto += dimv;
-                $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
-                dimv += parseFloat($("#imv_"+iimv).html().replace(/,/g,''));
-                $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+dimv
-                $("#imv_"+iimv).html(parseFloat(dimv).formatMoney(2,'.',','));
+                eimv = $(this).data('valores')['vexo'];
+                rimv = parseFloat($(this).data('valores')['vmonto'])*parseFloat((1-(eimv/100))).toFixed(5);
+                iimv = $(this).data('valores')['vid'];
+                
+
+                if(eimv == 100) {
+                    exento += tmpdesc;
+                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+',0';
+                }else{
+                    dimv =  tmpdesc*(rimv/100);
+                    impuesto += dimv;
+                    $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
+                    dimv += parseFloat($("#imv_"+iimv).html().replace(/,/g,''));
+                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+dimv
+                    $("#imv_"+iimv).html(parseFloat(dimv).formatMoney(2,'.',','));
+                }
             }
 
         });
@@ -665,8 +670,9 @@ function cargarProducto(kbrota,elemento) {
 
         var char1 = cod[0].substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
-        cargarImpuestos(cod[0].substr(1),tabla);
+        var strimp = cargarImpuestos(cod[0].substr(1)+',0',tabla);
         var modselec = $("input[name='modselected']:checked").val();
+        $("#valores").data("elemento")['strimp'] = strimp;
         cargarunidades(cod[0],cod[15]);
 
         if (modselec == 1) {
@@ -699,8 +705,8 @@ function cargarProducto(kbrota,elemento) {
 function cargarunidades(vidproducto,vunidad) {
     var uni = '';
     var unis = getDatos('',250,vidproducto,0,0,0)[0];
+
     $.each(unis, function(index, valor) {
-        // if (valor) {}
         uni += '<option value="'+valor[0]+'">'+valor[1]+'</option>';
     });
     $("#uni").html(uni);
@@ -709,34 +715,15 @@ function cargarunidades(vidproducto,vunidad) {
 }
 
 function endDetail(vid,vacc,vmodulo) {
-    window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+    var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
+    var clave = vid[0][0];
 
-    switch(param){
-        case 1:
-            setTimeout(function() { window.focus() },500);
-            Materialize.toast('Generando Factura Electrónica...',4000,'green');
-            $.post( "../wsdlClient.php", { id: vid[0][0], accion : 1 })
-              .done(function( data ) {
-                var p;
-                try {
-                    p = JSON.parse(data);
-                    p = p['rs'];
-                }
-                catch(err){
-                    p = data;
-                }
-                Materialize.toast(p,4000,'green');
-                setTimeout(function(){location.reload();},5000);
-              });
-            break;
-        case 6:
-            setTimeout(function() { window.focus() },500);
-            break;
-        default:
-            setTimeout(function(){location.reload();},1000);
-            break;
-    }
-    
+    if (config[0] == 1 && param == 1) {
+        Materialize.toast('Generando Factura Electrónica...',10000,'green');
+        sendFE(clave,factura);
+    }else
+        sendVMail(Factura,clave,vid[0][0]);
+            
     return false;
 }
 
@@ -833,14 +820,18 @@ function calcVuelto(){
 }
 
 function cargarImpuestos(vfila,vtabla){
-    var imp = getDatos('',109,'@@impresa,'+vfila+',"'+vtabla+'"',0,0)[0];
+
+    var imp = getDatos('',109,'@@impresa,"'+vfila+'","'+vtabla+'"',0,0)[0];
     var textImpuestos = '';
     var exo = 0;
     var sMoneda = $(".moneda").html();
     var aexo = 0;
     var noBorrar = vtabla = '11,2' ? 'noBorrar' : '';
+    var impuestoStr = '';
 
     for (var i = 0; i < imp.length; i++) {
+        impuestoStr += ","+imp[i][0]+",";
+
         if (!$("#imp_"+imp[i][0]).length) {
             exo = (parseFloat(imp[i][3])*(1-(parseFloat(imp[i][4])/100))).toFixed(2);
             textImpuestos = '<tr id="imp_'+imp[i][0]+'" class="dimpuesto" '+noBorrar+'><td id="imp_v'+imp[i][0]+'">'+imp[i][2]+' ['+exo+'%]:</td><td style="float: right;"><span class="moneda">'+sMoneda+'</span><span id="imv_'+imp[i][0]+'" type="html" class="divisa">0.00</span></td></tr>';
@@ -859,5 +850,87 @@ function cargarImpuestos(vfila,vtabla){
         }
         
     }
+    return impuestoStr;
+}
+
+function sendFE(clave,factura){
+    $.ajax({
+        async: true,
+        url: "../wsdlClient.php",
+        type: 'POST',
+        data: {id: clave, accion : 1}
+    })
+      .done(function( data ) {
+        var p;
+        try {
+            p = JSON.parse(data);
+            var vfactura = p['num'];
+            var vclave = p['clave'];
+            p = p['rs'];
+
+            Materialize.toast(p,10000,'green');
+            sendVMail(vfactura,vclave,clave);
+        }
+        catch(err){
+            p = data;
+            console.log(err.message)
+            //GENERAR NOTA DE CREDITO
+            Materialize.toast(p,10000,'red');
+        }
+        
+      });
+}
+
+function sendVMail(factura,clave,vid){
+    var archivos = '';
+
+    if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
+        var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0];
+        var vbody = getDatos('',73,vid,0,0)[0][0];
+        archivos = makeArchivos(factura,clave,vid,vbody[1]);
+
+        switch(param){
+            case 2:
+                break;
+            default:
+                var w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+                // w.print();
+                // w.close();
+                window.focus();
+                break;
+        }
+        enviarCorreo(3,'amiranda@logintechcr.com',"Factura N° "+factura,vbody[0],archivos);
+        // setTimeout(function(){location.reload();},3000);
+        
+    }else{
+        switch(param){
+            case 2:
+                break;
+            default:
+                window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+                break;
+        }
+          // setTimeout(function(){location.reload();},3000);
+    }
+}
+
+function makeArchivos(vfactura,vclave,vid,vsucursal){
+    var archivos = '';
     
+    mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
+    if (vclave == vid)
+        archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
+    else{
+        archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+        mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
+    }
+    return archivos;
+}
+
+function postExcecute(vid,p){
+
+    switch(parseInt(vid)){
+        default:
+            break;
+    }
 }

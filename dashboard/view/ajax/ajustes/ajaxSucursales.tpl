@@ -132,11 +132,14 @@
                                 <h5 class="modal-title center-align head1 padding1">Ajustes</h5>
                             </div>
                             <div class="col s12">
-                                <input type="checkbox" id="visinventariado" name="isfisico" value="2" class="with-gap" checked>
+                                <input type="checkbox" id="visinventariado" class="with-gap" checked>
                                 <label for="visinventariado">Control de Inventario</label>
                                 
-                                <input type="checkbox" id="isfe" name="isfisico" value="2" class="with-gap" checked>
+                                <input type="checkbox" id="isfe" name="isfisico" checked>
                                 <label for="isfe">Factura Electrónica</label>
+
+                                <input type="checkbox" id="vfastshow" class="with-gap">
+                                <label for="vfastshow">Visualizar Venta</label>
                             </div>
                         </div><br>
                         <div class="row">

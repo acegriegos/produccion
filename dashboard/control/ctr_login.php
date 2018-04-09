@@ -1,6 +1,6 @@
 <?php  
 	
-	require_once 'model/m_login.php';
+	  require_once 'model/m_login.php';
    	$log = new _login();
 
     if (!isset($_REQUEST['accion'])) {
@@ -130,6 +130,15 @@
            
            include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
 		   	break;
+        case 9:  //GENERAR SOLO XML
+          $pagina = 1;
+          unset($_REQUEST['accion']);
+          require_once '../wsdlClient.php';
+          $xml = new facturaElectronica($_REQUEST['arreglo']['id']);
+          $archivo = fopen('../assets/xml/Factura N°'.$_REQUEST['arreglo']['factura'].', '.$_REQUEST['arreglo']['sucursal'].'.xml', "w+");
+          fwrite($archivo, $xml->getXMLRecepcion());
+          fclose($archivo); 
+        break;
       default:
         break;
 
