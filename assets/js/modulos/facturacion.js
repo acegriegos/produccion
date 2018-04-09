@@ -1,8 +1,11 @@
 var param = '';
+var config;
 
 $(function(){
   param = getParameterByName('tf');
   param = param == '' ? 1 : parseInt(param) ;
+
+  config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS',39,'id = @@impresa',0,0)[0][0];
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,''));
 
@@ -269,10 +272,10 @@ function cargarVentas(){
                 var inv = $("#valores").data('elemento')['hinv'];
 
                 var cnti = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
-                
-                if (cant > cnti) {
-                   Materialize.toast('Cantidad insuficiente en Inventario',4000,'red');
-                }else if (cant <= cnti || cnti == '∞') {
+             
+                if (cant > cnti && config[1] == 1) {
+                   Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
+                }else if (cant <= cnti || cnti == '∞' || config[1] == 0) {
                     var idprd = $("#valores").data('elemento')['idp'];
                     var dcs = $("#valores").data('elemento')['hdesc'];
                     var mdcs = $("#valores").data('elemento')['hdescm'];
@@ -460,6 +463,15 @@ function cargarGlobal(){
         $("#prec"+id).text(prec);
         $("#vdesc"+id).text(desc+'%');
     });
+  
+    if (config[2] == 1){
+        $("#teclado").click();
+        $("#p_v").attr('checked',false);
+    }else{
+        $("#barras").click();
+        $("#p_v").attr('checked',true);
+    }
+    $("#p_v").change();
 
 }//cargar GLOBAL
 

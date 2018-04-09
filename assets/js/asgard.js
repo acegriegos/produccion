@@ -491,20 +491,22 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
 
         try {
             p = JSON.parse(data);
+            console.log("Correo Enviado");
         }
         catch(err){
             p = data;
+            console.log(p);
         }
 
         if($("#smail").is(':visible')){
-            Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green")
+            Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green");
             $("#smail").html('')
         }
         
     })
    .fail(function(x) {
         console.log("ERROR de Correo: "+x)
-        alert( "Error Enviando Correo" );
+        Materialize.toast( "Error Enviando Correo",4000,'red');
     });
 }
 

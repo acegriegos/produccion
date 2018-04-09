@@ -9,6 +9,7 @@ assets/p12/*
 !assets/p12/.gitkeep
 assets/update/*
 !assets/update/.gitkeep
+!assets/update/update.log
 assets/pdf/*
 !assets/pdf/.gitkeep
 _config/.DS_Store

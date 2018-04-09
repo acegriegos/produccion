@@ -340,7 +340,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
         if (idprod == $(this).data('triforce')['videntrada'] && hinv == $(this).data('triforce')['vidinventario']) {
             existe = 1;
-            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[16]/i))) {
+            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[16]/i)) && config[1] == 1) {
                 //EXCEDE EL NUMERO EN INVENTARIO
                 Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
                 $("#cantp").select();
@@ -371,6 +371,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             case 5:
             case 6:
             // <td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td>
+
                 $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="'+dcs+'" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></td> </tr>');
                     break;
             case 2:
@@ -709,34 +710,15 @@ function cargarunidades(vidproducto,vunidad) {
 }
 
 function endDetail(vid,vacc,vmodulo) {
-    window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+    var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
+    var clave = vid[0][0];
 
-    switch(param){
-        case 1:
-            setTimeout(function() { window.focus() },500);
-            Materialize.toast('Generando Factura Electrónica...',4000,'green');
-            $.post( "../wsdlClient.php", { id: vid[0][0], accion : 1 })
-              .done(function( data ) {
-                var p;
-                try {
-                    p = JSON.parse(data);
-                    p = p['rs'];
-                }
-                catch(err){
-                    p = data;
-                }
-                Materialize.toast(p,4000,'green');
-                setTimeout(function(){location.reload();},5000);
-              });
-            break;
-        case 6:
-            setTimeout(function() { window.focus() },500);
-            break;
-        default:
-            setTimeout(function(){location.reload();},1000);
-            break;
-    }
-    
+    if (config[0] == 1 && param == 1) {
+        Materialize.toast('Generando Factura Electrónica...',10000,'green');
+        sendFE(clave,factura);
+    }else
+        sendVMail(Factura,clave,vid[0][0]);
+            
     return false;
 }
 
@@ -860,4 +842,89 @@ function cargarImpuestos(vfila,vtabla){
         
     }
     
+}
+
+function sendFE(clave,factura){
+    $.ajax({
+        async: true,
+        url: "../wsdlClient.php",
+        type: 'POST',
+        data: {id: clave, accion : 1}
+    })
+      .done(function( data ) {
+        var p;
+        try {
+            p = JSON.parse(data);
+            var vfactura = p['num'];
+            var vclave = p['clave'];
+            p = p['rs'];
+
+            Materialize.toast(p,10000,'green');
+            sendVMail(vfactura,vclave,clave);
+        }
+        catch(err){
+            p = data;
+            console.log(err.message)
+            //GENERAR NOTA DE CREDITO
+            Materialize.toast(p,10000,'red');
+        }
+        
+      });
+}
+
+function sendVMail(factura,clave,vid){
+    var archivos = '';
+
+    if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
+        var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0];
+        var vbody = 'HOLA';
+        archivos = makeArchivos(clave,vid);
+        
+        enviarCorreo(3,'amiranda@logintechcr.com',"Factura "+factura,vbody,archivos);
+
+        switch(param){
+            case 2:
+                break;
+            default:
+                var w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+                // w.print();
+                // w.close();
+                window.focus();
+                break;
+        }
+        // setTimeout(function(){location.reload();},3000);
+        
+    }else{
+        switch(param){
+            case 2:
+                break;
+            default:
+                window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+                break;
+        }
+          // setTimeout(function(){location.reload();},3000);
+    }
+}
+
+function makeArchivos(vclave,vid){
+    var archivos = '';
+    
+    console.log(vid);
+    mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
+    if (vclave == vid)
+        archivos = '';
+        //archivos = 'pdf/Factura '+clave+'.pdf';
+    else{
+        //archivos = {0:'xml/'+clave+'.xml',1:'pdf/Factura '+clave+'.pdf'}
+        mantenimiento_async('login',9,{id:vid,clave:vclave},1);
+    }
+    return archivos;
+}
+
+function postExcecute(vid,p){
+    console.log(p);
+    switch(parseInt(vid)){
+        default:
+            break;
+    }
 }

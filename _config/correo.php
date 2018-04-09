@@ -35,7 +35,17 @@ class correo
     }
 
     function enviar_adjunto($vAdjunto){
-      $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vAdjunto));
+
+      if ($vAdjunto == '')
+        return 1;
+      
+      if(is_array($vAdjunto)){
+        for ($i=0; $i < sizeof($vAdjunto); $i++) { 
+          $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vAdjunto[$i]));
+        }
+      }else
+        $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vAdjunto[$i]));
+      
 
       if ($this->mailer->send($this->message)) {
           unlink('../assets/'.$vAdjunto);

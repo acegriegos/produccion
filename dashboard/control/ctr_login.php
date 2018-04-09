@@ -130,6 +130,15 @@
            
            include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
 		   	break;
+        case 9:  //GENERAR SOLO XML
+          $pagina = 1;
+          unset($_REQUEST['accion']);
+          require_once '../wsdlClient.php';
+          $xml = new facturaElectronica($_REQUEST['arreglo']['id']);
+          $archivo = fopen('../assets/xml/'.$_REQUEST['arreglo']['clave'].'.xml', "w+");
+          fwrite($archivo, $xml->getXMLRecepcion());
+          fclose($archivo); 
+        break;
       default:
         break;
 

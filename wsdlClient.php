@@ -8,7 +8,7 @@
 
         switch ($accion) {
             case 1://RECIBO DE FACTURA
-                print_r($fe->recepcion());
+                echo $fe->recepcion();
                 break;
             case 2://GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
@@ -54,7 +54,7 @@
                 echo "</pre>";
                 break;
             default:
-                print_r(json_encode(['ERROR'=>'Accion no Valida']));
+                echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
         }
     }
@@ -183,13 +183,13 @@
             switch ($status) {
                 case 201:
                 case 202:
-                    $json_response = json_encode(['rs'=>'Factura Electronica Recibida','response'=>$rs]);
+                    $json_response = json_encode(['rs'=>'Factura Electronica Recibida','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'response'=>$rs,'succes'=>1]);
                     break;
                 case 400:
                     /*AGARRAR ERROR*/
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
-                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs]);
+                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0]);
                     break;
                 default:
                     $json_response = $rs;
