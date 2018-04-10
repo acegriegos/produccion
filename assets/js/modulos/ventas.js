@@ -135,6 +135,9 @@ $(document).on("click","#facturar",function(){
         Materialize.toast(err,'4000','red');
         return false;
     }
+    
+    var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
+        console.log(correos);
 
     $("#pcon").val(0.00);
     $("#pcam").text(0.00).css('color','black');
@@ -784,9 +787,13 @@ function searchClient(vvariable,visprv){
         var idprod = $("#desc"+idlinea).text();
         var prod = arr('login',4,'',43,'"'+idprod+'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+','+getParameterByName('tf'),0,0,0);
         
+        var char1 = $("#desc"+idlinea).text().substring(0,1);
+        var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
+        var vstrimp = cargarImpuestos($("#desc"+idlinea).text().substr(1)+',0',tabla);
+
         prod = prod[0][0];
         $("#prec"+idlinea).text(prod[3]);
-        $("#fd"+idlinea).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : prod[0],vcantidad : $("#fd"+idlinea).data('triforce')['vcantidad'],vprecio : prod[3],vdesc : 0,vtotal : 0,vidinventario : prod[13],vidodt : 0,vimv : 0,vcomodin : '',vidunidad : $("#fd"+idlinea).data('triforce')['vidunidad'],vidimpuestos : $("#fd"+idlinea).data('triforce')['vidimpuestos'],viddescuentos : $("#fd"+idlinea).data('triforce')['viddescuentos']});
+        $("#fd"+idlinea).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : prod[0],vcantidad : $("#fd"+idlinea).data('triforce')['vcantidad'],vprecio : prod[3],vdesc : 0,vtotal : 0,vidinventario : prod[13],vidodt : 0,vimv : 0,vcomodin : '',vidunidad : $("#fd"+idlinea).data('triforce')['vidunidad'],vidimpuestos : $("#fd"+idlinea).data('triforce')['vidimpuestos'],viddescuentos : $("#fd"+idlinea).data('triforce')['viddescuentos'],strimp: vstrimp});
         $("#vdesc"+idlinea).data('valor',prod[5]);
         $("#vdesc"+idlinea).data('max',prod[12]);
     });
@@ -866,7 +873,7 @@ function sendFE(clave,factura){
             var vfactura = p['num'];
             var vclave = p['clave'];
             p = p['rs'];
-
+            //VALIDAR ACEPTACION DE FACTURA CON AJAX
             Materialize.toast(p,10000,'green');
             sendVMail(vfactura,vclave,clave);
         }
@@ -884,7 +891,11 @@ function sendVMail(factura,clave,vid){
     var archivos = '';
 
     if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
-        var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0];
+        var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
+        var str_correos = '';
+        for (var i = 0; i < correos.length; i++) {
+            str_correos += correos[0];
+        }
         var vbody = getDatos('',73,vid,0,0)[0][0];
         archivos = makeArchivos(factura,clave,vid,vbody[1]);
 
@@ -892,13 +903,15 @@ function sendVMail(factura,clave,vid){
             case 2:
                 break;
             default:
-                var w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
-                // w.print();
-                // w.close();
-                window.focus();
+                if (config[4] == 1) {
+                    var w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+                    // w.print();
+                    // w.close();
+                    window.focus();
+                }
                 break;
         }
-        enviarCorreo(3,'amiranda@logintechcr.com',"Factura N° "+factura,vbody[0],archivos);
+        enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
         // setTimeout(function(){location.reload();},3000);
         
     }else{
@@ -906,7 +919,8 @@ function sendVMail(factura,clave,vid){
             case 2:
                 break;
             default:
-                window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
+                if (config[4] == 1) 
+                    window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
                 break;
         }
           // setTimeout(function(){location.reload();},3000);

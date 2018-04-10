@@ -120,10 +120,18 @@
             $emisor = $this->getEmisor($vemisor);
             //$receptor = $this->getReceptor($vreceptor);
 
-            if ($id == 0) 
-                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/");
-            else
-                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/".$this->getClave());
+            if ($this->credenciales[2] == 1) {
+                if ($id == 0) 
+                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/");
+                else
+                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/".$this->getClave());
+            }else{
+                if ($id == 0) 
+                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/comprobantes/");
+                else
+                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/comprobantes/".$this->getClave());
+            }
+            
             
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -166,8 +174,10 @@
             }
 
             $xml = $this->getXMLRecepcion();
-
-            $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
+            if ($this->credenciales[2] == 1) 
+                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
+            else
+                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion");
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLINFO_HEADER_OUT,true);
@@ -208,7 +218,10 @@
 
             $clave = $this->getClave();
 
-            $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/".$clave);
+            if ($this->credenciales[2] == 1) 
+                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/".$clave);
+            else
+                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/".$clave);
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl,CURLINFO_HEADER_OUT,true);

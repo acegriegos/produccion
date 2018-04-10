@@ -421,7 +421,7 @@
 </div>
 
 
-<div id="modal-tpagos" class="modal modal-fixed-footer" gfort="0" align="center" style="margin-top: -3% !important; width: 70%; height: 90% !important;">
+<div id="modal-tpagos" class="modal modal-fixed-footer" gfort="0" align="center" style="width: 70%; height: 100% !important;">
 <!--  -->
 <section id="m-efectivo" class="modal-tpago">
   <div class="modal-content">
