@@ -486,7 +486,6 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
         data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
     })
    .done(function(data) {
-
         try {
             p = JSON.parse(data);
             console.log("Correo Enviado");

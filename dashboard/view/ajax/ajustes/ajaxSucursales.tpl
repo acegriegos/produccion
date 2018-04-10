@@ -138,8 +138,14 @@
                                 <input type="checkbox" id="isfe" name="isfisico" checked>
                                 <label for="isfe">Factura Electrónica</label>
 
-                                <input type="checkbox" id="vfastshow" class="with-gap">
-                                <label for="vfastshow">Visualizar Venta</label>
+                                <input type="checkbox" id="vfastshow" class="with-gap" checked>
+                                <label for="vfastshow">Envío de Correo Automático</label>
+
+                                <input type="checkbox" id="vprintSale" class="with-gap" checked>
+                                <label for="vprintSale">Imprimir Venta</label>
+
+                                <input type="checkbox" id="visPrueba" class="with-gap" checked>
+                                <label for="visPrueba">Período de Prueba</label>
                             </div>
                         </div><br>
                         <div class="row">

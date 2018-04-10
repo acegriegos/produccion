@@ -5,7 +5,7 @@ $(function(){
   param = getParameterByName('tf');
   param = param == '' ? 1 : parseInt(param) ;
 
-  config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS',39,'id = @@impresa',0,0)[0][0];
+  config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,''));
 
