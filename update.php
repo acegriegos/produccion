@@ -1,14 +1,15 @@
 <?php 
     
     require_once '_config/mysqlDB.php';
-
+   
     $db = new DBClass();
     $mdb = $db->getDB();
     $salida = [];
     $errors = [];
     shell_exec("> ./assets/update/update.log");
-
+  
     if (!file_exists("assets/update/update.sql")) {
+
         shell_exec("mysqldump --user=itech01 --password=Login2Help ".$mdb." --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".ajustes --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipoestadocuentas --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoventas > ./assets/update/info.sql");
         shell_exec("mysqldump --user=itech01 --password=Login2Help ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
 

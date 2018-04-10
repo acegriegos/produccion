@@ -75,7 +75,8 @@ $(document).on("keydown","#_vnombre",function(e) {
         $(".autocomplete-content").remove();
         $("#_vnombre").autocomplete({
             limit: 10,
-            data: arr('login',4,'',917,'1,"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
+            data: arr('login',4,'',917,'1,"'+$(this).val()+'","'+inventario+'"',0,0,0,1);
+            cargarunidades();
         });
         $("#_vnombre").siblings($(".autocomplete-content")).css('width', '25%');
     }else if(charCode ==13 ) {
@@ -167,7 +168,7 @@ $(document).on("click",".modalmedios",function() {
     $("#_vidciclo").val(tm)
     $("#_vidreferencia").material_select();
     $("#_vidunidad").material_select();
-    
+
     $("#modal-medios").modal('open');
     // arr('login',6,'',921,tm+',@@impresa',0,1,$("#listamedioscultivos"));
 });
