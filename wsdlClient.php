@@ -80,22 +80,27 @@
         }
 
         function getBearer(){
-            $curl = curl_init("https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token");
+
+            $user = 'cpj-3-101-697761@prod.comprobanteselectronicos.go.cr';
+            $pass = ';d_*?0;rJ?XV9y:7!4_}';
+            $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
+            $cli_id = "api-prod";
+            
+            if ($this->credenciales[2] == 1) {
+                $user = 'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr';
+                $pass = 'l[&qq[o$f$+c8Ro|x_@]';
+                $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token";
+                $cli_id = "api-stag";
+            }
+
+            $curl = curl_init($curl_hacienda);
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
 
-            $user = 'cpj-3-101-697761@prod.comprobanteselectronicos.go.cr';
-            $pass = 'V>nF>}kScL]_|+|3Q+&s';
-
-            if ($this->credenciales[2] == 1) {
-                $user = 'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr';
-                $pass = 'l[&qq[o$f$+c8Ro|x_@]';
-            }
-
             $params = array(
-              "client_id" => "api-stag",
+              "client_id" => $cli_id,
               "client_secret" => "",
               "scope" => "",
               "username" => $user,//$this->credenciales[1],
