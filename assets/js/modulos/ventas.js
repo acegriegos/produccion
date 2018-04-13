@@ -937,8 +937,6 @@ function sendVMail(factura,clave,vid){
             enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
         }
         
-        setTimeout(function(){location.reload();},3000);
-        
     }else{
         switch(param){
             case 2:
@@ -948,8 +946,9 @@ function sendVMail(factura,clave,vid){
                     window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
                 break;
         }
-          setTimeout(function(){location.reload();},3000);
     }
+
+    setTimeout(function(){location.reload();},3000);
 }
 
 function makeArchivos(vfactura,vclave,vid,vsucursal){

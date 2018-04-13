@@ -119,7 +119,7 @@
             curl_close($curl);
             $salida['consulta'] = $params;
             $salida['respuesta'] = json_decode($json_response);
-
+            $salida['credenciales'] = $this->credenciales;
             $json_response = json_decode($json_response);
             if (isset($json_response->access_token)) {
                 $this->bearer = $json_response->access_token;
@@ -265,7 +265,7 @@
             curl_close($curl);
             $body = substr($json_response, strpos($json_response, 'CF-RAY'));
             $json = (array) json_decode(substr($body,strpos($body, '{')));
-            $arreglo = isset($json['respuesta-xml']) ? (Array) simplexml_load_string(base64_decode($json['respuesta-xml'])) : 'Factura no Existente';
+            $arreglo = isset($json['respuesta-xml']) ? (Array) simplexml_load_string(base64_decode($json['respuesta-xml'])) : 'Factura no Aprobada';
             $rml = is_array($arreglo) ? $arreglo['DetalleMensaje'] : $arreglo;
             if (isset($json['ind-estado'])) {
                 $salida['factura']  = $this->id;
