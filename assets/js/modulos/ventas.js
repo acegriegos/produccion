@@ -917,8 +917,6 @@ function sendVMail(factura,clave,vid){
         for (var i = 0; i < correos.length; i++) {
             str_correos += correos[0];
         }
-        var vbody = getDatos('',73,vid,0,0)[0][0];
-        archivos = makeArchivos(factura,clave,vid,vbody[1]);
 
         switch(param){
             case 2:
@@ -932,7 +930,10 @@ function sendVMail(factura,clave,vid){
                 }
                 break;
         }
+        
         if (str_correos != '') {
+            var vbody = getDatos('',73,vid,0,0)[0][0];
+            archivos = makeArchivos(factura,clave,vid,vbody[1]);
             enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
         }
         
