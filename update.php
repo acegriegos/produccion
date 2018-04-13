@@ -45,12 +45,11 @@
     }else{
         unlink("assets/update/info.sql");
         unlink("assets/update/update.sql");
+        unlink("assets/update/full.sql");
     }
 
-    if (file_exists("assets/update/full.sql")) {
-        unlink("assets/update/full.sql");
+    if (file_exists("assets/update/struct.lt")) 
         unlink("assets/update/struct.lt");
-    }
 
     echo json_encode($salida);
     

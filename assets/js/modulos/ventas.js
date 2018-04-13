@@ -11,6 +11,7 @@ $(document).on("change","#idtipopago",function(){
 
 $(function(){
     $('select').material_select();
+    $('.tooltipped').tooltip({delay: 50});
 
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
@@ -135,9 +136,6 @@ $(document).on("click","#facturar",function(){
         Materialize.toast(err,'4000','red');
         return false;
     }
-    
-    var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
-        console.log(correos);
 
     $("#pcon").val(0.00);
     $("#pcam").text(0.00).css('color','black');
@@ -193,6 +191,7 @@ $(document).on("click","#facturar",function(){
 
 
             default:
+                $(this).attr('disabled',true);
                 $("#factreal").click();
                 return false;
             break;
@@ -868,20 +867,42 @@ function sendFE(clave,factura){
     })
       .done(function( data ) {
         var p;
+        var continuar = 1;
+
         try {
             p = JSON.parse(data);
             var vfactura = p['num'];
             var vclave = p['clave'];
             p = p['rs'];
-            //VALIDAR ACEPTACION DE FACTURA CON AJAX
-            Materialize.toast(p,10000,'green');
-            sendVMail(vfactura,vclave,clave);
         }
         catch(err){
             p = data;
-            console.log(err.message)
+            console.log(p)
             //GENERAR NOTA DE CREDITO
-            Materialize.toast(p,10000,'red');
+            Materialize.toast(err.message,10000,'red');
+            continuar = 0;
+        }
+
+        if (continuar) {
+             $.ajax({
+                async: true,
+                url: "../wsdlClient.php",
+                type: 'POST',
+                data: {id: clave, accion : 4}
+            })
+              .done(function( data ) {
+                var q;
+                q = JSON.parse(data);
+                
+                if(q['estado'] == 'rechazado'){
+                    //GENERAR NOTA DE CREDITO
+                    Materialize.toast(q['rs'],10000,'red');
+                }else{
+                    Materialize.toast(p,10000,'green');
+                    sendVMail(vfactura,vclave,clave);
+                }
+              });
+
         }
         
       });
@@ -905,14 +926,17 @@ function sendVMail(factura,clave,vid){
             default:
                 if (config[4] == 1) {
                     var w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
-                    // w.print();
-                    // w.close();
+                    w.print();
+                    w.close();
                     window.focus();
                 }
                 break;
         }
-        enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
-        // setTimeout(function(){location.reload();},3000);
+        if (str_correos != '') {
+            enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
+        }
+        
+        setTimeout(function(){location.reload();},3000);
         
     }else{
         switch(param){
@@ -923,7 +947,7 @@ function sendVMail(factura,clave,vid){
                     window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
                 break;
         }
-          // setTimeout(function(){location.reload();},3000);
+          setTimeout(function(){location.reload();},3000);
     }
 }
 

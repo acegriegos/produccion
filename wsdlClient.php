@@ -20,7 +20,7 @@
                 echo "</pre>";
                 break;
             case 4://Consulta ESTADO;
-                print_r($fe->estado());
+                echo json_encode($fe->estado());
                 break;
             case 5://Consulta General de Recibos
                 $offset     =   !isset($_REQUEST['offset'])     ?   0  :   $_REQUEST['offset'];
@@ -53,6 +53,8 @@
                 print_r($certData);
                 echo "</pre>";
                 break;
+            case 10: //FRIMAR
+                break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
@@ -84,12 +86,20 @@
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
 
+            $user = 'cpj-3-101-697761@prod.comprobanteselectronicos.go.cr';
+            $pass = 'V>nF>}kScL]_|+|3Q+&s';
+
+            if ($this->credenciales[2] == 1) {
+                $user = 'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr';
+                $pass = 'l[&qq[o$f$+c8Ro|x_@]';
+            }
+
             $params = array(
               "client_id" => "api-stag",
               "client_secret" => "",
               "scope" => "",
-              "username" => 'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr',//$this->credenciales[1],
-              "password" => 'l[&qq[o$f$+c8Ro|x_@]',//$this->credenciales[2],
+              "username" => $user,//$this->credenciales[1],
+              "password" => $pass,//$this->credenciales[2],
               "grant_type" => "password");
 
             $postData = "";
@@ -110,13 +120,24 @@
             $salida['consulta'] = $params;
             $salida['respuesta'] = json_decode($json_response);
 
-            $this->bearer = json_decode($json_response)->access_token;
+            $json_response = json_decode($json_response);
+            if (isset($json_response->access_token)) {
+                $this->bearer = $json_response->access_token;
+            }
+
             return $salida;
         
         }
 
         function getRecibos($id,$offset,$limit,$vemisor,$vreceptor){
             $this->getBearer();
+
+            if ($this->bearer == '') {
+                $salida['factura']  = $this->id;
+                $salida['estado']   = 'SIN INTERNET';
+                return $salida;
+            }
+
             $emisor = $this->getEmisor($vemisor);
             //$receptor = $this->getReceptor($vreceptor);
 
@@ -169,9 +190,14 @@
         {
             $this->getBearer();
             
-            if (!isset($this->info['Clave'])) {
-                return "Factura no Existente - Clave no Valida";
+            if ($this->bearer == '') {
+                $salida['factura']  = $this->id;
+                $salida['estado']   = 'SIN INTERNET';
+                return $salida;
             }
+
+            if (!isset($this->info['Clave']))
+                return "Factura no Existente - Clave no Valida";
 
             $xml = $this->getXMLRecepcion();
             if ($this->credenciales[2] == 1) 
@@ -194,7 +220,7 @@
             switch ($status) {
                 case 201:
                 case 202:
-                    $json_response = json_encode(['rs'=>'Factura Electronica Recibida','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'response'=>$rs,'succes'=>1]);
+                    $json_response = json_encode(['rs'=>'Factura Electronica Aprobada','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'response'=>$rs,'succes'=>1]);
                     break;
                 case 400:
                     /*AGARRAR ERROR*/
@@ -216,6 +242,12 @@
         {
             $this->getBearer();
 
+            if ($this->bearer == '') {
+                $salida['factura']  = $this->id;
+                $salida['estado']   = 'SIN INTERNET';
+                return $salida;
+            }
+
             $clave = $this->getClave();
 
             if ($this->credenciales[2] == 1) 
@@ -234,12 +266,12 @@
             $body = substr($json_response, strpos($json_response, 'CF-RAY'));
             $json = (array) json_decode(substr($body,strpos($body, '{')));
             $arreglo = isset($json['respuesta-xml']) ? (Array) simplexml_load_string(base64_decode($json['respuesta-xml'])) : 'Factura no Existente';
-
+            $rml = is_array($arreglo) ? $arreglo['DetalleMensaje'] : $arreglo;
             if (isset($json['ind-estado'])) {
                 $salida['factura']  = $this->id;
                 $salida['estado']   = $json['ind-estado'];
-                $salida['rs']       = $arreglo['DetalleMensaje'];
-                $salida['xml']      = $json['respuesta-xml'];
+                $salida['rs']       = $rml;
+                $salida['xml']      = isset($json['respuesta-xml']) ? $json['respuesta-xml'] : '';
             }else{
                 $salida['factura']  = $this->id;
                 $salida['estado']   = 'Sin Subir';

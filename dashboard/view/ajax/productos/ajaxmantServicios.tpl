@@ -59,9 +59,8 @@
         </ul>
     </div>
     <div class="modal-content" style="padding: 0px;">
-        <form id="fservicios">
+        <div id="fservicios">
             <div id="datosservicios" style="padding: 25px 10px 0 10px">
-                <input type="hidden" id="vidmoneda" value="1">
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vidproveedor" value="0">
                 <input type="hidden" id="vidsucursal" value="">
@@ -120,15 +119,15 @@
                         </div><br>
                     </div>
                 </div>
-                <div class="row hide">
-                    <div class="col s12 m3">
+                <div class="row">
+                    <div class="col s12 m3 hide">
                         <input type="checkbox" id="outsourcing" value="0">
                         <label for="outsourcing">Outsourcing</label>
                         <input type="hidden" id="boutsrc" value="0">
                     </div>
                     <!-- </div> -->
                     <!-- <div class="row"> -->
-                    <div class="input-field col s12 m6 ">
+                    <div class="input-field col s12 m6 hide">
                         <select id="prov" disabled>
                             <br><option value="0" disabled selected>Seleccione un Proveedor</option>
                             {section name=LE loop=$CLI}
@@ -146,6 +145,8 @@
                             <input type="hidden" id="vservprofesional">
                         </div>
                     </div>
+
+
                 </div>
                 <div class="row">
                     <div class="col s6 m6 l6 input-field" id="dinvent">
@@ -162,10 +163,18 @@
                 <div id="financiero"  style="padding: 25px 10px 0 10px">
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <i class="material-icons prefix">¢</i>
+                        <span class="prefix moneda"></span>
                         <input id="vpbase" type="number" class="validate vcalcserv" min="1" num="1">
                         <label for="vpbase">Precio</label>
 
+                    </div>
+                    <div class="col s12 m3 input-field">
+                        <select id="vidmoneda" type="select">
+                          {section name="LE" loop=$MON}
+                            <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
+                          {/section}
+                        </select>
+                        <label for="vidmoneda">Moneda</label>
                     </div>
                     <div class="input-field col s12 m6 hide">
                         <i class="material-icons prefix">%</i>
@@ -182,7 +191,7 @@
                 <br>
             </div>
             
-        </form>
+        </div>
     </div>
     <div class="modal-footer">
         <a class="modal-action waves-effect waves-green btn-flat add" id="addserv" modulo="servicio">Agregar</a>
