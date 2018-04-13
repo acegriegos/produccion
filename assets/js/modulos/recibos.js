@@ -24,22 +24,30 @@ $(function(){
          vpara=vpara.substring(0,vpara.length -1);
          mid = getParameterByName('id');
 
-         var f = mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura',sel:'',tbl:72,where:mid},1);
+        // var f = mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura',sel:'',tbl:72,where:mid},1);
 
+         var archivos = '';
+    
+        // mantenimiento_async('login',8,{arch:'recibo',id:vid,mid:1,tit:'Factura Electrónica',sel:'',tbl:72,where:mid},1);
+        // if (vclave == vid)
+        //     archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
+        // else{
+        //     archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+        //     mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
+        // }
+        // vbody = getDatos('',73,vid,0,0)[0][0];
+        // var e = enviarCorreo(3,vpara,"Factura",vbody,archivos);
+        // vpara = vbody = "";
+        // mid = 0;
 
-         $('.chips-initial').material_chip();
-         $(".chips .input").css("color","white");
+        // $('.chips-initial').material_chip();
+        // $(".chips .input").css("color","white");
      });
 
 });
 
 function postExcecute(vid,p){
     switch(parseInt(vid)){
-        case 1:
-            var e = enviarCorreo(3,vpara,"Factura",vbody,'pdf/Factura N° '+mid+'.pdf');
-            vpara = vbody = "";
-            mid = 0;
-            break;
         default:
             break;
     }
