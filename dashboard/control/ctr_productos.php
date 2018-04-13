@@ -27,6 +27,7 @@
 	   			$smarty->assign('INV',$kakaroto->kamehameha('*',111,'id > 0 and idbodega = 1 order by id'));
 	   			$smarty->assign('PROD',$kakaroto->kamehameha('',14,'0,0,"","0,10"'));
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by id'));
+	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
 	   			break;
 	   		case 2:
@@ -36,6 +37,7 @@
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('CLI',$kakaroto->kamehameha("id,nombre",2,"bisproveedor = 1"));
 	   			$smarty->assign('SERV',$kakaroto->kamehameha('',13,''));
+	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 	   			$smarty->display('ajax/productos/ajaxmantServicios.tpl');
 	   			break;
 	   		case 3:

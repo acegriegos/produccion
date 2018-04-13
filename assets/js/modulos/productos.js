@@ -71,6 +71,10 @@ $(function () {
 			endingTop: '4%' // Ending top style attribute
 		});
 		$('ul.tabs').tabs();
+		$("#vidmoneda").change(function(){
+	        cargarMoneda($('option:selected',this).val());
+	    });
+		cargarMoneda(0);
 	});
 
 	var pr = getParameterByName("pr"); //accesos
@@ -631,7 +635,7 @@ $(document).on("click", "#addprod", function () {
 		var minimo = $("#vminimo").val();
 		var maximo = $("#vmaximo").val();
 		var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
-		var idmoneda = $("#vidmoneda").val();
+		var idmoneda = $(".moneda").first().data("triforce")['id'];;
 		var idinventario = $("#vidinventario option:selected").val();
 		var vari = $(".variables");
 		var pass = 1;
@@ -752,7 +756,7 @@ $(document).on("click", "#editprod", function () {
 		var minimo = $("#vminimo").val();
 		var maximo = $("#vmaximo").val();
 		var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
-		var idmoneda = $("#vidmoneda").val();
+		var idmoneda = $(".moneda").first().data("triforce")['id'];
 		var vari = $(".variables");
 		var pass = 1;
 
@@ -1455,12 +1459,11 @@ $(document).on("click",".loadserv",function(){
     $("#vpbase").val(serv[4]);
     $("#vprecio").val(serv[8]);
     $("#vpganancia").val(serv[9]);
-    $("#vidmoneda").val(serv[12]);
     $("#addserv").removeClass('add');
     $("#addserv").addClass('edit');
     $("#addserv").html('Guardar')
 
-
+    cargarMoneda(serv[12]);
     Materialize.updateTextFields();
 });
 

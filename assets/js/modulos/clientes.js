@@ -80,6 +80,10 @@ $("#telefono_in").blur(function(){
 		}
 	});
 
+	$("[name='tipoclie']").click(function(){
+		$("#vidtipocliente").val($(this).attr('tipoClie'));
+	});
+
 
 	// $("#vidpais").change(function(){
 	// 	$("#prefijo").html('('+$('option:selected',this).attr('cod')+')')
@@ -462,7 +466,6 @@ function validarclientes() {
 
 function obtenerCuentas(vid){
     var cuentasg = arr('login',4,'',85,'2,'+vid+',"1,2"','',0,'');
-    console.log(cuentasg);
 	$("#ctacontado").html('');
 	$("#ctacredito").html('');
 
