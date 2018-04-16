@@ -25,8 +25,6 @@ $(function(){
          vpara=vpara.substring(0,vpara.length -1);
          mid = getParameterByName('id');
 
-        // var f = mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura',sel:'',tbl:72,where:mid},1);
-
          var archivos = '';
     
         mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:mid},1);
