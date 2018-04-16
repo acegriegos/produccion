@@ -4,7 +4,7 @@ subirVersion.sh
 assets/style=expanded
 assets/css/scss_cache/*
 assets/xml/*
-assets/xml/.gitkeep
+!assets/xml/.gitkeep
 assets/p12/*
 !assets/p12/.gitkeep
 assets/update/*

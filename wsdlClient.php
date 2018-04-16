@@ -108,22 +108,27 @@
         }
 
         function getBearer(){
-            $curl = curl_init("https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token");
+
+            $user = 'cpj-3-101-697761@prod.comprobanteselectronicos.go.cr';
+            $pass = ';d_*?0;rJ?XV9y:7!4_}';
+            $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
+            $cli_id = "api-prod";
+            
+            if ($this->credenciales[2] == 1) {
+                $user = 'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr';
+                $pass = 'l[&qq[o$f$+c8Ro|x_@]';
+                $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token";
+                $cli_id = "api-stag";
+            }
+
+            $curl = curl_init($curl_hacienda);
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
 
-            $user = 'cpj-3-101-697761@prod.comprobanteselectronicos.go.cr';
-            $pass = 'V>nF>}kScL]_|+|3Q+&s';
-
-            if ($this->credenciales[2] == 1) {
-                $user = 'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr';
-                $pass = 'l[&qq[o$f$+c8Ro|x_@]';
-            }
-
             $params = array(
-              "client_id" => "api-stag",
+              "client_id" => $cli_id,
               "client_secret" => "",
               "scope" => "",
               "username" => $user,//$this->credenciales[1],
@@ -147,7 +152,7 @@
             curl_close($curl);
             $salida['consulta'] = $params;
             $salida['respuesta'] = json_decode($json_response);
-
+            $salida['credenciales'] = $this->credenciales;
             $json_response = json_decode($json_response);
             if (isset($json_response->access_token)) {
                 $this->bearer = $json_response->access_token;
@@ -293,7 +298,7 @@
             curl_close($curl);
             $body = substr($json_response, strpos($json_response, 'CF-RAY'));
             $json = (array) json_decode(substr($body,strpos($body, '{')));
-            $arreglo = isset($json['respuesta-xml']) ? (Array) simplexml_load_string(base64_decode($json['respuesta-xml'])) : 'Factura no Existente';
+            $arreglo = isset($json['respuesta-xml']) ? (Array) simplexml_load_string(base64_decode($json['respuesta-xml'])) : 'Factura no Aprobada';
             $rml = is_array($arreglo) ? $arreglo['DetalleMensaje'] : $arreglo;
             if (isset($json['ind-estado'])) {
                 $salida['factura']  = $this->id;
