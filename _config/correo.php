@@ -44,7 +44,7 @@ class correo
           $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vAdjunto[$i]));
         }
       }else
-        $this->message->attach(Swift_Attachment::fromPath('../assets/'.$nvadjunto));      
+        $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vadjunto));      
 
       if ($this->mailer->send($this->message)) {
           if(is_array($vAdjunto)){

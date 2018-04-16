@@ -18,6 +18,7 @@ $(function(){
         default:
             break;
     }
+    console.clear();
     console.log(invvar[1][0]+' '+invvar[1][1])
     console.log(invvar[4][0]+' '+invvar[4][1])
     $('.modal').modal({
@@ -73,11 +74,11 @@ $(document).on("keydown","#_vnombre",function(e) {
     var inventario = invvar[1][0]+','+invvar[4][0];
     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
         $(".autocomplete-content").remove();
-        $("#_vnombre").autocomplete({
+         $("#_vnombre").autocomplete({
             limit: 10,
-            data: arr('login',4,'',917,'1,"'+$(this).val()+'","'+inventario+'"',0,0,0,1);
-            cargarunidades();
+            data: arr('login',4,'',917,'1,"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
         });
+        // cargarunidades(vidproducto,vunidad);  
         $("#_vnombre").siblings($(".autocomplete-content")).css('width', '25%');
     }else if(charCode ==13 ) {
         $("#_vcantidad").focus();
@@ -85,7 +86,6 @@ $(document).on("keydown","#_vnombre",function(e) {
 });
 
 // $(document).on("keydown","#_vcodigo",function(e){
-//     console.log(arr('login',4,'',917,'2,"'+$(this).val()+'","'+inventario+'"',0,0,0))
 //     var charCode = e.which || e.keyCode;
 //     var charStr = String.fromCharCode(charCode);
 //     var inventario = invvar[1][0]+','+invvar[4][0];
@@ -99,9 +99,62 @@ $(document).on("keydown","#_vnombre",function(e) {
 // });
 
 $(document).on("click","#savemedio",function(){
-    //base: vaccion,vid,vidusuario,vfecha,vidreferencia,vidsucursal,vidciclo
-    //detalle: vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
-    console.log($("#listamedioscultivos").data())
+    //base: vaccion,vid,vidusuario,vidreferencia,vidsucursal,vidciclo
+    var idreferencia = $("#listamedioscultivos").data('idreferencia');
+    var idciclo = $("#listamedioscultivos").data('idciclo');
+    var sig = 0;
+    var antmedios = arr('login',4,'',921,idciclo+',@@impresa',0,0,0);
+    var idsolucion = 0;
+    if (antmedios[0].length == 0) {
+        idsolucion = arr('login',4,'',918,'1,0,@@usr,'+idreferencia+',@@impresa,'+idciclo,0,0,0);
+        if (idsolucion['succed'] == 1) {
+        // detalle: vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
+            $(".detsolution").each(function(){
+                var id = $(this).attr('id').substr(5);
+                var idproducto = $("#ifila"+id).data('idproducto');
+                var idunidad = $("#ifila"+id).data('idunidad');
+                var idinventario = $("#ifila"+id).data('idinventario');
+                var cantidad = $("#ifila"+id).data('cantidad');
+                var detalle = arr('login',4,'',919,'1,0,'+idsolucion[0][0]+','+idproducto+','+idunidad+','+idinventario+','+cantidad,0,0,0)
+                if (detalle['succed'] == 0) {
+                    Materialize.toast('ERROR', 4000, 'red');
+                    return false;
+                }else{
+                    sig = 1;
+                }
+            });
+            if (sig == 1) {
+                Materialize.toast('Registro guardado correctamente', 4000, 'green');
+            }
+        }else{
+            if ($("#listamedioscultivos .detsolution").length == 0) {
+                Materialize.toast('Debe agregar componentes', 4000, 'red');
+            }else{
+                Materialize.toast(idsolucion[0]['ERROR'], 4000, 'green');
+            }
+        }
+    }else{
+        idsolucion = antmedios[0][0][0];
+        arr('login',4,'',919,'3,0,'+idsolucion+',0,0,0,0',0,0,0)
+        $(".detsolution").each(function(){
+            var id = $(this).attr('id').substr(5);
+            var idproducto = $("#ifila"+id).data('idproducto');
+            var idunidad = $("#ifila"+id).data('idunidad');
+            var idinventario = $("#ifila"+id).data('idinventario');
+            var cantidad = $("#ifila"+id).data('cantidad');
+            var detalle = arr('login',4,'',919,'1,0,'+idsolucion+','+idproducto+','+idunidad+','+idinventario+','+cantidad,0,0,0)
+            if (detalle['succed'] == 0) {
+                Materialize.toast('ERROR', 4000, 'red');
+                return false;
+            }else{
+                sig = 1;
+            }
+        });
+        if (sig == 1) {
+            Materialize.toast('Registro guardado correctamente', 4000, 'green');
+        }
+    }
+
 });
 
 $(document).on("click","#addmedio",function(){
@@ -109,7 +162,6 @@ $(document).on("click","#addmedio",function(){
     var nombre = elemento.substr(0,elemento.lastIndexOf('-')-1) == '' ? $("#_vnombre").val() : elemento.substr(0,elemento.lastIndexOf('-')-1);
     var inventario = elemento.indexOf('-') < 0 ? '' : elemento.substr(elemento.lastIndexOf('-')+2);
     var comp = arr('login',4,'',920,'"'+nombre+'","'+inventario+'"',0,0,0);
-    // console.log(comp[0][0])
     if (comp['succed'] == 1) {
         var idref = $("#_vidreferencia").val();
         var idciclo = $("#_vidciclo").val();
@@ -124,7 +176,7 @@ $(document).on("click","#addmedio",function(){
         ifila++;
         //vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
         $("#listamedioscultivos").append(
-            '<tr id="ifila'+ifila+'">'+
+            '<tr id="ifila'+ifila+'" class="detsolution">'+
                 '<td class="center" style="padding: 1% !important;">'+nombre+'</td>'+
                 '<td class="center" style="padding: 1% !important;">'+cantidad+' '+simbolo+'</td>'+
                 '<td class="center" style="padding: 1% !important;">'+
@@ -168,9 +220,19 @@ $(document).on("click",".modalmedios",function() {
     $("#_vidciclo").val(tm)
     $("#_vidreferencia").material_select();
     $("#_vidunidad").material_select();
-
+    var comps = arr('login',4,'',921,tm+',@@impresa',0,0,0);
+    ifila = comps[0].length;
+    if (comps[0].length > 0) {
+        $("#listamedioscultivos").attr({
+            'data-idreferencia': $("#_vidreferencia").val(),
+            'data-idciclo': tm
+        });
+        arr('login',6,'',921,tm+',@@impresa',0,1,$("#listamedioscultivos"));
+    }else{
+        $("#listamedioscultivos").removeAttr('data-idreferencia').removeAttr('data-idciclo');
+    }
     $("#modal-medios").modal('open');
-    // arr('login',6,'',921,tm+',@@impresa',0,1,$("#listamedioscultivos"));
+    
 });
 
 $(document).on('click','#addFin',function() {
@@ -1214,7 +1276,6 @@ function validarCliente(){
 }
 
 function endDetail(vid,vacc,modulo){
-    console.log(modulo)
     if (vacc == 1) {
     	switch(modulo){
     		case 'laboratorio-explante':
@@ -1278,7 +1339,6 @@ function endDetail(vid,vacc,modulo){
                 break;
             case 'mediocultivo':
                 var idciclo = $("#_vidciclo").val();
-                console.log(1)
                 arr('login',6,'',921,idciclo+',@@impresa',0,1,$("#listamedioscultivos"));
                 $("#_vnombre").val('');
                 $("#_vcodigo").val('');

@@ -12,6 +12,7 @@ $(function(){
      Materialize.updateTextFields();
 
      $('#lcorreos').click(function(){
+
         $(this).prop('disabled','disabled');
         mostrar_cargar();
          var para = $('.chips-initial').material_chip('data');
@@ -24,22 +25,30 @@ $(function(){
          vpara=vpara.substring(0,vpara.length -1);
          mid = getParameterByName('id');
 
-         var f = mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura',sel:'',tbl:72,where:mid},1);
+         var archivos = '';
+    
+        mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:mid},1);
+        var vfactura = $("#numfact").html().trim();
+        var vsucursal = $("#fnombre").html();
+        if (vfactura == mid)
+            archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
+        else{
+            archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+            mantenimiento_async('login',9,{id:mid,factura:vfactura,sucursal:vsucursal},1);
+        }
+        vbody = getDatos('',73,mid,0,0)[0][0];
+        var e = enviarCorreo(3,vpara,"Factura N° "+vfactura,vbody[0],archivos);
+        vpara = vbody = "";
+        mid = 0;
 
-
-         $('.chips-initial').material_chip();
-         $(".chips .input").css("color","white");
+        $('.chips-initial').material_chip();
+        $(".chips .input").css("color","white");
      });
 
 });
 
 function postExcecute(vid,p){
     switch(parseInt(vid)){
-        case 1:
-            var e = enviarCorreo(3,vpara,"Factura",vbody,'pdf/Factura N° '+mid+'.pdf');
-            vpara = vbody = "";
-            mid = 0;
-            break;
         default:
             break;
     }
