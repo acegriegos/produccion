@@ -53,7 +53,7 @@
                 print_r($certData);
                 echo "</pre>";
                 break;
-            case 10: //FRIMAR
+            case 10: //CONFIRMAR DOCUMENTO ELECTRONICO
                 break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
@@ -68,9 +68,37 @@
         var $bearer;
         var $credenciales;
         var $preUbicacion = '';
+        var $tdoc = 'FacturaElectronica';
+        var $xmldoc = 'facturaElectronica';
+
         function __construct($vid){
             $this->id = $vid;
             $this->info = $this->getJSON('call fe_getencabezado('.$this->id.')');
+            if (isset($_REQUEST['tdoc'])) {
+               
+                switch ($_REQUEST['tdoc']) {
+                    case 2: //NOTA DE DEITO
+                        $this->tdoc = 'NotaDebitoElectronica';
+                        $this->xmldoc = 'notaDebitoElectronica';
+                        break;
+                    case 3:
+                        $this->tdoc = 'NotaCreditoElectronica';
+                        $this->xmldoc = 'notaCreditoElectronica';
+                        break;
+                    case 4:
+                        $this->tdoc = 'TiqueteElectronico';
+                        $this->xmldoc = 'tiqueteElectronico';
+                        break;
+                    default: //FACTRA ELECTRONICA
+                        $_REQUEST['tdoc'] = 1;
+                        break;
+                }
+
+                $mtdoc = str_pad($_REQUEST['tdoc'],2,0,STR_PAD_LEFT);
+                $pre = substr($this->info['Clave'],0,29);
+                $post = substr($this->info['Clave'],31);
+                $this->info['Clave'] = $pre.$mtdoc.$post;
+            }
             $db = new DBClass();
             if (!isset($_SESSION['IMPRESA']))
                 session_start();
@@ -298,19 +326,23 @@
         }
 
         function getXMLRecepcion(){
-
             $data = [];
             
             $data[] = $this->info;
             $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle('.$this->id.')');
             $data['ResumenFactura'] = $this->getJSON('call fe_getResumen('.$this->id.')');
-            // $data['InformacionReferencia'] = ['TipoDoc' => '', 'Numero' => '', 'FechaEmision' => '', 'Codigo' => '', 'Razon' => '' ];
+            if (isset($_REQUEST['ref'])) {
+                $refxml = $this->getJSON('call fe_getReferencia('.$_REQUEST['ref'].')');
+                echo $refxml.'<br>';
+                $data['InformacionReferencia'] = $refxml;
+            }
+
             $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
             // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             
 
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-            <FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+            <'.$this->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
             $this->array_to_xml($data,$xml_data);
 
             $xml = $xml_data->asXML();
@@ -325,7 +357,7 @@
                                         'fecha'                 =>  $this->info['FechaEmision'],
                                         'emisor'                =>  ['tipoIdentificacion' => $this->info['Emisor']['Identificacion']['Tipo'], 'numeroIdentificacion' => str_pad($this->info['Emisor']['Identificacion']['Numero'], 12,0,STR_PAD_LEFT)],
                                         'receptor'              =>  '',
-                                        'callbackUrl'           => 'http://191.102.38.53:5381/wsdlServer.php',
+                                        'callbackUrl'           => $this->credenciales[3],
                                         // 'consecutivoReceptor'   => '',
                                         'comprobanteXml'        => base64_encode($xml));
             if (isset($this->info['Receptor'])) 
@@ -524,19 +556,19 @@
             
             $SignedProperties = "SignedProperties-".$signatureID; 
 
-            $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
+            $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
              'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
              'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
              'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
              
-            $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
+            $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" '.
             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
 
             
-            $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
+            $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
@@ -658,7 +690,7 @@
             $signatureResult = base64_encode($signatureResult);
 
             $sig = str_replace('</ds:SignatureValue>', $signatureResult.'</ds:SignatureValue>', $sig);
-            $xml = str_replace('</FacturaElectronica>', $sig.'</FacturaElectronica>' , $xml);
+            $xml = str_replace('</'.$this->tdoc.'>', $sig.'</'.$this->tdoc.'>' , $xml);
        }
     }   
 
