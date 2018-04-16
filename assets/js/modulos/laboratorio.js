@@ -73,11 +73,12 @@ $(document).on("keydown","#_vnombre",function(e) {
     var inventario = invvar[1][0]+','+invvar[4][0];
     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
         $(".autocomplete-content").remove();
-        $("#_vnombre").autocomplete({
+         $("#_vnombre").autocomplete({
             limit: 10,
-            data: arr('login',4,'',917,'1,"'+$(this).val()+'","'+inventario+'"',0,0,0,1);
-            cargarunidades();
+            data: arr('login',4,'',917,'1,"'+$(this).val()+'","'+inventario+'"',0,0,0,1)
         });
+        console.log(arr('login',4,'idunidad',1,''+$(this).val()+'',0,0,0,1))
+        // cargarunidades(vidproducto,vunidad);  
         $("#_vnombre").siblings($(".autocomplete-content")).css('width', '25%');
     }else if(charCode ==13 ) {
         $("#_vcantidad").focus();
