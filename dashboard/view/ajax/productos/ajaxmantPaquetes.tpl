@@ -107,13 +107,17 @@
 					<span><b>Productos en paquete:</b></span>
 					<section id="listapaquetes"><!-- JS --></section>
 				</div>
-			</div><br><hr><br>
-			<div class="row">
-				<div class="input-field col s12 m6">
+			</div><hr>
+			<div class="row padding1">
+				<div class="input-field col s12 m4">
+					<select type="select" id="invpqt"></select>
+					<label for="invpqt">Inventario</label>
+				</div>
+				<div class="input-field col s12 m4">
 					<input type="text" class="validate" id="vdescuento" value="">
 					<label for="vdescuento">Descuento</label>
 				</div>
-				<div class="input-field col s12 m6">
+				<div class="input-field col s12 m4">
 					<input id="totpqt" type="text" value="0.00" readonly>
 					<label for="totpqt">Total</label>
 					<input type="hidden" id="htotal" value="0.00">

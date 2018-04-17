@@ -1071,7 +1071,8 @@ $(document).on("click","#addpqt",function(){
     if (valpqt == false) {
         var descuento = $("#vdescuento").val() == '' ? 0 : $("#vdescuento").val();
         var total = isNaN($("#htotal").val()) ? '0.00' : parseFloat($("#htotal").val());
-        var idpaquete = arr('login',4,'',60,'1,0,\"'+$("#vcodigo").val()+'\",\"'+$("#vnombre").val()+'\",'+descuento+','+total+',1,@@usr,@@impresa',0,0,0);
+        var invent = $("#invpqt").val();
+        var idpaquete = arr('login',4,'',60,'1,0,\"'+$("#vcodigo").val()+'\",\"'+$("#vnombre").val()+'\",'+descuento+','+total+','+invent+',1,@@usr,@@impresa',0,0,0);
         if (idpaquete[0][0] != undefined) {
             $(".nomprod").each(function(){
                 var id = $(this).attr('id').substr(1);
@@ -1464,6 +1465,8 @@ $(document).on("click",".loadserv",function(){
     $("#addserv").html('Guardar')
 
     cargarMoneda(serv[12]);
+    $("#vidmoneda").val(serv[12]);
+    $("#vidmoneda").material_select('update');
     Materialize.updateTextFields();
 });
 
@@ -1827,6 +1830,7 @@ $(document).on("click","#addpackage",function(){
     $("#titpqt").html("Agregar Paquete");
     vaciar('paquetes');
     arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
+    arr('login',6,'id,nombre',111,'id > 0',15,1,$("#invpqt"))
     $('select').material_select();
     Materialize.updateTextFields();
     $("#editpck").attr('id','addpqt');

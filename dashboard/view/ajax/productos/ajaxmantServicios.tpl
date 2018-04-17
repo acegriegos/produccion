@@ -25,7 +25,7 @@
                     <tr>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Precio</th>
+                        <th class="white-text tab1" style="border: 0; border--: 0px !important;">Precio</th>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Período</th>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Outsourcing</th>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Acciones</th>

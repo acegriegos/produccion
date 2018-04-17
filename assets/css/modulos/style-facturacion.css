@@ -69,7 +69,7 @@
 .bg1 {
   background: #4D4D4D; }
 
-.delete:hover {
+.danger:hover {
   color: #EC545A !important; }
 
 .bgtransparent {

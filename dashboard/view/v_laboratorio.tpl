@@ -57,6 +57,7 @@
         </div>
       </div>
     </div>
+
     {$SCR}
     <script src="../assets/js/modulos/laboratorio.js?v=0.1"></script>
   </body>

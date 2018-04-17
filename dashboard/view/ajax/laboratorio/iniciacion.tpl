@@ -40,7 +40,7 @@
           <label for="vlote">Lote</label>
         </div>
         <div class="col s12 input-field">
-          <a class="prefix btn-floating btn2 z-depth-2" id="mkformula"><i class="mdi mdi-plus mdi-24px"></i></a>
+          <a class="prefix btn-floating btn2 z-depth-2 mediocultivo" id="mkformula"><i class="mdi mdi-plus mdi-24px"></i></a>
           <input type="text" id="cultivo" readonly value="- - -" class="center">
           <label for="cultivo">Medio Cultivo</label>
         </div>
@@ -55,18 +55,6 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div id="modal-formula" class="modal modal-fixed-footer grandemodal">
-  <div class="modal-header head2 padding1">
-    <h5 class="modal-title center-align">Agregar medio de cultivo</h5>
-  </div>
-  <div class="modal-content">
-  </div>
-  <div class="modal-footer ">
-    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
-    <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="mcultivo">Guardar</a>
   </div>
 </div>
 

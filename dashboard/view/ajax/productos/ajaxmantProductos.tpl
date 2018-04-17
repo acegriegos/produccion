@@ -102,6 +102,14 @@
 						</select>
 						<label for="vidunidad">Unidad</label>
 					</div>
+					 <div class="input-field marginzero">
+                        <select id="vidmoneda" type="select">
+                          {section name="LE" loop=$MON}
+                            <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
+                          {/section}
+                        </select>
+                        <label for="vidmoneda">Moneda</label>
+                    </div>
 					<div class="input-field marginzero hide" id="dpeso">
 						<input id="vpeso" type="number" class="validate" min="0" autocomplete="off">
 						<label for="vpeso">Peso</label>
@@ -147,7 +155,7 @@
 				<div class="col s12 m6 l3  center-align">
 					<label>Precio Costo</label>
 					<div class="input-field">
-						<i class="mdi prefix">¢</i>
+						<i class="mdi prefix moneda">¢</i>
 						<input type="text" id="vcosto" class="validate eder numeric cos calcvv" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
 						<input type="hidden" id="hvcosto" value="">
 					</div>
@@ -162,7 +170,7 @@
 				<div class="col s12 m6 l3 center-align">
 					<label>Precio Venta</label>
 					<div class="input-field">
-						<i class="mdi prefix">¢</i>
+						<i class="mdi prefix moneda">¢</i>
 						<input type="text" id="vventa" class="validate calcvv eder numeric ven" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3">
 						<input type="hidden" id="hventa" value="">
 					</div>

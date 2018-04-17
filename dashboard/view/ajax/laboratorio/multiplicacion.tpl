@@ -69,20 +69,26 @@
   </div>
 </div>
 <div class="modal-content">
+  <div class="row">
+    <div class="input-field col s12 m4 l4">
+      <input type="number" id="cantfinal" class="validate">
+      <label for="cantfinal">Cantidad final de variedad <span id="varfinal"></span></label>
+    </div>
+  </div><hr>
   <div class="row marginzero">
     <p>Registrar Pérdidas</p>
-    <div class="input-field col s4 m4 l4">
-      <select id="idsrv" type="select">
-        <option value="0">Servicio uno</option>
-        <option value="1">Servicio dos</option>
-      </select>
-      <label for="idsrv">Servicio</label>
+    <div class="input-field col s12 m3 l3">
+      <select type="select" id="srazon"></select>
     </div>
-    <div class="input-field col s4 m4 l4">
+    <div class="input-field col s12 m4 l4">
+      <input type="text" id="svari" readonly>
+      <label for="svari">Variedad</label>
+    </div>
+    <div class="input-field col s12 m4 l4">
       <input type="number" id="cantsrv" class="validate">
       <label for="cantsrv">Cantidad</label>
     </div>
-    <div class="col s4 m4 l4">
+    <div class="col s12 m1 l1">
       <a class="btn btn2 btn-floating mdi mdi-plus" id="addchip"></a>
     </div>
   </div>
