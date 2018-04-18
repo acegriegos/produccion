@@ -344,11 +344,17 @@ $(document).on("click","#registrar",function() {
 $(document).on("click","#assbandeja",function() {
     $("#modal-bandeja").modal('open');
     arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
+    if ($("#hidbandeja").val() != 0) {
+        $("#cbandeja").val($("#hidbandeja").val());
+    }else{
+        $("#cbandeja").val(0);
+    }
     $("#cbandeja").material_select();
 });
 
 $(document).on("click","#chgbandeja",function() {
     var idbandeja = $("#cbandeja").val();
+    console.log($("#cbandeja option:selected").text())
     $("#hidbandeja").val(idbandeja);
     Materialize.toast('Bandeja seleccionada', 4000, 'green');
 });
@@ -356,36 +362,84 @@ $(document).on("click","#chgbandeja",function() {
 $(document).on("click",".procmult",function() {
     var id = $(this).attr('id').substr(1);
     $("#domult").attr('idciclo',id);
-    $("#modal-invstats").modal('open');
-    $("#titinvstat").html('Procesar a multiplicación');
+    $("#modal-procmult").modal('open');
     arr('login',6,'id,nombre',913,'id > 0 and isactivo = 1',15,1,$("#srazon"));
-    // arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
-    var svari = arr('login',4,'',924,id,0,0,0)[0][0][1];
-    $("#svari").val(svari);
-    $("#varfinal").text(svari);
+    var svari = arr('login',4,'',924,id,0,0,0)[0][0];
+    $("#svari").val(svari[1]);
+    $("#varfinal").text(svari[1]);
+    $("#idserv").val(svari[0]);
     Materialize.updateTextFields();
     $("select").material_select();
 });
 
-$(document).on("click","#domult",function() {
-    //multiplicacion
+$(document).on("click","#domult",function(){
+    // registro total de cantidades
+    var idciclo = $("li.menu3 > a.active").parent().attr('id').substr(1);
     var id = $(this).attr('idciclo');
-    var idtipo = $("li.menu3 > a.active").parent().attr('id').substr(1);
-    var idbandeja = $("#hidbandeja").val(),
-    idmedio = $("#hidmediocultivo").val();
-    var ciclo = arr('login',4,'',914,id+','+idtipo+','+idbandeja+','+idmedio,0,0,0);
-    if (ciclo['succed'] == 1) {
-        //investadisticas
-        var idrazon = $("#srazon").val(),
-        serv = $("#idserv").val(),
-        prod = 0,
-        cant = $("#cantact").val() == '' ? 0 : $("#cantact").val(),
-        comen = $("#comentproc").val();
-        arr('login',4,'',918,'1,0,'+id+','+idrazon+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
-        Materialize.toast('Registro guardado correctamente', 4000, 'green');
-        arr('login',6,'',912,'0,0,"'+idtipo+',@@impresa","0,10"',0,1,$("#listaciclos"))
+    var cfinal = $("#cantfinal").val() == '' ? 0 : $("#cantfinal").val();
+    var idservicio = $("#idserv").val();
+    if (cfinal != 0) {
+        var finalcount = arr('login',4,'',925,'1,0,"'+idciclo+','+id+'",1,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
+        if (finalcount['succed'] == 1) {
+            // registro de perdidas
+            var idrazon = $("#srazon").val();
+            var cant = $("#cantsrv").val();
+            var perdidas = arr('login',4,'',925,'1,0,'+idciclo+','+idrazon+','+idservicio+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
+            if (perdidas['succed'] == 1) {
+                // realizar multiplicacion
+                var idbandeja = $("#hidbandeja").val();
+                var idmedio = $("#hidmediocultivo").val();
+                var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio,0,0,0);
+                if (ciclo['succed'] == 1) {
+                    Materialize.toast('Multiplicación procesada', 4000, 'green');
+                    emptyprocmult();
+                }else{
+                    Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
+                }
+            }else{
+                Materialize.toast('Error en registro de perdidas', 6000, 'red');
+            }
+        }else{
+            Materialize.toast('Error de registro de cantidad total', 6000, 'red');
+        }
+    }else{
+        Materialize.toast('Cantidad final necesaria para procesar a multiplicación', 6000, 'red');
     }
 });
+
+function emptyprocmult() {
+    $("#cantfinal").val('');
+    $("#srazon").val(0);
+    $("#svari").val('');
+    $("#idserv").val(0);
+    $("#hidbandeja").val(0);
+    $("#hidmediocultivo").val(0);
+    $("select").material_select();
+    Materialize.updateTextFields();
+    $(".validate").css('border-bottom', '1px solid #9e9e9e');
+    $(".validate").css('box-shadow', 'none');
+    $("#modal-procmult").modal('close');
+}
+
+// $(document).on("click","#domult",function() {
+//     //multiplicacion
+//     var id = $(this).attr('idciclo');
+//     var idtipo = $("li.menu3 > a.active").parent().attr('id').substr(1);
+//     var idbandeja = $("#hidbandeja").val(),
+//     idmedio = $("#hidmediocultivo").val();
+//     var ciclo = arr('login',4,'',914,id+','+idtipo+','+idbandeja+','+idmedio,0,0,0);
+//     if (ciclo['succed'] == 1) {
+//         //investadisticas
+//         var idrazon = $("#srazon").val(),
+//         serv = $("#idserv").val(),
+//         prod = 0,
+//         cant = $("#cantact").val() == '' ? 0 : $("#cantact").val(),
+//         comen = $("#comentproc").val();
+//         arr('login',4,'',918,'1,0,'+id+','+idrazon+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
+//         Materialize.toast('Registro guardado correctamente', 4000, 'green');
+//         arr('login',6,'',912,'0,0,"'+idtipo+',@@impresa","0,10"',0,1,$("#listaciclos"))
+//     }
+// });
 
 $(document).on("click","#addchip",function() {
     // var idserv = $("#idsrv").val();
