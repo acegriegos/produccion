@@ -105,13 +105,13 @@
 
         <tr class="hide trVenta">
           <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
-          <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
+          <th style="width: 18%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 14%; padding: 0 !important;" class="center-align"><span class="truncate">Prec.Unit</span></th>
           <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align">Cantidad</th>
           <th style="width: 14%; padding: 0 !important;" class="center-align">Total</th>
-          <th style="width: 17%; padding: 0 !important;" class="center-align"></th>
+          <th style="width: 9%; padding: 0 !important;" class="center-align"></th>
         </tr>
 
         <tr class="hide trCompra">

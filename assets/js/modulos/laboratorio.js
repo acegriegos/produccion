@@ -185,13 +185,15 @@ function addmedio(tp,idfila) {
 
 $(document).on("keydown","#_vnombre",function(e) {
     var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
+    var charStr = keysight(e)
+
     var inventario = invvar[1][0]+','+invvar[4][0];
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+        var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
         $(".autocomplete-content").remove();
          $("#_vnombre").autocomplete({
             limit: 10,
-            data: arr('login',4,'',917,'1,"'+$(this).val()+charStr+'","'+inventario+'"',0,0,0,1)
+            data: arr('login',4,'',917,'1,"'+busqueda+'","'+inventario+'"',0,0,0,1)
         });
         // cargarunidades(vidproducto,vunidad);  
         $("#_vnombre").siblings($(".autocomplete-content")).css('width', '25%');
@@ -202,13 +204,16 @@ $(document).on("keydown","#_vnombre",function(e) {
 
 $(document).on("keydown","#_vcodigo",function(e){
     var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
+    var charStr = keysight(e)
     var inventario = invvar[1][0]+','+invvar[4][0];
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+
+    if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+        var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+
         $(".autocomplete-content").remove();
         $("#_vcodigo").autocomplete({
             limit: 20,
-            data: arr('login',4,'',917,'2,"'+$(this).val()+charStr+'","'+inventario+'"',0,0,0,1)
+            data: arr('login',4,'',917,'2,"'+busqueda+'","'+inventario+'"',0,0,0,1)
         });
         $("#_vcodigo").siblings($(".autocomplete-content")).css('width', '25%');
     }else if(charCode == 13 ) {
@@ -419,8 +424,8 @@ $(document).on("click",".mcb",function() {
 
 //     $("#nomact").keydown(function(e) {
 //         var charCode = e.which || e.keyCode;
-//         var charStr = String.fromCharCode(charCode);
-//         if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+//         var charStr = keysight(e);
+//         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
 //             $(".autocomplete-content").remove();
 //             $("#nomact").autocomplete({
 //                 limit: 20,
@@ -447,8 +452,8 @@ $(document).on("click",".invstats",function(){
 
     $("#nomact").keydown(function(e) {
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+        var charStr = keysight(charCode);
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr)) {
             $(".autocomplete-content").remove();
             $("#nomact").autocomplete({
                 limit: 20,
@@ -748,9 +753,9 @@ function cargarIniciacion(){
     $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
+        var charStr = keysight(charCode);
         
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
 
             $("#vvariedad").autocomplete({
@@ -889,9 +894,9 @@ function cargarExplantes(){
 
     // $("#vvariedad").keydown(function(e){
     //     var charCode = e.which || e.keyCode;
-    //     var charStr = String.fromCharCode(charCode);
+    //     var charStr = keysight(charCode);
         
-    //     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    //     if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
     //         $(".autocomplete-content").remove();
 
     //         $("#vvariedad").autocomplete({
@@ -919,9 +924,9 @@ function cargarExplantes(){
 
     // $("#ncli").keydown(function(e){
     //     var charCode = e.which || e.keyCode;
-    //     var charStr = String.fromCharCode(charCode);
+    //     var charStr = keysight(charCode);
         
-    //     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    //     if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
     //         $(".autocomplete-content").remove();
 
     //         $("#ncli").autocomplete({
@@ -936,9 +941,9 @@ function cargarExplantes(){
 
     $("#finca").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
+        var charStr = keysight(charCode);
         
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
 
             $("#finca").autocomplete({
@@ -965,8 +970,8 @@ function cargarExplantes(){
 
     $("#vregion").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        var charStr = keysight(charCode);
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
             $("#vregion").autocomplete({
                 limit: 20,
@@ -993,8 +998,8 @@ function cargarExplantes(){
 
     // $("#pais").keydown(function(e){
     //     var charCode = e.which || e.keyCode;
-    //     var charStr = String.fromCharCode(charCode);
-    //     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    //     var charStr = keysight(charCode);
+    //     if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
     //         $(".autocomplete-content").remove();
     //         $("#pais").autocomplete({
     //             limit: 20,
