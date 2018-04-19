@@ -5,6 +5,10 @@ body{
   font-size: 1em !important;
 }
 
+div > .modal {
+  top: 2% !important;
+}
+
 .modal{
   margin-top: 0 !important;
 }
