@@ -126,8 +126,9 @@ function cargarOCompras(){
                 var comodin = $("#valores").data('elemento')['hcomodin'];
                 var desgloce = $("#valores").data('elemento')['isdesgloce'];
                 var strimp = $("#valores").data('elemento')['strimp'];
+                var exo = 0;//$("#valores").data('elemento')['vexo'];
 
-                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce,strimp);
+                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce,strimp,exo);
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
             }
@@ -219,6 +220,7 @@ function cargarCompras(){
                 var comodin= $("#valores").data('elemento')['hcomodin'];
                 var desgloce= $("#valores").data('elemento')['isdesgloce'];
                 var strimp = $("#valores").data('elemento')['strimp'];
+                var exo = 0;//$("#valores").data('elemento')['vexo'];
 
                 addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi, unidad, comodin,desgloce,strimp);
         }
@@ -287,8 +289,9 @@ function cargarVentas(){
                     var comodin= $("#valores").data('elemento')['hcomodin'];
                     var desgloce= $("#valores").data('elemento')['isdesgloce'];
                     var strimp = $("#valores").data('elemento')['strimp'];
-
-                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce,strimp);
+                    var exo = $("#valores").data('elemento')['exo'];
+                    
+                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce,strimp,exo);
                 }
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
