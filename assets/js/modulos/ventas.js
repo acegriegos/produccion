@@ -425,7 +425,7 @@ function totalizar(){
     var flete = isNaN($("#vflete").val()) ? 0 : parseFloat($("#vflete").val()) > 0 ? parseFloat($("#vflete").val().replace(/,/g,'.')) : 0;
     var desc = $("#vdescuentop").data('valor');
     var ajuste = $("#ajuste").val().replace(/,/g,'.');
-    var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = eimv = rimv = iva_imp = 0;
+    var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = rimv = iva_imp = 0;
 
     flete = isNaN(parseFloat(flete)) || flete == '' ? 0 : parseFloat(flete);
     desc = isNaN(parseFloat(desc)) || desc == '' ? 0 : parseFloat(desc);
@@ -441,7 +441,7 @@ function totalizar(){
         vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
 
         if ($("#iva").attr('hclk') == 1) {
-            iva_imp = $("#imp_1").data('valores')['vmonto']*(1-($("#imp_1").data('valores')['vexo']/100));
+            iva_imp = $("#imp_1").data('valores')['vmonto'];
             if ($("#iva").is(":checked")) {
                 $("#fd"+vidlinea).data('triforce')['vprecio'] = $("#fd"+vidlinea).data('triforce')['vprecio']/(1+(iva_imp/100));
             }else{
@@ -473,10 +473,9 @@ function totalizar(){
             
             if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
 
-                eimv = $(this).data('valores')['vexo'];
-                rimv = parseFloat($(this).data('valores')['vmonto'])*parseFloat((1-(eimv/100))).toFixed(5);
-                iimv = $(this).data('valores')['vid'];
-                
+                eimv = $("#fd"+vidlinea).data('triforce')['exoneracion']
+                rimv = parseFloat($(this).data('valores')['vmonto']);
+                iimv = $(this).data('valores')['vid'];          
 
                 if(eimv == 100) {
                     exento += tmpdesc;
@@ -662,7 +661,7 @@ function cargarProducto(kbrota,elemento) {
     if (cod[0][0] != undefined) {
 
         cod = cod[0][0];
-        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3]/parseFloat($("#monedas option:selected").attr('dv')),hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17]})
+        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3]/parseFloat($("#monedas option:selected").attr('dv')),hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],imp: cod[6]})
         $("#codp").val(cod[1]);
         $("#descp").val(cod[2]);
         $("#precp").val(parseFloat(cod[3]).formatMoney(2,'.',','));
@@ -830,7 +829,7 @@ function calcVuelto(){
     }
 }
 
-function cargarImpuestos(vfila,vtabla){
+function cargarImpuestos(vfila,vtabla,vidfd){
 
     var imp = getDatos('',109,'@@impresa,"'+vfila+'","'+vtabla+'"',0,0)[0];
     var textImpuestos = '';
@@ -839,7 +838,7 @@ function cargarImpuestos(vfila,vtabla){
     var aexo = 0;
     var noBorrar = vtabla = '11,2' ? 'noBorrar' : '';
     var impuestoStr = '';
-
+    console.log(imp);
     for (var i = 0; i < imp.length; i++) {
         impuestoStr += ","+imp[i][0]+",";
 
@@ -849,15 +848,10 @@ function cargarImpuestos(vfila,vtabla){
             
             $("#sh_imp").append(textImpuestos);
 
-            $("#imp_"+imp[i][0]).data('valores',{vid:imp[i][0],vmonto:imp[i][3],vexo:imp[i][4]});
+            $("#imp_"+imp[i][0]).data('valores',{vid:imp[i][0],vmonto:imp[i][3],exoneracion:imp[i][4]});
         }else{
-            aexo = parseFloat($("#imp_"+imp[i][0]).data('valores')['vexo']);
-            exo  = parseFloat(imp[i][4]);
-            if (aexo <= exo) {
-                $("#imp_"+imp[i][0]).data('valores')['vexo'] = exo;
-                exo = (parseFloat(imp[i][3])*(1-(exo/100))).toFixed(2);
-                $("#imp_v"+imp[i][0]).html(imp[i][2]+' ['+exo+'%]:');  
-            }
+            if (vtabla == 2)
+                $("#imp_"+imp[i][0]).data('valores')['exoneracion'] = imp[i][4];
         }
         
     }
