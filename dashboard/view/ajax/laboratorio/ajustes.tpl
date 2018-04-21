@@ -96,12 +96,13 @@
             <select type="select" id="_vidunidad"></select>
             <label for="_vidunidad">Unidad</label>
           </div>
-          <div class="input-field col s12 m2 l2">
+          <div class="input-field col s12 m1 l1">
             <select type="select" id="_vidreferencia" disabled></select>
             <label for="_vidreferencia">Referencia</label>
           </div>
-          <div class="input-field col s12 m1 l1">
-            <a class="btn btn1 btn-floating mdi mdi-plus" id="addmedio"></a>
+          <div class="input-field col s12 m2 l2">
+            <a class="btn btn1 btn-floating mdi mdi-plus mdi-24px" id="addmedio"></a>
+            <a class="btn btnred btn-floating mdi mdi-cancel mdi-24px hide" id="cancelact"></a>
           </div>
         </div>
         <div class="row">
@@ -126,14 +127,14 @@
         </div>
       </div>
       <div class="modal-footer ">
-        <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
         <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="savemedio">Agregar</a>
+        <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
       </div>
     </div>
 
     <div id="modal-bandejas" class="modal modal-fixed-footer grandemodal">
       <div class="modal-header">
-        <div class="card-header center white-text" style="background-color:#0B3861">
+        <div class="card-header center head2 padding1">
           <p class="flow-text marginzero">Relacion bandejas-frascos</p>
         </div>
       </div>
@@ -141,35 +142,35 @@
         <div class="row">
           <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-relaciones" cellspacing="0" width="100%" >
             <thead>
-              <tr>
-                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Bandejas</th>
-                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Caben</th>
-                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Frascos</th>
-                <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
+              <tr class="tab1">
+                <th style="border: 0; border-radius: 0px !important;">Bandejas</th>
+                <th style="border: 0; border-radius: 0px !important;">Caben</th>
+                <th style="border: 0; border-radius: 0px !important;">Frascos</th>
+                <th style="border: 0; border-radius: 0px !important;">Acciones</th>
               </tr>
             </thead>
             <tbody id="flaboratorio-relaciones">
               <input type="hidden" id="autoinc" value="1">
               <input type="hidden" id="curpos" value="0">
               <tr id="rw1" class="rowrel zelda">
-                <td style="padding: 10px; color : black;">
+                <td style="padding: 10px;">
                   <div class="input-field">
                   <select type="select" id="bandejas1" class="invbandejas"></select>
                 </div>
               </td>
-              <td style="padding: 10px; color : black;">
+              <td style="padding: 10px;">
                 <div class="input-field">
                   <input type="number" id="caben1" class="caben" value="1" min="1">
                 </div>
               </td>
-              <td style="padding: 10px; color : black;">
+              <td style="padding: 10px;">
                 <div class="input-field">
                 <select type="select" id="frascos1" class="invfrascos"></select>
               </div>
             </td>
-            <td style="padding: 10px; color : black;">
-              <a class="waves-effect waves-light blue btn-floating addline add" modulo="laboratorio-relacione" id="al1" tp="5"><i class="mdi mdi-plus"></i></a>
-              <a class="waves-effect waves-light red btn-floating delline delete" modulo="laboratorio-relacione" id="dl1" tp="5"><i class="mdi mdi-close"></i></a>
+            <td style="padding: 10px;">
+              <a class="waves-effect waves-light gtext pbtn addline add" modulo="laboratorio-relacione" id="al1" tp="5"><i class="mdi mdi-plus mdi-24px"></i></a>
+              <a class="waves-effect waves-light gtext pbtn delline delete" modulo="laboratorio-relacione" id="dl1" tp="5"><i class="mdi mdi-close mdi-24px"></i></a>
             </td>
           </tr>
         </tbody>

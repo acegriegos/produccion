@@ -126,8 +126,9 @@ function cargarOCompras(){
                 var comodin = $("#valores").data('elemento')['hcomodin'];
                 var desgloce = $("#valores").data('elemento')['isdesgloce'];
                 var strimp = $("#valores").data('elemento')['strimp'];
+                var exo = 0;//$("#valores").data('elemento')['vexo'];
 
-                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce,strimp);
+                addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce,strimp,exo);
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
             }
@@ -219,6 +220,7 @@ function cargarCompras(){
                 var comodin= $("#valores").data('elemento')['hcomodin'];
                 var desgloce= $("#valores").data('elemento')['isdesgloce'];
                 var strimp = $("#valores").data('elemento')['strimp'];
+                var exo = 0;//$("#valores").data('elemento')['vexo'];
 
                 addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi, unidad, comodin,desgloce,strimp);
         }
@@ -287,8 +289,9 @@ function cargarVentas(){
                     var comodin= $("#valores").data('elemento')['hcomodin'];
                     var desgloce= $("#valores").data('elemento')['isdesgloce'];
                     var strimp = $("#valores").data('elemento')['strimp'];
-
-                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce,strimp);
+                    var exo = $("#valores").data('elemento')['exo'];
+                    
+                    addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce,strimp,exo);
                 }
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
@@ -327,17 +330,35 @@ function cargarGlobal(){
 
     $("#descp").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
+        var charStr = keysight(e)
        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr)) {
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
             $(".autocomplete-content").remove();
             
             $("#descp").autocomplete({
                 limit: 20,
-                data: arr('login',4,'',6,'"'+$("#descp").val()+'",1,@@impresa',0,0,0,1)
+                data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1)
             })
 
             $("#descp").siblings($(".autocomplete-content")).css('width','50%');
+        }
+    });
+
+    $("#codp").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = keysight(e)
+       
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+            $(".autocomplete-content").remove();
+            
+            $(this).autocomplete({
+                limit: 20,
+                data: arr('login',4,'',6,'"'+busqueda+'",6,@@impresa',0,0,0,1)
+            })
+
+            $(this).siblings($(".autocomplete-content")).css('width','50%');
         }
     });
 
@@ -378,14 +399,14 @@ function cargarGlobal(){
 
     $("#ncli").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-            $(".autocomplete-content").remove();
+        var charStr = keysight(e);
 
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+            $(".autocomplete-content").remove();
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 having nom like "%'+busqueda+'%" limit 20',0,0,0,1)
             });
 
         }

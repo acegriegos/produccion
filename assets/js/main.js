@@ -59,7 +59,7 @@ $(function(){
 });
 
 function SSE_SERVER(vmodulo,vaccion,varreglo,vid,vjson) {
-
+    
     var p;
 
         if (vjson)

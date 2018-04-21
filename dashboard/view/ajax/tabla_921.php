@@ -5,8 +5,8 @@
 	<td class="center" style="padding: 0 !important;"><?php echo $obj[3] ?></td>
 	<td class="center" style="padding: 0 !important;"><?php echo $obj[6] ?></td>
 	<td class="center" style="padding: 0 !important;">
-		<i class="pbtn mdi mdi-close mdi-24px cdel"></i>
-		<i class="pbtn mdi mdi-pencil mdi-24px"></i>
+		<i class="pbtn mdi mdi-pencil mdi-24px labedit" id="le<?php echo $obj[1]?>"></i>
+		<i class="pbtn mdi mdi-close mdi-24px cdel labdel" id="ld<?php echo $obj[1]?>"></i>
 	</td>
 </tr>
 <?php } ?>

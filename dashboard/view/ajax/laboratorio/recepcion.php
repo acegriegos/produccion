@@ -2,8 +2,8 @@
   <input type="hidden" class="zelda">
   <div class="row">
     <div class="col s6 input-field">
-      <input type="text" id="vnombre" class="eder">
-      <label for="vnombre">Identificación</label>
+      <input type="text" id="vnombre" class="eder" disabled>
+      <label for="vnombre">Identificación de explante</label>
     </div>
     <div class="col s6 input-field">
       <input type="date" id="vfecha" class="datepicker eder">
@@ -67,7 +67,7 @@
         <label for="vrango2">Hasta</label>
       </div>
     </div>
-    <a class="btn btn3 der">Listado de Recepciones</a>
+    <a class="btn btn3 der modal-trigger" href="#modal-listaRecepciones">Listado de Recepciones</a>
     <a class="btn btn1 add der" modulo="laboratorio-explante" style="margin-right: 10px;">Ingresar</a>
   </div>
 </div>
@@ -134,7 +134,7 @@
 
 <div id="modal-listaRecepciones" class="modal modal-fixed-footer grandemodal">
   <div class="modal-header">
-        <div class="card-header center white-text" style="background-color:#0B3861">
+        <div class="card-header center head1 padding1">
             <p class="flow-text marginzero">Listado de Recepciones</p>
         </div>
     </div>
@@ -142,9 +142,9 @@
 
     <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-recepciones" cellspacing="0" width="100%" >
 
-      <thead>
+      <thead class="tab2">
         <tr>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;"></th>
+          <th></th>
         </tr>
       </thead>
       <tbody id="listarecepciones">

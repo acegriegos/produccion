@@ -402,6 +402,7 @@
                     if ($iddetalle != $value[0]) {
                         $fila++;
                         $iddetalle = $value[0];
+                        $detalle = [];
                         $detalle['NumeroLinea'] = $fila;
                         $codigo = ['Tipo'=>$value[1],'Codigo'=>$value[2]];
                         $detalle['Codigo'] = $codigo;

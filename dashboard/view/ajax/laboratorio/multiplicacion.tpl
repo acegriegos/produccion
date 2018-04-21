@@ -41,6 +41,7 @@
     </div>
   </div>
 </div>
+
 <div id="modal-vmediocultivo" class="modal modal-fixed-footer grandemodal">
   <div class="modal-header head2 padding1">
     <div class="card-header center white-text">
@@ -62,32 +63,38 @@
   <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 </div>
 </div>
-<div id="modal-invstats" class="modal modal-fixed-footer grandemodal">
+
+<div id="modal-procmult" class="modal modal-fixed-footer grandemodal">
 <div class="modal-header head2 padding1">
   <div class="card-header center white-text">
-    <p class="flow-text marginzero" id="titinvstat"></p>
+    <p class="flow-text marginzero">Procesar a multiplicación</p>
   </div>
 </div>
 <div class="modal-content">
+  <div class="row">
+    <div class="input-field col s12 m6 l6">
+      <span style="font-size: 1.2em">Registro de cantidad final de variedad <span id="varfinal"></span></span>
+    </div>
+    <div class="input-field col s12 m4 l4">
+      <input type="number" class="validate" id="cantfinal">
+      <label for="cantfinal">Cantidad</label>
+    </div>
+  </div><hr>
   <div class="row marginzero">
     <p>Registrar Pérdidas</p>
-    <div class="input-field col s4 m4 l4">
-      <select id="idsrv" type="select">
-        <option value="0">Servicio uno</option>
-        <option value="1">Servicio dos</option>
-      </select>
-      <label for="idsrv">Servicio</label>
+    <div class="input-field col s12 m3 l3">
+      <select type="select" id="srazon"></select>
+      <label for="srazon">Razón</label>
     </div>
-    <div class="input-field col s4 m4 l4">
+    <div class="input-field col s12 m4 l4">
+      <input type="text" id="svari" disabled>
+      <input type="hidden" id="idserv" value="0">
+      <label for="svari">Variedad</label>
+    </div>
+    <div class="input-field col s12 m4 l4">
       <input type="number" id="cantsrv" class="validate">
       <label for="cantsrv">Cantidad</label>
     </div>
-    <div class="col s4 m4 l4">
-      <a class="btn btn2 btn-floating mdi mdi-plus" id="addchip"></a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="chip"><span id="srv1"></span> (Cant.: <span id="cnt1"></span>)<i class="close mdi mdi-close"></i></div>
   </div>
   <div class="row">
     <p>Asignar bandejas y medio de cultivo</p>
@@ -104,6 +111,21 @@
   <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="domult">Agregar</a>
 </div>
 </div>
+
+<div id="modal-invstats" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header head2 padding1">
+    <div class="card-header center white-text">
+      <p class="flow-text marginzero"><span id="titinvstat"></span></p>
+    </div>
+  </div>
+  <div class="modal-content" style="padding: 0px;">
+    
+  </div>
+  <div class="modal-footer ">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+  </div>
+</div>
+
 <div id="modal-bandeja" class="modal modal-fixed-footer grandemodal">
 <div class="modal-header head2 padding1">
   <div class="card-header center white-text">

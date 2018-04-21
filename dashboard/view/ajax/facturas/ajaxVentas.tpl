@@ -74,9 +74,9 @@
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
-      <i class="mdi mdi-16px mdi-plus text-green pbtn tooltipped" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" ata-position="bottom" data-tooltip="Agregar Cliente"></i>
-      <i class="mdi mdi-16px mdi-email pbtn tooltipped" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
-      <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
+      <i class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" ata-position="bottom" data-tooltip="Agregar Cliente"></i>
+      <i class="mdi mdi-16px mdi-email pbtn tooltipped hide" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
+      <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
     
@@ -105,13 +105,13 @@
 
         <tr class="hide trVenta">
           <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
-          <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
+          <th style="width: 18%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 14%; padding: 0 !important;" class="center-align"><span class="truncate">Prec.Unit</span></th>
           <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align">Cantidad</th>
           <th style="width: 14%; padding: 0 !important;" class="center-align">Total</th>
-          <th style="width: 17%; padding: 0 !important;" class="center-align"></th>
+          <th style="width: 9%; padding: 0 !important;" class="center-align"></th>
         </tr>
 
         <tr class="hide trCompra">

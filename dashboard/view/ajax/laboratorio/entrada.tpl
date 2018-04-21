@@ -29,7 +29,37 @@
         </div>
       </div>
 
-
+      <div id="modal-formula" class="modal modal-fixed-footer grandemodal">
+      <div class="modal-header head2 padding1">
+        <h5 class="modal-title center-align">Agregar Medio de Cultivo</h5>
+      </div>
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s6 input-field">
+            <select id="mc-cantidad" style="width: 50%">
+              {section name=LE loop=$CANT}
+                <option value="{$CANT[LE][0]}">{$CANT[LE][1]} {$CANT[LE][2]}</option>
+              {/section}
+            </select>
+            <label for="mc-cantidad">Cantidad</label>
+          </div>
+        </div>
+        
+        <table class="responsive-table highlight z-depth-3">
+          <thead class="tab1">
+            <th></th>
+            <th>Componente</th>
+            <th>Cantidad</th>
+          </thead>
+          <tbody id="mcul-lista"></tbody>
+        </table>
+      </div>
+      <div class="modal-footer ">
+        <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+        <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="mcultivo">Guardar</a>
+      </div>
+    </div>
+    
     {$SCR}
     <script src="../assets/js/modulos/laboratorio.js?v=0.1"></script>
   </body>

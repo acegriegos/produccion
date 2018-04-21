@@ -3,7 +3,6 @@
 	   $kakaroto = new _general();
 
 	   if (!isset($_REQUEST['accion'])) {
-
 	   		make_smarty()->display('v_laboratorio.tpl');
 
 	   }else{
@@ -11,7 +10,9 @@
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
 	   			$pagina = 1;
-	   			make_smarty()->display('ajax/laboratorio/entrada.tpl');
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CANT',$kakaroto->kamehameha('id,format(valor,0),upper((select a.simbolo from unidades a where a.id = laboratorio.referencias.idunidad))',922,'id > 0'));
+	   			$smarty->display('ajax/laboratorio/entrada.tpl');
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
@@ -29,6 +30,7 @@
 	   			$smarty = make_smarty();
 	   			$smarty->assign('USR',$kakaroto->kamehameha('id,nombre',1,'id > 0 and idtipousuario = 4'));
 	   			$smarty->assign('PER',$kakaroto->kamehameha('id,nombre',913,'id > 0'));
+	   			
 	   			$smarty->display('ajax/laboratorio/iniciacion.tpl');
 	   			break;
 	   		case 5:
