@@ -95,7 +95,7 @@
 					</div>
 					<div class="input-field marginzero">
 						<select type="select" id="vidunidad">
-							<option value="">Seleccione un Unidad</option>
+							<option value="">Seleccione una Unidad</option>
 							{section name=LE loop=$UNI}
 							<option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
 							{/section}
@@ -150,82 +150,96 @@
 			</div>
 		</div>
 		<div id="financiero" class="row hide" style="padding: 20px 10px 0 10px">
-			<label><b>Precio General</b></label><br><br>
-			<div class="row">
-				<div class="col s12 m6 l3  center-align">
-					<label>Precio Costo</label>
-					<div class="input-field">
-						<i class="mdi prefix moneda">¢</i>
-						<input type="text" id="vcosto" class="validate eder numeric cos calcvv" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
-						<input type="hidden" id="hvcosto" value="">
-					</div>
-				</div>
-				<div class="col s12 m6 l3 center-align">
-					<label>Ganancia</label>
-					<div class="input-field">
-						<i class="mdi prefix">%</i>
-						<input type="text" id="vganancia" class="validate calcvv eder numeric gan" value="0.00" data-mask="9999999999.99" focus="vventa" num="2">
-					</div>
-				</div>
-				<div class="col s12 m6 l3 center-align">
-					<label>Precio Venta</label>
-					<div class="input-field">
-						<i class="mdi prefix moneda">¢</i>
-						<input type="text" id="vventa" class="validate calcvv eder numeric ven" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3">
-						<input type="hidden" id="hventa" value="">
-					</div>
-				</div>
-				<div class="col s12 m6 l3 center-align">
-					<label>Exoneración</label>
-					<div class="input-field">
-						<i class="mdi prefix">%</i>
-						<input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" value="0.00" data-mask="9999999999.99" num="4">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s12 m3 l3">
-					<div class="switch">
-						<!-- <label>
+			<table>
+				<tr>
+					<td colspan="4" class="center" style="padding: 0px">
+						<b>Precio General</b>
+					</td>
+				</tr>
+				<tr>
+					<td class="center" style="padding: 0px"><label>Precio Costo</label></td>
+					<td class="center" style="padding: 0px"><label>Ganancia</label></td>
+					<td class="center" style="padding: 0px"><label>Precio Venta</label></td>
+					<td class="center" style="padding: 0px"><label>Exención</label></td>
+				</tr>
+			<tr>
+				<td class="center-align input-field" style="padding: 0">
+					<i class="mdi prefix moneda">¢</i>
+					<input type="text" id="vcosto" class="validate eder numeric cos calcvv" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
+					<input type="hidden" id="hvcosto" value="">
+				</td>
+				<td class="center-align input-field" style="padding: 0">
+					<i class="mdi prefix">%</i>
+					<input type="text" id="vganancia" class="validate calcvv eder numeric gan" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vventa" num="2">
+				</td>
+				<td class="center-align input-field" style="padding: 0">
+					<i class="mdi prefix moneda">¢</i>
+					<input type="text" id="vventa" class="validate calcvv eder numeric ven" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3">
+					<input type="hidden" id="hventa" value="">
+				</td>
+				<td class="center-align input-field" style="padding: 0">
+					<i class="mdi prefix">%</i>
+					<input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" style="margin: 0px;" value="0.00" data-mask="9999999999.99" num="4">
+				</td>
+			</tr>
+
+			<tr> 
+				<td><div class="switch">
+						<label>
 							Cliente
-							<input type="checkbox" class="chg" value="0">
+							<input type="checkbox" class="chg" value="1" checked>
 							<span class="lever"></span>
 							Categoria
-						</label> -->
-					</div>
-				</div>
-			</div>
+						</label>
+					</div></td>
+				<td colspan="2" style="padding: 2%;"> <b class="chg0">Precio por Categoría</b> <b class="chg1 hide">Precio por Cliente</b> </td>
+			</tr>
 			{section name=LE loop=$NIV}
-			<div class="row precionivel chg0" id="f{$NIV[LE][0]}">
-				<div class="col s12 m12 l3">
-					<label><b>Precio para Categoria: {$NIV[LE][1]}</b></label><br>
-				</div>
-				<div class="col s12 m6 l3 center-align"><br>
-					<label>Ganancia</label>
-					<div class="input-field">
-						<i class="mdi prefix">%</i>
-						<input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder gan numeric" value="0.00" data-mask="9999999999.99" num="2">
-					</div>
-				</div>
-				<div class="col s12 m6 l3 center-align"><br>
-					<label>Precio Venta</label>
-					<div class="input-field">
-						<i class="mdi prefix">¢</i>
-						<input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven numeric" value="0.00" data-mask="9999999999.99" num="3">
-						<input type="hidden" id="hventa{$NIV[LE][0]}" class="hven" value="">
-					</div>
-				</div>
-				<div class="col s12 m6 l3 center-align"><br>
-					<label>Exoneración</label>
-					<div class="input-field">
-						<i class="mdi prefix">%</i>
-						<input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo numeric" value="0.00" data-mask="9999999999.99" num="4">
-					</div>
-				</div>
-			</div>
+			<tr class="precionivel chg0" id="f{$NIV[LE][0]}" style="border: 1px solid #e2e2e2">
+				<td style="padding: 0px"><b>Categoria: {$NIV[LE][1]}</b></td>
+				<td class="center-align input-field" style="padding: 0px">
+					<i class="mdi prefix">%</i>
+					<input type="text" id="vganancia{$NIV[LE][0]}" class="validate calcvv eder gan numeric" value="0.00" data-mask="9999999999.99" num="2" style="margin: 0px">
+				</td>
+				<td class="center-align input-field" style="padding: 0px">
+					<i class="mdi prefix moneda">¢</i>
+					<input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven numeric" value="0.00" data-mask="9999999999.99" num="3" style="margin: 0px">
+					<input type="hidden" id="hventa{$NIV[LE][0]}" class="hven" value="">
+				</td>
+				<td class="center-align input-field" style="padding: 0px">
+					<i class="mdi prefix">%</i>
+					<input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo numeric" value="0.00" data-mask="9999999999.99" num="4" style="margin: 0px">
+				</td>
+			</tr>
 			{/section}
-			<div class="row chg1 hide"></div>
+			<tfoot class="chg1 hide precclienete">
+				<tr>
+					<td style="padding: 0px"><label>Nombre Cliente</label></td>
+				</tr>
+				<tr class="preciocliente" id="c1" accion="1" idf="0" style="border: 1px solid #e2e2e2">
+					<td class="center-align input-field" style="padding: 0px">
+						<input type="text" id="vcliente1" class="validate autocomplete" style="font-size: 12px; margin: 0px">
+						<input type="hidden" class="vidcliente" id="vidcliente1">
+					</td> 
+					<td class="center-align input-field" style="padding: 0px"> 
+						<i class="mdi prefix">%</i>
+						<input type="text" id="vganancia1" class="validate calcvv eder" value="0" data-mask="9999999999.99" focus="vventa" num="2" line="1" style="margin: 0px">
+					</td> 
+					<td class="center-align input-field" style="padding: 0px">
+						<i class="mdi prefix moneda">¢</i>
+						<input type="text" id="vventa1" class="validate calcvv eder" value="0" data-mask="9999999999.99" focus="vexoneracion" num="3" line="1" style="margin: 0px">
+						<input type="hidden" id="hventa1" value="0">
+					</td> 
+					<td class="center-align input-field" style="padding: 0px">
+						<i class="mdi prefix">%</i>
+						<input type="text" id="vexoneracion1" style="width: 70%;margin: 0px" class="validate calcvv eder" value="0" data-mask="9999999999.99" nc="1" line="1"> 
+						<i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i> 
+					</td>
+				</tr>
+			</tfoot>
+			</table>
 		</div>
+
 		<div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
 			<div class="col s12">
 				<div class="col s2">

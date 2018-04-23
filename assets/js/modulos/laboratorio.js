@@ -21,9 +21,7 @@ $(function(){
         default:
             break;
     }
-    console.clear();
-    console.log(invvar[1][0]+' '+invvar[1][1])
-    console.log(invvar[4][0]+' '+invvar[4][1])
+
     $('.modal').modal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
@@ -269,13 +267,15 @@ function addmedio(tp,idfila) {
 
 $(document).on("keydown","#_vnombre",function(e) {
     var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
+    var charStr = keysight(e)
+
     var inventario = invvar[1][0]+','+invvar[4][0];
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+        var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
         $(".autocomplete-content").remove();
          $("#_vnombre").autocomplete({
             limit: 10,
-            data: arr('login',4,'',917,'1,"'+$(this).val()+charStr+'","'+inventario+'"',0,0,0,1)
+            data: arr('login',4,'',917,'1,"'+busqueda+'","'+inventario+'"',0,0,0,1)
         });
         // cargarunidades(vidproducto,vunidad);  
         $("#_vnombre").siblings($(".autocomplete-content")).css('width', '25%');
@@ -286,13 +286,16 @@ $(document).on("keydown","#_vnombre",function(e) {
 
 $(document).on("keydown","#_vcodigo",function(e){
     var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
+    var charStr = keysight(e)
     var inventario = invvar[1][0]+','+invvar[4][0];
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+
+    if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+        var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+
         $(".autocomplete-content").remove();
         $("#_vcodigo").autocomplete({
             limit: 20,
-            data: arr('login',4,'',917,'2,"'+$(this).val()+charStr+'","'+inventario+'"',0,0,0,1)
+            data: arr('login',4,'',917,'2,"'+busqueda+'","'+inventario+'"',0,0,0,1)
         });
         $("#_vcodigo").siblings($(".autocomplete-content")).css('width', '25%');
     }else if(charCode == 13 ) {
@@ -535,6 +538,28 @@ $(document).on("click",".mcb",function() {
     $("#listamediocultivos").html(bdy)
 
 });
+
+// $(document).on("click",".procact",function(){
+//     var id = $(this).attr('id').substr(1);
+//     $("#vidciclo").val(id);
+//     arr('login',6,'id,nombre',913,'id > 0 and isActivo = 1',15,1,$("#vidrazon"))
+//     var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
+//     $("#modal-procActivos").modal('open');
+//     $("#vidrazon").material_select();
+
+//     $("#nomact").keydown(function(e) {
+//         var charCode = e.which || e.keyCode;
+//         var charStr = keysight(e);
+//         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+//             $(".autocomplete-content").remove();
+//             $("#nomact").autocomplete({
+//                 limit: 20,
+//                 data: arr('login',4,'',917,'"'+$("#nomact").val()+'",'+id+',@@impresa',0,0,0,1)
+//             })
+//             $("#nomact").siblings($(".autocomplete-content")).css('width','50%');
+//         }
+//     });
+// });
 
 $(document).on("click",".invstats",function(){
     var id = $(this).attr('id').substr(1);
@@ -869,9 +894,9 @@ function cargarIniciacion(){
     $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
+        var charStr = keysight(charCode);
         
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
 
             $("#vvariedad").autocomplete({
@@ -1010,9 +1035,9 @@ function cargarExplantes(){
 
     // $("#vvariedad").keydown(function(e){
     //     var charCode = e.which || e.keyCode;
-    //     var charStr = String.fromCharCode(charCode);
+    //     var charStr = keysight(charCode);
         
-    //     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    //     if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
     //         $(".autocomplete-content").remove();
 
     //         $("#vvariedad").autocomplete({
@@ -1040,9 +1065,9 @@ function cargarExplantes(){
 
     // $("#ncli").keydown(function(e){
     //     var charCode = e.which || e.keyCode;
-    //     var charStr = String.fromCharCode(charCode);
+    //     var charStr = keysight(charCode);
         
-    //     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    //     if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
     //         $(".autocomplete-content").remove();
 
     //         $("#ncli").autocomplete({
@@ -1057,9 +1082,9 @@ function cargarExplantes(){
 
     $("#finca").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
+        var charStr = keysight(charCode);
         
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
 
             $("#finca").autocomplete({
@@ -1086,8 +1111,8 @@ function cargarExplantes(){
 
     $("#vregion").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = String.fromCharCode(charCode);
-        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        var charStr = keysight(charCode);
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
             $("#vregion").autocomplete({
                 limit: 20,
@@ -1114,8 +1139,8 @@ function cargarExplantes(){
 
     // $("#pais").keydown(function(e){
     //     var charCode = e.which || e.keyCode;
-    //     var charStr = String.fromCharCode(charCode);
-    //     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+    //     var charStr = keysight(charCode);
+    //     if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
     //         $(".autocomplete-content").remove();
     //         $("#pais").autocomplete({
     //             limit: 20,

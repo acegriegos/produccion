@@ -15,4 +15,9 @@ assets/pdf/*
 _config/.DS_Store
 cambiosDB.txt
 .DS_Store
+assets/.sass-cache/*
+assets/expanded
+assets/scss=.css
+assets/style.css
+assets/style=
 
