@@ -23,7 +23,7 @@
             <td>{$CIC[LE][5]}</td>
             <td>{$CIC[LE][6]}</td>
             <td>
-              <a class="pbtn gtext mdi mdi-24px mdi-refresh procmult" id="a{$CIC[LE][0]}" title="Procesar Multiplicacion"></a>
+              <a class="pbtn gtext mdi mdi-24px mdi-refresh proc-ciclo" id="a{$CIC[LE][0]}" title="Procesar Multiplicacion"></a>
               <a class="pbtn gtext mdi mdi-24px mdi-view-list mcb" id="b{$CIC[LE][0]}" title="Ver Medio Cultivo y Bandejas"></a>
               <a class="pbtn gtext mdi mdi-24px mdi-checkbox-multiple-marked-outline invstats" id="c{$CIC[LE][0]}" title="Procesar Activos" tipo="1"></a>
               <a class="pbtn gtext mdi mdi-24px mdi-arrow-left-box history" id="d{$CIC[LE][0]}" title="Ver Trayectoria"></a>
@@ -41,78 +41,60 @@
     </div>
   </div>
 </div>
+
 <div id="modal-vmediocultivo" class="modal modal-fixed-footer grandemodal">
-  <div class="modal-header">
-    <div class="card-header center white-text" style="background-color:#0B3861">
+  <div class="modal-header head2 padding1">
+    <div class="card-header center white-text">
       <p class="flow-text marginzero">Ver medio cultivo y bandejas</p>
     </div>
   </div>
   <div class="modal-content" style="padding: 0px;">
-    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%" >
+    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
           <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad</th>
         </tr>
       </thead>
-      <tbody id="listamediocultivos">
-        <!-- section -->
-        <!-- <tr>
-          <td style="padding: 10px; color:black;">abc</td>
-          <td style="padding: 10px; color:black;">def</td>
-        </tr> -->
-        <!-- section -->
-      </tbody>
-    </table>
-  </div>
-  <div class="modal-footer ">
-    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+    <tbody id="listamediocultivos"></tbody>
+  </table>
+</div>
+<div class="modal-footer ">
+  <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+</div>
+</div>
+
+<div id="modal-proc-ciclo" class="modal modal-fixed-footer grandemodal">
+<div class="modal-header head2 padding1">
+  <div class="card-header center white-text">
+    <p class="flow-text marginzero"><span id="titciclo"></span></p>
   </div>
 </div>
-<div id="modal-invstats" class="modal modal-fixed-footer grandemodal">
-  <div class="modal-header head2 padding1">
-    <div class="card-header center white-text">
-      <p class="flow-text marginzero" id="titinvstat"></p>
-    </div>
-  </div>
-  <div class="modal-content">
-    <div class="row marginzero">
-      <p>Registrar Pérdidas</p>
-      <div class="input-field col s4 m4 l4">
-        <select id="idsrv" type="select">
-          <option value="0">Servicio uno</option>
-          <option value="1">Servicio dos</option>
-        </select>
-        <label for="idsrv">Servicio</label>
-      </div>
-      <div class="input-field col s4 m4 l4">
-        <input type="number" id="cantsrv" class="validate">
-        <label for="cantsrv">Cantidad</label>
-      </div>
-      <div class="col s4 m4 l4">
-        <a class="btn btn2 btn-floating mdi mdi-plus" id="addchip"></a>
-      </div>
-      <!--  <div class="input-field col s3 m3 l3">
-      <select id="vidrazon"></select>
-      <label for="vidrazon">Razón</label>
-    </div>
-    <div class="input-field col s5 m5 l5">
-      <input type="text" id="nomact" class="validate autocomplete">
-      <input type="hidden" id="vidciclo" value="0">
-      <input type="hidden" id="hnomact" value="0">
-      <label for="nomact">Nombre activo</label>
-    </div>
-    <div class="input-field col s4 m4 l4">
-      <input type="number" id="cantact" class="validate">
-      <label for="cantact">Cantidad</label>
-    </div>
-    <div class="input-field col s12 m12 l12">
-      <textarea id="comentproc" class="materialize-textarea"></textarea>
-      <label for="comentproc">Comentario</label>
-    </div> -->
-  </div>
+<div class="modal-content">
   <div class="row">
-    <div class="chip"><span id="srv1"></span> (Cant.: <span id="cnt1"></span>)<i class="close mdi mdi-close"></i></div>
+    <div class="input-field col s12 m6 l6">
+      <span style="font-size: 1.2em">Registro de cantidad final de variedad <span id="varfinal"></span></span>
+    </div>
+    <div class="input-field col s12 m4 l4">
+      <input type="number" class="validate" id="cantfinal">
+      <label for="cantfinal">Cantidad</label>
+    </div>
+  </div><hr>
+  <div class="row marginzero">
+    <p>Registrar Pérdidas</p>
+    <div class="input-field col s12 m3 l3">
+      <select type="select" id="srazon"></select>
+      <label for="srazon">Razón</label>
+    </div>
+    <div class="input-field col s12 m4 l4">
+      <input type="text" id="svari" disabled>
+      <input type="hidden" id="idserv" value="0">
+      <label for="svari">Variedad</label>
+    </div>
+    <div class="input-field col s12 m4 l4">
+      <input type="number" id="cantsrv" class="validate">
+      <label for="cantsrv">Cantidad</label>
+    </div>
   </div>
   <div class="row">
     <p>Asignar bandejas y medio de cultivo</p>
@@ -124,39 +106,63 @@
     </div>
   </div>
 </div>
-<div class="modal-footer ">
+<div class="modal-footer">
+  <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="doproc">Agregar</a>
   <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
-  <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="domult">Agregar</a>
 </div>
 </div>
-<div id="modal-vmediocultivo" class="modal modal-fixed-footer grandemodal">
-<div class="modal-header">
-  <div class="card-header center white-text" style="background-color:#0B3861">
-    <p class="flow-text marginzero">Ver medio cultivo y bandejas</p>
+
+<div id="modal-invstats" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header head2 padding1">
+    <div class="card-header center white-text">
+      <p class="flow-text marginzero"><span id="titinvstat"></span></p>
+    </div>
+  </div>
+  <div class="modal-content" style="padding: 0px;">
+    <div class="row">
+      <div class="input-field col s12 m4 l4">
+        <select type="select" id="vactivo"></select>
+        <label for="vactivo">Activo</label>
+        <input type="hidden" id="vidciclo" value="0">
+      </div>
+      <div class="input-field col s12 m3 l3">
+        <input type="number" id="vcant" class="validate">
+        <label for="vcant">Cantidad</label>
+      </div>
+      <div class="input-field col s12 m4 l4">
+        <select type="select" id="vidrazon"></select>
+        <label for="vidrazon">Razón</label>
+      </div>
+      <div class="col s12 m1 l1" style="margin-top: 1rem">
+        <a class="btn btn-floating btn2 waves-effect waves-light mdi mdi-plus mdi-24px" id="addActivo"></a>
+      </div>
+    </div>
+    <div class="row" style="align-content: center;">
+      <table class="responsive-table highlight z-depth-3" id="tabla-activos">
+        <thead class="tab1">
+          <tr>
+            <td class="center">Activo</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Razon</td>
+            <td class="center">Acciones</td>
+          </tr>
+        </thead>
+        <tbody id="listaactivos">
+          <!-- <tr>
+            <td class="center">Bandeja 20uds</td>
+            <td class="center">10</td>
+            <td class="center">Virus</td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="doinvstat">Agregar</a>
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
   </div>
 </div>
-<div class="modal-content" style="padding: 0px;">
-  <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%" >
-    <thead>
-      <tr>
-        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-        <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad</th>
-      </tr>
-    </thead>
-    <tbody id="listamediocultivos">
-      <!-- section -->
-      <!-- <tr>
-        <td style="padding: 10px; color:black;">abc</td>
-        <td style="padding: 10px; color:black;">def</td>
-      </tr> -->
-      <!-- section -->
-    </tbody>
-  </table>
-</div>
-<div class="modal-footer">
-  <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
-</div>
-</div>
+
 <div id="modal-bandeja" class="modal modal-fixed-footer grandemodal">
 <div class="modal-header head2 padding1">
   <div class="card-header center white-text">

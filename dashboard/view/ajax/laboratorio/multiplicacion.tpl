@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody id="listaciclos">
-          {section name=LE loop=$CIC}
+          <!-- {section name=LE loop=$CIC}
           <tr>
             <td>{$CIC[LE][2]}</td>
             <td>{$CIC[LE][3]}</td>
@@ -23,7 +23,7 @@
             <td>{$CIC[LE][5]}</td>
             <td>{$CIC[LE][6]}</td>
             <td>
-              <a class="pbtn gtext mdi mdi-24px mdi-refresh procmult" id="a{$CIC[LE][0]}" title="Procesar Multiplicacion"></a>
+              <a class="pbtn gtext mdi mdi-24px mdi-refresh proc-ciclo" id="a{$CIC[LE][0]}" title="Procesar Multiplicacion"></a>
               <a class="pbtn gtext mdi mdi-24px mdi-view-list mcb" id="b{$CIC[LE][0]}" title="Ver Medio Cultivo y Bandejas"></a>
               <a class="pbtn gtext mdi mdi-24px mdi-checkbox-multiple-marked-outline invstats" id="c{$CIC[LE][0]}" title="Procesar Activos" tipo="1"></a>
               <a class="pbtn gtext mdi mdi-24px mdi-arrow-left-box history" id="d{$CIC[LE][0]}" title="Ver Trayectoria"></a>
@@ -31,7 +31,7 @@
               <a class="pbtn gtext mdi mdi-24px mdi-arrow-collapse-right procenr" id="e{$CIC[LE][0]}" title="Procesar a Enraizamiento"></a>
             </td>
           </tr>
-          {/section}
+          {/section} -->
         </tbody>
       </table>
     </div>
@@ -64,10 +64,10 @@
 </div>
 </div>
 
-<div id="modal-procmult" class="modal modal-fixed-footer grandemodal">
+<div id="modal-proc-ciclo" class="modal modal-fixed-footer grandemodal">
 <div class="modal-header head2 padding1">
   <div class="card-header center white-text">
-    <p class="flow-text marginzero">Procesar a multiplicación</p>
+    <p class="flow-text marginzero"><span id="titciclo"></span></p>
   </div>
 </div>
 <div class="modal-content">
@@ -106,9 +106,9 @@
     </div>
   </div>
 </div>
-<div class="modal-footer ">
+<div class="modal-footer">
+  <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="doproc">Agregar</a>
   <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
-  <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="domult">Agregar</a>
 </div>
 </div>
 
@@ -119,9 +119,46 @@
     </div>
   </div>
   <div class="modal-content" style="padding: 0px;">
-    
+    <div class="row">
+      <div class="input-field col s12 m4 l4">
+        <select type="select" id="vactivo"></select>
+        <label for="vactivo">Activo</label>
+        <input type="hidden" id="vidciclo" value="0">
+      </div>
+      <div class="input-field col s12 m3 l3">
+        <input type="number" id="vcant" class="validate">
+        <label for="vcant">Cantidad</label>
+      </div>
+      <div class="input-field col s12 m4 l4">
+        <select type="select" id="vidrazon"></select>
+        <label for="vidrazon">Razón</label>
+      </div>
+      <div class="col s12 m1 l1" style="margin-top: 1rem">
+        <a class="btn btn-floating btn2 waves-effect waves-light mdi mdi-plus mdi-24px" id="addActivo"></a>
+      </div>
+    </div>
+    <div class="row" style="align-content: center;">
+      <table class="responsive-table highlight z-depth-3" id="tabla-activos">
+        <thead class="tab1">
+          <tr>
+            <td class="center">Activo</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Razon</td>
+            <td class="center">Acciones</td>
+          </tr>
+        </thead>
+        <tbody id="listaactivos">
+          <!-- <tr>
+            <td class="center">Bandeja 20uds</td>
+            <td class="center">10</td>
+            <td class="center">Virus</td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="modal-footer ">
+  <div class="modal-footer">
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="doinvstat">Agregar</a>
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
   </div>
 </div>
