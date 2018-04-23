@@ -30,33 +30,52 @@
       </div>
 
       <div id="modal-formula" class="modal modal-fixed-footer grandemodal">
-      <div class="modal-header head2 padding1">
+      <div class="modal-header head2" style="margin: 0px; padding: 10px">
         <h5 class="modal-title center-align">Agregar Medio de Cultivo</h5>
       </div>
-      <div class="modal-content">
+      <div class="modal-content" style="padding-top:2px">
         <div class="row">
-          <div class="col s6 input-field">
+          
+          <div class="col s10">
+            <table class="responsive-table highlight z-depth-3">
+              <thead class="tab1">
+                <th></th>
+                <th>Componente</th>
+                <th>Cantidad</th>
+              </thead>
+              <tbody id="mcul-lista"></tbody>
+            </table>
+          </div>
+
+          <div class="col s2 input-field">
             <select id="mc-cantidad" style="width: 50%">
               {section name=LE loop=$CANT}
-                <option value="{$CANT[LE][0]}">{$CANT[LE][1]} {$CANT[LE][2]}</option>
+                <option value="{$CANT[LE][0]}" mul="{$CANT[LE][1]}">{$CANT[LE][1]} {$CANT[LE][2]}</option>
               {/section}
             </select>
             <label for="mc-cantidad">Cantidad</label>
           </div>
+
         </div>
-        
-        <table class="responsive-table highlight z-depth-3">
-          <thead class="tab1">
-            <th></th>
-            <th>Componente</th>
-            <th>Cantidad</th>
-          </thead>
-          <tbody id="mcul-lista"></tbody>
-        </table>
       </div>
       <div class="modal-footer ">
         <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
-        <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="mcultivo">Guardar</a>
+        <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="gcultivo" save="0">Asignar</a>
+      </div>
+    </div>
+
+    <div id="modal-bandeja" class="modal modal-fixed-footer grandemodal">
+      <div class="modal-header head2 padding1">
+        <h5 class="modal-title center-align">Agregar bandeja</h5>
+      </div>
+      <div class="modal-content row">
+        <div class="col s6 m6 l6">
+        <select type="select" id="invactivlab"></select>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+        <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="mbandeja">Guardar</a>
       </div>
     </div>
     

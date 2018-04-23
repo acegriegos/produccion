@@ -45,7 +45,7 @@
           <label for="cultivo">Medio Cultivo</label>
         </div>
         <div class="col s12 input-field">
-          <a class="prefix btn-floating btn2 z-depth-2" id="mkbandeja"><i class="mdi mdi-plus mdi-24px"></i></a>
+          <a class="prefix btn-floating btn2 z-depth-2 rbandeja" id="mkbandeja"><i class="mdi mdi-plus mdi-24px"></i></a>
           <input type="text" id="bandeja" readonly value="- - -" class="center">
           <label for="bandeja">Bandeja</label>
         </div>
@@ -56,21 +56,6 @@
       </div>
     </div>
   </div>
-</div>
-
-<div id="modal-bandeja" class="modal modal-fixed-footer grandemodal">
-  <div class="modal-header head2 padding1">
-    <h5 class="modal-title center-align">Agregar bandeja</h5>
-  </div>
-  <div class="modal-content row">
-    <div class="col s6 m6 l6">
-    <select type="select" id="invactivlab"></select>
-  </div>
-</div>
-<div class="modal-footer">
-  <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
-  <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="mbandeja">Guardar</a>
-</div>
 </div>
 
 <div id="modal-registrar" class="modal modal-fixed-footer grandemodal">

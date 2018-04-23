@@ -582,6 +582,24 @@ $(document).on("click","#mbandeja",function(){
     }
 });
 
+
+$(document).on("change","#mc-cantidad",function(){
+    var mult = $('option:selected',this).attr('mul');
+    var valor = 0;
+    $('.premc').each(function(){
+        valor = $(this).attr('rpre')*mult;
+        $(this).html( (valor).formatMoney(0,'.',',') );
+    });
+    
+});
+
+$(document).on("click","#gcultivo",function(){
+    $(this).attr('save',1);
+    Materialize.toast("Medio de Cultivo Asignado",4000,'green');
+    $("#cultivo").val("Medio Cultivo "+$("#mc-cantidad option:selected").html());
+    $("#modal-formula").modal('close')
+});
+
 // $(document).on('click','.addClie',function(){
 // 	$(".titadd").html("Agregar Cliente");
 // 	$(".cli").show();
@@ -722,15 +740,25 @@ function cargarArr(vid,velemento){
     $('select').material_select();
     $(".comentario").characterCounter();
     $(".modal").modal();
-
+      
     $(".mediocultivo").click(function(){
-        var componentes = getDatos('',923,$("li.menu3 >a.active").parent().attr('id').substr(1),0,0,0);
-        console.log(componentes);
-        // mcul-lista
-        $("#modal-formula").modal('open')
+
+        if ($("#gcultivo").attr('save') == 0) {
+            var componentes = getDatos('',923,$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa',0,0,0);
+            var tabla = '';
+            for (var i = 0; i < componentes[0].length; i++) {
+                
+                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
+            };
+            $("#mcul-lista").html(tabla);
+        }
+
+        $("#modal-formula").modal('open');
+        
     });
 
-    $("#mkbandeja").click(function(){
+    $(".rbandeja").click(function(){
+        
         arr('login',6,'',411,invvar[2][0],15,1,$("#invactivlab"))
         // $("#invactivlab").material_select();
         $("#modal-bandeja").modal('open');
@@ -918,10 +946,6 @@ function cargarIniciacion(){
     //         }
     //     }
     // });
-
-    $(document).on("keyup","#vcomentario",function(){
-        $(".zelda").data('triforce')['vcomentario'] = $(this).val();
-    });
 
 }//cargar Iniciacion
 
@@ -1370,10 +1394,12 @@ function validarCiclos(){
                 return 'No se a Seleccionado el Operario';
             }
 
-            if ($("#vcomentario").val() == 0 ) {
+            if ($("#vcomentario").val().length <= 0 ) {
                 $("#vcomentario").focus();
                 return 'Comentario Requerido';
             }
+            
+            $(".zelda").data('triforce')['vcomentario'] = $("#vcomentario").val()
 
             break;
         default:
