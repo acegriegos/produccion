@@ -50,9 +50,12 @@
 	   			$smarty = make_smarty();
 	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"4,@@impresa","0,10"'));
 	   			$smarty->display('ajax/laboratorio/aclimatacion.tpl');
+	   			break;
 	   		case 8:
 	   			$pagina = 1;
-	   			require_once 'view/ajax/laboratorio/qos.php';
+	   			$smarty = make_smarty();
+	   			$smarty->assign('QOS',$kakaroto->kamehameha('',928,'0,0,"@@impresa","0,10"'));
+	   			$smarty->display('ajax/laboratorio/qos.tpl');
 	   			break;
 	   		case 9:
 	   			$pagina = 1;
