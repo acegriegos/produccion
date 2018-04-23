@@ -503,6 +503,9 @@ $(document).on("click","#doproc",function(){
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
         }else{
+            if($("#cultivo").val() != '- - -'){
+                
+            }
             Materialize.toast($("#titciclo").text().substr(11)+' procesada', 4000, 'green');
             emptyprocmult();
         }

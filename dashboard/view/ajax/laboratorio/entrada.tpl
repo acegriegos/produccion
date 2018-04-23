@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Laboratorio #1</title>
+    <title>Laboratorio de Tejidos</title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css">
   </head>
@@ -14,7 +14,7 @@
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
         <div class="card-header center head1 z-depth-1">
-          <h5>Laboratorio</h5>
+          <h5>Laboratorio de Tejidos y Cultivos</h5>
             <ul class="tabs tabs-fixed-width head2" style="cursor: pointer;">
               <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Recepción de Explantes</a></li>
               <li class="menu3 tab" id="m1"><a class="white-text tamLetra">Iniciación</a></li>

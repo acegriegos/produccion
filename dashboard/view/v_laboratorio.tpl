@@ -24,6 +24,12 @@
                       <div class="col s12 m6 l6 per6000">
                         <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Tejidos</a>
                       </div>
+                      <div class="col s12 m6 l6 per6000">
+                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Avíspas</a>
+                      </div>
+                      <div class="col s12 m6 l6 per6000">
+                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Hongos</a>
+                      </div>
                       <div class="col s12 m6 l6 per6100">
                         <a href="laboratorio?accion=2" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>
                       </div>
