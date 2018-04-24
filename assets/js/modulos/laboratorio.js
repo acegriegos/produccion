@@ -41,6 +41,7 @@ $(function(){
         endingTop: '2%' // Ending top style attribute
     });
     $("select").material_select();
+    console.clear();
 });
 
 //fill data
@@ -79,9 +80,54 @@ $(document).on("change","#vidinventario",function(){
 });
 // fill data //
 
+$(document).on("click","#save-evaluacion",function(){
+    var idciclo = $("#hidciclo").val();
+    var idestado = $("#vidtipoestado").val();
+    var idpruebas = $("#vidtipopruebas").val();
+    var comentario = $("#vcomenpruebas").val();
+    if (idestado != 0) {
+        var ingpruebas = arr('login',4,'',931,'1,0,'+idciclo+','+idestado+',"'+idpruebas+'","'+comentario+'",@@usr,@@impresa',0,0,0);
+        if (ingpruebas['succed'] == 1) {
+            Materialize.toast('QoS realizado con éxito', 4000, 'green');
+            $("#vidtipopruebas").val(0);
+            $("#vidtipopruebas").material_select();
+            $("#vcomenpruebas").val('');
+        }else{
+            Materialize.toast(ingpruebas[0]['ERROR'], 4000, 'green');
+        }
+    }
+});
+
+$(document).on("keyup","#vloteaprv",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 8 && $(this).val() == '')
+        $(".evaluarlote").attr('idciclo',0);
+});
+
+$(document).on("click",".approve",function(){
+    var idciclo = $(this).attr('idciclo');
+    var lote = $(this).attr('lote');
+    $("#vloteaprv").val(lote);
+    $(".evaluarlote").attr('idciclo',idciclo);
+    Materialize.updateTextFields();
+});
+
 $(document).on("click",".evaluarlote",function(){
-    // var el = $(this).attr('el');
-    // $("#modal-evaluarlote").modal('open');
+    var el = $(this).attr('el'); //6:aceptado 7:rechazado
+    if ($(this).attr('idciclo') != 0) {
+        $("#hidciclo").val($(this).attr('idciclo'));
+        $("#ciclolote").text($("#vloteaprv").val());
+        var pruebas = arr('login',4,'id,prueba',930,'id > 0 and idsucursal = @@impresa',0,0,0);
+        $("#vidtipopruebas").append('<option value="0" disabled>Seleccione una o varias pruebas</option>');
+        $.each(pruebas[0],function(i,dt) {
+            $("#vidtipopruebas").append('<option value="'+dt[0]+'">'+dt[1]+'</option>');
+        });
+        $("#vidtipopruebas").material_select();
+        $("#vidtipoestado").val(el);
+        $("#modal-evaluarlote").modal('open');
+    }else{
+        Materialize.toast('Seleccione un lote', 3000, 'green');
+    }
 });
 
 $(document).on("click","#pruebasQoS",function(){
@@ -90,11 +136,7 @@ $(document).on("click","#pruebasQoS",function(){
     if (cnt > 0) {
         ifila3 = cnt;
         $("#testqos").html('');
-        // var pruebas = 
         arr('login',6,'id,prueba',930,'id > 0 and idsucursal = @@impresa',0,1,$("#testqos"));
-        // $.each(pruebas,function(i,dt) {
-        //     $("#testqos").append('<li class="collection-item pruebasqos"><label id="qs'+dt[0]+'">'+dt[1]+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+dt[0]+'"></i></li>');
-        // });
     }else
         $("#testqos").html('');
 });
@@ -464,7 +506,6 @@ $(document).on("click",".proc-ciclo",function() {
     $("#modal-proc-ciclo").modal('open');
     arr('login',6,'id,nombre',913,'id > 0 and isactivo = 0',15,1,$("#srazon"));
     var svari = arr('login',4,'',924,id,0,0,0);
-    console.log(svari)
     $("#svari").val(svari[0][0][1]);
     $("#varfinal").text(svari[0][0][1]);
     $("#idserv").val(svari[0][0][0]);
@@ -480,7 +521,7 @@ $(document).on("click","#doproc",function(){
     var idservicio = $("#idserv").val();
     var cont = 0;
     if (cfinal != 0) {
-        var finalcount = arr('login',4,'',925,'1,0,"'+parseInt(idciclo-1)+','+id+'",1,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
+        var finalcount = arr('login',4,'',925,'1,0,"'+parseInt(idciclo-1)+','+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
         if (finalcount['succed'] == 0){
             Materialize.toast('Error de registro de cantidad total', 6000, 'red');
             return false;
@@ -858,15 +899,16 @@ function cargarArr(vid,velemento){
          clear: 'Limpiar',
          close: 'Cerrar'
     });
-    console.log($("#vfecha"))
-    var fecha = new Date();
-    var dpick = $('#vfecha');
-    dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+
+    if ($("#vfecha").val() != undefined) {
+        var fecha = new Date();
+        var dpick = $('#vfecha');
+        dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+    }
 
     $('select').material_select();
     $(".comentario").characterCounter();
     $(".modal").modal();
-      
     $(".mediocultivo").click(function(){
 
         if ($("#gcultivo").attr('save') == 0) {
@@ -933,7 +975,7 @@ function loadRecepcion(){
     	
     });
 
-    $("#m5").click();
+    $("#m0").click();
 }
 
 function loadAvispas(){
@@ -1306,6 +1348,10 @@ function cargarExplantes(){
     	cargarDistritos($('option:selected',this).val());
     });
 
+    $("#viddistrito").change(function(){
+        cargarBarrios($('option:selected',this).val());
+    });
+
     $("#ingresar").click(function(){
     	var validacion = validarCliente();
     	if(validacion)
@@ -1404,6 +1450,25 @@ function cargarDistritos(vidcanton){
     
 };
 
+function cargarBarrios(viddistrito){
+    var barrios = arr('login',4,'id,nombre',84,'iddistrito = '+viddistrito,'',0,'');
+    
+    $("#addClie #vidbarrio").html('');
+
+    var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
+
+    if (barrios['succed']) {
+        for (var i = 0; i < barrios[0].length; i++) {
+            lprov += '<option value="'+barrios[0][i][0]+'">'+barrios[0][i][1]+'</option>';
+        }
+    }
+
+    $("#addClie #vidbarrio").append(lprov);
+    $("#addClie #vidbarrio").val(0);
+    $("#addClie #vidbarrio").material_select('update');
+    
+};
+
 function iniciarVaridad(){
     var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
     if (servicio[0].length) {
@@ -1476,7 +1541,7 @@ function cargarTblFincas(){
 			lista += '<tr id="r'+fincas[0][i][3]+'"><td><input type="radio" name="selfinca" id="s'+fincas[0][i][3]+'" class="der with-gap" '+checked+'/>  <label for="s'+fincas[0][i][3]+'"></label></td><td>'+fincas[0][i][0]+'</td><td>'+fincas[0][i][1]+'</td><td>'+fincas[0][i][2]+' </td></tr>';
 		}
 	}
-
+    console.log(fincas)
     $("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = fincas[0][0][3];
 	$("#fincas").append(lista);
 }
@@ -1554,6 +1619,10 @@ function validarClientes(mod) {
     if ($("#f"+mod+"s #nombre").val() == '') {
         $("#f"+mod+"s #nombre").focus();
         return 'El campo Nombre es requerido';
+    }
+
+    if ($("#f"+mod+"s #vidbarrio").val() == null) {
+        return 'El campo Barrio es requerido';
     }
 
 }
@@ -1687,6 +1756,11 @@ function endDetail(vid,vacc,modulo){
                 $("#fclientes .zelda").removeData();
                 $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
                 $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] = vid[0][0];
+                $(".validate").css('border-bottom', '1px solid #9e9e9e');
+                $(".validate").css('box-shadow', 'none');
+                $("#provincia").val(0);
+                $("#canton").val(0);
+                $("select").material_select();
                 break;
             case 'finca':
                 clearform('finca');

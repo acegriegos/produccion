@@ -119,6 +119,12 @@ $(document).on("change","#canton[tipo=2]",function(){
     var tipo = parseInt($(this).attr('tipo'));
     var tbl = $(this).attr('vtbl');
     llenarDireccion(tipo,tbl,$(this).val());
+});
+
+$(document).on("change","#viddistrito[tipo=3]",function(){
+    var tipo = parseInt($(this).attr('tipo'));
+    var tbl = $(this).attr('vtbl');
+    llenarDireccion(tipo,tbl,$(this).val());
 }); 
 
 function llenarDireccion(tp,tbl,id) {
@@ -127,9 +133,12 @@ function llenarDireccion(tp,tbl,id) {
     if (tp == 1) {
         elem = 'canton';
         whr += ' and idprovincia = '+id+' order by nombre';
-    }else{
+    }else if(tp == 2) {
         elem = 'viddistrito';
         whr += ' and idcanton = '+id+' order by nombre';
+    }else if(tp == 3) {
+        elem = 'vidbarrio';
+        whr += ' and iddistrito = '+id+' order by nombre';
     }
     tp++;
     $("#"+elem+"[tipo="+tp+"]").prop('disabled',false);
@@ -604,7 +613,7 @@ function odin(varreglo,vform) {
                 }//end if
                 }//end SWITCH
             }//end IF
-            $("#"+vform+" .zelda").data('triforce')
+            // $("#"+vform+" .zelda").data('triforce')
             }// end FOR
         });//end EACH
 break;
@@ -622,7 +631,6 @@ case "4":
 case "5":
         for (var i = 0; i < varreglo.length; i++) {
             salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
-            console.log(varreglo[i]+" "+$("#"+vform+" .zelda").data('triforce')[varreglo[i]])
         }
         break;
 

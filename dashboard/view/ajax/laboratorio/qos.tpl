@@ -2,7 +2,7 @@
 	<div class="col s12 m5 l5">
 		<ul class="collection">
 			{section name="LE" loop=$QOS}
-			<li class="pbtn collection-item qos center approve">{$QOS[LE][1]} (Cantidad Final: {$QOS[LE][2]})</li>
+			<li class="pbtn collection-item qos center approve" idciclo="{$QOS[LE][0]}" lote="{$QOS[LE][1]}">{$QOS[LE][1]} (Cantidad Final: {$QOS[LE][2]})</li>
 			{/section}
 		</ul>
 	</div>
@@ -13,9 +13,8 @@
 				<label for="vloteaprv">Lote</label>
 			</div>
 			<div class="col s12 m2 l2" style="margin-top: 1rem;">
-				<a class="pbtn btn-floating btn1 evaluarlote modal-trigger" href="#modal-evaluarlote" el="0"><i class="mdi mdi-check" style="padding-right: 7px;"></i></a>
-				<a class="pbtn btn-floating btn3 evaluarlote modal-trigger" href="#modal-evaluarlote" el="1"><i class="mdi mdi-close" style="padding-right: 7px;"></i></a>
-				<a class="waves-effect waves-light btn modal-trigger" href="#modal-evaluarlote">Modal</a>
+				<a class="pbtn btn-floating btn1 evaluarlote" el="6" idciclo="0"><i class="mdi mdi-check" style="padding-right: 7px;"></i></a>
+				<a class="pbtn btn-floating btn3 evaluarlote" el="7" idciclo="0"><i class="mdi mdi-close" style="padding-right: 7px;"></i></a>
 			</div>
 		</div>
 	</div>
@@ -29,7 +28,21 @@
   </div>
   <div class="modal-content" style="padding: 20px;">
     <div class="row">
-      
+    	<div class="col s12 m5 l5">
+    		<span style="font-size: 1.2em">Lote: <span id="ciclolote"></span></span>
+    		<input type="hidden" id="vidtipoestado">
+    		<input type="hidden" id="hidciclo" value="0">
+    	</div>
+		<div class="col s12 m7 l7">
+			<label for="vidtipopruebas">Pruebas</label>
+			<select multiple id="vidtipopruebas"></select>
+		</div>
+    </div>
+    <div class="row">
+		<div class="input-field col s12 m12 l12">
+			<textarea id="vcomenpruebas" class="materialize-textarea"></textarea>
+			<label for="vcomenpruebas">Comentario</label>
+		</div>
     </div>
   </div>
   <div class="modal-footer">
