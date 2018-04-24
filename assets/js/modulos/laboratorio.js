@@ -16,16 +16,16 @@ $(function(){
     	case 1:
     		loadRecepcion();
     		break;
-        case 2:
+        case 11:
             loadAvispas();
             break;
-        case 3:
+        case 12:
             loadHongos();
             break;
-    	case 4:
+    	case 3:
     		loadAjustes();
             break;
-        case 4:
+        case 10:
             loadSeguimiento();
             break;
         default:
@@ -1007,6 +1007,10 @@ function loadHongos(){
     });
 
     $("#m1").click();
+}
+
+function loadSeguimiento(){
+    $("#vlote").focus();
 }
 
 function cargarQoS(){
