@@ -99,6 +99,11 @@
         <select id="vdistrito"><option value="0" disabled>Seleccione una Opción</option></select>
         <label for="vdistrito">Distrito</label>
       </div>
+
+      <div class="col s6 m3 input-field">
+        <select id="vidbarrio"><option value="0" disabled>Seleccione una Opción</option></select>
+        <label for="vidbarrio">Distrito</label>
+      </div>
       
       <div class="col s6 m3 prod input-field">
         <input type="text" id="vregion" class="autocomplete">
@@ -127,8 +132,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
     <button type="button" class="waves-effect waves-green btn-flat" id="ingresar">Guardar</button>
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
 </div>
 
