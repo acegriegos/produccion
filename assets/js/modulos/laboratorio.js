@@ -11,13 +11,23 @@ $(function(){
 
     param = getParameterByName('accion');
     param = param == '' ? 0 : parseInt(param)
-    
+   
     switch(param){
     	case 1:
     		loadRecepcion();
     		break;
-    	case 3:
+        case 2:
+            loadAvispas();
+            break;
+        case 3:
+            loadHongos();
+            break;
+    	case 4:
     		loadAjustes();
+            break;
+        case 4:
+            loadSeguimiento();
+            break;
         default:
             break;
     }
@@ -544,6 +554,9 @@ $(document).on("click","#doproc",function(){
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
         }else{
+            if($("#cultivo").val() != '- - -'){
+                
+            }
             Materialize.toast($("#titciclo").text().substr(11)+' procesada', 4000, 'green');
             emptyprocmult();
         }
@@ -737,6 +750,47 @@ $(document).on("click","#mbandeja",function(){
     }
 });
 
+$(document).on("change","#mc-cantidad",function(){
+    var mult = $('option:selected',this).attr('mul');
+    var valor = 0;
+    $('.premc').each(function(){
+        valor = $(this).attr('rpre')*mult;
+        $(this).html( (valor).formatMoney(0,'.',',') );
+    });
+    
+});
+
+$(document).on("click","#gcultivo",function(){
+    $(this).attr('save',1);
+    Materialize.toast("Medio de Cultivo Asignado",4000,'green');
+    $("#cultivo").val("Medio Cultivo "+$("#mc-cantidad option:selected").html());
+    $("#modal-formula").modal('close')
+});
+
+// $(document).on('click','.addClie',function(){
+// 	$(".titadd").html("Agregar Cliente");
+// 	$(".cli").show();
+// 	$(".prod").hide();
+// 	$(".serv").hide();
+// 	$("#ingresar").attr('codigo',"1");
+// 	$("#pais").val('Costa Rica');
+// 	$("#pais").blur();
+
+// 	var tmpname = $("#flaboratorio-explantes #ncli").val();
+
+// 	$("#addClie #vnombre").val(tmpname.substring(0,tmpname.indexOf(' ')));
+// 	tmpname = tmpname.substring(tmpname.indexOf(' ')+1);
+	
+// 	$("#addClie #vapellido1").val(tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname);
+// 	tmpname = tmpname.indexOf(' ') > 0 ? tmpname.substring(tmpname.indexOf(' ')+1) : '';
+
+// 	$("#addClie #vapellido2").val(tmpname);
+// 	Materialize.updateTextFields();
+// 	$("#addClie").modal('open');
+// 	$("#vcedula").focus();
+
+// });
+
 function loadAjustes(){
 
 	$("#invVariedad").material_select('destroy');
@@ -856,12 +910,23 @@ function cargarArr(vid,velemento){
     $(".comentario").characterCounter();
     $(".modal").modal();
     $(".mediocultivo").click(function(){
-        var componentes = getDatos('',923,$("li.menu3 >a.active").parent().attr('id').substr(1),0,0,0);
-        // mcul-lista
-        $("#modal-formula").modal('open')
+
+        if ($("#gcultivo").attr('save') == 0) {
+            var componentes = getDatos('',923,$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa',0,0,0);
+            var tabla = '';
+            for (var i = 0; i < componentes[0].length; i++) {
+                
+                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
+            };
+            $("#mcul-lista").html(tabla);
+        }
+
+        $("#modal-formula").modal('open');
+        
     });
 
-    $("#mkbandeja").click(function(){
+    $(".rbandeja").click(function(){
+        
         arr('login',6,'',411,invvar[2][0],15,1,$("#invactivlab"))
         // $("#invactivlab").material_select();
         $("#modal-bandeja").modal('open');
@@ -892,11 +957,11 @@ function loadRecepcion(){
                 cargarMultiplicacion();
                 break;
             case 3:
-                cargarArr(6,$("#labajax"));
+                cargarArr(5,$("#labajax"));
                 cargarEnraizamiento();
                 break;
             case 4:
-                cargarArr(7,$("#labajax"));
+                cargarArr(5,$("#labajax"));
                 cargarAclimatacion();
                 break;
             case 5:
@@ -911,6 +976,79 @@ function loadRecepcion(){
     });
 
     $("#m0").click();
+}
+
+function loadAvispas(){
+
+    $(".menu3").click(function(){
+        var id = $(this).attr('id').substr(1);
+        console.log(id)
+        switch(parseInt(id)){
+            case 0:
+                cargarArr(2,$("#labajax"));
+                cargarExplantes();
+                break;
+            case 1:
+                cargarArr(4,$("#labajax"));
+                cargarIniciacion();
+                break;
+            case 2:
+                cargarArr(6,$("#labajax"));
+                break;
+            case 3:
+                cargarArr(6,$("#labajax"));
+                break;
+            case 4:
+                cargarArr(6,$("#labajax"));
+                break;
+            case 5:
+                cargarArr(8,$("#labajax"));
+                cargarQoS();
+                break;
+            default:
+                $("#labajax").html('Laboratorio sin Procesar')
+                break;
+        }
+        
+    });
+
+    $("#m1").click();
+}
+
+function loadHongos(){
+
+    $(".menu3").click(function(){
+        var id = $(this).attr('id').substr(1);
+        switch(parseInt(id)){
+            case 0:
+                cargarArr(2,$("#labajax"));
+                cargarExplantes();
+                break;
+            case 1:
+                cargarArr(4,$("#labajax"));
+                cargarIniciacion();
+                break;
+            case 2:
+                cargarArr(7,$("#labajax"));
+                break;
+            case 3:
+                cargarArr(7,$("#labajax"));
+                break;
+            case 4:
+                cargarArr(7,$("#labajax"));
+                break;
+            case 5:
+                cargarArr(8,$("#labajax"));
+                cargarQoS();
+                break;
+            default:
+                $("#labajax").html('Laboratorio sin Procesar')
+                break;
+        }
+        
+    });
+
+    $("#m1").click();
 }
 
 function cargarQoS(){
@@ -1049,10 +1187,6 @@ function cargarIniciacion(){
     //         }
     //     }
     // });
-
-    $(document).on("keyup","#vcomentario",function(){
-        $(".zelda").data('triforce')['vcomentario'] = $(this).val();
-    });
 
 }//cargar Iniciacion
 
@@ -1528,10 +1662,12 @@ function validarCiclos(){
                 return 'No se a Seleccionado el Operario';
             }
 
-            if ($("#vcomentario").val() == 0 ) {
+            if ($("#vcomentario").val().length <= 0 ) {
                 $("#vcomentario").focus();
                 return 'Comentario Requerido';
             }
+            
+            $(".zelda").data('triforce')['vcomentario'] = $("#vcomentario").val()
 
             break;
         default:
