@@ -37,19 +37,19 @@
 	   			$pagina = 1;
 	   			$smarty = make_smarty();
 	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"2,@@impresa","0,10"'));
-	   			$smarty->display('ajax/laboratorio/multiplicacion.tpl');
+	   			$smarty->display('ajax/laboratorio/tejidoscultivos.tpl');
 	   			break;
 	   		case 6:
 	   			$pagina = 1;
 	   			$smarty = make_smarty();
 	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"3,@@impresa","0,10"'));
-	   			$smarty->display('ajax/laboratorio/enraizamiento.tpl');
+	   			$smarty->display('ajax/laboratorio/avispas.tpl');
 	   			break;
 	   		case 7:
 	   			$pagina = 1;
 	   			$smarty = make_smarty();
 	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"4,@@impresa","0,10"'));
-	   			$smarty->display('ajax/laboratorio/aclimatacion.tpl');
+	   			$smarty->display('ajax/laboratorio/hongos.tpl');
 	   			break;
 	   		case 8:
 	   			$pagina = 1;
@@ -64,6 +64,23 @@
 	   			$frascos = $kakaroto->kamehameha('',411,$_REQUEST['arreglo']['invfrascos']);
 	   			require_once 'view/ajax/laboratorio/relaciones.php';
 	   			break;
+	   		case 10: //seguimiento
+	   			$pagina = 1;
+	   			echo "SEGUIMIENTO";
+	   			break;
+	   		case 11:
+	   			$pagina = 1;
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CANT',$kakaroto->kamehameha('id,format(valor,0),upper((select a.simbolo from unidades a where a.id = laboratorio.referencias.idunidad))',922,'id > 0'));
+	   			$smarty->display('ajax/laboratorio/entrada1.tpl');
+	   			break;
+	   		case 12:
+	   			$pagina = 1;
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CANT',$kakaroto->kamehameha('id,format(valor,0),upper((select a.simbolo from unidades a where a.id = laboratorio.referencias.idunidad))',922,'id > 0'));
+	   			$smarty->display('ajax/laboratorio/entrada2.tpl');
+	   			break;
+
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

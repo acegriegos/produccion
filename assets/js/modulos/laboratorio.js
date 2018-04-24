@@ -11,13 +11,23 @@ $(function(){
 
     param = getParameterByName('accion');
     param = param == '' ? 0 : parseInt(param)
-    
+   
     switch(param){
     	case 1:
     		loadRecepcion();
     		break;
-    	case 3:
+        case 2:
+            loadAvispas();
+            break;
+        case 3:
+            loadHongos();
+            break;
+    	case 4:
     		loadAjustes();
+            break;
+        case 4:
+            loadSeguimiento();
+            break;
         default:
             break;
     }
@@ -905,11 +915,11 @@ function loadRecepcion(){
                 cargarMultiplicacion();
                 break;
             case 3:
-                cargarArr(6,$("#labajax"));
+                cargarArr(5,$("#labajax"));
                 cargarEnraizamiento();
                 break;
             case 4:
-                cargarArr(7,$("#labajax"));
+                cargarArr(5,$("#labajax"));
                 cargarAclimatacion();
                 break;
             case 5:
@@ -924,6 +934,79 @@ function loadRecepcion(){
     });
 
     $("#m5").click();
+}
+
+function loadAvispas(){
+
+    $(".menu3").click(function(){
+        var id = $(this).attr('id').substr(1);
+        console.log(id)
+        switch(parseInt(id)){
+            case 0:
+                cargarArr(2,$("#labajax"));
+                cargarExplantes();
+                break;
+            case 1:
+                cargarArr(4,$("#labajax"));
+                cargarIniciacion();
+                break;
+            case 2:
+                cargarArr(6,$("#labajax"));
+                break;
+            case 3:
+                cargarArr(6,$("#labajax"));
+                break;
+            case 4:
+                cargarArr(6,$("#labajax"));
+                break;
+            case 5:
+                cargarArr(8,$("#labajax"));
+                cargarQoS();
+                break;
+            default:
+                $("#labajax").html('Laboratorio sin Procesar')
+                break;
+        }
+        
+    });
+
+    $("#m1").click();
+}
+
+function loadHongos(){
+
+    $(".menu3").click(function(){
+        var id = $(this).attr('id').substr(1);
+        switch(parseInt(id)){
+            case 0:
+                cargarArr(2,$("#labajax"));
+                cargarExplantes();
+                break;
+            case 1:
+                cargarArr(4,$("#labajax"));
+                cargarIniciacion();
+                break;
+            case 2:
+                cargarArr(7,$("#labajax"));
+                break;
+            case 3:
+                cargarArr(7,$("#labajax"));
+                break;
+            case 4:
+                cargarArr(7,$("#labajax"));
+                break;
+            case 5:
+                cargarArr(8,$("#labajax"));
+                cargarQoS();
+                break;
+            default:
+                $("#labajax").html('Laboratorio sin Procesar')
+                break;
+        }
+        
+    });
+
+    $("#m1").click();
 }
 
 function cargarQoS(){

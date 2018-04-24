@@ -15,23 +15,6 @@
           </tr>
         </thead>
         <tbody id="listaciclos">
-          <!-- {section name=LE loop=$CIC}
-          <tr>
-            <td>{$CIC[LE][2]}</td>
-            <td>{$CIC[LE][3]}</td>
-            <td>{$CIC[LE][4]}</td>
-            <td>{$CIC[LE][5]}</td>
-            <td>{$CIC[LE][6]}</td>
-            <td>
-              <a class="pbtn gtext mdi mdi-24px mdi-refresh proc-ciclo" id="a{$CIC[LE][0]}" title="Procesar Multiplicacion"></a>
-              <a class="pbtn gtext mdi mdi-24px mdi-view-list mcb" id="b{$CIC[LE][0]}" title="Ver Medio Cultivo y Bandejas"></a>
-              <a class="pbtn gtext mdi mdi-24px mdi-checkbox-multiple-marked-outline invstats" id="c{$CIC[LE][0]}" title="Procesar Activos" tipo="1"></a>
-              <a class="pbtn gtext mdi mdi-24px mdi-arrow-left-box history" id="d{$CIC[LE][0]}" title="Ver Trayectoria"></a>
-              <a class="pbtn gtext mdi mdi-24px mdi-basket-unfill invstats" id="f{$CIC[LE][0]}" title="Registrar Pérdidas" tipo="0"></a>
-              <a class="pbtn gtext mdi mdi-24px mdi-arrow-collapse-right procenr" id="e{$CIC[LE][0]}" title="Procesar a Enraizamiento"></a>
-            </td>
-          </tr>
-          {/section} -->
         </tbody>
       </table>
     </div>

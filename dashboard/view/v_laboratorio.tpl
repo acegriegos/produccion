@@ -21,19 +21,19 @@
                   <div class="card-title center head2">&nbsp;Opciones</div>
                   <div class="card-panel pequeño ">
                     <div class="row">
-                      <div class="col s12 m6 l6 per6000">
-                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Tejidos</a>
+                      <div class="col s12 per6000">
+                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Tejidos y Explantes</a>
                       </div>
-                      <div class="col s12 m6 l6 per6000">
-                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Avíspas</a>
+                      <div class="col s12 per6100">
+                        <a href="laboratorio?accion=11" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Avíspas</a>
                       </div>
-                      <div class="col s12 m6 l6 per6000">
-                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Hongos</a>
+                      <div class="col s12 per6200">
+                        <a href="laboratorio?accion=12" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Hongos</a>
                       </div>
-                      <div class="col s12 m6 l6 per6100">
-                        <a href="laboratorio?accion=2" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>
+                      <div class="col s12 m6 l6 per6300">
+                        <a href="laboratorio?accion=10" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>
                       </div>
-                      <div class="col s12 m6 l6 per6100">
+                      <div class="col s12 m6 l6 per6400">
                         <a href="laboratorio?accion=3" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;">Ajustes</a>
                       </div>
                   </div>
@@ -53,6 +53,6 @@
       </div>
 </div>
     {$SCR}
-    <script src="../assets/js/modulos/laboratorio.js?v=0.1"></script>
+    <!-- <script src="../assets/js/modulos/laboratorio.js?v=0.1"></script> -->
   </body>
 </html>
