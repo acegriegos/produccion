@@ -5,7 +5,7 @@ var ifila3 = 0;
 var tpinv = 0;
 // tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
 $(function(){
-
+    console.log(invvar);
 	if (invvar[0][0] == '') 
 		Materialize.toast('No hay Inventario de Variedades Seleccionado',3000,'')
 
