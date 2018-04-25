@@ -51,6 +51,12 @@
               <a class="btn btn1 modalmedios" tm="4">Medio Ápice Líquido</a>
             </div>
           </div>
+          <label>Pruebas de QoS</label>
+          <div class="row">
+            <div class="col s12 m4">
+              <a class="btn btn1" id="pruebasQoS">Pruebas de QoS</a>
+            </div>
+          </div>
           <label>Bandejas-Frascos</label>
           <div class="row">
             <div class="col s4 input-field">
@@ -181,6 +187,33 @@
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
   </div>
 </div>
+
+<div id="modal-pruebasQoS" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+    <div class="card-header center head2 padding1">
+      <p class="flow-text marginzero">Pruebas de QoS</p>
+    </div>
+  </div>
+  <div class="modal-content" style="padding: 20px;">
+    <div class="row">
+      <div class="input-field col s10 m4 l4">
+        <input type="text" id="tipopruebas" class="validate">
+        <label for="tipopruebas">Pruebas QoS</label>
+      </div>
+      <div class="col s2 m2 l2" style="margin-top: 1rem">
+        <a class="btn-floating btn2 mdi mdi-plus mdi-24px" id="addtestqos" style="padding-left: 8px;"></a>
+      </div>
+      <div class="col s12 m6 l6">
+        <ul class="collection" id="testqos"></ul>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="savetestqos">Agregar</a>
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+  </div>
+</div>
+
 {$SCR}
 <script src="../assets/js/modulos/laboratorio.js?v=0.1"></script>
 </body>

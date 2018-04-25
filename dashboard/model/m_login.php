@@ -58,7 +58,7 @@
 			}
 			if($rollback != ''){
 				$rll = $this->kamehameha('',$roll_tbl,$id_new[0][0]);
-				$id_new = 'ROLLBACK: '.$rollback;
+				$id_new = 'ROLLBACK: '.$rollback.' '.$id_new;
 			}
 
 			return is_array($id_new) ? array('0' => $id_new) : $id_new;

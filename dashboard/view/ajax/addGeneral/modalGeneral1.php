@@ -74,8 +74,12 @@
               <label for="canton">Cantón</label>
             </div>
             <div class="col s6 m3 input-field">
-              <select id="viddistrito" tipo="3" type="select"><option value="0" disabled>Seleccione una Opción</option></select>
+              <select id="viddistrito" tipo="3" vtbl="84" type="select"><option value="0" disabled>Seleccione una Opción</option></select>
               <label for="viddistrito">Distrito</label>
+            </div>
+            <div class="col s6 m3 input-field">
+              <select id="vidbarrio" tipo="4" type="select"><option value="0" disabled>Seleccione una Opción</option></select>
+              <label for="vidbarrio">Barrio</label>
             </div>
           </div>
           <div class="row">
