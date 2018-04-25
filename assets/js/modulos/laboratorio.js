@@ -1,4 +1,5 @@
 var invvar = getDatos('',909,'@@impresa',0,0)[0];
+console.log(invvar)
 var ifila = 0;
 var ifila2 = 0;
 var ifila3 = 0;
@@ -41,7 +42,6 @@ $(function(){
         endingTop: '2%' // Ending top style attribute
     });
     $("select").material_select();
-    console.clear();
 });
 
 //fill data
@@ -982,7 +982,6 @@ function loadAvispas(){
 
     $(".menu3").click(function(){
         var id = $(this).attr('id').substr(1);
-        console.log(id)
         switch(parseInt(id)){
             case 0:
                 cargarArr(2,$("#labajax"));
@@ -1072,16 +1071,18 @@ function cargarMultiplicacion(){
 
 function cargarIniciacion(){
     $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
+
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = keysight(charCode);
+        var charStr = keysight(e);
         
         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
             $(".autocomplete-content").remove();
 
             $("#vvariedad").autocomplete({
                 limit: 20,
-                data: getVariedad_Down($(this).val())
+                data: getVariedad_Down(busqueda)
             });
             $(".autocomplete-content").css('width','30%');
         }
@@ -1292,7 +1293,7 @@ function cargarExplantes(){
             $(".autocomplete-content").remove();
             $("#vregion").autocomplete({
                 limit: 20,
-                data: arr('login',4,'nombre as nom,null',903,'id > 0 having nom like "%'+$(this).val()+'%" and idubicacion in(select id from developer.ubicaciones where iddistrito = '+$("#vdistrito option:selected").val()+' group by idubicacion) limit 20',0,0,0,1)
+                data: arr('login',4,'nombre as nom,null',903,'id > 0 having nom like "%'+$(this).val()+'%" and idubicacion in(select id from developer.ubicaciones where iddistrito = '+$("#viddistrito option:selected").val()+' group by idubicacion) limit 20',0,0,0,1)
             });
             $(".autocomplete-content").css('width','25%');
         }
@@ -1301,7 +1302,7 @@ function cargarExplantes(){
     $("#vregion").keyup(function(e){
     	var code = e.which || e.keyCode;
     	if (code == 13){
-    		var idregion = getDatos('id',903,'nombre = '+$(this).val()+' and idubicacion in(select id from developer.ubicaciones where iddistrito = '+$("#vdistrito option:selected").val()+' group by iddistrito)',0,0);
+    		var idregion = getDatos('id',903,'nombre = '+$(this).val()+' and idubicacion in(select id from developer.ubicaciones where iddistrito = '+$("#viddistrito option:selected").val()+' group by iddistrito)',0,0);
 
 	    	if (idregion['succed'] == 1) {
 	   //  		var $toastContent = $('<span>Región no Existente</span>').add($('<button class="btn-flat toast-action green white-text addRegion">Agregarla</button>'));
@@ -1356,7 +1357,7 @@ function cargarExplantes(){
     		switch(parseInt($(this).attr('codigo'))){
 		    	case 2:
 		    		var id = $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'];
-		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vdistrito").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
+		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vidbarrio").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
 		    		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0];
 		    		var _idFinca = getDatos('',901,'1,0,"'+$("#finca").val()+'",'+_idregion,0,0);
 		    		Materialize.toast('Finca Agregada Correctamente',4000,'green');
@@ -1410,63 +1411,49 @@ function cargarProvincias(){
 
 function cargarCantones(vidprovincia){
 	var cantones = arr('login',4,'id,nombre',9,'idprovincia = '+vidprovincia,'',0,'');
-	
 	$("#addClie #canton").html('');
-
 	var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
-
     if (cantones['succed']) {
     	for (var i = 0; i < cantones[0].length; i++) {
     		lprov += '<option value="'+cantones[0][i][0]+'">'+cantones[0][i][1]+'</option>';
     	}
     }
-
     $("#addClie #canton").append(lprov);
     $("#addClie #canton").val(0);
     $("#addClie #canton").material_select('update');
-    
 };
 
 function cargarDistritos(vidcanton){
 	var distritos = arr('login',4,'id,nombre',10,'idcanton = '+vidcanton,'',0,'');
-	
-	$("#addClie #vdistrito").html('');
-
+	$("#addClie #viddistrito").html('');
 	var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
-
     if (distritos['succed']) {
     	for (var i = 0; i < distritos[0].length; i++) {
     		lprov += '<option value="'+distritos[0][i][0]+'">'+distritos[0][i][1]+'</option>';
     	}
     }
-
-    $("#addClie #vdistrito").append(lprov);
-    $("#addClie #vdistrito").val(0);
-    $("#addClie #vdistrito").material_select('update');
-    
+    $("#addClie #viddistrito").append(lprov);
+    $("#addClie #viddistrito").val(0);
+    $("#addClie #viddistrito").material_select('update');
 };
 
 function cargarBarrios(viddistrito){
     var barrios = arr('login',4,'id,nombre',84,'iddistrito = '+viddistrito,'',0,'');
-    
     $("#addClie #vidbarrio").html('');
-
     var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
-
     if (barrios['succed']) {
         for (var i = 0; i < barrios[0].length; i++) {
             lprov += '<option value="'+barrios[0][i][0]+'">'+barrios[0][i][1]+'</option>';
         }
     }
-
     $("#addClie #vidbarrio").append(lprov);
     $("#addClie #vidbarrio").val(0);
     $("#addClie #vidbarrio").material_select('update');
-    
 };
 
 function iniciarVaridad(){
     var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
+    console.log(servicio)
     if (servicio[0].length) {
         var obj;
         var str = '<div class="col s12 head1 padding1"><h6>Variedad: <b>'+servicio[0][0][1]+'</b></h6></div><table class="responsive-table striped highlight" id="resulti00"><thead class="tab2"><tr><th colspan="2" class="center">Cantidad</th> <th class="center">Procedencia</th> <th class="center">Fecha</th> </tr> </thead> <tbody vtabla="laboratorio-investadistica" id="flaboratorio-investadisticas" tp="4" rollback="">'; // id="bdyi00"
@@ -1537,7 +1524,6 @@ function cargarTblFincas(){
 			lista += '<tr id="r'+fincas[0][i][3]+'"><td><input type="radio" name="selfinca" id="s'+fincas[0][i][3]+'" class="der with-gap" '+checked+'/>  <label for="s'+fincas[0][i][3]+'"></label></td><td>'+fincas[0][i][0]+'</td><td>'+fincas[0][i][1]+'</td><td>'+fincas[0][i][2]+' </td></tr>';
 		}
 	}
-    console.log(fincas)
     $("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = fincas[0][0][3];
 	$("#fincas").append(lista);
 }
@@ -1760,6 +1746,10 @@ function endDetail(vid,vacc,modulo){
                 break;
             case 'finca':
                 clearform('finca');
+                $("#canton").val(0);
+                $("#viddistrito").val(0);
+                $("#vidbarrio").val(0);
+                $("select").material_select();
                 break;
             case 'servicio':
                 deadclear('servicio');
@@ -1767,6 +1757,8 @@ function endDetail(vid,vacc,modulo){
                 $("#fservicios .zelda").removeData();
                 $("#fservicios .zelda").data('triforce',{vid : 0,vcodigo : '',vnombre : '',vdescripcion : '',vpbase : 0,vperiodo : 0,vdias : 0,vidproveedor : 0,vprecio : 0,vpganancia : 0,vidinventario : 0,vidmoneda : 1,vservprofesional : 0,vidsuc : -1});
                 $("#flaboratorio-explantes .zelda").data('triforce')['vidservicio'] = vid[0][0];
+                $(".validate").css('border-bottom', '1px solid #9e9e9e');
+                $(".validate").css('box-shadow', 'none');
                 break;
             case 'laboratorio-relacione':
                 var id = parseInt($("#autoinc").val());
@@ -1825,7 +1817,7 @@ function clearform(vform) {
             $("#addClie #pais").val('');
             $("#addClie #provincia").val(0);
             $("#addClie #canton").val(0);
-            $("#addClie #vdistrito").val(0);
+            $("#addClie #viddistrito").val(0);
             $("#addClie #vregion").val('');
             $("#addClie #finca").val('');
             $("#addClie #vdireccion").val('');

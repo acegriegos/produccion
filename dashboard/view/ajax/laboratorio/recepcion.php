@@ -96,22 +96,22 @@
       </div>
       
       <div class="col s6 m3 input-field">
-        <select id="vdistrito"><option value="0" disabled>Seleccione una Opción</option></select>
-        <label for="vdistrito">Distrito</label>
+        <select id="viddistrito"><option value="0" disabled>Seleccione una Opción</option></select>
+        <label for="viddistrito">Distrito</label>
       </div>
 
       <div class="col s6 m3 input-field">
         <select id="vidbarrio"><option value="0" disabled>Seleccione una Opción</option></select>
-        <label for="vidbarrio">Distrito</label>
+        <label for="vidbarrio">Barrio</label>
       </div>
       
       <div class="col s6 m3 prod input-field">
-        <input type="text" id="vregion" class="autocomplete">
+        <input type="text" id="vregion" class="autocomplete" autocomplete="off">
         <label for="vregion">Región</label>
       </div>
       
       <div class="col s6 m3 prod input-field">
-        <input type="text" id="finca" class="autocomplete">
+        <input type="text" id="finca" class="autocomplete" autocomplete="off">
         <label for="finca">Finca</label>
       </div>
     </div>
