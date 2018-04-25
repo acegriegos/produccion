@@ -66,7 +66,8 @@
 	   			break;
 	   		case 10: //seguimiento
 	   			$pagina = 1;
-	   			echo "SEGUIMIENTO";
+	   			$smarty = make_smarty();
+	   			$smarty->display('ajax/laboratorio/seguimiento.php');
 	   			break;
 	   		case 11:
 	   			$pagina = 1;

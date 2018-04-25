@@ -6,7 +6,7 @@ var ifila3 = 0;
 var tpinv = 0;
 // tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
 $(function(){
-
+    console.log(invvar);
 	if (invvar[0][0] == '') 
 		Materialize.toast('No hay Inventario de Variedades Seleccionado',3000,'')
 
@@ -17,16 +17,16 @@ $(function(){
     	case 1:
     		loadRecepcion();
     		break;
-        case 2:
+        case 11:
             loadAvispas();
             break;
-        case 3:
+        case 12:
             loadHongos();
             break;
-    	case 4:
+    	case 3:
     		loadAjustes();
             break;
-        case 4:
+        case 10:
             loadSeguimiento();
             break;
         default:
@@ -1048,6 +1048,10 @@ function loadHongos(){
     });
 
     $("#m1").click();
+}
+
+function loadSeguimiento(){
+    $("#vlote").focus();
 }
 
 function cargarQoS(){
