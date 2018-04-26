@@ -32,18 +32,18 @@
     </div>
   </div>
   <div class="modal-content" style="padding: 0px;">
-    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
-      <thead>
+    <table class="table responsive-table centered striped bordered highlight pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
+      <thead class="tab1">
         <tr>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad</th>
+          <th style="border: 0; border-radius: 0px !important;">Nombre</th>
+          <th style="border: 0; border-radius: 0px !important;">Cantidad</th>
         </tr>
       </thead>
     <tbody id="listamediocultivos"></tbody>
   </table>
 </div>
 <div class="modal-footer ">
-  <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+  <a class="modal-action modal-close waves-effect waves-red btn-flat" style="margin-right: 2%">Salir</a>
 </div>
 </div>
 
@@ -158,7 +158,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
 <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="chgbandeja">Guardar</a>
+<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
 </div>
 </div>

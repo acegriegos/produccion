@@ -114,7 +114,7 @@
         <div class="row">
           <div class="col s1 m2 l2"></div>
           <div class="col s10 m8 l8 center">
-            <table class="responsive-table highlight z-depth-3">
+            <table class="responsive-table striped highlight">
               <thead class="tab1">
                 <tr>
                   <th colspan="3" class="tab2 center" style="padding: 0;">Medio de Cultivo de <span id="cantmediocultivo">1 L</span></th>

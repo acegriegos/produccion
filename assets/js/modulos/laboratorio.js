@@ -1,12 +1,10 @@
 var invvar = getDatos('',909,'@@impresa',0,0)[0];
-console.log(invvar)
 var ifila = 0;
 var ifila2 = 0;
 var ifila3 = 0;
 var tpinv = 0;
 // tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
 $(function(){
-    console.log(invvar);
 	if (invvar[0][0] == '') 
 		Materialize.toast('No hay Inventario de Variedades Seleccionado',3000,'')
 
@@ -79,6 +77,10 @@ $(document).on("change","#vidinventario",function(){
     $("#fservicios .zelda").data('triforce')['vidinventario'] = $(this).val();
 });
 // fill data //
+
+$(document).on("click","#listadorecepciones",function(){
+    arr('login',6,'',934,'0',0,1,$("#listarecepciones"))
+});
 
 $(document).on("click","#save-evaluacion",function(){
     var idciclo = $("#hidciclo").val();
@@ -472,9 +474,11 @@ $(document).on("click","#registrar",function() {
     var id = $(this).attr('id').substr(1);
     arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
     var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
+    var serv = arr('login',4,'id,nombre',16,'id > 0 and nombre = "'+$("#vvariedad").val()+'"',0,0,0)[0][0];
     $("#modal-registrar").modal('open');
     $("#vidrazon").material_select();
-    $("#nomvar").val($("#vvariedad").val());
+    $("#nomvar").val(serv[1]);
+    $("#vidservicio").val(serv[0]);
     $("#nomvar").attr('disabled',true);
     Materialize.updateTextFields();
 });
@@ -521,7 +525,8 @@ $(document).on("click","#doproc",function(){
     var idservicio = $("#idserv").val();
     var cont = 0;
     if (cfinal != 0) {
-        var finalcount = arr('login',4,'',925,'1,0,"'+parseInt(idciclo-1)+','+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
+        // var finalcount = arr('login',4,'',925,'1,0,"'+parseInt(idciclo-1)+','+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
+        var finalcount = arr('login',4,'',925,'1,0,"'+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
         if (finalcount['succed'] == 0){
             Materialize.toast('Error de registro de cantidad total', 6000, 'red');
             return false;
@@ -531,18 +536,19 @@ $(document).on("click","#doproc",function(){
         var cant = $("#cantsrv").val() == '' ? 0 : $("#cantsrv").val();
         if (idrazon != 0) {
             if (cant > 0) {
-                var perdidas = arr('login',4,'',925,'1,0,"'+idciclo+','+id+'",'+idrazon+','+idservicio+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
+                // var perdidas = arr('login',4,'',925,'1,0,"'+idciclo+','+id+'",'+idrazon+','+idservicio+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
+                var perdidas = arr('login',4,'',925,'1,0,"'+id+'",'+idrazon+','+idservicio+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
                 if (perdidas['succed'] == 0) {
                     Materialize.toast('Error en registro de perdidas', 6000, 'red');
                     return false;
                 }
             }else{
-                Materialize.toast('Cantidad de pérdida requerida', 4000, 'green');
+                Materialize.toast('Cantidad de pérdida requerida', 4000, 'red');
                 return false;
             }
         }else{
             if (cant > 0) {
-                Materialize.toast('Razon de pérdida requerida', 4000, 'green');
+                Materialize.toast('Razon de pérdida requerida', 4000, 'red');
                 return false;
             }
         }
@@ -554,12 +560,21 @@ $(document).on("click","#doproc",function(){
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
         }else{
-            if($("#cultivo").val() != '- - -'){
+             if($("#cultivo").val() != '- - -'){
+                var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
                 
-            }
+                arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+ciclo[0][0][0],0,0,0);
+
+                $('.premc').each(function(){
+                    arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
+                });
+             }
             Materialize.toast($("#titciclo").text().substr(11)+' procesada', 4000, 'green');
             emptyprocmult();
+            arr('login',6,'',912,'0,0,"'+$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa","0,10"',0,1,$("#listaciclos"))
         }
+
+        
     }else{
         Materialize.toast('Cantidad final necesaria para procesar a multiplicación', 6000, 'red');
     }
@@ -567,6 +582,7 @@ $(document).on("click","#doproc",function(){
 
 function emptyprocmult() {
     $("#cantfinal").val('');
+    $("#cantsrv").val('');
     $("#srazon").val(0);
     $("#svari").val('');
     $("#idserv").val(0);
@@ -633,6 +649,7 @@ $(document).on("click",".invstats",function(){
         $(".validate").css('border-bottom', '1px solid #9e9e9e');
         $(".validate").css('box-shadow', 'none');
     // if
+    console.log(id)
     arr('login',6,'',926,id,15,1,$("#vactivo"))
     arr('login',6,'id,nombre',913,'id > 0 and isActivo = '+tipo,15,1,$("#vidrazon"))
     $("select").material_select();
@@ -708,17 +725,6 @@ $(document).on("click",".procenr",function(){
     var $toastContent = $('<span>Proceder a enraizamiento?</span>').add($('<button class="btn-flat toast-action green white-text" id="doenr" idciclo="'+id+'">Aceptar</button>'));
     Materialize.toast($toastContent, 10000);
     
-});
-
-$(document).on("click","#doenr",function(){
-    var id = $(this).attr('idciclo');
-    var idtipo = parseInt($("li.menu3 >a.active").parent().attr('id').substr(1))+1;
-    var ciclo = arr('login',4,'',914,id+','+idtipo+',0,0',0,0,0);
-    if (ciclo['succed'] == 1) {
-        Materialize.toast('Registro guardado correctamente', 4000, 'green');
-    }else{
-        Materialize.toast(ciclo[0]['ERROR'], 4000, 'red');
-    }
 });
 
 $(document).on("click",".perdidas",function(){
@@ -916,7 +922,7 @@ function cargarArr(vid,velemento){
             var tabla = '';
             for (var i = 0; i < componentes[0].length; i++) {
                 
-                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
+                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rid="'+componentes[0][i][3]+'" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
             };
             $("#mcul-lista").html(tabla);
         }
@@ -926,7 +932,6 @@ function cargarArr(vid,velemento){
     });
 
     $(".rbandeja").click(function(){
-        
         arr('login',6,'',411,invvar[2][0],15,1,$("#invactivlab"))
         // $("#invactivlab").material_select();
         $("#modal-bandeja").modal('open');
@@ -1074,7 +1079,7 @@ function cargarMultiplicacion(){
 }//cargar Multiplicacion
 
 function cargarIniciacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidempresa:''});
 
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -1099,10 +1104,7 @@ function cargarIniciacion(){
     });
 
     $("#vvariedad").blur(function(){
-        if($(this).val().length <= 3)
-            $(this).val('');
-        else
-            iniciarVaridad();
+        iniciarVaridad();
     });
 
     $(document).on("change","#videncargado",function(){
@@ -1161,10 +1163,16 @@ function cargarIniciacion(){
                 servs += $(this).attr('id').substr(1)+',';
                 total += cantidad;
                 $("#tplt").text(total);
+                
             }else if ($("[name=serv]:checked").length == 0) {
                 $("#vidsrvs").val("");
                 $("#tplt").text(0);
             }
+
+            if ($(this).is(":checked")) 
+                $(this).parent().parent().addClass('ciclos');
+            else
+                $(this).parent().parent().removeClass('ciclos');
         });
         $("#vidsrvs").val(servs);
     }
@@ -1457,14 +1465,13 @@ function cargarBarrios(viddistrito){
 
 function iniciarVaridad(){
     var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
-    console.log(servicio)
     if (servicio[0].length) {
         var obj;
         var str = '<div class="col s12 head1 padding1"><h6>Variedad: <b>'+servicio[0][0][1]+'</b></h6></div><table class="responsive-table striped highlight" id="resulti00"><thead class="tab2"><tr><th colspan="2" class="center">Cantidad</th> <th class="center">Procedencia</th> <th class="center">Fecha</th> </tr> </thead> <tbody vtabla="laboratorio-investadistica" id="flaboratorio-investadisticas" tp="4" rollback="">'; // id="bdyi00"
 
         for (var i = 0; i < servicio[0].length; i++) {
             obj = servicio[0][i];
-            str += '<tr id="o'+obj[7]+'" idservicio="'+obj[2]+'" data-cantidad="'+obj[0]+'" class="ciclos"><td style="padding:0.5%; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0.5px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0.5px; margin:0px;height:1rem;width=80%" class="eder" /> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0.5%; margin:0px">'+obj[4]+'</td><td style="padding:0.5%; margin:0px">'+obj[5]+' </td></tr>';
+            str += '<tr id="o'+obj[7]+'" idservicio="'+obj[2]+'" data-cantidad="'+obj[0]+'" ><td style="padding:0.5%; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0.5px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0.5px; margin:0px;height:1rem;width=80%" class="eder" /> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0.5%; margin:0px">'+obj[4]+'</td><td style="padding:0.5%; margin:0px">'+obj[5]+' </td></tr>';
         }
         $("#vlote").val(servicio[0][0][6]);
         $("#flaboratorio-ciclos .zelda").data('triforce')['vlote'] = servicio[0][0][6];
@@ -1472,7 +1479,7 @@ function iniciarVaridad(){
         $("#result00").html(str+'</tbody></table>');
     }else{
         Materialize.toast("Variedad no Existente en Recepción", 4000,'red');
-        $("#result00").html('No se ha Elegido la Variedad')
+        //$("#result00").html('No se ha Elegido la Variedad')
     }
 }
 
@@ -1581,7 +1588,12 @@ function validar (varreglo,vmodulo) {
             
             break;
         case 'laboratorio-relacione':
-
+            if (vmodulo['tip'] == '') {
+                err = validarRelaciones(vmodulo['modulo']);
+                if ( err ) {
+                    return err;
+                }
+            }
             break;
         case 'laboratorio-investadistica':
 
@@ -1596,13 +1608,15 @@ function validar (varreglo,vmodulo) {
 
 }
 
+function validarRelaciones() {}
+
 function validarClientes(mod) {
-    if ($("#f"+mod+"s #cedula").val() == '') {
+    if (trim($("#f"+mod+"s #cedula").val().length) == 0) {
         $("#f"+mod+"s #cedula").focus();
         return 'El campo Cédula es requerido';
     }
 
-    if ($("#f"+mod+"s #nombre").val() == '') {
+    if (trim($("#f"+mod+"s #nombre").val().length) == 0) {
         $("#f"+mod+"s #nombre").focus();
         return 'El campo Nombre es requerido';
     }
@@ -1614,12 +1628,12 @@ function validarClientes(mod) {
 }
 
 function validarServicios(mod) {
-    if ($("#f"+mod+"s #vcodigo").val() == '') {
+    if (trim($("#f"+mod+"s #vcodigo").val().length) == 0) {
         $("#f"+mod+"s #vcodigo").focus();
         return 'El campo Código es requerido';
     }
 
-    if ($("#f"+mod+"s #vnombre").val() == '') {
+    if (trim($("#f"+mod+"s #vnombre").val().length) == 0) {
         $("#f"+mod+"s #vnombre").focus();
         return 'El campo Nombre es requerido';
     }
@@ -1633,13 +1647,14 @@ function validarCiclos(){
         case 1: //INICIACION
 
             var id  = 0;
-
+            $("#flaboratorio-ciclos .zelda").data('triforce')['vidciclo'] = '';
             $("#flaboratorio-investadisticas tr").each(function(){
                 id = $(this).attr('id').substr(1);
-                if($("#c"+id).is(":checked")){
+                if($("#c"+id).is(":checked")) {
                     $("#flaboratorio-ciclos .zelda").data('triforce')['vidciclo'] += id+',';
                     // vid,vidciclo,vidtipo,vidservicio,vidproducto,vcantidad,vfecha datetime,vidusuario,vcomentario
-                    $("#o"+id).data('triforce',{vaccion:0,vid:0,vidciclo:'?,'+id,vidtipo:$("li.menu3 >a.active").parent().attr('id').substr(1),vidservicio:$("#o"+id).attr('idservicio'),vidproducto:0,vcantidad:$("#_n"+id).val(),vidusuario:0,vcomentario:''});
+                    // '?,'+
+                    $("#o"+id).data('triforce',{vaccion:0,vid:0,vidciclo:id,vidtipo:$("li.menu3 >a.active").parent().attr('id').substr(1),vidservicio:$("#o"+id).attr('idservicio'),vidproducto:0,vcantidad:$("#_n"+id).val(),vidusuario:0,vcomentario:''});
                 }
             })
 
@@ -1675,12 +1690,12 @@ function validarCliente(){
 
 	switch(parseInt($("#ingresar").attr('codigo'))){
 		case 1:
-			if ($("#addClie #vnombre").val() == '') {
+			if (trim($("#addClie #vnombre").val().length) == 0) {
 				$("#addClie #vnombre").focus();
 				return 'Nombre de Cliente Requerido';
 			}
 
-			if ($("#addClie #vcedula").val() == '') {
+			if (trim($("#addClie #vcedula").val().length) == 0) {
 				$("#addClie #vcedula").focus();
 				return 'Cédula de Cliente Requerida';
 			}
@@ -1722,17 +1737,26 @@ function endDetail(vid,vacc,modulo){
                         cant = $("#cantact").val(),
                         comen = $("#comentproc").val();
                         arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
+                        
+                        $("#modal-registrar").modal('close');
+                        var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
+                        arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+vid[0][0][0],0,0,0);
+                        $('.premc').each(function(){
+                            arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
+                        });
+                        var perdidas = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
                         $("#vidrazon").val(0);
                         $("#nomvar").val('');
                         $("#cantact").val(0);
                         $("#comentproc").val('');
                         $("#vidrazon").material_select();
-                        $("#modal-registrar").modal('close');
                         break;
                     default:
                         break;
                 }
                 deadclear(modulo);
+                $(".zelda").removeData('triforce');
+                $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidempresa:''});
                 $("#result00").html('No se ha Elegido la Variedad');
                 $("#tplt").text(0);
                 break;
@@ -1767,7 +1791,7 @@ function endDetail(vid,vacc,modulo){
             case 'laboratorio-relacione':
                 var id = parseInt($("#autoinc").val());
                 id++;
-                $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="bandejas'+id+'" class="invbandejas"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light blue btn-floating addline add" modulo="laboratorio-relacione" id="a'+id+'" tp="5"><i class="mdi mdi-plus"></i></a><a class="waves-effect waves-light red btn-floating delline delete" modulo="laboratorio-relacione" id="d'+id+'" tp="5"><i class="mdi mdi-close"></i></a></td></tr>');
+                $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="bandejas'+id+'" class="invbandejas"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light addline gtext pbtn add" modulo="laboratorio-relacione" id="a'+id+'" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a><a class="waves-effect waves-light delline gtext pbtn delete" modulo="laboratorio-relacione" id="d'+id+'" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a></td></tr>');
                 setTimeout(function(){
                     arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas"+id));
                     arr('login',6,'',411,invvar[3][0],15,1,$("#frascos"+id));

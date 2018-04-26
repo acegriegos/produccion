@@ -20,7 +20,7 @@
         <label for="vvariedad">Variedad</label>
       </div>
       <div class="input-field">
-        <input type="text" id="cantidad" class="eder numeric" value="0.00">
+        <input type="text" id="cantidad" class="eder numeric" value="0.00" autocomplete="off">
         <label for="cantidad">Cantidad</label>
       </div>
       <div class="input-field hide">
@@ -67,7 +67,7 @@
         <label for="vrango2">Hasta</label>
       </div>
     </div>
-    <a class="btn btn3 der modal-trigger" href="#modal-listaRecepciones">Listado de Recepciones</a>
+    <a class="btn btn3 der modal-trigger" id="listadorecepciones" href="#modal-listaRecepciones">Listado de Recepciones</a>
     <a class="btn btn1 add der" modulo="laboratorio-explante" style="margin-right: 10px;">Ingresar</a>
   </div>
 </div>
@@ -139,35 +139,26 @@
 
 <div id="modal-listaRecepciones" class="modal modal-fixed-footer grandemodal">
   <div class="modal-header">
-        <div class="card-header center head1 padding1">
-            <p class="flow-text marginzero">Listado de Recepciones</p>
-        </div>
+    <div class="card-header center head1 padding1">
+      <p class="flow-text marginzero">Listado de Recepciones</p>
     </div>
+  </div>
   <div class="modal-content">
-
-    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-recepciones" cellspacing="0" width="100%" >
-
+    <table class="table responsive-table centered striped bordered highlight pequeño" id="data-table-recepciones" cellspacing="0" width="100%" >
       <thead class="tab2">
         <tr>
-          <th></th>
+          <th>Explante</th>
+          <th>Procedencia</th>
+          <th>Variedad</th>
+          <th>Cantidad</th>
+          <th>Fecha</th>
         </tr>
       </thead>
       <tbody id="listarecepciones">
-      <!-- section -->
-        <!-- <tr>
-          <td style="padding: 10px; color:black;"></td>
-          <td>
-            <a class="btn-color pbtn mdi mdi- mdi-24px" id="" title="" style="color:black;"></a>
-            <a class="btn-color pbtn cdel mdi mdi-close mdi-24px" id="" title="" style="color:black;"></a>
-          </td>
-        </tr> -->
-      <!-- section -->
       </tbody>
     </table>
   </div>
   <div class="modal-footer ">
-
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
-
   </div>
 </div>

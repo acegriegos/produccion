@@ -11,17 +11,15 @@
   </div>
   <div class="row">
     <div class="col s8 input-field">
-      <div class="der">
+      <div class="center" id="result00">
+        <div class="col s12 head2 padding1">No se ha elegido variedad</div>
+        <!-- TABLA JS -->
+      </div>
+      <div class="der" style="margin-top: 10px;">
         <!-- <a href="#!" class="btn btn1 add der" modulo="laboratorio-ciclo" varias="1">Registrar</a> -->
-        <a href="#modal-registrar" class="btn btn3 der" id="registrar">Registrar</a>
-        <a href="#!" class="btn btn1 der" style="margin-right: 10px;">Listado de Iniciaciones</a>
+        <a href="#!" class="btn btn1 der hide" style="margin-right: 10px;">Listado de Iniciaciones</a>
         <span style="padding-right: 15px">Total Plantas: <span><b id="tplt">0</b></span></span>
         <input type="hidden" value="" id="vidsrvs">
-        <br><br><br>
-      </div>
-      <div class="center" id="result00">
-        <div class="col s12 head2 padding1">No se ha elegido variedad</h6></div>
-        <!-- TABLA JS -->
       </div>
     </div>
     <div class="col s4">
@@ -36,7 +34,7 @@
           <label for="vencargado">Operario</label>
         </div>
         <div class="col s12 input-field">
-          <input type="text" id="vlote" value="">
+          <input type="text" id="vlote" value="" readonly>
           <label for="vlote">Lote</label>
         </div>
         <div class="col s12 input-field">
@@ -53,6 +51,7 @@
           <textarea id="vcomentario" class="materialize-textarea comentario" type="textarea" data-length="255"></textarea>
           <label for="vcomentario">Comentario</label>
         </div>
+        <a href="#modal-registrar" class="btn btn3 der" id="registrar">Registrar</a>
       </div>
     </div>
   </div>
@@ -60,7 +59,7 @@
 
 <div id="modal-registrar" class="modal modal-fixed-footer grandemodal">
   <div class="modal-header head2 padding1">
-    <h5 class="modal-title center-align">Iniciación</h5>
+    <h5 class="modal-title center-align">Registrar pérdidas y procesar a inciación</h5>
   </div>
   <div class="modal-content" style="margin-bottom: 0 !important">
     <div class="row">
@@ -70,6 +69,7 @@
     </div>
     <div class="input-field col s5 m5 l5">
       <input type="text" id="nomvar" class="validate autocomplete" autocomplete="off">
+      <input type="hidden" id="vidservicio" value="0">
       <label for="nomvar">Variedad</label>
     </div>
     <div class="input-field col s4 m4 l4">
@@ -87,3 +87,30 @@
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
   </div>
 </div>
+
+<!-- <div id="modal-listaIniciaciones" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+    <div class="card-header center head1 padding1">
+      <p class="flow-text marginzero">Listado de Iniciaciones</p>
+    </div>
+  </div>
+  <div class="modal-content">
+    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-iniciaciones" cellspacing="0" width="100%" >
+      <thead class="tab2">
+        <tr>
+          <th>Etapa</th>
+          <th>Variedad</th>
+          <th>Procedencia</th>
+          
+          <th>Cantidad</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="listainiciaciones">
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer ">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+  </div>
+</div> -->
