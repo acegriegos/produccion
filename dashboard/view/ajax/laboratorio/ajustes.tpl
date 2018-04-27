@@ -146,7 +146,7 @@
       </div>
       <div class="modal-content" style="padding: 20px;">
         <div class="row">
-          <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-relaciones" cellspacing="0" width="100%" >
+          <table class="table responsive-table centered striped bordered highlight pequeño" id="data-table-relaciones" cellspacing="0" width="100%" >
             <thead>
               <tr class="tab1">
                 <th style="border: 0; border-radius: 0px !important;">Bandejas</th>

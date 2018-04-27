@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col s10 input-field">
       <div class="col s12 head1 padding1 center"><b><h6>Listado de Procesos Actuales</h6></b></div>
-      <table class="responsive-table highlight z-depth-3">
+      <table class="responsive-table highlight striped">
         <thead class="tab2">
           <tr>
             <td>Etapa</td>
@@ -15,6 +15,7 @@
           </tr>
         </thead>
         <tbody id="listaciclos">
+          <!--  -->
         </tbody>
       </table>
     </div>
@@ -32,7 +33,7 @@
     </div>
   </div>
   <div class="modal-content" style="padding: 0px;">
-    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
+    <table class="table responsive-table centered striped bordered highlight pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
@@ -126,7 +127,7 @@
           <tr>
             <td class="center">Activo</td>
             <td class="center">Cantidad</td>
-            <td class="center">Razon</td>
+            <td class="center">Razón</td>
             <td class="center">Acciones</td>
           </tr>
         </thead>

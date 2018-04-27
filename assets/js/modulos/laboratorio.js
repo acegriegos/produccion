@@ -145,18 +145,24 @@ $(document).on("click","#pruebasQoS",function(){
 
 $(document).on("click","#addtestqos",function(){
     var test = $("#tipopruebas").val();
-    ifila3++;
-    $("#testqos").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
-    $("#tipopruebas").val('').focus();
+    if (test != '') {
+        ifila3++;
+        $("#testqos").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
+        $("#tipopruebas").val('').focus();
+    }
+    
 });
 
 $(document).on("keyup","#tipopruebas",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
-        var test = $("#tipopruebas").val();
-        ifila3++;
-        $("#testqos").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
-        $("#tipopruebas").val('').focus();
+        if (test != '') {
+            var test = $("#tipopruebas").val();
+            ifila3++;
+            $("#testqos").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
+            $("#tipopruebas").val('').focus();
+        }
+            
     }
 });
 
@@ -472,7 +478,7 @@ $(document).on('click','#addFin',function() {
 
 $(document).on("click","#registrar",function() {
     var id = $(this).attr('id').substr(1);
-    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
+    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
     var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
     var serv = arr('login',4,'id,nombre',16,'id > 0 and nombre = "'+$("#vvariedad").val()+'"',0,0,0)[0][0];
     $("#modal-registrar").modal('open');
@@ -481,17 +487,6 @@ $(document).on("click","#registrar",function() {
     $("#vidservicio").val(serv[0]);
     $("#nomvar").attr('disabled',true);
     Materialize.updateTextFields();
-});
-
-$(document).on("click","#assbandeja",function() {
-    $("#modal-bandeja").modal('open');
-    arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
-    if ($("#hidbandeja").val() != 0) {
-        $("#cbandeja").val($("#hidbandeja").val());
-    }else{
-        $("#cbandeja").val(0);
-    }
-    $("#cbandeja").material_select();
 });
 
 $(document).on("click","#chgbandeja",function() {
@@ -515,6 +510,14 @@ $(document).on("click",".proc-ciclo",function() {
     $("#idserv").val(svari[0][0][0]);
     Materialize.updateTextFields();
     $("select").material_select();
+
+    arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
+    if ($("#hidbandeja").val() != 0) {
+        $("#cbandeja").val($("#hidbandeja").val());
+    }else{
+        $("#cbandeja").val(0);
+    }
+    $("#cbandeja").material_select();
 });
 
 $(document).on("click","#doproc",function(){
@@ -649,7 +652,6 @@ $(document).on("click",".invstats",function(){
         $(".validate").css('border-bottom', '1px solid #9e9e9e');
         $(".validate").css('box-shadow', 'none');
     // if
-    console.log(id)
     arr('login',6,'',926,id,15,1,$("#vactivo"))
     arr('login',6,'id,nombre',913,'id > 0 and isActivo = '+tipo,15,1,$("#vidrazon"))
     $("select").material_select();
@@ -663,19 +665,25 @@ $(document).on("click","#addActivo",function(){
     var idrazon = $("#vidrazon").val();
     var razon = $("#vidrazon option:selected").text();
     ifila2++
-    $("#listaactivos").append('<tr class="activosperdida" id="ap'+ifila2+'" data-idactivo="'+idactivo+'" data-cantidad="'+cantidad+'" data-idrazon="'+idrazon+'">'+
-        '<td class="center" style="padding: 1% !important;">'+activo+'</td>'+
-        '<td class="center" style="padding: 1% !important;">'+cantidad+'</td>'+
-        '<td class="center" style="padding: 1% !important;">'+razon+'</td>'+
-        '<td class="center">'+
-            '<i class="pbtn btn1 btn-floating mdi mdi-pencil mdi-24px" id="ma'+ifila2+'"></i>'+
-            '<i class="pbtn btn3 btn-floating mdi mdi-close mdi-24px" id="da'+ifila2+'"></i>'+
-        '</td>'+
-    '</tr>');
-    $("#vactivo").val(0);
-    $("#vcant").val('');
-    $("#vidrazon").val(0);
-    $("select").material_select();
+    if (idactivo == 0) {
+        Materialize.toast('Debe seleccionar un activo', 4000, 'orange');
+    }else if (idrazon == 0){
+        Materialize.toast('Debe seleccionar una razón', 4000, 'orange');
+    }else{
+        $("#listaactivos").append('<tr class="activosperdida" id="ap'+ifila2+'" data-idactivo="'+idactivo+'" data-cantidad="'+cantidad+'" data-idrazon="'+idrazon+'">'+
+            '<td class="center" style="padding: 1% !important;">'+activo+'</td>'+
+            '<td class="center" style="padding: 1% !important;">'+cantidad+'</td>'+
+            '<td class="center" style="padding: 1% !important;">'+razon+'</td>'+
+            '<td class="center">'+
+                '<i class="pbtn gtext mdi mdi-pencil mdi-24px" id="ma'+ifila2+'"></i>'+
+                '<i class="pbtn gtext mdi mdi-close mdi-24px" id="da'+ifila2+'"></i>'+
+            '</td>'+
+        '</tr>');
+        $("#vactivo").val(0);
+        $("#vcant").val('');
+        $("#vidrazon").val(0);
+        $("select").material_select();
+    }
 });
 
 $(document).on("click","#doinvstat",function(){
@@ -1608,7 +1616,9 @@ function validar (varreglo,vmodulo) {
 
 }
 
-function validarRelaciones() {}
+function validarRelaciones() {
+
+}
 
 function validarClientes(mod) {
     if (trim($("#f"+mod+"s #cedula").val().length) == 0) {

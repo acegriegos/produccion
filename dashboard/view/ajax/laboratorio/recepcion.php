@@ -67,8 +67,10 @@
         <label for="vrango2">Hasta</label>
       </div>
     </div>
-    <a class="btn btn3 der modal-trigger" id="listadorecepciones" href="#modal-listaRecepciones">Listado de Recepciones</a>
-    <a class="btn btn1 add der" modulo="laboratorio-explante" style="margin-right: 10px;">Ingresar</a>
+    <section class="left">
+      <a class="btn btn3 der modal-trigger" id="listadorecepciones" href="#modal-listaRecepciones">Listado de Recepciones</a>
+      <a class="btn btn1 add der" modulo="laboratorio-explante" style="margin-right: 10px;">Ingresar</a>
+    </section>
   </div>
 </div>
 
@@ -132,7 +134,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="waves-effect waves-green btn-flat" id="ingresar">Guardar</button>
+    <button type="button" class="waves-effect modal-close waves-green btn-flat" id="ingresar">Guardar</button>
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
 </div>

@@ -13,8 +13,8 @@
 				<label for="vloteaprv">Lote</label>
 			</div>
 			<div class="col s12 m2 l2" style="margin-top: 1rem;">
-				<a class="pbtn btn-floating btn1 evaluarlote" el="6" idciclo="0"><i class="mdi mdi-check" style="padding-right: 7px;"></i></a>
-				<a class="pbtn btn-floating btn3 evaluarlote" el="7" idciclo="0"><i class="mdi mdi-close" style="padding-right: 7px;"></i></a>
+				<a class="pbtn gtext evaluarlote" el="6" idciclo="0"><i class="mdi mdi-check mdi-24px" style="padding-right: 7px;"></i></a>
+				<a class="pbtn gtext evaluarlote" el="7" idciclo="0"><i class="mdi mdi-close mdi-24px" style="padding-right: 7px;"></i></a>
 			</div>
 		</div>
 	</div>

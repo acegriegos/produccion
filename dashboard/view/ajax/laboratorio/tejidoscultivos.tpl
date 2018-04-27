@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col s10 input-field">
       <div class="col s12 head1 padding1 center"><b><h6>Listado de Procesos Actuales</h6></b></div>
-      <table class="responsive-table highlight z-depth-3">
+      <table class="responsive-table highlight striped">
         <thead class="tab2">
           <tr>
             <td>Etapa</td>
@@ -15,6 +15,7 @@
           </tr>
         </thead>
         <tbody id="listaciclos">
+          <!--  -->
         </tbody>
       </table>
     </div>
@@ -81,13 +82,22 @@
   </div>
   <div class="row">
     <p>Asignar bandejas y medio de cultivo</p>
-    <div class="col s12 m12 l12">
-      <a class="btn btn3 der">Medios de Cultivo</a>
-      <input type="hidden" id="hidmediocultivo" value="0">
-      <a class="btn btn3 der" id="assbandeja" style="margin-right: 10px;">Bandejas</a>
-      <input type="hidden" id="hidbandeja" value="0">
+    <div class="col s12 m12 l12 left">
+      <div class="col s4">
+        <!-- <a class="btn btn3" id="assbandeja" style="margin-right: 10px;">Bandejas</a> -->
+        <label for="cbandeja">Bandeja</label>
+        <select type="select" id="cbandeja"></select>
+        <input type="hidden" id="hidbandeja" value="0">
+      </div>
+      
+      <div class="col s4">
+        <label for="btnmediocult">Medio de Cultivo</label><br>
+        <a class="btn btn3" id="btnmediocult">Medios de Cultivo</a>
+        <input type="hidden" id="hidmediocultivo" value="0">
+      </div>
     </div>
   </div>
+
 </div>
 <div class="modal-footer">
   <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="doproc">Agregar</a>
@@ -109,7 +119,7 @@
         <input type="hidden" id="vidciclo" value="0">
       </div>
       <div class="input-field col s12 m3 l3">
-        <input type="number" id="vcant" class="validate">
+        <input type="number" id="vcant" class="validate" value="1">
         <label for="vcant">Cantidad</label>
       </div>
       <div class="input-field col s12 m4 l4">
@@ -121,7 +131,7 @@
       </div>
     </div>
     <div class="row" style="align-content: center;">
-      <table class="responsive-table highlight z-depth-3" id="tabla-activos">
+      <table class="responsive-table highlight striped" id="tabla-activos">
         <thead class="tab1">
           <tr>
             <td class="center">Activo</td>
