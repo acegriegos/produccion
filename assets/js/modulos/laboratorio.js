@@ -1090,7 +1090,7 @@ function cargarMultiplicacion(){
 }//cargar Multiplicacion
 
 function cargarIniciacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidempresa:''});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidsucursal:'',videstado:0});
 
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -1788,6 +1788,7 @@ function endDetail(vid,vacc,modulo){
                             arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
                         });
                         var perdidas = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
+                        console.log(perdidas)
                         $("#vidrazon").val(0);
                         $("#nomvar").val('');
                         $("#cantact").val(0);
