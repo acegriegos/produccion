@@ -1376,18 +1376,23 @@ function cargarExplantes(){
     	else{
     		switch(parseInt($(this).attr('codigo'))){
 		    	case 2:
-		    		var id = $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'];
-		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vidbarrio").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
-		    		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0];
-		    		var _idFinca = getDatos('',901,'1,0,"'+$("#finca").val()+'",'+_idregion,0,0);
-		    		Materialize.toast('Finca Agregada Correctamente',4000,'green');
-		    		cargarTblFincas();
-                    endDetail(0,1,'finca');
+                    var validarfinca = validarFincas();
+                    if (validarfinca == false) {
+    		    		var id = $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'];
+    		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vidbarrio").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
+    		    		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0];
+    		    		var _idFinca = getDatos('',901,'1,0,"'+$("#finca").val()+'",'+_idregion,0,0);
+    		    		Materialize.toast('Finca Agregada Correctamente',4000,'green');
+    		    		cargarTblFincas();
+                        endDetail(0,1,'finca');
+                        $("#addClie").modal('close');
+                    }else{
+                        Materialize.toast(validarfinca, 4000, 'red');
+                    }
 		    		break;
 		    	default: 
 		    		break;
     		}
-    		$("#addClie").modal('close');
     	}
     });
 
@@ -1620,13 +1625,34 @@ function validarRelaciones() {
 
 }
 
+function validarFincas() {
+    if ($("#vidpais").val() == '') {
+        $("#vidpais").focus();
+        return 'Pais requerido';
+    }
+
+    if ($("#vidbarrio").val() == null || $("#vidbarrio").val() == 0) {
+        return 'Barrio requerido';
+    }
+
+    if ($("#vregion").val() == '') {
+        return 'Region requerido';
+    }
+
+    if ($("#finca").val() == '') {
+        return 'Finca requerido';
+    }
+
+    return false;
+}
+
 function validarClientes(mod) {
-    if (trim($("#f"+mod+"s #cedula").val().length) == 0) {
+    if ($("#f"+mod+"s #cedula").val().trim().length == 0) {
         $("#f"+mod+"s #cedula").focus();
         return 'El campo Cédula es requerido';
     }
 
-    if (trim($("#f"+mod+"s #nombre").val().length) == 0) {
+    if ($("#f"+mod+"s #nombre").val().trim().length == 0) {
         $("#f"+mod+"s #nombre").focus();
         return 'El campo Nombre es requerido';
     }
@@ -1638,14 +1664,18 @@ function validarClientes(mod) {
 }
 
 function validarServicios(mod) {
-    if (trim($("#f"+mod+"s #vcodigo").val().length) == 0) {
+    if ($("#f"+mod+"s #vcodigo").val().trim().length == 0) {
         $("#f"+mod+"s #vcodigo").focus();
         return 'El campo Código es requerido';
     }
 
-    if (trim($("#f"+mod+"s #vnombre").val().length) == 0) {
+    if ($("#f"+mod+"s #vnombre").val().trim().length == 0) {
         $("#f"+mod+"s #vnombre").focus();
         return 'El campo Nombre es requerido';
+    }
+
+    if ($("#f"+mod+"s #vidinventario").val() == 0) {
+        return 'El campo Inventario es requerido';
     }
 
 }

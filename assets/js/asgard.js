@@ -1448,10 +1448,12 @@ $(document).on('keyup','[addG=1]',function(e){
     }
 });
 $(document).on('blur','[addG=1]',function(){
-    var isClie = findClient($(this).val(),1);
-    if (!isClie) {
-        var op = parseInt($(this).attr('addG'));
-        addGeneral(op);
+    if ($(this).val() != '') {
+        var isClie = findClient($(this).val(),1);
+        if (!isClie) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
     }
 });
 function findClient(nom,blr) {
