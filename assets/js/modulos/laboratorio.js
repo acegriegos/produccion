@@ -478,9 +478,9 @@ $(document).on('click','#addFin',function() {
 
 $(document).on("click","#registrar",function() {
     var id = $(this).attr('id').substr(1);
-    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
     var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
     var serv = arr('login',4,'id,nombre',16,'id > 0 and nombre = "'+$("#vvariedad").val()+'"',0,0,0)[0][0];
+    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
     $("#modal-registrar").modal('open');
     $("#vidrazon").material_select();
     $("#nomvar").val(serv[1]);
@@ -669,15 +669,18 @@ $(document).on("click","#addActivo",function(){
         Materialize.toast('Debe seleccionar un activo', 4000, 'orange');
     }else if (idrazon == 0){
         Materialize.toast('Debe seleccionar una razón', 4000, 'orange');
-    }else{
+    }else if (cantidad == '' || cantidad <= 0){
+        Materialize.toast('Digite una cantidad', 4000, 'orange');
+    }
+    else{
         $("#listaactivos").append('<tr class="activosperdida" id="ap'+ifila2+'" data-idactivo="'+idactivo+'" data-cantidad="'+cantidad+'" data-idrazon="'+idrazon+'">'+
             '<td class="center" style="padding: 1% !important;">'+activo+'</td>'+
             '<td class="center" style="padding: 1% !important;">'+cantidad+'</td>'+
             '<td class="center" style="padding: 1% !important;">'+razon+'</td>'+
-            '<td class="center">'+
-                '<i class="pbtn gtext mdi mdi-pencil mdi-24px" id="ma'+ifila2+'"></i>'+
-                '<i class="pbtn gtext mdi mdi-close mdi-24px" id="da'+ifila2+'"></i>'+
-            '</td>'+
+            // '<td class="center">'+
+            //     '<i class="pbtn gtext mdi mdi-pencil mdi-24px edit" id="ma'+ifila2+'"></i>'+
+            //     '<i class="pbtn gtext mdi mdi-close mdi-24px delete" id="da'+ifila2+'"></i>'+
+            // '</td>'+
         '</tr>');
         $("#vactivo").val(0);
         $("#vcant").val('');

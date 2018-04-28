@@ -59,10 +59,11 @@
 
 <div id="modal-registrar" class="modal modal-fixed-footer grandemodal">
   <div class="modal-header head2 padding1">
-    <h5 class="modal-title center-align">Registrar pérdidas y procesar a inciación</h5>
+    <h5 class="modal-title center-align">Proceso a iniciación</h5>
   </div>
   <div class="modal-content" style="margin-bottom: 0 !important">
     <div class="row">
+      <label>Registrar pérdidas</label>
       <div class="input-field col s3 m3 l3">
       <select id="vidrazon"></select>
       <label for="vidrazon">Razón</label>

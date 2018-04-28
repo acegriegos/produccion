@@ -76,7 +76,7 @@
       <label for="svari">Variedad</label>
     </div>
     <div class="input-field col s12 m4 l4">
-      <input type="number" id="cantsrv" class="validate">
+      <input type="number" id="cantsrv" class="validate" min="0">
       <label for="cantsrv">Cantidad</label>
     </div>
   </div>
@@ -119,7 +119,7 @@
         <input type="hidden" id="vidciclo" value="0">
       </div>
       <div class="input-field col s12 m3 l3">
-        <input type="number" id="vcant" class="validate" value="1">
+        <input type="number" id="vcant" class="validate" min="0">
         <label for="vcant">Cantidad</label>
       </div>
       <div class="input-field col s12 m4 l4">
@@ -137,7 +137,7 @@
             <td class="center">Activo</td>
             <td class="center">Cantidad</td>
             <td class="center">Razon</td>
-            <td class="center">Acciones</td>
+            <!-- <td class="center">Acciones</td> -->
           </tr>
         </thead>
         <tbody id="listaactivos">
