@@ -484,19 +484,22 @@ $(document).on('click','#addFin',function() {
 $(document).on("click","#registrar",function() {
     var id = $(this).attr('id').substr(1);
     if ($("#vvariedad").val() != '') {
-        var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
-        var serv = arr('login',4,'id,nombre',16,'id > 0 and nombre = "'+$("#vvariedad").val()+'"',0,0,0)[0][0];
-        arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
-        // console.log(arr('login',4,'id,nombre',1,'id > 0 and idtipo = 4',0,0,0))
-        arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado"))
-        $("#modal-registrar").modal('open');
-        $("#vidrazon").material_select();
-        $("#encargado").material_select();
-        $("#vvvar").text(serv[1]);
-        $("#nomvar").val(serv[1]);
-        $("#vidservicio").val(serv[0]);
-        $("#nomvar").attr('disabled',true);
-        Materialize.updateTextFields();
+        if ($("#videncargado").val() != 0) {
+            var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
+            var serv = arr('login',4,'id,nombre',16,'id > 0 and nombre = "'+$("#vvariedad").val()+'"',0,0,0)[0][0];
+            arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
+            arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado"))
+            $("#modal-registrar").modal('open');
+            $("#vidrazon").material_select();
+            $("#encargado").material_select();
+            $("#vvvar").text(serv[1]);
+            $("#nomvar").val(serv[1]);
+            $("#vidservicio").val(serv[0]);
+            $("#nomvar").attr('disabled',true);
+            Materialize.updateTextFields();
+        }else{
+            Materialize.toast('Operario requerido', 4000, 'red');
+        }
     }else{
         Materialize.toast('Variedad requerida', 4000, 'red');
     }
@@ -546,7 +549,7 @@ $(document).on("click","#doproc",function(){
     var cont = 0;
     if (cfinal != 0) {
         // var finalcount = arr('login',4,'',925,'1,0,"'+parseInt(idciclo-1)+','+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
-        var finalcount = arr('login',4,'',925,'1,0,"'+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
+        var finalcount = arr('login',4,'',925,'1,0,"'+id+'",7,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
         if (finalcount['succed'] == 0){
             Materialize.toast('Error de registro de cantidad total', 6000, 'red');
             return false;
@@ -591,18 +594,19 @@ $(document).on("click","#doproc",function(){
                 });
              }
             Materialize.toast($("#titciclo").text().substr(11)+' procesada', 4000, 'green');
-            emptyprocmult();
+            
             arr('login',6,'',912,'0,0,"'+$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa","0,10"',0,1,$("#listaciclos"))
         }
         //procesar a QoS
         var encargado = $("#encargado_qos").val();
         var cantqos = $("#cant_qos").val() == '' ? 0 : $("#cant_qos").val();
-        if (encargado != 0 && canqos > 0) {
+        if (encargado != 0 && cantqos > 0) {
             var qos = arr('login',4,'',914,ciclo[0][0]+',5,0,0,@@impresa,'+encargado,0,0,0);
             if (qos['succed']) {
-                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",1,'+idservicio+',0,'+cantqos+',@@usr,"Cantidad en revision"',0,0,0);
+                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",6,'+idservicio+',0,'+cantqos+','+encargado+',"Cantidad en revision"',0,0,0);
             }
         }
+        emptyprocmult();
     }else{
         Materialize.toast('Cantidad final necesaria para procesar a multiplicación', 6000, 'red');
     }
@@ -616,6 +620,8 @@ function emptyprocmult() {
     $("#idserv").val(0);
     $("#hidbandeja").val(0);
     $("#hidmediocultivo").val(0);
+    $("#encargado_qos").val(0);
+    $("#cant_qos").val('');
     $("select").material_select();
     Materialize.updateTextFields();
     $(".validate").css('border-bottom', '1px solid #9e9e9e');
@@ -1730,7 +1736,7 @@ function validarCiclos(){
                 return 'No se a Seleccionado una Recepción';
             }
 
-            if ($("#videncargado option:selected").val() == 0 ) {
+            if ($("#videncargado").val() == 0 ) {
                 $("#videncargado").focus();
                 return 'No se a Seleccionado el Operario';
             }
@@ -1809,7 +1815,8 @@ function endDetail(vid,vacc,modulo){
                         serv = arr('login',4,'id',16,'nombre = "'+$("#nomvar").val()+'"',0,0,0)[0][0],
                         prod = 0,
                         cant = $("#cantact").val(),
-                        comen = $("#comentproc").val();
+                        comen = $("#comentproc").val(),
+                        encargado = $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] == 0 ? '@@ur' : $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'];
                         arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
                         $("#modal-registrar").modal('close');
                         var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
@@ -1817,18 +1824,21 @@ function endDetail(vid,vacc,modulo){
                         $('.premc').each(function(){
                             arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
                         });
-                        var perdida = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+',@@usr,"'+comen+'"',0,0,0);
+                        var perdida = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+','+encargado+',"'+comen+'"',0,0,0);
                         if ($("#encargado").val() != 0) {
                             var qos = arr('login',4,'',914,vid+',5,0,0,@@impresa,'+$("#encargado").val(),0,0,0);
                             if (qos['succed']) {
-                                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",1,'+serv+',0,'+$("#cantqos").val()+',@@usr,"Cantidad en revision"',0,0,0);
+                                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",6,'+serv+',0,'+$("#cantqos").val()+','+$("#encargado").val()+',"Cantidad en revision"',0,0,0);
                             }
                         }
                         $("#vidrazon").val(0);
                         $("#nomvar").val('');
                         $("#cantact").val(0);
                         $("#comentproc").val('');
+                        $("#cantqos").val('');
                         $("#vidrazon").material_select();
+                        $(".validate").css('border-bottom', '1px solid #9e9e9e');
+                        $(".validate").css('box-shadow', 'none');
                         break;
                     default:
                         break;
