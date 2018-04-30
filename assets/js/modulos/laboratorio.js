@@ -78,6 +78,11 @@ $(document).on("change","#vidinventario",function(){
 });
 // fill data //
 
+// $(document).on("change","#encargado",function(){
+    // var idencargado = $(this).val();
+    // $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] = idencargado;
+// });
+
 $(document).on("click","#listadorecepciones",function(){
     arr('login',6,'',934,'0',0,1,$("#listarecepciones"))
 });
@@ -478,15 +483,24 @@ $(document).on('click','#addFin',function() {
 
 $(document).on("click","#registrar",function() {
     var id = $(this).attr('id').substr(1);
-    var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
-    var serv = arr('login',4,'id,nombre',16,'id > 0 and nombre = "'+$("#vvariedad").val()+'"',0,0,0)[0][0];
-    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
-    $("#modal-registrar").modal('open');
-    $("#vidrazon").material_select();
-    $("#nomvar").val(serv[1]);
-    $("#vidservicio").val(serv[0]);
-    $("#nomvar").attr('disabled',true);
-    Materialize.updateTextFields();
+    if ($("#vvariedad").val() != '') {
+        var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
+        var serv = arr('login',4,'id,nombre',16,'id > 0 and nombre = "'+$("#vvariedad").val()+'"',0,0,0)[0][0];
+        arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
+        // console.log(arr('login',4,'id,nombre',1,'id > 0 and idtipo = 4',0,0,0))
+        arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado"))
+        $("#modal-registrar").modal('open');
+        $("#vidrazon").material_select();
+        $("#encargado").material_select();
+        $("#vvvar").text(serv[1]);
+        $("#nomvar").val(serv[1]);
+        $("#vidservicio").val(serv[0]);
+        $("#nomvar").attr('disabled',true);
+        Materialize.updateTextFields();
+    }else{
+        Materialize.toast('Variedad requerida', 4000, 'red');
+    }
+    
 });
 
 $(document).on("click","#chgbandeja",function() {
@@ -504,10 +518,12 @@ $(document).on("click",".proc-ciclo",function() {
     $("#doproc").attr('tc',tc);
     $("#modal-proc-ciclo").modal('open');
     arr('login',6,'id,nombre',913,'id > 0 and isactivo = 0',15,1,$("#srazon"));
+    arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado_qos"))
     var svari = arr('login',4,'',924,id,0,0,0);
     $("#svari").val(svari[0][0][1]);
     $("#varfinal").text(svari[0][0][1]);
     $("#idserv").val(svari[0][0][0]);
+    $("#vvvar").text(svari[0][0][1]);
     Materialize.updateTextFields();
     $("select").material_select();
 
@@ -518,6 +534,7 @@ $(document).on("click",".proc-ciclo",function() {
         $("#cbandeja").val(0);
     }
     $("#cbandeja").material_select();
+    // $("#encargado_qos").material_select();
 });
 
 $(document).on("click","#doproc",function(){
@@ -555,10 +572,11 @@ $(document).on("click","#doproc",function(){
                 return false;
             }
         }
+        
         // realizar multiplicacion
         var idbandeja = $("#hidbandeja").val();
         var idmedio = $("#hidmediocultivo").val();
-        var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa',0,0,0);
+        var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa,0',0,0,0);
         if (ciclo['succed'] == 0) {
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
@@ -576,8 +594,15 @@ $(document).on("click","#doproc",function(){
             emptyprocmult();
             arr('login',6,'',912,'0,0,"'+$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa","0,10"',0,1,$("#listaciclos"))
         }
-
-        
+        //procesar a QoS
+        var encargado = $("#encargado_qos").val();
+        var cantqos = $("#cant_qos").val() == '' ? 0 : $("#cant_qos").val();
+        if (encargado != 0 && canqos > 0) {
+            var qos = arr('login',4,'',914,ciclo[0][0]+',5,0,0,@@impresa,'+encargado,0,0,0);
+            if (qos['succed']) {
+                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",1,'+idservicio+',0,'+cantqos+',@@usr,"Cantidad en revision"',0,0,0);
+            }
+        }
     }else{
         Materialize.toast('Cantidad final necesaria para procesar a multiplicación', 6000, 'red');
     }
@@ -1090,7 +1115,7 @@ function cargarMultiplicacion(){
 }//cargar Multiplicacion
 
 function cargarIniciacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidsucursal:'',videstado:0});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidsucursal:'',videstado:1});
 
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -1720,6 +1745,12 @@ function validarCiclos(){
                 $("#vcomentario").focus();
                 return 'Comentario Requerido';
             }
+
+            if ($("#encargado").val() != 0) {
+                $("#flaboratorio-ciclos .zelda").data('triforce')['videstado'] = 2;
+            }else{
+                $("#flaboratorio-ciclos .zelda").data('triforce')['videstado'] = 1;
+            }
             
             $(".zelda").data('triforce')['vcomentario'] = $("#vcomentario").val()
 
@@ -1786,15 +1817,19 @@ function endDetail(vid,vacc,modulo){
                         cant = $("#cantact").val(),
                         comen = $("#comentproc").val();
                         arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
-                        
                         $("#modal-registrar").modal('close');
                         var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
                         arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+vid[0][0][0],0,0,0);
                         $('.premc').each(function(){
                             arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
                         });
-                        var perdidas = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
-                        console.log(perdidas)
+                        var perdida = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+',@@usr,"'+comen+'"',0,0,0);
+                        if ($("#encargado").val() != 0) {
+                            var qos = arr('login',4,'',914,vid+',5,0,0,@@impresa,'+$("#encargado").val(),0,0,0);
+                            if (qos['succed']) {
+                                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",1,'+serv+',0,'+$("#cantqos").val()+',@@usr,"Cantidad en revision"',0,0,0);
+                            }
+                        }
                         $("#vidrazon").val(0);
                         $("#nomvar").val('');
                         $("#cantact").val(0);

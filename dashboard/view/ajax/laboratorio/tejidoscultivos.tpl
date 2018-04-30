@@ -97,7 +97,17 @@
       </div>
     </div>
   </div>
-
+  <div class="row">
+    <p>Procesar a QoS</p>
+    <div class="input-field col s6 m6 l6">
+      <select id="encargado_qos"></select>
+      <label for="encargado_qos">Asignar encargado</label>
+    </div>
+    <div class="input-field col s6 m6 l6">
+      <input type="text" id="cant_qos" class="validate" value="">
+      <label for="cant_qos">Cantidad de <span id="vvvar"></span></label>
+    </div>
+  </div><br><br><br>
 </div>
 <div class="modal-footer">
   <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="doproc">Agregar</a>

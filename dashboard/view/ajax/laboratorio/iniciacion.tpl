@@ -63,25 +63,42 @@
   </div>
   <div class="modal-content" style="margin-bottom: 0 !important">
     <div class="row">
-      <label>Registrar pérdidas</label>
+      <span style="font-size: 1.1em">Registrar pérdidas</span>
+    </div>
+    <div class="row">
       <div class="input-field col s3 m3 l3">
-      <select id="vidrazon"></select>
-      <label for="vidrazon">Razón</label>
+        <select id="vidrazon"></select>
+        <label for="vidrazon">Razón</label>
+      </div>
+      <div class="input-field col s5 m5 l5">
+        <input type="text" id="nomvar" class="validate autocomplete" autocomplete="off">
+        <input type="hidden" id="vidservicio" value="0">
+        <label for="nomvar">Variedad</label>
+      </div>
+      <div class="input-field col s4 m4 l4">
+        <input type="number" id="cantact" class="validate">
+        <label for="cantact">Cantidad</label>
+      </div>
+      <div class="input-field col s12 m12 l12">
+        <textarea id="comentproc" class="materialize-textarea"></textarea>
+        <label for="comentproc">Comentario</label>
+      </div>
     </div>
-    <div class="input-field col s5 m5 l5">
-      <input type="text" id="nomvar" class="validate autocomplete" autocomplete="off">
-      <input type="hidden" id="vidservicio" value="0">
-      <label for="nomvar">Variedad</label>
+    <div class="row">
+      <span style="font-size: 1.1em">Procesar a QoS </span>
+        <!-- <input type="checkbox" id="chkprocqos" />
+        <label for="chkprocqos"></label> -->
     </div>
-    <div class="input-field col s4 m4 l4">
-      <input type="number" id="cantact" class="validate">
-      <label for="cantact">Cantidad</label>
-    </div>
-    <div class="input-field col s12 m12 l12">
-      <textarea id="comentproc" class="materialize-textarea"></textarea>
-      <label for="comentproc">Comentario</label>
-    </div>
-  </div>
+    <div class="row">
+      <div class="input-field col s6 m6 l6">
+        <select id="encargado"></select>
+        <label for="encargado">Asignar encargado</label>
+      </div>
+      <div class="input-field col s6 m6 l6">
+        <input type="text" id="cantqos" class="validate" value="">
+        <label for="cantqos">Cantidad de <span id="vvvar"></span></label>
+      </div>
+    </div><br><br>
   </div>
   <div class="modal-footer">
     <a class="modal-action modal-close waves-effect waves-green btn-flat z-depth-5 add" modulo="laboratorio-ciclo" varias="1">Agregar</a>
