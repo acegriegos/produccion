@@ -78,10 +78,10 @@ $(document).on("change","#vidinventario",function(){
 });
 // fill data //
 
-$(document).on("change","#encargado",function(){
-    var idencargado = $(this).val();
+// $(document).on("change","#encargado",function(){
+    // var idencargado = $(this).val();
     // $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] = idencargado;
-});
+// });
 
 $(document).on("click","#listadorecepciones",function(){
     arr('login',6,'',934,'0',0,1,$("#listarecepciones"))
@@ -518,10 +518,12 @@ $(document).on("click",".proc-ciclo",function() {
     $("#doproc").attr('tc',tc);
     $("#modal-proc-ciclo").modal('open');
     arr('login',6,'id,nombre',913,'id > 0 and isactivo = 0',15,1,$("#srazon"));
+    arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado_qos"))
     var svari = arr('login',4,'',924,id,0,0,0);
     $("#svari").val(svari[0][0][1]);
     $("#varfinal").text(svari[0][0][1]);
     $("#idserv").val(svari[0][0][0]);
+    $("#vvvar").text(svari[0][0][1]);
     Materialize.updateTextFields();
     $("select").material_select();
 
@@ -532,6 +534,7 @@ $(document).on("click",".proc-ciclo",function() {
         $("#cbandeja").val(0);
     }
     $("#cbandeja").material_select();
+    // $("#encargado_qos").material_select();
 });
 
 $(document).on("click","#doproc",function(){
@@ -569,6 +572,7 @@ $(document).on("click","#doproc",function(){
                 return false;
             }
         }
+        
         // realizar multiplicacion
         var idbandeja = $("#hidbandeja").val();
         var idmedio = $("#hidmediocultivo").val();
@@ -590,8 +594,15 @@ $(document).on("click","#doproc",function(){
             emptyprocmult();
             arr('login',6,'',912,'0,0,"'+$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa","0,10"',0,1,$("#listaciclos"))
         }
-
-        
+        //procesar a QoS
+        var encargado = $("#encargado_qos").val();
+        var cantqos = $("#cant_qos").val() == '' ? 0 : $("#cant_qos").val();
+        if (encargado != 0 && canqos > 0) {
+            var qos = arr('login',4,'',914,ciclo[0][0]+',5,0,0,@@impresa,'+encargado,0,0,0);
+            if (qos['succed']) {
+                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",1,'+idservicio+',0,'+cantqos+',@@usr,"Cantidad en revision"',0,0,0);
+            }
+        }
     }else{
         Materialize.toast('Cantidad final necesaria para procesar a multiplicación', 6000, 'red');
     }
