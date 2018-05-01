@@ -95,8 +95,17 @@
         <a class="btn btn3" id="btnmediocult">Medios de Cultivo</a>
         <input type="hidden" id="hidmediocultivo" value="0">
       </div>
+
+       <div class="col s4">
+      <br>
+       <a class="btn btn3" id="datoextra" td="1">Datos extras</a>
+    </div>
+
     </div>
   </div>
+
+
+
   <div class="row">
     <p>Procesar a QoS</p>
     <div class="input-field col s6 m6 l6">
@@ -181,4 +190,37 @@
 <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="chgbandeja">Guardar</a>
 <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
 </div>
+</div>
+
+  <div id="modal-datoextra" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+    <div class="card-header center head2 padding1">
+      <p style="font-size: 1.2em" class="flow-text marginzero">Datos Extras</p>
+    </div>
+  </div>
+  <div class="modal-content" style="padding: 20px;">
+    <div class="row">
+      <div class="col s12">
+        <table class="responsive-table highlight striped" id="tabla-datosextras">
+          <thead class="tab1">
+            <tr>
+              <td class="center">Dato extra</td>
+              <td class="center">Valor</td>
+            </tr>
+          </thead>
+          <tbody id="listadatosextras">
+            <!-- <tr>
+              <td class="center">Bandeja 20uds</td>
+              <td class="center">10</td>
+              <td class="center">Virus</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5">Agregar</a>
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+  </div>
 </div>

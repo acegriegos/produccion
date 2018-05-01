@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Laboratorio de Hongos</title>
+    <title>Laboratorio de Hongos Entomopatógenos</title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css">
   </head>
@@ -14,12 +14,18 @@
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
         <div class="card-header center head1 z-depth-1">
-          <h5>Laboratorio de Hongos</h5>
+          <h5>Laboratorio de Hongos Entomopatógenos</h5>
             <ul class="tabs tabs-fixed-width head2" style="cursor: pointer;">
-              <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Recepción de Hongos</a></li>
-              <li class="menu3 tab" id="m1"><a class="white-text tamLetra">Proceso Entrada</a></li>
-              <li class="menu3 tab" id="m2"><a class="white-text tamLetra">P1</a></li>
-              <li class="menu3 tab" id="m5"><a class="white-text tamLetra">QoS</a></li>
+               <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Recepción Muestra de Aislamiento</a></li>
+              <li class="menu3 tab" id="m19"><a class="white-text tamLetra">Cepario</a></li>
+              <li class="menu3 tab" id="m20"><a class="white-text tamLetra">Cultivo Monospórico</a></li>
+              <li class="menu3 tab" id="m21"><a class="white-text tamLetra">Cultivo Total</a></li>
+              <li class="menu3 tab" id="m22"><a class="white-text tamLetra">Matriz Líquida</a></li>
+              <li class="menu3 tab" id="m23"><a class="white-text tamLetra">Inoculación</a></li>
+              <li class="menu3 tab" id="m24"><a class="white-text tamLetra">Esporulación</a></li>
+              <li class="menu3 tab" id="m25"><a class="white-text tamLetra">Secado</a></li>
+              <li class="menu3 tab" id="m26"><a class="white-text tamLetra">Empaque</a></li>
+              <li class="menu3 tab" id="m5"><a class="white-text tamLetra">Qos</a></li>
               <li class="menu3 tab" id="m6"><a class="white-text tamLetra">Reporte</a></li>
             </ul>
         </div>

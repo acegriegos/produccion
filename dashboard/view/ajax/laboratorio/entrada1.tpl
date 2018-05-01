@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Laboratorio de Avíspas</title>
+    <title>Laboratorio de Cortesia Flavipes</title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css">
   </head>
@@ -14,11 +14,16 @@
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
         <div class="card-header center head1 z-depth-1">
-          <h5>Laboratorio de Avíspas</h5>
+          <h5>Laboratorio de Cortesia Flavipes</h5>
             <ul class="tabs tabs-fixed-width head2" style="cursor: pointer;">
-              <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Recepción de Avíspa</a></li>
-              <li class="menu3 tab" id="m1"><a class="white-text tamLetra">Proceso Entrada</a></li>
-              <li class="menu3 tab" id="m2"><a class="white-text tamLetra">P1</a></li>
+              <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Crisálidas</a></li>
+              <li class="menu3 tab" id="m11"><a class="white-text tamLetra">Copulación</a></li>
+              <li class="menu3 tab" id="m12"><a class="white-text tamLetra">Recolección de Posturas</a></li>
+              <li class="menu3 tab" id="m13"><a class="white-text tamLetra">Inoculación</a></li>
+              <li class="menu3 tab" id="m14"><a class="white-text tamLetra">Parasitación</a></li>
+              <li class="menu3 tab" id="m15"><a class="white-text tamLetra">Revisión</a></li>
+              <li class="menu3 tab" id="m16"><a class="white-text tamLetra">Puparios</a></li>
+              <li class="menu3 tab" id="m17"><a class="white-text tamLetra">Empaque</a></li>
               <li class="menu3 tab" id="m5"><a class="white-text tamLetra">QoS</a></li>
               <li class="menu3 tab" id="m6"><a class="white-text tamLetra">Reporte</a></li>
             </ul>

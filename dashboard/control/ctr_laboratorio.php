@@ -81,6 +81,30 @@
 	   			$smarty->assign('CANT',$kakaroto->kamehameha('id,format(valor,0),upper((select a.simbolo from unidades a where a.id = laboratorio.referencias.idunidad))',922,'id > 0'));
 	   			$smarty->display('ajax/laboratorio/entrada2.tpl');
 	   			break;
+	   		case 13:
+	   			$pagina = 1;
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CANT',$kakaroto->kamehameha('id,format(valor,0),upper((select a.simbolo from unidades a where a.id = laboratorio.referencias.idunidad))',922,'id > 0'));
+	   			$smarty->display('ajax/laboratorio/entrada3.tpl');
+	   			break;
+	   		case 14:
+	   			$pagina = 1;
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CANT',$kakaroto->kamehameha('id,format(valor,0),upper((select a.simbolo from unidades a where a.id = laboratorio.referencias.idunidad))',922,'id > 0'));
+	   			$smarty->display('ajax/laboratorio/entrada4.tpl');
+	   			break;
+	   		case 15:
+	   			$pagina = 1;
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"4,@@impresa","0,10"'));
+	   			$smarty->display('ajax/laboratorio/BiologiaMolecular.tpl');
+	   			break;
+	   		case 16:
+	   			$pagina = 1;
+	   			$smarty = make_smarty();
+	   			$smarty->assign('CIC',$kakaroto->kamehameha('',912,'0,0,"4,@@impresa","0,10"'));
+	   			$smarty->display('ajax/laboratorio/sustratos.tpl');
+	   			break;
 
 	   	}
 		if(!$pagina){

@@ -92,10 +92,6 @@
 			if (strpos($args2,'@impresa')) {
 				$impresa = $_SESSION['IMPRESA'];
 				$args2 = str_replace('@@impresa', $impresa, $args2);
-
-				if (($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0)) {
-					$args2 = str_replace('and idempresa = '.$impresa ,'', $args2);
-				}
 			}
 
 			$args2 = addslashes($args2);
@@ -129,7 +125,8 @@
 			}
 
 			if (strpos($wher, '@tmp')) {
-				$str = ($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0) ? "0" : $_SESSION['IMPRESA'];
+				// $str = ($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0) ? "0" : $_SESSION['IMPRESA'];
+				$str  = $_SESSION['TMP_CIA'];
 				$wher = str_replace('@@tmp_cia', $str , $wher);
 			}
 
