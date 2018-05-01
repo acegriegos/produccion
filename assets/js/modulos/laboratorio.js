@@ -24,6 +24,12 @@ $(function(){
         case 12:
             loadHongos();
             break;
+        case 13:
+            loadBM();
+            break;
+        case 14:
+            loadSustrato();
+            break;   
     	case 3:
     		loadAjustes();
             break;
@@ -162,25 +168,41 @@ $(document).on("click","#pruebasQoS",function(){
 });
 
 $(document).on("click",".modalmediosQoS",function(){
-    $("#modal-pruebasQoSCiclo").modal('open');
-    var cnt = arr('login',4,'count(id)',930,'id > 0 and idsucursal = @@impresa',0,0,0)[0][0];
+    var tc = $(this).attr('tm');
+    var idsuc = $(this).parent().parent().parent().parent().parent().parent().siblings().attr('idsuc');
+    $(".savetestqosCiclo").attr({
+        'idsuc': idsuc,
+        'idciclo': tc
+    });
+    var cnt = arr('login',4,'count(id)',930,'id > 0 and idciclo = '+tc+' and idsucursal = '+idsuc,0,0,0)[0][0];
     if (cnt > 0) {
         ifila3 = cnt;
         $("#testqosCiclo").html('');
-        arr('login',6,'id,prueba',930,'id > 0 and idsucursal = @@impresa',0,1,$("#testqosCiclo"));
+        arr('login',6,'id,prueba',930,'id > 0 and idciclo = '+tc+' and idsucursal = '+idsuc,0,1,$("#testqosCiclo"));
     }else
         $("#testqosCiclo").html('');
+
+    $("#modal-pruebasQoSCiclo").modal('open');
 });
 
 $(document).on("click",".modalmediosExtra",function(){
-    $("#modal-datosextra").modal('open');
-    var cnt = arr('login',4,'count(id)',936,'id > 0 and idsucursal = @@impresa',0,0,0)[0][0];
-    if (cnt > 0) {
+    var tm = $(this).attr('tm');
+    var idsuc = $(this).parent().parent().parent().parent().parent().parent().siblings().attr('idsuc');
+    var bismedio = '';
+    if ($("#dmedio").is(":checked"))
+        bismedio = 1;
+    else if($("#dfinal").is(":checked"))
+        bismedio = 0;
+
+    var cnt = arr('login',4,'',938,tm+','+idsuc+','+bismedio,0,0,0)[0];
+    if (cnt.length > 0) {
         ifila3 = cnt;
-        $("#datosextra").html('');
-        arr('login',6,'id,prueba',930,'id > 0 and idsucursal = @@impresa',0,1,$("#testqosExtra"));
+        $("#testqosExtra").html('');
+        arr('login',6,'',938,tm+','+idsuc+','+bismedio,930,1,$("#testqosExtra"));
     }else
         $("#testqosExtra").html('');
+
+    $("#modal-datosextra").modal('open');
 });
 
 $(document).on("click","#addtestqos",function(){
@@ -247,6 +269,54 @@ $(document).on("click","#savetestqos",function(){
         var valid = arr('login',4,'count(id)',930,'prueba = "'+prueba+'"',0,0,0)[0];
         if (valid == 0) {
             var pruebaqos = arr('login',4,'',929,'1,0,"'+prueba+'",@@impresa',0,0,0);
+            if (pruebaqos['succed'] == 1)
+                pass = 1;
+            else
+                pass = 0;
+        }
+    });
+    if (pass == 1) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+    }else{
+        Materialize.toast(pruebaqos[0]['ERROR'], 4000, 'red');
+    }
+});
+
+$(document).on("click","#savetestqosExtra",function(){
+    var pass = 0;
+    var datoextra = '';
+    $(".pruebasqos").each(function() {
+        var id = $(this).children().attr('id').substr('2');
+        var nombre = $("#qs"+id).text();
+        var valid = arr('login',4,'count(id)',936,'nombre = "'+nombre+'"',0,0,0)[0];
+        
+        if (valid > 0) {
+            
+        //     var datoextra = arr('login',4,'',929,'1,0,"'+prueba+'",@@impresa',0,0,0);
+        //     if (datoextra['succed'] == 1)
+        //         pass = 1;
+        //     else
+        //         pass = 0;
+        }
+    });
+    // if (pass == 1) {
+    //     Materialize.toast('Registro guardado correctamente', 4000, 'green');
+    // }else{
+    //     Materialize.toast(pruebaqos[0]['ERROR'], 4000, 'red');
+    // }
+});
+
+$(document).on("click",".savetestqosCiclo",function(){
+    var pass = 0;
+    var pruebaqos = '';
+    var idsuc = $(this).attr('idsuc');
+    var idciclo = $(this).attr('idciclo');
+    $(".pruebasqos").each(function() {
+        var id = $(this).children().attr('id').substr('2');
+        var prueba = $("#qs"+id).text();
+        var valid = arr('login',4,'count(id)',930,'prueba = "'+prueba+'"',0,0,0)[0];
+        if (valid == 0) {
+            var pruebaqos = arr('login',4,'',929,'1,0,"'+prueba+'",'+idsuc+','+idciclo,0,0,0);
             if (pruebaqos['succed'] == 1)
                 pass = 1;
             else
@@ -423,15 +493,16 @@ $(document).on("keydown","#_vcodigo",function(e){
     }
 });
 
-$(document).on("click","#savemedio",function(){
+$(document).on("click",".savemedio",function(){
     //base: vaccion,vid,vidusuario,vidreferencia,vidsucursal,vidciclo
     var idreferencia = $("#listamedioscultivos").data('idreferencia');
     var idciclo = $("#listamedioscultivos").data('idciclo');
     var sig = 0;
     var antmedios = arr('login',4,'',921,idciclo+',@@impresa',0,0,0);
     var idsolucion = 0;
+    var idempresa = $(this).attr('idempresa');
     if (antmedios[0].length == 0) {
-        idsolucion = arr('login',4,'',918,'1,0,@@usr,'+idreferencia+',@@impresa,'+idciclo,0,0,0);
+        idsolucion = arr('login',4,'',918,'1,0,@@usr,'+idreferencia+','+idempresa+','+idciclo,0,0,0);
         if (idsolucion['succed'] == 1) {
         // detalle: vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
             $(".detsolution").each(function(){
@@ -496,6 +567,8 @@ function emptymedio() {
 $(document).on("click",".modalmedios",function() {
     var tm = $(this).attr('tm');
     var referencias = arr('login',4,'',916,'0',0,0,0)[0];
+    var idempresa = $(this).parent().parent().parent().parent().parent().parent().siblings().attr('idsuc');
+    $(".savemedio").attr('idempresa',idempresa);
     for (var i = 0, len = referencias.length; i < len; i++) {
         $("#_vidreferencia").append('<option value="'+referencias[i][0]+'">'+referencias[i][1]+'</option>')
     }
@@ -503,15 +576,16 @@ $(document).on("click",".modalmedios",function() {
     $("#_vidciclo").val(tm)
     $("#_vidreferencia").material_select();
     $("#_vidunidad").material_select();
-    var comps = arr('login',4,'',921,tm+',@@impresa',0,0,0);
+    var comps = arr('login',4,'',921,tm+','+idempresa,0,0,0);
     ifila = comps[0].length;
     if (comps[0].length > 0) {
         $("#listamedioscultivos").attr({
             'data-idreferencia': $("#_vidreferencia").val(),
             'data-idciclo': tm
         });
-        arr('login',6,'',921,tm+',@@impresa',0,1,$("#listamedioscultivos"));
+        arr('login',6,'',921,tm+','+idempresa,0,1,$("#listamedioscultivos"));
     }else{
+        $("#listamedioscultivos").html('');
         $("#listamedioscultivos").removeAttr('data-idreferencia').removeAttr('data-idciclo');
     }
     $("#modal-medios").modal('open');
@@ -1074,11 +1148,71 @@ function loadRecepcion(){
                 cargarArr(8,$("#labajax"));
                 cargarQoS();
                 break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
     		default:
     			$("#labajax").html('Laboratorio sin Procesar')
     			break;
     	}
     	
+    });
+
+    $("#m0").click();
+}
+function loadSustrato(){
+
+    $(".menu3").click(function(){
+        var id = $(this).attr('id').substr(1);
+        switch(parseInt(id)){
+            case 0:
+                cargarArr(2,$("#labajax"));
+                cargarExplantes();
+                break;
+            case 1:
+                cargarArr(4,$("#labajax"));
+                cargarIniciacion();
+            case 5:
+                cargarArr(8,$("#labajax"));
+                cargarQoS();
+                break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
+            default:
+                 cargarArr(16,$("#labajax"));
+                break;
+        }
+        
+    });
+
+    $("#m0").click();
+}
+function loadBM(){
+
+    $(".menu3").click(function(){
+        var id = $(this).attr('id').substr(1);
+        switch(parseInt(id)){
+            case 0:
+                cargarArr(2,$("#labajax"));
+                cargarExplantes();
+                break;
+            case 36:
+                cargarArr(4,$("#labajax"));
+                cargarIniciacion();
+                break;
+            case 5:
+                cargarArr(8,$("#labajax"));
+                cargarQoS();
+                break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
+            default:
+                 cargarArr(15,$("#labajax"));
+                break;
+        }
+        
     });
 
     $("#m0").click();
@@ -1093,31 +1227,21 @@ function loadAvispas(){
                 cargarArr(2,$("#labajax"));
                 cargarExplantes();
                 break;
-            case 1:
+            case 11:
                 cargarArr(4,$("#labajax"));
                 cargarIniciacion();
                 break;
-            case 2:
-                cargarArr(6,$("#labajax"));
-                break;
-            case 3:
-                cargarArr(6,$("#labajax"));
-                break;
-            case 4:
-                cargarArr(6,$("#labajax"));
-                break;
-            case 5:
-                cargarArr(8,$("#labajax"));
-                cargarQoS();
+            case 6:
+                $("#labajax").html('Reportes')
                 break;
             default:
-                $("#labajax").html('Laboratorio sin Procesar')
+                cargarArr(6,$("#labajax"));
                 break;
         }
         
     });
 
-    $("#m1").click();
+    $("#m0").click();
 }
 
 function loadHongos(){
@@ -1133,21 +1257,15 @@ function loadHongos(){
                 cargarArr(4,$("#labajax"));
                 cargarIniciacion();
                 break;
-            case 2:
-                cargarArr(7,$("#labajax"));
-                break;
-            case 3:
-                cargarArr(7,$("#labajax"));
-                break;
-            case 4:
-                cargarArr(7,$("#labajax"));
-                break;
             case 5:
                 cargarArr(8,$("#labajax"));
                 cargarQoS();
                 break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
             default:
-                $("#labajax").html('Laboratorio sin Procesar')
+                 cargarArr(7,$("#labajax"));
                 break;
         }
         

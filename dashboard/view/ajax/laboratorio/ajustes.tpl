@@ -573,7 +573,7 @@
         </div>
       </div>
       <div class="modal-footer ">
-        <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="savemedio">Agregar</a>
+        <a class="modal-action waves-effect waves-green btn-flat z-depth-5 savemedio">Agregar</a>
         <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
       </div>
     </div>
@@ -675,7 +675,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="savetestqosCiclo">Agregar</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5 savetestqosCiclo">Agregar</a>
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
   </div>
 </div>
@@ -689,8 +689,8 @@
   <div class="modal-content" style="padding: 20px;">
     <div class="row">
       <p>
-        <input class="with-gap" name="datosproc" type="radio" id="dinicio" value="1" checked />
-        <label for="dinicio">Datos Inicio</label>&nbsp;&nbsp;
+        <input class="with-gap" name="datosproc" type="radio" id="dmedio" value="1" checked />
+        <label for="dmedio">Datos Medio</label>&nbsp;&nbsp;
         <input class="with-gap" name="datosproc" type="radio" id="dfinal" value="0" />
         <label for="dfinal">Datos Final</label>
       </p>
