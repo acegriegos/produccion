@@ -28,10 +28,6 @@
                       <div class="row" align="center">
                         <div class="col s12 input-field">
                           <select  id="invVariedadCT" class="role_inv" tp="1">
-                            <option disabled selected value="0">Seleccione una Opción</option>
-                            {section name=LE loop=$INV}
-                            <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
-                            {/section}
                           </select>
                           <label for="invVariedadCT">Inventarios Variedades</label>
                         </div>
@@ -48,7 +44,7 @@
                       </div>
                     </div>
                     <div class="col s12 m4" style="background: #F9F9F9" align="center">
-                      <h6><b>Medios de Cultivo por Ciclo</b></h6><br>
+                      <h6><h6><b>Ciclos</b></h6></h6>
                       <div class="row" align="center">
                         <div class="col s12 container"><br>
                           <label for="">Medio Multiplicación</label><br>
@@ -92,7 +88,7 @@
                           <label for="inv-frascosCT">Inventarios Frascos</label>
                         </div>
                         <div class="col s12">
-                          <a href="#modal-bandejas" class="btn btn2" id="gomodalbandejas" tp="3">Relación</a>
+                          <a href="#modal-bandejas" class="btn btn2 relaciones" tp="1">Relación</a>
                         </div>
                       </div>
                     </div>
@@ -111,9 +107,6 @@
                         <div class="col s12 input-field">
                           <select  id="invVariedadPS" class="role_inv" tp="1">
                             <option disabled selected value="0">Seleccione una Opción</option>
-                            {section name=LE loop=$INV}
-                            <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
-                            {/section}
                           </select>
                           <label for="invVariedadPS">Inventarios Variedades</label>
                         </div>
@@ -130,7 +123,7 @@
                       </div>
                     </div>
                     <div class="col s12 m4" style="background: #F9F9F9" align="center">
-                      <h6><b>Medios de Cultivo por Ciclo</b></h6><br>
+                      <h6><h6><b>Ciclos</b></h6></h6>
                       <div class="row" align="center">
                         <div class="col s12 container"><br>
                           <label for="">Crudos</label><br>
@@ -186,7 +179,7 @@
                           <label for="inv-frascosPS">Inventarios Frascos</label>
                         </div>
                         <div class="col s12">
-                          <a href="#modal-bandejas" class="btn btn2" id="gomodalbandejas" tp="3">Relación</a>
+                          <a href="#modal-bandejas" class="btn btn2 relaciones" tp="5">Relación</a>
                         </div>
                       </div>
                     </div>
@@ -204,10 +197,6 @@
                       <div class="row" align="center">
                         <div class="col s12 input-field">
                           <select  id="invVariedadCF" class="role_inv" tp="1">
-                            <option disabled selected value="0">Seleccione una Opción</option>
-                            {section name=LE loop=$INV}
-                            <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
-                            {/section}
                           </select>
                           <label for="invVariedadCF">Inventarios Variedades</label>
                         </div>
@@ -224,7 +213,7 @@
                       </div>
                     </div>
                     <div class="col s12 m4" style="background: #F9F9F9" align="center">
-                      <h6><b>Medios de Cultivo por Ciclo</b></h6><br>
+                      <h6><h6><b>Ciclos</b></h6></h6>
                       <div class="row" align="center">
                         <div class="col s12 container"><br>
                           <label for="">Copulación</label><br>
@@ -292,7 +281,7 @@
                           <label for="inv-frascosCF">Inventarios Frascos</label>
                         </div>
                         <div class="col s12">
-                          <a href="#modal-bandejas" class="btn btn2" id="gomodalbandejas" tp="3">Relación</a>
+                          <a href="#modal-bandejas" class="btn btn2 relaciones" tp="2">Relación</a>
                         </div>
                       </div>
                     </div>
@@ -310,10 +299,6 @@
                       <div class="row" align="center">
                         <div class="col s12 input-field">
                           <select  id="invVariedadHE" class="role_inv" tp="1">
-                            <option disabled selected value="0">Seleccione una Opción</option>
-                            {section name=LE loop=$INV}
-                            <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
-                            {/section}
                           </select>
                           <label for="invVariedadHE">Inventarios Variedades</label>
                         </div>
@@ -330,7 +315,7 @@
                       </div>
                     </div>
                     <div class="col s12 m4" style="background: #F9F9F9" align="center">
-                      <h6><b>Medios de Cultivo por Ciclo</b></h6><br>
+                      <h6><h6><b>Ciclos</b></h6></h6>
                       <div class="row" align="center">
                         <div class="col s12 container"><br>
                           <label for="">Cepario</label><br>
@@ -404,7 +389,7 @@
                           <label for="inv-frascosHE">Inventarios Frascos</label>
                         </div>
                         <div class="col s12">
-                          <a href="#modal-bandejas" class="btn btn2" id="gomodalbandejas" tp="3">Relación</a>
+                          <a href="#modal-bandejas" class="btn btn2 relaciones" tp="3">Relación</a>
                         </div>
                       </div>
                     </div>
@@ -422,10 +407,6 @@
                       <div class="row" align="center">
                         <div class="col s12 input-field">
                           <select id="invVariedadBM" class="role_inv" tp="1">
-                            <option disabled selected value="0">Seleccione una Opción</option>
-                            {section name=LE loop=$INV}
-                            <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
-                            {/section}
                           </select>
                           <label for="invVariedadBM">Inventarios Variedades</label>
                         </div>
@@ -442,7 +423,7 @@
                       </div>
                     </div>
                     <div class="col s12 m4" style="background: #F9F9F9" align="center">
-                      <!-- <h6><b>Medios de Cultivo por Ciclo</b></h6><br> -->
+                      <!-- <h6><h6><b>Ciclos</b></h6></h6> -->
                       <div class="row" align="center">
                         <div class="col s12 container"><br>
                           <label for="">Preparación de Muestra</label><br>
@@ -504,7 +485,7 @@
                           <label for="inv-frascosBM">Inventarios Frascos</label>
                         </div>
                         <div class="col s12">
-                          <a href="#modal-bandejas" class="btn btn2" id="gomodalbandejas" tp="3">Relación</a>
+                          <a href="#modal-bandejas" class="btn btn2 relaciones" tp="4">Relación</a>
                         </div>
                       </div>
                     </div>

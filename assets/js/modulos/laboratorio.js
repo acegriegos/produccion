@@ -974,32 +974,44 @@ $(document).on("click","#gcultivo",function(){
 
 function loadAjustes(){
 
-	$("#invVariedad").material_select('destroy');
-    var opciones = $("#invVariedad").html();
+    var opt = '<option disabled selected value="0">Seleccione una Opción</option>';
+    var opts = getDatos('id,nombre,idsucursal',111,'id > 0 and if(@@tmp_cia = -1,1, idsucursal in(@@impresa,-1)) order by nombre',0,0,0)[0];
+    for (var i = 0; i < opts.length; i++) {
+         opt += '<option value='+opts[i][0]+'>'+opts[i][1]+'</option>';
+    }
+    $(".role_inv").material_select('destroy');
+    $(".role_inv").html(opt);
+    $(".role_inv").material_select();
+    var elementoLB = '';
+    for (var i = 0; i < invvar.length; i += 5) {
 
-	$.each(invvar[0][0].split("1,"), function(j,e){
-        $("#invVariedad option[value='" + e + "']").attr("selected", true);
-    });
+        switch(parseInt(invvar[i][2])){
+            case 1:
+                elementoLB = 'CT';
+                break;
+            case 2:
+                elementoLB = 'CF';
+                break;
+            case 3:
+                elementoLB = 'HE';
+                break;
+            case 4:
+                elementoLB = 'BM';
+                break;
+            case 5:
+                elementoLB = 'PS';
+                break;
+            default:
+                break;
+        }
 
-    // $.each(invvar[1][0].split(","), function(j,e){
-    //     $("#invactivos option[value='" + e + "']").attr("selected", true);
-    // });
+        $("#invVariedad"+elementoLB).val(invvar[i][0]);
+        $("#invreactivos"+elementoLB).val(invvar[i+1][0]);
+        $("#invcomp"+elementoLB).val(invvar[i+3][0]);
+        $("#inv-bandejas"+elementoLB).val(invvar[i+2][0]);
+        $("#inv-frascos"+elementoLB).val(invvar[i+4][0]);
 
-    $("#invreactivos").html(opciones);
-    $.each(invvar[1][0].split(","), function(j,e){
-        $("#invreactivos option[value='" + e + "']").attr("selected", true);
-    });
-
-    $("#invcomp").html(opciones);
-    $.each(invvar[4][0].split(","), function(j,e){
-        $("#invcomp option[value='" + e + "']").attr("selected", true);
-    });
-
-    $("#inv-bandejas").html(opciones);
-    $("#inv-bandejas").val(invvar[2][0]);
-
-    $("#inv-frascos").html(opciones);
-    $("#inv-frascos").val(invvar[3][0]);
+    }
 
     $(document).on("change",".role_inv",function(){
         if($(this).attr('tp') != undefined){
@@ -1008,11 +1020,16 @@ function loadAjustes(){
     });
     $("#invVariedad").material_select();
 
-    $(document).on("click","#gomodalbandejas",function(){
-        var relacion = arr('login',4,'count(id)',911,'id > 0',0,0,0)[0][0];
-        var lastid = arr('login',4,'ifnull(max(id)+1,1)',911,'',0,0,0)[0][0][0];
+    $(document).on("click",".relaciones",function(){
+        var idsucursal = $(this).attr('tp');
+        console.log()
+        var relacion = arr('login',4,'count(id),ifnull(max(id)+1,1)',911,'id > 0 and idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0];
+        var lastid = relacion[1];
+        //arr('login',4,'ifnull(max(id)+1,1)',911,'idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0][0];
+        relacion = relacion[0]
         $("#autoinc").val(lastid);
         $("#curpos").val(lastid);
+
         if (relacion == 0) {
             arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas1"))
             arr('login',6,'',411,invvar[3][0],15,1,$("#frascos1"))
@@ -1020,7 +1037,7 @@ function loadAjustes(){
         }else{
             var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2][0],"invfrascos":invvar[3][0]});
             $("#flaboratorio-relaciones").html(p);
-            var relaciones = arr('login',4,'*',911,'id > 0',0,0,0)[0];
+            var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+idsucursal+')',0,0,0)[0];
             $.each(relaciones,function(index,relation){
                 $("#bandejas"+relation[0]).val(relation[1]);
                 $("#frascos"+relation[0]).val(relation[2]);

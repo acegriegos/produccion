@@ -22,7 +22,6 @@
 	   		case 3:
 	   			$pagina = 1;
 	   			$smarty = make_smarty();
-	   			$smarty->assign('INV',$kakaroto->kamehameha('id,nombre',111,'id > 0 and idsucursal in(@@impresa,-1) order by nombre'));
 	   			$smarty->display('ajax/laboratorio/ajustes.tpl');
 	   			break;
 	   		case 4:
