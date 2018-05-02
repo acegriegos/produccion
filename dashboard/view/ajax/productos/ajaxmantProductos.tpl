@@ -21,7 +21,7 @@
 			<table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-productos" cellspacing="0" width="100%" >
 				<thead>
 					<tr>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
+						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código {$TMPCIA}</th>
 						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código Interno</th>
 						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
 						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Marca</th>
@@ -34,16 +34,16 @@
 				<tbody id="listaproductos">
 					{section name=LE loop=$PROD}
 					<tr>
-						<td style="padding: 10px; color:black;">{$PROD[LE][1]}</td>
-						<td style="padding: 10px; color:black;">{$PROD[LE][2]}</td>
-						<td style="padding: 10px; color:black;">{$PROD[LE][3]}</td>
-						<td style="padding: 10px; color:black;">{$PROD[LE][29]}</td>
-						<td style="padding: 10px; color:black;">{$PROD[LE][6]}</td>
-						<td style="padding: 10px; color:black;">{$PROD[LE][12]}</td>
-						<td style="padding: 10px; color:black;">{$PROD[LE][9]}</td>
+						<td style="padding: 10px;">{$PROD[LE][1]}</td>
+						<td style="padding: 10px;">{$PROD[LE][2]}</td>
+						<td style="padding: 10px;">{$PROD[LE][3]}</td>
+						<td style="padding: 10px;">{$PROD[LE][29]}</td>
+						<td style="padding: 10px;">{$PROD[LE][6]}</td>
+						<td style="padding: 10px;">{$PROD[LE][12]}</td>
+						<td style="padding: 10px;">{$PROD[LE][9]}</td>
 						<td>
 							<a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh 4110" id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
-							<a class="btn-color pbtn descuentos per4103 modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto" style="color: #686868;"><img src="../assets/img/icon/percent.svg"></a>
+							<a class="btn-color pbtn descuentos per4103 mdi mdi-percent mdi-24px modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"></a>
 							<a class="btn-color pbtn salidainv mdi mdi-arrow-down-bold-box mdi-24px per4104 modal-trigger" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"></a>
 							<a class="btn-color pbtn editprod mdi mdi-pencil mdi-24px per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"></a>
 							<a class="btn-color pbtn cdel delprod mdi mdi-close mdi-24px per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto"></a>
@@ -273,11 +273,11 @@
 			</div>
 			<div class="col s12 m12 l12 pequeño">
 				<table class="table responsive-table pequeño centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
-					<thead>
+					<thead class="head1">
 						<tr>
-							<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-							<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Valor</th>
-							<th class="white-text blue" style="border: 0; border-radius: 0px !important; width: 20%">Acciones</th>
+							<th style="border: 0; border-radius: 0px !important;">Nombre</th>
+							<th style="border: 0; border-radius: 0px !important;">Valor</th>
+							<th style="border: 0; border-radius: 0px !important; width: 20%">Acciones</th>
 						</tr>
 					</thead>
 				<tbody id="listavariables"></tbody>
@@ -287,9 +287,9 @@
 </div>
 </div>
 <div class="modal-footer ">
-<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="addprod">Agregar</a>
 <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="editprod">Guardar</a>
+<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 </div>
 </div>
 <div id="modal-movinventario" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
@@ -446,10 +446,10 @@
 <div class="modal-content pequeño" stylle="padding: 0px;">
 <div class="row pequeño"><br>
 	<table class="table pequeño responsive-table centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
-		<thead>
+		<thead class="head1">
 			<tr>
-				<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-				<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Valor</th>
+				<th style="border: 0; border-radius: 0px !important;">Nombre</th>
+				<th style="border: 0; border-radius: 0px !important;">Valor</th>
 			</tr>
 		</thead>
 	<tbody id="listainfo"></tbody>

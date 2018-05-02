@@ -231,12 +231,12 @@ $(document).on("click",".delete",function(){
 $(document).on("keyup","[id^=search_]",function(e){
     var code = e.which || e.keyCode
     if (code == 13) {
-        var a = $(this).val().replace(/"/g,'\\\"');
+        var a = $(this).val().replace(/"/g,'\\\"')+'|@@tmp_cia';
         var b = $(this).prop('id').substr(7);
         var c = $(this).attr('num').substr(1);
-        var d = $(this).attr('num').substring(0,1).replace('+','');
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
+
         var h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
         filltable(a,b,c,g);
         $(".pagination").html('');

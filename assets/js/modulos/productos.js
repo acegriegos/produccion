@@ -1208,7 +1208,7 @@ $(document).on("change","#vtipoinv",function(){
 
 $(document).on("click",".salidainv",function(){
     var id = $(this).attr('id').substr(1);
-    var bod = arr('login',4,'*',41,'id > 0 and idsucursal = @@impresa',0,0,0)[0];
+    var bod = arr('login',4,'*',41,'idsucursal in(@@impresa, -1)',0,0,0)[0];
     var p = arr('login',4,'',410,id+',0',0,0,0)[0][0];
     var cant = arr('login',4,'replace(sum(cantidad),".00","")',97,'1',0,0,0)[0][0];
     $("#cantinv").text(cant);
@@ -1791,21 +1791,24 @@ $(document).on("click","#addservice",function(){
     // $("#servpro").change();
     $(".cper").attr('disabled',true);
     $(".cper").prop('checked',false);
-    arr('login',6,'id,nombre',111,'id > 0',15,1,$("#vidinventario"));
+    arr('login',6,'id,nombre',111,'id > 0 and idsucursal in(-1,@@impresa)',15,1,$("#vidinventario"));
     arr('login',6,'id,if(nombre = "",pfisico,nombre)',39,'id > 0',15,1,$("#vsucursales"));
     $("#vdescripcion").characterCounter();
-    $('select').material_select();
     $("#vidtipo").val(0);
     $("#ajaxServicio").html('');
     $("#dinvent").show();
     setTimeout(function(){$("#vcodigo").focus();},500);
+    $("#addserv").removeClass('edit');
+    $("#addserv").addClass('add');
+    $("#vidmoneda").val(1);
+    $('select').material_select();
 });
 
 $(document).on("click","#addpackage",function(){
     $("#titpqt").html("Agregar Paquete");
     vaciar('paquetes');
     arr('login',6,'id,nombre,replace(valor,".00",""),concat(replace(valor,".00",""),"%")',94,'id > 0 order by nombre','',1,$("#vdescuento"));
-    arr('login',6,'id,nombre',111,'id > 0',15,1,$("#invpqt"))
+    arr('login',6,'id,nombre',111,'id > 0 and idsucursal in(-1,@@impresa)',15,1,$("#invpqt"))
     $('select').material_select();
     Materialize.updateTextFields();
     $("#editpck").attr('id','addpqt');
@@ -2387,7 +2390,7 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 14;
-			arr['where'] = '0,0,"","0,10"';
+			arr['where'] = '0,0,"'+$("#search_productos").val()+'|@@impresa","0,10"';
 			break;
 		case 'servicios':
 			var arr = {};
