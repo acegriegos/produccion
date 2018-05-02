@@ -83,7 +83,7 @@
   <div class="row">
     <p>Asignar bandejas y medio de cultivo</p>
     <div class="col s12 m12 l12">
-      <a class="btn btn3 der">Medios de Cultivo</a>
+      <a class="btn btn3 mediocultivo der">Medios de Cultivo</a>
       <input type="hidden" id="hidmediocultivo" value="0">
       <a class="btn btn3 der" id="assbandeja" style="margin-right: 10px;">Bandejas</a>
       <input type="hidden" id="hidbandeja" value="0">

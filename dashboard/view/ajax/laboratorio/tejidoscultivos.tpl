@@ -92,7 +92,7 @@
       
       <div class="col s4">
         <label for="btnmediocult">Medio de Cultivo</label><br>
-        <a class="btn btn3" id="btnmediocult">Medios de Cultivo</a>
+        <a class="btn btn3 mediocultivo" id="btnmediocult">Medios de Cultivo</a>
         <input type="hidden" id="hidmediocultivo" value="0">
       </div>
 

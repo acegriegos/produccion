@@ -1,4 +1,7 @@
 <?php 
+
+if (sizeof($transaccion)) {
+
 	$vbandejas = '<option value="0">Seleccione una opcion</option>';
 	$vfrascos = '<option value="0">Seleccione una opción</option>';
 
@@ -42,7 +45,17 @@
  <?php } 
 $ultimo = (int) $obj[0];
 $ultimo = $ultimo + 1;
-?>
+}else{
+	$vbandejas = '<option value="0">Seleccione una opcion</option>';
+	$vfrascos = '<option value="0">Seleccione una opción</option>';
+
+	foreach ($bandejas as $ban) {
+		$vbandejas .= '<option value="'.$ban[0].'">'.$ban[1].'</option>';
+	}
+	foreach ($frascos as $fra) {
+		$vfrascos .= '<option value="'.$fra[0].'">'.$fra[1].'</option>';
+	}
+}?>
 <tr id="rw<?php echo $ultimo; ?>" class="rowrel zelda">
 	<td style="padding: 10px; color:black;">
 		<div class="input-field">

@@ -1021,23 +1021,27 @@ function loadAjustes(){
     $("#invVariedad").material_select();
 
     $(document).on("click",".relaciones",function(){
-        var idsucursal = $(this).attr('tp');
-        console.log()
-        var relacion = arr('login',4,'count(id),ifnull(max(id)+1,1)',911,'id > 0 and idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0];
+        var vidsucursal = $(this).attr('tp');
+
+        var relacion = arr('login',4,'count(id),ifnull(max(id)+1,1)',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0][0];
         var lastid = relacion[1];
         //arr('login',4,'ifnull(max(id)+1,1)',911,'idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0][0];
         relacion = relacion[0]
         $("#autoinc").val(lastid);
         $("#curpos").val(lastid);
-
+        $("#flaboratorio-relaciones").html('');
         if (relacion == 0) {
-            arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas1"))
-            arr('login',6,'',411,invvar[3][0],15,1,$("#frascos1"))
+            arr('login',6,'',411,invvar[2+(5*(vidsucursal-1))][0],15,1,$("#bandejas1"))
+            arr('login',6,'',411,invvar[4+(5*(vidsucursal-1))][0],15,1,$("#frascos1"))
             
-        }else{
-            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2][0],"invfrascos":invvar[3][0]});
+            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
+
             $("#flaboratorio-relaciones").html(p);
-            var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+idsucursal+')',0,0,0)[0];
+        }else{
+            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
+
+            $("#flaboratorio-relaciones").html(p);
+            var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0];
             $.each(relaciones,function(index,relation){
                 $("#bandejas"+relation[0]).val(relation[1]);
                 $("#frascos"+relation[0]).val(relation[2]);
