@@ -129,4 +129,9 @@ ul.collection:hover > li .collection-item.qos:not(:hover){
   -moz-box-shadow:0 1px 1px 0 #000;
   box-shadow:0 1px 1px 0 #000;
 }
+
+.autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important; }
 /*# sourceMappingURL=style-laboratorio.css.map */

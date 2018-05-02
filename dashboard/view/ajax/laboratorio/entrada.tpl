@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Laboratorio de Tejidos</title>
+    <title>Laboratorio de Cultivo de Tejidos</title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css">
   </head>
@@ -14,7 +14,7 @@
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
         <div class="card-header center head1 z-depth-1">
-          <h5>Laboratorio de Tejidos y Cultivos</h5>
+          <h5>Laboratorio de Cultivo de Tejidos</h5>
             <ul class="tabs tabs-fixed-width head2" style="cursor: pointer;">
               <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Recepción de Explantes</a></li>
               <li class="menu3 tab" id="m1"><a class="white-text tamLetra">Iniciación</a></li>
@@ -37,7 +37,7 @@
         <div class="row">
           
           <div class="col s10">
-            <table class="responsive-table highlight z-depth-3">
+            <table class="responsive-table striped highlight ">
               <thead class="tab1">
                 <th></th>
                 <th>Componente</th>
@@ -59,8 +59,8 @@
         </div>
       </div>
       <div class="modal-footer ">
-        <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
         <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="gcultivo" save="0">Asignar</a>
+        <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
       </div>
     </div>
 
@@ -74,8 +74,8 @@
       </div>
       </div>
       <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
         <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="mbandeja">Guardar</a>
+        <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
       </div>
     </div>
     

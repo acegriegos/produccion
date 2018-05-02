@@ -22,13 +22,19 @@
                   <div class="card-panel pequeño ">
                     <div class="row">
                       <div class="col s12 per6000">
-                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Tejidos y Explantes</a>
+                        <a href="laboratorio?accion=1" class="waves-effect waves-light btn-large btn1 z-depth-3 {if $smarty.session.IMPRESA neq 1 && $smarty.session.TMP_CIA neq -1 } hide {/if}" style="margin-top:4%; width: 100%;" >Laboratorio de Cultivo de Tejidos</a>
                       </div>
                       <div class="col s12 per6100">
-                        <a href="laboratorio?accion=11" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Avíspas</a>
+                        <a href="laboratorio?accion=11" class="waves-effect waves-light btn-large btn1 z-depth-3 {if $smarty.session.IMPRESA neq 2 && $smarty.session.TMP_CIA neq -1} hide {/if}" style="margin-top:4%; width: 100%;" >Laboratorio de Cortesia Flavipes</a>
                       </div>
                       <div class="col s12 per6200">
-                        <a href="laboratorio?accion=12" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" >Laboratorio de Hongos</a>
+                        <a href="laboratorio?accion=12" class="waves-effect waves-light btn-large btn1 z-depth-3 {if $smarty.session.IMPRESA neq 3 && $smarty.session.TMP_CIA neq -1} hide {/if}" style="margin-top:4%; width: 100%;" >Laboratorio de Hongos Entomopatógenos</a>
+                      </div>
+                      <div class="col s12 per6500">
+                        <a href="laboratorio?accion=13" class="waves-effect waves-light btn-large btn1 z-depth-3 {if $smarty.session.IMPRESA neq 4 && $smarty.session.TMP_CIA neq -1} hide {/if}" style="margin-top:4%; width: 100%;" >Laboratorio de Biología Molecular</a>
+                      </div>
+                      <div class="col s12 per660  0">
+                        <a href="laboratorio?accion=14" class="waves-effect waves-light btn-large btn1 z-depth-3 {if $smarty.session.IMPRESA neq 5 && $smarty.session.TMP_CIA neq -1} hide {/if}" style="margin-top:4%; width: 100%;" >Planta de Sustratos</a>
                       </div>
                       <div class="col s12 m6 l6 per6300">
                         <a href="laboratorio?accion=10" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;">Seguimiento</a>

@@ -229,12 +229,12 @@ $(document).on("click",".delete",function(){
 $(document).on("keyup","[id^=search_]",function(e){
     var code = e.which || e.keyCode
     if (code == 13) {
-        var a = $(this).val().replace(/"/g,'\\\"');
+        var a = $(this).val().replace(/"/g,'\\\"')+'|@@tmp_cia';
         var b = $(this).prop('id').substr(7);
         var c = $(this).attr('num').substr(1);
-        var d = $(this).attr('num').substring(0,1).replace('+','');
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
+
         var h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
         filltable(a,b,c,g);
         $(".pagination").html('');
@@ -266,7 +266,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        // console.log(p)
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -716,7 +716,7 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
-
+        console.log(varreglo[i]+' '+salida[varreglo[i]])
     }//end FOR
     break;
     }//end SWITCH
@@ -1447,10 +1447,12 @@ $(document).on('keyup','[addG=1]',function(e){
     }
 });
 $(document).on('blur','[addG=1]',function(){
-    var isClie = findClient($(this).val(),1);
-    if (!isClie) {
-        var op = parseInt($(this).attr('addG'));
-        addGeneral(op);
+    if ($(this).val() != '') {
+        var isClie = findClient($(this).val(),1);
+        if (!isClie) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
     }
 });
 function findClient(nom,blr) {
@@ -1458,12 +1460,12 @@ function findClient(nom,blr) {
     if (nom != '') {
         if (clie[0][0][0] != 0) {
             var vclie = clie[0][0];
-            $("#flaboratorio-explantes  .zelda").data('triforce')['vidcliente'] = vclie[0];
+            $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] = vclie[0];
             $("#ncli").val(vclie[1]+' '+vclie[2]);
             cargarTblFincas();
             return true;
         }else{
-            $("#flaboratorio-explantes  .zelda").data('triforce')['vidcliente'] = 0;
+            $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] = 0;
             if (!$(".clientNotFound").is(':visible')) {
                 var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));
                 Materialize.toast($toastContent, 5000);
@@ -1529,10 +1531,12 @@ $(document).on('keyup','[addG=2]',function(e){
     }
 });
 $(document).on('blur','[addG=2]',function(){
-    var isServ = findService($(this).val(),1);
-    if (!isServ) {
-        var op = parseInt($(this).attr('addG'));
-        addGeneral(op);
+    if ($(this).val() != '') {
+        var isServ = findService($(this).val(),1);
+        if (!isServ) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
     }
 });
 function findService(nom,blr) {

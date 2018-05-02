@@ -1,27 +1,25 @@
 <div id="flaboratorio-ciclos">
   <input type="hidden" class="zelda">
   <div class="row">
-    <div class="col s10 input-field">
+    <div class="col s12 input-field">
       <div class="col s12 head1 padding1 center"><b><h6>Listado de Procesos Actuales</h6></b></div>
-      <table class="responsive-table highlight z-depth-3">
+      <table class="responsive-table highlight striped" >
         <thead class="tab2">
           <tr>
-            <td>Etapa</td>
-            <td>Variedad</td>
-            <td>Días</td>
-            <td>Fecha Inicio</td>
-            <td>Lote</td>
-            <td>Acciones</td>
+            <td style="border-radius: 0 !important">Etapa</td>
+            <td style="border-radius: 0 !important">Variedad</td>
+            <td style="border-radius: 0 !important">Días</td>
+            <td style="border-radius: 0 !important">Fecha Inicio</td>
+            <td style="border-radius: 0 !important">Lote</td>
+            <td style="border-radius: 0 !important">Acciones</td>
           </tr>
         </thead>
         <tbody id="listaciclos">
+          <!--  -->
         </tbody>
       </table>
     </div>
-    <div class="col s2 input-field">
-      <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
-      <input type="date" id="vfecha" class="datepicker eder">
-    </div>
+    
   </div>
 </div>
 
@@ -32,18 +30,18 @@
     </div>
   </div>
   <div class="modal-content" style="padding: 0px;">
-    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
-      <thead>
+    <table class="table responsive-table centered striped bordered highlight pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
+      <thead class="tab1">
         <tr>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cantidad</th>
+          <th style="border: 0; border-radius: 0px !important;">Nombre</th>
+          <th style="border: 0; border-radius: 0px !important;">Cantidad</th>
         </tr>
       </thead>
     <tbody id="listamediocultivos"></tbody>
   </table>
 </div>
 <div class="modal-footer ">
-  <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+  <a class="modal-action modal-close waves-effect waves-red btn-flat" style="margin-right: 2%">Salir</a>
 </div>
 </div>
 
@@ -75,19 +73,47 @@
       <label for="svari">Variedad</label>
     </div>
     <div class="input-field col s12 m4 l4">
-      <input type="number" id="cantsrv" class="validate">
+      <input type="number" id="cantsrv" class="validate" min="0">
       <label for="cantsrv">Cantidad</label>
     </div>
   </div>
   <div class="row">
     <p>Asignar bandejas y medio de cultivo</p>
-    <div class="col s12 m12 l12">
-      <a class="btn btn3 der">Medios de Cultivo</a>
-      <input type="hidden" id="hidmediocultivo" value="0">
-      <a class="btn btn3 der" id="assbandeja" style="margin-right: 10px;">Bandejas</a>
-      <input type="hidden" id="hidbandeja" value="0">
+    <div class="col s12 m12 l12 left">
+      <div class="col s4">
+        <!-- <a class="btn btn3" id="assbandeja" style="margin-right: 10px;">Bandejas</a> -->
+        <label for="cbandeja">Bandeja</label>
+        <select type="select" id="cbandeja"></select>
+        <input type="hidden" id="hidbandeja" value="0">
+      </div>
+      
+      <div class="col s4">
+        <label for="btnmediocult">Medio de Cultivo</label><br>
+        <a class="btn btn3" id="btnmediocult">Medios de Cultivo</a>
+        <input type="hidden" id="hidmediocultivo" value="0">
+      </div>
+
+       <div class="col s4">
+      <br>
+       <a class="btn btn3" id="datoextra" td="1">Datos extras</a>
+    </div>
+
     </div>
   </div>
+
+
+
+  <div class="row">
+    <p>Procesar a QoS</p>
+    <div class="input-field col s6 m6 l6">
+      <select id="encargado_qos"></select>
+      <label for="encargado_qos">Asignar encargado</label>
+    </div>
+    <div class="input-field col s6 m6 l6">
+      <input type="text" id="cant_qos" class="validate" value="">
+      <label for="cant_qos">Cantidad de <span id="vvvar"></span></label>
+    </div>
+  </div><br><br><br>
 </div>
 <div class="modal-footer">
   <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="doproc">Agregar</a>
@@ -109,7 +135,7 @@
         <input type="hidden" id="vidciclo" value="0">
       </div>
       <div class="input-field col s12 m3 l3">
-        <input type="number" id="vcant" class="validate">
+        <input type="number" id="vcant" class="validate" min="0">
         <label for="vcant">Cantidad</label>
       </div>
       <div class="input-field col s12 m4 l4">
@@ -121,13 +147,13 @@
       </div>
     </div>
     <div class="row" style="align-content: center;">
-      <table class="responsive-table highlight z-depth-3" id="tabla-activos">
+      <table class="responsive-table highlight striped" id="tabla-activos">
         <thead class="tab1">
           <tr>
             <td class="center">Activo</td>
             <td class="center">Cantidad</td>
             <td class="center">Razon</td>
-            <td class="center">Acciones</td>
+            <!-- <td class="center">Acciones</td> -->
           </tr>
         </thead>
         <tbody id="listaactivos">
@@ -158,7 +184,40 @@
 </div>
 </div>
 <div class="modal-footer">
-<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
 <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="chgbandeja">Guardar</a>
+<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
 </div>
+</div>
+
+  <div id="modal-datoextra" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+    <div class="card-header center head2 padding1">
+      <p style="font-size: 1.2em" class="flow-text marginzero">Datos Extras</p>
+    </div>
+  </div>
+  <div class="modal-content" style="padding: 20px;">
+    <div class="row">
+      <div class="col s12">
+        <table class="responsive-table highlight striped" id="tabla-datosextras">
+          <thead class="tab1">
+            <tr>
+              <td class="center">Dato extra</td>
+              <td class="center">Valor</td>
+            </tr>
+          </thead>
+          <tbody id="listadatosextras">
+            <!-- <tr>
+              <td class="center">Bandeja 20uds</td>
+              <td class="center">10</td>
+              <td class="center">Virus</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="adddato">Agregar</a>
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+  </div>
 </div>

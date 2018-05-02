@@ -1,27 +1,25 @@
 <div id="flaboratorio-ciclos">
   <input type="hidden" class="zelda">
   <div class="row">
-    <div class="col s10 input-field">
+    <div class="col s12 input-field">
       <div class="col s12 head1 padding1 center"><b><h6>Listado de Procesos Actuales</h6></b></div>
-      <table class="responsive-table highlight z-depth-3">
+      <table class="responsive-table highlight striped">
         <thead class="tab2">
           <tr>
-            <td>Etapa</td>
-            <td>Variedad</td>
-            <td>Días</td>
-            <td>Fecha Inicio</td>
-            <td>Lote</td>
-            <td>Acciones</td>
+            <td style="border-radius: 0 !important">Etapa</td>
+            <td style="border-radius: 0 !important">Variedad</td>
+            <td style="border-radius: 0 !important">Días</td>
+            <td style="border-radius: 0 !important">Fecha Inicio</td>
+            <td style="border-radius: 0 !important">Lote</td>
+            <td style="border-radius: 0 !important">Acciones</td>
           </tr>
         </thead>
         <tbody id="listaciclos">
+          <!--  -->
         </tbody>
       </table>
     </div>
-    <div class="col s2 input-field">
-      <label for="vfehca"><i class="mdi mdi-calendar mdi-24px gtext"></i></label>
-      <input type="date" id="vfecha" class="datepicker eder">
-    </div>
+    
   </div>
 </div>
 
@@ -32,7 +30,7 @@
     </div>
   </div>
   <div class="modal-content" style="padding: 0px;">
-    <table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
+    <table class="table responsive-table centered striped bordered highlight pequeño" id="data-table-mediocultivos" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
@@ -126,7 +124,7 @@
           <tr>
             <td class="center">Activo</td>
             <td class="center">Cantidad</td>
-            <td class="center">Razon</td>
+            <td class="center">Razón</td>
             <td class="center">Acciones</td>
           </tr>
         </thead>

@@ -1,17 +1,19 @@
-var invvar = getDatos('',909,'@@impresa',0,0)[0];
 var ifila = 0;
 var ifila2 = 0;
 var ifila3 = 0;
 var tpinv = 0;
+var invvar;
 // tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
 $(function(){
-    console.log(invvar);
-	if (invvar[0][0] == '') 
-		Materialize.toast('No hay Inventario de Variedades Seleccionado',3000,'')
-
+	
     param = getParameterByName('accion');
-    param = param == '' ? 0 : parseInt(param)
-   
+    param = param == '' ? 0 : parseInt(param);
+
+    if (param == 3)
+        invvar = getDatos('',909,'@@tmp_cia',0,0)[0];
+    else
+        invvar = getDatos('',909,'@@impresa',0,0)[0];
+    console.log(invvar)
     switch(param){
     	case 1:
     		loadRecepcion();
@@ -22,6 +24,12 @@ $(function(){
         case 12:
             loadHongos();
             break;
+        case 13:
+            loadBM();
+            break;
+        case 14:
+            loadSustrato();
+            break;   
     	case 3:
     		loadAjustes();
             break;
@@ -41,7 +49,6 @@ $(function(){
         endingTop: '2%' // Ending top style attribute
     });
     $("select").material_select();
-    console.clear();
 });
 
 //fill data
@@ -79,6 +86,15 @@ $(document).on("change","#vidinventario",function(){
     $("#fservicios .zelda").data('triforce')['vidinventario'] = $(this).val();
 });
 // fill data //
+
+// $(document).on("change","#encargado",function(){
+    // var idencargado = $(this).val();
+    // $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] = idencargado;
+// });
+
+$(document).on("click","#listadorecepciones",function(){
+    arr('login',6,'',934,'0,@@impresa',0,1,$("#listarecepciones"))
+});
 
 $(document).on("click","#save-evaluacion",function(){
     var idciclo = $("#hidciclo").val();
@@ -130,31 +146,129 @@ $(document).on("click",".evaluarlote",function(){
     }
 });
 
-$(document).on("click","#pruebasQoS",function(){
+$(document).on("click","#datoextra",function(){
+    $("#modal-datoextra").modal('open');
+    var str = ' and bisfinal = 1';
+    if($(this).attr('td') == 1)
+        str = ' and bismedio = 1';
+
+    arr('login',6,'id,nombre',936,'id > 0 and idtipociclo = '+$("li.menu3 >a.active").parent().attr('id').substr(1)+str,0,1,$("#listadatosextras"))
+        console.log(arr('login',4,'id,nombre',936,'id > 0 and idtipociclo = '+$("li.menu3 >a.active").parent().attr('id').substr(1)+str,0,0,0));
+});
+
+$(document).on("click",".pruebasQoS",function(){
+    var idsuc = $(this).attr('ids');
+    $(".savetestqos").attr('idsuc',idsuc);
     $("#modal-pruebasQoS").modal('open');
-    var cnt = arr('login',4,'count(id)',930,'id > 0 and idsucursal = @@impresa',0,0,0)[0][0];
+    var cnt = arr('login',4,'count(id)',930,'id > 0 and idsucursal = '+idsuc,0,0,0)[0][0];
     if (cnt > 0) {
         ifila3 = cnt;
         $("#testqos").html('');
-        arr('login',6,'id,prueba',930,'id > 0 and idsucursal = @@impresa',0,1,$("#testqos"));
+        arr('login',6,'id,prueba',930,'id > 0 and idsucursal = '+idsuc,0,1,$("#testqos"));
     }else
         $("#testqos").html('');
 });
 
+$(document).on("click",".modalmediosQoS",function(){
+    var tc = $(this).attr('tm');
+    var idsuc = $(this).parent().parent().parent().parent().parent().parent().siblings().attr('idsuc');
+    $(".savetestqosCiclo").attr({
+        'idsuc': idsuc,
+        'idciclo': tc
+    });
+    var cnt = arr('login',4,'count(id)',930,'id > 0 and idciclo = '+tc+' and idsucursal = '+idsuc,0,0,0)[0][0];
+    if (cnt > 0) {
+        ifila3 = cnt;
+        $("#testqosCiclo").html('');
+        arr('login',6,'id,prueba',930,'id > 0 and idciclo = '+tc+' and idsucursal = '+idsuc,0,1,$("#testqosCiclo"));
+    }else
+        $("#testqosCiclo").html('');
+
+    $("#modal-pruebasQoSCiclo").modal('open');
+});
+
+$(document).on("click",".modalmediosExtra",function(){
+    var tm = $(this).attr('tm');
+    var idsuc = $(this).parent().parent().parent().parent().parent().parent().siblings().attr('idsuc');
+    var bismedio = '';
+
+    if ($("#dmedio").is(":checked"))
+        bismedio = 1;
+    else if($("#dfinal").is(":checked"))
+        bismedio = 0;
+
+    $(".savetestqosExtra").attr({
+        'idciclo': tm,
+        'bismedio': bismedio,
+        'idsuc': idsuc
+    });
+
+    var cnt = arr('login',4,'',938,tm+','+idsuc+','+bismedio,0,0,0)[0];
+    if (cnt.length > 0) {
+        ifila3 = cnt;
+        $("#testqosExtra").html('');
+        arr('login',6,'',938,tm+','+idsuc+','+bismedio,930,1,$("#testqosExtra"));
+    }else
+        $("#testqosExtra").html('');
+
+    $("#modal-datosextra").modal('open');
+});
+
 $(document).on("click","#addtestqos",function(){
     var test = $("#tipopruebas").val();
-    ifila3++;
-    $("#testqos").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
-    $("#tipopruebas").val('').focus();
+    if (test != '') {
+        ifila3++;
+        $("#testqos").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
+        $("#tipopruebas").val('').focus();
+    }
+    
+});
+
+$(document).on("click","#addtestqosExtra",function(){
+    var test = $("#tipopruebasExtra").val().toLowerCase();
+    var sig = 1;
+    if (test != '') {
+        if ($(".pruebasqos").length > 0) {
+            $(".pruebasqos").each(function(){
+                var id = $(this).children().attr('id').substr('2');
+                var nombre = $("#qs"+id).text().toLowerCase();
+                if (nombre == test) {
+                    Materialize.toast('Dato existente', 4000, 'red');
+                    sig = 0;
+                }else{
+                    sig = 1;
+                }
+            });
+        }
+        if (sig == 1) {
+            ifila3++;
+            $("#testqosExtra").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
+            $("#tipopruebasExtra").val('').focus();
+        }
+    }
+    
+});
+
+$(document).on("click","#addtestqosCiclo",function(){
+    var test = $("#tipopruebasCiclo").val();
+    if (test != '') {
+        ifila3++;
+        $("#testqosCiclo").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
+        $("#tipopruebasCiclo").val('').focus();
+    }
+    
 });
 
 $(document).on("keyup","#tipopruebas",function(e){
     var code = e.which || e.keyCode;
     if (code == 13) {
-        var test = $("#tipopruebas").val();
-        ifila3++;
-        $("#testqos").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
-        $("#tipopruebas").val('').focus();
+        if (test != '') {
+            var test = $("#tipopruebas").val();
+            ifila3++;
+            $("#testqos").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
+            $("#tipopruebas").val('').focus();
+        }
+            
     }
 });
 
@@ -170,15 +284,81 @@ $(document).on("click","#delprueba",function(){
     $("#toast-container").hide();
 });
 
-$(document).on("click","#savetestqos",function(){
+$(document).on("click",".savetestqos",function(){
     var pass = 0;
     var pruebaqos = '';
+    var idsuc = $(this).attr('idsuc');
+    $(".pruebasqos").each(function() {
+        var id = $(this).children().attr('id').substr('2');
+        var prueba = $("#qs"+id).text();
+        var valid = arr('login',4,'count(id)',930,'prueba = "'+prueba+'" and idsucursal = '+idsuc,0,0,0)[0];
+        if (valid == 0) {
+            var pruebaqos = arr('login',4,'',929,'1,0,"'+prueba+'",'+idsuc+',-1',0,0,0);
+            if (pruebaqos['succed'] == 1)
+                pass = 1;
+            else
+                pass = 0;
+        }
+    });
+    if (pass == 1) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+    }else{
+        Materialize.toast(pruebaqos[0]['ERROR'], 4000, 'red');
+    }
+});
+
+$(document).on("click",".savetestqosExtra",function(){
+    var pass = 0;
+    var datoextra = '';
+    var idciclo = $(this).attr('idciclo');
+    var bismedio = 0;
+    if ($("#dmedio").is(":checked")) {
+        bismedio = 1;
+    }else if ($("#dfinal").is(":checked")) {
+        bismedio = 0;
+    }
+    $(".pruebasqos").each(function() {
+        var id = $(this).children().attr('id').substr('2');
+        var nombre = $("#qs"+id).text();
+        // vaccion,vid,vidtipociclo,vnombre,vbisinicial,vbismedio,vbisfinal
+        var datoextra = arr('login',4,'',939,'1,0,'+idciclo+',"'+nombre+'",'+bismedio,0,0,0);
+        if (datoextra['succed'] == 1)
+            pass = 1;
+        else
+            pass = 0;
+    });
+    if (pass == 1) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+    }else{
+        Materialize.toast(datoextra[0]['ERROR'], 4000, 'red');
+    }
+});
+
+$(document).on("click","#dmedio",function(){
+    var tm = $(".savetestqosExtra").attr('idciclo');
+    var idsuc = $(".savetestqosExtra").attr('idsuc');
+
+    arr('login',6,'',938,tm+','+idsuc+',1',930,1,$("#testqosExtra"));
+});
+
+$(document).on("click","#dfinal",function(){
+    var tm = $(".savetestqosExtra").attr('idciclo');
+    var idsuc = $(".savetestqosExtra").attr('idsuc');
+
+    arr('login',6,'',938,tm+','+idsuc+',0',930,1,$("#testqosExtra"));
+});
+
+$(document).on("click",".savetestqosCiclo",function(){
+    var pass = 0;
+    var pruebaqos = '';
+    var idsuc = $(this).attr('idsuc');
+    var idciclo = $(this).attr('idciclo');
     $(".pruebasqos").each(function() {
         var id = $(this).children().attr('id').substr('2');
         var prueba = $("#qs"+id).text();
         var valid = arr('login',4,'count(id)',930,'prueba = "'+prueba+'"',0,0,0)[0];
         if (valid == 0) {
-            var pruebaqos = arr('login',4,'',929,'1,0,"'+prueba+'",@@impresa',0,0,0);
+            var pruebaqos = arr('login',4,'',929,'1,0,"'+prueba+'",'+idsuc+','+idciclo,0,0,0);
             if (pruebaqos['succed'] == 1)
                 pass = 1;
             else
@@ -250,6 +430,11 @@ $(document).on("click","#delcomp",function(){
 
 $(document).on("click","#addmedio",function(){
     addmedio(1,'');
+});
+
+$(document).on("click","#adddato",function(){
+    
+
 });
 
 $(document).on("click","#actmedio",function(){
@@ -355,15 +540,16 @@ $(document).on("keydown","#_vcodigo",function(e){
     }
 });
 
-$(document).on("click","#savemedio",function(){
+$(document).on("click",".savemedio",function(){
     //base: vaccion,vid,vidusuario,vidreferencia,vidsucursal,vidciclo
     var idreferencia = $("#listamedioscultivos").data('idreferencia');
     var idciclo = $("#listamedioscultivos").data('idciclo');
     var sig = 0;
     var antmedios = arr('login',4,'',921,idciclo+',@@impresa',0,0,0);
     var idsolucion = 0;
+    var idempresa = $(this).attr('idempresa');
     if (antmedios[0].length == 0) {
-        idsolucion = arr('login',4,'',918,'1,0,@@usr,'+idreferencia+',@@impresa,'+idciclo,0,0,0);
+        idsolucion = arr('login',4,'',918,'1,0,@@usr,'+idreferencia+','+idempresa+','+idciclo,0,0,0);
         if (idsolucion['succed'] == 1) {
         // detalle: vaccion,vid,vidsolucion,vidproducto,vidunidad,vidinventario,vcantidad
             $(".detsolution").each(function(){
@@ -428,6 +614,8 @@ function emptymedio() {
 $(document).on("click",".modalmedios",function() {
     var tm = $(this).attr('tm');
     var referencias = arr('login',4,'',916,'0',0,0,0)[0];
+    var idempresa = $(this).parent().parent().parent().parent().parent().parent().siblings().attr('idsuc');
+    $(".savemedio").attr('idempresa',idempresa);
     for (var i = 0, len = referencias.length; i < len; i++) {
         $("#_vidreferencia").append('<option value="'+referencias[i][0]+'">'+referencias[i][1]+'</option>')
     }
@@ -435,15 +623,16 @@ $(document).on("click",".modalmedios",function() {
     $("#_vidciclo").val(tm)
     $("#_vidreferencia").material_select();
     $("#_vidunidad").material_select();
-    var comps = arr('login',4,'',921,tm+',@@impresa',0,0,0);
+    var comps = arr('login',4,'',921,tm+','+idempresa,0,0,0);
     ifila = comps[0].length;
     if (comps[0].length > 0) {
         $("#listamedioscultivos").attr({
             'data-idreferencia': $("#_vidreferencia").val(),
             'data-idciclo': tm
         });
-        arr('login',6,'',921,tm+',@@impresa',0,1,$("#listamedioscultivos"));
+        arr('login',6,'',921,tm+','+idempresa,0,1,$("#listamedioscultivos"));
     }else{
+        $("#listamedioscultivos").html('');
         $("#listamedioscultivos").removeAttr('data-idreferencia').removeAttr('data-idciclo');
     }
     $("#modal-medios").modal('open');
@@ -470,24 +659,27 @@ $(document).on('click','#addFin',function() {
 
 $(document).on("click","#registrar",function() {
     var id = $(this).attr('id').substr(1);
-    arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"))
-    var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
-    $("#modal-registrar").modal('open');
-    $("#vidrazon").material_select();
-    $("#nomvar").val($("#vvariedad").val());
-    $("#nomvar").attr('disabled',true);
-    Materialize.updateTextFields();
-});
-
-$(document).on("click","#assbandeja",function() {
-    $("#modal-bandeja").modal('open');
-    arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
-    if ($("#hidbandeja").val() != 0) {
-        $("#cbandeja").val($("#hidbandeja").val());
+    if ($("#vvariedad").val() != '') {
+        if ($("#videncargado").val() != 0) {
+            var activos = arr('login',4,'',917,id+',@@impresa',0,0,0)[0];
+            var serv = arr('login',4,'id,nombre',16,'id > 0 and nombre = "'+$("#vvariedad").val()+'"',0,0,0)[0][0];
+            arr('login',6,'id,nombre',913,'id > 0 and isActivo = 0',15,1,$("#vidrazon"));
+            arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado"))
+            $("#modal-registrar").modal('open');
+            $("#vidrazon").material_select();
+            $("#encargado").material_select();
+            $("#vvvar").text(serv[1]);
+            $("#nomvar").val(serv[1]);
+            $("#vidservicio").val(serv[0]);
+            $("#nomvar").attr('disabled',true);
+            Materialize.updateTextFields();
+        }else{
+            Materialize.toast('Operario requerido', 4000, 'red');
+        }
     }else{
-        $("#cbandeja").val(0);
+        Materialize.toast('Variedad requerida', 4000, 'red');
     }
-    $("#cbandeja").material_select();
+    
 });
 
 $(document).on("click","#chgbandeja",function() {
@@ -505,12 +697,27 @@ $(document).on("click",".proc-ciclo",function() {
     $("#doproc").attr('tc',tc);
     $("#modal-proc-ciclo").modal('open');
     arr('login',6,'id,nombre',913,'id > 0 and isactivo = 0',15,1,$("#srazon"));
+    arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado_qos"));
+
+    /*Obtener Opciones de Ciclo*/
+    var opcionesCiclo = getDatos('',935,$("li.menu3 >a.active").parent().attr('id').substr(1),0,0,0);
+
     var svari = arr('login',4,'',924,id,0,0,0);
     $("#svari").val(svari[0][0][1]);
     $("#varfinal").text(svari[0][0][1]);
     $("#idserv").val(svari[0][0][0]);
+    $("#vvvar").text(svari[0][0][1]);
     Materialize.updateTextFields();
     $("select").material_select();
+
+    arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
+    if ($("#hidbandeja").val() != 0) {
+        $("#cbandeja").val($("#hidbandeja").val());
+    }else{
+        $("#cbandeja").val(0);
+    }
+    $("#cbandeja").material_select();
+    // $("#encargado_qos").material_select();
 });
 
 $(document).on("click","#doproc",function(){
@@ -521,7 +728,8 @@ $(document).on("click","#doproc",function(){
     var idservicio = $("#idserv").val();
     var cont = 0;
     if (cfinal != 0) {
-        var finalcount = arr('login',4,'',925,'1,0,"'+parseInt(idciclo-1)+','+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
+        // var finalcount = arr('login',4,'',925,'1,0,"'+parseInt(idciclo-1)+','+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
+        var finalcount = arr('login',4,'',925,'1,0,"'+id+'",7,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
         if (finalcount['succed'] == 0){
             Materialize.toast('Error de registro de cantidad total', 6000, 'red');
             return false;
@@ -531,35 +739,54 @@ $(document).on("click","#doproc",function(){
         var cant = $("#cantsrv").val() == '' ? 0 : $("#cantsrv").val();
         if (idrazon != 0) {
             if (cant > 0) {
-                var perdidas = arr('login',4,'',925,'1,0,"'+idciclo+','+id+'",'+idrazon+','+idservicio+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
+                // var perdidas = arr('login',4,'',925,'1,0,"'+idciclo+','+id+'",'+idrazon+','+idservicio+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
+                var perdidas = arr('login',4,'',925,'1,0,"'+id+'",'+idrazon+','+idservicio+',0,'+cant+',@@usr,"Registro de pérdidas"',0,0,0);
                 if (perdidas['succed'] == 0) {
                     Materialize.toast('Error en registro de perdidas', 6000, 'red');
                     return false;
                 }
             }else{
-                Materialize.toast('Cantidad de pérdida requerida', 4000, 'green');
+                Materialize.toast('Cantidad de pérdida requerida', 4000, 'red');
                 return false;
             }
         }else{
             if (cant > 0) {
-                Materialize.toast('Razon de pérdida requerida', 4000, 'green');
+                Materialize.toast('Razon de pérdida requerida', 4000, 'red');
                 return false;
             }
         }
+        
         // realizar multiplicacion
         var idbandeja = $("#hidbandeja").val();
         var idmedio = $("#hidmediocultivo").val();
-        var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa',0,0,0);
+        var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa,0',0,0,0);
         if (ciclo['succed'] == 0) {
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
         }else{
-            if($("#cultivo").val() != '- - -'){
+             if($("#cultivo").val() != '- - -'){
+                var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
                 
-            }
+                arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+ciclo[0][0][0],0,0,0);
+
+                $('.premc').each(function(){
+                    arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
+                });
+             }
             Materialize.toast($("#titciclo").text().substr(11)+' procesada', 4000, 'green');
-            emptyprocmult();
+            
+            arr('login',6,'',912,'0,0,"'+$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa","0,10"',0,1,$("#listaciclos"))
         }
+        //procesar a QoS
+        var encargado = $("#encargado_qos").val();
+        var cantqos = $("#cant_qos").val() == '' ? 0 : $("#cant_qos").val();
+        if (encargado != 0 && cantqos > 0) {
+            var qos = arr('login',4,'',914,ciclo[0][0]+',5,0,0,@@impresa,'+encargado,0,0,0);
+            if (qos['succed']) {
+                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",6,'+idservicio+',0,'+cantqos+','+encargado+',"Cantidad en revision"',0,0,0);
+            }
+        }
+        emptyprocmult();
     }else{
         Materialize.toast('Cantidad final necesaria para procesar a multiplicación', 6000, 'red');
     }
@@ -567,11 +794,14 @@ $(document).on("click","#doproc",function(){
 
 function emptyprocmult() {
     $("#cantfinal").val('');
+    $("#cantsrv").val('');
     $("#srazon").val(0);
     $("#svari").val('');
     $("#idserv").val(0);
     $("#hidbandeja").val(0);
     $("#hidmediocultivo").val(0);
+    $("#encargado_qos").val(0);
+    $("#cant_qos").val('');
     $("select").material_select();
     Materialize.updateTextFields();
     $(".validate").css('border-bottom', '1px solid #9e9e9e');
@@ -646,19 +876,28 @@ $(document).on("click","#addActivo",function(){
     var idrazon = $("#vidrazon").val();
     var razon = $("#vidrazon option:selected").text();
     ifila2++
-    $("#listaactivos").append('<tr class="activosperdida" id="ap'+ifila2+'" data-idactivo="'+idactivo+'" data-cantidad="'+cantidad+'" data-idrazon="'+idrazon+'">'+
-        '<td class="center" style="padding: 1% !important;">'+activo+'</td>'+
-        '<td class="center" style="padding: 1% !important;">'+cantidad+'</td>'+
-        '<td class="center" style="padding: 1% !important;">'+razon+'</td>'+
-        '<td class="center">'+
-            '<i class="pbtn btn1 btn-floating mdi mdi-pencil mdi-24px" id="ma'+ifila2+'"></i>'+
-            '<i class="pbtn btn3 btn-floating mdi mdi-close mdi-24px" id="da'+ifila2+'"></i>'+
-        '</td>'+
-    '</tr>');
-    $("#vactivo").val(0);
-    $("#vcant").val('');
-    $("#vidrazon").val(0);
-    $("select").material_select();
+    if (idactivo == 0) {
+        Materialize.toast('Debe seleccionar un activo', 4000, 'orange');
+    }else if (idrazon == 0){
+        Materialize.toast('Debe seleccionar una razón', 4000, 'orange');
+    }else if (cantidad == '' || cantidad <= 0){
+        Materialize.toast('Digite una cantidad', 4000, 'orange');
+    }
+    else{
+        $("#listaactivos").append('<tr class="activosperdida" id="ap'+ifila2+'" data-idactivo="'+idactivo+'" data-cantidad="'+cantidad+'" data-idrazon="'+idrazon+'">'+
+            '<td class="center" style="padding: 1% !important;">'+activo+'</td>'+
+            '<td class="center" style="padding: 1% !important;">'+cantidad+'</td>'+
+            '<td class="center" style="padding: 1% !important;">'+razon+'</td>'+
+            // '<td class="center">'+
+            //     '<i class="pbtn gtext mdi mdi-pencil mdi-24px edit" id="ma'+ifila2+'"></i>'+
+            //     '<i class="pbtn gtext mdi mdi-close mdi-24px delete" id="da'+ifila2+'"></i>'+
+            // '</td>'+
+        '</tr>');
+        $("#vactivo").val(0);
+        $("#vcant").val('');
+        $("#vidrazon").val(0);
+        $("select").material_select();
+    }
 });
 
 $(document).on("click","#doinvstat",function(){
@@ -708,17 +947,6 @@ $(document).on("click",".procenr",function(){
     var $toastContent = $('<span>Proceder a enraizamiento?</span>').add($('<button class="btn-flat toast-action green white-text" id="doenr" idciclo="'+id+'">Aceptar</button>'));
     Materialize.toast($toastContent, 10000);
     
-});
-
-$(document).on("click","#doenr",function(){
-    var id = $(this).attr('idciclo');
-    var idtipo = parseInt($("li.menu3 >a.active").parent().attr('id').substr(1))+1;
-    var ciclo = arr('login',4,'',914,id+','+idtipo+',0,0',0,0,0);
-    if (ciclo['succed'] == 1) {
-        Materialize.toast('Registro guardado correctamente', 4000, 'green');
-    }else{
-        Materialize.toast(ciclo[0]['ERROR'], 4000, 'red');
-    }
 });
 
 $(document).on("click",".perdidas",function(){
@@ -793,45 +1021,64 @@ $(document).on("click","#gcultivo",function(){
 
 function loadAjustes(){
 
-	$("#invVariedad").material_select('destroy');
-    var opciones = $("#invVariedad").html();
+    var opt = '<option disabled selected value="0">Seleccione una Opción</option>';
+    var opts = getDatos('id,nombre,idsucursal',111,'id > 0 and if(@@tmp_cia = -1,1, idsucursal in(@@impresa,-1)) order by nombre',0,0,0)[0];
+    for (var i = 0; i < opts.length; i++) {
+         opt += '<option value='+opts[i][0]+'>'+opts[i][1]+'</option>';
+    }
+    
+    $(".role_inv").material_select('destroy');
+    $(".role_inv").html(opt);
+    $(".role_inv").material_select();
+    var elementoLB = '';
+    for (var i = 0; i < invvar.length; i += 5) {
 
-	$.each(invvar[0][0].split("1,"), function(j,e){
-        $("#invVariedad option[value='" + e + "']").attr("selected", true);
-    });
+        switch(parseInt(invvar[i][2])){
+            case 1:
+                elementoLB = 'CT';
+                break;
+            case 2:
+                elementoLB = 'CF';
+                break;
+            case 3:
+                elementoLB = 'HE';
+                break;
+            case 4:
+                elementoLB = 'BM';
+                break;
+            case 5:
+                elementoLB = 'PS';
+                break;
+            default:
+                break;
+        }
 
-    // $.each(invvar[1][0].split(","), function(j,e){
-    //     $("#invactivos option[value='" + e + "']").attr("selected", true);
-    // });
+        $("#invVariedad"+elementoLB).val(invvar[i][0]);
+        $("#invreactivos"+elementoLB).val(invvar[i+1][0]);
+        $("#invcomp"+elementoLB).val(invvar[i+3][0]);
+        $("#inv-bandejas"+elementoLB).val(invvar[i+2][0]);
+        $("#inv-frascos"+elementoLB).val(invvar[i+4][0]);
 
-    $("#invreactivos").html(opciones);
-    $.each(invvar[1][0].split(","), function(j,e){
-        $("#invreactivos option[value='" + e + "']").attr("selected", true);
-    });
-
-    $("#invcomp").html(opciones);
-    $.each(invvar[4][0].split(","), function(j,e){
-        $("#invcomp option[value='" + e + "']").attr("selected", true);
-    });
-
-    $("#inv-bandejas").html(opciones);
-    $("#inv-bandejas").val(invvar[2][0]);
-
-    $("#inv-frascos").html(opciones);
-    $("#inv-frascos").val(invvar[3][0]);
+    }
 
     $(document).on("change",".role_inv",function(){
         if($(this).attr('tp') != undefined){
+            console.log('idinventario = "'+$(this).val()+'"','id='+$(this).attr('tp'))
             arr('login',7,2,907,'idinventario = "'+$(this).val()+'"','id='+$(this).attr('tp'));
         }
     });
     $("#invVariedad").material_select();
 
-    $(document).on("click","#gomodalbandejas",function(){
-        var relacion = arr('login',4,'count(id)',911,'id > 0',0,0,0)[0][0];
-        var lastid = arr('login',4,'ifnull(max(id)+1,1)',911,'',0,0,0)[0][0][0];
+    $(document).on("click",".relaciones",function(){
+        var idsucursal = $(this).attr('tp');
+        console.log()
+        var relacion = arr('login',4,'count(id),ifnull(max(id)+1,1)',911,'id > 0 and idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0];
+        var lastid = relacion[1];
+        //arr('login',4,'ifnull(max(id)+1,1)',911,'idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0][0];
+        relacion = relacion[0]
         $("#autoinc").val(lastid);
         $("#curpos").val(lastid);
+
         if (relacion == 0) {
             arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas1"))
             arr('login',6,'',411,invvar[3][0],15,1,$("#frascos1"))
@@ -839,7 +1086,7 @@ function loadAjustes(){
         }else{
             var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2][0],"invfrascos":invvar[3][0]});
             $("#flaboratorio-relaciones").html(p);
-            var relaciones = arr('login',4,'*',911,'id > 0',0,0,0)[0];
+            var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+idsucursal+')',0,0,0)[0];
             $.each(relaciones,function(index,relation){
                 $("#bandejas"+relation[0]).val(relation[1]);
                 $("#frascos"+relation[0]).val(relation[2]);
@@ -916,7 +1163,7 @@ function cargarArr(vid,velemento){
             var tabla = '';
             for (var i = 0; i < componentes[0].length; i++) {
                 
-                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
+                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rid="'+componentes[0][i][3]+'" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
             };
             $("#mcul-lista").html(tabla);
         }
@@ -926,7 +1173,6 @@ function cargarArr(vid,velemento){
     });
 
     $(".rbandeja").click(function(){
-        
         arr('login',6,'',411,invvar[2][0],15,1,$("#invactivlab"))
         // $("#invactivlab").material_select();
         $("#modal-bandeja").modal('open');
@@ -968,6 +1214,9 @@ function loadRecepcion(){
                 cargarArr(8,$("#labajax"));
                 cargarQoS();
                 break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
     		default:
     			$("#labajax").html('Laboratorio sin Procesar')
     			break;
@@ -977,12 +1226,10 @@ function loadRecepcion(){
 
     $("#m0").click();
 }
-
-function loadAvispas(){
+function loadSustrato(){
 
     $(".menu3").click(function(){
         var id = $(this).attr('id').substr(1);
-        console.log(id)
         switch(parseInt(id)){
             case 0:
                 cargarArr(2,$("#labajax"));
@@ -991,28 +1238,76 @@ function loadAvispas(){
             case 1:
                 cargarArr(4,$("#labajax"));
                 cargarIniciacion();
-                break;
-            case 2:
-                cargarArr(6,$("#labajax"));
-                break;
-            case 3:
-                cargarArr(6,$("#labajax"));
-                break;
-            case 4:
-                cargarArr(6,$("#labajax"));
-                break;
             case 5:
                 cargarArr(8,$("#labajax"));
                 cargarQoS();
                 break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
             default:
-                $("#labajax").html('Laboratorio sin Procesar')
+                 cargarArr(16,$("#labajax"));
                 break;
         }
         
     });
 
-    $("#m1").click();
+    $("#m0").click();
+}
+function loadBM(){
+
+    $(".menu3").click(function(){
+        var id = $(this).attr('id').substr(1);
+        switch(parseInt(id)){
+            case 0:
+                cargarArr(2,$("#labajax"));
+                cargarExplantes();
+                break;
+            case 36:
+                cargarArr(4,$("#labajax"));
+                cargarIniciacion();
+                break;
+            case 5:
+                cargarArr(8,$("#labajax"));
+                cargarQoS();
+                break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
+            default:
+                 cargarArr(15,$("#labajax"));
+                break;
+        }
+        
+    });
+
+    $("#m0").click();
+}
+
+function loadAvispas(){
+
+    $(".menu3").click(function(){
+        var id = $(this).attr('id').substr(1);
+        switch(parseInt(id)){
+            case 0:
+                cargarArr(2,$("#labajax"));
+                cargarExplantes();
+                break;
+            case 11:
+                cargarArr(4,$("#labajax"));
+                cargarIniciacion();
+                break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
+            default:
+                cargarArr(6,$("#labajax"));
+                break;
+        }
+        
+    });
+
+    $("#m0").click();
 }
 
 function loadHongos(){
@@ -1028,21 +1323,15 @@ function loadHongos(){
                 cargarArr(4,$("#labajax"));
                 cargarIniciacion();
                 break;
-            case 2:
-                cargarArr(7,$("#labajax"));
-                break;
-            case 3:
-                cargarArr(7,$("#labajax"));
-                break;
-            case 4:
-                cargarArr(7,$("#labajax"));
-                break;
             case 5:
                 cargarArr(8,$("#labajax"));
                 cargarQoS();
                 break;
+            case 6:
+                $("#labajax").html('Reportes')
+                break;
             default:
-                $("#labajax").html('Laboratorio sin Procesar')
+                 cargarArr(7,$("#labajax"));
                 break;
         }
         
@@ -1075,17 +1364,19 @@ function cargarMultiplicacion(){
 }//cargar Multiplicacion
 
 function cargarIniciacion(){
-    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
+    $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidsucursal:'',videstado:1});
+
     $("#vvariedad").keydown(function(e){
         var charCode = e.which || e.keyCode;
-        var charStr = keysight(charCode);
+        var charStr = keysight(e);
         
         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
             $(".autocomplete-content").remove();
 
             $("#vvariedad").autocomplete({
                 limit: 20,
-                data: getVariedad_Down($(this).val())
+                data: getVariedad_Down(busqueda)
             });
             $(".autocomplete-content").css('width','30%');
         }
@@ -1098,10 +1389,7 @@ function cargarIniciacion(){
     });
 
     $("#vvariedad").blur(function(){
-        if($(this).val().length <= 3)
-            $(this).val('');
-        else
-            iniciarVaridad();
+        iniciarVaridad();
     });
 
     $(document).on("change","#videncargado",function(){
@@ -1160,10 +1448,16 @@ function cargarIniciacion(){
                 servs += $(this).attr('id').substr(1)+',';
                 total += cantidad;
                 $("#tplt").text(total);
+                
             }else if ($("[name=serv]:checked").length == 0) {
                 $("#vidsrvs").val("");
                 $("#tplt").text(0);
             }
+
+            if ($(this).is(":checked")) 
+                $(this).parent().parent().addClass('ciclos');
+            else
+                $(this).parent().parent().removeClass('ciclos');
         });
         $("#vidsrvs").val(servs);
     }
@@ -1195,7 +1489,7 @@ function cargarIniciacion(){
 }//cargar Iniciacion
 
 function cargarExplantes(){
-    $("#flaboratorio-explantes .zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0,vexpectativa: 0,vcantidad: 0,vguia:0});
+    $("#flaboratorio-explantes .zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0,vexpectativa: 0,vcantidad: 0,vguia:0,vidsucursal: ''});
 
     getIDExplante();
 
@@ -1296,7 +1590,7 @@ function cargarExplantes(){
             $(".autocomplete-content").remove();
             $("#vregion").autocomplete({
                 limit: 20,
-                data: arr('login',4,'nombre as nom,null',903,'id > 0 having nom like "%'+$(this).val()+'%" and idubicacion in(select id from developer.ubicaciones where iddistrito = '+$("#vdistrito option:selected").val()+' group by idubicacion) limit 20',0,0,0,1)
+                data: arr('login',4,'nombre as nom,null',903,'id > 0 having nom like "%'+$(this).val()+'%" and idubicacion in(select id from developer.ubicaciones where iddistrito = '+$("#viddistrito option:selected").val()+' group by idubicacion) limit 20',0,0,0,1)
             });
             $(".autocomplete-content").css('width','25%');
         }
@@ -1305,7 +1599,7 @@ function cargarExplantes(){
     $("#vregion").keyup(function(e){
     	var code = e.which || e.keyCode;
     	if (code == 13){
-    		var idregion = getDatos('id',903,'nombre = '+$(this).val()+' and idubicacion in(select id from developer.ubicaciones where iddistrito = '+$("#vdistrito option:selected").val()+' group by iddistrito)',0,0);
+    		var idregion = getDatos('id',903,'nombre = '+$(this).val()+' and idubicacion in(select id from developer.ubicaciones where iddistrito = '+$("#viddistrito option:selected").val()+' group by iddistrito)',0,0);
 
 	    	if (idregion['succed'] == 1) {
 	   //  		var $toastContent = $('<span>Región no Existente</span>').add($('<button class="btn-flat toast-action green white-text addRegion">Agregarla</button>'));
@@ -1359,18 +1653,23 @@ function cargarExplantes(){
     	else{
     		switch(parseInt($(this).attr('codigo'))){
 		    	case 2:
-		    		var id = $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'];
-		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vdistrito").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
-		    		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0];
-		    		var _idFinca = getDatos('',901,'1,0,"'+$("#finca").val()+'",'+_idregion,0,0);
-		    		Materialize.toast('Finca Agregada Correctamente',4000,'green');
-		    		cargarTblFincas();
-                    endDetail(0,1,'finca');
+                    var validarfinca = validarFincas();
+                    if (validarfinca == false) {
+    		    		var id = $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'];
+    		    		var _idubicacion = arr('login',7,1,239,'','null,'+$("#addClie #vidbarrio").val()+',"'+$("#addClie #vdireccion").val()+'",'+$("#addClie #vlatitud").val()+','+$("#addClie #vlongitud").val()+',2,'+id,0,0)[0][0];
+    		    		var _idregion = getDatos('',905,'1,0,"'+$("#vregion").val()+'",'+_idubicacion,0,0)[0][0];
+    		    		var _idFinca = getDatos('',901,'1,0,"'+$("#finca").val()+'",'+_idregion,0,0);
+    		    		Materialize.toast('Finca Agregada Correctamente',4000,'green');
+    		    		cargarTblFincas();
+                        endDetail(0,1,'finca');
+                        $("#addClie").modal('close');
+                    }else{
+                        Materialize.toast(validarfinca, 4000, 'red');
+                    }
 		    		break;
 		    	default: 
 		    		break;
     		}
-    		$("#addClie").modal('close');
     	}
     });
 
@@ -1414,70 +1713,55 @@ function cargarProvincias(){
 
 function cargarCantones(vidprovincia){
 	var cantones = arr('login',4,'id,nombre',9,'idprovincia = '+vidprovincia,'',0,'');
-	
 	$("#addClie #canton").html('');
-
 	var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
-
     if (cantones['succed']) {
     	for (var i = 0; i < cantones[0].length; i++) {
     		lprov += '<option value="'+cantones[0][i][0]+'">'+cantones[0][i][1]+'</option>';
     	}
     }
-
     $("#addClie #canton").append(lprov);
     $("#addClie #canton").val(0);
     $("#addClie #canton").material_select('update');
-    
 };
 
 function cargarDistritos(vidcanton){
 	var distritos = arr('login',4,'id,nombre',10,'idcanton = '+vidcanton,'',0,'');
-	
-	$("#addClie #vdistrito").html('');
-
+	$("#addClie #viddistrito").html('');
 	var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
-
     if (distritos['succed']) {
     	for (var i = 0; i < distritos[0].length; i++) {
     		lprov += '<option value="'+distritos[0][i][0]+'">'+distritos[0][i][1]+'</option>';
     	}
     }
-
-    $("#addClie #vdistrito").append(lprov);
-    $("#addClie #vdistrito").val(0);
-    $("#addClie #vdistrito").material_select('update');
-    
+    $("#addClie #viddistrito").append(lprov);
+    $("#addClie #viddistrito").val(0);
+    $("#addClie #viddistrito").material_select('update');
 };
 
 function cargarBarrios(viddistrito){
     var barrios = arr('login',4,'id,nombre',84,'iddistrito = '+viddistrito,'',0,'');
-    
     $("#addClie #vidbarrio").html('');
-
     var lprov = '<option value="0" disabled>Seleccione una Opción</option>';
-
     if (barrios['succed']) {
         for (var i = 0; i < barrios[0].length; i++) {
             lprov += '<option value="'+barrios[0][i][0]+'">'+barrios[0][i][1]+'</option>';
         }
     }
-
     $("#addClie #vidbarrio").append(lprov);
     $("#addClie #vidbarrio").val(0);
     $("#addClie #vidbarrio").material_select('update');
-    
 };
 
 function iniciarVaridad(){
-    var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
+    var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'",@@impresa',0,0,0);
     if (servicio[0].length) {
         var obj;
         var str = '<div class="col s12 head1 padding1"><h6>Variedad: <b>'+servicio[0][0][1]+'</b></h6></div><table class="responsive-table striped highlight" id="resulti00"><thead class="tab2"><tr><th colspan="2" class="center">Cantidad</th> <th class="center">Procedencia</th> <th class="center">Fecha</th> </tr> </thead> <tbody vtabla="laboratorio-investadistica" id="flaboratorio-investadisticas" tp="4" rollback="">'; // id="bdyi00"
 
         for (var i = 0; i < servicio[0].length; i++) {
             obj = servicio[0][i];
-            str += '<tr id="o'+obj[7]+'" idservicio="'+obj[2]+'" data-cantidad="'+obj[0]+'" class="ciclos"><td style="padding:0.5%; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0.5px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0.5px; margin:0px;height:1rem;width=80%" class="eder" /> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0.5%; margin:0px">'+obj[4]+'</td><td style="padding:0.5%; margin:0px">'+obj[5]+' </td></tr>';
+            str += '<tr id="o'+obj[7]+'" idservicio="'+obj[2]+'" data-cantidad="'+obj[0]+'" ><td style="padding:0.5%; margin:0px" id="_c'+obj[7]+'"><input type="checkbox" id="c'+obj[7]+'" name="serv"/><label for="c'+obj[7]+'"></label></td><td style="padding:0.5px; margin:0px; padding-left: 20px;padding-right: 20px;width: 20%"><input type="text" id="_n'+obj[7]+'" value="'+obj[0]+'" style="padding:0.5px; margin:0px;height:1rem;width=80%" class="eder _var"/> <input type="hidden" id="hc'+obj[7]+'" value="'+obj[0]+'"/></td><td style="padding:0.5%; margin:0px">'+obj[4]+'</td><td style="padding:0.5%; margin:0px">'+obj[5]+' </td></tr>';
         }
         $("#vlote").val(servicio[0][0][6]);
         $("#flaboratorio-ciclos .zelda").data('triforce')['vlote'] = servicio[0][0][6];
@@ -1485,9 +1769,19 @@ function iniciarVaridad(){
         $("#result00").html(str+'</tbody></table>');
     }else{
         Materialize.toast("Variedad no Existente en Recepción", 4000,'red');
-        $("#result00").html('No se ha Elegido la Variedad')
+        //$("#result00").html('No se ha Elegido la Variedad');
     }
 }
+
+$(document).on("blur","._var",function(){
+    var variedad = $(this).val();
+    var id = $(this).attr('id').substr(2);
+    var hvariedad = $("#hc"+id).val();
+    if ( variedad > hvariedad) {
+        Materialize.toast("No puede ingresarse una cantidad mayor a la asignada", 4000,'orange');
+        $("#_n"+id).val(hvariedad).select().focus();
+    }
+});
 
 function cargarVaridad(){
 	var servicio = arr('login',4,'',43,'\"[SERV] '+$("#vvariedad").val()+'\",0,0,0','',0,'');
@@ -1541,7 +1835,6 @@ function cargarTblFincas(){
 			lista += '<tr id="r'+fincas[0][i][3]+'"><td><input type="radio" name="selfinca" id="s'+fincas[0][i][3]+'" class="der with-gap" '+checked+'/>  <label for="s'+fincas[0][i][3]+'"></label></td><td>'+fincas[0][i][0]+'</td><td>'+fincas[0][i][1]+'</td><td>'+fincas[0][i][2]+' </td></tr>';
 		}
 	}
-    console.log(fincas)
     $("#flaboratorio-explantes .zelda").data('triforce')['vidfinca'] = fincas[0][0][3];
 	$("#fincas").append(lista);
 }
@@ -1595,7 +1888,12 @@ function validar (varreglo,vmodulo) {
             
             break;
         case 'laboratorio-relacione':
-
+            if (vmodulo['tip'] == '') {
+                err = validarRelaciones(vmodulo['modulo']);
+                if ( err ) {
+                    return err;
+                }
+            }
             break;
         case 'laboratorio-investadistica':
 
@@ -1610,13 +1908,38 @@ function validar (varreglo,vmodulo) {
 
 }
 
+function validarRelaciones() {
+
+}
+
+function validarFincas() {
+    if ($("#vidpais").val() == '') {
+        $("#vidpais").focus();
+        return 'Pais requerido';
+    }
+
+    if ($("#vidbarrio").val() == null || $("#vidbarrio").val() == 0) {
+        return 'Barrio requerido';
+    }
+
+    if ($("#vregion").val() == '') {
+        return 'Region requerido';
+    }
+
+    if ($("#finca").val() == '') {
+        return 'Finca requerido';
+    }
+
+    return false;
+}
+
 function validarClientes(mod) {
-    if ($("#f"+mod+"s #cedula").val() == '') {
+    if ($("#f"+mod+"s #cedula").val().trim().length == 0) {
         $("#f"+mod+"s #cedula").focus();
         return 'El campo Cédula es requerido';
     }
 
-    if ($("#f"+mod+"s #nombre").val() == '') {
+    if ($("#f"+mod+"s #nombre").val().trim().length == 0) {
         $("#f"+mod+"s #nombre").focus();
         return 'El campo Nombre es requerido';
     }
@@ -1628,14 +1951,18 @@ function validarClientes(mod) {
 }
 
 function validarServicios(mod) {
-    if ($("#f"+mod+"s #vcodigo").val() == '') {
+    if ($("#f"+mod+"s #vcodigo").val().trim().length == 0) {
         $("#f"+mod+"s #vcodigo").focus();
         return 'El campo Código es requerido';
     }
 
-    if ($("#f"+mod+"s #vnombre").val() == '') {
+    if ($("#f"+mod+"s #vnombre").val().trim().length == 0) {
         $("#f"+mod+"s #vnombre").focus();
         return 'El campo Nombre es requerido';
+    }
+
+    if ($("#f"+mod+"s #vidinventario").val() == 0) {
+        return 'El campo Inventario es requerido';
     }
 
 }
@@ -1647,13 +1974,14 @@ function validarCiclos(){
         case 1: //INICIACION
 
             var id  = 0;
-
+            $("#flaboratorio-ciclos .zelda").data('triforce')['vidciclo'] = '';
             $("#flaboratorio-investadisticas tr").each(function(){
                 id = $(this).attr('id').substr(1);
-                if($("#c"+id).is(":checked")){
+                if($("#c"+id).is(":checked")) {
                     $("#flaboratorio-ciclos .zelda").data('triforce')['vidciclo'] += id+',';
                     // vid,vidciclo,vidtipo,vidservicio,vidproducto,vcantidad,vfecha datetime,vidusuario,vcomentario
-                    $("#o"+id).data('triforce',{vaccion:0,vid:0,vidciclo:'?,'+id,vidtipo:$("li.menu3 >a.active").parent().attr('id').substr(1),vidservicio:$("#o"+id).attr('idservicio'),vidproducto:0,vcantidad:$("#_n"+id).val(),vidusuario:0,vcomentario:''});
+                    // '?,'+
+                    $("#o"+id).data('triforce',{vaccion:0,vid:0,vidciclo:id,vidtipo:$("li.menu3 >a.active").parent().attr('id').substr(1),vidservicio:$("#o"+id).attr('idservicio'),vidproducto:0,vcantidad:$("#_n"+id).val(),vidusuario:0,vcomentario:''});
                 }
             })
 
@@ -1661,7 +1989,7 @@ function validarCiclos(){
                 return 'No se a Seleccionado una Recepción';
             }
 
-            if ($("#videncargado option:selected").val() == 0 ) {
+            if ($("#videncargado").val() == 0 ) {
                 $("#videncargado").focus();
                 return 'No se a Seleccionado el Operario';
             }
@@ -1669,6 +1997,12 @@ function validarCiclos(){
             if ($("#vcomentario").val().length <= 0 ) {
                 $("#vcomentario").focus();
                 return 'Comentario Requerido';
+            }
+
+            if ($("#encargado").val() != 0) {
+                $("#flaboratorio-ciclos .zelda").data('triforce')['videstado'] = 2;
+            }else{
+                $("#flaboratorio-ciclos .zelda").data('triforce')['videstado'] = 1;
             }
             
             $(".zelda").data('triforce')['vcomentario'] = $("#vcomentario").val()
@@ -1689,12 +2023,12 @@ function validarCliente(){
 
 	switch(parseInt($("#ingresar").attr('codigo'))){
 		case 1:
-			if ($("#addClie #vnombre").val() == '') {
+			if (trim($("#addClie #vnombre").val().length) == 0) {
 				$("#addClie #vnombre").focus();
 				return 'Nombre de Cliente Requerido';
 			}
 
-			if ($("#addClie #vcedula").val() == '') {
+			if (trim($("#addClie #vcedula").val().length) == 0) {
 				$("#addClie #vcedula").focus();
 				return 'Cédula de Cliente Requerida';
 			}
@@ -1734,19 +2068,37 @@ function endDetail(vid,vacc,modulo){
                         serv = arr('login',4,'id',16,'nombre = "'+$("#nomvar").val()+'"',0,0,0)[0][0],
                         prod = 0,
                         cant = $("#cantact").val(),
-                        comen = $("#comentproc").val();
+                        comen = $("#comentproc").val(),
+                        encargado = $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] == 0 ? '@@ur' : $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'];
                         arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
+                        $("#modal-registrar").modal('close');
+                        var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
+                        arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+vid[0][0][0],0,0,0);
+                        $('.premc').each(function(){
+                            arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
+                        });
+                        var perdida = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+','+encargado+',"'+comen+'"',0,0,0);
+                        if ($("#encargado").val() != 0) {
+                            var qos = arr('login',4,'',914,vid+',5,0,0,@@impresa,'+$("#encargado").val(),0,0,0);
+                            if (qos['succed']) {
+                                arr('login',4,'',925,'1,0,"'+qos[0][0]+'",6,'+serv+',0,'+$("#cantqos").val()+','+$("#encargado").val()+',"Cantidad en revision"',0,0,0);
+                            }
+                        }
                         $("#vidrazon").val(0);
                         $("#nomvar").val('');
                         $("#cantact").val(0);
                         $("#comentproc").val('');
+                        $("#cantqos").val('');
                         $("#vidrazon").material_select();
-                        $("#modal-registrar").modal('close');
+                        $(".validate").css('border-bottom', '1px solid #9e9e9e');
+                        $(".validate").css('box-shadow', 'none');
                         break;
                     default:
                         break;
                 }
                 deadclear(modulo);
+                $(".zelda").removeData('triforce');
+                $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidempresa:''});
                 $("#result00").html('No se ha Elegido la Variedad');
                 $("#tplt").text(0);
                 break;
@@ -1764,6 +2116,10 @@ function endDetail(vid,vacc,modulo){
                 break;
             case 'finca':
                 clearform('finca');
+                $("#canton").val(0);
+                $("#viddistrito").val(0);
+                $("#vidbarrio").val(0);
+                $("select").material_select();
                 break;
             case 'servicio':
                 deadclear('servicio');
@@ -1771,11 +2127,13 @@ function endDetail(vid,vacc,modulo){
                 $("#fservicios .zelda").removeData();
                 $("#fservicios .zelda").data('triforce',{vid : 0,vcodigo : '',vnombre : '',vdescripcion : '',vpbase : 0,vperiodo : 0,vdias : 0,vidproveedor : 0,vprecio : 0,vpganancia : 0,vidinventario : 0,vidmoneda : 1,vservprofesional : 0,vidsuc : -1});
                 $("#flaboratorio-explantes .zelda").data('triforce')['vidservicio'] = vid[0][0];
+                $(".validate").css('border-bottom', '1px solid #9e9e9e');
+                $(".validate").css('box-shadow', 'none');
                 break;
             case 'laboratorio-relacione':
                 var id = parseInt($("#autoinc").val());
                 id++;
-                $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="bandejas'+id+'" class="invbandejas"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light blue btn-floating addline add" modulo="laboratorio-relacione" id="a'+id+'" tp="5"><i class="mdi mdi-plus"></i></a><a class="waves-effect waves-light red btn-floating delline delete" modulo="laboratorio-relacione" id="d'+id+'" tp="5"><i class="mdi mdi-close"></i></a></td></tr>');
+                $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="bandejas'+id+'" class="invbandejas"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light addline gtext pbtn add" modulo="laboratorio-relacione" id="a'+id+'" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a><a class="waves-effect waves-light delline gtext pbtn delete" modulo="laboratorio-relacione" id="d'+id+'" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a></td></tr>');
                 setTimeout(function(){
                     arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas"+id));
                     arr('login',6,'',411,invvar[3][0],15,1,$("#frascos"+id));
@@ -1829,7 +2187,7 @@ function clearform(vform) {
             $("#addClie #pais").val('');
             $("#addClie #provincia").val(0);
             $("#addClie #canton").val(0);
-            $("#addClie #vdistrito").val(0);
+            $("#addClie #viddistrito").val(0);
             $("#addClie #vregion").val('');
             $("#addClie #finca").val('');
             $("#addClie #vdireccion").val('');

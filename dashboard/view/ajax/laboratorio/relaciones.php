@@ -35,8 +35,8 @@
 		</div>
 	</td>
 	<td style="padding: 10px; color:black;">
-		<a class="waves-effect waves-light blue btn-floating addline add" modulo="laboratorio-relacione" id="a<?php echo $obj[0]?>" tp="5"><i class="mdi mdi-plus"></i></a>
-		<a class="waves-effect waves-light red btn-floating delline delete" modulo="laboratorio-relacione" id="d<?php echo $obj[0]?>"><i class="mdi mdi-close"></i></a>
+		<a class="waves-effect waves-light gtext pbtn addline add" modulo="laboratorio-relacione" id="a<?php echo $obj[0]?>" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a>
+		<a class="waves-effect waves-light gtext pbtn delline delete" modulo="laboratorio-relacione" id="d<?php echo $obj[0]?>"><i class="mdi mdi-close pbtn mdi-18px"></i></a>
 	</td>
 </tr>
  <?php } 
@@ -64,8 +64,8 @@ $ultimo = $ultimo + 1;
 		</div>
 	</td>
 	<td style="padding: 10px; color:black;">
-		<a class="waves-effect waves-light blue btn-floating addline add" modulo="laboratorio-relacione" id="al<?php echo $ultimo; ?>" tp="5"><i class="mdi mdi-plus"></i></a>
-		<a class="waves-effect waves-light red btn-floating delline delete" modulo="laboratorio-relacione" id="dl<?php echo $ultimo; ?>" tp="5"><i class="mdi mdi-close"></i></a>
+		<a class="waves-effect waves-light gtext pbtn addline add" modulo="laboratorio-relacione" id="al<?php echo $ultimo; ?>" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a>
+		<a class="waves-effect waves-light gtext pbtn delline delete" modulo="laboratorio-relacione" id="dl<?php echo $ultimo; ?>" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a>
 	</td>
 </tr>
 
