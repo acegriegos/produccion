@@ -95,7 +95,7 @@
 
        <div class="col s4">
       <br>
-       <a class="btn btn3" id="datoextra" td="1">Datos extras</a>
+       <a class="btn btn3 datoextra"  td="1">Datos extras</a>
     </div>
 
     </div>

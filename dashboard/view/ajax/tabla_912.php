@@ -24,7 +24,7 @@
 		<a class="pbtn gtext mdi mdi-24px mdi-checkbox-multiple-marked-outline invstats" id="c<?php echo $obj[0];?>" title="Procesar Activos" tipo="1"></a>
 		<a class="pbtn gtext mdi mdi-24px mdi-arrow-left-box history" id="d<?php echo $obj[0];?>" title="Ver Trayectoria"></a>
 		<a class="pbtn gtext mdi mdi-24px mdi-basket-unfill invstats" id="f<?php echo $obj[0];?>" title="Registrar Pérdidas" tipo="0"></a>
-		<a class="pbtn gtext mdi mdi-24px mdi-playlist-plus datosextra" id="g<?php echo $obj[0];?>" title="Datos extras"></a>
+		<a class="pbtn gtext mdi mdi-24px mdi-playlist-plus datoextra" td="2" id="g<?php echo $obj[0];?>" title="Datos extras"></a>
 		<a class="pbtn gtext mdi mdi-24px mdi-arrow-collapse-right proc-ciclo estado <?php echo $hide;?>" estado="0" tc="<?php echo $obj[8];?>" id="e<?php echo $obj[0];?>" title="Procesar a <?php echo $obj[9];?>"></a>
 
 
