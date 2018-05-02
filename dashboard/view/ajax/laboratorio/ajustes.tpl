@@ -83,7 +83,7 @@
                           <label for="inv-bandejasCT">Inventarios Bandejas</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select id="inv-frascosCT" class="role_inv" tp="3">
+                          <select id="inv-frascosCT" class="role_inv" tp="5">
                           </select>
                           <label for="inv-frascosCT">Inventarios Frascos</label>
                         </div>
@@ -174,7 +174,7 @@
                           <label for="inv-bandejasPS">Inventarios Bandejas</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select id="inv-frascosPS" class="role_inv" tp="3">
+                          <select id="inv-frascosPS" class="role_inv" tp="5">
                           </select>
                           <label for="inv-frascosPS">Inventarios Frascos</label>
                         </div>
@@ -276,7 +276,7 @@
                           <label for="inv-bandejasCF">Inventarios Bandejas</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select id="inv-frascosCF" class="role_inv" tp="3">
+                          <select id="inv-frascosCF" class="role_inv" tp="5">
                           </select>
                           <label for="inv-frascosCF">Inventarios Frascos</label>
                         </div>
@@ -384,7 +384,7 @@
                           <label for="inv-bandejasHE">Inventarios Bandejas</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select id="inv-frascosHE" class="role_inv" tp="3">
+                          <select id="inv-frascosHE" class="role_inv" tp="5">
                           </select>
                           <label for="inv-frascosHE">Inventarios Frascos</label>
                         </div>
@@ -480,7 +480,7 @@
                           <label for="inv-bandejasBM">Inventarios Bandejas</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select id="inv-frascosBM" class="role_inv" tp="3">
+                          <select id="inv-frascosBM" class="role_inv" tp="5">
                           </select>
                           <label for="inv-frascosBM">Inventarios Frascos</label>
                         </div>
