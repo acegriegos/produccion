@@ -2390,7 +2390,7 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 14;
-			arr['where'] = '0,0,"","0,10"';
+			arr['where'] = '0,0,"'+$("#search_productos").val()+'|@@impresa","0,10"';
 			break;
 		case 'servicios':
 			var arr = {};

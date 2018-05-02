@@ -217,7 +217,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a class="modal-action waves-effect waves-green btn-flat z-depth-5">Agregar</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="adddato">Agregar</a>
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
   </div>
 </div>

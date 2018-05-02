@@ -2,7 +2,7 @@ var ifila = 0;
 var ifila2 = 0;
 var ifila3 = 0;
 var tpinv = 0;
-var invvar = '';
+var invvar;
 // tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
 $(function(){
 	
@@ -13,7 +13,7 @@ $(function(){
         invvar = getDatos('',909,'@@tmp_cia',0,0)[0];
     else
         invvar = getDatos('',909,'@@impresa',0,0)[0];
-    
+    console.log(invvar)
     switch(param){
     	case 1:
     		loadRecepcion();
@@ -93,7 +93,7 @@ $(document).on("change","#vidinventario",function(){
 // });
 
 $(document).on("click","#listadorecepciones",function(){
-    arr('login',6,'',934,'0',0,1,$("#listarecepciones"))
+    arr('login',6,'',934,'0,@@impresa',0,1,$("#listarecepciones"))
 });
 
 $(document).on("click","#save-evaluacion",function(){
@@ -430,6 +430,11 @@ $(document).on("click","#delcomp",function(){
 
 $(document).on("click","#addmedio",function(){
     addmedio(1,'');
+});
+
+$(document).on("click","#adddato",function(){
+    
+
 });
 
 $(document).on("click","#actmedio",function(){
@@ -1021,6 +1026,7 @@ function loadAjustes(){
     for (var i = 0; i < opts.length; i++) {
          opt += '<option value='+opts[i][0]+'>'+opts[i][1]+'</option>';
     }
+    
     $(".role_inv").material_select('destroy');
     $(".role_inv").html(opt);
     $(".role_inv").material_select();
@@ -1057,6 +1063,7 @@ function loadAjustes(){
 
     $(document).on("change",".role_inv",function(){
         if($(this).attr('tp') != undefined){
+            console.log('idinventario = "'+$(this).val()+'"','id='+$(this).attr('tp'))
             arr('login',7,2,907,'idinventario = "'+$(this).val()+'"','id='+$(this).attr('tp'));
         }
     });
@@ -1482,7 +1489,7 @@ function cargarIniciacion(){
 }//cargar Iniciacion
 
 function cargarExplantes(){
-    $("#flaboratorio-explantes .zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0,vexpectativa: 0,vcantidad: 0,vguia:0});
+    $("#flaboratorio-explantes .zelda").data('triforce',{vidcliente:0,vidfinca:0,vidregion:0,vid:0,vidservicio: 0,vexpectativa: 0,vcantidad: 0,vguia:0,vidsucursal: ''});
 
     getIDExplante();
 
@@ -1747,7 +1754,7 @@ function cargarBarrios(viddistrito){
 };
 
 function iniciarVaridad(){
-    var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'"',0,0,0);
+    var servicio = arr('login',4,'',910,'"'+$("#vvariedad").val()+'",@@impresa',0,0,0);
     if (servicio[0].length) {
         var obj;
         var str = '<div class="col s12 head1 padding1"><h6>Variedad: <b>'+servicio[0][0][1]+'</b></h6></div><table class="responsive-table striped highlight" id="resulti00"><thead class="tab2"><tr><th colspan="2" class="center">Cantidad</th> <th class="center">Procedencia</th> <th class="center">Fecha</th> </tr> </thead> <tbody vtabla="laboratorio-investadistica" id="flaboratorio-investadisticas" tp="4" rollback="">'; // id="bdyi00"
