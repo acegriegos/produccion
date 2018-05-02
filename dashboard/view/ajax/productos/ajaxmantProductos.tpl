@@ -287,9 +287,9 @@
 </div>
 </div>
 <div class="modal-footer ">
-<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="addprod">Agregar</a>
 <a class="modal-action waves-effect waves-green btn-flat z-depth-3" id="editprod">Guardar</a>
+<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 </div>
 </div>
 <div id="modal-movinventario" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">

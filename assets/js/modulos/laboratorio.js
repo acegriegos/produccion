@@ -2,7 +2,7 @@ var ifila = 0;
 var ifila2 = 0;
 var ifila3 = 0;
 var tpinv = 0;
-var invvar;
+var invvar = '';
 // tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
 $(function(){
 	
@@ -156,13 +156,15 @@ $(document).on("click","#datoextra",function(){
         console.log(arr('login',4,'id,nombre',936,'id > 0 and idtipociclo = '+$("li.menu3 >a.active").parent().attr('id').substr(1)+str,0,0,0));
 });
 
-$(document).on("click","#pruebasQoS",function(){
+$(document).on("click",".pruebasQoS",function(){
+    var idsuc = $(this).attr('ids');
+    $(".savetestqos").attr('idsuc',idsuc);
     $("#modal-pruebasQoS").modal('open');
-    var cnt = arr('login',4,'count(id)',930,'id > 0 and idsucursal = @@impresa',0,0,0)[0][0];
+    var cnt = arr('login',4,'count(id)',930,'id > 0 and idsucursal = '+idsuc,0,0,0)[0][0];
     if (cnt > 0) {
         ifila3 = cnt;
         $("#testqos").html('');
-        arr('login',6,'id,prueba',930,'id > 0 and idsucursal = @@impresa',0,1,$("#testqos"));
+        arr('login',6,'id,prueba',930,'id > 0 and idsucursal = '+idsuc,0,1,$("#testqos"));
     }else
         $("#testqos").html('');
 });
@@ -189,10 +191,17 @@ $(document).on("click",".modalmediosExtra",function(){
     var tm = $(this).attr('tm');
     var idsuc = $(this).parent().parent().parent().parent().parent().parent().siblings().attr('idsuc');
     var bismedio = '';
+
     if ($("#dmedio").is(":checked"))
         bismedio = 1;
     else if($("#dfinal").is(":checked"))
         bismedio = 0;
+
+    $(".savetestqosExtra").attr({
+        'idciclo': tm,
+        'bismedio': bismedio,
+        'idsuc': idsuc
+    });
 
     var cnt = arr('login',4,'',938,tm+','+idsuc+','+bismedio,0,0,0)[0];
     if (cnt.length > 0) {
@@ -216,11 +225,26 @@ $(document).on("click","#addtestqos",function(){
 });
 
 $(document).on("click","#addtestqosExtra",function(){
-    var test = $("#tipopruebasExtra").val();
+    var test = $("#tipopruebasExtra").val().toLowerCase();
+    var sig = 1;
     if (test != '') {
-        ifila3++;
-        $("#testqosExtra").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
-        $("#tipopruebasExtra").val('').focus();
+        if ($(".pruebasqos").length > 0) {
+            $(".pruebasqos").each(function(){
+                var id = $(this).children().attr('id').substr('2');
+                var nombre = $("#qs"+id).text().toLowerCase();
+                if (nombre == test) {
+                    Materialize.toast('Dato existente', 4000, 'red');
+                    sig = 0;
+                }else{
+                    sig = 1;
+                }
+            });
+        }
+        if (sig == 1) {
+            ifila3++;
+            $("#testqosExtra").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
+            $("#tipopruebasExtra").val('').focus();
+        }
     }
     
 });
@@ -260,15 +284,16 @@ $(document).on("click","#delprueba",function(){
     $("#toast-container").hide();
 });
 
-$(document).on("click","#savetestqos",function(){
+$(document).on("click",".savetestqos",function(){
     var pass = 0;
     var pruebaqos = '';
+    var idsuc = $(this).attr('idsuc');
     $(".pruebasqos").each(function() {
         var id = $(this).children().attr('id').substr('2');
         var prueba = $("#qs"+id).text();
-        var valid = arr('login',4,'count(id)',930,'prueba = "'+prueba+'"',0,0,0)[0];
+        var valid = arr('login',4,'count(id)',930,'prueba = "'+prueba+'" and idsucursal = '+idsuc,0,0,0)[0];
         if (valid == 0) {
-            var pruebaqos = arr('login',4,'',929,'1,0,"'+prueba+'",@@impresa',0,0,0);
+            var pruebaqos = arr('login',4,'',929,'1,0,"'+prueba+'",'+idsuc+',-1',0,0,0);
             if (pruebaqos['succed'] == 1)
                 pass = 1;
             else
@@ -282,28 +307,45 @@ $(document).on("click","#savetestqos",function(){
     }
 });
 
-$(document).on("click","#savetestqosExtra",function(){
+$(document).on("click",".savetestqosExtra",function(){
     var pass = 0;
     var datoextra = '';
+    var idciclo = $(this).attr('idciclo');
+    var bismedio = 0;
+    if ($("#dmedio").is(":checked")) {
+        bismedio = 1;
+    }else if ($("#dfinal").is(":checked")) {
+        bismedio = 0;
+    }
     $(".pruebasqos").each(function() {
         var id = $(this).children().attr('id').substr('2');
         var nombre = $("#qs"+id).text();
-        var valid = arr('login',4,'count(id)',936,'nombre = "'+nombre+'"',0,0,0)[0];
-        
-        if (valid > 0) {
-            
-        //     var datoextra = arr('login',4,'',929,'1,0,"'+prueba+'",@@impresa',0,0,0);
-        //     if (datoextra['succed'] == 1)
-        //         pass = 1;
-        //     else
-        //         pass = 0;
-        }
+        // vaccion,vid,vidtipociclo,vnombre,vbisinicial,vbismedio,vbisfinal
+        var datoextra = arr('login',4,'',939,'1,0,'+idciclo+',"'+nombre+'",'+bismedio,0,0,0);
+        if (datoextra['succed'] == 1)
+            pass = 1;
+        else
+            pass = 0;
     });
-    // if (pass == 1) {
-    //     Materialize.toast('Registro guardado correctamente', 4000, 'green');
-    // }else{
-    //     Materialize.toast(pruebaqos[0]['ERROR'], 4000, 'red');
-    // }
+    if (pass == 1) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+    }else{
+        Materialize.toast(datoextra[0]['ERROR'], 4000, 'red');
+    }
+});
+
+$(document).on("click","#dmedio",function(){
+    var tm = $(".savetestqosExtra").attr('idciclo');
+    var idsuc = $(".savetestqosExtra").attr('idsuc');
+
+    arr('login',6,'',938,tm+','+idsuc+',1',930,1,$("#testqosExtra"));
+});
+
+$(document).on("click","#dfinal",function(){
+    var tm = $(".savetestqosExtra").attr('idciclo');
+    var idsuc = $(".savetestqosExtra").attr('idsuc');
+
+    arr('login',6,'',938,tm+','+idsuc+',0',930,1,$("#testqosExtra"));
 });
 
 $(document).on("click",".savetestqosCiclo",function(){

@@ -25,7 +25,7 @@
                     <tr>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                        <th class="white-text tab1" style="border: 0; border--: 0px !important;">Precio</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Precio</th>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Período</th>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Outsourcing</th>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Acciones</th>
@@ -64,7 +64,7 @@
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vidproveedor" value="0">
                 <input type="hidden" id="vidsucursal" value="">
-                <input type="hidden" id="vidsuc" value="-1" >
+                <input type="hidden" id="vidsuc" value="{$smarty.session.IMPRESA}">
 
                 <div class="row">
                     <div class="input-field col s12 m6 l6" style="margin: 0">

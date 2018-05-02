@@ -203,17 +203,17 @@ $(document).on("click",".menu3",function(){
 			var def = mantenimiento('login',4,varr)[0][0];
 			$("#vidcuenta").val(def);
 
-			// $(document).on("change","#vidbodega",function(){
-			// 	var id = $(this).val();
-			// 	var tabla = $("#data-table-inventarios").DataTable();
-			// 	tabla.destroy();
-			// 	$("#listainventarios").html(mantenimiento('login',6,{sel:'id,nombre',tbl:111,where:'idbodega = '+id+' and idsucursal in(@@impresa,-1)'}));
-			// 	$("#data-table-inventarios").DataTable({
-			// 		bFilter :  false,
-			// 		bLengthChange : false,
-			// 		order : []
-			// 	});
-			// });
+			$(document).on("change","#vidbodega",function(){
+				var id = $(this).val();
+				var tabla = $("#data-table-inventarios").DataTable();
+				tabla.destroy();
+				$("#listainventarios").html(mantenimiento('login',6,{sel:'id,nombre',tbl:111,where:'idbodega = '+id+' and idsucursal in(@@impresa,-1)'}));
+				$("#data-table-inventarios").DataTable({
+					bFilter :  false,
+					bLengthChange : false,
+					order : []
+				});
+			});
 			break;
 		case 7:
 			var p = mantenimiento('ajustes',7,'');

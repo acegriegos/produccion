@@ -75,16 +75,15 @@
                                 <label for="vencabezado">Encabezado de Factura</label>
                                 <input type="text" class="validate" id="vencabezado" maxlength="2">
                             </div>
-                        
-                            <div class="input-field col s4 fe">
-                                
+                            <div class="input-field col s6 fe">
                                 <label for="vpass_n">Clave Llave Criptografica</label>
                                 <input type="text" class="validate" id="vpass_n" maxlength="4">
                             </div>
-                            <div class="col s2 fe">
-                                <a class="btn1" style="padding: 6%" id="valid_p12">Validar</a>
+                            <div class="col s12 fe">
+                                <button class="btn btn1 der add z-depth-3" id="valid_p12" modulo="sucursale" varias="1">Validar</button>
                             </div>
-
+                        </div>
+                        <div class="row">
                             <div class="col s6"><br>
                                 <form class="dropzone needsclick dz-clickable dz-started center" id="registro-upload" style="padding: 5% !important" >
                                     <input type="hidden" name="idsucursal" />
@@ -100,7 +99,7 @@
                                     <input type="hidden" name="idsucursal" />
                                     <span class="dz-message needsclick text-center ico-reg" >
                                         <!-- <img id="fotosvg" src="../assets/img/foto.svg" style="margin-top: 25px; width: 80px;" /> -->
-                                        <i class="mdi mdi-image-area mdi-48px imgDrop"></i>
+                                        <i class="mdi mdi-key mdi-48px imgDrop"></i>
                                     </span>
                                 </form>
                                 <label for="p12-upload" class="right">LLAVE CRIPTOGRAFICA</label>
@@ -132,20 +131,31 @@
                                 <h5 class="modal-title center-align head1 padding1">Ajustes</h5>
                             </div>
                             <div class="col s12">
-                                <input type="checkbox" id="visinventariado" class="with-gap" checked>
-                                <label for="visinventariado">Control de Inventario</label>
-                                
-                                <input type="checkbox" id="isfe" name="isfisico" checked>
-                                <label for="isfe">Factura Electrónica</label>
-
-                                <input type="checkbox" id="vfastshow" class="with-gap" checked>
-                                <label for="vfastshow">Envío de Correo Automático</label>
-
-                                <input type="checkbox" id="vprintSale" class="with-gap" checked>
-                                <label for="vprintSale">Imprimir Venta</label>
-
-                                <input type="checkbox" id="visPrueba" class="with-gap" checked>
-                                <label for="visPrueba">Período de Prueba</label>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <input type="checkbox" id="visinventariado" class="with-gap" checked>
+                                        <label for="visinventariado">Control de Inventario</label>
+                                    </div>
+                                    <div class="col s6">
+                                        <input type="checkbox" id="isfe" name="isfisico" checked>
+                                        <label for="isfe">Factura Electrónica</label>                                        
+                                    </div>
+                                    <div class="col s6">
+                                        <input type="checkbox" id="vfastshow" class="with-gap" checked>
+                                        <label for="vfastshow">Envío de Correo Automático</label>
+                                    </div>
+                                    <div class="col s6">
+                                        <input type="checkbox" id="vprintSale" class="with-gap" checked>
+                                        <label for="vprintSale">Imprimir Venta</label>
+                                    </div>
+                                    <div class="col s6">
+                                        <input type="checkbox" id="visPrueba" class="with-gap" checked>
+                                        <label for="visPrueba">Período de Prueba</label>
+                                    </div>
+                                    <div class="col s6">
+                                        <!--  -->
+                                    </div>
+                                </div>
                             </div>
                         </div><br>
                         <div class="row">

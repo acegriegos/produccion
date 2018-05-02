@@ -74,7 +74,7 @@
                       <h6><b>QoS Fin de Proceso</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12"><br>
-                          <a class="btn btn3" id="pruebasQoS" ids="1">QoS</a>
+                          <a class="btn btn3 pruebasQoS" ids="1">QoS</a>
                         </div>
                       </div>
                     </div>
@@ -168,7 +168,7 @@
                       <h6><b>QoS Fin de Proceso</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12"><br>
-                          <a class="btn btn3" id="pruebasQoS" ids="5">QoS</a>
+                          <a class="btn btn3 pruebasQoS" ids="5">QoS</a>
                         </div>
                       </div>
                     </div>
@@ -274,7 +274,7 @@
                       <h6><b>QoS Fin de Proceso</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12"><br>
-                          <a class="btn btn3" id="pruebasQoS" ids="2">QoS</a>
+                          <a class="btn btn3 pruebasQoS" ids="2">QoS</a>
                         </div>
                       </div>
                     </div>
@@ -386,7 +386,7 @@
                       <h6><b>QoS Fin de Proceso</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12"><br>
-                          <a class="btn btn3" id="pruebasQoS" ids="3">QoS</a>
+                          <a class="btn btn3 pruebasQoS" ids="3">QoS</a>
                         </div>
                       </div>
                     </div>
@@ -486,7 +486,7 @@
                       <h6><b>QoS Fin de Proceso</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12"><br>
-                          <a class="btn btn3" id="pruebasQoS" ids="4">QoS</a>
+                          <a class="btn btn3 pruebasQoS" ids="4">QoS</a>
                         </div>
                       </div>
                     </div>
@@ -649,7 +649,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="savetestqos">Agregar</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5 savetestqos">Agregar</a>
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
   </div>
 </div>
@@ -707,7 +707,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="savetestqosExtra">Agregar</a>
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5 savetestqosExtra">Agregar</a>
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
   </div>
 </div>
