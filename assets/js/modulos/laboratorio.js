@@ -1253,6 +1253,16 @@ function loadRecepcion(){
     			break;
     	}
     	
+        $(document).on("keyup",".numericlab",function(e){
+            var code = e.wich || e.keyCode
+            if(code == 13)
+                $(this).blur()
+        });
+
+        $(document).on("blur",".numericlab",function(){
+            var dec = $(this).attr('dec') == undefined ? 2 : $(this).attr('dec');
+            $(this).val(parseFloat($(this).val().replace(/\./g,'').replace(/,/g,'.')).formatMoney(dec,',','.') )
+        });
     });
 
     $("#m0").click();
@@ -1715,9 +1725,9 @@ function cargarExplantes(){
 } //END CARGAR EXPLANTES
 
 function getIDExplante(){
-    var fch = $("#vfecha").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 'curdate()' : '"'+$("#vfecha").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd')+'"';
+    var fch = $("#vfecha").pickadate().pickadate('picker').get('select', 'dd-mm-yyyy') == '' ? 'curdate()' : '"'+$("#vfecha").pickadate().pickadate('picker').get('select', 'dd-mm-yyyy')+'"';
 
-    var rs = getDatos('concat(date_format('+fch+',"%Y%m%d"),lpad(count(id)+1,2,0)) as id',900,'fecha = "'+fch.replace(/"/g,"")+' 00:00:00" group by date_format(fecha,"%Y%m%d")',0,0)[0];
+    var rs = getDatos('concat(date_format('+fch+',"%d%m%Y"),lpad(count(id)+1,2,0)) as id',900,'fecha = "'+fch.replace(/"/g,"")+' 00:00:00" group by date_format(fecha,"%Y%m%d") and idsucursal = @@impresa',0,0)[0];
 
     rs = rs.length > 0 ? rs[0][0] : fch.replace(/-/g,'').replace(/"/g,"")+'01';
 
