@@ -703,11 +703,11 @@ $(document).on("click","#registrar",function() {
     
 });
 
-$(document).on("click","#chgbandeja",function() {
-    var idbandeja = $("#cbandeja").val();
-    $("#hidbandeja").val(idbandeja);
-    Materialize.toast('Bandeja seleccionada', 4000, 'green');
-});
+// $(document).on("click","#chgbandeja",function() {
+//     var idbandeja = $("#cbandeja").val();
+//     $("#hidbandeja").val(idbandeja);
+//     Materialize.toast('Bandeja seleccionada', 4000, 'green');
+// });
 
 $(document).on("click",".proc-ciclo",function() {
     var id = $(this).attr('id').substr(1);
@@ -716,6 +716,9 @@ $(document).on("click",".proc-ciclo",function() {
     $("#titciclo").text();
     $("#doproc").attr('idciclo',id);
     $("#doproc").attr('tc',tc);
+    var fecha = new Date();
+    var dpick = $('#fechaini');
+    dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
     $("#modal-proc-ciclo").modal('open');
     arr('login',6,'id,nombre',913,'id > 0 and isactivo = 0',15,1,$("#srazon"));
     arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado_qos"));
@@ -731,13 +734,13 @@ $(document).on("click",".proc-ciclo",function() {
     Materialize.updateTextFields();
     $("select").material_select();
 
-    arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
-    if ($("#hidbandeja").val() != 0) {
-        $("#cbandeja").val($("#hidbandeja").val());
-    }else{
-        $("#cbandeja").val(0);
-    }
-    $("#cbandeja").material_select();
+    // arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
+    // if ($("#hidbandeja").val() != 0) {
+    //     $("#cbandeja").val($("#hidbandeja").val());
+    // }else{
+    //     $("#cbandeja").val(0);
+    // }
+    // $("#cbandeja").material_select();
     // $("#encargado_qos").material_select();
 });
 
@@ -746,8 +749,11 @@ $(document).on("click","#doproc",function(){
     var idciclo = $(this).attr('tc') == 1 ? parseInt($(this).attr('tc'))+1 : $(this).attr('tc');
     var id = $(this).attr('idciclo');
     var cfinal = $("#cantfinal").val() == '' ? 0 : $("#cantfinal").val();
+    var cini = $("#cantinicial").val() == '' ? 0 : $("#cantinicial").val();
     var idservicio = $("#idserv").val();
     var cont = 0;
+    var fecha = $("#fechaini").val();
+    return false;
     if (cfinal != 0) {
         // var finalcount = arr('login',4,'',925,'1,0,"'+parseInt(idciclo-1)+','+id+'",8,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
         var finalcount = arr('login',4,'',925,'1,0,"'+id+'",7,'+idservicio+',0,'+cfinal+',@@usr,"Registro de cantidad final de variedad '+$("#varfinal").text()+'"',0,0,0);
@@ -755,6 +761,7 @@ $(document).on("click","#doproc",function(){
             Materialize.toast('Error de registro de cantidad total', 6000, 'red');
             return false;
         }
+        var cantini = arr('login',4,'',925,'1,0,"'+id+'",1,'+idservicio+',0,'+cini+',@@usr,"Registro de cantidad inicial de proceso"',0,0,0);
         // registro de perdidas
         var idrazon = $("#srazon").val();
         var cant = $("#cantsrv").val() == '' ? 0 : $("#cantsrv").val();
@@ -780,7 +787,7 @@ $(document).on("click","#doproc",function(){
         // realizar multiplicacion
         var idbandeja = $("#hidbandeja").val();
         var idmedio = $("#hidmediocultivo").val();
-        var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa,0',0,0,0);
+        var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa,0,'+fecha,0,0,0);
         if (ciclo['succed'] == 0) {
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
@@ -802,7 +809,7 @@ $(document).on("click","#doproc",function(){
         var encargado = $("#encargado_qos").val();
         var cantqos = $("#cant_qos").val() == '' ? 0 : $("#cant_qos").val();
         if (encargado != 0 && cantqos > 0) {
-            var qos = arr('login',4,'',914,ciclo[0][0]+',5,0,0,@@impresa,'+encargado,0,0,0);
+            var qos = arr('login',4,'',914,ciclo[0][0]+',5,0,0,@@impresa,'+encargado+','+fecha,0,0,0);
             if (qos['succed']) {
                 arr('login',4,'',925,'1,0,"'+qos[0][0]+'",6,'+idservicio+',0,'+cantqos+','+encargado+',"Cantidad en revision"',0,0,0);
             }
@@ -1091,43 +1098,37 @@ function loadAjustes(){
     $("#invVariedad").material_select();
 
     $(document).on("click",".relaciones",function(){
-        var vidsucursal = $(this).attr('tp');
-
-        var relacion = arr('login',4,'count(id),ifnull(max(id)+1,1)',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0][0];
+        var idsucursal = $(this).attr('tp');
+        console.log()
+        var relacion = arr('login',4,'count(id),ifnull(max(id)+1,1)',911,'id > 0 and idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0];
         var lastid = relacion[1];
         //arr('login',4,'ifnull(max(id)+1,1)',911,'idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0][0];
         relacion = relacion[0]
         $("#autoinc").val(lastid);
         $("#curpos").val(lastid);
-        $("#flaboratorio-relaciones").html('');
+
         if (relacion == 0) {
-            arr('login',6,'',411,invvar[2+(5*(vidsucursal-1))][0],15,1,$("#bandejas1"))
-            arr('login',6,'',411,invvar[4+(5*(vidsucursal-1))][0],15,1,$("#frascos1"))
+            arr('login',6,'',411,invvar[3][0],15,1,$("#frascos1"))
             
-            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
-
-            $("#flaboratorio-relaciones").html(p);
         }else{
-            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
-
+            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2][0],"invfrascos":invvar[3][0]});
             $("#flaboratorio-relaciones").html(p);
-            var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0];
+            var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+idsucursal+')',0,0,0)[0];
             $.each(relaciones,function(index,relation){
-                $("#bandejas"+relation[0]).val(relation[1]);
                 $("#frascos"+relation[0]).val(relation[2]);
             });
         }
-        $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1});
+        $(".zelda").data('triforce',{vid : 0,vidfrasco : 0,vcantidad : 1});
         $("#modal-bandejas").modal('open');
         $("select").material_select();
     });
 
-    $(document).on("change","[id^=bandejas]",function(){
+    /*$(document).on("change","[id^=bandejas]",function(){
         var id = $(this).attr('id').substr(8);
         var idbandeja = $(this).val();
         $(".zelda").data('triforce')['vidbandeja'] = idbandeja;
         $("#caben"+id).select();
-    });
+    });*/
 
     $(document).on("change","[id^=frascos]",function(){
         var id = $(this).attr('id').substr(7);
@@ -1158,18 +1159,19 @@ function cargarArr(vid,velemento){
     arr('laboratorio',vid,'',0,'',0,1,velemento);
 
     $('.datepicker').pickadate({
-         labelMonthNext: 'Siguiente',
-         labelMonthPrev: 'Anterior',
-         labelMonthSelect: 'Seleccione un Mes',
-         labelYearSelect: 'Seleccione un Año',
-         monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
-         monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-         weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-         weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-         weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
-         today: 'Hoy',
-         clear: 'Limpiar',
-         close: 'Cerrar'
+        labelMonthNext: 'Siguiente',
+        labelMonthPrev: 'Anterior',
+        labelMonthSelect: 'Seleccione un Mes',
+        labelYearSelect: 'Seleccione un Año',
+        monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
+        monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+        weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+        weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+        weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+        today: 'Hoy',
+        clear: 'Limpiar',
+        close: 'Cerrar',
+        format: 'dd-mm-yyyy'
     });
 
     if ($("#vfecha").val() != undefined) {
@@ -2094,6 +2096,7 @@ function endDetail(vid,vacc,modulo){
                         prod = 0,
                         cant = $("#cantact").val(),
                         comen = $("#comentproc").val(),
+                        fecha = $("#fechaini").val(),
                         encargado = $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] == 0 ? '@@ur' : $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'];
                         arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
                         $("#modal-registrar").modal('close');
@@ -2104,7 +2107,7 @@ function endDetail(vid,vacc,modulo){
                         });
                         var perdida = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+','+encargado+',"'+comen+'"',0,0,0);
                         if ($("#encargado").val() != 0) {
-                            var qos = arr('login',4,'',914,vid+',5,0,0,@@impresa,'+$("#encargado").val(),0,0,0);
+                            var qos = arr('login',4,'',914,vid+',5,0,0,@@impresa,'+$("#encargado").val()+','+fecha,0,0,0);
                             if (qos['succed']) {
                                 arr('login',4,'',925,'1,0,"'+qos[0][0]+'",6,'+serv+',0,'+$("#cantqos").val()+','+$("#encargado").val()+',"Cantidad en revision"',0,0,0);
                             }

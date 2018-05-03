@@ -45,20 +45,33 @@
 </div>
 </div>
 
-<div id="modal-proc-ciclo" class="modal modal-fixed-footer grandemodal">
+<div id="modal-proc-ciclo" class="modal modal-fixed-footer grandemodal" style="overflow-y: hidden">
 <div class="modal-header head2 padding1">
   <div class="card-header center white-text">
     <p class="flow-text marginzero"><span id="titciclo"></span></p>
   </div>
 </div>
-<div class="modal-content">
-  <div class="row">
-    <div class="input-field col s12 m6 l6">
-      <span style="font-size: 1.2em">Registro de cantidad final de variedad <span id="varfinal"></span></span>
+<div class="modal-content" style="padding-top: 0.5%">
+  <div class="row" style="margin-bottom: 0px">
+    <div class="col s7 m7 l7"></div>
+    <div class="col s5 m5 l5">
+      Fecha de inicio<input type="text" class="datepicker" id="fechaini" placeholder="Fecha inicio">
     </div>
-    <div class="input-field col s12 m4 l4">
+  </div>
+  <div class="row" style="margin-bottom: 0px">
+    <div class="input-field col s12 m3 l3">
+      <span style="font-size: 1.1em">Registro de cantidad final de variedad <span id="varfinal"></span></span>
+    </div>
+    <div class="input-field col s12 m3 l3">
       <input type="number" class="validate" id="cantfinal">
       <label for="cantfinal">Cantidad</label>
+    </div>
+    <div class="input-field col s12 m3 l3">
+      <span style="font-size: 1.1em">Registro inicial de cantidad para siguiente proceso</span>
+    </div>
+    <div class="input-field col s12 m3 l3">
+      <input type="number" class="validate" id="cantinicial">
+      <label for="cantinicial">Cantidad</label>
     </div>
   </div><hr>
   <div class="row marginzero">
