@@ -29,7 +29,7 @@ $(function(){
             break;
         case 14:
             loadSustrato();
-            break;   
+            break;
     	case 3:
     		loadAjustes();
             break;
@@ -146,7 +146,7 @@ $(document).on("click",".evaluarlote",function(){
     }
 });
 
-$(document).on("click","#datoextra",function(){
+$(document).on("click",".datoextra",function(){
     $("#modal-datoextra").modal('open');
     var str = ' and bisfinal = 1';
     if($(this).attr('td') == 1)
@@ -433,7 +433,28 @@ $(document).on("click","#addmedio",function(){
 });
 
 $(document).on("click","#adddato",function(){
-    
+    var idciclo=$("li.menu3 >a.active").parent().attr('id').substr(1);
+    var sig= 1;
+    var dato='';
+    $(".valorextra").each(function(){
+        if($(this).val() != ''){
+            var id=$(this).attr('id').substr(4);
+            var valor = $("#dtra"+id).val();
+            dato= arr('login',4,'',940,'1,0,'+idciclo+','+id+',"'+valor+'"',0,0,0);
+            if(dato['succed']==0){
+                sig=0;
+                return false;
+            }else{
+                sig=1;
+            }
+        }
+    });
+    if (sig == 1){
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+
+    }else{
+         Materialize.toast(dato[0]['ERROR'], 4000, 'red');
+    }
 
 });
 
