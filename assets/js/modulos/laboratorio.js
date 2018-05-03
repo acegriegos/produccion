@@ -762,6 +762,10 @@ $(document).on("click","#doproc",function(){
             return false;
         }
         var cantini = arr('login',4,'',925,'1,0,"'+id+'",1,'+idservicio+',0,'+cini+',@@usr,"Registro de cantidad inicial de proceso"',0,0,0);
+        if (finalcount['succed'] == 0){
+            Materialize.toast('Error de registro de cantidad inicial', 6000, 'red');
+            return false;
+        }
         // registro de perdidas
         var idrazon = $("#srazon").val();
         var cant = $("#cantsrv").val() == '' ? 0 : $("#cantsrv").val();
