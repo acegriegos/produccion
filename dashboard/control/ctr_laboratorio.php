@@ -16,7 +16,7 @@
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
-	   			$categorias = $kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by nombre');
+	   			// $categorias = $kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by nombre');
 	   			require_once 'view/ajax/laboratorio/recepcion.php';
 	   			break;
 	   		case 3:

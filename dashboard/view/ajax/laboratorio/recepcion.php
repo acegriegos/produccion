@@ -20,11 +20,11 @@
         <label for="vvariedad">Variedad</label>
       </div>
       <div class="input-field">
-        <input type="text" id="cantidad" class="eder numeric" value="0.00" autocomplete="off">
+        <input type="text" id="cantidad" class="eder numericlab" value="0" autocomplete="off" dec="0">
         <label for="cantidad">Cantidad</label>
       </div>
       <div class="input-field hide">
-        <input type="text" id="expectativa hide" class="eder numeric" value="0">
+        <input type="text" id="expectativa hide" class="eder" value="0" >
         <label for="expectativa">Expectativa</label>
       </div>
       
