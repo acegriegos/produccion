@@ -90,4 +90,9 @@
 .btn {
   text-transform: inherit !important; }
 
+#modal-medios {
+  width: 80% !important;
+  max-height: 100% !important;
+  height: 80% !important; }
+
 /*# sourceMappingURL=style-laboratorio.css.map */
