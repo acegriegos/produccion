@@ -16,7 +16,7 @@
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
-	   			$categorias = $kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by nombre');
+	   			// $categorias = $kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by nombre');
 	   			require_once 'view/ajax/laboratorio/recepcion.php';
 	   			break;
 	   		case 3:
@@ -29,7 +29,7 @@
 	   			$smarty = make_smarty();
 	   			$smarty->assign('USR',$kakaroto->kamehameha('id,nombre',1,'id > 0 and idtipousuario = 4'));
 	   			$smarty->assign('PER',$kakaroto->kamehameha('id,nombre',913,'id > 0'));
-	   			
+	   			$smarty->assign('FRA',$kakaroto->kamehameha('',941,'@@impresa'));
 	   			$smarty->display('ajax/laboratorio/iniciacion.tpl');
 	   			break;
 	   		case 5:
@@ -58,8 +58,7 @@
 	   			break;
 	   		case 9:
 	   			$pagina = 1;
-	   			$transaccion = $kakaroto->kamehameha('id,idbandeja,idfrasco,cantidad',911,'id > 0 and idsucursal = @@impresa');
-	   			$bandejas = $kakaroto->kamehameha('',411,$_REQUEST['arreglo']['invbandejas']);
+	   			$transaccion = $kakaroto->kamehameha('id,idfrasco,cantidad',911,'id > 0 and idsucursal = '.$_REQUEST['arreglo']['idsucursal']);
 	   			$frascos = $kakaroto->kamehameha('',411,$_REQUEST['arreglo']['invfrascos']);
 	   			require_once 'view/ajax/laboratorio/relaciones.php';
 	   			break;

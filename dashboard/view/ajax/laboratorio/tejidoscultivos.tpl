@@ -45,20 +45,24 @@
 </div>
 </div>
 
-<div id="modal-proc-ciclo" class="modal modal-fixed-footer grandemodal">
+<div id="modal-proc-ciclo" class="modal modal-fixed-footer grandemodal" style="overflow-y: hidden">
 <div class="modal-header head2 padding1">
   <div class="card-header center white-text">
     <p class="flow-text marginzero"><span id="titciclo"></span></p>
   </div>
 </div>
-<div class="modal-content">
-  <div class="row">
-    <div class="input-field col s12 m6 l6">
-      <span style="font-size: 1.2em">Registro de cantidad final de variedad <span id="varfinal"></span></span>
+<div class="modal-content" style="padding-top: 0.5%">
+  <div class="row" style="margin-bottom: 0px">
+    <div class="input-field col s12 m4 l4">
+      <span style="font-size: 1.1em">Registro de cantidad final de variedad <span id="varfinal"></span></span>
+      <input type="number" class="validate" id="cantfinal">
     </div>
     <div class="input-field col s12 m4 l4">
-      <input type="number" class="validate" id="cantfinal">
-      <label for="cantfinal">Cantidad</label>
+      <span style="font-size: 1.1em">Registro inicial de cantidad para siguiente proceso</span>
+      <input type="number" class="validate" id="cantinicial">
+    </div>
+    <div class="col s12 m4 l4">
+      Fecha de inicio<input type="text" class="datepicker" id="fechaini" placeholder="Fecha inicio">
     </div>
   </div><hr>
   <div class="row marginzero">
@@ -89,13 +93,13 @@
       
       <div class="col s4">
         <label for="btnmediocult">Medio de Cultivo</label><br>
-        <a class="btn btn3" id="btnmediocult">Medios de Cultivo</a>
+        <a class="btn btn3 mediocultivo" id="btnmediocult">Medios de Cultivo</a>
         <input type="hidden" id="hidmediocultivo" value="0">
       </div>
 
        <div class="col s4">
       <br>
-       <a class="btn btn3" id="datoextra" td="1">Datos extras</a>
+       <a class="btn btn3 datoextra"  td="1">Datos extras</a>
     </div>
 
     </div>
