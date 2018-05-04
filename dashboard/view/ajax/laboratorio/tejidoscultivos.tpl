@@ -53,25 +53,16 @@
 </div>
 <div class="modal-content" style="padding-top: 0.5%">
   <div class="row" style="margin-bottom: 0px">
-    <div class="col s7 m7 l7"></div>
-    <div class="col s5 m5 l5">
-      Fecha de inicio<input type="text" class="datepicker" id="fechaini" placeholder="Fecha inicio">
-    </div>
-  </div>
-  <div class="row" style="margin-bottom: 0px">
-    <div class="input-field col s12 m3 l3">
+    <div class="input-field col s12 m4 l4">
       <span style="font-size: 1.1em">Registro de cantidad final de variedad <span id="varfinal"></span></span>
-    </div>
-    <div class="input-field col s12 m3 l3">
       <input type="number" class="validate" id="cantfinal">
-      <label for="cantfinal">Cantidad</label>
     </div>
-    <div class="input-field col s12 m3 l3">
+    <div class="input-field col s12 m4 l4">
       <span style="font-size: 1.1em">Registro inicial de cantidad para siguiente proceso</span>
-    </div>
-    <div class="input-field col s12 m3 l3">
       <input type="number" class="validate" id="cantinicial">
-      <label for="cantinicial">Cantidad</label>
+    </div>
+    <div class="col s12 m4 l4">
+      Fecha de inicio<input type="text" class="datepicker" id="fechaini" placeholder="Fecha inicio">
     </div>
   </div><hr>
   <div class="row marginzero">
