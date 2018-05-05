@@ -37,16 +37,34 @@
           <input type="text" id="vlote" value="" readonly>
           <label for="vlote">Lote</label>
         </div>
-        <div class="col s12 input-field">
+         <div class="col s12 input-field">
+          <select type="select" id="vidcultivo">
+            <option value="0">Seleccione una Opción</option>
+            {section name=LE loop=$USR}
+            <option value="{$USR[LE][0]}">{$USR[LE][1]}</option>
+            {/section}
+          </select>
+          <label for="cultivo">Medio Cultivo</label>
+        </div>
+        <!-- <div class="col s12 input-field">
           <a class="prefix btn-floating btn2 z-depth-2 mediocultivo" id="mkformula"><i class="mdi mdi-plus mdi-24px"></i></a>
           <input type="text" id="cultivo" readonly value="- - -" class="center">
           <label for="cultivo">Medio Cultivo</label>
-        </div>
+        </div> -->
         <div class="col s12 input-field">
+          <select type="select" id="vidbandeja">
+            <option value="0">Seleccione un Frasco</option>
+            {section name=LE loop=$FRA}
+            <option value="{$FRA[LE][0]}">{$FRA[LE][1]}</option>
+            {/section}
+          </select>
+          <label for="vidbandeja">Frascos</label>
+        </div>
+       <!--  <div class="col s12 input-field">
           <a class="prefix btn-floating btn2 z-depth-2 rbandeja" id="mkbandeja"><i class="mdi mdi-plus mdi-24px"></i></a>
           <input type="text" id="bandeja" readonly value="- - -" class="center">
           <label for="bandeja">Bandeja</label>
-        </div>
+        </div> -->
         <div class="col s12 input-field">
           <textarea id="vcomentario" class="materialize-textarea comentario" type="textarea" data-length="255"></textarea>
           <label for="vcomentario">Comentario</label>

@@ -59,7 +59,7 @@
                           <a class="btn btn1 modalmediosExtra" tm="3">DATOS</a>
                         </div>
                         <div class="col s12 container"><br>
-                          <label for="">Medio Ápice Líquido</label><br>
+                          <label for="">Medio de Iniciación</label><br>
                           <a class="btn btn1 modalmedios" tm="4">MEDIOS</a>
                           <a class="btn btn1 modalmediosQoS" tm="4">QoS</a>
                           <a class="btn btn1 modalmediosExtra" tm="4">DATOS</a>
@@ -77,11 +77,11 @@
                     <div class="col s12 m3" style="background: #F9F9F9" align="center">
                       <h6><b>Bandejas-Frascos</b></h6><br>
                       <div class="row" align="center">
-                        <div class="col s12 input-field">
+                        <!-- <div class="col s12 input-field">
                           <select id="inv-bandejasCT" class="role_inv" tp="3">
                           </select>
                           <label for="inv-bandejasCT">Inventarios Bandejas</label>
-                        </div>
+                        </div> -->
                         <div class="col s12 input-field">
                           <select id="inv-frascosCT" class="role_inv" tp="5">
                           </select>
@@ -562,7 +562,7 @@
     <div id="modal-bandejas" class="modal modal-fixed-footer grandemodal">
       <div class="modal-header">
         <div class="card-header center head2 padding1">
-          <p style="font-size: 1.2em" class="flow-text marginzero">Relacion bandejas-frascos</p>
+          <p style="font-size: 1.2em" class="flow-text marginzero">Relacion de Frascos</p>
         </div>
       </div>
       <div class="modal-content" style="padding: 20px;">
@@ -570,9 +570,9 @@
           <table class="table responsive-table centered striped bordered highlight pequeño" id="data-table-relaciones" cellspacing="0" width="100%" >
             <thead>
               <tr class="tab1">
-                <th style="border: 0; border-radius: 0px !important;">Bandejas</th>
-                <th style="border: 0; border-radius: 0px !important;">Caben</th>
+                <!-- <th style="border: 0; border-radius: 0px !important;">Bandejas</th> -->
                 <th style="border: 0; border-radius: 0px !important;">Frascos</th>
+                <th style="border: 0; border-radius: 0px !important;">Contienen</th>
                 <th style="border: 0; border-radius: 0px !important;">Acciones</th>
               </tr>
             </thead>
@@ -580,25 +580,26 @@
               <input type="hidden" id="autoinc" value="1">
               <input type="hidden" id="curpos" value="0">
               <tr id="rw1" class="rowrel zelda">
-                <td style="padding: 10px;">
+                <!-- <td style="padding: 10px;">
                   <div class="input-field">
                   <select type="select" id="bandejas1" class="invbandejas"></select>
                 </div>
-              </td>
-              <td style="padding: 10px;">
-                <div class="input-field">
-                  <input type="number" id="caben1" class="caben" value="1" min="1">
-                </div>
-              </td>
+              </td> -->
+              
               <td style="padding: 10px;">
                 <div class="input-field">
                 <select type="select" id="frascos1" class="invfrascos"></select>
               </div>
-            </td>
-            <td style="padding: 10px;">
+              </td>
+               <td style="padding: 10px;">
+                <div class="input-field">
+                  <input type="number" id="caben1" class="caben" value="1" min="1">
+                </div>
+              </td>
+               <td style="padding: 10px;">
               <a class="waves-effect waves-light gtext pbtn addline add" modulo="laboratorio-relacione" id="al1" tp="5"><i class="mdi mdi-plus mdi-24px"></i></a>
               <a class="waves-effect waves-light gtext pbtn delline delete" modulo="laboratorio-relacione" id="dl1" tp="5"><i class="mdi mdi-close mdi-24px"></i></a>
-            </td>
+              </td>
           </tr>
         </tbody>
       </table>
