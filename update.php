@@ -4,15 +4,17 @@
    
     $db = new DBClass();
     $mdb = $db->getDB();
+    $user = $db->getUSR();
+    $pass = $db->getPSS();
     $salida = [];
     $errors = [];
 
-    fclose(fopen('./assets/update/update.log','w'));
-  
-    if (!file_exists("assets/update/update.sql")) {
+    $numtables = shell_exec("mysql -u".$user." -p".$pass." developer -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\";");
 
-        shell_exec("mysqldump --user=itech01 --password=Login2Help ".$mdb." --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".ajustes --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipoestadocuentas --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoventas > ./assets/update/info.sql");
-        shell_exec("mysqldump --user=itech01 --password=Login2Help ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
+    if(trim($numtables) == 0){
+
+        shell_exec("mysql -u".$user." -p".$pass." -e \"create schema if not exists '".$mdb."'\";");
+        shell_exec("mysql -u".$user." -p".$pass." -e \"grant all privileges on ".$mdb.".* to ".$user."@localhost identified by '".$pass."' \";");
 
         $source = "https://logintechcr.com/descargas/struct.lt";
         $ch = curl_init();
@@ -25,17 +27,40 @@
 
         $destination = "./assets/update/update.sql";
         $file = fopen($destination, "w+");
-        fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('Login2Help'))
+        fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
+        fclose($file);
+        
+    }else{
+
+    fclose(fopen('./assets/update/update.log','w'));
+    
+    if (!file_exists("assets/update/update.sql")) {
+
+        shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".ajustes --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipoestadocuentas --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoventas > ./assets/update/info.sql");
+        shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
+
+        $source = "https://logintechcr.com/descargas/struct.lt";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $source);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSLVERSION,false);
+        $data = curl_exec ($ch);
+        $error = curl_error($ch); 
+        curl_close ($ch);
+
+        $destination = "./assets/update/update.sql";
+        $file = fopen($destination, "w+");
+        fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
         fclose($file);
 
         $archivo = file_get_contents('./assets/update/update.sql');
-        $archivo = preg_replace('/`root`/', `itech01`, $archivo);
+        $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
         $archivo = preg_replace('/`%`/', `localhost`, $archivo);
         $archivo = preg_replace('/developer/', $mdb, $archivo);
     }
 
-    shell_exec("mysql -uitech01 -pLogin2Help -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
-    shell_exec("mysql -uitech01 -pLogin2Help -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
+    shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
+    shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
 
     $salida['update'] = 1;
 
@@ -43,7 +68,7 @@
 
         $salida['update'] = 0;
 
-        shell_exec("mysql -uitech01 -pLogin2Help ".$mdb." < ./assets/update/full.sql");
+        shell_exec("mysql -u".$user." -p".$pass." ".$mdb." < ./assets/update/full.sql");
         $salida['rollback'] = 1;
     }else{
         unlink("assets/update/info.sql");
@@ -52,6 +77,6 @@
     }
 
     echo json_encode($salida);
-    
+    }
     exit(0);
  ?>
