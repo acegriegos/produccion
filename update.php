@@ -9,7 +9,7 @@
     $salida = [];
     $errors = [];
 
-    $numtables = shell_exec("mysql -u".$user." -p".$pass." developer -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\";");
+    $numtables = shell_exec("mysql -u".$user." -p".$pass." ".$mdb." -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\";");
 
     if(trim($numtables) == 0){
 
