@@ -29,6 +29,8 @@
         $file = fopen($destination, "w+");
         fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
         fclose($file);
+
+        shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
         
     }else{
 
