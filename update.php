@@ -8,13 +8,16 @@
     $pass = $db->getPSS();
     $salida = [];
     $errors = [];
+    set_time_limit(0);
 
-    $numtables = shell_exec("mysql -u".$user." -p".$pass." ".$mdb." -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\";");
+    $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\";");
+
+    fclose(fopen('./assets/update/update.log','w'));
 
     if(trim($numtables) == 0){
 
-        shell_exec("mysql -u".$user." -p".$pass." -e \"create schema if not exists '".$mdb."'\";");
-        shell_exec("mysql -u".$user." -p".$pass." -e \"grant all privileges on ".$mdb.".* to ".$user."@localhost identified by '".$pass."' \";");
+        shell_exec("mysql -u".$user." -p".$pass." -e \"create schema if not exists ".$mdb."\"  2>&1");
+        shell_exec("mysql -u".$user." -p".$pass." -e \"grant all privileges on ".$mdb.".* to ".$user."@localhost identified by '".$pass."' \"  2>&1");
 
         $source = "https://logintechcr.com/descargas/struct.lt";
         $ch = curl_init();
@@ -30,11 +33,16 @@
         fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
         fclose($file);
 
+        $archivo = file_get_contents('./assets/update/update.sql');
+        $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
+        $archivo = preg_replace('/`%`/', `localhost`, $archivo);
+        $archivo = preg_replace('/developer/', $mdb, $archivo);
+        file_put_contents('./assets/update/update.sql', $archivo);
         shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
-        
+
+        unlink("assets/update/update.sql");
     }else{
 
-    fclose(fopen('./assets/update/update.log','w'));
     
     if (!file_exists("assets/update/update.sql")) {
 
@@ -59,6 +67,7 @@
         $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
         $archivo = preg_replace('/`%`/', `localhost`, $archivo);
         $archivo = preg_replace('/developer/', $mdb, $archivo);
+        file_put_contents('./assets/update/update.sql', $archivo);
     }
 
     shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
