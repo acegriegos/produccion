@@ -13,10 +13,10 @@
     	}
 
     	if ($obj[8] == 5) {
-    		$hide = 'hide';
+    		$hidef = 'hide';
     		$fin = '';
     	}else{
-    		$hide = '';
+    		$hidef = '';
     		$fin = 'hide';
     	}
 ?>

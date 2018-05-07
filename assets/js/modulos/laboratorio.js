@@ -1974,20 +1974,20 @@ function validarRelaciones() {
 }
 
 function validarFincas() {
-    if ($("#vidpais").val() == '') {
-        $("#vidpais").focus();
+    if ($("#addClie #vidpais").val() == '') {
+        $("#addClie #vidpais").focus();
         return 'Pais requerido';
     }
 
-    if ($("#vidbarrio").val() == null || $("#vidbarrio").val() == 0) {
+    if ($("#addClie #vidbarrio").val() == null || $("#addClie #vidbarrio").val() == 0) {
         return 'Barrio requerido';
     }
 
-    if ($("#vregion").val() == '') {
+    if ($("#addClie #vregion").val() == '') {
         return 'Region requerido';
     }
 
-    if ($("#finca").val() == '') {
+    if ($("#addClie #finca").val() == '') {
         return 'Finca requerido';
     }
 
