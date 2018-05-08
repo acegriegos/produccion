@@ -1,4 +1,4 @@
-#_config/mysqlDB.php 
+_config/mysqlDB.php 
 dashboard/view/compiled/*
 subirVersion.sh
 assets/style=expanded
