@@ -1605,9 +1605,11 @@ function ingGeneral(tp) {
 }
 
 function reconstruirModal(tp) {
+    console.log('tp: '+tp)
     var p = mantenimiento('main',4,tp);
     $("#modalMainGeneral").html(p);
     var str = '';
+    console.log(invvar)
     var nombres = invvar[0][1].split(',');
     var ids = invvar[0][0].split(',');
     $.each(invvar[0][0].split(","), function(j,e){
