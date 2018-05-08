@@ -25,7 +25,11 @@ class DBClass
 		$this->db  = 'developer';//trim($this->encrypt->decy("5SSsCZ05itLNp5BGcQQk09ITSJRZ/uspGBJw36JDGcc="));
 		$this->usr = 'itech01';//trim($this->encrypt->decy("dvywc7DJzGEs7FG3xzA3149kB4NoWJ/180efl9v3EkI="));
 	    $this->pss = 'Login2Help';//trim($this->encrypt->decy("1eKYMc9PrUoktk7U7n5oiko86fKxQ/FiTOMD8SER7bY="));
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 287c46ad26214ca58d987bc529cc41aef5a4d6b7
 		$this->host = '127.0.0.1';
 	}
 
@@ -78,6 +82,19 @@ class DBClass
 	{
 		return $this->db;
 	}
+<<<<<<< HEAD
+=======
+
+	public function getUSR()
+	{
+		return $this->usr;
+	}
+
+	public function getPSS()
+	{
+		return $this->pss;
+	}
+>>>>>>> 287c46ad26214ca58d987bc529cc41aef5a4d6b7
 }
 
 ?>
