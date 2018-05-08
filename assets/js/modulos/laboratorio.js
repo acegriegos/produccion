@@ -1112,8 +1112,8 @@ function loadAjustes(){
         $("#curpos").val(lastid);
         $("#flaboratorio-relaciones").html('');
         if (relacion == 0) {
-            arr('login',6,'',411,invvar[2+(5*(vidsucursal-1))][0],15,1,$("#bandejas1"))
-            arr('login',6,'',411,invvar[4+(5*(vidsucursal-1))][0],15,1,$("#frascos1"))
+/*            arr('login',6,'',411,invvar[2+(5*(vidsucursal-1))][0],15,1,$("#bandejas1"))
+*/            arr('login',6,'',411,invvar[4+(5*(vidsucursal-1))][0],15,1,$("#frascos1"))
             
             var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
 
@@ -1124,8 +1124,8 @@ function loadAjustes(){
             $("#flaboratorio-relaciones").html(p);
             var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0];
             $.each(relaciones,function(index,relation){
-                $("#bandejas"+relation[0]).val(relation[1]);
-                $("#frascos"+relation[0]).val(relation[2]);
+/*                $("#bandejas"+relation[0]).val(relation[1]);
+*/                $("#frascos"+relation[0]).val(relation[2]);
             });
         }
         $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1});
@@ -2180,12 +2180,12 @@ function endDetail(vid,vacc,modulo){
             case 'laboratorio-relacione':
                 var id = parseInt($("#autoinc").val());
                 id++;
-                $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="bandejas'+id+'" class="invbandejas"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light addline gtext pbtn add" modulo="laboratorio-relacione" id="a'+id+'" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a><a class="waves-effect waves-light delline gtext pbtn delete" modulo="laboratorio-relacione" id="d'+id+'" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a></td></tr>');
-                setTimeout(function(){
-                    arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas"+id));
-                    arr('login',6,'',411,invvar[3][0],15,1,$("#frascos"+id));
+/*                $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="bandejas'+id+'" class="invbandejas"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light addline gtext pbtn add" modulo="laboratorio-relacione" id="a'+id+'" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a><a class="waves-effect waves-light delline gtext pbtn delete" modulo="laboratorio-relacione" id="d'+id+'" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a></td></tr>');
+*/                setTimeout(function(){
+/*                    arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas"+id));
+*/                    arr('login',6,'',411,invvar[3][0],15,1,$("#frascos"+id));
                     $("select").material_select();
-                    $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1})
+                    $(".zelda").data('triforce',{vid : 0,vidfrasco : 0,vcantidad : 1})
                     // $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1})
                 },100);
                 $("#autoinc").val(id)
