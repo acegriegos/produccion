@@ -82,13 +82,13 @@
     </div>
   </div>
   <div class="row">
-    <p>Asignar bandejas y medio de cultivo</p>
+    <p>Asignar frascos y medio de cultivo</p>
     <div class="col s12 m12 l12 left">
       <div class="col s4">
         <!-- <a class="btn btn3" id="assbandeja" style="margin-right: 10px;">Bandejas</a> -->
-        <label for="cbandeja">Bandeja</label>
-        <select type="select" id="cbandeja"></select>
-        <input type="hidden" id="hidbandeja" value="0">
+        <label for="cfrasco">Frasco</label>
+        <select type="select" id="cfrasco"></select>
+        <input type="hidden" id="hidfrasco" value="0">
       </div>
       
       <div class="col s4">
@@ -176,7 +176,7 @@
   </div>
 </div>
 
-<div id="modal-bandeja" class="modal modal-fixed-footer grandemodal">
+<!-- <div id="modal-bandeja" class="modal modal-fixed-footer grandemodal">
 <div class="modal-header head2 padding1">
   <div class="card-header center white-text">
     <p class="flow-text marginzero">Asignar bandeja</p>
@@ -184,14 +184,14 @@
 </div>
 <div class="modal-content row">
   <div class="col s6 m6 l6">
-  <select type="select" id="cbandeja"></select>
+  <select type="select" id="cfrasco"></select>
 </div>
 </div>
 <div class="modal-footer">
 <a class="modal-action waves-effect waves-green btn-flat z-depth-5" id="chgbandeja">Guardar</a>
 <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
 </div>
-</div>
+</div> -->
 
   <div id="modal-datoextra" class="modal modal-fixed-footer grandemodal">
   <div class="modal-header">
