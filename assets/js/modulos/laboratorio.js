@@ -867,15 +867,7 @@ $(document).on("click","#doproc",function(){
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
         }else{
-             if($("#cultivo").val() != '- - -'){
-                var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
-                
-                arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+ciclo[0][0][0],0,0,0);
-
-                $('.premc').each(function(){
-                    arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
-                });
-             }
+             
             Materialize.toast($("#titciclo").text().substr(11)+' procesada', 4000, 'green');
             
             arr('login',6,'',912,'0,0,"'+$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa,@@usr","0,10"',0,1,$("#listaciclos"))
@@ -1089,6 +1081,15 @@ $(document).on("change","#mc-cantidad",function(){
         $(this).html( (valor).formatMoney(0,'.',',') );
     });
     
+    /*if($("#cultivo").val() != '- - -'){
+                var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
+                
+                arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+ciclo[0][0][0],0,0,0);
+
+                $('.premc').each(function(){
+                    arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
+                });
+             }*/
 });
 
 $(document).on("click","#gcultivo",function(){
@@ -1262,21 +1263,7 @@ function cargarArr(vid,velemento){
     $('select').material_select();
     $(".comentario").characterCounter();
     $(".modal").modal();
-    $(".mediocultivo").click(function(){
-
-        if ($("#gcultivo").attr('save') == 0) {
-            var componentes = getDatos('',923,$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa',0,0,0);
-            var tabla = '';
-            for (var i = 0; i < componentes[0].length; i++) {
-                
-                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rid="'+componentes[0][i][3]+'" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
-            };
-            $("#mcul-lista").html(tabla);
-        }
-
-        $("#modal-formula").modal('open');
-        
-    });
+    
 
     $(".rbandeja").click(function(){
         arr('login',6,'',411,invvar[2][0],15,1,$("#invactivlab"))
@@ -1323,6 +1310,10 @@ function loadRecepcion(){
             case 6:
                 $("#labajax").html('Reportes')
                 break;
+            case 7:
+                cargarArr(17,$("#labajax"));
+                cargarMedios();
+                break;
     		default:
     			$("#labajax").html('Laboratorio sin Procesar')
     			break;
@@ -1361,6 +1352,9 @@ function loadSustrato(){
             case 6:
                 $("#labajax").html('Reportes')
                 break;
+            case 7:
+                cargarArr(17,$("#labajax"));
+                break;
             default:
                  cargarArr(16,$("#labajax"));
                 break;
@@ -1390,6 +1384,9 @@ function loadBM(){
             case 6:
                 $("#labajax").html('Reportes')
                 break;
+            case 7:
+                cargarArr(17,$("#labajax"));
+                break;
             default:
                  cargarArr(15,$("#labajax"));
                 break;
@@ -1415,6 +1412,9 @@ function loadAvispas(){
                 break;
             case 6:
                 $("#labajax").html('Reportes')
+                break;
+            case 7:
+                cargarArr(17,$("#labajax"));
                 break;
             default:
                 cargarArr(6,$("#labajax"));
@@ -1446,6 +1446,9 @@ function loadHongos(){
             case 6:
                 $("#labajax").html('Reportes')
                 break;
+            case 7:
+                cargarArr(17,$("#labajax"));
+                break;
             default:
                  cargarArr(7,$("#labajax"));
                 break;
@@ -1463,6 +1466,24 @@ function loadSeguimiento(){
 function cargarQoS(){
     $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
 }//cargar QOS
+
+function cargarMedios() {
+    $(".mediocultivo").click(function(){
+
+        if ($("#gcultivo").attr('save') == 0) {
+            var componentes = getDatos('',923,$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa',0,0,0);
+            var tabla = '';
+            for (var i = 0; i < componentes[0].length; i++) {
+                
+                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rid="'+componentes[0][i][3]+'" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
+            };
+            $("#mcul-lista").html(tabla);
+        }
+
+        $("#modal-formula").modal('open');
+        
+    });
+}//CARGAR MEDIOS
 
 function cargarAclimatacion(){
     $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
@@ -2200,11 +2221,7 @@ function endDetail(vid,vacc,modulo){
                         encargado = $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] == 0 ? '@@ur' : $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'];
                         arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
                         $("#modal-registrar").modal('close');
-                        var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
-                        arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+vid[0][0][0],0,0,0);
-                        $('.premc').each(function(){
-                            arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
-                        });
+                       
                         var perdida = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+','+encargado+',"'+comen+'"',0,0,0);
                         if ($("#encargado").val() != 0) {
                             var qos = arr('login',4,'',914,vid+',5,0,0,@@impresa,'+$("#encargado").val()+','+fecha,0,0,0);
@@ -2226,7 +2243,7 @@ function endDetail(vid,vacc,modulo){
                 }
                 deadclear(modulo);
                 $(".zelda").removeData('triforce');
-                $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidempresa:''});
+                $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidempresa:''});
                 $("#result00").html('No se ha Elegido la Variedad');
                 $("#tplt").text(0);
                 break;
