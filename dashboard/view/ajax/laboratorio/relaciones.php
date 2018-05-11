@@ -23,7 +23,7 @@ if (sizeof($transaccion)) {
 	</td>
 	<td style="padding: 10px; color:black;">
 		<div class="input-field">
-			<input type="number" id="caben<?php echo $obj[0]; ?>" class="caben" value="<?php echo $obj[3]; ?>" min="1">
+			<input type="number" id="caben<?php echo $obj[0]; ?>" class="caben" value="<?php echo $obj[2]; ?>" min="1">
 		</div>
 	</td>
 	
