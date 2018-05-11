@@ -29,3 +29,18 @@
 #modal-registrar {
   overflow-y: hidden;
 }
+
+nav ul a{
+  padding-top: 10px !important;
+  padding-right: 15px !important;
+  padding-bottom: 10px !important;
+  padding-left: 15px !important;
+}
+
+label[input='vnombre'] {
+  width: 100%;
+}
+
+label[input='vcodigo'] {
+  width: 100%;
+}

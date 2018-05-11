@@ -510,12 +510,12 @@
                           <label for="inv-bandejasBM">Inventarios Bandejas</label>
                         </div> -->
                         <div class="col s12 input-field">
-                          <select id="inv-frascosBM" class="role_inv" tp="5">
+                          <select id="inv-frascosBM" class="role_inv" tp="25">
                           </select>
                           <label for="inv-frascosBM">Inventarios Frascos</label>
                         </div>
                         <div class="col s12">
-                          <a href="#modal-bandejas" class="btn btn2 relaciones" tp="25">Relación</a>
+                          <a href="#modal-bandejas" class="btn btn2 relaciones" tp="4">Relación</a>
                         </div>
                       </div>
                     </div>

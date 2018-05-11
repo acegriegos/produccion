@@ -15,44 +15,40 @@
 
       <div class="card z-depth-5 pequeño">
 
-
-  <nav class="nav-extended head1">
-    <div class="nav-wrapper">
-      <!-- <a href="#" class="brand-logo center-align hide-on-small-only">Laboratorio de Hongos Entomopatógenos</a> -->
-      <a href="#" class="brand-logo center-align show-on-medium-only"><h5 class="truncate">Laboratorio de Hongos Entomopatógenos</h5></a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi mdi-menu"></i></a>
-    </div>
-    <div class="nav-content">
-      <ul class="side-nav" id="mobile-demo">
-          <li class="menu3 tab" id="m0"><a>Recepción Muestra de Aislamiento</a></li>
-          <li class="menu3 tab" id="m19"><a>Cepario</a></li>
-          <li class="menu3 tab" id="m20"><a>Cultivo Monospórico</a></li>
-          <li class="menu3 tab" id="m21"><a>Cultivo Total</a></li>
-          <li class="menu3 tab" id="m22"><a>Matriz Líquida</a></li>
-          <li class="menu3 tab" id="m23"><a>Inoculación</a></li>
-          <li class="menu3 tab" id="m24"><a>Esporulación</a></li>
-          <li class="menu3 tab" id="m25"><a>Secado</a></li>
-          <li class="menu3 tab" id="m26"><a>Empaque</a></li>
-          <li class="menu3 tab" id="m5"><a>Qos</a></li>
-          <li class="menu3 tab" id="m6"><a>Reporte</a></li>
-      </ul>
-      <ul class="tabs tabs-transparent hide-on-small-only">
-          <li class="menu3 tab" id="m0"><a class="white-text" class="active">Recepción Muestra de Aislamiento</a></li>
-          <li class="menu3 tab" id="m19"><a class="white-text">Cepario</a></li>
-          <li class="menu3 tab" id="m20"><a class="white-text">Cultivo Monospórico</a></li>
-          <li class="menu3 tab" id="m21"><a class="white-text">Cultivo Total</a></li>
-          <li class="menu3 tab" id="m22"><a class="white-text">Matriz Líquida</a></li>
-          <li class="menu3 tab" id="m23"><a class="white-text">Inoculación</a></li>
-          <li class="menu3 tab" id="m24"><a class="white-text">Esporulación</a></li>
-      </ul>
-      <ul class="tabs tabs-transparent hide-on-small-only">
-          <li class="menu3 tab" id="m25"><a class="white-text">Secado</a></li>
-          <li class="menu3 tab" id="m26"><a class="white-text">Empaque</a></li>
-          <li class="menu3 tab" id="m5"><a class="white-text">Qos</a></li>
-          <li class="menu3 tab" id="m6"><a class="white-text">Reporte</a></li>
-      </ul>
-    </div>
-  </nav>
+        <nav class="nav-extended">
+          <div class="nav-wrapper head1">
+            <a href="#!" class="brand-logo center"><h5 class="truncate">Laboratorio de Hongos Entomopatógenos</h5></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi mdi-menu"></i></a>
+          </div>
+          <div class="nav-content head2">
+            <ul class="side-nav" id="mobile-demo">
+                <li class="menu3 tab" id="m0"><a>Recepción Muestra de Aislamiento</a></li>
+                <li class="menu3 tab" id="m19"><a>Cepario</a></li>
+                <li class="menu3 tab" id="m20"><a>Cultivo Monospórico</a></li>
+                <li class="menu3 tab" id="m21"><a>Cultivo Total</a></li>
+                <li class="menu3 tab" id="m22"><a>Matriz Líquida</a></li>
+                <li class="menu3 tab" id="m23"><a>Inoculación</a></li>
+                <li class="menu3 tab" id="m24"><a>Esporulación</a></li>
+                <li class="menu3 tab" id="m25"><a>Secado</a></li>
+                <li class="menu3 tab" id="m26"><a>Empaque</a></li>
+                <li class="menu3 tab" id="m5"><a>Qos</a></li>
+                <li class="menu3 tab" id="m6"><a>Reporte</a></li>
+            </ul>
+            <ul class="tabs tabs-transparent hide-on-small-only">
+                <li class="menu3" id="m0"><a class="white-text" class="active">Recepción Muestra de Aislamiento</a></li>
+                <li class="menu3" id="m19"><a class="white-text">Cepario</a></li>
+                <li class="menu3" id="m20"><a class="white-text">Cultivo Monospórico</a></li>
+                <li class="menu3" id="m21"><a class="white-text">Cultivo Total</a></li>
+                <li class="menu3" id="m22"><a class="white-text">Matriz Líquida</a></li>
+                <li class="menu3" id="m23"><a class="white-text">Inoculación</a></li>
+                <li class="menu3" id="m24"><a class="white-text">Esporulación</a></li>
+                <li class="menu3" id="m25"><a class="white-text">Secado</a></li>
+                <li class="menu3" id="m26"><a class="white-text">Empaque</a></li>
+                <li class="menu3" id="m5"><a class="white-text">Qos</a></li>
+                <li class="menu3" id="m6"><a class="white-text">Reporte</a></li>
+            </ul>
+          </div>
+        </nav>
 
 
 <!--         <div class="card-header center head1 z-depth-1">

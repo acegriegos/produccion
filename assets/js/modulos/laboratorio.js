@@ -121,9 +121,14 @@ $(document).on("click","#addperdida",function(){
     var perdida = $("#vperdida").val();
     if (perdida != '') {
         ifila4++;
-        $("#listaperdidas").append('<li class="collection-item lsperdidas" id="cpr'+ifila4+'"><label id="lpr'+ifila4+'">'+perdida+'</label><i class="pbtn mdi mdi-minus-circle mdi-24px right cdel pestado" id="stp'+ifila4+'"></i></li>');
+        $("#listaperdidas").append('<li class="collection-item lsperdidas" id="cpr'+ifila4+'"><label id="lpr'+ifila4+'">'+perdida+'</label><i class="pbtn mdi mdi-autorenew mdi-24px right pestado hide" id="stp'+ifila4+'"></i><i class="pbtn mdi mdi-close mdi-24px right delperdida cdel" id="dlp'+ifila4+'"></i></li>');
         $("#vperdida").val('').focus();
     }
+});
+
+$(document).on("click",".delperdida",function(){
+    var id = $(this).attr('id').substr(3);
+    $("#cpr"+id).remove();
 });
 
 $(document).on("click",".save-perdidas",function(){
@@ -132,9 +137,10 @@ $(document).on("click",".save-perdidas",function(){
     $(".pestado").each(function(){
         var id = $(this).attr('id').substr(3);
         var perdida = $("#lpr"+id).text();
-        var comp = arr('login',4,'count(id)',913,'id > 0 and idestado = 1 and nombre = "'+perdida+'"',0,0,0)[0][0];
+        var comp = arr('login',4,'count(id)',913,'id > 0 and idestado = 1 and nombre = "'+perdida+'" and idsucursal = @@impresa',0,0,0)[0][0];
         if (comp == 0) {
             p = arr('login',4,'',943,'1,0,"'+perdida+'",0,0,@@impresa,1',0,0,0);
+            console.log(p)
             if (p['succed'] == 1)
                 bis = 1;
             else
@@ -233,11 +239,10 @@ $(document).on("click",".pruebasQoS",function(){
     var idsuc = $(this).attr('ids');
     $(".savetestqos").attr('idsuc',idsuc);
     $("#modal-pruebasQoS").modal('open');
-    var cnt = arr('login',4,'count(id)',930,'id > 0 and idsucursal = '+idsuc,0,0,0)[0][0];
+    var cnt = arr('login',4,'count(id)',930,'id > 0 and idciclo = -1 and idsucursal = '+idsuc,0,0,0)[0][0];
     if (cnt > 0) {
         ifila3 = cnt;
-        $("#testqos").html('');
-        arr('login',6,'id,prueba',930,'id > 0 and idsucursal = '+idsuc,0,1,$("#testqos"));
+        arr('login',6,'id,prueba',930,'id > 0 and idciclo = -1 and idsucursal = '+idsuc,0,1,$("#testqos"));
     }else
         $("#testqos").html('');
 });
@@ -277,6 +282,7 @@ $(document).on("click",".modalmediosExtra",function(){
     });
 
     var cnt = arr('login',4,'',938,tm+','+idsuc+','+bismedio,0,0,0)[0];
+    console.log(cnt)
     if (cnt.length > 0) {
         ifila3 = cnt;
         $("#testqosExtra").html('');
@@ -298,14 +304,14 @@ $(document).on("click","#addtestqos",function(){
 });
 
 $(document).on("click","#addtestqosExtra",function(){
-    var test = $("#tipopruebasExtra").val().toLowerCase();
+    var test = $("#tipopruebasExtra").val();
     var sig = 1;
     if (test != '') {
         if ($(".pruebasqos").length > 0) {
             $(".pruebasqos").each(function(){
                 var id = $(this).children().attr('id').substr('2');
                 var nombre = $("#qs"+id).text().toLowerCase();
-                if (nombre == test) {
+                if (nombre == test.toLowerCase()) {
                     Materialize.toast('Dato existente', 4000, 'red');
                     sig = 0;
                 }else{
@@ -315,6 +321,7 @@ $(document).on("click","#addtestqosExtra",function(){
         }
         if (sig == 1) {
             ifila3++;
+            // test = test.substr(0,1).toUpperCase()+test.substr(1);
             $("#testqosExtra").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
             $("#tipopruebasExtra").val('').focus();
         }
@@ -393,12 +400,16 @@ $(document).on("click",".savetestqosExtra",function(){
     $(".pruebasqos").each(function() {
         var id = $(this).children().attr('id').substr('2');
         var nombre = $("#qs"+id).text();
-        // vaccion,vid,vidtipociclo,vnombre,vbisinicial,vbismedio,vbisfinal
-        var datoextra = arr('login',4,'',939,'1,0,'+idciclo+',"'+nombre+'",'+bismedio,0,0,0);
-        if (datoextra['succed'] == 1)
-            pass = 1;
-        else
-            pass = 0;
+        // 936
+        var cnt = arr('login',4,'count(id)',936,'nombre = "'+nombre+'"',0,0,0)[0][0];
+        if (cnt == 0) {
+            var datoextra = arr('login',4,'',939,'1,0,'+idciclo+',"'+nombre+'",'+bismedio,0,0,0);
+            if (datoextra['succed'] == 1)
+                pass = 1;
+            else
+                pass = 0;
+        }
+        
     });
     if (pass == 1) {
         Materialize.toast('Registro guardado correctamente', 4000, 'green');
@@ -1174,29 +1185,29 @@ function loadAjustes(){
 
     $(document).on("click",".relaciones",function(){
         var vidsucursal = $(this).attr('tp');
-
         var relacion = arr('login',4,'count(id),ifnull(max(id)+1,1)',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0][0];
         var lastid = relacion[1];
-        //arr('login',4,'ifnull(max(id)+1,1)',911,'idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0][0];
         relacion = relacion[0]
         $("#autoinc").val(lastid);
         $("#curpos").val(lastid);
         $("#flaboratorio-relaciones").html('');
+        var index = 4+(5*(vidsucursal-1));
+        if (invvar.length == 5)
+            index = 4;
+
         if (relacion == 0) {
-/*            arr('login',6,'',411,invvar[2+(5*(vidsucursal-1))][0],15,1,$("#bandejas1"))
-*/            arr('login',6,'',411,invvar[4+(5*(vidsucursal-1))][0],15,1,$("#frascos1"))
+            arr('login',6,'',411,invvar[vidsucursal-1][0],15,1,$("#frascos1"))
             
-            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
+            var p = mantenimiento('laboratorio',9,{"invbandejas":1,"invfrascos":invvar[index][0],"idsucursal" : vidsucursal });
 
             $("#flaboratorio-relaciones").html(p);
         }else{
-            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
+            var p = mantenimiento('laboratorio',9,{"invbandejas":1,"invfrascos":invvar[index][0],"idsucursal" : vidsucursal });
 
             $("#flaboratorio-relaciones").html(p);
             var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0];
             $.each(relaciones,function(index,relation){
-/*                $("#bandejas"+relation[0]).val(relation[1]);
-*/                $("#frascos"+relation[0]).val(relation[2]);
+                $("#frascos"+relation[0]).val(relation[2]);
             });
         }
         $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1});
@@ -2283,7 +2294,11 @@ function endDetail(vid,vacc,modulo){
                 $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light gtext pbtn addline add" modulo="laboratorio-relacione" id="al'+id+'" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a><a class="waves-effect waves-light gtext pbtn delline delete" modulo="laboratorio-relacione" id="dl'+id+'" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a></td></tr>');
                 setTimeout(function(){
                     /*arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas"+id));*/
-                    arr('login',6,'',411,invvar[4+(5*(vidsucursal-1))][0],15,1,$("#frascos"+id));
+                    var index = 4+(5*(vidsucursal-1));
+                    if (invvar.length == 5) {
+                        index = 4;
+                    }
+                    arr('login',6,'',411,invvar[index][0],15,1,$("#frascos"+id));
                     $("select").material_select();
                     // $(".zelda").data('triforce',{vid : 0,vidfrasco : 0,vcantidad : 1})
                     $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1})
