@@ -1036,6 +1036,7 @@ function doreport() {
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
+
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
                 if ( $("#"+datos[i]).val()=='' ){
@@ -1050,7 +1051,7 @@ function doreport() {
             if ($("#"+datos[i]).val() == '') {
                 search[i] = "''";
             }else{
-                
+                console.log(datos[i])
                 search[i] = $("#"+datos[i]).val();    
                 $("#chk"+datos[i].substr(3)).is(":checked") == false ? $("#"+datos[i]).val(0) : true;
 
@@ -1066,7 +1067,10 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1);
+    console.log(atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
+    console.log(arr('login',4,'',tbl,atributos,0,0,0))
+
 }
 
 $(document).on("change","._det",function(){
