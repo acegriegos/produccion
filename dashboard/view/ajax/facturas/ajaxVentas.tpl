@@ -1,23 +1,34 @@
 <section id="ffacturas">
 
-<div class="row">
-  <div class="l9 m9 s12 col">
 
-<div class="card z-depth-3 pequeño">
-<div class="card-header center head1 white-text">
+<nav class="nav-extended head1">
+    <div class="nav-wrapper">
+      <div class="center head1 white-text">
+        <p class="brand-logo" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
+      </div>
+        <div class="nav-content">
+          <ul class="tabs tabs-transparent">
+            <li class="tab"><a href="#test1">Cliente</a></li>
+            <li class="tab"><a class="active" href="#test2">Detalle</a></li>
+            <li class="tab"><a href="#test3">Desgloce</a></li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+
+
+  <div id="test1" class="col s12">
+  
+  <div class="card z-depth-3 pequeño">
+  <br>
+<!-- <div class="card-header center head1 white-text">
   <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
-</div>
+</div> -->
   <input type="hidden" class="zelda">
 
   <div class="row pequeño">
     <div class="col s12 m3 l3 concre" align="center">
       <div class="switch">
-        
-        <!-- <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocont" val="1" checked/>
-        <label for="chg_tipo"><b>Contado</b></label>
-        <br>
-        <input class="with-gap chg_tipo" name="tfact" type="radio" id="chg_tipocred" val="0"/>
-        <label for="chg_tipocred"><b>Crédito</b></label> -->
 
         <label>
           <b>Contado</b>
@@ -83,9 +94,10 @@
   </div>
   </div>
 
+  </div>
+  <div id="test2" class="col s12">
 
-<!-- DETALLE FACTURA -->
-  <div class="card center z-depth-3">
+    <div class="card center z-depth-3">
   <div class="card-header head2 center" style="padding: 0.5%"><b>DETALLE DE FACTURA</b></div>
 
   <div class="row">
@@ -138,7 +150,7 @@
         <tr class="trVenta hide trsec">
 
           <!-- <td style="width: 5%; padding: 0 !important"></td> -->
-
+<tr>
           <td style="width: 10%; padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
             <input type="hidden" id="valores">
@@ -173,6 +185,7 @@
           </div>
   
           </td>
+</tr>
         </tr>
 
         <tr class="trOCompra hide trsec">
@@ -277,15 +290,12 @@
 
     </div>
 </div>
-<!-- /DETALLE FACTURA -->
 
-</div>
+  </div>
 
-<!-- DIVISOR -->
-
-<div class="l3 m3 s12 col">
-
-<div class="card center z-depth-3">
+<div id="test3" class="col s12">
+  
+  <div class="card center z-depth-3">
   <div class="card-header center head2 center" style="padding: 1%"><b>DESGLOCE DE FACTURA</b></div>
   
   <div class="row">
@@ -391,256 +401,8 @@
 
 </div>
 
-<!-- ffacturas -->
-</div>
- <!-- bdy -->
-
-
-<div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
-
-  <div class="modal-content">
-      <div class="row">
-          <div class="input-field col s6">
-              <select type="select" id="xidbodega" class="_det" det="bodega" sig="xidinventario" prev="" d-b="41">
-                  <option value="" disabled selected>Seleccione una Bodega</option>
-                  {section name=LE loop=$BOD}
-                  <option value="{$BOD[LE][0]}">{$BOD[LE][1]}</option>
-                  {/section}
-              </select>
-              <label for="idbodega">Bodegas</label>
-          </div>
-          <div class="input-field col s6">
-              <select type="select" id="xidinventario" det="inventario" d-b="111">
-                  <option value="" disabled>Seleccione un Inventario</option>
-              </select>
-              <label for="idinventario">Inventarios</label>
-          </div>
-      </div>
-      <p>Cantidad de Producto en el Inventario: <b><span id="bname-inv" type="html">0.00</span></b></p>
-  </div>
-
-  <div class="modal-footer">
-      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-  </div>
 </div>
 
-
-<div id="modal-tpagos" class="modal modal-fixed-footer" gfort="0" align="center" style="width: 70%; height: 100% !important;">
-<!--  -->
-<section id="m-efectivo" class="modal-tpago">
-  <div class="modal-content">
-  <b><span style="color: #2196F3; font-size: 1.8em !important;">Efectivo</span></b><hr style="border: 1px solid #F0F0F0">
-    <span>TOTAL:</span><br>
-    <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
-    <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
-      <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;">
-    </div>
-    <br>
-    <span>SU CAMBIO ES DE:</span><br>
-    <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
-  </div>
-
 </section>
-<!--  -->
-<section id="m-tarjeta" class="modal-tpago">
-  <div class="modal-content">
-  <b><span style="color: #2196F3; font-size: 1.8em !important;">Tarjeta</span></b><hr style="border: 1px solid #F0F0F0">
-  <span>TOTAL:</span><br>
-  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
-  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
-  <br>
-  <div class="row center-align">
-    <div class="input-field col s12">
-
-      <i class="mdi-24px mdi mdi-card prefix icono" style="font-size: 2em !important"></i>
-      <input id="carddigito" type="text" class="validate center-align" value="0000" style="width: 20%; font-size: 2em !important;">
-    </div>
-      <label for="carddigito" id="labeltarjeta"></label>
-  </div>
-  <br>
-  </div>
-</section>
-<!--  -->
-<section id="m-deposito" class="modal-tpago">
-  <div class="modal-content">
-  <b><span style="color: #2196F3; font-size: 1.8em !important;">Depósito</span></b><hr style="border: 1px solid #F0F0F0">
-  <span>TOTAL:</span><br>
-  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
-  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
-  <br>
-  <div class="row center-align">
-    <div class="input-field col s12">
-
-      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
-      <input id="ndeposito" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
-    </div>
-      <label for="ndeposito" id="labeldeposito"></label>
-  </div>
-  <br>
-  </div>
-</section>
-<!--  -->
-<section id="m-cheque" class="modal-tpago">
-  <div class="modal-content">
-  <b><span style="color: #2196F3; font-size: 1.8em !important;">Cheque</span></b><hr style="border: 1px solid #F0F0F0">
-  <span>TOTAL:</span><br>
-  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
-  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
-  <br>
-  <div class="row center-align" align="center">
-    <div class="input-field col s12">
-
-      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
-      <input id="ncheque" type="text" class="validate center-align" value="00000000" style="width: 20%; font-size: 2em !important;">
-    </div>
-      <label for="ncheque" id="labelcheque"></label>
-  </div>
-  <br>
-  </div>
-</section>
-<!--  -->
-<section id="m-mixto" class="modal-tpago">
-  <div class="modal-content">
-  <b><span style="color: #2196F3; font-size: 1.8em !important;">Pago Mixto</span></b><hr style="border: 1px solid #F0F0F0">
-  <span>TOTAL:</span><br>
-  <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
-  <br>Saldo: <span class="totfact numeric" style="font-size: 1.4em;"></span><br>
-  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
-  <br>
-  <div class="row center-align" align="center">
-    <div class="col s12">
-
-    <p>Seleccione los metodos de pago:</p>
-    <div class="col s12" id="mtpagos" align="center">
-      
-    </div>
-    <br><br><br>
-      <div class="col s12 row tp-Cheque hide">
-        <div class="col s1">
-          <i class="material-icons prefix icono" style="font-size: 2em !important">image_aspect_ratio</i>
-        </div>
-        <div class="col input-field s3">
-          <input id="mCheque" type="text" class="validate center-align" value="00000000" style="font-size: 2em !important;">
-          <label for="mCheque">Cheque</label>
-        </div>
-        <div class="col input-field s8">
-          <input type="text" id="pconcheque" class="mcancelar" placeholder="monto a cancelar" value="0" style="font-size: 2em !important;">
-        </div>
-      </div>
-
-      <div class="col s12 row tp-Deposito hide">
-        <div class="col s1">
-          <i class="material-icons prefix icono" style="font-size: 2em !important">description</i>
-        </div>
-        <div class="col input-field s3">
-          <input id="mDeposito" type="text" class="validate center-align" value="00000000" style="font-size: 2em !important">
-          <label for="mDeposito">Deposito</label>
-        </div>
-        <div class="col input-field s8">
-          <input type="text" id="pcondeposito" class="mcancelar" placeholder="monto a cancelar" value="0" style="font-size: 2em !important;">
-        </div>
-      </div>
-
-       <div class="col s12 row tp-Tarjeta hide">
-        <div class="col s1">
-          <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
-        </div>
-        <div class="col input-field s3">
-          <input id="mTarjeta" type="text" class="validate center-align" value="0000" style="font-size: 2em !important;">
-          <label for="mTarjeta">Tarjeta</label>
-        </div>
-        <div class="col input-field s8">
-          <input type="text" id="pcontarjeta" class="mcancelar" placeholder="monto a cancelar" value="0" style="font-size: 2em !important;">
-        </div>
-      </div>
-
-      <div class="col s12 row tp-Efectivo hide">
-        <div class="col s1">
-          <i class="material-icons prefix icono" style="font-size: 2em !important">monetization_on</i>
-        </div>
-        <div class="col input-field s3">
-          <input id="mEfectivo" type="text" class="validate center-align mcancelar" value="0.00" style="font-size: 2em !important;">
-          <label for="mEfectivo">Efectivo</label>
-        </div>
-        <div class="col input-field s8">
-          <!-- <input type="text" class="mcancelar" placeholder="monto a cancelar" style="font-size: 2em !important;"> -->
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  <br>
-  </div>
-</section>
-<!--  -->
-<!-- FOOTER -->
-  <div class="modal-footer">
-    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
-  </div>
-</div>
-
-
-</section>
-
-<!-- <div id="modal-edit" class="modal modal-fixed-footer">
-  <div class="modal-content">
-    <h4 id="titmod">Modal Header</h4>
-    
-    <div class="row">
-
-      <div class="input-field col s6 ecant">
-        <input type="text" id="ecantidad">
-        <label for="ecantidad">Cantidad</label>
-      </div>
-
-      <div class="input-field col s6 eunit">
-        <input type="text" id="eunitario">
-        <label for="eunitario">Precio Unitario</label>
-      </div>
-
-      <div class="input-field col s6 edescu">
-        <input type="text" id="edescuento">
-        <label for="edescuento">Descuento</label>
-      </div>
-
-      <div class="input-field col s6 eimp">
-        <input type="text" id="eimpuesto">
-        <label for="eimpuesto">Impuesto</label>
-      </div>
-      <input type="hidden" id="hdnprd" value="0">
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
-  </div>
-</div> -->
-
-<div id="modal-producto" class="modal modal-fixed-footer">
-  <div class="modal-content" id="fproductos">
-    <h4>Agregar Producto</h4>
-    <input type="hidden" class="zelda">
-    <div class="row">
-
-      <div class="input-field col s6 edescu">
-        <input type="text" id="ecodprod">
-        <label for="ecodprod">Código</label>
-      </div>
-
-      <div class="input-field col s6 eimp">
-        <input type="text" id="enomprod">
-        <label for="enomprod">Nombre</label>
-      </div>
-
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Aceptar</a>
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
-  </div>
-</div>
 
 <script src="../assets/js/modulos/ventas.js?v=0.26"></script>

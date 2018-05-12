@@ -72,7 +72,13 @@
                         <div class="col s12"><br>
                           <a class="btn btn3 pruebasQoS" ids="1">QoS</a>
                         </div>
-                      </div>
+                      </div><br>
+                      <h6><b>Pérdidas por laboratorio</b></h6><br>
+                      <div class="row" align="center">
+                        <div class="col s12"><br>
+                          <a class="btn btn3 perdidasxlab" ids="1">Perdidas</a>
+                        </div>
+                      </div><br>
                     </div>
                     <div class="col s12 m3" style="background: #F9F9F9" align="center">
                       <h6><b>Bandejas-Frascos</b></h6><br>
@@ -105,18 +111,18 @@
                       <h6><b>Inventarios</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12 input-field">
-                          <select  id="invVariedadPS" class="role_inv" tp="1">
+                          <select  id="invVariedadPS" class="role_inv" tp="6">
                             <option disabled selected value="0">Seleccione una Opción</option>
                           </select>
                           <label for="invVariedadPS">Inventarios Variedades</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select  id="invreactivosPS" class="role_inv" tp="2">
+                          <select  id="invreactivosPS" class="role_inv" tp="7">
                           </select>
                           <label for="invreactivosPS">Inventarios Reactivos</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select  id="invcompPS" class="role_inv" tp="4">
+                          <select  id="invcompPS" class="role_inv" tp="9">
                           </select>
                           <label for="invcompPS">Inventarios Componentes</label>
                         </div>
@@ -164,17 +170,23 @@
                           <a class="btn btn3 pruebasQoS" ids="5">QoS</a>
                         </div>
                       </div>
+                      <h6><b>Pérdidas por laboratorio</b></h6><br>
+                      <div class="row" align="center">
+                        <div class="col s12"><br>
+                          <a class="btn btn3 perdidasxlab" ids="1">Perdidas</a>
+                        </div>
+                      </div><br>
                     </div>
                     <div class="col s12 m3" style="background: #F9F9F9" align="center">
                       <h6><b>Bandejas-Frascos</b></h6><br>
                       <div class="row" align="center">
-                        <div class="col s12 input-field">
+                        <!-- <div class="col s12 input-field">
                           <select id="inv-bandejasPS" class="role_inv" tp="3">
                           </select>
                           <label for="inv-bandejasPS">Inventarios Bandejas</label>
-                        </div>
+                        </div> -->
                         <div class="col s12 input-field">
-                          <select id="inv-frascosPS" class="role_inv" tp="5">
+                          <select id="inv-frascosPS" class="role_inv" tp="10">
                           </select>
                           <label for="inv-frascosPS">Inventarios Frascos</label>
                         </div>
@@ -196,17 +208,17 @@
                       <h6><b>Inventarios</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12 input-field">
-                          <select  id="invVariedadCF" class="role_inv" tp="1">
+                          <select  id="invVariedadCF" class="role_inv" tp="11">
                           </select>
                           <label for="invVariedadCF">Inventarios Variedades</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select  id="invreactivosCF" class="role_inv" tp="2">
+                          <select  id="invreactivosCF" class="role_inv" tp="12">
                           </select>
                           <label for="invreactivosCF">Inventarios Reactivos</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select  id="invcompCF" class="role_inv" tp="4">
+                          <select  id="invcompCF" class="role_inv" tp="14">
                           </select>
                           <label for="invcompCF">Inventarios Componentes</label>
                         </div>
@@ -266,17 +278,23 @@
                           <a class="btn btn3 pruebasQoS" ids="2">QoS</a>
                         </div>
                       </div>
+                      <h6><b>Pérdidas por laboratorio</b></h6><br>
+                      <div class="row" align="center">
+                        <div class="col s12"><br>
+                          <a class="btn btn3 perdidasxlab" ids="1">Perdidas</a>
+                        </div>
+                      </div><br>
                     </div>
                     <div class="col s12 m3" style="background: #F9F9F9" align="center">
                       <h6><b>Bandejas-Frascos</b></h6><br>
                       <div class="row" align="center">
-                        <div class="col s12 input-field">
+                        <!-- <div class="col s12 input-field">
                           <select id="inv-bandejasCF" class="role_inv" tp="3">
                           </select>
                           <label for="inv-bandejasCF">Inventarios Bandejas</label>
-                        </div>
+                        </div> -->
                         <div class="col s12 input-field">
-                          <select id="inv-frascosCF" class="role_inv" tp="5">
+                          <select id="inv-frascosCF" class="role_inv" tp="15">
                           </select>
                           <label for="inv-frascosCF">Inventarios Frascos</label>
                         </div>
@@ -298,17 +316,17 @@
                       <h6><b>Inventarios</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12 input-field">
-                          <select  id="invVariedadHE" class="role_inv" tp="1">
+                          <select  id="invVariedadHE" class="role_inv" tp="16">
                           </select>
                           <label for="invVariedadHE">Inventarios Variedades</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select  id="invreactivosHE" class="role_inv" tp="2">
+                          <select  id="invreactivosHE" class="role_inv" tp="17">
                           </select>
                           <label for="invreactivosHE">Inventarios Reactivos</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select  id="invcompHE" class="role_inv" tp="4">
+                          <select  id="invcompHE" class="role_inv" tp="19">
                           </select>
                           <label for="invcompHE">Inventarios Componentes</label>
                         </div>
@@ -374,17 +392,23 @@
                           <a class="btn btn3 pruebasQoS" ids="3">QoS</a>
                         </div>
                       </div>
+                      <h6><b>Pérdidas por laboratorio</b></h6><br>
+                      <div class="row" align="center">
+                        <div class="col s12"><br>
+                          <a class="btn btn3 perdidasxlab" ids="1">Perdidas</a>
+                        </div>
+                      </div><br>
                     </div>
                     <div class="col s12 m3" style="background: #F9F9F9" align="center">
                       <h6><b>Bandejas-Frascos</b></h6><br>
                       <div class="row" align="center">
-                        <div class="col s12 input-field">
+                        <!-- <div class="col s12 input-field">
                           <select id="inv-bandejasHE" class="role_inv" tp="3">
                           </select>
                           <label for="inv-bandejasHE">Inventarios Bandejas</label>
-                        </div>
+                        </div> -->
                         <div class="col s12 input-field">
-                          <select id="inv-frascosHE" class="role_inv" tp="5">
+                          <select id="inv-frascosHE" class="role_inv" tp="20">
                           </select>
                           <label for="inv-frascosHE">Inventarios Frascos</label>
                         </div>
@@ -406,17 +430,17 @@
                       <h6><b>Inventarios</b></h6><br>
                       <div class="row" align="center">
                         <div class="col s12 input-field">
-                          <select id="invVariedadBM" class="role_inv" tp="1">
+                          <select id="invVariedadBM" class="role_inv" tp="21">
                           </select>
                           <label for="invVariedadBM">Inventarios Variedades</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select id="invreactivosBM" class="role_inv" tp="2">
+                          <select id="invreactivosBM" class="role_inv" tp="22">
                           </select>
                           <label for="invreactivosBM">Inventarios Reactivos</label>
                         </div>
                         <div class="col s12 input-field">
-                          <select id="invcompBM" class="role_inv" tp="4">
+                          <select id="invcompBM" class="role_inv" tp="24">
                           </select>
                           <label for="invcompBM">Inventarios Componentes</label>
                         </div>
@@ -470,17 +494,23 @@
                           <a class="btn btn3 pruebasQoS" ids="4">QoS</a>
                         </div>
                       </div>
+                      <h6><b>Pérdidas por laboratorio</b></h6><br>
+                      <div class="row" align="center">
+                        <div class="col s12"><br>
+                          <a class="btn btn3 perdidasxlab" ids="1">Perdidas</a>
+                        </div>
+                      </div><br>
                     </div>
                     <div class="col s12 m3" style="background: #F9F9F9" align="center">
                       <h6><b>Bandejas-Frascos</b></h6><br>
                       <div class="row" align="center">
-                        <div class="col s12 input-field">
+                        <!-- <div class="col s12 input-field">
                           <select id="inv-bandejasBM" class="role_inv" tp="3">
                           </select>
                           <label for="inv-bandejasBM">Inventarios Bandejas</label>
-                        </div>
+                        </div> -->
                         <div class="col s12 input-field">
-                          <select id="inv-frascosBM" class="role_inv" tp="5">
+                          <select id="inv-frascosBM" class="role_inv" tp="25">
                           </select>
                           <label for="inv-frascosBM">Inventarios Frascos</label>
                         </div>
@@ -574,11 +604,12 @@
                 <th style="border: 0; border-radius: 0px !important;">Frascos</th>
                 <th style="border: 0; border-radius: 0px !important;">Contienen</th>
                 <th style="border: 0; border-radius: 0px !important;">Acciones</th>
+                <input type="hidden" id="autoinc" value="1">
               </tr>
             </thead>
             <tbody id="flaboratorio-relaciones">
-              <input type="hidden" id="autoinc" value="1">
-              <input type="hidden" id="curpos" value="0">
+              
+              <!-- <input type="hidden" id="curpos" value="0"> -->
               <tr id="rw1" class="rowrel zelda">
                 <!-- <td style="padding: 10px;">
                   <div class="input-field">
@@ -658,6 +689,32 @@
   </div>
   <div class="modal-footer">
     <a class="modal-action waves-effect waves-green btn-flat z-depth-5 savetestqosCiclo">Agregar</a>
+    <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+  </div>
+</div>
+
+<div id="modal-perdidasxlab" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-header">
+    <div class="card-header center head2 padding1">
+      <p style="font-size: 1.2em" class="flow-text marginzero">Pérdidas por laboratorio</p>
+    </div>
+  </div>
+  <div class="modal-content" style="padding: 20px;">
+    <div class="row">
+      <div class="input-field col s10 m4 l4">
+        <input type="text" id="vperdida" class="validate">
+        <label for="vperdida">Pérdida</label>
+      </div>
+      <div class="col s2 m2 l2" style="margin-top: 1rem">
+        <a class="btn-floating btn2 mdi mdi-plus mdi-24px" id="addperdida" style="padding-left: 8px;"></a>
+      </div>
+      <div class="col s12 m6 l6">
+        <ul class="collection" id="listaperdidas"></ul>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action waves-effect waves-green btn-flat z-depth-5 save-perdidas">Agregar</a>
     <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
   </div>
 </div>

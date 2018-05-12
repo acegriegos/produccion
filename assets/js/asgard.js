@@ -266,7 +266,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
+        // console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -716,7 +716,6 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
-        console.log(varreglo[i]+' '+salida[varreglo[i]])
     }//end FOR
     break;
     }//end SWITCH
@@ -1035,6 +1034,7 @@ function doreport() {
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
+
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
                 if ( $("#"+datos[i]).val()=='' ){
@@ -1049,7 +1049,7 @@ function doreport() {
             if ($("#"+datos[i]).val() == '') {
                 search[i] = "''";
             }else{
-                
+                console.log(datos[i])
                 search[i] = $("#"+datos[i]).val();    
                 $("#chk"+datos[i].substr(3)).is(":checked") == false ? $("#"+datos[i]).val(0) : true;
 
@@ -1065,7 +1065,10 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1);
+    console.log(atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
+    console.log(arr('login',4,'',tbl,atributos,0,0,0))
+
 }
 
 $(document).on("change","._det",function(){

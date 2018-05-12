@@ -39,7 +39,7 @@
               $_SESSION['TIPO']    = $user[0][3];
               $_SESSION['EMPRESA'] = $user[0][4];
               $_SESSION['IMPRESA'] = $user[0][5];
-              $_SESSION['TMP_CIA'] = -1;
+              $_SESSION['TMP_CIA'] = $user[0][5];
               $_SESSION['TMPT']    = $user[0][11];
               $_SESSION['CRR']     = $user[0][8];
               

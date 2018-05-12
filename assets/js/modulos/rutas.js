@@ -94,7 +94,7 @@ $(document).on("click",".luser",function(){
 
 $(document).on("click",".cdetaller",function(){
     var id = $(this).prop('id').substr(1);
-    $("#ingdetrut").html('Actualizar');
+    $("#fdetallerutas").html('Actualizar');
     $(".edd").show(); 
 });
 

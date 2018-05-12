@@ -13,7 +13,39 @@
   {$NAV}
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
-        <div class="card-header center head1 z-depth-1">
+
+        <nav class="nav-extended">
+          <div class="nav-wrapper head1">
+            <a href="#!" class="brand-logo center"><h5 class="truncate">Laboratorio de Biología Molecular</h5></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi mdi-menu"></i></a>
+          </div>
+          <div class="nav-content head2">
+            <ul class="side-nav" id="mobile-demo">
+              <li class="menu3 tab" id="m0"> <a class="active">Recepción de Muestras</a></li>
+              <li class="menu3 tab" id="m36"><a>Preparación de Muestra</a></li>
+              <li class="menu3 tab" id="m37"><a>Extracción de Ácidos Nucleicos</a></li>
+              <li class="menu3 tab" id="m38"><a>Ampificación de AND Por Punto Final</a></li>
+              <li class="menu3 tab" id="m39"><a>Electroforesi 5 de Agarosa</a></li>
+              <li class="menu3 tab" id="m40"><a>Electroforesi 5 de Acrilamida</a></li>
+              <li class="menu3 tab" id="m43"><a>Ampificación ADN Por Tiempo Real</a></li>
+              <li class="menu3 tab" id="m5"> <a>QoS</a></li>
+              <li class="menu3 tab" id="m6"> <a>Reporte</a></li>
+            </ul>
+            <ul class="tabs tabs-transparent hide-on-small-only">
+              <li class="menu3" id="m0"> <a class="white-text">Recepción de Muestras</a></li>
+              <li class="menu3" id="m36"><a class="white-text">Preparación de Muestra</a></li>
+              <li class="menu3" id="m37"><a class="white-text">Extracción de Ácidos Nucleicos</a></li>
+              <li class="menu3" id="m38"><a class="white-text">Ampificación de AND Por Punto Final</a></li>
+              <li class="menu3" id="m39"><a class="white-text">Electroforesi 5 de Agarosa</a></li>
+              <li class="menu3" id="m40"><a class="white-text">Electroforesi 5 de Acrilamida</a></li>
+              <li class="menu3" id="m43"><a class="white-text">Ampificación ADN Por Tiempo Real</a></li>
+              <li class="menu3" id="m5"> <a class="white-text">QoS</a></li>
+              <li class="menu3" id="m6"> <a class="white-text">Reporte</a></li>
+            </ul>
+          </div>
+        </nav>
+
+<!--         <div class="card-header center head1 z-depth-1">
           <h5>Laboratorio de Biología Molecular</h5>
             <ul class="tabs tabs-fixed-width head2" style="cursor: pointer;">
               <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Recepción de Muestras</a></li>
@@ -26,7 +58,7 @@
               <li class="menu3 tab" id="m5"><a class="white-text tamLetra">QoS</a></li>
               <li class="menu3 tab" id="m6"><a class="white-text tamLetra">Reporte</a></li>
             </ul>
-        </div>
+        </div> -->
           <div class="card-panel pequeño" id="labajax"><!-- AJAX --></div>
         </div>
       </div>
