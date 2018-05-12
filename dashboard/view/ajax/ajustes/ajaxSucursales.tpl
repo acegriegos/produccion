@@ -105,6 +105,20 @@
                                 <label for="p12-upload" class="right">LLAVE CRIPTOGRAFICA</label>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label for="vuser_atv">Usuario ATV</label>
+                                <input type="text" class="validate" id="vuser_atv" maxlength="2">
+                            </div>
+                            <div class="input-field col s6 fe">
+                                <label for="vpass_atv">Contraseña ATV</label>
+                                <input type="text" class="validate" id="vpass_atv" maxlength="4">
+                            </div>
+                            <div class="col s12 fe">
+                                <button class="btn btn1 der add z-depth-3" id="valid_p12" modulo="sucursale" varias="1">Validar</button>
+                            </div>
+                        </div>
                         <br>
                         <div class="row hide">
                             <div class="col s6 m12 l12">

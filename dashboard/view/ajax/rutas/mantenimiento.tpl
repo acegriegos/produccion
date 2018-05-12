@@ -186,7 +186,7 @@
                 </div>
 
                 <div class="row">
-                    <a class="btn btn-info der add btn1" id="ingdetrut" href="#" data-delay="50">Ingresar</a>
+                    <a class="btn btn-info der add btn1" id="detalleruta" href="#" data-delay="50">Ingresar</a>
                     <a class="btn btn-default edd der white black-text" id="goback" href="#"><i class="mdi mdi-24px mdi-angle-left"></i></a>
                 </div>
 
