@@ -94,6 +94,19 @@ function sse_response(vid,p) {
                 $(".sse_cnt").addClass('hide');
             }
             break;
+        case 2:
+            $(".asig").addClass('hide');
+            if (p[0].length) {
+                for (var i = 0; i < p[0].length; i++) {
+                    $("#"+p[0][i][0]).removeClass('hide');
+                    $("#"+p[0][i][0]).html(p[0][i][1]);
+                }
+                
+            }
+            break;
+        default:
+            console.log('ID NO ASIGNADO')
+            break;
     }
 }
 

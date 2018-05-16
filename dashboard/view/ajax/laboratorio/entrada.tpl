@@ -33,11 +33,11 @@
             <ul class="tabs tabs-transparent hide-on-small-only">
                 <li class="menu3" id="m0"><a class="white-text" class="active">Recepción de Explantes</a></li>
                 <li class="menu3" id="m1"><a class="white-text">Iniciación</a></li>
-                <li class="menu3" id="m2"><a class="white-text">Multiplicación</a></li>
-                <li class="menu3" id="m3"><a class="white-text">Enraizamiento</a></li>
-                <li class="menu3" id="m4"><a class="white-text">Aclimatación</a></li>
-                <li class="menu3" id="m5"><a class="white-text">QoS</a></li>
-                <li class="menu3" id="m7"><a class="white-text">Medio Cultivo</a></li>
+                <li class="menu3" id="m2"><a class="white-text">Multiplicación <span class="new badge hide asig" data-badge-caption="" style="padding: 0px;margin: 0px;min-width: 0px;width: 23px;border-radius: 15px;" id="1-2"></span></a></li>
+                <li class="menu3" id="m3"><a class="white-text">Enraizamiento <span class="new badge hide asig" data-badge-caption="" style="padding: 0px;margin: 0px;min-width: 0px;width: 23px;border-radius: 15px;" id="1-3"></span></a></li>
+                <li class="menu3" id="m4"><a class="white-text">Aclimatación <span class="new badge hide asig" data-badge-caption="" style="padding: 0px;margin: 0px;min-width: 0px;width: 23px;border-radius: 15px;" id="1-4"></span></a></li>
+                <li class="menu3" id="m5"><a class="white-text">QoS <span class="new badge hide asig" data-badge-caption="" style="padding: 0px;margin: 0px;min-width: 0px;width: 23px;border-radius: 15px;" id="1-5"></span></a></li>
+                <li class="menu3" id="m7"><a class="white-text">Medio Cultivo <span class="new badge hide asig" data-badge-caption="" style="padding: 0px;margin: 0px;min-width: 0px;width: 23px;border-radius: 15px;" id="1-50"></span></a></li>
                 <li class="menu3" id="m6"><a class="white-text">Reporte</a></li>
             </ul>
           </div>
