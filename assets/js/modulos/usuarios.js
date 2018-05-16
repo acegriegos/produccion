@@ -410,7 +410,7 @@ function cargar(vmodulo,vid) {
 		var pg = '';
 
 		$('#data-table-usuariosPermisos').dataTable().fnDestroy();
-		
+
 		var p = arr('login',4,'',247,tipo+','+opcion,0,0,0);
 
 		for (var i = 0; i < p[0].length; i++) {

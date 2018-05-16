@@ -151,6 +151,7 @@ $("#telefono_in").blur(function(){
 	}
 		    paginate($("ul.pagination").attr('vtbl'))
 
+    permisos(1001,1010);
 
 });
 

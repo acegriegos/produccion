@@ -39,7 +39,7 @@ switch ($transaccion[0][19]) {
 
        </tr>';
    } echo '<tr>
-   <td colspan="6"  style=" padding: 2px; text-align: center">  <b> TOTAL </b>
+   <td colspan="6"  style=" padding: 2px; text-align: right">  <b> TOTAL </b>
    </td>
    <td   style=" padding: 2px; text-align: right"> <b>'.$obj[16].number_format($gan,2).'</b>
    </td>
@@ -85,7 +85,7 @@ switch ($transaccion[0][19]) {
        </tr>';
    }
    echo '<tr>
-   <td colspan="5"  style=" padding: 2px; text-align: center">  <b> TOTAL </b>
+   <td colspan="5"  style=" padding: 2px; text-align: right">  <b> TOTAL </b>
    </td>
    
 
@@ -103,6 +103,7 @@ switch ($transaccion[0][19]) {
    <tr>
    <td class="white-text blue sinborde " style="text-align: center"><b>Factura</b></td>
    <td class="white-text blue sinborde " style="text-align: center"><b>Fecha</b></td>
+   <td class="white-text blue sinborde " style="text-align: center;width: 20%;"><b>Cliente</b></td>
    <td class="white-text blue sinborde " style="text-align: center"><b>Ganancia</b></td>
    <td class="white-text blue sinborde " style="text-align: center"><b>Descuento</b></td>
    <td class="white-text blue sinborde " style="text-align: center"><b>Total</b></td>
@@ -118,6 +119,7 @@ switch ($transaccion[0][19]) {
        <tr>
        <td style="text-align: center">'.$obj[2].'</td>
        <td style="text-align: center">'.$obj[6].'</td>
+       <td style=" padding: 2px; text-align: center; width=20% !important">'.$obj[15].'</td>
        <td style="text-align: right">'.$obj[16].number_format($obj[0],2).'</td>
        <td style="text-align: right">'.$obj[16].number_format($obj[18],2). ' ( '.number_format($obj[17],0).'% )</td>
        <td style="text-align: right">'.$obj[16].number_format($obj[3],2).'</td>
@@ -125,7 +127,7 @@ switch ($transaccion[0][19]) {
        </tr>';
    }
    echo '<tr>
-   <td colspan="2"  style=" padding: 2px; text-align: center">  <b> TOTAL </b>
+   <td colspan="3"  style=" padding: 2px; text-align: right">  <b> TOTAL </b>
    </td>
    <td   style=" padding: 2px; text-align: right"> <b>'.$obj[16].number_format($gan,2).'</b>
    </td>
@@ -166,7 +168,7 @@ case 4:
        </tr>';
    }
    echo '<tr>
-   <td colspan="2"  style=" padding: 2px; text-align: center">  <b> TOTAL </b>
+   <td colspan="2"  style=" padding: 2px; text-align: right">  <b> TOTAL </b>
    </td>
    <td   style=" padding: 2px; text-align: right"> <b>'.$obj[16].number_format($gan,2).'</b>
    </td>

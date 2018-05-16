@@ -809,11 +809,10 @@ function permisos(vnumber,vnumber2) {
     })
     .done(function(data) {
         p = JSON.parse(data);
-        
         for (var i = 0; i < p.length; i++) {
             var op = parseInt(p[i][3]);
-
-            switch(op){
+            console.log(op)
+            switch(parseInt(op)){
                 case 1:
                 $(".per"+p[i][1]).css('display','in-line');
                 break;
@@ -821,6 +820,7 @@ function permisos(vnumber,vnumber2) {
                 $(".per"+p[i][1]).attr('disabled',true);
                 break;
                 case 3:
+                console.log(p[i][1])
                 $(".per"+p[i][1]).css('display','none');
                 break;
             }
@@ -1454,6 +1454,7 @@ $(document).on('keyup','[addG=1]',function(e){
 $(document).on('blur','[addG=1]',function(){
     if ($(this).val() != '') {
         var isClie = findClient($(this).val(),1);
+        console.log(isClie)
         if (!isClie) {
             var op = parseInt($(this).attr('addG'));
             addGeneral(op);
