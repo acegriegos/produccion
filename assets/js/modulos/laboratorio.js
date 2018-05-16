@@ -16,7 +16,7 @@ $(function(){
         invvar = getDatos('',909,'@@impresa',0,0)[0];
     switch(param){
     	case 1:
-    		loadRecepcion();
+    		loadCultivos();
     		break;
         case 11:
             loadAvispas();
@@ -39,6 +39,11 @@ $(function(){
         default:
             break;
     }
+    SSE_SERVER('login',4,{sel:'concat(idempresa,"-",case max(idtipo) when 1 then 2 else max(idtipo) end) as id,count(distinct(lote)) as cantidad',tbl:915,where:'idempresa = @@impresa and idencargado = @@usr and idestado = 1 group by lote'},2);
+
+    setInterval(function(){
+        SSE_SERVER('login',4,{sel:'concat(idempresa,"-",case max(idtipo) when 1 then 2 else max(idtipo) end) as id,count(distinct(lote)) as cantidad',tbl:915,where:'idempresa = @@impresa and idencargado = @@usr and idestado = 1 group by lote'},2);
+    },5000);
 
     $('.modal').modal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -48,7 +53,9 @@ $(function(){
         startingTop: '2%', // Starting top style attribute
         endingTop: '2%' // Ending top style attribute
     });
+
     $("select").material_select();
+    $("#m0").click();
 });
 
 //fill data
@@ -282,7 +289,7 @@ $(document).on("click",".modalmediosExtra",function(){
     });
 
     var cnt = arr('login',4,'',938,tm+','+idsuc+','+bismedio,0,0,0)[0];
-    console.log(cnt)
+
     if (cnt.length > 0) {
         ifila3 = cnt;
         $("#testqosExtra").html('');
@@ -458,7 +465,7 @@ $(document).on("click",".savetestqosCiclo",function(){
 
 $(document).on("click","#addActivo",function(){
     var tp = $("li.menu3 > a.active").parent().attr('id').substr(1);
-    var id = $("#vidciclo").val();
+    var id = $("#vidciclo").vf.clickal();
     var cantidad = $("#vcant").val();
     var idrazon = $("#vidrazon").val();
     var activo = $("#vactivo").val();
@@ -1289,7 +1296,7 @@ function cargarArr(vid,velemento){
     Materialize.updateTextFields();
 }
 
-function loadRecepcion(){
+function loadCultivos(){
 
     $(".menu3").click(function(){
     	var id = $(this).attr('id').substr(1);
@@ -1341,8 +1348,6 @@ function loadRecepcion(){
             $(this).val(parseFloat($(this).val().replace(/\./g,'').replace(/,/g,'.')).formatMoney(dec,',','.') )
         });
     });
-
-    $("#m0").click();
 }
 function loadSustrato(){
 
@@ -1373,7 +1378,7 @@ function loadSustrato(){
         
     });
 
-    $("#m0").click();
+    
 }
 function loadBM(){
 
@@ -1405,7 +1410,7 @@ function loadBM(){
         
     });
 
-    $("#m0").click();
+    
 }
 
 function loadAvispas(){
@@ -1434,7 +1439,7 @@ function loadAvispas(){
         
     });
 
-    $("#m0").click();
+    
 }
 
 function loadHongos(){
@@ -2215,7 +2220,7 @@ function endDetail(vid,vacc,modulo){
     if (vacc == 1) {
     	switch(modulo){
     		case 'laboratorio-explante':
-    			$("#m0").click();
+    			
     			break;
             case 'laboratorio-ciclo':
                 var idtipo = parseInt($(".zelda").data('triforce')['vidtipo']);
