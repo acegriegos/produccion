@@ -27,9 +27,9 @@
                 <li class="nav-item menu" id="m2">
                     <a class="nav-link" href="#" title="Carga/Descarga">Carga/Descarga</a>
                 </li>
-                <li class="nav-item menu" id="m3">
+                <!-- <li class="nav-item menu" id="m3">
                     <a class="nav-link" href="#" title="Rastreo">Rastreo</a>
-                </li>
+                </li> -->
             </ul>
         </nav>
 

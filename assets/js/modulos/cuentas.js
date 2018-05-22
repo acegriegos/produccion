@@ -53,9 +53,14 @@ $(function(){
 					tabla.append(trIdFactura);
 				}
 				$("#data-table-facturas").dataTable({
-					bFilter: false,
-					order : [],
-					"bLengthChange": false
+					 bFilter : true,
+        bScrollInfinite : true,
+        bSort : true,
+        bLengthChange : true,
+        bPaginate :  false,
+        bInfo : false,
+		order : [],
+		"bLengthChange": false
 				});
 				$("#hclie").val(id);
 			}
@@ -69,14 +74,23 @@ $(function(){
 	});
 
 	$("#data-table-cuentas").dataTable({
-		bFilter: false,
+		 bFilter : true,
+        bScrollInfinite : true,
+        bSort : true,
+        bLengthChange : true,
+        bPaginate :  false,
+        bInfo : false,
 		order : [],
 		"bLengthChange": false
 	});
 
-
-	$("#data-table-cuentas-xP").dataTable({
-		bFilter: false,
+	$("#data-table-cuentas-x").dataTable({
+		 bFilter : true,
+        bScrollInfinite : true,
+        bSort : true,
+        bLengthChange : true,
+        bPaginate :  false,
+        bInfo : false,
 		order : [],
 		"bLengthChange": false
 	});

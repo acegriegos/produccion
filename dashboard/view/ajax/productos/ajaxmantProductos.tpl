@@ -42,11 +42,11 @@
 						<td style="padding: 10px;">{$PROD[LE][12]}</td>
 						<td style="padding: 10px;">{$PROD[LE][9]}</td>
 						<td>
-							<a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh 4110" id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
+							<a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh per4115" id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
 							<a class="btn-color pbtn descuentos per4103 mdi mdi-percent mdi-24px modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"></a>
-							<a class="btn-color pbtn salidainv mdi mdi-arrow-down-bold-box mdi-24px per4104 modal-trigger" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"></a>
+							<a class="btn-color pbtn salidainv per4116 mdi mdi-arrow-down-bold-box mdi-24px  modal-trigger" id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"></a>
 							<a class="btn-color pbtn editprod mdi mdi-pencil mdi-24px per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto"></a>
-							<a class="btn-color pbtn cdel delprod mdi mdi-close mdi-24px per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto"></a>
+							<a class="btn-color pbtn cdel delprod  mdi mdi-close mdi-24px per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto"></a>
 						</td>
 					</tr>
 					{/section}

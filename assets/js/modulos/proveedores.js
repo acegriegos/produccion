@@ -160,6 +160,7 @@ $(function(){
 	}
 	
 	paginate($("ul.pagination").attr('vtbl'))
+	    permisos(2000,2610);
 
 
 });

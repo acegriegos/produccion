@@ -231,13 +231,12 @@ $(document).on("click",".delete",function(){
 $(document).on("keyup","[id^=search_]",function(e){
     var code = e.which || e.keyCode
     if (code == 13) {
-        var a = $(this).val().replace(/"/g,'\\\"')+'|@@tmp_cia';
+        var a = $(this).val().replace(/"/g,'\\\"');
         var b = $(this).prop('id').substr(7);
         var c = $(this).attr('num').substr(1);
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
-
-        var h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
+        var h = arr('login',4,'',c,e+',"'+a+',@@impresa",""',0,0,0)[0][0];
         filltable(a,b,c,g);
         $(".pagination").html('');
         paginate(c,h)
@@ -268,7 +267,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        // console.log(p)
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -811,7 +810,6 @@ function permisos(vnumber,vnumber2) {
         p = JSON.parse(data);
         for (var i = 0; i < p.length; i++) {
             var op = parseInt(p[i][3]);
-            console.log(op)
             switch(parseInt(op)){
                 case 1:
                 $(".per"+p[i][1]).css('display','in-line');
@@ -820,7 +818,6 @@ function permisos(vnumber,vnumber2) {
                 $(".per"+p[i][1]).attr('disabled',true);
                 break;
                 case 3:
-                console.log(p[i][1])
                 $(".per"+p[i][1]).css('display','none');
                 break;
             }
@@ -1158,7 +1155,7 @@ function cargarMoneda(idmoneda,elemento){
     if (idmoneda != 0) {
         var valor = elemento.first().data("triforce")["valor"];
         var pmonto = parseFloat(moneda[2]);
-
+        
         divisas.each(function(){
             var monto = pre = tot = 0;
 
@@ -1189,7 +1186,7 @@ function mostrar_cargar(){
 function filltable(a,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
-    arr('login',6,'',c,'0,0,"'+a+'","0,10"',g,1,$("#lista"+b));
+    arr('login',6,'',c,'0,0,"'+a+',@@impresa","0,10"',g,1,$("#lista"+b));
     $("#data-table-"+b).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1205,7 +1202,7 @@ function paginate(vtbl,len) {
     $(".pagination").html('');
     var countpag = 0;
     if (len == undefined) {
-        countpag = arr('login',4,'',vtbl,'0,1,"",""',0,0,0)[0][0];
+        countpag = arr('login',4,'',vtbl,'0,1,",@@impresa",""',0,0,0)[0][0];
     }else
     countpag = len;
     
@@ -1241,7 +1238,7 @@ $(document).on("click", ".paginate", function () {
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     $("#lista"+modulo).html('');
-    arr('login',6,'',vtbl,'0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    arr('login',6,'',vtbl,'0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
 
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
@@ -1268,7 +1265,7 @@ $(document).on("click", ".nxt", function () {
         pags = 1;
 
     if (ultimo == id) {
-        var count = arr('login',4,'',vtbl,'0,1,"'+filtro+'",""',0,0,0)[0][0];
+        var count = arr('login',4,'',vtbl,'0,1,"'+filtro+',@@impresa",""',0,0,0)[0][0];
         if (Math.ceil(count) != ultimo) {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
@@ -1303,7 +1300,7 @@ $(document).on("click", ".nxt", function () {
         var tabla = $("#data-table-"+modulo).DataTable();
         tabla.destroy();
         var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-        arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+        arr('login', 6, '', vtbl, '0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
         $("#data-table-"+modulo).DataTable({
             bFilter: false,
             bScrollInfinite: true,
@@ -1348,7 +1345,7 @@ $(document).on("click", ".prv", function () {
                 var tabla = $("#data-table-"+modulo).DataTable();
                 var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+                arr('login', 6, '', vtbl, '0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1365,7 +1362,7 @@ $(document).on("click", ".prv", function () {
                 var tabla = $("#data-table-"+modulo).DataTable();
                 var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+                arr('login',6,'',vtbl,'0,0,"'+filtro+',@@impresa","'+limit+'"',cambio,1,$("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1383,7 +1380,7 @@ $(document).on("click", ".prv", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             tabla.destroy();
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+            arr('login',6,'',vtbl,'0,0,"'+filtro+'@@impresa","'+limit+'"',cambio,1,$("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,

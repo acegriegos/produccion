@@ -26,8 +26,10 @@
                 <li><a class="optns" tipo="nombre,vcedula" href="#!" fltr="1">Nombre o Cédula</a></li>
                 <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
               </ul>
-              <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre,vcedula" addG="1">
+              <input type="text" id="search_clientes" maxlength="100" num="v76" var="0,1" cambio="29">
               <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
+
+             
             </div>
             <div class="col s2 m6 ">
               <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>

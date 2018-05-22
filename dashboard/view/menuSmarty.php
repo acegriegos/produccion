@@ -11,8 +11,8 @@
               <ul class="head2">
                 <li><a href="#!" value="0" class="otpmenu white-text" id="x1">Información</a></li>
                 <li><a href="#!" value="1" class="otpmenu white-text" id="x2">Notificaciones</a></li>
-                <li><a href="#!" value="2" class="otpmenu white-text" id="x2">Cierre de Caja</a></li>
-                <li><a href="#!" value="4" class="otpmenu white-text" id="x2">Info Sistema</a></li>
+                <li><a href="#!" value="3" class="otpmenu white-text" id="x3">Cierre de Caja</a></li>
+                <li><a href="#!" value="4" class="otpmenu white-text" id="x4">Info Sistema</a></li>
               </ul>
             </div>
           </li>

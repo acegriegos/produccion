@@ -6,11 +6,3 @@
 <script src="../assets/libs/charts/chart.js"></script>
 <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-
-{literal}
-<script type="text/javascript">
-    $(function(){
-        document.title = "-DEV- "+document.title;
-    })
-</script>
-{/literal}

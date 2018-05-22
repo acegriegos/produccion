@@ -67,7 +67,7 @@
     
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
-      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
+      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
       <i class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" ata-position="bottom" data-tooltip="Agregar Cliente"></i>
       <i class="mdi mdi-16px mdi-email pbtn tooltipped hide" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
@@ -250,15 +250,17 @@
           <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
 
           <div class="col s12">
-              <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-              <label for="iva">IVA</label>
-              <!-- <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a> -->
-          </div>
-
-          <div class="col s12">
             <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
               <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
             </a>
+          </div>
+
+          <div class="col s12">
+              <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
+              <label for="iva" style="float: left;">IVA</label>
+              <input type="checkbox" name="isexcento" id="exct" hclk="0">
+              <label for="exct" style="float: left;">Excento</label>
+              <!-- <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a> -->
           </div>
           </td>
         </tr>
@@ -314,7 +316,7 @@
           </tr>
           <tr>
             <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
-            <td><input type="text" id="ajuste" class="eder _txtaside" value="0" style="height: 0.5% !important" placeholder="AJUSTE" maxlength="4"></td>
+            <td><input type="text" id="ajuste" class="eder _txtaside" value="" style="height: 0.5% !important" placeholder="Ajuste máximo: 9.99" maxlength="4"></td>
           </tr>
         </table>
 

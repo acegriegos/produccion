@@ -78,12 +78,12 @@ $(document).on("click",".crut",function(){
 });
 
 $(document).on("click",".luser",function(){
+    $(".a").show();
     deadclear('detalleruta');
    $("#lruteros").html('');
    $(".edd").hide();
    var id = $(this).prop('id').substr(1);
    $(".titr").html($("#rn"+id).html());
-   
    var p = arr('login',4,'id,nombre,consecutivo',218,'ruta = '+id,0,0,0)[0];
    $("#vidruta").val(id); 
    for (var i = 0; i < p.length; i++) {
@@ -93,13 +93,13 @@ $(document).on("click",".luser",function(){
 });
 
 $(document).on("click",".cdetaller",function(){
+    $(".a").hide();
     var id = $(this).prop('id').substr(1);
-    $("#fdetallerutas").html('Actualizar');
     $(".edd").show(); 
+
 });
 
 $(document).on("click","#goback",function(){
-    $("#goback").html('Ingresar');
     $(".edd").hide();
     deadclear('detalleruta'); 
 });
@@ -261,6 +261,7 @@ function validar (varreglo,vmodulo) {
                     return err;
                 }
             }
+            break;
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -325,9 +326,9 @@ function cargar(vmodulo,vid) {
 			vmodulo['where'] ='id = '+vid;
 			break;
         case 'detalleruta':
-            vmodulo['sel'] = '*';
+            vmodulo['sel'] = '';
             vmodulo['tbl'] = 222;
-            vmodulo['where'] ='vid = '+vid;
+            vmodulo['where'] =vid;
             break;
 		default:
 			return 'Módulo sin Cargar '+vmodulo['modulo'];

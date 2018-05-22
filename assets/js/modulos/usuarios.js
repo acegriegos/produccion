@@ -124,6 +124,7 @@ $(function(){
 
 	$("#m1").click();
 
+
 });
 
 $(document).on("blur","#vmail",function(){
@@ -426,13 +427,13 @@ function cargar(vmodulo,vid) {
 			pg += '/>'+
 			'<label for="h'+p[0][i][0]+'"></label>'+
 			'</td>'+
-			'<td align="center">'+
+			/*'<td align="center">'+
 			'<input type="radio" name="row'+i+'" id="d'+p[0][i][0]+'" class="with-gap" tp="2"';
-
+pg += '/>'+
 			if (p[0][i][4] == 2)
-				pg += ' checked="checked"';
+				pg += ' checked="checked"';*/
 
-			pg += '/>'+
+			
 			'<label for="d'+p[0][i][0]+'"></label>'+
 			'</td>'+
 			'<td align="center">'+

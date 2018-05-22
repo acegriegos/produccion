@@ -880,7 +880,7 @@ $(document).on("click","#doproc",function(){
         // realizar multiplicacion
         var idbandeja = $("#hidfrasco").val();
         var idmedio = $("#hidmediocultivo").val();
-        var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa,0,"'+fecha+'"',0,0,0);
+        var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa,@@usr,"'+fecha+'"',0,0,0);
         if (ciclo['succed'] == 0) {
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
@@ -1928,15 +1928,16 @@ function iniciarVaridad(){
     } 
 }
 
-$(document).on("blur","._var",function(){
+/*$(document).on("blur","._var",function(){
     var variedad = $(this).val();
     var id = $(this).attr('id').substr(2);
     var hvariedad = $("#hc"+id).val();
+
     if ( variedad < hvariedad) {
         Materialize.toast("No puede ingresarse una cantidad mayor a la asignada", 4000,'orange');
         $("#_n"+id).val(hvariedad).select().focus();
     }
-});
+});*/
 
 function cargarVaridad(){
 	var servicio = arr('login',4,'',43,'\"[SERV] '+$("#vvariedad").val()+'\",0,0,0','',0,'');
@@ -2235,7 +2236,7 @@ function endDetail(vid,vacc,modulo){
                         comen = $("#comentproc").val(),
                         fecha = $("#fechaini").val(),
                         encargado = $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] == 0 ? '@@ur' : $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'];
-                        arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
+                        arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);//OJO
                         $("#modal-registrar").modal('close');
                        
                         var perdida = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+','+encargado+',"'+comen+'"',0,0,0);

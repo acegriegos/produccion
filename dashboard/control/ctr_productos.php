@@ -46,7 +46,7 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('PAQ',$kakaroto->kamehameha('',62,'0,0'));
+	   			$smarty->assign('PAQ',$kakaroto->kamehameha('',62,'0,0,"0,@@impresa","0,10"'));
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('',12,'"0,1,3"'));
 	   			$smarty->display('ajax/productos/ajaxmantPaquetes.tpl');
 	   			break;

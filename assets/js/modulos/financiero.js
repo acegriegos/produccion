@@ -1,6 +1,7 @@
 $(function(){
 	$("#ffinancieros").submit(function(){return false});
 	$("#data-table-financieros").dataTable();
+	permisos(3000,3700);
 
 });
 

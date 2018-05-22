@@ -103,6 +103,8 @@ $(function () {
 		$("#m1").click();
 	
 	paginate($("ul.pagination").attr('vtbl'))
+	permisos(4100,4200);
+
 
 });
 
@@ -986,7 +988,7 @@ $(document).on("keydown","#prod",function(e){
         $(".autocomplete-content").remove();
             $("#prod").autocomplete({
                 limit: 10,
-                data: arr('login',4,'',77,'0,0,1,"'+$("#prod").val()+'"',0,0,0,1)
+                data: arr('login',4,'',77,'0,0,1,"'+$("#prod").val()+'",@@impresa',0,0,0,1)
             }); 
         $("#prod").siblings($(".autocomplete-content")).css('width','25%');
     } 
@@ -1056,7 +1058,7 @@ $(document).on("click",".del",function(){
 
 $(document).on("keyup","#vdescuento",function(){
     var total = 0;
-    var desc = $(this).val();
+    var desc = $(this).val() == '' ? 0 : $(this).val();
     var totpqt = parseFloat($("#htotal").val());
     total = totpqt / ((desc/100)+1);
     $("#totpqt").val(total.formatMoney(2,'.',','));
@@ -1079,7 +1081,7 @@ $(document).on("click","#addpqt",function(){
                 arr('login',4,'',61,'1,'+idpaquete[0][0]+','+idproducto+','+idservicio+','+cantidad+','+idunidad+',@@usr,@@impresa',0,0,0);
             });
             Materialize.toast('Paquete Agregado Correctamente', 6000, "green");
-            arr('login',6,'',62,'0,0',0,1,$("#listapqts"));
+            arr('login',6,'',62,'0,0,"0,@@impresa","0,10"',0,1,$("#listapqts"));
             vaciar('paquetes');
             $("#listapaquetes").html('');
             $(".validate").css('border-bottom', '1px solid #9e9e9e');
@@ -2098,7 +2100,7 @@ function addprod(prod, cant, uni, sim) {
 	}else
 		tipo = 1;
 	
-	var info = arr('login',4,'',77,id+','+tipo+',0,""',0,0,0)[0][0];
+	var info = arr('login',4,'',77,id+','+tipo+',0,"",@@impresa',0,0,0)[0][0];
 	var imv = arr('login',4,'',200,'11,0'+id,0,0,0)[0][0][3];
 	
 	var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
