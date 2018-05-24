@@ -46,7 +46,6 @@
             <a class="waves-effect waves-light btn btn1" id="srchfact">Buscar</a>
           </div>
         </div>
-        <hr>
         <div class="row">
           <div class="col s12 m6 l6">
             <div class="row marginzero">

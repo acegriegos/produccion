@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DO !importantCTYPE html>
 <html lang="es">
   <head>
     <meta charset="utf-8">
@@ -50,12 +50,12 @@
               <tbody id="listaclientes">
                 {section name=LE loop=$CLIE}
                 <tr id="f{$CLIE[LE][0]}">
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][1]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][1]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][2]}</td>
                   <!-- <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td> -->
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][4]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][5]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][6]}</td>
                   <td>
                     <a href="#modal-addvehiculos" class="modal-trigger hide" style="color:black" title="Vehículos"><i class="car mdi mdi-car pbtn mdi-24px" id="v{$CLIE[LE][0]}"></i></a>
                     {if $CLIE[LE][13] neq 1}
