@@ -12,7 +12,7 @@
         
         <div class="row padd">
         <br><br>
-
+<!-- 
                     <div class="input-field col s12 m7">
 
                        <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
@@ -24,7 +24,7 @@
                     <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
                     <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
 
-                    </div>
+                    </div> -->
                    <div class="col s12 m5">
                     <div class="col s12 m4">
                         <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
@@ -34,10 +34,10 @@
                         <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
                         <label for="vencidas">Vencidas</label>
                     </div>
-                    <div class="col s12 m4">
+                    <!-- <div class="col s12 m4">
                         <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
                         <label for="porvencer">Por Vencer</label>
-                    </div>
+                    </div> -->
                 </div>
                     
 
@@ -47,9 +47,10 @@
        <div class="card-block pequeño">
                 <div class="row  pequeño">
                     <div class="col s12 pequeño">
-                    <table id="data-table-cuentas-xP" class="pequeñotable centered highlight bordered responsive-table z-depth-3 pbtns">
+                    <table id="data-table-cuentas-x" class="pequeñotable centered highlight bordered responsive-table z-depth-3 pbtns">
                         <thead>
-                            <tr><th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
+                            <tr>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
                                 <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Refencia</th>
                                 <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Proveedor</th>
                                 <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Fecha</th>
@@ -61,22 +62,7 @@
                                 
                             </tr>
                         </thead>
-                        <tbody id="listaCuentasx">
-                         <!-- { section name= LE loop = $PRO }
-                         <tr class="button-collapse detalle" data-activates="acciones" id="f{$PRO[LE][12]}"  tipo ='2' tp="{if $PRO[LE][7] lt 0}1{else}0{/if}">
-
-                            <td>{$PRO[LE][3]}</td>
-                             <td>{$PRO[LE][4]}</td>
-                            <td>{$PRO[LE][1]}</td>
-                            <td>{$PRO[LE][5]}</td>
-                            <td>{$PRO[LE][6]}</td>
-                            <td>{$PRO[LE][8]}</td>
-                            <td style="{if $PRO[LE][7] lt 0}color:red;{else}color:green{/if}">{math equation='abs(x)' x=$PRO[LE][7] }</td>
-                            <td>{$PRO[LE][9]}</td>
-                            
-                        </tr>
-                        {/section} -->
-                    </tbody>
+                        <tbody id="listaCuentasx"></tbody>
                 </table>
                 <br>
 

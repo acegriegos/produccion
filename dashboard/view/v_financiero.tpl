@@ -28,29 +28,29 @@
                       <a href="contabilidad" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Contabilidad
                       ">Contabilidad</a>
                     </div>
-                    <div class="col s12 m6 l6 per3100">
-                      <a href="presupuesto" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Presupuesto">Presupuesto</a>
+                   <!--  <div class="col s12 m6 l6 ">
+                      <a href="presupuesto" class="waves-effect per3100 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Presupuesto">Presupuesto</a>
+                    </div> -->
+                    <div class="col s12 m6 l6 ">
+                      <a href="cuentas?tf=1" class="waves-effect per3200 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Cuentas por Cobrar</a>
                     </div>
-                    <div class="col s12 m6 l6 per3200">
-                      <a href="cuentas?tf=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Cobrar">Cuentas por Cobrar</a>
+                    <div class="col s12 m6 l6 ">
+                      <a href="cuentas?tf=2" class="waves-effect per3300 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Cuentas por Pagar</a>
                     </div>
-                    <div class="col s12 m6 l6 per3300">
-                      <a href="cuentas?tf=2" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Cuentas por Pagar">Cuentas por Pagar</a>
-                    </div>
-                     <div class="col s12 m6 l6 per3400">
+                     <div class="col s12 m6 l6 ">
 
-                      <a href="notas" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Notas de Crédito y Débito">Notas de Crédito y Débito</a>
+                      <a href="notas" class="waves-effect waves-light per3400 btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Notas de Crédito y Débito">Notas de Crédito y Débito</a>
 
                     </div>
-                    <div class="col s12 m6 l6 per3500">
-                      <a href="devoluciones" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
+                    <div class="col s12 m6 l6 ">
+                      <a href="devoluciones" class="waves-effect per3500 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
                     </div>
-                    <div class="col s12 m6 l6 per3600">
-                      <a href="reportes?tr=3" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
+                    <div class="col s12 m6 l6 ">
+                      <a href="reportes?tr=3" class="waves-effect per3600 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
-                     <div class="col s12 m6 l6 per3600 hide">
-                      <a href="notas" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Regalias">Regalias</a>
-                    </div>
+                     <!-- <div class="col s12 m6 l6  hide">
+                      <a href="notas" class="waves-effect waves-light per3600 btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Regalias">Regalias</a>
+                    </div> -->
 
 
                   </div>

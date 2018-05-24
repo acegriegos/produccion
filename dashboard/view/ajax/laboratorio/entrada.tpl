@@ -38,6 +38,7 @@
                 <li class="menu3" id="m4"><a class="white-text">Aclimatación</a></li>
                 <li class="menu3" id="m5"><a class="white-text">QoS</a></li>
                 <li class="menu3" id="m7"><a class="white-text">Medio Cultivo</a></li>
+
                 <li class="menu3" id="m6"><a class="white-text">Reporte</a></li>
             </ul>
           </div>

@@ -463,6 +463,7 @@ function cargarGlobal(){
         if (tipo == 1) {
             $(".eunit").addClass('hide');
             $(".eimp").addClass('hide');
+            $(".eexct").addClass('hide');
         }else if (tipo == 2)
             $(".eimp").addClass('hide');
         else
@@ -474,14 +475,16 @@ function cargarGlobal(){
 
     $(document).on("click","#editprod",function(){
         var id = $("#hdnprd").val();
-        var cant,desc,prec = 0;
+        var cant,desc,prec,exo = 0;
         cant = $("#ecantidad").val();
         desc = $("#edescuento").val();
         prec = $("#eunitario").val();
+        exo = $("#texct").val()
 
         $("#fd"+id).data('triforce')['vcantidad'] = cant;
         $("#fd"+id).data('triforce')['vdesc'] = desc;
         $("#fd"+id).data('triforce')['vprecio'] = prec;
+        $("#fd"+id).data('triforce')['exoneracion'] = exo;
         totalizar();
         $("#cant"+id).text(cant);
         $("#prec"+id).text(prec);

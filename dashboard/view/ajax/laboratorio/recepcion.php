@@ -41,7 +41,7 @@
         </thead>
         <tbody id="fincas">
           <tr>
-            <td colspan="3" class="center">No Hay Datos Registrados</td>
+            <td colspan="4" class="center">No Hay Datos Registrados</td>
           </tr>
         </tbody>
       </table>

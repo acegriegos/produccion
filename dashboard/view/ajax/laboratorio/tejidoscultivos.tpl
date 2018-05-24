@@ -9,8 +9,7 @@
             <td style="border-radius: 0 !important">Etapa</td>
             <td style="border-radius: 0 !important">Variedad</td>
             <td style="border-radius: 0 !important">Días</td>
-            <td style="border-radius: 0 !important">Fecha Inicio</td>
-            <td style="border-radius: 0 !important">Lote</td>
+            <td style="border-radius: 0 !important">Cantidad</td>
             <td style="border-radius: 0 !important">Acciones</td>
           </tr>
         </thead>

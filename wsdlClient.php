@@ -8,7 +8,9 @@
 
         switch ($accion) {
             case 1://RECIBO DE FACTURA
-                echo $fe->recepcion();
+                $rs = $fe->recepcion();
+                print_r($rs);
+                // echo $fe->recepcion();
                 break;
             case 2://GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
@@ -109,14 +111,12 @@
 
         function getBearer(){
 
-            $user = 'cpj-3-101-697761@prod.comprobanteselectronicos.go.cr';
-            $pass = ';d_*?0;rJ?XV9y:7!4_}';
+            $user = $this->credenciales[4];
+            $pass = $this->credenciales[5];
             $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
             $cli_id = "api-prod";
             
             if ($this->credenciales[2] == 1) {
-                $user = 'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr';
-                $pass = 'l[&qq[o$f$+c8Ro|x_@]';
                 $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token";
                 $cli_id = "api-stag";
             }
@@ -154,6 +154,7 @@
             $salida['respuesta'] = json_decode($json_response);
             $salida['credenciales'] = $this->credenciales;
             $json_response = json_decode($json_response);
+            
             if (isset($json_response->access_token)) {
                 $this->bearer = $json_response->access_token;
             }
@@ -445,6 +446,7 @@
         }
 
         function getJSON($query){
+
             $db = new DBClass();
             $rs = $db->ejecutar($query);
             if (isset($rs->num_rows)) {

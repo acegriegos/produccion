@@ -42,15 +42,24 @@
               $_SESSION['TMP_CIA'] = $user[0][5];
               $_SESSION['TMPT']    = $user[0][11];
               $_SESSION['CRR']     = $user[0][8];
-              
-              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'main' : $_POST['vdir'];
+              $_SESSION['BUSS']    = $user[0][12];
+              $mod = 'main';
+              if ($user[0][12] == 1) {
+                $mod = 'facturacion';
+              }
+              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
            }
   
 		   // }
     	}else{
+        $mod = 'main';
+        
     		if (isset($_SESSION['USR'])) {
-		        header("Location: ../dashboard/main");
+            if ($_SESSION['BUSS'] == 1) {
+              $mod = 'facturacion';
+            }
+		        header("Location: ../dashboard/".$mod);
 		    }else{
 		   	require '../_config/mySmarty.php';
 		   

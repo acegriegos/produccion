@@ -27,8 +27,8 @@
                         <input type="text" id="search_clientes" maxlength="100" num="v306" var="0,1" cambio="30">
                         <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
                     </div>
-                    <div class="col s2 m6 per2001">
-                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-3 btn2" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large mdi mdi-plus"></i></a>
+                    <div class="col s2 m6 ">
+                        <a id="ingClie" class="der per2001 btn-floating tooltipped modal-trigger z-depth-3 btn2" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large mdi mdi-plus"></i></a>
                     </div>
                 </div>
                 <div class="card-block">

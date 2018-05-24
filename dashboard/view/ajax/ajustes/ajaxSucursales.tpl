@@ -79,8 +79,16 @@
                                 <label for="vpass_n">Clave Llave Criptografica</label>
                                 <input type="text" class="validate" id="vpass_n" maxlength="4">
                             </div>
+                              <div class="input-field col s6 fe">
+                                <label for="vuser_atv">Usuario ATV</label>
+                                <input type="text" class="validate" id="vuser_atv" maxlength="2">
+                            </div>
+                            <div class="input-field col s6 fe">
+                                <label for="vpass_atv">Contraseña ATV</label>
+                                <input type="text" class="validate" id="vpass_atv" maxlength="4">
+                            </div>
                             <div class="col s12 fe">
-                                <button class="btn btn1 der add z-depth-3" id="valid_p12" modulo="sucursale" varias="1">Validar</button>
+                                <button class="btn btn1 der z-depth-3" id="valid_p12" isvalid="0">Validar</button>
                             </div>
                         </div>
                         <div class="row">
@@ -137,19 +145,19 @@
                                         <label for="visinventariado">Control de Inventario</label>
                                     </div>
                                     <div class="col s6">
-                                        <input type="checkbox" id="isfe" name="isfisico" checked>
+                                        <input type="checkbox" id="isfe" checked>
                                         <label for="isfe">Factura Electrónica</label>                                        
                                     </div>
                                     <div class="col s6">
-                                        <input type="checkbox" id="vfastshow" class="with-gap" checked>
+                                        <input type="checkbox" id="vfastshow" checked>
                                         <label for="vfastshow">Envío de Correo Automático</label>
                                     </div>
                                     <div class="col s6">
-                                        <input type="checkbox" id="vprintSale" class="with-gap" checked>
+                                        <input type="checkbox" id="vprintSale" checked>
                                         <label for="vprintSale">Imprimir Venta</label>
                                     </div>
                                     <div class="col s6">
-                                        <input type="checkbox" id="visPrueba" class="with-gap" checked>
+                                        <input type="checkbox" id="visPrueba" checked>
                                         <label for="visPrueba">Período de Prueba</label>
                                     </div>
                                     <div class="col s6">

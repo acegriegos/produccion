@@ -13,7 +13,7 @@
 <body>
   {$NAV}
   <div class="bdy pequeño">
-    <nav class="nav-extended z-depth-3 head1">
+    <nav class="nav-extended z-depth-3 head1 hide">
       <div class="nav-wrapper">
         <div class="nav-content">
           <!-- <div class="row">

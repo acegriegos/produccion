@@ -10,8 +10,11 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" porcliente  entrefechas portipo="varios"  tbltipos="64" tipos=" Por Factura" types="2" elem="1,0,0,0" sp="307"  bisprov="0"></div>
+      <div class="filtros row" porcliente  entrefechas portipo="varios"  tbltipos="64" tipos=" Por Factura " types="2" elem="3,0,0" modulo="ganancia" sp="307"  bisprov="0"></div>
       <!-- HEADER -->
+      <input type="hidden" id="vidproducto" value="0">
+            <input type="hidden" id="vidtipo8" value="0">
+
     <div class="row header">
       <div class="col s4 m4 l4">
         <img src="../assets/img/logo.png" class="img-responsive" style="width: 60%">

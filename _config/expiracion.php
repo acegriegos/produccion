@@ -1,15 +1,24 @@
 <?php 
-
+	$mod = 'main';
+	
 	switch ($modulo) {
 		case 'login';
-			if (isset($_SESSION['USR']))
-				$modulo = 'main';
+			if (isset($_SESSION['USR'])){
+				if ($_SESSION['BUSS'] == 1) {
+					$mod = 'facturacion';
+				}
+				$modulo = $mod;
+			}
 			break;
 		case '':
 			if (!isset($_SESSION['USR'])) 
 				$modulo = 'login';
-			else
-				$modulo = 'main';
+			else{
+				if ($_SESSION['BUSS'] == 1) {
+					$mod = 'facturacion';
+				}
+				$modulo = $mod;
+			}
 			break;
 		case 'logout':
 			session_start();

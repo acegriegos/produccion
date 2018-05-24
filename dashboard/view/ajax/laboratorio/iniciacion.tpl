@@ -24,7 +24,7 @@
     </div>
     <div class="col s4">
       <div class="row">
-        <div class="col s12 input-field">
+        <div class="col s12 m6 input-field">
           <select type="select" id="videncargado">
             <option value="0">Seleccione un Operario</option>
             {section name=LE loop=$USR}
@@ -33,7 +33,7 @@
           </select>
           <label for="vencargado">Operario</label>
         </div>
-        <div class="col s12 input-field">
+        <div class="col s12 m6 input-field">
           <input type="text" id="vlote" value="" readonly>
           <label for="vlote">Lote</label>
         </div>
@@ -52,7 +52,7 @@
           <input type="text" id="cultivo" readonly value="- - -" class="center">
           <label for="cultivo">Medio Cultivo</label>
         </div> -->
-        <div class="col s12 input-field">
+        <div class="col s12 m6 input-field">
           <select type="select" id="vidbandeja">
             <option value="0">Seleccione un Frasco</option>
             {section name=LE loop=$FRA}
@@ -70,7 +70,11 @@
           <textarea id="vcomentario" class="materialize-textarea comentario" type="textarea" data-length="255"></textarea>
           <label for="vcomentario">Comentario</label>
         </div>
-        <a href="#modal-registrar" class="btn btn3 der" id="registrar">Registrar</a>
+        <div class="col s12 input-field">
+          <a href="#" class="btn btn3">Solicitar Medio Cultivo</a>
+          <a href="#modal-registrar" class="btn btn3 der" id="registrar">Registrar</a>
+        </div>
+        
       </div>
     </div>
   </div>

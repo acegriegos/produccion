@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DO !importantCTYPE html>
 <html lang="es">
   <head>
     <meta charset="utf-8">
@@ -26,8 +26,10 @@
                 <li><a class="optns" tipo="nombre,vcedula" href="#!" fltr="1">Nombre o Cédula</a></li>
                 <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
               </ul>
-              <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre,vcedula" addG="1">
+              <input type="text" id="search_clientes" maxlength="100" num="v76" var="0,1" cambio="29">
               <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
+
+             
             </div>
             <div class="col s2 m6 ">
               <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
@@ -48,12 +50,12 @@
               <tbody id="listaclientes">
                 {section name=LE loop=$CLIE}
                 <tr id="f{$CLIE[LE][0]}">
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][1]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][1]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][2]}</td>
                   <!-- <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td> -->
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][4]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][5]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][6]}</td>
                   <td>
                     <a href="#modal-addvehiculos" class="modal-trigger hide" style="color:black" title="Vehículos"><i class="car mdi mdi-car pbtn mdi-24px" id="v{$CLIE[LE][0]}"></i></a>
                     {if $CLIE[LE][13] neq 1}
