@@ -239,7 +239,6 @@ $(document).on("click",".datoextra",function(){
         str = ' and bismedio = 1';
 
     arr('login',6,'id,nombre',936,'id > 0 and idtipociclo = '+$("li.menu3 >a.active").parent().attr('id').substr(1)+str,0,1,$("#listadatosextras"))
-        console.log(arr('login',4,'id,nombre',936,'id > 0 and idtipociclo = '+$("li.menu3 >a.active").parent().attr('id').substr(1)+str,0,0,0));
 });
 
 $(document).on("click",".pruebasQoS",function(){
@@ -289,7 +288,6 @@ $(document).on("click",".modalmediosExtra",function(){
     });
 
     var cnt = arr('login',4,'',938,tm+','+idsuc+','+bismedio,0,0,0)[0];
-
     if (cnt.length > 0) {
         ifila3 = cnt;
         $("#testqosExtra").html('');
@@ -907,6 +905,7 @@ $(document).on("click","#doproc",function(){
 
 function emptyprocmult() {
     $("#cantfinal").val('');
+    $("#cantinicial").val('');
     $("#cantsrv").val('');
     $("#srazon").val(0);
     $("#svari").val('');
@@ -1184,9 +1183,9 @@ function loadAjustes(){
     }
 
     $(document).on("change",".role_inv",function(){
-        if($(this).attr('tp') != undefined){
-            console.log('idinventario = "'+$(this).val()+'"','id='+$(this).attr('tp'))
-            arr('login',7,2,907,'idinventario = "'+$(this).val()+'"','id='+$(this).attr('tp'));
+        if ($(this).attr('tp') != undefined) {
+            arr('login',7,2,907,'idinventario = "'+$(this).val()+'"','id = '+$(this).attr('tp'));
+            $("#invVariedad").material_select();
         }
     });
 
