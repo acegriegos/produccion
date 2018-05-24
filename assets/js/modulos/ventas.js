@@ -72,7 +72,7 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'',vextrapagos : 0, vdivisa : 0,vidusuario:0,vidtipopago:0,vidodt:0,vajuste:0, idline:0,  saldo : 0, notific : 0});
+    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'',vextrapagos : 0, vdivisa : 0,vidusuario:0,vidtipopago:0,vidodt:0,vajuste:0, idline:0,  saldo : 0, notific : 0,tmpcorreo:''});
 
     $(".modal").modal();
 
@@ -944,6 +944,7 @@ function sendVMail(factura,clave,vid){
     var archivos = '';
 
     if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
+        if ($(".zelda").data('triforce')['']) {}
         var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
         var str_correos = '';
         if (correos == undefined) {
