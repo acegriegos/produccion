@@ -1,6 +1,7 @@
 var ifila = 0;
 var ifila2 = 0;
 var ifila3 = 0;
+var ifila4 = 0;
 var tpinv = 0;
 var invvar;
 // tipo = $("li.menu3 >a.active").parent().attr('id').substr(1)
@@ -91,6 +92,70 @@ $(document).on("change","#vidinventario",function(){
     // $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] = idencargado;
 // });
 
+$(document).on("click",".pestado",function(){
+    var id = $(this).attr('id').substr(3);
+    var estado = $(this).attr('estado');
+    var perdida = $("#lpr"+id).text();
+    if (estado == 1)
+        estado = 0;
+    else
+        estado = 1;
+    
+    arr('login',4,'',943,'2,0,"'+perdida+'",0,0,@@impresa,'+estado,0,0,0);
+    arr('login',6,'id,nombre,idestado',913,'id > 0 and isActivo = 0 and idsucursal in (-1,@@impresa) order by nombre,idestado',0,1,$("#listaperdidas"));
+});
+
+$(document).on("change","#cfrasco",function(){
+    var id = $(this).val();
+    $("#hidfrasco").val(id);
+});
+
+$(document).on("click",".perdidasxlab",function(){
+    arr('login',6,'id,nombre,idestado',913,'id > 0 and isActivo = 0 and idsucursal in (-1,@@impresa) order by nombre,idestado',0,1,$("#listaperdidas"));
+    var max = arr('login',4,'max(id)',913,'id > 0',0,0,0)[0][0];
+    $("#modal-perdidasxlab").modal('open');
+    ifila4 = max;
+});
+
+$(document).on("click","#addperdida",function(){
+    var perdida = $("#vperdida").val();
+    if (perdida != '') {
+        ifila4++;
+        $("#listaperdidas").append('<li class="collection-item lsperdidas" id="cpr'+ifila4+'"><label id="lpr'+ifila4+'">'+perdida+'</label><i class="pbtn mdi mdi-autorenew mdi-24px right pestado hide" id="stp'+ifila4+'"></i><i class="pbtn mdi mdi-close mdi-24px right delperdida cdel" id="dlp'+ifila4+'"></i></li>');
+        $("#vperdida").val('').focus();
+    }
+});
+
+$(document).on("click",".delperdida",function(){
+    var id = $(this).attr('id').substr(3);
+    $("#cpr"+id).remove();
+});
+
+$(document).on("click",".save-perdidas",function(){
+    var bis = 1;
+    var p = '';
+    $(".pestado").each(function(){
+        var id = $(this).attr('id').substr(3);
+        var perdida = $("#lpr"+id).text();
+        var comp = arr('login',4,'count(id)',913,'id > 0 and idestado = 1 and nombre = "'+perdida+'" and idsucursal = @@impresa',0,0,0)[0][0];
+        if (comp == 0) {
+            p = arr('login',4,'',943,'1,0,"'+perdida+'",0,0,@@impresa,1',0,0,0);
+            console.log(p)
+            if (p['succed'] == 1)
+                bis = 1;
+            else
+                bis = 0;
+        }
+    });
+
+    if (bis) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+        arr('login',6,'id,nombre,idestado',913,'id > 0 and isActivo = 0 and idestado = 1 and idsucursal in (-1,@@impresa) order by nombre,idestado',0,1,$("#listaperdidas"))
+    }else{
+        Materialize.toast(p[0]['ERROR'], 4000, 'green');
+    }
+});
+
 $(document).on("click",".finish",function(){
     var id = $(this).attr('id').substr(1);
     var $toastContent = $('<span>Seguro desea terminar el proceso?</span>').add($('<button class="btn-flat toast-action green white-text" id="fin-proc" idproc="'+id+'">Aceptar</button>'));
@@ -173,11 +238,10 @@ $(document).on("click",".pruebasQoS",function(){
     var idsuc = $(this).attr('ids');
     $(".savetestqos").attr('idsuc',idsuc);
     $("#modal-pruebasQoS").modal('open');
-    var cnt = arr('login',4,'count(id)',930,'id > 0 and idsucursal = '+idsuc,0,0,0)[0][0];
+    var cnt = arr('login',4,'count(id)',930,'id > 0 and idciclo = -1 and idsucursal = '+idsuc,0,0,0)[0][0];
     if (cnt > 0) {
         ifila3 = cnt;
-        $("#testqos").html('');
-        arr('login',6,'id,prueba',930,'id > 0 and idsucursal = '+idsuc,0,1,$("#testqos"));
+        arr('login',6,'id,prueba',930,'id > 0 and idciclo = -1 and idsucursal = '+idsuc,0,1,$("#testqos"));
     }else
         $("#testqos").html('');
 });
@@ -217,6 +281,7 @@ $(document).on("click",".modalmediosExtra",function(){
     });
 
     var cnt = arr('login',4,'',938,tm+','+idsuc+','+bismedio,0,0,0)[0];
+    console.log(cnt)
     if (cnt.length > 0) {
         ifila3 = cnt;
         $("#testqosExtra").html('');
@@ -238,14 +303,14 @@ $(document).on("click","#addtestqos",function(){
 });
 
 $(document).on("click","#addtestqosExtra",function(){
-    var test = $("#tipopruebasExtra").val().toLowerCase();
+    var test = $("#tipopruebasExtra").val();
     var sig = 1;
     if (test != '') {
         if ($(".pruebasqos").length > 0) {
             $(".pruebasqos").each(function(){
                 var id = $(this).children().attr('id').substr('2');
                 var nombre = $("#qs"+id).text().toLowerCase();
-                if (nombre == test) {
+                if (nombre == test.toLowerCase()) {
                     Materialize.toast('Dato existente', 4000, 'red');
                     sig = 0;
                 }else{
@@ -255,6 +320,7 @@ $(document).on("click","#addtestqosExtra",function(){
         }
         if (sig == 1) {
             ifila3++;
+            // test = test.substr(0,1).toUpperCase()+test.substr(1);
             $("#testqosExtra").append('<li class="collection-item pruebasqos" id="clp'+ifila3+'"><label id="qs'+ifila3+'">'+test+'</label><i class="pbtn mdi mdi-close mdi-24px right delprueba" id="dp'+ifila3+'"></i></li>');
             $("#tipopruebasExtra").val('').focus();
         }
@@ -333,12 +399,16 @@ $(document).on("click",".savetestqosExtra",function(){
     $(".pruebasqos").each(function() {
         var id = $(this).children().attr('id').substr('2');
         var nombre = $("#qs"+id).text();
-        // vaccion,vid,vidtipociclo,vnombre,vbisinicial,vbismedio,vbisfinal
-        var datoextra = arr('login',4,'',939,'1,0,'+idciclo+',"'+nombre+'",'+bismedio,0,0,0);
-        if (datoextra['succed'] == 1)
-            pass = 1;
-        else
-            pass = 0;
+        // 936
+        var cnt = arr('login',4,'count(id)',936,'nombre = "'+nombre+'"',0,0,0)[0][0];
+        if (cnt == 0) {
+            var datoextra = arr('login',4,'',939,'1,0,'+idciclo+',"'+nombre+'",'+bismedio,0,0,0);
+            if (datoextra['succed'] == 1)
+                pass = 1;
+            else
+                pass = 0;
+        }
+        
     });
     if (pass == 1) {
         Materialize.toast('Registro guardado correctamente', 4000, 'green');
@@ -717,8 +787,8 @@ $(document).on("click","#registrar",function() {
 });
 
 // $(document).on("click","#chgbandeja",function() {
-//     var idbandeja = $("#cbandeja").val();
-//     $("#hidbandeja").val(idbandeja);
+//     var idbandeja = $("#cfrasco").val();
+//     $("#hidfrasco").val(idbandeja);
 //     Materialize.toast('Bandeja seleccionada', 4000, 'green');
 // });
 
@@ -733,7 +803,7 @@ $(document).on("click",".proc-ciclo",function() {
     var dpick = $('#fechaini');
     dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
     $("#modal-proc-ciclo").modal('open');
-    arr('login',6,'id,nombre',913,'id > 0 and isactivo = 0',15,1,$("#srazon"));
+    arr('login',6,'id,nombre',913,'id > 0 and isactivo = 0 and idsucursal in(-1,@@impresa)',15,1,$("#srazon"));
     arr('login',6,'id,nombre',1,'id > 0 and idtipousuario = 4',15,1,$("#encargado_qos"));
 
     /*Obtener Opciones de Ciclo*/
@@ -745,15 +815,14 @@ $(document).on("click",".proc-ciclo",function() {
     $("#idserv").val(svari[0][0][0]);
     $("#vvvar").text(svari[0][0][1]);
     Materialize.updateTextFields();
-    $("select").material_select();
 
-    // arr('login',6,'',411,invvar[2][0],15,1,$("#cbandeja"));
-    // if ($("#hidbandeja").val() != 0) {
-    //     $("#cbandeja").val($("#hidbandeja").val());
-    // }else{
-    //     $("#cbandeja").val(0);
-    // }
-    // $("#cbandeja").material_select();
+    arr('login',6,'',411,invvar[4+(5*(1-1))][0],15,1,$("#cfrasco"));
+    if ($("#hidfrasco").val() != 0) {
+        $("#cfrasco").val($("#hidfrasco").val());
+    }else{
+        $("#cfrasco").val(0);
+    }
+    $("select").material_select();
     // $("#encargado_qos").material_select();
 });
 
@@ -801,22 +870,14 @@ $(document).on("click","#doproc",function(){
         }
         
         // realizar multiplicacion
-        var idbandeja = $("#hidbandeja").val();
+        var idbandeja = $("#hidfrasco").val();
         var idmedio = $("#hidmediocultivo").val();
         var ciclo = arr('login',4,'',914,id+','+idciclo+','+idbandeja+','+idmedio+',@@impresa,0,"'+fecha+'"',0,0,0);
         if (ciclo['succed'] == 0) {
             Materialize.toast(ciclo[0]['ERROR'], 4000, 'green');
             return false;
         }else{
-             if($("#cultivo").val() != '- - -'){
-                var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
-                
-                arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+ciclo[0][0][0],0,0,0);
-
-                $('.premc').each(function(){
-                    arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
-                });
-             }
+             
             Materialize.toast($("#titciclo").text().substr(11)+' procesada', 4000, 'green');
             
             arr('login',6,'',912,'0,0,"'+$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa,@@usr","0,10"',0,1,$("#listaciclos"))
@@ -843,7 +904,7 @@ function emptyprocmult() {
     $("#srazon").val(0);
     $("#svari").val('');
     $("#idserv").val(0);
-    $("#hidbandeja").val(0);
+    $("#hidfrasco").val(0);
     $("#hidmediocultivo").val(0);
     $("#encargado_qos").val(0);
     $("#cant_qos").val('');
@@ -1031,6 +1092,15 @@ $(document).on("change","#mc-cantidad",function(){
         $(this).html( (valor).formatMoney(0,'.',',') );
     });
     
+    /*if($("#cultivo").val() != '- - -'){
+                var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
+                
+                arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+ciclo[0][0][0],0,0,0);
+
+                $('.premc').each(function(){
+                    arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
+                });
+             }*/
 });
 
 $(document).on("click","#gcultivo",function(){
@@ -1103,7 +1173,7 @@ function loadAjustes(){
         $("#invcomp"+elementoLB).val(invvar[i+3][0]);
         $("#inv-bandejas"+elementoLB).val(invvar[i+2][0]);
         $("#inv-frascos"+elementoLB).val(invvar[i+4][0]);
-
+        $("select").material_select();
     }
 
     $(document).on("change",".role_inv",function(){
@@ -1112,32 +1182,32 @@ function loadAjustes(){
             $("#invVariedad").material_select();
         }
     });
-    
 
     $(document).on("click",".relaciones",function(){
         var vidsucursal = $(this).attr('tp');
         var relacion = arr('login',4,'count(id),ifnull(max(id)+1,1)',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0][0];
         var lastid = relacion[1];
-        //arr('login',4,'ifnull(max(id)+1,1)',911,'idsucursal in(-1,'+idsucursal+')',0,0,0)[0][0][0];
         relacion = relacion[0]
         $("#autoinc").val(lastid);
         $("#curpos").val(lastid);
         $("#flaboratorio-relaciones").html('');
+        var index = 4+(5*(vidsucursal-1));
+        if (invvar.length == 5)
+            index = 4;
+
         if (relacion == 0) {
-/*            arr('login',6,'',411,invvar[2+(5*(vidsucursal-1))][0],15,1,$("#bandejas1"))
-*/            arr('login',6,'',411,invvar[4+(5*(vidsucursal-1))][0],15,1,$("#frascos1"))
+            arr('login',6,'',411,invvar[vidsucursal-1][0],15,1,$("#frascos1"))
             
-            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
+            var p = mantenimiento('laboratorio',9,{"invbandejas":1,"invfrascos":invvar[index][0],"idsucursal" : vidsucursal });
 
             $("#flaboratorio-relaciones").html(p);
         }else{
-            var p = mantenimiento('laboratorio',9,{"invbandejas":invvar[2+(5*(vidsucursal-1))][0],"invfrascos":invvar[4+(5*(vidsucursal-1))][0],"idsucursal" : vidsucursal });
+            var p = mantenimiento('laboratorio',9,{"invbandejas":1,"invfrascos":invvar[index][0],"idsucursal" : vidsucursal });
 
             $("#flaboratorio-relaciones").html(p);
             var relaciones = arr('login',4,'*',911,'id > 0 and idsucursal in(-1,'+vidsucursal+')',0,0,0)[0];
             $.each(relaciones,function(index,relation){
-/*                $("#bandejas"+relation[0]).val(relation[1]);
-*/                $("#frascos"+relation[0]).val(relation[2]);
+                $("#frascos"+relation[0]).val(relation[2]);
             });
         }
         $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1});
@@ -1204,21 +1274,7 @@ function cargarArr(vid,velemento){
     $('select').material_select();
     $(".comentario").characterCounter();
     $(".modal").modal();
-    $(".mediocultivo").click(function(){
-
-        if ($("#gcultivo").attr('save') == 0) {
-            var componentes = getDatos('',923,$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa',0,0,0);
-            var tabla = '';
-            for (var i = 0; i < componentes[0].length; i++) {
-                
-                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rid="'+componentes[0][i][3]+'" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
-            };
-            $("#mcul-lista").html(tabla);
-        }
-
-        $("#modal-formula").modal('open');
-        
-    });
+    
 
     $(".rbandeja").click(function(){
         arr('login',6,'',411,invvar[2][0],15,1,$("#invactivlab"))
@@ -1265,6 +1321,10 @@ function loadRecepcion(){
             case 6:
                 $("#labajax").html('Reportes')
                 break;
+            case 7:
+                cargarArr(17,$("#labajax"));
+                cargarMedios();
+                break;
     		default:
     			$("#labajax").html('Laboratorio sin Procesar')
     			break;
@@ -1303,6 +1363,9 @@ function loadSustrato(){
             case 6:
                 $("#labajax").html('Reportes')
                 break;
+            case 7:
+                cargarArr(17,$("#labajax"));
+                break;
             default:
                  cargarArr(16,$("#labajax"));
                 break;
@@ -1332,6 +1395,9 @@ function loadBM(){
             case 6:
                 $("#labajax").html('Reportes')
                 break;
+            case 7:
+                cargarArr(17,$("#labajax"));
+                break;
             default:
                  cargarArr(15,$("#labajax"));
                 break;
@@ -1357,6 +1423,9 @@ function loadAvispas(){
                 break;
             case 6:
                 $("#labajax").html('Reportes')
+                break;
+            case 7:
+                cargarArr(17,$("#labajax"));
                 break;
             default:
                 cargarArr(6,$("#labajax"));
@@ -1388,6 +1457,9 @@ function loadHongos(){
             case 6:
                 $("#labajax").html('Reportes')
                 break;
+            case 7:
+                cargarArr(17,$("#labajax"));
+                break;
             default:
                  cargarArr(7,$("#labajax"));
                 break;
@@ -1405,6 +1477,24 @@ function loadSeguimiento(){
 function cargarQoS(){
     $("#flaboratorio-ciclos .zelda").data('triforce',{vid:0,vidtipo:4,vidciclo:'',vidmediocultivo:0,vidbandeja:0,vguia:0});
 }//cargar QOS
+
+function cargarMedios() {
+    $(".mediocultivo").click(function(){
+
+        if ($("#gcultivo").attr('save') == 0) {
+            var componentes = getDatos('',923,$("li.menu3 >a.active").parent().attr('id').substr(1)+',@@impresa',0,0,0);
+            var tabla = '';
+            for (var i = 0; i < componentes[0].length; i++) {
+                
+                tabla += '<tr id="fmc'+i+'"> <td style="padding: 0px;" class="center"> <input type="checkbox" class="filled-in" id="mccheck'+i+'"/> <label for="mccheck'+i+'"></label> </td> <td style="padding: 0px;"> '+componentes[0][i][0]+' </td><td style="padding: 0px;"> <span class="premc" rid="'+componentes[0][i][3]+'" rpre="'+componentes[0][i][1]+'">'+parseInt(componentes[0][i][1]).formatMoney(0,'.',',')+'</span> '+componentes[0][i][2]+'</td></tr>';
+            };
+            $("#mcul-lista").html(tabla);
+        }
+
+        $("#modal-formula").modal('open');
+        
+    });
+}//CARGAR MEDIOS
 
 function cargarAclimatacion(){
     $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:''});
@@ -1969,7 +2059,16 @@ function validar (varreglo,vmodulo) {
 }
 
 function validarRelaciones() {
+    var id = $("#autoinc").val();
+    if ($("#frascos"+id).val() == 0) {
+        return 'Seleccione un frasco';
+    }
 
+    if ($("#caben"+id).val() == 0 || $("#caben"+id).val() == '') {
+        return 'Cantidad debe ser mayor a 0';
+    }
+
+    return false
 }
 
 function validarFincas() {
@@ -2133,11 +2232,7 @@ function endDetail(vid,vacc,modulo){
                         encargado = $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'] == 0 ? '@@ur' : $("#flaboratorio-ciclos .zelda").data('triforce')['videncargado'];
                         arr('login',4,'',918,'1,0,'+vid+','+tipo+','+serv+','+prod+','+cant+',@@usr,"'+comen+'"',0,0,0);
                         $("#modal-registrar").modal('close');
-                        var solucion = arr('login',7,1,932,'','null,@@usr,now(),'+$("#mc-cantidad").val()+',@@impresa,'+$("li.menu3 >a.active").parent().attr('id').substr(1),0,0);
-                        arr('login',7,2,915,'idmediocultivo = '+solucion[0][0][0]+',id='+vid[0][0][0],0,0,0);
-                        $('.premc').each(function(){
-                            arr('login',4,'',933,$(this).attr('rid')+','+solucion[0][0][0],0,0,0);
-                        });
+                       
                         var perdida = arr('login',4,'',925,'1,0,"'+vid+'",'+tipo+','+serv+',0,'+cant+','+encargado+',"'+comen+'"',0,0,0);
                         if ($("#encargado").val() != 0) {
                             var qos = arr('login',4,'',914,vid+',5,0,0,@@impresa,'+$("#encargado").val()+','+fecha,0,0,0);
@@ -2159,7 +2254,7 @@ function endDetail(vid,vacc,modulo){
                 }
                 deadclear(modulo);
                 $(".zelda").removeData('triforce');
-                $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',vidmediocultivo:0,videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidempresa:''});
+                $("#flaboratorio-ciclos .zelda").data('triforce',{vaccion:0,vid:0,vidtipo:1,vidciclo:'',videncargado:0,vidbandeja:0,vcomentario:'',vlote:'',vidempresa:''});
                 $("#result00").html('No se ha Elegido la Variedad');
                 $("#tplt").text(0);
                 break;
@@ -2192,17 +2287,24 @@ function endDetail(vid,vacc,modulo){
                 $(".validate").css('box-shadow', 'none');
                 break;
             case 'laboratorio-relacione':
+                var vidsucursal = $(".relaciones").attr('tp');
                 var id = parseInt($("#autoinc").val());
+                console.log(id)
                 id++;
-/*                $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="bandejas'+id+'" class="invbandejas"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light addline gtext pbtn add" modulo="laboratorio-relacione" id="a'+id+'" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a><a class="waves-effect waves-light delline gtext pbtn delete" modulo="laboratorio-relacione" id="d'+id+'" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a></td></tr>');
-*/                setTimeout(function(){
-/*                    arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas"+id));
-*/                    arr('login',6,'',411,invvar[3][0],15,1,$("#frascos"+id));
+                $("#flaboratorio-relaciones").append('<tr id="rw'+id+'" class="rowrel zelda"><td style="padding: 10px; color:black;"><div class="input-field"><select type="select" id="frascos'+id+'" class="invfrascos"></select></div></td><td style="padding: 10px; color:black;"><div class="input-field"><input type="number" id="caben'+id+'" class="caben" value="1" min="1"></div></td><td style="padding: 10px; color:black;"><a class="waves-effect waves-light gtext pbtn addline add" modulo="laboratorio-relacione" id="al'+id+'" tp="5"><i class="mdi mdi-plus pbtn mdi-18px"></i></a><a class="waves-effect waves-light gtext pbtn delline delete" modulo="laboratorio-relacione" id="dl'+id+'" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a></td></tr>');
+                setTimeout(function(){
+                    /*arr('login',6,'',411,invvar[2][0],15,1,$("#bandejas"+id));*/
+                    var index = 4+(5*(vidsucursal-1));
+                    if (invvar.length == 5) {
+                        index = 4;
+                    }
+                    arr('login',6,'',411,invvar[index][0],15,1,$("#frascos"+id));
                     $("select").material_select();
-                    $(".zelda").data('triforce',{vid : 0,vidfrasco : 0,vcantidad : 1})
-                    // $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1})
+                    // $(".zelda").data('triforce',{vid : 0,vidfrasco : 0,vcantidad : 1})
+                    $(".zelda").data('triforce',{vid : 0,vidbandeja : 0,vidfrasco : 0,vcantidad : 1})
+                    $("#autoinc").val(id)
                 },100);
-                $("#autoinc").val(id)
+                
                 break;
             case 'mediocultivo':
                 var idciclo = $("#_vidciclo").val();

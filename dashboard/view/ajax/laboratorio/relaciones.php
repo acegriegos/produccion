@@ -1,5 +1,5 @@
 <?php 
-
+$ultimo = 0;
 if (sizeof($transaccion)) {
 
 	$vfrascos = '<option value="0">Seleccione una opción</option>';
@@ -11,7 +11,7 @@ if (sizeof($transaccion)) {
 	}
 
 	foreach ($transaccion as $obj) {
-		$ultimo = 0;
+		
 ?>
 <tr id="rw<?php echo $obj[0]; ?>" class="rowrel zelda">
 	<td style="padding: 10px; color:black;">
@@ -32,10 +32,11 @@ if (sizeof($transaccion)) {
 		<a class="waves-effect waves-light gtext pbtn delline delete" modulo="laboratorio-relacione" id="d<?php echo $obj[0]?>"><i class="mdi mdi-close pbtn mdi-18px"></i></a>
 	</td>
 </tr>
- <?php } 
-$ultimo = (int) $obj[0];
-$ultimo = $ultimo + 1;
+<?php 
+$ultimo = (int) $obj[0]; } 
 }else{
+	
+	$ultimo = $ultimo + 1;
 	$vfrascos = '<option value="0">Seleccione una opción</option>';
 
 	
@@ -63,12 +64,8 @@ $ultimo = $ultimo + 1;
 		<a class="waves-effect waves-light gtext pbtn delline delete" modulo="laboratorio-relacione" id="dl<?php echo $ultimo; ?>" tp="5"><i class="mdi mdi-close pbtn mdi-18px"></i></a>
 	</td>
 </tr>
-
-
- <script type="text/javascript">
- 	$(function(){
- 		permisos(310,311);
- 	})
- </script>
-
-
+<script type="text/javascript">
+	$(function(){
+		permisos(310,311);
+	})
+</script>

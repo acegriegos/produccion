@@ -13,7 +13,41 @@
   {$NAV}
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
-        <div class="card-header center head1 z-depth-1">
+
+        <nav class="nav-extended">
+          <div class="nav-wrapper head1">
+            <a href="#!" class="brand-logo center"><h5 class="truncate">Laboratorio de Cortesia Flavipes</h5></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi mdi-menu"></i></a>
+          </div>
+          <div class="nav-content head2">
+            <ul class="side-nav" id="mobile-demo">
+              <li class="menu3 tab" id="m0"><a class="active">Crisálidas</a></li>
+              <li class="menu3 tab" id="m11"><a>Copulación</a></li>
+              <li class="menu3 tab" id="m12"><a>Recolección de Posturas</a></li>
+              <li class="menu3 tab" id="m13"><a>Inoculación</a></li>
+              <li class="menu3 tab" id="m14"><a>Parasitación</a></li>
+              <li class="menu3 tab" id="m15"><a>Revisión</a></li>
+              <li class="menu3 tab" id="m16"><a>Puparios</a></li>
+              <li class="menu3 tab" id="m17"><a>Empaque</a></li>
+              <li class="menu3 tab" id="m5"><a>QoS</a></li>
+              <li class="menu3 tab" id="m6"><a>Reporte</a></li>
+            </ul>
+            <ul class="tabs tabs-transparent hide-on-small-only">
+              <li class="menu3" id="m0"><a class="white-text" class="active">Crisálidas</a></li>
+              <li class="menu3" id="m11"><a class="white-text">Copulación</a></li>
+              <li class="menu3" id="m12"><a class="white-text">Recolección de Posturas</a></li>
+              <li class="menu3" id="m13"><a class="white-text">Inoculación</a></li>
+              <li class="menu3" id="m14"><a class="white-text">Parasitación</a></li>
+              <li class="menu3" id="m15"><a class="white-text">Revisión</a></li>
+              <li class="menu3" id="m16"><a class="white-text">Puparios</a></li>
+              <li class="menu3" id="m17"><a class="white-text">Empaque</a></li>
+              <li class="menu3" id="m5"><a class="white-text">QoS</a></li>
+              <li class="menu3" id="m6"><a class="white-text">Reporte</a></li>
+            </ul>
+          </div>
+        </nav>
+
+<!--         <div class="card-header center head1 z-depth-1">
           <h5>Laboratorio de Cortesia Flavipes</h5>
             <ul class="tabs tabs-fixed-width head2" style="cursor: pointer;">
               <li class="menu3 tab" id="m0"><a class="white-text tamLetra" class="active">Crisálidas</a></li>
@@ -27,7 +61,7 @@
               <li class="menu3 tab" id="m5"><a class="white-text tamLetra">QoS</a></li>
               <li class="menu3 tab" id="m6"><a class="white-text tamLetra">Reporte</a></li>
             </ul>
-        </div>
+        </div> -->
           <div class="card-panel pequeño" id="labajax"><!-- AJAX --></div>
         </div>
       </div>
