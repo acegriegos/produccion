@@ -4,7 +4,7 @@
       <div class="background"><!-- CSS --></div>
         <div class="col s12 center">
          <p class="white-text">{$smarty.session.NOM}</p>
-         <ul class="collapsible collapsible-accordion hide">
+         <ul class="collapsible collapsible-accordion {if $smarty.session.BUSS eq 1} hide {/if}">
           <li>
             <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</a>
             <div class="collapsible-body" style="z-index: 100; position: absolute; width: 94%;">
@@ -46,12 +46,12 @@
     <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
     <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 {php}}else{ {/php}
-    <li class="gtext"><a href="facturacion?tf=1"><i class="mdi mdi-account-edit mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Facturación</span></a></li>
+    <li class="gtext"><a href="facturacion?tf=1"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Facturación</span></a></li>
     <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
-    <li class="gtext"><a href="productos"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos</span></a></li>
-    <li class="gtext"><a href="cuentas&tf=1"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
-    <li class="gtext"><a href="notas"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Credito y Debito</span></a></li>
-    <li class="gtext"><a href="ajustes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Ajustes</span></a></li>
+    <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos</span></a></li>
+    <li class="gtext"><a href="cuentas&tf=1"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
+    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Credito y Debito</span></a></li>
+    <li class="gtext"><a href="ajustes"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Ajustes</span></a></li>
 {php} } {/php}
     <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>

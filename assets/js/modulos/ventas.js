@@ -502,7 +502,7 @@ function totalizar(){
                     dimv =  parseFloat(tmpdesc*((rimv*(eimv/100))/100)).toFixed(5);
                     eimv = eimv == 100 ? 0 : eimv;
                     impuesto += parseFloat(dimv);
-                    console.log(eimv+' '+impuesto)
+
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(impuesto).toFixed(5)+','+eimv
                     $("#imv_"+iimv).html(parseFloat(impuesto).formatMoney(2,'.',','));
@@ -759,13 +759,13 @@ function verfacturas() {
 }
 
 function searchClient(vvariable,visprv){
-    var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
-    
+    var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv+',@@impresa','',0,'');
+
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
         $("#ncli").val(vclie[1]+' '+vclie[2]);
-        alert(vclie[3])
+        
         if (vclie[3] > 0)
             $("#chg_tipo").removeAttr('disabled');
         else

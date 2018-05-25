@@ -190,7 +190,7 @@
                 </div>
                 <div id="fina" class="col s12">
                   <div class="row"><br>
-                    <div class="input-field col s12 m6 l6">
+                    <div class="input-field col s12 m6 l6 {if $smarty.session.BUSS eq 1} hide {/if}">
                       <select type="select" id="vidnivel">
                         <option value="0">Seleccione una Categoría</option>
                         {section name=LE loop=$NVLCLIE}
@@ -210,7 +210,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row {if $smarty.session.BUSS eq 1} hide {/if}">
                     <div class="input-field col s12 m6 l6">
                       <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
                       <input type="number" class="eder center" id="vdescuentom" value="0">
@@ -230,7 +230,7 @@
                     </div>
                   </div>
                   <div vtabla="defectocuenta" id="fdefectocuentas" hasTabla="1" tp="3">
-                    <div class="ciclos">
+                    <div class="ciclos {if $smarty.session.BUSS eq 1} hide {/if}">
                       <input type="hidden" id="videstadocontable" value="1">
                       <input type="hidden" id="vidcuenta" value="">
                       <div class="row">

@@ -6,9 +6,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="Cache-Control" content="max-age=86400"/>
 		<title>Productos</title>
+		{$STY}
+		<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
 	</head>
-	{$STY}
-	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
 	<body>
 	{$NAV}
 		<div class="bdy pequeño">
