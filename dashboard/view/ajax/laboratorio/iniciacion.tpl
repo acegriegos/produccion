@@ -37,7 +37,7 @@
           <input type="text" id="vlote" value="" readonly>
           <label for="vlote">Lote</label>
         </div>
-         <div class="col s12 m6 input-field">
+         <div class="col s12 input-field">
           <select type="select" id="vidmediocultivo">
             <option value="0">Seleccione una Opción</option>
             {section name=LE loop=$USR}
@@ -45,7 +45,7 @@
             {/section}
           </select>
           <label for="vidmediocultivo">Medio Cultivo</label>
-          
+          <a href="#">Solicitar Medio Cultivo</a>
         </div>
         <!-- <div class="col s12 input-field">
           <a class="prefix btn-floating btn2 z-depth-2 mediocultivo" id="mkformula"><i class="mdi mdi-plus mdi-24px"></i></a>
