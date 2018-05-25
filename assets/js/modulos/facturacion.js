@@ -213,7 +213,7 @@ function cargarCompras(){
                 var inv = $("#valores").data('elemento')['hinv'];
                 var cnti = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
                 var idprd = $("#valores").data('elemento')['idp'];
-                var desc = 0;//$("#descp").val();
+                var desc = $("#descp").val();
                 var hinv = $("#valores").data('elemento')['hinv'];
                 var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
                 var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];

@@ -47,6 +47,7 @@
                     {/section}
                 </tbody>
             </table>
+            <ul class="pagination right" vtbl="13" modulo="productos"></ul>
         </div>
     </div>
 </div><br><br>

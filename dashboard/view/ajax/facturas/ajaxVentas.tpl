@@ -316,7 +316,7 @@
           </tr>
           <tr>
             <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
-            <td><input type="text" id="ajuste" class="eder _txtaside" value="" style="height: 0.5% !important" placeholder="Ajuste máximo: 9.99" maxlength="4"></td>
+            <td><input type="text" id="ajuste" class="eder _txtaside" value="" style="height: 0.5% !important" placeholder="Ajuste máximo: 10" maxlength="4"></td>
           </tr>
         </table>
 

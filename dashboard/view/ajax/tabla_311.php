@@ -63,6 +63,8 @@
 											</label>
 										</div>
 									</div> -->
+									<input type="hidden" id="htipo" value="0">
+									<input type="hidden" id="hvid" value="0">
 									<input type="hidden" id="vfecha" value="1990-01-01">
 									<div class="input-field col s12 padd">
 										<select type="select" id="vidinventario"></select>
@@ -108,7 +110,7 @@
 						</thead>
 						<tbody vtabla="detalledevolucione" id="fdetalledevoluciones" tp="4" rollback>
 							<?php foreach ($transaccion as $obj) { ?>
-							<tr id="dd<?php echo $obj[8]; ?>" class="ciclos">
+							<tr id="dd<?php echo $obj[8]; ?>">
 								<td class="tdlist">
 									<p>
 										<input type="checkbox" name="devolucion" id="devprod<?php echo $obj[8]; ?>" value="0" idproducto="<?php echo $obj[9]; ?>">
