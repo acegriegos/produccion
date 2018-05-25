@@ -765,7 +765,7 @@ function searchClient(vvariable,visprv){
         var vclie = clie[0][0];
         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
         $("#ncli").val(vclie[1]+' '+vclie[2]);
-
+        alert(vclie[3])
         if (vclie[3] > 0)
             $("#chg_tipo").removeAttr('disabled');
         else
