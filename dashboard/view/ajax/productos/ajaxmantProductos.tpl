@@ -138,7 +138,7 @@
 						<label class="active" for="vcodigointerno">Código Interno</label>
 					</div>
 					{if $smarty.session.BUSS eq 1} 
-						<input type="hidden" id="vminimo" value="0">
+						<input type="hidden" id="vminimo" value="1">
 						<input type="hidden" id="vmaximo" value="300">
 					 {else}
 					<div class="input-field marginzero">

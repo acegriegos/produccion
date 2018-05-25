@@ -162,9 +162,11 @@ $(document).on("change","[name=devolucion]",function(){
 		$("#dcantdev"+id).removeClass('hide');
 		$("#spncant"+id).addClass('hide');
 		$("#cantdev"+id).focus();
+		$("#dd"+id).addClass('ciclos');
 	}else{
 		$("#dcantdev"+id).addClass('hide');
 		$("#spncant"+id).removeClass('hide');
+		$("#dd"+id).removeClass('ciclos');
 	}
 });
 
@@ -196,6 +198,8 @@ function detalle(id,tipo) {
 	}else
 		arr('login',6,'',409,id,0,1,$("#listaDetalleFacturas"));
 	
+	$("#hvid").val(id);
+	$("#htipo").val(tipo);
 	$('select').material_select();
 	$("#data-table-cuentas-detalle").dataTable({
 		bFilter: false,
@@ -257,8 +261,11 @@ function validardevoluciones() {
 function endDetail(vid,vacc,modulo){
 	if (vacc == 1) {
 		var tipo = $("#p_v").is(':checked') == true ? 0 : 1;
-		window.open('devoluciones?accion=3&id='+vid+'&tp='+tipo);
+		window.open('devoluciones?accion=3&id='+vid+'&tp='+tipo,'_blank','',1);
+		var idcuenta = arr('login',4,'max(id)',301,'id > 0',0,0,0)[0][0][0];
+		window.open('cuentas?accion=4&id='+idcuenta+'&tp=1','_blank','',2);
 		$("#vfecha").addClass('hide');
+		// detalle($("#hvid").val(),$("#htipo").val())
 	    // setTimeout(function(){location.reload();},1000);
 	}
     return false;
