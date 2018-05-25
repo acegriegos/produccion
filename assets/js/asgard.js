@@ -1459,7 +1459,7 @@ $(document).on('blur','[addG=1]',function(){
     }
 });
 function findClient(nom,blr) {
-    var clie = getDatos('',63,'\"'+nom+'\",0',0,0,0);
+    var clie = getDatos('',63,'\"'+nom+'\",0,@@tmp_cia',0,0,0);
     if (nom != '') {
         if (clie[0][0][0] != 0) {
             var vclie = clie[0][0];
