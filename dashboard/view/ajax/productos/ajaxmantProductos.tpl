@@ -84,9 +84,9 @@
 						<label for="vmarca">Marca</label>
 						<input type="hidden" id="vidmarca" value="0">
 					</div>
-					{if $smarty.session.BUSS eq 1} 
-						<input type="hidden" id="dinventario" value="6">
-					 {else}
+					<!-- {if $smarty.session.BUSS eq 1} 
+						<input type="hidden" id="vidinventario" value="6">
+					 {else} -->
 					<div class="input-field marginzero" id="dinventario">
 						<select type="select" id="vidinventario">
 							<option value="0">Seleccione un Inventario</option>
@@ -96,7 +96,7 @@
 						</select>
 						<label for="vidinventario">Inventario</label>
 					</div>
-					{/if}
+					<!-- {/if} -->
 					<div class="input-field marginzero">
 						<select type="select" id="vidunidad">
 							<option value="">Seleccione una Unidad</option>
