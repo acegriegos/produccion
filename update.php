@@ -84,7 +84,7 @@
     }else{
         #unlink("assets/update/info.sql");
         unlink("assets/update/update.sql");
-        unlink("assets/update/full.sql");
+        #unlink("assets/update/full.sql");
     }
 
     echo json_encode($salida);

@@ -745,7 +745,7 @@ function endDetail(vid,vacc,vmodulo) {
 
     if (config[0] == 1 && param == 1) {
         Materialize.toast('Generando Factura Electrónica...',10000,'green');
-        // sendFE(clave,factura);
+        sendFE(clave,factura);
     }else
         sendVMail(factura,clave,vid[0][0]);
             
