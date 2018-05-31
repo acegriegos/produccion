@@ -9,7 +9,7 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link href="../assets/css/materialize.min.css?v=10.0.0.1">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.0.0.1">
   <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.1">
   <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.0.0.1"> 
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.0.0.1">
