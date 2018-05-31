@@ -190,7 +190,7 @@ function detalle(id,tipo) {
 	if (tipo == 1) {
 		arr('login',6,'',311,id,0,1,$("#listaDetalleFacturas"));
 		arr('login',6,'id,nombre',312,'id > 0 order by nombre',15,1,$(".estadodevolucion"));
-		var invent = arr('login',4,'id,nombre',111,'id > 0 and find_in_set(idsucursal,"-1,@@impresa") order by id',0,0,0)[0];
+		var invent = arr('login',4,'id,nombre',111,'id > 0 and find_in_set("-1,@@impresa",idsucursal) order by id',0,0,0)[0];
 		for (var i = 0, len = invent.length; i < len; i++) {
 			$("#vidinventario").append('<option value="'+invent[i][0]+'">'+invent[i][1]+'</option>');
 		}

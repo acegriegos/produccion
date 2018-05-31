@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
+<link href="../assets/css/materialize.css?v=10.0.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.1">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=0.5" rel="stylesheet"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.1"> -->
 
-<link href="../assets/css/modulos/style-factura.css" rel="stylesheet">
+<link href="../assets/css/modulos/style-factura.css?v=10.0.0.1">
 
 <title>Recibo de Dinero</title>
 
@@ -169,9 +169,9 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.1"></script>
 
-<script src="../assets/js/materialize.js"></script>
-<script src="../assets/js/asgard.js?v=0.1"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=0.6"></script>
+<script src="../assets/js/materialize.js?v=10.0.0.1"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.1"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.1"></script>
 </body>

@@ -74,7 +74,7 @@
                     </div>
                     <div class="input-field col s12  m6 l6" style="margin: 0">
                         <a class="prefix modal-trigger" href="#hextra"><i class="mdi mdi-help pbtn"></i></a>
-                        <input id="vnombre" type="text" class="validate" autocomplete="off">
+                        <input id="vnombre" type="text" class="validate" autocomplete="off" maxlength="150">
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
                     <div class="input-field col s12 " style="margin: 0">
