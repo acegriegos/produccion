@@ -66,7 +66,7 @@
 				$smarty->assign('SCR',$scr);
 			   	$smarty->assign('NAV',$pg);
 	   			$smarty->assign('TF',$_REQUEST['tf']);
-	   			$smarty->assign('FACT',$kakaroto->kamehameha('',158,'0,'.$_REQUEST['tf'].',0'));
+	   			$smarty->assign('FACT',$kakaroto->kamehameha('',158,'0,'.$_REQUEST['tf'].',0,@@impresa'));
 	   			$smarty->display('v_verFacturas.tpl');
 	   			break;
 	   		case 9:

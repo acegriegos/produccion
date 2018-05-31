@@ -84,9 +84,8 @@ $(document).on("click",".luser",function(){
    $(".edd").hide();
    var id = $(this).prop('id').substr(1);
    $(".titr").html($("#rn"+id).html());
-   var p = arr('login',4,'',218,id,0,0,0)[0];
+   var p = arr('login',4,'',218,id+','+'-1',0,0,0)[0];
    $("#vidruta").val(id); 
-   console.log(p)
    for (var i = 0; i < p.length; i++) {
        $("#lruteros").append('<a href="#!" class="collection-item load cdetaller" modulo="detalleruta" id="z'+p[i][0]+'"><span class="badge">'+p[i][2]+'</span> '+p[i][1]+'</a>');
    }
@@ -129,7 +128,7 @@ $(document).on("change","#seachcliente",function(){
         $(".f1").removeClass('hide');
 
     var tipo = $('option:selected',this).val();
-    var p = arr('login',4,'',218,tipo,0,0,0)[0];
+    var p = arr('login',4,'',218,'-1'+','+tipo,0,0,0)[0];
     var str = '';
     $("#seachruteros").html('<option value="" disabled selected>Seleccione una Ruta</option>');
     for (var i = 0; i < p.length; i++) {
@@ -211,7 +210,6 @@ $(document).on("click",".xty",function(){
 function searchClient(vvariable){
     
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",0,@@impresa','',0,'');
-    console.log(vvariable)
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
 
@@ -220,7 +218,6 @@ function searchClient(vvariable){
         $("#ncli").val('');
 
         var p = arr('login',7,1,219,'idcliente,idruta',idcli+','+idrut,0,0);
-        console.log()
         inicializarClientes(idrut,'');
     }
 

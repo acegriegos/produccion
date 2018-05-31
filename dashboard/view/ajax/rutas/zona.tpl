@@ -5,7 +5,7 @@
             <select id="seachcliente" maxlength="64">
                 <option value="" disabled selected>Seleccione una Tipo de Ruta</option>
                 <option value="0">Rutas para Cargar</option>
-                <option value="2">Rutas para Descargar</option>
+                <option value="1">Rutas para Descargar</option>
             </select>
 
             <label for="seachcliente" style="color: black"> <b>Tipo de Ruta</b></label>
