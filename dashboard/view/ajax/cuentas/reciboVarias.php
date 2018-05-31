@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.1">
-<link href="../assets/css/modulos/style-factura.css?v=10.0.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.0.0.1">
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
 <title>Recibo de Dinero Multiple</title>
 

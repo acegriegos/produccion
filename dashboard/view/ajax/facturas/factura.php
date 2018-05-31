@@ -1,8 +1,8 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.1">
-<link href="../assets/css/modulos/style-factura.css?v=10.0.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos1/style-factura.css?v=10.0.0.1">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.1">
 <!--   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 -->
