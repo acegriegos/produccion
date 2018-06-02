@@ -639,4 +639,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.1"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.2"></script>

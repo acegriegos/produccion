@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad-cuentas.css?v=10.0.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad-cuentas.css?v=10.0.0.2">
 
 <div class="row">
 <!--  -->
