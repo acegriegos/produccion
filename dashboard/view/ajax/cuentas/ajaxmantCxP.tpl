@@ -1,6 +1,6 @@
- <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css">
+ <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.2">
 
-      <nav class="nav-extended  white-text z-depth-5" style="background-color:#0B3861">
+      <nav class="nav-extended z-depth-3 head1">
   <div class="nav-wrapper">
 <h4 align="center">Cuentas por Pagar</h4>
     
@@ -8,11 +8,11 @@
 </nav>
         
 <div id="mantCxP"  class="pequeño">
-<div class="card z-depth-5">
+<div class="card z-depth-3">
         
         <div class="row padd">
         <br><br>
-
+<!-- 
                     <div class="input-field col s12 m7">
 
                        <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
@@ -24,7 +24,7 @@
                     <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
                     <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
 
-                    </div>
+                    </div> -->
                    <div class="col s12 m5">
                     <div class="col s12 m4">
                         <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
@@ -34,10 +34,10 @@
                         <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
                         <label for="vencidas">Vencidas</label>
                     </div>
-                    <div class="col s12 m4">
+                    <!-- <div class="col s12 m4">
                         <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
                         <label for="porvencer">Por Vencer</label>
-                    </div>
+                    </div> -->
                 </div>
                     
 
@@ -47,36 +47,22 @@
        <div class="card-block pequeño">
                 <div class="row  pequeño">
                     <div class="col s12 pequeño">
-                    <table id="data-table-cuentas-xP" class="pequeñotable centered highlight bordered responsive-table z-depth-5 pbtns">
+                    <table id="data-table-cuentas-x" class="pequeñotable centered highlight bordered responsive-table z-depth-3 pbtns">
                         <thead>
-                            <tr><th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
-                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Refencia</th>
-                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Proveedor</th>
-                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Fecha</th>
-                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
-                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Plazo</th>
-                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Días</th>
-                                <th class="white-text blue" style=" padding: 10px; color:black; border-radius: 0px!important;">Sucursal</th>
+                            <tr>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Refencia</th>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Proveedor</th>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Fecha</th>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Plazo</th>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Días</th>
+                                <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Sucursal</th>
 
                                 
                             </tr>
                         </thead>
-                        <tbody id="listaCuentasx">
-                         <!-- { section name= LE loop = $PRO }
-                         <tr class="button-collapse detalle" data-activates="acciones" id="f{$PRO[LE][12]}"  tipo ='2' tp="{if $PRO[LE][7] lt 0}1{else}0{/if}">
-
-                            <td>{$PRO[LE][3]}</td>
-                             <td>{$PRO[LE][4]}</td>
-                            <td>{$PRO[LE][1]}</td>
-                            <td>{$PRO[LE][5]}</td>
-                            <td>{$PRO[LE][6]}</td>
-                            <td>{$PRO[LE][8]}</td>
-                            <td style="{if $PRO[LE][7] lt 0}color:red;{else}color:green{/if}">{math equation='abs(x)' x=$PRO[LE][7] }</td>
-                            <td>{$PRO[LE][9]}</td>
-                            
-                        </tr>
-                        {/section} -->
-                    </tbody>
+                        <tbody id="listaCuentasx"></tbody>
                 </table>
                 <br>
 
@@ -88,12 +74,12 @@
 <ul id="acciones" class="side-nav side-nav-cuentas"  style="width: 60%">
 
 
-        <div class="card-header center white-text pequeño" style="background-color:#0B3861; margin: 0 !important" >
+        <div class="card-header center pequeño head1" style="margin: 0 !important" >
             <p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Cuenta</p>
         </div>
         <div class="row  pequeño">
             <div class="col s12 m12 pequeño">
-              <div class="card blue z-depth-5 pequeño">
+              <div class="card bg1 z-depth-3 pequeño">
                 <div class="card-content white-text center-align" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
 
 
@@ -103,7 +89,7 @@
                    
                </div>
                <br>
-               <div class="card-content white-text  " style="padding: 0.1% !important">
+               <div class="card-content white-text" style="padding: 0.1% !important">
 
                   <div class="row pequeño ">
                   <div class="col s12 m8 ">
@@ -126,16 +112,12 @@
 
 
                     </div>
-<div class="col s12 m12 l4  pequeño"  >
-                <div class="row " style=" padding-top: 10%;">
-                      <div class="col s12">
-                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-5 "  id="btn-div" style="background-color:#0B3861;"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Abono</button>
-                      </div>
+                <div class="col s12 m12 l4  pequeño"  >
+                    <div class="row " style=" padding-top: 10%;">
+                        <div class="col s12">
+                        <button href="#!" class="waves-effect waves-light btn rigth z-depth-3 btn2"  id="btn-div"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Abono</button>
+                        </div>
                     </div>
-                   
-
-
-
                 </div>
 
 
@@ -152,11 +134,11 @@
                 <input type="hidden" id="vdebe" value="0">
                 <input type="hidden" id="vhaber" value="0">
                 <input type="hidden" id="vconsecutivo" value="0">
-                                    <input type="hidden" id="vcomentario" value="">
+                <input type="hidden" id="vcomentario" value="">
 
                 <div class="row">
-                    <div class="col s12 ">
-                        <div class="card" style="background-color:#0B3861">
+                    <div class="col s12">
+                        <div class="card bg1">
                             <div class="card-content white-text ">
                                 <div class="center-align"><span class="card-title  ">Abonos</span>
                                 </div>
@@ -186,14 +168,14 @@
                                             <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
                                             <label for="p_v" style="color: white !important">Punto Venta</label>
                                         </p>
-                                                                            <br>
+                                    <br>
 
                                     </div>
                                     <div class="row">
                                     <br>
                                     <div class="col s12 m8 offset-m4 ">
-                                        <button href="#!" class="waves-effect btn waves-light  z-depth-5 add" tipo="2" modulo="estadoscuenta" >Realizar Pago</button>
-                                        <button href="#!" class="waves-effec btn waves-light  z-depth-5" id="btn-divsalir">Salir</button>
+                                        <button href="#!" class="waves-effect btn btn2 waves-light z-depth-3 add" tipo="2" modulo="estadoscuenta" >Realizar Pago</button>
+                                        <button href="#!" class="waves-effec btn btn1 waves-light z-depth-3" id="btn-divsalir">Salir</button>
 
                                        
                                     </div>
@@ -218,14 +200,15 @@
         <div class="row  pequeño">
             <div class="col s12 pequeño">
 
-                <table id="data-table-cuentas-detalle" class="table centered highlight bordered dt-responsive nowrap z-depth-5 ">
+                <table id="data-table-cuentas-detalle" class="table centered highlight bordered dt-responsive nowrap z-depth-3 ">
                     <thead>
                         <tr>
-                            <th class="white-text blue " style="border: 0; border-radius: 0px !important;">Movimientos</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Fecha</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Saldo</th>
-                            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
+                            <th class="white-text tab1 " style="border: 0; border-radius: 0px !important;">Movimientos</th>
+                            <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Consecutivo</th>
+                            <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Fecha</th>
+                            <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Monto</th>
+                            <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Saldo</th>
+                            <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Usuario</th>
 
 
                         </tr>
@@ -239,8 +222,9 @@
 
             </div>
             <div class="col s4 offset-s8  l2 offset-l10">
-   <button href="#!" class="waves-effec btn waves-light  z-depth-5 " id="btn-navsalir">Salir</button>
-   <br></div>
+               <button href="#!" class="waves-effec btn waves-light z-depth-3 btn1" id="btn-navsalir">Salir</button>
+               <br>
+           </div>
             <br>
         </div>
         <br>

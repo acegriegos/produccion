@@ -1,5 +1,5 @@
 $(function(){
-	$(".menu3").click(function(){
+    	$(".menu3").click(function(){
         var id = $(this).attr('id').substr(1);
         $(".menu3").removeClass('active');
         $(this).addClass('active');
@@ -56,54 +56,53 @@ $(function(){
     $("#m1").click();
 
 });
+$(document).on("keydown","#nodt",function(e){   
+     var charCode = e.which || e.keyCode;
+     var charStr = String.fromCharCode(charCode);
+
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            $("#nodt").autocomplete({
+                limit: 20,
+
+                data: arr('login',4,'descripcion,null',226,'id > 0  and descripcion like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+            });
+
+            $(".autocomplete-content").css('width','30%');
+
+        }
+    });
 
 $(document).on("click",".shpre",function(){
     var cuerpo = $(this).parent().find(".collapsible-body");
     var id = $(this).prop('id').substr(1);
-    console.log(cuerpo)
     if (!$(".lista"+id).is(":visible")) {
         $(".collapsible-body").html('');
         
-        cuerpo.html('<div class="preloader-wrapper big active" style="margin-left:45%;">    <div class="spinner-layer spinner-blue-only">      <div class="circle-clipper left">        <div class="circle"></div>      </div><div class="gap-patch">        <div class="circle"></div>      </div><div class="circle-clipper right">        <div class="circle"></div>      </div>    </div>  </div>');
+        cuerpo.html('<div class="preloader-wrapper big active" style="margin-left:45%;"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>');
 
         var p = getDatos('',228,id+',@@impresa',0,0)[0];
-        var str = '<div class="row lista'+id+'">';
+        var str = '<table class="striped highlight lista'+id+'"><thead class="tdcollap"><th>Cod</th><th class="tdcollap">Descripcioón</th><th class="tdcollap">Acciones</th></thead>';
         for (var i = 0; i < p.length; i++) {
-            str += '<div class="col s2 m3 cuadro" style="margin-left:2%; margin-top:1%;">'+p[i][2]+'<br>'+p[i][3]+'<div class="row"><a href="#modal-view" class="pbtn der view black-text"><i class="fa fa-money" title="Vista de la ODT"></i></a><a href="#modal-cotiza" class="pbtn der cotiza black-text" title="Adjuntar Cotización Proveedor"><i class="fa fa-file-o"></i></a><a href="#modal-compras" class="pbtn der compra black-text" title="Adjuntar Compra"><i class="fa fa-hdd-o"></i></a><a href="#modal-ocompras" class="pbtn der ocompra black-text" title="Adjuntar Orden Compra"><i class="fa fa-clone"></i></a></div></div>';
+            str += '<tr><td class="tdcollap"><b>'+p[i][2]+'</b></td><td class="tdcollap"><span>'+p[i][3]+'</span></td><td class="tdcollap"><a href="#modal-view" class="pbtn view secondary-content gtext"><i class="mdi mdi-file-outline mdi-24px" title="Vista de la ODT"></i></a><a href="#modal-cotiza" class="pbtn cotiza secondary-content gtext" title="Adjuntar Cotización Proveedor"><i class="mdi mdi-file-document-box mdi-24px"></i></a><a href="#modal-compras" class="pbtn compra secondary-content gtext" title="Adjuntar Compra"><i class="mdi mdi-note-plus-outline mdi-24px"></i></a><a href="#modal-ocompras" class="pbtn ocompra secondary-content gtext" title="Adjuntar Orden Compra"><i class="mdi mdi-note-plus mdi-24px"></i></a></td></tr>';
         }
 
-        cuerpo.html(str+"</div>")
+        cuerpo.html(str+"</table>")
 
     }
 
 })
-$(document).on("click",".",function(){
-    var nom = $(this).parent().parent().find('td').first().html();
-    var id = $(this).parent().attr('tid');
-    $("#gid").html(nom);
-    $("#gid").attr('tr',id);
- 
-    var p = getDatos('',228,id+',@@impresa',0,0)[0];
-    console.log('holis'+p);
-    if(p['succed'] == 1){
-        p = p[0];
-        var str = '';
-        $(".listaodt").html('');
-        
-        for (var i = 0; i < p.length; i++) {
-            str += '<p><input type="checkbox" id="ck'+p[i][1]+'" title="'+p[i][3]+'"/> <label for="ck'+p[i][1]+'">'+p[i][2]+'</label></p>';
-        }
-        $(".listaodt").append(str);
-    }
-});
+
+
+
 $(document).on("click",".proyect",function(){
-    console.log("hola " + p);
     var nom = $(this).parent().parent().find('td').first().html();
     var id = $(this).parent().attr('tid');
     $("#gid").html(nom);
     $("#gid").attr('tr',id);
- 
-    var p = getDatos('',228,id,0,0);
+
+    var p = getDatos('',228,id+',@@impresa',0,0);
     
     if(p['succed'] == 1){
         p = p[0];
@@ -114,6 +113,7 @@ $(document).on("click",".proyect",function(){
             str += '<p><input type="checkbox" id="ck'+p[i][1]+'" title="'+p[i][3]+'"/> <label for="ck'+p[i][1]+'">'+p[i][2]+'</label></p>';
         }
         $(".listaodt").append(str);
+
     }
 });
 
@@ -270,12 +270,14 @@ function endDetail(vid,vacc,modulo){
                 var fecha = new Date();
                 $("#tp1").click();
                 $('#vfecha_inicio').pickadate().pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
-
                 $('#vfecha_fin').pickadate().pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
             }
             break;
         case 'odt':
-            str += '<p><input type="checkbox" id="ck'+vid[0][0]+'" title="'+$("#f"+modulo+"s #vdescripcion").val()+'"/> <label for="ck'+vsid[0][0]+'">'+$("#f"+modulo+"s #vcodigo").val()+'</label></p>';
+        var id=vid[0][0];
+        var des=$("#f"+modulo+"s #vdescripcion").val();
+        var cod=$("#f"+modulo+"s #vcodigo").val();
+           var  str = '<p><input type="checkbox" id="ck'+id+'" title="'+des+'"/> <label for="ck'+id+'">'+cod+'</label></p>';
         
             $(".listaodt").append(str);
             deadclear(modulo);

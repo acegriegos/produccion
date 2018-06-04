@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad-cuentas.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad-cuentas.css?v=10.0.0.2">
 
 <div class="row">
 <!--  -->
@@ -11,17 +11,17 @@
         </div>
     </div>
 
-<div class="row">
-    <div class="col s12 m12 l8 ">
-        <div class="row">
+<div class="row" style="margin: 0px">
+    <div class="col s12">
+        <div class="row" style="margin: 0px">
 
-            <div class="input-field col s12 m6 l6">
+            <div class="input-field col s6">
                 <a class="prefix"><i class="small mdi mdi-magnify mdi-24px"></i></a>
                 <input type="text" id="vbusqueda" maxlength="45" num="+27" var="nombre">
-                <label for="vbusqueda" class="truncate">Número / Descripción</label>
+                <label for="vbusqueda">Número / Descripción</label>
             </div>
 
-            <div class="col s10 offset-s2 m6 l6">
+            <div class="col s6">
                 <ul id="dropdown2" class="dropdown-content">
                     <li><a class="dropdown-item vfiltros" href="#" filtro="f1">Filtro Normal</a></li>
                     <li><a class="dropdown-item vfiltros" href="#" filtro="f2">Saldo Igual a</a></li>
@@ -37,14 +37,14 @@
     </div>
 </div>
 
-<div class="card-block blc1" style="padding: 2%; height: 500px; max-height: 500px; overflow-y: scroll">
+<div class="card-block blc1" style="height: 500px; max-height: 500px; overflow-y: scroll">
 <table class="striped highlight centered bordered">
     <thead class="row blue" style="padding: 2%;">
         <tr>
             <td class="white-text truncate" style="font-size: 1.2em">
                 Número de Cuenta
             </td>
-            <td class="white-text" style="font-size: 1.2em">
+            <td class="white-text" style="font-size: 1.2em;text-align: center;">
                 Descripción
             </td>
             <td class="white-text" style="font-size: 1.2em">
@@ -134,10 +134,10 @@
         <div class="col s12 ">
             <div class="card-block ">
                 <div class="row">
-                    <div class="col s2 m3 white-text blue" align="center" style="padding: 0.8%">
+                    <div class="col s2 white-text blue" align="center" style="padding: 0.8%">
                         Cuenta
                     </div>
-                    <div class="col s4 m3 white-text blue" align="center" style="padding: 0.8%">
+                    <div class="col s4 white-text blue" align="center" style="padding: 0.8%">
                         Comentario
                     </div>
                     <div class="col s3 white-text blue" align="center" style="padding: 0.8%">

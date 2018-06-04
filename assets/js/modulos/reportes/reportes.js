@@ -22,7 +22,28 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#cliente").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2),null',2,'id >0 and bisproveedor='+$(".principal .filtros").attr('bisprov')+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\"limit 10',0,0,0,1)
+                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2),null',2,'id >0 and bisproveedor='+$(".principal .filtros").attr('bisprov')+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" limit 10',0,0,0,1)
+                });
+                $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
+            }
+        });
+    }
+
+     mdate = $(".principal .filtros").attr('porProducto');
+    if (mdate != undefined){
+
+        html = '<div class="row col s6 rous"><div class="col s12"><input type="checkbox" id="chkprod" value="4" class="repcheck"><label for="chkprod" class="pbtn">Por Producto</label></div><div class="col s12 '+mdate+'" id="fltr4"><div class="input-field"><label for="productos" class="width:100%">Nombre</label><input type="text" class="validate init autocomplete" id="productos"><input type="hidden" id="vidproducto" class="inpreport" value="0" /></div></div></div>';
+
+        $(".principal .filtros").append(html);
+
+        $("#productos").on("keydown",function(e){
+            var charCode = e.which || e.keyCode;
+            var charStr = String.fromCharCode(charCode);
+            if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+                $(".autocomplete-content").remove();
+                $("#productos").autocomplete({
+                    limit: 10,
+                    data: arr('login',4,'nombre,null',11,'id >0 and nombre like \"%'+$("#productos").val()+'%\"limit 10',0,0,0,1)
                 });
                 $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -56,9 +77,32 @@ $(function(){
 
     mdate = $(".principal .filtros").attr('entrefechas');
     if (mdate != undefined){
-        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s9 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport" id="vhasta" value="" str="1"></div></div></div>';
+        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s9 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport datepicker" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport datepicker" id="vhasta" value="" str="1"></div></div></div>';
 
         $(".principal .filtros").append(html);
+
+        $('.datepicker').pickadate({
+            labelMonthNext: 'Siguiente',
+            labelMonthPrev: 'Anterior',
+            labelMonthSelect: 'Seleccione un Mes',
+            labelYearSelect: 'Seleccione un Año',
+            monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre' ],
+            monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+            weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+            weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+            weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+            today: 'Hoy',
+            clear: 'Limpiar',
+            close: 'Cerrar',
+            format: 'yyyy-mm-dd',
+            selectMonths: true,
+            selectYears: 10
+        });
+
+
+        var fecha = new Date();
+        var dpick = $('#vdesde');
+        dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
     }
 
     mdate = $(".principal .filtros").attr('portipo');
@@ -72,11 +116,24 @@ $(function(){
             var type = '';
             for (var i = 0, len = vtbl.length; i < len; i++) {
                 inc += 1;
-                if (vtype[i] == 1) {
-                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="168"></select>';
-                }else{
-                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+                switch(parseInt(vtype[i])){
+                    case 1://para select
+                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl+'"></select>';/*168*/
+
+                    break;
+                    case 2:
+                    type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+
+                    break;
+
+                    default://para texto
+                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+
+                    break;
+
+
                 }
+
                 html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field">'+type+'</div></div></div>';
                 $(".principal .filtros").append(html);
                 arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
@@ -154,19 +211,19 @@ $(document).on("click",".fa-check",function(){
 });
 
 function validar (varreglo,vmodulo) {
-    
+
     var salida = {}
     switch(vmodulo['modulo']) {
         case 'reporteFactura':
-            if (vmodulo['tip'] == '') {
-                err = validarReporte();
-                if (err)
-                    return err
-            }
-            break;
+        if (vmodulo['tip'] == '') {
+            err = validarReporte();
+            if (err)
+                return err
+        }
+        break;
         default:
-            return 'Módulo "'+vmodulo['modulo']+'" no Existente';
-            break;
+        return 'Módulo "'+vmodulo['modulo']+'" no Existente';
+        break;
     }
     
     salida = odin(varreglo,"f"+vmodulo['modulo']+"s");

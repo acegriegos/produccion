@@ -1,19 +1,19 @@
 <section id="ffacturas">
 
 <div class="row">
-  <div class="l9 m9 s12 col">
+  <div class="l9 m12 s12 col">
 
-<div class="card z-depth-3 pequeño">
-<div class="card-header center light-blue darken-4 white-text">
+<div class="card z-depth-3 pequeño movil">
+<div class="card-header center head1 white-text">
   <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
 </div>
   <input type="hidden" class="zelda">
-  <input type="hidden" id="vidusuario" value="">
 
   <div class="row pequeño">
     <div class="col s12 m3 l3 concre" align="center">
       <div class="switch">
-        <label style="color: black">
+
+        <label>
           <b>Contado</b>
           <input type="checkbox" id="chg_tipo" val="1" disabled>
           <span class="lever"></span>
@@ -27,16 +27,16 @@
     </div>
 
     <div class="input-field col s12 m3 l3 hide" id="reference">
-        <label for="vreferencia">Número de Referencia</label>
-        <input type="text" id="vreferencia" class="validate" />
-      </div>
+      <label for="vreferencia">Número de Referencia</label>
+      <input type="text" id="vreferencia" class="validate" />
+    </div>
 
     <div class="col s12 m3 l3 " align="center">
       <label class="cre" style="display: none;"><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div>
 
     <div class="show_facts col s12 m3">
-      <a class="btn" onclick="verfacturas();"> Ver Facturas</a>
+      <a class="btn btn1" onclick="verfacturas();"> Ver Facturas</a>
     </div>
 
   </div>
@@ -51,7 +51,7 @@
 
     <div class="input-field con col s12 m3 l3 tp_all" >
     <i class="mdi mdi-coin mdi-24px prefix"></i>
-      <select id="vidtipopago" type="select">
+      <select id="idtipopago" type="select">
         {section name=LE loop=$TPAGO}
         <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
         {/section}
@@ -65,9 +65,13 @@
       <label style="color: black"><b>Plazo en Días</b></label>
     </div>
     
-    <div class="input-field col s12 m6 show_cliente">
+    <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
-      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" />
+      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
+      <i class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" ata-position="bottom" data-tooltip="Agregar Cliente"></i>
+      <i class="mdi mdi-16px mdi-email pbtn tooltipped hide" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
+      <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
+      
     </div> 
     
   </div>
@@ -76,7 +80,7 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card center z-depth-3">
-  <div class="card-header light-blue darken-4 center"><p class="white-text">DETALLE DE FACTURA</p></div>
+  <div class="card-header head2 center" style="padding: 0.5%"><b>DETALLE DE FACTURA</b></div>
 
   <div class="row">
     <div class="s12 m12 l12 col hide-on-med-and-down">
@@ -84,7 +88,7 @@
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
         <label for="barras"><i class="mdi mdi-barcode mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
 
-        <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" checked/>
+        <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" />
         <label for="teclado"><i class="mdi mdi-keyboard mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
     </section>
     </div>
@@ -94,18 +98,18 @@
       <thead>
 
         <tr class="hide trVenta">
-          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
-          <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
+          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
+          <th style="width: 18%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 14%; padding: 0 !important;" class="center-align"><span class="truncate">Prec.Unit</span></th>
           <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align">Cantidad</th>
           <th style="width: 14%; padding: 0 !important;" class="center-align">Total</th>
-          <th style="width: 17%; padding: 0 !important;" class="center-align"></th>
+          <th style="width: 9%; padding: 0 !important;" class="center-align"></th>
         </tr>
 
         <tr class="hide trCompra">
-          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
           <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 20%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
@@ -117,7 +121,7 @@
         </tr>
 
         <tr class="hide trOCompra">
-          <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th>
+          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
           <th style="width: 20%; padding: 0 !important;" class="center-align">Código</th>
           <th style="width: 45%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
           <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
@@ -127,8 +131,7 @@
 
         <tr class="trVenta hide trsec">
 
-          <td style="width: 5%; padding: 0 !important">
-          </td>
+          <!-- <td style="width: 5%; padding: 0 !important"></td> -->
 
           <td style="width: 10%; padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
@@ -168,8 +171,7 @@
 
         <tr class="trOCompra hide trsec">
 
-          <td style="padding: 0 !important">
-          </td>
+          <!-- <td style="padding: 0 !important"></td> -->
 
           <td style="padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
@@ -213,8 +215,7 @@
 
         <tr class="trCompra hide trsec">
 
-          <td style="width: 5%; padding: 0 !important">
-          </td>
+          <!-- <td style="width: 5%; padding: 0 !important"></td> -->
 
           <td style="width: 10%; padding: 0 !important" class="input-field">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
@@ -253,20 +254,20 @@
               <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
             </a>
           </div>
+
           <div class="col s12">
-             <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+              <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
+              <label for="iva" style="float: left;">IVA</label>
+              <input type="checkbox" name="isexcento" id="exct" hclk="0">
+              <label for="exct" style="float: left;">Excento</label>
+              <!-- <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a> -->
           </div>
-  
           </td>
         </tr>
-
       </thead>
-
-        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4">
-         <!-- style="max-height: 20%; overflow: auto;" -->
-         
-        </tbody>
-
+      <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="">
+       
+      </tbody>
       </table>
       </div>
 
@@ -278,10 +279,10 @@
 
 <!-- DIVISOR -->
 
-<div class="l3 m3 s12 col">
+<div class="l3 m12 s12 col">
 
-<div class="card z-depth-3">
-  <div class="white-text light-blue darken-4 card-header center" style="margin-top: 0px;">DESGLOCE DE FACTURA</div>
+<div class="card center z-depth-3">
+  <div class="card-header center head2 center" style="padding: 1%"><b>DESGLOCE DE FACTURA</b></div>
   
   <div class="row">
 
@@ -303,35 +304,21 @@
         <div class="col s12 m12 l12">
           <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%; "></textarea>
           <br>
-        </div>
-        <div class="row _desc">
-          <div class="col s4 m4 l4"><br>
-            <label for="vdescuentop">Descuento</label>
-            <!-- <img src="../assets/img/icon/percent.svg"/> -->
-          </div>
-          <div class="col s8 m8 l8 input-field">
-              <input type="text" id="vdescuentop" class="eder" value="0" disabled style="color: black" placeholder="DESCUENTO">
-          </div>
-        </div>
-
-        <div class="row _flete">
-          <div class="col s4 m4 l4"><br>
-            <!-- <div class="prefix moneda"></div> -->
-            <label for="vflete">Flete</label>
-          </div>
-          <div class="col s8 m8 l8 input-field">
-            <input type="text" id="vflete" class="eder divisa" value="0" placeholder="FLETE">
-          </div>
-        </div>
-
-        <div class="row _ajuste">
-          <div class="col s4 m4 l4"><br>
-            <div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div>
-          </div>
-          <div class="col s8 m8 l8 input-field">
-            <input type="text" id="vajuste" class="eder" value="0" style="color: black" placeholder="AJUSTE">
-          </div>
-        </div>
+        </div><br><br>
+        <table>
+          <tr>
+            <td><label for="vdescuentop">Descuento</label></td>
+            <td><input type="text" id="vdescuentop" class="eder _txtaside" value="0" disabled style="height: 0.5% !important" placeholder="DESCUENTO"></td>
+          </tr>
+          <tr>
+            <td><label for="vflete">Flete</label></td>
+            <td><input type="text" id="vflete" class="eder _txtaside divisa" value="0" placeholder="FLETE" style="height: 0.5% !important"></td>
+          </tr>
+          <tr>
+            <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
+            <td><input type="text" id="ajuste" class="eder _txtaside" value="" style="height: 0.5% !important" placeholder="Ajuste máximo: 10" maxlength="4"></td>
+          </tr>
+        </table>
 
       </div>
 
@@ -376,19 +363,18 @@
       <div class="col s12 m12 l12"><br>
         <div class="row">
           <div class="col s12 m6 l6">
-              <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+              <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" checked />
               <label for="p_v" style="color: black; padding-left: 20px;">Punto Venta</label>
           </div>
 
-          <div class="col s12 m6 l6 _odt">
-            <select id="vidodt" type="select">
+          <div class="col s12 m6 l6 _odt hide">
+            <select id="idodt" type="select">
               <option value="0" style="color: black"><b>ODT</b></option>
             </select>
           </div>
 
           <div class="col s12 m12 l12" align="center">
-            <!-- <button class="btn btn-primary-outline add" modulo="factura" varias="1" id="facturar" style="margin-bottom: 3%;">Facturar</button> -->
-            <a href="#modal-tpagos" class="btn btn-primary-outline" id="facturar" style="margin-bottom: 3%;">Facturar</a>
+            <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
           </div>
 
           </div>
@@ -435,7 +421,7 @@
 </div>
 
 
-<div id="modal-tpagos" class="modal" align="center" style="margin-top: -3% !important; width: 70%; height: 85% !important;">
+<div id="modal-tpagos" class="modal modal-fixed-footer" gfort="0" align="center" style="width: 70%; height: 100% !important;">
 <!--  -->
 <section id="m-efectivo" class="modal-tpago">
   <div class="modal-content">
@@ -450,6 +436,7 @@
     <span>SU CAMBIO ES DE:</span><br>
     <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
   </div>
+
 </section>
 <!--  -->
 <section id="m-tarjeta" class="modal-tpago">
@@ -462,7 +449,7 @@
   <div class="row center-align">
     <div class="input-field col s12">
 
-      <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
+      <i class="mdi-24px mdi mdi-card prefix icono" style="font-size: 2em !important"></i>
       <input id="carddigito" type="text" class="validate center-align" value="0000" style="width: 20%; font-size: 2em !important;">
     </div>
       <label for="carddigito" id="labeltarjeta"></label>
@@ -553,7 +540,7 @@
 
        <div class="col s12 row tp-Tarjeta hide">
         <div class="col s1">
-          <i class="material-icons prefix icono" style="font-size: 2em !important">credit_card</i>
+          <i class="material-icons prefix icono" style="font-size: 2em !important"></i>
         </div>
         <div class="col input-field s3">
           <input id="mTarjeta" type="text" class="validate center-align" value="0000" style="font-size: 2em !important;">
@@ -585,14 +572,14 @@
 <!--  -->
 <!-- FOOTER -->
   <div class="modal-footer">
-    <a href="#!" class="add modal-action modal-close waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
+    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
   </div>
 </div>
 
 
 </section>
 
-<div id="modal-edit" class="modal modal-fixed-footer">
+<!-- <div id="modal-edit" class="modal modal-fixed-footer">
   <div class="modal-content">
     <h4 id="titmod">Modal Header</h4>
     
@@ -617,6 +604,31 @@
         <input type="text" id="eimpuesto">
         <label for="eimpuesto">Impuesto</label>
       </div>
+      <input type="hidden" id="hdnprd" value="0">
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+  </div>
+</div> -->
+
+<div id="modal-producto" class="modal modal-fixed-footer">
+  <div class="modal-content" id="fproductos">
+    <h4>Agregar Producto</h4>
+    <input type="hidden" class="zelda">
+    <div class="row">
+
+      <div class="input-field col s6 edescu">
+        <input type="text" id="ecodprod">
+        <label for="ecodprod">Código</label>
+      </div>
+
+      <div class="input-field col s6 eimp">
+        <input type="text" id="enomprod">
+        <label for="enomprod">Nombre</label>
+      </div>
 
     </div>
 
@@ -627,4 +639,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=0.26"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.2"></script>

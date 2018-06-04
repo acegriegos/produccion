@@ -1,0 +1,28 @@
+@import 'colors.scss';
+@import 'general.scss';
+
+.tamLetra {
+  font-size: 1.2em !important;
+}
+
+.bdy .input-field {
+  margin: 0px;
+}
+
+.movsinvent {
+  padding: 15px 10px 0 10px;
+}
+
+.tabs .indicator {
+  background-color: white !important;
+}
+
+ul.pagination > li.active {
+  background-color: #2196F3 !important;
+}
+
+.autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important;
+}

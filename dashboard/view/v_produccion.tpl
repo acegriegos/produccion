@@ -7,17 +7,17 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Producción</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-produccion.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-produccion.css?v=10.0.0.2">
 
 </head>
 <body>
 {$NAV}
 <div class="bdy pequeño">
 
-    <div class="card-header  white-text z-depth-5" style="background-color:#0B3861">
+    <div class="card-header z-depth-5 head1">
         <p class="flow-text center-align">Producción</p>
     </div>
-    <nav class="navbar navbar-dark blue z-depth-5">
+    <nav class="navbar navbar-dark head2 z-depth-5">
         <ul class="nav navbar-nav">
             <li class="nav-item menu active per5000" id="m1">
                 <a class="nav-link" href="#" title="Recetas">Procesos</a>
@@ -100,6 +100,6 @@
     </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/produccion.js?v=0.5"></script>
+<script src="../assets/js/modulos/produccion.js?v=10.0.0.2"></script>
 </body>
 </html>

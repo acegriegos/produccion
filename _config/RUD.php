@@ -57,7 +57,7 @@
 			if (strpos($wher,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
@@ -65,8 +65,7 @@
 				$sel = str_replace('@@tp', 'idtipousuario', $sel);
 			}
 
-			$wher = str_replace("'", '\\\'', $wher);
-			$wher = str_replace('"', '\\"', $wher);
+			$wher = addslashes($wher);
 
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");
 			if (isset($rs->num_rows)) {
@@ -84,7 +83,7 @@
 			if (strpos($args2,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 
 
 				$args2 = str_replace('@@usr', $usr, $args2);
@@ -93,14 +92,9 @@
 			if (strpos($args2,'@impresa')) {
 				$impresa = $_SESSION['IMPRESA'];
 				$args2 = str_replace('@@impresa', $impresa, $args2);
-
-				if (($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0)) {
-					$args2 = str_replace('and idempresa = '.$impresa ,'', $args2);
-				}
 			}
 
-			$args2 = str_replace("'", '\\\'', $args2);
-			$args2 = str_replace('"', '\\"', $args2);
+			$args2 = addslashes($args2);
 
 			$rs = $this->db->ejecutar("call shadow($accion,$tabl,'$arg1','$args2')");
 
@@ -116,12 +110,12 @@
 			if (strpos($wher,'@usr')) {
 				require_once '../_config/ecy.php';
 				$cy = new _cy();
-				$usr = str_replace("\0","",$cy->decy($_SESSION['USR']));
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 				$wher = str_replace('@@usr', $usr, $wher);
 			}
 
 			if (strpos($sel,'@tp')) {
-				require_once '../_config/ecy.php';
+				// require_once '../_config/ecy.php';
 				$sel = str_replace('@@tp', 'idtipousuario', $sel);
 			}
 
@@ -131,12 +125,13 @@
 			}
 
 			if (strpos($wher, '@tmp')) {
-				$str = ($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0) ? "0" : $_SESSION['IMPRESA'];
+				// $str = ($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0) ? "0" : $_SESSION['IMPRESA'];
+				$str  = $_SESSION['TMP_CIA'];
 				$wher = str_replace('@@tmp_cia', $str , $wher);
 			}
 
 			$wher = addslashes($wher);
-			
+
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");
 			
 			if (isset($rs->num_rows)) {
@@ -148,7 +143,7 @@
 
 		public function usrDecy()
 		{
-			return $this->cy->decy($_SESSION['USR']);
+			return base64_decode($_SESSION['USR']);//$this->cy->decy($_SESSION['USR']);
 		}
 
 		public function mant($tabla,$args,$ant = ''){
@@ -212,8 +207,12 @@
 			$salida = '';
 			
 			while (list($clave,$param) = each($arg)) {
-				if ($param == '?')
-					$param = $ant;
+
+				// if ($param == '?')
+				// 	$param = $ant;
+
+				$param = str_replace('?', $ant, $param);
+
 				if (is_array($param)) {
 					$it = '';
 					foreach ($param as $obj) {
@@ -221,10 +220,13 @@
 					}
 					$param = $it;
 				}
-				$param = str_replace("'", '\\\'', $param);
-				$param = str_replace('"', '\\"', $param);
+
+				$param = addslashes($param);
 				
-			    $salida .= "'".$param."',";
+				if ($param == '@@@')
+					$salida .= "@var,";
+				else
+			    	$salida .= "'".$param."',";
 			}
 			$salida = substr($salida,0,-1);
 			$salida .= ")";

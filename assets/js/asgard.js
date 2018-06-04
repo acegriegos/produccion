@@ -1,57 +1,90 @@
 acc = 1;
 
 $(function(){
-
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
     $('select').material_select();
 
     cargarMoneda(0);
-    
 });
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
         case 113: //ABRIR MENU
-        $(".menu-btn").click();
-        $("#numtrans").focus();
-        break;
+            $(".menu-btn").click();
+            $("#numtrans").focus();
+            break;
         case 107: //CLICK EN AGREGAR
-        $(".pluskey").click();
-        break;
+            $(".pluskey").click();
+            break;
+        case 123: //F12
+            return false;
+            break;
         default:
-        break;
+            break;
     }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 73) // Prevent Ctrl+Shift+I        
+        return false;
 });
 
-$(document).on("click",".tc-show",function(){
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
+
+$(document).on('click','.alv',function(){
+    $(this).attr('disabled',true);
+    setTimeout(function(){ $(".alv").removeAttr('disabled'); },2000);
+});
+
+$(document).on("click",".tc-show",function(){   
+
+    var code = parseInt($(this).data('num'));
 
     if ($("#slide-tc").length == 0) {
-
-        var ul = '<ul id="slide-tc" class="side-nav"> <li><div class="user-view"> <span class="ntit"></span></a></div></li> <li><div class="divider"></div></li> <li><a class="subheader">Subheader</a> </li></ul>';
-
+        var ul = '<ul id="slide-tc" class="side-nav"><li><div class="user-view"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div></li></ul>';
         $(".bdy").append(ul);
-
-    }else{
-
-        var code = parseInt($(this).data('num'));
-        var titulo = cuerpo = '';
-
-        switch(code){
-            case 1: // TELEFONOS
-        }
     }
+    
+    $("#slide-tc").attr('num',code);
+    $("#slide-tc").attr('el',$(this).attr('id'));
 
+    $(".tc-show").sideNav('destroy');
+    
     $(this).sideNav({
         menuWidth: 300,
         edge: 'right',
         closeOnClick: true,
-        draggable: true
+        draggable: true,
+        onOpen: function(){
+            var titulo = cuerpo = '';
+
+            switch(code){
+                case 1: 
+                    titulo = 'Teléfonos';
+                    cuerpo = mantenimiento('ajustes',10,'');
+                    break;
+                case 2: 
+                    titulo = 'Correos';
+                    break;
+                case 3: 
+                    titulo = 'Ubicación';
+                    break;
+                default:
+                    break;
+            }
+
+            $(".ntit").html(titulo);
+            $("#unico").html(cuerpo);
+            
+            $("#unico").find(".pais").val("Costa Rica");
+            $("#unico").find("#vidpais").val(52);
+            Materialize.updateTextFields();
+        }
     });
-    
-    $(this).click();
+
+    $(this).sideNav('show');
     
 });
 
@@ -60,6 +93,98 @@ $(document).on("keyup",".numeric",function(e){
     if(code == 13)
         $(this).blur()
 });
+
+$(document).on('keydown','.pais',function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $(this).autocomplete({
+            limit: 20,
+            data: arr('login',4,'nombre as nom,bandera',209,'id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+        });
+        $(".autocomplete-content").css('width','100%');
+    }
+});
+
+// direcciones
+
+$(document).on("change","#provincia[tipo=1]",function(){
+    var tipo = parseInt($(this).attr('tipo'));
+    var tbl = $(this).attr('vtbl');
+    llenarDireccion(tipo,tbl,$(this).val());
+});
+
+$(document).on("change","#canton[tipo=2]",function(){
+    var tipo = parseInt($(this).attr('tipo'));
+    var tbl = $(this).attr('vtbl');
+    llenarDireccion(tipo,tbl,$(this).val());
+});
+
+$(document).on("change","#viddistrito[tipo=3]",function(){
+    var tipo = parseInt($(this).attr('tipo'));
+    var tbl = $(this).attr('vtbl');
+    llenarDireccion(tipo,tbl,$(this).val());
+}); 
+
+function llenarDireccion(tp,tbl,id) {
+    var elem = '';
+    var whr = 'id > 0';
+    if (tp == 1) {
+        elem = 'canton';
+        whr += ' and idprovincia = '+id+' order by nombre';
+    }else if(tp == 2) {
+        elem = 'viddistrito';
+        whr += ' and idcanton = '+id+' order by nombre';
+    }else if(tp == 3) {
+        elem = 'vidbarrio';
+        whr += ' and iddistrito = '+id+' order by nombre';
+    }
+    tp++;
+    $("#"+elem+"[tipo="+tp+"]").prop('disabled',false);
+    arr('login',6,'id,nombre',tbl,whr,15,1,$("#"+elem+"[tipo="+tp+"]"))
+    $("#"+elem+"[tipo="+tp+"]").material_select();
+}
+
+$(document).on("blur",".pais",function(){
+    var nombre = $(this).val();
+    var idpais = arr('login',4,'id',209,'nombre = "'+nombre+'"',0,0,0)[0][0];
+
+    idpais != undefined ? 0 : idpais;
+    $(this).attr('vid',idpais);
+});
+
+// tipocliente
+$(document).on("click","#fclientes [name='tipoclie']",function(){
+    var tipo = parseInt($(this).attr('tipoClie'));
+    switch(tipo){
+        case 1:
+        $("#titInfo").html('<b>Datos Personales<b/>');
+        $("#nomClie").html('Nombre');
+        $(".hid").show(300);
+        break;
+        case 3:
+        $("#titInfo").html('<b>Información Tributaria<b/>');
+        $("#nomClie").html('Razón Social');
+        $("#vapellido1").val('');
+        $("#vapellido2").val('');
+        $(".hid").css('display','none');
+        break;
+        case 4:
+        $("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
+        $("#nomClie").html('Nombre');
+        $(".hid").show(300);
+        break;
+        default:
+        $("#titInfo").html('<b>Información Jurídica<b/>');
+        $("#nomClie").html('Razón Social');
+        $("#vapellido1").val('');
+        $("#vapellido2").val('');
+        $(".hid").css('display','none');
+        break;
+    }
+});
+//
 
 $(document).on("blur",".numeric",function(){
     $(this).val(parseFloat($(this).val().replace(/,/g,'')).formatMoney(2,'.',',') )
@@ -109,39 +234,10 @@ $(document).on("keyup","[id^=search_]",function(e){
         var a = $(this).val().replace(/"/g,'\\\"');
         var b = $(this).prop('id').substr(7);
         var c = $(this).attr('num').substr(1);
-        var d = $(this).attr('num').substring(0,1).replace('+','');
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
-        var h;
-        tabla = $("#data-table-"+b).DataTable();
-        tabla.destroy();
-        // if (e.replace(/,/g,'').length == e.length) {
-            // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,d+'id >= 0 and '+e+' like "%'+a+'%"',0,0,0)[0][0];
-            // arr('login',6,'*',c,d+'id >= 0 and '+e+' like "%'+a+'%" order by nombre limit 10',g,1,$("#lista"+b));
-
-        h = arr('login',4,'',c,e+',"'+a+'",""',0,0,0)[0][0];
-        arr('login',6,'',c,'0,0,"'+a+'","0,10"',g,1,$("#lista"+b));
-        // }else{
-            // var f = d+'id >= 0 and (';
-            // e = e.split(",");
-            // for (var i = 0; i < e.length; i++) {
-            //     f += e[i]+' like "%'+a+'%" or ';
-            // }
-            // f = f.substring(0,f.length-3)
-            // f += ") order by nombre";
-            // h = arr('login',4,'truncate(count('+d+'id)/10,2)',c,f,0,0,0)[0][0];
-            // arr('login',6,'*',c,f+' limit 10',g,1,$("#lista"+b));
-
-            $("#data-table-"+b).DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
-        // }
+        var h = arr('login',4,'',c,e+',"'+a+',@@impresa",""',0,0,0)[0][0];
+        filltable(a,b,c,g);
         $(".pagination").html('');
         paginate(c,h)
     }
@@ -155,9 +251,7 @@ function doGlobal(accion,modulo,tip,varias){
     arreglo['atributos'] = baseValidar(1,arreglo);
 
     if (varias == 1) {
-
         arreglo['varios'] = {};
-
         $("#f"+modulo+"s [vtabla]").each(function(index){
             var arr = {}
             
@@ -165,7 +259,7 @@ function doGlobal(accion,modulo,tip,varias){
             arr['tip'] = tip;
             arr['atributos'] = baseValidar(1,arr);
             arr['hasTabla'] = $(this).attr('hasTabla') == undefined ? 0 : 1;
-
+            arr['rollback'] = $(this).attr('rollback') == undefined ? 0 : $(this).attr('rollback');
             arreglo['varios'][index] = arr;
         });
     }
@@ -173,12 +267,9 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p);
-        
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
-            // //QUITAR EL SEGUNDO UNO PONER UN 4
-            // endDetail(1,4,modulo+"s");
         }else{
          
             var tmsj = "Ingresado";
@@ -280,7 +371,7 @@ function loadpool(vmodulo,vid,vvarias){
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
             }
             else
-                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]))
+                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]));
             break;
             default:
             break;
@@ -400,33 +491,35 @@ function getParameterByName(name) {
 
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
    $.ajax({
-    url: '../_config/correoAjax.php',
-    type: 'POST',
-    data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
-})
+        url: '../_config/correoAjax.php',
+        type: 'POST',
+        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
+    })
    .done(function(data) {
-    try {
-        p = JSON.parse(data);
-    }
-    catch(err){
-        p = data;
-    }
+        try {
+            p = JSON.parse(data);
+            console.log("Correo Enviado");
+        }
+        catch(err){
+            p = data;
+            console.log(p);
+        }
 
-    if($("#smail").is(':visible')){
-        Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green")
-        $("#smail").html('')
-    }
-    
-})
-   .fail(function() {
-    alert( "error" );
-});
+        if($("#smail").is(':visible')){
+            Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green");
+            $("#smail").html('')
+        }
+        
+    })
+   .fail(function(x) {
+        console.log("ERROR de Correo: "+x)
+        Materialize.toast( "Error Enviando Correo",4000,'red');
+    });
 }
 
 function odin(varreglo,vform) {
-    
+    //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
-
     switch($("#"+vform).attr('tp')){
         case "1":
     //LLENADO DE VARIABLES POR ATRIBUTO EN DETALLE
@@ -445,7 +538,7 @@ function odin(varreglo,vform) {
         }// end FOR
         break;
 
-        case "3":
+    case "3":
     //LLENADO DE VARIABLES POR ID EN DETALLE
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
@@ -462,11 +555,7 @@ function odin(varreglo,vform) {
                     }
                     break;
                     case 'vid':
-                    if (typeof $("#"+vform+" #vid"+id).val() == 'undefined') {
-                        salida[index][varreglo[i]] = 0;
-                    }else{
-                        salida[index][varreglo[i]] = $("#"+vform+" #vid").val();
-                    }
+                    salida[index][varreglo[i]] = typeof $("#"+vform+" #vid").val() == 'undefined' ? 0 : $("#"+vform+" #vid").val();
                     break;
                     case 'vaccion':
                     salida[index][varreglo[i]] = 0;
@@ -476,7 +565,6 @@ function odin(varreglo,vform) {
                     salida[index][varreglo[i]] = 0;//$("#"+vform+" #vtabla").val();
                     break;
                     default:
-
                     if (/vfecha/.test(varreglo[i])){
                         if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
                             salida[index][varreglo[i]] = '1990-01-01';
@@ -487,7 +575,6 @@ function odin(varreglo,vform) {
                     }else{
                         switch($("#"+vform+" #"+varreglo[i]).attr("type")){
                             case 'select':
-
                             if($("#"+vform+" #"+ varreglo[i]).attr('multiple') == undefined)
                                 salida[index][varreglo[i]] =  $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
                             else
@@ -496,8 +583,9 @@ function odin(varreglo,vform) {
                             break;
                             case 'text':
                             case 'textarea':
+                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                            break;
                             case 'hidden':
-
                             case 'number':
                             salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                             break;
@@ -524,6 +612,7 @@ function odin(varreglo,vform) {
                 }//end if
                 }//end SWITCH
             }//end IF
+            // $("#"+vform+" .zelda").data('triforce')
             }// end FOR
         });//end EACH
 break;
@@ -532,17 +621,20 @@ case "4":
     //LLENADO DE VARIABLES POR DATA EN DETALLE
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
-        for (var i = 0; i < varreglo.length; i++) {
+        for (var i = 0;  i < varreglo.length; i++) {
             salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
             }// end FOR
-            
-        });//end EACH
+    });//end EACH
     
     break;
+case "5":
+        for (var i = 0; i < varreglo.length; i++) {
+            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+        }
+        break;
 
     default:
     //LLENADO DE VARIABLES POR ID SIN DETALLE
-    
     for (var i = 0; i < varreglo.length; i++) {
         if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined){
             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
@@ -595,6 +687,8 @@ case "4":
                         break;
                         case 'text':
                         case 'textarea':
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                        break;
                         case 'hidden':
                         case 'password':
                         case 'time':
@@ -611,8 +705,7 @@ case "4":
                         salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                         break;
                         default:
-                        try{
-                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                        try{                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                         }
                         catch(e){
                             console.log(varreglo[i]+" No Existe");
@@ -667,10 +760,10 @@ function deadclear(vform) {
                 
             }
         });
-        Materialize.updateTextFields();
         
     } else
     acc = 1;
+    // Materialize.updateTextFields();
 }
 
 function thorload(vtabla) {
@@ -698,7 +791,7 @@ function thorload(vtabla) {
         });
     }
 
-    $('.modal').modal();
+    // $('.modal').modal();
 
 }
 
@@ -716,17 +809,16 @@ function permisos(vnumber,vnumber2) {
     .done(function(data) {
         p = JSON.parse(data);
         for (var i = 0; i < p.length; i++) {
-            var op = parseInt(p[i][1]);
-
-            switch(op){
+            var op = parseInt(p[i][3]);
+            switch(parseInt(op)){
                 case 1:
-                $(".per"+p[i][0]).css('display','in-line');
+                $(".per"+p[i][1]).css('display','in-line');
                 break;
                 case 2:
-                $(".per"+p[i][0]).attr('disabled',true);
+                $(".per"+p[i][1]).attr('disabled',true);
                 break;
                 case 3:
-                $(".per"+p[i][0]).css('display','none');
+                $(".per"+p[i][1]).css('display','none');
                 break;
             }
         };
@@ -747,6 +839,56 @@ Number.prototype.formatMoney = function(c, d, t){
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
 
+function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess,vfiles,funcionAdded,funcionRemoved){
+    if(!vfiles){
+        vfiles = '*';
+    }
+    myDropzone = new Dropzone(velemento, {
+        url: vurl,
+        autoProcessQueue:vautoprocess,
+        maxFilesize: 1,
+        maxFiles: vmaxfiles,
+        addRemoveLinks:true,
+        uploadMultiple: vmultiple,
+        acceptedFiles: vfiles,
+        init: function() {
+            this.on("addedfile", function(file) {
+                $(velemento).find('.imgDrop').hide();
+                if (isNaN(funcionAdded))
+                    funcionAdded
+                else{
+                    switch(funcionAdded){
+                        default:
+                            break;
+                    }
+                }
+            });
+            this.on("removedfile", function(file) {
+                if (!$(".dz-preview").length) {
+                    $(velemento).find('.imgDrop').show();
+                }
+            
+                if (isNaN(funcionRemoved))
+                    funcionRemoved
+                else{
+                    switch(funcionRemoved){
+                        default:
+                            break;
+                    }
+                }
+            });
+            this.on('error', function(file, response) {
+                console.log(response)
+            });
+            this.on('success', function(file, response) {
+                console.log(response)
+            });
+        }
+    });
+
+    $(".dz-message").show();
+}
+
 function change_load(vto,vtabla,vval,vset){
     if (vto != '') {
         var tmp = $('#'+vto+' option').first().html();
@@ -766,7 +908,34 @@ function convert(a, b, c, d) {
     return precio
 }
 
-function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
+var barChartData = {
+  labels: ["2002", "2003", "2004", "2005", "2006", "2007", "2008", "2010", "2011", "2011", "2012", "2013", "2014", "2015"],
+  datasets: [{
+    label: 'Revenues',
+    backgroundColor: "#BBB",
+    data: [1450000, 1750000, 1700000, 1510000, 1400000, 1400000, 1535000, 1590000, 1620000, 1590000, 1630000, 1350000, 1350000, 1700000]
+  }, {
+    label: 'Expenses',
+    backgroundColor: "#ceb947",
+    data: [1650000, 1600000, 1350000, 1550000, 1300000, 1350000, 1350000, 1390000, 1410000, 1400000, 1700000, 1300000, 1300000, 1455000]
+  }, {
+    label: 'Poly. (Revenues)',
+    type: 'line',
+    borderWidth: 0.1,
+    pointRadius: 0,
+    backgroundColor: "rgba(187, 187, 187, 0.25)",
+    data: [1450000, 1750000, 1700000, 1510000, 1400000, 1400000, 1535000, 1590000, 1620000, 1590000, 1630000, 1350000, 1350000, 1700000]
+  }, {
+    label: 'Poly. (Expenses)',
+    type: 'line',
+    borderWidth: 0.1,
+    pointRadius: 0,
+    backgroundColor: "rgba(206, 185, 71, 0.25)",
+    data: [1650000, 1600000, 1350000, 1550000, 1300000, 1350000, 1350000, 1390000, 1410000, 1400000, 1700000, 1300000, 1300000, 1455000]
+  }]
+};
+
+function dibujarGrafico(elemento,texto,etiqueta,tipo,varr,colbase,coldata,colbel) {
 
     arr['JSON'] = 1;
 
@@ -775,39 +944,29 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
         Type: 'POST',
         data: {accion:4,arreglo:varr},
     }).done(function (results) {
+        
         results = JSON.parse(results);
-        var labels = [], data=[];
 
-        results[0].forEach(function(packet) {
-          labels.push(packet[1]);
-          data.push(packet[0]);
-      });
+        var backgroundColor = [
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(255, 206, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)'
+        ];
+        var borderColor = [
+        'rgba(54, 162, 235, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(255,99,132,1)',
+        'rgba(255, 159, 64, 1)'
+        ];
 
         var config1 = {
             type: tipo,
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: etiqueta,
-                    data: data,
-                    backgroundColor: [
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(255, 206, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)'
-                    ],
-                    borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255,99,132,1)',
-                    'rgba(255, 159, 64, 1)'
-                    ]
-                }],
-            },
+            datasets:[],
             options: {
                 responsive: true,
                 legend: {
@@ -823,18 +982,43 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr) {
                 },
             },
         };
+        var vbase = '';
+        var dataset = [];
+ 
+        for ( var i = 0;i < results[0].length; i++) {
+
+            if (vbase != results[0][i][colbase]) {
+                if (vbase != ''){
+                    config1['datasets'] = dataset;
+                    vbase = results[0][i][colbase];
+                }
+
+                dataset = [];
+                dataset.push({'label':results[0][i][colbel]});
+                dataset.push({'backgroundColor':backgroundColor[i]});
+                dataset.push({'borderColor': borderColor[i]});
+                dataset.push({'data':[] });
+                    
+            }       
+            
+            // dataset['data'].push(results[0][i][coldata]);
+        }
+
+        config1['datasets'] = dataset;
 
         switch(tipo){
             case 'bar':
-            config1['options']['scales'] = {yAxes:[{ticks:{beginAtZero:true,}}]}
-            break;
+                config1['options']['scales'] = {yAxes:[{ticks:{beginAtZero:true,}}]}
+                break;
             default:
-            break;
-        }
-        var ctx = document.getElementById(elemento).getContext("2d");
-        var myLineChart = new Chart(ctx,config1);
+                break;
+        };
+        
+        // var ctx = document.getElementById(elemento).getContext("2d");
+        // var myLineChart = new Chart(ctx,config1);
     });
 };
+
 
 function doreport() {
     var filtros = $(".inpreport").length;
@@ -849,12 +1033,12 @@ function doreport() {
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
+
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
                 if ( $("#"+datos[i]).val()=='' ){
                     search[i] = '"1990-01-01"';
                 }else{
-                    console.log($("#"+datos[i]).val())
                     search[i] = '"'+$("#"+datos[i]).val()+'"';
                 }
             }else{
@@ -864,7 +1048,7 @@ function doreport() {
             if ($("#"+datos[i]).val() == '') {
                 search[i] = "''";
             }else{
-                
+                console.log(datos[i])
                 search[i] = $("#"+datos[i]).val();    
                 $("#chk"+datos[i].substr(3)).is(":checked") == false ? $("#"+datos[i]).val(0) : true;
 
@@ -880,8 +1064,10 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1);
-    arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
     console.log(atributos)
+    arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
+    console.log(arr('login',4,'',tbl,atributos,0,0,0))
+
 }
 
 $(document).on("change","._det",function(){
@@ -969,7 +1155,7 @@ function cargarMoneda(idmoneda,elemento){
     if (idmoneda != 0) {
         var valor = elemento.first().data("triforce")["valor"];
         var pmonto = parseFloat(moneda[2]);
-
+        
         divisas.each(function(){
             var monto = pre = tot = 0;
 
@@ -997,18 +1183,31 @@ function mostrar_cargar(){
 }
 
 // <-- pagination
+function filltable(a,b,c,g) {
+    var tabla = $("#data-table-"+b).DataTable();
+    tabla.destroy();
+    arr('login',6,'',c,'0,0,"'+a+',@@impresa","0,10"',g,1,$("#lista"+b));
+    $("#data-table-"+b).DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+}
+
 function paginate(vtbl,len) {
     $(".pagination").html('');
     var countpag = 0;
     if (len == undefined) {
-        countpag = arr('login',4,'',vtbl,'0,1,"",""',0,0,0)[0][0];
+        countpag = arr('login',4,'',vtbl,'0,1,",@@impresa",""',0,0,0)[0][0];
     }else
     countpag = len;
-
-    console.log("count: "+countpag)
     
     if (countpag >= 9) {
-        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
+        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
         $(".pagination").attr('ultimo', 9);
     } else if (parseInt(countpag) == 0 || parseInt(countpag) < 1) {
         return false;
@@ -1019,7 +1218,7 @@ function paginate(vtbl,len) {
             if (i == 1)
                 $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0,10"><a href="#!">' + i + '</a></li>');
             else
-                $(".pagination").append('<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
+                $(".pagination").append('<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>');
             
             $(".pagination").attr('ultimo', i);
         }
@@ -1038,7 +1237,9 @@ $(document).on("click", ".paginate", function () {
     $(this).addClass('active');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
-    arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    $("#lista"+modulo).html('');
+    arr('login',6,'',vtbl,'0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
+
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1064,13 +1265,13 @@ $(document).on("click", ".nxt", function () {
         pags = 1;
 
     if (ultimo == id) {
-        var count = arr('login',4,'',vtbl,'0,1,"'+filtro+'",""',0,0,0)[0][0];
+        var count = arr('login',4,'',vtbl,'0,1,"'+filtro+',@@impresa",""',0,0,0)[0][0];
         if (Math.ceil(count) != ultimo) {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
                 i = parseInt(i);
-                console.log("i: "+i)
-                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
+
+                $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>');
                 if (i == next)
                     $(".pagination").attr('ultimo', i);
             }
@@ -1081,8 +1282,7 @@ $(document).on("click", ".nxt", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             tabla.destroy();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'",'+limit+'"', cambio, 1, $("#lista"+modulo));
-            // arr('login', 6, '*', vtbl, 'vid > 0 ' + c + ' order by nombre limit ' + limit + ',10', 0, 1, $("#lista"+modulo));
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,
@@ -1100,7 +1300,7 @@ $(document).on("click", ".nxt", function () {
         var tabla = $("#data-table-"+modulo).DataTable();
         tabla.destroy();
         var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-        arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+        arr('login', 6, '', vtbl, '0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
         $("#data-table-"+modulo).DataTable({
             bFilter: false,
             bScrollInfinite: true,
@@ -1130,13 +1330,13 @@ $(document).on("click", ".prv", function () {
                 if (prv != 0) {
                     for (var i = prv; i <= prev; i++) {
                         i = parseInt(i);
-                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,'+i+'0"><a href="#!">' + i + '</a></li>');
+                        $(".pagination").append('<li class="waves-effect paginate" id="z' + i + '" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>');
                         if (i == prev)
                             $(".pagination").attr('ultimo', i);
                     }
                     $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
                 } else {
-                    $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li><li class="active paginate" id="z1" limit="0"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
+                    $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
                     $(".pagination").attr('ultimo', 9);
                 }
                 $(".paginate").removeClass('active');
@@ -1145,7 +1345,7 @@ $(document).on("click", ".prv", function () {
                 var tabla = $("#data-table-"+modulo).DataTable();
                 var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+                arr('login', 6, '', vtbl, '0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1162,7 +1362,7 @@ $(document).on("click", ".prv", function () {
                 var tabla = $("#data-table-"+modulo).DataTable();
                 var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+                arr('login',6,'',vtbl,'0,0,"'+filtro+',@@impresa","'+limit+'"',cambio,1,$("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1180,7 +1380,7 @@ $(document).on("click", ".prv", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             tabla.destroy();
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+            arr('login',6,'',vtbl,'0,0,"'+filtro+'@@impresa","'+limit+'"',cambio,1,$("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,
@@ -1219,16 +1419,237 @@ $(document).on('click','.del_phone',function(){
     }
 });
 
-// autocomplete
-function autocomplete(charCode,charStr,nom,tabla) {
+function now() {
+    var date = new Date();
+    date = date.getFullYear()+"-"+addZero(date.getMonth()+1,2)+"-"+addZero(date.getDate(),2);
+    return date;
+}
+
+// fast client
+$(document).on('keydown','[addG=1]',function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
         $(".autocomplete-content").remove();
-        $("#"+nom).autocomplete({
-            limit: 10,
-            data: arr('login',4,'',tabla,'nombre like \"%'+$("#"+nom).val()+'%\" limit 10',0,0,0,1)
-        }); 
-        $("#"+nom).siblings($(".autocomplete-content")).css('width','25%');
+        $("[addG=1]").autocomplete({
+            limit: 20,
+            data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+        });
+        $(".autocomplete-content").css('width','30%');
+    }
+});
+$(document).on('keyup','[addG=1]',function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        var isClie = findClient($(this).val(),0);
+        if (!isClie) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
+    }
+});
+$(document).on('blur','[addG=1]',function(){
+    if ($(this).val() != '') {
+        var isClie = findClient($(this).val(),1);
+        console.log(isClie)
+        if (!isClie) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
+    }
+});
+function findClient(nom,blr) {
+    var clie = getDatos('',63,'\"'+nom+'\",0,@@tmp_cia',0,0,0);
+    if (nom != '') {
+        if (clie[0][0][0] != 0) {
+            var vclie = clie[0][0];
+            $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] = vclie[0];
+            $("#ncli").val(vclie[1]+' '+vclie[2]);
+            cargarTblFincas();
+            return true;
+        }else{
+            $("#flaboratorio-explantes .zelda").data('triforce')['vidcliente'] = 0;
+            if (!$(".clientNotFound").is(':visible')) {
+                var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));
+                Materialize.toast($toastContent, 5000);
+            }else{
+                if (blr == 0)
+                    $(".clientNotFound").click();
+            }
+            return false;
+        }
     }
 }
+
+$(document).on('click','.clientNotFound',function(){
+    if ($(this).attr('tp') == 1) {
+        $(".titadd").html("Agregar Cliente");
+    }
+    $("#pais").val('Costa Rica');
+    $("#pais").blur();
+    var tmpname = $("#ncli").val();
+    $("#modal-generalCliente #nombre").val(tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname);
+
+    $("#fclientes .zelda").data('triforce')['vnombre'] = tmpname.indexOf(' ') > 0 ? tmpname.substring(0,tmpname.indexOf(' ')) : tmpname;
+
+    tmpname = tmpname.substring(tmpname.indexOf(' ')+1);
+
+    $("#fclientes .zelda").data('triforce')['vapellido1'] = tmpname.substring(0,tmpname.indexOf(' '));
+
+    $("#modal-generalCliente #apellido1").val(tmpname.substring(0,tmpname.indexOf(' ')));
+    tmpname = tmpname.indexOf(' ') > 0 ? tmpname.substring(tmpname.indexOf(' ')+1) : '';
+
+    $("#fclientes .zelda").data('triforce')['vapellido2'] = tmpname;
+
+    $("#modal-generalCliente #apellido2").val(tmpname);
+    Materialize.updateTextFields();
+    $("#modal-generalCliente").modal();
+    $("#modal-generalCliente").modal('open');
+    $("#cedula").focus();
+
+});
+
+// fast product
+$(document).on('keydown','[addG=2]',function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        $("[addG=2]").autocomplete({
+            limit: 20,
+            data: arr('login',4,'nombre,null',16,'id > 0 having nombre like "%'+$(this).val()+'%" limit 20',0,0,0,1)
+        });
+        $(".autocomplete-content").css('width','30%');
+    }
+});
+$(document).on('keyup','[addG=2]',function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13) {
+        var isServ = findService($(this).val(),0);
+        if (!isServ) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
+        $(".autocomplete-content").remove();
+    }
+});
+$(document).on('blur','[addG=2]',function(){
+    if ($(this).val() != '') {
+        var isServ = findService($(this).val(),1);
+        if (!isServ) {
+            var op = parseInt($(this).attr('addG'));
+            addGeneral(op);
+        }
+    }
+});
+function findService(nom,blr) {
+    var vserv = getDatos('id,nombre',16,'nombre = "'+nom+'"',0,0,0);
+    if (nom != '') {
+        if (vserv[0][0] != undefined) {
+            vserv = vserv[0][0];
+            $(".zelda").data('triforce')['vidservicio'] = vserv[0];
+            $("#vvariedad").val(vserv[1]);
+            return true;
+        }else{
+            $(".zelda").data('triforce')['vidservicio'] = 0;
+            if (!$(".serviceNotFound").is(":visible")) {
+                var $toastContent = $('<span>Variedad no Existente</span>').add($('<button class="btn-flat toast-action green white-text serviceNotFound" tp="2">Agregarlo</button>'));
+                Materialize.toast($toastContent, 5000);
+            }else{
+                if (blr == 0)
+                    $(".serviceNotFound").click();
+            }
+            return false;
+        }
+    }
+}
+$(document).on('click','.serviceNotFound',function(){
+    var tmpname = $("#vvariedad").val();
+    $("#modal-generalServicio #vnombre").val(tmpname);
+    $("#fservicios .zelda").data('triforce')['vnombre'] = tmpname;
+    Materialize.updateTextFields();
+    $("#modal-generalServicio").modal();
+    $("#modal-generalServicio").modal('open');
+    $("#modal-generalServicio #vcodigo").focus();
+
+});
+function addGeneral(op) {
+    switch (op) {
+        case 1: //clientes
+            if ($("#fclientes").length > 0) {
+                $("#modal-clientes").html('');
+                ingGeneral(1);
+            }else{
+                reconstruirModal(1);
+            }
+            break;
+        case 2: //servicios
+            if ($("#fservicios").length > 0) {
+                $("#modal-servicios").html('');
+                ingGeneral(2);
+            }else{
+                reconstruirModal(2);
+            }
+            break;
+        case 3: //fincas
+            if ($("#ffincas").length > 0) {
+                $("#modal-fincas").html('');
+                ingGeneral(3);
+            }else{
+                reconstruirModal(3);
+            }
+            break;
+        case 4: //productos
+    }
+}
+function ingGeneral(tp) {
+
+}
+
+function reconstruirModal(tp) {
+    console.log('tp: '+tp)
+    var p = mantenimiento('main',4,tp);
+    $("#modalMainGeneral").html(p);
+    var str = '';
+    console.log(invvar)
+    var nombres = invvar[0][1].split(',');
+    var ids = invvar[0][0].split(',');
+    $.each(invvar[0][0].split(","), function(j,e){
+        str += '<option value="'+ids[j]+'">'+nombres[j]+'</option>';
+    });
+    $("#vidinventario").append(str);
+    Materialize.updateTextFields();
+    $("select").material_select();
+    // $(".zelda").removeData();
+    if (tp == 1) {
+        $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
+    }else if (tp == 2) {
+        var vinv = getDatos('idinventario',907,'idsucursal = @@impresa order by idtipoinventario',0,0)[0];
+        $("#fservicios .zelda").data('triforce',{vaccion:0,vid:0,vcodigo:'',vnombre:'',vdescripcion:'',vpbase:0,vperiodo:0,vdias:0,vidproveedor:0,vprecio:0,vpganancia:0,vidinventario:vinv,vidusuario:0,vidmoneda:1,vidsucursal:'',vservprofesional:0,vidsuc:-1});
+
+        // vaccion,vid,vcodigo,vnombre,vdescripcion,vpbase,vperiodo,vdias,vidproveedor,vprecio,vpganancia,vidinventario,vidusuario,vidmoneda,vidsucursal,vservprofesional,vidsuc
+    }
+}
+
+function keysight(e) {
+    e = e.keyCode || e.wich;
+    var t={1:"!",2:"@",3:"#",4:"$",5:"%",6:"^",7:"&",8:"*",9:"(",0:")",38:'~',48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",59:";",61:"=",65:"a",66:"b",67:"c",68:"d",69:"e",70:"f",71:"g",72:"h",73:"i",74:"j",75:"k",76:"l",77:"m",78:"n",79:"o",80:"p",81:"q",82:"r",83:"s",84:"t",85:"u",86:"v",87:"w",88:"x",89:"y",90:"z",96:"0",97:"1",98:"2",99:"3",100:"4",101:"5",102:"6",103:"7",104:"8",105:"9",106:"*",107:"+",108:"13",109:"-",110:".",111:"/",173:"-",186:";",187:"=",188:",",189:"-",190:".",191:"/",192:"`",219:"[",220:"\\",221:"]",222:"'",223:"`"};
+    var salida = t[e];
+    var prueba = salida == undefined ? 1 : 0;
+    return salida == undefined ? String.fromCharCode(e) : salida;
+}
+// addgeneral
+
+// autocomplete
+// function autocomplete(charCode,charStr,nom,tabla) {
+//     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+//         $(".autocomplete-content").remove();
+//         $("#"+nom).autocomplete({
+//             limit: 10,
+//             data: arr('login',4,'',tabla,'nombre like \"%'+$("#"+nom).val()+'%\" limit 10',0,0,0,1)
+//         }); 
+//         $("#"+nom).siblings($(".autocomplete-content")).css('width','25%');
+//     }
+// }
 
 // Login Technologies S.A.

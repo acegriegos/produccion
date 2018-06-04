@@ -8,21 +8,23 @@ $(document).on("change","#vidinventario",function(){
 	tabla.destroy();
 	arr('login',6,'',127,id,0,1,$("#listainventarios"));
 	$("#data-table-inventarios").DataTable({
-        bFilter : false,
+        bFilter : true,
         bScrollInfinite : true,
-        bSort : false,
-        bLengthChange : false,
+        bSort : true,
+        bLengthChange : true,
         bPaginate :  false,
-        bInfo : false
+        bInfo : false,
     });
-    
+
 });
 
-
+$(document).on("change","#vidbodega",function(){
+	$("#listainventarios").html('');
+});
 
 $(document).on("click",".del",function(){
     var id = $(this).attr('id').substr(1);
-    Materialize.toast('Desea Borrar este Insumo? <button type="button" class="waves-effect waves-light btn blue accept" id="acc'+id+'"><i class="material-icons">check</i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="fa fa-times"></i></button>', 10000, 'rounded');
+    Materialize.toast('Desea Borrar este Insumo? <button type="button" class="waves-effect waves-light btn blue accept" id="acc'+id+'"><i class="mdi mdi-plus"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-delete"></i></button>', 10000, 'rounded');
 });
 
 $(document).on("click",".cancel",function(){

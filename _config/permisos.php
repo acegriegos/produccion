@@ -13,8 +13,9 @@ class _permisos
     }
 
     function obtener($a,$b){
-        $sql = "SELECT idcodigo,permiso FROM v_permisosusuario WHERE id_user = '$this->id' and idcodigo between $a and $b;";
+        $sql = "call sp_getPermisosUsuarios($this->id,$a,$b)";
         $result = $this->db->ejecutar($sql);
+
         if ($result->num_rows > 0) {
             $arr = $result->fetch_all();
             return $arr;
@@ -27,10 +28,11 @@ class _permisos
 }
 require_once 'ecy.php';
 $cy = new _cy();
-$user = str_replace("\0","",$cy->decy($_SESSION['USR']));
-$permiso = new _permisos($user);
+$user = base64_decode($_SESSION['USR']);
+//str_replace("\0","",$cy->decy($_SESSION['USR']));
+ $permiso = new _permisos($user);
 
-$permisos = $permiso->obtener($_POST['x1'],$_POST['x2']);    
+ $permisos = $permiso->obtener($_POST['x1'],$_POST['x2']);    
 
 echo json_encode($permisos);
 

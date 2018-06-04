@@ -1,0 +1,47 @@
+@import 'colors.scss';
+@import 'general.scss';
+
+.tamLetra {
+  font-size: 1.2em !important;
+}
+
+#dinsu {
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  padding: 0px;
+}
+
+.insu {
+  display: inline-block;
+  background: #2196F3;
+  height: 30px;
+  &:hover {
+    background: #256BB1;
+    cursor: pointer;
+  }
+}
+
+.tinsu {
+  margin-top: 20px;
+  color: #fff;
+}
+
+#nav-tipoinsumo {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+.side-nav li {
+  line-height: 20px;
+}
+
+#addtipo, #acttipo {
+  width: 100%;
+}
+
+.mdinvent {
+  padding: 15px 10px 15px 10px !important;
+}
+
+.tit {
+  font-size: 1.3em;
+}

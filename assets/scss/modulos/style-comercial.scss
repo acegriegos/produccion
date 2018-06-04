@@ -1,0 +1,23 @@
+@import 'colors.scss';
+@import 'general.scss';
+
+.mybtn {
+  margin: 3%;
+  width: 25%;
+}
+
+.mycol {
+  border-left: 1px solid black;
+  height: 100%;
+}
+
+.myah {
+  color: rgb(55, 68, 60);
+  &:hover {
+    color: black;
+  }
+}
+
+.tamLetra {
+  font-size: 1.2em !important;
+}

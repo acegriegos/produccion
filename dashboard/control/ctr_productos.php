@@ -24,9 +24,10 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('',12,'"1,3"'));
-	   			$smarty->assign('INV',$kakaroto->kamehameha('*',111,'id > 0 and idbodega = 1 order by id'));
-	   			$smarty->assign('PROD',$kakaroto->kamehameha('',14,'0,0,"","0,10"'));
+	   			$smarty->assign('INV',$kakaroto->kamehameha('*',111,'id > 0 and idbodega = 1 and idsucursal in(-1,@@impresa) order by id'));
+	   			$smarty->assign('PROD',$kakaroto->kamehameha('',14,'0,0,",'.$_SESSION['TMP_CIA'].'","0,10"'));
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by id'));
+	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');
 	   			break;
 	   		case 2:
@@ -35,7 +36,8 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('CLI',$kakaroto->kamehameha("id,nombre",2,"bisproveedor = 1"));
-	   			$smarty->assign('SERV',$kakaroto->kamehameha('',13,''));
+	   			$smarty->assign('SERV',$kakaroto->kamehameha('',13,'0,0,",@@impresa","0,10"'));
+	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 	   			$smarty->display('ajax/productos/ajaxmantServicios.tpl');
 	   			break;
 	   		case 3:
@@ -43,8 +45,8 @@
 	   			require_once '../_config/mySmarty.php';
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
-	   			$smarty->assign('PAQ',$kakaroto->kamehameha('',62,'0,0'));
-	   			$smarty->assign('UNI',$kakaroto->kamehameha('idunidad,nombre,simbolo',12,'idtipo in(0,1,3) order by idtipo desc'));
+	   			$smarty->assign('PAQ',$kakaroto->kamehameha('',62,'0,0,"0,@@impresa","0,10"'));
+	   			$smarty->assign('UNI',$kakaroto->kamehameha('',12,'"0,1,3"'));
 	   			$smarty->display('ajax/productos/ajaxmantPaquetes.tpl');
 	   			break;
 	   		case 4:

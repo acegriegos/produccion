@@ -34,7 +34,7 @@
       </div>
       <div class="input-field col s12 m6 l4" >
         <select id="vidsuc" type="select" style="margin-bottom: 0 !important" class="suc" multiple>
-          <option value="0" selected disabled>Seleccione una Sucursal</option>
+          <option value="" selected disabled>Seleccione una Sucursal</option>
           <?php  foreach ($suc as $obj) { ?>
           <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
           <?php } ?>
@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <a class="btn-floating waves-effect waves-green blue right add z-depth-5" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="mdi mdi-plus mdi-24px"></i></a>
+    <a class="btn-floating waves-effect waves-green btn2 right add z-depth-3" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="mdi mdi-plus mdi-24px"></i></a>
     <br>
     <input type="hidden" id="vbcambioPSSW" value="0">
     <input type="hidden" id="vcodigo" value="">
@@ -73,16 +73,16 @@
   <div class="col s12 m12 l12 pequeño">
     <br>
     <div class="table-responsive pequeño">
-      <table class="table bordered highlight pequeño responsive-table z-depth-5 centered" id="data-table-usuarios" cellspacing="0" width="100%">
-        <thead>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Usuario</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cédula</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Correo</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Tipo de Usuario</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Entrada</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Hora Salida</th>
-          <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
+      <table class="table bordered highlight pequeño responsive-table striped centered" id="data-table-usuarios" cellspacing="0" width="100%">
+        <thead class="tab1">
+          <th style="border: 0; border-radius: 0px !important;">Usuario</th>
+          <th style="border: 0; border-radius: 0px !important;">Nombre</th>
+          <th style="border: 0; border-radius: 0px !important;">Cédula</th>
+          <th style="border: 0; border-radius: 0px !important;">Correo</th>
+          <th style="border: 0; border-radius: 0px !important;">Tipo de Usuario</th>
+          <th style="border: 0; border-radius: 0px !important;">Hora Entrada</th>
+          <th style="border: 0; border-radius: 0px !important;">Hora Salida</th>
+          <th style="border: 0; border-radius: 0px !important;">Acciones</th>
         </thead>
         <tbody id="listausuarios">
           <?php foreach ($usr as $obj) { ?><tr>
@@ -94,8 +94,8 @@
           <td style=" padding: 10px;"><?php echo $obj[6]; ?></td>
           <td style=" padding: 10px;"><?php echo $obj[7]; ?></td>
           <td style=" padding: 10px;">
-            <a class="cargar load black-text pbtn" modulo="usuario" title="Editar Usuario" id="m<?php echo $obj[0]; ?>" <?php if($obj[1] == 'admin' && $_SESSION['NUM'] != 0) echo "disabled"; ?> ><i class="mdi mdi-pencil mdi-24px"></i></a>
-            <a class="delete eliminar black-text pbtn" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $obj[0]; ?>" <?php if($obj[1] == 'admin') echo "disabled"; ?>><i class="mdi mdi-delete mdi-24px"></i></a>
+            <a class="cargar load gtext pbtn" modulo="usuario" title="Editar Usuario" id="m<?php echo $obj[0]; ?>" <?php if($obj[1] == 'admin' && $_SESSION['NUM'] != 0) echo "disabled"; ?> ><i class="mdi mdi-pencil mdi-24px"></i></a>
+            <a class="delete eliminar gtext pbtn" modulo="usuario" title="Eliminar Usuario" id="d<?php echo $obj[0]; ?>" <?php if($obj[1] == 'admin') echo "disabled"; ?>><i class="mdi mdi-close mdi-24px"></i></a>
           </td>
         </tr>
         <?php } ?>

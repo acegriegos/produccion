@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.0.0.2">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.0.0.2"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.0.0.2"></script>
     <![endif]-->
   </head>
   <body> 
@@ -23,7 +23,9 @@
     <div class="row">
       <div class="col s12 m12 l12">
         <a class="btn waves-effect waves-light blue right" id="refresh" style="margin-left: 15px;"><i class="mdi mdi-refresh mdi-24px"></i>Actualizar</a>
-        <a class="waves-effect waves-light btn blue right" id="chkcierre">Realizar Cierre</a>
+        <a class="waves-effect waves-light btn blue right tt" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
+        <a class="waves-effect waves-light btn blue right modal-trigger" style="margin-right:10px" href="#modal-cierres" data-position="bottom" data-delay="50" id="shcierre">Ver Cierres</a>
+        <input type="hidden" class="zelda">
       </div>
       <div class="row">
         <div class="col s3 m3 l3">
@@ -47,15 +49,20 @@
         </table>
         <div class="row marginzero">
           <div class="col s3 m3 l3">
-            Total contado: <span id="tcontado"></span>
+            Total Contado: <span id="tcontado"></span>
           </div>
           <div class="col s3 m3 l3">
-            Total crédito: <span id="tcredito"></span>
+            Total Crédito: <span id="tcredito"></span>
           </div>
-          <div class="col s6 m6 l6"></div>
+          <div class="col s3 m3 l3">
+            Total Efectivo: <span id="tefectivo"></span>
+          </div>
+          <div class="col s3 m3 l3">
+            Total Tarjeta: <span id="ttarjeta"></span>
+          </div>
         </div>
-        <h4>Notas y abonos</h4>
-          <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-estadocuenta" cellspacing="0" width="100%">
+        <h4 class="hide">Notas y abonos</h4>
+          <table class="table responsive-table centered striped bordered highlight z-depth-5 hide" id="data-table-estadocuenta" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
@@ -70,7 +77,7 @@
             </thead>
             <tbody id="listanotasabonos"></tbody>
           </table>
-          <div class="row marginzero">
+          <div class="row marginzero hide">
             <div class="col s4 m4 l4">
               Total Abonos Cliente: <span id="tabono"></span>
             </div>
@@ -85,7 +92,64 @@
       </div>
     </div>
     </div>
+    
+
+    
+    <!-- Modal Structure -->
+    <div id="modal-cierres" class="modal modal-fixed-footer">
+        <div class="modal-content" style="padding: 0px;" id="lista-cierres">
+          
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+      </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal-tipomonedas" class="modal modal-fixed-footer grandemodal" style="height: 85%; width: 90%">
+        <div class="modal-content" style="padding: 0px;">
+          <ul class="tabs white-text" style="background-color:#0B3861">
+          <li class="tab col s6"><a class="white-text">Caja inicial <span id="totcashier">0.00</span></a></li>
+          </ul>
+          <div class="row">
+            <input type="hidden" id="stot" value="0">
+            {section name=LE loop=$TMON}
+            <div class="input-field col s4 m4 l4">
+              <input type="number" id="m{$TMON[LE][0]}" class="mnd" value="" placeholder="0.00" autofocus vl="{$TMON[LE][3]}">
+              <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
+            </div>
+            {/section}
+            <div class="row">
+                <div class="col s12 m6">
+                  <h2>Dinero en caja:</h2>
+                </div>
+                <div class="col s12 m6">
+                  <span id="tcaja" style="font-size: 44px;;color: black">0.00</span>
+                </div>
+            </div>
+           
+            <!-- <div class="row">
+              <div class="col s12 m6">
+                <h2>Diferencia de caja: </h2>
+              </div>
+              <div class="col s12 m6">
+                <span id="sobrante" style="font-size: 44px;color: green">0.00</span>
+              </div>
+               
+             </div> -->
+            <br>
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="waves-effect waves-green btn-flat" id="totalizar">Guardar</button>
+          <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+      </div>
+    </div>
+
+
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.0.0.2"></script>
   </body>
 </html>

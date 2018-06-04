@@ -1,6 +1,6 @@
 <?php  
 	
-	require_once 'model/m_login.php';
+	  require_once 'model/m_login.php';
    	$log = new _login();
 
     if (!isset($_REQUEST['accion'])) {
@@ -21,28 +21,45 @@
 		    }else if (sizeof($user) == 1)
 		    {
 
-          if($user[0][6] == '')
-            header("Location: ../bienvenida/bienvenida.html");
-          else{
+          if($user[0][10] != ''){
+            header("Location: ../dashboard/cambioPasswd.php?sr=".base64_encode($user[0][1])."&cr=".base64_encode($user[0][8])."&tr=".base64_encode($user[0][2]) );
+            return false;
+          }
+
+          // if($user[0][6] == '')
+          //   print_r($user);
+          //   // header("Location: ../bienvenida/bienvenida.html");
+          // else{
             if ($user[0][7] == 0)
               cambioDia($log);
-
-              $_SESSION['USR']     = trim($encrypt->ency($user[0][0]));
-              $_SESSION['NUM']     = trim($encrypt->ency($user[0][1]));
+     
+              $_SESSION['USR']     = base64_encode($user[0][0]);//trim($encrypt->ency($user[0][0]));
+              $_SESSION['NUM']     = base64_encode($user[0][1]);//trim($encrypt->ency($user[0][1]));
               $_SESSION['NOM']     = $user[0][2];
               $_SESSION['TIPO']    = $user[0][3];
               $_SESSION['EMPRESA'] = $user[0][4];
               $_SESSION['IMPRESA'] = $user[0][5];
-              $_SESSION['TMP_CIA'] = -1;
-              
-              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? 'main' : $_POST['vdir'];
+              $_SESSION['TMP_CIA'] = $user[0][5];
+              $_SESSION['TMPT']    = $user[0][11];
+              $_SESSION['CRR']     = $user[0][8];
+              $_SESSION['BUSS']    = $user[0][12];
+              $mod = 'main';
+              if ($user[0][12] == 1) {
+                $mod = 'facturacion';
+              }
+              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
            }
   
-		   }
+		   // }
     	}else{
+        $mod = 'main';
+        
     		if (isset($_SESSION['USR'])) {
-		        header("Location: ../dashboard/main");
+            if ($_SESSION['BUSS'] == 1) {
+              $mod = 'facturacion';
+            }
+		        header("Location: ../dashboard/".$mod);
 		    }else{
 		   	require '../_config/mySmarty.php';
 		   
@@ -52,6 +69,9 @@
 		    
 		   	$smarty->assign('NAV',$pg);
 		   	$smarty->display('login.tpl');
+        // $cy = new _cy();
+        // $decy = $cy->ency('itech01');
+        // print_r($decy);
 
 		   }
 		}
@@ -109,7 +129,7 @@
           }
           
           if (isset($_REQUEST['arreglo']['mic']))
-            $miscelaneos = $log->kamehameha('',50,'0')[0];
+            $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
 
           if (isset($_REQUEST['arreglo']['id']))
             $id = $_REQUEST['arreglo']['id'];
@@ -119,6 +139,17 @@
            
            include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
 		   	break;
+        case 9:  //GENERAR SOLO XML
+          $pagina = 1;
+          unset($_REQUEST['accion']);
+          require_once '../wsdlClient.php';
+          $xml = new facturaElectronica($_REQUEST['arreglo']['id']);
+          $archivo = fopen('../assets/xml/Factura N°'.$_REQUEST['arreglo']['factura'].', '.$_REQUEST['arreglo']['sucursal'].'.xml', "w+");
+          fwrite($archivo, $xml->getXMLRecepcion());
+          fclose($archivo); 
+        break;
+      default:
+        break;
 
    	}
 
@@ -162,14 +193,14 @@
      function indicadores($log){
         require_once '../assets/libs/nusoapLT/nusoap.php';
 
-        $wsdls = $log->kamehameha('*',102,'id > 0');
+        $wsdls = $log->kamehameha('',102,'');
         $tipoCambio = "";
         foreach ($wsdls as $obj) {
 
-          $parametros = $log->kamehameha('detalle,valordetwsdl',103,'idwsdl = '.$obj[4]);
+          $parametros = $log->kamehameha('',103,$obj[4]);
           $param_salida = array();
           foreach ($parametros as $obj1) {
-            $param_salida[$obj1[0]] = $obj1[1];
+            $param_salida[$obj1[1]] = $obj1[2];
           };
 
           $oSoapClient = new nusoap_client($obj[1],true);

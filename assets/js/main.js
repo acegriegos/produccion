@@ -1,5 +1,5 @@
 $(function(){
-
+    
     $('.button-collapses').sideNav({
         menuWidth: 300, // Default is 240
         edge: 'left', // Choose the horizontal origin
@@ -13,19 +13,32 @@ $(function(){
         draggable: true // Choose whether you can drag to open on touch screens
     });
 
-    $("#lgt").change(function(){
-        switch(parseInt($(this).val())){
+    $(".otpmenu").click(function(){
+        var opt = parseInt($(this).attr('value'));
+        switch(opt){
             case 1:
                 $("#modal-info").modal('open');
-            break;
+                break;
             case 2: 
                 window.open("notificaciones","_self");
-            break;
-            default:
+                break;
+            case 3:
                 window.open("cierres","_self");
-            break;
+                break;
+            case 4:
+                var datos = getDatos('',245,'',0,0)[0];
+                var data = datos[3][0].split(',');
+                
+                $("#tsystem").html(datos[0][0]);
+                $("#fsystem").html(datos[1][0]);
+                $("#dsystem").html(datos[2][0]);
+                $("#psystem").html(data[0]);
+                $("#msystem").html(data[1]);
+                $("#modal-system").modal('open');
+                break;
+            default:
+                break
         }
-        
     });
 
     $("#numtrans").keyup(function(e){ //accesos
@@ -36,9 +49,8 @@ $(function(){
             window.open(ruta,'_self');
         }
     });
-    
-    
-    // permisos(1,50);
+
+    permisos(1,50);
     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
 
     setInterval(function(){
@@ -47,7 +59,7 @@ $(function(){
 });
 
 function SSE_SERVER(vmodulo,vaccion,varreglo,vid,vjson) {
-
+    
     var p;
 
         if (vjson)
@@ -82,13 +94,26 @@ function sse_response(vid,p) {
                 $(".sse_cnt").addClass('hide');
             }
             break;
+        case 2:
+            $(".asig").addClass('hide');
+            if (p[0].length) {
+                for (var i = 0; i < p[0].length; i++) {
+                    $("#"+p[0][i][0]).removeClass('hide');
+                    $("#"+p[0][i][0]).html(p[0][i][1]);
+                }
+                
+            }
+            break;
+        default:
+            console.log('ID NO ASIGNADO')
+            break;
     }
 }
 
 function generarSSuc(){
 
     var p = getDatos('',155,'@@usr',0,0)[0];
-    var sucursales = '<option value="-1">Todas las Sucursales</option>';
+    var sucursales = '';
 
     for (var i = 0; i < p.length; i++) {
         sucursales += '<option value="'+p[i][0]+'">'+p[i][1]+'</option>';
@@ -99,8 +124,10 @@ function generarSSuc(){
     //         alert($('option:selected',this).val())
     //     })
     // }
-
+    
     $(".ssuc").material_select('destroy');
+    var valor = $(".ssuc").attr("sel");
     $(".ssuc").append(sucursales);
+    $(".ssuc").val(valor);
     $(".ssuc").material_select();
 }

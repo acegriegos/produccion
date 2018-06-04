@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Usuarios</title>
 {$STY}
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css?v=10.0.0.2">
 
 </head>
 
@@ -16,28 +16,23 @@
 {$NAV}
 
 <div class="bdy pequeño">
-<nav class="nav-extended  white-text" style="background-color:#0B3861">
-<div class="nav-wrapper">
-<a class="brand-logo center">Usuarios</a>
-<br>
-<ul class="tabs tabs-transparent  tabs-fixed-width">
-<li class="tab menu2 " id="m1"><a class="tamLetra" href="#">Mantenimiento</a></li>
-<li class="tab menu2 " id="m2"><a class="tamLetra" href="#">Permisos</a></li>
-<li class="tab menu2 " id="m3"><a class="tamLetra" href="#">Historial</a></li>
-</ul>
-</div>
-</nav>
+<div class="center head1 padding1"><h5>Usuarios</h5></div>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs head2">
+            <li class="tab menu2" id="m1"><a class="white-text" href="#">Mantenimiento</a></li>
+            <li class="tab menu2" id="m2"><a class="white-text" href="#">Permisos</a></li>
+            <li class="tab menu2" id="m3"><a class="white-text" href="#">Historial</a></li>
+            </ul>
+        </div>
+    </div>
 <div class="card card-content z-depth-5" id="cuerpo">
 
 </div>
-<br>
-
-
-<!-- //modal-mail// -->
 
 </div>
 {$SCR}
-<script src="../assets/js/modulos/usuarios.js?v=0.11"></script>
+<script src="../assets/js/modulos/usuarios.js?v=10.0.0.2"></script>
 
 </body>
 </html>

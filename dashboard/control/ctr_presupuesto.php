@@ -14,7 +14,7 @@
         $smarty->assign('STY',$sty);
         $smarty->assign('SRC',$scr);
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->display('v_presupuesto.tpl');
+		$smarty->display('v_presupuesto.tpl');
 	   }else{
 	   	$pagina = 1;
 	   	switch ($_REQUEST['accion']) {

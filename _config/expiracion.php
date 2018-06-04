@@ -1,15 +1,24 @@
 <?php 
-
+	$mod = 'main';
+	
 	switch ($modulo) {
 		case 'login';
-			if (isset($_SESSION['USR']))
-				$modulo = 'main';
+			if (isset($_SESSION['USR'])){
+				if ($_SESSION['BUSS'] == 1) {
+					$mod = 'facturacion';
+				}
+				$modulo = $mod;
+			}
 			break;
 		case '':
 			if (!isset($_SESSION['USR'])) 
 				$modulo = 'login';
-			else
-				$modulo = 'main';
+			else{
+				if ($_SESSION['BUSS'] == 1) {
+					$mod = 'facturacion';
+				}
+				$modulo = $mod;
+			}
 			break;
 		case 'logout':
 			session_start();
@@ -35,17 +44,17 @@
 				$_SESSION['tuser'] = new DateTime('now');
 			}
 
-			$ahora = new DateTime('now');
-			$reserved = $_SESSION['tuser'];
+			// $ahora = new DateTime('now');
+			// $reserved = $_SESSION['tuser'];
 
-			$interval = ceil((strtotime($ahora->format('Y-m-d H:i:s')) - strtotime($reserved->format('Y-m-d H:i:s')))/60);
+			// $interval = ceil((strtotime($ahora->format('Y-m-d H:i:s')) - strtotime($reserved->format('Y-m-d H:i:s')))/60);
 
-			if ($interval >= 120) {
-				session_destroy();
-				$modulo = 'login';
-			}else{
-				$_SESSION['tuser'] = new DateTime('now');
-			}
+			// if ($interval >= 120) {
+			// 	session_destroy();
+			// 	$modulo = 'login';
+			// }else{
+			// 	$_SESSION['tuser'] = new DateTime('now');
+			// }
 
 			break;
 	}

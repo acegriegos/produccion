@@ -34,23 +34,28 @@
  	
 	   			$transaccion = $kakaroto->kamehameha('',72,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
-	   			
-	   			if($_REQUEST['tp'] == 0)
-   					require_once 'view/ajax/facturas/factura.php';
+	   			$ocultar = '';
+	   			$oc = '';
+	   			$repetir = isset($_REQUEST['x']) ? 1 : 0;
+
+	   			if($_REQUEST['tp'] == 'true')
+
+	   				require_once 'view/ajax/facturas/facturapv.php';
 	   			else
-	   				require_once 'view/reportes/compra.php';
+   					require_once 'view/ajax/facturas/factura.php';
 	   			break;
 	   		case 7:
 	   			$pagina = 1;
 	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
 	   			$transaccion = $kakaroto->kamehameha('',157,$_REQUEST['id']);
 	   			$datos = $transaccion[0];
+	   			
 	   			require 'view/ajax/facturas/orden.php';
 	   			break;
 	   		case 8:
 	   			$pagina = 1;
 	   			require '../_config/mySmarty.php';
-	   
+	   			
 			   	$smarty  = new mySmarty();
 			   	$smarty->setModule('dashboard');
 			   	$pg = $smarty->fetch('../view/menuSmarty.php');
@@ -61,7 +66,7 @@
 				$smarty->assign('SCR',$scr);
 			   	$smarty->assign('NAV',$pg);
 	   			$smarty->assign('TF',$_REQUEST['tf']);
-	   			$smarty->assign('FACT',$kakaroto->kamehameha('',158,'0,'.$_REQUEST['tf'].',0'));
+	   			$smarty->assign('FACT',$kakaroto->kamehameha('',158,'0,'.$_REQUEST['tf'].',0,@@impresa'));
 	   			$smarty->display('v_verFacturas.tpl');
 	   			break;
 	   		case 9:

@@ -9,16 +9,16 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link href="../assets/css/materialize.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css"> 
-  <link rel="stylesheet"  href="../assets/css/modulos/style-login.css?v=0.1">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.0.0.2">
+  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.2">
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.0.0.2"> 
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.0.0.2">
 
 
 </head>
 <body>
 
-  <div class="cont">
+  <div class="cont z-depth-3">
     <div class="demo">
       <div class="login">
        <form role="form" id="logF" action="index.php" method="POST">
@@ -29,7 +29,7 @@
         </div>
         <div class="login__form">
           <div class="input-field">
-          <svg class="login__icon name svg-icon prefix" viewBox="0 0 20 20">
+            <svg class="login__icon name svg-icon prefix" viewBox="0 0 20 20">
               <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
             </svg>
             <input type="text"  id="user" name="usr" class="login__input "  placeholder="Usuario" />
@@ -43,9 +43,9 @@
             <input type="password" id="pass" class="login__input " name="pss" placeholder="Contraseña"/>
 
           </div>
-          <button type="submit" class="login__submit btn">Ingresar</button>
+          <button type="submit" class="login__submit btn1">Ingresar</button>
 
-          <p class="login__signup"> Olvido su contraseña? &nbsp;<a href="#modal1" class="modal-trigger" id="recupss" >Recuperar</a> <span id="smail"></span></p>
+          <p class="login__signup"> Olvido su contraseña? &nbsp;<a href="#modal1" class="modal-trigger" id="recupss">Recuperar</a> <span id="smail"></span></p>
         </div>
       </form>
     </div>
@@ -58,9 +58,9 @@
 
   </div>
 </div>
-<script src="../assets/js/jquery.js"></script>
-<script src="../assets/js/materialize.min.js"></script>
-<script src="../assets/js/asgard.js"></script>
-<script src="../assets/js/modulos/login.js?v=0.2"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.2"></script>
+<script src="../assets/js/materialize.min.js?v=10.0.0.2"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.2"></script>
+<script src="../assets/js/modulos/login.js?v=10.0.0.2"></script>
 </body>
 </html>

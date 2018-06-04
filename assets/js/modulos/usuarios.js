@@ -70,10 +70,6 @@ $(function(){
 				order : [],
 				"bLengthChange": false
 			}); 
-
-
-
-
 		})
 
 		if (id == 1){
@@ -83,10 +79,10 @@ $(function(){
 			});
 			$("select").material_select('update');
 		}else if (id == 2) {
-			$("#data-table-usuariosPermisos").dataTable({
-				bFilter :  false,
-				bLengthChange : false
-			});
+			// $("#data-table-usuariosPermisos").dataTable({
+			// 	bFilter :  false,
+			// 	bLengthChange : false
+			// });
 			$("select").material_select();
 
 		}else
@@ -103,11 +99,10 @@ $(function(){
 	});
 
 	$("#back").click(function(){
-		$("#userSubmit").removeClass('btn-info');
 		$("#userSubmit").removeClass('edit');
-		$("#userSubmit").addClass('btn-success');
 		$("#userSubmit").addClass('add');
 		$("#userSubmit").attr('title','Agregar Usuario');
+		$("#userSubmit").html('<i class="mdi mdi-plus mdi-24px"></i>')
 		$(this).hide();
 		deadclear('usuario');
 		$("#vnombre").focus();
@@ -129,8 +124,8 @@ $(function(){
 
 	$("#m1").click();
 
-});
 
+});
 
 $(document).on("blur","#vmail",function(){
 	if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
@@ -176,24 +171,16 @@ $(document).on("blur","#vclave",function(){
 $(document).on("keyup","#vclave",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		if ($(this).val().length != 0) {
-			if ($(this).val().length < 8) {
-				Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
-				$(this).css('border-bottom','1px solid #F44336');
-				$(this).css('box-shadow','0 1px 0 0 #F44336');
-			}else{
-				$(this).css('border-bottom','1px solid #4CAF50');
-				$(this).css('box-shadow','0 1px 0 0 #4CAF50');
-			}
-		}else{
-			$(this).css('border-bottom','1px solid #9e9e9e');
-			$(this).css('box-shadow','none');
-		}
+		$(this).blur()
 	}
 });
 
 $(document).on("blur","#clave",function(){
 	if ($(this).val().length != 0) {
+		// if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+		// 	$(this).css('border-bottom','1px solid #4CAF50');
+		// 	$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+		// }
 		if ($(this).val().length < 8) {
 			Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos', 4000, 'red');
 			$(this).css('border-bottom','1px solid #F44336');
@@ -221,28 +208,7 @@ $(document).on("blur","#clave",function(){
 $(document).on("keyup","#clave",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
-		if ($(this).val().length != 0) {
-			if ($(this).val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-				$(this).css('border-bottom','1px solid #4CAF50');
-				$(this).css('box-shadow','0 1px 0 0 #4CAF50');
-			}else{
-				Materialize.toast('Tamaño de Contraseña debe ser mayor a 8 dígitos',4000,'red');
-				$(this).css('border-bottom','1px solid #F44336');
-				$(this).css('box-shadow','0 1px 0 0 #F44336');
-			}
-
-			if ($(this).val() != $("#vclave").val()) {
-				Materialize.toast('Contraseñas Deben ser Iguales', 4000, 'red');
-				$(this).css('border-bottom','1px solid #F44336');
-				$(this).css('box-shadow','0 1px 0 0 #F44336');
-			}else{
-				$(this).css('border-bottom','1px solid #4CAF50');
-				$(this).css('box-shadow','0 1px 0 0 #4CAF50');
-			}
-		}else{
-			$(this).css('border-bottom','1px solid #9e9e9e');
-			$(this).css('box-shadow','none');
-		}
+		$(this).blur();
 	}
 });
 
@@ -252,7 +218,8 @@ $(document).on('change','#selectUser',function(){
 		ajaxUsuarios(opcion,0)
 	}
 
-	$('#selectType').val(0)
+	$('#selectType').val(0);
+	$('#selectType').material_select('update');
 });
 
 $(document).on('blur',"#inUsuer",function(){
@@ -286,7 +253,8 @@ $(document).on('change','#selectType',function(){
 	if(opcion != 0){
 		ajaxUsuarios(opcion,1)
 	}
-	$('#selectUser').val(0)
+	$('#selectUser').val(0);
+	$("#selectUser").material_select('update');
 });
 
 $(document).on('click','.correo',function(){
@@ -311,9 +279,16 @@ $(document).on('click','.correo',function(){
 $(document).on('click','.cargar',function(){
 	$("#userSubmit").removeClass('add');
 	$("#userSubmit").addClass('edit');
-	$("#userSubmit").removeClass('blue');
-	$("#userSubmit").addClass('green');
+	$("#userSubmit").html('<i class="mdi mdi-content-save mdi-24px"></i>');
 	$("#userSubmit").attr('title','Actualizar Usuario');
+});
+
+$(document).on('click','[name^=row]',function(){
+	var tipo = $(this).attr('tp');
+	var id = $(this).attr('id').substr(1);
+	var tabla = $("#selectUser").val() == 0 ? 249 : 248;
+
+	console.log(arr("login",7,2,tabla,'tipo='+tipo,'id='+id,0,0));
 });
 
 function validar (varreglo,vmodulo) {
@@ -355,15 +330,16 @@ function validarusuarios() {
 		$('#vcedula').focus();
 		return 'Cédula Requerida';
 	}
-	if ($("#vcorreo").val() == '') {
-		$("#vcorreo").focus();
+	if ($("#vmail").val() == '') {
+		$("#vmail").focus();
 		return 'Correo Requerido';
 	}
 	if ($('#vidTipoUsuario option:selected').val() == 0) {
 		$('#vidTipoUsuario').focus();
 		return 'Tipo de Usuario Requerido';
 	}
-	if ($('#vidsuc option:selected').length <= 1) {
+	
+	if ($('#vidsuc').val() == '') {
 		$('#vidsuc').focus();
 		return 'Seleccione una Sucursal';
 	}
@@ -423,78 +399,60 @@ function cargar(vmodulo,vid) {
 	function cargarSintax(){
 		var arr = {}
 
-		arr['sel'] = 'Id,Usuario,Nombre,Cedula,Correo,`Tipo Usuario`,`Hora Entrada`,`Hora Salida`';
+		arr['sel'] = '';
 		arr['tbl'] = 7;
-		arr['where'] = 'Id > 0';
+		arr['where'] = '';
 
 		return arr;
 	}
 
 	function ajaxUsuarios(opcion,tipo){
 
-		var arr = {}
-		if (tipo != 1){
-			arr['tbl'] = 9;
-			arr['where'] = 'id_user = \"'+opcion+'\"';
-		}
-		else{
-			arr['tbl'] = 10;
-			arr['where'] = 'id_tipo = '+opcion;
-		}
-
-		arr['sel'] = '*';
-
-		p = mantenimiento("login",4,arr);	
-
 		var pg = '';
 
-
 		$('#data-table-usuariosPermisos').dataTable().fnDestroy();
-		$('#lista').html('');
+
+		var p = arr('login',4,'',247,tipo+','+opcion,0,0,0);
 
 		for (var i = 0; i < p[0].length; i++) {
 			pg +=
 			'<tr>'+
-			'<td> '+p[0][i][2]+' </td>'+
+			'<td> '+p[0][i][3]+' </td>'+
 			'<td align="center">'+
-			'<div class="radio">'+
-			'<label>'+
-			'<input type="radio" name="row'+i+'"';
+			'<input type="radio" name="row'+i+'" id="h'+p[0][i][0]+'" class="with-gap" tp="1"';
 
-			if (p[0][i][3] == 1)
+			if (p[0][i][4] == 1)
 				pg += ' checked="checked"';
 
-			pg += ' onclick="cambiar('+p[0][i][5]+',1,'+tipo+')"></label>'+
-			'</div>'+
+			pg += '/>'+
+			'<label for="h'+p[0][i][0]+'"></label>'+
+			'</td>'+
+			/*'<td align="center">'+
+			'<input type="radio" name="row'+i+'" id="d'+p[0][i][0]+'" class="with-gap" tp="2"';
+pg += '/>'+
+			if (p[0][i][4] == 2)
+				pg += ' checked="checked"';*/
+
+			
+			'<label for="d'+p[0][i][0]+'"></label>'+
 			'</td>'+
 			'<td align="center">'+
-			'<div class="radio">'+
-			'<label>'+
-			'<input type="radio" name="row'+i+'"';
+			'<input type="radio" name="row'+i+'" id="i'+p[0][i][0]+'" class="with-gap" tp="3"';
 
-			if (p[0][i][3] == 2)
+			if (p[0][i][4] == 3)
 				pg += ' checked="checked"';
 
-			pg += ' onclick="cambiar('+p[0][i][5]+',2,'+tipo+')"></label>'+
-			'</div>'+
-			'</td>'+
-			'<td align="center">'+
-			'<div class="radio">'+
-			'<label>'+
-			'<input type="radio" name="row'+i+'"';
-
-			if (p[0][i][3] == 3)
-				pg += ' checked="checked"';
-
-			pg += ' onclick="cambiar('+p[0][i][5]+',3,'+tipo+')"></label>'+
-			'</div>'+
+			pg += '/>'+
+			'<label for="i'+p[0][i][0]+'"></label>'+
 			'</td>'+		
 			'</tr>';
 		}
 
-		$('#lista').html($('#lista').html() + pg);
+		$('#lista').html(pg);
 
-		$('#data-table-usuariosPermisos').dataTable();
+		$("#data-table-usuariosPermisos").dataTable({
+				bLengthChange : false
+			});
 	}
 
 	function cambiar(x1,x2,x3){
@@ -515,11 +473,9 @@ function cargar(vmodulo,vid) {
 			
 			deadclear(modulo);
 			thorload(modulo);
-			break
+			$(".validate").css('border-bottom', '1px solid #9e9e9e');
+			$(".validate").css('box-shadow', 'none');
+			break;
 		}
-
-	}
-
-	function postload(modulo) {
 
 	}

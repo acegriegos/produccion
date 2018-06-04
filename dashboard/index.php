@@ -5,7 +5,7 @@
 	require_once '../_config/expiracion.php';
 
 
-	if (is_file('control/ctr_'.$modulo.'.php') ) {
+	if (is_file('control/ctr_'.$modulo.'.php') && hper($modulo) ) { //
 		require_once 'control/ctr_'.$modulo.'.php';
 	}else{
 		require_once '../_config/error.php';
@@ -56,6 +56,16 @@
 	    }
 	  }
 	return $path;
+	}
+
+	function hper($vmodulo)
+	{
+		include_once '../_config/mysqlDB.php';
+		$db = new DBClass();
+
+		$rs = $db->ejecutar("select if(codigo <> 1,0,1) from permisos where href = '".$vmodulo."'");
+		$rs = $rs->num_rows > 0 ? $rs->fetch_all()[0][0] : 1;
+		return $rs;
 	}
 
  ?>

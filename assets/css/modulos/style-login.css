@@ -1,50 +1,125 @@
+.head1 {
+  background: #0080C6;
+  color: #fff; }
 
-*, *:before, *:after {
+.head2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.head3 {
+  background: #F58345;
+  color: #fff; }
+
+.head4 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn1 {
+  background: #0080C6;
+  color: #fff; }
+
+.btn1:hover {
+  background: #003e60 !important; }
+
+.btn2 {
+  background: #F58345;
+  color: #fff; }
+
+.btn2:hover {
+  background: #c94e0b !important; }
+
+.btn3 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.btn3:hover {
+  background: #282828 !important; }
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff; }
+
+.btn4:hover {
+  background: #678120 !important; }
+
+.btn5 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn5:hover {
+  background: #296f4a !important; }
+
+.tab1 {
+  background: #0080C6;
+  color: #fff; }
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.tab3 {
+  background: #F58345;
+  color: #fff; }
+
+.tab4 {
+  background: #45b97c;
+  color: #fff; }
+
+.bg1 {
+  background: #4D4D4D; }
+
+.danger:hover {
+  color: #EC545A !important; }
+
+.bgtransparent {
+  background: transparent; }
+
+.gtext {
+  color: #5A5A5A; }
+
+.padding1 {
+  padding: 1%; }
+
+* {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
+  *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; }
 
 html, body {
   font-size: 62.5%;
   height: 100%;
-  overflow: hidden;
-}
+  overflow: hidden; }
+
 @media (max-width: 768px) {
   html, body {
-    font-size: 50%;
-  }
-}
-
+    font-size: 50%; } }
 svg {
   display: inline-block;
   width: 2rem;
   height: 2rem;
-  overflow: visible;
-}
+  overflow: visible; }
 
 .svg-icon {
-  cursor: pointer;
-}
-.svg-icon path {
-  stroke: rgba(255, 255, 255, 0.9);
-  fill: none;
-  stroke-width: 1;
-}
+  cursor: pointer; }
+  .svg-icon path {
+    stroke: #5A5A5A;
+    fill: none;
+    stroke-width: 1; }
 
 input, button {
   outline: none;
-  border: none;
-}
+  border: none; }
 
 .cont {
   position: relative;
   height: 100%;
-  background-image: url("../../img/login/fondo-log.jpg");
-  background-size: cover;
+  background: #4D4D4D;
   overflow: auto;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
-}
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; }
 
 .demo {
   position: absolute;
@@ -54,34 +129,26 @@ input, button {
   margin-top: -26.5rem;
   width: 30rem;
   height: 53rem;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .login {
   position: relative;
   height: 100%;
-  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+  background: #e9e9e9;
   -webkit-transition: opacity 0.1s, -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25), -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   -webkit-transform: scale(1);
-          transform: scale(1);
-}
-.login.inactive {
-  opacity: 0;
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-}
-.login__check {
-}
+  transform: scale(1); }
+  .login.inactive {
+    opacity: 0;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1); }
 
-#img{
+#img {
   margin-top: 15%;
-  width: 50%;
-
-}
+  width: 50%; }
 
 .login__form {
   position: absolute;
@@ -90,29 +157,28 @@ input, button {
   width: 100%;
   height: 50%;
   padding: 1.5rem 2.5rem;
-  text-align: center;
-}
+  text-align: center; }
+
 .login__row {
   height: 5rem;
   padding-top: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+
 .login__icon {
+  color: #5A5A5A;
   margin-bottom: -0.4rem;
-  margin-right: 0.5rem;
-}
-.login__icon.name path {
-  stroke-dasharray: 73.50196075439453;
-  stroke-dashoffset: 73.50196075439453;
-  -webkit-animation: animatePath 2s 0.5s forwards;
-          animation: animatePath 2s 0.5s forwards;
-}
-.login__icon.pass path {
-  stroke-dasharray: 92.10662841796875;
-  stroke-dashoffset: 92.10662841796875;
-  -webkit-animation: animatePath 2s 0.5s forwards;
-          animation: animatePath 2s 0.5s forwards;
-}
+  margin-right: 0.5rem; }
+  .login__icon.name path {
+    stroke-dasharray: 73.50196075439453;
+    stroke-dashoffset: 73.50196075439453;
+    -webkit-animation: animatePath 2s 0.5s forwards;
+    animation: animatePath 2s 0.5s forwards; }
+  .login__icon.pass path {
+    stroke-dasharray: 92.10662841796875;
+    stroke-dashoffset: 92.10662841796875;
+    -webkit-animation: animatePath 2s 0.5s forwards;
+    animation: animatePath 2s 0.5s forwards; }
+
 .login__input {
   display: inline-block;
   width: 22rem;
@@ -120,23 +186,21 @@ input, button {
   padding-left: 1.5rem;
   font-size: 14px !important;
   background: transparent;
-  color: #FDFCFD;
-}
+  color: #5A5A5A; }
+
 .login__submit {
   position: relative;
   width: 100%;
   height: 4rem;
   margin: 1rem 0 2.2rem;
-  color: rgba(255, 255, 255, 0.8);
-  background: #0B3861;
+  color: #fafafa;
   font-size: 1.5rem;
   border-radius: 3rem;
   cursor: pointer;
   overflow: hidden;
   -webkit-transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
-  transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
-}
-.login__input::placeholder { color: #EFE9E9; }
+  transition: width 0.3s 0.15s, font-size 0.1s 0.15s; }
+
 .login__submit:after {
   content: "";
   position: absolute;
@@ -152,44 +216,36 @@ input, button {
   border-bottom: none;
   -webkit-transition: opacity 0.1s 0.4s;
   transition: opacity 0.1s 0.4s;
-  opacity: 0;
-}
+  opacity: 0; }
 .login__submit.processing {
   width: 4rem;
-  font-size: 0;
-}
-.login__submit.processing:after {
-  opacity: 1;
-  -webkit-animation: rotate 0.5s 0.4s infinite linear;
-          animation: rotate 0.5s 0.4s infinite linear;
-}
+  font-size: 0; }
+  .login__submit.processing:after {
+    opacity: 1;
+    -webkit-animation: rotate 0.5s 0.4s infinite linear;
+    animation: rotate 0.5s 0.4s infinite linear; }
 .login__submit.success {
   -webkit-transition: opacity 0.1s 0.3s, background-color 0.1s 0.3s, -webkit-transform 0.3s 0.1s ease-out;
   transition: opacity 0.1s 0.3s, background-color 0.1s 0.3s, -webkit-transform 0.3s 0.1s ease-out;
   transition: transform 0.3s 0.1s ease-out, opacity 0.1s 0.3s, background-color 0.1s 0.3s;
   transition: transform 0.3s 0.1s ease-out, opacity 0.1s 0.3s, background-color 0.1s 0.3s, -webkit-transform 0.3s 0.1s ease-out;
   -webkit-transform: scale(30);
-          transform: scale(30);
-  opacity: 0.9;
-}
-.login__submit.success:after {
-  -webkit-transition: opacity 0.1s 0s;
-  transition: opacity 0.1s 0s;
-  opacity: 0;
-  -webkit-animation: none;
-          animation: none;
-}
+  transform: scale(30);
+  opacity: 0.9; }
+  .login__submit.success:after {
+    -webkit-transition: opacity 0.1s 0s;
+    transition: opacity 0.1s 0s;
+    opacity: 0;
+    -webkit-animation: none;
+    animation: none; }
+
 .login__signup {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
-  padding-left: 10%;
-}
-.login__signup a {
-  color: #fff;
-  cursor: pointer;
-}
-
-
+  color: #5A5A5A;
+  padding-left: 10%; }
+  .login__signup a {
+    color: #5A5A5A;
+    cursor: pointer; }
 
 .ripple {
   position: absolute;
@@ -199,48 +255,34 @@ input, button {
   margin-top: -7.5rem;
   background: rgba(0, 0, 0, 0.4);
   -webkit-transform: scale(0);
-          transform: scale(0);
+  transform: scale(0);
   -webkit-animation: animRipple 0.4s;
-          animation: animRipple 0.4s;
-  border-radius: 50%;
-}
+  animation: animRipple 0.4s;
+  border-radius: 50%; }
 
 @-webkit-keyframes animRipple {
   to {
     -webkit-transform: scale(3.5);
-            transform: scale(3.5);
-    opacity: 0;
-  }
-}
-
+    transform: scale(3.5);
+    opacity: 0; } }
 @keyframes animRipple {
   to {
     -webkit-transform: scale(3.5);
-            transform: scale(3.5);
-    opacity: 0;
-  }
-}
+    transform: scale(3.5);
+    opacity: 0; } }
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
+    transform: rotate(360deg); } }
 @keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
+    transform: rotate(360deg); } }
 @-webkit-keyframes animatePath {
   to {
-    stroke-dashoffset: 0;
-  }
-}
+    stroke-dashoffset: 0; } }
 @keyframes animatePath {
   to {
-    stroke-dashoffset: 0;
-  }
-}
+    stroke-dashoffset: 0; } }
 
-
+/*# sourceMappingURL=style-login.css.map */

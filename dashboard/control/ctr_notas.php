@@ -28,8 +28,8 @@ if (!isset($_REQUEST['accion'])) {
 		break;
 		case 4:
 			$pagina = 1;
-			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
-			$transaccion = $kakaroto->kamehameha('',186,$_REQUEST['id']);
+	   		$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
+			$transaccion = $kakaroto->kamehameha('',186,$_REQUEST[6]);
 			$datos = $transaccion[0];
 			
 			if($_REQUEST['tp'] == 1)

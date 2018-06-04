@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.2">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.2">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=0.5" rel="stylesheet"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.2"> -->
 
-<link href="../assets/css/modulos/style-factura.css" rel="stylesheet">
+<link href="../assets/css/modulos/style-factura.css?v=10.0.0.2">
 
 <title>Recibo de Dinero</title>
 
@@ -23,7 +23,9 @@
       <div class="row">
         <div class="col s6 m5 l3">
           <br>
-        <img src="<?php echo $miscelaneos[3]; ?>" id="imglogo" class="img-responsive" width="90%">
+       <?php if ($miscelaneos[3]) {
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="90%">';
+            } ?>
         </div>
         <div class="col s6 m7 l9 right-align">
           <font size="3">
@@ -39,8 +41,6 @@
 
           </font>
         </div>
-
-
       </div>
       <div class="row">
         <div class="col s6 left-align">
@@ -49,10 +49,11 @@
             <b id="fact">Recibo N°</b>
             <span id="numfact"> <?php echo $datos[1]; ?> </span>
           </div>
-
-
+        <div class="col s12" id="infofact" >
+            <b id="fact">Factura N°</b>
+            <span id="numfactori"> <?php echo $datos[13]; ?> </span>
+          </div>
         </div>
-
       </div>
     </div>
     <!-- /HEADER -->
@@ -68,11 +69,6 @@
           <span class=""><b>Usuario:</b></span>
           <span id="fvendedor" class=""><i><?php echo $datos[10]; ?> </i></span>
         </div>
-
-
-
-
-
 
       </div>   
     </div>
@@ -108,7 +104,7 @@
             <th class="center-align sinborde" id="th1">Tipo de movimiento</th>
             <th class="center-align sinborde" id="th2">Fecha</th>
             <th class="center-align sinborde" id="th3">Saldo anterior</th>
-            <th class="center-align sinborde" id="th6">Monto abonado</th>
+            <th class="center-align sinborde" id="th6">Monto </th>
             <th class="center-align sinborde" id="th6">Saldo actual</th>
 
           </tr>
@@ -135,20 +131,13 @@
           <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11]; ?><?php echo $datos[6]; ?></b></td>
 
         </tr>
-
-
       </tfoot>
     </table>
     <!-- /DETALLE FACT -->
     <br>
     <!-- INFO FACT -->
-
     <div class="row">
       <br>
-
-
-
-
     </div>
     
   </div>
@@ -180,9 +169,9 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.2"></script>
 
-<script src="../assets/js/materialize.js"></script>
-<script src="../assets/js/asgard.js?v=0.1"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=0.6"></script>
+<script src="../assets/js/materialize.js?v=10.0.0.2"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.2"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.2"></script>
 </body>

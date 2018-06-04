@@ -7,22 +7,19 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Cuentas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cuentas.css?v=0.9">
-
-
-    </head>
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.2">
+</head>
     
+  <body>
+    {$NAV}
 
-    <body>
-      {$NAV}
-      
-      <div class="bdy pequeño">
-
-        <div id="bdymantCuentas"></div> 
-
-      </div>
-      {$SCR}
-      <script src="../assets/js/modulos/cuentas.js?v=0.11"></script>
-
-      </body>
-      </html>
+    <div class="bdy pequeño">
+      <div id="bdymantCuentas"></div> 
+    </div>
+    
+    {$SCR}
+    
+    <script src="../assets/js/modulos/cuentas.js?v=10.0.0.2"></script>
+    
+  </body>
+</html>

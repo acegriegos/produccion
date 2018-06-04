@@ -52,6 +52,7 @@ $(document).ready(function(){
             $("#msjrecupss").addClass('red white-text');
             $("#user").focus();
         }else{
+            
             var result = arr('login',4,'',233,'"'+$("#user").val()+'"','',0,'');
             if (result[0].length) {
                 $("#msjrecupss").html('<img src="../assets/img/icon/mail_recovery.svg" width="100px"><br><h5>Recuperar Contraseña</h5><p>Enviar código de recuperación al correo:<br><b class="truncate">'+result[0][0][1]+'</b></p><a href="#!" id="sendrecupss" class="modal-action modal-close waves-effect waves-green btn-flat grey lighten-3">Enviar</a>');

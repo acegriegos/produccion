@@ -1,5 +1,7 @@
 $(function(){
-    dibujarGrafico("chartG1",'Reporte Morosidad de Compras','Proveedores','pie',{sel:'',tbl:212,where:'0,2'});
+    dibujarGrafico("chartG1",'Reporte Morosidad de Compras','Proveedores','pie',{sel:'',tbl:212,where:'0,2'},0,1);
+    	    permisos(2000,2610);
+
 });
 
 $(document).on("click","#Iadd",function(){

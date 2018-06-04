@@ -18,13 +18,13 @@
                                 <label for="vcodigo">Codigo del Proceso</label>
                             </div>
                             <div class="col s2 m2 l2">
-                                <span class="mdi mdi-plus-circle mdi-36px blue-text pbtn" id="addprocess"></span>
-                                <span class="mdi mdi-content-save mdi-36px blue-text pbtn hide" id="edtitcod"></span>
+                                <span class="mdi mdi-plus-circle mdi-36px btn2 pbtn" id="addprocess"></span>
+                                <span class="mdi mdi-content-save mdi-36px btn2 pbtn hide" id="edtitcod"></span>
                                 <!-- <button type="button" class="btn-floating waves-effect waves-light blue hide" id="edtitcod" title="Editar nombre y codigo del proceso"><i class="material-icons" style="padding-top: 3px">save</i></button> -->
                                 <!-- <button type="button" class="btn-floating waves-effect waves-light blue z-depth-5" id="addrecipe"><i class="material-icons">add</i></button> -->
                             </div>
                         </div>
-                        <div class="row hide" id="adaddprod">
+                        <div class="row hide" id="adaddprod" style="background: #FEFEFE">
                             <div class="input-field col s4 m4">
                                 <input id="aproducto" type="text" class="autocomplete vproducto">
                                 <label for="aproducto">Insumo</label>
@@ -54,16 +54,16 @@
                         <table class="table responsive-table striped bordered highlight z-depth-3" id="data-table-procesos" cellspacing="0" >
                             <thead>
                                 <tr>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                                    <th  class="white-text blue" style="border: 0; border-radius: 0px !important;">Total</th>
-                                    <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
+                                    <th class="tab1txt tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
+                                    <th  class="tab1txt tab1" style="border: 0; border-radius: 0px !important;">Total</th>
+                                    <th class="tab1txt tab1" style="border: 0; border-radius: 0px !important;">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="listaprocesos">
                                 {section name=LE loop=$REC}
                                 <tr>
                                     <td style=" padding: 10px;">{$REC[LE][1]}</td>
-                                    <td style=" padding: 10px;">{$REC[LE][2]}</td>
+                                    <td style=" padding: 10px;">{$REC[LE][6]}</td>
                                     <td style=" padding: 10px;">
                                         <a class="btn-color pbtn instoproduct mdi mdi-basket-fill mdi-24px modal-trigger" href="#modal-addtoproducts" id="i{$REC[LE][0]}" title="Ingresar proceso a Inventario Producto Final"></a>
                                         <a class="btn-color pbtn editproceso mdi mdi-pencil mdi-24px" id="m{$REC[LE][0]}"></a>

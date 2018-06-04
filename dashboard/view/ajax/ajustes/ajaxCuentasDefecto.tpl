@@ -1,43 +1,7 @@
 <div class="card pequeño">
     
     <div class="card-block pequeño">
-        <h3 class="center-align">Ingresar Cuenta</h3>
-        <div class="row pequeño">
-
-            <div class="input-field col s12 m6 pequeño">
-                <div class="prefix addglobal pbtn pequeño" title="Agregar Cuenta"><i class="mdi mdi-plus"></i></div>
-                <select class="slide" cod="1" id="vgenero" lvl="0">
-                    <option value="0">Seleccione una Opción</option>
-                    {section name=LE loop=$CUE}
-                        <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
-                    {/section}
-                </select>
-                <label for="vgenero">Cuenta</label>
-            </div>
-           
-            <div class="col s12 m6 addcta pequeño" cod="2">
-                <div class="row pequeño">
-                    <div class="col s12 m9 input-field pequeño">
-                    <i class="fa fa-arrow-left moveL prefix pbtn" style="display: none"></i>
-                    <input type="text" class="slide" id="vnombre" maxlength="40">
-                    <label for="vnombre">Nombre de la Cuenta</label>
-                    </div>
-
-                    <div class="col s12 m3 pequeño">
-                    <p>
-                        <input type="checkbox" id="continuo" checked title="Cuenta Padre">
-                        <label for="continuo">Cuenta Padre</label> 
-                    </p>
-                    
-                 <!--    <input type="hidden" id="vispadre" value="1"> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <span id="myub">Ubicación Actual: Raíz</span>
-        <br>
-
-         <h3 class="center-align">Modificar Cuentas</h3>
+        <h3 class="center-align">Mantenimiento Cuentas</h3>
         <div class="z-depth-5" id="vcuentas">
             <div class="collection">
 
@@ -56,22 +20,20 @@
             </a>
             
             {section name=LE loop=$VCUE}
-            <a href="#!" class="collection-item cuecon" style="max-height:220px;padding:0;padding-top: 2px; {if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="{$VCUE[LE][4]}">
+            <a href="#!" class="collection-item cuecon" style="color:black;max-height:220px;padding:0;padding-top: 2px; {if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="{$VCUE[LE][4]}">
               <div class="row">
                 <div class="col s4 left">
                     <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px;{if $VCUE[LE][4] neq 1} margin-left: {math equation='x * y' x=2 y=$VCUE[LE][4]}%;{/if}" {if $VCUE[LE][4] eq 1} readonly {/if} maxlength="40">
                 </div>
-                <div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;">
+              x   <div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;">
                     {$VCUE[LE][2]}
                 </div>
                 <div class="col s4 right">
-                    {if $VCUE[LE][4] neq 1}
 
-                    <input type="checkbox" class="ispadr" id="ip{$VCUE[LE][0]}" title="Cuenta Padre" {if $VCUE[LE][5] eq 1} checked {/if}>
+                    <input type="checkbox" class="ispadr" {if $VCUE[LE][4] eq 1} indeterminate-checkbox disabled {/if} id="ip{$VCUE[LE][0]}" title="Sub Cuenta" {if $VCUE[LE][5] eq 1} checked {/if}>
                     <label for="ip{$VCUE[LE][0]}"></label>
-
-                    <i class="material-icons" id="ec{$VCUE[LE][0]}" title="Eliminar Cuenta">delete</i>
-                    {/if}
+                    <i class="mdi mdi-plus mdi-24px" id="ac{$VCUE[LE][0]}" title="Agregar Cuenta"></i>
+                    <i class="mdi mdi-delete mdi-24px {if $VCUE[LE][4] eq 1} disabled {/if} " id="ec{$VCUE[LE][0]}" title="Eliminar Cuenta"></i>
                 </div>
               </div>
             </a>

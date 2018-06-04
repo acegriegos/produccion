@@ -1,5 +1,5 @@
 $(function(){
- dibujarGrafico("chartG1",'Reporte Morosidad de Ventas','Clientes','bar',{sel:'',tbl:212,where:'0,1'});
+ dibujarGrafico("chartG1",'Reporte Morosidad de Ventas','Clientes','bar',{sel:'',tbl:212,where:'0,1'},0,1);
 });
 
 function validar (varreglo,vmodulo) {

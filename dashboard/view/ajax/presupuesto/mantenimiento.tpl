@@ -1,49 +1,52 @@
 <div class="modal modal-fixed-footer" id="modal-odt">
-    <div class="modal-header center">
+    <div class="modal-header center head3" style="padding: 1%">
         Asignar ODT al Presupuesto <span id="gid" tr="0"></span>
     </div>
     <div class="modal-content">
         <div class="row">
             <div class="col s5">
-                <label for="nodt">ODT</label>
-                <input type="text" id="nodt" placeholder="Buscar y Asignar ODT">
-
-                <div id="fodts" style="border: 1px solid #e2e2e2;padding: 1%;">
-
-                    <input type="hidden" class="zelda">
-                    <label class="center">Crear y Asignar ODT</label>
-                    <input type="text" id="vcodigo" placeholder="Código" maxlength="10">
-                    <input type="text" id="vdescripcion" placeholder="Descripción" maxlength="255">
-
-                    <a href="#" class="btn-floating der add proyect" modulo="odt" title="Crear ODT"><i class="mdi mdi-plus small"></i></a>
-
+                <div class="row">
+                    <div class="col s12">
+                        <h6 for="nodt" class="center"><b>ODT</b></h6>
+                        <input type="text" class=" autocomplete" id="nodt" placeholder="Buscar y Asignar ODT">
+                    </div>
                 </div>
-
+                <div class="row">
+                    <div class="col s10">
+                        <div id="fodts" style="padding: 1%;">
+                            <input type="hidden" class="zelda">
+                            <h6 class="center"><b>Crear y Asignar ODT</b></h6>
+                            <input type="text" id="vcodigo" placeholder="Código" maxlength="10">
+                            <input type="text" id="vdescripcion" placeholder="Descripción" maxlength="255">
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <a href="#" class="btn-floating der btn2 add proyect" modulo="odt" title="Crear ODT"><i class="mdi mdi-plus small"></i></a>
+                    </div>
+                </div>
             </div>
-
+            <div class="col s1">
+                &nbsp;
+            </div>
             <div class="col s5">
-                <label>Lista de ODT Asignadas</label>
-                <div class="listaodt">
-                    
-                </div>
+                <h6 class="center"><b>Lista de ODT Asignadas</b></h6>
+                <div class="listaodt"><!-- JS --></div>
             </div>
-
-            <div class="col s2">
-                <i class="fa fa-trash pbtn black-text" id="qodt" title="Quitar ODT"></i>
+            <div class="col s1">
+                <i class="pbtn mdi mdi-delete small" id="qodt" title="Quitar ODT"></i>
             </div>
         </div>
-        
     </div>
 
     <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-        </div>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+    </div>
 </div>
 
-<div id="addPre" class="modal modal-fixed-footer" style="width: 90%">
-    <div class="modal-header center" id="titpre">
 
-    </div>  
+
+<div id="addPre" class="modal modal-fixed-footer" style="width: 90%">
+    <div class="modal-header center head3" style="padding: 1%" id="titpre"></div>  
     <div class="modal-content">
       <section id="fpresupuestos">
 
@@ -97,12 +100,12 @@
                 </div>
 
                 <div class="col s6 m4 input-field general">
-                    <i class="fa fa-calendar-o prefix"></i>
+                    <label for="vfecha_inicio">Fecha Inicio</label>
                     <input type="date" id="vfecha_inicio" class="datepicker">
                 </div>
 
                 <div class="col s6 m4 input-field general">
-                    <i class="fa fa-calendar-o prefix"></i>
+                    <label for="vfecha_fin">Fecha Final</label>
                     <input type="date" id="vfecha_fin" class="datepicker">
                 </div>
 
@@ -112,11 +115,7 @@
                 </div>
 
                 <div class="col s6 m4 input-field rest0 hide">
-                    
-                    <select id="periodo">
-                        
-                    </select>
-
+                    <select id="periodo"><!-- JS --></select>
                     <label for="periodo" id="plabel">Período</label>
                 </div>
 
@@ -150,29 +149,33 @@
     </div>
   </div>
 
-<div class="row">
-    <div class="input-field col s12 m6">
-        <a class="prefix mdi mdi-magnify"></a>
-        <input type="text" id=".search_productos" maxlength="100" num="v14" var="codigo,descripcion" placeholder="Filtros">
+    <div class="row">
+        <div class="input-field col s8 m6">
+            <a class="prefix mdi mdi-magnify"></a>
+            <input type="text" id=".search_productos" maxlength="100" num="v14" var="codigo,descripcion" placeholder="Filtros">
+        </div>
+        <div class=" s4 m6 col">
+            <div class="container">
+                <a href="#addPre" class="btn-floating pluskey der modal-trigger btn2" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
+            </div>
+        </div>
     </div>
+    <div class="card-block" style="padding: 0 1% 0 1% ; ">
+        <table class="table  bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-presupuestos" cellspacing="0" width="100%" >
+            <thead>
+                <tr>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Descripción</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Monto</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Estado</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Sucursal</th>
+                    <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="listapresupuestos"><!-- JS --></tbody>
 
-    <a href="#addPre" class="btn-floating der pluskey" modulo="presupuesto" title="Ingresar Presupuesto" id="ingPre"><i class="mdi mdi-plus"></i></a>
-
-</div>
-
-<table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-presupuestos" cellspacing="0" width="100%" >
-<thead>
-<tr>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Código</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Descripción</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Monto</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Estado</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Sucursal</th>
-<th class="white-text blue" style="border: 0; border-radius: 0px !important;">Acciones</th>
-</tr>
-</thead>
-<tbody id="listapresupuestos">
-
-</tbody>
-
-</table>
+        </table>
+        <ul class="pagination right" vtbl="" modulo="" cambio=""></ul>
+          <br>
+          <br>
+    </div>

@@ -98,12 +98,6 @@ $(document).on("click",".view-cuenta",function(){
 	titulo += " en la Cuenta "+$("#n"+id).html();
 	$(".cta-sh-tit").html(titulo);
 
-	// $('.sh-cta-card .button-collapse').sideNav({
- //            edge: 'left', // Choose the horizontal origin
- //            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
- //        }
- //    );
-
 });
 
 $(document).on("click",".numTransacc",function(){
