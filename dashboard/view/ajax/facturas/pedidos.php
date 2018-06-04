@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.1">
-<link href="../assets/css/modulos/style-factura.css?v=10.0.0.1">
+<link href="../assets/css/materialize.css?v=10.0.0.2">
+<link href="../assets/css/modulos/style-factura.css?v=10.0.0.2">
 
 <body class="grey darken-4" style="font-size: 1.1em;" >
   <div class="hoja grey lighten-3">
@@ -179,6 +179,6 @@
     <!-- /FOOTER -->
   </div>
 
-  <script src="../assets/js/jquery.js?v=10.0.0.1"></script>
-  <script src="../assets/js/materialize.js?v=10.0.0.1"></script>
+  <script src="../assets/js/jquery.js?v=10.0.0.2"></script>
+  <script src="../assets/js/materialize.js?v=10.0.0.2"></script>
 </body>
