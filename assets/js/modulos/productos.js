@@ -503,20 +503,20 @@ $(document).on("click", ".vfiltros", function () {
 	}
 });
 
-$(document).on("click", ".filtersrv", function () {
-	var id = parseInt($(this).attr('filtro').substr(1));
-	var elemento = $("#searchsrv");
-	switch (id) {
-		case 1:
-			$("#fserv").attr('filter', id);
-			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
-			break;
-		case 2:
-			$("#fserv").attr('filter', id);
-			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
-			break;
-	}
-});
+// $(document).on("click", ".filtersrv", function () {
+// 	var id = parseInt($(this).attr('filtro').substr(1));
+// 	var elemento = $("#searchsrv");
+// 	switch (id) {
+// 		case 1:
+// 			$("#fserv").attr('filter', id);
+// 			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
+// 			break;
+// 		case 2:
+// 			$("#fserv").attr('filter', id);
+// 			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
+// 			break;
+// 	}
+// });
 
 $(document).on("click", ".filtropqt", function () {
 	var id = parseInt($(this).attr('filtro').substr(1));
@@ -2398,7 +2398,8 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 13;
-			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@impresa","0,10"';
+			arr['where'] = '0,0,"'+$("#search_servicios").val()+',@@impresa","0,10"';
+			console.log(arr['where'])
 			break;
 		case 'paquetes':
 			var arr = {};

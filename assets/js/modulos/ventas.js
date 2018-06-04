@@ -764,6 +764,13 @@ function searchClient(vvariable,visprv){
         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
         $("#ncli").val(vclie[1]+' '+vclie[2]);
         
+        if ($(".zelda").data('triforce')['vidtipoventa'] == 7){
+            $(".zelda").data('triforce')['vidtipoventa'] == 1;
+            var ncons = getDatos('lpad(consecutivo,6,0)',39,'id = @@impresa',0,0)[0][0];
+            $("#titfact").html('VENTAS')
+            $("#idfact").html(ncons);
+        }
+
         if (vclie[3] > 0)
             $("#chg_tipo").removeAttr('disabled');
         else
@@ -791,6 +798,13 @@ function searchClient(vvariable,visprv){
         $("#vdescuentop").data('valor',vclie[4])
         
     }else{
+        if ($(".zelda").data('triforce')['vidtipoventa'] == 1){
+            $(".zelda").data('triforce')['vidtipoventa'] == 7;
+            var ncons = getDatos('lpad(consecutivo6,6,0)',39,'id = @@impresa',0,0)[0][0];
+            $("#titfact").html('TIQUETES')
+            $("#idfact").html(ncons);
+        }
+
         $(".zelda").data('triforce')['vidcliente'] = 0;
         $("#vdescuentop").val(0);
         $("#vdescuentop").data('valor',0);

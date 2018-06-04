@@ -39,7 +39,6 @@
 	   			$smarty->assign('SERV',$kakaroto->kamehameha('',13,'0,0,",@@impresa","0,10"'));
 	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 	   			$smarty->display('ajax/productos/ajaxmantServicios.tpl');
-	   			// print_r($kakaroto->kamehameha('',13,''));
 	   			break;
 	   		case 3:
 	   			$pagina = 1;

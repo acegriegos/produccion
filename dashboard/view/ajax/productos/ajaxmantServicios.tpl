@@ -5,13 +5,9 @@
             <a class="prefix dropdown-button tooltipped small mdi mdi-magnify pbtn" data-activates="fserv" data-position="button" data-tooltip="Cambiar Filtro"></a>
         </div>
         <div class="input-field col s9 m9">
-            <input id="searchsrv" type="text" class="validate" style="margin-left: 1% !important;">
-            <label for="searchsrv" id="phs" style="margin-left: 1% !important;">Buscar por Código</label>
-        </div>
-        <ul id="fserv" class="dropdown-content" filter="1">
-            <li><a class="dropdown-item filtersrv" filtro="f1">Código</a></li>
-            <li><a class="dropdown-item filtersrv" filtro="f2">Nombre</a></li>
-        </ul>            
+            <input id="search_servicios" type="text" maxlength="100" num="v13" var="0,1" style="margin-left: 1% !important;">
+            <label for="search_servicios" style="margin-left: 1% !important;">Buscar por Código o Nombre</label>
+        </div>          
     </div>
     <div class="col s12 m6">
         <a id="addservice" class="btn-floating waves-effect waves-light right btn2 z-depth-3 per4111 modal-trigger" href="#modal-servicios"><i class="mdi mdi-plus"></i></a>
