@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.0.0.1">
   <body >
   {$NAV}
-    <div class="bdy pequeño" >
+    <div class="bdy pequeño movil" >
       <div id="mfacturacion"></div>
     </div>
   </body>
