@@ -3,7 +3,7 @@
 <div class="row">
   <div class="l9 m12 s12 col">
 
-<div class="card z-depth-3 pequeño">
+<div class="card z-depth-3 pequeño movil">
 <div class="card-header center head1 white-text">
   <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
 </div>
@@ -367,7 +367,7 @@
               <label for="p_v" style="color: black; padding-left: 20px;">Punto Venta</label>
           </div>
 
-          <div class="col s12 m6 l6 _odt">
+          <div class="col s12 m6 l6 _odt hide">
             <select id="idodt" type="select">
               <option value="0" style="color: black"><b>ODT</b></option>
             </select>

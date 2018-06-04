@@ -407,7 +407,11 @@ function cargarGlobal(){
             console.log(arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 and find_in_set(idsucursal,concat("-1,",@@impresa)) having nom like "%'+busqueda+'%" limit 20',0,0,0,1));
             $("#ncli").autocomplete({
                 limit: 20,
+<<<<<<< HEAD
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 and find_in_set(concat("-1",@@impresa),idsucursal) having nom like "%'+busqueda+'%" limit 20',0,0,0,1)
+=======
                 data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 and find_in_set(idsucursal,concat("-1,",@@impresa)) having nom like "%'+busqueda+'%" limit 20',0,0,0,1)
+>>>>>>> 53da4b55ee5d50741fe304c1ba6ab572893075f9
             });
 
         }

@@ -78,9 +78,9 @@
             <div class="col s12 input-field" align="center">
                 <span id="invname" nv="" style="float: left;">NOMBRE DE INVENTARIO</span>
 
-                <a href="#" class="btn-floating green cargar load_inv" title="Cargar Inventario"><i class="fa fa-caret-up"></i></a>
+                <a href="#" class="mdi mdi-24px mdi-playlist-plus cargar load_inv" title="Cargar Inventario" style="padding-right: 2%"></a>
 
-                <a href="#" class="btn-floating red descargar" title="Descargar Inventario"><i class="fa fa-caret-down"></i></a>
+                <a href="#" class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario"></a>
 
                 <a href="#" class="btn-floating cargar load_ped" title="Cargar Pedidos"><i class="fa fa-file-o"></i></a>
 
