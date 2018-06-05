@@ -1,8 +1,8 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css" rel="stylesheet">
-<!-- <link href="../assets/css/modulos/style-factura.css" rel="stylesheet"> -->
+<link href="../assets/css/materialize.css?v=10.0.0.2">
+<!-- <link href="../assets/css/modulos/style-factura.css?v=10.0.0.2"> -->
 <body class="grey darken-4" style="font-size: 1.1em;" >
   <div class="hoja grey lighten-5" style="padding: 0% 1% 1% 1%;">
     <div class="row">
@@ -129,13 +129,13 @@
      
       <!-- /INFO CONTACTO -->
       <!-- DETALLE FACT -->
-      <table class="bordered" style="border: 0px; font-size: 1.2em;" id="detalle">
+      <table class="bordered" style="border: 0px; font-size: 1em;" id="detalle">
         <thead>
           <tr>
             <th class="center-align"></th>
             <th class="center-align"></th>
             <th class="center-align"style="font-size: 1.2em;">Facturas</th>
-            <th class="center-align" </th>
+            <th class="center-align"> </th>
             <th class="center-align"></th>
             <th class="center-align"></th>
           </tr>
@@ -145,7 +145,6 @@
             <th class="center-align " id="th1" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Consecutivo</th>
             <th class="center-align sinborde" id="th2" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Fecha</th>
             <th class="center-align sinborde" id="th3" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Cliente</th>
-            <th class="center-align sinborde" id="th6" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Tipo</th>
             <th  class="center-align sinborde" id="th4" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Tipo Pago</th>
             <th class="center-align " id="th5" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Total</th>
           </tr>
@@ -156,7 +155,6 @@
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="con" style="font-size: 1.1em;"><?php echo $obj[11]; ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="fec" style="font-size: 1.1em;"><?php echo $obj[12]; ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="cli" style="font-size: 1.1em;"><?php echo $obj[13]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="tip" style="font-size: 1.1em;"><?php echo $obj[14]; ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="pag" style="font-size: 1.1em;"><?php echo $obj[15]; ?></span></td>
             <td class="td right-align"  style="padding: 0%; margin: 0%;"><span id="tot" style="font-size: 1.1em;"><?php echo number_format($obj[16],2); ?></span></td>
           </tr>
@@ -166,7 +164,7 @@
       <!-- /DETALLE FACT -->
       <br>
       <!-- DETALLE FACT -->
-      <table class="bordered" style="border: 0px; font-size: 1.1em;" id="detalle">
+      <table class="bordered" style="border: 0px; font-size: 1em;" id="detalle">
         <thead>
           <tr>
             <th class="center-align"></th>
@@ -180,9 +178,9 @@
         <thead class=" blue-grey white-text imprimirSINBOR margen">
           <tr>
             <th class="center-align sinborde" id="th1" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Factura</th>
-            <th class="center-align sinborde" id="th2" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Nota/Abono</th>
             <th class="center-align sinborde" id="th3" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Fecha</th>
             <th class="center-align sinborde" id="th6" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Cliente</th>
+            <th class="center-align sinborde" id="th2" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Nota/Abono</th>
             <th class="center-align sinborde" id="th5" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Valor</th>
             <th class="center-align sinborde" id="th6" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Comentario</th>
           </tr>
@@ -191,9 +189,9 @@
           <?php foreach ($estados as $obj) {?>
           <tr class="tr" >
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="con"><?php echo $obj[0]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="fec"><?php echo $obj[1]; ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="cli"><?php echo $obj[2]; ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="tip"><?php echo $obj[3]; ?></span></td>
+            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="fec"><?php echo $obj[1]; ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="pag"><?php echo number_format($obj[4],2); ?></span></td>
             <td class="td center-align" style="padding: 0%; margin: 0%;" ><span id="tot"><?php echo $obj[5]; ?></span></td>
           </tr>
@@ -259,6 +257,6 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/materialize.js"></script>
+    <script src="../assets/js/jquery.js?v=10.0.0.2"></script>
+    <script src="../assets/js/materialize.js?v=10.0.0.2"></script>
   </body>

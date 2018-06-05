@@ -9,37 +9,37 @@ $(function () {
 			case 1:
 				$("#mantServ").remove();
 				$("#mantPaquetes").remove();
-				var tabla = $("#data-table-productos").DataTable();
-				tabla.destroy();
+				// var tabla = $("#data-table-productos").DataTable();
+				// tabla.destroy();
 				var p = mantenimiento('productos', 1, '');
 				$("#bdymantInventario").html(p);
-				$("#data-table-productos").DataTable({
-					bFilter: false,
-					bScrollInfinite: true,
-					bSort: false,
-					bLengthChange: false,
-					order: [],
-					bPaginate: false,
-					info: false
-				});
+				// $("#data-table-productos").DataTable({
+				// 	bFilter: false,
+				// 	bScrollInfinite: true,
+				// 	bSort: false,
+				// 	bLengthChange: false,
+				// 	order: [],
+				// 	bPaginate: false,
+				// 	info: false
+				// });
 				// paginate($("ul.pagination").attr('vtbl'));
 				break;
 			case 2:
 				$("#mantProd").remove();
 				$("#mantPaquetes").remove();
-				var tabla = $("#data-table-servicios").DataTable();
-				tabla.destroy();
+				// var tabla = $("#data-table-servicios").DataTable();
+				// tabla.destroy();
 				var p = mantenimiento('productos', 2, '');
 				$("#bdymantInventario").html(p);
-				$("#data-table-servicios").dataTable({
-					bFilter: false,
-					bScrollInfinite: true,
-					bSort: false,
-					bLengthChange: false,
-					order: [],
-					bPaginate: false,
-					info: false
-				});
+				// $("#data-table-servicios").dataTable({
+				// 	bFilter: false,
+				// 	bScrollInfinite: true,
+				// 	bSort: false,
+				// 	bLengthChange: false,
+				// 	order: [],
+				// 	bPaginate: false,
+				// 	info: false
+				// });
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
@@ -49,15 +49,15 @@ $(function () {
 				$("#mantProd").remove();
 				var p = mantenimiento('productos', 3, '');
 				$("#bdymantInventario").html(p);
-				$("#data-table-paquetes").DataTable({
-					bFilter: false,
-					bScrollInfinite: true,
-					bSort: false,
-					bLengthChange: false,
-					order: [],
-					bPaginate: false,
-					info: false
-				});
+				// $("#data-table-paquetes").DataTable({
+				// 	bFilter: false,
+				// 	bScrollInfinite: true,
+				// 	bSort: false,
+				// 	bLengthChange: false,
+				// 	order: [],
+				// 	bPaginate: false,
+				// 	info: false
+				// });
 				break;
 		}
 		$('select').material_select();
@@ -103,6 +103,8 @@ $(function () {
 		$("#m1").click();
 	
 	paginate($("ul.pagination").attr('vtbl'))
+	permisos(4100,4200);
+
 
 });
 
@@ -501,20 +503,20 @@ $(document).on("click", ".vfiltros", function () {
 	}
 });
 
-$(document).on("click", ".filtersrv", function () {
-	var id = parseInt($(this).attr('filtro').substr(1));
-	var elemento = $("#searchsrv");
-	switch (id) {
-		case 1:
-			$("#fserv").attr('filter', id);
-			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
-			break;
-		case 2:
-			$("#fserv").attr('filter', id);
-			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
-			break;
-	}
-});
+// $(document).on("click", ".filtersrv", function () {
+// 	var id = parseInt($(this).attr('filtro').substr(1));
+// 	var elemento = $("#searchsrv");
+// 	switch (id) {
+// 		case 1:
+// 			$("#fserv").attr('filter', id);
+// 			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
+// 			break;
+// 		case 2:
+// 			$("#fserv").attr('filter', id);
+// 			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
+// 			break;
+// 	}
+// });
 
 $(document).on("click", ".filtropqt", function () {
 	var id = parseInt($(this).attr('filtro').substr(1));
@@ -696,7 +698,7 @@ $(document).on("click", "#addprod", function () {
 					if ($(this).attr('defecto') == 1 && ($("#impexo" + idimpuesto).val() == '' || $("#impexo" + idimpuesto).val()) == 0) {
 						return false;
 					} else {
-						arr('login', 4, '', 86, '1,0,' + idproducto[0][0] + ',11,' + idimpuesto + ',' + $("#impexo" + idimpuesto).val(), 0, 0, 0);
+						arr('login',4,'',86,'1,0,'+idproducto[0][0]+',11,'+idimpuesto+','+$("#impexo"+idimpuesto).val(),0,0,0);
 					}
 				});
 				//agrega niveles productos
@@ -721,7 +723,7 @@ $(document).on("click", "#addprod", function () {
 				}
 
 				Materialize.toast('Producto Agregado Correctamente', 6000, 'green');
-				arr('login', 6, '',14, '0,0,"|@@tmp_cia",10', 0, 1, $("#listaproductos"));
+				arr('login',6,'',14,'0,0,",@@impresa","0,10"',0,1,$("#listaproductos"));
 				paginate(14);
 				vaciar('productos');
 				
@@ -839,7 +841,7 @@ $(document).on("click", "#editprod", function () {
 					});
 				}
 				Materialize.toast('Producto Editado Correctamente', 6000, 'green');
-				arr('login',6,'',14,'0,0,"|@@tmp_cia",10','',1,$("#listaproductos"));
+				arr('login',6,'',14,'0,0,",@@impresa",10','',1,$("#listaproductos"));
 				paginate(14);
 				$(".validate").css('border-bottom', '1px solid #9e9e9e');
 				$(".validate").css('box-shadow', 'none');
@@ -860,8 +862,7 @@ $(document).on("click", ".editprod", function () {
 	$(".calcvv").val('0.00');
 	var id = $(this).attr('id').substr(1);
 
-	var p = arr('login',4,'',14,id+',0,"|@@tmp_cia","0,1"',0,0,0);
-	console.log(p)
+	var p = arr('login',4,'',14,id+',0,",@@impresa","0,1"',0,0,0);
 	var q = p[0][0];
 	var preccat = arr('login',4,'',110,id,0,0,0)[0];
 	var preccli = arr('login',4,'',165,id,0,0,0)[0];
@@ -941,8 +942,8 @@ $(document).on("click", ".delprod", function () {
 
 $(document).on("click", ".accept", function () {
 	var id = $(this).attr('id').substr(3);
-	arr('login', 4, '', 78, '3,' + id + ',"","","",0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""', '', 0, '');
-	arr('login', 6, '',14, '0,0,"|@@tmp_cia"', 0, 1, $("#listaproductos"));
+	arr('login',4,'',78,'3,'+id+',"","","",0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""','',0,'');
+	arr('login',6,'',14,'0,0,",@@impresa","0,10"',0,1,$("#listaproductos"));
 	paginate(14);
 	$('#toast-container').remove();
 	Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
@@ -986,7 +987,7 @@ $(document).on("keydown","#prod",function(e){
         $(".autocomplete-content").remove();
             $("#prod").autocomplete({
                 limit: 10,
-                data: arr('login',4,'',77,'0,0,1,"'+$("#prod").val()+'"',0,0,0,1)
+                data: arr('login',4,'',77,'0,0,1,"'+$("#prod").val()+'",@@impresa',0,0,0,1)
             }); 
         $("#prod").siblings($(".autocomplete-content")).css('width','25%');
     } 
@@ -1056,7 +1057,7 @@ $(document).on("click",".del",function(){
 
 $(document).on("keyup","#vdescuento",function(){
     var total = 0;
-    var desc = $(this).val();
+    var desc = $(this).val() == '' ? 0 : $(this).val();
     var totpqt = parseFloat($("#htotal").val());
     total = totpqt / ((desc/100)+1);
     $("#totpqt").val(total.formatMoney(2,'.',','));
@@ -1079,7 +1080,7 @@ $(document).on("click","#addpqt",function(){
                 arr('login',4,'',61,'1,'+idpaquete[0][0]+','+idproducto+','+idservicio+','+cantidad+','+idunidad+',@@usr,@@impresa',0,0,0);
             });
             Materialize.toast('Paquete Agregado Correctamente', 6000, "green");
-            arr('login',6,'',62,'0,0',0,1,$("#listapqts"));
+            arr('login',6,'',62,'0,0,"0,@@impresa","0,10"',0,1,$("#listapqts"));
             vaciar('paquetes');
             $("#listapaquetes").html('');
             $(".validate").css('border-bottom', '1px solid #9e9e9e');
@@ -2098,7 +2099,7 @@ function addprod(prod, cant, uni, sim) {
 	}else
 		tipo = 1;
 	
-	var info = arr('login',4,'',77,id+','+tipo+',0,""',0,0,0)[0][0];
+	var info = arr('login',4,'',77,id+','+tipo+',0,"",@@impresa',0,0,0)[0][0];
 	var imv = arr('login',4,'',200,'11,0'+id,0,0,0)[0][0][3];
 	
 	var desc = $("#vdescuento").val() == '' ? 0 : parseFloat($("#vdescuento").val());
@@ -2115,7 +2116,7 @@ function addprod(prod, cant, uni, sim) {
 		
 	}else{
 		// con unidad
-		var precio = arr('login',4,'',14,info[0]+',0,"|@@tmp_cia","0,1"',0,0,0)[0][0];
+		var precio = arr('login',4,'',14,info[0]+',0,",@@impresa","0,1"',0,0,0)[0][0];
 		ptotal = convert(info[0],cant,uni,precio[9]);
 	}
 	
@@ -2363,9 +2364,9 @@ function cargar(vmodulo, vid) {
 
 	switch (vmodulo['modulo']) {
 		case 'producto':
-			vmodulo['sel'] = 'vid,codigo as vcodigo,nombre as vnombre,costo as vcosto,ganancia as vganancia,venta as vventa,imv as vimv,idunidad as vidunidad,isgravado as visgravado,idmoneda as vidmoneda,idfamilia as vidfamilia,idtipo as vidtipo,idmarca as vidmarca,idbodega as vidbodega,cantidad as vcantidad,minimo as vminimo,maximo as vmaximo';
+			vmodulo['sel'] = '';
 			vmodulo['tbl'] = 14;
-			vmodulo['where'] = 'id = ' + vid;
+			vmodulo['where'] = vid;
 			break;
 
 		case 'servicio':
@@ -2375,8 +2376,8 @@ function cargar(vmodulo, vid) {
 			break;
 		case 'paquetes':
 			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 14;
-			vmodulo['where'] = 'id = ' + vid;
+			vmodulo['tbl'] = 0;
+			vmodulo['where'] = vid;
 			break;
 		default:
 			return 'Módulo no Existente';
@@ -2391,13 +2392,14 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 14;
-			arr['where'] = '0,0,"'+$("#search_productos").val()+'|@@tmp_cia","0,10"';
+			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@impresa","0,10"';
 			break;
 		case 'servicios':
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 13;
-			arr['where'] = '';
+			arr['where'] = '0,0,"'+$("#search_servicios").val()+',@@impresa","0,10"';
+			console.log(arr['where'])
 			break;
 		case 'paquetes':
 			var arr = {};

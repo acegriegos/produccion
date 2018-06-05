@@ -78,13 +78,13 @@ $(document).on("click",".crut",function(){
 });
 
 $(document).on("click",".luser",function(){
+    $(".a").show();
     deadclear('detalleruta');
    $("#lruteros").html('');
    $(".edd").hide();
    var id = $(this).prop('id').substr(1);
    $(".titr").html($("#rn"+id).html());
-   
-   var p = arr('login',4,'id,nombre,consecutivo',218,'ruta = '+id,0,0,0)[0];
+   var p = arr('login',4,'',218,id+','+'-1',0,0,0)[0];
    $("#vidruta").val(id); 
    for (var i = 0; i < p.length; i++) {
        $("#lruteros").append('<a href="#!" class="collection-item load cdetaller" modulo="detalleruta" id="z'+p[i][0]+'"><span class="badge">'+p[i][2]+'</span> '+p[i][1]+'</a>');
@@ -93,13 +93,13 @@ $(document).on("click",".luser",function(){
 });
 
 $(document).on("click",".cdetaller",function(){
+    $(".a").hide();
     var id = $(this).prop('id').substr(1);
-    $("#fdetallerutas").html('Actualizar');
     $(".edd").show(); 
+
 });
 
 $(document).on("click","#goback",function(){
-    $("#goback").html('Ingresar');
     $(".edd").hide();
     deadclear('detalleruta'); 
 });
@@ -128,7 +128,7 @@ $(document).on("change","#seachcliente",function(){
         $(".f1").removeClass('hide');
 
     var tipo = $('option:selected',this).val();
-    var p = arr('login',4,'id,nruta,nombre',218,'idmovimiento = '+tipo)[0];
+    var p = arr('login',4,'',218,'-1'+','+tipo,0,0,0)[0];
     var str = '';
     $("#seachruteros").html('<option value="" disabled selected>Seleccione una Ruta</option>');
     for (var i = 0; i < p.length; i++) {
@@ -137,6 +137,23 @@ $(document).on("change","#seachcliente",function(){
     $("#seachruteros").append(str);
     $("#seachruteros").material_select('update');  
 });
+
+ $("#descp").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = keysight(e)
+       console.log(2)
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+            $(".autocomplete-content").remove();
+            
+            $("#descp").autocomplete({
+                limit: 20,
+                data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1)
+            })
+
+            $("#descp").siblings($(".autocomplete-content")).css('width','50%');
+        }
+    });
 
 $(document).on("change","#seachruteros",function(){
     $(".f2").removeClass('hide');
@@ -209,8 +226,7 @@ $(document).on("click",".xty",function(){
 
 function searchClient(vvariable){
     
-    var clie = arr('login',4,'',63,'\"'+vvariable+'\",0','',0,'');
-    
+    var clie = arr('login',4,'',63,'\"'+vvariable+'\",0,@@impresa','',0,'');
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
 
@@ -218,7 +234,7 @@ function searchClient(vvariable){
         var idrut   = $("#cidruta").val();
         $("#ncli").val('');
 
-        arr('login',7,1,219,'idcliente,idruta',idcli+','+idrut,0,0);
+        var p = arr('login',7,1,219,'idcliente,idruta',idcli+','+idrut,0,0);
         inicializarClientes(idrut,'');
     }
 
@@ -261,6 +277,7 @@ function validar (varreglo,vmodulo) {
                     return err;
                 }
             }
+            break;
 		default:
 			return 'Módulo no Existente';
 			break;
@@ -325,9 +342,9 @@ function cargar(vmodulo,vid) {
 			vmodulo['where'] ='id = '+vid;
 			break;
         case 'detalleruta':
-            vmodulo['sel'] = '*';
+            vmodulo['sel'] = '';
             vmodulo['tbl'] = 222;
-            vmodulo['where'] ='vid = '+vid;
+            vmodulo['where'] =vid;
             break;
 		default:
 			return 'Módulo sin Cargar '+vmodulo['modulo'];

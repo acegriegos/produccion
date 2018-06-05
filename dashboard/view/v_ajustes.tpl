@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Configuración</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.2">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=10.0.0.2">
   </head>
 <body>
   {$NAV}
   <div class="bdy pequeño">
-    <nav class="nav-extended z-depth-3 head1">
+    <nav class="nav-extended z-depth-3 head1 hide">
       <div class="nav-wrapper">
         <div class="nav-content">
           <!-- <div class="row">
@@ -63,7 +63,7 @@
     <div id="majustes" class="pequeño"></div>
   </div>
   {$SCR}
-  <script src="../assets/js/dropzone.js"></script>
-  <script src="../assets/js/modulos/ajustes.js?v=0.11"></script>
+  <script src="../assets/js/dropzone.js?v=10.0.0.2"></script>
+  <script src="../assets/js/modulos/ajustes.js?v=10.0.0.2"></script>
 </body>
 </html>

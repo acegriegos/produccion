@@ -162,9 +162,11 @@ $(document).on("change","[name=devolucion]",function(){
 		$("#dcantdev"+id).removeClass('hide');
 		$("#spncant"+id).addClass('hide');
 		$("#cantdev"+id).focus();
+		$("#dd"+id).addClass('ciclos');
 	}else{
 		$("#dcantdev"+id).addClass('hide');
 		$("#spncant"+id).removeClass('hide');
+		$("#dd"+id).removeClass('ciclos');
 	}
 });
 
@@ -188,7 +190,7 @@ function detalle(id,tipo) {
 	if (tipo == 1) {
 		arr('login',6,'',311,id,0,1,$("#listaDetalleFacturas"));
 		arr('login',6,'id,nombre',312,'id > 0 order by nombre',15,1,$(".estadodevolucion"));
-		var invent = arr('login',4,'id,nombre',111,'id > 0 order by idcuenta',0,0,0)[0];
+		var invent = arr('login',4,'id,nombre',111,'id > 0 and find_in_set("-1,@@impresa",idsucursal) order by id',0,0,0)[0];
 		for (var i = 0, len = invent.length; i < len; i++) {
 			$("#vidinventario").append('<option value="'+invent[i][0]+'">'+invent[i][1]+'</option>');
 		}
@@ -196,6 +198,8 @@ function detalle(id,tipo) {
 	}else
 		arr('login',6,'',409,id,0,1,$("#listaDetalleFacturas"));
 	
+	$("#hvid").val(id);
+	$("#htipo").val(tipo);
 	$('select').material_select();
 	$("#data-table-cuentas-detalle").dataTable({
 		bFilter: false,
@@ -257,9 +261,12 @@ function validardevoluciones() {
 function endDetail(vid,vacc,modulo){
 	if (vacc == 1) {
 		var tipo = $("#p_v").is(':checked') == true ? 0 : 1;
-		window.open('devoluciones?accion=3&id='+vid+'&tp='+tipo);
+		window.open('devoluciones?accion=3&id='+vid+'&tp='+tipo,'_blank','',1);
+		var idcuenta = arr('login',4,'max(id)',301,'id > 0',0,0,0)[0][0][0];
+		window.open('cuentas?accion=4&id='+idcuenta+'&tp=1','_blank','',2);
 		$("#vfecha").addClass('hide');
-	    setTimeout(function(){location.reload();},1000);
+		// detalle($("#hvid").val(),$("#htipo").val())
+	    // setTimeout(function(){location.reload();},1000);
 	}
     return false;
 }

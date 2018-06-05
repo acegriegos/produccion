@@ -61,22 +61,69 @@
                             $name = $_FILES['file']['name'];
                             $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.$name;
                             move_uploaded_file($temp, $target_path);
-                            if(!openssl_pkcs12_read(file_get_contents($target_path), $certs, $_POST['clave']))
-                                echo 'Clave o Archivo Invalidos';
-                            else{
-                                $publicKey = $certs["cert"];
-                                $certData   = openssl_x509_parse($publicKey);
-
-                                $tipo = $certData['subject']['OU'] == 'CPJ' ? 1 : 0;
-                                $cedula = substr($certData['subject']['serialNumber'],$tipo ? 4 : 5);
-
-                                $salida = [];
-                                $salida['CN'] = $certData['subject']['CN'];
-                                $salida['cedula'] = $cedula;
-                                $salida['tipo'] = $tipo;
-
+                            if(!openssl_pkcs12_read(file_get_contents($target_path), $certs, $_POST['clave'])){
                                 unset($target_path);
-                                echo json_encode($salida);
+                                echo 'Clave o Archivo Invalidos';
+                            }
+                            else{
+                                $user = $_POST['user'];
+                                $pass = $_POST['pass'];
+                                $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
+                                $cli_id = "api-prod";
+                                
+                                if ($_POST['prueba'] == 1) {
+                                    $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token";
+                                    $cli_id = "api-stag";
+                                }
+
+                                $curl = curl_init($curl_hacienda);
+                                curl_setopt($curl, CURLOPT_HEADER, true);
+                                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                                curl_setopt($curl, CURLOPT_POST, true);
+                                curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
+
+                                $params = array(
+                                  "client_id" => $cli_id,
+                                  "client_secret" => "",
+                                  "scope" => "",
+                                  "username" => $user,
+                                  "password" => $pass,
+                                  "grant_type" => "password");
+
+                                $postData = "";
+
+                                foreach($params as $k => $v)
+                                {
+                                   $postData .= $k . '='.urlencode($v).'&';
+                                }
+
+                                $postData = rtrim($postData, '&');
+
+                                curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+                                $json_response = curl_exec($curl);
+                                $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+                                curl_close($curl);
+                                $json_response = json_decode($json_response);
+                                if (isset($json_response->access_token)) {
+                                    $publicKey = $certs["cert"];
+                                    $certData   = openssl_x509_parse($publicKey);
+
+                                    $tipo = $certData['subject']['OU'] == 'CPJ' ? 1 : 0;
+                                    $cedula = substr($certData['subject']['serialNumber'],$tipo ? 4 : 5);
+
+                                    $salida = [];
+                                    $salida['CN'] = $certData['subject']['CN'];
+                                    $salida['cedula'] = $cedula;
+                                    $salida['tipo'] = $tipo;
+                                    unset($target_path);
+                                    echo json_encode($salida);
+                                }else{
+                                    unset($target_path);
+                                    echo "Usuario o Contraseña ATV Inválidos";
+                                }
+                                
                             }
                         }
                         break;

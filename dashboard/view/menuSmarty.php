@@ -4,15 +4,15 @@
       <div class="background"><!-- CSS --></div>
         <div class="col s12 center">
          <p class="white-text">{$smarty.session.NOM}</p>
-         <ul class="collapsible collapsible-accordion">
+         <ul class="collapsible collapsible-accordion {if $smarty.session.BUSS eq 1} hide {/if}">
           <li>
             <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</a>
             <div class="collapsible-body" style="z-index: 100; position: absolute; width: 94%;">
               <ul class="head2">
                 <li><a href="#!" value="0" class="otpmenu white-text" id="x1">Información</a></li>
                 <li><a href="#!" value="1" class="otpmenu white-text" id="x2">Notificaciones</a></li>
-                <li><a href="#!" value="2" class="otpmenu white-text" id="x2">Cierre de Caja</a></li>
-                <li><a href="#!" value="4" class="otpmenu white-text" id="x2">Info Sistema</a></li>
+                <li><a href="#!" value="3" class="otpmenu white-text" id="x3">Cierre de Caja</a></li>
+                <li><a href="#!" value="4" class="otpmenu white-text" id="x4">Info Sistema</a></li>
               </ul>
             </div>
           </li>
@@ -28,10 +28,15 @@
       <i class="mdi mdi-numeric-0-box-multiple-outline gtext" style="font-size: 1em"></i>
     </div>
   </div>
+  {php}
+    $muser = $_SESSION['BUSS'];
+    if($muser == 0){
+  {/php}
+
   <div class="options" style="padding-bottom: 20%">
     <li class="per1 gtext"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
     <li class="per8 hide gtext"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
-    <li class="per900 gtext"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
+    <li class="per900 gtext hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
     <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
     <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
     <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
@@ -40,6 +45,14 @@
     <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
     <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
     <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+{php}}else{ {/php}
+    <li class="gtext"><a href="facturacion?tf=1"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Facturación</span></a></li>
+    <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
+    <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos</span></a></li>
+    <li class="gtext"><a href="cuentas&tf=0"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
+    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Credito y Debito</span></a></li>
+    <li class="gtext"><a href="ajustes"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Ajustes</span></a></li>
+{php} } {/php}
     <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
 </ul>

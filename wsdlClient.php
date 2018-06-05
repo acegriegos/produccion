@@ -8,7 +8,9 @@
 
         switch ($accion) {
             case 1://RECIBO DE FACTURA
-                echo $fe->recepcion();
+                $rs = $fe->recepcion();
+                print_r($rs);
+                // echo $fe->recepcion();
                 break;
             case 2://GET XML
                 header("Content-type: text/xml; encoding='UTF-8'");
@@ -20,7 +22,7 @@
                 echo "</pre>";
                 break;
             case 4://Consulta ESTADO;
-                echo json_encode($fe->estado());
+                echo json_encode($fe->estado(),JSON_UNESCAPED_UNICODE);
                 break;
             case 5://Consulta General de Recibos
                 $offset     =   !isset($_REQUEST['offset'])     ?   0  :   $_REQUEST['offset'];
@@ -36,7 +38,7 @@
 
                 $xml = $fe->getXMLRecepcion();
        
-                echo json_encode($fe->getPayload($xml));
+                echo json_encode($fe->getPayload($xml),JSON_UNESCAPED_UNICODE);
                 break;
             case 8: //XML-ESTADO
                 header("Content-type: text/xml; encoding='UTF-8'");
@@ -74,6 +76,7 @@
         function __construct($vid){
             $this->id = $vid;
             $this->info = $this->getJSON('call fe_getencabezado('.$this->id.')');
+
             if (isset($_REQUEST['tdoc'])) {
                
                 switch ($_REQUEST['tdoc']) {
@@ -81,11 +84,11 @@
                         $this->tdoc = 'NotaDebitoElectronica';
                         $this->xmldoc = 'notaDebitoElectronica';
                         break;
-                    case 3:
+                    case 3: //NOTA DE CREDITO
                         $this->tdoc = 'NotaCreditoElectronica';
                         $this->xmldoc = 'notaCreditoElectronica';
                         break;
-                    case 4:
+                    case 4: //TIQUETE ELECTRONICO
                         $this->tdoc = 'TiqueteElectronico';
                         $this->xmldoc = 'tiqueteElectronico';
                         break;
@@ -95,10 +98,14 @@
                 }
 
                 $mtdoc = str_pad($_REQUEST['tdoc'],2,0,STR_PAD_LEFT);
+                $pre = substr($this->info['NumeroConsecutivo'],0,8);
+                $post = substr($this->info['NumeroConsecutivo'],10);
+                $this->info['NumeroConsecutivo'] = $pre.$mtdoc.$post;
+
                 $pre = substr($this->info['Clave'],0,29);
                 $post = substr($this->info['Clave'],31);
                 $this->info['Clave'] = $pre.$mtdoc.$post;
-            }
+            }   
             $db = new DBClass();
             if (!isset($_SESSION['IMPRESA']))
                 session_start();
@@ -109,9 +116,8 @@
 
         function getBearer(){
 
-            
-            $user = $this->credenciales[3];//'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr';
-            $pass = $this->credenciales[4];//'l[&qq[o$f$+c8Ro|x_@]';
+            $user = $this->credenciales[4];
+            $pass = $this->credenciales[5];
             $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
             $cli_id = "api-prod";
             
@@ -153,6 +159,7 @@
             $salida['respuesta'] = json_decode($json_response);
             $salida['credenciales'] = $this->credenciales;
             $json_response = json_decode($json_response);
+            
             if (isset($json_response->access_token)) {
                 $this->bearer = $json_response->access_token;
             }
@@ -177,12 +184,12 @@
                 if ($id == 0) 
                     $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/");
                 else
-                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/".$this->getClave());
+                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/".$this->info['Clave']);
             }else{
                 if ($id == 0) 
                     $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/comprobantes/");
                 else
-                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/comprobantes/".$this->getClave());
+                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/comprobantes/".$this->info['Clave']);
             }
             
             
@@ -280,12 +287,13 @@
                 return $salida;
             }
 
-            $clave = $this->getClave();
+            $clave = $this->info['Clave'];
 
             if ($this->credenciales[2] == 1) 
                 $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/".$clave);
             else
                 $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/".$clave);
+
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl,CURLINFO_HEADER_OUT,true);
@@ -293,30 +301,46 @@
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/x-www-form-urlencoded','Authorization: bearer '.$this->bearer]);
 
             $json_response = curl_exec($curl);
+            $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $header = substr($json_response, 0, curl_getinfo($curl, CURLINFO_HEADER_SIZE));
+            $body = substr($json_response, -curl_getinfo($curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD));
+
+            $aHeader = array();
+
+            foreach (explode("\r\n", $header) as $i => $line){
+                if ($i === 0)
+                    $aHeader['http_code'] = $line;
+                else
+                {
+                    //list ($key, $value) = explode(': ', $line);
+                    $sub = explode(': ', $line);
+                    if($sub[0] != '')
+                        $aHeader[$sub[0]] = $sub[1];
+                }
+            }
+
+            switch ($status) {
+                case 400:
+                    $salida['factura']  = $this->id;
+                    $salida['rs'] = $aHeader['X-Error-Cause'];
+                    $salida['estado']   = 'Sin Subir';
+                    break;
+                case 200:
+                case 201:
+                case 202:
+                    $aBody = (array) json_decode(substr($body,strpos($body, '{')));
+                    $sRespuesta = ((Array) simplexml_load_string(base64_decode($aBody['respuesta-xml'])))['DetalleMensaje'];
+                    $salida['factura']  = $this->id;
+                    $salida['rs'] = str_replace(PHP_EOL, ' ', $sRespuesta);
+                    $salida['estado']   = $aBody['ind-estado'];
+                    break;       
+                default:
+                    $salida = $json_response;
+                    break;
+            }
 
             curl_close($curl);
-            $body = substr($json_response, strpos($json_response, 'CF-RAY'));
-            $json = (array) json_decode(substr($body,strpos($body, '{')));
-            $arreglo = isset($json['respuesta-xml']) ? (Array) simplexml_load_string(base64_decode($json['respuesta-xml'])) : 'Factura no Aprobada';
-            $rml = is_array($arreglo) ? $arreglo['DetalleMensaje'] : $arreglo;
-            if (isset($json['ind-estado'])) {
-                $salida['factura']  = $this->id;
-                $salida['estado']   = $json['ind-estado'];
-                $salida['rs']       = $rml;
-                $salida['xml']      = isset($json['respuesta-xml']) ? $json['respuesta-xml'] : '';
-            }else{
-                $salida['factura']  = $this->id;
-                $salida['estado']   = 'Sin Subir';
-                $salida['rs']       = 'Factura en Servidor Local';
-            }
-            
             return $salida;
-        }
-
-        function getClave()
-        {
-            $encabezado = $this->getJSON('call fe_getencabezado('.$this->id.')');
-            return isset($encabezado['Clave']) ? $encabezado['Clave'] : die("Factura no Existente");
         }
 
         function getEmisor($id){
@@ -444,6 +468,7 @@
         }
 
         function getJSON($query){
+
             $db = new DBClass();
             $rs = $db->ejecutar($query);
             if (isset($rs->num_rows)) {

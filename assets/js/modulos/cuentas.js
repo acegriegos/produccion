@@ -7,11 +7,11 @@ $(function(){
 	switch(param){
 		case 1:
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-			arr('login',6,'',214,1+',0,0,0',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,1+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		case 2:
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-			arr('login',6,'',214,2+',0,0,0',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,2+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		default:
 			$("#bdymantCuentas").html("Valor no Valido")
@@ -53,9 +53,14 @@ $(function(){
 					tabla.append(trIdFactura);
 				}
 				$("#data-table-facturas").dataTable({
-					bFilter: false,
-					order : [],
-					"bLengthChange": false
+					 bFilter : true,
+        bScrollInfinite : true,
+        bSort : true,
+        bLengthChange : true,
+        bPaginate :  false,
+        bInfo : false,
+		order : [],
+		"bLengthChange": false
 				});
 				$("#hclie").val(id);
 			}
@@ -69,14 +74,23 @@ $(function(){
 	});
 
 	$("#data-table-cuentas").dataTable({
-		bFilter: false,
+		 bFilter : true,
+        bScrollInfinite : true,
+        bSort : true,
+        bLengthChange : true,
+        bPaginate :  false,
+        bInfo : false,
 		order : [],
 		"bLengthChange": false
 	});
 
-
-	$("#data-table-cuentas-xP").dataTable({
-		bFilter: false,
+	$("#data-table-cuentas-x").dataTable({
+		 bFilter : true,
+        bScrollInfinite : true,
+        bSort : true,
+        bLengthChange : true,
+        bPaginate :  false,
+        bInfo : false,
 		order : [],
 		"bLengthChange": false
 	});
@@ -100,17 +114,20 @@ $(document).on("keyup","#searchCuentas",function(e){
 
 $(document).on("change","[name='ctas']",function(){
 	$(".detalle").show();
-	var tabla = $("#data-table-cuentas-xP").DataTable();
+	var tabla = $("#data-table-cuentas-x").DataTable();
 	tabla.destroy()
 	switch (parseInt($(this).attr('value'))) {
 		case 2:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,-1',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,-1,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		case 3:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,1',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,1,@@impresa',0,1,$("#listaCuentasx"));
+			break;
+		case 4:
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,2',0,1,$("#listaCuentasx"));
 			break;
 		default:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,0',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 	}
 	$("#data-table-cuentas-xP").dataTable({
@@ -222,10 +239,12 @@ $(document).on("click",".detalle",function(){
 	$(this).sideNav('show');
 	var id = $(this).attr('id').substr(1);
 	gtipo = $(this).attr('tipo');
-	var datos = arr('login',4,'',214,gtipo+','+id+',0,0',0,0,0)[0][0];
+	var datos = arr('login',4,'',214,gtipo+','+id+',0,0,@@impresa',0,0,0)[0][0];
+
 	var tabla = $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
-	arr('login',6,'',213,gtipo+','+id,0,1,$("#listaCuentasxCDetalle"));
+	arr('login',6,'',213,gtipo+','+id+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
+	console.log(id);
 	var dias = parseInt(datos[7]);
 	$('select').material_select();
 	$("#ifac").text(datos[3]);
@@ -409,12 +428,13 @@ function endDetail(vid,vacc,modulo) {
 	if (vacc == 1) {
 		var saldo = $("#isaldovista").text();
 		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
+		var tsaldo = saldo - parseFloat($("#vvalor").val());
 		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',',') );
 		$("#isaldo").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',','));
 		$("#vidtipopago").val('');
 		$("#vvalor").val(0.00);
-		arr('login',6,'',213,gtipo+','+$("#vidfactura").val(),0,1,$("#listaCuentasxCDetalle"));
-		arr('login',6,'',214,gtipo+',0,0,0',0,1,$("#listaCuentasx"));
+		arr('login',6,'',213,gtipo+','+$("#vidfactura").val()+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
+		arr('login',6,'',214,gtipo+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
 		$("#btn-div").click();
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
 		window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);

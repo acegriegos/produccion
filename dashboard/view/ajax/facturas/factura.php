@@ -1,9 +1,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css" rel="stylesheet">
-<link href="../assets/css/modulos/style-factura.css?v=0.2" media="print" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.2">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos1/style-factura.css?v=10.0.0.2">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.2">
 <!--   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 -->
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -37,18 +37,18 @@
   
               <?php
                 if ($miscelaneos[10] == 2) {
-                   if ($miscelaneos[2] != '') 
+                   if (trim($miscelaneos[2]) != '') 
                       echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
                    else
                       echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
                 }else{
-                   if ($miscelaneos[2] != ''){
+                   if (trim($miscelaneos[2]) != ''){
                       echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
                    }
                    else
                       echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
-                } 
+                }
                 
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
@@ -329,9 +329,9 @@
 
 
 
-     <script src="../assets/js/jquery.js"></script>
-     <script src="../assets/js/materialize.js"></script>
-     <script src="../assets/js/asgard.js?v=0.1"></script>
-     <script src="../assets/js/modulos/recibos.js?v=0.5"></script>
+     <script src="../assets/js/jquery.js?v=10.0.0.2"></script>
+     <script src="../assets/js/materialize.js?v=10.0.0.2"></script>
+     <script src="../assets/js/asgard.js?v=10.0.0.2"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.0.0.2"></script>
 
    </body>

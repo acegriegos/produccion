@@ -1,8 +1,8 @@
-<script src="../assets/js/jquery.js"></script>
-<script src="../assets/js/jquery.mask.min.js"></script>
-<script src="../assets/js/materialize.min.js?v=0.1"></script>
-<script src="../assets/js/asgard.js?v=0.34"></script>
-<script src="../assets/js/main.js"></script>
-<script src="../assets/libs/charts/chart.js"></script>
-<script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
-<script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.2"></script>
+<script src="../assets/js/jquery.mask.min.js?v=10.0.0.2"></script>
+<script src="../assets/js/materialize.min.js?v=10.0.0.2"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.2"></script>
+<script src="../assets/js/main.js?v=10.0.0.2"></script>
+<script src="../assets/libs/charts/chart.js?v=10.0.0.2"></script>
+<script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.0.0.2"></script>
+<script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.0.0.2"></script>

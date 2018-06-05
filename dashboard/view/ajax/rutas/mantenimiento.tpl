@@ -31,7 +31,7 @@
                         <td style=" padding: 10px;" id="rn{$RUT[LE][0]}">{$RUT[LE][1]}</td>
                         <td>
                             <a href="#modal-rutas" class="load pbtn crut modal-trigger gtext" id="m{$RUT[LE][0]}" modulo="ruta" style="font-size: 2em;"><i class="mdi mdi-24px mdi-pencil" title="Editar Ruta"></i></a>
-                            <a href="#!" class="pbtn gtext" id="z{$RUT[LE][0]}" style="font-size: 2em;" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck gtxt"></i></a>
+                           <!--  <a href="#!" class="pbtn gtext" id="z{$RUT[LE][0]}" style="font-size: 2em;" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck gtxt"></i></a> -->
                             <a href="#modal-ruser" class="luser pbtn modal-trigger gtext" id="u{$RUT[LE][0]}" style="font-size: 2em;" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
                             <a href="#modal-rcliente" class="lcliente pbtn modal-trigger gtext" id="c{$RUT[LE][0]}" style="font-size: 2em;" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
                             <a href="#" class="delete pbtn gtext" modulo="ruta" id="d{$RUT[LE][0]}" style="font-size: 2em;" title="Eliminar Ruta"><i class="mdi mdi-24px mdi-delete"></i></a>
@@ -125,6 +125,8 @@
                 <div class="row">
                     <input type="hidden" id="vidruta">
                     <input type="hidden" id="vid">
+                    <input type="hidden" id="vidvehiculo" value="0">
+
                     
                     <div class="input-field col s6">
                         
@@ -171,7 +173,7 @@
 
                         <label for="vidinventario">Inventario</label>
                     </div>
-
+<!-- 
                     <div class="input-field col s4">
                         
                         <select id="vidvehiculo" type='select'>
@@ -182,18 +184,18 @@
                         </select>
 
                         <label for="vidvehiculo">Vehículo</label>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="row">
-                    <a class="btn btn-info der add btn1" id="detalleruta" href="#" data-delay="50">Ingresar</a>
-                    <a class="btn btn-default edd der white black-text" id="goback" href="#"><i class="mdi mdi-24px mdi-angle-left"></i></a>
+                    <button type="button" class="waves-effect waves-green der btn btn1 a add" id="detalleruta" codigo="1" modulo="detalleruta" varias="1" >Guardar</button> 
+                    <button type="button" class="waves-effect waves-green der btn btn1 edd green" id="goback" codigo="2" modulo="detalleruta" varias="1" style="margin-right: 1%">Actualizar</button>
                 </div>
 
                 <div class="fixed-action-btn horizontal edd">
-                <a class="btn-floating btn-large red tooltipped" data-position="top" title="Información del Rutero">
+              <!--   <a class="btn-floating btn-large red tooltipped" data-position="top" title="Información del Rutero">
                   <i class="large mdi mdi-24px mdi-info"></i>
-                </a>
+                </a> -->
                 <ul>
 
                   <li><a class="tooltipped" data-position="top" title="Ventas"><i class="mdi mdi-24px mdi-line-chart"></i></a></li>

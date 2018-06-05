@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.2">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -26,8 +26,10 @@
                 <li><a class="optns" tipo="nombre,vcedula" href="#!" fltr="1">Nombre o Cédula</a></li>
                 <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
               </ul>
-              <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre,vcedula" addG="1">
+              <input type="text" id="search_clientes" maxlength="100" num="v76" var="0,1" cambio="29">
               <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
+
+             
             </div>
             <div class="col s2 m6 ">
               <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
@@ -48,12 +50,12 @@
               <tbody id="listaclientes">
                 {section name=LE loop=$CLIE}
                 <tr id="f{$CLIE[LE][0]}">
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][1]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][2]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][1]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][2]}</td>
                   <!-- <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td> -->
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][4]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][5]}</td>
-                  <td style=" padding: 10px;color:black">{$CLIE[LE][6]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][4]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][5]}</td>
+                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][6]}</td>
                   <td>
                     <a href="#modal-addvehiculos" class="modal-trigger hide" style="color:black" title="Vehículos"><i class="car mdi mdi-car pbtn mdi-24px" id="v{$CLIE[LE][0]}"></i></a>
                     {if $CLIE[LE][13] neq 1}
@@ -188,7 +190,7 @@
                 </div>
                 <div id="fina" class="col s12">
                   <div class="row"><br>
-                    <div class="input-field col s12 m6 l6">
+                    <div class="input-field col s12 m6 l6 {if $smarty.session.BUSS eq 1} hide {/if}">
                       <select type="select" id="vidnivel">
                         <option value="0">Seleccione una Categoría</option>
                         {section name=LE loop=$NVLCLIE}
@@ -208,7 +210,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row {if $smarty.session.BUSS eq 1} hide {/if}">
                     <div class="input-field col s12 m6 l6">
                       <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
                       <input type="number" class="eder center" id="vdescuentom" value="0">
@@ -228,7 +230,7 @@
                     </div>
                   </div>
                   <div vtabla="defectocuenta" id="fdefectocuentas" hasTabla="1" tp="3">
-                    <div class="ciclos">
+                    <div class="ciclos {if $smarty.session.BUSS eq 1} hide {/if}">
                       <input type="hidden" id="videstadocontable" value="1">
                       <input type="hidden" id="vidcuenta" value="">
                       <div class="row">
@@ -468,6 +470,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=0.9"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.0.0.2"></script>
 </body>
 </html>

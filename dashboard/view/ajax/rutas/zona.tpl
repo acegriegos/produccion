@@ -5,7 +5,7 @@
             <select id="seachcliente" maxlength="64">
                 <option value="" disabled selected>Seleccione una Tipo de Ruta</option>
                 <option value="0">Rutas para Cargar</option>
-                <option value="2">Rutas para Descargar</option>
+                <option value="1">Rutas para Descargar</option>
             </select>
 
             <label for="seachcliente" style="color: black"> <b>Tipo de Ruta</b></label>
@@ -78,15 +78,15 @@
             <div class="col s12 input-field" align="center">
                 <span id="invname" nv="" style="float: left;">NOMBRE DE INVENTARIO</span>
 
-                <a href="#" class="btn-floating green cargar load_inv" title="Cargar Inventario"><i class="fa fa-caret-up"></i></a>
+                <a href="#" class="mdi mdi-24px mdi-playlist-plus cargar load_inv" title="Cargar Inventario" style="padding-right: 2%"></a>
 
-                <a href="#" class="btn-floating red descargar" title="Descargar Inventario"><i class="fa fa-caret-down"></i></a>
+                <a href="#" class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a>
 
-                <a href="#" class="btn-floating cargar load_ped" title="Cargar Pedidos"><i class="fa fa-file-o"></i></a>
+                <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped" title="Cargar Pedidos" style="padding-right: 2%"></a>
 
-                <a href="#" class="btn-floating cargar save" title="Guardar Inventario"><i class="fa fa-save"></i></a>
+                <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a>
 
-                <a href="#" class="btn-floating print" title="Imprimir Inventario de Ruta"><i class="fa fa-print"></i></a>
+                <a href="#" class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
 
             </div>
 
@@ -98,14 +98,13 @@
 
 <div class="row ld" style="margin: 0px;">
     <div class="col s6 input-field" align="center">
-            <i class="fa fa-search prefix"></i>
-            <input type="text" id="seachpinv" style="margin-bottom: 0px;" class="darkholder" placeholder="Buscar Producto">
+            <input type="text" id="descp" class="fd autocomplete prod" value="" placeholder="Buscar Producto">
             <!-- <label for="seachpinv" style="color: black;"> <b>Buscar Producto</b></label> -->
         </div>
-    <div class="col s6 input-field" align="center">
+  <!--   <div class="col s6 input-field" align="center">
         <i class="fa fa-search prefix"></i>
         <input type="text" id="seachpinvrut" style="margin-bottom: 0px" class="darkholder" placeholder="Buscar Producto">
-    </div>
+    </div> -->
 </div>
 
 <div class="row collection" style="margin: 0px;">

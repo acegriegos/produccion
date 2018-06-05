@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css" rel="stylesheet">
-<link href="../assets/css/modulos/style-factura.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.2">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.0.0.2">
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
 <title>Recibo de Dinero Multiple</title>
 
@@ -133,9 +133,9 @@
   </div>
   </div>
 
-<script src="../assets/js/jquery.js"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.2"></script>
 
-<script src="../assets/js/materialize.js"></script>
-<script src="../assets/js/asgard.js?v=0.1"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=0.6"></script>
+<script src="../assets/js/materialize.js?v=10.0.0.2"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.2"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.2"></script>
 </body>

@@ -8,13 +8,14 @@ $(document).on("change","#vidinventario",function(){
 	tabla.destroy();
 	arr('login',6,'',127,id,0,1,$("#listainventarios"));
 	$("#data-table-inventarios").DataTable({
-        bFilter : false,
+        bFilter : true,
         bScrollInfinite : true,
-        bSort : false,
-        bLengthChange : false,
+        bSort : true,
+        bLengthChange : true,
         bPaginate :  false,
-        bInfo : false
+        bInfo : false,
     });
+
 });
 
 $(document).on("change","#vidbodega",function(){

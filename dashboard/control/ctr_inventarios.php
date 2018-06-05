@@ -14,7 +14,7 @@
 		$smarty->assign('STY',$sty);
 		$smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 and if('.$_SESSION['TMP_CIA'].' = -1,1,idsucursal = @@impresa) order by nombre'));
+	   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 and find_in_set(idsucursal,concat("-1,","@@impresa")) order by nombre'));
 	   	$smarty->display('v_inventarios.tpl');
 	   }else{
 	   $pagina = 0;

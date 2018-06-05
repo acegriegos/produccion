@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Rutas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-rutas.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-rutas.css?v=10.0.0.2">
   </head>
   <body>
   <br>
@@ -27,9 +27,9 @@
                 <li class="nav-item menu" id="m2">
                     <a class="nav-link" href="#" title="Carga/Descarga">Carga/Descarga</a>
                 </li>
-                <li class="nav-item menu" id="m3">
+                <!-- <li class="nav-item menu" id="m3">
                     <a class="nav-link" href="#" title="Rastreo">Rastreo</a>
-                </li>
+                </li> -->
             </ul>
         </nav>
 
@@ -40,6 +40,6 @@
     </div>
     </div>
     {$SRC}
-    <script src="../assets/js/modulos/rutas.js?v=0.5"></script>
+    <script src="../assets/js/modulos/rutas.js?v=10.0.0.2"></script>
   </body>
 </html>

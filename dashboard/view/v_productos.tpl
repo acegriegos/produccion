@@ -6,9 +6,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="Cache-Control" content="max-age=86400"/>
 		<title>Productos</title>
+		{$STY}
+		<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css?v=10.0.0.2">
 	</head>
-	{$STY}
-	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css">
 	<body>
 	{$NAV}
 		<div class="bdy pequeño">
@@ -24,7 +24,7 @@
 						<li class="nav-item menu3 per4110" id="m2">
 							<a class="nav-link" href="#" title="Servicios">Servicios</a>
 						</li>
-						<li class="nav-item menu3 per4114" id="m3">
+						<li class="nav-item menu3 per4114 {if $smarty.session.BUSS eq 1}hide{/if}" id="m3">
 							<a class="nav-link" href="#" title="Paquetes">Paquetes</a>
 						</li>
 					</ul>
@@ -34,7 +34,7 @@
 			</div>
 		</div> <!-- END BDY -->
 	{$SCR}
-	<script src="../assets/js/modulos/productos.js?v=0.18"></script>
+	<script src="../assets/js/modulos/productos.js?v=10.0.0.2"></script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=0.10">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.2">
 <nav class="nav-extended z-depth-3 head1">
     <div class="nav-wrapper">
         <h4 align="center" style="padding-top: 10px">Cuentas por Cobrar</h4>
@@ -7,7 +7,7 @@
 <div id="mantCxC" class="pequeño">
     <div class="card z-depth-3">
         <div class="row padd marginzero" style="padding-top: 20px">
-            <div class="input-field col s12 m7">
+           <!--  <div class="input-field col s12 m7">
                 <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small mdi mdi-magnify mdi-24px"></i></a>
                 <ul id='filtr_1' class='dropdown-content'>
                     <li><a href="#!" fltr="1">Nombre</a></li>
@@ -16,7 +16,7 @@
                 </ul>
                 <input type="text" id="searchCuentas" maxlength="100" num="313" modulo="Cuentasx">
                 <label class="truncate" for="searchCuentas">Buscar por nombre de clientes o factura</label>
-            </div>
+            </div> -->
             <div class="col s12 m5">
                 <div class="col s12 m4">
                     <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
@@ -27,18 +27,23 @@
                     <label for="vencidas">Vencidas</label>
                 </div>
                 <div class="col s12 m4">
+                    <input name="ctas" class="with-gap" type="radio" id="apartados" value="4" />
+                    <label for="apartados">Apartados</label>
+                </div>
+               <!--  <div class="col s12 m4">
                     <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />
                     <label for="porvencer">Por Vencer</label>
-                </div>
+                </div> -->
             </div>
         </div>
+        
         <div class="card-block pequeño">
             <div class="row  pequeño">
                 <div class="col s12 hide">      
                     <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Multiple</a>
                 </div>
                 <div class="col s12 pequeño">
-                    <table id="data-table-Cuentasx" class="pequeño  table centered highlight bordered responsive-table z-depth-3 pbtns">
+                    <table id="data-table-cuentas-x" class="pequeño  table centered highlight bordered responsive-table z-depth-3 pbtns">
                         <thead>
                             <tr>
                                 <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
@@ -53,6 +58,7 @@
                         </thead>
                         <tbody id="listaCuentasx"></tbody>
                     </table>
+                    <br><br>
                 </div>
             </div>
         </div>

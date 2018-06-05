@@ -5,7 +5,7 @@
             <div class="collapsible-body pequeño"><div class="card-block">
                 <div class="row pequeño">
                     <div class="col s12 m12 l6  pequeño">
-                        <label for="vnombre">Nombre de la Empresa</label>
+                        <label for="vnombre">Razón Social</label>
                         <input type="text" class="infoempresa" id="vnombre" field="empresa">
                     </div>
                     <div class="col s12 m12 l6 pequeño">
@@ -15,7 +15,7 @@
                 </div>
                 <div class="row pequeño">
                     <div class="col s12 m12 l6 pequeño">
-                        <label for="vpfisico">Persona Física o Nombre de Fantasía</label>
+                        <label for="vpfisico">Nombre Comercial</label>
                         <input type="text" class="infoempresa" id="vpfisico" style="padding-top: 14px">
                     </div>
                     <div class="col s12 m12 l6 pequeño">

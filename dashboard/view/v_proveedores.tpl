@@ -10,7 +10,7 @@
 </head>
 <body>
     {$NAV}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css?v=10.0.0.2">
     <div class="bdy pequeño" >
         <div class="card">
             <div class="card-header center head1"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
@@ -27,8 +27,8 @@
                         <input type="text" id="search_clientes" maxlength="100" num="v306" var="0,1" cambio="30">
                         <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
                     </div>
-                    <div class="col s2 m6 per2001">
-                        <a id="ingClie" class="der btn-floating tooltipped modal-trigger z-depth-3 btn2" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large mdi mdi-plus"></i></a>
+                    <div class="col s2 m6 ">
+                        <a id="ingClie" class="der per2001 btn-floating tooltipped modal-trigger z-depth-3 btn2" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="large mdi mdi-plus"></i></a>
                     </div>
                 </div>
                 <div class="card-block">
@@ -360,8 +360,8 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=0.4"></script>
-<script src="../assets/js/jquery.mask.min.js"></script>
+<script src="../assets/js/modulos/proveedores.js?v=10.0.0.2"></script>
+<script src="../assets/js/jquery.mask.min.js?v=10.0.0.2"></script>
 
 </body>
 </html>

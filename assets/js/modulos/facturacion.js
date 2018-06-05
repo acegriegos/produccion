@@ -1,13 +1,17 @@
 var param = '';
 var config;
 
+// trVenta
+// trCompra
+// trOCompra
+
 $(function(){
   param = getParameterByName('tf');
   param = param == '' ? 1 : parseInt(param) ;
 
   config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
 
-  $("#mfacturacion").html(mantenimiento('facturacion',1,''));
+  $("#mfacturacion").html(mantenimiento('facturacion',1,param));
 
   $('.datepicker').pickadate({
          labelMonthNext: 'Siguiente',
@@ -139,9 +143,9 @@ function cargarOCompras(){
 function cargarCompras(){
     $("#titfact").html("COMPRAS");
     $("#reference").removeClass('hide');
-    $("#chg_tipo").attr('disabled',false);
+    $(".chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
-
+    
     $(".trCompra").removeClass('hide');
     $(".trsec:hidden").remove();
     $(".isfast").addClass('hide');
@@ -213,7 +217,7 @@ function cargarCompras(){
                 var inv = $("#valores").data('elemento')['hinv'];
                 var cnti = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
                 var idprd = $("#valores").data('elemento')['idp'];
-                var desc = 0;//$("#descp").val();
+                var desc = $("#descp").val();
                 var hinv = $("#valores").data('elemento')['hinv'];
                 var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
                 var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
@@ -326,7 +330,7 @@ function cargarGlobal(){
             $("#vplazo").focus().select();
         }
         $("#vfecha").blur();
-    } });
+    }});
 
     $("#descp").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -334,6 +338,7 @@ function cargarGlobal(){
        
         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+            var tipo = getParameterByName('tf');
             $(".autocomplete-content").remove();
             
             $("#descp").autocomplete({
@@ -362,7 +367,7 @@ function cargarGlobal(){
         }
     });
 
-    $("#chg_tipo").change(function(){
+    $(".chg_tipo").change(function(){
         var value = parseInt($(this).attr('val'));
 
         if (value == 2) {
@@ -370,7 +375,7 @@ function cargarGlobal(){
             $(".con").show();
             $("#vplazo").val(0);
             $(this).attr('val',1)
-            $(".zelda").data('triforce')['vidtipo'] = 1;
+            $(".zelda").data('triforce')['vidtipo'] = value;
             $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
         }else{
             $(".con").hide();
@@ -379,7 +384,7 @@ function cargarGlobal(){
                 var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
                 $("#vplazo").val(plazo);
             }
-            $(".zelda").data('triforce')['vidtipo'] = 2;
+            $(".zelda").data('triforce')['vidtipo'] = value;
             $(this).attr('val',2)
             $(".zelda").data('triforce')['vidtipopago'] = 0;
         }
@@ -400,13 +405,15 @@ function cargarGlobal(){
     $("#ncli").keydown(function(e){
         var charCode = e.which || e.keyCode;
         var charStr = keysight(e);
-
+        
         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
             $(".autocomplete-content").remove();
+
             $("#ncli").autocomplete({
                 limit: 20,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 having nom like "%'+busqueda+'%" limit 20',0,0,0,1)
+
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 and find_in_set(idsucursal,concat("-1,",@@impresa)) having nom like "%'+busqueda+'%" limit 20',0,0,0,1)
             });
 
         }
@@ -463,6 +470,7 @@ function cargarGlobal(){
         if (tipo == 1) {
             $(".eunit").addClass('hide');
             $(".eimp").addClass('hide');
+            $(".eexct").addClass('hide');
         }else if (tipo == 2)
             $(".eimp").addClass('hide');
         else
@@ -474,14 +482,16 @@ function cargarGlobal(){
 
     $(document).on("click","#editprod",function(){
         var id = $("#hdnprd").val();
-        var cant,desc,prec = 0;
+        var cant,desc,prec,exo = 0;
         cant = $("#ecantidad").val();
         desc = $("#edescuento").val();
         prec = $("#eunitario").val();
+        exo = $("#texct").val()
 
         $("#fd"+id).data('triforce')['vcantidad'] = cant;
         $("#fd"+id).data('triforce')['vdesc'] = desc;
         $("#fd"+id).data('triforce')['vprecio'] = prec;
+        $("#fd"+id).data('triforce')['exoneracion'] = exo;
         totalizar();
         $("#cant"+id).text(cant);
         $("#prec"+id).text(prec);

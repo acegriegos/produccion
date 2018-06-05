@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Devoluciones</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-devoluciones.css">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-devoluciones.css?v=10.0.0.2">
 </head>
 <body>
   {$NAV}
@@ -46,7 +46,6 @@
             <a class="waves-effect waves-light btn btn1" id="srchfact">Buscar</a>
           </div>
         </div>
-        <hr>
         <div class="row">
           <div class="col s12 m6 l6">
             <div class="row marginzero">
@@ -168,6 +167,6 @@
     </div>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/devoluciones.js"></script>
+  <script src="../assets/js/modulos/devoluciones.js?v=10.0.0.2"></script>
 </body>
 </html>

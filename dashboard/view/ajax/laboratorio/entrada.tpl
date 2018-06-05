@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Laboratorio de Cultivo de Tejidos</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.0.0.2">
   </head>
 <body>
   {$NAV}
@@ -38,6 +38,7 @@
                 <li class="menu3" id="m4"><a class="white-text">Aclimatación</a></li>
                 <li class="menu3" id="m5"><a class="white-text">QoS</a></li>
                 <li class="menu3" id="m7"><a class="white-text">Medio Cultivo</a></li>
+
                 <li class="menu3" id="m6"><a class="white-text">Reporte</a></li>
             </ul>
           </div>
@@ -61,6 +62,6 @@
       </div>
     
     {$SCR}
-    <script src="../assets/js/modulos/laboratorio.js?v=0.1"></script>
+    <script src="../assets/js/modulos/laboratorio.js?v=10.0.0.2"></script>
   </body>
 </html>

@@ -145,12 +145,21 @@ $(document).on("click",".menu3",function(){
 			});
 
 			$("#valid_p12").click(function(){
+				$("#valid_p12").attr('disabled',true);
 				var myDropzone = Dropzone.forElement("#p12-upload");
 				var data = new FormData();
+				if(myDropzone.getQueuedFiles()[0] == undefined){
+					Materialize.toast('Llave Criptográfica Inválida',4000,'red');
+					$("#valid_p12").attr('disabled',false);
+					return false;
+				}
 
 				data.append('accion',3);
 				data.append('clave',$("#vpass_n").val());
 				data.append('file',myDropzone.getQueuedFiles()[0]);
+				data.append('user',$("#vuser_atv").val());
+				data.append('pass',$("#vpass_atv").val());
+				data.append('prueba',$("#visPrueba").is(':checked'))
 
 				jQuery.ajax({
 				    url: '../cargar.php',
@@ -169,12 +178,19 @@ $(document).on("click",".menu3",function(){
 			                	$("#juridico").click()
 			                else
 			                	$("#fisico").click()
+			                $("#valid_p12").attr('isvalid',1)
+			                $("#valid_p12").attr('disabled',false);
 			                Materialize.updateTextFields();
 			            }
 			            catch(err){
 			                p = data;
+			                $("#valid_p12").attr('isvalid',0)
+			                $("#valid_p12").attr('disabled',false);
 			                Materialize.toast(p,4000,'red');
 			            }
+				    },
+				    error:function(x,y,z){
+				    	alert(x)
 				    }
 				});
 			});
@@ -1338,7 +1354,7 @@ return false;
 function validarsucursales() {
 	if ($("#vnombre").val() == '') {
 		$("#vnombre").focus();
-		return "Razón Jurídica Requerida";
+		return "Razón Social Requerida";
 	}
 
 	if ($("#vcedula").val() == '') {
@@ -1349,6 +1365,10 @@ function validarsucursales() {
 	if ($("#vtelefono").val() == '') {
 		$("#vtelefono").focus();
 		return "Teléfono Requerido";
+	}
+
+	if ($("#isfe").is(":checked") && $("#valid_p12").attr('isvalid') == 0) {
+		return "Validación Factura Electrónica Requerida";
 	}
 
 	if ($("#fisico").is(":checked")) {

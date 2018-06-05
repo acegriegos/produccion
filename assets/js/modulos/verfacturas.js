@@ -87,7 +87,7 @@ $(document).on("change","input[name=tventa]",function(){
 		case 1:
 			var tabla = $("#data-table-facturas").DataTable();
 			tabla.destroy();
-			arr('login',6,'',158,'0,'+id+',0',0,1,$("#listafacturas"));
+			arr('login',6,'',158,'0,'+id+',0,@@impresa',0,1,$("#listafacturas"));
 			$("#data-table-facturas").DataTable({
 				bFilter :  false,
 	            bLengthChange : false,
@@ -100,7 +100,7 @@ $(document).on("change","input[name=tventa]",function(){
 		case 2:
 			var tabla = $("#data-table-facturas").DataTable();
 			tabla.destroy();
-			arr('login',6,'',158,'0,'+id+',0',0,1,$("#listafacturas"));
+			arr('login',6,'',158,'0,'+id+',0,@@impresa',0,1,$("#listafacturas"));
 			$("#data-table-facturas").DataTable({
 				bFilter :  false,
 	            bLengthChange : false,
@@ -113,7 +113,7 @@ $(document).on("change","input[name=tventa]",function(){
 		case 3:
 			var tabla = $("#data-table-facturas").DataTable();
 			tabla.destroy();
-			arr('login',6,'',158,'0,'+id+',0',0,1,$("#listafacturas"));
+			arr('login',6,'',158,'0,'+id+',0,@@impresa',0,1,$("#listafacturas"));
 			$("#data-table-facturas").DataTable({
 				bFilter :  false,
 	            bLengthChange : false,
@@ -126,7 +126,7 @@ $(document).on("change","input[name=tventa]",function(){
 		case 4:
 			var tabla = $("#data-table-facturas").DataTable();
 			tabla.destroy();
-			arr('login',6,'',158,'0,'+id+',0',0,1,$("#listafacturas"));
+			arr('login',6,'',158,'0,'+id+',0,@@impresa',0,1,$("#listafacturas"));
 			$("#data-table-facturas").DataTable({
 				bFilter :  false,
 	            bLengthChange : false,
@@ -139,7 +139,7 @@ $(document).on("change","input[name=tventa]",function(){
 		case 5:
 			var tabla = $("#data-table-facturas").DataTable();
 			tabla.destroy();
-			arr('login',6,'',158,'0,'+id+',0',0,1,$("#listafacturas"));
+			arr('login',6,'',158,'0,'+id+',0,@@impresa',0,1,$("#listafacturas"));
 			$("#data-table-facturas").DataTable({
 				bFilter :  false,
 	            bLengthChange : false,
@@ -156,7 +156,6 @@ $(document).on("click",".print",function(){
 	var id = $(this).attr('id').substr(1);
 	var tv = $(this).attr('tv');
 	var tp = $(this).attr('tp');
-	console.log('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
 	window.open('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
 });
 $(document).on("click",".mdi-format-page-break",function(){
