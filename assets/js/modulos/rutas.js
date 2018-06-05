@@ -138,6 +138,23 @@ $(document).on("change","#seachcliente",function(){
     $("#seachruteros").material_select('update');  
 });
 
+ $("#descp").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = keysight(e)
+       console.log(2)
+        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+            $(".autocomplete-content").remove();
+            
+            $("#descp").autocomplete({
+                limit: 20,
+                data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1)
+            })
+
+            $("#descp").siblings($(".autocomplete-content")).css('width','50%');
+        }
+    });
+
 $(document).on("change","#seachruteros",function(){
     $(".f2").removeClass('hide');
     $(".sd").hide();

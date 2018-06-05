@@ -37,18 +37,18 @@
   
               <?php
                 if ($miscelaneos[10] == 2) {
-                   if ($miscelaneos[2] != '') 
+                   if (trim($miscelaneos[2]) != '') 
                       echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
                    else
                       echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
                 }else{
-                   if ($miscelaneos[2] != ''){
+                   if (trim($miscelaneos[2]) != ''){
                       echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
                    }
                    else
                       echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
-                } 
+                }
                 
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>

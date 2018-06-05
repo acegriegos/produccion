@@ -101,182 +101,177 @@
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
         <label for="barras"><i class="mdi mdi-barcode mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
 
-        <input class="with-gap" name="modselected" type="radio" value="1" id="teclado" />
+        <input class="with-gap" name="modselected" type="radio" value="1" id="teclado"/>
         <label for="teclado"><i class="mdi mdi-keyboard mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
     </section>
     </div>
-    
+
     <div class="s12 m12 l12 col">
     <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead>
-
-        <tr class="hide trVenta">
-          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
-          <th style="width: 18%; padding: 0 !important;" class="center-align">Código</th>
-          <th style="width: 30%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
-          <th style="width: 14%; padding: 0 !important;" class="center-align"><span class="truncate">Prec.Unit</span></th>
-          <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
-          <th style="width: 10%; padding: 0 !important;" class="center-align">Cantidad</th>
-          <th style="width: 14%; padding: 0 !important;" class="center-align">Total</th>
-          <th style="width: 9%; padding: 0 !important;" class="center-align"></th>
+        <tr class="trVenta hide">
+          <section class="hide-on-med-and-down">
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><b>Código</b></div>
+          <div style="padding: 0 !important;" class="col s3 center-align hide-on-med-and-down"><span class="truncate"><b>Descripción</b></span></div>
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><span class="truncate"><b>Prec.Unit</b></span></div>
+          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><span class="truncate"><b>Unidad</b></span></div>
+          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><b>Cantidad</b></div>
+          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><b>Total</b></div>
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down">&nbsp;</div>
+          </section>
         </tr>
 
-        <tr class="hide trCompra">
-          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
-          <th style="width: 10%; padding: 0 !important;" class="center-align">Código</th>
-          <th style="width: 20%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
-          <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
-          <th style="width: 14%; padding: 0 !important;" class="center-align">Prec.Unit</th>
-          <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
-          <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Descuento</span></th>
-          <th style="width: 14%; padding: 0 !important;" class="center-align">Total</th>
-          <th style="width: 17%; padding: 0 !important;" class="center-align"></th>
+        <tr class="trCompra hide">
+          <section class="hide-on-med-and-down">
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><b>Código</b></div>
+          <div style="padding: 0 !important;" class="col s3 center-align hide-on-med-and-down"><span class="truncate"><b>Descripción</b></span></div>
+          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><span class="truncate"><b>Cantidad</b></span></div>
+          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><b>Prec.Unit</b></div>
+          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><span class="truncate"><b>Unidad</b></span></div>
+          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><span class="truncate"><b>Descuento</b></span></div>
+          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><b>Total</b></div>
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down">&nbsp;</div>
+          </section>
         </tr>
 
-        <tr class="hide trOCompra">
-          <!-- <th style="width:  5%; padding: 0 !important;"><i class="mdi mdi-delete pbtn" aria-hidden="true" title="Elimina varias filas"></i></th> -->
-          <th style="width: 20%; padding: 0 !important;" class="center-align">Código</th>
-          <th style="width: 45%; padding: 0 !important;" class="center-align"><span class="truncate">Descripción</span></th>
-          <th style="width: 10%; padding: 0 !important;" class="center-align"><span class="truncate">Cantidad</span></th>
-          <th style="width:  5%; padding: 0 !important;" class="center-align"><span class="truncate">Unidad</span></th>
-          <th style="width: 25%; padding: 0 !important;" class="center-align"></th>
+        <tr class="trOCompra hide">
+          <section class="hide-on-med-and-down">
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><b>Código</b></div>
+          <div style="padding: 0 !important;" class="col s4 center-align hide-on-med-and-down"><span class="truncate"><b>Descripción</b></span></div>
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><span class="truncate"><b>Cantidad</b></span></div>
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><span class="truncate"><b>Unidad</b></span></div>
+          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down">&nbsp;</div>
+          </section>
         </tr>
 
-        <tr class="trVenta hide trsec">
-
-          <!-- <td style="width: 5%; padding: 0 !important"></td> -->
-
-          <td style="width: 10%; padding: 0 !important" class="input-field">
+        <div class="trVenta hide trsec">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
             <input type="hidden" id="valores">
-          </td>
+          </div>
 
-          <td style="width: 30%; padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m3">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
-          </td>
-          <td style="width: 14%; padding: 0 !important" class="input-field">
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
-          </td>
-          <td style="width: 5%; padding: 0 !important" class="input-field">
+          </div>
+
+          <div style=padding: 0 !important" class="input-field col s12 m1">
             <select id="uni" readonly >
               <option>UN</option>
             </select>
-          </td>
-          <td style="width: 10%; padding: 0 !important" class="input-field">
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
-          </td>
-          <td style="width: 14%; padding: 0 !important" class="input-field">
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
-          </td>
-          <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
-
-          <div class="col s12">
-            <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
-              <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-            </a>
           </div>
-          <div class="col s12">
-             <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+
+          <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
+            <div class="col s12">
+              <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
+                <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
+              </a>
+            </div>
+            <div class="col s12">
+               <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+            </div>
           </div>
-  
-          </td>
-        </tr>
+        </div>
 
-        <tr class="trOCompra hide trsec">
-
-          <!-- <td style="padding: 0 !important"></td> -->
-
-          <td style="padding: 0 !important" class="input-field">
+        <div class="trOCompra hide trsec">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
             <input type="hidden" id="valores">
-          </td>
+          </div>
 
-          <td style="padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m4">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
-          </td>
+          </div>
 
-          <td style="padding: 0 !important" class="input-field hide">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
             <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
-          </td>
+          </div>
 
-          <td style="padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
-          </td>
+          </div>
 
-          <td style="padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <select id="uni" readonly >
               <option>UN</option>
             </select>
-          </td>
+          </div>
           
-          <td style="padding: 0 !important" class="input-field hide">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
             <input type="text" id="totp" class="f center divisa hide" value="0.00" readonly placeholder="Total">
-          </td>
-          <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
-
-          <div class="col s12 hide">
-            <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
-              <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-            </a>
           </div>
-          <div class="col s12">
-             <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+
+          <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
+            <div class="col s12 hide">
+              <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
+                <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
+              </a>
+            </div>
+            <div class="col s12">
+               <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
+            </div>
           </div>
-  
-          </td>
-        </tr>
+        </div>
 
-        <tr class="trCompra hide trsec">
-
-          <!-- <td style="width: 5%; padding: 0 !important"></td> -->
-
-          <td style="width: 10%; padding: 0 !important" class="input-field">
+        <div class="trCompra hide trsec">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
             <input type="hidden" id="valores">
-          </td>
+          </div>
 
-          <td style="width: 20%; padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m3">
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
-          </td>
+          </div>
 
-          <td style="width: 10%; padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
-          </td>
+          </div>
 
-          <td style="width: 14%; padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
-          </td>
+          </div>
 
-          <td style="width: 5%; padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <select id="uni" readonly >
               <option>UN</option>
             </select>
-          </td>
+          </div>
 
-          <td style="width: 9%;" class="input-field">
+          <div class="input-field col s12 m1">
             <input type="text" class="f center" id="descup" min="0" value="0" data-mask="999999999.99" placeholder="Descuento" value="0.00">
-          </td>
+          </div>
           
-          <td style="width: 14%; padding: 0 !important" class="input-field">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
-          </td>
-          <td class="center" style="font-size: 1em; width: 17%; padding: 0 !important;">
-
-          <div class="col s12">
-            <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
-              <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-            </a>
           </div>
 
-          <div class="col s12">
-              <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-              <label for="iva" style="float: left;">IVA</label>
-              <input type="checkbox" name="isexcento" id="exct" hclk="0">
-              <label for="exct" style="float: left;">Excento</label>
-              <!-- <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a> -->
+          <div class="center col s12 m2" style="font-size: 1em;  padding: 0px 5px !important;">
+            <div class="col s12">
+              <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
+                <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
+              </a>
+            </div>
+            <div class="col s12">
+                <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
+                <label for="iva" style="float: left;">IVA</label>
+                <input type="checkbox" name="isexcento" id="exct" hclk="0">
+                <label for="exct" style="float: left;">Excento</label>
+                <!-- <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a> -->
+            </div>
           </div>
-          </td>
-        </tr>
+
+        </div>
       </thead>
       <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="">
        
