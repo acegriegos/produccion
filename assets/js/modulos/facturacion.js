@@ -1,6 +1,10 @@
 var param = '';
 var config;
 
+// trVenta
+// trCompra
+// trOCompra
+
 $(function(){
   param = getParameterByName('tf');
   param = param == '' ? 1 : parseInt(param) ;
@@ -141,7 +145,7 @@ function cargarCompras(){
     $("#reference").removeClass('hide');
     $("#chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
-
+    
     $(".trCompra").removeClass('hide');
     $(".trsec:hidden").remove();
     $(".isfast").addClass('hide');
@@ -404,14 +408,11 @@ function cargarGlobal(){
         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
             $(".autocomplete-content").remove();
-            console.log(arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 and find_in_set(idsucursal,concat("-1,",@@impresa)) having nom like "%'+busqueda+'%" limit 20',0,0,0,1));
+
             $("#ncli").autocomplete({
                 limit: 20,
-<<<<<<< HEAD
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 and find_in_set(concat("-1",@@impresa),idsucursal) having nom like "%'+busqueda+'%" limit 20',0,0,0,1)
-=======
+
                 data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 and find_in_set(idsucursal,concat("-1,",@@impresa)) having nom like "%'+busqueda+'%" limit 20',0,0,0,1)
->>>>>>> 53da4b55ee5d50741fe304c1ba6ab572893075f9
             });
 
         }
