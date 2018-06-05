@@ -156,7 +156,6 @@ $(document).on("click",".print",function(){
 	var id = $(this).attr('id').substr(1);
 	var tv = $(this).attr('tv');
 	var tp = $(this).attr('tp');
-	console.log('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
 	window.open('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
 });
 $(document).on("click",".mdi-format-page-break",function(){

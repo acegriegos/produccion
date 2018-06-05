@@ -51,7 +51,7 @@
           <label for="apellido2">Apellido 2</label>
         </div>
       </div>
-      <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
+      <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos hide">
         <div class="ciclos">
           <input type="hidden" id="vbisnacional" value="1">
           <input type="hidden" id="vidubicacion" value="0">
@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-      <div class="row hid">
+      <div class="row hide">
         <div class="col s6 m4 input-field">
           <select id="categoria">
             <option selected value="0">Seleccione una Opción</option>

@@ -123,6 +123,9 @@ $(document).on("change","[name='ctas']",function(){
 		case 3:
 			arr('login',6,'',214,getParameterByName('tf')+',0,0,1,@@impresa',0,1,$("#listaCuentasx"));
 			break;
+		case 4:
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,2',0,1,$("#listaCuentasx"));
+			break;
 		default:
 			arr('login',6,'',214,getParameterByName('tf')+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
 			break;
@@ -237,6 +240,7 @@ $(document).on("click",".detalle",function(){
 	var id = $(this).attr('id').substr(1);
 	gtipo = $(this).attr('tipo');
 	var datos = arr('login',4,'',214,gtipo+','+id+',0,0,@@impresa',0,0,0)[0][0];
+
 	var tabla = $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
 	arr('login',6,'',213,gtipo+','+id+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
@@ -424,6 +428,7 @@ function endDetail(vid,vacc,modulo) {
 	if (vacc == 1) {
 		var saldo = $("#isaldovista").text();
 		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
+		var tsaldo = saldo - parseFloat($("#vvalor").val());
 		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',',') );
 		$("#isaldo").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',','));
 		$("#vidtipopago").val('');

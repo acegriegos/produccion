@@ -1,13 +1,13 @@
 // $(document).keydown(function(e){
 //    if(e.altKey &&  e.which == 67){
 //         e.preventDefault();
-//         if(!$("#chg_tipo").attr('disabled'))
-//             $("#chg_tipo").click().change();
+//         if(!$(".chg_tipo").attr('disabled'))
+//             $(".chg_tipo").click().change();
 //    }
 
 //    // if(e.which == 115){ //F4
 //    //      e.preventDefault();
-//    //      $("#chg_tipo").click().change();
+//    //      $(".chg_tipo").click().change();
 //    // }
 // });
 
@@ -84,6 +84,32 @@ $(function(){
     $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
 
 })//READY
+
+$(document).on("keyup","#nombre",function(){
+    $("#fclientes .zelda").data('triforce')['vnombre'] = $(this).val();
+});
+
+$(document).on("keyup","#apellido1",function(){
+    $("#fclientes .zelda").data('triforce')['vapellido1'] = $(this).val();
+});
+
+$(document).on("keyup","#apellido2",function(){
+    $("#fclientes .zelda").data('triforce')['vapellido2'] = $(this).val();
+});
+
+$(document).on("keyup","#cedula",function(){
+    $("#fclientes .zelda").data('triforce')['vcedula'] = $(this).val();
+});
+
+$(document).on("change","[name=tipoclie]",function(){
+    $("#fclientes .zelda").data('triforce')['vidtipocliente'] = $(this).attr('tipoclie');
+});
+
+$(document).on("click","#fastClient",function(){
+    addGeneral(1);
+    var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));
+    Materialize.toast($toastContent, 5000);
+});
 
 $(document).on("click",".ckmixto",function(){
     var id = $(this).attr('id').substr(2);
@@ -557,6 +583,14 @@ function validar (varreglo,vmodulo) {
                 }
             }
             break;
+        case 'cliente':
+            if (vmodulo['tip'] == '') {
+                err = validarCliente(vmodulo['modulo']);
+                if ( err ) {
+                    return err;
+                }
+            }
+            break;
         default:
             return 'Módulo no Existente';
             break;
@@ -566,6 +600,18 @@ function validar (varreglo,vmodulo) {
     
     return salida;
 
+}
+
+function validarCliente(mod) {
+    if ($("#f"+mod+"s #cedula").val().trim().length == 0) {
+        $("#f"+mod+"s #cedula").focus();
+        return 'El campo Cédula es requerido';
+    }
+
+    if ($("#f"+mod+"s #nombre").val().trim().length == 0) {
+        $("#f"+mod+"s #nombre").focus();
+        return 'El campo Nombre es requerido';
+    }
 }
 
 function validarDetalleFactura(){
@@ -614,7 +660,7 @@ function validarFactura() {
     }
 
 
-    if($(".zelda").data('triforce')['vidtipo'] == 2){
+    if($(".zelda").data('triforce')['vidtipo'] == 2 || $(".zelda").data('triforce')['vidtipo'] == 4){
         $("#idtipopago").val(0)
         $("#idtipopago").material_select('update');
 
@@ -740,6 +786,7 @@ function cargarunidades(vidproducto,vunidad) {
 }
 
 function endDetail(vid,vacc,vmodulo) {
+
     var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
     var clave = vid[0][0];
 
@@ -748,7 +795,7 @@ function endDetail(vid,vacc,vmodulo) {
         sendFE(clave,factura);
     }else
         sendVMail(factura,clave,vid[0][0]);
-            
+
     return false;
 }
 
@@ -757,7 +804,9 @@ function verfacturas() {
 }
 
 function searchClient(vvariable,visprv){
-    var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv+',@@impresa','',0,'');
+
+    var clie = arr('login',4,'',63,'"'+vvariable+'",'+visprv+',@@impresa',0,0,0);
+    console.log(clie)
 
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
@@ -771,13 +820,16 @@ function searchClient(vvariable,visprv){
             $("#idfact").html(ncons);
         }
 
-        if (vclie[3] > 0)
-            $("#chg_tipo").removeAttr('disabled');
-        else
-            $("#chg_tipo").attr('disabled','true')
+        if (vclie[3] > 0) {
+            $(".chg_tipo[val=2]").removeAttr('disabled');
+            $(".chg_tipo[val=4]").removeAttr('disabled');
+        }else{
+            $(".chg_tipo[val=2]").attr('disabled','true')
+            $(".chg_tipo[val=4]").attr('disabled','true')
+        }
 
         if (param == 2)
-            $("#chg_tipo").removeAttr('disabled')
+            $(".chg_tipo").removeAttr('disabled')
 
         if ($("#vidtipo").val() == 2)
             $("#vplazo").val(vclie[3]);
@@ -798,6 +850,7 @@ function searchClient(vvariable,visprv){
         $("#vdescuentop").data('valor',vclie[4])
         
     }else{
+
         if ($(".zelda").data('triforce')['vidtipoventa'] == 1){
             $(".zelda").data('triforce')['vidtipoventa'] == 7;
             var ncons = getDatos('lpad(consecutivo6,6,0)',39,'id = @@impresa',0,0)[0][0];
@@ -810,9 +863,14 @@ function searchClient(vvariable,visprv){
         $("#vdescuentop").data('valor',0);
         $("#ced").val('');
         $("#vplazo").val(0);
-        if($("#chg_tipo").val() == 2)
-            $("#chg_tipo").click();
-        $("#chg_tipo").attr('disabled','disabled')
+        if($(".chg_tipo").val() == 2)
+            $(".chg_tipo").click();
+
+        $(".chg_tipo[val=2]").attr('disabled','disabled')
+        if ($("#ncli").val() != '')
+            $("#fastClient").removeClass('hide');
+        else
+            $("#fastClient").addClass('hide');
     }
 
     cargarImpuestos($(".zelda").data('triforce')['vidcliente'],'2');

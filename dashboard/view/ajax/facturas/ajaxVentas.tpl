@@ -10,19 +10,32 @@
   <input type="hidden" class="zelda">
 
   <div class="row pequeño">
-    <div class="col s12 m3 l3 concre" align="center">
-      <div class="switch">
-
-        <label>
-          <b>Contado</b>
-          <input type="checkbox" id="chg_tipo" val="1" disabled>
-          <span class="lever"></span>
-          <b>Crédito</b>
-        </label>
+    {if $TF eq 1}
+      {assign var="column" value="4"}
+      <div class="col s12 m{$column} l{$column} concre" align="center">
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="1" id="chg_tipo1" checked>
+        <label for="chg_tipo1" >Contado</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="2" id="chg_tipo2" disabled>
+        <label for="chg_tipo2">Crédito</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="4" id="chg_tipo3" disabled>
+        <label for="chg_tipo3">Apartado</label>
       </div>
-    </div>
+    {else}
+      {assign var="column" value="3"}
+      <div class="col s12 m{$column} l{$column} concre" align="center">
+        <div class="switch">
+          <label>
+            <b>Contado</b>
+            <input type="checkbox" id="chg_tipo" val="1">
+            <span class="lever"></span>
+            <b>Crédito</b>
+          </label>
+        </div>
+      </div>
+    {/if}
+    
 
-    <div class="col s12 m3 l3" align="center">
+    <div class="col s12 m{$column} l{$column}" align="center">
       <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"></span></label>
     </div>
 
@@ -68,7 +81,7 @@
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
-      <i class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" ata-position="bottom" data-tooltip="Agregar Cliente"></i>
+      <i class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide" id="fastClient" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" ata-position="bottom" data-tooltip="Agregar Cliente"></i>
       <i class="mdi mdi-16px mdi-email pbtn tooltipped hide" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
