@@ -123,6 +123,9 @@ $(document).on("change","[name='ctas']",function(){
 		case 3:
 			arr('login',6,'',214,getParameterByName('tf')+',0,0,1',0,1,$("#listaCuentasx"));
 			break;
+		case 4:
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,2',0,1,$("#listaCuentasx"));
+			break;
 		default:
 			arr('login',6,'',214,getParameterByName('tf')+',0,0,0',0,1,$("#listaCuentasx"));
 			break;
@@ -236,7 +239,11 @@ $(document).on("click",".detalle",function(){
 	$(this).sideNav('show');
 	var id = $(this).attr('id').substr(1);
 	gtipo = $(this).attr('tipo');
-	var datos = arr('login',4,'',214,gtipo+','+id+',0,0',0,0,0)[0][0];
+	var fltr = 0;
+	if ($("#apartados").is(":checked")) {
+		fltr = 2;
+	}
+	var datos = arr('login',4,'',214,gtipo+','+id+',0,'+fltr,0,0,0)[0][0];
 	var tabla = $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
 	arr('login',6,'',213,gtipo+','+id,0,1,$("#listaCuentasxCDetalle"));
@@ -423,12 +430,20 @@ function endDetail(vid,vacc,modulo) {
 	if (vacc == 1) {
 		var saldo = $("#isaldovista").text();
 		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
+		var tsaldo = saldo - parseFloat($("#vvalor").val());
 		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',',') );
 		$("#isaldo").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',','));
 		$("#vidtipopago").val('');
 		$("#vvalor").val(0.00);
 		arr('login',6,'',213,gtipo+','+$("#vidfactura").val(),0,1,$("#listaCuentasxCDetalle"));
 		arr('login',6,'',214,gtipo+',0,0,0',0,1,$("#listaCuentasx"));
+		var idfact = arr('login',4,'idfactura',301,'id = '+id,0,0,0)[0][0][0];
+		if (tsaldo == 0) {
+			var prods = arr('login',4,'',311,idfact,0,0,0)[0];
+			$.each(prods,function(index,value){
+				arr('login',7,'2',97,'cantidad = cantidad - '+value[10],'idproducto = '+value[9]+' and idinventario = 99',0,0)
+			});
+		}
 		$("#btn-div").click();
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
 		window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);

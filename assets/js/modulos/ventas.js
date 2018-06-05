@@ -1,13 +1,13 @@
 // $(document).keydown(function(e){
 //    if(e.altKey &&  e.which == 67){
 //         e.preventDefault();
-//         if(!$("#chg_tipo").attr('disabled'))
-//             $("#chg_tipo").click().change();
+//         if(!$(".chg_tipo").attr('disabled'))
+//             $(".chg_tipo").click().change();
 //    }
 
 //    // if(e.which == 115){ //F4
 //    //      e.preventDefault();
-//    //      $("#chg_tipo").click().change();
+//    //      $(".chg_tipo").click().change();
 //    // }
 // });
 
@@ -84,6 +84,32 @@ $(function(){
     $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
 
 })//READY
+
+$(document).on("keyup","#nombre",function(){
+    $("#fclientes .zelda").data('triforce')['vnombre'] = $(this).val();
+});
+
+$(document).on("keyup","#apellido1",function(){
+    $("#fclientes .zelda").data('triforce')['vapellido1'] = $(this).val();
+});
+
+$(document).on("keyup","#apellido2",function(){
+    $("#fclientes .zelda").data('triforce')['vapellido2'] = $(this).val();
+});
+
+$(document).on("keyup","#cedula",function(){
+    $("#fclientes .zelda").data('triforce')['vcedula'] = $(this).val();
+});
+
+$(document).on("change","[name=tipoclie]",function(){
+    $("#fclientes .zelda").data('triforce')['vidtipocliente'] = $(this).attr('tipoclie');
+});
+
+$(document).on("click","#fastClient",function(){
+    addGeneral(1);
+    var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));
+    Materialize.toast($toastContent, 5000);
+});
 
 $(document).on("click",".ckmixto",function(){
     var id = $(this).attr('id').substr(2);
@@ -557,6 +583,14 @@ function validar (varreglo,vmodulo) {
                 }
             }
             break;
+        case 'cliente':
+            if (vmodulo['tip'] == '') {
+                err = validarCliente(vmodulo['modulo']);
+                if ( err ) {
+                    return err;
+                }
+            }
+            break;
         default:
             return 'Módulo no Existente';
             break;
@@ -566,6 +600,18 @@ function validar (varreglo,vmodulo) {
     
     return salida;
 
+}
+
+function validarCliente(mod) {
+    if ($("#f"+mod+"s #cedula").val().trim().length == 0) {
+        $("#f"+mod+"s #cedula").focus();
+        return 'El campo Cédula es requerido';
+    }
+
+    if ($("#f"+mod+"s #nombre").val().trim().length == 0) {
+        $("#f"+mod+"s #nombre").focus();
+        return 'El campo Nombre es requerido';
+    }
 }
 
 function validarDetalleFactura(){
@@ -614,7 +660,7 @@ function validarFactura() {
     }
 
 
-    if($(".zelda").data('triforce')['vidtipo'] == 2){
+    if($(".zelda").data('triforce')['vidtipo'] == 2 || $(".zelda").data('triforce')['vidtipo'] == 4){
         $("#idtipopago").val(0)
         $("#idtipopago").material_select('update');
 
@@ -740,15 +786,31 @@ function cargarunidades(vidproducto,vunidad) {
 }
 
 function endDetail(vid,vacc,vmodulo) {
-    var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
-    var clave = vid[0][0];
+    switch (vmodulo) {
+        case 'factura':
+            var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
+            var clave = vid[0][0];
 
-    if (config[0] == 1 && param == 1) {
-        Materialize.toast('Generando Factura Electrónica...',10000,'green');
-        // sendFE(clave,factura);
-    }else
-        sendVMail(factura,clave,vid[0][0]);
-            
+            if (config[0] == 1 && param == 1) {
+                Materialize.toast('Generando Factura Electrónica...',10000,'green');
+                // sendFE(clave,factura);
+            }else
+                sendVMail(factura,clave,vid[0][0]);
+            break;
+        case 'cliente':
+            deadclear('cliente');
+            $("#ncli").val($("#fclientes .zelda").data('triforce')['vnombre']+" "+$("#fclientes .zelda").data('triforce')['vapellido1']+" "+$("#fclientes .zelda").data('triforce')['vapellido2']);
+            $("#fclientes .zelda").removeData();
+            $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
+            $(".zelda").data('triforce')['vidcliente'] = vid[0][0];
+            $(".validate").css('border-bottom', '1px solid #9e9e9e');
+            $(".validate").css('box-shadow', 'none');
+            // $("#provincia").val(0);
+            // $("#canton").val(0);
+            $("select").material_select();
+            break;
+    }
+
     return false;
 }
 
@@ -758,19 +820,22 @@ function verfacturas() {
 
 function searchClient(vvariable,visprv){
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv,'',0,'');
-    
+    console.log(clie[0][0][0])
     if (clie[0][0][0] != 0) {
         var vclie = clie[0][0];
         $(".zelda").data('triforce')['vidcliente'] = vclie[0];
         $("#ncli").val(vclie[1]+' '+vclie[2]);
 
-        if (vclie[3] > 0)
-            $("#chg_tipo").removeAttr('disabled');
-        else
-            $("#chg_tipo").attr('disabled','true')
+        if (vclie[3] > 0) {
+            $(".chg_tipo[val=2]").removeAttr('disabled');
+            $(".chg_tipo[val=4]").removeAttr('disabled');
+        }else{
+            $(".chg_tipo[val=2]").attr('disabled','true')
+            $(".chg_tipo[val=4]").attr('disabled','true')
+        }
 
         if (param == 2)
-            $("#chg_tipo").removeAttr('disabled')
+            $(".chg_tipo").removeAttr('disabled')
 
         if ($("#vidtipo").val() == 2)
             $("#vplazo").val(vclie[3]);
@@ -791,14 +856,20 @@ function searchClient(vvariable,visprv){
         $("#vdescuentop").data('valor',vclie[4])
         
     }else{
+
         $(".zelda").data('triforce')['vidcliente'] = 0;
         $("#vdescuentop").val(0);
         $("#vdescuentop").data('valor',0);
         $("#ced").val('');
         $("#vplazo").val(0);
-        if($("#chg_tipo").val() == 2)
-            $("#chg_tipo").click();
-        $("#chg_tipo").attr('disabled','disabled')
+        if($(".chg_tipo").val() == 2)
+            $(".chg_tipo").click();
+
+        $(".chg_tipo[val=2]").attr('disabled','disabled')
+        if ($("#ncli").val() != '')
+            $("#fastClient").removeClass('hide');
+        else
+            $("#fastClient").addClass('hide');
     }
 
     cargarImpuestos($(".zelda").data('triforce')['vidcliente'],'2');

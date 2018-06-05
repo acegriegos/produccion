@@ -7,7 +7,7 @@ $(function(){
 
   config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
 
-  $("#mfacturacion").html(mantenimiento('facturacion',1,''));
+  $("#mfacturacion").html(mantenimiento('facturacion',1,param));
 
   $('.datepicker').pickadate({
          labelMonthNext: 'Siguiente',
@@ -139,7 +139,7 @@ function cargarOCompras(){
 function cargarCompras(){
     $("#titfact").html("COMPRAS");
     $("#reference").removeClass('hide');
-    $("#chg_tipo").attr('disabled',false);
+    $(".chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
 
     $(".trCompra").removeClass('hide');
@@ -326,7 +326,7 @@ function cargarGlobal(){
             $("#vplazo").focus().select();
         }
         $("#vfecha").blur();
-    } });
+    }});
 
     $("#descp").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -334,6 +334,7 @@ function cargarGlobal(){
        
         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+            var tipo = getParameterByName('tf');
             $(".autocomplete-content").remove();
             
             $("#descp").autocomplete({
@@ -362,7 +363,7 @@ function cargarGlobal(){
         }
     });
 
-    $("#chg_tipo").change(function(){
+    $(".chg_tipo").change(function(){
         var value = parseInt($(this).attr('val'));
 
         if (value == 2) {
@@ -370,7 +371,7 @@ function cargarGlobal(){
             $(".con").show();
             $("#vplazo").val(0);
             $(this).attr('val',1)
-            $(".zelda").data('triforce')['vidtipo'] = 1;
+            $(".zelda").data('triforce')['vidtipo'] = value;
             $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
         }else{
             $(".con").hide();
@@ -379,7 +380,7 @@ function cargarGlobal(){
                 var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
                 $("#vplazo").val(plazo);
             }
-            $(".zelda").data('triforce')['vidtipo'] = 2;
+            $(".zelda").data('triforce')['vidtipo'] = value;
             $(this).attr('val',2)
             $(".zelda").data('triforce')['vidtipopago'] = 0;
         }
