@@ -76,17 +76,21 @@
          <div class="row ld" style="border-bottom: 0px;">
             
             <div class="col s12 input-field" align="center">
-                <span style="float: left;">Inventario: <span id="invname" nv="">NOMBRE DE INVENTARIO</span></span>
+                <!-- <span style="float: left;">Inventario: <span id="invname" nv="">NOMBRE DE INVENTARIO</span></span> -->
+                <div class="col s4 m4 l4">
+                    <select id="invname" type="select"></select>
+                    <label for="invname">Inventario</label>
+                </div>
 
-                <a href="#" class="mdi mdi-24px mdi-playlist-plus cargar load_inv" title="Cargar Inventario" style="padding-right: 2%"></a>
+                <a class="mdi mdi-24px mdi-playlist-plus cargar load_inv" title="Cargar Inventario" style="padding-right: 2%"></a>
 
-                <a href="#" class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a>
+                <a class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a>
 
                 <!-- <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped" title="Cargar Pedidos" style="padding-right: 2%"></a> -->
 
                 <!-- <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a> -->
 
-                <a href="#" class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
+                <a class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
 
             </div>
 
@@ -117,14 +121,7 @@
 
 <div class="row">
     <div class="col s12 m6 l6">
-        <span class="sd"><b>Carga de productos</b></span>
         <div class="collection" id="coll1">
-            <!-- <a class="collection-item">Alan<span class="new badge">4</span></a> -->
-        </div>
-    </div>
-    <div class="col s12 m6 l6">
-        <span class="sd"><b>Productos en ruta</b></span>
-        <div class="collection" id="coll2">
             <!-- <a class="collection-item">Alan<span class="new badge">4</span></a> -->
         </div>
     </div>

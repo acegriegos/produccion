@@ -63,17 +63,43 @@ $(function(){
 
 });
 
-$(document).on("click","#cargar",function(){
-
+$(document).on("click",".cargar",function(){
+    var invprev = $("#vidinventario").val();
+    var nextinv = $("#invname").val();
+    $(".prodcuto").each(function(){
+        var idprod = $(this).attr('idprod');
+        var cant = $(this).attr('cantidad');
+        var mover = arr('login',4,'',512,invprev+','+nextinv+','+idprod+','+cant,0,0,0);
+        if (mover['succed'] == 1) {
+            Materialize.toast(mover[0]['ERROR'], 4000, 'green');
+        }
+    });
 });
 
 $(document).on("click","#assgninvtoruta",function(){
-    $("#coll1").append('<a class="collection-item prodcuto" idprod="'+$("#desp").attr('idprod')+'" cantidad="'+$("#cantp").val()+'">'+$("#descp").val()+'<span class="new badge" data-badge-caption="unidades">'+$("#cantp").val()+'</span></a>');
-    $("#codp").val('');
-    $("#descp").val('');
-    $("#cantp").val('');
-    $("#codp").focus();
+    cargarProducto();
 });
+
+// $(document).on("keyup","#cantp",function(e){
+//     var code = e.which || e.keyCode;
+//     if (code == 13) {
+//         cargarProducto();
+//     }
+// });
+
+function cargarProducto() {
+    if (parseInt($("#cantp").val()) > 0) {
+        $("#coll1").append('<a class="collection-item prodcuto" idprod="'+$("#descp").attr('idprod')+'" cantidad="'+$("#cantp").val()+'">'+$("#descp").val()+'<span class="new badge" data-badge-caption="unidades">'+$("#cantp").val()+'</span></a>');
+        $("#codp").val('');
+        $("#descp").val('');
+        $("#cantp").val(1);
+        setTimeout(function(){$("#codp").focus();},500);
+    }else{
+        Materialize.toast('Cantidad debe ser mayor a 0', 4000, 'red');
+        $("#cantp").select();
+        
+    }
+}
 
 $(document).on("keydown","#descp",function(e){
     var charCode = e.which || e.keyCode;
@@ -213,18 +239,27 @@ $(document).on("change","#seachruteros",function(){
     // $(".sd").hide();
     $(".ld").show();
     $(".select-dropdown").css("margin-bottom",'0px');
-    var iddetrut = $(this).val();
-    console.log(iddetrut)
-    var pinv = $("#seachpinvrut").val() == undefined ? '' : $("#seachpinvrut").val();
+    var idtiporuta = $("#seachcliente").val();
+    var idrutero = $("#seachruteros").val();
+    // var pinv = $("#seachpinvrut").val() == undefined ? '' : $("#seachpinvrut").val();
     // var p = arr('login',4,'',223,iddetrut+',0,"'+pinv+'"',0,0,0);
+    var inv = arr('login',4,'',511,'4,'+idrutero,0,0,0)[0];
+    if (inv.length > 0) {
+        $.each(inv,function(index,invent){
+            $("#invname").append('<option value="'+invent[0]+'">'+invent[1]+'</option>')
+        });
+    }else{
+        $("#invname").append('<option value="0">No hay inventarios</option>')
+    }
+    $("#invname").material_select();
+    
  
-    // $("#invname").html(p[0][0].toUpperCase());
-    // $("#invname").prop('nv',p[0][2]);
-    // var str = '';
+    // $("#invname").html(inv.toUpperCase());
+    var str = '';
 
     // if (p[0][1] != null){
     //     for (var i = 0; i < p.length; i++) {
-    //         str += '<a href="#!" class="collection-item" id="f'+p[i][1]+'" nv="'+p[i][2]+'" rd="'+p[i][3]+'"><span class="new badge" data-badge-caption="">'+p[i][4]+'</span>'+p[i][5]+'</a>';
+    //         str += '<a class="collection-item prodcuto" idprod="'+p[i][0]+'" cantidad="'+p[i][2]+'">'+p[i][1]+'<span class="new badge" data-badge-caption="unidades">'+p[i][2]+'</span></a>';
     //     }
     // }
 
