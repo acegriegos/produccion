@@ -108,7 +108,6 @@ function cargarOCompras(){
     $(".trsec:hidden").remove();
 
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
-    $(".trOCompra").removeClass('hide');
 
     $("#cantp").keyup(function(e){
         var code = e.which || e.keyCode
@@ -145,7 +144,7 @@ function cargarCompras(){
     $("#reference").removeClass('hide');
     $("#chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
-    
+
     $(".trCompra").removeClass('hide');
     $(".trsec:hidden").remove();
     $(".isfast").addClass('hide');

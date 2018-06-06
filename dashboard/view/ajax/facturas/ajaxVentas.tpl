@@ -10,17 +10,29 @@
   <input type="hidden" class="zelda">
 
   <div class="row pequeño">
-    <div class="col s12 m3 l3 concre" align="center">
-      <div class="switch">
-
-        <label>
-          <b>Contado</b>
-          <input type="checkbox" id="chg_tipo" val="1" disabled>
-          <span class="lever"></span>
-          <b>Crédito</b>
-        </label>
+    {if $TF eq 1}
+      {assign var="column" value="4"}
+      <div class="col s12 m{$column} l{$column} concre" align="center">
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="1" id="chg_tipo1" checked>
+        <label for="chg_tipo1" >Contado</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="2" id="chg_tipo2" disabled>
+        <label for="chg_tipo2">Crédito</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="4" id="chg_tipo3" disabled>
+        <label for="chg_tipo3">Apartado</label>
       </div>
-    </div>
+    {else}
+      {assign var="column" value="3"}
+      <div class="col s12 m{$column} l{$column} concre" align="center">
+        <div class="switch">
+          <label>
+            <b>Contado</b>
+            <input type="checkbox" id="chg_tipo" val="1">
+            <span class="lever"></span>
+            <b>Crédito</b>
+          </label>
+        </div>
+      </div>
+    {/if}
 
     <div class="col s12 m3 l3" align="center">
       <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"></span></label>
@@ -92,44 +104,43 @@
         <label for="teclado"><i class="mdi mdi-keyboard mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
     </section>
     </div>
-
     <div class="s12 m12 l12 col">
     <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead>
-        <tr class="trVenta hide">
-          <section class="hide-on-med-and-down">
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><b>Código</b></div>
-          <div style="padding: 0 !important;" class="col s3 center-align hide-on-med-and-down"><span class="truncate"><b>Descripción</b></span></div>
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><span class="truncate"><b>Prec.Unit</b></span></div>
-          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><span class="truncate"><b>Unidad</b></span></div>
-          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><b>Cantidad</b></div>
-          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><b>Total</b></div>
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down">&nbsp;</div>
-          </section>
-        </tr>
+        <section class="trVenta hide">
+        <div class="hide-on-med-and-down">
+          <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
+          <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
+          <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Prec.Unit</b></span></div>
+          <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
+          <div style="padding: 0 !important;" class="col s1 center-align"><b>Cantidad</b></div>
+          <div style="padding: 0 !important;" class="col s1 center-align"><b>Total</b></div>
+          <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
+        </div>
+        </section>
 
-        <tr class="trCompra hide">
-          <section class="hide-on-med-and-down">
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><b>Código</b></div>
-          <div style="padding: 0 !important;" class="col s3 center-align hide-on-med-and-down"><span class="truncate"><b>Descripción</b></span></div>
-          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><span class="truncate"><b>Cantidad</b></span></div>
-          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><b>Prec.Unit</b></div>
-          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><span class="truncate"><b>Unidad</b></span></div>
-          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><span class="truncate"><b>Descuento</b></span></div>
-          <div style="padding: 0 !important;" class="col s1 center-align hide-on-med-and-down"><b>Total</b></div>
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down">&nbsp;</div>
-          </section>
-        </tr>
+        <section class="trCompra hide">
+          <div class="hide-on-med-and-down">
+            <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
+            <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
+            <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Cantidad</b></span></div>
+            <div style="padding: 0 !important;" class="col s1 center-align"><b>Prec.Unit</b></div>
+            <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
+            <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Descuento</b></span></div>
+            <div style="padding: 0 !important;" class="col s1 center-align"><b>Total</b></div>
+            <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
+          </div>
+        </section>
 
-        <tr class="trOCompra hide">
-          <section class="hide-on-med-and-down">
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><b>Código</b></div>
-          <div style="padding: 0 !important;" class="col s4 center-align hide-on-med-and-down"><span class="truncate"><b>Descripción</b></span></div>
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><span class="truncate"><b>Cantidad</b></span></div>
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down"><span class="truncate"><b>Unidad</b></span></div>
-          <div style="padding: 0 !important;" class="col s2 center-align hide-on-med-and-down">&nbsp;</div>
-          </section>
-        </tr>
+        <section class="trOCompra hide">
+          <div class="hide-on-med-and-down">
+            <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
+            <div style="padding: 0 !important;" class="col s4 center-align"><span class="truncate"><b>Descripción</b></span></div>
+            <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Cantidad</b></span></div>
+            <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Unidad</b></span></div>
+            <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
+          </div>
+        </section>
 
         <div class="trVenta hide trsec">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
