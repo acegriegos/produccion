@@ -33,10 +33,6 @@
         </div>
       </div>
     {/if}
-<<<<<<< HEAD
-    
-=======
->>>>>>> 3cdc38e2969a399b7f288022d8f9f96fe25897cf
 
     <div class="col s12 m{$column} l{$column}" align="center">
       <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"></span></label>
