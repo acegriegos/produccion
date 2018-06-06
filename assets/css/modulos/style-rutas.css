@@ -86,6 +86,16 @@
 .darkholder::placeholder {
   color: black; }
 
+.autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important; 
+}
+
+span.badge{
+  margin-top: 0;
+}
+
 /*.darkholder::-webkit-input-placeholder {
   color: black;
 }

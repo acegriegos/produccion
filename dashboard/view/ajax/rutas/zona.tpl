@@ -4,8 +4,8 @@
             
             <select id="seachcliente" maxlength="64">
                 <option value="" disabled selected>Seleccione una Tipo de Ruta</option>
-                <option value="0">Rutas para Cargar</option>
-                <option value="1">Rutas para Descargar</option>
+                <option value="1">Rutas para Cargar</option>
+                <option value="3">Rutas para Descargar</option>
             </select>
 
             <label for="seachcliente" style="color: black"> <b>Tipo de Ruta</b></label>
@@ -97,9 +97,21 @@
 </div>
 
 <div class="row ld" style="margin: 0px;">
-    <div class="col s6 input-field" align="center">
-            <input type="text" id="descp" class="fd autocomplete prod" value="" placeholder="Buscar Producto">
-            <!-- <label for="seachpinv" style="color: black;"> <b>Buscar Producto</b></label> -->
+        <div class="col s3 input-field" align="center">
+            <input type="text" id="codp" class="autocomplete" value="" autocomplete="off">
+            <label for="codp" style="color: black;"> <b>Buscar Código</b></label>
+        </div>
+        <div class="col s3 input-field" align="center">
+            <input type="text" id="descp" class="autocomplete" value="" autocomplete="off">
+            <label for="prod" style="color: black;"> <b>Buscar Producto</b></label>
+        </div>
+        
+        <div class="col s3 input-field" align="center">
+            <input type="text" id="cantp" value="0" placeholder="Ingresar Cantidad">
+            <label for="cantp" style="color: black;"> <b>Cantidad</b></label>
+        </div>
+        <div class="col s3 input-field" align="center">
+            <a class="btn" id="assgninvtoruta">Asignar a ruta</a>
         </div>
   <!--   <div class="col s6 input-field" align="center">
         <i class="fa fa-search prefix"></i>
@@ -107,11 +119,20 @@
     </div> -->
 </div>
 
-<div class="row collection" style="margin: 0px;">
+<div class="container">
 
-    <div class="col s6" style="overflow-y: scroll;max-height: 100vh;" id="coll0">
-    </div>
-    <div class="col s6 =" style="border-left: 1px solid #e2e2e2; overflow-y: scroll;max-height: 50vh;" id="coll1">
-        
+<div class="row">
+    <div class="collection col s12 m6 l6">
+        <a class="collection-item">Alan<span class="new badge">4</span></a>
     </div>
 </div>
+
+</div>
+<!-- <div class="row" style="margin: 0px;">
+    <div class="col s6" style="overflow-y: scroll;max-height: 100vh;" id="coll0">
+
+    </div>
+    <div class="col s6 collection" style="border-left: 1px solid #e2e2e2; overflow-y: scroll;max-height: 50vh;" id="coll1">
+        
+    </div>
+</div> -->
