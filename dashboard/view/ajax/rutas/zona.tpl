@@ -119,15 +119,17 @@
     </div> -->
 </div>
 
-<div class="container">
-
 <div class="row">
-    <div class="collection col s12 m6 l6">
+    <div class=" container collection col s12 m6 l6">
+        <a class="collection-item">Alan<span class="new badge">4</span></a>
+    </div>
+    <div class=" container collection col s12 m6 l6">
         <a class="collection-item">Alan<span class="new badge">4</span></a>
     </div>
 </div>
 
-</div>
+
+
 <!-- <div class="row" style="margin: 0px;">
     <div class="col s6" style="overflow-y: scroll;max-height: 100vh;" id="coll0">
 

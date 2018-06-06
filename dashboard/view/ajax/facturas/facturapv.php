@@ -250,7 +250,7 @@ echo '<tr>
 
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.2"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.4"></script>
 
  <!-- <script type="text/javascript">
  $(function(){
