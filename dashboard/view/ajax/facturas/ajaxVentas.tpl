@@ -5,50 +5,41 @@
 
 <div class="card z-depth-3 pequeño movil">
 <div class="card-header center head1 white-text">
-  <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}</p>
+  <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}
+    <a class="mdi mdi-magnify mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a></p>
+  
 </div>
   <input type="hidden" class="zelda">
 
   <div class="row pequeño">
-    {if $TF eq 1}
-      {assign var="column" value="4"}
+
+      <div class="col s12 m3 l3" align="center">
+        <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"></span></label>
+      </div>
+
+      {assign var="column" value="6"}
       <div class="col s12 m{$column} l{$column} concre" align="center">
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="1" id="chg_tipo1" checked>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1003" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="2" id="chg_tipo2" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2" disabled>
         <label for="chg_tipo2">Crédito</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="4" id="chg_tipo3" disabled>
-        <label for="chg_tipo3">Apartado</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005" val="3" id="chg_tipo3" disabled>
+        <label for="chg_tipo3">Consignación</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1006" val="4" id="chg_tipo4" disabled>
+        <label for="chg_tipo4">Apartado</label><br>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1007" val="5" id="chg_tipo5" disabled>
+        <label for="chg_tipo5" class="hide">Arr. Opción de Compra</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1008" val="6" id="chg_tipo6" disabled>
+        <label for="chg_tipo6" class="hide">Arr. en Función financiera</label>
       </div>
-    {else}
-      {assign var="column" value="3"}
-      <div class="col s12 m{$column} l{$column} concre" align="center">
-        <div class="switch">
-          <label>
-            <b>Contado</b>
-            <input type="checkbox" id="chg_tipo" val="1">
-            <span class="lever"></span>
-            <b>Crédito</b>
-          </label>
-        </div>
-      </div>
-    {/if}
 
-    <div class="col s12 m3 l3" align="center">
-      <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"></span></label>
+    <div class="col s12 m3 l3 cre gen hide" align="center">
+      <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div>
 
-    <div class="input-field col s12 m3 l3 hide" id="reference">
+    <div class="input-field col s12 m3 trCompra hide">
       <label for="vreferencia">Número de Referencia</label>
-      <input type="text" id="vreferencia" class="validate" />
-    </div>
-
-    <div class="col s12 m3 l3 " align="center">
-      <label class="cre" style="display: none;"><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
-    </div>
-
-    <div class="show_facts col s12 m3">
-      <a class="btn btn1" onclick="verfacturas();"> Ver Facturas</a>
+      <input type="text" id="vreferencia" class="validate" style="padding: 0px;margin: 0px" />
     </div>
 
   </div>
@@ -61,7 +52,7 @@
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
 
-    <div class="input-field con col s12 m3 l3 tp_all" >
+    <div class="input-field con gen col s12 m3 l3 tp_all" >
     <i class="mdi mdi-coin mdi-24px prefix"></i>
       <select id="idtipopago" type="select">
         {section name=LE loop=$TPAGO}
@@ -71,7 +62,7 @@
       <label style="color: black"><b>Forma de Pago</b></label>
     </div>
    
-    <div class="input-field cre col s12 m3 l3" style="display: none;">
+    <div class="input-field cre gen col s12 m3 l3 hide">
       <i class="mdi mdi-calendar-clock mdi-24px prefix"></i>
       <input type="text" id="vplazo" value="0" class="eder" disabled />
       <label style="color: black"><b>Plazo en Días</b></label>
@@ -80,9 +71,9 @@
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
-      <i class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" ata-position="bottom" data-tooltip="Agregar Cliente"></i>
-      <i class="mdi mdi-16px mdi-email pbtn tooltipped hide" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
-      <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
+      <i class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" data-position="bottom" data-tooltip="Agregar Cliente"></i>
+      <i class="mdi mdi-16px mdi-email pbtn tooltipped hide clieBTN" id="crrclie" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
+      <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
     
@@ -98,10 +89,10 @@
     <div class="s12 m12 l12 col hide-on-med-and-down">
     <section class="right isfast">
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
-        <label for="barras"><i class="mdi mdi-barcode mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" aria-hidden="true" style="font-size: 1.4em"></i></label>
+        <label for="barras"><i class="mdi mdi-barcode mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" data-position="bottom" style="font-size: 1.4em"></i></label>
 
         <input class="with-gap" name="modselected" type="radio" value="1" id="teclado"/>
-        <label for="teclado"><i class="mdi mdi-keyboard mdi-18px" title="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" aria-hidden="true" style="font-size: 1.4em"></i></label>
+        <label for="teclado"><i class="mdi mdi-keyboard mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" data-position="bottom" style="font-size: 1.4em"></i></label>
     </section>
     </div>
     <div class="s12 m12 l12 col">
@@ -172,12 +163,9 @@
 
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
             <div class="col s12">
-              <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
+              <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i>
                 <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
               </a>
-            </div>
-            <div class="col s12">
-               <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
             </div>
           </div>
         </div>
@@ -212,12 +200,9 @@
 
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
             <div class="col s12 hide">
-              <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
+              <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i>
                 <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
               </a>
-            </div>
-            <div class="col s12">
-               <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a>
             </div>
           </div>
         </div>
@@ -256,7 +241,7 @@
 
           <div class="center col s12 m2" style="font-size: 1em;  padding: 0px 5px !important;">
             <div class="col s12">
-              <a href="#modal-inventario" title="Cantidad en Inventario" id="sinv"><i class="mdi mdi-archive" ></i>
+              <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i>
                 <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
               </a>
             </div>
@@ -265,7 +250,6 @@
                 <label for="iva" style="float: left;">IVA</label>
                 <input type="checkbox" name="isexcento" id="exct" hclk="0">
                 <label for="exct" style="float: left;">Excento</label>
-                <!-- <a href="#!" title="Limpiar Campos" class="hide"><img class="responsive-img" src="../assets/img/icon/broom.svg" ></a> -->
             </div>
           </div>
 
@@ -289,9 +273,9 @@
 
 <div class="card center z-depth-3">
   <div class="card-header center head2 center" style="padding: 1%"><b>DESGLOCE DE FACTURA</b></div>
-  
-  <div class="row">
 
+  <div class="row">
+    
     <div class="col s12 m12 l12" style="margin-top: -20px">
     <br>
       <!-- <label for="monedas">Divisa</label> -->
@@ -369,8 +353,8 @@
       <div class="col s12 m12 l12"><br>
         <div class="row">
           <div class="col s12 m6 l6">
-              <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" checked />
-              <label for="p_v" style="color: black; padding-left: 20px;">Punto Venta</label>
+              <input type="checkbox" id="p_v" checked />
+              <label for="p_v" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" data-position="left">Punto Venta</label>
           </div>
 
           <div class="col s12 m6 l6 _odt hide">

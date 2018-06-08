@@ -19,6 +19,10 @@
 // $miscelaneos;
 // $datos;  padding: 0% 37.5% 0% 37.5%
 $fecha = explode('/', $transaccion[0][3]);
+$logo = '<tr align="center">
+    <td>
+      <img src="'.$miscelaneos[3].'" alt="LOGO" width="80%">
+    </td>';
 
 echo '<button class="print" onclick="print()">Imprimir</button>';
 
@@ -28,10 +32,7 @@ if ($repetir) {
   
   <br><br>
 <table>
-   <tr align="center">
-    <td>
-      <img src="'.$miscelaneos[3].'" alt="LOGO" width="80%">
-    </td>
+   '.$miscelaneos[3] == '' ? '' : $logo.'
   </tr> 
   <tr align="center" '.$ocultar.'>
      <td>
@@ -135,14 +136,11 @@ echo '<tr>
   }
   
 }else{
+
   echo '<div class="container" style="margin-left:35%; margin-right: 35%">
-  
   <br><br>
 <table>
-   <tr align="center">
-    <td>
-      <img src="'.$miscelaneos[3].'" alt="LOGO" width="80%">
-    </td>
+   '.$miscelaneos[3] == '' ? '' : $logo.'
   </tr> 
   <tr align="center" '.$ocultar.'>
      <td>
