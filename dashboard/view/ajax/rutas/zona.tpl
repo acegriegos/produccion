@@ -75,24 +75,24 @@
         <!-- <span class="sd"><b>Productos en ruta</b></span> -->
          <div class="row ld" style="border-bottom: 0px;">
             
-            <div class="col s12 input-field" align="center">
-                <!-- <span style="float: left;">Inventario: <span id="invname" nv="">NOMBRE DE INVENTARIO</span></span> -->
-                <div class="col s4 m4 l4">
+            <!-- <div class="col s12 input-field" align="center">
+                <span style="float: left;">Inventario: <span id="invname" idinv="">NOMBRE DE INVENTARIO</span></span> -->
+               <!--  <div class="col s4 m4 l4">
                     <select id="invname" type="select"></select>
                     <label for="invname">Inventario</label>
-                </div>
+                </div> -->
 
-                <a class="mdi mdi-24px mdi-playlist-plus cargar load_inv" title="Cargar Inventario" style="padding-right: 2%"></a>
+                <!-- <a class="mdi mdi-24px mdi-playlist-plus cargar load_inv pbtn" title="Cargar Inventario" style="padding-right: 2%"></a>
 
-                <a class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a>
+                <a class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a> -->
 
                 <!-- <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped" title="Cargar Pedidos" style="padding-right: 2%"></a> -->
 
                 <!-- <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a> -->
 
-                <a class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
+                <!-- <a class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
 
-            </div>
+            </div> -->
 
             
 
@@ -115,14 +115,34 @@
         <label for="cantp" style="color: black;"> <b>Cantidad</b></label>
     </div>
     <div class="col s3 input-field" align="center">
-        <a class="btn" id="assgninvtoruta">Asignar a ruta</a>
+        <a class="btn" id="assgninvtoruta">Agregar</a>
     </div>
 </div>
 
 <div class="row">
     <div class="col s12 m6 l6">
         <div class="collection" id="coll1">
-            <!-- <a class="collection-item">Alan<span class="new badge">4</span></a> -->
+            <!-- <a class="collection-item">Alan<span class="badge mdi mdi-close mdi-24px cdel pbtn"></span><span class="new badge">4</span></a> -->
         </div>
+    </div>
+    <div class="col s12 m6 l6 ff hide">
+        <!-- <div align="center"> -->
+            <!--  <div class="col s4 m4 l4">
+                <select id="invname" type="select"></select>
+                <label for="invname">Inventario</label>
+            </div> -->
+
+            <a class="mdi mdi-24px mdi-playlist-plus cargar load_inv pbtn" title="Cargar Inventario" style="padding-right: 2%"></a>
+
+            <a class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a>
+
+            <!-- <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped" title="Cargar Pedidos" style="padding-right: 2%"></a> -->
+
+            <!-- <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a> -->
+
+            <a class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
+
+            <span>Inventario: <span id="invname" idinv="">NOMBRE DE INVENTARIO</span></span>
+        <!-- </div> -->
     </div>
 </div>

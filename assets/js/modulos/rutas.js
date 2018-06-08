@@ -65,15 +65,31 @@ $(function(){
 
 $(document).on("click",".cargar",function(){
     var invprev = $("#vidinventario").val();
-    var nextinv = $("#invname").val();
+    var nextinv = $("#invname").attr('idinv');
+    //validar
+    if ($(".prodcuto").length == 0) {
+        Materialize.toast('Productos requeridos', 4000, 'red');
+        return false;
+    }
+    var cont = 0;
     $(".prodcuto").each(function(){
         var idprod = $(this).attr('idprod');
         var cant = $(this).attr('cantidad');
         var mover = arr('login',4,'',512,invprev+','+nextinv+','+idprod+','+cant,0,0,0);
+
         if (mover['succed'] == 1) {
-            Materialize.toast(mover[0]['ERROR'], 4000, 'green');
+            cont = 1;
+        }else{
+            cont = 0;            
         }
     });
+
+    if (cont == 1) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+
+    }else{
+        Materialize.toast(mover[0]['ERROR'], 4000, 'green');
+    }
 });
 
 $(document).on("click","#assgninvtoruta",function(){
@@ -87,9 +103,14 @@ $(document).on("click","#assgninvtoruta",function(){
 //     }
 // });
 
+$(document).on("click",".dprod",function(){
+    var id = $(this).attr('id').substr(2);
+    $("[idprod="+id+"]").remove();
+});
+
 function cargarProducto() {
     if (parseInt($("#cantp").val()) > 0) {
-        $("#coll1").append('<a class="collection-item prodcuto" idprod="'+$("#descp").attr('idprod')+'" cantidad="'+$("#cantp").val()+'">'+$("#descp").val()+'<span class="new badge" data-badge-caption="unidades">'+$("#cantp").val()+'</span></a>');
+        $("#coll1").append('<a class="collection-item prodcuto" idprod="'+$("#descp").attr('idprod')+'" cantidad="'+$("#cantp").val()+'">'+$("#descp").val()+'<span class="badge mdi mdi-close mdi-24px cdel pbtn dprod" id="dp'+$("#descp").attr('idprod')+'"></span><span class="new badge" data-badge-caption="unidades">'+$("#cantp").val()+'</span></a>');
         $("#codp").val('');
         $("#descp").val('');
         $("#cantp").val(1);
@@ -219,16 +240,26 @@ $(document).on("change","#seachcliente",function(){
         $(".f2").addClass('hide');
         $(".ld").hide();
         $(".sd").show();
+        $(".ff").addClass('hide');
     }
     else
         $(".f1").removeClass('hide');
+
+    if ($(this).val() == 1) {
+        $(".cargar").show();
+        $(".descargar").hide();
+    }else{
+        $(".cargar").hide();
+        $(".descargar").show();
+    }
 
     var tipo = $('option:selected',this).val();
     var p = arr('login',4,'',218,'-1'+','+tipo,0,0,0)[0];
     var str = '';
     $("#seachruteros").html('<option value="" disabled selected>Seleccione una Ruta</option>');
     for (var i = 0; i < p.length; i++) {
-        str += '<option value="'+p[i][0]+'" tp="'+tipo+'">'+p[i][2]+' - '+p[i][1]+'</option>';
+        // str += '<option value="'+p[i][0]+'" tp="'+tipo+'">'+p[i][2]+' - '+p[i][1]+'</option>';
+        str += '<option value="'+p[i][0]+'" tp="'+tipo+'">'+p[i][1]+'</option>';
     }
     $("#seachruteros").append(str);
     $("#seachruteros").material_select('update');  
@@ -238,23 +269,25 @@ $(document).on("change","#seachruteros",function(){
     $(".f2").removeClass('hide');
     // $(".sd").hide();
     $(".ld").show();
+    $(".ff").removeClass('hide');
     $(".select-dropdown").css("margin-bottom",'0px');
     var idtiporuta = $("#seachcliente").val();
     var idrutero = $("#seachruteros").val();
     // var pinv = $("#seachpinvrut").val() == undefined ? '' : $("#seachpinvrut").val();
     // var p = arr('login',4,'',223,iddetrut+',0,"'+pinv+'"',0,0,0);
-    var inv = arr('login',4,'',511,'4,'+idrutero,0,0,0)[0];
-    if (inv.length > 0) {
-        $.each(inv,function(index,invent){
-            $("#invname").append('<option value="'+invent[0]+'">'+invent[1]+'</option>')
-        });
-    }else{
-        $("#invname").append('<option value="0">No hay inventarios</option>')
-    }
-    $("#invname").material_select();
+    var inv = arr('login',4,'',511,'4,'+idrutero,0,0,0)[0][0];
+    // if (inv.length > 0) {
+    //     $.each(inv,function(index,invent){
+    //         $("#invname").append('<option value="'+invent[0]+'">'+invent[1]+'</option>')
+    //     });
+    // }else{
+    //     $("#invname").append('<option value="0">No hay inventarios</option>')
+    // }
+    // $("#invname").material_select();
     
  
-    // $("#invname").html(inv.toUpperCase());
+    $("#invname").html(inv[1]);
+    $("#invname").attr('idinv',inv[0]);
     var str = '';
 
     // if (p[0][1] != null){
@@ -265,14 +298,14 @@ $(document).on("change","#seachruteros",function(){
 
     // $("#coll1").html(str);   
     
-    if ($(this).prop('tp') != 0){
-        $(".descargar").hide();
-        $(".cargar").show();
-    }
-    else{
-        $(".cargar").hide();
-        $(".descargar").show();
-    }
+    // if ($(this).prop('tp') != 0){
+    //     $(".descargar").hide();
+    //     $(".cargar").show();
+    // }
+    // else{
+    //     $(".cargar").hide();
+    //     $(".descargar").show();
+    // }
     Materialize.updateTextFields();
 });
 
