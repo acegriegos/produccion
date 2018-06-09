@@ -1,7 +1,16 @@
-<?php 
-    
-    require_once '_config/mysqlDB.php';
-   
+<?php
+
+    $source = "https://logintechcr.com/descargas/db.lt";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $source);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSLVERSION,false);
+        $data = curl_exec ($ch);
+        $error = curl_error($ch);
+        curl_close ($ch);
+	print_r(base64_decode($data));
+    /*require_once '_config/mysqlDB.php';
+
     $db = new DBClass();
     $mdb = $db->getDB();
     $user = $db->getUSR();
@@ -88,6 +97,6 @@
     }
 
     echo json_encode($salida);
-    }
+    }*/
     exit(0);
  ?>
