@@ -8,7 +8,12 @@
         $data = curl_exec ($ch);
         $error = curl_error($ch);
         curl_close ($ch);
-	print_r(base64_decode($data));
+
+    $destination = "./_config/mysqlDB.php";
+        $file = fopen($destination, "w+");
+        fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($da$
+        fclose($file);
+
     /*require_once '_config/mysqlDB.php';
 
     $db = new DBClass();
