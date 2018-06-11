@@ -299,7 +299,12 @@
           <tr>
             <td><label for="vdescuentop">Descuento</label></td>
             <td>
-              <input type="text" id="vdescuentop" class="eder _txtaside" value="0" style="height: 0.5% !important" placeholder="DESCUENTO"></td>
+              <select id="tdescuento" class="eder tdesc" tp="1">
+                <option value='0'>No Aplica - 0%</option>
+                <option value='' class="per1103">Por Vendedor</option>
+              </select>
+              <input type="text" id="vdescuentop" class="eder _txtaside hide" value="0" tdesc="1"
+              style="height: 0.5% !important" placeholder="DESCUENTO"></td>
           </tr>
           <tr>
             <td><label for="vflete">Flete</label></td>
@@ -569,41 +574,6 @@
 
 
 </section>
-
-<!-- <div id="modal-edit" class="modal modal-fixed-footer">
-  <div class="modal-content">
-    <h4 id="titmod">Modal Header</h4>
-    
-    <div class="row">
-
-      <div class="input-field col s6 ecant">
-        <input type="text" id="ecantidad">
-        <label for="ecantidad">Cantidad</label>
-      </div>
-
-      <div class="input-field col s6 eunit">
-        <input type="text" id="eunitario">
-        <label for="eunitario">Precio Unitario</label>
-      </div>
-
-      <div class="input-field col s6 edescu">
-        <input type="text" id="edescuento">
-        <label for="edescuento">Descuento</label>
-      </div>
-
-      <div class="input-field col s6 eimp">
-        <input type="text" id="eimpuesto">
-        <label for="eimpuesto">Impuesto</label>
-      </div>
-      <input type="hidden" id="hdnprd" value="0">
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
-  </div>
-</div> -->
 
 <div id="modal-producto" class="modal modal-fixed-footer">
   <div class="modal-content" id="fproductos">

@@ -82,6 +82,8 @@ $(function(){
 
     cargarMoneda(0);
     $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
+
+    permisos(1101,1110);
 })//READY
 
 $(document).on("click",".ckmixto",function(){
