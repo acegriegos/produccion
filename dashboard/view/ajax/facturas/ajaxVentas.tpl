@@ -6,7 +6,7 @@
 <div class="card z-depth-3 pequeño movil">
 <div class="card-header center head1 white-text">
   <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}
-    <a class="mdi mdi-magnify mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a></p>
+    <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a></p>
   
 </div>
   <input type="hidden" class="zelda">
@@ -298,7 +298,8 @@
         <table>
           <tr>
             <td><label for="vdescuentop">Descuento</label></td>
-            <td><input type="text" id="vdescuentop" class="eder _txtaside" value="0" disabled style="height: 0.5% !important" placeholder="DESCUENTO"></td>
+            <td>
+              <input type="text" id="vdescuentop" class="eder _txtaside" value="0" style="height: 0.5% !important" placeholder="DESCUENTO"></td>
           </tr>
           <tr>
             <td><label for="vflete">Flete</label></td>

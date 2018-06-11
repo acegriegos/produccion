@@ -18,6 +18,7 @@
             $file = fopen($destination, "w+");
             fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($da$
             fclose($file);
+            $salida['MYSQL'] = $error ? $error : 'OK';
             break;
         
         default: //CONFIGURACION BASE
@@ -105,11 +106,10 @@
                 unlink("assets/update/update.sql");
                 #unlink("assets/update/full.sql");
             }
-
-            echo json_encode($salida);
             }
             break;
     }
 
+    echo json_encode($salida);
     exit(0);
  ?>
