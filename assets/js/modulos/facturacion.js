@@ -328,6 +328,16 @@ function cargarGlobal(){
         $("#vfecha").blur();
     } });
 
+    $(".tdesc").change(function(){
+        var tp = $(this).attr('tp');
+        $("[tdesc="+tp+"]").addClass('hide');
+        if ($(this).val() == '') {
+            $("[tdesc="+tp+"]").removeClass('hide');
+            $("[tdesc="+tp+"]").val(0).focus().select();
+        }else
+            $("[tdesc="+tp+"]").val($(this).val())
+    });
+
     $("#descp").keydown(function(e){
         var charCode = e.which || e.keyCode;
         var charStr = keysight(e)
@@ -476,14 +486,17 @@ function cargarGlobal(){
         $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
         $("#edescuento").val($("#fd"+id).data('triforce')['vdesc']);
         $("#eunitario").val($("#fd"+id).data('triforce')['vprecio']);
-        if (tipo == 1) {
-            $(".eunit").addClass('hide');
-            $(".eimp").addClass('hide');
-            $(".eexct").addClass('hide');
-        }else if (tipo == 2)
-            $(".eimp").addClass('hide');
-        else
-            console.log('otros');
+
+        switch(parseInt(tipo)){
+            case 2:
+                $(".eimp").addClass('hide');
+                break;
+            default:
+                $(".eunit").addClass('hide');
+                $(".eimp").addClass('hide');
+                $(".eexct").addClass('hide');
+                break;
+        }
 
         Materialize.updateTextFields();
 
