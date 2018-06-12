@@ -2,7 +2,7 @@
     <div class="card-block pequeño">
         <h3 class="center-align">Descuentos del Sistema</h3>
         <div class="row">
-            <div class="col s12 pequeño">
+            <div class="col s12 pequeño hide">
                 <div class="row">
                     <div class="col s12">
                         <p>Descuento en Factura de Venta:</p>

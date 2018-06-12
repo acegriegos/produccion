@@ -26,7 +26,6 @@
 			   	$smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id >= 0 order by principal desc,nombre'));
 			   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
 			   	$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
-			   	$smarty->assign('TF',$_POST['arreglo']);
 			   	$smarty->display('ajax/facturas/ajaxVentas.tpl');
 	   			break;
 	   		case 6:
@@ -37,7 +36,7 @@
 	   			$datos = $transaccion[0];
 	   			$ocultar = '';
 	   			$oc = '';
-	   			$repetir = isset($_REQUEST['x']) ? 1 : 0;
+	   			$repetir = 0;//isset($_REQUEST['x']) ? 1 : 0;
 
 	   			if($_REQUEST['tp'] == 'true')
 	   				require_once 'view/ajax/facturas/facturapv.php';

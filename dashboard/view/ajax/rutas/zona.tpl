@@ -34,9 +34,9 @@
             </thead>
             <tbody id="listarutashow">
                 <tr>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
+                    <td id="countpedidos">0</td>
+                    <td id="countcobros">0</td>
+                    <td id="countnotas">0</td>
                 </tr>
             </tbody>
         </table>
@@ -45,7 +45,7 @@
 
 <div class="row" style="border-bottom: 1px solid #e2e2e2;margin-bottom: 0px;">
     <div class="col s5" align="center">
-        <span class="sd"><b>INVENTARIOS</b></span>
+        
         <div class="row ld" style="border-bottom: 0px;">
             
             <div class="col s6 input-field" align="center">
@@ -72,23 +72,27 @@
     </div>
 
     <div class="col s5" align="center">
-        <span class="sd"><b>INVENTARIO DE LA RUTA</b></span>
+        <!-- <span class="sd"><b>Productos en ruta</b></span> -->
          <div class="row ld" style="border-bottom: 0px;">
             
-            <div class="col s12 input-field" align="center">
-                <span id="invname" nv="" style="float: left;">NOMBRE DE INVENTARIO</span>
+            <!-- <div class="col s12 input-field" align="center">
+                <span style="float: left;">Inventario: <span id="invname" idinv="">NOMBRE DE INVENTARIO</span></span> -->
+               <!--  <div class="col s4 m4 l4">
+                    <select id="invname" type="select"></select>
+                    <label for="invname">Inventario</label>
+                </div> -->
 
-                <a href="#" class="mdi mdi-24px mdi-playlist-plus cargar load_inv" title="Cargar Inventario" style="padding-right: 2%"></a>
+                <!-- <a class="mdi mdi-24px mdi-playlist-plus cargar load_inv pbtn" title="Cargar Inventario" style="padding-right: 2%"></a>
 
-                <a href="#" class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a>
+                <a class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a> -->
 
-                <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped" title="Cargar Pedidos" style="padding-right: 2%"></a>
+                <!-- <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped" title="Cargar Pedidos" style="padding-right: 2%"></a> -->
 
-                <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a>
+                <!-- <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a> -->
 
-                <a href="#" class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
+                <!-- <a class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
 
-            </div>
+            </div> -->
 
             
 
@@ -97,44 +101,48 @@
 </div>
 
 <div class="row ld" style="margin: 0px;">
-        <div class="col s3 input-field" align="center">
-            <input type="text" id="codp" class="autocomplete" value="" autocomplete="off">
-            <label for="codp" style="color: black;"> <b>Buscar Código</b></label>
-        </div>
-        <div class="col s3 input-field" align="center">
-            <input type="text" id="descp" class="autocomplete" value="" autocomplete="off">
-            <label for="prod" style="color: black;"> <b>Buscar Producto</b></label>
-        </div>
-        
-        <div class="col s3 input-field" align="center">
-            <input type="text" id="cantp" value="0" placeholder="Ingresar Cantidad">
-            <label for="cantp" style="color: black;"> <b>Cantidad</b></label>
-        </div>
-        <div class="col s3 input-field" align="center">
-            <a class="btn" id="assgninvtoruta">Asignar a ruta</a>
-        </div>
-  <!--   <div class="col s6 input-field" align="center">
-        <i class="fa fa-search prefix"></i>
-        <input type="text" id="seachpinvrut" style="margin-bottom: 0px" class="darkholder" placeholder="Buscar Producto">
-    </div> -->
+    <div class="col s3 input-field" align="center">
+        <input type="text" id="codp" class="autocomplete" value="" autocomplete="off">
+        <label for="codp" style="color: black;"> <b>Buscar Código</b></label>
+    </div>
+    <div class="col s3 input-field" align="center">
+        <input type="text" id="descp" class="autocomplete" value="" autocomplete="off">
+        <label for="prod" style="color: black;"> <b>Buscar Producto</b></label>
+    </div>
+    
+    <div class="col s3 input-field" align="center">
+        <input type="text" id="cantp" value="1" placeholder="Ingresar Cantidad">
+        <label for="cantp" style="color: black;"> <b>Cantidad</b></label>
+    </div>
+    <div class="col s3 input-field" align="center">
+        <a class="btn" id="assgninvtoruta">Agregar</a>
+    </div>
 </div>
 
 <div class="row">
-    <div class=" container collection col s12 m6 l6">
-        <a class="collection-item">Alan<span class="new badge">4</span></a>
+    <div class="col s12 m6 l6">
+        <div class="collection" id="coll1">
+            <!-- <a class="collection-item">Alan<span class="badge mdi mdi-close mdi-24px cdel pbtn"></span><span class="new badge">4</span></a> -->
+        </div>
     </div>
-    <div class=" container collection col s12 m6 l6">
-        <a class="collection-item">Alan<span class="new badge">4</span></a>
+    <div class="col s12 m6 l6 ff hide">
+        <!-- <div align="center"> -->
+            <!--  <div class="col s4 m4 l4">
+                <select id="invname" type="select"></select>
+                <label for="invname">Inventario</label>
+            </div> -->
+
+            <a class="mdi mdi-24px mdi-playlist-plus cargar load_inv pbtn" title="Cargar Inventario" style="padding-right: 2%"></a>
+
+            <a class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a>
+
+            <!-- <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped" title="Cargar Pedidos" style="padding-right: 2%"></a> -->
+
+            <!-- <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a> -->
+
+            <a class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
+
+            <span>Inventario: <span id="invname" idinv="">NOMBRE DE INVENTARIO</span></span>
+        <!-- </div> -->
     </div>
 </div>
-
-
-
-<!-- <div class="row" style="margin: 0px;">
-    <div class="col s6" style="overflow-y: scroll;max-height: 100vh;" id="coll0">
-
-    </div>
-    <div class="col s6 collection" style="border-left: 1px solid #e2e2e2; overflow-y: scroll;max-height: 50vh;" id="coll1">
-        
-    </div>
-</div> -->
