@@ -630,9 +630,11 @@ extra = $("#vmonths").val();
 extra = $("#vdays").val() == '' ? 0 : $("#vdays").val();
 }
 
-if (idfila == 0) {
-Materialize.toast('Descuento sin asignar', 6000, 'red');
-}else if (valor == 0) {
+// if (idfila == 0) {
+// Materialize.toast('Descuento sin Asignar', 6000, 'red');
+// }else 
+
+if (valor == 0) {
 Materialize.toast('Valor debe ser mayor a 0', 6000, 'red');
 }else{
 var dsc = arr('login',4,'',95,'1,0,'+idciclo+','+iddescuento+',"'+f1+'","'+f2+'",'+idfila+','+tabla+','+valor+',\"'+extra+"\"",0,0,0);

@@ -36,8 +36,16 @@
       </div>
 
       <div class="input-field col s6 edescu">
-        <input type="text" id="edescuento">
-        <label for="edescuento">Descuento</label>
+        <tr>
+          <td><label>Descuento</label></td>
+          <td>
+            <select id="tdescuentol" class="eder tdesc" tp="2">
+              <option value='0'>No Aplica - 0%</option>
+              <option value='' class="per1103">Por Vendedor</option>
+            </select>
+            <input type="text" id="edescuento" class="hide" tdesc="2">
+          </td>
+        </tr>
       </div>
 
       <div class="input-field col s6 eimp">
@@ -48,6 +56,11 @@
       <div class="input-field col s6 eexct">
         <input type="text" id="texct">
         <label for="texct">Excento</label>
+      </div>
+
+      <div class="input-field col s6 eexo hide">
+        <input type="text" id="eexon">
+        <label for="eexon">Exoneración</label>
       </div>
       <input type="hidden" id="hdnprd" value="0">
     </div>

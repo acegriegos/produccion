@@ -82,6 +82,8 @@ $(function(){
 
     cargarMoneda(0);
     $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
+
+    permisos(1101,1110);
 })//READY
 
 $(document).on("click",".ckmixto",function(){
@@ -767,7 +769,7 @@ function searchClient(vvariable,visprv){
         $("#ncli").val(vclie[1]+' '+vclie[2]);
         
         if ($(".zelda").data('triforce')['vidtipoventa'] == 7){
-            $(".zelda").data('triforce')['vidtipoventa'] == 1;
+            $(".zelda").data('triforce')['vidtipoventa'] = 1;
             var ncons = getDatos('lpad(consecutivo+1,6,0)',39,'id = @@impresa',0,0)[0][0];
             $("#titfact").html('VENTAS')
             $("#idfact").html(ncons);
@@ -804,7 +806,7 @@ function searchClient(vvariable,visprv){
         
     }else{
         if ($(".zelda").data('triforce')['vidtipoventa'] == 1){
-            $(".zelda").data('triforce')['vidtipoventa'] == 7;
+            $(".zelda").data('triforce')['vidtipoventa'] = 7;
             var ncons = getDatos('lpad(consecutivo6+1,6,0)',39,'id = @@impresa',0,0)[0][0];
             $("#titfact").html('TIQUETES')
             $("#idfact").html(ncons);
@@ -920,11 +922,12 @@ function sendFE(clave,factura){
             p = p['rs'];
         }
         catch(err){
-            arr('login',7,1,251,'error,idtabla,idfila','"'+data+'",2,'+clave,0,0);
             //GENERAR NOTA DE CREDITO
             $(".expect").removeClass('progress')
-            $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>")
-            Materialize.toast(err.message,10000,'red');
+            $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
+            Materialize.toast(data,10000,'red');
+            arr('login',7,2,64,'feestado=7','id='+clave,0,0);
+            setTimeout(function(){location.reload();},10000);
             continuar = 0;
         }
 
@@ -957,8 +960,7 @@ function sendFE(clave,factura){
                         break;
                     default:
                         $(".expect").removeClass('progress')
-                        $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>")
-                        // Materialize.toast(p,10000,'green');
+                        $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
                         sendVMail(vfactura,vclave,clave);
                         break;
                 }
@@ -979,15 +981,18 @@ function sendVMail(factura,clave,vid){
             case 2:
                 break;
             default:
-                var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
-                if (correos == undefined) {
-                    Materialize.toast('Correos Inválidos',4000,'red');
-                    arr('login',7,2,64,'feestado=4','id='+clave,0,0);
-                }else{
-                    for (var i = 0; i < correos.length; i++) {
-                        str_correos += correos[0];
+                if ($(".zelda").data('triforce')['vidcliente'] != 0) {
+                    var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
+                    if (correos == undefined) {
+                        Materialize.toast('Correos Inválidos',4000,'red');
+                        arr('login',7,2,64,'feestado=4','id='+clave,0,0);
+                    }else{
+                        for (var i = 0; i < correos.length; i++) {
+                            str_correos += correos[0];
+                        }
                     }
                 }
+                
                 if (config[4] == 1) {
                     var w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
                     w.print();
