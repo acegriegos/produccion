@@ -8,7 +8,9 @@
 		var $user;
 		var $pass;
 
-
+		/*
+			ERROR 1644 Message: Unhandled user-defined exception condition
+		*/
 		function mantenimiento($arreglo){
 			
 			if (isset($arreglo['atributos']['vidusuario'])) {
@@ -27,14 +29,15 @@
 			$id_new = $this->mant($arreglo['modulo'],$arreglo['atributos']);
 			$accion = $arreglo['atributos']['vaccion'];
 			$rollback = '';
-			if (isset($arreglo['varios']) && $accion != 3 && isset($arreglo['varios'][0]['atributos'])) {
 
-			$posicion = strpos($arreglo['modulo'], '-');
-			$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : '';
-			$modulo = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
-			$id_tabla = $this->kamehameha('id',70,'nombre like "'.$schema.$modulo.'s"')[0][0];
-			$rollback = '';
-			$roll_tbl = 0;
+			if (isset($arreglo['varios']) && $accion != 3 && isset($arreglo['varios'][0]['atributos']) && is_array($id_new)) {
+
+				$posicion = strpos($arreglo['modulo'], '-');
+				$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : '';
+				$modulo = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
+				$id_tabla = $this->kamehameha('id',70,'nombre like "'.$schema.$modulo.'s"')[0][0];
+				$rollback = '';
+				$roll_tbl = 0;
 			
 				foreach ($arreglo['varios'] as $index => $varios) {
 					if (isset($varios['atributos'])) 
@@ -49,6 +52,7 @@
 						$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
 
 						if (!is_array($rs)){
+							$save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
 							$rollback = $rs." Modulo: ".$varios['modulo'];
 							$roll_tbl = $varios['rollback'];
 						}
@@ -56,12 +60,18 @@
 					}
 				}
 			}
-			if($rollback != ''){
-				$rll = $this->kamehameha('',$roll_tbl,$id_new[0][0]);
-				$id_new = 'ROLLBACK: '.$rollback.' '.$id_new;
-			}
 
-			return is_array($id_new) ? array('0' => $id_new) : $id_new;
+			if (is_array($id_new)) {
+				return array('0' => $id_new);
+			}else{
+				if($rollback != ''){
+					// $rll = $this->kamehameha('',$roll_tbl,$id_new[0][0]);
+					return 'ERROR: '.$rollback.' '.$id_new;
+				}else{
+					$save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res',$this->sql,$id_new);
+					return $id_new;
+				}
+			}
 		}
 
 		function analizarTabla($arreglo){

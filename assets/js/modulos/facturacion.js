@@ -7,7 +7,7 @@ var config;
 
 $(function(){
   param = getParameterByName('tf');
-  param = param == '' ? 1 : parseInt(param) ;
+  param = param == '' || param == 1 ? 7 : parseInt(param) ;
 
   config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
 
@@ -101,8 +101,6 @@ function cargarOCompras(){
     $("._flete").hide();
     $("._ajuste").hide();
     $("._odt").hide();
-    $(".show_facts").removeClass('m6').addClass('m9');
-    $(".show_cliente").removeClass('m3').addClass('m9');
 
     $(".trOCompra").removeClass('hide');
     $(".trsec:hidden").remove();
@@ -141,7 +139,6 @@ function cargarOCompras(){
 
 function cargarCompras(){
     $("#titfact").html("COMPRAS");
-    $("#reference").removeClass('hide');
     $(".chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
 
@@ -258,7 +255,7 @@ function cargarCompras(){
 }//cagar COMPRAS
 
 function cargarVentas(){
-    $("#titfact").html("VENTAS");
+    $("#titfact").html("TIQUETES");
 
     $(".trVenta").removeClass('hide');
     $(".trsec:hidden").remove();
@@ -312,7 +309,7 @@ function cargarResembled(vnombre) {
 }//cargar Resembled
 
 function cargarGlobal(){
-    var cons = param-1 == 0 ? '' : param-1;
+    var cons = param-1 == 0 ? 6 : param-1;
     var ncons = getDatos('lpad(consecutivo'+cons+'+1,6,0)',39,'id = @@impresa',0,0)[0][0];
     $("#idfact").html(ncons);
 
@@ -330,6 +327,16 @@ function cargarGlobal(){
         }
         $("#vfecha").blur();
     }});
+
+    $(".tdesc").change(function(){
+        var tp = $(this).attr('tp');
+        $("[tdesc="+tp+"]").addClass('hide');
+        if ($(this).val() == '') {
+            $("[tdesc="+tp+"]").removeClass('hide');
+            $("[tdesc="+tp+"]").val(0).focus().select();
+        }else
+            $("[tdesc="+tp+"]").val($(this).val())
+    });
 
     $("#descp").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -368,25 +375,39 @@ function cargarGlobal(){
 
     $(".chg_tipo").change(function(){
         var value = parseInt($(this).attr('val'));
+        $(".gen").addClass('hide');
+        $(".zelda").data('triforce')['vidtipo'] = value;
+        $(".zelda").data('triforce')['vidtipopago'] = 0;
 
-        if (value == 2) {
-            $(".cre").hide();
-            $(".con").show();
-            $("#vplazo").val(0);
-            $(this).attr('val',1)
-            $(".zelda").data('triforce')['vidtipo'] = value;
-            $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
-        }else{
-            $(".con").hide();
-            $(".cre").show();
-            if ($(".zelda").data('triforce')['vidcliente'] != 0) {
-                var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
-                $("#vplazo").val(plazo);
-            }
-            $(".zelda").data('triforce')['vidtipo'] = value;
-            $(this).attr('val',2)
-            $(".zelda").data('triforce')['vidtipopago'] = 0;
+        switch(value){
+            case 1: //CREDITO
+                $(".con").removeClass('hide');
+                $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
+                $("#vplazo").val(0);
+                break;
+            case 2: //CREDITO
+                $(".cre").removeClass('hide');
+                if ($(".zelda").data('triforce')['vidcliente'] != 0) {
+                    var plazo = arr('login',4,'plazo',2,'id = '+$(".zelda").data('triforce')['vidcliente'],'',0,'')[0][0][0];
+                    $("#vplazo").val(plazo);
+                }
+                break;
+            case 3:
+                $(".cns").removeClass('hide');
+                break;
+            case 4:
+                $(".apa").removeClass('hide');
+                break;
+            case 5:
+                $(".afc").removeClass('hide');
+                break;
+            case 6:
+                $(".aff").removeClass('hide');
+                break;
+            default:
+                break;
         }
+
     });
 
     $("#ncli").keyup(function(e){
@@ -466,14 +487,17 @@ function cargarGlobal(){
         $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
         $("#edescuento").val($("#fd"+id).data('triforce')['vdesc']);
         $("#eunitario").val($("#fd"+id).data('triforce')['vprecio']);
-        if (tipo == 1) {
-            $(".eunit").addClass('hide');
-            $(".eimp").addClass('hide');
-            $(".eexct").addClass('hide');
-        }else if (tipo == 2)
-            $(".eimp").addClass('hide');
-        else
-            console.log('otros');
+
+        switch(parseInt(tipo)){
+            case 2:
+                $(".eimp").addClass('hide');
+                break;
+            default:
+                $(".eunit").addClass('hide');
+                $(".eimp").addClass('hide');
+                $(".eexct").addClass('hide');
+                break;
+        }
 
         Materialize.updateTextFields();
 

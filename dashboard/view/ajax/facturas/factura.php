@@ -4,8 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.4">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos1/style-factura.css?v=10.0.0.4">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.4">
-<!--   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
--->
+
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
 <?php $co = isset($_REQUEST['co']) ? 0 : 1 ?>
 </a>
@@ -21,7 +20,7 @@
           <div class="col s12 m1 l1 hide-on-med-and-down">&nbsp;</div>
           <div class="col s5 m3 l3" align="center" style="padding: 6% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="90%">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100%">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -94,9 +93,10 @@
               <div class=" card-content white-text imprimirSINBOR">
                 <p><b>Fecha:</b>
                   <span id="ffecha"><?php echo $datos[3]; ?> </p></span>
-                </div>
               </div>
             </div>
+
+          </div>
 
             <div class="col s8 right">
               <div class="card white-text imprimirSINBOR <?php echo $hide ?>" style="background-color: #3960A7;">
@@ -156,19 +156,19 @@
                 <td style="padding: 6px 5px !important" colspan="4" class="center">
                   <?php 
                                               
-                      // require_once('../assets/libs/phpqrcode/qrlib.php'); 
+                      require_once('../assets/libs/phpqrcode/qrlib.php'); 
      
-                      // $codeContents = 'https://erp.logintechcr.com'; 
+                      $codeContents = $miscelaneos[11]; 
                        
-                      // $text = QRcode::text($codeContents); 
-                      // $raw = join("<br/>", $text); 
+                      $text = QRcode::text($codeContents); 
+                      $raw = join("<br/>", $text); 
                        
-                      // $raw = strtr($raw, array( 
-                      //     '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
-                      //     '1' => '&#9608;&#9608;' 
-                      // )); 
+                      $raw = strtr($raw, array( 
+                          '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
+                          '1' => '&#9608;&#9608;' 
+                      )); 
                        
-                      // echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
+                      echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
                       
                    ?>
                 </td>
