@@ -19,7 +19,7 @@
             <select id="seachruteros" maxlength="64">
             </select>
 
-            <label for="seachruteros" style="color: black"> <b>Ruteros</b></label>
+            <label for="seachruteros" style="color: black"> <b>Rutas</b></label>
         </div>
     </div>
 
@@ -74,7 +74,6 @@
     <div class="col s5" align="center">
         <!-- <span class="sd"><b>Productos en ruta</b></span> -->
          <div class="row ld" style="border-bottom: 0px;">
-            
             <!-- <div class="col s12 input-field" align="center">
                 <span style="float: left;">Inventario: <span id="invname" idinv="">NOMBRE DE INVENTARIO</span></span> -->
                <!--  <div class="col s4 m4 l4">
@@ -93,15 +92,13 @@
                 <!-- <a class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
 
             </div> -->
-
-            
-
         </div>
     </div>
 </div>
-
 <div class="row ld" style="margin: 0px;">
+
     <div class="col s3 input-field" align="center">
+        
         <input type="text" id="codp" class="autocomplete" value="" autocomplete="off">
         <label for="codp" style="color: black;"> <b>Buscar Código</b></label>
     </div>
@@ -111,7 +108,7 @@
     </div>
     
     <div class="col s3 input-field" align="center">
-        <input type="text" id="cantp" value="1" placeholder="Ingresar Cantidad">
+        <input type="text" id="cantp" value="1">
         <label for="cantp" style="color: black;"> <b>Cantidad</b></label>
     </div>
     <div class="col s3 input-field" align="center">
@@ -121,6 +118,7 @@
 
 <div class="row">
     <div class="col s12 m6 l6">
+        <label style="font-size: 0.7em" class="ld">*(P): Producto proveniente de un pedido</label>
         <div class="collection" id="coll1">
             <!-- <a class="collection-item">Alan<span class="badge mdi mdi-close mdi-24px cdel pbtn"></span><span class="new badge">4</span></a> -->
         </div>
@@ -140,7 +138,7 @@
 
             <!-- <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a> -->
 
-            <a class="mdi mdi-24px mdi-printer " title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
+            <a class="mdi mdi-24px mdi-printer print_inv" title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
 
             <span>Inventario: <span id="invname" idinv="">NOMBRE DE INVENTARIO</span></span>
         <!-- </div> -->
