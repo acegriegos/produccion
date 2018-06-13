@@ -3,6 +3,7 @@
 
     switch ($tupdate) {
         case 1: //CONFIGURACION MYSQLDB
+            $mdb = isset($_REQUEST['nschema']) ? $_REQUEST['nschema'] : 'production';
             $source = "https://logintechcr.com/descargas/db.lt";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
@@ -16,6 +17,8 @@
             $file = fopen($destination, "w+");
             fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($da$
             fclose($file);
+
+            $archivo = preg_replace('/developer/', $mdb, $destination);
             $salida['MYSQL'] = $error ? $error : 'OK';
             break;
         case 2: //CONFIGURACION BASE INICIAL
@@ -26,6 +29,7 @@
             $pass = $db->getPSS();
             $salida = [];
             set_time_limit(0);
+            $salida['CONF'] = 'OK';
             
             $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\";");
 
@@ -36,8 +40,7 @@
                 
                 if(filesize("assets/update/update.log"))
                     $salida['CONF'] = 0;
-            }else
-                $salida['CONF'] = 'OK';
+            }
             break;        
         default: //CONFIGURACION BASE
 
