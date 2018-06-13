@@ -812,13 +812,13 @@ function permisos(vnumber,vnumber2) {
             var op = parseInt(p[i][3]);
             switch(parseInt(op)){
                 case 1:
-                $(".per"+p[i][1]).css('display','in-line');
+                $(".per"+p[i][1]).removeClass('hide');
                 break;
                 case 2:
                 $(".per"+p[i][1]).attr('disabled',true);
                 break;
                 case 3:
-                $(".per"+p[i][1]).css('display','none');
+                $(".per"+p[i][1]).addClass('hide');
                 break;
             }
         };
