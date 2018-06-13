@@ -328,6 +328,10 @@ function cargarGlobal(){
         $("#vfecha").blur();
     } });
 
+    $("#ingclie").click(function(){
+        
+    });
+
     $(".tdesc").change(function(){
         var tp = $(this).attr('tp');
         $("[tdesc="+tp+"]").addClass('hide');
