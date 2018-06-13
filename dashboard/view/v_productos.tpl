@@ -14,7 +14,7 @@
 		<div class="bdy pequeño">
 			<div class="card z-depth-3 pequeño">
 				<div class="card-header center blue-grey white-text z-depth-1 pequeño">
-					<p class="flow-text head1" >Productos</p>
+					<p class="flow-text head1">Productos</p>
 				</div>
 				<nav class="navbar navbar-dark head2 z-depth-1" style="margin-top: -25px;">
 					<ul class="nav navbar-nav">

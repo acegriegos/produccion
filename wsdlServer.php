@@ -21,15 +21,29 @@ if (isset($_POST['respuestaXml'])) {
     //RESPUESTA DE HACIENDA
 }else{
     $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
+    $salida = [];
     switch ($cmd) {
         case 1:
-            # code...
+            require_once '_config/mysqlDB.php';
+            
+            $cliente = isset($_POST['client_id']) ? $_POST['client_id'] : '';
+            
+            if (strlen($cliente) == 0){
+                $salida['msj'] = 'CLIENTE NO VALIDO';
+                $salida['error'] = 1;
+            }else{
+                $salida['msj'] = 'VAMO BIEN';
+                $salida['error'] = 0;
+            }
             break;
         
         default:
-            echo 'WSDL LOGINTECH';
+           $salida['msj'] = 'WSDL LOGINTECH';
+           $salida['error'] = 1;
             break;
     }
+
+    echo json_encode($salida);
 }
 
 ?>
