@@ -20,7 +20,13 @@
             break;
         case 2: //CONFIGURACION BASE INICIAL
             require_once '_config/mysqlDB.php';
-
+            $db = new DBClass();
+            $mdb = $db->getDB();
+            $user = $db->getUSR();
+            $pass = $db->getPSS();
+            $salida = [];
+            set_time_limit(0);
+            
             $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\";");
 
             if(trim($numtables) == 0){
