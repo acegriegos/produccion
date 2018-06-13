@@ -44,6 +44,68 @@
                 if(filesize("assets/update/update.log"))
                     $salida['CONF'] = 0;
             }
+            break;
+        case 3: //SCRIPT .INI INICIAL
+            require_once '_config/mysqlDB.php';
+            $db = new DBClass();
+            $mdb = $db->getDB();
+            $user = $db->getUSR();
+
+            $salida = [];
+            $salida['.INI'] = "character-set-server  = utf8mb4
+            collation-server      = utf8mb4_general_ci
+            lc_time_names         = es_CR
+            default-time-zone = '-06:00'";
+
+            $salida['SCRIPT_INICIAL'] = "INSERT INTO ".$mdb.".sucursales
+            (id, nombre, idusuario, pfisico, consecutivo, consecutivo1, consecutivo2, consecutivo3, consecutivo4, consecutivo5, idtipoabono, idtipofactura, idtiponota, cedula, logo, encabezado, idtipocliente, isinventariado, p12, pass_n, idsucursal, fastshow, isPrueba, printSale, user_atv, pass_atv, idtiponegocio, consecutivo6, aceptacion, aceparcial, rechazo)
+            VALUES(0, 'LOGIN TECHNOLOGIES S.A', 1, 'LOGINTECH', 250, 6, 0, 0, 0, 0, 1, 1, 1, '3-101-697761', '../assets/img/logo.png', '', 2, 1, 'assets/p12/310169776129.p12', 'CC68696816339C259913315B488EBADF', NULL, 1, 1, 0, 'cpj-3-101-697761@stag.comprobanteselectronicos.go.cr', 'l_?@Wsh%v[A*^0]p.W%b', 0, 16, 0, 0, 0);
+            INSERT INTO ".$mdb.".usuarios
+            (id, `user`, idTipoUsuario, nombre, clave, cedula, mail, bcambioPSSW, codigo, limite1, limite2, idsucursal)
+            VALUES(1, 'sadmin', 1, 'Super Administrador', '2609e702ef61cc25826436e94d2cbe11', '202220222', 'info@logintechcr.com', 0, NULL, '00:00:00', '00:00:00', '-1');
+            INSERT INTO ".$mdb.".usuarios
+            (id, `user`, idTipoUsuario, nombre, clave, cedula, mail, bcambioPSSW, codigo, limite1, limite2, idsucursal)
+            VALUES(2, 'admin', 1, 'Logintechcr', '2609e702ef61cc25826436e94d2cbe11', '123456789', 'info@logintechcr.com', 0, '', '00:00:00', '00:00:00', '-1');
+            create temporary table tpermisos(id int,nombre varchar(64),codigo int,isvisble tinyint(2));
+            insert into tpermisos select id,nombre,codigo,1 from permisos;
+            insert into permisosLogintech select * from tpermisos;
+            drop TEMPORARY table tpermisos;";
+            break;
+        case 4: //CONFIGURAION LOGINTECH
+            $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : '';
+            $salida = [];
+
+            $source = "http://erp.logintechcr.com/wsdlServer.php";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $params = array(
+              "client_id" => $user,
+              "cmd" => "1");
+
+            $postData = "";
+
+            foreach($params as $k => $v)
+            {
+               $postData .= $k . '='.urlencode($v).'&';
+            }
+
+            $postData = rtrim($postData, '&');
+
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+
+            curl_close ($ch);
+
+            if ($error) 
+                $salida['PERMISOS'] = $error;
+            else{
+                $salida['PERMISOS'] = $data;
+            }
             break;        
         default: //CONFIGURACION BASE
 

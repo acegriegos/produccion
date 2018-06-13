@@ -329,7 +329,7 @@ function cargarGlobal(){
     }});
 
     $("#ingclie").click(function(){
-        
+        $("#addClie").modal('open')
     });
 
     $(".tdesc").change(function(){

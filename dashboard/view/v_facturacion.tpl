@@ -73,62 +73,10 @@
 
   <div class="modal modal-fixed-footer grandemodal" id="addClie" style="height: 80%; width: 75%">
   <div class="modal-header">
-    <ul class="tabs tabs-fixed-width head3">
-      <li class="tab"><a class="active white-text titadd" href="#!" style="cursor: default;"></a></li>
-    </ul>
+
   </div>
   <div class="modal-content">
-    <div class="row nserv">
-      <div class="col s6 m3 input-field">
-        <input type="text" id="vpais" class="autocomplete pais">
-        <label for="vpais">País</label>
-      </div>
-      
-      <div class="col s6 m3 input-field">
-        <select id="provincia"> <option value="0" disabled>Seleccione una Opción</option></select>
-        <label for="provincia">Provincia</label>
-      </div>
-      
-      <div class="col s6 m3 input-field">
-        <select id="canton"> <option value="0" disabled>Seleccione una Opción</option></select>
-        <label for="canton">Cantón</label>
-      </div>
-      
-      <div class="col s6 m3 input-field">
-        <select id="viddistrito"><option value="0" disabled>Seleccione una Opción</option></select>
-        <label for="viddistrito">Distrito</label>
-      </div>
 
-      <div class="col s6 m3 input-field">
-        <select id="vidbarrio"><option value="0" disabled>Seleccione una Opción</option></select>
-        <label for="vidbarrio">Barrio</label>
-      </div>
-      
-      <div class="col s6 m3 prod input-field">
-        <input type="text" id="vregion" class="autocomplete" autocomplete="off">
-        <label for="vregion">Región</label>
-      </div>
-      
-      <div class="col s6 m3 prod input-field">
-        <input type="text" id="finca" class="autocomplete" autocomplete="off">
-        <label for="finca">Finca</label>
-      </div>
-    </div>
-    <div class="row nserv">
-      <div class="col s12 input-field">
-        <textarea id="vdireccion" class="materialize-textarea"></textarea>
-        <label for="vdireccion">Otras Señas</label>
-      </div>
-      
-      <div class="col s6 m3 prod input-field">
-        <input type="text" id="vlatitud" value="0">
-        <label for="vlatitud">Latitud</label>
-      </div>
-      <div class="col s6 m3 prod input-field">
-        <input type="text" id="vlongitud" value="0">
-        <label for="vlongitud">Longitud</label>
-      </div>
-    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="waves-effect waves-green btn-flat" id="ingresar">Guardar</button>

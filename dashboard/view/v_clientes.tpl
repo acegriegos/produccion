@@ -79,6 +79,7 @@
               <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
               <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
               <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
+              <li class="tab col s3"><a href="#ser" class="white-text" id="ln5">Servicios</a></li>
               <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
             </ul>
             </div>
@@ -229,7 +230,7 @@
                       <input type="number" class="eder" id="vcredito">
                     </div>
                   </div>
-                  <div vtabla="defectocuenta" id="fdefectocuentas" hasTabla="1" tp="3">
+                  <div vtabla="defectocuenta" id="fdefectocuentas" hasTabla="1" tp="3" class="hide">
                     <div class="ciclos {if $smarty.session.BUSS eq 1} hide {/if}">
                       <input type="hidden" id="videstadocontable" value="1">
                       <input type="hidden" id="vidcuenta" value="">
@@ -333,6 +334,12 @@
                         </ul>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div id="ser" class="col s12">
+                  <div class="row">
+                    <div class="card-title" align="center"><b>Servicios Enlazados</b></div>
+
                   </div>
                 </div>
               </div>
