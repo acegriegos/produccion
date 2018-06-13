@@ -1819,12 +1819,17 @@ $(document).on("click","#addpackage",function(){
     setTimeout(function(){ $("#vcodigo").focus() },500);
 });
 
+$(document).on("click","#btn-servclie",function(){
+	$("#modal-servcliente").modal('open')
+});
+
 $(document).on("change","#isPeriodo",function(){
     if ($("#isPeriodo").is(':checked')) {
         $("#diario").prop('checked',true);
         $(".cper").prop('disabled',false);
         $("#vperiodo").val(1);
         $("#vdias").val(0);
+        $(".cliserv").removeClass('hide')
     }else{
         if ($("#botro").val() == 1)
             $("#otros").click();
@@ -1834,6 +1839,7 @@ $(document).on("change","#isPeriodo",function(){
         $("#dhotro").addClass('hide');
         $("#vperiodo").val(0);
         $("#vdias").val(0);
+        $(".cliserv").addClass('hide')
     }
 });
 
@@ -2301,11 +2307,6 @@ function validarservicios() {
 		$("#ms1").click();
 		$("#vnombre").focus();
 		return 'Nombre Requerido'
-	}
-	if ($("#vdescripcion").val() == '') {
-		$("#ms1").click();
-		$("#vdescripcion").focus();
-		return 'Descripción Requerido'
 	}
 
 	if ($("#outsourcing").is(":checked")) {

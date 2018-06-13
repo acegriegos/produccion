@@ -87,6 +87,8 @@ function sse_response(vid,p) {
 
     switch(parseInt(vid)){
         case 1:
+            if (p['succed'] == undefined)
+                location.reload();
             if (p[0][0][0] != 0) {
                 $(".sse_cnt").removeClass('hide');
                 $("#bsse1").html(p[0][0][0]);
