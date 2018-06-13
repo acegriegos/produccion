@@ -18,7 +18,10 @@
             fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($da$
             fclose($file);
 
-            $archivo = preg_replace('/developer/', $mdb, $destination);
+            $archivo = file_get_contents($destination);
+            $archivo = preg_replace('/developer/', $mdb, $archivo);
+            file_put_contents('./assets/update/update.sql', $archivo);
+            
             $salida['MYSQL'] = $error ? $error : 'OK';
             break;
         case 2: //CONFIGURACION BASE INICIAL
