@@ -1,6 +1,4 @@
 <?php
-    require_once '_config/mysqlDB.php';
-
     $tupdate = isset($_REQUEST['tupdate']) ? $_REQUEST['tupdate'] : 0;
 
     switch ($tupdate) {
@@ -22,6 +20,9 @@
             break;
         
         default: //CONFIGURACION BASE
+
+            require_once '_config/mysqlDB.php';
+            
             $db = new DBClass();
             $mdb = $db->getDB();
             $user = $db->getUSR();
