@@ -18,10 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 if (isset($_POST['respuestaXml'])) {
     echo "string";
-    //CAMBIAR ESTADO DE FACTURA A 1
+    //RESPUESTA DE HACIENDA
 }else{
-    echo "string";
-    //CREAR NOTIFICACION DE ERROR
+    $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
+    switch ($cmd) {
+        case 1:
+            # code...
+            break;
+        
+        default:
+            echo 'WSDL LOGINTECH';
+            break;
+    }
 }
 
 ?>

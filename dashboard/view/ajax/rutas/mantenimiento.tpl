@@ -49,7 +49,7 @@
     </div>
     <div class="modal-content" >
         <div id="frutas">
-            <input type="hidden" id="vid">
+            <input type="hidden" id="vid" value="0">
             <div class="row">
                 <div class="col s6 input-field">
                     <label for="vnombre">Nombre de la Ruta</label>
@@ -123,14 +123,15 @@
         <div class="row">
             <div class="col s8" id="fdetallerutas">
                 <div class="row">
-                    <input type="hidden" id="vidruta">
-                    <input type="hidden" id="vid">
+                    <input type="hidden" id="vidruta" value="0">
+                    <input type="hidden" id="vid" value="0">
                     <input type="hidden" id="vidvehiculo" value="0">
 
                     
                     <div class="input-field col s6">
                         
                         <select id="vidtabla_enc" type='select'>
+                            <option value="0">Seleccione una opción</option>
                             <option value="1" selected>Usuarios</option>
                         </select>
 
@@ -154,7 +155,7 @@
                 <div class="row">
 
                     <div class="input-field col s4">
-                        
+                        <input type="hidden" id="hinventario" value="0">
                         <select id="vidbodega" type="select">
                             <option value="" selected disabled class="truncate">Seleccione una Bodega</option>
                             {section name=LE loop=$BOD}
@@ -162,7 +163,7 @@
                             {/section}
                         </select>
 
-                        <label for="vidinventario">Bodega</label>
+                        <label for="vidbodega">Bodega</label>
                     </div>
 
                     <div class="input-field col s4">
@@ -188,8 +189,9 @@
                 </div>
 
                 <div class="row">
-                    <button type="button" class="waves-effect waves-green der btn btn1 a add" id="detalleruta" codigo="1" modulo="detalleruta" varias="1" >Guardar</button> 
-                    <button type="button" class="waves-effect waves-green der btn btn1 edd green" id="goback" codigo="2" modulo="detalleruta" varias="1" style="margin-right: 1%">Actualizar</button>
+                    <button type="button" class="waves-effect waves-green der btn btn1 edd red delete" modulo="detalleruta" style="margin-right: 1%">Eliminar</button>
+                    <button type="button" class="waves-effect waves-green der btn btn1 add" id="detalleruta" modulo="detalleruta" varias="1" >Guardar</button> 
+                    <button type="button" class="waves-effect waves-green der btn btn1 edd edit green" id="goback" modulo="detalleruta" varias="1" style="margin-right: 1%">Actualizar</button>
                 </div>
 
                 <div class="fixed-action-btn horizontal edd">

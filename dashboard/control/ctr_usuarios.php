@@ -8,8 +8,8 @@ if (!isset($_REQUEST['accion'])) {
 
 	$smarty->setModule('dashboard');
 	$pg = $smarty->fetch('../view/menuSmarty.php');
-	$sty = $smarty->fetch('../view/scripts.php');
-	$scr = $smarty->fetch('../view/styles.php');
+	$sty = $smarty->fetch('../view/styles.php');
+	$scr = $smarty->fetch('../view/scripts.php');
 	
 	$smarty->assign('STY',$sty);
 	$smarty->assign('SCR',$scr);
@@ -27,12 +27,12 @@ if (!isset($_REQUEST['accion'])) {
 				$usr = $kakaroto->kamehameha('',7,'');
 				$cia = $kakaroto->kamehameha('id,nombre',13,'id > 0');
 				$suc = $kakaroto->kamehameha('',155,'1');
-				$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0');
+				$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0 and id  <> 2');
 			}
 			else if ($_REQUEST['arreglo'] == 2) 
-				$usr = $kakaroto->kamehameha('id,Nombre',1,"");
+				$usr = $kakaroto->kamehameha('id,Nombre',1,"id > 1");
 			else{ 
-				$usr = $kakaroto->kamehameha('id,Nombre',1,"");
+				$usr = $kakaroto->kamehameha('id,Nombre',1,"id > 1");
 				$acc = $kakaroto->kamehameha('id,nombre',305,"");
 				$log = $kakaroto->kamehameha('',304,$_REQUEST['arreglo']['where']);
 				if($_REQUEST['arreglo']['id'] == 2)
@@ -40,7 +40,7 @@ if (!isset($_REQUEST['accion'])) {
 				$_REQUEST['arreglo'] = 3;
 			}
 			if($_REQUEST['arreglo'] != 3) 
-				$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0');
+				$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0 and id  <> 2');
 
 			include 'view/ajax/usuarios/'.$_REQUEST['arreglo'].'.php';
 			break;

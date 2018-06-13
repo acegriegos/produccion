@@ -7,7 +7,7 @@
     
         <a href="#modal-rutas" class="load pbtn crut modal-trigger gtext" id="m<?php echo $obj[0]; ?>" modulo="ruta" style="font-size: 2em;"><i class="mdi mdi-24px mdi-pencil" title="Editar Ruta"></i></a>
 
-        <a href="#!" class="pbtn gtext" id="z<?php echo $obj[0]; ?>" style="font-size: 2em;" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck gtxt"></i></a>
+        <!-- <a href="#!" class="pbtn gtext" id="z<?php echo $obj[0]; ?>" style="font-size: 2em;" title="Zona de Carga y Descarga"><i class="mdi mdi-24px mdi-truck gtxt"></i></a> -->
 
         <a href="#modal-ruser" class="luser pbtn modal-trigger gtext" id="u<?php echo $obj[0]; ?>" style="font-size: 2em;" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
 
