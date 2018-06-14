@@ -23,7 +23,7 @@ if (isset($_POST['respuestaXml'])) {
     $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
     $salida = [];
     switch ($cmd) {
-        case 1:
+        case 1: //CARGA DE PERMISOS POR CLIENTE
             require_once '_config/mysqlDB.php';
             
             $cliente = isset($_POST['client_id']) ? $_POST['client_id'] : '';
@@ -36,7 +36,186 @@ if (isset($_POST['respuestaXml'])) {
                 $salida['error'] = 0;
             }
             break;
-        
+        case 2: //CARGA DE INFORMACION FE
+            require_once '_config/mysqlDB.php';
+            $db = new DBClass();
+
+            $userComprobante = isset($_POST['ucp']) ? $_POST['ucp'] : '';
+
+            if ($userComprobante == '' || !strpos($userComprobante, '@prod.')) {
+               $salida['msj'] = 'USUARIO COMPROBANTE ELECTRONICO NO VALIDO';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $passComprobante = isset($_POST['ccp']) ? $_POST['ccp'] : '';
+
+            if ($passComprobante == '') {
+               $salida['msj'] = 'CONTRASEÑA COMPROBANTE ELECTRONICO NO VALIDA';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $pin = isset($_POST['plc']) ? $_POST['plc'] : '';
+
+            if ($pin == '') {
+               $salida['msj'] = 'PIN LLAVE CRIPTOGRAFICA NO VALIDA';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $archivo = isset($_FILES['llc']) ? $_FILES['llc'] : '';
+
+            if ($archivo == '') {
+               $salida['msj'] = 'LLAVE CRIPTOGRAFICA NO VALIDA';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $correo = isset($_POST['uce']) ? $_POST['uce'] : '';
+
+            if ($correo == '') {
+               $salida['msj'] = 'CORREO ELECTRONICO NO VALIDO';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $telefono = isset($_POST['ute']) ? $_POST['ute'] : '';
+
+            if ($telefono == '') {
+               $salida['msj'] = 'TELEFONO NO VALIDO';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $barrio = isset($_POST['ube']) ? $_POST['ube'] : '';
+
+            if ($barrio == '') {
+               $salida['msj'] = 'BARRIO NO VALIDO';
+               $salida['error'] = 1;
+               break;
+            }
+            
+            $ubicacion = isset($_POST['ude']) ? $_POST['ude'] : '';
+
+            if ($ubicacion == '') {
+               $salida['msj'] = 'UBICACION NO VALIDA';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $sysuser = isset($_POST['sysuser']) ? $_POST['sysuser'] : '';
+            $rs = $db->ejecutar("select count(id) from usuarios where id > 0 and user = '".$sysuser."'")->fetch_all()[0][0];
+
+            if ($sysuser == '' || $rs >= 1) {
+               $salida['msj'] = 'USUARIO DEL SISTEMA NO VALIDO ';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $pswd = isset($_POST['pswd']) ? $_POST['pswd'] : '';
+
+            if ($pswd == '') {
+               $salida['msj'] = 'CONTRASEÑA DEL SISTEMA NO VALIDA';
+               $salida['error'] = 1;
+               break;
+            }
+
+            $temp = $_FILES['llc']['tmp_name'];
+            $dir_separator = DIRECTORY_SEPARATOR;
+            $folder = 'assets/p12';
+            $name = $_FILES['llc']['name'];
+            $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.$name;
+
+            if (file_exists($target_path)) {
+              $salida['msj'] = 'LLAVE CRIPTOGRAFICA YA EXISTENTE';
+              $salida['error'] = 1;
+              break;
+            }
+    
+            move_uploaded_file($temp, $target_path);
+            if(!openssl_pkcs12_read(file_get_contents($target_path), $certs, $pin)){
+                unset($target_path);
+                $salida['msj'] = 'PIN O LLAVE CRIPTOGRAFICA INVALIDAS';
+                $salida['error'] = 1;
+            }else{
+                $user = $userComprobante;
+                $pass = $passComprobante;
+                $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
+                $cli_id = "api-prod";
+                
+                // if ($_POST['prueba'] == 1) {
+                //     $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token";
+                //     $cli_id = "api-stag";
+                // }
+
+                $curl = curl_init($curl_hacienda);
+                curl_setopt($curl, CURLOPT_HEADER, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
+
+                $params = array(
+                  "client_id" => $cli_id,
+                  "client_secret" => "",
+                  "scope" => "",
+                  "username" => $user,
+                  "password" => $pass,
+                  "grant_type" => "password");
+
+                $postData = "";
+
+                foreach($params as $k => $v)
+                {
+                   $postData .= $k . '='.urlencode($v).'&';
+                }
+
+                $postData = rtrim($postData, '&');
+
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+                $json_response = curl_exec($curl);
+                $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+                curl_close($curl);
+                $json_response = json_decode($json_response);
+                if (isset($json_response->access_token)) {
+                    $publicKey = $certs["cert"];
+                    $certData   = openssl_x509_parse($publicKey);
+
+                    $tipo = $certData['subject']['OU'] == 'CPJ' ? 2 : 1;
+                    $cedula = substr($certData['subject']['serialNumber'],$tipo ? 4 : 5);
+                    unset($target_path);
+
+                    $accept = isset($_POST['acept']) ? $_POST['acept'] : 0;
+                    $recibo = isset($_POST['recibo']) ? $_POST['recibo'] : '';
+
+                    $salida['CN'] = $certData['subject']['CN'];
+                    $salida['cedula'] = $tipo == 1 ? substr($cedula,1) : $cedula;
+                    $salida['tipo'] = $tipo;
+
+                    if($accept){
+                        $salida['error'] = 0;
+                        $salida['correo'] = $correo;
+                        
+                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'',0,0,0,0,0,0,1,1,1,'".$salida['cedula']."','','',".$salida['tipo'].",1,'assets/p12/".$name."',hex(aes_encrypt(".$pin.",'lt2016')),NULL,1,0,0,'".$userComprobante."','".$passComprobante."',1,0,0,0,0)");
+                        $rs = $db->ejecutar("select id from sucursales where cedula = '".$salida['cedula']."'")->fetch_all()[0][0];
+                        $db->ejecutar("insert into correos values(null,".$rs.",39,'".$correo."')");
+                        $db->ejecutar("insert into telefonos values(null,3,'".$telefono."',39,".$rs.",52)");
+                        $db->ejecutar("insert into ubicaciones values(null,".$barrio.",'".$ubicacion."','0','0',39,".$rs.")");
+                        
+                        $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt2016')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
+                    }else{
+                        $salida['error'] = 2;
+                    }
+                }else{
+                    unset($target_path);
+                    $salida['msj'] = "USUARIO O CONTRASEÑA ATV INVALIDOS";
+                    $salida['error'] = 1;
+                }
+                
+            }
+            break;
         default:
            $salida['msj'] = 'WSDL LOGINTECH';
            $salida['error'] = 1;
