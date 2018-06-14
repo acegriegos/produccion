@@ -20,7 +20,7 @@
 
             $archivo = file_get_contents($destination);
             $archivo = preg_replace('/developer/', $mdb, $archivo);
-            file_put_contents('./assets/update/update.sql', $archivo);
+            file_put_contents($destination, $archivo);
             
             $salida['MYSQL'] = $error ? $error : 'OK';
             break;
