@@ -11,7 +11,7 @@
         </select>
     </div>
     
-   <!--  <div class="col s12 m6 l6 pequeño">
+    <div class="col s12 m6 l6 pequeño">
         <label for="selectType" >Elegir Tipo de Usuario a Desplegar</label>
         
         <select id="selectType" style="width: 70%">
@@ -20,7 +20,7 @@
             <option value="<?php echo $obj[0] ?>"><?php echo $obj[1] ?></option>
             <?php } ?>
         </select>
-    </div> -->
+    </div>
 
 </div>
 <br>

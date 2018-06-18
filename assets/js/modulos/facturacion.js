@@ -330,6 +330,10 @@ function cargarGlobal(){
         $("#vfecha").blur();
     } });
 
+    $("#ingclie").click(function(){
+        $("#addClie").modal('open')
+    });
+
     $(".tdesc").change(function(){
         var tp = $(this).attr('tp');
         $("[tdesc="+tp+"]").addClass('hide');

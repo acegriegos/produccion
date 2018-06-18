@@ -69,9 +69,6 @@
 		    
 		   	$smarty->assign('NAV',$pg);
 		   	$smarty->display('login.tpl');
-        // $cy = new _cy();
-        // $decy = $cy->ency('itech01');
-        // print_r($decy);
 
 		   }
 		}

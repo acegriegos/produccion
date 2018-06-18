@@ -70,4 +70,18 @@
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
   </div>
+
+  <div class="modal modal-fixed-footer grandemodal" id="addClie" style="height: 80%; width: 75%">
+  <div class="modal-header">
+
+  </div>
+  <div class="modal-content">
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="waves-effect waves-green btn-flat" id="ingresar">Guardar</button>
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+  </div>
+</div>
+
 </div>

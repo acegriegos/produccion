@@ -51,8 +51,6 @@
     <div class="modal-header">
         <ul class="tabs head3 center">
             <li class="tab col s3"><a class="white-text menuS active" id="ms1" href="#">Datos Servicio</a></li>
-            <li class="tab col s3 hide"><a class="white-text menuS" id="ms2" href="#">Financiero</a></li>
-            <li class="tab col s3"><a class="white-text menuS hide" id="ms3">Clientes</a></li>
         </ul>
     </div>
     <div class="modal-content" style="padding: 0px;">
@@ -73,12 +71,16 @@
                         <input id="vnombre" type="text" class="validate" autocomplete="off" maxlength="150">
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
-                    <div class="input-field col s12 " style="margin: 0">
-                        <textarea id="vdescripcion" type="textarea" class="materialize-textarea" length="150" style="margin: 0"></textarea>
+                    <div class="input-field col s12 m6">
+                        <textarea id="vdescripcion" type="textarea" class="materialize-textarea" length="150" style="margin: 0;padding: 0px"></textarea>
                         <label for="vdescripcion">Descripción del Servicio</label>
                     </div>
+                    <div class="col s6 m6 l6 input-field" id="dinvent">
+                        <select id="vidinventario" type="select"></select>
+                        <label for="vidinventario">Inventario</label>
+                    </div>
                 </div>
-                <div class="row hide">
+                <div class="row" style="margin: 0; padding: 0;">
                     <div class="col s12 m12">
                         <div class="row" style="margin: 0">
                             <div class="col s12 m12 l3">
@@ -132,7 +134,7 @@
                             {/section}
                         </select>
                     </div>
-                    <div class="col s12 m3">
+                    <div class="col s12 m3 hide">
                         <div class="switch">
                             <label>
                             <input type="checkbox" id="servpro">
@@ -145,46 +147,33 @@
 
 
                 </div>
-                <div class="row">
-                    <div class="col s6 m6 l6 input-field" id="dinvent">
-                        <!--  -->
-                        <select id="vidinventario" type="select"></select>
-                        <label for="vidinventario">Inventarios</label>
-                    </div>
+                <div class="row hide">
 
-                    <div class="input-field col s6 m6 hide">
+                    <div class="input-field col s6 m6">
                         <select id="vsucursales" type="select"></select>
                         <label for="vsucursales">Sucursales</label>
                     </div>
                 </div>
-                <div id="financiero"  style="padding: 25px 10px 0 10px">
-                <div class="row">
-                    <div class="input-field col s12 m6">
+
+                <div class="row" style="margin: 0;padding: 0">
+                    <div class="input-field col s12 m6" >
                         <span class="prefix moneda"></span>
-                        <input id="vpbase" type="number" class="validate vcalcserv" min="1" num="1">
+                        <input id="vpbase" type="number" class="validate vcalcserv" min="1" num="1" style="margin: 0;padding: 0">
                         <label for="vpbase">Precio</label>
 
                     </div>
                     <div class="col s12 m3 input-field">
-                        <select id="vidmoneda" type="select">
+                        <select id="vidmoneda" type="select" style="margin: 0;padding: 0">
                           {section name="LE" loop=$MON}
                             <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
                           {/section}
                         </select>
                         <label for="vidmoneda">Moneda</label>
                     </div>
-                    <div class="input-field col s12 m6 hide">
-                        <i class="material-icons prefix">%</i>
-                        <input id="vpganancia" type="number" class="validate vcalcserv" min="1" value="100.00" num="2">
-                        <label for="vganancia">Ganancia</label>
-                    </div>
-                    <div class="input-field col s12 m6 hide">
-                        <i class="material-icons prefix">¢</i>
-                        <input id="vprecio" type="number" class="validate vcalcserv" num="3">
-                        <label for="vprecio">Precio Total</label>
+                    <div class="input-field col s12 m3 hide cliserv">
+                        <a class="btn btn-success" href="#modal-servcliente" id="btn-servclie">Clientes</a>
                     </div>
                 </div>
-            </div>
                 <br>
             </div>
             
@@ -195,6 +184,18 @@
         <a class="modal-action modal-close waves-effect waves-red btn-flat">Salir</a>
     </div>
 </div>
+
+<div id="modal-servcliente" class="modal">
+    <div class="modal-header center head4" style="padding: 1%">
+        Clientes por Servicio
+    </div>
+    <div class="modal-content grandemodal center">
+      
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</a>
+    </div>
+  </div>
 
 <div id="hextra" class="modal">
     <div class="modal-header center head4" style="padding: 1%">
