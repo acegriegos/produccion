@@ -71,7 +71,7 @@
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
-      <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" data-position="bottom" data-tooltip="Agregar Cliente"></a>
+      <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide clieBTN" id="ingclie" href="#addClie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" data-position="bottom" data-tooltip="Agregar Cliente"></a>
       <i class="mdi mdi-16px mdi-email pbtn tooltipped hide clieBTN" id="crrclie" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
