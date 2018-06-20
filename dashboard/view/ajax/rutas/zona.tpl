@@ -134,13 +134,57 @@
 
             <a class="mdi mdi-24px mdi-playlist-minus descargar" title="Descargar Inventario" style="padding-right: 2%"></a>
 
-            <!-- <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped" title="Cargar Pedidos" style="padding-right: 2%"></a> -->
+            <a href="#" class="mdi mdi-24px mdi-content-duplicate load_ped chrgpedido" title="Cargar Pedidos" style="padding-right: 2%"></a>
 
             <!-- <a href="#" class="mdi mdi-24px mdi-content-save" title="Guardar Inventario" style="padding-right: 2%"></a> -->
 
-            <a class="mdi mdi-24px mdi-printer print_inv" title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
+            <a class="mdi mdi-24px mdi-printer print_inv pbtn" title="Imprimir Inventario de Ruta" style="padding-right: 2%"></a>
 
             <span>Inventario: <span id="invname" idinv="">NOMBRE DE INVENTARIO</span></span>
         <!-- </div> -->
+    </div>
+</div>
+
+<div class="modal modal-fixed-footer" id="modal-eliminar">
+    <div class="modal-header head3 center">
+        <span style="font-size: 22px">Devolver producto a inventario</span>
+    </div>
+    <div class="modal-content row">
+        <div class="input-field col s12 m4 l4">
+            <input type="text" id="nameprod" readonly>
+            <label for="nameprod">Producto</label>
+        </div>
+        <div class="input-field col s12 m4 l4">
+            <input type="number" id="cantprod">
+            <label for="cantprod">Cantidad</label>
+        </div>
+        <div class="input-field col s12 m4 l4">
+            <select type="select" id="invprod"></select>
+            <label for="invprod">Inventario</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-green btn-flat"id="devolverprod">Guardar</button>
+        <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+    </div>
+</div>
+
+<div class="modal modal-fixed-footer" id="modal-editar">
+    <div class="modal-header head3 center">
+        <span style="font-size: 22px">Editar</span>
+    </div>
+    <div class="modal-content row">
+        <div class="input-field col s12 m6 l6">
+            <input type="text" id="nameprodz" readonly>
+            <label for="nameprod">Producto</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input type="number" id="cantprodz">
+            <label for="cantprod">Cantidad</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-green btn-flat"id="changecant">Guardar</button>
+        <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
     </div>
 </div>

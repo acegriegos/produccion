@@ -8,18 +8,18 @@ class correo
     var $message;
 
     function __construct($pr,$tit,$msj)
-    {
+    { 
       	include_once 'mysqlDB.php';
 		$base = new DBClass();
-		$res = $base->ejecutar('call sp_getGeneralMail();')->fetch_all();
+		$res = $base->ejecutar('call sp_getGeneralMail()')->fetch_all();
 
       	$transport = Swift_SmtpTransport::newInstance($res[2][0],$res[3][0])
       		->setUsername($res[1][0])
       		->setPassword($res[0][0]);
-
+    $empresa = isset($_SESSION['EMPRESA']) ? $_SESSION['EMPRESA'] : 'Logintech';
      	$this->mailer = Swift_Mailer::newInstance($transport);
      	$this->message = Swift_Message::newInstance($tit)
-     		->setFrom(array($res[1][0] => $_SESSION['EMPRESA']))
+     		->setFrom(array($res[1][0] => $empresa))
      		->setTo( explode(',',$pr) )
      		->setBody($msj,'text/html');
 

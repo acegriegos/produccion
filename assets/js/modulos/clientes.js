@@ -540,6 +540,7 @@ function postload(modulo) {
 		case 'cliente':
 			llenarTarjeta(1);
 			var idtipo = $("#vidtipocliente").val();
+			console.log(idtipo)
 			$("[tipoclie = "+idtipo+"]").prop('checked', true);
 			$("[tipoclie = "+idtipo+"]").click();
 			setTimeout(function(){

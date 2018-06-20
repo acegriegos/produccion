@@ -459,6 +459,11 @@ $(document).on("keyup","#vcorreo",function(e){
 $(document).on("click",".editdesc",function(){
 	var id = $(this).attr('id').substr(1);
 	$("#iddescuento").val(id);
+	$("#tpdsc").val(0);
+	$("#tpdsc").material_select('update');
+	$("#descue").val(0);
+	$("#descue").material_select('update');
+	$(".options").addClass('hide');
 });
 
 $(document).on("change","#tpdsc",function(){
@@ -476,9 +481,10 @@ $(document).on("change","#tpdsc",function(){
 //aqui
 $(document).on("change","#descue",function(){
 var id = $(this).val();
+//idtabla = '+$("#tpdsc option:selected").attr('tabla')+' and idfila = '+id
 if (id != 0) {
 $(".options").removeClass('hide');
-var optns = arr('login',4,'idciclo,date_format(f1,"%Y-%m-%d"),date_format(f2,"%Y-%m-%d"),extra,valor',79,'idtabla = '+$("#tpdsc option:selected").attr('tabla')+' and idfila = '+id,0,0,0)[0][0];
+var optns = arr('login',4,'idciclo,date_format(f1,"%Y-%m-%d"),date_format(f2,"%Y-%m-%d"),extra,valor',79,'id='+$("#tpdsc option:selected").val(),0,0,0)[0][0];
 var days = optns[3];
 $("#optdesc").val(optns[0]).change();
 $("#optdesc").material_select();
@@ -660,7 +666,7 @@ var valor = $("#valor").val();
 var days = $("#days").val();
 var months = $("#months").val();
 var extra = '';
-var id = arr('login',4,'id',79,'idfila = '+idfila+' and idtabla = '+idtabla+' and iddescuento = '+iddescuento,0,0,0)[0][0][0];
+var id = $("#descue").val();//arr('login',4,'id',79,'idfila = '+idfila+' and idtabla = '+idtabla+' and iddescuento = '+iddescuento,0,0,0)[0][0][0];
 if (idciclo == 2) {
 extra = months;
 }else if (idciclo == 3) {

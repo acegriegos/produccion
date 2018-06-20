@@ -63,13 +63,33 @@ $(function(){
 
 });
 
+$(document).on("click",".chrgpedido",function(){
+    var idruta = $("#seachruteros").val();
+    var pedidos = arr('login',4,'',511,'5,'+idruta,0,0,0);
+    if (pedidos[0].length == 0) {
+        Materialize.toast('No se encuentran pedidos', 4000, 'green');
+    }else{
+        $.each(pedidos[0],function(index,values) {
+            var idprod = values[0];
+            var prod = values[1];
+            var cant = values[2];
+            var invent = values[3];
+            var chrg = arr('login',4,'',512,'6,'+invent+','+idprod+','+cant+','+idruta,0,0,0);
+            if (chrg['succed'] == 1) {
+                $("#coll1").append('<a class="collection-item prodcuto" idprod="'+idprod+'" cantidad="'+cant+'" invent="'+invent+'">'+prod+'<span class="badge mdi mdi-close mdi-24px cdel pbtn dprod" id="dp'+idprod+'" cant="'+cant+'" invent="'+invent+'" tp="1"></span><span class="new badge chng" data-badge-caption="unidades" id="bp'+idprod+'">'+cant+'</span></a>');
+            }else{
+                Materialize.toast(chrg[0]['ERROR'], 4000, 'red');
+            }
+        });
+    }
+});
+
 $(document).on("click",".print_inv",function(){
     var idruta = $("#seachruteros").val();
-    window.open('rutas?accion=3&idruta='+vid);
+    window.open('rutas?accion=3&idruta='+idruta);
 });
 
 $(document).on("click",".cargar",function(){
-    var invprev = $("#vidinventario").val();
     var nextinv = $("#invname").attr('idinv');
     var idruta = $("#seachruteros").val();
 
@@ -79,27 +99,66 @@ $(document).on("click",".cargar",function(){
     }
     var mover = '';
     var cont = 0;
+    var minus = arr('login',4,'',512,'3,0,0,0,'+idruta,0,0,0);
+    if (minus['succed'] == 1) {
+        $(".prodcuto").each(function(){
+            var idprod = $(this).attr('idprod');
+            var tp = $("#dp"+idprod).attr('tp');
+            var cant = $(this).attr('cantidad');
+            if (tp != 2) {
+                mover = arr('login',4,'',512,'4,'+nextinv+','+idprod+','+cant+','+idruta,0,0,0);
+                if (mover['succed'] == 1) {
+                    cont = 1;
+                }else{
+                    cont = 0;
+                }
+            }
+        });
+    }else{
+        mover = minus;
+    }
 
-    $(".prodcuto").each(function(){
+    if (cont == 1) {
+        Materialize.toast('Registro guardado correctamente', 4000, 'green');
+        $("#m2").click();
+
+    }else{
+        Materialize.toast(mover[0]['ERROR'], 4000, 'red');
+    }
+});
+
+$(document).on("click",".descargar",function(){
+    var nextinv = $("#vidinventario").val();
+    var idruta = $("#seachruteros").val();
+
+    if ($(".prodcuto").length == 0) {
+        Materialize.toast('No hay productos', 4000, 'red');
+        return false;
+    }
+    var descarga = '';
+    var cont = 0;
+    $(".prodcuto").each(function() {
         var idprod = $(this).attr('idprod');
+        var tp = $("#dp"+idprod).attr('tp');
         var cant = $(this).attr('cantidad');
-        mover = arr('login',4,'',512,invprev+','+nextinv+','+idprod+','+cant+','+idruta,0,0,0);
-        if (mover['succed'] == 1) {
-            cont = 1;
-        }else{
-            cont = 0;
+        if (tp != 2) {
+            descarga = arr('login',4,'',512,'4,'+nextinv+','+idprod+','+cant+','+idruta,0,0,0);
+            if (descarga['succed'] == 1) {
+                cont = 1;
+            }else{
+                cont = 0;
+            }
         }
     });
 
     if (cont == 1) {
         Materialize.toast('Registro guardado correctamente', 4000, 'green');
-        // $("#m2").click();
+        $("#m2").click();
 
     }else{
-        Materialize.toast(mover[0]['ERROR'], 4000, 'green');
+        Materialize.toast(mover[0]['ERROR'], 4000, 'red');
     }
 });
-// 4743 y 4761 super los amigos
 
 $(document).on("click","#assgninvtoruta",function(){
     var idprod = $("#descp").attr('idprod');
@@ -117,10 +176,15 @@ $(document).on("click","#assgninvtoruta",function(){
 
 function cargarProducto(idprod,prod,cant) {
     if (cant > 0) {
-        var invprev = $("#vidinventario").val();
-        var nextinv = $("#invname").attr('idinv');
-        $("#coll1").append('<a class="collection-item prodcuto" idprod="'+idprod+'" cantidad="'+cant+'">'+prod+'<span class="new badge" data-badge-caption="unidades">'+cant+'</span></a>');
-        // <span class="badge mdi mdi-close mdi-24px cdel pbtn dprod" id="dp'+idprod+'" idprod="'+idprod+'" cant="'+cant+'" invprev="'+invprev+'" nextinv="'+nextinv+'"></span>
+        var idruta = $("#seachruteros").val();
+        var inventario = $("#vidinventario").val();
+        var movertemp = arr('login',4,'',512,'1,'+inventario+','+idprod+','+cant+','+idruta,0,0,0);
+        if (movertemp['succed'] == 1) {
+            $("#coll1").append('<a class="collection-item prodcuto" idprod="'+idprod+'" cantidad="'+cant+'" invent="'+inventario+'">'+prod+'<span class="badge mdi mdi-close mdi-24px cdel pbtn dprod" id="dp'+idprod+'" cant="'+cant+'" invent="'+inventario+'" tp="1"></span><span class="new badge chng" data-badge-caption="unidades" id="bp'+idprod+'">'+cant+'</span></a>');
+            //editar: <span class="badge mdi mdi-pencil mdi-24px blueh pbtn eprod" id="ep'+idprod+'" cant="'+cant+'" invent="'+inventario+'" tp="1"></span>
+        }else{
+            Materialize.toast(movertemp[0]['ERROR'], 4000, 'red');
+        }
         $("#codp").val('');
         $("#descp").val('');
         $("#cantp").val(1);
@@ -130,17 +194,97 @@ function cargarProducto(idprod,prod,cant) {
         $("#cantp").select();
     }
 }
+
 $(document).on("click",".dprod",function(){
-    var id = $(this).attr('id').substr(2);
-    var idprod = $(this).attr('idprod');
+    var tp = $(this).attr('tp');
+    var idprod = $(this).attr('id').substr(2);
     var cant = $(this).attr('cant');
-    var invprev = $(this).attr('invprev');
-    var nextinv = $(this).attr('nextinv');
+    var invent = $(this).attr('invent');
+    var idruta = $("#seachruteros").val();
+    var prod = arr('login',4,'nombre',11,'id = '+idprod,0,0,0)[0][0][0];
+    if (tp == 1) {
+        var undo = arr('login',4,'',512,'2,'+invent+','+idprod+','+cant+','+idruta,0,0,0);
+        if (undo['succed'] == 1) {
+            $("a[idprod="+idprod+"][invent="+invent+"]").remove();
+            //aqui
+        }
+    }else if (tp == 2) {
+        arr('login',6,'*',111,'id > 0 and idbodega = 1 and idsucursal in(-1,@@impresa) order by id',15,1,$("#invprod"));
+        $("#modal-eliminar").modal('open');
+        $("#nameprod").attr('idprod',idprod);
+        $("#nameprod").val(prod);
+        $("#nameprod").attr('tp',tp);
+        $("#cantprod").val(cant);
+        $("#nameprod").attr('idinvent',invent);
+        Materialize.updateTextFields();
+        $("#invprod").material_select();
+    }
+});
+
+// $(document).on("click",".eprod",function(){
+//     var idprod = $(this).attr('id').substr(2);
+//     var cant = $(this).attr('cant');
+//     var invent = $(this).attr('invent');
+//     var tp = $(this).attr('tp');
+//     var idruta = $("#seachruteros").val();
+//     var prod = arr('login',4,'nombre',11,'id = '+idprod,0,0,0)[0][0][0];
+//     $("#modal-editar").modal('open');
+//     $("#nameprodz").attr('idprod',idprod);
+//     $("#nameprodz").val(prod);
+//     $("#nameprodz").attr('tp',tp);
+//     $("#nameprodz").attr('cant',cant);
+//     $("#cantprodz").val(cant);
+//     $("#nameprodz").attr('idinvent',invent);
+//     Materialize.updateTextFields();
+//     $("#cantprodz").select();
+// });
+
+$(document).on("click","#devolverprod",function(){
+    // tipo 1: temporal - 2: en ruta - 3: pedido
+    var tp = $("#nameprod").attr('tp');
+    // var invent = $("#nameprod").attr('idinvent');
+    var invent = $("#invprod").val();
+    var idprod = $("#nameprod").attr('idprod');
+    var cant = $("#cantprod").val()
     var idruta = $("#seachruteros").val();
 
-    var undo = arr('login',4,'',512,nextinv+','+invprev+','+idprod+','+cant+','+idruta,0,0,0);
-    $("[idprod="+id+"]").remove();
+    // if (tp == 1) {
+    //     var undo = arr('login',4,'',512,'2,'+invent+','+idprod+','+cant+','+idruta,0,0,0);
+    // }else 
+    if (tp == 2) {
+        invent = $("#invprod").val();
+        var undo = arr('login',4,'',512,'5,'+invent+','+idprod+','+cant+','+idruta,0,0,0);
+    }
+    $("#bp"+idprod).text(cant);
+    $("#ep"+idprod).attr('cant',cant);
+    $("#dp"+idprod).attr('cant',cant);
+    $("a.prodcuto[idprod="+idprod+"]").attr('cantidad',cant);
+    $("[idprod="+idprod+"]").remove();
 });
+
+// $(document).on("click","#changecant",function(){
+//     // tipo 1: temporal - 2: en ruta - 3: pedido
+//     var tp = $("#nameprodz").attr('tp');
+//     // var invent = $("#nameprod").attr('idinvent');
+//     var invent = $("#nameprodz").attr('invent');
+//     var idprod = $("#nameprodz").attr('idprod');
+//     var ocant = parseFloat($("#nameprodz").attr('cant'));
+//     var cant = parseFloat($("#cantprodz").val());
+//     var idruta = $("#seachruteros").val();
+
+//     if (tp == 1) {
+//         arr('login',4,'',512,'6,'+invent+','+idprod+','+cant+','+idruta,0,0,0);
+//     }else if (tp == 2) {
+//         if (cant > ocant) {
+//             cant = Math.abs(cant - ocant);
+//         }
+//         arr('login',4,'',512,'7,'+invent+','+idprod+','+cant+','+idruta,0,0,0);
+//     }
+//     $("#bp"+idprod).text(cant);
+//     $("#ep"+idprod).attr('cant',cant);
+//     $("#dp"+idprod).attr('cant',cant);
+//     $("a.prodcuto[idprod="+idprod+"]").attr('cantidad',cant);
+// });
 
 $(document).on("keydown","#descp",function(e){
     var charCode = e.which || e.keyCode;
@@ -284,28 +428,39 @@ $(document).on("change","#seachcliente",function(){
         str += '<option value="'+p[i][0]+'" tp="'+tipo+'">'+p[i][1]+'</option>';
     }
     $("#seachruteros").append(str);
-    $("#seachruteros").material_select('update');  
+    $("#seachruteros").material_select('update');
+    $("#coll1").html('');
 });
 
 $(document).on("change","#seachruteros",function(){
     $(".f2").removeClass('hide');
-    // $(".sd").hide();
     $(".ld").show();
     $(".ff").removeClass('hide');
     $(".select-dropdown").css("margin-bottom",'0px');
     var idtiporuta = $("#seachcliente").val();
     var idruta = $("#seachruteros").val();
-    //inventario x default
     $("#vidbodega").val(1).change();
     $("#vidinventario").val(6);
     $("select").material_select();
-    // var pinv = $("#seachpinvrut").val() == undefined ? '' : $("#seachpinvrut").val();
-    // var p = arr('login',4,'',223,iddetrut+',0,"'+pinv+'"',0,0,0);
+    var tipo = $("#seachcliente").val() == 1 ? 2 : 6;
     var inv = arr('login',4,'',511,'4,'+idruta,0,0,0)[0][0];
-    var productos = arr('login',4,'',511,'1,'+idruta,0,0,0)[0];
+    var productos = arr('login',4,'',511,tipo+','+idruta,0,0,0)[0];
+    var pedido = '';
+    var hide = '';
+    $("#coll1").html('');
+    if (tipo == 6) {
+        hide = 'hide';
+        $(".chrgpedido").addClass('hide');
+    }else{
+        hide = '';
+        $(".chrgpedido").removeClass('hide');
+    }
     $.each(productos,function(index,valor) {
-        $("#coll1").append('<a class="collection-item prodcuto" idprod="'+valor[0]+'" cantidad="'+valor[2]+'">'+valor[1]+'<span class="new badge" data-badge-caption="unidades">'+valor[2]+'</span></a>');
-        // <span class="badge mdi mdi-close mdi-24px cdel pbtn dprod" id="dp'+valor[0]+'" idprod="'+valor[0]+'" cant="'+valor[2]+'" invprev="'+0+'" nextinv="'+0+'"></span>
+        if (valor[3] == 37) {//pedido
+            pedido = ' (P)';
+        }
+        $("#coll1").append('<a class="collection-item prodcuto" idprod="'+valor[0]+'" cantidad="'+valor[2]+'" invent="'+valor[3]+'">'+valor[1]+pedido+'<span class="badge mdi mdi-close mdi-24px cdel pbtn dprod '+hide+'" id="dp'+valor[0]+'" cant="'+valor[2]+'" invent="'+valor[3]+'" tp="'+valor[4]+'"></span><span class="new badge chng" data-badge-caption="unidades" id="bp'+valor[0]+'">'+valor[2]+'</span></a>');
+        //editar <span class="badge mdi mdi-pencil mdi-24px blueh pbtn eprod" id="ep'+valor[0]+'" cant="'+valor[2]+'" invent="'+valor[3]+'" tp="'+valor[4]+'"></span>
     });
     
     $("#invname").html(inv[1]);
