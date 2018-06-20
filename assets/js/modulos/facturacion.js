@@ -502,6 +502,11 @@ function cargarGlobal(){
                 break;
         }
 
+        var entrada = $("#fd"+id).data('triforce')['videntrada'];
+        var char1 = entrada.substring(0,1);
+        var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
+        cargarDescuentos(entrada.substr(1)+',0',tabla,1,id);
+
         Materialize.updateTextFields();
 
     });

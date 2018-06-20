@@ -300,8 +300,6 @@
             <td><label for="vdescuentop">Descuento</label></td>
             <td>
               <select id="tdescuento" class="eder tdesc" tp="1">
-                <option value='0'>No Aplica - 0%</option>
-                <option value='' class="per1103">Por Vendedor</option>
               </select>
               <input type="text" id="vdescuentop" class="eder _txtaside hide" value="0" tdesc="1"
               style="height: 0.5% !important" placeholder="DESCUENTO"></td>

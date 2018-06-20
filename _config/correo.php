@@ -8,10 +8,10 @@ class correo
     var $message;
 
     function __construct($pr,$tit,$msj)
-    {
+    { 
       	include_once 'mysqlDB.php';
 		$base = new DBClass();
-		$res = $base->ejecutar('call sp_getGeneralMail();')->fetch_all();
+		$res = $base->ejecutar('call sp_getGeneralMail()')->fetch_all();
 
       	$transport = Swift_SmtpTransport::newInstance($res[2][0],$res[3][0])
       		->setUsername($res[1][0])

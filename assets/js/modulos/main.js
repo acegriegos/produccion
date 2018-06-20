@@ -8,7 +8,6 @@ $(function(){
     // dibujarGrafico("chartG1",'Ganancias por Dia','Ganancias','line',{sel:'',tbl:307,where:'3,0,0,0,"'+now()+'","",0,0,0'},2,0,2);
     var hasiniciate = arr('login',4,'id,monto,fmonto',404,'idusuario = @@usr and fmonto is null',0,0,0);
 
-
     var has_if = hasiniciate[0][0][1] ;
     if (has_if == '') {
         $("#vmonto").val(0);
