@@ -45,8 +45,7 @@
 	   		case 3:
 	   			$pagina = 1;
 				$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
-				$transaccion = '';
-				// $transaccion = $kakaroto->kamehameha('',186,$_REQUEST['id']);
+				$transaccion = $kakaroto->kamehameha('',513,$_REQUEST['idruta']);
 				$datos = $transaccion[0];
 				require_once 'view/ajax/rutas/invxruta.php';
 	   			break;

@@ -49,7 +49,7 @@
 
 			$interval = ceil((strtotime($ahora->format('Y-m-d H:i:s')) - strtotime($reserved->format('Y-m-d H:i:s')))/60);
 		
-			if ($interval >= 0.5) {
+			if ($interval >= 120) {
 				session_destroy();
 				$modulo = 'login';
 			}else{

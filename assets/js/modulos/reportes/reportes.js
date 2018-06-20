@@ -100,9 +100,9 @@ $(function(){
         });
 
 
-        var fecha = new Date();
-        var dpick = $('#vdesde');
-        dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+        // var fecha = new Date();
+        // var dpick = $('#vdesde');
+        // dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
     }
 
     mdate = $(".principal .filtros").attr('portipo');

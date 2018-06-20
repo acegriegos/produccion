@@ -24,6 +24,7 @@ $(function(){
     });
 
     cargarImpuestos(0,'11,2');
+    cargarDescuentos(0,'2',undefined,1);
 
     $("#codp").keyup(function(e){
         var code = e.which || e.keyCode;
@@ -368,6 +369,47 @@ $(document).on("change","#exct",function(){
     totalizar();
 });
 
+$(document).on("change","#tdescuento",function(){
+    $("#vdescuentop").val($("option:selected",this).attr('valor'));
+    totalizar();
+});
+
+$(document).on("change","#tdescuentol",function(){
+    var id = $("#hdnprd").val();
+    var valor = $("option:selected",this).attr('valor');
+    $("#edescuento").val(valor);
+    $("#fd"+id).data('triforce')['vdesc'] = valor;
+    totalizar();
+});
+
+$(document).on("keyup","#edescuento",function(e){
+    var code = e.which || e.keyCode
+    if(code == 13){
+        if(isNaN($(this).val())){
+            Materialize.toast('Descuento no Válido',4000,'red')
+            $(this).select().focus();
+        }else{
+            var id = $("#hdnprd").val();
+            $("#fd"+id).data('triforce')['vdesc'] = $(this).val();
+            totalizar();
+            $(this).blur();
+        }
+    }
+});
+
+$(document).on("keyup","#vdescuentop",function(e){
+    var code = e.which || e.keyCode
+    if(code == 13){
+        if(isNaN($(this).val())){
+            Materialize.toast('Descuento no Válido',4000,'red')
+            $(this).select().focus();
+        }else{
+            totalizar();
+            $(this).blur();
+        }
+    }
+});
+
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo) {
     $("#valores").removeData('elemento');
 
@@ -422,12 +464,9 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;"></div></td> <td class="center divisa hide" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td id="vdesc'+id+'" class="center hide"> '+dcs+'% </td> <td class="center totp divisa hide" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%;font-size: 12px;"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%;font-size: 12px;"></a></td> </tr>');
                 break;
         }
-
-        $("#vdesc"+id).data('valor',dcs);
-        $("#vdesc"+id).data('max',mdcs);
-        
+        console.log(dcs,' ',mdcs)
         //1,50,540.75
-        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : dcs,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo});
+        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : dcs,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs});
        
     }
     totalizar();
@@ -457,7 +496,7 @@ function totalizar(){
     var tmpdesc = 0;
     var exento = 0;
     var flete = isNaN($("#vflete").val()) ? 0 : parseFloat($("#vflete").val()) > 0 ? parseFloat($("#vflete").val().replace(/,/g,'.')) : 0;
-    var desc = $("#vdescuentop").data('valor');
+    var desc = $("#vdescuentop").val();
     var ajuste = $("#ajuste").val().replace(/,/g,'');
     var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = rimv = iva_imp = geimv = 0;
 
@@ -496,8 +535,8 @@ function totalizar(){
        
         cantidad = parseFloat($("#fd"+vidlinea).data('triforce')['vcantidad']);
         precio =  parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']);
-        decindv = parseFloat($("#vdesc"+vidlinea).data('valor'));
-        descmax = parseFloat($("#vdesc"+vidlinea).data('max'));
+        decindv = parseFloat($("#fd"+vidlinea).data('triforce')['vdesc']);
+        descmax = parseFloat($("#fd"+vidlinea).data('triforce')['max']);
         desct = param.toString().match(new RegExp(/[2]/i)) ? decindv : decindv+desc > descmax ? descmax : decindv+desc;
 
         $("#fd"+vidlinea).data('triforce')['vdesc'] = desct;
@@ -728,7 +767,11 @@ function cargarProducto(kbrota,elemento) {
 
         cod = cod[0][0];
         cod[3] = cod[3]/parseFloat($("#monedas option:selected").attr('dv'));
-        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : cod[5],hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9]}) //,imp: cod[6]
+        var char1 = cod[0].substring(0,1);
+        var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
+        var dvalor = cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
+        console.log(dvalor)
+        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9]}) //,imp: cod[6]
         $("#codp").val(cod[1]);
         $("#descp").val(cod[2]);
         $("#precp").val(parseFloat(cod[3]).formatMoney(2,'.',','));
@@ -740,10 +783,8 @@ function cargarProducto(kbrota,elemento) {
             $("#cantI").html(cod[4]);
             $("#bname-inv").html(cod[4]);
         }
-
-        var char1 = cod[0].substring(0,1);
-        var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var strimp = cargarImpuestos(cod[0].substr(1)+',0',tabla);
+
         var modselec = $("input[name='modselected']:checked").val();
         $("#valores").data("elemento")['strimp'] = strimp;
         cargarunidades(cod[0],cod[15]);
@@ -876,9 +917,9 @@ function searchClient(vvariable,visprv){
     }
 
     cargarImpuestos($(".zelda").data('triforce')['vidcliente'],'2');
-
+    cargarDescuentos($(".zelda").data('triforce')['vidcliente']+',0','2');
     // cambio cliente
-    var producto = $(".ciclos");
+    var producto = $("#fdetallefacturas .ciclos");
     producto.each(function(i) {
         var idlinea = $(this).attr('id').substr(2);
         var idprod = $("#desc"+idlinea).text();
@@ -923,7 +964,7 @@ function calcVuelto(){
     }
 }
 
-function cargarImpuestos(vfila,vtabla,vidfd){
+function cargarImpuestos(vfila,vtabla){
 
     var imp = getDatos('',109,'@@impresa,"'+vfila+'","'+vtabla+'"',0,0)[0];
     var textImpuestos = '';
@@ -951,6 +992,54 @@ function cargarImpuestos(vfila,vtabla,vidfd){
         
     }
     return impuestoStr;
+}
+
+function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
+
+    var desc = getDatos('',115,'@@impresa,"'+vfila+'","'+vtabla+'"',0,0);
+    var strDesc = '<option value="0">No Aplica - 0%</option>';
+    var valor;
+
+    if (desc['succed']) {
+        var mdesc = 0;
+        var smdesc;
+        for (var i = 0; i < desc[0].length; i++) {
+            smdesc = '';
+            if (parseFloat(desc[0][i][1]) > mdesc) {
+                mdesc = desc[0][i][1];
+                smdesc = 'selected';
+            }
+            strDesc += '<option value="'+desc[0][i][0]+'" valor="'+desc[0][i][1]+'" '+smdesc+'>'+desc[0][i][2]+"</option>"
+        }
+    }else
+        console.log('ERROR con Descuentos: '+desc)
+
+    if ($(".per1103.hide").length == 0 || vcarga == 1)
+        strDesc += '<option value="" class="per1103">Por Vendedor</option>';
+
+    switch(vtipo){
+        case undefined:
+            $("#tdescuento").html(strDesc);
+            $("#tdescuento").material_select('update');
+            $("#vdescuentop").val(mdesc);
+            break;
+        case 1:
+            // if (parseInt($("#fd"+vidfila).data("triforce")['iddesc']) == 1) {
+
+            // }
+            $("#tdescuentol").html(strDesc)
+            $("#tdescuentol").material_select('update');
+            $("#edescuento").val(mdesc);
+            break;
+        case 2:
+        console.log(mdesc)
+            break;
+        default:
+            break;
+    }   
+
+    totalizar();
+    return mdesc;
 }
 
 function sendFE(clave,factura){
