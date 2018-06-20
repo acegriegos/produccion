@@ -9,13 +9,23 @@
     <div class="col s12 m9 l9 fac"> 
      <div class="hoja grey lighten-3">
       <div class="row">
-        <div class="col s6 m5 l3">
-          <br>
-          <!-- <?php if ($miscelaneos[3]) {
-            echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="90%">';
-          } ?> -->
+        <div class="col s4 m4 l4">
+          <div class="col s12">
+            <br><br>
+            <b>Ruta:</b>
+            <span> <?php echo $datos[4]; ?> </span>
+          </div>
+          <div class="col s12">
+            <b>Rutero:</b>
+            <span> <?php echo $datos[5]; ?> </span>
+          </div>
+          <div class="col s12">
+            <span><b>Inventario:</b></span>   
+            <span> <?php echo $datos[6]; ?> </span>
+          </div>
+          
         </div>
-        <div class="col s6 m7 l9 right-align">
+        <div class="col s4 m4 l4 center-align">
           <font size="3">
             <br>
              <b><span id="fnombre"><?php echo $miscelaneos[0]; ?></span></b><br>
@@ -29,44 +39,22 @@
 
           </font>
         </div>
+        <div class="col s4 center-align">
+          <br><br>
+            <div class="card  white-text imprimirSINBOR" style="background-color: #3960A7;">
+              <div class=" card-content white-text imprimirSINBOR">
+                <p>Fecha actual: <?php
+                  // date_default_timezone_set("America/Costa_Rica");
+                  echo date("d/m/Y"); ?>
+                  </p>
+                </div>
+              </div>
+            </div>
       </div>
-      <div class="row">
-        <div class="col s6 left-align">
-         <div class="row">
-           <div class="col s12">
-            <b>Ruta:</b>
-            <span> Grecia - San Jose </span>
-          </div>
-        <div class="col s12">
-            <b>Rutero:</b>
-            <span> Logintech </span>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- /HEADER -->
     <!-- INFO CONTACTO -->
     <div class="row">
-      <div class="col s6 left-align">
-       <div class="row">
-         <div class="col s12">
-          <span><b>Inventario:</b></span>   
-          <span> Ruta SJ01</span>
-        </div>
-      </div>   
-    </div>
-    <div class="col s6">
-      <div class="col s6 center-align">
-        <div class="card  white-text imprimirSINBOR" style="background-color: #3960A7;">
-          <div class=" card-content white-text imprimirSINBOR">
-            <p>Fecha actual: <?php
-              // date_default_timezone_set("America/Costa_Rica");
-              echo date("d/m/Y"); ?>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+    
       <!-- DETALLE FACT -->
       <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
         <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
@@ -74,10 +62,26 @@
             <th class="center-align sinborde">Codigo</th>
             <th class="center-align sinborde">Producto</th>
             <th class="center-align sinborde">Cantidad</th>
-
+            <th class="center-align sinborde"></th>
           </tr>
         </thead>
         <tbody id="ftbody">
+            <?php 
+            foreach ($transaccion as $obj) { ?>
+
+              <tr class="tr" >
+                <td class="flista1 td center-align"><span id="cant"><?php echo $obj[1]; ?></span></td>
+                <td class="flista2 td center-align"><span id="desc"><?php echo $obj[2]; ?></span></td>
+                <td class="flista3 td center-align"><span id="punit"><?php echo $obj[3]; ?></span></td>
+                <td class="flista3 td center-align">
+                  <input type="checkbox" id="test<?php echo $obj[0]; ?>"/>
+                  <label for="test<?php echo $obj[0]; ?>"></label>
+                </td>
+              </tr>
+
+              <?php } ?>
+            </tbody>
+        <!-- <tbody id="ftbody">
 
          <tr class="tr" >
           <td class="td flista1 center-align">A01</td>
@@ -86,7 +90,7 @@
 
         </tr>
 
-      </tbody>
+      </tbody> -->
       <!-- <tfoot>
         <tr>
           <td class="margen" colspan="3">&nbsp;</td>
