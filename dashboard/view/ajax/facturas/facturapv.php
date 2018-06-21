@@ -161,6 +161,6 @@ echo '<tr>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.5"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.6"></script>
  </body>
  </html>
