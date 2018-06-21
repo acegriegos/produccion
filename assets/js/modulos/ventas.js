@@ -582,13 +582,13 @@ function validar (varreglo,vmodulo) {
     
     switch(vmodulo['modulo']) {
         case 'factura':
-            if (vmodulo['tip'] == '') {
+            // if (vmodulo['tip'] == '') {
                 
-                err = validarFactura();
-                if ( err ) {
-                    return err;
-                }
-            }
+            //     err = validarFactura();
+            //     if ( err ) {
+            //         return err;
+            //     }
+            // }
             break;
         case 'detallefactura':
             if (vmodulo['tip'] == '') {
