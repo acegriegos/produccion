@@ -52,7 +52,7 @@ if (isset($_POST['respuestaXml'])) {
 
             if ($passComprobante == '') {
                $salida['msj'] = 'CONTRASEÑA COMPROBANTE ELECTRONICO NO VALIDA';
-               $salida['error'] = 1;
+               $salida['error'] = 2;
                break;
             }
 
@@ -60,7 +60,7 @@ if (isset($_POST['respuestaXml'])) {
 
             if ($pin == '') {
                $salida['msj'] = 'PIN LLAVE CRIPTOGRAFICA NO VALIDA';
-               $salida['error'] = 1;
+               $salida['error'] = 3;
                break;
             }
 
@@ -68,7 +68,7 @@ if (isset($_POST['respuestaXml'])) {
 
             if ($archivo == '') {
                $salida['msj'] = 'LLAVE CRIPTOGRAFICA NO VALIDA';
-               $salida['error'] = 1;
+               $salida['error'] = 4;
                break;
             }
 
@@ -76,7 +76,7 @@ if (isset($_POST['respuestaXml'])) {
 
             if ($correo == '') {
                $salida['msj'] = 'CORREO ELECTRONICO NO VALIDO';
-               $salida['error'] = 1;
+               $salida['error'] = 5;
                break;
             }
 
@@ -84,7 +84,7 @@ if (isset($_POST['respuestaXml'])) {
 
             if ($telefono == '') {
                $salida['msj'] = 'TELEFONO NO VALIDO';
-               $salida['error'] = 1;
+               $salida['error'] = 6;
                break;
             }
 
@@ -92,7 +92,7 @@ if (isset($_POST['respuestaXml'])) {
 
             if ($barrio == '') {
                $salida['msj'] = 'BARRIO NO VALIDO';
-               $salida['error'] = 1;
+               $salida['error'] = 7;
                break;
             }
             
@@ -100,16 +100,22 @@ if (isset($_POST['respuestaXml'])) {
 
             if ($ubicacion == '') {
                $salida['msj'] = 'UBICACION NO VALIDA';
-               $salida['error'] = 1;
+               $salida['error'] = 8;
                break;
             }
 
             $sysuser = isset($_POST['sysuser']) ? $_POST['sysuser'] : '';
             $rs = $db->ejecutar("select count(id) from usuarios where id > 0 and user = '".$sysuser."'")->fetch_all()[0][0];
 
-            if ($sysuser == '' || $rs >= 1) {
+            if ($sysuser == '') {
                $salida['msj'] = 'USUARIO DEL SISTEMA NO VALIDO ';
-               $salida['error'] = 1;
+               $salida['error'] = 9;
+               break;
+            }
+
+            if ($rs >= 1) {
+               $salida['msj'] = 'USUARIO DEL SISTEMA EXISTENTE ';
+               $salida['error'] = 9;
                break;
             }
 
@@ -117,7 +123,7 @@ if (isset($_POST['respuestaXml'])) {
 
             if ($pswd == '') {
                $salida['msj'] = 'CONTRASEÑA DEL SISTEMA NO VALIDA';
-               $salida['error'] = 1;
+               $salida['error'] = 10;
                break;
             }
 
@@ -129,7 +135,7 @@ if (isset($_POST['respuestaXml'])) {
 
             if (file_exists($target_path)) {
               $salida['msj'] = 'LLAVE CRIPTOGRAFICA YA EXISTENTE';
-              $salida['error'] = 1;
+              $salida['error'] = 11;
               break;
             }
     
@@ -137,7 +143,7 @@ if (isset($_POST['respuestaXml'])) {
             if(!openssl_pkcs12_read(file_get_contents($target_path), $certs, $pin)){
                 unset($target_path);
                 $salida['msj'] = 'PIN O LLAVE CRIPTOGRAFICA INVALIDAS';
-                $salida['error'] = 1;
+                $salida['error'] = 12;
             }else{
                 $user = $userComprobante;
                 $pass = $passComprobante;
@@ -204,7 +210,7 @@ if (isset($_POST['respuestaXml'])) {
                         $db->ejecutar("insert into telefonos values(null,3,'".$telefono."',39,".$rs.",52)");
                         $db->ejecutar("insert into ubicaciones values(null,".$barrio.",'".$ubicacion."','0','0',39,".$rs.")");
                         
-                        $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt2016')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
+                        $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                     }else{
                         $salida['error'] = 2;
                     }

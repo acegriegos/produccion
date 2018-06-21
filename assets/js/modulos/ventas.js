@@ -875,7 +875,7 @@ function searchClient(vvariable,visprv){
     cargarImpuestos($(".zelda").data('triforce')['vidcliente'],'2');
     cargarDescuentos($(".zelda").data('triforce')['vidcliente']+',0','2');
     // cambio cliente
-    var producto = $(".ciclos");
+    var producto = $("#fdetallefacturas .ciclos");
     producto.each(function(i) {
         var idlinea = $(this).attr('id').substr(2);
         var idprod = $("#desc"+idlinea).text();
