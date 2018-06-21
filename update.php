@@ -26,6 +26,8 @@
             break;
         case 2: //CONFIGURACION BASE INICIAL
             require_once '_config/mysqlDB.php';
+            fclose(fopen('./assets/update/update.log','w'));
+
             $db = new DBClass();
             $mdb = $db->getDB();
             $user = $db->getUSR();
@@ -38,39 +40,43 @@
             lc_time_names         = es_CR
             default-time-zone = '-06:00'";
 
-            $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as 'cuenta' from information_schema.TABLES where table_schema = '".$mdb."'\" >> ./assets/update/update.log 2>&1");
+            $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as 'cuenta' from information_schema.TABLES where table_schema = '".$mdb."'\"");
 
             if (is_numeric($numtables)) {
-                $source = "https://logintechcr.com/descargas/first.sql";
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $source);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_SSLVERSION,false);
-                $data = curl_exec ($ch);
-                $error = curl_error($ch);
-                curl_close ($ch);
+                if ($numtables == 0) {
+                    $source = "https://logintechcr.com/descargas/first.sql";
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $source);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_SSLVERSION,false);
+                    $data = curl_exec ($ch);
+                    $error = curl_error($ch);
+                    curl_close ($ch);
 
-                $destination = "./assets/update/first.sql";
-                $file = fopen($destination, "w+");
-                fputs($file, $data);
-                fclose($file);
+                    $destination = "./assets/update/first.sql";
+                    $file = fopen($destination, "w+");
+                    fputs($file, $data);
+                    fclose($file);
 
-                shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+                    shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
-                $source = "https://logintechcr.com/descargas/310169776129.p12";
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $source);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_SSLVERSION,false);
-                $data = curl_exec ($ch);
-                $error = curl_error($ch);
-                curl_close ($ch);
+                    $source = "https://logintechcr.com/descargas/310169776129.p12";
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $source);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_SSLVERSION,false);
+                    $data = curl_exec ($ch);
+                    $error = curl_error($ch);
+                    curl_close ($ch);
 
-                $destination = "./assets/p12/310169776129.p12";
-                $file = fopen($destination, "w+");
-                fputs($file, $data);
-                fclose($file);
-            }
+                    $destination = "./assets/p12/310169776129.p12";
+                    $file = fopen($destination, "w+");
+                    fputs($file, $data);
+                    fclose($file);
+                }
+                
+            }else
+                $salida['CONF'] = "NO SE HA CREADO LA BASE O EL USUARIO";
 
             if(filesize("assets/update/update.log"))
                 $salida['CONF'] = "ERROR";
