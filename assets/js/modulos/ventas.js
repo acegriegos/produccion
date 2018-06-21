@@ -724,7 +724,7 @@ function cargarProducto(kbrota,elemento) {
         var char1 = cod[0].substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
-        console.log(dvalor)
+
         $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9]}) //,imp: cod[6]
         $("#codp").val(cod[1]);
         $("#descp").val(cod[2]);
@@ -744,7 +744,11 @@ function cargarProducto(kbrota,elemento) {
         cargarunidades(cod[0],cod[15]);
 
         if (modselec == 1) {
-            $("#cantp").val(cantidad).focus().select();
+            if ($("#precp").attr("readonly") == undefined){
+                $("#precp").focus().select();
+            }else
+                $("#cantp").val(cantidad).focus().select();
+            
         }else{
             var e = jQuery.Event("keyup");
             e.which = 13;
