@@ -40,7 +40,7 @@
             lc_time_names         = es_CR
             default-time-zone = '-06:00'";
 
-            $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as 'cuenta' from information_schema.TABLES where table_schema = '".$mdb."'\"");
+            $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\"");
 
             if (is_numeric($numtables)) {
                 if ($numtables == 0) {
