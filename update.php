@@ -42,9 +42,9 @@
 
             $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\"");
 
-            if (is_numeric($numtables)) {
+            if (is_numeric(trim($numtables))) {
                 if ($numtables == 0) {
-                    $source = "https://logintechcr.com/descargas/first.sql";
+                    $source = "https://logintechcr.com/descargas/firts.sql";
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $source);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
