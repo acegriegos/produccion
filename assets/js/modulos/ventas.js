@@ -610,7 +610,7 @@ function validar (varreglo,vmodulo) {
 }
 
 function validarDetalleFactura(){
-    var ciclos = $(".ciclos");
+    var ciclos = $("#fdetallefacturas .ciclos");
     var fila;
     var cantidad = ciclos.length;
     for (var i = 1; i <= cantidad; i++) {
