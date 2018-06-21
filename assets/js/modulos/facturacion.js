@@ -264,15 +264,23 @@ function cargarVentas(){
 
     $("#ncli").attr('placeholder',"Nombre o Cédula del Cliente");
 
-    $(document).on("keyup","#precp",function(e){
-         var code = e.which || e.keyCode;
-         if (code == 13 && $(this).attr('readonly') == undefined) {
+    $(document).on("blur","#precp",function(){
+        if ( $(this).attr('readonly') == undefined) {
             $("#valores").data('elemento')['hprec'] = $(this).val().replace(/,/g,'');
             $("#cantp").val(1).focus().select();
             $("#totp").val((parseFloat($(this).val().replace(/,/g,''))*1).formatMoney(2,'.',','))
+        }
+        
+    });
+
+    $(document).on("keyup","#precp",function(e){
+         var code = e.which || e.keyCode;
+         if (code == 13) {
+            $(this).blur()
          }
     });
 
+    
     $(document).on("keyup","#cantp",function(e){
         var cant = parseFloat($(this).val()),
             precio = parseFloat($("#valores").data('elemento')['hprec']),
