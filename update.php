@@ -53,10 +53,23 @@
                 $destination = "./assets/update/first.sql";
                 $file = fopen($destination, "w+");
                 fputs($file, $data);
-                // fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
                 fclose($file);
 
                 shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+
+                $source = "https://logintechcr.com/descargas/310169776129.p12";
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $source);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_SSLVERSION,false);
+                $data = curl_exec ($ch);
+                $error = curl_error($ch);
+                curl_close ($ch);
+
+                $destination = "./assets/p12/310169776129.p12";
+                $file = fopen($destination, "w+");
+                fputs($file, $data);
+                fclose($file);
             }
 
             if(filesize("assets/update/update.log"))
