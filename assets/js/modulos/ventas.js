@@ -544,7 +544,7 @@ function totalizar(){
                     eimv = eimv == 100 ? 0 : eimv;
                     impuesto += parseFloat(dimv);
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
-                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(impuesto).toFixed(5)+','+eimv
+                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(dimv).toFixed(5)+','+eimv
                     $("#imv_"+iimv).html(parseFloat(impuesto).formatMoney(2,'.',','));
                 }
             }else
