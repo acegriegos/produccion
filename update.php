@@ -76,7 +76,7 @@
                 }
                 
             }else
-                $salida['CONF'] = "NO SE HA CREADO LA BASE O EL USUARIO";
+                $salida['CONF'] = $numtables;
 
             if(filesize("assets/update/update.log"))
                 $salida['CONF'] = "ERROR";
