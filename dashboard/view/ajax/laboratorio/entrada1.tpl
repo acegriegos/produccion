@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Laboratorio de Cortesia Flavipes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.0.0.8">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.0.0.9">
   </head>
 <body>
   {$NAV}
@@ -117,6 +117,6 @@
     </div>
     
     {$SCR}
-    <script src="../assets/js/modulos/laboratorio.js?v=10.0.0.8"></script>
+    <script src="../assets/js/modulos/laboratorio.js?v=10.0.0.9"></script>
   </body>
 </html>
