@@ -2316,11 +2316,11 @@ function validarservicios() {
 		}
 	}
 
-	if ($("#vpbase").val() == '') {
-		$("#ms2").click();
-		$("#vpbase").focus();
-		return 'Precio Base Requerido'
-	}
+	// if ($("#vpbase").val() == '') {
+	// 	$("#ms2").click();
+	// 	$("#vpbase").focus();
+	// 	return 'Precio Base Requerido'
+	// }
 
 	if ($("#vprecio").val() == '') {
 		$("#ms2").click();

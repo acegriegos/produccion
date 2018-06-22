@@ -212,12 +212,12 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                     }else{
-                        $salida['error'] = 2;
+                        $salida['error'] = 14;
                     }
                 }else{
                     unset($target_path);
                     $salida['msj'] = "USUARIO O CONTRASEÑA ATV INVALIDOS";
-                    $salida['error'] = 1;
+                    $salida['error'] = 13;
                 }
                 
             }

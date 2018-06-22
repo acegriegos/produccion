@@ -38,13 +38,13 @@ foreach ($transaccion as $obj) {?>
 }else{
     // <td colspan="8">No Hay Datos Disponibles</td>
     echo '<tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>No Hay Datos Disponibles</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td ></td>
+         <td></td>
+         <td></td>
+         <td>No Hay Datos Disponibles</td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
     </tr>';
 } ?>

@@ -84,9 +84,17 @@
 						<label for="vmarca">Marca</label>
 						<input type="hidden" id="vidmarca" value="0">
 					</div>
-					<!-- {if $smarty.session.BUSS eq 1} 
-						<input type="hidden" id="vidinventario" value="6">
-					 {else} -->
+					{if $smarty.session.BUSS eq 1} 
+						<div class="input-field marginzero" id="dinventario">
+						<select type="select" id="vidinventario">
+							<option value="6">Producto a la venta</option>
+							<!-- {section name=LE loop=$INV}
+							<option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+							{/section} -->
+						</select>
+						<label for="vidinventario">Inventario</label>
+					</div>
+					{else}
 					<div class="input-field marginzero" id="dinventario">
 						<select type="select" id="vidinventario">
 							<option value="0">Seleccione un Inventario</option>
@@ -96,7 +104,7 @@
 						</select>
 						<label for="vidinventario">Inventario</label>
 					</div>
-					<!-- {/if} -->
+					 {/if} 
 					<div class="input-field marginzero">
 						<select type="select" id="vidunidad">
 							<option value="">Seleccione una Unidad</option>
@@ -470,4 +478,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.4"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.9"></script> -->

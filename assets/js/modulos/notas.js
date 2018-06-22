@@ -1,4 +1,8 @@
+var config;
+
 $(function(){
+	config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
+
 	$("#fnotass").submit(function(){return false});
 	$("[id^=ftr]").hide();
 	$(".chg_tipo").change(function(){
@@ -247,11 +251,6 @@ function validarnotas() {
 	return false;
 }
 
-function endDetail(vid){
-
-	return false;
-}
-
 function cargar(vmodulo,vid) {
 
 
@@ -282,12 +281,18 @@ function cargarSintax(){
 function endDetail(vid,vacc,modulo){
 	if (vacc == 1) {
 		$("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
-
+		var factura = getDatos('consecutivo',301,'id = '+vid[0][0],0,0)[0][0][0];
+    	var clave = vid[0][0];
 
 		$("#vvalor").val(0.00);
 		$('#vcomentario').val('');
 		arr('login',4,'',304,'1,0,3,'+$("#tipoimpresion").val(),0,0,0);
 		arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
+
+		var $toastContent = $('<span style="width: 500px">Generado Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        Materialize.toast($toastContent);
+        sendFE(clave,factura);
+
 		$("#data-table-cuentas-detalle").dataTable({
 
 			bFilter: false,
@@ -297,8 +302,119 @@ function endDetail(vid,vacc,modulo){
 
 
 		$("#btn-div").click();
-		
-		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-		window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 	}
+}
+
+
+function sendFE(clave,factura){
+    $.ajax({
+        async: true,
+        url: "../wsdlClient.php",
+        type: 'POST',
+        data: {id: "-"+clave, accion : 1}
+    })
+      .done(function( data ) {
+        var p;
+        var continuar = 1;
+        try {
+            p = JSON.parse(data);
+            var vfactura = p['num'];
+            var vclave = p['clave'];
+            p = p['rs'];
+        }
+        catch(err){
+            //GENERAR NOTA DE CREDITO
+            $(".expect").removeClass('progress')
+            $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
+            Materialize.toast(data,3000,'red');
+            //arr('login',7,2,64,'feestado=7','id='+clave,0,0);
+            setTimeout(function(){$(".toast").remove();},3000);
+            continuar = 0;
+        }
+
+        if (continuar) {
+            setTimeout(function(){
+                $.ajax({
+                async: true,
+                url: "../wsdlClient.php",
+                type: 'POST',
+                data: {id: clave, accion : 4}
+            })
+              .done(function( data ) {
+                var q;
+                q = JSON.parse(data);
+                switch(q['estado']){
+                    case 'rechazado':
+                        //GENERAR NOTA DE CREDITO
+                        //arr('login',7,2,64,'feestado=3','id='+clave,0,0);
+                        $(".expect").removeClass('progress')
+                        $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>")
+                        Materialize.toast(q['rs'],3000,'red');
+                        setTimeout(function(){$(".toast").remove();},3000);
+                        break;
+                    case 'procesando':
+                        $(".expect").removeClass('progress')
+                        $(".expect").html("<i class='mdi mdi-24px mdi-close yellow-text'></i>")
+                        Materialize.toast('Verificar Estado',3000,'green');
+                        //arr('login',7,2,64,'feestado=2','id='+clave,0,0);
+                        setTimeout(function(){$(".toast").remove();},3000);
+                        break;
+                    default:
+                        $(".expect").removeClass('progress')
+                        $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+                        sendVMail(vfactura,vclave,clave);
+                        break;
+                }
+              });
+            },3000);
+
+        }
+        
+      });
+}
+
+
+function sendVMail(factura,clave,vid){
+    //var archivos = '';
+
+    // if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
+    //     var str_correos = '';
+        
+        // if ($(".zelda").data('triforce')['vidcliente'] != 0) {
+        //     var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
+        //     if (correos == undefined) {
+        //         Materialize.toast('Correos Inválidos',4000,'red');
+        //         arr('login',7,2,64,'feestado=4','id='+clave,0,0);
+        //     }else{
+        //         for (var i = 0; i < correos.length; i++) {
+        //             str_correos += correos[0];
+        //         }
+        //     }
+        // }
+        
+   //      if (config[4] == 1) {
+   //          var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+			// window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+   //          w.print();
+   //          w.close();
+   //          window.focus();
+   //      }
+
+   //      if (str_correos != '') {
+   //          var vbody = getDatos('',73,vid,0,0)[0][0];
+   //          archivos = makeArchivos(factura,clave,vid,vbody[1]);
+   //          enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
+   //      }
+        
+   //  }else{
+        
+   //      if (config[4] == 1){
+   //          var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+			// window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+   //      }
+   //  }
+
+   	var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+    window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+    setTimeout(function(){$(".toast").remove();},5000);
 }

@@ -1,8 +1,8 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.4">
-<!-- <link href="../assets/css/modulos/style-factura.css?v=10.0.0.4"> -->
+<link href="../assets/css/materialize.css?v=10.0.0.9">
+<!-- <link href="../assets/css/modulos/style-factura.css?v=10.0.0.9"> -->
 <body class="grey darken-4" style="font-size: 1.1em;" >
   <div class="hoja grey lighten-5" style="padding: 0% 1% 1% 1%;">
     <div class="row">
@@ -257,6 +257,6 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.0.0.4"></script>
-    <script src="../assets/js/materialize.js?v=10.0.0.4"></script>
+    <script src="../assets/js/jquery.js?v=10.0.0.9"></script>
+    <script src="../assets/js/materialize.js?v=10.0.0.9"></script>
   </body>

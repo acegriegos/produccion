@@ -464,7 +464,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;"></div></td> <td class="center divisa hide" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td id="vdesc'+id+'" class="center hide"> '+dcs+'% </td> <td class="center totp divisa hide" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%;font-size: 12px;"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%;font-size: 12px;"></a></td> </tr>');
                 break;
         }
-        console.log(dcs,' ',mdcs)
+
         //1,50,540.75
         $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : dcs,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs});
        
@@ -570,7 +570,7 @@ function totalizar(){
                     eimv = eimv == 100 ? 0 : eimv;
                     impuesto += parseFloat(dimv);
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
-                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(impuesto).toFixed(5)+','+eimv
+                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(dimv).toFixed(5)+','+eimv
                     $("#imv_"+iimv).html(parseFloat(impuesto).formatMoney(2,'.',','));
                 }
             }else
@@ -656,7 +656,7 @@ function validarCliente(mod) {
 }
 
 function validarDetalleFactura(){
-    var ciclos = $(".ciclos");
+    var ciclos = $("#fdetallefacturas .ciclos");
     var fila;
     var cantidad = ciclos.length;
     for (var i = 1; i <= cantidad; i++) {
@@ -770,7 +770,7 @@ function cargarProducto(kbrota,elemento) {
         var char1 = cod[0].substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
-        console.log(dvalor)
+
         $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9]}) //,imp: cod[6]
         $("#codp").val(cod[1]);
         $("#descp").val(cod[2]);
@@ -790,7 +790,11 @@ function cargarProducto(kbrota,elemento) {
         cargarunidades(cod[0],cod[15]);
 
         if (modselec == 1) {
-            $("#cantp").val(cantidad).focus().select();
+            if ($("#precp").attr("readonly") == undefined){
+                $("#precp").focus().select();
+            }else
+                $("#cantp").val(cantidad).focus().select();
+            
         }else{
             var e = jQuery.Event("keyup");
             e.which = 13;
