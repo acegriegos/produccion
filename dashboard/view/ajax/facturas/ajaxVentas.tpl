@@ -144,7 +144,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" {if $smarty.session.BUSS eq 0}readonly{/if}>
           </div>
 
           <div style=padding: 0 !important" class="input-field col s12 m1">
@@ -598,4 +598,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.4"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.8"></script>

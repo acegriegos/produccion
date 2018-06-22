@@ -1,9 +1,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.4">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos1/style-factura.css?v=10.0.0.4">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.4">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.8">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos1/style-factura.css?v=10.0.0.8">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.8">
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
 <?php $co = isset($_REQUEST['co']) ? 0 : 1 ?>
@@ -329,9 +329,9 @@
 
 
 
-     <script src="../assets/js/jquery.js?v=10.0.0.4"></script>
-     <script src="../assets/js/materialize.js?v=10.0.0.4"></script>
-     <script src="../assets/js/asgard.js?v=10.0.0.4"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.0.0.4"></script>
+     <script src="../assets/js/jquery.js?v=10.0.0.8"></script>
+     <script src="../assets/js/materialize.js?v=10.0.0.8"></script>
+     <script src="../assets/js/asgard.js?v=10.0.0.8"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.0.0.8"></script>
 
    </body>
