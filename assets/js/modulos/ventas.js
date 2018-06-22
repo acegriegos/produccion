@@ -1054,6 +1054,7 @@ function sendFE(clave,factura){
                     default:
                         $(".expect").removeClass('progress')
                         $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+                        arr('login',7,2,64,'feestado=1','id='+clave,0,0);
                         sendVMail(vfactura,vclave,clave);
                         break;
                 }
