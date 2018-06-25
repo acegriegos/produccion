@@ -52,7 +52,7 @@
 						$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
 
 						if (!is_array($rs)){
-							$save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
+							// $save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
 							$rollback = $rs." Modulo: ".$varios['modulo'];
 							$roll_tbl = $varios['rollback'];
 						}
@@ -68,7 +68,7 @@
 					// $rll = $this->kamehameha('',$roll_tbl,$id_new[0][0]);
 					return 'ERROR: '.$rollback.' '.$id_new;
 				}else{
-					$save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res',$this->sql,$id_new);
+					// $save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res',$this->sql,$id_new);
 					return $id_new;
 				}
 			}

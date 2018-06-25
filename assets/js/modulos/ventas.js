@@ -559,6 +559,16 @@ function validar (varreglo,vmodulo) {
                 }
             }
             break;
+        case 'cliente':
+            if (vmodulo['tip'] == '') {
+                err = validarClientes();
+                if ( err ) {
+                    return err;
+                }
+            }
+            break;
+        case 'correo':
+            break;
         default:
             return 'Módulo no Existente';
             break;
@@ -567,6 +577,13 @@ function validar (varreglo,vmodulo) {
     salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
     
     return salida;
+
+}
+
+function validarClientes() {
+
+    if ($("#fclientes #vnombre").val() == '') { $("#vnombre").focus(); return 'El campo Nombre es requerido'; };
+    if ($("#fclientes #vcedula").val() == '') { $("#vcedula").focus(); return 'El campo Cédula es requerida'; };
 
 }
 
