@@ -30,7 +30,7 @@ $(function(){
         mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:mid},1);
         var vfactura = $("#numfact").html().trim();
         var vsucursal = $("#fnombre").html();
-        alert(vsucursal)
+ 
         if (vfactura == mid)
             archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
         else{
