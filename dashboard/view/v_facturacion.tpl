@@ -34,6 +34,12 @@
         <input type="text" id="eunitario">
         <label for="eunitario">Precio Unitario</label>
       </div>
+      
+      <div class="input-field col s6 eunidad">
+        <select id="uniadl" >
+        </select>
+        <label for="uniadl">Unidad</label>
+      </div>
 
       <div class="input-field col s6 edescu">
         <tr>
@@ -56,10 +62,6 @@
         <label for="texct">Excento</label>
       </div>
 
-      <div class="input-field col s6 eexo hide">
-        <input type="text" id="eexon">
-        <label for="eexon">Exoneración</label>
-      </div>
       <input type="hidden" id="hdnprd" value="0">
     </div>
 

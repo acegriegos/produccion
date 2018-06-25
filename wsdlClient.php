@@ -4,8 +4,10 @@
         $id = $_REQUEST['id'];
         $accion = $_REQUEST['accion'];
 
-        $fe = new facturaElectronica($id);
-
+        if (!file_exists('./assets/xml/'.$id)) {
+            $fe = new facturaElectronica($id);
+        }
+        
         switch ($accion) {
             case 1://RECIBO DE FACTURA
                 $rs = $fe->recepcion();
@@ -55,10 +57,71 @@
                 print_r($certData);
                 echo "</pre>";
                 break;
+            case 10: //LEER XML
+                $salida = ['succed'=>1];
+                if (!file_exists('./assets/xml/'.$id)) {
+                    $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
+                }else
+                    loadXML_FILE($id,$salida);
+
+                echo json_encode($salida);
+                break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
         }
+    }
+
+    function loadXML_FILE($id,&$salida)
+    {   
+        $db = new DBClass();
+        $inv_xml = simplexml_load_file('./assets/xml/'.$id);
+        $sucursal = $db->ejecutar('call datosempresa('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
+
+        $salida['clave'] = ((array) $inv_xml->Clave)[0];
+        if (strlen($salida['clave']) != 50){
+            $salida = ['succed' => 0,'ERROR' => 'CLAVE NO VALIDA'];
+            return false;
+        }
+        
+        $salida['emisor']['cedula'] = ((array) $inv_xml->Emisor->Identificacion->Numero)[0];
+        if (trim($salida['emisor']['cedula']) != trim(substr($salida['clave'], 9,12))) {
+            $salida = ['succed' => 0,'ERROR' => 'CEDULA NO VALIDA'];
+            return false;
+        }
+
+        // $scedula = ((array) $inv_xml->Receptor->Identificacion->Numero)[0];
+        // if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+        //     $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO'];
+        //     return false;
+        // }
+
+        $salida['emisor']['nombre'] = ((array) $inv_xml->Emisor->Nombre)[0];
+        $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$salida['emisor']['cedula'].',\"-\",\"\") ")')->fetch_all();
+        
+        if(!sizeof($prov)){
+            $salida['emisor']['tipo']   = ((array) $inv_xml->Emisor->Identificacion->Tipo)[0];
+            $salida['emisor']['barrio']   = ((array) $inv_xml->Emisor->Ubicacion->Barrio)[0];
+            $salida['emisor']['distrito']   = ((array) $inv_xml->Emisor->Ubicacion->Distrito)[0];
+            $salida['emisor']['canton']   = ((array) $inv_xml->Emisor->Ubicacion->Canton)[0];
+            $salida['emisor']['provincia']   = ((array) $inv_xml->Emisor->Ubicacion->Provincia)[0];
+            $salida['emisor']['otrassenas']   = ((array) $inv_xml->Emisor->Ubicacion->OtrasSenas)[0];
+            $salida['emisor']['correo']   = ((array) $inv_xml->Emisor->CorreoElectronico)[0];
+            $salida['emisor']['telefono']   = ((array) $inv_xml->Emisor->Telefono->NumTelefono)[0];
+            $salida['emisor']['pais']   = ((array) $inv_xml->Emisor->Telefono->CodigoPais)[0];
+            $salida['emisor']['id']   = 0;
+        }else
+            $salida['emisor']['id']   = $prov[0][0];
+
+        $salida['factura']['fecha']     = ((array) $inv_xml->FechaEmision)[0];
+        $salida['factura']['tipoventa'] = ((array) $inv_xml->CondicionVenta)[0];
+        $salida['factura']['plazo']     = ((array) $inv_xml->PlazoCredito)[0];
+        $salida['factura']['tipopago']  = ((array) $inv_xml->MedioPago)[0];
+        $salida['Factura']['moneda']    = ((array) $inv_xml->MedioPago)[0];
+        
+
+        $mxml = file_get_contents('./assets/xml/'.$id);
+        print_r($inv_xml);
     }
 
     class facturaElectronica
@@ -74,6 +137,7 @@
 
         function __construct($vid){
             $this->id = $vid;
+
             $this->info = $this->getJSON('call fe_getencabezado("'.$this->id.'")');
             $opcion = isset($this->info['NumeroConsecutivo']) ? substr($this->info['NumeroConsecutivo'],9,1) : 0;
             switch ($opcion) {
@@ -444,13 +508,12 @@
                         $detalle['Detalle'] = $value[6];
                         $detalle['PrecioUnitario'] = $value[7];
                         $detalle['MontoTotal'] = $value[8];
-                        $detalle['SubTotal'] = $value[11];
-                        $exoneracion = ['TipoDocumento' => '', 'NumeroDocumento' => '', 'NombreInstitucion' => '','FechaEmision' => '', 'MontoImpuesto' => '', 'PorcentajeCompra' => '', 'PorcentajeCompra' => ''];
-
                         if ($value[9] > 0) {
                             $detalle['MontoDescuento'] = $value[9];
                             $detalle['NaturalezaDescuento'] = $value[10];
                         }
+                        $detalle['SubTotal'] = $value[11];
+                        $exoneracion = ['TipoDocumento' => '', 'NumeroDocumento' => '', 'NombreInstitucion' => '','FechaEmision' => '', 'MontoImpuesto' => '', 'PorcentajeCompra' => '', 'PorcentajeCompra' => ''];
                         
                         if ($value[12] != '') {
                             $impuesto = ['Codigo'=>$value[12],'Tarifa'=>$value[13],'Monto'=>$value[14]];

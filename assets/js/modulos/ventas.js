@@ -147,7 +147,7 @@ $(document).on("click","#facturar",function(){
 
     $("#pcon").val(0.00);
     $("#pcam").text(0.00).css('color','black');
-    if ( $(".zelda").data('triforce')['vidtipo'] == 1 && $(".zelda").data('triforce')['vidtipoventa'] == 1) {
+    if ( $(".zelda").data('triforce')['vidtipo'] == 1 && ($(".zelda").data('triforce')['vidtipoventa'] == 1 || $(".zelda").data('triforce')['vidtipoventa'] == 6 || $(".zelda").data('triforce')['vidtipoventa'] == 7)) {
 
         var tpago = $("#idtipopago option:selected").val();
         var tfact = $(".zelda").data('triforce')['vidtipo'];
@@ -180,7 +180,6 @@ $(document).on("click","#facturar",function(){
                 retrasarFocus('carddigito');
                 $(".icono").html(p[0][3]);
             break;
-
             case 1:
                $(".modal-tpago").addClass('hide');
                 $("#m-deposito").removeClass('hide');
@@ -271,26 +270,6 @@ $(document).on("click","input[name=modo]",function(){
     $("#modselected").val(id);
 });
 
-$(document).on("click",".desc",function(){
-    var estado = $(this).attr('estado');
-    var id = $(this).attr('id').substr(1);
-
-    if (estado == 0) {
-        $("#vdesc"+id).removeAttr('disabled');
-        $(this).attr('estado',1);
-        $(this).css('color','#30DE61');
-        $("#vdesc"+id).select();
-    }else{
-        $("#vdesc"+id).attr('disabled',true);
-        $(this).attr('estado',0);
-        $(this).css('color','#3E3E3E');
-    }
-});
-
-$(document).on("keyup","#vdescuento",function(){
-    totalizar();
-});
-
 $(document).on("keyup","#vflete",function(){
     totalizar();
 });
@@ -324,7 +303,7 @@ $(document).on("click",".addesgloce",function(){
 
     $(".zelda").data('triforce')['idline'] = id;
     
-    $('<tr id="fd'+id+'" class="ciclos"><td style="padding: 0.2%"></td><td class="center" id="codprod'+id+'" colspan="2"> <i class="mdi mdi-subdirectory-arrow-right" style="float:left;"></i> <input type="text" placeholder="RUBRO" style="width:85%;margin: 0px;" id="rubro'+id+'" class="rubro"/> </td> <td class="center divisa" id="prec'+id+'"> <input type="text" value="0" class="eder precd" id="precd'+id+'" style="margin: 0px;" /> </td> <td id="unitprod'+id+'"> <select id="unid'+id+'" class="unid" readonly style="margin: 0px;"><option>UN</option></select> </td> <td class="center"> <div id="divcnt" class="form-group"><input type="text" value="1" class="eder cantd" id="cantd'+id+'" style="margin: 0px;" /></div></td><td class="center totp divisa" id="tota'+id+'">0</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="0" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></td> </tr>').insertAfter($(this).closest('tr'));
+    $('<tr id="fd'+id+'" class="ciclos"><td style="padding: 0.2%"></td><td class="center" id="codprod'+id+'" colspan="2"> <i class="mdi mdi-subdirectory-arrow-right" style="float:left;"></i> <input type="text" placeholder="RUBRO" style="width:85%;margin: 0px;" id="rubro'+id+'" class="rubro"/> </td> <td class="center divisa" id="prec'+id+'"> <input type="text" value="0" class="eder precd" id="precd'+id+'" style="margin: 0px;" /> </td> <td id="unitprod'+id+'"> <select id="unid'+id+'" class="unid" readonly style="margin: 0px;"><option>UN</option></select> </td> <td class="center"> <div id="divcnt" class="form-group"><input type="text" value="1" class="eder cantd" id="cantd'+id+'" style="margin: 0px;" /></div></td><td class="center totp divisa" id="tota'+id+'">0</td> <td id="desctd'+id+'" align="left" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></td> </tr>').insertAfter($(this).closest('tr'));
 
     $("#fd"+id).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:vidprod, vcantidad:0, vprecio:0, vdesc:0, vtotal:0, vidinventario:0,vidodt : 0,vimv:0,vcomodin:'',vidunidad:0,vidimpuestos:'',viddescuentos:'',strimp:''});
   
@@ -352,7 +331,7 @@ $(document).on("change","#tdescuentol",function(){
     var id = $("#hdnprd").val();
     var valor = $("option:selected",this).attr('valor');
     $("#edescuento").val(valor);
-    $("#fd"+id).data('triforce')['vdesc'] = valor;
+    $("#fd"+id).data('triforce')['vdescuento'] = valor;
     totalizar();
 });
 
@@ -364,7 +343,7 @@ $(document).on("keyup","#edescuento",function(e){
             $(this).select().focus();
         }else{
             var id = $("#hdnprd").val();
-            $("#fd"+id).data('triforce')['vdesc'] = $(this).val();
+            $("#fd"+id).data('triforce')['vdescuento'] = $(this).val();
             totalizar();
             $(this).blur();
         }
@@ -429,7 +408,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             case 7:
             // <td style="padding: 0.2%"><input type="checkbox" class="delf" name="eliminarf" id="d'+id+'"/><label for="d'+id+'"></label></td>
 
-                $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td><td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td><td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <input type="text" id="vdesc'+id+'" value="'+dcs+'" placeholder="0" class="hide" style="width: 50px" disabled> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a></td> </tr>');
+                $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s1 center-align" id="unitprod'+id+'">'+uni+'</div> <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align totp divisa" id="tota'+id+'">'+tot+'</div> <div class="right"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
                     break;
             case 2:
                 $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;width: 70px"></div></td> <td class="center divisa" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td id="vdesc'+id+'" class="center"> '+dcs+'% </td> <td class="center totp divisa" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></td> </tr>');
@@ -439,8 +418,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 break;
         }
 
-        //1,50,540.75
-        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : dcs,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs});
+        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : 0,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs,iddesc:dcs['iddescuento'],vdescuento : dcs['descuento']});
        
     }
     totalizar();
@@ -466,7 +444,6 @@ function totalizar(){
     var total = 0;
     var impuesto = 0;
     var idesc = 0;
-    var tdesc = 0;
     var tmpdesc = 0;
     var exento = 0;
     var flete = isNaN($("#vflete").val()) ? 0 : parseFloat($("#vflete").val()) > 0 ? parseFloat($("#vflete").val().replace(/,/g,'.')) : 0;
@@ -496,34 +473,33 @@ function totalizar(){
             }
             $("#iva").attr('hclk',0);
         }
-        // if ($("#exct").attr('hclk') == 1) {
-        //     $("#fd"+vidlinea).data('triforce')['exoneracion'] = 100;
-        //     $("#exct").attr('hclk',0);
-        // }else{
-        //     if(parseFloat($("#texct").val()) > 0) {
-        //         $("#fd"+vidlinea).data('triforce')['exoneracion'] = $("#texct").val();
-        //     }else{
-        //         $("#fd"+vidlinea).data('triforce')['exoneracion'] = 0;
-        //     }
-        // }
        
         cantidad = parseFloat($("#fd"+vidlinea).data('triforce')['vcantidad']);
         precio =  parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']);
-        decindv = parseFloat($("#fd"+vidlinea).data('triforce')['vdesc']);
+        decindv = parseFloat($("#fd"+vidlinea).data('triforce')['vdescuento']);
         descmax = parseFloat($("#fd"+vidlinea).data('triforce')['max']);
-        desct = param.toString().match(new RegExp(/[2]/i)) ? decindv : decindv+desc > descmax ? descmax : decindv+desc;
+        desct = decindv;//param.toString().match(new RegExp(/[2]/i)) ? decindv : decindv > descmax ? descmax : decindv;
 
-        $("#fd"+vidlinea).data('triforce')['vdesc'] = desct;
-        $("#vdesc"+vidlinea).val(desct+"%");
         precio = precio * cantidad
         totd += precio;
         tmpdesc = precio * (1-(desct/100));
-        idesc += precio * (desct/100);
-        tdesc += tmpdesc;
-        
+        idesc += precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
+
+        $("#fd"+vidlinea).data('triforce')['viddescuentos'] = '';
+        $("#mdesc"+vidlinea).html('');
+
+        if (desct > 0){
+            $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#fd"+vidlinea).data('triforce')['iddesc']+'^'+desct+'^'+precio*(desct/100)+']';
+            $("#mdesc"+vidlinea).html('('+desct+'%)')
+        }
+        if (parseFloat($("#vdescuentop").val()) > 0)
+            $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#tdescuento").val()+'^'+$("#vdescuentop").val()+'^'+(precio*(1-(desct/100)))*(desc/100)+']';
+
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc;
         $("#tota"+vidlinea).html(tmpdesc.formatMoney(2,'.',','))
         $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
+        tmpdesc = tmpdesc * (1-(desc/100));
+        $("#fd"+vidlinea).data('triforce')['vdesc'] = idesc;
 
         $(".dimpuesto").each(function(){
             geimv = $(this).data('valores')['exoneracion'];
@@ -544,16 +520,16 @@ function totalizar(){
                     eimv = eimv == 100 ? 0 : eimv;
                     impuesto += parseFloat(dimv);
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
-                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(dimv).toFixed(5)+','+eimv
+                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(dimv).toFixed(5)+','+eimv;
                     $("#imv_"+iimv).html(parseFloat(impuesto).formatMoney(2,'.',','));
                 }
             }else
-                console.log('PROBLEMA CON EL IMPUESTO')
+                console.log('PROBLEMA CON EL IMPUESTO, '+$("#fd"+vidlinea).data('triforce')['strimp'])
 
         });
     });
- 
-    total = tdesc + parseFloat(impuesto);
+    
+    total = tmpdesc + parseFloat(impuesto);
     
     if (flete != 0) {
         $("#vflete").html(flete.formatMoney(2,'.',','));
@@ -815,7 +791,7 @@ function searchClient(vvariable,visprv){
         
         if ($(".zelda").data('triforce')['vidtipoventa'] == 7){
             $(".zelda").data('triforce')['vidtipoventa'] = 1;
-            var ncons = getDatos('lpad(consecutivo+1,6,0)',39,'id = @@impresa',0,0)[0][0];
+            var ncons = getDatos('lpad(consecutivo+1,6,0)',252,'idsucursal = @@impresa and id > 0',0,0)[0][0];
             $("#titfact").html('VENTAS')
             $("#idfact").html(ncons);
         }
@@ -828,7 +804,7 @@ function searchClient(vvariable,visprv){
             $(".chg_tipo[val=2]").attr('disabled','true')
         }
 
-        if ($("#vidtipo").val() == 2)
+        if ($(".zelda").data('triforce')['vidtipo'] == 2)
             $("#vplazo").val(vclie[3]);
         else
             $("#vplazo").val(0);
@@ -852,7 +828,7 @@ function searchClient(vvariable,visprv){
     }else{
         if ($(".zelda").data('triforce')['vidtipoventa'] == 1){
             $(".zelda").data('triforce')['vidtipoventa'] = 7;
-            var ncons = getDatos('lpad(consecutivo6+1,6,0)',39,'id = @@impresa',0,0)[0][0];
+            var ncons = getDatos('lpad(consecutivo6+1,6,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
             $("#titfact").html('TIQUETES')
             $("#idfact").html(ncons);
         }
@@ -888,8 +864,6 @@ function searchClient(vvariable,visprv){
         if (parseFloat(prod[3]) > 0) {
             $("#prec"+idlinea).text(prod[3]);
             $("#fd"+idlinea).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : prod[0],vcantidad : $("#fd"+idlinea).data('triforce')['vcantidad'],vprecio : prod[3],vdesc : 0,vtotal : 0,vidinventario : prod[13],vidodt : 0,vimv : 0,vcomodin : '',vidunidad : $("#fd"+idlinea).data('triforce')['vidunidad'],vidimpuestos : $("#fd"+idlinea).data('triforce')['vidimpuestos'],viddescuentos : $("#fd"+idlinea).data('triforce')['viddescuentos'],strimp: vstrimp});
-            $("#vdesc"+idlinea).data('valor',prod[5]);
-            $("#vdesc"+idlinea).data('max',prod[12]);
         }
     });
 
@@ -953,17 +927,18 @@ function cargarImpuestos(vfila,vtabla){
 function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
 
     var desc = getDatos('',115,'@@impresa,"'+vfila+'","'+vtabla+'"',0,0);
-    var strDesc = '<option value="0">No Aplica - 0%</option>';
+    var strDesc = '<option value="" valor="0">No Aplica - 0%</option>';
     var valor;
 
     if (desc['succed']) {
-        var mdesc = 0;
+        var mdesc = mdescid =  0;
         var smdesc;
         for (var i = 0; i < desc[0].length; i++) {
             smdesc = '';
             if (parseFloat(desc[0][i][1]) > mdesc) {
                 mdesc = desc[0][i][1];
                 smdesc = 'selected';
+                mdescid = desc[0][i][0];
             }
             strDesc += '<option value="'+desc[0][i][0]+'" valor="'+desc[0][i][1]+'" '+smdesc+'>'+desc[0][i][2]+"</option>"
         }
@@ -971,7 +946,7 @@ function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
         console.log('ERROR con Descuentos: '+desc)
 
     if ($(".per1103.hide").length == 0 || vcarga == 1)
-        strDesc += '<option value="" class="per1103">Por Vendedor</option>';
+        strDesc += '<option value="0" class="per1103" valor="0">Por Vendedor</option>';
 
     switch(vtipo){
         case undefined:
@@ -988,14 +963,13 @@ function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
             $("#edescuento").val(mdesc);
             break;
         case 2:
-        console.log(mdesc)
             break;
         default:
             break;
     }   
 
     totalizar();
-    return mdesc;
+    return {'descuento':mdesc,'iddescuento': mdescid};
 }
 
 function sendFE(clave,factura){
@@ -1052,7 +1026,8 @@ function sendFE(clave,factura){
                         setTimeout(function(){location.reload();},10000);
                         break;
                     default:
-                        $(".expect").removeClass('progress')
+                        $(".expect").removeClass('progress');
+                        arr('login',7,2,64,'feestado=1','id='+clave,0,0);
                         $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
                         sendVMail(vfactura,vclave,clave);
                         break;
@@ -1088,9 +1063,13 @@ function sendVMail(factura,clave,vid){
                 
                 if (config[4] == 1) {
                     var w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'));
-                    w.print();
-                    w.close();
-                    window.focus();
+                    try{
+                        w.print();
+                        w.close();
+                        window.focus();
+                    }catch(e){
+                        console.log("POP-UP ACTIVADO")
+                    }
                 }
                 break;
         }

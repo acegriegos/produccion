@@ -329,7 +329,7 @@ function cargarResembled(vnombre) {
 
 function cargarGlobal(){
     var cons = param-1 == 0 ? 6 : param-1;
-    var ncons = getDatos('lpad(consecutivo'+cons+'+1,6,0)',39,'id = @@impresa',0,0)[0][0];
+    var ncons = getDatos('lpad(consecutivo'+cons+'+1,6,0)',252,'idsucursal = @@impresa and id > 0',0,0)[0][0];
     $("#idfact").html(ncons);
 
     var fecha = new Date();
@@ -356,7 +356,7 @@ function cargarGlobal(){
     $(".tdesc").change(function(){
         var tp = $(this).attr('tp');
         $("[tdesc="+tp+"]").addClass('hide');
-        if ($(this).val() == '') {
+        if ($(this).val() == "0") {
             $("[tdesc="+tp+"]").removeClass('hide');
             $("[tdesc="+tp+"]").val(0).focus().select();
         }else
@@ -528,26 +528,39 @@ function cargarGlobal(){
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         cargarDescuentos(entrada.substr(1)+',0',tabla,1,id);
 
+        var uni = '';
+        var unis = getDatos('',250,entrada,0,0,0);
+        unis = unis[0];
+
+        $.each(unis, function(index, valor) {
+            uni += '<option value="'+valor[0]+'">'+valor[1]+'</option>';
+        });
+        $("#uniadl").html(uni);
+        $("#uniadl").val($("#fd"+id).data('triforce')['vidunidad']);
+        $("#uniadl").material_select('update');
+        
         Materialize.updateTextFields();
 
     });
 
     $(document).on("click","#editprod",function(){
         var id = $("#hdnprd").val();
-        var cant,desc,prec,exo = 0;
+        var cant,desc,prec,exo,unid = 0;
         cant = $("#ecantidad").val();
         desc = $("#edescuento").val();
         prec = $("#eunitario").val();
-        exo = $("#texct").val()
+        exo = $("#texct").val();
+        unid = $("#uniadl").val();
 
         $("#fd"+id).data('triforce')['vcantidad'] = cant;
         $("#fd"+id).data('triforce')['vdesc'] = desc;
         $("#fd"+id).data('triforce')['vprecio'] = prec;
         $("#fd"+id).data('triforce')['exoneracion'] = exo;
+        $("#fd"+id).data('triforce')['vidunidad'] = unid;
         totalizar();
         $("#cant"+id).text(cant);
-        $("#prec"+id).text(prec);
-        $("#vdesc"+id).text(desc+'%');
+        $("#prec"+id).text(prec.formatMoney(2,'.',','));
+        $("#unitprod"+id).text($("#uniadl option:selected").html())
     });
   
     if (config[2] == 1){

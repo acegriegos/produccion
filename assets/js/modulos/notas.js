@@ -338,10 +338,11 @@ function sendFE(clave,factura){
                 async: true,
                 url: "../wsdlClient.php",
                 type: 'POST',
-                data: {id: clave, accion : 4}
+                data: {id: "-"+clave, accion : 4}
             })
               .done(function( data ) {
                 var q;
+
                 q = JSON.parse(data);
                 switch(q['estado']){
                     case 'rechazado':
