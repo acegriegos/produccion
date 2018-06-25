@@ -214,6 +214,7 @@ $(document).on("keyup","#clave",function(e){
 
 $(document).on('change','#selectUser',function(){
 	var opcion = $(this).val();
+	console.log(opcion)
 	if(opcion != 0){
 		ajaxUsuarios(opcion,0)
 	}
@@ -233,7 +234,7 @@ $(document).on('change','#selectUserH',function(){
 	var opcion = $(this).val();
 	var tabla = $("#data-table-usuariosHistorial").DataTable();
 	tabla.destroy();
-
+	console.log(opcion)
 	$("#lista").html('')
 	if(opcion != 0){
 		var arr = {}

@@ -37,6 +37,14 @@ foreach ($transaccion as $obj) {?>
 <?php }
 }else{
     echo '<tr>
-        <td colspan="8">No Hay Datos Disponibles</td>
+        <td ></td>
+         <td></td>
+         <td></td>
+         <td>No Hay Datos Disponibles</td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+
     </tr>';
 } ?>

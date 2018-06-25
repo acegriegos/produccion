@@ -266,6 +266,23 @@ function cargarVentas(){
 
     $("#ncli").attr('placeholder',"Nombre o Cédula del Cliente");
 
+    $(document).on("blur","#precp",function(){
+        if ( $(this).attr('readonly') == undefined) {
+            $("#valores").data('elemento')['hprec'] = $(this).val().replace(/,/g,'');
+            $("#cantp").val(1).focus().select();
+            $("#totp").val((parseFloat($(this).val().replace(/,/g,''))*1).formatMoney(2,'.',','))
+        }
+        
+    });
+
+    $(document).on("keyup","#precp",function(e){
+         var code = e.which || e.keyCode;
+         if (code == 13) {
+            $(this).blur()
+         }
+    });
+
+    
     $(document).on("keyup","#cantp",function(e){
         var cant = parseFloat($(this).val()),
             precio = parseFloat($("#valores").data('elemento')['hprec']),
@@ -333,10 +350,16 @@ function cargarGlobal(){
     } });
 
     $("#ingclie").click(function(){
-        addGeneral(1);
-        $("#modal-generalCliente").modal();
-        $("#modal-generalCliente").modal('open');
-        $(".titadd").text('Agregar Cliente')
+// <<<<<<< HEAD
+//         addGeneral(1);
+//         $("#modal-generalCliente").modal();
+//         $("#modal-generalCliente").modal('open');
+//         $(".titadd").text('Agregar Cliente')
+// =======
+//         $("#fclientes .zelda").data("triforce",{vaccion:'1',vid:'0',vapellido1:'',vapellido2:'',vnombre:'',vcedula:'',vidtipocliente:'',videstado:'1',vbisproveedor:'0',vidnivel:'',vcredito:'50000',vplazo:'30',videstadocontable:'0',vbisnacional:'1',vweb:'',vidusuario:'@@usr',vdescuentom:'5',vcodigo:'',vidcuenta:'0',vidsucursal:'@@impresa',_sid:'0'});
+        
+//         $("#addClie").modal('open')
+// >>>>>>> 33d51d51d8088d94f6206f606ee3eb5a2820ea6e
     });
 
     $(".tdesc").change(function(){
@@ -528,6 +551,11 @@ function cargarGlobal(){
                 $(".eexct").addClass('hide');
                 break;
         }
+
+        var entrada = $("#fd"+id).data('triforce')['videntrada'];
+        var char1 = entrada.substring(0,1);
+        var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
+        cargarDescuentos(entrada.substr(1)+',0',tabla,1,id);
 
         Materialize.updateTextFields();
 
