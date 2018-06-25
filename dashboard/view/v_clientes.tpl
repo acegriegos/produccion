@@ -155,7 +155,7 @@
                             <input type="email" class="validate" id="correo_in">
                             <input type="hidden" id="vcorreo" fill="18">
                             <label for="correo_in">Ingresar Correo</label>
-                          <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
+                          <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" style="border: 0;"></ul>
                         </div>
                       </div>
                       <div class="col s12 m7 l8"  style="background: transparent;">
