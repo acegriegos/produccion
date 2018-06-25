@@ -626,11 +626,14 @@ function validar (varreglo,vmodulo) {
             break;
         case 'cliente':
             if (vmodulo['tip'] == '') {
-                err = validarCliente(vmodulo['modulo']);
+                err = validarClientes();
+
                 if ( err ) {
                     return err;
                 }
             }
+            break;
+        case 'correo':
             break;
         default:
             return 'Módulo no Existente';
@@ -643,16 +646,11 @@ function validar (varreglo,vmodulo) {
 
 }
 
-function validarCliente(mod) {
-    if ($("#f"+mod+"s #cedula").val().trim().length == 0) {
-        $("#f"+mod+"s #cedula").focus();
-        return 'El campo Cédula es requerido';
-    }
+function validarClientes() {
 
-    if ($("#f"+mod+"s #nombre").val().trim().length == 0) {
-        $("#f"+mod+"s #nombre").focus();
-        return 'El campo Nombre es requerido';
-    }
+    if ($("#fclientes #vnombre").val() == '') { $("#vnombre").focus(); return 'El campo Nombre es requerido'; };
+    if ($("#fclientes #vcedula").val() == '') { $("#vcedula").focus(); return 'El campo Cédula es requerida'; };
+
 }
 
 function validarDetalleFactura(){

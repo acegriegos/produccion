@@ -703,6 +703,7 @@ case "5":
                         case 'password':
                         case 'time':
                         case 'number':
+                        case 'email':
                         salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                         break;
                         case 'html':
@@ -727,6 +728,7 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
+        console.log(varreglo[i]+' '+salida[varreglo[i]])
     }//end FOR
     break;
     }//end SWITCH
@@ -1631,6 +1633,7 @@ function ingGeneral(tp) {
 function reconstruirModal(tp) {
     var p = mantenimiento('main',4,tp);
     $("#modalMainGeneral").html(p);
+    $("modal").modal();
     // var str = '';
     // var nombres = invvar[0][1].split(',');
     // var ids = invvar[0][0].split(',');
@@ -1638,8 +1641,9 @@ function reconstruirModal(tp) {
     //     str += '<option value="'+ids[j]+'">'+nombres[j]+'</option>';
     // });
     // $("#vidinventario").append(str);
-    Materialize.updateTextFields();
+
     $("select").material_select();
+    Materialize.updateTextFields();
     // $(".zelda").removeData();
     if (tp == 1) {
         $("#fclientes .zelda").data('triforce',{vid : 0,vapellido1 : '',vapellido2 : '',vnombre : '',vcedula : '',vidtipocliente : 1,videstado : 1,vbisproveedor : 0,vidnivel : 0,vcredito : 0,vplazo : 0,videstadocontable : 0,vbisnacional : 1,vweb : '',vdescuentom : 0,vcodigo : '',vidcuenta : 0,_sid : '@@@'});
