@@ -574,6 +574,16 @@ function validar (varreglo,vmodulo) {
                 }
             }
             break;
+        case 'cliente':
+            if (vmodulo['tip'] == '') {
+                err = validarClientes();
+                if ( err ) {
+                    return err;
+                }
+            }
+            break;
+        case 'correo':
+            break;
         default:
             return 'Módulo no Existente';
             break;
@@ -582,6 +592,13 @@ function validar (varreglo,vmodulo) {
     salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
     
     return salida;
+
+}
+
+function validarClientes() {
+
+    if ($("#fclientes #vnombre").val() == '') { $("#vnombre").focus(); return 'El campo Nombre es requerido'; };
+    if ($("#fclientes #vcedula").val() == '') { $("#vcedula").focus(); return 'El campo Cédula es requerida'; };
 
 }
 
@@ -1029,6 +1046,7 @@ function sendFE(clave,factura){
                         $(".expect").removeClass('progress');
                         arr('login',7,2,64,'feestado=1','id='+clave,0,0);
                         $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+                        arr('login',7,2,64,'feestado=1','id='+clave,0,0);
                         sendVMail(vfactura,vclave,clave);
                         break;
                 }

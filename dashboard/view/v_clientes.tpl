@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.9">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.10">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -155,7 +155,7 @@
                             <input type="email" class="validate" id="correo_in">
                             <input type="hidden" id="vcorreo" fill="18">
                             <label for="correo_in">Ingresar Correo</label>
-                          <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
+                          <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" style="border: 0;"></ul>
                         </div>
                       </div>
                       <div class="col s12 m7 l8"  style="background: transparent;">
@@ -477,6 +477,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.0.0.9"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.0.0.10"></script>
 </body>
 </html>

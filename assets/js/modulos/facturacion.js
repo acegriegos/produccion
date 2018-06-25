@@ -93,6 +93,8 @@ $(function(){
     }
 });
 
+
+
 function cargarOCompras(){
     $("#titfact").html("ORDEN DE COMPRA");
     $(".concre").addClass('hide');
@@ -348,9 +350,10 @@ function cargarGlobal(){
     } });
 
     $("#ingclie").click(function(){
-        $("#fclientes .zelda").data("triforce",{vaccion:'1',vid:'0',vapellido1:'',vapellido2:'',vnombre:'',vcedula:'',vidtipocliente:'',videstado:'1',vbisproveedor:'0',vidnivel:'',vcredito:'50000',vplazo:'30',videstadocontable:'0',vbisnacional:'1',vweb:'',vidusuario:'@@usr',vdescuentom:'5',vcodigo:'',vidcuenta:'0',vidsucursal:'@@impresa',_sid:'0'});
+
+//         $("#fclientes .zelda").data("triforce",{vaccion:'1',vid:'0',vapellido1:'',vapellido2:'',vnombre:'',vcedula:'',vidtipocliente:'',videstado:'1',vbisproveedor:'0',vidnivel:'',vcredito:'50000',vplazo:'30',videstadocontable:'0',vbisnacional:'1',vweb:'',vidusuario:'@@usr',vdescuentom:'5',vcodigo:'',vidcuenta:'0',vidsucursal:'@@impresa',_sid:'0'});
         
-        $("#addClie").modal('open')
+//         $("#addClie").modal('open')
     });
 
     $(".tdesc").change(function(){
@@ -461,6 +464,26 @@ function cargarGlobal(){
             });
 
         }
+    });
+
+    $(document).on("keyup","#nombre",function(){
+        $("#fclientes .zelda").data('triforce')['vnombre'] = $(this).val();
+    });
+
+    $(document).on("keyup","#apellido1",function(){
+       $("#fclientes .zelda").data('triforce')['vapellido1'] = $(this).val(); 
+    });
+
+    $(document).on("keyup","#apellido2",function(){
+       $("#fclientes .zelda").data('triforce')['vapellido2'] = $(this).val(); 
+    });
+
+    $(document).on("keyup","#cedula",function(){
+       $("#fclientes .zelda").data('triforce')['vcedula'] = $(this).val(); 
+    });
+
+    $(document).on("change","[name=tipoclie]",function(){
+       $("#fclientes .zelda").data('triforce')['vidtipocliente'] = $(this).attr('tipoclie'); 
     });
 
     $(document).on("keyup",".rubro",function(e){
