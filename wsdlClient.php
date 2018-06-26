@@ -4,8 +4,10 @@
         $id = $_REQUEST['id'];
         $accion = $_REQUEST['accion'];
 
-        $fe = new facturaElectronica($id);
-
+        if (!file_exists('./assets/xml/'.$id)) {
+            $fe = new facturaElectronica($id);
+        }
+        
         switch ($accion) {
             case 1://RECIBO DE FACTURA
                 $rs = $fe->recepcion();
@@ -13,7 +15,12 @@
                 // echo $fe->recepcion();
                 break;
             case 2://GET XML
-                header("Content-type: text/xml; encoding='UTF-8'");
+                header("Content-type: application/octet-stream; name='excel';charset=UTF-8");
+                header("Content-Disposition: filename=".$fe->info['NumeroConsecutivo'].".xml");
+                header("Pragma: no-cache");
+                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+                echo "\xEF\xBB\xBF";
+                // header("Content-type: text/xml; encoding='UTF-8'");
                 print_r($fe->getXMLRecepcion());
                 break;
             case 3://BEARER
@@ -55,10 +62,85 @@
                 print_r($certData);
                 echo "</pre>";
                 break;
+            case 10: //LEER XML
+                $salida = ['succed'=>1];
+                if (!file_exists('./assets/xml/'.$id)) {
+                    $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
+                }else
+                    loadXML_FILE($id,$salida);
+
+                echo json_encode($salida);
+                break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
         }
+    }
+
+    function loadXML_FILE($id,&$salida)
+    {   
+        $db = new DBClass();
+        $inv_xml = simplexml_load_file('./assets/xml/'.$id);
+        $sucursal = $db->ejecutar('call datosempresa('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
+
+        $salida['clave'] = ((array) $inv_xml->Clave)[0];
+        if (strlen($salida['clave']) != 50){
+            $salida = ['succed' => 0,'ERROR' => 'CLAVE NO VALIDA'];
+            return false;
+        }
+        
+        $salida['emisor']['cedula'] = ((array) $inv_xml->Emisor->Identificacion->Numero)[0];
+        if (trim($salida['emisor']['cedula']) != trim(substr($salida['clave'], 9,12))) {
+            $salida = ['succed' => 0,'ERROR' => 'CEDULA NO VALIDA'];
+            return false;
+        }
+
+        // $scedula = ((array) $inv_xml->Receptor->Identificacion->Numero)[0];
+        // if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+        //     $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO'];
+        //     return false;
+        // }
+
+        $salida['emisor']['nombre'] = ((array) $inv_xml->Emisor->Nombre)[0];
+        $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$salida['emisor']['cedula'].',\"-\",\"\") ")')->fetch_all();
+        
+        if(!sizeof($prov)){
+            $salida['emisor']['tipo']       = ((array) $inv_xml->Emisor->Identificacion->Tipo)[0];
+            $salida['emisor']['barrio']     = isset($inv_xml->Emisor->Ubicacion->Barrio) ? ((array) $inv_xml->Emisor->Ubicacion->Barrio)[0] : 0;
+            $salida['emisor']['distrito']   = isset($inv_xml->Emisor->Ubicacion->Distrito) ? ((array) $inv_xml->Emisor->Ubicacion->Distrito)[0] : 0;
+            $salida['emisor']['canton']     = isset($inv_xml->Emisor->Ubicacion->Canton) ? ((array) $inv_xml->Emisor->Ubicacion->Canton)[0] : 0;
+            $salida['emisor']['provincia']  = isset($inv_xml->Emisor->Ubicacion->Provincia) ? ((array) $inv_xml->Emisor->Ubicacion->Provincia)[0] : 0;
+            $salida['emisor']['otrassenas'] = isset($inv_xml->Emisor->Ubicacion->OtrasSenas) ? ((array) $inv_xml->Emisor->Ubicacion->OtrasSenas)[0] : 0;
+            $salida['emisor']['correo']     = isset($inv_xml->Emisor->CorreoElectronico) ? ((array) $inv_xml->Emisor->CorreoElectronico)[0] : 0;
+            $salida['emisor']['telefono']   = isset($inv_xml->Emisor->Telefono->NumTelefono) ? ((array) $inv_xml->Emisor->Telefono->NumTelefono)[0] : 0;
+            $salida['emisor']['pais']       = isset($inv_xml->Emisor->Telefono->CodigoPais) ? ((array) $inv_xml->Emisor->Telefono->CodigoPais)[0] : 0;
+            $salida['emisor']['id']         = 0;
+        }else
+            $salida['emisor']['id']     = $prov[0][0];
+
+        $salida['factura']['fecha']     = ((array) $inv_xml->FechaEmision)[0];
+        $salida['factura']['tipoventa'] = ((array) $inv_xml->CondicionVenta)[0];
+        $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? ((array) $inv_xml->PlazoCredito)[0] : 0;
+        $salida['factura']['tipopago']  = ((array) $inv_xml->MedioPago)[0];
+        $salida['Factura']['moneda']    = ((array) $inv_xml->ResumenFactura->CodigoMoneda)[0];
+        $salida['Factura']['divisa']    = ((array) $inv_xml->ResumenFactura->TipoCambio)[0];
+        $salida['Factura']['subtotal']  = ((array) $inv_xml->ResumenFactura->TotalGravado)[0];
+        $salida['Factura']['exento']    = ((array) $inv_xml->ResumenFactura->TotalExento)[0];
+        $salida['Factura']['descuento'] = ((array) $inv_xml->ResumenFactura->TotalDescuentos)[0];
+        $salida['Factura']['impuesto']  = ((array) $inv_xml->ResumenFactura->TotalImpuesto)[0];
+
+        $ciclo = ((array) $inv_xml->DetalleServicio);
+        foreach ($ciclo as $key) {
+            $salida['detalle'][((array)$key->NumeroLinea)[0]]['codigo']     = ((array)$key->Codigo->Codigo)[0];
+            $salida['detalle'][((array)$key->NumeroLinea)[0]]['cantidad']   = ((array)$key->Cantidad)[0];
+            $salida['detalle'][((array)$key->NumeroLinea)[0]]['unidad']     = ((array)$key->UnidadMedida)[0];
+            $salida['detalle'][((array)$key->NumeroLinea)[0]]['detalle']    = ((array)$key->Detalle)[0];
+            $salida['detalle'][((array)$key->NumeroLinea)[0]]['precio']     = ((array)$key->PrecioUnitario)[0];
+            $salida['detalle'][((array)$key->NumeroLinea)[0]]['descuento']  = isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0;
+            $salida['detalle'][((array)$key->NumeroLinea)[0]]['impuesto']   = isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0;
+        }
+
+        // $mxml = file_get_contents('./assets/xml/'.$id);
     }
 
     class facturaElectronica
@@ -74,6 +156,7 @@
 
         function __construct($vid){
             $this->id = $vid;
+
             $this->info = $this->getJSON('call fe_getencabezado("'.$this->id.'")');
             $opcion = isset($this->info['NumeroConsecutivo']) ? substr($this->info['NumeroConsecutivo'],9,1) : 0;
             switch ($opcion) {
@@ -444,13 +527,12 @@
                         $detalle['Detalle'] = $value[6];
                         $detalle['PrecioUnitario'] = $value[7];
                         $detalle['MontoTotal'] = $value[8];
-                        $detalle['SubTotal'] = $value[11];
-                        $exoneracion = ['TipoDocumento' => '', 'NumeroDocumento' => '', 'NombreInstitucion' => '','FechaEmision' => '', 'MontoImpuesto' => '', 'PorcentajeCompra' => '', 'PorcentajeCompra' => ''];
-
                         if ($value[9] > 0) {
                             $detalle['MontoDescuento'] = $value[9];
                             $detalle['NaturalezaDescuento'] = $value[10];
                         }
+                        $detalle['SubTotal'] = $value[11];
+                        $exoneracion = ['TipoDocumento' => '', 'NumeroDocumento' => '', 'NombreInstitucion' => '','FechaEmision' => '', 'MontoImpuesto' => '', 'PorcentajeCompra' => '', 'PorcentajeCompra' => ''];
                         
                         if ($value[12] != '') {
                             $impuesto = ['Codigo'=>$value[12],'Tarifa'=>$value[13],'Monto'=>$value[14]];

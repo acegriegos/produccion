@@ -73,7 +73,7 @@
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
       <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide clieBTN" id="ingclie" href="#addClie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" data-position="bottom" data-tooltip="Agregar Cliente"></a>
       <i class="mdi mdi-16px mdi-email pbtn tooltipped hide clieBTN" id="crrclie" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
-      <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" ata-position="bottom" data-tooltip="Ventas del Cliente"></i>
+      <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
     
@@ -100,8 +100,8 @@
       <thead>
         <section class="trVenta hide">
         <div class="hide-on-med-and-down">
-          <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
-          <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
+          <div style="padding: 0 !important;" class="col s2 center-align" autocomplete="off"><b>Código</b></div>
+          <div style="padding: 0 !important;" class="col s3 center-align" autocomplete="off"><span class="truncate"><b>Descripción</b></span></div>
           <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Prec.Unit</b></span></div>
           <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
           <div style="padding: 0 !important;" class="col s1 center-align"><b>Cantidad</b></div>
@@ -598,4 +598,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.10"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.11"></script>

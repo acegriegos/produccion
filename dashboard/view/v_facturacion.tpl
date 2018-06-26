@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.0.0.10">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.0.0.11">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,7 +16,7 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.0.0.10"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.0.0.11"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -33,6 +33,12 @@
       <div class="input-field col s6 eunit">
         <input type="text" id="eunitario">
         <label for="eunitario">Precio Unitario</label>
+      </div>
+      
+      <div class="input-field col s6 eunidad">
+        <select id="uniadl" >
+        </select>
+        <label for="uniadl">Unidad</label>
       </div>
 
       <div class="input-field col s6 edescu">
@@ -56,10 +62,6 @@
         <label for="texct">Excento</label>
       </div>
 
-      <div class="input-field col s6 eexo hide">
-        <input type="text" id="eexon">
-        <label for="eexon">Exoneración</label>
-      </div>
       <input type="hidden" id="hdnprd" value="0">
     </div>
 

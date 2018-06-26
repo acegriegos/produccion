@@ -7,7 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.10">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.11">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.11">
   </head>
   <body>
   
@@ -25,6 +26,7 @@
                 <input name="tventa" class="with-gap" type="radio" id="tf1" {if $TF eq 1}checked{/if}/>
                 <label for="tf1">Ventas</label>
             </div>
+            {if $smarty.session.BUSS neq 1}
             <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf2" {if $TF eq 2}checked{/if}/>
                 <label for="tf2">Compras</label>
@@ -42,14 +44,33 @@
             <div class="col s12 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf5" {if $TF eq 5}checked{/if}/>
                 <label for="tf5">Orden de Pedidos</label>
+            </div>  
+            {/if}
+            <div class="col s12 m2">
+                <input name="tventa" class="with-gap" type="radio" id="tf7" {if $TF eq 6}checked{/if}/>
+                <label for="tf7">Tiquetes</label>
             </div>      
                 
             </div>
 
             <hr>
             <div class="row">
-                <div class="col s12">
-                    <span>Filtros</span>
+                <div class="col s1">
+                    <a href="#modal-getxml" class="btn red mdi mdi-upload mdi-24px tooltipped" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px"></a>
+                </div>
+                <div class="col s9">
+                    
+                </div>
+                
+                <div class="col s2 der">
+                     <div class="switch">
+                        <label>
+                          Punto Venta
+                          <input type="checkbox" checked id="tps">
+                          <span class="lever"></span>
+                          Carta
+                        </label>
+                      </div>
                 </div>
                 <div class="col s12" id="vfacturas">
                      <table class="table tablatitulos responsive-table centered striped bordered highlight z-depth-3" id="data-table-facturas" cellspacing="0" width="100%" >
@@ -76,10 +97,11 @@
                                 <td style="width: 10%">{$FACT[LE][7]}</td>
                                 <td style="width: 10%">{$FACT[LE][8]}</td>
                                 <td style="width: 10%">
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" tp="{$FACT[LE][10]}" title="Visualizar Factura"></a>
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-format-page-break print-x blueh" id="a{$FACT[LE][0]}"  title="PV"></a>
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh tooltipped" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" data-tooltip="Visualizar Factura" data-position="bottom"></a>
 
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" title="Procesar Factura" rm="3"></a>
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-xml xml blueh tooltipped" id="x{$FACT[LE][0]}" data-tooltip="Descargar XML" data-position="bottom"></a>
+
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
                                 </td>
                             </tr>
                             {/section}
@@ -122,6 +144,34 @@
   </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.10"></script>
+    <div id="modal-getxml" class="modal modal-fixed-footer">
+        <div class="modal-header">
+        <div class="card-header center blue-grey white-text z-depth-1">
+            <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar XML <span id="nomproc"></span></p>
+        </div>
+        </div>
+        <div class="modal-content">
+            <section class="upxml" xml="1" style="margin-top: 8%">
+                <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
+                    <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;margin-bottom: 25px" /></span>
+                </form>
+            </section>
+            <section class="upxml hide" xml="2">
+                <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
+                
+            </section>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Aceptar</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Aceptar Parcial</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Rechazar</a>
+
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+        </div>
+    </div>
+
+    <script src="../assets/js/dropzone.js?v=10.0.0.11"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.11"></script>
   </body>
 </html>
