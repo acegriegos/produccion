@@ -30,6 +30,11 @@
                             $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$REQUEST['idsucursal'].$ext;
                             $base->ejecutar("UPDATE sucursales SET p12 = '.".$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
                             break;
+                         case 4: //SUBIR XML
+                            $folder = 'assets/xml';
+                            $name = $_FILES['file']['name'][$i];
+                            $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.$name;
+                            break;
                         default:
                             $index = $base->ejecutar('select lpad(count(id)+1, 2,0) from adjuntos where idtabla = 12 and idfila = "'.$_REQUEST['idcompra'].'"')->fetch_all()[0][0];
 
@@ -127,10 +132,9 @@
                             }
                         }
                         break;
-                    
                     default: //Adjuntar Compras
-                        $folder = 'assets/imgupload';
-                        $bname = '../assets/imgupload/';
+                        $folder = 'assets/xml';
+                        $bname = '../assets/xml/';
 
                         $destination_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator;
 

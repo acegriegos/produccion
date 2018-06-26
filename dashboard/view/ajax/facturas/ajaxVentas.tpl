@@ -100,8 +100,8 @@
       <thead>
         <section class="trVenta hide">
         <div class="hide-on-med-and-down">
-          <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
-          <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
+          <div style="padding: 0 !important;" class="col s2 center-align" autocomplete="off"><b>Código</b></div>
+          <div style="padding: 0 !important;" class="col s3 center-align" autocomplete="off"><span class="truncate"><b>Descripción</b></span></div>
           <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Prec.Unit</b></span></div>
           <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
           <div style="padding: 0 !important;" class="col s1 center-align"><b>Cantidad</b></div>
@@ -598,4 +598,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.10"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.11"></script>
