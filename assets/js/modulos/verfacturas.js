@@ -26,6 +26,11 @@ $(document).ready(function(){
 			$("[rm=2]").addClass('hide');
 			$("[rm=3]").removeClass('hide');
 			break;
+		case 7:
+			$("[rm=1]").addClass('hide');
+			$("[rm=2]").removeClass('hide');
+			$("[rm=3]").addClass('hide');
+			break;
 	}
 
 	$("#data-table-facturas").dataTable({
@@ -149,20 +154,28 @@ $(document).on("change","input[name=tventa]",function(){
 			$("[rm=2]").addClass('hide');
 			$("[rm=3]").removeClass('hide');
 			break;
+		case 7:
+			var tabla = $("#data-table-facturas").DataTable();
+			tabla.destroy();
+			arr('login',6,'',158,'0,'+id+',0,@@impresa',0,1,$("#listafacturas"));
+			$("#data-table-facturas").DataTable({
+				bFilter :  false,
+	            bLengthChange : false,
+	            order : []
+			});
+			$("[rm=1]").addClass('hide');
+			$("[rm=2]").removeClass('hide');
+			$("[rm=3]").addClass('hide');
+			break;
 	}
 });
 
 $(document).on("click",".print",function(){
 	var id = $(this).attr('id').substr(1);
 	var tv = $(this).attr('tv');
-	var tp = $(this).attr('tp');
-	console.log('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
+	var tp = !$("#tps").is(":checked");
 	window.open('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
 });
-$(document).on("click",".mdi-format-page-break",function(){
-	var id = $(this).attr('id').substr(1);
-	var tv = 6;
-	var tp = 'true';//$(this).attr('tp');
-
-	window.open('facturacion?accion='+tv+'&id='+id+'&tp='+tp+'&x=1');
+$(document).on("click",".xml",function(){
+	window.location = "../wsdlClient.php?accion=2&id="+$(this).attr('id').substr(1);
 });

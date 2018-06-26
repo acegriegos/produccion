@@ -25,6 +25,7 @@
                 <input name="tventa" class="with-gap" type="radio" id="tf1" {if $TF eq 1}checked{/if}/>
                 <label for="tf1">Ventas</label>
             </div>
+            {if $smarty.session.BUSS neq 1}
             <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf2" {if $TF eq 2}checked{/if}/>
                 <label for="tf2">Compras</label>
@@ -42,14 +43,33 @@
             <div class="col s12 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf5" {if $TF eq 5}checked{/if}/>
                 <label for="tf5">Orden de Pedidos</label>
+            </div>  
+            {/if}
+            <div class="col s12 m2">
+                <input name="tventa" class="with-gap" type="radio" id="tf7" {if $TF eq 6}checked{/if}/>
+                <label for="tf7">Tiquetes</label>
             </div>      
                 
             </div>
 
             <hr>
             <div class="row">
-                <div class="col s12">
-                    <span>Filtros</span>
+                <div class="col s1">
+                    <a href="#modal-getxml" class="btn red mdi mdi-upload mdi-24px tooltipped" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px"></a>
+                </div>
+                <div class="col s9">
+                    
+                </div>
+                
+                <div class="col s2 der">
+                     <div class="switch">
+                        <label>
+                          Punto Venta
+                          <input type="checkbox" checked id="tps">
+                          <span class="lever"></span>
+                          Carta
+                        </label>
+                      </div>
                 </div>
                 <div class="col s12" id="vfacturas">
                      <table class="table tablatitulos responsive-table centered striped bordered highlight z-depth-3" id="data-table-facturas" cellspacing="0" width="100%" >
@@ -76,10 +96,11 @@
                                 <td style="width: 10%">{$FACT[LE][7]}</td>
                                 <td style="width: 10%">{$FACT[LE][8]}</td>
                                 <td style="width: 10%">
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" tp="{$FACT[LE][10]}" title="Visualizar Factura"></a>
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-format-page-break print-x blueh" id="a{$FACT[LE][0]}"  title="PV"></a>
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh tooltipped" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" data-tooltip="Visualizar Factura" data-position="bottom"></a>
 
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" title="Procesar Factura" rm="3"></a>
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-xml xml blueh tooltipped" id="x{$FACT[LE][0]}" data-tooltip="Descargar XML" data-position="bottom"></a>
+
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
                                 </td>
                             </tr>
                             {/section}
@@ -122,6 +143,15 @@
   </div>
 
     {$SCR}
+    <div id="modal-getxml" class="modal modal-fixed-footer">
+         
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+  </div>
+</div>
+
     <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.10"></script>
   </body>
 </html>
