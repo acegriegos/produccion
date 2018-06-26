@@ -794,7 +794,7 @@ function endDetail(vid,vacc,vmodulo) {
 }
 
 function verfacturas() {
-    window.open("facturacion?accion=8&tf="+param);
+    window.open("facturacion?accion=8&tf="+(param == 7 ? 1 : param));
 }
 
 function searchClient(vvariable,visprv){
