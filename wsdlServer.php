@@ -204,13 +204,15 @@ if (isset($_POST['respuestaXml'])) {
                         $salida['error'] = 0;
                         $salida['correo'] = $correo;
                         
-                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'',0,0,0,0,0,0,1,1,1,'".$salida['cedula']."','','',".$salida['tipo'].",1,'assets/p12/".$name."',hex(aes_encrypt(".$pin.",'lt2016')),NULL,1,0,0,'".$userComprobante."','".$passComprobante."',1,0,0,0,0)");
+                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'',1,1,1,'".$salida['cedula']."','','',".$salida['tipo'].",1,'assets/p12/".$name."',hex(aes_encrypt(".$pin.",'lt2016')),NULL,1,0,0,'".$userComprobante."','".$passComprobante."',1,0,0,0)");
                         $rs = $db->ejecutar("select id from sucursales where cedula = '".$salida['cedula']."'")->fetch_all()[0][0];
+
                         $db->ejecutar("insert into correos values(null,".$rs.",39,'".$correo."')");
                         $db->ejecutar("insert into telefonos values(null,3,'".$telefono."',39,".$rs.",52)");
                         $db->ejecutar("insert into ubicaciones values(null,".$barrio.",'".$ubicacion."','0','0',39,".$rs.")");
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
+                        $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")";
                     }else{
                         $salida['error'] = 14;
                     }
