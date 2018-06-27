@@ -132,12 +132,12 @@ $(document).on("keyup", "#val", function (e) {
 	}
 });
 
-$(document).on("change", "#vidinventario", function () {
-	// setTimeout(function(){
-	// 	$(this).prevAll('input.select-dropdown').trigger('close');
-	// 	$("#vidunidad").prevAll('input.select-dropdown').trigger('open').focus();
-	// },300);
-});
+// $(document).on("change", "#vidinventario", function () {
+// 	// setTimeout(function(){
+// 	// 	$(this).prevAll('input.select-dropdown').trigger('close');
+// 	// 	$("#vidunidad").prevAll('input.select-dropdown').trigger('open').focus();
+// 	// },300);
+// });
 
 // focus
 $(document).on("keyup", ".formprod", function (e) {
@@ -636,7 +636,7 @@ $(document).on("click", "#addprod", function () {
 		var maximo = $("#vmaximo").val();
 		var maxdesc = $("#vmaxdescuento").val() == '' ? 0 : $("#vmaxdescuento").val();
 		var idmoneda = $(".moneda").first().data("triforce")['id'];;
-		var idinventario = $("#vidinventario option:selected").val();
+		var idinventario = $("#vidinventario").val();
 		var vari = $(".variables");
 		var pass = 1;
 
@@ -885,7 +885,8 @@ $(document).on("click", ".editprod", function () {
 	$("#vidunidad").val(q[15]);
 	$("#vidunidad").material_select();
 	$("#vidinventario").val(q[30]);
-	$("#vidinventario").material_select();
+	if ($("#vidinventario").attr('type') == 'select')
+		$("#vidinventario").material_select();
 	$("#vnombre").val(q[3]);
 	$("#vcodigo").val(q[1]);
 	$("#vcodigointerno").val(q[2])
@@ -1995,7 +1996,10 @@ function vaciar(modulo) {
 			$("#vidmarca").val(0);
 			$("#vmarca").val('');
 			$("#vidunidad").val(0);
-			$("#vidinventario").val(0);
+			if ($("#vidinventario").attr('noClear') == undefined) {
+				$("#vidinventario").val(6);
+				$("#vidinventario").material_select('update');
+			}
 			$("select").material_select();
 			$("#vpeso").val('');
 			$(".formprod").val('');

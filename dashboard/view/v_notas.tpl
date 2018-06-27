@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col s12 m12 l12">
             <div class="row">
-              <div class="col s10 m10 l10">
+             <div class="col s10 m10 l10 {if $smarty.session.BUSS eq 1} hide {/if} ">
                 <div class="switch">
                   <label style="color: black; font-size: 1.3em">
                     <b>Clientes</b>

@@ -85,15 +85,7 @@
 						<input type="hidden" id="vidmarca" value="0">
 					</div>
 					{if $smarty.session.BUSS eq 1} 
-						<div class="input-field marginzero" id="dinventario">
-						<select type="select" id="vidinventario">
-							<option value="6">Producto a la venta</option>
-							<!-- {section name=LE loop=$INV}
-							<option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
-							{/section} -->
-						</select>
-						<label for="vidinventario">Inventario</label>
-					</div>
+						<input type="hidden" id="vidinventario" value="6" noClear="1">
 					{else}
 					<div class="input-field marginzero" id="dinventario">
 						<select type="select" id="vidinventario">

@@ -730,7 +730,6 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
-        console.log(varreglo[i]+' '+salida[varreglo[i]])
     }//end FOR
     break;
     }//end SWITCH
@@ -776,7 +775,7 @@ function deadclear(vform) {
         });
         
     } else
-    acc = 1;
+        acc = 1;
     // Materialize.updateTextFields();
 }
 

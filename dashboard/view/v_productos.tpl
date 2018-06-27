@@ -24,9 +24,11 @@
 						<li class="nav-item menu3 per4110" id="m2">
 							<a class="nav-link" href="#" title="Servicios">Servicios</a>
 						</li>
-						<li class="nav-item menu3 per4114 {if $smarty.session.BUSS eq 1}hide{/if}" id="m3">
+						{if $smarty.session.BUSS neq 1}
+						<li class="nav-item menu3 per4114" id="m3">
 							<a class="nav-link" href="#" title="Paquetes">Paquetes</a>
 						</li>
+						{/if}
 					</ul>
 				</nav>
 				<br>

@@ -100,8 +100,8 @@
       <thead>
         <section class="trVenta hide">
         <div class="hide-on-med-and-down">
-          <div style="padding: 0 !important;" class="col s2 center-align" autocomplete="off"><b>Código</b></div>
-          <div style="padding: 0 !important;" class="col s3 center-align" autocomplete="off"><span class="truncate"><b>Descripción</b></span></div>
+          <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
+          <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
           <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Prec.Unit</b></span></div>
           <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
           <div style="padding: 0 !important;" class="col s1 center-align"><b>Cantidad</b></div>
@@ -135,16 +135,16 @@
 
         <div class="trVenta hide trsec">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" {if $smarty.session.BUSS eq 0}readonly{/if}>
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" {if $smarty.session.BUSS eq 0}readonly{/if} autocomplete="off">
           </div>
 
           <div style=padding: 0 !important" class="input-field col s12 m1">
