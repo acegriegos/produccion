@@ -56,15 +56,15 @@
 										<div class="switch">
 											<label style="color: white; font-size: 1.2em">
 												<b style="color: white !important">Débito</b>
-												<input type="checkbox" class="dcn" value="1" id="ncd">
+												<input type="checkbox" class="dcn" value="1" id="ncd" checked>
 												<span class="lever"></span>
-												<b style="color: white !important">Credito</b>
+												<b style="color: white !important" >Credito</b>
 											</label>
 										</div>
 									</div>
 									<div class="input-field col s12 m12 padd">
 										<i class="mdi mdi-24px mdi-credit-card prefix"></i>
-										<input id="vvalor" type="text"  class="validate eder">
+										<input id="vvalor" type="text"  class="validate eder" autocomplete="off">
 										<label for="vvalor" style="color: white !important">Monto</label>
 									</div>
 									<div class="input-field col s12 padd">

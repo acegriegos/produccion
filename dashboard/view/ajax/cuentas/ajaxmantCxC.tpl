@@ -125,7 +125,7 @@
                                             </div>
                                             <div class="input-field col s12 m6">
                                                 <i class="mdi-credit-card mdi-24px mdi prefix"></i>
-                                                <input id="vvalor" type="text"  class="validate eder" value="0.00">
+                                                <input id="vvalor" type="text"  class="validate eder" value="0.00" autocomplete="off">
                                                 <label for="vvalor" style="color: white !important">Monto</label>
                                             </div>
                                             <div class="input-field col s12 m6">
@@ -210,7 +210,7 @@
                     </div>
                     <div class="col s12 m12" style="margin-top:20px;">
                         <div class="input-field col s6 m6">
-                            <input class="eder" min="0" id="monto" type="number" name="monto">
+                            <input class="eder" min="0" id="monto" type="number" name="monto" autocomplete="off">
                             <label for="monto">Digitar Monto</label>
                         </div>
                         <div class="input-field col s6 m6">
