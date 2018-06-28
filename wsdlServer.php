@@ -212,7 +212,7 @@ if (isset($_POST['respuestaXml'])) {
                         $db->ejecutar("insert into ubicaciones values(null,".$barrio.",'".$ubicacion."','0','0',39,".$rs.")");
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
-                        $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")";
+                        $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
                     }else{
                         $salida['error'] = 14;
                     }
