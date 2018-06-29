@@ -138,7 +138,7 @@ $(document).on("blur","[id^=vcantidad]",function(){
 });
 
 $(document).on("click","#facturar",function(){
-    
+
     var err = validarFactura();
     if (err){
         Materialize.toast(err,'4000','red');
@@ -622,7 +622,7 @@ function validarDetalleFactura(){
 
 function validarFactura() {
 
-    if ($(".ciclos").length == 0) {
+    if ($("#fdetallefacturas .ciclos").length == 0) {
         $("#codp").focus()
         return "No se Han Ingresado Productos";
     }
