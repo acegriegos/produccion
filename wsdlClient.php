@@ -21,7 +21,6 @@
                 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                 echo "\xEF\xBB\xBF";
                 // header("Content-type: text/xml; encoding='UTF-8'");
-                // Header("Content-disposition", "attachment; filename=prueba.xml");
                 print_r($fe->getXMLRecepcion());
                 break;
             case 3://BEARER
@@ -107,21 +106,21 @@
         
         if(!sizeof($prov)){
             $salida['emisor']['tipo']       = ((array) $inv_xml->Emisor->Identificacion->Tipo)[0];
-            $salida['emisor']['barrio']     = ((array) $inv_xml->Emisor->Ubicacion->Barrio)[0];
-            $salida['emisor']['distrito']   = ((array) $inv_xml->Emisor->Ubicacion->Distrito)[0];
-            $salida['emisor']['canton']     = ((array) $inv_xml->Emisor->Ubicacion->Canton)[0];
-            $salida['emisor']['provincia']  = ((array) $inv_xml->Emisor->Ubicacion->Provincia)[0];
-            $salida['emisor']['otrassenas'] = ((array) $inv_xml->Emisor->Ubicacion->OtrasSenas)[0];
-            $salida['emisor']['correo']     = ((array) $inv_xml->Emisor->CorreoElectronico)[0];
-            $salida['emisor']['telefono']   = ((array) $inv_xml->Emisor->Telefono->NumTelefono)[0];
-            $salida['emisor']['pais']       = ((array) $inv_xml->Emisor->Telefono->CodigoPais)[0];
+            $salida['emisor']['barrio']     = isset($inv_xml->Emisor->Ubicacion->Barrio) ? ((array) $inv_xml->Emisor->Ubicacion->Barrio)[0] : 0;
+            $salida['emisor']['distrito']   = isset($inv_xml->Emisor->Ubicacion->Distrito) ? ((array) $inv_xml->Emisor->Ubicacion->Distrito)[0] : 0;
+            $salida['emisor']['canton']     = isset($inv_xml->Emisor->Ubicacion->Canton) ? ((array) $inv_xml->Emisor->Ubicacion->Canton)[0] : 0;
+            $salida['emisor']['provincia']  = isset($inv_xml->Emisor->Ubicacion->Provincia) ? ((array) $inv_xml->Emisor->Ubicacion->Provincia)[0] : 0;
+            $salida['emisor']['otrassenas'] = isset($inv_xml->Emisor->Ubicacion->OtrasSenas) ? ((array) $inv_xml->Emisor->Ubicacion->OtrasSenas)[0] : 0;
+            $salida['emisor']['correo']     = isset($inv_xml->Emisor->CorreoElectronico) ? ((array) $inv_xml->Emisor->CorreoElectronico)[0] : 0;
+            $salida['emisor']['telefono']   = isset($inv_xml->Emisor->Telefono->NumTelefono) ? ((array) $inv_xml->Emisor->Telefono->NumTelefono)[0] : 0;
+            $salida['emisor']['pais']       = isset($inv_xml->Emisor->Telefono->CodigoPais) ? ((array) $inv_xml->Emisor->Telefono->CodigoPais)[0] : 0;
             $salida['emisor']['id']         = 0;
         }else
             $salida['emisor']['id']     = $prov[0][0];
 
         $salida['factura']['fecha']     = ((array) $inv_xml->FechaEmision)[0];
         $salida['factura']['tipoventa'] = ((array) $inv_xml->CondicionVenta)[0];
-        $salida['factura']['plazo']     = ((array) $inv_xml->PlazoCredito)[0];
+        $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? ((array) $inv_xml->PlazoCredito)[0] : 0;
         $salida['factura']['tipopago']  = ((array) $inv_xml->MedioPago)[0];
         $salida['Factura']['moneda']    = ((array) $inv_xml->ResumenFactura->CodigoMoneda)[0];
         $salida['Factura']['divisa']    = ((array) $inv_xml->ResumenFactura->TipoCambio)[0];

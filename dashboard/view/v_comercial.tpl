@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Área Comercial</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css?v=10.0.0.10">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css?v=10.0.0.12">
 
     </head>
     <body>
@@ -64,6 +64,6 @@
       </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/comercial.js?v=10.0.0.10"></script>
+    <script src="../assets/js/modulos/comercial.js?v=10.0.0.12"></script>
   </body>
 </html>

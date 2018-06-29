@@ -730,7 +730,6 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
-        console.log(varreglo[i]+' '+salida[varreglo[i]])
     }//end FOR
     break;
     }//end SWITCH
@@ -776,7 +775,7 @@ function deadclear(vform) {
         });
         
     } else
-    acc = 1;
+        acc = 1;
     // Materialize.updateTextFields();
 }
 
@@ -853,7 +852,7 @@ Number.prototype.formatMoney = function(c, d, t){
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
 
-function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess,vfiles,funcionAdded,funcionRemoved){
+function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess,vfiles,funcionAdded,funcionRemoved,funcionFinish){
     if(!vfiles){
         vfiles = '*';
     }
@@ -868,34 +867,24 @@ function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess,vfiles,fun
         init: function() {
             this.on("addedfile", function(file) {
                 $(velemento).find('.imgDrop').hide();
-                if (isNaN(funcionAdded))
+                if (funcionAdded != '')
                     funcionAdded
-                else{
-                    switch(funcionAdded){
-                        default:
-                            break;
-                    }
-                }
+               
             });
             this.on("removedfile", function(file) {
                 if (!$(".dz-preview").length) {
                     $(velemento).find('.imgDrop').show();
                 }
             
-                if (isNaN(funcionRemoved))
+                if (funcionRemoved != '')
                     funcionRemoved
-                else{
-                    switch(funcionRemoved){
-                        default:
-                            break;
-                    }
-                }
             });
             this.on('error', function(file, response) {
                 console.log(response)
             });
             this.on('success', function(file, response) {
-                console.log(response)
+                if (funcionFinish != '')
+                    funcionFinish(file,response)
             });
         }
     });

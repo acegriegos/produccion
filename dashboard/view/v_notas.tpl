@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.0.0.10">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.0.0.12">
 </head>
 <body>
   {$NAV}
@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col s12 m12 l12">
             <div class="row">
-              <div class="col s10 m10 l10">
+             <div class="col s10 m10 l10 {if $smarty.session.BUSS eq 1} hide {/if} ">
                 <div class="switch">
                   <label style="color: black; font-size: 1.3em">
                     <b>Clientes</b>
@@ -163,6 +163,6 @@
     </div>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=10.0.0.10"></script>
+  <script src="../assets/js/modulos/notas.js?v=10.0.0.12"></script>
 </body>
 </html>

@@ -1,3 +1,6 @@
+Dropzone.autoDiscover = false;
+var myDropzone;
+
 $(document).ready(function(){
 	var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
 	switch(tf) {
@@ -54,7 +57,38 @@ $(document).ready(function(){
         endingTop: '4%' // Ending top style attribute
     });
 
+	InitDropzone(1,true,'../cargar.php?accion=4',"#registro-upload",1,'text/xml','','',xmlCargar);
 });
+
+function xmlCargar(file,response){
+	if(response == ''){
+		$("[xml=2]").removeClass('hide');
+		$("[xml=1]").addClass('hide');
+
+		$.get('../wsdlClient.php',{accion:10,id:file['name']})
+			.done(function(data){
+				var p;
+				$(".iloop").hide();
+				try{
+					p = JSON.parse(data);
+					if (p['succed']) {
+						console.log(p)
+						$("[xml=3]").removeClass('hide');
+					}else{
+						$("[xml=1]").removeClass('hide');
+						$("[xml=2]").addClass('hide');
+						Materialize.toast(p['ERROR'],4000,'red')
+					}
+				}catch(e){
+					$("[xml=1]").removeClass('hide');
+					$("[xml=2]").addClass('hide');
+					Materialize.toast('Error Extrayendo XML',4000,'red')
+					console.log(data)				
+				}
+			});
+	}else
+		Materialize.toast('Error Subiendo el XML',4000,'red')	
+};
 
 $(document).on("click","#process",function(){
 	var idfactura = $("#process").attr('idfactura');
@@ -176,6 +210,11 @@ $(document).on("click",".print",function(){
 	var tp = !$("#tps").is(":checked");
 	window.open('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
 });
+
 $(document).on("click",".xml",function(){
 	window.location = "../wsdlClient.php?accion=2&id="+$(this).attr('id').substr(1);
+});
+
+$(document).on("click",".mdi-upload",function(){
+	$("#modal-getxml").modal('open')
 });

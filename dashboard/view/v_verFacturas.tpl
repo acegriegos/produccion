@@ -7,7 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.10">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.12">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.12">
   </head>
   <body>
   
@@ -144,14 +145,33 @@
 
     {$SCR}
     <div id="modal-getxml" class="modal modal-fixed-footer">
-         
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
-  </div>
-</div>
+        <div class="modal-header">
+        <div class="card-header center blue-grey white-text z-depth-1">
+            <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar XML <span id="nomproc"></span></p>
+        </div>
+        </div>
+        <div class="modal-content">
+            <section class="upxml" xml="1" style="margin-top: 8%">
+                <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
+                    <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;margin-bottom: 25px" /></span>
+                </form>
+            </section>
+            <section class="upxml hide" xml="2">
+                <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
+                
+            </section>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Aceptar</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Aceptar Parcial</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Rechazar</a>
 
-    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.10"></script>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+        </div>
+    </div>
+
+    <script src="../assets/js/dropzone.js?v=10.0.0.12"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.12"></script>
   </body>
 </html>

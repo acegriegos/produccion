@@ -552,9 +552,13 @@ function postload(modulo) {
 		case 'cliente':
 			llenarTarjeta(1);
 			var idtipo = $("#vidtipocliente").val();
-			console.log(idtipo)
+			
 			$("[tipoclie = "+idtipo+"]").prop('checked', true);
 			$("[tipoclie = "+idtipo+"]").click();
+
+			if (parseFloat($("#vplazo").val()) != 0)
+				$("#tipocliente").click();
+				
 			setTimeout(function(){
 				$(".close_phone").removeClass('close');
 				$(".close_mail").removeClass('close');
