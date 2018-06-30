@@ -137,22 +137,22 @@
                         </div>
                         <div class="input-field col s12 m6 l4">
                           <label for="vcedula">Cédula del Cliente</label>
-                          <input type="text" class="validate onblur" id="vcedula">
+                          <input type="text" class="validate onblur" id="vcedula" autocomplete="off">
                         </div>
                         <div class="input-field col s12 m6 l4 hide">
                           <label for="vcodigo">Código del Cliente</label>
-                          <input type="text" class="validate onblur" id="vcodigo">
+                          <input type="text" class="validate onblur" id="vcodigo" autocomplete="off">
                         </div>
                         <div class="input-field col s12 m6 col l4 vweb">
                           <label for="vweb">Web</label>
-                          <input type="text" class="validate onblur" id="vweb" placeholder="www.webempresa.com">
+                          <input type="text" class="validate onblur" id="vweb" placeholder="www.webempresa.com" autocomplete="off">
                         </div>
                       </div>
                       <div class="row">
                         <div class="input-field col s12 m12 l4">
                           <div>
                             <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
-                            <input type="email" class="validate" id="correo_in">
+                            <input type="email" class="validate" id="correo_in" autocomplete="off">
                             <input type="hidden" id="vcorreo" fill="18">
                             <label for="correo_in">Ingresar Correo</label>
                           <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
@@ -179,7 +179,7 @@
                               <input type="hidden" id="htipo">
                             </div>
                             <div class="input-field col s12 m5">
-                              <input type="text" class="validate" id="telefono_in" data-mask="9999-9999">
+                              <input type="text" class="validate" id="telefono_in" data-mask="9999-9999" autocomplete="off">
                               <input type="hidden" id="vtelefono" fill="19">
                               <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
                             <ul class="collection" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="4" style="border: 0;"></ul>
