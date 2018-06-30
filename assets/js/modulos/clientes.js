@@ -411,7 +411,7 @@ function validarclientes() {
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0) };
 	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0) };
 
-	if (!$("#fcorreos ciclos").length) { $("#correo_in").focus(); return 'Correo Requerido'; }
+	if (!$("#fcorreos .ciclos").length) { $("#correo_in").focus(); return 'Correo Requerido'; }
 
 	if($("#vidcuenta").val() == 1){
 		salida = '';

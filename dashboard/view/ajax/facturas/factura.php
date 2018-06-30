@@ -2,7 +2,6 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.12">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos1/style-factura.css?v=10.0.0.12">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.12">
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
