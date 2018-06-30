@@ -174,16 +174,16 @@
 			<tr>
 				<td class="center-align input-field" style="padding: 0">
 					<i class="mdi prefix moneda">¢</i>
-					<input type="text" id="vcosto" class="validate eder numeric cos calcvv" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1">
+					<input type="text" id="vcosto" class="validate eder numeric cos calcvv" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vganancia" num="1" autocomplete="off">
 					<input type="hidden" id="hvcosto" value="">
 				</td>
 				<td class="center-align input-field" style="padding: 0">
 					<i class="mdi prefix">%</i>
-					<input type="text" id="vganancia" class="validate calcvv eder numeric gan" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vventa" num="2">
+					<input type="text" id="vganancia" class="validate calcvv eder numeric gan" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" autocomplete="off">
 				</td>
 				<td class="center-align input-field" style="padding: 0">
 					<i class="mdi prefix moneda">¢</i>
-					<input type="text" id="vventa" class="validate calcvv eder numeric ven" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3">
+					<input type="text" id="vventa" class="validate calcvv eder numeric ven" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" autocomplete="off">
 					<input type="hidden" id="hventa" value="">
 				</td>
 				<td class="center-align input-field" style="padding: 0">

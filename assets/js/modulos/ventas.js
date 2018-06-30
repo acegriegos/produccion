@@ -164,7 +164,7 @@ $(document).on("blur","[id^=vcantidad]",function(){
 });
 
 $(document).on("click","#facturar",function(){
-    
+
     var err = validarFactura();
     if (err){
         Materialize.toast(err,'4000','red');
@@ -649,7 +649,7 @@ function validarDetalleFactura(){
 
 function validarFactura() {
 
-    if ($(".ciclos").length == 0) {
+    if ($("#fdetallefacturas .ciclos").length == 0) {
         $("#codp").focus()
         return "No se Han Ingresado Productos";
     }
@@ -1103,8 +1103,11 @@ function sendVMail(factura,clave,vid){
                         arr('login',7,2,64,'feestado=4','id='+clave,0,0);
                     }else{
                         for (var i = 0; i < correos.length; i++) {
-                            str_correos += correos[0];
+                            str_correos += correos[0]+",";
                         }
+                        console.log(str_correos)
+                        str_correos = str_correos.substr(str_correos,0,-1);
+                        console.log(str_correos)
                     }
                 }
                 
@@ -1138,7 +1141,7 @@ function sendVMail(factura,clave,vid){
         }
     }
 
-    setTimeout(function(){location.reload();},5000);
+    // setTimeout(function(){location.reload();},5000);
 }
 
 

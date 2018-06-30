@@ -161,7 +161,8 @@
                         <input type="hidden" id="vpganancia" value="0">
 
                         <span class="prefix moneda"></span>
-                        <input id="vprecio" type="number" class="vcalcserv eder" min="1" num="1" >
+
+                        <input id="vprecio" type="number" class="vcalcserv eder" >
                         <label for="vprecio">Precio</label>
 
                     </div>

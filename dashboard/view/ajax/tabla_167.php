@@ -1,5 +1,7 @@
 <?php
 $idfactura = 0;
+$cantt = 0;
+$tot = 0;
 foreach ($transaccion as $obj) {
    if ($obj[0] != $idfactura) {
       echo '<tr>
@@ -25,6 +27,8 @@ foreach ($transaccion as $obj) {
 
       </tr>';
       $idfactura = $obj[0];
+      $cantt++;
+      $tot += substr(str_replace(",", "", $obj[13]),2);
   }
   echo '<tr class="detprod hide xb'.$obj[0].' grey lighten-4">
   <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[24].'</td>
@@ -39,6 +43,17 @@ foreach ($transaccion as $obj) {
   </tr>';
   ?>
   <?php } ?>
+
+   <tr>
+      <td colspan="2"><b>TOTAL</b></td>
+      <td style="border-radius: 0px !important; text-align: center "><?php echo $cantt; ?></td>
+      <td style="border-radius: 0px !important; text-align: center "></td>
+      <td style="border-radius: 0px !important; text-align: center "></td>
+      <td style="border-radius: 0px !important; text-align: center "></td>
+      <td style="border-radius: 0px !important; text-align: center "></td>
+      <td style="border-radius: 0px !important; text-align: center "><?php echo $tot; ?></td>
+
+      </tr>
 
   <script type="text/javascript">
     $(function(){

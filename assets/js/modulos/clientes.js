@@ -91,23 +91,34 @@ $("#telefono_in").blur(function(){
 
 	$("#correo_in").keyup(function(e){
 		var code = e.which || e.keyCode
-		if (code == 13) {
-			var correo = $("#correo_in").val();
+		if (code == 13) 
+			$(this).blur();
+	});
+
+	$("#correo_in").blur(function(){
+		var correo = $("#correo_in").val();
+		if (correo.length > 1) {
 			var idfila = $(this).attr('idfila');
-
 			crreo_addon_ckub(idfila,correo);
-
 		}
+		
 	});
 
 	$("#telefono_in").keyup(function(e){
 		var code = e.which || e.keyCode
 		if (code == 13) {
-			var telefono = $(this).val();
+			$(this).blur();
+		}
+	});
+
+	$("#telefono_in").blur(function(){
+		var telefono = $(this).val();
+		if (telefono.length > 1) {
 			var idfila = $(this).attr('idfila');
 			var htipo = $("#tptel").val();
 			phone_addon_ckub(idfila,telefono,htipo);
 		}
+		
 	});
 
 	$(".btn-expand").click(function(){
@@ -400,6 +411,7 @@ function validarclientes() {
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0) };
 	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0) };
 
+	if (!$("#fcorreos .ciclos").length) { $("#correo_in").focus(); return 'Correo Requerido'; }
 
 	if($("#vidcuenta").val() == 1){
 		salida = '';
