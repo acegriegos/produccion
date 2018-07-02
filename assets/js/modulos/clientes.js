@@ -602,19 +602,19 @@ function phone_addon_ckub(vfila,vphone,vtipo){
 
 	if (vtelefono && vtipo) {
 		if (vfila == undefined) {
-			$("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right"></i></div>');
+			$("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right"></i></div>');
 			$("#tgl"+cont).data('triforce',{vaccion:1,vidtelefono:0,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:52});
 
 			$("#telefono_in").val('');
 			ind_2 += 1;
 			$('.collapsible').collapsible();
 			$(".chpph").remove();
-			$("#inftelefono4").append('<div id="itchpt0_'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
+			$("#inftelefono4").append('<div id="itchpt0_'+cont+'" class="chpphone chip"><img src="../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
 		}else{
 
-			$("#itchp"+vfila).html('<img src="../../assets/img/icon/'+tipotel+'.png">'+vphone);
+			$("#itchp"+vfila).html('<img src="../assets/img/icon/'+tipotel+'.png">'+vphone);
 			$("#"+vfila).html(vphone);
-			$("#ftp"+vfila).attr('src','img src="../../assets/img/icon/'+tipotel+'.png"');
+			$("#ftp"+vfila).attr('src','img src="../assets/img/icon/'+tipotel+'.png"');
 			$("#"+vfila).parent().data('triforce')['vtelefono'] = vphone;
 			$("#"+vfila).parent().data('triforce')['vidtipotel'] = vtipo;
 			$("#telefono_in").removeAttr('idfila');
@@ -662,7 +662,7 @@ function llenarTarjeta(vis){
 			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
 
 
-			$("#inftelefono4").append('<div id="itchptt_'+$(this).data('triforce')['vidtelefono']+'" class="chpphone chip"><img src="../../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
+			$("#inftelefono4").append('<div id="itchptt_'+$(this).data('triforce')['vidtelefono']+'" class="chpphone chip"><img src="../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
 		});
 
 		$("#infcodigo6").html($("#vcodigo").val());
@@ -699,7 +699,7 @@ function llenarTarjeta(vis){
 			var tnum = $(this).data('triforce')['vtipotel'];
 			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
 			
-			$("#inftelefono4").append('<div id="itchptt_'+cont+'" class="chpphone chip"><img src="../../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
+			$("#inftelefono4").append('<div id="itchptt_'+cont+'" class="chpphone chip"><img src="../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
 		});
 
 		$("#infcodigo6").html($("#vcodigo").val());

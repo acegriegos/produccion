@@ -6,12 +6,12 @@ $(function(){
         closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
         draggable: true // Choose whether you can drag to open on touch screens
     });
-    $('.button-collapse').sideNav({
-        menuWidth: 300, // Default is 240
-        edge: 'left', // Choose the horizontal origin
-        closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-        draggable: true // Choose whether you can drag to open on touch screens
-    });
+    // $('.button-collapse').sideNav({
+    //     menuWidth: 300, // Default is 240
+    //     edge: 'left', // Choose the horizontal origin
+    //     closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    //     draggable: true // Choose whether you can drag to open on touch screens
+    // });
 
     $(".otpmenu").click(function(){
         var opt = parseInt($(this).attr('value'));
@@ -87,7 +87,7 @@ function sse_response(vid,p) {
 
     switch(parseInt(vid)){
         case 1:
-            if (p['succed'] == undefined)
+            if (p['succed'] == undefined || p['succed'] == '')
                 location.reload();
             if (p[0][0][0] != 0) {
                 $(".sse_cnt").removeClass('hide');

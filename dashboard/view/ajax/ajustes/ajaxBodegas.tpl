@@ -30,8 +30,8 @@
                     <tr>
                         <td>{$BOD[LE][1]}</td>
                         <td>
-                            <i class="pbtn btn-color  load mdi mdi-pencil  mdi-24px" id="m{$BOD[LE][0]}" modulo="bodega"></i>
-                            <i class="pbtn btn-color cdel mdi mdi-close delete  mdi-24px" id="d{$BOD[LE][0]}" modulo="bodega" tip="vidbodega"></i>
+                            <i class="pbtn btn-color load mdi mdi-pencil mdi-24px" id="m{$BOD[LE][0]}" modulo="bodega"></i>
+                            <i class="pbtn btn-color cdel mdi mdi-close delete mdi-24px" id="d{$BOD[LE][0]}" modulo="bodega" tip="vidbodega"></i>
                         </td>
                     </tr>
                     {/section}
@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="row pequeño">
-            <div class="input-field col s12 m6 marginzero">
+            <div class="input-field col s12 m6 marginzero hide">
                 <select id="vidcuenta" type="select">
                     <option value="0">Cuenta Por Defecto</option>
                     {section name=LE loop=$CDEF}

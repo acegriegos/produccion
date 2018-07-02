@@ -7,6 +7,7 @@
 
     	if (session_status() !== PHP_SESSION_ACTIVE){
 		    session_start();
+        //exit(0);  
 		  }
 
     	if (isset($_POST['pss'])) {
@@ -74,6 +75,7 @@
 		}
    }else{
    $pagina = 0;
+   $tabla = 0;
 
     if (!isset($_REQUEST['arreglo'])) {
       header("Location: login");
@@ -92,6 +94,7 @@
    			break;
    		case 4:
    			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        $tabla = $_REQUEST['arreglo']['tbl'];
    			break;
    		case 5:
    			$transaccion = $log->kaioken($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
@@ -165,13 +168,24 @@
       }else{
         
   	   	if (is_array($transaccion)){
-  			$marcas = $transaccion;
-  			$succed = 1;
+  			  $marcas = $transaccion;
+          if ($tabla == 234) {
+            $ahora = new DateTime('now');
+            $reserved = $_SESSION['tuser'];
+
+            $interval = substr((strtotime($ahora->format('Y-m-d H:i:s')) - strtotime($reserved->format('Y-m-d H:i:s')))/60,0,1);
+            if ($interval >= 120) {
+              $succed = '';
+            }else
+              $succed = 1;
+            
+          }else
+            $succed = 1;
   			}else{
   				$marcas = array('ERROR'=>$transaccion);
   				$succed = 0;
   			}
-  	   
+  	    
   			$salida = array('succed'=>$succed);
   			array_push($salida, $marcas);
 

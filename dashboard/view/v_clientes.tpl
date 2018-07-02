@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.12">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.13">
   </head>
   <!-- #0B3861 -->
   <body>
     {$NAV}
 
-    <div class="bdy pequeño" >
+    <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
         <div class="card-header center white-text head1">
           <p class="flow-text" style="font-size: 1.9em;">Clientes</p>
@@ -153,7 +153,7 @@
                           <div>
                             <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
                             <input type="email" class="validate" id="correo_in" autocomplete="off">
-                            <input type="hidden" id="vcorreo" fill="18">
+                            <input type="hidden" id="vcorreo" fill="18"  tbl="2">
                             <label for="correo_in">Ingresar Correo</label>
                           <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
                         </div>
@@ -180,7 +180,7 @@
                             </div>
                             <div class="input-field col s12 m5">
                               <input type="text" class="validate" id="telefono_in" data-mask="9999-9999" autocomplete="off">
-                              <input type="hidden" id="vtelefono" fill="19">
+                              <input type="hidden" id="vtelefono" fill="19" tbl="2">
                               <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
                             <ul class="collection" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="4" style="border: 0;"></ul>
                           </div>
@@ -477,6 +477,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.0.0.12"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.0.0.13"></script>
 </body>
 </html>

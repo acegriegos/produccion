@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Área Comercial</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css?v=10.0.0.12">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css?v=10.0.0.13">
 
     </head>
     <body>
@@ -26,7 +26,7 @@
 
                     <div class="row">
                      <div class="col s12 m6 l6 per1000">
-                      <a href="clientes" class="waves-effect waves-light btn-large btn1 z-depth-3 per1000" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
+                      <a href="clientes" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
                     </div>
                     <div class="col s12 m6 l6 per1100">
                       <a href="facturacion?tf=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
@@ -34,7 +34,7 @@
                     <div class="col s12 m6 l6 hide">
                       <a href="#" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="CRM">CRM</a>
                     </div>
-                    <div class="col s12 m6 l6 per1200">
+                    <div class="col s12 m6 l6 per1200 hide">
                     <a href="rutas" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Rutas">Rutas</a>
                     </div>
                      <div class="col s12 m6 l6 per1300">
@@ -64,6 +64,6 @@
       </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/comercial.js?v=10.0.0.12"></script>
+    <script src="../assets/js/modulos/comercial.js?v=10.0.0.13"></script>
   </body>
 </html>

@@ -7,7 +7,7 @@
      <meta http-equiv="Cache-Control" content="max-age=86400"/>
      <title>SP-LT</title>
  
-     <link href="assets/css/bootstrap.css" rel="stylesheet">
+     <link href="assets/css/materialize.css" rel="stylesheet" type="text/css">
    </head>
    <body>
    	 
@@ -31,7 +31,9 @@
 	   
 	 	if (isset($rs->num_rows)) { 
 	 		$cols = $rs->fetch_all();
-	 		print_r($mysql->ejecutar('DROP PROCEDURE IF EXISTS '.$schema.'sp_mant'.$tabla));
+            $drop = 'DROP PROCEDURE IF EXISTS '.$schema.'sp_mant'.$tabla;
+	 		print_r($mysql->ejecutar($drop));
+            echo " - ".$drop;
 	 		echo "<hr>";
 	 		$param = 'CREATE PROCEDURE '.$schema.'sp_mant'.$tabla.'(vaccion tinyint(2),';
 	 		foreach ($cols as $obj) {
@@ -108,8 +110,9 @@ WHEN 3 THEN
 	SELECT @id;
 	/*INSERT INTO '.$log.'log values(null,0,3,\'\',vidusuario,now());*/
 END CASE; 
-END;';
+END;';  
 	 		 print_r($mysql->ejecutar($param));
+             echo " - ".$param;
 
 	 	}else{
 	 		echo "Tabla ".$schema.$tabla." no Existe<br>";
@@ -118,7 +121,7 @@ END;';
 	  }?>			 
  		</div>
      <script src="assets/js/jquery.js"></script>
-     <script src="assets/js/bootstrap.min.js"></script>
+     <script src="assets/js/materialize.min.js"></script>
      <script src="assets/libs/DataTables/media/js/jquery.dataTables.js"></script>
    </body>
  </html>
