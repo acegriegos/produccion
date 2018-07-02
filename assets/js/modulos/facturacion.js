@@ -268,7 +268,7 @@ function cargarVentas(){
 
     $(document).on("blur","#precp",function(){
         if ( $(this).attr('readonly') == undefined) {
-            $("#valores").data('elemento')['hprec'] = $(this).val().replace(/,/g,'');
+            $("#valores").data('elemento')['hprec'] = parseFloat($(this).val().replace(/,/g,''))*parseFloat($("#monedas option:selected").attr('dv'));
             $("#cantp").val(1).focus().select();
             $("#totp").val((parseFloat($(this).val().replace(/,/g,''))*1).formatMoney(2,'.',','))
         }
