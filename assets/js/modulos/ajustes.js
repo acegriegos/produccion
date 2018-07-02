@@ -41,7 +41,7 @@ $(document).on("click",".menu3",function(){
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 50;
-			arr['where'] = 0;
+			arr['where'] = '@@impresa';
 			var e = mantenimiento('login',4,arr)[0][0];
 
 			$("#vnombre").val(e[0]);
@@ -929,26 +929,6 @@ $("#dimpuestos").html(p);
 
 });
 
-$(document).on("click","#actinfo",function(){
-
-var validar = validarAjuste();
-if (validar == false) {
-$(".infoempresa").each(function(){
-var valor = $(this).val();
-var campo = $(this).attr('field');
-var arr = {};
-arr['sel'] = '';
-arr['tbl'] = 47;
-arr['where'] = '\"'+valor+'\",\"'+campo+'\"';
-mantenimiento('login',4,arr);
-});
-
-Materialize.toast('Datos Ingresados Correctamente',4000,'green');
-}else
-Materialize.toast(validar,4000,'red');
-
-});
-
 $(document).on("click","#actimp",function(){
 $("input[name=impuesto]").each(function(){
 var valor = $(this).val();
@@ -1106,7 +1086,7 @@ arr('login',7,2,15,'valor='+valor,'descr="descuentoVenta"',0,0);
 });
 
 function validar (varreglo,vmodulo) {
-	console.log('validar: '+vmodulo['modulo'])
+	//console.log('validar: '+vmodulo['modulo'])
 	var salida = {}
 	switch(vmodulo['modulo']) {
 		case 'ajustes':
@@ -1572,7 +1552,7 @@ function cargarSintax(vtabla){
 		case 'inventarios':
 			arr['sel'] = 'id,nombre';
 			arr['tbl'] = 111;
-			arr['where'] = 'id > 0 and idbodega = '+$("#vidbode").val()+' order by nombre';
+			arr['where'] = 'id > 0 and idbodega = '+$("#finventarios #vidbodega").val()+' order by nombre';
 			break;
 		case 'descuentos':
 			arr['sel'] = '';
@@ -1853,7 +1833,7 @@ function endDetail(vid,vacc,modulo){
 			thorload(modulo);
 			break;
 		case 'inventario':
-			setTimeout(function(){ deadclear(modulo)}, 100);
+			//setTimeout(function(){ deadclear(modulo)}, 100);
 			thorload(modulo);
 			break;
 		case 'variablesproduccione':

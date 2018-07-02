@@ -1,55 +1,133 @@
-<div class="card z-depth-3 pequeño">
+{if $smarty.session.BUSS neq 1}<div class="card z-depth-3 pequeño">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
             <div class="collapsible-header "><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
-            <div class="collapsible-body pequeño"><div class="card-block">
+            <div class="collapsible-body pequeño">{/if}<div class="card-block" {if $smarty.session.BUSS eq 1}style="background-color: white;"{/if}>
+                <section id="fsucursales">
+                <input type="hidden" class="zelda">
                 <div class="row pequeño">
-                    <div class="col s12 m12 l6  pequeño">
+                    <div class="col s12 m12 l4 pequeño">
                         <label for="vnombre">Razón Social</label>
-                        <input type="text" class="infoempresa" id="vnombre" field="empresa">
+                        <input type="text" id="vnombre">
                     </div>
-                    <div class="col s12 m12 l6 pequeño">
+                    <div class="col s12 m12 l4 pequeño">
                         <label for="vcedula">Cédula Jurídica</label>
-                        <input type="text" class="infoempresa" id="vcedula" field="CJuridica">
+                        <input type="text" id="vcedula">
                     </div>
-                </div>
-                <div class="row pequeño">
-                    <div class="col s12 m12 l6 pequeño">
+                    <div class="col s12 m12 l4 pequeño">
                         <label for="vpfisico">Nombre Comercial</label>
-                        <input type="text" class="infoempresa" id="vpfisico" style="padding-top: 14px">
-                    </div>
-                    <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone  mdi-24px button-collapse der tc-show  black-text" title="Administrar Teléfonos de la Empresa" id="tc-t"></a>
-                        <label for="vtelefono">Teléfonos de la Empresa</label>
-                        <input type="text"  id="vtelefono" field="telefonos" readonly>
+                        <input type="text" id="vpfisico">
                     </div>
                 </div>
+
                 <div class="row pequeño">
-                    <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show  black-text" title="Administrar Correos de la Empresa" id="tc-c"><i class="mdi mdi-email  mdi-24px"></i></a>
+                    <div class="col s12 m12 l4 pequeño">
+                        <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Administrar Teléfonos de la Empresa" data-position="bottom" id="tc-t" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"></a>
+                        <label for="vtelefono">Teléfonos de la Empresa</label>
+                        <input type="text"  id="vtelefono" readonly>
+                        <div id="ftelefonos" hasTabla="1" tp="4" vtabla="telefono"></div>
+                    </div>
+
+                    <div class="col s12 m12 l4 pequeño">
+                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show tooltipped black-text" data-tooltip="Administrar Correos de la Empresa" data-position="bottom" id="tc-c" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"><i class="mdi mdi-email  mdi-24px"></i></a>
                         <label for="vcorreo">Correos de la Empresa</label>
-                        <input type="email" class="infoempresa" id="vcorreo" field="correo" readonly>
+                        <input type="email"id="vcorreo" readonly>
+                        <div id="fcorreos" hasTabla="1" tp="4" vtabla="correo"></div>
                     </div>
-                    <div class="col s12 m12 l6 pequeño">
-                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="button-collapse der tc-show black-text" title="Administrar Ubicacion de la Empresa" id="tc-u"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
+                    <div class="col s12 m12 l4 pequeño">
+                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="button-collapse der tooltipped tc-show black-text" data-tooltip="Administrar Ubicacion de la Empresa" data-position="bottom" id="tc-u" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
                         <label for="vdireccion">Dirección de la Empresa</label>
-                        <input type="text" class="infoempresa" id="vdireccion" field="direccion" readonly>
+                        <input type="text" id="vdireccion" readonly>
+                        <div id="fubicaciones" hasTabla="1" tp="4" vtabla="ubicacione"></div>
                     </div>
-                    <div class="col s12 pequeño">
-                        <div class="col s6">
-                            <img src="#" class="responsive-img" alt="Image" width="400" height="200px" id="vlogo">
+                </div>
+
+                <div class="row col s12">
+
+                    <div class="col s6 pequeño">
+                        <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
+                            <input type="hidden" name="idsucursal"/>
+                            <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;" /></span>
+                        </form>
+                       <label for="registro-upload" class="right">LOGO DE EMPRESA</label>
+                    </div>
+
+                    <div class="col s6 center">
+                        <img src="#" class="responsive-img" alt="Image" id="vlogo">
+                    </div>
+ 
+
+                </div>
+
+                <div class="row col s12">
+                    
+                     <div class="col s6 fe"><br>
+                        <form class="dropzone needsclick dz-clickable dz-started center" id="p12-upload" style="padding: 5% !important" >
+                            <span class="dz-message needsclick text-center ico-reg" >
+                                <i class="mdi mdi-key mdi-48px imgDrop"></i>
+                            </span>
+                        </form>
+                        <label for="p12-upload" class="right">LLAVE CRIPTOGRAFICA</label>
+                    </div>
+
+                    <div class="input-field col s3 fe">
+                        <label for="vuser_atv">Usuario Comprobante Electrónico</label>
+                        <input type="text" class="validate" id="vuser_atv">
+                    </div>
+
+                    <div class="input-field col s3 fe">
+                        <label for="vpass_atv">Contraseña Comprobante Electrónico</label>
+                        <input type="text" class="validate" id="vpass_atv">
+                    </div>
+
+                    <div class="input-field col s3 fe">
+                        <label for="vpass_n">Clave Llave Criptografica</label>
+                        <input type="text" class="validate" id="vpass_n" maxlength="4">
+                    </div>
+                    
+                    <div class="input-field col s3 fe">
+                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px green-text"></i> </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row col s4">
+                        <div class="col s12">
+                            <input type="checkbox" id="visinventariado" class="with-gap">
+                            <label for="visinventariado">Control de Inventario</label>
                         </div>
-                        <div class="col s6 pequeño ">
-                            <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
-                                <input type="hidden" name="idsucursal"/>
-                                <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;" /></span>
-                            </form>
+                        <div class="col s12">
+                            <input type="checkbox" id="isfe" checked>
+                            <label for="isfe">Factura Electrónica</label>                                        
                         </div>
+                        <div class="col s12">
+                            <input type="checkbox" id="vfastshow">
+                            <label for="vfastshow">Envío de Correo Automático</label>
+                        </div>
+                    </div>
+                    
+                    <div class="row col s4">
+                        <div class="col s12">
+                            <input type="checkbox" id="vprintSale" checked>
+                            <label for="vprintSale">Imprimir Venta</label>
+                        </div>
+                        <div class="col s12">
+                            <input type="checkbox" id="visPrueba" checked>
+                            <label for="visPrueba">Período de Prueba</label>
+                        </div>
+                    </div>
+                    
+                    <div class="row col s4">
                         <div class="col s12 m12 pull-s2">
-                            <button type="button" class="btn btn-primary der z-depth-3" id="actinfo"><i class="small mdi mdi-refresh right  mdi-24px"></i>Actualizar</button>
+                            <button type="button" class="btn btn-primary edit der z-depth-3" modulo="sucursale" varias="1"><i class="small mdi mdi-refresh right  mdi-24px"></i>Actualizar</button>
                         </div>
                     </div>
-                </div></div>
+                    
+                </div>  
+                </div>
+            </div>
+            </section>
+            {if $smarty.session.BUSS neq 1}
                 <!-- Datos de la empresa -->
             </li>
             <li>
@@ -475,6 +553,7 @@
             <!-- Datos del Período Fiscal -->
         </li>
     </ul>
+    {/if}
     <div class="modal modal-fixed-footer grandemodal " id="modal-monedas">
         <div class="modal-header head2 padding1">
             <h5 class="modal-title center-align">Moneda</h5>

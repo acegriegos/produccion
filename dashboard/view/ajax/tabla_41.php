@@ -6,8 +6,8 @@
  <tr>
     <td><?php echo $obj[1] ?></td>
     <td>
-        <i class="pbtn btn-color material-icons load" id="m<?php echo $obj[0] ?>" modulo="bodega">edit</i>
-        <i class="pbtn btn-color cdel material-icons delete" id="d<?php echo $obj[0] ?>" modulo="bodega" tip="vidbogega">close</i>
+        <i class="pbtn btn-color load mdi mdi-pencil  mdi-24px" id="m<?php echo $obj[0] ?>" modulo="bodega"></i>
+        <i class="pbtn btn-color cdel mdi mdi-close delete" id="d<?php echo $obj[0] ?>" modulo="bodega" tip="vidbogega"></i>
     </td>
 </tr>
 

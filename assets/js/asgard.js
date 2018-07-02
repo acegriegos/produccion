@@ -60,19 +60,21 @@ $(document).on("click",".tc-show",function(){
             switch(code){
                 case 1: 
                     titulo = 'Teléfonos';
-                    cuerpo = mantenimiento('ajustes',10,'');
+                    cuerpo = mantenimiento('ajustes',10,{vidfila:$(this).attr('slide-id'),vidtabla:$(this).attr('slide-tbl')});
                     break;
                 case 2: 
                     titulo = 'Correos';
+                    cuerpo = mantenimiento('ajustes',11,{vidfila:$(this).attr('slide-id'),vidtabla:$(this).attr('slide-tbl')});
                     break;
                 case 3: 
                     titulo = 'Ubicación';
+                    cuerpo = mantenimiento('ajustes',12,{vidfila:$(this).attr('slide-id'),vidtabla:$(this).attr('slide-tbl')});
                     break;
                 default:
                     break;
             }
 
-            $(".ntit").html(titulo);
+            $(".ntit").html('<b>'+titulo+'</b>');
             $("#unico").html(cuerpo);
             
             $("#unico").find(".pais").val("Costa Rica");
@@ -381,7 +383,7 @@ function loadpool(vmodulo,vid,vvarias){
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
             }
             else
-                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val(),0,1,$("#"+vform+" #"+columns[0][0][0][i]));
+                arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val()+","+$("#"+vform+" #"+columns[0][1][i]['name']).attr("tbl"),0,1,$("#"+vform+" #"+columns[0][0][0][i]));
             break;
             default:
             break;

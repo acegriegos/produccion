@@ -28,12 +28,6 @@
                                     <input type="text" class="validate" id="vnombre">
                                     <input type="hidden" id="vidusuario" value="">
                                     <input type="hidden" id="vidsucursal" value="">
-                                    <input type="hidden" id="vconsecutivo" value="0">
-                                    <input type="hidden" id="vconsecutivo1" value="0">
-                                    <input type="hidden" id="vconsecutivo2" value="0">
-                                    <input type="hidden" id="vconsecutivo3" value="0">
-                                    <input type="hidden" id="vconsecutivo4" value="0">
-                                    <input type="hidden" id="vconsecutivo5" value="0">
                                     <input type="hidden" id="vid" value="0">
                                     <input type="hidden" id="vlogo" value="">
                                     <input type="hidden" id="vidtipocliente" value="2">
@@ -79,13 +73,13 @@
                                 <label for="vpass_n">Clave Llave Criptografica</label>
                                 <input type="text" class="validate" id="vpass_n" maxlength="4">
                             </div>
-                              <div class="input-field col s6 fe">
-                                <label for="vuser_atv">Usuario ATV</label>
-                                <input type="text" class="validate" id="vuser_atv" maxlength="2">
+                            <div class="input-field col s6 fe">
+                                <label for="vuser_atv">Usuario Comprobante Electrónico</label>
+                                <input type="text" class="validate" id="vuser_atv">
                             </div>
                             <div class="input-field col s6 fe">
-                                <label for="vpass_atv">Contraseña ATV</label>
-                                <input type="text" class="validate" id="vpass_atv" maxlength="4">
+                                <label for="vpass_atv">Contraseña Comprobante Electrónico</label>
+                                <input type="text" class="validate" id="vpass_atv">
                             </div>
                             <div class="col s12 fe">
                                 <button class="btn btn1 der z-depth-3" id="valid_p12" isvalid="0">Validar</button>
