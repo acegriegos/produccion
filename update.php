@@ -40,7 +40,7 @@
             lc_time_names         = es_CR
             default-time-zone = '-06:00'";
 
-            $numtables = $db->ejecutar("select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'"");
+            $numtables = $db->ejecutar("select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'");
 
             if (is_array($numtables)) {
                 $numtables = $numtables->fetch_all()[0];
