@@ -40,9 +40,10 @@
             lc_time_names         = es_CR
             default-time-zone = '-06:00'";
 
-            $numtables = shell_exec("mysql -u".$user." -p".$pass." -e \"select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\"");
+            $numtables = $db->ejecutar("select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'\"");
 
-            if (is_numeric(trim($numtables))) {
+            if (is_array($numtables)) {
+                $numtables = $numtables->fetch_all()[0];
                 if ($numtables == 0) {
                     $source = "https://logintechcr.com/descargas/firts.sql";
                     $ch = curl_init();
