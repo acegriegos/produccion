@@ -529,10 +529,12 @@ function cargarGlobal(){
         var id = $(this).attr('id').substr(4);
 
         var tipo = getParameterByName('tf');
+        var descuento = $("#fd"+id).data('triforce')['vdesc'];
         $("#titmod").html($("#desc"+id).html());
         $("#hdnprd").val(id);
         $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
-        $("#edescuento").val($("#fd"+id).data('triforce')['vdesc']);
+
+        $("#edescuento").val(descuento);
         $("#eunitario").val($("#fd"+id).data('triforce')['vprecio']);
 
         switch(parseInt(tipo)){
@@ -578,7 +580,8 @@ function cargarGlobal(){
         $("#fd"+id).data('triforce')['vcantidad'] = cant;
         $("#fd"+id).data('triforce')['vdesc'] = desc;
         $("#fd"+id).data('triforce')['vprecio'] = prec;
-        $("#fd"+id).data('triforce')['exoneracion'] = exo;
+        if(param == 2)
+            $("#fd"+id).data('triforce')['exoneracion'] = exo;
         $("#fd"+id).data('triforce')['vidunidad'] = unid;
         totalizar();
         $("#cant"+id).text(cant);
