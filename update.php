@@ -40,11 +40,11 @@
             lc_time_names         = es_CR
             default-time-zone = '-06:00'";
 
-            $numtables = $db->ejecutar("select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'")->fetch_all();
+            // $numtables = $db->ejecutar("select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'")->fetch_all();
 
-            if (is_array($numtables)) {
-                $numtables = $numtables[0][0];
-                if ($numtables == 0) {
+            // if (is_array($numtables)) {
+            //     $numtables = $numtables[0][0];
+            //     if ($numtables == 0) {
                     $source = "https://logintechcr.com/descargas/firts.sql";
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $source);
@@ -74,11 +74,11 @@
                     $file = fopen($destination, "w+");
                     fputs($file, $data);
                     fclose($file);
-                }else
-                    $salida['CONF'] = $numtables;
+            //     }else
+            //         $salida['CONF'] = $numtables;
                 
-            }else
-                $salida['CONF'] = $numtables;
+            // }else
+            //     $salida['CONF'] = $numtables;
 
             if(filesize("assets/update/update.log"))
                 $salida['CONF'] = "ERROR";

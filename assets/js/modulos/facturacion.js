@@ -582,7 +582,7 @@ function cargarGlobal(){
         $("#fd"+id).data('triforce')['vidunidad'] = unid;
         totalizar();
         $("#cant"+id).text(cant);
-        $("#prec"+id).text(prec.formatMoney(2,'.',','));
+        $("#prec"+id).text(parseFloat(prec).formatMoney(2,'.',','));
         $("#unitprod"+id).text($("#uniadl option:selected").html())
     });
   
