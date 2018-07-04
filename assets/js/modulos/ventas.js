@@ -1067,16 +1067,17 @@ function sendVMail(factura,clave,vid){
                 break;
             default:
                 if ($(".zelda").data('triforce')['vidcliente'] != 0) {
-                    var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
-                    if (correos == undefined) {
+                    var correos = getDatos("",18,$(".zelda").data('triforce')['vidcliente']+",2",0,0,0);
+                    
+                    if (!correos['succed']) {
                         Materialize.toast('Correos Inválidos',4000,'red');
                         arr('login',7,2,64,'feestado=4','id='+clave,0,0);
                     }else{
-                        for (var i = 0; i < correos.length; i++) {
-                            str_correos += correos[0]+",";
+                        for (var i = 0; i < correos[0].length; i++) {
+                            str_correos += correos[0][i][3]+",";
                         }
-                        console.log(str_correos)
-                        str_correos = str_correos.substr(str_correos,0,-1);
+
+                        str_correos = str_correos.substr(0,str_correos.length-1);
                         console.log(str_correos)
                     }
                 }
@@ -1111,7 +1112,7 @@ function sendVMail(factura,clave,vid){
         }
     }
 
-    // setTimeout(function(){location.reload();},5000);
+    setTimeout(function(){location.reload();},5000);
 }
 
 
