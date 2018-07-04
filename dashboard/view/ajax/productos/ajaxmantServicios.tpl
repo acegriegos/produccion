@@ -75,10 +75,16 @@
                         <textarea id="vdescripcion" type="textarea" class="materialize-textarea" length="150" style="margin: 0;padding: 0px"></textarea>
                         <label for="vdescripcion">Descripción del Servicio</label>
                     </div>
+                    {if $smarty.session.BUSS neq 1}
                     <div class="col s6 m6 l6 input-field" id="dinvent">
                         <select id="vidinventario" type="select"></select>
                         <label for="vidinventario">Inventario</label>
                     </div>
+                    {else}
+
+                    <input type="hidden" id="vidinventario" value="">
+
+                    {/if}
                 </div>
                 <div class="row" style="margin: 0; padding: 0;">
                     <div class="col s12 m12">
@@ -167,7 +173,7 @@
 
                     </div>
                     <div class="col s12 m3 input-field">
-                        <select id="vidmoneda" type="select" style="margin: 0;padding: 0">
+                        <select id="vidmoneda" type="select" style="margin: 0;padding: 0" noClear="1">
                           {section name="LE" loop=$MON}
                             <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
                           {/section}
