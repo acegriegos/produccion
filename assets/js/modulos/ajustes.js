@@ -94,7 +94,7 @@ $(document).on("click",".menu3",function(){
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 142;
-			arr['where'] = 0;
+			arr['where'] = '0,@@impresa';
 			var desc = mantenimiento('login',4,arr);
 
 			if (desc != null) {
@@ -1557,7 +1557,7 @@ function cargarSintax(vtabla){
 		case 'descuentos':
 			arr['sel'] = '';
 			arr['tbl'] = 142;
-			arr['where'] = '0';
+			arr['where'] = '0,@@impresa';
 			break;
 		case 'impuestos':
 			arr['sel'] = 'id,nombre,resumen,valor';
