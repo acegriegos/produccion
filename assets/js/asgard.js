@@ -214,12 +214,14 @@ $(document).on("click",".load",function(){
 $(document).on("click",".add",function(){
     var modulo = $(this).attr('modulo');
     var varias = $(this).attr('varias');
+    acc = 1;
     doGlobal(1,modulo,'',varias);
 });
 
 $(document).on("click",".edit",function(){
     var modulo = $(this).attr('modulo');
     var varias = $(this).attr('varias');
+    acc = 2;
     doGlobal(2,modulo,'',varias); 
 });
 
@@ -227,6 +229,7 @@ $(document).on("click",".delete",function(){
     var modulo = $(this).attr('modulo');
     var id = $(this).attr('id').substr(1);
     vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
+    acc = 3;
     doGlobal(3,modulo,id,0);
 });
 
@@ -269,7 +272,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
+
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -277,10 +280,8 @@ function doGlobal(accion,modulo,tip,varias){
             var tmsj = "Ingresado";
             if (accion == 2) {
                 tmsj = "Actualizado";
-                acc = 2;
             }else if(accion == 3) {
                 tmsj = "Eliminado";
-                acc = 3;
             }
 
             Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
@@ -761,6 +762,7 @@ function deadclear(vform) {
                     case 'text':
                     case 'password':
                     case 'time':
+                    console.log($(this).prop('id'))
                     $(vform+" #"+$(this).prop('id')).val('');
                     break;
                     case 'select':

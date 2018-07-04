@@ -951,7 +951,7 @@ function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
         var smdesc;
         for (var i = 0; i < desc[0].length; i++) {
             smdesc = '';
-            if (parseFloat(desc[0][i][1]) > mdesc) {
+            if (parseFloat(desc[0][i][1]) > mdesc && desc[0][i][3] == 0)  {
                 mdesc = desc[0][i][1];
                 smdesc = 'selected';
                 mdescid = desc[0][i][0];

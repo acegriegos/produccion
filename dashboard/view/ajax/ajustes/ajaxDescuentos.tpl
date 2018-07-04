@@ -41,7 +41,7 @@
         <div class="modal-content pequeño" id="fdescuentos">
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <input type="text" id="vnombre">
+                    <input type="text" id="vnombre" autocomplete="off">
                     <label for="vnombre">Nombre del Descuento</label>
                     <input type="hidden" id="vid" value="0">
                     <input type="hidden" id="vidusuario" value="">

@@ -1781,11 +1781,11 @@ $(document).on("click","#addproduct",function(){
 });
 
 $(document).on("click","#addservice",function(){
+	acc = 1;
     $(".accmodal").html('Agregar Servicio');
     $("#addV").html('Agregar');
     $("input[name=sPeriodo]").prop('checked',false);
     $("#vdescripcion").val('');
-
     deadclear('servicio');
     $("#isPeriodo").prop('checked',false);
     $("#outsourcing").prop('checked',false);
@@ -1794,7 +1794,9 @@ $(document).on("click","#addservice",function(){
     // $("#servpro").change();
     $(".cper").attr('disabled',true);
     $(".cper").prop('checked',false);
-    arr('login',6,'id,nombre',111,'id > 0 and idsucursal in(-1,@@impresa)',15,1,$("#vidinventario"));
+	if ($("#vidinventario").attr('type') == 'select')
+		arr('login',6,'id,nombre',111,'id > 0 and idsucursal in(-1,@@impresa)',15,1,$("#vidinventario"));
+    
     arr('login',6,'id,if(nombre = "",pfisico,nombre)',39,'id > 0',15,1,$("#vsucursales"));
     $("#vdescripcion").characterCounter();
     $("#vidtipo").val(0);

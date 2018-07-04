@@ -143,7 +143,7 @@
                 <td class="flista2 td center-align"><span id="desc"><?php echo $obj[19]; ?></span></td>
                 <td class="flista3 td center-align"><span id="punit"><?php echo $obj[20]; ?></span></td>
                 <td class="flista4 td center-align"><span id="desc"><?php echo $obj[23]; ?></span></td>
-                <td class="flista5 td center-align"><span id="desc"><?php echo $obj[21]; ?></span>%</td>
+                <td class="flista5 td center-align"><span id="desc"><?php echo $obj[21]; ?></span></td>
                 <td class="flista6 td right-align"><span id="import" ><?php echo $obj[22]; ?></span></td>
               </tr>
 
