@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Proyectos</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proyectos.css?v=10.0.0.16">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proyectos.css?v=10.0.0.17">
   </head>
   <body>
     {$NAV}
@@ -15,6 +15,6 @@
 
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/proyectos.js?v=10.0.0.16"></script>
+    <script src="../assets/js/modulos/proyectos.js?v=10.0.0.17"></script>
   </body>
 </html>
