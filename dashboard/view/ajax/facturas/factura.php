@@ -71,8 +71,11 @@
              </div>
              <!--  -->
              <div class="col s12">
-              <p><b><?php echo $datos[30]; ?></span>:</b></p>
-              <span id="fcliente"><?php echo $datos[4]; ?></span>
+              <?php if ($datos[4] != '') { ?>
+                <p><b><?php echo $datos[30]; ?></span>:</b></p>
+                <span id="fcliente"><?php echo $datos[4]; ?></span>
+              <?php } ?>
+             
             </div>
             <div class="col s12"><br>
               <span><b>Vende:</b></span>
@@ -149,6 +152,13 @@
 
               <?php } ?>
             </tbody>
+            <?php if($obj[33] != ''){
+              $exoneracion = explode(',', $obj[33]);
+              $time = strtotime($exoneracion[3]);
+              $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
+
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". Monto Autorizado: ".$exoneracion[4].". Porcentaje de Compra Autorizado: ".$exoneracion[5]."% </span><br><br>";
+            } ?>
             *Producto Exento
             <tfoot>
               <tr>

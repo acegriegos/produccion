@@ -78,7 +78,7 @@
               <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
               <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
               <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
-              <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
+              <li class="tab col s3 hide"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
               <li class="tab col s3"><a href="#ser" class="white-text" id="ln5">Servicios</a></li>
               <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
             </ul>

@@ -54,8 +54,8 @@ $("#telefono_in").blur(function(){
 		ind_1 = 1;
 		$("#ftelefonos").html('');
 		$("#fcorreos").html('');
-		obtenerCuentas(0);
-		obtenerImpuestos(0);
+		//obtenerCuentas(0);
+		//obtenerImpuestos(0);
 		if($("#tipocliente").attr("tp") != 1)
 			$("#tipocliente").click();
 
@@ -288,8 +288,8 @@ $(document).on("click",".load",function(){
 	$("#agClie").addClass('edit');
 
 	$("#ln1").click();
-	obtenerCuentas($(this).attr('id').substr(1));
-	obtenerImpuestos($(this).attr('id').substr(1));
+	// obtenerCuentas($(this).attr('id').substr(1));
+	// obtenerImpuestos($(this).attr('id').substr(1));
 });
 
 // $(document).on("click","input[name='tipoclie']",function(){

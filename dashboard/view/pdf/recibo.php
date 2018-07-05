@@ -239,34 +239,43 @@ $datos[0][3].'</div>'.
 '<tr>'.
 '<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">'.
 
-'<br><br>'.
+'<br><br>';
+
+if($datos[0][33] != ''){
+  $exoneracion = explode(',', $datos[0][33]);
+  $time = strtotime($exoneracion[3]);
+  $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
+
+  $html .= '<span style="font-size: 14px;text-align:justify;color: #494949;font-family: Helvetica;">Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].', con fecha '.$fexo.'. Monto Autorizado: '.$exoneracion[4].'. Porcentaje de Compra Autorizado: '.$exoneracion[5].'% </span><br><br>';
+} 
 
 
+$html .= '*Producto Exento <br>'.
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%;" class="mcnTextContentContainer">'.
 '<tbody><tr>'.
 
-'<td valign="top" class="mcnTextContent" style="<<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;font-family: Helvetica;" align="center">'.
+'<td valign="top" class="mcnTextContent" style="font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="9%">'.
 '<strong>Cantidad</strong>'.
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="36%">'.
 '<strong>Descripcion</strong>'.
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="15%">'.
 '<strong>P. Unitario</strong>'.
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="10%">'.
 '<strong>Tipo</strong>'.
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="15%">'.
 '<strong>Descuento</strong>'.
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center">'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="15%">'.
 '<strong>Importe</strong>'.
 '</td>'.
 '</tr>'.
-'</tbody></table>'.
+'</tbody></table>';
 
-'<!-- DETALLE FACTURA -->'.
+$html .= '<!-- DETALLE FACTURA -->'.
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer"><tbody>';
 
 $grabado = $exento = 0;
@@ -278,23 +287,23 @@ foreach ($datos as $obj) {
   else
     $exento += str_replace(',', '', $obj[22]);
   
-  $html .= '<tr><td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+  $html .= '<tr><td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;" width="10%">'.
 $obj[29].$obj[18].
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;" width="36%">'.
 $obj[19].
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;" width="15%">'.
 $obj[20].
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;" width="10%">'.
 $obj[23].
 '</td>'.
 
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
-$obj[21].'%'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;" width="15%">'.
+$obj[21].
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;font-family: Helvetica;">'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 14px;text-align: center;font-family: Helvetica;" width="15%">'.
 $obj[22].
 '</td>'.
 '</tr>';
@@ -319,9 +328,11 @@ $html .= '</tbody>'.
 '</td>'.
 '</tr>'.
 '</tbody>'.
-'</table>'.
+'</table>';
 
-'*Producto Exento <table style="width: 100%">';
+
+
+$html .= '<table style="width: 100%">';
 
 if ($grabado > 0){
 

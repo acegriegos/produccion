@@ -291,26 +291,26 @@
 
     <div class="col s12 m12 l12">
 
-        <div class="col s12 m12 l12">
-          <textarea id="vcomentario" cols="25" placeholder="Comentario de Factura" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%; "></textarea>
-          <br>
-        </div><br><br>
-        <table>
+        <div class="col s12 m12 l12 input-field">
+          <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea>
+          <label for="vcomentario">Comentario de Factura</label>
+        </div>
+        <table style="margin-top: 150px">
           <tr>
-            <td><label for="vdescuentop">Descuento</label></td>
+            <td style="padding-top: 0px;padding-bottom: 0px;"><label for="vdescuentop">Descuento</label></td>
             <td>
-              <select id="tdescuento" class="eder tdesc" tp="1">
+              <select id="tdescuento" class="eder tdesc" tp="1" style="margin: 0px; height: 0.5%% !important">
               </select>
               <input type="text" id="vdescuentop" class="eder _txtaside hide" value="0" tdesc="1"
-              style="height: 0.5% !important" placeholder="DESCUENTO"></td>
+              style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO"></td>
           </tr>
           <tr>
             <td><label for="vflete">Flete</label></td>
-            <td><input type="text" id="vflete" class="eder _txtaside divisa" value="0" placeholder="FLETE" style="height: 0.5% !important"></td>
+            <td><input type="text" id="vflete" class="eder _txtaside divisa" value="0" placeholder="FLETE" style="margin:0px;height: 0.5% !important"></td>
           </tr>
           <tr>
             <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
-            <td><input type="text" id="ajuste" class="eder _txtaside" value="" style="height: 0.5% !important" placeholder="Ajuste máximo: 10" maxlength="4"></td>
+            <td><input type="text" id="ajuste" class="eder _txtaside" value="" style="margin:0px;height: 0.5% !important" placeholder="Ajuste máximo: 10" maxlength="4"></td>
           </tr>
         </table>
 
@@ -367,8 +367,15 @@
             </select>
           </div>
 
-          <div class="col s12 m12 l12" align="center">
-            <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
+          <div class="col s12" style="padding: 0px;">
+            <div class="row" style="padding: 0px;">
+              <div class="col s6 hide clieBTN" id="exobtn" style="padding: 0px;">
+                <a href="#modal-exo" class="btn doexo modal-trigger" style="width: 90%;padding-left: 19px; ">Exonerar</a>
+              </div>
+              <div class="col s6" style="padding: 0px;">
+                <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
+              </div>
+            </div>  
           </div>
 
           </div>
