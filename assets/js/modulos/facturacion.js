@@ -1,6 +1,5 @@
 var param = '';
 var config;
-
 // trVenta
 // trCompra
 // trOCompra

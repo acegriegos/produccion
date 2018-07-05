@@ -14,6 +14,8 @@
 		$smarty->assign('STY',$sty);
 		$smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
+
+	   	$smarty->assign('EXOS',$kakaroto->kamehameha('idhacienda,nombre',126,'id > 0 order by nombre'));
 	   	$smarty->display('v_facturacion.tpl');
 	   }else{
 	   $pagina = 0;
@@ -26,6 +28,7 @@
 			   	$smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id >= 0 order by principal desc,nombre'));
 			   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
 			   	$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
+
 			   	$smarty->display('ajax/facturas/ajaxVentas.tpl');
 	   			break;
 	   		case 6:

@@ -168,7 +168,7 @@
 
                         <span class="prefix moneda"></span>
 
-                        <input id="vprecio" type="number" class="vcalcserv eder" >
+                        <input id="vprecio" type="number" class="eder" >
                         <label for="vprecio">Precio</label>
 
                     </div>

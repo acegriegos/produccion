@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.16">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.17">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -78,7 +78,7 @@
               <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
               <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
               <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
-              <li class="tab col s3"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
+              <li class="tab col s3 hide"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
               <li class="tab col s3"><a href="#ser" class="white-text" id="ln5">Servicios</a></li>
               <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
             </ul>
@@ -477,6 +477,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.0.0.16"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.0.0.17"></script>
 </body>
 </html>
