@@ -1164,19 +1164,23 @@ function cargarMoneda(idmoneda,elemento){
         
         divisas.each(function(){
             var monto = pre = tot = 0;
+            monto = parseFloat($(this).is("input") ? $(this).val().replace(/,/g,'') : $(this).html().replace(/,/g,''));
+            
+            if (pmonto != 1){
+                $(this).attr('base',monto);
 
-            if ($(this).is("input")){
-                monto = parseFloat($(this).val().replace(/,/g,''));
                 pre = monto / pmonto; 
-                tot = (pre * valor).formatMoney(2,'.',',');
-                $(this).val(tot);
-            }
-            else{
-                monto = parseFloat($(this).html().replace(/,/g,''));
-                pre = monto / pmonto; 
-                tot = (pre * valor).formatMoney(2,'.',',');
-                $(this).html(tot);
-            }
+                tot = parseFloat(pre * valor).toString().split(".");
+                decimals = tot[1];
+                real = tot[0];
+                tot = decimals > 2 ? parseFloat(real+"."+decimals.substr(0,2))+0.01 : parseFloat(real+"."+decimals) 
+            }else
+                tot = parseFloat($(this).attr('base'));
+            
+            if ($(this).is("input"))
+                $(this).val(tot.formatMoney(2,'.',','));
+            else
+                $(this).html(tot.formatMoney(2,'.',','));
             
         })
     }
