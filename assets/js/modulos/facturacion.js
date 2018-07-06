@@ -224,7 +224,7 @@ function cargarCompras(){
                 var desgloce= $("#valores").data('elemento')['isdesgloce'];
                 var strimp = $("#valores").data('elemento')['strimp'];
                 var exo = 0;//$("#valores").data('elemento')['vexo'];
-
+            
                 addline(idprd,cod,desc,cant,precio,total,cnti,$(this).val(),0,hinv,defi, unidad, comodin,desgloce,strimp);
         }
     });
