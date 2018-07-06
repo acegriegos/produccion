@@ -195,7 +195,7 @@
           </div>
           
           <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
-            <input type="text" id="totp" class="f center divisa hide" value="0.00" readonly placeholder="Total">
+            <input type="text" id="totp" class="f center hide" value="0.00" readonly placeholder="Total">
           </div>
 
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
@@ -236,7 +236,7 @@
           </div>
           
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
+            <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
           </div>
 
           <div class="center col s12 m2" style="font-size: 1em;  padding: 0px 5px !important;">
@@ -325,7 +325,7 @@
           <tr>
             <td>SUBTOTAL:</td>
             <td style="float: right;">
-              <span class="moneda"></span><span id="subtot" class="divisa" type="html" value="0" style="color: black">0.00</span>
+              <span class="moneda"></span><span id="subtot" type="html" value="0" style="color: black">0.00</span>
             </td>
           </tr>
         </thead>
@@ -337,17 +337,17 @@
         <tfoot>  
           <tr class="_desc">
             <td>DESCUENTO:</td>
-            <td style="float: right;"><span class="moneda"></span><span id="descuento_v" class="divisa" type="html" value="0">0.00</span></td>
+            <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
           </tr>
 
           <tr class="_flete">
             <td>FLETE:</td>
-            <td style="float: right;"><span class="moneda"></span><span id="flete" class="divisa" type="html" value="0">0.00</span></td>
+            <td style="float: right;"><span class="moneda"></span><span id="flete" type="html" value="0">0.00</span></td>
           </tr>
 
           <tr style="border-top:1px solid #E9E9E9">
             <td><b>TOTAL:</b></td>
-            <td style="float: right;"><b><span class="moneda"></span><span id="tot" class="divisa" type="html" value="0">0.00</span></b>
+            <td style="float: right;"><b><span class="moneda"></span><span id="tot" type="html" value="0">0.00</span></b>
             </td>
           </tr>
         </tfoot>
