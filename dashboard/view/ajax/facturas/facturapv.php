@@ -15,6 +15,11 @@
     margin: 1px !important;
   }
 
+  body{
+    font-size: 0.7em;
+    margin: 1px !important;
+  }
+
 }
 </style>
 </head>
