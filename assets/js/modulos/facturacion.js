@@ -218,14 +218,14 @@ function cargarCompras(){
                 var idprd = $("#valores").data('elemento')['idp'];
                 var desc = $("#descp").val();
                 var hinv = $("#valores").data('elemento')['hinv'];
-                var defi = arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
+                var defi = 0;//arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
                 var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
                 var comodin= $("#valores").data('elemento')['hcomodin'];
                 var desgloce= $("#valores").data('elemento')['isdesgloce'];
                 var strimp = $("#valores").data('elemento')['strimp'];
                 var exo = 0;//$("#valores").data('elemento')['vexo'];
                 
-                addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:$(this).val()},0,hinv,defi, unidad, comodin,desgloce,strimp);
+                addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:$(this).val()},0,hinv,0, unidad, comodin,desgloce,strimp);
         }
     });
 
@@ -528,7 +528,7 @@ function cargarGlobal(){
         var id = $(this).attr('id').substr(4);
 
         var tipo = getParameterByName('tf');
-        var descuento = $("#fd"+id).data('triforce')['vdesc'];
+        var descuento = $("#fd"+id).data('triforce')['vdescuento'];
         $("#titmod").html($("#desc"+id).html());
         $("#hdnprd").val(id);
         $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
@@ -538,7 +538,7 @@ function cargarGlobal(){
 
         switch(parseInt(tipo)){
             case 2:
-                $(".eimp").addClass('hide');
+                $(".eimp").removeClass('hide');
                 break;
             default:
                 $(".eunit").addClass('hide');
@@ -550,7 +550,8 @@ function cargarGlobal(){
         var entrada = $("#fd"+id).data('triforce')['videntrada'];
         var char1 = entrada.substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
-        cargarDescuentos(entrada.substr(1)+',0',tabla,1,id);
+        if (param != 2)
+            cargarDescuentos(entrada.substr(1)+',0',tabla,1,id);
 
         var uni = '';
         var unis = getDatos('',250,entrada,0,0,0);

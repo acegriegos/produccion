@@ -401,7 +401,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-        <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" codigo="1" modulo="cliente" varias="1" >Guardar</button>
+        <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" modulo="cliente" varias="1" >Guardar</button>
       </div>
     </div>
   </div>

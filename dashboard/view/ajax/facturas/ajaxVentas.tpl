@@ -299,10 +299,11 @@
           <tr>
             <td style="padding-top: 0px;padding-bottom: 0px;"><label for="vdescuentop">Descuento</label></td>
             <td>
-              <select id="tdescuento" class="eder tdesc" tp="1" style="margin: 0px; height: 0.5%% !important">
+              <select id="tdescuento" class="eder tdesc trVenta hide" tp="1" style="margin: 0px; height: 0.5%% !important">
               </select>
-              <input type="text" id="vdescuentop" class="eder _txtaside hide" value="0" tdesc="1"
-              style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO"></td>
+              <input type="text" id="vdescuentop" class="eder _txtaside hide trCompra" value="0" tdesc="1"
+              style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO" autocomplete="off">
+            </td>
           </tr>
           <tr>
             <td><label for="vflete">Flete</label></td>

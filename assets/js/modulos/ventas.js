@@ -74,7 +74,7 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 0,vidusuario:0,vidtipopago:0,vidodt:0,vajuste:0, idline:0,  saldo : 0, notific : 0,tmpcorreo:'',videxoneracion:''});
+    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 0,vidusuario:'',vidtipopago:0,vidodt:0,vajuste:0, idline:0,  saldo : 0, notific : 0,tmpcorreo:'',videxoneracion:''});
 
     $(".modal").modal();
 
@@ -360,13 +360,17 @@ $(document).on("keyup","#edescuento",function(e){
         if(isNaN($(this).val())){
             Materialize.toast('Descuento no Válido',4000,'red')
             $(this).select().focus();
-        }else{
-            var id = $("#hdnprd").val();
-            $("#fd"+id).data('triforce')['vdescuento'] = $(this).val();
-            totalizar();
+        }else
             $(this).blur();
-        }
+        
     }
+});
+
+
+$(document).on("blur","#edescuento",function(){
+    var id = $("#hdnprd").val();
+    $("#fd"+id).data('triforce')['vdescuento'] = $(this).val();
+    totalizar();
 });
 
 $(document).on("keyup","#vdescuentop",function(e){
@@ -375,11 +379,13 @@ $(document).on("keyup","#vdescuentop",function(e){
         if(isNaN($(this).val())){
             Materialize.toast('Descuento no Válido',4000,'red')
             $(this).select().focus();
-        }else{
-            totalizar();
+        }else
             $(this).blur();
-        }
     }
+});
+
+$(document).on("blur","#vdescuentop",function(){
+    totalizar();
 });
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo) {
@@ -429,7 +435,6 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s1 center-align" id="unitprod'+id+'">'+uni+'</div> <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align totp" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div class="right"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
                     break;
             case 2:
-            
                 $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div>  <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align divisa" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <div id="unitprod'+id+'" style="padding: 0 !important;" class="col s1 center-align">'+uni+'</div> <div id="vdesc'+id+'" style="padding: 0 !important;" class="col s1 center-align"> '+dcs['descuento']+'% </div> <div cstyle="padding: 0 !important;" class="col s1 center-align totp" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div align="right" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></div> </div>');
                 break;
             case 3:
@@ -503,10 +508,10 @@ function totalizar(){
         desct       = decindv;//param.toString().match(new RegExp(/[2]/i)) ? decindv : decindv > descmax ? descmax : decindv;
 
         precio = precio * cantidad
-        totd += precio;
         tmpdesc = precio * (1-(desct/100));
         idesc += precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
-        
+        totd += precio;
+
         $("#fd"+vidlinea).data('triforce')['viddescuentos'] = '';
         $("#mdesc"+vidlinea).html('');
 
@@ -520,8 +525,8 @@ function totalizar(){
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc;
         $("#tota"+vidlinea).html((tmpdesc/divisa).formatMoney(2,'.',','))
         $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
-        tmpdesc = tmpdesc * (1-(desc/100));
         $("#fd"+vidlinea).data('triforce')['vdesc'] = idesc;
+        tmpdesc = tmpdesc * (1-(desc/100));
 
         $(".dimpuesto").each(function(){
             geimv = $(this).data('valores')['exoneracion'];
@@ -555,7 +560,7 @@ function totalizar(){
         });
     });
     
-    total = totd + parseFloat(impuesto);
+    total = totd + parseFloat(impuesto) - idesc;
     
     if (flete != 0) {
         total = total + flete;
@@ -969,6 +974,9 @@ function cargarImpuestos(vfila,vtabla){
 }
 
 function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
+    
+    if (param == 2)
+        return 0;
 
     var desc = getDatos('',115,'@@impresa,"'+vfila+'","'+vtabla+'"',0,0);
     var strDesc = '<option value="" valor="0">No Aplica - 0%</option>';
