@@ -931,7 +931,7 @@ function retrasarFocus(vinput){
 
 function calcVuelto(){
     var paga = parseFloat($("#pcon").val().replace(/,/g,''));
-    var totalfact = Math.ceil(parseFloat( $(".totalfact").text().replace(/,/g,'') )/5)*5;
+    var totalfact = Math.ceil(parseInt( $(".totalfact").text().replace(/,/g,'') )/5)*5;
     var cambio = (paga - totalfact);
 
    $("#pcam").text( (cambio*parseFloat($("#monedas option:selected").attr('dv'))).formatMoney(0,'.',','));

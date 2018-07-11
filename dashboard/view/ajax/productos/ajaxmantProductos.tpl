@@ -9,7 +9,7 @@
 				<li><a class="optns" tipo="nombre" href="#!" fltr="2">Nombre</a></li>
 				<li><a class="optns" tipo="marca" href="#!" fltr="3">Marca</a></li>
 			</ul>
-			<input type="text" id="search_productos" maxlength="100" num="v14" var="0,1">
+			<input type="text" id="search_productos" maxlength="100" num="v14" var="0,1" autocomplete="off">
 			<label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
 		</div>
 		<div class="col s12 m4 l7 per4102">
@@ -127,10 +127,10 @@
                     <input type="hidden" id="vidinventario" value="6" noClear="1">
                 {else}
                 <div class="input-field marginzero col s12 m12 l4" id="dinventario">
-                    <select type="select" id="vidinventario">
+                    <select type="select" id="vidinventario" noClear="1">
                         <option value="0">Seleccione un Inventario</option>
                         {section name=LE loop=$INV}
-                        <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                        <option value="{$INV[LE][0]}" {if $INV[LE][0] eq 6} selected {/if}>{$INV[LE][1]}</option>
                         {/section}
                     </select>
                     <label for="vidinventario">Inventario</label>

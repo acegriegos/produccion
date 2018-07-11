@@ -22,7 +22,7 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
-				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:0,vidsucursal:0})
+				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:0})
 				// paginate($("ul.pagination").attr('vtbl'));
 				break;
 			case 2:
@@ -267,7 +267,7 @@ $(document).on("blur", "#vfamilia", function () {
 
 $(document).on("blur", "#vtipo", function () {
 	var nombre = $(this).val();
-	var idtipo = arr('login', 4, 'id', 21, 'nombre = \"' + nombre + '\" and idfamilia = ' + $("#vidfamilia").val(), 0, 0, 0)[0][0];
+	var idtipo = arr('login', 4, 'id', 21, 'nombre = \"' + nombre + '\" and idfamilia = ' + $("#fproductos .zelda").data('triforce')["vidfamilia"], 0, 0, 0)[0][0];
 	if (idtipo != undefined)
 		$("#fproductos .zelda").data('triforce')["vidtipo"] = idtipo;
 	else
@@ -276,7 +276,7 @@ $(document).on("blur", "#vtipo", function () {
 
 $(document).on("blur", "#vmarca", function () {
 	var nombre = $(this).val();
-	var idmarca = arr('login', 4, 'id', 22, 'nombre = \"' + nombre + '\" and idtipo = ' + $("#vidtipo").val(), 0, 0, 0)[0][0];
+	var idmarca = arr('login', 4, 'id', 22, 'nombre = \"' + nombre + '\" and idtipo = ' + $("#fproductos .zelda").data('triforce')["vidtipo"], 0, 0, 0)[0][0];
 	if (idmarca != undefined)
 		$("#fproductos .zelda").data('triforce')["vidmarca"] = idmarca;
 	else
@@ -319,7 +319,7 @@ $(document).on("keydown", "#vtipo", function (e) {
 			$(".autocomplete-content").remove();
 			$("#vtipo").autocomplete({
 				limit: 10,
-				data: arr('login', 4, 'nombre,null', 21, 'idfamilia = ' + $("#vidfamilia").val() + ' and nombre like \"%' + $("#vtipo").val() + '%\" and idsucursal = @@impresa limit 10', 0, 0, 0, 1)
+				data: arr('login', 4, 'nombre,null', 21, 'idfamilia = ' + $("#fproductos .zelda").data('triforce')["vidfamilia"] + ' and nombre like \"%' + $("#vtipo").val() + '%\" and idsucursal = @@impresa limit 10', 0, 0, 0, 1)
 			});
 			$("#vtipo").siblings($(".autocomplete-content")).css('width', '25%');
 		}
@@ -342,7 +342,7 @@ $(document).on("keydown", "#vmarca", function (e) {
 
 			$("#vmarca").autocomplete({
 				limit: 10,
-				data: arr('login', 4, 'nombre,null', 22, 'idtipo = ' + $("#vidtipo").val() + ' and nombre like \"%' + $("#vmarca").val() + '%\" and idsucursal = @@impresa limit 10', 0, 0, 0, 1)
+				data: arr('login', 4, 'nombre,null', 22, 'idtipo = ' + $("#fproductos .zelda").data('triforce')["vidtipo"] + ' and nombre like \"%' + $("#vmarca").val() + '%\" and idsucursal = @@impresa limit 10', 0, 0, 0, 1)
 			});
 
 			$("#vmarca").siblings($(".autocomplete-content")).css('width', '25%');
@@ -2028,7 +2028,7 @@ function cargarSintax(vtabla) {
 
 
 function endDetail(id, acc, modulo) {
-	console.log(id)
+	// console.log(id)
 
 	if (acc == 3) {
 		thorload(modulo);
@@ -2060,6 +2060,7 @@ function endDetail(id, acc, modulo) {
 			}
 
 			thorload(modulo);
+			deadclear(modulo);
 			paginate(14);
 			break;
 		default:
