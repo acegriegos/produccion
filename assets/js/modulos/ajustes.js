@@ -102,7 +102,6 @@ $(document).on("click",".menu3",function(){
 				$("#listadescuentos").html(vdesc);
 			}
 			$("#data-table-descuentos").dataTable({
-				bFilter : false,
 				bLengthChange : false,
 				order : []
 			});
@@ -117,6 +116,11 @@ $(document).on("click",".menu3",function(){
 
 			$("#dimpuestos").html(imp);
 			$("#majustes").html(p);
+
+			$("#data-table-impuestos").dataTable({
+				bLengthChange : false,
+				order : []
+			});
 			break;
 		case 4:
 			var p = mantenimiento('ajustes',4,'');
@@ -945,10 +949,10 @@ mantenimiento('login',4,arr);
 $(document).on("click",".catimpuesto",function(){
 console.log(2);
 var id = $(this).attr('id').substr(1);
-var tabla = $("#data-table-impuesto").DataTable();
+var tabla = $("#data-table-impuestos").DataTable();
 tabla.destroy();
 arr('login',6,'',310,'2,3',0,1,$("#listaimpuesto"));
-$("#data-table-impuesto").DataTable({
+$("#data-table-impuestos").DataTable({
 bFilter :  false,
 bLengthChange : false,
 order : []

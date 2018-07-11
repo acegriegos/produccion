@@ -251,7 +251,7 @@
 
             if ($this->bearer == '') {
                 $salida['factura']  = $this->id;
-                $salida['estado']   = 'SIN INTERNET';
+                $salida['estado']   = 'PROBLEMAS CON LA LLAVE CRIPTOGRAFICA';
                 return $salida;
             }
 
@@ -323,7 +323,7 @@
             
             if ($this->bearer == '') {
                 $salida['factura']  = $this->id;
-                $salida['estado']   = 'SIN INTERNET';
+                $salida['estado']   = 'PROBLEMAS CON LA LLAVE CRIPTOGRAFICA';
                 return $salida;
             }
 
@@ -375,7 +375,7 @@
 
             if ($this->bearer == '') {
                 $salida['factura']  = $this->id;
-                $salida['estado']   = 'SIN INTERNET';
+                $salida['estado']   = 'PROBLEMAS CON LA LLAVE CRIPTOGRAFICA';
                 return $salida;
             }
 

@@ -2819,7 +2819,7 @@
 		var language = settings.oLanguage;
 		var previousSearch = settings.oPreviousSearch;
 		var features = settings.aanFeatures;
-		var input = '<input type="search" class="'+classes.sFilterInput+'"/>';
+		var input = '<input type="text" class="'+classes.sFilterInput+'"/>';
 	
 		var str = language.sSearch;
 		str = str.match(/_INPUT_/) ?
@@ -2873,7 +2873,8 @@
 					return false;
 				}
 			} )
-			.attr('aria-controls', tableId);
+			.attr('aria-controls', tableId)
+			.attr('id',"search"+tableId);
 	
 		// Update the input elements whenever the table is filtered
 		$(settings.nTable).on( 'search.dt.DT', function ( ev, s ) {

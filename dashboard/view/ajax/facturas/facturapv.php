@@ -15,6 +15,11 @@
     margin: 1px !important;
   }
 
+  body{
+    font-size: 0.7em;
+    margin: 1px !important;
+  }
+
 }
 </style>
 </head>
@@ -161,6 +166,6 @@ echo '<tr>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.17"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.18"></script>
  </body>
  </html>

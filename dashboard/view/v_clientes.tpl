@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.17">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.18">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -401,7 +401,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-        <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" codigo="1" modulo="cliente" varias="1" >Guardar</button>
+        <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" modulo="cliente" varias="1" >Guardar</button>
       </div>
     </div>
   </div>
@@ -477,6 +477,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.0.0.17"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.0.0.18"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.0.0.17">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.0.0.18">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,12 +16,12 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.0.0.17"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.0.0.18"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
   <div class="modal-content">
-    <h4 id="titmod">Modal Header</h4>
+    <h4 id="titmod" class="center">Modal Header</h4>
     
     <div class="row">
 
@@ -45,9 +45,9 @@
         <tr>
           <td><label>Descuento</label></td>
           <td>
-            <select id="tdescuentol" class="eder tdesc" tp="2">
+            <select id="tdescuentol" class="eder tdesc trVenta hide" tp="2">
             </select>
-            <input type="text" id="edescuento" class="hide" tdesc="2">
+            <input type="text" id="edescuento" class="hide trCompra" tdesc="2">
           </td>
         </tr>
       </div>
@@ -59,7 +59,7 @@
 
       <div class="input-field col s6 eexct">
         <input type="text" id="texct">
-        <label for="texct">Excento</label>
+        <label for="texct">Exento</label>
       </div>
 
       <input type="hidden" id="hdnprd" value="0">

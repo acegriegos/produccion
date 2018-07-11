@@ -137,7 +137,7 @@
 			if (isset($rs->num_rows)) {
 				return $rs->fetch_all();
 			}else{
-				return $rs." call krattos('$sel',$tabl,'$wher')";
+				return $rs;//." call krattos('$sel',$tabl,'$wher')";
 			}
 		}
 

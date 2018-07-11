@@ -224,11 +224,36 @@ $(document).on("click",".edit",function(){
 });
 
 $(document).on("click",".delete",function(){
-    var modulo = $(this).attr('modulo');
-    var id = $(this).attr('id').substr(1);
-    vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
-    acc = 3;
-    doGlobal(3,modulo,id,0);
+
+    if ($(this).attr('cnt') == undefined) {
+        if(!$("#_DEL").length){
+            var id = $(this).attr('id');
+            $(this).attr('mbg',$(this).parent().parent().css('background-color'));
+            var $toastContent = $('<span id="_DEL" >Desea Eliminar Este Registro? </span>').add($('<a class="btn red" style="margin:2px" id="deldef" inid="'+id+'">Elminar</a> <a class="btn btn-default" id="delcan" inid="'+id+'">Cancelar</a>'));
+            Materialize.toast($toastContent,10000,'',function(){$("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'))});
+            $(this).parent().parent().css('background-color','#ed5249');
+        }
+    }else{
+        var modulo = $(this).attr('modulo');
+        var id = $(this).attr('id').substr(1);
+        vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
+        acc = 3;
+        doGlobal(3,modulo,id,0);
+    }
+});
+
+$(document).on("click","#deldef",function(){
+    var id = $(this).attr("inid");
+    $(this).attr('disabled',true)
+    $(this).parent().remove();
+    $("#"+id).attr('cnt',1);
+    $("#"+id).click();
+});
+
+$(document).on("click","#delcan",function(){
+    var id = $(this).attr("inid");
+    $("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'));
+    $(this).parent().remove();
 });
 
 $(document).on("keyup","[id^=search_]",function(e){
@@ -387,6 +412,7 @@ function loadpool(vmodulo,vid,vvarias){
                 arr('login',6,'',$("#"+vform+" #"+columns[0][1][i]['name']).attr("fill"),$("#vid").val()+","+$("#"+vform+" #"+columns[0][1][i]['name']).attr("tbl"),0,1,$("#"+vform+" #"+columns[0][0][0][i]));
             break;
             default:
+                $("#"+vform+" .zelda").data('triforce')[columns[0][1][i]['name']] = columns[0][0][0][i];
             break;
 
         };           
@@ -533,6 +559,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
 function odin(varreglo,vform) {
     //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
+    var valorOdin;
     switch($("#"+vform).attr('tp')){
         case "1":
     //LLENADO DE VARIABLES POR ATRIBUTO EN DETALLE
@@ -560,16 +587,6 @@ function odin(varreglo,vform) {
                 salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
             else{
                 switch(varreglo[i]) {
-                    case 'vidusuario':                
-                    if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
-                        salida[index][varreglo[i]] = '';
-                    }else{
-                        salida[index][varreglo[i]] = $("#"+vform+" #vidusuario").val();
-                    }
-                    break;
-                    case 'vid':
-                    salida[index][varreglo[i]] = typeof $("#"+vform+" #vid").val() == 'undefined' ? 0 : $("#"+vform+" #vid").val();
-                    break;
                     case 'vaccion':
                     salida[index][varreglo[i]] = 0;
                     break
@@ -596,11 +613,15 @@ function odin(varreglo,vform) {
                             break;
                             case 'text':
                             case 'textarea':
-                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                            valorOdin = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                            valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                            salida[index][varreglo[i]] = valorOdin;
                             break;
                             case 'hidden':
                             case 'number':
-                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                            valorOdin = $("#"+vform+" #"+varreglo[i]).val();
+                            valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                            salida[index][varreglo[i]] = valorOdin;
                             break;
                             case 'html':
                             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
@@ -654,27 +675,6 @@ case "5":
         }
         else{
             switch(varreglo[i]) {
-                case 'vidusuario':             
-                if (typeof $("#"+vform+" #vidusuario").val() == 'undefined') {
-                    salida[varreglo[i]] = '';
-                }else{
-                    salida[varreglo[i]] = $("#"+vform+" #vidusuario").val();
-                }
-                break;
-                case 'vidsucursal':             
-                if (typeof $("#"+vform+" #vidsucursal").val() == 'undefined') {
-                    salida[varreglo[i]] = '';
-                }else{
-                    salida[varreglo[i]] = $("#"+vform+" #vidsucursal").val();
-                }
-                break;
-                case 'vid':
-                if (typeof $("#"+vform+" #vid").val() == 'undefined') {
-                    salida[varreglo[i]] = 0;
-                }else{
-                    salida[varreglo[i]] = $("#"+vform+" #vid").val();
-                }
-                break;
                 case 'vaccion':
                 salida[varreglo[i]] = 0;
                 break
@@ -700,13 +700,17 @@ case "5":
                         break;
                         case 'text':
                         case 'textarea':
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                        valorOdin = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
+                        valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                        salida[varreglo[i]] = valorOdin;
                         break;
                         case 'hidden':
                         case 'password':
                         case 'time':
                         case 'number':
                         case 'email':
+                        valorOdin = $("#"+vform+" #"+varreglo[i]).val();
+                        valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
                         salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
                         break;
                         case 'html':
@@ -719,12 +723,13 @@ case "5":
                         salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                         break;
                         default:
-                        try{                            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
-                        }
-                        catch(e){
-                            console.log(varreglo[i]+" No Existe");
-                            return "Error en Interno, Codigo: Odin"
-                        } 
+                        console.log(varreglo[i]+": "+$("#"+vform+" .zelda").data('triforce')[varreglo[i]])
+                            if($("#"+vform+" .zelda").data('triforce')[varreglo[i]] != undefined)
+                                salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                            else{
+                                console.log(varreglo[i]+" No Existe");
+                                return "Error en Interno, Codigo: Odin"
+                            } 
                         break;
                     }
                 }
@@ -760,7 +765,6 @@ function deadclear(vform) {
                     case 'text':
                     case 'password':
                     case 'time':
-                    console.log($(this).prop('id'))
                     $(vform+" #"+$(this).prop('id')).val('');
                     break;
                     case 'select':
@@ -1038,7 +1042,7 @@ function doreport() {
     datos = datos[0].splice(elem.length,datos[0].length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-        console.log(datos[i],' ',$("#"+datos[i]).val())
+        // console.log(datos[i],' ',$("#"+datos[i]).val())
         if ($("#"+datos[i]).attr('str') != undefined) {
             if ($("#"+datos[i]).attr('type') == 'date') {
                 
@@ -1069,7 +1073,7 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1);
-    console.log(tbl,' ',atributos)
+    // console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 
 }
@@ -1459,7 +1463,6 @@ $(document).on('keyup','[addG=1]',function(e){
 $(document).on('blur','[addG=1]',function(){
     if ($(this).val() != '') {
         var isClie = findClient($(this).val(),1);
-        console.log(isClie)
         if (!isClie) {
             var op = parseInt($(this).attr('addG'));
             addGeneral(op);
