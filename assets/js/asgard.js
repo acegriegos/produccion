@@ -723,7 +723,7 @@ case "5":
                         salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
                         break;
                         default:
-                        console.log(varreglo[i]+": "+$("#"+vform+" .zelda").data('triforce')[varreglo[i]])
+                        // console.log(varreglo[i]+": "+$("#"+vform+" .zelda").data('triforce')[varreglo[i]])
                             if($("#"+vform+" .zelda").data('triforce')[varreglo[i]] != undefined)
                                 salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
                             else{
