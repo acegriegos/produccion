@@ -1,3 +1,27 @@
+<div class="navbar-fixed hide-on-large-only">
+  <nav>
+    <div class="nav-wrapper blue-grey darken-2">
+      <a href="#" class="button-collapses" data-activates="slide"><i class="mdi mdi-menu mdi-16px"></i></a>
+    </div>
+  </nav>
+</div>
+
+<a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" >
+  <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span>
+  <br class="sse_cnt hide"><p class="white-text menu-txt">MENU</p></a>
+<!-- hide-on-med-and-down  -->
+<div class="modal modal-fixed-footer grandemodal" id="modal-info" style="height: 80%; width: 75%">
+  <div class="modal-header">
+    <ul class="tabs tabs-fixed-width blue">
+      <li class="tab col s3 white-text"><a>Información del Usuario</a></li>
+    </ul>
+  </div>
+  <div class="modal-content " style="padding: 0px;"></div>
+  <div class="modal-footer">
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+  </div>
+</div>
+
 <ul id="slide" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
   <li>
     <div class="userView">
@@ -45,7 +69,7 @@
     <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
     <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
     <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
-{php}}else{ {/php}
+{php} }else{ {/php}
     <li class="gtext"><a href="facturacion?tf=1"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Facturación</span></a></li>
     <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
     <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
@@ -56,24 +80,6 @@
     <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
 </ul>
-<div class="navbar-fixed hide-on-large-only">
-  <nav>
-    <div class="nav-wrapper blue-grey darken-2">
-      <a href="#" data-activates="slide" class="button-collapse"><i class="mdi mdi-menu mdi-16px"></i></a>
-    </div>
-  </nav>
-</div>
-
-  <a style="background-color:#0B3861;" href="#" data-activates="slide" class="hide-on-med-and-down button-collapses  z-depth-5 menu-btn" ><span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span><br class="sse_cnt hide"> <p class="white-text menu-txt" >MENU</p></a>
-  <!-- hide-on-med-and-down  -->
-
- 
-  <div class="modal modal-fixed-footer grandemodal" id="modal-system" style="height: 85%; width: 90%">
-
-  <div class="modal-header">
-    <ul class="tabs tabs-fixed-width blue">
-      <li class="tab col s3 white-text"><a>LOGINTECH S.A.</a></li>
-    </ul>
 
   </div>
   <ul id="tabs-swipe-demo" class="tabs head2 center">
