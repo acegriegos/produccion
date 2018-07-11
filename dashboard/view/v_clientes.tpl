@@ -167,7 +167,7 @@
                               <input type="hidden" id="vidpais" value="52">
                               <label for="pais">País</label>
                             </div> -->
-                            <div class="input-field col s4 m4">
+                            <div class="input-field col s6 m4">
                               <!-- <div class="prefix"><i class="fa fa-phone"></i></div> -->
                               <select type="select" id="tptel">
                                 <option value="" disabled selected>Seleccione Tipo de Tel.</option>
@@ -178,7 +178,7 @@
                               <label for="tptel">Tipo Teléfono</label>
                               <input type="hidden" id="htipo">
                             </div>
-                            <div class="input-field col s12 m5">
+                            <div class="input-field col s6 m5">
                               <input type="text" class="validate" id="telefono_in" data-mask="9999-9999" autocomplete="off">
                               <input type="hidden" id="vtelefono" fill="19" tbl="2">
                               <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
@@ -303,12 +303,12 @@
                         </div>
                         <div class="row">
                           <div class="input-field col s12 hide-on-med-and-up">
-                            <div class="prefix"><i class="material-icons">location_on</i></div>
+                            <div class="prefix"><i class="mdi mdi-map-marker"></i></div>
                             <label for="vlatitud">Latitud</label>
                             <input type="text" class="eder" id="vlatitud">
                           </div>
                           <div class="input-field col s12 hide-on-med-and-up">
-                            <div class="prefix"><i class="material-icons">location_on</i></div>
+                            <div class="prefix"><i class="mdi mdi-map-marker"></i></div>
                             <label for="vlongitud">Longitud</label>
                             <input type="text" class="eder" id="vlongitud">
                           </div>
@@ -343,7 +343,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col s12 m4 l3 expand-2">
+              <div class="col s12 m4 l3 expand-2 hide-on-small-only">
                 <div class="row" style="background: #DEDEDE"><br>
                   <div class="row hide">
                     <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-left mdi-24px"></i></div>
