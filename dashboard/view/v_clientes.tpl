@@ -367,6 +367,7 @@
                       <tr><td style="font-size: 0.8em"><b>Direccion</b></td></tr><tr><td style="font-size: 0.8em"><b>Estado</b></td></tr>
                     </table>
                   </div>
+
                   <div class="s8 m8 l8 col" align="center">
                     <table>
                       <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh"></span></span></td></tr>
@@ -394,6 +395,7 @@
                     </select></td></tr>
                   </table>
                 </div>
+
               </div>
             </div>
           </div>
