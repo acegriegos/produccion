@@ -9,6 +9,18 @@
 <a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" >
   <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span>
   <br class="sse_cnt hide"><p class="white-text menu-txt">MENU</p></a>
+<!-- hide-on-med-and-down  -->
+<div class="modal modal-fixed-footer grandemodal" id="modal-info" style="height: 80%; width: 75%">
+  <div class="modal-header">
+    <ul class="tabs tabs-fixed-width blue">
+      <li class="tab col s3 white-text"><a>Información del Usuario</a></li>
+    </ul>
+  </div>
+  <div class="modal-content " style="padding: 0px;"></div>
+  <div class="modal-footer">
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+  </div>
+</div>
 
 <ul id="slide" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
   <li>
@@ -68,19 +80,6 @@
     <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
 </ul>
-
-<!-- hide-on-med-and-down  -->
-<div class="modal modal-fixed-footer grandemodal" id="modal-info" style="height: 80%; width: 75%">
-  <div class="modal-header">
-    <ul class="tabs tabs-fixed-width blue">
-      <li class="tab col s3 white-text"><a>Información del Usuario</a></li>
-    </ul>
-  </div>
-  <div class="modal-content " style="padding: 0px;"></div>
-  <div class="modal-footer">
-    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-  </div>
-</div>
 
 <div class="modal" id="modal-system">
   <div class="modal-header head1 center" style="padding: 1%">
