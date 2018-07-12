@@ -55,6 +55,7 @@
     </div>
     <div class="modal-content" style="padding: 0px;">
         <div id="fservicios">
+            <input type="hidden" class="zelda">
             <div id="datosservicios" style="padding: 25px 10px 0 10px">
                 <input type="hidden" id="vid" value="0">
                 <input type="hidden" id="vidproveedor" value="0">

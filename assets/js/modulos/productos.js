@@ -44,6 +44,7 @@ $(function () {
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
+				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:0,vidusuario:0})
 				break;
 			case 3:
 				$("#mantServ").remove();
@@ -59,6 +60,7 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
+				$("#fpaquetes .zelda").data('triforce',{vid:0,vidsucursal:0,vidusuario:0})
 				break;
 		}
 		$('select').material_select();
