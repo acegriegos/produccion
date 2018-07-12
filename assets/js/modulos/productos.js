@@ -22,7 +22,7 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
-				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:0})
+				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:''})
 				// paginate($("ul.pagination").attr('vtbl'));
 				break;
 			case 2:
@@ -44,7 +44,7 @@ $(function () {
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
-				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:0,vidusuario:0})
+				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:''})
 				break;
 			case 3:
 				$("#mantServ").remove();
@@ -60,7 +60,7 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
-				$("#fpaquetes .zelda").data('triforce',{vid:0,vidsucursal:0,vidusuario:0})
+				$("#fpaquetes .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:''})
 				break;
 		}
 		$('select').material_select();
@@ -1372,6 +1372,7 @@ $(document).on("click","#addproduct",function(){
     $(".validate").css('border-bottom', '1px solid #9e9e9e');
     $(".validate").css('box-shadow', 'none');
     Materialize.updateTextFields();
+    $("select").material_select();
     setTimeout(function(){$("#vfamilia").focus();},500)
 });
 

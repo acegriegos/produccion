@@ -152,7 +152,7 @@ $("#telefono_in").blur(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vidusuario:0,_sid:'@@@'});
+	$(".zelda").data('triforce',{vid:0,vidusuario:'',vidsucursal:'',_sid:'@@@'});
 	//vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1,
 
 	var add = getParameterByName("add") //accesos
