@@ -44,21 +44,23 @@ $(function () {
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
+				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:0,vidusuario:0})
 				break;
 			case 3:
 				$("#mantServ").remove();
 				$("#mantProd").remove();
 				var p = mantenimiento('productos', 3, '');
 				$("#bdymantInventario").html(p);
-				// $("#data-table-paquetes").DataTable({
-				// 	bFilter: false,
-				// 	bScrollInfinite: true,
-				// 	bSort: false,
-				// 	bLengthChange: false,
-				// 	order: [],
-				// 	bPaginate: false,
-				// 	info: false
-				// });
+				$("#data-table-paquetes").DataTable({
+					bFilter: false,
+					bScrollInfinite: true,
+					bSort: false,
+					bLengthChange: false,
+					order: [],
+					bPaginate: false,
+					info: false
+				});
+				$("#fpaquetes .zelda").data('triforce',{vid:0,vidsucursal:0,vidusuario:0})
 				break;
 		}
 		$('select').material_select();

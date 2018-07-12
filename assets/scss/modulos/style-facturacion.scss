@@ -66,8 +66,20 @@ input {
 textarea.materialize-textarea {
   height: 2.5em !important;
 }
+.autocomplete-content .dropdown-content{
+  position: absolute !important;
+}
+.autocomplete-content{
+  position: absolute !important;
+}
 
 @media only screen and (max-width: 769px) {
+ .autocomplete-content .dropdown-content{
+    position: absolute !important;
+  } 
+  .autocomplete-content{
+    position: absolute !important;
+  }
   .detalle {
     font-size: 0.5em !important;
   }
