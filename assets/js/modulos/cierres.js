@@ -57,7 +57,7 @@ $(function(){
 		$("#lista-cierres").html(str);
 	});
 
-	$(".zelda").data('triforce',{ vtotal:0 });
+	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
 });
 
 $(document).on("click","#refresh",function(){

@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="input-field marginzero col s12 m12 l4">
-                    <select id="vidmoneda" type="select">
+                    <select id="vidmoneda" type="select" noClear="1">
                       {section name="LE" loop=$MON}
                         <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
                       {/section}
@@ -512,4 +512,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.20"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.21"></script> -->

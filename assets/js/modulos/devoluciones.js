@@ -12,7 +12,7 @@ $(function(){
         order: []
     });
 
-	// $("#ncli").keydown(function(e){
+	// $("#ncli").keydown(functifon(e){
 	// 	var charCode = e.which || e.keyCode;
 	// 	var charStr = String.fromCharCode(charCode);
 	// 	if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
@@ -137,7 +137,7 @@ $(document).on("click","#btn-div",function(){
 		$(".divabono").attr('visible',0);
 	}
 	// triforce
-	$(".zelda").data('triforce',{vid: 0,vidfactura: 0,vcomentario: '',vidmoneda: 1,vidsucursal: ''});
+	$(".zelda").data('triforce',{vid: 0,vidusuario:'',vidfactura: 0,vcomentario: '',vidmoneda: 1,vidsucursal: ''});
 	$(".zelda").data('triforce')['vidfactura'] = $("#factura").val();
 	$("#vidinventario").change();
 	$("[name=devolucion]").each(function(i) {
