@@ -1,7 +1,7 @@
 <?php
+$simbolo = $log->kamehameha('simbolo',54,'principal = 1 and id > 0')[0][0];
 $idfactura = 0;
-$cantt = 0;
-$tot = 0;
+$cantt = $tot = $tde = $tim = 0;
 foreach ($transaccion as $obj) {
    if ($obj[0] != $idfactura) {
       echo '<tr>
@@ -28,7 +28,9 @@ foreach ($transaccion as $obj) {
       </tr>';
       $idfactura = $obj[0];
       $cantt++;
-      $tot += substr(str_replace(",", "", $obj[13]),2);
+      $tot += substr(str_replace(",", "", $obj[13]),2)*$obj[33];
+      $tde += substr(str_replace(",", "", $obj[15]),2)*$obj[33];
+      $tim += substr(str_replace(",", "", $obj[11]),2)*$obj[33];
   }
   echo '<tr class="detprod hide xb'.$obj[0].' grey lighten-4">
   <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[24].'</td>
@@ -45,13 +47,13 @@ foreach ($transaccion as $obj) {
   <?php } ?>
 
    <tr>
-      <td colspan="2"><b>TOTAL</b></td>
-      <td style="border-radius: 0px !important; text-align: center "><?php echo $cantt; ?></td>
+      <td colspan="2">Cantidad: <?php echo $cantt; ?></td>
       <td style="border-radius: 0px !important; text-align: center "></td>
       <td style="border-radius: 0px !important; text-align: center "></td>
-      <td style="border-radius: 0px !important; text-align: center "></td>
-      <td style="border-radius: 0px !important; text-align: center "></td>
-      <td style="border-radius: 0px !important; text-align: center "><?php echo $tot; ?></td>
+      <td style="border-radius: 0px !important; text-align: center "><b>TOTAL</b></td>
+      <td style="border-radius: 0px !important; text-align: center "><?php echo $simbolo.number_format($tde,2); ?></td>
+      <td style="border-radius: 0px !important; text-align: center "><?php echo $simbolo.number_format($tim,2); ?></td>
+      <td style="border-radius: 0px !important; text-align: center "><?php echo $simbolo.number_format($tot,2); ?></td>
 
       </tr>
 
