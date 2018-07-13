@@ -7,16 +7,7 @@
 <div id="mantCxC" class="pequeño">
     <div class="card z-depth-3">
         <div class="row padd marginzero" style="padding-top: 20px">
-           <!--  <div class="input-field col s12 m7">
-                <a class="prefix dropdown-button tooltipped" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small mdi mdi-magnify mdi-24px"></i></a>
-                <ul id='filtr_1' class='dropdown-content'>
-                    <li><a href="#!" fltr="1">Nombre</a></li>
-                    <li><a href="#!" fltr="2">Cédula</a></li>
-                    <li><a href="#!" fltr="3">Teléfono</a></li>
-                </ul>
-                <input type="text" id="searchCuentas" maxlength="100" num="313" modulo="Cuentasx">
-                <label class="truncate" for="searchCuentas">Buscar por nombre de clientes o factura</label>
-            </div> -->
+          
             <div class="col s12 m5">
                 <div class="col s12 m4">
                     <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
@@ -101,6 +92,8 @@
                     </div>
                     <div id="festadoscuentas" class="divabono" visible="0">
                         <input type="hidden" id="vid" value="0">
+                        <input type="hidden" id="vidusuario" value="">
+                        <input type="hidden" id="vidsucursal" value="">
                         <input type="hidden" id="vidtipo" value="3">
                         <input type="hidden" id="videstado" value="1">
                         <input type="hidden" id="vidfactura" value="">

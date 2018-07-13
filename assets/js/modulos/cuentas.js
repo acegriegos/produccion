@@ -100,6 +100,8 @@ $(function(){
 		order : [],
 		"bLengthChange": false
 	});
+
+	$("#festadoscuentas .zelda").data('triforce',{vid:0,vidusuario:'',vidsucursal:''});
 });
 
 $(document).on("keyup","#searchCuentas",function(e){
@@ -170,40 +172,6 @@ $(document).on("click",".pagomu",function(){
         info: false
 	});
 });
-
-// $(document).on("click","#btnPagar",function(){
-// 	var sList = "";
-// 	$('input[type=checkbox]').each(function () {
-// 		if (this.checked == 1)	
-// 			sList += $(this).val()+",";
-// 	});
-// 	if($('#monto').val() <= 0) {
-// 		Materialize.toast('El monto a pagar debe ser superior a 0', 4000, 'red');
-// 	}else{
-// 		if(sList.length < 1) {
-// 			sList = ""; 	
-// 			$('input[type=checkbox]').each(function () {
-// 				if(!isNaN($(this).val())) 	
-// 					sList += $(this).val()+",";
-// 			});  
-// 		}
-// 		//Llamar al procedimiento
-// 		if(sList.length > 0) {
-// 			sList.slice(0,-1);
-// 			var result = arr('login',4,'',229,'"'+sList+'",'+$('#monto').val()+',@@usr,1',0,0,0)[0][0];
-// 			console.log(result)
-// 			return false;
-// 			var id = result[0];
-// 			var residuo = result[1];
-// 			Materialize.toast('Pago realizado', 4000, 'green');       
-// 			/*arr('login',6,'',214,1+',0,0',0,1,$("#listaCuentasx"));
-// 			window.open("cuentas?accion=5&id="+id); */
-// 			$("#ncli").blur();
-// 		}else{
-// 			Materialize.toast('Seleccione a un cliente', 4000, 'red');
-// 		}
-// 	}
-// });
 
 $(document).on("click","#btnPagar",function(){
 	var validado = validarpago();
