@@ -1,8 +1,9 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.22">
-<!-- <link href="../assets/css/modulos/style-factura.css?v=10.0.0.22"> -->
+<link href="../assets/css/materialize.css" rel="stylesheet">
+
+
 <body class="grey darken-4" style="font-size: 1.1em;" >
   <div class="hoja grey lighten-5" style="padding: 0% 1% 1% 1%;">
     <div class="row">
@@ -86,6 +87,14 @@
                   <tr>
                   <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Ventas con deposito:</th>
                   <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[9]; ?></span></td>
+                </tr>
+                <tr>
+                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Excento:</th>
+                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[22]; ?></span></td>
+                </tr>
+                <tr>
+                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">IMV:</th>
+                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[23]; ?></span></td>
                 </tr>
                 <tr class="card blue-grey sinborde">
                   <th class="left-align sinborde" style=" background-color: #3960A7; padding: 2%,0%,0%,1%; font-size: 1.2em; color: white">Ventas totales:</th>

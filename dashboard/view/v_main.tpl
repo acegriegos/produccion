@@ -22,9 +22,10 @@
             <div id="fcajainicialusuarios">
                 <div class="input-field col s12 m6 l3" style="border: 3px">
                     <i class="prefix">{$MONEDA}</i>
+                    <input type="hidden" id="vidusuario" value="">
                     <input type="number" id="vmonto" value="0">
                     <input type="hidden" id="vid" value="0">
-                    <input type="hidden" id="vidsucursal" value="0">
+                    <input type="hidden" id="vidsucursal" value="">
                     <input type="hidden" id="vfmonto" value="1">
                     <input type="hidden" id="vcajareal" value="0">
                     <label for="vmonto">Monto Caja Inicial</label>

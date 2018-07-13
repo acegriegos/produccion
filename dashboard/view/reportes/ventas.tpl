@@ -14,13 +14,18 @@
            <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,1" sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
 
       <!-- HEADER -->
+
     <div class="row header">
       <div class="col s4 m4 l4">
-        <img src="../assets/img/logo.png" class="img-responsive" style="width: 60%">
+        {if $MIS[3]}
+        <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
+        {/if}
       </div>
       <div class="col s4 m4 l4" align="center">
+        <h2 align="center" style="margin-top: 0px">Ventas Totales</h2>
         <font size="3">
-          <b>{$MIS[2]}</b><br>
+          <b>{$MIS[0]}</b><br>
+          {if $MIS[2]}<b>{$MIS[2]}</b><br>{/if}
           <b>Cédula:</b> {$MIS[1]}<br>
           <b>Teléfono:</b> {$MIS[5]}<br>
         </font>
@@ -30,7 +35,7 @@
         <input type="hidden" class="zelda">
       </div>
     </div>
-    <h2 align="center">Ventas Totales</h2>
+    
     <small id="leyenda"></small>
     
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
