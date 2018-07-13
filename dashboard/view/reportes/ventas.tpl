@@ -11,7 +11,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-           <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem="0,1" sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
+           <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem='0,"1&7&6"' sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
 
       <!-- HEADER -->
 
@@ -37,7 +37,8 @@
     </div>
     
     <small id="leyenda"></small>
-    
+    F: Factura, T: Tickete<br>
+    [A]: Anulada, [C]: Cancelada, [P]: Pendiente
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>

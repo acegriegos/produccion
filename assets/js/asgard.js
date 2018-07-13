@@ -1074,7 +1074,7 @@ function doreport() {
     $.each(string,function(index){
         atributos += string[index]+',';
     });  
-    atributos = atributos.substr(0,atributos.length-1);
+    atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
     // console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 

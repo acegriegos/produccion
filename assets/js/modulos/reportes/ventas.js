@@ -1,4 +1,4 @@
-var tipo = 1;
+var tipo = '1,6,7';
 
 $(function(){
     var param = getParameterByName('rep');
@@ -28,5 +28,5 @@ $(function(){
 
     }
 
-	arr('login',6,'',167,'0,'+tipo+',@@impresa,0,0,0,0,curdate(),"",0,0',0,1,$(".detrep"));
+	arr('login',6,'',167,'0,"'+tipo+'",@@impresa,0,0,0,0,curdate(),"",0,0',0,1,$(".detrep"));
 });
