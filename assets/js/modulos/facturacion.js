@@ -374,7 +374,7 @@ function cargarGlobal(){
             
             $("#descp").autocomplete({
                 limit: 20,
-                data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1);
+                data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1)
             })
 
             $("#descp").siblings($(".autocomplete-content")).css('width','100%');
