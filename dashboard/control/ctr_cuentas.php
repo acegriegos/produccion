@@ -10,7 +10,7 @@ if (!isset($_REQUEST['accion'])) {
 	$sty = $smarty->fetch('../view/styles.php');
 	$scr = $smarty->fetch('../view/scripts.php');
 	
-	$smarty->assign('STY',$sty);
+	$smarty->assign('STY',$sty);	
 	$smarty->assign('SCR',$scr);
 	$smarty->assign('NAV',$pg);
 	$smarty->display('v_cuentas.tpl');

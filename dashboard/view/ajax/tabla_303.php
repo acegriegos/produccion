@@ -39,6 +39,8 @@
 			</div><!-- card-content -->
 			<div id="festadoscuentas" class="divabono" visible="0">
 				<input type="hidden" id="vid" value="0">
+                <input type="hidden" id="vidusuario" value="">
+                <input type="hidden" id="vidsucursal" value="">
 				<input type="hidden" id="vidtipo" value="3">
 				<input type="hidden" id="videstado" value="1">
 				<input type="hidden" id="vidfactura" value="<?php echo $transaccion[0][0]; ?>">

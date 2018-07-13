@@ -15,12 +15,16 @@
                 // echo $fe->recepcion();
                 break;
             case 2://GET XML
-                header("Content-type: application/octet-stream; name='excel';charset=UTF-8");
-                header("Content-Disposition: filename=".$fe->info['NumeroConsecutivo'].".xml");
-                header("Pragma: no-cache");
-                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-                echo "\xEF\xBB\xBF";
-                // header("Content-type: text/xml; encoding='UTF-8'");
+                if (isset($_REQUEST['view'])) {
+                    header("Content-type: text/xml; encoding='UTF-8'");
+                }else{
+                    header("Content-type: application/octet-stream; name='excel';charset=UTF-8");
+                    header("Content-Disposition: filename=".$fe->info['NumeroConsecutivo'].".xml");
+                    header("Pragma: no-cache");
+                    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+                    echo "\xEF\xBB\xBF";
+                }
+                
                 print_r($fe->getXMLRecepcion());
                 break;
             case 3://BEARER

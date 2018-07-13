@@ -46,7 +46,7 @@ echo '<button class="print" onclick="print()" style="cursor: pointer;left:5px;po
 if($miscelaneos[3] != '')
   echo $logo;
 
-echo '<tr align="center"><td style="padding: 6px 5px !important">';
+/*echo '<tr align="center" ><td style="padding: 6px 5px !important">';
 
 require_once('../assets/libs/phpqrcode/qrlib.php'); 
 
@@ -56,13 +56,13 @@ require_once('../assets/libs/phpqrcode/qrlib.php');
       $raw = join("<br/>", $text); 
        
       $raw = strtr($raw, array( 
-          '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
+          '0' => '<span style="color:white;width=5%">&#9608;&#9608;</span>', 
           '1' => '&#9608;&#9608;' 
       )); 
        
-      echo '<tt>'.$raw.'</tt>';
+      echo '<div style:"width=10%;  font-size:16px !important"><tt>'.$raw.'</tt></div>';
 
-echo '</td></tr>';
+echo '</td></tr>';*/
 
 echo '<tr align="center" '.$ocultar.'>
      <td>
@@ -160,12 +160,14 @@ echo '<tr>
 </table>
 <br>
 <div '.$ocultar.'>*=EXCENTO</div>
+<div '.$ocultar.'>**=I.V.I</div>
+
 <hr '.$ocultar.'>
 <div style="text-align: center; font-size: 0.8em;'.$oc.'" id="resolucion">AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D<br>
 </div>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.21"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.22"></script>
  </body>
  </html>

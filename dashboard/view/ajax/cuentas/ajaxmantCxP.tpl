@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.21">
+ <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.22">
 
       <nav class="nav-extended z-depth-3 head1">
   <div class="nav-wrapper">
@@ -12,19 +12,6 @@
         
         <div class="row padd">
         <br><br>
-<!-- 
-                    <div class="input-field col s12 m7">
-
-                       <a class="prefix dropdown-button tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
-                    <ul id='filtr_1' class='dropdown-content'>
-                        <li><a href="#!" fltr="1">Nombre</a></li>
-                        <li><a href="#!" fltr="2">Cédula</a></li>
-                        <li><a href="#!" fltr="3">Teléfono</a></li>
-                    </ul>
-                    <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
-                    <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
-
-                    </div> -->
                    <div class="col s12 m5">
                     <div class="col s12 m4">
                         <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
@@ -128,6 +115,8 @@
 
             <div id="festadoscuentas" class="divabono" visible="0">
                 <input type="hidden" id="vid" value="0">
+                <input type="hidden" id="vidusuario" value="">
+                <input type="hidden" id="vidsucursal" value="">
                 <input type="hidden" id="vidtipo" value="4">
                 <input type="hidden" id="videstado" value="1">
                 <input type="hidden" id="vidfactura" value="">

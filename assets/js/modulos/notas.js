@@ -2,7 +2,7 @@ var config;
 
 $(function(){
 	config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
-
+    
 	$("#fnotass").submit(function(){return false});
 	$("[id^=ftr]").hide();
 	$(".chg_tipo").change(function(){
@@ -134,15 +134,7 @@ $(function(){
 			order : [],
 			"bLengthChange": false
 		}); 
-
-
-
 	});
-
-	
-
-
-
 
 });
 
