@@ -152,7 +152,7 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vidusuario:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1,_sid:'@@@'});
+	$(".zelda").data('triforce',{vid:0,vidusuario:'',vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1,vidsucursal:'',_sid:'@@@'});
 
 	var add = getParameterByName("add") //accesos
 	if (add) {
