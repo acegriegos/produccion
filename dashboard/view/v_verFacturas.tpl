@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.23">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.23">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.24">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.24">
   </head>
   <body>
   
@@ -188,7 +188,7 @@
         </div>
     </div>
 
-    <script src="../assets/js/dropzone.js?v=10.0.0.23"></script>
-    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.23"></script>
+    <script src="../assets/js/dropzone.js?v=10.0.0.24"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.24"></script>
   </body>
 </html>
