@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="../assets/img/favicon.ico">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
   <title>Factura</title>  
 <style>
   *{font-size: 1em}
@@ -26,7 +26,8 @@
 
 <body style="margin-left: 35%; margin-right: 35%;">
 <?php 
-
+$pvuelto = isset($_REQUEST['pvuelto']) ? $_REQUEST['pvuelto'] : 0;
+$vuelto = isset($_REQUEST['vuelto']) ? $_REQUEST['vuelto'] : 0;
 // $transaccion;
 // $miscelaneos;
 // $datos;  padding: 0% 37.5% 0% 37.5%
@@ -78,7 +79,7 @@ echo '<tr align="center" '.$ocultar.'>
     <td width="13%" align="center"><b>AAAA</b></td>
   </tr>
   <tr>
-    <td align="left"><span style="color: #628EF1"> '.$datos[0].' </span></td>
+    <td align="left"><span> '.$datos[0].' </span></td>
     <td width="13%" align="center">'.$fecha[0].'</td>
     <td width="13%" align="center">'.$fecha[1].'</td>
     <td width="13%" align="center">'.$fecha[2].'</td>
@@ -102,9 +103,9 @@ echo '<tr align="center" '.$ocultar.'>
 <hr>
 <table>
   <tr>
-    <td align="center" width="10%"><b>CANT</b></td>
-    <td align="center" width="55%"><b>DESCRIPCION</b></td>
-    <td align="center" width="35%" '.$ocultar.'><b>TOTAL</b></td>
+    <td align="center" width="20%"><b>CANT</b></td>
+    <td align="center" width="60%"><b>DESCRIPCION</b></td>
+    <td align="center" width="20%" '.$ocultar.'><b>TOTAL</b></td>
   </tr>
   <tr>
     <td colspan="3"></td>
@@ -113,9 +114,9 @@ echo '<tr align="center" '.$ocultar.'>
 
     foreach ($transaccion as $obj) {
     echo '<tr>
-      <td align="center" width="10%">'.$obj[18].'</td>
-      <td align="center" width="55%">'.$obj[19].'</td>
-      <td align="center" width="35%" '.$ocultar.'>'.$obj[22].'</td>
+      <td align="center" width="20%">'.$obj[18].'</td>
+      <td align="center" width="60%">'.$obj[19].'</td>
+      <td align="right" width="20%" '.$ocultar.'>'.$obj[22].'</td>
     </tr>';
     }
   
@@ -135,34 +136,44 @@ echo '<tr>
   </tr>
   <tr '.$ocultar.'>
     <td width="50%" colspan="2">Sub-Total:</td>
-    <td width="50%" align="right"> '.$obj[9].' </td>
+    <td width="50%" align="right"> '.$obj[15].$obj[9].' </td>
   </tr>
   <tr '.$ocultar.'>
     <td width="50%" colspan="2">13% IV:</td>
-    <td width="50%" align="right"> '.$obj[5].' </td>
+    <td width="50%" align="right"> '.$obj[15].$obj[5].' </td>
   </tr>
   <tr '.$ocultar.'>
     <td width="50%" colspan="2">Descuento:</td>
-    <td width="50%" align="right"> '.$obj[6].' </td>
+    <td width="50%" align="right"> '.$obj[15].$obj[6].' </td>
   </tr>
   <tr '.$ocultar.'>
     <td width="50%" colspan="2">Flete:</td>
-    <td width="50%" align="right"> '.$obj[7].' </td>
+    <td width="50%" align="right"> '.$obj[15].$obj[7].' </td>
   </tr>
   <tr '.$ocultar.'>
     <td width="50%" colspan="2">Ajuste:</td>
-    <td width="50%" align="right"> '.$obj[8].' </td>
+    <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
   </tr>
   <tr '.$ocultar.'>
     <td width="50%" colspan="2"><b>TOTAL GENERAL:</b>  </td>
-    <td width="50%" align="right"> <b>'.$obj[10].'</b> </td>
+    <td width="50%" align="right"> <b>'.$obj[15].$obj[10].'</b> </td>
   </tr>
 </table>
-<br>
 <div '.$ocultar.'>*=EXCENTO</div>
-<div '.$ocultar.'>**=I.V.I</div>
+<div '.$ocultar.'>**=I.V.I</div>';
 
-<hr '.$ocultar.'>
+if ($pvuelto > 0 && $vuelto >= 0) {
+  echo '<table width="100%">
+  <tr>
+    <td align="center">Paga con: '.$pvuelto.'</td>
+  </tr>
+  <tr>
+    <td align="center">Vuelto: '.$vuelto.'</td>
+  </tr>
+</table>';
+}
+
+echo '<hr '.$ocultar.'>
 <div style="text-align: center; font-size: 0.8em;'.$oc.'" id="resolucion">AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D<br>
 </div>
 </div>';

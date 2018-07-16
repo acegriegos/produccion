@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Facturas</title>
+    <title>Ver Facturas</title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.23">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.23">
@@ -144,7 +144,7 @@
   </div>
 
     {$SCR}
-    <div id="modal-getxml" class="modal modal-fixed-footer">
+    <div id="modal-getxml" class="modal modal-fixed-footer grandemodal">
         <div class="modal-header">
         <div class="card-header center blue-grey white-text z-depth-1">
             <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar XML <span id="nomproc"></span></p>
@@ -158,7 +158,24 @@
             </section>
             <section class="upxml hide" xml="2">
                 <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
-                
+                <div class="upxml hide" xml="3">
+                    <div id="shxml_head"></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Cantidad</th>
+                                <th>Unidad</th>
+                                <th>Descripción</th>
+                                <th>Descuento</th>
+                                <th>Impuesto</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shxml_body"></tbody>
+                        <tfoot id="shxml_foot" style="border-top: 1px solid #e2e2e2"></tfoot>
+                    </table>
+                </div>
             </section>
         </div>
         <div class="modal-footer">
