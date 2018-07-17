@@ -187,7 +187,7 @@
                     <tr>
                       <?php if ($grabado > 0){ ?>
 
-                      <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Grabado</td>
+                      <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Gravado</td>
                       <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
                     </tr>
 
