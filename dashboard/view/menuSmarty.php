@@ -82,6 +82,9 @@
   </div>
 </ul>
 
+  <div class="modal" id="modal-system">
+  <div class="modal-header head1 center" style="padding: 1%">
+      LOGINTECH S.A.
   </div>
   <ul id="tabs-swipe-demo" class="tabs head2 center">
     <li class="tab col s6"><a class="white-text active" href="#isistema">Sistema</a></li>
