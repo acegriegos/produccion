@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Clientes</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.22">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.24">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -49,7 +49,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.22"></script>
-  <script src="../assets/js/modulos/reportes/clientes.js?v=10.0.0.22"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.24"></script>
+  <script src="../assets/js/modulos/reportes/clientes.js?v=10.0.0.24"></script>
 </body>
 </html>

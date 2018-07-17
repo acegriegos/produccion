@@ -87,12 +87,16 @@
 
   <div class="row">
     <div class="s12 m12 l12 col hide-on-med-and-down">
-    <section class="right isfast">
+
+    <section class="right">
+      {if $smarty.session.BUSS neq 1}
+        <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span></a>
+      {/if}
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
-        <label for="barras"><i class="mdi mdi-barcode mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" data-position="bottom" style="font-size: 1.4em"></i></label>
+        <label for="barras" class="isfast"><i class="mdi mdi-barcode mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" data-position="bottom" style="font-size: 1.4em"></i></label>
 
         <input class="with-gap" name="modselected" type="radio" value="1" id="teclado"/>
-        <label for="teclado"><i class="mdi mdi-keyboard mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" data-position="bottom" style="font-size: 1.4em"></i></label>
+        <label for="teclado" class="isfast"><i class="mdi mdi-keyboard mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" data-position="bottom" style="font-size: 1.4em"></i></label>
     </section>
     </div>
     <div class="s12 m12 l12 col">
@@ -162,10 +166,8 @@
           </div>
 
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
-            <div class="col s12">
-              <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i>
-                <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-              </a>
+            <div class="col s12" style="padding: 0px">
+             <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
           </div>
         </div>
@@ -199,12 +201,11 @@
           </div>
 
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
-            <div class="col s12 hide">
-              <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i>
-                <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-              </a>
+            <div class="col s12" style="padding: 0px">
+             <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
           </div>
+
         </div>
 
         <div class="trCompra hide trsec">
@@ -240,10 +241,8 @@
           </div>
 
           <div class="center col s12 m2" style="font-size: 1em;  padding: 0px 5px !important;">
-            <div class="col s12">
-              <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i>
-                <a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span>
-              </a>
+            <div class="col s12" style="padding: 0px">
+              <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
             <div class="col s12">
                 <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
@@ -432,7 +431,7 @@
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
     <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
       <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;">
+      <input type="text" class="form-control form-control-sm center numeric" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="off">
     </div>
     <br>
     <span>SU CAMBIO ES DE:</span><br>
@@ -606,4 +605,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.22"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.24"></script>

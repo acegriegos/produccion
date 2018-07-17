@@ -28,9 +28,9 @@ foreach ($transaccion as $obj) {
       </tr>';
       $idfactura = $obj[0];
       $cantt++;
-      $tot += substr(str_replace(",", "", $obj[13]),2)*$obj[33];
-      $tde += substr(str_replace(",", "", $obj[15]),2)*$obj[33];
-      $tim += substr(str_replace(",", "", $obj[11]),2)*$obj[33];
+      $tot += substr(str_replace(",", "", $obj[13]),$obj[33] == 1 ? 2 : 1)*$obj[33];
+      $tde += substr(str_replace(",", "", $obj[15]),$obj[33] == 1 ? 2 : 1)*$obj[33];
+      $tim += substr(str_replace(",", "", $obj[11]),$obj[33] == 1 ? 2 : 1)*$obj[33];
   }
   echo '<tr class="detprod hide xb'.$obj[0].' grey lighten-4">
   <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[24].'</td>

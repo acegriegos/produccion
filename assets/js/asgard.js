@@ -1072,7 +1072,7 @@ function doreport() {
     $.each(string,function(index){
         atributos += string[index]+',';
     });  
-    atributos = atributos.substr(0,atributos.length-1);
+    atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
     // console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 
@@ -1178,7 +1178,7 @@ function cargarMoneda(idmoneda,elemento){
                 tot = decimals > 2 ? parseFloat(real+"."+decimals.substr(0,2))+0.01 : parseFloat(real+"."+decimals) 
             }else
                 tot = parseFloat($(this).attr('base'));
-            
+
             if ($(this).is("input"))
                 $(this).val(tot.formatMoney(2,'.',','));
             else
