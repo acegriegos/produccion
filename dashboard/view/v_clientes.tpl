@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.25">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.24">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -259,7 +259,7 @@
                         <div class="row"><br>
                           <div class=" col s6">
                             <div class="provincia input-field">
-                             <!--  <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a> -->
+                              <a class="prefix btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidprovincia" type="select" class="_det" primary="1">
                                 <option value="0">Seleccione una Provincia</option>
                                 {section name=LE loop=$PRO}
@@ -271,7 +271,7 @@
                           </div>
                           <div class="col s6">
                             <div class="canton input-field">
-                             <!--  <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a> -->
+                              <a class="prefix btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidcanton" type="select" class="_det">
                                 <option value="">Seleccione un Cantón</option>
                               </select>
@@ -280,7 +280,7 @@
                           </div>
                           <div class="col s6">
                             <div class="distrito input-field ">
-                              <!-- <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig="vidbarrio"><i class="mdi mdi-plus mdi-24px"></i></a> -->
+                              <a class="prefix btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig="vidbarrio"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="viddistrito" type="select" class="_det">
                                 <option value="">Seleccione un Distrito</option>
                               </select>
@@ -289,7 +289,7 @@
                           </div>
                           <div class="col s6">
                             <div class="distrito input-field ">
-                             <!--  <a class="prefix btn-floating btn2 tooltipped" data-position="button" data-tooltip="Ingresar Barrio" href="#!" style="width: 2.5rem" det="barrio" d-b="84" prev="viddistrito" sig=""><i class="mdi mdi-plus mdi-24px"></i></a> -->
+                              <a class="prefix btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Barrio" href="#!" style="width: 2.5rem" det="barrio" d-b="84" prev="viddistrito" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidbarrio" type="select" class="_det">
                                 <option value="">Seleccione un Barrio</option>
                               </select>
@@ -479,6 +479,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.0.0.25"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.0.0.24"></script>
 </body>
 </html>
