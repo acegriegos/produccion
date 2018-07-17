@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.24">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.24">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.25">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.25">
   </head>
   <body>
   
@@ -156,10 +156,11 @@
                     <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;margin-bottom: 25px" /></span>
                 </form>
             </section>
-            <section class="upxml hide" xml="2">
+            <section class="upxml hide" xml="2" id="ffacturas">
+                <input type="hidden" class="zelda">
                 <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
                 <div class="upxml hide" xml="3">
-                    <div id="shxml_head"></div>
+                    <div class="shxml_head"></div>
                     <table>
                         <thead>
                             <tr>
@@ -172,23 +173,21 @@
                                 <th>Precio</th>
                             </tr>
                         </thead>
-                        <tbody id="shxml_body"></tbody>
-                        <tfoot id="shxml_foot" style="border-top: 1px solid #e2e2e2"></tfoot>
+                        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" class="shxml_body"></tbody>
+                        <tfoot class="shxml_foot" style="border-top: 1px solid #e2e2e2"></tfoot>
                     </table>
                 </div>
             </section>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Aceptar</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Aceptar Parcial</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Rechazar</a>
-
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="1">Aceptar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="2">Aceptar Parcial</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="3">Rechazar</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Cancelar</a>
         </div>
     </div>
 
-    <script src="../assets/js/dropzone.js?v=10.0.0.24"></script>
-    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.24"></script>
+    <script src="../assets/js/dropzone.js?v=10.0.0.25"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.25"></script>
   </body>
 </html>

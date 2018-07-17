@@ -573,7 +573,7 @@
 <!--  -->
 <!-- FOOTER -->
   <div class="modal-footer">
-    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
+    <a href="#!" class="add modal-action waves-effect waves-green btn-flat alv" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
   </div>
 </div>
 
@@ -605,4 +605,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.24"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.25"></script>

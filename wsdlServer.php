@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 
 if (isset($_POST['respuestaXml'])) {
-    echo "string";
+    file_put_contents('./assets/xml/'.$_POST['clave'].'.xml', base64_decode($_POST['respuestaXml']) );
     //RESPUESTA DE HACIENDA
 }else{
     $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';

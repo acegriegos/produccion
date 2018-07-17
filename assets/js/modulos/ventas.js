@@ -149,7 +149,7 @@ $(document).on("keyup","[id^=vcantidad]",function(e){
         var valor = $(this).val();
         var precio = parseFloat($("#vprecio"+id).val());
         var total = precio * valor;
-        $("#fd"+id).data('triforce')['vtotal'] = total;
+        $("#fd"+id).data('triforce')['vtotal'] = total.toFixed(5);
         $("#tota"+id).html(total.formatMoney(2,'.',','))
         
         totalizar();
@@ -162,7 +162,7 @@ $(document).on("change","[id^=vcantidad]",function(){
     var valor = $(this).val();
     var precio = parseFloat($("#vprecio"+id).val());
     var total = precio * valor;
-    $("#fd"+id).data('triforce')['vtotal'] = total;
+    $("#fd"+id).data('triforce')['vtotal'] = total.toFixed(5);
     $("#tota"+id).html(total.formatMoney(2,'.',','))
     
     totalizar();
@@ -173,7 +173,7 @@ $(document).on("blur","[id^=vcantidad]",function(){
     var valor = $(this).val();
     var precio = parseFloat($("#vprecio"+id).val());
     var total = precio * valor;
-    $("#fd"+id).data('triforce')['vtotal'] = total;
+    $("#fd"+id).data('triforce')['vtotal'] = total.toFixed(5);
     $("#tota"+id).html(total.formatMoney(2,'.',','))
     
     totalizar();
@@ -552,7 +552,7 @@ function totalizar(){
         if (parseFloat($("#vdescuentop").val()) > 0)
             $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#tdescuento").val()+'^'+$("#vdescuentop").val()+'^'+(precio*(1-(desct/100)))*(desc/100)+']';
 
-        $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc;
+        $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc.toFixed(5);
         $("#tota"+vidlinea).html((tmpdesc/divisa).formatMoney(2,'.',','))
         $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
         $("#fd"+vidlinea).data('triforce')['vdesc'] = idesc;
@@ -1094,6 +1094,7 @@ function sendFE(clave,factura){
             })
               .done(function( data ) {
                 console.log('REVISADO')
+                console.log(data)
                 var q;
                 q = JSON.parse(data);
                 switch(q['estado']){

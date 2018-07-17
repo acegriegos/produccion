@@ -140,7 +140,7 @@
 
         foreach ($ciclo as $key) {
             $num = ((array)$key->NumeroLinea)[0];
-            $detarray = ['numero' => $num,'codigo' => ((array)$key->Codigo->Codigo)[0],'cantidad' => ((array)$key->Cantidad)[0], 'unidad' => ((array)$key->UnidadMedida)[0],'detalle' => ((array)$key->Detalle)[0], 'precio' => ((array)$key->PrecioUnitario)[0], 'descuento' => isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0, 'impuesto' => isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0];
+            $detarray = ['numero' => $num,'codigo' => ((array)$key->Codigo->Codigo)[0],'cantidad' => ((array)$key->Cantidad)[0], 'unidad' => ((array)$key->UnidadMedida)[0] == 'Otros' ? ((array)$key->UnidadMedidaComercial)[0] : ((array)$key->UnidadMedida)[0],'detalle' => ((array)$key->Detalle)[0], 'precio' => ((array)$key->PrecioUnitario)[0], 'descuento' => isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0, 'impuesto' => isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0];
             array_push($salida['detalle'], $detarray);
         }
 
@@ -397,6 +397,7 @@
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/x-www-form-urlencoded','Authorization: bearer '.$this->bearer]);
 
             $json_response = curl_exec($curl);
+
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             $header = substr($json_response, 0, curl_getinfo($curl, CURLINFO_HEADER_SIZE));
             $body = substr($json_response, -curl_getinfo($curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD));
@@ -425,9 +426,11 @@
                 case 201:
                 case 202:
                     $aBody = (array) json_decode(substr($body,strpos($body, '{')));
-                    $sRespuesta = ((Array) simplexml_load_string(base64_decode($aBody['respuesta-xml'])))['DetalleMensaje'];
+                    if (isset($aBody['respuesta-xml'])){
+                        $sRespuesta = ((Array) simplexml_load_string(base64_decode($aBody['respuesta-xml'])))['DetalleMensaje'];
+                        $salida['rs'] = str_replace(PHP_EOL, ' ', $sRespuesta);
+                    }
                     $salida['factura']  = $this->id;
-                    $salida['rs'] = str_replace(PHP_EOL, ' ', $sRespuesta);
                     $salida['estado']   = $aBody['ind-estado'];
                     break;       
                 default:

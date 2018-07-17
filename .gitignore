@@ -29,3 +29,6 @@ assets/scss/style.css
 assets/scss/style=expanded
 style=expanded
 assets/img/logo.png
+assets/img/logos/*
+assets/respaldo/*
+!assets/respaldo/.gitkeep

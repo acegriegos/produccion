@@ -57,6 +57,13 @@ $(document).ready(function(){
         endingTop: '4%' // Ending top style attribute
     });
 
+	$("#ret-xml").click(function(){
+		$("[xml=3]").addClass('hide');
+		$("[xml=2]").addClass('hide');
+		$("[xml=1]").removeClass('hide');
+		$("#registro-upload").removeAllFiles()
+	});
+	
 	InitDropzone(1,true,'../cargar.php?accion=4',"#registro-upload",1,'text/xml','','',xmlCargar);
 });
 
@@ -72,16 +79,28 @@ function xmlCargar(file,response){
 				try{
 					p = JSON.parse(data);
 					if (p['succed']) {
-						var contenido = '';
+						//sacar nombre del tipo venta
+						//sacar id de la moneda
+						//sacar idtipopago
+						//crear proveedor si no existe
+
+						$("#ffacturas .zelda").data('triforce',{vidtipo:p['factura']['tipoventa'], vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:p['clave'], vidmoneda:1, vbisproveedor:1, vidcliente:0, vsubtotal:p['factura']['subtotal'], vdescuento:p['factura']['descuento'], vimv:p['factura']['impuesto'], vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : p['factura']['divisa'],vidusuario:'',vidtipopago:1,vidodt:0,vajuste:0,tmpcorreo:'',videxoneracion:''});
+						
+						$(".shxml_body").html('');
+
 						for (var i = 0; i < p['detalle'].length; i++) {
-							contenido += '<tr> <td><input type="checkbox" name="isvalid" id="valid'+p['detalle'][i]['linea']+'" checked><label for="valid'+p['detalle'][i]['linea']+'"></label></td> <td>'+p['detalle'][i]['cantidad']+'</td><td>'+p['detalle'][i]['unidad']+'</td><td>'+p['detalle'][i]['detalle']+'</td><td style="text-align:right;">'+parseFloat(['detalle'][i]['descuento']).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(p['detalle'][i]['impuesto']).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(p['detalle'][i]['precio']).formatMoney(2,'.',',')+'</td></tr>';
+
+							$(".shxml_body").append('<tr class="ciclos" id="fd'+i+'"> <td><input type="checkbox" name="isvalid" id="valid'+p['detalle'][i]['linea']+'" checked><label for="valid'+p['detalle'][i]['linea']+'"></label></td> <td>'+p['detalle'][i]['cantidad']+'</td><td>'+p['detalle'][i]['unidad']+'</td><td>'+p['detalle'][i]['detalle']+'</td><td style="text-align:right;">'+parseFloat(['detalle'][i]['descuento']).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(p['detalle'][i]['impuesto']).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(p['detalle'][i]['precio']).formatMoney(2,'.',',')+'</td></tr>');
+							//buscar unidad si no existe agregar
+							//buscar producto si no existe agregarlo
+							$("#fd"+i).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : 0,vcantidad : p['detalle'][i]['cantidad'],vprecio : p['detalle'][i]['precio'],vdescuento : p['detalle'][i]['descuento'],vidinventario : 0,vidodt : 0,vimv : p['detalle'][i]['impuesto'],vcomodin : '',vidunidad : 0,vidimpuestos:'',viddescuentos:''});
 						}
-						$("#shxml_body").html(contenido);
-						$("#shxml_head").html('<b>Factura:</b>'+p['clave'].substr(21,20)+', Fecha: '+p['factura']['fecha']+', Tipo Venta: '+p['factura']['tipoventa']+', Tipo Pago: '+p['factura']['tipopago']+', Tipo Cambio: '+p['factura']['divisa']+'<br><b>Emisor: </b>'+p['emisor']['nombre']+', Ced.: '+p['emisor']['cedula']+', Correo: '+p['emisor']['correo']);
+
+						$(".shxml_head").html('<b>Factura:</b>'+p['clave'].substr(21,20)+', Fecha: '+p['factura']['fecha']+', Tipo Venta: '+p['factura']['tipoventa']+', Tipo Pago: '+p['factura']['tipopago']+', Tipo Cambio: '+p['factura']['divisa']+'<br><b>Emisor: </b>'+p['emisor']['nombre']+', Ced.: '+p['emisor']['cedula']+', Correo: '+p['emisor']['correo']);
 
 						var total = (parseFloat(p['factura']['exento'])-parseFloat(p['factura']['descuento'])+parseFloat(p['factura']['impuesto'])+parseFloat(p['factura']['subtotal'])).formatMoney(2,'.',',');
 
-						$("#shxml_foot").html('<tr><td colspan="5" style="padding:0px;text-align:right;"><b>Gravado</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(p['factura']['subtotal']).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Impuestos</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(p['factura']['impuesto']).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Exento</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(p['factura']['exento']).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Descuentos</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(p['factura']['descuento']).formatMoney(2,'.',',')+'</td></tr><tr><td colspan="5" style="padding: 0px;text-align:right"><b>TOTAL</b></td><td colspan="2" style="padding: 0px;text-align:right">'+p['factura']['moneda']+' '+total+'</td></tr>');
+						$(".shxml_foot").html('<tr><td colspan="5" style="padding:0px;text-align:right;"><b>Gravado</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(p['factura']['subtotal']).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Impuestos</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(p['factura']['impuesto']).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Exento</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(p['factura']['exento']).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Descuentos</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(p['factura']['descuento']).formatMoney(2,'.',',')+'</td></tr><tr><td colspan="5" style="padding: 0px;text-align:right"><b>TOTAL</b></td><td colspan="2" style="padding: 0px;text-align:right">'+p['factura']['moneda']+' '+total+'</td></tr>');
 
 						$("[xml=3]").removeClass('hide');
 					}else{
@@ -228,3 +247,20 @@ $(document).on("click",".xml",function(){
 $(document).on("click",".mdi-upload",function(){
 	$("#modal-getxml").modal('open')
 });
+
+function validar (varreglo,vmodulo) {
+    
+    var salida = {}
+    
+        /*VALIDACION FRONT END*/
+    
+    switch(vmodulo['modulo']) {
+    	case 'detallefactura':
+        case 'factura':
+        	break;
+    }
+
+    salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+    
+    return salida;
+};
