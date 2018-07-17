@@ -121,27 +121,27 @@
             $salida['emisor']['id']         = 0;
         }else
             $salida['emisor']['id']     = $prov[0][0];
-
-        $salida['factura']['fecha']     = ((array) $inv_xml->FechaEmision)[0];
+        $fecha = ((array) $inv_xml->FechaEmision)[0];
+        $fecha = strtotime(substr(str_replace('T', ' ', $fecha),0,-6));
+        $fecha = date('d/m/Y H:i:s',$fecha);
+        $salida['factura']['fecha']     = $fecha;
         $salida['factura']['tipoventa'] = ((array) $inv_xml->CondicionVenta)[0];
         $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? ((array) $inv_xml->PlazoCredito)[0] : 0;
         $salida['factura']['tipopago']  = ((array) $inv_xml->MedioPago)[0];
-        $salida['Factura']['moneda']    = ((array) $inv_xml->ResumenFactura->CodigoMoneda)[0];
-        $salida['Factura']['divisa']    = ((array) $inv_xml->ResumenFactura->TipoCambio)[0];
-        $salida['Factura']['subtotal']  = ((array) $inv_xml->ResumenFactura->TotalGravado)[0];
-        $salida['Factura']['exento']    = ((array) $inv_xml->ResumenFactura->TotalExento)[0];
-        $salida['Factura']['descuento'] = ((array) $inv_xml->ResumenFactura->TotalDescuentos)[0];
-        $salida['Factura']['impuesto']  = ((array) $inv_xml->ResumenFactura->TotalImpuesto)[0];
+        $salida['factura']['moneda']    = ((array) $inv_xml->ResumenFactura->CodigoMoneda)[0];
+        $salida['factura']['divisa']    = ((array) $inv_xml->ResumenFactura->TipoCambio)[0];
+        $salida['factura']['subtotal']  = ((array) $inv_xml->ResumenFactura->TotalGravado)[0];
+        $salida['factura']['exento']    = ((array) $inv_xml->ResumenFactura->TotalExento)[0];
+        $salida['factura']['descuento'] = ((array) $inv_xml->ResumenFactura->TotalDescuentos)[0];
+        $salida['factura']['impuesto']  = ((array) $inv_xml->ResumenFactura->TotalImpuesto)[0];
 
         $ciclo = ((array) $inv_xml->DetalleServicio);
+        $salida['detalle'] = [];
+
         foreach ($ciclo as $key) {
-            $salida['detalle'][((array)$key->NumeroLinea)[0]]['codigo']     = ((array)$key->Codigo->Codigo)[0];
-            $salida['detalle'][((array)$key->NumeroLinea)[0]]['cantidad']   = ((array)$key->Cantidad)[0];
-            $salida['detalle'][((array)$key->NumeroLinea)[0]]['unidad']     = ((array)$key->UnidadMedida)[0];
-            $salida['detalle'][((array)$key->NumeroLinea)[0]]['detalle']    = ((array)$key->Detalle)[0];
-            $salida['detalle'][((array)$key->NumeroLinea)[0]]['precio']     = ((array)$key->PrecioUnitario)[0];
-            $salida['detalle'][((array)$key->NumeroLinea)[0]]['descuento']  = isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0;
-            $salida['detalle'][((array)$key->NumeroLinea)[0]]['impuesto']   = isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0;
+            $num = ((array)$key->NumeroLinea)[0];
+            $detarray = ['numero' => $num,'codigo' => ((array)$key->Codigo->Codigo)[0],'cantidad' => ((array)$key->Cantidad)[0], 'unidad' => ((array)$key->UnidadMedida)[0] == 'Otros' ? ((array)$key->UnidadMedidaComercial)[0] : ((array)$key->UnidadMedida)[0],'detalle' => ((array)$key->Detalle)[0], 'precio' => ((array)$key->PrecioUnitario)[0], 'descuento' => isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0, 'impuesto' => isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0];
+            array_push($salida['detalle'], $detarray);
         }
 
         // $mxml = file_get_contents('./assets/xml/'.$id);

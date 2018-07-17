@@ -3,6 +3,8 @@
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.24">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.24">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.24">
+
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
 <?php $co = isset($_REQUEST['co']) ? 0 : 1 ?>
@@ -124,7 +126,7 @@
           <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
             <tr>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descricpión</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descripión</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">P. Unit</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Tipo</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">Descuento</th>
@@ -159,11 +161,13 @@
 
               echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". Monto Autorizado: ".$exoneracion[4].". Porcentaje de Compra Autorizado: ".$exoneracion[5]."% </span><br><br>";
             } ?>
-            *Producto Exento
+            * Producto Exento
+            <br>
+            ** I.V.I
             <tfoot>
               <tr>
-                <td style="padding: 6px 5px !important" colspan="4" class="center">
-                  <?php 
+                <td style="padding: 0px !important" colspan="4" class="center ">
+                 <!--  <?php 
                                               
                       require_once('../assets/libs/phpqrcode/qrlib.php'); 
      
@@ -179,7 +183,7 @@
                        
                       echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
                       
-                   ?>
+                   ?> -->
                 </td>
                 <td colspan="2">
                   <table>
@@ -187,13 +191,13 @@
                     <tr>
                       <?php if ($grabado > 0){ ?>
 
-                      <td style="padding: 6px 5px !important" class="left-align sinborde margen2">Gravado</td>
-                      <td style="padding: 6px 5px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
                     </tr>
 
                     <tr>
-                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Imv</td>
-                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">Imv</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
                     </tr>
 
                     <?php } ?>
@@ -201,8 +205,8 @@
                     <?php if ($exento > 0) { ?>
 
                     <tr>
-                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Exento</td>
-                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
+                      <td style="padding-left: 5px !important" class="left-align sinborde margen">Exento</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
                     </tr>
 
                      <?php } ?>
@@ -210,28 +214,28 @@
                     <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
 
                     <tr>
-                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Descuento</td>
-                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">Descuento</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
                     </tr>
                     <?php } ?>
 
                     <?php if ($datos[7] > 0){ ?>
                     <tr>
-                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Flete</td>
-                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">Flete</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
                     </tr>
                     <?php } ?>
 
                     <?php if ($datos[8] > 0){ ?>
                     <tr>
-                      <td style="padding: 6px 5px !important" class="left-align sinborde margen">Ajuste</td>
-                      <td style="padding: 6px 5px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">Ajuste</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
                     </tr>
                     <?php } ?>
 
                     <tr>
-                      <td  class="left-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; background-color: #3960A7;"><b>TOTAL</b></td>
-                      <td  class="right-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+                      <td  class="left-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important;  background-color: #3960A7;"><b>TOTAL</b></td>
+                      <td  class="right-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important; padding-right: 0.5px !important; background-color: #3960A7;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
                     </tr>
                   </table>
                 </td>
@@ -268,14 +272,14 @@
             </section>
             <!-- @PRINT -->
 
-            <?php 
+            <!-- <?php 
             $decimales =  substr($datos[10], strpos($datos[10], '.'));
             $entero = str_replace(',', '', substr($datos[10],0,strpos($datos[10], '.')));
             $nombres = array(1=>'Uno',2=>'Dos',3=>'Tres',4=>'Cuatro',5=>'Cinco',6=>'Seis',7=>'Siete',8=>'Ocho',9=>'Nueve',0=>'Cero',10=>'Diez',11=>'Once',12=>'Doce',13=>'Trece',14=>'Catorce',15=>'Quince','10+'=>'Dieci',20=>'Veinte','20+'=>'Veinti',30=>'Treinta y',40=>'Cuarenta y',50=>'Cincuenta y',60=>'Sesenta y',70=>'Setenta',80=>'Ochenta y',90=>'Noventa y',100=>'Cien','100+'=>'Ciento',200=>'Doscientos',300=>'Trescientos',400=>'Cuatrocientos',500=>'Quinientos',600=>'Seiscientos',700=>'Sietecientos',800=>'Ochocientos',900=>'Novecientos',1000=>'Mil',100000=>'Millón');
             $diviciones = round(strlen($entero) / 3,0)-1;
             $salida = '';
             ?> 
-            <span class="labelalpha"><?php echo $salida; ?></span>
+            <span class="labelalpha"><?php echo $salida; ?></span> -->
 
 
             <!-- FOOTER -->
@@ -290,16 +294,16 @@
               $msj = '';
               break;
             } ?>
-            <footer class="imprimirSINBOR" align="center-align">
+            
+              <!-- /FOOTER -->
+              <footer class="imprimirSINBOR center " style=" width: 100%; padding-right: 8% !important" >
               <hr>
-              <div style="padding: 0% 12%">
+              <div>
                 <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
                   <br> 
-                  <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
+                  <span class="" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
                 </div>
               </footer>
-              <!-- /FOOTER -->
-
             </div>
             <!-- /MAIN -->
 

@@ -130,14 +130,10 @@ h3 {
   .hideonprint {
     display: none; }
 
-  thead {
-    background-color: red; }
-
+  
   header, nav, aside {
     display: none; }
 
-  footer {
-    font-size: 10px; }
 
   .salto {
     page-break-before: always; }
@@ -150,8 +146,7 @@ h3 {
     padding-right: 10px;
     color: black !important; }
 
-  .hoideonprint {
-    display: none; }
+
 
   .hoja {
     background-color: black;
@@ -161,11 +156,16 @@ h3 {
     border: 0px !important;
     box-shadow: none !important;
     color: black !important;
-    padding: 2% 0% !important; }
+    padding: 2% 2% !important; }
 
   footer {
+    width: 100%;
+    text-align: center !important;
     position: fixed;
-    bottom: 0; } }
+    bottom: 0;
+  }  
+  
+  }
 @page {
   size: letter;
   size: auto;
