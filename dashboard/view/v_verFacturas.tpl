@@ -179,12 +179,11 @@
             </section>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Aceptar</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Aceptar Parcial</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" xml="3">Rechazar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide" xml="3">Aceptar Parcial</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide" xml="3">Rechazar</a>
 
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide" xml="3">Aceptar</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Cancelar</a>
         </div>
     </div>
 
