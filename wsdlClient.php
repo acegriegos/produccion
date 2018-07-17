@@ -397,6 +397,7 @@
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/x-www-form-urlencoded','Authorization: bearer '.$this->bearer]);
 
             $json_response = curl_exec($curl);
+
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             $header = substr($json_response, 0, curl_getinfo($curl, CURLINFO_HEADER_SIZE));
             $body = substr($json_response, -curl_getinfo($curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD));
@@ -425,9 +426,11 @@
                 case 201:
                 case 202:
                     $aBody = (array) json_decode(substr($body,strpos($body, '{')));
-                    $sRespuesta = ((Array) simplexml_load_string(base64_decode($aBody['respuesta-xml'])))['DetalleMensaje'];
+                    if (isset($aBody['respuesta-xml'])){
+                        $sRespuesta = ((Array) simplexml_load_string(base64_decode($aBody['respuesta-xml'])))['DetalleMensaje'];
+                        $salida['rs'] = str_replace(PHP_EOL, ' ', $sRespuesta);
+                    }
                     $salida['factura']  = $this->id;
-                    $salida['rs'] = str_replace(PHP_EOL, ' ', $sRespuesta);
                     $salida['estado']   = $aBody['ind-estado'];
                     break;       
                 default:

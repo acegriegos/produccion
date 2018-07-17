@@ -1065,6 +1065,7 @@ function sendFE(clave,factura){
             })
               .done(function( data ) {
                 console.log('REVISADO')
+                console.log(data)
                 var q;
                 q = JSON.parse(data);
                 switch(q['estado']){
