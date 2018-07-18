@@ -126,7 +126,7 @@
           <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
             <tr>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descripión</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descripción</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">P. Unit</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Tipo</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">Descuento</th>
