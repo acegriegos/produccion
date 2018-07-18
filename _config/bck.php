@@ -6,5 +6,5 @@
     $user = $db->getUSR();
     $pass = $db->getPSS();
     $fecha = date('D_H');
-    shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > ../assets/respaldo/".$fecha.".sql");
+    shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > C:/xampp/htdocs/assets/respaldo/".$fecha.".sql");
  ?>
