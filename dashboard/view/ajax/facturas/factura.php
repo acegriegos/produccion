@@ -155,7 +155,7 @@
               <?php } ?>
             </tbody>
             <?php if($obj[33] != ''){
-              $exoneracion = explode(',', $obj[33]);
+              $exoneracion = explode('^', $obj[33]);
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 

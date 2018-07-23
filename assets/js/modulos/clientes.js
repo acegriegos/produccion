@@ -405,7 +405,7 @@ function validarclientes() {
 
 	if ($("#vnombre").val() == '') { $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == '') {	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
-	
+		
 	if ($("#videstado").val() == '') { $('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado'; }
 	if ($("#vcredito").val() == '') { $("#vcredito").val(0) };
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0) };

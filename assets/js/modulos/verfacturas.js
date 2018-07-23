@@ -235,13 +235,57 @@ $(document).on("change","input[name=tventa]",function(){
 
 $(document).on("click",".print",function(){
 	var id = $(this).attr('id').substr(1);
-	var tv = $(this).attr('tv');
+	// var tv = $(this).attr('tv');
 	var tp = !$("#tps").is(":checked");
-	window.open('facturacion?accion='+tv+'&id='+id+'&tp='+tp);
+	window.open('facturacion?accion=6&id='+id+'&tp='+tp);
 });
 
 $(document).on("click",".xml",function(){
 	window.location = "../wsdlClient.php?accion=2&id="+$(this).attr('id').substr(1);
+});
+
+$(document).on("click",".status",function(){
+	if ($(this).is("[disabled]")) {
+        event.preventDefault();
+    }
+
+	$(".status").attr('disabled',true)
+	$(this).removeClass('mdi-information-outline').addClass('mdi-spin mdi-loading')
+	var vid = $(this).attr('id').substr(1);
+
+	$.get('../wsdlClient.php',{accion:4,id:vid})
+		.done(function(data){
+			var ex;
+			var p;
+			var color = '';
+			var state = 7;
+			try{
+				p = JSON.parse(data);
+				switch(p['estado']){
+					case 'aceptado':
+						color = 'green';
+						state = 1;
+						break;
+					case 'rechazado':
+						color = 'red';
+						state = 3;
+						break;
+					case 'procesando':
+						color = 'yellow';
+						state = 2;
+						break;
+					default:
+						break;
+				}
+				arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
+				Materialize.toast(p['rs'],6000,color);
+			}catch(ex){
+				console.log(data)
+				Materialize.toast('Error Obteniendo Estado',6000,'red')
+			}
+			$(".status").attr('disabled',false)
+			$("#e"+vid).removeClass('mdi-spin mdi-loading').addClass('mdi-information-outline').css('color',color);
+		});
 });
 
 $(document).on("click",".mdi-upload",function(){
