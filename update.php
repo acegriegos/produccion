@@ -1,4 +1,6 @@
 <?php
+    set_time_limit(0);
+    
     $tupdate = isset($_REQUEST['tupdate']) ? $_REQUEST['tupdate'] : 0;
 
     switch ($tupdate) {

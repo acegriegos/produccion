@@ -10,7 +10,7 @@
 </head>
 <body>
     {$NAV}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css?v=10.0.0.26">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css?v=10.0.0.27">
     <div class="bdy pequeño" >
         <div class="card">
             <div class="card-header center head1"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
@@ -360,8 +360,8 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=10.0.0.26"></script>
-<script src="../assets/js/jquery.mask.min.js?v=10.0.0.26"></script>
+<script src="../assets/js/modulos/proveedores.js?v=10.0.0.27"></script>
+<script src="../assets/js/jquery.mask.min.js?v=10.0.0.27"></script>
 
 </body>
 </html>

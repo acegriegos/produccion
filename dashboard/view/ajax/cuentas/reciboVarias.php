@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.26">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.0.0.26">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.27">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.0.0.27">
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
 <title>Recibo de Dinero Multiple</title>
 
@@ -133,9 +133,9 @@
   </div>
   </div>
 
-<script src="../assets/js/jquery.js?v=10.0.0.26"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.27"></script>
 
-<script src="../assets/js/materialize.js?v=10.0.0.26"></script>
-<script src="../assets/js/asgard.js?v=10.0.0.26"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.26"></script>
+<script src="../assets/js/materialize.js?v=10.0.0.27"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.27"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.27"></script>
 </body>
