@@ -260,7 +260,7 @@ $(document).on("change","#vidunidad",function(){
 
 $(document).on("blur", "#vfamilia", function () {
 	var nombre = $(this).val();
-	var idfamilia = arr('login', 4, 'id', 20, 'nombre = \"' + nombre + '\"', 0, 0, 0)[0][0];
+	var idfamilia = arr('login', 4, 'id', 20, 'nombre = \"' + nombre + '\"', 0, 0, 0)[0][0][0];
 	if (idfamilia != undefined)
 		$("#fproductos .zelda").data('triforce')["vidfamilia"] = idfamilia;
 	else
@@ -269,7 +269,7 @@ $(document).on("blur", "#vfamilia", function () {
 
 $(document).on("blur", "#vtipo", function () {
 	var nombre = $(this).val();
-	var idtipo = arr('login', 4, 'id', 21, 'nombre = \"' + nombre + '\" and idfamilia = ' + $("#fproductos .zelda").data('triforce')["vidfamilia"], 0, 0, 0)[0][0];
+	var idtipo = arr('login', 4, 'id', 21, 'nombre = \"' + nombre + '\" and idfamilia = ' + $("#fproductos .zelda").data('triforce')["vidfamilia"], 0, 0, 0)[0][0][0];
 	if (idtipo != undefined)
 		$("#fproductos .zelda").data('triforce')["vidtipo"] = idtipo;
 	else
@@ -278,7 +278,7 @@ $(document).on("blur", "#vtipo", function () {
 
 $(document).on("blur", "#vmarca", function () {
 	var nombre = $(this).val();
-	var idmarca = arr('login', 4, 'id', 22, 'nombre = \"' + nombre + '\" and idtipo = ' + $("#fproductos .zelda").data('triforce')["vidtipo"], 0, 0, 0)[0][0];
+	var idmarca = arr('login', 4, 'id', 22, 'nombre = \"' + nombre + '\" and idtipo = ' + $("#fproductos .zelda").data('triforce')["vidtipo"], 0, 0, 0)[0][0][0];
 	if (idmarca != undefined)
 		$("#fproductos .zelda").data('triforce')["vidmarca"] = idmarca;
 	else

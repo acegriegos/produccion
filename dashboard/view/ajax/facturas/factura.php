@@ -1,9 +1,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.25">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.25">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.25">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.26">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.26">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.26">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -155,7 +155,7 @@
               <?php } ?>
             </tbody>
             <?php if($obj[33] != ''){
-              $exoneracion = explode(',', $obj[33]);
+              $exoneracion = explode('^', $obj[33]);
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
@@ -342,9 +342,9 @@
 
 
 
-     <script src="../assets/js/jquery.js?v=10.0.0.25"></script>
-     <script src="../assets/js/materialize.js?v=10.0.0.25"></script>
-     <script src="../assets/js/asgard.js?v=10.0.0.25"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.0.0.25"></script>
+     <script src="../assets/js/jquery.js?v=10.0.0.26"></script>
+     <script src="../assets/js/materialize.js?v=10.0.0.26"></script>
+     <script src="../assets/js/asgard.js?v=10.0.0.26"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.0.0.26"></script>
 
    </body>

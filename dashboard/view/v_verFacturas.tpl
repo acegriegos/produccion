@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.25">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.25">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.26">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.26">
   </head>
   <body>
   
@@ -102,6 +102,8 @@
                                     <a class="btn-color pbtn mdi mdi-24px mdi-xml xml blueh tooltipped" id="x{$FACT[LE][0]}" data-tooltip="Descargar XML" data-position="bottom"></a>
 
                                     <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
+
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e{$FACT[LE][0]}" style="color:{if $FACT[LE][11] eq 1}green{elseif $FACT[LE][11] eq 2}yellow{elseif $FACT[LE][11] eq 3}red{else}{/if};" data-tooltip="Estado de la Factura" data-position="bottom"></a>
                                 </td>
                             </tr>
                             {/section}
@@ -187,7 +189,7 @@
         </div>
     </div>
 
-    <script src="../assets/js/dropzone.js?v=10.0.0.25"></script>
-    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.25"></script>
+    <script src="../assets/js/dropzone.js?v=10.0.0.26"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.26"></script>
   </body>
 </html>
