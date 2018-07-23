@@ -1090,7 +1090,8 @@ function sendFE(clave,factura){
             continuar = 0;
         }
 
-        // if (continuar) {
+        if (continuar) {
+            sendVMail(vfactura,vclave,clave);
         //     setTimeout(function(){
         //         $.ajax({
         //         async: true,
@@ -1129,7 +1130,7 @@ function sendFE(clave,factura){
         //       });
         //     },3000);
 
-        //}
+        }
         
       });
 }
@@ -1155,7 +1156,6 @@ function sendVMail(factura,clave,vid){
                         }
 
                         str_correos = str_correos.substr(0,str_correos.length-1);
-                        console.log(str_correos)
                     }
                 }
                 
