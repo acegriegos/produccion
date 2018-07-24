@@ -339,7 +339,11 @@ $(document).on("change","#iva",function(){
 });
 
 $(document).on("change","#exct",function(){
-    $("#exct").attr('hclk',1);
+    if ( $(this).attr('hclk') == 1)
+        $("#exct").attr('hclk', 0);
+    else
+        $("#exct").attr('hclk', 1);
+    
     totalizar();
 });
 
@@ -461,6 +465,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         $("#cantI").text(0);
         $("#bname-inv").html(0.00);
         $("#exct").prop('checked', false);
+        $("#exct").attr('hclk',0);
 
         $("#codp").focus();
     }
@@ -495,7 +500,7 @@ function totalizar(){
 
         vidlinea = $(this).prop('id').substr(4);
         vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
-
+        
         if ($("#iva").attr('hclk') == 1) {
             iva_imp = $("#imp_1").data('valores')['vmonto'];
             if ($("#iva").is(":checked")) {
@@ -535,7 +540,12 @@ function totalizar(){
         tmpdesc = tmpdesc * (1-(desc/100));
 
         $(".dimpuesto").each(function(){
-            geimv = $(this).data('valores')['exoneracion'];
+
+            if ($("#exct").attr('hclk') == 0) {
+                geimv = $(this).data('valores')['exoneracion'];
+            }else{
+                geimv = 100;
+            }
             
             if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
 
