@@ -540,11 +540,11 @@ function totalizar(){
         tmpdesc = tmpdesc * (1-(desc/100));
 
         $(".dimpuesto").each(function(){
-
-            if ($("#exct").attr('hclk') == 0) {
-                geimv = $(this).data('valores')['exoneracion'];
-            }else{
-                geimv = 100;
+            if (param == 2) {
+                if ($("#exct").attr('hclk') == 0)
+                    geimv = $(this).data('valores')['exoneracion'];
+                else
+                    geimv = 100;
             }
             
             if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
