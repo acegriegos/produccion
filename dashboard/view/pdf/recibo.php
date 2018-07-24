@@ -241,7 +241,7 @@ $datos[0][3].'</div>'.
 
 '<br><br>';
 
-if($datos[0][33] != ''){
+if(strlen($datos[0][33])){
   $exoneracion = explode('^', $datos[0][33]);
   $time = strtotime($exoneracion[3]);
   $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
