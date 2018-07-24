@@ -240,6 +240,7 @@ $("#pcon").blur(function(){
 
 
 $("#factreal").click(function(){
+        $(this).blur();
     $("#factreal").attr('disabled',true);
     $("#modal-tpagos").attr("gfort",1);
     $("#facturar").attr('disabled',true)
@@ -1052,6 +1053,7 @@ function sendFE(clave,factura){
             sendVMail(vfactura,vclave,clave);
         }
         catch(err){
+            console.log(err)
             //GENERAR NOTA DE CREDITO
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
@@ -1061,8 +1063,8 @@ function sendFE(clave,factura){
             continuar = 0;
         }
 
-        if (continuar) {
-            sendVMail(vfactura,vclave,clave);
+        /*if (continuar) {
+            sendVMail(vfactura,vclave,clave);*/
         //     setTimeout(function(){
         //         $.ajax({
         //         async: true,
@@ -1101,9 +1103,9 @@ function sendFE(clave,factura){
         //       });
         //     },3000);
 
-        }
+      //  }
         
-      });
+  });
 }
 
 function sendVMail(factura,clave,vid){
@@ -1161,8 +1163,9 @@ function sendVMail(factura,clave,vid){
                 break;
             default:
                 if (config[4] == 1) {
-                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcam").val()+'&vuelto='+$("#pcam").val() : '';
-                    w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'))+vuelto;
+
+                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                    w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
                     try{ 
                         w.print();
                       setTimeout(function(){
@@ -1173,7 +1176,8 @@ function sendVMail(factura,clave,vid){
                       
                         
                     }catch(e){
-                        Materalize.toast("POP-UP ACTIVADO",4000,'red');
+                        console.log(e)
+                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
                     }
                 }
                 break;
