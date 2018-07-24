@@ -242,7 +242,7 @@ $datos[0][3].'</div>'.
 '<br><br>';
 
 if($datos[0][33] != ''){
-  $exoneracion = explode(',', $datos[0][33]);
+  $exoneracion = explode('^', $datos[0][33]);
   $time = strtotime($exoneracion[3]);
   $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
@@ -250,7 +250,7 @@ if($datos[0][33] != ''){
 } 
 
 
-$html .= '*Producto Exento <br>'.
+$html .= '* Producto Exento <br>** I.V.I<br>'.
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%;" class="mcnTextContentContainer">'.
 '<tbody><tr>'.
 
