@@ -25,7 +25,7 @@
       </div>
 
       <div class="input-field col s12 m6 l4">
-        <select id="vidTipoUsuario" type="select" style="margin-bottom: 0 !important">
+        <select <?php if ($_SESSION['BUSS'] == 1) echo 'disabled'; ?> id="vidTipoUsuario" type="select" style="margin-bottom: 0 !important">
           <option value="0" selected disabled>Seleccione un Tipo de Usuario</option>
           <?php  foreach ($tusr as $obj) { ?>
           <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
@@ -33,7 +33,7 @@
         </select>
       </div>
       <div class="input-field col s12 m6 l4" >
-        <select id="vidsuc" type="select" style="margin-bottom: 0 !important" class="suc" multiple>
+        <select id="vidsuc" <?php if ($_SESSION['BUSS'] == 1) echo 'disabled'; ?> type="select" style="margin-bottom: 0 !important" class="suc" multiple>
           <option value="" selected disabled>Seleccione una Sucursal</option>
           <?php  foreach ($suc as $obj) { ?>
           <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
@@ -50,17 +50,17 @@
         <label for="clave">Repetir Contraseña</label>
       </div>
 
-      <div class="input-field col s12 m6 l2 pequeño" style="margin-bottom: 20px;">
+      <div class="input-field col s12 m6 l2 pequeño <?php if ($_SESSION['BUSS'] == 1) echo 'hide'; ?>" style="margin-bottom: 20px;">
         <label for="vlimite">Hora de Entrada</label>
         <input id="vlimite" type="text" class="timepicker">
       </div>
-      <div class="input-field col s12 m6 l2 pequeño" style="margin-bottom: 20px;">
+      <div class="input-field col s12 m6 l2 pequeño <?php if ($_SESSION['BUSS'] == 1) echo 'hide'; ?>" style="margin-bottom: 20px;">
         <label for="vlimite2">Hora de Salida</label>
         <input id="vlimite2" type="text" class="timepicker">
       </div>
     </div>
 
-    <a class="btn-floating waves-effect waves-green btn2 right add z-depth-3" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="mdi mdi-plus mdi-24px"></i></a>
+    <a class="btn-floating waves-effect waves-green btn2 right add z-depth-3 {if $smarty.session.BUSS eq 1} hide {/if}" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="mdi mdi-plus mdi-24px"></i></a>
     <br>
     <input type="hidden" id="vbcambioPSSW" value="0">
     <input type="hidden" id="vcodigo" value="">

@@ -1060,7 +1060,6 @@ function sendFE(clave,factura){
             $(".expect").removeClass('progress');
             arr('login',7,2,64,'feestado=2','id='+clave,0,0);
             $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-            config[3] = 0;
             sendVMail(vfactura,vclave,clave);
         }
         catch(err){
@@ -1144,8 +1143,8 @@ function sendVMail(factura,clave,vid){
                 }
                 
                 if (config[4] == 1) {
-                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcam").val()+'&vuelto='+$("#pcam").val() : '';
-                    w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked'))+vuelto;
+                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                    w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
                     try{ 
                         w.print();
                       setTimeout(function(){
@@ -1173,6 +1172,7 @@ function sendVMail(factura,clave,vid){
             case 2:
                 break;
             default:
+            console.log(config[4])
                 if (config[4] == 1) {
 
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';

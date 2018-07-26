@@ -199,7 +199,7 @@ $(document).on("blur", "[id^=vcliente]", function () {
 	var nombre = $(this).val();
 	var id = $(this).attr('id').substr(8);
 	if (nombre != '') {
-		var idc = arr('login', 4, 'id', 2, 'concat(nombre," ",apellido1," ",apellido2," [",replace(cedula,"-",""),"]") like "%' + nombre + '%"', 0, 0, 0)[0][0][0];
+		var idc = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2," [",replace(cedula,"-",""),"]") like "%'+nombre+'%"',0,0,0)[0][0][0];
 
 		$(".vidcliente").each(function () {
 			var idcli = $(this).val();
@@ -595,9 +595,9 @@ $(document).on("click",".descuentos",function() {
 	var id = $(this).attr('id').substr(4);
 	var prod = arr('login', 4, 'nombre', 11, 'id = ' + id, '', 0, '')[0];
 	$(".dprod").text(prod);
-	var desc = arr('login', 4, '', 152, id, 0, 0, 0)[0][0];
-	if (desc != undefined) {
-		arr('login', 6, '', 152, id, 0, 1, $("#listadescuentos"));
+	var desc = arr('login',4,'',152,id,0,0,0);
+	if (desc[0][0] != undefined) {
+		arr('login',6,'',152,id,0,1,$("#listadescuentos"));
 	} else {
 		$("#listadescuentos").html('<span style="font-size: 1.5em;">No se encuentran descuentos asociados a este producto</span>')
 	}
@@ -1251,7 +1251,7 @@ $(document).on("blur",".calcvv",function(){
 
 	var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
 	var costo = $("#vcosto").val().replace(/,/,'');
-	var impuestos = 0;
+	var impuestos = egeneral = 0;
 
 	$(".impuestos").each(function () {
 		var id = $(this).attr('id').substr(4);
@@ -1276,9 +1276,9 @@ $(document).on("blur",".calcvv",function(){
 		});
 	}else{
 		var padre = $(this).parent().parent();
-		var ganancia = padre.find('.gan').val().replace(/,/g,'');
-		var exoneracion = padre.find('.exo').val().replace(/,/g,'');
-		var venta = padre.find('.ven').val().replace(/,/g,'');
+		var ganancia = padre.find('.gan').val() == undefined ? 0 : padre.find('.gan').val().replace(/,/g,'');
+		var exoneracion = padre.find('.exo').val() == undefined ? 0 : padre.find('.exo').val().replace(/,/g,'');
+		var venta = padre.find('.ven').val() == undefined ? 0 : padre.find('.ven').val().replace(/,/g,'');
 		var tgan = tven = rven = 0;
 
 		costo = isNaN(costo) ? 0 : costo;
@@ -1301,6 +1301,7 @@ $(document).on("blur",".calcvv",function(){
 				padre.find('.rgan').val(rven.toFixed(5));
 				break;
 			default:
+				$("#vgganancia").blur();
 				break;
 		}	
 	}
@@ -1375,12 +1376,13 @@ $(document).on("click","#addproduct",function(){
     $("#listavariables").html('');
     deadclear('producto');
     var imp = arr('login',4,'',200,'11,0',0,0,0)[0];
-    $("#impuestos").html('')
+    $("#impuestos").html('');
     for (var i = 0, len = imp.length; i < len; i++) {
         $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][1]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][1]+'" rf="'+imp[i][3]+'" defecto="1">'+imp[i][5]+' : '+imp[i][3]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][1]+'" type="number" class="validate eder calcvv" value="'+imp[i][4]+'" style="margin: 0px;width: 50%"></div></div></li>');
     };
     $(".validate").css('border-bottom', '1px solid #9e9e9e');
     $(".validate").css('box-shadow', 'none');
+    $("#vidunidad").val(1)
     Materialize.updateTextFields();
     $("select").material_select();
     setTimeout(function(){$("#vfamilia").focus();},500)
@@ -1823,7 +1825,6 @@ function validar(varreglo, vmodulo) {
 }
 
 function validarproductos() {
-	console.log($("#fproductos .zelda").data('triforce')["vidfamilia"])
 	if ($("#fproductos .zelda").data('triforce')["vidfamilia"] == 0 && $("#vfamilia").val().length) {
 		var familia = arr('login', 4, '', 106, '1,0,\"' + $("#vfamilia").val() + '\",@@impresa', 0, 0, 0);
 		if (familia[0][0] != undefined) {
@@ -1853,16 +1854,14 @@ function validarproductos() {
 			return marca[0]['ERROR'];
 		}
 	}
-
-
 	if ($("#vidinventario").val() == 0) {
 		$("#tb1").click();
 		$("#vidinventario").focus();
 		return 'Inventario Requerido';
 	}
-	if ($("#vidunidad").val() == undefined) {
+	if ($("#vidunidad").val() == undefined || $("#vidunidad").val() == '') {
 		$("#tb1").click();
-		$("#vidunidad").prevAll('input.select-dropdown').trigger('open').focus();
+		// $("#vidunidad").prevAll('input.select-dropdown').trigger('open').focus();
 		return 'Unidad Requerida';
 	}
 	if ($("#vnombre").val() == '') {
@@ -1884,19 +1883,15 @@ function validarproductos() {
 	if ($("#vmaxdescuento").val() == '') {
 		$("#vmaxdescuento").val(0);
 	}
-
 	if (isNaN($("#vcosto").val().replace(/,/g,''))) {
 		$("#tb2").click();
 		$("#vcosto").select()
 		return 'Precio Costo Inválido';
 	}
-
 	if (isNaN($("#vgganancia").val().replace(/,/g,''))) {
 		$("#vgganancia").val(0);
 	}
-
 	return false;
-
 }
 
 function validarservicios() {
@@ -2050,14 +2045,14 @@ function endDetail(id, acc, modulo) {
 	switch(modulo){
 		case 'producto':
 
-			$(".precionivel").each(function () {
+			$(".precionivel").each(function() {
 				var idfila = $(this).attr('id').substr(1);
 				if ($("#vventa" + idfila).val() > 0) {
 					arr('login', 4, '', 108, '1,0,' + id[0][0] + ',' + idfila + ',' + $("#vgganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa', 0, 0, 0)
 				}
 			});
 
-			$(".preciocliente").each(function () {
+			$(".preciocliente").each(function() {
 				var idfila = $(this).attr('id').substr(1);
 				if ($("#vventa" + idfila).val() > 0) {
 					arr('login', 4, '', 162, '1,0,' + id[0][0] + ',' + $("#vidcliente" + idfila).val() + ',' + $("#vgganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa,'+parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vgganancia"+idfila).val().replace(/,/g,""))/100)+1), 0, 0, 0)
@@ -2067,9 +2062,19 @@ function endDetail(id, acc, modulo) {
 			var vari = $(".variables");
 			if (vari.length > 0) {
 				vari.each(function () {
-					arr('login', 4, '', 194, '1,0,"' + $(this).attr('nom') + '","' + $(this).attr('var') + '",' + id[0][0] + ',@@usr,@@impresa', 0, 0, 0)
+					arr('login',4,'',194,'1,0,"'+$(this).attr('nom')+'","'+$(this).attr('var')+'",'+id[0][0]+',@@usr,@@impresa',0,0,0);
 				});
 			}
+			//exoneracion
+			var imps = $(".impuestos");
+			if (imps.length > 0) {
+				$(".impuestos").each(function() {
+					// vaccion,vid,vidfila,vidtabla,vidimpuesto,vexoneracion
+					var idimp = $(this).attr('id').substr(4)
+					arr('login',4,'',86,'1,0,'+id[0][0]+',11,'+idimp+','+$("#impexo"+idimp).val(),0,0,0);
+				});
+			}
+			// fin exoneracion
 
 			thorload(modulo);
 			deadclear(modulo);
