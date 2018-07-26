@@ -124,6 +124,12 @@ td, th {
   width: 30% !important;
   height: 30% !important; }
 
+  .autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important;
+}
+
 input:not([type]), input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="time"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="tel"], input[type="number"], input[type="search"] {
   height: 2.5em !important; }
 
