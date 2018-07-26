@@ -18,7 +18,7 @@
 
 		    $user = $log->autenticar();
 		    if(sizeof($user) == 2){
-		    	print_r($user);
+		    	header("Location: ../dashboard/login");
 		    }else if (sizeof($user) == 1)
 		    {
 
@@ -27,15 +27,11 @@
             return false;
           }
 
-          // if($user[0][6] == '')
-          //   print_r($user);
-          //   // header("Location: ../bienvenida/bienvenida.html");
-          // else{
             if ($user[0][7] == 0)
               cambioDia($log);
      
-              $_SESSION['USR']     = base64_encode($user[0][0]);//trim($encrypt->ency($user[0][0]));
-              $_SESSION['NUM']     = base64_encode($user[0][1]);//trim($encrypt->ency($user[0][1]));
+              $_SESSION['USR']     = base64_encode($user[0][0]);
+              $_SESSION['NUM']     = base64_encode($user[0][1]);
               $_SESSION['NOM']     = $user[0][2];
               $_SESSION['TIPO']    = $user[0][3];
               $_SESSION['EMPRESA'] = $user[0][4];
@@ -51,8 +47,6 @@
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
            }
-  
-		   // }
     	}else{
         $mod = 'main';
         
