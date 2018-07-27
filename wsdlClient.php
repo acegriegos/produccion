@@ -57,7 +57,7 @@
                 print_r(base64_decode($result['xml']));
                 break;
             case 9: //P12
-
+                
                 openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[1]);
                 $publicKey    =$certs["cert"];
                 
