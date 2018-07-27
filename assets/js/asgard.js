@@ -700,6 +700,9 @@ case "5":
                             salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().toString();
                         }
                         break;
+                        case 'file':
+                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('src');
+                        break;
                         case 'text':
                         case 'textarea':
                         valorOdin = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
