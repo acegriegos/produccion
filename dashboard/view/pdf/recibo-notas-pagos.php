@@ -12,7 +12,9 @@ class myPDF extends TCPDF {
 
     public function Footer() {
         $html = '<div align="center">
-            <br>
+            <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
+              <br> 
+              <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
             </div>';
 
         $this->writeHTML($html, true, false, true, false, '');
@@ -22,20 +24,12 @@ class myPDF extends TCPDF {
 // create new PDF document
 $pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-// set document information
-// $pdf->SetCreator(PDF_CREATOR);
-// $pdf->SetAuthor(PDF_AUTHOR);
 $pdf->SetTitle($tit);
 $pdf->SetSubject($tit);
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
-// set default header data
-//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING, array(0,0,0), array(0,0,0));
-
-
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-
 
 // set default monospaced font
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -57,51 +51,15 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 }
 
 $pdf->setFontSubsetting(true);
-$pdf->SetFont('dejavusans', '', 10, '', true);
-$pdf->AddPage();
+$pdf->SetFont('helvetica', '', 10, '', true);
+$pdf->AddPage('L');
 $total = 0;
+$html = '<table><tr><td>';
+if ($miscelaneos[3]) {
+   $html .= '<img src="'.$miscelaneos[3].'" width="264" style="max-width:339px;" class="mcnImage">';
+}
 
-$html = '<!doctype html>'.
-'<head>'.
-
-'<meta charset="UTF-8">'.
-'<meta http-equiv="X-UA-Compatible" content="IE=edge">'.
-'<meta name="viewport" content="width=device-width, initial-scale=1">'.
-'<title>Recibo</title>'.
-
-'</head>'.
-'<body style="width: 100%"; >'.
-'<center>'.
-'<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">'.
-'<tr>'.
-'<td align="left" valign="top" id="bodyCell">'.
-
-'<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">'.
-'<tr>'.
-'<td valign="top" id="templateHeader"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">'.
-'<tbody class="mcnCaptionBlockOuter">'.
-'<tr>'.
-'<td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">'.
-
-'<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">'.
-'<tbody><tr>'.
-'<td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">'.
-
-'<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">'.
-'<tbody><tr>'.
-'<td class="mcnCaptionRightImageContent" valign="top">'.
-'<br>'.
-
-'<img src="https://gallery.mailchimp.com/236c3cf9c0e643d2694f51e4c/images/daa0fc73-6e22-4be3-8a43-807258016801.png" width="264" style="max-width:339px;" class="mcnImage">'.
-
-'</td>'.
-'</tr>'.
-'</tbody></table>'.
-'</td><td>'.  //DIVISOR
-'<table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264"> '.
-'<tbody><tr>'.
-'<td valign="top" class="mcnTextContent" style="font-size: 13px;font-family: Helvetica;">'.
-'<div style="text-align: left; color: #494949;">'.
+$html .= '</td> <td></td> </td><td><div style="text-align: left; color: #494949;">'.
 '<strong>'.$miscelaneos[0].'</strong><br>';
 
 if($miscelaneos[2] != '') 
@@ -111,7 +69,8 @@ $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 '<strong>Teléfono:</strong> '.$miscelaneos[5].'<br>'.
 '<strong>Correo:</strong> '.$miscelaneos[4].'<br>'.
 '<strong>Dirección:</strong><br>'.
-$miscelaneos[6].'</div></html>';
+$miscelaneos[6].'</div>';
+$html .= '<tr></table>';
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.
 $pdf->writeHTML($html, true, false, true, false, '');
 

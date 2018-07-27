@@ -613,50 +613,47 @@ var id = $(this).attr('id').substr(1);
 var nombre = arr('login',4,'nombre',94,'id = '+id,0,0,0)[0][0];
 $("#namedesc").text(nombre);
 $("#adddesc").attr('iddescuento',id);
-$('#vf1').pickadate().pickadate('picker').set('select', [1000, 00, 01]);
-$('#vf2').pickadate().pickadate('picker').set('select', [1000, 00, 01]);
+$('#vf1').pickadate().pickadate('picker').set('select', [1000,00,01]);
+$('#vf2').pickadate().pickadate('picker').set('select', [1000,00,01]);
 $("#td1").change();
 });
 
 $(document).on("click","#adddesc",function(){
-var iddescuento = $(this).attr('iddescuento');
-var idciclo = $("#vidciclo").val();
-var f1 = $("#vf1").val()+' 00:00:00';
-var f2 = $("#vf2").val()+' 00:00:00';
-var idfila = 0;
-var tabla = $("[name=tipodesc]:checked").attr('tbl');
-var valor = $("#vvalor").val() == '' ? 0 : $("#vvalor").val();
-var extra = 0;
+	var iddescuento = $(this).attr('iddescuento');
+	var idciclo = $("#vidciclo").val();
+	var f1 = $("#vf1").val()+' 00:00:00';
+	var f2 = $("#vf2").val()+' 00:00:00';
+	var idfila = 0;
+	var tabla = $("[name=tipodesc]:checked").attr('tbl');
+	var valor = $("#vvalor").val() == '' ? 0 : $("#vvalor").val();
+	var extra = 0;
 
-if ($("[name=tipodesc]:checked").attr('text') == 1) {
-idfila = $("#vidfila").val() == '' ? 0 : $("#vidfila").val();
-}else{
-idfila = $("#voptns").val() == '' ? 0 : $("#voptns").val();
-}
+	if ($("[name=tipodesc]:checked").attr('text') == 1)
+		idfila = $("#vidfila").val() == '' ? 0 : $("#vidfila").val();
+	else
+		idfila = $("#voptns").val() == '' ? 0 : $("#voptns").val();
 
-if (idciclo == 2) {
-extra = $("#vmonths").val();
-}else if (idciclo == 3) {
-extra = $("#vdays").val() == '' ? 0 : $("#vdays").val();
-}
+	if (idciclo == 2)
+		extra = $("#vmonths").val();
+	else if (idciclo == 3)
+		extra = $("#vdays").val() == '' ? 0 : $("#vdays").val();
+	// if (idfila == 0) {
+	// Materialize.toast('Descuento sin Asignar', 6000, 'red');
+	// }else 
 
-// if (idfila == 0) {
-// Materialize.toast('Descuento sin Asignar', 6000, 'red');
-// }else 
-
-if (valor == 0) {
-Materialize.toast('Valor debe ser mayor a 0', 6000, 'red');
-}else{
-var dsc = arr('login',4,'',95,'1,0,'+idciclo+','+iddescuento+',"'+f1+'","'+f2+'",'+idfila+','+tabla+','+valor+',\"'+extra+"\"",0,0,0);
-Materialize.toast('Descuento Agregado Correctamente', 4000, 'green');
-$("#vidciclo").val(0);
-$("#vidciclo").change();
-$("#td1").prop('checked',true)
-$("#vproducto").val('');
-$("#vcliente").val('');
-$("#vvalor").val('');
-$("select").material_select();
-}
+	if (valor == 0) 
+		Materialize.toast('Valor debe ser mayor a 0', 6000, 'red');
+	else{
+		var dsc = arr('login',4,'',95,'1,0,'+idciclo+','+iddescuento+',"'+f1+'","'+f2+'",'+idfila+','+tabla+','+valor+',\"'+extra+"\"",0,0,0);
+		Materialize.toast('Descuento Agregado Correctamente', 4000, 'green');
+		$("#vidciclo").val(0);
+		$("#vidciclo").change();
+		$("#td1").prop('checked',true)
+		$("#vproducto").val('');
+		$("#vcliente").val('');
+		$("#vvalor").val('');
+		$("select").material_select();
+	}
 });
 
 $(document).on("click","#editdesc",function(){
@@ -738,29 +735,30 @@ $("#voptns").material_select();
 });
 
 $(document).on("keydown","#vproducto",function(e){
-var charCode = e.which || e.keyCode;
-var charStr = String.fromCharCode(charCode);
-if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-$(".autocomplete-content").remove();
-$("#vproducto").autocomplete({
-limit: 10,
-data: arr('login',4,'nombre,null',11,'nombre like \"%'+$("#vproducto").val()+'%\" limit 10',0,0,0,1)
-});
-$("#vproducto").siblings($(".autocomplete-content")).css('width','25%');
-}
+    var charCode = e.which || e.keyCode;
+    var charStr = keysight(e);
+    if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+        var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+        $(".autocomplete-content").remove();
+        $(this).autocomplete({
+            limit: 10,
+            data: arr('login',4,'nombre,null',11,'id > 0 and nombre like "%'+busqueda+'%" limit 10',0,0,0,1)
+        })
+        $(this).siblings($(".autocomplete-content")).css('width','50%');
+    }
 });
 
 $(document).on("blur","#vproducto",function(){
-var idproducto = arr('login',4,'id',11,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
-if (idproducto != undefined) {
-$("#vidfila").val(idproducto);
-$(this).css('border-bottom','1px solid #4CAF50');
-$(this).css('box-shadow','0 1px 0 0 #4CAF50');
-}else{
-$("#vidfila").val(0);
-$(this).css('border-bottom','1px solid #F44336');
-$(this).css('box-shadow','0 1px 0 0 #F44336');
-}
+	var idproducto = arr('login',4,'id',11,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
+	if (idproducto != undefined) {
+		$("#vidfila").val(idproducto);
+		$(this).css('border-bottom','1px solid #4CAF50');
+		$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+	}else{
+		$("#vidfila").val(0);
+		$(this).css('border-bottom','1px solid #F44336');
+		$(this).css('box-shadow','0 1px 0 0 #F44336');
+	}
 });
 
 $(document).on("blur","#vcliente",function(){
