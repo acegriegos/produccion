@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 
 if (isset($_POST['respuestaXml'])) {
-    echo "string";
+    file_put_contents('./assets/xml/'.$_POST['clave'].'.xml', base64_decode($_POST['respuestaXml']) );
     //RESPUESTA DE HACIENDA
 }else{
     $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
@@ -223,6 +223,37 @@ if (isset($_POST['respuestaXml'])) {
                 }
                 
             }
+            break;
+        case 3: //SIC HACIENDA
+            require_once 'assets/libs/nusoapLT/nusoap.php';
+            // $options = [
+            //     'uri' => 'http://schemas.xmlsoap.org/soap/envelope/',
+            //     'style' => SOAP_RPC,
+            //     'use' => SOAP_ENCODED,
+            //     'soap_version' => SOAP_1_1,
+            //     'cache_wsdl' => WSDL_CACHE_NONE,
+            //     'connection_timeout' => 30,
+            //     'trace' => true,
+            //     'encoding' => 'UTF-8',
+            //     'exceptions' => true
+            // ];
+
+            $params = [
+                'origen' => 'Fisico', // Fisico,  Juridico o DIMEX
+                'cedula' => '',
+                'ape1' => 'MIRANDA',
+                'ape2' => '',
+                'nomb1' => 'LUIS',
+                'nomb2' => 'MIGUEL',
+                'razon' => '',
+                'Concatenado' => ''
+            ];
+
+            $wsdl = "http://196.40.56.20/wsInformativasSICWEB/Service1.asmx?WSDL";
+            $oSoapClient = new nusoap_client($wsdl,true);
+            $rs = $oSoapClient->call("ObtenerDatos", $params);
+            $salida = isset($rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table']) ? $rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table'] : '';
+            print_r($salida);
             break;
         default:
            $salida['msj'] = 'WSDL LOGINTECH';

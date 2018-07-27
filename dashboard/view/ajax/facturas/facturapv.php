@@ -34,7 +34,7 @@ $vuelto = isset($_REQUEST['vuelto']) ? $_REQUEST['vuelto'] : 0;
 $fecha = explode('/', $transaccion[0][3]);
 $logo = '<tr align="center">
     <td>
-      <img src="'.$miscelaneos[3].'" alt="LOGO" width="80%">
+      <img src="'.$miscelaneos[3].'" alt="LOGO" width="60%">
     </td>
     </tr>';
 
@@ -67,11 +67,13 @@ echo '</td></tr>';*/
 
 echo '<tr align="center" '.$ocultar.'>
      <td>
-        <h3 align="center"> '.$miscelaneos[0].' <br>'.$miscelaneos[1].'</h3>
+        <h3 align="center"> '.$miscelaneos[0].' <br> Ced. '.$miscelaneos[1].'
+         <br> Telf. '.$miscelaneos[5].'<br> '.$miscelaneos[6].'
+        </h3>
      </td>
   </tr>
 </table>
-<table style="width: 100%;">
+<table style="width: 100% !important;">
   <tr>
     <td align="left"><b>Factura N°</b></td>
     <td width="13%" align="center"><b>DD</b></td>
@@ -101,7 +103,7 @@ echo '<tr align="center" '.$ocultar.'>
 </table>
   <br>
 <hr>
-<table>
+<table  style="width: 100% !important;">
   <tr>
     <td align="center" width="20%"><b>CANT</b></td>
     <td align="center" width="60%"><b>DESCRIPCION</b></td>
@@ -179,6 +181,6 @@ echo '<hr '.$ocultar.'>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.24"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.28"></script>
  </body>
  </html>

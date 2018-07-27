@@ -17,6 +17,9 @@
     <a class="btn-color pbtn mdi mdi-24px mdi-xml xml blueh tooltipped" id="x<?php echo $obj[0] ?>" data-tooltip="Descargar XML" data-position="bottom"></a>
 
     <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b<?php echo $obj[0] ?>" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
+
+<a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e<?php echo $obj[0] ?>" style="color:<?php switch ($obj[11]) { case 1: echo 'green';break;case 2: echo 'yellow'; break; case 3: echo 'red'; break; default: break;
+    } ?>;" data-tooltip="Estado de la Factura" data-position="bottom"></a>
 </td>
 </tr>
 

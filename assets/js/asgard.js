@@ -1216,12 +1216,13 @@ function filltable(a,b,c,g) {
 }
 
 function paginate(vtbl,len) {
+    
     $(".pagination").html('');
     var countpag = 0;
     if (len == undefined) {
         countpag = arr('login',4,'',vtbl,'0,1,",@@impresa",""',0,0,0)[0][0];
     }else
-    countpag = len;
+        countpag = len;
     
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
@@ -1241,6 +1242,8 @@ function paginate(vtbl,len) {
         }
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
     }
+
+    $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>1</span> a <span class='pag-hasta'>10</span> de <span class='pag-tot'>"+parseInt(countpag*10)+"</span> Entradas")
 }
 
 $(document).on("click", ".paginate", function () {
@@ -1266,6 +1269,13 @@ $(document).on("click", ".paginate", function () {
         bPaginate: false,
         info: false
     });
+    var numl = parseInt($('a',this).html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+    
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 
 $(document).on("click", ".nxt", function () {
@@ -1328,6 +1338,14 @@ $(document).on("click", ".nxt", function () {
             info: false
         });
     }
+
+    var numl = parseInt($("#z"+next+" a").html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+    
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 
 $(document).on("click", ".prv", function () {
@@ -1389,6 +1407,7 @@ $(document).on("click", ".prv", function () {
                     bPaginate: false,
                     info: false
                 });
+                
             }
         } else {
             var limit = $("#z" + prev).attr('limit');
@@ -1407,8 +1426,17 @@ $(document).on("click", ".prv", function () {
                 bPaginate: false,
                 info: false
             });
+            
         }
     }
+
+    var numl = parseInt($("#z"+prev+" a").html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+    
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 // pagination -->
 

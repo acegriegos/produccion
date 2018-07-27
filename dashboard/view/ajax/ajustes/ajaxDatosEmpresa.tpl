@@ -132,6 +132,7 @@
                         </select>
                         <label for="vidtiponota">Notas</label>
                     </div>
+
                     <div class="col s12 m12 pull-s2">
                         <button type="button" class="btn btn-primary edit der z-depth-3" modulo="sucursale" varias="1"><i class="small mdi mdi-refresh right  mdi-24px"></i>Actualizar</button>
                     </div>

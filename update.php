@@ -1,4 +1,6 @@
 <?php
+    set_time_limit(0);
+    
     $tupdate = isset($_REQUEST['tupdate']) ? $_REQUEST['tupdate'] : 0;
 
     switch ($tupdate) {
@@ -40,46 +42,54 @@
             lc_time_names         = es_CR
             default-time-zone = '-06:00'";
 
-            // $numtables = $db->ejecutar("select count(*) as '' from information_schema.TABLES where table_schema = '".$mdb."'")->fetch_all();
+            $source = "https://logintechcr.com/descargas/firts.sql";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+            curl_close ($ch);
 
-            // if (is_array($numtables)) {
-            //     $numtables = $numtables[0][0];
-            //     if ($numtables == 0) {
-                    $source = "https://logintechcr.com/descargas/firts.sql";
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, $source);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_SSLVERSION,false);
-                    $data = curl_exec ($ch);
-                    $error = curl_error($ch);
-                    curl_close ($ch);
+            $destination = "./assets/update/first.sql";
+            $file = fopen($destination, "w+");
+            fputs($file, $data);
+            fclose($file);
 
-                    $destination = "./assets/update/first.sql";
-                    $file = fopen($destination, "w+");
-                    fputs($file, $data);
-                    fclose($file);
+            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
-                    shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+            $source = "https://logintechcr.com/descargas/310169776129.p12";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+            curl_close ($ch);
 
-                    $source = "https://logintechcr.com/descargas/310169776129.p12";
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, $source);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_SSLVERSION,false);
-                    $data = curl_exec ($ch);
-                    $error = curl_error($ch);
-                    curl_close ($ch);
+            $destination = "./assets/p12/310169776129.p12";
+            $file = fopen($destination, "w+");
+            fputs($file, $data);
+            fclose($file);
 
-                    $destination = "./assets/p12/310169776129.p12";
-                    $file = fopen($destination, "w+");
-                    fputs($file, $data);
-                    fclose($file);
-            //     }else
-            //         $salida['CONF'] = $numtables;
-                
-            // }else
-            //     $salida['CONF'] = $numtables;
+            $source = "https://logintechcr.com/descargas/dump-ubicaciones.sql";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+            curl_close ($ch);
 
+            $destination = "./assets/update/ubicaciones.sql";
+            $file = fopen($destination, "w+");
+            fputs($file, $data);
+            fclose($file);
+
+            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            
+            unlink($destination);
+            
             if(filesize("assets/update/update.log"))
                 $salida['CONF'] = "ERROR";
             break;
