@@ -47,12 +47,70 @@ $(document).on("click",".menu3",function(){
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);
 			$("#vpfisico").val(e[2]);
-			$("#vtelefono").val(e[5]);
-			$("#vcorreo").val(e[4]);
-			$("#vdireccion").val(e[6]);
 			$("#vlogo").attr('src',e[3]);
+			$("#vcorreo").val(e[4]);
+			$("#vtelefono").val(e[5]);
+			$("#vdireccion").val(e[6]);
 			$("#vfechainicio").val(e[7]);
 			$("#vfechafinal").val(e[8]);
+			if (e[12] != '') {
+				// SI FE
+				$("#p12-upload").addClass('hide');
+				$("label[for=p12-upload]").addClass('hide');
+				$("#isfe").prop('disabled',true);
+				$("#isfe").prop('checked',true);
+				$("#vpass_n").parent().addClass('offset-s6');
+				var data = new FormData();
+				data.append('accion',3);
+				data.append('clave',$("#vpass_n").val());
+				data.append('file',e[12]);
+				data.append('user',$("#vuser_atv").val());
+				data.append('pass',$("#vpass_atv").val());
+				data.append('prueba',$("#visPrueba").is(':checked'))
+
+				jQuery.ajax({
+				    url: '../cargar.php',
+				    data: data,
+				    cache: false,
+				    contentType: false,
+				    processData: false,
+				    method: 'POST',
+				    type: 'POST',
+				    success: function(data){
+				        try {
+				        	console.log('data: '+data)
+			                p = JSON.parse(data);
+			                // $("#vnombre").val(p['CN']);
+			                // $("#vcedula").val(p['cedula']);
+			                // if (p['tipo'])
+			                // 	$("#juridico").click()
+			                // else
+			                // 	$("#fisico").click()
+			                // $("#valid_p12").attr('isvalid',1)
+			                // $("#valid_p12").attr('disabled',false);
+			                // Materialize.updateTextFields();
+			            }
+			            catch(err){
+			            	console.log('data2: '+data)
+			                p = data;
+			                $("#valid_p12").attr('isvalid',0)
+			                $("#valid_p12").attr('disabled',false);
+			                Materialize.toast(p,4000,'red');
+			            }
+				    },
+				    error:function(x,y,z){
+				    	alert(x)
+				    }
+				});
+
+			}else{
+				//NO FE
+				$("#p12-upload").removeClass('hide');
+				$("label[for=p12-upload]").removeClass('hide');
+				$("#isfe").prop('disabled',false);
+				$("#isfe").prop('checked',false);
+				$("#vpass_n").parent().removeClass('offset-s6');
+			}
 
 			$("#data-table-monedas").dataTable({
 				bFilter : false,

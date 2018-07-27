@@ -1155,7 +1155,7 @@ function sendVMail(factura,clave,vid){
                       
                         
                     }catch(e){
-                        Materalize.toast("POP-UP ACTIVADO",4000,'red');
+                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
                     }
                 }
                 break;
@@ -1179,11 +1179,7 @@ function sendVMail(factura,clave,vid){
                     w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
                     try{ 
                         w.print();
-                      setTimeout(function(){
-                     
-                         w.close();
-/*                        window.focus();
-*/                            },500);
+                        setTimeout(function(){w.close();},500);
                       
                         
                     }catch(e){
@@ -1195,7 +1191,7 @@ function sendVMail(factura,clave,vid){
         }
     }
 
-    setTimeout(function(){location.reload();},5000);
+    setTimeout(function(){location.reload();},3000);
 }
 
 

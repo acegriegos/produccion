@@ -86,7 +86,7 @@
                     </div>
                     
                     <div class="input-field col s3 fe">
-                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px green-text"></i> </label>
+                        <label>Factura Electrónica <i class="mdi mdi-checkbox-blank-circle-outline mdi-24px green-text"></i> </label>
                     </div>
                 </div>
 
@@ -97,7 +97,7 @@
                             <label for="visinventariado">Control de Inventario</label>
                         </div>
                         <div class="col s12">
-                            <input type="checkbox" id="isfe" checked>
+                            <input type="checkbox" id="isfe">
                             <label for="isfe">Factura Electrónica</label>                                        
                         </div>
                         <div class="col s12">

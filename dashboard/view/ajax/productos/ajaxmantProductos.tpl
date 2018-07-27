@@ -70,12 +70,12 @@
 		<div id="datosproductos" style="padding: 30px 10px 0 10px">
             <div class="row">
                 <div class="input-field marginzero col s12 m12 l4">
-                    <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off">
+                    <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off" tabindex="1">
                     <label for="vfamilia">Familia</label>
                 </div>
 
                 <div class="input-field marginzero col s12 m12 l4">
-                    <input type="text" id="vnombre" class="formprod validate" value="" focus="1vcodigo" autocomplete="off">
+                    <input type="text" id="vnombre" class="formprod validate" value="" focus="1vcodigo" autocomplete="off" tabindex="4">
                     <label for="vnombre">Nombre</label>
                 </div>
 
@@ -92,12 +92,12 @@
 
             <div class="row">
                 <div class="input-field marginzero col s12 m12 l4">
-                    <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off">
+                    <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off" tabindex="2">
                     <label for="vtipo">Tipo</label>
                 </div>
 
                 <div class="input-field marginzero col s12 m12 l4">
-                    <input type="text" id="vcodigo" class="formprod validate" value="" focus="1vcodigointerno" autocomplete="off">
+                    <input type="text" id="vcodigo" class="formprod validate" value="" focus="1vcodigointerno" autocomplete="off" tabindex="5">
                     <label class="active" for="vcodigo">Código</label>
                 </div>
 
@@ -114,12 +114,12 @@
                 
             <div class="row">
             	<div class="input-field marginzero col s12 m12 l4">
-                    <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off">
+                    <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off" tabindex="3">
                     <label for="vmarca">Marca</label>
                 </div>
 
                 <div class="input-field marginzero col s12 m12 l4">
-                    <input type="text" id="vcodigointerno" class="formprod validate" value="" focus="1vidunidad" autocomplete="off">
+                    <input type="text" id="vcodigointerno" class="formprod validate" value="" focus="1vidunidad" autocomplete="off" tabindex="6">
                     <label class="active" for="vcodigointerno">Código Interno</label>
                 </div>
 
@@ -158,11 +158,11 @@
 	                    </label>
 	                </div>
 	                <div class="input-field marginzero col s4 inventariado">
-	                    <input type="number" id="vminimo" class="formprod validate eder" value="" min="0" focus="1vmaximo" autocomplete="off">
+	                    <input type="number" id="vminimo" class="formprod validate eder" value="" min="0" focus="1vmaximo" autocomplete="off" tabindex="7">
 	                    <label for="vminimo">Mínimo</label>
 	                </div>
 	                <div class="input-field marginzero col s4 inventariado">
-	                    <input type="number" id="vmaximo" class="formprod validate eder" value="" min="0" focus="1vmaxdescuento" autocomplete="off">
+	                    <input type="number" id="vmaximo" class="formprod validate eder" value="" min="0" focus="1vmaxdescuento" autocomplete="off" tabindex="8">
 	                    <label for="vmaximo">Máximo</label>
 	                </div>
 	            </div>

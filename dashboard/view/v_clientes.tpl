@@ -68,6 +68,7 @@
                 {/section}
               </tbody>
             </table>
+             <ul class="left showing" modulo="76"><small></small></ul>
           <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
           <br>
           <br>
