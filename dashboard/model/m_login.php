@@ -77,39 +77,18 @@
 		function analizarTabla($arreglo){
 			$salida = array();
 			$posicion = strpos($arreglo['modulo'], '-');
-			$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : '';
+			$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : $this->db->getDB();
 			$arreglo['modulo'] = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
 
-			$this->sql = "SHOW CREATE PROCEDURE ".$schema."sp_mant".$arreglo['modulo']."s";
+			$this->sql = "SELECT PARAMETER_NAME,DTD_IDENTIFIER FROM information_schema.PARAMETERS where SPECIFIC_NAME = 'sp_mant".$arreglo['modulo']."s' and SPECIFIC_SCHEMA = '".$schema."'";
 
 			$rs = $this->ejecutarSelect();
-			if (!isset($rs[0][2])) {
+			if (!isset($rs->num_rows)) {
 				$err = $posicion ? "No existe SP asociado: ".$arreglo['modulo']."s, <a style='color: black;' href='../DB.php?tabla=".$arreglo['modulo']."s&schema=".substr($schema,0,strlen($schema)-1)."' target='new'>AGREGARLO</a>" : "No existe SP asociado: ".$arreglo['modulo']."s, <a style='color: black;' href='../DB.php?tabla=".$arreglo['modulo']."s' target='new'>AGREGARLO</a>";
-				return $err;
+				return $rs;
 			}else
-				$rs = $rs[0][2];
-			$rs = substr($rs, strpos($rs,"(")+1);
-			$rs = substr($rs, 0,strpos($rs,"BEGIN"));
-			$rs = str_replace("\n", " ", $rs);
-			$rs = str_replace("inout ", "", $rs);
-			$rs = explode(',', $rs);
-			
-			$arreglo = $rs;
+				$salida = $rs->fetch_all();
 
-			foreach ($arreglo as $obj) {
-				$primer = substr($obj, 0,1);
-
-				if ($primer == ' ') 
-					$obj = substr($obj, 1);
-				elseif (is_numeric($primer)) {
-					$obj = '';
-				}
-
-				$cadena = substr($obj, 0,strpos($obj," "));
-				if (strlen($cadena) != 0)
-					array_push($salida, $cadena);
-				
-			}
 			return $salida;
 		}
 

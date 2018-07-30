@@ -155,7 +155,7 @@
                                         <label for="visPrueba">Período de Prueba</label>
                                     </div>
                                     <div class="col s6">
-                                        <!--  -->
+                                        
                                     </div>
                                 </div>
                             </div>

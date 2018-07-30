@@ -174,12 +174,12 @@
 
         <div class="trOCompra hide trsec">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m4">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
@@ -187,7 +187,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
@@ -210,20 +210,20 @@
 
         <div class="trCompra hide trsec">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
@@ -233,23 +233,26 @@
           </div>
 
           <div class="input-field col s12 m1">
-            <input type="text" class="f center" id="descup" min="0" value="0" data-mask="999999999.99" placeholder="Descuento" value="0.00">
+            <input type="text" class="f center" id="descup" min="0" value="0" data-mask="999999999.99" placeholder="Descuento" value="0.00" autocomplete="off">
           </div>
           
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
           </div>
 
-          <div class="center col s12 m2" style="font-size: 1em;  padding: 0px 5px !important;">
-            <div class="col s12" style="padding: 0px">
-              <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
-            </div>
-            <div class="col s12">
+          <div class="center col s12 m2 row" style="font-size: 1em;  padding: 0px 5px !important;">
+            
+            <div class="col s8">
                 <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-                <label for="iva" style="float: left;">IVA</label>
+                <label for="iva" style="float: left;">IVI</label>
                 <input type="checkbox" name="isexcento" id="exct" hclk="0">
                 <label for="exct" style="float: left;">Excento</label>
             </div>
+
+            <div class="col s4" style="padding: 0px">
+              <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
+            </div>
+
           </div>
 
         </div>

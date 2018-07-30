@@ -159,7 +159,8 @@ $("#telefono_in").blur(function(){
 	if (add) {
 		$("#ingClie").click()
 	}
-		    paginate($("ul.pagination").attr('vtbl'))
+	
+	paginate($("ul.pagination").attr('vtbl'))
 
     permisos(1001,1010);
 

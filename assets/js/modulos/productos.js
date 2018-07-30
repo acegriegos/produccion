@@ -44,7 +44,7 @@ $(function () {
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
-				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:''})
+				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:'',vpbase:'',vpganancia:0})
 				break;
 			case 3:
 				$("#mantServ").remove();

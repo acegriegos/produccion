@@ -11,7 +11,7 @@
 	   	$sty = $smarty->fetch('../view/styles.php');
 		$scr = $smarty->fetch('../view/scripts.php');
 	
-		$smarty->assign('TR',$_REQUEST['tr']);
+		$smarty->assign('TR',isset($_REQUEST['tr']) ? $_REQUEST['tr'] : 0);
 		$smarty->assign('STY',$sty);
 		$smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);

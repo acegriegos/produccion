@@ -38,6 +38,21 @@ $(document).on('click','.alv',function(){
     setTimeout(function(){ $(".alv").removeAttr('disabled'); },2000);
 });
 
+$(document).on("click","#vtelefono",function(){
+    $(this).parent().find('a').click()
+    $("#telefono_in").focus();
+});
+
+$(document).on("click","#vcorreo",function(){
+    $(this).parent().find('a').click()
+    // $("#correo_in").focus();
+});
+
+$(document).on("click","#vdireccion",function(){
+    $(this).parent().find('a').click()
+    // $("#telefono_in").focus();
+});
+
 $(document).on("click",".tc-show",function(){   
 
     var code = parseInt($(this).data('num'));
@@ -568,7 +583,7 @@ function odin(varreglo,vform) {
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
         for (var i = 0; i < varreglo.length; i++) {
-            salida[index][varreglo[i]] = $(this).attr(varreglo[i]);
+            salida[index][varreglo[i][0]] = $(this).attr(varreglo[i][0]);
             }// end FOR
         });//end EACH
     break;
@@ -576,7 +591,7 @@ function odin(varreglo,vform) {
     case "2":
     //LLENADO DE VARIABLES POR ATRIBUTO SIN DETALLE
     for (var i = 0; i < varreglo.length; i++) {
-        salida[varreglo[i]] = $("#"+vform+" .uniq").attr(varreglo[i]);
+        salida[varreglo[i][0]] = $("#"+vform+" .uniq").attr(varreglo[i][0]);
         }// end FOR
         break;
 
@@ -585,61 +600,61 @@ function odin(varreglo,vform) {
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
         for (var i = 0; i < varreglo.length; i++) {
-            if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
-                salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
+            if ($("#"+vform+" #"+varreglo[i][0]).attr('hid') != undefined)
+                salida[index][varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).attr('hid');
             else{
-                switch(varreglo[i]) {
+                switch(varreglo[i][0]) {
                     case 'vaccion':
-                    salida[index][varreglo[i]] = 0;
+                    salida[index][varreglo[i][0]] = 0;
                     break
                     case 'vidtabla':
                     case 'vidfila':
-                    salida[index][varreglo[i]] = 0;//$("#"+vform+" #vtabla").val();
+                    salida[index][varreglo[i][0]] = 0;//$("#"+vform+" #vtabla").val();
                     break;
                     default:
-                    if (/vfecha/.test(varreglo[i])){
-                        if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
-                            salida[index][varreglo[i]] = '1990-01-01';
+                    if (/vfecha/.test(varreglo[i][0])){
+                        if (typeof $("#"+vform+" #"+varreglo[i][0]) == 'undefined') {
+                            salida[index][varreglo[i][0]] = '1990-01-01';
                         }else{
-                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
-                            '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                            salida[index][varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                            '1990-01-01' : $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
                     }else{
-                        switch($("#"+vform+" #"+varreglo[i]).attr("type")){
+                        switch($("#"+vform+" #"+varreglo[i][0]).attr("type")){
                             case 'select':
-                            if($("#"+vform+" #"+ varreglo[i]).attr('multiple') == undefined)
-                                salida[index][varreglo[i]] =  $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            if($("#"+vform+" #"+ varreglo[i][0]).attr('multiple') == undefined)
+                                salida[index][varreglo[i][0]] =  $("#"+vform+" #"+ varreglo[i][0]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i][0]+" option").val() : $("#"+vform+" #"+ varreglo[i][0]+" option:selected").val();
                             else
-                                salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]).val().toString();
+                                salida[index][varreglo[i][0]] = $("#"+vform+" #"+ varreglo[i][0]).val().toString();
 
                             break;
                             case 'text':
                             case 'textarea':
-                            valorOdin = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
-                            valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
-                            salida[index][varreglo[i]] = valorOdin;
+                            valorOdin = $("#"+vform+" #"+varreglo[i][0]).val().replace(/"/g,'\"');
+                            valorOdin = $("#"+vform+" #"+varreglo[i][0]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                            salida[index][varreglo[i][0]] = valorOdin;
                             break;
                             case 'hidden':
                             case 'number':
-                            valorOdin = $("#"+vform+" #"+varreglo[i]).val();
-                            valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
-                            salida[index][varreglo[i]] = valorOdin;
+                            valorOdin = $("#"+vform+" #"+varreglo[i][0]).val();
+                            valorOdin = $("#"+vform+" #"+varreglo[i][0]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                            salida[index][varreglo[i][0]] = valorOdin;
                             break;
                             case 'html':
-                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                            salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).html();
                             break;
                             case 'radio':
-                            salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                            salida[index][varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']:checked").val();
                             break;
                             case 'checkbox':
-                            salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                            salida[index][varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']").is(":checked") ? 1 : 0;
                             break;
                             default:
                             try{
-                                salida[index][varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                                salida[index][varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
                             }
                             catch(e){
-                                console.log(varreglo[i]+" No Existe");
+                                console.log(varreglo[i][0]+" No Existe");
                                 return "Error en Interno, Codigo: Odin"
                             } 
                             break;
@@ -648,7 +663,7 @@ function odin(varreglo,vform) {
                 }//end if
                 }//end SWITCH
             }//end IF
-            // $("#"+vform+" .zelda").data('triforce')
+            salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[index][varreglo[i][0]];
             }// end FOR
         });//end EACH
 break;
@@ -658,78 +673,85 @@ case "4":
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
         for (var i = 0;  i < varreglo.length; i++) {
-            salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
+            salida[index][varreglo[i][0]] = $(this).data('triforce')[varreglo[i][0]];
+
+            salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[index][varreglo[i][0]];
             }// end FOR
     });//end EACH
     
     break;
 case "5":
         for (var i = 0; i < varreglo.length; i++) {
-            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+            salida[varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
+
+            salida[varreglo[i][0]] = salida[varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[varreglo[i][0]];
         }
         break;
 
     default:
     //LLENADO DE VARIABLES POR ID SIN DETALLE
     for (var i = 0; i < varreglo.length; i++) {
-        if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined){
-            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
+        if ($("#"+vform+" #"+varreglo[i][0]).attr('hid') != undefined){
+            salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).attr('hid');
         }
         else{
-            switch(varreglo[i]) {
+            switch(varreglo[i][0]) {
                 case 'vaccion':
-                salida[varreglo[i]] = 0;
+                salida[varreglo[i][0]] = 0;
                 break
                 case 'vidtabla':
-                salida[varreglo[i]] = $("#"+vform+" #vtabla").val();
+                salida[varreglo[i][0]] = $("#"+vform+" #vtabla").val();
                 break;
                 default:
-                if (/vfecha/.test(varreglo[i])){
-                    if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
-                        salida[varreglo[i]] = '1990-01-01';
+                if (/vfecha/.test(varreglo[i][0])){
+                    if (typeof $("#"+vform+" #"+varreglo[i][0]) == 'undefined') {
+                        salida[varreglo[i][0]] = '1990-01-01';
                     }else{
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
-                        '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                        salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                        '1990-01-01' : $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                     }
                 }else{
-                    switch($("#"+vform+" #"+varreglo[i]).attr("type")){
+                    switch($("#"+vform+" #"+varreglo[i][0]).attr("type")){
                         case 'select':
-                        if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
-                            salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]).val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                        if ($("#"+vform+" #"+varreglo[i][0]).attr("multiple") == undefined) {
+                            salida[varreglo[i][0]] = $("#"+vform+" #"+ varreglo[i][0]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i][0]).val() : $("#"+vform+" #"+ varreglo[i][0]+" option:selected").val();
                         }else{
-                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().toString();
+                            salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).val().toString();
                         }
+                        break;
+                        case 'file':
+                        salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).attr('src');
                         break;
                         case 'text':
                         case 'textarea':
-                        valorOdin = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
-                        valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
-                        salida[varreglo[i]] = valorOdin;
+                        valorOdin = $("#"+vform+" #"+varreglo[i][0]).val().replace(/"/g,'\"');
+                        valorOdin = $("#"+vform+" #"+varreglo[i][0]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                        salida[varreglo[i][0]] = valorOdin;
                         break;
                         case 'hidden':
                         case 'password':
                         case 'time':
                         case 'number':
                         case 'email':
-                        valorOdin = $("#"+vform+" #"+varreglo[i]).val();
-                        valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                        valorOdin = $("#"+vform+" #"+varreglo[i][0]).val();
+                        valorOdin = $("#"+vform+" #"+varreglo[i][0]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                        salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).val();
                         break;
                         case 'html':
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                        salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).html();
                         break;
                         case 'radio':
-                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                        salida[varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i][0]+"']:checked").val();
                         break;
                         case 'checkbox':
-                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                        salida[varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']").is(":checked") ? 1 : 0;
                         break;
                         default:
-                        // console.log(varreglo[i]+": "+$("#"+vform+" .zelda").data('triforce')[varreglo[i]])
-                            if($("#"+vform+" .zelda").data('triforce')[varreglo[i]] != undefined)
-                                salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                        // console.log(varreglo[i][0]+": "+$("#"+vform+" .zelda").data('triforce')[varreglo[i][0]])
+                            if($("#"+vform+" .zelda").data('triforce')[varreglo[i][0]] != undefined)
+                                salida[varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
                             else{
-                                console.log(varreglo[i]+" No Existe");
+                                console.log(varreglo[i][0]+" No Existe");
                                 return "Error en Interno, Codigo: Odin"
                             } 
                         break;
@@ -738,6 +760,7 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
+        salida[varreglo[i][0]] = salida[varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[varreglo[i][0]];
     }//end FOR
     break;
     }//end SWITCH
@@ -1039,29 +1062,28 @@ function doreport() {
     var vmodulo = {};
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
     var search = new Array;
-    var datos = mantenimiento('login',1,vmodulo);
+    var datos = mantenimiento('login',1,vmodulo)[0];
 
-    datos = datos[0].splice(elem.length,datos[0].length-elem.length);
+    datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-        // console.log(datos[i],' ',$("#"+datos[i]).val())
-        if ($("#"+datos[i]).attr('str') != undefined) {
-            if ($("#"+datos[i]).attr('type') == 'date') {
+        if ($("#"+datos[i][0]).attr('str') != undefined) {
+            if ($("#"+datos[i][0]).attr('type') == 'date') {
                 
-                if ( $("#"+datos[i]).val()=='' ){
+                if ( $("#"+datos[i][0]).val()=='' ){
                     search[i] = '""';
                 }else{
-                    search[i] = '"'+$("#"+datos[i]).val()+'"';
+                    search[i] = '"'+$("#"+datos[i][0]).val()+'"';
                 }
             }else{
-                search[i] = '"'+$("#"+datos[i]).val()+'"';
+                search[i] = '"'+$("#"+datos[i][0]).val()+'"';
             }
         }else{
-            if ($("#"+datos[i]).val() == '') {
+            if ($("#"+datos[i][0]).val() == '') {
                 search[i] = "''";
             }else{
-                search[i] = $("#"+datos[i]).val();    
-                $("#chk"+datos[i].substr(3)).is(":checked") == false ? $("#"+datos[i]).val(0) : true;
+                search[i] = $("#"+datos[i][0]).val(); //$("#"+datos[i][0]).parent().find('[for='+datos[i][0]+']').is(":checked") ? $("#"+datos[i][0]).val() : 0;    
+                // $("#chk"+datos[i][0].substr(3)).is(":checked") == false ? $("#"+datos[i][0]).val(0) : true;
 
             }
         }
@@ -1075,7 +1097,7 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    // console.log(tbl,' ',atributos)
+    console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 
 }
@@ -1213,12 +1235,13 @@ function filltable(a,b,c,g) {
 }
 
 function paginate(vtbl,len) {
+    
     $(".pagination").html('');
     var countpag = 0;
     if (len == undefined) {
         countpag = arr('login',4,'',vtbl,'0,1,",@@impresa",""',0,0,0)[0][0];
     }else
-    countpag = len;
+        countpag = len;
     
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
@@ -1238,6 +1261,8 @@ function paginate(vtbl,len) {
         }
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
     }
+
+    $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>1</span> a <span class='pag-hasta'>10</span> de <span class='pag-tot'>"+parseInt(countpag*10)+"</span> Entradas")
 }
 
 $(document).on("click", ".paginate", function () {
@@ -1263,6 +1288,13 @@ $(document).on("click", ".paginate", function () {
         bPaginate: false,
         info: false
     });
+    var numl = parseInt($('a',this).html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+    
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 
 $(document).on("click", ".nxt", function () {
@@ -1325,6 +1357,14 @@ $(document).on("click", ".nxt", function () {
             info: false
         });
     }
+
+    var numl = parseInt($("#z"+next+" a").html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+    
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 
 $(document).on("click", ".prv", function () {
@@ -1386,6 +1426,7 @@ $(document).on("click", ".prv", function () {
                     bPaginate: false,
                     info: false
                 });
+                
             }
         } else {
             var limit = $("#z" + prev).attr('limit');
@@ -1404,8 +1445,17 @@ $(document).on("click", ".prv", function () {
                 bPaginate: false,
                 info: false
             });
+            
         }
     }
+
+    var numl = parseInt($("#z"+prev+" a").html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+    
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 // pagination -->
 

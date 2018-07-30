@@ -23,10 +23,6 @@ $(document).ready(function(){
 	$('ul.tabs').tabs();
 });
 
-$(document).on("click","#test",function(){
-	var logo = $("#vlogo").val();
-});
-
 $(document).on("click",".menu3",function(){
 	console.clear()
 	$(".menu3").removeClass('active');
@@ -43,16 +39,99 @@ $(document).on("click",".menu3",function(){
 			arr['tbl'] = 50;
 			arr['where'] = '@@impresa';
 			var e = mantenimiento('login',4,arr)[0][0];
-
+			$("#vid").val(e[9]);
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);
 			$("#vpfisico").val(e[2]);
-			$("#vtelefono").val(e[5]);
-			$("#vcorreo").val(e[4]);
-			$("#vdireccion").val(e[6]);
 			$("#vlogo").attr('src',e[3]);
+			$("#vcorreo").val(e[4]);
+			$("#vtelefono").val(e[5]);
+			$("#vdireccion").val(e[6]);
 			$("#vfechainicio").val(e[7]);
 			$("#vfechafinal").val(e[8]);
+			$("#vidtipoabono").val(e[12]);
+			$("#vidtipofactura").val(e[13]);
+			$("#vidtiponota").val(e[14]);
+			$("#vuser_atv").val(e[20]);
+			$("#vpass_atv").val(e[21]);
+			$("#vpass_n").val(e[22]);
+			var isinvent = e[15] == 1 ? true : false;
+			var isfe = e[23] == 1 ? true : false;
+			var fastshow = e[17] == 1 ? true : false;
+			var printsale = e[18] == 1 ? true : false;
+			var prueba = e[19] == 1 ? true : false;
+			$("#visinventariado").prop('checked',isinvent);
+			$("#isfe").prop('checked',isfe);
+			$("#vfastshow").prop('checked',fastshow);
+			$("#vprintSale").prop('checked',printsale);
+			$("#visPrueba").prop('checked',prueba);
+			if (e[16] != '') {
+				$.post('../wsdlClient.php',{
+					accion: 9,
+					id: 0
+				}).done(function(data){
+					var p = JSON.parse(data);
+					if (p['succed']) {
+						$("#p12-upload").addClass('hide');
+						$("label[for=p12-upload]").addClass('hide');
+						$("#vpass_n").parent().addClass('offset-s6');
+						$("#isfe").prop({ 'disabled' : true,'checked' : true });
+					}else{
+						Materialize.toast(p['ERROR'], 4000, 'red');
+						$("#dempresa").click();
+						$("#isfe").prop({ 'disabled' : false,'checked' : false });
+						$("#p12-upload").removeClass('hide');
+						$("label[for=p12-upload]").removeClass('hide');
+						$("#vpass_n").parent().removeClass('offset-s6');
+					}
+				});
+				// validar hacienda
+				// var data = new FormData();
+				// data.append('accion',3);
+				// data.append('clave',$("#vpass_n").val());
+				// data.append('file',e[16]);
+				// data.append('user',$("#vuser_atv").val());
+				// data.append('pass',$("#vpass_atv").val());
+				// data.append('prueba',$("#visPrueba").is(':checked'))
+				// console.log(data)
+
+				// jQuery.ajax({
+				//     url: '../cargar.php',
+				//     data: data,
+				//     cache: false,
+				//     contentType: false,
+				//     processData: false,
+				//     method: 'POST',
+				//     type: 'POST',
+				//     success: function(data){
+				//     	console.log(data)
+				//         try {
+			 //                p = JSON.parse(data);
+			 //                $("#vnombre").val(p['CN']);
+			 //                $("#vcedula").val(p['cedula']);
+			 //                if (p['tipo'])
+			 //                	$("#juridico").click()
+			 //                else
+			 //                	$("#fisico").click()
+			 //                $("#valid_p12").attr('isvalid',1)
+			 //                $("#valid_p12").attr('disabled',false);
+			 //                Materialize.updateTextFields();
+			 //            }
+			 //            catch(err){
+			 //                p = data;
+			 //                $("#valid_p12").attr('isvalid',0)
+			 //                $("#valid_p12").attr('disabled',false);
+			 //                Materialize.toast(p,4000,'red');
+			 //            }
+				//     },
+				//     error:function(x,y,z){ alert(x) }
+				// });
+			}else{
+				$("#isfe").prop({ 'disabled' : false,'checked' : false });
+				$("#p12-upload").removeClass('hide');
+				$("label[for=p12-upload]").removeClass('hide');
+				$("#vpass_n").parent().removeClass('offset-s6');
+			}
 
 			$("#data-table-monedas").dataTable({
 				bFilter : false,
@@ -163,7 +242,7 @@ $(document).on("click",".menu3",function(){
 				data.append('file',myDropzone.getQueuedFiles()[0]);
 				data.append('user',$("#vuser_atv").val());
 				data.append('pass',$("#vpass_atv").val());
-				data.append('prueba',$("#visPrueba").is(':checked'))
+				data.append('prueba',$("#visPrueba").is(':checked'));
 
 				jQuery.ajax({
 				    url: '../cargar.php',
@@ -323,7 +402,6 @@ $(document).on("click","#addtypeuser",function(){
 		arreglo['atributos']['vaccion'] = 1;
 		for (var i = 0; i < arreglo['atributos']['vidtipousuario'].split(',').length; i++) {
 			arreglo['atributos']['vidtipousuario'] = arreglo['atributos']['vidtipousuario'].split(',')[i];
-			console.log(arreglo['atributos']['vidtipousuario'])
 			p = mantenimiento('login',2,arreglo);
 		}
 		// if (p['succed'] == 0) {
@@ -945,7 +1023,6 @@ mantenimiento('login',4,arr);
 
 });
 $(document).on("click",".catimpuesto",function(){
-console.log(2);
 var id = $(this).attr('id').substr(1);
 var tabla = $("#data-table-impuestos").DataTable();
 tabla.destroy();
@@ -1227,7 +1304,6 @@ function validar (varreglo,vmodulo) {
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	// console.log(salida)
 	return salida;
 
 }

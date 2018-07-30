@@ -12,16 +12,18 @@ $(function(){
        case 'ordencompra':
             tipo = 3;
               ajax = 168;
-       
             break;
+
       case 'cotizaciones':
             tipo = 4;
-              ajax = 168;
-       
+            ajax = 168;
             break;
-             case 'pedidos':
+
+      case 'pedidos':
             tipo = 5; 
-            default:
+            break;
+
+      default:
             break;
        
         

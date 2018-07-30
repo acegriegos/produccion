@@ -927,7 +927,7 @@ function searchClient(vvariable,visprv){
 
         prod = prod[0][0];
         if (parseFloat(prod[3]) > 0) {
-            $("#prec"+idlinea).text(prod[3]);
+            $("#prec"+idlinea).text(prod[3].formatMoney(2,'.',','));
             $("#fd"+idlinea).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : prod[0],vcantidad : $("#fd"+idlinea).data('triforce')['vcantidad'],vprecio : prod[3],vdesc : 0,vtotal : 0,vidinventario : prod[13],vidodt : 0,vimv : 0,vcomodin : '',vidunidad : $("#fd"+idlinea).data('triforce')['vidunidad'],vidimpuestos : $("#fd"+idlinea).data('triforce')['vidimpuestos'],viddescuentos : $("#fd"+idlinea).data('triforce')['viddescuentos'],strimp: vstrimp});
         }
     });
@@ -1155,7 +1155,7 @@ function sendVMail(factura,clave,vid){
                       
                         
                     }catch(e){
-                        Materalize.toast("POP-UP ACTIVADO",4000,'red');
+                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
                     }
                 }
                 break;
@@ -1179,11 +1179,7 @@ function sendVMail(factura,clave,vid){
                     w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
                     try{ 
                         w.print();
-                      setTimeout(function(){
-                     
-                         w.close();
-/*                        window.focus();
-*/                            },500);
+                        setTimeout(function(){w.close();},500);
                       
                         
                     }catch(e){
@@ -1195,7 +1191,7 @@ function sendVMail(factura,clave,vid){
         }
     }
 
-    setTimeout(function(){location.reload();},5000);
+    setTimeout(function(){location.reload();},3000);
 }
 
 
