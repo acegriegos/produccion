@@ -248,6 +248,7 @@ if (isset($_POST['respuestaXml'])) {
                 'razon' => '',
                 'Concatenado' => ''
             ];
+            
 
             $wsdl = "http://196.40.56.20/wsInformativasSICWEB/Service1.asmx?WSDL";
             $oSoapClient = new nusoap_client($wsdl,true);

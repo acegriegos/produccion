@@ -9,20 +9,22 @@ $(function(){
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
-        var pc = parseInt($(".principal .filtros").attr('bisprov')) ? 'Proveedor' : 'Cliente';
+        var pc = $(".principal .filtros").attr('bisprov') == undefined ? 'Razón Social': parseInt($(".principal .filtros").attr('bisprov')) ? 'Proveedor' : 'Cliente';
 
-        html = '<div class="row col s6 rous"><div class="col s12"><input type="checkbox" id="chkcliente" value="3" class="repcheck"><label for="chkcliente" class="pbtn">Por '+pc+'</label></div><div class="col s12 '+mdate+'" id="fltr3"><div class="input-field"><label for="cliente" class="width:100%">Nombre</label><input type="text" class="validate init eder autocomplete" id="cliente"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
+        html = '<div class="row col s12 m6 rous" style="margin: 0px"><div class="col s4"><input type="checkbox" id="chkcliente" value="3" class="repcheck"><label for="chkcliente" class="pbtn">Por '+pc+'</label></div><div class="col s8 '+mdate+'" id="fltr3"><div class="input-field" style="margin:0px"><label for="cliente">Nombre</label><input type="text" class="validate init eder autocomplete" id="cliente" style="margin: 0px"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
 
         $(".principal .filtros").append(html);
 
         $("#cliente").on("keydown",function(e){
             var charCode = e.which || e.keyCode;
             var charStr = String.fromCharCode(charCode);
+            var prov = $(".principal .filtros").attr('bisprov') == undefined ? '': 'and bisproveedor='+$(".principal .filtros").attr('bisprov');
+            var prov_select = $(".principal .filtros").attr('bisprov') == undefined ? ',if(bisproveedor,"(Proveedor)","")': '';
             if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
                 $(".autocomplete-content").remove();
                 $("#cliente").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2),null',2,'id >0 and bisproveedor='+$(".principal .filtros").attr('bisprov')+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" limit 10',0,0,0,1)
+                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula'+prov_select+'),null',2,'id > 0 '+prov+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1)
                 });
                 $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -43,7 +45,7 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#productos").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'nombre,null',11,'id >0 and nombre like \"%'+$("#productos").val()+'%\"limit 10',0,0,0,1)
+                    data: arr('login',4,'nombre,null',11,'id >0 and nombre like \"%'+$("#productos").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1)
                 });
                 $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -62,7 +64,7 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#usuario").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" limit 10',0,0,0,1)
+                    data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" and find_in_set(@@impresa,idsucursal) limit 10',0,0,0,1)
                 });
                 $("#usuario").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -77,7 +79,7 @@ $(function(){
 
     mdate = $(".principal .filtros").attr('entrefechas');
     if (mdate != undefined){
-        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s9 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport datepicker" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport datepicker" id="vhasta" value="" str="1"></div></div></div>';
+        html = '<div class="row col s12 m6 l6 rous"><div class="col s4"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s8 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport datepicker" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport datepicker" id="vhasta" value="" str="1"></div></div></div>';
 
         $(".principal .filtros").append(html);
 
@@ -122,19 +124,19 @@ $(function(){
 
                     break;
                     case 2:
-                    type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+                    type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
 
                     break;
 
                     default://para texto
-                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
 
                     break;
 
 
                 }
 
-                html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field">'+type+'</div></div></div>';
+                html = '<div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field" style="margin:0px">'+type+'</div></div></div>';
                 $(".principal .filtros").append(html);
                 arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
                 filtro += 1;
@@ -149,7 +151,7 @@ $(function(){
 });
 
 $(document).on("blur","#cliente",function(){
-    var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2) like "%'+$(this).val()+'%"',0,0,0)[0][0];
+    var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$(this).val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
     if (id != undefined)
         $("#vidcliente").val(id);
     else
@@ -157,7 +159,7 @@ $(document).on("blur","#cliente",function(){
 });
 
 $(document).on("blur","#usuario",function(){
-    var id = arr('login',4,'id',1,'nombre = "'+$(this).val()+'" or user = "'+$(this).val()+'"',0,0,0)[0][0];
+    var id = arr('login',4,'id',1,'(nombre = "'+$(this).val()+'" or user = "'+$(this).val()+'") and id > 0 and find_in_set(@@impresa,idsucursal)',0,0,0)[0][0];
     if (id != undefined)
         $("#vidusuario").val(id);
     else
@@ -204,10 +206,6 @@ $(document).on("click",".ofiltr",function(){
 $(document).on("click",".sfiltr",function(){
     $(".filtros").show();
     $(this).hide();
-});
-
-$(document).on("click",".fa-check",function(){
-    generarReporte();
 });
 
 function validar (varreglo,vmodulo) {

@@ -17,7 +17,7 @@
 <p class="flow-text" style="font-size: 1.9em; margin-bottom: 0.3% !important">Reportes</p>
 </div>
 <div class="card-content">
-<div class="row">
+<div class="row {if $smarty.session.BUSS eq 1}hide{/if}">
 <div class="input-field col s12 m6 l5">
 <a  class="prefix dropdown-button tooltipped"  data-activates="filtr_1" data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
 <input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
@@ -35,7 +35,7 @@
 </div>
 </div>
 {/if}
-{if $TR eq 1}
+{if $TR eq 1 or $TR eq 0}
 <div class="col s6 m3 l2 center-align ">
 <a class="report pbtn" rep="ventas"><i class="mdi-48px mdi mdi-chart-areaspline"></i>
 </a>
@@ -109,8 +109,8 @@
 </div>
 </div>
 {/if}
-{if $TR eq 2}
-<div class="col s6 m3 l2 center-align hide">
+{if $TR eq 2 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
 <a class="report pbtn"  rep="compras"><i class="mdi-48px mdi mdi-chart-pie"></i>
 </a>
 <div class="row">
@@ -215,6 +215,18 @@
 <div class="row">
 <div class="col s12">
 <p>Regalías</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 3 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="d151"><i class="mdi-48px mdi mdi-chart-scatterplot-hexbin"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Declaraciones Informativas</p>
 </div>
 </div>
 </div>

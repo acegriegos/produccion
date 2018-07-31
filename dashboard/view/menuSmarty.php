@@ -28,13 +28,14 @@
       <div class="background"><!-- CSS --></div>
         <div class="col s12 center">
          <p class="white-text">{$smarty.session.NOM}</p>
-         <ul class="collapsible collapsible-accordion {if $smarty.session.BUSS eq 1} hide {/if}">
+         <ul class="collapsible collapsible-accordion">
           <li>
             <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</a>
             <div class="collapsible-body" style="z-index: 100; position: absolute; width: 94%;">
               <ul class="head2">
-                <li><a href="#!" value="0" class="otpmenu white-text" id="x1">Información</a></li>
-                <li><a href="#!" value="1" class="otpmenu white-text" id="x2">Notificaciones</a></li>
+                <li><a href="#!" value="0" class="otpmenu white-text {if $smarty.session.BUSS eq 1} hide {/if}" id="x1">Información</a></li>
+                <li><a href="#!" value="1" class="otpmenu white-text {if $smarty.session.BUSS eq 1} hide {/if}" id="x2">Notificaciones</a></li>
+                <li><a href="usuarios" class="white-text {if $smarty.session.BUSS neq 1} hide {/if}">Usuario</a></li>
                 <li><a href="#!" value="3" class="otpmenu white-text" id="x3">Cierre de Caja</a></li>
                 <li><a href="#!" value="4" class="otpmenu white-text" id="x4">Info Sistema</a></li>
               </ul>
@@ -44,7 +45,7 @@
         </div>
       </div>
     </li>
-  <div class="row container" style="padding: 0; margin-bottom: 0">
+  <div class="row container {if $smarty.session.BUSS eq 1} hide {/if}" style="padding: 0; margin-bottom: 0">
     <div class="col s10" style="padding: 0">
       <input id="numtrans" type="text" class="validate let" placeholder="Transaccion">
     </div>
@@ -75,7 +76,7 @@
     <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
     <li class="gtext"><a href="cuentas?tf=1"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
     <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Credito y Debito</span></a></li>
-    <li class="gtext"><a href="reportes?accion=1&rep=ventas"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reporte de Ventas</span></a></li>
+    <li class="gtext"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     <li class="gtext"><a href="ajustes"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Ajustes</span></a></li>
 {php} } {/php}
     <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
