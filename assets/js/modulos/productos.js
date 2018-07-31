@@ -261,8 +261,10 @@ $(document).on("change","#vidunidad",function(){
 $(document).on("blur","#vfamilia",function() {
 	var nombre = $(this).val();
 	var idfamilia = arr('login',4,'id',20,'nombre = "'+nombre+'"',0,0,0)[0][0];
-	if (idfamilia != undefined)
-		$("#fproductos .zelda").data('triforce')["vidfamilia"] = idfamilia;
+	
+	if (idfamilia != undefined){
+		$("#fproductos .zelda").data('triforce')["vidfamilia"] = idfamilia[0];
+	}
 	else{
 		$("#fproductos .zelda").data('triforce')["vidfamilia"] = 0;
 		$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
@@ -274,9 +276,8 @@ $(document).on("blur","#vtipo",function() {
 	var nombre = $(this).val();
 	var idtipo = arr('login',4,'id',21,'nombre = "'+nombre+'" and idfamilia = '+$("#fproductos .zelda").data('triforce')["vidfamilia"],0,0,0)[0][0];
 	if (idtipo != undefined)
-		$("#fproductos .zelda").data('triforce')["vidtipo"] = idtipo;
+		$("#fproductos .zelda").data('triforce')["vidtipo"] = idtipo[0];
 	else{
-		$("#fproductos .zelda").data('triforce')["vidfamilia"] = 0;
 		$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
 		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
 	}
@@ -286,10 +287,8 @@ $(document).on("blur","#vmarca",function() {
 	var nombre = $(this).val();
 	var idmarca = arr('login',4,'id',22,'nombre = "'+nombre+'" and idtipo = '+$("#fproductos .zelda").data('triforce')["vidtipo"],0,0,0)[0][0];
 	if (idmarca != undefined)
-		$("#fproductos .zelda").data('triforce')["vidmarca"] = idmarca;
+		$("#fproductos .zelda").data('triforce')["vidmarca"] = idmarca[0];
 	else{
-		$("#fproductos .zelda").data('triforce')["vidfamilia"] = 0;
-		$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
 		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
 	}
 
@@ -1825,7 +1824,9 @@ function validar(varreglo, vmodulo) {
 }
 
 function validarproductos() {
+
 	if ($("#fproductos .zelda").data('triforce')["vidfamilia"] == 0 && $("#vfamilia").val().length) {
+		
 		var familia = arr('login', 4, '', 106, '1,0,\"' + $("#vfamilia").val() + '\",@@impresa', 0, 0, 0);
 		if (familia[0][0] != undefined) {
 			$("#fproductos .zelda").data('triforce')["vidfamilia"] = familia[0][0][0];
@@ -1999,7 +2000,6 @@ function cargarSintax(vtabla) {
 			arr['sel'] = '';
 			arr['tbl'] = 13;
 			arr['where'] = '0,0,"'+$("#search_servicios").val()+',@@impresa","0,10"';
-			console.log(arr['where'])
 			break;
 		case 'paquetes':
 			var arr = {};
