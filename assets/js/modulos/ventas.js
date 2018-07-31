@@ -740,16 +740,41 @@ function cargarSintax(){
 
 function cargarProducto(kbrota,elemento) {
     var cantidad = 1;
+    var iscomodin = 0;
+
     $("#precp").attr('base',"0.00");
     $("#totp").attr('base',"0.00");
 
     if($("#codp").val() == '' && $("#descp").val() == '')
         return false;
-            
+    /*COMODIN = 0 => NORMAL
+              = 1 => CAMBIO_NOMBRE_SIN_ID_GRABADO
+              = 2 => CAMBIO_NOMBRE_SIN_ID_EXENTO
+              = 3 => CAMBIO_NOMBRE_CON_ID
+              = 4 => CAMBIO_CODIGO
+    */
     if ( $("#codp").val().indexOf('*') != -1) {
-        cantidad = $("#codp").val().substring(0,$("#codp").val().indexOf('*'));
-        kbrota = $("#codp").val().substring($("#codp").val().indexOf('*')+1);
-        $("#codp").val(kbrota);
+        if ($("#codp").val().length == 1) {
+            iscomodin = 1
+        }else{
+            if($("#codp").val() == '**'){
+                iscomodin = 2
+            }else{
+                kbrota = $("#codp").val().substring($("#codp").val().indexOf('*')+1);
+                cantidad = $("#codp").val().substring(0,$("#codp").val().indexOf('*'));
+                if(cantidad == ''){
+                    iscomodin = 4;
+                } 
+            }
+                 
+        }
+    }
+
+    if ( $("#codp").val().indexOf('/') != -1) {
+        kbrota = $("#codp").val().substring($("#codp").val().indexOf('/')+1);
+        if(kbrota.length){
+            iscomodin = 3;
+        }
     }
 
     if ($("#codp").val().substr(0,1) == '-') {
@@ -757,6 +782,7 @@ function cargarProducto(kbrota,elemento) {
     }else if($("#codp").val().substr(0,1) == '+') {
         kbrota = 'P-'+$(this).val().substr(1);
     }
+
     var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+','+$(".zelda").data('triforce')['vidtipoventa'],0,0,0);
     if (cod[0][0] != undefined) {
 
@@ -765,7 +791,7 @@ function cargarProducto(kbrota,elemento) {
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
 
-        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9]}) //,imp: cod[6]
+        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin}) //,imp: cod[6]
         $("#codp").val(cod[1]);
         $("#descp").val(cod[2]);
         $("#precp").val(parseFloat(cod[3]/parseFloat($("#monedas option:selected").attr('dv'))).formatMoney(2,'.',','));
@@ -783,18 +809,29 @@ function cargarProducto(kbrota,elemento) {
         $("#valores").data("elemento")['strimp'] = strimp;
         cargarunidades(cod[0],cod[15]);
 
-        if (modselec == 1) {
-            if ($("#precp").attr("readonly") == undefined && param != 2){
-                $("#precp").focus().select();
-            }else
-                $("#cantp").val(cantidad).focus().select();
-            
+        if (iscomodin) {
+            switch(iscomodin){
+                case 4:
+                    break;
+                default:
+                    $("#descp").select().focus();
+                    break;
+            }
         }else{
-            var e = jQuery.Event("keyup");
-            e.which = 13;
-            $("#cantp").val(cantidad);
-            $("#cantp").trigger(e);
-        }        
+            if (modselec == 1) {
+                if ($("#precp").attr("readonly") == undefined && param != 2){
+                    $("#precp").focus().select();
+                }else{
+                    $("#cantp").val(cantidad).focus().select();
+                }
+                
+            }else{
+                var e = jQuery.Event("keyup");
+                e.which = 13;
+                $("#cantp").val(cantidad);
+                $("#cantp").trigger(e);
+            }        
+        }
 
         Materialize.updateTextFields()
     }else{
