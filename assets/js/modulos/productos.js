@@ -124,6 +124,8 @@ $(document).on("keydown","#prodher",function(e){
             data: arr('login',4,'nombre,null',11,'id > 0 and nombre like "%'+busqueda+'%" and find_in_set(idsucursal,concat("-1,",@@impresa))',0,0,0,1)
         })
         $(this).siblings($(".autocomplete-content")).css('width','100%');
+    }else if (charCode == 13) {
+    	$(this).blur();
     }
 });
 
@@ -131,22 +133,22 @@ $(document).on("change","#visheredado",function(){
 	if ($(this).is(":checked")) {
 		$("#prodher").removeAttr('disabled');
 	}else{
-		$("#prodher").addAttr('disabled');
+		$("#prodher").attr('disabled',true);
+		$("#prodher").val('');
 	}
 });
 
 $(document).on("blur","#prodher",function(){
-	var nom = $(this).val();
-	var idheredado = arr('login',4,'id,idunidad',11,'nombre like "%'+$("#prodher").val()+'%"',0,0,0)[0][0];
+	var idheredado = arr('login',4,'id,idunidad',11,'nombre like "%'+$(this).val()+'%"',0,0,0)[0][0];
 	$("#vidheredado").val(idheredado[0]);
 	$("#vinvheredado").val(idheredado[1]);
-	if ($("#vidunidad").val() != idheredado[1]) {
+	// if ($("#vidunidad").val() != idheredado[1]) {
 		$(".equivalente").removeClass('hide');
 		var uni = arr('login',4,'upper(nombre)',107,'id = '+idheredado[1],0,0,0)[0][0];
 		$("#ud_equiv").text(uni);
-	}else{
-		$(".equivalente").addClass('hide');
-	}
+	// }else{
+	// 	$(".equivalente").addClass('hide');
+	// }
 
 });
 
@@ -294,6 +296,13 @@ $(document).on("change","#vidunidad",function(){
 		setTimeout(function(){$("#vnombre").focus();},100);
 	}
 	
+	// if ($("#vinvheredado").val() != $(this).val()) {
+		$(".equivalente").removeClass('hide');
+		var uni = arr('login',4,'nombre',107,'id = '+$("#vinvheredado").val(),0,0,0)[0][0];
+		$("#ud_equiv").text(uni);
+	// }else{
+		// $(".equivalente").addClass('hide');
+	// }
 });
 
 $(document).on("blur","#vfamilia",function() {
@@ -2036,7 +2045,6 @@ function cargarSintax(vtabla) {
 			arr['sel'] = '';
 			arr['tbl'] = 13;
 			arr['where'] = '0,0,"'+$("#search_servicios").val()+',@@impresa","0,10"';
-			console.log(arr['where'])
 			break;
 		case 'paquetes':
 			var arr = {};
@@ -2072,7 +2080,6 @@ function cargarSintax(vtabla) {
 
 
 function endDetail(id, acc, modulo) {
-	// console.log(id)
 
 	if (acc == 3) {
 		thorload(modulo);
