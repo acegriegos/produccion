@@ -38,9 +38,9 @@
 						<td style="padding: 10px;">{$PROD[LE][2]}</td>
 						<td style="padding: 10px;">{$PROD[LE][3]}</td>
 						<td style="padding: 10px;">{$PROD[LE][4]}</td>
-						<td style="padding: 10px;text-align: right;">{$PROD[LE][5]}</td>
-						<td style="padding: 10px;text-align: right;">{$PROD[LE][6]}</td>
-						<td style="padding: 10px;text-align: right;">{$PROD[LE][7]}</td>
+						<td style="padding: 10px;">{$PROD[LE][5]}</td>
+						<td style="padding: 10px;">{$PROD[LE][6]}</td>
+						<td style="padding: 10px;">{$PROD[LE][7]}</td>
 						<td>
 							{if $smarty.session.BUSS neq 1} <a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh per4115  " id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a> {/if}
 							<a class="btn-color pbtn descuentos per4103 mdi mdi-percent mdi-24px modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"></a>
@@ -151,7 +151,6 @@
                  <div class="row col s12 m12 l8">
 	             	<div class="switch col s4 hide">
 	                    <label>
-	                      
 	                      <input type="checkbox" id="isinventariado" checked >
 	                      <span class="lever tooltipped	" data-tooltip="Llevar Control de Inventario del Producto" data-position="button"></span>
 	                      Inventariar
@@ -167,8 +166,28 @@
 	                </div>
 	            </div>
                 {/if}
+                <div class="marginzero col s12 m12 l12 row">
+                    <div class="col s4 m2 l2">
+                        <input type="checkbox" id="visheredado" class="filled-in">
+                        <label for="visheredado">Heredado</label>
+                        <input type="hidden" id="vidheredado" value="">
+                        <input type="hidden" id="vinvheredado" value="">
+                    </div>
+                    <div class="input-field col s4 m4 l4">
+                        <input type="text" id="prodher" class="autocomplete" disabled autocomplete="off" value="0">
+                        <label for="prodher">Producto padre</label>
+                    </div>
+                    <div class="input-field col s2 m2 l2 equivalente hide">
+                        <label>Equivalente a </label>
+                    </div>
+                    <div class="input-field col s2 m2 l2 equivalente hide">
+                        <input type="text" id="vcantequiv" value="0">
+                    </div>
+                    <div class="input-field col s2 m2 l2 equivalente hide">
+                        <label id="ud_equiv"></label>
+                    </div>
+                </div>
                 <div class="marginzero col s12 m12 l4 row">
-                	
                 	<div class="col s12 input-field hide marginzero">
                 		<i class="mdi prefix">%</i>
 	                    <input type="number" id="vmaxdescuento" class="formprod validate" value="" min="0" focus="2vcosto" autocomplete="off">

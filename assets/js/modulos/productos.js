@@ -112,6 +112,46 @@ $(function () {
 
 });
 
+$(document).on("keydown","#prodher",function(e){
+	var nom = $(this).val();
+	var charCode = e.which || e.keyCode;
+    var charStr = keysight(e);
+    if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+        var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+        $(".autocomplete-content").remove();
+        $(this).autocomplete({
+            limit: 20,
+            data: arr('login',4,'nombre,null',11,'id > 0 and nombre like "%'+busqueda+'%" and find_in_set(idsucursal,concat("-1,",@@impresa))',0,0,0,1)
+        })
+        $(this).siblings($(".autocomplete-content")).css('width','100%');
+    }else if (charCode == 13) {
+    	$(this).blur();
+    }
+});
+
+$(document).on("change","#visheredado",function(){
+	if ($(this).is(":checked")) {
+		$("#prodher").removeAttr('disabled');
+	}else{
+		$("#prodher").attr('disabled',true);
+		$("#prodher").val('');
+	}
+});
+
+$(document).on("blur","#prodher",function(){
+	var idheredado = arr('login',4,'id,idunidad',11,'nombre like "%'+$(this).val()+'%"',0,0,0)[0][0];
+	$("#vidheredado").val(idheredado[0]);
+	$("#vinvheredado").val(idheredado[1]);
+	// if ($("#vidunidad").val() != idheredado[1]) {
+		$(".equivalente").removeClass('hide');
+		var uni = arr('login',4,'upper(nombre)',107,'id = '+idheredado[1],0,0,0)[0][0];
+		$("#ud_equiv").text(uni);
+	// }else{
+	// 	$(".equivalente").addClass('hide');
+	// }
+
+});
+
 $(document).ready(function () {
 
 });
@@ -256,6 +296,13 @@ $(document).on("change","#vidunidad",function(){
 		setTimeout(function(){$("#vnombre").focus();},100);
 	}
 	
+	// if ($("#vinvheredado").val() != $(this).val()) {
+		$(".equivalente").removeClass('hide');
+		var uni = arr('login',4,'nombre',107,'id = '+$("#vinvheredado").val(),0,0,0)[0][0];
+		$("#ud_equiv").text(uni);
+	// }else{
+		// $(".equivalente").addClass('hide');
+	// }
 });
 
 $(document).on("blur","#vfamilia",function() {
@@ -541,7 +588,6 @@ $(document).on("click", ".editprod", function () {
 	var car = arr('login', 6, 'id,nombre,valor', 193, 'id > 0 and idproducto = ' + id, 194, 1, $("#listavariables"))[0];
 	$("#dinventario").addClass('hide');
 	$(".accmodal").html("Actualizar Producto " + q[5]);
-	$("#addprod").addClass('hide');
 	$("#editprod").removeClass('hide');
 	$("#editprod").attr('idprod', id);
 	$("#impuestos").removeClass('hide');
@@ -2035,7 +2081,6 @@ function cargarSintax(vtabla) {
 
 
 function endDetail(id, acc, modulo) {
-	// console.log(id)
 
 	if (acc == 3) {
 		thorload(modulo);
