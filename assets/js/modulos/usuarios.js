@@ -279,6 +279,7 @@ $(document).on('click','.correo',function(){
 
 $(document).on('click','.cargar',function(){
 	$("#userSubmit").removeClass('add');
+	$("#userSubmit").removeClass('hide');
 	$("#userSubmit").addClass('edit');
 	$("#userSubmit").html('<i class="mdi mdi-content-save mdi-24px"></i>');
 	$("#userSubmit").attr('title','Actualizar Usuario');
@@ -402,7 +403,7 @@ function cargar(vmodulo,vid) {
 
 		arr['sel'] = '';
 		arr['tbl'] = 7;
-		arr['where'] = '';
+		arr['where'] = '@@impresa';
 
 		return arr;
 	}

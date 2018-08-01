@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.27">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.29">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -68,7 +68,8 @@
                 {/section}
               </tbody>
             </table>
-          <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
+            <ul class="left showing" modulo="76"><small></small></ul>
+            <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
           <br>
           <br>
         </div>
@@ -479,6 +480,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.0.0.27"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.0.0.29"></script>
 </body>
 </html>

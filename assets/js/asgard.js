@@ -35,6 +35,21 @@ $(document).on('click','.alv',function(){
     setTimeout(function(){ $(".alv").removeAttr('disabled'); },2000);
 });
 
+$(document).on("click","#vtelefono",function(){
+    $(this).parent().find('a').click()
+    $("#telefono_in").focus();
+});
+
+$(document).on("click","#vcorreo",function(){
+    $(this).parent().find('a').click()
+    // $("#correo_in").focus();
+});
+
+$(document).on("click","#vdireccion",function(){
+    $(this).parent().find('a').click()
+    // $("#telefono_in").focus();
+});
+
 $(document).on("click",".tc-show",function(){   
 
     var code = parseInt($(this).data('num'));
@@ -256,6 +271,11 @@ $(document).on("click","#delcan",function(){
     $(this).parent().remove();
 });
 
+$(document).on("click",".optns",function(){
+    $(this).parent().parent().parent().find("[id^=search_]").attr('filtro',$(this).attr('fltr'))
+    $(this).parent().parent().parent().find("[for^=search_] span").html($(this).html())
+});
+
 $(document).on("keyup","[id^=search_]",function(e){
     var code = e.which || e.keyCode
     if (code == 13) {
@@ -264,10 +284,12 @@ $(document).on("keyup","[id^=search_]",function(e){
         var c = $(this).attr('num').substr(1);
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
-        var h = arr('login',4,'',c,e+',"'+a+',@@impresa",""',0,0,0)[0][0];
-        filltable(a,b,c,g);
+        var j = $(this).attr('filtro') == undefined ? 1 : $(this).attr('filtro');
+        var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
+        var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
+        filltable(h,b,c,g);
         $(".pagination").html('');
-        paginate(c,h)
+        paginate(c,i)
     }
 });
 
@@ -566,7 +588,7 @@ function odin(varreglo,vform) {
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
         for (var i = 0; i < varreglo.length; i++) {
-            salida[index][varreglo[i]] = $(this).attr(varreglo[i]);
+            salida[index][varreglo[i][0]] = $(this).attr(varreglo[i][0]);
             }// end FOR
         });//end EACH
     break;
@@ -574,7 +596,7 @@ function odin(varreglo,vform) {
     case "2":
     //LLENADO DE VARIABLES POR ATRIBUTO SIN DETALLE
     for (var i = 0; i < varreglo.length; i++) {
-        salida[varreglo[i]] = $("#"+vform+" .uniq").attr(varreglo[i]);
+        salida[varreglo[i][0]] = $("#"+vform+" .uniq").attr(varreglo[i][0]);
         }// end FOR
         break;
 
@@ -583,61 +605,61 @@ function odin(varreglo,vform) {
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
         for (var i = 0; i < varreglo.length; i++) {
-            if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined)
-                salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
+            if ($("#"+vform+" #"+varreglo[i][0]).attr('hid') != undefined)
+                salida[index][varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).attr('hid');
             else{
-                switch(varreglo[i]) {
+                switch(varreglo[i][0]) {
                     case 'vaccion':
-                    salida[index][varreglo[i]] = 0;
+                    salida[index][varreglo[i][0]] = 0;
                     break
                     case 'vidtabla':
                     case 'vidfila':
-                    salida[index][varreglo[i]] = 0;//$("#"+vform+" #vtabla").val();
+                    salida[index][varreglo[i][0]] = 0;//$("#"+vform+" #vtabla").val();
                     break;
                     default:
-                    if (/vfecha/.test(varreglo[i])){
-                        if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
-                            salida[index][varreglo[i]] = '1990-01-01';
+                    if (/vfecha/.test(varreglo[i][0])){
+                        if (typeof $("#"+vform+" #"+varreglo[i][0]) == 'undefined') {
+                            salida[index][varreglo[i][0]] = '1990-01-01';
                         }else{
-                            salida[index][varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
-                            '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                            salida[index][varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                            '1990-01-01' : $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }
                     }else{
-                        switch($("#"+vform+" #"+varreglo[i]).attr("type")){
+                        switch($("#"+vform+" #"+varreglo[i][0]).attr("type")){
                             case 'select':
-                            if($("#"+vform+" #"+ varreglo[i]).attr('multiple') == undefined)
-                                salida[index][varreglo[i]] =  $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]+" option").val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                            if($("#"+vform+" #"+ varreglo[i][0]).attr('multiple') == undefined)
+                                salida[index][varreglo[i][0]] =  $("#"+vform+" #"+ varreglo[i][0]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i][0]+" option").val() : $("#"+vform+" #"+ varreglo[i][0]+" option:selected").val();
                             else
-                                salida[index][varreglo[i]] = $("#"+vform+" #"+ varreglo[i]).val().toString();
+                                salida[index][varreglo[i][0]] = $("#"+vform+" #"+ varreglo[i][0]).val().toString();
 
                             break;
                             case 'text':
                             case 'textarea':
-                            valorOdin = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
-                            valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
-                            salida[index][varreglo[i]] = valorOdin;
+                            valorOdin = $("#"+vform+" #"+varreglo[i][0]).val().replace(/"/g,'\"');
+                            valorOdin = $("#"+vform+" #"+varreglo[i][0]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                            salida[index][varreglo[i][0]] = valorOdin;
                             break;
                             case 'hidden':
                             case 'number':
-                            valorOdin = $("#"+vform+" #"+varreglo[i]).val();
-                            valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
-                            salida[index][varreglo[i]] = valorOdin;
+                            valorOdin = $("#"+vform+" #"+varreglo[i][0]).val();
+                            valorOdin = $("#"+vform+" #"+varreglo[i][0]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                            salida[index][varreglo[i][0]] = valorOdin;
                             break;
                             case 'html':
-                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                            salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).html();
                             break;
                             case 'radio':
-                            salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                            salida[index][varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']:checked").val();
                             break;
                             case 'checkbox':
-                            salida[index][varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                            salida[index][varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']").is(":checked") ? 1 : 0;
                             break;
                             default:
                             try{
-                                salida[index][varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                                salida[index][varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
                             }
                             catch(e){
-                                console.log(varreglo[i]+" No Existe");
+                                console.log(varreglo[i][0]+" No Existe");
                                 return "Error en Interno, Codigo: Odin"
                             } 
                             break;
@@ -646,7 +668,7 @@ function odin(varreglo,vform) {
                 }//end if
                 }//end SWITCH
             }//end IF
-            // $("#"+vform+" .zelda").data('triforce')
+            salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[index][varreglo[i][0]];
             }// end FOR
         });//end EACH
 break;
@@ -656,78 +678,85 @@ case "4":
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
         for (var i = 0;  i < varreglo.length; i++) {
-            salida[index][varreglo[i]] = $(this).data('triforce')[varreglo[i]];
+            salida[index][varreglo[i][0]] = $(this).data('triforce')[varreglo[i][0]];
+
+            salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[index][varreglo[i][0]];
             }// end FOR
     });//end EACH
     
     break;
 case "5":
         for (var i = 0; i < varreglo.length; i++) {
-            salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+            salida[varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
+
+            salida[varreglo[i][0]] = salida[varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[varreglo[i][0]];
         }
         break;
 
     default:
     //LLENADO DE VARIABLES POR ID SIN DETALLE
     for (var i = 0; i < varreglo.length; i++) {
-        if ($("#"+vform+" #"+varreglo[i]).attr('hid') != undefined){
-            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).attr('hid');
+        if ($("#"+vform+" #"+varreglo[i][0]).attr('hid') != undefined){
+            salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).attr('hid');
         }
         else{
-            switch(varreglo[i]) {
+            switch(varreglo[i][0]) {
                 case 'vaccion':
-                salida[varreglo[i]] = 0;
+                salida[varreglo[i][0]] = 0;
                 break
                 case 'vidtabla':
-                salida[varreglo[i]] = $("#"+vform+" #vtabla").val();
+                salida[varreglo[i][0]] = $("#"+vform+" #vtabla").val();
                 break;
                 default:
-                if (/vfecha/.test(varreglo[i])){
-                    if (typeof $("#"+vform+" #"+varreglo[i]) == 'undefined') {
-                        salida[varreglo[i]] = '1990-01-01';
+                if (/vfecha/.test(varreglo[i][0])){
+                    if (typeof $("#"+vform+" #"+varreglo[i][0]) == 'undefined') {
+                        salida[varreglo[i][0]] = '1990-01-01';
                     }else{
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
-                        '1990-01-01' : $("#"+vform+" #"+varreglo[i]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                        salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
+                        '1990-01-01' : $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                     }
                 }else{
-                    switch($("#"+vform+" #"+varreglo[i]).attr("type")){
+                    switch($("#"+vform+" #"+varreglo[i][0]).attr("type")){
                         case 'select':
-                        if ($("#"+vform+" #"+varreglo[i]).attr("multiple") == undefined) {
-                            salida[varreglo[i]] = $("#"+vform+" #"+ varreglo[i]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i]).val() : $("#"+vform+" #"+ varreglo[i]+" option:selected").val();
+                        if ($("#"+vform+" #"+varreglo[i][0]).attr("multiple") == undefined) {
+                            salida[varreglo[i][0]] = $("#"+vform+" #"+ varreglo[i][0]+" option:selected").val() == undefined ? $("#"+vform+" #"+ varreglo[i][0]).val() : $("#"+vform+" #"+ varreglo[i][0]+" option:selected").val();
                         }else{
-                            salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val().toString();
+                            salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).val().toString();
                         }
+                        break;
+                        case 'file':
+                        salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).attr('src');
                         break;
                         case 'text':
                         case 'textarea':
-                        valorOdin = $("#"+vform+" #"+varreglo[i]).val().replace(/"/g,'\"');
-                        valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
-                        salida[varreglo[i]] = valorOdin;
+                        valorOdin = $("#"+vform+" #"+varreglo[i][0]).val().replace(/"/g,'\"');
+                        valorOdin = $("#"+vform+" #"+varreglo[i][0]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                        salida[varreglo[i][0]] = valorOdin;
                         break;
                         case 'hidden':
                         case 'password':
                         case 'time':
                         case 'number':
                         case 'email':
-                        valorOdin = $("#"+vform+" #"+varreglo[i]).val();
-                        valorOdin = $("#"+vform+" #"+varreglo[i]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).val();
+                        valorOdin = $("#"+vform+" #"+varreglo[i][0]).val();
+                        valorOdin = $("#"+vform+" #"+varreglo[i][0]+".numeric").length ? valorOdin.replace(/,/g,'') : valorOdin;
+                        salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).val();
                         break;
                         case 'html':
-                        salida[varreglo[i]] = $("#"+vform+" #"+varreglo[i]).html();
+                        salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).html();
                         break;
                         case 'radio':
-                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i]+"']:checked").val();
+                        salida[varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']:checked").val() == undefined ? 0 : $("#"+vform+" input[name='"+varreglo[i][0]+"']:checked").val();
                         break;
                         case 'checkbox':
-                        salida[varreglo[i]] = $("#"+vform+" input[name='"+varreglo[i]+"']").is(":checked") ? 1 : 0;
+                        salida[varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']").is(":checked") ? 1 : 0;
                         break;
                         default:
-                        // console.log(varreglo[i]+": "+$("#"+vform+" .zelda").data('triforce')[varreglo[i]])
-                            if($("#"+vform+" .zelda").data('triforce')[varreglo[i]] != undefined)
-                                salida[varreglo[i]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i]];
+                        // console.log(varreglo[i][0]+": "+$("#"+vform+" .zelda").data('triforce')[varreglo[i][0]])
+                            if($("#"+vform+" .zelda").data('triforce')[varreglo[i][0]] != undefined)
+                                salida[varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
                             else{
-                                console.log(varreglo[i]+" No Existe");
+                                console.log(varreglo[i][0]+" No Existe");
                                 return "Error en Interno, Codigo: Odin"
                             } 
                         break;
@@ -736,6 +765,7 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
+        salida[varreglo[i][0]] = salida[varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && varreglo[i][0] != 'vidusuario' && varreglo[i][0] != 'vidsucursal' ? 0 : salida[varreglo[i][0]];
     }//end FOR
     break;
     }//end SWITCH
@@ -1037,29 +1067,28 @@ function doreport() {
     var vmodulo = {};
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
     var search = new Array;
-    var datos = mantenimiento('login',1,vmodulo);
+    var datos = mantenimiento('login',1,vmodulo)[0];
 
-    datos = datos[0].splice(elem.length,datos[0].length-elem.length);
+    datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-        // console.log(datos[i],' ',$("#"+datos[i]).val())
-        if ($("#"+datos[i]).attr('str') != undefined) {
-            if ($("#"+datos[i]).attr('type') == 'date') {
+        if ($("#"+datos[i][0]).attr('str') != undefined) {
+            if ($("#"+datos[i][0]).attr('type') == 'date') {
                 
-                if ( $("#"+datos[i]).val()=='' ){
+                if ( $("#"+datos[i][0]).val()=='' ){
                     search[i] = '""';
                 }else{
-                    search[i] = '"'+$("#"+datos[i]).val()+'"';
+                    search[i] = '"'+$("#"+datos[i][0]).val()+'"';
                 }
             }else{
-                search[i] = '"'+$("#"+datos[i]).val()+'"';
+                search[i] = '"'+$("#"+datos[i][0]).val()+'"';
             }
         }else{
-            if ($("#"+datos[i]).val() == '') {
+            if ($("#"+datos[i][0]).val() == '') {
                 search[i] = "''";
             }else{
-                search[i] = $("#"+datos[i]).val();    
-                $("#chk"+datos[i].substr(3)).is(":checked") == false ? $("#"+datos[i]).val(0) : true;
+                search[i] = $("#"+datos[i][0]).val(); //$("#"+datos[i][0]).parent().find('[for='+datos[i][0]+']').is(":checked") ? $("#"+datos[i][0]).val() : 0;    
+                // $("#chk"+datos[i][0].substr(3)).is(":checked") == false ? $("#"+datos[i][0]).val(0) : true;
 
             }
         }
@@ -1073,7 +1102,7 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    // console.log(tbl,' ',atributos)
+    console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 
 }
@@ -1195,47 +1224,55 @@ function mostrar_cargar(){
 }
 
 // <-- pagination
-function filltable(a,b,c,g) {
-    // var tabla = $("#data-table-"+b).DataTable();
-    // tabla.destroy();
-    arr('login',6,'',c,'0,0,"'+a+',@@impresa","0,10"',g,1,$("#lista"+b));
-    // $("#data-table-"+b).DataTable({
-    //     bFilter: false,
-    //     bScrollInfinite: true,
-    //     bSort: false,
-    //     bLengthChange: false,
-    //     order: [],
-    //     bPaginate: false,
-    //     info: false
-    // });
+function filltable(h,b,c,g) {
+    var tabla = $("#data-table-"+b).DataTable();
+    tabla.destroy();
+    arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
+    $("#data-table-"+b).DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
 }
 
-function paginate(vtbl,len) {
-    $(".pagination").html('');
-    var countpag = 0;
-    if (len == undefined) {
-        countpag = arr('login',4,'',vtbl,'0,1,",@@impresa",""',0,0,0)[0][0];
-    }else
-    countpag = len;
+function paginate(vtbl,len,vfiltro) {
     
+    $(".pagination").html('');
+    if (vfiltro == undefined)
+        vfiltro = ',@@impresa';
+    
+    if (len == undefined) {
+        countpag = arr('login',4,'',vtbl,'0,1,"'+vfiltro+'",""',0,0,0)[0][0];
+    }else
+        countpag = len;
+
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
         $(".pagination").attr('ultimo', 9);
-    } else if (parseInt(countpag) == 0 || parseInt(countpag) < 1) {
+    } else if (parseFloat(countpag) == 0) {
+        $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>0</span> a <span class='pag-hasta'>0</span> de <span class='pag-tot'>0</span> Entradas")
         return false;
+    } else if (parseFloat(countpag) < 1) {
+        
     } else {
-        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
+        var txt = '<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>';
         for (var i = 1; i <= Math.ceil(countpag); i++) {
-            i = parseInt(i);
             if (i == 1)
-                $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0,10"><a href="#!">' + i + '</a></li>');
+                txt += '<li class="active paginate" id="z' + i + '" limit="0,10"><a href="#!">' + i + '</a></li>';
             else
-                $(".pagination").append('<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>');
+                txt += '<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>';
             
             $(".pagination").attr('ultimo', i);
         }
-        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
+        $(".pagination").append(txt+'<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
     }
+
+    var phasta = parseInt(countpag*10) >= 10 ? 10 : parseInt(countpag*10);
+    $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>1</span> a <span class='pag-hasta'>"+phasta+"</span> de <span class='pag-tot'>"+parseInt(countpag*10)+"</span> Entradas")
 }
 
 $(document).on("click", ".paginate", function () {
@@ -1245,22 +1282,31 @@ $(document).on("click", ".paginate", function () {
     var id = $(this).attr('id').substr(1);
     var limit = $(this).attr('limit');
     var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     $(".paginate").removeClass('active')
     $(this).addClass('active');
     // var tabla = $("#data-table-"+modulo).DataTable();
     // tabla.destroy();
     $("#lista"+modulo).html('');
-    arr('login',6,'',vtbl,'0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    // console.log(arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, 0))
+    arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
 
-    // $("#data-table-"+modulo).DataTable({
-    //     bFilter: false,
-    //     bScrollInfinite: true,
-    //     bSort: false,
-    //     bLengthChange: false,
-    //     order: [],
-    //     bPaginate: false,
-    //     info: false
-    // });
+    $("#data-table-"+modulo).DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+    var numl = parseInt($('a',this).html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+    
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 
 $(document).on("click", ".nxt", function () {
@@ -1269,6 +1315,7 @@ $(document).on("click", ".nxt", function () {
     var ultimo = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var next = id + 1;
     var pags = next - 8;
@@ -1277,7 +1324,7 @@ $(document).on("click", ".nxt", function () {
         pags = 1;
 
     if (ultimo == id) {
-        var count = arr('login',4,'',vtbl,'0,1,"'+filtro+',@@impresa",""',0,0,0)[0][0];
+        var count = arr('login',4,'',vtbl,'0,1,"'+filtro_sp+'",""',0,0,0)[0][0];
         if (Math.ceil(count) != ultimo) {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
@@ -1294,35 +1341,43 @@ $(document).on("click", ".nxt", function () {
             // var tabla = $("#data-table-"+modulo).DataTable();
             // tabla.destroy();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-            // $("#data-table-"+modulo).DataTable({
-            //     bFilter: false,
-            //     bScrollInfinite: true,
-            //     bSort: false,
-            //     bLengthChange: false,
-            //     order: [],
-            //     bPaginate: false,
-            //     info: false
-            // });
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio,1, $("#lista"+modulo));
+            $("#data-table-"+modulo).DataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            });
         }   
     } else {
         var limit = $("#z" + next).attr('limit');
         $(".paginate").removeClass('active');
         $("#z" + next).addClass('active');
-        // var tabla = $("#data-table-"+modulo).DataTable();
-        // tabla.destroy();
-        var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-        arr('login', 6, '', vtbl, '0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
-        // $("#data-table-"+modulo).DataTable({
-        //     bFilter: false,
-        //     bScrollInfinite: true,
-        //     bSort: false,
-        //     bLengthChange: false,
-        //     order: [],
-        //     bPaginate: false,
-        //     info: false
-        // });
+        var tabla = $("#data-table-"+modulo).DataTable();
+        tabla.destroy();
+
+        arr('login', 6, '', vtbl, '0,0,"'+filtro_sp+'","'+limit+'"', cambio,1, $("#lista"+modulo));
+        $("#data-table-"+modulo).DataTable({
+            bFilter: false,
+            bScrollInfinite: true,
+            bSort: false,
+            bLengthChange: false,
+            order: [],
+            bPaginate: false,
+            info: false
+        });
     }
+
+    var numl = parseInt($("#z"+next+" a").html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+    
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 
 $(document).on("click", ".prv", function () {
@@ -1330,6 +1385,8 @@ $(document).on("click", ".prv", function () {
     var vtbl = $("ul.pagination").attr('vtbl');
     var count = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
+    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var prev = id - 1;
     var prv = prev - 8;
@@ -1354,36 +1411,36 @@ $(document).on("click", ".prv", function () {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
-                // var tabla = $("#data-table-"+modulo).DataTable();
-                var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-                // tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
-                // $("#data-table-"+modulo).DataTable({
-                //     bFilter: false,
-                //     bScrollInfinite: true,
-                //     bSort: false,
-                //     bLengthChange: false,
-                //     order: [],
-                //     bPaginate: false,
-                //     info: false
-                // });
-            } else {
+                var tabla = $("#data-table-"+modulo).DataTable();
+
+                tabla.destroy();
+                arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+                $("#data-table-"+modulo).DataTable({
+                    bFilter: false,
+                    bScrollInfinite: true,
+                    bSort: false,
+                    bLengthChange: false,
+                    order: [],
+                    bPaginate: false,
+                    info: false
+                });
+               } else {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
-                // var tabla = $("#data-table-"+modulo).DataTable();
-                var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-                // tabla.destroy();
-                arr('login',6,'',vtbl,'0,0,"'+filtro+',@@impresa","'+limit+'"',cambio,1,$("#lista"+modulo));
-                // $("#data-table-"+modulo).DataTable({
-                //     bFilter: false,
-                //     bScrollInfinite: true,
-                //     bSort: false,
-                //     bLengthChange: false,
-                //     order: [],
-                //     bPaginate: false,
-                //     info: false
-                // });
+                var tabla = $("#data-table-"+modulo).DataTable();
+                tabla.destroy();
+
+                arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
+                $("#data-table-"+modulo).DataTable({
+                    bFilter: false,
+                    bScrollInfinite: true,
+                    bSort: false,
+                    bLengthChange: false,
+                    order: [],
+                    bPaginate: false,
+                    info: false
+                });
             }
         } else {
             var limit = $("#z" + prev).attr('limit');
@@ -1391,19 +1448,27 @@ $(document).on("click", ".prv", function () {
             $("#z" + prev).addClass('active');
             // var tabla = $("#data-table-"+modulo).DataTable();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            // tabla.destroy();
-            arr('login',6,'',vtbl,'0,0,"'+filtro+'@@impresa","'+limit+'"',cambio,1,$("#lista"+modulo));
-            // $("#data-table-"+modulo).DataTable({
-            //     bFilter: false,
-            //     bScrollInfinite: true,
-            //     bSort: false,
-            //     bLengthChange: false,
-            //     order: [],
-            //     bPaginate: false,
-            //     info: false
-            // });
+            tabla.destroy();
+            arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
+            $("#data-table-"+modulo).DataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            });
         }
     }
+
+    var numl = parseInt($("#z"+prev+" a").html());
+    var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+    var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+    var nshow = nfin-ntot >= 0 ? ntot : nfin;
+
+    $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+    $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
 // pagination -->
 

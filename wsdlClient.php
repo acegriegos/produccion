@@ -1,5 +1,7 @@
 <?php 
     require_once '_config/mysqlDB.php';
+    set_time_limit(0);
+    
     if (isset($_REQUEST['accion'])) {
         $id = $_REQUEST['id'];
         $accion = $_REQUEST['accion'];
@@ -39,9 +41,9 @@
                 $offset     =   !isset($_REQUEST['offset'])     ?   1  :   $_REQUEST['offset'];
                 $limit      =   !isset($_REQUEST['limit'])      ?   50  :   $_REQUEST['limit'];
                 $receptor   =   !isset($_REQUEST['receptor'])   ?   ''   :   $_REQUEST['receptor'];
-                echo "<pre>";
-                print_r($fe->getRecibos($id,$offset,$limit,$receptor));
-                echo "</pre>";
+                
+                echo json_encode($fe->getRecibos($id,$offset,$limit,$receptor));
+                
                 break;
             case 6://ENCABEZADO
                 echo json_encode($fe->info);
@@ -58,14 +60,27 @@
                 break;
             case 9: //P12
 
-                openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[1]);
-                $publicKey    =$certs["cert"];
+                $salida = [];
+        
+                if(!file_exists($fe->credenciales[0])){
+                    $salida['succed'] = 0;
+                    $salida['ERROR'] = 'Clave Criptofágica no Eistente';            
+                }else{
+                        
+                    if(openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[1])){
+                    
+                                $publicKey    =$certs["cert"];
+                            
+                                $certData   = openssl_x509_parse($publicKey);
+                                $salida['succed'] = 1;
+                        $salida['certificado'] = $certData;
+                    }else{
+                        $salida['succed'] = 0;
+                        $salida['ERROR'] = 'Clave o PIN no Válidos';    
+                    }
+                }
                 
-                $certData   = openssl_x509_parse($publicKey);
-                echo "<pre>";
-                print_r($certData);
-                echo "</pre>";
-                break;
+            echo json_encode($salida);
             case 10: //LEER XML
                 $salida = ['succed'=>1];
                 if (!file_exists('./assets/xml/'.$id)) {
@@ -73,6 +88,58 @@
                 }else
                     loadXML_FILE($id,$salida);
 
+                echo json_encode($salida);
+                break;
+            case 11:
+                $salida = [];
+        
+                if(!file_exists($fe->credenciales[0])){
+                    $salida['succed'] = 0;
+                    $salida['ERROR'] = 'Clave Criptofágica no Eistente';            
+                    }else{
+                        
+                    if(openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[1])){
+                    
+                            $publicKey =$certs["cert"];
+                        
+                            $certData = openssl_x509_parse($publicKey);
+                            $certIssuer = $certInfo = array();
+                            foreach ($certData['issuer'] as $item=>$value) {
+                              $certIssuer[] = $item . '=' . $value;
+                            }
+                            $certIssuer = implode(', ', array_reverse($certIssuer));
+                            $checkbeare = $fe->getBearer();
+                            $isprueb = strpos($certIssuer, 'SANDBOX') ? 1 : 0;
+                            $hbearer = isset($checkbeare['respuesta']->access_token) ? 1 : 0;
+                            $puser = strpos($checkbeare['consulta']['username'],'stag') ? 1 : 0;
+                            $tipo = 2;
+                            switch (substr($certData['subject']['serialNumber'],0,3)) {
+                                case 'CPF':
+                                    $tipo = 1;
+                                    break;
+                                
+                                default:
+                                    break;
+                            }
+
+                            $salida['succed'] = 0;
+                            if (!$hbearer) {
+                                $salida['ERROR'] = 'Credenciales de Usuario Inválidas';
+                            }else{
+                                if($isprueb != $puser){
+                                    $salida['ERROR'] = 'Credenciales y Llave Criptofágica no son Consistentes';
+                                }else{
+                                    $salida['succed'] = 1;
+                                    $salida['certificado']['razon'] = $certData['subject']['CN'];
+                                    $salida['certificado']['cedula'] = substr($certData['subject']['serialNumber'],4);
+                                    $salida['certificado']['tipo_cliente'] =  $tipo;
+                                }
+                            }
+                    }else{
+                        $salida['succed'] = 0;
+                        $salida['ERROR'] = 'Clave o PIN no Válidos';    
+                    }
+                }
                 echo json_encode($salida);
                 break;
             default:
@@ -139,8 +206,11 @@
         $salida['detalle'] = [];
 
         foreach ($ciclo as $key) {
+            $vunidad = ((array)$key->UnidadMedida)[0] == 'Otros' ? ((array)$key->UnidadMedidaComercial)[0] : ((array)$key->UnidadMedida)[0];
+            $cunidad = $db->ejecutar('call krattos("if(count(id),id,0)",107,"id > 0 and simbolo = \"'.$vunidad.'\" ")')->fetch_all();
+
             $num = ((array)$key->NumeroLinea)[0];
-            $detarray = ['numero' => $num,'codigo' => ((array)$key->Codigo->Codigo)[0],'cantidad' => ((array)$key->Cantidad)[0], 'unidad' => ((array)$key->UnidadMedida)[0] == 'Otros' ? ((array)$key->UnidadMedidaComercial)[0] : ((array)$key->UnidadMedida)[0],'detalle' => ((array)$key->Detalle)[0], 'precio' => ((array)$key->PrecioUnitario)[0], 'descuento' => isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0, 'impuesto' => isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0];
+            $detarray = ['numero' => $num,'codigo' => ((array)$key->Codigo->Codigo)[0],'cantidad' => ((array)$key->Cantidad)[0], 'unidad' => $vunidad, 'idunidad' => $cunidad, 'detalle' => ((array)$key->Detalle)[0], 'precio' => ((array)$key->PrecioUnitario)[0], 'descuento' => isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0, 'impuesto' => isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0];
             array_push($salida['detalle'], $detarray);
         }
 
@@ -310,7 +380,15 @@
                 case 201:
                 case 202:
                 case 206:
-                    $salida = json_decode($body);
+                    foreach (json_decode($body) as $index => $key) {
+                        
+                        $salida[$index]['numfact'] = substr($key->clave,21,20);
+                        $fecha = strtotime(substr(str_replace('T', ' ',$key->fecha),0,-6));
+                        $fecha = date('d/m/Y H:i:s',$fecha);
+                        $salida[$index]['fecha'] = $fecha;
+                        $salida[$index]['receptor'] = isset($key->receptor->nombre) ? $key->receptor->nombre : '';
+                        $salida[$index]['cedula'] = isset($key->receptor->numeroIdentificacion) ? $key->receptor->numeroIdentificacion : '';
+                    }
                     break;       
                 default:
                     $salida = $json_response;

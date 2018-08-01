@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.27">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.27">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.29">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.29">
   </head>
   <body>
   
@@ -55,15 +55,21 @@
 
             <hr>
             <div class="row">
-                <div class="col s1">
-                    <a href="#modal-getxml" class="btn red mdi mdi-upload mdi-24px tooltipped" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px"></a>
+                <div class="col s7 input-field">
+                  <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
+                  <ul id='filtr_1' class='dropdown-content'>
+                    <li><a class="optns" href="#!" fltr="1">Número</a></li>
+                    <li><a class="optns" href="#!" fltr="2">Razón Social o Cédula</a></li>
+                    <li><a class="optns" href="#!" fltr="3">Fecha</a></li>
+                  </ul>
+                  <input type="text" id="search_facturas" maxlength="100" num="v158" var="0,1" filtro="1">
+                  <label class="truncate" for="search_facturas">Buscar Factura por <span>Número</span></label>
                 </div>
-                <div class="col s9">
-                    
-                </div>
-                
-                <div class="col s2 der">
-                     <div class="switch">
+                <div class="col s2"></div>
+                <div class="col s3 der">
+                    <a href="#modal-getxml" class="btn btn2 mdi mdi-upload mdi-24px tooltipped" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px"></a>
+
+                     <div class="switch der">
                         <label>
                           Punto Venta
                           <input type="checkbox" checked id="tps">
@@ -109,6 +115,8 @@
                             {/section}
                         </tbody>
                     </table>
+                    <ul class="left showing" modulo="158"><small></small></ul>
+                    <ul class="pagination right" vtbl="158" modulo="facturas" filtro_sp="{$TF},0,@@impresa,^,?"></ul>
                 </div>
             </div>
             <br><br>
@@ -189,7 +197,7 @@
         </div>
     </div>
 
-    <script src="../assets/js/dropzone.js?v=10.0.0.27"></script>
-    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.27"></script>
+    <script src="../assets/js/dropzone.js?v=10.0.0.29"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.29"></script>
   </body>
 </html>

@@ -25,6 +25,7 @@ if (!isset($_REQUEST['accion'])) {
 	   		case 1:
 	   			$pagina = 1;
 	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor,if(principal,"Moneda por Defecto",""),simbolo',54,'id > 0 order by principal desc,nombre'));
+	   			$smarty->assign('IMPR',$kakaroto->kamehameha('id,nombre',159,'id > 0 order by nombre'));
 	   			$smarty->assign('WSDL',$kakaroto->kamehameha('wsid,wsname',100,'wsid > 0 order by wsname'));
 	   			$smarty->assign('TUSR',$kakaroto->kamehameha('',402,'0'));
 	   			$smarty->assign('TPAG',$kakaroto->kamehameha('id,nombre,principal',26,'id >= 0 order by id'));

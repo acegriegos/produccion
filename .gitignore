@@ -30,5 +30,6 @@ assets/scss/style=expanded
 style=expanded
 assets/img/logo.png
 assets/img/logos/*
+!assets/img/logos/.gitkeep
 assets/respaldo/*
 !assets/respaldo/.gitkeep

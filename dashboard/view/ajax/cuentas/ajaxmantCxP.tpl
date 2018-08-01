@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.27">
+ <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.29">
 
       <nav class="nav-extended z-depth-3 head1">
   <div class="nav-wrapper">

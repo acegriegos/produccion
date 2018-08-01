@@ -23,10 +23,6 @@ $(document).ready(function(){
 	$('ul.tabs').tabs();
 });
 
-$(document).on("click","#test",function(){
-	var logo = $("#vlogo").val();
-});
-
 $(document).on("click",".menu3",function(){
 	console.clear()
 	$(".menu3").removeClass('active');
@@ -43,16 +39,99 @@ $(document).on("click",".menu3",function(){
 			arr['tbl'] = 50;
 			arr['where'] = '@@impresa';
 			var e = mantenimiento('login',4,arr)[0][0];
-
+			$("#vid").val(e[9]);
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);
 			$("#vpfisico").val(e[2]);
-			$("#vtelefono").val(e[5]);
-			$("#vcorreo").val(e[4]);
-			$("#vdireccion").val(e[6]);
 			$("#vlogo").attr('src',e[3]);
+			$("#vcorreo").val(e[4]);
+			$("#vtelefono").val(e[5]);
+			$("#vdireccion").val(e[6]);
 			$("#vfechainicio").val(e[7]);
 			$("#vfechafinal").val(e[8]);
+			$("#vidtipoabono").val(e[12]);
+			$("#vidtipofactura").val(e[13]);
+			$("#vidtiponota").val(e[14]);
+			$("#vuser_atv").val(e[20]);
+			$("#vpass_atv").val(e[21]);
+			$("#vpass_n").val(e[22]);
+			var isinvent = e[15] == 1 ? true : false;
+			var isfe = e[23] == 1 ? true : false;
+			var fastshow = e[17] == 1 ? true : false;
+			var printsale = e[18] == 1 ? true : false;
+			var prueba = e[19] == 1 ? true : false;
+			$("#visinventariado").prop('checked',isinvent);
+			$("#isfe").prop('checked',isfe);
+			$("#vfastshow").prop('checked',fastshow);
+			$("#vprintSale").prop('checked',printsale);
+			$("#visPrueba").prop('checked',prueba);
+			if (e[16] != '') {
+				$.post('../wsdlClient.php',{
+					accion: 9,
+					id: 0
+				}).done(function(data){
+					var p = JSON.parse(data);
+					if (p['succed']) {
+						$("#p12-upload").addClass('hide');
+						$("label[for=p12-upload]").addClass('hide');
+						$("#vpass_n").parent().addClass('offset-s6');
+						$("#isfe").prop({ 'disabled' : true,'checked' : true });
+					}else{
+						Materialize.toast(p['ERROR'], 4000, 'red');
+						$("#dempresa").click();
+						$("#isfe").prop({ 'disabled' : false,'checked' : false });
+						$("#p12-upload").removeClass('hide');
+						$("label[for=p12-upload]").removeClass('hide');
+						$("#vpass_n").parent().removeClass('offset-s6');
+					}
+				});
+				// validar hacienda
+				// var data = new FormData();
+				// data.append('accion',3);
+				// data.append('clave',$("#vpass_n").val());
+				// data.append('file',e[16]);
+				// data.append('user',$("#vuser_atv").val());
+				// data.append('pass',$("#vpass_atv").val());
+				// data.append('prueba',$("#visPrueba").is(':checked'))
+				// console.log(data)
+
+				// jQuery.ajax({
+				//     url: '../cargar.php',
+				//     data: data,
+				//     cache: false,
+				//     contentType: false,
+				//     processData: false,
+				//     method: 'POST',
+				//     type: 'POST',
+				//     success: function(data){
+				//     	console.log(data)
+				//         try {
+			 //                p = JSON.parse(data);
+			 //                $("#vnombre").val(p['CN']);
+			 //                $("#vcedula").val(p['cedula']);
+			 //                if (p['tipo'])
+			 //                	$("#juridico").click()
+			 //                else
+			 //                	$("#fisico").click()
+			 //                $("#valid_p12").attr('isvalid',1)
+			 //                $("#valid_p12").attr('disabled',false);
+			 //                Materialize.updateTextFields();
+			 //            }
+			 //            catch(err){
+			 //                p = data;
+			 //                $("#valid_p12").attr('isvalid',0)
+			 //                $("#valid_p12").attr('disabled',false);
+			 //                Materialize.toast(p,4000,'red');
+			 //            }
+				//     },
+				//     error:function(x,y,z){ alert(x) }
+				// });
+			}else{
+				$("#isfe").prop({ 'disabled' : false,'checked' : false });
+				$("#p12-upload").removeClass('hide');
+				$("label[for=p12-upload]").removeClass('hide');
+				$("#vpass_n").parent().removeClass('offset-s6');
+			}
 
 			$("#data-table-monedas").dataTable({
 				bFilter : false,
@@ -163,7 +242,7 @@ $(document).on("click",".menu3",function(){
 				data.append('file',myDropzone.getQueuedFiles()[0]);
 				data.append('user',$("#vuser_atv").val());
 				data.append('pass',$("#vpass_atv").val());
-				data.append('prueba',$("#visPrueba").is(':checked'))
+				data.append('prueba',$("#visPrueba").is(':checked'));
 
 				jQuery.ajax({
 				    url: '../cargar.php',
@@ -323,7 +402,6 @@ $(document).on("click","#addtypeuser",function(){
 		arreglo['atributos']['vaccion'] = 1;
 		for (var i = 0; i < arreglo['atributos']['vidtipousuario'].split(',').length; i++) {
 			arreglo['atributos']['vidtipousuario'] = arreglo['atributos']['vidtipousuario'].split(',')[i];
-			console.log(arreglo['atributos']['vidtipousuario'])
 			p = mantenimiento('login',2,arreglo);
 		}
 		// if (p['succed'] == 0) {
@@ -613,50 +691,47 @@ var id = $(this).attr('id').substr(1);
 var nombre = arr('login',4,'nombre',94,'id = '+id,0,0,0)[0][0];
 $("#namedesc").text(nombre);
 $("#adddesc").attr('iddescuento',id);
-$('#vf1').pickadate().pickadate('picker').set('select', [1000, 00, 01]);
-$('#vf2').pickadate().pickadate('picker').set('select', [1000, 00, 01]);
+$('#vf1').pickadate().pickadate('picker').set('select', [1000,00,01]);
+$('#vf2').pickadate().pickadate('picker').set('select', [1000,00,01]);
 $("#td1").change();
 });
 
 $(document).on("click","#adddesc",function(){
-var iddescuento = $(this).attr('iddescuento');
-var idciclo = $("#vidciclo").val();
-var f1 = $("#vf1").val()+' 00:00:00';
-var f2 = $("#vf2").val()+' 00:00:00';
-var idfila = 0;
-var tabla = $("[name=tipodesc]:checked").attr('tbl');
-var valor = $("#vvalor").val() == '' ? 0 : $("#vvalor").val();
-var extra = 0;
+	var iddescuento = $(this).attr('iddescuento');
+	var idciclo = $("#vidciclo").val();
+	var f1 = $("#vf1").val()+' 00:00:00';
+	var f2 = $("#vf2").val()+' 00:00:00';
+	var idfila = 0;
+	var tabla = $("[name=tipodesc]:checked").attr('tbl');
+	var valor = $("#vvalor").val() == '' ? 0 : $("#vvalor").val();
+	var extra = 0;
 
-if ($("[name=tipodesc]:checked").attr('text') == 1) {
-idfila = $("#vidfila").val() == '' ? 0 : $("#vidfila").val();
-}else{
-idfila = $("#voptns").val() == '' ? 0 : $("#voptns").val();
-}
+	if ($("[name=tipodesc]:checked").attr('text') == 1)
+		idfila = $("#vidfila").val() == '' ? 0 : $("#vidfila").val();
+	else
+		idfila = $("#voptns").val() == '' ? 0 : $("#voptns").val();
 
-if (idciclo == 2) {
-extra = $("#vmonths").val();
-}else if (idciclo == 3) {
-extra = $("#vdays").val() == '' ? 0 : $("#vdays").val();
-}
+	if (idciclo == 2)
+		extra = $("#vmonths").val();
+	else if (idciclo == 3)
+		extra = $("#vdays").val() == '' ? 0 : $("#vdays").val();
+	// if (idfila == 0) {
+	// Materialize.toast('Descuento sin Asignar', 6000, 'red');
+	// }else 
 
-// if (idfila == 0) {
-// Materialize.toast('Descuento sin Asignar', 6000, 'red');
-// }else 
-
-if (valor == 0) {
-Materialize.toast('Valor debe ser mayor a 0', 6000, 'red');
-}else{
-var dsc = arr('login',4,'',95,'1,0,'+idciclo+','+iddescuento+',"'+f1+'","'+f2+'",'+idfila+','+tabla+','+valor+',\"'+extra+"\"",0,0,0);
-Materialize.toast('Descuento Agregado Correctamente', 4000, 'green');
-$("#vidciclo").val(0);
-$("#vidciclo").change();
-$("#td1").prop('checked',true)
-$("#vproducto").val('');
-$("#vcliente").val('');
-$("#vvalor").val('');
-$("select").material_select();
-}
+	if (valor == 0) 
+		Materialize.toast('Valor debe ser mayor a 0', 6000, 'red');
+	else{
+		var dsc = arr('login',4,'',95,'1,0,'+idciclo+','+iddescuento+',"'+f1+'","'+f2+'",'+idfila+','+tabla+','+valor+',\"'+extra+"\"",0,0,0);
+		Materialize.toast('Descuento Agregado Correctamente', 4000, 'green');
+		$("#vidciclo").val(0);
+		$("#vidciclo").change();
+		$("#td1").prop('checked',true)
+		$("#vproducto").val('');
+		$("#vcliente").val('');
+		$("#vvalor").val('');
+		$("select").material_select();
+	}
 });
 
 $(document).on("click","#editdesc",function(){
@@ -738,29 +813,30 @@ $("#voptns").material_select();
 });
 
 $(document).on("keydown","#vproducto",function(e){
-var charCode = e.which || e.keyCode;
-var charStr = String.fromCharCode(charCode);
-if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-$(".autocomplete-content").remove();
-$("#vproducto").autocomplete({
-limit: 10,
-data: arr('login',4,'nombre,null',11,'nombre like \"%'+$("#vproducto").val()+'%\" limit 10',0,0,0,1)
-});
-$("#vproducto").siblings($(".autocomplete-content")).css('width','25%');
-}
+    var charCode = e.which || e.keyCode;
+    var charStr = keysight(e);
+    if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+        var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+        $(".autocomplete-content").remove();
+        $(this).autocomplete({
+            limit: 10,
+            data: arr('login',4,'nombre,null',11,'id > 0 and nombre like "%'+busqueda+'%" limit 10',0,0,0,1)
+        })
+        $(this).siblings($(".autocomplete-content")).css('width','50%');
+    }
 });
 
 $(document).on("blur","#vproducto",function(){
-var idproducto = arr('login',4,'id',11,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
-if (idproducto != undefined) {
-$("#vidfila").val(idproducto);
-$(this).css('border-bottom','1px solid #4CAF50');
-$(this).css('box-shadow','0 1px 0 0 #4CAF50');
-}else{
-$("#vidfila").val(0);
-$(this).css('border-bottom','1px solid #F44336');
-$(this).css('box-shadow','0 1px 0 0 #F44336');
-}
+	var idproducto = arr('login',4,'id',11,'nombre = "'+$(this).val()+'"',0,0,0)[0][0];
+	if (idproducto != undefined) {
+		$("#vidfila").val(idproducto);
+		$(this).css('border-bottom','1px solid #4CAF50');
+		$(this).css('box-shadow','0 1px 0 0 #4CAF50');
+	}else{
+		$("#vidfila").val(0);
+		$(this).css('border-bottom','1px solid #F44336');
+		$(this).css('box-shadow','0 1px 0 0 #F44336');
+	}
 });
 
 $(document).on("blur","#vcliente",function(){
@@ -947,7 +1023,6 @@ mantenimiento('login',4,arr);
 
 });
 $(document).on("click",".catimpuesto",function(){
-console.log(2);
 var id = $(this).attr('id').substr(1);
 var tabla = $("#data-table-impuestos").DataTable();
 tabla.destroy();
@@ -1229,7 +1304,6 @@ function validar (varreglo,vmodulo) {
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	// console.log(salida)
 	return salida;
 
 }

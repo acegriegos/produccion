@@ -153,12 +153,23 @@ form.dropzone {
 .dz-remove {
   color: #EC8585;
   font-style: none; }
-  .dz-remove:hover {
-    color: #ED5151;
-    font-style: none; }
+.dz-remove:hover {
+  color: #ED5151;
+  font-style: none; }
+
+.autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important; }
 
 @media only screen and (max-width: 769px) {
   .centrobot {
-    margin-left: 15% !important; } }
+    margin-left: 15% !important; }
+
+  .autocomplete-content {
+    z-index: 3000 !important;
+    position: absolute !important;
+    width: 100% !important; }
+}
 
 /*# sourceMappingURL=style-ajustes.css.map */

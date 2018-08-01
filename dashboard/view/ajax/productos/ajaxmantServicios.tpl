@@ -83,7 +83,7 @@
                     </div>
                     {else}
 
-                    <input type="hidden" id="vidinventario" value="">
+                    <input type="hidden" id="vidinventario" value="0">
 
                     {/if}
                 </div>
@@ -164,8 +164,6 @@
 
                 <div class="row" style="margin: 0;padding: 0">
                     <div class="input-field col s12 m6" >
-                        <input type="hidden" id="vpbase" value="0">
-                        <input type="hidden" id="vpganancia" value="0">
 
                         <span class="prefix moneda"></span>
 
