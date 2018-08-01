@@ -95,7 +95,7 @@ function xmlCargar(file,response){
 							t_prov = 0;
 						}
 
-						$("#ffacturas .zelda").data('triforce',{vidtipo:p['factura']['tipoventa'], vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:p['clave'], vidmoneda:t_moneda, vidcliente:p['emisor']['id'], vsubtotal:p['factura']['subtotal'], vdescuento:p['factura']['descuento'], vimv:p['factura']['impuesto'], vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : p['factura']['divisa'],vidusuario:'',vidtipopago:1,vidodt:0,vajuste:0,tmpcorreo:'',videxoneracion:'',vexento: p['factura']['exento']});
+						$("#ffacturas .zelda").data('triforce',{vidtipo:t_venta, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:p['clave'], vidmoneda:t_moneda, vidcliente:p['emisor']['id'], vsubtotal:parseFloat(p['factura']['subtotal'])*parseFloat(p['factura']['divisa']), vdescuento: parseFloat(p['factura']['descuento'])*parseFloat(p['factura']['divisa']), vimv:parseFloat(p['factura']['impuesto'])*parseFloat(p['factura']['divisa']), vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : p['factura']['divisa'],vidusuario:'',vidtipopago:t_pago,vidodt:0,vajuste:0,tmpcorreo:'',videxoneracion:'',vexento: parseFloat(p['factura']['exento'])*parseFloat(p['factura']['divisa']),vflete:0});
 						
 						$(".shxml_body").html('');
 
