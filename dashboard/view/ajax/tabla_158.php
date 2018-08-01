@@ -29,6 +29,40 @@
 
  <script type="text/javascript">
  	$(function(){
+        var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
+        switch(tf) {
+        case 1:
+            $("[rm=1]").addClass('hide');
+            $("[rm=2]").removeClass('hide');
+            $("[rm=3]").addClass('hide');
+            break;
+        case 2:
+            $("[rm=1]").removeClass('hide');
+            $("[rm=2]").removeClass('hide');
+            $("[rm=3]").addClass('hide');
+            break;
+        case 3:
+            $("[rm=1]").addClass('hide');
+            $("[rm=2]").addClass('hide');
+            $("[rm=3]").removeClass('hide');
+            break;
+        case 4:
+            $("[rm=1]").addClass('hide');
+            $("[rm=2]").addClass('hide');
+            $("[rm=3]").removeClass('hide');
+            break;
+        case 5:
+            $("[rm=1]").addClass('hide');
+            $("[rm=2]").addClass('hide');
+            $("[rm=3]").removeClass('hide');
+            break;
+        case 7:
+            $("[rm=1]").addClass('hide');
+            $("[rm=2]").removeClass('hide');
+            $("[rm=3]").addClass('hide');
+            break;
+    }
+
  		permisos(310,311);
  	})
  </script>

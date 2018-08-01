@@ -273,6 +273,11 @@ $(document).on("click","#delcan",function(){
     $(this).parent().remove();
 });
 
+$(document).on("click",".optns",function(){
+    $(this).parent().parent().parent().find("[id^=search_]").attr('filtro',$(this).attr('fltr'))
+    $(this).parent().parent().parent().find("[for^=search_] span").html($(this).html())
+});
+
 $(document).on("keyup","[id^=search_]",function(e){
     var code = e.which || e.keyCode
     if (code == 13) {
@@ -281,10 +286,12 @@ $(document).on("keyup","[id^=search_]",function(e){
         var c = $(this).attr('num').substr(1);
         var e = $(this).attr('var');
         var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
-        var h = arr('login',4,'',c,e+',"'+a+',@@impresa",""',0,0,0)[0][0];
-        filltable(a,b,c,g);
+        var j = $(this).attr('filtro') == undefined ? 1 : $(this).attr('filtro');
+        var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
+        var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
+        filltable(h,b,c,g);
         $(".pagination").html('');
-        paginate(c,h)
+        paginate(c,i)
     }
 });
 
@@ -760,7 +767,7 @@ case "5":
                 break;
             }//end SWITCH
         }//end IF
-        salida[varreglo[i][0]] = salida[varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[varreglo[i][0]];
+        salida[varreglo[i][0]] = salida[varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && varreglo[i][0] != 'vidusuario' && varreglo[i][0] != 'vidsucursal' ? 0 : salida[varreglo[i][0]];
     }//end FOR
     break;
     }//end SWITCH
@@ -1219,10 +1226,10 @@ function mostrar_cargar(){
 }
 
 // <-- pagination
-function filltable(a,b,c,g) {
+function filltable(h,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
-    arr('login',6,'',c,'0,0,"'+a+',@@impresa","0,10"',g,1,$("#lista"+b));
+    arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
     $("#data-table-"+b).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1234,35 +1241,40 @@ function filltable(a,b,c,g) {
     });
 }
 
-function paginate(vtbl,len) {
+function paginate(vtbl,len,vfiltro) {
     
     $(".pagination").html('');
-    var countpag = 0;
+    if (vfiltro == undefined)
+        vfiltro = ',@@impresa';
+    
     if (len == undefined) {
-        countpag = arr('login',4,'',vtbl,'0,1,",@@impresa",""',0,0,0)[0][0];
+        countpag = arr('login',4,'',vtbl,'0,1,"'+vfiltro+'",""',0,0,0)[0][0];
     }else
         countpag = len;
-    
+
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
         $(".pagination").attr('ultimo', 9);
-    } else if (parseInt(countpag) == 0 || parseInt(countpag) < 1) {
+    } else if (parseFloat(countpag) == 0) {
+        $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>0</span> a <span class='pag-hasta'>0</span> de <span class='pag-tot'>0</span> Entradas")
         return false;
+    } else if (parseFloat(countpag) < 1) {
+        
     } else {
-        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
+        var txt = '<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>';
         for (var i = 1; i <= Math.ceil(countpag); i++) {
-            i = parseInt(i);
             if (i == 1)
-                $(".pagination").append('<li class="active paginate" id="z' + i + '" limit="0,10"><a href="#!">' + i + '</a></li>');
+                txt += '<li class="active paginate" id="z' + i + '" limit="0,10"><a href="#!">' + i + '</a></li>';
             else
-                $(".pagination").append('<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>');
+                txt += '<li class="waves-effect paginate" id="z'+i+'" limit="'+(i-1)+'0,10"><a href="#!">' + i + '</a></li>';
             
             $(".pagination").attr('ultimo', i);
         }
-        $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
+        $(".pagination").append(txt+'<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
     }
 
-    $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>1</span> a <span class='pag-hasta'>10</span> de <span class='pag-tot'>"+parseInt(countpag*10)+"</span> Entradas")
+    var phasta = parseInt(countpag*10) >= 10 ? 10 : parseInt(countpag*10);
+    $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>1</span> a <span class='pag-hasta'>"+phasta+"</span> de <span class='pag-tot'>"+parseInt(countpag*10)+"</span> Entradas")
 }
 
 $(document).on("click", ".paginate", function () {
@@ -1272,12 +1284,14 @@ $(document).on("click", ".paginate", function () {
     var id = $(this).attr('id').substr(1);
     var limit = $(this).attr('limit');
     var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     $(".paginate").removeClass('active')
     $(this).addClass('active');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     $("#lista"+modulo).html('');
-    arr('login',6,'',vtbl,'0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    // console.log(arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, 0))
+    arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
 
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
@@ -1303,6 +1317,7 @@ $(document).on("click", ".nxt", function () {
     var ultimo = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var next = id + 1;
     var pags = next - 8;
@@ -1311,7 +1326,7 @@ $(document).on("click", ".nxt", function () {
         pags = 1;
 
     if (ultimo == id) {
-        var count = arr('login',4,'',vtbl,'0,1,"'+filtro+',@@impresa",""',0,0,0)[0][0];
+        var count = arr('login',4,'',vtbl,'0,1,"'+filtro_sp+'",""',0,0,0)[0][0];
         if (Math.ceil(count) != ultimo) {
             $(".pagination").html('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>');
             for (var i = pags; i <= next; i++) {
@@ -1328,7 +1343,7 @@ $(document).on("click", ".nxt", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             tabla.destroy();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio,1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,
@@ -1345,8 +1360,8 @@ $(document).on("click", ".nxt", function () {
         $("#z" + next).addClass('active');
         var tabla = $("#data-table-"+modulo).DataTable();
         tabla.destroy();
-        var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-        arr('login', 6, '', vtbl, '0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
+
+        arr('login', 6, '', vtbl, '0,0,"'+filtro_sp+'","'+limit+'"', cambio,1, $("#lista"+modulo));
         $("#data-table-"+modulo).DataTable({
             bFilter: false,
             bScrollInfinite: true,
@@ -1372,6 +1387,8 @@ $(document).on("click", ".prv", function () {
     var vtbl = $("ul.pagination").attr('vtbl');
     var count = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
+    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var prev = id - 1;
     var prv = prev - 8;
@@ -1397,9 +1414,9 @@ $(document).on("click", ".prv", function () {
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
                 var tabla = $("#data-table-"+modulo).DataTable();
-                var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+
                 tabla.destroy();
-                arr('login', 6, '', vtbl, '0,0,"'+filtro+',@@impresa","'+limit+'"', cambio, 1, $("#lista"+modulo));
+                arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1414,9 +1431,9 @@ $(document).on("click", ".prv", function () {
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
                 var tabla = $("#data-table-"+modulo).DataTable();
-                var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
                 tabla.destroy();
-                arr('login',6,'',vtbl,'0,0,"'+filtro+',@@impresa","'+limit+'"',cambio,1,$("#lista"+modulo));
+
+                arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
                 $("#data-table-"+modulo).DataTable({
                     bFilter: false,
                     bScrollInfinite: true,
@@ -1435,7 +1452,7 @@ $(document).on("click", ".prv", function () {
             var tabla = $("#data-table-"+modulo).DataTable();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             tabla.destroy();
-            arr('login',6,'',vtbl,'0,0,"'+filtro+'@@impresa","'+limit+'"',cambio,1,$("#lista"+modulo));
+            arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
                 bFilter: false,
                 bScrollInfinite: true,

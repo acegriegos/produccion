@@ -166,7 +166,11 @@
           </div>
 
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
-            <div class="col s12" style="padding: 0px">
+            <div class="col s8">
+                <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
+                <label for="iva" class="hide" style="float: left;">IVI</label>
+            </div>
+            <div class="col s4" style="padding: 0px">
              <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
           </div>
@@ -201,12 +205,6 @@
           </div>
 
           <div class="center col s12 m2 row" style="font-size: 1em; padding: 0px 5px !important;">
-            <div class="col s8 hide">
-                <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-                <label for="iva" style="float: left;">IVI</label>
-                <input type="checkbox" name="isexcento" id="exct" hclk="0">
-                <label for="exct" style="float: left;">Excento</label>
-            </div>
             <div class="col s4" style="padding: 0px">
              <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>

@@ -111,7 +111,7 @@ function cargarOCompras(){
         var code = e.which || e.keyCode
         if (code == 13) {
             var cant = isNaN($(this).val()) ? 0 : parseFloat($(this).val());
-            if ( cant > 0) {
+            if ( cant > 0 ) {
                 $("#addline").click();
             }else{
                 Materialize.toast("Cantidad Debe ser Mayor a 0",4000,'red');
@@ -310,10 +310,11 @@ function cargarVentas(){
                 var inv = $("#valores").data('elemento')['hinv'];
 
                 var cnti = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
-             
-                if (cant > cnti && config[1] == 1) {
+
+                var comodin = $("#valores").data('elemento')['hcomodin'].replace(/\^.*\^/g,'');
+                if (cant > cnti && config[1] == 1 && comodin == '') {
                    Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
-                }else if (cant <= cnti || cnti == '∞' || config[1] == 0) {
+                }else if (cant <= cnti || cnti == '∞' || config[1] == 0 || comodin != '') {
                     $("#addline").click()
                 }
             }else{
@@ -561,11 +562,15 @@ function cargarGlobal(){
         $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
 
         $("#edescuento").val(descuento);
-        $("#eunitario").val($("#fd"+id).data('triforce')['vprecio']);
+        $("#eunitario").val(($("#fd"+id).data('triforce')['vprecio']).formatMoney(2,'.',','));
+        $(".ename").addClass('hide');
+        $(".eiva").addClass('hide');
 
         switch(parseInt(tipo)){
             case 2:
+                $(".eiva").removeClass('hide');
                 $(".eimp").removeClass('hide');
+                $("#ival").attr('checked',$("#fd"+id).data('triforce')['iva']);
                 break;
             default:
                 $(".eunit").addClass('hide');
@@ -574,12 +579,19 @@ function cargarGlobal(){
                 break;
         }
 
+        var iscomodin = $("#fd"+id).data('triforce')['vcomodin'];
         var entrada = $("#fd"+id).data('triforce')['videntrada'];
         var char1 = entrada.substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         if (param != 2)
             cargarDescuentos(entrada.substr(1)+',0',tabla,1,id);
-
+        if(iscomodin != ''){
+            $(".ename").removeClass('hide');
+            $("#descpl").val($("#desc"+id).html());
+            $("#ival").attr('checked',$("#fd"+id).data('triforce')['iva']);
+            $(".eunit").removeClass('hide');
+            $(".eiva").removeClass('hide');
+        }
         var uni = '';
         var unis = getDatos('',250,entrada,0,0,0);
         unis = unis[0];

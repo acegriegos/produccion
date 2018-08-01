@@ -41,6 +41,11 @@
         <label for="uniadl">Unidad</label>
       </div>
 
+      <div class="input-field col s6 ename">
+        <input type="text" id="descpl">
+        <label for="descpl">Descripción</label>
+      </div>
+
       <div class="input-field col s6 edescu">
         <tr>
           <td><label>Descuento</label></td>
@@ -60,6 +65,11 @@
       <div class="input-field col s6 eexct">
         <input type="text" id="texct">
         <label for="texct">Exento</label>
+      </div>
+
+      <div class="input-field col s6 eiva">
+        <input type="checkbox" id="ival">
+        <label for="ival">IVI</label>
       </div>
 
       <input type="hidden" id="hdnprd" value="0">

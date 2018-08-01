@@ -206,8 +206,11 @@
         $salida['detalle'] = [];
 
         foreach ($ciclo as $key) {
+            $vunidad = ((array)$key->UnidadMedida)[0] == 'Otros' ? ((array)$key->UnidadMedidaComercial)[0] : ((array)$key->UnidadMedida)[0];
+            $cunidad = $db->ejecutar('call krattos("if(count(id),id,0)",107,"id > 0 and simbolo = \"'.$vunidad.'\" ")')->fetch_all();
+
             $num = ((array)$key->NumeroLinea)[0];
-            $detarray = ['numero' => $num,'codigo' => ((array)$key->Codigo->Codigo)[0],'cantidad' => ((array)$key->Cantidad)[0], 'unidad' => ((array)$key->UnidadMedida)[0] == 'Otros' ? ((array)$key->UnidadMedidaComercial)[0] : ((array)$key->UnidadMedida)[0],'detalle' => ((array)$key->Detalle)[0], 'precio' => ((array)$key->PrecioUnitario)[0], 'descuento' => isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0, 'impuesto' => isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0];
+            $detarray = ['numero' => $num,'codigo' => ((array)$key->Codigo->Codigo)[0],'cantidad' => ((array)$key->Cantidad)[0], 'unidad' => $vunidad, 'idunidad' => $cunidad, 'detalle' => ((array)$key->Detalle)[0], 'precio' => ((array)$key->PrecioUnitario)[0], 'descuento' => isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0, 'impuesto' => isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0];
             array_push($salida['detalle'], $detarray);
         }
 
