@@ -25,8 +25,9 @@ $(window).keydown(function(e){
         default:
             break;
     }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 73) // Prevent Ctrl+Shift+I        
-        return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 73)// Prevent Ctrl+Shift+I .. +J(74)
+        return false;        
+        
 });
 
 // $(document).on("contextmenu", function (e) {        
