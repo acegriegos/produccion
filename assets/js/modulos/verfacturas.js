@@ -1,5 +1,6 @@
 Dropzone.autoDiscover = false;
 var myDropzone;
+var config;
 
 $(document).ready(function(){
 	var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
@@ -94,8 +95,8 @@ function xmlCargar(file,response){
 								barrio:p['emisor']['barrio'],direccion:p['emisor']['otrassenas'],tipo:['emisor']['tipo']});
 							t_prov = 0;
 						}
-
-						$("#ffacturas .zelda").data('triforce',{vidtipo:t_venta, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:p['clave'], vidmoneda:t_moneda, vidcliente:p['emisor']['id'], vsubtotal:parseFloat(p['factura']['subtotal'])*parseFloat(p['factura']['divisa']), vdescuento: parseFloat(p['factura']['descuento'])*parseFloat(p['factura']['divisa']), vimv:parseFloat(p['factura']['impuesto'])*parseFloat(p['factura']['divisa']), vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : p['factura']['divisa'],vidusuario:'',vidtipopago:t_pago,vidodt:0,vajuste:0,tmpcorreo:'',videxoneracion:'',vexento: parseFloat(p['factura']['exento'])*parseFloat(p['factura']['divisa']),vflete:0});
+						console.log(p['factura']['fecha'])
+						$("#ffacturas .zelda").data('triforce',{vidtipo:t_venta, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:p['clave'], vidmoneda:t_moneda, vidcliente:p['emisor']['id'], vsubtotal:parseFloat(p['factura']['subtotal'])*parseFloat(p['factura']['divisa']), vdescuento: parseFloat(p['factura']['descuento'])*parseFloat(p['factura']['divisa']), vimv:parseFloat(p['factura']['impuesto'])*parseFloat(p['factura']['divisa']), vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : p['factura']['divisa'],vidusuario:'',vidtipopago:t_pago,vidodt:0,vajuste:0,tmpcorreo:'',videxoneracion:'',vexento: parseFloat(p['factura']['exento'])*parseFloat(p['factura']['divisa']),vflete:0,vplazo:p['factura']['plazo'],vcomentario:'',vfecha:p['factura']['fecha']});
 						
 						$(".shxml_body").html('');
 
@@ -353,3 +354,142 @@ function validar (varreglo,vmodulo) {
     
     return salida;
 };
+
+function endDetail(vid,vacc,vmodulo) {
+    var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
+    var clave = vid[0][0];
+    config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
+
+    if (config[0] == 1 && (param == 1 || param == 7)) {
+        var $toastContent = $('<span style="width: 500px">Generado Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        Materialize.toast($toastContent);
+        sendFE(clave,factura);
+    }else
+        sendVMail(factura,clave,vid[0][0]);
+            
+    return false;
+}
+
+function sendFE(clave,factura){
+    $.ajax({
+        async: true,
+        url: "../wsdlClient.php",
+        type: 'POST',
+        data: {id: clave, accion : 1}
+    })
+      .done(function( data ) {
+        console.log('ENTREGADO')
+        var p;
+        var continuar = 1;
+        try {
+            p = JSON.parse(data);
+            var vfactura = p['num'];
+            var vclave = p['clave'];
+            p = p['rs'];
+
+            $(".expect").removeClass('progress');
+            arr('login',7,2,64,'feestado=2','id='+clave,0,0);
+            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+            sendVMail(vfactura,vclave,clave);
+        }
+        catch(err){
+            console.log(err)
+            //GENERAR NOTA DE CREDITO
+            $(".expect").removeClass('progress')
+            $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
+            Materialize.toast(data,10000,'red');
+            arr('login',7,2,64,'feestado=2','id='+clave,0,0);
+            setTimeout(function(){location.reload();},10000);
+            continuar = 0;
+        }       
+  });
+}
+
+function sendVMail(factura,clave,vid){
+    var archivos = '';
+
+    if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
+        var str_correos = '';
+        switch(param){
+            case 2:
+                break;
+            default:
+                if ($(".zelda").data('triforce')['vidcliente'] != 0) {
+                    var correos = getDatos("",18,$(".zelda").data('triforce')['vidcliente']+",2",0,0,0);
+                    
+                    if (!correos['succed']) {
+                        Materialize.toast('Correos Inválidos',4000,'red');
+                        arr('login',7,2,64,'feestado=4','id='+clave,0,0);
+                    }else{
+                        for (var i = 0; i < correos[0].length; i++) {
+                            str_correos += correos[0][i][3]+",";
+                        }
+
+                        str_correos = str_correos.substr(0,str_correos.length-1);
+                    }
+                }
+                
+                if (config[4] == 1) {
+                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                    w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
+                    try{ 
+                        w.print();
+                      setTimeout(function(){
+                     
+                         w.close();
+/*                        window.focus();
+*/                            },500);
+                      
+                        
+                    }catch(e){
+                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
+                    }
+                }
+                break;
+        }
+        
+        if (str_correos != '') {
+            var vbody = getDatos('',73,vid,0,0)[0][0];
+            archivos = makeArchivos(factura,clave,vid,vbody[1]);
+            enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
+        }
+        
+    }else{
+        switch(param){
+            case 2:
+                break;
+            default:
+                if (config[4] == 1) {
+
+                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                    w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
+                    try{ 
+                        w.print();
+                        setTimeout(function(){w.close();},500);
+                      
+                        
+                    }catch(e){
+                        console.log(e)
+                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
+                    }
+                }
+                break;
+        }
+    }
+
+    setTimeout(function(){location.reload();},3000);
+}
+
+
+function makeArchivos(vfactura,vclave,vid,vsucursal){
+    var archivos = '';
+    
+    mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
+    if (vclave == vid)
+        archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
+    else{
+        archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+        mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
+    }
+    return archivos;
+}
