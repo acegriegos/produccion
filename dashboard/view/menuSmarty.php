@@ -83,15 +83,16 @@
   </div>
 </ul>
 
-<div class="modal" id="modal-system">
-  <div class="modal-header head1 center" style="padding: 1%">
+<div class="modal modal-fixed-footer" style="width:80% !important; height:99%;padding: 0px;" id="modal-system">
+  <div class="modal-header head1 center">
       LOGINTECH S.A.
   </div>
-  <ul id="tabs-swipe-demo" class="tabs head2 center">
+  
+  <div class="modal-content" style="padding: 0px;">
+    <ul id="tabs-swipe-demo" class="tabs head2 center">
     <li class="tab col s6"><a class="white-text active" href="#isistema">Sistema</a></li>
-    <li class="tab col s6"><a class="white-text " href="#isoporte">Soporte</a></li>
+    <li class="tab col s6"><a class="white-text" href="#isoporte">Soporte</a></li>
   </ul>
-  <div class="modal-content">
   <section id="isistema" class="col s12">
     <div class="row">
       <div class="col s12">
@@ -106,30 +107,9 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="row">
-      <div class="col s4 input-field">
-        <select id="vopcion">
-          <option selected disabled>Tipo</option>
-          <option value="1">Transferencia</option>
-          <option value="2">Depósito</option>
-        </select>
-      </div>
-      <div class="col s8 input-field">
-        <label for="vnumref">Guía Bancaria</label>
-        <input type="text" id="vnumref">
-      </div>
-      </div>
-      <div class="row">
-        <div class="col s8 input-field">
-          <label for="vresponse">Enviar info a:</label>
-          <input type="text" id="vresponse" value="{$smarty.session.CRR}">
-        </div>
-        <div class="col s4">
-          <a href="#" id="vvalidar" class="waves-effect btn btn2"><i class="mdi mdi-send"></i>&nbsp;Enviar</a>
-        </div>
       </div>
       </section>
+
       <section id="isoporte" class="col s12">
         <div class="row">
           <div class="col s12">
@@ -145,22 +125,46 @@
             </table>
           </div>
         </div>
-         <div class="row">
-          <div class="col s6 input-field"  style="margin-top: 15px">
+          
+      </section>
+      <div class="row">
+      <div class="col s4 input-field">
+        <select id="vopcion">
+          <option selected disabled>Tipo</option>
+          <option value="1">Transferencia</option>
+          <option value="2">Depósito</option>
+        </select>
+      </div>
+      <div class="col s8 input-field">
+        <label for="vnumref">Guía Bancaria</label>
+        <input type="text" id="vnumref">
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="col s8 input-field">
+          <label for="vresponse">Enviar Informacion a:</label>
+          <input type="text" id="vresponse" value="{$smarty.session.CRR}">
+        </div>
+        <div class="col s4">
+          <a href="#" id="vvalidar" class="waves-effect btn btn2"><i class="mdi mdi-send"></i>&nbsp;Enviar</a>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col s8 input-field"  style="margin-top: 15px">
             <label for="vcodigoIn">Código de Aceptación</label>
             <input type="text" id="vcodigoIn">
           </div>
-          <div class="col s6">
+          <div class="col s4">
             <a href="#" id="vvalidar" class="btn btn2 eder">Validar Código</a>
           </div>
-        </div> 
-      </section>
+        </div>
     <!-- <span>Consula o duda favor comunicarse a <span class="blue-text">info@logintechcr.com</span></span><br> -->
     <!-- <img src="../../assets/img/login/logo_azulG.png" width="100px" height="100px" style="margin-left: 48%"> -->    
   </div>
 
   <div class="modal-footer">
-    <hr>
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
 

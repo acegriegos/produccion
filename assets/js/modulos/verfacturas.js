@@ -304,7 +304,7 @@ $(document).on("click",".status",function(){
 			var ex;
 			var p;
 			var color = '';
-			var state = 7;
+			var state = 0;
 			try{
 				p = JSON.parse(data);
 				switch(p['estado']){
@@ -320,17 +320,29 @@ $(document).on("click",".status",function(){
 						color = 'yellow';
 						state = 2;
 						break;
+					case 'Sin Subir':
+						var $toastContent = $('<span style="width: 500px">Generado Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+						Materialize.toast($toastContent);
+						sendFE(clave);
+						break;
+					case 'Sin Internet':
+						color = 'red';
+						break;
 					default:
 						break;
 				}
-				arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
+
+				if (state){
+					$("#e"+vid).css('color',color);
+					arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
+				}
 				Materialize.toast(p['rs'],6000,color);
 			}catch(ex){
 				console.log(data)
 				Materialize.toast('Error Obteniendo Estado',6000,'red')
 			}
 			$(".status").attr('disabled',false)
-			$("#e"+vid).removeClass('mdi-spin mdi-loading').addClass('mdi-information-outline').css('color',color);
+			$("#e"+vid).removeClass('mdi-spin mdi-loading').addClass('mdi-information-outline');
 		});
 });
 
@@ -370,37 +382,45 @@ function endDetail(vid,vacc,vmodulo) {
     return false;
 }
 
-function sendFE(clave,factura){
+function sendFE(clave){
     $.ajax({
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
         data: {id: clave, accion : 1}
     })
-      .done(function( data ) {
-        console.log('ENTREGADO')
+      .done(function(data) {
+        console.log('ENTREGADO');
         var p;
-        var continuar = 1;
         try {
             p = JSON.parse(data);
-            var vfactura = p['num'];
-            var vclave = p['clave'];
-            p = p['rs'];
-
             $(".expect").removeClass('progress');
-            arr('login',7,2,64,'feestado=2','id='+clave,0,0);
-            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-            sendVMail(vfactura,vclave,clave);
+            if (p['succed']) {
+                var vfactura = p['num'];
+                var vclave = p['clave'];
+                arr('login',7,2,64,'feestado=2','id='+clave,0,0);
+                $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+                sendVMail(vfactura,vclave,clave);
+            }else{
+                $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
+                Materialize.toast(p['rs'],5000,'red');
+                switch(parseInt(p['erno'])){
+                    case 1:
+                        arr('login',7,2,64,'feestado=0','id='+clave,0,0);
+                        break;
+                    default:
+                        arr('login',7,2,64,'feestado=8','id='+clave,0,0);
+                    break;
+                }
+            }
+            
         }
         catch(err){
             console.log(err)
-            //GENERAR NOTA DE CREDITO
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-            Materialize.toast(data,10000,'red');
-            arr('login',7,2,64,'feestado=2','id='+clave,0,0);
-            setTimeout(function(){location.reload();},10000);
-            continuar = 0;
+            Materialize.toast(data,5000,'red');
+            arr('login',7,2,64,'feestado=8','id='+clave,0,0);
         }       
   });
 }
@@ -428,32 +448,31 @@ function sendVMail(factura,clave,vid){
                         str_correos = str_correos.substr(0,str_correos.length-1);
                     }
                 }
-                
+
                 if (config[4] == 1) {
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
                     w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
                     try{ 
                         w.print();
                       setTimeout(function(){
-                     
+
                          w.close();
 /*                        window.focus();
 */                            },500);
-                      
-                        
+
                     }catch(e){
                         Materialize.toast("POP-UP ACTIVADO",4000,'red');
                     }
                 }
                 break;
         }
-        
+
         if (str_correos != '') {
             var vbody = getDatos('',73,vid,0,0)[0][0];
             archivos = makeArchivos(factura,clave,vid,vbody[1]);
             enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
         }
-        
+
     }else{
         switch(param){
             case 2:
@@ -466,8 +485,7 @@ function sendVMail(factura,clave,vid){
                     try{ 
                         w.print();
                         setTimeout(function(){w.close();},500);
-                      
-                        
+
                     }catch(e){
                         console.log(e)
                         Materialize.toast("POP-UP ACTIVADO",4000,'red');
@@ -476,14 +494,12 @@ function sendVMail(factura,clave,vid){
                 break;
         }
     }
-
-    setTimeout(function(){location.reload();},3000);
 }
 
 
 function makeArchivos(vfactura,vclave,vid,vsucursal){
     var archivos = '';
-    
+
     mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
     if (vclave == vid)
         archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';

@@ -1,10 +1,255 @@
 <?php
     set_time_limit(0);
+    /**
+     * ACTUALIZACIONES Y PRIMER INSTALACION
+     */
+    class updated
+    {
+        var $cia;
+        function __construct()
+        {
+            $this->cia = isset($_SESSION['IMPRESA']) ? isset($_SESSION['IMPRESA']) : 0;
+        }
+
+        public function instalar()
+        {
+            echo "empezamos ?";
+        }
+
+        public function actualizarBase()
+        {
+            echo "actualizamos ?";
+        }
+
+        public function actualizarBMS()
+        {
+            echo "actualizamos ?";
+        }
+
+        public function cargarPermisos()
+        {
+            echo "actualizamos ?";
+        }
+    }
+    
     
     $tupdate = isset($_REQUEST['tupdate']) ? $_REQUEST['tupdate'] : 0;
 
     switch ($tupdate) {
-        case 1: //CONFIGURACION MYSQLDB
+        case 0:
+            ?>
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+                <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.0.0.29">
+                <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/mdi-out.min.css?v=10.0.0.29">
+                <title>Logintech</title>
+            </head>
+            <body>
+            
+            <div class="row">
+                <div class="col s12 m3 center">
+                    <label>Credenciales</label>
+                    <div class="input-field">
+                        <span class="prefix"><i class="mdi mdi-account"></i></span>
+                        <input type="text" id="rusr" autocomplete="off" autofocus="true" autosave="off" class="credentials">
+                        <label for="rusr">Usuario</label>
+                    </div>
+                    <div class="input-field">
+                        <span class="prefix"><i class="mdi mdi-account-key"></i></span>
+                        <input type="password" id="rpsw" autocomplete="new-password" class="credentials">
+                        <label for="rpsw">Contraseña</label>
+                    </div>
+                    <a href="#!" class="btn valid credentials" style="float: right;">Validar</a>
+                </div>
+
+                <div class="col s12 m9 isvalid center">
+                    <h3>Hola <span id="unom"></span></h3>
+                    <hr style="border: 1px dashed #e2e2e2;">
+                    
+                    <div class="row">
+                        <div class="col s4">
+                            <a href="#" class="btn btn-info dropdown-button" data-activates='dropdown1'>Nueva Instalación</a>
+                            <ul id='dropdown1' class='dropdown-content'>
+                                <li><a href="#!" id="lt">Prueba LT</a></li>
+                                <li><a href="#!" id="fe">Con FE</a></li>
+                                <li><a href="#!" id="si">Sin FE</a></li>
+                            </ul><br><br>
+                            <section id="insta-data">
+                                <div class="row">
+                                    <div class="input-field col s12" style="margin:0px">
+                                        <input type="text" id="nchema" value="production">
+                                        <label for="nchema">Base de Datos</label>
+                                    </div>
+
+                                    <div class="col s2 cbh si" style="margin:0px">
+                                        <input type="checkbox" id="tipocliete" name="chk1">
+                                        <label for="tipocliete" class="tooltipped pbtn" data-tooltip="Cliente Jurídico" data-position="button"></label>
+                                    </div>
+
+                                    <div class="input-field col s5 cbh si" style="margin:0px">
+                                        <input type="text" id="nombre">
+                                        <label for="nombre">Razon Social</label>
+                                    </div>
+
+                                    <div class="input-field col s5 cbh si" style="margin:0px">
+                                        <input type="text" id="cedula">
+                                        <label for="cedula">Cédula</label>
+                                    </div>
+
+                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                        <input type="text" id="correo">
+                                        <label for="correo">Correo</label>
+                                    </div>
+
+                                     <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                        <input type="text" id="telefono">
+                                        <label for="telefono">Teléfono</label>
+                                    </div>
+
+                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                        <select id="provincia">
+                                            <option disabled selected>Seleccione una Opcion</option>
+                                            <option value="1">San José</option>
+                                        </select>
+                                        <label for="provincia">Provincia</label>
+                                    </div>
+
+                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                        <select id="canton">
+                                            <option>---</option>
+                                        </select>
+                                        <label for="canton">Canton</label>
+                                    </div>
+
+                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                        <select id="distrito">
+                                            <option>---</option>
+                                        </select>
+                                        <label for="distrito">Distrito</label>
+                                    </div>
+
+                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                        <select id="barrio">
+                                            <option>---</option>
+                                        </select>
+                                        <label for="barrio">Barrio</label>
+                                    </div>
+
+                                    <div class="input-field col s9 cbh si fe" style="margin:0px">
+                                        <input type="text" id="direccion">
+                                        <label for="direccion">Dirección</label>
+                                    </div>
+
+                                    <div class="col s2" style="margin:0px">
+                                        <a href="#" class="next btn-floating mdi mdi-arrow-collapse-right tooltipped" data-tooltip="Siguiente" data-position="button" st="1"></a>
+                                    </div>
+                                </div>    
+                            </section>
+
+                            <section id="insta" class="hide" style="text-align: left;">
+                                <i class="mdi mdi-checkbox-blank-circle-outline"></i> Instalando <br>
+                                <i class="mdi mdi-checkbox-blank-circle-outline"></i> Actualizando <br>
+                                <i class="mdi mdi-checkbox-blank-circle-outline"></i> Cargando Permisos <br>
+                            </section>
+                        </div>
+
+                        <div class="col s4">
+                            <a href="#" class="btn btn-info dropdown-button" data-activates='dropdown2'>Actualizacion</a>
+                            <ul id='dropdown2' class='dropdown-content'>
+                                <li><a href="#!" id="db">Base de Datos</a></li>
+                                <li><a href="#!" id="bm">BMS</a></li>
+                                <li><a href="#!" id="bm">Archivo de Configuración</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col s4">
+                            <a href="#" class="btn btn-info" id="cp">Cargar Permisos</a> 
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+
+            <div class="row isvalid">
+                <div class="col s12" style="position: fixed;bottom: 0; height: 15%; border-top: 1px dashed black; overflow-y: auto; font-family: 'Courier New', Courier, monospace">
+                    Console:<br>
+                </div>
+            </div>
+
+            <script src="assets/js/jquery.js?v=10.0.0.29"></script>
+            <script src="assets/js/materialize.min.js?v=10.0.0.29"></script>
+            <script type="text/javascript">
+                $(window).keydown(function(e){
+                    var code = e.wich || e.keyCode
+                    switch(code){
+                        case 113: //ABRIR MENU
+                            $(".menu-btn").click();
+                            $("#numtrans").focus();
+                            break;
+                        case 107: //CLICK EN AGREGAR
+                            $(".pluskey").click();
+                            break;
+                        case 123: //F12
+                            return false;
+                            break;
+                        default:
+                            break;
+                    }
+                    if (e.ctrlKey && e.shiftKey && e.keyCode == 73)// Prevent Ctrl+Shift+I .. +J(74)
+                        return false;        
+                        
+                });
+
+                $(document).on("contextmenu", function (e) {        
+                    e.preventDefault();
+                });
+
+                $('.tooltipped').tooltip({delay: 50});
+                $('select').material_select();
+
+                $("#rpsw").keyup(function(e){
+                    var code =  e.keyCode || e.wich;
+                    if (code == 13)
+                        $(".valid").click();
+                });
+
+                $(".valid").click(function(){
+                    $(this).attr('disabled',true);
+
+                    $.post('https://logintechcr.com/server.php',{cmd:'metallica',usr:$("#rusr").val(),pswd:$("#rpsw").val()})
+                        .done(function(data){
+                            var p;
+                            try{
+                                p = JSON.parse(data);
+                                if(p['succed'] && p['rs'].length == 1){
+                                    if (p['rs'][0][0] == 1 || p['rs'][0][0] == 2) {
+                                        $(".valid").attr('disabled',false);
+                                        Materialize.toast('Solo Usuarios Autorizados',4000,'red');
+                                    }else{
+                                        $(".credentials").attr('disabled','true');
+                                        $("#unom").html(parseInt(Math.random()*1000)+p['rs'][0][2]+parseInt(Math.random()*1000));
+                                        $(".isvalid").removeClass('hide');
+                                    }
+                                    
+                                }else{
+                                    $(".valid").attr('disabled',false);
+                                    Materialize.toast(p['rs'][0],4000,'red');
+                                }
+                            }catch(e){
+                                $(".valid").attr('disabled',false);
+                                Materialize.toast(data,4000,'red');
+                            }
+                        })
+                        .fail(function(x){
+                            console.log(x);
+                        });
+                })
+            </script>
+            </body>
+            </html>
+            <?php break;
+        /*case 1: //CONFIGURACION MYSQLDB
             $mdb = isset($_REQUEST['nschema']) ? $_REQUEST['nschema'] : 'production';
             $source = "https://logintechcr.com/descargas/db.lt";
             $ch = curl_init();
@@ -58,6 +303,8 @@
 
             shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
+            unlink($destination);
+            
             $source = "https://logintechcr.com/descargas/310169776129.p12";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
@@ -185,9 +432,7 @@
                 unlink("assets/update/update.sql");
                 #unlink("assets/update/full.sql");
             }
-            break;
+            break;*/
     }
 
-    echo json_encode($salida);
-    exit(0);
  ?>
