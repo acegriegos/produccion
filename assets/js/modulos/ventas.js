@@ -946,7 +946,7 @@ function endDetail(vid,vacc,vmodulo) {
     if (config[0] == 1 && (param == 1 || param == 7)) {
         var $toastContent = $('<span style="width: 500px">Generado Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent);
-        sendFE(clave,factura);
+        sendFE(clave);
     }else
         sendVMail(factura,clave,vid[0][0]);
 
@@ -1154,81 +1154,48 @@ function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
     return {'descuento':mdesc,'iddescuento': mdescid};
 }
 
-function sendFE(clave,factura){
+function sendFE(clave){
     $.ajax({
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
         data: {id: clave, accion : 1}
     })
-      .done(function( data ) {
-        console.log('ENTREGADO')
+      .done(function(data) {
+        console.log('ENTREGADO');
         var p;
-        var continuar = 1;
         try {
             p = JSON.parse(data);
-            var vfactura = p['num'];
-            var vclave = p['clave'];
-            p = p['rs'];
-
             $(".expect").removeClass('progress');
-            arr('login',7,2,64,'feestado=2','id='+clave,0,0);
-            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-            sendVMail(vfactura,vclave,clave);
+            if (p['succed']) {
+                var vfactura = p['num'];
+                var vclave = p['clave'];
+                arr('login',7,2,64,'feestado=2','id='+clave,0,0);
+                $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+                sendVMail(vfactura,vclave,clave);
+            }else{
+                $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
+                Materialize.toast(p['rs'],5000,'red');
+                switch(parseInt(p['erno'])){
+                    case 1:
+                        arr('login',7,2,64,'feestado=0','id='+clave,0,0);
+                        break;
+                    default:
+                        arr('login',7,2,64,'feestado=8','id='+clave,0,0);
+                    break;
+                }
+                setTimeout(function(){location.reload();},5000);
+            }
+            
         }
         catch(err){
             console.log(err)
-            //GENERAR NOTA DE CREDITO
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-            Materialize.toast(data,10000,'red');
-            arr('login',7,2,64,'feestado=2','id='+clave,0,0);
-            setTimeout(function(){location.reload();},10000);
-            continuar = 0;
-        }
-
-        /*if (continuar) {
-            sendVMail(vfactura,vclave,clave);*/
-        //     setTimeout(function(){
-        //         $.ajax({
-        //         async: true,
-        //         url: "../wsdlClient.php",
-        //         type: 'POST',
-        //         data: {id: clave, accion : 4}
-        //     })
-        //       .done(function( data ) {
-        //         console.log('REVISADO')
-        //         console.log(data)
-        //         var q;
-        //         q = JSON.parse(data);
-        //         switch(q['estado']){
-        //             case 'rechazado':
-        //                 //GENERAR NOTA DE CREDITO
-        //                 arr('login',7,2,64,'feestado=3','id='+clave,0,0);
-        //                 $(".expect").removeClass('progress')
-        //                 $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>")
-        //                 Materialize.toast(q['rs'],10000,'red');
-        //                 setTimeout(function(){location.reload();},10000);
-        //                 break;
-        //             case 'procesando':
-        //                 $(".expect").removeClass('progress')
-        //                 $(".expect").html("<i class='mdi mdi-24px mdi-close yellow-text'></i>")
-        //                 Materialize.toast('Verificar Estado',10000,'green');
-        //                 arr('login',7,2,64,'feestado=2','id='+clave,0,0);
-        //                 setTimeout(function(){location.reload();},10000);
-        //                 break;
-        //             default:
-        //                 $(".expect").removeClass('progress');
-        //                 arr('login',7,2,64,'feestado=1','id='+clave,0,0);
-        //                 $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-        //                 sendVMail(vfactura,vclave,clave);
-        //                 break;
-        //         }
-        //       });
-        //     },3000);
-
-      //  }
-        
+            Materialize.toast(data,5000,'red');
+            arr('login',7,2,64,'feestado=8','id='+clave,0,0);
+            setTimeout(function(){location.reload();},5000);
+        }       
   });
 }
 
