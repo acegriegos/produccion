@@ -95,7 +95,7 @@
         
                 if(!file_exists($fe->credenciales[0])){
                     $salida['succed'] = 0;
-                    $salida['ERROR'] = 'Clave Criptofágica no Eistente';            
+                    $salida['ERROR'] = 'Clave Criptofágica no Existente';            
                     }else{
                         
                     if(openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[1])){
@@ -109,6 +109,8 @@
                             }
                             $certIssuer = implode(', ', array_reverse($certIssuer));
                             $checkbeare = $fe->getBearer();
+                            if(!is_array($checkbeare))
+                                return $checkbeare;
                             $isprueb = strpos($certIssuer, 'SANDBOX') ? 1 : 0;
                             $hbearer = isset($checkbeare['respuesta']->access_token) ? 1 : 0;
                             $puser = strpos($checkbeare['consulta']['username'],'stag') ? 1 : 0;
@@ -268,6 +270,14 @@
 
         function getBearer(){
 
+            set_error_handler("warning_handler", E_WARNING);
+            $fP = fSockOpen("ssl://google.com", 443, $errno, $errstr, 10);
+            if (!$fP) { return "Sin Internet"; }
+
+            $fP = fSockOpen("ssl://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token", 443, $errno, $errstr, 10);
+            if (!$fP) { return "Problemas con el Servidor de Hacienda"; }
+            restore_error_handler();
+            
             $user = $this->credenciales[4];
             $pass = $this->credenciales[5];
             $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
@@ -321,11 +331,13 @@
         }
 
         function getRecibos($id,$offset,$limit,$vreceptor){
-            $this->getBearer();
+            $doBearer = $this->getBearer();
+            if(!is_array($doBearer))
+                return $doBearer;
 
             if ($this->bearer == '') {
                 $salida['factura']  = $this->id;
-                $salida['estado']   = 'PROBLEMAS CON LA LLAVE CRIPTOGRAFICA';
+                $salida['estado']   = 'Problemas con la Llave Criptográfica';
                 return $salida;
             }
 
@@ -401,13 +413,12 @@
 
         function recepcion()
         {
-            $this->getBearer();
+            $doBearer = $this->getBearer();
+            if(!is_array($doBearer))
+                return json_encode(['factura'=>$this->id,'succed'=>0,'rs'=>$doBearer,'erno'=>1]);
             
-            if ($this->bearer == '') {
-                $salida['factura']  = $this->id;
-                $salida['estado']   = 'PROBLEMAS CON LA LLAVE CRIPTOGRAFICA';
-                return $salida;
-            }
+            if ($this->bearer == '') 
+                return 'Problemas con la Llave Criptográfica';
 
             if (!isset($this->info['Clave']))
                 return "Factura no Existente - Clave no Valida";
@@ -439,7 +450,7 @@
                     /*AGARRAR ERROR*/
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
-                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0]);
+                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2]);
                     break;
                 default:
                     $json_response = $rs;
@@ -453,13 +464,12 @@
 
         function estado()
         {
-            $this->getBearer();
+            $doBearer = $this->getBearer();
+            if(!is_array($doBearer))
+                return ['factura'=>$this->id,'estado'=>'Sin Internet','rs'=>$doBearer];
 
-            if ($this->bearer == '') {
-                $salida['factura']  = $this->id;
-                $salida['estado']   = 'PROBLEMAS CON LA LLAVE CRIPTOGRAFICA';
-                return $salida;
-            }
+            if ($this->bearer == '')
+               return 'Problemas con la Llave Criptográfica';
 
             $clave = $this->info['Clave'];
 
@@ -506,7 +516,15 @@
                     $aBody = (array) json_decode(substr($body,strpos($body, '{')));
                     if (isset($aBody['respuesta-xml'])){
                         $sRespuesta = ((Array) simplexml_load_string(base64_decode($aBody['respuesta-xml'])))['DetalleMensaje'];
-                        $salida['rs'] = str_replace(PHP_EOL, ' ', $sRespuesta);
+                        $sRespuesta = str_replace(PHP_EOL, ' ', $sRespuesta);
+                        $sError = strpos($sRespuesta, '[');
+
+                        if ($sError != '') {
+                            $sError     = substr($sRespuesta, strpos($sRespuesta, '[')-1);
+                            $aError = explode(',',substr($sRespuesta, strpos($sRespuesta, '[')-1));
+                            $sRespuesta = str_replace($sError, $aError[4], $sRespuesta);
+                        }
+                        $salida['rs'] = $sRespuesta;
                     }
                     $salida['factura']  = $this->id;
                     $salida['estado']   = $aBody['ind-estado'];
@@ -900,5 +918,32 @@
             $xml = str_replace('</'.$this->tdoc.'>', $sig.'</'.$this->tdoc.'>' , $xml);
        }
     }   
+
+    function warning_handler($errno, $errstr, $errfile, $errline)
+    {
+        return true;
+    /* Según el típo de error, lo procesamos */
+    // switch ($errno) {
+    //    case E_WARNING:
+    //             echo "Hay un WARNING.<br />\n";
+    //             echo "El warning es: ". $errstr ."<br />\n";
+    //             echo "El fichero donde se ha producido el warning es: ". $errfile ."<br />\n";
+    //             echo "La línea donde se ha producido el warning es: ". $errline ."<br />\n";
+    //             /* No ejecutar el gestor de errores interno de PHP, hacemos que lo pueda procesar un try catch */
+    //             return true;
+    //             break;
+            
+    //         case E_NOTICE:
+    //             echo "Hay un NOTICE:<br />\n";
+    //             /* No ejecutar el gestor de errores interno de PHP, hacemos que lo pueda procesar un try catch */
+    //             return true;
+    //             break;
+            
+    //         default:
+    //             /* Ejecuta el gestor de errores interno de PHP */
+    //             return false;
+    //             break;
+    //         }
+    }
 
  ?>

@@ -26,14 +26,21 @@ $(function(){
                 window.open("cierres","_self");
                 break;
             case 4:
-                var datos = getDatos('',245,'',0,0)[0];
-                var data = datos[3][0].split(',');
+                var datos = getDatos('',245,'@@impresa',0,0)[0];
                 
-                $("#tsystem").html(datos[0][0]);
-                $("#fsystem").html(datos[1][0]);
-                $("#dsystem").html(datos[2][0]);
-                $("#psystem").html(data[0]);
-                $("#msystem").html(data[1]);
+                $("#psystem").html(datos[0][1]);
+                $("#msystem").html(datos[0][2]);
+                $("#tsystem").html(datos[0][3]);
+                $("#fsystem").html(datos[0][4]);
+                $("#dsystem").html(datos[0][5]);
+
+                $("#psoport").html(datos[0][6]);
+                $("#msoport").html(datos[0][7]);
+                $("#tsoport").html(datos[0][8]);
+                $("#fsoport").html(datos[0][9]);
+                $("#dsoport").html(datos[0][10]);
+
+                $("#modal-system").data('akey',datos[0][0]);
                 $("#modal-system").modal('open');
                 break;
             default:
