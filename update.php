@@ -144,7 +144,7 @@
     }
     
     
-    $tupdate = isset($_POST['tupdate']) ? $_POST['tupdate'] : 0;
+    $tupdate = isset($_REQUEST['tupdate']) ? $_REQUEST['tupdate'] : 0;
     $update = new updated();
 
     switch ($tupdate) {
