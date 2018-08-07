@@ -274,7 +274,7 @@
             $fP = fSockOpen("ssl://google.com", 443, $errno, $errstr, 10);
             if (!$fP) { return "Sin Internet"; }
 
-            $fP = fSockOpen("ssl://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token", 443, $errno, $errstr, 10);
+            $fP = fSockOpen("ssl://idp.comprobanteselectronicos.go.cr", 443, $errno, $errstr, 10);
             if (!$fP) { return "Problemas con el Servidor de Hacienda"; }
             restore_error_handler();
             

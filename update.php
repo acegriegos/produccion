@@ -6,6 +6,7 @@
     class updated
     {
         var $cia;
+
         function __construct()
         {
             $this->cia = isset($_SESSION['IMPRESA']) ? isset($_SESSION['IMPRESA']) : 0;
@@ -30,10 +31,121 @@
         {
             echo "actualizamos ?";
         }
+
+        public function isConfigFile(){
+            return file_exists('_config/mysqlDB.php');
+        }
+
+        public function ubicaciones()
+        {
+            $source = "https://logintechcr.com/descargas/dump-ubicaciones.sql";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+            curl_close ($ch);
+
+            $destination = "./assets/update/ubicaciones.sql";
+            $file = fopen($destination, "w+");
+            fputs($file, $data);
+            fclose($file);
+
+            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+        }
+
+        public function cargarConfigFile($mdb)
+        {
+            $source = "https://logintechcr.com/descargas/db.lt";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+            curl_close ($ch);
+
+            $destination = "./_config/mysqlDB.php";
+            $file = fopen($destination, "w+");
+            fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($da$
+            fclose($file);
+
+            $archivo = file_get_contents($destination);
+            $archivo = preg_replace('/developer/', $mdb, $archivo);
+            file_put_contents($destination, $archivo);
+        }
+
+        public function inicial()
+        {
+            fclose(fopen('./assets/update/update.log','w'));
+
+            $db = new DBClass();
+            $mdb = $db->getDB();
+            $user = $db->getUSR();
+            $pass = $db->getPSS();
+            $salida = [];
+            set_time_limit(0);
+            // $salida['.INI'] = "character-set-server  = utf8mb4
+            // collation-server      = utf8mb4_general_ci
+            // lc_time_names         = es_CR
+            // default-time-zone = '-06:00'";
+
+            $source = "https://logintechcr.com/descargas/firts.sql";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+            curl_close ($ch);
+
+            $destination = "./assets/update/first.sql";
+            $file = fopen($destination, "w+");
+            fputs($file, $data);
+            fclose($file);
+
+            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+
+            unlink($destination);
+            
+            $source = "https://logintechcr.com/descargas/310169776129.p12";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+            curl_close ($ch);
+
+            $destination = "./assets/p12/310169776129.p12";
+            $file = fopen($destination, "w+");
+            fputs($file, $data);
+            fclose($file);
+
+            $source = "https://logintechcr.com/descargas/dump-ubicaciones.sql";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+            curl_close ($ch);
+
+            $destination = "./assets/update/ubicaciones.sql";
+            $file = fopen($destination, "w+");
+            fputs($file, $data);
+            fclose($file);
+
+            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            
+            unlink($destination);
+        }
     }
     
     
-    $tupdate = isset($_REQUEST['tupdate']) ? $_REQUEST['tupdate'] : 0;
+    $tupdate = isset($_POST['tupdate']) ? $_POST['tupdate'] : 0;
+    $update = new updated();
 
     switch ($tupdate) {
         case 0:
@@ -64,7 +176,7 @@
                     <a href="#!" class="btn valid credentials" style="float: right;">Validar</a>
                 </div>
 
-                <div class="col s12 m9 isvalid center">
+                <div class="col s12 m9 isvalid center hide">
                     <h3>Hola <span id="unom"></span></h3>
                     <hr style="border: 1px dashed #e2e2e2;">
                     
@@ -72,78 +184,82 @@
                         <div class="col s4">
                             <a href="#" class="btn btn-info dropdown-button" data-activates='dropdown1'>Nueva Instalación</a>
                             <ul id='dropdown1' class='dropdown-content'>
-                                <li><a href="#!" id="lt">Prueba LT</a></li>
-                                <li><a href="#!" id="fe">Con FE</a></li>
-                                <li><a href="#!" id="si">Sin FE</a></li>
+                                <li><a href="#!" id="lt" class="instalar">Prueba LT</a></li>
+                                <li><a href="#!" id="fe" class="instalar">Con FE</a></li>
+                                <li><a href="#!" id="si" class="instalar">Sin FE</a></li>
                             </ul><br><br>
-                            <section id="insta-data">
+                            <section id="insta-data" class="hide sub">
                                 <div class="row">
                                     <div class="input-field col s12" style="margin:0px">
                                         <input type="text" id="nchema" value="production">
                                         <label for="nchema">Base de Datos</label>
                                     </div>
 
-                                    <div class="col s2 cbh si" style="margin:0px">
+                                    <div class="col s2 cbh si hide" style="margin:0px">
                                         <input type="checkbox" id="tipocliete" name="chk1">
                                         <label for="tipocliete" class="tooltipped pbtn" data-tooltip="Cliente Jurídico" data-position="button"></label>
                                     </div>
 
-                                    <div class="input-field col s5 cbh si" style="margin:0px">
+                                    <div class="input-field col s5 cbh si hide" style="margin:0px">
                                         <input type="text" id="nombre">
                                         <label for="nombre">Razon Social</label>
                                     </div>
 
-                                    <div class="input-field col s5 cbh si" style="margin:0px">
+                                    <div class="input-field col s5 cbh si hide" style="margin:0px">
                                         <input type="text" id="cedula">
                                         <label for="cedula">Cédula</label>
                                     </div>
 
-                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
                                         <input type="text" id="correo">
                                         <label for="correo">Correo</label>
                                     </div>
 
-                                     <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                     <div class="input-field col s6 cbh si fe hide" style="margin:0px">
                                         <input type="text" id="telefono">
                                         <label for="telefono">Teléfono</label>
                                     </div>
 
-                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
-                                        <select id="provincia">
+                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
+                                        <select id="provincia" style="font-size: 9px">
                                             <option disabled selected>Seleccione una Opcion</option>
                                             <option value="1">San José</option>
                                         </select>
                                         <label for="provincia">Provincia</label>
                                     </div>
 
-                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
                                         <select id="canton">
                                             <option>---</option>
                                         </select>
                                         <label for="canton">Canton</label>
                                     </div>
 
-                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
                                         <select id="distrito">
                                             <option>---</option>
                                         </select>
                                         <label for="distrito">Distrito</label>
                                     </div>
 
-                                    <div class="input-field col s6 cbh si fe" style="margin:0px">
+                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
                                         <select id="barrio">
                                             <option>---</option>
                                         </select>
                                         <label for="barrio">Barrio</label>
                                     </div>
 
-                                    <div class="input-field col s9 cbh si fe" style="margin:0px">
+                                    <div class="input-field col s9 cbh si fe hide" style="margin:0px">
                                         <input type="text" id="direccion">
                                         <label for="direccion">Dirección</label>
                                     </div>
 
                                     <div class="col s2" style="margin:0px">
                                         <a href="#" class="next btn-floating mdi mdi-arrow-collapse-right tooltipped" data-tooltip="Siguiente" data-position="button" st="1"></a>
+
+                                        <a href="#" class="next btn-floating mdi mdi-arrow-collapse-left tooltipped" data-tooltip="Anterior" data-position="button" st="2"></a>
+
+                                        <a href="#" class="next btn-floating mdi mdi-check tooltipped" data-tooltip="Finaliar" data-position="button" st="3"></a>
                                     </div>
                                 </div>    
                             </section>
@@ -171,9 +287,9 @@
                 </div>
             </div>
 
-            <div class="row isvalid">
+            <div class="row isvalid hide">
                 <div class="col s12" style="position: fixed;bottom: 0; height: 15%; border-top: 1px dashed black; overflow-y: auto; font-family: 'Courier New', Courier, monospace">
-                    Console:<br>
+                    Console:<br><span id="consoleText"></span>
                 </div>
             </div>
 
@@ -208,6 +324,14 @@
                 $('.tooltipped').tooltip({delay: 50});
                 $('select').material_select();
 
+                $(".instalar").click(function(){
+                    var id = $(this).attr('id');
+                    console.log(id)
+                    $("#insta-data").removeClass('hide');
+                    $(".cbh").addClass('hide');
+                    $("."+id).removeClass('hide');
+                });
+
                 $("#rpsw").keyup(function(e){
                     var code =  e.keyCode || e.wich;
                     if (code == 13)
@@ -228,8 +352,9 @@
                                         Materialize.toast('Solo Usuarios Autorizados',4000,'red');
                                     }else{
                                         $(".credentials").attr('disabled','true');
-                                        $("#unom").html(parseInt(Math.random()*1000)+p['rs'][0][2]+parseInt(Math.random()*1000));
+                                        $("#unom").html(p['rs'][0][2]);
                                         $(".isvalid").removeClass('hide');
+                                        $(".valid").data('usr',(parseInt(Math.random()*1000)+' '+p['rs'][0][0]+' '+parseInt(Math.random()*1000)).replace(/ /g,''))
                                     }
                                     
                                 }else{
@@ -249,7 +374,7 @@
             </body>
             </html>
             <?php break;
-        /*case 1: //CONFIGURACION MYSQLDB
+        case 1: //CONFIGURACION MYSQLDB
             $mdb = isset($_REQUEST['nschema']) ? $_REQUEST['nschema'] : 'production';
             $source = "https://logintechcr.com/descargas/db.lt";
             $ch = curl_init();
@@ -303,8 +428,6 @@
 
             shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
-            unlink($destination);
-            
             $source = "https://logintechcr.com/descargas/310169776129.p12";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
@@ -339,6 +462,15 @@
             
             if(filesize("assets/update/update.log"))
                 $salida['CONF'] = "ERROR";
+            break;
+        case 12:
+            echo json_encode($update->ubicaciones());
+            break;
+        case 13:
+            echo json_encode($update->isConfigFile());
+            break;
+        case 14:
+            echo json_decode($update->cargarConfigFile());
             break;
         case 4: //CONFIGURAION LOGINTECH
             $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : '';
@@ -432,7 +564,7 @@
                 unlink("assets/update/update.sql");
                 #unlink("assets/update/full.sql");
             }
-            break;*/
+            break;
     }
 
  ?>
