@@ -711,7 +711,7 @@ case "5":
                 salida[varreglo[i][0]] = $("#"+vform+" #vtabla").val();
                 break;
                 default:
-                if (/vfecha/.test(varreglo[i][0])){
+                if (/vfecha/.test(varreglo[i][0]) && $("#"+vform+" #"+varreglo[i][0]).length){
                     if (typeof $("#"+vform+" #"+varreglo[i][0]) == 'undefined') {
                         salida[varreglo[i][0]] = '1990-01-01';
                     }else{

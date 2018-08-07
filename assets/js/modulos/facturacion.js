@@ -308,7 +308,8 @@ function cargarVentas(){
             if (cant > 0) {
                 var idp = $("#valores").data('elemento')['idp'];
                 var inv = $("#valores").data('elemento')['hinv'];
-
+                var idheredado = $("#valores").data('elemento')['idheredado'];
+                idp = idheredado != 0 ? idheredado : idp;
                 var cnti = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
 
                 var comodin = $("#valores").data('elemento')['hcomodin'].replace(/\^.*\^/g,'');
