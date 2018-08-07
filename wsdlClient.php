@@ -81,6 +81,7 @@
                 }
                 
             echo json_encode($salida);
+            break;
             case 10: //LEER XML
                 $salida = ['succed'=>1];
                 if (!file_exists('./assets/xml/'.$id)) {
