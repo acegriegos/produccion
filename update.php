@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     set_time_limit(0);
     /**
      * ACTUALIZACIONES Y PRIMER INSTALACION
@@ -395,6 +395,7 @@
             file_put_contents($destination, $archivo);
             
             $salida['MYSQL'] = $error ? $error : 'OK: Base en '.$mdb;
+	    echo json_encode($salida);
             break;
         case 2: //CONFIGURACION BASE INICIAL
             require_once '_config/mysqlDB.php';

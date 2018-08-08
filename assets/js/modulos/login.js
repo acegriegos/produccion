@@ -3,6 +3,7 @@ var conteo = 1;
 
 $(document).ready(function(){
 
+ console.log(getDatos('nombre',39,'id = 0',0,0,0));
  $(".modal").modal();
  
  var animating = false,
@@ -118,6 +119,7 @@ function getIn(){
     }
 
     var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
+
     if(p.length == 0){
         Materialize.toast('Archivo Conf. Inválido', 4000, 'red');
         return false;
