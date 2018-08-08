@@ -5,7 +5,7 @@ $(function(){
     $('.tooltipped').tooltip({delay: 50});
     $('.modal').modal();   
     $('select').material_select();
-    //console.log(getDatos('simbolo',54,'id = 1',0,0,0)[0][0]);
+
     cargarMoneda(0);
 });
 
@@ -319,7 +319,8 @@ function doGlobal(accion,modulo,tip,varias){
 
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
-
+        var p = mantenimiento('login',2,arreglo);
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
