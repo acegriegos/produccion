@@ -9,8 +9,8 @@ $(function () {
 			case 1:
 				$("#mantServ").remove();
 				$("#mantPaquetes").remove();
-				var tabla = $("#data-table-productos").DataTable();
-				tabla.destroy();
+				// var tabla = $("#data-table-productos").DataTable();
+				// tabla.destroy();
 				var p = mantenimiento('productos', 1, '');
 				$("#bdymantInventario").html(p);
 				$("#data-table-productos").DataTable({
@@ -28,19 +28,19 @@ $(function () {
 			case 2:
 				$("#mantProd").remove();
 				$("#mantPaquetes").remove();
-				var tabla = $("#data-table-servicios").DataTable();
-				tabla.destroy();
+				// var tabla = $("#data-table-servicios").DataTable();
+				// tabla.destroy();
 				var p = mantenimiento('productos', 2, '');
 				$("#bdymantInventario").html(p);
-				$("#data-table-servicios").dataTable({
-					bFilter: false,
-					bScrollInfinite: true,
-					bSort: false,
-					bLengthChange: false,
-					order: [],
-					bPaginate: false,
-					info: false
-				});
+				// $("#data-table-servicios").dataTable({
+				// 	bFilter: false,
+				// 	bScrollInfinite: true,
+				// 	bSort: false,
+				// 	bLengthChange: false,
+				// 	order: [],
+				// 	bPaginate: false,
+				// 	info: false
+				// });
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
@@ -573,13 +573,12 @@ $(document).on("click", "#addfeat", function () {
 	addfeat(nombre, val);
 });
 
-
 $(document).on("click", ".editprod", function () {
 	$(".autocomplete-content").hide();
 	$(".calcvv").val('0.00');
 	var id = $(this).attr('id').substr(1);
 
-	var p = arr('login',4,'',14,id+',0,",@@tmp_cia","0,1"',0,0,0);
+	var p = arr('login',4,'',14,id+',0,",@@impresa","0,1"',0,0,0);
 	var q = p[0][0];
 	var preccat = arr('login',4,'',110,id,0,0,0)[0];
 	var preccli = arr('login',4,'',165,id,0,0,0)[0];
@@ -656,7 +655,7 @@ $(document).on("click", ".delprod", function () {
 $(document).on("click", ".accept", function () {
 	var id = $(this).attr('id').substr(3);
 	arr('login',4,'',78,'3,'+id+',"","","",0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""','',0,'');
-	arr('login',6,'',14,'0,0,",@@tmp_cia"',0,1,$("#listaproductos"));
+	arr('login',6,'',14,'0,0,",@@impresa","0,10"',0,1,$("#listaproductos"));
 	paginate(14);
 	$('#toast-container').remove();
 	Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
@@ -1779,7 +1778,7 @@ function addprod(prod, cant, uni, sim) {
 		
 	}else{
 		// con unidad
-		var precio = arr('login',4,'',14,info[0]+',0,",@@tmp_cia","0,1"',0,0,0)[0][0];
+		var precio = arr('login',4,'',14,info[0]+',0,",@@impresa","0,1"',0,0,0)[0][0];
 		ptotal = convert(info[0],cant,uni,precio[9]);
 	}
 	
@@ -2039,7 +2038,7 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 14;
-			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@tmp_cia","0,10"';
+			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@impresa","0,10"';
 			break;
 		case 'servicios':
 			var arr = {};

@@ -167,7 +167,5 @@
   <div class="modal-footer">
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
-
-  </div>
-
+</div>
 <div id="modalMainGeneral"></div>

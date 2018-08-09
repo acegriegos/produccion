@@ -377,12 +377,11 @@ function cargarGlobal(){
             $("#vplazo").focus().select();
         }
         $("#vfecha").blur();
-    } });
+    }});
 
     $("#ingclie").click(function(){
 
 //         $("#fclientes .zelda").data("triforce",{vaccion:'1',vid:'0',vapellido1:'',vapellido2:'',vnombre:'',vcedula:'',vidtipocliente:'',videstado:'1',vbisproveedor:'0',vidnivel:'',vcredito:'50000',vplazo:'30',videstadocontable:'0',vbisnacional:'1',vweb:'',vidusuario:'@@usr',vdescuentom:'5',vcodigo:'',vidcuenta:'0',vidsucursal:'@@impresa',_sid:'0'});
-        
 //         $("#addClie").modal('open')
     });
 
@@ -402,6 +401,7 @@ function cargarGlobal(){
        
         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : $(this).val()+charStr;
+            var tipo = getParameterByName('tf');
             $(".autocomplete-content").remove();
             
             $("#descp").autocomplete({

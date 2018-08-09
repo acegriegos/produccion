@@ -9,6 +9,7 @@ $(function(){
     cargarMoneda(0);
 });
 
+
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
@@ -29,10 +30,6 @@ $(window).keydown(function(e){
         return false;        
         
 });
-
-// $(document).on("contextmenu", function (e) {        
-//     e.preventDefault();
-// });
 
 $(document).on('click','.alv',function(){
     $(this).attr('disabled',true);
@@ -111,6 +108,7 @@ $(document).on("keyup",".numeric",function(e){
     if(code == 13)
         $(this).blur()
 });
+
 
 $(document).on('keydown','.pais',function(e){
     var charCode = e.which || e.keyCode;
@@ -320,7 +318,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -1288,8 +1286,8 @@ $(document).on("click", ".paginate", function () {
     var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     $(".paginate").removeClass('active')
     $(this).addClass('active');
-    var tabla = $("#data-table-"+modulo).DataTable();
-    tabla.destroy();
+    // var tabla = $("#data-table-"+modulo).DataTable();
+    // tabla.destroy();
     $("#lista"+modulo).html('');
     // console.log(arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, 0))
     arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
@@ -1341,8 +1339,8 @@ $(document).on("click", ".nxt", function () {
             $(".paginate").removeClass('active');
             $("#z" + next).addClass('active');
             var limit = $("#z" + next).attr('limit');
-            var tabla = $("#data-table-"+modulo).DataTable();
-            tabla.destroy();
+            // var tabla = $("#data-table-"+modulo).DataTable();
+            // tabla.destroy();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio,1, $("#lista"+modulo));
             $("#data-table-"+modulo).DataTable({
@@ -1427,7 +1425,7 @@ $(document).on("click", ".prv", function () {
                     bPaginate: false,
                     info: false
                 });
-            } else {
+               } else {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
@@ -1444,13 +1442,12 @@ $(document).on("click", ".prv", function () {
                     bPaginate: false,
                     info: false
                 });
-                
             }
         } else {
             var limit = $("#z" + prev).attr('limit');
             $(".paginate").removeClass('active');
             $("#z" + prev).addClass('active');
-            var tabla = $("#data-table-"+modulo).DataTable();
+            // var tabla = $("#data-table-"+modulo).DataTable();
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
             tabla.destroy();
             arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
@@ -1463,7 +1460,6 @@ $(document).on("click", ".prv", function () {
                 bPaginate: false,
                 info: false
             });
-            
         }
     }
 
@@ -1471,7 +1467,7 @@ $(document).on("click", ".prv", function () {
     var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
     var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
     var nshow = nfin-ntot >= 0 ? ntot : nfin;
-    
+
     $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
     $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
@@ -1711,6 +1707,7 @@ function reconstruirModal(tp) {
     //     str += '<option value="'+ids[j]+'">'+nombres[j]+'</option>';
     // });
     // $("#vidinventario").append(str);
+
     $("select").material_select();
     Materialize.updateTextFields();
     // $(".zelda").removeData();

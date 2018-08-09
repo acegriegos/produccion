@@ -12,5 +12,6 @@
         $archivo = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? "C:/xampp/htdocs".$ruta."/assets/respaldo/" : "/opt/lampp/htdocs".$ruta."/assets/respaldo/";
     
     $archivo = $archivo.strtoupper($mdb)."_".strtoupper($fecha).".sql";
+
     shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > ".$archivo);
  ?>

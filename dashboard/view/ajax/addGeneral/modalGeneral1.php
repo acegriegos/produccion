@@ -51,6 +51,7 @@
           <label for="apellido2">Apellido 2</label>
         </div>
       </div>
+
       <div class="row">
         <div vtabla="correo" id="fcorreos" hasTabla="1" class="input-field col s12 m4 l4">
           <div class="ciclos">
@@ -63,6 +64,7 @@
           </div>            
         </div>
       </div>
+
       <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos hide">
         <div class="ciclos">
           <input type="hidden" id="vbisnacional" value="1">
@@ -110,6 +112,7 @@
           </div>
         </div>
       </div>
+
       <div class="row hid hide">
         <div class="col s6 m4 input-field">
           <select id="categoria">
