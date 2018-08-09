@@ -794,7 +794,7 @@ function cargarProducto(kbrota,elemento) {
         }else{
             if($("#codp").val() == '**'){
                 iscomodin = 2
-            }else{
+            }else{  
                 kbrota = $("#codp").val().substring($("#codp").val().indexOf('*')+1);
                 cantidad = $("#codp").val().substring(0,$("#codp").val().indexOf('*'));
                 if(cantidad == ''){
@@ -806,7 +806,8 @@ function cargarProducto(kbrota,elemento) {
     }
 
     if ( $("#codp").val().indexOf('/') != -1) {
-        kbrota = $("#codp").val().substring($("#codp").val().indexOf('/')+1);
+        kbrota = $("#codp").val().substring(0,$("#codp").val().indexOf('/'));
+        console.log(kbrota)
         if(kbrota.length){
             iscomodin = 3;
         }

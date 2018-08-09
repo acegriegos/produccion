@@ -456,7 +456,7 @@ function validarclientes() {
 				case 'clientes':
 					arr['sel'] = '';
 					arr['tbl'] = 76;
-					arr['where'] = '0,0,",@@impresa","0,10"';
+					arr['where'] = '0,0,",0,@@impresa","0,10"';
 					arr['cambio'] = 29;
 					break;
 				case 'vehiculos':
