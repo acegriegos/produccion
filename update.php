@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     set_time_limit(0);
     /**
      * ACTUALIZACIONES Y PRIMER INSTALACION
@@ -144,7 +144,7 @@
     }
     
     
-    $tupdate = isset($_POST['tupdate']) ? $_POST['tupdate'] : 0;
+    $tupdate = isset($_REQUEST['tupdate']) ? $_REQUEST['tupdate'] : 0;
     $update = new updated();
 
     switch ($tupdate) {
@@ -395,6 +395,7 @@
             file_put_contents($destination, $archivo);
             
             $salida['MYSQL'] = $error ? $error : 'OK: Base en '.$mdb;
+	    echo json_encode($salida);
             break;
         case 2: //CONFIGURACION BASE INICIAL
             require_once '_config/mysqlDB.php';

@@ -4,7 +4,7 @@ require_once '../assets/libs/smarty/Smarty.class.php';
 
 class mySmarty extends Smarty{
     
-    function mySmarty(){
+    function __construct(){
         parent::__construct();
         
         $this->template_dir = "";

@@ -148,12 +148,12 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" {if $smarty.session.BUSS eq 0}readonly{/if} autocomplete="off">
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
           </div>
 
           <div style=padding: 0 !important" class="input-field col s12 m1">
             <select id="uni" readonly >
-              <option>UN</option>
+              <option>Unid</option>
             </select>
           </div>
 
@@ -196,7 +196,7 @@
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <select id="uni" readonly >
-              <option>UN</option>
+              <option>Unid</option>
             </select>
           </div>
           
@@ -232,7 +232,7 @@
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <select id="uni" readonly >
-              <option>UN</option>
+              <option>Unid</option>
             </select>
           </div>
 

@@ -833,7 +833,7 @@ function cargarProducto(kbrota,elemento) {
     }
 
     if ( $("#codp").val().indexOf('/') != -1) {
-        kbrota = $("#codp").val().substring($("#codp").val().indexOf('/')+1);
+        kbrota = $("#codp").val().substring(0,$("#codp").val().indexOf('/'));
         if(kbrota.length){
             iscomodin = 3;
         }
@@ -900,7 +900,7 @@ function cargarProducto(kbrota,elemento) {
                 break;
             default:
                 Materialize.toast('Producto no Existente',4000,'red');
-                elemento.select()
+                //elemento.select()
                 break;
         }
         
