@@ -1094,7 +1094,7 @@ function doreport() {
             }
         }
 
-        if (datos[i] == 'vidsucursal')
+        if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
     }
 

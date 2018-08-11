@@ -48,7 +48,7 @@ $(function(){
         else{
             $("#valores").data("elemento")['ncomodin'] = 0;
             $("#valores").data("elemento")['hcomodin'] = "^"+$(this).val()+"^";
-            endCargarProducto();
+            endCargarProducto($("#valores").data("elemento")['exo']);
         }
     });
 
@@ -60,7 +60,7 @@ $(function(){
         else{
             $("#valores").data("elemento")['ncomodin'] = 0;
             $("#valores").data("elemento")['hcomodin'] = $(this).val();
-            endCargarProducto();
+            endCargarProducto($("#valores").data("elemento")['exo']);
         }
     });
 
@@ -870,9 +870,12 @@ function cargarProducto(kbrota,elemento) {
         $("#valores").data("elemento")['strimp'] = strimp;
         cargarunidades(cod[0],cod[15]);
         $("#cantp").val(cantidad);
-        
-        if(cod[18] && param != 2){ //PRODUCTO DE VALOR VARIABLE
-            $("#precp").prop("readonly",cod[18]);
+
+        if(param != 2){ //PRODUCTO DE VALOR VARIABLE
+            if(!cod[19])
+                $("#precp").prop("readonly",true);
+            else
+                $("#precp").removeAttr("readonly");
         }
 
         if (iscomodin) {
@@ -886,7 +889,7 @@ function cargarProducto(kbrota,elemento) {
                     break;
             }
         }else{
-            endCargarProducto();   
+            endCargarProducto(cod[9]);   
         }
 
         Materialize.updateTextFields()
@@ -907,14 +910,16 @@ function cargarProducto(kbrota,elemento) {
     }
 }
 
-function endCargarProducto(){
+function endCargarProducto(exo){
     var modselec = $("input[name='modselected']:checked").val();
 
     if (modselec == 1) {
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
-            $("[for=iva]").removeClass('hide');
-            $("#iva").attr('checked',true);
+            if (exo < 100) {
+                $("[for=iva]").removeClass('hide');
+                $("#iva").attr('checked',true);
+            }
         }else{
             $("#cantp").focus().select();
         }
@@ -1167,6 +1172,7 @@ function sendFE(clave){
         try {
             p = JSON.parse(data);
             $(".expect").removeClass('progress');
+            console.log(p)
             if (p['succed']) {
                 var vfactura = p['num'];
                 var vclave = p['clave'];
@@ -1184,7 +1190,7 @@ function sendFE(clave){
                         arr('login',7,2,64,'feestado=8','id='+clave,0,0);
                     break;
                 }
-                setTimeout(function(){location.reload();},5000);
+                // setTimeout(function(){location.reload();},3000);
             }
             
         }

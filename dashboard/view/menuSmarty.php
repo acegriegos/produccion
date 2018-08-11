@@ -75,7 +75,7 @@
     <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
     <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
     <li class="gtext"><a href="cuentas?tf=1"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
-    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Credito y Debito</span></a></li>
+    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
     <li class="gtext"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     <li class="gtext"><a href="ajustes"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Ajustes</span></a></li>
 {php} } {/php}

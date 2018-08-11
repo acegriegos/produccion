@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <a class="btn-floating waves-effect waves-green btn2 right add z-depth-3 {if $smarty.session.BUSS eq 1} hide {/if}" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="mdi mdi-plus mdi-24px"></i></a>
+    <a class="btn-floating waves-effect waves-green btn2 right add z-depth-3 <?php if($_SESSION['BUSS'] == 1) echo 'hide'; ?>" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="mdi mdi-plus mdi-24px"></i></a>
     <br>
     <input type="hidden" id="vbcambioPSSW" value="0">
     <input type="hidden" id="vcodigo" value="">
