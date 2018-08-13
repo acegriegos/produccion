@@ -16,7 +16,7 @@
 <div class="row">
     <div class="col s12 m12 pequeño">
         <div class="table">
-            <table class="table responsive-table centered striped bordered highlight z-depth-3" id="data-table-servicios" cellspacing="0" width="100%">
+            <table class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap" id="data-table-servicios" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código</th>
@@ -43,6 +43,7 @@
                     {/section}
                 </tbody>
             </table>
+            <ul class="left showing" modulo="13"><small></small></ul>
             <ul class="pagination right" vtbl="13" modulo="productos"></ul>
         </div>
     </div>

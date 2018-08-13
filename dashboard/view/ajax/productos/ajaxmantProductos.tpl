@@ -18,7 +18,7 @@
 	</div>
 	<div class="row pequeño">
 		<div class="col s12 m12 l12 pequeño">
-			<table class="table centered striped bordered highlight z-depth-3 pequeño" cellspacing="0" width="100%" >
+			<table class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap" cellspacing="0" width="100%" id="data-table-productos">
 				<thead>
 					<tr>
 						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código {$TMPCIA}</th>
@@ -52,6 +52,7 @@
 					{/section}
 				</tbody>
 			</table>
+        <ul class="left showing" modulo="14"><small></small></ul>
 		<ul class="pagination right" vtbl="14" modulo="productos"></ul>
 		<br><br><br>
 	</div>

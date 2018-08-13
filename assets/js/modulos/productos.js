@@ -9,8 +9,6 @@ $(function () {
 			case 1:
 				$("#mantServ").remove();
 				$("#mantPaquetes").remove();
-				// var tabla = $("#data-table-productos").DataTable();
-				// tabla.destroy();
 				var p = mantenimiento('productos', 1, '');
 				$("#bdymantInventario").html(p);
 				$("#data-table-productos").DataTable({
@@ -23,24 +21,21 @@ $(function () {
 					info: false
 				});
 				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:''})
-				// paginate($("ul.pagination").attr('vtbl'));
 				break;
 			case 2:
 				$("#mantProd").remove();
 				$("#mantPaquetes").remove();
-				// var tabla = $("#data-table-servicios").DataTable();
-				// tabla.destroy();
 				var p = mantenimiento('productos', 2, '');
 				$("#bdymantInventario").html(p);
-				// $("#data-table-servicios").dataTable({
-				// 	bFilter: false,
-				// 	bScrollInfinite: true,
-				// 	bSort: false,
-				// 	bLengthChange: false,
-				// 	order: [],
-				// 	bPaginate: false,
-				// 	info: false
-				// });
+				$("#data-table-servicios").dataTable({
+					bFilter: false,
+					bScrollInfinite: true,
+					bSort: false,
+					bLengthChange: false,
+					order: [],
+					bPaginate: false,
+					info: false
+				});
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
@@ -63,6 +58,7 @@ $(function () {
 				$("#fpaquetes .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:''})
 				break;
 		}
+		paginate($("ul.pagination").attr('vtbl'));
 		$('select').material_select();
 		$('.dropdown-button').dropdown();
 		$('.modal').modal({
@@ -106,10 +102,7 @@ $(function () {
 	} else
 		$("#m1").click();
 	
-	paginate($("ul.pagination").attr('vtbl'))
 	permisos(4100,4200);
-
-
 });
 
 $(document).on("keydown","#prodher",function(e){

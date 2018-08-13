@@ -18,7 +18,7 @@
         <div class="card z-depth-3 ">
             <div class="card-header center"> 
             <p class="flow-text head1">
-            Vista de Facturas {$smarty.session.EMPRESA|upper}</p>
+            Vista de Facturas <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span></p>
             </div>
 
             <div class="row">
@@ -55,7 +55,7 @@
 
             <hr>
             <div class="row">
-                <div class="col s7 input-field">
+                <div class="col s9 m7 input-field">
                   <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
                   <ul id='filtr_1' class='dropdown-content'>
                     <li><a class="optns" href="#!" fltr="1">Número</a></li>
@@ -65,7 +65,7 @@
                   <input type="text" id="search_facturas" maxlength="100" num="v158" var="0,1" filtro="1">
                   <label class="truncate" for="search_facturas">Buscar Factura por <span>Número</span></label>
                 </div>
-                <div class="col s2"></div>
+                <div class="col m2 hide-on-small"></div>
                 <div class="col s3 der">
                     <a href="#modal-getxml" class="btn btn2 mdi mdi-upload mdi-24px tooltipped" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px"></a>
 
@@ -79,7 +79,7 @@
                       </div>
                 </div>
                 <div class="col s12" id="vfacturas">
-                     <table class="table tablatitulos responsive-table centered striped bordered highlight z-depth-3" id="data-table-facturas" cellspacing="0" width="100%" >
+                     <table class="table tablatitulos dt-responsive nowrap centered striped bordered highlight z-depth-3" id="data-table-facturas" cellspacing="0" width="100%" >
                         <thead class="tab1">
                             <tr>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Factura</th>
@@ -92,7 +92,7 @@
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="listafacturas">
+                        <tbody id="listafacturas" class="tpag">
                             {section name=LE loop=$FACT}
                             <tr>
                                 <td style="width: 10%">{$FACT[LE][1]}</td>
@@ -114,6 +114,7 @@
                             </tr>
                             {/section}
                         </tbody>
+                        <!-- <tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody> -->
                     </table>
                     <ul class="left showing" modulo="158"><small></small></ul>
                     <ul class="pagination right" vtbl="158" modulo="facturas" filtro_sp="{$TF},0,@@impresa,^,?"></ul>

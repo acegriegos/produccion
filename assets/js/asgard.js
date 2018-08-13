@@ -318,7 +318,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
+        // console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -1103,7 +1103,7 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    console.log(tbl,' ',atributos)
+    // console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 
 }
@@ -1250,7 +1250,7 @@ function paginate(vtbl,len,vfiltro) {
         countpag = arr('login',4,'',vtbl,'0,1,"'+vfiltro+'",""',0,0,0)[0][0];
     }else
         countpag = len;
-
+    // console.log(vtbl,' 0,1,"'+vfiltro+'",""',' ',countpag)
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
         $(".pagination").attr('ultimo', 9);
@@ -1258,7 +1258,7 @@ function paginate(vtbl,len,vfiltro) {
         $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>0</span> a <span class='pag-hasta'>0</span> de <span class='pag-tot'>0</span> Entradas")
         return false;
     } else if (parseFloat(countpag) < 1) {
-        
+       
     } else {
         var txt = '<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>';
         for (var i = 1; i <= Math.ceil(countpag); i++) {
@@ -1286,21 +1286,7 @@ $(document).on("click", ".paginate", function () {
     var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     $(".paginate").removeClass('active')
     $(this).addClass('active');
-    // var tabla = $("#data-table-"+modulo).DataTable();
-    // tabla.destroy();
-    $("#lista"+modulo).html('');
-    // console.log(arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, 0))
-    arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-
-    $("#data-table-"+modulo).DataTable({
-        bFilter: false,
-        bScrollInfinite: true,
-        bSort: false,
-        bLengthChange: false,
-        order: [],
-        bPaginate: false,
-        info: false
-    });
+    llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
     var numl = parseInt($('a',this).html());
     var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
     var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
@@ -1339,38 +1325,16 @@ $(document).on("click", ".nxt", function () {
             $(".paginate").removeClass('active');
             $("#z" + next).addClass('active');
             var limit = $("#z" + next).attr('limit');
-            // var tabla = $("#data-table-"+modulo).DataTable();
-            // tabla.destroy();
-            var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio,1, $("#lista"+modulo));
-            $("#data-table-"+modulo).DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
-        }   
+        }
     } else {
         var limit = $("#z" + next).attr('limit');
         $(".paginate").removeClass('active');
-        $("#z" + next).addClass('active');
-        var tabla = $("#data-table-"+modulo).DataTable();
-        tabla.destroy();
-
-        arr('login', 6, '', vtbl, '0,0,"'+filtro_sp+'","'+limit+'"', cambio,1, $("#lista"+modulo));
-        $("#data-table-"+modulo).DataTable({
-            bFilter: false,
-            bScrollInfinite: true,
-            bSort: false,
-            bLengthChange: false,
-            order: [],
-            bPaginate: false,
-            info: false
-        });
+        $("#z" + next).addClass('active');      
     }
+    llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
+
+    if ($("#z"+next+" a").html() == undefined)
+        return
 
     var numl = parseInt($("#z"+next+" a").html());
     var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
@@ -1412,57 +1376,24 @@ $(document).on("click", ".prv", function () {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
-                var tabla = $("#data-table-"+modulo).DataTable();
-
-                tabla.destroy();
-                arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-                $("#data-table-"+modulo).DataTable({
-                    bFilter: false,
-                    bScrollInfinite: true,
-                    bSort: false,
-                    bLengthChange: false,
-                    order: [],
-                    bPaginate: false,
-                    info: false
-                });
+                llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
                } else {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
-                var tabla = $("#data-table-"+modulo).DataTable();
-                tabla.destroy();
-
-                arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
-                $("#data-table-"+modulo).DataTable({
-                    bFilter: false,
-                    bScrollInfinite: true,
-                    bSort: false,
-                    bLengthChange: false,
-                    order: [],
-                    bPaginate: false,
-                    info: false
-                });
+                llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
             }
         } else {
             var limit = $("#z" + prev).attr('limit');
             $(".paginate").removeClass('active');
             $("#z" + prev).addClass('active');
-            // var tabla = $("#data-table-"+modulo).DataTable();
+           
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            tabla.destroy();
-            arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
-            $("#data-table-"+modulo).DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
+            llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
         }
     }
-
+    if ($("#z"+prev+" a").html() == undefined)
+        return
     var numl = parseInt($("#z"+prev+" a").html());
     var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
     var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
@@ -1535,6 +1466,29 @@ $(document).on('blur','[addG=1]',function(){
         }
     }
 });
+
+function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
+    $("#data-table-"+modulo).append('<tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody>');
+    $("#lista"+modulo).addClass('hide');
+    var tabla = $("#data-table-"+modulo).DataTable();
+    tabla.destroy();
+    arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    $("#data-table-"+modulo).DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    }); 
+    setTimeout(function(){
+        $("#loadbody").remove();
+        $("#lista"+modulo).removeClass('hide');
+    }, 500);
+    
+}
+
 function findClient(nom,blr) {
     var clie = getDatos('',63,'\"'+nom+'\",0,@@tmp_cia',0,0,0);
     if (nom != '') {
@@ -1723,10 +1677,10 @@ function reconstruirModal(tp) {
 
 function keysight(e) {
     e = e.keyCode || e.wich;
-    var t={1:"!",2:"@",3:"#",4:"$",5:"%",6:"^",7:"&",8:"*",9:"(",0:")",38:'~',48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",59:";",61:"=",65:"a",66:"b",67:"c",68:"d",69:"e",70:"f",71:"g",72:"h",73:"i",74:"j",75:"k",76:"l",77:"m",78:"n",79:"o",80:"p",81:"q",82:"r",83:"s",84:"t",85:"u",86:"v",87:"w",88:"x",89:"y",90:"z",96:"0",97:"1",98:"2",99:"3",100:"4",101:"5",102:"6",103:"7",104:"8",105:"9",106:"*",107:"+",108:"13",109:"-",110:".",111:"/",173:"-",186:";",187:"=",188:",",189:"-",190:".",191:"/",192:"`",219:"[",220:"\\",221:"]",222:"'",223:"`"};
+    var t={1:"!",2:"@",3:"#",4:"$",5:"%",6:"^",7:"&",8:"*",9:"(",0:")",13:"",16:"",20:"",37:"",38:"",39:"",40:"",48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",59:";",61:"=",65:"a",66:"b",67:"c",68:"d",69:"e",70:"f",71:"g",72:"h",73:"i",74:"j",75:"k",76:"l",77:"m",78:"n",79:"o",80:"p",81:"q",82:"r",83:"s",84:"t",85:"u",86:"v",87:"w",88:"x",89:"y",90:"z",96:"0",97:"1",98:"2",99:"3",100:"4",101:"5",102:"6",103:"7",104:"8",105:"9",106:"*",107:"+",108:"13",109:"-",110:".",111:"/",173:"-",186:";",187:"=",188:",",189:"-",190:".",191:"/",192:"`",219:"[",220:"\\",221:"]",222:"'",223:"`"};
     var salida = t[e];
-    var prueba = salida == undefined ? 1 : 0;
-    return salida == undefined ? String.fromCharCode(e) : salida;
+    //salida = salida == undefined ? 0 : salida; //String.fromCharCode(e) == undefined ? 0 : String.fromCharCode(e)
+    return salida == undefined ? '-1' : salida;
 }
 // addgeneral
 

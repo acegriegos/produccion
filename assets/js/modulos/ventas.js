@@ -1,15 +1,3 @@
-// $(document).keydown(function(e){
-//    if(e.altKey &&  e.which == 67){
-//         e.preventDefault();
-//         if(!$(".chg_tipo").attr('disabled'))
-//             $(".chg_tipo").click().change();
-//    }
-
-//    // if(e.which == 115){ //F4
-//    //      e.preventDefault();
-//    //      $(".chg_tipo").click().change();
-//    // }
-// });
 var w;
 $(document).on("change","#idtipopago",function(){
     $(".zelda").data('triforce')['vidtipopago'] = $(this).val();
@@ -115,6 +103,12 @@ $(function(){
         }else
             Materialize.toast(validator,4000,'red');
         
+    });
+
+    $("[name=ubfactura]").change(function(){
+        var id = $(this).attr('val');
+        $(".ps").addClass('hide-on-med-and-down')
+        $(".p"+id).removeClass('hide-on-med-and-down');       
     });
 
     cargarMoneda(0);
@@ -438,8 +432,9 @@ $(document).on("blur","#vdescuentop",function(){
     totalizar();
 });
 
-function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo) {
+function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo,vmobil) {
     $("#valores").removeData('elemento');
+
     isiva = $("[for=iva]").css('display') !== 'hide' ? $("#iva").is(":checked") : 0;
     if (param != 2){
         $("[for=iva]").addClass('hide');
@@ -486,6 +481,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     });
 
     if (!existe) {
+        $(".edetalle").addClass('hide')
         var id = parseInt($(".zelda").data('triforce')['idline'])+1;
         var divisa = parseFloat($("#monedas option:selected").attr('dv'));
 
@@ -501,13 +497,16 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             case 5:
             case 6:
             case 7:
-                $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s1 center-align" id="unitprod'+id+'">'+uni+'</div> <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align totp" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div class="right"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
+                if (vmobil) 
+                    $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div style="padding: 0 !important;" class="col s2 center-align hide" id="codprod'+id+'">'+codedg+cod+'</div> <div class="row col s9" style="padding:0px;"> <div class="col s12" style="padding: 0 !important;font-weight: bold;" id="desc'+id+'">'+desc+'</div> <small><span class="col s3" style="padding: 0px">Precio Uni: </span><div style="padding: 0 !important;" class="divisa col s9" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div></small> <div id="divcnt" style="padding: 0 !important;"><small>Cantidad: <span id="cant'+id+'">'+cant+'</span></small></div> </div><div style="padding: 0 !important;" class="col s1 hide center-align" id="unitprod'+id+'">'+uni+'</div>  <div style="padding: 0 !important;" class="col s1 center-align totp hide" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div class="der"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
+                else
+                    $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s1 center-align" id="unitprod'+id+'">'+uni+'</div> <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align totp" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div class="right"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
                     break;
             case 2:
-                $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div>  <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align divisa" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <div id="unitprod'+id+'" style="padding: 0 !important;" class="col s1 center-align">'+uni+'</div> <div id="vdesc'+id+'" style="padding: 0 !important;" class="col s1 center-align"> '+dcs['descuento']+'% </div> <div cstyle="padding: 0 !important;" class="col s1 center-align totp" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div align="right" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></div> </div>');
+                $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div>  <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align divisa" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <div id="unitprod'+id+'" style="padding: 0 !important;" class="col s1 center-align">'+uni+'</div> <div id="vdesc'+id+'" style="padding: 0 !important;" class="col s1 center-align"> '+dcs['descuento']+'% </div> <div cstyle="padding: 0 !important;" class="col s1 center-align totp" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div align="right" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a></div> </div>');
                 break;
             case 3:
-                $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;"></div></td> <td class="center divisa hide" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td id="vdesc'+id+'" class="center hide"> '+dcs+'% </td> <td class="center totp hide" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%;font-size: 12px;"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%;font-size: 12px;"></a></td> </tr>');
+                $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;"></div></td> <td class="center divisa hide" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td id="vdesc'+id+'" class="center hide"> '+dcs+'% </td> <td class="center totp hide" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%;font-size: 12px;"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%;font-size: 12px;"></a></td> </tr>');
                 break;
         }
 
@@ -597,7 +596,7 @@ function totalizar(){
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc.toFixed(5);
         $("#tota"+vidlinea).html((tmpdesc/divisa).formatMoney(2,'.',','))
         $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
-        $("#fd"+vidlinea).data('triforce')['vdesc'] = idesc;
+        $("#fd"+vidlinea).data('triforce')['vdesc'] = precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
         tmpdesc = tmpdesc * (1-(desc/100));
 
         $(".dimpuesto").each(function(){
@@ -732,7 +731,7 @@ function validarFactura() {
 
     if ($("#fdetallefacturas .ciclos").length == 0) {
         $("#codp").focus()
-        return "No se Han Ingresado Productos";
+        return "No se Han Ingresado Productos en Detalle";
     }
 
     switch(parseInt($(".zelda").data('triforce')['vidtipoventa'])){
@@ -1172,8 +1171,8 @@ function sendFE(clave){
         try {
             p = JSON.parse(data);
             $(".expect").removeClass('progress');
-            console.log(p)
-            if (p['succed']) {
+      
+            if (p['succes']) {
                 var vfactura = p['num'];
                 var vclave = p['clave'];
                 arr('login',7,2,64,'feestado=2','id='+clave,0,0);
@@ -1190,7 +1189,7 @@ function sendFE(clave){
                         arr('login',7,2,64,'feestado=8','id='+clave,0,0);
                     break;
                 }
-                // setTimeout(function(){location.reload();},3000);
+                setTimeout(function(){location.reload();},3000);
             }
             
         }
@@ -1277,7 +1276,7 @@ function sendVMail(factura,clave,vid){
         }
     }
 
-    setTimeout(function(){location.reload();},3000);
+    setTimeout(function(){location.reload();},2000);
 }
 
 

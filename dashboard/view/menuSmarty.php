@@ -1,12 +1,13 @@
 <div class="navbar-fixed hide-on-large-only">
   <nav>
-    <div class="nav-wrapper blue-grey darken-2">
-      <a href="#" class="button-collapses" data-activates="slide"><i class="mdi mdi-menu mdi-16px"></i></a>
+    <div class="center nav-wrapper blue-grey darken-2">
+      {$smarty.session.EMPRESA|upper}
+      <a href="#" id="movil" class="der"><i class="mdi mdi-menu mdi-16px"></i></a>
     </div>
   </nav>
 </div>
 
-<a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" >
+<a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" id="cpu">
   <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span>
   <br class="sse_cnt hide"><p class="white-text menu-txt">MENU</p></a>
 <!-- hide-on-med-and-down  -->

@@ -194,51 +194,65 @@ label{
   .padd{
     padding-left: 3% !important;
     padding-right: 4% !important;
-}
-.tablatitulos{
-  font-size: 0.7em !important;
-}
-.pequeño{
-    padding: 1% 1% !important;
-}
-.input-field{
-  padding: 0% !important;
-    padding-bottom: 1% !important;
-}
-.grandemodal .modal-content{
-  width: 98% !important;
-}
-.grandemodal{
-  width: 98% !important;
-  height: 90% !important;
+  }
 
-}
-   .bdy {
- 
+  .tablatitulos{
+    font-size: 0.7em !important;
+  }
+
+  .pequeño{
+      padding: 1% 1% !important;
+  }
+
+  .input-field{
+    padding: 0% !important;
+      padding-bottom: 1% !important;
+  }
+
+  .grandemodal .modal-content{
+    width: 98% !important;
+  }
+
+  .grandemodal{
+    width: 98% !important;
+    height: 90% !important;
+
+  }
+  
+  .bdy {
+    margin: 0px !important;
+    padding: 0px !important;
     font-family: "logintech";
-    }
-    .centro{
-    margin-left:  20% !important;
-    
-}
-.centro2{
+  }
+  
+  .centro{
+    margin-left:  20% !important; 
+  }
+
+  .centro2{
     padding-right:28% !important;
-    padding-top: 2% !important;
-    
-}
-.centro3{
+    padding-top: 2% !important; 
+  }
+  
+  .centro3{
     padding-right:28% !important;
     padding-top: 0% !important;
-}
-.detalle{
+  }
+  
+  .detalle{
     font-size: 0.9em !important;
-}
+  }
 
-
-body{
+  body{
    font-size: 0.9em !important;
-}
+  }
 
+  .mstatic{
+    position: fixed;
+    width: 100%;
+    z-index: 990;
+    display: block;
+  }
 }
 @media only screen and (max-width:400px){
 .tabla-pad{
