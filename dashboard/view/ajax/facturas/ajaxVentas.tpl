@@ -674,4 +674,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.30"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.31"></script>
