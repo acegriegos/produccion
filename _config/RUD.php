@@ -207,8 +207,7 @@
 			$salida = '';
 			
 			foreach ($arg as $key) {
-				list($clave,$param) = $key;
-				$param = str_replace('?', $ant, $param);
+				$param = str_replace('?', $ant, $key);
 
 				if (is_array($param)) {
 					$it = '';
