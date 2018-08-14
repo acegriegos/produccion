@@ -282,7 +282,7 @@ function endDetail(vid,vacc,modulo){
 		arr('login',4,'',304,'1,0,3,'+$("#tipoimpresion").val(),0,0,0);
 		arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
 
-		var $toastContent = $('<span style="width: 500px">Generado Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+		var $toastContent = $('<span style="width: 500px">Generando Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent);
         sendFE(clave,factura);
 

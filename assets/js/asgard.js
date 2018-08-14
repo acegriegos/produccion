@@ -240,20 +240,23 @@ $(document).on("click",".edit",function(){
 });
 
 $(document).on("click",".delete",function(){
-
+    
     if ($(this).attr('cnt') == undefined) {
         if(!$("#_DEL").length){
             var id = $(this).attr('id');
             $(this).attr('mbg',$(this).parent().parent().css('background-color'));
             var $toastContent = $('<span id="_DEL" >Desea Eliminar Este Registro? </span>').add($('<a class="btn red" style="margin:2px" id="deldef" inid="'+id+'">Elminar</a> <a class="btn btn-default" id="delcan" inid="'+id+'">Cancelar</a>'));
-            Materialize.toast($toastContent,10000,'',function(){$("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'))});
+            Materialize.toast($toastContent,10000,'',function(){if($("#"+id) != undefined) $("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'))});
             $(this).parent().parent().css('background-color','#ed5249');
         }
     }else{
+        
         var modulo = $(this).attr('modulo');
         var id = $(this).attr('id').substr(1);
         vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
         acc = 3;
+        $(this).removeAttr('cnt');
+        console.log(modulo+' '+id)
         doGlobal(3,modulo,id,0);
     }
 });
@@ -314,7 +317,6 @@ function doGlobal(accion,modulo,tip,varias){
             arreglo['varios'][index] = arr;
         });
     }
-
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
@@ -1273,6 +1275,7 @@ function paginate(vtbl,len,vfiltro) {
     }
 
     var phasta = parseInt(countpag*10) >= 10 ? 10 : parseInt(countpag*10);
+
     $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>1</span> a <span class='pag-hasta'>"+phasta+"</span> de <span class='pag-tot'>"+parseInt(countpag*10)+"</span> Entradas")
 }
 

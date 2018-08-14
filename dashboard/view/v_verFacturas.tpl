@@ -109,7 +109,7 @@
 
                                     <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
 
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e{$FACT[LE][0]}" style="color:{if $FACT[LE][11] eq 1}green{elseif $FACT[LE][11] eq 2}yellow{elseif $FACT[LE][11] eq 3}red{else}{/if};" data-tooltip="Estado de la Factura" data-position="bottom"></a>
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e{$FACT[LE][0]}" style="color:{if $FACT[LE][11] eq 1}green{elseif $FACT[LE][11] eq 2}#cddc39{elseif $FACT[LE][11] eq 3}red{elseif $FACT[LE][11] eq 9}#8bc34a{else}{/if};" data-tooltip="Estado de la Factura" data-position="bottom"></a>
                                 </td>
                             </tr>
                             {/section}
@@ -191,9 +191,9 @@
             </section>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="1">Aceptar</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="2">Aceptar Parcial</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="3">Rechazar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="5">Aceptar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="6">Aceptar Parcial</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="7">Rechazar</a>
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Cancelar</a>
         </div>
     </div>

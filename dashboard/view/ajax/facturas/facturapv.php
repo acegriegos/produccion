@@ -76,9 +76,9 @@ echo '<tr align="center" '.$ocultar.'>
 <table style="width: 100% !important;">
   <tr>
     <td align="left"><b>Factura N°</b></td>
-    <td width="13%" align="center"><b>DD</b></td>
-    <td width="13%" align="center"><b>MM</b></td>
-    <td width="13%" align="center"><b>AAAA</b></td>
+    <td width="13%" align="center"><b>Día</b></td>
+    <td width="13%" align="center"><b>Mes</b></td>
+    <td width="13%" align="center"><b>Año</b></td>
   </tr>
   <tr>
     <td align="left"><span> '.$datos[0].' </span></td>
@@ -115,8 +115,9 @@ echo '<tr align="center" '.$ocultar.'>
   
 
     foreach ($transaccion as $obj) {
+
     echo '<tr>
-      <td align="center" width="20%">'.$obj[18].'</td>
+      <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
       <td align="center" width="60%">'.$obj[19].'</td>
       <td align="right" width="20%" '.$ocultar.'>'.$obj[22].'</td>
     </tr>';

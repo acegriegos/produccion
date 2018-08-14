@@ -948,7 +948,7 @@ function endDetail(vid,vacc,vmodulo) {
     var clave = vid[0][0];
 
     if (config[0] == 1 && (param == 1 || param == 7)) {
-        var $toastContent = $('<span style="width: 500px">Generado Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent);
         sendFE(clave);
     }else

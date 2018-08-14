@@ -86,10 +86,6 @@
             $pass = $db->getPSS();
             $salida = [];
             set_time_limit(0);
-            // $salida['.INI'] = "character-set-server  = utf8mb4
-            // collation-server      = utf8mb4_general_ci
-            // lc_time_names         = es_CR
-            // default-time-zone = '-06:00'";
 
             $source = "https://logintechcr.com/descargas/firts.sql";
             $ch = curl_init();
