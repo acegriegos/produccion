@@ -352,7 +352,7 @@ $(document).on("click",".status",function(){
 					arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
 				}
                 console.log(p)
-				Materialize.toast(p['rs'],6000,color);
+				Materialize.toast(msj,6000,color);
 			}catch(ex){
 				console.log(data)
 				Materialize.toast('Error Obteniendo Estado',6000,'red')
