@@ -318,7 +318,7 @@ $(document).on("click",".status",function(){
 					case 'aceptado':
 						color = 'green';
 						state = 1;
-                        msj = !p['rs'].length ? 'Documento Electrónica Aceptado' : p['rs'];
+                        msj = !p['rs'].trim()length ? 'Documento Electrónica Aceptado' : p['rs'];
 						break;
                     case 'recibido':
                         color = '#8bc34a';
@@ -328,12 +328,12 @@ $(document).on("click",".status",function(){
 					case 'rechazado':
 						color = 'red';
 						state = 3;
-                        msj = !p['rs'].length ? 'Documento Electrónico Rechazado' : p['rs'];
+                        msj = !p['rs'].trim()length ? 'Documento Electrónico Rechazado' : p['rs'];
 						break;
 					case 'procesando':
 						color = '#cddc39';
 						state = 2;
-                        msj = !p['rs'].length ? 'Procesando Documento Electrónica' : p['rs'];
+                        msj = !p['rs'].trim()length ? 'Procesando Documento Electrónica' : p['rs'];
 						break;
 					case 'Sin Subir':
 						var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
