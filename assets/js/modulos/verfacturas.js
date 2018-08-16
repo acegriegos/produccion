@@ -342,6 +342,7 @@ $(document).on("click",".status",function(){
 						break;
 					case 'Sin Internet':
 						color = 'red';
+                        msj = p['rs'];
 						break;
 					default:
 						break;
@@ -351,7 +352,7 @@ $(document).on("click",".status",function(){
 					$("#e"+vid).css('color',color);
 					arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
 				}
-                console.log(p)
+                console.log(p+' '+msj)
 				Materialize.toast(msj,6000,color);
 			}catch(ex){
 				console.log(data)
