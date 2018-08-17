@@ -182,6 +182,6 @@ echo '<hr '.$ocultar.'>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.32"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.35"></script>
  </body>
  </html>

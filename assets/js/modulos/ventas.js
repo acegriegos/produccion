@@ -916,6 +916,14 @@ function endCargarProducto(exo){
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
             if (exo < 100) {
+                var impuestos = 0;
+                $(".dimpuesto").each(function(){
+                    if ($("#valores").data("elemento")['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0)
+                        impuestos += parseFloat($(this).data('valores')['vmonto'])
+                });
+                $("#precp").val( (parseFloat($("#precp").val().replace(/,/g,''))*(1+(impuestos/100))).formatMoney(2,'.',',') ) 
+                $("#precp").blur();
+                $("#precp").select().focus();
                 $("[for=iva]").removeClass('hide');
                 $("#iva").attr('checked',true);
             }
