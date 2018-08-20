@@ -167,7 +167,7 @@
 	                </div>
 	            </div>
                 {/if}
-                <div class="marginzero col s12 m12 l12 row">
+                <div class="marginzero hide col s12 m12 l12 row">
                     <div class="col s4 m2 l2">
                         <input type="checkbox" id="visheredado" class="filled-in">
                         <label for="visheredado">Heredado</label>
