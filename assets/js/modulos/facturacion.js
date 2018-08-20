@@ -421,19 +421,22 @@ function cargarGlobal(){
     });
 
     $("#codp").keydown(function(e){
-        var charCode = e.which || e.keyCode;
-        var charStr = keysight(e)
+        var modselec = parseInt($("input[name='modselected']:checked").val());
+        $(".autocomplete-content").remove();
+        if (modselec == 1) {
+            var charCode = e.which || e.keyCode;
+            var charStr = keysight(e)
 
-        if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
-            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : charStr == -1 ? $(this).val() : $(this).val()+charStr;
-            $(".autocomplete-content").remove();
-            
-            $(this).autocomplete({
-                limit: 20,
-                data: arr('login',4,'',6,'"'+busqueda+'",6,@@impresa',0,0,0,1)
-            })
+            if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
+                var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : charStr == -1 ? $(this).val() : $(this).val()+charStr;
+                
+                $(this).autocomplete({
+                    limit: 20,
+                    data: arr('login',4,'',6,'"'+busqueda+'",6,@@impresa',0,0,0,1)
+                })
 
-            $(this).siblings($(".autocomplete-content")).css('width','50%');
+                $(this).siblings($(".autocomplete-content")).css('width','50%');
+            }
         }
     });
 
