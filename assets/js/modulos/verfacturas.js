@@ -310,7 +310,7 @@ $(document).on("click",".status",function(){
 		.done(function(data){
 			var ex;
 			var p;
-			var color = '';
+			var color = msj = '';
 			var state = 0;
 			try{
 				p = JSON.parse(data);
@@ -318,19 +318,22 @@ $(document).on("click",".status",function(){
 					case 'aceptado':
 						color = 'green';
 						state = 1;
+                        msj = !p['rs'].trim().length ? 'Documento Electrónica Aceptado' : p['rs'];
 						break;
                     case 'recibido':
                         color = '#8bc34a';
                         state = 9;
-                        p['rs'] = 'Factura Recibida';
+                        p['rs'] = 'Documento Electrónico Recibido';
                         break;
 					case 'rechazado':
 						color = 'red';
 						state = 3;
+                        msj = !p['rs'].trim().length ? 'Documento Electrónico Rechazado' : p['rs'];
 						break;
 					case 'procesando':
 						color = '#cddc39';
 						state = 2;
+                        msj = !p['rs'].trim().length ? 'Procesando Documento Electrónica' : p['rs'];
 						break;
 					case 'Sin Subir':
 						var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
@@ -339,6 +342,7 @@ $(document).on("click",".status",function(){
 						break;
 					case 'Sin Internet':
 						color = 'red';
+                        msj = p['rs'];
 						break;
 					default:
 						break;
@@ -348,8 +352,8 @@ $(document).on("click",".status",function(){
 					$("#e"+vid).css('color',color);
 					arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
 				}
-                console.log(p)
-				Materialize.toast(p['rs'],6000,color);
+                console.log(p+' '+msj)
+				Materialize.toast(msj,6000,color);
 			}catch(ex){
 				console.log(data)
 				Materialize.toast('Error Obteniendo Estado',6000,'red')

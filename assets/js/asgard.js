@@ -256,7 +256,6 @@ $(document).on("click",".delete",function(){
         vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
         acc = 3;
         $(this).removeAttr('cnt');
-        console.log(modulo+' '+id)
         doGlobal(3,modulo,id,0);
     }
 });
@@ -1475,6 +1474,7 @@ function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
     $("#lista"+modulo).addClass('hide');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
+    // console.log('0,0,"'+filtro_sp+'","'+limit+'"')
     arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
