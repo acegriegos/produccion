@@ -1863,7 +1863,7 @@ function validar(varreglo, vmodulo) {
 
 function validarproductos() {
 
-	if ($("#fproductos .zelda").data('triforce')["vidfamilia"] == 0 && $("#vfamilia").val().length) {
+	if ($("#fproductos .zelda").data('triforce')["vidfamilia"] == 0 && $("#vfamilia").val().trim().length) {
 		
 		var familia = arr('login', 4, '', 106, '1,0,\"' + $("#vfamilia").val() + '\",@@impresa', 0, 0, 0);
 		if (familia[0][0] != undefined) {
@@ -1873,8 +1873,8 @@ function validarproductos() {
 			return familia[0]['ERROR'];
 		}
 	}
-
-	if ($("#fproductos .zelda").data('triforce')["vidtipo"] == 0 && $("#vtipo").val().length) {
+	
+	if ($("#fproductos .zelda").data('triforce')["vidtipo"] == 0 && ($("#vtipo").val().trim().length || $("#fproductos .zelda").data('triforce')["vidfamilia"] != 0)) {
 		var tipo = arr('login', 4, '', 135, '1,0,\"' + $("#vtipo").val() + '\",' + $("#fproductos .zelda").data('triforce')["vidfamilia"]+',@@impresa', 0, 0, 0);
 		if (tipo[0][0] != undefined) {
 			$("#fproductos .zelda").data('triforce')["vidtipo"] = tipo[0][0][0];
@@ -1883,8 +1883,9 @@ function validarproductos() {
 			return tipo[0]['ERROR'];
 		}
 	}
-	if ($("#fproductos .zelda").data('triforce')["vidmarca"] == 0 && $("#vmarca").val().length) {
+	if ($("#fproductos .zelda").data('triforce')["vidmarca"] == 0 && ($("#vmarca").val().length || $("#fproductos .zelda").data('triforce')["vidtipo"] != 0) ) {
 		var marca = arr('login', 4, '', 136, '1,0,\"' + $("#vmarca").val() + '\",' + $("#fproductos .zelda").data('triforce')["vidtipo"]+',@@impresa', 0, 0, 0);
+		console.log(marca)
 		if (marca[0][0] != undefined) {
 			$("#fproductos .zelda").data('triforce')["vidmarca"] = marca[0][0][0];
 

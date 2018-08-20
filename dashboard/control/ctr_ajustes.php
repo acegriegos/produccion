@@ -99,6 +99,11 @@ if (!isset($_REQUEST['accion'])) {
 	   			$smarty->assign('UBIC',$kakaroto->kamehameha('',92,$_REQUEST['arreglo']['vidfila'].",".$_REQUEST['arreglo']['vidtabla']));
 	   			$smarty->display('ajax/ajustes/addaddress.tpl');
 	   			break;
+	   		case 13:
+	   			$pagina = 1;
+	   			$smarty->assign('INV',$kakaroto->kamehameha('id,nombre',111,'id > 0 and idbodega = 1 and idsucursal in(-1,@@impresa) order by id'));
+	   			$smarty->display('ajax/ajustes/ajaxRestaurante.tpl');
+	   			break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion)){

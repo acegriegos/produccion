@@ -290,6 +290,7 @@ $(document).on("keyup","[id^=search_]",function(e){
         var j = $(this).attr('filtro') == undefined ? 1 : $(this).attr('filtro');
         var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
         var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
+
         filltable(h,b,c,g);
         $(".pagination").html('');
         paginate(c,i)
@@ -345,7 +346,6 @@ function doGlobal(accion,modulo,tip,varias){
 function baseValidar(vaccion,vmodulo){
     var salida = {}
     var varreglo = mantenimiento('login',vaccion,vmodulo);
-
     if ( varreglo['succed'] == 1){
         salida = validar(varreglo[0],vmodulo);
         if (vmodulo['tip'] != '') {
@@ -514,6 +514,18 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
     }
     // setTimeout(function(){source = new EventSource("../sse.php")},5000);
     return true;
+}
+
+function actualizar(vtabla,varg1,varg2){
+    return arr('login',7,2,vtabla,varg1,varg2,0,0,0);
+}
+
+function insertar(vtabla,varg1,varg2){
+    return arr('login',7,1,vtabla,varg1,varg2,0,0,0);
+}
+
+function eliminar(vtabla,varg1,varg2){
+    return arr('login',7,3,vtabla,varg1,varg2,0,0,0);
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
@@ -695,7 +707,8 @@ case "5":
         }
         break;
 
-    default:
+default:
+
     //LLENADO DE VARIABLES POR ID SIN DETALLE
     for (var i = 0; i < varreglo.length; i++) {
         if ($("#"+vform+" #"+varreglo[i][0]).attr('hid') != undefined){
@@ -819,7 +832,7 @@ function deadclear(vform) {
 
 function thorload(vtabla) {
     vtabla += "s";
-    
+
     if ($("#search_"+vtabla).val() != undefined && $("#search_"+vtabla).val() != ""){
         var e = jQuery.Event("keyup");
         e.which = 13;
@@ -1251,7 +1264,7 @@ function paginate(vtbl,len,vfiltro) {
         countpag = arr('login',4,'',vtbl,'0,1,"'+vfiltro+'",""',0,0,0)[0][0];
     }else
         countpag = len;
-    // console.log(vtbl,' 0,1,"'+vfiltro+'",""',' ',countpag)
+
     if (countpag >= 9) {
         $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi-chevron-left mdi mdi-24px prv"></i></a></li><li class="active paginate" id="z1" limit="0,10"><a href="#!">1</a></li><li class="waves-effect paginate" id="z2" limit="10,10"><a href="#!">2</a></li><li class="waves-effect paginate" id="z3" limit="20,10"><a href="#!">3</a></li><li class="waves-effect paginate" id="z4" limit="30,10"><a href="#!">4</a></li><li class="waves-effect paginate" id="z5" limit="40,10"><a href="#!">5</a></li><li class="waves-effect paginate" id="z6" limit="50,10"><a href="#!">6</a></li><li class="waves-effect paginate" id="z7" limit="60,10"><a href="#!">7</a></li><li class="waves-effect paginate" id="z8" limit="70,10"><a href="#!">8</a></li><li class="waves-effect paginate" id="z9" limit="80,10"><a href="#!">9</a></li><li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
         $(".pagination").attr('ultimo', 9);
@@ -1474,7 +1487,6 @@ function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
     $("#lista"+modulo).addClass('hide');
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
-    // console.log('0,0,"'+filtro_sp+'","'+limit+'"')
     arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
     $("#data-table-"+modulo).DataTable({
         bFilter: false,

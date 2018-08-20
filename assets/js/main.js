@@ -111,6 +111,25 @@ function sse_response(vid,p) {
                 
             }
             break;
+        case 3: //RESTAURANTES
+            if (p[0].length) {
+
+                for (var i = 0; i < p[0].length; i++) {
+                    switch(parseInt(p[0][i][1])){
+                        case 5:
+                            $("#m"+p[0][i][0]).css('background-color','white');
+                            $("#sm"+p[0][i][0]).html('<i class="mdi mdi-dots-horizontal"></i><i class="mdi mdi-pencil"></i>');
+                            break;
+                        default:
+                            $("#m"+p[0][i][0]).css('background-color','white');
+                            $("#sm"+p[0][i][0]).html('');
+                            break;
+                    }
+                    $("#m"+p[0][i][0]).attr('estado',p[0][i][1]);
+                }
+                
+            }
+            break;
         default:
             console.log('ID NO ASIGNADO')
             break;

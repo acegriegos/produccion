@@ -77,9 +77,9 @@
 		function analizarTabla($arreglo){
 			$salida = array();
 			$posicion = strpos($arreglo['modulo'], '-');
-			$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : $this->db->getDB();
+			$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion) : $this->db->getDB();
 			$arreglo['modulo'] = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
-
+			
 			$this->sql = "SELECT PARAMETER_NAME,DTD_IDENTIFIER FROM information_schema.PARAMETERS where SPECIFIC_NAME = 'sp_mant".$arreglo['modulo']."s' and SPECIFIC_SCHEMA = '".$schema."'";
 
 			$rs = $this->ejecutarSelect();

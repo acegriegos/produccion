@@ -1,5 +1,6 @@
 Dropzone.autoDiscover = false;
 var myDropzone;
+var inv;
 
 $(function(){
 	$("script").each(function(){
@@ -346,6 +347,45 @@ $(document).on("click",".menu3",function(){
 		case 9:
 			var p = mantenimiento('ajustes',9,'');
 			$("#majustes").html(p);
+			break;
+		case 10:
+			var p = mantenimiento('ajustes',13,'');
+			$("#majustes").html(p);
+			$("#data-table-mesas").dataTable({
+				bFilter: false,
+	            bScrollInfinite: true,
+	            bSort: false,
+	            bLengthChange: false,
+	            order: [],
+	            bPaginate: false,
+	            info: false
+			});
+			$("#data-table-secciones").dataTable({
+				bFilter: false,
+	            bScrollInfinite: true,
+	            bSort: false,
+	            bLengthChange: false,
+	            order: [],
+	            bPaginate: false,
+	            info: false
+			});
+			$("#frestaurantes-mesas .zelda").data('triforce',{vid:0,vnombre:'',vunion:'',vbisbarra:0,vidusuario:'',vidsucursal:''});
+			$("#frestaurantes-secciones .zelda").data('triforce',{vid:0,vnombre:''});
+			thorload('restaurantes-mesa');
+			paginate($("ul.pagination").attr('vtbl'),undefined,',0,0');
+			
+			inv = getDatos('idinventario',171,'idtipo=4',0,0,0)[0][0];
+			inv = inv == undefined ? 0 : inv[0]
+			$("#vinventario").val(inv).material_select('update');
+
+			$("#vinventario").change(function(){
+				if (inv)
+					actualizar(171,'idinventario = '+$(this).val(),'idtipo = 4 and idsucursal = @@impresa');
+				else
+					insertar(171,'','null,'+$(this).val()+',@@impresa,4');
+			});
+			break;
+		default:
 			break;
 	}
 
@@ -1298,6 +1338,14 @@ function validar (varreglo,vmodulo) {
 		case 'telefono':
 		case 'correo':
 			break;
+		case 'restaurantes-mesa':
+			if (vmodulo['tip'] == '') {
+				err = validarMesas(vmodulo['modulo']);
+				if (err)
+					return err
+			}
+			break;
+			break;
 		default:
 			return 'Módulo "'+vmodulo['modulo']+'" no Existente';
 			break;
@@ -1306,6 +1354,19 @@ function validar (varreglo,vmodulo) {
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
 	return salida;
 
+}
+
+function validarMesas(vmodulo) {
+	if (!$("#f"+vmodulo+"s #nombre-mesa").val().trim().length) {
+		$("#nombre-mesa").focus();
+		return "Nombre de Mesa Requerido";
+	}else
+		$("#f"+vmodulo+"s .zelda").data('triforce')['vnombre'] = $("#f"+vmodulo+"s #nombre-mesa").val();
+
+	if ($("#vbarra").is(":checked"))
+		$("#f"+vmodulo+"s .zelda").data('triforce')['vbisbarra'] = 1;
+	else
+		$("#f"+vmodulo+"s .zelda").data('triforce')['vbisbarra'] = 0;
 }
 
 function validarajustecierre(vmod) {
@@ -1591,6 +1652,16 @@ vmodulo['sel'] = 'id as vid,nombre as vnombre,codigo as vcodigo';
 vmodulo['tbl'] = 196;
 vmodulo['where'] = 'id = '+vid;
 break;
+case 'frestaurantes-mesa':
+vmodulo['sel'] = '';
+vmodulo['tbl'] = 800;
+vmodulo['where'] = vid;
+break;
+case 'frestaurantes-seccione':
+vmodulo['sel'] = 'id as vid,nombre as vnombre';
+vmodulo['tbl'] = 801;
+vmodulo['where'] = vid;
+break;
 default:
 console.log('Cargar Módulo no Existente '+vmodulo['modulo']);
 break;
@@ -1663,6 +1734,16 @@ function cargarSintax(vtabla){
 			arr['where'] = '1 order by servicio';
 			break;
 		case 'sucursales':
+			arr['sel'] = '';
+			arr['tbl'] = 50;
+			arr['where'] = '-1';
+			break;
+		case 'restaurantes-mesas':
+			arr['sel'] = '';
+			arr['tbl'] = 801;
+			arr['where'] = '0,0,",0,0","0,10"';
+			break;
+		case 'restaurantes-secciones':
 			arr['sel'] = '';
 			arr['tbl'] = 50;
 			arr['where'] = '-1';
