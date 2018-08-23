@@ -161,7 +161,7 @@ $(function(){
 				$("#tit").html('MESA '+$(this).attr('nmesa'));
                 $("#fdetallefacturas .ciclos").remove();
                 $("#detfactmsj").show();
-                $("#showprod").hide();
+                $(".showprod").hide();
                 $("#saveOrder").addClass('add');
 				actualizar(800,'idtipoocupado=5','id='+id);
 				break;
@@ -195,7 +195,7 @@ $(function(){
                 $("#ffacturas .zelda").data()['idmesa'] = id;
                 $("#tit").html('MESA '+$(this).attr('nmesa'));
                 $("#detfactmsj").hide();
-                $("#showprod").hide();
+                $(".showprod").hide();
                 $("#saveOrder").addClass('saveOrder');
                 break;
             case 5:
