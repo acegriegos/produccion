@@ -596,6 +596,7 @@ function odin(varreglo,vform) {
     //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
     var valorOdin;
+
     switch($("#"+vform).attr('tp')){
         case "1":
     //LLENADO DE VARIABLES POR ATRIBUTO EN DETALLE
@@ -695,6 +696,10 @@ case "4":
             salida[index][varreglo[i][0]] = $(this).data('triforce')[varreglo[i][0]];
 
             salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[index][varreglo[i][0]];
+            if (salida[index][varreglo[i][0]] == undefined) {
+                console.log(varreglo[i][0]+" No Existe");
+                return "Error en Interno, Codigo: Odin"
+            }
             }// end FOR
     });//end EACH
     

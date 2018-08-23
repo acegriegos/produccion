@@ -120,6 +120,10 @@ function sse_response(vid,p) {
                             $("#m"+p[0][i][0]).css('background-color','white');
                             $("#sm"+p[0][i][0]).html('<i class="mdi mdi-dots-horizontal"></i><i class="mdi mdi-pencil"></i>');
                             break;
+                        case 2:
+                            $("#m"+p[0][i][0]).css('background-color','green');
+                            $("#sm"+p[0][i][0]).html('');
+                            break;
                         default:
                             $("#m"+p[0][i][0]).css('background-color','white');
                             $("#sm"+p[0][i][0]).html('');

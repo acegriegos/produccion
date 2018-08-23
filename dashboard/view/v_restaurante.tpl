@@ -74,7 +74,7 @@
         <input type="hidden" class="zelda">
         <a class="mdi mdi-book hide tooltipped black-text mdi-24px pbtn" style="position: fixed;top:15px;right: 0px" data-tooltip="Menú" data-position="bottom"></a>        
         <div class="row" style="margin: 0px;padding: 0px;" >
-          <div class="col s8 row" style="border-right: 1px solid #e2e2e2;max-height: 50vh;">
+          <div class="col s8 row">
             
             <div class="col s12 row" style="margin: 0px;position: relative;">
               {section name=LE loop=$FAM}
@@ -82,42 +82,48 @@
               {/section}
               <a id="fsalir" class="btn btn-success s12 fam" style="width: 100%"><small>Salir</small></a>
 
-              <div id="tipos" style="position: absolute;margin-left: 15%;z-index: 90;top: 0;left: 0;width: 100%;display: none"></div>
+              <div id="tipos" style="position: absolute;margin-left: 15%;z-index: 90;top: 0;left: 0;display: none"></div>
 
-              <div id="productos" style="position: absolute;margin-left: 30%;z-index: 100;top: 0;left: 0;width: 100%;display: none"> 
+              <div id="productos" style="position: absolute;margin-left: 30%;z-index: 100;top: 0;left: 0;display: none"> 
               </div>
 
             </div>
 
           </div>
 
-          <div class="col s4 center" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" style="border-left: 1px solid #e2e2e2;">
-              <span id="detfactmsj">No hay Productos Ingresados</span>
-
+          <div class="col s4 collection row" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" style="margin: 0px;padding: 0px">
+                <a href="#!" class="collection-item black-text col12" id="detfactmsj">No hay Productos Ingresados</a>
+              
           </div>
         </div>
       </div>
        <div class="row" style="margin: 0px;position: fixed; bottom: 7%; width: 100%">
 
-          <div class="input-field col s4">
+          <div class="row col s8" style="margin: 0px;">
+            <div class="input-field col s2">
              <span class="mdi mdi-magnify mdi-24px prefix pbtn tooltipped" data-tooltip="Buscar Producto Manual" data-position="top" id="showprod"></span>
-            <input type="text" id="descp" class="sprod hide">
-            <label for="descp" class="sprod hide">Descripción</label>
+            </div>
+
+            <div class="input-field col s5">
+              <input type="text" id="descp" class="sprod hide" autocomplete="off">
+              <label for="descp" class="sprod hide">Descripción</label>
+              <input type="hidden" id="valores">
+            </div>
+
+            <div class="input-field col s5">
+              <input type="text" id="codp" class="sprod hide" autocomplete="off">
+              <label for="codp" class="sprod hide">Código</label>
+            </div>
           </div>
 
           <div class="input-field col s4">
-            <input type="text" id="codp" class="sprod hide">
-            <label for="codp" class="sprod hide">Código</label>
-          </div>
-
-          <div class="input-field col s4">
-            <i class="prefix mdi mdi-plus" id="addline"></i>
-            <input type="number" id="cantp" class="eder" value="0" min="0">
+            <i class="prefix mdi mdi-plus pbtn" id="addline"></i>
+            <input type="text" id="cantp" class="eder" value="1" min="0" autocomplete="off">
             <label for="cantp">Cantidad</label>
           </div>
         </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="add" modulo="factura" varias="1">Guardar Orden</a>
+        <a href="#!" class="modal-action waves-effect waves-green btn-flat add" id="saveOrder" modulo="factura" varias="1">Guardar Orden</a>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
       </div>
     </div>

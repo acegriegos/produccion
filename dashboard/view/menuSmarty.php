@@ -64,7 +64,7 @@
     <li class="per8 hide gtext"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
     <li class="per9 gtext hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
     <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
-    <li class="per11"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
+    <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
     <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
     <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
     <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
