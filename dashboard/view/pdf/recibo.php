@@ -164,7 +164,7 @@ $miscelaneos[6].'</div>'.
 
 '<br>'.
 
-
+'<span style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;"><b>Factura Electrónica N°</b> '.$datos[0][32].'</span>'.
 
 '</td>'.
 '</tr>'.
@@ -183,8 +183,7 @@ $miscelaneos[6].'</div>'.
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
-'<div style="text-align: left;"><span style="font-size:18px">Factura Electrónica</span><br>'.
-'<br>'.
+'<div style="text-align: left;">'.
 '<strong>Venta N°</strong> '.$datos[0][0].'<br>'.
 '<strong>Factura de: </strong> '.$datos[0][1].'<br>'.
 '<strong>Cliente:</strong><br>'.
@@ -210,8 +209,7 @@ $datos[0][12].'</div>'.
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
-'<div style="text-align: center;"><br>'.
-'<br>';
+'<div style="text-align: center;"><br>';
 
 if ($datos[0][2] === 'N/A') 
     $html .= '<strong>Plazo en Días: </strong><br>'.$datos[0][11].'<br>';
@@ -258,7 +256,7 @@ $html .= '* Producto Exento <br>** I.V.I<br>'.
 '<strong>Cantidad</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="36%">'.
-'<strong>Descripcion</strong>'.
+'<strong>Descripción</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="15%">'.
 '<strong>P. Unitario</strong>'.
@@ -410,6 +408,6 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('../assets/pdf/Factura N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','F');
+$pdf->Output('../assets/pdf/Factura N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','I');
 
 ?>

@@ -59,8 +59,8 @@
           </div>
         </div>
 
-        <div class="row" style="padding: 0% 2% 0% 5%">
-          <b><h3 id="ftipo">Factura Electrónica</h3></b>
+        <div class="row" style="padding: 0px">
+          <b><h3 id="ftipo" style="font-size: 19px">Factura Electrónica N° <?php echo $transaccion[0] [32]; ?></h3></b>
           <div class="col s6 m6 l6" id="infofact">
             <div class="row" style="padding: 0% 0% 0% 5%">
               <!--  -->
@@ -126,7 +126,7 @@
           <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
             <tr>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Nombre</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descripción</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">P. Unit</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Tipo</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">Descuento</th>

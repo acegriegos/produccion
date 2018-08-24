@@ -81,14 +81,21 @@ echo '<tr align="center" '.$ocultar.'>
   </tr>
 </table>
 <table style="width: 100% !important;">
+  <tr class="fe hide">
+    <td align="left" colspan="4"><b>Factura Electrónica N°</b></td>
+  </tr>
+  <tr class="fe hide">
+    <td align="left" colspan="4" style="font-size:13px">'.$transaccion[0][32].'</td>
+  </tr>
+  <tr><td colspan="4"><br></td></tr>
   <tr>
-    <td align="left"><b>Factura N°</b></td>
+    <td align="left"><b>Consecutivo N°</b></td>
     <td width="13%" align="center"><b>Día</b></td>
     <td width="13%" align="center"><b>Mes</b></td>
     <td width="13%" align="center"><b>Año</b></td>
   </tr>
   <tr>
-    <td align="left"><span> '.$datos[0].' </span></td>
+    <td align="left"><span class="fe hide"> '.$datos[0].' </span></td>
     <td width="13%" align="center">'.$fecha[0].'</td>
     <td width="13%" align="center">'.$fecha[1].'</td>
     <td width="13%" align="center">'.$fecha[2].'</td>
@@ -189,12 +196,26 @@ if ($pvuelto > 0 && $vuelto >= 0) {
 </table>';
 }
 
-echo '<hr '.$ocultar.'>
-<div style="text-align: center; font-size: 0.8em;'.$oc.'" id="resolucion">AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D<br>
+echo '<hr>
+<div style="text-align: center; font-size: 0.8em;'.$oc.'" id="resolucion"><br>
 </div>
 </div>';
 
  ?>
  <script src="../assets/js/jquery.js?v=10.0.0.36"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.36"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.36"></script>
+ <script type="text/javascript">
+   $(function(){
+      var config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
+      if (parseInt(config[0])){
+        $(".fe").removeClass('hide');
+        $("#resolucion").html('Este Documento no Tiene Validéz Tributaria');
+      }
+      else{
+        $("#resolucion").html('AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
+      }
+   })
+ </script>
  </body>
  </html>
