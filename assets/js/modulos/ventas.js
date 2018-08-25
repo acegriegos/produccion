@@ -1272,9 +1272,10 @@ function sendVMail(factura,clave,vid){
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
                     w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
                     try{ 
-                        w.print();
-                        setTimeout(function(){w.close();},500);
-                      
+                        $(w).onload(function(){
+                          w.print();
+                          setTimeout(function(){w.close();},500);  
+                        });
                         
                     }catch(e){
                         console.log(e)
@@ -1285,7 +1286,10 @@ function sendVMail(factura,clave,vid){
         }
     }
 
-    setTimeout(function(){location.reload();},2000);
+    if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+        setTimeout(function(){location.reload();},7000);
+    }else
+        setTimeout(function(){location.reload();},2000);
 }
 
 

@@ -60,30 +60,32 @@
         </div>
 
         <div class="row" style="padding: 0px">
-          <b><h3 id="ftipo" style="font-size: 19px">Factura Electrónica N° <?php echo $transaccion[0] [32]; ?></h3></b>
+          <b><h3 id="ftipo" style="font-size: 19px">Factura Electrónica</h3></b>
           <div class="col s6 m6 l6" id="infofact">
-            <div class="row" style="padding: 0% 0% 0% 5%">
+            <div class="row" style="padding: 0% 0% 0% 0%;margin: 0px">
               <!--  -->
-              <div class="col s12">
-                <b id="fact"><?php echo $datos[25]; ?></b>
-                <span id="numfact"> <?php echo $datos[0]; ?> </span>
+              <div class="col s12" style="padding: 0px">
+                <b class="fe">Clave: </b>
+                <span id="clave" class="fe"><?php echo $transaccion[0] [32]; ?></span>
+                <b id="fact"><?php echo $datos[25]; ?> N°:</b>
+                <span id="numfact" class="fe"> <?php echo $datos[0]; ?> </span>
               </div>
-              <div class="col s12 <?php echo $hide ?>">
+              <div class="col s12" style="padding: 0px">
                <b> Factura de: </b><span id="fclase"><?php echo $datos[1].$datos[31]; ?></span>
              </div>
-             <!--  -->
-             <div class="col s12">
-              <?php if ($datos[4] != '') { ?>
-                <p><b><?php echo $datos[30]; ?></span>:</b></p>
-                <span id="fcliente"><?php echo $datos[4]; ?></span>
-              <?php } ?>
-             
+
+             <?php if ($datos[4] != '') { ?>
+             <div class="col s12" style="padding: 0px">
+                <p><b><?php echo $datos[30]; ?>:</b></p>
+                <span id="fcliente"><?php echo $datos[4]; ?></span>  <br>
+                <b>Cédula:</b> <?php echo $datos[34]; ?>
             </div>
-            <div class="col s12"><br>
+            <?php } ?>
+            <div class="col s12" style="padding: 0px">
               <span><b>Vende:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
             </div>
-            <div class="col s12">
+            <div class="col s12" style="padding: 0px">
               <span><b>Comentario:</b></span><br>
               <span id="fcomentario"><?php echo $datos[12]; ?> </span>
             </div>
@@ -103,7 +105,7 @@
           </div>
 
             <div class="col s8 right">
-              <div class="card white-text imprimirSINBOR <?php echo $hide ?>" style="background-color: #3960A7;">
+              <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
                 <div class="card-content ">
                   <?php if ($datos[2] === 'N/A'){ ?>
                   <p><b class="ftipofact">Plazo en Días: </b>

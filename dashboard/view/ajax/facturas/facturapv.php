@@ -82,7 +82,7 @@ echo '<tr align="center" '.$ocultar.'>
 </table>
 <table style="width: 100% !important;">
   <tr class="fe hide">
-    <td align="left" colspan="4"><b>Factura Electrónica N°</b></td>
+    <td align="left" colspan="4"><b>Factura Electrónica, Clave N°</b></td>
   </tr>
   <tr class="fe hide">
     <td align="left" colspan="4" style="font-size:13px">'.$transaccion[0][32].'</td>
