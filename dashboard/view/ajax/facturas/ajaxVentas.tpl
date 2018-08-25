@@ -91,6 +91,58 @@
     </div> 
     
   </div>
+
+  <div class="row gen aff afc hide">
+    
+    <div class="col s12 l3 input-field">
+      <select id="vtipointeres">
+        <option value="1">Tasa Interés Anual, %</option>
+        <option value="1">Tasa Interés Efectiva, %</option>
+      </select>
+      <label for="vtipointeres">Tipo Interés</label>
+    </div>
+    
+    <div class="col s12 l3 input-field">
+      <input type="text" id="vinteres">
+      <label for="vinteres">Valor Interés</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <input type="text" id="vinteres">
+      <label for="vinteres">Años</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <input type="text" id="vmeses">
+      <label for="vmeses">Meses</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <i class="prefix mdi-percent mdi pbtn"></i>
+      <input type="text" id="vcuotainicial">
+      <label for="vcuotainicial">Cuota Inicial</label>
+    </div>
+
+     <div class="col s12 l3 input-field">
+      <i class="prefix mdi-percent mdi pbtn"></i>
+      <input type="text" id="vcomisioning">
+      <label for="vcomisioning">Comisión Ingreso</label>
+    </div>
+
+     <div class="col s12 l3 input-field">
+      <i class="prefix mdi-percent mdi pbtn"></i>
+      <input type="text" id="vcomisionmes">
+      <label for="vcomisionmes">Comisión Mes</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <i class="prefix mdi-percent mdi pbtn"></i>
+      <input type="text" id="vpagresiadual">
+      <label for="vpagresiadual">Pago Residual</label>
+    </div>
+
+  </div>
+
   </div>
 
 
@@ -674,4 +726,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.37"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.38"></script>
