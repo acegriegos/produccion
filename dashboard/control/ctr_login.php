@@ -192,7 +192,7 @@
     function cambioDia($log)
      {  
         indicadores($log);
-        $log->genkidama(2,15,'valor=1','descr="Cambio de Dia"');
+        $log->kamehameha('',146,'');
      } 
 
      function indicadores($log){

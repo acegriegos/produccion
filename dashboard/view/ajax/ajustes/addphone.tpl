@@ -1,5 +1,6 @@
 
-<div class="row">
+<div class="row"
+
     <div class="col s12 input-field" style="margin: 0px;">
       <input type="text" id="pais" class="autocomplete pais" style="margin: 0px;">
       <input type="hidden" id="vidpais" value="52">

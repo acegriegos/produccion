@@ -206,12 +206,8 @@
 		private function _values($arg,$ant){
 			$salida = '';
 			
-			while (list($clave,$param) = each($arg)) {
-
-				// if ($param == '?')
-				// 	$param = $ant;
-
-				$param = str_replace('?', $ant, $param);
+			foreach ($arg as $key) {
+				$param = str_replace('?', $ant, $key);
 
 				if (is_array($param)) {
 					$it = '';
@@ -228,6 +224,7 @@
 				else
 			    	$salida .= "'".$param."',";
 			}
+
 			$salida = substr($salida,0,-1);
 			$salida .= ")";
 			return $salida;

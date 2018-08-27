@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.30">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.39">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class="card-block">
-            <table  class="table tabladetalles bordered striped centered highlight bordered dt-responsive nowrap z-depth-3" id="data-table-clientes" style="width: 100%">
+            <table  class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap" id="data-table-clientes" cellspacing="0" width="100%" style="width: 100%">
               <thead>
                 <tr>
                   <th class="sinborde white-text tab1"><b>Cédula</b></th>
@@ -69,7 +69,7 @@
               </tbody>
             </table>
             <ul class="left showing" modulo="76"><small></small></ul>
-            <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
+            <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29" filtro_sp="?,0,@@impresa"></ul>
           <br>
           <br>
         </div>
@@ -458,7 +458,7 @@
 <hr>
 <div class="row">
   <div class="col s12 m12 l12">
-    <table class="table responsive-table centered striped bordered highlight z-depth-5 pequeño" id="data-table-vehiculos" cellspacing="0" width="100%" >
+    <table class="table dt-responsive nowrap centered striped bordered highlight z-depth-5 pequeño" id="data-table-vehiculos" cellspacing="0" width="100%" >
       <thead>
         <tr>
           <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Placa</th>
@@ -480,6 +480,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.0.0.30"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.0.0.39"></script>
 </body>
 </html>

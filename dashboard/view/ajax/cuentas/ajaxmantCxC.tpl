@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.30">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.39">
 <nav class="nav-extended z-depth-3 head1">
     <div class="nav-wrapper">
         <h4 align="center" style="padding-top: 10px">Cuentas por Cobrar</h4>
@@ -16,6 +16,10 @@
                 <div class="col s12 m4">
                     <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
                     <label for="vencidas">Vencidas</label>
+                </div>
+                <div class="col s12 m4">
+                    <input name="ctas" class="with-gap" type="radio" id="apartados" value="4" />
+                    <label for="apartados">Apartados</label>
                 </div>
                <!--  <div class="col s12 m4">
                     <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />

@@ -1,17 +1,15 @@
 $(function(){
     
+    $("#movil").click(function(){
+        $("#cpu").click()
+    });
+
     $('.button-collapses').sideNav({
         menuWidth: 300, // Default is 240
         edge: 'left', // Choose the horizontal origin
         closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
         draggable: true // Choose whether you can drag to open on touch screens
     });
-    // $('.button-collapse').sideNav({
-    //     menuWidth: 300, // Default is 240
-    //     edge: 'left', // Choose the horizontal origin
-    //     closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-    //     draggable: true // Choose whether you can drag to open on touch screens
-    // });
 
     $(".otpmenu").click(function(){
         var opt = parseInt($(this).attr('value'));
@@ -109,6 +107,29 @@ function sse_response(vid,p) {
                 for (var i = 0; i < p[0].length; i++) {
                     $("#"+p[0][i][0]).removeClass('hide');
                     $("#"+p[0][i][0]).html(p[0][i][1]);
+                }
+                
+            }
+            break;
+        case 3: //RESTAURANTES
+            if (p[0].length) {
+
+                for (var i = 0; i < p[0].length; i++) {
+                    switch(parseInt(p[0][i][1])){
+                        case 5:
+                            $("#m"+p[0][i][0]).css('background-color','white');
+                            $("#sm"+p[0][i][0]).html('<i class="mdi mdi-dots-horizontal"></i><i class="mdi mdi-pencil"></i>');
+                            break;
+                        case 2:
+                            $("#m"+p[0][i][0]).css('background-color','green');
+                            $("#sm"+p[0][i][0]).html('');
+                            break;
+                        default:
+                            $("#m"+p[0][i][0]).css('background-color','white');
+                            $("#sm"+p[0][i][0]).html('');
+                            break;
+                    }
+                    $("#m"+p[0][i][0]).attr('estado',p[0][i][1]);
                 }
                 
             }

@@ -1,12 +1,13 @@
 <div class="navbar-fixed hide-on-large-only">
   <nav>
-    <div class="nav-wrapper blue-grey darken-2">
-      <a href="#" class="button-collapses" data-activates="slide"><i class="mdi mdi-menu mdi-16px"></i></a>
+    <div class="center nav-wrapper blue-grey darken-2">
+      {$smarty.session.EMPRESA|upper}
+      <a href="#" id="movil" class="der"><i class="mdi mdi-menu mdi-16px"></i></a>
     </div>
   </nav>
 </div>
 
-<a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" >
+<a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" id="cpu">
   <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span>
   <br class="sse_cnt hide"><p class="white-text menu-txt">MENU</p></a>
 <!-- hide-on-med-and-down  -->
@@ -55,7 +56,7 @@
   </div>
   {php}
     $muser = $_SESSION['BUSS'];
-    if($muser == 0){
+    if($muser != 1){
   {/php}
 
   <div class="options" style="padding-bottom: 20%">
@@ -63,6 +64,7 @@
     <li class="per8 hide gtext"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
     <li class="per9 gtext hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
     <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
+    <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
     <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
     <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
     <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
@@ -75,7 +77,7 @@
     <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
     <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
     <li class="gtext"><a href="cuentas?tf=1"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
-    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Credito y Debito</span></a></li>
+    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
     <li class="gtext"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     <li class="gtext"><a href="ajustes"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Ajustes</span></a></li>
 {php} } {/php}
@@ -167,7 +169,5 @@
   <div class="modal-footer">
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
-
-  </div>
-
+</div>
 <div id="modalMainGeneral"></div>

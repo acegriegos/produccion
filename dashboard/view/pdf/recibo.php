@@ -164,18 +164,18 @@ $miscelaneos[6].'</div>'.
 
 '<br>'.
 
-
+'<div style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;"> <b>Factura Electrónica</b></span>'.
 
 '</td>'.
 '</tr>'.
 '<tr>'.
-'<td valign="top" id="templateBody"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">'.
+'<td valign="top" id="templateBody"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">'.
 
 '<tbody class="mcnBoxedTextBlockOuter">'.
 '<tr>'.
-'<td valign="top" class="mcnBoxedTextBlockInner">'.
+'<td valign="top" class="mcnBoxedTextBlockInner" width="70%">'.
 
-'<table align="left" border="0" cellpadding="0" cellspacing="0" width="390" class="mcnBoxedTextContentContainer">'.
+'<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextContentContainer">'.
 '<tbody><tr>'.
 
 '<td class="mcnBoxedTextContentColumn" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">'.
@@ -183,15 +183,18 @@ $miscelaneos[6].'</div>'.
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
-'<div style="text-align: left;"><span style="font-size:18px">Factura Electrónica</span><br>'.
-'<br>'.
-'<strong>Venta N°</strong> '.$datos[0][0].'<br>'.
-'<strong>Factura de: </strong> '.$datos[0][1].'<br>'.
-'<strong>Cliente:</strong><br>'.
-'<br>'.
-$datos[0][4].'<br>'.
-'<br>'.
-'<strong>Vende:</strong> '.$datos[0][16].'<br>'.
+'<div style="text-align: left;">'.
+'<strong>Clave: </strong>'.$datos[0][32].'<br>'.
+'<strong>'.$datos[0][25].' N°</strong> '.$datos[0][0].'<br>'.
+'<strong>Factura de: </strong> '.$datos[0][1].'<br>';
+if ($datos[0][4] != '') {
+$html .= '<div style="padding: 0px">
+    <p><b>'.$datos[0][30].':</b></p>
+    <span id="fcliente">'.$datos[0][4].'</span>  <br>
+    <b>Cédula:</b> '.$datos[0][34].'</div>';
+}
+
+$html .= '<strong>Vende:</strong> '.$datos[0][16].'<br>'.
 '<strong>Comentario:</strong><br>'.
 $datos[0][12].'</div>'.
 
@@ -210,19 +213,14 @@ $datos[0][12].'</div>'.
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
-'<div style="text-align: center;"><br>'.
-'<br>';
-
+'<div style="text-align: center;">'.
+'<strong>Fecha:</strong>&nbsp;<br>'.$datos[0][3].'<br><br>';
 if ($datos[0][2] === 'N/A') 
     $html .= '<strong>Plazo en Días: </strong><br>'.$datos[0][11].'<br>';
 else
      $html .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';
-
-$html .= '<br>'.
-'<strong>Fecha:</strong>&nbsp;<br>'.
-$datos[0][3].'</div>'.
-'</td>'.
-'</tr>'.
+$html .= '</div>'.
+'</td></tr>'.
 '</tbody></table>'.
 '</td>'.
 '</tr>'.
@@ -237,16 +235,14 @@ $datos[0][3].'</div>'.
 '<td valign="top" id="templateFooter"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">'.
 '<tbody class="mcnTextBlockOuter">'.
 '<tr>'.
-'<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">'.
-
-'<br><br>';
+'<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">';
 
 if(strlen($datos[0][33])){
   $exoneracion = explode('^', $datos[0][33]);
   $time = strtotime($exoneracion[3]);
   $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-  $html .= '<span style="font-size: 14px;text-align:justify;color: #494949;font-family: Helvetica;">Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].', con fecha '.$fexo.'. Monto Autorizado: '.$exoneracion[4].'. Porcentaje de Compra Autorizado: '.$exoneracion[5].'% </span><br><br>';
+  $html .= '<br><br><span style="font-size: 14px;text-align:justify;color: #494949;font-family: Helvetica;">Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].', con fecha '.$fexo.'. Monto Autorizado: '.$exoneracion[4].'. Porcentaje de Compra Autorizado: '.$exoneracion[5].'% </span><br><br>';
 } 
 
 
@@ -258,7 +254,7 @@ $html .= '* Producto Exento <br>** I.V.I<br>'.
 '<strong>Cantidad</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="36%">'.
-'<strong>Descripcion</strong>'.
+'<strong>Descripción</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 14px;text-align: center; padding: 1%;color: #494949;font-family: Helvetica;" align="center" width="15%">'.
 '<strong>P. Unitario</strong>'.
@@ -383,7 +379,7 @@ if ($datos[0][8] > 0){
 $html .= '<tr>
     <td></td>
     <td align="right" style="color: #494949;font-family: Helvetica;"><strong>TOTAL:</strong></td>
-    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>'.$datos[0][15].$datos[0][10].'</strong></td>
+    <td align="right" style="color: #494949;font-family: Helvetica;"><b>'.$datos[0][15].$datos[0][10].'</b></td>
   </tr></table>'.
 
 

@@ -138,9 +138,14 @@ textarea.materialize-textarea {
 
 @media only screen and (max-width: 769px) {
 
-  .autocomplete-content{
-    position: absolute !important;
+  hr{
+    margin: 0px;
   }
+
+  .autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important; }
 
   .movil {
     margin: 0px !important;
@@ -148,7 +153,11 @@ textarea.materialize-textarea {
     padding-left: 0px !important
   }
 
-    .detalle {
+  .ps{
+    margin-top: 10% !important;
+  }
+
+  .detalle {
     font-size: 0.5em !important; }
 
   #ncli + .autocomplete-content {

@@ -1,24 +1,38 @@
 <section id="ffacturas">
 
 <div class="row">
-  <div class="l9 m12 s12 col">
+   <div class="hide-on-large-only row mstatic" style="background-color: #e2e2e2">
+      <div class="col s4 center">
+        <input type="radio" name="ubfactura" val="1" id="ubfact1" checked>
+        <label for="ubfact1" >Info</label>
+      </div>
+      <div class="col s4 center">
+        <input type="radio" name="ubfactura" val="2" id="ubfact2">
+        <label for="ubfact2" >Detalle</label>
+      </div>
+      <div class="col s4 center">
+        <input type="radio" name="ubfactura" val="3" id="ubfact3">
+        <label for="ubfact3" >Desgloce</label>
+      </div>
+  </div>
 
-<div class="card z-depth-3 pequeño movil">
+  <div class="l9 m12 s12 col movil">
+ 
+<div class="card z-depth-3 movil p1 ps">
 <div class="card-header center head1 white-text">
-  <p class="flow-text" style="margin-top: 0%;"><span id="titfact"></span> {$smarty.session.EMPRESA|upper}
+  <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a></p>
   
 </div>
   <input type="hidden" class="zelda">
 
-  <div class="row pequeño">
-
-      <div class="col s12 m3 l3" align="center">
+  <div class="row pequeño">      
+      <div class="col s12 m3 l3 numfact" align="center">
         <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"></span></label>
       </div>
 
       {assign var="column" value="6"}
-      <div class="col s12 m{$column} l{$column} concre" align="center">
+      <div class="col s12 m{$column} l{$column} concre movil" align="center">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1003" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2" disabled>
@@ -26,11 +40,11 @@
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005" val="3" id="chg_tipo3" disabled>
         <label for="chg_tipo3">Consignación</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1006" val="4" id="chg_tipo4" disabled>
-        <label for="chg_tipo4">Apartado</label><br>
+        <label for="chg_tipo4">Apartado</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1007" val="5" id="chg_tipo5" disabled>
-        <label for="chg_tipo5" class="hide">Arr. Opción de Compra</label>
+        <label for="chg_tipo5" class="tooltipped" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1008" val="6" id="chg_tipo6" disabled>
-        <label for="chg_tipo6" class="hide">Arr. en Función financiera</label>
+        <label for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
 
     <div class="col s12 m3 l3 cre gen hide" align="center">
@@ -44,7 +58,6 @@
 
   </div>
   <hr style="border: 1px solid #F9F9F9; width: 90%">
-  <br>
   <div class="row padd">
 
    <div class="input-field col s12 m3 l3">
@@ -78,15 +91,67 @@
     </div> 
     
   </div>
+
+  <div class="row gen aff afc hide">
+    
+    <div class="col s12 l3 input-field">
+      <select id="vtipointeres">
+        <option value="1">Tasa Interés Anual, %</option>
+        <option value="1">Tasa Interés Efectiva, %</option>
+      </select>
+      <label for="vtipointeres">Tipo Interés</label>
+    </div>
+    
+    <div class="col s12 l3 input-field">
+      <input type="text" id="vinteres">
+      <label for="vinteres">Valor Interés</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <input type="text" id="vinteres">
+      <label for="vinteres">Años</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <input type="text" id="vmeses">
+      <label for="vmeses">Meses</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <i class="prefix mdi-percent mdi pbtn"></i>
+      <input type="text" id="vcuotainicial">
+      <label for="vcuotainicial">Cuota Inicial</label>
+    </div>
+
+     <div class="col s12 l3 input-field">
+      <i class="prefix mdi-percent mdi pbtn"></i>
+      <input type="text" id="vcomisioning">
+      <label for="vcomisioning">Comisión Ingreso</label>
+    </div>
+
+     <div class="col s12 l3 input-field">
+      <i class="prefix mdi-percent mdi pbtn"></i>
+      <input type="text" id="vcomisionmes">
+      <label for="vcomisionmes">Comisión Mes</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <i class="prefix mdi-percent mdi pbtn"></i>
+      <input type="text" id="vpagresiadual">
+      <label for="vpagresiadual">Pago Residual</label>
+    </div>
+
+  </div>
+
   </div>
 
 
 <!-- DETALLE FACTURA -->
-  <div class="card center z-depth-3">
-  <div class="card-header head2 center" style="padding: 0.5%"><b>DETALLE DE FACTURA</b></div>
+  <div class="card z-depth-3 p2 ps hide-on-med-and-down">
+  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b></div>
 
   <div class="row">
-    <div class="s12 m12 l12 col hide-on-med-and-down">
+    <div class="col s12 hide-on-med-and-down">
 
     <section class="right">
       {if $smarty.session.BUSS neq 1}
@@ -99,9 +164,9 @@
         <label for="teclado" class="isfast"><i class="mdi mdi-keyboard mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" data-position="bottom" style="font-size: 1.4em"></i></label>
     </section>
     </div>
-    <div class="s12 m12 l12 col">
-    <table class="table detalle" id="data-table-detalle" cellspacing="0">
-      <thead>
+    <div class="col s12 hide-on-med-and-down">
+<!--     <table class="table detalle" id="data-table-detalle" cellspacing="0">
+      <thead> -->
         <section class="trVenta hide">
         <div class="hide-on-med-and-down">
           <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
@@ -137,7 +202,7 @@
           </div>
         </section>
 
-        <div class="trVenta hide trsec">
+        <div class="trVenta hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
             <input type="hidden" id="valores">
@@ -171,12 +236,12 @@
                 <label for="iva" class="hide" style="float: left;">IVI</label>
             </div>
             <div class="col s4" style="padding: 0px">
-             <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
+             <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
           </div>
         </div>
 
-        <div class="trOCompra hide trsec">
+        <div class="trOCompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
             <input type="hidden" id="valores">
@@ -206,13 +271,13 @@
 
           <div class="center col s12 m2 row" style="font-size: 1em; padding: 0px 5px !important;">
             <div class="col s4" style="padding: 0px">
-             <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
+             <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
           </div>
 
         </div>
 
-        <div class="trCompra hide trsec">
+        <div class="trCompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
             <input type="hidden" id="valores">
@@ -254,19 +319,19 @@
             </div>
 
             <div class="col s4" style="padding: 0px">
-              <a class="btn btn-floating btn2 tooltipped der" id="addline" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
+              <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
 
           </div>
 
         </div>
-      </thead>
-      <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="">
-       
-      </tbody>
-      </table>
       </div>
-
+      <div class="hide-on-large-only">
+        <a class="btn-floating btn2 tooltipped modal-trigger" data-position="top" data-tooltip="Ingresar Línea" href="#modal-addline" style="position: fixed; bottom: 0;right: 0;margin-bottom: 10%;margin-right: 2%;z-index: 998"><i class="mdi mdi-plus mdi-24px"></i></a>
+        <div class="edetalle center">No se Han Ingresado Productos</div>
+      </div>
+      <div vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" class="col s12">
+      </div>
     </div>
 </div>
 <!-- /DETALLE FACTURA -->
@@ -275,10 +340,10 @@
 
 <!-- DIVISOR -->
 
-<div class="l3 m12 s12 col">
+<div class="l3 m12 s12 col p3 ps movil hide-on-med-and-down">
 
 <div class="card center z-depth-3">
-  <div class="card-header center head2 center" style="padding: 1%"><b>DESGLOCE DE FACTURA</b></div>
+  <div class="card-header center head2 center hide-on-med-and-down" style="padding: 1%"><b>DESGLOCE DE FACTURA</b></div>
 
   <div class="row">
     
@@ -399,6 +464,55 @@
 </div>
  <!-- bdy -->
 
+<div class="modal modal-fixed-footer" id="modal-addline" style="height: 400px;">
+  <div class="modal-content">
+    <div class="trVenta hide trsec hide-on-large-only">
+      <div style="padding: 0px 5px !important" class="input-field col s12 m2">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
+            <input type="hidden" id="valores">
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m3">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
+          </div>
+
+          <div style=padding: 0 !important" class="input-field col s12 m1">
+            <select id="uni" readonly >
+              <option>Unid</option>
+            </select>
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
+            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+          </div>
+
+          <!-- <div style="padding: 0px 5px !important" class="input-field col s12 m1">
+            <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
+          </div> -->
+
+          <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
+            <div class="col s8">
+                <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
+                <label for="iva" class="hide" style="float: left;">IVI</label>
+            </div>
+          </div>
+    </div>
+    <div class="trOCompra hide trsec hide-on-large-only">
+      ALGO O
+    </div>
+    <div class="trCompra hide trsec hide-on-large-only">
+      ALGO C
+    </div>
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat addline" tr="2">Agregar</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
 
 <div class="modal modal-fixed-footer" id="modal-inventario" style="height: 400px;">
 
@@ -429,7 +543,7 @@
 </div>
 
 
-<div id="modal-tpagos" class="modal modal-fixed-footer" gfort="0" align="center" style="width: 70%; height: 100% !important;">
+<div id="modal-tpagos" class="modal modal-fixed-footer grandemodal" gfort="0" align="center" style="width: 70%; height: 100% !important;">
 <!--  -->
 <section id="m-efectivo" class="modal-tpago">
   <div class="modal-content">
@@ -612,4 +726,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.30"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.39"></script>

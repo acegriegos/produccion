@@ -1,8 +1,6 @@
 $(function(){
 	$('select').material_select();
-	
-
-	
+		
 	$("#fusuarios").submit(function(){
 		return false;
 	});

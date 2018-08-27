@@ -18,7 +18,7 @@
 	</div>
 	<div class="row pequeño">
 		<div class="col s12 m12 l12 pequeño">
-			<table class="table responsive-table centered striped bordered highlight z-depth-3 pequeño" id="data-table-productos" cellspacing="0" width="100%" >
+			<table class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap" cellspacing="0" width="100%" id="data-table-productos">
 				<thead>
 					<tr>
 						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código {$TMPCIA}</th>
@@ -52,6 +52,7 @@
 					{/section}
 				</tbody>
 			</table>
+        <ul class="left showing" modulo="14"><small></small></ul>
 		<ul class="pagination right" vtbl="14" modulo="productos"></ul>
 		<br><br><br>
 	</div>
@@ -68,76 +69,83 @@
 	<div class="modal-content" style="padding: 0px;" id="fproductos">
 		<input type="hidden" class="zelda">
 		<div id="datosproductos" style="padding: 30px 10px 0 10px">
-            <div class="row">
-                <div class="input-field marginzero col s12 m12 l4">
-                    <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off" tabindex="1">
-                    <label for="vfamilia">Familia</label>
-                </div>
+            <div class="row" style="margin: 0px">
+                <div class="col s12 l4 row" style="margin:0px; padding: 0px">
+                    <div class="input-field marginzero col s12">
+                        <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off" tabindex="1">
+                        <label for="vfamilia">Familia</label>
+                    </div>
 
-                <div class="input-field marginzero col s12 m12 l4">
-                    <input type="text" id="vnombre" class="formprod validate" value="" focus="1vcodigo" autocomplete="off" tabindex="4">
-                    <label for="vnombre">Nombre</label>
-                </div>
+                    <div class="input-field marginzero col s12">
+                        <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off" tabindex="2">
+                        <label for="vtipo">Tipo</label>
+                    </div>
 
-                 <div class="input-field marginzero col s12 m12 l4">
-                    <select type="select" id="vidunidad">
-                        <option value="">Seleccione una Unidad</option>
-                        {section name=LE loop=$UNI}
-                        <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
-                        {/section}
-                    </select>
-                    <label for="vidunidad">Unidad</label>
-                </div>                
-            </div>
-
-            <div class="row">
-                <div class="input-field marginzero col s12 m12 l4">
-                    <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off" tabindex="2">
-                    <label for="vtipo">Tipo</label>
-                </div>
-
-                <div class="input-field marginzero col s12 m12 l4">
-                    <input type="text" id="vcodigo" class="formprod validate" value="" focus="1vcodigointerno" autocomplete="off" tabindex="5">
-                    <label class="active" for="vcodigo">Código</label>
-                </div>
-
-                <div class="input-field marginzero col s12 m12 l4">
-                    <select id="vidmoneda" type="select" noClear="1">
-                      {section name="LE" loop=$MON}
-                        <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
-                      {/section}
-                    </select>
-                    <label for="vidmoneda">Moneda</label>
+                    <div class="input-field marginzero col s12">
+                        <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off" tabindex="3">
+                        <label for="vmarca">Marca</label>
+                    </div>
                 </div>
                 
-            </div>
-                
-            <div class="row">
-            	<div class="input-field marginzero col s12 m12 l4">
-                    <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off" tabindex="3">
-                    <label for="vmarca">Marca</label>
+                <div class="col s12 l4 row" style="margin:0px; padding: 0px">
+
+                    <div class="input-field marginzero col s12">
+                        <input type="text" id="vnombre" class="formprod validate" value="" focus="1vcodigo" autocomplete="off" tabindex="4">
+                        <label for="vnombre">Nombre</label>
+                    </div>
+
+                    <div class="input-field marginzero col s12">
+                        <input type="text" id="vcodigo" class="formprod validate" value="" focus="1vcodigointerno" autocomplete="off" tabindex="5">
+                        <label class="active" for="vcodigo">Código</label>
+                    </div>
+
+                    <div class="input-field marginzero col s12">
+                        <input type="text" id="vcodigointerno" class="formprod validate" value="" focus="1vidunidad" autocomplete="off" tabindex="6">
+                        <label class="active" for="vcodigointerno">Código Interno</label>
+                    </div>
+
                 </div>
 
-                <div class="input-field marginzero col s12 m12 l4">
-                    <input type="text" id="vcodigointerno" class="formprod validate" value="" focus="1vidunidad" autocomplete="off" tabindex="6">
-                    <label class="active" for="vcodigointerno">Código Interno</label>
-                </div>
+                <div class="col s12 l4 row" style="margin:0px; padding: 0px">
 
-               {if $smarty.session.BUSS eq 1} 
+                    <div class="input-field marginzero col s12">
+                        <select type="select" id="vidunidad">
+                            <option value="">Seleccione una Unidad</option>
+                            {section name=LE loop=$UNI}
+                            <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label for="vidunidad">Unidad</label>
+                    </div> 
+
+                    <div class="input-field marginzero col s12">
+                        <select id="vidmoneda" type="select" noClear="1">
+                          {section name="LE" loop=$MON}
+                            <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
+                          {/section}
+                        </select>
+                        <label for="vidmoneda">Moneda</label>
+                    </div>
+
+                    {if $smarty.session.BUSS eq 1} 
                     <input type="hidden" id="vidinventario" value="6" noClear="1">
-                {else}
-                <div class="input-field marginzero col s12 m12 l4" id="dinventario">
-                    <select type="select" id="vidinventario" noClear="1">
-                        <option value="0">Seleccione un Inventario</option>
-                        {section name=LE loop=$INV}
-                        <option value="{$INV[LE][0]}" {if $INV[LE][0] eq 6} selected {/if}>{$INV[LE][1]}</option>
-                        {/section}
-                    </select>
-                    <label for="vidinventario">Inventario</label>
-                </div>
-                 {/if}
+                    {else}
+                    <div class="input-field marginzero col s12" id="dinventario">
+                        <select type="select" id="vidinventario" noClear="1">
+                            <option value="0">Seleccione un Inventario</option>
+                            {section name=LE loop=$INV}
+                            <option value="{$INV[LE][0]}" {if $INV[LE][0] eq 6} selected {/if}>{$INV[LE][1]}</option>
+                            {/section}
+                        </select>
+                        <label for="vidinventario">Inventario</label>
+                    </div>
+                     {/if}
 
+                </div>
+
+                                
             </div>
+
 
             <div class="row">
 
@@ -166,7 +174,7 @@
 	                </div>
 	            </div>
                 {/if}
-                <div class="marginzero col s12 m12 l12 row">
+                <div class="marginzero hide col s12 m12 l12 row">
                     <div class="col s4 m2 l2">
                         <input type="checkbox" id="visheredado" class="filled-in">
                         <label for="visheredado">Heredado</label>
@@ -531,4 +539,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.30"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.39"></script> -->

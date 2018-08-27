@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.30">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.30">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.39">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.39">
   </head>
   <body>
   
@@ -18,7 +18,7 @@
         <div class="card z-depth-3 ">
             <div class="card-header center"> 
             <p class="flow-text head1">
-            Vista de Facturas {$smarty.session.EMPRESA|upper}</p>
+            Vista de Facturas <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span></p>
             </div>
 
             <div class="row">
@@ -55,7 +55,7 @@
 
             <hr>
             <div class="row">
-                <div class="col s7 input-field">
+                <div class="col s9 m7 input-field">
                   <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
                   <ul id='filtr_1' class='dropdown-content'>
                     <li><a class="optns" href="#!" fltr="1">Número</a></li>
@@ -65,7 +65,7 @@
                   <input type="text" id="search_facturas" maxlength="100" num="v158" var="0,1" filtro="1">
                   <label class="truncate" for="search_facturas">Buscar Factura por <span>Número</span></label>
                 </div>
-                <div class="col s2"></div>
+                <div class="col m2 hide-on-small"></div>
                 <div class="col s3 der">
                     <a href="#modal-getxml" class="btn btn2 mdi mdi-upload mdi-24px tooltipped" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px"></a>
 
@@ -79,7 +79,7 @@
                       </div>
                 </div>
                 <div class="col s12" id="vfacturas">
-                     <table class="table tablatitulos responsive-table centered striped bordered highlight z-depth-3" id="data-table-facturas" cellspacing="0" width="100%" >
+                     <table class="table tablatitulos dt-responsive nowrap centered striped bordered highlight z-depth-3" id="data-table-facturas" cellspacing="0" width="100%" >
                         <thead class="tab1">
                             <tr>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Factura</th>
@@ -92,7 +92,7 @@
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="listafacturas">
+                        <tbody id="listafacturas" class="tpag">
                             {section name=LE loop=$FACT}
                             <tr>
                                 <td style="width: 10%">{$FACT[LE][1]}</td>
@@ -109,11 +109,12 @@
 
                                     <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
 
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e{$FACT[LE][0]}" style="color:{if $FACT[LE][11] eq 1}green{elseif $FACT[LE][11] eq 2}yellow{elseif $FACT[LE][11] eq 3}red{else}{/if};" data-tooltip="Estado de la Factura" data-position="bottom"></a>
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e{$FACT[LE][0]}" style="color:{if $FACT[LE][11] eq 1}green{elseif $FACT[LE][11] eq 2}#cddc39{elseif $FACT[LE][11] eq 3}red{elseif $FACT[LE][11] eq 9}#8bc34a{else}{/if};" data-tooltip="Estado de la Factura" data-position="bottom"></a>
                                 </td>
                             </tr>
                             {/section}
                         </tbody>
+                        <!-- <tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody> -->
                     </table>
                     <ul class="left showing" modulo="158"><small></small></ul>
                     <ul class="pagination right" vtbl="158" modulo="facturas" filtro_sp="{$TF},0,@@impresa,^,?"></ul>
@@ -190,14 +191,14 @@
             </section>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="1">Aceptar</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="2">Aceptar Parcial</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add" modulo="factura" tp="3" varias="5" xml="3" dc="3">Rechazar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="5">Aceptar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="6">Aceptar Parcial</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="7">Rechazar</a>
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Cancelar</a>
         </div>
     </div>
 
-    <script src="../assets/js/dropzone.js?v=10.0.0.30"></script>
-    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.30"></script>
+    <script src="../assets/js/dropzone.js?v=10.0.0.39"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.39"></script>
   </body>
 </html>

@@ -27,14 +27,20 @@ if (isset($_POST['respuestaXml'])) {
             require_once '_config/mysqlDB.php';
             
             $cliente = isset($_POST['client_id']) ? $_POST['client_id'] : '';
-            
-            if (strlen($cliente) == 0){
-                $salida['msj'] = 'CLIENTE NO VALIDO';
-                $salida['error'] = 1;
-            }else{
-                $salida['msj'] = 'VAMO BIEN';
-                $salida['error'] = 0;
-            }
+            $salida['error'] = 0;
+
+            // if (strlen($cliente) == 0){
+            //     $salida['msj'] = 'CLIENTE NO VALIDO';
+            //     $salida['error'] = 1;
+            // }else{
+            //     $salida['msj'] = 'VAMO BIEN';
+            //     $salida['error'] = 0;
+            // }
+            $db = new DBClass();
+
+            $rs = $db->ejecutar('select * from logintech.permisosLogintech');
+            $salida['permisos'] = $rs->fetch_all();
+
             break;
         case 2: //CARGA DE INFORMACION FE
             require_once '_config/mysqlDB.php';
@@ -204,7 +210,7 @@ if (isset($_POST['respuestaXml'])) {
                         $salida['error'] = 0;
                         $salida['correo'] = $correo;
                         
-                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'',1,1,1,'".$salida['cedula']."','','',".$salida['tipo'].",0,'assets/p12/".$name."','".$pin."',NULL,1,0,0,'".$userComprobante."','".$passComprobante."',1)");
+                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'',1,1,1,'".$salida['cedula']."','','',".$salida['tipo'].",0,'assets/p12/".$name."','".$pin."',NULL,1,0,0,'".$userComprobante."','".$passComprobante."',1,'')");
                         $rs = $db->ejecutar("select id from sucursales where cedula = '".$salida['cedula']."'")->fetch_all()[0][0];
 
                         $db->ejecutar("insert into correos values(null,".$rs.",39,'".$correo."')");

@@ -1,6 +1,6 @@
 <?php
 if (sizeof($transaccion) > 0) {
-
+// [15] = apartados
 if ($transaccion[0][13] == 1) {
 foreach ($transaccion as $obj) {
 ?>
@@ -36,6 +36,7 @@ foreach ($transaccion as $obj) {?>
 <?php } ?>
 <?php }
 }else{
+    // <td colspan="8">No Hay Datos Disponibles</td>
     echo '<tr>
         <td ></td>
          <td></td>
@@ -45,6 +46,5 @@ foreach ($transaccion as $obj) {?>
          <td></td>
          <td></td>
          <td></td>
-
     </tr>';
 } ?>

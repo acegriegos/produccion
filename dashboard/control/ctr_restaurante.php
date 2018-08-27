@@ -9,21 +9,20 @@
 	   	$smarty->setModule('dashboard');
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	    $sty = $smarty->fetch('../view/styles.php');
-		$scr = $smarty->fetch('../view/scripts.php');
-	
-		$smarty->assign('STY',$sty);
-		$smarty->assign('SCR',$scr);
-	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'id > 0 order by id'));
-	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
-	    $smarty->assign('PROV',$kakaroto->kamehameha('',76,'0,0,",1,@@impresa","0,10"'));
-	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('id,nombre',68,'1 order by nombre limit 10'));
+        $scr = $smarty->fetch('../view/scripts.php');
+    
+        $smarty->assign('STY',$sty);
+        $smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->display('v_proveedores.tpl');
-	   	
+	   	$smarty->assign('MESAS',$kakaroto->kamehameha('id,nombre,idtipoocupado',800,'id > 0 and !bisbarra'));
+	   	$smarty->assign('BARRAS',$kakaroto->kamehameha('id,nombre',800,'id > 0 and bisbarra'));
+	   	$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 and idsucursal in(-1,@@impresa)'));
+	   	$smarty->display('v_restaurante.tpl');
 	   }else{
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
+	   			
 	   			break;
 	   	}
 		if(!$pagina){
@@ -37,7 +36,8 @@
 		
 				$salida = array('succed'=>$succed);
 				array_push($salida, $marcas);
-				print_r(json_encode($salida));
+				print_r(json_encode($salida));	
+		
 		   }
 	    }	
 			   

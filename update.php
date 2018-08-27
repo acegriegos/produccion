@@ -86,10 +86,6 @@
             $pass = $db->getPSS();
             $salida = [];
             set_time_limit(0);
-            // $salida['.INI'] = "character-set-server  = utf8mb4
-            // collation-server      = utf8mb4_general_ci
-            // lc_time_names         = es_CR
-            // default-time-zone = '-06:00'";
 
             $source = "https://logintechcr.com/descargas/firts.sql";
             $ch = curl_init();
@@ -187,83 +183,7 @@
                                 <li><a href="#!" id="lt" class="instalar">Prueba LT</a></li>
                                 <li><a href="#!" id="fe" class="instalar">Con FE</a></li>
                                 <li><a href="#!" id="si" class="instalar">Sin FE</a></li>
-                            </ul><br><br>
-                            <section id="insta-data" class="hide sub">
-                                <div class="row">
-                                    <div class="input-field col s12" style="margin:0px">
-                                        <input type="text" id="nchema" value="production">
-                                        <label for="nchema">Base de Datos</label>
-                                    </div>
-
-                                    <div class="col s2 cbh si hide" style="margin:0px">
-                                        <input type="checkbox" id="tipocliete" name="chk1">
-                                        <label for="tipocliete" class="tooltipped pbtn" data-tooltip="Cliente Jurídico" data-position="button"></label>
-                                    </div>
-
-                                    <div class="input-field col s5 cbh si hide" style="margin:0px">
-                                        <input type="text" id="nombre">
-                                        <label for="nombre">Razon Social</label>
-                                    </div>
-
-                                    <div class="input-field col s5 cbh si hide" style="margin:0px">
-                                        <input type="text" id="cedula">
-                                        <label for="cedula">Cédula</label>
-                                    </div>
-
-                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
-                                        <input type="text" id="correo">
-                                        <label for="correo">Correo</label>
-                                    </div>
-
-                                     <div class="input-field col s6 cbh si fe hide" style="margin:0px">
-                                        <input type="text" id="telefono">
-                                        <label for="telefono">Teléfono</label>
-                                    </div>
-
-                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
-                                        <select id="provincia" style="font-size: 9px">
-                                            <option disabled selected>Seleccione una Opcion</option>
-                                            <option value="1">San José</option>
-                                        </select>
-                                        <label for="provincia">Provincia</label>
-                                    </div>
-
-                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
-                                        <select id="canton">
-                                            <option>---</option>
-                                        </select>
-                                        <label for="canton">Canton</label>
-                                    </div>
-
-                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
-                                        <select id="distrito">
-                                            <option>---</option>
-                                        </select>
-                                        <label for="distrito">Distrito</label>
-                                    </div>
-
-                                    <div class="input-field col s6 cbh si fe hide" style="margin:0px">
-                                        <select id="barrio">
-                                            <option>---</option>
-                                        </select>
-                                        <label for="barrio">Barrio</label>
-                                    </div>
-
-                                    <div class="input-field col s9 cbh si fe hide" style="margin:0px">
-                                        <input type="text" id="direccion">
-                                        <label for="direccion">Dirección</label>
-                                    </div>
-
-                                    <div class="col s2" style="margin:0px">
-                                        <a href="#" class="next btn-floating mdi mdi-arrow-collapse-right tooltipped" data-tooltip="Siguiente" data-position="button" st="1"></a>
-
-                                        <a href="#" class="next btn-floating mdi mdi-arrow-collapse-left tooltipped" data-tooltip="Anterior" data-position="button" st="2"></a>
-
-                                        <a href="#" class="next btn-floating mdi mdi-check tooltipped" data-tooltip="Finaliar" data-position="button" st="3"></a>
-                                    </div>
-                                </div>    
-                            </section>
-
+                            </ul>
                             <section id="insta" class="hide" style="text-align: left;">
                                 <i class="mdi mdi-checkbox-blank-circle-outline"></i> Instalando <br>
                                 <i class="mdi mdi-checkbox-blank-circle-outline"></i> Actualizando <br>
@@ -283,7 +203,93 @@
                         <div class="col s4">
                             <a href="#" class="btn btn-info" id="cp">Cargar Permisos</a> 
                         </div>
-                    </div>                   
+                    </div> 
+                    <div class="row">
+                        <section id="insta-data" class="hide sub col s4">
+                            <div class="row data">
+                                <div class="input-field col s12" style="margin:0px">
+                                    <input type="text" id="nchema" value="production">
+                                    <label for="nchema">Base de Datos</label>
+                                </div>
+
+                                <div class="col s2 cbh si hide" style="margin:0px">
+                                    <input type="checkbox" id="tipocliete" name="chk1">
+                                    <label for="tipocliete" class="tooltipped pbtn" data-tooltip="Cliente Jurídico" data-position="button"></label>
+                                </div>
+
+                                <div class="input-field col s5 cbh si hide" style="margin:0px">
+                                    <input type="text" id="nombre">
+                                    <label for="nombre">Razon Social</label>
+                                </div>
+
+                                <div class="input-field col s5 cbh si hide" style="margin:0px">
+                                    <input type="text" id="cedula">
+                                    <label for="cedula">Cédula</label>
+                                </div>
+
+                                <div class="input-field col s6 cbh si fe hide" style="margin:0px">
+                                    <input type="text" id="correo">
+                                    <label for="correo">Correo</label>
+                                </div>
+
+                                 <div class="input-field col s6 cbh si fe hide" style="margin:0px">
+                                    <input type="text" id="telefono">
+                                    <label for="telefono">Teléfono</label>
+                                </div>
+
+                                <div class="input-field col s6 cbh si fe hide" style="margin:0px">
+                                    <select id="provincia" style="font-size: 9px">
+                                        <option disabled selected>Seleccione una Opcion</option>
+                                        <option value="1">San José</option>
+                                    </select>
+                                    <label for="provincia">Provincia</label>
+                                </div>
+
+                                <div class="input-field col s6 cbh si fe hide" style="margin:0px">
+                                    <select id="canton">
+                                        <option>---</option>
+                                    </select>
+                                    <label for="canton">Canton</label>
+                                </div>
+
+                                <div class="input-field col s6 cbh si fe hide" style="margin:0px">
+                                    <select id="distrito">
+                                        <option>---</option>
+                                    </select>
+                                    <label for="distrito">Distrito</label>
+                                </div>
+
+                                <div class="input-field col s6 cbh si fe hide" style="margin:0px">
+                                    <select id="barrio">
+                                        <option>---</option>
+                                    </select>
+                                    <label for="barrio">Barrio</label>
+                                </div>
+
+                                <div class="input-field col s9 cbh si fe hide" style="margin:0px">
+                                    <input type="text" id="direccion">
+                                    <label for="direccion">Dirección</label>
+                                </div>
+                            </div> 
+
+                        </section>
+
+                        <div class="row col s4 hide">
+                                LOGO, CHECKS
+                            </div> 
+
+                            <div class="row fe col s4 hide">
+                                FACTURA ELECTRONICA
+                            </div> 
+
+                            <div class="row si col s4 hide">
+                                SIN FACTURA ELECTRONICA
+                            </div> 
+
+                            <div class="col s12">
+                                <a href="#" class="next btn-floating mdi mdi-check tooltipped" data-tooltip="Finaliar" data-position="button" st="3" style="float: right;"></a>
+                            </div>  
+                    </div>                  
                 </div>
             </div>
 
@@ -407,11 +413,6 @@
             $pass = $db->getPSS();
             $salida = [];
             set_time_limit(0);
-            $salida['CONF'] = 'OK';
-            $salida['.INI'] = "character-set-server  = utf8mb4
-            collation-server      = utf8mb4_general_ci
-            lc_time_names         = es_CR
-            default-time-zone = '-06:00'";
 
             $source = "https://logintechcr.com/descargas/firts.sql";
             $ch = curl_init();
@@ -477,12 +478,11 @@
             $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : '';
             $salida = [];
 
-            $source = "http://erp.logintechcr.com/wsdlServer.php";
+            $source = "https://sistema.logintechcr.com/wsdlServer.php";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_SSLVERSION,false);
             $params = array(
               "client_id" => $user,
               "cmd" => "1");
@@ -503,10 +503,34 @@
 
             curl_close ($ch);
 
-            if ($error) 
+            if ($error){
                 $salida['PERMISOS'] = $error;
+            }
             else{
                 $salida['PERMISOS'] = $data;
+
+                require_once '_config/mysqlDB.php';
+            
+                $db = new DBClass();
+                $db->ejecutar('delete from permisosLogintech where id > 0');
+                $db->ejecutar('truncate permisosLogintech');
+
+                $db->ejecutar('delete from permisosCliente where id > 0');
+                $db->ejecutar('truncate permisosCliente');
+
+                $db->ejecutar('delete from permisos where id > 0');
+                $db->ejecutar('truncate permisos');
+                $str = 'INSERT INTO permisosLogintech values';
+
+                $data = json_decode($data);
+                
+                foreach ($data->permisos as $row) {
+                    $row[4] = !strlen($row[4]) ? 'null' : $row[4];
+                    $str .= "(".$row[0].",'".$row[1]."',".$row[2].",".$row[3].",".$row[4]."),";
+                }
+
+                print_r($db->ejecutar(substr($str, 0, strlen($str)-1)));
+
             }
             break;        
         default: //CONFIGURACION BASE
@@ -525,7 +549,7 @@
             
             if (!file_exists("assets/update/update.sql")) {
 
-                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --complete-insert --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipoestadocuentas  --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoexoneraciones --ignore-table=".$mdb.".tipoventas --ignore-table=".$mdb.".permisos --ignore-table=".$mdb.".permisosCliente --ignore-table=".$mdb.".permisosLogintech > ./assets/update/info.sql");
+                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --complete-insert --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipoestadocuentas  --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoexoneraciones --ignore-table=".$mdb.".tipoventas --ignore-table=".$mdb.".permisos --ignore-table=".$mdb.".permisosCliente --ignore-table=".$mdb.".permisosLogintech --ignore-table=".$mdb.".unidadeshacienda --ignore-table=".$mdb.".sysplanes --ignore-table=".$mdb.".sysmods > ./assets/update/info.sql");
                 shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
 
                 $source = "https://logintechcr.com/descargas/struct.lt";

@@ -10,7 +10,7 @@
 </head>
 <body>
     {$NAV}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css?v=10.0.0.30">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedores.css?v=10.0.0.39">
     <div class="bdy pequeño" >
         <div class="card">
             <div class="card-header center head1"><p class="flow-text" style="font-size: 1.9em;">Proveedores</p>
@@ -66,7 +66,8 @@
                             {/section}
                         </tbody>
                     </table>
-                     <ul class="pagination right" vtbl="306" modulo="clientes" cambio="30"></ul>
+                      <ul class="left showing" modulo="76"><small></small></ul>
+                      <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
                    <br>
                    <br>
                 </div>
@@ -360,8 +361,8 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=10.0.0.30"></script>
-<script src="../assets/js/jquery.mask.min.js?v=10.0.0.30"></script>
+<script src="../assets/js/modulos/proveedores.js?v=10.0.0.39"></script>
+<script src="../assets/js/jquery.mask.min.js?v=10.0.0.39"></script>
 
 </body>
 </html>

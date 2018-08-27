@@ -9,6 +9,7 @@ $(function(){
     cargarMoneda(0);
 });
 
+
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
@@ -29,10 +30,6 @@ $(window).keydown(function(e){
         return false;        
         
 });
-
-// $(document).on("contextmenu", function (e) {        
-//     e.preventDefault();
-// });
 
 $(document).on('click','.alv',function(){
     $(this).attr('disabled',true);
@@ -111,6 +108,7 @@ $(document).on("keyup",".numeric",function(e){
     if(code == 13)
         $(this).blur()
 });
+
 
 $(document).on('keydown','.pais',function(e){
     var charCode = e.which || e.keyCode;
@@ -242,20 +240,22 @@ $(document).on("click",".edit",function(){
 });
 
 $(document).on("click",".delete",function(){
-
+    
     if ($(this).attr('cnt') == undefined) {
         if(!$("#_DEL").length){
             var id = $(this).attr('id');
             $(this).attr('mbg',$(this).parent().parent().css('background-color'));
             var $toastContent = $('<span id="_DEL" >Desea Eliminar Este Registro? </span>').add($('<a class="btn red" style="margin:2px" id="deldef" inid="'+id+'">Elminar</a> <a class="btn btn-default" id="delcan" inid="'+id+'">Cancelar</a>'));
-            Materialize.toast($toastContent,10000,'',function(){$("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'))});
+            Materialize.toast($toastContent,10000,'',function(){if($("#"+id) != undefined) $("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'))});
             $(this).parent().parent().css('background-color','#ed5249');
         }
     }else{
+        
         var modulo = $(this).attr('modulo');
         var id = $(this).attr('id').substr(1);
         vari = $(this).attr('tip') == undefined ? 'vid' : $(this).attr('tip') ;
         acc = 3;
+        $(this).removeAttr('cnt');
         doGlobal(3,modulo,id,0);
     }
 });
@@ -290,6 +290,7 @@ $(document).on("keyup","[id^=search_]",function(e){
         var j = $(this).attr('filtro') == undefined ? 1 : $(this).attr('filtro');
         var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
         var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
+
         filltable(h,b,c,g);
         $(".pagination").html('');
         paginate(c,i)
@@ -316,11 +317,10 @@ function doGlobal(accion,modulo,tip,varias){
             arreglo['varios'][index] = arr;
         });
     }
-
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
+        // console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -346,7 +346,6 @@ function doGlobal(accion,modulo,tip,varias){
 function baseValidar(vaccion,vmodulo){
     var salida = {}
     var varreglo = mantenimiento('login',vaccion,vmodulo);
-
     if ( varreglo['succed'] == 1){
         salida = validar(varreglo[0],vmodulo);
         if (vmodulo['tip'] != '') {
@@ -517,6 +516,18 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
     return true;
 }
 
+function actualizar(vtabla,varg1,varg2){
+    return arr('login',7,2,vtabla,varg1,varg2,0,0,0);
+}
+
+function insertar(vtabla,varg1,varg2){
+    return arr('login',7,1,vtabla,varg1,varg2,0,0,0);
+}
+
+function eliminar(vtabla,varg1,varg2){
+    return arr('login',7,3,vtabla,varg1,varg2,0,0,0);
+}
+
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
     var salida = 1;
     var arr = {};
@@ -585,6 +596,7 @@ function odin(varreglo,vform) {
     //revisar detalles, esta guardando con index y si se borra una linea va a dar error
     var salida = {};
     var valorOdin;
+
     switch($("#"+vform).attr('tp')){
         case "1":
     //LLENADO DE VARIABLES POR ATRIBUTO EN DETALLE
@@ -684,6 +696,10 @@ case "4":
             salida[index][varreglo[i][0]] = $(this).data('triforce')[varreglo[i][0]];
 
             salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[index][varreglo[i][0]];
+            if (salida[index][varreglo[i][0]] == undefined) {
+                console.log(varreglo[i][0]+" No Existe");
+                return "Error en Interno, Codigo: Odin"
+            }
             }// end FOR
     });//end EACH
     
@@ -696,7 +712,8 @@ case "5":
         }
         break;
 
-    default:
+default:
+
     //LLENADO DE VARIABLES POR ID SIN DETALLE
     for (var i = 0; i < varreglo.length; i++) {
         if ($("#"+vform+" #"+varreglo[i][0]).attr('hid') != undefined){
@@ -820,7 +837,7 @@ function deadclear(vform) {
 
 function thorload(vtabla) {
     vtabla += "s";
-    
+
     if ($("#search_"+vtabla).val() != undefined && $("#search_"+vtabla).val() != ""){
         var e = jQuery.Event("keyup");
         e.which = 13;
@@ -1096,7 +1113,7 @@ function doreport() {
             }
         }
 
-        if (datos[i] == 'vidsucursal')
+        if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
     }
 
@@ -1105,7 +1122,7 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    console.log(tbl,' ',atributos)
+    // console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 
 }
@@ -1260,7 +1277,7 @@ function paginate(vtbl,len,vfiltro) {
         $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>0</span> a <span class='pag-hasta'>0</span> de <span class='pag-tot'>0</span> Entradas")
         return false;
     } else if (parseFloat(countpag) < 1) {
-        
+       
     } else {
         var txt = '<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-left prv"></i></a></li>';
         for (var i = 1; i <= Math.ceil(countpag); i++) {
@@ -1275,6 +1292,7 @@ function paginate(vtbl,len,vfiltro) {
     }
 
     var phasta = parseInt(countpag*10) >= 10 ? 10 : parseInt(countpag*10);
+
     $(".showing[modulo="+vtbl+"] small").html("Mostrando <span class='pag-desde'>1</span> a <span class='pag-hasta'>"+phasta+"</span> de <span class='pag-tot'>"+parseInt(countpag*10)+"</span> Entradas")
 }
 
@@ -1288,21 +1306,7 @@ $(document).on("click", ".paginate", function () {
     var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     $(".paginate").removeClass('active')
     $(this).addClass('active');
-    var tabla = $("#data-table-"+modulo).DataTable();
-    tabla.destroy();
-    $("#lista"+modulo).html('');
-    // console.log(arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, 0))
-    arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-
-    $("#data-table-"+modulo).DataTable({
-        bFilter: false,
-        bScrollInfinite: true,
-        bSort: false,
-        bLengthChange: false,
-        order: [],
-        bPaginate: false,
-        info: false
-    });
+    llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
     var numl = parseInt($('a',this).html());
     var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
     var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
@@ -1341,38 +1345,16 @@ $(document).on("click", ".nxt", function () {
             $(".paginate").removeClass('active');
             $("#z" + next).addClass('active');
             var limit = $("#z" + next).attr('limit');
-            var tabla = $("#data-table-"+modulo).DataTable();
-            tabla.destroy();
-            var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            arr('login', 6, '', vtbl, '0,0,"'+filtro+'","'+limit+'"', cambio,1, $("#lista"+modulo));
-            $("#data-table-"+modulo).DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
-        }   
+        }
     } else {
         var limit = $("#z" + next).attr('limit');
         $(".paginate").removeClass('active');
-        $("#z" + next).addClass('active');
-        var tabla = $("#data-table-"+modulo).DataTable();
-        tabla.destroy();
-
-        arr('login', 6, '', vtbl, '0,0,"'+filtro_sp+'","'+limit+'"', cambio,1, $("#lista"+modulo));
-        $("#data-table-"+modulo).DataTable({
-            bFilter: false,
-            bScrollInfinite: true,
-            bSort: false,
-            bLengthChange: false,
-            order: [],
-            bPaginate: false,
-            info: false
-        });
+        $("#z" + next).addClass('active');      
     }
+    llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
+
+    if ($("#z"+next+" a").html() == undefined)
+        return
 
     var numl = parseInt($("#z"+next+" a").html());
     var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
@@ -1414,64 +1396,29 @@ $(document).on("click", ".prv", function () {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
-                var tabla = $("#data-table-"+modulo).DataTable();
-
-                tabla.destroy();
-                arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-                $("#data-table-"+modulo).DataTable({
-                    bFilter: false,
-                    bScrollInfinite: true,
-                    bSort: false,
-                    bLengthChange: false,
-                    order: [],
-                    bPaginate: false,
-                    info: false
-                });
-            } else {
+                llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
+               } else {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
                 var limit = $("#z" + prev).attr('limit');
-                var tabla = $("#data-table-"+modulo).DataTable();
-                tabla.destroy();
-
-                arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
-                $("#data-table-"+modulo).DataTable({
-                    bFilter: false,
-                    bScrollInfinite: true,
-                    bSort: false,
-                    bLengthChange: false,
-                    order: [],
-                    bPaginate: false,
-                    info: false
-                });
-                
+                llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
             }
         } else {
             var limit = $("#z" + prev).attr('limit');
             $(".paginate").removeClass('active');
             $("#z" + prev).addClass('active');
-            var tabla = $("#data-table-"+modulo).DataTable();
+           
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            tabla.destroy();
-            arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"',cambio,1,$("#lista"+modulo));
-            $("#data-table-"+modulo).DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
-            
+            llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
         }
     }
-
+    if ($("#z"+prev+" a").html() == undefined)
+        return
     var numl = parseInt($("#z"+prev+" a").html());
     var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
     var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
     var nshow = nfin-ntot >= 0 ? ntot : nfin;
-    
+
     $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
     $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
 });
@@ -1539,6 +1486,29 @@ $(document).on('blur','[addG=1]',function(){
         }
     }
 });
+
+function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
+    $("#data-table-"+modulo).append('<tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody>');
+    $("#lista"+modulo).addClass('hide');
+    var tabla = $("#data-table-"+modulo).DataTable();
+    tabla.destroy();
+    arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    $("#data-table-"+modulo).DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    }); 
+    setTimeout(function(){
+        $("#loadbody").remove();
+        $("#lista"+modulo).removeClass('hide');
+    }, 500);
+    
+}
+
 function findClient(nom,blr) {
     var clie = getDatos('',63,'\"'+nom+'\",0,@@tmp_cia',0,0,0);
     if (nom != '') {
@@ -1711,6 +1681,7 @@ function reconstruirModal(tp) {
     //     str += '<option value="'+ids[j]+'">'+nombres[j]+'</option>';
     // });
     // $("#vidinventario").append(str);
+
     $("select").material_select();
     Materialize.updateTextFields();
     // $(".zelda").removeData();
@@ -1726,10 +1697,10 @@ function reconstruirModal(tp) {
 
 function keysight(e) {
     e = e.keyCode || e.wich;
-    var t={1:"!",2:"@",3:"#",4:"$",5:"%",6:"^",7:"&",8:"*",9:"(",0:")",38:'~',48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",59:";",61:"=",65:"a",66:"b",67:"c",68:"d",69:"e",70:"f",71:"g",72:"h",73:"i",74:"j",75:"k",76:"l",77:"m",78:"n",79:"o",80:"p",81:"q",82:"r",83:"s",84:"t",85:"u",86:"v",87:"w",88:"x",89:"y",90:"z",96:"0",97:"1",98:"2",99:"3",100:"4",101:"5",102:"6",103:"7",104:"8",105:"9",106:"*",107:"+",108:"13",109:"-",110:".",111:"/",173:"-",186:";",187:"=",188:",",189:"-",190:".",191:"/",192:"`",219:"[",220:"\\",221:"]",222:"'",223:"`"};
+    var t={1:"!",2:"@",3:"#",4:"$",5:"%",6:"^",7:"&",8:"*",9:"(",0:")",13:"",16:"",20:"",37:"",38:"",39:"",40:"",48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",59:";",61:"=",65:"a",66:"b",67:"c",68:"d",69:"e",70:"f",71:"g",72:"h",73:"i",74:"j",75:"k",76:"l",77:"m",78:"n",79:"o",80:"p",81:"q",82:"r",83:"s",84:"t",85:"u",86:"v",87:"w",88:"x",89:"y",90:"z",96:"0",97:"1",98:"2",99:"3",100:"4",101:"5",102:"6",103:"7",104:"8",105:"9",106:"*",107:"+",108:"13",109:"-",110:".",111:"/",173:"-",186:";",187:"=",188:",",189:"-",190:".",191:"/",192:"`",219:"[",220:"\\",221:"]",222:"'",223:"`"};
     var salida = t[e];
-    var prueba = salida == undefined ? 1 : 0;
-    return salida == undefined ? String.fromCharCode(e) : salida;
+    //salida = salida == undefined ? 0 : salida; //String.fromCharCode(e) == undefined ? 0 : String.fromCharCode(e)
+    return salida == undefined ? '-1' : salida;
 }
 // addgeneral
 

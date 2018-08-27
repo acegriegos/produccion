@@ -1,9 +1,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.30">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.30">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.30">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.39">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.39">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.39">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -59,31 +59,33 @@
           </div>
         </div>
 
-        <div class="row" style="padding: 0% 2% 0% 5%">
-          <b><h3 id="ftipo">Factura Electrónica</h3></b>
+        <div class="row" style="padding: 0px">
+          <b><h3 id="ftipo" style="font-size: 19px">Factura Electrónica</h3></b>
           <div class="col s6 m6 l6" id="infofact">
-            <div class="row" style="padding: 0% 0% 0% 5%">
+            <div class="row" style="padding: 0% 0% 0% 0%;margin: 0px">
               <!--  -->
-              <div class="col s12">
-                <b id="fact"><?php echo $datos[25]; ?></b>
-                <span id="numfact"> <?php echo $datos[0]; ?> </span>
+              <div class="col s12" style="padding: 0px">
+                <b class="fe">Clave: </b>
+                <span id="clave" class="fe"><?php echo $transaccion[0] [32]; ?></span>
+                <b id="fact"><?php echo $datos[25]; ?> N°:</b>
+                <span id="numfact" class="fe"> <?php echo $datos[0]; ?> </span>
               </div>
-              <div class="col s12 <?php echo $hide ?>">
+              <div class="col s12" style="padding: 0px">
                <b> Factura de: </b><span id="fclase"><?php echo $datos[1].$datos[31]; ?></span>
              </div>
-             <!--  -->
-             <div class="col s12">
-              <?php if ($datos[4] != '') { ?>
-                <p><b><?php echo $datos[30]; ?></span>:</b></p>
-                <span id="fcliente"><?php echo $datos[4]; ?></span>
-              <?php } ?>
-             
+
+             <?php if ($datos[4] != '') { ?>
+             <div class="col s12" style="padding: 0px">
+                <p><b><?php echo $datos[30]; ?>:</b></p>
+                <span id="fcliente"><?php echo $datos[4]; ?></span>  <br>
+                <b>Cédula:</b> <?php echo $datos[34]; ?>
             </div>
-            <div class="col s12"><br>
+            <?php } ?>
+            <div class="col s12" style="padding: 0px">
               <span><b>Vende:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
             </div>
-            <div class="col s12">
+            <div class="col s12" style="padding: 0px">
               <span><b>Comentario:</b></span><br>
               <span id="fcomentario"><?php echo $datos[12]; ?> </span>
             </div>
@@ -103,7 +105,7 @@
           </div>
 
             <div class="col s8 right">
-              <div class="card white-text imprimirSINBOR <?php echo $hide ?>" style="background-color: #3960A7;">
+              <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
                 <div class="card-content ">
                   <?php if ($datos[2] === 'N/A'){ ?>
                   <p><b class="ftipofact">Plazo en Días: </b>
@@ -126,7 +128,7 @@
           <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
             <tr>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Nombre</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descripción</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">P. Unit</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Tipo</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">Descuento</th>
@@ -342,9 +344,9 @@
 
 
 
-     <script src="../assets/js/jquery.js?v=10.0.0.30"></script>
-     <script src="../assets/js/materialize.js?v=10.0.0.30"></script>
-     <script src="../assets/js/asgard.js?v=10.0.0.30"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.0.0.30"></script>
+     <script src="../assets/js/jquery.js?v=10.0.0.39"></script>
+     <script src="../assets/js/materialize.js?v=10.0.0.39"></script>
+     <script src="../assets/js/asgard.js?v=10.0.0.39"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.0.0.39"></script>
 
    </body>

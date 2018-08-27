@@ -176,7 +176,7 @@
                                 <td class="gtext" style="padding: 10px;">{$MON[LE][1]}</td>
                                 <td class="gtext" style="padding: 10px;">{$MON[LE][2]}</td>
                                 <td class="gtext" style="padding: 10px;">
-                                    <a class="waves-effect waves-light load modal-trigger gtext" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="mdi mdi-pencil left  mdi-24px"></i></a>
+                                    <a class="waves-effect waves-light load modal-trigger gtext" id="a{$MON[LE][0]}" data-target="modal" href='#modal-monedas' modulo="moneda" title="Editar Moneda"><i class="mdi mdi-pencil left mdi-24px"></i></a>
                                     <a class="waves-effect waves-light delete gtext" modulo="moneda" id="b{$MON[LE][0]}"  title="Eliminar Moneda"><i class="mdi mdi-close left mdi-24px"></i></a>
                                 </td>
                             </tr>

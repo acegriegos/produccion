@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Configuración</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.30">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=10.0.0.30">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.39">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=10.0.0.39">
   </head>
 <body>
   {$NAV}
@@ -29,6 +29,7 @@
             <li class="menu3 col tab  pbtn {if $smarty.session.BUSS eq 1}hide{/if}" href="#m5" id="m5"><a class=" white-text">Sucursales</a></li>
             <li class="menu3 col tab pbtn {if $smarty.session.BUSS eq 1}hide{/if}" href="#m6" id="m6"><a class=" white-text">Bodegas</a></li>
             <li class="menu3 col tab pbtn hide" href="#m7" id="m7"><a class=" white-text">Producción</a></li>
+            <li class="menu3 col tab  pbtn {if $smarty.session.BUSS neq 2}hide{/if}" href="#m10" id="m10"><a class=" white-text">Restaurante</a></li>
             <li class="menu3 col tab pbtn {if $smarty.session.BUSS eq 1}hide{/if}" href="#m8" id="m8"><a class=" white-text">Accesos</a></li>
         </ul>
       </div>
@@ -46,7 +47,7 @@
     <div id="majustes" class="pequeño"></div>
   </div>
   {$SCR}
-  <script src="../assets/js/dropzone.js?v=10.0.0.30"></script>
-  <script src="../assets/js/modulos/ajustes.js?v=10.0.0.30"></script>
+  <script src="../assets/js/dropzone.js?v=10.0.0.39"></script>
+  <script src="../assets/js/modulos/ajustes.js?v=10.0.0.39"></script>
 </body>
 </html>

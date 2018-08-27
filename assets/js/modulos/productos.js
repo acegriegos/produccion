@@ -9,8 +9,6 @@ $(function () {
 			case 1:
 				$("#mantServ").remove();
 				$("#mantPaquetes").remove();
-				var tabla = $("#data-table-productos").DataTable();
-				tabla.destroy();
 				var p = mantenimiento('productos', 1, '');
 				$("#bdymantInventario").html(p);
 				$("#data-table-productos").DataTable({
@@ -23,13 +21,10 @@ $(function () {
 					info: false
 				});
 				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:''})
-				// paginate($("ul.pagination").attr('vtbl'));
 				break;
 			case 2:
 				$("#mantProd").remove();
 				$("#mantPaquetes").remove();
-				var tabla = $("#data-table-servicios").DataTable();
-				tabla.destroy();
 				var p = mantenimiento('productos', 2, '');
 				$("#bdymantInventario").html(p);
 				$("#data-table-servicios").dataTable({
@@ -63,6 +58,7 @@ $(function () {
 				$("#fpaquetes .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:''})
 				break;
 		}
+		paginate($("ul.pagination").attr('vtbl'));
 		$('select').material_select();
 		$('.dropdown-button').dropdown();
 		$('.modal').modal({
@@ -106,10 +102,7 @@ $(function () {
 	} else
 		$("#m1").click();
 	
-	paginate($("ul.pagination").attr('vtbl'))
 	permisos(4100,4200);
-
-
 });
 
 $(document).on("keydown","#prodher",function(e){
@@ -573,13 +566,12 @@ $(document).on("click", "#addfeat", function () {
 	addfeat(nombre, val);
 });
 
-
 $(document).on("click", ".editprod", function () {
 	$(".autocomplete-content").hide();
 	$(".calcvv").val('0.00');
 	var id = $(this).attr('id').substr(1);
 
-	var p = arr('login',4,'',14,id+',0,",@@tmp_cia","0,1"',0,0,0);
+	var p = arr('login',4,'',14,id+',0,",@@impresa","0,1"',0,0,0);
 	var q = p[0][0];
 	var preccat = arr('login',4,'',110,id,0,0,0)[0];
 	var preccli = arr('login',4,'',165,id,0,0,0)[0];
@@ -656,7 +648,7 @@ $(document).on("click", ".delprod", function () {
 $(document).on("click", ".accept", function () {
 	var id = $(this).attr('id').substr(3);
 	arr('login',4,'',78,'3,'+id+',"","","",0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""','',0,'');
-	arr('login',6,'',14,'0,0,",@@tmp_cia"',0,1,$("#listaproductos"));
+	arr('login',6,'',14,'0,0,",@@impresa","0,10"',0,1,$("#listaproductos"));
 	paginate(14);
 	$('#toast-container').remove();
 	Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
@@ -1779,7 +1771,7 @@ function addprod(prod, cant, uni, sim) {
 		
 	}else{
 		// con unidad
-		var precio = arr('login',4,'',14,info[0]+',0,",@@tmp_cia","0,1"',0,0,0)[0][0];
+		var precio = arr('login',4,'',14,info[0]+',0,",@@impresa","0,1"',0,0,0)[0][0];
 		ptotal = convert(info[0],cant,uni,precio[9]);
 	}
 	
@@ -1871,7 +1863,7 @@ function validar(varreglo, vmodulo) {
 
 function validarproductos() {
 
-	if ($("#fproductos .zelda").data('triforce')["vidfamilia"] == 0 && $("#vfamilia").val().length) {
+	if ($("#fproductos .zelda").data('triforce')["vidfamilia"] == 0 && $("#vfamilia").val().trim().length) {
 		
 		var familia = arr('login', 4, '', 106, '1,0,\"' + $("#vfamilia").val() + '\",@@impresa', 0, 0, 0);
 		if (familia[0][0] != undefined) {
@@ -1881,8 +1873,8 @@ function validarproductos() {
 			return familia[0]['ERROR'];
 		}
 	}
-
-	if ($("#fproductos .zelda").data('triforce')["vidtipo"] == 0 && $("#vtipo").val().length) {
+	
+	if ($("#fproductos .zelda").data('triforce')["vidtipo"] == 0 && ($("#vtipo").val().trim().length || $("#fproductos .zelda").data('triforce')["vidfamilia"] != 0)) {
 		var tipo = arr('login', 4, '', 135, '1,0,\"' + $("#vtipo").val() + '\",' + $("#fproductos .zelda").data('triforce')["vidfamilia"]+',@@impresa', 0, 0, 0);
 		if (tipo[0][0] != undefined) {
 			$("#fproductos .zelda").data('triforce')["vidtipo"] = tipo[0][0][0];
@@ -1891,8 +1883,9 @@ function validarproductos() {
 			return tipo[0]['ERROR'];
 		}
 	}
-	if ($("#fproductos .zelda").data('triforce')["vidmarca"] == 0 && $("#vmarca").val().length) {
+	if ($("#fproductos .zelda").data('triforce')["vidmarca"] == 0 && ($("#vmarca").val().length || $("#fproductos .zelda").data('triforce')["vidtipo"] != 0) ) {
 		var marca = arr('login', 4, '', 136, '1,0,\"' + $("#vmarca").val() + '\",' + $("#fproductos .zelda").data('triforce')["vidtipo"]+',@@impresa', 0, 0, 0);
+		console.log(marca)
 		if (marca[0][0] != undefined) {
 			$("#fproductos .zelda").data('triforce')["vidmarca"] = marca[0][0][0];
 
@@ -2039,7 +2032,7 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 14;
-			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@tmp_cia","0,10"';
+			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@impresa","0,10"';
 			break;
 		case 'servicios':
 			var arr = {};

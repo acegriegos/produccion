@@ -1,6 +1,6 @@
 <?php 
     require_once '_config/mysqlDB.php';
-    set_time_limit(0);
+    set_time_limit(40);
     
     if (isset($_REQUEST['accion'])) {
         $id = $_REQUEST['id'];
@@ -169,11 +169,11 @@
             return false;
         }
 
-        // $scedula = ((array) $inv_xml->Receptor->Identificacion->Numero)[0];
-        // if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
-        //     $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO'];
-        //     return false;
-        // }
+        $scedula = ((array) $inv_xml->Receptor->Identificacion->Numero)[0];
+        if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+            $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO'];
+            return false;
+        }
 
         $salida['emisor']['nombre'] = ((array) $inv_xml->Emisor->Nombre)[0];
         $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$salida['emisor']['cedula'].',\"-\",\"\") ")')->fetch_all();
@@ -193,8 +193,10 @@
             $salida['emisor']['id']     = $prov[0][0];
         $fecha = ((array) $inv_xml->FechaEmision)[0];
         $fecha = strtotime(substr(str_replace('T', ' ', $fecha),0,-6));
+        $fechasistema =  date('Y/m/d H:i:s',$fecha);
         $fecha = date('d/m/Y H:i:s',$fecha);
         $salida['factura']['fecha']     = $fecha;
+        $salida['factura']['fsistema']  = $fechasistema;
         $salida['factura']['tipoventa'] = ((array) $inv_xml->CondicionVenta)[0];
         $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? ((array) $inv_xml->PlazoCredito)[0] : 0;
         $salida['factura']['tipopago']  = ((array) $inv_xml->MedioPago)[0];
@@ -551,20 +553,23 @@
 
         function getXMLRecepcion(){
             $data = [];
-            
-            $data[] = $this->info;
-            $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
-            $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
+           
+            if ($this->xmldoc == 'mensajeReceptor') {
+                $data[] = $this->getJSON('call fe_recepcion("'.$this->id.'")');
+            }else{
+                $data[] = $this->info;
+                $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
+                $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
 
-            if ($this->ref) {
-                $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
-                $data['InformacionReferencia'] = $refxml;
+                if ($this->ref) {
+                    $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
+                    $data['InformacionReferencia'] = $refxml;
+                }
+
+                $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
+                // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             }
-
-            $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
-            // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             
-
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
             <'.$this->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
             $this->array_to_xml($data,$xml_data);
