@@ -525,8 +525,8 @@
                 $data = json_decode($data);
                 
                 foreach ($data->permisos as $row) {
-                    $row[3] = !strlen($row[3]) ? 'null' : $row[3];
-                    $str .= "(".$row[0].",'".$row[1]."',".$row[2].",".$row[3]."),";
+                    $row[4] = !strlen($row[4]) ? 'null' : $row[4];
+                    $str .= "(".$row[0].",'".$row[1]."',".$row[2].",".$row[3].",".$row[4]."),";
                 }
 
                 print_r($db->ejecutar(substr($str, 0, strlen($str)-1)));
