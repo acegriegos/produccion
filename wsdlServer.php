@@ -38,7 +38,7 @@ if (isset($_POST['respuestaXml'])) {
             // }
             $db = new DBClass();
 
-            $rs = $db->ejecutar('select * from logintech.permisos');
+            $rs = $db->ejecutar('select * from logintech.permisosLogintech');
             $salida['permisos'] = $rs->fetch_all();
 
             break;

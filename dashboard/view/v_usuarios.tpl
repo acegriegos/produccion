@@ -21,7 +21,7 @@
         <div class="col s12">
             <ul class="tabs head2">
             <li class="tab menu2" id="m1"><a class="white-text" href="#">Mantenimiento</a></li>
-            <li class="tab menu2  hide " id="m2"><a class="white-text {if $smarty.session.BUSS eq 1} hide {/if}" href="#">Permisos</a></li>
+            <li class="tab menu2" id="m2"><a class="white-text {if $smarty.session.BUSS eq 1} hide {/if}" href="#">Permisos</a></li>
            
             <li class="tab menu2" id="m3"><a class="white-text {if $smarty.session.BUSS eq 1} hide {/if}" href="#">Historial</a></li>
             </ul>

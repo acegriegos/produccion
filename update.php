@@ -413,11 +413,6 @@
             $pass = $db->getPSS();
             $salida = [];
             set_time_limit(0);
-            $salida['CONF'] = 'OK';
-            $salida['.INI'] = "character-set-server  = utf8mb4
-            collation-server      = utf8mb4_general_ci
-            lc_time_names         = es_CR
-            default-time-zone = '-06:00'";
 
             $source = "https://logintechcr.com/descargas/firts.sql";
             $ch = curl_init();
@@ -483,12 +478,11 @@
             $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : '';
             $salida = [];
 
-            $source = "http://sistema.logintechcr.com/wsdlServer.php";
+            $source = "https://sistema.logintechcr.com/wsdlServer.php";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_SSLVERSION,false);
             $params = array(
               "client_id" => $user,
               "cmd" => "1");
@@ -509,11 +503,34 @@
 
             curl_close ($ch);
 
-            if ($error) 
+            if ($error){
                 $salida['PERMISOS'] = $error;
+            }
             else{
                 $salida['PERMISOS'] = $data;
-                print_r($data);
+
+                require_once '_config/mysqlDB.php';
+            
+                $db = new DBClass();
+                $db->ejecutar('delete from permisosLogintech where id > 0');
+                $db->ejecutar('truncate permisosLogintech');
+
+                $db->ejecutar('delete from permisosCliente where id > 0');
+                $db->ejecutar('truncate permisosCliente');
+
+                $db->ejecutar('delete from permisos where id > 0');
+                $db->ejecutar('truncate permisos');
+                $str = 'INSERT INTO permisosLogintech values';
+
+                $data = json_decode($data);
+                
+                foreach ($data->permisos as $row) {
+                    $row[3] = !strlen($row[3]) ? 'null' : $row[3];
+                    $str .= "(".$row[0].",'".$row[1]."',".$row[2].",".$row[3]."),";
+                }
+
+                print_r($db->ejecutar(substr($str, 0, strlen($str)-1)));
+
             }
             break;        
         default: //CONFIGURACION BASE
