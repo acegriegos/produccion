@@ -1271,11 +1271,9 @@ function sendVMail(factura,clave,vid){
 
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
                     w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
-                    try{ 
-                        $(w).onload(function(){
+                    try{                 
                           w.print();
                           setTimeout(function(){w.close();},500);  
-                        });
                         
                     }catch(e){
                         console.log(e)

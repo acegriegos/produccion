@@ -27,14 +27,20 @@ if (isset($_POST['respuestaXml'])) {
             require_once '_config/mysqlDB.php';
             
             $cliente = isset($_POST['client_id']) ? $_POST['client_id'] : '';
-            
-            if (strlen($cliente) == 0){
-                $salida['msj'] = 'CLIENTE NO VALIDO';
-                $salida['error'] = 1;
-            }else{
-                $salida['msj'] = 'VAMO BIEN';
-                $salida['error'] = 0;
-            }
+            $salida['error'] = 0;
+
+            // if (strlen($cliente) == 0){
+            //     $salida['msj'] = 'CLIENTE NO VALIDO';
+            //     $salida['error'] = 1;
+            // }else{
+            //     $salida['msj'] = 'VAMO BIEN';
+            //     $salida['error'] = 0;
+            // }
+            $db = new DBClass();
+
+            $rs = $db->ejecutar('select * from logintech.permisos');
+            $salida['permisos'] = $rs->fetch_all();
+
             break;
         case 2: //CARGA DE INFORMACION FE
             require_once '_config/mysqlDB.php';

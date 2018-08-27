@@ -513,6 +513,7 @@
                 $salida['PERMISOS'] = $error;
             else{
                 $salida['PERMISOS'] = $data;
+                print_r($data);
             }
             break;        
         default: //CONFIGURACION BASE
