@@ -483,7 +483,7 @@
             $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : '';
             $salida = [];
 
-            $source = "http://erp.logintechcr.com/wsdlServer.php";
+            $source = "http://sistema.logintechcr.com/wsdlServer.php";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
