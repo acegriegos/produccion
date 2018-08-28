@@ -1280,8 +1280,10 @@ $(document).on("change","input[name=visgravado]",function(){
 
 $(document).on("keyup",".calcvv",function(e){
 	var code = e.which || e.keyCode;
-	if (code == 13) 
-		$(this).blur();
+	if (code == 13){
+		if($(this).attr('focus') != undefined)
+		$("#"+$(this).attr('focus')).select().focus();
+	}
 });
 
 $(document).on("blur",".calcvv",function(){
@@ -1343,8 +1345,6 @@ $(document).on("blur",".calcvv",function(){
 		}	
 	}
 
-	if($(this).attr('focus') != undefined)
-		$("#"+$(this).attr('focus')).select().focus();
 });	
 
 

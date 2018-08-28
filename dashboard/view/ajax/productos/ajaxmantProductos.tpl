@@ -230,31 +230,31 @@
 
         <div id="financiero" class="row hide" style="padding: 20px 10px 0 10px">
             
-            <div class="center"><b>Precio General</b></div>
+            <div class="center"><b>Precio General</b> <br><br> </div>
             <div class="row">
 
                 <div class="col s12 l3 input-field">
                     <i class="mdi prefix moneda">¢</i>
-                    <input type="text" id="vcosto" class="validate eder numeric cos calcvv" style="margin: 0px;" value="0.00" data-mask="9999999999.99" num="1" autocomplete="off" _focus="vgganancia">
+                    <input type="text" id="vcosto" class="validate eder numeric cos calcvv" value="0.00" data-mask="9999999999.99" num="1" autocomplete="off" focus="vgganancia">
                     <label for="vcosto">Precio Costo</label>
                 </div>
 
                 <div class="col s12 l3 input-field">
                     <i class="mdi prefix">%</i>
-                    <input type="text" id="vgganancia" class="validate calcvv eder numeric gan" style="margin: 0px;" value="0.00" data-mask="9999999999.99" _focus="vventa" num="2" autocomplete="off">
+                    <input type="text" id="vgganancia" class="validate calcvv eder numeric gan" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" autocomplete="off">
                     <input type="hidden" id="vganancia" value="0" class="rgan">
                     <label for="vgganancia">Ganancia</label>
                 </div>
 
                 <div class="col s12 l3 input-field">
                     <i class="mdi prefix moneda">¢</i>
-                    <input type="text" id="vventa" class="validate calcvv eder numeric ven" style="margin: 0px;" value="0.00" data-mask="9999999999.99" _focus="vexoneracion" num="3" autocomplete="off">
+                    <input type="text" id="vventa" class="validate calcvv eder numeric ven" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" autocomplete="off">
                     <label for="vventa">Precio Venta</label>
                 </div>
 
                 <div class="col s12 l3 input-field">
                     <i class="mdi prefix">%</i>
-                    <input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" style="margin: 0px;" value="0.00" data-mask="9999999999.99" num="4">
+                    <input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" value="0.00" data-mask="9999999999.99" num="4" autocomplete="off">
                     <label>Exención</label>
                 </div>
 
@@ -540,4 +540,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.40"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.41"></script> -->
