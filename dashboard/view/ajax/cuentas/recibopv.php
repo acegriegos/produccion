@@ -142,9 +142,9 @@ echo '<hr>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.39"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.39"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.39"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.40"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.40"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.40"></script>
  
  </body>
  </html>
