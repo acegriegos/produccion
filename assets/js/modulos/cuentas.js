@@ -126,7 +126,7 @@ $(document).on("change","[name='ctas']",function(){
 			arr('login',6,'',214,getParameterByName('tf')+',0,0,1,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		case 4:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,2',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		default:
 			arr('login',6,'',214,getParameterByName('tf')+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));

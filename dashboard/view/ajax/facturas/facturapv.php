@@ -116,7 +116,7 @@ echo '<tr align="center" '.$ocultar.'>
   </tr>
   <tr '.$ocultar.'>
     <td width="50%"><b>T. PAGO:</b></td>
-    <td width="50%">Efectivo</td>
+    <td width="50%">'.$datos[2].'</td>
   </tr>
 </table>
   <br>

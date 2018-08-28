@@ -24,7 +24,7 @@
                             <li><a href="#!" fltr="2">Cédula</a></li>
                             <li><a href="#!" fltr="3">Teléfono</a></li>
                         </ul>
-                        <input type="text" id="search_clientes" maxlength="100" num="v306" var="0,1" cambio="30">
+                        <input type="text" id="search_clientes" maxlength="100" num="v76" var="0,1" cambio="29">
                         <label class="truncate" for="search_clientes">Buscar Proveedor por Nombre o Cédula</label>
                     </div>
                     <div class="col s2 m6 ">
@@ -67,7 +67,7 @@
                         </tbody>
                     </table>
                       <ul class="left showing" modulo="76"><small></small></ul>
-                      <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
+                      <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29" filtro_sp="?,1,@@impresa"></ul>
                    <br>
                    <br>
                 </div>
@@ -75,7 +75,7 @@
                     <div class="modal-header">
                         <ul class="tabs tabs-fixed-width head3">
                             <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
-                            <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
+                            <li class="tab col s3 hide"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
                             <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
                             <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
                         </ul>
@@ -158,7 +158,7 @@
                                 <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
                                 <!-- <input type="email" class="validate tooltipped" id="correo_in" data-position="top" data-tooltip="Ingresar Correo con la Tecla [right]"> -->
                                 <input type="email" class="validate" id="correo_in">
-                                <input type="hidden" id="vcorreo" fill="18">
+                                <input type="hidden" id="vcorreo" fill="18" tbl="2">
                                 <label for="correo_in">Ingresar Correo</label>
                                 <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
                             </div>
@@ -187,7 +187,7 @@
                                 <div class="input-field col s12 m5">
                                     <!-- <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono con la Tecla [right]"> -->
                                     <input type="text" class="validate" id="telefono_in" data-mask="9999-9999">
-                                    <input type="hidden" id="vtelefono" fill="19">
+                                    <input type="hidden" id="vtelefono" fill="19" tbl="2">
                                     <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
 
                                     <ul class="collection" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="4" style="border: 0;"></ul>
@@ -205,13 +205,13 @@
                                 <input type="hidden" id="videstadocontable" value="1">
                                 <input type="hidden" id="vidcuenta" value="">
                                 <div class="row">
-                                    <div class="col s12 m6">
+                                    <div class="col s12 m6 hide">
                                         <div class="card-title"><b> Cuentas Contado </b></div>
                                         <div id="ctacontado">
 
                                         </div>
                                     </div>
-                                    <div class="col s12 m6">
+                                    <div class="col s12 m6 hide">
                                         <div class="card-title"><b> Cuentas Crédito </b></div>
                                         <div id="ctacredito">
 
