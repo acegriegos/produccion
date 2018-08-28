@@ -1241,7 +1241,7 @@ function sendVMail(factura,clave,vid){
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
                     w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
                     try{ 
-                        w.print();
+                        w.p rint();
                       setTimeout(function(){
                      
                          w.close();
