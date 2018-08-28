@@ -21,6 +21,9 @@
     margin: 1px !important;
   }
 
+  @page{ margin-left: 0px; margin-right: 0px; margin-top: 0px; margin-bottom: 0px; }
+
+
 }
 </style>
 </head>
