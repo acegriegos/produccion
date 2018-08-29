@@ -145,6 +145,20 @@ echo '<hr>
  <script src="../assets/js/jquery.js?v=10.0.0.41"></script>
  <script src="../assets/js/materialize.js?v=10.0.0.41"></script>
  <script src="../assets/js/asgard.js?v=10.0.0.41"></script>
- 
+   <script type="text/javascript">
+       $(function(){
+          param = getParameterByName('fp');
+          param = param == '' ? 0 : parseInt(param) ;
+          
+          window.onafterprint = function(){
+           window.close();
+         }
+
+          if(parseInt(param)){
+            window.print();
+          }
+
+       })
+     </script>
  </body>
  </html>

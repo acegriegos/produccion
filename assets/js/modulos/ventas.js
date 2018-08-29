@@ -1239,14 +1239,16 @@ function sendVMail(factura,clave,vid){
                 
                 if (config[4] == 1) {
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
-                    w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
+                    
                     try{ 
-                        w.print();
-                      setTimeout(function(){
+
+                        w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
+//                         w.print();
+//                       setTimeout(function(){
                      
-                         w.close();
-/*                        window.focus();
-*/                            },500);
+//                          w.close();
+// /*                        window.focus();
+// */                            },500);
                       
                         
                     }catch(e){
@@ -1270,10 +1272,11 @@ function sendVMail(factura,clave,vid){
                 if (config[4] == 1) {
 
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
-                    w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto);
-                    try{                 
-                          w.print();
-                          setTimeout(function(){w.close();},500);  
+                   
+                    try{    
+                         w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");             
+                          // w.print();
+                          // setTimeout(function(){w.close();},500);  
                         
                     }catch(e){
                         console.log(e)

@@ -218,6 +218,17 @@ echo '<hr>
       else{
         $("#resolucion").html('AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
       }
+
+      param = getParameterByName('fp');
+      param = param == '' ? 0 : parseInt(param) ;
+      
+      window.onafterprint = function(){
+       window.close();
+     }
+
+      if(parseInt(param)){
+        window.print();
+      }
    })
  </script>
  </body>
