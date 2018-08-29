@@ -695,10 +695,15 @@ case "4":
         for (var i = 0;  i < varreglo.length; i++) {
             salida[index][varreglo[i][0]] = $(this).data('triforce')[varreglo[i][0]];
 
-            salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[index][varreglo[i][0]];
+            salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal' ) ? 0 : salida[index][varreglo[i][0]];
             if (salida[index][varreglo[i][0]] == undefined) {
-                console.log(varreglo[i][0]+" No Existe");
-                return "Error en Interno, Codigo: Odin"
+                if (varreglo[i][0] == 'vidfila' || varreglo[i][0] == 'vidtabla') {
+                    varreglo[i][0] = 0;
+                }else{
+                    console.log(varreglo[i][0]+" No Existe, "+vform);
+                    return "Error en Interno, Codigo: Odin"
+                }
+                
             }
             }// end FOR
     });//end EACH
@@ -776,7 +781,7 @@ default:
                             if($("#"+vform+" .zelda").data('triforce')[varreglo[i][0]] != undefined)
                                 salida[varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
                             else{
-                                console.log(varreglo[i][0]+" No Existe");
+                                console.log(varreglo[i][0]+" No Existe, "+vform );
                                 return "Error en Interno, Codigo: Odin"
                             } 
                         break;
