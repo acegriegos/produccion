@@ -369,6 +369,8 @@ function cargarGlobal(){
     var ncons = getDatos('lpad(consecutivo'+cons+'+1,6,0)',252,'idsucursal = @@impresa and id > 0',0,0)[0][0];
     $("#idfact").html(ncons);
 
+    loadmybussiness();
+
     var fecha = new Date();
     var dpick = $('#vfecha').pickadate()
     dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
