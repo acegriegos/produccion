@@ -45,6 +45,11 @@
                     <div class="col s12 m6 l6 ">
                       <a href="devoluciones" class="waves-effect per3500 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
                     </div>
+
+                    <div class="col s12 m6 l6 ">
+                      <a href="flujocaja" class="waves-effect per3500 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Flujo de Caja">Flujo de Caja</a>
+                    </div>
+
                     <div class="col s12 m6 l6 ">
                       <a href="reportes?tr=3" class="waves-effect per3600 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>

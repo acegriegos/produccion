@@ -20,7 +20,7 @@
  
 <div class="card z-depth-3 movil p1 ps">
 <div class="card-header center head1 white-text">
-  <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span> <span class="hide"> [0 de 50 Documentos]</span>
+  <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a></p>
   
 </div>
@@ -184,12 +184,13 @@
             <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
             <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Cantidad</b></span></div>
-            <div style="padding: 0 !important;" class="col s1 center-align"><b>Prec.Unit</b></div>
+            <div style="padding: 0 !important;" class="col s1 center-align"><b>Costo</b></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Descuento</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><b>Total</b></div>
             <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
           </div>
+          
         </section>
 
         <section class="trOCompra hide">
@@ -326,6 +327,21 @@
 
         </div>
       </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
+            <input type="text" id="ventap" class="eder" autocomplete="off">
+            <label for="ventap">Costo Original</label>
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
+            <input type="text" id="ventap" class="eder" autocomplete="off">
+            <label for="ventap">Precio Venta</label>
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
+            <input type="text" id="gananciap" class="eder" autocomplete="off">
+            <label for="gananciap">Utilidad</label>
+          </div>
       <div class="hide-on-large-only">
         <a class="btn-floating btn2 tooltipped modal-trigger" data-position="top" data-tooltip="Ingresar Línea" href="#modal-addline" style="position: fixed; bottom: 0;right: 0;margin-bottom: 10%;margin-right: 2%;z-index: 998"><i class="mdi mdi-plus mdi-24px"></i></a>
         <div class="edetalle center">No se Han Ingresado Productos</div>
