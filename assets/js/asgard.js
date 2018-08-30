@@ -1742,7 +1742,7 @@ function loadmybussiness(vform){
              $('.dropdown-button').dropdown();
              $("#sucname").html(sucname)
        }else{
-             $("#loadMyBussiness").html([0][0][1]);
+             $("#loadMyBussiness").html(rs[0][0][1]);
        }
     }
 }

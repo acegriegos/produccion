@@ -327,7 +327,7 @@
 
         </div>
       </div>
-
+      <div class="trcompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="ventap" class="eder" autocomplete="off">
             <label for="ventap">Costo Original</label>
@@ -342,6 +342,7 @@
             <input type="text" id="gananciap" class="eder" autocomplete="off">
             <label for="gananciap">Utilidad</label>
           </div>
+      </div>
       <div class="hide-on-large-only">
         <a class="btn-floating btn2 tooltipped modal-trigger" data-position="top" data-tooltip="Ingresar Línea" href="#modal-addline" style="position: fixed; bottom: 0;right: 0;margin-bottom: 10%;margin-right: 2%;z-index: 998"><i class="mdi mdi-plus mdi-24px"></i></a>
         <div class="edetalle center">No se Han Ingresado Productos</div>

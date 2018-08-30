@@ -2,6 +2,7 @@ Dropzone.autoDiscover = false;
 var myDropzone;
 var config;
 var estado;
+var str_correos = '';
 
 $(document).ready(function(){
 	var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
@@ -87,6 +88,7 @@ function xmlCargar(file,response){
 
 		$.get('../wsdlClient.php',{accion:10,id:file['name']})
 			.done(function(data){
+                console.log(data)
 				var p;
 				$(".iloop").hide();
 				try{
@@ -98,7 +100,7 @@ function xmlCargar(file,response){
 						var t_pago = getDatos('id,nombre',26,'idhacienda = '+p['factura']['tipopago'],0,0,0)[0][0];
 						
 						if(p['emisor']['id'] == 0){
-							$("#ffacturas .zelda").data('proveedor',{cedula : p['emisor']['cedula'],correo: p['emisor']['correo'],nombre:p['emisor']['nombre'],telefono:p['emisor']['telefono'],
+							$("#fclientes .zelda").data('proveedor',{cedula : p['emisor']['cedula'],correo: p['emisor']['correo'],nombre:p['emisor']['nombre'],telefono:p['emisor']['telefono'],
 								barrio:p['emisor']['barrio'],direccion:p['emisor']['otrassenas'],tipo:['emisor']['tipo']});
 							t_prov = 0;
 						}
@@ -410,7 +412,7 @@ function sendFE(clave){
         try {
             p = JSON.parse(data);
             $(".expect").removeClass('progress');
-            if (p['succes']) {
+            if (p['success']) {
                 var vfactura = p['num'];
                 var vclave = p['clave'];
                 arr('login',7,2,64,'feestado=2','id='+clave,0,0);
