@@ -66,7 +66,7 @@
               <!--  -->
               <div class="col s12" style="padding: 0px">
                 <b class="fe">Clave: </b>
-                <span id="clave" class="fe"><?php echo $transaccion[0] [32]; ?></span>
+                <span id="clave" class="fe"><?php echo $transaccion[0] [32]; ?></span><br>
                 <b id="fact"><?php echo $datos[25]; ?> N°:</b>
                 <span id="numfact" class="fe"> <?php echo $datos[0]; ?> </span>
               </div>

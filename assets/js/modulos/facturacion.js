@@ -644,13 +644,16 @@ function cargarGlobal(){
         $("#unitprod"+id).text($("#uniadl option:selected").html())
     });
   
-    if (config[2] == 1){
+    /*if (config[2] == 1){
         $("#teclado").click();
         $("#p_v").attr('checked',false);
     }else{
         $("#barras").click();
         $("#p_v").attr('checked',true);
-    }
+    }*/
+
+    $("#teclado").click();
+     $("#p_v").attr('checked',true);
     $("#p_v").change();
 
 }//cargar GLOBAL
