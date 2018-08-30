@@ -21,6 +21,9 @@
     margin: 1px !important;
   }
 
+  @page{ margin-left: 0px; margin-right: 0px; margin-top: 0px; margin-bottom: 0px; }
+
+
 }
 </style>
 </head>
@@ -116,7 +119,7 @@ echo '<tr align="center" '.$ocultar.'>
   </tr>
   <tr '.$ocultar.'>
     <td width="50%"><b>T. PAGO:</b></td>
-    <td width="50%">Efectivo</td>
+    <td width="50%">'.$datos[2].'</td>
   </tr>
 </table>
   <br>
@@ -202,9 +205,9 @@ echo '<hr>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.39"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.39"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.39"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.41"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.41"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.41"></script>
  <script type="text/javascript">
    $(function(){
       var config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
@@ -214,6 +217,17 @@ echo '<hr>
       }
       else{
         $("#resolucion").html('AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
+      }
+
+      param = getParameterByName('fp');
+      param = param == '' ? 0 : parseInt(param) ;
+      
+      window.onafterprint = function(){
+       window.close();
+     }
+
+      if(parseInt(param)){
+        window.print();
       }
    })
  </script>

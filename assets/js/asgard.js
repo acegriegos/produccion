@@ -695,10 +695,15 @@ case "4":
         for (var i = 0;  i < varreglo.length; i++) {
             salida[index][varreglo[i][0]] = $(this).data('triforce')[varreglo[i][0]];
 
-            salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[index][varreglo[i][0]];
+            salida[index][varreglo[i][0]] = salida[index][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal' ) ? 0 : salida[index][varreglo[i][0]];
             if (salida[index][varreglo[i][0]] == undefined) {
-                console.log(varreglo[i][0]+" No Existe");
-                return "Error en Interno, Codigo: Odin"
+                if (varreglo[i][0] == 'vidfila' || varreglo[i][0] == 'vidtabla') {
+                    varreglo[i][0] = 0;
+                }else{
+                    console.log(varreglo[i][0]+" No Existe, "+vform);
+                    return "Error en Interno, Codigo: Odin"
+                }
+                
             }
             }// end FOR
     });//end EACH
@@ -776,7 +781,7 @@ default:
                             if($("#"+vform+" .zelda").data('triforce')[varreglo[i][0]] != undefined)
                                 salida[varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
                             else{
-                                console.log(varreglo[i][0]+" No Existe");
+                                console.log(varreglo[i][0]+" No Existe, "+vform );
                                 return "Error en Interno, Codigo: Odin"
                             } 
                         break;
@@ -1487,6 +1492,18 @@ $(document).on('blur','[addG=1]',function(){
     }
 });
 
+$(document).on('click','.loadRefBussiness',function(){
+    if ($(this).attr('ex') != undefined) {
+        if($(this).attr('ex').size){
+            Materialize.toast($(this).attr('msj'))
+            return false;
+        }
+    }
+    $("#sucname").html($(this).html());
+    mantenimiento('main',3,$(this).attr('suc'))
+});
+
+
 function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
     $("#data-table-"+modulo).append('<tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody>');
     $("#lista"+modulo).addClass('hide');
@@ -1702,6 +1719,34 @@ function keysight(e) {
     //salida = salida == undefined ? 0 : salida; //String.fromCharCode(e) == undefined ? 0 : String.fromCharCode(e)
     return salida == undefined ? '-1' : salida;
 }
+
+function loadmybussiness(vform){
+    var rs = getDatos('',155,'@@usr',0,0);
+    var impresa = $("#loadMyBussiness").attr('impresa');
+
+    if (parseInt(rs['succed'])) {
+       var size = rs[0].length
+       if (size > 1) {
+            var sucname = rs[0][0][1];
+            var mhtml = '<a class="prefix dropdown-button tooltipped pbtn white-text"  data-activates="sucu_1" data-position="right" data-tooltip="Cambiar Filtro"><span id="sucname"></span><i class="mdi mdi-chevron-down mdi-24px"></i></a> <ul id="sucu_1" class="dropdown-content">';
+            for (var i = 0; i < size; i++) {
+                if (rs[0][i][0] != -1){
+                    mhtml += '<li><a class="loadRefBussiness" href="#!" suc="'+rs[0][i][0]+'">'+rs[0][i][1]+'</a></li>';
+                    if (parseInt(rs[0][i][0]) == parseInt(impresa))
+                        sucname = rs[0][i][1]
+                }
+                
+            }
+            
+            $("#loadMyBussiness").html(mhtml+'</ul>');
+             $('.dropdown-button').dropdown();
+             $("#sucname").html(sucname)
+       }else{
+             $("#loadMyBussiness").html(rs[0][0][1]);
+       }
+    }
+}
+
 // addgeneral
 
 // autocomplete

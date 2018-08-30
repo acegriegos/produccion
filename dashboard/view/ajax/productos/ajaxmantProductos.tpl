@@ -1,6 +1,6 @@
 <div class="pequeño" id="mantProd" >
 	<div class="row">
-		<div class="input-field col s11 m8 l5">
+		<div class="input-field col s10 m8 l5">
 			<a class="prefix dropdown-button tooltipped small mdi mdi-magnify pbtn"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"></a>
 			<ul id='filtr_1' class='dropdown-content' style="width: auto;">
 				<li><a class="optns" tipo="codigo,codigointerno,nombre" href="#!" fltr="1">Código, Código Interno o Nombre</a></li>
@@ -12,7 +12,7 @@
 			<input type="text" id="search_productos" maxlength="100" num="v14" var="0,1" autocomplete="off">
 			<label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
 		</div>
-		<div class="col s12 m4 l7 per4102">
+		<div class="col s2 m4 l7 per4102">
 			<a id="addproduct" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger" href="#modal-productos" title="Agregar Producto"><i class="mdi mdi-plus"></i></a>
 		</div>
 	</div>
@@ -229,37 +229,36 @@
         </div>
 
         <div id="financiero" class="row hide" style="padding: 20px 10px 0 10px">
-            <table>
-                <tr>
-                    <td colspan="4" class="center" style="padding: 0px">
-                        <b>Precio General</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="center" style="padding: 0px"><label>Precio Costo</label></td>
-                    <td class="center" style="padding: 0px"><label>Ganancia</label></td>
-                    <td class="center" style="padding: 0px"><label>Precio Venta</label></td>
-                    <td class="center" style="padding: 0px"><label>Exención</label></td>
-                </tr>
-            <tr>
-                <td class="center-align input-field" style="padding: 0">
+            
+            <div class="center"><b>Precio General</b> <br><br> </div>
+            <div class="row">
+
+                <div class="col s12 l3 input-field">
                     <i class="mdi prefix moneda">¢</i>
-                    <input type="text" id="vcosto" class="validate eder numeric cos calcvv" style="margin: 0px;" value="0.00" data-mask="9999999999.99" num="1" autocomplete="off" focus="vgganancia">
-                </td>
-                <td class="center-align input-field" style="padding: 0">
+                    <input type="text" id="vcosto" class="validate eder numeric cos calcvv" value="0.00" data-mask="9999999999.99" num="1" autocomplete="off" focus="vgganancia">
+                    <label for="vcosto">Precio Costo</label>
+                </div>
+
+                <div class="col s12 l3 input-field">
                     <i class="mdi prefix">%</i>
-                    <input type="text" id="vgganancia" class="validate calcvv eder numeric gan" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" autocomplete="off">
+                    <input type="text" id="vgganancia" class="validate calcvv eder numeric gan" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" autocomplete="off">
                     <input type="hidden" id="vganancia" value="0" class="rgan">
-                </td>
-                <td class="center-align input-field" style="padding: 0">
+                    <label for="vgganancia">Ganancia</label>
+                </div>
+
+                <div class="col s12 l3 input-field">
                     <i class="mdi prefix moneda">¢</i>
-                    <input type="text" id="vventa" class="validate calcvv eder numeric ven" style="margin: 0px;" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" autocomplete="off">
-                </td>
-                <td class="center-align input-field" style="padding: 0">
+                    <input type="text" id="vventa" class="validate calcvv eder numeric ven" value="0.00" data-mask="9999999999.99" focus="vexoneracion" num="3" autocomplete="off">
+                    <label for="vventa">Precio Venta</label>
+                </div>
+
+                <div class="col s12 l3 input-field">
                     <i class="mdi prefix">%</i>
-                    <input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" style="margin: 0px;" value="0.00" data-mask="9999999999.99" num="4">
-                </td>
-            </tr>
+                    <input type="text" id="vexoneracion" class="validate calcvv eder numeric exo" value="0.00" data-mask="9999999999.99" num="4" autocomplete="off">
+                    <label>Exención</label>
+                </div>
+
+            </div>
 
             <tr> 
                 <td><div class="switch {if $smarty.session.BUSS eq 1} hide {else} hide {/if}">
@@ -272,6 +271,8 @@
                     </div></td>
                 <td colspan="2" style="padding: 2%;"> <b class="chg0 {if $smarty.session.BUSS eq 1} hide {/if}">Precio por Categoría</b> <b class="chg1 hide">Precio por Cliente</b> </td>
             </tr>
+
+            <table>
             {section name=LE loop=$NIV}
             <tr class="precionivel chg0 {if $smarty.session.BUSS eq 1} hide {/if}" id="f{$NIV[LE][0]}" style="border: 1px solid #e2e2e2">
                 <td style="padding: 0px"><b>Categoria: {$NIV[LE][1]}</b></td>
@@ -539,4 +540,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.39"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.41"></script> -->

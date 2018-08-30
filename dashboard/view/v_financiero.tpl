@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Financiera</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-financiero.css?v=10.0.0.39">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-financiero.css?v=10.0.0.41">
   </head>
   <body>
     {$NAV}
@@ -45,6 +45,11 @@
                     <div class="col s12 m6 l6 ">
                       <a href="devoluciones" class="waves-effect per3500 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Devoluciones">Devoluciones</a>
                     </div>
+
+                    <div class="col s12 m6 l6 ">
+                      <a href="flujocaja" class="waves-effect per3500 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Flujo de Caja">Flujo de Caja</a>
+                    </div>
+
                     <div class="col s12 m6 l6 ">
                       <a href="reportes?tr=3" class="waves-effect per3600 waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
@@ -75,6 +80,6 @@
       </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/financiero.js?v=10.0.0.39"></script>
+    <script src="../assets/js/modulos/financiero.js?v=10.0.0.41"></script>
   </body>
 </html>

@@ -157,65 +157,110 @@
         $inv_xml = simplexml_load_file('./assets/xml/'.$id);
         $sucursal = $db->ejecutar('call datosempresa('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
 
-        $salida['clave'] = ((array) $inv_xml->Clave)[0];
+        $salida['clave'] = (array) $inv_xml->Clave;
+        $salida['clave'] = $salida['clave'][0];
+
         if (strlen($salida['clave']) != 50){
             $salida = ['succed' => 0,'ERROR' => 'CLAVE NO VALIDA'];
             return false;
         }
         
-        $salida['emisor']['cedula'] = ((array) $inv_xml->Emisor->Identificacion->Numero)[0];
+        $salida['emisor']['cedula'] = (array) $inv_xml->Emisor->Identificacion->Numero;
+        $salida['emisor']['cedula'] = $salida['emisor']['cedula'][0];
         if (trim($salida['emisor']['cedula']) != trim(substr($salida['clave'], 9,12))) {
             $salida = ['succed' => 0,'ERROR' => 'CEDULA NO VALIDA'];
             return false;
         }
 
-        $scedula = ((array) $inv_xml->Receptor->Identificacion->Numero)[0];
+        $scedula = isset($inv_xml->Receptor->Identificacion->Numero) ? (array) $inv_xml->Receptor->Identificacion->Numero : 0;
+        $scedula = isset($scedula[0]) ? $scedula[0] : 0;
+
         if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
             $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO'];
             return false;
         }
 
-        $salida['emisor']['nombre'] = ((array) $inv_xml->Emisor->Nombre)[0];
+        $salida['emisor']['nombre'] = (array) $inv_xml->Emisor->Nombre;
+        $salida['emisor']['nombre'] = $salida['emisor']['nombre'][0];
+
         $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$salida['emisor']['cedula'].',\"-\",\"\") ")')->fetch_all();
         
         if(!sizeof($prov)){
-            $salida['emisor']['tipo']       = ((array) $inv_xml->Emisor->Identificacion->Tipo)[0];
-            $salida['emisor']['barrio']     = isset($inv_xml->Emisor->Ubicacion->Barrio) ? ((array) $inv_xml->Emisor->Ubicacion->Barrio)[0] : 0;
-            $salida['emisor']['distrito']   = isset($inv_xml->Emisor->Ubicacion->Distrito) ? ((array) $inv_xml->Emisor->Ubicacion->Distrito)[0] : 0;
-            $salida['emisor']['canton']     = isset($inv_xml->Emisor->Ubicacion->Canton) ? ((array) $inv_xml->Emisor->Ubicacion->Canton)[0] : 0;
-            $salida['emisor']['provincia']  = isset($inv_xml->Emisor->Ubicacion->Provincia) ? ((array) $inv_xml->Emisor->Ubicacion->Provincia)[0] : 0;
-            $salida['emisor']['otrassenas'] = isset($inv_xml->Emisor->Ubicacion->OtrasSenas) ? ((array) $inv_xml->Emisor->Ubicacion->OtrasSenas)[0] : 0;
-            $salida['emisor']['correo']     = isset($inv_xml->Emisor->CorreoElectronico) ? ((array) $inv_xml->Emisor->CorreoElectronico)[0] : 0;
-            $salida['emisor']['telefono']   = isset($inv_xml->Emisor->Telefono->NumTelefono) ? ((array) $inv_xml->Emisor->Telefono->NumTelefono)[0] : 0;
-            $salida['emisor']['pais']       = isset($inv_xml->Emisor->Telefono->CodigoPais) ? ((array) $inv_xml->Emisor->Telefono->CodigoPais)[0] : 0;
+            $salida['emisor']['tipo']       = (array) $inv_xml->Emisor->Identificacion->Tipo;
+            $salida['emisor']['tipo']       = $salida['emisor']['tipo'][0];
+
+            $salida['emisor']['barrio']     = isset($inv_xml->Emisor->Ubicacion->Barrio) ? (array) $inv_xml->Emisor->Ubicacion->Barrio : 0;
+            $salida['emisor']['barrio'] = $salida['emisor']['barrio'] == 0 ? $salida['emisor']['barrio'] : $salida['emisor']['barrio'][0];
+
+            $salida['emisor']['distrito']   = isset($inv_xml->Emisor->Ubicacion->Distrito) ? (array) $inv_xml->Emisor->Ubicacion->Distrito : 0;
+            $salida['emisor']['distrito'] = $salida['emisor']['distrito'] == 0 ? $salida['emisor']['distrito'] : $salida['emisor']['distrito'][0];
+
+            $salida['emisor']['canton']     = isset($inv_xml->Emisor->Ubicacion->Canton) ? (array) $inv_xml->Emisor->Ubicacion->Canton : 0;
+            $salida['emisor']['canton']  = $salida['emisor']['canton']  == 0 ? $salida['emisor']['canton']  : $salida['emisor']['canton'] [0];
+
+            $salida['emisor']['provincia']  = isset($inv_xml->Emisor->Ubicacion->Provincia) ? (array) $inv_xml->Emisor->Ubicacion->Provincia : 0;
+            $salida['emisor']['provincia'] = $salida['emisor']['provincia'] == 0 ? $salida['emisor']['provincia'] : $salida['emisor']['provincia'][0];
+
+            $salida['emisor']['otrassenas'] = isset($inv_xml->Emisor->Ubicacion->OtrasSenas) ? (array) $inv_xml->Emisor->Ubicacion->OtrasSenas : 0;
+            $salida['emisor']['otrassenas'] = $salida['emisor']['otrassenas'] == 0 ? $salida['emisor']['otrassenas'] : $salida['emisor']['otrassenas'][0];
+
+            $salida['emisor']['correo']     = isset($inv_xml->Emisor->CorreoElectronico) ? (array) $inv_xml->Emisor->CorreoElectronico : 0;
+            $salida['emisor']['correo'] = $salida['emisor']['correo'] == 0 ? $salida['emisor']['correo'] : $salida['emisor']['correo'][0];
+
+            $salida['emisor']['telefono']   = isset($inv_xml->Emisor->Telefono->NumTelefono) ? (array) $inv_xml->Emisor->Telefono->NumTelefono : 0;
+            $salida['emisor']['telefono'] = $salida['emisor']['telefono'] == 0 ? $salida['emisor']['telefono'] : $salida['emisor']['telefono'][0];
+
+            $salida['emisor']['pais']       = isset($inv_xml->Emisor->Telefono->CodigoPais) ? (array) $inv_xml->Emisor->Telefono->CodigoPais : 0;
+            $salida['emisor']['pais'] = $salida['emisor']['pais'] == 0 ? $salida['emisor']['pais'] : $salida['emisor']['pais'][0];
+
             $salida['emisor']['id']         = 0;
         }else
             $salida['emisor']['id']     = $prov[0][0];
-        $fecha = ((array) $inv_xml->FechaEmision)[0];
+        $fecha = (array) $inv_xml->FechaEmision;
+        $fecha = $fecha[0];
         $fecha = strtotime(substr(str_replace('T', ' ', $fecha),0,-6));
         $fechasistema =  date('Y/m/d H:i:s',$fecha);
         $fecha = date('d/m/Y H:i:s',$fecha);
         $salida['factura']['fecha']     = $fecha;
         $salida['factura']['fsistema']  = $fechasistema;
-        $salida['factura']['tipoventa'] = ((array) $inv_xml->CondicionVenta)[0];
-        $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? ((array) $inv_xml->PlazoCredito)[0] : 0;
-        $salida['factura']['tipopago']  = ((array) $inv_xml->MedioPago)[0];
-        $salida['factura']['moneda']    = ((array) $inv_xml->ResumenFactura->CodigoMoneda)[0];
-        $salida['factura']['divisa']    = ((array) $inv_xml->ResumenFactura->TipoCambio)[0];
-        $salida['factura']['subtotal']  = ((array) $inv_xml->ResumenFactura->TotalGravado)[0];
-        $salida['factura']['exento']    = ((array) $inv_xml->ResumenFactura->TotalExento)[0];
-        $salida['factura']['descuento'] = ((array) $inv_xml->ResumenFactura->TotalDescuentos)[0];
-        $salida['factura']['impuesto']  = ((array) $inv_xml->ResumenFactura->TotalImpuesto)[0];
+        $salida['factura']['tipoventa'] = (array) $inv_xml->CondicionVenta;
+        $salida['factura']['tipoventa'] = $salida['factura']['tipoventa'][0];
+        $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? (array) $inv_xml->PlazoCredito : 0;
+        $salida['factura']['plazo']     = $salida['factura']['plazo'] == 0 ? $salida['factura']['plazo'] : $salida['factura']['plazo'][0];
+        $salida['factura']['tipopago']  = (array) $inv_xml->MedioPago;
+        $salida['factura']['tipopago']  = $salida['factura']['tipopago'][0];
+        $salida['factura']['moneda']    = (array) $inv_xml->ResumenFactura->CodigoMoneda;
+        $salida['factura']['moneda']    = $salida['factura']['moneda'][0];
+        $salida['factura']['divisa']    = (array) $inv_xml->ResumenFactura->TipoCambio;
+        $salida['factura']['divisa']    = $salida['factura']['divisa'][0];
+        $salida['factura']['subtotal']  = (array) $inv_xml->ResumenFactura->TotalGravado;
+        $salida['factura']['subtotal']  = $salida['factura']['subtotal'][0];
+        $salida['factura']['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
+        $salida['factura']['exento']    = $salida['factura']['exento'][0];
+        $salida['factura']['descuento'] = (array) $inv_xml->ResumenFactura->TotalDescuentos;
+        $salida['factura']['descuento'] = $salida['factura']['descuento'][0];
+        $salida['factura']['impuesto']  = (array) $inv_xml->ResumenFactura->TotalImpuesto;
+        $salida['factura']['impuesto']  = $salida['factura']['impuesto'][0];
 
-        $ciclo = ((array) $inv_xml->DetalleServicio);
+        $ciclo = (array) $inv_xml->DetalleServicio;
         $salida['detalle'] = [];
 
         foreach ($ciclo as $key) {
-            $vunidad = ((array)$key->UnidadMedida)[0] == 'Otros' ? ((array)$key->UnidadMedidaComercial)[0] : ((array)$key->UnidadMedida)[0];
+            $vunidad = (array)$key->UnidadMedida;
+            $vunidad = $vunidad[0] == 'Otros' ? (array)$key->UnidadMedidaComercial : (array)$key->UnidadMedida;
+            $vunidad = $vunidad[0];
             $cunidad = $db->ejecutar('call krattos("if(count(id),id,0)",107,"id > 0 and simbolo = \"'.$vunidad.'\" ")')->fetch_all();
 
-            $num = ((array)$key->NumeroLinea)[0];
-            $detarray = ['numero' => $num,'codigo' => ((array)$key->Codigo->Codigo)[0],'cantidad' => ((array)$key->Cantidad)[0], 'unidad' => $vunidad, 'idunidad' => $cunidad, 'detalle' => ((array)$key->Detalle)[0], 'precio' => ((array)$key->PrecioUnitario)[0], 'descuento' => isset(((array)$key->MontoDescuento)[0]) ? ((array)$key->MontoDescuento)[0] : 0, 'impuesto' => isset(((array)$key->Impuesto->Monto)[0]) ? ((array)$key->Impuesto->Monto)[0] : 0];
+            $num = (array)$key->NumeroLinea;
+            $dcodigo = (array)$key->Codigo->Codigo;
+            $dcantidad = (array)$key->Cantidad;
+            $ddetalle = (array)$key->Detalle;
+            $ddescuento = isset($key->MontoDescuento) ? (array)$key->MontoDescuento : 0;
+            $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
+            $dimpuesto = isset($key->Impuesto->Monto) ? (array)$key->Impuesto->Monto : 0;
+            $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
+
+            $detarray = ['numero' => $num[0],'codigo' => $dcodigo[0],'cantidad' => $dcantidad[0], 'unidad' => $vunidad, 'idunidad' => $cunidad, 'detalle' => $ddetalle[0], 'precio' => $ddetalle[0], 'descuento' => $ddescuento, 'impuesto' => $dimpuesto];
             array_push($salida['detalle'], $detarray);
         }
 
@@ -518,7 +563,8 @@
                 case 202:
                     $aBody = (array) json_decode(substr($body,strpos($body, '{')));
                     if (isset($aBody['respuesta-xml'])){
-                        $sRespuesta = ((Array) simplexml_load_string(base64_decode($aBody['respuesta-xml'])))['DetalleMensaje'];
+                        $sRespuesta = (Array) simplexml_load_string(base64_decode($aBody['respuesta-xml']));
+                        $sRespuesta = $sRespuesta['DetalleMensaje'];
                         $sRespuesta = str_replace(PHP_EOL, ' ', $sRespuesta);
                         $sError = strpos($sRespuesta, '[');
 

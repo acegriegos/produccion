@@ -316,6 +316,7 @@ function cargarVentas(){
                 var cnti = isNaN($("#cantI").html()) ? '∞': arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ idp+'" and idinventario = '+inv,'',0,'')[0][0][0];
 
                 var comodin = $("#valores").data('elemento')['hcomodin'].replace(/\^.*\^/g,'');
+                
                 if (cant > cnti && config[1] == 1 && comodin == '') {
                    Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
                 }else if (cant <= cnti || cnti == '∞' || config[1] == 0 || comodin != '') {
@@ -367,6 +368,8 @@ function cargarGlobal(){
     var cons = param-1 == 0 ? 6 : param-1;
     var ncons = getDatos('lpad(consecutivo'+cons+'+1,6,0)',252,'idsucursal = @@impresa and id > 0',0,0)[0][0];
     $("#idfact").html(ncons);
+
+    loadmybussiness();
 
     var fecha = new Date();
     var dpick = $('#vfecha').pickadate()
@@ -628,7 +631,7 @@ function cargarGlobal(){
         var cant,desc,prec,exo,unid = 0;
         cant = $("#ecantidad").val();
         desc = $("#edescuento").val();
-        prec = $("#eunitario").val();
+        prec = $("#eunitario").val().replace(',','');
         exo = $("#texct").val();
         unid = $("#uniadl").val();
 

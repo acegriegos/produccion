@@ -31,7 +31,7 @@ $(function(){
 	});
 
 	$("#ingClie").click(function(){
-		$("#titModal").html('Agregar Cliente');
+		$("#titModal").html('Agregar Proveedor');
 		$("#agClie").html('Agregar');
 		$("#agClie").removeClass('edit');
 		$("#agClie").addClass('add');
@@ -152,7 +152,7 @@ $("#telefono_in").blur(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vidusuario:'',vidsucursal:'',_sid:'@@@'});
+	$(".zelda").data('triforce',{vid:0,vidusuario:'',vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidsucursal:'',_sid:'@@@'});
 	//vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1,
 
 	var add = getParameterByName("add") //accesos
@@ -160,7 +160,7 @@ $("#telefono_in").blur(function(){
 		$("#ingClie").click()
 	}
 	
-	paginate($("ul.pagination").attr('vtbl'))
+	paginate($("ul.pagination").attr('vtbl'),undefined,',1,@@impresa')
 
     permisos(1001,1010);
 
