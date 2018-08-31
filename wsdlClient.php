@@ -175,10 +175,10 @@
         $scedula = isset($inv_xml->Receptor->Identificacion->Numero) ? (array) $inv_xml->Receptor->Identificacion->Numero : 0;
         $scedula = isset($scedula[0]) ? $scedula[0] : 0;
 
-        if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
-            $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO'];
-            return false;
-        }
+        // if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+        //     $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO'];
+        //     return false;
+        // }
 
         $salida['emisor']['nombre'] = (array) $inv_xml->Emisor->Nombre;
         $salida['emisor']['nombre'] = $salida['emisor']['nombre'][0];

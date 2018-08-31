@@ -205,9 +205,9 @@ echo '<hr>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.41"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.41"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.41"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.42"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.42"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.42"></script>
  <script type="text/javascript">
    $(function(){
       var config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
