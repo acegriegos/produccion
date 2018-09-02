@@ -89,56 +89,74 @@
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
+
+    <div class="col s2 der gen aff afc hide">
+      <a href="#" class="btn dropdown-button" data-activates='filtr_fin'>Financiamiento</a>
+      <ul id='filtr_fin' class='dropdown-content'>
+        <li><a class="optns" href="#!" fltr="0">Manual</a></li>
+      </ul>
+    </div>
     
   </div>
 
-  <div class="row gen aff afc hide">
+  <div class="row finmanual gen hide">
     
     <div class="col s12 l3 input-field">
       <select id="vtipointeres">
         <option value="1">Tasa Interés Anual, %</option>
         <option value="1">Tasa Interés Efectiva, %</option>
+        <option value="1">Tasa Zero, %</option>
       </select>
       <label for="vtipointeres">Tipo Interés</label>
     </div>
     
     <div class="col s12 l3 input-field">
-      <input type="text" id="vinteres">
+      <input type="text" id="vinteres" class="eder" value="58.8">
       <label for="vinteres">Valor Interés</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vinteres">
+      <input type="text" id="vinteres" class="eder" value="0">
       <label for="vinteres">Años</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vmeses">
+      <input type="text" id="vmeses" class="eder" value="0">
       <label for="vmeses">Meses</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn"></i>
-      <input type="text" id="vcuotainicial">
-      <label for="vcuotainicial">Cuota Inicial</label>
+      <i class="prefix mdi-percent mdi pbtn por-num"></i>
+      <input type="text" id="vcuotainicial" class="eder" value="0">
+      <label for="vcuotainicial">Cuota Inicial (Prima)</label>
     </div>
 
      <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn"></i>
-      <input type="text" id="vcomisioning">
+      <i class="prefix mdi-percent mdi pbtn por-num"></i>
+      <input type="text" id="vcomisioning" class="eder" value="0">
       <label for="vcomisioning">Comisión Ingreso</label>
     </div>
 
      <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn"></i>
-      <input type="text" id="vcomisionmes">
+      <i class="prefix mdi-percent mdi pbtn por-num"></i>
+      <input type="text" id="vcomisionmes" class="eder" value="0">
       <label for="vcomisionmes">Comisión Mes</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn"></i>
-      <input type="text" id="vpagresiadual">
+      <i class="prefix mdi-percent mdi pbtn por-num"></i>
+      <input type="text" id="vpagresiadual" class="eder" value="0">
       <label for="vpagresiadual">Pago Residual</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <input type="text" id="vpagresiadual" class="eder" value="0">
+      <label for="vpagresiadual">Interés Moratorio En Plazo (TP)</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <input type="text" id="vpagresiadual" class="eder" value="0">
+      <label for="vpagresiadual">Interés Moratorio En Cuota (IMC)</label>
     </div>
 
   </div>

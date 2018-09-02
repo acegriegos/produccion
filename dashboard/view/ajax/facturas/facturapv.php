@@ -10,19 +10,20 @@
   .print{
     display: none;
   }
-  *{font-size: 1.1em}
+
+  *{
+    font-family:'Helvetica';
+    font-size: 12px;
+  }
 
   .container{
     margin: 1px !important;
   }
 
   body{
-    font-size: 0.7em;
-    margin: 1px !important;
+    margin-left: 9% !important;
+    margin-right: 9% !important;
   }
-
-  @page{ margin-left: 0px; margin-right: 0px; margin-top: 0px; margin-bottom: 0px; }
-
 
 }
 </style>
@@ -77,48 +78,44 @@ echo '</td></tr>';*/
 
 echo '<tr align="center" '.$ocultar.'>
      <td>
-        <h3 align="center"> '.$miscelaneos[0].' <br> Ced. '.$miscelaneos[1].'
+        <div align="center"><b> '.$miscelaneos[0].' </b><br> Ced. '.$miscelaneos[1].'
          <br> Telf. '.$miscelaneos[5].'<br> '.$miscelaneos[6].'
-        </h3>
+        </div>
      </td>
   </tr>
 </table>
 <table style="width: 100% !important;">
-  <tr class="fe hide">
-    <td align="left" colspan="4"><b>Factura Electrónica, Clave N°</b></td>
+  <tr class="hide" style="display:none">
+    <td align="left" colspan="4">Factura Electrónica, Clave N°</td>
   </tr>
-  <tr class="fe hide">
+  <tr class="hide" style="display:none">
     <td align="left" colspan="4" style="font-size:13px">'.$transaccion[0][32].'</td>
   </tr>
-  <tr><td colspan="4"><br></td></tr>
+  <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>
-    <td align="left"><b>Consecutivo N°</b></td>
-    <td width="13%" align="center"><b>Día</b></td>
-    <td width="13%" align="center"><b>Mes</b></td>
-    <td width="13%" align="center"><b>Año</b></td>
+    <td align="center">Factura de '.$datos[1].' N°</td>
   </tr>
   <tr>
-    <td align="left"><span class="fe hide"> '.$datos[0].' </span></td>
-    <td width="13%" align="center">'.$fecha[0].'</td>
-    <td width="13%" align="center">'.$fecha[1].'</td>
-    <td width="13%" align="center">'.$fecha[2].'</td>
+    <td align="center"><span class="fe hide"> '.$datos[0].' </span></td>
   </tr>
 </table>
 <br>
 <table>
-  <tr '.$ocultar.'>
-    <td colspan="2"><b>CLIENTE:</b><br>'.$datos[4].'</td>
+  <tr>
+    <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%"><b>USUARIO:</b> </td>
+    <td colspan="2">Cliente:</td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">'.$datos[4].'</td>
+  </tr>
+  <tr '.$ocultar.'>
+    <td width="50%">Vendedor: </td>
     <td width="50%">'.$datos[16].'</td>
   </tr>
-   <tr '.$ocultar.'>
-    <td width="50%"><b>TIPO FACTURA:</b> </td>
-    <td width="50%">'.$datos[1].'</td>
-  </tr>
   <tr '.$ocultar.'>
-    <td width="50%"><b>T. PAGO:</b></td>
+    <td width="50%">T. Pago:</td>
     <td width="50%">'.$datos[2].'</td>
   </tr>
 </table>
@@ -126,10 +123,9 @@ echo '<tr align="center" '.$ocultar.'>
 <hr>
 <table  style="width: 100% !important;">
   <tr>
-    <td align="center" width="20%"><b>CANT</b></td>
-    <td align="center" width="60%"><b>DESCRIPCION</b></td>
-    <td align="center" width="60%"><b>P.Uni</b></td>
-    <td align="center" width="20%" '.$ocultar.'><b>TOTAL</b></td>
+    <td align="center" width="20%">CANT</td>
+    <td align="center" width="50%">ARTICULO</td>
+    <td align="center" width="30%">PRECIO</td>
   </tr>
   <tr>
     <td colspan="3"></td>
@@ -142,47 +138,46 @@ echo '<tr align="center" '.$ocultar.'>
       <td align="center" width="10%">'.$obj[29].$obj[18].'</td>
       <td align="center" width="55%">'.$obj[19].'</td>
       <td align="center" width="15%">'.$obj[20].'</td>
-      <td align="right" width="20%" '.$ocultar.'>'.$obj[22].'</td>
     </tr>';
     }
   
   
 echo '<tr>
-    <td colspan="4" style="border-bottom: 1px dashed #A0A0A0;"></td>
+    <td colspan="3" style="border-bottom: 1px dashed #A0A0A0;"></td>
   </tr>
 <!-- <tr>
-    <td colspan="3" align="right"> <b>TOTAL</b> </td>
-     <td align="right"> <b>10000</b> </td>
+    <td colspan="3" align="right"> TOTAL </td>
+     <td align="right"> 10000 </td>
   </tr> -->
   <tr '.$ocultar.'>
-    <td colspan="4" style="border-bottom: 1px dashed white;"></td>
+    <td colspan="3" style="border-bottom: 1px dashed white;"></td>
   </tr>
   <tr '.$ocultar.'>
-    <td style="border-top: 2px solid black;" colspan="4"></td>
+    <td colspan="3"></td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="3">Sub-Total:</td>
+    <td width="50%" colspan="2">Sub-Total:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[9].' </td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="3">13% IV:</td>
+    <td width="50%" colspan="2">13% IV:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[5].' </td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="3">Descuento:</td>
+    <td width="50%" colspan="2">Descuento:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[6].' </td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="3">Flete:</td>
+    <td width="50%" colspan="2">Flete:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[7].' </td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="3">Ajuste:</td>
+    <td width="50%" colspan="2">Ajuste:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="3"><b>TOTAL GENERAL:</b>  </td>
-    <td width="50%" align="right"> <b>'.$obj[15].$obj[10].'</b> </td>
+    <td width="50%" colspan="2">TOTAL GENERAL:  </td>
+    <td width="50%" align="right"> '.$obj[15].$obj[10].' </td>
   </tr>
 </table>
 <div '.$ocultar.'>*=EXCENTO</div>
@@ -200,8 +195,13 @@ if ($pvuelto > 0 && $vuelto >= 0) {
 }
 
 echo '<hr>
-<div style="text-align: center; font-size: 0.8em;'.$oc.'" id="resolucion"><br>
-</div>
+<div style="text-align: center;'.$oc.'" id="resolucion"></div><br><br><br>
+<hr>
+<span style="text-align: center; margin-left:36%">Recibo Conforme</span>
+<br><br><br>
+<hr>
+<span style="text-align: center; margin-left:36%">Número de Cédula</span>
+
 </div>';
 
  ?>
@@ -210,13 +210,13 @@ echo '<hr>
  <script src="../assets/js/asgard.js?v=10.0.0.41"></script>
  <script type="text/javascript">
    $(function(){
-      var config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
+      var config = getDatos('',42,'@@impresa',0,0)[0][0];
       if (parseInt(config[0])){
         $(".fe").removeClass('hide');
-        $("#resolucion").html('Este Documento no Tiene Validéz Tributaria');
+        $("#resolucion").html('Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.Este Documento no Tiene Validéz Tributaria');
       }
       else{
-        $("#resolucion").html('AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
+        $("#resolucion").html('Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
       }
 
       param = getParameterByName('fp');

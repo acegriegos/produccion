@@ -6,6 +6,7 @@ $(document).on("change","#idtipopago",function(){
 $(function(){
     $('select').material_select();
     $('.tooltipped').tooltip({delay: 50});
+     $('.dropdown-button').dropdown();
     $('#vcomentario').characterCounter();
 
     $(".autocomplete").blur(function(){ 
@@ -14,6 +15,10 @@ $(function(){
 
     cargarImpuestos(0,'11,2');
     cargarDescuentos(0,'2',undefined,1);
+
+    $(".optns").click(function(){
+        $(".finmanual").removeClass('hide');
+    });
 
     $("#codp").keyup(function(e){
         var code = e.which || e.keyCode;
@@ -988,7 +993,7 @@ function searchClient(vvariable,visprv){
 
         $(".chg_tipo").removeAttr('disabled');
 
-        if (vclie[3] > 0) {
+        if (vclie[3] > 0 && param!=2) {
             $(".chg_tipo[val=2]").removeAttr('disabled');
         }else{
             $(".chg_tipo[val=2]").attr('disabled','true')

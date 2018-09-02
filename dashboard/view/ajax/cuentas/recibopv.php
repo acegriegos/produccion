@@ -137,9 +137,12 @@ echo '<tr>
 </table>';
 
 echo '<hr>
-<div style="text-align: center; font-size: 0.8em" id="resolucion"><br>
-</div>
-</div>';
+<div style="text-align: center;" id="resolucion"></div><br><br><br>
+<hr>
+<span style="text-align: center; margin-left:36%">Recibo Conforme</span>
+<br><br><br>
+<hr>
+<span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
  <script src="../assets/js/jquery.js?v=10.0.0.41"></script>

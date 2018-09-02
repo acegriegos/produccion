@@ -5,7 +5,7 @@ $(function(){
   param = getParameterByName('tf');
   param = param == '' || param == 1 ? 7 : parseInt(param) ;
 
-  config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
+  config = getDatos('',42,'@@impresa',0,0)[0][0];
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,param));
 
@@ -647,16 +647,18 @@ function cargarGlobal(){
         $("#unitprod"+id).text($("#uniadl option:selected").html())
     });
   
-    /*if (config[2] == 1){
-        $("#teclado").click();
-        $("#p_v").attr('checked',false);
-    }else{
-        $("#barras").click();
+    if (config[5] == 1){
         $("#p_v").attr('checked',true);
-    }*/
+    }else{
+        $("#p_v").attr('checked',false);
+    }
 
-    $("#teclado").click();
-     $("#p_v").attr('checked',true);
+    if (config[6] == 1){
+        $("#barras").click();
+    }else{
+        $("#teclado").click();
+    }
+
     $("#p_v").change();
 
 }//cargar GLOBAL
