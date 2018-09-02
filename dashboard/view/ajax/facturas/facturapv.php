@@ -205,9 +205,9 @@ echo '<hr>
 </div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.41"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.41"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.41"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.42"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.42"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.42"></script>
  <script type="text/javascript">
    $(function(){
       var config = getDatos('',42,'@@impresa',0,0)[0][0];
