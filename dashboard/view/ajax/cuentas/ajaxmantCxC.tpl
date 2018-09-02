@@ -8,18 +8,30 @@
     <div class="card z-depth-3">
         <div class="row padd marginzero" style="padding-top: 20px">
           
-            <div class="col s12 m5">
-                <div class="col s12 m4">
+            <div class="col s12">
+                <div class="col s12 m4 l2">
                     <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
-                    <label for="all">Todo</label>
+                    <label for="all">Créditos</label>
                 </div>
-                <div class="col s12 m4">
+                <div class="col s12 m4 l2 hide">
                     <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
                     <label for="vencidas">Vencidas</label>
                 </div>
-                <div class="col s12 m4">
+                <div class="col s12 m4 l2">
                     <input name="ctas" class="with-gap" type="radio" id="apartados" value="4" />
                     <label for="apartados">Apartados</label>
+                </div>
+                <div class="col s12 m4 l2">
+                    <input name="ctas" class="with-gap" type="radio" id="consignacion" value="7" />
+                    <label for="consignacion">Consignación</label>
+                </div>
+                <div class="col s12 m4 l2">
+                    <input name="ctas" class="with-gap" type="radio" id="leasing" value="5" />
+                    <label for="leasing">Leasing</label>
+                </div>
+                 <div class="col s12 m4 l2">
+                    <input name="ctas" class="with-gap" type="radio" id="financiero" value="6" />
+                    <label for="financiero">Financiero</label>
                 </div>
                <!--  <div class="col s12 m4">
                     <input name="ctas" class="with-gap" type="radio" id="porvencer" value="3" />

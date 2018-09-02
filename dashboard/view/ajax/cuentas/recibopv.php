@@ -10,15 +10,19 @@
   .print{
     display: none;
   }
-  *{font-size: 1.1em}
+
+  *{
+    font-family:'Helvetica';
+    font-size: 12px;
+  }
 
   .container{
     margin: 1px !important;
   }
 
   body{
-    font-size: 0.7em;
-    margin: 1px !important;
+    margin-left: 9% !important;
+    margin-right: 9% !important;
   }
 
 }
@@ -72,26 +76,27 @@ echo '</td></tr>';*/
 
 echo '<tr align="center" >
      <td>
-        <h3 align="center"> '.$miscelaneos[0].' <br> Ced. '.$miscelaneos[1].'
+        <div align="center"> <b>'.$miscelaneos[0].'</b> <br> Ced. '.$miscelaneos[1].'
          <br> Telf. '.$miscelaneos[5].'<br> '.$miscelaneos[6].'
-        </h3>
+        </div>
      </td>
   </tr>
 </table>
+<br>
 <table style="width: 100% !important;">
   <tr>
-    <td align="left"><b>Recibo N°</b></td>
-    <td colspan="3"><b>'.$datos[9].'</b></td>
+    <td align="left">Recibo N°</td>
+    <td colspan="3">'.$datos[9].'</td>
   </tr>
   <tr class="fe hide">
     <td align="left" colspan="4">'.$datos[1].'</td>
   </tr>
   <tr><td colspan="4"><br></td></tr>
   <tr>
-    <td align="left"><b>Factura N°</b></td>
-    <td width="13%" align="center"><b>Día</b></td>
-    <td width="13%" align="center"><b>Mes</b></td>
-    <td width="13%" align="center"><b>Año</b></td>
+    <td align="left">Factura N°</td>
+    <td width="13%" align="center">Día</td>
+    <td width="13%" align="center">Mes</td>
+    <td width="13%" align="center">Año</td>
   </tr>
   <tr>
     <td align="left"><span class="fe hide"> '.$datos[13].' </span></td>
@@ -103,14 +108,14 @@ echo '<tr align="center" >
 <br>
 <table>
   <tr >
-    <td colspan="2"><b>CLIENTE:</b><br>'.$datos[4].'</td>
+    <td colspan="2">CLIENTE:<br>'.$datos[4].'</td>
   </tr>
   <tr >
-    <td width="50%"><b>USUARIO:</b> </td>
+    <td width="50%">USUARIO: </td>
     <td width="50%">'.$datos[10].'</td>
   </tr>
   <tr >
-    <td width="50%"><b>T. PAGO:</b></td>
+    <td width="50%">T. PAGO:</td>
     <td width="50%">'.$datos[8].'</td>
   </tr>
 </table>
@@ -118,9 +123,9 @@ echo '<tr align="center" >
 <hr>
 <table  style="width: 100% !important;">
   <tr>
-    <td align="center" width="30%"><b>SALDO ANT.</b></td>
-    <td align="center" width="40%"><b>MONTO</b></td>
-    <td align="center" width="30%"><b>SALDO ACTUAL</b></td>
+    <td align="center" width="30%">SALDO ANT.</td>
+    <td align="center" width="40%">MONTO</td>
+    <td align="center" width="30%">SALDO ACTUAL</td>
   </tr>
   <tr>
     <td colspan="3"></td>
