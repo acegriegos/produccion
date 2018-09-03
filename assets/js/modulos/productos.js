@@ -1115,6 +1115,18 @@ $(document).on("click",".loadserv",function(){
     cargarMoneda(serv[12]);
     $("#vidmoneda").val(serv[12]);
     $("#vidmoneda").material_select('update');
+
+    var hasimpuesto = getDatos('exoneracion',87,'idfila = '+serv[0]+' and idtabla = 16',0,0,0);
+
+	if(hasimpuesto[0].length){
+		hasimpuesto = parseInt(hasimpuesto[0][0][0]);
+		if (hasimpuesto)
+			$("#cexento").attr('checked',false);
+		else
+			$("#cexento").attr('checked',true);
+	}else
+		$("#cexento").attr('checked',false);
+
     Materialize.updateTextFields();
 });
 
@@ -2134,7 +2146,15 @@ function endDetail(id, acc, modulo) {
 			} else if (acc == 2) {
 				thorload(modulo);
 				var exon = $("#cexento").is(":checked") ? 0 : 100;
-				actualiar(87,'exoneracion='+exon,'idsucursal = '+id[0][0]);
+
+				var cantidad = getDatos('count(id)',87,'idfila = '+id[0][0]+' and idtabla = 16',0,0,0)
+
+				camtidad = cantidad[0][0][0];
+				if (parseInt(cantidad)) {
+					actualizar(87,'exoneracion='+exon,'idfila = '+id[0][0]+' and idtabla = 16');
+				}else{
+					insertar(87,'','null,'+id[0][0]+',16,1,0,13');
+				}
 			}
 			break;
 		default:
@@ -2186,6 +2206,10 @@ function postload(vmodulo){
 		    var vventa = $("#vventa").val().replace(/,/g,'') * (( (vimp*(1-($("#vexoneracion").val().replace(/,/g,'')/100)) )/100)+1);
 		    $("#vventa").val(vventa.formatMoney(2,'.',','));
 		    Materialize.updateTextFields();
+			break;
+		case 'servicio':
+			var hasimpuesto = getDatos('exoneracion',87,'idfila = '+$("#fservicios .zelda").data('triforce')['vid']+' and idtabla = 16',0,0,0);
+			console.log(hasimpuesto)
 			break;
 		default:
 			break;
