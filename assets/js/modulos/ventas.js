@@ -1125,7 +1125,7 @@ function cargarImpuestos(vfila,vtabla){
                 $("#imp_"+imp[i][0]).data('valores')['exoneracion'] = imp[i][4];
             }
 
-            if (vtabla == 16) {
+            if (imp[i][4] > 0) {
                 impuestoStr += imp[i][4];
             }
         }
