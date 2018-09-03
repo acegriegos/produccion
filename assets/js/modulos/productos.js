@@ -39,7 +39,7 @@ $(function () {
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
-				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:'',vpbase:'',vpganancia:0})
+				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:'',vpbase:'',vpganancia:0,vexento:100,vperiodo:0,vdias:0})
 				break;
 			case 3:
 				$("#mantServ").remove();
@@ -1955,17 +1955,22 @@ function validarservicios() {
 		}
 	}
 
+	if ($("#cexento").is(":checked"))
+		$("#fservicios .zelda").data('triforce')['vexento'] = 0;
+	else
+		$("#fservicios .zelda").data('triforce')['vexento'] = 100;
+
 	// if ($("#vpbase").val() == '') {
 	// 	$("#ms2").click();
 	// 	$("#vpbase").focus();
 	// 	return 'Precio Base Requerido'
 	// }
 
-	if ($("#vprecio").val() == '') {
-		$("#ms2").click();
-		$("#vprecio").focus();
-		return 'Precio Compra Requerido';
-	}
+	// if ($("#vprecio").val() == '') {
+	// 	$("#ms2").click();
+	// 	$("#vprecio").focus();
+	// 	return 'Precio Compra Requerido';
+	// }
 
 	if ($("#vpganancia").val() == '') {
 		$("#vpganancia").val(0);

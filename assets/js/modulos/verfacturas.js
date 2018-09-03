@@ -316,6 +316,7 @@ $(document).on("click",".status",function(){
 			var state = 0;
 			try{
 				p = JSON.parse(data);
+                console.log(data)
 				switch(p['estado']){
 					case 'aceptado':
 						color = 'green';
@@ -323,9 +324,9 @@ $(document).on("click",".status",function(){
                         msj = !p['rs'].trim().length ? 'Documento Electrónica Aceptado' : p['rs'];
 						break;
                     case 'recibido':
-                        color = '#8bc34a';
+                        color = 'green lighten-3';
                         state = 9;
-                        p['rs'] = 'Documento Electrónico Recibido';
+                        msj = 'Documento Electrónico Recibido';
                         break;
 					case 'rechazado':
 						color = 'red';

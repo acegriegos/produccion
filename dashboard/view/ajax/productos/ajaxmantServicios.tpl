@@ -83,49 +83,21 @@
                         <label for="vidinventario">Inventario</label>
                     </div>
                     {else}
+                        <div class="col s6 m6 l3 hide">
+                            <a class="btn btn-success" href="#modal-servcliente" id="btn-servclie">Por Período</a>
+                        </div>
 
+                        <div class="col s6 m6 l3">
+                            <input type="checkbox" id="cexento" value="0">
+                            <label for="cexento">IMV</label>
+                            <a class="btn btn-success hide" href="#modal-serImpuestos" id="btn-impuestos">Impuestos</a>
+                        </div>
+                    
                     <input type="hidden" id="vidinventario" value="0">
 
                     {/if}
                 </div>
-                <div class="row" style="margin: 0; padding: 0;">
-                    <div class="col s12 m12">
-                        <div class="row" style="margin: 0">
-                            <div class="col s12 m12 l3">
-                                <input type="checkbox" id="isPeriodo" value="0">
-                                <label for="isPeriodo">Por Periodo</label>
-
-                                <input type="hidden" id="vperiodo" value="0">
-                            </div>
-
-                            <div class="col s6 l2 opPeriodo">
-                                <br>
-                                <input type="radio" class="with-gap cper" id="diario" valor="1" name="speriodo" disabled>
-                                <label for="diario">Diario</label>
-                            </div>
-                            <div class="col s6 l2 opPeriodo">
-                                <br>
-                                <input type="radio" class="with-gap cper" id="mensual" valor="2" name="speriodo" disabled>
-                                <label for="mensual">Mensual</label>
-                            </div>
-                            <div class="col s6 l2 opPeriodo">
-                                <br>
-                                <input type="radio" class="with-gap cper" id="anual" valor="3" name="speriodo" disabled>
-                                <label for="anual">Anual</label>
-                            </div>
-                            <div class="col s6 l2 opPeriodo" id="dotros">
-                                <br>
-                                <input type="radio" class="with-gap cper" id="otros" valor="4" name="speriodo" disabled>
-                                <label for="otros">Otros:</label>
-                                <input type="hidden" id="botro" value="0">
-                            </div>
-                            <div class="input-field col s6 m3 hide" id="dhotro">
-                                <input id="vdias" type="number" class="validate" min="1" value="0">
-                                <label for="vdias">Período en Días</label>
-                            </div>
-                        </div><br>
-                    </div>
-                </div>
+               
                 <div class="row">
                     <div class="col s12 m3 hide">
                         <input type="checkbox" id="outsourcing" value="0">
@@ -168,7 +140,7 @@
 
                         <span class="prefix moneda"></span>
 
-                        <input id="vprecio" type="number" class="eder" >
+                        <input id="vprecio" type="text" class="eder" value="0">
                         <label for="vprecio">Precio</label>
 
                     </div>
@@ -179,9 +151,6 @@
                           {/section}
                         </select>
                         <label for="vidmoneda">Moneda</label>
-                    </div>
-                    <div class="input-field col s12 m3 hide cliserv">
-                        <a class="btn btn-success" href="#modal-servcliente" id="btn-servclie">Clientes</a>
                     </div>
                 </div>
                 <br>
@@ -200,7 +169,44 @@
         Clientes por Servicio
     </div>
     <div class="modal-content grandemodal center">
-      
+       <div class="row" style="margin: 0; padding: 0;">
+                    <div class="col s12 m12">
+                        <div class="row" style="margin: 0">
+                            <div class="col s12 m12 l3">
+                                <input type="checkbox" id="isPeriodo" value="0">
+                                <label for="isPeriodo">Por Periodo</label>
+
+                                <input type="hidden" id="vperiodo" value="0">
+                            </div>
+
+                            <div class="col s6 l2 opPeriodo">
+                                <br>
+                                <input type="radio" class="with-gap cper" id="diario" valor="1" name="speriodo" disabled>
+                                <label for="diario">Diario</label>
+                            </div>
+                            <div class="col s6 l2 opPeriodo">
+                                <br>
+                                <input type="radio" class="with-gap cper" id="mensual" valor="2" name="speriodo" disabled>
+                                <label for="mensual">Mensual</label>
+                            </div>
+                            <div class="col s6 l2 opPeriodo">
+                                <br>
+                                <input type="radio" class="with-gap cper" id="anual" valor="3" name="speriodo" disabled>
+                                <label for="anual">Anual</label>
+                            </div>
+                            <div class="col s6 l2 opPeriodo" id="dotros">
+                                <br>
+                                <input type="radio" class="with-gap cper" id="otros" valor="4" name="speriodo" disabled>
+                                <label for="otros">Otros:</label>
+                                <input type="hidden" id="botro" value="0">
+                            </div>
+                            <div class="input-field col s6 m3 hide" id="dhotro">
+                                <input id="vdias" type="number" class="validate" min="1" value="0">
+                                <label for="vdias">Período en Días</label>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</a>

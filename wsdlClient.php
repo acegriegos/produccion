@@ -472,6 +472,10 @@
                 return "Factura no Existente - Clave no Valida";
 
             $xml = $this->getXMLRecepcion();
+            if (is_array($xml)) {
+                return 'Probelmas Generando la Factura, no se Envió Hacienda';
+            }
+
             if ($this->credenciales[2] == 1) 
                 $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
             else
@@ -495,7 +499,7 @@
                     $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
                     break;
                 case 400:
-                    /*AGARRAR ERROR*/
+
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
                     $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2]);
@@ -616,6 +620,13 @@
                 // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             }
             
+            if (!sizeof($data['DetalleServicio'])) 
+                return ['error'=>'No hay Detalle'];
+
+            if (!isset($this->info['Emisor']['CorreoElectronico'])) {
+               return ['error'=>'No hay Correo'];
+            }
+
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
             <'.$this->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
             $this->array_to_xml($data,$xml_data);
