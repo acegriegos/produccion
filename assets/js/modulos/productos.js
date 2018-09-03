@@ -2123,6 +2123,20 @@ function endDetail(id, acc, modulo) {
 			deadclear(modulo);
 			paginate(14);
 			break;
+		case 'servicio':
+			if (acc == 1) {
+				deadclear(modulo);
+				thorload(modulo);
+				//HACER SP PARA AGARRAR VALOR O HACERLO DESDE EL TPL
+				if ($("#cexento").is(":checked"))
+					insertar(87,'','null,'+id[0][0]+',16,1,0,13');
+
+			} else if (acc == 2) {
+				thorload(modulo);
+				var exon = $("#cexento").is(":checked") ? 0 : 100;
+				actualiar(87,'exoneracion='+exon,'idsucursal = '+id[0][0]);
+			}
+			break;
 		default:
 			if (acc == 1) {
 				deadclear(modulo);
