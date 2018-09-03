@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ajustes Laboratorio</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.0.0.43">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.0.0.44">
   </head>
   <body>
     {$NAV}
@@ -752,6 +752,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/laboratorio.js?v=10.0.0.43"></script>
+<script src="../assets/js/modulos/laboratorio.js?v=10.0.0.44"></script>
 </body>
 </html>
