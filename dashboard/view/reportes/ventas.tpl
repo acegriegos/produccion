@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Ventas Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.44">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.45">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -58,7 +58,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.44"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.0.0.44"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.45"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.0.0.45"></script>
 </body>
 </html>
