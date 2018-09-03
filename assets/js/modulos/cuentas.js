@@ -7,11 +7,11 @@ $(function(){
 	switch(param){
 		case 1:
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-			arr('login',6,'',214,1+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		case 2:
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
-			arr('login',6,'',214,2+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,2+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		default:
 			$("#bdymantCuentas").html("Valor no Valido")
@@ -120,20 +120,29 @@ $(document).on("change","[name='ctas']",function(){
 	tabla.destroy()
 	switch (parseInt($(this).attr('value'))) {
 		case 2:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,-1,@@impresa',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,-1,2,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		case 3:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,1,@@impresa',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,1,2,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		case 4:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,@@impresa',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,4,@@impresa',0,1,$("#listaCuentasx"));
+			break;
+		case 5:
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,5,@@impresa',0,1,$("#listaCuentasx"));
+			break;
+		case 6:
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,6,@@impresa',0,1,$("#listaCuentasx"));
+			break;
+		case 7:
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,3,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 		default:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
+		console.log(arr('login',4,'',214,getParameterByName('tf')+',0,0,0,0,@@impresa',0,0,0));
+			arr('login',6,'',214,getParameterByName('tf')+',0,0,1,2,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 	}
 	$("#data-table-cuentas-xP").dataTable({
-		bFilter: false,
         bScrollInfinite: true,
         bSort: false,
         bLengthChange: false,
@@ -207,12 +216,12 @@ $(document).on("click",".detalle",function(){
 	$(this).sideNav('show');
 	var id = $(this).attr('id').substr(1);
 	gtipo = $(this).attr('tipo');
-	var datos = arr('login',4,'',214,gtipo+','+id+',0,0,@@impresa',0,0,0)[0][0];
+	var datos = arr('login',4,'',214,gtipo+','+id+',0,0,2,@@impresa',0,0,0)[0][0];
 
 	var tabla = $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
 	arr('login',6,'',213,gtipo+','+id+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
-	console.log(id);
+	
 	var dias = parseInt(datos[7]);
 	$('select').material_select();
 	$("#ifac").text(datos[3]);

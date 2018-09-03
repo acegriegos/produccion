@@ -36,6 +36,19 @@ $(document).on('click','.alv',function(){
     setTimeout(function(){ $(".alv").removeAttr('disabled'); },2000);
 });
 
+$(document).on('click','.por-num',function(){
+    var tipo = $(this).attr('tipo');
+    if (tipo == 1 || tipo == undefined) {
+        $(this).removeClass('mdi-percent');
+        $(this).addClass('mdi-currency-usd');
+        $(this).attr('tipo',2);
+    }else{
+        $(this).removeClass('mdi-currency-usd');
+        $(this).addClass('mdi-percent');
+        $(this).attr('tipo',1);
+    }
+});
+
 $(document).on("click","#vtelefono",function(){
     $(this).parent().find('a').click()
     $("#telefono_in").focus();

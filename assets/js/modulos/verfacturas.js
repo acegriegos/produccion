@@ -391,7 +391,7 @@ function validar (varreglo,vmodulo) {
 function endDetail(vid,vacc,vmodulo) {
     var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
     var clave = vid[0][0];
-    config = getDatos('if(p12 is null,0,1) as FE,isinventariado as INV,idtipofactura as FAC,fastshow as FS,printSale',39,'id = @@impresa',0,0)[0][0];
+    config = getDatos('',42,'@@impresa',0,0)[0][0];
 
     var $toastContent = $('<span style="width: 500px">Generando Documento Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
     Materialize.toast($toastContent,5000);

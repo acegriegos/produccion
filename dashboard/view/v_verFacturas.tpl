@@ -72,7 +72,7 @@
                      <div class="switch der">
                         <label>
                           Punto Venta
-                          <input type="checkbox" checked id="tps">
+                          <input type="checkbox" id="tps">
                           <span class="lever"></span>
                           Carta
                         </label>

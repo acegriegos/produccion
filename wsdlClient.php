@@ -64,7 +64,7 @@
         
                 if(!file_exists($fe->credenciales[0])){
                     $salida['succed'] = 0;
-                    $salida['ERROR'] = 'Clave Criptofágica no Eistente';            
+                    $salida['ERROR'] = 'Clave Criptofágica no Existente';            
                 }else{
                         
                     if(openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[1])){

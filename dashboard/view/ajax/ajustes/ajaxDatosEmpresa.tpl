@@ -550,6 +550,59 @@
 </li>
 
 <li>
+    <div class="collapsible-header"><i class="mdi mdi-currency-usd"></i><h5>Financiamiento</h5></div>
+    <div class="collapsible-body">
+        <div class="class-block">
+            <div class="row pequeño">
+                <div class="col s12 m12 l5 pequeño">
+                    <div class="row">
+                        <div class="input-field col s11 m9 l11 pequeño">
+                            <a class="prefix gtext" style="margin-left: 5% !important;"><i class="mdi mdi-magnify"></i></a>
+                            <input type="text" id="search_rubrofinancieros" maxlength="100" num="+69" var="nombre" style="margin-left: 15% !important;">
+                            <label for="search_nivelesclientes" style="margin-left: 15% !important;">Buscar Rubro</label>
+                        </div>
+                        <div id="fnivelesclientes" class="col s11 m9 l11  pequeño">
+                            <div class="row pequeño">
+                                <div class="input-field col s12 pequeño">
+                                    <a class="prefix btn-floating btn2 add tooltipped z-depth-3" modulo="rubrofinanciero" data-position="top" data-tooltip="Ingresar Rubro Financiero" style="padding-right: 5% !important;"><i class="mdi mdi-plus"></i></a>
+                                    <input type="hidden" id="vid_nivel" value="0">
+                                    <input type="text" id="vnombre_nivel" style="margin-left: 15% !important;">
+                                    <input type="hidden" id="vbisproveedor" value="0">
+                                    <label for="vnombre_nivel" style="margin-left: 15% !important;">Ingresar Rubro</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m12 l5 pequeño">
+                    <table class="table pequeño centered highlight bordered responsive-table z-depth-3" id="data-table-nivelesclientes">
+                        <thead>
+                            <tr class="tab1">
+                                <th class="white-text" style="border: 0; border-radius: 0px !important">Nombre</th>
+                                <th class="white-text" style="border: 0; border-radius: 0px !important;  width: 100%;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listanivelesclientes">
+                            {section name=LE loop=$CATC}
+                            <tr id="d_{$CATC[LE][0]} ">
+                                <td><input type="text" id="vnombre" class="fast-edit fast-edit-r center-align" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" maxlength="20"></td>
+                                <td style=" width: 50%;">
+                                <a class="waves-effect waves-light load_x modal-trigger" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="mdi mdi-pencil mdi-24px left gtext"></i></a>
+                                <a class="waves-effect waves-light catcli modal-trigger" id="g{$CATC[LE][0]}" href='#modal-clientexcategoria' title="Valores en el Sistema"><i class="mdi mdi-account-multiple mdi-24px left gtext"></i></a>
+                                <a class="waves-effect waves-light load_x" modulo="nivelescliente" id="h{$CATC[LE][0]}" title="Eliminar Nivel de Cliente"><i class="mdi mdi-close mdi-24px left gtext delete"></i></a>
+                                </td>
+                            </tr>
+                            {/section}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Datos de las Categorías -->
+</li>
+
+<li>
 <div class="collapsible-header"><i class="mdi mdi-clock"></i><h5>Período Fiscal</h5></div>
 <div class="collapsible-body">
     <div class="card-block">
