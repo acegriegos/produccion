@@ -615,7 +615,6 @@ function totalizar(){
             if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
 
                 eimv = $("#fd"+vidlinea).data('triforce')['exoneracion'];
-                console.log(eimv)
                 eimv = eimv >= geimv ? eimv : geimv;
 
                 rimv = parseFloat($(this).data('valores')['vmonto']);
