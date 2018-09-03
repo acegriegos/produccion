@@ -6,6 +6,8 @@ var str_correos = '';
 
 $(document).ready(function(){
 	var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
+    config = getDatos('',42,'@@impresa',0,0)[0][0];
+
 	switch(tf) {
 		case 1:
 			$("[rm=1]").addClass('hide');
@@ -79,6 +81,12 @@ $(document).ready(function(){
     });
 
 	InitDropzone(1,true,'../cargar.php?accion=4',"#registro-upload",1,'text/xml','','',xmlCargar);
+    
+    if (config[5] == 1){
+        $("#tps").attr('checked',false);
+    }else{
+        $("#tps").attr('checked',true);
+    }
 });
 
 function xmlCargar(file,response){
@@ -391,7 +399,6 @@ function validar (varreglo,vmodulo) {
 function endDetail(vid,vacc,vmodulo) {
     var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
     var clave = vid[0][0];
-    config = getDatos('',42,'@@impresa',0,0)[0][0];
 
     var $toastContent = $('<span style="width: 500px">Generando Documento Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
     Materialize.toast($toastContent,5000);

@@ -1,3 +1,4 @@
+<?php $config = $kakaroto->kamehameha('',42,'@@impresa');?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,16 +21,25 @@
     margin: 1px !important;
   }
 
+<?php if ($config[0][9] == 0) { ?>
+  body{
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+  }
+<?php }else{ ?>
   body{
     margin-left: 9% !important;
     margin-right: 9% !important;
   }
-
+<?php } ?>
 }
 </style>
 </head>
 
 <body style="margin-left: 35%; margin-right: 35%;">
+  <input type="hidden" id="ttipo" value="<?php echo $datos[35]; ?>">
+  <input type="hidden" id="config0" value="<?php echo $config[0][0]; ?>">
+  <input type="hidden" id="config9" value="<?php echo $config[0][9]; ?>">
 <?php 
 $pvuelto = isset($_REQUEST['pvuelto']) ? $_REQUEST['pvuelto'] : 0;
 $vuelto = isset($_REQUEST['vuelto']) ? $_REQUEST['vuelto'] : 0;
@@ -196,13 +206,13 @@ if ($pvuelto > 0 && $vuelto >= 0) {
 
 echo '<hr>
 <div style="text-align: center;'.$oc.'" id="resolucion"></div><br><br><br>
-<hr>
+<div class="recibo" style="display:none"><hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>
 <br><br><br>
 <hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>
 
-</div>';
+</div></div>';
 
  ?>
  <script src="../assets/js/jquery.js?v=10.0.0.42"></script>
@@ -210,13 +220,22 @@ echo '<hr>
  <script src="../assets/js/asgard.js?v=10.0.0.42"></script>
  <script type="text/javascript">
    $(function(){
-      var config = getDatos('',42,'@@impresa',0,0)[0][0];
-      if (parseInt(config[0])){
+      var config0 = $("#config0").val()
+      var config9 = parseInt($("#config9").val());
+      if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        $("#resolucion").html('Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.Este Documento no Tiene Validéz Tributaria');
+        $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span>Este Documento no Tiene Validéz Tributaria');
       }
       else{
-        $("#resolucion").html('Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
+        $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
+      }
+
+      if ($("#ttipo").val() != 1) {
+        $(".ncontado").show();
+      }
+
+      if (config9) {
+        $(".recibo").show();
       }
 
       param = getParameterByName('fp');
