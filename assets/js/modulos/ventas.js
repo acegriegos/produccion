@@ -873,6 +873,7 @@ function cargarProducto(kbrota,elemento) {
         
         if (strimp.substr(strimp.indexOf(',',2)+1).length) {
             $("#valores").data("elemento")['exo'] = strimp.substr(strimp.indexOf(',',2)+1);
+            cod[9] = strimp.substr(strimp.indexOf(',',2)+1);
         }
 
         $("#valores").data("elemento")['strimp'] = strimp;
@@ -923,6 +924,7 @@ function endCargarProducto(exo){
     if (modselec == 1) {
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
+
             if (exo < 100) {
                 var impuestos = 0;
                 $(".dimpuesto").each(function(){
@@ -935,6 +937,9 @@ function endCargarProducto(exo){
                 $("#precp").select().focus();
                 $("[for=iva]").removeClass('hide');
                 $("#iva").attr('checked',true);
+            }else{
+                $("[for=iva]").addClass('hide');
+                $("#iva").attr('checked',false);
             }
         }else{
             $("#cantp").focus().select();
