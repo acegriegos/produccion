@@ -615,11 +615,12 @@ function totalizar(){
             if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
 
                 eimv = $("#fd"+vidlinea).data('triforce')['exoneracion'];
+                console.log(eimv)
                 eimv = eimv >= geimv ? eimv : geimv;
 
                 rimv = parseFloat($(this).data('valores')['vmonto']);
                 iimv = $(this).data('valores')['vid'];
-
+                
                 if(eimv >= 100 && exov == '') { 
                     //PRODUCTOS O CLIENTES EXENTOS
                     exento += tmpdesc;
@@ -870,9 +871,12 @@ function cargarProducto(kbrota,elemento) {
             $("#bname-inv").html(cod[4]);
         }
         var strimp = cargarImpuestos(cod[0].substr(1)+',0',tabla);
+        
+        if (strimp.substr(strimp.indexOf(',',2)+1).length) {
+            $("#valores").data("elemento")['exo'] = strimp.substr(strimp.indexOf(',',2)+1);
+        }
 
         $("#valores").data("elemento")['strimp'] = strimp;
-        cargarunidades(cod[0],cod[15]);
         $("#cantp").val(cantidad);
 
         if(param != 2){ //PRODUCTO DE VALOR VARIABLE
@@ -1094,11 +1098,12 @@ function calcVuelto(){
 function cargarImpuestos(vfila,vtabla){
 
     var imp = getDatos('',109,'@@impresa,"'+vfila+'","'+vtabla+'"',0,0)[0];
+
     var textImpuestos = '';
     var exo = 0;
     var sMoneda = $(".moneda").html();
     var aexo = 0;
-    var noBorrar = vtabla = '11,2' ? 'noBorrar' : '';
+    var noBorrar = vtabla = '11,2' ? '16' : '';
     var impuestoStr = '';
  
     for (var i = 0; i < imp.length; i++) {
@@ -1114,6 +1119,10 @@ function cargarImpuestos(vfila,vtabla){
         }else{
             if (vtabla == 2){
                 $("#imp_"+imp[i][0]).data('valores')['exoneracion'] = imp[i][4];
+            }
+
+            if (vtabla == 16) {
+                impuestoStr += imp[i][4];
             }
         }
         

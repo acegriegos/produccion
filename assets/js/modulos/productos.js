@@ -2148,8 +2148,7 @@ function endDetail(id, acc, modulo) {
 				var exon = $("#cexento").is(":checked") ? 0 : 100;
 
 				var cantidad = getDatos('count(id)',87,'idfila = '+id[0][0]+' and idtabla = 16',0,0,0)
-
-				camtidad = cantidad[0][0][0];
+				cantidad = cantidad[0][0][0];
 				if (parseInt(cantidad)) {
 					actualizar(87,'exoneracion='+exon,'idfila = '+id[0][0]+' and idtabla = 16');
 				}else{
