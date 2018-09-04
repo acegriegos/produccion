@@ -343,6 +343,7 @@ $(document).on("click",".status",function(){
 					case 'procesando':
 						color = '#cddc39';
 						state = 2;
+                        console.log(p)
                         msj = !p['rs'].trim().length ? 'Procesando Documento Electrónica' : p['rs'];
 						break;
 					case 'Sin Subir':
