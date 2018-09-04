@@ -343,8 +343,7 @@ $(document).on("click",".status",function(){
 					case 'procesando':
 						color = '#cddc39';
 						state = 2;
-                        console.log(p)
-                        msj = !p['rs'].trim().length ? 'Procesando Documento Electrónica' : p['rs'];
+                        msj = 'Procesando Documento Electrónica';
 						break;
 					case 'Sin Subir':
 						var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));

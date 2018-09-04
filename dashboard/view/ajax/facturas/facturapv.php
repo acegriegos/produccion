@@ -7,6 +7,34 @@
 <style>
   *{font-size: 1em}
 
+<?php if ($config[0][9] == 2) { ?>
+@media print {
+  .print{
+    display: none;
+  }
+
+  *{
+    font-family:'Helvetica';
+    /*font-size: 12px;*/
+  }
+
+  .container{
+
+      /**margin: 1px !important;**/
+  }
+
+  *{
+        margin: 0% !important;
+        font-size: 20px;
+
+  }
+
+
+  @page {
+    margin: 0;
+  }
+}
+<?php }else{ ?>
 @media print {
   .print{
     display: none;
@@ -33,6 +61,8 @@
   }
 <?php } ?>
 }
+
+<?php } ?>
 </style>
 </head>
 
