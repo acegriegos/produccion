@@ -473,7 +473,7 @@
 
             $xml = $this->getXMLRecepcion();
             if (is_array($xml)) {
-                return 'Probelmas Generando la Factura, no se Envió Hacienda';
+                return 'Problemas Generando la Factura: '.$xml['error'].', no se Envió Hacienda';
             }
 
             if ($this->credenciales[2] == 1) 
@@ -523,7 +523,10 @@
             if ($this->bearer == '')
                return 'Problemas con la Llave Criptográfica';
 
-            $clave = $this->info['Clave'];
+            if (isset($_REQUEST['clave'])) {
+                $clave = $_REQUEST['clave'];
+            }else
+                $clave = $this->info['Clave'];
 
             if ($this->credenciales[2] == 1) 
                 $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/".$clave);
@@ -624,7 +627,24 @@
                 return ['error'=>'No hay Detalle'];
 
             if (!isset($this->info['Emisor']['CorreoElectronico'])) {
-               return ['error'=>'No hay Correo'];
+               return ['error'=>'Emisor sin Correo'];
+            }
+
+            if (isset($this->info['Receptor']['Identificacion']['Tipo'])) {
+                switch ($this->info['Receptor']['Identificacion']['Tipo']) {
+                    case '01':
+                        if (strlen($this->info['Receptor']['Identificacion']['Numero']) != 9)
+                            return ['error' => 'Formato Cédula no Valido'];
+                        break;
+                    case '02':
+                        if (strlen($this->info['Receptor']['Identificacion']['Numero']) != 10)
+                            return ['error' => 'Formato Cédula no Valido'];
+                        break;
+                    default :
+                        if (strlen($this->info['Receptor']['Identificacion']['Numero']) != 12)
+                            return ['error' => 'Formato Cédula no Valido'];
+                        break;
+                }
             }
 
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>

@@ -324,7 +324,6 @@ $(document).on("click",".status",function(){
 			var state = 0;
 			try{
 				p = JSON.parse(data);
-                console.log(data)
 				switch(p['estado']){
 					case 'aceptado':
 						color = 'green';
@@ -348,8 +347,8 @@ $(document).on("click",".status",function(){
 						break;
 					case 'Sin Subir':
 						var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-						Materialize.toast($toastContent);
-						sendFE(clave);
+						Materialize.toast($toastContent,5000);
+						sendFE(vid);
 						break;
 					case 'Sin Internet':
 						color = 'red';
@@ -363,10 +362,10 @@ $(document).on("click",".status",function(){
 					$("#e"+vid).css('color',color);
 					arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
 				}
-                console.log(p+' '+msj)
+                //console.log(p+' '+msj)
 				Materialize.toast(msj,6000,color);
 			}catch(ex){
-				console.log(data)
+				console.log(ex)
 				Materialize.toast('Error Obteniendo Estado',6000,'red')
 			}
 			$(".status").attr('disabled',false)
@@ -420,7 +419,8 @@ function sendFE(clave){
         try {
             p = JSON.parse(data);
             $(".expect").removeClass('progress');
-            if (p['success']) {
+            
+            if (p['succes']) {
                 var vfactura = p['num'];
                 var vclave = p['clave'];
                 arr('login',7,2,64,'feestado=2','id='+clave,0,0);
@@ -447,14 +447,13 @@ function sendFE(clave){
             Materialize.toast(data,5000,'red');
             arr('login',7,2,64,'feestado=8','id='+clave,0,0);
         }  
-    
   });
 }
 
 function sendVMail(factura,clave,vid){
     var archivos = '';
-
-    if ($(".zelda").data('triforce')['vidcliente'] != 0) {
+    console.log('ENVIO DE CORREO');
+    /*if ($(".zelda").data('triforce')['vidcliente'] != 0) {
         var correos = getDatos("",18,$(".zelda").data('triforce')['vidcliente']+",2",0,0,0);
         
         if (!correos['succed']) {
@@ -473,7 +472,7 @@ function sendVMail(factura,clave,vid){
         var vbody = getDatos('',73,vid,0,0)[0][0];
         archivos = makeArchivos(factura,clave,vid,vbody[1]);
         enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
-    }
+    }*/
 }
 
 
