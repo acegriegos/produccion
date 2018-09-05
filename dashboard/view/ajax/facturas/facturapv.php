@@ -7,7 +7,7 @@
 <style>
   *{font-size: 1em}
 
-<?php if ($config[0][9] == 2) { ?>
+<?php if ($config[0][8] == 2) { ?>
 @media print {
   .print{
     display: none;
