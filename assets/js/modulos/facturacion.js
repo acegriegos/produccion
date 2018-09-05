@@ -424,8 +424,8 @@ function cargarGlobal(){
     });
 
     $("#codp").keydown(function(e){
-              
-        if (config[6] == 1) {
+        
+        if (config[6] == 0) {
             var charCode = e.which || e.keyCode;
             var charStr = keysight(e)
 
