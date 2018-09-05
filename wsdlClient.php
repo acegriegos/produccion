@@ -181,7 +181,7 @@
                     <b>Estado: </b> <?php echo strtoupper($det[4]['estado']); ?> <br>
                     <?php if(isset($det[4]['rs'])){ ?><b>Mensaje: </b> <?php echo $det[4]['rs']; ?> <br> <?php } ?>
                     <div id="dxml" style="display: none"><?php echo $det[4]['xml']; ?></div>
-                    <a href="#dxml" class="btn" download>Descargar Documento XML</a>
+                    <a href="#" class="btn bxml">Descargar Documento XML</a>
                 </div>
             </div>
             
@@ -195,6 +195,14 @@
         <script src="assets/libs/charts/chart.js?v=10.0.0.47"></script>
         <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.0.0.47"></script>
         <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.0.0.47"></script>
+        <script type="text/javascript">
+            $(function(){
+                $(".bxml").click(function(){
+                    var w = window.open();
+                    $(w.document.body).html($("#dxml").html());
+                });
+            });
+        </script>
     </body>
     </html>
 <?php
@@ -693,14 +701,33 @@
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                     case '02':
+                    case '03':
                         if (strlen($this->info['Receptor']['Identificacion']['Numero']) != 10)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                     default :
-                        if (strlen($this->info['Receptor']['Identificacion']['Numero']) != 12)
+                        $tmcedula = strlen($this->info['Receptor']['Identificacion']['Numero']);
+                        if ( $tmcedula < 11 && $tmcedula > 12)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                 }
+            }
+            $tmcedula = strlen($this->info['Emisor']['Identificacion']['Numero']);
+            switch ($this->info['Emisor']['Identificacion']['Tipo']) {
+                case '01':
+                    if ($tmcedula != 9)
+                        return ['error' => 'Formato Cédula no Valido'];
+                    break;
+                case '02':
+                case '03':
+                    if ($tmcedula != 10)
+                        return ['error' => 'Formato Cédula no Valido'];
+                    break;
+                default :
+                    
+                    if ( $tmcedula < 11 && $tmcedula > 12)
+                        return ['error' => 'Formato Cédula no Valido'];
+                    break;
             }
 
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
