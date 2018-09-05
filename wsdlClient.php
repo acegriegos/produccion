@@ -153,8 +153,51 @@
         if (isset($_REQUEST['ref'])){
             $fe = new facturaElectronica(0);
             $det = $fe->getStatus($_REQUEST['ref']);
-           
-            print_r($det);
+            ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Mensaje Hacienda</title>
+        <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.0.0.47">
+        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.0.0.47">
+        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.0.0.47">
+        <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.0.0.47">
+        <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.47">
+        <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.0.0.47">
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col s4">
+                    <img src="assets/img/login/logo_azulG.png" width="100px" height="100px">
+                </div>
+
+                <div class="col s8">
+                    <h2>Factura Electrónica</h2>
+                    <b>Clave: </b> <?php echo $det[0]; ?> <br>
+                    <b>Consecutivo: </b> <?php echo substr($det[0], 21,20); ?> <br>
+                    <b>Estado: </b> <?php echo strtoupper($det[4]['estado']); ?> <br>
+                    <?php if(isset($det[4]['rs'])){ ?><b>Mensaje: </b> <?php echo $det[4]['rs']; ?> <br> <?php } ?>
+                    <div id="dxml" style="display: none"><?php echo $det[4]['xml']; ?></div>
+                    <a href="#dxml" class="btn" download>Descargar Documento XML</a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="center" style="bottom: 15%;left:auto;">Factura Electrónica Emitida por Logintech <br> <a href="mailto:info@logintechcr.com">Contáctenos, Será un placer brindar nuestros servicios</a></div>
+
+        <script src="assets/js/jquery.js?v=10.0.0.47"></script>
+        <script src="assets/js/jquery.mask.min.js?v=10.0.0.47"></script>
+        <script src="assets/js/materialize.min.js?v=10.0.0.47"></script>
+        <script src="assets/libs/charts/chart.js?v=10.0.0.47"></script>
+        <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.0.0.47"></script>
+        <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.0.0.47"></script>
+    </body>
+    </html>
+<?php
         }
     }
 
@@ -591,10 +634,12 @@
                             $aError = explode(',',substr($sRespuesta, strpos($sRespuesta, '[')-1));
                             $sRespuesta = str_replace($sError, $aError[4], $sRespuesta);
                         }
+                        $salida['xml'] = base64_decode($aBody['respuesta-xml']);
                         $salida['rs'] = $sRespuesta;
                     }
                     $salida['factura']  = $this->id;
                     $salida['estado']   = $aBody['ind-estado'];
+
                     break;       
                 default:
                     $salida = $json_response;
@@ -1026,7 +1071,8 @@
             $this->credenciales[5] = $rs[3];
             $_REQUEST['clave'] = $rs[0];
 
-            $rs = $this->estado();
+            $estatus = $this->estado();
+            array_push($rs, $estatus);
             return $rs;
         }
     }   

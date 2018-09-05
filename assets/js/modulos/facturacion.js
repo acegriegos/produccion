@@ -424,9 +424,8 @@ function cargarGlobal(){
     });
 
     $("#codp").keydown(function(e){
-        var modselec = parseInt($("input[name='modselected']:checked").val());
-        
-        if (modselec == 1) {
+              
+        if (config[6] == 1) {
             var charCode = e.which || e.keyCode;
             var charStr = keysight(e)
 

@@ -29,7 +29,6 @@
 
   }
 
-
   @page {
     margin: 0;
   }
