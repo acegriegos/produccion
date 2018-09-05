@@ -149,6 +149,13 @@
                 echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
         }
+    }else{
+        if (isset($_REQUEST['ref'])){
+            $fe = new facturaElectronica(0);
+            $det = $fe->getStatus($_REQUEST['ref']);
+           
+            print_r($det);
+        }
     }
 
     function loadXML_FILE($id,&$salida)
@@ -175,10 +182,10 @@
         $scedula = isset($inv_xml->Receptor->Identificacion->Numero) ? (array) $inv_xml->Receptor->Identificacion->Numero : 0;
         $scedula = isset($scedula[0]) ? $scedula[0] : 0;
 
-        // if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
-        //     $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO'];
-        //     return false;
-        // }
+        if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+            $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO, '.$scedula];
+            return false;
+        }
 
         $salida['emisor']['nombre'] = (array) $inv_xml->Emisor->Nombre;
         $salida['emisor']['nombre'] = $salida['emisor']['nombre'][0];
@@ -216,6 +223,7 @@
             $salida['emisor']['id']         = 0;
         }else
             $salida['emisor']['id']     = $prov[0][0];
+
         $fecha = (array) $inv_xml->FechaEmision;
         $fecha = $fecha[0];
         $fecha = strtotime(substr(str_replace('T', ' ', $fecha),0,-6));
@@ -243,6 +251,7 @@
         $salida['factura']['impuesto']  = $salida['factura']['impuesto'][0];
 
         $ciclo = (array) $inv_xml->DetalleServicio;
+        $ciclo = $ciclo['LineaDetalle'];
         $salida['detalle'] = [];
 
         foreach ($ciclo as $key) {
@@ -255,12 +264,14 @@
             $dcodigo = (array)$key->Codigo->Codigo;
             $dcantidad = (array)$key->Cantidad;
             $ddetalle = (array)$key->Detalle;
+            $dunitario = (array)$key->PrecioUnitario;
+            $dsubtotal = (array)$key->SubTotal;
             $ddescuento = isset($key->MontoDescuento) ? (array)$key->MontoDescuento : 0;
             $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
             $dimpuesto = isset($key->Impuesto->Monto) ? (array)$key->Impuesto->Monto : 0;
             $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
 
-            $detarray = ['numero' => $num[0],'codigo' => $dcodigo[0],'cantidad' => $dcantidad[0], 'unidad' => $vunidad, 'idunidad' => $cunidad, 'detalle' => $ddetalle[0], 'precio' => $ddetalle[0], 'descuento' => $ddescuento, 'impuesto' => $dimpuesto];
+            $detarray = ['numero' => $num[0],'codigo' => $dcodigo[0],'cantidad' => $dcantidad[0], 'unidad' => $vunidad, 'idunidad' => $cunidad, 'detalle' => $ddetalle[0], 'precio' => $dsubtotal[0], 'descuento' => $ddescuento, 'impuesto' => $dimpuesto];
             array_push($salida['detalle'], $detarray);
         }
 
@@ -1000,6 +1011,24 @@
             $sig = str_replace('</ds:SignatureValue>', $signatureResult.'</ds:SignatureValue>', $sig);
             $xml = str_replace('</'.$this->tdoc.'>', $sig.'</'.$this->tdoc.'>' , $xml);
        }
+
+       function getStatus($ref){
+            $db = new DBClass();
+            $rs = $db->ejecutar('select aes_decrypt(unhex("'.$ref.'"),"salvenawilly") as info');
+            if ($rs->num_rows != 1) {
+                return ['ERROR'=>'Referencia no Valida'];
+            }
+            $rs = $rs->fetch_all()[0][0];
+            $rs = explode(',', $rs);
+
+            $this->credenciales[2] = $rs[1];
+            $this->credenciales[4] = $rs[2];
+            $this->credenciales[5] = $rs[3];
+            $_REQUEST['clave'] = $rs[0];
+
+            $rs = $this->estado();
+            return $rs;
+        }
     }   
 
     function warning_handler($errno, $errstr, $errfile, $errline)

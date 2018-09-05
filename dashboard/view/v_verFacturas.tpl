@@ -191,9 +191,9 @@
             </section>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="5">Aceptar</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="6">Aceptar Parcial</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="5" xml="3" dc="7">Rechazar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="5">Aceptar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="6">Aceptar Parcial</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="7">Rechazar</a>
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Cancelar</a>
         </div>
     </div>

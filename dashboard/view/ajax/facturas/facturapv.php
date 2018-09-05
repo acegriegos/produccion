@@ -160,8 +160,12 @@ echo '<tr align="center" '.$ocultar.'>
   </tr>
 </table>
   <br>
-<hr>
-<table  style="width: 100% !important;">
+<hr>';
+
+if ($config[0][10] == 1) {
+  echo "hola";
+}else{
+echo '<table  style="width: 100% !important;">
   <tr>
     <td align="center" width="20%">CANT</td>
     <td align="center" width="50%">ARTICULO</td>
@@ -175,13 +179,12 @@ echo '<tr align="center" '.$ocultar.'>
     foreach ($transaccion as $obj) {
 
     echo '<tr>
-      <td align="center" width="10%">'.$obj[29].$obj[18].'</td>
-      <td align="center" width="55%">'.$obj[19].'</td>
-      <td align="center" width="15%">'.$obj[20].'</td>
-    </tr>';
+      <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
+      <td align="center" width="50%">'.$obj[19].'</td>
+      <td align="center" width="30%">'.$obj[20].'</td>';
     }
-  
-  
+  }
+  //<td align="center" width="15%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]).'</td></tr>
 echo '<tr>
     <td colspan="3" style="border-bottom: 1px dashed #A0A0A0;"></td>
   </tr>

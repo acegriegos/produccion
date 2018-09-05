@@ -53,6 +53,7 @@
 
 						if (!is_array($rs)){
 							// $save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
+							$this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
 							$rollback = $rs." Modulo: ".$varios['modulo'];
 							$roll_tbl = $varios['rollback'];
 						}
