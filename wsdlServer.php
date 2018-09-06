@@ -204,12 +204,12 @@ if (isset($_POST['respuestaXml'])) {
                         break;
                       case 'DIMEX':
                         $tipo = 4;
-                        break
+                        break;
                       default:
                         $tipo = 3;
                         break;
                     }
-                     = $certData['subject']['OU'] == 'CPJ' ? 2 : 1;
+
                     $cedula = substr($certData['subject']['serialNumber'],$tipo ? 4 : 5);
                     unset($target_path);
 
@@ -233,7 +233,7 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
-                        $db->ejecutar("insert into ajustessucursales values(null,".$rs.",1,0,null,0,0)")
+                        $db->ejecutar("insert into ajustessucursales values(null,".$rs.",1,0,null,0,0)");
                     }else{
                         $salida['error'] = 14;
                     }
