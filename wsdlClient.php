@@ -346,7 +346,8 @@
 
             $this->info = $this->getJSON('call fe_getencabezado("'.$this->id.'")');
             $this->opcion = isset($this->info['NumeroConsecutivo']) ? substr($this->info['NumeroConsecutivo'],9,1) : 0;
-            switch ($this->opcion) {
+            if ($vid != 0) {
+                switch ($this->opcion) {
                 case 2: //NOTA DE DEITO
                     $this->tdoc = 'NotaDebitoElectronica';
                     $this->xmldoc = 'notaDebitoElectronica';
@@ -377,6 +378,8 @@
             if (!isset($_REQUEST['accion']))
                 $this->preUbicacion = '../';
             $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
+            }
+            
         }
 
         function getBearer(){

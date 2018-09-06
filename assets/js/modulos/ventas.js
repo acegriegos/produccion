@@ -1333,10 +1333,10 @@ function sendVMail(factura,clave,vid){
         }
     }
 
-    // if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
-    //     setTimeout(function(){location.reload();},7000);
-    // }else
-    //     setTimeout(function(){location.reload();},2000);
+    if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+        setTimeout(function(){location.reload();},7000);
+    }else
+        setTimeout(function(){location.reload();},2000);
 }
 
 
