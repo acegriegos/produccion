@@ -1,4 +1,7 @@
 var w;
+var str_correos = '';
+var tmp_correos = '';
+
 $(document).on("change","#idtipopago",function(){
     $(".zelda").data('triforce')['vidtipopago'] = $(this).val();
 });
@@ -296,6 +299,38 @@ $("#pcon").keyup(function(e){
     }
 });
 
+$("#mstrcrr").click(function(){
+    str_correos = ''
+   $(".selcorreo:checked").each(function(){
+        var id = $(this).attr('id');
+        str_correos += $("[for="+id+"]").html()+",";
+    });
+    
+    str_correos = str_correos.substr(0,str_correos.length-1)
+    console.log(str_correos);
+});
+
+$("#crrclie").click(function(){
+    $("#modal-correos").modal('open');
+    tmp_correos = tmp_correos == '' ? str_correos : tmp_correos;
+
+    var tmp = tmp_correos;
+    var cantidad = tmp_correos.length - tmp_correos.replace(/,/g,'').length;
+    var str = '';
+    var checked = 'checked';
+    var index = 0;
+    $('#bdycrr').html('');
+
+    for (var i = 0; i < cantidad+1; i++) {
+        index = tmp.indexOf(',') == -1 ? tmp.length : tmp.indexOf(',');
+        checked = str_correos.indexOf(tmp.substr(0,index)) == -1 ? '': 'checked';
+        str += '<input type="checkbox" class="selcorreo" '+checked+' id="chk'+i+'"><label for="chk'+i+'">'+tmp.substr(0,index)+'</label><br>';
+        tmp = tmp.substr(index+1,tmp.length);
+    }
+
+    $('#bdycrr').html(str);
+    
+});
 
 $(".mcancelar").blur(function(){
     var total = 0;
@@ -470,7 +505,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         if ( idprod == $(this).data('triforce')['videntrada'] && hinv == $(this).data('triforce')['vidinventario'] && prec == parseFloat($(this).data('triforce')['vprecio']) && $("#desc"+vid).html().trim() == desc.trim() && cod.trim() == $("#codprod"+vid).html().trim()) {
             existe = 1;
 
-            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[167]/i)) && config[1] == 1 && comodin == '') {
+            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[17]/i)) && config[1] == 1 && comodin == '') {
                 //EXCEDE EL NUMERO EN INVENTARIO
                 Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
                 $("#cantp").select();
@@ -605,6 +640,9 @@ function totalizar(){
         tmpdesc = tmpdesc * (1-(desc/100));
 
         $(".dimpuesto").each(function(){
+            if ($(this).data('valores')['exoneracion'] != 0) {
+                geimv = $(this).data('valores')['exoneracion'];
+            }
             if (param == 2) {
                 if ($("#exct").attr('hclk') == 0)
                     geimv = $(this).data('valores')['exoneracion'];
@@ -920,7 +958,7 @@ function cargarProducto(kbrota,elemento) {
 
 function endCargarProducto(exo){
     var modselec = $("input[name='modselected']:checked").val();
-
+    
     if (modselec == 1) {
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
@@ -1029,8 +1067,23 @@ function searchClient(vvariable,visprv){
         $("#hisclie").removeClass('hide');
         $("#exobtn").removeClass('hide');
         
-    }else{
+        if (/[17]/i.test(param)) {
+            var correos = getDatos("",18,$(".zelda").data('triforce')['vidcliente']+",2",0,0,0);
+            str_correos = '';
+            if (!correos['succed']) {
+                Materialize.toast('Correos Inválidos',4000,'red');
+                arr('login',7,2,64,'feestado=4','id='+clave,0,0);
+            }else{
+                for (var i = 0; i < correos[0].length; i++) {
+                    str_correos += correos[0][i][3]+",";
+                }
 
+                str_correos = str_correos.substr(0,str_correos.length-1);
+                tmp_correos = '';
+            }
+        }
+    }else{
+        str_correos = '';
         if ($(".zelda").data('triforce')['vidtipoventa'] == 1){
             $(".zelda").data('triforce')['vidtipoventa'] = 7;
             var ncons = getDatos('lpad(consecutivo6+1,6,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
@@ -1235,25 +1288,11 @@ function sendVMail(factura,clave,vid){
     var archivos = '';
 
     if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
-        var str_correos = '';
+
         switch(param){
             case 2:
                 break;
             default:
-                if ($(".zelda").data('triforce')['vidcliente'] != 0) {
-                    var correos = getDatos("",18,$(".zelda").data('triforce')['vidcliente']+",2",0,0,0);
-                    
-                    if (!correos['succed']) {
-                        Materialize.toast('Correos Inválidos',4000,'red');
-                        arr('login',7,2,64,'feestado=4','id='+clave,0,0);
-                    }else{
-                        for (var i = 0; i < correos[0].length; i++) {
-                            str_correos += correos[0][i][3]+",";
-                        }
-
-                        str_correos = str_correos.substr(0,str_correos.length-1);
-                    }
-                }
                 
                 if (config[4] == 1) {
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
@@ -1261,13 +1300,6 @@ function sendVMail(factura,clave,vid){
                     try{ 
 
                         w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
-//                         w.print();
-//                       setTimeout(function(){
-                     
-//                          w.close();
-// /*                        window.focus();
-// */                            },500);
-                      
                         
                     }catch(e){
                         Materialize.toast("POP-UP ACTIVADO",4000,'red');
@@ -1292,12 +1324,8 @@ function sendVMail(factura,clave,vid){
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
                    
                     try{    
-                         w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");             
-                          // w.print();
-                          // setTimeout(function(){w.close();},500);  
-                        
+                         w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
                     }catch(e){
-                        console.log(e)
                         Materialize.toast("POP-UP ACTIVADO",4000,'red');
                     }
                 }
@@ -1305,10 +1333,10 @@ function sendVMail(factura,clave,vid){
         }
     }
 
-    if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
-        setTimeout(function(){location.reload();},7000);
-    }else
-        setTimeout(function(){location.reload();},2000);
+    // if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+    //     setTimeout(function(){location.reload();},7000);
+    // }else
+    //     setTimeout(function(){location.reload();},2000);
 }
 
 

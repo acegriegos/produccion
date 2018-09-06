@@ -17,7 +17,7 @@
 // haciendo combinaciones.
     $params = [
         'origen' => 'Fisico', // Fisico,  Juridico o DIMEX
-        'cedula' => '020665057727',
+        'cedula' => urlencode('0206650577%'),
         'ape1' => '',
         'ape2' => '',
         'nomb1' => '',
@@ -37,6 +37,6 @@
     $soap_response = $data->ObtenerDatosResult->any;
     $xml = str_replace(array("diffgr:", "msdata:"), '', $soap_response);
 
-    print_r($xml);
-    echo count($datos->diffgram->DocumentElement->Table);
+    print_r($data);
+    //echo count($data->diffgram->DocumentElement->Table);
  ?>

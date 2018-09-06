@@ -339,13 +339,14 @@
         var $tdoc = 'FacturaElectronica';
         var $xmldoc = 'facturaElectronica';
         var $ref = 0;
+        var $opcion = 0;
 
         function __construct($vid){
             $this->id = $vid;
 
             $this->info = $this->getJSON('call fe_getencabezado("'.$this->id.'")');
-            $opcion = isset($this->info['NumeroConsecutivo']) ? substr($this->info['NumeroConsecutivo'],9,1) : 0;
-            switch ($opcion) {
+            $this->opcion = isset($this->info['NumeroConsecutivo']) ? substr($this->info['NumeroConsecutivo'],9,1) : 0;
+            switch ($this->opcion) {
                 case 2: //NOTA DE DEITO
                     $this->tdoc = 'NotaDebitoElectronica';
                     $this->xmldoc = 'notaDebitoElectronica';
@@ -707,7 +708,7 @@
                         break;
                     default :
                         $tmcedula = strlen($this->info['Receptor']['Identificacion']['Numero']);
-                        if ( $tmcedula < 11 && $tmcedula > 12)
+                        if ( $tmcedula <> 12)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                 }
@@ -725,7 +726,7 @@
                     break;
                 default :
                     
-                    if ( $tmcedula < 11 && $tmcedula > 12)
+                    if ( $tmcedula <> 12)
                         return ['error' => 'Formato Cédula no Valido'];
                     break;
             }

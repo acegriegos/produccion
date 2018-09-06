@@ -195,7 +195,21 @@ if (isset($_POST['respuestaXml'])) {
                     $publicKey = $certs["cert"];
                     $certData   = openssl_x509_parse($publicKey);
 
-                    $tipo = $certData['subject']['OU'] == 'CPJ' ? 2 : 1;
+                    switch ($certData['subject']['OU']) {
+                      case 'CPJ':
+                        $tipo = 2;
+                        break;
+                      case 'CPF':
+                        $tipo = 1;
+                        break;
+                      case 'DIMEX':
+                        $tipo = 4;
+                        break
+                      default:
+                        $tipo = 3;
+                        break;
+                    }
+                     = $certData['subject']['OU'] == 'CPJ' ? 2 : 1;
                     $cedula = substr($certData['subject']['serialNumber'],$tipo ? 4 : 5);
                     unset($target_path);
 

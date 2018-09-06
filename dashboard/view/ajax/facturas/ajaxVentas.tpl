@@ -85,7 +85,7 @@
       <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
       <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide clieBTN" id="ingclie" href="clientes" target="_new" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" data-position="bottom" data-tooltip="Agregar Cliente"></a>
-      <i class="mdi mdi-16px mdi-email pbtn tooltipped hide clieBTN" id="crrclie" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
+      <i class="mdi mdi-16px mdi-email pbtn tooltipped hide clieBTN" href="#modal-correos" id="crrclie" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
@@ -411,7 +411,7 @@
               style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO" autocomplete="off">
             </td>
           </tr>
-          <tr>
+          <tr class="per1109">
             <td><label for="vflete">Flete</label></td>
             <td><input type="text" id="vflete" class="eder _txtaside divisa" value="0" placeholder="FLETE" style="margin:0px;height: 0.5% !important"></td>
           </tr>
@@ -447,7 +447,7 @@
             <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
           </tr>
 
-          <tr class="_flete">
+          <tr class="_flete per1109">
             <td>FLETE:</td>
             <td style="float: right;"><span class="moneda"></span><span id="flete" type="html" value="0">0.00</span></td>
           </tr>
@@ -546,6 +546,16 @@
   <div class="modal-footer">
       <a class="modal-action modal-close waves-effect waves-green btn-flat addline" tr="2">Agregar</a>
       <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
+
+<div class="modal modal-fixed-footer" id="modal-correos" style="height: 400px;">
+  <div class="modal-content" id="bdycrr">
+    
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat" id="mstrcrr">Aceptar</a>
   </div>
 </div>
 
