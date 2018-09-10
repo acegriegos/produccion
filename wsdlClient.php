@@ -219,6 +219,7 @@
                     e.preventDefault();
                     $.post('wsdlClient.php',{doc:$("#doc").html(),data:$("#dxml").html()});
                     window.location = "wsdlClient.php?rfile="+$("#doc").html();
+                    $.post('wsdlClient.php',{dfile:$("#doc").html()});
                 });
             });
         </script>
