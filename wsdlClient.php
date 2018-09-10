@@ -3,6 +3,7 @@
     set_time_limit(40);
     
     if (isset($_REQUEST['accion'])) {
+
         $id = $_REQUEST['id'];
         $accion = $_REQUEST['accion'];
 
@@ -166,7 +167,7 @@
             unlink($_POST['dfile'].".xml");
         }
         if (isset($_REQUEST['ref'])){
-            $fe = new facturaElectronica(0);
+            $fe = new facturaElectronica('');
             $det = $fe->getStatus($_REQUEST['ref']);
             ?>
     <!DOCTYPE html>
@@ -493,12 +494,14 @@
                 }
             }
 
-             $db = new DBClass();
-            if (!isset($_SESSION['IMPRESA']))
-                session_start();
-            if (!isset($_REQUEST['accion']))
-                $this->preUbicacion = '../';
-            $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
+            if ($vid != '') {
+                $db = new DBClass();
+                if (!isset($_SESSION['IMPRESA']))
+                    session_start();
+                if (!isset($_REQUEST['accion']))
+                    $this->preUbicacion = '../';
+                $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
+            }
             
         }
 
