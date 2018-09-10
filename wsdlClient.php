@@ -805,8 +805,8 @@
                 if ($this->sumaimpuestos != $data['ResumenFactura']['TotalImpuesto']) 
                      return ['error'=>'Impuestos Difieren'];
 
-                if ($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'] != $data['ResumenFactura']['TotalImpuesto']) 
-                     return ['error'=>'Inconsistencia en Precios'];
+                if ($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'] != $data['ResumenFactura']['TotalVenta']) 
+                     return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalImpuesto']];
 
                 if ($this->ref) {
                     $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
