@@ -204,20 +204,30 @@ echo '<tr>
   <tr '.$ocultar.'>
     <td width="50%" colspan="2">13% IV:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[5].' </td>
-  </tr>
-  <tr '.$ocultar.'>
-    <td width="50%" colspan="2">Descuento:</td>
-    <td width="50%" align="right"> '.$obj[15].$obj[6].' </td>
-  </tr>
-  <tr '.$ocultar.'>
+  </tr>';
+  
+  if ($obj[6] > 0) {
+    echo '<tr '.$ocultar.'>
+      <td width="50%" colspan="2">Descuento:</td>
+      <td width="50%" align="right"> '.$obj[15].$obj[6].' </td>
+    </tr>';
+  } 
+
+  if ($obj[7] > 0) {
+    echo  '<tr '.$ocultar.'>
     <td width="50%" colspan="2">Flete:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[7].' </td>
-  </tr>
-  <tr '.$ocultar.'>
+  </tr>';
+  }
+ 
+  if ($obj[8] > 0) {
+    echo '<tr '.$ocultar.'>
     <td width="50%" colspan="2">Ajuste:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
-  </tr>
-  <tr '.$ocultar.'>
+  </tr>';
+  }
+
+  echo '<tr '.$ocultar.'>
     <td width="50%" colspan="2">TOTAL GENERAL:  </td>
     <td width="50%" align="right"> '.$obj[15].$obj[10].' </td>
   </tr>
@@ -256,7 +266,7 @@ echo '<hr>
       var config9 = parseInt($("#config9").val());
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span>Este Documento no Tiene Validéz Tributaria');
+        $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span><br>Este Documento no Tiene Validéz Tributaria');
       }
       else{
         $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');

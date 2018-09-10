@@ -26,7 +26,6 @@
                     header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                     echo "\xEF\xBB\xBF";
                 }
-                
                 print_r($fe->getXMLRecepcion());
                 break;
             case 3://BEARER
@@ -64,7 +63,7 @@
         
                 if(!file_exists($fe->credenciales[0])){
                     $salida['succed'] = 0;
-                    $salida['ERROR'] = 'Clave Criptofágica no Existente';            
+                    $salida['ERROR'] = 'Clave Criptofágica no Existente: ';            
                 }else{
                         
                     if(openssl_pkcs12_read(file_get_contents($fe->credenciales[0]), $certs, $fe->credenciales[1])){
@@ -150,6 +149,22 @@
                 break;
         }
     }else{
+
+        if (isset($_POST['doc'])){
+            $_POST['data'] = str_replace('<!--?xml version="1.0" encoding="UTF-8"?-->', '<?xml version="1.0" encoding="utf-8" standalone="no"?>', $_POST['data']);
+            file_put_contents($_POST['doc'].'.xml', $_POST['data']);
+        }
+        if (isset($_REQUEST['rfile'])) {
+            header("Content-type: application/octet-stream; name='xml';charset=UTF-8");
+            header("Content-Disposition: filename=HACIENDA_".$_REQUEST['rfile'].".xml");
+            header("Pragma: no-cache");
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            echo "\xEF\xBB\xBF";
+            echo file_get_contents($_REQUEST['rfile'].".xml");
+        }
+        if (isset($_POST['dfile'])) {
+            unlink($_POST['dfile'].".xml");
+        }
         if (isset($_REQUEST['ref'])){
             $fe = new facturaElectronica(0);
             $det = $fe->getStatus($_REQUEST['ref']);
@@ -171,12 +186,13 @@
         <div class="container">
             <div class="row">
                 <div class="col s4">
-                    <img src="assets/img/login/logo_azulG.png" width="100px" height="100px">
+                    <a href="https://logintechcr.com" target="_new" style="cursor: pointer;" class="tooltipped" data-tooltip="LogintechCR" data-position="buttom"><img src="assets/img/login/logo_azulG.png" width="100px" height="100px"></a>
                 </div>
 
                 <div class="col s8">
-                    <h2>Factura Electrónica</h2>
-                    <b>Clave: </b> <?php echo $det[0]; ?> <br>
+                    <h2>Documentos Electrónicos</h2>
+                    <b>Tipo: </b><?php switch(substr($det[0], 29,2)){case '01': echo 'Factura Electrónica';break;case '02': echo 'Nota de débito electrónica'; break;case '03': echo 'Nota de crédito electrónica';break;case '05': echo 'Confirmación de aceptación del comprobante electrónico';break;case '06': echo 'Confirmación de aceptación parcial del comprobante electrónico';break;case '07': echo 'Confirmación de rechazo del comprobante electrónico';break;}?> <br>
+                    <b>Clave: </b> <span id="doc"><?php echo $det[0]; ?></span> <br>
                     <b>Consecutivo: </b> <?php echo substr($det[0], 21,20); ?> <br>
                     <b>Estado: </b> <?php echo strtoupper($det[4]['estado']); ?> <br>
                     <?php if(isset($det[4]['rs'])){ ?><b>Mensaje: </b> <?php echo $det[4]['rs']; ?> <br> <?php } ?>
@@ -187,7 +203,7 @@
             
         </div>
 
-        <div class="center" style="bottom: 15%;left:auto;">Factura Electrónica Emitida por Logintech <br> <a href="mailto:info@logintechcr.com">Contáctenos, Será un placer brindar nuestros servicios</a></div>
+        <div class="center" style="bottom: 15%;left:auto;">Factura Electrónica Emitida por Logintech <br> <a href="mailto:info@logintechcr.com">Contáctenos, Será un placer brindar nuestros servicios</a>, +(506) 6105-6852</div>
 
         <script src="assets/js/jquery.js?v=10.0.0.47"></script>
         <script src="assets/js/jquery.mask.min.js?v=10.0.0.47"></script>
@@ -197,9 +213,11 @@
         <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.0.0.47"></script>
         <script type="text/javascript">
             $(function(){
-                $(".bxml").click(function(){
-                    var w = window.open();
-                    $(w.document.body).html($("#dxml").html());
+                $('.tooltipped').tooltip({delay: 50});
+                $(".bxml").click(function(e){
+                    e.preventDefault();
+                    $.post('wsdlClient.php',{doc:$("#doc").html(),data:$("#dxml").html()});
+                    window.location = "wsdlClient.php?rfile="+$("#doc").html();
                 });
             });
         </script>
@@ -213,20 +231,105 @@
     {   
         $db = new DBClass();
         $inv_xml = simplexml_load_file('./assets/xml/'.$id);
+        unlink('./assets/xml/'.$id);
         $sucursal = $db->ejecutar('call datosempresa('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
 
         $salida['clave'] = (array) $inv_xml->Clave;
+        
+        if ($_GET['hclave'] == '') {
+
+            if (isset($salida['clave'][0])) {
+                $salida = ['succed' => 0,'ERROR' => 'El Comprobante Electrónico no es Respuesta de Hacienda'];
+                return false;
+            }
+
+            $inv_xml = (array) $inv_xml;
+
+            if ($inv_xml['mensaje'] == 3) {
+                $salida = ['succed' => 0,'ERROR' => 'El Comprobante Electrónico no fue Aceptado'];
+                return false;
+            }
+
+            if (substr($inv_xml['clave'], 30,1) >= 5) {
+                $salida = ['succed' => 0,'ERROR' => 'Comprobante no Válido'];
+                return false;
+            }
+
+            if (strlen($inv_xml['clave']) != 50){
+                $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
+                return false;
+            }
+
+            $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$inv_xml['clave'].'\"")')->fetch_all()[0];
+
+            if ($rs_compra[0] > 0) {
+                $str = "";
+                switch ($rs_compra[1]) {
+                    case 5:
+                        $str = "Aceptada";
+                        break;
+                    case 6:
+                        $str = "Aceptada Parcial";
+                        break;
+                    case 7:
+                        $str = "Rechazada";
+                        break;
+                    default:
+                        break;
+                }
+                $salida = ['succed' => 0,'ERROR' => 'Factura '.$str];
+                return false;
+            }
+
+            $scedula = $inv_xml['numerocedulareceptor'];
+
+            if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+                $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
+                return false;
+            }
+
+            $salida = ['succed' => 2,'clave' => $inv_xml['clave'],'emisor' => $inv_xml['nombreemisor'],'cedula'=>$inv_xml['numerocedulaemisor'],'impuesto'=>$inv_xml['montototalimpuesto'],'total'=>$inv_xml['totalfactura']];
+            return false;
+        }
+
         $salida['clave'] = $salida['clave'][0];
 
+        if ($salida['clave'] != $_GET['hclave']) {
+            $salida = ['succed' => 0,'ERROR' => 'Documento no es el Mismo al Mensaje de Hacienda'];
+            return false;
+        }
+
         if (strlen($salida['clave']) != 50){
-            $salida = ['succed' => 0,'ERROR' => 'CLAVE NO VALIDA'];
+            $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
             return false;
         }
         
+        $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$salida['clave'].'\"")')->fetch_all()[0];
+
+        
+        if ($rs_compra[0] > 0) {
+            $str = "";
+            switch ($rs_compra[1]) {
+                case 5:
+                    $str = "Aceptada";
+                    break;
+                case 6:
+                    $str = "Aceptada Parcial";
+                    break;
+                case 7:
+                    $str = "Rechazada";
+                    break;
+                default:
+                    break;
+            }
+            $salida = ['succed' => 0,'ERROR' => 'Factura '.$str];
+            return false;
+        }
+
         $salida['emisor']['cedula'] = (array) $inv_xml->Emisor->Identificacion->Numero;
         $salida['emisor']['cedula'] = $salida['emisor']['cedula'][0];
         if (trim($salida['emisor']['cedula']) != trim(substr($salida['clave'], 9,12))) {
-            $salida = ['succed' => 0,'ERROR' => 'CEDULA NO VALIDA'];
+            $salida = ['succed' => 0,'ERROR' => 'Cédula no Válida'];
             return false;
         }
 
@@ -234,7 +337,7 @@
         $scedula = isset($scedula[0]) ? $scedula[0] : 0;
 
         if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
-            $salida = ['succed' => 0,'ERROR' => 'RECEPTOR INVALIDO, '.$scedula];
+            $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
             return false;
         }
 
@@ -244,6 +347,7 @@
         $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$salida['emisor']['cedula'].',\"-\",\"\") ")')->fetch_all();
         
         if(!sizeof($prov)){
+
             $salida['emisor']['tipo']       = (array) $inv_xml->Emisor->Identificacion->Tipo;
             $salida['emisor']['tipo']       = $salida['emisor']['tipo'][0];
 
@@ -272,8 +376,11 @@
             $salida['emisor']['pais'] = $salida['emisor']['pais'] == 0 ? $salida['emisor']['pais'] : $salida['emisor']['pais'][0];
 
             $salida['emisor']['id']         = 0;
-        }else
-            $salida['emisor']['id']     = $prov[0][0];
+        }else{
+            $salida['emisor']['correo']     = isset($inv_xml->Emisor->CorreoElectronico) ? (array) $inv_xml->Emisor->CorreoElectronico : 0;
+            $salida['emisor']['correo'] = $salida['emisor']['correo'] == 0 ? $salida['emisor']['correo'] : $salida['emisor']['correo'][0];
+            $salida['emisor']['id']         = $prov[0][0];
+        }
 
         $fecha = (array) $inv_xml->FechaEmision;
         $fecha = $fecha[0];
@@ -288,10 +395,13 @@
         $salida['factura']['plazo']     = $salida['factura']['plazo'] == 0 ? $salida['factura']['plazo'] : $salida['factura']['plazo'][0];
         $salida['factura']['tipopago']  = (array) $inv_xml->MedioPago;
         $salida['factura']['tipopago']  = $salida['factura']['tipopago'][0];
+
         $salida['factura']['moneda']    = (array) $inv_xml->ResumenFactura->CodigoMoneda;
         $salida['factura']['moneda']    = $salida['factura']['moneda'][0];
         $salida['factura']['divisa']    = (array) $inv_xml->ResumenFactura->TipoCambio;
         $salida['factura']['divisa']    = $salida['factura']['divisa'][0];
+        $salida['factura']['divisa']    = $salida['factura']['divisa'] == 0 ? 1 : $salida['factura']['divisa'];
+
         $salida['factura']['subtotal']  = (array) $inv_xml->ResumenFactura->TotalGravado;
         $salida['factura']['subtotal']  = $salida['factura']['subtotal'][0];
         $salida['factura']['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
@@ -302,7 +412,11 @@
         $salida['factura']['impuesto']  = $salida['factura']['impuesto'][0];
 
         $ciclo = (array) $inv_xml->DetalleServicio;
-        $ciclo = $ciclo['LineaDetalle'];
+        
+        if (!isset($ciclo['LineaDetalle']->NumeroLinea)) {
+            $ciclo = $ciclo['LineaDetalle'];
+        }
+
         $salida['detalle'] = [];
 
         foreach ($ciclo as $key) {
@@ -313,6 +427,13 @@
 
             $num = (array)$key->NumeroLinea;
             $dcodigo = (array)$key->Codigo->Codigo;
+            if ($vunidad != 'Sp') {
+                $detid = $db->ejecutar('call krattos("idproducto",104,"id > 0 and codigo = \"'.$dcodigo[0].'\" and idproveedor = '.$prov[0][0].'")');
+                $detid = isset($detid->num_rows) ? $detid->num_rows > 0 ? $detid->fetch_all()[0][0] : 0: 0;
+            }else{
+                $detid = 0;
+            }
+            
             $dcantidad = (array)$key->Cantidad;
             $ddetalle = (array)$key->Detalle;
             $dunitario = (array)$key->PrecioUnitario;
@@ -322,11 +443,9 @@
             $dimpuesto = isset($key->Impuesto->Monto) ? (array)$key->Impuesto->Monto : 0;
             $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
 
-            $detarray = ['numero' => $num[0],'codigo' => $dcodigo[0],'cantidad' => $dcantidad[0], 'unidad' => $vunidad, 'idunidad' => $cunidad, 'detalle' => $ddetalle[0], 'precio' => $dsubtotal[0], 'descuento' => $ddescuento, 'impuesto' => $dimpuesto];
+            $detarray = ['numero' => $num[0],'codigo' => $dcodigo[0],'cantidad' => $dcantidad[0], 'unidad' => $vunidad, 'idunidad' => $cunidad[0], 'detalle' => $ddetalle[0], 'precio' => $dsubtotal[0], 'descuento' => $ddescuento, 'impuesto' => $dimpuesto,'unitario' => $dunitario[0],'idproducto'=>$detid];
             array_push($salida['detalle'], $detarray);
         }
-
-        // $mxml = file_get_contents('./assets/xml/'.$id);
     }
 
     class facturaElectronica
@@ -340,13 +459,14 @@
         var $xmldoc = 'facturaElectronica';
         var $ref = 0;
         var $opcion = 0;
+        var $sumaimpuestos = 0;
 
         function __construct($vid){
             $this->id = $vid;
-
+            
             $this->info = $this->getJSON('call fe_getencabezado("'.$this->id.'")');
             $this->opcion = isset($this->info['NumeroConsecutivo']) ? substr($this->info['NumeroConsecutivo'],9,1) : 0;
-            if ($vid != 0) {
+            if ($vid != "0") {
                 switch ($this->opcion) {
                 case 2: //NOTA DE DEITO
                     $this->tdoc = 'NotaDebitoElectronica';
@@ -370,15 +490,15 @@
                     break;
                 default: //FACTRA ELECTRONICA
                     break;
+                }
             }
-              
-            $db = new DBClass();
+
+             $db = new DBClass();
             if (!isset($_SESSION['IMPRESA']))
                 session_start();
             if (!isset($_REQUEST['accion']))
                 $this->preUbicacion = '../';
             $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
-            }
             
         }
 
@@ -682,6 +802,12 @@
                 $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
                 $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
 
+                if ($this->sumaimpuestos != $data['ResumenFactura']['TotalImpuesto']) 
+                     return ['error'=>'Impuestos Difieren'];
+
+                if ($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'] != $data['ResumenFactura']['TotalImpuesto']) 
+                     return ['error'=>'Inconsistencia en Precios'];
+
                 if ($this->ref) {
                     $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
                     $data['InformacionReferencia'] = $refxml;
@@ -690,8 +816,8 @@
                 $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
                 // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             }
-            
-            if (!sizeof($data['DetalleServicio'])) 
+            $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
+            if (!$tdetalle && $this->opcion < 5) 
                 return ['error'=>'No hay Detalle'];
 
             if (!isset($this->info['Emisor']['CorreoElectronico'])) {
@@ -808,6 +934,7 @@
                         $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19], 'MontoImpuesto' =>$value[20], 'PorcentajeCompra' => $value[21]];
                         
                         if ($value[12] != '') {
+                            $this->sumaimpuestos += $value[14];
                             $impuesto = ['Codigo'=>$value[12],'Tarifa'=>$value[13],'Monto'=>$value[14]];
 
                             if ($value[16] != '') 

@@ -162,11 +162,27 @@
         </div>
         </div>
         <div class="modal-content">
-            <section class="upxml" xml="1" style="margin-top: 8%">
-                <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
-                    <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;margin-bottom: 25px" /></span>
-                </form>
-            </section>
+            <div class="row">
+
+                <section class="upxml col s12 l6" xml="4" style="margin-top: 8%">
+                    <span>Subir Documento Electrónico: Mensaje Hacienda</span>
+                    <form class="dropzone needsclick dz-clickable dz-started" id="hacienda-upload" style="padding-left: 44% !important">
+                        <span class="dz-message needsclick text-center ico-reg"><i class="mdi mdi-xml mdi-48px imgDrop" style="margin-top: 25px;margin-bottom: 25px;"></i></span>
+                    </form>
+                    <span id="mha" class="green-text"></span>
+                </section>
+
+                <section class="upxml col s12 l6 disabledbutton" xml="1" style="margin-top: 8%">
+                    <span>Subir Documento Electrónico: Factura o Nota Crédito y Débito</span>
+                    <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
+                        <span class="dz-message needsclick text-center ico-reg"><i class="mdi mdi-xml mdi-48px imgDrop" style="margin-top: 25px;margin-bottom: 25px;"></i></span>
+                        <input type="hidden" id="myclave">
+                    </form>
+                </section>
+
+            </div>
+            
+            <input type="hidden" id="fclientes">
             <section class="upxml hide" xml="2" id="ffacturas">
                 <input type="hidden" class="zelda">
                 <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>

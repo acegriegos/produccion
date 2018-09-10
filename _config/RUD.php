@@ -81,8 +81,8 @@
 		{
 
 			if (strpos($args2,'@usr')) {
-				require_once '../_config/ecy.php';
-				$cy = new _cy();
+				// require_once '../_config/ecy.php';
+				// $cy = new _cy();
 				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
 
 
@@ -101,7 +101,7 @@
 			if (isset($rs->num_rows)) {
 				return $rs->fetch_all();
 			}else{
-				return $rs;//"call shadow($accion,$tabl,'$arg1','$args2')";//$rs." ".$this->sql;
+				return $rs;//." call shadow($accion,$tabl,'$arg1','$args2')";//$rs." ".$this->sql;
 			}
 		}
 

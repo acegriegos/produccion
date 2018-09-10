@@ -97,6 +97,7 @@ if (!isset($_REQUEST['accion'])) {
 	   		case 12:
 	   			$pagina = 1;
 	   			$smarty->assign('UBIC',$kakaroto->kamehameha('',92,$_REQUEST['arreglo']['vidfila'].",".$_REQUEST['arreglo']['vidtabla']));
+	   			$smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));
 	   			$smarty->display('ajax/ajustes/addaddress.tpl');
 	   			break;
 	   		case 13:

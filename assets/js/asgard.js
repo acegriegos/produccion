@@ -64,12 +64,16 @@ $(document).on("click","#vdireccion",function(){
     // $("#telefono_in").focus();
 });
 
+$(document).on("click","#eslide",function(){
+    $("#slide-tc").sideNav('hide');
+});
+
 $(document).on("click",".tc-show",function(){   
 
     var code = parseInt($(this).data('num'));
 
     if ($("#slide-tc").length == 0) {
-        var ul = '<ul id="slide-tc" class="side-nav"><li><div class="user-view"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div></li></ul>';
+        var ul = '<ul id="slide-tc" class="side-nav" style="z-index:1500;"><li><div class="user-view center"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div> <a class="btn btn-default" id="eslide" style="bottom:42px;position:absolute;">Salir</a></li></ul>';
         $(".bdy").append(ul);
     }
     
@@ -292,6 +296,39 @@ $(document).on("click",".optns",function(){
     $(this).parent().parent().parent().find("[for^=search_] span").html($(this).html())
 });
 
+$(document).on("keyup",".buscarNom",function(e){
+    var charCode = e.which || e.keyCode;
+    if (charCode == 13) {
+        $(this).attr('readonly','true')
+        $.get('../sic.php?',{ced:$(this).val()})
+            .done(function(data){
+                var p = JSON.parse(data);
+                if (p['succed']) {
+                    $(".c-st").addClass('hide');
+                    
+                    switch(parseInt(p['tip'])){
+                        case 1:
+                        case 4:
+                            $(".c-stp1").removeClass('hide');
+                            $("[for='c-nom']").html('Nombre');
+                            break;
+                        default:
+                            $("[for='c-nom']").html('Razón Social');
+                            $(".c-stp2").removeClass('hide');
+                            break;
+                    }
+                    $("#c-ap1").val(p['ap1'])
+                    $("#c-ap2").val(p['ap2'])
+                    $("#c-nom").val(p['nom'])
+                }else
+                    Materialize.toast(p['error'],4000,'red');
+
+                $(".buscarNom").removeAttr('readonly');
+                Materialize.updateTextFields();
+            });
+    } 
+});
+
 $(document).on("keyup","[id^=search_]",function(e){
     var code = e.which || e.keyCode
     if (code == 13) {
@@ -333,7 +370,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        // console.log(p)
+        //console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -946,12 +983,12 @@ function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess,vfiles,fun
                
             });
             this.on("removedfile", function(file) {
-                if (!$(".dz-preview").length) {
+                if (!$(velemento+" .dz-preview").length) {
                     $(velemento).find('.imgDrop').show();
                 }
-            
+                console.log(velemento)
                 if (funcionRemoved != '')
-                    funcionRemoved
+                    funcionRemoved(file)
             });
             this.on('error', function(file, response) {
                 console.log(response)

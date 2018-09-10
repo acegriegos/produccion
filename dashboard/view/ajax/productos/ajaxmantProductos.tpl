@@ -287,7 +287,7 @@
                 </td>
                 <td class="center-align input-field {if $smarty.session.BUSS eq 1} hide {/if}" style="padding: 0px">
                     <i class="mdi prefix">%</i>
-                    <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo numeric" value="0.00" data-mask="9999999999.99" num="4" style="margin: 0px">
+                    <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo numeric" value="0.00"  num="4" style="margin: 0px">
                 </td>
             </tr>
             {/section}

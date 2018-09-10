@@ -5,13 +5,13 @@
 		</div>
 	</div>
 	<div>
-		<div class="row marginzero">
+		<div class="row marginzero hide">
 			<div class="col s12 m12 l12">
 				<span class="blue-text pbtn" id="filtro">Filtro</span>
 				<span class="right blue-text inv">Ordenar por fecha: <i class="mdi mdi-swap-vertical mdi-24px pbtn" id="order" value="1"></i></span>
 			</div>
 		</div>
-		<div class="row marginzero inv">
+		<div class="row marginzero inv hide">
 			<div class="col s6 m5 l5">
 				<br><span>Buscar:</span>
 			</div>

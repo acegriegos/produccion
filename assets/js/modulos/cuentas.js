@@ -74,7 +74,7 @@ $(function(){
 	});
 
 	$("#data-table-cuentas").dataTable({
-		 bFilter : true,
+		bFilter : true,
         bScrollInfinite : true,
         bSort : true,
         bLengthChange : true,
@@ -85,7 +85,7 @@ $(function(){
 	});
 
 	$("#data-table-cuentas-x").dataTable({
-		 bFilter : true,
+		bFilter : true,
         bScrollInfinite : true,
         bSort : true,
         bLengthChange : true,
@@ -118,37 +118,17 @@ $(document).on("change","[name='ctas']",function(){
 	$(".detalle").show();
 	var tabla = $("#data-table-cuentas-x").DataTable();
 	tabla.destroy()
-	switch (parseInt($(this).attr('value'))) {
-		case 2:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,-1,2,@@impresa',0,1,$("#listaCuentasx"));
-			break;
-		case 3:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,1,2,@@impresa',0,1,$("#listaCuentasx"));
-			break;
-		case 4:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,4,@@impresa',0,1,$("#listaCuentasx"));
-			break;
-		case 5:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,5,@@impresa',0,1,$("#listaCuentasx"));
-			break;
-		case 6:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,6,@@impresa',0,1,$("#listaCuentasx"));
-			break;
-		case 7:
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,2,3,@@impresa',0,1,$("#listaCuentasx"));
-			break;
-		default:
-		console.log(arr('login',4,'',214,getParameterByName('tf')+',0,0,0,0,@@impresa',0,0,0));
-			arr('login',6,'',214,getParameterByName('tf')+',0,0,1,2,@@impresa',0,1,$("#listaCuentasx"));
-			break;
-	}
-	$("#data-table-cuentas-xP").dataTable({
-        bScrollInfinite: true,
-        bSort: false,
-        bLengthChange: false,
-        order: [],
-        bPaginate: false,
-        info: false
+	//arr('login',6,'',214,getParameterByName('tf')+',0,0,1,2,@@impresa',0,1,$("#listaCuentasx"));  +++ -1
+	arr('login',6,'',214,getParameterByName('tf')+',0,0,2,'+$(this).attr('value')+',@@impresa',0,1,$("#listaCuentasx"));
+	$("#data-table-cuentas-x").dataTable({
+		bFilter : true,
+        bScrollInfinite : true,
+        bSort : true,
+        bLengthChange : true,
+        bPaginate :  false,
+        bInfo : false,
+		order : [],
+		"bLengthChange": false
 	});
 });
 
@@ -216,7 +196,7 @@ $(document).on("click",".detalle",function(){
 	$(this).sideNav('show');
 	var id = $(this).attr('id').substr(1);
 	gtipo = $(this).attr('tipo');
-	var datos = arr('login',4,'',214,gtipo+','+id+',0,0,2,@@impresa',0,0,0)[0][0];
+	var datos = arr('login',4,'',214,gtipo+','+id+',0,0,'+$("[name='ctas']:checked").attr('value')+',@@impresa',0,0,0)[0][0];
 
 	var tabla = $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();

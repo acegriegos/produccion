@@ -21,7 +21,7 @@
           <div class="col s12 m12 l12">
             <div class="row">
              <div class="col s10 m10 l10 {if $smarty.session.BUSS eq 1} hide {/if} ">
-                <div class="switch">
+                <div class="switch hide">
                   <label style="color: black; font-size: 1.3em">
                     <b>Clientes</b>
                     <input type="checkbox" class="chg" value="1" id="cp">
@@ -34,7 +34,6 @@
                 <a class="waves-effect waves-light btn btn1" id="busnota">Buscar</a>
               </div>
             </div>
-            <hr>
             <div class="row">
               <div class="col s12 m6 l6">
                 <div class="row">
@@ -138,11 +137,11 @@
           <div class="col s12 m12 l12 pequeño ">
             <div class="row pequeño ">
               <div class="col s12 pequeño ">
-                <table  class="table centered pequeño highlight bordered responsive-table z-depth-3 pbtns" id="data-table-Notas">
+                <table  class="dt-responsive nowrap centered striped bordered highlight z-depth-3" id="data-table-Notas">
                   <thead>
                     <tr>
                       <th class="sinborde white-text tab1">Factura</th>
-                      <th class="sinborde white-text tab1">Nombre</th>
+                      <th class="sinborde white-text tab1">Cliente</th>
                       <th class="sinborde white-text tab1">Fecha</th>
                       <th class="sinborde white-text tab1">Sucursal</th>
                     </tr>

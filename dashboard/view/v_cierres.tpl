@@ -20,6 +20,7 @@
   <br>
     {$NAV}
     <div class="bdy">
+      <input type="hidden" id="BUSS" value="{$smarty.session.BUSS}">
     <div class="row">
       <div class="col s12 m12 l12">
         <a class="btn waves-effect waves-light blue right" id="refresh" style="margin-left: 15px;"><i class="mdi mdi-refresh mdi-24px"></i>Actualizar</a>

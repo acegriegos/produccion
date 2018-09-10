@@ -1,42 +1,57 @@
 <?php 
+    $source = "https://apis.gometa.org/cedulas/".$_REQUEST['ced']."&key=FDcRP0mbFpJwTJz";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $source);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSLVERSION,false);
+    $data = curl_exec ($ch);
+    $error = curl_error($ch);
+    curl_close ($ch);
 
-    
-        $options = [
-        'uri' => 'http://schemas.xmlsoap.org/soap/envelope/',
-        'style' => SOAP_RPC,
-        'use' => SOAP_ENCODED,
-        'soap_version' => SOAP_1_1,
-        'cache_wsdl' => WSDL_CACHE_NONE,
-        'connection_timeout' => 30,
-        'trace' => true,
-        'encoding' => 'UTF-8',
-        'exceptions' => true
-    ];
-// El webservice en Hacienda hace la consulta utilizando los valores
-// de parámetro que no estén vacíos, así que se puede hacer una consulta
-// haciendo combinaciones.
-    $params = [
-        'origen' => 'Fisico', // Fisico,  Juridico o DIMEX
-        'cedula' => urlencode('0206650577%'),
-        'ape1' => '',
-        'ape2' => '',
-        'nomb1' => '',
-        'nomb2' => '',
-        'razon' => '',
-        'Concatenado' => ''
-    ];
-    $wsdl = "http://196.40.56.20/wsInformativasSICWEB/Service1.asmx?WSDL";
-    try {
-        $soap = new SoapClient($wsdl, $options);
-        $data = $soap->ObtenerDatos($params);
-    } catch (Exception $e) {
-        echo str_replace('"', '\'', $e->getMessage());
-        return false;
+    $data = (array)json_decode($data);
+
+    if (isset($data['results'])) {
+        switch ($data['results'][0]->class) {
+            case 'N':
+                $tipo = 1;
+                $name = trim($data['results'][0]->firstname1.' '.$data['results'][0]->firstname2);
+                $ap1 = $data['results'][0]->lastname1;
+                $ap2 = $data['results'][0]->lastname2;
+                $ced = $data['results'][0]->cedula;
+                break;
+            case 'J':
+                $tipo = 2;
+                $name = $data['results'][0]->fullname;
+                $ap1 = '';
+                $ap2 = '';
+                $ced = $data['results'][0]->cedula;
+                break;
+            case 'E':
+                $tipo = 4;
+                $name = $data['results'][0]->lastname2.' '.$data['results'][0]->firstname1;
+                $ap1 = $data['results'][0]->lastname1;
+                $ap2 = '';
+                $ced = $data['results'][0]->rawcedula;
+                break;
+            default:
+                $tipo = 3;
+                $name = $data['results'][0]->fullname;
+                $ap1 = '';
+                $ap2 = '';
+                $ced = $data['results'][0]->cedula;
+                break;
+         } 
+        $salida['ap1'] = $ap1;
+        $salida['ap2'] = $ap2;
+        $salida['nom'] = $name;
+        $salida['ced'] = $ced;
+        $salida['tip'] = $tipo;
+        $salida['succed'] = 1;
+    }else{
+        $salida['error'] = 'Cédula no Existente';
+        $salida['succed'] = 0;
     }
-    echo "Respueta:<br>";
-    $soap_response = $data->ObtenerDatosResult->any;
-    $xml = str_replace(array("diffgr:", "msdata:"), '', $soap_response);
 
-    print_r($data);
-    //echo count($data->diffgram->DocumentElement->Table);
+    echo json_encode($salida);
+    
  ?>

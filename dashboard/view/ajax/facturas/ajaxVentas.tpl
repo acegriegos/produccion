@@ -84,7 +84,7 @@
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
-      <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped hide clieBTN" id="ingclie" href="clientes" target="_new" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" data-position="bottom" data-tooltip="Agregar Cliente"></a>
+      <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" data-position="bottom" data-tooltip="Agregar Cliente"></a>
       <i class="mdi mdi-16px mdi-email pbtn tooltipped hide clieBTN" href="#modal-correos" id="crrclie" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
@@ -166,12 +166,13 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card z-depth-3 p2 ps hide-on-med-and-down">
-  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b></div>
+  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b> <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos"></a> </div>
 
   <div class="row">
     <div class="col s12 hide-on-med-and-down">
-
+    
     <section class="right">
+
       {if $smarty.session.BUSS neq 1}
         <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span></a>
       {/if}
@@ -187,7 +188,7 @@
       <thead> -->
         <section class="trVenta hide">
         <div class="hide-on-med-and-down">
-          <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
+          <div style="padding: 0 !important;" class="col s2 center-align"> <b>Código</b></div>
           <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
           <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Prec.Unit</b></span></div>
           <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
@@ -411,11 +412,11 @@
               style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO" autocomplete="off">
             </td>
           </tr>
-          <tr class="per1109">
+          <tr class="hide">
             <td><label for="vflete">Flete</label></td>
             <td><input type="text" id="vflete" class="eder _txtaside divisa" value="0" placeholder="FLETE" style="margin:0px;height: 0.5% !important"></td>
           </tr>
-          <tr>
+          <tr class="hide">
             <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
             <td><input type="text" id="ajuste" class="eder _txtaside" value="" style="margin:0px;height: 0.5% !important" placeholder="Ajuste máximo: 10" maxlength="4"></td>
           </tr>
@@ -447,7 +448,7 @@
             <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
           </tr>
 
-          <tr class="_flete per1109">
+          <tr class="_flete hide">
             <td>FLETE:</td>
             <td style="float: right;"><span class="moneda"></span><span id="flete" type="html" value="0">0.00</span></td>
           </tr>
@@ -546,6 +547,88 @@
   <div class="modal-footer">
       <a class="modal-action modal-close waves-effect waves-green btn-flat addline" tr="2">Agregar</a>
       <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
+
+<div class="modal modal-fixed-footer grandemodal" id="modal-productos" style="height: 100%; width: 75%">
+  <div class="modal-header head3 center" style="font-size: 22px;">Listado de Productos</div>
+  <div class="modal-content">
+    <div class="input-field">
+      <span class="prefix mdi mdi-magnify mdi-24px"></span>
+      <input type="text" id="bproductos" style="width: 70%">
+      <label>Buscar por Código, Nombre, Marca, Tipo o Familia</label>
+    </div>
+    <table class="table centered bordered z-depth-1">
+      <thead>
+        <tr>
+        <th></th>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Tipo</th>
+        <th>Familia</th>
+        <th>Venta</th>
+        <th>Cantidad</th>
+        </tr>
+      </thead>
+      <tbody id="bdylproductos"></tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat" id="mstprod">Aceptar</a>
+  </div>
+</div>
+
+<div class="modal modal-fixed-footer" id="modal-clientes" style="height: 400px;">
+   <div class="modal-header head3 center" style="font-size: 22px;">Agregar Cliente</div>
+  <div class="modal-content">
+
+    <div class="row">
+
+      <div class="input-field col s6">
+      </div>
+
+      <div class="input-field col s6">
+        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="button-collapse der tooltipped tc-show black-text" data-tooltip="Ubicacion del Cliente" data-position="bottom" id="tc-u" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
+        <input type="hidden" id="vdireccion" readonly>
+
+        <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Teléfonos del Cliente" data-position="bottom" id="tc-t" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"></a>
+        <input type="hidden" id="vtelefono" readonly>
+
+        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show tooltipped black-text" data-tooltip="Correos del Cliente" data-position="bottom" id="tc-c" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"><i class="mdi mdi-email  mdi-24px"></i></a>
+        <input type="hidden" id="vcorreo" readonly>
+
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" id="c-ced" maxlength="12" class="buscarNom" autocomplete="off">
+        <label for="c-ced">Cédula</label>
+      </div>
+
+      <div class="input-field col s6 hide c-stp1 c-stp2 c-st">
+        <input type="text" id="c-nom" readonly>
+        <label for="c-nom"></label>
+        <input type="hidden" id="c-tp">
+      </div>
+
+      <div class="input-field col s6 hide c-stp1 c-st">
+        <input type="text" id="c-ap1" readonly>
+        <label for="c-ap1">Apellido 1</label>
+      </div>
+
+      <div class="input-field col s6 hide c-stp1 c-st">
+        <input type="text" id="c-ap2" readonly>
+        <label for="c-ap2">Apellido 2</label>
+      </div>
+    </div>
+    
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat" id="addclie">Agregar</a>
   </div>
 </div>
 

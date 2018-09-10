@@ -1,13 +1,16 @@
 $(function(){
 	arr('login',6,'',182,'@@usr',0,1,$("#listacierrespendientes"));
-	var monto = arr('login',4,'monto',404,'idusuario = @@usr and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
-	if (monto == undefined) {
-		$(".tt").removeAttr('id')
-		$(".tt").addClass('tooltipped')
-		$('.tt').tooltip({delay: 50,tooltip: 'Debe iniciar caja'});
-	}else{
-		$(".tt").attr('id','chkcierre');
+	if (parseInt($("#BUSS").val()) != 1) {
+		var monto = arr('login',4,'monto',404,'idusuario = @@usr and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
+		if (monto == undefined) {
+			$(".tt").removeAttr('id')
+			$(".tt").addClass('tooltipped')
+			$('.tt').tooltip({delay: 50,tooltip: 'Debe iniciar caja'});
+		}else{
+			$(".tt").attr('id','chkcierre');
+		}
 	}
+	
 
 	$('.chips').material_chip();
 
@@ -93,17 +96,16 @@ $(document).on("click","#refresh",function(){
 	$(".tt").removeClass('modal-trigger');
 });
 
-// $(document).on("click","#chkcierre",function(){
-// 	if ($(this).attr('vfecha') != undefined)
-// 		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
-// 	else
-// 		Materialize.toast('Seleccione un cierre', 4000, 'green');
-// });
-
 $(document).on("click","#chkcierre",function(){
 
-	var cajainicial = arr('login',4,'monto',404,'idusuario =@@usr and idsucursal=@@impresa and fmonto is null',0,0,0,0)[0][0][0];
+	var cajainicial
+	if (parseInt($("#BUSS").val()) != 1 ) {
+		cajainicial = arr('login',4,'monto',404,'idusuario =@@usr and idsucursal=@@impresa and fmonto is null',0,0,0,0)[0][0][0];
+	}else
+		cajainicial = 0;
+	
 	$("#totcashier").text(cajainicial);
+
 	if (!$(this).hasClass('tooltipped')) {
 		if ($(this).attr('vfecha') == undefined) {
 			Materialize.toast('Seleccione un cierre', 4000, 'green');
@@ -147,20 +149,13 @@ $(document).on("click","#totalizar",function(){
 
 $(document).on("click","#docierre",function(){
 	var total = $(".zelda").data('triforce')['vtotal'];
-	var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
-	var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
+	// var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
+	// var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 
 	var idcierre = arr('login',4,'',189,'@@usr,@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
 
 	if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
-
-	// for (var i = 0, len = idfactura.length ; i < len; i++) {
-	// 	arr('login',4,'',190,'1,0,'+idcierre+','+idfactura[i]+',1',0,0,0)
-	// }
-	// for (var a = 0, leng = idestadocuenta.length; a < leng; a++) {
-	// 	arr('login',4,'',190,'1,0,'+idcierre+','+idestadocuenta[a]+',2',0,0,0)
-	// }
 
 	$('#toast-container').remove();
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
@@ -183,6 +178,7 @@ $(document).on("click",".getfacturas",function(){
 	tabla.destroy();
    
     arr('login',6,'',183,'"'+fecha+'",@@usr,@@impresa',0,1,$("#listafacturas"));
+
 	$("#tcontado").text($("#hidet").attr('tcon'));
 	$("#tcredito").text($("#hidet").attr('tcre'));
 	$("#tefectivo").text($("#hidet").attr('tefe'));

@@ -392,7 +392,8 @@ function cargarGlobal(){
        $(".trsec.hide-on-med-and-down").remove();
 
     $("#ingclie").click(function(){
-
+        $("#modal-clientes").modal('open');
+        $("#c-ced").focus();
     });
 
     $(".tdesc").change(function(){
@@ -485,13 +486,17 @@ function cargarGlobal(){
     $("#ncli").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
-            $(this).blur();
+            var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
+            searchClient($(this).val(),isproveedor);
         }
     });
 
     $("#ncli").blur(function(){
-        var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
-        searchClient($(this).val(),isproveedor);
+        if ($(this).val().trim().length > 0) {
+            var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
+            searchClient($(this).val(),isproveedor);
+        }
+        
     });
 
     $("#ncli").keydown(function(e){
@@ -645,6 +650,10 @@ function cargarGlobal(){
         $("#prec"+id).text(parseFloat(prec).formatMoney(2,'.',','));
         $("#unitprod"+id).text($("#uniadl option:selected").html())
     });
+
+    if (config[1] == 0) {
+        $("#lproductos").addClass('hide');
+    }
   
     if (config[5] == 1){
         $("#p_v").attr('checked',true);

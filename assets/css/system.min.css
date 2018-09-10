@@ -253,6 +253,11 @@ label{
     z-index: 990;
     display: block;
   }
+
+  .modal{
+    margin: 0px;
+    width: 100%;
+  }
 }
 @media only screen and (max-width:400px){
 .tabla-pad{

@@ -1310,7 +1310,7 @@ $(document).on("blur",".calcvv",function(){
 	});
 
 	impuestos = isNaN(impuestos) ? 0 : impuestos;
-
+	console.log(impuestos)
 	if (parseInt(num) == 1) {
 		var tven = rven = 0;
 		$(".gan").each(function(){
@@ -1427,7 +1427,7 @@ $(document).on("click","#addproduct",function(){
     var imp = arr('login',4,'',200,'11,0',0,0,0)[0];
     $("#impuestos").html('');
     for (var i = 0, len = imp.length; i < len; i++) {
-        $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][1]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][1]+'" rf="'+imp[i][3]+'" defecto="1">'+imp[i][5]+' : '+imp[i][3]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][1]+'" type="number" class="validate eder calcvv" value="'+imp[i][4]+'" style="margin: 0px;width: 50%"></div></div></li>');
+        $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][1]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][1]+'" rf="'+imp[i][3]+'" defecto="1">'+imp[i][5]+' : '+imp[i][3]+'%</span></div><div class="col s6"><label>Exoneracion: </label> <i class="mdi mdi-percent di-24px por-num"></i><input id="impexo'+imp[i][1]+'" type="number" class="validate eder calcvv" noClear="1" value="'+imp[i][4]+'" style="margin: 0px;width: 50%"></div></div></li>');
     };
     $(".validate").css('border-bottom', '1px solid #9e9e9e');
     $(".validate").css('box-shadow', 'none');
@@ -2134,6 +2134,9 @@ function endDetail(id, acc, modulo) {
 			thorload(modulo);
 			deadclear(modulo);
 			paginate(14);
+			$("#vidunidad").val(1);
+			$("#vidunidad").material_select('update');
+			$("#tb1").click();
 			break;
 		case 'servicio':
 			if (acc == 1) {

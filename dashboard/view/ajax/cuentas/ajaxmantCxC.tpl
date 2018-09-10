@@ -10,8 +10,8 @@
           
             <div class="col s12">
                 <div class="col s12 m4 l2">
-                    <input name="ctas" class="with-gap" type="radio" id="all" checked value="1" />
-                    <label for="all">Créditos</label>
+                    <input name="ctas" class="with-gap" type="radio" id="creditos" checked value="2" />
+                    <label for="creditos">Créditos</label>
                 </div>
                 <div class="col s12 m4 l2 hide">
                     <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
@@ -22,7 +22,7 @@
                     <label for="apartados">Apartados</label>
                 </div>
                 <div class="col s12 m4 l2">
-                    <input name="ctas" class="with-gap" type="radio" id="consignacion" value="7" />
+                    <input name="ctas" class="with-gap" type="radio" id="consignacion" value="3" />
                     <label for="consignacion">Consignación</label>
                 </div>
                 <div class="col s12 m4 l2">
@@ -46,7 +46,7 @@
                     <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Multiple</a>
                 </div>
                 <div class="col s12 pequeño">
-                    <table id="data-table-cuentas-x" class="pequeño  table centered highlight bordered responsive-table z-depth-3 pbtns">
+                    <table id="data-table-cuentas-x" class="pequeño table centered highlight bordered z-depth-3 pbtns">
                         <thead>
                             <tr>
                                 <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
