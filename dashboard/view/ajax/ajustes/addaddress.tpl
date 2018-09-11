@@ -35,8 +35,8 @@
     </div>
   </div>
   <div class="input-field col s12">
-    <label for="vdireccion">Dirección Exacta</label>
-    <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
+    <label for="direccion_in">Dirección Exacta</label>
+    <textarea type="textarea" id="direccion_in" class="materialize-textarea" length="100"></textarea>
   </div>
 </div>
 
@@ -44,6 +44,25 @@
 <script type="text/javascript">
     $(function(){
         $("select").material_select('update');
+        $("#direccion_in").val($("#slideDireccion").data('direccion'));
+        var barrio = $("#slideDireccion").data('idbarrio');
+
+        if (barrio != '') {
+          var distrito = getDatos('iddistrito',84,'id = '+barrio,0,0,0)[0][0][0];
+          var canton = getDatos('idcanton',10,'id = '+distrito,0,0,0)[0][0][0];
+          var provincia = getDatos('idprovincia',9,'id = '+canton,0,0,0)[0][0][0];
+
+          $("#vidprovincia").val(provincia).material_select('update');
+          $("#vidprovincia").change();
+          $("#vidcanton").val(canton).material_select('update');
+          $("#vidcanton").change();
+          $("#viddistrito").val(distrito).material_select('update');
+          $("#viddistrito").change();
+          $("#vidbarrio").val(barrio).material_select('update');
+
+          Materialize.updateTextFields();
+        }
+        
     });
 </script>
 {/literal}

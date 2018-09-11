@@ -80,6 +80,10 @@ $(function(){
             $(this).blur();
         }
     });
+    
+    $("#addclie").blur(function(){
+        
+    });
 
     $("#codp").blur(function(){
         var iscomodin = $("#valores").data("elemento") == undefined ? 0 : $("#valores").data("elemento")['ncomodin'];

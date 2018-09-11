@@ -1,5 +1,5 @@
-acc = 1;
-
+var acc = 1;
+var ind_1 = ind_2 = 1;
 $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
@@ -1773,6 +1773,133 @@ function keysight(e) {
     //salida = salida == undefined ? 0 : salida; //String.fromCharCode(e) == undefined ? 0 : String.fromCharCode(e)
     return salida == undefined ? '-1' : salida;
 }
+
+function crreo_addon_ckub(vfila,vcorreo){
+    var cont = parseInt($(".chpcrr").length) + 1;
+
+    if (vcorreo.match(/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i)) {
+        if (vfila == undefined) {
+            $("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close close_mail mdi mdi-close"></i></div>');
+            $("#slideCorreo").data('fila'+cont,{vaccion:1,vidcorreo:0,vcorreo:$("#correo_in").val()});
+            
+            $("#correo_in").val('');
+            ind_2 += 1;
+            $('.collapsible').collapsible();
+        }else{
+            $("#ichp"+vfila).html(vcorreo);
+            $("#"+vfila).html(vcorreo);
+            $("#slideCorreo").data('fila'+vfila.substr(3))['vcorreo'] = vcorreo;
+            $("#correo_in").removeAttr('idfila');
+            $("#correo_in").val('');
+        }
+        
+    }else{
+        Materialize.toast('Correo no Válido',4000,'danger');
+        $("#correo_in").select();
+    }
+}
+
+function phone_addon_ckub(vfila,vphone){
+    var tipotel;
+    var vtipo = vphone.substring(0,1) == 2 || vphone.substring(0,1) == 4 ? 2 : 3;
+    var cont = parseInt($(".chpphone").length) + 1;
+    
+    if (vtipo == 1) { tipotel = 'home'; }else if (vtipo == 2) { tipotel = 'business'; }else if (vtipo == 3) { tipotel = 'phone'; };
+
+    if (vtelefono && vtipo) {
+        if (vfila == undefined) {
+            $("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right"></i></div>');
+            $("#slideTelefono").data('fila'+cont,{vaccion:1,vidtelefono:0,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:52});
+
+            $("#telefono_in").val('');
+            ind_2 += 1;
+            $('.collapsible').collapsible();
+        }else{
+            $("#itchp"+vfila).html('<img src="../assets/img/icon/'+tipotel+'.png">'+vphone);
+            $("#"+vfila).html(vphone);
+            $("#ftp"+vfila).attr('src','img src="../assets/img/icon/'+tipotel+'.png"');
+            $("#slideTelefono").data('fila'+vfila.substr(3))['vtelefono'] = vphone;
+            $("#slideTelefono").data('fila'+vfila.substr(3))['vidtipotel'] = vtipo;
+            $("#telefono_in").removeAttr('idfila');
+            $("#telefono_in").val('');
+        }
+    }else{
+        Materialize.toast('Teléfono no Válido '+vphone+' '+vtipo,4000,'danger');2
+        $("#telefono_in").select();
+    }
+}
+
+    $(document).on('keyup',"#correo_in",function(e){
+        var code = e.which || e.keyCode
+        if (code == 13) 
+            $(this).blur();
+    });
+
+    $(document).on('blur',"#correo_in",function(){
+        var correo = $("#correo_in").val();
+        if (correo.length > 1) {
+            var idfila = $(this).attr('idfila');
+            crreo_addon_ckub(idfila,correo);
+        }
+        
+    });
+
+    $(document).on('keyup',"#telefono_in",function(e){
+        var code = e.which || e.keyCode
+        if (code == 13) {
+            $(this).blur();
+        }
+    });
+
+    $(document).on('blur',"#telefono_in",function(){
+        var telefono = $(this).val();
+        if (telefono.length > 1) {
+            var idfila = $(this).attr('idfila');
+            var htipo = $("#tptel").val();
+            phone_addon_ckub(idfila,telefono,htipo);
+        }
+        
+    });
+
+    $(document).on('blur',"#direccion_in",function(){
+        var direccion = $(this).val();
+        if (direccion.length > 1) {
+            $("#slideDireccion").data('direccion', direccion);
+        }
+    });
+
+    $(document).on('change',"#vidbarrio",function(){
+        $("#slideDireccion").data('idbarrio', $(this).val());
+    });
+
+
+$(document).on("click",".close_mail",function(){
+    $(this).parent().removeClass('chip');
+    $(this).parent().addClass('hide');
+    $(this).parent().data('triforce').vaccion = 3;
+});
+
+$(document).on("click",".close_phone",function(){
+    $(this).parent().removeClass('chip');
+    $(this).parent().addClass('hide');
+    $(this).parent().data('triforce').vaccion = 3;
+});
+
+$(document).on("click",".vcoo",function(){
+    var id = $(this).attr('id').substr(3);
+    $("#correo_in").val($(this).html()).select().focus();
+    $("#correo_in").attr('idfila',$(this).attr('id'));
+    Materialize.updateTextFields();
+});
+
+$(document).on("click","._tel",function(){
+    var id = $(this).attr('id').substr(3);
+    $("#telefono_in").val($(this).html()).select().focus();
+    $("#telefono_in").attr('idfila',$(this).attr('id'));
+    $("#tptel").val($(this).attr('tp'));
+    $("#tptel").material_select('update');
+    Materialize.updateTextFields();
+});
 
 function loadmybussiness(vform){
     var rs = getDatos('',155,'@@usr',0,0);
