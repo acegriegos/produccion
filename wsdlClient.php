@@ -153,18 +153,30 @@
 
         if (isset($_POST['doc'])){
             $_POST['data'] = str_replace('<!--?xml version="1.0" encoding="UTF-8"?-->', '<?xml version="1.0" encoding="utf-8" standalone="no"?>', $_POST['data']);
-            file_put_contents($_POST['doc'].'.xml', $_POST['data']);
+            $_POST['data'] = str_replace('clave>', 'Clave>', $_POST['data']);
+            $_POST['data'] = str_replace('nombreemisor>', 'NombreEmisor>', $_POST['data']);
+            $_POST['data'] = str_replace('tipoidentificacionemisor>', 'TipoTdentificacionEmisor>', $_POST['data']);
+            $_POST['data'] = str_replace('numerocedulaemisor>', 'NumeroCedulaEmisor>', $_POST['data']);
+            $_POST['data'] = str_replace('nombrereceptor>', 'NombreReceptor>', $_POST['data']);
+            $_POST['data'] = str_replace('tipoidentificacionreceptor>', 'TipoIdentificacionReceptor>', $_POST['data']);
+            $_POST['data'] = str_replace('numerocedulareceptor>', 'NumeroCedulaReceptor>', $_POST['data']);
+            $_POST['data'] = str_replace('mensaje>', 'Mensaje>', $_POST['data']);
+            $_POST['data'] = str_replace('detalleMensaje>', 'DetalleMensaje>', $_POST['data']);
+            $_POST['data'] = str_replace('montototalimpuesto>', 'MontoTotalImpuesto>', $_POST['data']);
+            $_POST['data'] = str_replace('totalfactura>', 'TotalFactura>', $_POST['data']); 
+
+            file_put_contents('assets/xml/'.$_POST['doc'].'.xml', $_POST['data']);
         }
         if (isset($_REQUEST['rfile'])) {
-            header("Content-type: application/octet-stream; name='xml';charset=UTF-8");
+            header("Content-type: application/octet-stream; name='excel';charset=UTF-8");
             header("Content-Disposition: filename=HACIENDA_".$_REQUEST['rfile'].".xml");
             header("Pragma: no-cache");
             header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
             echo "\xEF\xBB\xBF";
-            echo file_get_contents($_REQUEST['rfile'].".xml");
+            echo file_get_contents('assets/xml/'.$_REQUEST['rfile'].".xml");
         }
         if (isset($_POST['dfile'])) {
-            unlink($_POST['dfile'].".xml");
+            unlink('assets/xml/'.$_POST['dfile'].".xml");
         }
         if (isset($_REQUEST['ref'])){
             $fe = new facturaElectronica('');
@@ -219,7 +231,7 @@
                     e.preventDefault();
                     $.post('wsdlClient.php',{doc:$("#doc").html(),data:$("#dxml").html()});
                     window.location = "wsdlClient.php?rfile="+$("#doc").html();
-                    $.post('wsdlClient.php',{dfile:$("#doc").html()});
+                    /*setTimeout(function(){$.post('wsdlClient.php',{dfile:$("#doc").html()});},3000);*/
                 });
             });
         </script>
@@ -240,29 +252,29 @@
         
         if ($_GET['hclave'] == '') {
 
-            if (isset($salida['clave'][0])) {
+            if (!isset($inv_xml->Mensaje)) {
                 $salida = ['succed' => 0,'ERROR' => 'El Comprobante Electrónico no es Respuesta de Hacienda'];
                 return false;
             }
 
             $inv_xml = (array) $inv_xml;
 
-            if ($inv_xml['mensaje'] == 3) {
+            if ($inv_xml['Mensaje'] == 3) {
                 $salida = ['succed' => 0,'ERROR' => 'El Comprobante Electrónico no fue Aceptado'];
                 return false;
             }
 
-            if (substr($inv_xml['clave'], 30,1) >= 5) {
+            if (substr($inv_xml['Clave'], 30,1) >= 5) {
                 $salida = ['succed' => 0,'ERROR' => 'Comprobante no Válido'];
                 return false;
             }
 
-            if (strlen($inv_xml['clave']) != 50){
+            if (strlen($inv_xml['Clave']) != 50){
                 $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
                 return false;
             }
 
-            $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$inv_xml['clave'].'\"")')->fetch_all()[0];
+            $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$inv_xml['Clave'].'\"")')->fetch_all()[0];
 
             if ($rs_compra[0] > 0) {
                 $str = "";
@@ -283,14 +295,14 @@
                 return false;
             }
 
-            $scedula = $inv_xml['numerocedulareceptor'];
+            $scedula = $inv_xml['NumeroCedulaReceptor'];
 
             if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
                 $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
                 return false;
             }
 
-            $salida = ['succed' => 2,'clave' => $inv_xml['clave'],'emisor' => $inv_xml['nombreemisor'],'cedula'=>$inv_xml['numerocedulaemisor'],'impuesto'=>$inv_xml['montototalimpuesto'],'total'=>$inv_xml['totalfactura']];
+            $salida = ['succed' => 2,'clave' => $inv_xml['Clave'],'emisor' => $inv_xml['NombreEmisor'],'cedula'=>$inv_xml['NumeroCedulaEmisor'],'impuesto'=>$inv_xml['MontoTotalImpuesto'],'total'=>$inv_xml['TotalFactura']];
             return false;
         }
 
@@ -462,6 +474,7 @@
         var $ref = 0;
         var $opcion = 0;
         var $sumaimpuestos = 0;
+        var $sumadescuentos = 0;
 
         function __construct($vid){
             $this->id = $vid;
@@ -557,6 +570,9 @@
             curl_close($curl);
             $salida['consulta'] = $params;
             $salida['respuesta'] = json_decode($json_response);
+            if ($salida['respuesta'] == '') {
+                return 'No se Recibe Respuesta de Hacienda';
+            }
             $salida['credenciales'] = $this->credenciales;
             $json_response = json_decode($json_response);
             
@@ -572,6 +588,12 @@
             $doBearer = $this->getBearer();
             if(!is_array($doBearer))
                 return $doBearer;
+
+            if ($this->bearer == '') {
+                $salida['factura']  = $this->id;
+                $salida['estado']   = 'Problemas con la Llave Criptográfica';
+                return $salida;
+            }
 
             if ($this->bearer == '') {
                 $salida['factura']  = $this->id;
@@ -805,9 +827,12 @@
                 $data[] = $this->info;
                 $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
                 $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
-
-                if ($this->sumaimpuestos != $data['ResumenFactura']['TotalImpuesto']) 
+                       
+                if (round($this->sumaimpuestos - $data['ResumenFactura']['TotalImpuesto'],5) != 0) 
                      return ['error'=>'Impuestos Difieren'];
+
+                if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
+                     return ['error'=>'Descuentos Difieren'];
 
                 if ($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'] != $data['ResumenFactura']['TotalVenta']) 
                      return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalImpuesto']];
@@ -931,6 +956,7 @@
                         $detalle['PrecioUnitario'] = $value[7];
                         $detalle['MontoTotal'] = $value[8];
                         if ($value[9] > 0) {
+                            $this->sumadescuentos += $value[9];
                             $detalle['MontoDescuento'] = $value[9];
                             $detalle['NaturalezaDescuento'] = $value[10];
                         }

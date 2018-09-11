@@ -628,7 +628,7 @@
   </div>
   <div class="modal-footer">
       <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-      <a class="modal-action modal-close waves-effect waves-green btn-flat" id="addclie">Agregar</a>
+      <a class="modal-action waves-effect waves-green btn-flat" id="addclie">Agregar</a>
   </div>
 </div>
 
@@ -854,4 +854,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.51"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.52"></script>

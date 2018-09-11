@@ -81,8 +81,45 @@ $(function(){
         }
     });
     
-    $("#addclie").blur(function(){
-        
+    $("#addclie").click(function(){
+        var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap1").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,0,0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id',0,0,0);
+        console.log(pr)
+        if(pr.succed){
+            pr = pr[0][0][0];
+            
+            if ($("#slideCorreo").data('fila1') != undefined) {
+                var num = 1;
+                var nfila;
+                while($("#slideCorreo").data('fila'+num) != undefined){
+                    console.log(insertar(17,'','null,'+pr+',2,"'+$("#slideCorreo").data('fila'+num)['vcorreo']+'"'));
+                    $("#slideCorreo").removeData('fila'+num)
+                    num++;
+                }
+            }
+
+            if ($("#slideTelefono").data('fila1') != undefined) {
+                num = 1;
+                while($("#slideTelefono").data('fila'+num) != undefined){
+                    var del = $("#slideTelefono").data('fila'+num)['vtelefono'].substring(0,1);
+                    var vtipo = del == 2 || del == 4 ? 2 : 3;
+                    console.log(insertar(238,'','null,'+vtipo+',"'+$("#slideTelefono").data('fila'+num)['vtelefono']+'",2,'+pr+',52'));
+                    $("#slideTelefono").removeData('fila'+num)
+                    num++;
+                }
+            }
+
+            var barrio = $("#slideDireccion").data('idbarrio');
+            barrio = barrio == '' ? 0 : barrio;
+            console.log(insertar(239,'','null,'+barrio+',"'+$("#slideDireccion").data('direccion')+'",0,0,2,'+pr));
+            Materialize.toast('Cliente Agregado Exitosamente',4000,'green');
+            $("#slideDireccion").data('idbarrio',0);
+            $("#slideDireccion").data('direccion','');
+            $(".c-st").addClass('hide');
+            $("#c-ced").val('');
+            ind_2 = 0;
+            ind_1 = 0;
+        }else
+            Materialize.toast(pr[0]['ERROR'],4000,'red');
     });
 
     $("#codp").blur(function(){

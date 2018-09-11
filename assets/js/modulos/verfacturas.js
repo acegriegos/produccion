@@ -498,8 +498,8 @@ function validar (varreglo,vmodulo) {
                 var pr = insertar(2,'','null,"'+ap1+'","'+ap2+'","'+nom+'","'+$("#fclientes").data('proveedor')['cedula']+'",'+tpc+',1,1,0,0,0,0,'+nac+',"",now(),@@usr,0,"",@@impresa,0');
                 $("#ffacturas .zelda").data('triforce')['vidcliente'] = pr[0][0][0];
                 insertar(17,'','null,'+pr[0][0][0]+',2,"'+email+'"');
-                insertar(238,'','null,');
-                insertar(239,'','null,');
+                //insertar(238,'','null,');
+                //insertar(239,'','null,');
                 str_correos = email;
             }else{
                 str_correos = $("#fclientes").data('proveedor')['correo'];

@@ -317,9 +317,10 @@ $(document).on("keyup",".buscarNom",function(e){
                             $(".c-stp2").removeClass('hide');
                             break;
                     }
-                    $("#c-ap1").val(p['ap1'])
-                    $("#c-ap2").val(p['ap2'])
-                    $("#c-nom").val(p['nom'])
+                    $("#c-ap1").val(p['ap1']);
+                    $("#c-ap2").val(p['ap2']);
+                    $("#c-nom").val(p['nom']);
+                    $("#c-nom").attr('tipo',p['tip']);
                 }else
                     Materialize.toast(p['error'],4000,'red');
 
