@@ -71,12 +71,11 @@ $(document).on("click",".menu3",function(){
 					accion: 9,
 					id: 0
 				}).done(function(data){
+					console.log(data)
 					var p = JSON.parse(data);
 					if (p['succed']) {
-						$("#p12-upload").addClass('hide');
-						$("label[for=p12-upload]").addClass('hide');
-						$("#vpass_n").parent().addClass('offset-s6');
-						$("#isfe").prop({ 'disabled' : true,'checked' : true });
+						$(".fe").addClass('hide');			
+						$(".mdi-marker-check").removeClass('gray-text').addClass('green-text')
 					}else{
 						Materialize.toast(p['ERROR'], 4000, 'red');
 						$("#dempresa").click();
@@ -86,47 +85,7 @@ $(document).on("click",".menu3",function(){
 						$("#vpass_n").parent().removeClass('offset-s6');
 					}
 				});
-				// validar hacienda
-				// var data = new FormData();
-				// data.append('accion',3);
-				// data.append('clave',$("#vpass_n").val());
-				// data.append('file',e[16]);
-				// data.append('user',$("#vuser_atv").val());
-				// data.append('pass',$("#vpass_atv").val());
-				// data.append('prueba',$("#visPrueba").is(':checked'))
-				// console.log(data)
-
-				// jQuery.ajax({
-				//     url: '../cargar.php',
-				//     data: data,
-				//     cache: false,
-				//     contentType: false,
-				//     processData: false,
-				//     method: 'POST',
-				//     type: 'POST',
-				//     success: function(data){
-				//     	console.log(data)
-				//         try {
-			 //                p = JSON.parse(data);
-			 //                $("#vnombre").val(p['CN']);
-			 //                $("#vcedula").val(p['cedula']);
-			 //                if (p['tipo'])
-			 //                	$("#juridico").click()
-			 //                else
-			 //                	$("#fisico").click()
-			 //                $("#valid_p12").attr('isvalid',1)
-			 //                $("#valid_p12").attr('disabled',false);
-			 //                Materialize.updateTextFields();
-			 //            }
-			 //            catch(err){
-			 //                p = data;
-			 //                $("#valid_p12").attr('isvalid',0)
-			 //                $("#valid_p12").attr('disabled',false);
-			 //                Materialize.toast(p,4000,'red');
-			 //            }
-				//     },
-				//     error:function(x,y,z){ alert(x) }
-				// });
+				
 			}else{
 				$("#isfe").prop({ 'disabled' : false,'checked' : false });
 				$("#p12-upload").removeClass('hide');

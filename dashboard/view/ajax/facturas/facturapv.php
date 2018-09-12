@@ -18,11 +18,6 @@
     /*font-size: 12px;*/
   }
 
-  .container{
-
-      /**margin: 1px !important;**/
-  }
-
   *{
         margin: 0% !important;
         font-size: 20px;
@@ -162,8 +157,32 @@ echo '<tr align="center" '.$ocultar.'>
 <hr>';
 
 if ($config[0][10] == 1) {
-  echo "hola";
+  $colspan1 = 4;
+  $colspan2 = 3;
+
+ echo '<table  style="width: 100% !important;">
+  <tr>
+    <td align="center" width="15%">CANT</td>
+    <td align="center" width="45%">ARTICULO</td>
+    <td align="center" width="20%">P.UNIT</td>
+    <td align="center" width="20%">PRECIO</td>
+  </tr>
+  <tr>
+    <td colspan="4"></td>
+  </tr>';
+
+  foreach ($transaccion as $obj) {
+
+    echo '<tr>
+      <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
+      <td align="center" width="45%">'.$obj[19].'</td>
+      <td align="center" width="20%">'.$obj[20].'</td>
+      <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
+    }
+
 }else{
+  $colspan1 = 3;
+  $colspan2 = 2;
 echo '<table  style="width: 100% !important;">
   <tr>
     <td align="center" width="20%">CANT</td>
@@ -183,52 +202,52 @@ echo '<table  style="width: 100% !important;">
       <td align="center" width="30%">'.$obj[20].'</td>';
     }
   }
-  //<td align="center" width="15%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]).'</td></tr>
+  
 echo '<tr>
-    <td colspan="3" style="border-bottom: 1px dashed #A0A0A0;"></td>
+    <td colspan="'.$colspan1.'" style="border-bottom: 1px dashed #A0A0A0;"></td>
   </tr>
 <!-- <tr>
-    <td colspan="3" align="right"> TOTAL </td>
+    <td colspan="'.$colspan1.'" align="right"> TOTAL </td>
      <td align="right"> 10000 </td>
   </tr> -->
   <tr '.$ocultar.'>
-    <td colspan="3" style="border-bottom: 1px dashed white;"></td>
+    <td colspan="'.$colspan1.'" style="border-bottom: 1px dashed white;"></td>
   </tr>
   <tr '.$ocultar.'>
-    <td colspan="3"></td>
+    <td colspan="'.$colspan1.'"></td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="2">Sub-Total:</td>
+    <td width="50%" colspan="'.$colspan2.'">Sub-Total:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[9].' </td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="2">13% IV:</td>
+    <td width="50%" colspan="'.$colspan2.'">13% IV:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[5].' </td>
   </tr>';
   
   if ($obj[6] > 0) {
     echo '<tr '.$ocultar.'>
-      <td width="50%" colspan="2">Descuento:</td>
+      <td width="50%" colspan="'.$colspan2.'">Descuento:</td>
       <td width="50%" align="right"> '.$obj[15].$obj[6].' </td>
     </tr>';
   } 
 
   if ($obj[7] > 0) {
     echo  '<tr '.$ocultar.'>
-    <td width="50%" colspan="2">Flete:</td>
+    <td width="50%" colspan="'.$colspan2.'">Flete:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[7].' </td>
   </tr>';
   }
  
   if ($obj[8] > 0) {
     echo '<tr '.$ocultar.'>
-    <td width="50%" colspan="2">Ajuste:</td>
+    <td width="50%" colspan="'.$colspan2.'">Ajuste:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
   </tr>';
   }
 
   echo '<tr '.$ocultar.'>
-    <td width="50%" colspan="2">TOTAL GENERAL:  </td>
+    <td width="50%" colspan="'.$colspan2.'">TOTAL GENERAL:  </td>
     <td width="50%" align="right"> '.$obj[15].$obj[10].' </td>
   </tr>
 </table>

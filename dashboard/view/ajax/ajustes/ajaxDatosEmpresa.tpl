@@ -10,7 +10,7 @@
             <div class="row pequeño">
                 <div class="col s12 m12 l4 pequeño">
                     <label for="vnombre">Razón Social</label>
-                    <input type="text" id="vnombre" autocomplete="off">
+                    <input type="text" id="vnombre" autocomplete="off" readonly>
                     <input type="hidden" id="vid" value="">
                     <input type="hidden" id="vidusuario" value="">
                     <input type="hidden" id="vencabezado" value="">
@@ -52,13 +52,17 @@
                         <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;" /></span>
                     </form>
                     <label for="registro-upload" class="right">LOGO DE EMPRESA</label>
+
                 </div>
                 <div class="col s6 center">
                     <img type="file" src="#" class="responsive-img" alt="Image" id="vlogo">
+                    <div style="float: right;">
+                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text"></i></label>
+                    </div>
                 </div>
             </div>
-            <div class="row col s12">
-                <div class="col s6 fe"><br>
+            <div class="row col s12 fe">
+                <div class="col s6"><br>
                     <form class="dropzone needsclick dz-clickable dz-started center" id="p12-upload" style="padding: 5% !important" >
                         <span class="dz-message needsclick text-center ico-reg" >
                             <i class="mdi mdi-key mdi-48px imgDrop"></i>
@@ -66,29 +70,26 @@
                     </form>
                     <label for="p12-upload" class="right">LLAVE CRIPTOGRAFICA</label>
                 </div>
-                <div class="input-field col s3 fe">
+                <div class="input-field col s3">
                     <label for="vuser_atv">Usuario Comprobante Electrónico</label>
                     <input type="text" class="validate" id="vuser_atv" autocomplete="off">
                 </div>
-                <div class="input-field col s3 fe">
+                <div class="input-field col s3">
                     <label for="vpass_atv">Contraseña Comprobante Electrónico</label>
                     <input type="text" class="validate" id="vpass_atv" autocomplete="off">
                 </div>
-                <div class="input-field col s3 fe">
+                <div class="input-field col s3">
                     <label for="vpass_n">Clave Llave Criptografica</label>
                     <input type="text" class="validate" id="vpass_n" maxlength="4" autocomplete="off">
                 </div>
-                <div class="input-field col s3 fe">
-                    <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text"></i></label>
-                </div>
             </div>
-            <div class="row">
+            <div class="row s12">
                 <div class="row col s4">
                     <div class="col s12">
                         <input type="checkbox" id="visinventariado" class="with-gap">
                         <label for="visinventariado">Control de Inventario</label>
                     </div>
-                    <div class="col s12">
+                    <div class="col s12 hide">
                         <input type="checkbox" id="isfe">
                         <label for="isfe">Factura Electrónica</label>                                        
                     </div>
@@ -102,13 +103,13 @@
                         <input type="checkbox" id="vprintSale">
                         <label for="vprintSale">Imprimir Venta</label>
                     </div>
-                    <div class="col s12">
+                    <div class="col s12 hide">
                         <input type="checkbox" id="visPrueba">
                         <label for="visPrueba">Período de Prueba</label>
                     </div>
                 </div>
                 <div class="row col s6">
-                    <div class="input-field col s12 m4">
+                    <div class="input-field col s12 m4 hide">
                         <select type="select" id="vidtipofactura">
                             {section name=LE loop=$IMPR}
                             <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
@@ -116,7 +117,7 @@
                         </select>
                         <label for="vidtipofactura">Factura</label>
                     </div>
-                    <div class="input-field col s12 m4 ">
+                    <div class="input-field col s12 m4 hide">
                         <select type="select" id="vidtipoabono">
                             {section name=LE loop=$IMPR}
                             <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
@@ -124,7 +125,7 @@
                         </select>
                         <label for="vidtipoabono">Recibo de Abonos</label>
                     </div>
-                    <div class="input-field col s12 m4 ">
+                    <div class="input-field col s12 m4 hide">
                         <select type="select" id="vidtiponota">
                             {section name=LE loop=$IMPR}
                             <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
