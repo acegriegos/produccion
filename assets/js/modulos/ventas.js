@@ -576,7 +576,6 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     isiva = $("[for=iva]").css('display') !== 'hide' ? $("#iva").is(":checked") : 0;
     if (param != 2){
         $("[for=iva]").addClass('hide');
-        $("#iva").attr('checked',false);
 
         if (isiva){
             var timpuesto = 0;

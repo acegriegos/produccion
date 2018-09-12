@@ -84,6 +84,7 @@
 									<div class="row">
 										<div class="col s12 m10 offset-m2 ">
 											<button href="#!" class="waves-effect btn btn2 waves-light z-depth-3 add" modulo="estadoscuenta" >Realizar Nota</button>
+											<button href="#!" class="waves-effec btn btn1 waves-light z-depth-3 hide" id="btn-anular">Anular</button>
 											<button href="#!" class="waves-effec btn btn1 waves-light z-depth-3" id="btn-divsalir">Salir</button>
 										</div>
 									</div>

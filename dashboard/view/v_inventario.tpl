@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Inventario</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventario.css?v=10.0.0.53">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventario.css?v=10.0.0.54">
 
   </head>
   <body>
@@ -59,6 +59,6 @@
       </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/inventario.js?v=10.0.0.53"></script>
+    <script src="../assets/js/modulos/inventario.js?v=10.0.0.54"></script>
   </body>
 </html>

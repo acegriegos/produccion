@@ -75,7 +75,7 @@ $(document).on("click",".menu3",function(){
 					var p = JSON.parse(data);
 					if (p['succed']) {
 						$(".fe").addClass('hide');			
-						$(".mdi-marker-check").removeClass('gray-text').addClass('green-text')
+						$("#fecheck").removeClass('gray-text').addClass('green-text')
 					}else{
 						Materialize.toast(p['ERROR'], 4000, 'red');
 						$("#dempresa").click();

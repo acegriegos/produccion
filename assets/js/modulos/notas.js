@@ -138,6 +138,10 @@ $(function(){
 
 });
 
+$(document).on("click","#btn-anular",function(){
+
+});
+
 $(document).on("click",".detalle",function(){
 	$(this).sideNav({
             edge: 'left', // Choose the horizontal origin

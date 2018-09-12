@@ -18,7 +18,7 @@
                 </div>
                 <div class="col s12 m12 l4 pequeño">
                     <label for="vcedula">Cédula Jurídica</label>
-                    <input type="text" id="vcedula" autocomplete="off">
+                    <input type="text" id="vcedula" autocomplete="off" readonly>
                 </div>
                 <div class="col s12 m12 l4 pequeño">
                     <label for="vpfisico">Nombre Comercial</label>
@@ -57,7 +57,7 @@
                 <div class="col s6 center">
                     <img type="file" src="#" class="responsive-img" alt="Image" id="vlogo">
                     <div style="float: right;">
-                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text"></i></label>
+                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
                     </div>
                 </div>
             </div>
