@@ -37,8 +37,19 @@ $(function(){
  });
 
     var asoc = getParameterByName('arr');
-
     var inicial = $("#ncli");
+
+    switch(parseInt(config[11])){
+        case 1:
+            inicial = $("#codp");
+            break;
+        case 2:
+            inicial = $("#descp");
+            break;
+        default:
+            break;
+    }
+    
     switch(param){
         case 2:
             inicial = $("#vreferencia");
@@ -49,7 +60,7 @@ $(function(){
             break;
         case 4:
             cargarVentas();
-            cargarResembled('COTIZACIONES');
+            cargarResembled('PROFORMAS');
             break;
         case 5:
             cargarVentas();
@@ -354,6 +365,11 @@ function cargarVentas(){
         addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0, unidad, comodin,desgloce,strimp,exo,mobil);
     });
 
+    if (parseInt(config[12]))
+        $("#iva").attr('checked',true)
+    else
+        $("#iva").attr('checked',false)
+
 }//cargar VENTAS
 
 function cargarResembled(vnombre) {
@@ -593,7 +609,7 @@ function cargarGlobal(){
             case 2:
                 $(".eiva").removeClass('hide');
                 $(".eimp").removeClass('hide');
-                $("#ival").attr('checked',$("#fd"+id).data('triforce')['iva']);
+                $("#iva").attr('checked',$("#fd"+id).data('triforce')['iva']);
                 break;
             default:
                 $(".eunit").addClass('hide');
@@ -611,7 +627,7 @@ function cargarGlobal(){
         if(iscomodin != ''){
             $(".ename").removeClass('hide');
             $("#descpl").val($("#desc"+id).html());
-            $("#ival").attr('checked',$("#fd"+id).data('triforce')['iva']);
+            $("#iva").attr('checked',$("#fd"+id).data('triforce')['iva']);
             $(".eunit").removeClass('hide');
             $(".eiva").removeClass('hide');
         }

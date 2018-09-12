@@ -82,8 +82,14 @@ $(function(){
     });
     
     $("#addclie").click(function(){
-        var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap1").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,0,0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id',0,0,0);
-        console.log(pr)
+        if($("#slideCorreo").data('fila1') == undefined){
+            Materialize.toast('Correo sin Asignar',4000,'red');
+            $("#slideCorreo").click();
+            return false;
+        }
+
+        var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap2").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,0,0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id',0,0,0);
+ 
         if(pr.succed){
             pr = pr[0][0][0];
             
@@ -91,7 +97,7 @@ $(function(){
                 var num = 1;
                 var nfila;
                 while($("#slideCorreo").data('fila'+num) != undefined){
-                    console.log(insertar(17,'','null,'+pr+',2,"'+$("#slideCorreo").data('fila'+num)['vcorreo']+'"'));
+                    insertar(17,'','null,'+pr+',2,"'+$("#slideCorreo").data('fila'+num)['vcorreo']+'"');
                     $("#slideCorreo").removeData('fila'+num)
                     num++;
                 }
@@ -102,7 +108,7 @@ $(function(){
                 while($("#slideTelefono").data('fila'+num) != undefined){
                     var del = $("#slideTelefono").data('fila'+num)['vtelefono'].substring(0,1);
                     var vtipo = del == 2 || del == 4 ? 2 : 3;
-                    console.log(insertar(238,'','null,'+vtipo+',"'+$("#slideTelefono").data('fila'+num)['vtelefono']+'",2,'+pr+',52'));
+                    insertar(238,'','null,'+vtipo+',"'+$("#slideTelefono").data('fila'+num)['vtelefono']+'",2,'+pr+',52');
                     $("#slideTelefono").removeData('fila'+num)
                     num++;
                 }
@@ -110,14 +116,20 @@ $(function(){
 
             var barrio = $("#slideDireccion").data('idbarrio');
             barrio = barrio == '' ? 0 : barrio;
-            console.log(insertar(239,'','null,'+barrio+',"'+$("#slideDireccion").data('direccion')+'",0,0,2,'+pr));
+            insertar(239,'','null,'+barrio+',"'+$("#slideDireccion").data('direccion')+'",0,0,2,'+pr);
             Materialize.toast('Cliente Agregado Exitosamente',4000,'green');
+            $("#ncli").val($("#c-nom").val()+' '+$("#c-ap1").val()+' '+$("#c-ap2").val()+' *'+$("#c-ced").val()+'*');
             $("#slideDireccion").data('idbarrio',0);
             $("#slideDireccion").data('direccion','');
             $(".c-st").addClass('hide');
             $("#c-ced").val('');
             ind_2 = 0;
             ind_1 = 0;
+            $("#modal-clientes").modal('close');
+            $("#ncli").focus();
+            var e = jQuery.Event("keyup");
+            e.which = 13;
+            $("#ncli").trigger(e);
         }else
             Materialize.toast(pr[0]['ERROR'],4000,'red');
     });
@@ -1040,7 +1052,6 @@ function cargarProducto(kbrota,elemento) {
                 break;
             default:
                 Materialize.toast('Producto no Existente',4000,'red');
-                //elemento.select()
                 break;
         }
         
@@ -1065,7 +1076,6 @@ function endCargarProducto(exo){
                 $("#precp").blur();
                 $("#precp").select().focus();
                 $("[for=iva]").removeClass('hide');
-                $("#iva").attr('checked',true);
             }else{
                 $("[for=iva]").addClass('hide');
                 $("#iva").attr('checked',false);
