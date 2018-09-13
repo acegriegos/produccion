@@ -1080,10 +1080,12 @@ function endCargarProducto(exo){
                 $("#iva").attr('checked',false);
             }
         }else{
+            $("#iva").attr('checked',false);
             $("#cantp").focus().select();
         }
         
     }else{
+        $("#iva").attr('checked',false);
         var e = jQuery.Event("keyup");
         e.which = 13;
         $("#cantp").trigger(e);
