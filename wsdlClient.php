@@ -398,7 +398,7 @@
 
         $fecha = (array) $inv_xml->FechaEmision;
         $fecha = $fecha[0];
-        $fecha = strtotime(substr(str_replace('T', ' ', $fecha),0,-6));
+        $fecha = $strlen() > 19 ? strtotime(substr(str_replace('T', ' ', $fecha),0,-6)) : strtotime(str_replace('T', ' ', $fecha));
         $fechasistema =  date('Y/m/d H:i:s',$fecha);
         $fecha = date('d/m/Y H:i:s',$fecha);
         $salida['factura']['fecha']     = $fecha;
@@ -442,7 +442,7 @@
             $num = (array)$key->NumeroLinea;
             $dcodigo = (array)$key->Codigo->Codigo;
             if ($vunidad != 'Sp') {
-                $detid = $db->ejecutar('call krattos("idproducto",104,"id > 0 and codigo = \"'.$dcodigo[0].'\" and idproveedor = '.$prov[0][0].'")');
+                $detid = $db->ejecutar('call krattos("idproducto",104,"id > 0 and codigo = \"'.$dcodigo[0].'\" and idproveedor = '.$salida['emisor']['id'].'")');
                 $detid = isset($detid->num_rows) ? $detid->num_rows > 0 ? $detid->fetch_all()[0][0] : 0: 0;
             }else{
                 $detid = 0;
