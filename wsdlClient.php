@@ -303,8 +303,10 @@
             }
 
             $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$inv_xml['NumeroCedulaEmisor'].',\"-\",\"\") ")')->fetch_all();
-            if(!sizeof($prov))
-                $prov = $prov[0][0][0];
+
+            if (isset($prov[0]))
+                if(sizeof($prov[0]))
+                    $prov = $prov[0][0][0];
             else
                 $prov = 0;
 
