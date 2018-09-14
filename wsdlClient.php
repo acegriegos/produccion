@@ -302,7 +302,13 @@
                 return false;
             }
 
-            $salida = ['succed' => 2,'clave' => $inv_xml['Clave'],'emisor' => $inv_xml['NombreEmisor'],'cedula'=>$inv_xml['NumeroCedulaEmisor'],'impuesto'=>$inv_xml['MontoTotalImpuesto'],'total'=>$inv_xml['TotalFactura']];
+            $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$inv_xml['NumeroCedulaEmisor'].',\"-\",\"\") ")')->fetch_all();
+            if(!sizeof($prov))
+                $prov = $prov[0][0][0];
+            else
+                $prov = 0;
+
+            $salida = ['succed' => 2,'clave' => $inv_xml['Clave'],'emisor' => $inv_xml['NombreEmisor'],'cedula'=>$inv_xml['NumeroCedulaEmisor'],'impuesto'=>$inv_xml['MontoTotalImpuesto'],'total'=>$inv_xml['TotalFactura'],'idprov'=>$prov];
             return false;
         }
 
@@ -795,6 +801,7 @@
                         $salida['xml'] = base64_decode($aBody['respuesta-xml']);
                         $salida['rs'] = $sRespuesta;
                     }
+                    $salida['toto'] = $json_response;
                     $salida['factura']  = $this->id;
                     $salida['estado']   = $aBody['ind-estado'];
 
@@ -866,7 +873,7 @@
                         break;
                     default :
                         $tmcedula = strlen($this->info['Receptor']['Identificacion']['Numero']);
-                        if ( $tmcedula <> 12)
+                        if ( $tmcedula != 10)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                 }
@@ -884,7 +891,7 @@
                     break;
                 default :
                     
-                    if ( $tmcedula <> 12)
+                    if ( $tmcedula != 10)
                         return ['error' => 'Formato Cédula no Valido'];
                     break;
             }

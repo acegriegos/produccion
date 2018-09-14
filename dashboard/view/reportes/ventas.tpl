@@ -52,7 +52,6 @@
         <td class="white-text blue sinborde" style="text-align: center"><b>I.V.</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Exento</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Monto</b></td>
-
       </tr>
       </thead>
       <tbody class="detrep"></tbody>
