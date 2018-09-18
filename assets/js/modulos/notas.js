@@ -304,6 +304,8 @@ function endDetail(vid,vacc,modulo){
 
 
 function sendFE(clave,factura){
+
+    var festado = getDatos('feestado',64,'id='+clave)
     $.ajax({
         async: true,
         url: "../wsdlClient.php",

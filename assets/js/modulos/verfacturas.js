@@ -351,6 +351,13 @@ $(document).on("click",".status",function(){
 	if ($(this).is("[disabled]")) {
         event.preventDefault();
     }
+    var f1 = new Date($(this).attr('fecha'));
+    var f2 = new Date();
+    
+    if(parseInt((f2-f1)/(1000*60)) < 15){
+        Materialize.toast("Se Recomienda Esperar 15min",5000,'red');
+        return false
+    }
 
 	$(".status").attr('disabled',true)
 	$(this).removeClass('mdi-information-outline').addClass('mdi-spin mdi-loading')

@@ -109,7 +109,7 @@
 
                                     <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
 
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e{$FACT[LE][0]}" style="color:{if $FACT[LE][11] eq 1}green{elseif $FACT[LE][11] eq 2}#cddc39{elseif $FACT[LE][11] eq 3}red{elseif $FACT[LE][11] eq 9}#8bc34a{else}{/if};" data-tooltip="Estado de la Factura" data-position="bottom"></a>
+                                    <a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e{$FACT[LE][0]}" style="color:{if $FACT[LE][11] eq 1}green{elseif $FACT[LE][11] eq 2}#cddc39{elseif $FACT[LE][11] eq 3}red{elseif $FACT[LE][11] eq 9}#8bc34a{else}{/if};" data-tooltip="Estado de la Factura" data-position="bottom" fecha="{$FACT[LE][12]}"></a>
                                 </td>
                             </tr>
                             {/section}
