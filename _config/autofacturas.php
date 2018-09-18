@@ -44,7 +44,7 @@
     }*/
 
 
-    $fact_sin_estado = $db->ejecutar('call krattos("id,consecutivo",64,"feestado in(2) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].'")')->fetch_all();
+    $fact_sin_estado = $db->ejecutar('call krattos("id,consecutivo",64,"feestado in(2,9) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].'")')->fetch_all();
     echo "Facturas sin Estado: ".sizeof($fact_sin_estado).'<br>';
     foreach ($fact_sin_estado as $obj) {
         $fe = new facturaElectronica($obj[0]);

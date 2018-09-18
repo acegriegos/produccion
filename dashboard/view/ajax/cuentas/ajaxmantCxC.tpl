@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.54">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.55">
 <nav class="nav-extended z-depth-3 head1">
     <div class="nav-wrapper">
         <h4 align="center" style="padding-top: 10px">Cuentas por Cobrar</h4>

@@ -1,4 +1,4 @@
-var tipo = '1,6,7';
+var tipo = '1,7';
 
 $(function(){
     var param = getParameterByName('rep');
