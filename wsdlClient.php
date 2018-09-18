@@ -406,7 +406,7 @@
 
         $fecha = (array) $inv_xml->FechaEmision;
         $fecha = $fecha[0];
-        $fecha = $strlen() > 19 ? strtotime(substr(str_replace('T', ' ', $fecha),0,-6)) : strtotime(str_replace('T', ' ', $fecha));
+        $fecha = strlen($fecha) > 19 ? strtotime(substr(str_replace('T', ' ', $fecha),0,-6)) : strtotime(str_replace('T', ' ', $fecha));
         $fechasistema =  date('Y/m/d H:i:s',$fecha);
         $fecha = date('d/m/Y H:i:s',$fecha);
         $salida['factura']['fecha']     = $fecha;

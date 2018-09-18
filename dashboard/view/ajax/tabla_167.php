@@ -13,8 +13,8 @@ foreach ($transaccion as $obj) {
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[15].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[34].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[11].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[16].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[14].'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.$obj[13].'</td>
 
       </tr>
       <tr class="detprod hide grey lighten-3" id="xa'.$obj[0].'">
