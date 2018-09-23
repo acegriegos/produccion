@@ -1075,6 +1075,10 @@ function endCargarProducto(exo){
                 $("#precp").blur();
                 $("#precp").select().focus();
                 $("[for=iva]").removeClass('hide');
+                if (parseInt(config[12]))
+                    $("#iva").attr('checked',true)
+                else
+                    $("#iva").attr('checked',false)
             }else{
                 $("[for=iva]").addClass('hide');
                 $("#iva").attr('checked',false);
@@ -1322,9 +1326,6 @@ function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
             $("#vdescuentop").val(mdesc);
             break;
         case 1:
-            // if (parseInt($("#fd"+vidfila).data("triforce")['iddesc']) == 1) {
-
-            // }
             $("#tdescuentol").html(strDesc)
             $("#tdescuentol").material_select('update');
             $("#edescuento").val(mdesc);
@@ -1347,7 +1348,7 @@ function sendFE(clave){
         data: {id: clave, accion : 1}
     })
       .done(function(data) {
-        console.log('ENTREGADO');
+
         var p;
         try {
             p = JSON.parse(data);
@@ -1365,6 +1366,17 @@ function sendFE(clave){
                 switch(parseInt(p['erno'])){
                     case 1:
                         arr('login',7,2,64,'feestado=0','id='+clave,0,0);
+                        if (config[4] == 1) {
+                            var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                            
+                            try{ 
+
+                                w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
+                                
+                            }catch(e){
+                                Materialize.toast("POP-UP ACTIVADO",4000,'red');
+                            }
+                        }
                         break;
                     default:
                         arr('login',7,2,64,'feestado=8','id='+clave,0,0);

@@ -73,7 +73,7 @@ $(function(){
 
     mdate = $(".principal .filtros").attr('entrenumeros');
     if (mdate != undefined) {
-        html = '<div class="row col s12 m6 l6 rous"><div class="col s3"><input type="checkbox" id="xnum" value="2" class="repcheck"><label class="pbtn" for="xnum">Entre <label class="variable-s">NÚMEROS</label></label></div><div class="col s9 '+mdate+'" id="fltr2"><div class="col s6"><div class="input-field"><input type="number" class="validate init eder inpreport" id="vnum1" value="0"><label for="vnum1">Numero1</label></div></div><div class="col s6"><div class="input-field"><input type="number" class="validate eder inpreport" id="vnum2" value="0" ><label for="vnum2">Numero2</label></div></div></div></div>';
+        html = '<div class="row col s12 m6 rous"><div class="col s4"><input type="checkbox" id="xnum" value="2" class="repcheck"><label class="pbtn" for="xnum">Entre <label class="variable-s">Números</label></label></div><div class="col s8 '+mdate+'" id="fltr2"><div class="col s6"><div class="input-field"><input type="number" class="validate init eder inpreport" id="vnum1" value="0"><label for="vnum1">Número1</label></div></div><div class="col s6"><div class="input-field"><input type="number" class="validate eder inpreport" id="vnum2" value="0" ><label for="vnum2">Número2</label></div></div></div></div>';
         $(".principal .filtros").append(html);
     }
 

@@ -33,7 +33,7 @@
                       <a href="productos" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Productos">Productos</a>
                     </div>
                     <div class="col s12 m6 l6 per4200">
-                      <a href="reportes" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
+                      <a href="reportes?tr=4" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
 
 

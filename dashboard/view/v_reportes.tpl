@@ -100,7 +100,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-truck-fast"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-truck-fast"></i>
 </a>
 <div class="row hide">
 <div class="col s12">
@@ -122,7 +122,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-cart-plus"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-cart-plus"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -144,7 +144,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-chart-bar"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-chart-bar"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -155,7 +155,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-account-card-details"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-account-card-details"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -166,7 +166,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-account-card-details"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-account-card-details"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -177,7 +177,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-briefcase-download"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-briefcase-download"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -188,7 +188,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-library-books"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-library-books"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -199,7 +199,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-chart-gantt"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-chart-gantt"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -210,7 +210,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-gift"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-gift"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -227,6 +227,18 @@
 <div class="row">
 <div class="col s12">
 <p>Declaraciones Informativas</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Inventarios</p>
 </div>
 </div>
 </div>

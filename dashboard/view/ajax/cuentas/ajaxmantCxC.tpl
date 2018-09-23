@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.55">
-<nav class="nav-extended z-depth-3 head1">
-    <div class="nav-wrapper">
-        <h4 align="center" style="padding-top: 10px">Cuentas por Cobrar</h4>
-    </div>
-</nav>
+<div class="card z-depth-3">
+
+<div class="card-header center head1">
+<span class="flow-text">Cuentas por Cobrar</span>
+<i class="mdi mdi-magnify mdi-24px der pbtn tooltipped shnotas" data-tooltip="Ver Cuentas por Cobrar" data-position="botton"></i>
+</div>
 <div id="mantCxC" class="pequeño">
-    <div class="card z-depth-3">
         <div class="row padd marginzero" style="padding-top: 20px">
           
             <div class="col s12">

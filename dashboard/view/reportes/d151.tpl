@@ -10,7 +10,7 @@
 </head>
 <body class="black">
   <div class="principal contenedor" >
-      <div class="filtros row" porcliente entrefechas portipo="varios" tbltipos="123" tipos="Declaración" types="1" elem="@@impresa" sp="235" modulo="dinformativa"></div>
+      <div class="filtros row" porcliente entrefechas entrenumeros portipo="varios" tbltipos="123" tipos="Declaración" types="1" elem="@@impresa" sp="235" modulo="dinformativa"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">

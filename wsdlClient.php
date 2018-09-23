@@ -145,6 +145,30 @@
                 }
                 echo json_encode($salida);
                 break;
+            case 12: //INTEGRACION XML GENERADO
+                
+                $salida = ['succed'=>1];
+                if (!file_exists('./assets/xml/'.$id.'.xml')) {
+                    $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
+                }else{
+                    $db = new DBClass();
+                    $xml = file_get_contents('assets/xml/'.$id.'.xml');
+                    $rxml = $fe->XMLtoArray($xml);
+                    //$rxml[$fe->tdoc]['Clave'] = $db-;
+                    if (!sizeof($rxml[$fe->tdoc]['Receptor'])) {
+                        $fe->tdoc = 'TiqueteElectronico';
+                        $fe->xmldoc = 'tiqueteElectronico';
+                    }
+                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+                    $fe->array_to_xml($rxml,$xml_data);
+
+                    $xml = $xml_data->asXML();
+                    $fe->firmarXML($xml);
+
+                    header("Content-type: text/xml; encoding='UTF-8'");
+                    print_r($xml);
+                }
+                break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
@@ -415,6 +439,8 @@
         $salida['factura']['tipoventa'] = $salida['factura']['tipoventa'][0];
         $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? (array) $inv_xml->PlazoCredito : 0;
         $salida['factura']['plazo']     = $salida['factura']['plazo'] == 0 ? $salida['factura']['plazo'] : $salida['factura']['plazo'][0];
+        preg_match_all('!\d+!', $salida['factura']['plazo'], $matches);
+        $salida['factura']['plazo']     = $matches[0][0];
         $salida['factura']['tipopago']  = (array) $inv_xml->MedioPago;
         $salida['factura']['tipopago']  = $salida['factura']['tipopago'][0];
 
@@ -829,7 +855,11 @@
 
         function getXMLRecepcion(){
             $data = [];
-           
+            
+            $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
+            if (!$tdetalle && $this->opcion < 5) 
+                return ['error'=>'No hay Detalle'];
+
             if ($this->xmldoc == 'mensajeReceptor') {
                 $data[] = $this->getJSON('call fe_recepcion("'.$this->id.'")');
             }else{
@@ -854,9 +884,6 @@
                 $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
                 // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             }
-            $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
-            if (!$tdetalle && $this->opcion < 5) 
-                return ['error'=>'No hay Detalle'];
 
             if (!isset($this->info['Emisor']['CorreoElectronico'])) {
                return ['error'=>'Emisor sin Correo'];
@@ -1078,7 +1105,7 @@
             return base64_encode(hash('sha256' , $strcadena, true ));
         }
 
-       private function firmarXML(&$xml){
+       public function firmarXML(&$xml){
             $signTime = NULL;
             $signPolicy = NULL;
             $publicKey = NULL;
@@ -1272,33 +1299,63 @@
             array_push($rs, $estatus);
             return $rs;
         }
+
+        function XMLtoArray($xml) {
+            $previous_value = libxml_use_internal_errors(true);
+            $dom = new DOMDocument('1.0', 'UTF-8');
+            $dom->preserveWhiteSpace = false; 
+            $dom->loadXml($xml);
+            libxml_use_internal_errors($previous_value);
+            if (libxml_get_errors()) {
+                return [];
+            }
+            return $this->DOMtoArray($dom);
+        }      
+
+        function DOMtoArray($root) {
+            $result = array();
+
+            if ($root->hasAttributes()) {
+                $attrs = $root->attributes;
+                foreach ($attrs as $attr) {
+                    $result['@attributes'][$attr->name] = $attr->value;
+                }
+            }
+
+            if ($root->hasChildNodes()) {
+                $children = $root->childNodes;
+                if ($children->length == 1) {
+                    $child = $children->item(0);
+                    if (in_array($child->nodeType,[XML_TEXT_NODE,XML_CDATA_SECTION_NODE])) {
+                        $result['_value'] = $child->nodeValue;
+                        return count($result) == 1
+                            ? $result['_value']
+                            : $result;
+                    }
+
+                }
+                $groups = array();
+                foreach ($children as $child) {
+                    if (!isset($result[$child->nodeName])) {
+                        $result[$child->nodeName] = $this->DOMtoArray($child);
+                    } else {
+                        if (!isset($groups[$child->nodeName])) {
+                            $result[$child->nodeName] = array($result[$child->nodeName]);
+                            $groups[$child->nodeName] = 1;
+                        }
+                        $result[$child->nodeName][] = $this->DOMtoArray($child);
+                    }
+                }
+            }
+            return $result;
+        }
     }   
 
     function warning_handler($errno, $errstr, $errfile, $errline)
     {
         return true;
-    /* Según el típo de error, lo procesamos */
-    // switch ($errno) {
-    //    case E_WARNING:
-    //             echo "Hay un WARNING.<br />\n";
-    //             echo "El warning es: ". $errstr ."<br />\n";
-    //             echo "El fichero donde se ha producido el warning es: ". $errfile ."<br />\n";
-    //             echo "La línea donde se ha producido el warning es: ". $errline ."<br />\n";
-    //             /* No ejecutar el gestor de errores interno de PHP, hacemos que lo pueda procesar un try catch */
-    //             return true;
-    //             break;
-            
-    //         case E_NOTICE:
-    //             echo "Hay un NOTICE:<br />\n";
-    //             /* No ejecutar el gestor de errores interno de PHP, hacemos que lo pueda procesar un try catch */
-    //             return true;
-    //             break;
-            
-    //         default:
-    //             /* Ejecuta el gestor de errores interno de PHP */
-    //             return false;
-    //             break;
-    //         }
     }
+
+    
 
  ?>

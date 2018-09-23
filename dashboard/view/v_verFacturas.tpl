@@ -7,7 +7,6 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.55">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.0.0.55">
   </head>
   <body>
@@ -67,7 +66,6 @@
                 </div>
                 <div class="col m2 hide-on-small"></div>
                 <div class="col s3 der">
-                    <a href="#modal-getxml" class="btn btn2 mdi mdi-upload mdi-24px tooltipped" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px"></a>
 
                      <div class="switch der">
                         <label>
@@ -105,11 +103,7 @@
                                 <td style="width: 10%">
                                     <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh tooltipped" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" data-tooltip="Visualizar Factura" data-position="bottom"></a>
 
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-xml xml blueh tooltipped" id="x{$FACT[LE][0]}" data-tooltip="Descargar XML" data-position="bottom"></a>
-
                                     <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
-
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-information-outline status blueh tooltipped" id="e{$FACT[LE][0]}" style="color:{if $FACT[LE][11] eq 1}green{elseif $FACT[LE][11] eq 2}#cddc39{elseif $FACT[LE][11] eq 3}red{elseif $FACT[LE][11] eq 9}#8bc34a{else}{/if};" data-tooltip="Estado de la Factura" data-position="bottom" fecha="{$FACT[LE][12]}"></a>
                                 </td>
                             </tr>
                             {/section}
@@ -155,66 +149,7 @@
   </div>
 
     {$SCR}
-    <div id="modal-getxml" class="modal modal-fixed-footer grandemodal">
-        <div class="modal-header">
-        <div class="card-header center blue-grey white-text z-depth-1">
-            <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar XML <span id="nomproc"></span></p>
-        </div>
-        </div>
-        <div class="modal-content">
-            <div class="row">
-
-                <section class="upxml col s12 l6" xml="4" style="margin-top: 8%">
-                    <span>Subir Documento Electrónico: Mensaje Hacienda</span>
-                    <form class="dropzone needsclick dz-clickable dz-started" id="hacienda-upload" style="padding-left: 44% !important">
-                        <span class="dz-message needsclick text-center ico-reg"><i class="mdi mdi-xml mdi-48px imgDrop" style="margin-top: 25px;margin-bottom: 25px;"></i></span>
-                    </form>
-                    <span id="mha" class="green-text"></span>
-                </section>
-
-                <section class="upxml col s12 l6 disabledbutton" xml="1" style="margin-top: 8%">
-                    <span>Subir Documento Electrónico: Factura o Nota Crédito y Débito</span>
-                    <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
-                        <span class="dz-message needsclick text-center ico-reg"><i class="mdi mdi-xml mdi-48px imgDrop" style="margin-top: 25px;margin-bottom: 25px;"></i></span>
-                        <input type="hidden" id="myclave">
-                    </form>
-                </section>
-
-            </div>
-            
-            <input type="hidden" id="fclientes">
-            <section class="upxml hide" xml="2" id="ffacturas">
-                <input type="hidden" class="zelda">
-                <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
-                <div class="upxml hide" xml="3">
-                    <div class="shxml_head"></div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Cantidad</th>
-                                <th>Unidad</th>
-                                <th>Descripción</th>
-                                <th>Descuento</th>
-                                <th>Impuesto</th>
-                                <th>Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody vtabla="detallefactura" id="fdetallefacturas" tp="4" class="shxml_body"></tbody>
-                        <tfoot class="shxml_foot" style="border-top: 1px solid #e2e2e2"></tfoot>
-                    </table>
-                </div>
-            </section>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="5">Aceptar</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="6">Aceptar Parcial</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="7">Rechazar</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Cancelar</a>
-        </div>
-    </div>
-
-    <script src="../assets/js/dropzone.js?v=10.0.0.55"></script>
+    
     <script src="../assets/js/modulos/verfacturas.js?v=10.0.0.55"></script>
   </body>
 </html>

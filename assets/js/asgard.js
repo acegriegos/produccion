@@ -1357,11 +1357,28 @@ function paginate(vtbl,len,vfiltro) {
 }
 
 $(document).on("click", ".paginate", function () {
-    var modulo = $("ul.pagination").attr('modulo');
+
+    var limit = $(this).attr('limit');
     var vtbl = $("ul.pagination").attr('vtbl');
+    var modulo = $("ul.pagination").attr('modulo');
+    
+    if ($("#search_"+modulo).val() == undefined) {
+        manualPaginate(limit);
+        $(".paginate").removeClass('active')
+        $(this).addClass('active');
+        var numl = parseInt($('a',this).html());
+        var nfin = (parseInt(limit.substr(limit.indexOf(',')+1).trim())*numl);
+        var ntot = parseInt($(".showing[modulo="+vtbl+"] .pag-tot").html());
+        var nshow = nfin-ntot >= 0 ? ntot : nfin;
+        
+        $(".showing[modulo="+vtbl+"] .pag-desde").html((parseInt(limit.substr(0,limit.indexOf(',')).trim())+1))
+        $(".showing[modulo="+vtbl+"] .pag-hasta").html(nshow)
+        return false;
+    }
+    
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var id = $(this).attr('id').substr(1);
-    var limit = $(this).attr('limit');
+    
     var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
     var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     $(".paginate").removeClass('active')
@@ -1377,11 +1394,12 @@ $(document).on("click", ".paginate", function () {
 });
 
 $(document).on("click", ".nxt", function () {
+
     var modulo = $("ul.pagination").attr('modulo');
     var vtbl = $("ul.pagination").attr('vtbl');
     var ultimo = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
-    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var filtro = $("#search_"+modulo).val() == undefined ? '' : $("#search_"+modulo).val().replace(/"/g,'\\\"');
     var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var next = id + 1;
@@ -1430,7 +1448,7 @@ $(document).on("click", ".prv", function () {
     var vtbl = $("ul.pagination").attr('vtbl');
     var count = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
-    var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
+    var filtro = $("#search_"+modulo).val() == undefined ? '' : $("#search_"+modulo).val().replace(/"/g,'\\\"');
     var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var prev = id - 1;

@@ -112,8 +112,17 @@ echo '</td></tr>';*/
 
 echo '<tr align="center" '.$ocultar.'>
      <td>
-        <div align="center"><b> '.$miscelaneos[0].' </b><br> Ced. '.$miscelaneos[1].'
-         <br> Telf. '.$miscelaneos[5].'<br> '.$miscelaneos[6].'
+        <div align="center">';
+if(strlen(trim($miscelaneos[2])))
+    echo '<b> '.$miscelaneos[2].' </b> <br>'.$miscelaneos[0];
+else
+  echo '<b> '.$miscelaneos[0].' </b>';
+
+echo '<br>Ced. '.$miscelaneos[1];
+if(strlen(trim($miscelaneos[5])))
+    echo '<br> Telf. '.$miscelaneos[5];
+
+echo '<br> '.$miscelaneos[6].'
         </div>
      </td>
   </tr>
