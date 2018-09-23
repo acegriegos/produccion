@@ -1084,11 +1084,13 @@ function endCargarProducto(exo){
                 $("#iva").attr('checked',false);
             }
         }else{
+            $("[for=iva]").addClass('hide');
             $("#iva").attr('checked',false);
             $("#cantp").focus().select();
         }
         
     }else{
+        $("[for=iva]").addClass('hide');
         $("#iva").attr('checked',false);
         var e = jQuery.Event("keyup");
         e.which = 13;
