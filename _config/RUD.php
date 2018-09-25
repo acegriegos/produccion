@@ -38,9 +38,9 @@
 			}
 		}
 
-		public function ejecutarSelectColums(){
+		public function ejecutarSelectColums($sql){
 			$salida = [];
-			$rs = $this->db->ejecutar($this->sql);
+			$rs = $this->db->ejecutar($sql);
 
 			if (isset($rs->num_rows)) {
 				$salida[0] = $rs->fetch_all();
@@ -102,6 +102,42 @@
 				return $rs->fetch_all();
 			}else{
 				return $rs;//." call shadow($accion,$tabl,'$arg1','$args2')";//$rs." ".$this->sql;
+			}
+		}
+
+		public function sel_col($sel,$tabl,$wher){
+
+			if (strpos($wher,'@usr')) {
+				require_once '../_config/ecy.php';
+				$cy = new _cy();
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
+				$wher = str_replace('@@usr', $usr, $wher);
+			}
+
+			if (strpos($sel,'@tp')) {
+				// require_once '../_config/ecy.php';
+				$sel = str_replace('@@tp', 'idtipousuario', $sel);
+			}
+
+			if (strpos($wher,'@impresa')) {
+				$impresa = $_SESSION['IMPRESA'];
+				$wher = str_replace('@@impresa', $impresa, $wher);
+			}
+
+			if (strpos($wher, '@tmp')) {
+				// $str = ($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0) ? "0" : $_SESSION['IMPRESA'];
+				$str  = $_SESSION['TMP_CIA'];
+				$wher = str_replace('@@tmp_cia', $str , $wher);
+			}
+
+			$wher = addslashes($wher);
+
+			$rs = $this->ejecutarSelectColums("call krattos('$sel',$tabl,'$wher')");
+			
+			if (isset($rs->num_rows)) {
+				return $rs->fetch_all();
+			}else{
+				return $rs;//." call krattos('$sel',$tabl,'$wher')";
 			}
 		}
 

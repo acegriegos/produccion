@@ -131,7 +131,7 @@
           if (isset($_REQUEST['arreglo']['tit']))
             $tit = $_REQUEST['arreglo']['tit'];
            
-           include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
+          include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php';  
 		   	break;
         case 9:  //GENERAR SOLO XML
           $pagina = 1;
@@ -142,6 +142,17 @@
           $archivo = fopen('../assets/xml/'.$estado.' N°'.$_REQUEST['arreglo']['factura'].', '.$_REQUEST['arreglo']['sucursal'].'.xml', "w+");
           fwrite($archivo, $xml->getXMLRecepcion());
           fclose($archivo); 
+        break;
+      case 10: //SELECT CON COLUMNAS
+        $pagina = 1;
+        
+        if ($_REQUEST['arreglo']['header'] == 1)
+          $transaccion = $log->sel_col($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        else
+          $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        
+        include 'view/ajax/tabla_global.php'; 
+
         break;
       default:
         break;

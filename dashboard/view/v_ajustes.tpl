@@ -30,6 +30,7 @@
             <li class="menu3 col tab pbtn {if $smarty.session.BUSS eq 1}hide{/if}" href="#m6" id="m6"><a class=" white-text">Bodegas</a></li>
             <li class="menu3 col tab pbtn hide" href="#m7" id="m7"><a class=" white-text">Producción</a></li>
             <li class="menu3 col tab  pbtn {if $smarty.session.BUSS neq 2}hide{/if}" href="#m10" id="m10"><a class=" white-text">Restaurante</a></li>
+            <li class="menu3 col tab  pbtn" href="#m9 " id="m9 "><a class=" white-text">Productos</a></li>
             <li class="menu3 col tab pbtn {if $smarty.session.BUSS eq 1}hide{/if}" href="#m8" id="m8"><a class=" white-text">Accesos</a></li>
         </ul>
       </div>

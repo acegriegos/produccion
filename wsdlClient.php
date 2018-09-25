@@ -20,13 +20,13 @@
             case 2://GET XML
                 if (isset($_REQUEST['view'])) {
                     header("Content-type: text/xml; encoding='UTF-8'");
-                }else{
-                    header("Content-type: application/octet-stream; name='excel';charset=UTF-8");
-                    header("Content-Disposition: filename=".$fe->info['NumeroConsecutivo'].".xml");
-                    header("Pragma: no-cache");
-                    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-                    echo "\xEF\xBB\xBF";
-                }
+                }//else{
+                //     header("Content-type: application/octet-stream; name='excel';charset=UTF-8");
+                //     header("Content-Disposition: filename=".$fe->info['NumeroConsecutivo'].".xml");
+                //     header("Pragma: no-cache");
+                //     header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+                //     echo "\xEF\xBB\xBF";
+                // }
                 print_r($fe->getXMLRecepcion());
                 break;
             case 3://BEARER
@@ -152,7 +152,7 @@
                     $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
                 }else{
                     $db = new DBClass();
-                    $xml = file_get_contents('assets/xml/'.$id.'.xml');
+                    $xml = file_get_contents('./assets/xml/'.$id.'.xml');
                     $rxml = $fe->XMLtoArray($xml);
                     //$rxml[$fe->tdoc]['Clave'] = $db-;
                     if (!sizeof($rxml[$fe->tdoc]['Receptor'])) {
@@ -189,7 +189,7 @@
             $_POST['data'] = str_replace('montototalimpuesto>', 'MontoTotalImpuesto>', $_POST['data']);
             $_POST['data'] = str_replace('totalfactura>', 'TotalFactura>', $_POST['data']); 
 
-            file_put_contents('assets/xml/'.$_POST['doc'].'.xml', $_POST['data']);
+            file_put_contents('./assets/xml/'.$_POST['doc'].'.xml', $_POST['data']);
         }
         if (isset($_REQUEST['rfile'])) {
             header("Content-type: application/octet-stream; name='excel';charset=UTF-8");
@@ -197,10 +197,10 @@
             header("Pragma: no-cache");
             header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
             echo "\xEF\xBB\xBF";
-            echo file_get_contents('assets/xml/'.$_REQUEST['rfile'].".xml");
+            echo file_get_contents('./assets/xml/'.$_REQUEST['rfile'].".xml");
         }
         if (isset($_POST['dfile'])) {
-            unlink('assets/xml/'.$_POST['dfile'].".xml");
+            unlink('./assets/xml/'.$_POST['dfile'].".xml");
         }
         if (isset($_REQUEST['ref'])){
             $fe = new facturaElectronica('');
@@ -253,8 +253,11 @@
                 $('.tooltipped').tooltip({delay: 50});
                 $(".bxml").click(function(e){
                     e.preventDefault();
-                    $.post('wsdlClient.php',{doc:$("#doc").html(),data:$("#dxml").html()});
-                    window.location = "wsdlClient.php?rfile="+$("#doc").html();
+                    $.post('wsdlClient.php',{doc:$("#doc").html(),data:$("#dxml").html()})
+                        .done(function(data){
+                            window.location = "wsdlClient.php?rfile="+$("#doc").html();
+                        });
+                    
                     /*setTimeout(function(){$.post('wsdlClient.php',{dfile:$("#doc").html()});},3000);*/
                 });
             });
@@ -855,20 +858,21 @@
 
         function getXMLRecepcion(){
             $data = [];
-            
-            $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
-            if (!$tdetalle && $this->opcion < 5) 
-                return ['error'=>'No hay Detalle'];
 
             if ($this->xmldoc == 'mensajeReceptor') {
                 $data[] = $this->getJSON('call fe_recepcion("'.$this->id.'")');
             }else{
                 $data[] = $this->info;
+
                 $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
                 $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
-                       
+
+                $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
+                if (!$tdetalle && $this->opcion < 5) 
+                    return ['error'=>'No hay Detalle'];
+
                 if (round($this->sumaimpuestos - $data['ResumenFactura']['TotalImpuesto'],5) != 0) 
-                     return ['error'=>'Impuestos Difieren'];
+                     return ['error'=>'Impuestos Difieren '.$data['ResumenFactura']['TotalImpuesto']];
 
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];

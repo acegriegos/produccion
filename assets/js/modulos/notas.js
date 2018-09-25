@@ -4,8 +4,7 @@ var clave;
 var str_correos = '';
 
 $(function(){
-	config =getDatos('',42,'@@impresa',0,0)[0][0];;
-    
+	config =getDatos('',42,'@@impresa',0,0)[0][0];
 	$("#fnotass").submit(function(){return false});
 	$("[id^=ftr]").hide();
 	$(".chg_tipo").change(function(){
@@ -341,9 +340,9 @@ function cargarSintax(){
 function endDetail(vid,vacc,modulo){
 	if (vacc == 1) {
 		$("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
-		factura = getDatos('consecutivo,idfactura',301,'id = '+vid[0][0],0,0);
+		factura = getDatos('consecutivo,idfactura',301,'id = '+vid[0][0],0,0,0);
         var idfact = factura[0][0][1];
-        var estado = parseInt(getDatos('feestado',64,'id = '+idfact)[0][0][0]);
+        var estado = parseInt(getDatos('feestado',64,'id = '+idfact,0,0,0)[0][0][0]);
         factura = factura[0][0][0];
         clave = vid[0][0];
 
@@ -365,7 +364,7 @@ function endDetail(vid,vacc,modulo){
                         case 'aceptado':
                             var $toastContent = $('<span style="width: 500px">Generando Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
                             Materialize.toast($toastContent);
-                            sendFE(clave,factura);
+                            sendFE(clave,idfact);
                             break;
                         case 'recibido':
                             color = 'green lighten-3';
@@ -417,7 +416,7 @@ function endDetail(vid,vacc,modulo){
                 case 1:
                     var $toastContent = $('<span style="width: 500px">Generando Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
                     Materialize.toast($toastContent);
-                    sendFE(clave,factura);
+                    sendFE(clave,idfact);
                     break;
                 case 9:
                     color = 'green lighten-3';
@@ -452,7 +451,7 @@ function endDetail(vid,vacc,modulo){
 
 function sendFE(clave,factura){
 
-    var festado = getDatos('feestado',64,'id='+clave)
+    var festado = getDatos('feestado',64,'id='+clave,0,0,0)
     $.ajax({
         async: true,
         url: "../wsdlClient.php",
@@ -464,11 +463,16 @@ function sendFE(clave,factura){
         var continuar = 1;
         try {
             p = JSON.parse(data);
-            var vfactura = p['num'];
-            var vclave = p['clave'];
+            var vclave = p['num'];
             p = p['rs'];
+            $(".expect").removeClass('progress')
+            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+            arr('login',7,2,301,'feestado=2','id='+clave,0,0);
+            sendVMail(factura,clave,vclave);
         }
         catch(err){
+            console.log(data)
+            console.log(err)
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
             Materialize.toast(data,3000,'red');
@@ -476,108 +480,75 @@ function sendFE(clave,factura){
             setTimeout(function(){$(".toast").remove();},3000);
             continuar = 0;
         }
-
-        if (continuar) {
-            setTimeout(function(){
-                $.ajax({
-                async: true,
-                url: "../wsdlClient.php",
-                type: 'POST',
-                data: {id: "-"+clave, accion : 4}
-            })
-              .done(function( data ) {
-                var q;
-
-                q = JSON.parse(data);
-                switch(q['estado']){
-                    case 'rechazado':
-                        $(".expect").removeClass('progress')
-                        $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>")
-                        Materialize.toast(q['rs'],3000,'red');
-                        arr('login',7,2,301,'feestado=3','id='+clave,0,0);
-                        break;
-                    case 'procesando':
-                        $(".expect").removeClass('progress')
-                        $(".expect").html("<i class='mdi mdi-24px mdi-close yellow-text'></i>")
-                        Materialize.toast('Procesando Documento Electrónico',3000,'green');
-                        arr('login',7,2,301,'feestado=2','id='+clave,0,0);
-                        break;
-                    case 'recibido':
-                        $(".expect").removeClass('progress')
-                        $(".expect").html("<i class='mdi mdi-24px mdi-close green-text'></i>")
-                        Materialize.toast('Documento Electrónico Recibido',3000,'green');
-                        arr('login',7,2,301,'feestado=1','id='+clave,0,0);
-                        break;
-                    case 'Sin Internet':
-                        $(".expect").removeClass('progress')
-                        $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>")
-                        Materialize.toast('No Hay Conexión a Internet',3000,'red');
-                        arr('login',7,2,301,'feestado=0','id='+clave,0,0);
-                        break;
-                    case 'error':
-                        $(".expect").removeClass('progress')
-                        $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>")
-                        Materialize.toast('Error en Documento Electrónico',3000,'red');
-                        arr('login',7,2,301,'feestado=2','id='+clave,0,0);
-                        break;     
-                    default:
-                        $(".expect").removeClass('progress')
-                        $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-                        arr('login',7,2,301,'feestado=1','id='+clave,0,0);
-                        sendVMail(vfactura,vclave,clave);
-                        break;
-                }
-                setTimeout(function(){$(".toast").remove();},3000);
-              });
-            },3000);
-
-        }
         
       });
 }
 
 
-function sendVMail(factura,clave,vid){
-    //var archivos = '';
+function sendVMail(idfact,idnota,cnota){
+    var archivos = '';
+    var idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+idfact,0,0);
+    var factura = idcliente[0][0][1];
+    var clave = idcliente[0][0][2];
+    idcliente = parseInt(idcliente[0][0][0]);
 
-    // if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
-    //     var str_correos = '';
-        
-        // if ($(".zelda").data('triforce')['vidcliente'] != 0) {
-        //     var correos = getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$(".zelda").data('triforce')['vidcliente'],0,0,0)[0][0];
-        //     if (correos == undefined) {
-        //         Materialize.toast('Correos Inválidos',4000,'red');
-        //         arr('login',7,2,64,'feestado=4','id='+clave,0,0);
-        //     }else{
-        //         for (var i = 0; i < correos.length; i++) {
-        //             str_correos += correos[0];
-        //         }
-        //     }
-        // }
-        
-   //      if (config[4] == 1) {
-   //          var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-			// window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-   //          w.print();
-   //          w.close();
-   //          window.focus();
-   //      }
+    if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
+        str_correos = '';
 
-   //      if (str_correos != '') {
-   //          var vbody = getDatos('',73,vid,0,0)[0][0];
-   //          archivos = makeArchivos(factura,clave,vid,vbody[1]);
-   //          enviarCorreo(3,str_correos,"Factura N° "+factura,vbody[0],archivos);
-   //      }
-        
-   //  }else{
-        
-   //      if (config[4] == 1){
-   //          var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-			// window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-   //      }
-   //  }
+        if (idcliente != 0) {
+            var correos = getDatos("",18,idcliente+",2",0,0);
+            if (correos == undefined) {
+                Materialize.toast('Correos Inválidos',4000,'red');
+                arr('login',7,2,301,'feestado=2','id='+idnota,0,0);
+            }else{
+                for (var i = 0; i < correos[0].length; i++) {
+                    str_correos += correos[0][i][3]+",";
+                }
 
-   	var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-    window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-    setTimeout(function(){$(".toast").remove();},5000);
+                str_correos = str_correos.substr(0,str_correos.length-1);
+            }
+        }
+        
+        if (config[4] == 1) {
+            var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+            window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+        }
+
+        if (str_correos != '') {
+            var vbody = getDatos('',73,'-'+idnota,0,0)[0][0];
+            var vestado = $("#ncd").is(":checked") ? 'Nota Crédito' : 'Nota Débito';
+            archivos = makeArchivos(cnota,factura,idfact,idnota,vbody[1],vestado);
+            enviarCorreo(3,str_correos,"Nota Crédito N° "+cnota,vbody[0],archivos);
+        }
+    
+		//
+    }else{
+        if (config[4] == 1){
+           	var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+            window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+            setTimeout(function(){$(".toast").remove();},5000);
+        }
+    }
+}
+
+function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
+    var archivos = '';
+    mantenimiento_async('login',8,{arch:'recibo',id:vidfactura,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vidfactura},1);
+
+    archivos = {0:'xml/'+vestado+' N°'+vnota+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+    mantenimiento_async('login',9,{id:vidnota,factura:vnota,sucursal:vsucursal,restado:vestado},1);
+
+    return archivos;
+}
+
+function postExcecute(vid,p){
+
+    switch(parseInt(vid)){
+        default:
+            break;
+    }
+}
+
+function postSendmail() {
+    setTimeout(function(){$(".toast").remove();},3000);
 }

@@ -81,8 +81,7 @@ if (!isset($_REQUEST['accion'])) {
 	   			break;
 	   		case 9:
 	   			$pagina = 1;
-	   			$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 order by id'));
-	   			$smarty->display('ajax/ajustes/ajaxProductos.tpl');
+				$smarty->display('ajax/ajustes/ajaxProductos.tpl');
 	   			break;
 	   		case 10:
 	   			$pagina = 1;

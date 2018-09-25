@@ -1,9 +1,8 @@
 var config;
-var estado;
 var str_correos = '';
 
 $(document).ready(function(){
-	var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
+	var tf = param = getParameterByName('tf');//parseInt($("input[name=tventa]:checked").attr('id').substr(2));
     config = getDatos('',42,'@@impresa',0,0)[0][0];
 
 	switch(tf) {
@@ -38,6 +37,7 @@ $(document).ready(function(){
 			$("[rm=3]").addClass('hide');
 			break;
 	}
+    arr('login',6,'',158,'0,0,"'+tf+',0,@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
 
 	$("#data-table-facturas").dataTable({
 		bFilter: false,
@@ -48,7 +48,7 @@ $(document).ready(function(){
 		bPaginate: false,
 		info: false
 	});
-
+    $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?')
 	paginate($("ul.pagination").attr('vtbl'),undefined,tf+',0,@@impresa,0,0')
 
 	$("#data-table-productos").dataTable({
@@ -64,12 +64,6 @@ $(document).ready(function(){
         out_duration: 100, // Transition out duration
         startingTop: '4%', // Starting top style attribute
         endingTop: '4%' // Ending top style attribute
-    });
-
-	
-    $(".add").click(function(){
-        $(".mhacienda").attr('disabled',true);
-        estado = $(this).attr('dc');
     });
     
     if (config[5] == 1){
@@ -129,7 +123,8 @@ $(document).on("change","input[name=tventa]",function(){
 				bPaginate: false,
 				info: false
 			});
-			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0')
+			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
+            $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?')
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").removeClass('hide');
 			$("[rm=3]").addClass('hide');
@@ -148,6 +143,7 @@ $(document).on("change","input[name=tventa]",function(){
 				info: false
 			});
 			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0')
+            $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?')
 			$("[rm=1]").removeClass('hide');
 			$("[rm=2]").removeClass('hide');
 			$("[rm=3]").addClass('hide');
@@ -165,7 +161,8 @@ $(document).on("change","input[name=tventa]",function(){
 				bPaginate: false,
 				info: false
 			});
-			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0')
+			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
+            $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?')
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").addClass('hide');
 			$("[rm=3]").removeClass('hide');
@@ -183,7 +180,8 @@ $(document).on("change","input[name=tventa]",function(){
 				bPaginate: false,
 				info: false
 			});
-			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0')
+			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
+            $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").addClass('hide');
 			$("[rm=3]").removeClass('hide');
@@ -201,7 +199,8 @@ $(document).on("change","input[name=tventa]",function(){
 				bPaginate: false,
 				info: false
 			});
-			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0')
+			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
+            $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").addClass('hide');
 			$("[rm=3]").removeClass('hide');
@@ -219,7 +218,8 @@ $(document).on("change","input[name=tventa]",function(){
 				bPaginate: false,
 				info: false
 			});
-			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0')
+			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
+            $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").removeClass('hide');
 			$("[rm=3]").addClass('hide');
@@ -229,7 +229,6 @@ $(document).on("change","input[name=tventa]",function(){
 
 $(document).on("click",".print",function(){
 	var id = $(this).attr('id').substr(1);
-	// var tv = $(this).attr('tv');
 	var tp = !$("#tps").is(":checked");
 	window.open('facturacion?accion=6&id='+id+'&tp='+tp);
 });
@@ -260,51 +259,6 @@ function validar (varreglo,vmodulo) {
 function endDetail(vid,vacc,vmodulo) {
             
     return false;
-}
-
-function sendFE(clave){
-    $.ajax({
-        async: true,
-        url: "../wsdlClient.php",
-        type: 'POST',
-        data: {id: clave, accion : 1}
-    })
-      .done(function(data) {
-        console.log('ENTREGADO');
-        var p;
-        try {
-            p = JSON.parse(data);
-            $(".expect").removeClass('progress');
-            if (parseInt(p['succes'])) {
-                var vfactura = p['num'];
-                var vclave = p['clave'];
-                arr('login',7,2,64,'feestado=2','id='+clave,0,0);
-                $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-                sendVMail(vfactura,vclave,clave);
-            }else{
-                $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-                Materialize.toast(p['rs'],5000,'red');
-                switch(parseInt(p['erno'])){
-                    case 1:
-                        arr('login',7,2,64,'feestado=0','id='+clave,0,0);
-                        break;
-                    default:
-                        arr('login',7,2,64,'feestado=8','id='+clave,0,0);
-                    break;
-                }
-            }
-            
-        }
-        catch(err){
-            console.log(err)
-            $(".expect").removeClass('progress')
-            $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-            Materialize.toast(data,5000,'red');
-            arr('login',7,2,64,'feestado=8','id='+clave,0,0);
-        }  
-        setTimeout(function(){$("#toast-container").remove();},3000);
-
-  });
 }
 
 function sendVMail(factura,clave,vid){

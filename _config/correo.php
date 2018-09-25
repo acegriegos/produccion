@@ -24,7 +24,6 @@ class correo
      		->setBody($msj,'text/html');
 
       if ($_SESSION['BUSS'] == 1) {
-        print_r($_SESSION['CRR']);
         $this->message->setBcc(array($_SESSION['CRR']=>$_SESSION['NOM']));
       }
 
@@ -32,11 +31,14 @@ class correo
     }
 
     function enviar(){
-	     if ($this->mailer->send($this->message)) {
-	        return 1;
-	     } else {
-	        return 0;
-	     }
+
+	     if($this->mailer->send($this->message,$failures)){
+        $salida = ['success'=>1];
+      }else{
+        $salida = ['success'=>0,'error'=>$failures];
+      }
+
+      return json_encode($salida);
     }
 
     function enviar_adjunto($vAdjunto){
@@ -49,20 +51,23 @@ class correo
           $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vAdjunto[$i]));
         }
       }else
-        $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vadjunto));      
+        $this->message->attach(Swift_Attachment::fromPath('../assets/'.$vAdjunto));      
 
-      if ($this->mailer->send($this->message)) {
-          if(is_array($vAdjunto)){
-            for ($i=0; $i < sizeof($vAdjunto); $i++) { 
-              unlink('../assets/'.$vAdjunto[$i]);
-            }
-          }else
-            unlink('../assets/'.$vAdjunto);
-              
-          return 1;
-       } else {
-          return 0;
-       }
+
+      if($this->mailer->send($this->message,$failures)){
+        $salida = ['success'=>1];
+      }else{
+        $salida = ['success'=>0,'error'=>$failures];
+      }
+
+      if(is_array($vAdjunto)){
+        for ($i=0; $i < sizeof($vAdjunto); $i++) { 
+          unlink('../assets/'.$vAdjunto[$i]);
+        }
+      }else
+        unlink('../assets/'.$vAdjunto);
+          
+      return json_encode($salida);
 
     }
 }

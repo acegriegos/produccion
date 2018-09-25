@@ -60,26 +60,33 @@
         </div>
 
         <div class="row" style="padding: 0px">
-          <b><h3 id="ftipo" style="font-size: 19px">Factura Electrónica</h3></b>
+          <?php if ($transaccion[0][32] != '') { ?>
+            <b><h3 id="ftipo" style="font-size: 19px">Factura Electrónica</h3></b>
+          <?php } ?>
           <div class="col s6 m6 l6" id="infofact">
             <div class="row" style="padding: 0% 0% 0% 0%;margin: 0px">
               <!--  -->
               <div class="col s12" style="padding: 0px">
-                <b class="fe">Clave: </b>
-                <span id="clave" class="fe"><?php echo $transaccion[0] [32]; ?></span><br>
+                <?php if ($transaccion[0][32] != '') { ?>
+                  <b class="fe">Clave: </b>
+                  <span id="clave" class="fe"><?php echo $transaccion[0][32]; ?></span><br>
+                <?php } ?>
+                
                 <b id="fact"><?php echo $datos[25]; ?> N°:</b>
                 <span id="numfact" class="fe"> <?php echo $datos[0]; ?> </span>
               </div>
+              <?php if ($transaccion[0][32] != '') { ?>
               <div class="col s12" style="padding: 0px">
                <b> Factura de: </b><span id="fclase"><?php echo $datos[1].$datos[31]; ?></span>
              </div>
+              <?php } ?>
 
              <?php if ($datos[4] != '') { ?>
-             <div class="col s12" style="padding: 0px">
-                <p><b><?php echo $datos[30]; ?>:</b></p>
-                <span id="fcliente"><?php echo $datos[4]; ?></span>  <br>
-                <b>Cédula:</b> <?php echo $datos[34]; ?>
+             <div class="col s12" style="padding: 8px 0px 8px 0px">
+                <b><?php echo $datos[30]; ?>:</b><br>
+                <b style="color: white;"><?php echo $datos[30]; ?>:</b><span id="fcliente"><?php echo $datos[4]; ?></span>  <br>
             </div>
+            <b>Cédula:</b> <?php echo $datos[34]; ?><br>
             <?php } ?>
             <div class="col s12" style="padding: 0px">
               <span><b>Vende:</b></span>
@@ -103,7 +110,7 @@
             </div>
 
           </div>
-
+          <?php if ($transaccion[0][32] != '') { ?>
             <div class="col s8 right">
               <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
                 <div class="card-content ">
@@ -112,14 +119,14 @@
                     <span class="ftipofa"><?php echo $datos[11]; ?></span>
                   </p>
                   <?php }else{ ?>
-                  <p><b class="ftipofact">Tipo de Pago: </b>
+                    <p><b class="ftipofact">Tipo de Pago: </b>
                     <span class="ftipofa"><?php echo $datos[2]; ?></span>
                   </p>
                   <?php } ?>
                 </div>
               </div>
             </div>
-
+          <?php } ?>
           </div>
         </div>
 
@@ -272,19 +279,7 @@
               </div>
 
             </section>
-            <!-- @PRINT -->
 
-            <!-- <?php 
-            $decimales =  substr($datos[10], strpos($datos[10], '.'));
-            $entero = str_replace(',', '', substr($datos[10],0,strpos($datos[10], '.')));
-            $nombres = array(1=>'Uno',2=>'Dos',3=>'Tres',4=>'Cuatro',5=>'Cinco',6=>'Seis',7=>'Siete',8=>'Ocho',9=>'Nueve',0=>'Cero',10=>'Diez',11=>'Once',12=>'Doce',13=>'Trece',14=>'Catorce',15=>'Quince','10+'=>'Dieci',20=>'Veinte','20+'=>'Veinti',30=>'Treinta y',40=>'Cuarenta y',50=>'Cincuenta y',60=>'Sesenta y',70=>'Setenta',80=>'Ochenta y',90=>'Noventa y',100=>'Cien','100+'=>'Ciento',200=>'Doscientos',300=>'Trescientos',400=>'Cuatrocientos',500=>'Quinientos',600=>'Seiscientos',700=>'Sietecientos',800=>'Ochocientos',900=>'Novecientos',1000=>'Mil',100000=>'Millón');
-            $diviciones = round(strlen($entero) / 3,0)-1;
-            $salida = '';
-            ?> 
-            <span class="labelalpha"><?php echo $salida; ?></span> -->
-
-
-            <!-- FOOTER -->
             <?php switch($datos[24]){
               case 1:
               $msj = $datos[26] == 2 ? 'La misma deberá ser cancelada en el plazo que indica, posteriormente al mismo devengará intereses del 5% mensual, no queriendo decir esto que el pago de los intereses sea una prórroga para su cancelación.' : '';
@@ -301,10 +296,12 @@
               <footer class="imprimirSINBOR center " style=" width: 100%; padding-right: 8% !important" >
               <hr>
               <div>
+                <?php if ($transaccion[0][32] != '') { ?>
                 <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
                   <br> 
                   <span class="" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
                 </div>
+                <?php }else echo '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>'; ?>
               </footer>
             </div>
             <!-- /MAIN -->
@@ -312,7 +309,7 @@
           </div>
 
           <!-- @PRINT -->
-          <section class="hideonprint">
+          <section class="hide">
             <div class="col s12 m3 l3 white-text">
               <br>
               <div id="correosclie">

@@ -505,13 +505,6 @@ function loadpool(vmodulo,vid,vvarias){
 
 function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     var p;
-   /* var stack = new Error().stack || '';
-    stack = stack.split('\n').map(function (line) { return line.trim(); });
-    stack = stack.splice(stack[0] == 'Error' ? 2 : 1);
-    if(stack.length <= 2){
-        p = 'Get Lost';
-    }else{*/
-        // source.close();
         if (vjson)
             varreglo['JSON'] = vjson
 
@@ -529,8 +522,6 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
                 p = data;
             }
         });
-        /*}*/
-    // setTimeout(function(){source = new EventSource("../sse.php")},5000);
     return p;
 }
 
@@ -580,7 +571,6 @@ function eliminar(vtabla,varg1,varg2){
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
-    var salida = 1;
     var arr = {};
 
     if(vref == 'login' && vaccion == 7){
@@ -604,9 +594,8 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
         return true;
     }
     else
-        salida = mantenimiento(vref,vaccion,arr,vjson);
-    
-    return salida;
+        return mantenimiento(vref,vaccion,arr,vjson);
+
 };
 
 function getParameterByName(name) {
@@ -616,6 +605,10 @@ function getParameterByName(name) {
 };
 
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
+    if(!$("#smail").is(':visible')){
+        var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
+        Materialize.toast($toastContent);
+    }
    $.ajax({
         url: '../_config/correoAjax.php',
         type: 'POST',
@@ -624,22 +617,44 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
    .done(function(data) {
     var p;
     var rs;
+
+    $(".expect_mail").removeClass('progress');
         try {
             p = JSON.parse(data);
+            if (parseInt(p['success'])) {
+                if($("#smail").is(':visible')){
+                    Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green");
+                    $("#smail").html('')
+                }else{
+                     $(".expect_mail").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+                }
+            }else{
+                if($("#smail").is(':visible')){
+                    Materialize.toast('Problemas Enviando Correo &nbsp;&nbsp; <i class="mdi mdi-close"></i>',4000,"red");
+                    $("#smail").html('')
+                }else{
+                     Materialize.toast('Problemas Enviando Correo: '+p['error'],4000,"red");
+                     $(".expect_mail").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
+                }
+            }
+            
         }
         catch(err){
             p = data;
-        }
-
-        if($("#smail").is(':visible')){
-            Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green");
-            $("#smail").html('')
+            console.log(data)
+            console.log(err)
+            if($("#smail").is(':visible')){
+                Materialize.toast('Problemas Enviando Correo &nbsp;&nbsp; <i class="mdi mdi-close"></i>',4000,"red");
+                $("#smail").html('')
+            }else{
+                 $(".expect_mail").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
+            }
         }
         
-        // try{
-        //     postSendmail();
-        // }catch(e){
-        // } 
+        try{
+            postSendmail();
+        }catch(e){
+        } 
     })
    .fail(function(x) {
         console.log("ERROR de Correo: "+x)
@@ -1250,6 +1265,23 @@ $(document).on("keyup","[id^=ing_]",function(e){
 function getDatos(vsel,vtbl,vwhere,vcambio,velemto,vjson){
     var vch = velemto == '' || velemto == 0 ? 0: 1;
     return arr('login',4,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson)
+}
+
+function getDatos_col(vfila,vidh,velemto,vheader,vmodulo,vomit,vacc){
+    var arr = {};
+
+    arr['sel'] = '';
+    arr['tbl'] = 175;
+    arr['where'] = vfila+',@@impresa,@@usr,'+vidh;
+    arr['header'] = vheader;
+    arr['modulo'] = vmodulo;
+    arr['omit'] = vomit;
+    arr['acc'] = vacc;
+    if (velemto != undefined) {
+        velemto.html(mantenimiento('login',10,arr,0));
+        return true;
+    }else
+        return mantenimiento('login',10,arr,0);
 }
 
 function cargarMoneda(idmoneda,elemento){
@@ -1919,6 +1951,26 @@ $(document).on("click","._tel",function(){
     $("#tptel").material_select('update');
     Materialize.updateTextFields();
 });
+
+function actPaginate(vmodulo){
+    if ($("#data-table-"+vmodulo).length){
+        console.log('YA EXISTE UN MODULO IGUAL')
+        return false;
+    }
+    if (!$("[pmodulo='"+vmodulo+"']").length) {
+        console.log("MODULO "+vmodulo+" NO EXISTENTE")
+        return false;   
+    }
+    var elemento = $("[pmodulo='"+vmodulo+"']");
+    var vfila = elemento.attr('vtbl');
+    var vomit = elemento.attr('omit');
+    var vacc = elemento.attr('acc');
+
+    elemento.append('<table class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap" id="data-table-'+vmodulo+'" cellspacing="0" width="100%" style="width: 100%"></table>');
+    var cantidad = getDatos('',175,vfila+',@@impresa,@@usr,1',0,0,0);
+    getDatos_col(vfila,0,$('#data-table-'+vmodulo),1,vmodulo,vomit,vacc); 
+
+}
 
 function loadmybussiness(vform){
     var rs = getDatos('',155,'@@usr',0,0);

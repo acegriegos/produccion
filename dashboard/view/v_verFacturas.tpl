@@ -25,19 +25,15 @@
                 <input name="tventa" class="with-gap" type="radio" id="tf1" {if $TF eq 1}checked{/if}/>
                 <label for="tf1">Ventas</label>
             </div>
-            {if $smarty.session.BUSS neq 1}
+            
             <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf2" {if $TF eq 2}checked{/if}/>
                 <label for="tf2">Compras</label>
             </div>
-
+            {if $smarty.session.BUSS neq 1}
             <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf3" {if $TF eq 3}checked{/if}/>
                 <label for="tf3">Ordenes de Compras</label>
-            </div>
-            <div class="col s12  m2">
-                <input name="tventa" class="with-gap" type="radio" id="tf4" {if $TF eq 4}checked{/if}/>
-                <label for="tf4">Cotizaciones</label>
             </div>
 
             <div class="col s12 m2">
@@ -46,9 +42,14 @@
             </div>  
             {/if}
             <div class="col s12 m2">
-                <input name="tventa" class="with-gap" type="radio" id="tf7" {if $TF eq 6}checked{/if}/>
+                <input name="tventa" class="with-gap" type="radio" id="tf7" {if $TF eq 7}checked{/if}/>
                 <label for="tf7">Tiquetes</label>
-            </div>      
+            </div> 
+
+             <div class="col s12  m2">
+                <input name="tventa" class="with-gap" type="radio" id="tf4" {if $TF eq 4}checked{/if}/>
+                <label for="tf4">Proformas</label>
+            </div>     
                 
             </div>
 

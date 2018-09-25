@@ -7,7 +7,7 @@
 
 <link href="../assets/css/modulos/style-factura.css?v=10.0.0.56">
 
-<title>Recibo de Dinero</title>
+<title>Movimiento CxC</title>
 
 
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
@@ -143,7 +143,7 @@
   </div>
 </div>
 </div>
-<section class="hideonprint">
+<section class="hide">
   <div class="col s12 m3 l3 white-text">
     <br>
     <div id="correosclie">

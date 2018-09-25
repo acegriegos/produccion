@@ -5,25 +5,51 @@ require_once('../_config/rep_TCPDF.php');
 
 class myPDF extends TCPDF {
 
+    var $tfactura;
+    var $fe;
+    var $credito;
+
     function __construct()
     {
         parent::__construct();
     }
 
+    public function setData($arrData){
+      $this->tfactura = $arrData['tfactura'];
+      $this->credito = $arrData['credito'];
+      $this->fe = $arrData['fe'];
+    }
+
     public function Footer() {
-        $html = '<div align="center">
-            <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
+        switch($this->tfactura){
+          case 1:
+          $msj = $this->credito == 2 ? 'La misma deberá ser cancelada en el plazo que indica, posteriormente al mismo devengará intereses del 5% mensual, no queriendo decir esto que el pago de los intereses sea una prórroga para su cancelación.' : '';
+          break;
+          case 4:
+          $msj = 'La presente Cotización tiene una durabilidad de OCHO días.';
+          break;
+          default:
+          $msj = '';
+          break;
+        } 
+
+        $html = '<div align="center">';
+          if ($this->fe != '') {
+           $html .= '<p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
               <br> 
-              <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
+              <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. '.$msj.'</span></p><br>
             </div>';
+          }else{
+            $html .= '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>';
+          }
 
         $this->writeHTML($html, true, false, true, false, '');
     }
 }
 
 // create new PDF document
-$pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
+$pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false,$transaccion[0][32]);
+$pdf->setData(['tfactura'=>$datos[0][24],'credito'=>$datos[0][26],'fe'=>$datos[0][32]]);
 // set document information
 // $pdf->SetCreator(PDF_CREATOR);
 // $pdf->SetAuthor(PDF_AUTHOR);
@@ -69,10 +95,14 @@ $html = '<!doctype html>'.
 
 '<meta charset="UTF-8">'.
 '<meta http-equiv="X-UA-Compatible" content="IE=edge">'.
-'<meta name="viewport" content="width=device-width, initial-scale=1">'.
-'<title>FACTURA ELECTRONICA</title>'.
+'<meta name="viewport" content="width=device-width, initial-scale=1">';
+if ($datos[0][32] != '') {
+  $html .= '<title>FACTURA ELECTRONICA</title>';
+}else{
+  $html .= '<title>'.strtoupper($datos[0][1]).'</title>';
+}
 
-'</head>'.
+$html .= '</head>'.
 '<body style="width: 100%"; >'.
 '<center>'.
 '<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">'.
@@ -85,10 +115,6 @@ $html = '<!doctype html>'.
 '<tbody class="mcnCaptionBlockOuter">'.
 '<tr>'.
 '<td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">'.
-
-// '<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">'.
-// '<tbody><tr>'.
-// '<td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">'.
 
 '<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">'.
 '<tbody><tr>'.
@@ -134,39 +160,16 @@ $miscelaneos[6].'</div>'.
 '</tr>'.
 '</tbody></table>'.
 
-// '</td>'.
-// '</tr>'.
-// '</tbody></table>'.
-
 '</td>'.
 '</tr>'.
-'</tbody></table>'.
-
+'</tbody></table>';
+if ($datos[0][32] != '') {
+  $html.= '<br>'.
 '<br>'.
+'<div style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;"> <b>Factura Electrónica</b></span>';
+}
 
-// // DIVIISOR TABLA
-// '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width:100%;">'.
-// '<tbody class="mcnDividerBlockOuter">'.
-// '<tr>'.
-// '<td class="mcnDividerBlockInner" style="min-width:100%; padding:18px;">'.
-// '<table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-top: 2px solid #EAEAEA;">'.
-// '<tbody><tr>'.
-// '<td>'.
-// '<span></span>'.
-// '</td>'.
-// '</tr>'.
-// '</tbody></table>'.
-// '</td>'.
-// '</tr>'.
-// '</tbody>'.
-// '</table>'.
-// // DIVIISOR TABLA
-
-'<br>'.
-
-'<div style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;"> <b>Factura Electrónica</b></span>'.
-
-'</td>'.
+$html .= '</td>'.
 '</tr>'.
 '<tr>'.
 '<td valign="top" id="templateBody"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">'.
@@ -178,20 +181,25 @@ $miscelaneos[6].'</div>'.
 '<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextContentContainer">'.
 '<tbody><tr>'.
 
-'<td class="mcnBoxedTextContentColumn" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">'.
+'<td class="mcnBoxedTextContentColumn" style="padding-right:18px; padding-bottom:9px; padding-left:18px;">'.
 
 '<table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width:100% !important;">'.
 '<tbody><tr>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
-'<div style="text-align: left;">'.
-'<strong>Clave: </strong>'.$datos[0][32].'<br>'.
-'<strong>'.$datos[0][25].' N°</strong> '.$datos[0][0].'<br>'.
-'<strong>Factura de: </strong> '.$datos[0][1].'<br>';
+'<div style="text-align: left;">';
+if ($datos[0][32] != '') {
+  $html .= '<strong>Clave: </strong>'.$datos[0][32].'<br>';
+}
+$html .= '<strong>'.$datos[0][25].' N°</strong> '.$datos[0][0].'<br>';
+if ($datos[0][32] != '') {
+  $html .= '<strong>Factura de: </strong> '.$datos[0][1].'<br>';
+}
+
 if ($datos[0][4] != '') {
-$html .= '<div style="padding: 0px">
-    <p><b>'.$datos[0][30].':</b></p>
-    <span id="fcliente">'.$datos[0][4].'</span>  <br>
-    <b>Cédula:</b> '.$datos[0][34].'</div>';
+$html .= '<div style="padding: 8px 0px 8px 0px">
+    <b>'.$datos[0][30].':</b><br>
+    <b style="color: white;">'.$datos[0][30].':</b><span id="fcliente">'.$datos[0][4].'</span>  <br> </div>
+<b>Cédula:</b> '.$datos[0][34].'<br>';
 }
 
 $html .= '<strong>Vende:</strong> '.$datos[0][16].'<br>'.
@@ -215,10 +223,12 @@ $datos[0][12].'</div>'.
 '<td valign="top" class="mcnTextContent" style="color: #494949;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">'.
 '<div style="text-align: center;">'.
 '<strong>Fecha:</strong>&nbsp;<br>'.$datos[0][3].'<br><br>';
+if ($datos[0][32] != '') {
 if ($datos[0][2] === 'N/A') 
     $html .= '<strong>Plazo en Días: </strong><br>'.$datos[0][11].'<br>';
 else
      $html .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';
+ }
 $html .= '</div>'.
 '</td></tr>'.
 '</tbody></table>'.
@@ -378,8 +388,8 @@ if ($datos[0][8] > 0){
 
 $html .= '<tr>
     <td></td>
-    <td align="right" style="color: #494949;font-family: Helvetica;"><strong>TOTAL:</strong></td>
-    <td align="right" style="color: #494949;font-family: Helvetica;"><b>'.$datos[0][15].$datos[0][10].'</b></td>
+    <td align="right" style="color: #494949;"><strong>TOTAL:</strong></td>
+    <td align="right" style="color: #494949;"><b>'.$datos[0][15].$datos[0][10].'</b></td>
   </tr></table>'.
 
 
@@ -406,6 +416,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('../assets/pdf/Factura N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','F');
+$sld = $datos[0][25] == 'Venta' ?  'Factura' : $datos[0][25];
+$pdf->Output('../assets/pdf/'.$sld.' N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','F');
 
 ?>

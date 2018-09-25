@@ -37,13 +37,6 @@ if (!isset($_REQUEST['accion'])) {
 			$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
 			$smarty->display('ajax/cuentas/ajaxmantCxP.tpl');
 			break;
-		case 3:
-			$pagina = 1;
-			require_once '../_config/mySmarty.php';
-			$smarty  = new mySmarty();
-			$smarty->setModule('dashboard');
-			$smarty->display('ajax/cuentas/ajaxVerNotaPago.tpl');
-			break;
 		case 4:
 			$pagina = 1;
 			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];

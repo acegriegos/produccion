@@ -27,17 +27,17 @@
             </div>
            
             <div class="col s4 l3">
-                <input name="tventa" class="with-gap" type="radio" id="tf2"/>
-                <label for="tf2">Tiquetes</label>
+                <input name="tventa" class="with-gap" type="radio" id="tf4"/>
+                <label for="tf4">Tiquetes</label>
             </div>
 
             <div class="col s4 l3">
-                <input name="tventa" class="with-gap" type="radio" id="tf3"/>
-                <label for="tf3">Notas de Débito</label>
+                <input name="tventa" class="with-gap" type="radio" id="tf2"/>
+                <label for="tf2">Notas de Débito</label>
             </div>
             <div class="col s4 l3">
-                <input name="tventa" class="with-gap" type="radio" id="tf4"/>
-                <label for="tf4">Notas de Crédito</label>
+                <input name="tventa" class="with-gap" type="radio" id="tf3"/>
+                <label for="tf3">Notas de Crédito</label>
             </div>
 
             <div class="col s4 l3">
@@ -74,6 +74,7 @@
 
             <div class="col s3 m5">
                 <a href="#modal-getxml" class="btn btn2 tooltipped der" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px">Subir XML</a>
+                <a id="actAuto" class="btn btn3 tooltipped der" data-position="bottom" data-tooltip="Actualizar Estados" style="margin-bottom: 5px;margin-right: 5px">Actualizar Estados</a>
             </div>
         </div>
 
