@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Reportes</title>
 {$STY}
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-reportes.css?v=10.0.0.56">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-reportes.css?v=10.0.0.57">
 </head>
 {$NAV}
 <body>
@@ -251,6 +251,6 @@
 <div id="mreportes"></div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.0.0.56"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.0.0.57"></script>
 </body>
 </html>
