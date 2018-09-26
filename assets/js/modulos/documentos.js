@@ -227,7 +227,9 @@ function xmlCargar(file,response){
                             $("[xml=4]").addClass('hide');
 
                             var t_venta = getDatos('nombre',168,'id = '+p['factura']['tipoventa'],0,0,0)[0][0][0];
-                            var t_moneda = getDatos('id',54,'codigo = "'+p['factura']['moneda']+'"',0,0,0)[0][0][0];
+                            var t_moneda = getDatos('id,(valor+suma) as valor',54,'codigo = "'+p['factura']['moneda']+'"',0,0,0)[0][0];
+                            var t_divisa = t_moneda[1];
+                            t_moneda = t_moneda[0];
                             var t_pago = getDatos('id,nombre',26,'idhacienda = '+p['factura']['tipopago'],0,0,0)[0][0];
                             
                             if(p['emisor']['id'] == 0){
@@ -237,6 +239,7 @@ function xmlCargar(file,response){
                             }else{
                                 $("#fclientes").data('proveedor',{correo : p['emisor']['correo']});
                             }
+                            p['factura']['divisa'] = parseFloat(t_divisa) == 1 ? 1 : p['factura']['divisa'];
                             
                             $("#ffacturas .zelda").data('triforce',{vidtipo:p['factura']['tipoventa'], vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:p['clave'], vidmoneda:t_moneda, vidcliente:p['emisor']['id'], vsubtotal:(parseFloat(p['factura']['subtotal'])+parseFloat(p['factura']['exento']))*parseFloat(p['factura']['divisa']), vdescuento: parseFloat(p['factura']['descuento'])*parseFloat(p['factura']['divisa']), vimv:parseFloat(p['factura']['impuesto'])*parseFloat(p['factura']['divisa']), vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : p['factura']['divisa'],vidusuario:'',vidtipopago:t_pago[0],vidodt:0,vajuste:0,tmpcorreo:'',videxoneracion:'',vexento: parseFloat(p['factura']['exento'])*parseFloat(p['factura']['divisa']),vflete:0,vplazo:p['factura']['plazo'],vcomentario:'',vfecha:p['factura']['fsistema']});
                             

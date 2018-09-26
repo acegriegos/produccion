@@ -317,6 +317,7 @@ $(document).on("keyup",".buscarNom",function(e){
                             $(".c-stp2").removeClass('hide');
                             break;
                     }
+                    $("#c-ced").val(p['cedula']);
                     $("#c-ap1").val(p['ap1']);
                     $("#c-ap2").val(p['ap2']);
                     $("#c-nom").val(p['nom']);
