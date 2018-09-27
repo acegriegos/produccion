@@ -148,25 +148,30 @@
             case 12: //INTEGRACION XML GENERADO
                 
                 $salida = ['succed'=>1];
-                if (!file_exists('./assets/xml/'.$id.'.xml')) {
+                if (!file_exists('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml')) {
                     $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
                 }else{
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$id.'.xml');
                     $rxml = $fe->XMLtoArray($xml);
-                    //$rxml[$fe->tdoc]['Clave'] = $db-;
                     if (!sizeof($rxml[$fe->tdoc]['Receptor'])) {
                         $fe->tdoc = 'TiqueteElectronico';
                         $fe->xmldoc = 'tiqueteElectronico';
+                        $id = '!'.substr($id, 1,strlen($id));
+                    }else{
+                        $id = substr($id, 1,strlen($id));
                     }
+
+                    $rxml[$fe->tdoc]['Clave'] = $db->ejecutar('call fe_getintegracion('.$id.','.$_SESSION['IMPRESA'].',curdate())');
+                    $rxml[$fe->tdoc]['NumeroConsecutivo'] = substr($rxml[$fe->tdoc]['Clave'], 21,20);
                     $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
                     $fe->array_to_xml($rxml,$xml_data);
 
                     $xml = $xml_data->asXML();
                     $fe->firmarXML($xml);
 
-                    header("Content-type: text/xml; encoding='UTF-8'");
-                    print_r($xml);
+                    echo $fe->integracion($xml);
+                    
                 }
                 break;
             default:
@@ -706,6 +711,54 @@
 
             curl_close($curl);
             return $salida;
+        }
+
+        function integracion($xml){
+            $doBearer = $this->getBearer();
+            if(!is_array($doBearer))
+                return json_encode(['factura'=>$this->id,'succed'=>0,'rs'=>$doBearer,'erno'=>1]);
+            
+            if ($this->bearer == '') 
+                return 'Problemas con la Llave Criptográfica';
+
+            if (!isset($this->info['Clave']))
+                return "Factura no Existente - Clave no Valida";
+            if ($this->credenciales[2] == 1) 
+                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
+            else
+                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion");
+            curl_setopt($curl, CURLOPT_HEADER, true);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLINFO_HEADER_OUT,true);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
+
+            $params = json_encode($this->getPayload($xml));
+
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+
+            $rs = curl_exec($curl);
+            $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            switch ($status) {
+                case 201:
+                case 202:
+                    $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
+                    break;
+                case 400:
+
+                    $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
+                    $rs = substr($rs, 0, strpos($rs,'X-')-3);
+                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2]);
+                    break;
+                default:
+                    $json_response = $rs;
+                    break;
+            }
+
+            curl_close($curl);
+            
+            return $json_response;
         }
 
         function recepcion()
