@@ -20,7 +20,7 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
-				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:''})
+				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:'',visvariable:0})
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -1897,7 +1897,6 @@ function validarproductos() {
 	}
 	if ($("#fproductos .zelda").data('triforce')["vidmarca"] == 0 && ($("#vmarca").val().length || $("#fproductos .zelda").data('triforce')["vidtipo"] != 0) ) {
 		var marca = arr('login', 4, '', 136, '1,0,\"' + $("#vmarca").val() + '\",' + $("#fproductos .zelda").data('triforce')["vidtipo"]+',@@impresa', 0, 0, 0);
-		console.log(marca)
 		if (marca[0][0] != undefined) {
 			$("#fproductos .zelda").data('triforce')["vidmarca"] = marca[0][0][0];
 
@@ -1942,6 +1941,11 @@ function validarproductos() {
 	}
 	if (isNaN($("#vgganancia").val().replace(/,/g,''))) {
 		$("#vgganancia").val(0);
+	}
+	if($("#variable").is(":checked")){
+		$("#fproductos .zelda").data('triforce')["visvariable"] = $("#variable").attr('ische');
+	}else{
+		$("#fproductos .zelda").data('triforce')["visvariable"] = 0;
 	}
 	return false;
 }
@@ -2207,11 +2211,17 @@ function postload(vmodulo){
 		    setTimeout(function(){$("#vfamilia").focus();},500);
 		    var vventa = $("#vventa").val().replace(/,/g,'') * (( (vimp*(1-($("#vexoneracion").val().replace(/,/g,'')/100)) )/100)+1);
 		    $("#vventa").val(vventa.formatMoney(2,'.',','));
+		   
+		    if(parseInt($("#fproductos .zelda").data('triforce')['visvariable'])){
+		    	$("#variable").prop('checked',true);
+		    }
+		    else{
+		    	$("#variable").prop('checked',false);
+		    }
 		    Materialize.updateTextFields();
 			break;
 		case 'servicio':
 			var hasimpuesto = getDatos('exoneracion',87,'idfila = '+$("#fservicios .zelda").data('triforce')['vid']+' and idtabla = 16',0,0,0);
-			console.log(hasimpuesto)
 			break;
 		default:
 			break;

@@ -1,7 +1,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.58">
+<link href="../assets/css/materialize.css?v=10.0.0.60">
 
 
 <body class="grey darken-4" style="font-size: 1.1em;" >
@@ -266,6 +266,6 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.0.0.58"></script>
-    <script src="../assets/js/materialize.js?v=10.0.0.58"></script>
+    <script src="../assets/js/jquery.js?v=10.0.0.60"></script>
+    <script src="../assets/js/materialize.js?v=10.0.0.60"></script>
   </body>

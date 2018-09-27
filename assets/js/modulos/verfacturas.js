@@ -48,7 +48,7 @@ $(document).ready(function(){
 		bPaginate: false,
 		info: false
 	});
-    $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?')
+    $(".pagination").attr('filtro_sp',tf+',0,@@impresa,^,?')
 	paginate($("ul.pagination").attr('vtbl'),undefined,tf+',0,@@impresa,0,0')
 
 	$("#data-table-productos").dataTable({

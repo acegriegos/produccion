@@ -142,7 +142,7 @@ $(function(){
         else{
             $("#valores").data("elemento")['ncomodin'] = 0;
             $("#valores").data("elemento")['hcomodin'] = "^"+$(this).val()+"^";
-            endCargarProducto($("#valores").data("elemento")['exo']);
+            endCargarProducto($("#valores").data("elemento")['exo'],0);
         }
     });
 
@@ -154,7 +154,7 @@ $(function(){
         else{
             $("#valores").data("elemento")['ncomodin'] = 0;
             $("#valores").data("elemento")['hcomodin'] = $(this).val();
-            endCargarProducto($("#valores").data("elemento")['exo']);
+            endCargarProducto($("#valores").data("elemento")['exo'],0);
         }
     });
 
@@ -1037,7 +1037,7 @@ function cargarProducto(kbrota,elemento) {
                     break;
             }
         }else{
-            endCargarProducto(cod[9]);   
+            endCargarProducto(cod[9],cod[19]);   
         }
 
         Materialize.updateTextFields()
@@ -1057,10 +1057,10 @@ function cargarProducto(kbrota,elemento) {
     }
 }
 
-function endCargarProducto(exo){
+function endCargarProducto(exo,cod){
     var modselec = $("input[name='modselected']:checked").val();
-    
-    if (modselec == 1) {
+    console.log(cod)
+    if (modselec == 1 || cod == 3) {
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
 

@@ -206,25 +206,25 @@
             </div>
             
             {if $smarty.session.BUSS eq 1}
-            	 <input type="hidden" id="visvariable" value="1">
             	 <input type="hidden" id="vidheredado" value="0">
            	{else}
            	<div class="row hide">
            		<input type="hidden" id="vidheredado" value="0">
            	</div>
 
-            <div class="row marginzero hide">
-          		<div class="row col s12 switch">
-          			<label class="col s4">
-		              <input type="checkbox" id="visvariable" >
-		              <span class="lever tooltipped	" data-tooltip="Define si el Precio de Venta Varía Cuando Factura" data-position="button"></span>
-		              Producto Variable
-		            </label>
-          		</div>
-	            
+            {/if}
+
+            <div class="row marginzero">
+                <div class="row col s12 switch">
+                    <label class="col s4">
+                      <input type="checkbox" id="variable" ische="{if $smarty.session.BUSS eq 1}3{else}1{/if}">
+                      <span class="lever tooltipped " data-tooltip="Define si el Precio de Venta Varía Cuando Factura" data-position="button"></span>
+                      Producto Variable
+                    </label>
+                </div>
+                
 
             </div>
-            {/if}
 
         </div>
 
@@ -540,4 +540,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.58"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.60"></script> -->

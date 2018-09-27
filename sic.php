@@ -10,7 +10,7 @@
 
     $data = (array)json_decode($data);
 
-    if (isset($data['results'])) {
+    if (isset($data['results'][0]->class)) {
         switch ($data['results'][0]->class) {
             case 'N':
                 $tipo = 1;
