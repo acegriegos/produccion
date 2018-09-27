@@ -104,24 +104,24 @@
     <div class="col s12 l3 input-field">
       <select id="vtipointeres">
         <option value="1">Tasa Interés Anual, %</option>
-        <option value="1">Tasa Interés Efectiva, %</option>
-        <option value="1">Tasa Zero, %</option>
+        <option value="2">Tasa Interés Efectiva, %</option>
+        <option value="3">Tasa Zero, %</option>
       </select>
       <label for="vtipointeres">Tipo Interés</label>
     </div>
     
     <div class="col s12 l3 input-field">
-      <input type="text" id="vinteres" class="eder" value="58.8">
+      <input type="text" id="vinteres" class="eder calpres" value="58.8">
       <label for="vinteres">Valor Interés</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vinteres" class="eder" value="0">
-      <label for="vinteres">Años</label>
+      <input type="text" id="vanos" class="eder calpres" value="0">
+      <label for="vanos">Años</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vmeses" class="eder" value="0">
+      <input type="text" id="vmeses" class="eder calpres" value="0">
       <label for="vmeses">Meses</label>
     </div>
 
@@ -157,6 +157,16 @@
     <div class="col s12 l3 input-field">
       <input type="text" id="vpagresiadual" class="eder" value="0">
       <label for="vpagresiadual">Interés Moratorio En Cuota (IMC)</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <span>Cuota Mensual: </span> <span class="der" id="c-mes">0.00</span><br>
+      <span>Tasa Efectiva(%): </span> <span class="der" id="t-efectiva">0.00</span>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <span>Total Intereses </span> <span class="der" id="t-interes">0.00</span><br>
+      <span>Total Pagos: </span> <span class="der" id="t-pagos">0.00</span>
     </div>
 
   </div>

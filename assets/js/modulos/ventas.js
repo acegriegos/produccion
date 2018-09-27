@@ -175,6 +175,28 @@ $(function(){
         }
     });
 
+    $(".calpres").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if (code == 13){
+            if($(this).val() == '' || isNaN($(this).val()))
+                $(this).val(0)
+            $(this).blur();
+        }
+    });
+
+    $(".calpres").blur(function(){
+        var periodo = parseInt($("#vanos").val())*12+parseInt($("#vmeses").val())
+        var interes = parseFloat($("#vinteres").val());
+        var tasaefectiva = ((( Math.pow((1+((interes/100)/periodo)),periodo))-1)*100).toFixed(2);
+        var interes_mes = (interes/100)/periodo;
+        var monto = parseFloat($("#tot").html().replace(/,/g,''));
+        var cuota_mes = monto*( (interes_mes*Math.pow((1+interes_mes),periodo)) / ((Math.pow((1+interes_mes),periodo))-1) );
+        $("#t-efectiva").html(tasaefectiva)
+        $("#c-mes").html(cuota_mes.formatMoney(2,'.',','));
+        $("#t-pagos").html((cuota_mes*periodo).formatMoney(2,'.',','))
+        $("#t-interes").html( ((cuota_mes*periodo)-monto).formatMoney(2,'.',',') )
+    });
+
     $("#xidinventario").change(function(){
         var p = arr('login',4,'cantidad',97,'idinventario ='+$('option:selected',this).val()+' and idproducto = '+$("#valores").data('elemento')['idp']);
         
