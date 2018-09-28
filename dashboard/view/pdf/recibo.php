@@ -23,7 +23,7 @@ class myPDF extends TCPDF {
     public function Footer() {
         switch($this->tfactura){
           case 1:
-          $msj = $this->credito == 2 ? 'La misma deberá ser cancelada en el plazo que indica, posteriormente al mismo devengará intereses del 5% mensual, no queriendo decir esto que el pago de los intereses sea una prórroga para su cancelación.' : '';
+          $msj = $this->credito == 2 ? 'Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos' : 'Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio.';
           break;
           case 4:
           $msj = 'La presente Cotización tiene una durabilidad de OCHO días.';
@@ -37,7 +37,7 @@ class myPDF extends TCPDF {
           if ($this->fe != '') {
            $html .= '<p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
               <br> 
-              <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. '.$msj.'</span></p><br>
+              <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span></p><br>
             </div>';
           }else{
             $html .= '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>';

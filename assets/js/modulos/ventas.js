@@ -190,11 +190,17 @@ $(function(){
         var tasaefectiva = ((( Math.pow((1+((interes/100)/periodo)),periodo))-1)*100).toFixed(2);
         var interes_mes = (interes/100)/periodo;
         var monto = parseFloat($("#tot").html().replace(/,/g,''));
+        var comision = parseFloat($("#vcuotainicial").val().replace(/,/g,''));
+        var comision_ = parseInt($("#vcuotainicial").parent().find('.por-num').attr('tipo')) == 1 ? monto*(comision/100) : comision;
+        monto = parseInt($("#vcuotainicial").parent().find('.por-num').attr('tipo')) == 1 ? monto*(1-(comision/100)) : monto-comision;
+        console.log(comision)
         var cuota_mes = monto*( (interes_mes*Math.pow((1+interes_mes),periodo)) / ((Math.pow((1+interes_mes),periodo))-1) );
         $("#t-efectiva").html(tasaefectiva)
         $("#c-mes").html(cuota_mes.formatMoney(2,'.',','));
         $("#t-pagos").html((cuota_mes*periodo).formatMoney(2,'.',','))
         $("#t-interes").html( ((cuota_mes*periodo)-monto).formatMoney(2,'.',',') )
+        $("#t-prima").html( (comision_).formatMoney(2,'.',',') )
+        $("#t-cuotas").html( (periodo).formatMoney(2,'.',',') )
     });
 
     $("#xidinventario").change(function(){
@@ -1170,7 +1176,7 @@ function searchClient(vvariable,visprv){
 
         $(".chg_tipo").removeAttr('disabled');
 
-        if (vclie[3] > 0 && param!=2) {
+        if (vclie[3] > 0 || param==2) {
             $(".chg_tipo[val=2]").removeAttr('disabled');
         }else{
             $(".chg_tipo[val=2]").attr('disabled','true')
@@ -1251,7 +1257,7 @@ function searchClient(vvariable,visprv){
 
         prod = prod[0][0];
         if (parseFloat(prod[3]) > 0) {
-            $("#prec"+idlinea).text(prod[3].formatMoney(2,'.',','));
+            $("#prec"+idlinea).text(prod[3]);//.formatMoney(2,'.',','));
             $("#fd"+idlinea).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : prod[0],vcantidad : $("#fd"+idlinea).data('triforce')['vcantidad'],vprecio : prod[3],vdesc : 0,vtotal : 0,vidinventario : prod[13],vidodt : 0,vimv : 0,vcomodin : '',vidunidad : $("#fd"+idlinea).data('triforce')['vidunidad'],vidimpuestos : $("#fd"+idlinea).data('triforce')['vidimpuestos'],viddescuentos : $("#fd"+idlinea).data('triforce')['viddescuentos'],strimp: vstrimp});
         }
     });

@@ -119,7 +119,7 @@
         </div>
     </div>
 
-    <div id="modal-process" class="modal modal-fixed-footer" style="width:80% !important; height:90%;">
+    <div id="modal-process" class="modal modal-fixed-footer grandemodal" style="width:90% !important;">
     <div class="modal-header">
         <div class="card-header center blue-grey white-text z-depth-1">
             <p class="flow-text marginzero"  style="background-color:#0B3861;" >Procesar <span id="nomproc"></span></p>

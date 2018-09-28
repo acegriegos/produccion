@@ -83,7 +83,7 @@ $(function(){
         var vfacturap = arr('login',6,'',163,vidp+',\"'+asoc+'\"',0,1,$("#fdetallefacturas"));
         var vfacturap2 = arr('login',4,'',163,vidp+',\"'+asoc+'\"',0,0,0);
         var vf = vfacturap2[0][0];
-        $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:1, vid:0, vidsucursal:'',vidusuario:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:vf[2], vidcliente:vf[0], vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vidtipopago : 0, vidodt:0,vextrapagos : 0,vdivisa : 0, saldo : 0, notific : 0});
+        $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:7, vid:0, vidsucursal:'',vidusuario:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:vf[2], vidcliente:vf[0], vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vidtipopago : 0, vidodt:0,vextrapagos : 0,vdivisa : 0, saldo : 0, notific : 0});
         var line = 0;
         var fimv = vfacturap2[0];
         $("#fdetallefacturas tr").each(function(){
@@ -328,9 +328,9 @@ function cargarVentas(){
 
                 var comodin = $("#valores").data('elemento')['hcomodin'].replace(/\^.*\^/g,'');
                 
-                if (cant > cnti && config[1] == 1 && comodin == '') {
+                if (cant > cnti && config[1] == 1 && comodin == '' && param.toString().match(new RegExp(/[157]/i))) {
                    Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
-                }else if (cant <= cnti || cnti == '∞' || config[1] == 0 || comodin != '') {
+                }else if (cant <= cnti || cnti == '∞' || config[1] == 0 || comodin != '' || param.toString().match(new RegExp(/[234]/i))) {
                     $(".addline").click()
                 }
             }else{

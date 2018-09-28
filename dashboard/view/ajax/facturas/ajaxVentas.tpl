@@ -126,47 +126,49 @@
     </div>
 
     <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num"></i>
-      <input type="text" id="vcuotainicial" class="eder" value="0">
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <input type="text" id="vcuotainicial" class="eder calpres" value="0">
       <label for="vcuotainicial">Cuota Inicial (Prima)</label>
     </div>
 
      <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num"></i>
-      <input type="text" id="vcomisioning" class="eder" value="0">
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <input type="text" id="vcomisioning" class="eder calpres" value="0">
       <label for="vcomisioning">Comisión Ingreso</label>
     </div>
 
      <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num"></i>
-      <input type="text" id="vcomisionmes" class="eder" value="0">
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <input type="text" id="vcomisionmes" class="eder calpres" value="0">
       <label for="vcomisionmes">Comisión Mes</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num"></i>
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
       <input type="text" id="vpagresiadual" class="eder" value="0">
       <label for="vpagresiadual">Pago Residual</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vpagresiadual" class="eder" value="0">
-      <label for="vpagresiadual">Interés Moratorio En Plazo (TP)</label>
+      <input type="text" id="vmoratp" class="eder" value="0">
+      <label for="vmoratp">Interés Moratorio En Plazo (TP)</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vpagresiadual" class="eder" value="0">
-      <label for="vpagresiadual">Interés Moratorio En Cuota (IMC)</label>
+      <input type="text" id="vmoraimc" class="eder" value="0">
+      <label for="vmoraimc">Interés Moratorio En Cuota (IMC)</label>
     </div>
 
     <div class="col s12 l3 input-field">
       <span>Cuota Mensual: </span> <span class="der" id="c-mes">0.00</span><br>
-      <span>Tasa Efectiva(%): </span> <span class="der" id="t-efectiva">0.00</span>
+      <span>Tasa Efectiva(%): </span> <span class="der" id="t-efectiva">0.00</span><br>
+      <span>Cuotas: </span> <span class="der" id="t-cuotas">0.00</span>
     </div>
 
     <div class="col s12 l3 input-field">
       <span>Total Intereses </span> <span class="der" id="t-interes">0.00</span><br>
-      <span>Total Pagos: </span> <span class="der" id="t-pagos">0.00</span>
+      <span>Total Pagos: </span> <span class="der" id="t-pagos">0.00</span><br>
+      <span>Prima: </span> <span class="der" id="t-prima">0.00</span>
     </div>
 
   </div>

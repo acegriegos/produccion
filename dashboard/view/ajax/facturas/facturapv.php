@@ -292,13 +292,13 @@ echo '<hr>
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
+      var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span><br>Este Documento no Tiene Validéz Tributaria');
+        resol = "ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }
-      else{
-        $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
-      }
+
+      $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);
 
       if ($("#ttipo").val() != 1) {
         $(".ncontado").show();

@@ -54,7 +54,7 @@ $(document).ready(function(){
 	$("#data-table-productos").dataTable({
 		bFilter: false,
 		order : [],
-		"bLengthChange": false
+		"bScrollInfinite": true
 	});
 
 	$('.modal').modal({
@@ -93,15 +93,17 @@ $(document).on("click",".process",function(){
 	tabla.destroy();
 	var prod = arr('login',6,'',161,id,0,1,$("#listaproductos"));
 	$("#data-table-productos").DataTable({
-				bFilter :  false,
-	            bLengthChange : false,
-	            order : []
-			});
+		bFilter: false,
+        order : [],
+        "bScrollInfinite": true
+	});
 
 	var tipo = arr('login',4,'',161,id,0,0,0)[0];
 	$("#process").attr('idfactura',tipo[0][0]);
 	$("#process").attr('tipo',tipo[0][7]);
 	$("#nomproc").text(tipo[0][1]);
+    $('.tooltipped').tooltip({delay: 50});
+    $("#modal-process").modal('open');
 });
 
 $(document).on("change","input[name=tventa]",function(){
