@@ -461,7 +461,7 @@
         $salida['factura']['subtotal']  = (array) $inv_xml->ResumenFactura->TotalGravado;
         $salida['factura']['subtotal']  = $salida['factura']['subtotal'][0];
         $salida['factura']['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
-        $salida['factura']['exento']    = $salida['factura']['exento'][0];
+        $salida['factura']['exento']    = isset($salida['factura']['exento'][0]) ? $salida['factura']['exento'][0] : 0;
         $salida['factura']['descuento'] = (array) $inv_xml->ResumenFactura->TotalDescuentos;
         $salida['factura']['descuento'] = $salida['factura']['descuento'][0];
         $salida['factura']['impuesto']  = (array) $inv_xml->ResumenFactura->TotalImpuesto;
@@ -499,7 +499,13 @@
             $dimpuesto = isset($key->Impuesto->Monto) ? (array)$key->Impuesto->Monto : 0;
             $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
 
-            $detarray = ['numero' => $num[0],'codigo' => $dcodigo[0],'cantidad' => $dcantidad[0], 'unidad' => $vunidad, 'idunidad' => $cunidad[0], 'detalle' => $ddetalle[0], 'precio' => $dsubtotal[0], 'descuento' => $ddescuento, 'impuesto' => $dimpuesto,'unitario' => $dunitario[0],'idproducto'=>$detid];
+            $detarray = ['numero' => $num[0],
+            'codigo' => isset($dcodigo[0]) ? $dcodigo[0] : 0,
+            'cantidad' => $dcantidad[0], 
+            'unidad' => $vunidad, 'idunidad' => $cunidad[0],
+             'detalle' => $ddetalle[0],
+              'precio' => $dsubtotal[0], 'descuento' => $ddescuento, 'impuesto' => $dimpuesto,
+              'unitario' => $dunitario[0],'idproducto'=>$detid];
             array_push($salida['detalle'], $detarray);
         }
     }
