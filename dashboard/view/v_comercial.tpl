@@ -25,10 +25,10 @@
                   <div class="card-panel pequeño">
 
                     <div class="row">
-                     <div class="col s12 m6 l6 per1000">
+                     <div class="col s12 m6 l6 per1000 hide">
                       <a href="clientes" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
                     </div>
-                    <div class="col s12 m6 l6 per1100">
+                    <div class="col s12 m6 l6 per1100 hide">
                       <a href="facturacion?tf=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
                     </div>
                     <div class="col s12 m6 l6 hide">
@@ -37,13 +37,13 @@
                     <div class="col s12 m6 l6 per1200 hide">
                     <a href="rutas" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Rutas">Rutas</a>
                     </div>
-                     <div class="col s12 m6 l6 per1300">
+                     <div class="col s12 m6 l6 per1300 hide">
                     <a href="facturacion?tf=4" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Cotizaciones">Cotizaciones</a>
                     </div>
-                    <div class="col s12 m6 l6 per1400">
+                    <div class="col s12 m6 l6 per1400 hide">
                       <a href="facturacion?tf=5" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Pedidos">Pedidos</a>
                     </div>
-                    <div class="col s12 m6 l6 per1400">
+                    <div class="col s12 m6 l6 per1400 hide">
                       <a href="reportes?tr=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
                   </div>

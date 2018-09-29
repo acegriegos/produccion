@@ -720,6 +720,16 @@ $(document).on("blur","#prod",function(){
     
 });
 
+$(document).on("click","#inventariado",function(){
+	
+    if ($("#vcantidad:visible").length) {
+        $("#cantpro").addClass('hide')
+    }else{
+    	$("#cantpro").removeClass('hide')
+    	$("#vcantidad").focus()
+    }
+});
+
 $(document).on("click","#bProd",function(){
     if ($("#prod").val() != '' && $("#cantidad").val() != '') {
         var prod = $("#hprod").val();
@@ -1947,6 +1957,18 @@ function validarproductos() {
 	}else{
 		$("#fproductos .zelda").data('triforce')["visvariable"] = 0;
 	}
+
+	if($("#inventariado:visible").length){
+		if($("#inventariado").is(":checked")){
+			$("#visinventariado").val(1)
+		}else
+			$("#visinventariado").val(0)
+	}
+
+	if ($("#vcantidad:visible").length && isNaN($("#vcantidad").val()) ) {
+		$("#vcantidad").focus();
+		return 'Nombre Requerido';
+	}
 	return false;
 }
 
@@ -2135,6 +2157,10 @@ function endDetail(id, acc, modulo) {
 			}
 			// fin exoneracion
 
+			if ($("#vcantidad:visible").length == 1) {
+				actualizar(97,'cantidad='+$("#vcantidad").val(),'idinventario = 6 and idproducto='+id[0][0]);
+			}
+
 			thorload(modulo);
 			deadclear(modulo);
 			paginate(14);
@@ -2217,6 +2243,15 @@ function postload(vmodulo){
 		    }
 		    else{
 		    	$("#variable").prop('checked',false);
+		    }
+
+		    if(parseInt($("#visinventariado").val())){
+		    	if(!$("#inventariado").is(":checked"))
+		    		$("#inventariado").click();
+		    }
+		    else{
+		    	if($("#inventariado").is(":checked"))
+		    		$("#inventariado").click();
 		    }
 		    Materialize.updateTextFields();
 			break;

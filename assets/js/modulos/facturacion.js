@@ -321,6 +321,7 @@ function cargarVentas(){
         if (code == 13) {
             if (cant > 0) {
                 var idp = $("#valores").data('elemento')['idp'];
+                var isi = $("#valores").data('elemento')['isinventariado'];
                 var inv = $("#valores").data('elemento')['hinv'];
                 var idheredado = $("#valores").data('elemento')['idheredado'];
                 idp = idheredado != 0 ? idheredado : idp;
@@ -328,9 +329,9 @@ function cargarVentas(){
 
                 var comodin = $("#valores").data('elemento')['hcomodin'].replace(/\^.*\^/g,'');
                 
-                if (cant > cnti && config[1] == 1 && comodin == '' && param.toString().match(new RegExp(/[157]/i))) {
+                if (cant > cnti && config[1] == 1 && comodin == '' && param.toString().match(new RegExp(/[157]/i)) && parseInt(isi)) {
                    Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
-                }else if (cant <= cnti || cnti == '∞' || config[1] == 0 || comodin != '' || param.toString().match(new RegExp(/[234]/i))) {
+                }else if (cant <= cnti || cnti == '∞' || config[1] == 0  || !parseInt(isi) || comodin != '' || param.toString().match(new RegExp(/[234]/i))) {
                     $(".addline").click()
                 }
             }else{

@@ -1,10 +1,9 @@
-{if $smarty.session.BUSS neq 1}
 <div class="card z-depth-3 pequeño">
 <ul class="collapsible" data-collapsible="accordion">
 <li>
 <div class="collapsible-header" id="dempresa"><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
-<div class="collapsible-body pequeño">{/if}
-    <div class="card-block" {if $smarty.session.BUSS eq 1}style="background-color: white;"{/if}>
+<div class="collapsible-body pequeño">
+    <div class="card-block">
         <section id="fsucursales">
             <input type="hidden" class="zelda">
             <div class="row pequeño">
@@ -89,13 +88,17 @@
                         <input type="checkbox" id="visinventariado" class="with-gap">
                         <label for="visinventariado">Control de Inventario</label>
                     </div>
-                    <div class="col s12 hide">
-                        <input type="checkbox" id="isfe">
-                        <label for="isfe">Factura Electrónica</label>                                        
-                    </div>
                     <div class="col s12">
                         <input type="checkbox" id="vfastshow">
                         <label for="vfastshow">Envío de Correo Automático</label>
+                    </div>
+                    <div class="col s12">
+                        <input type="checkbox" id="vcbarras">
+                        <label for="vcbarras">Código de Barras</label>
+                    </div>
+                    <div class="col s12">
+                        <input type="checkbox" id="vpv">
+                        <label for="vpv">Impresión Punto Venta</label>
                     </div>
                 </div>
                 <div class="row col s2">
@@ -103,12 +106,32 @@
                         <input type="checkbox" id="vprintSale">
                         <label for="vprintSale">Imprimir Venta</label>
                     </div>
-                    <div class="col s12 hide">
-                        <input type="checkbox" id="visPrueba">
-                        <label for="visPrueba">Período de Prueba</label>
+                    <div class="col s12">
+                        <input type="checkbox" id="vrecibido">
+                        <label for="vrecibido">Recibo Conforme</label>
                     </div>
+                   
                 </div>
                 <div class="row col s6">
+
+                     <div class="col s12 input-field">
+                        <select>
+                            <option value="0">Op 1</option>
+                            <option value="1">Op 2</option>
+                            <option value="2">Op 3</option>
+                        </select>
+                        <label>Márgenes</label>
+                    </div>
+                     <div class="col s12 input-field">
+                        <select>
+                            <option value="0">Sin Precio Unitario</option>
+                            <option value="1">Con Precio Unitario</option>
+                            <option value="2">Sin Precio Unitario IVI</option>
+                            <option value="3">Con Precio Unitario IVI</option>
+                        </select>
+                        <label>Precio Impresión</label>
+                    </div>
+
                     <div class="input-field col s12 m4 hide">
                         <select type="select" id="vidtipofactura">
                             {section name=LE loop=$IMPR}
@@ -142,7 +165,7 @@
         </section>
     </div>
 </div>
-{if $smarty.session.BUSS neq 1}
+
 <!-- Datos de la empresa -->
 </li>
 <li>
@@ -189,6 +212,7 @@
         </div>
     </div>
 </li>
+{if $smarty.session.BUSS eq 0}
 <li>
     <div class="collapsible-header"><i class="mdi mdi-account-multiple mdi-24px"></i><h5>Tipo de Usuarios</h5></div>
     <div class="collapsible-body">

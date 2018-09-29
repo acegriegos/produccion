@@ -512,13 +512,13 @@
                 require_once '_config/mysqlDB.php';
             
                 $db = new DBClass();
-                $db->ejecutar('delete from permisosLogintech where id > 0');
+                //$db->ejecutar('delete from permisosLogintech where id > 0');
                 $db->ejecutar('truncate permisosLogintech');
 
-                $db->ejecutar('delete from permisosCliente where id > 0');
+                //$db->ejecutar('delete from permisosCliente where id > 0');
                 $db->ejecutar('truncate permisosCliente');
 
-                $db->ejecutar('delete from permisos where id > 0');
+                //$db->ejecutar('delete from permisos where id > 0');
                 $db->ejecutar('truncate permisos');
                 $str = 'INSERT INTO permisosLogintech values';
 

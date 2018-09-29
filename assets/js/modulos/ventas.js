@@ -611,6 +611,10 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 if (vstrimp.indexOf(','+$(this).data('valores')['vid']+',') >= 0)
                     timpuesto += parseFloat($(this).data('valores')['vmonto'])
             }); 
+
+            // if (vstrimp.indexOf(','+1+',') >= 0)
+            //         timpuesto += parseFloat($("#imp_1").data('valores')['vmonto']);
+
             prec = prec/((timpuesto/100)+1);
             tot = prec * cant;     
         }
@@ -776,9 +780,9 @@ function totalizar(){
             }
             
             if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
-
                 eimv = $("#fd"+vidlinea).data('triforce')['exoneracion'];
                 eimv = eimv >= geimv ? eimv : geimv;
+                eimv = $(this).data('valores')['vid'] == 1 ? eimv : 0;
 
                 rimv = parseFloat($(this).data('valores')['vmonto']);
                 iimv = $(this).data('valores')['vid'];
@@ -794,7 +798,8 @@ function totalizar(){
                     impuesto += parseFloat(dimv);
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(simv).toFixed(5)+','+eimv;
-                    $("#imv_"+iimv).html((parseFloat(impuesto)/divisa).formatMoney(2,'.',','));
+                    var im_variable = parseFloat($("#imv_"+iimv).html().replace(/,/g,''))+parseFloat(dimv)
+                    $("#imv_"+iimv).html((im_variable/divisa).formatMoney(2,'.',','));
                 }
             }else{
                 exento += tmpdesc;
@@ -1037,14 +1042,18 @@ function cargarProducto(kbrota,elemento) {
             $("#cantI").html(cod[4]);
             $("#bname-inv").html(cod[4]);
         }
-        var strimp = cargarImpuestos(cod[0].substr(1)+',0',tabla);
         cargarunidades(cod[0],cod[15])
+
+        var strimp = cargarImpuestos(cod[0].substr(1)+',0',tabla);
+        $("#valores").data("elemento")['strimp'] = strimp;
+
         if (strimp.substr(strimp.indexOf(',',2)+1).length) {
-            $("#valores").data("elemento")['exo'] = strimp.substr(strimp.indexOf(',',2)+1);
-            cod[9] = strimp.substr(strimp.indexOf(',',2)+1);
+            strimp = strimp.substr(0,strimp.indexOf(',',2)+1)
+            var _sum = strimp.substr(strimp.indexOf(',',2)+1) == '' ? cod[9] : strimp.substr(strimp.indexOf(',',2)+1);
+            $("#valores").data("elemento")['exo'] = _sum;
+            cod[9] = _sum;
         }
 
-        $("#valores").data("elemento")['strimp'] = strimp;
         $("#cantp").val(cantidad);
 
         if(param != 2){ //PRODUCTO DE VALOR VARIABLE
@@ -1087,17 +1096,20 @@ function cargarProducto(kbrota,elemento) {
 
 function endCargarProducto(exo,cod){
     var modselec = $("input[name='modselected']:checked").val();
-    console.log(cod)
+
     if (modselec == 1 || cod == 3) {
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
 
             if (exo < 100) {
                 var impuestos = 0;
-                $(".dimpuesto").each(function(){
-                    if ($("#valores").data("elemento")['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0)
-                        impuestos += parseFloat($(this).data('valores')['vmonto'])
-                });
+                // $(".dimpuesto").each(function(){
+                //     if ($("#valores").data("elemento")['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0)
+                //         impuestos += parseFloat($(this).data('valores')['vmonto'])
+                // });
+
+                if ($("#valores").data("elemento")['strimp'].indexOf(','+1+',') >= 0)
+                        impuestos += parseFloat($("#imp_1").data('valores')['vmonto'])
 
                 $("#precp").val( (parseFloat($("#valores").data("elemento")['hprec'].replace(/,/g,''))*(1+(impuestos/100))).formatMoney(2,'.',',') ) 
                 $("#precp").blur();
