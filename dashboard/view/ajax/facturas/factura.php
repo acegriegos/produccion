@@ -1,9 +1,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.61">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.61">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.61">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.62">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.62">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.62">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -339,10 +339,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.0.0.61"></script>
-     <script src="../assets/js/materialize.js?v=10.0.0.61"></script>
-     <script src="../assets/js/asgard.js?v=10.0.0.61"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.0.0.61"></script>
+     <script src="../assets/js/jquery.js?v=10.0.0.62"></script>
+     <script src="../assets/js/materialize.js?v=10.0.0.62"></script>
+     <script src="../assets/js/asgard.js?v=10.0.0.62"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.0.0.62"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
