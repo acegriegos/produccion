@@ -526,7 +526,6 @@
 
         function __construct($vid){
             $this->id = $vid;
-            
             $this->info = $this->getJSON('call fe_getencabezado("'.$this->id.'")');
             $this->opcion = isset($this->info['NumeroConsecutivo']) ? substr($this->info['NumeroConsecutivo'],9,1) : 0;
             if ($vid != "0") {
@@ -562,6 +561,9 @@
                     session_start();
                 if (!isset($_REQUEST['accion']))
                     $this->preUbicacion = '../';
+                if ($_REQUEST['accion'] == 12) {
+                    $_SESSION['IMPRESA'] = $_REQUEST['sucursal'];
+                }
                 $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
             }
             
@@ -930,14 +932,13 @@
                 if (!$tdetalle && $this->opcion < 5) 
                     return ['error'=>'No hay Detalle'];
 
-                if (round($this->sumaimpuestos - $data['ResumenFactura']['TotalImpuesto'],5) != 0) 
-                     return ['error'=>'Impuestos Difieren '.$data['ResumenFactura']['TotalImpuesto']];
-
+                $data['ResumenFactura']['TotalImpuesto'] = $this->sumaimpuestos;
+                $data['ResumenFactura']['TotalComprobante'] = $data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos;
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
 
-                if ($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'] != $data['ResumenFactura']['TotalVenta']) 
-                     return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalImpuesto']];
+                if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']) != round($data['ResumenFactura']['TotalVenta'])) 
+                     return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];
 
                 if ($this->ref) {
                     $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
@@ -1061,19 +1062,25 @@
                         }
                         $detalle['SubTotal'] = $value[11];
                         $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19], 'MontoImpuesto' =>$value[20], 'PorcentajeCompra' => $value[21]];
-                        
+                        $sum_imp = 0;
                         if ($value[12] != '') {
-                            $this->sumaimpuestos += $value[14];
-                            $impuesto = ['Codigo'=>$value[12],'Tarifa'=>$value[13],'Monto'=>$value[14]];
-
-                            if ($value[16] != '') 
-                                $impuesto['Exoneracion'] = $exoneracion;
-
-                            $detalle['Impuesto'] = $impuesto;
+                            
+                            $array_impuestos = explode(']', $value[12]);
+                            
+                            foreach ($array_impuestos as $obj) {
+                                $sub_array = explode(',', $obj);
+                                if (strlen($sub_array[0])) {
+                                    $this->sumaimpuestos += $sub_array[2];
+                                    $sum_imp += $sub_array[2];
+                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
+                                    if ($value[16] != '') 
+                                        $impuesto['Exoneracion'] = $exoneracion;
+                                    array_push($detalle, ['Impuesto' => $impuesto]);
+                                }
+                            }
                         }
                         
-                        
-                        $detalle['MontoTotalLinea'] = $value[15];
+                        $detalle['MontoTotalLinea'] = $value[15] + $sum_imp;
                         array_push($linea, ['LineaDetalle'=>$detalle]);
                     }
                     

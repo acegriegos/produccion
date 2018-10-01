@@ -628,6 +628,32 @@
 </li>
 
 <li>
+<div class="collapsible-header"><i class="mdi mdi-clock"></i><h5>Cajas</h5></div>
+<div class="collapsible-body">
+    <div class="card-block">
+        <div class="row pequeño">
+            <div class="col s12 m4 pequeño">
+                <div class="input-group">
+                    <div class="input-group-addon"><b>Fecha Inicio</b></div>
+                    <input type="date" class="datepicker" id="vfechainicio" value="">
+                </div>
+            </div>
+            <div class="col s12 m4 pequeño">
+                <div class="input-group">
+                    <div class="input-group-addon"><b>Fecha Cierre</b></div>
+                    <input type="date" class="datepicker" id="vfechafinal" value="">
+                </div>
+            </div>
+            <div class="col s12 m1 pequeño">
+                <button type="button" class="btn btn1 z-depth-3" id="sfechafiscal" style="margin-top: 5%;">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Datos de Cajas -->
+</li>
+
+<li>
 <div class="collapsible-header"><i class="mdi mdi-clock"></i><h5>Período Fiscal</h5></div>
 <div class="collapsible-body">
     <div class="card-block">

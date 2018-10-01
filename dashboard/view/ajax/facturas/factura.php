@@ -309,7 +309,7 @@
           </div>
 
           <!-- @PRINT -->
-          <section class="hide">
+          <section class="hidex">
             <div class="col s12 m3 l3 white-text">
               <br>
               <div id="correosclie">

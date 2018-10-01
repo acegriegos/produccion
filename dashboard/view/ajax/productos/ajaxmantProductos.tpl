@@ -68,6 +68,7 @@
 	</div>
 	<div class="modal-content" style="padding: 0px;" id="fproductos">
 		<input type="hidden" class="zelda">
+        <input type="hidden" id="visinventariado" value="0">
 		<div id="datosproductos" style="padding: 30px 10px 0 10px">
             <div class="row" style="margin: 0px">
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px">
@@ -159,22 +160,21 @@
             	<div class="col s12 m12 l8"> 
                     <input type="hidden" id="vminimo" value="0">
                     <input type="hidden" id="vmaximo" value="0">
-                    <input type="hidden" id="visinventariado" value="0">
                 </div>
                  {else}
                  <div class="row col s12 m12 l8">
-	             	<div class="switch col s4 hide">
+	             	<div class="switch col s6">
 	                    <label>
-	                      <input type="checkbox" id="isinventariado" checked >
+	                      <input type="checkbox" id="inventariado" class="isinv" checked>
 	                      <span class="lever tooltipped	" data-tooltip="Llevar Control de Inventario del Producto" data-position="button"></span>
 	                      Producto Inventariado
 	                    </label>
 	                </div>
-	                <div class="input-field marginzero col s4 inventariado">
+	                <div class="input-field marginzero col s3 _inventariado">
 	                    <input type="number" id="vminimo" class="formprod validate eder" value="" min="0" focus="1vmaximo" autocomplete="off" tabindex="7">
 	                    <label for="vminimo">Mínimo</label>
 	                </div>
-	                <div class="input-field marginzero col s4 inventariado">
+	                <div class="input-field marginzero col s3 _inventariado">
 	                    <input type="number" id="vmaximo" class="formprod validate eder" value="" min="0" focus="1vmaxdescuento" autocomplete="off" tabindex="8">
 	                    <label for="vmaximo">Máximo</label>
 	                </div>
