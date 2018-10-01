@@ -41,9 +41,18 @@
               $_SESSION['CRR']     = $user[0][8];
               $_SESSION['BUSS']    = $user[0][12];
               $mod = 'main';
-              if ($user[0][12] != 0) {
-                $mod = 'facturacion';
+              
+              switch ($user[0][12]) {
+                case 0:
+                  break;
+                case 4:
+                  $mod = 'documentos';
+                  break;
+                default:
+                  $mod = 'facturacion';
+                  break;
               }
+
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
            }

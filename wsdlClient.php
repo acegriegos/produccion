@@ -161,8 +161,8 @@
                     }else{
                         $id = substr($id, 1,strlen($id));
                     }
-
-                    $rxml[$fe->tdoc]['Clave'] = $db->ejecutar('call fe_getintegracion('.$id.','.$_SESSION['IMPRESA'].',curdate())');
+                    $intsuc = $db->ejecutar('call fe_getintegracion('.$id.','.$_SESSION['IMPRESA'].',curdate())');
+                    $rxml[$fe->tdoc]['Clave'] = $intsuc[0];
                     $rxml[$fe->tdoc]['NumeroConsecutivo'] = substr($rxml[$fe->tdoc]['Clave'], 21,20);
                     $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
                     $fe->array_to_xml($rxml,$xml_data);
@@ -170,7 +170,13 @@
                     $xml = $xml_data->asXML();
                     $fe->firmarXML($xml);
 
-                    echo $fe->integracion($xml);
+                    if (isset($_REQUEST['view'])) {
+                        header("Content-type: text/xml; encoding='UTF-8'");
+                        print_r($xml);
+                    }else{
+                        $db->ejecutar('insert into integraciones values(null,"'.$rxml[$fe->tdoc]['Clave'].'","../assets/xml/'.$id.'.xml",'.$id.',3,'.$_REQUEST['sucursal']);
+                        echo $fe->integracion($xml);
+                    }
                     
                 }
                 break;
