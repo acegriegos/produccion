@@ -152,7 +152,8 @@
                     $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
                 }else{
                     $db = new DBClass();
-                    $xml = file_get_contents('./assets/xml/'.$id.'.xml');
+                    $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
+                    
                     $rxml = $fe->XMLtoArray($xml);
                     if (!sizeof($rxml[$fe->tdoc]['Receptor'])) {
                         $fe->tdoc = 'TiqueteElectronico';
@@ -161,20 +162,47 @@
                     }else{
                         $id = substr($id, 1,strlen($id));
                     }
-                    $intsuc = $db->ejecutar('call fe_getintegracion('.$id.','.$_SESSION['IMPRESA'].',curdate())');
+
+                    $intsuc = $db->ejecutar('call fe_integracion('.$id.','.$_SESSION['IMPRESA'].',curdate())')->fetch_all()[0];
+                    
+                    $fe->info['FechaEmision'] = $rxml[$fe->tdoc]['FechaEmision'];
+                    $fe->info['Emisor']['Identificacion']['Tipo'] = $rxml[$fe->tdoc]['Emisor']['Identificacion']['Tipo'];
+                    $fe->info['Emisor']['Identificacion']['Numero'] = $rxml[$fe->tdoc]['Emisor']['Identificacion']['Numero'];
                     $rxml[$fe->tdoc]['Clave'] = $intsuc[0];
                     $rxml[$fe->tdoc]['NumeroConsecutivo'] = substr($rxml[$fe->tdoc]['Clave'], 21,20);
+                    $fe->info['NumeroConsecutivo'] = $rxml[$fe->tdoc]['NumeroConsecutivo'];
+                    $fe->info['Clave'] = $rxml[$fe->tdoc]['Clave'];
+
+                    $rxml[$fe->tdoc]['Emisor']['Nombre'] = $intsuc[1];
+                    $rxml[$fe->tdoc]['Emisor']['Identificacion']['Tipo'] = $intsuc[2];
+                    $rxml[$fe->tdoc]['Emisor']['Identificacion']['Numero'] = $intsuc[3];
+                    $rxml[$fe->tdoc]['Emisor']['Ubicacion']['Barrio'] = $intsuc[4];
+                    $rxml[$fe->tdoc]['Emisor']['Ubicacion']['Canton'] = $intsuc[5];
+                    $rxml[$fe->tdoc]['Emisor']['Ubicacion']['Distrito'] = $intsuc[6];
+                    $rxml[$fe->tdoc]['Emisor']['Ubicacion']['Provincia'] = $intsuc[7];
+
+                    if ($intsuc[8] != '') {
+                        $rxml[$fe->tdoc]['Emisor']['Telefono']['CodigoPais'] = $intsuc[8];
+                        $rxml[$fe->tdoc]['Emisor']['Telefono']['NumTelefono'] = $intsuc[9];
+                    }else{
+                        unset($rxml[$fe->tdoc]['Emisor']['Telefono']);
+                    }
+
+                    $rxml[$fe->tdoc]['Emisor']['CorreoElectronico'] = $intsuc[10];
+
                     $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
                     $fe->array_to_xml($rxml,$xml_data);
 
                     $xml = $xml_data->asXML();
+                    $xml = str_replace('<FacturaElectronica>', '', $xml);
+                    $xml = str_replace('</FacturaElectronica></FacturaElectronica>', '</FacturaElectronica>', $xml);
                     $fe->firmarXML($xml);
 
                     if (isset($_REQUEST['view'])) {
                         header("Content-type: text/xml; encoding='UTF-8'");
                         print_r($xml);
                     }else{
-                        $db->ejecutar('insert into integraciones values(null,"'.$rxml[$fe->tdoc]['Clave'].'","../assets/xml/'.$id.'.xml",'.$id.',3,'.$_REQUEST['sucursal']);
+                        print_r($db->ejecutar('insert into integraciones values(null,"'.$rxml[$fe->tdoc]['Clave'].'","../assets/xml/'.$id.'.xml",'.$id.',3,'.$_REQUEST['sucursal'].')'));
                         echo $fe->integracion($xml);
                     }
                     
@@ -561,15 +589,18 @@
                 }
             }
 
+            if ($_REQUEST['accion'] == 12) {
+                
+                $_SESSION['IMPRESA'] = $_REQUEST['sucursal'];
+            }
+
             if ($vid != '') {
                 $db = new DBClass();
                 if (!isset($_SESSION['IMPRESA']))
                     session_start();
                 if (!isset($_REQUEST['accion']))
                     $this->preUbicacion = '../';
-                if ($_REQUEST['accion'] == 12) {
-                    $_SESSION['IMPRESA'] = $_REQUEST['sucursal'];
-                }
+                
                 $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
             }
             
@@ -735,8 +766,6 @@
             if ($this->bearer == '') 
                 return 'Problemas con la Llave Criptográfica';
 
-            if (!isset($this->info['Clave']))
-                return "Factura no Existente - Clave no Valida";
             if ($this->credenciales[2] == 1) 
                     $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
             else
@@ -760,7 +789,7 @@
                     $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
                     break;
                 case 400:
-
+                    print_r($rs);
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
                     $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2]);
@@ -771,7 +800,6 @@
             }
 
             curl_close($curl);
-            
             return $json_response;
         }
 
@@ -1431,7 +1459,5 @@
     {
         return true;
     }
-
-    
 
  ?>
