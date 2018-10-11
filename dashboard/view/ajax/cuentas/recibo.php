@@ -95,8 +95,6 @@
         </div>
 
       </div>
-      <!-- /INFO CONTACTO -->
-       <input type="hidden" id="fcomentario" value="<?php echo $datos[3]; ?>">
       <!-- DETALLE FACT -->
       <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
         <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">

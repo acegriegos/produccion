@@ -21,7 +21,11 @@
 <div class="card z-depth-3 movil p1 ps">
 <div class="card-header center head1 white-text">
   <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
-    <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a></p>
+    <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
+  {if $smarty.session.CAJA eq 1}
+  <a class="btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" onclick="cargarFacturas();"><span class="white-text" id="cantFact"></span></a>
+  {/if}
+</p>
   
 </div>
   <input type="hidden" class="zelda">
@@ -89,18 +93,20 @@
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
+    
+  </div>
 
-    <div class="col s2 der gen aff afc hide">
+  <div class="row">
+    <div class="col s2 der gen aff afc cre hide">
       <a href="#" class="btn dropdown-button" data-activates='filtr_fin'>Financiamiento</a>
       <ul id='filtr_fin' class='dropdown-content'>
         <li><a class="optns" href="#!" fltr="0">Manual</a></li>
       </ul>
     </div>
-    
   </div>
 
   <div class="row finmanual gen hide">
-    
+    <br>
     <div class="col s12 l3 input-field">
       <select id="vtipointeres">
         <option value="1">Tasa Interés Anual, %</option>
@@ -178,7 +184,14 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card z-depth-3 p2 ps hide-on-med-and-down">
-  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b> <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos"></a> </div>
+  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b>
+    
+    <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" ></a>
+    
+    {if $smarty.session.BUSS eq 0}
+    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
+    {/if}
+ </div>
 
   <div class="row">
     <div class="col s12 hide-on-med-and-down">
@@ -592,6 +605,16 @@
   </div>
 </div>
 
+<div class="modal modal-fixed-footer" id="modal-devoluciones">
+   <div class="modal-header head3 center" style="font-size: 22px;">Buscar Factura</div>
+  <div class="modal-content">
+    
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
+
 <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 400px;">
    <div class="modal-header head3 center" style="font-size: 22px;">Agregar Cliente</div>
   <div class="modal-content">
@@ -863,6 +886,22 @@
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Aceptar</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+  </div>
+</div>
+
+<div id="modal-usuario" class="modal modal-fixed-footer mymodal">
+  <div class="modal-content" >
+    <h4 class="center">Autenticar Usuario</h4>
+   
+    <div class="input-field col s6 edescu container" style="width: 50%">
+        <input type="password" id="ecouser" autocomplete="off" maxlength="64" autosave="off">
+        <label for="ecouser">Código</label>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
   </div>
 </div>
 

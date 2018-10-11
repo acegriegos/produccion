@@ -489,7 +489,7 @@
         $salida['factura']['moneda']    = (array) $inv_xml->ResumenFactura->CodigoMoneda;
         $salida['factura']['moneda']    = $salida['factura']['moneda'][0];
         $salida['factura']['divisa']    = (array) $inv_xml->ResumenFactura->TipoCambio;
-        $salida['factura']['divisa']    = $salida['factura']['divisa'][0];
+        $salida['factura']['divisa']    = isset($salida['factura']['divisa'][0]) ? $salida['factura']['divisa'][0] : 0;
         $salida['factura']['divisa']    = $salida['factura']['divisa'] == 0 ? 1 : $salida['factura']['divisa'];
 
         $salida['factura']['subtotal']  = (array) $inv_xml->ResumenFactura->TotalGravado;
@@ -497,7 +497,7 @@
         $salida['factura']['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
         $salida['factura']['exento']    = isset($salida['factura']['exento'][0]) ? $salida['factura']['exento'][0] : 0;
         $salida['factura']['descuento'] = (array) $inv_xml->ResumenFactura->TotalDescuentos;
-        $salida['factura']['descuento'] = $salida['factura']['descuento'][0];
+        $salida['factura']['descuento'] = isset($salida['factura']['descuento'][0]) ? $salida['factura']['descuento'][0]: 0;
         $salida['factura']['impuesto']  = (array) $inv_xml->ResumenFactura->TotalImpuesto;
         $salida['factura']['impuesto']  = $salida['factura']['impuesto'][0];
 
@@ -512,7 +512,7 @@
         foreach ($ciclo as $key) {
             $vunidad = (array)$key->UnidadMedida;
             $vunidad = $vunidad[0] == 'Otros' ? (array)$key->UnidadMedidaComercial : (array)$key->UnidadMedida;
-            $vunidad = $vunidad[0];
+            $vunidad = isset($vunidad[0]) ? $vunidad[0] : 0 ;
             $cunidad = $db->ejecutar('call krattos("if(count(id),id,0)",107,"id > 0 and simbolo = \"'.$vunidad.'\" ")')->fetch_all();
 
             $num = (array)$key->NumeroLinea;

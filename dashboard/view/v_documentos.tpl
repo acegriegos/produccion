@@ -115,7 +115,7 @@
                     <span id="mha" class="green-text"></span>
                 </section>
 
-                <section class="upxml col s12 l6 disabledbutton" xml="1" style="margin-top: 8%">
+                <section class="upxml col s12 l6" xml="1" style="margin-top: 8%">
                     <span>Subir Documento Electrónico: Factura o Nota Crédito y Débito</span>
                     <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
                         <span class="dz-message needsclick text-center ico-reg"><i class="mdi mdi-xml mdi-48px imgDrop" style="margin-top: 25px;margin-bottom: 25px;"></i></span>

@@ -1,5 +1,6 @@
 $(function(){
-	var tf = param = getParameterByName('tf');
+	var tf = param = getParameterByName('tf') == '' ? 3 : getParameterByName('tf');
+
 	$('#tf'+tf).click();
 
 	config = getDatos('',42,'@@impresa',0,0)[0][0];

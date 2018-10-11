@@ -3,7 +3,7 @@
 
 <div class="card-header center head1">
 <span class="flow-text">Cuentas por Cobrar</span>
-<i class="mdi mdi-magnify mdi-24px der pbtn tooltipped shnotas" data-tooltip="Ver Cuentas por Cobrar" data-position="botton"></i>
+<a href="vistanotaspagos" target="_new" class="der pbtn tooltipped white-text" data-tooltip="Ver Abonos" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
 </div>
 <div id="mantCxC" class="pequeño">
         <div class="row padd marginzero" style="padding-top: 20px">
@@ -42,7 +42,7 @@
         
         <div class="card-block pequeño">
             <div class="row  pequeño">
-                <div class="col s12 hide">      
+                <div class="col s12">      
                     <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Multiple</a>
                 </div>
                 <div class="col s12 pequeño">

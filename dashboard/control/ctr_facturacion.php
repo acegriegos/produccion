@@ -15,7 +15,6 @@
 		$smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
 
-	   	//$smarty->assign('IP',$_SERVER);
 	   	$smarty->assign('EXOS',$kakaroto->kamehameha('idhacienda,nombre',126,'id > 0 order by nombre'));
 	   	$smarty->display('v_facturacion.tpl');
 	   }else{

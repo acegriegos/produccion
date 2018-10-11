@@ -192,7 +192,7 @@ $(document).on("change","input[name=tventa]",function(){
 	
 	arr('login',6,'',179,'0,0,"1,'+id+',@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
 	paginate($("ul.pagination").attr('vtbl'),undefined,'1,'+id+',@@impresa,0,0')
-
+    $("ul.pagination").attr('filtro_sp','1,'+id+',@@impresa,0,0');
 	$("#data-table-facturas").dataTable({
 		bFilter: false,
 		bScrollInfinite: true,

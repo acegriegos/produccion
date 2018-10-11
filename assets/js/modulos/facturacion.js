@@ -46,6 +46,9 @@ $(function(){
         case 2:
             inicial = $("#descp");
             break;
+        case 3:
+            inicial = $("#ecouser");
+            break;
         default:
             break;
     }
@@ -65,6 +68,10 @@ $(function(){
         case 5:
             cargarVentas();
             cargarResembled('PEDIDOS');
+            break;
+        case 6:
+            cargarVentas();
+            cargarResembled('PRE-VENTA');
             break;
         default:
             cargarVentas();

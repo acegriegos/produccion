@@ -238,7 +238,55 @@
 </a>
 <div class="row">
 <div class="col s12">
-<p>Inventarios</p>
+<p>Inventarios General</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Existencias</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Costo Inventario</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Más Vendido</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="existencias"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Movimientos Inventario</p>
 </div>
 </div>
 </div>

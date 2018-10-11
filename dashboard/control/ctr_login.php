@@ -44,6 +44,18 @@
               
               switch ($user[0][12]) {
                 case 0:
+                  $caja = $log->kamehameha('',253,'"'.str_replace(' ', '', $_SERVER['REMOTE_ADDR']).'"');
+                  
+                  if ($caja[0][0]) {
+                    if ($caja[0][1]) {
+                      $_SESSION['CAJA']    = 1;
+                      $mod = 'facturacion';
+                    }else{
+                      $_SESSION['CAJA']    = 0;
+                      $mod = 'facturacion?tf=6';
+                    }
+                  }else
+                    $_SESSION['CAJA']    = 0;
                   break;
                 case 4:
                   $mod = 'documentos';

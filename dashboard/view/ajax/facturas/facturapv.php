@@ -111,12 +111,12 @@ require_once('../assets/libs/phpqrcode/qrlib.php');
 echo '</td></tr>';*/
 
 echo '<tr align="center" '.$ocultar.'>
-     <td>
+     <td align="center">
         <div align="center">';
 if(strlen(trim($miscelaneos[2])))
-    echo '<b> '.$miscelaneos[2].' </b> <br>'.$miscelaneos[0];
+    echo $miscelaneos[2].' <br>'.$miscelaneos[0];
 else
-  echo '<b> '.$miscelaneos[0].' </b>';
+  echo $miscelaneos[0];
 
 echo '<br>Ced. '.$miscelaneos[1];
 if(strlen(trim($miscelaneos[5])))
@@ -142,18 +142,21 @@ echo '<br> '.$miscelaneos[6].'
     <td align="center"><span class="fe hide"> '.$datos[0].' </span></td>
   </tr>
 </table>
-<br>
+
 <table>
   <tr>
     <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
-  </tr>
-  <tr '.$ocultar.'>
+  </tr>';
+  if ($datos[4] != '') {
+    echo '<tr '.$ocultar.'>
     <td colspan="2">Cliente:</td>
   </tr>
   <tr>
     <td align="center" colspan="2">'.$datos[4].'</td>
-  </tr>
-  <tr '.$ocultar.'>
+  </tr>';
+  }
+  
+  echo '<tr '.$ocultar.'>
     <td width="50%">Vendedor: </td>
     <td width="50%">'.$datos[16].'</td>
   </tr>
@@ -162,7 +165,7 @@ echo '<br> '.$miscelaneos[6].'
     <td width="50%">'.$datos[2].'</td>
   </tr>
 </table>
-  <br>
+
 <hr>';
 
 if ($config[0][10] == 1) {
@@ -208,12 +211,12 @@ echo '<table  style="width: 100% !important;">
     echo '<tr>
       <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
       <td align="center" width="50%">'.$obj[19].'</td>
-      <td align="center" width="30%">'.$obj[20].'</td>';
+      <td align="right" width="30%">'.$obj[20].'</td>';
     }
   }
   
 echo '<tr>
-    <td colspan="'.$colspan1.'" style="border-bottom: 1px dashed #A0A0A0;"></td>
+    <td colspan="'.$colspan1.'"></td>
   </tr>
 <!-- <tr>
     <td colspan="'.$colspan1.'" align="right"> TOTAL </td>
@@ -260,7 +263,7 @@ echo '<tr>
     <td width="50%" align="right"> '.$obj[15].$obj[10].' </td>
   </tr>
 </table>
-<div '.$ocultar.'>*=EXCENTO</div>
+<div '.$ocultar.'>*=EXENTO</div>
 <div '.$ocultar.'>**=I.V.I</div>';
 
 if ($pvuelto > 0 && $vuelto >= 0) {
@@ -274,8 +277,8 @@ if ($pvuelto > 0 && $vuelto >= 0) {
 </table>';
 }
 
-echo '<hr>
-<div style="text-align: center;'.$oc.'" id="resolucion"></div><br><br><br>
+echo '
+<div style="text-align: center;font-size:10px;'.$oc.'" id="resolucion"></div><br><br><br>
 <div class="recibo" style="display:none"><hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>
 <br><br><br>

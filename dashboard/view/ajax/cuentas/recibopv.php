@@ -131,9 +131,9 @@ echo '<tr align="center" >
   </tr>
   <tr>
     <td align="left"><span class="fe hide"> '.$datos[13].' </span></td>
-    <td width="13%" align="center">'.$fecha[0].'</td>
-    <td width="13%" align="center">'.$fecha[1].'</td>
     <td width="13%" align="center">'.$fecha[2].'</td>
+    <td width="13%" align="center">'.$fecha[1].'</td>
+    <td width="13%" align="center">'.$fecha[0].'</td>
   </tr>
 </table>
 <br>
