@@ -1,3 +1,4 @@
+<?php $config = $kakaroto->kamehameha('',42,'@@impresa');?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,28 @@
 <style>
   *{font-size: 1em}
 
+<?php if ($config[0][8] == 2) { ?>
+@media print {
+  .print{
+    display: none;
+  }
+
+  *{
+    font-family:'Helvetica';
+    /*font-size: 12px;*/
+  }
+
+  *{
+        margin: 0% !important;
+        font-size: 20px;
+
+  }
+
+  @page {
+    margin: 0;
+  }
+}
+<?php }else{ ?>
 @media print {
   .print{
     display: none;
@@ -20,12 +43,20 @@
     margin: 1px !important;
   }
 
+<?php if ($config[0][9] == 0) { ?>
+  body{
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+  }
+<?php }else{ ?>
   body{
     margin-left: 9% !important;
     margin-right: 9% !important;
   }
-
+<?php } ?>
 }
+
+<?php } ?>
 </style>
 </head>
 
@@ -100,9 +131,9 @@ echo '<tr align="center" >
   </tr>
   <tr>
     <td align="left"><span class="fe hide"> '.$datos[13].' </span></td>
-    <td width="13%" align="center">'.$fecha[0].'</td>
-    <td width="13%" align="center">'.$fecha[1].'</td>
     <td width="13%" align="center">'.$fecha[2].'</td>
+    <td width="13%" align="center">'.$fecha[1].'</td>
+    <td width="13%" align="center">'.$fecha[0].'</td>
   </tr>
 </table>
 <br>
@@ -150,9 +181,9 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.54"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.54"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.54"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.63"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.63"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.63"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

@@ -42,9 +42,9 @@
 						<td style="padding: 10px;">{$PROD[LE][6]}</td>
 						<td style="padding: 10px;">{$PROD[LE][7]}</td>
 						<td>
-							{if $smarty.session.BUSS neq 1} <a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh per4115  " id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a> {/if}
+							{if $smarty.session.BUSS eq 0} <a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh per4115  " id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a> {/if}
 							<a class="btn-color pbtn descuentos per4103 mdi mdi-percent mdi-24px modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"></a>
-							{if $smarty.session.BUSS neq 1} <a class="btn-color pbtn salidainv per4116 mdi mdi-arrow-down-bold-box mdi-24px  modal-trigger  " id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"></a> {/if}
+							{if $smarty.session.BUSS eq 0} <a class="btn-color pbtn salidainv per4116 mdi mdi-arrow-down-bold-box mdi-24px  modal-trigger  " id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"></a> {/if}
 							<a class="btn-color pbtn load mdi mdi-pencil mdi-24px per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" modulo="producto"></a>
 							<a class="btn-color pbtn cdel delete  mdi mdi-close mdi-24px per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" modulo="producto"></a>
 						</td>
@@ -63,11 +63,12 @@
 			<li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
 			<li class="tab col s3 menuP but" id="tb2"><a class="white-text">Financiero</a></li>
 			<li class="tab col s3 menuP but" id="tb3"><a class="white-text">Impuestos</a></li>
-			<li class="tab col s3 menuP but  {if $smarty.session.BUSS eq 1} hide {/if}" id="tb4"><a class="white-text">Características</a></li>
+			<li class="tab col s3 menuP but  {if $smarty.session.BUSS neq 0} hide {/if}" id="tb4"><a class="white-text">Características</a></li>
 		</ul>
 	</div>
 	<div class="modal-content" style="padding: 0px;" id="fproductos">
 		<input type="hidden" class="zelda">
+        <input type="hidden" id="visinventariado" value="0">
 		<div id="datosproductos" style="padding: 30px 10px 0 10px">
             <div class="row" style="margin: 0px">
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px">
@@ -127,7 +128,13 @@
                         <label for="vidmoneda">Moneda</label>
                     </div>
 
-                    {if $smarty.session.BUSS eq 1} 
+                    {if $smarty.session.BUSS neq 0} 
+                    {if $smarty.session.BUSS eq 3}
+                        <div class="input-field marginzero col s12 hide" id="cantpro">
+                            <input type="text" id="vcantidad" noClear="1" class="validate" value="0.00" autocomplete="off">
+                            <label class="active" for="vcantidad">Cantidad</label>
+                        </div>
+                    {/if}
                     <input type="hidden" id="vidinventario" value="6" noClear="1">
                     {else}
                     <div class="input-field marginzero col s12" id="dinventario">
@@ -149,26 +156,25 @@
 
             <div class="row">
 
-            	{if $smarty.session.BUSS eq 1}
+            	{if $smarty.session.BUSS neq 0}
             	<div class="col s12 m12 l8"> 
                     <input type="hidden" id="vminimo" value="0">
                     <input type="hidden" id="vmaximo" value="0">
-                    <input type="hidden" id="visinventariado" value="0">
                 </div>
                  {else}
                  <div class="row col s12 m12 l8">
-	             	<div class="switch col s4 hide">
+	             	<div class="switch col s6">
 	                    <label>
-	                      <input type="checkbox" id="isinventariado" checked >
+	                      <input type="checkbox" id="inventariado" class="isinv" checked>
 	                      <span class="lever tooltipped	" data-tooltip="Llevar Control de Inventario del Producto" data-position="button"></span>
-	                      Inventariar
+	                      Producto Inventariado
 	                    </label>
 	                </div>
-	                <div class="input-field marginzero col s4 inventariado">
+	                <div class="input-field marginzero col s3 _inventariado">
 	                    <input type="number" id="vminimo" class="formprod validate eder" value="" min="0" focus="1vmaximo" autocomplete="off" tabindex="7">
 	                    <label for="vminimo">Mínimo</label>
 	                </div>
-	                <div class="input-field marginzero col s4 inventariado">
+	                <div class="input-field marginzero col s3 _inventariado">
 	                    <input type="number" id="vmaximo" class="formprod validate eder" value="" min="0" focus="1vmaxdescuento" autocomplete="off" tabindex="8">
 	                    <label for="vmaximo">Máximo</label>
 	                </div>
@@ -205,26 +211,34 @@
                 </div>
             </div>
             
-            {if $smarty.session.BUSS eq 1}
-            	 <input type="hidden" id="visvariable" value="1">
+            {if $smarty.session.BUSS eq 0}
             	 <input type="hidden" id="vidheredado" value="0">
            	{else}
            	<div class="row hide">
            		<input type="hidden" id="vidheredado" value="0">
            	</div>
 
-            <div class="row marginzero hide">
-          		<div class="row col s12 switch">
-          			<label class="col s4">
-		              <input type="checkbox" id="visvariable" >
-		              <span class="lever tooltipped	" data-tooltip="Define si el Precio de Venta Varía Cuando Factura" data-position="button"></span>
-		              Producto Variable
-		            </label>
-          		</div>
-	            
+            {/if}
+
+            <div class="row marginzero">
+                <div class="row col s12 switch">
+                    <label class="col s4">
+                      <input type="checkbox" id="variable" ische="{if $smarty.session.BUSS eq 1}3{else}1{/if}">
+                      <span class="lever tooltipped " data-tooltip="Define si el Precio de Venta Varía Cuando Factura" data-position="button"></span>
+                      Producto Variable
+                    </label>
+                </div>
+            {if $smarty.session.BUSS eq 3}
+                <div class="row col s12 switch">
+                    <label class="col s4">
+                      <input type="checkbox" id="inventariado">
+                      <span class="lever tooltipped " data-tooltip="Llevar Control de Inventario del Producto" data-position="button"></span>
+                      Producto Inventariado
+                    </label>
+                </div>
+            {/if}
 
             </div>
-            {/if}
 
         </div>
 
@@ -261,7 +275,7 @@
             </div>
 
             <tr> 
-                <td><div class="switch {if $smarty.session.BUSS eq 1} hide {else} hide {/if}">
+                <td><div class="switch {if $smarty.session.BUSS neq 0} hide {else} hide {/if}">
                         <label>
                             Cliente
                             <input type="checkbox" class="chg" value="1" checked>
@@ -269,23 +283,23 @@
                             Categoria
                         </label>
                     </div></td>
-                <td colspan="2" style="padding: 2%;"> <b class="chg0 {if $smarty.session.BUSS eq 1} hide {/if}">Precio por Categoría</b> <b class="chg1 hide">Precio por Cliente</b> </td>
+                <td colspan="2" style="padding: 2%;"> <b class="chg0 {if $smarty.session.BUSS neq 0} hide {/if}">Precio por Categoría</b> <b class="chg1 hide">Precio por Cliente</b> </td>
             </tr>
 
             <table>
             {section name=LE loop=$NIV}
-            <tr class="precionivel chg0 {if $smarty.session.BUSS eq 1} hide {/if}" id="f{$NIV[LE][0]}" style="border: 1px solid #e2e2e2">
+            <tr class="precionivel chg0 {if $smarty.session.BUSS neq 0} hide {/if}" id="f{$NIV[LE][0]}" style="border: 1px solid #e2e2e2">
                 <td style="padding: 0px"><b>Categoria: {$NIV[LE][1]}</b></td>
                 <td class="center-align input-field" style="padding: 0px">
                     <i class="mdi prefix">%</i>
                     <input type="text" id="vgganancia{$NIV[LE][0]}" class="validate calcvv eder gan numeric" value="0.00" data-mask="9999999999.99" num="2" style="margin: 0px">
                     <input type="hidden" id="vganancia{$NIV[LE][0]}" value="0" class="rgan">
                 </td>
-                <td class="center-align input-field {if $smarty.session.BUSS eq 1} hide {/if}" style="padding: 0px">
+                <td class="center-align input-field {if $smarty.session.BUSS neq 0} hide {/if}" style="padding: 0px">
                     <i class="mdi prefix moneda">¢</i>
                     <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven numeric" value="0.00" data-mask="9999999999.99" num="3" style="margin: 0px">
                 </td>
-                <td class="center-align input-field {if $smarty.session.BUSS eq 1} hide {/if}" style="padding: 0px">
+                <td class="center-align input-field {if $smarty.session.BUSS neq 0} hide {/if}" style="padding: 0px">
                     <i class="mdi prefix">%</i>
                     <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo numeric" value="0.00"  num="4" style="margin: 0px">
                 </td>
@@ -540,4 +554,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.54"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.63"></script> -->

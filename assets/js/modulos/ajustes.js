@@ -306,6 +306,7 @@ $(document).on("click",".menu3",function(){
 		case 9:
 			var p = mantenimiento('ajustes',9,'');
 			$("#majustes").html(p);
+			actPaginate('familias')
 			break;
 		case 10:
 			var p = mantenimiento('ajustes',13,'');

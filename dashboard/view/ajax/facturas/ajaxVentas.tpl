@@ -21,7 +21,11 @@
 <div class="card z-depth-3 movil p1 ps">
 <div class="card-header center head1 white-text">
   <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
-    <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a></p>
+    <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
+  {if $smarty.session.CAJA eq 1}
+  <a class="btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" onclick="cargarFacturas();"><span class="white-text" id="cantFact"></span></a>
+  {/if}
+</p>
   
 </div>
   <input type="hidden" class="zelda">
@@ -89,74 +93,88 @@
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
+    
+  </div>
 
-    <div class="col s2 der gen aff afc hide">
+  <div class="row">
+    <div class="col s2 der gen aff afc cre hide">
       <a href="#" class="btn dropdown-button" data-activates='filtr_fin'>Financiamiento</a>
       <ul id='filtr_fin' class='dropdown-content'>
         <li><a class="optns" href="#!" fltr="0">Manual</a></li>
       </ul>
     </div>
-    
   </div>
 
   <div class="row finmanual gen hide">
-    
+    <br>
     <div class="col s12 l3 input-field">
       <select id="vtipointeres">
         <option value="1">Tasa Interés Anual, %</option>
-        <option value="1">Tasa Interés Efectiva, %</option>
-        <option value="1">Tasa Zero, %</option>
+        <option value="2">Tasa Interés Efectiva, %</option>
+        <option value="3">Tasa Zero, %</option>
       </select>
       <label for="vtipointeres">Tipo Interés</label>
     </div>
     
     <div class="col s12 l3 input-field">
-      <input type="text" id="vinteres" class="eder" value="58.8">
+      <input type="text" id="vinteres" class="eder calpres" value="58.8">
       <label for="vinteres">Valor Interés</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vinteres" class="eder" value="0">
-      <label for="vinteres">Años</label>
+      <input type="text" id="vanos" class="eder calpres" value="0">
+      <label for="vanos">Años</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vmeses" class="eder" value="0">
+      <input type="text" id="vmeses" class="eder calpres" value="0">
       <label for="vmeses">Meses</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num"></i>
-      <input type="text" id="vcuotainicial" class="eder" value="0">
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <input type="text" id="vcuotainicial" class="eder calpres" value="0">
       <label for="vcuotainicial">Cuota Inicial (Prima)</label>
     </div>
 
      <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num"></i>
-      <input type="text" id="vcomisioning" class="eder" value="0">
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <input type="text" id="vcomisioning" class="eder calpres" value="0">
       <label for="vcomisioning">Comisión Ingreso</label>
     </div>
 
      <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num"></i>
-      <input type="text" id="vcomisionmes" class="eder" value="0">
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <input type="text" id="vcomisionmes" class="eder calpres" value="0">
       <label for="vcomisionmes">Comisión Mes</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num"></i>
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
       <input type="text" id="vpagresiadual" class="eder" value="0">
       <label for="vpagresiadual">Pago Residual</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vpagresiadual" class="eder" value="0">
-      <label for="vpagresiadual">Interés Moratorio En Plazo (TP)</label>
+      <input type="text" id="vmoratp" class="eder" value="0">
+      <label for="vmoratp">Interés Moratorio En Plazo (TP)</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <input type="text" id="vpagresiadual" class="eder" value="0">
-      <label for="vpagresiadual">Interés Moratorio En Cuota (IMC)</label>
+      <input type="text" id="vmoraimc" class="eder" value="0">
+      <label for="vmoraimc">Interés Moratorio En Cuota (IMC)</label>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <span>Cuota Mensual: </span> <span class="der" id="c-mes">0.00</span><br>
+      <span>Tasa Efectiva(%): </span> <span class="der" id="t-efectiva">0.00</span><br>
+      <span>Cuotas: </span> <span class="der" id="t-cuotas">0.00</span>
+    </div>
+
+    <div class="col s12 l3 input-field">
+      <span>Total Intereses </span> <span class="der" id="t-interes">0.00</span><br>
+      <span>Total Pagos: </span> <span class="der" id="t-pagos">0.00</span><br>
+      <span>Prima: </span> <span class="der" id="t-prima">0.00</span>
     </div>
 
   </div>
@@ -166,7 +184,14 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card z-depth-3 p2 ps hide-on-med-and-down">
-  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b> <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos"></a> </div>
+  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b>
+    
+    <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" ></a>
+    
+    {if $smarty.session.BUSS eq 0}
+    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
+    {/if}
+ </div>
 
   <div class="row">
     <div class="col s12 hide-on-med-and-down">
@@ -580,6 +605,16 @@
   </div>
 </div>
 
+<div class="modal modal-fixed-footer" id="modal-devoluciones">
+   <div class="modal-header head3 center" style="font-size: 22px;">Buscar Factura</div>
+  <div class="modal-content">
+    
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
+
 <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 400px;">
    <div class="modal-header head3 center" style="font-size: 22px;">Agregar Cliente</div>
   <div class="modal-content">
@@ -822,7 +857,7 @@
 <!--  -->
 <!-- FOOTER -->
   <div class="modal-footer">
-    <a href="#!" class="add modal-action waves-effect waves-green btn-flat alv" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
+    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
   </div>
 </div>
 
@@ -854,4 +889,20 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.54"></script>
+<div id="modal-usuario" class="modal modal-fixed-footer mymodal">
+  <div class="modal-content" >
+    <h4 class="center">Autenticar Usuario</h4>
+   
+    <div class="input-field col s6 edescu container" style="width: 50%">
+        <input type="password" id="ecouser" autocomplete="off" maxlength="64" autosave="off">
+        <label for="ecouser">Código</label>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
+  </div>
+</div>
+
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.63"></script>

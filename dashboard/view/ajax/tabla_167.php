@@ -13,7 +13,7 @@ foreach ($transaccion as $obj) {
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[15].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[34].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[11].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[16].'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.$obj[14].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[13].'</td>
 
       </tr>
@@ -35,7 +35,7 @@ foreach ($transaccion as $obj) {
       $tde += substr(str_replace(",", "", $obj[15]),$obj[33] == 1 ? 2 : 1)*$obj[33];
       $tim += substr(str_replace(",", "", $obj[11]),$obj[33] == 1 ? 2 : 1)*$obj[33];
       $tgr += substr(str_replace(",", "", $obj[34]),$obj[33] == 1 ? 2 : 1)*$obj[33];
-      $exc += substr(str_replace(",", "", $obj[16]),$obj[33] == 1 ? 2 : 1)*$obj[33];
+      $exc += substr(str_replace(",", "", $obj[14]),$obj[33] == 1 ? 2 : 1)*$obj[33];
   }
   echo '<tr class="detprod hide xb'.$obj[0].' grey lighten-4">
   <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[24].'</td>

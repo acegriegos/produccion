@@ -7,14 +7,15 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.0.0.54">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.0.0.63">
 </head>
 <body>
   {$NAV}
   <div class="bdy pequeño">
     <div class="card z-depth-3">
       <div class="card-header center head1">
-        <p class="flow-text">Notas</p>
+        <span class="flow-text">Notas</span>
+        <a href="vistanotaspagos" target="_new" class="der pbtn tooltipped white-text" data-tooltip="Ver Notas" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
       </div>
       <div class="card-content pequeño">
         <div class="row">
@@ -72,7 +73,7 @@
                   <div class="input-field col hide s12 m12" id="ftr1">
                     <a class="prefix  tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small mdi mdi-magnify mdi-24px"></i></a>
                     <label class="truncate" for="ncli" style="font-size: 1em !important"> Nombre o Cédula del <span class="tipoclie">Cliente</span></label>
-                    <input type="text" id="ncli" var="nombre" class="autocomplete validate sclie" maxlength="64" />
+                    <input type="text" id="ncli" var="nombre" class="autocomplete validate sclie snota" maxlength="64" />
                   </div> 
                 </div>
               </div>
@@ -150,6 +151,8 @@
 
                   </tbody>
                 </table>
+                <ul class="left showing" modulo="302"><small></small></ul>
+                <ul class="pagination right" vtbl="302" modulo="facturas" filtro_sp="0,0,0,,,0,0,@@impresa"></ul>
               </div>      
             </div>
             <ul id="acciones" class="side-nav side-nav-cuentas asd"  style="width: 60%">
@@ -162,6 +165,6 @@
     </div>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=10.0.0.54"></script>
+  <script src="../assets/js/modulos/notas.js?v=10.0.0.63"></script>
 </body>
 </html>

@@ -111,9 +111,18 @@ require_once('../assets/libs/phpqrcode/qrlib.php');
 echo '</td></tr>';*/
 
 echo '<tr align="center" '.$ocultar.'>
-     <td>
-        <div align="center"><b> '.$miscelaneos[0].' </b><br> Ced. '.$miscelaneos[1].'
-         <br> Telf. '.$miscelaneos[5].'<br> '.$miscelaneos[6].'
+     <td align="center">
+        <div align="center">';
+if(strlen(trim($miscelaneos[2])))
+    echo $miscelaneos[2].' <br>'.$miscelaneos[0];
+else
+  echo $miscelaneos[0];
+
+echo '<br>Ced. '.$miscelaneos[1];
+if(strlen(trim($miscelaneos[5])))
+    echo '<br> Telf. '.$miscelaneos[5];
+
+echo '<br> '.$miscelaneos[6].'
         </div>
      </td>
   </tr>
@@ -133,18 +142,21 @@ echo '<tr align="center" '.$ocultar.'>
     <td align="center"><span class="fe hide"> '.$datos[0].' </span></td>
   </tr>
 </table>
-<br>
+
 <table>
   <tr>
     <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
-  </tr>
-  <tr '.$ocultar.'>
+  </tr>';
+  if ($datos[4] != '') {
+    echo '<tr '.$ocultar.'>
     <td colspan="2">Cliente:</td>
   </tr>
   <tr>
     <td align="center" colspan="2">'.$datos[4].'</td>
-  </tr>
-  <tr '.$ocultar.'>
+  </tr>';
+  }
+  
+  echo '<tr '.$ocultar.'>
     <td width="50%">Vendedor: </td>
     <td width="50%">'.$datos[16].'</td>
   </tr>
@@ -153,7 +165,7 @@ echo '<tr align="center" '.$ocultar.'>
     <td width="50%">'.$datos[2].'</td>
   </tr>
 </table>
-  <br>
+
 <hr>';
 
 if ($config[0][10] == 1) {
@@ -199,12 +211,12 @@ echo '<table  style="width: 100% !important;">
     echo '<tr>
       <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
       <td align="center" width="50%">'.$obj[19].'</td>
-      <td align="center" width="30%">'.$obj[20].'</td>';
+      <td align="right" width="30%">'.$obj[20].'</td>';
     }
   }
   
 echo '<tr>
-    <td colspan="'.$colspan1.'" style="border-bottom: 1px dashed #A0A0A0;"></td>
+    <td colspan="'.$colspan1.'"></td>
   </tr>
 <!-- <tr>
     <td colspan="'.$colspan1.'" align="right"> TOTAL </td>
@@ -251,7 +263,7 @@ echo '<tr>
     <td width="50%" align="right"> '.$obj[15].$obj[10].' </td>
   </tr>
 </table>
-<div '.$ocultar.'>*=EXCENTO</div>
+<div '.$ocultar.'>*=EXENTO</div>
 <div '.$ocultar.'>**=I.V.I</div>';
 
 if ($pvuelto > 0 && $vuelto >= 0) {
@@ -265,8 +277,8 @@ if ($pvuelto > 0 && $vuelto >= 0) {
 </table>';
 }
 
-echo '<hr>
-<div style="text-align: center;'.$oc.'" id="resolucion"></div><br><br><br>
+echo '
+<div style="text-align: center;font-size:10px;'.$oc.'" id="resolucion"></div><br><br><br>
 <div class="recibo" style="display:none"><hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>
 <br><br><br>
@@ -276,20 +288,20 @@ echo '<hr>
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.54"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.54"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.54"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.63"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.63"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.63"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
+      var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiiones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span><br>Este Documento no Tiene Validéz Tributaria');
+        resol = "ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }
-      else{
-        $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de inicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles.</span>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D');
-      }
+
+      $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);
 
       if ($("#ttipo").val() != 1) {
         $(".ncontado").show();

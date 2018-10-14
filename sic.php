@@ -10,7 +10,7 @@
 
     $data = (array)json_decode($data);
 
-    if (isset($data['results'])) {
+    if (isset($data['results'][0]->class)) {
         switch ($data['results'][0]->class) {
             case 'N':
                 $tipo = 1;
@@ -31,7 +31,7 @@
                 $name = $data['results'][0]->lastname2.' '.$data['results'][0]->firstname1;
                 $ap1 = $data['results'][0]->lastname1;
                 $ap2 = '';
-                $ced = $data['results'][0]->rawcedula;
+                $ced = $data['results'][0]->cedula;
                 break;
             default:
                 $tipo = 3;

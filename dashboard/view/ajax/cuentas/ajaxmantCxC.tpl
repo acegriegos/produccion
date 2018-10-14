@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.54">
-<nav class="nav-extended z-depth-3 head1">
-    <div class="nav-wrapper">
-        <h4 align="center" style="padding-top: 10px">Cuentas por Cobrar</h4>
-    </div>
-</nav>
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.63">
+<div class="card z-depth-3">
+
+<div class="card-header center head1">
+<span class="flow-text">Cuentas por Cobrar</span>
+<a href="vistanotaspagos" target="_new" class="der pbtn tooltipped white-text" data-tooltip="Ver Abonos" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
+</div>
 <div id="mantCxC" class="pequeño">
-    <div class="card z-depth-3">
         <div class="row padd marginzero" style="padding-top: 20px">
           
             <div class="col s12">
@@ -42,7 +42,7 @@
         
         <div class="card-block pequeño">
             <div class="row  pequeño">
-                <div class="col s12 hide">      
+                <div class="col s12">      
                     <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Multiple</a>
                 </div>
                 <div class="col s12 pequeño">

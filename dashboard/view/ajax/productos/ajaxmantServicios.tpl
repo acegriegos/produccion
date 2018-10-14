@@ -77,25 +77,43 @@
                         <textarea id="vdescripcion" type="textarea" class="materialize-textarea" length="150" style="margin: 0;padding: 0px"></textarea>
                         <label for="vdescripcion">Descripción del Servicio</label>
                     </div>
-                    {if $smarty.session.BUSS neq 1}
+                    {if $smarty.session.BUSS eq 0}
                     <div class="col s6 m6 l6 input-field" id="dinvent">
                         <select id="vidinventario" type="select"></select>
                         <label for="vidinventario">Inventario</label>
                     </div>
                     {else}
-                        <div class="col s6 m6 l3 hide">
-                            <a class="btn btn-success" href="#modal-servcliente" id="btn-servclie">Por Período</a>
-                        </div>
-
-                        <div class="col s6 m6 l3">
-                            <input type="checkbox" id="cexento" value="0">
-                            <label for="cexento">IMV</label>
-                            <a class="btn btn-success hide" href="#modal-serImpuestos" id="btn-impuestos">Impuestos</a>
-                        </div>
-                    
+                        
                     <input type="hidden" id="vidinventario" value="0">
 
                     {/if}
+                </div>
+                <div class="row">
+                    <div class="col s6 m6 l3 hide">
+                        <a class="btn btn-success" href="#modal-servcliente" id="btn-servclie">Por Período</a>
+                    </div>
+
+                    <div class="col s6 m6 l3">
+                        <input type="checkbox" class="noextra" id="cexento" value="0">
+                        <label for="cexento">IMV</label>
+                        <a class="btn btn-success hide" href="#modal-serImpuestos" id="btn-impuestos">Impuestos</a>
+                    </div>
+
+                    <div class="col s6 m6 l3 hide">
+                        <input type="checkbox" class="noextra" id="servpro">
+                        <label for="servpro">Servicio Profesional</label>
+                        <input type="hidden" id="vservprofesional">
+                    </div>
+
+                    <div class="col s6 m6 l3">
+                        <input type="checkbox" id="porfact">
+                        <label for="porfact">Retención de Pago</label>
+                    </div>
+                    <div class="input-field col s6 m6 l3 hide vpfactura">
+                            <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+                            <input type="text" id="vpfactura" noClear="1" value="0.00" class="eder" autocomplete="off">
+                            <label for="vpfactura">Valor</label>
+                    </div>
                 </div>
                
                 <div class="row">
@@ -114,16 +132,6 @@
                             {/section}
                         </select>
                     </div>
-                    <div class="col s12 m3 hide">
-                        <div class="switch">
-                            <label>
-                            <input type="checkbox" id="servpro">
-                            <span class="lever"></span>
-                            Servicio Profesional
-                            </label>
-                            <input type="hidden" id="vservprofesional">
-                        </div>
-                    </div>
 
 
                 </div>
@@ -136,11 +144,11 @@
                 </div>
 
                 <div class="row" style="margin: 0;padding: 0">
-                    <div class="input-field col s12 m6" >
+                    <div class="input-field col s12 m6 precio" >
 
                         <span class="prefix moneda"></span>
 
-                        <input id="vprecio" type="text" class="eder" value="0">
+                        <input id="vprecio" type="text" class="eder" value="0" autocomplete="off">
                         <label for="vprecio">Precio</label>
 
                     </div>

@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Inventario</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventario.css?v=10.0.0.54">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-inventario.css?v=10.0.0.63">
 
   </head>
   <body>
@@ -33,7 +33,7 @@
                       <a href="productos" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Productos">Productos</a>
                     </div>
                     <div class="col s12 m6 l6 per4200">
-                      <a href="reportes" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Reportes</a>
+                      <a href="reportes?tr=4" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
                     </div>
 
 
@@ -59,6 +59,6 @@
       </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/inventario.js?v=10.0.0.54"></script>
+    <script src="../assets/js/modulos/inventario.js?v=10.0.0.63"></script>
   </body>
 </html>

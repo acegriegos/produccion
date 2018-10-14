@@ -542,7 +542,7 @@ function endDetail(vid,vacc,modulo){
 			thorload('vehiculo');
 			break
 	}
-	paginate($("ul.pagination").attr('vtbl'),undefined,',0,@@impresa');
+	paginate($("ul.pagination").attr('vtbl'),undefined,',1,@@impresa');
 	$(".validate").css('border-bottom', '1px solid #9e9e9e');
 	$(".validate").css('box-shadow', 'none');
 }

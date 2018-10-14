@@ -156,11 +156,6 @@ if (isset($_POST['respuestaXml'])) {
                 $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
                 $cli_id = "api-prod";
                 
-                // if ($_POST['prueba'] == 1) {
-                //     $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token";
-                //     $cli_id = "api-stag";
-                // }
-
                 $curl = curl_init($curl_hacienda);
                 curl_setopt($curl, CURLOPT_HEADER, true);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -233,7 +228,7 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
-                        $db->ejecutar("insert into ajustessucursales values(null,".$rs.",1,0,null,0,0,0,0,1)");
+                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi) values(null,".$rs.",1,0,null,0,0,0,0,1)");
                     }else{
                         $salida['error'] = 14;
                     }

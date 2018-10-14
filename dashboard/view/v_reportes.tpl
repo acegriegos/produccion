@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Reportes</title>
 {$STY}
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-reportes.css?v=10.0.0.54">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-reportes.css?v=10.0.0.63">
 </head>
 {$NAV}
 <body>
@@ -100,7 +100,7 @@
 {/if}
 {if $TR eq 1}
 <div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-truck-fast"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-truck-fast"></i>
 </a>
 <div class="row hide">
 <div class="col s12">
@@ -122,7 +122,7 @@
 {/if}
 {if $TR eq 2}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-cart-plus"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-cart-plus"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -144,7 +144,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-chart-bar"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-chart-bar"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -155,7 +155,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-account-card-details"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-account-card-details"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -166,7 +166,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-account-card-details"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-account-card-details"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -177,7 +177,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-briefcase-download"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-briefcase-download"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -188,7 +188,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-library-books"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-library-books"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -199,7 +199,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-chart-gantt"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-chart-gantt"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -210,7 +210,7 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"><i class="mdi-48px mdi mdi-gift"></i>
+<a class="report pbtn hide"><i class="mdi-48px mdi mdi-gift"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -232,6 +232,66 @@
 </div>
 {/if}
 
+{if $TR eq 4 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Inventarios General</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Existencias</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Costo Inventario</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Más Vendido</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="existencias"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Movimientos Inventario</p>
+</div>
+</div>
+</div>
+{/if}
+
 </div>
 </div>
 </div>
@@ -239,6 +299,6 @@
 <div id="mreportes"></div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.0.0.54"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.0.0.63"></script>
 </body>
 </html>

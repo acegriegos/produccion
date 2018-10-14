@@ -6,11 +6,11 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Reporte D-151</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.54">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.63">
 </head>
 <body class="black">
   <div class="principal contenedor" >
-      <div class="filtros row" porcliente entrefechas portipo="varios" tbltipos="123" tipos="Declaración" types="1" elem="@@impresa" sp="235" modulo="dinformativa"></div>
+      <div class="filtros row" porcliente entrefechas entrenumeros portipo="varios" tbltipos="123" tipos="Declaración" types="1" elem="@@impresa" sp="235" modulo="dinformativa"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -52,7 +52,7 @@
  
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.54"></script>
-  <script src="../assets/js/modulos/reportes/financiero.js?v=10.0.0.54"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.63"></script>
+  <script src="../assets/js/modulos/reportes/financiero.js?v=10.0.0.63"></script>
 </body>
 </html>

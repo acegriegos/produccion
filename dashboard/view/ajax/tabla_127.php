@@ -10,8 +10,6 @@
             <th class="white-text tab1" style="border: 0;  border-radius: 0px !important; width: 10%">Minimo</th>
             <th class="white-text tab1" style="border: 0;  border-radius: 0px !important; width: 10%">Maximo</th> 
             <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Cantidad</th>
-            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Costo individual</th> 
-            <th class="white-text tab1" style="border: 0;  border-radius: 0px !important;">Costo Total</th>
             
             
         </tr>
@@ -23,16 +21,14 @@
     ?>
 
      <tr>
-        <td style=" padding: 1px;"><?php echo $obj[12] ?></td>
+        <td style=" padding: 1px;"><?php echo $obj[8] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[4] ?></td>
-        <td style=" padding: 1px;"><?php echo $obj[19] ?></td>
-        <td style=" padding: 1px;"><?php echo $obj[18] ?></td> 
-        <td style=" padding: 1px;"><?php echo $obj[17] ?></td> 
-        <td style=" padding: 1px; width: 10%"><?php echo $obj[7] ?></td>
-        <td style=" padding: 1px; width: 10%"><?php echo $obj[8] ?></td> 
-        <td style=" padding: 1px;"><?php echo $obj[9] ?></td>
-        <td style=" padding: 1px;"><?php echo $obj[5] ?></td> 
-        <td style=" padding: 1px;"><?php echo $obj[6] ?></td>
+        <td style=" padding: 1px;"><?php echo $obj[11] ?></td>
+        <td style=" padding: 1px;"><?php echo $obj[10] ?></td> 
+        <td style=" padding: 1px;"><?php echo $obj[9] ?></td> 
+        <td style=" padding: 1px; width: 10%"><?php echo $obj[5] ?></td>
+        <td style=" padding: 1px; width: 10%"><?php echo $obj[6] ?></td> 
+        <td style=" padding: 1px;"><?php echo $obj[7] ?></td>
        
         
        <!--   <td style=" padding: 10px;">

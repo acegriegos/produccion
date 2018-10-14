@@ -1,13 +1,13 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.54">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.54">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.63">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.63">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.54"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.63"> -->
 
-<link href="../assets/css/modulos/style-factura.css?v=10.0.0.54">
+<link href="../assets/css/modulos/style-factura.css?v=10.0.0.63">
 
-<title>Recibo de Dinero</title>
+<title>Movimiento CxC</title>
 
 
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
@@ -95,8 +95,6 @@
         </div>
 
       </div>
-      <!-- /INFO CONTACTO -->
-       <input type="hidden" id="fcomentario" value="<?php echo $datos[3]; ?>">
       <!-- DETALLE FACT -->
       <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
         <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
@@ -143,7 +141,7 @@
   </div>
 </div>
 </div>
-<section class="hideonprint">
+<section class="hide">
   <div class="col s12 m3 l3 white-text">
     <br>
     <div id="correosclie">
@@ -169,11 +167,11 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js?v=10.0.0.54"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.63"></script>
 
-<script src="../assets/js/materialize.js?v=10.0.0.54"></script>
-<script src="../assets/js/asgard.js?v=10.0.0.54"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.54"></script>
+<script src="../assets/js/materialize.js?v=10.0.0.63"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.63"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.63"></script>
   <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

@@ -512,13 +512,13 @@
                 require_once '_config/mysqlDB.php';
             
                 $db = new DBClass();
-                $db->ejecutar('delete from permisosLogintech where id > 0');
+                //$db->ejecutar('delete from permisosLogintech where id > 0');
                 $db->ejecutar('truncate permisosLogintech');
 
-                $db->ejecutar('delete from permisosCliente where id > 0');
+                //$db->ejecutar('delete from permisosCliente where id > 0');
                 $db->ejecutar('truncate permisosCliente');
 
-                $db->ejecutar('delete from permisos where id > 0');
+                //$db->ejecutar('delete from permisos where id > 0');
                 $db->ejecutar('truncate permisos');
                 $str = 'INSERT INTO permisosLogintech values';
 
@@ -549,8 +549,14 @@
             
             if (!file_exists("assets/update/update.sql")) {
 
+<<<<<<< HEAD
                 shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --port=3358 --complete-insert --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipoestadocuentas  --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoexoneraciones --ignore-table=".$mdb.".tipoventas --ignore-table=".$mdb.".permisos --ignore-table=".$mdb.".permisosCliente --ignore-table=".$mdb.".permisosLogintech --ignore-table=".$mdb.".unidadeshacienda --ignore-table=".$mdb.".sysplanes --ignore-table=".$mdb.".sysmods > ./assets/update/info.sql");
                 shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --port=3358 --routines --events --triggers > ./assets/update/full.sql");
+=======
+                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --complete-insert --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".impuestos --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipodeclaraciones --ignore-table=".$mdb.".tipoestadocuentas --ignore-table=".$mdb.".tipomonedas --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoexoneraciones --ignore-table=".$mdb.".tipoventas --ignore-table=".$mdb.".permisos --ignore-table=".$mdb.".permisosCliente --ignore-table=".$mdb.".permisosLogintech --ignore-table=".$mdb.".unidadeshacienda --ignore-table=".$mdb.".sysplanes --ignore-table=".$mdb.".sysmods > ./assets/update/info.sql");
+
+                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
+>>>>>>> 1a20faf69df990bc665c69cd67877c582f81b815
 
                 $source = "https://logintechcr.com/descargas/struct.lt";
                 $ch = curl_init();

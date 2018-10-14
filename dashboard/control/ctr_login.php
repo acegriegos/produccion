@@ -41,9 +41,30 @@
               $_SESSION['CRR']     = $user[0][8];
               $_SESSION['BUSS']    = $user[0][12];
               $mod = 'main';
-              if ($user[0][12] == 1) {
-                $mod = 'facturacion';
+              
+              switch ($user[0][12]) {
+                case 0:
+                  $caja = $log->kamehameha('',253,'"'.str_replace(' ', '', $_SERVER['REMOTE_ADDR']).'"');
+                  
+                  if ($caja[0][0]) {
+                    if ($caja[0][1]) {
+                      $_SESSION['CAJA']    = 1;
+                      $mod = 'facturacion';
+                    }else{
+                      $_SESSION['CAJA']    = 0;
+                      $mod = 'facturacion?tf=6';
+                    }
+                  }else
+                    $_SESSION['CAJA']    = 0;
+                  break;
+                case 4:
+                  $mod = 'documentos';
+                  break;
+                default:
+                  $mod = 'facturacion';
+                  break;
               }
+
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
            }
@@ -131,7 +152,7 @@
           if (isset($_REQUEST['arreglo']['tit']))
             $tit = $_REQUEST['arreglo']['tit'];
            
-           include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php'; 
+          include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php';  
 		   	break;
         case 9:  //GENERAR SOLO XML
           $pagina = 1;
@@ -142,6 +163,17 @@
           $archivo = fopen('../assets/xml/'.$estado.' N°'.$_REQUEST['arreglo']['factura'].', '.$_REQUEST['arreglo']['sucursal'].'.xml', "w+");
           fwrite($archivo, $xml->getXMLRecepcion());
           fclose($archivo); 
+        break;
+      case 10: //SELECT CON COLUMNAS
+        $pagina = 1;
+        
+        if ($_REQUEST['arreglo']['header'] == 1)
+          $transaccion = $log->sel_col($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        else
+          $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        
+        include 'view/ajax/tabla_global.php'; 
+
         break;
       default:
         break;
