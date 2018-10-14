@@ -52,7 +52,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P3358 -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
         }
 
         public function cargarConfigFile($mdb)
@@ -101,7 +101,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P3358 -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
             unlink($destination);
             
@@ -133,7 +133,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P3358 -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
             
             unlink($destination);
         }
@@ -428,7 +428,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P3358 -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
             $source = "https://logintechcr.com/descargas/310169776129.p12";
             $ch = curl_init();
@@ -458,7 +458,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P3358 -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
             
             unlink($destination);
             
@@ -549,8 +549,8 @@
             
             if (!file_exists("assets/update/update.sql")) {
 
-                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --complete-insert --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipoestadocuentas  --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoexoneraciones --ignore-table=".$mdb.".tipoventas --ignore-table=".$mdb.".permisos --ignore-table=".$mdb.".permisosCliente --ignore-table=".$mdb.".permisosLogintech --ignore-table=".$mdb.".unidadeshacienda --ignore-table=".$mdb.".sysplanes --ignore-table=".$mdb.".sysmods > ./assets/update/info.sql");
-                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
+                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --port=3358 --complete-insert --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipoestadocuentas  --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoexoneraciones --ignore-table=".$mdb.".tipoventas --ignore-table=".$mdb.".permisos --ignore-table=".$mdb.".permisosCliente --ignore-table=".$mdb.".permisosLogintech --ignore-table=".$mdb.".unidadeshacienda --ignore-table=".$mdb.".sysplanes --ignore-table=".$mdb.".sysmods > ./assets/update/info.sql");
+                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --port=3358 --routines --events --triggers > ./assets/update/full.sql");
 
                 $source = "https://logintechcr.com/descargas/struct.lt";
                 $ch = curl_init();
@@ -573,8 +573,8 @@
                 file_put_contents('./assets/update/update.sql', $archivo);
             }
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P3358 -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P3358 -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
 
             $salida['update'] = 1;
 
@@ -582,7 +582,7 @@
 
                 $salida['update'] = 0;
 
-                shell_exec("mysql -u".$user." -p".$pass." ".$mdb." < ./assets/update/full.sql");
+                shell_exec("mysql -u".$user." -p".$pass." -P3358 ".$mdb." < ./assets/update/full.sql");
                 $salida['rollback'] = 1;
             }else{
                 #unlink("assets/update/info.sql");
