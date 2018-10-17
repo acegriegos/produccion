@@ -268,7 +268,7 @@ $(function(){
             if (rs[0].length){
                 $("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
                 $("#modal-usuario").modal('close');
-                $("#ncli").focus()
+                $("#codp").focus()
             }
             else{
                 Materialize.toast('Usuario no Valido',4000,'red');

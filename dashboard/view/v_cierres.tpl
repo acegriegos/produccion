@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col s12 m12 l12">
         <a class="btn waves-effect waves-light blue right" id="refresh" style="margin-left: 15px;"><i class="mdi mdi-refresh mdi-24px"></i>Actualizar</a>
-        <a class="waves-effect waves-light btn blue right tt" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
+        <a class="waves-effect waves-light btn blue right" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
         <a class="waves-effect waves-light btn blue right modal-trigger" style="margin-right:10px" href="#modal-cierres" data-position="bottom" data-delay="50" id="shcierre">Ver Cierres</a>
         <input type="hidden" class="zelda">
       </div>
@@ -148,6 +148,22 @@
           <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
       </div>
     </div>
+
+    <div id="modal-usuario" class="modal modal-fixed-footer mymodal">
+  <div class="modal-content" >
+    <h4 class="center">Autenticar Usuario</h4>
+   
+    <div class="input-field col s6 edescu container" style="width: 50%">
+        <input type="password" id="ecouser" autocomplete="off" maxlength="64" autosave="off">
+        <label for="ecouser">Código</label>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
+  </div>
+</div>
 
 
     {$SRC}

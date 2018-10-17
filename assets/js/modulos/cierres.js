@@ -1,7 +1,12 @@
+var config;
+var guser = '@@usr';
+
 $(function(){
-	arr('login',6,'',182,'@@usr',0,1,$("#listacierrespendientes"));
+	 config = getDatos('',42,'@@impresa',0,0)[0][0];
+	
+
 	if (parseInt($("#BUSS").val()) != 1) {
-		var monto = arr('login',4,'monto',404,'idusuario = @@usr and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
+		var monto = arr('login',4,'monto',404,'idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
 		if (monto == undefined) {
 			$(".tt").removeAttr('id')
 			$(".tt").addClass('tooltipped')
@@ -11,6 +16,40 @@ $(function(){
 		}
 	}
 	
+	$("#ecouser").keyup(function(e){
+        var code = e.wich || e.keyCode;
+
+        if (code == 13)
+            $("#accecouser").click();
+    });
+
+    $("#exitcouser").click(function(){
+        $("#modal-usuario").modal('close');
+        $("#shcierre").attr('disabled',true);
+        $("#chkcierre").attr('disabled',true)
+    });
+
+     $("#accecouser").click(function(){
+
+        var cod =  $("#ecouser").val();
+        var rs = getDatos('',137,'"'+cod+'"',0,0,0);
+        if(parseInt(rs['succed'])){
+            if (rs[0].length){
+                //$("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
+                arr('login',6,'',182,rs[0][0][0],0,1,$("#listacierrespendientes"));
+                $("#modal-usuario").modal('close');
+                guser = rs[0][0][0];
+            }
+            else{
+                Materialize.toast('Usuario no Valido',4000,'red');
+                $("#ecouser").focus().select();
+
+            }
+        }else{
+            Materialize.toast('Usuario no Valido',4000,'red');
+             $("#ecouser").focus().select();
+        }
+     });
 
 	$('.chips').material_chip();
 
@@ -48,7 +87,7 @@ $(function(){
 	});
 
 	$("#shcierre").click(function(){
-		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'idusuario = @@usr',0,0)[0];
+		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'idusuario = '+guser+'',0,0)[0];
 		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
 
 		for (var i = 0; i < datos.length; i++) {
@@ -61,6 +100,16 @@ $(function(){
 	});
 
 	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
+
+	if (parseInt(config[11]) == 3){
+        
+        $("#modal-usuario").modal({
+	        dismissible:false
+	    });
+	    $("#modal-usuario").modal('open');
+	    $("#ecouser").focus();
+	}else
+		arr('login',6,'',182,guser,0,1,$("#listacierrespendientes"));
 });
 
 $(document).on("click","#refresh",function(){
@@ -68,7 +117,7 @@ $(document).on("click","#refresh",function(){
 	var tabla2 = $("#data-table-estadocuenta").DataTable();
 	tabla1.destroy();
 	tabla2.destroy();
-	arr('login',6,'',182,'@@usr',0,1,$("#listacierrespendientes"));
+	arr('login',6,'',182,guser,0,1,$("#listacierrespendientes"));
 	$("#data-table-facturas").DataTable({
 	    bFilter: false,
 	    bScrollInfinite: true,
@@ -97,14 +146,14 @@ $(document).on("click","#refresh",function(){
 });
 
 $(document).on("click","#chkcierre",function(){
-
+/*
 	var cajainicial
 	if (parseInt($("#BUSS").val()) != 1 ) {
-		cajainicial = arr('login',4,'monto',404,'idusuario =@@usr and idsucursal=@@impresa and fmonto is null',0,0,0,0)[0][0][0];
+		cajainicial = arr('login',4,'monto',404,'idusuario ='+guser+' and idsucursal=@@impresa and fmonto is null',0,0,0,0)[0][0][0];
 	}else
 		cajainicial = 0;
-	
-	$("#totcashier").text(cajainicial);
+	*/
+	$("#totcashier").text(0);
 
 	if (!$(this).hasClass('tooltipped')) {
 		if ($(this).attr('vfecha') == undefined) {
@@ -117,6 +166,7 @@ $(document).on("click","#chkcierre",function(){
 	}
 	
 });
+
 
 $(document).on("click",".filacierre",function(){
 	var id = $(this).attr('id');
@@ -149,10 +199,10 @@ $(document).on("click","#totalizar",function(){
 
 $(document).on("click","#docierre",function(){
 	var total = $(".zelda").data('triforce')['vtotal'];
-	// var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = @@usr and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
+	// var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
 	// var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 
-	var idcierre = arr('login',4,'',189,'@@usr,@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
 
 	if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
@@ -177,7 +227,7 @@ $(document).on("click",".getfacturas",function(){
 	var tabla = $("#data-table-facturas").DataTable();
 	tabla.destroy();
    
-    arr('login',6,'',183,'"'+fecha+'",@@usr,@@impresa',0,1,$("#listafacturas"));
+    arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa',0,1,$("#listafacturas"));
 
 	$("#tcontado").text($("#hidet").attr('tcon'));
 	$("#tcredito").text($("#hidet").attr('tcre'));
@@ -194,11 +244,11 @@ $(document).on("click",".getfacturas",function(){
 	    info: false
 	});
 
-	arr('login',6,'',185,'"'+fecha+'",@@usr',0,1,$("#listanotasabonos"));
+	arr('login',6,'',185,'"'+fecha+'",'+guser+'',0,1,$("#listanotasabonos"));
 	// cambiar
-var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
-	var tnotcre = arr('login',4,'monto',187,'idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0];
-	var tnotdeb = arr('login',4,'monto',188,'idusuario = @@usr and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0];
+var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and idusuario = '+guser+' and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0][0];
+	var tnotcre = arr('login',4,'monto',187,'idusuario = '+guser+' and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0];
+	var tnotdeb = arr('login',4,'monto',188,'idusuario = '+guser+' and (date_format(fecha,"%Y-%m-%d") = "'+fecha+'" or date_format(fecha,"%Y/%m/%d") = "'+fecha+'")',0,0,0)[0][0];
 	// end cambiar
 
 	if (tabono != null)
@@ -223,10 +273,10 @@ $(document).on("click","#filtro",function(){
 
 $(document).on("click","#order",function(){
 	if ($(this).attr('value') == 1) {
-		arr('login',6,'contador,fecha',182,'idusuario = @@usr order by fecha asc',0,1,$("#listacierrespendientes"));
+		arr('login',6,'contador,fecha',182,'idusuario = '+guser+' order by fecha asc',0,1,$("#listacierrespendientes"));
 		$("#order").attr('value',2);
 	}else{
-		arr('login',6,'contador,fecha',182,'idusuario = @@usr order by fecha desc',0,1,$("#listacierrespendientes"));
+		arr('login',6,'contador,fecha',182,'idusuario = '+guser+' order by fecha desc',0,1,$("#listacierrespendientes"));
 		$("#order").attr('value',1);
 	}
 });

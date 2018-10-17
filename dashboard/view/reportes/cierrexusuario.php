@@ -7,7 +7,7 @@
 <body class="grey darken-4" style="font-size: 1.1em;" >
   <div class="hoja grey lighten-5" style="padding: 0% 1% 1% 1%;">
     <div class="row">
-     <div class="row"> 
+     <div class="row" style="display: none"> 
         <div class="col s6 m5 l3">
           <br>
           <img src="../assets/img/logo.png" class="img-responsive" width="40%">
@@ -38,9 +38,9 @@
     <!-- INFO CONTACTO -->
     <div class="row">
     <br>
-      <div class="col s6 m6 l4 left-align" style="padding: 0">
+      <div class="col s6 m6 l4" style="padding: 0">
         <div class="col s12 m12" >
-          <table style=" width: 60%" >
+          <table>
             <tbody >
               <tr>
                 <th class="left-align " style="padding: 1%; font-size: 1.2em;">Facturas contado:</th>
@@ -105,7 +105,7 @@
             </table>
         </div>
       </div>
-      <div class="col s6 m6 l4"  style="padding: 0">
+      <div class="col s6 m6 l4"  style="padding: 0;display: none">
           <div class="col s12 m12"  style="padding: 0">
             <table style=" width: 70%" >
               <tbody >
@@ -138,7 +138,7 @@
      
       <!-- /INFO CONTACTO -->
       <!-- DETALLE FACT -->
-      <table class="bordered" style="border: 0px; font-size: 1em;" id="detalle">
+      <table class="bordered hide" style="border: 0px; font-size: 1em;display: none" id="detalle">
         <thead>
           <tr>
             <th class="center-align"></th>
@@ -173,7 +173,7 @@
       <!-- /DETALLE FACT -->
       <br>
       <!-- DETALLE FACT -->
-      <table class="bordered" style="border: 0px; font-size: 1em;" id="detalle">
+      <table class="bordered hide" style="border: 0px; font-size: 1em;display: none" id="detalle">
         <thead>
           <tr>
             <th class="center-align"></th>
