@@ -36,9 +36,9 @@
               <ul class="head2">
                 <li><a href="#!" value="0" class="otpmenu white-text {if $smarty.session.BUSS neq 1} hide {/if}" id="x1">Información</a></li>
                 <li><a href="#!" value="1" class="otpmenu white-text {if $smarty.session.BUSS neq 1} hide {/if}" id="x2">Notificaciones</a></li>
-                <li><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 1} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true""></i> Usuario</a></li>
+                <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 1} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true""></i> Usuario</a></li>
                 <li><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true""></i>Cierre de Caja</a></li>
-                <li><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-settings mdi-24px right white-text" aria-hidden="true""></i>Ajustes</a></li>
+                <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-settings mdi-24px right white-text" aria-hidden="true""></i>Ajustes</a></li>
                 <li><a href="#!" value="4" class="otpmenu white-text" id="x4"><i class="mdi mdi-information mdi-24px right white-text" aria-hidden="true""></i>Info Sistema</a></li>
 
               </ul>
@@ -80,28 +80,50 @@
   <li class="gtext">
       <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Facturación</span></a>
       <ul id='dropfact' class='dropdown-content'>
-        <li><a href="facturacion?tf=1">Ventas</a></li>
-        <li><a href="facturacion?tf=4">Proformas</a></li>
-        <li><a href="facturacion?tf=2">Compras</a></li>
+        <li class="per1100"><a href="facturacion?tf=1">Ventas</a></li>
+        <li class="per1600"><a href="facturacion?tf=4">Proformas</a></li>
+        <li class="per2100"><a href="facturacion?tf=2">Compras</a></li>
       </ul>
+
     </li>
     <li class="gtext">
       <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a>
       <ul id='dropfact_0' class='dropdown-content'>
-        <li><a href="clientes">Mantenimiento</a></li>
-        <li><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
+        <li class="per1000"><a href="clientes">Mantenimiento</a></li>
+        <li class="per3200"><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
       </ul>
+
     </li>
     <li class="gtext">
       <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_1'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Proveedores</span></a>
       <ul id='dropfact_1' class='dropdown-content'>
-        <li><a href="proveedores">Mantenimiento</a></li>
-        <li><a href="cuentas?tf=2">Cuentas por Pagar</a></li>
+        <li class="per2000"><a href="proveedores">Mantenimiento</a></li>
+        <li class="per3300"><a href="cuentas?tf=2">Cuentas por Pagar</a></li>
       </ul>
+
     </li>
-    <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
-    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
-    <li class="gtext"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+    <li class="gtext per4100"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
+    <li class="gtext per3400"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
+    <li class="gtext per1500"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+    {literal}
+      <script type="text/javascript">
+        window.addEventListener('load', function () {
+          permisos(1100,1100);
+          permisos(1600,1600);
+          permisos(2100,2100);
+          permisos(1000,1000);
+          permisos(3200,3200);
+          permisos(2000,2000);
+          permisos(3300,3300);
+          permisos(4100,4100);
+          permisos(3400,3400);
+          permisos(1500,1500);
+          permisos(6100,6100);
+          permisos(7100,7100);
+          permisos(7200,7200);
+        }, false);
+      </script>
+      {/literal}
 {php} break; case 1: {/php}
     <li class="gtext">
       <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Facturación</span></a>
@@ -117,7 +139,7 @@
     <li class="gtext"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     
 {php} break; } {/php}
-  <li class="gtext"><a href="documentos"><i class="mdi mdi-file-document mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Documentos Electrónicos</span></a></li>
+  <li class="gtext per12"><a href="documentos"><i class="mdi mdi-file-document mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Documentos Electrónicos</span></a></li>
     <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
 </ul>
