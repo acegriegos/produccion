@@ -233,8 +233,9 @@
             <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Descuento</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><b>Total</b></div>
             <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
+
           </div>
-          
+         
         </section>
 
         <section class="trOCompra hide">
@@ -319,10 +320,9 @@
              <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
           </div>
-
         </div>
 
-        <div class="trCompra hide trsec hide-on-med-and-down">
+        <div class="trCompra hide trsec hide-on-med-and-down row">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
             <input type="hidden" id="valores">
@@ -370,6 +370,23 @@
           </div>
 
         </div>
+
+        <div class="trCompra hide trsec hide-on-med-and-down row">
+          <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad</b></div>
+          <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Precio Público</b></span></div>
+        </div>
+
+        <div class="trCompra hide trsec hide-on-med-and-down row">
+
+          <div style="padding: 0px 5px !important" class="input-field col s2">
+            <input type="text" class="f center" id="putil" min="1" value="0" placeholder="Utilidad" autocomplete="off">
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s3">
+            <input type="text" class="f center" id="pventa" min="1" value="0" placeholder="Precio Venta" autocomplete="off">
+          </div>
+        </div>
+
       </div>
       <div class="trcompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">

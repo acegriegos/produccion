@@ -75,7 +75,7 @@ $logo = '<tr align="center">
     <td>
       <img src="'.$miscelaneos[3].'" alt="LOGO" width="60%">
     </td>
-    </tr><br><br>';
+    </tr>';
 
 echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;position:fixed;padding: 10px;
     font-weight: 600;
@@ -86,11 +86,10 @@ echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;
     border: 2px solid #0016b0">Imprimir</button>';
 
   echo '<div class="container"  >
-  <br><br>
 <table>';
 
-if($miscelaneos[3] != '')
-  echo $logo;
+/*if($miscelaneos[3] != '')
+  echo $logo;*/
 
 /*echo '<tr align="center" ><td style="padding: 6px 5px !important">';
 
@@ -145,7 +144,7 @@ echo '<br> '.$miscelaneos[6].'
 
 <table>
   <tr>
-    <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
+    <td colspan="2">Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
   </tr>';
   if ($datos[4] != '') {
     echo '<tr '.$ocultar.'>
@@ -298,18 +297,19 @@ echo '
       var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        resol = "ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
+        resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }
 
       $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);
 
       if ($("#ttipo").val() != 1) {
         $(".ncontado").show();
+        if (config9) {
+          $(".recibo").show();
+        }
       }
 
-      if (config9) {
-        $(".recibo").show();
-      }
+      
 
       param = getParameterByName('fp');
       param = param == '' ? 0 : parseInt(param) ;

@@ -52,7 +52,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
         }
 
         public function cargarConfigFile($mdb)
@@ -101,7 +101,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
             unlink($destination);
             
@@ -133,7 +133,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
             
             unlink($destination);
         }
@@ -428,7 +428,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
             $source = "https://logintechcr.com/descargas/310169776129.p12";
             $ch = curl_init();
@@ -458,7 +458,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
             
             unlink($destination);
             
@@ -574,8 +574,8 @@
                 file_put_contents('./assets/update/update.sql', $archivo);
             }
 
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
-            shell_exec("mysql -u".$user." -p".$pass." -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
 
             $salida['update'] = 1;
 
@@ -583,7 +583,7 @@
 
                 $salida['update'] = 0;
 
-                shell_exec("mysql -u".$user." -p".$pass." ".$mdb." < ./assets/update/full.sql");
+                shell_exec("mysql -u".$user." -p".$pass."  ".$mdb." < ./assets/update/full.sql");
                 $salida['rollback'] = 1;
             }else{
                 #unlink("assets/update/info.sql");
