@@ -194,7 +194,7 @@
         <div class="row">
             <div class="input-field col s12 m7">
                 <span id="buscarcli" class="prefix medium mdi-magnify mdi mdi-24px blue-text "></span>   
-                <input  type="text" id="ncli" maxlength="100" num="v29" var="nombre">
+                <input  type="text" id="ncli" maxlength="100" num="v29" var="nombre" autocomplete="off">
                 <input type="hidden" id="hclie" value="0">
                 <label for="ncli">Buscar Cliente</label>
             </div>
@@ -222,8 +222,16 @@
                             <input class="" id="comentario" type="text" name="comentario">
                             <label for="comentario">Comentario</label>
                         </div>
-                        <div class="input-field col offset-s6 offset-m6 right">
-                            <button id="btnPagar" type="button" class="btn btn-flat btn1 white-text waves-effect">Pagar</button>
+                        <div class="input-field col s6 m6">
+                            <select type="select" id="idtipopagopagar">
+                                <option value="0" disabled selected style="font-size: 1.2em !important">Tipo de Pago</option>
+                                {section name=LE loop=$TIPOPAGO}
+                                <option value="{$TIPOPAGO[LE][0]}">{$TIPOPAGO[LE][1]}</option>
+                                {/section}
+                            </select>
+                        </div>
+                        <div class="col s6 m6">
+                            <button id="btnPagar" type="button" class="der btn btn-flat btn1 white-text waves-effect">Pagar</button>
                         </div>
                     </div>
                 </div>

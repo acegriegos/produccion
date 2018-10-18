@@ -8,13 +8,16 @@ $(function(){
 		case 2:
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,2+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
+			gtipo = 2;
 			break;
 		default:
 			param = 1;
+			gtipo = 1;
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 			break;
 	};
+	$('select').material_select();
 
 	$("#ncli").keydown(function(e){
 		var charCode = e.which || e.keyCode;
@@ -29,41 +32,43 @@ $(function(){
 	});
 
 	$("#ncli").blur(function(e){
-		var sql = "id > 0 and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"'";
-		var id = arr('login',4,'id','2',sql,0,0,0);
+		var sql = "id > 0 and !bisproveedor and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"' limit 1";
+		var id = arr('login',4,'id',2,sql,0,0,0);
+		console.log(id)
 		var tabla = $("#data-table-facturas").DataTable();
 		tabla.destroy();
 		if ($(this).val() != '') {
 			if(id[0].length == 0) {
 				Materialize.toast('Cliente no existente', 4000, 'red');
+				$("#listaCuentasPm").html('');
 				$("#hclie").val(0)
 			}else{
-				var pr = paramTemp == 2 ? 1 : 2;
-				var p = arr('login',4,'',214,pr+',0,'+id[0][0][0]+',0',0,0,0);
+				var p = arr('login',4,'',214,paramTemp+',0,'+id[0][0][0]+',0,0,@@impresa',0,0,0);
 				var tabla = $("#listaCuentasPm");
 				tabla.html('');
 				for (var i = 0; i < p[0].length; i++) {
 					var q = p[0][i];
-					var check = '<td> <input type="checkbox" id="check'+i+'" value="'+q[12]+'" class="factclie"/><label for="check'+i+'"></label> </td>'; 
+					var check = '<td> <input type="checkbox" id="check'+i+'" value="'+q[12]+'" vl="'+q[14]+'" class="factclie"/><label for="check'+i+'"></label> </td>'; 
 					var tdFecha = '<td>'+q[5]+'</td>';
 					var tdSaldo = '<td>'+q[6]+'</td>';
 					var trIdFactura = '<tr>'+check+'<td>'+q[3]+'</td>'+tdFecha+tdSaldo+'</tr>';
 					tabla.append(trIdFactura);
 				}
 				$("#data-table-facturas").dataTable({
-					 bFilter : true,
-        bScrollInfinite : true,
-        bSort : true,
-        bLengthChange : true,
-        bPaginate :  false,
-        bInfo : false,
-		order : [],
-		"bLengthChange": false
+					bFilter : true,
+			        bScrollInfinite : true,
+			        bSort : true,
+			        bLengthChange : true,
+			        bPaginate :  false,
+			        bInfo : false,
+					order : [],
+					"bLengthChange": false
 				});
 				$("#hclie").val(id);
+				$("#monto").focus().select();
 			}
 		}
-	});
+});
 
 	$("#ncli").keyup(function(e){
 		var charCode = e.which || e.keyCode;
@@ -161,28 +166,72 @@ $(document).on("click",".pagomu",function(){
         bPaginate: false,
         info: false
 	});
+
+	$("#ncli").focus().select();
 });
 
 $(document).on("click","#btnPagar",function(){
 	var validado = validarpago();
+
 	if (validado == false) {
 		// ingresar a estadoscuentas
 
 		// ingresar pagosvarios
 		// var idpago = arr('login',4,'',410,'0,"1990-01-01",@@usr,@@impresa',0,0,0)[0][0];
 		// var idcliente = $("#hclie").val();
-
-		$(".factclie").each(function(){
-			if ($(this).is(":checked")) {
-				var idfactura = $(this).val();
+		var monto = $("#monto").val().replace(',','');
+		var idfactura = val = vmonto = idestadocuenta = 0;
+		if ($(".factclie:checked").length) {
+			$(".factclie:checked").each(function(){
+				idfactura = $(this).val();
+				val = parseFloat($(this).attr('vl'));
+				monto -= val;
 				var idestadocuenta = arr('login',4,'',300,'1,0,7,1,idfactura,@@usr,monto,debe,haber,0,idtipopago,comentario',0,0,0)[0][0];
-			}
-		});
+			});
+		}else{
+
+			$(".factclie").each(function(){
+				idfactura = $(this).val();
+				val = parseFloat($(this).attr('vl'));
+				monto -= val;
+				if(monto > 0){
+					vmonto = val;
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
+				}
+				else{
+					vmonto = monto;
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
+					return false;
+				}
+				
+				
+				
+			});
+		}
+
+		Materialize.toast('Pagos Realizados Exitosamente',4000,'green');
+		arr('login',6,'',214,gtipo+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
+		$("#ncli").val('')
+		$("#listaCuentasPm").html('');
+		$("#hclie").val(0)
+		$("#monto").val('');
+		$("#comentario").val('');
+		$("#idtipopagopagar").val(0).material_select('update');
+		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+		//window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+		
+	}else{
+		Materialize.toast(validado,4000,'red')
 	}
+
+	
 });
 
 function validarpago() {
 	//validar
+	if($("#idtipopagopagar option:selected").val() == 0){
+		return 'Tipo de Pago Requerido'
+	}
 	return false;
 }
 
@@ -201,7 +250,6 @@ $(document).on("click",".detalle",function(){
 	arr('login',6,'',213,gtipo+','+id+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
 	
 	var dias = parseInt(datos[7]);
-	$('select').material_select();
 	$("#ifac").text(datos[3]);
 	$("#vidfactura").val(datos[12]);
 	$("#isaldo").text(datos[6]);

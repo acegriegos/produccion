@@ -2,15 +2,15 @@
 
 <div class="row">
    <div class="hide-on-large-only row mstatic" style="background-color: #e2e2e2">
-      <div class="col s4 center">
+      <div class="col s4 center" style="cursor: pointer;">
         <input type="radio" name="ubfactura" val="1" id="ubfact1" checked>
         <label for="ubfact1" >Info</label>
       </div>
-      <div class="col s4 center">
+      <div class="col s4 center" style="cursor: pointer;">
         <input type="radio" name="ubfactura" val="2" id="ubfact2">
         <label for="ubfact2" >Detalle</label>
       </div>
-      <div class="col s4 center">
+      <div class="col s4 center" style="cursor: pointer;">
         <input type="radio" name="ubfactura" val="3" id="ubfact3">
         <label for="ubfact3" >Desgloce</label>
       </div>
@@ -105,7 +105,7 @@
     </div>
   </div>
 
-  <div class="row finmanual gen hide">
+  <div class="row finmanual geni hide">
     <br>
     <div class="col s12 l3 input-field">
       <select id="vtipointeres">
@@ -857,7 +857,7 @@
 <!--  -->
 <!-- FOOTER -->
   <div class="modal-footer">
-    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1">ACEPTAR</a>
+    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1" style="cursor: pointer;">ACEPTAR</a>
   </div>
 </div>
 

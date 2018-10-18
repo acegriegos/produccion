@@ -1,6 +1,7 @@
 var w;
 var str_correos = '';
 var tmp_correos = '';
+var punidad = 0;
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
@@ -549,6 +550,43 @@ $(document).on("keyup","#ajuste",function(){
     totalizar();
 });
 
+$(document).on("keyup",".fventa",function(e){
+    var code = e.which || e.keyCode;
+    if (code == 13)
+        $(this).blur();
+    
+});
+
+$(document).on("change","#uni",function(){
+
+    if (!parseInt(punidad))
+        punidad = parseFloat($('option:selected',this).attr('cant'));
+    else{
+        var pbase = parseFloat($("#precp").val().replace(/,/g,''))*(1/parseFloat(punidad));
+        punidad = parseFloat($('option:selected',this).attr('cant'));
+        var pfinal = pbase*punidad;
+        $("#precp").val(pfinal.formatMoney(2,'.',','));
+        $("#valores").data('elemento')['hprec'] = pfinal;
+        $("#cantp").focus().select();
+    } 
+    
+});
+
+$(document).on("blur",".fventa",function(){
+    var valor = $(this).val();
+    if (isNaN(valor)) {
+        $("#codp").focus();
+        return false;
+    }
+
+    var impuesto = $(this).attr('imp');
+    var valor = valor/(1+(impuesto/100))
+    var id = $(this).attr('id').substr(9);
+    $("#fd"+id).data('triforce')['vprecio'] = valor;
+    totalizar();
+    $("#codp").focus();
+});
+
 $(document).on("click",".delf",function(){
     var id = $(this).attr('id').substr(3);
     $("#fd"+id).remove();
@@ -837,10 +875,13 @@ function totalizar(){
 
                 rimv = parseFloat($(this).data('valores')['vmonto']);
                 iimv = $(this).data('valores')['vid'];
-                
-                if(eimv >= 100 && exov == '') { 
+                console.log(eimv+' '+exov)
+                if(parseInt(eimv) >= 100 && (exov == '' || !parseInt(exov))) { 
                     //PRODUCTOS O CLIENTES EXENTOS
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
+                    $("#fastVenta"+vidlinea).val(tmpdesc);
+                    $("#fastVenta"+vidlinea).attr('imp',0);
+                    exento += tmpdesc;
                 }else{ 
                     //PRODUCTOS O CLIENTES GRABADOS Y EXONERADOS
                     simv = parseFloat(tmpdesc*(rimv/100)).toFixed(5);
@@ -850,6 +891,8 @@ function totalizar(){
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] += iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(simv).toFixed(5)+','+eimv+']';
                     var im_variable = parseFloat($("#imv_"+iimv).html().replace(/,/g,''))+parseFloat(dimv)
                     $("#imv_"+iimv).html((im_variable/divisa).formatMoney(2,'.',','));
+
+                    $("#tota"+vidlinea).html((parseFloat($("#tota"+vidlinea).html().replace(/,/g,''))+parseFloat(dimv)).formatMoney(2,'.',','))
                 }
             }else{
                 exento += tmpdesc;
@@ -1147,7 +1190,7 @@ function cargarProducto(kbrota,elemento) {
                     break;
             }
         }else{
-            endCargarProducto(cod[9],cod[19]);   
+            endCargarProducto(cod[9],cod[19],cod[21]);   
         }
 
         Materialize.updateTextFields()
@@ -1167,10 +1210,10 @@ function cargarProducto(kbrota,elemento) {
     }
 }
 
-function endCargarProducto(exo,cod){
+function endCargarProducto(exo,cod,pesaje){
     var modselec = $("input[name='modselected']:checked").val();
 
-    if (modselec == 1 || cod != 0) {
+    if (modselec == 1 || cod == 3) {
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
 
@@ -1203,11 +1246,18 @@ function endCargarProducto(exo,cod){
         }
         
     }else{
-        $("[for=iva]").addClass('hide');
-        $("#iva").attr('checked',false);
-        var e = jQuery.Event("keyup");
-        e.which = 13;
-        $("#cantp").trigger(e);
+        if (!parseInt(pesaje)) {
+            $("[for=iva]").addClass('hide');
+            $("#iva").attr('checked',false);
+            var e = jQuery.Event("keyup");
+            e.which = 13;
+            $("#cantp").trigger(e);
+        }else{
+            $("[for=iva]").removeClass('hide');
+            $("#iva").attr('checked',false);
+            $("#cantp").focus().select();
+        }
+        
     }     
 }
 
@@ -1216,11 +1266,12 @@ function cargarunidades(vidproducto,vunidad) {
     var unis = getDatos('',250,vidproducto,0,0,0)[0];
 
     $.each(unis, function(index, valor) {
-        uni += '<option value="'+valor[0]+'">'+valor[1]+'</option>';
+        uni += '<option value="'+valor[0]+'" cant="'+valor[2]+'">'+valor[1]+'</option>';
     });
     $("#uni").html(uni);
     $("#uni").val(vunidad);
     $("#uni").material_select('update');
+    $("#uni").change();
 }
 
 function endDetail(vid,vacc,vmodulo) {

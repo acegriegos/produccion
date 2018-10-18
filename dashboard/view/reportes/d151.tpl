@@ -14,7 +14,9 @@
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
-        <img src="../assets/img/logo.png" class="img-responsive" style="width: 60%">
+        {if $MIS[3]}
+        <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
+        {/if}
       </div>
       <div class="col s4 m4 l4" align="center">
         <font size="3">
