@@ -895,7 +895,7 @@ $(document).on("click",".salidainv",function(){
     var id = $(this).attr('id').substr(1);
     var bod = arr('login',4,'*',41,'idsucursal in(@@impresa, -1)',0,0,0)[0];
     var p = arr('login',4,'',410,id+',0',0,0,0)[0][0];
-    var cant = arr('login',4,'replace(sum(cantidad),".00","")',97,'1',0,0,0)[0][0];
+    var cant = arr('login',4,'format(sum(cantidad),2)',97,'1',0,0,0)[0][0];
     $("#cantinv").text(cant);
     $("#inidbodega").val(0);
     $("#idinventario").val(0);
@@ -905,6 +905,7 @@ $(document).on("click",".salidainv",function(){
     $("#nomprod").text(p[0]);
     $("#prodcant").text(p[1])
     $("#inidbodega").text('');
+    $("[for=vincantidad]").html('Cantidad Entrante ('+p[2]+')');
     $("#outidbodega").text('');
     $("#destidbodega").text('');
     $("#movidbodega").text('');
@@ -954,7 +955,9 @@ $(document).on("click","#actinv",function(){
     var validar = validarMovimiento(elem);
 
     if (validar == false){
-        var mov = arr('login',4,'',114,vacc+","+idprod+","+idinv+","+newinv+","+cantidad+",\""+comentario+"\",@@usr,@@impresa",0,0,0)[0][0];
+        var mov = arr('login',4,'',114,vacc+","+idprod+","+idinv+","+newinv+","+cantidad+",\""+comentario+"\",@@usr,@@impresa",0,0,0);
+        console.log(mov);
+        mov = mov[0][0];
         var max = arr('login',4,'maximo',11,'id = '+idprod,0,0,0)[0][0];
         if (parseFloat(mov[0]) > parseFloat(max)) {
             Materialize.toast('Alerta: Producto está sobre el maximo de cantidad', 6000, 'amber lighten-2');
@@ -1900,6 +1903,13 @@ function validarproductos() {
 	if (isNaN($("#vgganancia").val().replace(/,/g,''))) {
 		$("#vgganancia").val(0);
 	}
+
+	if($("#pesaje").is(":checked")){
+		$("#fproductos .zelda").data('triforce')["visgravamen"] = 1;
+	}else{
+		$("#fproductos .zelda").data('triforce')["visgravamen"] = 0;
+	}
+
 	if($("#variable").is(":checked")){
 		$("#fproductos .zelda").data('triforce')["visvariable"] = $("#variable").attr('ische');
 	}else{
@@ -2173,7 +2183,14 @@ function postload(vmodulo){
 		    setTimeout(function(){$("#vfamilia").focus();},500);
 		    var vventa = $("#vventa").val().replace(/,/g,'') * (( (vimp*(1-($("#vexoneracion").val().replace(/,/g,'')/100)) )/100)+1);
 		    $("#vventa").val(vventa.formatMoney(2,'.',','));
-		   
+		   	
+		    if(parseInt($("#fproductos .zelda").data('triforce')['visgravamen'])){
+		    	$("#pesaje").prop('checked',true);
+		    }
+		    else{
+		    	$("#pesaje").prop('checked',false);
+		    }
+
 		    if(parseInt($("#fproductos .zelda").data('triforce')['visvariable'])){
 		    	$("#variable").prop('checked',true);
 		    }

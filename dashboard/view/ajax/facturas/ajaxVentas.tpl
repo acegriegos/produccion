@@ -23,7 +23,7 @@
   <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
   {if $smarty.session.CAJA eq 1}
-  <a class="btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" onclick="cargarFacturas();"><span class="white-text" id="cantFact"></span></a>
+  <a class="trVenta hide btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" onclick="cargarFacturas();"><span class="white-text" id="cantFact"></span></a>
   {/if}
 </p>
   
@@ -189,7 +189,7 @@
     <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" ></a>
     
     {if $smarty.session.BUSS eq 0}
-    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
+    <a href="#modal-devoluciones" class="hide mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
     {/if}
  </div>
 
@@ -227,9 +227,9 @@
           <div class="hide-on-med-and-down">
             <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
             <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
+            <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Cantidad</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><b>Costo</b></div>
-            <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Descuento</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><b>Total</b></div>
             <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
@@ -332,18 +332,18 @@
             <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
           </div>
 
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1 _uni">
+            <select id="uni" readonly >
+              <option value="1">Unid</option>
+            </select>
+          </div>
+
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
             <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <select id="uni" readonly >
-              <option value="1">Unid</option>
-            </select>
           </div>
 
           <div class="input-field col s12 m1">
@@ -633,7 +633,7 @@
 </div>
 
 <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 400px;">
-   <div class="modal-header head3 center" style="font-size: 22px;">Agregar Cliente</div>
+   <div class="modal-header head3 center" id="titagcli" style="font-size: 22px;">Agregar Cliente</div>
   <div class="modal-content">
 
     <div class="row">
@@ -922,4 +922,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.63"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.64"></script>

@@ -10,8 +10,8 @@
 
     $data = (array)json_decode($data);
 
-    if (isset($data['results'][0]->type)) {
-        switch ($data['results'][0]->type) {
+    if (isset($data['results'][0]->class)) {
+        switch ($data['results'][0]->class) {
             case 'N':
                 $tipo = 1;
                 $name = trim($data['results'][0]->firstname1.' '.$data['results'][0]->firstname2);

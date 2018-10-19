@@ -228,6 +228,13 @@
                       Producto Variable
                     </label>
                 </div>
+                <div class="row col s12 switch">
+                    <label class="col s4">
+                      <input type="checkbox" id="pesaje">
+                      <span class="lever tooltipped " data-tooltip="Define si el Producto varía por el Peso" data-position="button"></span>
+                      Producto de Pesaje
+                    </label>
+                </div>
             {if $smarty.session.BUSS eq 3}
                 <div class="row col s12 switch">
                     <label class="col s4">
@@ -554,4 +561,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.63"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.64"></script> -->

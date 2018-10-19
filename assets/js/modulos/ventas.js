@@ -88,13 +88,13 @@ $(function(){
     });
     
     $("#addclie").click(function(){
-        if($("#slideCorreo").data('fila1') == undefined){
+        if($("#slideCorreo").data('fila1') == undefined && param.toString().match(new RegExp(/[145678]/i))){
             Materialize.toast('Correo sin Asignar',4000,'red');
             $("#slideCorreo").click();
             return false;
         }
-
-        var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap2").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,0,0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id',0,0,0);
+        var isprov = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
+        var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap2").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,'+isprov+',0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id',0,0,0);
  
         if(pr.succed){
             pr = pr[0][0][0];
@@ -558,7 +558,7 @@ $(document).on("keyup",".fventa",function(e){
 });
 
 $(document).on("change","#uni",function(){
-
+    if (param ) {}
     if (!parseInt(punidad))
         punidad = parseFloat($('option:selected',this).attr('cant'));
     else{
@@ -690,7 +690,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     $("#valores").removeData('elemento');
 
     isiva = $("[for=iva]").css('display') !== 'hide' ? $("#iva").is(":checked") : 0;
-    if (param != 2){
+
         $("[for=iva]").addClass('hide');
 
         if (isiva){
@@ -706,7 +706,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             prec = prec/((timpuesto/100)+1);
             tot = prec * cant;     
         }
-    }
+
     if(comodin.indexOf('^') != -1)
         cod = comodin.replace(/\^/g,'');
     prec = (prec+0).toFixed(5);
@@ -818,16 +818,6 @@ function totalizar(){
 
         vidlinea = $(this).prop('id').substr(4);
         vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
-        
-        if ($("#iva").attr('hclk') == 1) {
-            iva_imp = $("#imp_1").data('valores')['vmonto'];
-            if ($("#iva").is(":checked")) {
-                $("#fd"+vidlinea).data('triforce')['vprecio'] = $("#fd"+vidlinea).data('triforce')['vprecio']/(1+(iva_imp/100));
-            }else{
-                $("#fd"+vidlinea).data('triforce')['vprecio'] = $("#fd"+vidlinea).data('triforce')['vprecio']*(1+(iva_imp/100));
-            }
-            $("#iva").attr('hclk',0);
-        }
        
         cantidad    = parseFloat($("#fd"+vidlinea).data('triforce')['vcantidad']);
         precio      = parseInt($("#monedas option:selected").attr('dv')) == 1 ? parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']) : $("#prec"+vidlinea).html().replace(/,/g,'')*(parseFloat($("#monedas option:selected").attr('dv')));
@@ -1155,7 +1145,7 @@ function cargarProducto(kbrota,elemento) {
         if (cod[4] == '?') {
             $("#cantI").html('∞');
         }else{
-            $("#cantI").html(cod[4]);
+            $("#cantI").html(cod[4]+' '+cod[22]);
             $("#bname-inv").html(cod[4]);
         }
         cargarunidades(cod[0],cod[15])
@@ -1218,6 +1208,7 @@ function endCargarProducto(exo,cod,pesaje){
             $("#precp").focus().select();
 
             if (exo < 100) {
+
                 var impuestos = 0;
                 // $(".dimpuesto").each(function(){
                 //     if ($("#valores").data("elemento")['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0)
@@ -1240,9 +1231,18 @@ function endCargarProducto(exo,cod,pesaje){
                 $("#iva").attr('checked',false);
             }
         }else{
-            $("[for=iva]").addClass('hide');
-            $("#iva").attr('checked',false);
-            $("#cantp").focus().select();
+            if (exo < 100)
+                $("#exct").attr('checked',false)
+            else
+                $("#exct").attr('checked',true)
+            if (pesaje){
+                $("._uni .select-wrapper .select-dropdown").click();
+                $("._uni .select-wrapper .select-dropdown").addClass('active');
+                $("._uni .select-wrapper .select-dropdown").focus();
+                $("._uni .select-wrapper .select-dropdown").first('li').addClass('selected');
+            }
+            else
+                $("#cantp").focus().select();
         }
         
     }else{

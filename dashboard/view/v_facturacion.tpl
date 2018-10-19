@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.0.0.63">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.0.0.64">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,7 +16,7 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.0.0.63"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.0.0.64"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -62,12 +62,12 @@
         <label for="eimpuesto">Impuesto</label>
       </div>
 
-      <div class="input-field col s6 eexct">
+      <div class="input-field col s6 eexct hide">
         <input type="text" id="texct">
         <label for="texct">Exento</label>
       </div>
 
-      <div class="input-field col s6 eiva">
+      <div class="input-field col s6 eiva hide">
         <input type="checkbox" id="ival">
         <label for="ival">IVI</label>
       </div>

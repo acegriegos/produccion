@@ -418,6 +418,11 @@ function cargarGlobal(){
     $("#ingclie").click(function(){
         $("#modal-clientes").modal('open');
         $("#c-ced").focus();
+
+        if (param.toString().match(new RegExp(/[23]/i))){
+            $("#titagcli").html('Agregar Proveedor');
+        }
+        
     });
 
     $(".tdesc").change(function(){
