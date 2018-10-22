@@ -236,6 +236,12 @@ function cargarCompras(){
     $("#descup").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) 
+            $("#pventa").focus().select();
+    });
+
+    $("#pventa").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13) 
             $(".addline").click()
     });
 
@@ -258,7 +264,7 @@ function cargarCompras(){
         var comodin= $("#valores").data('elemento')['hcomodin'];
         var desgloce= $("#valores").data('elemento')['isdesgloce'];
         var strimp = $("#valores").data('elemento')['strimp'];
-        var exo = 0;//$("#valores").data('elemento')['vexo'];
+        var exo = $("#valores").data('elemento')['vexo'];
         var mobil = $(this).attr('tr') == 2 ? 1 : 0;
 
         addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:$("#descup").val()},0,hinv,0, unidad, comodin,desgloce,strimp,exo,mobil);
@@ -284,13 +290,41 @@ function cargarCompras(){
     $("#precp").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
+            if (isNaN($(this).val())) {
+                Materialize.toast('Valor no es Numérico',4000,'red')
+                $(this).focus().select();
+                return false;
+            }
             var valor = $(this).val().replace(/,/g,'');
             $("#totp").val( (parseFloat(valor) * parseFloat($("#cantp").val())).formatMoney(2,'.',',') )
             $("#valores").data('elemento')['hprec'] = valor;
             $("#descup").select().focus();
+            cargarUtilidad();
         }
     });
-}//cagar COMPRAS
+
+    function cargarUtilidad(){
+        var vv = (parseFloat($("#pventa").val().replace(/,/g,''))/(1+(parseFloat($("#valor_grabado").val()))/100)).formatMoney(5,'.','');
+
+        var cv = parseFloat($("#precp").val().replace(/,/g,''));
+        var hc = parseFloat($("#putil").attr('hprec'));
+        var cc = parseFloat($("#putil").attr('hcosto'));
+        cv = (cc+cv)/2;//preponderado costo
+        var gv = ((vv-cv)*100)/cv;
+        var gg = vv-cv;
+
+        $("#putil").val(gv.formatMoney(2,'.',','));
+        $("#putils").val(gg.formatMoney(2,'.',','));
+
+        if (gv > hc)
+            $(".putil").css('color','green');
+        else if(gv < hc)
+            $(".putil").css('color','red');
+        else
+            $(".putil").css('color','black');
+
+    }
+}//cargar COMPRAS
 
 function cargarVentas(){
     $("#titfact").html("TIQUETES");
@@ -301,6 +335,7 @@ function cargarVentas(){
     $("#ncli").attr('placeholder',"Nombre o Cédula del Cliente");
 
     $(document).on("blur","#precp",function(){
+
         if ( $(this).attr('readonly') == undefined) {
             $("#valores").data('elemento')['hprec'] = parseFloat($(this).val().replace(/,/g,''))*parseFloat($("#monedas option:selected").attr('dv'));
             $("#cantp").val(1).focus().select();
@@ -614,7 +649,7 @@ function cargarGlobal(){
         $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
 
         $("#edescuento").val(descuento);
-        $("#eunitario").val(($("#fd"+id).data('triforce')['vprecio']).formatMoney(2,'.',','));
+        $("#eunitario").val(($("#fd"+id).data('triforce')['vprecio']).formatMoney(5,'.',','));
         $(".ename").addClass('hide');
         $(".eiva").addClass('hide');
 

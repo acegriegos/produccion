@@ -316,7 +316,7 @@
 
         $salida['clave'] = (array) $inv_xml->Clave;
         
-        if ($_GET['hclave'] == '') {
+        if (!isset($inv_xml->Emisor->Identificacion->Numero)) {
 
             if (!isset($inv_xml->Mensaje)) {
                 $salida = ['succed' => 0,'ERROR' => 'El Comprobante Electrónico no es Respuesta de Hacienda'];
@@ -382,10 +382,10 @@
 
         $salida['clave'] = $salida['clave'][0];
 
-        if ($salida['clave'] != $_GET['hclave']) {
+        /*if ($salida['clave'] != $_GET['hclave']) {
             $salida = ['succed' => 0,'ERROR' => 'Documento no es el Mismo al Mensaje de Hacienda'];
             return false;
-        }
+        }*/
 
         if (strlen($salida['clave']) != 50){
             $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];

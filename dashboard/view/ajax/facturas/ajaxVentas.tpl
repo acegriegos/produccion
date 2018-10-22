@@ -360,7 +360,8 @@
                 <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
                 <label for="iva" style="float: left;">IVI</label>
                 <input type="checkbox" name="isexcento" id="exct" hclk="0">
-                <label for="exct" style="float: left;">Excento</label>
+                <label for="exct" style="float: left;">Exento</label>
+
             </div>
 
             <div class="col s4" style="padding: 0px">
@@ -372,19 +373,33 @@
         </div>
 
         <div class="trCompra hide trsec hide-on-med-and-down row">
-          <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad</b></div>
+          <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad %</b></div>
+          <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad $</b></div>
           <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Precio Público</b></span></div>
+          <div style="padding: 0 !important;" class="col s3"></div>
+          <div style="padding: 0 !important;" class="col s2"></div>
         </div>
 
         <div class="trCompra hide trsec hide-on-med-and-down row">
 
           <div style="padding: 0px 5px !important" class="input-field col s2">
-            <input type="text" class="f center" id="putil" min="1" value="0" placeholder="Utilidad" autocomplete="off">
+            <input type="text" class="f center putil" id="putil" readonly value="0" placeholder="Utilidad %" autocomplete="off">
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s2">
+            <input type="text" class="f center putil" id="putils" readonly value="0" placeholder="Utilidad $" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s3">
             <input type="text" class="f center" id="pventa" min="1" value="0" placeholder="Precio Venta" autocomplete="off">
           </div>
+
+          <div style="padding: 0 !important;" class="col s3"></div>
+          <div style="padding: 0 !important;" class="col s2 input-field valor_grabado">
+              <input type="text" id="valor_grabado" autocomplete="off">
+              <label for="valor_grabado">Valor Gravado</label>
+          </div>
+
         </div>
 
       </div>
