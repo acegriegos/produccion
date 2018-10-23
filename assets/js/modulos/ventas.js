@@ -1227,8 +1227,8 @@ function endCargarProducto(exo,cod,pesaje){
 
                 if ($("#valores").data("elemento")['strimp'].indexOf(','+1+',') >= 0)
                         impuestos += parseFloat($("#imp_1").data('valores')['vmonto'])
-
-                $("#precp").val( (parseFloat($("#valores").data("elemento")['hprec'].replace(/,/g,''))*(1+(impuestos/100))).formatMoney(2,'.',',') ) 
+                //.replace(/,/g,'')
+                $("#precp").val( (parseFloat($("#valores").data("elemento")['hprec'])*(1+(impuestos/100))).formatMoney(2,'.',',') ) 
                 $("#precp").blur();
                 $("#precp").select().focus();
                 $("[for=iva]").removeClass('hide');
