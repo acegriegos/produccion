@@ -241,7 +241,7 @@ $(function(){
         if (validator == 1) {
             var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
             $("#ffacturas .zelda").data('triforce')['videxoneracion'] = $("#vtipodoc").val()+"^"+$("#vnumdoc").val()+"^"+$("#ventidad").val()+"^"+$("#vfechaDoc").val()+"T"+tiempo+"-06:00^"+$("#vmontoexo").val()+"^"+$("#vporcompra").val();
-            $("#imp_1").data('valores')['exoneracion'] = $("#vporcompra").val();
+            //$("#imp_1").data('valores')['exoneracion'] = $("#vporcompra").val();
             totalizar();
             $("#modal-exo").modal('close');
         }else
@@ -874,7 +874,7 @@ function totalizar(){
 
                 rimv = parseFloat($(this).data('valores')['vmonto']);
                 iimv = $(this).data('valores')['vid'];
-                console.log(eimv+' '+exov)
+                
                 if(parseInt(eimv) >= 100 && (exov == '' || !parseInt(exov))) { 
                     //PRODUCTOS O CLIENTES EXENTOS
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
@@ -888,9 +888,11 @@ function totalizar(){
                     impuesto += parseFloat(dimv);
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] += iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(simv).toFixed(5)+','+eimv+']';
+                    if ($("#ffacturas .zelda").data('triforce')['videxoneracion'] != '')
+                        dimv = 0;
                     var im_variable = parseFloat($("#imv_"+iimv).html().replace(/,/g,''))+parseFloat(dimv)
                     $("#imv_"+iimv).html((im_variable/divisa).formatMoney(2,'.',','));
-
+                    
                     $("#tota"+vidlinea).html((parseFloat($("#tota"+vidlinea).html().replace(/,/g,''))+parseFloat(dimv)).formatMoney(2,'.',','))
                 }
             }else{
@@ -900,6 +902,11 @@ function totalizar(){
 
         });
     });
+
+    if ($("#ffacturas .zelda").data('triforce')['videxoneracion'] != ''){
+        console.log(impuesto)
+        impuesto = 0;
+    }
 
     total = totd + parseFloat(impuesto) - idesc;
 
