@@ -1164,10 +1164,10 @@ function doreport() {
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
     var search = new Array;
     var datos = mantenimiento('login',1,vmodulo)[0];
-
     datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
+
         if ($("#"+datos[i][0]).attr('str') != undefined) {
             if ($("#"+datos[i][0]).attr('type') == 'date') {
                 
@@ -1183,9 +1183,7 @@ function doreport() {
             if ($("#"+datos[i][0]).val() == '') {
                 search[i] = "''";
             }else{
-                search[i] = $("#"+datos[i][0]).val(); //$("#"+datos[i][0]).parent().find('[for='+datos[i][0]+']').is(":checked") ? $("#"+datos[i][0]).val() : 0;    
-                // $("#chk"+datos[i][0].substr(3)).is(":checked") == false ? $("#"+datos[i][0]).val(0) : true;
-
+                search[i] = $("#"+datos[i][0]).val();
             }
         }
 
@@ -1198,7 +1196,7 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    // console.log(tbl,' ',atributos)
+    console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 
 }

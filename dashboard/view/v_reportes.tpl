@@ -246,11 +246,11 @@
 
 {if $TR eq 4}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="report pbtn" rep="invgen"><i class="mdi-48px mdi mdi-file-document-box"></i>
 </a>
 <div class="row">
 <div class="col s12">
-<p>Existencias</p>
+<p>Inventarios</p>
 </div>
 </div>
 </div>
@@ -258,7 +258,7 @@
 
 {if $TR eq 4}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="report pbtn" rep="costoinv"><i class="mdi-48px mdi mdi-file-document-box"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -270,7 +270,7 @@
 
 {if $TR eq 4}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="report pbtn" rep="mventa"><i class="mdi-48px mdi mdi-file-document-box"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -282,7 +282,7 @@
 
 {if $TR eq 4}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="existencias"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-file-document-box"></i>
 </a>
 <div class="row">
 <div class="col s12">

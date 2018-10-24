@@ -4,13 +4,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Inventarios General</title>
+  <title>Inventarios</title>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.67">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="0,0" sp="127" modulo="reporteCliente"></div>
+      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" porproducto entrefechas tbltipos="20,21,22,0,0,0,0,0,0" tipos="Por Familia,Por Tipo,Por Marca,Variable,Inventariado,Pesaje,Gravado,Existencia,Negativos" types="1,1,1,3,3,3,3,3,3" portipo="varios"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">

@@ -4,13 +4,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Inventarios General</title>
+  <title>Movimientos de Inventario</title>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.67">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="0,0" sp="127" modulo="reporteCliente"></div>
+      <div class="filtros row" elem="6" sp="256" modulo="invmovimiento" porproducto entrefechas tbltipos="256" tipos="Movimiento" types="1" portipo="varios"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -30,7 +30,7 @@
         <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" id="ofiltr" title="Mostrar Filtros"></i>
       </div>
     </div>
-    <h2 align="center">Inventario</h2>
+    <h2 align="center">Movimientos de Inventario</h2>
     <small id="leyenda"></small>
     
     <div class="detrep"></div>

@@ -118,16 +118,19 @@ $(function(){
             var type = '';
             for (var i = 0, len = vtbl.length; i < len; i++) {
                 inc += 1;
+
                 switch(parseInt(vtype[i])){
                     case 1://para select
                     type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl+'"></select>';/*168*/
 
                     break;
-                    case 2:
+                    case 2: //para numero
                     type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
 
                     break;
-
+                    case 3: //solo check
+                    type = '<input type="hidden" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" value="-1">';
+                        break;
                     default://para texto
                     type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
 
@@ -138,7 +141,11 @@ $(function(){
 
                 html = '<div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field" style="margin:0px">'+type+'</div></div></div>';
                 $(".principal .filtros").append(html);
-                arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
+
+                if (parseInt(vtbl[i])) {
+                    arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
+                }else
+                    $("#chktipo"+inc).addClass('justChange').prop('indeterminate',true)
                 filtro += 1;
             }
             $('select').material_select();
@@ -150,12 +157,50 @@ $(function(){
     $("[id^=fltr].auto").prev().children().children().prop('checked',true);
 });
 
+$(document).on("click",".justChange",function(e){
+
+    var id =  $(this).attr('id').substr(7)
+    var valor = 0;
+    var status = $(this).attr('stat') == undefined ? 1 : $(this).attr('stat');
+
+    switch(parseInt(status)){
+        case 1: //check
+            $(this).prop('checked',true)
+            valor = 1;
+            status = 2;
+            break;
+        case 2: //uncheck
+            $(this).prop('checked',false)
+            valor = 0;
+            status = 3;
+            break;
+        case 3: //itermediate
+            $(this).prop('indeterminate',true)
+            valor = -1;
+            status = 1;
+            break;
+        default:
+            break;
+    }
+    
+    $("#vidtipo"+id).val(valor)
+    $(this).attr('stat',status);
+});
+
 $(document).on("blur","#cliente",function(){
     var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$(this).val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
     if (id != undefined)
         $("#vidcliente").val(id);
     else
         $("#vidcliente").val(0);
+});
+
+$(document).on("blur","#productos",function(){
+    var id = arr('login',4,'id',11,'nombre = "'+$(this).val()+'" and id > 0 and idsucursal = @@impresa',0,0,0)[0][0];
+    if (id != undefined)
+        $("#vidproducto").val(id);
+    else
+        $("#vidproducto").val(0);
 });
 
 $(document).on("blur","#usuario",function(){

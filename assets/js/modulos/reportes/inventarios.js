@@ -2,12 +2,19 @@ $(function(){
     var param = getParameterByName('rep');
 
     switch(param){
-        case 'existencias':
-            arr('login',10,'',127,'6','',1,$(".detrep")); 
+        case 'invgen':
+            arr('login',6,'',254,'6,0,"","",@@impresa,0,0,0,-1,-1,-1,-1,-1,-1','',1,$(".detrep")); 
             break;
-        default:
+        case 'movinv':
+            arr('login',6,'',255,'6,0,"","",@@impresa,0','',1,$(".detrep")); 
+            break;
+        case 'inventario':
             arr('login',6,'',127,'6','127_1',1,$(".detrep"));
             break;
+        default:
+            alert(param)
+            break;
+            
     }
 
 });
