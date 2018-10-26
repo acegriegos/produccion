@@ -87,24 +87,6 @@ echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;
 if($miscelaneos[3] != '')
   echo $logo;
 
-/*echo '<tr align="center" ><td style="padding: 6px 5px !important">';
-
-require_once('../assets/libs/phpqrcode/qrlib.php'); 
-
-      $codeContents = $miscelaneos[11]; 
-       
-      $text = QRcode::text($codeContents); 
-      $raw = join("<br/>", $text); 
-       
-      $raw = strtr($raw, array( 
-          '0' => '<span style="color:white;width=5%">&#9608;&#9608;</span>', 
-          '1' => '&#9608;&#9608;' 
-      )); 
-       
-      echo '<div style:"width=10%;  font-size:16px !important"><tt>'.$raw.'</tt></div>';
-
-echo '</td></tr>';*/
-
 echo '<tr align="center" >
      <td>
         <div align="center"> <b>'.$miscelaneos[0].'</b> <br> Ced. '.$miscelaneos[1].'

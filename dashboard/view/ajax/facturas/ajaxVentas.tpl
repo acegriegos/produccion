@@ -561,26 +561,32 @@
   <div class="modal-content">
     <div class="trVenta hide trsec hide-on-large-only">
       <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
+
+            <input type="text" id="codp" class="f prod center truncate" autocomplete="off">
+            <label for="codp">Código</label>
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" autocomplete="off">
+            <label for="descp">Descripción</label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
+            <label for="precp">Precio</label>
           </div>
 
           <div style=padding: 0 !important" class="input-field col s12 m1">
             <select id="uni" readonly >
               <option value="1">Unid</option>
             </select>
+            <label for="uni">Unidad</label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+            <input type="text" class="f center" id="cantp" min="1" value="1">
+            <label for="cantp">Cantidad</label>
           </div>
 
           <!-- <div style="padding: 0px 5px !important" class="input-field col s12 m1">

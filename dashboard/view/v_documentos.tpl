@@ -131,7 +131,7 @@
                 <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
                 <div class="upxml hide" xml="3">
                     <div class="shxml_head"></div>
-                    <table>
+                    <table style="margin-bottom: 3%">
                         <thead>
                             <tr>
                                 <th></th>

@@ -135,11 +135,12 @@
           <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
             <tr>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descripción</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">P. Unit</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Tipo</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">Descuento</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th5">Importe</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Código</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">Descripción</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">P. Unit</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th5">Tipo</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Descuento</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th7">Importe</th>
             </tr>
           </thead>
           <tbody id="ftbody">
@@ -154,10 +155,11 @@
 
               <tr class="tr" >
                 <td class="flista1 td center-align"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
+                <td class="flista2 td center-align"><span id="desc1"><?php echo $obj[36]; ?></span></td>
                 <td class="flista2 td center-align"><span id="desc"><?php echo $obj[19]; ?></span></td>
                 <td class="flista3 td center-align"><span id="punit"><?php echo $obj[20]; ?></span></td>
-                <td class="flista4 td center-align"><span id="desc"><?php echo $obj[23]; ?></span></td>
-                <td class="flista5 td center-align"><span id="desc"><?php echo $obj[21]; ?></span></td>
+                <td class="flista4 td center-align"><span id="desc2"><?php echo $obj[23]; ?></span></td>
+                <td class="flista5 td center-align"><span id="desc3"><?php echo $obj[21]; ?></span></td>
                 <td class="flista6 td right-align"><span id="import" ><?php echo $obj[22]; ?></span></td>
               </tr>
 

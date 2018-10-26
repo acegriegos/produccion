@@ -24,7 +24,7 @@ class correo
      		->setBody($msj,'text/html');
 
       if ($_SESSION['BUSS'] == 1) {
-        $this->message->setBcc(array($_SESSION['CRR']=>$_SESSION['NOM']));
+        $this->message->setCc(array($_SESSION['CRR']=>$_SESSION['NOM']));
       }
 
         //'<div style="min-height:250px;background-color: #0B3861; margin-left:15%;margin-right: 15%;color: white">'. .'</div>'

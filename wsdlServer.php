@@ -193,26 +193,28 @@ if (isset($_POST['respuestaXml'])) {
                     switch ($certData['subject']['OU']) {
                       case 'CPJ':
                         $tipo = 2;
+                        $cedula = substr($certData['subject']['serialNumber'],5);
                         break;
                       case 'CPF':
                         $tipo = 1;
+                        $cedula = substr($certData['subject']['serialNumber'],4);
                         break;
                       case 'DIMEX':
-                        $tipo = 4;
+                        $tipo = 3;
+                        $cedula = substr($certData['subject']['serialNumber'],6);
                         break;
                       default:
-                        $tipo = 3;
+                        $cedula = substr($certData['subject']['serialNumber'],5);
+                        $tipo = 4;
                         break;
                     }
-
-                    $cedula = substr($certData['subject']['serialNumber'],$tipo ? 4 : 5);
                     unset($target_path);
 
                     $accept = isset($_POST['acept']) ? $_POST['acept'] : 0;
                     $recibo = isset($_POST['recibo']) ? $_POST['recibo'] : '';
 
                     $salida['CN'] = $certData['subject']['CN'];
-                    $salida['cedula'] = $tipo == 1 ? substr($cedula,1) : $cedula;
+                    $salida['cedula'] = $cedula;
                     $salida['tipo'] = $tipo;
 
                     if($accept){

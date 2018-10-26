@@ -693,7 +693,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     
     $("#valores").removeData('elemento');
 
-    isiva = $("[for=iva]").css('display') !== 'hide' ? $("#iva").is(":checked") : 0;
+    isiva = !$("[for=iva]").is(':visible') !== 'hide' ? $("#iva").is(":checked") : 0;
     
     if(param.toString().match(new RegExp(/[1678]/i)))
         $("[for=iva]").addClass('hide');
@@ -1239,13 +1239,16 @@ function endCargarProducto(exo,cod,pesaje){
                 $("#precp").blur();
                 $("#precp").select().focus();
                 $("[for=iva]").removeClass('hide');
-                if (parseInt(config[12]))
-                    $("#iva").attr('checked',true)
+
+                if (parseInt(config[12])){
+                    console.log(config[12])
+                    $("#iva").prop('checked',true)
+                }
                 else
-                    $("#iva").attr('checked',false)
+                    $("#iva").prop('checked',false)
             }else{
                 $("[for=iva]").addClass('hide');
-                $("#iva").attr('checked',false);
+                $("#iva").prop('checked',false);
             }
         }else{
             if (param == 2) {
@@ -1282,13 +1285,13 @@ function endCargarProducto(exo,cod,pesaje){
     }else{
         if (!parseInt(pesaje)) {
             $("[for=iva]").addClass('hide');
-            $("#iva").attr('checked',false);
+            $("#iva").prop('checked',false);
             var e = jQuery.Event("keyup");
             e.which = 13;
             $("#cantp").trigger(e);
         }else{
             $("[for=iva]").removeClass('hide');
-            $("#iva").attr('checked',false);
+            $("#iva").prop('checked',false);
             $("#cantp").focus().select();
         }
         

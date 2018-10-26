@@ -262,13 +262,13 @@ function xmlCargar(file,response){
 
                             $("[xml=3]").removeClass('hide').removeAttr('disabled');
                         }else{
-                            $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:p['clave'], vidmoneda:1, vidcliente:p['idprov'], vsubtotal:p['total'], vdescuento: 0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 1,vidusuario:'',vidtipopago:1,vidodt:0,vajuste:0,tmpcorreo:'',videxoneracion:'',vexento: parseFloat(p['factura']['exento'])*parseFloat(p['factura']['divisa']),vflete:0,vplazo:p['factura']['plazo'],vcomentario:'',vfecha:p['factura']['fsistema']});
+                            $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:2, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:p['clave'], vidmoneda:1, vidcliente:p['idprov'], vsubtotal:p['total'], vdescuento: 0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 1,vidusuario:'',vidtipopago:1,vidodt:0,vajuste:0,tmpcorreo:'',videxoneracion:'',vexento: 0,vflete:0,vplazo:0,vcomentario:'',vfecha:'curdate()'});
 
                             $(".shxml_body").append('<tr class="ciclos" id="fd'+i+'"> <td><input type="checkbox" name="isvalid" id="valid'+p['detalle'][i]['linea']+'" checked><label for="valid'+p['detalle'][i]['linea']+'"></label></td> <td>'+p['detalle'][i]['cantidad']+'</td><td>'+p['detalle'][i]['unidad']+'</td><td>'+p['detalle'][i]['detalle']+'</td><td style="text-align:right;">'+parseFloat(p['detalle'][i]['descuento']).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(p['detalle'][i]['impuesto']).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(p['detalle'][i]['precio']).formatMoney(2,'.',',')+'</td></tr>');
 
                                 // $("#fd"+i).data('unidad',{})
 
-                                $("#fd"+i).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : p['detalle'][i]['idproducto'],vcantidad : p['detalle'][i]['cantidad'],vprecio : p['detalle'][i]['precio'],vdescuento : p['detalle'][i]['descuento'],vidinventario : 6,vidodt : 0,vimv : p['detalle'][i]['impuesto'],vcomodin : '',vunidad : p['detalle'][i]['unidad'],vidunidad : p['detalle'][i]['idunidad'][0],vidimpuestos:'',viddescuentos:'',vdesc : p['detalle'][i]['descuento'],vcodigo:p['detalle'][i]['codigo'],vunitario:p['detalle'][i]['unitario'],ganancia:0,detalle:p['detalle'][i]['detalle']});
+                                $("#fd"+i).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : 0,vcantidad : 1,vprecio : p['total'],vdescuento : 0,vidinventario : 6,vidodt : 0,vimv : p['impuesto'],vcomodin : '',vunidad : 1,vidimpuestos:'',viddescuentos:'',vdesc : 0});
                             //$("[xml='1']").removeClass('disabledbutton');
                             $("[xml=3]").removeClass('hide').removeAttr('disabled');
                             $("#myclave").val(p['clave']);

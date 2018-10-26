@@ -409,9 +409,9 @@ function cargarVentas(){
     });
 
     if (parseInt(config[12]))
-        $("#iva").attr('checked',true)
+        $("#iva").prop('checked',true)
     else
-        $("#iva").attr('checked',false)
+        $("#iva").prop('checked',false)
 
 }//cargar VENTAS
 

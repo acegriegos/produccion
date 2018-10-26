@@ -153,7 +153,7 @@
                 }else{
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
-                    
+                    $tp = substr($id, 0,1);
                     $rxml = $fe->XMLtoArray($xml);
                     if (!sizeof($rxml[$fe->tdoc]['Receptor'])) {
                         $fe->tdoc = 'TiqueteElectronico';
@@ -512,13 +512,15 @@
         foreach ($ciclo as $key) {
             $vunidad = (array)$key->UnidadMedida;
             $vunidad = $vunidad[0] == 'Otros' ? (array)$key->UnidadMedidaComercial : (array)$key->UnidadMedida;
-            $vunidad = isset($vunidad[0]) ? $vunidad[0] : 0 ;
+            $vunidad = isset($vunidad[0]) ? $vunidad[0] : 1 ;
+            $vunidad = $vunidad == 0 ? 1 : $vunidad[0] ;
             $cunidad = $db->ejecutar('call krattos("if(count(id),id,0)",107,"id > 0 and simbolo = \"'.$vunidad.'\" ")')->fetch_all();
 
             $num = (array)$key->NumeroLinea;
             $dcodigo = (array)$key->Codigo->Codigo;
+            $dcodigo = isset($dcodigo[0]) ? $dcodigo[0] : '';
             if ($vunidad != 'Sp') {
-                $detid = $db->ejecutar('call krattos("idproducto",104,"id > 0 and codigo = \"'.$dcodigo[0].'\" and idproveedor = '.$salida['emisor']['id'].'")');
+                $detid = $db->ejecutar('call krattos("idproducto",104,"id > 0 and codigo = \"'.$dcodigo.'\" and idproveedor = '.$salida['emisor']['id'].'")');
                 $detid = isset($detid->num_rows) ? $detid->num_rows > 0 ? $detid->fetch_all()[0][0] : 0: 0;
             }else{
                 $detid = 0;
@@ -534,7 +536,7 @@
             $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
 
             $detarray = ['numero' => $num[0],
-            'codigo' => isset($dcodigo[0]) ? $dcodigo[0] : 0,
+            'codigo' => $dcodigo,
             'cantidad' => $dcantidad[0], 
             'unidad' => $vunidad, 'idunidad' => $cunidad[0],
              'detalle' => $ddetalle[0],
@@ -787,6 +789,13 @@
                 case 201:
                 case 202:
                     $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
+                    //require_once '_config/correo.php';
+                    $_xml = $fe->XMLtoArray($xml);
+                    $datos = [];
+                    $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
+                    $tit = 'Factura';
+                    
+                    include 'view/pdf/recibo.php'; 
                     break;
                 case 400:
                     print_r($rs);
@@ -1000,7 +1009,7 @@
                         break;
                     default :
                         $tmcedula = strlen($this->info['Receptor']['Identificacion']['Numero']);
-                        if ( $tmcedula != 10)
+                        if ( $tmcedula != 12)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                 }
