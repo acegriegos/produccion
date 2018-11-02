@@ -1044,17 +1044,16 @@
             switch ($this->info['Emisor']['Identificacion']['Tipo']) {
                 case '01':
                     if ($tmcedula != 9)
-                        return ['error' => 'Formato Cédula no Valido'];
+                        return ['error' => 'Formato Cédula no Valido a'];
                     break;
                 case '02':
-                case '04':
                     if ($tmcedula != 10)
-                        return ['error' => 'Formato Cédula no Valido'];
+                        return ['error' => 'Formato Cédula no Valido b'];
                     break;
                 default :
                     
                     if ( $tmcedula != 12)
-                        return ['error' => 'Formato Cédula no Valido '.$tmcedula];
+                         return ['error' => 'Formato Cédula no Valido '.$tmcedula];
                     break;
             }
 
