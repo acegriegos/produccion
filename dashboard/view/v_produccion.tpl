@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Producción</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-produccion.css?v=10.0.0.69">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-produccion.css?v=10.0.0.70">
 
 </head>
 <body>
@@ -100,6 +100,6 @@
     </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/produccion.js?v=10.0.0.69"></script>
+<script src="../assets/js/modulos/produccion.js?v=10.0.0.70"></script>
 </body>
 </html>
