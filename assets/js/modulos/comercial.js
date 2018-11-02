@@ -1,6 +1,6 @@
 $(function(){
     dibujarGrafico("chartG1",'Reporte Morosidad de Ventas','Clientes','bar',{sel:'',tbl:212,where:'0,1'},0,1);
-    permisos(1000,1410);
+    permisos(1000,1500);
 
 });
 

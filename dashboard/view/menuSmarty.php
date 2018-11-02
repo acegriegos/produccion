@@ -34,9 +34,9 @@
             <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</a>
             <div class="collapsible-body" style="z-index: 100; position: absolute; width: 94%;">
               <ul class="head2">
-                <li><a href="#!" value="0" class="otpmenu white-text {if $smarty.session.BUSS neq 1} hide {/if}" id="x1">Información</a></li>
-                <li><a href="#!" value="1" class="otpmenu white-text {if $smarty.session.BUSS neq 1} hide {/if}" id="x2">Notificaciones</a></li>
-                <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 1} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true""></i> Usuario</a></li>
+                <li><a href="#!" value="0" class="otpmenu white-text {if $smarty.session.BUSS neq 0} hide {/if}" id="x1">Información</a></li>
+                <li><a href="#!" value="1" class="otpmenu white-text {if $smarty.session.BUSS neq 0} hide {/if}" id="x2">Notificaciones</a></li>
+                <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 0} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true""></i> Usuario</a></li>
                 <li><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true""></i>Cierre de Caja</a></li>
                 <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-settings mdi-24px right white-text" aria-hidden="true""></i>Ajustes</a></li>
                 <li><a href="#!" value="4" class="otpmenu white-text" id="x4"><i class="mdi mdi-information mdi-24px right white-text" aria-hidden="true""></i>Info Sistema</a></li>

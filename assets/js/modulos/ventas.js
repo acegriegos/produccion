@@ -292,12 +292,12 @@ $(function(){
     $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
 
     permisos(1101,1110);
-
+  
     if (parseInt(config[11]) == 3 && param.toString().match(new RegExp(/[1678]/i)))
         $("#modal-usuario").modal('open');
 
     if ($("#cantFact:visible").length)
-        $("#cantFact").html(getDatos('COUNT(id) as cantidad',64,'idtipoventa = 6 and idestado = 1',0,0,0)[0][0][0]);
+        $("#cantFact").html(getDatos('COUNT(id) as cantidad',64,'idtipoventa = 6 and idestado = 1 and idsucursal = @@impresa',0,0,0)[0][0][0]);
 })//READY
 
 $(document).on("keyup","#nombre",function(){
@@ -587,6 +587,25 @@ $(document).on("blur",".fventa",function(){
     $("#codp").focus();
 });
 
+$(document).on("click","#cargarfact",function(){
+    $("#modal-facturas").modal('open');
+    var facturas = getDatos('',257,'@@impresa',0,0,0)[0];
+    var body = '';
+    for (var i = 0; i < facturas.length; i++) {
+        body += '<tr> <td> <input type="radio" name="factlist" id="l'+facturas[i][0]+'"> <label for="l'+facturas[i][0]+'"></label> </td> <td>'+facturas[i][1]+'</td> <td>'+facturas[i][2]+'</td> <td>'+facturas[i][3]+'</td> </tr>'  
+    }
+    $("#bdylist").html(body);
+});
+
+$(document).on("click","#acepfact",function(){
+    if (!$("[name=factlist]").length) {
+        Materialize.toast('No hay Factura Disponibles',4000,'red');
+        return false;
+    }
+
+    
+});
+
 $(document).on("click",".delf",function(){
     var id = $(this).attr('id').substr(3);
     $("#fd"+id).remove();
@@ -735,7 +754,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         if ( idprod == $(this).data('triforce')['videntrada'] && hinv == $(this).data('triforce')['vidinventario'] && prec == parseFloat($(this).data('triforce')['vprecio']) && $("#desc"+vid).html().trim() == desc.trim() && cod.trim() == $("#codprod"+vid).html().trim()) {
             existe = 1;
 
-            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[1678]/i)) && config[1] == 1 && comodin == '' ) {
+            if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/[1678]/i)) && parseInt($(this).data('triforce')['isinventariado']) && comodin == '' ) {
                 //EXCEDE EL NUMERO EN INVENTARIO
                 Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red');
                 $("#cantp").select();
@@ -744,7 +763,6 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 var tcant = parseFloat($(this).data('triforce')['vcantidad'])+cant;
                 $(this).data('triforce')['vcantidad'] = tcant;
                 $("#cant"+vid).html(tcant);
-                
             }
             
         }
@@ -769,7 +787,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             case 7:
             case 8:
                 if (vmobil) 
-                    $("#fdetallefacturas").prepend('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div style="padding: 0 !important;" class="col s2 center-align hide" id="codprod'+id+'">'+codedg+cod+'</div> <div class="row col s9" style="padding:0px;"> <div class="col s12" style="padding: 0 !important;font-weight: bold;" id="desc'+id+'">'+desc+'</div> <small><span class="col s3" style="padding: 0px">Precio Uni: </span><div style="padding: 0 !important;" class="divisa col s9" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div></small> <div id="divcnt" style="padding: 0 !important;"><small>Cantidad: <span id="cant'+id+'">'+cant+'</span></small></div> </div><div style="padding: 0 !important;" class="col s1 hide center-align" id="unitprod'+id+'">'+uni+'</div>  <div style="padding: 0 !important;" class="col s1 center-align totp hide" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div class="der"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
+                    $("#fdetallefacturas").prepend('<div id="fd'+id+'" xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div style="padding: 0 !important;" class="center-align hide" id="codprod'+id+'">'+codedg+cod+'</div> <div class="row col s9" style="padding:0px;"> <div class="col s12" style="padding: 0 !important;font-weight: bold;" id="desc'+id+'">'+desc+'</div> <small><span class="col s3" style="padding: 0px">Precio Uni: </span><div style="padding: 0 !important;" class="divisa col s3" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <span class="col s3" style="padding: 0px">Precio Venta: </span>  <div style="padding: 0 !important;" class="col s3 center-align totp" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> </small> <div id="divcnt" style="padding: 0 !important;"><small>Cantidad: <span id="cant'+id+'">'+cant+'</span></small></div> </div><div style="padding: 0 !important;" class="col s1 hide center-align" id="unitprod'+id+'">'+uni+'</div>   <div class="der"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
                 else
                     $("#fdetallefacturas").prepend('<div id="fd'+id+'" '+rpago+' xtr="'+$(".zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s1 center-align" id="unitprod'+id+'">'+uni+'</div> <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align totp" id="tota'+id+'">'+(tot/divisa).formatMoney(2,'.',',')+'</div> <div class="right"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
                     break;
@@ -783,7 +801,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 break;
         }
 
-        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : 0,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs,iddesc:dcs['iddescuento'],vdescuento : dcs['descuento'],iva:isiva});
+        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : 0,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs,iddesc:dcs['iddescuento'],vdescuento : dcs['descuento'],iva:isiva,isinventariado : inventariado});
         if (parseInt($("#monedas option:selected").attr('dv')) != 1)
             $("#prec"+id).attr('base',precio)
        
@@ -1161,7 +1179,8 @@ function cargarProducto(kbrota,elemento) {
         if (cod[4] == '?') {
             $("#cantI").html('∞');
         }else{
-            $("#cantI").html(cod[4]+' '+cod[22]);
+            $("#cantI").html(cod[4]);
+            $("#tuni").html(cod[22]);
             $("#bname-inv").html(cod[4]);
         }
         cargarunidades(cod[0],cod[15])
@@ -1241,7 +1260,6 @@ function endCargarProducto(exo,cod,pesaje){
                 $("[for=iva]").removeClass('hide');
 
                 if (parseInt(config[12])){
-                    console.log(config[12])
                     $("#iva").prop('checked',true)
                 }
                 else

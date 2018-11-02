@@ -1,11 +1,16 @@
+<?php $config = $kakaroto->kamehameha('',42,'@@impresa')[0];?>
+<!DOCTYPE html>
+<html>
+<head>
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 <link href="../assets/css/materialize.css?v=10.0.0.69">
 
-
-<body class="grey darken-4" style="font-size: 1.1em;" >
-  <div class="hoja grey lighten-5" style="padding: 0% 1% 1% 1%;">
+</head>
+<body style="margin-left: 35%;margin-right: 35%" >
+  <div>
+    <?php if($_SESSION['BUSS'] == 0){ ?>
     <div class="row">
      <div class="row" style="display: none"> 
         <div class="col s6 m5 l3">
@@ -13,121 +18,66 @@
           <img src="../assets/img/logo.png" class="img-responsive" width="40%">
         </div>
     </div>
-    <div class="col s6 left-align ">
-        <div class="row">
-          <div class="col s12" id="infofact" >
-            <b id="fact" style="font-size: 1.2em" >Cierre N°</b>
-            <span id="numfact" style="font-size: 1.2em"> <?php echo $cierre[0]; ?> </span><br>
-            <b id="fact" style="font-size: 1.2em">Usuario: </b>
-            <span style="font-size: 1.2em"> <?php echo $cierre[17]; ?> </span><br>
-            <b id="fact" style="font-size: 1.2em">Fecha: </b>
-            <span style="font-size: 1.2em"> <?php echo $cierre[1]; ?> </span>
-          </div>
-        </div>
-      </div>
-      <div class="col s6 m6 l6 right-align">
-       <b ><?php echo $miscelaneos[0]; ?></b><br>
+    <div>
+      <b>Cierre N°</b>
+      <span id="numfact" > <?php echo $cierre[0]; ?> </span><br>
+      <b>Usuario: </b>
+      <span > <?php echo $cierre[17]; ?> </span><br>
+      <b>Fecha: </b>
+      <span > <?php echo $cierre[1]; ?> </span>
+    </div>
+    <div>
+        <b><?php echo $miscelaneos[0]; ?></b><br>
         <b >Cédula:</b> <?php echo $miscelaneos[1]; ?><br>
         <b >Teléfono:</b>  <?php echo $miscelaneos[5]; ?><br>
         <b >Correo:</b> <?php echo $miscelaneos[4]; ?><br>
         <b >Dirección:</b> <?php echo $miscelaneos[6]; ?><br>
       </div>
      </div>
-    
+    <?php }else{ ?>
+      <b>Usuario: </b>
+      <span > <?php echo $cierre[17]; ?> </span><br>
+      <b>Fecha: </b>
+      <span > <?php echo $cierre[1]; ?> </span>
+    <?php } ?>
     <!-- /HEADER -->
     <!-- INFO CONTACTO -->
-    <div class="row">
-    <br>
-      <div class="col s6 m6 l4" style="padding: 0">
-        <div class="col s12 m12" >
-          <table>
-            <tbody >
-              <tr>
-                <th class="left-align " style="padding: 1%; font-size: 1.2em;">Facturas contado:</th>
-                <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[3]; ?></span></td>
-              </tr>
-              <tr>
-                <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Facturas crédito:</th>
-                <td class="td right-align" style="padding: 1%; margin: 0%;"><span class="" style="font-size: 1.2em"><?php echo $cierre[2]; ?> </span></td>
-              </tr>
-              <tr>
-                <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Abonos</th>
-                <td class="td right-align" style="padding: 1%; margin: 0%;"><span class="" style="font-size: 1.2em"><?php echo $cierre[4]; ?> </span></td>
-              </tr>
-              <tr >
-                <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Notas crédito:</th>
-                <td class="td right-align sinborde" style="padding: 1%; margin: 0%;"><span class="" style="font-size: 1.2em; "><?php echo $cierre[5]; ?> </span></td>
-              </tr>
-              <tr>
-                <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Notas débito:</th>
-                <td class="td right-align" style="padding: 1%; margin: 0%;"><span class="" style="font-size: 1.2em"><?php echo $cierre[6]; ?> </span></td>
-              </tr>
-
-            </tbody>
-          </table>
-          <br>
-        </div>
-      </div>
-      <div class="col s6 m6 l4"  style="padding: 0">
-          <div class="col s12 m12"  style="padding: 0">
-            <table style=" width: 70%" >
-              <tbody >
-                <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Ventas en efectivo:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[7]; ?></span></td>
-                </tr>
-                <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Ventas con tarjetas:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span class="" style="font-size: 1.2em"><?php echo $cierre[8]; ?> </span></td>
-                </tr>
-                <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Ventas en crédito:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span class="" style="font-size: 1.2em"><?php echo $cierre[2]; ?> </span></td>
-                </tr>
-                  <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Ventas con deposito:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[9]; ?></span></td>
-                </tr>
-                <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Excento:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[22]; ?></span></td>
-                </tr>
-                <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">IMV:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[23]; ?></span></td>
-                </tr>
-                <tr class="card blue-grey sinborde">
-                  <th class="left-align sinborde" style=" background-color: #3960A7; padding: 2%,0%,0%,1%; font-size: 1.2em; color: white">Ventas totales:</th>
-                  <td class="td right-align sinborde" style=" background-color: #3960A7; padding: padding: 2%,0%,0%,0% ; margin: 0%;"><span class="" style="font-size: 1.2em; color: white"><?php echo $cierre[21]; ?> </span></td>
-                </tr>
-                
-              </tbody>
-            </table>
-        </div>
-      </div>
+    <div>
+      <br>
+      Facturas contado: <span style="float: right;"><?php echo $cierre[3]; ?></span><br>
+      Facturas crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span> <br>
+      Abonos: <span style="float: right;"><?php echo $cierre[4]; ?> </span> <br>
+      Notas crédito:<span style="float: right;"><?php echo $cierre[5]; ?> </span> <br>
+      Notas débito:<span style="float: right;"><?php echo $cierre[6]; ?> </span> <br>
+    </div>
+    <hr>
+    <div>
+      Ventas en efectivo: <span style="float: right;"><?php echo $cierre[7]; ?></span><br>
+      Ventas con tarjetas:<span style="float: right;"><?php echo $cierre[8]; ?></span><br>
+      Ventas en crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br>
+      Ventas con deposito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br>
+      Excento:<span style="float: right;"><?php echo $cierre[22]; ?></span><br>
+      IMV:<span style="float: right;"><?php echo $cierre[23]; ?></span><br>
+      <b>Ventas totales:</b> <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
+    </div>
       <div class="col s6 m6 l4"  style="padding: 0;display: none">
           <div class="col s12 m12"  style="padding: 0">
             <table style=" width: 70%" >
               <tbody >
               <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Caja inicial:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo $cierre[20]; ?></span></td>
+                  <th  >Caja inicial:<span><?php echo $cierre[20]; ?><br>
                 </tr>
                <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Caja del sistema:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span style="font-size: 1.2em"><?php echo number_format((str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[4])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[20])),2); ?></span></td>
-                </tr>
-                <tr>
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Caja reportada:</th>
-                  <td class="td right-align" style="padding: 1%; margin: 0%;"><span class="" style="font-size: 1.2em"><?php echo $cierre[18]; ?> </span></td>
+                  <th  >Caja del sistema:<span><?php echo number_format((str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[4])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[20])),2); ?><br>
+                <span>Caja reportada:<span><?php echo $cierre[18]; ?> <br>
                 </tr>
                                 <tr class="sinborde">
-                  <th class="left-align sinborde" style="padding: 1%; font-size: 1.2em;">Diferencia entre cajas:</th>
-                  <td class="td right-align sinborde" style="padding: 1%; margin: 0%;"><span class="" style="font-size: 1.2em;  "><?php echo number_format((str_replace(',', '', $cierre[18])-str_replace(',', '', $cierre[7])-str_replace(',', '', $cierre[20])),2); ?> </span></td>
+                  <th  >Diferencia entre cajas:</th>
+                  <td class="td right-align sinborde" ><span  style="font-size: 1.2em;  "><?php echo number_format((str_replace(',', '', $cierre[18])-str_replace(',', '', $cierre[7])-str_replace(',', '', $cierre[20])),2); ?> <br>
                 </tr>
                 <tr class="card blue-grey sinborde">
-                  <th class="left-align sinborde" style="background-color: #3960A7; padding: 2%,0%,0%,1%; font-size: 1.2em; color: white">Efectivo a entregar:</th>
-                  <td class="td right-align sinborde" style="background-color: #3960A7; padding: 2%,0%,0%,0% ; margin: 0%;"><span class="" style="font-size: 1.2em;  color: white"><?php echo number_format((str_replace(',', '', $cierre[18])-str_replace(',', '', $cierre[20])),2); ?> </span></td>
+                  <th  style="background-color: #3960A7; padding: 2%,0%,0%,1%; font-size: 1.2em; color: white">Efectivo a entregar:</th>
+                  <td class="td right-align sinborde" style="background-color: #3960A7; padding: 2%,0%,0%,0% ; margin: 0%;"><span  style="font-size: 1.2em;  color: white"><?php echo number_format((str_replace(',', '', $cierre[18])-str_replace(',', '', $cierre[20])),2); ?> <br>
                 </tr>
                 
               </tbody>
@@ -138,80 +88,86 @@
      
       <!-- /INFO CONTACTO -->
       <!-- DETALLE FACT -->
-      <table class="bordered hide" style="border: 0px; font-size: 1em;display: none" id="detalle">
+      <?php switch($config[13]){ case 1: ?>
+      <table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
         <thead>
           <tr>
-            <th class="center-align"></th>
-            <th class="center-align"></th>
-            <th class="center-align"style="font-size: 1.2em;">Facturas</th>
-            <th class="center-align"> </th>
-            <th class="center-align"></th>
-            <th class="center-align"></th>
+            <th colspan="3" align="center">Facturas</th>
           </tr>
         </thead>
-        <thead class=" blue-grey white-text imprimirSINBOR margen">
+        <thead>
           <tr>
-            <th class="center-align " id="th1" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Consecutivo</th>
-            <th class="center-align sinborde" id="th2" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Fecha</th>
-            <th class="center-align sinborde" id="th3" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Cliente</th>
-            <th  class="center-align sinborde" id="th4" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Tipo Pago</th>
-            <th class="center-align " id="th5" style=" background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Total</th>
+            <th >Consecutivo</th>
+            <th >T.Pago</th>
+            <th >Total</th>
           </tr>
         </thead>
         <tbody >
           <?php foreach ($cierreg as $obj) {?>
           <tr class="tr" >
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="con" style="font-size: 1.1em;"><?php echo $obj[11]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="fec" style="font-size: 1.1em;"><?php echo $obj[12]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="cli" style="font-size: 1.1em;"><?php echo $obj[13]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="pag" style="font-size: 1.1em;"><?php echo $obj[15]; ?></span></td>
-            <td class="td right-align"  style="padding: 0%; margin: 0%;"><span id="tot" style="font-size: 1.1em;"><?php echo number_format($obj[16],2); ?></span></td>
+            <td ><span id="con" ><?php echo $obj[11]; ?></span></td>
+            <td ><span id="pag" ><?php echo $obj[15]; ?></span></td>
+            <td align="right"><span  ><?php echo number_format($obj[16],2); ?></span></td>
           </tr>
           <?php } ?>
         </tbody>
       </table>
-      <!-- /DETALLE FACT -->
       <br>
       <!-- DETALLE FACT -->
-      <table class="bordered hide" style="border: 0px; font-size: 1em;display: none" id="detalle">
+      <table style="border: 0px; font-size: 1em;width: 100%;">
         <thead>
           <tr>
-            <th class="center-align"></th>
-            <th class="center-align"></th>
-            <th class="center-align" style="font-size: 1.2em;">Notas y abonos</th>
-            <th class="center-align"></th>
-            <th class="center-align"></th>
-            <th class="center-align"></th>
+            <th colspan="3" align="center">Notas y abonos</th>
           </tr>
         </thead>
         <thead class=" blue-grey white-text imprimirSINBOR margen">
           <tr>
-            <th class="center-align sinborde" id="th1" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Factura</th>
-            <th class="center-align sinborde" id="th3" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Fecha</th>
-            <th class="center-align sinborde" id="th6" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Cliente</th>
-            <th class="center-align sinborde" id="th2" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Nota/Abono</th>
-            <th class="center-align sinborde" id="th5" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Valor</th>
-            <th class="center-align sinborde" id="th6" style="background-color: #3960A7; padding: 0%; font-size: 1.2em; margin: 0%;">Comentario</th>
+            <th >Factura</th>
+            <th >Nota/Abono</th>
+            <th align="right">Valor</th>
           </tr>
         </thead>
         <tbody >
           <?php foreach ($estados as $obj) {?>
           <tr class="tr" >
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="con"><?php echo $obj[0]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="cli"><?php echo $obj[2]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="tip"><?php echo $obj[3]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="fec"><?php echo $obj[1]; ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;"><span id="pag"><?php echo number_format($obj[4],2); ?></span></td>
-            <td class="td center-align" style="padding: 0%; margin: 0%;" ><span id="tot"><?php echo $obj[5]; ?></span></td>
+            <td ><span id="con"><?php echo $obj[0]; ?></span></td>
+            <td ><span id="fec"><?php echo $obj[1]; ?></span></td>
+            <td ><span id="pag"><?php echo number_format($obj[4],2); ?></span></td>
           </tr>
           <?php } ?>
         </tbody>
       </table>
-      <!-- /DETALLE FACT -->
+      <?php break;
+            case 2:
+      ?>
+      <table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
+        <thead>
+          <tr>
+            <th colspan="2" align="center">Productos</th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th >Producto</th>
+            <th >Total</th>
+          </tr>
+        </thead>
+        <tbody >
+          <?php foreach ($cierreg as $obj) {?>
+          <tr class="tr" >
+            <td ><span><?php echo $obj[11]; ?></span></td>
+            <td align="right"><span><?php echo number_format($obj[16],2); ?></span></td>
+          </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+      <br>
+      <?php default:
+            break;
+            } ?>
       <br>
       <!-- INFO FACT -->
       <div class="row">
-        <br>
         <div class="col s8 offset-s2">
           <br><br>
           <section id="sqre">
@@ -223,7 +179,7 @@
               <tbody>
                 <tr class="ttdr">
                   <td class="center-align"><hr size="10" style="  background-color: black;  height: 1px; width: 80%;" /></td>
-                  <td class=""></td>
+                  <td ></td>
                 </tr>
               </tbody>
             </table>
@@ -269,3 +225,4 @@
     <script src="../assets/js/jquery.js?v=10.0.0.69"></script>
     <script src="../assets/js/materialize.js?v=10.0.0.69"></script>
   </body>
+</html>

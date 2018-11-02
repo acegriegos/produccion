@@ -8,11 +8,10 @@ $(function(){
         case 'movinv':
             arr('login',6,'',255,'6,0,"","",@@impresa,0','',1,$(".detrep")); 
             break;
-        case 'inventario':
-            arr('login',6,'',127,'6','127_1',1,$(".detrep"));
+        case 'inventarios':
+            arr('login',6,'',127,'6,@@impresa','127_1',1,$(".detrep"));
             break;
         default:
-            alert(param)
             break;
             
     }

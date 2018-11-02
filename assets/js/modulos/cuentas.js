@@ -32,9 +32,8 @@ $(function(){
 	});
 
 	$("#ncli").blur(function(e){
-		var sql = "id > 0 and !bisproveedor and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"' limit 1";
+		var sql = "id > 0 and !bisproveedor and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"' and idsucursal = @@impresa limit 1";
 		var id = arr('login',4,'id',2,sql,0,0,0);
-		console.log(id)
 		var tabla = $("#data-table-facturas").DataTable();
 		tabla.destroy();
 		if ($(this).val() != '') {
@@ -43,7 +42,8 @@ $(function(){
 				$("#listaCuentasPm").html('');
 				$("#hclie").val(0)
 			}else{
-				var p = arr('login',4,'',214,paramTemp+',0,'+id[0][0][0]+',0,0,@@impresa',0,0,0);
+				var p = arr('login',4,'',214,gtipo+',0,'+id[0][0][0]+',0,0,@@impresa',0,0,0);
+				console.log(gtipo+',0,'+id[0][0][0]+',0,0,@@impresa')
 				var tabla = $("#listaCuentasPm");
 				tabla.html('');
 				for (var i = 0; i < p[0].length; i++) {
@@ -181,6 +181,12 @@ $(document).on("click","#btnPagar",function(){
 		// var idcliente = $("#hclie").val();
 		var monto = $("#monto").val().replace(',','');
 		var idfactura = val = vmonto = idestadocuenta = 0;
+
+		if (!$(".factclie").length) {
+			Materialize.toast('No hay Facturas que Cancelar',4000,'red');
+			return false;
+		}
+
 		if ($(".factclie:checked").length) {
 			$(".factclie:checked").each(function(){
 				idfactura = $(this).val();
@@ -189,7 +195,6 @@ $(document).on("click","#btnPagar",function(){
 				var idestadocuenta = arr('login',4,'',300,'1,0,7,1,idfactura,@@usr,monto,debe,haber,0,idtipopago,comentario',0,0,0)[0][0];
 			});
 		}else{
-
 			$(".factclie").each(function(){
 				idfactura = $(this).val();
 				val = parseFloat($(this).attr('vl'));
@@ -202,15 +207,12 @@ $(document).on("click","#btnPagar",function(){
 					vmonto = monto;
 					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
 					return false;
-				}
-				
-				
-				
+				}	
 			});
 		}
 
 		Materialize.toast('Pagos Realizados Exitosamente',4000,'green');
-		arr('login',6,'',214,gtipo+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
+		arr('login',6,'',214,gtipo+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 		$("#ncli").val('')
 		$("#listaCuentasPm").html('');
 		$("#hclie").val(0)

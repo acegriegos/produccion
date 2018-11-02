@@ -304,12 +304,12 @@ echo '
 
       if ($("#ttipo").val() != 1) {
         $(".ncontado").show();
-        if (config9) {
-          $(".recibo").show();
-        }
+        
       }
 
-      
+      if (config9) {
+        $(".recibo").show();
+      }
 
       param = getParameterByName('fp');
       param = param == '' ? 0 : parseInt(param) ;

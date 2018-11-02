@@ -1,7 +1,10 @@
 <?php
 ob_start();
+$ubic = '../';
+if (isset($url2)) 
+  $ubic = '';
 
-require_once('../_config/rep_TCPDF.php');
+require_once($ubic.'_config/rep_TCPDF.php');
 
 class myPDF extends TCPDF {
 
@@ -122,7 +125,8 @@ $html .= '</head>'.
 '<br>';
 
 if ($miscelaneos[3]) {
-   $html .= '<img src="'.$miscelaneos[3].'" width="264" style="max-width:339px;" class="mcnImage">';
+  $logo = isset($url2) ? str_replace('../', '', $miscelaneos[3]) : $miscelaneos[3];
+  $html .= '<img src="'.$logo.'" width="264" style="max-width:339px;" class="mcnImage">';
 }
 
 $html .= '</td>'.
@@ -202,7 +206,9 @@ $html .= '<div style="padding: 8px 0px 8px 0px">
 <b>Cédula:</b> '.$datos[0][34].'<br>';
 }
 
-$html .= '<strong>Vende:</strong> '.$datos[0][16].'<br>';
+if($datos[0][16] != '')
+  $html .= '<strong>Vende:</strong> '.$datos[0][16].'<br>';
+
 if ($datos[0][12] != '') {
 $html .= '<strong>Comentario:</strong><br>'.$datos[0][12];
 }
@@ -350,7 +356,7 @@ if ($grabado > 0){
 
   $html .= '<tr>
     <td></td>
-    <td align="right">Grabado:</td>
+    <td align="right">Gravado:</td>
     <td align="right">'.$datos[0][15].number_format($grabado+str_replace(',', '', $obj[6]),2).'</td>
   </tr>
   <tr>
@@ -423,6 +429,6 @@ $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 $sld = $datos[0][25] == 'Venta' ?  'Factura' : $datos[0][25];
-$pdf->Output('../assets/pdf/'.$sld.' N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','F');
+$pdf->Output($ubic.'assets/pdf/'.$sld.' N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','F');
 
 ?>

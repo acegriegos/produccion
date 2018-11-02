@@ -21,6 +21,10 @@ $(function () {
 					info: false
 				});
 				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:'',visvariable:0,visgravamen:0})
+
+				if($("#inventariado").length)
+					$("#fproductos .zelda").attr('inventariado',1);
+
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -1304,7 +1308,7 @@ $(document).on("blur",".calcvv",function(){
 	});
 
 	impuestos = isNaN(impuestos) ? 0 : impuestos;
-	console.log(impuestos)
+
 	if (parseInt(num) == 1) {
 		var tven = rven = 0;
 		$(".gan").each(function(){
@@ -1916,17 +1920,19 @@ function validarproductos() {
 		$("#fproductos .zelda").data('triforce')["visvariable"] = 0;
 	}
 
-	if($("#inventariado:visible").length){
+	if($("#fproductos .zelda").attr('inventariado') != undefined){
+		if (isNaN($("#vcantidad").val()) ) {
+			$("#vcantidad").focus();
+			return 'Cantida Requerida';
+		}
+
 		if($("#inventariado").is(":checked")){
 			$("#visinventariado").val(1)
-		}else
+		}else{
 			$("#visinventariado").val(0)
+		}
 	}
 
-	if ($("#vcantidad:visible").length && isNaN($("#vcantidad").val()) ) {
-		$("#vcantidad").focus();
-		return 'Nombre Requerido';
-	}
 	return false;
 }
 
@@ -2103,7 +2109,7 @@ function endDetail(id, acc, modulo) {
 			}
 			// fin exoneracion
 
-			if ($("#vcantidad:visible").length == 1) {
+			if($("#fproductos .zelda").attr('inventariado') != undefined){
 				actualizar(97,'cantidad='+$("#vcantidad").val(),'idinventario = 6 and idproducto='+id[0][0]);
 			}
 

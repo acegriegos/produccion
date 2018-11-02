@@ -145,68 +145,98 @@
                 }
                 echo json_encode($salida);
                 break;
-            case 12: //INTEGRACION XML GENERADO
-                
+             case 12: //INTEGRACION XML GENERADO
+    
                 $salida = ['succed'=>1];
                 if (!file_exists('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml')) {
-                    $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
+                    $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO '];
                 }else{
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
-                    $tp = substr($id, 0,1);
-                    $rxml = $fe->XMLtoArray($xml);
-                    if (!sizeof($rxml[$fe->tdoc]['Receptor'])) {
-                        $fe->tdoc = 'TiqueteElectronico';
-                        $fe->xmldoc = 'tiqueteElectronico';
-                        $id = '!'.substr($id, 1,strlen($id));
-                    }else{
-                        $id = substr($id, 1,strlen($id));
-                    }
-
-                    $intsuc = $db->ejecutar('call fe_integracion('.$id.','.$_SESSION['IMPRESA'].',curdate())')->fetch_all()[0];
+                    $nombresuc = $db->ejecutar('select if(pfisico = "",nombre,pfisico) from sucursales where id = '.$_REQUEST['sucursal']);
+                    $fe->procesarPDF($xml,$db,$_REQUEST['sucursal']);
+                    $fe->enviarCorreo('amiranda@logintechcr.com','hola','hi',[0=>'xml/'.$_REQUEST['ruta'].'/'.$id.'.xml',1=>'pdf/Factura N°'.'00100001010000000202'.', '.$_REQUEST['sucname'].'.pdf']);
+                    /*$db = new DBClass();
+                    $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
+                    $tid = $id;
+                    $nid = substr($id, 0,1);
                     
-                    $fe->info['FechaEmision'] = $rxml[$fe->tdoc]['FechaEmision'];
-                    $fe->info['Emisor']['Identificacion']['Tipo'] = $rxml[$fe->tdoc]['Emisor']['Identificacion']['Tipo'];
-                    $fe->info['Emisor']['Identificacion']['Numero'] = $rxml[$fe->tdoc]['Emisor']['Identificacion']['Numero'];
-                    $rxml[$fe->tdoc]['Clave'] = $intsuc[0];
-                    $rxml[$fe->tdoc]['NumeroConsecutivo'] = substr($rxml[$fe->tdoc]['Clave'], 21,20);
-                    $fe->info['NumeroConsecutivo'] = $rxml[$fe->tdoc]['NumeroConsecutivo'];
-                    $fe->info['Clave'] = $rxml[$fe->tdoc]['Clave'];
-
-                    $rxml[$fe->tdoc]['Emisor']['Nombre'] = $intsuc[1];
-                    $rxml[$fe->tdoc]['Emisor']['Identificacion']['Tipo'] = $intsuc[2];
-                    $rxml[$fe->tdoc]['Emisor']['Identificacion']['Numero'] = $intsuc[3];
-                    $rxml[$fe->tdoc]['Emisor']['Ubicacion']['Barrio'] = $intsuc[4];
-                    $rxml[$fe->tdoc]['Emisor']['Ubicacion']['Canton'] = $intsuc[5];
-                    $rxml[$fe->tdoc]['Emisor']['Ubicacion']['Distrito'] = $intsuc[6];
-                    $rxml[$fe->tdoc]['Emisor']['Ubicacion']['Provincia'] = $intsuc[7];
-
-                    if ($intsuc[8] != '') {
-                        $rxml[$fe->tdoc]['Emisor']['Telefono']['CodigoPais'] = $intsuc[8];
-                        $rxml[$fe->tdoc]['Emisor']['Telefono']['NumTelefono'] = $intsuc[9];
-                    }else{
-                        unset($rxml[$fe->tdoc]['Emisor']['Telefono']);
+                    $rxml = $fe->XMLtoArray($xml);
+                    switch($nid){
+                        case 'F':
+                        if (!sizeof($rxml['FacturaElectronica']['Receptor']['Nombre'])) {
+                            unset($rxml['FacturaElectronica']['Receptor']);
+                            $fe->tdoc = 'TiqueteElectronico';
+                            $fe->xmldoc = 'tiqueteElectronico';
+                            $id = '!'.substr($id, 1,strlen($id));
+                        }else{
+                            $id = substr($id, 1,strlen($id));
+                        }
+                        break;
+                        case 'C':
+                            $fe->tdoc = 'NotaCreditoElectronica';
+                            $fe->xmldoc = 'notaCreditoElectronica';
+                            $id = '-'.substr($id, 1,strlen($id));
+                        break;
+                        case 'D':
+                            $fe->tdoc = 'NotaDebitoElectronica';
+                            $fe->xmldoc = 'notaDebitoElectronica';
+                            $id = '^'.substr($id, 1,strlen($id));
+                        break;
                     }
 
-                    $rxml[$fe->tdoc]['Emisor']['CorreoElectronico'] = $intsuc[10];
+                    $repetir = isset($_REQUEST['view']) ? 1 : 0;
+                    $intsuc = $db->ejecutar('call fe_integracion("'.$id.'",'.$_SESSION['IMPRESA'].',curdate(),'.$repetir.')');
+                    //echo $intsuc;
+                    //echo 'call fe_integracion("'.$id.'",'.$_SESSION['IMPRESA'].',curdate(),'.$repetir.')';
+                    $intsuc = $intsuc->fetch_all()[0];
+                    
+                    $fe->info['FechaEmision'] = $rxml['FacturaElectronica']['FechaEmision'];
+                    $fe->info['Emisor']['Identificacion']['Tipo'] = $rxml['FacturaElectronica']['Emisor']['Identificacion']['Tipo'];
+                    $fe->info['Emisor']['Identificacion']['Numero'] = $rxml['FacturaElectronica']['Emisor']['Identificacion']['Numero'];
+                    $rxml['FacturaElectronica']['Clave'] = $intsuc[0];
+                    $rxml['FacturaElectronica']['NumeroConsecutivo'] = substr($rxml['FacturaElectronica']['Clave'], 21,20);
+                    $fe->info['NumeroConsecutivo'] = $rxml['FacturaElectronica']['NumeroConsecutivo'];
+                    $fe->info['Clave'] = $rxml['FacturaElectronica']['Clave'];
 
+                    $rxml['FacturaElectronica']['Emisor']['Nombre'] = $intsuc[1];
+                    $rxml['FacturaElectronica']['Emisor']['Identificacion']['Tipo'] = $intsuc[2];
+                    $rxml['FacturaElectronica']['Emisor']['Identificacion']['Numero'] = $intsuc[3];
+                    $rxml['FacturaElectronica']['Emisor']['Ubicacion']['Barrio'] = $intsuc[4];
+                    $rxml['FacturaElectronica']['Emisor']['Ubicacion']['Canton'] = $intsuc[5];
+                    $rxml['FacturaElectronica']['Emisor']['Ubicacion']['Distrito'] = $intsuc[6];
+                    $rxml['FacturaElectronica']['Emisor']['Ubicacion']['Provincia'] = $intsuc[7];
+
+                    if ($intsuc[7] != '') {
+                        $rxml['FacturaElectronica']['Emisor']['Telefono']['CodigoPais'] = $intsuc[8];
+                        $rxml['FacturaElectronica']['Emisor']['Telefono']['NumTelefono'] = $intsuc[9];
+                    }else{
+                        unset($rxml['FacturaElectronica']['Emisor']['Telefono']);
+                    }
+
+                    $rxml['FacturaElectronica']['Emisor']['CorreoElectronico'] = $intsuc[10];
+
+                    
                     $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
                     $fe->array_to_xml($rxml,$xml_data);
 
                     $xml = $xml_data->asXML();
                     $xml = str_replace('<FacturaElectronica>', '', $xml);
-                    $xml = str_replace('</FacturaElectronica></FacturaElectronica>', '</FacturaElectronica>', $xml);
+                    $xml = str_replace('</FacturaElectronica></'.$fe->tdoc.'>', '</'.$fe->tdoc.'>', $xml);
+
                     $fe->firmarXML($xml);
+                    file_put_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$tid.'.xml', $xml);
 
                     if (isset($_REQUEST['view'])) {
                         header("Content-type: text/xml; encoding='UTF-8'");
                         print_r($xml);
                     }else{
-                        print_r($db->ejecutar('insert into integraciones values(null,"'.$rxml[$fe->tdoc]['Clave'].'","../assets/xml/'.$id.'.xml",'.$id.',3,'.$_REQUEST['sucursal'].')'));
-                        echo $fe->integracion($xml);
-                    }
+                        print_r($db->ejecutar('insert into integraciones values(null,"'.$rxml['FacturaElectronica']['Clave'].'","../assets/xml/'.$tid.'.xml","'.$tid.'",3,'.$_REQUEST['sucursal'].')'));
+                        echo $fe->integracion($xml,$db,$_REQUEST['sucursal']);
+                    }*/
                     
                 }
+                print_r($salida);
                 break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
@@ -469,7 +499,7 @@
             $salida['emisor']['correo'] = $salida['emisor']['correo'] == 0 ? $salida['emisor']['correo'] : $salida['emisor']['correo'][0];
             $salida['emisor']['id']         = $prov[0][0];
         }
-
+        
         $fecha = (array) $inv_xml->FechaEmision;
         $fecha = $fecha[0];
         $fecha = strlen($fecha) > 19 ? strtotime(substr(str_replace('T', ' ', $fecha),0,-6)) : strtotime(str_replace('T', ' ', $fecha));
@@ -480,7 +510,7 @@
         $salida['factura']['tipoventa'] = (array) $inv_xml->CondicionVenta;
         $salida['factura']['tipoventa'] = $salida['factura']['tipoventa'][0];
         $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? (array) $inv_xml->PlazoCredito : 0;
-        $salida['factura']['plazo']     = $salida['factura']['plazo'] == 0 ? $salida['factura']['plazo'] : $salida['factura']['plazo'][0];
+        $salida['factura']['plazo']     = !$salida['factura']['plazo'] || !sizeof($salida['factura']['plazo'])? 0 : $salida['factura']['plazo'][0];
         preg_match_all('!\d+!', $salida['factura']['plazo'], $matches);
         $salida['factura']['plazo']     = $matches[0][0];
         $salida['factura']['tipopago']  = (array) $inv_xml->MedioPago;
@@ -493,13 +523,13 @@
         $salida['factura']['divisa']    = $salida['factura']['divisa'] == 0 ? 1 : $salida['factura']['divisa'];
 
         $salida['factura']['subtotal']  = (array) $inv_xml->ResumenFactura->TotalGravado;
-        $salida['factura']['subtotal']  = $salida['factura']['subtotal'][0];
+        $salida['factura']['subtotal']  = isset($salida['factura']['subtotal'][0]) ? $salida['factura']['subtotal'][0] : 0;
         $salida['factura']['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
         $salida['factura']['exento']    = isset($salida['factura']['exento'][0]) ? $salida['factura']['exento'][0] : 0;
         $salida['factura']['descuento'] = (array) $inv_xml->ResumenFactura->TotalDescuentos;
         $salida['factura']['descuento'] = isset($salida['factura']['descuento'][0]) ? $salida['factura']['descuento'][0]: 0;
         $salida['factura']['impuesto']  = (array) $inv_xml->ResumenFactura->TotalImpuesto;
-        $salida['factura']['impuesto']  = $salida['factura']['impuesto'][0];
+        $salida['factura']['impuesto']  = isset($salida['factura']['impuesto'][0]) ? $salida['factura']['impuesto'][0] : 0;
 
         $ciclo = (array) $inv_xml->DetalleServicio;
         
@@ -760,7 +790,7 @@
             return $salida;
         }
 
-        function integracion($xml){
+        function integracion($xml,&$db,$suc){
             $doBearer = $this->getBearer();
             if(!is_array($doBearer))
                 return json_encode(['factura'=>$this->id,'succed'=>0,'rs'=>$doBearer,'erno'=>1]);
@@ -789,13 +819,9 @@
                 case 201:
                 case 202:
                     $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
-                    //require_once '_config/correo.php';
-                    $_xml = $fe->XMLtoArray($xml);
-                    $datos = [];
-                    $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
-                    $tit = 'Factura';
-                    
-                    include 'view/pdf/recibo.php'; 
+                    if($suc == 5){
+                        procesarPDF($xml,$db,$suc);
+                    }
                     break;
                 case 400:
                     print_r($rs);
@@ -1021,14 +1047,14 @@
                         return ['error' => 'Formato Cédula no Valido'];
                     break;
                 case '02':
-                case '03':
+                case '04':
                     if ($tmcedula != 10)
                         return ['error' => 'Formato Cédula no Valido'];
                     break;
                 default :
                     
-                    if ( $tmcedula != 10)
-                        return ['error' => 'Formato Cédula no Valido'];
+                    if ( $tmcedula != 12)
+                        return ['error' => 'Formato Cédula no Valido '.$tmcedula];
                     break;
             }
 
@@ -1461,6 +1487,85 @@
                 }
             }
             return $result;
+        }
+
+        function procesarPDF($xml,&$db,$suc){
+            $_xml = $this->XMLtoArray($xml);
+            $transaccion = [];
+            //quitar factura electronica
+            $ind = 0;
+
+            foreach ($_xml[$this->tdoc]['DetalleServicio']['LineaDetalle'] as $obj) {
+                
+                $linea = [];
+                $linea['0'] = $_xml[$this->tdoc]['NumeroConsecutivo'];
+                $linea['1'] = $_xml[$this->tdoc]['CondicionVenta'] == '01' ? 'Contado' : 'Crédito';
+                $linea['2'] = isset($_xml[$this->tdoc]['MedioPago']) ? $_xml[$this->tdoc]['MedioPago'] == '01' ? 'Efectivo' : 'Tarjeta' : 'N/A';
+                $linea['3'] = substr($_xml[$this->tdoc]['FechaEmision'], 0,10);
+                if (isset($_xml[$this->tdoc]['Receptor'])) {
+                    $linea['4'] = $_xml[$this->tdoc]['Receptor']['Nombre'];
+                    $linea['34'] = $_xml[$this->tdoc]['Receptor']['Identificacion']['Numero'];
+                }else{
+                    $linea['4'] = '';
+                    $linea['34'] = '';
+                }    
+                
+                $linea['5'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalImpuesto'],2);
+                $linea['6'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalDescuentos'],2);
+                $linea['7'] = 0;
+                $linea['8'] = 0;
+                $linea['9'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalGravado'],2);
+                $linea['10'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalComprobante'],2);
+                $linea['11'] = $_xml[$this->tdoc]['CondicionVenta'] == '01' ? 0 : $_xml[$this->tdoc]['PlazoCredito'];
+                $linea['12'] = '';
+                $linea['13'] = '';
+                $linea['14'] = $_xml[$this->tdoc]['ResumenFactura']['CodigoMoneda'];
+                $linea['15'] = $_xml[$this->tdoc]['ResumenFactura']['CodigoMoneda'] == 'CRC' ? '¢' : '$';
+                $linea['16'] = '';
+                $linea['17'] = $_REQUEST['sucname'];
+                $linea['18'] = $obj['Cantidad'];
+                $linea['19'] = $obj['Detalle'];
+                $linea['20'] = number_format($obj['PrecioUnitario'],2);
+                $linea['21'] = isset($obj['MontoDescuento']) ? $obj['MontoDescuento'] : 0;
+                $linea['22'] = number_format($obj['SubTotal'],2);
+                $linea['23'] = isset($obj['UnidadMedidaComercial']) ? $obj['UnidadMedidaComercial'] : $obj['UnidadMedida'];
+                if (isset($_xml[$this->tdoc]['Receptor'])) {
+                    $linea['24'] = '1';
+                    $linea['25'] = 'Venta';
+                    $linea['30'] = 'Cliente';
+                }else{
+                    $linea['24'] = '7';
+                    $linea['25'] = 'Tiquete';
+                    $linea['30'] = '';
+                }
+                $linea['26'] = $_xml[$this->tdoc]['CondicionVenta'] == '01' ? 1 : 2;
+                $linea['27'] = '';
+                $linea['28'] = isset($obj['Impuesto']) ? number_format($obj['Impuesto']['Monto'],2) : 0;
+                $linea['29'] = isset($obj['Impuesto']) ? '' : '*';
+                $linea['31'] = '';
+                $linea['32'] = $_xml[$this->tdoc]['Clave'];
+                $linea['33'] = ''; //EXONERACION
+                $linea['35'] = '';
+                $linea['36'] = isset($obj['Codigo']) ? $obj['Codigo']['Codigo'] : '';
+
+                $transaccion[$ind] = $linea;
+                $ind += 1;
+            }
+
+            $datos = $transaccion;
+            $miscelaneos = $db->ejecutar('call krattos("",50,'.$suc.')')->fetch_all()[0];
+            $tit = $this->tdoc;
+            $url2 = 1;
+
+            include 'dashboard/view/pdf/recibo.php';
+        }
+
+        function enviarCorreo($crr,$sub,$bdy,$adj){
+            $url2 = 1;
+            require_once '_config/correo.php';
+
+            $correo = new correo($crr,$sub,$bdy,'',0);
+            $correo->enviar_adjunto($adj);
         }
     }   
 

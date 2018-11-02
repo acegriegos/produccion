@@ -193,11 +193,11 @@ if (isset($_POST['respuestaXml'])) {
                     switch ($certData['subject']['OU']) {
                       case 'CPJ':
                         $tipo = 2;
-                        $cedula = substr($certData['subject']['serialNumber'],5);
+                        $cedula = substr($certData['subject']['serialNumber'],4);
                         break;
                       case 'CPF':
                         $tipo = 1;
-                        $cedula = substr($certData['subject']['serialNumber'],4);
+                        $cedula = substr($certData['subject']['serialNumber'],5);
                         break;
                       case 'DIMEX':
                         $tipo = 3;

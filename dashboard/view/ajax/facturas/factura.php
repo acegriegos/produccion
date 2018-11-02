@@ -1,3 +1,4 @@
+<?php $config = $kakaroto->kamehameha('',42,'@@impresa')[0];?>
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
@@ -196,7 +197,7 @@
                       
                    ?> -->
                 </td>
-                <td colspan="2">
+                <td colspan="3">
                   <table>
 
                     <tr>
@@ -255,9 +256,8 @@
             </tfoot>
           </table>
 
-
           <!-- @PRINT -->
-          <section class="hideonprint hide">
+          <section class="<?php if(!$config[9]) echo 'hide'; ?>">
             <div class="row">
               <br>
               <div class="col s12 m8 offset-m2">
@@ -311,7 +311,7 @@
           </div>
 
           <!-- @PRINT -->
-          <section class="hidex">
+          <section class="hideonprint">
             <div class="col s12 m3 l3 white-text">
               <br>
               <div id="correosclie">

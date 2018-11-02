@@ -54,8 +54,10 @@
                       $_SESSION['CAJA']    = 0;
                       $mod = 'facturacion?tf=6';
                     }
-                  }else
+                  }else{
                     $_SESSION['CAJA']    = 0;
+                    $mod = 'facturacion';
+                  }
                   break;
                 case 4:
                   $mod = 'documentos';

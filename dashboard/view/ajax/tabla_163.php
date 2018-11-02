@@ -38,8 +38,3 @@
 <?php }
 }
 ?>
-<script type="text/javascript">
- 	$(function(){
-	 	permisos(310,311);
- 	});
-</script>

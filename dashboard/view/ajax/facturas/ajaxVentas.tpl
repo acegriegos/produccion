@@ -23,7 +23,7 @@
   <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
   {if $smarty.session.CAJA eq 1}
-  <a class="trVenta hide btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" onclick="cargarFacturas();"><span class="white-text" id="cantFact"></span></a>
+  <a class="trVenta hide btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" id="cargarfact"><span class="white-text" id="cantFact"></span></a>
   {/if}
 </p>
   
@@ -88,16 +88,16 @@
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
       <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
-      <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180" data-position="bottom" data-tooltip="Agregar Cliente"></a>
+      <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180;cursor: pointer;" data-position="bottom" data-tooltip="Agregar Cliente"></a>
       <i class="mdi mdi-16px mdi-email pbtn tooltipped hide clieBTN" href="#modal-correos" id="crrclie" style="position:absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 22px;z-index: 170" data-position="bottom" data-tooltip="Correos del Cliente"></i>
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
     
   </div>
-
+<!-- gen aff afc cre -->
   <div class="row">
-    <div class="col s2 der gen aff afc cre hide">
+    <div class="col s2 der hide">
       <a href="#" class="btn dropdown-button" data-activates='filtr_fin'>Financiamiento</a>
       <ul id='filtr_fin' class='dropdown-content'>
         <li><a class="optns" href="#!" fltr="0">Manual</a></li>
@@ -199,7 +199,7 @@
     <section class="right">
 
       {if $smarty.session.BUSS neq 1}
-        <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span></a>
+        <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
       {/if}
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
         <label for="barras" class="isfast"><i class="mdi mdi-barcode mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" data-position="bottom" style="font-size: 1.4em"></i></label>
@@ -940,6 +940,29 @@
   <div class="modal-footer">
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
+  </div>
+</div>
+
+<div id="modal-facturas" class="modal modal-fixed-footer" style="width: 80%; height: 90% !important;">
+  <div class="modal-content" id="fproductos">
+    <h4>Lista de Facturas</h4>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Numero</th>
+          <th>Nombre</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="bdylist">
+        
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acepfact">Aceptar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
   </div>
 </div>
 
