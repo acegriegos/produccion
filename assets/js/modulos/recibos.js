@@ -26,7 +26,7 @@ $(function(){
          mid = getParameterByName('id');
 
          var archivos = '';
-        var tipo = $("#tventa").val();
+        var tipo = $("#fact").html();
         mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:tipo+' Electrónica',sel:'',tbl:72,where:mid},1);
         var vfactura = $("#numfact").html().trim();
         vbody = getDatos('',73,mid,0,0)[0][0];
@@ -37,7 +37,7 @@ $(function(){
         else{
             archivos = {0:'xml/'+tipo+' N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf'}
         }
-        mantenimiento_async('login',9,{id:mid,factura:vfactura,sucursal:vsucursal},1);
+        mantenimiento_async('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
         
         var e = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos);
         vpara = vbody = "";

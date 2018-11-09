@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.70">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.70">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.73">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.73">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.70"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.73"> -->
 
-<link href="../assets/css/modulos/style-factura.css?v=10.0.0.70">
+<link href="../assets/css/modulos/style-factura.css?v=10.0.0.73">
 
 <title>Movimiento CxC</title>
 
@@ -167,11 +167,11 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js?v=10.0.0.70"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.73"></script>
 
-<script src="../assets/js/materialize.js?v=10.0.0.70"></script>
-<script src="../assets/js/asgard.js?v=10.0.0.70"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.70"></script>
+<script src="../assets/js/materialize.js?v=10.0.0.73"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.73"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.73"></script>
   <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

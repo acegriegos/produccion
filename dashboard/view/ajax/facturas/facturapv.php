@@ -127,15 +127,15 @@ echo '<br> '.$miscelaneos[6].'
   </tr>
 </table>
 <table style="width: 100% !important;">
-  <tr class="hide" style="display:none">
-    <td align="left" colspan="4">Factura Electrónica, Clave N°</td>
+  <tr class="hide">
+    <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
-  <tr class="hide" style="display:none">
+  <tr class="hide">
     <td align="left" colspan="4" style="font-size:13px">'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>
-    <td align="center">Factura de '.$datos[1].' N°</td>
+    <td align="center">'.$datos[25].' de '.$datos[1].' N°</td>
   </tr>
   <tr>
     <td align="center"><span class="fe hide"> '.$datos[0].' </span></td>
@@ -287,9 +287,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.70"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.70"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.70"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.73"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.73"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.73"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
