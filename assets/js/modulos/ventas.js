@@ -712,7 +712,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     
     $("#valores").removeData('elemento');
 
-    isiva = !$("[for=iva]:visible").length ? $("#iva").is(":checked") : 0;
+    isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : 0;
     
     if(param.toString().match(new RegExp(/[1678]/i)))
         $("[for=iva]").addClass('hide');
