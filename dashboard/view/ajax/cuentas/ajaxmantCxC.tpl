@@ -231,6 +231,7 @@
                             </select>
                         </div>
                         <div class="col s6 m6">
+                            Saldo Actual: ¢<span id="saldo">0.00</span>
                             <button id="btnPagar" type="button" class="der btn btn-flat btn1 white-text waves-effect">Pagar</button>
                         </div>
                     </div>

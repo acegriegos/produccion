@@ -160,11 +160,12 @@
                     $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
                     $tid = $id;
                     $nid = substr($id, 0,1);
-                    
+                    $cliente = '';
                     $rxml = $fe->XMLtoArray($xml);
                     switch($nid){
                         case 'F':
                         if (!sizeof($rxml['FacturaElectronica']['Receptor']['Nombre'])) {
+                            $cliente = $rxml['FacturaElectronica']['Receptor']['Nombre'];
                             unset($rxml['FacturaElectronica']['Receptor']);
                             $fe->tdoc = 'TiqueteElectronico';
                             $fe->xmldoc = 'tiqueteElectronico';
@@ -231,7 +232,7 @@
                         header("Content-type: text/xml; encoding='UTF-8'");
                         print_r($xml);
                     }else{
-                        print_r($db->ejecutar('insert into integraciones values(null,"'.$rxml['FacturaElectronica']['Clave'].'","../assets/xml/'.$tid.'.xml","'.$tid.'",3,'.$_REQUEST['sucursal'].')'));
+                        print_r($db->ejecutar('insert into integraciones values(null,"'.$rxml['FacturaElectronica']['Clave'].'","../assets/xml/'.$_REQUEST['ruta'].'/'.$tid.'.xml","'.$tid.'",3,'.$_REQUEST['sucursal'].',"'.$cliente.'")'));
                         echo $fe->integracion($xml,$db,$_REQUEST['sucursal']);
                     }*/
                     
@@ -309,7 +310,7 @@
             
         </div>
 
-        <div class="center" style="bottom: 15%;left:auto;">Factura Electrónica Emitida por Logintech <br> <a href="mailto:info@logintechcr.com">Contáctenos, Será un placer brindar nuestros servicios</a>, +(506) 6105-6852</div>
+        <div class="center" style="bottom: 15%;left:auto;">Documento Electrónico Emitido por Logintech <br> <a href="mailto:info@logintechcr.com">Contáctenos, Será un placer brindar nuestros servicios</a>, +(506) 6105-6852</div>
 
         <script src="assets/js/jquery.js?v=10.0.0.47"></script>
         <script src="assets/js/jquery.mask.min.js?v=10.0.0.47"></script>
@@ -543,7 +544,7 @@
             $vunidad = (array)$key->UnidadMedida;
             $vunidad = $vunidad[0] == 'Otros' ? (array)$key->UnidadMedidaComercial : (array)$key->UnidadMedida;
             $vunidad = isset($vunidad[0]) ? $vunidad[0] : 1 ;
-            $vunidad = $vunidad == 0 ? 1 : $vunidad[0] ;
+            $vunidad = $vunidad == 0 ? 1 : $vunidad;
             $cunidad = $db->ejecutar('call krattos("if(count(id),id,0)",107,"id > 0 and simbolo = \"'.$vunidad.'\" ")')->fetch_all();
 
             $num = (array)$key->NumeroLinea;
@@ -621,10 +622,9 @@
                 }
             }
 
-            if ($_REQUEST['accion'] == 12) {
-                
-                $_SESSION['IMPRESA'] = $_REQUEST['sucursal'];
-            }
+            if(isset($_REQUEST['accion']))
+                if ($_REQUEST['accion'] == 12) 
+                    $_SESSION['IMPRESA'] = $_REQUEST['sucursal'];
 
             if ($vid != '') {
                 $db = new DBClass();
@@ -994,8 +994,8 @@
             }else{
                 $data[] = $this->info;
 
-                $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
                 $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
+                $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
 
                 $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
                 if (!$tdetalle && $this->opcion < 5) 
@@ -1023,6 +1023,17 @@
             }
 
             if (isset($this->info['Receptor']['Identificacion']['Tipo'])) {
+
+                if(isset($this->info['Receptor']['Telefono']['NumTelefono'])){
+                    if (!is_numeric($this->info['Receptor']['Telefono']['NumTelefono'])) {
+                        return ['error' => 'Telefono no Valido'];
+                    }
+
+                    if (strlen($this->info['Receptor']['Telefono']['NumTelefono']) != 8) {
+                        return ['error' => 'Telefono no Valido'];
+                    }
+                }
+
                 switch ($this->info['Receptor']['Identificacion']['Tipo']) {
                     case '01':
                         if (strlen($this->info['Receptor']['Identificacion']['Numero']) != 9)

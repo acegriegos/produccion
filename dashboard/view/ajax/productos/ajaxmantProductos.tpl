@@ -238,7 +238,7 @@
             {if $smarty.session.BUSS eq 3}
                 <div class="row col s12 switch">
                     <label class="col s4">
-                      <input type="checkbox" id="inventariado">
+                      <input type="checkbox" id="goldinventariado">
                       <span class="lever tooltipped " data-tooltip="Llevar Control de Inventario del Producto" data-position="button"></span>
                       Producto Inventariado
                     </label>

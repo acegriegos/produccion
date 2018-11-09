@@ -33,7 +33,7 @@ $(function(){
 
 	$("#ncli").blur(function(e){
 		var sql = "id > 0 and !bisproveedor and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"' and idsucursal = @@impresa limit 1";
-		var id = arr('login',4,'id',2,sql,0,0,0);
+		var id = arr('login',4,'id,format(getsaldocliente(id,0),2)',2,sql,0,0,0);
 		var tabla = $("#data-table-facturas").DataTable();
 		tabla.destroy();
 		if ($(this).val() != '') {
@@ -41,9 +41,10 @@ $(function(){
 				Materialize.toast('Cliente no existente', 4000, 'red');
 				$("#listaCuentasPm").html('');
 				$("#hclie").val(0)
+				$("#saldo").html('0.00')
 			}else{
 				var p = arr('login',4,'',214,gtipo+',0,'+id[0][0][0]+',0,0,@@impresa',0,0,0);
-				console.log(gtipo+',0,'+id[0][0][0]+',0,0,@@impresa')
+				
 				var tabla = $("#listaCuentasPm");
 				tabla.html('');
 				for (var i = 0; i < p[0].length; i++) {
@@ -64,7 +65,8 @@ $(function(){
 					order : [],
 					"bLengthChange": false
 				});
-				$("#hclie").val(id);
+				$("#saldo").html(id[0][0][1])
+				$("#hclie").val(id[0][0][0]);
 				$("#monto").focus().select();
 			}
 		}
@@ -179,8 +181,9 @@ $(document).on("click","#btnPagar",function(){
 		// ingresar pagosvarios
 		// var idpago = arr('login',4,'',410,'0,"1990-01-01",@@usr,@@impresa',0,0,0)[0][0];
 		// var idcliente = $("#hclie").val();
-		var monto = $("#monto").val().replace(',','');
+		var monto = $("#monto").val().replace(/,/g,'');
 		var idfactura = val = vmonto = idestadocuenta = 0;
+		var saldo = $("#saldo").html().replace(/,/g,'');
 
 		if (!$(".factclie").length) {
 			Materialize.toast('No hay Facturas que Cancelar',4000,'red');
@@ -191,32 +194,45 @@ $(document).on("click","#btnPagar",function(){
 			$(".factclie:checked").each(function(){
 				idfactura = $(this).val();
 				val = parseFloat($(this).attr('vl'));
-				monto -= val;
-				var idestadocuenta = arr('login',4,'',300,'1,0,7,1,idfactura,@@usr,monto,debe,haber,0,idtipopago,comentario',0,0,0)[0][0];
-			});
-		}else{
-			$(".factclie").each(function(){
-				idfactura = $(this).val();
-				val = parseFloat($(this).attr('vl'));
+
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
 					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
 				}
 				else{
-					vmonto = monto;
+					vmonto = val-monto*-1;
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
+					return false;
+				}	
+			});
+		}else{
+			$(".factclie").each(function(){
+				idfactura = $(this).val();
+				val = parseFloat($(this).attr('vl'));
+
+				monto -= val;
+				if(monto > 0){
+					vmonto = val;
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
+				}
+				else{
+					vmonto = val-monto*-1;
 					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
 					return false;
 				}	
 			});
 		}
-
+		monto = $("#monto").val().replace(/,/g,'');
+		if (parseFloat(monto) > parseFloat(saldo))
+			Materialize.toast('Vuelto: '+parseFloat(monto)-parseFloat(saldo),4000)
 		Materialize.toast('Pagos Realizados Exitosamente',4000,'green');
 		arr('login',6,'',214,gtipo+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 		$("#ncli").val('')
 		$("#listaCuentasPm").html('');
 		$("#hclie").val(0)
 		$("#monto").val('');
+		$("#saldo").html('0.00');
 		$("#comentario").val('');
 		$("#idtipopagopagar").val(0).material_select('update');
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
@@ -434,12 +450,12 @@ function endDetail(vid,vacc,modulo) {
 		var saldo = $("#isaldovista").text();
 		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
 		var tsaldo = saldo - parseFloat($("#vvalor").val());
-		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',',') );
+		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(5,'.',',') );
 		$("#isaldo").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',','));
 		$("#vidtipopago").val('');
 		$("#vvalor").val(0.00);
 		arr('login',6,'',213,gtipo+','+$("#vidfactura").val()+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
-		arr('login',6,'',214,gtipo+',0,0,0,@@impresa',0,1,$("#listaCuentasx"));
+		arr('login',6,'',214,gtipo+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 		$("#btn-div").click();
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
 		window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);

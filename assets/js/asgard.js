@@ -1903,6 +1903,16 @@ function phone_addon_ckub(vfila,vphone){
 
     $(document).on('blur',"#telefono_in",function(){
         var telefono = $(this).val();
+        if (isNaN(telefono.replace('-',''))) {
+            Materialize.toast('Telefono Invalido',4000,'red')
+            return false;
+        }
+
+        if (telefono.replace('-','').length != 8) {
+            Materialize.toast('Telefono Invalido',4000,'red')
+            return false;
+        }
+
         if (telefono.length > 1) {
             var idfila = $(this).attr('idfila');
             var htipo = $("#tptel").val();

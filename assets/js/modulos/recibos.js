@@ -26,20 +26,20 @@ $(function(){
          mid = getParameterByName('id');
 
          var archivos = '';
-    
-        mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:mid},1);
+        var tipo = $("#tventa").val();
+        mantenimiento_async('login',8,{arch:'recibo',id:mid,mic:1,tit:tipo+' Electrónica',sel:'',tbl:72,where:mid},1);
         var vfactura = $("#numfact").html().trim();
         vbody = getDatos('',73,mid,0,0)[0][0];
         var vsucursal = vbody[1];
 
         if (vfactura == mid)
-            archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
+            archivos = 'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf';
         else{
-            archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+            archivos = {0:'xml/'+tipo+' N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf'}
         }
         mantenimiento_async('login',9,{id:mid,factura:vfactura,sucursal:vsucursal},1);
         
-        var e = enviarCorreo(3,vpara,"Factura N° "+vfactura,vbody[0],archivos);
+        var e = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos);
         vpara = vbody = "";
         mid = 0;
 
