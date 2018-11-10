@@ -104,6 +104,7 @@
     </li>
     <li class="gtext per4100"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
     <li class="gtext per3400"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
+    <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
     <li class="gtext per1500"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     {literal}
       <script type="text/javascript">

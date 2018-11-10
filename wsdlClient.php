@@ -994,8 +994,8 @@
             }else{
                 $data[] = $this->info;
 
-                $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
                 $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
+                $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
 
                 $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
                 if (!$tdetalle && $this->opcion < 5) 

@@ -117,11 +117,11 @@ function sse_response(vid,p) {
                 for (var i = 0; i < p[0].length; i++) {
                     switch(parseInt(p[0][i][1])){
                         case 5:
-                            $("#m"+p[0][i][0]).css('background-color','white');
+                            $("#m"+p[0][i][0]).css('background-color','#cfd8dc');
                             $("#sm"+p[0][i][0]).html('<i class="mdi mdi-dots-horizontal"></i><i class="mdi mdi-pencil"></i>');
                             break;
                         case 2:
-                            $("#m"+p[0][i][0]).css('background-color','green');
+                            $("#m"+p[0][i][0]).css('background-color','#ccff90').css('color','red');
                             $("#sm"+p[0][i][0]).html('');
                             break;
                         default:

@@ -15,7 +15,7 @@
     <div class="bdy" style="margin-top: 0px">
 
       <div class="row" style="margin: 0px">
-          <div class="input-field col s5 l4" style="margin: 0px">
+          <div class="input-field col s12 l4" style="margin: 0px">
               <span class="prefix"><i class="mdi mdi-magnify mdi-24px"></i></span>
               <input type="text" id="bbarras" maxlength="45">
               <label for="bbarras">Buscar Barra</label>
@@ -28,7 +28,7 @@
       <div class="row" id="barras">
       
         {section name=LE loop=$BARRAS}
-        <div class="col s6">
+        <div class="col s12 m6" style="margin-bottom: 2%">
           <a class="center btn-success btn" style="width: 95%">{$BARRAS[LE][1]}</a>
         </div>
         {/section}
@@ -36,9 +36,9 @@
       </div>
 
       <div class="row" style="margin: 0px">
-          <div class="input-field col s5 l4" style="margin: 0px">
+          <div class="input-field col s12 m4" style="margin: 0px">
               <span class="prefix"><i class="mdi mdi-magnify mdi-24px"></i></span>
-              <input type="text" id="bmesas" maxlength="45">
+              <input type="number" id="bmesas" maxlength="45">
               <label for="bmesas">Buscar Mesa</label>
           </div>
           <div class="col s7 l8" style="margin: 0px">
@@ -49,8 +49,12 @@
       <div class="row" id="mesas">
   
         {section name=LE loop=$MESAS}
-        <a class="center col s2 btn black-text mesa" style="border: 1px solid #e2e2e2; background-color: white;height: 75px;padding: 0.5%;margin: 0.5%;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1">{$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
-        </a>
+        <!-- <div class="center col s2 btn black-text mesa" style="border: 1px solid #e2e2e2; background-color: white;padding: 0.5%;margin: 0.5%;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1"> {$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
+        </div> -->
+        <div class="col s3 m2 black-text mesa center" style="background: url('../assets/img/mesa.png');padding: 0.5%;margin: 0.5%;background-repeat: no-repeat;background-size: 100%;border-radius: 50%;height: 125px;width: 125px;background-color: white;border: 3px solid black; cursor: pointer;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1">
+          {$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
+        </div>
+
         {/section}
 
   
@@ -78,7 +82,7 @@
             
             <div class="col s12 row" style="margin: 0px;position: relative;">
               {section name=LE loop=$FAM}
-              <a id="f{$FAM[LE][0]}" class="btn btn-success s12 fam" style="width: 100%"><small>{$FAM[LE][1]}</small></a>
+              <a id="f{$FAM[LE][0]}" class="btn btn-success s12 fam" style="width: 100%;height: 75px;padding-top: 4%;font-size: 22px;"><small>{$FAM[LE][1]}</small></a>
               {/section}
               <a id="fsalir" class="btn btn-success s12 fam" style="width: 100%"><small>Salir</small></a>
 
@@ -129,6 +133,6 @@
     </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.0.0.73"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.0.0.74"></script>
   </body>
 </html>

@@ -128,9 +128,12 @@ $(document).on("click",".status",function(){
                         msj = 'Procesando Documento Electrónico';
 						break;
 					case 'Sin Subir':
-						var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-						Materialize.toast($toastContent,5000);
-						sendFE(vid);
+						// var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+						// Materialize.toast($toastContent,5000);
+						// sendFE(vid);
+                        color = 'red';
+                        state = 0;
+                        msj = 'Procesando Documento Electrónico';
 						break;
 					case 'Sin Internet':
 						color = 'red';
@@ -233,7 +236,7 @@ function xmlCargar(file,response){
                             var t_pago = getDatos('id,nombre',26,'idhacienda = '+p['factura']['tipopago'],0,0,0)[0][0];
                             
                             if(p['emisor']['id'] == 0){
-                                $("#fclientes").data('proveedor',{cedula : p['emisor']['cedula'],correo: p['emisor']['correo'],nombre:p['emisor']['nombre'],telefono:p['emisor']['telefono'],
+                                $("#fclientes").data('proveedor',{cedula : p['emisor']['cedula'],correo: p['emisor']['correo'],nombre:p['emisor']['nombre'],ap1:p['emisor']['ap1'],ap2:p['emisor']['ap2'],telefono:p['emisor']['telefono'],
                                     barrio:p['emisor']['barrio'],direccion:p['emisor']['otrassenas'],tipo:p['emisor']['tipo']});
                                 t_prov = 0;
                             }else{
@@ -382,6 +385,9 @@ function validar (varreglo,vmodulo) {
                 var email = $("#fclientes").data('proveedor')['correo'];
                 switch(parseInt(tpc)){
                     case 1:
+                        nom = $("#fclientes").data('proveedor')['nombre'];
+                        ap1 = $("#fclientes").data('proveedor')['ap1'];
+                        ap2 = $("#fclientes").data('proveedor')['ap2'];
                         break;
                     case 2:
                         nom = $("#fclientes").data('proveedor')['nombre'];

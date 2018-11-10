@@ -61,7 +61,7 @@ $(function(){
                     existe = 1;
             });
 
-            if (cantidad > parseFloat($("#valores").data('elemento')['cantidad'])) {
+            if (cantidad > parseFloat($("#valores").data('elemento')['cantidad']) && parseInt($("#valores").data('elemento')['inventariado'])) {
                 Materialize.toast('Cantidad Insuficiente en Inventario',4000,'red')
                 $("#cantp").select().focus();
                 return false;
@@ -75,7 +75,7 @@ $(function(){
                 var cimp = precio*(imp/100)
                 var total = precio*cantidad;
 
-                $("#fdetallefacturas").prepend('<a href="#!" class="collection-item col12 row ciclos" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+$("#descp").val()+'</small> <small id="funit" class="col s6">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</small> <small id="fcant" class="col s6"> '+cantidad+'</small> <small id="ftot" class="col s6">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</small></a>');
+                $("#fdetallefacturas").prepend('<a href="#!" class="collection-item col12 row ciclos black-text" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+$("#descp").val()+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small></a>');
 
                 $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : precio.formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : $("#valores").data('elemento')['hcomodin'],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0});
             }else{
@@ -180,10 +180,10 @@ $(function(){
                     var idproducto = detalle[0][i][6];
                     var hinv = detalle[0][i][5];
                     var cimp = parseFloat(detalle[0][i][4])
-                    var total = parseFloat(detalle[0][i][3]);
+                    var total = parseFloat(detalle[0][i][3]*cantidad);
 
-                    mstr += '<a href="#!" class="collection-item col12 row ciclos" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small id="funit" class="col s6">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</small> <small id="fcant" class="col s6"> '+cantidad+'</small> <small id="ftot" class="col s6">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</small></a>';
-                    
+                    mstr += '<a href="#!" class="collection-item col12 row ciclos black-text" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small></a>';
+
                     $("#fdetallefacturas").prepend(mstr);
 
                     $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : precio.formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][0],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad});
@@ -309,7 +309,7 @@ function cargarProducto(kbrota,elemento) {
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
 
-        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],imv: cod[8],cantidad: cod[4]}) //,imp: cod[6]
+        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13], hbod:cod[14], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],imv: cod[8],cantidad: cod[4],inventariado:cod[20]}) //,imp: cod[6]
         $("#codp").val(cod[1]);
         $("#descp").val(cod[2]);
         // $("#precp").val(parseFloat(cod[3]/parseFloat($("#monedas option:selected").attr('dv'))).formatMoney(2,'.',','));
@@ -537,3 +537,8 @@ function endDetail(vid,vacc,vmodulo) {
     console.log(vid)
     actualizar(800,'idtipoocupado=2','id='+mesa);
 };
+
+function totalizar(){
+    var total = 0;
+    
+}

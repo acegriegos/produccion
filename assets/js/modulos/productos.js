@@ -1926,7 +1926,7 @@ function validarproductos() {
 			return 'Cantida Requerida';
 		}
 
-		if($("#inventariado").is(":checked")){
+		if($("#goldinventariado").is(":checked")){
 			$("#visinventariado").val(1)
 		}else{
 			$("#visinventariado").val(0)
@@ -2205,11 +2205,11 @@ function postload(vmodulo){
 		    }
 
 		    if(parseInt($("#visinventariado").val())){
-		    	if(!$("#inventariado").is(":checked"))
-		    		$("#inventariado").click();
+		    	if(!$("#goldinventariado").is(":checked"))
+		    		$("#goldinventariado").click();
 		    }else{
-		    	if($("#inventariado").is(":checked"))
-		    		$("#inventariado").click();
+		    	if($("#goldinventariado").is(":checked"))
+		    		$("#goldinventariado").click();
 		    }
 		    Materialize.updateTextFields();
 			break;
