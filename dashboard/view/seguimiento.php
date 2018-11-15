@@ -35,6 +35,6 @@
 	</div>
 </div>
 
-<script src="../assets/js/modulos/seguimiento.js?v=10.0.0.73"></script>
+<script src="../assets/js/modulos/seguimiento.js?v=10.0.0.75"></script>
 </body>
 </html>
