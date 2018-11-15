@@ -14,7 +14,7 @@
     {$NAV}
     <div class="bdy" style="margin-top: 0px">
 
-      <div class="row" style="margin: 0px">
+      <div class="row hide" style="margin: 0px">
           <div class="input-field col s12 l4" style="margin: 0px">
               <span class="prefix"><i class="mdi mdi-magnify mdi-24px"></i></span>
               <input type="text" id="bbarras" maxlength="45">
@@ -24,27 +24,40 @@
             
           </div>
       </div>
+
+      <div class="row center head1" style="margin-bottom: 0px;background-color: #01579b;">
+        <h5>{$smarty.session.EMPRESA}</h5>
+      </div>
+      <div class="row ">
+        <h6 class="col s2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ">BARRAS</h6>
+      </div>
      
       <div class="row" id="barras">
       
         {section name=LE loop=$BARRAS}
-        <div class="col s12 m6" style="margin-bottom: 2%">
-          <a class="center btn-success btn" style="width: 95%">{$BARRAS[LE][1]}</a>
+        <!-- <div class="col s12 m6" >
+          {$BARRAS[LE][1]}
+        </div> -->
+        <div class="col s12 m6 center barra" style="height: 135px;background: url('../assets/img/barra.png');background-repeat: no-repeat;">
+          <strong style="font-style: italic;"><b>{$BARRAS[LE][1]}</b></strong>
         </div>
+        
         {/section}
         
       </div>
 
-      <div class="row" style="margin: 0px">
-          <div class="input-field col s12 m4" style="margin: 0px">
+      <div class="row center head1" style="margin-bottom: 0px;height: 20px;background-color: #01579b;">
+        
+      </div>
+      <div class="row ">
+        <h6 class="col s2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ;">MESAS</h6>
+        <div class="input-field col s3 right" style="margin: 0px">
               <span class="prefix"><i class="mdi mdi-magnify mdi-24px"></i></span>
               <input type="number" id="bmesas" maxlength="45">
               <label for="bmesas">Buscar Mesa</label>
           </div>
-          <div class="col s7 l8" style="margin: 0px">
-            
-          </div>
       </div>
+
 
       <div class="row" id="mesas">
   
@@ -127,6 +140,7 @@
           </div>
         </div>
       <div class="modal-footer">
+        <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="#total_mesa">0.00</span></section>
         <a href="#!" class="modal-action waves-effect waves-green btn-flat add" id="saveOrder" modulo="factura" varias="1">Guardar Orden</a>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
       </div>

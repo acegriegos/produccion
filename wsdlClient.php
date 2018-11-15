@@ -239,6 +239,12 @@
                 }
                 print_r($salida);
                 break;
+            case 13: //REFRESCAR TOKEN
+                if (isset($_SESSION['IMPRESA']))
+                    echo $fe->refresh();
+                else
+                    echo "NO HAY LOG IN";
+                break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
@@ -413,10 +419,10 @@
 
         $salida['clave'] = $salida['clave'][0];
 
-        /*if ($salida['clave'] != $_GET['hclave']) {
-            $salida = ['succed' => 0,'ERROR' => 'Documento no es el Mismo al Mensaje de Hacienda'];
-            return false;
-        }*/
+        // if ($salida['clave'] != $_GET['hclave']) {
+        //     $salida = ['succed' => 0,'ERROR' => 'Documento no es el Mismo al Mensaje de Hacienda'];
+        //     return false;
+        // }
 
         if (strlen($salida['clave']) != 50){
             $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
@@ -518,7 +524,7 @@
         $salida['factura']['tipopago']  = $salida['factura']['tipopago'][0];
 
         $salida['factura']['moneda']    = (array) $inv_xml->ResumenFactura->CodigoMoneda;
-        $salida['factura']['moneda']    = $salida['factura']['moneda'][0];
+        $salida['factura']['moneda']    = isset($salida['factura']['moneda'][0]) ? $salida['factura']['moneda'][0] : 'CRC';
         $salida['factura']['divisa']    = (array) $inv_xml->ResumenFactura->TipoCambio;
         $salida['factura']['divisa']    = isset($salida['factura']['divisa'][0]) ? $salida['factura']['divisa'][0] : 0;
         $salida['factura']['divisa']    = $salida['factura']['divisa'] == 0 ? 1 : $salida['factura']['divisa'];
@@ -642,12 +648,16 @@
 
             set_error_handler("warning_handler", E_WARNING);
             $fP = fSockOpen("ssl://google.com", 443, $errno, $errstr, 10);
-            if (!$fP) { return "Sin Internet"; }
+            if (!$fP) { return json_encode(["rs"=>'Sin Internet',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]); }
 
             $fP = fSockOpen("ssl://idp.comprobanteselectronicos.go.cr", 443, $errno, $errstr, 10);
-            if (!$fP) { return "Problemas con el Servidor de Hacienda"; }
+            if (!$fP) { return json_encode(["rs"=>'Problemas con el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]); }
             restore_error_handler();
             
+            if ($this->credenciales[6]) {
+               $this->bearer = $this->credenciales[6];
+               $salida = $this->credenciales;
+            }else{
             $user = $this->credenciales[4];
             $pass = $this->credenciales[5];
             $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
@@ -690,6 +700,70 @@
             $salida['consulta'] = $params;
             $salida['respuesta'] = json_decode($json_response);
             if ($salida['respuesta'] == '') {
+                return json_encode(["rs"=>'No se Recibe Respuesta de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
+            }
+            $salida['credenciales'] = $this->credenciales;
+            $json_response = json_decode($json_response);
+            
+            if (isset($json_response->access_token)) {
+                $this->bearer = $json_response->access_token;
+                $db = new DBClass();
+                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now(),refrescado = 0 where id = '.$_SESSION['IMPRESA']);
+            }
+
+            }
+
+            return $salida;
+        
+        }
+
+        function refresh(){
+            $salida = [];
+            set_error_handler("warning_handler", E_WARNING);
+            $fP = fSockOpen("ssl://google.com", 443, $errno, $errstr, 10);
+            if (!$fP) { return "Sin Internet"; }
+
+            $fP = fSockOpen("ssl://idp.comprobanteselectronicos.go.cr", 443, $errno, $errstr, 10);
+            if (!$fP) { return "Problemas con el Servidor de Hacienda"; }
+            restore_error_handler();
+
+            $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
+            $cli_id = "api-prod";
+
+            if ($this->credenciales[2] == 1) {
+                $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token";
+                $cli_id = "api-stag";
+            }
+
+            $curl = curl_init($curl_hacienda);
+            curl_setopt($curl, CURLOPT_HEADER, true);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
+
+            $params = array(
+              "client_id" => $cli_id,
+              "refresh_token" => $this->credenciales[7],
+              "grant_type" => "refresh_token");
+
+            $postData = "";
+
+            foreach($params as $k => $v)
+            {
+               $postData .= $k . '='.urlencode($v).'&';
+            }
+
+            $postData = rtrim($postData, '&');
+
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+            $json_response = curl_exec($curl);
+            $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            curl_close($curl);
+            $salida['consulta'] = $params;
+            $salida['respuesta'] = json_decode($json_response);
+            if ($salida['respuesta'] == '') {
                 return 'No se Recibe Respuesta de Hacienda';
             }
             $salida['credenciales'] = $this->credenciales;
@@ -697,10 +771,13 @@
             
             if (isset($json_response->access_token)) {
                 $this->bearer = $json_response->access_token;
-            }
+                $db = new DBClass();
+                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now(),refrescado=1 where id = '.$_SESSION['IMPRESA']);
+            }else
+                $salida = $json_response;
+            
 
-            return $salida;
-        
+            return json_encode($salida);
         }
 
         function getRecibos($id,$offset,$limit,$vreceptor){
@@ -863,6 +940,7 @@
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_TIMEOUT,2);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
 
             $params = json_encode($this->getPayload($xml));
@@ -871,8 +949,10 @@
 
             $rs = curl_exec($curl);
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
             switch ($status) {
+                case 0:
+                    $json_response = json_encode(["rs"=>'Supero Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
+                    break;
                 case 201:
                 case 202:
                     $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
@@ -916,6 +996,7 @@
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl,CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, false);
+            // curl_setopt($curl, CURLOPT_TIMEOUT_MS, 200);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/x-www-form-urlencoded','Authorization: bearer '.$this->bearer]);
 
             $json_response = curl_exec($curl);

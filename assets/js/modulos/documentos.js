@@ -11,6 +11,39 @@ $(function(){
 		$("#modal-getxml").modal('open')
 	});
 
+    $('[href="#modal-irobot"]').click(function(){
+        $("#modal-irobot").modal('open');
+        
+        $(".act").addClass('hide');
+        $(".actin").removeClass('hide');
+        var formData = new FormData();
+        formData.append("cmd", "1");
+        formData.append("ced", getDatos('cedula',39,'id=@@impresa',0,0,0)[0][0][0]);
+        
+        $.ajax({
+            url: "http://localhost/pipme/wsdlServer.php",
+            type: "post",
+            dataType: "html",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+            .done(function(res){
+                console.log(res);
+                var tabla = $("#data-table-compras").DataTable();
+                tabla.destroy();
+
+                //LLENAR INFO
+                $("#data-table-compras").dataTable({
+                    LengthChange : false,
+                    order : []
+                });
+                $(".act").removeClass('hide');
+                $(".actin").addClass('hide');
+            });
+    });
+
     $("#actAuto").click(function(){
         $("#data-table-facturas").append('<tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody>');
         $("#listafacturas").addClass('hide');

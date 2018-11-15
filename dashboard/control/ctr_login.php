@@ -27,7 +27,7 @@
             return false;
           }
 
-            if ($user[0][7] == 0)
+            if ($user[0][7] == 1)
               cambioDia($log);
      
               $_SESSION['USR']     = base64_encode($user[0][0]);
@@ -39,11 +39,14 @@
               $_SESSION['TMP_CIA'] = $user[0][5];
               $_SESSION['TMPT']    = $user[0][11];
               $_SESSION['CRR']     = $user[0][8];
-              $_SESSION['BUSS']    = $user[0][12];
+              $_SESSION['BUSS']    = $user[0][12] == 2 ? 3 : $user[0][12];
+              $_SESSION['EXPR']    = $user[0][13];
               $mod = 'main';
-              
+
               switch ($user[0][12]) {
                 case 0:
+                case 2:
+                case 3:
                   $caja = $log->kamehameha('',253,'"'.str_replace(' ', '', $_SERVER['REMOTE_ADDR']).'"');
                   
                   if ($caja[0][0]) {
@@ -52,7 +55,7 @@
                       $mod = 'facturacion';
                     }else{
                       $_SESSION['CAJA']    = 0;
-                      $mod = 'facturacion?tf=6';
+                      $mod = $user[0][12] == 2 ? 'restaurante' : 'facturacion?tf=6';
                     }
                   }else{
                     $_SESSION['CAJA']    = 0;
@@ -66,7 +69,6 @@
                   $mod = 'facturacion';
                   break;
               }
-
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
            }

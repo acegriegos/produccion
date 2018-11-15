@@ -196,11 +196,11 @@ function cargarCompras(){
     });
 
     $(document).on("click",".addProduct",function(){
-        $("#ecodprod").val($("#codp").val());
-        $("#enomprod").val($("#descp").val());
+        $("#vcodigo").val($("#codp").val());
+        $("#vpnombre").val($("#descp").val());
         Materialize.updateTextFields();
 
-        $("#fproductos .zelda").data('triforce',{vid:0,vcodigo:'', vcodigointerno:'',vnombre:'',vcosto:0,vganancia:0,vventa:0,vexoneracion:0, vpeso:0,vidunidad:1,vminimo:0,vmaximo:0,vmaxdescuento:0,vidmarca:0,vidinventario:0,vidmoneda:1,vimg:'',vidsucursal:'',vidusuario:''});
+        $("#fproductos .zelda").data('triforce',{vid:0,vnombre:'',vcodigointerno:'',vcosto:0,vganancia:0,vexoneracion: 0,vidunidad:1,vminimo:0,vmaximo:0,vmaxdescuento:0,vidmarca:0,vidinventario:6,vidusuario: '',vidmoneda:1,vidsucursal:'',visinventariado:1,vidheredado:0,visvariable:0,vcantequiv:0,visgravamen:0});
         
         $("#modal-producto").modal('open');
     });
@@ -219,14 +219,18 @@ function cargarCompras(){
 
     $("#descup").keyup(function(e){
         var code = e.which || e.keyCode;
-        if (code == 13) 
+        if (code == 13){
+            $("#totp").val(parseFloat($("#precp").val().replace(/,/g,''))*(1-(parseFloat($(this).val())/100))*parseFloat($("#cantp").val()))
             $("#pventa").focus().select();
+            cargarUtilidad();
+        } 
+            
     });
 
     $("#pventa").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) 
-            $(".addline").click()
+            cargarUtilidad();//$(".addline").click()
     });
 
     $(".addline").click(function(){
@@ -248,7 +252,7 @@ function cargarCompras(){
         var comodin= $("#valores").data('elemento')['hcomodin'];
         var desgloce= $("#valores").data('elemento')['isdesgloce'];
         var strimp = $("#valores").data('elemento')['strimp'];
-        var exo = $("#valores").data('elemento')['vexo'];
+        var exo = $("#exct").is(":checked") ? 100 : 0; //$("#valores").data('elemento')['vexo'];
         var mobil = $(this).attr('tr') == 2 ? 1 : 0;
 
         addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:$("#descup").val()},0,hinv,0, unidad, comodin,desgloce,strimp,exo,mobil);
@@ -274,7 +278,7 @@ function cargarCompras(){
     $("#precp").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
-            if (isNaN($(this).val())) {
+            if (isNaN($(this).val().replace(/,/g,''))) {
                 Materialize.toast('Valor no es Numérico',4000,'red')
                 $(this).focus().select();
                 return false;
@@ -283,26 +287,102 @@ function cargarCompras(){
             $("#totp").val( (parseFloat(valor) * parseFloat($("#cantp").val())).formatMoney(2,'.',',') )
             $("#valores").data('elemento')['hprec'] = valor;
             $("#descup").select().focus();
+            
             cargarUtilidad();
         }
     });
+    
+    $("#iva").click(function(){
+        if ( $(this).is(':checked') )
+            $("[for='exct']").addClass('hide').prop('checked',false);
+        else
+            $("[for='exct']").removeClass('hide');
+        cargarUtilidad();
+    });
+
+    $(document).on("change","#exct",function(){
+        if ( $(this).is(':checked') ){
+            $(".valor_grabado").addClass('hide');
+            $("#valor_grabado").val(0);
+            $("#iva").prop('checked',false)
+        }
+        else{
+            $(".valor_grabado").removeClass('hide');
+            if(parseInt($("#valor_grabado").val()) == 0)
+                $("#valor_grabado").val($("#valor_grabado").attr('orig'));
+        }
+        cargarUtilidad();
+    });
+
+    $("#putil").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code == 13)
+            $(this).blur();
+    });
+
+    $("#putil").blur(function(){
+        var de  = parseFloat($("#descup").val().replace(/,/g,''));
+        var cv = parseFloat($("#precp").val().replace(/,/g,''));
+        cv = $("#iva").is(':checked') ? cv/(1+im/100) : cv;
+        cv = cv *(1-(de/100));
+
+        cv = getDatos('',258,$("#valores").data('elemento')['idp']+','+$("#valores").data('elemento')['hinv']+','+$("#cantp").val().replace(/,/g,'')+','+cv,0,0,0)[0][0][0];
+        $("#preponderado").html(parseFloat(cv).formatMoney(2,'.',','))
+        var util = parseFloat($(this).val().replace(/,/g,''));
+        var im = parseFloat($("#valor_grabado").val().replace(/,/g,''));
+        im = isNaN(im) ? 13 : im;
+        var ppublico = (cv*(1+util/100))*(1+im/100);
+        if(parseInt(config[14]))
+                $("#pventa").val((Math.ceil(parseInt( ppublico )/5)*5).formatMoney(2,'.',','))
+            else
+                $("#pventa").val(ppublico.formatMoney(2,'.',','))
+
+        $("#putils").val((ppublico-cv).formatMoney(2,'.',','));
+        var vv = (parseFloat($("#pventa").val().replace(/,/g,''))/(1+(im/100))).formatMoney(5,'.','');
+        var gv = ((vv-cv)*100)/cv;
+        var hc = parseFloat($("#putil").attr('hprec'));
+
+        if (gv.toFixed(5) > hc.toFixed(5))
+            $(".putil").css('color','green');
+        else if(gv.toFixed(5) < hc.toFixed(5))
+            $(".putil").css('color','red');
+        else
+            $(".putil").css('color','black');
+    });
 
     function cargarUtilidad(){
-        var vv = (parseFloat($("#pventa").val().replace(/,/g,''))/(1+(parseFloat($("#valor_grabado").val()))/100)).formatMoney(5,'.','');
+        if ($("#pventa").attr('hprec') == undefined)
+            return false;
+
+        var de  = parseFloat($("#descup").val().replace(/,/g,''));
+        var im = parseFloat($("#valor_grabado").val().replace(/,/g,''));
+        im = isNaN(im) ? 13 : im;
 
         var cv = parseFloat($("#precp").val().replace(/,/g,''));
+        cv = $("#iva").is(':checked') ? cv/(1+im/100) : cv;
+        
+        if (parseFloat($("#pventa").attr('hprec').replace(/,/g,'')) == 0) {
+           
+            if(parseInt(config[14]))
+                $("#pventa").val(Math.ceil(parseInt( cv*1.3*(1+im/100) )/5)*5)
+            else
+                $("#pventa").val(cv*1.3*(1+im/100))
+        }
+        cv = cv *(1-(de/100))
+        var vv = (parseFloat($("#pventa").val().replace(/,/g,''))/(1+(im/100))).formatMoney(5,'.','');
         var hc = parseFloat($("#putil").attr('hprec'));
         var cc = parseFloat($("#putil").attr('hcosto'));
-        cv = (cc+cv)/2;//preponderado costo
+        cv = getDatos('',258,$("#valores").data('elemento')['idp']+','+$("#valores").data('elemento')['hinv']+','+$("#cantp").val().replace(/,/g,'')+','+cv,0,0,0)[0][0][0];
+        $("#preponderado").html(parseFloat(cv).formatMoney(2,'.',','))
         var gv = ((vv-cv)*100)/cv;
         var gg = vv-cv;
 
         $("#putil").val(gv.formatMoney(2,'.',','));
         $("#putils").val(gg.formatMoney(2,'.',','));
 
-        if (gv > hc)
+        if (gv.toFixed(5) > hc.toFixed(5))
             $(".putil").css('color','green');
-        else if(gv < hc)
+        else if(gv.toFixed(5) < hc.toFixed(5))
             $(".putil").css('color','red');
         else
             $(".putil").css('color','black');

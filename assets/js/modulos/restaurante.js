@@ -182,7 +182,7 @@ $(function(){
                     var cimp = parseFloat(detalle[0][i][4])
                     var total = parseFloat(detalle[0][i][3]*cantidad);
 
-                    mstr += '<a href="#!" class="collection-item col12 row ciclos black-text" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small></a>';
+                    mstr += '<a href="#!" class="collection-item col12 row ciclos black-text" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small></a>';
 
                     $("#fdetallefacturas").prepend(mstr);
 
@@ -240,7 +240,7 @@ $(function(){
 		var tipos = getDatos('id,nombre',21,'idfamilia = '+id,0,0,0);
 		var tstr = '';
 		for (var i = 0; i < tipos[0].length; i++) {
-			tstr += '<a id="t'+tipos[0][i][0]+'" class="btn cyan darken-4 s12 tip" style="width: 100%"><small>'+tipos[0][i][1]+'</small></a>';
+			tstr += '<a id="t'+tipos[0][i][0]+'" class="btn cyan darken-4 s12 tip" style="width: 100%;height: 75px;padding-top: 4%;font-size: 22px;"><small>'+tipos[0][i][1]+'</small></a>';
 		}
 
 		$("#tipos").append(tstr).slideDown();
@@ -273,7 +273,7 @@ $(document).on("click",".tip",function(){
 		var tstr = '';
 
 		for (var i = 0; i < productos[0].length; i++) {
-			tstr += '<a id="p'+productos[0][i][0]+'" class="btn white black-text s12 prod" style="width: 100%"><small>'+productos[0][i][1]+'</small></a>';
+			tstr += '<a id="p'+productos[0][i][0]+'" class="btn white black-text s12 prod" style="width: 100%"><small><span>'+productos[0][i][1]+'</span> '+productos[0][i][5]+''+productos[0][i][4]+'</small></a>';
 		}
         $(".sprod").addClass('hide')
         $("#descp").val('');
@@ -289,7 +289,7 @@ $(document).on("click",".prod",function(){
 		
 
         $(".sprod").addClass('hide')
-        $("#descp").val($('small',this).html()).blur();
+        $("#descp").val($('small span',this).html()).blur();
         $("#codp").val('');
         $("#cantp").select().focus();
 });
@@ -405,7 +405,7 @@ function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
             break;
     }   
 
-    // totalizar();
+    //totalizar();
     return {'descuento':mdesc,'iddescuento': mdescid};
 }
 
@@ -540,5 +540,9 @@ function endDetail(vid,vacc,vmodulo) {
 
 function totalizar(){
     var total = 0;
-    
+    $(".ciclos").each(function(){
+        total += parseFloat($(this).data('triforce')['vtotal']);
+    });
+
+    $("#total_mesa").html(total.formatMoney(2,'.',','))
 }

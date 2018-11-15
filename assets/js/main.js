@@ -56,10 +56,10 @@ $(function(){
     });
 
     permisos(1,50);
-    SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
+    SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr,@@impresa'},1);
 
     setInterval(function(){
-        SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr'},1);
+        SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr,@@impresa'},1);
     },5000);
 });
 
@@ -100,6 +100,21 @@ function sse_response(vid,p) {
             }else{
                 $(".sse_cnt").addClass('hide');
             }
+
+            if (parseInt(p[0][0][1])) {
+                //REFRESH TOKEN
+                
+                $.ajax({
+                    url: "../wsdlClient.php",
+                    type: 'POST',
+                    data: {id: 0, accion : 13}
+                })
+                .done(function(data) {
+
+                    console.log('REFRESH TOKEN');   
+                    console.log(data)
+              });
+            }
             break;
         case 2:
             $(".asig").addClass('hide');
@@ -121,7 +136,7 @@ function sse_response(vid,p) {
                             $("#sm"+p[0][i][0]).html('<i class="mdi mdi-dots-horizontal"></i><i class="mdi mdi-pencil"></i>');
                             break;
                         case 2:
-                            $("#m"+p[0][i][0]).css('background-color','#ccff90').css('color','red');
+                            $("#m"+p[0][i][0]).css('background-color','#b3e5fc ');
                             $("#sm"+p[0][i][0]).html('');
                             break;
                         default:
