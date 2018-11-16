@@ -78,12 +78,10 @@ $(document).on("click","#process",function(){
 	var idfactura = $("#process").attr('idfactura');
 	var tf = $("#process").attr('tipo');
 	var idproducto = new Array();
-	var idinventario = new Array();
 	$("[name=processitem]:checked").each(function(){
-		idproducto.push($(this).attr('idproducto'));
-		idinventario.push($(this).attr('idinventario'));
+		idproducto.push($(this).attr('idd'));
 	});
-	window.open('facturacion?tf='+tf+'&arr='+idproducto+'&idinventario='+idinventario+'&id='+idfactura);
+	window.open('facturacion?tf='+tf+'&arr='+idproducto+'&id='+idfactura);
 
 });
 

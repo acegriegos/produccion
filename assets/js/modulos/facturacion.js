@@ -1,5 +1,6 @@
 var param = '';
 var config;
+var idext = 0;
 
 $(function(){
   param = getParameterByName('tf');
@@ -815,20 +816,6 @@ function doplazo(vval){
 
 function cargarFactura(vidp,asoc){
     var vfacturap = arr('login',6,'',163,vidp+',\"'+asoc+'\"',0,1,$("#fdetallefacturas"));
-    var vfacturap2 = arr('login',4,'',163,vidp+',\"'+asoc+'\"',0,0,0);
-    var vf = vfacturap2[0][0];
-    $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:7, vid:0, vidsucursal:'',vidusuario:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:vf[2], vidcliente:vf[0], vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0, vidtipopago : 0, vidodt:0,vextrapagos : 0,vdivisa : 0, saldo : 0, notific : 0});
-    var line = 0;
-    var fimv = vfacturap2[0];
-    $("#fdetallefacturas tr").each(function(){
-        $(this).data('triforce',{vcantidad : vf[7],vidimpuestos : '',viddescuentos : '',vidunidad : vf[18]});
-        // $(this).data('triforce',{vaccion:0,vid:0, vidfactura:'?',videntrada:p, vcantidad:c, vprecio:r, hdesc:h,hdescm:m, vtotal:t, vidinventario:i,vidodt : 0,vcomodin:''});
-        line += 1;
-    });
-    $(".zelda").data('triforce')['idline'] = line;
-    searchClient(vf[1],vf[2]);
-    setTimeout(function(){
-        $("#ncli").val(vf[1]).blur();
-    },200);
-    Materialize.updateTextFields();    
+    idext = vidp;
+    Materialize.updateTextFields();
 }

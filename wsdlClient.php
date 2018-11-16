@@ -1121,13 +1121,12 @@
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                     case '02':
-                    case '03':
                         if (strlen($this->info['Receptor']['Identificacion']['Numero']) != 10)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                     default :
                         $tmcedula = strlen($this->info['Receptor']['Identificacion']['Numero']);
-                        if ( $tmcedula != 12)
+                        if ( $tmcedula != 10)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                 }

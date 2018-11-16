@@ -16,7 +16,7 @@
 	   	$smarty->assign('NAV',$pg);
 	   	$smarty->assign('MESAS',$kakaroto->kamehameha('id,nombre,idtipoocupado',800,'id > 0 and !bisbarra'));
 	   	$smarty->assign('BARRAS',$kakaroto->kamehameha('id,nombre',800,'id > 0 and bisbarra'));
-	   	$smarty->assign('FAM',$kakaroto->kamehameha('id,nombre',20,'id > 0 and idsucursal in(-1,@@impresa)'));
+	   	$smarty->assign('FAM',$kakaroto->kamehameha('',804,'@@impresa'));
 	   	$smarty->display('v_restaurante.tpl');
 	   }else{
 	   $pagina = 0;

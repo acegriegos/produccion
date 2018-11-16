@@ -40,7 +40,7 @@
 				$modulo = 'login';
 			}
 
-			if ($_SESSION['EXPR']) {
+			if (isset($_SESSION['EXPR'])) {
 				if (!isset($_SESSION['tuser'])) {
 					$_SESSION['tuser'] = new DateTime('now');
 				}

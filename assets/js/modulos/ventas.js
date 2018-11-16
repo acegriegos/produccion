@@ -297,7 +297,7 @@ $(function(){
         $("#modal-usuario").modal('open');
 
     if ($("#cantFact:visible").length)
-        $("#cantFact").html(getDatos('COUNT(id) as cantidad',64,'idtipoventa = 6 and !isregistrada and idsucursal = @@impresa',0,0,0)[0][0][0]);
+        $("#cantFact").html(getDatos('COUNT(id) as cantidad',261,'idtipoventa = 6 and !isregistrada and idsucursal = @@impresa',0,0,0)[0][0][0]);
 })//READY
 
 $(document).on("keyup","#nombre",function(){
@@ -603,7 +603,13 @@ $(document).on("click","#acepfact",function(){
         return false;
     }
 
-    
+    if (!$("[name=factlist]:checked").length) {
+        Materialize.toast('No Se a Seleccionado una Factura',4000,'red');
+        return false;
+    }
+
+    cargarFactura('-'+$("input[name=factlist]:checked").attr('id').substr(1),'');    
+    $("#modal-facturas").modal('close');
 });
 
 $(document).on("click",".delf",function(){
@@ -1241,8 +1247,8 @@ function cargarProducto(kbrota,elemento) {
 
 function endCargarProducto(exo,cod,pesaje){
     var modselec = $("input[name='modselected']:checked").val();
-
-    if (modselec == 1 || cod != 0) {
+    
+    if (modselec == 1 || cod != 0 || param == 2) {
         
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
@@ -1362,6 +1368,10 @@ function endDetail(vid,vacc,vmodulo) {
                 });
             }
 
+            if (parseInt(idext) < 0){
+                getDatos('',259,'0,'+idext,0,0,0);
+            } 
+
             if (config[0] == 1 && (param == 1 || param == 7)) {
                 var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
                 Materialize.toast($toastContent);
@@ -1372,7 +1382,6 @@ function endDetail(vid,vacc,vmodulo) {
         case 'producto':
             $("#modal-producto").modal('close');
             $("#codp").blur();
-            console.log(12)
             break;
         default:
             console.log('Modulo no Existente: '+vmodulo);
@@ -1659,7 +1668,7 @@ function sendFE(clave){
             $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
             Materialize.toast(data,5000,'red');
             arr('login',7,2,64,'feestado=8','id='+clave,0,0);
-            setTimeout(function(){location.reload();},5000);
+            setTimeout(function(){location.reload();},4000);
         }       
   });
 }
@@ -1693,10 +1702,15 @@ function sendVMail(factura,clave,vid){
             archivos = makeArchivos(factura,clave,vid,vbody[1],ntipo);
             enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos);
         }else{
-            if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
-                setTimeout(function(){location.reload();},7000);
-            }else
-                setTimeout(function(){location.reload();},2000);
+
+            if (parseInt(idext) > 0) {
+                setTimeout(function(){window.close();},2000);
+            }else{
+                if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+                    setTimeout(function(){location.reload();},4000);
+                }else
+                    setTimeout(function(){location.reload();},2000);
+            }
         }
         
     }else{
@@ -1713,11 +1727,16 @@ function sendVMail(factura,clave,vid){
                     }catch(e){
                         Materialize.toast("POP-UP ACTIVADO",4000,'red');
                     }
-
-                    if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
-                        setTimeout(function(){location.reload();},7000);
-                    }else
-                        setTimeout(function(){location.reload();},2000);
+                   
+                    if (parseInt(idext) > 0) {
+                        setTimeout(function(){window.close();},2000);
+                    }else{
+                        if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+                            setTimeout(function(){location.reload();},5000);
+                        }else
+                            setTimeout(function(){location.reload();},2000);    
+                    }
+                    
                     }
                 break;
         }
@@ -1747,10 +1766,14 @@ function postExcecute(vid,p){
 }
 
 function postSendmail() {
-    if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
-        setTimeout(function(){location.reload();},7000);
-    }else
-        setTimeout(function(){location.reload();},2000);
+    if (parseInt(idext) > 0) {
+        setTimeout(function(){window.close();},2000);
+    }else{
+        if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+            setTimeout(function(){location.reload();},4000);
+        }else
+            setTimeout(function(){location.reload();},2000);
+    }
 }
 
 function validarGeneral(velemento) {

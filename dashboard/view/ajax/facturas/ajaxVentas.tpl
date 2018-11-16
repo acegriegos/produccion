@@ -57,7 +57,7 @@
 
     <div class="input-field col s12 m3 trCompra hide">
       <label for="vreferencia">Número de Referencia</label>
-      <input type="text" id="vreferencia" class="validate" style="padding: 0px;margin: 0px" />
+      <input type="text" id="vreferencia" class="validate" style="padding: 0px;margin: 0px" autocomplete="off" />
     </div>
 
   </div>
@@ -953,12 +953,12 @@
 
 <div id="modal-facturas" class="modal modal-fixed-footer" style="width: 80%; height: 90% !important;">
   <div class="modal-content">
-    <h4>Lista de Facturas</h4>
+    <h4>Lista de Ordenes</h4>
     <table>
       <thead>
         <tr>
           <th></th>
-          <th>Numero</th>
+          <th>Numero de Orden</th>
           <th>Nombre</th>
           <th>Total</th>
         </tr>

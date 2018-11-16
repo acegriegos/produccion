@@ -229,7 +229,7 @@
     function cambioDia($log)
      {  
         indicadores($log);
-        $log->kamehameha('',146,'');
+        $log->kamehameha('',146,'@@impresa');
      } 
 
      function indicadores($log){

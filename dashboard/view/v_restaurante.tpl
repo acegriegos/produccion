@@ -140,7 +140,7 @@
           </div>
         </div>
       <div class="modal-footer">
-        <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="#total_mesa">0.00</span></section>
+        <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="total_mesa">0.00</span></section>
         <a href="#!" class="modal-action waves-effect waves-green btn-flat add" id="saveOrder" modulo="factura" varias="1">Guardar Orden</a>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
       </div>

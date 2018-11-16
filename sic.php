@@ -9,7 +9,7 @@
     curl_close ($ch);
 
     $data = (array)json_decode($data);
-
+    
     if (isset($data['results'][0]->class)) {
         switch ($data['results'][0]->class) {
             case 'N':
