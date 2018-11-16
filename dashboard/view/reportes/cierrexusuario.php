@@ -5,7 +5,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.75">
+<link href="../assets/css/materialize.css?v=10.0.0.76">
 
 </head>
 <body style="margin-left: 35%;margin-right: 35%" >
@@ -222,7 +222,7 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.0.0.75"></script>
-    <script src="../assets/js/materialize.js?v=10.0.0.75"></script>
+    <script src="../assets/js/jquery.js?v=10.0.0.76"></script>
+    <script src="../assets/js/materialize.js?v=10.0.0.76"></script>
   </body>
 </html>
