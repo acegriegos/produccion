@@ -286,7 +286,7 @@ $(function(){
 		$(".fam").css('text-align','left').removeClass('active');
 		$(this).addClass('active');
 		
-		var tipos = getDatos('id,nombre',21,'idfamilia = '+id,0,0,0);
+		var tipos = getDatos('id,nombre',21,'idfamilia = '+id+' having nombre <> ""',0,0,0);
 		var tstr = '';
 		for (var i = 0; i < tipos[0].length; i++) {
 			tstr += '<a id="t'+tipos[0][i][0]+'" class="btn cyan darken-4 s12 tip" style="width: 100%;height: 75px;padding-top: 4%;font-size: 22px;"><small>'+tipos[0][i][1]+'</small></a>';

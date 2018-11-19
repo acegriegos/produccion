@@ -1417,7 +1417,7 @@ function searchClient(vvariable,visprv){
 
         $(".chg_tipo").removeAttr('disabled');
 
-        if (vclie[3] > 0 || param==2) {
+        if ((vclie[3] > 0 || param==2) && $(".concre:visible").length) {
             $(".chg_tipo[val=2]").removeAttr('disabled');
         }else{
             $(".chg_tipo[val=2]").attr('disabled','true')
