@@ -1604,7 +1604,8 @@ $(document).on('click','.loadRefBussiness',function(){
         }
     }
     $("#sucname").html($(this).html());
-    mantenimiento('main',3,$(this).attr('suc'))
+    mantenimiento('main',3,$(this).attr('suc'));
+    location.reload();
 });
 
 
