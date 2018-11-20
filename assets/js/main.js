@@ -115,6 +115,9 @@ function sse_response(vid,p) {
                     console.log(data)
               });
             }
+
+            if ($("#cantFact:visible").length)
+                $("#cantFact").html(p[0][0][2]);
             break;
         case 2:
             $(".asig").addClass('hide');

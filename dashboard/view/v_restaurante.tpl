@@ -38,7 +38,7 @@
         <!-- <div class="col s12 m6" >
           {$BARRAS[LE][1]}
         </div> -->
-        <div class="col s12 m6 center barra" style="height: 135px;background: url('../assets/img/barra.png');background-repeat: no-repeat;">
+        <div class="col s12 m6 center barra" style="cursor:pointer;height: 135px;background: url('../assets/img/barra.png');background-repeat: no-repeat;" id="r{$BARRAS[LE][0]}">
           <strong style="font-style: italic;"><b>{$BARRAS[LE][1]}</b></strong>
         </div>
         
@@ -81,6 +81,33 @@
           <li><a class="btn-floating green tooltipped" data-tooltip="Cocina" data-position="top"><i class="mdi mdi-silverware-spoon"></i></a></li>
           <li><a class="btn-floating blue tooltipped" data-tooltip="Caja" data-position="top"><i class="mdi mdi-square-inc-cash"></i></a></li>
         </ul>
+      </div>
+    </div>
+
+    <div id="modal-barra" class="modal modal-fixed-footer grandemodal" style="max-height: 100vh">
+      <div class="modal-header head3 center" style="height: 36px;"><span id="btit">Barra</span> <i class="mdi mdi-magnify der pbtn mdi-24px hide" id="bcodigo"></i></div>
+
+      <div class="modal-content" style="padding: 0px">
+        <div class="row">
+          <div class="col s4 input-field">
+            <i class="mdi mdi-24px mdi-magnify prefix"></i>
+            <input type="text" id="sbarra">
+            <label for="sbarra">Buscar Cliente</label>
+          </div>
+
+          <div class="col s4"></div>
+
+          <div class="col s4 input-field">
+            <a class="btn-floating blue prefix" id="addclient"><i class="mdi mdi-24px mdi-plus"></i></a>
+            <input type="text" id="abarra" maxlength="40"> 
+            <label for="abarra">Agregar Cliente</label>
+          </div>
+        </div>
+
+        <div class="row" id="listaclientes"></div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
       </div>
     </div>
 
