@@ -21,7 +21,7 @@ $(function(){
         formData.append("ced", getDatos('cedula',39,'id=@@impresa',0,0,0)[0][0][0]);
         
         $.ajax({
-            url: "http://localhost/pipme/wsdlServer.php",
+            url: config[18],
             type: "post",
             dataType: "html",
             data: formData,
