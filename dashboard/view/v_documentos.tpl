@@ -73,7 +73,7 @@
             </div>
 
             <div class="col s3 m5 row">
-                <a href="#modal-irobot" class="btn btn1 tooltipped col s12 m3 hide" data-position="bottom" data-tooltip="Compras" style="margin-bottom: 5px">Compras</a>
+                <a href="#modal-irobot" class="btn btn1 tooltipped col s12 m3" data-position="bottom" data-tooltip="Compras" style="margin-bottom: 5px">Compras</a>
                 <a href="#modal-getxml" class="btn btn2 tooltipped hide-on-small" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px">Subir XML</a>
                 <a id="actAuto" class="btn btn3 tooltipped hide-on-small" data-position="bottom" data-tooltip="Actualizar Estados" style="margin-bottom: 5px;margin-right: 5px">Actualizar Estados</a>
             </div>

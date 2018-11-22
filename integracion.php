@@ -57,6 +57,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>Integracion</title>
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.0.0.67">
@@ -114,6 +115,7 @@
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
                                 <th class="white-text" rm="1" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Clave</th>
                                 <th class="white-text" rm="2" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cliente</th>
+                                <th class="white-text" rm="2" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Monto</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Acciones</th>
                             </tr>
                         </thead>
@@ -125,12 +127,13 @@
                                 <td><?php echo substr($obj[1], 31,10); ?></td>
                                 <td><?php echo $obj[1] ?></td>
                                 <td><?php if($obj[6] != '') echo $obj[6].', '.$obj[7]; ?></td>
+                                <td><?php echo $obj[8]; ?></td>
                                 <td style="width: 10%">
                                     <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh tooltipped" id="a<?php echo $obj[0]; ?>" tv="" data-tooltip="Visualizar Factura" data-position="bottom"></a>
 
-                                    <?php if(substr($obj[3], 0,1) == 'F'){ ?>
+                                    <!-- <?php if(substr($obj[3], 0,1) == 'F'){ ?>
                                         <a class="btn-color pbtn mdi mdi-24px mdi-note blueh tooltipped" id="b<?php echo $obj[0]; ?>" tv="" data-tooltip="Hacer Nota de Credito o Debito" data-position="bottom"></a>
-                                    <?php } ?>
+                                    <?php } ?> -->
 
                                     <?php if($obj[6] != ''){ ?>
                                         <a class="btn-color pbtn mdi mdi-24px mdi-send enviar blueh tooltipped" id="c<?php echo $obj[0]; ?>" tv="" data-tooltip="Enviar Correo" data-position="bottom"></a>
@@ -147,7 +150,6 @@
             </div>
             <br><br>
         </div>
-
 
     <script src="assets/js/jquery.js?v=10.0.0.67"></script>
     <script src="assets/js/materialize.min.js?v=10.0.0.67"></script>

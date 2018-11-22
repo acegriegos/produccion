@@ -31,14 +31,21 @@ $(function(){
         })
             .done(function(res){
                 console.log(res);
-                var tabla = $("#data-table-compras").DataTable();
-                tabla.destroy();
+                var p = JSON.parse(res);
+                if(p['rs'].length){
+                    var str = '';
+                    var tabla = $("#data-table-compras").DataTable();
+                    tabla.destroy();
 
-                //LLENAR INFO
-                $("#data-table-compras").dataTable({
-                    LengthChange : false,
-                    order : []
-                });
+                    for (var i = 0; i < p['rs'].length; i++) {
+                        console.log(p['rs'][i])
+                    }
+                    $("#data-table-compras").dataTable({
+                        LengthChange : false,
+                        order : []
+                    });
+                }
+                
                 $(".act").removeClass('hide');
                 $(".actin").addClass('hide');
             });

@@ -146,7 +146,6 @@
                 echo json_encode($salida);
                 break;
              case 12: //INTEGRACION XML GENERADO
-                shell_exec("cp /opt/lampp/htdocs/dev/assets/xml/prueba/-F22403.xml /opt/lampp/htdocs/dev/assets/xml/prueba/F22403.xml");
                 $salida = ['succed'=>1];
                 if (!file_exists('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml')) {
                     echo ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO '];
@@ -154,9 +153,7 @@
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
                     $nombresuc = $db->ejecutar('select if(pfisico = "",nombre,pfisico) from sucursales where id = '.$_REQUEST['sucursal']);
-                    
-                    $db = new DBClass();
-                    $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
+
                     $tid = $id;
                     $nid = substr($id, 0,1);
                     $cliente = '';
@@ -259,12 +256,15 @@
                         print_r($xml);
                     }else{
                         
-                        $salida["Base"] = $db->ejecutar('insert into integraciones values(null,"'.$rxml['FacturaElectronica']['Clave'].'","../assets/xml/'.$_REQUEST['ruta'].'/'.$tid.'.xml","'.$tid.'",3,'.$_REQUEST['sucursal'].',"'.$cliente.'","'.$cedula.'")');
+                        $salida["Base"] = $db->ejecutar('insert into integraciones values(null,"'.$rxml['FacturaElectronica']['Clave'].'","../assets/xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml","'.$tid.'",3,'.$_REQUEST['sucursal'].',"'.$cliente.'","'.$cedula.'",'.$rxml[$fe->tdoc]['ResumenFactura']['TotalComprobante'].')');
                         
                         $salida["Integracion"] = $fe->integracion($xml,$db,$_REQUEST['sucursal']);
                         if ($cliente) {
+                            $cbody = $db->ejecutar("select concat('<b>Factura Electrónica N° ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>') from integraciones a join sucursales b on a.idsucursal = b.id where a.factura = '".$tid."'")->fetch_all()[0][0];
+
                             $salida["PDF"] = $fe->procesarPDF($xml,$db,$_REQUEST['sucursal']);
-                            $salida["Mail"] = $fe->enviarCorreo($rxml['FacturaElectronica']['Receptor']['CorreoElectronico'],'hola','hi',[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' N°'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf']);
+                            $salida["Mail"] = $fe->enviarCorreo($rxml['FacturaElectronica']['Receptor']['CorreoElectronico'],$tp." N° ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' N°'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf']);
+                            unlink('./assets/pdf/'.$tp.' N°'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf');
                         }
                         
                         print_r($salida);
@@ -278,6 +278,80 @@
                     echo $fe->refresh();
                 else
                     echo "NO HAY LOG IN";
+                break;
+            case 14: //NC INTEGRACION
+                $salida = ['succed'=>1];
+                $db = new DBClass();
+                $exists = $db->ejecutar('SELECT count(id),substring(clave,22,20) as consecutivo,cliente from integraciones where factura = "'.$id.'"')->fetch_all()[0];
+                $cliente = '';
+
+                if($exists[0]){
+                    $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$exists[1].'.xml');
+                    $oxml = $xml;
+                    $tipodoc = substr($exists[1], 8,2);
+                    switch($tipodoc){
+                        case '01':
+                            $xml = str_replace('FacturaElectronica', 'NotaCreditoElectronica', $xml);
+                            $xml = str_replace('facturaElectronica', 'notaCreditoElectronica', $xml);
+                            $cliente = $exists[2];
+                            $otit = 'FacturaElectronica';
+                            break;
+                        case '04':
+                            $xml = str_replace('TiqueteElectronico', 'NotaCreditoElectronica', $xml);
+                            $xml = str_replace('tiqueteElectronico', 'notaCreditoElectronica', $xml);
+                            $otit = 'TiqueteElectronico';
+                            break;
+                        default:
+                            break;
+                    }
+                    $fe->tdoc = 'NotaCreditoElectronica';
+                    $fe->xmldoc = 'notaCreditoElectronica';
+                    
+                    $rxml = $fe->XMLtoArray($xml);
+                    unset($rxml['NotaCreditoElectronica']['ds:Signature']);
+                    $intsuc = $db->ejecutar('call fe_integracion("-'.$id.'",'.$_SESSION['IMPRESA'].',curdate(),0)')->fetch_all()[0];
+                    $_REQUEST['sucname'] = $intsuc[1];
+                    $rxml['NotaCreditoElectronica']['Clave'] = $intsuc[0];
+                    $rxml['NotaCreditoElectronica']['NumeroConsecutivo'] = substr($intsuc[0], 21,20);
+                    $fechaorig = $rxml['NotaCreditoElectronica']['FechaEmision'];
+                    $rxml['NotaCreditoElectronica']['FechaEmision'] = date('Y-m-d\TH:i:s-06:00');
+
+                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><NotaCreditoElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+
+                    $fe->array_to_xml($rxml,$xml_data);
+
+                    $xml = $xml_data->asXML();
+                    $xml = str_replace('<NotaCreditoElectronica>', '', $xml);
+                    $xml = str_replace('</NotaCreditoElectronica></NotaCreditoElectronica>', '</NotaCreditoElectronica>', $xml);
+                    $xml = str_replace('</ResumenFactura>','</ResumenFactura><InformacionReferencia><TipoDoc>'.$tipodoc.'</TipoDoc><Numero>'.$exists[1].'</Numero><FechaEmision>'.$fechaorig.'</FechaEmision><Codigo>01</Codigo><Razon>Factura anulada debido a: Monto Incorrecto</Razon></InformacionReferencia>',$xml);
+
+                    $fe->info['FechaEmision'] = $rxml['NotaCreditoElectronica']['FechaEmision'];
+                    $fe->info['Emisor']['Identificacion']['Tipo'] = $rxml['NotaCreditoElectronica']['Emisor']['Identificacion']['Tipo'];
+                    $fe->info['Emisor']['Identificacion']['Numero'] = $rxml['NotaCreditoElectronica']['Emisor']['Identificacion']['Numero'];
+                    $fe->info['NumeroConsecutivo'] = $rxml['NotaCreditoElectronica']['NumeroConsecutivo'];
+                    $fe->info['Clave'] = $rxml['NotaCreditoElectronica']['Clave'];
+                    $fe->firmarXML($xml);
+
+                    file_put_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml', $xml);
+
+                    $salida["Base"] = $db->ejecutar('insert into integraciones values(null,"'.$fe->info['Clave'].'","../assets/xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml","'.$id.'",3,'.$_REQUEST['sucursal'].',"","",0)');
+                    $salida["Integracion"] = $fe->integracion($xml,$db,$_REQUEST['sucursal']);
+
+                    if ($cliente) {
+                        $cbody = $db->ejecutar("select concat('<b>Nota Crédito Electrónica N° ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>') from integraciones a join sucursales b on a.idsucursal = b.id where a.factura = '".$id."'")->fetch_all()[0][0];
+
+                        $fe->tdoc = $otit;
+                        $salida["PDF"] = $fe->procesarPDF($oxml,$db,$_REQUEST['sucursal']);
+                        $salida["Mail"] = $fe->enviarCorreo($rxml['NotaCreditoElectronica']['Receptor']['CorreoElectronico'],"Nota Crédito N° ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/Factura N°'.$exists[1].', '.$_REQUEST['sucname'].'.pdf']);
+                        unlink('./assets/pdf/Factura N°'.$exists[1].', '.$_REQUEST['sucname'].'.pdf');
+                    }
+
+                }else{
+                    $salida = ['succed'=>0,'ERROR'=>'FACTURA NO EXISTENTE'];
+                }
+                echo json_encode($salida);
+                break;
+            case 15: //ENVIAR CORREO Integracion
                 break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
@@ -1618,7 +1692,7 @@
             $_xml = $this->XMLtoArray($xml);
             $transaccion = [];
             $ind = 0;
-            //print_r(sizeof($_xml[$this->tdoc]['DetalleServicio']));
+
             foreach ($_xml[$this->tdoc]['DetalleServicio'] as $obj) {
                 
                 $linea = [];
