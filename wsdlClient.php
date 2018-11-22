@@ -148,7 +148,7 @@
              case 12: //INTEGRACION XML GENERADO
                 $salida = ['succed'=>1];
                 if (!file_exists('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml')) {
-                    echo ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO '];
+                    echo json_encode(['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO ']);
                 }else{
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
@@ -617,6 +617,9 @@
         
         $fecha = (array) $inv_xml->FechaEmision;
         $fecha = $fecha[0];
+        if (strpos($fecha, '.')) {
+            $fecha = substr($fecha, 0,strpos($fecha, '.'));
+        }
         $fecha = strlen($fecha) > 19 ? strtotime(substr(str_replace('T', ' ', $fecha),0,-6)) : strtotime(str_replace('T', ' ', $fecha));
         $fechasistema =  date('Y/m/d H:i:s',$fecha);
         $fecha = date('d/m/Y H:i:s',$fecha);
@@ -737,7 +740,7 @@
             }
 
             if(isset($_REQUEST['accion']))
-                if ($_REQUEST['accion'] == 12) 
+                if ($_REQUEST['accion'] == 12 || $_REQUEST['accion'] == 14) 
                     $_SESSION['IMPRESA'] = $_REQUEST['sucursal'];
 
             if ($vid != '') {

@@ -30,9 +30,10 @@ class correo
      		->setTo( explode(',',$pr) )
      		->setBody($msj,'text/html');
 
-      if ($_SESSION['BUSS'] == 1) {
-        $this->message->setCc(array($_SESSION['CRR']=>$_SESSION['NOM']));
-      }
+      if (isset($_SESSION['BUSS'])) 
+        if ($_SESSION['BUSS'] == 1) {
+          $this->message->setCc(array($_SESSION['CRR']=>$_SESSION['NOM']));
+        }
 
         //'<div style="min-height:250px;background-color: #0B3861; margin-left:15%;margin-right: 15%;color: white">'. .'</div>'
     }
