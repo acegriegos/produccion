@@ -48,6 +48,11 @@ $(function(){
                 
                 $(".act").removeClass('hide');
                 $(".actin").addClass('hide');
+            })
+            .fail(function(){
+                console.log('No hay acceso a '+config[18]);
+                $(".act").removeClass('hide');
+                $(".actin").addClass('hide');
             });
     });
 

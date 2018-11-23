@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Ventas Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.78">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.79">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -21,7 +21,7 @@
         <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
         {/if}
       </div>
-      <div class="col s4 m4 l4" align="center">
+      <div class="col s6 m4 l4" align="center">
         <h2 align="center" style="margin-top: 0px">Ventas Totales</h2>
         <font size="3">
           <b>{$MIS[0]}</b><br>
@@ -31,7 +31,7 @@
         </font>
         <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" title="Mostrar Filtros" style="display:none;"></i>
       </div>
-      <div class="col s4 m4 l4">
+      <div class="col s2 m4 l4">
         <input type="hidden" class="zelda">
       </div>
     </div>
@@ -59,8 +59,8 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.78"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.0.0.78"></script>
-  <script src="../assets/libs/jspdf/jspdf.js?v=10.0.0.78"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.79"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.0.0.79"></script>
+  <script src="../assets/libs/jspdf/jspdf.js?v=10.0.0.79"></script>
 </body>
 </html>

@@ -15,10 +15,6 @@
 
   *{
     font-family:'Helvetica';
-    /*font-size: 12px;*/
-  }
-
-  *{
         margin: 0% !important;
         font-size: 20px;
 
@@ -287,9 +283,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.78"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.78"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.78"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.79"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.79"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.79"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
