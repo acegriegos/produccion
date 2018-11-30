@@ -15,7 +15,6 @@
             case 1://RECIBO DE FACTURA
                 $rs = $fe->recepcion();
                 print_r($rs);
-                // echo $fe->recepcion();
                 break;
             case 2://GET XML
                 if (isset($_REQUEST['view'])) {
@@ -352,6 +351,18 @@
                 echo json_encode($salida);
                 break;
             case 15: //ENVIAR CORREO Integracion
+                break;
+            case 16: //OBTENER RESPUESTA HACIENDA Y GUARDAR EN ARCHIVO
+                $salida = [];
+                $xml = $fe->estado();
+                print_r($xml);
+                if ($xml) {
+                    $xml['succed'] = 1;
+                    $xml['arhivo'] = "./assets/".$fe->info['NumeroConsecutivo'].".xml";
+                    file_put_contents("./assets/".$fe->info['NumeroConsecutivo'].".xml", $xml);
+                }else
+                    $xml['succed'] = 0;
+                echo json_encode($salida);
                 break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
@@ -764,7 +775,7 @@
             $fP = fSockOpen("ssl://idp.comprobanteselectronicos.go.cr", 443, $errno, $errstr, 10);
             if (!$fP) { return json_encode(["rs"=>'Problemas con el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]); }
             restore_error_handler();
-            
+
             if ($this->credenciales[6]) {
                $this->bearer = $this->credenciales[6];
                $salida = $this->credenciales;
@@ -816,7 +827,7 @@
             $salida['credenciales'] = $this->credenciales;
             $json_response = json_decode($json_response);
             
-            if (isset($json_response->access_token)) {
+            if (isset($json_response->access_token) && !isset($_REQUEST['ref'])) {
                 $this->bearer = $json_response->access_token;
                 $db = new DBClass();
                 $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now(),refrescado = 0 where id = '.$_SESSION['IMPRESA']);
@@ -1066,6 +1077,8 @@
                     break;
                 case 201:
                 case 202:
+                case 100:
+                case 100100:
                     $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
                     break;
                 case 400:
@@ -1080,7 +1093,6 @@
             }
 
             curl_close($curl);
-            
             return $json_response;
         }
 
@@ -1154,7 +1166,7 @@
                         $salida['xml'] = base64_decode($aBody['respuesta-xml']);
                         $salida['rs'] = $sRespuesta;
                     }
-                    $salida['toto'] = $json_response;
+                    //$salida['toto'] = $json_response;
                     $salida['factura']  = $this->id;
                     $salida['estado']   = $aBody['ind-estado'];
 
@@ -1633,6 +1645,7 @@
             $this->credenciales[2] = $rs[1];
             $this->credenciales[4] = $rs[2];
             $this->credenciales[5] = $rs[3];
+            $this->credenciales[6] = '';
             $_REQUEST['clave'] = $rs[0];
 
             $estatus = $this->estado();

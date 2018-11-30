@@ -1166,8 +1166,8 @@ function cargarProducto(kbrota,elemento) {
                  
         }
     }
-
-    if ( $("#codp").val().indexOf('/') != -1 && $("#codp").val().indexOf('/') == $("#codp").val().length) {
+    
+    if ( $("#codp").val().indexOf('/') != -1 && $("#codp").val().indexOf('/') == $("#codp").val().length-1) {
         kbrota = $("#codp").val().substring(0,$("#codp").val().indexOf('/'));
         if(kbrota.length){
             iscomodin = 3;
@@ -1711,6 +1711,14 @@ function sendVMail(factura,clave,vid){
             var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
             archivos = makeArchivos(factura,clave,vid,vbody[1],ntipo);
             enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos);
+             $.ajax({
+                url: "http://35.188.212.38/bot/wsdlServer.php",
+                type: 'POST',
+                data: {clave: clave, cmd : 2,crr:str_correos}
+            })
+              .done(function(data) {
+            });
+            
         }else{
 
             if (parseInt(idext) > 0) {

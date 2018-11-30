@@ -16,9 +16,12 @@ $(function(){
         
         $(".act").addClass('hide');
         $(".actin").removeClass('hide');
+        var sucursal = getDatos('cedula,isprueba',39,'id=@@impresa',0,0,0)[0][0];
+
         var formData = new FormData();
         formData.append("cmd", "1");
-        formData.append("ced", getDatos('cedula',39,'id=@@impresa',0,0,0)[0][0][0]);
+        formData.append("ced", '"'+sucursal[0]+'"');
+        formData.append("isp", sucursal[1]);
         
         $.ajax({
             url: config[18],
@@ -120,10 +123,10 @@ $(document).on("click",".status",function(){
     var f1 = new Date($(this).attr('fecha'));
     var f2 = new Date();
     
-    if(parseInt((f2-f1)/(1000*60)) < 15){
+    /*if(parseInt((f2-f1)/(1000*60)) < 15){
         Materialize.toast("Se Recomienda Esperar 15min",5000,'red');
         return false
-    }
+    }*/
 
 	$(".status").attr('disabled',true)
 	$(this).removeClass('mdi-information-outline').addClass('mdi-spin mdi-loading')
@@ -173,9 +176,9 @@ $(document).on("click",".status",function(){
                         msj = 'Procesando Documento Electrónico';
 						break;
 					case 'Sin Subir':
-						// var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-						// Materialize.toast($toastContent,5000);
-						// sendFE(vid);
+						var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+						Materialize.toast($toastContent,5000);
+						sendFE(vid);
                         color = 'red';
                         state = 0;
                         msj = 'Procesando Documento Electrónico';

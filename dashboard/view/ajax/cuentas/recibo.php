@@ -43,10 +43,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col s6 left-align">
+        <div class="col s12 left-align">
          <div class="row">
+          <div class="col s12" id="infofact" >
+            <b id="fact">Documento Electónico N°</b>
+            <span id="numfact"> <?php echo $datos[14]; ?> </span>
+          </div>
            <div class="col s12" id="infofact" >
-            <b id="fact">Recibo N°</b>
+            <b id="fact">Consecutivo N°</b>
             <span id="numfact"> <?php echo $datos[1]; ?> </span>
           </div>
         <div class="col s12" id="infofact" >
@@ -75,6 +79,7 @@
 
     <div class="col s6">
 
+      <?php if($datos[8]){ ?>
       <div class="col s6 center-align ">
         <div class="card   white-text imprimirSINBOR <?php echo $hide ?>"  style="background-color: #3960A7;" style="background-color: #3960A7;">
           <div class=" card-content ">
@@ -84,8 +89,8 @@
           </div>
         </div>
       </div>
-
-      <div class="col s6 center-align">
+    <?php } ?>
+      <div class="col s6 center-align" style=" float: right;">
         <div class="card  white-text imprimirSINBOR" style="background-color: #3960A7;">
           <div class=" card-content white-text imprimirSINBOR">
             <p>Fecha:

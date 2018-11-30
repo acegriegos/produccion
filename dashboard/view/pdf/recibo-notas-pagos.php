@@ -9,16 +9,6 @@ class myPDF extends TCPDF {
     {
         parent::__construct();
     }
-
-    public function Footer() {
-        $html = '<div align="center">
-            <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
-              <br> 
-              <span class="leyfooter" style="font-size: 0.8em;">Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio. <?php echo $msj; ?></span></p><br>
-            </div>';
-
-        $this->writeHTML($html, true, false, true, false, '');
-    }
 }
 
 // create new PDF document
@@ -38,7 +28,7 @@ $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 // $pdf->SetMargins(5, 2, 5);
 $pdf->SetHeaderMargin(10);
 $pdf->SetFooterMargin(25);
-$pdf->setPrintFooter(true);
+$pdf->setPrintFooter(false);
 $pdf->setPrintHeader(false);
 // set auto page breaks
 $pdf->SetAutoPageBreak(TRUE, 0);
@@ -59,7 +49,7 @@ if ($miscelaneos[3]) {
    $html .= '<img src="'.$miscelaneos[3].'" width="264" style="max-width:339px;" class="mcnImage">';
 }
 
-$html .= '</td> <td></td> </td><td><div style="text-align: left; color: #494949;">'.
+$html .= '</td> <td></td> <td><div style="text-align: left; color: #494949;">'.
 '<strong>'.$miscelaneos[0].'</strong><br>';
 
 if($miscelaneos[2] != '') 
@@ -70,8 +60,35 @@ $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 '<strong>Correo:</strong> '.$miscelaneos[4].'<br>'.
 '<strong>Dirección:</strong><br>'.
 $miscelaneos[6].'</div>';
-$html .= '<tr></table>';
-//<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.
+$html .= '</td></tr></table>';
+
+$html .= '<br><br><b>Documento Electrónico N°</b>'.$datos[0][14].
+         '<br><b>Consecutivo N°</b>'.$datos[0][1].
+         '<br><b>Factura N°</b>'.$datos[0][13].'<br><br><br><br>'.
+         '<table><tr><td>'.
+         '<b>Cliente: </b>'.$datos[0][4].'<br>'.
+         '<b>Usuario: </b>'.$datos[0][10].
+         '</td><td>'.
+         '<table><tr>';
+        if($datos[0][8])
+          $html .= '<td align="center" style="width: 40%; margin-left:5%; max-heigth: 30px;"><div style="background-color: #3960A7;color: white;width:20px;heigth:20px;padding:0px"><p>Tipo de Pago: '.$datos[0][8].'</p></div></td>';
+        else
+          $html .= '<td></td>';
+         $html .= '<td align="center" style="width: 40%; margin-left:5%; max-heigth: 30px;"><div style="background-color: #3960A7;color: white;width:15px;"><p>Fecha: '.$datos[0][3].'</p></div>'.
+         '</td></tr></table>'.
+         '</td></tr></table>';
+
+         $html .= ' <table style="font-size: 1.1em;">
+          <tr style="background-color: #3960A7; border: 0px;color: white;heigth">
+            <th align="center">Tipo de movimiento</th>
+            <th align="center">Fecha</th>
+            <th align="center">Saldo anterior</th>
+            <th align="center">Monto </th>
+            <th align="center">Saldo actual</th>
+          </tr>
+    </table>';
+
+
 $pdf->writeHTML($html, true, false, true, false, '');
 
 //----------------------------------------------------------
