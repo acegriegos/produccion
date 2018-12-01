@@ -179,6 +179,31 @@
         include 'view/ajax/tabla_global.php'; 
 
         break;
+      case 11:
+        $pagina = 1;
+        $arch = $_REQUEST['arreglo']['archivo'];
+        $save = $_REQUEST['arreglo']['save'];
+        $tit = $_REQUEST['arreglo']['tit'];
+        $tit2 = $_REQUEST['arreglo']['tit2'];
+
+        $omitir = isset($_REQUEST['arreglo']['omitir']) ? $_REQUEST['arreglo']['omitir'] : '';
+        $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
+        $transaccion = $log->sel_col($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        include 'view/ajax/tabla_excel.php'; 
+        break;
+      case 12:
+        $pagina = 1;
+        error_reporting(E_ALL);
+
+        include("../print/PrintSend.php");
+        include("../print/PrintSendLPR.php");
+
+        $lpr = new PrintSendLPR();
+        $lpr->setHost("192.168.31.153");
+        $lpr->setData(utf8_encode($_REQUEST['arreglo']['data']));
+
+        $lpr->printJob("l2");
+        break;
       default:
         break;
 

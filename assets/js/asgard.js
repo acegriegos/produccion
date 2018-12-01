@@ -385,7 +385,6 @@ function doGlobal(accion,modulo,tip,varias){
             }
 
             Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
-
             id = p[0][0];
             endDetail(id,acc,modulo);
         }

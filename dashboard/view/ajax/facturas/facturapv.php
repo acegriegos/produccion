@@ -123,10 +123,10 @@ echo '<br> '.$miscelaneos[6].'
   </tr>
 </table>
 <table style="width: 100% !important;">
-  <tr class="hide">
+  <tr>
     <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
-  <tr class="hide">
+  <tr>
     <td align="left" colspan="4" style="font-size:13px">'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>

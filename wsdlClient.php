@@ -519,10 +519,10 @@
 
             $scedula = $inv_xml['NumeroCedulaReceptor'];
 
-            if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+            /*if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
                 $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
                 return false;
-            }
+            }*/
 
             $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$inv_xml['NumeroCedulaEmisor'].',\"-\",\"\") ")')->fetch_all();
 
@@ -580,10 +580,10 @@
         $scedula = isset($inv_xml->Receptor->Identificacion->Numero) ? (array) $inv_xml->Receptor->Identificacion->Numero : 0;
         $scedula = isset($scedula[0]) ? $scedula[0] : 0;
 
-        if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+        /*if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
             $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
             return false;
-        }
+        }*/
 
         $salida['emisor']['nombre'] = (array) $inv_xml->Emisor->Nombre;
         $salida['emisor']['nombre'] = $salida['emisor']['nombre'][0];
@@ -594,6 +594,21 @@
 
             $salida['emisor']['tipo']       = (array) $inv_xml->Emisor->Identificacion->Tipo;
             $salida['emisor']['tipo']       = $salida['emisor']['tipo'][0];
+
+            $salida['emisor']['ap1'] = '';
+            $salida['emisor']['ap2'] = '';
+            switch ($salida['emisor']['tipo']) {
+                case '01':
+                case '04':
+                    $vnom = $salida['emisor']['nombre'][0];
+                    $salida['emisor']['ap1'] = '';
+                    $salida['emisor']['ap2'] = '';
+                    $salida['emisor']['nombre'] = '';
+                    break;
+                
+                default:
+                    break;
+            }
 
             $salida['emisor']['barrio']     = isset($inv_xml->Emisor->Ubicacion->Barrio) ? (array) $inv_xml->Emisor->Ubicacion->Barrio : 0;
             $salida['emisor']['barrio'] = $salida['emisor']['barrio'] == 0 ? $salida['emisor']['barrio'] : $salida['emisor']['barrio'][0];
@@ -1078,7 +1093,6 @@
                 case 201:
                 case 202:
                 case 100:
-                case 100100:
                     $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
                     break;
                 case 400:
@@ -1087,6 +1101,9 @@
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
                     $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2]);
                     break;
+                case 500:
+                    $json_response = json_encode(["rs"=>'Error Interno en el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
+                    break; 
                 default:
                     $json_response = $rs;
                     break;
@@ -1119,7 +1136,7 @@
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl,CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, false);
-            // curl_setopt($curl, CURLOPT_TIMEOUT_MS, 200);
+            curl_setopt($curl, CURLOPT_TIMEOUT, 2);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/x-www-form-urlencoded','Authorization: bearer '.$this->bearer]);
 
             $json_response = curl_exec($curl);
@@ -1170,7 +1187,10 @@
                     $salida['factura']  = $this->id;
                     $salida['estado']   = $aBody['ind-estado'];
 
-                    break;       
+                    break;
+                 case 500:
+                    $salida = json_encode(["rs"=>'Error Interno en el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
+                    break;        
                 default:
                     $salida = $json_response;
                     break;

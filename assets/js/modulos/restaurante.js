@@ -168,7 +168,7 @@ $(function(){
     $(document).on('click',".saveOrder",function(){
         var id = $("#ffacturas .zelda").data('triforce')['vidtipo'];
         var idfactura = getDatos('',259,id+',0,'+$("#ffacturas .zelda").data('triforce')['vidtipopago'],0,0,0)
-        console.log(id+',0,'+$("#ffacturas .zelda").data('triforce')['vidtipopago'])
+        //console.log(id+',0,'+$("#ffacturas .zelda").data('triforce')['vidtipopago'])
         idfactura = idfactura[0][0][0];
         var idprod = cant = precio = imv = idimv = 0;
 
@@ -182,6 +182,8 @@ $(function(){
                 insertar(260,'','null,'+idfactura+','+idprod+',null,null,'+cant+','+precio+',0,0,'+imv+',"",1,"'+idimv+'","",6');
             });
             Materialize.toast('Orden Editada Corectamente',4000,'green');
+            var vdata = "\t\tOrden N° \n\n\n\n\n\n";
+            mantenimiento('login',12,{data:vdata},1);
         }else{
             Materialize.toast('No Hay Productos que Ingresar',4000,'red');
             $("#detfactmsj").show();
@@ -671,7 +673,9 @@ function validarDetalleFactura(){
 }
 
 function endDetail(vid,vacc,vmodulo) {
-    console.log(vid)
+
+    var vdata = "\t\tOrden N° \n\n\n\n\n\n";
+    mantenimiento('login',12,{data:vdata},1);
     actualizar(800,'idtipoocupado=2','id='+mesa);
     $("#saveOrder").removeClass('add');
     $("#saveOrder").addClass('saveOrder');

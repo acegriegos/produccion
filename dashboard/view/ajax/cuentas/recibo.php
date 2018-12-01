@@ -35,7 +35,7 @@
                 echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
-              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[2]; ?></span><br>
+              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
               <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
               <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
 

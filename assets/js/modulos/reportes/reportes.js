@@ -5,7 +5,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" title="Generar Reporte" onclick="doreport()">Generar</a></div><br>');
+    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros="{"sel":"","tbl":"","where":"","omitir":"","titulo":""}"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -187,6 +187,71 @@ $(document).on("click",".justChange",function(e){
     $(this).attr('stat',status);
 });
 
+$(document).on("click","#sndcrr",function(){
+    var vpara = '';
+    var para = $('.chips-initial').material_chip('data');
+    var sucursal = getDatos('if(pfisico <> "",pfisico,nombre)',39,"id=@@impresa",0,0,0)[0][0][0];
+
+    for (var i = 0; i < para.length; i++) {
+        vpara += para[i].tag+',';
+    }
+    vpara=vpara.substring(0,vpara.length -1);
+
+    var filtros = $(".inpreport").length;
+    var elem = $(".principal .filtros").attr('elem').split(',');
+    var vtbl = $(".principal .filtros").attr('sp');
+    var atributos = '';
+    var vmodulo = {};
+    vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
+    var search = new Array;
+    var datos = mantenimiento('login',1,vmodulo)[0];
+    datos = datos.splice(elem.length,datos.length-elem.length);
+
+    for (var i = 0, len = datos.length; i < len; i++) {
+
+        if ($("#"+datos[i][0]).attr('str') != undefined) {
+            if ($("#"+datos[i][0]).attr('type') == 'date') {
+                
+                if ( $("#"+datos[i][0]).val()=='' ){
+                    search[i] = '""';
+                }else{
+                    search[i] = '"'+$("#"+datos[i][0]).val()+'"';
+                }
+            }else{
+                search[i] = '"'+$("#"+datos[i][0]).val()+'"';
+            }
+        }else{
+            if ($("#"+datos[i][0]).val() == '') {
+                search[i] = "''";
+            }else{
+                search[i] = $("#"+datos[i][0]).val();
+            }
+        }
+
+        if (datos[i][0] == 'vidsucursal')
+            search[i] = '@@impresa';
+    }
+
+    var string = elem.concat(search);
+    $.each(string,function(index){
+        atributos += string[index]+',';
+    });  
+    atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
+
+    console.log(mantenimiento('login',11,{sel:'',tbl:vtbl,where:atributos,tit:$("#titrep").html(),archivo:$("#titrep").html()+", "+sucursal,save:1},1));
+
+    enviarCorreo(3,vpara,"Reporte de "+$("#titrep").html()+", "+sucursal,"Se adjuntan los archivos correspondientes.",'excel/'+$("#titrep").html()+", "+sucursal+".xls");
+});
+
+$(document).on("click",".sendrep",function(){
+    $("#modal-correos").modal();
+    $("#modal-correos").modal('open');
+
+    $('.chips-initial').material_chip({
+        data: getCorreos(),
+     });
+});
+
 $(document).on("blur","#cliente",function(){
     var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$(this).val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
     if (id != undefined)
@@ -290,4 +355,24 @@ function validarReporte() {
         $("#hfec1").select();
         return 'Fechas inválidas';
     }
+}
+
+function getCorreos(){
+    var salida = "[";
+    var p= getDatos('correoconta',40,'idsucursal = @@impresa',0,0,0)[0];
+
+    for (var i = 0; i < p.length; i++) {
+        salida+='{"tag":"'+p[i][0]+'"},';
+    }
+
+    if (p.length > 0) {
+        return JSON.parse(salida.substring(0,salida.length -1)+"]");
+    }else
+        return '';
+
+    
+}
+
+function postSendmail() {
+    $(".panning").remove();
 }

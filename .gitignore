@@ -9,6 +9,8 @@ assets/p12/*
 !assets/p12/.gitkeep
 assets/update/*
 !assets/update/.gitkeep
+assets/excel/*
+!assets/excel/.gitkeep
 !assets/update/update.log
 assets/pdf/*
 !assets/pdf/.gitkeep
