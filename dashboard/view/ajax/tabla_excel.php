@@ -53,9 +53,9 @@
 
     $archivo .= '</table>';
 
-    if ($conteo) {
+    /*if ($conteo) {
       $archivo .= '<table><tr><td colspan="2"></td></tr><tr><td><b>Cantidad:</b></td><td>'.sizeof($transaccion[1]).'</td></tr></table>';
-    } 
+    } */
 
     if (sizeof($tsuma)) {
       $archivo .= '<table><tr><td colspan="2"><b>TOTALES</b></td></tr>';
