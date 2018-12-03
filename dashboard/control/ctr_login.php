@@ -4,7 +4,6 @@
    	$log = new _login();
 
     if (!isset($_REQUEST['accion'])) {
-
     	if (session_status() !== PHP_SESSION_ACTIVE){
 		    session_start();
         //exit(0);  

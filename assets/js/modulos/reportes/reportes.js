@@ -193,7 +193,8 @@ $(document).on("click","#sndcrr",function(){
     var sucursal = getDatos('if(pfisico <> "",pfisico,nombre)',39,"id=@@impresa",0,0,0)[0][0][0];
 
     for (var i = 0; i < para.length; i++) {
-        vpara += para[i].tag+',';
+        if(para[i].tag.length)
+            vpara += para[i].tag+',';
     }
     vpara=vpara.substring(0,vpara.length -1);
 
@@ -238,7 +239,7 @@ $(document).on("click","#sndcrr",function(){
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
 
-    console.log(mantenimiento('login',11,{sel:'',tbl:vtbl,where:atributos,tit:$("#titrep").html(),archivo:$("#titrep").html()+", "+sucursal,save:1},1));
+    mantenimiento('login',11,{sel:'',tbl:vtbl,where:atributos,tit:$("#titrep").html(),archivo:$("#titrep").html()+", "+sucursal,save:1},1);
 
     enviarCorreo(3,vpara,"Reporte de "+$("#titrep").html()+", "+sucursal,"Se adjuntan los archivos correspondientes.",'excel/'+$("#titrep").html()+", "+sucursal+".xls");
 });
@@ -374,5 +375,6 @@ function getCorreos(){
 }
 
 function postSendmail() {
-    $(".panning").remove();
+    etTimeout(function(){$(".toast").remove();},2000)
+    
 }
