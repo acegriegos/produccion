@@ -1136,7 +1136,7 @@
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl,CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, false);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 2);
+            //curl_setopt($curl, CURLOPT_TIMEOUT, 5);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/x-www-form-urlencoded','Authorization: bearer '.$this->bearer]);
 
             $json_response = curl_exec($curl);
@@ -1160,6 +1160,9 @@
             }
 
             switch ($status) {
+                case 0:
+                    $salida = json_encode(["rs"=>'Supero Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
+                    break;
                 case 400:
                     $salida['factura']  = $this->id;
                     $salida['rs'] = $aHeader['X-Error-Cause'];
@@ -1185,7 +1188,7 @@
                     }
                     //$salida['toto'] = $json_response;
                     $salida['factura']  = $this->id;
-                    $salida['estado']   = $aBody['ind-estado'];
+                    $salida['estado']   = isset($aBody['ind-estado']) ? $aBody['ind-estado'] : $aBody;
 
                     break;
                  case 500:

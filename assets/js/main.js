@@ -118,6 +118,11 @@ function sse_response(vid,p) {
 
             if ($("#cantFact:visible").length)
                 $("#cantFact").html(p[0][0][2]);
+            
+            if(parseInt(p[0][0][3])) //RECURSIVIDAD 20MIN
+                console.log('entro');
+                //window.open('../_config/autofacturas.php','_blank');
+                //, 'toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=10000, top=10000, width=10, height=10, visible=none', ''
             break;
         case 2:
             $(".asig").addClass('hide');

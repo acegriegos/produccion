@@ -274,6 +274,22 @@ if (isset($_POST['respuestaXml'])) {
             $salida = isset($rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table']) ? $rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table'] : '';
             print_r($salida);
             break;
+        case 4:
+          if (!isset($_POST['ced'])) {
+            $salida['msj'] = 'DATOS REQUERIDOS';
+            $salida['error'] = 1;
+          }else{
+            require_once '_config/mysqlDB.php';
+            $base = new DBClass();
+
+            $rs = $base->ejecutar('call sp_rgetAll('.$_POST['ced'].',1)');
+            if (isset($rs->num_rows)) {
+                $salida['rs'] = $rs->fetch_all();
+                $salida['sql'] = 'call sp_rgetAll('.$_POST['ced'].',1)';
+            }else
+                $salida = $rs;
+          }
+          break;
         default:
            $salida['msj'] = 'WSDL LOGINTECH';
            $salida['error'] = 1;
@@ -282,5 +298,4 @@ if (isset($_POST['respuestaXml'])) {
 
     echo json_encode($salida);
 }
-
 ?>

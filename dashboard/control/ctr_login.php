@@ -184,14 +184,14 @@
         $arch = $_REQUEST['arreglo']['archivo'];
         $save = $_REQUEST['arreglo']['save'];
         $tit = $_REQUEST['arreglo']['tit'];
-        $tit2 = $_REQUEST['arreglo']['tit2'];
+        $tit2 = isset($_REQUEST['arreglo']['tit2']) ? $_REQUEST['arreglo']['tit2'] : '' ;
 
         $omitir = isset($_REQUEST['arreglo']['omitir']) ? $_REQUEST['arreglo']['omitir'] : '';
         $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
         $transaccion = $log->sel_col($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
         include 'view/ajax/tabla_excel.php'; 
         break;
-      case 12:
+      case 12: //IMPRESION EXTERNA FIJA
         $pagina = 1;
         error_reporting(E_ALL);
 
@@ -200,9 +200,14 @@
 
         $lpr = new PrintSendLPR();
         $lpr->setHost("192.168.31.153");
-        $lpr->setData(utf8_encode($_REQUEST['arreglo']['data']));
+        $lpr->setData($_REQUEST['arreglo']['data']);//utf8_encode()
 
         $lpr->printJob("l2");
+        break;
+      case 13: //FORKING
+        $pagina = 1;
+        //shell_exec('php-cgi ')
+        echo "hola";
         break;
       default:
         break;

@@ -88,13 +88,14 @@ $html .= '<br><br><b>Documento Electrónico N°</b>'.$datos[0][14].
           </tr>
     </table>';
 
+$html2 = "<table width='100%'><tr><td align='center'>COMANDA N°</td></tr></table>";
 
-$pdf->writeHTML($html, true, false, true, false, '');
+$pdf->writeHTML($html2, true, false, true, false, '');
 
 //----------------------------------------------------------
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('../assets/pdf/Factura '.$id.'.pdf','I');
+$pdf->Output('../assets/pdf/Nota '.$id.'.pdf','F');
 
 ?>

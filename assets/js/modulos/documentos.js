@@ -19,7 +19,7 @@ $(function(){
         var sucursal = getDatos('cedula,isprueba',39,'id=@@impresa',0,0,0)[0][0];
 
         var formData = new FormData();
-        formData.append("cmd", "1");
+        formData.append("cmd", "4");
         formData.append("ced", '"'+sucursal[0]+'"');
         formData.append("isp", sucursal[1]);
         

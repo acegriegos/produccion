@@ -114,9 +114,8 @@
             $ispruebas = 1;
 
         if (!isset($inv_xml->Emisor->Identificacion->Numero)) {
-
-            $inv_xml = (array) $inv_xml;
-
+            $inv_xml = (Array) $inv_xml;
+            
             if ($inv_xml['Mensaje'] == 3) {
                 $salida = ['succed' => 0,'ERROR' => 'El Comprobante Electrónico no fue Aceptado'];
                 return false;
@@ -131,11 +130,43 @@
                 $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
                 return false;
             }
-            
+            $salida['clave'] = $inv_xml['Clave'];
+            $f1 = strpos($_xml, '<xades:SigningTime>');
+            $f2 = strpos($_xml, '</xades:SigningTime>');
+            $f2 = $f2 - $f1-19;
+            $fecha = str_replace("Z","",str_replace('T', " ", substr($_xml, $f1+19,$f2)));
+
             $sub = $inv_xml['TotalFactura']-$inv_xml['MontoTotalImpuesto'];
-            $idprov = $db->ejecutar('call sp_rmantclientes("'.$inv_xml['NombreEmisor'].'","'.$inv_xml['NumeroCedulaEmisor'].'","","",'.$inv_xml['TipoIdentificacionEmisor'].',0,0,0,0,0)')->fetch_all()[0][0];
-            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.',0,0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","",curdate(),1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')')->fetch_all()[0][0];
-            $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',0,1,'.$sub.',0,6,0,'.$inv_xml['MontoTotalImpuesto'].',"",1,"","")');
+
+            $idprov = $db->ejecutar('call sp_rmantclientes("'.$inv_xml['NombreEmisor'].'","'.$inv_xml['NumeroCedulaEmisor'].'","","",'.$inv_xml['TipoIdentificacionEmisor'].',0,0,0,0,0)');
+            if(isset($idprov->num_rows)) 
+                $idprov = $idprov->fetch_all()[0][0];
+            else{
+                 $salida = ['succed' => 0,'ERROR' => $idprov,'mod'=>'PROVEEDOR R'];
+                return false;
+            }
+
+            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.',0,0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","","'.$fecha.'",1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')');
+            if(isset($idfact->num_rows)){
+                $idfact = $idfact->fetch_all()[0][0];
+                $salida['ifactura'] = $idfact;
+            }
+            else{
+                $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.',0,0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","","'.$fecha.'",1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
+                $salida = ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura R'];
+                return false;
+            }
+            if ($idfact) {
+
+                $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1)');
+
+                if (!isset($iddet->num_rows)) {
+                    $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1)'.'\',\''.$iddet.'\')');
+                    $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura R'];
+                    //$db->ejecutar('call sp_rrollback('.$idfact.')');1
+                    return false;
+                }
+            }
             return false;
         }
         $salida['clave'] = $inv_xml->Clave[0];
@@ -184,16 +215,19 @@
         $prov['pais'] = $prov['pais'] == 0 ? $prov['pais'] : $prov['pais'][0];
 
         $prov['id']         = $db->ejecutar('call sp_rmantclientes("'.$prov['nombre'].'","'.$prov['cedula'].'","'.$prov['correo'].'","'.$prov['telefono'].'",'.$prov['tipo'].','.$prov['barrio'].','.$prov['distrito'].','.$prov['canton'].','.$prov['provincia'].','.$prov['pais'].')');
-        if($prov['id']->num_rows) 
+        if(isset($prov['id']->num_rows)) 
             $prov['id'] = $prov['id']->fetch_all()[0][0];
         else{
-             $salida = ['succed' => 0,'ERROR' => $prov['id']];
+             $salida = ['succed' => 0,'ERROR' => $prov['id'],'mod'=>'PROVEEDOR'];
             return false;
         }
 
 
         $fecha = (array) $inv_xml->FechaEmision;
         $fecha = $fecha[0];
+        if (strpos($fecha, '.')) {
+            $fecha = substr($fecha, 0,strpos($fecha, '.'));
+        }
         $fecha = strlen($fecha) > 19 ? strtotime(substr(str_replace('T', ' ', $fecha),0,-6)) : strtotime(str_replace('T', ' ', $fecha));
         $fechasistema =  date('Y/m/d H:i:s',$fecha);
 
@@ -223,13 +257,14 @@
         $fact['cedula'] = (array) $inv_xml->Receptor->Identificacion->Numero;
         $fact['cedula'] = $fact['cedula'][0];
 
-        $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"","'.$inv_xml['Clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
+        $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"","'.$inv_xml->Clave.'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
 
         if(isset($idfact->num_rows)){
             $idfact = $idfact->fetch_all()[0][0];
             $salida['ifactura'] = $idfact;
         }
         else{
+            $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"","'.$inv_xml->Clave.'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
             $salida = ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura'];
             return false;
         }
@@ -264,13 +299,16 @@
                 $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0].','.$ddescuento.','.$dimpuesto.',"'.$vunidad.'")');
                 
                 if (!isset($iddet->num_rows)) {
+                    $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0].','.$ddescuento.','.$dimpuesto.',"'.$vunidad.'")'.'\',\''.$iddet.'\')');
                     $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura'];
-                    $db->ejecutar('call sp_rrollback('.$idfact.')');
+                    //$db->ejecutar('call sp_rrollback('.$idfact.')');
                     return false;
                 }
+
             }
         }
     }
+  
 ?>
 
 </body>
