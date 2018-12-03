@@ -29,6 +29,8 @@ $(function(){
         
 
     }
-
+  $(".excel").data('parametros')['omitir'] = ',0,2,3,6,8,9,10,16,17,18,19,20,21,22,23,23,24,25,26,27,28,29,30,31,32,33,34,35,36,';
+  $(".excel").data('parametros')['conteo'] = 1;
+  $(".excel").data('parametros')['suma'] = ',11,12,13,14,15,';
 	arr('login',6,'',167,'0,"'+tipo+'",@@impresa,0,0,0,0,curdate(),"",0,0',0,1,$(".detrep"));
 });

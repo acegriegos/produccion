@@ -4,6 +4,7 @@
    	$log = new _login();
 
     if (!isset($_REQUEST['accion'])) {
+
     	if (session_status() !== PHP_SESSION_ACTIVE){
 		    session_start();
         //exit(0);  
@@ -184,6 +185,8 @@
         $save = $_REQUEST['arreglo']['save'];
         $tit = $_REQUEST['arreglo']['tit'];
         $tit2 = isset($_REQUEST['arreglo']['tit2']) ? $_REQUEST['arreglo']['tit2'] : '' ;
+        $conteo = isset($_REQUEST['arreglo']['conteo']) ? $_REQUEST['arreglo']['conteo'] : '' ;
+        $suma = isset($_REQUEST['arreglo']['suma']) ? $_REQUEST['arreglo']['suma'] : '' ;
 
         $omitir = isset($_REQUEST['arreglo']['omitir']) ? $_REQUEST['arreglo']['omitir'] : '';
         $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
@@ -206,7 +209,7 @@
       case 13: //FORKING
         $pagina = 1;
         //shell_exec('php-cgi ')
-        echo "hola";
+        echo substr( __DIR__,strlen(__DIR__)+strpos(strrev(__DIR__),'/',2));
         break;
       default:
         break;

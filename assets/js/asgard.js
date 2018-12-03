@@ -521,6 +521,9 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
             catch(err){
                 p = data;
             }
+        })
+        .fail(function(x,y,z){
+            console.error(x)
         });
     return p;
 }
