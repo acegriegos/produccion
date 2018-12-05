@@ -208,8 +208,17 @@
         break;
       case 13: //FORKING
         $pagina = 1;
-        //shell_exec('php-cgi ')
-        echo substr( __DIR__,strlen(__DIR__)+strpos(strrev(__DIR__),'/',2));
+        ob_end_clean();
+        ignore_user_abort();
+        ob_start();
+        header("Connection: close");
+        echo json_encode('procesing...');
+        header("Content-Length: " . ob_get_length());
+        ob_end_flush();
+        flush();
+        
+        include '../_config/autofacturas.php';
+        
         break;
       default:
         break;

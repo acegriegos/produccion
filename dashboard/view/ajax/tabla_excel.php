@@ -60,7 +60,7 @@
     if (sizeof($tsuma)) {
       $archivo .= '<table><tr><td colspan="2"><b>TOTALES</b></td></tr>';
       foreach ($tsuma as $aindex => $areglo) {
-        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.$areglo['valor'].'</td></tr>';
+        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],5).'</td></tr>';
       }
       $archivo .= '<table>';
     }

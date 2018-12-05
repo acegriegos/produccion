@@ -2,8 +2,12 @@
     session_start();
 
     if (!isset($_SESSION['IMPRESA'])) {
-        echo "Usuaro sin Registrar";
-        exit(0);
+        if (isset($_GET['imp'])) {
+            $_SESSION['IMPRESA'] = $_GET['imp'];
+        }else{
+            echo "Usuaro sin Registrar";
+            exit(0);
+        }
     }
     
     require_once 'mysqlDB.php';
@@ -23,7 +27,7 @@
             $fe = new facturaElectronica($obj[0]);
 
             $estado = $fe->estado();
-
+            print_r($estado);
             $nesatdo = 2;
             if(isset($estado['estado'])){
                 switch ($estado['estado']) {

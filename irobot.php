@@ -14,7 +14,7 @@
 
     $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Tiriyo: ' . imap_last_error());
     
-    $emails = imap_search($inbox,'UNSEEN');
+    $emails = imap_search($inbox,'UNSEEN'); //UNSEEN
 
     if($emails) {
         rsort($emails);
@@ -130,6 +130,12 @@
                 $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
                 return false;
             }
+
+            if (!isset($inv_xml['NombreEmisor'])) {
+                $salida = ['succed' => 0,'ERROR' => 'Comprobante no Válido'];
+                return false;
+            }
+
             $salida['clave'] = $inv_xml['Clave'];
             $f1 = strpos($_xml, '<xades:SigningTime>');
             $f2 = strpos($_xml, '</xades:SigningTime>');

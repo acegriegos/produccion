@@ -928,12 +928,6 @@
                 return $salida;
             }
 
-            if ($this->bearer == '') {
-                $salida['factura']  = $this->id;
-                $salida['estado']   = 'Problemas con la Llave Criptográfica';
-                return $salida;
-            }
-
             $emisor = $this->getEmisor();
             $receptor = strlen($vreceptor) == 14 ? '&receptor='.$vreceptor : '';
 
