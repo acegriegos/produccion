@@ -34,27 +34,31 @@ $(function(){
         })
             .done(function(res){
                 var p = JSON.parse(res);
+                var str = '';
+                var tabla = $("#data-table-compras").DataTable();
+                tabla.destroy();
+
                 if(p['rs'].length){
-                    var str = '';
-                    var tabla = $("#data-table-compras").DataTable();
-                    tabla.destroy();
 
                     for (var i = 0; i < p['rs'].length; i++) {
                         p['rs'][i][17] = p['rs'][i][17] == 'CRC' ? 1 : 2;
-                        var idproveedor = getDatos("id",2,'bisproveedor and replace(cedula,"-","") = '+p['rs'][i][39],0,0,0);
-                        console.log(idproveedor);
-                        //insertar(264,'',''+p['rs'][i][37]+',"'+p['rs'][i][38]+'","'+p['rs'][i][39]+'","'+p['rs'][i][39]+'","'+p['rs'][i][40]+'","'+p['rs'][i][41]+'","'+p['rs'][i][42]+'","'+p['rs'][i][43]+'","'+p['rs'][i][44]+'","'+p['rs'][i][45]+'","'+p['rs'][i][46]+'","'+p['rs'][i][47]+'"');
+                        var idproveedor = getDatos("vid",264,'replace(cedula,"-","") = '+p['rs'][i][39],0,0,0);
+                        if(!idproveedor[0].length)
+                            insertar(264,'',p['rs'][i][37]+',"'+p['rs'][i][38]+'","'+p['rs'][i][39]+'","'+p['rs'][i][40]+'","'+p['rs'][i][41]+'","'+p['rs'][i][42]+'","'+p['rs'][i][43]+'","'+p['rs'][i][44]+'","'+p['rs'][i][45]+'","'+p['rs'][i][46]+'","'+p['rs'][i][47]+'"');
 
-                        insertar(262,'','null,"'+p['rs'][i][1]+'","'+p['rs'][i][2]+'","'+p['rs'][i][3]+'","'+p['rs'][i][4]+'","'+p['rs'][i][5]+'","'+p['rs'][i][6]+'","'+p['rs'][i][7]+'","'+p['rs'][i][8]+'","'+p['rs'][i][9]+'","'+p['rs'][i][10]+'","'+p['rs'][i][11]+'","'+p['rs'][i][12]+'","'+p['rs'][i][13]+'","'+p['rs'][i][14]+'","'+p['rs'][i][15]+'","'+p['rs'][i][16]+'","'+p['rs'][i][17]+'","'+p['rs'][i][18]+'","'+p['rs'][i][19]+'","'+p['rs'][i][20]+'","'+p['rs'][i][21]+'","'+p['rs'][i][22]+'","'+p['rs'][i][23]+'","'+p['rs'][i][24]+'","'+p['rs'][i][25]+'","'+p['rs'][i][26]+'","'+p['rs'][i][27]+'"');
+                        insertar(262,'','null,"'+p['rs'][i][1]+'","'+p['rs'][i][2]+'","'+p['rs'][i][3]+'","'+p['rs'][i][4]+'","'+p['rs'][i][5]+'","'+p['rs'][i][6]+'","'+p['rs'][i][49]+'","'+p['rs'][i][8]+'","'+p['rs'][i][9]+'","'+p['rs'][i][10]+'","'+p['rs'][i][11]+'","'+p['rs'][i][12]+'","'+p['rs'][i][13]+'","'+p['rs'][i][14]+'","'+p['rs'][i][15]+'","'+p['rs'][i][16]+'","'+p['rs'][i][17]+'","'+p['rs'][i][18]+'","'+p['rs'][i][19]+'","'+p['rs'][i][48]+'","'+p['rs'][i][21]+'","'+p['rs'][i][22]+'","'+p['rs'][i][23]+'","'+p['rs'][i][24]+'","'+p['rs'][i][25]+'","'+p['rs'][i][26]+'","'+p['rs'][i][27]+'"');
                         var compra = getDatos('id',262,'referencia = '+p['rs'][i][16],0,0,0)[0][0][0];
 
                         insertar(263,'','null,"'+compra+'","'+p['rs'][i][31]+'",null,null,"'+p['rs'][i][32]+'","'+p['rs'][i][33]+'","'+p['rs'][i][34]+'",0,"'+p['rs'][i][35]+'","'+p['rs'][i][30]+'","'+p['rs'][i][36]+'","","",0');
                     }
-                    $("#data-table-compras").dataTable({
-                        LengthChange : false,
-                        order : []
-                    });
                 }
+
+                var temporal = arr('login',6,'',265,'@@impresa',0,1,$("#bcompras"),0);
+
+                $("#data-table-compras").dataTable({
+                    LengthChange : false,
+                    order : []
+                });
                 
                 $(".act").removeClass('hide');
                 $(".actin").addClass('hide');

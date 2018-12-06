@@ -429,6 +429,6 @@ $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 $sld = $datos[0][25] == 'Venta' ?  'Factura' : $datos[0][25];
-$pdf->Output($ubic.'assets/pdf/'.$sld.' N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','F');
+$pdf->Output($ubic.'assets/pdf/'.$sld.' N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','I');
 
 ?>

@@ -73,7 +73,7 @@
             </div>
 
             <div class="col s3 m5 row">
-                <a href="#modal-irobot" class="btn btn1 tooltipped col s12 m3" data-position="bottom" data-tooltip="Compras" style="margin-bottom: 5px">Compras</a>
+                <a href="#modal-irobot" class="btn btn1 tooltipped col s12 m3" data-position="bottom" data-tooltip="Documentos al Correo" style="margin-bottom: 5px">Compras</a>
                 <a href="#modal-getxml" class="btn btn2 tooltipped hide-on-small" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px">Subir XML</a>
                 <a id="actAuto" class="btn btn3 tooltipped hide-on-small hide" data-position="bottom" data-tooltip="Actualizar Estados" style="margin-bottom: 5px;margin-right: 5px">Actualizar Estados</a>
             </div>
@@ -161,7 +161,7 @@
     <div id="modal-irobot" class="modal modal-fixed-footer grandemodal" style="width: 100%">
         <div class="modal-header">
         <div class="card-header center blue-grey white-text z-depth-1">
-            <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar Compras</p>
+            <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar Documentos</p>
         </div>
         </div>
         <div class="modal-content">
@@ -172,7 +172,7 @@
                     <tr>
                         <th>Proveedor</th>
                         <th>Fecha</th>
-                        <th>Clave</th>
+                        <th>Consecutivo</th>
                         <th>Total</th>
                         <th>Acciones</th>
                     </tr>

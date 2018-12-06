@@ -841,7 +841,11 @@
             }
             $salida['credenciales'] = $this->credenciales;
             $json_response = json_decode($json_response);
-            
+
+            if (isset($_REQUEST['ref'])){
+                $this->bearer = $json_response->access_token;
+            }
+
             if (isset($json_response->access_token) && !isset($_REQUEST['ref'])) {
                 $this->bearer = $json_response->access_token;
                 $db = new DBClass();
