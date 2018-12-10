@@ -221,7 +221,7 @@ if (isset($_POST['respuestaXml'])) {
                         $salida['error'] = 0;
                         $salida['correo'] = $correo;
                         
-                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'',1,1,1,'".$salida['cedula']."','','',".$salida['tipo'].",0,'assets/p12/".$name."','".$pin."',NULL,1,0,1,'".$userComprobante."','".$passComprobante."',1,'',NULL,NULL,NULL,120,0)");
+                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'','".$salida['cedula']."','','',".$salida['tipo'].",0,'assets/p12/".$name."','".$pin."',NULL,1,0,1,'".$userComprobante."','".$passComprobante."',1,'',NULL,NULL,NULL,120,0)");
                         $rs = $db->ejecutar("select id from sucursales where cedula = '".$salida['cedula']."'")->fetch_all()[0][0];
 
                         $db->ejecutar("insert into correos values(null,".$rs.",39,'".$correo."')");
@@ -230,7 +230,7 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
-                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,null,0,0,0,0,1,'http://35.188.212.38/wsdlServer.php')");
+                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,null,0,0,0,0,1,'http://35.188.212.38/produccion/wsdlServer.php')");
                     }else{
                         $salida['error'] = 14;
                     }

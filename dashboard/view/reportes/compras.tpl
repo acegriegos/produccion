@@ -20,6 +20,7 @@
         {/if}
       </div>
       <div class="col s4 m4 l4" align="center">
+         <h2 align="center" style="margin-top: 0px" id="titrep">Compras Totales</h2>
         <font size="3">
           <b>{$MIS[0]}</b><br>
           {if $MIS[2]}<b>{$MIS[2]}</b><br>{/if}
@@ -35,7 +36,6 @@
         <input type="hidden" class="zelda">
       </div>
     </div>
-    <h2 align="center">Compras Totales</h2>
     <small id="leyenda"></small>
     
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">

@@ -7,10 +7,42 @@
 
 <?php 
     require_once '_config/mysqlDB.php';
+    $db = new DBClass();
 
+    if (isset($_REQUEST['impresa'])) {
+        $datos = $db->ejecutar()
+        $username = $_REQUEST['mail'];
+        $password  = $_REQUEST['pswd'];
+        $check = 1;
+    }else{
+        $username = 'fe.recepcionelectronica@gmail.com';
+        $password  = 'Login2Help';
+        $check = 0;
+    }
+    
     $hostname='{imap.gmail.com:993/debug/imap/ssl/novalidate-cert}INBOX';
-    $username = 'fe.recepcionelectronica@gmail.com';
-    $password = 'Login2Help';
+
+    if($check){
+       $arroba = strrpos($username, '@');
+        if($arroba){
+            $p1 = substr($username, $arroba+1);
+            $point = strrpos($p1, '.');
+            $final = substr($p1, 0,$point);
+            switch($final){
+                case 'hotmail':
+                case 'outlook':
+                    $hostname = '{imap-mail.outlook.com:993/imap/ssl/novalidate-cert}INBOX';
+                    break;
+                case 'yahoo':
+                    $hostname = "{imap.mail.yahoo.com:993/imap/ssl/novalidate-cert}INBOX";
+                    break;
+                default:
+                    break;
+            }
+        }else
+            exit(0); 
+    }
+    
 
     $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Tiriyo: ' . imap_last_error());
     
@@ -26,7 +58,6 @@
 
         $attachments = array();
 
-        /* if any attachments found... */
         if(isset($structure->parts) && count($structure->parts)) 
         {
             for($i = 0; $i < count($structure->parts); $i++) 
@@ -66,12 +97,10 @@
                 {
                     $attachments[$i]['attachment'] = imap_fetchbody($inbox, $email_number, $i+1);
 
-                    /* 3 = BASE64 encoding */
                     if($structure->parts[$i]->encoding == 3) 
                     { 
                         $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
                     }
-                    /* 4 = QUOTED-PRINTABLE encoding */
                     elseif($structure->parts[$i]->encoding == 4) 
                     { 
                         $attachments[$i]['attachment'] = quoted_printable_decode($attachments[$i]['attachment']);
@@ -86,7 +115,7 @@
             {
                 if (strpos($attachment['name'], '.xml')) {
                     $salida = [];
-                    loadXML_FILE($attachment['attachment'],$salida);
+                    loadXML_FILE($attachment['attachment'],$salida,$db);
                     print_r($salida);
                 }
             }
@@ -100,9 +129,9 @@
  }
  imap_close($inbox);
 
- function loadXML_FILE($_xml,&$salida)
+ function loadXML_FILE($_xml,&$salida,&$db)
     {       
-        $db = new DBClass();
+        
         $inv_xml = simplexml_load_string($_xml);
         if (!isset($inv_xml->Clave)) {
             $salida = ['succed' => 0,'ERROR' => 'XML no Válido'];
@@ -291,8 +320,9 @@
             foreach ($ciclo as $key) {
                 $vunidad = (array)$key->UnidadMedida;
                 $vunidad = $vunidad[0] == 'Otros' ? (array)$key->UnidadMedidaComercial : (array)$key->UnidadMedida;
-                $vunidad = isset($vunidad[0]) ? $vunidad[0] : 1 ;
-                $vunidad = $vunidad == 0 ? 1 : $vunidad[0] ;
+                $vunidad = isset($vunidad[0]) ? $vunidad[0] : $vunidad ;
+                print_r($vunidad);
+                // $vunidad = $vunidad == 0 ? 1 : $vunidad;
 
                 $num = (array)$key->NumeroLinea;
                 $dcodigo = (array)$key->Codigo->Codigo;

@@ -139,11 +139,11 @@ $html .= '<br><br><b>'.$datos[0][9].' N°</b>'.$datos[0][14].
     </table>';
 
 $pdf->writeHTML($html, true, false, true, false, '');
-
+$fact = $miscelaneos[2] != '' ? $miscelaneos[2] : $miscelaneos[0];
 //----------------------------------------------------------
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('../assets/pdf/Nota '.$id.'.pdf','F');
+$pdf->Output('../assets/pdf/'.$datos[0][9].' N°'.$datos[0][1].', '.$fact.'.pdf','F');
 
 ?>

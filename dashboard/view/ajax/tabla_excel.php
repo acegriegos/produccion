@@ -40,7 +40,7 @@
       $archivo .= "<tr>";
       foreach ($obj as $indexj => $data) {
         if(!is_numeric(strpos($omitir, ",".$indexj.",")))
-          $archivo .= '<td style="max-width:100%;white-space:nowrap;">'.$data.'</td>';
+          $archivo .= '<td style="max-width:100%;white-space:nowrap;">'.is_numeric($data) ? number_format($data,5) : $data.'</td>';
 
         if($suma != '' && is_numeric(strpos($suma, ",".$indexj.","))){
           $tsuma[$indexj]['valor'] += $data;

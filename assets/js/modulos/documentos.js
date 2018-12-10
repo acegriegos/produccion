@@ -16,21 +16,13 @@ $(function(){
         
         $(".act").addClass('hide');
         $(".actin").removeClass('hide');
+
         var sucursal = getDatos('cedula,isprueba',39,'id=@@impresa',0,0,0)[0][0];
 
-        var formData = new FormData();
-        formData.append("cmd", "4");
-        formData.append("ced", '"'+sucursal[0]+'"');
-        formData.append("isp", sucursal[1]);
-        
         $.ajax({
             url: config[18],
             type: "post",
-            dataType: "html",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false
+            data: {cmd:4,ced:'"'+sucursal[0]+'"',isp:sucursal[1]}
         })
             .done(function(res){
                 var p = JSON.parse(res);
@@ -125,6 +117,22 @@ $(function(){
 	});
 
 	paginate($("ul.pagination").attr('vtbl'),undefined,'1,1,@@impresa,0,0');
+});
+
+$(document).on("click",".msjh",function(){
+    var tstado = $(this).attr('tipo');
+    var idcomp = $(this).parent().parent().attr('id').substr(2)
+    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado,0,0,0);
+    
+    if(!parseInt(idfact['succed'])){
+        Materialize.toast(idfact[0]['ERROR'],4000,'red');
+        $(this).parent().parent().remove();
+    }else{
+        var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+            Materialize.toast($toastContent);
+        sendFE('^'+idfact);
+    }
+
 });
 
 $(document).on("click",".status",function(){
@@ -313,7 +321,7 @@ function xmlCargar(file,response){
 
                                 // $("#fd"+i).data('unidad',{})
 
-                                $("#fd"+i).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : p['detalle'][i]['idproducto'],vcantidad : p['detalle'][i]['cantidad'],vprecio : p['detalle'][i]['precio'],vdescuento : p['detalle'][i]['descuento'],vidinventario : 6,vidodt : 0,vimv : p['detalle'][i]['impuesto'],vcomodin : '',vunidad : p['detalle'][i]['unidad'],vidunidad : p['detalle'][i]['idunidad'][0],vidimpuestos:'',viddescuentos:'',vdesc : p['detalle'][i]['descuento'],vcodigo:p['detalle'][i]['codigo'],vunitario:p['detalle'][i]['unitario'],ganancia:0,detalle:p['detalle'][i]['detalle']});
+                                $("#fd"+i).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : p['detalle'][i]['idproducto'],vcantidad : p['detalle'][i]['cantidad'],vprecio : p['detalle'][i]['unitario'],vdescuento : p['detalle'][i]['descuento'],vidinventario : 6,vidodt : 0,vimv : p['detalle'][i]['impuesto'],vcomodin : '',vunidad : p['detalle'][i]['unidad'],vidunidad : p['detalle'][i]['idunidad'][0],vidimpuestos:'',viddescuentos:'',vdesc : p['detalle'][i]['descuento'],vcodigo:p['detalle'][i]['codigo'],vunitario:p['detalle'][i]['unitario'],ganancia:0,detalle:p['detalle'][i]['detalle']});
                             }
 
                             $(".shxml_head").html('<b>Factura: </b>'+p['clave'].substr(21,20)+', Fecha: '+p['factura']['fecha']+', Tipo Venta: '+t_venta+', Tipo Pago: '+t_pago[1]+', Tipo Cambio: '+p['factura']['divisa']+'<br><b>Emisor: </b>'+p['emisor']['nombre']+', Ced.: '+p['emisor']['cedula']+', Correo: '+p['emisor']['correo']+'<input type="checkbox" name="icompra" id="invcompra"> <label style="float:right    " for="invcompra">Incluir al Inventario</label>');
