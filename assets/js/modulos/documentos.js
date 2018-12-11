@@ -123,14 +123,14 @@ $(document).on("click",".msjh",function(){
     var tstado = $(this).attr('tipo');
     var idcomp = $(this).parent().parent().attr('id').substr(2)
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado,0,0,0);
-    
+
     if(!parseInt(idfact['succed'])){
         Materialize.toast(idfact[0]['ERROR'],4000,'red');
         $(this).parent().parent().remove();
     }else{
-        var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
             Materialize.toast($toastContent);
-        sendFE('^'+idfact);
+        sendFE('^'+idfact[0][0][0]);
     }
 
 });
@@ -539,7 +539,7 @@ function sendFE(clave){
         data: {id: clave, accion : 1}
     })
       .done(function(data) {
-        console.log('ENTREGADO');
+
         var p;
         var detbl = 64;
         var color = '';
@@ -601,7 +601,7 @@ function sendFE(clave){
                         arr('login',7,2,detbl,'feestado=8','id='+clave,0,0);
                     break;
                 }
-                setTimeout(function(){$("#toast-container").remove();},3000);
+                setTimeout(function(){$("#t"+clave).parent().parent().remove();},3000);
             }
             
         }
@@ -625,10 +625,11 @@ function sendFE(clave){
             $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
             Materialize.toast(data,5000,'red');
             arr('login',7,2,detbl,'feestado=8','id='+clave,0,0);
-            setTimeout(function(){$("#toast-container").remove();},10000);
+            setTimeout(function(){$("#t"+clave).parent().parent().remove();},10000);
             $(".status").attr('disabled',false)
         }
-        if(!$("[xml=3]:visible").length){
+
+        if(!$("[xml=3]:visible").length && !$("#bcompras:visible").length){
             $("#e"+clave).removeClass('mdi-spin mdi-loading').addClass('mdi-information-outline');  
             $("#e"+clave).css('color',color)
         }  

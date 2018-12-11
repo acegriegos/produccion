@@ -127,7 +127,7 @@ echo '<br> '.$miscelaneos[6].'
     <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
   <tr>
-    <td align="left" colspan="4" style="font-size:13px">'.$transaccion[0][32].'</td>
+    <td align="left" colspan="4" style="font-size:12px">'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>

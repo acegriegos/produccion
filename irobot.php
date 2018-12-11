@@ -9,8 +9,7 @@
     require_once '_config/mysqlDB.php';
     $db = new DBClass();
 
-    if (isset($_REQUEST['impresa'])) {
-        $datos = $db->ejecutar()
+    if (isset($_REQUEST['mail'])) {
         $username = $_REQUEST['mail'];
         $password  = $_REQUEST['pswd'];
         $check = 1;
@@ -46,7 +45,7 @@
 
     $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Tiriyo: ' . imap_last_error());
     
-    $emails = imap_search($inbox,'UNSEEN'); //UNSEEN
+    $emails = imap_search($inbox,'UNSEEN');
 
     if($emails) {
         rsort($emails);

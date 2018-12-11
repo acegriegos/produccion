@@ -4,6 +4,7 @@
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
     header("Cache-Control: private",false);
     ini_set("memory_limit", -1);
+
     $tsuma = [];
     //<img src="'.$miscelaneos[3].'" style="width:200px !important;height:152px !important;"/>
     $archivo = '<table width="100%"><tr><td align="center" colspan="10"><font size="3">
@@ -39,11 +40,13 @@
     foreach ($transaccion[0] as $obj) {
       $archivo .= "<tr>";
       foreach ($obj as $indexj => $data) {
-        if(!is_numeric(strpos($omitir, ",".$indexj.",")))
-          $archivo .= '<td style="max-width:100%;white-space:nowrap;">'.is_numeric($data) ? number_format($data,5) : $data.'</td>';
-
         if($suma != '' && is_numeric(strpos($suma, ",".$indexj.","))){
           $tsuma[$indexj]['valor'] += $data;
+        }
+        
+        if(!is_numeric(strpos($omitir, ",".$indexj.","))){
+          $data = is_numeric($data) ? number_format($data,5,',','.') : $data;
+          $archivo .= '<td style="max-width:100%;white-space:nowrap;">'.$data.'</td>';
         }
       }
       $archivo .= "</tr>";
@@ -60,7 +63,7 @@
     if (sizeof($tsuma)) {
       $archivo .= '<table><tr><td colspan="2"><b>TOTALES</b></td></tr>';
       foreach ($tsuma as $aindex => $areglo) {
-        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],5).'</td></tr>';
+        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],5,",",".").'</td></tr>';
       }
       $archivo .= '<table>';
     }
