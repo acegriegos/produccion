@@ -24,7 +24,7 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#cliente").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula'+prov_select+'),null',2,'id > 0 '+prov+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1)
+                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula),null',2,'id > 0 '+prov+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1)
                 });
                 $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
             }

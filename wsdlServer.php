@@ -282,10 +282,10 @@ if (isset($_POST['respuestaXml'])) {
             require_once '_config/mysqlDB.php';
             $base = new DBClass();
 
-            $rs = $base->ejecutar('call sp_rgetAll('.$_POST['ced'].',1)');
+            $rs = $base->ejecutar('call sp_rgetAll('.$_POST['ced'].','.$_POST['isp'].')');
             if (isset($rs->num_rows)) {
                 $salida['rs'] = $rs->fetch_all();
-                $salida['sql'] = 'call sp_rgetAll('.$_POST['ced'].',1)';
+                $salida['sql'] = 'call sp_rgetAll('.$_POST['ced'].','.$_POST['isp'].')';
             }else
                 $salida = $rs;
           }

@@ -49,8 +49,12 @@
 
     if($emails) {
         rsort($emails);
-        foreach($emails as $email_number) {
-    
+        foreach($emails as $index => $email_number) {
+        
+        if ($index+1 >= 20) {
+           break;
+        }
+
         $overview = imap_fetch_overview($inbox,$email_number,0);
         $message = imap_fetchbody($inbox,$email_number, 1);
         $structure = imap_fetchstructure($inbox,$email_number);
