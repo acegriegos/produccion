@@ -44,7 +44,12 @@ $(document).on("click",".menu3",function(){
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);
 			$("#vpfisico").val(e[2]);
-			$("#vlogo").attr('src',e[3]);
+			if (e[3]){
+				$("#vlogo").removeAttr('hide');
+				$("#vlogo").attr('src',e[3]);
+				$(".vloge").addClass('hide');
+			}
+
 			$("#vcorreo").val(e[4]);
 			$("#vtelefono").val(e[5]);
 			$("#vdireccion").val(e[6]);

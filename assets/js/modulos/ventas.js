@@ -703,7 +703,7 @@ $(document).on("blur","#vdescuentop",function(){
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo,vmobil) {
     var rpago = parseFloat($("#valores").data('elemento')['retpago']) == 0 ? '' : 'retpago="'+$("#valores").data('elemento')['retpago']+'"';
     var inventariado = $("#valores").data('elemento')['inventariado'];
-    
+
     $("#valores").removeData('elemento');
 
     var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : 0;
@@ -767,11 +767,11 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         var id = parseInt($("#ffacturas .zelda").data('triforce')['idline'])+1;
         var divisa = parseFloat($("#monedas option:selected").attr('dv'));
 
-        var strprec = '<div style="padding: 0 !important;" class="col s2 center-align divisa" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div>';
+        var strprec = '<div style="padding: 0 !important;" class="col s2 center-align divisa" id="prec'+id+'">'+(precio).formatMoney(2,'.',',')+'</div>';
 
         $("#ffacturas .zelda").data('triforce')['idline'] = id;
         if(parseInt(config[16])){
-            strprec = '<div style="padding: 0 !important;" class="col s2 center-align divisa hide" id="prec'+id+'">'+(precio/divisa).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="fake'+id+'">0.00</div>'
+            strprec = '<div style="padding: 0 !important;" class="col s2 center-align divisa hide" id="prec'+id+'">'+(precio).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="fake'+id+'">0.00</div>'
         } 
 
         var codedg = '';
@@ -904,15 +904,15 @@ function totalizar(){
                     dimv =  parseFloat(tmpdesc*((rimv*(1-(eimv/100)))/100)).toFixed(5);
                     impuesto += parseFloat(dimv);
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
-                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] += iimv+','+$(this).data('valores')['vmonto']+','+parseFloat(simv).toFixed(5)+','+eimv+']';
+                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] += iimv+','+$(this).data('valores')['vmonto']+','+(parseFloat(simv)/divisa).toFixed(5)+','+eimv+']';
                     if ($("#ffacturas .zelda").data('triforce')['videxoneracion'] != '')
                         dimv = 0;
                     var im_variable = parseFloat($("#imv_"+iimv).html().replace(/,/g,''))+parseFloat(dimv)
                     $("#imv_"+iimv).html((im_variable/divisa).formatMoney(2,'.',','));
                     
                     if (parseInt(config[16])) {
-                        $("#tota"+vidlinea).html((parseFloat($("#tota"+vidlinea).html().replace(/,/g,''))+parseFloat(dimv)).formatMoney(2,'.',','))
-                        $("#fake"+vidlinea).html(((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad).formatMoney(2,'.',','))
+                        $("#tota"+vidlinea).html((parseFloat($("#tota"+vidlinea).html().replace(/,/g,''))+parseFloat(dimv/divisa)).formatMoney(2,'.',','))
+                        $("#fake"+vidlinea).html(((((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad))/divisa).formatMoney(2,'.',','))
                     }
                 }
             }else{
@@ -1035,6 +1035,7 @@ function validarDetalleFactura(){
     var ciclos = $("#fdetallefacturas .ciclos");
     var fila;
     var cantidad = ciclos.length;
+    var divisa = parseFloat($("#monedas option:selected").attr('dv'));
     for (var i = 1; i <= cantidad; i++) {
         fila = $("#fd"+i);
         if (fila.data() == undefined) {
@@ -1045,6 +1046,10 @@ function validarDetalleFactura(){
             fila.data('triforce')['vcomodin'] = $("#desc"+i).html();
         if ($("#iva").is(':checked'))
             fila.data('triforce')['vcomodin'];
+
+        if (divisa != 1) { 
+            fila.data('triforce')['vprecio'] = parseFloat(fila.data('triforce')['vtotal']);
+        }
     }
     return false;
 }

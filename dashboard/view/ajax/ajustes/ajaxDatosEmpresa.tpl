@@ -54,7 +54,9 @@
 
                 </div>
                 <div class="col s6 center">
-                    <img type="file" src="#" class="responsive-img" alt="Image" id="vlogo">
+
+                    <img type="file" src="#" class="responsive-img hide" alt="Image" id="vlogo">
+                    <span class="vloge">SIN LOGO</span><i class="mdi mdi-24px mdi-backspace vloge"></i>
                     <div style="float: right;">
                         <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
                     </div>
@@ -83,7 +85,7 @@
                 </div>
             </div>
             <div class="row s12">
-                <div class="row col s4">
+                <div class="row col s4 hide">
                     <div class="col s12">
                         <input type="checkbox" id="visinventariado" class="with-gap">
                         <label for="visinventariado">Control de Inventario</label>
@@ -101,7 +103,7 @@
                         <label for="vpv">Impresión Punto Venta</label>
                     </div>
                 </div>
-                <div class="row col s2">
+                <div class="row col s2 hide">
                     <div class="col s12">
                         <input type="checkbox" id="vprintSale">
                         <label for="vprintSale">Imprimir Venta</label>
@@ -112,49 +114,15 @@
                     </div>
                    
                 </div>
-                <div class="row col s6">
+                <div class="row col s12">
 
-                     <div class="col s12 input-field">
+                     <div class="col s12 input-field hide">
                         <select>
                             <option value="0">Op 1</option>
                             <option value="1">Op 2</option>
                             <option value="2">Op 3</option>
                         </select>
                         <label>Márgenes</label>
-                    </div>
-                     <div class="col s12 input-field">
-                        <select>
-                            <option value="0">Sin Precio Unitario</option>
-                            <option value="1">Con Precio Unitario</option>
-                            <option value="2">Sin Precio Unitario IVI</option>
-                            <option value="3">Con Precio Unitario IVI</option>
-                        </select>
-                        <label>Precio Impresión</label>
-                    </div>
-
-                    <div class="input-field col s12 m4 hide">
-                        <select type="select" id="vidtipofactura">
-                            {section name=LE loop=$IMPR}
-                            <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <label for="vidtipofactura">Factura</label>
-                    </div>
-                    <div class="input-field col s12 m4 hide">
-                        <select type="select" id="vidtipoabono">
-                            {section name=LE loop=$IMPR}
-                            <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <label for="vidtipoabono">Recibo de Abonos</label>
-                    </div>
-                    <div class="input-field col s12 m4 hide">
-                        <select type="select" id="vidtiponota">
-                            {section name=LE loop=$IMPR}
-                            <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
-                            {/section}                            
-                        </select>
-                        <label for="vidtiponota">Notas</label>
                     </div>
 
                     <div class="col s12 m12 pull-s2">
