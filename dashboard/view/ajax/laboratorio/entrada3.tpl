@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Laboratorio de Biología Molecular</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.0.0.83">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.0.0.84">
   </head>
 <body>
   {$NAV}
@@ -114,6 +114,6 @@
     </div>
     
     {$SCR}
-    <script src="../assets/js/modulos/laboratorio.js?v=10.0.0.83"></script>
+    <script src="../assets/js/modulos/laboratorio.js?v=10.0.0.84"></script>
   </body>
 </html>
