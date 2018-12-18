@@ -297,12 +297,14 @@ function makeArchivos(vfactura,vclave,vid,vsucursal,vestado){
             archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
         }
         else{
-            archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+            archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf',2:'xml/RH_'+vfactura+', '+vsucursal+'.xml'}
             mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
+            mantenimiento_async('login',14,{id:vid,sucursal:vsucursal,restado:vestado},1);
         }
     }else{
-        archivos = {0:'xml/'+vestado+' N°'+vfactura+', '+vsucursal+'.xml'};
-            mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal,restado:vestado},1);
+        archivos = {0:'xml/'+vestado+' N°'+vfactura+', '+vsucursal+'.xml',1:'xml/RH_'+vfactura+', '+vsucursal+'.xml'};
+        mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal,restado:vestado},1);
+        mantenimiento_async('login',14,{id:vid,sucursal:vsucursal,restado:vestado},1);
     }
     
     return archivos;

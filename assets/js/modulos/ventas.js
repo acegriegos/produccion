@@ -834,7 +834,7 @@ function totalizar(){
     var flete = isNaN($("#vflete").val()) ? 0 : parseFloat($("#vflete").val()) > 0 ? parseFloat($("#vflete").val().replace(/,/g,'.')) : 0;
     var desc = $("#vdescuentop").val();
     var ajuste = $("#ajuste").val().replace(/,/g,'');
-    var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = rimv = iva_imp = geimv = simv = 0;
+    var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = rimv = iva_imp = geimv = simv = dunit =0;
     var divisa = parseFloat($("#monedas option:selected").attr('dv'));
     var exov = $("#ffacturas .zelda").data('triforce')['videxoneracion'] == '' ? 0 : $("#vmontoexo").val;
 
@@ -860,14 +860,15 @@ function totalizar(){
 
         precio = precio * cantidad
         tmpdesc = precio * (1-(desct/100));
-        idesc += precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
+        dunit = precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
+        idesc += parseFloat(dunit);
         totd += parseFloat($("#fd"+vidlinea).attr('retpago')) > 0 ? 0 : precio;
 
         $("#fd"+vidlinea).data('triforce')['viddescuentos'] = '';
         $("#mdesc"+vidlinea).html('');
 
         if (desct > 0){
-            $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#fd"+vidlinea).data('triforce')['iddesc']+'^'+desct+'^'+precio*(desct/100)+']';
+            $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#fd"+vidlinea).data('triforce')['iddesc']+'^'+dunit+']';
             $("#mdesc"+vidlinea).html('('+desct+'%)')
         }
         if (parseFloat($("#vdescuentop").val()) > 0)

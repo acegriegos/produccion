@@ -6,9 +6,35 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 <link href="../assets/css/materialize.css?v=10.0.0.84">
+<style>
+  @media print {
+    .print{
+      display: none;
+    }
+  }
 
+  @page {
+    margin: 0;
+  }
+
+  body{
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+    font-weight: normal !important; 
+
+  } 
+</style>
 </head>
 <body style="margin-left: 35%;margin-right: 35%" >
+
+  <button class="print" style="cursor: pointer;left:100px;position:fixed;padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0">Imprimir</button>
+    
   <div>
     <?php if($_SESSION['BUSS'] == 0){ ?>
     <div class="row">
@@ -224,5 +250,32 @@
     </div>
     <script src="../assets/js/jquery.js?v=10.0.0.84"></script>
     <script src="../assets/js/materialize.js?v=10.0.0.84"></script>
+
+     <script type="text/javascript">
+   $(function(){
+      window.onafterprint = function(){
+        //$("#resolucion").html(navigator.userAgent)
+        if( navigator.userAgent.match(/Android/i)
+         || navigator.userAgent.match(/webOS/i)
+         || navigator.userAgent.match(/iPhone/i)
+         || navigator.userAgent.match(/iPad/i)
+         || navigator.userAgent.match(/iPod/i)
+         || navigator.userAgent.match(/BlackBerry/i)
+         || navigator.userAgent.match(/Windows Phone/i)
+         )
+            return true;
+        else
+          window.close();
+      }
+
+      $(".print").click(function(){
+        window.print();
+      });
+
+      if(parseInt(param)){
+        window.print();
+      }
+   })
+ </script>
   </body>
 </html>

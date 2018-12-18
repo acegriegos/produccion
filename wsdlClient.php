@@ -355,13 +355,12 @@
             case 16: //OBTENER RESPUESTA HACIENDA Y GUARDAR EN ARCHIVO
                 $salida = [];
                 $xml = $fe->estado();
-                print_r($xml);
                 if ($xml) {
-                    $xml['succed'] = 1;
-                    $xml['arhivo'] = "./assets/".$fe->info['NumeroConsecutivo'].".xml";
-                    file_put_contents("./assets/".$fe->info['NumeroConsecutivo'].".xml", $xml);
+                    $salida['succed'] = 1;
+                    $salida['arhivo'] = "../assets/xml/".$fe->info['NumeroConsecutivo'].".xml";
+                    $salida['mfile'] = file_put_contents("../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml", $xml['xml']);
                 }else
-                    $xml['succed'] = 0;
+                    $salida['succed'] = 0;
                 echo json_encode($salida);
                 break;
             default:
@@ -656,7 +655,7 @@
         $salida['factura']['plazo']     = isset($inv_xml->PlazoCredito) ? (array) $inv_xml->PlazoCredito : 0;
         $salida['factura']['plazo']     = !$salida['factura']['plazo'] || !sizeof($salida['factura']['plazo'])? 0 : $salida['factura']['plazo'][0];
         preg_match_all('!\d+!', $salida['factura']['plazo'], $matches);
-        $salida['factura']['plazo']     = $matches[0][0];
+        $salida['factura']['plazo']     = sizeof($matches[0]) ? $matches[0][0] : 0;
         $salida['factura']['tipopago']  = (array) $inv_xml->MedioPago;
         $salida['factura']['tipopago']  = $salida['factura']['tipopago'][0];
 
@@ -834,6 +833,7 @@
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
             curl_close($curl);
+
             $salida['consulta'] = $params;
             $salida['respuesta'] = json_decode($json_response);
             if ($salida['respuesta'] == '') {
@@ -851,7 +851,6 @@
                 $db = new DBClass();
                 $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now(),refrescado = 0 where id = '.$_SESSION['IMPRESA']);
             }
-
             }
 
             return $salida;

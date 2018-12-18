@@ -9,9 +9,10 @@
     require_once '_config/mysqlDB.php';
     $db = new DBClass();
 
-    if (isset($_REQUEST['mail'])) {
-        $username = $_REQUEST['mail'];
-        $password  = $_REQUEST['pswd'];
+    if (isset($_REQUEST['succ'])) {
+        $valores = $db->ejecutar('select botmail,botpswd from ajustessucursales where idsucursal = '.$_REQUEST['succ'])->fetch_all()[0];
+        $username = $valores[0];
+        $password  = $valores[1];
         $check = 1;
     }else{
         $username = 'fe.recepcionelectronica@gmail.com';
