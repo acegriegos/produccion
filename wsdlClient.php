@@ -1228,11 +1228,11 @@
 
                 $data['ResumenFactura']['TotalImpuesto'] = $this->sumaimpuestos;
                 $data['ResumenFactura']['TotalComprobante'] = $data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos;
-                if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
-                     return ['error'=>'Descuentos Difieren'];
+                /*if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
+                     return ['error'=>'Descuentos Difieren'];*/
 
-                if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']) != round($data['ResumenFactura']['TotalVenta'])) 
-                     return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];
+                /*if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']) != round($data['ResumenFactura']['TotalVenta'])) 
+                     return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];*/
 
                 if ($this->ref) {
                     $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');

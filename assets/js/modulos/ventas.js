@@ -834,7 +834,7 @@ function totalizar(){
     var flete = isNaN($("#vflete").val()) ? 0 : parseFloat($("#vflete").val()) > 0 ? parseFloat($("#vflete").val().replace(/,/g,'.')) : 0;
     var desc = $("#vdescuentop").val();
     var ajuste = $("#ajuste").val().replace(/,/g,'');
-    var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = rimv = iva_imp = geimv = simv = 0;
+    var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = rimv = iva_imp = geimv = simv = dunit = 0;
     var divisa = parseFloat($("#monedas option:selected").attr('dv'));
     var exov = $("#ffacturas .zelda").data('triforce')['videxoneracion'] == '' ? 0 : $("#vmontoexo").val;
 
@@ -860,23 +860,24 @@ function totalizar(){
 
         precio = precio * cantidad
         tmpdesc = precio * (1-(desct/100));
-        idesc += precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
+        dunit = (precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ))).toFixed(5);
+        idesc += parseFloat(dunit);
         totd += parseFloat($("#fd"+vidlinea).attr('retpago')) > 0 ? 0 : precio;
 
         $("#fd"+vidlinea).data('triforce')['viddescuentos'] = '';
         $("#mdesc"+vidlinea).html('');
 
         if (desct > 0){
-            $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#fd"+vidlinea).data('triforce')['iddesc']+'^'+desct+'^'+precio*(desct/100)+']';
+            $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#fd"+vidlinea).data('triforce')['iddesc']+'^'+desct+'^'+dunit+']';
             $("#mdesc"+vidlinea).html('('+desct+'%)')
         }
         if (parseFloat($("#vdescuentop").val()) > 0)
-            $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#tdescuento").val()+'^'+$("#vdescuentop").val()+'^'+(precio*(1-(desct/100)))*(desc/100)+']';
+            $("#fd"+vidlinea).data('triforce')['viddescuentos'] += '['+$("#tdescuento").val()+'^'+$("#vdescuentop").val()+'^'+dunit+']';
 
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc.toFixed(5);
         $("#tota"+vidlinea).html((tmpdesc/divisa).formatMoney(2,'.',','))
         $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
-        $("#fd"+vidlinea).data('triforce')['vdesc'] = precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
+        $("#fd"+vidlinea).data('triforce')['vdesc'] =dunit;
         tmpdesc = tmpdesc * (1-(desc/100));
 
         $(".dimpuesto").each(function(){
@@ -924,7 +925,6 @@ function totalizar(){
     });
 
     if ($("#ffacturas .zelda").data('triforce')['videxoneracion'] != ''){
-        console.log(impuesto)
         impuesto = 0;
     }
 
@@ -956,7 +956,7 @@ function totalizar(){
 
     $("#ffacturas .zelda").data('triforce')['vsubtotal'] = totd.toFixed(5);
     $("#ffacturas .zelda").data('triforce')['ajuste'] = ajuste.toFixed(2);
-    $("#ffacturas .zelda").data('triforce')['vdescuento'] = idesc.toFixed(5);
+    $("#ffacturas .zelda").data('triforce')['vdescuento'] = parseFloat(idesc).toFixed(5);
     $("#ffacturas .zelda").data('triforce')['vimv'] = parseFloat(impuesto).toFixed(5);
     $("#ffacturas .zelda").data('triforce')['vexento'] = exento.toFixed(5);
 
