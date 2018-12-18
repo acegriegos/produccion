@@ -35,9 +35,10 @@ $(function(){
         if (vfactura == mid)
             archivos = 'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf';
         else{
-            archivos = {0:'xml/'+tipo+' N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf'}
+            archivos = {0:'xml/'+tipo+' N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf',2:'xml/RH_'+vfactura+', '+vsucursal+'.xml'}
+            mantenimiento_async('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
+            mantenimiento_async('login',14,{id:mid,sucursal:vsucursal,restado:tipo},1);
         }
-        mantenimiento_async('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
         
         var e = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos);
         vpara = vbody = "";

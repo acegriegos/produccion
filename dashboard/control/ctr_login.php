@@ -220,6 +220,14 @@
         include '../_config/autofacturas.php';
         
         break;
+      case 14: //MENSAJE DE HACIENDA
+        $pagina = 1;
+        $_REQUEST['id'] = $_REQUEST['arreglo']['id'];
+        $_REQUEST['accion'] = 16;
+        $_REQUEST['sucname'] = $_REQUEST['arreglo']['sucursal'];
+        require_once '../wsdlClient.php';
+        $fe = new facturaElectronica($_REQUEST['arreglo']['id']);
+        break;
       default:
         break;
 

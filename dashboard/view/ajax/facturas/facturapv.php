@@ -127,7 +127,7 @@ echo '<br> '.$miscelaneos[6].'
     <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
   <tr>
-    <td align="left" colspan="4" style="font-size:12px">'.$transaccion[0][32].'</td>
+    <td align="left" colspan="4" style="font-size:9px">'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>
@@ -283,9 +283,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.84"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.84"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.84"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.86"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.86"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.86"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
@@ -293,7 +293,7 @@ echo '
       var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        resol = "Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
+        resol = "AUTORIZADO MEDIANTE RESOLUCION DGT-R-48-2016, 07-10-2016";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }
 
       $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);
