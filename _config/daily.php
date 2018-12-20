@@ -53,6 +53,29 @@
         }
 
         $log->genkidama(1,63,'','null,"'.$compra.'","'.$obj[31].'",null,null,"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.$obj[30].'","'.$obj[36].'","","",0');
+
+    }
+    echo "<hr>";
+    $temporales = $log->kamehameha('id,fecha',262,'id>0');
+
+    foreach ($temporales as $obj) {
+        $f1 = new DateTime($obj[1]);
+        $f2 = new DateTime();
+        $dif = $f2->diff($f1)->format('%a');
+
+        if($dif >= 6){
+            $idfact = $log->kamehameha('',266,$obj[0].',@@usr,@@impresa,5')[0][0];
+            if ($dif <= 8) {
+                echo "ENVIAR HACIENDA<br>";
+                include_once '../wsdlClient.php';
+                $fe = new facturaElectronica('^'.$idfact);
+                print_r($fe->recepcion());
+                echo "<br>";
+            }else
+                echo "GUARDAR<br>";
+            
+        }else
+            echo "diferencia en dias: ".$dif."<br>";
     }
     
  ?>

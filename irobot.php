@@ -13,6 +13,7 @@
         $valores = $db->ejecutar('select botmail,botpswd from ajustessucursales where idsucursal = '.$_REQUEST['succ'])->fetch_all()[0];
         $username = $valores[0];
         $password  = $valores[1];
+
         $check = 1;
     }else{
         $username = 'fe.recepcionelectronica@gmail.com';
@@ -115,9 +116,10 @@
 
         foreach($attachments as $attachment)
         {
+
             if($attachment['is_attachment'] == 1)
             {
-                if (strpos($attachment['name'], '.xml')) {
+                if (strpos($attachment['name'], '.xml') || strpos($attachment['filename'], '.xml')) {
                     $salida = [];
                     loadXML_FILE($attachment['attachment'],$salida,$db);
                     print_r($salida);

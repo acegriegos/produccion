@@ -4,13 +4,13 @@
     
     if (isset($_REQUEST['accion'])) {
 
-        $id = $_REQUEST['id'];
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         $accion = $_REQUEST['accion'];
 
         if (!file_exists('./assets/xml/'.$id)) {
             $fe = new facturaElectronica($id);
         }
-        
+
         switch ($accion) {
             case 1://RECIBO DE FACTURA
                 $rs = $fe->recepcion();

@@ -899,6 +899,8 @@ function totalizar(){
                     $("#fastVenta"+vidlinea).val(tmpdesc);
                     $("#fastVenta"+vidlinea).attr('imp',0);
                     exento += tmpdesc;
+                   if (parseInt(config[16]))
+                        $("#fake"+vidlinea).html(((((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad))/divisa).formatMoney(2,'.',','))
                 }else{ 
                     //PRODUCTOS O CLIENTES GRABADOS Y EXONERADOS
                     simv = parseFloat(tmpdesc*(rimv/100)).toFixed(5);
@@ -917,6 +919,8 @@ function totalizar(){
                     }
                 }
             }else{
+                if (parseInt(config[16]))
+                    $("#fake"+vidlinea).html(((((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad))/divisa).formatMoney(2,'.',','))
                 exento += tmpdesc;
                 $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
             }

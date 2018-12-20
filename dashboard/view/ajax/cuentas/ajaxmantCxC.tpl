@@ -46,7 +46,7 @@
                     <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Multiple</a>
                 </div>
                 <div class="col s12 pequeño">
-                    <table id="data-table-cuentas-x" class="pequeño table centered highlight bordered z-depth-3 pbtns">
+                    <table id="data-table-cuentas-x" class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap pbtns" cellspacing="0" width="100%" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;">Factura</th>
