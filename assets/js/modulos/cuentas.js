@@ -1,9 +1,11 @@
 var gtipo;
 var paramTemp;
+var config;
 
 $(function(){
 	param = parseInt(getParameterByName('tf'));
 	paramTemp = param;
+	config = getDatos('',42,'@@impresa',0,0)[0][0];
 	switch(param){			
 		case 2:
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
@@ -275,6 +277,11 @@ $(document).on("click",".detalle",function(){
 	if (dias < 0) {
 		$("#idias").css('color','red');
 	}
+	if (config[5] == 1){
+        $("#p_v").attr('checked',true);
+    }else{
+        $("#p_v").attr('checked',false);
+    }
 	$("#inombr").text(datos[1]);
 	$("#ifecha").text(datos[5]);
 	$("#iplazo").text(datos[8]);
@@ -302,23 +309,13 @@ $(document).on("click","#btn-div",function(){
 		var tp = arr('login',4,'idtipoabono',39,'id = @@impresa',0,0,0)[0][0];
 		$(".divabono").show();
 		$(".divabono").attr('visible',1);
-		if (tp == 1)
-			$("#p_v").prop('checked',true);
-		else{
-			$("#p_v").prop('checked',false);
+		if (tp != 1)
 			$("#vvalor").val(0.00).focus().select();
-		}
+		
 	}else{
 	$(".divabono").hide();
 	$(".divabono").attr('visible',0);
 	}
-});
-
-$(document).on("keyup","#vvalor",function(e){
-	// var code = e.which || e.keyCode;
-	// if (code == 13) {
-		// console.log($("#p_v").is(":checked") == true ? 1 : 2)
-	// }
 });
 
 $(document).on("click","#Iadd",function(){

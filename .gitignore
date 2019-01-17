@@ -35,3 +35,4 @@ assets/img/logos/*
 !assets/img/logos/.gitkeep
 assets/respaldo/*
 !assets/respaldo/.gitkeep
+pruebas/*

@@ -1341,6 +1341,7 @@ function filltable(h,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
     arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
+    console.log('0,0,"'+h+'","0,10"')
     $("#data-table-"+b).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1413,7 +1414,8 @@ $(document).on("click", ".paginate", function () {
     var id = $(this).attr('id').substr(1);
     
     var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
+    var j = $("#search_"+modulo).attr('filtro') == undefined ? 1 : $("#search_"+modulo).attr('filtro');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro).replace('^',j);
     $(".paginate").removeClass('active')
     $(this).addClass('active');
     llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
@@ -1433,7 +1435,8 @@ $(document).on("click", ".nxt", function () {
     var ultimo = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var filtro = $("#search_"+modulo).val() == undefined ? '' : $("#search_"+modulo).val().replace(/"/g,'\\\"');
-    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
+    var j = $("#search_"+modulo).attr('filtro') == undefined ? 1 : $("#search_"+modulo).attr('filtro');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro).replace('^',j);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var next = id + 1;
     var pags = next - 8;
@@ -1482,7 +1485,8 @@ $(document).on("click", ".prv", function () {
     var count = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var filtro = $("#search_"+modulo).val() == undefined ? '' : $("#search_"+modulo).val().replace(/"/g,'\\\"');
-    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
+    var j = $("#search_"+modulo).attr('filtro') == undefined ? 1 : $("#search_"+modulo).attr('filtro');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro).replace('^',j);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var prev = id - 1;
     var prv = prev - 8;
@@ -1617,6 +1621,7 @@ function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    console.log('0,0,"'+filtro_sp+'","'+limit+'"')
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,

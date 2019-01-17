@@ -13,8 +13,15 @@
 
         switch ($accion) {
             case 1://RECIBO DE FACTURA
-                $rs = $fe->recepcion();
-                print_r($rs);
+                ob_end_clean();
+                ignore_user_abort();
+                ob_start();
+                header("Connection: close");
+                echo json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$fe->info['Clave'],'num'=>$fe->info['NumeroConsecutivo'],'succes'=>1]);
+                header("Content-Length: " . ob_get_length());
+                ob_end_flush();
+                flush();
+                print_r($fe->recepcion());
                 break;
             case 2://GET XML
                 if (isset($_REQUEST['view'])) {
@@ -596,18 +603,8 @@
 
             $salida['emisor']['ap1'] = '';
             $salida['emisor']['ap2'] = '';
-            switch ($salida['emisor']['tipo']) {
-                case '01':
-                case '04':
-                    $vnom = $salida['emisor']['nombre'][0];
-                    $salida['emisor']['ap1'] = '';
-                    $salida['emisor']['ap2'] = '';
-                    $salida['emisor']['nombre'] = '';
-                    break;
-                
-                default:
-                    break;
-            }
+            $salida['emisor']['nombre'] = $salida['emisor']['nombre'][0];
+
 
             $salida['emisor']['barrio']     = isset($inv_xml->Emisor->Ubicacion->Barrio) ? (array) $inv_xml->Emisor->Ubicacion->Barrio : 0;
             $salida['emisor']['barrio'] = $salida['emisor']['barrio'] == 0 ? $salida['emisor']['barrio'] : $salida['emisor']['barrio'][0];
@@ -657,7 +654,7 @@
         preg_match_all('!\d+!', $salida['factura']['plazo'], $matches);
         $salida['factura']['plazo']     = sizeof($matches[0]) ? $matches[0][0] : 0;
         $salida['factura']['tipopago']  = (array) $inv_xml->MedioPago;
-        $salida['factura']['tipopago']  = $salida['factura']['tipopago'][0];
+        $salida['factura']['tipopago']  = isset($salida['factura']['tipopago'][0]) ? $salida['factura']['tipopago'][0] : 1;
 
         $salida['factura']['moneda']    = (array) $inv_xml->ResumenFactura->CodigoMoneda;
         $salida['factura']['moneda']    = isset($salida['factura']['moneda'][0]) ? $salida['factura']['moneda'][0] : 'CRC';
@@ -775,6 +772,7 @@
                 if (!isset($_REQUEST['accion']))
                     $this->preUbicacion = '../';
                 
+                session_write_close();
                 $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
             }
             
@@ -1063,6 +1061,7 @@
 
             $xml = $this->getXMLRecepcion();
             if (is_array($xml)) {
+                
                 return 'Problemas Generando la Factura: '.$xml['error'].', no se Envió Hacienda';
             }
 
@@ -1082,6 +1081,7 @@
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 
             $rs = curl_exec($curl);
+            
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             switch ($status) {
                 case 0:

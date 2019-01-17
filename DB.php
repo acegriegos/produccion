@@ -108,6 +108,7 @@ WHEN 3 THEN
 	SELECT ifnull(if(min(id)-1 = 0,-1,min(id)-1),-1) FROM '.$tabla.' INTO @id;  
 	UPDATE '.$tabla.' set id = @id where id = vid;
 	SELECT @id;
+    alter table '.$tabla.' AUTO_INCREMENT 1;
 	/*INSERT INTO '.$log.'log values(null,0,3,\'\',vidusuario,now());*/
 END CASE; 
 END;';  

@@ -92,7 +92,7 @@ $(function(){
                 var cimp = precio*(imp/100)
                 var total = precio*cantidad;
 
-                $("#fdetallefacturas").prepend('<a href="#!" class="collection-item col12 row ciclos black-text" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+$("#descp").val()+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small></a>');
+                $("#fdetallefacturas").prepend('<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="0" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+$("#descp").val()+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small></a>');
 
                 $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : -1,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio*(1+imp/100)).formatMoney(5,'.',''),vdesc : 0,vtotal : (total*(1+imp/100)).formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : $("#valores").data('elemento')['hcomodin'],vidunidad : 1,vidimpuestos:$("#valores").data('elemento')['idimv'],viddescuentos:'',exoneracion:0,vdescuento : 0,idimv:$("#valores").data('elemento')['idimv']});
             }else{
@@ -173,6 +173,9 @@ $(function(){
         var idprod = cant = precio = imv = idimv = 0;
 
         if($(".ciclos").length){
+            var vdata = "\t   COMANDA\n\tOrden #"+idfactura+" - "+$("#tit").html()+"\n\nCANT \tPRODUCTOS"; //20 CARACTERES DE PRODUCTO
+            var lcant = 0;
+            var imprimir = 0;
             $(".ciclos").each(function(){
                 idprod = $(this).attr('id').substr(2);
                 cant = $(this).data('triforce')['vcantidad'];
@@ -180,10 +183,19 @@ $(function(){
                 imv = $(this).data('triforce')['vimv'];
                 idimv = $(this).data('triforce')['idimv'];
                 insertar(260,'','null,'+idfactura+','+idprod+',null,null,'+cant+','+precio+',0,0,'+imv+',"",1,"'+idimv+'","",6');
+                lcant = parseFloat(cant) - parseFloat($(this).attr('nuevo'));
+                if(lcant > 0){
+                    imprimir = 1;
+                    vdata += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim().substr(0,20).padEnd(20,' ');
+                }
+                $(this).attr('nuevo',cant);
             });
+            vdata += '\n\n\n\n\n\n\n\n\n ';
+
             Materialize.toast('Orden Editada Corectamente',4000,'green');
-            var vdata = "\t\tOrden N° \n\n\n\n\n\n";
-            mantenimiento('login',12,{data:vdata},1);
+            
+            if(imprimir)
+            mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);
         }else{
             Materialize.toast('No Hay Productos que Ingresar',4000,'red');
             $("#detfactmsj").show();
@@ -265,7 +277,7 @@ $(function(){
                     var total = parseFloat(precio*cantidad);
                     t_mesa += total;
 
-                    mstr = '<a href="#!" class="collection-item col12 row ciclos black-text" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>';
+                    mstr = '<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="'+cantidad+'" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>';
 
                     $("#fdetallefacturas").prepend(mstr);
                     
@@ -367,7 +379,7 @@ $(document).on("click",".cdb",function(){
             var total = parseFloat(precio*cantidad);
             t_mesa += total;
 
-            mstr = '<a href="#!" class="collection-item col12 row ciclos black-text" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>';
+            mstr = '<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="'+cantidad+'" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>';
 
             $("#fdetallefacturas").prepend(mstr);
             
@@ -674,8 +686,17 @@ function validarDetalleFactura(){
 
 function endDetail(vid,vacc,vmodulo) {
 
-    var vdata = "\t\tOrden N° \n\n\n\n\n\n";
-    mantenimiento('login',12,{data:vdata},1);
+    var vdata = "\t   COMANDA\n\tOrden #"+vid[0][0][0]+" - "+$("#tit").html()+"\n\nCANT \tPRODUCTOS"; //20 CARACTERES 
+    var lcant = 0;
+    var imprimir = 0;
+    $(".ciclos").each(function(){
+        cant = $(this).data('triforce')['vcantidad'];
+        vdata += "\n"+cant.toString().padEnd(6,' ')+$("#fnom",this).html().trim().substr(0,20).padEnd(20,' ');
+        $(this).attr('nuevo',cant);
+    });
+
+    vdata += '\n\n\n\n\n\n\n\n\n ';
+    mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);
     actualizar(800,'idtipoocupado=2','id='+mesa);
     $("#saveOrder").removeClass('add');
     $("#saveOrder").addClass('saveOrder');

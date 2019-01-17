@@ -290,6 +290,12 @@ if (isset($_POST['respuestaXml'])) {
                 $salida['sql'] = 'call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')';
           }
           break;
+        case 5: //GUARDAR EN HACIENDA
+          require_once '_config/mysqlDB.php';
+          $base = new DBClass();
+
+          $salida['rs'] = $base->ejecutar('insert into hacienda values(null,now(),"'.$_REQUEST['clave'].'","'.$_REQUEST['correos'].'")');
+          break;
         default:
            $salida['msj'] = 'WSDL LOGINTECH';
            $salida['error'] = 1;
