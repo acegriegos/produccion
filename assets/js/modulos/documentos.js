@@ -132,9 +132,11 @@ $(document).on("click",".msjh",function(){
         Materialize.toast(idfact[0]['ERROR'],4000,'red');
         $(this).parent().parent().remove();
     }else{
-        var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        if (idfact[0][0][1] >= 7) {
+            var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
             Materialize.toast($toastContent);
-        sendFE('^'+idfact[0][0][0]);
+            sendFE('^'+idfact[0][0][0]);
+        }
     }
 
 });
@@ -493,12 +495,16 @@ function validar (varreglo,vmodulo) {
 function endDetail(vid,vacc,vmodulo){
 	switch(vmodulo){
         case 'factura':
-            var factura = getDatos('consecutivo',64,'id = '+vid[0][0],0,0)[0][0][0];
+            var factura = getDatos('consecutivo,datediff(curdate(),fecha)',64,'id = '+vid[0][0],0,0)[0][0];
+            var tlimit = parseInt(factura[1]);
+            factura = factura[0]
             var clave = vid[0][0];
 
-            var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-            Materialize.toast($toastContent);
-            sendFE('^'+clave);
+            if(tlimit >= 7){
+                var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+                Materialize.toast($toastContent);
+                sendFE('^'+clave);
+            }
             break;
         case 'cliente':
             break;

@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.86">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.0.0.86">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.89">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.0.0.89">
   </head>
   <body>
   <br>
@@ -73,8 +73,8 @@
             </div>
 
             <div class="col s3 m5 row">
-                <a href="#modal-irobot" class="btn btn1 tooltipped col s12 m3" data-position="bottom" data-tooltip="Documentos al Correo" style="margin-bottom: 5px">Compras</a>
-                <a href="#modal-getxml" class="btn btn2 tooltipped hide-on-small" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px">Subir XML</a>
+                <a href="#modal-irobot" class="btn btn1 tooltipped col s12 m3" data-position="bottom" data-tooltip="Recepciones Automáticas" style="margin-left: 5px">Ver XML</a>
+                <a href="#modal-getxml" class="btn btn2 tooltipped hide-on-small" data-position="bottom" data-tooltip="Recepciones Manuales" style="margin-left: 5px">Subir XML</a>
                 <a id="actAuto" class="btn btn3 tooltipped hide-on-small hide" data-position="bottom" data-tooltip="Actualizar Estados" style="margin-bottom: 5px;margin-right: 5px">Actualizar Estados</a>
             </div>
         </div>
@@ -185,7 +185,7 @@
         </div>
     </div>
 
-    <script src="../assets/js/dropzone.js?v=10.0.0.86"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.0.0.86"></script>
+    <script src="../assets/js/dropzone.js?v=10.0.0.89"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.0.0.89"></script>
   </body>
 </html>

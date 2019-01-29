@@ -3,6 +3,7 @@ var myDropzone;
 var inv;
 
 $(function(){
+
 	$("script").each(function(){
 		$(this).remove();
 	});

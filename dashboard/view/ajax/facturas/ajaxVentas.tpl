@@ -28,8 +28,9 @@
 </p>
   
 </div>
-  <input type="hidden" class="zelda">
-
+  <input type="hidden" class="zelda" tipo="{$smarty.session.TIPO}">
+  <a id="fe" class="hide"></a>
+  
   <div class="row pequeño">      
       <div class="col s12 m3 l3 numfact" align="center">
         <label class="black-text" style="font-size: 18px;"><b>N° Factura: </b> <span class="red-text" id="idfact"></span></label>
@@ -989,4 +990,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.86"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.89"></script>

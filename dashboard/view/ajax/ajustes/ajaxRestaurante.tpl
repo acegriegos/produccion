@@ -54,8 +54,7 @@
 
 <li>
 <div class="collapsible-header"><i class="small mdi mdi-table"></i><h5>Secciones</h5></div>
-<div class="collapsible-body pequeño">
-<div class="card card-block z-depth-3 pequeño row" id="frestaurantes-secciones">
+<div class="collapsible-body pequeño card" id="frestaurantes-secciones">
     <input type="hidden" class="zelda">
     <div class="class-block">
         <h5>Secciones</h5>
@@ -96,7 +95,13 @@
             </div>
         </div>
 </div>
-</div>
+</li>
+
+<li>
+<div class="collapsible-header"><i class="small mdi mdi-note-text"></i><h5>Comandas</h5></div>
+    <div class="collapsible-body pequeño card">
+        
+    </div>
 </li>
 <li>
     <div style="background-color: white;height: 75px;">
