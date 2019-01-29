@@ -829,8 +829,23 @@
 <!--  -->
 <section id="m-mixto" class="modal-tpago">
   <div class="modal-content">
-  <b><span style="color: #2196F3; font-size: 1.8em !important;">Pago Mixto</span></b><hr style="border: 1px solid #F0F0F0">
-  <span>TOTAL:</span><br>
+  <b><span style="color: #2196F3; font-size: 1.8em !important;">Pago Mixto  </span> <span>TOTAL:</span><br><hr style="border: 1px solid #F0F0F0">
+  
+
+<div class="col s12 m{$column} l{$column} concre movil" align="center">
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1003" val="1" id="chg_tipo1" checked>
+        <label for="chg_tipo1" >Por Monto</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2" disabled>
+        <label for="chg_tipo2">Por Productos</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005" val="3" id="chg_tipo3" disabled>
+        <label for="chg_tipo3">Fraccionado</label>
+
+
+
+
+
+
+
   <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
   <br>Saldo: <span class="totfact numeric" style="font-size: 1.4em;"></span><br>
   <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
