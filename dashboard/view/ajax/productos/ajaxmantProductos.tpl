@@ -62,7 +62,7 @@
 		<ul class="tabs head3">
 			<li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
 			<li class="tab col s3 menuP but" id="tb2"><a class="white-text">Financiero</a></li>
-			<li class="tab col s3 menuP but" id="tb3"><a class="white-text">Impuestos</a></li>
+			<li class="tab col s3 menuP but hide" id="tb3"><a class="white-text">Impuestos</a></li>
 			<li class="tab col s3 menuP but  {if $smarty.session.BUSS neq 0} hide {/if}" id="tb4"><a class="white-text">Características</a></li>
 		</ul>
 	</div>
