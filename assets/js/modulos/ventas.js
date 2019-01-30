@@ -846,7 +846,9 @@ function totalizar(){
     var ajuste = $("#ajuste").val().replace(/,/g,'');
     var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = rimv = iva_imp = geimv = simv = dunit =0;
     var divisa = parseFloat($("#monedas option:selected").attr('dv'));
-    var exov = $("#ffacturas .zelda").data('triforce')['videxoneracion'] == '' ? 0 : $("#vmontoexo").val;
+    var exov = $("#ffacturas .zelda").data('triforce')['videxoneracion'] == '' ? 0 : $("#vmontoexo").val() == 0 ? $("#vporcompra").val() : $("#vmontoexo").val();
+    var isporcent = 0;
+    isporcent ? ("#vmontoexo").val() == 0 ? 1 : 0 : -1;
 
     flete = isNaN(parseFloat(flete)) || flete == '' ? 0 : parseFloat(flete);
     desc = isNaN(parseFloat(desc)) || desc == '' ? 0 : parseFloat(desc);
@@ -866,7 +868,6 @@ function totalizar(){
         decindv     = parseFloat($("#fd"+vidlinea).data('triforce')['vdescuento']);
         descmax     = parseFloat($("#fd"+vidlinea).data('triforce')['max']);
         desct       = decindv;//param.toString().match(new RegExp(/[2]/i)) ? decindv : decindv > descmax ? descmax : decindv;
-        console.log($("#prec"+vidlinea).html().replace(/,/g,''));
         //*(parseFloat($("#monedas option:selected").attr('dv')))
         precio = precio * cantidad
         tmpdesc = precio * (1-(desct/100));
@@ -898,6 +899,7 @@ function totalizar(){
             if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
                 eimv = $("#fd"+vidlinea).data('triforce')['exoneracion'];
                 eimv = eimv >= geimv ? eimv : geimv;
+                console.log(eimv)
                 eimv = $(this).data('valores')['vid'] == 1 ? eimv : 0;
 
                 rimv = parseFloat($(this).data('valores')['vmonto']);
@@ -939,7 +941,6 @@ function totalizar(){
     });
 
     if ($("#ffacturas .zelda").data('triforce')['videxoneracion'] != ''){
-        console.log(impuesto)
         impuesto = 0;
     }
 
@@ -1196,7 +1197,7 @@ function cargarProducto(kbrota,elemento) {
         kbrota = 'P-'+$(this).val().substr(1);
     }
 
-    var cod = arr('login',4,'',43,'"'+ kbrota +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+$("#ffacturas .zelda").data('triforce')['vidtipoventa'],0,0,0);
+    var cod = arr('login',4,'',43,'"'+ kbrota.replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+$("#ffacturas .zelda").data('triforce')['vidtipoventa'],0,0,0);
     if (cod[0][0] != undefined) {
 
         cod = cod[0][0];

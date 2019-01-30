@@ -729,6 +729,7 @@
         var $opcion = 0;
         var $sumaimpuestos = 0;
         var $sumadescuentos = 0;
+        var $exo = 0;
 
         function __construct($vid){
             $this->id = $vid;
@@ -1225,8 +1226,9 @@
                 if (!$tdetalle && $this->opcion < 5) 
                     return ['error'=>'No hay Detalle'];
 
-                $data['ResumenFactura']['TotalImpuesto'] = $this->sumaimpuestos;
-                $data['ResumenFactura']['TotalComprobante'] = $data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos;
+                $data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
+                
+                $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos,5));
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
 
@@ -1291,6 +1293,20 @@
                     break;
             }
 
+            if ($this->sumaimpuestos == 0 and $this->exo) {
+                $data['ResumenFactura']['TotalServExentos'] += $data['ResumenFactura']['TotalServGravados'];
+                $data['ResumenFactura']['TotalMercanciasExentas'] += $data['ResumenFactura']['TotalMercanciasGravadas'];
+                $data['ResumenFactura']['TotalExento'] += $data['ResumenFactura']['TotalGravado'];
+
+                $data['ResumenFactura']['TotalGravado'] = str_replace(',', '', number_format(0,5));
+                $data['ResumenFactura']['TotalMercanciasGravadas'] = str_replace(',', '', number_format(0,5));
+                $data['ResumenFactura']['TotalServGravados'] = str_replace(',', '', number_format(0,5));
+
+                $data['ResumenFactura']['TotalExento'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalExento'],5));
+                $data['ResumenFactura']['TotalMercanciasExentas'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalMercanciasExentas'],5));
+                $data['ResumenFactura']['TotalServExentos'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalServExentos'],5));
+            }
+
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
             <'.$this->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
             $this->array_to_xml($data,$xml_data);
@@ -1338,11 +1354,14 @@
         {
             $db = new DBClass();
             $rs = $db->ejecutar($query);
+
             if (isset($rs->num_rows)) {
                 $entrada = [];
                 $entrada = $rs->fetch_all();
                 $linea = $detalle = [];
                 $fila = $iddetalle = 0;
+                $globalmexo = $entrada[0][20];
+
                 foreach ($entrada as $value) { 
                     if ($iddetalle != $value[0]) {
                         $fila++;
@@ -1372,11 +1391,33 @@
                             foreach ($array_impuestos as $obj) {
                                 $sub_array = explode(',', $obj);
                                 if (strlen($sub_array[0])) {
-                                    $this->sumaimpuestos += $sub_array[2];
-                                    $sum_imp += $sub_array[2];
+                                    
                                     $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
-                                    if ($value[16] != '') 
+
+                                    if ($value[16] != ''){
+                                        $this->exo = 1;
                                         $impuesto['Exoneracion'] = $exoneracion;
+                                        if ($exoneracion['MontoImpuesto']  > 0 && $globalmexo) { //POR MONTO
+
+                                            if ($globalmexo >= $sub_array[2]) {
+                                                $sub_array[2] = 0;
+                                                $globalmexo -= $sub_array[2];
+                                            }else{
+                                                $sub_array[2] = $sub_array[2] - $globalmexo;
+                                                $globalmexo = 0;    
+                                            }                                            
+                                        }else{ //POR PORCENTAJE
+                                            $sub_array[2] = $sub_array[2]*(1-$exoneracion['PorcentajeCompra']/100);
+                                        }
+                                        $this->sumaimpuestos += $sub_array[2];
+                                        $sum_imp += $sub_array[2];
+                                        $impuesto['Monto'] = $sub_array[2];
+                                        $impuesto['Tarifa'] = ($sub_array[2]/$value[8])*100;
+                                    }else{
+                                        $this->sumaimpuestos += $sub_array[2];
+                                        $sum_imp += $sub_array[2];
+                                    }
+
                                     array_push($detalle, ['Impuesto' => $impuesto]);
                                 }
                             }
