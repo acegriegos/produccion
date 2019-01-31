@@ -2,7 +2,7 @@
 //============================================================+
 // File name   : tcpdf_config.php
 // Begin       : 2004-06-11
-// Last Update : 2014-01-25
+// Last Update : 2014-12-11
 //
 // Description : Configuration file for TCPDF.
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
@@ -69,12 +69,12 @@
  * Deafult image logo used be the default Header() method.
  * Please set here your own logo or an empty string to disable it.
  */
-define ('PDF_HEADER_LOGO', 'sc_logo_small.jpg');
+//define ('PDF_HEADER_LOGO', '');
 
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 25);
+//define ('PDF_HEADER_LOGO_WIDTH', 0);
 
 /**
  * Cache directory for temporary files (full path).
@@ -99,22 +99,22 @@ define ('PDF_PAGE_ORIENTATION', 'P');
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', 'Transdatelecom');
+define ('PDF_CREATOR', 'TCPDF');
 
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'Andrés Miranda');
+define ('PDF_AUTHOR', 'TCPDF');
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'Trandatelecom S.A.');
+define ('PDF_HEADER_TITLE', 'TCPDF Example');
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "ced: 3-101-303323");
+define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
@@ -124,7 +124,7 @@ define ('PDF_UNIT', 'mm');
 /**
  * Header margin.
  */
-define ('PDF_MARGIN_HEADER', 2);
+define ('PDF_MARGIN_HEADER', 5);
 
 /**
  * Footer margin.
@@ -210,12 +210,17 @@ define('K_THAI_TOPCHARS', true);
  * If true allows to call TCPDF methods using HTML syntax
  * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
  */
-define('K_TCPDF_CALLS_IN_HTML', true);
+define('K_TCPDF_CALLS_IN_HTML', false);
 
 /**
  * If true and PHP version is greater than 5, then the Error() method throw new exception instead of terminating the execution.
  */
-define('K_TCPDF_THROW_EXCEPTION_ERROR', true);
+define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+
+/**
+ * Default timezone for datetime functions
+ */
+define('K_TIMEZONE', 'UTC');
 
 //============================================================+
 // END OF FILE
