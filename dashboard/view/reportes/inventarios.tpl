@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Inventarios</title>
+  <title>Inventarios General</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.61">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.90">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -37,7 +37,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.61"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.0.0.61"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.90"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.0.0.90"></script>
 </body>
 </html>

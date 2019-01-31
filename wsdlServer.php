@@ -193,33 +193,35 @@ if (isset($_POST['respuestaXml'])) {
                     switch ($certData['subject']['OU']) {
                       case 'CPJ':
                         $tipo = 2;
+                        $cedula = substr($certData['subject']['serialNumber'],4);
                         break;
                       case 'CPF':
                         $tipo = 1;
+                        $cedula = substr($certData['subject']['serialNumber'],5);
                         break;
                       case 'DIMEX':
-                        $tipo = 4;
+                        $tipo = 3;
+                        $cedula = substr($certData['subject']['serialNumber'],6);
                         break;
                       default:
-                        $tipo = 3;
+                        $cedula = substr($certData['subject']['serialNumber'],5);
+                        $tipo = 4;
                         break;
                     }
-
-                    $cedula = substr($certData['subject']['serialNumber'],$tipo ? 4 : 5);
                     unset($target_path);
 
                     $accept = isset($_POST['acept']) ? $_POST['acept'] : 0;
                     $recibo = isset($_POST['recibo']) ? $_POST['recibo'] : '';
 
                     $salida['CN'] = $certData['subject']['CN'];
-                    $salida['cedula'] = $tipo == 1 ? substr($cedula,1) : $cedula;
+                    $salida['cedula'] = $cedula;
                     $salida['tipo'] = $tipo;
 
                     if($accept){
                         $salida['error'] = 0;
                         $salida['correo'] = $correo;
                         
-                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'',1,1,1,'".$salida['cedula']."','','',".$salida['tipo'].",0,'assets/p12/".$name."','".$pin."',NULL,1,0,0,'".$userComprobante."','".$passComprobante."',1,'')");
+                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'','".$salida['cedula']."','','',".$salida['tipo'].",0,'assets/p12/".$name."','".$pin."',NULL,1,0,1,'".$userComprobante."','".$passComprobante."',1,'',NULL,NULL,NULL,120,0)");
                         $rs = $db->ejecutar("select id from sucursales where cedula = '".$salida['cedula']."'")->fetch_all()[0][0];
 
                         $db->ejecutar("insert into correos values(null,".$rs.",39,'".$correo."')");
@@ -228,7 +230,7 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
-                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi) values(null,".$rs.",1,0,null,0,0,0,0,1)");
+                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,null,0,0,0,0,1,'http://35.188.212.38/produccion/wsdlServer.php')");
                     }else{
                         $salida['error'] = 14;
                     }
@@ -272,6 +274,28 @@ if (isset($_POST['respuestaXml'])) {
             $salida = isset($rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table']) ? $rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table'] : '';
             print_r($salida);
             break;
+        case 4:
+          if (!isset($_POST['ced'])) {
+            $salida['msj'] = 'DATOS REQUERIDOS';
+            $salida['error'] = 1;
+          }else{
+            require_once '_config/mysqlDB.php';
+            $base = new DBClass();
+
+            $rs = $base->ejecutar('call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')');
+            if (isset($rs->num_rows)) {
+                $salida['rs'] = $rs->fetch_all();
+            }else
+                $salida['error'] = $rs;
+                $salida['sql'] = 'call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')';
+          }
+          break;
+        case 5: //GUARDAR EN HACIENDA
+          require_once '_config/mysqlDB.php';
+          $base = new DBClass();
+
+          $salida['rs'] = $base->ejecutar('insert into hacienda values(null,now(),"'.$_REQUEST['clave'].'","'.$_REQUEST['correos'].'")');
+          break;
         default:
            $salida['msj'] = 'WSDL LOGINTECH';
            $salida['error'] = 1;
@@ -280,5 +304,4 @@ if (isset($_POST['respuestaXml'])) {
 
     echo json_encode($salida);
 }
-
 ?>

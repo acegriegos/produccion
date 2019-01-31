@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Reporte D-151</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.61">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.90">
 </head>
 <body class="black">
   <div class="principal contenedor" >
@@ -14,7 +14,9 @@
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
-        <img src="../assets/img/logo.png" class="img-responsive" style="width: 60%">
+        {if $MIS[3]}
+        <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
+        {/if}
       </div>
       <div class="col s4 m4 l4" align="center">
         <font size="3">
@@ -52,7 +54,7 @@
  
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.61"></script>
-  <script src="../assets/js/modulos/reportes/financiero.js?v=10.0.0.61"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.90"></script>
+  <script src="../assets/js/modulos/reportes/financiero.js?v=10.0.0.90"></script>
 </body>
 </html>

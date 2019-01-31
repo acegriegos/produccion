@@ -15,10 +15,6 @@
 
   *{
     font-family:'Helvetica';
-    /*font-size: 12px;*/
-  }
-
-  *{
         margin: 0% !important;
         font-size: 20px;
 
@@ -75,9 +71,9 @@ $logo = '<tr align="center">
     <td>
       <img src="'.$miscelaneos[3].'" alt="LOGO" width="60%">
     </td>
-    </tr><br><br>';
+    </tr>';
 
-echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;position:fixed;padding: 10px;
+echo '<button class="print" style="cursor: pointer;left:100px;position:fixed;padding: 10px;
     font-weight: 600;
     font-size: 20px;
     color: #ffffff;
@@ -86,11 +82,10 @@ echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;
     border: 2px solid #0016b0">Imprimir</button>';
 
   echo '<div class="container"  >
-  <br><br>
 <table>';
 
-if($miscelaneos[3] != '')
-  echo $logo;
+/*if($miscelaneos[3] != '')
+  echo $logo;*/
 
 /*echo '<tr align="center" ><td style="padding: 6px 5px !important">';
 
@@ -111,12 +106,12 @@ require_once('../assets/libs/phpqrcode/qrlib.php');
 echo '</td></tr>';*/
 
 echo '<tr align="center" '.$ocultar.'>
-     <td>
+     <td align="center">
         <div align="center">';
 if(strlen(trim($miscelaneos[2])))
-    echo '<b> '.$miscelaneos[2].' </b> <br>'.$miscelaneos[0];
+    echo $miscelaneos[2].' <br>'.$miscelaneos[0];
 else
-  echo '<b> '.$miscelaneos[0].' </b>';
+  echo $miscelaneos[0];
 
 echo '<br>Ced. '.$miscelaneos[1];
 if(strlen(trim($miscelaneos[5])))
@@ -128,32 +123,35 @@ echo '<br> '.$miscelaneos[6].'
   </tr>
 </table>
 <table style="width: 100% !important;">
-  <tr class="hide" style="display:none">
-    <td align="left" colspan="4">Factura Electrónica, Clave N°</td>
+  <tr>
+    <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
-  <tr class="hide" style="display:none">
-    <td align="left" colspan="4" style="font-size:13px">'.$transaccion[0][32].'</td>
+  <tr>
+    <td align="left" colspan="4" style="font-size:9px">'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>
-    <td align="center">Factura de '.$datos[1].' N°</td>
+    <td align="center">'.$datos[25].' de '.$datos[1].' N°</td>
   </tr>
   <tr>
     <td align="center"><span class="fe hide"> '.$datos[0].' </span></td>
   </tr>
 </table>
-<br>
+
 <table>
   <tr>
-    <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
-  </tr>
-  <tr '.$ocultar.'>
+    <td colspan="2">Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
+  </tr>';
+  if ($datos[4] != '') {
+    echo '<tr '.$ocultar.'>
     <td colspan="2">Cliente:</td>
   </tr>
   <tr>
     <td align="center" colspan="2">'.$datos[4].'</td>
-  </tr>
-  <tr '.$ocultar.'>
+  </tr>';
+  }
+  
+  echo '<tr '.$ocultar.'>
     <td width="50%">Vendedor: </td>
     <td width="50%">'.$datos[16].'</td>
   </tr>
@@ -162,7 +160,7 @@ echo '<br> '.$miscelaneos[6].'
     <td width="50%">'.$datos[2].'</td>
   </tr>
 </table>
-  <br>
+
 <hr>';
 
 if ($config[0][10] == 1) {
@@ -208,12 +206,12 @@ echo '<table  style="width: 100% !important;">
     echo '<tr>
       <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
       <td align="center" width="50%">'.$obj[19].'</td>
-      <td align="center" width="30%">'.$obj[20].'</td>';
+      <td align="right" width="30%">'.$obj[20].'</td>';
     }
   }
   
 echo '<tr>
-    <td colspan="'.$colspan1.'" style="border-bottom: 1px dashed #A0A0A0;"></td>
+    <td colspan="'.$colspan1.'"></td>
   </tr>
 <!-- <tr>
     <td colspan="'.$colspan1.'" align="right"> TOTAL </td>
@@ -260,7 +258,7 @@ echo '<tr>
     <td width="50%" align="right"> '.$obj[15].$obj[10].' </td>
   </tr>
 </table>
-<div '.$ocultar.'>*=EXCENTO</div>
+<div '.$ocultar.'>*=EXENTO</div>
 <div '.$ocultar.'>**=I.V.I</div>';
 
 if ($pvuelto > 0 && $vuelto >= 0) {
@@ -274,8 +272,8 @@ if ($pvuelto > 0 && $vuelto >= 0) {
 </table>';
 }
 
-echo '<hr>
-<div style="text-align: center;'.$oc.'" id="resolucion"></div><br><br><br>
+echo '
+<div style="text-align: center;font-size:10px;'.$oc.'" id="resolucion"></div><br><br><br>
 <div class="recibo" style="display:none"><hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>
 <br><br><br>
@@ -285,9 +283,9 @@ echo '<hr>
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.61"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.61"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.61"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.90"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.90"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.90"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
@@ -295,13 +293,14 @@ echo '<hr>
       var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        resol = "ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
+        resol = "AUTORIZADO MEDIANTE RESOLUCION DGT-R-48-2016, 07-10-2016";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }
 
       $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);
 
       if ($("#ttipo").val() != 1) {
         $(".ncontado").show();
+        
       }
 
       if (config9) {
@@ -312,8 +311,23 @@ echo '<hr>
       param = param == '' ? 0 : parseInt(param) ;
       
       window.onafterprint = function(){
-       window.close();
-     }
+        //$("#resolucion").html(navigator.userAgent)
+        if( navigator.userAgent.match(/Android/i)
+         || navigator.userAgent.match(/webOS/i)
+         || navigator.userAgent.match(/iPhone/i)
+         || navigator.userAgent.match(/iPad/i)
+         || navigator.userAgent.match(/iPod/i)
+         || navigator.userAgent.match(/BlackBerry/i)
+         || navigator.userAgent.match(/Windows Phone/i)
+         )
+            return true;
+        else
+          window.close();
+      }
+
+      $(".print").click(function(){
+        window.print();
+      });
 
       if(parseInt(param)){
         window.print();

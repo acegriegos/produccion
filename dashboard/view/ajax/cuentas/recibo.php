@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.61">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.61">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.90">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.90">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.61"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.90"> -->
 
-<link href="../assets/css/modulos/style-factura.css?v=10.0.0.61">
+<link href="../assets/css/modulos/style-factura.css?v=10.0.0.90">
 
 <title>Movimiento CxC</title>
 
@@ -35,7 +35,7 @@
                 echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
-              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[2]; ?></span><br>
+              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
               <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
               <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
 
@@ -43,10 +43,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col s6 left-align">
+        <div class="col s12 left-align">
          <div class="row">
+          <div class="col s12" id="infofact" >
+            <b id="fact">Documento Electónico N°</b>
+            <span id="numfact"> <?php echo $datos[14]; ?> </span>
+          </div>
            <div class="col s12" id="infofact" >
-            <b id="fact">Recibo N°</b>
+            <b id="fact">Consecutivo N°</b>
             <span id="numfact"> <?php echo $datos[1]; ?> </span>
           </div>
         <div class="col s12" id="infofact" >
@@ -75,6 +79,7 @@
 
     <div class="col s6">
 
+      <?php if($datos[8]){ ?>
       <div class="col s6 center-align ">
         <div class="card   white-text imprimirSINBOR <?php echo $hide ?>"  style="background-color: #3960A7;" style="background-color: #3960A7;">
           <div class=" card-content ">
@@ -84,8 +89,8 @@
           </div>
         </div>
       </div>
-
-      <div class="col s6 center-align">
+    <?php } ?>
+      <div class="col s6 center-align" style=" float: right;">
         <div class="card  white-text imprimirSINBOR" style="background-color: #3960A7;">
           <div class=" card-content white-text imprimirSINBOR">
             <p>Fecha:
@@ -95,8 +100,6 @@
         </div>
 
       </div>
-      <!-- /INFO CONTACTO -->
-       <input type="hidden" id="fcomentario" value="<?php echo $datos[3]; ?>">
       <!-- DETALLE FACT -->
       <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
         <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
@@ -169,11 +172,11 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js?v=10.0.0.61"></script>
+<script src="../assets/js/jquery.js?v=10.0.0.90"></script>
 
-<script src="../assets/js/materialize.js?v=10.0.0.61"></script>
-<script src="../assets/js/asgard.js?v=10.0.0.61"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.61"></script>
+<script src="../assets/js/materialize.js?v=10.0.0.90"></script>
+<script src="../assets/js/asgard.js?v=10.0.0.90"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.0.90"></script>
   <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

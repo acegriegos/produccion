@@ -1,10 +1,9 @@
-{if $smarty.session.BUSS neq 1}
 <div class="card z-depth-3 pequeño">
 <ul class="collapsible" data-collapsible="accordion">
 <li>
 <div class="collapsible-header" id="dempresa"><i class="small mdi mdi-briefcase"></i><h5>Datos de la Empresa</h5></div>
-<div class="collapsible-body pequeño">{/if}
-    <div class="card-block" {if $smarty.session.BUSS eq 1}style="background-color: white;"{/if}>
+<div class="collapsible-body pequeño">
+    <div class="card-block">
         <section id="fsucursales">
             <input type="hidden" class="zelda">
             <div class="row pequeño">
@@ -55,7 +54,9 @@
 
                 </div>
                 <div class="col s6 center">
-                    <img type="file" src="#" class="responsive-img" alt="Image" id="vlogo">
+
+                    <img type="file" src="#" class="responsive-img hide" alt="Image" id="vlogo">
+                    <span class="vloge">SIN LOGO</span><i class="mdi mdi-24px mdi-backspace vloge"></i>
                     <div style="float: right;">
                         <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
                     </div>
@@ -84,54 +85,44 @@
                 </div>
             </div>
             <div class="row s12">
-                <div class="row col s4">
+                <div class="row col s4 hide">
                     <div class="col s12">
                         <input type="checkbox" id="visinventariado" class="with-gap">
                         <label for="visinventariado">Control de Inventario</label>
-                    </div>
-                    <div class="col s12 hide">
-                        <input type="checkbox" id="isfe">
-                        <label for="isfe">Factura Electrónica</label>                                        
                     </div>
                     <div class="col s12">
                         <input type="checkbox" id="vfastshow">
                         <label for="vfastshow">Envío de Correo Automático</label>
                     </div>
+                    <div class="col s12">
+                        <input type="checkbox" id="vcbarras">
+                        <label for="vcbarras">Código de Barras</label>
+                    </div>
+                    <div class="col s12">
+                        <input type="checkbox" id="vpv">
+                        <label for="vpv">Impresión Punto Venta</label>
+                    </div>
                 </div>
-                <div class="row col s2">
+                <div class="row col s2 hide">
                     <div class="col s12">
                         <input type="checkbox" id="vprintSale">
                         <label for="vprintSale">Imprimir Venta</label>
                     </div>
-                    <div class="col s12 hide">
-                        <input type="checkbox" id="visPrueba">
-                        <label for="visPrueba">Período de Prueba</label>
+                    <div class="col s12">
+                        <input type="checkbox" id="vrecibido">
+                        <label for="vrecibido">Recibo Conforme</label>
                     </div>
+                   
                 </div>
-                <div class="row col s6">
-                    <div class="input-field col s12 m4 hide">
-                        <select type="select" id="vidtipofactura">
-                            {section name=LE loop=$IMPR}
-                            <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
-                            {/section}
+                <div class="row col s12">
+
+                     <div class="col s12 input-field hide">
+                        <select>
+                            <option value="0">Op 1</option>
+                            <option value="1">Op 2</option>
+                            <option value="2">Op 3</option>
                         </select>
-                        <label for="vidtipofactura">Factura</label>
-                    </div>
-                    <div class="input-field col s12 m4 hide">
-                        <select type="select" id="vidtipoabono">
-                            {section name=LE loop=$IMPR}
-                            <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
-                            {/section}
-                        </select>
-                        <label for="vidtipoabono">Recibo de Abonos</label>
-                    </div>
-                    <div class="input-field col s12 m4 hide">
-                        <select type="select" id="vidtiponota">
-                            {section name=LE loop=$IMPR}
-                            <option value="{$IMPR[LE][0]}">{$IMPR[LE][1]}</option>
-                            {/section}                            
-                        </select>
-                        <label for="vidtiponota">Notas</label>
+                        <label>Márgenes</label>
                     </div>
 
                     <div class="col s12 m12 pull-s2">
@@ -142,7 +133,7 @@
         </section>
     </div>
 </div>
-{if $smarty.session.BUSS neq 1}
+
 <!-- Datos de la empresa -->
 </li>
 <li>
@@ -189,6 +180,7 @@
         </div>
     </div>
 </li>
+{if $smarty.session.BUSS eq 0}
 <li>
     <div class="collapsible-header"><i class="mdi mdi-account-multiple mdi-24px"></i><h5>Tipo de Usuarios</h5></div>
     <div class="collapsible-body">
@@ -601,6 +593,32 @@
         </div>
     </div>
     <!-- Datos de las Categorías -->
+</li>
+
+<li>
+<div class="collapsible-header"><i class="mdi mdi-clock"></i><h5>Cajas</h5></div>
+<div class="collapsible-body">
+    <div class="card-block">
+        <div class="row pequeño">
+            <div class="col s12 m4 pequeño">
+                <div class="input-group">
+                    <div class="input-group-addon"><b>Fecha Inicio</b></div>
+                    <input type="date" class="datepicker" id="vfechainicio" value="">
+                </div>
+            </div>
+            <div class="col s12 m4 pequeño">
+                <div class="input-group">
+                    <div class="input-group-addon"><b>Fecha Cierre</b></div>
+                    <input type="date" class="datepicker" id="vfechafinal" value="">
+                </div>
+            </div>
+            <div class="col s12 m1 pequeño">
+                <button type="button" class="btn btn1 z-depth-3" id="sfechafiscal" style="margin-top: 5%;">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Datos de Cajas -->
 </li>
 
 <li>

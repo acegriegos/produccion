@@ -70,7 +70,7 @@
 					return 'ERROR: '.$rollback.' '.$id_new;
 				}else{
 					// $save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res',$this->sql,$id_new);
-					return $id_new;
+					return $id_new;//." ".$this->sql;
 				}
 			}
 		}

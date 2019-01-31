@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.mymodal{
+  height: 30% !important;
+}
+
 .head1 {
   background: #0080C6;
   color: #fff; }

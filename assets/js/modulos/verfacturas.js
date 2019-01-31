@@ -78,12 +78,10 @@ $(document).on("click","#process",function(){
 	var idfactura = $("#process").attr('idfactura');
 	var tf = $("#process").attr('tipo');
 	var idproducto = new Array();
-	var idinventario = new Array();
 	$("[name=processitem]:checked").each(function(){
-		idproducto.push($(this).attr('idproducto'));
-		idinventario.push($(this).attr('idinventario'));
+		idproducto.push($(this).attr('idd'));
 	});
-	window.open('facturacion?tf='+tf+'&arr='+idproducto+'&idinventario='+idinventario+'&id='+idfactura);
+	window.open('facturacion?tf='+tf+'&arr='+idproducto+'&id='+idfactura);
 
 });
 
@@ -299,12 +297,14 @@ function makeArchivos(vfactura,vclave,vid,vsucursal,vestado){
             archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
         }
         else{
-            archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+            archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf',2:'xml/RH_'+vfactura+', '+vsucursal+'.xml'}
             mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
+            mantenimiento_async('login',14,{id:vid,sucursal:vsucursal,restado:vestado},1);
         }
     }else{
-        archivos = {0:'xml/'+vestado+' N°'+vfactura+', '+vsucursal+'.xml'};
-            mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal,restado:vestado},1);
+        archivos = {0:'xml/'+vestado+' N°'+vfactura+', '+vsucursal+'.xml',1:'xml/RH_'+vfactura+', '+vsucursal+'.xml'};
+        mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal,restado:vestado},1);
+        mantenimiento_async('login',14,{id:vid,sucursal:vsucursal,restado:vestado},1);
     }
     
     return archivos;

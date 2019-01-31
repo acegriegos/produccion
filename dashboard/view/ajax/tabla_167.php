@@ -10,11 +10,11 @@ foreach ($transaccion as $obj) {
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[5].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[7].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[4].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[15].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[34].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[11].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[14].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[13].'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[15],2).'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[34],2).'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[11],2).'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[14],2).'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[13],2).'</td>
 
       </tr>
       <tr class="detprod hide grey lighten-3" id="xa'.$obj[0].'">
@@ -31,11 +31,11 @@ foreach ($transaccion as $obj) {
       </tr>';
       $idfactura = $obj[0];
       $cantt++;
-      $tot += substr(str_replace(",", "", $obj[13]),$obj[33] == 1 ? 2 : 1)*$obj[33];
-      $tde += substr(str_replace(",", "", $obj[15]),$obj[33] == 1 ? 2 : 1)*$obj[33];
-      $tim += substr(str_replace(",", "", $obj[11]),$obj[33] == 1 ? 2 : 1)*$obj[33];
-      $tgr += substr(str_replace(",", "", $obj[34]),$obj[33] == 1 ? 2 : 1)*$obj[33];
-      $exc += substr(str_replace(",", "", $obj[14]),$obj[33] == 1 ? 2 : 1)*$obj[33];
+      $tot += str_replace(",", "", $obj[13])*$obj[33];
+      $tde += str_replace(",", "", $obj[15])*$obj[33];
+      $tim += str_replace(",", "", $obj[11])*$obj[33];
+      $tgr += str_replace(",", "", $obj[34])*$obj[33];
+      $exc += str_replace(",", "", $obj[14])*$obj[33];
   }
   echo '<tr class="detprod hide xb'.$obj[0].' grey lighten-4">
   <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[24].'</td>

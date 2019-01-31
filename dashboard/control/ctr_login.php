@@ -27,7 +27,7 @@
             return false;
           }
 
-            if ($user[0][7] == 0)
+            if ($user[0][7] == 1)
               cambioDia($log);
      
               $_SESSION['USR']     = base64_encode($user[0][0]);
@@ -39,10 +39,35 @@
               $_SESSION['TMP_CIA'] = $user[0][5];
               $_SESSION['TMPT']    = $user[0][11];
               $_SESSION['CRR']     = $user[0][8];
-              $_SESSION['BUSS']    = $user[0][12];
+              $_SESSION['BUSS']    = $user[0][12] == 2 ? 3 : $user[0][12];
+              $_SESSION['EXPR']    = $user[0][13];
               $mod = 'main';
-              if ($user[0][12] == 1) {
-                $mod = 'facturacion';
+
+              switch ($user[0][12]) {
+                case 0:
+                case 2:
+                case 3:
+                  $caja = $log->kamehameha('',253,'"'.str_replace(' ', '', $_SERVER['REMOTE_ADDR']).'"');
+                  
+                  if ($caja[0][0]) {
+                    if ($caja[0][1]) {
+                      $_SESSION['CAJA']    = 1;
+                      $mod = 'facturacion';
+                    }else{
+                      $_SESSION['CAJA']    = 0;
+                      $mod = $user[0][12] == 2 ? 'restaurante' : 'facturacion?tf=6';
+                    }
+                  }else{
+                    $_SESSION['CAJA']    = 0;
+                    $mod = 'facturacion';
+                  }
+                  break;
+                case 4:
+                  $mod = 'documentos';
+                  break;
+                default:
+                  $mod = 'facturacion';
+                  break;
               }
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               header("Location: ../dashboard/$vdir");
@@ -154,6 +179,55 @@
         include 'view/ajax/tabla_global.php'; 
 
         break;
+      case 11:
+        $pagina = 1;
+        $arch = $_REQUEST['arreglo']['archivo'];
+        $save = $_REQUEST['arreglo']['save'];
+        $tit = $_REQUEST['arreglo']['tit'];
+        $tit2 = isset($_REQUEST['arreglo']['tit2']) ? $_REQUEST['arreglo']['tit2'] : '' ;
+        $conteo = isset($_REQUEST['arreglo']['conteo']) ? $_REQUEST['arreglo']['conteo'] : '' ;
+        $suma = isset($_REQUEST['arreglo']['suma']) ? $_REQUEST['arreglo']['suma'] : '' ;
+
+        $omitir = isset($_REQUEST['arreglo']['omitir']) ? $_REQUEST['arreglo']['omitir'] : '';
+        $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
+        $transaccion = $log->sel_col($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        include 'view/ajax/tabla_excel.php'; 
+        break;
+      case 12: //IMPRESION EXTERNA FIJA
+        $pagina = 1;
+        error_reporting(E_ALL);
+
+        include("../print/PrintSend.php");
+        include("../print/PrintSendLPR.php");
+
+        $lpr = new PrintSendLPR();
+        $lpr->setHost($_REQUEST['arreglo']['ip']); //192.168.31.153
+        $lpr->setData($_REQUEST['arreglo']['data']);//utf8_encode()
+
+        $lpr->printJob("l2");
+        break;
+      case 13: //FORKING
+        $pagina = 1;
+        ob_end_clean();
+        ignore_user_abort();
+        ob_start();
+        header("Connection: close");
+        echo json_encode('procesing...');
+        header("Content-Length: " . ob_get_length());
+        ob_end_flush();
+        flush();
+        
+        include '../_config/autofacturas.php';
+        
+        break;
+      case 14: //MENSAJE DE HACIENDA
+        $pagina = 1;
+        $_REQUEST['id'] = $_REQUEST['arreglo']['id'];
+        $_REQUEST['accion'] = 16;
+        $_REQUEST['sucname'] = $_REQUEST['arreglo']['sucursal'];
+        require_once '../wsdlClient.php';
+        $fe = new facturaElectronica($_REQUEST['arreglo']['id']);
+        break;
       default:
         break;
 
@@ -204,7 +278,7 @@
     function cambioDia($log)
      {  
         indicadores($log);
-        $log->kamehameha('',146,'');
+        $log->kamehameha('',146,'@@impresa');
      } 
 
      function indicadores($log){

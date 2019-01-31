@@ -145,10 +145,6 @@ $(function(){
 
 });
 
-$(document).on("click","#btn-anular",function(){
-
-});
-
 $(document).on("click",".detalle",function(){
 	$(this).sideNav({
             edge: 'left', // Choose the horizontal origin
@@ -419,12 +415,7 @@ function endDetail(vid,vacc,modulo){
                     sendFE(clave,idfact);
                     break;
                 case 9:
-                    color = 'green lighten-3';
-                    msj = 'Documento Electrónico Original Recibido';
-                    break;
-                case 3:
-                    color = 'red';
-                    msj = 'Documento Electrónico Original Rechazado';
+                    //VERIFICAR ESTADO Y ENVIAR
                     break;
                 case 2:
                     color = '#cddc39';

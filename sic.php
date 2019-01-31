@@ -9,7 +9,7 @@
     curl_close ($ch);
 
     $data = (array)json_decode($data);
-
+    
     if (isset($data['results'][0]->class)) {
         switch ($data['results'][0]->class) {
             case 'N':
@@ -19,6 +19,7 @@
                 $ap2 = $data['results'][0]->lastname2;
                 $ced = $data['results'][0]->cedula;
                 break;
+            case 'C':
             case 'J':
                 $tipo = 2;
                 $name = $data['results'][0]->fullname;

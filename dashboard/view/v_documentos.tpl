@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.61">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.0.0.61">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.90">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.0.0.90">
   </head>
   <body>
   <br>
@@ -19,7 +19,7 @@
           <p class="flow-text head1">
           Documentos Electrónicos <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span></p>
           </div>
-
+          
           <div class="row">
             <div class="col s4 l3">
                 <input name="tventa" class="with-gap" type="radio" id="tf1" checked />
@@ -72,9 +72,10 @@
                   <label class="truncate" for="search_facturas">Buscar Documento por <span>Número</span></label>
             </div>
 
-            <div class="col s3 m5">
-                <a href="#modal-getxml" class="btn btn2 tooltipped der" data-position="bottom" data-tooltip="Subir XML" style="margin-bottom: 5px">Subir XML</a>
-                <a id="actAuto" class="btn btn3 tooltipped der" data-position="bottom" data-tooltip="Actualizar Estados" style="margin-bottom: 5px;margin-right: 5px">Actualizar Estados</a>
+            <div class="col s3 m5 row">
+                <a href="#modal-irobot" class="btn btn1 tooltipped col s12 m3" data-position="bottom" data-tooltip="Recepciones Automáticas" style="margin-left: 5px">Ver XML</a>
+                <a href="#modal-getxml" class="btn btn2 tooltipped hide-on-small" data-position="bottom" data-tooltip="Recepciones Manuales" style="margin-left: 5px">Subir XML</a>
+                <a id="actAuto" class="btn btn3 tooltipped hide-on-small hide" data-position="bottom" data-tooltip="Actualizar Estados" style="margin-bottom: 5px;margin-right: 5px">Actualizar Estados</a>
             </div>
         </div>
 
@@ -115,7 +116,7 @@
                     <span id="mha" class="green-text"></span>
                 </section>
 
-                <section class="upxml col s12 l6 disabledbutton" xml="1" style="margin-top: 8%">
+                <section class="upxml col s12 l6" xml="1" style="margin-top: 8%">
                     <span>Subir Documento Electrónico: Factura o Nota Crédito y Débito</span>
                     <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
                         <span class="dz-message needsclick text-center ico-reg"><i class="mdi mdi-xml mdi-48px imgDrop" style="margin-top: 25px;margin-bottom: 25px;"></i></span>
@@ -131,7 +132,7 @@
                 <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
                 <div class="upxml hide" xml="3">
                     <div class="shxml_head"></div>
-                    <table>
+                    <table style="margin-bottom: 3%">
                         <thead>
                             <tr>
                                 <th></th>
@@ -157,7 +158,34 @@
         </div>
     </div>
 
-    <script src="../assets/js/dropzone.js?v=10.0.0.61"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.0.0.61"></script>
+    <div id="modal-irobot" class="modal modal-fixed-footer grandemodal" style="width: 100%">
+        <div class="modal-header">
+        <div class="card-header center blue-grey white-text z-depth-1">
+            <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar Documentos</p>
+        </div>
+        </div>
+        <div class="modal-content">
+            <a class="mdi mdi-24px mdi-refresh der act black-text tooltipped" data-tooltip="Refrescar" data-position="buttom" style="cursor: pointer;"></a>
+            <div class="center iloop hide actin" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
+            <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-compras" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Proveedor</th>
+                        <th>Fecha</th>
+                        <th>Consecutivo</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="bcompras"></tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Salir</a>
+        </div>
+    </div>
+
+    <script src="../assets/js/dropzone.js?v=10.0.0.90"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.0.0.90"></script>
   </body>
 </html>

@@ -87,24 +87,6 @@ echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;
 if($miscelaneos[3] != '')
   echo $logo;
 
-/*echo '<tr align="center" ><td style="padding: 6px 5px !important">';
-
-require_once('../assets/libs/phpqrcode/qrlib.php'); 
-
-      $codeContents = $miscelaneos[11]; 
-       
-      $text = QRcode::text($codeContents); 
-      $raw = join("<br/>", $text); 
-       
-      $raw = strtr($raw, array( 
-          '0' => '<span style="color:white;width=5%">&#9608;&#9608;</span>', 
-          '1' => '&#9608;&#9608;' 
-      )); 
-       
-      echo '<div style:"width=10%;  font-size:16px !important"><tt>'.$raw.'</tt></div>';
-
-echo '</td></tr>';*/
-
 echo '<tr align="center" >
      <td>
         <div align="center"> <b>'.$miscelaneos[0].'</b> <br> Ced. '.$miscelaneos[1].'
@@ -131,9 +113,9 @@ echo '<tr align="center" >
   </tr>
   <tr>
     <td align="left"><span class="fe hide"> '.$datos[13].' </span></td>
-    <td width="13%" align="center">'.$fecha[0].'</td>
-    <td width="13%" align="center">'.$fecha[1].'</td>
     <td width="13%" align="center">'.$fecha[2].'</td>
+    <td width="13%" align="center">'.$fecha[1].'</td>
+    <td width="13%" align="center">'.$fecha[0].'</td>
   </tr>
 </table>
 <br>
@@ -181,17 +163,28 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.0.61"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.61"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.61"></script>
+ <script src="../assets/js/jquery.js?v=10.0.0.90"></script>
+ <script src="../assets/js/materialize.js?v=10.0.0.90"></script>
+ <script src="../assets/js/asgard.js?v=10.0.0.90"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
           param = param == '' ? 0 : parseInt(param) ;
           
           window.onafterprint = function(){
-           window.close();
-         }
+            //$("#resolucion").html(navigator.userAgent)
+            if( navigator.userAgent.match(/Android/i)
+             || navigator.userAgent.match(/webOS/i)
+             || navigator.userAgent.match(/iPhone/i)
+             || navigator.userAgent.match(/iPad/i)
+             || navigator.userAgent.match(/iPod/i)
+             || navigator.userAgent.match(/BlackBerry/i)
+             || navigator.userAgent.match(/Windows Phone/i)
+             )
+                return true;
+            else
+              window.close();
+          }
 
           if(parseInt(param)){
             window.print();

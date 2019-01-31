@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Compras Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.61">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.90">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -15,9 +15,12 @@
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
-        <img src="../assets/img/logo.png" class="img-responsive" style="width: 60%">
+        {if $MIS[3]}
+        <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
+        {/if}
       </div>
       <div class="col s4 m4 l4" align="center">
+         <h2 align="center" style="margin-top: 0px" id="titrep">Compras Totales</h2>
         <font size="3">
           <b>{$MIS[0]}</b><br>
           {if $MIS[2]}<b>{$MIS[2]}</b><br>{/if}
@@ -33,7 +36,6 @@
         <input type="hidden" class="zelda">
       </div>
     </div>
-    <h2 align="center">Compras Totales</h2>
     <small id="leyenda"></small>
     
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
@@ -44,9 +46,11 @@
         <td class="white-text blue sinborde" style="text-align: center"><b>Fecha</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Cliente</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Tipo</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Monto</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Descuento</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Gravado</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>I.V.</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Exento</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Monto</b></td>
       </tr>
       </thead>
       <tbody class="detrep"></tbody>
@@ -54,7 +58,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.61"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.0.0.61"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.90"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.0.0.90"></script>
 </body>
 </html>

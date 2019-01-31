@@ -9,7 +9,6 @@ $(function(){
     cargarMoneda(0);
 });
 
-
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
@@ -385,7 +384,6 @@ function doGlobal(accion,modulo,tip,varias){
             }
 
             Materialize.toast('Registro '+tmsj+' Correctamente', 4000, 'green');
-
             id = p[0][0];
             endDetail(id,acc,modulo);
         }
@@ -522,6 +520,9 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
             catch(err){
                 p = data;
             }
+        })
+        .fail(function(x,y,z){
+            console.error(x)
         });
     return p;
 }
@@ -1164,10 +1165,10 @@ function doreport() {
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
     var search = new Array;
     var datos = mantenimiento('login',1,vmodulo)[0];
-
     datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
+
         if ($("#"+datos[i][0]).attr('str') != undefined) {
             if ($("#"+datos[i][0]).attr('type') == 'date') {
                 
@@ -1183,9 +1184,7 @@ function doreport() {
             if ($("#"+datos[i][0]).val() == '') {
                 search[i] = "''";
             }else{
-                search[i] = $("#"+datos[i][0]).val(); //$("#"+datos[i][0]).parent().find('[for='+datos[i][0]+']').is(":checked") ? $("#"+datos[i][0]).val() : 0;    
-                // $("#chk"+datos[i][0].substr(3)).is(":checked") == false ? $("#"+datos[i][0]).val(0) : true;
-
+                search[i] = $("#"+datos[i][0]).val();
             }
         }
 
@@ -1198,7 +1197,7 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    // console.log(tbl,' ',atributos)
+    console.log(tbl,' ',atributos)
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
 
 }
@@ -1341,6 +1340,7 @@ function filltable(h,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
     arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
+    console.log('0,0,"'+h+'","0,10"')
     $("#data-table-"+b).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1413,7 +1413,8 @@ $(document).on("click", ".paginate", function () {
     var id = $(this).attr('id').substr(1);
     
     var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
+    var j = $("#search_"+modulo).attr('filtro') == undefined ? 1 : $("#search_"+modulo).attr('filtro');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro).replace('^',j);
     $(".paginate").removeClass('active')
     $(this).addClass('active');
     llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
@@ -1433,7 +1434,8 @@ $(document).on("click", ".nxt", function () {
     var ultimo = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var filtro = $("#search_"+modulo).val() == undefined ? '' : $("#search_"+modulo).val().replace(/"/g,'\\\"');
-    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
+    var j = $("#search_"+modulo).attr('filtro') == undefined ? 1 : $("#search_"+modulo).attr('filtro');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro).replace('^',j);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var next = id + 1;
     var pags = next - 8;
@@ -1482,7 +1484,8 @@ $(document).on("click", ".prv", function () {
     var count = $(".pagination").attr('ultimo');
     var cambio = $("ul.pagination").attr('cambio') == undefined ? 0 : $("ul.pagination").attr('cambio');
     var filtro = $("#search_"+modulo).val() == undefined ? '' : $("#search_"+modulo).val().replace(/"/g,'\\\"');
-    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro);
+    var j = $("#search_"+modulo).attr('filtro') == undefined ? 1 : $("#search_"+modulo).attr('filtro');
+    var filtro_sp = $("ul.pagination").attr('filtro_sp') == undefined ? filtro+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',filtro).replace('^',j);
     var id = parseInt($("ul.pagination > li.active").attr('id').substr(1));
     var prev = id - 1;
     var prv = prev - 8;
@@ -1606,7 +1609,8 @@ $(document).on('click','.loadRefBussiness',function(){
         }
     }
     $("#sucname").html($(this).html());
-    mantenimiento('main',3,$(this).attr('suc'))
+    mantenimiento('main',3,$(this).attr('suc'));
+    location.reload();
 });
 
 
@@ -1616,6 +1620,7 @@ function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
+    console.log('0,0,"'+filtro_sp+'","'+limit+'"')
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -1905,6 +1910,16 @@ function phone_addon_ckub(vfila,vphone){
 
     $(document).on('blur',"#telefono_in",function(){
         var telefono = $(this).val();
+        if (isNaN(telefono.replace('-',''))) {
+            Materialize.toast('Telefono Invalido',4000,'red')
+            return false;
+        }
+
+        if (telefono.replace('-','').length != 8) {
+            Materialize.toast('Telefono Invalido',4000,'red')
+            return false;
+        }
+
         if (telefono.length > 1) {
             var idfila = $(this).attr('idfila');
             var htipo = $("#tptel").val();

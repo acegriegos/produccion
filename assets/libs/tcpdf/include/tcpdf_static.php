@@ -1813,11 +1813,19 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function fopenLocal($filename, $mode) {
+<<<<<<< HEAD
 		if (strpos($filename, '://') === false) {
 			$filename = 'file://'.$filename;
 		} elseif (stream_is_local($filename) !== true) {
 			return false;
 		}
+=======
+		/*if (strpos($filename, '://') === false) {
+			$filename = 'file://'.$filename;
+		} elseif (stream_is_local($filename) !== true) {
+			return false;
+		}*/
+>>>>>>> c7ff1be61cd514652187c72b1f0687492ca13076
 		return fopen($filename, $mode);
 	}
 
@@ -1927,6 +1935,38 @@ class TCPDF_STATIC {
 		foreach ($alt as $path) {
 			if (!self::file_exists($path)) {
 				return false;
+<<<<<<< HEAD
+			}
+			$ret = @file_get_contents($path);
+			if ($ret !== false) {
+			    return $ret;
+			}
+			// try to use CURL for URLs
+			if (!ini_get('allow_url_fopen')
+				&& function_exists('curl_init')
+				&& preg_match('%^(https?|ftp)://%', $path)
+			) {
+				// try to get remote file data using cURL
+				$crs = curl_init();
+				curl_setopt($crs, CURLOPT_URL, $path);
+				curl_setopt($crs, CURLOPT_BINARYTRANSFER, true);
+				curl_setopt($crs, CURLOPT_FAILONERROR, true);
+				curl_setopt($crs, CURLOPT_RETURNTRANSFER, true);
+				if ((ini_get('open_basedir') == '') && (!ini_get('safe_mode'))) {
+				    curl_setopt($crs, CURLOPT_FOLLOWLOCATION, true);
+				}
+				curl_setopt($crs, CURLOPT_CONNECTTIMEOUT, 5);
+				curl_setopt($crs, CURLOPT_TIMEOUT, 30);
+				curl_setopt($crs, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($crs, CURLOPT_SSL_VERIFYHOST, false);
+				curl_setopt($crs, CURLOPT_USERAGENT, 'tc-lib-file');
+				$ret = curl_exec($crs);
+				curl_close($crs);
+				if ($ret !== false) {
+					return $ret;
+				}
+=======
+>>>>>>> c7ff1be61cd514652187c72b1f0687492ca13076
 			}
 			$ret = @file_get_contents($path);
 			if ($ret !== false) {
@@ -2084,6 +2124,135 @@ class TCPDF_STATIC {
 		if (($rest > 0) && !feof($handle)) {
 			$data .= self::rfread($handle, $rest);
 		}
+<<<<<<< HEAD
+		return false;
+	}
+
+	/**
+	 * Get ULONG from string (Big Endian 32-bit unsigned integer).
+	 * @param $str (string) string from where to extract value
+	 * @param $offset (int) point from where to read the data
+	 * @return int 32 bit value
+	 * @author Nicola Asuni
+	 * @since 5.2.000 (2010-06-02)
+	 * @public static
+	 */
+	public static function _getULONG($str, $offset) {
+		$v = unpack('Ni', substr($str, $offset, 4));
+		return $v['i'];
+	}
+
+	/**
+	 * Get USHORT from string (Big Endian 16-bit unsigned integer).
+	 * @param $str (string) string from where to extract value
+	 * @param $offset (int) point from where to read the data
+	 * @return int 16 bit value
+	 * @author Nicola Asuni
+	 * @since 5.2.000 (2010-06-02)
+	 * @public static
+	 */
+	public static function _getUSHORT($str, $offset) {
+		$v = unpack('ni', substr($str, $offset, 2));
+		return $v['i'];
+	}
+
+	/**
+	 * Get SHORT from string (Big Endian 16-bit signed integer).
+	 * @param $str (string) String from where to extract value.
+	 * @param $offset (int) Point from where to read the data.
+	 * @return int 16 bit value
+	 * @author Nicola Asuni
+	 * @since 5.2.000 (2010-06-02)
+	 * @public static
+	 */
+	public static function _getSHORT($str, $offset) {
+		$v = unpack('si', substr($str, $offset, 2));
+		return $v['i'];
+	}
+
+	/**
+	 * Get FWORD from string (Big Endian 16-bit signed integer).
+	 * @param $str (string) String from where to extract value.
+	 * @param $offset (int) Point from where to read the data.
+	 * @return int 16 bit value
+	 * @author Nicola Asuni
+	 * @since 5.9.123 (2011-09-30)
+	 * @public static
+	 */
+	public static function _getFWORD($str, $offset) {
+		$v = self::_getUSHORT($str, $offset);
+		if ($v > 0x7fff) {
+			$v -= 0x10000;
+		}
+		return $v;
+	}
+
+	/**
+	 * Get UFWORD from string (Big Endian 16-bit unsigned integer).
+	 * @param $str (string) string from where to extract value
+	 * @param $offset (int) point from where to read the data
+	 * @return int 16 bit value
+	 * @author Nicola Asuni
+	 * @since 5.9.123 (2011-09-30)
+	 * @public static
+	 */
+	public static function _getUFWORD($str, $offset) {
+		$v = self::_getUSHORT($str, $offset);
+		return $v;
+	}
+
+	/**
+	 * Get FIXED from string (32-bit signed fixed-point number (16.16).
+	 * @param $str (string) string from where to extract value
+	 * @param $offset (int) point from where to read the data
+	 * @return int 16 bit value
+	 * @author Nicola Asuni
+	 * @since 5.9.123 (2011-09-30)
+	 * @public static
+	 */
+	public static function _getFIXED($str, $offset) {
+		// mantissa
+		$m = self::_getFWORD($str, $offset);
+		// fraction
+		$f = self::_getUSHORT($str, ($offset + 2));
+		$v = floatval(''.$m.'.'.$f.'');
+		return $v;
+	}
+
+	/**
+	 * Get BYTE from string (8-bit unsigned integer).
+	 * @param $str (string) String from where to extract value.
+	 * @param $offset (int) Point from where to read the data.
+	 * @return int 8 bit value
+	 * @author Nicola Asuni
+	 * @since 5.2.000 (2010-06-02)
+	 * @public static
+	 */
+	public static function _getBYTE($str, $offset) {
+		$v = unpack('Ci', substr($str, $offset, 1));
+		return $v['i'];
+	}
+	/**
+	 * Binary-safe and URL-safe file read.
+	 * Reads up to length bytes from the file pointer referenced by handle. Reading stops as soon as one of the following conditions is met: length bytes have been read; EOF (end of file) is reached.
+	 * @param $handle (resource)
+	 * @param $length (int)
+	 * @return Returns the read string or FALSE in case of error.
+	 * @author Nicola Asuni
+	 * @since 4.5.027 (2009-03-16)
+	 * @public static
+	 */
+	public static function rfread($handle, $length) {
+		$data = fread($handle, $length);
+		if ($data === false) {
+			return false;
+		}
+		$rest = ($length - strlen($data));
+		if (($rest > 0) && !feof($handle)) {
+			$data .= self::rfread($handle, $rest);
+		}
+=======
+>>>>>>> c7ff1be61cd514652187c72b1f0687492ca13076
 		return $data;
 	}
 

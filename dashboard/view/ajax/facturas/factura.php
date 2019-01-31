@@ -1,9 +1,10 @@
+<?php $config = $kakaroto->kamehameha('',42,'@@impresa')[0];?>
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.61">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.61">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.61">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.90">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.90">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.90">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -61,7 +62,7 @@
 
         <div class="row" style="padding: 0px">
           <?php if ($transaccion[0][32] != '') { ?>
-            <b><h3 id="ftipo" style="font-size: 19px">Factura Electrónica</h3></b>
+            <b><h3 id="ftipo" style="font-size: 19px">Documento Electrónico</h3></b>
           <?php } ?>
           <div class="col s6 m6 l6" id="infofact">
             <div class="row" style="padding: 0% 0% 0% 0%;margin: 0px">
@@ -72,14 +73,9 @@
                   <span id="clave" class="fe"><?php echo $transaccion[0][32]; ?></span><br>
                 <?php } ?>
                 
-                <b id="fact"><?php echo $datos[25]; ?> N°:</b>
+                <b><span id="fact"><?php echo $transaccion[0][25] ?></span> </b> de: </b><span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:
                 <span id="numfact" class="fe"> <?php echo $datos[0]; ?> </span>
               </div>
-              <?php if ($transaccion[0][32] != '') { ?>
-              <div class="col s12" style="padding: 0px">
-               <b> Factura de: </b><span id="fclase"><?php echo $datos[1].$datos[31]; ?></span>
-             </div>
-              <?php } ?>
 
              <?php if ($datos[4] != '') { ?>
              <div class="col s12" style="padding: 8px 0px 8px 0px">
@@ -92,10 +88,12 @@
               <span><b>Vende:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
             </div>
+            <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
               <span><b>Comentario:</b></span><br>
               <span id="fcomentario"><?php echo $datos[12]; ?> </span>
             </div>
+          <?php } ?>
           </div> 
         </div>
 
@@ -135,11 +133,12 @@
           <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
             <tr>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Descripción</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">P. Unit</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Tipo</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">Descuento</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th5">Importe</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Código</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">Descripción</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">P. Unit</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th5">Tipo</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Descuento</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th7">Importe</th>
             </tr>
           </thead>
           <tbody id="ftbody">
@@ -154,10 +153,11 @@
 
               <tr class="tr" >
                 <td class="flista1 td center-align"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
+                <td class="flista2 td center-align"><span id="desc1"><?php echo $obj[36]; ?></span></td>
                 <td class="flista2 td center-align"><span id="desc"><?php echo $obj[19]; ?></span></td>
                 <td class="flista3 td center-align"><span id="punit"><?php echo $obj[20]; ?></span></td>
-                <td class="flista4 td center-align"><span id="desc"><?php echo $obj[23]; ?></span></td>
-                <td class="flista5 td center-align"><span id="desc"><?php echo $obj[21]; ?></span></td>
+                <td class="flista4 td center-align"><span id="desc2"><?php echo $obj[23]; ?></span></td>
+                <td class="flista5 td center-align"><span id="desc3"><?php echo $obj[21]; ?></span></td>
                 <td class="flista6 td right-align"><span id="import" ><?php echo $obj[22]; ?></span></td>
               </tr>
 
@@ -194,7 +194,7 @@
                       
                    ?> -->
                 </td>
-                <td colspan="2">
+                <td colspan="3">
                   <table>
 
                     <tr>
@@ -253,9 +253,8 @@
             </tfoot>
           </table>
 
-
           <!-- @PRINT -->
-          <section class="hideonprint hide">
+          <section class="<?php if(!$config[9]) echo 'hide'; ?>">
             <div class="row">
               <br>
               <div class="col s12 m8 offset-m2">
@@ -309,7 +308,7 @@
           </div>
 
           <!-- @PRINT -->
-          <section class="hide">
+          <section class="hideonprint">
             <div class="col s12 m3 l3 white-text">
               <br>
               <div id="correosclie">
@@ -339,10 +338,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.0.0.61"></script>
-     <script src="../assets/js/materialize.js?v=10.0.0.61"></script>
-     <script src="../assets/js/asgard.js?v=10.0.0.61"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.0.0.61"></script>
+     <script src="../assets/js/jquery.js?v=10.0.0.90"></script>
+     <script src="../assets/js/materialize.js?v=10.0.0.90"></script>
+     <script src="../assets/js/asgard.js?v=10.0.0.90"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.0.0.90"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
