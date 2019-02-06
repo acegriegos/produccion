@@ -9,7 +9,6 @@ $(function(){
     cargarMoneda(0);
 });
 
-
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){

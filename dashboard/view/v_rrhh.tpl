@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Área Comercial</title>
+  <title>Área Recurso Humano</title>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css?v=10.0.0.90">
 
@@ -26,7 +26,7 @@
 
                     <div class="row">
                      <div class="col s12 m6 l6 per1000 hide">
-                      <a href="clientes" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Clientes</a>
+                      <a href="empleados" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Empleados</a>
                     </div>
                     <div class="col s12 m6 l6 per1100 hide">
                       <a href="facturacion?tf=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>

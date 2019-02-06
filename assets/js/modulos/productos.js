@@ -2081,9 +2081,17 @@ function endDetail(id, acc, modulo) {
 		case 'producto':
 
 			$(".precionivel").each(function() {
+				var gan_n = 0;
+				var imp_n = 0;
+				var imp_v = 13;
+				var idlinea = $(this).attr('idn');
 				var idfila = $(this).attr('id').substr(1);
-				if ($("#vventa" + idfila).val() > 0) {
-					arr('login', 4, '', 108, '1,0,' + id[0][0] + ',' + idfila + ',' + $("#vgganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa', 0, 0, 0)
+				if (parseFloat($("#vventa" + idfila).val().replace(/,/g,'')) > 0) {
+					imp_n = parseInt($("#vexoneracion" + idfila).val());
+					imp_v = imp_n == 0 ? 13 : 0; 
+					gan_n = (parseFloat($("#vventa" + idfila).val().replace(/,/g,''))/(1+(imp_v/100))) - parseFloat($("#vcosto").val());
+					acc = !parseInt(idlinea) ? 1 : acc;
+					arr('login', 4, '', 108, acc+','+idlinea+',1,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vventa" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0);
 				}
 			});
 
@@ -2213,6 +2221,24 @@ function postload(vmodulo){
 		    	if($("#goldinventariado").is(":checked"))
 		    		$("#goldinventariado").click();
 		    }
+
+		    $(".precionivel").each(function(){
+		    	var id = $(this).attr('id').substr(1);
+		    	var infonivel = getDatos('format(((venta/(if(exoneracion,1,1.13))/'+$("#vcosto").val().replace(/,/g,'')+')-1)*100,2),venta,exoneracion,id',105,'idnivel = '+id+' and idtipoentrada = 1 and identrada = '+$("#fproductos .zelda").data('triforce')['vid'],0,0,0)[0][0];
+
+		    	if(infonivel != undefined){
+		    		$("#vgganancia"+id).val(infonivel[0])
+		    		$("#vventa"+id).val(infonivel[1])
+		    		$("#vexoneracion"+id).val(infonivel[2])
+		    		$(this).attr('idn',infonivel[3])
+		    	}else{
+		    		$("#vgganancia"+id).val(0)
+		    		$("#vventa"+id).val(0)
+		    		$("#vexoneracion"+id).val(0)
+		    		$(this).attr('idn',0);
+		    	}
+		    });
+
 		    Materialize.updateTextFields();
 			break;
 		case 'servicio':
