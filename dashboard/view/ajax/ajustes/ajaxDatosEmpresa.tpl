@@ -180,7 +180,7 @@
         </div>
     </div>
 </li>
-{if $smarty.session.BUSS eq 0}
+{if $smarty.session.BUSS eq 0 || $smarty.session.BUSS eq 3}
 <li>
     <div class="collapsible-header"><i class="mdi mdi-account-multiple mdi-24px"></i><h5>Tipo de Usuarios</h5></div>
     <div class="collapsible-body">
@@ -243,6 +243,8 @@
     </div>
 <!-- Datos de las Usuarios -->
 </li>
+{/if}
+{if $smarty.session.BUSS eq 0}
 <li>
     <div class="collapsible-header"><i class="medium mdi mdi-credit-card mdi-24px"></i><h5>Tipo de Pagos</h5></div>
         <div class="collapsible-body"><div class="class-block">
@@ -359,6 +361,8 @@
     </div>
 <!-- Datos de Tipos de Pagos  -->
 </li>
+{/if}
+{if $smarty.session.BUSS eq 0}
 <li>
     <div class="collapsible-header"><i class="mdi mdi-bank  mdi-24px"></i><h5>Bancos</h5></div>
     <div class="collapsible-body">
@@ -489,6 +493,8 @@
     </div>
 <!-- Datos de los Bancos  -->
 </li>
+{/if}
+{if $smarty.session.BUSS eq 0 || $smarty.session.BUSS eq 3}
 <li>
     <div class="collapsible-header"><i class="mdi mdi-settings"></i><h5>Categorías</h5></div>
     <div class="collapsible-body">
@@ -541,7 +547,8 @@
     </div>
     <!-- Datos de las Categorías -->
 </li>
-
+{/if}
+{if $smarty.session.BUSS eq 0}
 <li>
     <div class="collapsible-header"><i class="mdi mdi-currency-usd"></i><h5>Financiamiento</h5></div>
     <div class="collapsible-body">
@@ -594,7 +601,8 @@
     </div>
     <!-- Datos de las Categorías -->
 </li>
-
+{/if}
+{if $smarty.session.BUSS eq 0}
 <li>
 <div class="collapsible-header"><i class="mdi mdi-clock"></i><h5>Cajas</h5></div>
 <div class="collapsible-body">
@@ -620,7 +628,7 @@
 </div>
 <!-- Datos de Cajas -->
 </li>
-
+{/if}
 <li>
 <div class="collapsible-header"><i class="mdi mdi-clock"></i><h5>Período Fiscal</h5></div>
 <div class="collapsible-body">
@@ -648,7 +656,6 @@
 </li>
 </ul>
 </div>
-{/if}
 
 <div class="modal modal-fixed-footer grandemodal " id="modal-monedas">
     <div class="modal-header head2 padding1">
@@ -658,6 +665,7 @@
         <h4>Moneda</h4>
         <div id="fmonedas">
             <input type="hidden" id="vid" value="0">
+            <input type="hidden" id="vprincipal" value="0">
             <div class="row">
                 <div class="input-field col s12 m6 pequeño ">
                     <label for="vnombremon" class="truncate">Nombre de Moneda</label>
@@ -679,7 +687,7 @@
                 </div>
                 <div class="input-field col s6 pequeño">
                     <label for="vcodigo" class="truncate">Código de la Moneda</label>
-                    <input type="number" id="vcodigo" value=" " class="eder" maxlength="4" readonly="">
+                    <input type="text" id="vcodigo" value="" class="eder" maxlength="4" readonly="">
                 </div>
             </div>
             <div class="row">

@@ -98,7 +98,7 @@
 
     </li>
     <li class="gtext">
-      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_1'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Proveedores</span></a>
+      <a class="collapsible-header dropdown-button per2000" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_1'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Proveedores</span></a>
       <ul id='dropfact_1' class='dropdown-content'>
         <li class="per2000"><a href="proveedores">Mantenimiento</a></li>
         <li class="per3300"><a href="cuentas?tf=2">Cuentas por Pagar</a></li>

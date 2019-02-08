@@ -1604,7 +1604,7 @@ vmodulo['tbl'] = 51;
 vmodulo['where'] = 'id = '+vid;
 break;
 case 'moneda':
-vmodulo['sel'] = 'id as vid,nombre as vnombremon,simbolo as vsimbolo,valor as vvalor,suma as vsuma,principal as vprincipal,wsdl as vwsdl';
+vmodulo['sel'] = 'id as vid,nombre as vnombremon,simbolo as vsimbolo,valor as vvalor,suma as vsuma,principal as vprincipal,wsdl as vwsdl,codigo as vcodigo';
 vmodulo['tbl'] = 54;
 vmodulo['where'] = 'id = '+vid;
 break;
