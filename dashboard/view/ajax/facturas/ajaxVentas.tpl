@@ -42,14 +42,14 @@
         <label for="chg_tipo1" >Contado</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2" disabled>
         <label for="chg_tipo2">Crédito</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005" val="3" id="chg_tipo3" disabled>
-        <label for="chg_tipo3">Consignación</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1006" val="4" id="chg_tipo4" disabled>
-        <label for="chg_tipo4">Apartado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1007" val="5" id="chg_tipo5" disabled>
-        <label for="chg_tipo5" class="tooltipped" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1008" val="6" id="chg_tipo6" disabled>
-        <label for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005 hide" val="3" id="chg_tipo3" disabled>
+        <label class="hide" for="chg_tipo3">Consignación</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1006 hide" val="4" id="chg_tipo4" disabled>
+        <label class="hide" for="chg_tipo4">Apartado</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1007 hide" val="5" id="chg_tipo5" disabled>
+        <label class="hide" for="chg_tipo5" class="tooltipped" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1008 hide" val="6" id="chg_tipo6" disabled>
+        <label class="hide" for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
 
     <div class="col s12 m3 l3 cre gen hide" align="center">

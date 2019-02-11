@@ -1,6 +1,7 @@
 var param = '';
 var config;
 var idext = 0;
+var pril = $("#codp")
 
 $(function(){
   param = getParameterByName('tf');
@@ -45,7 +46,7 @@ $(function(){
             inicial = $("#codp");
             break;
         case 2:
-            inicial = $("#descp");
+            inicial = pril =$("#descp");
             break;
         case 3:
             inicial = $("#ecouser");
@@ -124,7 +125,7 @@ function cargarOCompras(){
 
     $(".addline").click(function(){
         if ($("#valores").data('elemento') == undefined) {
-            $("#codp").focus();
+            pril.focus();
             return false
         }
         var cant = parseFloat($("#cantp").val());
@@ -217,7 +218,7 @@ function cargarCompras(){
 
     $("#vplazo").blur(function(){
         doplazo($(this).val());
-        $(".zelda").data("triforce")['vidcliente'] == 0 ? $("#ncli").focus() : $("#codp").focus();
+        $(".zelda").data("triforce")['vidcliente'] == 0 ? $("#ncli").focus() : pril.focus();
     });
 
     $("#descup").keyup(function(e){
@@ -238,7 +239,7 @@ function cargarCompras(){
 
     $(".addline").click(function(){
         if ($("#valores").data('elemento') == undefined) {
-            $("#codp").focus();
+            pril.focus();
             return false
         }
         var cant = parseFloat($("#cantp").val()),
@@ -328,12 +329,13 @@ function cargarCompras(){
         var cv = parseFloat($("#precp").val().replace(/,/g,''));
         cv = $("#iva").is(':checked') ? cv/(1+im/100) : cv;
         cv = cv *(1-(de/100));
-
+        console.log($("#valores").data('elemento')['idp']+','+$("#valores").data('elemento')['hinv']+','+$("#cantp").val().replace(/,/g,'')+','+cv)
         cv = getDatos('',258,$("#valores").data('elemento')['idp']+','+$("#valores").data('elemento')['hinv']+','+$("#cantp").val().replace(/,/g,'')+','+cv,0,0,0)[0][0][0];
         $("#preponderado").html(parseFloat(cv).formatMoney(2,'.',','))
         var util = parseFloat($(this).val().replace(/,/g,''));
         var im = parseFloat($("#valor_grabado").val().replace(/,/g,''));
-        im = isNaN(im) ? 13 : im;
+        im =  $("#iva").is(':checked') ? isNaN(im) ? 13 : im : 0;
+        console.log(cv+' '+im)
         var ppublico = (cv*(1+util/100))*(1+im/100);
         if(parseInt(config[14]))
                 $("#pventa").val((Math.ceil(parseInt( ppublico )/5)*5).formatMoney(2,'.',','))
@@ -451,7 +453,7 @@ function cargarVentas(){
 
     $(".addline").click(function(){
         if ($("#valores").data('elemento') == undefined) {
-            $("#codp").focus();
+            pril.focus();
             return false
         }
         var cant = parseFloat($("#cantp").val()),
@@ -704,7 +706,7 @@ function cargarGlobal(){
     
     $(document).on("blur",".cantd",function(e){
         totalizar();
-        $("#codp").focus();           
+        pril.focus();           
     });
 
     $(document).on("click",".fedit",function(){

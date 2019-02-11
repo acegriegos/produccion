@@ -295,18 +295,18 @@
 
             <table>
             {section name=LE loop=$NIV}
-            <tr class="precionivel chg0 {if $smarty.session.BUSS neq 0} hide {/if}" id="f{$NIV[LE][0]}" style="border: 1px solid #e2e2e2">
+            <tr class="precionivel chg0 {if $smarty.session.BUSS neq 0 && $smarty.session.BUSS neq 3} hide {/if}" id="f{$NIV[LE][0]}" style="border: 1px solid #e2e2e2">
                 <td style="padding: 0px"><b>Categoria: {$NIV[LE][1]}</b></td>
                 <td class="center-align input-field" style="padding: 0px">
                     <i class="mdi prefix">%</i>
                     <input type="text" id="vgganancia{$NIV[LE][0]}" class="validate calcvv eder gan numeric" value="0.00" data-mask="9999999999.99" num="2" style="margin: 0px">
                     <input type="hidden" id="vganancia{$NIV[LE][0]}" value="0" class="rgan">
                 </td>
-                <td class="center-align input-field {if $smarty.session.BUSS neq 0} hide {/if}" style="padding: 0px">
+                <td class="center-align input-field" style="padding: 0px">
                     <i class="mdi prefix moneda">¢</i>
                     <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven numeric" value="0.00" data-mask="9999999999.99" num="3" style="margin: 0px">
                 </td>
-                <td class="center-align input-field {if $smarty.session.BUSS neq 0} hide {/if}" style="padding: 0px">
+                <td class="center-align input-field" style="padding: 0px">
                     <i class="mdi prefix">%</i>
                     <input type="text" id="vexoneracion{$NIV[LE][0]}" class="validate calcvv eder exo numeric" value="0.00"  num="4" style="margin: 0px">
                 </td>

@@ -6,7 +6,7 @@ $(document).on("change","#vidinventario",function(){
 	var id = $(this).val();
 	var tabla = $("#data-table-inventarios").DataTable();
 	tabla.destroy();
-	arr('login',6,'',127,id,0,1,$("#listainventarios"));
+	arr('login',6,'',127,id+',@@impresa',0,1,$("#listainventarios"));
 	$("#data-table-inventarios").DataTable({
         bFilter : true,
         bScrollInfinite : true,

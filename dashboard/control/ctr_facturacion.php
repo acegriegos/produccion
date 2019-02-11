@@ -42,8 +42,14 @@
 
 	   			if($_REQUEST['tp'] == 'true')
 	   				require_once 'view/ajax/facturas/facturapv.php';
-	   			else
-   					require_once 'view/ajax/facturas/factura.php';
+	   			else{
+	   				$medio = $kakaroto->kamehameha('tfact',40,'idsucursal = @@impresa')[0][0];
+	   				if ($medio) {
+	   					require_once 'view/ajax/facturas/facturamedia.php';
+	   				}else
+	   					require_once 'view/ajax/facturas/factura.php';
+   					
+	   			}
 	   			break;
 	   		case 7:
 	   			$pagina = 1;

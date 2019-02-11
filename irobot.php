@@ -8,7 +8,7 @@
 <?php 
     require_once '_config/mysqlDB.php';
     $db = new DBClass();
-
+    set_time_limit(0);
     if (isset($_REQUEST['succ'])) {
         $valores = $db->ejecutar('select botmail,botpswd from ajustessucursales where idsucursal = '.$_REQUEST['succ'])->fetch_all()[0];
         $username = $valores[0];
