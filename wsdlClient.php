@@ -1412,7 +1412,7 @@
                                         $this->sumaimpuestos += $sub_array[2];
                                         $sum_imp += $sub_array[2];
                                         $impuesto['Monto'] = $sub_array[2];
-                                        $impuesto['Tarifa'] = ($sub_array[2]/$value[8])*100;
+                                        $impuesto['Tarifa'] = str_replace(',','',receil(number_format(($sub_array[2]/$value[8])*100)));
                                     }else{
                                         $this->sumaimpuestos += $sub_array[2];
                                         $sum_imp += $sub_array[2];

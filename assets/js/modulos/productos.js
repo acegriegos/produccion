@@ -2007,7 +2007,7 @@ function cargar(vmodulo, vid) {
 			break;
 
 		case 'servicio':
-			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,descripcion as vdescripcion,pfactura as vpfactura,periodo as vperiodo,idproveedor as vidproveedor,pcompra as vprecio,pganancia as vpganancia,idmoneda as vidmoneda';
+			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,descripcion as vdescripcion,pfactura as vpfactura,periodo as vperiodo,idproveedor as vidproveedor,pcompra as vprecio,pganancia as vpganancia,idmoneda as vidmoneda,venta as vventa';
 			vmodulo['tbl'] = 16;
 			vmodulo['where'] = 'id = ' + vid;
 			break;

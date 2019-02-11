@@ -210,7 +210,7 @@
           
 
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-          <label for="iva"  class="trCompra hide valor_grabado" style="float: left;margin-right: 5px">IVI</label>
+          <label for="iva" class="hide valor_grabado" style="float: left;margin-right: 5px">IVI</label>
           <input type="checkbox" name="isexcento" id="exct" hclk="0">
           <label for="exct" class="trCompra hide"  style="float: left;margin-right: 5px">Exento</label>
       {if $smarty.session.BUSS neq 1}
@@ -293,8 +293,7 @@
 
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
             <div class="col s8">
-                <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-                <label for="iva" class="hide" style="float: left;">IVI</label>
+      
             </div>
             <div class="col s4" style="padding: 0px">
              <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
@@ -456,6 +455,14 @@
         <select id="monedas">
           {section name="LE" loop=$MON}
             <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
+          {/section}
+        </select>
+      </div>
+      <div class="input-field">
+        <select id="vidagente" type="select">
+            <option value="0">Agente</option>
+          {section name="LE" loop=$AG}
+            <option value="{$AG[LE][0]}">{$AG[LE][1]}</option>
           {/section}
         </select>
       </div>
@@ -975,4 +982,4 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.0.90"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.0.91"></script>

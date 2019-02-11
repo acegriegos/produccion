@@ -86,7 +86,7 @@ $(function(){
         var estado = param == 5 ? 5 : 1;
 
         setTimeout(function(){inicial.focus();},300);
-         $(".zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0,vidusuario:'', vidsucursal:'', videstado:estado, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0,vidtipopago : 0, vextrapagos : 0,vidodt:0,vdivisa : 0, saldo : 0, notific : 0});
+         $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0,vidusuario:'', vidsucursal:'', videstado:estado, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0,vidtipopago : 0, vextrapagos : 0,vidodt:0,vdivisa : 0, saldo : 0, notific : 0});
     }else{
        var vidp = getParameterByName('id');
        cargarFactura(vidp,asoc);

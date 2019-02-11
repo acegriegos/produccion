@@ -1314,9 +1314,9 @@ function cargarMoneda(idmoneda,elemento){
 
                 pre = monto / pmonto; 
                 tot = parseFloat(pre * valor).toString().split(".");
-                decimals = tot[1];
+                decimals = tot[1] == undefined ? 0 : tot[1];
                 real = tot[0];
-                tot = decimals > 2 ? parseFloat(real+"."+decimals.substr(0,2))+0.01 : parseFloat(real+"."+decimals) 
+                tot = decimals > 2 ? parseFloat(real+"."+decimals.substr(0,2))+0.01 : parseFloat(real+"."+decimals);
             }else
                 tot = parseFloat($(this).attr('base'));
 

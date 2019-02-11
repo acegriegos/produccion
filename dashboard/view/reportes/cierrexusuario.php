@@ -5,15 +5,14 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.90">
+<link href="../assets/css/materialize.css?v=10.0.0.91">
 <style>
   @media print {
     .print{
       display: none;
     }
-  }
 
-  @page {
+      @page {
     margin: 0;
   }
 
@@ -23,6 +22,9 @@
     font-weight: normal !important; 
 
   } 
+  }
+
+
 </style>
 </head>
 <body style="margin-left: 35%;margin-right: 35%" >
@@ -44,7 +46,7 @@
           <img src="../assets/img/logo.png" class="img-responsive" width="40%">
         </div>
     </div>
-    <div>
+    <div class="center">
       <b>Cierre N°</b>
       <span id="numfact" > <?php echo $cierre[0]; ?> </span><br>
       <b>Usuario: </b>
@@ -248,8 +250,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.0.0.90"></script>
-    <script src="../assets/js/materialize.js?v=10.0.0.90"></script>
+    <script src="../assets/js/jquery.js?v=10.0.0.91"></script>
+    <script src="../assets/js/materialize.js?v=10.0.0.91"></script>
 
      <script type="text/javascript">
    $(function(){
@@ -271,10 +273,6 @@
       $(".print").click(function(){
         window.print();
       });
-
-      if(parseInt(param)){
-        window.print();
-      }
    })
  </script>
   </body>

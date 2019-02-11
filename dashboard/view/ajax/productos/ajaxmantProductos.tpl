@@ -128,6 +128,11 @@
                         <label for="vidmoneda">Moneda</label>
                     </div>
 
+                    <div class="input-field marginzero col s12">
+                        <input type="text" id="vcomision" value="0" noClear="1" class="eder">
+                        <label>Comision de Venta</label>
+                    </div>
+
                     {if $smarty.session.BUSS neq 0} 
                     {if $smarty.session.BUSS eq 3}
                         <div class="input-field marginzero col s12 hide" id="cantpro">
@@ -249,8 +254,7 @@
 
         </div>
 
-        <div id="financiero" class="row hide" style="padding: 20px 10px 0 10px">
-            
+        <div id="financiero" class="row hide" style="padding: 20px 10px 0 10px">            
             <div class="center"><b>Precio General</b> <br><br> </div>
             <div class="row">
 
@@ -561,4 +565,4 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.90"></script> -->
+<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.91"></script> -->

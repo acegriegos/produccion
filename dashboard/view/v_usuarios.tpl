@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Usuarios</title>
 {$STY}
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css?v=10.0.0.90">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css?v=10.0.0.91">
 
 </head>
 
@@ -33,7 +33,7 @@
 
 </div>
 {$SCR}
-<script src="../assets/js/modulos/usuarios.js?v=10.0.0.90"></script>
+<script src="../assets/js/modulos/usuarios.js?v=10.0.0.91"></script>
 
 </body>
 </html>

@@ -158,12 +158,15 @@ h3 {
     color: black !important;
     padding: 2% 2% !important; }
 
-  footer {
+    #segundo{
+      display: block !important;
+    }
+/*  footer {
     width: 100%;
     text-align: center !important;
     position: fixed;
     bottom: 0;
-  }  
+  }  */
   
   }
 @page {
