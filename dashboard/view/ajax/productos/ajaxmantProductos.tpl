@@ -18,44 +18,42 @@
 	</div>
 	<div class="row pequeño">
 		<div class="col s12 m12 l12 pequeño">
-			<table class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap" cellspacing="0" width="100%" id="data-table-productos">
-				<thead>
-					<tr>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código {$TMPCIA}</th>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código Interno</th>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Marca</th>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Precio Costo</th>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Precio Venta</th>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Ganancia</th>
-						<th class="white-text tab1" style="border: 0; border-radius: 0px !important; width: 18%;">Acciones</th>
-					</tr>
-				</thead>
-				<tbody id="listaproductos">
-					{section name=LE loop=$PROD}
-					<tr>
-						<td style="padding: 10px;">{$PROD[LE][1]}</td>
-						<td style="padding: 10px;">{$PROD[LE][2]}</td>
-						<td style="padding: 10px;">{$PROD[LE][3]}</td>
-						<td style="padding: 10px;">{$PROD[LE][4]}</td>
-						<td style="padding: 10px;">{$PROD[LE][5]}</td>
-						<td style="padding: 10px;">{$PROD[LE][6]}</td>
-						<td style="padding: 10px;">{$PROD[LE][7]}</td>
-						<td>
-							{if $smarty.session.BUSS eq 0} <a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh per4115  " id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a> {/if}
-							<a class="btn-color pbtn descuentos per4103 mdi mdi-percent mdi-24px modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"></a>
-							{if $smarty.session.BUSS eq 0} <a class="btn-color pbtn salidainv per4116 mdi mdi-arrow-down-bold-box mdi-24px  modal-trigger  " id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"></a> {/if}
-							<a class="btn-color pbtn load mdi mdi-pencil mdi-24px per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" modulo="producto"></a>
-							<a class="btn-color pbtn cdel delete  mdi mdi-close mdi-24px per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" modulo="producto"></a>
-						</td>
-					</tr>
-					{/section}
-				</tbody>
-			</table>
+            <table class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap" cellspacing="0" width="100%" id="data-table-productos">
+                <thead>
+                    <tr>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Código {$TMPCIA}</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Cantidad</th>
+                        <th class="white-text tab1 per4119" style="border: 0; border-radius: 0px !important;">Precio Costo</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Precio Venta</th>
+                        <th class="white-text tab1 per4120" style="border: 0; border-radius: 0px !important;">Ganancia</th>
+                        <th class="white-text tab1" style="border: 0; border-radius: 0px !important; width: 18%;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="listaproductos">
+                    {section name=LE loop=$PROD}
+                    <tr>
+                        <td>{$PROD[LE][1]}</td>
+                        <td>{$PROD[LE][3]}</td>
+                        <td>{$PROD[LE][4]}</td>
+                        <td style="text-align: right;" class="per4119">{$PROD[LE][5]}</td>
+                        <td style="text-align: right;">{$PROD[LE][6]}</td>
+                        <td style="text-align: right;" class="per4120">{$PROD[LE][7]}</td>
+                        <td style="width: 18%">
+                            <a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh per4115000 hide  " id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
+                            <a class="btn-color pbtn descuentos per4103 mdi mdi-percent mdi-24px modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"></a>
+                            <a class="btn-color pbtn salidainv per4116000 hide mdi mdi-arrow-down-bold-box mdi-24px  modal-trigger  " id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"></a>
+                            <a class="btn-color pbtn load mdi mdi-pencil mdi-24px per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" modulo="producto"></a>
+                            <a class="btn-color pbtn cdel delete  mdi mdi-close mdi-24px per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" modulo="producto"></a>
+                        </td>
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
         <ul class="left showing" modulo="14"><small></small></ul>
-		<ul class="pagination right" vtbl="14" modulo="productos"></ul>
-		<br><br><br>
-	</div>
+        <ul class="pagination right" vtbl="14" modulo="productos"></ul>
+        <br><br><br>
+    </div>
 </div>
 <div id="modal-productos" class="modal modal-fixed-footer grandemodal">
 	<div class="modal-header">

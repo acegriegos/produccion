@@ -234,11 +234,23 @@
 
 {if $TR eq 4 or $TR eq 0}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="reporte pbtn" href="inventarios" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
 </a>
 <div class="row">
 <div class="col s12">
 <p>Inventarios General</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Cuentas por Cobrar</p>
 </div>
 </div>
 </div>

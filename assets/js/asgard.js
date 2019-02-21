@@ -331,8 +331,8 @@ $(document).on("keyup",".buscarNom",function(e){
 });
 
 $(document).on("keyup","[id^=search_]",function(e){
-    var code = e.which || e.keyCode
-    if (code == 13) {
+    // var code = e.which || e.keyCode
+    // if (code == 13) {
         var a = $(this).val().replace(/"/g,'\\\"');
         var b = $(this).prop('id').substr(7);
         var c = $(this).attr('num').substr(1);
@@ -345,7 +345,7 @@ $(document).on("keyup","[id^=search_]",function(e){
         filltable(h,b,c,g);
         $(".pagination").html('');
         paginate(c,i)
-    }
+    //}
 });
 
 function doGlobal(accion,modulo,tip,varias){
@@ -434,11 +434,11 @@ function loadpool(vmodulo,vid,vvarias){
 
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
             case 'select':
-
+            
             if ($("#"+vform+" #"+columns[0][1][i]['name']).attr('multiple') == undefined){
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
-
+                
                 if (columns[0][0][0][i] != '') 
                     $("#"+vform+" #"+columns[0][1][i]['name']).change();
             }
@@ -1159,6 +1159,7 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr,colbase,coldata,colbel
 function doreport() {
     var filtros = $(".inpreport").length;
     var elem = $(".principal .filtros").attr('elem').split(',');
+    elem = $(".principal .filtros").attr('elem').indexOf(',') == -1 ? [] : elem;
     var tbl = $(".principal .filtros").attr('sp');
     var atributos = '';
     var vmodulo = {};

@@ -8,7 +8,7 @@
     <title>Documentos Electrónicos</title>
    {$STY}
    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.91">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.0.0.91">
+    <link rel="stylesheet" type="text/" href="../assets/css/modulos/style-documentos.css?v=10.0.0.91">
   </head>
   <body>
   <br>
@@ -165,7 +165,7 @@
         </div>
         </div>
         <div class="modal-content">
-            <a class="mdi mdi-24px mdi-refresh der act black-text tooltipped" data-tooltip="Refrescar" data-position="buttom" style="cursor: pointer;"></a>
+           
             <div class="center iloop hide actin" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
             <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-compras" style="width: 100%">
                 <thead>
@@ -178,6 +178,25 @@
                     </tr>
                 </thead>
                 <tbody id="bcompras"></tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Salir</a>
+        </div>
+    </div>
+
+       <div id="modal-shcompra" class="modal modal-fixed-footer grandemodal" style="width: 80%">
+        <div class="modal-content">
+            <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-dtcompras" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="bdtompras"></tbody>
             </table>
         </div>
         <div class="modal-footer">

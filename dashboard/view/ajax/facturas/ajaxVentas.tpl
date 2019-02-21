@@ -40,7 +40,7 @@
       <div class="col s12 m{$column} l{$column} concre movil" align="center">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1003" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2">
         <label for="chg_tipo2">Crédito</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005 hide" val="3" id="chg_tipo3" disabled>
         <label class="hide" for="chg_tipo3">Consignación</label>
@@ -190,7 +190,7 @@
 <!-- DETALLE FACTURA -->
   <div class="card z-depth-3 p2 ps hide-on-med-and-down">
   <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b>
-    
+
     <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" ></a>
     
     {if $smarty.session.BUSS eq 0}
@@ -199,7 +199,11 @@
  </div>
 
   <div class="row">
-    <div class="col s12 hide-on-med-and-down">
+    <div class="col s12">
+      <select class="browser-default" id="invgeneral" style="margin: 0px;width: 150px;padding: 0px;float: left;">
+        <option value="6">NARANJO</option>
+        <option value="10">SAN CARLOS</option>
+      </select>
           <input type="radio" name="tcompra" id="tc1" value="1" class="with-gap" checked>
           <label for="tc1"  class="trCompra hide" style="float: left;margin-right: 5px">Costo</label>
           <input type="radio" name="tcompra" id="tc2" value="2" class="with-gap">
@@ -207,14 +211,12 @@
           <input type="radio" name="tcompra" id="tc3" value="3" class="with-gap">
           <label for="tc3"  class="trCompra hide" style="float: left;margin-right: 5px">Gasto no Diferido</label>
     <section class="right">
-          
-
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
           <label for="iva" class="hide valor_grabado" style="float: left;margin-right: 5px">IVI</label>
           <input type="checkbox" name="isexcento" id="exct" hclk="0">
-          <label for="exct" class="trCompra hide"  style="float: left;margin-right: 5px">Exento</label>
+          <label for="exct" class="hide"  style="float: left;margin-right: 5px">Exento</label>
       {if $smarty.session.BUSS neq 1}
-        <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
+        <a href="#" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
       {/if}
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
         <label for="barras" class="isfast"><i class="mdi mdi-barcode mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" data-position="bottom" style="font-size: 1.4em"></i></label>
@@ -369,7 +371,10 @@
           </div>
 
           <div class="center col s12 m2 row" style="font-size: 1em;  padding: 0px 5px !important;">
-
+            <div style="padding: 0 !important;" class="col s8 input-field valor_grabado">
+                <input type="text" id="valor_grabado" autocomplete="off" class="eder">
+                <label for="valor_grabado">IV</label>
+            </div>
             <div class="col s4" style="padding: 0px">
               <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
@@ -378,7 +383,7 @@
 
         </div>
 
-        <div class="trCompra hide trsec hide-on-med-and-down row">
+        <div class="trComprax hide trsec hide-on-med-and-down row">
           <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad %</b></div>
           <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad $</b></div>
           <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Precio Público</b></span></div>
@@ -387,7 +392,7 @@
           <div style="padding: 0 !important;" class="col s2"></div>
         </div>
 
-        <div class="trCompra hide trsec hide-on-med-and-down row">
+        <div class="trComprax hide trsec hide-on-med-and-down row">
 
           <div style="padding: 0px 5px !important" class="input-field col s2">
             <input type="text" class="f center putil" id="putil" value="0" placeholder="Utilidad %" autocomplete="off">
@@ -403,14 +408,40 @@
 
           <div style="padding: 0 !important;" class="col s2 center"><span id="preponderado">0.00</span></div>
           <div style="padding: 0 !important;" class="col s1"></div>
-          <div style="padding: 0 !important;" class="col s2 input-field valor_grabado">
-              <input type="text" id="valor_grabado" autocomplete="off">
-              <label for="valor_grabado">Valor Gravado</label>
-          </div>
+         
 
         </div>
 
       </div>
+
+      <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px">
+        <table style="border: 1px solid #e2e2e2">
+          <thead>
+            <tr>
+              <th align="center">Tipo</th>
+              <th>Margen(%)</th>
+              <th>Venta</th>
+          </tr>
+          </thead>
+          
+          <tr id="n0">
+            <td>Publico</td>
+            <td><span class="gan1">0.00</span> -> <span class="gan2">0.00</span></td>
+            <td><span class="ven1">0.00</span> -> <span class="ven2">0.00</span></td>
+          </tr>
+          <tr id="n1">
+            <td>Intermedio</td>
+            <td><span class="gan1">0.00</span> -> <span class="gan2">0.00</span></td>
+            <td><span class="ven1">0.00</span> -> <span class="ven2">0.00</span></td>
+          </tr>
+          <tr id="n2">
+            <td>Distribuidor</td>
+            <td><span class="gan1">0.00</span> -> <span class="gan2">0.00</span></td>
+            <td><span class="ven1">0.00</span> -> <span class="ven2">0.00</span></td>
+          </tr>
+        </table>
+      </div>
+
       <div class="trcompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="ventap" class="eder" autocomplete="off">
@@ -459,12 +490,14 @@
         </select>
       </div>
       <div class="input-field">
+         {if $smarty.session.TMPT eq 1 || $smarty.session.TMPT eq 7}
         <select id="vidagente" type="select">
             <option value="0">Agente</option>
-          {section name="LE" loop=$AG}
-            <option value="{$AG[LE][0]}">{$AG[LE][1]}</option>
+          {section name="LE" loop=$AGE}
+            <option value="{$AGE[LE][0]}">{$AGE[LE][1]}</option>
           {/section}
         </select>
+        {/if}
       </div>
     </div>
 
@@ -550,9 +583,11 @@
 
           <div class="col s12" style="padding: 0px;">
             <div class="row" style="padding: 0px;">
+              {if $smarty.session.TMPT eq 1 || $smarty.session.TMPT eq 7}
               <div class="col s6 hide clieBTN" id="exobtn" style="padding: 0px;">
-                <a href="#modal-exo" class="btn doexo modal-trigger" style="width: 90%;padding-left: 19px; ">Exonerar</a>
+                <a href="#modal-exo" class="btn doexo modal-trigger" style="width: 90%;padding-left: 19px;">Exonerar</a>
               </div>
+              {/if}
               <div class="col s6" style="padding: 0px;">
                 <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
               </div>

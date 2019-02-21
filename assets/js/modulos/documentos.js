@@ -257,6 +257,17 @@ $(document).on("click",".status",function(){
             $("#e"+vid).css('color',color);
 		});
 });
+$(document).on("click",".shcompra",function(){
+    var dtcompra = getDatos('comodin,format(cantidad,2),format(precio,2),format(precio*cantidad+imv-descuento,2)',263,'idfactura = '+$(this).parent().parent().attr('id').substr(2),0,0,0);
+    $("#modal-shcompra").modal('open');
+    $("#bdtompras").html();
+    var str = '';
+    for (var i = 0; i < dtcompra[0].length; i++) {
+        str += '<tr><td>'+dtcompra[0][i][0]+'</td><td>'+dtcompra[0][i][1]+'</td><td>'+dtcompra[0][i][2]+'</td><td>'+dtcompra[0][i][3]+'</td></tr>';
+    }
+    $("#bdtompras").html(str);
+})
+
 
 $(document).on("change","input[name=tventa]",function(){
 	var id = parseInt($(this).attr('id').substr(2));

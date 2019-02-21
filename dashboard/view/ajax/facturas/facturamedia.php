@@ -2,15 +2,10 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.90">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.90">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.90">
-=======
+
 <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.0.91">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.0.91">
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.0.0.91">
->>>>>>> 427336be449fabf5e82af18e462071d430dce628
 
 <style type="text/css">
   html{
@@ -24,6 +19,7 @@
 <body class="grey darken-4 pequeño" style="font-size: 1.1em;">
 
   <div class="row">
+    <br><br>
     <div class="col s12 m9 l9">
 
       <!-- MAIN -->
@@ -129,11 +125,7 @@
 
 
         <table class=" bordered  dt-responsive nowrap " style="border: 0px;" id="detalle">
-<<<<<<< HEAD
-          <thead class="imprimirSINBOR margen">
-=======
           <thead class=" margen">
->>>>>>> 427336be449fabf5e82af18e462071d430dce628
             <tr>
               <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th1">Cantidad</th>
               <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th2">Código</th>
@@ -256,13 +248,9 @@
                     <?php } ?>
 
                     <tr>
-<<<<<<< HEAD
-                      <td  class="left-align sinborde imprimirSINBOR" style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
-                      <td  class="right-align sinborde imprimirSINBOR" style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
-=======
+
                       <td  class="left-align sinborde " style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
                       <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
->>>>>>> 427336be449fabf5e82af18e462071d430dce628
                     </tr>
                   </table>
                 </td>
@@ -310,11 +298,8 @@
             } ?>
             
               <!-- /FOOTER -->
-<<<<<<< HEAD
-              <div class="imprimirSINBOR center " style=" width: 100%; padding-right: 8% !important" >
-=======
+
               <div class=" center " style=" width: 100%; padding-right: 8% !important" >
->>>>>>> 427336be449fabf5e82af18e462071d430dce628
               <hr>
               <div>
                 <?php if ($transaccion[0][32] != '') { ?>
@@ -359,14 +344,8 @@
 
      </div>
 
-<<<<<<< HEAD
-
-     <script src="../assets/js/jquery.js?v=10.0.0.90"></script>
-     <script src="../assets/js/materialize.js?v=10.0.0.90"></script>
-     <script src="../assets/js/asgard.js?v=10.0.0.90"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.0.0.90"></script>
-=======
      <div class="row" id="segundo" style="display: none">
+      <br><br><br><br>
     <div class="col s12 m9 l9">
 
       <!-- MAIN -->
@@ -671,7 +650,7 @@
      <script src="../assets/js/materialize.js?v=10.0.0.91"></script>
      <script src="../assets/js/asgard.js?v=10.0.0.91"></script>
      <script src="../assets/js/modulos/recibos.js?v=10.0.0.91"></script>
->>>>>>> 427336be449fabf5e82af18e462071d430dce628
+
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

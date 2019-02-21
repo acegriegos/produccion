@@ -156,6 +156,8 @@ function cargarCompras(){
     $("#titfact").html("COMPRAS");
     $(".chg_tipo").attr('disabled',false);
     $("#vplazo").attr('disabled',false);
+    $("[for=iva]").removeClass('hide');
+    $("[for=exct]").removeClass('hide');
 
     $(".trCompra").removeClass('hide');
     $(".trsec.hide").remove(); //.trsec:hidden
@@ -226,16 +228,16 @@ function cargarCompras(){
         if (code == 13){
             $("#totp").val(parseFloat($("#precp").val().replace(/,/g,''))*(1-(parseFloat($(this).val())/100))*parseFloat($("#cantp").val()))
             $("#pventa").focus().select();
-            cargarUtilidad();
+            //cargarUtilidad();
         } 
             
     });
 
-    $("#pventa").keyup(function(e){
-        var code = e.which || e.keyCode;
-        if (code == 13) 
-            cargarUtilidad();//$(".addline").click()
-    });
+    // $("#pventa").keyup(function(e){
+    //     var code = e.which || e.keyCode;
+    //     if (code == 13) 
+    //         cargarUtilidad();//$(".addline").click()
+    // });
 
     $(".addline").click(function(){
         if ($("#valores").data('elemento') == undefined) {
@@ -292,7 +294,7 @@ function cargarCompras(){
             $("#valores").data('elemento')['hprec'] = valor;
             $("#descup").select().focus();
             
-            cargarUtilidad();
+            //cargarUtilidad();
         }
     });
     
@@ -301,7 +303,7 @@ function cargarCompras(){
             $("[for='exct']").addClass('hide').prop('checked',false);
         else
             $("[for='exct']").removeClass('hide');
-        cargarUtilidad();
+        //cargarUtilidad();
     });
 
     $(document).on("change","#exct",function(){
@@ -315,7 +317,7 @@ function cargarCompras(){
             if(parseInt($("#valor_grabado").val()) == 0)
                 $("#valor_grabado").val($("#valor_grabado").attr('orig'));
         }
-        cargarUtilidad();
+        //cargarUtilidad();
     });
 
     $("#putil").keyup(function(e){
@@ -335,7 +337,7 @@ function cargarCompras(){
         var util = parseFloat($(this).val().replace(/,/g,''));
         var im = parseFloat($("#valor_grabado").val().replace(/,/g,''));
         im =  $("#iva").is(':checked') ? isNaN(im) ? 13 : im : 0;
-        console.log(cv+' '+im)
+
         var ppublico = (cv*(1+util/100))*(1+im/100);
         if(parseInt(config[14]))
                 $("#pventa").val((Math.ceil(parseInt( ppublico )/5)*5).formatMoney(2,'.',','))
@@ -347,12 +349,12 @@ function cargarCompras(){
         var gv = ((vv-cv)*100)/cv;
         var hc = parseFloat($("#putil").attr('hprec'));
 
-        if (gv.toFixed(5) > hc.toFixed(5))
+        /*if (gv.toFixed(5) > hc.toFixed(5))
             $(".putil").css('color','green');
         else if(gv.toFixed(5) < hc.toFixed(5))
             $(".putil").css('color','red');
         else
-            $(".putil").css('color','black');
+            $(".putil").css('color','black');*/
     });
 
     function cargarUtilidad(){

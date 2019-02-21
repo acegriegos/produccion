@@ -26,7 +26,7 @@
                 <li><a class="optns" tipo="nombre,vcedula" href="#!" fltr="1">Nombre o Cédula</a></li>
                 <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
               </ul>
-              <input type="text" id="search_clientes" maxlength="100" num="v76" var="0,1" cambio="29">
+              <input type="text" id="search_clientes" maxlength="100" num="v76" var="0,1" cambio="29" autocomplete="off">
               <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
 
              
@@ -81,7 +81,7 @@
               <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
               <li class="tab col s3 hide"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
               <li class="tab col s3"><a href="#ser" class="white-text" id="ln5">Servicios</a></li>
-              <li class="tab col s3"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
+              <li class="tab col s3 hide"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
             </ul>
             </div>
             <div class="modal-content " style="padding: 0px;">
@@ -344,7 +344,30 @@
                   </div>
                 </div>
               </div>
-              <div class="col s12 m4 l3 expand-2 hide-on-small-only">
+
+              <div class="col s12 m4 l3">
+                <div class="input-field">
+                  <select type="select" id="vidmoneda">
+                    {section name=LE loop=$MON}
+                      <option value="{$MON[LE][0]}">{$MON[LE][1]}</option>
+                    {/section}
+                  </select>
+                  <label for="vidmoneda"></label>
+                </div>
+                
+                <div class="input-field">
+                  <select type="select" id="vidagente"> 
+                  <option value="0">Seleccione un Agente</option>
+                  {section name=LE loop=$AGE}
+                    <option value="{$AGE[LE][0]}">{$AGE[LE][1]}</option>
+                  {/section}                   
+                  </select>
+                  <label for="vidagente"></label>
+                </div>
+
+              </div>
+
+              <div class="col s12 m4 l3 expand-2 hide-on-small-only hide">
                 <div class="row" style="background: #DEDEDE"><br>
                   <div class="row hide">
                     <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-left mdi-24px"></i></div>

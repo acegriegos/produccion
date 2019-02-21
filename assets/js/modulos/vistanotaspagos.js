@@ -1,63 +1,67 @@
 $(function(){
-	var tf = param = getParameterByName('tf');
-	$('#tf'+tf).click();
+    var tf = param = getParameterByName('tf');
+    $('#tf'+tf).click();
 
-	config = getDatos('',42,'@@impresa',0,0)[0][0];
-    tf = tf == '' ? '3,7' : tf;
-	arr('login',6,'',187,'0,0,"'+tf+'|@@impresa","0,10"',0,1,$("#listafacturas"));
+    config = getDatos('',42,'@@impresa',0,0)[0][0];
+    tf = tf == '' ? '3' : tf;
+    arr('login',6,'',187,'0,0,"'+tf+'|@@impresa","0,10"',0,1,$("#listafacturas"));
     console.log('0,0,"'+tf+',@@impresa","0,10"')
-	var tabla = $("#data-table-facturas").DataTable();
-	tabla.destroy();
-	$("#data-table-facturas").dataTable({
-		bFilter: false,
-		bScrollInfinite: true,
-		bSort: false,
-		bLengthChange: false,
-		order: [],
-		bPaginate: false,
-		info: false
-	});
-	$(".pagination").attr('filtro_sp',tf+'|@@impresa')
-	paginate($("ul.pagination").attr('vtbl'),undefined,tf+'|@@impresa');
+    var tabla = $("#data-table-facturas").DataTable();
+    tabla.destroy();
+    $("#data-table-facturas").dataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+    $(".pagination").attr('filtro_sp',tf+'|@@impresa')
+    paginate($("ul.pagination").attr('vtbl'),undefined,tf+'|@@impresa');
 });
 
 $(document).on("change","input[name=tventa]",function(){
-	var id = parseInt($(this).attr('id').substr(2));
+    var id = parseInt($(this).attr('id').substr(2));
     id = id ==3 ? '3,7' : id;
-	$("#search_facturas").val('').attr('filtro',1);
-	$("[fltr=1]").click();
-	Materialize.updateTextFields();
+    $("#search_facturas").val('').attr('filtro',1);
+    $("[fltr=1]").click();
+    Materialize.updateTextFields();
 
-	var tabla = $("#data-table-facturas").DataTable();
-	tabla.destroy();
-	arr('login',6,'',187,'0,0,"'+id+'|@@impresa","0,10"',0,1,$("#listafacturas"));
-	$("#data-table-facturas").dataTable({
-		bFilter: false,
-		bScrollInfinite: true,
-		bSort: false,
-		bLengthChange: false,
-		order: [],
-		bPaginate: false,
-		info: false
-	});
+    var tabla = $("#data-table-facturas").DataTable();
+    tabla.destroy();
+    arr('login',6,'',187,'0,0,"'+id+'|@@impresa","0,10"',0,1,$("#listafacturas"));
+    $("#data-table-facturas").dataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
 
-	$(".pagination").attr('filtro_sp',id+',@@impresa')
-	paginate($("ul.pagination").attr('vtbl'),undefined,id+',@@impresa');
-	
+    $(".pagination").attr('filtro_sp',id+',@@impresa')
+    paginate($("ul.pagination").attr('vtbl'),undefined,id+',@@impresa');
+    
 });
 
 $(document).on("click",".print",function(){
-	var id = $(this).attr('id').substr(1);
-	var tp = $("#tps").is(":checked") ? 0 : 1;
-	window.open('cuentas?accion=4&id='+id+'&tp='+tp);
+    var id = $(this).attr('id').substr(1);
+    var tp = $("#tps").is(":checked") ? 0 : 1;
+    var tf = $("[name=tventa]:checked").attr('id').substr(2);
+    if (tf == '7')
+        window.open('cuentas?accion=5&id='+id+'&tp='+tp);
+    else
+        window.open('cuentas?accion=4&id='+id+'&tp='+tp);
 });
 
 $(document).on("click",".sendm",function(){
-	var clave = $(this).attr('id').substr(1);
-	var factura =  getDatos('idfactura,fe_getnumeracion(id*-1)',301,'id = '+clave,0,0,0)[0][0];
-	var vclave = factura[1];
-	factura = factura[0];
-	sendVMail(factura,clave,vclave);
+    var clave = $(this).attr('id').substr(1);
+    var factura =  getDatos('idfactura,fe_getnumeracion(id*-1)',301,'id = '+clave,0,0,0)[0][0];
+    var vclave = factura[1];
+    factura = factura[0];
+    sendVMail(factura,clave,vclave);
 });
 
 function sendVMail(idfact,idnota,cnota){
@@ -92,7 +96,7 @@ function sendVMail(idfact,idnota,cnota){
             enviarCorreo(3,str_correos,"Nota Crédito N° "+cnota,vbody[0],archivos);
         }
     
-		//
+        //
     }
 }
 

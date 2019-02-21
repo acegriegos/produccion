@@ -927,6 +927,7 @@
             if ($this->bearer == '') {
                 $salida['factura']  = $this->id;
                 $salida['estado']   = 'Problemas con la Llave Criptográfica';
+                $salida['bearer']   = $this->bearer;
                 return $salida;
             }
 
