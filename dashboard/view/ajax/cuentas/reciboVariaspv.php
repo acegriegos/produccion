@@ -64,8 +64,8 @@
 <?php 
 // $transaccion;
 // $miscelaneos;
-// $datos;  padding: 0% 37.5% 0% 37.5%
-$fecha = explode('-', $datos[3]);
+// $transaccion[0];  padding: 0% 37.5% 0% 37.5%
+$fecha = explode('-', $transaccion[0][0]);
 $logo = '<tr align="center">
     <td>
       <img src="'.$miscelaneos[3].'" alt="LOGO" width="60%">
@@ -82,13 +82,13 @@ echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;
 
   echo '<div class="container"  >
   <br><br>
-<table>';
+<table style="width:100%">';
 
 if($miscelaneos[3] != '')
   echo $logo;
 
-echo '<tr align="center" >
-     <td>
+echo '<tr>
+     <td align="center">
         <div align="center"> <b>'.$miscelaneos[0].'</b> <br> Ced. '.$miscelaneos[1].'
          <br> Telf. '.$miscelaneos[5].'<br> '.$miscelaneos[6].'
         </div>
@@ -99,45 +99,51 @@ echo '<tr align="center" >
 <table style="width: 100% !important;">
   <tr>
     <td align="left">Recibo N°</td>
-    <td colspan="3">'.$datos[9].'</td>
-  </tr>
-  <tr class="fe hide">
-    <td align="left" colspan="4">'.$datos[1].'</td>
+    <td colspan="3">'.$transaccion[0][1].'</td>
   </tr>
   <tr><td colspan="4"><br></td></tr>
   <tr>
-    <td align="left">Factura N°</td>
+    <td align="left">Abono Múltiple </td>
     <td width="13%" align="center">Día</td>
     <td width="13%" align="center">Mes</td>
     <td width="13%" align="center">Año</td>
   </tr>
   <tr>
-    <td align="left"><span class="fe hide"> '.$datos[13].' </span></td>
+    <td align="left"><span class="fe hide"></span></td>
     <td width="13%" align="center">'.$fecha[2].'</td>
     <td width="13%" align="center">'.$fecha[1].'</td>
     <td width="13%" align="center">'.$fecha[0].'</td>
   </tr>
 </table>
 <br>
-<table>
+<table style="width: 100% !important;">
   <tr >
-    <td colspan="2">CLIENTE:<br>'.$datos[4].'</td>
+    <td colspan="2">CLIENTE:</td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">'.$transaccion[0][2].'</td>
   </tr>
   <tr >
     <td width="50%">USUARIO: </td>
-    <td width="50%">'.$datos[10].'</td>
+    <td width="50%">'.$transaccion[0][3].'</td>
   </tr>
   <tr >
     <td width="50%">T. PAGO:</td>
-    <td width="50%">'.$datos[8].'</td>
+    <td width="50%">'.$transaccion[0][4].'</td>
+  </tr>
+   <tr>
+    <td width="50%">MONTO DE ABONO:</td>
+    <td width="50%">'.$transaccion[sizeof($transaccion)-1][10].'</td>
   </tr>
 </table>
   <br>
-<hr>
 <table  style="width: 100% !important;">
   <tr>
-    <td align="center" width="30%">SALDO ANT.</td>
-    <td align="center" width="40%">MONTO</td>
+    <td colspan="3" align="center">DESGLOCE DE ABONO</td>
+  </tr>
+  <tr>
+    <td align="center" width="30%">FACTURA</td>
+    <td align="center" width="40%">SALDO ANT.</td>
     <td align="center" width="30%">SALDO ACTUAL</td>
   </tr>
   <tr>
@@ -146,12 +152,14 @@ echo '<tr align="center" >
   
 echo '<tr>
     <td colspan="3" style="border-bottom: 1px dashed #A0A0A0;"></td>
-  </tr>
-  <tr>
-    <td align="center">'.$datos[11].$datos[12].'</td>
-    <td align="center">'.$datos[11].$datos[5].'</td>
-    <td align="center"> '.$datos[11].$datos[6].'</td>
-  </tr>
+  </tr>';
+
+  foreach ($transaccion as $obj) {
+      echo '<tr><td align="center">'.$obj[5].'</td>
+    <td align="center">'.$obj[6].$obj[7].'</td>
+    <td align="center"> '.$obj[6].$obj[8].'</td></tr>';
+  }  
+  echo '
 </table>';
 
 echo '<hr>

@@ -5,15 +5,14 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.0.90">
+<link href="../assets/css/materialize.css?v=10.0.0.99">
 <style>
   @media print {
     .print{
       display: none;
     }
-  }
 
-  @page {
+      @page {
     margin: 0;
   }
 
@@ -24,6 +23,9 @@
     font-weight: normal !important; 
 
   } 
+  }
+
+
 </style>
 </head>
 <body style="margin-left: 35%;margin-right: 35%" >
@@ -45,7 +47,7 @@
           <img src="../assets/img/logo.png" class="img-responsive" width="40%">
         </div>
     </div>
-    <div>
+    <div class="center">
       <b>Cierre N°</b>
       <span id="numfact" > <?php echo $cierre[0]; ?> </span><br>
       <b>Usuario: </b>
@@ -71,21 +73,24 @@
     <!-- INFO CONTACTO -->
     <div>
       <br>
-      Facturas contado: <span style="float: right;"><?php echo $cierre[3]; ?></span><br>
-      Facturas crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span> <br>
+      Facturas Contado: <span style="float: right;"><?php echo $cierre[3]; ?></span><br>
+      Facturas Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span> <br>
       Abonos: <span style="float: right;"><?php echo $cierre[4]; ?> </span> <br>
-      Notas crédito:<span style="float: right;"><?php echo $cierre[5]; ?> </span> <br>
-      Notas débito:<span style="float: right;"><?php echo $cierre[6]; ?> </span> <br>
+      Notas Crédito:<span style="float: right;"><?php echo $cierre[5]; ?> </span> <br>
+      Notas Débito:<span style="float: right;"><?php echo $cierre[6]; ?> </span> <br>
     </div>
     <hr>
     <div>
-      Ventas en efectivo: <span style="float: right;"><?php echo $cierre[7]; ?></span><br>
-      Ventas con tarjetas:<span style="float: right;"><?php echo $cierre[8]; ?></span><br>
-      Ventas en crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br>
-      Ventas con deposito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br>
+      Ventas en Efectivo: <span style="float: right;"><?php echo $cierre[7]; ?></span><br>
+      Ventas con Tarjetas:<span style="float: right;"><?php echo $cierre[8]; ?></span><br>
+      Ventas en Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br>
+      Ventas con Depósito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br>
       Excento:<span style="float: right;"><?php echo $cierre[22]; ?></span><br>
       IMV:<span style="float: right;"><?php echo $cierre[23]; ?></span><br>
-      <b>Ventas totales:</b> <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
+      <b>Ventas Totales:</b> <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
+      <br>
+      Caja Inicial:<span style="float: right;"><?php echo $cierre[20]; ?></span><br>
+      Caja Reportada: <span style="float: right;"><?php echo $cierre[18]; ?></span><br>
     </div>
       <div class="col s6 m6 l4"  style="padding: 0;display: none">
           <div class="col s12 m12"  style="padding: 0">
@@ -251,6 +256,7 @@
     </div>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     <script src="../assets/js/jquery.js?v=10.0.0.86"></script>
     <script src="../assets/js/materialize.js?v=10.0.0.86"></script>
@@ -262,6 +268,10 @@
     <script src="../assets/js/jquery.js?v=10.0.0.90"></script>
     <script src="../assets/js/materialize.js?v=10.0.0.90"></script>
 >>>>>>> c7ff1be61cd514652187c72b1f0687492ca13076
+=======
+    <script src="../assets/js/jquery.js?v=10.0.0.99"></script>
+    <script src="../assets/js/materialize.js?v=10.0.0.99"></script>
+>>>>>>> 52056c8c4f200813df8f554d1a0ae3aab9f3ac47
 
      <script type="text/javascript">
    $(function(){
@@ -283,10 +293,6 @@
       $(".print").click(function(){
         window.print();
       });
-
-      if(parseInt(param)){
-        window.print();
-      }
    })
  </script>
   </body>

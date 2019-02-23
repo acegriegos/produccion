@@ -77,6 +77,20 @@ $(function () {
 		$('.tooltipped').tooltip({delay: 50});
 		$("#vidmoneda").change(function(){
 	        cargarMoneda($('option:selected',this).val());
+
+	        if((parseInt($(this).val()) == 1 || $("#agProd").hasClass('add'))){
+	        	$("#costodivisa").addClass('hide');
+	        	$("#icosto").removeClass('pbtn').removeClass('change_moneda');
+	        	$("#icosto").val('¢');
+	        	$("#cdivisa").prop('checked',false).change();
+	        }
+	        else{
+	        	$("#costodivisa").removeClass('hide');
+	        	$("#icosto").addClass('pbtn').addClass('change_moneda');
+	        	$("#cdivisa").prop('checked',false).change();
+	        }
+
+	        $("#vdivisa").val($('option:selected',this).attr('dv'))
 	    });
 		cargarMoneda(0);
 	});
@@ -105,8 +119,22 @@ $(function () {
 		$("#addpackage").click();
 	} else
 		$("#m1").click();
+
+	$("#pg").change(function(){
+		if ($(this).is(":checked")) {
+			$("#vexoneracion").val(13).removeAttr('readonly')
+		}else
+			$("#vexoneracion").val(0).attr('readonly',true)
+	});
 	
 	permisos(4100,4200);
+});
+
+$(document).on("click",".change_moneda",function(e){
+	if($(this).val() == '$')
+		$(this).val('¢')
+	else
+		$(this).val('$')
 });
 
 $(document).on("keydown","#prodher",function(e){
@@ -146,10 +174,6 @@ $(document).on("blur","#prodher",function(){
 	// }else{
 	// 	$(".equivalente").addClass('hide');
 	// }
-
-});
-
-$(document).ready(function () {
 
 });
 
@@ -502,21 +526,6 @@ $(document).on("click", ".vfiltros", function () {
 	}
 });
 
-// $(document).on("click", ".filtersrv", function () {
-// 	var id = parseInt($(this).attr('filtro').substr(1));
-// 	var elemento = $("#searchsrv");
-// 	switch (id) {
-// 		case 1:
-// 			$("#fserv").attr('filter', id);
-// 			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
-// 			break;
-// 		case 2:
-// 			$("#fserv").attr('filter', id);
-// 			elemento.attr('placeholder', 'Buscar por ' + $(this).html());
-// 			break;
-// 	}
-// });
-
 $(document).on("click", ".filtropqt", function () {
 	var id = parseInt($(this).attr('filtro').substr(1));
 	var elemento = $("#lpq");
@@ -738,23 +747,6 @@ $(document).on("click","#porfact",function(){
 	}	
 });
 
-$(document).on("click","#goldinventariado",function(){
-
-	if ($("[for=vidinventario]:visible").length) {
-		if ($("._inventariado:visible").length) {
-	        $("._inventariado").addClass('hide')
-	    }else{
-	    	$("._inventariado").removeClass('hide')
-	    }
-	}else{
-		if ($("#vcantidad:visible").length) {
-	        $("#cantpro").addClass('hide')
-	    }else{
-	    	$("#cantpro").removeClass('hide')
-	    	$("#vcantidad").focus()
-	    }
-	}
-});
 
 $(document).on("click","#bProd",function(){
     if ($("#prod").val() != '' && $("#cantidad").val() != '') {
@@ -1198,84 +1190,6 @@ $(document).on("keyup","#cantServ",function(e){
     }
 });
 
-// $(document).on("click",".load",function(){
-//     $("#accmodalServ").html('Editar Servicio');
-//     $("#addV").removeClass('add');
-//     $("#addV").addClass('edit');
-//     $("#addV").html('Editar');
-
-//     if ($("#voptServ").val() == '') {
-//         if ($("#otros").is(':checked')) {
-//             $("#otros").click();
-//             $("#isPeriodo").click();
-//         }
-//     }
-
-//     var idS = $(this).attr('id').substr(1);
-//     $("#idServ").val(idS);
-
-//     var grav = $("#visgravado").val();
-//     if (grav == 1) {
-//         $("#inputGrav").prop("checked",true);
-//     }else{
-//         $("#inputExc").prop("checked",true);
-//     }
-
-//     var per = $("#vperiodo").val();
-//     if (per == 0) {
-//         $("#otros").prop("checked",false);
-//         $("#isPeriodo").prop("checked",false);
-//         $(".inpSPeriodo").prop("disabled",true);
-//         $(".inpSPeriodo").prop("checked",false);
-//     } else if (per == 30) {
-//         $("#otros").prop("checked",false);
-//         $("#isPeriodo").prop("checked",true);
-//         $(".inpSPeriodo").prop("disabled",false);
-//         $("#mensual").prop("checked",true);
-//     } else if (per == 365) {
-//         $("#otros").prop("checked",false);
-//         $("#isPeriodo").prop("checked",true);
-//         $(".inpSPeriodo").prop("disabled",false);
-//         $("#anual").prop("checked",true);
-//     } else {
-//         var arr = {}
-        
-//         arr['sel'] = 'periodo';
-//         arr['tbl'] = 16;
-//         arr['where'] = 'id = '+idS;
-
-//         var opcDia = mantenimiento('login',4,arr)[0][0][0];
-
-//         $("#isPeriodo").prop("checked",true);
-//         $(".inpSPeriodo").prop("disabled",false);
-//         $("#otros").prop("checked",true);
-//         $("#otros").click();
-//         $("#voptServ").val(opcDia);
-//     }
-
-//     var idS = $("#idServ").val();
-//     if (idS != 0) {
-
-//         var arr = {}
-//         arr['sel'] = 'idproveedor';
-//         arr['tbl'] = 16;
-//         arr['where'] = 'id ='+idS;
-//         var idprov = mantenimiento('login',4,arr)[0][0][0];
-
-//         $("#outsourcing").prop('checked',true);
-//         $("#prove").show();
-//         $(".ganServ").show();
-//         $("#vidprovee").val(idprov);
-//     }
-
-//     if ($("#vidprovee").val() == 0 ) {
-//         $("#outsourcing").prop('checked',false);
-//         $("#prove").hide();
-//         $(".ganServ").hide();
-//     }
-// });
-
-
 $(document).on("change","input[name=visgravado]",function(){
     if ($("#inputGrav").is(":checked")) {
         $("#inputGrav").val(1);
@@ -1299,26 +1213,18 @@ $(document).on("keyup",".calcvv",function(e){
 $(document).on("blur",".calcvv",function(){
 
 	var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
-	var costo = $("#vcosto").val().replace(/,/,'');
-	var impuestos = egeneral = 0;
-
-	$(".impuestos").each(function () {
-		var id = $(this).attr('id').substr(4);
-		impuestos += parseFloat($(this).attr('rf')) * (1 - parseFloat($("#impexo" + id).val()) / 100);
-	});
-
-	impuestos = isNaN(impuestos) ? 0 : impuestos;
+	var costo = parseFloat($("#vcosto").val().replace(/,/,''))/parseFloat($("#vdivisa").val());
+	var impuestos = parseFloat($("#vexoneracion").val());
 
 	if (parseInt(num) == 1) {
 		var tven = rven = 0;
 		$(".gan").each(function(){
 			var padre = $(this).parent().parent();
 			var ganancia = padre.find('.gan').val().replace(/,/g,'');
-			var exoneracion = padre.find('.exo').val().replace(/,/g,'');
 			var venta = padre.find('.ven').val().replace(/,/g,'');
 
-			tven = parseInt(venta) ? (((venta / (1 + (((impuestos - (impuestos * (exoneracion / 100)))) / 100))) / costo) - 1) * 100 : 0;
-			rven = parseInt(venta) ? ((venta / (1 + (((impuestos - (impuestos * (exoneracion / 100)))) / 100))) - costo) : 0;
+			tven = parseInt(venta) ? (((venta / (1+(impuestos/100)))/ costo) - 1)	 * 100 : 0;
+			rven = parseInt(venta) ? ((venta / (1+impuestos/100) ) - costo) : 0;
 			tven = isNaN(tven) ? 0 : tven;
 			padre.find('.gan').val(tven.formatMoney(2,'.',','));
 			padre.find('.rgan').val(rven.toFixed(5));
@@ -1326,26 +1232,23 @@ $(document).on("blur",".calcvv",function(){
 	}else{
 		var padre = $(this).parent().parent();
 		var ganancia = padre.find('.gan').val() == undefined ? 0 : padre.find('.gan').val().replace(/,/g,'');
-		var exoneracion = padre.find('.exo').val() == undefined ? 0 : padre.find('.exo').val().replace(/,/g,'');
 		var venta = padre.find('.ven').val() == undefined ? 0 : padre.find('.ven').val().replace(/,/g,'');
 		var tgan = tven = rven = 0;
 
 		costo = isNaN(costo) ? 0 : costo;
 		ganancia = isNaN(ganancia) ? 0 : ganancia;
-		exoneracion = isNaN(exoneracion) ? 0 : exoneracion;
 		venta = isNaN(venta) ? 0 : venta;
 
 		switch(num){
 			case 2: //POR GANANCIA
 				rven = costo * (ganancia / 100);
-				tven = costo * (((impuestos - (impuestos * (exoneracion / 100))) / 100) + 1) * ((ganancia / 100) + 1);
+				tven = costo * (1+impuestos/100) * ((ganancia / 100) + 1);
 				padre.find('.ven').val(tven.formatMoney(2,'.',','));
 				padre.find('.rgan').val(rven.toFixed(5));
 				break;
 			case 3: //POR VENTA
-			case 4: //POR EXONERACION
-				rven = parseInt(venta) ? ((venta / (1 + (((impuestos - (impuestos * (exoneracion / 100)))) / 100))) - costo) : 0;
-				tven = parseInt(venta) ? (((venta / (1 + (((impuestos - (impuestos * (exoneracion / 100)))) / 100))) / costo) - 1) * 100 : 0;
+				rven = parseInt(venta) ? ((venta / (1+impuestos/100)) - costo) : 0;
+				tven = parseInt(venta) ? (((venta / (1+impuestos/100)) / costo) - 1) * 100 : 0;
 				padre.find('.gan').val(tven.formatMoney(2,'.',','));
 				padre.find('.rgan').val(rven.toFixed(5));
 				break;
@@ -1389,6 +1292,7 @@ $(document).on("click","#addproduct",function(){
     $("#agProd").removeClass('edit');
 	$("#agProd").addClass('add');
 	$("#agProd").html('Agregar');
+	$("#costodivisa").addClass('hide');
     $("#listavariables").html('');
     deadclear('producto');
     var imp = arr('login',4,'',200,'11,0',0,0,0)[0];
@@ -1662,6 +1566,7 @@ function vaciar(modulo) {
 }
 
 function totalizar(costo, ganancia, tipo, line) {
+	costo = costo/parseFloat($("#vdivisa").val());
 	var subtotal = 0;
 	var hsubtotal = 0;
 	var impuestos = 0;
@@ -2007,7 +1912,7 @@ function cargar(vmodulo, vid) {
 			break;
 
 		case 'servicio':
-			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,descripcion as vdescripcion,pfactura as vpfactura,periodo as vperiodo,idproveedor as vidproveedor,pcompra as vprecio,pganancia as vpganancia,idmoneda as vidmoneda';
+			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,descripcion as vdescripcion,pfactura as vpfactura,periodo as vperiodo,idproveedor as vidproveedor,pcompra as vprecio,pganancia as vpganancia,idmoneda as vidmoneda,venta as vventa';
 			vmodulo['tbl'] = 16;
 			vmodulo['where'] = 'id = ' + vid;
 			break;
@@ -2123,6 +2028,10 @@ function endDetail(id, acc, modulo) {
 				actualizar(97,'cantidad='+$("#vcantidad").val(),'idinventario = 6 and idproducto='+id[0][0]);
 			}
 
+			if ($("#cdivisa").is(":checked")) {
+				actualizar(11,'divisa ='+$("#vidmoneda option:selected").attr('dv'),'id ='+id[0][0]);
+			}
+
 			thorload(modulo);
 			deadclear(modulo);
 			paginate(14);
@@ -2183,22 +2092,10 @@ function postload(vmodulo){
 			$("#agProd").removeClass('add');
 			$("#agProd").addClass('edit');
 			$("#agProd").html('Editar');
-
-			var imp = arr('login',4,'',200,'11,'+$("#fproductos .zelda").data('triforce')['vid'],0,0,0)[0];
-			var vimp = 0;
-			var impstr = '';
-		    $("#impuestos").html('');
-		    for (var i = 0, len = imp.length; i < len; i++) {
-		    	vimp += parseFloat(imp[i][3]);
-		        impstr += '<li class="collection-item dismissable" id="newimp'+imp[i][1]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][1]+'" rf="'+imp[i][3]+'" defecto="1">'+imp[i][5]+' : '+imp[i][3]+'%</span></div><div class="col s6"><label>Exoneracion</label><input id="impexo'+imp[i][1]+'" type="number" class="validate eder calcvv" value="'+imp[i][4]+'" style="margin: 0px;width: 50%"></div></div></li>';
-		    };
-		    $("#impuestos").append(impstr);
-		    $(".validate").css('border-bottom', '1px solid #9e9e9e');
-		    $(".validate").css('box-shadow', 'none');
-		    
-		    setTimeout(function(){$("#vfamilia").focus();},500);
-		    var vventa = $("#vventa").val().replace(/,/g,'') * (( (vimp*(1-($("#vexoneracion").val().replace(/,/g,'')/100)) )/100)+1);
-		    $("#vventa").val(vventa.formatMoney(2,'.',','));
+			if(parseInt($("#vidmoneda").val()) == 1)
+				$("#costodivisa").addClass('hide')
+			else
+				$("#costodivisa").removeClass('hide')
 		   	
 		    if(parseInt($("#fproductos .zelda").data('triforce')['visgravamen'])){
 		    	$("#pesaje").prop('checked',true);

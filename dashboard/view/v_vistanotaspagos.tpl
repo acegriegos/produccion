@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Movimientos Estado CxC</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.0.0.90">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.0.0.99">
   </head>
   <body>
   <br>
@@ -23,6 +23,10 @@
             <div class="col s4 l3">
                 <input name="tventa" class="with-gap" type="radio" id="tf3" checked />
                 <label for="tf3">Abonos</label>
+            </div>
+            <div class="col s4 l3">
+                <input name="tventa" class="with-gap" type="radio" id="tf7"/>
+                <label for="tf7">Abonos Multiples</label>
             </div>
 
             <div class="col s4 l3">
@@ -84,6 +88,6 @@
            
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.0.0.90"></script>
+    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.0.0.99"></script>
   </body>
 </html>

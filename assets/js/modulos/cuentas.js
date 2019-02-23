@@ -17,6 +17,7 @@ $(function(){
 			gtipo = 1;
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
+			console.log(arr('login',4,'',214,1+',0,0,0,2,@@impresa',0,0,0))
 			break;
 	};
 	$('select').material_select();
@@ -172,18 +173,20 @@ $(document).on("click",".pagomu",function(){
 	});
 
 	$("#ncli").focus().select();
+	if (config[5] == 1){
+        $("#p_vm").attr('checked',true);
+    }else{
+        $("#p_vm").attr('checked',false);
+    }
 });
 
 $(document).on("click","#btnPagar",function(){
 	var validado = validarpago();
 
 	if (validado == false) {
-		// ingresar a estadoscuentas
 
-		// ingresar pagosvarios
-		// var idpago = arr('login',4,'',410,'0,"1990-01-01",@@usr,@@impresa',0,0,0)[0][0];
-		// var idcliente = $("#hclie").val();
 		var monto = $("#monto").val().replace(/,/g,'');
+
 		var idfactura = val = vmonto = idestadocuenta = 0;
 		var saldo = $("#saldo").html().replace(/,/g,'');
 
@@ -192,7 +195,10 @@ $(document).on("click","#btnPagar",function(){
 			return false;
 		}
 
+		var idpag = arr('login',4,'',268,'1,0,@@usr,@@impresa',0,0,0)[0][0][0];
+
 		if ($(".factclie:checked").length) {
+
 			$(".factclie:checked").each(function(){
 				idfactura = $(this).val();
 				val = parseFloat($(this).attr('vl'));
@@ -200,29 +206,29 @@ $(document).on("click","#btnPagar",function(){
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,1,1',0,0,0);
 				}
 				else{
 					vmonto = val-monto*-1;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,1,1',0,0,0);
 					return false;
 				}	
 			});
 		}else{
+
 			$(".factclie").each(function(){
 				idfactura = $(this).val();
 				val = parseFloat($(this).attr('vl'));
-
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
 				}
 				else{
 					vmonto = val-monto*-1;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa',0,0,0);
 					return false;
-				}	
+				}
 			});
 		}
 		monto = $("#monto").val().replace(/,/g,'');
@@ -237,8 +243,8 @@ $(document).on("click","#btnPagar",function(){
 		$("#saldo").html('0.00');
 		$("#comentario").val('');
 		$("#idtipopagopagar").val(0).material_select('update');
-		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-		//window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+		var tp = $("#p_vm").is(":checked") == true ? 1 : 2;
+		window.open('cuentas?accion=5&id='+idpag+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 		
 	}else{
 		Materialize.toast(validado,4000,'red')
@@ -249,9 +255,9 @@ $(document).on("click","#btnPagar",function(){
 
 function validarpago() {
 	//validar
-	if($("#idtipopagopagar option:selected").val() == 0){
+	/*if($("#idtipopagopagar option:selected").val() == 0){
 		return 'Tipo de Pago Requerido'
-	}
+	}*/
 	return false;
 }
 

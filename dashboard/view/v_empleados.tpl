@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title></title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-empleados.css?v=10.0.0.90">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-empleados.css?v=10.0.0.99">
   </head>
   <body>
   <br>
@@ -16,6 +16,6 @@
 
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/empleados.js?v=10.0.0.90"></script>
+    <script src="../assets/js/modulos/empleados.js?v=10.0.0.99"></script>
   </body>
 </html>

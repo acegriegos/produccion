@@ -504,7 +504,7 @@
 
             $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$inv_xml['Clave'].'\"")')->fetch_all()[0];
 
-            if ($rs_compra[0] > 0) {
+            /*if ($rs_compra[0] > 0) {
                 $str = "";
                 switch ($rs_compra[1]) {
                     case 5:
@@ -521,14 +521,14 @@
                 }
                 $salida = ['succed' => 0,'ERROR' => 'Factura '.$str];
                 return false;
-            }
+            }*/
 
             $scedula = $inv_xml['NumeroCedulaReceptor'];
 
-            /*if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+            if ( strpos(trim(str_replace('-', '', $sucursal[1])), trim($scedula)) ) {
                 $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
                 return false;
-            }*/
+            }
 
             $prov = $db->ejecutar('call krattos("id",2,"id > 0 and bisproveedor and idsucursal = '.$sucursal[9].' and replace(cedula,\"-\",\"\") = replace('.$inv_xml['NumeroCedulaEmisor'].',\"-\",\"\") ")')->fetch_all();
 
@@ -557,7 +557,7 @@
         $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$salida['clave'].'\"")')->fetch_all()[0];
 
         
-        if ($rs_compra[0] > 0) {
+        /*if ($rs_compra[0] > 0) {
             $str = "";
             switch ($rs_compra[1]) {
                 case 5:
@@ -574,7 +574,7 @@
             }
             $salida = ['succed' => 0,'ERROR' => 'Factura '.$str];
             return false;
-        }
+        }*/
 
         $salida['emisor']['cedula'] = (array) $inv_xml->Emisor->Identificacion->Numero;
         $salida['emisor']['cedula'] = $salida['emisor']['cedula'][0];
@@ -586,10 +586,10 @@
         $scedula = isset($inv_xml->Receptor->Identificacion->Numero) ? (array) $inv_xml->Receptor->Identificacion->Numero : 0;
         $scedula = isset($scedula[0]) ? $scedula[0] : 0;
 
-        /*if (trim(str_replace('-', '', $sucursal[1])) != trim($scedula)) {
+        if (strpos(trim(str_replace('-', '', $sucursal[1])), trim($scedula))) {
             $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
             return false;
-        }*/
+        }
 
         $salida['emisor']['nombre'] = (array) $inv_xml->Emisor->Nombre;
         $salida['emisor']['nombre'] = $salida['emisor']['nombre'][0];
@@ -603,8 +603,6 @@
 
             $salida['emisor']['ap1'] = '';
             $salida['emisor']['ap2'] = '';
-            $salida['emisor']['nombre'] = $salida['emisor']['nombre'][0];
-
 
             $salida['emisor']['barrio']     = isset($inv_xml->Emisor->Ubicacion->Barrio) ? (array) $inv_xml->Emisor->Ubicacion->Barrio : 0;
             $salida['emisor']['barrio'] = $salida['emisor']['barrio'] == 0 ? $salida['emisor']['barrio'] : $salida['emisor']['barrio'][0];
@@ -1419,7 +1417,7 @@
                                         $this->sumaimpuestos += $sub_array[2];
                                         $sum_imp += $sub_array[2];
                                         $impuesto['Monto'] = $sub_array[2];
-                                        $impuesto['Tarifa'] = ($sub_array[2]/$value[8])*100;
+                                        $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
                                     }else{
                                         $this->sumaimpuestos += $sub_array[2];
                                         $sum_imp += $sub_array[2];

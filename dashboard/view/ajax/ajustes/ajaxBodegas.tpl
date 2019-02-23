@@ -10,6 +10,7 @@
                 <label for="vbodega">Agregar Bodega</label>
                 <input type="hidden" id="vidbodega" value="0">
                 <input type="hidden" id="vidsucursal" value="">
+                <input type="hidden" id="vidusuario" value="">
             </div>
             <div class="col s12 m1 l1 ">
             <br>
@@ -58,11 +59,14 @@
                 <input id="vinventario" type="text" class="validate">
                 <label for="vinventario">Nombre Inventario</label>
                 <input type="hidden" id="vid" value="0">
+                <input type="hidden" id="vidsucursal" value="">
+                <input type="hidden" id="vidusuario" value="">
             </div>
         </div>
         <div class="row pequeño">
             <div class="input-field col s12 m6 marginzero hide">
-                <select id="vidcuenta" type="select">
+                <input type="hidden" id="vidcuenta" value="0">
+                <select id="vidcuenta1" type="select">
                     <option value="0">Cuenta Por Defecto</option>
                     {section name=LE loop=$CDEF}
                     <option value="{$CDEF[LE][0]}">{$CDEF[LE][1]}</option>
