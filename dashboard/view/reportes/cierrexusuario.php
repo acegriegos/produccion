@@ -72,21 +72,24 @@
     <!-- INFO CONTACTO -->
     <div>
       <br>
-      Facturas contado: <span style="float: right;"><?php echo $cierre[3]; ?></span><br>
-      Facturas crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span> <br>
+      Facturas Contado: <span style="float: right;"><?php echo $cierre[3]; ?></span><br>
+      Facturas Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span> <br>
       Abonos: <span style="float: right;"><?php echo $cierre[4]; ?> </span> <br>
-      Notas crédito:<span style="float: right;"><?php echo $cierre[5]; ?> </span> <br>
-      Notas débito:<span style="float: right;"><?php echo $cierre[6]; ?> </span> <br>
+      Notas Crédito:<span style="float: right;"><?php echo $cierre[5]; ?> </span> <br>
+      Notas Débito:<span style="float: right;"><?php echo $cierre[6]; ?> </span> <br>
     </div>
     <hr>
     <div>
-      Ventas en efectivo: <span style="float: right;"><?php echo $cierre[7]; ?></span><br>
-      Ventas con tarjetas:<span style="float: right;"><?php echo $cierre[8]; ?></span><br>
-      Ventas en crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br>
-      Ventas con deposito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br>
+      Ventas en Efectivo: <span style="float: right;"><?php echo $cierre[7]; ?></span><br>
+      Ventas con Tarjetas:<span style="float: right;"><?php echo $cierre[8]; ?></span><br>
+      Ventas en Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br>
+      Ventas con Depósito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br>
       Excento:<span style="float: right;"><?php echo $cierre[22]; ?></span><br>
       IMV:<span style="float: right;"><?php echo $cierre[23]; ?></span><br>
-      <b>Ventas totales:</b> <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
+      <b>Ventas Totales:</b> <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
+      <br>
+      Caja Inicial:<span style="float: right;"><?php echo $cierre[20]; ?></span><br>
+      Caja Reportada: <span style="float: right;"><?php echo $cierre[18]; ?></span><br>
     </div>
       <div class="col s6 m6 l4"  style="padding: 0;display: none">
           <div class="col s12 m12"  style="padding: 0">

@@ -24,7 +24,16 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#cliente").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula),null',2,'id > 0 '+prov+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1)
+                    data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula),null',2,'id > 0 '+prov+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1),
+                    onAutocomplete: function(val){
+                        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$("#cliente").val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
+                            if (id != undefined){
+                                $("#vidcliente").val(id);
+                                doreport();
+                            }
+                            else
+                                $("#vidcliente").val(0);
+                    }
                 });
                 $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -47,7 +56,7 @@ $(function(){
                     limit: 10,
                     data: arr('login',4,'nombre,null',11,'id >0 and nombre like \"%'+$("#productos").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1)
                 });
-                $("#cliente").siblings($(".autocomplete-content")).css('width','25%');
+                $("#productos").siblings($(".autocomplete-content")).css('width','25%');
             }
         });
     }
@@ -64,7 +73,14 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#usuario").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" and find_in_set(@@impresa,idsucursal) limit 10',0,0,0,1)
+                    data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" and find_in_set(@@impresa,idsucursal) limit 10',0,0,0,1),
+                     onAutocomplete: function(val){
+                           var id = arr('login',4,'id',1,'(nombre = "'+$("#usuario")+'" or user = "'+$("#usuario")+'") and id > 0 and find_in_set(@@impresa,idsucursal)',0,0,0)[0][0];
+                            if (id != undefined)
+                                $("#vidusuario").val(id);
+                            else
+                                $("#vidusuario").val(0);
+                    }
                 });
                 $("#usuario").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -299,28 +315,12 @@ $(document).on("click",".sendrep",function(){
      });
 });
 
-$(document).on("blur","#cliente",function(){
-    var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$(this).val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
-    if (id != undefined)
-        $("#vidcliente").val(id);
-    else
-        $("#vidcliente").val(0);
-});
-
 $(document).on("blur","#productos",function(){
     var id = arr('login',4,'id',11,'nombre = "'+$(this).val()+'" and id > 0 and idsucursal = @@impresa',0,0,0)[0][0];
     if (id != undefined)
         $("#vidproducto").val(id);
     else
         $("#vidproducto").val(0);
-});
-
-$(document).on("blur","#usuario",function(){
-    var id = arr('login',4,'id',1,'(nombre = "'+$(this).val()+'" or user = "'+$(this).val()+'") and id > 0 and find_in_set(@@impresa,idsucursal)',0,0,0)[0][0];
-    if (id != undefined)
-        $("#vidusuario").val(id);
-    else
-        $("#vidusuario").val(0);
 });
 
 $(document).on("click",".detail",function(){

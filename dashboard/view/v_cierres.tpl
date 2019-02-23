@@ -23,6 +23,11 @@
       <input type="hidden" id="BUSS" value="{$smarty.session.BUSS}">
     <div class="row">
       <div class="col s12 m12 l12">
+        <div class="input-field col s4"  style="float:left;">
+          <i class="mdi mdi-plus prefix" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>
+          <input type="text" id="mcierre" value="0" class="eder" autocomplete="off" autosave="off">
+          <label for="mcierre">Inicio de Caja</label>
+        </div>
         <a class="btn waves-effect waves-light blue right" id="refresh" style="margin-left: 15px;"><i class="mdi mdi-refresh mdi-24px"></i>Actualizar</a>
         <a class="waves-effect waves-light btn blue right" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
         <a class="waves-effect waves-light btn blue right modal-trigger" style="margin-right:10px" href="#modal-cierres" data-position="bottom" data-delay="50" id="shcierre">Ver Cierres</a>

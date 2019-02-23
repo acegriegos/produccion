@@ -24,6 +24,10 @@
                 <input name="tventa" class="with-gap" type="radio" id="tf3" checked />
                 <label for="tf3">Abonos</label>
             </div>
+            <div class="col s4 l3">
+                <input name="tventa" class="with-gap" type="radio" id="tf7"/>
+                <label for="tf7">Abonos Multiples</label>
+            </div>
 
             <div class="col s4 l3">
                 <input name="tventa" class="with-gap" type="radio" id="tf6"/>

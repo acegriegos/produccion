@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Cache-Control" content="max-age=86400"/>
-	<title>Productos</title>
+	<title>Productos y Servicios</title>
 	{$STY}
 	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css?v=10.0.0.91">
 </head>
@@ -14,7 +14,7 @@
 	<div class="bdy pequeño">
 		<div class="card z-depth-3 pequeño">
 			<div class="card-header center blue-grey white-text z-depth-1 pequeño">
-				<p class="flow-text head1">Productos - {$smarty.session.EMPRESA}</p>
+				<p class="flow-text head1">Productos y Servicios - {$smarty.session.EMPRESA}</p>
 			</div>
 			<nav class="navbar navbar-dark head2 z-depth-1" style="margin-top: -25px;">
 				<ul class="nav navbar-nav">
@@ -24,11 +24,10 @@
 					<li class="nav-item menu3 per4110" id="m2">
 						<a class="nav-link" href="#" title="Servicios">Servicios</a>
 					</li>
-					{if $smarty.session.BUSS neq 1}
-					<li class="nav-item menu3 per4114" id="m3">
+					
+					<li class="nav-item menu3 per4114000 hide" id="m3">
 						<a class="nav-link" href="#" title="Paquetes">Paquetes</a>
 					</li>
-					{/if}
 				</ul>
 			</nav>
 			<br>

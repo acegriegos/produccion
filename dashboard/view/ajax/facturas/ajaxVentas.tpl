@@ -40,15 +40,15 @@
       <div class="col s12 m{$column} l{$column} concre movil" align="center">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1003" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2">
         <label for="chg_tipo2">Crédito</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005" val="3" id="chg_tipo3" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005 hide" val="3" id="chg_tipo3" disabled>
         <label for="chg_tipo3">Consignación</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1006" val="4" id="chg_tipo4" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1006 hide" val="4" id="chg_tipo4" disabled>
         <label for="chg_tipo4">Apartado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1007" val="5" id="chg_tipo5" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1007 hide" val="5" id="chg_tipo5" disabled>
         <label for="chg_tipo5" class="tooltipped" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1008" val="6" id="chg_tipo6" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1008 hide" val="6" id="chg_tipo6" disabled>
         <label for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
 
@@ -190,16 +190,20 @@
 <!-- DETALLE FACTURA -->
   <div class="card z-depth-3 p2 ps hide-on-med-and-down">
   <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b>
-    
+
     <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" ></a>
     
-    {if $smarty.session.BUSS eq 0}
-    <a href="#modal-devoluciones" class="hide mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
+    {if $smarty.session.BUSS eq 0 or $smarty.session.BUSS eq 3}
+    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
     {/if}
  </div>
 
   <div class="row">
-    <div class="col s12 hide-on-med-and-down">
+    <div class="col s12">
+      <select class="col s3 hide" id="invgeneral" style="margin: 0px;width: 150px;padding: 0px;float: left;">
+        <option value="6">NARANJO</option>
+        <option value="10">SAN CARLOS</option>
+      </select>
           <input type="radio" name="tcompra" id="tc1" value="1" class="with-gap" checked>
           <label for="tc1"  class="trCompra hide" style="float: left;margin-right: 5px">Costo</label>
           <input type="radio" name="tcompra" id="tc2" value="2" class="with-gap">
@@ -207,14 +211,12 @@
           <input type="radio" name="tcompra" id="tc3" value="3" class="with-gap">
           <label for="tc3"  class="trCompra hide" style="float: left;margin-right: 5px">Gasto no Diferido</label>
     <section class="right">
-          
-
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
           <label for="iva" class="hide valor_grabado" style="float: left;margin-right: 5px">IVI</label>
           <input type="checkbox" name="isexcento" id="exct" hclk="0">
           <label for="exct" class="trCompra hide"  style="float: left;margin-right: 5px">Exento</label>
       {if $smarty.session.BUSS neq 1}
-        <a href="#modal-inventario" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
+        <a href="#" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
       {/if}
         <input class="with-gap" name="modselected" type="radio" value="2" id="barras" checked/>
         <label for="barras" class="isfast"><i class="mdi mdi-barcode mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de un Lector de Código de Barras" data-position="bottom" style="font-size: 1.4em"></i></label>
@@ -284,7 +286,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off" placeholder="Cantidad">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
@@ -316,7 +318,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad" autocomplete="off">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off" placeholder="Cantidad" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
@@ -353,7 +355,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" data-mask="999999999.99" placeholder="Cantidad" autocomplete="off">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off" placeholder="Cantidad" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
@@ -368,17 +370,19 @@
             <input type="text" id="totp" class="f center" value="0.00" readonly placeholder="Total">
           </div>
 
-          <div class="center col s12 m2 row" style="font-size: 1em;  padding: 0px 5px !important;">
-
+         <div class="center col s12 m2 row" style="font-size: 1em;  padding: 0px 5px !important;">
+            <div style="padding: 0 !important;" class="col s8 input-field valor_grabado">
+                <input type="text" id="valor_grabado" autocomplete="off" class="eder">
+                <label for="valor_grabado">IV</label>
+            </div>
             <div class="col s4" style="padding: 0px">
               <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
             </div>
 
           </div>
-
         </div>
 
-        <div class="trCompra hide trsec hide-on-med-and-down row">
+        <div class="trComprax hide trsec hide-on-med-and-down row">
           <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad %</b></div>
           <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad $</b></div>
           <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Precio Público</b></span></div>
@@ -387,7 +391,7 @@
           <div style="padding: 0 !important;" class="col s2"></div>
         </div>
 
-        <div class="trCompra hide trsec hide-on-med-and-down row">
+        <div class="trComprax hide trsec hide-on-med-and-down row">
 
           <div style="padding: 0px 5px !important" class="input-field col s2">
             <input type="text" class="f center putil" id="putil" value="0" placeholder="Utilidad %" autocomplete="off">
@@ -403,14 +407,39 @@
 
           <div style="padding: 0 !important;" class="col s2 center"><span id="preponderado">0.00</span></div>
           <div style="padding: 0 !important;" class="col s1"></div>
-          <div style="padding: 0 !important;" class="col s2 input-field valor_grabado">
-              <input type="text" id="valor_grabado" autocomplete="off">
-              <label for="valor_grabado">Valor Gravado</label>
-          </div>
+         
 
         </div>
 
       </div>
+
+      <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px">
+        <table style="border: 1px solid #e2e2e2">
+          <thead>
+            <tr>
+              <th align="center">Tipo Precio</th>
+              <th>Margen</th>
+              <th>Venta</th>
+          </tr>
+          </thead>
+          
+          <tr id="n0">
+            <td>Publico</td>
+            <td><span class="gan1">0.00</span> -> <input type="number" class="gan2 browser-default" value="0.00" style="border:0px;height: auto !important;"></td>
+            <td><span class="ven1">0.00</span> -> <input type="number" class="ven2 browser-default" value="0.00" style="border:0px;height: auto !important;"></td>
+          </tr>
+
+          {section name=LE loop=$NVLCLIE}
+            <tr id="n{$NVLCLIE[LE][0]}">
+            <td>{$NVLCLIE[LE][1]}</td>
+            <td><span class="gan1">0.00</span> -> <input type="number" class="gan2 browser-default" value="0.00" style="border:0px;height: auto !important;"></td>
+            <td><span class="ven1">0.00</span> -> <input type="number" class="ven2 browser-default" value="0.00" style="border:0px;height: auto !important;"></td>
+          </tr>
+          {/section}
+
+        </table>
+      </div>
+
       <div class="trcompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="ventap" class="eder" autocomplete="off">
@@ -451,6 +480,7 @@
     <div class="col s12 m12 l12" style="margin-top: -20px">
     <br>
       <!-- <label for="monedas">Divisa</label> -->
+
       <div class="input-field">
         <select id="monedas">
           {section name="LE" loop=$MON}
@@ -458,6 +488,8 @@
           {/section}
         </select>
       </div>
+
+      {if $AG}
       <div class="input-field">
         <select id="vidagente" type="select">
             <option value="0">Agente</option>
@@ -466,6 +498,7 @@
           {/section}
         </select>
       </div>
+      {/if}
     </div>
 
 
@@ -601,7 +634,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off">
             <label for="cantp">Cantidad</label>
           </div>
 
@@ -662,7 +695,25 @@
 <div class="modal modal-fixed-footer" id="modal-devoluciones">
    <div class="modal-header head3 center" style="font-size: 22px;">Buscar Factura</div>
   <div class="modal-content">
-    
+    <div class="row">
+      <div class="col s6 input-field">
+        <input type="text" id="byfact" class="autocomplete">
+        <label for="byfact">Por Factura</label>
+      </div>
+       <div class="col s6 input-field">
+        <input type="text" id="byclie" class="autocomplete">
+        <label for="byclie">Por Cliente</label>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <th></th>
+        <th>Numero Factura</th>
+        <th>Valor</th>
+        <th>Fecha</th>
+      </thead>
+      <tbody id="listafacturas"></tbody>
+    </table>
   </div>
   <div class="modal-footer">
       <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>

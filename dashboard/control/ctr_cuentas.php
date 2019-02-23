@@ -53,8 +53,11 @@ if (!isset($_REQUEST['accion'])) {
 
 			$transaccion = $kakaroto->kamehameha('',230,$_REQUEST['id']);
 			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
-			require_once 'view/ajax/cuentas/reciboVarias.php';
-			//echo '<pre>'; print_r($transaccion[0]); echo '</pre>';
+			if($_REQUEST['tp'] == 1)
+				require_once 'view/ajax/cuentas/reciboVariaspv.php';
+			else
+				require_once 'view/ajax/cuentas/reciboVarias.php';
+			break;
 			break;
 	}
 	if(!$pagina){

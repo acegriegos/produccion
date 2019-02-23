@@ -1,4 +1,4 @@
-<?php
+  <?php
 $simbolo = $log->kamehameha('simbolo',54,'principal = 1 and id > 0')[0][0];
 $idfactura = 0;
 $cantt = $tot = $tde = $tim = $tgr = $exc = 0;
