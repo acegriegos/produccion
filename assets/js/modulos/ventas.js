@@ -730,12 +730,11 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     }
 
         if (isiva && vexo > 0){
-            var timpuesto = vexo;
             // $(".dimpuesto").each(function(){
             //     if (vstrimp.indexOf(','+$(this).data('valores')['vid']+',') >= 0)
             //         timpuesto += parseFloat($(this).data('valores')['vmonto'])
             // });
-            prec = prec/((timpuesto/100)+1);
+            prec = prec/((vexo/100)+1);
             tot = prec * cant;
         }
 
@@ -899,7 +898,7 @@ function totalizar(){
                 rimv = parseFloat($(this).data('valores')['vmonto']);
                 iimv = $(this).data('valores')['vid'];
                 
-                if(parseInt(eimv) >= 100 && (exov == '' || !parseInt(exov))) { 
+                if(parseInt(eimv) == 0 && (exov == '' || !parseInt(exov))) { 
                     //PRODUCTOS O CLIENTES EXENTOS
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
                     $("#fastVenta"+vidlinea).val(tmpdesc);
@@ -910,7 +909,7 @@ function totalizar(){
                 }else{ 
                     //PRODUCTOS O CLIENTES GRABADOS Y EXONERADOS
                     simv = parseFloat(tmpdesc*(rimv/100)).toFixed(5);
-                    dimv =  parseFloat(tmpdesc*((rimv*(1-(eimv/100)))/100)).toFixed(5);
+                    dimv =  simv//parseFloat(tmpdesc*((rimv*(1-(eimv/100)))/100)).toFixed(5);
                     impuesto += parseFloat(dimv);
                     $("#fd"+vidlinea).data('triforce')['vimv'] = dimv;
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] += iimv+','+$(this).data('valores')['vmonto']+','+(parseFloat(simv)).toFixed(5)+','+eimv+']';
