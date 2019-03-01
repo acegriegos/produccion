@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Proveedores</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.0.91">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.1.2">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -503,6 +503,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=10.0.0.99"></script>
+<script src="../assets/js/modulos/proveedores.js?v=10.0.1.2"></script>
 </body>
 </html>
