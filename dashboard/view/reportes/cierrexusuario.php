@@ -254,24 +254,9 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-    <script src="../assets/js/jquery.js?v=10.0.0.86"></script>
-    <script src="../assets/js/materialize.js?v=10.0.0.86"></script>
-=======
-    <script src="../assets/js/jquery.js?v=10.0.0.89"></script>
-    <script src="../assets/js/materialize.js?v=10.0.0.89"></script>
->>>>>>> d11ca874f2e889eca98131a180e2afb5234d1236
-=======
-    <script src="../assets/js/jquery.js?v=10.0.0.90"></script>
-    <script src="../assets/js/materialize.js?v=10.0.0.90"></script>
->>>>>>> c7ff1be61cd514652187c72b1f0687492ca13076
-=======
     <script src="../assets/js/jquery.js?v=10.0.0.99"></script>
     <script src="../assets/js/materialize.js?v=10.0.0.99"></script>
->>>>>>> 52056c8c4f200813df8f554d1a0ae3aab9f3ac47
 
      <script type="text/javascript">
    $(function(){

@@ -1224,18 +1224,11 @@
                 if (!$tdetalle && $this->opcion < 5) 
                     return ['error'=>'No hay Detalle'];
 
-<<<<<<< HEAD
-                $data['ResumenFactura']['TotalImpuesto'] = $this->sumaimpuestos;
-                $data['ResumenFactura']['TotalComprobante'] = $data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos;
-                /*if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
-                     return ['error'=>'Descuentos Difieren'];*/
-=======
                 $data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
                 
                 $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos,5));
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
->>>>>>> c7ff1be61cd514652187c72b1f0687492ca13076
 
                 /*if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']) != round($data['ResumenFactura']['TotalVenta'])) 
                      return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];*/
