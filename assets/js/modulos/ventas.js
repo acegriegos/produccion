@@ -1652,13 +1652,8 @@ function searchClient(vvariable,visprv){
                 tmp_correos = '';
             }
             
-            if (vclie[13] != 1) {
-                $("#monedas").val(vclie[13]).change();
-                $("#monedas").material_select('update');
-            }
-
-            // $("#vidagente").val(vclie[14]).change();
-            // $("#vidagente").material_select('update');
+            $("#vidagente").val(vclie[14]).change();
+            $("#vidagente").material_select('update');
 
         }else{
             $("#vdescuentop").val(0);
@@ -1686,6 +1681,11 @@ function searchClient(vvariable,visprv){
         $(".chg_tipo[val=1]").click()
 
         $("#ingclie").removeClass('hide');
+    }
+
+    if (vclie[13] != 1) {
+        $("#monedas").val(vclie[13]).change();
+        $("#monedas").material_select('update');
     }
 
     cargarImpuestos($("#ffacturas .zelda").data('triforce')['vidcliente'],'2');

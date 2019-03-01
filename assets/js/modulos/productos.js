@@ -2243,6 +2243,14 @@ function postload(vmodulo){
 		    		$("#goldinventariado").click();
 		    }
 
+		    if(parseInt($("#vexoneracion").val())){
+		    	if(!$("#pg").is(":checked"))
+		    		$("#pg").prop('checked',true).change();
+		    }else{
+		    	if($("#pg").is(":checked"))
+		    		$("#pg").prop('checked',false).change();
+		    }
+
 		    $(".precionivel").each(function(){
 		    	var id = $(this).attr('id').substr(1);
 		    	var infonivel = getDatos('format(((venta/((exoneracion/100)+1)/'+$("#vcosto").val().replace(/,/g,'')+')-1)*100,2),venta,exoneracion,id',105,'idnivel = '+id+' and idtipoentrada = 1 and identrada = '+$("#fproductos .zelda").data('triforce')['vid'],0,0,0)[0][0];

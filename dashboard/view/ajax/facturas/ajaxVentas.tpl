@@ -656,7 +656,7 @@
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
             <div class="col s8">
                 <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-                <label for="iva" class="hide" style="float: left;">IVI</label>
+                <label for="iva" style="float: left;">IVI</label>
             </div>
           </div>
     </div>
@@ -708,11 +708,11 @@
   <div class="modal-content">
     <div class="row">
       <div class="col s6 input-field">
-        <input type="text" id="byfact" class="autocomplete">
+        <input type="text" id="byfact" class="autocomplete" autocomplete="off">
         <label for="byfact">Por Factura</label>
       </div>
        <div class="col s6 input-field">
-        <input type="text" id="byclie" class="autocomplete">
+        <input type="text" id="byclie" class="autocomplete" autocomplete="off">
         <label for="byclie">Por Cliente</label>
       </div>
     </div>

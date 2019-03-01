@@ -652,9 +652,9 @@ function cargarGlobal(){
                 limit: 20,
                 data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,gkeydown()+'bisproveedor and id > 0 and find_in_set(idsucursal,concat("-1,",@@impresa)) having nom like "%'+busqueda+'%" limit 20',0,0,0,1),
                 onAutocomplete: function(val){
-                        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$("#cliente").val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
-                        if (id != undefined){
-                             $("#byclie").attr('cid',id);
+                        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2," *",cedula,"*") like "%'+$("#byclie").val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0);
+                        if (id[0].length){
+                             $("#byclie").attr('cid',id[0][0][0]);
                         }
                         else
                              $("#byclie").attr('cid',0);
@@ -859,6 +859,17 @@ function cargarFactura(vidp,asoc){
 
 function cargarFacturasNota(){
     var vcliente = $("#byclie").attr('cid');
-    var vfactura = $("#byfact").val();
-    var info = getDatos('lpad(consecutivo,6,0),subtotal+excento+imv-descuento,date_format(fecha,"%d-%m-%Y")',64,'id > 0 and if('+cid+' = 0,1,idcliente = '+cid+') and if('+vfactura+' = 0,1,id = '+vfactura+')');
+    var vfactura = $("#byfact").val().trim().length ? $("#byfact").val() : 0;
+
+    var info = getDatos('lpad(consecutivo,6,0),concat((select simbolo from monedas where id = idmoneda),format(subtotal+exento+imv-descuento,2)),date_format(fecha,"%d-%m-%Y"),datediff(curdate(),fecha) as dias,id',64,'id > 0 and if('+vcliente+' = 0,1,idcliente = '+vcliente+') and if("'+vfactura+'" = 0,1,consecutivo = "'+vfactura+'") having dias <= 15',0,0,0);
+    
+    $("#listafacturas").html('');
+    if (info.succed) {
+        for (var i = 0; i < info[0].length; i++) {
+            str += '<tr><td></td><td>'+info[0][i][0]+'</td><td>'+info[0][i][1]+'</td><td>'+info[0][i][2]+'</td></tr>';
+        }
+        $("#listafacturas").html(str);
+    }else{
+        $("#listafacturas").html('<tr><td colspan="3">No hay Facturas Disponibles</td></tr>');
+    }
 }
