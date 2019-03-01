@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Estado de Cuenta</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.1.2">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.0.99">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -24,7 +24,7 @@
       <div class="col s4 m4 l4" align="center">
           <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" title="Mostrar Filtros" style="display:none;"></i>
           <input type="hidden" class="zelda">
-         <font size="4"><b align="center" style="margin-top: 0px;" id="titrep"></b></font><br>
+         <font size="4"><b align="center" style="margin-top: 0px;" id="titrep">Estado de Cuenta</b></font><br>
         <font size="3">
           <b>{$MIS[0]}</b><br>
           {if $MIS[2]}<b>{$MIS[2]}</b><br>{/if}
@@ -54,7 +54,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.1.2"></script>
-  <script src="../assets/js/modulos/reportes/cxc.js?v=10.0.1.2"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.0.99"></script>
+  <script src="../assets/js/modulos/reportes/cxc.js?v=10.0.0.99"></script>
 </body>
 </html>

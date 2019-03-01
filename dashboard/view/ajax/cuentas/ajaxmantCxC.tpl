@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.0.99">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.1.2">
 <div class="card z-depth-3">
 
 <div class="card-header center head1">
@@ -146,6 +146,10 @@
                                                         <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
                                                         <label for="p_v" style="color: white !important">Punto Venta</label>
                                                     </p>
+                                                </div>
+                                                 <div class="input-field col s6 m6">
+                                                    <input  id="vreferencia" type="text">
+                                                    <label for="vreferencia">Referencia</label>
                                                 </div> 
                                             </div>
                                             <div class="row">
@@ -187,7 +191,6 @@
     </ul>
     <ul id="pagomultiples" class="side-nav"  style="width: 60%">
         <div class="card-header center pequeño head1" style="margin: 0 !important" >
-            <p class="flow-text" style="font-size: 1.9em; margin: 0 !important">Detalle de la Cuenta</p>
             <p class="flow-text">Pago Multiple</p>
         </div>
         <div class="row">
@@ -207,29 +210,37 @@
                                     <th class="white-text tab1 sorting" style=" padding: 10px; color:black; border-radius: 0px!important;">No Factura</th>
                                     <th class="white-text tab1 sorting" style=" padding: 10px; color:black; border-radius: 0px!important; ">Fecha</th>
                                     <th class="white-text tab1 sorting" style=" padding: 10px; color:black; border-radius: 0px!important;">Saldo</th>
+                                    <th class="white-text tab1 sorting" style=" padding: 10px; color:black; border-radius: 0px!important;">Abono</th>
                                 </tr>
                             </thead>
-                            <tbody id="listaCuentasPm"></tbody>
+                            <tbody id="listaCuentasPm" style="max-height: 250px; overflow-y: auto;"></tbody>
                         </table>
                     </div>
                     <div class="col s12 m12" style="margin-top:20px;">
-                        <div class="input-field col s6 m6">
+                        <div class="input-field col s6">
                             <input class="eder" min="0" id="monto" type="number" name="monto" autocomplete="off">
                             <label for="monto">Digitar Monto</label>
                         </div>
-                        <div class="input-field col s6 m6">
+                        <div class="input-field col s6">
                             <input class="" id="comentario" type="text" name="comentario">
                             <label for="comentario">Comentario</label>
                         </div>
                         <div class="input-field col s6 m6">
+                             <i class="mdi mdi-calendar mdi-24px prefix"></i>
+                             <input type="date" class="datepicker" id="fecha" value="" />
+                        </div>
+                        <div class="input-field col s6 m6">
+                            <input  id="referencia" type="text">
+                            <label for="referencia">Referencia</label>
+                        </div>
+                        <div class="input-field col s6">
                             <select type="select" id="idtipopagopagar">
-                                <option value="0" disabled selected style="font-size: 1.2em !important">Tipo de Pago</option>
                                 {section name=LE loop=$TIPOPAGO}
                                 <option value="{$TIPOPAGO[LE][0]}">{$TIPOPAGO[LE][1]}</option>
                                 {/section}
                             </select>
                         </div>
-                        <div class="col s6 m6">
+                        <div class="col s6">
                             Saldo Actual: ¢<span id="saldo">0.00</span>
                             <button id="btnPagar" type="button" class="der btn btn-flat btn1 white-text waves-effect">Pagar</button>
                             <p>
@@ -237,6 +248,7 @@
                                 <label for="p_vm">Punto Venta</label>
                             </p>
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@
 	   			require '../_config/mySmarty.php';
 			   	$smarty  = new mySmarty();
 			   	$smarty->setModule('dashboard');
-			   	$smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre',26,'id >= 0 order by principal desc,nombre'));
+			   	$smarty->assign('TPAGO',$kakaroto->kamehameha('id,nombre,bancos,extra,regex,icono',26,'id >= 0 order by principal desc,nombre'));
 			   	$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0 order by nombre'));
 			   	$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 			   	$smarty->assign('NVLCLIE',$kakaroto->kamehameha('id,nombre',69,'id > 0 and !bisproveedor order by id'));

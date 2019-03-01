@@ -1,5 +1,6 @@
 var acc = 1;
 var ind_1 = ind_2 = 1;
+var numero = 0;
 $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
@@ -298,36 +299,85 @@ $(document).on("click",".optns",function(){
 $(document).on("keyup",".buscarNom",function(e){
     var charCode = e.which || e.keyCode;
     if (charCode == 13) {
-        $(this).attr('readonly','true')
-        $.get('../sic.php?',{ced:$(this).val()})
-            .done(function(data){
-                var p = JSON.parse(data);
-                if (p['succed']) {
-                    $(".c-st").addClass('hide');
-                    
-                    switch(parseInt(p['tip'])){
-                        case 1:
-                        case 4:
-                            $(".c-stp1").removeClass('hide');
-                            $("[for='c-nom']").html('Nombre');
-                            break;
-                        default:
-                            $("[for='c-nom']").html('Razón Social');
-                            $(".c-stp2").removeClass('hide');
-                            break;
-                    }
-                    $("#c-ced").val(p['ced']);
-                    $("#c-ap1").val(p['ap1']);
-                    $("#c-ap2").val(p['ap2']);
-                    $("#c-nom").val(p['nom']);
-                    $("#c-nom").attr('tipo',p['tip']);
-                }else
-                    Materialize.toast(p['error'],4000,'red');
-
-                $(".buscarNom").removeAttr('readonly');
-                Materialize.updateTextFields();
-            });
+        $(this).blur();
     } 
+});
+
+$(document).on("blur",".buscarNom",function(e){
+    if($(this).val().trim().length){
+        $(this).attr('readonly','true')
+    $.get('../sic.php?',{ced:$(this).val()})
+        .done(function(data){
+            var p = JSON.parse(data);
+            if (p['succed']) {
+                $(".c-st").addClass('hide');
+                
+                switch(parseInt(p['tip'])){
+                    case 1:
+                    case 4:
+                        $(".c-stp1").removeClass('hide');
+                        $("[for='c-nom']").html('Nombre');
+                        break;
+                    default:
+                        $("[for='c-nom']").html('Razón Social');
+                        $(".c-stp2").removeClass('hide');
+                        break;
+                }
+                $("#c-ced").val(p['ced']);
+                $("#c-ap1").val(p['ap1']);
+                $("#c-ap2").val(p['ap2']);
+                $("#c-nom").val(p['nom']);
+                $("#c-nom").attr('tipo',p['tip']);
+            }else
+                Materialize.toast(p['error'],4000,'red');
+
+            $(".buscarNom").removeAttr('readonly');
+            Materialize.updateTextFields();
+        });
+    }
+});
+
+$(document).on("keyup",".buscarNombre",function(e){
+    var charCode = e.which || e.keyCode;
+    if (charCode == 13) {
+        $(this).blur();
+    } 
+});
+
+$(document).on("blur",".buscarNombre",function(e){
+    if($(this).val().trim().length){
+
+        $(this).attr('readonly','true')
+        numero = $(this).attr('num');
+    $.get('../sic.php?',{ced:$(this).val()})
+        .done(function(data){
+            var p = JSON.parse(data);
+            if (p['succed']) {
+                $(".c"+numero+"-st").addClass('hide');
+                
+                switch(parseInt(p['tip'])){
+                    case 1:
+                    case 4:
+                        $(".c"+numero+"-stp1").removeClass('hide');
+                        $("[for='c"+numero+"-nom']").html('Nombre');
+                        break;
+                    default:
+                        $("[for='c"+numero+"-nom']").html('Razón Social');
+                        $(".c"+numero+"-stp2").removeClass('hide');
+                        break;
+                }
+                $("#c"+numero+"-ced").val(p['ced']);
+                $("#c"+numero+"-ap1").val(p['ap1']);
+                $("#c"+numero+"-ap2").val(p['ap2']);
+                $("#c"+numero+"-nom").val(p['nom']);
+                $("#c"+numero+"-nom").attr('tipo',p['tip']);
+            }else
+                Materialize.toast(p['error'],4000,'red');
+
+            $(".buscarNombre [num="+numero+"]").removeAttr('readonly');
+            Materialize.updateTextFields();
+        });
+    }
 });
 
 $(document).on("keyup","[id^=search_]",function(e){
@@ -568,8 +618,8 @@ function insertar(vtabla,varg1,varg2){
     return arr('login',7,1,vtabla,varg1,varg2,0,0,0);
 }
 
-function eliminar(vtabla,varg1,varg2){
-    return arr('login',7,3,vtabla,varg1,varg2,0,0,0);
+function eliminar(vtabla,varg1){
+    return arr('login',7,3,vtabla,varg1,'',0,0,0);
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
@@ -2014,6 +2064,84 @@ function loadmybussiness(vform){
              $("#loadMyBussiness").html(rs[0][0][1]);
        }
     }
+}
+
+function guardarSlide(vaccion,pr,vtabla){
+    switch(vaccion){
+        case 1:
+            if(pr.succed){
+                pr = pr[0][0][0];
+                
+                if ($("#slideCorreo").data('fila1') != undefined) {
+                    var num = 1;
+                    var nfila;
+                    while($("#slideCorreo").data('fila'+num) != undefined){
+                        insertar(17,'','null,'+pr+','+vtabla+',"'+$("#slideCorreo").data('fila'+num)['vcorreo']+'"');
+                        $("#slideCorreo").removeData('fila'+num)
+                        num++;
+                    }
+                }
+
+                if ($("#slideTelefono").data('fila1') != undefined) {
+                    num = 1;
+                    while($("#slideTelefono").data('fila'+num) != undefined){
+                        var del = $("#slideTelefono").data('fila'+num)['vtelefono'].substring(0,1);
+                        var vtipo = del == 2 || del == 4 ? 2 : 3;
+                        insertar(238,'','null,'+vtipo+',"'+$("#slideTelefono").data('fila'+num)['vtelefono']+'",'+vtabla+','+pr+',52');
+                        $("#slideTelefono").removeData('fila'+num)
+                        num++;
+                    }
+                }
+
+                var barrio = $("#slideDireccion").data('idbarrio');
+                barrio = barrio == '' ? 0 : barrio;
+                insertar(239,'','null,'+barrio+',"'+$("#slideDireccion").data('direccion')+'",0,0,'+vtabla+','+pr);
+
+                return 1;
+            }else{
+                Materialize.toast(pr[0]['ERROR'],4000,'red');
+                return 0;
+            }
+            break;
+        case 2:
+            if(pr){
+                pr = pr[0][0][0];
+                
+                if ($("#slideCorreo").data('fila1') != undefined) {
+                    var num = 1;
+                    var nfila;
+                    while($("#slideCorreo").data('fila'+num) != undefined){
+                        insertar(17,'','null,'+pr+','+vtabla+',"'+$("#slideCorreo").data('fila'+num)['vcorreo']+'"');
+                        $("#slideCorreo").removeData('fila'+num)
+                        num++;
+                    }
+                }
+
+                if ($("#slideTelefono").data('fila1') != undefined) {
+                    num = 1;
+                    while($("#slideTelefono").data('fila'+num) != undefined){
+                        var del = $("#slideTelefono").data('fila'+num)['vtelefono'].substring(0,1);
+                        var vtipo = del == 2 || del == 4 ? 2 : 3;
+                        insertar(238,'','null,'+vtipo+',"'+$("#slideTelefono").data('fila'+num)['vtelefono']+'",'+vtabla+','+pr+',52');
+                        $("#slideTelefono").removeData('fila'+num)
+                        num++;
+                    }
+                }
+
+                var barrio = $("#slideDireccion").data('idbarrio');
+                barrio = barrio == '' ? 0 : barrio;
+                insertar(239,'','null,'+barrio+',"'+$("#slideDireccion").data('direccion')+'",0,0,'+vtabla+','+pr);
+
+                return 1;
+            }else{
+                Materialize.toast(pr[0]['ERROR'],4000,'red');
+                return 0;
+            }
+            break;
+        default:
+            break;
+    }
+    
 }
 
 // addgeneral

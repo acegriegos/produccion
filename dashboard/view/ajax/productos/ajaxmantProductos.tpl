@@ -12,8 +12,12 @@
 			<input type="text" id="search_productos" maxlength="100" num="v14" var="0,1" autocomplete="off">
 			<label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
 		</div>
-		<div class="col s2 m4 l7 per4102">
-			<a id="addproduct" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger" href="#modal-productos" title="Agregar Producto"><i class="mdi mdi-plus"></i></a>
+
+		<div class="col s2 m4 l7">
+
+			<a id="addproduct" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger per4102" href="#modal-productos" title="Agregar Producto"><i class="mdi mdi-plus"></i></a>
+
+             <a id="boletaes" class="btn-floating waves-effect waves-light right z-depth-3 per4110" title="Boleta E/S Inventario" style="margin-right: 2%;"><i class="mdi mdi-truck"></i></a>
 		</div>
 	</div>
 	<div class="row pequeño">
@@ -382,6 +386,7 @@
 		<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 	</div>
 </div>
+
 <div id="modal-movinventario" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
 <div class="modal-content" style="padding: 0px;">
 <ul class="tabs head1">
@@ -551,4 +556,76 @@
 </div>
 </div>
 </div> <!-- End mantProductos -->
-<!-- <script src="../assets/js/jquery.mask.min.js?v=10.0.0.99"></script> -->
+
+
+<div id="modal-esinventario" class="modal modal-fixed-footer grandemodal" style="width:70%;height:90%">
+    <div class="modal-header center">
+        <input type="radio" name="mov" id="_einv" value="1" class="with-gap" checked>
+        <label for="_einv">Entrada de Inventario</label>
+        <input type="radio" name="mov" id="_sinv" value="2" class="with-gap">
+        <label for="_sinv">Salida de Inventario</label>
+        <input type="radio" name="mov" id="_minv" value="3" class="with-gap">
+        <label for="_minv">Movimiento de Inventario</label>
+    </div>
+<div class="modal-content" style="padding: 0px;">
+    <h5 class="center">Boleta Entrada/Salida de Inventario</h5>
+    <a href="listaboletas" target="_new" class="der" title="Lista de Boletas"><i class="mdi mdi-magnify mdi-24px"></i></a>
+    <br>
+    <div class="row">
+        <div class="col s3 input-field">
+            <select type="select" id="bod1">
+                <option value="6" selected="">NARANJO</option>
+                <option value="10">SAN CARLOS</option>
+            </select>
+            <label for="bod1">Bodega 1</label>
+        </div>
+        <div class="col s3 input-field bd2 hide">
+            <select type="select" id="bod2">
+                <option value="6">NARANJO</option>
+                <option value="10" selected="">SAN CARLOS</option>
+            </select>
+            <label for="bod2">Bodega 2</label>
+        </div>
+
+        <div class="col s6 input-field">
+            <input type="text" id="bol-comen">
+            <label for="bol-comen">Comentario</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4 input-field">
+            <i class="mdi mdi-magnify prefix"></i>
+            <input type="text" id="bpes" autocomplete="off">
+            <label for="bpes">Buscar Producto</label>
+        </div>
+        <div class="col s2">
+            En Inventario: <span id="cesin">0.00</span>
+        </div>
+        <div class="col s3 input-field">
+            <input type="text" id="cpes" autocomplete="off" value="0">
+            <label class="truncate" for="cpes">Cantidad</label>
+        </div>
+        <div class="col s3">
+            <a id="addline" class="btn-floating waves-effect waves-light btn2 right z-depth-3" title="Agregar Linea"><i class="mdi mdi-plus"></i></a>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th style="padding: 0px">Producto</th>
+                <th style="padding: 0px">Cantidad</th>
+                <th style="padding: 0px">Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="bes">
+            
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <input type="checkbox" id="p_v" checked />
+              <label for="p_v" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" data-position="left">Punto Venta</label>
+<a class="modal-action waves-effect waves-light waves-green btn-flat z-depth-3" id="boletainv">Guardar</a>
+<a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+</div>
+</div>

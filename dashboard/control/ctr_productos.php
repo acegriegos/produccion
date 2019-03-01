@@ -50,11 +50,20 @@
 	   			$smarty->display('ajax/productos/ajaxmantPaquetes.tpl');
 	   			break;
 	   		case 4:
-	   			/*REPORTE DE MOVIMIENTO DE INVENTARIO*/
+	   			$pagina = 1;
+	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
+ 	
+	   			$transaccion = $kakaroto->kamehameha('',275,$_REQUEST['id']);
+	   			$datos = $transaccion;
+
+	   			if($_REQUEST['tp'] == 'true')
+	   				require_once 'view/ajax/productos/boletapv.php';
+	   			else{
+	   				require_once 'view/ajax/productos/boleta.php';
+	   			}
 	   			break;
-	   		case 5:
+	   		case 5: 
 	   			break;
-	   			// $transaccion = $kakaroto->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 	   		case 6:
 	   			for ($i=0; $i < $_REQUEST['prod']; $i++) { 
 	   				$rs = $kakaroto->genkidama(1,11,'','null,"z00'.$i.'","z000'.$i.'","z0prod'.$i.'",20*'.$i.',1*'.$i.',30*'.$i.',0,0,1,1,100,20,1,1,1,0,1,""');
