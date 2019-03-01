@@ -86,6 +86,9 @@
                 <b>Inventario:</b>
                 <span><?php echo $transaccion[0][11]; ?></span><br>
             <?php } ?>
+              <br>
+              <b>Comentario:</b>
+                <span><?php echo $transaccion[0][12]; ?></span><br>
               </div>
           </div> 
         </div>
