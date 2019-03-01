@@ -160,7 +160,7 @@ $("#telefono_in").blur(function(){
 		$("#ingClie").click()
 	}
 	
-	paginate($("ul.pagination").attr('vtbl'),undefined,',0,@@impresa')
+	paginate($("ul.pagination").attr('vtbl'),undefined,',1,@@impresa')
 
     permisos(1001,1010);
 

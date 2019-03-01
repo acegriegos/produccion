@@ -248,6 +248,10 @@
                                 <label for="p_vm">Punto Venta</label>
                             </p>
                         </div>
+                        <div class="input-field col s6 m6">
+                            <input  id="referencia" type="text">
+                            <label for="referencia">Referencia</label>
+                        </div>
 
                     </div>
                 </div>

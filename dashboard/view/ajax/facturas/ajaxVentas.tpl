@@ -708,11 +708,11 @@
   <div class="modal-content">
     <div class="row">
       <div class="col s6 input-field">
-        <input type="text" id="byfact" class="autocomplete">
+        <input type="text" id="byfact" class="autocomplete" autocomplete="off">
         <label for="byfact">Por Factura</label>
       </div>
        <div class="col s6 input-field">
-        <input type="text" id="byclie" class="autocomplete">
+        <input type="text" id="byclie" class="autocomplete" autocomplete="off">
         <label for="byclie">Por Cliente</label>
       </div>
     </div>

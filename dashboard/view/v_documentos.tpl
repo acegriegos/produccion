@@ -185,6 +185,25 @@
         </div>
     </div>
 
+    <div id="modal-shcompra" class="modal modal-fixed-footer grandemodal" style="width: 80%">
+        <div class="modal-content">
+            <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-dtcompras" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="bdtompras"></tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Salir</a>
+        </div>
+    </div>
+    
     <script src="../assets/js/dropzone.js?v=10.0.1.2"></script>
     <script src="../assets/js/modulos/documentos.js?v=10.0.1.2"></script>
   </body>
