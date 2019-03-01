@@ -24,7 +24,7 @@
       <div class="col s4 m4 l4" align="center">
           <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" title="Mostrar Filtros" style="display:none;"></i>
           <input type="hidden" class="zelda">
-         <font size="4"><b align="center" style="margin-top: 0px;" id="titrep">Estado de Cuenta</b></font><br>
+         <font size="4"><b align="center" style="margin-top: 0px;" id="titrep"></b></font><br>
         <font size="3">
           <b>{$MIS[0]}</b><br>
           {if $MIS[2]}<b>{$MIS[2]}</b><br>{/if}

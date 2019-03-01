@@ -48,6 +48,9 @@
 				<input type="hidden" id="vhaber" value="0">
 				<input type="hidden" id="vconsecutivo" value="0">
 				<input type="hidden" id="vidtipopago" value="0">
+				<input type="hidden" id="vdivisa" value="1">
+				<input type="hidden" id="vidmoneda" value="1">
+				<input type="hidden" id="vreferencia" value="">
 				<div class="row">
 					<div class="col s12">
 						<div class="card bg1">

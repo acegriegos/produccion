@@ -14,7 +14,7 @@
       
       <ul class="collection col s12" id="ftelefonos" style="border: 0;">
         {section name=LE loop=$TELS}
-          <div id="tgl{$TELS[LE][0]}" class="chpphone chip ciclos" tp="{$TELS[LE][1]}"> <span id="t0_'+cont+'" class="_tel">{$TELS[LE][2]}</span> <img id="ftpt0_{$TELS[LE][0]}" src="../assets/img/icon/{$TELS[LE][3]}.png"> <i id="td_{$TELS[LE][0]}" class="close_phone mdi mdi-close right"></i></div>
+          <div id="tgl{$TELS[LE][0]}" class="chpphone chip ciclos" tp="{$TELS[LE][1]}"> <span id="t0_{$TELS[LE][0]}" class="_tel">{$TELS[LE][2]}</span> <img id="ftpt0_{$TELS[LE][0]}" src="../assets/img/icon/{$TELS[LE][3]}.png"> <i id="td_{$TELS[LE][0]}" class="close_phone mdi mdi-close right"></i></div>
         {/section}
       </ul>
 

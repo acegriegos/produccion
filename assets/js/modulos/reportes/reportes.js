@@ -26,7 +26,7 @@ $(function(){
                     limit: 10,
                     data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula),null',2,'id > 0 '+prov+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1),
                     onAutocomplete: function(val){
-                        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$("#cliente").val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
+                        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$("#cliente").val()+'%" and id > 0 '+prov+'  and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
                             if (id != undefined){
                                 $("#vidcliente").val(id);
                                 doreport();

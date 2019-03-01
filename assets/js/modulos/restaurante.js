@@ -5,7 +5,7 @@ $(function(){
 	$("#ffacturas .zelda").data()['idmesa'] = 0;
     $("#ffacturas .zelda").data()['idbarra'] = 0;
 
-    $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:6, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 0,vidusuario:'',vidtipopago:0,vidodt:0,vajuste:0, idline:0,  saldo : 0, notific : 0,tmpcorreo:'',videxoneracion:'',vexento:0,vflete:0,vplazo:0,vcomentario:'',vfecha:''});
+    $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:6, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 0,vidusuario:'',vidtipopago:0,vidodt:0,vajuste:0, idline:0,  saldo : 0, notific : 0,tmpcorreo:'',videxoneracion:'',vexento:0,vflete:0,vplazo:0,vcomentario:'',vfecha:'',vidagente:0});
 
 	$("#descp").keydown(function(e){
         var charCode = e.which || e.keyCode;
@@ -86,15 +86,15 @@ $(function(){
 
             if (!existe) {
                 $("#detfactmsj").hide();
-                var imp = $("#valores").data('elemento')['exo'] == 100 ? 0 : parseFloat($("#valores").data('elemento')['imv']);
+                var imp = $("#valores").data('elemento')['exo'];
                 var precio = parseFloat($("#valores").data('elemento')['hprec']);
                 var hinv = $("#valores").data('elemento')['hinv'];
-                var cimp = precio*(imp/100)
+                var cimp = (precio/((imp/100)+1))*(imp/100);
                 var total = precio*cantidad;
 
-                $("#fdetallefacturas").prepend('<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="0" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+$("#descp").val()+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total*(1+(imp/100))).formatMoney(2,'.',',')+'</span></small></a>');
+                $("#fdetallefacturas").prepend('<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="0" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+$("#descp").val()+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>');
 
-                $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : -1,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio*(1+imp/100)).formatMoney(5,'.',''),vdesc : 0,vtotal : (total*(1+imp/100)).formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : $("#valores").data('elemento')['hcomodin'],vidunidad : 1,vidimpuestos:$("#valores").data('elemento')['idimv'],viddescuentos:'',exoneracion:0,vdescuento : 0,idimv:$("#valores").data('elemento')['idimv']});
+                $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : -1,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio-cimp).formatMoney(5,'.',''),vdesc : 0,vtotal : (total).formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : $("#valores").data('elemento')['hcomodin'],vidunidad : 1,vidimpuestos:$("#valores").data('elemento')['idimv'],viddescuentos:'',exoneracion:0,vdescuento : 0,idimv:$("#valores").data('elemento')['idimv'],vcomision : 0});
             }else{
                 cantidad = cantidad + parseFloat($("#fd"+idproducto).data('triforce')['vcantidad'])
                 $("#fd"+idproducto).data('triforce')['vcantidad'] = cantidad;
@@ -194,8 +194,8 @@ $(function(){
 
             Materialize.toast('Orden Editada Corectamente',4000,'green');
             
-            if(imprimir)
-            mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);
+            /*if(imprimir)
+            mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);*/
         }else{
             Materialize.toast('No Hay Productos que Ingresar',4000,'red');
             $("#detfactmsj").show();
@@ -210,11 +210,25 @@ $(function(){
        var str = '';
        $("#listaclientes").html('');
        for (var i = 0; i < clientes.length; i++) {
-           str += '<div class="card-panel teal lighten-2 truncate col s2 center cdb" style="margin-right: 1%;margin-left:1%;cursor:pointer" id="c'+clientes[i][0]+'">'+clientes[i][1]+'</div>';
+           str += '<div class="card-panel teal lighten-2 truncate col s2 center row" style="margin-right: 1%;margin-left:1%; padding:0px"><span class="cdb col s10" style="cursor:pointer" id="c'+clientes[i][0]+'">'+clientes[i][1]+'</span> <i class="mdi mdi-close delb col s2" style="cursor:pointer;float:right"></i> </div>';
        }
 
        $("#modal-barra").attr('bnumber',idbarra);
        $("#listaclientes").html(str);
+    });
+
+    $("#cancOrder").click(function(){
+        var isbarra = parseInt($(".zelda").data('triforce')['vidtipopago']);
+        if(isbarra){
+            eliminar(261,'idtipo = -1*'+$("#modal-barra").attr('bnumber')+' and idtipopago = '+isbarra);
+        }else{
+            eliminar(261,'idtipo = '+$("#ffacturas .zelda").data()['idmesa']+' and idtipopago = 0');
+            actualizar(actualizar(800,'idtipoocupado = 1','id='+$("#ffacturas .zelda").data()['idmesa']));
+        }
+
+        eliminar(260,'idfactura not in(select id from tmpfacturas)');
+        eliminar(261,'id not in(select idfactura from tmpdetallefacturas)');
+        Materialize.toast("Orden Cancelada Correctamente",4000,'green');
     });
 
     $("#abarra").keyup(function(e){
@@ -225,11 +239,15 @@ $(function(){
     });
 
     $("#addclient").click(function(){
-        var idbarra = $("#modal-barra").attr('bnumber');
-        var clientes = getDatos('',805,'1,'+idbarra+',"'+$("#abarra").val()+'"',0,0,0)[0];
+        if($("#abarra").val().trim().length){
+             var idbarra = $("#modal-barra").attr('bnumber');
+            var clientes = getDatos('',805,'1,'+idbarra+',"'+$("#abarra").val()+'"',0,0,0)[0];
 
-        var str = '<div class="card-panel teal lighten-2 truncate col s2 center cdb" style="margin-right: 1%;margin-left:1%;cursor:pointer" id="c'+clientes[0][0]+'">'+$("#abarra").val()+'</div>';
-        $("#listaclientes").append(str);
+            var str = '<div class="row col s2"><div class="card-panel teal lighten-2 truncate col s10 center cdb" style="margin-right: 1%;margin-left:1%;cursor:pointer" id="c'+clientes[0][0]+'">'+$("#abarra").val()+' </div><i class="mdi mdi-close delb s2" style="cursor:pointer"><i>';
+            $("#listaclientes").append(str);
+            $("#abarra").val('')
+        }
+       
     });
 
 	$(".mesa").click(function(){
@@ -237,10 +255,16 @@ $(function(){
         var id = $(this).attr('id').substr(1);
         $("#saveOrder").removeClass('add');
         $("#saveOrder").removeClass('saveOrder');
+        $("#cancOrder").removeClass('hide');
+        $(".zelda").data('triforce')['vidtipopago'] = 0;
+
         $("#total_mesa").html('0.00');
         mesa = id;
 		switch(estado){
+            case 5:
 			case 1:
+                if(estado == 5)
+                    Materialize.toast('Tomando Pedido en Mesa',4000,'red');
                 var fecha = new Date();
 				
                 $(".zelda").data('triforce')['vidtipo'] = mesa;
@@ -256,6 +280,7 @@ $(function(){
                 $("#detfactmsj").show();
                 $(".showprod").hide();
                 $("#saveOrder").addClass('add');
+                $("#cancOrder").addClass('hide');
 				actualizar(800,'idtipoocupado=5','id='+id);
 				break;
             case 2:
@@ -274,14 +299,14 @@ $(function(){
                     var idproducto = detalle[0][i][6];
                     var hinv = detalle[0][i][5];
                     var cimp = parseFloat(detalle[0][i][4])
-                    var total = parseFloat(precio*cantidad);
+                    var total = parseFloat((precio+cimp)*cantidad);
                     t_mesa += total;
 
-                    mstr = '<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="'+cantidad+'" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>';
+                    mstr = '<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="'+cantidad+'" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(total/cantidad).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>';
 
                     $("#fdetallefacturas").prepend(mstr);
                     
-                    $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : precio.formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][0],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp});
+                    $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio).formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][0],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp,vcomision : 0});
 
                 };
 
@@ -294,9 +319,6 @@ $(function(){
                 $("#detfactmsj").hide();
                 $(".showprod").hide();
                 $("#saveOrder").addClass('saveOrder');
-                break;
-            case 5:
-                Materialize.toast('Tomando Pedido en Mesa',4000,'red');
                 break;
 			default:
 				break;
@@ -355,6 +377,19 @@ $(function(){
 
 });
 
+$(document).on("click",".delb",function(){
+    var id = $(this).parent().find(".cdb").attr('id').substr(1);
+    var hasordenes = getDatos('count(id)',261,'id in(select idfactura from tmpdetallefacturas) and idtipo = -1*'+$("#modal-barra").attr('bnumber')+' and idtipopago = '+id,0,0,0)
+    if (hasordenes.succed) {
+        if(parseInt(hasordenes[0][0][0]) > 0)
+            Materialize.toast('Cliente con Ordenes Activas ',4000,'red');
+        else{
+            $(this).parent().remove();
+            eliminar(806,'id = '+id);
+        }
+    }
+});
+
 $(document).on("click",".cdb",function(){
 
     $("#tit").html('Orden de '+$(this).html()+', Barra '+$("#btit").html());
@@ -363,6 +398,7 @@ $(document).on("click",".cdb",function(){
 
     var detalle = getDatos('',803,id*-1+','+idcliente,0,0,0);
 
+    $("#total_mesa").html('0.00')
     if(detalle[0].length){
         var mstr = '';
         $("#fdetallefacturas .ciclos").remove();
@@ -376,10 +412,10 @@ $(document).on("click",".cdb",function(){
             var idproducto = detalle[0][i][6];
             var hinv = detalle[0][i][5];
             var cimp = parseFloat(detalle[0][i][4])
-            var total = parseFloat(precio*cantidad);
+            var total = parseFloat((precio+cimp)*cantidad);
             t_mesa += total;
 
-            mstr = '<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="'+cantidad+'" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>';
+            mstr = '<a href="#!" class="collection-item col12 row ciclos black-text" nuevo="'+cantidad+'" id="fd'+idproducto+'" style="padding: 0px"><small id="fnom" class="col s6" style="font: bold">'+detalle[0][i][0]+'</small> <small class="col s6">Uni:<span id="funit" class="der">'+(total/cantidad).formatMoney(2,'.',',')+'</span></small> <small class="col s6">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s6">Total: <span id="ftot" class="der">'+(total).formatMoney(2,'.',',')+'</span></small></a>';
 
             $("#fdetallefacturas").prepend(mstr);
             
@@ -390,10 +426,12 @@ $(document).on("click",".cdb",function(){
         $("#total_mesa").html(t_mesa.formatMoney(2,'.',','));
         $("#detfactmsj").hide();
         $("#saveOrder").addClass('saveOrder').removeClass('add');
+        $("#cancOrder").removeClass('hide');
     }else{
         $("#detfactmsj").show();
         $("#fdetallefacturas .ciclos").remove();
         $("#saveOrder").addClass('add').removeClass('saveOrder');
+        $("#cancOrder").addClass('hide');
     }
 
 
@@ -452,7 +490,8 @@ function cargarProducto(kbrota,elemento) {
     $("#precp").attr('base',"0.00");
     $("#totp").attr('base',"0.00");
 
-    var cod = arr('login',4,'',43,'"R-'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+','+$(".zelda").data('triforce')['vidtipoventa'],0,0,0);
+    var cod = arr('login',4,'',43,'"R-'+ kbrota +'",@@impresa,'+$(".zelda").data('triforce')['vidcliente']+','+$(".zelda").data('triforce')['vidtipoventa']+',6',0,0,0);
+
     if (cod[0][0] != undefined) {
 
         cod = cod[0][0];
@@ -696,23 +735,26 @@ function endDetail(vid,vacc,vmodulo) {
     });
 
     vdata += '\n\n\n\n\n\n\n\n\n ';
-    mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);
+
+    //mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);
     actualizar(800,'idtipoocupado=2','id='+mesa);
     $("#saveOrder").removeClass('add');
     $("#saveOrder").addClass('saveOrder');
+    $("#cancOrder").removeClass('hide');
 };
 
 function totalizar(){
     var total = 0;
     var id = 0
-    var cantidad = precio = dtotal = 0;
+    var cantidad = precio = dtotal = imp = 0;
     
     if($(".ciclos").length){
         $(".ciclos").each(function(){
             id = $(this).attr('id').substr(2);
             cantidad = parseFloat($("#fd"+id).data('triforce')['vcantidad']);
             precio = parseFloat($("#fd"+id).data('triforce')['vprecio']);
-            dtotal = cantidad*precio;
+            imp = parseFloat($("#fd"+id).data('triforce')['vimv']);
+            dtotal = cantidad*(precio+imp);
             $("#fd"+id+" #ftot").html(dtotal.formatMoney(2,'.',','));
             $(this).data('triforce')['vtotal'] = dtotal;
             total += parseFloat(dtotal);

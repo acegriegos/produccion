@@ -73,7 +73,7 @@
   
       </div>
 
-      <div class="fixed-action-btn">
+      <div class="fixed-action-btn hide">
         <a class="btn-floating btn-large red">
           <i class="large mdi mdi-settings"></i>
         </a>
@@ -168,8 +168,9 @@
         </div>
       <div class="modal-footer">
         <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="total_mesa">0.00</span></section>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" id="cancOrder">Cancelar Orden</a>
         <a href="#!" class="modal-action waves-effect waves-green btn-flat add" id="saveOrder" modulo="factura" varias="1">Guardar Orden</a>
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="orderout">Salir</a>
       </div>
     </div>
 

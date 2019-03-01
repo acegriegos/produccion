@@ -25,7 +25,7 @@
 </div>
 </div>
 <div class="row">
-{if $TR eq 1}
+{if $TR eq 1 or $TR eq 0}
 <div class="col s6 m3 l2 center-align padd">
 <a class="report pbtn" rep="clientes"><i class="mdi mdi-account-multiple  mdi-48px padd"></i></a>
 <div class="row">
@@ -131,7 +131,7 @@
 </div>
 </div>
 {/if}
-{if $TR eq 2}
+{if $TR eq 2 or $TR eq 0}
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="proveedores"> <i class="mdi-48px mdi mdi-account-switch"></i>
 </a>
@@ -153,28 +153,7 @@
 </div>
 </div>
 {/if}
-{if $TR eq 3}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-account-card-details"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Cuentas por Cobrar</p>
-</div>
-</div>
-</div>
-{/if}
-{if $TR eq 3}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-account-card-details"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Cuentas por Pagar</p>
-</div>
-</div>
-</div>
-{/if}
+
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn hide"><i class="mdi-48px mdi mdi-briefcase-download"></i>
@@ -244,13 +223,49 @@
 </div>
 {/if}
 
-{if $TR eq 4 or $TR eq 0}
+{if $TR eq 3 or $TR eq 0}
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-file-document-box"></i>
 </a>
 <div class="row">
 <div class="col s12">
 <p>Cuentas por Cobrar</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 3 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="cuentasxcobrar&tp=1"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Cuentas por Pagar</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 3 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="cuentasxcobrar&tp=2"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Histórico Cuentas por Cobrar</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 3 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="cuentasxcobrar&tp=3"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Histórico Cuentas por Pagar</p>
 </div>
 </div>
 </div>

@@ -18,7 +18,7 @@
 
     //FACTURAS Y TICKETS
 
-    $lista = $db->ejecutar('select id from facturas where feestado in(2,9) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and idtipoventa in(1,7) limit 1');
+    $lista = $db->ejecutar('select id from facturas where feestado in(2,9) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and idtipoventa in(1,7) limit 10');
     $salida = [];
 
     if(isset($lista->num_rows)){
@@ -58,7 +58,7 @@
     
     //ACPTACIONES ACEPTACIONES-PARCIALES RECHAZOS
 
-    $lista = $db->ejecutar('select id from facturas where feestado in(2,9) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and chat_lenght(referencia) = 50 order by id desc limit 1');
+    $lista = $db->ejecutar('select id from facturas where feestado in(2,9) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and chat_lenght(referencia) = 50 order by id desc limit 10');
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
@@ -95,7 +95,7 @@
 
     //NC ND
 
-    $lista = $db->ejecutar('select a.id from estadoscuentas a join facturas b on b.id = a.idfactura and b.idsucursal = '.$_SESSION['IMPRESA'].' where a.feestado in(2,9) and a.idtipo in(5,6) order by id desc limit 1');
+    $lista = $db->ejecutar('select a.id from estadoscuentas a join facturas b on b.id = a.idfactura and b.idsucursal = '.$_SESSION['IMPRESA'].' where a.feestado in(2,9) and a.idtipo in(5,6) order by id desc limit 10');
 
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
@@ -133,7 +133,7 @@
 
     //ESTADO SIN ENVIAR, SIN INTERNET
     //TIQUETES Y FACTURAS
-    $lista = $db->ejecutar('select id from facturas where feestado in(0,7) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and idtipoventa in(1,7) order by id desc limit 1');
+    $lista = $db->ejecutar('select id from facturas where feestado in(0,7) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and idtipoventa in(1,7) order by id desc limit 10');
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
@@ -152,7 +152,7 @@
     }
 
     //A A-P R
-    $lista = $db->ejecutar('select id from facturas where feestado in(0,7) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and char_length(referencia) = 50 order by id desc limit 1');
+    $lista = $db->ejecutar('select id from facturas where feestado in(0,7) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and char_length(referencia) = 50 order by id desc limit 10');
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
@@ -170,7 +170,7 @@
     }
 
     //NC ND
-    $lista = $db->ejecutar('select a.id from estadoscuentas a join facturas b on b.id = a.idfactura and b.idsucursal = '.$_SESSION['IMPRESA'].' where a.feestado in(0,7) and a.idtipo in(5,6) order by id desc limit 1');
+    $lista = $db->ejecutar('select a.id from estadoscuentas a join facturas b on b.id = a.idfactura and b.idsucursal = '.$_SESSION['IMPRESA'].' where a.feestado in(0,7) and a.idtipo in(5,6) order by id desc limit 10');
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
