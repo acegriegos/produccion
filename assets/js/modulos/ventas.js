@@ -828,7 +828,7 @@ $(document).on("blur",".gan2",function(){
     var imp = $("#iva").is(":checked") ? (parseFloat($("#valor_grabado").val())/100+1) : 1;
     valor = isNaN(valor) ? valorv : valor;
     $(this).attr('gn',(costo*(parseFloat(valor)/100+1))-costo);
-    $("#n"+id+" .ven2").val((costo*(parseFloat(valor)/100+1)*imp).formatMoney(2,'.',''));
+    $("#n"+id+" .ven2").val((costo*(parseFloat(valor)/100+1)*imp*parseFloat($("#monedas option:selected").attr('dv'))).formatMoney(2,'.',''));
 });
 
 $(document).on("click",".mover",function(){
@@ -1036,7 +1036,7 @@ function totalizar(){
         vidlinea = $(this).prop('id').substr(4);
         vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
         cantidad    = parseFloat($("#fd"+vidlinea).data('triforce')['vcantidad']);
-        precio      = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio'])/divisa;
+        precio      = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio'])/(param == 2 ? 1 : divisa);
         decindv     = parseFloat($("#fd"+vidlinea).data('triforce')['vdescuento']);
         descmax     = parseFloat($("#fd"+vidlinea).data('triforce')['max']);
         desct       = decindv;
@@ -1637,7 +1637,7 @@ function searchClient(vvariable,visprv){
         else if (porcen >= 100)
             $("#msaldo").addClass('red-text');
     
-        if (isprov) {
+        if (parseInt(visprv)) {
             $("#hisclie").removeClass('hide');
         }else{
             $("#crrclie").removeClass('hide');
