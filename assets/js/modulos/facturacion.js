@@ -228,11 +228,14 @@ function cargarCompras(){
         var code = e.which || e.keyCode;
         if (code == 13){
             $("#totp").val((parseFloat($("#precp").val().replace(/,/g,''))*(1-(parseFloat($(this).val())/100))*parseFloat($("#cantp").val())).formatMoney(2,'.',','))
+
             if($("#valor_grabado:visible").length)
                 $("#valor_grabado").focus().select();
-            else
+            else{
+                 cargarUtilidad();
                 $(".addline").click();
-            cargarUtilidad();
+            }
+            
         } 
             
     });
@@ -328,18 +331,21 @@ function cargarCompras(){
         var matriz = []
         var id = cganancia = 0;
         var descuentol = (1-(parseFloat($("#descup").val())/100));
-        var ncosto = parseFloat($("#precp").val().replace(/,/g,''))*descuentol/($("#iva").is(":checked") ? (parseFloat($("#valor_grabado").val())/100 +1): 1);
-        // ncosto = parseFloat(getDatos('',258,$("#ffacturas .zelda").data('triforce')['margenes']+',0,'+$("#cantp").val().replace(/,/g,'')+','+ncosto,0,0,0)[0][0][0]);
+        var idp = $("#valores").data('elemento') != undefined ? $("#valores").data('elemento')['idp'] : $("#ffacturas .zelda").data('margenes')['idp'];
+        var tpmoneda = getDatos('idmoneda',11,'id = '+ idp ,0,0,0)[0][0][0];
+        var tpdivisa = parseInt(tpmoneda) == parseInt($("#monedas").val()) ? 1 : parseFloat($("#monedas [value="+tpmoneda+"]").attr('dv'));
+        var ncosto = (parseFloat($("#precp").val().replace(/,/g,''))*descuentol)/($("#iva").is(":checked") ? (parseFloat($("#valor_grabado").val())/100 +1): 1);
+
         $("#cos2").html(parseFloat(ncosto).formatMoney(2,'.',''));
+        ncosto = ncosto/tpdivisa
         matriz['costo'] = $("#cos2").html();
 
         if(!$("#chgvalor").is(":checked")){
             $(".ven1").each(function(){
                 id = $(this).parent().parent().attr('id').substr(1);
                 cganancia = (parseFloat($("#n"+id+" .ven1").html())/($("#iva").is(":checked") ? (parseFloat($("#valor_grabado").val())/100 +1): 1)-ncosto);
-                //console.log(cganancia)
-                //if(cganancia){
-                    $("#n"+id+" .gan2").val(((cganancia*100)/ncosto).formatMoney(2,'.','')); 
+
+                    $("#n"+id+" .gan2").val(ncosto == -1*cganancia ? '0.00' : ((cganancia*100)/ncosto).formatMoney(2,'.','')); 
                     $("#n"+id+" .gan2").attr('gn',cganancia);
                     $("#n"+id+" .ven2").val(((ncosto+cganancia)*($("#iva").is(":checked") ? (parseFloat($("#valor_grabado").val())/100 +1): 1)).formatMoney(2,'.',''));     
                     matriz[id] = []
@@ -348,7 +354,6 @@ function cargarCompras(){
                     matriz[id][2] = $("#n"+id+" .gan2").attr('gn');
                     matriz[id][3] = id;
                     matriz[id][4] = ncosto;
-                //}
             });
         }else{
             $(".ven1").each(function(){

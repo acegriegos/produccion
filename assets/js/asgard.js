@@ -1354,12 +1354,12 @@ function cargarMoneda(idmoneda,elemento){
     
     if (idmoneda != 0) {
         var valor = elemento.first().data("triforce")["valor"];
-        var pmonto = parseFloat(moneda[2]);
         
         divisas.each(function(){
             var monto = pre = tot = 0;
-            monto = parseFloat($(this).is("input") ? $(this).val().replace(/,/g,'') : $(this).html().replace(/,/g,''));
-            
+            monto = parseFloat($(this).is("input") ? $(this).val().replace(/,/g,'') : $(this).html().replace(/,/g,''));  
+            var pmonto = $(this).attr('mreal') == undefined ? parseFloat(moneda[2]) : parseFloat($(this).attr('mreal'));
+
             if (pmonto != 1){
                 $(this).attr('base',monto);
 
@@ -1373,8 +1373,9 @@ function cargarMoneda(idmoneda,elemento){
 
             if ($(this).is("input"))
                 $(this).val(tot.formatMoney(2,'.',','));
-            else
+            else{
                 $(this).html(tot.formatMoney(2,'.',','));
+            }
             
         })
     }
