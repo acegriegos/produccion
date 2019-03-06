@@ -74,6 +74,13 @@ $(function(){
                 $("#usuario").autocomplete({
                     limit: 10,
                     data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" and find_in_set(@@impresa,idsucursal) limit 10',0,0,0,1)
+                     onAutocomplete: function(val){
+                           var id = arr('login',4,'id',1,'(nombre = "'+$("#usuario")+'" or user = "'+$("#usuario")+'") and id > 0 and find_in_set(@@impresa,idsucursal)',0,0,0)[0][0];
+                            if (id != undefined)
+                                $("#vidusuario").val(id);
+                            else
+                                $("#vidusuario").val(0);
+                    }
                 });
                 $("#usuario").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -314,14 +321,6 @@ $(document).on("blur","#productos",function(){
         $("#vidproducto").val(id);
     else
         $("#vidproducto").val(0);
-});
-
-$(document).on("blur","#usuario",function(){
-    var id = arr('login',4,'id',1,'(nombre = "'+$(this).val()+'" or user = "'+$(this).val()+'") and id > 0 and find_in_set(@@impresa,idsucursal)',0,0,0)[0][0];
-    if (id != undefined)
-        $("#vidusuario").val(id);
-    else
-        $("#vidusuario").val(0);
 });
 
 $(document).on("click",".detail",function(){

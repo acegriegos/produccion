@@ -17,7 +17,7 @@ $(function(){
 			gtipo = 1;
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
-			console.log(arr('login',4,'',214,1+',0,0,0,2,@@impresa',0,0,0))
+			arr('login',4,'',214,1+',0,0,0,2,@@impresa',0,0,0)
 			break;
 	};
 	$('select').material_select();
