@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.0.0.91">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.0.1.2">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.0.0.91"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.0.0.91"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.0.1.2"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.0.1.2"></script>
     <![endif]-->
   </head>
   <body> 
@@ -23,6 +23,11 @@
       <input type="hidden" id="BUSS" value="{$smarty.session.BUSS}">
     <div class="row">
       <div class="col s12 m12 l12">
+        <div class="input-field col s4"  style="float:left;">
+          <i class="mdi mdi-plus prefix" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>
+          <input type="text" id="mcierre" value="0" class="eder" autocomplete="off" autosave="off">
+          <label for="mcierre">Inicio de Caja</label>
+        </div>
         <a class="btn waves-effect waves-light blue right" id="refresh" style="margin-left: 15px;"><i class="mdi mdi-refresh mdi-24px"></i>Actualizar</a>
         <a class="waves-effect waves-light btn blue right" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
         <a class="waves-effect waves-light btn blue right modal-trigger" style="margin-right:10px" href="#modal-cierres" data-position="bottom" data-delay="50" id="shcierre">Ver Cierres</a>
@@ -167,6 +172,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.0.0.91"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.0.1.2"></script>
   </body>
 </html>

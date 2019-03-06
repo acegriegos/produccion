@@ -26,7 +26,8 @@ $(function(){
                     limit: 10,
                     data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula),null',2,'id > 0 '+prov+' and concat(nombre," ",apellido1," ",apellido2) like \"%'+$("#cliente").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1),
                     onAutocomplete: function(val){
-                        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$("#cliente").val()+'%" and id > 0 and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
+                        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) like "%'+$("#cliente").val()+'%" and id > 0 '+prov+'  and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
+
                             if (id != undefined){
                                 $("#vidcliente").val(id);
                                 doreport();
@@ -73,7 +74,7 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#usuario").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" and find_in_set(@@impresa,idsucursal) limit 10',0,0,0,1)
+                    data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" and find_in_set(@@impresa,idsucursal) limit 10',0,0,0,1),
                      onAutocomplete: function(val){
                            var id = arr('login',4,'id',1,'(nombre = "'+$("#usuario")+'" or user = "'+$("#usuario")+'") and id > 0 and find_in_set(@@impresa,idsucursal)',0,0,0)[0][0];
                             if (id != undefined)

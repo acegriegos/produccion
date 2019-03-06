@@ -112,14 +112,15 @@ function sse_response(vid,p) {
                 .done(function(data) {
 
                     console.log('REFRESH TOKEN');   
-                    //console.log(data)
+                    console.log(data)
               });
             }
 
             if ($("#cantFact:visible").length)
                 $("#cantFact").html(p[0][0][2]);
-           
+            
             if(parseInt(p[0][0][3])){ //RECURSIVIDAD 20MIN
+                console.log('RECURSIVIDAD');
                 $.post('../_config/autofacturas.php')
                     .done(function(data){ console.log(data) });
             }

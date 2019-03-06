@@ -9,10 +9,10 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.0.0.91">
-  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.91">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.0.0.91"> 
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.0.0.91">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.0.1.2">
+  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.1.2">
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.0.1.2"> 
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.0.1.2">
 
 
 </head>
@@ -32,7 +32,7 @@
             <svg class="login__icon name svg-icon prefix" viewBox="0 0 20 20">
               <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
             </svg>
-            <input type="text"  id="user" name="usr" class="login__input "  placeholder="Usuario" autocomplete="off" />
+            <input type="text"  id="user" name="usr" class="login__input "  placeholder="Usuario" value= "sadmin" autocomplete="off" />
 
           </div>
 
@@ -40,7 +40,7 @@
             <svg class="login__icon pass svg-icon prefix" viewBox="0 0 20 20">
               <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
             </svg>
-            <input type="password" id="pass" class="login__input " name="pss" placeholder="Contraseña"/>
+            <input type="password" id="pass" class="login__input " name="pss" placeholder="Contraseña" value= "Login2Help"/>
 
           </div>
           <button type="submit" class="login__submit btn1">Ingresar</button>
@@ -58,9 +58,9 @@
 
   </div>
 </div>
-<script src="../assets/js/jquery.js?v=10.0.0.91"></script>
-<script src="../assets/js/materialize.min.js?v=10.0.0.91"></script>
-<script src="../assets/js/asgard.js?v=10.0.0.91"></script>
-<script src="../assets/js/modulos/login.js?v=10.0.0.91"></script>
+<script src="../assets/js/jquery.js?v=10.0.1.2"></script>
+<script src="../assets/js/materialize.min.js?v=10.0.1.2"></script>
+<script src="../assets/js/asgard.js?v=10.0.1.2"></script>
+<script src="../assets/js/modulos/login.js?v=10.0.1.2"></script>
 </body>
 </html>

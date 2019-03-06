@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.0.91">
-    <link rel="stylesheet" type="text/" href="../assets/css/modulos/style-documentos.css?v=10.0.0.91">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.1.2">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.0.1.2">
   </head>
   <body>
   <br>
@@ -185,7 +185,7 @@
         </div>
     </div>
 
-       <div id="modal-shcompra" class="modal modal-fixed-footer grandemodal" style="width: 80%">
+    <div id="modal-shcompra" class="modal modal-fixed-footer grandemodal" style="width: 80%">
         <div class="modal-content">
             <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-dtcompras" style="width: 100%">
                 <thead>
@@ -203,8 +203,8 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Salir</a>
         </div>
     </div>
-
-    <script src="../assets/js/dropzone.js?v=10.0.0.91"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.0.0.91"></script>
+    
+    <script src="../assets/js/dropzone.js?v=10.0.1.2"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.0.1.2"></script>
   </body>
 </html>

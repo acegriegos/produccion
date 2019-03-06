@@ -31,7 +31,7 @@ $(function(){
 	});
 
 	$("#ingClie").click(function(){
-		$("#titModal").html('Agregar Proveedor');
+		$("#titModal").html('Agregar Cliente');
 		$("#agClie").html('Agregar');
 		$("#agClie").removeClass('edit');
 		$("#agClie").addClass('add');
@@ -152,7 +152,7 @@ $("#telefono_in").blur(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vidusuario:'',vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidsucursal:'',_sid:'@@@'});
+	$(".zelda").data('triforce',{vid:0,vidusuario:'',vidsucursal:'',_sid:'@@@',vidmoneda:1,vidagente:0,vmensaje:'',vcomision:0});
 	//vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1,
 
 	var add = getParameterByName("add") //accesos
@@ -282,7 +282,7 @@ $(document).on("change",".cta-array",function(){
 });
 
 $(document).on("click",".load",function(){
-	$("#titModal").html('Editar Proveedor');
+	$("#titModal").html('Editar Cliente');
 	$("#agClie").html('Editar');
 
 	$("#agClie").removeClass('add');
@@ -542,7 +542,7 @@ function endDetail(vid,vacc,modulo){
 			thorload('vehiculo');
 			break
 	}
-	paginate($("ul.pagination").attr('vtbl'),undefined,',1,@@impresa');
+	paginate($("ul.pagination").attr('vtbl'));
 	$(".validate").css('border-bottom', '1px solid #9e9e9e');
 	$(".validate").css('box-shadow', 'none');
 }

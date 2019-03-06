@@ -24,7 +24,7 @@
  ?>
 
  <script type="text/javascript">
-    $(function(){
-        permisos(4100,4120);
-    })
+ 	$(function(){
+ 		permisos(4100,4120);
+ 	})
  </script>

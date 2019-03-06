@@ -1,204 +1,141 @@
-<?php $config = $kakaroto->kamehameha('',42,'@@impresa');?>
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-  <title>Recibo</title>  
-<style>
-  *{font-size: 1em}
+<meta charset="utf-8">
+<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.1.2">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.0.1.2">
+<!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
+<title>Recibo de Dinero Multiple</title>
 
-<?php if ($config[0][8] == 2) { ?>
-@media print {
-  .print{
-    display: none;
-  }
-
-  *{
-    font-family:'Helvetica';
-    /*font-size: 12px;*/
-  }
-
-  *{
-        margin: 0% !important;
-        font-size: 20px;
-
-  }
-
-  @page {
-    margin: 0;
-  }
-}
-<?php }else{ ?>
-@media print {
-  .print{
-    display: none;
-  }
-
-  *{
-    font-family:'Helvetica';
-    font-size: 12px;
-  }
-
-  .container{
-    margin: 1px !important;
-  }
-
-<?php if ($config[0][9] == 0) { ?>
-  body{
-    margin-left: 0% !important;
-    margin-right: 0% !important;
-  }
-<?php }else{ ?>
-  body{
-    margin-left: 9% !important;
-    margin-right: 9% !important;
-  }
-<?php } ?>
-}
-
-<?php } ?>
-</style>
-</head>
-
-<body style="margin-left: 35%; margin-right: 35%;">
-<?php 
-// $transaccion;
-// $miscelaneos;
-// $transaccion[0];  padding: 0% 37.5% 0% 37.5%
-$fecha = explode('-', $transaccion[0][0]);
-$logo = '<tr align="center">
-    <td>
-      <img src="'.$miscelaneos[3].'" alt="LOGO" width="60%">
-    </td>
-    </tr><br><br>';
-
-echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;position:fixed;padding: 10px;
-    font-weight: 600;
-    font-size: 20px;
-    color: #ffffff;
-    background-color: #1883ba;
-    border-radius: 6px;
-    border: 2px solid #0016b0">Imprimir</button>';
-
-  echo '<div class="container"  >
-  <br><br>
-<table style="width:100%">';
-
-if($miscelaneos[3] != '')
-  echo $logo;
-
-echo '<tr>
-     <td align="center">
-        <div align="center"> <b>'.$miscelaneos[0].'</b> <br> Ced. '.$miscelaneos[1].'
-         <br> Telf. '.$miscelaneos[5].'<br> '.$miscelaneos[6].'
+<body class="grey darken-4" style="font-size: 1.1em;" >
+  <div class="hoja grey lighten-3" style="margin-top: 8%">
+    <!-- HEADER -->
+    <div class="row">
+     <div class="col s6 m5 l3">
+          <br>
+       <?php if ($miscelaneos[3]) {
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="90%">';
+            } ?>
         </div>
-     </td>
-  </tr>
-</table>
-<br>
-<table style="width: 100% !important;">
-  <tr>
-    <td align="left">Recibo N°</td>
-    <td colspan="3">'.$transaccion[0][1].'</td>
-  </tr>
-  <tr><td colspan="4"><br></td></tr>
-  <tr>
-    <td align="left">Abono Múltiple </td>
-    <td width="13%" align="center">Día</td>
-    <td width="13%" align="center">Mes</td>
-    <td width="13%" align="center">Año</td>
-  </tr>
-  <tr>
-    <td align="left"><span class="fe hide"></span></td>
-    <td width="13%" align="center">'.$fecha[2].'</td>
-    <td width="13%" align="center">'.$fecha[1].'</td>
-    <td width="13%" align="center">'.$fecha[0].'</td>
-  </tr>
-</table>
-<br>
-<table style="width: 100% !important;">
-  <tr >
-    <td colspan="2">CLIENTE:</td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">'.$transaccion[0][2].'</td>
-  </tr>
-  <tr >
-    <td width="50%">USUARIO: </td>
-    <td width="50%">'.$transaccion[0][3].'</td>
-  </tr>
-  <tr >
-    <td width="50%">T. PAGO:</td>
-    <td width="50%">'.$transaccion[0][4].'</td>
-  </tr>
-   <tr>
-    <td width="50%">MONTO DE ABONO:</td>
-    <td width="50%">'.$transaccion[sizeof($transaccion)-1][10].'</td>
-  </tr>
-</table>
+        <div class="col s6 m7 l9 right-align">
+          <font size="3">
+            <br>
+             <b><span id="fnombre"><?php echo $miscelaneos[0]; ?></span></b><br>
+              <?php if ($miscelaneos[2]) 
+                echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+              ?>
+              <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
+              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[2]; ?></span><br>
+              <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
+              <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
+
+          </font>
+        </div>
+
+
+    </div>
+    <div class="row">
+      <div class="col s6 left-align">
+       <div class="row">
+         <div class="col s12" id="infofact" >
+          <b id="fact">Recibo N°</b>
+            <span id="numfact"><?php echo $transaccion[0][0]; ?> </span>
+          </div>
+         
+
+       </div>
+
+     </div>
+   </div>
+   <!-- /HEADER -->
+   <!-- INFO CONTACTO -->
+   <div class="row">
+    <div class="col s6 left-align">
+     <div class="row">
+       <div class="col s12">
+        <span class=""><b>Cliente:</b></span>   
+        <span class=""><?php echo $transaccion[0][1]; ?></span>
+        <br>
+        <span class=""><b>Cedula:</b></span>   
+        <span class=""><?php echo $transaccion[0][2]; ?></span>
+        <br>
+        <span class=""><b>Direccion:</b></span>   
+        <span class=""><?php echo $transaccion[0][4]; ?></span>
+        <br>
+        <span class=""><b>Telefono 1:</b></span>   
+        <span class=""><?php echo $transaccion[0][5]; ?></span>
+        <br>
+        <span class=""><b>Telefono 2:</b></span>   
+        <span class=""><?php echo $transaccion[0][3]; ?></span>
+      </div>
+     
+   </div>   
+ </div>
+
+ <div class="col s6">
+
+  <div class="col s6 center-align ">
+  <div class="card  white-text imprimirSINBOR <?php echo $hide ?>" style="background-color: #3960A7;">
+    <div class=" card-content ">
+      <p>Tipo de Pago:
+       Efectivo
+      </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s6 center-align">
+  <div class="card  white-text imprimirSINBOR" style="background-color: #3960A7;">
+    <div class=" card-content white-text imprimirSINBOR">
+      <p>Fecha:
+       <?php echo $transaccion[0][6]; ?>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <!-- /INFO CONTACTO -->
+
+  <!-- DETALLE FACT -->
+  <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
+        <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
+      <tr>
+        <th class="center-align sinborde" id="th1">No de factura</th>
+        <th class="center-align sinborde" id="th3">Saldo anterior</th>
+        <th class="center-align sinborde" id="th6">Monto abonado</th>
+        <th class="center-align sinborde" id="th6">Saldo actual</th>
+      </tr>
+    </thead>
+    <tbody >
+       <?php  for ($i = 0; $i < count($transaccion); $i++) { ?>
+      <tr class="tr" >
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][8]; ?> </span>
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][10]; ?> </span>
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][9]; ?> </span> <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][11]; ?> </span>
+        </td>
+      </tr>
+<?php } ?>
+    </tbody>
+    <tfoot>
+    <tr>
+    <td class="margen" colspan="1">&nbsp;</td>
+    <tr></tr>
+        <td class="margen" colspan="1">&nbsp;</td>
+
+      <td  class="   white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b>SALDO TOTAL</b></td>
+      <td  class="  white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b><?php echo $transaccion[0][11]; ?></b></td> 
+    </tr>
+    </tfoot>
+  </table>
+  <!-- /DETALLE FACT -->
   <br>
-<table  style="width: 100% !important;">
-  <tr>
-    <td colspan="3" align="center">DESGLOCE DE ABONO</td>
-  </tr>
-  <tr>
-    <td align="center" width="30%">FACTURA</td>
-    <td align="center" width="40%">SALDO ANT.</td>
-    <td align="center" width="30%">SALDO ACTUAL</td>
-  </tr>
-  <tr>
-    <td colspan="3"></td>
-  </tr>';
-  
-echo '<tr>
-    <td colspan="3" style="border-bottom: 1px dashed #A0A0A0;"></td>
-  </tr>';
+  <!-- INFO FACT -->
+  <div class="row">
+  <br>
+  </div>
+  </div>
 
-  foreach ($transaccion as $obj) {
-      echo '<tr><td align="center">'.$obj[5].'</td>
-    <td align="center">'.$obj[6].$obj[7].'</td>
-    <td align="center"> '.$obj[6].$obj[8].'</td></tr>';
-  }  
-  echo '
-</table>';
+<script src="../assets/js/jquery.js?v=10.0.1.2"></script>
 
-echo '<hr>
-<div style="text-align: center;" id="resolucion"></div><br><br><br>
-<hr>
-<span style="text-align: center; margin-left:36%">Recibo Conforme</span>
-<br><br><br>
-<hr>
-<span style="text-align: center; margin-left:36%">Número de Cédula</span>';
-
- ?>
- <script src="../assets/js/jquery.js?v=10.0.0.91"></script>
- <script src="../assets/js/materialize.js?v=10.0.0.91"></script>
- <script src="../assets/js/asgard.js?v=10.0.0.91"></script>
-   <script type="text/javascript">
-       $(function(){
-          param = getParameterByName('fp');
-          param = param == '' ? 0 : parseInt(param) ;
-          
-          window.onafterprint = function(){
-            //$("#resolucion").html(navigator.userAgent)
-            if( navigator.userAgent.match(/Android/i)
-             || navigator.userAgent.match(/webOS/i)
-             || navigator.userAgent.match(/iPhone/i)
-             || navigator.userAgent.match(/iPad/i)
-             || navigator.userAgent.match(/iPod/i)
-             || navigator.userAgent.match(/BlackBerry/i)
-             || navigator.userAgent.match(/Windows Phone/i)
-             )
-                return true;
-            else
-              window.close();
-          }
-
-          if(parseInt(param)){
-            window.print();
-          }
-
-       })
-     </script>
- </body>
- </html>
+<script src="../assets/js/materialize.js?v=10.0.1.2"></script>
+<script src="../assets/js/asgard.js?v=10.0.1.2"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.1.2"></script>
+</body>

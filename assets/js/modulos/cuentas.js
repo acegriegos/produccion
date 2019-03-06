@@ -29,55 +29,54 @@ $(function(){
 			$(".autocomplete-content").remove();
 			$("#ncli").autocomplete({
 				limit: 20,
-				data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+				data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'id > 0 and if('+gtipo+' = 1 ,!bisproveedor,bisproveedor) having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1),
+                onAutocomplete: function(val){
+
+                    var sql = "id > 0 and if("+gtipo+" = 1 ,!bisproveedor,bisproveedor) and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$("#ncli").val()+"' and idsucursal = @@impresa limit 1";
+					var id = arr('login',4,'id,format(getsaldocliente(id,0),2)',2,sql,0,0,0);
+					var tabla = $("#data-table-facturas").DataTable();
+					tabla.destroy();
+					$("#monto").val(0)
+					$("#referencia").val('');
+					
+					if ($("#ncli").val().trim().length) {
+						if(id[0].length == 0) {
+							Materialize.toast('Cliente no existente', 4000, 'red');
+							$("#listaCuentasPm").html('');
+							$("#hclie").val(0)
+							$("#saldo").html('0.00')
+						}else{
+							var p = arr('login',4,'',214,gtipo+',0,'+id[0][0][0]+',0,0,@@impresa',0,0,0);
+							var tabla = $("#listaCuentasPm");
+							tabla.html('');
+							for (var i = 0; i < p[0].length; i++) {
+								var q = p[0][i];
+								var check = '<td> <input type="checkbox" id="check'+i+'" value="'+q[12]+'" vl="'+q[14]+'" class="factclie"/><label for="check'+i+'"></label> </td>'; 
+								var tdFecha = '<td>'+q[5]+'</td>';
+								var tdSaldo = '<td>'+q[6]+'</td>';
+								var tdAbono = '<td><input type="text" id="ab'+i+'" class="eder vabono" value="'+q[14]+'"/></td>';
+								var trIdFactura = '<tr>'+check+'<td>'+q[3]+'</td>'+tdFecha+tdSaldo+tdAbono+'</tr>';
+								tabla.append(trIdFactura);
+							}
+							$("#data-table-facturas").dataTable({
+								bFilter : true,
+						        bScrollInfinite : true,
+						        bSort : true,
+						        bLengthChange : true,
+						        bPaginate :  false,
+						        bInfo : false,
+								order : [],
+								"bLengthChange": false
+							});
+							$("#saldo").html(id[0][0][1])
+							$("#hclie").val(id[0][0][0]);
+							$("#monto").focus().select();
+						}
+					}
+                }
 			});
 		}
 	});
-
-	$("#ncli").blur(function(e){
-		var sql = "id > 0 and !bisproveedor and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$(this).val()+"' and idsucursal = @@impresa limit 1";
-		var id = arr('login',4,'id,format(getsaldocliente(id,0),2)',2,sql,0,0,0);
-		var tabla = $("#data-table-facturas").DataTable();
-		tabla.destroy();
-		$("#monto").val(0)
-		$("#referencia").val('');
-		
-		if ($(this).val() != '') {
-			if(id[0].length == 0) {
-				Materialize.toast('Cliente no existente', 4000, 'red');
-				$("#listaCuentasPm").html('');
-				$("#hclie").val(0)
-				$("#saldo").html('0.00')
-			}else{
-				var p = arr('login',4,'',214,gtipo+',0,'+id[0][0][0]+',0,0,@@impresa',0,0,0);
-				
-				var tabla = $("#listaCuentasPm");
-				tabla.html('');
-				for (var i = 0; i < p[0].length; i++) {
-					var q = p[0][i];
-					var check = '<td> <input type="checkbox" id="check'+i+'" value="'+q[12]+'" vl="'+q[14]+'" class="factclie"/><label for="check'+i+'"></label> </td>'; 
-					var tdFecha = '<td>'+q[5]+'</td>';
-					var tdSaldo = '<td>'+q[6]+'</td>';
-					var tdAbono = '<td><input type="text" id="ab'+i+'" class="eder vabono" value="'+q[14]+'"/></td>';
-					var trIdFactura = '<tr>'+check+'<td>'+q[3]+'</td>'+tdFecha+tdSaldo+tdAbono+'</tr>';
-					tabla.append(trIdFactura);
-				}
-				$("#data-table-facturas").dataTable({
-					bFilter : true,
-			        bScrollInfinite : true,
-			        bSort : true,
-			        bLengthChange : true,
-			        bPaginate :  false,
-			        bInfo : false,
-					order : [],
-					"bLengthChange": false
-				});
-				$("#saldo").html(id[0][0][1])
-				$("#hclie").val(id[0][0][0]);
-				$("#monto").focus().select();
-			}
-		}
-});
 
 	$("#ncli").keyup(function(e){
 		var charCode = e.which || e.keyCode;

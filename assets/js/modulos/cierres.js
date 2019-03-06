@@ -4,6 +4,10 @@ var guser = '@@usr';
 $(function(){
 	 config = getDatos('',42,'@@impresa',0,0)[0][0];
 	
+	var hascaja = getDatos('monto',404,'fmonto is null and idusuario = @@usr and idsucursal = @@impresa',0,0,0);
+	if(hascaja[0].length){
+		$("#mcierre").val(parseFloat(hascaja[0][0][0]).formatMoney(2,'.',',')).attr('readonly',true);
+	}
 
 	if (parseInt($("#BUSS").val()) != 1) {
 		var monto = arr('login',4,'monto',404,'idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
@@ -22,6 +26,39 @@ $(function(){
         if (code == 13)
             $("#accecouser").click();
     });
+
+	$("#mcierre").keyup(function(e){
+		var code = e.wich || e.keyCode
+		if (code == 13){
+			$("#iniciarcaja").click();
+		} 
+			
+	});
+
+	$("#iniciarcaja").click(function(){
+		var valor = $("#mcierre").val()
+
+		if($("#mcierre").attr('readonly') != undefined){
+			Materialize.toast('Caja Iniciada',4000,'red')
+			return false;
+		}
+
+		if(isNaN(valor)){
+			Materialize.toast('Valor Debe ser Numérico',4000,'red')
+			$("#mcierre").focus().select();
+			return false;
+		}
+
+		if(valor <= 0){
+			Materialize.toast('Valor debe ser Mayor a 0',4000,'red');
+			$("#mcierre").focus().select();
+			return false;
+		}
+
+		insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0');
+		Materialize.toast('Caja Iniciada Correctamente',4000,'green');
+		$("#mcierre").attr('readonly',true);
+	});
 
     $("#exitcouser").click(function(){
         $("#modal-usuario").modal('close');
