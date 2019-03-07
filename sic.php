@@ -9,10 +9,10 @@
     curl_close ($ch);
 
     $data = (array)json_decode($data);
-    
-    if (isset($data['results'][0]->class)) {
-        switch ($data['results'][0]->class) {
-            case 'N':
+ 
+    if (isset($data['results'][0]->type)) {
+        switch ($data['results'][0]->type) {
+            case 'F':
                 $tipo = 1;
                 $name = trim($data['results'][0]->firstname1.' '.$data['results'][0]->firstname2);
                 $ap1 = $data['results'][0]->lastname1;

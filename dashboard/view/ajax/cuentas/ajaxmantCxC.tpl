@@ -116,6 +116,8 @@
                         <input type="hidden" id="vhaber" value="0">
                         <input type="hidden" id="vconsecutivo" value="0">
                         <input type="hidden" id="vcomentario" value="">
+                        <input type="hidden" id="vidmoneda" value="1">
+                        <input type="hidden" id="vdivisa" value="1">
                         <div class="row">
                             <div class="col s12">
                                 <div class="card bg1">
@@ -203,7 +205,7 @@
             <div class="card-block pequeño">
                 <div class="row  pequeño">
                     <div class="col s12 pequeño">
-                        <table id="data-table-facturas" class="pequeño  table centered highlight bordered responsive-table z-depth-3 pbtns">
+                        <table id="data-table-facturas" class="pequeño  table centered highlight bordered responsive-table z-depth-3 pbtns" style="max-height: 550px; overflow-y: auto">
                             <thead>
                                 <tr>
                                     <th class="white-text tab1" style=" padding: 10px; color:black; border-radius: 0px!important;"></th>
@@ -216,41 +218,48 @@
                             <tbody id="listaCuentasPm" style="max-height: 250px; overflow-y: auto;"></tbody>
                         </table>
                     </div>
-                    <div class="col s12 m12" style="margin-top:20px;">
+                    <div class="col s12 m12">
                         <div class="input-field col s6">
-                            <input class="eder" min="0" id="monto" type="number" name="monto" autocomplete="off">
+                            <input class="eder" min="0" id="monto" type="number" name="monto" autocomplete="off" style="margin: 0px">
                             <label for="monto">Digitar Monto</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="" id="comentario" type="text" name="comentario">
+                            <input class="" id="comentario" type="text" name="comentario" style="margin: 0px">
                             <label for="comentario">Comentario</label>
                         </div>
                         <div class="input-field col s6 m6">
-                             <i class="mdi mdi-calendar mdi-24px prefix"></i>
-                             <input type="date" class="datepicker" id="fecha" value="" />
+                             <input type="date" class="datepickere" id="fecha" value="" style="margin: 0px" />
                         </div>
                         <div class="input-field col s6 m6">
-                            <input  id="referencia" type="text">
+                            <input  id="referencia" type="text" style="margin: 0px">
                             <label for="referencia">Referencia</label>
                         </div>
                         <div class="input-field col s6">
-                            <select type="select" id="idtipopagopagar">
+                            <select type="select" id="idtipopagopagar" style="margin: 0px">
                                 {section name=LE loop=$TIPOPAGO}
                                 <option value="{$TIPOPAGO[LE][0]}">{$TIPOPAGO[LE][1]}</option>
                                 {/section}
                             </select>
                         </div>
+                        <div class="input-field col s6 m6">
+                            <select id="monedas" style="margin: 0px">
+                              {section name="LE" loop=$MON}
+                                <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
+                              {/section}
+                            </select>
+                            <label for="monedas">Moneda</label>
+                        </div>
+                        <div class="input-field col s6 m6">
+                            <input  id="referencia" type="text">
+                            <label for="referencia">Referencia</label>
+                        </div>
                         <div class="col s6">
-                            Saldo Actual: ¢<span id="saldo">0.00</span>
+                            Saldo Actual: <span class="moneda"></span> <span id="saldo">0.00</span>
                             <button id="btnPagar" type="button" class="der btn btn-flat btn1 white-text waves-effect">Pagar</button>
                             <p>
                                 <input type="checkbox" id="p_vm" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
                                 <label for="p_vm">Punto Venta</label>
                             </p>
-                        </div>
-                        <div class="input-field col s6 m6">
-                            <input  id="referencia" type="text">
-                            <label for="referencia">Referencia</label>
                         </div>
 
                     </div>

@@ -943,9 +943,8 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         var strprec = '<div style="padding: 0 !important;" class="col s2 center-align divisa" id="prec'+id+'">'+(precio).formatMoney(2,'.',',')+'</div>';
 
         $("#ffacturas .zelda").data('triforce')['idline'] = id;
-        if(parseInt(config[16])){
+        
             strprec = '<div style="padding: 0 !important;" class="col s2 center-align divisa hide" id="prec'+id+'">'+(precio).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="fake'+id+'">0.00</div>'
-        } 
 
         var codedg = '';
         if (desgloce == 1)
@@ -1084,6 +1083,8 @@ function totalizar(){
                     exento += tmpdesc;
                    if (parseInt(config[16]))
                         $("#fake"+vidlinea).html(((((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad))).formatMoney(2,'.',','))
+                    else
+                        $("#fake"+vidlinea).html(((((parseFloat(tmpdesc))/cantidad))).formatMoney(2,'.',','))
                 }else{ 
                     //PRODUCTOS O CLIENTES GRABADOS Y EXONERADOS
                     simv = parseFloat(tmpdesc*(rimv/100)).toFixed(5);
@@ -1099,6 +1100,9 @@ function totalizar(){
                     if (parseInt(config[16])) {
                         $("#tota"+vidlinea).html((parseFloat($("#tota"+vidlinea).html().replace(/,/g,''))+parseFloat(dimv)).formatMoney(2,'.',','))
                         $("#fake"+vidlinea).html(((((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad))).formatMoney(2,'.',','))
+                    }else{
+                        $("#tota"+vidlinea).html((parseFloat($("#tota"+vidlinea).html().replace(/,/g,''))).formatMoney(2,'.',','))
+                        $("#fake"+vidlinea).html((parseFloat(tmpdesc)/cantidad).formatMoney(2,'.',','))
                     }
                 }
             }else{
@@ -1382,15 +1386,15 @@ function cargarProducto(kbrota,elemento) {
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
 
+        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25]}) //,imp: cod[6]
+
         if (param==2){
              cod[3] = cod[3]/(divisa == 1 ? 1 : parseFloat(cod[25]));
              $("#precp").attr('mreal',cod[25]);
          }
         else 
             cod[3] = cod[3]/divisa;
-
-        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25]}) //,imp: cod[6]
-
+        
         $("#codp").val(cod[1]);
         $("#descp").val(cod[2]);
         $("#precp").val(parseFloat(cod[3]).formatMoney(2,'.',','));
@@ -1664,7 +1668,7 @@ function searchClient(vvariable,visprv){
             
             $("#vidagente").val(vclie[14]).change();
             $("#vidagente").material_select('update');
-
+            }
         }else{
             $("#vdescuentop").val();
             $("#vdescuentop").data('valor',0);

@@ -6,6 +6,7 @@ $(function(){
 	param = parseInt(getParameterByName('tf'));
 	paramTemp = param;
 	config = getDatos('',42,'@@impresa',0,0)[0][0];
+
 	switch(param){			
 		case 2:
 			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
@@ -20,7 +21,13 @@ $(function(){
 			arr('login',4,'',214,1+',0,0,0,2,@@impresa',0,0,0)
 			break;
 	};
+	cargarMoneda(0); 
 	$('select').material_select();
+
+	$("#monedas").change(function(){
+	    cargarMoneda($('option:selected',this).val());
+	    totalizar();
+	});
 
 	$("#ncli").keydown(function(e){
 		var charCode = e.which || e.keyCode;
@@ -33,7 +40,7 @@ $(function(){
                 onAutocomplete: function(val){
 
                     var sql = "id > 0 and if("+gtipo+" = 1 ,!bisproveedor,bisproveedor) and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$("#ncli").val()+"' and idsucursal = @@impresa limit 1";
-					var id = arr('login',4,'id,format(getsaldocliente(id,0),2)',2,sql,0,0,0);
+					var id = arr('login',4,'id,format(getsaldocliente(id,0),2),idmoneda',2,sql,0,0,0);
 					var tabla = $("#data-table-facturas").DataTable();
 					tabla.destroy();
 					$("#monto").val(0)
@@ -51,15 +58,15 @@ $(function(){
 							tabla.html('');
 							for (var i = 0; i < p[0].length; i++) {
 								var q = p[0][i];
-								var check = '<td> <input type="checkbox" id="check'+i+'" value="'+q[12]+'" vl="'+q[14]+'" class="factclie"/><label for="check'+i+'"></label> </td>'; 
-								var tdFecha = '<td>'+q[5]+'</td>';
-								var tdSaldo = '<td>'+q[6]+'</td>';
-								var tdAbono = '<td><input type="text" id="ab'+i+'" class="eder vabono" value="'+q[14]+'"/></td>';
+								var check = '<td style="padding:0"> <input type="checkbox" id="check'+i+'" value="'+q[12]+'" vl="'+q[14]+'" class="factclie" style="margin:0px;"/><label for="check'+i+'"></label> </td>'; 
+								var tdFecha = '<td style="padding:0">'+q[5]+'</td>';
+								var tdSaldo = '<td style="padding:0">'+q[6]+'</td>';
+								var tdAbono = '<td style="padding:0"><input type="text" id="ab'+i+'" class="eder vabono" value="'+q[14]+'" style="margin:0px;" /></td>';
 								var trIdFactura = '<tr>'+check+'<td>'+q[3]+'</td>'+tdFecha+tdSaldo+tdAbono+'</tr>';
 								tabla.append(trIdFactura);
 							}
 							$("#data-table-facturas").dataTable({
-								bFilter : true,
+								bFilter : false,
 						        bScrollInfinite : true,
 						        bSort : true,
 						        bLengthChange : true,
@@ -71,6 +78,7 @@ $(function(){
 							$("#saldo").html(id[0][0][1])
 							$("#hclie").val(id[0][0][0]);
 							$("#monto").focus().select();
+							$("#monedas").val(id[0][0][2]).change()
 						}
 					}
                 }
@@ -232,7 +240,7 @@ $(document).on("click","#btnPagar",function(){
 			Materialize.toast('No hay Facturas que Cancelar',4000,'red');
 			return false;
 		}
-
+		var vidmmoneda = 1;
 		var idpag = arr('login',4,'',268,'1,0,@@usr,@@impresa',0,0,0)[0][0][0];
 
 		if ($(".factclie:checked").length) {
@@ -280,7 +288,9 @@ $(document).on("click","#btnPagar",function(){
 		$("#monto").val('');
 		$("#saldo").html('0.00');
 		$("#comentario").val('');
+		$("#referencia").val('')
 		$("#idtipopagopagar").val(0).material_select('update');
+
 		var tp = $("#p_vm").is(":checked") == true ? 1 : 2;
 		window.open('cuentas?accion=5&id='+idpag+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 		
