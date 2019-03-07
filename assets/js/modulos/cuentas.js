@@ -9,16 +9,17 @@ $(function(){
 
 	switch(param){			
 		case 2:
-			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+			arr("cuentas",1,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,2+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 			gtipo = 2;
+			$("#gtit").html("Cuentas por Pagar");
 			break;
 		default:
 			param = 1;
 			gtipo = 1;
-			arr("cuentas",param,'1',-1,'',0,1,$("#bdymantCuentas"));
+			arr("cuentas",1,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
-			arr('login',4,'',214,1+',0,0,0,2,@@impresa',0,0,0)
+			$("#gtit").html("Cuentas por Cobrar");
 			break;
 	};
 	cargarMoneda(0); 
@@ -26,7 +27,6 @@ $(function(){
 
 	$("#monedas").change(function(){
 	    cargarMoneda($('option:selected',this).val());
-	    totalizar();
 	});
 
 	$("#ncli").keydown(function(e){
@@ -240,7 +240,9 @@ $(document).on("click","#btnPagar",function(){
 			Materialize.toast('No hay Facturas que Cancelar',4000,'red');
 			return false;
 		}
-		var vidmmoneda = 1;
+		var vidmoneda = $("#monedas").val();
+		var divisa = $("#monedas option:selected").attr('dv');
+		var fechabol = $("#fecha").val();
 		var idpag = arr('login',4,'',268,'1,0,@@usr,@@impresa',0,0,0)[0][0][0];
 
 		if ($(".factclie:checked").length) {
@@ -252,11 +254,13 @@ $(document).on("click","#btnPagar",function(){
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					console.log(idestadocuenta)
 				}
 				else{
 					vmonto = val-monto*-1;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					console.log(idestadocuenta)
 					return false;
 				}	
 			});
@@ -268,11 +272,13 @@ $(document).on("click","#btnPagar",function(){
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					console.log(idestadocuenta)
 				}
 				else{
 					vmonto = val-monto*-1;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					console.log(idestadocuenta)
 					return false;
 				}
 			});

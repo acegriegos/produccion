@@ -294,14 +294,14 @@ $(function(){
                 $("#m-tarjeta").removeClass('hide');
                 $("#labeltarjeta").text('Número de Tarjeta');
                 retrasarFocus('carddigito');
-                $(".icono").html(p[0][3]);
+                //$(".icono").html(p[0][3]);
             break;
             case 1:
                $(".modal-tpago").addClass('hide');
                 $("#m-deposito").removeClass('hide');
                 $("#labeldeposito").text('Número de Transferencia');
                 retrasarFocus('ndeposito');
-                $(".icono").html(p[0][3]);
+                //$(".icono").html(p[0][3]);
             break;
 
             case 0:
@@ -309,7 +309,7 @@ $(function(){
                 $("#m-cheque").removeClass('hide');
                 $("#labelcheque").text('Número de Cheque');
                 retrasarFocus('ncheque');
-                $(".icono").html(p[0][3]);
+                //$(".icono").html(p[0][3]);
             break;
 
 

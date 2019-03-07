@@ -28,17 +28,6 @@ if (!isset($_REQUEST['accion'])) {
 			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 			$smarty->display('ajax/cuentas/ajaxmantCxC.tpl');
 			break;
-		case 2:
-			$pagina = 1;
-			require_once '../_config/mySmarty.php';
-			$smarty  = new mySmarty();
-			$smarty->setModule('dashboard');
-			//$smarty->assign('PRO',$kakaroto->kamehameha('',214,'2,0'));
-			$smarty->assign('TIPOPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by principal desc, nombre'));
-			$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
-			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
-			$smarty->display('ajax/cuentas/ajaxmantCxP.tpl');
-			break;
 		case 4:
 			$pagina = 1;
 			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
