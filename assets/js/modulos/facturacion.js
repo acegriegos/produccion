@@ -595,12 +595,10 @@ function cargarGlobal(){
         var value = parseInt($(this).attr('val'));
         $(".gen").addClass('hide');
         $(".zelda").data('triforce')['vidtipo'] = value;
-        $(".zelda").data('triforce')['vidtipopago'] = 0;
 
         switch(value){
             case 1: //CREDITO
                 $(".con").removeClass('hide');
-                $(".zelda").data('triforce')['vidtipopago'] = $("#idtipopago").val();
                 $("#vplazo").val(0);
                 break;
             case 2: //CREDITO

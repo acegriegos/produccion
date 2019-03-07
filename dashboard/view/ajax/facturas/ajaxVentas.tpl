@@ -69,16 +69,6 @@
       <i class="mdi mdi-calendar mdi-24px prefix"></i>
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
-
-    <!-- <div class="input-field con gen col s12 m3 l3 tp_all" >
-    <i class="mdi mdi-coin mdi-24px prefix"></i>
-      <select id="idtipopago" type="select">
-        {section name=LE loop=$TPAGO}
-        <option value="{$TPAGO[LE][0]}">{$TPAGO[LE][1]}</option>
-        {/section}
-      </select>
-      <label style="color: black"><b>Forma de Pago</b></label>
-    </div> -->
    
     <div class="input-field cre gen col s12 m3 l3 hide">
       <i class="mdi mdi-calendar-clock mdi-24px prefix"></i>
@@ -206,11 +196,11 @@
         <option value="10">SAN CARLOS</option>
       </select>
           <input type="radio" name="tcompra" id="tc1" value="1" class="with-gap" checked>
-          <label for="tc1"  class="trCompra hide" style="float: left;margin-right: 5px">Costo</label>
+          <label for="tc1"  class="hide" style="float: left;margin-right: 5px">Costo</label>
           <input type="radio" name="tcompra" id="tc2" value="2" class="with-gap">
-          <label for="tc2"  class="trCompra hide" style="float: left;margin-right: 5px">Gasto Diferido</label>
+          <label for="tc2"  class="hide" style="float: left;margin-right: 5px">Gasto Diferido</label>
           <input type="radio" name="tcompra" id="tc3" value="3" class="with-gap">
-          <label for="tc3"  class="trCompra hide" style="float: left;margin-right: 5px">Gasto no Diferido</label>
+          <label for="tc3"  class="hide" style="float: left;margin-right: 5px">Gasto no Diferido</label>
     <section class="right">
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
           <label for="iva" class="hide valor_grabado" style="float: left;margin-right: 5px">IVI</label>
@@ -502,14 +492,12 @@
 
       {if $AG}
       <div class="input-field">
-         {if $smarty.session.TMPT eq 1 || $smarty.session.TMPT eq 7}
         <select id="vidagente" type="select">
             <option value="0">Agente</option>
-          {section name="LE" loop=$AGE}
-            <option value="{$AGE[LE][0]}">{$AGE[LE][1]}</option>
+          {section name="LE" loop=$AG}
+            <option value="{$AG[LE][0]}">{$AG[LE][1]}</option>
           {/section}
         </select>
-        {/if}
       </div>
       {/if}
     </div>

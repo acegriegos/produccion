@@ -5,7 +5,6 @@ $(function(){
 	config = getDatos('',42,'@@impresa',0,0)[0][0];
     tf = tf == '' ? '3' : tf;
 	arr('login',6,'',187,'0,0,"'+tf+'|@@impresa","0,10"',0,1,$("#listafacturas"));
-    console.log('0,0,"'+tf+',@@impresa","0,10"')
     var tabla = $("#data-table-facturas").DataTable();
     tabla.destroy();
     $("#data-table-facturas").dataTable({
