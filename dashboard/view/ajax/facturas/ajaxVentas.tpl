@@ -191,7 +191,7 @@
   <div class="row">
     <div class="col s12">
 
-      <select class="col s3 hide trVenta trOCompra" id="invgeneral" style="margin: 0px;width: 150px;padding: 0px;float: left;">
+      <select class="col s3 hide" id="invgeneral" style="margin: 0px;width: 150px;padding: 0px;float: left;">
         <option value="6">NARANJO</option>
         <option value="10">SAN CARLOS</option>
       </select>
