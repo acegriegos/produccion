@@ -127,16 +127,16 @@ $(document).on("click",".msjh",function(){
     var tstado = $(this).attr('tipo');
     var idcomp = $(this).parent().parent().attr('id').substr(2)
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado,0,0,0);
-
-    if(!parseInt(idfact['succed'])){
+    var crrprov = getDatos('group_concat(correo)',17,'idtabla = 2 and idfila = (select idcliente from facturas where id ='+idcomp+') group by idfila',0,0,0);
+    console.log(crrprov);
+    if(!idfact.succed){
         Materialize.toast(idfact[0]['ERROR'],4000,'red');
         $(this).parent().parent().remove();
     }else{
-        if (idfact[0][0][1] >= 7) {
-            var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-            Materialize.toast($toastContent,5000);
-            sendFE('^'+idfact[0][0][0]);
-        }
+        var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        Materialize.toast($toastContent,5000);
+        sendFE('^'+idfact[0][0][0]);
+        $(this).parent().parent().remove();
     }
 
 });
@@ -680,7 +680,6 @@ function sendVMail(factura,clave,vid){
                 break;
         }
         archivos = makeArchivos(factura,clave,vid,vbody[1],estr);
-
         enviarCorreo(3,str_correos,estr+" N° "+factura,vbody[0],archivos);
     }
 }

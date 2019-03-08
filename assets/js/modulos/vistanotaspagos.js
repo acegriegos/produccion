@@ -1,10 +1,20 @@
+var param;
+
 $(function(){
-    var tf = param = getParameterByName('tf');
+    var tf  = getParameterByName('tf');
+    param = getParameterByName('tp');
     $('#tf'+tf).click();
+    tf = !tf.length ? 3 : tf;
+    param = !param.length ? 0 : param;
+    if(param == 0){
+        $("#titg").html('Movimientos Cuentas por Cobrar');
+    }else{
+        $("#titg").html('Movimientos Cuentas por Pagar');
+    }
 
 	config = getDatos('',42,'@@impresa',0,0)[0][0];
-    tf = tf == '' ? '3' : tf;
-	arr('login',6,'',187,'0,0,"'+tf+'|@@impresa","0,10"',0,1,$("#listafacturas"));
+	arr('login',6,'',187,'0,0,"'+tf+'|'+param+'|@@impresa","0,10"',0,1,$("#listafacturas"));
+    console.log('0,0,"'+tf+'|0|@@impresa","0,10"')
     var tabla = $("#data-table-facturas").DataTable();
     tabla.destroy();
     $("#data-table-facturas").dataTable({
@@ -22,14 +32,13 @@ $(function(){
 
 $(document).on("change","input[name=tventa]",function(){
     var id = parseInt($(this).attr('id').substr(2));
-    id = id ==3 ? '3,7' : id;
     $("#search_facturas").val('').attr('filtro',1);
     $("[fltr=1]").click();
     Materialize.updateTextFields();
 
     var tabla = $("#data-table-facturas").DataTable();
     tabla.destroy();
-    arr('login',6,'',187,'0,0,"'+id+'|@@impresa","0,10"',0,1,$("#listafacturas"));
+    arr('login',6,'',187,'0,0,"'+id+'|'+param+'|@@impresa","0,10"',0,1,$("#listafacturas"));
     $("#data-table-facturas").dataTable({
         bFilter: false,
         bScrollInfinite: true,

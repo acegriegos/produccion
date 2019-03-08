@@ -3,7 +3,7 @@
 
 <div class="card-header center head1">
 <span class="flow-text" id="gtit"></span>
-<a href="vistanotaspagos" target="_new" class="der pbtn tooltipped white-text" data-tooltip="Ver Abonos" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
+<a target="_new" class="der pbtn tooltipped white-text" id="shabonos" data-tooltip="Ver Abonos" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
 </div>
 <div id="mantCxC" class="pequeño">
         <div class="row padd marginzero" style="padding-top: 20px">

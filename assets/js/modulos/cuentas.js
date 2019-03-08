@@ -13,6 +13,7 @@ $(function(){
 			arr('login',6,'',214,2+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 			gtipo = 2;
 			$("#gtit").html("Cuentas por Pagar");
+			$("#shabonos").attr('href','vistanotaspagos?tp=1');
 			break;
 		default:
 			param = 1;
@@ -20,6 +21,7 @@ $(function(){
 			arr("cuentas",1,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 			$("#gtit").html("Cuentas por Cobrar");
+			$("#shabonos").attr('href','vistanotaspagos');
 			break;
 	};
 	cargarMoneda(0); 

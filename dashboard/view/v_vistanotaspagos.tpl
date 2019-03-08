@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Movimientos Estado CxC</title>
+    <title>Movimientos Estados</title>
    {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.0.1.3">
   </head>
@@ -16,7 +16,7 @@
       <div class="card z-depth-3 ">
           <div class="card-header center"> 
           <p class="flow-text head1">
-          Movimientos Cuentas por Cobrar <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span></p>
+          <span id="titg"></span> <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span></p>
           </div>
 
           <div class="row">
