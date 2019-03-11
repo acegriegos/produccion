@@ -194,8 +194,8 @@ $(function(){
 
             Materialize.toast('Orden Editada Corectamente',4000,'green');
             
-            /*if(imprimir)
-            mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);*/
+            if(imprimir)
+            mantenimiento('login',12,{data:vdata,ip:"192.168.0.123"},1);
         }else{
             Materialize.toast('No Hay Productos que Ingresar',4000,'red');
             $("#detfactmsj").show();
@@ -736,7 +736,7 @@ function endDetail(vid,vacc,vmodulo) {
 
     vdata += '\n\n\n\n\n\n\n\n\n ';
 
-    //mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);
+    mantenimiento('login',12,{data:vdata,ip:"192.168.0.123"},1);
     actualizar(800,'idtipoocupado=2','id='+mesa);
     $("#saveOrder").removeClass('add');
     $("#saveOrder").addClass('saveOrder');
