@@ -164,9 +164,9 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.1.4"></script>
- <script src="../assets/js/materialize.js?v=10.0.1.4"></script>
- <script src="../assets/js/asgard.js?v=10.0.1.4"></script>
+ <script src="../assets/js/jquery.js?v=10.0.1.5"></script>
+ <script src="../assets/js/materialize.js?v=10.0.1.5"></script>
+ <script src="../assets/js/asgard.js?v=10.0.1.5"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
