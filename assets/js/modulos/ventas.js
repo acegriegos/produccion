@@ -1916,8 +1916,7 @@ function sendVMail(factura,clave,vid){
             var vbody = getDatos('',73,vid,0,0)[0][0];
             var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
             archivos = makeArchivos(factura,clave,vid,vbody[1],ntipo);
-            enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos);
-            console.log(3)
+            enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,1,vid,64);
         }else{
 
             if(parseInt($("[name=tipopago]:checked").val()) != 5){
@@ -1991,7 +1990,7 @@ function postExcecute(vid,p){
 }
 
 function postSendmail() {
-    if(parseInt($("[name=tipopago]:checked").val()) != 5){
+   if(parseInt($("[name=tipopago]:checked").val()) != 5){
         if (parseInt(idext) > 0) {
             setTimeout(function(){window.close();},2000);
         }else{

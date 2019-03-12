@@ -130,8 +130,8 @@
           <tr></tr>
           <td class="margen" colspan="3">&nbsp;</td>
 
-          <td  style="background-color: #3960A7;" class=" white-text sinborde imprimirSINBOR center-align"><b>SALDO TOTAL</b></td>
-          <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11]; ?><?php echo $datos[6]; ?></b></td>
+          <td  style="background-color: #3960A7;" class=" white-text sinborde imprimirSINBOR center-align"><b>SALDO CLIENTE</b></td>
+          <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11].number_format($datos[20]); ?></b></td>
 
         </tr>
       </tfoot>

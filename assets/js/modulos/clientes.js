@@ -69,7 +69,7 @@ $("#telefono_in").blur(function(){
 		$(this).addClass('active')
 	});
 
-	$("#tipocliente").click(function(){
+	$("#tipocliente").change(function(){
 		if($(this).attr('tp') == 2){
 			$(".cre").hide();
 			$(this).attr('tp',1);
@@ -414,24 +414,21 @@ function validarclientes() {
 
 	if (!$("#fcorreos .ciclos").length) { $("#correo_in").focus(); return 'Correo Requerido'; }
 
-	if($("#vidcuenta").val() == 1){
-		salida = '';
-		vdefecto = '';
-		$(".ctas").each(function(){
-			vid = $(this).attr('id').substr(2);
-			if($("#my-array"+vid).val() == 0 ){
-				$('#ln2').click();
-				$("#my-array"+vidprovincia).focus();
-				salida = 'Campo Contable no Válido';
-			}
-			vdefecto += '[null,'+$("#my-array"+vid).val()+',2,?,100,'+$("#my-array"+vid).attr('tp')+','+$("#my-array"+vid).attr('dh')+']:';
-		});
+	if(!$("#tipocliente").is(":checked")){
+		$("#vcredito").val(0);
+		$("#vplazo").val(0);
+	}else{
+		if (isNaN($("#vcredito").val())) {
+			$("#vcredito").focus();
+			return 'Credito Debe ser Numérico';
+		}
 
-		if (salida != '')  
-			return salida
-
-		$("#vidcuenta").val(vdefecto);
+		if (parseFloat($("#vcredito").val()) == 0) {
+			$("#vcredito").focus();
+			return 'Credito Debe ser Mayor a Cero';
+		}
 	}
+
 	return false;
 }
 
@@ -551,19 +548,23 @@ function endDetail(vid,vacc,modulo){
 function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
-			llenarTarjeta(1);
+			//llenarTarjeta(1);
 			var idtipo = $("#vidtipocliente").val();
-			
 			$("[tipoclie = "+idtipo+"]").prop('checked', true);
-			//$("[tipoclie = "+idtipo+"]").click();
 
-			if (parseFloat($("#vplazo").val()) != 0)
-				$("#tipocliente").click();
+			if (parseFloat($("#vcredito").val()) != 0){
+				$("#tipocliente").attr('tp',1)
+				$("#tipocliente").prop('checked',true).change();
+			}else{
+				$("#tipocliente").attr('tp',2)
+				$("#tipocliente").prop('checked',false).change();
+			}
 				
 			setTimeout(function(){
 				$(".close_phone").removeClass('close');
 				$(".close_mail").removeClass('close');
 			},500);
+
 		break;
 	}
 }

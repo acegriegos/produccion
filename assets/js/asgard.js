@@ -656,51 +656,24 @@ function getParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
-function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
-    if(!$("#smail").is(':visible')){
-        var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
-        Materialize.toast($toastContent);
-    }
+function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla) {
+    // if(!$("#smail").is(':visible')){
+    //     var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
+    //     Materialize.toast($toastContent);
+    // }
    $.ajax({
         url: '../_config/correoAjax.php',
         type: 'POST',
-        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
+        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto,con_con : vconcon,idfila : vidfila,idtabla : vidtabla}
     })
    .done(function(data) {
-    var p;
-    var rs;
-
-    $(".expect_mail").removeClass('progress');
-        try {
-            p = JSON.parse(data);
-            if (parseInt(p['success'])) {
-                if($("#smail").is(':visible')){
-                    Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green");
-                    $("#smail").html('')
-                }else{
-                     $(".expect_mail").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-                }
-            }else{
-                if($("#smail").is(':visible')){
-                    Materialize.toast('Problemas Enviando Correo &nbsp;&nbsp; <i class="mdi mdi-close"></i>',4000,"red");
-                    $("#smail").html('')
-                }else{
-                     Materialize.toast('Problemas Enviando Correo: '+p['error'],4000,"red");
-                     $(".expect_mail").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-                }
-            }
-            
-        }
-        catch(err){
-            p = data;
-            console.log(data)
-            console.log(err)
-            if($("#smail").is(':visible')){
-                Materialize.toast('Problemas Enviando Correo &nbsp;&nbsp; <i class="mdi mdi-close"></i>',4000,"red");
-                $("#smail").html('')
-            }else{
-                 $(".expect_mail").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-            }
+        console.log(data);
+        
+        if($("#smail").is(':visible')){
+            Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green");
+            $("#smail").html('')
+        }else{
+             $(".expect_mail").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
         }
         
         try{

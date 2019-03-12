@@ -15,6 +15,7 @@ class correo
     function __construct($pr,$tit,$msj,$ubi='../',$borrar=1)
     { 
       	include_once 'mysqlDB.php';
+        session_write_close();
         $this->ubi = $ubi;
         $this->borrar = $borrar;
 		$base = new DBClass();

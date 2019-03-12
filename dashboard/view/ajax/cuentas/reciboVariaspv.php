@@ -162,8 +162,8 @@ echo '<tr>
   echo '
 </table>';
 
-echo '<hr>
-<div style="text-align: center;" id="resolucion"></div><br><br><br>
+echo '<hr><b>SALDO CLIENTE:</b> '.$obj[6].$obj[11].'
+<br><br><br>
 <hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>
 <br><br><br>

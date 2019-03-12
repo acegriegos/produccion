@@ -24,6 +24,8 @@ $(function(){
 			$("#shabonos").attr('href','vistanotaspagos');
 			break;
 	};
+
+	$("#festadoscuentas .zelda").data('triforce',{vdivisa : ''});
 	cargarMoneda(0); 
 	$('select').material_select();
 
@@ -314,6 +316,7 @@ function validarpago() {
 	/*if($("#idtipopagopagar option:selected").val() == 0){
 		return 'Tipo de Pago Requerido'
 	}*/
+
 	return false;
 }
 
@@ -479,6 +482,7 @@ function validarestadocuenta(){
 		return "Tipo de Pago Requerido";
 	}
 
+	$("#festadoscuentas .zelda").data('triforce')['vdivisa'] = $("#vidmoneda option:selected").attr('dv');
 return false;
 }
 
