@@ -146,7 +146,7 @@
                                                 </select>
                                             </div>
                                             <div class="input-field col s6">
-                                                <select type="selected" id="vidmoneda" style="margin: 0px">
+                                                <select type="select" id="vidmoneda" style="margin: 0px">
                                                   {section name="LE" loop=$MON}
                                                     <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
                                                   {/section}

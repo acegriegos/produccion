@@ -51,6 +51,7 @@
 				<input type="hidden" id="vdivisa" value="1">
 				<input type="hidden" id="vidmoneda" value="1">
 				<input type="hidden" id="vreferencia" value="">
+				<input type="hidden" id="vfechabol" value="">
 				<div class="row">
 					<div class="col s12">
 						<div class="card bg1">

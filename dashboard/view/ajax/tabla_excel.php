@@ -45,7 +45,7 @@
         }
         
         if(!is_numeric(strpos($omitir, ",".$indexj.","))){
-          $data = is_numeric($data) ? number_format($data,5,',','.') : $data;
+          $data = is_numeric($data) ? number_format($data,2,',','.') : $data;
           $archivo .= '<td style="max-width:100%;white-space:nowrap;">'.$data.'</td>';
         }
       }
@@ -63,7 +63,7 @@
     if (sizeof($tsuma)) {
       $archivo .= '<table><tr><td colspan="2"><b>TOTALES</b></td></tr>';
       foreach ($tsuma as $aindex => $areglo) {
-        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],5,",",".").'</td></tr>';
+        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],2,",",".").'</td></tr>';
       }
       $archivo .= '<table>';
     }
