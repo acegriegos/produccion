@@ -5,7 +5,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.1.6">
+<link href="../assets/css/materialize.css?v=10.0.1.7">
 <style>
   @media print {
     .print{
@@ -254,8 +254,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.0.1.6"></script>
-    <script src="../assets/js/materialize.js?v=10.0.1.6"></script>
+    <script src="../assets/js/jquery.js?v=10.0.1.7"></script>
+    <script src="../assets/js/materialize.js?v=10.0.1.7"></script>
 
      <script type="text/javascript">
    $(function(){
