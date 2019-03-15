@@ -968,6 +968,7 @@
 <!--  -->
 <!-- FOOTER -->
   <div class="modal-footer">
+    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factrealp" modulo="factura" varias="1" style="cursor: pointer;">ACEPTAR IMPRIMIR</a>
     <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1" style="cursor: pointer;">ACEPTAR</a>
   </div>
 </div>

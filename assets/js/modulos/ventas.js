@@ -2,6 +2,7 @@ var w;
 var str_correos = '';
 var tmp_correos = '';
 var punidad = 0;
+var imprimir = 1;
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
@@ -453,11 +454,6 @@ $(document).on("click","#facturar",function(){
 
         var tpago = 1;
         var tfact = $("#ffacturas .zelda").data('triforce')['vidtipo'];
-        // var p = getDatos('',231,tpago+','+tfact,0,0)[0];
-        // $(this).attr('regex',p[0][2]);
-        //         $(this).attr('disabled',true);
-        // $("#factreal").click();
-        // return false;
 
         $("#tpg1").click();
         
@@ -479,77 +475,28 @@ $("#pcon").blur(function(){
 
 $("#factreal").click(function(){
     if(parseInt($("[name=tipopago]:checked").val()) == 5){
-        $("#factreal").removeClass('add');
-        var cancelar = $("#mxcan").val().replace(/,/g,'');
-        cancelar = isNaN(cancelar) ? 0 : parseFloat(cancelar)
-        var total = parseFloat($("#mxtot").val().replace(/,/g,''));
-
-        if(cancelar == 0){
-            Materialize.toast('Total a Cancelar debe ser Mayor a 0',4000,'red');
-            return false;
-        }
-
-        var total = parseFloat($("#mxcan").val().replace(/,/g,''));
-        var efectivo = parseFloat($("#montoefect").val().replace(/,/g,''));
-        var tarjeta = $("#montotar").val().replace(/,/g,'');
-        tarjeta = isNaN(tarjeta) ? 0 : parseFloat(tarjeta);
-
-        if(efectivo+tarjeta > total){
-            Materialize.toast('Suma de Tarjeta y Efectivo no puede ser Mayor al Total a Cancelar',4000,'red');
-            $("#montotar").focus().select();
-            return false;
-        }
-
-        if($("#newfact").is(":checked")){
-            //COMODIN DE CLIENTE FACTURA
-        }else{
-            //TIQUETE ELECTRONICO, 66, 67
-            var factura = getDatos('',66,'1,0,7,'+$("#ffacturas .zelda").data('triforce')['vidtipo']+',5,0,1,0,'+$("#mxcan").attr('imv')+','+$("#mxcan").attr('subtotal')+','+$("#mxcan").attr('exento')+','+$("#mxcan").attr('descuento')+',0,0,0,"'+$("#vcomentario").val()+'","",'+$("#ffacturas .zelda").data('triforce')['vidmoneda']+',@@usr,@@impresa,"",0,"","'+$("#ntarjmixto").val()+'","",'+$("#ffacturas .zelda").data('triforce')['vdivisa']+',"'+$("#ffacturas .zelda").data('triforce')['videxoneracion']+'",0',0,0,0);
-            if(factura.succed){
-                factura = factura[0][0][0];
-                var detfactura;
-                var lvidimpuesto = lviddescuento = ""
-                $("#lpc .mover").each(function(){
-                    detfactura = getDatos('',67,'1,0,'+factura+','+$(this).attr('ridp')+','+$(".lpcant",this).html()+','+$(this).attr('pbase')+','+parseFloat($(this).attr('descuento'))*parseFloat($(".lpcant",this).html())+',6,0,'+parseFloat($(this).attr('imv'))*parseFloat($(".lpcant",this).html())+',"",1,"'+lvidimpuesto+'","'+lviddescuento+'",0',0,0,0,);
-
-                    $("#fd"+$(this).attr('idp')).data('triforce')['vcantidad'] = parseFloat($("#fd"+$(this).attr('idp')).data('triforce')['vcantidad'])-parseFloat($(".lpcant",this).html());
-                    if(parseFloat($("#fd"+$(this).attr('idp')).data('triforce')['vcantidad']) <= 0)
-                        $("#fd"+$(this).attr('idp')).remove();
-
-                     if (parseInt(idext) < 0){
-                        actualizar(260,'cantidad = cantidad-'+$(".lpcant",this).html(),'idfactura = -1*'+idext+' and idproducto = '+$(this).attr('ridp'),0,0,0);
-                     $(this).remove();
-                    } 
-
-                });
-                if (parseInt(idext) < 0)
-                    eliminar(260,'cantidad <= 0 and idfactura = -1*'+idext)
-                totalizar();
-                $("#mxcan").val('0.00');
-                $("#mxcan").attr('subtotal',0);
-                $("#mxcan").attr('imv',0);
-                $("#mxcan").attr('exento',0);
-                $("#mxcan").attr('descuento',0);
-                $("#montoefect").val('0.00');
-                Materialize.toast('Tiquete Registrado Correctamente',4000,'green');
-                var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-                Materialize.toast($toastContent,4000);
-                sendFE(factura);
-            }else{
-                console.log(factura['ERROR']);
-                Materialize.toast('Problemas Generando el Tiquete',4000,'red');
-            }
-
-
-        }
+        mixto();
     }else{
         $(this).blur();
-        $("#factreal").addClass('add');
         $("#factreal").attr('disabled',true);
+        $("#factrealp").attr('disabled',true)
         $("#modal-tpagos").attr("gfort",1);
-        $("#facturar").attr('disabled',true)
+        $("#facturar").attr('disabled',true);
+        imprimir = 0;
     }
     
+});
+
+$("#factrealp").click(function(){
+    if(parseInt($("[name=tipopago]:checked").val()) == 5){
+        mixto();
+    }else{
+        $(this).blur();
+        $("#factrealp").attr('disabled',true)
+        $("#factreal").attr('disabled',true);
+        $("#modal-tpagos").attr("gfort",1);
+        $("#facturar").attr('disabled',true);
+    }
 });
 
 
@@ -1897,16 +1844,15 @@ function sendVMail(factura,clave,vid){
             case 2:
                 break;
             default:
-                
-                if (config[4] == 1 && (param == 1 || param == 7)) {
-                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
-                    
-                    try{ 
-                        console.log(1)
-                        w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
-                        console.log(2)
-                    }catch(e){
-                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
+                if (imprimir) {
+                    if (config[4] == 1 && (param == 1 || param == 7)) {
+                        var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                        
+                        try{ 
+                            w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
+                        }catch(e){
+                            Materialize.toast("POP-UP ACTIVADO",4000,'red');
+                        }
                     }
                 }
                 break;
@@ -1941,13 +1887,15 @@ function sendVMail(factura,clave,vid){
                 if (config[4] == 1 && (param == 1 || param == 7)) {
 
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
-                   
-                    try{    
-                         w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
-                    }catch(e){
-                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
-                    }
                     
+                    if (imprimir){
+                        try{    
+                             w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
+                        }catch(e){
+                            Materialize.toast("POP-UP ACTIVADO",4000,'red');
+                        }
+                    }
+
                     if(parseInt($("[name=tipopago]:checked").val()) != 5){
                         if (parseInt(idext) > 0) {
                            setTimeout(function(){window.close();},2000);
@@ -1962,6 +1910,7 @@ function sendVMail(factura,clave,vid){
                             setTimeout(function(){window.close();},2000);
                     
                     }
+
                 break;
         }
     }
@@ -2069,4 +2018,71 @@ function escribirMatriz(elemento){
         //}
     });
     elemento.data('matriz',matriz);
+}
+
+function mixto(){
+    $("#factrealp").removeClass('add');
+        $("#factreal").removeClass('add');
+        var cancelar = $("#mxcan").val().replace(/,/g,'');
+        cancelar = isNaN(cancelar) ? 0 : parseFloat(cancelar)
+        var total = parseFloat($("#mxtot").val().replace(/,/g,''));
+
+        if(cancelar == 0){
+            Materialize.toast('Total a Cancelar debe ser Mayor a 0',4000,'red');
+            return false;
+        }
+
+        var total = parseFloat($("#mxcan").val().replace(/,/g,''));
+        var efectivo = parseFloat($("#montoefect").val().replace(/,/g,''));
+        var tarjeta = $("#montotar").val().replace(/,/g,'');
+        tarjeta = isNaN(tarjeta) ? 0 : parseFloat(tarjeta);
+
+        if(efectivo+tarjeta > total){
+            Materialize.toast('Suma de Tarjeta y Efectivo no puede ser Mayor al Total a Cancelar',4000,'red');
+            $("#montotar").focus().select();
+            return false;
+        }
+
+        if($("#newfact").is(":checked")){
+            //COMODIN DE CLIENTE FACTURA
+        }else{
+            //TIQUETE ELECTRONICO, 66, 67
+            var factura = getDatos('',66,'1,0,7,'+$("#ffacturas .zelda").data('triforce')['vidtipo']+',5,0,1,0,'+$("#mxcan").attr('imv')+','+$("#mxcan").attr('subtotal')+','+$("#mxcan").attr('exento')+','+$("#mxcan").attr('descuento')+',0,0,0,"'+$("#vcomentario").val()+'","",'+$("#ffacturas .zelda").data('triforce')['vidmoneda']+',@@usr,@@impresa,"",0,"","'+$("#ntarjmixto").val()+'","",'+$("#ffacturas .zelda").data('triforce')['vdivisa']+',"'+$("#ffacturas .zelda").data('triforce')['videxoneracion']+'",0',0,0,0);
+            if(factura.succed){
+                factura = factura[0][0][0];
+                var detfactura;
+                var lvidimpuesto = lviddescuento = ""
+                $("#lpc .mover").each(function(){
+                    detfactura = getDatos('',67,'1,0,'+factura+','+$(this).attr('ridp')+','+$(".lpcant",this).html()+','+$(this).attr('pbase')+','+parseFloat($(this).attr('descuento'))*parseFloat($(".lpcant",this).html())+',6,0,'+parseFloat($(this).attr('imv'))*parseFloat($(".lpcant",this).html())+',"",1,"'+lvidimpuesto+'","'+lviddescuento+'",0',0,0,0,);
+
+                    $("#fd"+$(this).attr('idp')).data('triforce')['vcantidad'] = parseFloat($("#fd"+$(this).attr('idp')).data('triforce')['vcantidad'])-parseFloat($(".lpcant",this).html());
+                    if(parseFloat($("#fd"+$(this).attr('idp')).data('triforce')['vcantidad']) <= 0)
+                        $("#fd"+$(this).attr('idp')).remove();
+
+                     if (parseInt(idext) < 0){
+                        actualizar(260,'cantidad = cantidad-'+$(".lpcant",this).html(),'idfactura = -1*'+idext+' and idproducto = '+$(this).attr('ridp'),0,0,0);
+                     $(this).remove();
+                    } 
+
+                });
+                if (parseInt(idext) < 0)
+                    eliminar(260,'cantidad <= 0 and idfactura = -1*'+idext)
+                totalizar();
+                $("#mxcan").val('0.00');
+                $("#mxcan").attr('subtotal',0);
+                $("#mxcan").attr('imv',0);
+                $("#mxcan").attr('exento',0);
+                $("#mxcan").attr('descuento',0);
+                $("#montoefect").val('0.00');
+                Materialize.toast('Tiquete Registrado Correctamente',4000,'green');
+                var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+                Materialize.toast($toastContent,4000);
+                sendFE(factura);
+            }else{
+                console.log(factura['ERROR']);
+                Materialize.toast('Problemas Generando el Tiquete',4000,'red');
+            }
+
+
+        }
 }
