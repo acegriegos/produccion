@@ -1,8 +1,9 @@
 <?php 
-    header("Content-Type: Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8");
+    header("Content-Type: Content-Type: application/vnd.ms-excel; charset=utf-8");
     header("Expires: 0");
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
     header("Cache-Control: private",false);
+    ob_start();
     ini_set("memory_limit", -1);
 
     $tsuma = [];
@@ -45,7 +46,7 @@
         }
         
         if(!is_numeric(strpos($omitir, ",".$indexj.","))){
-          $data = is_numeric($data) ? number_format($data,2,',','.') : $data;
+          $data = is_numeric($data) ? number_format($data,2,'.','') : $data;
           $archivo .= '<td style="max-width:100%;white-space:nowrap;">'.$data.'</td>';
         }
       }
@@ -63,13 +64,15 @@
     if (sizeof($tsuma)) {
       $archivo .= '<table><tr><td colspan="2"><b>TOTALES</b></td></tr>';
       foreach ($tsuma as $aindex => $areglo) {
-        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],2,",",".").'</td></tr>';
+        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],2,".","").'</td></tr>';
       }
       $archivo .= '<table>';
     }
 
-    if($save)
+    if($save){
+      ob_end_clean();
       file_put_contents("../assets/excel/".$arch.".xls", "\xEF\xBB\xBF".$archivo);
+    }
     else{
       header("Content-Disposition: attachment; filename=\"".$arch.".xls\"");
       echo "\xEF\xBB\xBF";

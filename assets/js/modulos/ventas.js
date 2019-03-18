@@ -843,6 +843,9 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     
     if(param.toString().match(new RegExp(/[1678]/i)))
         $("[for=iva]").addClass('hide');
+    else
+        vexo = $("[for=iva]:visible").length ? $("#valor_grabado").val() : 0;
+
 
     if (isiva && vexo > 0){
         // $(".dimpuesto").each(function(){
@@ -1567,7 +1570,7 @@ function searchClient(vvariable,visprv){
 
         if ((vclie[3] > 0 || param==2) && $(".concre:visible").length) {
             $(".chg_tipo[val=2]").removeAttr('disabled');
-            $(".chg_tipo[val=2]").click();
+            $(".chg_tipo[val="+config[20]+"]").click();
         }else{
             $(".chg_tipo[val=2]").attr('disabled','true')
         }
@@ -1944,6 +1947,7 @@ function postSendmail() {
             setTimeout(function(){window.close();},2000);
         }else{
             if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+                alert(1)
                 setTimeout(function(){location.reload();},4000);
             }else
                 setTimeout(function(){location.reload();},2000);

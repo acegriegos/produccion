@@ -232,17 +232,29 @@ function cargarCompras(){
             if($("#valor_grabado:visible").length)
                 $("#valor_grabado").focus().select();
             else{
-                 cargarUtilidad();
-                $(".addline").click();
+                cargarUtilidad();
+                $(".ven2:first").focus();
             }
         } 
             
     });
 
+    $(".ven2").keyup(function(e){
+        var code = e.which || e.keyCode;
+        var index = parseInt($(".ven2").index(this));
+        var tam = parseInt($(".ven2").length);
+        if (code == 13)
+            if(index+1 == tam)
+                $(".addline").click();
+            else
+                $(".ven2").eq(index+1).focus();
+    });
+    
+
     $("#valor_grabado").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13)
-            $(".addline").click();
+            $$(".ven2:first").focus();
     });
 
     $(".addline").click(function(){

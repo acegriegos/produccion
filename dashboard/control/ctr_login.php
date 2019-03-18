@@ -308,5 +308,22 @@
           $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id='.$obj[0]);
         };
      }	
+
+         /**
+     * TLPS
+     */
+    class excel
+    {
+      var $str;
+
+      function __construct()
+      {
+        $this->str = $str;
+      }
+
+      public function getFile(){
+        
+      }
+    }
 			   
 ?>
