@@ -5,36 +5,44 @@ $(document).ready(function(){
 	var tf = param = getParameterByName('tf');//parseInt($("input[name=tventa]:checked").attr('id').substr(2));
     config = getDatos('',42,'@@impresa',0,0)[0][0];
 
+    $(".tr").addClass('hide');
+
 	switch(tf) {
 		case 1:
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").removeClass('hide');
 			$("[rm=3]").addClass('hide');
+            $(".trVenta").removeClass('hide');
 			break;
 		case 2:
 			$("[rm=1]").removeClass('hide');
 			$("[rm=2]").removeClass('hide');
 			$("[rm=3]").addClass('hide');
+            $(".trCompra").removeClass('hide');
 			break;
 		case 3:
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").addClass('hide');
 			$("[rm=3]").removeClass('hide');
+            $(".trCot").removeClass('hide');
 			break;
 		case 4:
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").addClass('hide');
 			$("[rm=3]").removeClass('hide');
+            $(".trOCompra").removeClass('hide');
 			break;
 		case 5:
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").addClass('hide');
 			$("[rm=3]").removeClass('hide');
+            $(".trPedido").removeClass('hide');
 			break;
 		case 7:
 			$("[rm=1]").addClass('hide');
 			$("[rm=2]").removeClass('hide');
 			$("[rm=3]").addClass('hide');
+            $(".trTiquete").removeClass('hide');
 			break;
 	}
     arr('login',6,'',158,'0,0,"'+tf+',0,@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
@@ -85,6 +93,14 @@ $(document).on("click","#process",function(){
 
 });
 
+$(document).on("click",".pdf",function(e){
+    var vid = $(this).attr('id').substr(1);
+    var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
+    mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
+    $(this).attr('href','../assets/pdf/Factura N°'+vbody[2]+', '+vbody[1]+'.pdf'); 
+});
+
+
 $(document).on("click",".process",function(){
 	var id = $(this).attr('id').substr(1);
 	var tabla = $("#data-table-productos").DataTable();
@@ -125,9 +141,10 @@ $(document).on("change","input[name=tventa]",function(){
 			});
 			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
             $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?')
-			$("[rm=1]").addClass('hide');
-			$("[rm=2]").removeClass('hide');
-			$("[rm=3]").addClass('hide');
+			// $("[rm=1]").addClass('hide');
+			// $("[rm=2]").removeClass('hide');
+			// $("[rm=3]").addClass('hide');
+            // $(".trVenta").removeClass('hide')
 			break;
 		case 2:
 			var tabla = $("#data-table-facturas").DataTable();
@@ -144,9 +161,10 @@ $(document).on("change","input[name=tventa]",function(){
 			});
 			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0')
             $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?')
-			$("[rm=1]").removeClass('hide');
-			$("[rm=2]").removeClass('hide');
-			$("[rm=3]").addClass('hide');
+			// $("[rm=1]").removeClass('hide');
+			// $("[rm=2]").removeClass('hide');
+			// $("[rm=3]").addClass('hide');
+   //          $(".trCompra").removeClass('hide');
 			break;
 		case 3:
 			var tabla = $("#data-table-facturas").DataTable();
@@ -163,9 +181,10 @@ $(document).on("change","input[name=tventa]",function(){
 			});
 			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
             $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?')
-			$("[rm=1]").addClass('hide');
-			$("[rm=2]").addClass('hide');
-			$("[rm=3]").removeClass('hide');
+			// $("[rm=1]").addClass('hide');
+			// $("[rm=2]").addClass('hide');
+			// $("[rm=3]").removeClass('hide');
+            // $(".trCot").removeClass('hide')
 			break;
 		case 4:
 			var tabla = $("#data-table-facturas").DataTable();
@@ -182,9 +201,10 @@ $(document).on("change","input[name=tventa]",function(){
 			});
 			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
             $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
-			$("[rm=1]").addClass('hide');
-			$("[rm=2]").addClass('hide');
-			$("[rm=3]").removeClass('hide');
+			// $("[rm=1]").addClass('hide');
+			// $("[rm=2]").addClass('hide');
+			// $("[rm=3]").removeClass('hide');
+   //          $(".trOCompra").removeClass('hide')
 			break;
 		case 5:
 			var tabla = $("#data-table-facturas").DataTable();
@@ -201,9 +221,10 @@ $(document).on("change","input[name=tventa]",function(){
 			});
 			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
             $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
-			$("[rm=1]").addClass('hide');
-			$("[rm=2]").addClass('hide');
-			$("[rm=3]").removeClass('hide');
+			// $("[rm=1]").addClass('hide');
+			// $("[rm=2]").addClass('hide');
+			// $("[rm=3]").removeClass('hide');
+   //          $(".trPedido").removeClass('hide')
 			break;
 		case 7:
 			var tabla = $("#data-table-facturas").DataTable();
@@ -220,11 +241,39 @@ $(document).on("change","input[name=tventa]",function(){
 			});
 			paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
             $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
-			$("[rm=1]").addClass('hide');
-			$("[rm=2]").removeClass('hide');
-			$("[rm=3]").addClass('hide');
+			// $("[rm=1]").addClass('hide');
+			// $("[rm=2]").removeClass('hide');
+			// $("[rm=3]").addClass('hide');
+   //          $(".trTiquete").removeClass('hide')
 			break;
 	}
+});
+
+$(document).on("click",".send",function(){
+    var vid = $(this).attr('id').substr(1);
+    var archivos = '';
+    var factura = getDatos('lpad(consecutivo,6,0),fe_getnumeracion(id),idcliente',64,'id = '+vid,0,0)[0][0];
+    rclave = factura[1];
+    cliente = factura[2];
+    factura = factura[0];
+    var clave = rclave;
+
+    var correos = getDatos("",18,cliente+",2",0,0,0);
+    str_correos = '';
+    
+    for (var i = 0; i < correos[0].length; i++) {
+        str_correos += correos[0][i][3]+",";
+    }
+    str_correos = str_correos.substr(0,str_correos.length-1);
+
+    if (str_correos != '') {
+        var vbody = getDatos('',73,vid,0,0)[0][0];
+        var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
+        archivos = makeArchivos(rclave,clave,vid,vbody[1],ntipo);
+        enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,1,vid,64);
+        console.log(archivos)
+        Materialize.toast('Correo Enviado',4000,'green');
+    }
 });
 
 $(document).on("click",".print",function(){
@@ -261,51 +310,13 @@ function endDetail(vid,vacc,vmodulo) {
     return false;
 }
 
-function sendVMail(factura,clave,vid){
-    var archivos = '';
-
-    if (str_correos != '') {
-        var vbody = getDatos('',73,'"'+vid+'"',0,0);
-        vbody = vbody[0][0];
-        var estr = '';
-        switch(parseInt(estado)){
-            case 5:
-                estr = 'Aceptación';
-                break;
-            case 6:
-                estr = 'Aceptación Parcial';
-                break;
-            case 7:
-                estr = 'Rechazo';
-                break;
-            default:
-                estr = 'Factura';
-                break;
-        }
-        archivos = makeArchivos(factura,clave,vid,vbody[1],estr);
-
-        enviarCorreo(3,str_correos,estr+" N° "+factura,vbody[0],archivos);
-    }
-}
-
 
 function makeArchivos(vfactura,vclave,vid,vsucursal,vestado){
     var archivos = '';
-    if (vestado == 'Factura') {
-        mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
-        if (vclave == vid){
-            archivos = 'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf';
-        }
-        else{
-            archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf',2:'xml/RH_'+vfactura+', '+vsucursal+'.xml'}
-            mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
-            mantenimiento_async('login',14,{id:vid,sucursal:vsucursal,restado:vestado},1);
-        }
-    }else{
-        archivos = {0:'xml/'+vestado+' N°'+vfactura+', '+vsucursal+'.xml',1:'xml/RH_'+vfactura+', '+vsucursal+'.xml'};
-        mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal,restado:vestado},1);
-        mantenimiento_async('login',14,{id:vid,sucursal:vsucursal,restado:vestado},1);
-    }
+
+    archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+    mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
+    mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
     
     return archivos;
 }

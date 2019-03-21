@@ -658,13 +658,16 @@ function sendVMail(factura,clave,vid){
         var vbody = getDatos('',73,'"'+vid+'"',0,0);
         vbody = vbody[0][0];
         var estr = '';
+        var idtabla = 64;
 
         switch(parseInt(estado)){
             case 2:
                 estr = 'Nota de Crédito';
+                idtabla = 301;
                 break;
             case 2:
                 estr = 'Nota de Débito';
+                idtabla = 301;
                 break;
             case 5:
                 estr = 'Aceptación';
@@ -680,7 +683,7 @@ function sendVMail(factura,clave,vid){
                 break;
         }
         archivos = makeArchivos(factura,clave,vid,vbody[1],estr);
-        enviarCorreo(3,str_correos,estr+" N° "+factura,vbody[0],archivos);
+        enviarCorreo(3,str_correos,estr+" N° "+factura,vbody[0],archivos,1,vid,idtabla);
     }
 }
 

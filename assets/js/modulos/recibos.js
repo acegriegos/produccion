@@ -17,7 +17,6 @@ $(function(){
         mostrar_cargar();
          var para = $('.chips-initial').material_chip('data');
          $("#listcorreos").html("");
-         vbody = generarhoja();
   
          for (var i = 0; i < para.length; i++) {
             vpara += para[i].tag+',';
@@ -40,7 +39,7 @@ $(function(){
             mantenimiento_async('login',14,{id:mid,sucursal:vsucursal,restado:tipo},1);
         }
         
-        var e = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos);
+        var e = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos,0,mid,64);
         vpara = vbody = "";
         mid = 0;
 

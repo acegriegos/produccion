@@ -462,7 +462,7 @@ $(document).on("click","#facturar",function(){
         $("#modal-tpagos").modal({complete: function() { if($("#modal-tpagos").attr("gfort") == 1) setTimeout(function(){location.reload();},500); }}).modal('open');
         
     }else{
-        $("#factreal").click();
+        $("#factrealp").click();
     }
 });
 
@@ -1845,17 +1845,16 @@ function sendVMail(factura,clave,vid){
     if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
         switch(param){
             case 2:
+                setTimeout(function(){window.close();},2000);
                 break;
             default:
-                if (imprimir) {
-                    if (config[4] == 1 && (param == 1 || param == 7)) {
-                        var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
-                        
-                        try{ 
-                            w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
-                        }catch(e){
-                            Materialize.toast("POP-UP ACTIVADO",4000,'red');
-                        }
+                if (imprimir && (param == 1 || param == 7)) {
+                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                    
+                    try{ 
+                        w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
+                    }catch(e){
+                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
                     }
                 }
                 break;
@@ -1885,34 +1884,31 @@ function sendVMail(factura,clave,vid){
     }else{
         switch(param){
             case 2:
+                setTimeout(function(){window.close();},2000);
                 break;
             default:
-                if (config[4] == 1 && (param == 1 || param == 7)) {
-
-                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
-                    
-                    if (imprimir){
-                        try{    
-                             w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
-                        }catch(e){
-                            Materialize.toast("POP-UP ACTIVADO",4000,'red');
-                        }
+                var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                
+                if (imprimir){
+                    try{    
+                         w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
+                    }catch(e){
+                        Materialize.toast("POP-UP ACTIVADO",4000,'red');
                     }
+                }
 
-                    if(parseInt($("[name=tipopago]:checked").val()) != 5){
-                        if (parseInt(idext) > 0) {
-                           setTimeout(function(){window.close();},2000);
-                        }else{
-                         if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
-                            setTimeout(function(){location.reload();},5000);
-                         }else
-                            setTimeout(function(){location.reload();},2000);  
-                        }
-                    }else
-                        if(parseFloat($("#mxtot").val()) < 5)
-                            setTimeout(function(){window.close();},2000);
-                    
+                if(parseInt($("[name=tipopago]:checked").val()) != 5){
+                    if (parseInt(idext) > 0) {
+                       setTimeout(function(){window.close();},2000);
+                    }else{
+                     if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+                        setTimeout(function(){location.reload();},5000);
+                     }else
+                        setTimeout(function(){location.reload();},2000);  
                     }
+                }else
+                    if(parseFloat($("#mxtot").val()) < 5)
+                        setTimeout(function(){window.close();},2000);
 
                 break;
         }
@@ -2025,7 +2021,7 @@ function escribirMatriz(elemento){
 }
 
 function mixto(){
-    $("#factrealp").removeClass('add');
+        $("#factrealp").removeClass('add');
         $("#factreal").removeClass('add');
         var cancelar = $("#mxcan").val().replace(/,/g,'');
         cancelar = isNaN(cancelar) ? 0 : parseFloat(cancelar)

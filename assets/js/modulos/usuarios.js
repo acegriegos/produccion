@@ -115,7 +115,7 @@ $(function(){
 		p = mantenimiento('login',4,arr);
 		var msj = $("#content").val()+' <br><small style="font-style: italic;">Mensaje Enviado Por '+p[0][0][0]+"</small>";
 		
-		enviarCorreo(1,$("#to").val(),$("#subject").val(),msj,'');
+		enviarCorreo(1,$("#to").val(),$("#subject").val(),msj,'',0,0,0);
 
 		return false;
 	});
@@ -469,7 +469,7 @@ pg += '/>'+
 			case 'usuario':
 			var msj = '<div align="center"><b>Bienvenido al Sistema BMS de Logintech S.A</b></div><hr><b>Nombre del Usuario: </b>'+$("#vnombre").val()+'<br><b>Usuario: </b>'+$("#vuser").val()+'<br><b>Contraseña del Usuario: </b>'+$("#vclave").val()+' <br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
 			if (acc == 1)			
-				enviarCorreo(1,$("#vmail").val(),'Bienvenido '+$("#vnombre").val(),msj,'');
+				enviarCorreo(1,$("#vmail").val(),'Bienvenido '+$("#vnombre").val(),msj,'',0,0,0);
 			
 			deadclear(modulo);
 			thorload(modulo);

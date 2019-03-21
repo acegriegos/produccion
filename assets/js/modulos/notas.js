@@ -511,7 +511,7 @@ function sendVMail(idfact,idnota,cnota){
             var vbody = getDatos('',73,'-'+idnota,0,0)[0][0];
             var vestado = $("#ncd").is(":checked") ? 'Nota Crédito' : 'Nota Débito';
             archivos = makeArchivos(cnota,factura,idfact,idnota,vbody[1],vestado);
-            enviarCorreo(3,str_correos,"Nota Crédito N° "+cnota,vbody[0],archivos);
+            enviarCorreo(3,str_correos,"Nota Crédito N° "+cnota,vbody[0],archivos,0,idnota,301);
         }
     
 		//

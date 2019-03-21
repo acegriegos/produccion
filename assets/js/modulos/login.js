@@ -75,7 +75,7 @@ $(document).on("click","#sendrecupss",function(){
 
     var bdy = p[0][0][0];
     
-    enviarCorreo(1,crr,'Petición de Cambio de Contraseña',bdy);
+    enviarCorreo(1,crr,'Petición de Cambio de Contraseña',bdy,0,0,0);
 
 });
 
@@ -145,7 +145,7 @@ function getIn(){
                 if (correo != ''){
                     var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ varibale +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
 
-                    enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
+                    enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy,0,0,0);
                 }
             }
             

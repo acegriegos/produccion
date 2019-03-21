@@ -2,14 +2,14 @@
 require_once 'correo.php';
 $correo = new correo($_POST['to'],$_POST['subject'],$_POST['body']);
 
-// ob_end_clean();
-// ignore_user_abort();
-// ob_start();
-// header("Connection: close");
-// echo json_encode(['success'=>1]);
-// header("Content-Length: " . ob_get_length());
-// ob_end_flush();
-// flush();
+ob_end_clean();
+ignore_user_abort();
+ob_start();
+header("Connection: close");
+echo json_encode(['success'=>1]);
+header("Content-Length: " . ob_get_length());
+ob_end_flush();
+flush();
 
 if($_POST['con_con']){
     $caccion = $_POST['accion'];
