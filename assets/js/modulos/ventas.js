@@ -360,7 +360,7 @@ $(function(){
 $(document).on("keyup",".vextra",function(e){
     var code = e.wich || e.keyCode
     if (code == 13) {
-        $("#factreal").focus();
+        $("#factrealp").focus();
     }
 })
 
@@ -469,7 +469,7 @@ $(document).on("click","#facturar",function(){
 
 $("#pcon").blur(function(){
     calcVuelto();
-    $("#factreal").focus();
+    $("#factrealp").focus();
 });
 
 
