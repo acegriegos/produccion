@@ -846,7 +846,6 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     else
         vexo = $("[for=iva]:visible").length ? $("#valor_grabado").val() : 0;
 
-
     if (isiva && vexo > 0){
         // $(".dimpuesto").each(function(){
         //     if (vstrimp.indexOf(','+$(this).data('valores')['vid']+',') >= 0)

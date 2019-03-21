@@ -84,7 +84,7 @@ $(function () {
 				$("#prove").hide();
 				$(".ganServ").hide();
 				$("#opOtro").hide();
-				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:'',vpganancia:0,vexento:100,vperiodo:0,vdias:0})
+				$("#fservicios .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:'',vpganancia:0,vexento:0,vperiodo:0,vdias:0})
 				break;
 			case 3:
 				$("#mantServ").remove();
@@ -1991,9 +1991,9 @@ function validarservicios() {
 	}
 
 	if ($("#cexento").is(":checked"))
-		$("#fservicios .zelda").data('triforce')['vexento'] = 0;
+		$("#fservicios .zelda").data('triforce')['vexento'] = 13;
 	else
-		$("#fservicios .zelda").data('triforce')['vexento'] = 100;
+		$("#fservicios .zelda").data('triforce')['vexento'] = 0;
 
 	if ($("#vpganancia").val() == '') {
 		$("#vpganancia").val(0);

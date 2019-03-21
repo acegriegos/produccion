@@ -180,6 +180,7 @@
         </thead>
         <thead>
           <tr>
+            <th>Cantidad</th>
             <th >Producto</th>
             <th >Total</th>
           </tr>
@@ -187,6 +188,7 @@
         <tbody >
           <?php foreach ($cierreg as $obj) {?>
           <tr class="tr" >
+            <td align="left"><?php echo $obj[11]; ?></td>
             <td ><span><?php echo $obj[11]; ?></span></td>
             <td align="right"><span><?php echo number_format($obj[16],2); ?></span></td>
           </tr>
