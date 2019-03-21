@@ -271,7 +271,6 @@ $(document).on("click",".send",function(){
         var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
         archivos = makeArchivos(rclave,clave,vid,vbody[1],ntipo);
         enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,1,vid,64);
-        console.log(archivos)
         Materialize.toast('Correo Enviado',4000,'green');
     }
 });
