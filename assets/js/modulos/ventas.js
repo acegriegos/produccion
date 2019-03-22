@@ -840,8 +840,8 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     $("#valores").removeData('elemento');
 
     var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : config[6];
-    
-    if(param.toString().match(new RegExp(/[1678]/i)))
+
+    if(param.toString().match(new RegExp(/[145678]/i)))
         $("[for=iva]").addClass('hide');
     else
         vexo = $("[for=iva]:visible").length ? $("#valor_grabado").val() : 0;
@@ -1588,7 +1588,7 @@ function searchClient(vvariable,visprv){
             $("#msaldo").addClass('yellow-text');
         else if (porcen >= 100)
             $("#msaldo").addClass('red-text');
-    
+
         if (parseInt(visprv)) {
             $("#hisclie").removeClass('hide');
         }else{

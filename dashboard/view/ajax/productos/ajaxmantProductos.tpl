@@ -574,15 +574,13 @@
     <div class="row">
         <div class="col s3 input-field">
             <select type="select" id="bod1">
-                <option value="6" selected="">NARANJO</option>
-                <option value="10">SAN CARLOS</option>
+                <option value="6" selected="">Producto Venta</option>
             </select>
             <label for="bod1">Bodega 1</label>
         </div>
         <div class="col s3 input-field bd2 hide">
             <select type="select" id="bod2">
-                <option value="6">NARANJO</option>
-                <option value="10" selected="">SAN CARLOS</option>
+                <option value="6">Producto Venta</option>
             </select>
             <label for="bod2">Bodega 2</label>
         </div>

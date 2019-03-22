@@ -584,11 +584,9 @@
 
           <div class="col s12" style="padding: 0px;">
             <div class="row" style="padding: 0px;">
-              {if $smarty.session.TMPT eq 1 || $smarty.session.TMPT eq 7}
               <div class="col s6 hide clieBTN" id="exobtn" style="padding: 0px;">
                 <a href="#modal-exo" class="btn doexo modal-trigger" style="width: 90%;padding-left: 19px;">Exonerar</a>
               </div>
-              {/if}
               <div class="col s6" style="padding: 0px;">
                 <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
               </div>

@@ -32,7 +32,7 @@
              
             </div>
             <div class="col s2 m6 ">
-              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
+              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
             </div>
           </div>
           <div class="card-block">

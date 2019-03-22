@@ -29,8 +29,7 @@
           <div class="input-field col s12 m6 l6 pequeño">
             <select type="select" det="inventario" id="vidinventario" d-b="111">
               <option value="0">Seleccione una Bodega</option>
-              <option value="6">Naranjo</option>
-              <option value="10">San Carlos</option>
+              <option value="6">Producto Venta</option>
             </select>
             <label for="vidinventario">Inventario</label>
           </div>
