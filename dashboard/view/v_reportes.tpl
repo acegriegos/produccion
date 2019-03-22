@@ -211,21 +211,10 @@
 </div>
 {/if}
 
-{if $TR eq 4 or $TR eq 0}
-<div class="col s6 m3 l2 center-align">
-<a class="reporte pbtn" href="inventarios" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Inventarios General</p>
-</div>
-</div>
-</div>
-{/if}
 
 {if $TR eq 3 or $TR eq 0}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-account-location"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -237,7 +226,7 @@
 
 {if $TR eq 3 or $TR eq 0}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar&tp=1"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="report pbtn" rep="cuentasxcobrar&tp=1"><i class="mdi-48px mdi mdi-clipboard-account"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -249,7 +238,7 @@
 
 {if $TR eq 3 or $TR eq 0}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar&tp=2"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="report pbtn" rep="cuentasxcobrar&tp=2"><i class="mdi-48px mdi mdi-history"></i>
 </a>
 <div class="row">
 <div class="col s12">
@@ -261,11 +250,23 @@
 
 {if $TR eq 3 or $TR eq 0}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar&tp=3"><i class="mdi-48px mdi mdi-file-document-box"></i>
+<a class="report pbtn" rep="cuentasxcobrar&tp=3"><i class="mdi-48px mdi mdi-clock"></i>
 </a>
 <div class="row">
 <div class="col s12">
 <p>Histórico Cuentas por Pagar</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 3 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Utilidades</p>
 </div>
 </div>
 </div>
@@ -314,6 +315,18 @@
 <div class="row">
 <div class="col s12">
 <p>Movimientos Inventario</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 4 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="reporte pbtn" href="inventarios" rep="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Inventarios General</p>
 </div>
 </div>
 </div>

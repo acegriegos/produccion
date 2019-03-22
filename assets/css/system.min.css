@@ -313,3 +313,11 @@ label{
   }
 
 }
+
+.dropdown-content li>a, .dropdown-content li>span{
+  color: black !important;
+}
+
+..autocomplete-content li>span{
+  color: black !important;
+}

@@ -138,7 +138,7 @@ $(function(){
 
                 switch(parseInt(vtype[i])){
                     case 1://para select
-                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl+'"></select>';/*168*/
+                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl+'"></select>';
 
                     break;
                     case 2: //para numero
@@ -147,6 +147,16 @@ $(function(){
                     break;
                     case 3: //solo check
                     type = '<input type="hidden" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" value="-1">';
+                        break;
+                    case 4: //select create
+                        var options = $(".principal .filtros").attr('options').split(",");
+                        var optionsval = $(".principal .filtros").attr('optionsval').split(",");
+                        var stroptions = '';
+                        for (var j = 0; j < options.length; j++) {
+                            stroptions += '<option value="'+optionsval[j]+'">'+options[j]+'</option>';
+                        }
+
+                        type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos">'+stroptions+'</select>';
                         break;
                     default://para texto
                     type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
@@ -158,11 +168,18 @@ $(function(){
 
                 html = '<div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field" style="margin:0px">'+type+'</div></div></div>';
                 $(".principal .filtros").append(html);
-
-                if (parseInt(vtbl[i])) {
-                    arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
-                }else
-                    $("#chktipo"+inc).addClass('justChange').prop('indeterminate',true)
+                
+                switch(parseInt(vtbl[i])) {
+                    case -1:
+                        break;
+                    case 0:
+                        $("#chktipo"+inc).addClass('justChange').prop('indeterminate',true)
+                        break;
+                    default:
+                        arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
+                        break;
+                }
+                    
                 filtro += 1;
             }
             $('select').material_select();
