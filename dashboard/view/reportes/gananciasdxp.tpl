@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Reporte de Ganancias</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.1.9">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.1.10">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -60,7 +60,7 @@
   
   </div>
   {$SCR}
-<!--   <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.1.9"></script>
- -->  <script src="../assets/js/modulos/reportes/ganancias.js?v=10.0.1.9"></script>
+<!--   <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.1.10"></script>
+ -->  <script src="../assets/js/modulos/reportes/ganancias.js?v=10.0.1.10"></script>
 </body>
 </html>
