@@ -136,7 +136,18 @@ $(document).on("click",".msjh",function(){
         var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent,5000);
         sendFE('^'+idfact[0][0][0]);
+        var tabla = $("#data-table-facturas").DataTable();
+        tabla.destroy();
         $(this).parent().parent().remove();
+        $("#data-table-facturas").dataTable({
+            bFilter: false,
+            bScrollInfinite: true,
+            bSort: false,
+            bLengthChange: false,
+            order: [],
+            bPaginate: false,
+            info: false
+        });
     }
 
 });
