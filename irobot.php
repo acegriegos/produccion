@@ -51,7 +51,7 @@
     $emails = imap_search($inbox,'UNSEEN');
 
     if($emails) {
-        rsort($emails);
+        $emails = array_reverse($emails);
         foreach($emails as $index => $email_number) {
         
         if ($index+1 >= 20) {

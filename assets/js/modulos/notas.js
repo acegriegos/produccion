@@ -349,7 +349,7 @@ function endDetail(vid,vacc,modulo){
 
         arr('login',4,'',276,$("#vidfactura").val(),0,0,0);
         window.open("cuentas?accion=4&id="+clave+"&tp=0")
-        if (estado == 0 || estado == 7) {
+        if (estado == 0 || estado == 7 || estado == 9) {
             $.get('../wsdlClient.php',{accion:4,id:idfact})
             .done(function(data){
                 var ex;
@@ -359,23 +359,12 @@ function endDetail(vid,vacc,modulo){
                 try{
                     p = JSON.parse(data);
                     switch(p['estado']){
-                        case 'aceptado':
-                            var $toastContent = $('<span style="width: 500px">Generando Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-                            Materialize.toast($toastContent);
-                            sendFE(clave,idfact);
-                            break;
-                        case 'recibido':
-                            color = 'green lighten-3';
-                            msj = 'Documento Electrónico Original Recibido';
-                            break;
-                        case 'rechazado':
-                            color = 'red';
-                            msj = 'Documento Electrónico Original Rechazado';
-                            break;
-                        case 'procesando':
-                            color = '#cddc39';
-                            msj = 'Procesando Documento Electrónico Original';
-                            break;
+                        // case 'rechazado':
+                        // case 'recibido':
+                        // case 'procesando':
+                        // case 'aceptado':
+
+                        //     break;
                         case 'Sin Subir':
                             color = '';
                             msj = 'Documento Electrónico Original sin Subir'
@@ -389,6 +378,10 @@ function endDetail(vid,vacc,modulo){
                             msj = 'Error en Documento Electrónico Original';
                             break;
                         default:
+                            var $toastContent = $('<span style="width: 500px">Generando Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+                            Materialize.toast($toastContent,5000);
+                            sendFE(clave,idfact);
+                            msj = ""
                             break;
                     }
                     if (p['estado'] != 'aceptado') 
@@ -410,24 +403,9 @@ function endDetail(vid,vacc,modulo){
             });
 
         }else{
-            switch(estado){
-                case 1:
-                    var $toastContent = $('<span style="width: 500px">Generando Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-                    Materialize.toast($toastContent);
-                    sendFE(clave,idfact);
-                    break;
-                case 9:
-                    //VERIFICAR ESTADO Y ENVIAR
-                    break;
-                case 2:
-                    color = '#cddc39';
-                    msj = 'Procesando Documento Electrónico Original';
-                    break;
-                default:
-                    break;
-            }
-            if (estado != 1)
-                Materialize.toast(msj,6000,color);
+            var $toastContent = $('<span style="width: 500px">Generando Nota Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+            Materialize.toast($toastContent,5000);
+            sendFE(clave,idfact);
 
             $("#data-table-cuentas-detalle").dataTable({
                 bFilter: false,

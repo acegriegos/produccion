@@ -96,27 +96,27 @@ $(function(){
 
     mdate = $(".principal .filtros").attr('entrefechas');
     if (mdate != undefined){
-        html = '<div class="row col s12 m6 l6 rous"><div class="col s4"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s8 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport datepicker" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport datepicker" id="vhasta" value="" str="1"></div></div></div>';
+        html = '<div class="row col s12 m6 l6 rous"><div class="col s4"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s8 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport" id="vhasta" value="" str="1"></div></div></div>';
 
         $(".principal .filtros").append(html);
 
-        $('.datepicker').pickadate({
-            labelMonthNext: 'Siguiente',
-            labelMonthPrev: 'Anterior',
-            labelMonthSelect: 'Seleccione un Mes',
-            labelYearSelect: 'Seleccione un Año',
-            monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-            monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-            weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-            weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-            weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
-            today: 'Hoy',
-            clear: 'Limpiar',
-            close: 'Cerrar',
-            format: 'yyyy-mm-dd',
-            selectMonths: true,
-            selectYears: 10
-        });
+        // $('.datepicker').pickadate({
+        //     labelMonthNext: 'Siguiente',
+        //     labelMonthPrev: 'Anterior',
+        //     labelMonthSelect: 'Seleccione un Mes',
+        //     labelYearSelect: 'Seleccione un Año',
+        //     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+        //     monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+        //     weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+        //     weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+        //     weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+        //     today: 'Hoy',
+        //     clear: 'Limpiar',
+        //     close: 'Cerrar',
+        //     format: 'yyyy-mm-dd',
+        //     selectMonths: true,
+        //     selectYears: 10
+        // });
 
 
         // var fecha = new Date();

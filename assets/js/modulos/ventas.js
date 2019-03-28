@@ -1415,7 +1415,7 @@ function endCargarProducto(exo,cod,pesaje){
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && param != 2){
             $("#precp").focus().select();
 
-            if (exo == 0) {
+            if (exo > 0) {
 
                 var impuestos = 0;
 
@@ -1526,7 +1526,7 @@ function endDetail(vid,vacc,vmodulo) {
 
             if (config[0] == 1 && (param == 1 || param == 7)) {
                 var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-                Materialize.toast($toastContent);
+                Materialize.toast($toastContent,5000);
                 sendFE(clave);
             }else
                 sendVMail(factura,clave,vid[0][0]);
@@ -1942,7 +1942,6 @@ function postSendmail() {
             setTimeout(function(){window.close();},2000);
         }else{
             if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
-                alert(1)
                 setTimeout(function(){location.reload();},4000);
             }else
                 setTimeout(function(){location.reload();},2000);

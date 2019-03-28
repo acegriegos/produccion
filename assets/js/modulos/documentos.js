@@ -27,7 +27,7 @@ $(function(){
             .done(function(res){
                 var p = JSON.parse(res);
                 var str = '';
-                var tabla = $("#data-table-compras").DataTable();
+                var tabla = $("#data-table-compras").DataTable();   
                 tabla.destroy();
 
                 if(p['rs'].length){
@@ -39,9 +39,10 @@ $(function(){
                             insertar(264,'',p['rs'][i][37]+',"'+p['rs'][i][38]+'","'+p['rs'][i][39]+'","'+p['rs'][i][40]+'","'+p['rs'][i][41]+'","'+p['rs'][i][42]+'","'+p['rs'][i][43]+'","'+p['rs'][i][44]+'","'+p['rs'][i][45]+'","'+p['rs'][i][46]+'","'+p['rs'][i][47]+'"');
 
                         var compra = getDatos('id',262,'referencia = "'+p['rs'][i][16]+'"',0,0,0);
+
                         if(!compra[0].length){
                             insertar(262,'','null,"'+p['rs'][i][1]+'","'+p['rs'][i][2]+'","'+p['rs'][i][3]+'","'+p['rs'][i][4]+'","'+p['rs'][i][5]+'","'+p['rs'][i][6]+'","'+p['rs'][i][49]+'","'+p['rs'][i][8]+'","'+p['rs'][i][9]+'","'+p['rs'][i][10]+'","'+p['rs'][i][11]+'","'+p['rs'][i][12]+'","'+p['rs'][i][13]+'","'+p['rs'][i][14]+'","'+p['rs'][i][15]+'","'+p['rs'][i][16]+'","'+p['rs'][i][17]+'","'+p['rs'][i][18]+'","'+p['rs'][i][19]+'","'+p['rs'][i][48]+'","'+p['rs'][i][21]+'","'+p['rs'][i][22]+'","'+p['rs'][i][23]+'","'+p['rs'][i][24]+'","'+p['rs'][i][25]+'","'+p['rs'][i][26]+'","'+p['rs'][i][27]+'"');
-                            var compra = getDatos('id',262,'referencia = '+p['rs'][i][16],0,0,0)[0][0][0];
+                            var compra = getDatos('id',262,'referencia = "'+p['rs'][i][16]+'"',0,0,0)[0][0][0];
                         }else
                             compra = compra[0][0][0];
 
@@ -129,6 +130,7 @@ $(document).on("click",".msjh",function(){
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado,0,0,0);
     var crrprov = getDatos('group_concat(correo)',17,'idtabla = 2 and idfila = (select idcliente from facturas where id ='+idcomp+') group by idfila',0,0,0);
     console.log(crrprov);
+
     if(!idfact.succed){
         Materialize.toast(idfact[0]['ERROR'],4000,'red');
         $(this).parent().parent().remove();
@@ -148,6 +150,24 @@ $(document).on("click",".msjh",function(){
             bPaginate: false,
             info: false
         });
+
+        if(parseInt(config[21])){
+            switch(parseInt(tstado)){
+                case 5:
+                    var dtcompra = getDatos('comodin,format(cantidad,2),format(precio,2),format(precio*cantidad+imv-descuento,2)',263,'idfactura = '+$(this).parent().parent().attr('id').substr(2),0,0,0);
+                    $("#modal-shcompra").modal('open');
+                    $("#bdtompras").html();
+                    var str = '';
+                    for (var i = 0; i < dtcompra[0].length; i++) {
+                        str += '<tr><td></td></tr>';
+                    }
+                    $("#bdtompras").html(str);
+                    break;
+                default:
+                    break;
+            }    
+        }
+        
     }
 
 });
@@ -282,6 +302,7 @@ $(document).on("change","input[name=tventa]",function(){
 	tabla.destroy();
 	
 	arr('login',6,'',179,'0,0,"1,'+id+',@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
+    console.log('0,0,"1,'+id+',@@impresa,0,0","0,10"')
 	paginate($("ul.pagination").attr('vtbl'),undefined,'1,'+id+',@@impresa,0,0')
     $("ul.pagination").attr('filtro_sp','1,'+id+',@@impresa,0,0');
 	$("#data-table-facturas").dataTable({
