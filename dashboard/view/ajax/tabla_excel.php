@@ -1,81 +1,152 @@
 <?php 
-    header("Content-Type: Content-Type: application/vnd.ms-excel; charset=utf-8");
-    header("Expires: 0");
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Cache-Control: private",false);
-    ob_start();
-    ini_set("memory_limit", -1);
+    error_reporting(E_ALL);
+    ini_set('display_errors', TRUE);
+    ini_set('display_startup_errors', TRUE);
 
-    $tsuma = [];
-    //<img src="'.$miscelaneos[3].'" style="width:200px !important;height:152px !important;"/>
-    $archivo = '<table width="100%"><tr><td align="center" colspan="10"><font size="3">
-            <span style="font-size:48px"><b>'.$tit.'</b></span>
-            <br>
-             <b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
-              if ($miscelaneos[2]) 
-                 $archivo .= '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
-              
-    $archivo .= '<b>Cédula:</b> <span id="fcedula">'.$miscelaneos[1].'</span><br>
-          <b>Teléfono:</b> <span id="ftelefono">'.$miscelaneos[5].'</span>
-          </font></td></tr>';
-    if($tit2)      
-      $archivo .= '<tr><td></td></tr><tr><td></td></tr>
-          <tr><td align="center" style="font-size:24px"><b>'.$tit2.'</b></td></tr>
-          <tr><td></td></tr><tr><td></td></tr></table>';
-    else
-       $archivo .= '<tr><td></td></tr><tr><td></td></tr></table>';
-    $archivo .= "<table><thead><tr>";
-    foreach ($transaccion[1] as $index => $obj) {
+    if (PHP_SAPI == 'cli')
+      die('This example should only be run from a Web Browser');
 
-      if(!is_numeric(strpos($omitir, ",".$index.",")))
-        $archivo .= '<td><b>'.strtoupper($obj->name).'</b></td>';
+    require_once '../assets/libs/phpexcel/Classes/PHPExcel.php';
+    $objPHPExcel = new PHPExcel();
+    $objPHPExcel->getProperties()->setCreator("Andres Miranda")
+               ->setLastModifiedBy("Andres Miranda")
+               ->setTitle($arch)
+               ->setSubject($arch)
+               ->setDescription("")
+               ->setKeywords("office 2007 openxml php")
+               ->setCategory("");
 
-      if($suma != '' && is_numeric(strpos($suma, ",".$index.","))){
-        $tsuma[$index]['valor'] = 0;
-        $tsuma[$index]['nombre'] = $obj->name;
-      }
-    }
-    $archivo .= "</tr></thead>";
+        // HEADER
+        $styleArray = array(
+          'font'  => array(
+            'bold'  => true,
+            'color' => array('rgb' => '000000'),
+            'size'  => 48,
+            'name'  => 'Verdana'
+          ),
+          'alignment' => array(
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+          )
+        );
+        $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A1', $tit)
+                ->mergeCells('A1:J5')
+                ->getStyle('A1')->applyFromArray($styleArray);
 
-    $archivo .= "<tbody>";
-    foreach ($transaccion[0] as $obj) {
-      $archivo .= "<tr>";
-      foreach ($obj as $indexj => $data) {
-        if($suma != '' && is_numeric(strpos($suma, ",".$indexj.","))){
-          $tsuma[$indexj]['valor'] += $data;
+        $styleArray = array(
+          'font'  => array(
+            'bold'  => true
+          ),
+          'alignment' => array(
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+          )
+        );;
+
+        $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A6', $miscelaneos[2] ? $miscelaneos[2] : $miscelaneos[0])
+                ->mergeCells('A6:J6')
+                 ->getStyle('A6')->applyFromArray($styleArray);
+        $objPHPExcel->setActiveSheetIndex(0)
+                 ->setCellValue('A7', $miscelaneos[1])
+                ->mergeCells('A7:J7')
+                 ->getStyle('A7')->applyFromArray($styleArray);
+        $objPHPExcel->setActiveSheetIndex(0)
+                 ->setCellValue('A8', $miscelaneos[5])
+                ->mergeCells('A8:J8')
+                 ->getStyle('A8')->applyFromArray($styleArray);
+
+        if($tit2){
+          $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A10', $tit2)
+                ->mergeCells('A10:J10')
+                ->getStyle('A10')->applyFromArray($styleArray);
+          $row = 13;
+          $objPHPExcel->setActiveSheetIndex(0)
+                ->mergeCells('A9:J9')
+                ->mergeCells('A11:J11');
+        }
+        else{
+          $row = 11;
+          $objPHPExcel->setActiveSheetIndex(0)
+                ->mergeCells('A9:J9');
+        }
+
+        $tsuma = [];
+        $column = 'A';
+        $varray = explode(',', $vista);
+
+        foreach($varray as $index => $obj) {
+
+          $objPHPExcel->setActiveSheetIndex(0)
+              ->setCellValue($column.($row-1), strtoupper($transaccion[1][$obj]->name))
+               ->getStyle($column.($row-1))->applyFromArray($styleArray);
+          $column++;
+
+          if(is_numeric(strpos($suma, ",".$obj.","))){
+            $tsuma[$index]['valor'] = 0;
+            $tsuma[$index]['nombre'] = $transaccion[1][$obj]->name;
+          }
         }
         
-        if(!is_numeric(strpos($omitir, ",".$indexj.","))){
-          $data = is_numeric($data) ? number_format($data,2,'.','') : $data;
-          $archivo .= '<td style="max-width:100%;white-space:nowrap;">'.$data.'</td>';
-        }
-      }
-      $archivo .= "</tr>";
-    }
-    
-    $archivo .= "</tbody>";
+        $lastrow = sizeof($varray)-1;
+        foreach ($transaccion[0] as $indexk => $obj) {
+          $column = 'A';
+          foreach ($varray as $indexj => $data) {
+            $rvalor = $transaccion[0][$indexk][$data];
 
-    $archivo .= '</table>';
+            if(is_numeric(strpos($suma, ",".$data.","))){
+              $tsuma[$indexj]['valor'] += $rvalor;
+            }
+            
+            $rvalor = is_numeric($rvalor) ? number_format($rvalor,2,'.','') : $rvalor;
+            $objPHPExcel->setActiveSheetIndex(0)
+              ->setCellValue($column.$row, strtoupper($rvalor));
+
+            if ($indexk == $lastrow) {
+              
+              if(isset($tsuma[$indexj])){
+                $objPHPExcel->setActiveSheetIndex(0)
+                            ->setCellValue($column.($row+1), strtoupper(number_format($tsuma[$indexj]['valor'],2,".",""))); 
+              }
+
+              $objPHPExcel->getActiveSheet()->getColumnDimension($column)
+                        ->setAutoSize(true);
+            }
+            $column++;
+            
+          }
+          $row++;
+        }
+
+        /*if (sizeof($tsuma))
+          $objPHPExcel->setActiveSheetIndex(0)
+                 ->setCellValue('A'.($row+1),'TOTAL(CRC)')
+                 ->getStyle('A'.($row+1))->applyFromArray($styleArray);*/
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="'.$arch.'.xlsx"');
+    header('Cache-Control: max-age=0');
+
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+    $objWriter->save("php://output");//"../assets/excel/".$arch.".xlsx");
+
+    exit;
+
+    //<img src="'.$miscelaneos[3].'" style="width:200px !important;height:152px !important;"/>
+    
+        
 
     /*if ($conteo) {
       $archivo .= '<table><tr><td colspan="2"></td></tr><tr><td><b>Cantidad:</b></td><td>'.sizeof($transaccion[1]).'</td></tr></table>';
     } */
 
-    if (sizeof($tsuma)) {
-      $archivo .= '<table><tr><td colspan="2"><b>TOTALES</b></td></tr>';
-      foreach ($tsuma as $aindex => $areglo) {
-        $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],2,".","").'</td></tr>';
-      }
-      $archivo .= '<table>';
-    }
-
-    if($save){
-      ob_end_clean();
-      file_put_contents("../assets/excel/".$arch.".xls", "\xEF\xBB\xBF".$archivo);
-    }
-    else{
-      header("Content-Disposition: attachment; filename=\"".$arch.".xls\"");
-      echo "\xEF\xBB\xBF";
-      print_r($archivo);
-    }
+    // if (sizeof($tsuma)) {
+    //   $archivo .= '<table><tr><td colspan="2"><b>TOTALES</b></td></tr>';
+    //   foreach ($tsuma as $aindex => $areglo) {
+    //     $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],2,".","").'</td></tr>';
+    //   }
+    //   $archivo .= '<table>';
+    // }
  ?>

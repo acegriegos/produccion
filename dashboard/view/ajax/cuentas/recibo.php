@@ -73,6 +73,10 @@
           <span class=""><b>Usuario:</b></span>
           <span id="fvendedor" class=""><i><?php echo $datos[10]; ?> </i></span>
         </div>
+        <div  class="col s12">
+          <span class=""><b>Comentario:</b></span>
+          <span id="fvendedor" class=""><?php echo $datos[7]; ?></span>
+        </div>
 
       </div>   
     </div>

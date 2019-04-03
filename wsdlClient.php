@@ -506,7 +506,7 @@
 
             $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$inv_xml['Clave'].'\"")')->fetch_all()[0];
 
-            /*if ($rs_compra[0] > 0) {
+            if ($rs_compra[0] > 0) {
                 $str = "";
                 switch ($rs_compra[1]) {
                     case 5:
@@ -523,7 +523,7 @@
                 }
                 $salida = ['succed' => 0,'ERROR' => 'Factura '.$str];
                 return false;
-            }*/
+            }
 
             $scedula = $inv_xml['NumeroCedulaReceptor'];
 
@@ -559,7 +559,7 @@
         $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$salida['clave'].'\"")')->fetch_all()[0];
 
         
-        /*if ($rs_compra[0] > 0) {
+        if ($rs_compra[0] > 0) {
             $str = "";
             switch ($rs_compra[1]) {
                 case 5:
@@ -576,7 +576,7 @@
             }
             $salida = ['succed' => 0,'ERROR' => 'Factura '.$str];
             return false;
-        }*/
+        }
 
         $salida['emisor']['cedula'] = (array) $inv_xml->Emisor->Identificacion->Numero;
         $salida['emisor']['cedula'] = $salida['emisor']['cedula'][0];
@@ -1087,7 +1087,7 @@
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             switch ($status) {
                 case 0:
-                    $json_response = json_encode(["rs"=>'Supero Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
+                    $json_response = json_encode(["rs"=>'Superó Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
                     break;
                 case 201:
                 case 202:

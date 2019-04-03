@@ -129,7 +129,6 @@ $(document).on("click",".msjh",function(){
     var idcomp = $(this).parent().parent().attr('id').substr(2)
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado,0,0,0);
     var crrprov = getDatos('group_concat(correo)',17,'idtabla = 2 and idfila = (select idcliente from facturas where id ='+idcomp+') group by idfila',0,0,0);
-    console.log(crrprov);
 
     if(!idfact.succed){
         Materialize.toast(idfact[0]['ERROR'],4000,'red');
@@ -235,7 +234,7 @@ $(document).on("click",".status",function(){
 						break;
 					case 'Sin Internet':
 						color = 'red';
-                        statue = 0;
+                        state = 0;
                         msj = p['rs'];
 						break;
 					case 'error':

@@ -1622,6 +1622,12 @@ function searchClient(vvariable,visprv){
             $("#vdescuentop").val();
             $("#vdescuentop").data('valor',0);
         }
+
+        if (vclie[13] != 1) {
+            $("#monedas").val(vclie[13]).change();
+            $("#monedas").material_select('update');
+        }
+
     }else{
         str_correos = '';
         param = param == 1 ? 7 : param;
@@ -1644,11 +1650,6 @@ function searchClient(vvariable,visprv){
         $(".chg_tipo[val=1]").click()
 
         $("#ingclie").removeClass('hide');
-    }
-
-    if (vclie[13] != 1) {
-        $("#monedas").val(vclie[13]).change();
-        $("#monedas").material_select('update');
     }
 
     cargarImpuestos($("#ffacturas .zelda").data('triforce')['vidcliente'],'2');
@@ -1805,7 +1806,6 @@ function sendFE(clave){
             if (p['succes']) {
                 var vfactura = p['num'];
                 var vclave = p['clave'];
-                arr('login',7,2,64,'feestado=2','id='+clave,0,0);
                 $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
                 sendVMail(vfactura,vclave,clave);
             }else{

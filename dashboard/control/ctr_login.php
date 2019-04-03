@@ -188,7 +188,7 @@
         $conteo = isset($_REQUEST['arreglo']['conteo']) ? $_REQUEST['arreglo']['conteo'] : '' ;
         $suma = isset($_REQUEST['arreglo']['suma']) ? $_REQUEST['arreglo']['suma'] : '' ;
 
-        $omitir = isset($_REQUEST['arreglo']['omitir']) ? $_REQUEST['arreglo']['omitir'] : '';
+        $vista = isset($_REQUEST['arreglo']['vista']) ? $_REQUEST['arreglo']['vista'] : '';
         $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
         $transaccion = $log->sel_col($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
         include 'view/ajax/tabla_excel.php'; 
