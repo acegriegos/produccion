@@ -254,7 +254,7 @@ function cargarCompras(){
     $("#valor_grabado").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13)
-            $$(".ven2:first").focus();
+            $(".ven2:first").focus();
     });
 
     $(".addline").click(function(){
@@ -680,6 +680,12 @@ function cargarGlobal(){
         }
     });
 
+    $("#byfact").keyup(function(e){
+         var code = e.which || e.keyCode;
+        if (code == 13)
+            cargarFacturasNota();
+    });
+
     $("#ncli").keydown(function(e){
         var charCode = e.which //|| e.keyCode;
         var charStr = keysight(e);
@@ -874,16 +880,16 @@ function cargarFactura(vidp,asoc){
 function cargarFacturasNota(){
     var vcliente = $("#byclie").attr('cid');
     var vfactura = $("#byfact").val().trim().length ? $("#byfact").val() : 0;
-
-    var info = getDatos('lpad(consecutivo,6,0),concat((select simbolo from monedas where id = idmoneda),format(subtotal+exento+imv-descuento,2)),date_format(fecha,"%d-%m-%Y"),datediff(curdate(),fecha) as dias,id',64,'id > 0 and if('+vcliente+' = 0,1,idcliente = '+vcliente+') and if("'+vfactura+'" = 0,1,consecutivo = "'+vfactura+'") having dias <= 15',0,0,0);
-    
+    var str = '';
+    var info = getDatos('concat(case idtipoventa when 1 then "F-" else "T-" end,lpad(consecutivo,6,0)),concat((select simbolo from monedas where id = idmoneda),format(subtotal+exento+imv-descuento,2)),date_format(fecha,"%d-%m-%Y"),datediff(curdate(),fecha) as dias,id',64,'id > 0 and if('+vcliente+' = 0,1,idcliente = '+vcliente+') and if("'+vfactura+'" = 0,1,consecutivo = "'+vfactura+'") and idtipoventa in(1,7,8) and idsucursal = @@impresa having dias <= 15',0,0,0);
+    console.log(vfactura)
     $("#listafacturas").html('');
     if (info.succed) {
         for (var i = 0; i < info[0].length; i++) {
-            str += '<tr><td></td><td>'+info[0][i][0]+'</td><td>'+info[0][i][1]+'</td><td>'+info[0][i][2]+'</td></tr>';
+            str += '<tr class="detalle" id="'+info[0][i][4]+'" style="cursor:pointer"><td></td><td>'+info[0][i][0]+'</td><td>'+info[0][i][1]+'</td><td>'+info[0][i][2]+'</td></tr>';
         }
         $("#listafacturas").html(str);
     }else{
-        $("#listafacturas").html('<tr><td colspan="3">No hay Facturas Disponibles</td></tr>');
+        $("#listafacturas").html('<tr><td colspan="3" align="center" >No hay Facturas Disponibles</td></tr>');
     }
 }

@@ -13,21 +13,6 @@ $(function(){
 		
 		$("#mcontabilidad").html(mantenimiento("contabilidad",id,''));
 
-		$('.datepicker').pickadate({
-	         labelMonthNext: 'Siguiente',
-	         labelMonthPrev: 'Anterior',
-	         labelMonthSelect: 'Seleccione un Mes',
-	         labelYearSelect: 'Seleccione un Año',
-	         monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-	         monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-	         weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-	         weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-	         weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
-	         today: 'Hoy',
-	         clear: 'Limpiar',
-	         close: 'Cerrar'
-	    });
-
 		switch(id){
 			case 1:			
 				$("[modulo=scontabilidad]").attr('max',$("[cod]").length / 2);
@@ -133,7 +118,7 @@ $(document).on("click",".vfiltros",function(){
 $(document).on("keyup","#vdescripcion",function(e){
 	var code = e.which || e.keyCode;
 	if(code == 13){
-		$('#detalletransaccione tr td input[type=text]').first().focus()
+		$('#fdetalletransaccione tr td input[type=text]').first().focus()
 	}
 });
 
@@ -141,8 +126,8 @@ $(document).on("keyup","[id^=f]",function(e){
 	var code = e.which || e.keyCode;
 	if(code == 46){
 		$(this).remove();
-		var id = parseInt($('#detalletransaccione tr').last().attr('id').substr(1))+1
-		$('#detalletransaccione').append(getFila(id));
+		var id = parseInt($('#fdetalletransaccione tr').last().attr('id').substr(1))+1
+		$('#fdetalletransaccione').append(getFila(id));
 
 		$("#f"+id).data('triforce',{vaccion:0,vid:0, vidtransaccion:'?',vdebe:0, vhaber:0, vfila:0, vtabla:0,vidcuenta : 0});
 	}
@@ -198,7 +183,7 @@ $(document).on("keyup",".tdtext",function(e){
 			if(rs != undefined && $(this).val() != ''){
 				var repetido = 0;
 
-				$('#detalletransaccione tr').each(function(){
+				$('#fdetalletransaccione tr').each(function(){
 					if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
 						repetido = 1;
 				});
@@ -272,7 +257,7 @@ $(document).on("click",".func",function(){
 
 	switch(id){
 		case 1:
-		$('#detalletransaccione').html('');
+		$('#fdetalletransaccione').html('');
 		var rs = arr('login',4,'id,nombre',55,"",'',0,'')[0];
 
 		for (var i = 0; i < rs.length; i++) {
@@ -280,7 +265,7 @@ $(document).on("click",".func",function(){
 		}
 
 		for (var i = 1; i < 7; i++) {
-			$('#detalletransaccione').append(getFila(i))
+			$('#fdetalletransaccione').append(getFila(i))
 
 			$("#f"+i).data('triforce',{vaccion:0,vid:0, vidtransaccion:'?',vdebe:0, vhaber:0, vfila:0, vtabla:0,vidcuenta : 0});
 		}
@@ -352,11 +337,10 @@ $(document).on("keyup","#vbusqueda",function(e){
 
 function cargarTransacciones(){
 
-	$(".zelda").data('triforce',{vid:0,vidfila:0,vidtabla:0})
+	$(".zelda").data('triforce',{vid:0,vidfila:0,vidtabla:0,vidusuario:'',vidsucursal:''})
 
 	var fecha = new Date();
-	var dpick = $('#vfecha');
-	dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
+	$('#vfecha').val(fecha.getFullYear()+'-'+fecha.getMonth()+'-'+fecha.getDate());
 
 	 $(document).on('keydown','.autocomplete',function(e){
         var charCode = e.which || e.keyCode;
@@ -380,7 +364,7 @@ function cargarTransacciones(){
 function totalizar(){
 	var vdebe = vhaber = 0;
 
-	$('#detalletransaccione tr').each(function(){
+	$('#fdetalletransaccione tr').each(function(){
 		if($(this).attr('st') == 1){
 			var id = $(this).attr('id').substr(1);
 			vdebe += isNaN($('#vsdebe'+id).val().replace(/,/g,'')) ? 0 : parseFloat($('#vsdebe'+id).val().replace(/,/g,''));
@@ -408,12 +392,22 @@ function validar (varreglo,vmodulo) {
 		}
 
 		break;
+		// case 'detalletransaccione':
+		// if (vmodulo['tip'] == '') {
+		// 	err = validardetalletransacciones();
+		// 	if ( err ) {
+		// 		return err;
+		// 	}
+		// }
+
+		// break;
 		default:
 		return 'Módulo no Existente';
 		break;
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+	console.log(salida);
 	return salida;
 
 }
@@ -422,6 +416,10 @@ function endDetail(vid) {
 	setTimeout(function(){ $('#fn1').click(); }, 2000);
 	return false;
 }
+
+function validardetalletransacciones() {
+	return false;
+};
 
 function validartransacciones() {
 
@@ -469,6 +467,6 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-	return '<tr id="f'+i+'" st="0" class="ciclos"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>';
+	return '<tr id="f'+i+'" st="0" class="ciclos"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>';
 
 }

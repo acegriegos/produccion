@@ -156,7 +156,7 @@ $(document).on("click",".detalle",function(){
 	
 	var tabla= $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
-	var  datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
+	var datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
 
     if (config[5] == 1){
         $("#tipoimpresion").attr('checked',true);

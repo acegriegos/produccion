@@ -25,13 +25,10 @@
                 <div class="col s4 left">
                     <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px;{if $VCUE[LE][4] neq 1} margin-left: {math equation='x * y' x=2 y=$VCUE[LE][4]}%;{/if}" {if $VCUE[LE][4] eq 1} readonly {/if} maxlength="40">
                 </div>
-              x   <div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;">
+              <div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;">
                     {$VCUE[LE][2]}
                 </div>
                 <div class="col s4 right">
-
-                    <input type="checkbox" class="ispadr" {if $VCUE[LE][4] eq 1} indeterminate-checkbox disabled {/if} id="ip{$VCUE[LE][0]}" title="Sub Cuenta" {if $VCUE[LE][5] eq 1} checked {/if}>
-                    <label for="ip{$VCUE[LE][0]}"></label>
                     <i class="mdi mdi-plus mdi-24px" id="ac{$VCUE[LE][0]}" title="Agregar Cuenta"></i>
                     <i class="mdi mdi-delete mdi-24px {if $VCUE[LE][4] eq 1} disabled {/if} " id="ec{$VCUE[LE][0]}" title="Eliminar Cuenta"></i>
                 </div>

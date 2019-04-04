@@ -702,7 +702,7 @@
         <label for="byfact">Por Factura</label>
       </div>
        <div class="col s6 input-field">
-        <input type="text" id="byclie" class="autocomplete" autocomplete="off">
+        <input type="text" id="byclie" class="autocomplete" autocomplete="off" cid="0">
         <label for="byclie">Por Cliente</label>
       </div>
     </div>

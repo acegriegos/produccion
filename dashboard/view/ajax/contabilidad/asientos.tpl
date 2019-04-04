@@ -1,4 +1,4 @@
-<div class="card z-depth-5">
+<div class="card z-depth-5" id='ftransacciones'>
     <div class="row">
         <br>
         <div class="row">
@@ -18,7 +18,7 @@
 
         <!-- Funcion 1 -->
 
-        <div id='ftransacciones'>  
+        <div>  
             <div  class="sub-tran" id="t1">
                 <input type="hidden" class="zelda">
                 <div class="row">
@@ -29,7 +29,7 @@
 
               <div class="input-field col s12 m6 l4">
                   <i class="fa fa-calendar-o prefix"></i>
-                  <input type="date" class="datepicker eder" id="vfecha" value="" placeholder="Fecha de la Transacción" />
+                  <input type="date" class="eder" id="vfecha" value="" placeholder="Fecha de la Transacción" />
 
               </div>
               <div class="input-field col s12 m12 l4" >
@@ -66,7 +66,7 @@
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Comentario</th>
         </tr>
     </thead>
-    <tbody id="detalletransaccione">
+    <tbody vtabla="detalletransaccione" id="fdetalletransaccione" tp="4" rollback="">
 
     </tbody>
     <tfoot>
@@ -80,7 +80,7 @@
         </tr>
         <tr>
             <td colspan="6">
-                <button type="button" class="btn z-depth-5 btn-primary add der" codigo="1" modulo="transaccione" detalle="1">Aceptar</button>
+                <button type="button" class="btn z-depth-5 btn-primary add der" codigo="1" modulo="transaccione" varias="1">Aceptar</button>
                 <div class="alert alert-danger" align="center" style="height: 38px; padding: 6px;display: none" id="err1">
                     <small><strong id="errm1"></strong></small>
                 </div>

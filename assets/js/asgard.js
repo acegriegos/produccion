@@ -825,7 +825,7 @@ default:
                 salida[varreglo[i][0]] = 0;
                 break
                 case 'vidtabla':
-                salida[varreglo[i][0]] = $("#"+vform+" #vtabla").val();
+                salida[varreglo[i][0]] = $("#"+vform+" #vidtabla").val() == undefined ? 0 : $("#"+vform+" #vidtabla").val();
                 break;
                 default:
                 if (/vfecha/.test(varreglo[i][0]) && $("#"+vform+" #"+varreglo[i][0]).length){

@@ -457,14 +457,19 @@ $(document).on("change","#videtapa",function(){
 
 $(document).on("click","[id^=ec]",function(){
 	var id = $(this).attr('id').substr(2);
-	alert(id)
-	// var p = arr('login',7,3,36,'','id = '+id, 0,0,0)[0];
-	// if (p['ERROR'] != undefined) {
-	// 	Materialize.toast(p['ERROR'],4000,'red');
-	// 	$(this).prop('checked',true);
-	// }else{
-	// 	alert("deleted")
-	// }
+	var p = arr('login',7,3,36,'id = '+id,'', 0,0,0)[0];
+	if (!p.success) {
+		Materialize.toast(p['ERROR'],4000,'red');
+	}else{
+		$(this).parent().parent().parent().remove();
+		Materialize.toast('Cuenta Eliminada Correctamente',4000,'green');
+	}
+});
+
+$(document).on("click","[id^=ac]",function(){
+	var id = $(this).attr('id').substr(2);
+	var ml = parseInt($(this).parent().parent().parent().attr('ndeep'));
+	$(this).parent().parent().parent().after('<a href="#!" class="collection-item cuecon" style="color:black;max-height:220px;padding:0;padding-top: 2px; {if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="'+(ml+1)+'"> <div class="row"> <div class="col s4 left"> <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px; margin-left: '+(ml+2)+'%;" maxlength="40"> </div><div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;"> {$VCUE[LE][2]}</div><div class="col s4 right"><i class="mdi mdi-plus mdi-24px" id="ac0" title="Agregar Cuenta"></i><i class="mdi mdi-delete mdi-24px " id="ec0" title="Eliminar Cuenta"></i></div></div></a>')
 });
 
 $(document).on("change","#xidbodega",function(){
@@ -1086,13 +1091,13 @@ if ($("#vfatura").val() == '') {
 });
 
 $(document).on("click",".numcon",function(){
-var vdeep = parseInt($(this).parent().parent().attr('deep'));
-var vndeep = parseInt($(this).parent().parent().attr('ndeep'))+1;
+	var vdeep = parseInt($(this).parent().parent().attr('deep'));
+	var vndeep = parseInt($(this).parent().parent().attr('ndeep'))+1;
 
-if($(".cuecon[deep^='"+vdeep+"']:visible").filter(function(){ return $(this).attr('ndeep') == vndeep}).length == 0)
-$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') == vndeep}).show()
-else
-$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') >= vndeep}).hide()
+	if($(".cuecon[deep^='"+vdeep+"']:visible").filter(function(){ return $(this).attr('ndeep') == vndeep}).length == 0)
+	$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') == vndeep}).show()
+	else
+	$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') >= vndeep}).hide()
 });
 
 
