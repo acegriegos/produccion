@@ -210,6 +210,9 @@ function cargarCompras(){
         $("#modal-producto").modal('open');
         $("#vcodigo").focus()
         $(this).parent().parent().hide();
+
+        $("#pmoneda").val($("#monedas").val());
+        $("#pmoneda").material_select('update');
     });
 
     $("#vplazo").keyup(function(e){
@@ -238,18 +241,6 @@ function cargarCompras(){
         } 
             
     });
-
-    $(".ven2").keyup(function(e){
-        var code = e.which || e.keyCode;
-        var index = parseInt($(".ven2").index(this));
-        var tam = parseInt($(".ven2").length);
-        if (code == 13)
-            if(index+1 == tam)
-                $(".addline").click();
-            else
-                $(".ven2").eq(index+1).focus();
-    });
-    
 
     $("#valor_grabado").keyup(function(e){
         var code = e.which || e.keyCode;
@@ -312,30 +303,29 @@ function cargarCompras(){
             $("#valores").data('elemento')['hprec'] = valor;
             $("#descup").select().focus();
             
-            //cargarUtilidad();
+            cargarUtilidad();
         }
-    });
-    
-    $("#iva").change(function(){
-        if ( $(this).is(':checked') )
-            $("[for='exct']").addClass('hide').prop('checked',false);
-        else
-            $("[for='exct']").removeClass('hide');
-        //cargarUtilidad();
     });
 
-    $(document).on("change","#exct",function(){
-        if ( $(this).is(':checked') ){
+    $(document).on("click","[name=hasimpuesto]",function(){
+
+        if($(this).attr('id') == 'exct'){
             $(".valor_grabado").addClass('hide');
             $("#valor_grabado").val(0);
-            $("#iva").prop('checked',false)
-        }
-        else{
-            $(".valor_grabado").removeClass('hide');
-            if(parseInt($("#valor_grabado").val()) == 0)
+            $("input:checkbox[name=hasimpuesto]").prop('checked',false);
+            $(this).prop('checked',true);
+        }else{
+            if(!$(this).is(":checked")){
+                $("input:checkbox[name=hasimpuesto]").prop('checked',false);
+            }
+            else{
+                $("input:checkbox[name=hasimpuesto]").prop('checked',false);
+                $(this).prop('checked',true);
+                $(".valor_grabado").removeClass('hide');
+                if(parseInt($("#valor_grabado").val()) == 0)
                 $("#valor_grabado").val($("#valor_grabado").attr('orig'));
+            }
         }
-        //cargarUtilidad();
     });
 
     function cargarUtilidad(){
@@ -348,7 +338,6 @@ function cargarCompras(){
         var ncosto = (parseFloat($("#precp").val().replace(/,/g,''))*descuentol)/($("#iva").is(":checked") ? (parseFloat($("#valor_grabado").val())/100 +1): 1);
 
         $("#cos2").html(parseFloat(ncosto).formatMoney(2,'.',''));
-        ncosto = ncosto/tpdivisa
         matriz['costo'] = $("#cos2").html();
 
         if(!$("#chgvalor").is(":checked")){
@@ -816,6 +805,10 @@ function cargarGlobal(){
         Materialize.updateTextFields();
 
     });
+    
+    $(document).on("click",".detalle",function(){
+        $("#dfact").sideNav('show');
+    });
 
     $(document).on("click","#editprod",function(){
         var id = $("#hdnprd").val();
@@ -882,7 +875,7 @@ function cargarFacturasNota(){
     var vfactura = $("#byfact").val().trim().length ? $("#byfact").val() : 0;
     var str = '';
     var info = getDatos('concat(case idtipoventa when 1 then "F-" else "T-" end,lpad(consecutivo,6,0)),concat((select simbolo from monedas where id = idmoneda),format(subtotal+exento+imv-descuento,2)),date_format(fecha,"%d-%m-%Y"),datediff(curdate(),fecha) as dias,id',64,'id > 0 and if('+vcliente+' = 0,1,idcliente = '+vcliente+') and if("'+vfactura+'" = 0,1,consecutivo = "'+vfactura+'") and idtipoventa in(1,7,8) and idsucursal = @@impresa having dias <= 15',0,0,0);
-    console.log(vfactura)
+  
     $("#listafacturas").html('');
     if (info.succed) {
         for (var i = 0; i < info[0].length; i++) {

@@ -185,6 +185,8 @@
     
     {if $smarty.session.BUSS eq 0 or $smarty.session.BUSS eq 3}
     <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
+
+    <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
     {/if}
  </div>
 
@@ -203,8 +205,8 @@
           <label for="tc3"  class="hide" style="float: left;margin-right: 5px">Gasto no Diferido</label>
     <section class="right">
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-          <label for="iva" class="hide valor_grabado" style="float: left;margin-right: 5px">IVI</label>
-          <input type="checkbox" name="isexcento" id="exct" hclk="0">
+          <label for="iva" class="hide" style="float: left;margin-right: 5px">IVI</label>
+          <input type="checkbox" name="hasimpuesto" id="exct" hclk="0">
           <label for="exct" class="hide"  style="float: left;margin-right: 5px">Exento</label>
       {if $smarty.session.BUSS neq 1}
         <a href="#" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
@@ -706,7 +708,7 @@
         <label for="byclie">Por Cliente</label>
       </div>
     </div>
-    <table>
+    <table class="highlight"> 
       <thead>
         <th></th>
         <th>Numero Factura</th>
@@ -980,14 +982,22 @@
     <input type="hidden" class="zelda">
     <div class="row">
 
-      <div class="input-field col s6 edescu">
+      <div class="input-field col s6">
         <input type="text" id="vcodigo" autocomplete="off">
         <label for="vcodigo">Código</label>
       </div>
 
-      <div class="input-field col s6 eimp">
-        <input type="text" id="vpnombre" autocomplete="off">
+      <div class="input-field col s6">
+        <input type="text" id="vpnombre" autocomplete="off" autosave="off">
         <label for="vpnombre">Nombre</label>
+      </div>
+
+      <div class="input-field col s6">
+       <select id="pmoneda">
+          {section name="LE" loop=$MON}
+            <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]}</option>
+          {/section}
+        </select>
       </div>
 
     </div>
@@ -1037,5 +1047,25 @@
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
   </div>
 </div>
+
+<ul id="slide-factura" class="side-nav" style="z-index:1500;">
+  <li>
+    <div class="user-view center">
+      <span class="ftit"></span>
+    </div>
+  </li>
+  <li>
+    <div class="divider"></div>
+  </li>
+  <li>
+    Productos a Devolver <br>
+    <div id="detfact"></div> 
+    <div class="footer row" style="bottom:42px;position:absolute;">
+      <a class="btn btn-success col s6" id="fdev">Realizar Devolución</a>
+      <a class="btn btn-default col s6" id="fext">Salir</a>
+    </div>
+    
+  </li>
+</ul>
 
 <script src="../assets/js/modulos/ventas.js?v=10.0.1.15"></script>

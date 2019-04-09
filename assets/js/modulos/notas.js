@@ -348,7 +348,7 @@ function endDetail(vid,vacc,modulo){
 		arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
 
         arr('login',4,'',276,$("#vidfactura").val(),0,0,0);
-        window.open("cuentas?accion=4&id="+clave+"&tp=0")
+        // window.open("cuentas?accion=4&id="+clave+"&tp=0")
         if (estado == 0 || estado == 7 || estado == 9) {
             $.get('../wsdlClient.php',{accion:4,id:idfact})
             .done(function(data){
@@ -497,7 +497,6 @@ function sendVMail(idfact,idnota,cnota){
         if (config[4] == 1){
            	var tp = $("#p_v").is(":checked") == true ? 1 : 2;
             window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-            setTimeout(function(){$(".toast").remove();},5000);
         }
     }
 }

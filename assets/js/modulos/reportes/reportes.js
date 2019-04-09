@@ -275,7 +275,7 @@ $(document).on("click","#sndcrr",function(){
 
     mantenimiento('login',11,{sel:'',tbl:vtbl,where:atributos,vista:$(".excel").data('parametros')['vista'],tit:$("#titrep").html(),archivo:$("#titrep").html()+", "+sucursal,save:1,conteo:1,suma:$(".excel").data('parametros')['suma']},1);
 
-    enviarCorreo(3,vpara,"Reporte de "+$("#titrep").html()+", "+sucursal,"Se adjuntan los archivos correspondientes.",'excel/'+$("#titrep").html()+", "+sucursal+".xls",0,0,0);
+    enviarCorreo(3,vpara,"Reporte de "+$("#titrep").html()+", "+sucursal,"Se adjuntan los archivos correspondientes.",'excel/'+$("#titrep").html()+", "+sucursal+".xlsx",0,0,0);
 });
 
 $(document).on("click",".excel",function(){

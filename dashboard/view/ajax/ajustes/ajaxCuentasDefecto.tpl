@@ -1,7 +1,12 @@
 <div class="card pequeño">
     
     <div class="card-block pequeño">
-        <h3 class="center-align">Mantenimiento Cuentas</h3>
+        
+        <div style="float: right;width: 25%;margin:0px;padding: 0px" class="input-field">
+          <i class="mdi mdi-magnify prefix"></i>
+          <input type="text" id="bcuenta" style="padding: 0px;margin-top: 0px;margin-bottom: 0px" placeholder="Buscar Cuenta por Nosmbre">
+        </div>
+        <h3 class="center">Catálogo de Cuentas</h3>
         <div class="z-depth-5" id="vcuentas">
             <div class="collection">
 
@@ -25,7 +30,7 @@
                 <div class="col s4 left">
                     <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px;{if $VCUE[LE][4] neq 1} margin-left: {math equation='x * y' x=2 y=$VCUE[LE][4]}%;{/if}" {if $VCUE[LE][4] eq 1} readonly {/if} maxlength="40">
                 </div>
-              <div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;">
+              <div class="col s4 numcon center" style="cursor: pointer; min-height: 40px;">
                     {$VCUE[LE][2]}
                 </div>
                 <div class="col s4 right">

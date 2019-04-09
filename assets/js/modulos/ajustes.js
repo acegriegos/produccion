@@ -171,7 +171,20 @@ $(document).on("click",".menu3",function(){
 			var p = mantenimiento('ajustes',4,'');
 			$("#majustes").html('');
 			$("#majustes").html(p);
-			$("#data-table-defecto").dataTable();
+			$("#data-table-defecto").dataTable({
+				bLengthChange : false,
+				order : []
+			});
+
+			$("#bcuenta").keyup(function(){
+				var code = $(this).val();
+				$(".cuecon").hide();
+
+				if(code.trim().length)
+					$(".editc").filter(function(){ return $(this).attr('value').toLowerCase().indexOf(code) > -1; }).parent().parent().parent().show();
+				else
+					$(".cuecon[ndeep=1]").show();
+			})
 			break;
 		case 5:
 			var p = mantenimiento('ajustes',5,'');
@@ -461,6 +474,7 @@ $(document).on("click","[id^=ec]",function(){
 	if (!p.success) {
 		Materialize.toast(p['ERROR'],4000,'red');
 	}else{
+		alert(1)
 		$(this).parent().parent().parent().remove();
 		Materialize.toast('Cuenta Eliminada Correctamente',4000,'green');
 	}
@@ -469,7 +483,10 @@ $(document).on("click","[id^=ec]",function(){
 $(document).on("click","[id^=ac]",function(){
 	var id = $(this).attr('id').substr(2);
 	var ml = parseInt($(this).parent().parent().parent().attr('ndeep'));
-	$(this).parent().parent().parent().after('<a href="#!" class="collection-item cuecon" style="color:black;max-height:220px;padding:0;padding-top: 2px; {if $VCUE[LE][4] neq 1}display: none;{/if}" deep="{$VCUE[LE][3]}" ndeep="'+(ml+1)+'"> <div class="row"> <div class="col s4 left"> <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px; margin-left: '+(ml+2)+'%;" maxlength="40"> </div><div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;"> {$VCUE[LE][2]}</div><div class="col s4 right"><i class="mdi mdi-plus mdi-24px" id="ac0" title="Agregar Cuenta"></i><i class="mdi mdi-delete mdi-24px " id="ec0" title="Eliminar Cuenta"></i></div></div></a>')
+
+	$(this).parent().parent().parent().after('<a href="#!" class="collection-item cuecon" style="color:black;max-height:220px;padding:0;padding-top: 2px;" deep="0" ndeep="'+(ml+1)+'"> <div class="row"> <div class="col s4 left"> <input type="text" tp="0" class="editc" atp="'+id+'" value="" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px; margin-left: '+((ml+1)*2)+'%;" maxlength="40"> </div><div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;"> ----- </div><div class="col s4 right"><i class="mdi mdi-plus mdi-24px" id="ac0" title="Agregar Cuenta"></i><i class="mdi mdi-delete mdi-24px" id="ec0" title="Eliminar Cuenta"></i></div></div></a>');
+
+	$(".editc[tp=0]").focus();
 });
 
 $(document).on("change","#xidbodega",function(){
@@ -1102,18 +1119,37 @@ $(document).on("click",".numcon",function(){
 
 
 $(document).on("keyup",'.editc',function(e){
-var code = e.which || e.keyCode
-if (code == 13) {
-var valorc = $(this).val();
-if(valorc == '')
-Materialize.toast('Cuenta Requiere Nombre',4000,'red')
-else{
-rs = arr('login',4,'',37,'2,'+$(this).attr('tp')+',0,"'+valorc+'",0,0');
-if (rs['succed'] == 0) 
-Materialize.toast(rs[0]['ERROR'],4000,'red')
-else
-Materialize.toast('Cambio de Nombre Exitoso',4000,'green')
-}
+	var code = e.which || e.keyCode
+	if (code == 13) {
+		var valorc = $(this).val();
+		if(valorc == '')
+			Materialize.toast('Cuenta Requiere Nombre',4000,'red')
+		else{
+			if(parseInt($(this).attr('tp')) == 0){
+				rs = arr('login',4,'',37,'1,0,'+$(this).attr('atp')+',"'+valorc+'",@@usr,@@impresa');
+				
+				if (rs['succed'] == 0){
+					$(this).focus().select();
+					Materialize.toast(rs[0]['ERROR'],4000,'red')
+				} 
+				else{
+					var padre = $(this).parent().parent().parent();
+					padre.find('#ac0').attr('id','ac'+rs[0][0][0]);
+					padre.find('#ec0').attr('id','ec'+rs[0][0][0]);
+					padre.find('.numcon').html(rs[0][0][2]);
+					padre.attr('ndeep',rs[0][0][1])
+					padre.attr('deep',rs[0][0][3])
+					Materialize.toast('Cuenta Creada Exitosamente',4000,'green')
+				}
+			}else{
+				rs = arr('login',4,'',37,'2,'+$(this).attr('tp')+',0,"'+valorc+'",@@usr,@@impresa');
+				if (rs['succed'] == 0) 
+					Materialize.toast(rs[0]['ERROR'],4000,'red')
+				else
+					Materialize.toast('Cambio de Nombre Exitoso',4000,'green')
+			}
+			
+	}
 };
 
 });
