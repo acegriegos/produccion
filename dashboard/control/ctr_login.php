@@ -65,6 +65,9 @@
                 case 4:
                   $mod = 'documentos';
                   break;
+                case 5:
+                  $mod = 'arrendamiento';
+                  break;
                 default:
                   $mod = 'facturacion';
                   break;
