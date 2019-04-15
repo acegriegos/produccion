@@ -23,7 +23,7 @@
                 <input type="hidden" class="zelda">
                 <div class="row">
                    <div class="input-field col s12 m6 l4">
-                  <input  id="vdescripcion" type="text" class="validate" >
+                  <input  id="vdescripcion" type="text" class="validate" autocomplete="off">
                   <label for="descripcion">Descripcion de la Transacción</label>
               </div>
 
@@ -66,7 +66,7 @@
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Comentario</th>
         </tr>
     </thead>
-    <tbody vtabla="detalletransaccione" id="fdetalletransaccione" tp="4" rollback="">
+    <tbody vtabla="detalletransaccione" id="fdetalletransacciones" tp="4" rollback="">
 
     </tbody>
     <tfoot>

@@ -1659,8 +1659,8 @@ vmodulo['sel'] = 'id as vid,nombre as vnombre,codigo as vcodigo';
 vmodulo['tbl'] = 196;
 vmodulo['where'] = 'id = '+vid;
 break;
-case 'frestaurantes-mesa':
-vmodulo['sel'] = '';
+case 'restaurantes-mesa':
+vmodulo['sel'] = 'id as vid,nombre as vnombre';
 vmodulo['tbl'] = 800;
 vmodulo['where'] = vid;
 break;
@@ -1779,7 +1779,7 @@ $("#vgenero").html(rs);
 $("#vgenero").material_select('update')
 });
 
-$(document).on("click","[name='cta-def']",function(){
+$(document).on("click",".cta-def",function(){
 var id_def = $(this).attr('id').substr(1);
 var id_cta = $("#cta"+id_def).attr('pr');
 var nom = $("#def"+id_def+" td").first().html();

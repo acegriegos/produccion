@@ -61,8 +61,7 @@
                     <td style="width:20%">{$DCUE[LE][4]} {$DCUE[LE][6]}</td>
                     <td style="width:50%" id="cta{$DCUE[LE][0]}" pr="{$DCUE[LE][1]}">{$DCUE[LE][2]}</td>
                     <td style="width:50%">
-                      <input name="cta-def" type="radio" id="r{$DCUE[LE][0]}"/>
-                      <label for="r{$DCUE[LE][0]}"></label>
+                      <i class="mdi mdi-camera-switch mdi-24px cta-def" style="cursor: pointer" id="r{$DCUE[LE][0]}"></i> 
                     </td>
                 </tr>
             {/section}
@@ -73,11 +72,11 @@
 
          <div id="modal-defcta" class="modal bottom-sheet" style="min-height:520px;" >
             <div class="modal-content">
-              <h4>Cambio de Cuenta por Defecto</h4>
+              <h4 class="center">Cambio de Cuenta por Defecto</h4>
               <br>
               <div class="input-field">
                   <select id="vdefecto">
-                    <option value="0" disabled>Seleccione una Opción</option>
+                    <option value="0" disabled>No Aplica</option>
                     {section name=LE loop=$RCUE}
                         <option value="{$RCUE[LE][0]}">{$RCUE[LE][1]}</option>
                     {/section}

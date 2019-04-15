@@ -120,7 +120,7 @@
 
             if($attachment['is_attachment'] == 1)
             {
-                if (strpos($attachment['name'], '.xml') || strpos($attachment['filename'], '.xml')) {
+                if (strpos($attachment['name'], '.xml') || strpos($attachment['filename'], '.xml') || strpos($attachment['attachment'], 'xml')) {
                     $salida = [];
                     loadXML_FILE($attachment['attachment'],$salida,$db);
                     print_r($salida);

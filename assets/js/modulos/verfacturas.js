@@ -96,8 +96,9 @@ $(document).on("click","#process",function(){
 $(document).on("click",".pdf",function(e){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
-    mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
-    $(this).attr('href','../assets/pdf/Factura N°'+vbody[2]+', '+vbody[1]+'.pdf'); 
+    mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vbody[3],sel:'',tbl:72,where:vid},1);
+    console.log(vbody);
+    $(this).attr('href','../assets/pdf/'+vbody[3]+' N°'+vbody[2]+', '+vbody[1]+'.pdf'); 
 });
 
 

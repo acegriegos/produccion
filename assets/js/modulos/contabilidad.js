@@ -118,7 +118,7 @@ $(document).on("click",".vfiltros",function(){
 $(document).on("keyup","#vdescripcion",function(e){
 	var code = e.which || e.keyCode;
 	if(code == 13){
-		$('#fdetalletransaccione tr td input[type=text]').first().focus()
+		$('#fdetalletransacciones tr td input[type=text]').first().focus()
 	}
 });
 
@@ -126,17 +126,10 @@ $(document).on("keyup","[id^=f]",function(e){
 	var code = e.which || e.keyCode;
 	if(code == 46){
 		$(this).remove();
-		var id = parseInt($('#fdetalletransaccione tr').last().attr('id').substr(1))+1
-		$('#fdetalletransaccione').append(getFila(id));
+		var id = parseInt($('#fdetalletransacciones tr').last().attr('id').substr(1))+1
+		$('#fdetalletransacciones').append(getFila(id));
 
 		$("#f"+id).data('triforce',{vaccion:0,vid:0, vidtransaccion:'?',vdebe:0, vhaber:0, vfila:0, vtabla:0,vidcuenta : 0});
-	}
-});
-
-$(document).on("keyup","[id^=c]",function(e){
-	var code = e.which || e.keyCode;
-	if(code != 13){
-		$('#f'+$(this).attr('id').substr(1)).attr('st',0);
 	}
 });
 
@@ -144,7 +137,17 @@ $(document).on("keyup",".tdtext",function(e){
 	var code = e.which || e.keyCode;
 
 	if(code == 13){
-		var id = parseInt($(this).attr('id').substr(1));
+		if(!$(this).val().length && $(this).attr('id').substr(0,1) == 'c')
+			$("#d"+$(this).attr('id').substr(1)).focus();
+		$(this).blur();
+	}
+});
+
+$(document).on("blur",".tdtext",function(){
+	if(!$(this).val().length)
+		return false;
+	
+	var id = parseInt($(this).attr('id').substr(1));
 		var spec = $(this).attr('id').substring(0,3);
 		
 		switch(spec){
@@ -183,7 +186,8 @@ $(document).on("keyup",".tdtext",function(e){
 			if(rs != undefined && $(this).val() != ''){
 				var repetido = 0;
 
-				$('#fdetalletransaccione tr').each(function(){
+				$("#f"+$(this).attr('id').substr(1)).data('triforce')['vidcuenta'] = rs[3]
+				$('#fdetalletransacciones tr').each(function(){
 					if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
 						repetido = 1;
 				});
@@ -195,14 +199,12 @@ $(document).on("keyup",".tdtext",function(e){
 					$('#vsdebe'+id).select();
 					$('#vsdebe'+id).focus();
 					$('#f'+id).attr('st',1)
-					$('#vidcuenta'+id).val(rs[3])
 				}else{
 					$(this).focus();
 					$(this).select();
 					$('#vsdebe'+id).val('');
 					$('#vshaber'+id).val('');
 					$('#f'+id).attr('st',0)
-					$('#vidcuenta'+id).val('')
 				}
 			}else{
 				$(this).focus();
@@ -214,40 +216,6 @@ $(document).on("keyup",".tdtext",function(e){
 			}
 			break;
 		}
-	}
-});
-
-$(document).on("blur",".tdtext",function(){
-	
-	var id = parseInt($(this).attr('id').substr(1));
-	var spec = $(this).attr('id').substring(0,2);
-
-	switch(spec){
-		case 'vd':
-		if($(this).val() == '0.00' || $(this).val() == ''){
-			$(this).val('');
-			$('#vshaber'+id).val('0.00');
-			$('#vshaber'+id).select();
-			$('#vshaber'+id).focus();
-		}else{
-			$('#vshaber'+id).val('0.00');
-			$('#c'+(id+1)).focus()
-		}
-		break;
-		case 'vh':
-		if($(this).val() == '0.00' || $(this).val() == ''){
-			$(this).val('');
-			$('#vsdebe'+id).val('0.00');
-			$('#vsdebe'+id).select();
-			$('#vsdebe'+id).focus();
-		}else{
-			$('#vsdebe'+id).val('0.00');
-			$('#c'+(id+1)).focus()
-		}
-		break;
-		default:
-		break;
-	}
 });
 
 $(document).on("click",".func",function(){
@@ -257,7 +225,7 @@ $(document).on("click",".func",function(){
 
 	switch(id){
 		case 1:
-		$('#fdetalletransaccione').html('');
+		$('#fdetalletransacciones').html('');
 		var rs = arr('login',4,'id,nombre',55,"",'',0,'')[0];
 
 		for (var i = 0; i < rs.length; i++) {
@@ -265,7 +233,7 @@ $(document).on("click",".func",function(){
 		}
 
 		for (var i = 1; i < 7; i++) {
-			$('#fdetalletransaccione').append(getFila(i))
+			$('#fdetalletransacciones').append(getFila(i))
 
 			$("#f"+i).data('triforce',{vaccion:0,vid:0, vidtransaccion:'?',vdebe:0, vhaber:0, vfila:0, vtabla:0,vidcuenta : 0});
 		}
@@ -340,7 +308,7 @@ function cargarTransacciones(){
 	$(".zelda").data('triforce',{vid:0,vidfila:0,vidtabla:0,vidusuario:'',vidsucursal:''})
 
 	var fecha = new Date();
-	$('#vfecha').val(fecha.getFullYear()+'-'+fecha.getMonth()+'-'+fecha.getDate());
+	$('#vfecha').val(fecha.getFullYear()+'-'+("0"+fecha.getMonth()).slice(-2)+'-'+("0"+fecha.getDate()).slice(-2));
 
 	 $(document).on('keydown','.autocomplete',function(e){
         var charCode = e.which || e.keyCode;
@@ -364,7 +332,7 @@ function cargarTransacciones(){
 function totalizar(){
 	var vdebe = vhaber = 0;
 
-	$('#fdetalletransaccione tr').each(function(){
+	$('#fdetalletransacciones tr').each(function(){
 		if($(this).attr('st') == 1){
 			var id = $(this).attr('id').substr(1);
 			vdebe += isNaN($('#vsdebe'+id).val().replace(/,/g,'')) ? 0 : parseFloat($('#vsdebe'+id).val().replace(/,/g,''));
@@ -392,15 +360,14 @@ function validar (varreglo,vmodulo) {
 		}
 
 		break;
-		// case 'detalletransaccione':
-		// if (vmodulo['tip'] == '') {
-		// 	err = validardetalletransacciones();
-		// 	if ( err ) {
-		// 		return err;
-		// 	}
-		// }
-
-		// break;
+		case 'detalletransaccione':
+		if (vmodulo['tip'] == '') {
+			err = validardetalletransacciones();
+			if ( err ) {
+				return err;
+			}
+		}
+		break;
 		default:
 		return 'Módulo no Existente';
 		break;
@@ -418,6 +385,13 @@ function endDetail(vid) {
 }
 
 function validardetalletransacciones() {
+	$('#fdetalletransacciones tr').each(function(){
+		$($(this).data('triforce')['vidcuenta'] != ''){
+			var id = $(this).attr('id').substr(1);
+			$(this).data('triforce')['vidodt'] = ;
+			$(this).addClass('ciclos');
+		}
+	});
 	return false;
 };
 
@@ -428,10 +402,10 @@ function validartransacciones() {
 		return 'Descripción Requerida';
 	}
 
-	if ($('#ftransacciones #vidmoneda option:selected').val() == '') {
-		$('#ftransacciones #vidmoneda').focus();
-		return 'Moneda Requerida';
-	}
+	// if ($('#ftransacciones #vidmoneda option:selected').val() == '') {
+	// 	$('#ftransacciones #vidmoneda').focus();
+	// 	return 'Moneda Requerida';
+	// }
 
 	if (parseFloat($('#ftransacciones').find('#totDebe').html()) == 0.00 && parseFloat($('#ftransacciones').find('#totHber').html()) == 0.00) 
 		return 'No Existe Movimiento Contable';
@@ -467,6 +441,6 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-	return '<tr id="f'+i+'" st="0" class="ciclos"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>';
+	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>';
 
 }
