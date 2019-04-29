@@ -422,14 +422,29 @@ function endDetail(vid,vacc,modulo){
 
 function sendFE(clave,factura){
 
+    str_correos = '';
+
+    if (idcliente != 0) {
+        var correos = getDatos("",18,idcliente+",2",0,0);
+        if (correos == undefined) {
+            Materialize.toast('Correos Inválidos',4000,'red');
+            arr('login',7,2,301,'feestado=2','id='+idnota,0,0);
+    }else{
+        for (var i = 0; i < correos[0].length; i++) {
+            str_correos += correos[0][i][3]+",";
+        }
+        str_correos = str_correos.substr(0,str_correos.length-1);
+    }
+    
     var festado = getDatos('feestado',64,'id='+clave,0,0,0)
     $.ajax({
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
-        data: {id: "-"+clave, accion : 1}
+        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:vtit}
     })
       .done(function( data ) {
+        console.log(data)
         var p;
         var continuar = 1;
         try {
@@ -439,7 +454,7 @@ function sendFE(clave,factura){
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
             arr('login',7,2,301,'feestado=2','id='+clave,0,0);
-            sendVMail(factura,clave,vclave);
+            // sendVMail(factura,clave,vclave);
         }
         catch(err){
             console.log(data)
@@ -448,7 +463,7 @@ function sendFE(clave,factura){
             $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
             Materialize.toast(data,3000,'red');
             arr('login',7,2,301,'feestado=7','id='+clave,0,0);
-            setTimeout(function(){$(".toast").remove();},3000);
+            //setTimeout(function(){$(".toast").remove();},3000);
             continuar = 0;
         }
         

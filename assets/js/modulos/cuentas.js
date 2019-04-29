@@ -277,12 +277,10 @@ $(document).on("click","#btnPagar",function(){
 				if(monto > 0){
 					vmonto = val;
 					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
-					console.log(idestadocuenta)
 				}
 				else{
 					vmonto = val-monto*-1;
 					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
-					console.log(idestadocuenta)
 					return false;
 				}
 			});

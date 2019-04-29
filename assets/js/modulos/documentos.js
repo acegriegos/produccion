@@ -33,7 +33,7 @@ $(function(){
                 if(p['rs'].length){
 
                     for (var i = 0; i < p['rs'].length; i++) {
-                        p['rs'][i][17] = p['rs'][i][17] == 'CRC' ? 1 : 2;
+                        p['rs'][i][17] = p['rs'][i][17] == 'CRC' || parseInt(p['rs'][i][17]) == 1 ? 1 : 2;
                         var idproveedor = getDatos("vid",264,'replace(cedula,"-","") = '+p['rs'][i][39],0,0,0);
                         if(!idproveedor[0].length)
                             insertar(264,'',p['rs'][i][37]+',"'+p['rs'][i][38]+'","'+p['rs'][i][39]+'","'+p['rs'][i][40]+'","'+p['rs'][i][41]+'","'+p['rs'][i][42]+'","'+p['rs'][i][43]+'","'+p['rs'][i][44]+'","'+p['rs'][i][45]+'","'+p['rs'][i][46]+'","'+p['rs'][i][47]+'"');
@@ -136,7 +136,12 @@ $(document).on("click",".msjh",function(){
     }else{
         var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent,5000);
-        sendFE('^'+idfact[0][0][0]);
+        var factura = getDatos('consecutivo,datediff(curdate(),fecha)',64,'id = '+idfact[0][0][0],0,0)[0][0];
+        var tlimit = parseInt(factura[1]);
+
+        if(tlimit <= 38)
+            sendFE('^'+idfact[0][0][0]);
+
         var tabla = $("#data-table-facturas").DataTable();
         tabla.destroy();
         $(this).parent().parent().remove();

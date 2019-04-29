@@ -1,5 +1,4 @@
 <?php  
-	
 	  require_once 'model/m_login.php';
    	$log = new _login();
 
@@ -144,7 +143,9 @@
    			break;
    		case 8:  //MOSTRAR SOLO PDFs
           $pagina = 1;
-
+          if(!isset($_SESSION['IMPRESA']) && isset($_REQUEST['arreglo']['empresaid'])){
+            $_SESSION['IMPRESA'] = $_REQUEST['arreglo']['empresaid'] ;
+          }
           if (isset($_REQUEST['arreglo']['sel'])) {
             $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
             $datos = $transaccion;
@@ -164,6 +165,9 @@
         case 9:  //GENERAR SOLO XML
           $pagina = 1;
           unset($_REQUEST['accion']);
+          if(!isset($_SESSION['IMPRESA']) && isset($_REQUEST['arreglo']['empresaid'])){
+            $_SESSION['IMPRESA'] = $_REQUEST['arreglo']['empresaid'] ;
+          }
           $estado = isset($_REQUEST['arreglo']['restado']) ? $_REQUEST['arreglo']['restado'] : 'Factura';
           require_once '../wsdlClient.php';
           $xml = new facturaElectronica($_REQUEST['arreglo']['id']);

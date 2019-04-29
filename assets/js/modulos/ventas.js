@@ -117,6 +117,30 @@ $(function(){
         
     });
 
+    $("#special").click(function(){
+        if(parseInt($("#ffacturas .zelda").data('triforce')['vidtipoventa']) != 8){
+            $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 8;
+            var ncons = getDatos('lpad(consecutivo7+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
+            $("#titfact").html('ESPECIAL')
+            $("#idfact").html(ncons);
+            param = 8;
+        }else{
+            if(parseInt($("#ffacturas .zelda").data('triforce')['vidcliente']) > 0){
+                $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 1;
+                var ncons = getDatos('lpad(consecutivo+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
+                $("#titfact").html('FACTURAS')
+                $("#idfact").html(ncons);
+                parem = 1;
+            }else{
+                $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 7;
+                var ncons = getDatos('lpad(consecutivo7+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
+                $("#titfact").html('TIQUETES')
+                $("#idfact").html(ncons);
+                param = 7;
+            }
+        }
+    });
+
     $("#codp").blur(function(){
         var iscomodin = $("#valores").data("elemento") == undefined ? 0 : $("#valores").data("elemento")['ncomodin'];
 
@@ -363,13 +387,18 @@ $(function(){
                 $("#montoefect").val((total-tarjeta).formatMoney(2,'.',','));
         }
     })
+
+    if (parseInt(config[23] == 1))
+        $("#special").removeClass('hide');
     
 })//READY
 
 $(document).on("keyup",".vextra",function(e){
     var code = e.wich || e.keyCode
     if (code == 13) {
-        $("#factrealp").focus();
+        var elimprimir = $("#factrealp");
+        elimprimir = parseInt(config[3]) ? elimprimir : $("#factreal");
+        elimprimir.focus();
     }
 })
 
@@ -478,7 +507,9 @@ $(document).on("click","#facturar",function(){
 
 $("#pcon").blur(function(){
     calcVuelto();
-    $("#factrealp").focus();
+    var elimprimir = $("#factrealp");
+    elimprimir = parseInt(config[3]) ? elimprimir : $("#factreal");
+    elimprimir.focus();
 });
 
 
@@ -842,6 +873,7 @@ $(document).on("click",".mover",function(){
 })
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo,vmobil) {
+
     var rpago = parseFloat($("#valores").data('elemento')['retpago']) == 0 ? '' : 'retpago="'+$("#valores").data('elemento')['retpago']+'"';
     var inventariado = $("#valores").data('elemento')['inventariado'];
     var comision = $("#valores").data('elemento')['comision'];
@@ -852,7 +884,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
     var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : config[6];
 
-    if(param.toString().match(new RegExp(/[145678]/i)))
+    if(param.toString().match(new RegExp(/[1345678]/i)))
         $("[for=iva]").addClass('hide');
     else{
         vexo = $("#valor_grabado").val()
@@ -901,7 +933,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
         $("#ffacturas .zelda").data('triforce')['idline'] = id;
         
-            strprec = '<div style="padding: 0 !important;" class="col s2 center-align divisa hide" id="prec'+id+'">'+(precio).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="fake'+id+'">0.00</div>'
+        strprec = '<div style="padding: 0 !important;" class="col s2 center-align divisa hide" id="prec'+id+'">'+(precio).formatMoney(2,'.',',')+'</div> <div style="padding: 0 !important;" class="col s2 center-align divisa" id="fake'+id+'">0.00</div>'
 
         var codedg = '';
         if (desgloce == 1)
@@ -934,7 +966,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 $("#valor_grabado").val('13.00')
                 break;
             case 3:
-                $("#fdetallefacturas").append('<tr id="fd'+id+'" xtr="'+$("#ffacturas .zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"><td class="center" id="codprod'+id+'">'+codedg+cod+'</td><td class="center" id="desc'+id+'">'+desc+'</td>  <td class="center"> <div id="divcnt" class="form-group"><span id="cant'+id+'">'+cant+'</span><input type="number" id="vcantidad'+id+'" value="'+cant+'" min="1" style=" display:none;"></div></td> <td class="center divisa hide" id="prec'+id+'">'+precio.formatMoney(2,'.',',')+'</td> <td id="unitprod'+id+'">'+uni+'</td> <td id="vdesc'+id+'" class="center hide"> '+dcs+'% </td> <td class="center totp hide" id="tota'+id+'">'+tot+'</td> <td id="desctd'+id+'" align="left" > <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%;font-size: 12px;"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%;font-size: 12px;"></a></td> </tr>');
+                $("#fdetallefacturas").prepend('<div id="fd'+id+'" '+rpago+' xtr="'+$("#ffacturas .zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div> '+strprec+' <div style="padding: 0 !important;" class="col s1 center-align" id="unitprod'+id+'">'+uni+'</div> <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align totp divisa" id="tota'+id+'">'+tot+'</div> <div class="right"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>');
                 break;
         }
 
@@ -1579,7 +1611,7 @@ function searchClient(vvariable,visprv){
         if ($("#ffacturas .zelda").data('triforce')['vidtipoventa'] == 7){
             $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 1;
             var ncons = getDatos('lpad(consecutivo+1,10,0)',252,'idsucursal = @@impresa and id > 0',0,0)[0][0];
-            $("#titfact").html('VENTAS')
+            $("#titfact").html('FACTURAS')
             $("#idfact").html(ncons);
         }
 
@@ -1808,14 +1840,15 @@ function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
 }
 
 function sendFE(clave){
+
+    var vtit = param == 1 ? 'Factura' : '';
     $.ajax({
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
-        data: {id: clave, accion : 1}
+        data: {id: clave, accion : 1,to:str_correos,idfila : clave,idtabla : 64,tit:vtit}
     })
       .done(function(data) {
-
         var p;
         try {
             p = JSON.parse(data);
@@ -1825,7 +1858,8 @@ function sendFE(clave){
                 var vfactura = p['num'];
                 var vclave = p['clave'];
                 $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-                sendVMail(vfactura,vclave,clave);
+                str_correos = '';
+                sendVMail(0,0,0);
             }else{
                 $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
                 Materialize.toast(p['rs'],5000,'red');
@@ -1834,7 +1868,6 @@ function sendFE(clave){
                         arr('login',7,2,64,'feestado=0','id='+clave,0,0);
                         var vfactura = p['num'];
                         var vclave = p['clave'];
-                        sendVMail(vfactura,vclave,clave);
                         break;
                     default:
                         arr('login',7,2,64,'feestado=8','id='+clave,0,0);
@@ -2093,7 +2126,10 @@ function mixto(){
                 Materialize.toast('Tiquete Registrado Correctamente',4000,'green');
                 var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
                 Materialize.toast($toastContent,4000);
-                sendFE(factura);
+                if(parseInt($("#ffacturas .zelda").data('triforce')['vidtipoventa']) != 8)
+                    sendFE(factura);
+                else
+                    sendVMail(factura,0,0);
             }else{
                 console.log(factura['ERROR']);
                 Materialize.toast('Problemas Generando el Tiquete',4000,'red');

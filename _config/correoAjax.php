@@ -1,6 +1,16 @@
 <?php 
 require_once 'correo.php';
-$correo = new correo($_POST['to'],$_POST['subject'],$_POST['body']);
+ $ubi = '../';
+if (isset($url2)){
+  switch($url2){
+    case 99:
+      $ubi = './';
+      break;
+    default:
+      break;
+  }
+}
+$correo = new correo($_POST['to'],$_POST['subject'],$_POST['body'],$ubi);
 
 ob_end_clean();
 ignore_user_abort();
@@ -15,7 +25,7 @@ if($_POST['con_con']){
     $caccion = $_POST['accion'];
     $_REQUEST['accion'] = 99;
 
-    require_once '../wsdlClient.php';
+    require_once $ubi.'wsdlClient.php';
     include_once 'mysqlDB.php';
     sleep(10);
     $fe = new facturaElectronica($_POST['idfila']);
@@ -24,8 +34,8 @@ if($_POST['con_con']){
     if(isset($estado['xml'])){
 
         $xml = $estado['xml'];
-        file_put_contents("../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml", $xml);
-        array_push($_POST['adjunto'], "../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml");
+        file_put_contents($ubi."assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml", $xml);
+        array_push($_POST['adjunto'], $ubi."xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml");
 
         if (isset($_POST['idtabla'])) {
             $db = new DBClass();

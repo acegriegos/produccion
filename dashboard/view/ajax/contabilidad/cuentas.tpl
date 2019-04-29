@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad-cuentas.css?v=10.0.1.17">
-
 <div class="row">
 <!--  -->
 <div class="col l6 m12 s12">

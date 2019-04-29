@@ -58,7 +58,7 @@ $(document).on('change','#continuo',function(){
 $(document).on("click",".view-cuenta",function(){
 	var id = $(this).attr('id').substr(1);
 	arr('login',6,'',71,op1+","+id+","+op2+","+vdate1+","+vdate2,71,1,$(".colDetalle"));
-
+	console.log(arr('login',6,'',71,op1+","+id+","+op2+","+vdate1+","+vdate2,71,0,0	));
 	var titulo = "Movimiento ";
 	switch(op2){
 		case 1:
@@ -140,7 +140,7 @@ $(document).on("keyup",".tdtext",function(e){
 		if(!$(this).val().length && $(this).attr('id').substr(0,1) == 'c')
 			$("#d"+$(this).attr('id').substr(1)).focus();
 		$(this).blur();
-	}
+	}        
 });
 
 $(document).on("blur",".tdtext",function(){
@@ -156,8 +156,7 @@ $(document).on("blur",".tdtext",function(){
 			if($(this).val() == '0.00' || isNaN($(this).val().replace(/,/g,'')) ){
 				$(this).val('');
 				$('#vshaber'+id).val('0.00');
-				$('#vshaber'+id).select();
-				$('#vshaber'+id).focus();
+				$('#vshaber'+id).focus().select();
 			}else{
 				$('#vshaber'+id).val('0.00');
 				$('#c'+(id+1)).focus();
@@ -386,9 +385,10 @@ function endDetail(vid) {
 
 function validardetalletransacciones() {
 	$('#fdetalletransacciones tr').each(function(){
-		$($(this).data('triforce')['vidcuenta'] != ''){
+		if($(this).data('triforce')['vidcuenta'] != ''){
 			var id = $(this).attr('id').substr(1);
-			$(this).data('triforce')['vidodt'] = ;
+			$(this).data('triforce')['vidodt'] = 0;
+			$(this).data('triforce')['vcomentario'] = $("#vcomentario"+id).val();
 			$(this).addClass('ciclos');
 		}
 	});
@@ -441,6 +441,6 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select class="tdtext" type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" class="tdtext" id="vcomentario'+i+'"> </td></tr>';
+	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" id="vcomentario'+i+'"> </td></tr>';
 
 }

@@ -364,6 +364,10 @@ $(document).on("click",".menu3",function(){
 					insertar(171,'','null,'+$(this).val()+',@@impresa,4');
 			});
 			break;
+		case 11:
+			var p = mantenimiento('ajustes',14,'');
+			$("#majustes").html(p);
+			break;
 		default:
 			break;
 	}

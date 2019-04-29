@@ -77,7 +77,7 @@
           <div class="modal-header">
             <ul class="tabs tabs-fixed-width head3">
               <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
-              <li class="tab col s3"><a href="#fina" class="white-text" id="ln2">Financiero</a></li>
+              <li class="tab col s3"><a href="#fina" class="white-text {if $smarty.session.BUSS eq 5} hide {/if}" id="ln2">Financiero</a></li>
               <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
               <li class="tab col s3 hide"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
               <li class="tab col s3 hide"><a href="#ser" class="white-text" id="ln5">Servicios</a></li>
@@ -91,7 +91,7 @@
                   <br>
                   <div class="col s12 m8 l9">
                     <div class="row parte1 col s12" id="info">
-                      <div class="row" style="margin: 0px">
+                      <div class="row {if $smarty.session.BUSS eq 5} hide {/if}" style="margin: 0px">
                         <div class="col s6 m3 l2">
                           <p>
                             <input class="with-gap" name="tipoclie" type="radio" id="cfisico" tipoClie="1" checked="checked" principal="1"/>
@@ -144,7 +144,7 @@
                           <label for="vcodigo">Código del Cliente</label>
                           <input type="text" class="validate onblur" id="vcodigo" autocomplete="off">
                         </div>
-                        <div class="input-field col s12 m6 col l4 vweb">
+                        <div class="input-field col s12 m6 col l4 hide vweb">
                           <label for="vweb">Web</label>
                           <input type="text" class="validate onblur" id="vweb" placeholder="www.webempresa.com" autocomplete="off">
                         </div>
@@ -251,8 +251,8 @@
                   </div>
                 </div>
                 <div id="logis" class="col s12">
-                  <div class="row">
-                    <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3" class="ciclos">
+                  <div>
+                    <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3">
                       <div class="ciclos">
                         <div class="card-title" align="center"><b>Direcciones</b></div>
                         <input type="hidden" id="vbisnacional" value="1">
@@ -260,7 +260,7 @@
                         <div class="row"><br>
                           <div class=" col s6">
                             <div class="provincia input-field">
-                              <a class="prefix btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidprovincia" type="select" class="_det" primary="1">
                                 <option value="0">Seleccione una Provincia</option>
                                 {section name=LE loop=$PRO}
@@ -272,7 +272,7 @@
                           </div>
                           <div class="col s6">
                             <div class="canton input-field">
-                              <a class="prefix btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidcanton" type="select" class="_det">
                                 <option value="">Seleccione un Cantón</option>
                               </select>
@@ -281,7 +281,7 @@
                           </div>
                           <div class="col s6">
                             <div class="distrito input-field ">
-                              <a class="prefix btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig="vidbarrio"><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig="vidbarrio"><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="viddistrito" type="select" class="_det">
                                 <option value="">Seleccione un Distrito</option>
                               </select>
@@ -290,7 +290,7 @@
                           </div>
                           <div class="col s6">
                             <div class="distrito input-field ">
-                              <a class="prefix btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Barrio" href="#!" style="width: 2.5rem" det="barrio" d-b="84" prev="viddistrito" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
+                              <a class="btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Barrio" href="#!" style="width: 2.5rem" det="barrio" d-b="84" prev="viddistrito" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
                               <select id="vidbarrio" type="select" class="_det">
                                 <option value="">Seleccione un Barrio</option>
                               </select>
@@ -302,7 +302,7 @@
                             <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row hide">
                           <div class="input-field col s12 hide-on-med-and-up">
                             <div class="prefix"><i class="mdi mdi-map-marker"></i></div>
                             <label for="vlatitud">Latitud</label>
@@ -345,7 +345,7 @@
                 </div>
               </div>
 
-              <div class="col s12 m4 l3">
+              <div class="col s12 m4 l3 {if $smarty.session.BUSS eq 5} hide {/if}">
                 <div class="input-field">
 
                   <select type="select" id="vidmoneda" noClear="1">

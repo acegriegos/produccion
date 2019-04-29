@@ -412,7 +412,9 @@ function validarclientes() {
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0) };
 	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0) };
 
-	if (!$("#fcorreos .ciclos").length) { $("#correo_in").focus(); return 'Correo Requerido'; }
+	var fe = getDatos('isprueba',39,'id=@@impresa',0,0,0)[0][0][0];
+	if(!parseInt(fe))
+		if (!$("#fcorreos .ciclos").length) { $("#correo_in").focus(); return 'Correo Requerido'; }
 
 	if(!$("#tipocliente").is(":checked")){
 		$("#vcredito").val(0);

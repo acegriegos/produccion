@@ -1,7 +1,15 @@
 <?php
 $ubi = '../';
-if (isset($url2)) 
-  $ubi = '';
+if (isset($url2)){
+  switch($url2){
+    case 99:
+      $ubi = './';
+      break;
+    default:
+      $ubi = '';
+      break;
+  }
+}
 
 require_once $ubi.'assets/libs/swiftmail/swift_required.php';
 
@@ -61,6 +69,8 @@ class correo
         for ($i=0; $i < sizeof($vAdjunto); $i++) { 
           if (file_exists($this->ubi.'assets/'.$vAdjunto[$i]))
             $this->message->attach(Swift_Attachment::fromPath($this->ubi.'assets/'.$vAdjunto[$i]));
+          else
+            echo $this->ubi.'assets/'.$vAdjunto[$i];
         }
       }else
         $this->message->attach(Swift_Attachment::fromPath($this->ubi.'assets/'.$vAdjunto));      

@@ -187,7 +187,10 @@
     <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
 
     <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
+
+    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der" data-tooltip="Factura Especial" data-position="bottom" id="special" ></a>
     {/if}
+
  </div>
 
   <div class="row">
@@ -512,7 +515,7 @@
           <label for="vcomentario">Comentario de Factura</label>
         </div>
         <table style="margin-top: 150px">
-          <tr>
+          <tr class="hide trCompra trVenta">
             <td style="padding-top: 0px;padding-bottom: 0px;"><label for="vdescuentop">Descuento</label></td>
             <td>
               <select id="tdescuento" class="eder tdesc trVenta hide" tp="1" style="margin: 0px; height: 0.5%% !important">

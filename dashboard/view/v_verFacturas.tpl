@@ -21,32 +21,32 @@
             </div>
 
             <div class="row">
-            <div class="col s12  m2">
+            <div class="col s6  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf1" {if $TF eq 1}checked{/if}/>
                 <label for="tf1">Ventas</label>
             </div>
             
-            <div class="col s12  m2">
+            <div class="col s6  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf2" {if $TF eq 2}checked{/if}/>
                 <label for="tf2">Compras</label>
             </div>
             {if $smarty.session.BUSS neq 1}
-            <div class="col s12  m2">
-                <input name="tventa" class="with-gap" type="radio" id="tf3" {if $TF eq 3}checked{/if}/>
-                <label for="tf3">Ordenes de Compras</label>
+            <div class="col s6  m2">
+                <input name="tventa" class="with-gap truncate" type="radio" id="tf3" {if $TF eq 3}checked{/if}/>
+                <label for="tf3">Ord. Compras</label>
             </div>
 
-            <div class="col s12 m2">
+            <div class="col s6 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf5" {if $TF eq 5}checked{/if}/>
                 <label for="tf5">Orden de Pedidos</label>
             </div>  
             {/if}
-            <div class="col s12 m2">
+            <div class="col s6 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf7" {if $TF eq 7}checked{/if}/>
                 <label for="tf7">Tiquetes</label>
             </div> 
 
-             <div class="col s12  m2">
+             <div class="col s6  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf4" {if $TF eq 4}checked{/if}/>
                 <label for="tf4">Proformas</label>
             </div>     
@@ -55,7 +55,7 @@
 
             <hr>
             <div class="row">
-                <div class="col s9 m7 input-field">
+                <div class="col s6 m7 input-field">
                   <a class="prefix dropdown-button tooltipped"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
                   <ul id='filtr_1' class='dropdown-content'>
                     <li><a class="optns" href="#!" fltr="1">Número</a></li>
@@ -66,11 +66,11 @@
                   <label class="truncate" for="search_facturas">Buscar Factura por <span>Número</span></label>
                 </div>
                 <div class="col m2 hide-on-small"></div>
-                <div class="col s3 der">
+                <div class="col s5 der">
 
                      <div class="switch der">
                         <label>
-                          Punto Venta
+                          <span class="hide-on-small">Punto Venta</span>
                           <input type="checkbox" id="tps">
                           <span class="lever"></span>
                           Carta

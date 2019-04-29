@@ -479,7 +479,7 @@ function loadpool(vmodulo,vid,vvarias){
 
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
-    console.log(columns)
+
     for (var i = 0; columns[0][1].length > i; i++) {
 
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){

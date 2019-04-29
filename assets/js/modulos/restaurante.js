@@ -331,7 +331,10 @@ $(function(){
 		complete: function(){
 			var id = $("#ffacturas .zelda").data('idmesa');
 			actualizar(800,'idtipoocupado=case idtipoocupado when 5 then 1 else idtipoocupado end','id='+id);
-		}
+		},
+        ready: function(){
+            $("#modal-mesa").css("top",0).css("min-height","100vh");
+        }
 	});
 
 	$("#bmesas").keyup(function(e){
@@ -345,30 +348,31 @@ $(function(){
 	});
 
 	$(".fam").click(function(){
-		var id = $(this).attr('id').substr(1);
-		$("#tipos").html('').slideUp();
-		$("#productos").html('').slideUp();
+        if($(this).hasClass('active')){
+            $(this).removeClass('active');
+            $(this).parent().find('.collapsible-body').slideUp();
+            return false;
+        }
+        $("#tipos").html('')
+		var id = $(this).parent().attr('id').substr(1);
 
-		if (id==='salir') {
-			$(".fam").css('text-align','center').removeClass('active');
-			return false;
-		}
 		$(".fam").css('text-align','left').removeClass('active');
-		$(this).addClass('active');
+		$(this).parent().addClass('active');
 		
 		var tipos = getDatos('id,nombre',21,'idfamilia = '+id+' having nombre <> ""',0,0,0);
-		var tstr = '';
+		var tstr = '<ul class="collapsible" style="margin:0;">';
+
 		for (var i = 0; i < tipos[0].length; i++) {
-			tstr += '<a id="t'+tipos[0][i][0]+'" class="btn cyan darken-4 s12 tip" style="width: 100%;height: 75px;padding-top: 4%;font-size: 22px;"><small>'+tipos[0][i][1]+'</small></a>';
+			tstr += '<li id="t'+tipos[0][i][0]+'"><div class="collapsible-header tip">'+tipos[0][i][1]+'</div></li>';
 		}
 
-		$("#tipos").append(tstr).slideDown();
+		$("#tipos").append(tstr+"</ul>");
 
-        $(".sprod").addClass('hide')
         $("#descp").val('');
         $("#codp").val('');
 	});
 
+    $('.collapsible').collapsible();
 	SSE_SERVER('login',4,{sel:'id,idtipoocupado',tbl:800,where:'id > 0 and !bisbarra'},3);
 
     setInterval(function(){
@@ -454,21 +458,29 @@ $(document).on("click",".ciclos",function(){
 });
 
 $(document).on("click",".tip",function(){
-		var id = $(this).attr('id').substr(1);
-		$(".tip").css('text-align','left').removeClass('active');
-		$(this).addClass('active');
-		$("#productos").html('').hide();
-		var productos = getDatos('',802,id,0,0,0);
-		var tstr = '';
 
-		for (var i = 0; i < productos[0].length; i++) {
-			tstr += '<a id="p'+productos[0][i][0]+'" class="btn white black-text s12 prod" style="width: 100%"><small><span>'+productos[0][i][1]+'</span> '+productos[0][i][5]+''+productos[0][i][4]+'</small></a>';
-		}
-        $(".sprod").addClass('hide')
+        if($(this).hasClass('active')){
+            $(this).removeClass('active');
+            $(this).parent().find('.collapsible-body').slideUp();
+            return false;
+        }
+        $(this).parent().find('.collapsible-body').remove();
+        var id = $(this).parent().attr('id').substr(1);
+
+        $(".tip").css('text-align','left').removeClass('active');
+        $(this).parent().addClass('active');
+        
+        var productos = getDatos('',802,id,0,0,0);
+        var tstr = '<div class="collapsible-body" style="padding: 0px;"><ul class="collapsibl" style="margin:0;">';
+
+        for (var i = 0; i < productos[0].length; i++) {
+            tstr += '<li id="p'+productos[0][i][0]+'" class="tip"><div class="collapsible-header"><small><span>'+productos[0][i][1]+'</span> '+productos[0][i][5]+''+productos[0][i][4]+'</small></div></li>';
+        }
+
+        $(this).parent().append(tstr+"</ul></div>");
+        console.log(tstr)
         $("#descp").val('');
         $("#codp").val('');
-
-		$("#productos").append(tstr).slideDown();
 });
 
 $(document).on("click",".prod",function(){

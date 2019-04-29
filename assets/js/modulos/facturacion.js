@@ -139,16 +139,16 @@ function cargarOCompras(){
         var idprd = $("#valores").data('elemento')['idp'];
         var dcs = 0;
         var mdcs = 0;
-        var desc = $("#descp").val();
+        var desc = 0;
         var hinv = 0;
         var unidad = $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
         var comodin = $("#valores").data('elemento')['hcomodin'];
         var desgloce = $("#valores").data('elemento')['isdesgloce'];
         var strimp = $("#valores").data('elemento')['strimp'];
-        var exo = 0;//$("#valores").data('elemento')['vexo'];
+        var exo = $("#valores").data('elemento')['exo'];
         var mobil = $(this).attr('tr') == 2 ? 1 : 0;
 
-        addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce,strimp,exo,mobil);
+        addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:0},mdcs,hinv,0,unidad,comodin,desgloce,strimp,exo,mobil);
     });
 
 }//cargar ORDEN COMPRA
@@ -630,8 +630,9 @@ function cargarGlobal(){
     $("#ncli").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
-            var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
-            searchClient($(this).val(),isproveedor);
+            // var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
+            // searchClient($(this).val(),isproveedor);
+            $(this).blur()
         }
     });
 

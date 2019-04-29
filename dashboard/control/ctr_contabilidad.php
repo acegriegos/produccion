@@ -36,7 +36,7 @@
 	   			$smarty  = new mySmarty();
 	   			$smarty->setModule('dashboard');
 
-	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,simbolo',54,'1 > 0'));
+	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,simbolo',54,'1 > 0 order by principal desc, nombre'));
 	   			$smarty->display('ajax/contabilidad/asientos.tpl');
 	   			break;
 	   		case 3:

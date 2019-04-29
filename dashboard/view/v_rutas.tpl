@@ -18,8 +18,8 @@
         <div class="card-header center head1">
             <p class="flow-text" style="font-size: 1.9em; margin: 0px;">Rutas</p>
         </div>
-
-        <nav class="navbar navbar-dark head2">
+        
+        <nav class="navbar navbar-dark head2 {if $smarty.session.BUSS neq 0} hide {/if}">
             <ul class="nav navbar-nav">
                 <li class="nav-item menu active" id="m1">
                     <a class="nav-link" href="#" title="Mantenimiento">Mantenimiento</a>
@@ -27,9 +27,9 @@
                 <li class="nav-item menu" id="m2">
                     <a class="nav-link" href="#" title="Carga/Descarga">Carga/Descarga</a>
                 </li>
-                <!-- <li class="nav-item menu" id="m3">
+                <li class="nav-item menu" id="m3">
                     <a class="nav-link" href="#" title="Rastreo">Rastreo</a>
-                </li> -->
+                </li>
             </ul>
         </nav>
 
