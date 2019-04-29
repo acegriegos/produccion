@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Estado de Cuenta</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.1.17">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.1.18">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -54,7 +54,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.1.17"></script>
-  <script src="../assets/js/modulos/reportes/cxc.js?v=10.0.1.17"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.1.18"></script>
+  <script src="../assets/js/modulos/reportes/cxc.js?v=10.0.1.18"></script>
 </body>
 </html>

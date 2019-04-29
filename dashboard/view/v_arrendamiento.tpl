@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Boletas</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-arrendamiento.css?v=10.0.1.17">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-arrendamiento.css?v=10.0.1.18">
   </head>
   <body>
     {$NAV}
@@ -266,6 +266,6 @@
   </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/arrendamiento.js?v=10.0.1.17"></script>
+    <script src="../assets/js/modulos/arrendamiento.js?v=10.0.1.18"></script>
   </body>
 </html>
