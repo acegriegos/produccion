@@ -1859,7 +1859,7 @@ function sendFE(clave){
                 var vclave = p['clave'];
                 $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
                 str_correos = '';
-                sendVMail(0,0,0);
+                sendVMail(0,0,clave);
             }else{
                 $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
                 Materialize.toast(p['rs'],5000,'red');

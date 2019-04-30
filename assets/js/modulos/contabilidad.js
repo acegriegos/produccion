@@ -2,8 +2,9 @@ var ftr = 1;
 var gop = '<option value="0">N/A</option>';
 var intervarl1 = null;
 var op1 = 0;
-var op2 = 4;
-var vdate1 = vdate2 = null;
+var op2 = 2;
+var vdate1 = ''
+vdate2 = '';
 
 $(function(){
 	$(".menu3").click(function(){
@@ -57,8 +58,8 @@ $(document).on('change','#continuo',function(){
 
 $(document).on("click",".view-cuenta",function(){
 	var id = $(this).attr('id').substr(1);
-	arr('login',6,'',71,op1+","+id+","+op2+","+vdate1+","+vdate2,71,1,$(".colDetalle"));
-	console.log(arr('login',6,'',71,op1+","+id+","+op2+","+vdate1+","+vdate2,71,0,0	));
+	arr('login',6,'',71,op1+","+id+","+op2+',"'+vdate1+'","'+vdate2+'"',71,1,$(".colDetalle"));
+	console.log(getDatos('',71,op1+","+id+","+op2+',"'+vdate1+'","'+vdate2+'"',0,0,0));
 	var titulo = "Movimiento ";
 	switch(op2){
 		case 1:
