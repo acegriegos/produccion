@@ -3,15 +3,22 @@
     <div class="center nav-wrapper blue-grey darken-2">
       {if $smarty.session.BUSS eq 5}
         {$smarty.session.NOM|upper}
+        <a href="#" id="movil" class="der"><i class="mdi mdi-dots-vertical mdi-16px"></i></a>
+        <a class="der mdi mdi-16px mdi-plus tooltipped" id="gingclie" data-position="bottom" data-tooltip="Agregar Cliente"></a>
+        <a href="#" class="der tooltipped mdi-
+        " id="flujo" data-position="bottom" data-tooltip="Flujo de Caja" style="margin-right: 5px"><i class="mdi mdi-24px mdi-recycle"></i></a>
+        <a href="#" class="der tooltipped mdi-
+        " id="shrutas" data-position="bottom" data-tooltip="Ruta" style="margin-right: 5px"><i class="mdi mdi-24px mdi-motorbike"></i></a>
       {else}
         {$smarty.session.EMPRESA|upper}
+        <a href="#" id="movil" class="der"><i class="mdi mdi-dots-vertical mdi-16px"></i></a>
       {/if}
-      <a href="#" id="movil" class="der"><i class="mdi mdi-menu mdi-16px"></i></a>
+      
     </div>
   </nav>
 </div>
 
-<a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" id="cpu">
+<a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" id="cpu" xyz="{$smarty.session.BUSS}">
   <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span>
   <br class="sse_cnt hide"><p class="white-text menu-txt">MENU</p></a>
 <!-- hide-on-med-and-down  -->
@@ -176,6 +183,7 @@
     <li class="gtext"><a href="rutas"><i class="mdi mdi-car-sports mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Rutas</span></a></li>
     
     <li class="gtext per1500"><a href="reportes?tr=5" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+
     {literal}
       <script type="text/javascript">
         window.addEventListener('load', function () {
@@ -275,3 +283,95 @@
   </div>
 </div>
 <div id="modalMainGeneral"></div>
+
+
+    <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 400px;">
+   <div class="modal-header head3 center" id="titagcli" style="font-size: 22px;">Agregar Cliente</div>
+  <div class="modal-content">
+
+    <div class="row">
+
+      <div class="input-field col s6">
+      </div>
+
+      <div class="input-field col s6">
+        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3"  data-direccion="" data-idbarrio="0" class="button-collapse der tooltipped tc-show black-text" data-tooltip="Ubicacion del Cliente" data-position="bottom" id="tc-u" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"><i class="mdi mdi-24px mdi-map-marker  mdi-24px"></i></a>
+        <input type="hidden" id="vdireccion" readonly>
+
+        <a href="#" data-activates="slide-tc" data-num="1" id="slideTelefono" class="mdi mdi-24px mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Teléfonos del Cliente" data-position="bottom" id="tc-t" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"></a>
+        <input type="hidden" id="vtelefono" readonly>
+
+        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show tooltipped black-text" data-tooltip="Correos del Cliente" data-position="bottom" id="tc-c" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"><i class="mdi mdi-24px mdi-email  mdi-24px"></i></a>
+        <input type="hidden" id="vcorreo" readonly>
+
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" id="c-ced" maxlength="12" class="buscarNom" autocomplete="off">
+        <label for="c-ced">Cédula</label>
+      </div>
+
+      <div class="input-field col s6 hide c-stp1 c-stp2 c-st">
+        <input type="text" id="c-nom" readonly>
+        <label for="c-nom"></label>
+        <input type="hidden" id="c-tp">
+      </div>
+
+      <div class="input-field col s6 hide c-stp1 c-st">
+        <input type="text" id="c-ap1" readonly>
+        <label for="c-ap1">Apellido 1</label>
+      </div>
+
+      <div class="input-field col s6 hide c-stp1 c-st">
+        <input type="text" id="c-ap2" readonly>
+        <label for="c-ap2">Apellido 2</label>
+      </div>
+    </div>
+    
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a class="modal-action waves-effect waves-green btn-flat" id="addclie">Agregar</a>
+  </div>
+</div>
+
+<div class="modal modal-fixed-footer" id="modal-rutas" style="height: 50%; width: 50%">
+    <div class="modal-header head3 center" style="font-size: 22px;">Rutas</div>
+    <div class="modal-content">
+        <div class="row">
+          <label for="chruta" class="col s4"><b>Cambiar Ruta</b></label>
+          <select id="chruta" class="col s8">
+          </select>
+        </div>
+
+        <div class="row">
+          <label for="chreg" class="col s4"><b>Cambiar Región</b></label>
+          <select id="chreg" class="col s8">
+          </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+    </div>
+  </div>
+
+  <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 50%; width: 50%">
+    <div class="modal-header head3 center" style="font-size: 22px;">Flujo de Efectivo</div>
+    <div class="modal-content row">
+
+        <div class="col s6 input-field">
+          <input type="text" id="grubro" class="autocomplete" idrubro="0" autocomplete="off">
+          <label for="grubro">Rubro</label>  
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="text" id="gvalor" class="eder" value="0">
+          <label for="gvalor">Monto</label>  
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+    </div>
+  </div>

@@ -3,7 +3,7 @@ var ind_1 = ind_2 = 1;
 var numero = 0;
 $(function(){
     $('.dropdown-button').dropdown();
-    $('.tooltipped').tooltip({delay: 50});
+    $('.tooltipped').tooltip({delay: 50,duration:1000});
     $('.modal').modal();   
     $('select').material_select();
 

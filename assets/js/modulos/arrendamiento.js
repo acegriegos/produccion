@@ -5,6 +5,14 @@ $(function(){
 		$("#idruta").val(ruta[0][0][0]);
 		$(".show_cliente").removeClass('hide');
 		$("#idruta").parent().addClass('hide');
+
+        // <img src="images/yuna.jpg" alt="" class="circle">
+        var lrcliente = getDatos('',285,ruta[0]+',@@impresa',0,0,0)[0];
+        var salida = '';
+        for (var i = 0; i < lrcliente.length; i++) {
+            salida += '<li class="collection-item avatar" id="x'+lrcliente[i][0]+'"><i class="mdi mdi-24px mdi-account circle"></i><span class="title">'+lrcliente[i][1]+'</span><p>UNO<br>DOS</p><a href="#!" class="secondary-content"></a></li>' //<i class="mdi mdi-24px mdi-star"></i></a></li>
+        }
+        $("#lclientes").html(salida);
 	}
 
 	$("#idruta").change(function(){
@@ -13,11 +21,6 @@ $(function(){
 		$(this).addClass('hide');
 		$(".show_cliente").removeClass('hide');
 	});
-
-	$("#ingclie").click(function(){
-        $("#modal-clientes").modal('open');
-        $("#c-ced").focus();        
-    });
 
     $("#abonar").click(function(){
         $("#modal-abono").modal('open');
@@ -44,33 +47,6 @@ $(function(){
     	$("#modal-abono").modal('close');
     });
 
-    $("#addclie").click(function(){
-        // if($("#slideCorreo").data('fila1') == undefined && param.toString().match(new RegExp(/[145678]/i))){
-        //     Materialize.toast('Correo sin Asignar',4000,'red');
-        //     $("#slideCorreo").click();
-        //     return false;
-        // }
-        var isprov =  0;
-        var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap2").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,'+isprov+',0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id,1,0,0,""',0,0,0);
-        if(guardarSlide(1,pr,2)){
-            Materialize.toast('Cliente Agregado Exitosamente',4000,'green');
-            insertar(219,'','null,'+pr[0][0][0]+','+$("#idruta option:selected").val());
-            $("#ncli").val($("#c-nom").val()+' '+$("#c-ap1").val()+' '+$("#c-ap2").val()+' *'+$("#c-ced").val()+'*');
-            $("#slideDireccion").data('idbarrio',0);
-            $("#slideDireccion").data('direccion','');
-            $(".c-st").addClass('hide');
-            $("#c-ced").val('');
-            ind_2 = 0;
-            ind_1 = 0;
-            $("#modal-clientes").modal('close');
-            $("#ncli").focus();
-            var e = jQuery.Event("keyup");
-            e.which = 13;
-            $("#ncli").trigger(e);
-        }
-        
-    });
-
     $("#grubro").keydown(function(e){
         var charCode = e.which //|| e.keyCode;
         var charStr = keysight(e);
@@ -92,21 +68,6 @@ $(function(){
         var code = e.which || e.keyCode;
         if (code == 13) {
             $(this).blur()
-        }
-    });
-
-    $("#grubro").blur(function(){
-        var isproveedor = 0;
-        var idrubro = getDatos('vid',281,'vid > 0 and nombre = "'+$(this).val()+'"',0,0,0);
-
-        if(idrubro[0].length){
-        	$(this).attr('idrubro',idrubro[0][0][0]);
-        	$("#gvalor").focus().select();
-        }else {
-        	var $toastContent = $('<span>Rubro no Existente</span>').add($('<button class="btn-flat toast-action green white-text addRubro">Agregarlo</button>'));
-                Materialize.toast($toastContent, 5000);
-
-            $(".addRubro").focus();
         }
     });
 
@@ -138,25 +99,12 @@ $(function(){
 
     $("#ncli").blur(function(){
         var isproveedor = 0;
-        searchClient($(this).val(),isproveedor);       
+        searchClient();       
     });
 
     $("#addboleta").click(function(){
     	$("#modal-boleta").modal('open');
     	$("#bvalor").focus().select();
-    });
-
-    $("#shrutas").click(function(){
-    	$("#modal-rutas").modal('open');
-    	$("#chruta").val($("#idruta option:selected").val());
-    });
-
-    $("#chruta").change(function(){
-    	var id = $('option:selected',this).val();
-    	$("#idruta").val(id);
-    	$("#ncli").val('').attr('idclie',0).blur();
-    	$("#idboletas").val(0).change();
-    	getDatos('',278,'1,'+id+',@@usr,0,0,@@impresa',0,0,0);
     });
 
     $(".cprecio").keyup(function(e){
@@ -224,9 +172,12 @@ $(function(){
 
     });
 
-    $("#flujo").click(function(){
-        $("#modal-flujo").modal('open');
-        $("#grubro").val('').focus()      
+    $(".avatar").click(function(){
+        $("#tarjeta").removeClass('hide')
+        $("#base").addClass('hide');
+        $("#cliename").html($(this).find(".title").html()).attr('idclie',$(this).attr('id').substr(1));
+
+        searchClient()
     });
 
     if($("#ncli:visible").length)
@@ -308,32 +259,27 @@ function cargarSintax(){
 	return arr;
 }
 
-function searchClient(vvariable,visprv){
-    var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv+',@@impresa','',0,'');
+function searchClient(){
+    clie = $("#cliename").attr('idclie');
     var strboletas = '<option value="0" selected disabled>Boletas</option>';
 
-    if (clie[0][0][0] != 0) {
-        var vclie = clie[0][0];
-        $("#ncli").attr('idclie',vclie[0]);
-        $("#ncli").val(vclie[1]+' '+vclie[2]);
+    if (clie != 0) {
+
         $("#addboleta").removeClass('hide');
         
-        var boletasclie = getDatos('id,concat(consecutivo,"-",format(subtotal,2))',64,'id > 0 and idcliente = '+$("#ncli").attr('idclie'),0,0,0)[0];
+        var boletasclie = getDatos('id,concat("-",format(subtotal,2))',64,'id > 0 and idcliente = '+$("#cliename").attr('idclie'),0,0,0)[0];
         
         for (var i = 0; i < boletasclie.length; i++) {
-        	strboletas += '<option value="'+boletasclie[i][0]+'">'+boletasclie[i][1]+'</option>';
+        	strboletas += '<option value="'+boletasclie[i][0]+'">'+(i+1)+boletasclie[i][1]+'</option>';
         }
 
     }else{
-       $("#ncli").attr('idclie',0);
        $("#addboleta").addClass('hide');
        $("#idboletas").change();
 
     }
 
-    $("#idboletas").html(strboletas);
-    Materialize.updateTextFields()
-    
+    $("#idboletas").html(strboletas);    
 }
 
 function pagos(cantidad){
@@ -346,6 +292,7 @@ function pagos(cantidad){
     var fila5 = '<div class="row container" style="margin-bottom: 10px">';
     var fila6 = '<div class="row container" style="margin-bottom: 10px">';
     var mciclo = 1;
+    var fstr = '';
 
     for(var i=0;i<cantidad;i++){
         switch(mciclo){
@@ -373,7 +320,7 @@ function pagos(cantidad){
 	    }   
 
         if(((i+1)%30 == 1 && i > 1) || i == (cantidad-1)){
-          $("#pagos").html(fila1+"</div> "+fila2+"</div>  "+fila3+"</div>  "+fila4+"</div>  "+fila5+"</div>  "+fila6+"</div>");
+          fstr += fila1+"</div> "+fila2+"</div>  "+fila3+"</div>  "+fila4+"</div>  "+fila5+"</div>  "+fila6+"</div>";
           
           fila1 = '<div class="row container" style="border-top:1px solid #e2e2e2">';
           fila2 = '<div class="row container">';
@@ -387,4 +334,6 @@ function pagos(cantidad){
         mciclo = mciclo+1 > 6 ? 1 : mciclo+1;
         
       }
+
+      $("#pagos").html(fstr)
 }

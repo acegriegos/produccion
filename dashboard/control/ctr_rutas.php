@@ -27,6 +27,7 @@
 				$smarty->assign('USRS',$kakaroto->kamehameha('id,nombre',1,'id > 0'));
 				$smarty->assign('BOD',$kakaroto->kamehameha('id,nombre',41,'id > 0'));
 				$smarty->assign('FLOT',$kakaroto->kamehameha('id,nombre',216,'id > 0 and tipo = 1'));
+				$smarty->assign('PROV',$kakaroto->kamehameha('id,nombre',8,'id > 0'));
 
 				$smarty->assign('RUT',$kakaroto->kamehameha('*',208,'id>0'));
 				$smarty->display('ajax/rutas/mantenimiento.tpl');

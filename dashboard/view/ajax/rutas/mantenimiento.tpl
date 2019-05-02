@@ -36,7 +36,7 @@
                             <a href="#modal-ruser" class="luser pbtn modal-trigger gtext" id="u{$RUT[LE][0]}" style="font-size: 2em;" title="Encargados de la Ruta"><i class="mdi mdi-24px mdi-tag"></i></a>
                             <a href="#modal-rcliente" class="lcliente pbtn modal-trigger gtext" id="c{$RUT[LE][0]}" style="font-size: 2em;" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
                             {else}
-                                <a href="#" class="lcliente pbtn gtext" id="l{$RUT[LE][0]}" style="font-size: 2em;" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
+                                <a href="#" class="lrcliente pbtn gtext" id="l{$RUT[LE][0]}" style="font-size: 2em;" title="Clientes de la Ruta"><i class="mdi mdi-24px mdi-account-star"></i></a>
                             {/if}
 
                             <a href="#" class="delete pbtn gtext" modulo="ruta" id="d{$RUT[LE][0]}" style="font-size: 2em;" title="Eliminar Ruta"><i class="mdi mdi-24px mdi-delete"></i></a>
@@ -114,6 +114,44 @@
                     </thead>
                     <tbody id="listarutaclientes"><!-- JS --></tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-fixed-footer" id="modal-lrcliente" style="width: 95%;">
+    <div class="modal-header head3 center">
+        <span class="flow-text">Clientes y Regiones de la Ruta <span class="titr"></span> </span>
+    </div>
+    <div class="modal-content" >
+        <div class="row">
+            <div class="col s12 m6 row">
+                <select id="prorut" class="browser-default col s6">
+                    <option disabled>Provincia</option>
+                    {section name=LE loop=$PROV}
+                    <option value="{$PROV[LE][0]}" {if $smarty.section.LE.index eq 1}selected{/if}>{$PROV[LE][1]}</option>
+                    {/section}
+                </select>
+
+                <select id="canrut" class="browser-default col s6">
+                    <option disabled selected value="0">Cantón</option>
+                </select>
+
+                <button class="col s12" id="addrg">Agregar Region</button>
+
+                <select id="disrut" class="browser-default col s6 hide">
+                    <option disabled selected>Distrito</option>
+                </select>
+
+                <select id="barrut" class="browser-default col s6 hide">
+                    <option disabled selected>Barrio</option>
+                </select>
+            </div>
+            <div class="col s12 m6">
+                <h6 class="center"><b>Regiones</b></h6>
+                <div>
+                    <div class="chips chips-initial" id="litreg"></div>
+                </div>
             </div>
         </div>
     </div>
