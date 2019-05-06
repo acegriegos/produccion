@@ -123,6 +123,7 @@ function postExcecute(vid,p){
 
     switch(parseInt(vid)){
         default:
+            Materialize.toast('Correo Enviado',4000,'green')
             break;
     }
 }

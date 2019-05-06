@@ -18,7 +18,7 @@ $(function(){
         });
 
         $("#shrutas").click(function(){
-            $("#modal-rutas").modal('open');
+            $("#modal-rutasg").modal('open');
             $("#chruta").val($("#idruta option:selected").val());
         });
 

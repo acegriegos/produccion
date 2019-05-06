@@ -76,7 +76,7 @@
         $varray = explode(',', $vista);
 
         foreach($varray as $index => $obj) {
-
+          prin_r();
           $objPHPExcel->setActiveSheetIndex(0)
               ->setCellValue($column.($row-1), strtoupper($transaccion[1][$obj]->name))
                ->getStyle($column.($row-1))->applyFromArray($styleArray);

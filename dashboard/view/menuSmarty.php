@@ -6,7 +6,7 @@
         <a href="#" id="movil" class="der"><i class="mdi mdi-dots-vertical mdi-16px"></i></a>
         <a class="der mdi mdi-16px mdi-plus tooltipped" id="gingclie" data-position="bottom" data-tooltip="Agregar Cliente"></a>
         <a href="#" class="der tooltipped mdi-
-        " id="flujo" data-position="bottom" data-tooltip="Flujo de Caja" style="margin-right: 5px"><i class="mdi mdi-24px mdi-recycle"></i></a>
+        " id="flujo" data-position="bottom" data-tooltip="Gastos" style="margin-right: 5px"><i class="mdi mdi-24px mdi-recycle"></i></a>
         <a href="#" class="der tooltipped mdi-
         " id="shrutas" data-position="bottom" data-tooltip="Ruta" style="margin-right: 5px"><i class="mdi mdi-24px mdi-motorbike"></i></a>
       {else}
@@ -337,7 +337,7 @@
   </div>
 </div>
 
-<div class="modal modal-fixed-footer" id="modal-rutas" style="height: 50%; width: 50%">
+<div class="modal modal-fixed-footer" id="modal-rutasg" style="height: 50%; width: 50%">
     <div class="modal-header head3 center" style="font-size: 22px;">Rutas</div>
     <div class="modal-content">
         <div class="row">
@@ -358,7 +358,7 @@
   </div>
 
   <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 50%; width: 50%">
-    <div class="modal-header head3 center" style="font-size: 22px;">Flujo de Efectivo</div>
+    <div class="modal-header head3 center" style="font-size: 22px;">Gastos</div>
     <div class="modal-content row">
 
         <div class="col s6 input-field">

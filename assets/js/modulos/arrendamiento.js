@@ -45,6 +45,8 @@ $(function(){
     	var idestadocuenta = getDatos('',300,'1,0,3,1,'+$("#idboletas option:selected").val()+',@@usr,'+vmonto+',0,'+vmonto+',0,0,"",@@impresa,"",1,1,null',0,0,0);
     	Materialize.toast('Abono Realizado Correctamente',4000,'green');
     	$("#modal-abono").modal('close');
+
+        getcolordias()
     });
 
     $("#grubro").keydown(function(e){
@@ -155,6 +157,7 @@ $(function(){
 			$("#ccuota").html(listado[6]);
 
 			pagos(parseInt(listado[6]));
+            getcolordias();
 			$(".abon").removeClass('hide');
 		}else{
 			$("#prestamo").html('--');
@@ -193,6 +196,21 @@ $(document).on('click','.addRubro',function(){
 		Materialize.toast(rubro[0]['ERROR'],4000,'red');
 		$("#grubro").attr('idrubro',0)
 	}
+});
+
+$(document).on('click','.pdia',function(){
+    var num = parseInt($(this).html());
+    var pdias = $(".pdia.grey").filter(function(){
+        return parseInt($(this).html()) <= num;
+    });
+
+    if(pdias.length > 0){
+        var vl = pdias.length * parseFloat($("#cuota").html().replace(/,/g,''))
+        $("#modal-abono").modal('open');
+        $("#vabono").val(vl).focus().select();
+        pdias.removeClass('grey').addClass('orange');    
+    }
+       
 });
 
 function validar (varreglo,vmodulo) {
@@ -297,22 +315,22 @@ function pagos(cantidad){
     for(var i=0;i<cantidad;i++){
         switch(mciclo){
           case 1:
-            fila1 = fila1+'<div class="col s2 center" ><a class="grey btn-floating">'+(i+1)+'</a></div>';
+            fila1 = fila1+'<div class="col s2 center"><a class="grey btn-floating pdia">'+(i+1)+'</a></div>';
             break;
           case 2:
-            fila2 = fila2+'<div class="col s2 center" ><a class="grey btn-floating">'+(i+1)+'</a></div>';
+            fila2 = fila2+'<div class="col s2 center"><a class="grey btn-floating pdia">'+(i+1)+'</a></div>';
             break;
           case 3:
-            fila3 = fila3+'<div class="col s2 center" ><a class="grey btn-floating">'+(i+1)+'</a></div>';
+            fila3 = fila3+'<div class="col s2 center"><a class="grey btn-floating pdia">'+(i+1)+'</a></div>';
             break;
           case 4:
-            fila4 = fila4+'<div class="col s2 center" ><a class="grey btn-floating">'+(i+1)+'</a></div>';
+            fila4 = fila4+'<div class="col s2 center"><a class="grey btn-floating pdia">'+(i+1)+'</a></div>';
             break;
           case 5:
-            fila5 = fila5+'<div class="col s2 center" ><a class="grey btn-floating">'+(i+1)+'</a></div>';
+            fila5 = fila5+'<div class="col s2 center"><a class="grey btn-floating pdia">'+(i+1)+'</a></div>';
             break;
           case 6:
-            fila6 = fila6+'<div class="col s2 center" ><a class="grey btn-floating">'+(i+1)+'</a></div>';
+            fila6 = fila6+'<div class="col s2 center"><a class="grey btn-floating pdia">'+(i+1)+'</a></div>';
             break;
           default:
 	          console.log(i);
@@ -336,4 +354,20 @@ function pagos(cantidad){
       }
 
       $("#pagos").html(fstr)
+}
+
+function getcolordias(){ 
+    var vid = $("#idboletas option:selected").val()
+    var cdias = getDatos('',286,vid,0,0,0);
+    if(cdias[0].length){
+        var pdiasV = $(".pdia.grey").filter(function(){
+            return parseInt($(this).html()) <= cdias[0][0][1]
+        });
+        pdiasV.removeClass('grey').addClass('green');
+
+        pdiasV = $(".pdia.grey").filter(function(){
+            return parseInt($(this).html()) <= cdias[0][0][0]
+        });
+        pdiasV.removeClass('grey').addClass('orange');
+    }
 }
