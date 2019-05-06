@@ -1071,4 +1071,4 @@
   </li>
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.1.20"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.0.1.21"></script>
