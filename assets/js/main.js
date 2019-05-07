@@ -13,7 +13,7 @@ $(function(){
 
     if(parseInt($("#cpu").attr('xyz')) == 5){
         $("#gingclie").click(function(){
-            $("#modal-clientes").modal('open');
+            $("#modal-clientesg").modal('open');
             $("#c-ced").focus();        
         });
 
@@ -70,7 +70,7 @@ $(function(){
                 $("#c-ced").val('');
                 ind_2 = 0;
                 ind_1 = 0;
-                $("#modal-clientes").modal('close');
+                $("#modal-clientesg").modal('close');
                 $("#ncli").focus();
                 var e = jQuery.Event("keyup");
                 e.which = 13;

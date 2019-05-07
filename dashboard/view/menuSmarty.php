@@ -285,7 +285,7 @@
 <div id="modalMainGeneral"></div>
 
 
-    <div class="modal modal-fixed-footer" id="modal-clientes" style="height: 400px;">
+    <div class="modal modal-fixed-footer" id="modal-clientesg" style="height: 400px;">
    <div class="modal-header head3 center" id="titagcli" style="font-size: 22px;">Agregar Cliente</div>
   <div class="modal-content">
 

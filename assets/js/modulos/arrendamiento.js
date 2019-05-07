@@ -279,7 +279,7 @@ function cargarSintax(){
 
 function searchClient(){
     clie = $("#cliename").attr('idclie');
-    var strboletas = '<option value="0" selected disabled>Boletas</option>';
+    var strboletas = '<option value="0" selected disabled>Tarjetas</option>';
 
     if (clie != 0) {
 
