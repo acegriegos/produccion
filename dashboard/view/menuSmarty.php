@@ -284,7 +284,7 @@
 </div>
 <div id="modalMainGeneral"></div>
 
-
+{if $smarty.session.BUSS eq 5}
     <div class="modal modal-fixed-footer" id="modal-clientesg" style="height: 400px;">
    <div class="modal-header head3 center" id="titagcli" style="font-size: 22px;">Agregar Cliente</div>
   <div class="modal-content">
@@ -336,6 +336,7 @@
       <a class="modal-action waves-effect waves-green btn-flat" id="addclie">Agregar</a>
   </div>
 </div>
+{/if}
 
 <div class="modal modal-fixed-footer" id="modal-rutasg" style="height: 50%; width: 50%">
     <div class="modal-header head3 center" style="font-size: 22px;">Rutas</div>
