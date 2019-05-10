@@ -5,7 +5,6 @@ var str_correos = '';
 
 $(function(){
 	config =getDatos('',42,'@@impresa',0,0)[0][0];
-	$("#fnotass").submit(function(){return false});
 	$("[id^=ftr]").hide();
 	$(".chg_tipo").change(function(){
 		var id=$(this).prop('value')
@@ -429,6 +428,7 @@ function sendFE(clave,factura){
         if (correos == undefined) {
             Materialize.toast('Correos Inválidos',4000,'red');
             arr('login',7,2,301,'feestado=2','id='+idnota,0,0);
+        }
     }else{
         for (var i = 0; i < correos[0].length; i++) {
             str_correos += correos[0][i][3]+",";

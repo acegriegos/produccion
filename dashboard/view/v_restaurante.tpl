@@ -118,23 +118,25 @@
         <a class="mdi mdi-book hide tooltipped black-text mdi-24px pbtn" style="position: fixed;top:15px;right: 0px" data-tooltip="Menú" data-position="bottom"></a>        
         <div class="row" style="margin: 0px;padding: 0px;" >
           <div class="col s8 row">
-            
-            <ul class="col s12 row collapsible" style="margin: 0px;position: relative;">
-              {section name=LE loop=$FAM}
-               <li id="f{$FAM[LE][0]}">
-                <div class="collapsible-header fam">{$FAM[LE][1]}</div>
-                <div class="collapsible-body" style="padding: 0px;" id="tipos"></div>
-              </li>
-             <!--  <a id="f{$FAM[LE][0]}" class="btn btn-success s12 fam" style="width: 100%;height: 75px;padding-top: 4%;font-size: 22px;"><small>{$FAM[LE][1]}</small></a> -->
-              {/section}
-              <a id="fsalir" class="btn btn-success s12 fam" style="width: 100%"><small>Salir</small></a>
 
-            <!--   <div id="tipos" style="position: absolute;margin-left: 15%;z-index: 90;top: 0;left: 0;display: none"></div>
+            <div class="col s6">
+              <select class="browser-default" id="fam">
+                <option value="0" selected disabled>Seleccione una Opción</option>
+                {section name=LE loop=$FAM}
+                <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
+                {/section}
+              </select>
+            </div>
 
-              <div id="productos" style="position: absolute;margin-left: 30%;z-index: 100;top: 0;left: 0;display: none"> 
-              </div> -->
+            <div class="col s6">
+              <select class="browser-default" id="tip">
+                <option value="0" selected disabled>----</option>
+              </select>
+            </div>
 
-            </ul>
+            <div style="padding: 0; margin: 0;" class="col s12 row" id="productos">
+              
+            </div>
 
           </div>
 
@@ -151,20 +153,20 @@
              <span class="mdi mdi-magnify mdi-24px prefix pbtn tooltipped" data-tooltip="Buscar Producto Manual" data-position="top" id="showprod"></span>
             </div>
 
-            <div class="input-field col s5">
-              <input type="text" id="descp" class="sprod hide" autocomplete="off">
+            <div class="input-field col s10">
+              <input type="text" id="descp" autocomplete="off">
               <label for="descp" class="sprod hide">Descripción</label>
               <input type="hidden" id="valores">
             </div>
 
-            <div class="input-field col s5">
-              <input type="text" id="codp" class="sprod hide" autocomplete="off">
+            <div class="input-field col s5 hide">
+              <input type="text" id="codp" class="hide" autocomplete="off">
               <label for="codp" class="sprod hide">Código</label>
             </div>
           </div>
 
           <div class="input-field col s4">
-            <i class="prefix mdi mdi-plus pbtn" id="addline"></i>
+            <i class="prefix mdi mdi-plus pbtn hide" id="addline"></i>
             <input type="text" id="cantp" class="eder" value="1" min="0" autocomplete="off">
             <label for="cantp">Cantidad</label>
           </div>

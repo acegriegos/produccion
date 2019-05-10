@@ -106,7 +106,8 @@ if (!isset($_REQUEST['accion'])) {
 	   			break;
 	   		case 14:
 	   			$pagina = 1;
-	   			$smarty->assign('RUB',$kakaroto->kamehameha('id,nombre,if(idtiporubro,"Entrada","Salida")',281,'id > 0 and idsucursal in(-1,@@impresa) order by nombre'));
+	   			$smarty->assign('RUB',$kakaroto->kamehameha('vid,nombre,if(idtiporubro,"Entrada","Salida")',281,'vid > 0 and idsucursal in(-1,@@impresa) order by nombre'));
+	   			//print_r($kakaroto->kamehameha('vid,nombre,if(idtiporubro,"Entrada","Salida")',281,'vid > 0 and idsucursal in(-1,@@impresa) order by nombre'));
 	   			$smarty->display('ajax/ajustes/ajaxRubros.tpl');
 	   			break;
 	   	}

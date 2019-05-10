@@ -362,17 +362,24 @@
     <div class="modal-header head3 center" style="font-size: 22px;">Gastos</div>
     <div class="modal-content row">
 
-        <div class="col s6 input-field">
-          <input type="text" id="grubro" class="autocomplete" idrubro="0" autocomplete="off">
-          <label for="grubro">Rubro</label>  
+        <div class="col s6">
+          <select id="listrubros" class="browser-default">
+            <option>gg</option>
+          </select>
         </div>
 
         <div class="col s6 input-field">
           <input type="text" id="gvalor" class="eder" value="0">
           <label for="gvalor">Monto</label>  
         </div>
+
+        <div class="col s12 input-field">
+          <input type="text" id="gcomentario" value="">
+          <label for="gcomentario">Comentario</label>  
+        </div>
     </div>
     <div class="modal-footer">
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+        <a class="modal-action doflujo waves-effect waves-green btn-flat">Aceptar</a>
     </div>
   </div>

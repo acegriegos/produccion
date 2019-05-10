@@ -77,7 +77,6 @@ $(document).on("click",".menu3",function(){
 					accion: 9,
 					id: 0
 				}).done(function(data){
-					console.log(data)
 					var p = JSON.parse(data);
 					if (p['succed']) {
 						$(".fe").addClass('hide');			
@@ -325,7 +324,34 @@ $(document).on("click",".menu3",function(){
 		case 9:
 			var p = mantenimiento('ajustes',9,'');
 			$("#majustes").html(p);
-			actPaginate('familias')
+
+			var familias = getDatos('id,if(nombre = "","N/A",nombre) as nom',20,'id > 0 and idsucursal = @@impresa order by nom',0,0,0);
+			var str = '';
+			if(familias[0].length){
+				for (var i = 0; i < familias[0].length; i++) {
+					str += '<tr><td>'+familias[0][i][1]+'</td><td> <i class="mdi mdi-stackexchange mdi-16px pbtn" title="Cambiar Valores"></i>  <i class="mdi mdi-chili-mild mdi-16px pbtn" title="Tipos Asignados"></i> <i class="mdi mdi-chili-medium mdi-16px pbtn" title="Marcas Asignadas"></i> <i class="mdi mdi-chili-hot mdi-16px pbtn" title="Productos Asignados"></i> <i class="mdi mdi-close mdi-16px pbtn" title="Eliminar Familia"></i> </td>'
+				}
+			}
+			$("#listafamilias").html(str);
+
+			familias = getDatos('id,if(nombre = "","N/A",nombre) as nom,(select if(nombre = "","N/A",nombre) from familias where id = idfamilia) as fam',21,'id > 0 and idsucursal = @@impresa order by fam,nom',0,0,0);
+			str = '';
+			if(familias[0].length){
+				for (var i = 0; i < familias[0].length; i++) {
+					str += '<tr><td>'+familias[0][i][1]+'</td><td> <td>'+familias[0][i][2]+'</td><td> <i class="mdi mdi-stackexchange mdi-16px pbtn" title="Cambiar Valores"></i>  <i class="mdi mdi-chili-medium mdi-16px pbtn" title="Marcas Asignadas"></i> <i class="mdi mdi-chili-hot mdi-16px pbtn" title="Productos Asignados"></i> <i class="mdi mdi-close mdi-16px pbtn" title="Eliminar Familia"></i> </td>'
+				}
+			}
+			$("#listatipos").html(str);
+
+			familias = getDatos('id,if(nombre = "","N/A",nombre) as nom,(select if(nombre = "","N/A",nombre) from tipos where id = idtipo) as tip,(select if(nombre = "","N/A",nombre) from familias where id = (select idfamilia from tipos where id = idtipo)) as fam',22,'id > 0 and idsucursal = @@impresa order by fam,tip,nom',0,0,0);
+			str = '';
+			if(familias[0].length){
+				for (var i = 0; i < familias[0].length; i++) {
+					str += '<tr><td>'+familias[0][i][1]+'</td><td> <td>'+familias[0][i][2]+'</td><td> <td>'+familias[0][i][3]+'</td><td> <i class="mdi mdi-stackexchange mdi-16px pbtn" title="Cambiar Valores"></i> </i> <i class="mdi mdi-chili-hot mdi-16px pbtn" title="Productos Asignados"></i> <i class="mdi mdi-close mdi-16px pbtn" title="Eliminar Familia"></i> </td>'
+				}
+			}
+			$("#listamarcas").html(str);
+
 			break;
 		case 10:
 			var p = mantenimiento('ajustes',13,'');
@@ -367,6 +393,10 @@ $(document).on("click",".menu3",function(){
 		case 11:
 			var p = mantenimiento('ajustes',14,'');
 			$("#majustes").html(p);
+			$("#ingRub").click(function(){
+				$("#modal-rubros").modal('open');
+				$("#dosrubro").addClass('guardar').removeClass('editar')
+			});
 			break;
 		default:
 			break;

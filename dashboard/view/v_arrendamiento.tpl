@@ -97,7 +97,7 @@
         <label>Valor Interes</label>
       </div>
       <div class="input-field col s6">
-        <input type="number" id="btime" min="0" value="20" class="eder cprecio" autocomplete="off">
+        <input type="number" id="btime" min="0" value="24" class="eder cprecio" autocomplete="off">
         <label>Días</label>
       </div>
       <div class="col s6">

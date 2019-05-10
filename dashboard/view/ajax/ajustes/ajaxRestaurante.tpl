@@ -100,7 +100,13 @@
 <li>
 <div class="collapsible-header"><i class="small mdi mdi-note-text"></i><h5>Comandas</h5></div>
     <div class="collapsible-body pequeño card">
-        
+        <div class="input-field">
+            <input type="text" id="ipcomanda">
+            <label for="ipcomanda">IP</label>
+        </div>
+
+        <label>Familias para Comanda</label>
+        <div class="chips chips-initial" id="litreg"></div>
     </div>
 </li>
 <li>

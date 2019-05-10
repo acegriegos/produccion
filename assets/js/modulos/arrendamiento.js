@@ -131,7 +131,7 @@ $(function(){
     		Materialize.toast('No se a Registrado Servicio de Prestamo',4000,'red');
     		return false;
     	}
-    	var fact = getDatos('',66,'1,0,1,2,1,'+$("#ncli").attr('idclie')+','+$("#btipo option:selected").val()+','+$("#bporcenntaje").val()+',0,'+$("#bvalor").val()+',0,0,0,0,'+$("#btime").val()+',"","",1,@@usr,@@impresa,"",0,"","",curdate(),1,"",0',0,0,0);
+    	var fact = getDatos('',66,'1,0,1,2,1,'+$("#cliename").attr('idclie')+','+$("#btipo option:selected").val()+','+$("#bporcenntaje").val()+',0,'+$("#bvalor").val()+',0,0,0,0,'+$("#btime").val()+',"","",1,@@usr,@@impresa,"",0,"","",curdate(),1,"",0',0,0,0);
 
     	var detfact = getDatos('',67,'1,0,'+fact[0][0][0]+',-'+idserv[0][0][0]+',1,'+$("#bvalor").val()+',0,6,0,0,"",0,"","",0',0,0,0);
 
@@ -140,6 +140,15 @@ $(function(){
 
     	var log = insertar(279,'','null,64,1,"Creación de Boleta",@@usr,now(),@@impresa,'+fact[0][0][0]);
     	Materialize.toast('Boleta Ingresada Correctamente',4000,'green');
+        var strboletas = '<option value="0" selected disabled>Tarjetas</option>';
+
+        var boletasclie = getDatos('id,concat("-",format(subtotal,2))',64,'id > 0 and idcliente = '+$("#cliename").attr('idclie'),0,0,0)[0];
+        
+        for (var i = 0; i < boletasclie.length; i++) {
+            strboletas += '<option value="'+boletasclie[i][0]+'">'+(i+1)+boletasclie[i][1]+'</option>';
+        }
+
+        $("#idboletas").html(strboletas);  
     		
     });
 

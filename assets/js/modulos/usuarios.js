@@ -338,30 +338,45 @@ function validarusuarios() {
 		$('#vidTipoUsuario').focus();
 		return 'Tipo de Usuario Requerido';
 	}
+
+	if ($(".edit:visible").length) {
+		if($('#clave').val() != $('#vclave').val() && $('#clave').val().length < 8){
+			$('#clave').focus();
+			return 'Contraseñas Deben ser Iguales';
+		}
+	}else{
+		if ($('#vclave').val() == '') {
+			$('#vclave').focus();
+			return 'Contraseña Requerida';
+		}else if($('#vclave').val().length < 8){
+			$('#vclave').focus();
+			return 'Tamaño de Contraseña no Válido';
+		}
+
+		if ($('#clave').val() == '') {
+			$('#clave').focus();
+			return 'Contraseña Requerida';
+		}else if($('#clave').val().length < 8){
+			$('#clave').focus();
+			return 'Tamaño de Contraseña no Válido';
+		}else if($('#clave').val() != $('#vclave').val()){
+			$('#clave').focus();
+			return 'Contraseñas Deben ser Iguales';
+		}
+	}
 	
-	if ($('#vidsuc').val() == '') {
-		$('#vidsuc').focus();
-		return 'Seleccione una Sucursal';
+	if($("#vruta").length){
+
+		if(parseInt($("#vruta option:selected").val()) == 0){
+			return 'Ruta Requerida';
+		}
+	}else{
+		if ($('#vidsuc').val() == '') {
+			$('#vidsuc').focus();
+			return 'Seleccione una Sucursal';
+		}
 	}
 
-	if ($('#vclave').val() == '') {
-		$('#vclave').focus();
-		return 'Contraseña Requerida';
-	}else if($('#vclave').val().length < 8){
-		$('#vclave').focus();
-		return 'Tamaño de Contraseña no Válido';
-	}
-
-	if ($('#clave').val() == '') {
-		$('#clave').focus();
-		return 'Contraseña Requerida';
-	}else if($('#clave').val().length < 8){
-		$('#clave').focus();
-		return 'Tamaño de Contraseña no Válido';
-	}else if($('#clave').val() != $('#vclave').val()){
-		$('#clave').focus();
-		return 'Contraseñas Deben ser Iguales';
-	}
 	if ($('#vidTipoUsuario option:selected').val() != 1) {
 		if ($('#vlimite').val() == '') {
 			$('#vlimite').focus();
@@ -463,6 +478,25 @@ pg += '/>'+
 		mantenimiento("usuarios",3,arr);
 	}
 
+	function postload(modulo) {
+		switch(modulo) {
+			case 'usuario':
+				if($("#vruta").length){
+					var lruta = getDatos('idruta',217,'idfila_enc = '+$("#fusuarios #vid").val(),0,0,0);
+					if(lruta[0].length){
+						$("#vruta").val(lruta[0][0][0]).material_select('update');
+					}else{
+						$("#vruta").val(0).material_select('update');
+					}
+				}
+				
+				break;
+			default:
+				alert(1)
+				break;
+		}
+	}
+
 	function endDetail(id,acc,modulo) {
 
 		switch(modulo){
@@ -471,6 +505,9 @@ pg += '/>'+
 			if (acc == 1)			
 				enviarCorreo(1,$("#vmail").val(),'Bienvenido '+$("#vnombre").val(),msj,'',0,0,0);
 			
+			if($("#vruta").length){
+				console.log(getDatos('',287,id[0][0][0]+','+$("#vruta option:selected").val(),0,0,0));
+			}
 			deadclear(modulo);
 			thorload(modulo);
 			$(".validate").css('border-bottom', '1px solid #9e9e9e');
