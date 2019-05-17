@@ -2,8 +2,8 @@
 $simbolo = $log->kamehameha('simbolo',54,'principal = 1 and id > 0')[0][0];
 $idfactura = 0;
 $cantt = $tot = $tde = $tim = $tgr = $exc = 0;
+
 foreach ($transaccion as $obj) {
-   if ($obj[0] != $idfactura) {
       echo '<tr>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[0].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[1].'</td>
@@ -17,12 +17,11 @@ foreach ($transaccion as $obj) {
 
       </tr>';
       $cantt++;
-      $tot += str_replace(",", "", $obj[4])*$obj[9];
-      $tde += str_replace(",", "", $obj[5])*$obj[9];
+      $tde += str_replace(",", "", $obj[4])*$obj[9];
+      $tgr += str_replace(",", "", $obj[5])*$obj[9];
       $tim += str_replace(",", "", $obj[6])*$obj[9];
-      $tgr += str_replace(",", "", $obj[7])*$obj[9];
-      $exc += str_replace(",", "", $obj[8])*$obj[9];
-  }
+      $exc += str_replace(",", "", $obj[7])*$obj[9];
+      $tot += str_replace(",", "", $obj[8])*$obj[9];
   ?>
   <?php } ?>
 
