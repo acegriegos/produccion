@@ -521,6 +521,7 @@
                 unlink("assets/update/update.sql");
                 #unlink("assets/update/full.sql");
             }
+            break;
         case 5: //BASE RESTAURANTES
             require_once '_config/mysqlDB.php';
             
