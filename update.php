@@ -558,7 +558,6 @@
                 $archivo = file_get_contents('./assets/update/update.sql');
                 $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
                 $archivo = preg_replace('/`%`/', `localhost`, $archivo);
-                $archivo = preg_replace('/developer/', $mdb, $archivo);
                 file_put_contents('./assets/update/update.sql', $archivo);
             }
 
