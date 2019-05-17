@@ -1,6 +1,7 @@
 var w;
 var str_correos = '';
 var tmp_correos = '';
+var str_dev = '';
 var punidad = 0;
 var imprimir = 1;
 
@@ -690,6 +691,23 @@ $(document).on("click",".delf",function(){
     $("#fd"+id).remove();
     totalizar();
 
+});
+
+$(document).on("click",".detalle",function(){
+    var id = $(this).attr('id').substr(1);
+    if(str_dev == ''){
+        var tdev = getDatos('id,nombre',312,'id > 0',0,0,0);
+        for (var i = 0; i < tdev[0].length; i++) {
+            str_dev += '<option value="'+tdev[0][i][1]+'">'+tdev[0][i][1]+'</option>';
+        }
+    }
+
+    var pdetalle = getDatos('(select nombre from productos where id = idproducto),cantidad,format(precio*cantidad-descuento+imv,2),idproducto',65,'idproducto is not null and idfactura = '+id,0,0,0);
+    var str = '';
+    for (var i = 0; i < pdetalle[0].length; i++) {
+        str += '<tr> <td><input type="checkbox" name="devprod" gid="'+pdetalle[0][i][3]+'" id="asd'+pdetalle[0][i][3]+'"> <label for="asd'+pdetalle[0][i][3]+'"></label> </td> <td>'+pdetalle[0][i][1]+'</td> <td>'+pdetalle[0][i][0]+'</td> <td><input type="number" value="0" class="eder"></td> <td><select class="browser-default">'+str_dev+'</select></td> </tr>';
+    }
+    $("#detfact").html(str);
 });
 
 $(document).on("click","#btnAjuste",function(){

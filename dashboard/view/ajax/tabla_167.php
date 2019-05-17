@@ -5,55 +5,29 @@ $cantt = $tot = $tde = $tim = $tgr = $exc = 0;
 foreach ($transaccion as $obj) {
    if ($obj[0] != $idfactura) {
       echo '<tr>
-      <td class="detail pbtn" id="dt'.$obj[0].'"><span class="dts">[+]</span></td>
+      <td style="border-radius: 0px !important; text-align: center ">'.$obj[0].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[1].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[5].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[7].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.$obj[4].'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[15],2).'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[34],2).'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[11],2).'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[14],2).'</td>
-      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[13],2).'</td>
-
-      </tr>
-      <tr class="detprod hide grey lighten-3" id="xa'.$obj[0].'">
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text"><b>Código</b></td>
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text"><b>Código Interno</b></td>
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text" colspan="2"><b>Nombre</b></td>
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text"><b>Cantidad</b></td>
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text"><b>Descuento</b></td>
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text"><b>Grabado</b></td>
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text"><b>Impuesto</b></td>
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text"><b>Exento</b></td>   
-      <td style="text-align: center; border-radius: 0px !important; background-color:#0B3861" class="white-text"><b>Total</b></td>
+      <td style="border-radius: 0px !important; text-align: center ">'.$obj[2].'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.$obj[3].'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[4],2).'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[5],2).'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[6],2).'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[7],2).'</td>
+      <td style="border-radius: 0px !important; text-align: center ">'.number_format($obj[8],2).'</td>
 
       </tr>';
-      $idfactura = $obj[0];
       $cantt++;
-      $tot += str_replace(",", "", $obj[13])*$obj[33];
-      $tde += str_replace(",", "", $obj[15])*$obj[33];
-      $tim += str_replace(",", "", $obj[11])*$obj[33];
-      $tgr += str_replace(",", "", $obj[34])*$obj[33];
-      $exc += str_replace(",", "", $obj[14])*$obj[33];
+      $tot += str_replace(",", "", $obj[4])*$obj[9];
+      $tde += str_replace(",", "", $obj[5])*$obj[9];
+      $tim += str_replace(",", "", $obj[6])*$obj[9];
+      $tgr += str_replace(",", "", $obj[7])*$obj[9];
+      $exc += str_replace(",", "", $obj[8])*$obj[9];
   }
-  echo '<tr class="detprod hide xb'.$obj[0].' grey lighten-4">
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[24].'</td>
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[25].'</td>
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2" colspan="2">'.$obj[26].'</td>
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[28].'</td>
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[30].'</td>
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[35].'</td>
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[31].'</td>
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[36].'</td>
-  <td style="text-align: center;border-radius: 0px !important" class="white-text blue lighten-2">'.$obj[29].'</td>
-
-  </tr>';
   ?>
   <?php } ?>
 
    <tr>
-      <td colspan="2">Cantidad: <?php echo $cantt; ?></td>
+      <td colspan="1">Cantidad: <?php echo $cantt; ?></td>
       <td style="border-radius: 0px !important; text-align: center "></td>
       <td style="border-radius: 0px !important; text-align: center "></td>
       <td style="border-radius: 0px !important; text-align: center "><b>TOTAL</b></td>

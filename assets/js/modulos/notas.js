@@ -6,6 +6,18 @@ var str_correos = '';
 $(function(){
 	config =getDatos('',42,'@@impresa',0,0)[0][0];
 	$("[id^=ftr]").hide();
+
+    $("#vfac").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if (code ==13) {
+            $(this).blur();
+        }
+    });
+
+    $("#vfac").blur(function(){
+        $("#busnota").click();
+    });
+
 	$(".chg_tipo").change(function(){
 		var id=$(this).prop('value')
 		if ($(this).is(':checked')){
@@ -16,7 +28,7 @@ $(function(){
 			$("#ftr"+id).addClass("hide");
 
 	})
-
+    
 	$("#ncli").keydown(function(e){
 		var charCode = e.which || e.keyCode;
 		var charStr = String.fromCharCode(charCode);
@@ -126,7 +138,7 @@ $(function(){
 		$("#listaclientes").html('');
 
 		$.each(p,function(i){
-			$("#listaclientes").append('<tr class="button-collapse detalle" data-activates="acciones" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
+			$("#listaclientes").append('<tr class="detallefactura" estado="1" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
 		});
 
 		$("#data-table-Notas").dataTable({
@@ -141,65 +153,7 @@ $(function(){
 
         paginate($("ul.pagination").attr('vtbl'),undefined,$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa');
 	});
-
-});
-
-$(document).on("click",".detalle",function(){
-	$(this).sideNav({
-            edge: 'left', // Choose the horizontal origin
-            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
-        }
-        );
-	$(this).sideNav('show');
-	var id = $(this).attr('id').substr(1);
-	
-	var tabla= $("#data-table-cuentas-detalle").DataTable();
-	tabla.destroy();
-	var datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
-
-    if (config[5] == 1){
-        $("#tipoimpresion").attr('checked',true);
-    }else{
-        $("#tipoimpresion").attr('checked',false);
-    }
-
-	$('select').material_select();
-	$("#data-table-cuentas-detalle").dataTable({
-
-		bFilter: false,
-		order : [],
-		"bLengthChange": false
-	});
-	$("#btn-navsalir").click(function(){
-		
-		$('.side-nav-cuentas').sideNav('hide');
-		$('.button-collapse').sideNav('destroy');
-
-	});
-	
-	$("#btn-divsalir").click(function(){
-
-		$(".divabono").hide();
-		$(".divabono").attr('visible',0);
-
-	});
-
-    $("#btn-anular").click(function(){
-        var saldo = $("#isaldo").html().replace(/,/g,'');
-        $("#vvalor").val(saldo);
-        $("#vcomentario").val('Factura anulada debido a: ').focus();     
-    });
-    
-	$("#btn-div").click(function(){
-		var vi = $(".divabono").attr('visible');
-		if (vi == 0) {
-			$(".divabono").show();
-			$(".divabono").attr('visible',1);
-		}else{
-			$(".divabono").hide();
-			$(".divabono").attr('visible',0);
-		}
-	});
+    $("#vfac").focus();
 });
 
 $('.datepicker').pickadate({
@@ -249,7 +203,7 @@ function manualPaginate(limit){
         $("#listaclientes").html('');
 
         $.each(p,function(i){
-            $("#listaclientes").append('<tr class="button-collapse detalle" data-activates="acciones" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
+            $("#listaclientes").append('<tr class="detallefactura" estado="1" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
         });
 
         $("#data-table-Notas").dataTable({
@@ -291,11 +245,21 @@ function validar (varreglo,vmodulo) {
 }
 
 function validarnotas() {
-
-	if($('#vvalor').val()==0 || isNaN($('#vvalor').val())){
+	if(isNaN($('#vvalor').val())){
 		$('#vvalor').focus().select();
-		return 'El Valor no es Correcto' ;
+		return 'El Valor no es Numérico' ;
 	}
+
+    if(parseInt($('#vvalor').val()) <= 0 || !$('#vvalor').val().trim().length){
+        $('#vvalor').focus().select();
+        return 'El Valor Debe ser Mayor a 0' ;
+    }
+
+    if(parseFloat($('#vvalor').val()) > parseFloat($("#isaldo").html().trim().substring(1).replace(/,/g,'')) && $("#ncd").is(":checked")){
+        $('#vvalor').focus().select();
+        return 'El Valor no Puede ser Mayor al Saldo' ;
+    }
+    
 	if ($('#vcomentario').val() == '') {
 		$('#vcomentario').focus().select();
 		return 'Comentario Requerido';

@@ -117,7 +117,7 @@ echo '<br>Ced. '.$miscelaneos[1];
 if(strlen(trim($miscelaneos[5])))
     echo '<br> Telf. '.$miscelaneos[5];
 
-echo '<br> '.$miscelaneos[6].'
+echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
         </div>
      </td>
   </tr>

@@ -1051,21 +1051,34 @@
   </div>
 </div>
 
-<ul id="slide-factura" class="side-nav" style="z-index:1500;">
-  <li>
+<ul id="slide-factura" class="side-nav" style="z-index:1500;width: 50%">
+  <li class="hide">
     <div class="user-view center">
       <span class="ftit"></span>
     </div>
   </li>
-  <li>
+  <li class="hide">
+    <input type="checkbox" id="afactura">
+    <label for="afactura">Anular Factura</label>
     <div class="divider"></div>
   </li>
   <li>
     Productos a Devolver <br>
-    <div id="detfact"></div> 
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>CANT</th>
+          <th>ITEM</th>
+          <th>A DEVOLVER</th>
+          <th>RAZON</th>
+        </tr>
+      </thead>
+      <tbody id="detfact"></tbody>
+    </table> 
     <div class="footer row" style="bottom:42px;position:absolute;">
-      <a class="btn btn-success col s6" id="fdev">Realizar Devolución</a>
-      <a class="btn btn-default col s6" id="fext">Salir</a>
+      <a class="btn btn-success col s6 mdi mdi-plus der" id="fdev" title="Realizar Devolución"></a>
+      <a class="btn btn-default col s6 der" id="fext">Salir</a>
     </div>
     
   </li>

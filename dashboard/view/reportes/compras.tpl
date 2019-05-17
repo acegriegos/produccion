@@ -41,7 +41,6 @@
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
-        <td class="white-text blue sinborde" style="width: 1%"></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Número de Factura</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Fecha</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Cliente</b></td>

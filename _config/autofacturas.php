@@ -41,7 +41,16 @@
 
         foreach ($json_response->rs as $obj) {
             $ced = $db->ejecutar('select cedula from sucursales "'.$obj[0]);
+            print_r($ced->fetch_all()[0]);
+            echo '<br>';
+            // if($ced->num_rows){
+            //     compras($url,$ced->fetch_all()[0],$isp);    
+            // }
+            
         }
+
+        echo '<hr>';
+        print_r($_SESSION);
 
     }else{ //NORMAL
 
@@ -242,7 +251,7 @@
 
     }//NORMAL
 
-public function compras($url,$){
+function compras($url,$ced,$isp){
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, true);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -251,8 +260,8 @@ public function compras($url,$){
 
     $params = array(
       "cmd" => 4,
-      "ced" => $sucursal[0],
-      "isp" => $sucursal[1]);
+      "ced" => $ced,
+      "isp" => $isp);
 
     $postData = "";
 

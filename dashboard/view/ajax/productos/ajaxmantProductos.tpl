@@ -182,6 +182,11 @@
                             <label class="active" for="vcantidad">Cantidad</label>
                         </div>
                     {/if}
+
+                    <div class="input-field marginzero col s12">
+                        <a href="#" id="proveedores" class="btn" style="margin-bottom: 5px">Proveedores</a>
+                        <a href="#" id="imagenes" class="btn">Imagenes</a>
+                    </div>
                     <input type="hidden" id="vidinventario" value="6" noClear="1">
                     {else}
                     <div class="input-field marginzero col s12" id="dinventario">
@@ -237,14 +242,14 @@
 
         </div>
 
-        <div id="financiero" class="row hide" style="padding: 20px 10px 0 0px">            
-            <div class="center">
+        <div id="financiero" class="row hide" style="padding: 10px 10px 0 0px"> 
+
                 <div class="row" style="padding: 0px;float: right;margin: 0px;">
                     <input type="checkbox" id="pg" checked >
                     <label for="pg" class="col s6" style="padding: 0px; padding-left: 25px;">Gravado</label>
                      <input type="text" id="vexoneracion" class="der eder numeric exo col s6" noClear value="13" num="4" autocomplete="off" style="margin: 0px">
                 </div>
-            </div>
+                <i class="mdi mdi-24px mdi-plus" style="cursor: pointer;float: right;"></i> 
             <br><br>
             <div class="row">
 

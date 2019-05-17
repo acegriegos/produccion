@@ -219,6 +219,67 @@ $(document).on("click","#fclientes [name='tipoclie']",function(){
 });
 //
 
+$(document).on("click",".detallefactura",function(){
+    $("#btndetfact").click()
+    var id = $(this).attr('id').substr(1);
+    var estado = $(this).attr('estado');
+    var tabla= $("#data-table-cuentas-detalle").DataTable();
+    tabla.destroy();
+    var datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
+
+    if (config[5] == 1){
+        $("#tipoimpresion").attr('checked',true);
+    }else{
+        $("#tipoimpresion").attr('checked',false);
+    }
+
+    $('select').material_select();
+
+    switch (parseInt(estado)) {
+        case 1:
+            $("#data-table-cuentas-detalle").dataTable({
+
+                bFilter: false,
+                order : [],
+                "bLengthChange": false
+            });
+
+            $("#btn-navsalir").click(function(){
+                
+                $('#detfacturag').sideNav('hide');
+
+            });
+            
+            $("#btn-divsalir").click(function(){
+
+                $(".divabono").hide();
+                $(".divabono").attr('visible',0);
+
+            });
+
+            $("#btn-anular").click(function(){
+                var saldo = $("#isaldo").html().replace(/,/g,'').trim().substring(1);
+                $("#vvalor").val(saldo);
+                $("#vcomentario").val('Factura anulada debido a: ').focus();     
+            });
+            
+            $("#btn-div").click(function(){
+                var vi = $(".divabono").attr('visible');
+                if (vi == 0) {
+                    $(".divabono").show();
+                    $(".divabono").attr('visible',1);
+                }else{
+                    $(".divabono").hide();
+                    $(".divabono").attr('visible',0);
+                }
+            });
+            break;
+        default:
+            break;
+    }
+
+});
+
 $(document).on("blur",".numeric",function(){
     $(this).val(parseFloat($(this).val().replace(/,/g,'')).formatMoney(2,'.',',') )
 })

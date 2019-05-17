@@ -21,6 +21,7 @@
 <a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" id="cpu" xyz="{$smarty.session.BUSS}">
   <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span>
   <br class="sse_cnt hide"><p class="white-text menu-txt">MENU</p></a>
+  <a href="#" data-activates="detfacturag" class="button-collapses hide" id="btndetfact">DetalleFacturas</a>
 <!-- hide-on-med-and-down  -->
 <div class="modal modal-fixed-footer grandemodal" id="modal-info" style="height: 80%; width: 75%">
   <div class="modal-header">
@@ -33,6 +34,10 @@
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
 </div>
+
+<ul id="detfacturag" class="side-nav side-nav-cuentas asd"  style="width: 60%">
+  <div id="listaCuentasNotaDetalle"></div>
+</ul>
 
 <ul id="slide" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
   <li>

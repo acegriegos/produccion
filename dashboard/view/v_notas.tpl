@@ -31,14 +31,14 @@
                   </label>
                 </div>
               </div>
-              <div class="col s2">
+              <div class="col s2 hide">
                 <a class="waves-effect waves-light btn btn1" id="busnota">Buscar</a>
               </div>
             </div>
             <div class="row">
               <div class="col s12 m6 l6">
                 <div class="row">
-                  <div class="col s12 m12 l12">
+                  <div class="col s12 m12 l12 hide">
                     <div class="switch ">
                       <label style="color: black; font-size: 1.1em">
                         <input type="checkbox" class="chg_tipo" value="0">
@@ -47,7 +47,7 @@
                       </label>
                     </div>
                   </div>
-                  <div class="input-field col hide s12 m12 " id="ftr0">
+                  <div class="input-field col s12 m12 " id="ftr0">
                     <div class="row">
                       <div class="col s12">
                         <i class=" mdi mdi-magnify mdi-24px prefix"></i>
@@ -59,7 +59,7 @@
                 </div>
               </div>
 
-              <div class="col s12 m6 l6">
+              <div class="col s12 m6 l6 hide">
                 <div class="row">
                   <div class="col s12 m12 ">
                     <div class="switch">
@@ -79,7 +79,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row hide">
               <div class="col s12 m6 l6">
                 <div class="row">
                   <div class="col s12 m6">
@@ -155,9 +155,6 @@
                 <ul class="pagination right" vtbl="302" modulo="facturas" filtro_sp="0,0,0,,,0,0,@@impresa"></ul>
               </div>      
             </div>
-            <ul id="acciones" class="side-nav side-nav-cuentas asd"  style="width: 60%">
-              <div id="listaCuentasNotaDetalle"></div>
-            </ul>
           </div>
         </div>
 

@@ -208,7 +208,7 @@ $(document).on("keydown","#bpes",function(e){
         $(".autocomplete-content").remove();
         $(this).autocomplete({
             limit: 20,
-            data: arr('login',4,'nombre,null',11,'id > 0 and nombre like "%'+busqueda+'%" and find_in_set(idsucursal,concat("-1,",@@impresa))',0,0,0,1)
+            data: arr('login',4,'trim(concat(nombre," ",ifnull((select nombre from marcas where id = idmarca),""))),null',11,'id > 0 and nombre like "%'+busqueda+'%" and find_in_set(idsucursal,concat("-1,",@@impresa))',0,0,0,1)
         })
         $(this).siblings($(".autocomplete-content")).css('width','100%');
     }
