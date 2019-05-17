@@ -529,7 +529,7 @@
             $mdb = 'restaurantes';
             $user = $db->getUSR();
             $pass = $db->getPSS();
-            $rdb = $db->$db->getDB();
+            $rdb = $db->getDB();
             $salida = [];
             $errors = [];
             set_time_limit(0);
@@ -555,7 +555,6 @@
                 $file = fopen($destination, "w+");
                 fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
                 fclose($file);
-                print_r($archivo);
                 $archivo = file_get_contents('./assets/update/update.sql');
                 $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
                 $archivo = preg_replace('/`%`/', `localhost`, $archivo);
