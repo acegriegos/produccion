@@ -1991,18 +1991,18 @@ function postExcecute(vid,p){
 }
 
 function postSendmail() {
-    if(parseInt($("[name=tipopago]:checked").val()) != 5){
-        if (parseInt(idext) > 0) {
-            setTimeout(function(){window.close();},2000);
-        }else{
-            if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
-                setTimeout(function(){location.reload();},4000);
-            }else
-                setTimeout(function(){location.reload();},2000);
-        }
-    }else
-        if(parseFloat($("#mxtot").val()) < 5)
-            setTimeout(function(){window.close();},2000);
+// if(parseInt($("[name=tipopago]:checked").val()) != 5){
+//         if (parseInt(idext) > 0) {
+//             setTimeout(function(){window.close();},2000);
+//         }else{
+//             if ($("#pcon").is(":visible") && parseFloat($("#pcon").val()) > 0 ) {
+//                 setTimeout(function(){location.reload();},4000);
+//             }else
+//                 setTimeout(function(){location.reload();},2000);
+//         }
+//     }else
+//         if(parseFloat($("#mxtot").val()) < 5)
+//             setTimeout(function(){window.close();},2000);
 }
 
 function validarGeneral(velemento) {
