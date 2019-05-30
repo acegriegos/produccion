@@ -659,14 +659,16 @@
 
             fclose(fopen('./assets/update/update.log','w'));
 
-            shell_exec('git commit -a -m"sync" >> ./assets/update/update.log 2>&1"');
-            /*shell_exec('git pull >> ./assets/update/update.log 2>&1"');
-            shell_exec('git git reset --hard HEAD~1 >> ./assets/update/update.log 2>&1"');
-            shell_exec('git pull >> ./assets/update/update.log 2>&1"');*/
+            shell_exec('git commit -a -m"sync" >> ./assets/update/update.log 2>&1');
+            shell_exec('git pull >> ./assets/update/update.log 2>&1');
+            shell_exec('git git reset --hard HEAD~1 >> ./assets/update/update.log 2>&1');
+            shell_exec('git pull >> ./assets/update/update.log 2>&1');
 
             $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
             if(!sizeof($vbase)){ //CARGAR TODO Y VERSION 0
                 echo "string";
+            }else{
+                echo "verionado";
             }
             break;     
         default:

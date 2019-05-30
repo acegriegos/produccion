@@ -1,0 +1,12 @@
+warning: unable to access '/root/.config/git/attributes': Permission denied
+warning: unable to access '/root/.config/git/ignore': Permission denied
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   update.php
+
+no changes added to commit (use "git add" and/or "git commit -a")
