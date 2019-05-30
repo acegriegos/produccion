@@ -657,10 +657,12 @@
             $db = new DBClass();
             $act = new updated();
 
-            print_r(shell_exec('git commit -a -m"sync"'));
-            print_r(shell_exec('git pull'));
-            print_r(shell_exec('git git reset --hard HEAD~1'));
-            print_r(shell_exec('git pull'));
+            shell_exec('git commit -a -m"sync" >> ./assets/update/update.log 2>&1"');
+            shell_exec('git pull >> ./assets/update/update.log 2>&1"');
+            shell_exec('git git reset HEAD~1 >> ./assets/update/update.log 2>&1"');
+            shell_exec('git git reset --soft HEAD~1 >> ./assets/update/update.log 2>&1"');
+            shell_exec('git git reset --hard HEAD~1 >> ./assets/update/update.log 2>&1"');
+            shell_exec('git pull >> ./assets/update/update.log 2>&1"');
 
             $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
             if(!sizeof($vbase)){ //CARGAR TODO Y VERSION 0
