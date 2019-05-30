@@ -1698,6 +1698,7 @@ function searchClient(vvariable,visprv){
     }
 
     if (vclie[13] != 1) {
+        console.log(vclie[13])
         $("#monedas").val(vclie[13]).change();
         $("#monedas").material_select('update');
     }
