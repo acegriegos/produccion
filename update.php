@@ -652,10 +652,21 @@
             }
             break; 
         case 6:
+            require_once '_config/mysqlDB.php';
+
             $db = new DBClass();
+            $act = new updated();
+
+            print_r(shell_exec('git commit -a -m"sync"'));
+            print_r(shell_exec('git pull'));
+            print_r(shell_exec('git git reset --hard HEAD~1'));
+            print_r(shell_exec('git pull'));
+
             $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
-            print_r($vbase);
-            break;       
+            if(!sizeof($vbase)){ //CARGAR TODO Y VERSION 0
+                echo "string";
+            }
+            break;     
         default:
             break;
     }
