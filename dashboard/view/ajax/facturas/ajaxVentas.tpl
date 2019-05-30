@@ -581,6 +581,11 @@
               <label for="p_v" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" data-position="left">Punto Venta</label>
           </div>
 
+          <div class="col s12 m6 l6 hide">
+              <input type="checkbox" id="impm" checked disabled />
+              <label for="impm" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para Acreditar el Impuesto de Mesero" data-position="left">Imp. Mesero</label>
+          </div>
+
           <div class="col s12 m6 l6 _odt hide">
             <select id="idodt" type="select">
               <option value="0" style="color: black"><b>ODT</b></option>

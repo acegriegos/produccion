@@ -19,21 +19,10 @@
 </div>
 
 <a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" id="cpu" xyz="{$smarty.session.BUSS}">
-  <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px;"></span>
+  <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px; z-index: 5000"></span>
   <br class="sse_cnt hide"><p class="white-text menu-txt">MENU</p></a>
   <a href="#" data-activates="detfacturag" class="button-collapses hide" id="btndetfact">DetalleFacturas</a>
 <!-- hide-on-med-and-down  -->
-<div class="modal modal-fixed-footer grandemodal" id="modal-info" style="height: 80%; width: 75%">
-  <div class="modal-header">
-    <ul class="tabs tabs-fixed-width blue">
-      <li class="tab col s3 white-text"><a>Información del Usuario</a></li>
-    </ul>
-  </div>
-  <div class="modal-content " style="padding: 0px;"></div>
-  <div class="modal-footer">
-    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-  </div>
-</div>
 
 <ul id="detfacturag" class="side-nav side-nav-cuentas asd"  style="width: 60%">
   <div id="listaCuentasNotaDetalle"></div>
@@ -47,15 +36,14 @@
          <p class="white-text">{$smarty.session.NOM}</p>
          <ul class="collapsible collapsible-accordion">
           <li>
-            <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</a>
+            <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</i></a>
             <div class="collapsible-body" style="z-index: 100; position: absolute; width: 94%;">
               <ul class="head2">
-                <li><a href="#!" value="0" class="otpmenu white-text {if $smarty.session.BUSS neq 0} hide {/if}" id="x1">Información</a></li>
-                <li><a href="#!" value="1" class="otpmenu white-text {if $smarty.session.BUSS neq 0} hide {/if}" id="x2">Notificaciones</a></li>
-                <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 0} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true""></i> Usuario</a></li>
-                <li><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true""></i>Cierre de Caja</a></li>
-                <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-settings mdi-24px right white-text" aria-hidden="true""></i>Ajustes</a></li>
-                <li><a href="#!" value="4" class="otpmenu white-text" id="x4"><i class="mdi mdi-information mdi-24px right white-text" aria-hidden="true""></i>Info Sistema</a></li>
+                <li><a href="#!" value="2" class="otpmenu white-text hide" id="x2">Notificaciones</a></li>
+                <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 0} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true"></i> Usuario</a></li>
+                <li><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true"></i>Cierre de Caja</a></li>
+                <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-settings mdi-24px right white-text" aria-hidden="true"></i>Ajustes</a></li>
+                <li><a href="#!" value="4" class="otpmenu white-text" id="x4"><i class="mdi mdi-information mdi-24px right white-text" aria-hidden="true"></i>Info Sistema</a></li>
 
               </ul>
             </div>
@@ -204,7 +192,7 @@
 
 <div class="modal modal-fixed-footer" style="width:80% !important; height:99%;padding: 0px;" id="modal-system">
   <div class="modal-header head1 center">
-      LOGINTECH S.A.
+      APSY
   </div>
   
   <div class="modal-content" style="padding: 0px;">
@@ -262,7 +250,7 @@
 
       <div class="row">
         <div class="col s8 input-field">
-          <label for="vresponse">Enviar Informacion a:</label>
+          <label for="vresponse">Enviar Información a:</label>
           <input type="text" id="vresponse" value="{$smarty.session.CRR}">
         </div>
         <div class="col s4">
@@ -288,60 +276,6 @@
   </div>
 </div>
 <div id="modalMainGeneral"></div>
-
-{if $smarty.session.BUSS eq 5}
-    <div class="modal modal-fixed-footer" id="modal-clientesg" style="height: 400px;">
-   <div class="modal-header head3 center" id="titagcli" style="font-size: 22px;">Agregar Cliente</div>
-  <div class="modal-content">
-
-    <div class="row">
-
-      <div class="input-field col s6">
-      </div>
-
-      <div class="input-field col s6">
-        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3"  data-direccion="" data-idbarrio="0" class="button-collapse der tooltipped tc-show black-text" data-tooltip="Ubicacion del Cliente" data-position="bottom" id="tc-u" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"><i class="mdi mdi-24px mdi-map-marker  mdi-24px"></i></a>
-        <input type="hidden" id="vdireccion" readonly>
-
-        <a href="#" data-activates="slide-tc" data-num="1" id="slideTelefono" class="mdi mdi-24px mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Teléfonos del Cliente" data-position="bottom" id="tc-t" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"></a>
-        <input type="hidden" id="vtelefono" readonly>
-
-        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show tooltipped black-text" data-tooltip="Correos del Cliente" data-position="bottom" id="tc-c" slide-id="0" slide-tbl="2" asave="0" style="padding-right: 20px"><i class="mdi mdi-24px mdi-email  mdi-24px"></i></a>
-        <input type="hidden" id="vcorreo" readonly>
-
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="input-field col s6">
-        <input type="text" id="c-ced" maxlength="12" class="buscarNom" autocomplete="off">
-        <label for="c-ced">Cédula</label>
-      </div>
-
-      <div class="input-field col s6 hide c-stp1 c-stp2 c-st">
-        <input type="text" id="c-nom" readonly>
-        <label for="c-nom"></label>
-        <input type="hidden" id="c-tp">
-      </div>
-
-      <div class="input-field col s6 hide c-stp1 c-st">
-        <input type="text" id="c-ap1" readonly>
-        <label for="c-ap1">Apellido 1</label>
-      </div>
-
-      <div class="input-field col s6 hide c-stp1 c-st">
-        <input type="text" id="c-ap2" readonly>
-        <label for="c-ap2">Apellido 2</label>
-      </div>
-    </div>
-    
-  </div>
-  <div class="modal-footer">
-      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-      <a class="modal-action waves-effect waves-green btn-flat" id="addclie">Agregar</a>
-  </div>
-</div>
-{/if}
 
 <div class="modal modal-fixed-footer" id="modal-rutasg" style="height: 50%; width: 50%">
     <div class="modal-header head3 center" style="font-size: 22px;">Rutas</div>
@@ -388,3 +322,13 @@
         <a class="modal-action doflujo waves-effect waves-green btn-flat">Aceptar</a>
     </div>
   </div>
+
+<div id="modal-mensajes" class="modal modal-fixed-footer mymodal">
+  <div class="modal-content" >
+    <h4 class="center">Mensaje del Sistema</h4> 
+    <p id="msistem"></p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acptmsj">Aceptar</a>
+  </div>
+</div>

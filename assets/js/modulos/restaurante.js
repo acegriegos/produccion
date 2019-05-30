@@ -17,7 +17,7 @@ $(function(){
             
             $("#descp").autocomplete({
                 limit: 20,
-                data: arr('login',4,'',6,'"'+busqueda+'",7,@@impresa',0,0,0,1)
+                data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1)
             })
 
             $("#descp").siblings($(".autocomplete-content")).css('width','100%').css('position','absolute !important').css('bottom','100px');
@@ -177,7 +177,7 @@ $(function(){
         var idprod = cant = precio = imv = idimv = 0;
 
         if($(".ciclos").length){
-            var vdata = "\t   COMANDA\n\tOrden #"+idfactura+" - "+$("#tit").html()+"\n\nCANT \tPRODUCTOS"; //20 CARACTERES DE PRODUCTO
+            var vdata = "\t   COMANDA\n\tOrden #"+idfactura+"\n"+$("#tit").html()+"\n\nCANT \tPRODUCTOS"; //20 CARACTERES DE PRODUCTO
             var lcant = 0;
             var imprimir = 0;
             $(".ciclos").each(function(){
@@ -190,16 +190,16 @@ $(function(){
                 lcant = parseFloat(cant) - parseFloat($(this).attr('nuevo'));
                 if(lcant > 0){
                     imprimir = 1;
-                    vdata += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim().substr(0,20).padEnd(20,' ');
+                    vdata += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
                 }
                 $(this).attr('nuevo',cant);
             });
-            vdata += '\n\n\n\n\n\n\n\n\n ';
+            vdata += '\n\n'+$("#comentario").val()+'\n\n\n\n\n\n--------';
 
             Materialize.toast('Orden Editada Corectamente',4000,'green');
             
-            /*if(imprimir)
-            mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);*/
+            if(imprimir)
+            mantenimiento('login',12,{data:vdata,ip:"192.168.1.3"},1)
         }else{
             Materialize.toast('No Hay Productos que Ingresar',4000,'red');
             $("#detfactmsj").show();
@@ -707,9 +707,9 @@ function endDetail(vid,vacc,vmodulo) {
         $(this).attr('nuevo',cant);
     });
 
-    vdata += '\n\n\n\n\n\n\n\n\n ';
+    vdata += '\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n';
 
-    //mantenimiento('login',12,{data:vdata,ip:"192.168.31.133"},1);
+    mantenimiento('login',12,{data:vdata,ip:"192.168.1.3"},1);
     actualizar(800,'idtipoocupado=2','id='+mesa);
     $("#saveOrder").removeClass('add');
     $("#saveOrder").addClass('saveOrder');

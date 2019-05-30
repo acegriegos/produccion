@@ -1,5 +1,9 @@
 $(function(){
     
+    $("#bsse1").click(function(){
+        return false;
+    });
+
     $("#movil").click(function(){
         $("#cpu").click()
     });
@@ -173,7 +177,7 @@ function sse_response(vid,p) {
                 location.reload();
             if (p[0][0][0] != 0) {
                 $(".sse_cnt").removeClass('hide');
-                $("#bsse1").html(p[0][0][0]);
+                $(".sse_cnt").html(p[0][0][0]);
             }else{
                 $(".sse_cnt").addClass('hide');
             }

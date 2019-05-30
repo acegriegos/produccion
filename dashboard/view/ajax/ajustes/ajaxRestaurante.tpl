@@ -105,8 +105,18 @@
             <label for="ipcomanda">IP</label>
         </div>
 
-        <label>Familias para Comanda</label>
-        <div class="chips chips-initial" id="litreg"></div>
+        <div class="col">
+            <select id="sfam">
+                <option disabled selected value="0">Familia</option>
+
+            </select>    
+        </div>
+
+        <div class="col s8">
+            <label>Familias para Comanda</label>
+            <div class="chips chips-initial" id="litreg"></div>
+        </div>
+        
     </div>
 </li>
 <li>
@@ -124,7 +134,17 @@
                 </select>   
             </div>
             
-           
+           <div class="col s2">
+                <label>Sercicio de Mesero:</label>    
+            </div>
+            <div class="col s4">
+                <select id="vinventario">
+                    <option value="0" disabled>Seleccione un Servicio</option>
+                    <!-- {section name=LE loop=$INV}
+                    <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                    {/section} -->
+                </select>   
+            </div>
        </div>
     </div>
 </li>

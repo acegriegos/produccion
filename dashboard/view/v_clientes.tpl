@@ -73,25 +73,20 @@
           <br>
           <br>
         </div>
+<section id="fclientes">
         <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 100%; width: 75%">
           <div class="modal-header">
-            <ul class="tabs tabs-fixed-width head3">
-              <li class="tab col s3"><a class="active white-text" href="#info" id="ln1">Información</a></li>
-              <li class="tab col s3"><a href="#fina" class="white-text {if $smarty.session.BUSS eq 5} hide {/if}" id="ln2">Financiero</a></li>
-              <li class="tab col s3"><a href="#logis" class="white-text" id="ln3">Logística</a></li>
-              <li class="tab col s3 hide"><a href="#exo" class="white-text" id="ln4">Impuestos</a></li>
-              <li class="tab col s3 hide"><a href="#ser" class="white-text" id="ln5">Servicios</a></li>
-              <li class="tab col s3 hide"><i class="mdi mdi-account-card-details btn-expand pbtn white-text tooltipped" estado="1" data-tooltip="Tarjeta de datos"></i></li>
+            <ul class="tabs tabs-fixed-width head3 center">
+              <h5 class="center">Datos Informativos</h5>
             </ul>
             </div>
             <div class="modal-content " style="padding: 0px;">
-              <div id="fclientes">
                 <input type="hidden" class="zelda">
                 <div class="row">
                   <br>
-                  <div class="col s12 m8 l9">
+                  <div class="col s12">
                     <div class="row parte1 col s12" id="info">
-                      <div class="row {if $smarty.session.BUSS eq 5} hide {/if}" style="margin: 0px">
+                      <div class="row" style="margin: 0px">
                         <div class="col s6 m3 l2">
                           <p>
                             <input class="with-gap" name="tipoclie" type="radio" id="cfisico" tipoClie="1" checked="checked" principal="1"/>
@@ -119,7 +114,6 @@
                         <input type="hidden" id="vidtipocliente" value="1">
                       </div>
                       <br>
-                      <div class="card-title pequeño" id="titInfo" align="center"><b>Datos Personales</b></div><br>
                       <div class="row ">
                         <div class="input-field col s12 m6 l4 pequeño">
                           <label id="nomClie" for="vnombre">Nombre</label>
@@ -140,298 +134,197 @@
                           <label for="vcedula">Cédula del Cliente</label>
                           <input type="text" class="validate onblur" id="vcedula" autocomplete="off">
                         </div>
-                        <div class="input-field col s12 m6 l4 hide">
+                        <div class="input-field col s12 m6 l4">
                           <label for="vcodigo">Código del Cliente</label>
                           <input type="text" class="validate onblur" id="vcodigo" autocomplete="off">
                         </div>
-                        <div class="input-field col s12 m6 col l4 hide vweb">
-                          <label for="vweb">Web</label>
-                          <input type="text" class="validate onblur" id="vweb" placeholder="www.webempresa.com" autocomplete="off">
+                        <div class="input-field col s12 m6 l4">
+                          <label for="vweb">Nombre Fantasía</label>
+                          <input type="text" class="validate onblur" id="vweb" autocomplete="off">
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="input-field col s12 m12 l4">
-                          <div>
-                            <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
-                            <input type="email" class="validate" id="correo_in" autocomplete="off">
-                            <input type="hidden" id="vcorreo" fill="18"  tbl="2">
-                            <label for="correo_in">Ingresar Correo</label>
-                          <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
+
+                        <div class="input-field col s12 m6 l4">
+
+                          <select type="select" id="vidmoneda" noClear="1">
+                            {section name=LE loop=$MON}
+                              <option value="{$MON[LE][0]}">{$MON[LE][1]}</option>
+                            {/section}
+                          </select>
+                          <label for="vidmoneda">Moneda</label>
                         </div>
-                      </div>
-                      <div class="col s12 m7 l8"  style="background: transparent;">
-                        <div class="ciclos">
-                          <div class="row ">
-                            <!-- <div class="col s6 m3 input-field">
-                              <div class="prefix"><i class="mdi-phone mdi mdi-24px"></i></div>
-                              <input type="text" id="pais" class="autocomplete">
-                              <input type="hidden" id="vidpais" value="52">
-                              <label for="pais">País</label>
-                            </div> -->
-                            <div class="input-field col s6 m4">
-                              <!-- <div class="prefix"><i class="fa fa-phone"></i></div> -->
-                              <select type="select" id="tptel">
-                                <option value="" disabled selected>Seleccione Tipo de Tel.</option>
-                                {section name=LE loop=$TPTEL}
-                                <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
-                                {/section}
-                              </select>
-                              <label for="tptel">Tipo Teléfono</label>
-                              <input type="hidden" id="htipo">
-                            </div>
-                            <div class="input-field col s6 m5">
-                              <input type="text" class="validate" id="telefono_in" data-mask="9999-9999" autocomplete="off">
-                              <input type="hidden" id="vtelefono" fill="19" tbl="2">
-                              <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
-                            <ul class="collection" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="4" style="border: 0;"></ul>
-                          </div>
+                          
+                        <div class="input-field col s12 m6 l4">
+                          <select type="select" id="vidagente"> 
+                          <option value="0">Seleccione un Agente</option>
+                          {section name=LE loop=$AGE}
+                            <option value="{$AGE[LE][0]}">{$AGE[LE][1]}</option>
+                          {/section}                   
+                          </select>
+                          <label for="vidagente">Agente</label>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="fina" class="col s12">
-                  <div class="row"><br>
-                    <div class="input-field col s12 m6 l6 {if $smarty.session.BUSS eq 1} hide {/if}">
-                      <select type="select" id="vidnivel">
-                        <option value="0">Seleccione una Categoría</option>
-                        {section name=LE loop=$NVLCLIE}
-                        <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
-                        {/section}
-                      </select>
-                      <label for="vidnivel">Categoría del Cliente</label>
-                    </div>
-                    <div class="col s12 m6 l6">
-                      <div class="switch" align="center">
-                        <label>
-                          Contado
-                          <input type="checkbox" tp="1" name="tipocliente" id="tipocliente">
-                          <span class="lever"></span>
-                          Crédito
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row {if $smarty.session.BUSS eq 1} hide {/if}">
-                    <div class="input-field col s12 m6 l6">
-                      <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
-                      <input type="number" class="eder center" id="vdescuentom" value="0">
-                      <label for="vdescuentom">Descuento Máximo</label>
-                    </div>
-                  </div>
-                  <div class="row cre" style="display: none;">
-                    <div class="input-field col s12 m6 l6">
-                      <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
-                      <label for="vplazo">Plazo en Días</label>
-                      <input type="number" class="eder" id="vplazo">
-                    </div>
-                    <div class="input-field col s12 m6 l6">
-                      <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
-                      <label for="vcredito">Crédito del Cliente</label>
-                      <input type="number" class="eder" id="vcredito">
-                    </div>
-                  </div>
-                  <div vtabla="defectocuenta" id="fdefectocuentas" hasTabla="1" tp="3" class="hide">
-                    <div class="ciclos {if $smarty.session.BUSS eq 1} hide {/if}">
-                      <input type="hidden" id="videstadocontable" value="1">
-                      <input type="hidden" id="vidcuenta" value="">
-                      <div class="row">
-                        <div class="col s12 m6 l6 pequeño">
-                          <div class="card-title"><b> Cuentas Contado </b></div>
-                          <div class="pequeño" id="ctacontado">
-                          </div>
+
+                        <div class="input-field col s12 m6 l4 {if $smarty.session.BUSS eq 1} hide {/if}">
+                          <select type="select" id="vidnivel">
+                            <option value="0">Seleccione una Categoría</option>
+                            {section name=LE loop=$NVLCLIE}
+                            <option value="{$NVLCLIE[LE][0]}">{$NVLCLIE[LE][1]}</option>
+                            {/section}
+                          </select>
+                          <label for="vidnivel">Categoría del Cliente</label>
                         </div>
-                        <div class="col s12 m6 cre pequeño" style="display: none;">
-                          <div class="card-title pequeño"><b> Cuentas Crédito </b></div>
-                          <div class="pequeño" id="ctacredito">
-                          </div>
+
+                        <div class="input-field col s12">
+                          <input type="text" id="vmensaje">
+                          <label for="vmensaje">Mensaje Adicional</label>
                         </div>
+
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="logis" class="col s12">
-                  <div>
-                    <div vtabla="ubicacione" id="fubicaciones" hasTabla="1" tp="3">
-                      <div class="ciclos">
-                        <div class="card-title" align="center"><b>Direcciones</b></div>
-                        <input type="hidden" id="vbisnacional" value="1">
-                        <input type="hidden" id="vidubicacion" value="0">
-                        <div class="row"><br>
-                          <div class=" col s6">
-                            <div class="provincia input-field">
-                              <a class="btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Provincia" href="#!" style="width: 2.5rem" det="provincia" d-b="8" prev="" sig="vidcanton"><i class="mdi mdi-plus mdi-24px"></i></a>
-                              <select id="vidprovincia" type="select" class="_det" primary="1">
-                                <option value="0">Seleccione una Provincia</option>
-                                {section name=LE loop=$PRO}
-                                <option value="{$PRO[LE][0]}">{$PRO[LE][1]}</option>
-                                {/section}
-                              </select>
-                              <label for="vidprovincia">Provincia</label>
-                            </div>
-                          </div>
-                          <div class="col s6">
-                            <div class="canton input-field">
-                              <a class="btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Cantón" href="#!" style="width: 2.5rem" det="canton" d-b="9" prev="vidprovincia" sig="viddistrito"><i class="mdi mdi-plus mdi-24px"></i></a>
-                              <select id="vidcanton" type="select" class="_det">
-                                <option value="">Seleccione un Cantón</option>
-                              </select>
-                              <label for="vidcanton">Cantón</label>
-                            </div>
-                          </div>
-                          <div class="col s6">
-                            <div class="distrito input-field ">
-                              <a class="btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Distrito" href="#!" style="width: 2.5rem" det="distrito" d-b="10" prev="vidcanton" sig="vidbarrio"><i class="mdi mdi-plus mdi-24px"></i></a>
-                              <select id="viddistrito" type="select" class="_det">
-                                <option value="">Seleccione un Distrito</option>
-                              </select>
-                              <label for="viddistrito">Distrito</label>
-                            </div>
-                          </div>
-                          <div class="col s6">
-                            <div class="distrito input-field ">
-                              <a class="btn-floating btn2 tooltipped hide" data-position="button" data-tooltip="Ingresar Barrio" href="#!" style="width: 2.5rem" det="barrio" d-b="84" prev="viddistrito" sig=""><i class="mdi mdi-plus mdi-24px"></i></a>
-                              <select id="vidbarrio" type="select" class="_det">
-                                <option value="">Seleccione un Barrio</option>
-                              </select>
-                              <label for="vidbarrio">Barrio</label>
-                            </div>
-                          </div>
-                          <div class="input-field col s12">
-                            <label for="vdireccion">Dirección Exacta</label>
-                            <textarea type="textarea" id="vdireccion" class="materialize-textarea" length="100"></textarea>
-                          </div>
-                        </div>
-                        <div class="row hide">
-                          <div class="input-field col s12 hide-on-med-and-up">
-                            <div class="prefix"><i class="mdi mdi-map-marker"></i></div>
-                            <label for="vlatitud">Latitud</label>
-                            <input type="text" class="eder" id="vlatitud">
-                          </div>
-                          <div class="input-field col s12 hide-on-med-and-up">
-                            <div class="prefix"><i class="mdi mdi-map-marker"></i></div>
-                            <label for="vlongitud">Longitud</label>
-                            <input type="text" class="eder" id="vlongitud">
-                          </div>
-                        </div>
+
+                      <h6><b>Más Opciones</b></h6>
+                      <div class="row center">
+
+
+                        <a href="#" data-activates="slide-tc" data-num="1" class="col s1 mdi mdi-phone tooltipped mdi-24px button-collapse tc-show  black-text" data-tooltip="Administrar Teléfonos del Cliente" data-position="bottom" id="slideTelefono" hasTabla="1" tp="6" vtabla="telefono" slide-id="0" slide-tbl="2" asave="0"></a>
+                        <input type="hidden" id="vtelefono">
+                        
+                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="col s1 button-collapse tc-show tooltipped black-text" data-tooltip="Administrar Correos del Cliente" data-position="bottom" hasTabla="1" tp="6" vtabla="correo" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-email  mdi-24px"></i></a>
+
+                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="col s1 button-collapse tooltipped tc-show black-text" data-tooltip="Administrar Ubicacion del Cliente" data-position="bottom" hasTabla="1" tp="6" vtabla="ubicacione" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
+
+                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" data-tooltip="Administrar Finanzas del Cliente" slide-id="0" data-position="bottom" num="1"><i class="mdi mdi-square-inc-cash mdi-24px"></i></a>
+
+                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Exoneración del Cliente" data-position="bottom" num="2"><i class="mdi mdi-clipboard-text mdi-24px"></i></a>
+
+                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar XML Otros del Cliente" data-position="bottom" num="3"><i class="mdi mdi-file-xml mdi-24px"></i></a>
+
+                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Contactos del Cliente" data-position="bottom" num="4"><i class="mdi mdi-account-multiple mdi-24px"></i></a>
+
                       </div>
-                    </div>
-                  </div>
                 </div>
-                <div id="exo" class="col s12">
-                  <div class="row">
-                    <div class="card-title" align="center"><b>Impuestos</b></div>
-                    <div class="input-field col s12 m12 l6 hide">
-                      <select id="sel_impuestos" type="select">
-                        <option value="" disabled selected>Ingrese un Impuesto</option>
-                        {section name=LE loop=$IMP}
-                        <option value="{$IMP[LE][0]}" tmp="{$IMP[LE][2]}">{$IMP[LE][1]} - {$IMP[LE][3]}%</option>
-                        {/section}
-                      </select>
-                    </div>
-                    <div class="col s12 m12 l6">
-                      <div>
-                        <ul class="collection" id="showimpuestos">
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="ser" class="col s12">
-                  <div class="row">
-                    <div class="card-title" align="center"><b>Servicios Enlazados</b></div>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="col s12 m4 l3 {if $smarty.session.BUSS eq 5} hide {/if}">
-                <div class="input-field">
-
-                  <select type="select" id="vidmoneda" noClear="1">
-                    {section name=LE loop=$MON}
-                      <option value="{$MON[LE][0]}">{$MON[LE][1]}</option>
-                    {/section}
-                  </select>
-                  <label for="vidmoneda"></label>
-                </div>
-                
-                <div class="input-field">
-                  <select type="select" id="vidagente"> 
-                  <option value="0">Seleccione un Agente</option>
-                  {section name=LE loop=$AGE}
-                    <option value="{$AGE[LE][0]}">{$AGE[LE][1]}</option>
-                  {/section}                   
-                  </select>
-                  <label for="vidagente"></label>
-                </div>
-
-              </div>
-
-              <div class="col s12 m4 l3 expand-2 hide-on-small-only hide">
-                <div class="row" style="background: #DEDEDE"><br>
-                  <div class="row hide">
-                    <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-left mdi-24px"></i></div>
-                    <div class="s9 m9 l9 col" align="center">&nbsp;</div>
-                    <div class="s1 m1 l1 col pbtn"><i class="mdi mdi-chevron-right mdi-24px"></i></div>
-                  </div>
-                  <div class="s12 m12 l12 col" align="center">
-                    <h5><b><span id="infvnombre0"><span class="placeh">Nombre Cliente</span></span> <span id="infvapellido0">&nbsp;</span> <span id="infvapellido1">&nbsp;</span></b></h5>
-                  </div>
-                  <div class="s4 m4 l4 col" align="center">
-                    <table>
-                      <tr><td style="font-size: 0.8em"><b>Cédula</b></td></tr>
-                      <tr class="icorr"><td style="font-size: 0.8em"><b>Correo</b></td></tr>
-                      <tr class="iphone"><td style="font-size: 0.8em"><b>Teléfono</b></td></tr>
-                      <!-- <tr><td style="font-size: 0.8em"><b>Código</b></td></tr> -->
-                      <tr><td style="font-size: 0.8em"><b>Web</b></td></tr>
-                      <tr><td style="font-size: 0.8em"><b>Provincia</b></td></tr>
-                      <tr><td style="font-size: 0.8em"><b>Cantón</b></td></tr>
-                      <tr><td style="font-size: 0.8em"><b>Distrito</b></td></tr>
-                      <tr><td style="font-size: 0.8em"><b>Barrio</b></td></tr>
-                      <tr><td style="font-size: 0.8em"><b>Direccion</b></td></tr><tr><td style="font-size: 0.8em"><b>Estado</b></td></tr>
-                    </table>
-                  </div>
-
-                  <div class="s8 m8 l8 col" align="center">
-                    <table>
-                      <tr><td style="font-size: 0.8em"><span id="infcedula1"><span class="placeh"></span></span></td></tr>
-                      <tr class="icorr">
-                        <td style="padding: 0 !important; font-size: 0.8em">
-                          <div id="infcorreo2">
-                            <div class="placeh chip chpcr"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="iphone"><td style="padding: 0 !important; font-size: 0.8em"><div id="inftelefono4"><div class="placeh chip chpph"></div></div></td></tr>
-                      <!-- <tr><td style="font-size: 0.8em"><span id="infcodigo6"><span class="placeh">COD01</span></span></td></tr> -->
-                      <tr><td style="font-size: 0.8em"><span id="infweb7"><span class="placeh">www.example.com</span></span></td></tr>
-                      <tr><td style="font-size: 0.8em"><span id="infprovincia8"><span class="placeh">Provincia</span></span></td></tr>
-                      <tr><td style="font-size: 0.8em"><span id="infcanton9"><span class="placeh">Cantón</span></span></td></tr>
-                      <tr><td style="font-size: 0.8em"><span id="infdistrito10"><span class="placeh">Distrito</span></span></td></tr>
-                      <tr><td style="font-size: 0.8em"><span id="infbarrio12"><span class="placeh">Barrio</span></span></td></tr>
-                      <tr><td style="font-size: 0.8em"><span id="infdireccion11"><span class="placeh">Dirección</span></span></td></tr>
-                    </tr>
-                    <tr><td style="font-size: 0.8em"><select id="videstado" type="select">
-                      <!-- <option value="" disabled selected>Seleccione un Estado</option> -->
-                      {section name=LE loop=$ESTCLIE}
-                      <option value="{$ESTCLIE[LE][0]}">{$ESTCLIE[LE][1]}</option>
-                      {/section}
-                    </select></td></tr>
-                  </table>
-                </div>
-
-              </div>
-            </div>
           </div>
         </div>
-      </div>
       <div class="modal-footer">
         <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
         <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" modulo="cliente" varias="1" >Guardar</button>
       </div>
     </div>
   </div>
+
+    <ul id="slide-cliente" class="side-nav" style="z-index:1500;"><li><div class="user-view center"><span class="ntitc"></span></a></div></li><li><div class="divider"></div></li><li>
+
+          <div class="subclie row" id="financiero">
+            <div class="col s12">
+                <div class="switch" align="center">
+                  <label>
+                    Contado
+                    <input type="checkbox" tp="1" name="tipocliente" id="tipocliente">
+                    <span class="lever"></span>
+                    Crédito
+                  </label>
+                </div>
+            </div>
+
+            <div class="input-field col s12">
+              <div class="prefix"><i class="mdi-calendar mdi mdi-24px"></i></div>
+              <input type="number" class="eder center" id="vdproforma" value="0" autocomplete="off">
+              <label for="vdproforma">Días Validez Proforma</label>
+            </div>
+           
+            <div class="input-field col s12 {if $smarty.session.BUSS eq 1} hide {/if}">
+              <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
+              <input type="number" class="eder center" id="vdescuentom" value="0" autocomplete="off">
+              <label for="vdescuentom">Descuento Máximo</label>
+            </div>
+
+            <div class="input-field col s12 cre hide">
+              <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
+              <label for="vplazo">Plazo en Días</label>
+              <input type="number" class="eder" id="vplazo" value="0" autocomplete="off">
+            </div>
+            <div class="input-field col s12 cre hide">
+              <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
+              <label for="vcredito">Crédito del Cliente</label>
+              <input type="number" class="eder" id="vcredito" value="0" autocomplete="off">
+            </div>
+
+          </div>
+
+          <div class="subclie row" id="xmlotros">
+            <div class="input-field col s5">
+              <input type="text" class="eder" id="xo-etiqueta">
+              <label for="xo-etiqueta">Etiqueta</label>
+            </div>
+
+            <div class="input-field col s5">
+              <input type="text" class="eder" id="xo-valor">
+              <label for="xo-valor">Valor</label>
+            </div>
+
+            <div class="col s2">
+              <i class="mdi mdi-plus mdi-24px" id="addxo"></i>
+            </div>
+            
+
+            <table>
+              <thead>
+                <tr>
+                  <td>ETIQUETA</td>
+                  <td>VALOR</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody id="xo-lista"></tbody>
+            </table>
+
+          </div>
+
+          <div class="subclie row" id="exoneracion">
+            <div class="col s12 input-field">
+                  <select id="vtipodoc" class="validate tooltiped" type="select">
+                    <option value="0" class="disabled">Seleccione una Opción</option>
+                    {section name=LE loop=$EXOS}
+                    <option value="{$EXOS[LE][0]}">{$EXOS[LE][1]}</option>
+                    {/section}
+                  </select>
+                </div>
+
+                <div class="col s12 input-field">
+                  <input type="text" id="vnumdoc" maxlength="17" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off">
+                  <label for="vnumdoc">Número de Documento</label>
+                </div>
+
+                <div class="col s12 input-field">
+                  <input type="text" id="ventidad" maxlength="100" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off">
+                  <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
+                </div>
+
+                  <div class="col s12 input-field" >
+                    <span class="prefix mdi mdi-24px mdi-calendar"></span>
+                    <input type="date" id="vfechaDoc" class="validate tooltiped">
+                  </div>
+
+                  <div class="col s12 input-field">
+                    <span class="prefix mdi mdi-24px mdi-clock"></span>
+                    <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
+                  </div>
+
+                <div class="col s12 input-field">
+                  <input type="text" id="vmontoexo" data-position="bottom" data-tooltip="Monto del impuesto exonerado o autorizado sin impuestos" class="validate tooltiped eder" value="0.00" isnumeric="1" autocomplete="off">
+                  <label for="vmontoexo">Monto del Impuesto Exonerado</label>
+                </div>
+
+                <div class="col s12 input-field">
+                  <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off">
+                  <label for="vporcompra">Porcentaje de Compra</label>
+                </div>
+
+          </div>
+
+          <div class="subclie row" id="contactos">
+          </div>
+
+          <a class="btn btn-default" id="eslidec" style="bottom:42px;position:absolute;">Salir</a></li></ul>
+</section>
 </div>
 </div>
 <div id="modal-addvehiculos" class="modal modal-fixed-footer">
@@ -503,6 +396,7 @@
 <a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
 </div>
 </div>
+
 {$SCR}
 <script src="../assets/js/modulos/clientes.js?v=10.0.1.23"></script>
 </body>

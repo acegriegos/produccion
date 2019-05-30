@@ -14,7 +14,7 @@
            <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem='0,"1&7&6"' sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
 
       <!-- HEADER -->
-
+    <input type="hidden" id="vdetalle" value="1" change="2">
     <div class="row header">
       <div class="col s4 m4 l4">
         {if $MIS[3]}

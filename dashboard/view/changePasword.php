@@ -48,8 +48,11 @@
                 Materialize.toast('Cambio de Contraseña Realizado Correctamente, Redireccionando...',5000,'green');
 
                 var fecha = new Date();
-                var msj = '<div align="center"><b>Sistema BMS de Logintech S.A</b></div><hr><b>Nombre del Usuario: </b>'+param2+'<br><b>Usuario: </b>'+param+'<br><b>Contraseña del Usuario: </b>'+$("#mynPss").val()+'<br>Hora del Cambio: '+fecha.getDate()+'/'+fecha.getMonth()+'/'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds()+'<br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
-
+                var msj = '<div align="center"><b>Sistemas APSY</b></div><hr><b>Nombre del Usuario: </b>'+param2+'<br><b>Usuario: </b>'+param+'<br><b>Contraseña del Usuario: </b>'+$("#mynPss").val()+'<br>Hora del Cambio: '+fecha.getDate()+'/'+fecha.getMonth()+'/'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds()+'<br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
+                 var user = getCookie('userAPSY');
+                if (user.length) 
+                    setCookie('pwd',$("#mynPss").val(),365*24*60*60*1000)
+                
                 setTimeout(function(){ window.location.replace('../') }, 3000);
             }
         });

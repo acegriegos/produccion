@@ -23,7 +23,7 @@
             <div class="row">
             <div class="col s6  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf1" {if $TF eq 1}checked{/if}/>
-                <label for="tf1">Ventas</label>
+                <label for="tf1">Facturas</label>
             </div>
             
             <div class="col s6  m2">
@@ -49,7 +49,27 @@
              <div class="col s6  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf4" {if $TF eq 4}checked{/if}/>
                 <label for="tf4">Proformas</label>
-            </div>     
+            </div>
+
+            <div class="col s6  m2 hide">
+                <input name="tventa" class="with-gap" type="radio" id="tf8" {if $TF eq 8}checked{/if}/>
+                <label for="tf8">Especiales</label>
+            </div>
+
+            <div class="col s6 m2">
+                <input name="tventa" class="with-gap" type="radio" id="tf9" {if $TF eq 9}checked{/if}/>
+                <label for="tf9">FE Compra</label>
+            </div>
+
+            <div class="col s6 m2">
+                <input name="tventa" class="with-gap" type="radio" id="tf10" {if $TF eq 10}checked{/if}/>
+                <label for="tf10">Exportación</label>
+            </div> 
+
+            <div class="col s6 m2">
+                <input name="tventa" class="with-gap" type="radio" id="tf101" {if $TF eq 101}checked{/if}/>
+                <label for="tf101">Pago por Adelanto</label>
+            </div>         
                 
             </div>
 
@@ -82,32 +102,17 @@
                         <thead class="tab1">
                             <tr>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Factura</th>
-                                <th class="white-text" rm="1" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Referencia</th>
-                                <th class="white-text" rm="2" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Tipo</th>
+                                <th class="white-text tr trCompra" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Referencia</th>
+                                <th class="white-text tr trCompra trVenta trCot" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Tipo</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Fecha</th>
-                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cliente</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%"><span id="tclie"></span></th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Total</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Comentario</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listafacturas" class="tpag">
-                            {section name=LE loop=$FACT}
-                            <tr>
-                                <td style="width: 10%">{$FACT[LE][1]}</td>
-                                <td style="width: 10%" rm="1">{$FACT[LE][2]}</td>
-                                <td style="width: 10%" rm="2">{$FACT[LE][4]}</td>
-                                <td style="width: 10%">{$FACT[LE][5]}</td>
-                                <td style="width: 10%">{$FACT[LE][6]}</td>
-                                <td style="width: 10%">{$FACT[LE][7]}</td>
-                                <td style="width: 10%">{$FACT[LE][8]}</td>
-                                <td style="width: 10%">
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-printer print blueh tooltipped" id="a{$FACT[LE][0]}" tv="{$FACT[LE][9]}" data-tooltip="Visualizar Factura" data-position="bottom"></a>
-
-                                    <a class="btn-color pbtn mdi mdi-24px mdi-settings process blueh hide modal-trigger waves-effect waves-light" id="b{$FACT[LE][0]}" href="#modal-process" data-position="bottom" data-tooltip="Procesar Factura" rm="3"></a>
-                                </td>
-                            </tr>
-                            {/section}
+                            
                         </tbody>
                         <!-- <tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody> -->
                     </table>

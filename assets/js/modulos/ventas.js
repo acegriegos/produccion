@@ -204,7 +204,7 @@ $(function(){
         var comision = parseFloat($("#vcuotainicial").val().replace(/,/g,''));
         var comision_ = parseInt($("#vcuotainicial").parent().find('.por-num').attr('tipo')) == 1 ? monto*(comision/100) : comision;
         monto = parseInt($("#vcuotainicial").parent().find('.por-num').attr('tipo')) == 1 ? monto*(1-(comision/100)) : monto-comision;
-        console.log(comision)
+
         var cuota_mes = monto*( (interes_mes*Math.pow((1+interes_mes),periodo)) / ((Math.pow((1+interes_mes),periodo))-1) );
         $("#t-efectiva").html(tasaefectiva)
         $("#c-mes").html(cuota_mes.formatMoney(2,'.',','));
@@ -391,6 +391,13 @@ $(function(){
 
     if (parseInt(config[23] == 1))
         $("#special").removeClass('hide');
+
+    if($("#impm:visible").length){
+        $("#codp").val('S-500').blur();
+        var e = jQuery.Event("keyup");
+            e.which = 13;
+            $("#cantp").focus().trigger(e);
+    }
     
 })//READY
 
@@ -556,7 +563,6 @@ $("#mstrcrr").click(function(){
     });
     
     str_correos = str_correos.substr(0,str_correos.length-1)
-    console.log(str_correos);
 });
 
 $("#crrclie").click(function(){
@@ -1105,7 +1111,10 @@ function totalizar(){
                     
                     if (parseInt(config[16])) {
                         $("#tota"+vidlinea).html((parseFloat($("#tota"+vidlinea).html().replace(/,/g,''))+parseFloat(dimv)).formatMoney(2,'.',','))
-                        $("#fake"+vidlinea).html(((((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad))).formatMoney(2,'.',','))
+                        if($("#fake"+vidlinea).length)
+                            $("#fake"+vidlinea).html(((((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad))).formatMoney(2,'.',','))
+                        else
+                            $("#prec"+vidlinea).html(((((parseFloat(tmpdesc)+parseFloat(dimv))/cantidad))).formatMoney(2,'.',','))
                     }else{
                         $("#tota"+vidlinea).html((parseFloat($("#tota"+vidlinea).html().replace(/,/g,''))).formatMoney(2,'.',','))
                         $("#fake"+vidlinea).html((parseFloat(tmpdesc)/cantidad).formatMoney(2,'.',','))
@@ -1131,6 +1140,11 @@ function totalizar(){
         var retvalor = parseFloat($(this).attr('retpago'));
         //var retcant = parseFloat($(this).data('triforce')['cantidad']);
         var retid = $(this).attr('id').substr(2);
+        if($("#fake"+retid).length)
+            $("#fake"+retid).html(0)
+        else
+            $("#prec"+retid).html(0)
+    
         var ret = total*(retvalor/100);
         totd = totd + ret;
         exento = exento+ret;
@@ -1138,8 +1152,6 @@ function totalizar(){
 
         $(this).data('triforce')['vtotal'] = ret;
         $(this).data('triforce')['vprecio'] = ret;
-
-        $("#prec"+retid).html(ret.formatMoney(2,'.',','))
         $("#tota"+retid).html(ret.formatMoney(2,'.',','))
     });
     
@@ -1935,7 +1947,7 @@ function sendVMail(factura,clave,vid){
             enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,1,vid,64);
         }else{
 
-            if(parseInt($("[name=tipopago]:checked").val()) != 5){
+            if(parseInt($("[name=tipopago]:checked").val()) != 5){ //MIXTO
                 if (parseInt(idext) > 0) {
                     setTimeout(function(){window.close();},2000);
                 }else{
@@ -1985,14 +1997,16 @@ function sendVMail(factura,clave,vid){
 
 
 function makeArchivos(vfactura,vclave,vid,vsucursal,ntipo){
+    alert(vfactura);
+    alert(vclave);
     var archivos = '';
     var vtit = param == 1 ? 'Factura Electrónica' : ntipo;
-    mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:vtit,sel:'',tbl:72,where:vid},1);
+    mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vtit,sel:'',tbl:72,where:vid},1);
     if (vclave == vid || (param != 1 && param != 7))
         archivos = 'pdf/'+ntipo+' N°'+vfactura+', '+vsucursal+'.pdf';
     else{
         archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
-        mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
+        mantenimiento('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
     }
     return archivos;
 }

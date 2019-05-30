@@ -117,10 +117,10 @@
           $row++;
         }
 
-        /*if (sizeof($tsuma))
+        if (sizeof($tsuma))
           $objPHPExcel->setActiveSheetIndex(0)
                  ->setCellValue('A'.($row+1),'TOTAL(CRC)')
-                 ->getStyle('A'.($row+1))->applyFromArray($styleArray);*/
+                 ->getStyle('A'.($row+1))->applyFromArray($styleArray);
 
         $objPHPExcel->setActiveSheetIndex(0);
 

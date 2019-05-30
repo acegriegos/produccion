@@ -209,7 +209,7 @@
 
         $lpr = new PrintSendLPR();
         $lpr->setHost($_REQUEST['arreglo']['ip']); //192.168.31.153
-        $lpr->setData($_REQUEST['arreglo']['data']);//utf8_encode()
+        $lpr->setData(htmlspecialchars($_REQUEST['arreglo']['data']));//utf8_encode()
 
         $lpr->printJob("l2");
         break;

@@ -35,7 +35,7 @@ if($_POST['con_con']){
 
         $xml = $estado['xml'];
         file_put_contents($ubi."assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml", $xml);
-        array_push($_POST['adjunto'], $ubi."xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml");
+        array_push($_POST['adjunto'], "xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml");
 
         if (isset($_POST['idtabla'])) {
             $db = new DBClass();

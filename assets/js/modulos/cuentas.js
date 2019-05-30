@@ -246,8 +246,8 @@ $(document).on("click","#btnPagar",function(){
 		}
 		var vidmoneda = $("#monedas").val();
 		var divisa = $("#monedas option:selected").attr('dv');
-		var fechabol = $("#fecha").val();
-		var idpag = arr('login',4,'',268,'1,0,@@usr,@@impresa',0,0,0)[0][0][0];
+		var fechabol = $("#fecha").val();	
+	//var idpag = arr('login',4,'',268,'1,0,@@usr,@@impresa',0,0,0)[0][0][0];
 
 		if ($(".factclie:checked").length) {
 
@@ -258,12 +258,12 @@ $(document).on("click","#btnPagar",function(){
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
 					console.log(idestadocuenta)
 				}
 				else{
 					vmonto = val-monto*-1;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
 					console.log(idestadocuenta)
 					return false;
 				}	
@@ -276,11 +276,11 @@ $(document).on("click","#btnPagar",function(){
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
 				}
 				else{
 					vmonto = val-monto*-1;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+',0,'+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
 					return false;
 				}
 			});
@@ -300,7 +300,7 @@ $(document).on("click","#btnPagar",function(){
 		$("#idtipopagopagar").val(0).material_select('update');
 
 		var tp = $("#p_vm").is(":checked") == true ? 1 : 2;
-		window.open('cuentas?accion=5&id='+idpag+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+		window.open('cuentas?accion=5&id='+idestadocuenta[0][0][1]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 		
 	}else{
 		Materialize.toast(validado,4000,'red')

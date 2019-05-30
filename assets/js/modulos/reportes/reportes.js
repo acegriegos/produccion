@@ -244,7 +244,9 @@ $(document).on("click","#sndcrr",function(){
 
     for (var i = 0, len = datos.length; i < len; i++) {
 
-        if ($("#"+datos[i][0]).attr('str') != undefined) {
+        if($("#"+datos[i][0]).attr('change') != undefined){
+
+        if ($("#"+datos[i][0]).attr('str') == undefined) {
             if ($("#"+datos[i][0]).attr('type') == 'date') {
                 
                 if ( $("#"+datos[i][0]).val()=='' ){
@@ -265,6 +267,9 @@ $(document).on("click","#sndcrr",function(){
 
         if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
+        }else{
+            search[i] = $("#"+datos[i][0]).attr('change');
+        }
     }
 
     var string = elem.concat(search);
@@ -292,6 +297,8 @@ $(document).on("click",".excel",function(){
 
     for (var i = 0, len = datos.length; i < len; i++) {
 
+        if($("#"+datos[i][0]).attr('change') == undefined){
+
         if ($("#"+datos[i][0]).attr('str') != undefined) {
             if ($("#"+datos[i][0]).attr('type') == 'date') {
                 
@@ -313,6 +320,10 @@ $(document).on("click",".excel",function(){
 
         if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
+    
+        }else{
+            search[i] = $("#"+datos[i][0]).attr('change');
+        }
     }
 
     var string = elem.concat(search);

@@ -47,7 +47,7 @@
         $("#direccion_in").val($("#slideDireccion").data('direccion'));
         var barrio = $("#slideDireccion").data('idbarrio');
 
-        if (barrio != '') {
+        if (barrio != undefined) {
           var distrito = getDatos('iddistrito',84,'id = '+barrio,0,0,0)[0][0][0];
           var canton = getDatos('idcanton',10,'id = '+distrito,0,0,0)[0][0][0];
           var provincia = getDatos('idprovincia',9,'id = '+canton,0,0,0)[0][0][0];

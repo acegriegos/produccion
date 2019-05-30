@@ -269,7 +269,7 @@ $(document).on("click",".send",function(){
 
     if (str_correos != '') {
         var vbody = getDatos('',73,vid,0,0)[0][0];
-        var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
+        var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+parseInt($("input[name=tventa]:checked").attr('id').substr(2)),0,0)[0][0][0];
         archivos = makeArchivos(rclave,clave,vid,vbody[1],ntipo);
         enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,1,vid,64);
         Materialize.toast('Correo Enviado',4000,'green');
@@ -315,8 +315,8 @@ function makeArchivos(vfactura,vclave,vid,vsucursal,vestado){
     var archivos = '';
 
     archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
-    mantenimiento_async('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
-    mantenimiento_async('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
+    mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
+    mantenimiento('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
     
     return archivos;
 }

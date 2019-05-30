@@ -497,7 +497,7 @@
                     <b>Consecutivo: </b> <?php echo substr($det[0], 21,20); ?> <br>
                     <b>Estado: </b> <?php echo strtoupper($det[4]['estado']); ?> <br>
                     <?php if(isset($det[4]['rs'])){ ?><b>Mensaje: </b> <?php echo $det[4]['rs']; ?> <br> <?php } ?>
-                    <div id="dxml" style="display: none"><?php echo $det[4]['xml']; ?></div>
+                    <div id="dxml" style="display: none"><?php echo     $det[4]['xml']; ?></div>
                     <a href="#" class="btn bxml">Descargar Documento XML</a>
                 </div>
             </div>
@@ -1044,7 +1044,7 @@
                 case 202:
                 case 206:
                     foreach (json_decode($body) as $index => $key) {
-                        
+                        $salida[$index] = [];
                         $salida[$index]['numfact'] = substr($key->clave,21,20);
                         $fecha = strtotime(substr(str_replace('T', ' ',$key->fecha),0,-6));
                         $fecha = date('d/m/Y H:i:s',$fecha);

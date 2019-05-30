@@ -87,10 +87,10 @@
 
 <div class="row">
 
-<ul id="transacciones" class="side-nav side-nav-conta">
+<ul id="transacciones" class="side-nav side-nav-conta" style="width: 50%;">
 
 <div class="card-header center white-text" style="background-color:#0B3861; padding: 0.5%;">
-    <h3 class="flow-text">Detalle de Transacción</h3>
+    <h3 class="flow-text">Detalle de Asientos</h3>
 </div>
 
 <div class="card-content" style="padding: 2%;">

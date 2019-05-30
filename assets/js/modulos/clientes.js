@@ -1,5 +1,3 @@
-var cuentas = '<option value="0">Seleccione una Cuenta</option>';
-var ind_1 = ind_2 = 1;
 $(function(){
 	$('ul.tabs').tabs();
 	$('select').material_select();
@@ -14,21 +12,57 @@ $(function(){
 		bPaginate: false,
 		info: false
 	});
-	cuentas_arr = arr('login',4,'',33,'','',0,'');
-	
-	for (var i = 0; i < cuentas_arr[0].length; i++) {
-		cuentas += '<option value="'+cuentas_arr[0][i][3]+'">'+cuentas_arr[0][i][1]+'</option>';
-	}
 
-	$(".addcta").click(function(){
-		tp = $(this).attr('tp');
-		det = "ctacontado";
-		if(tp == 2)
-			det = "ctacredito";
-		$("# cuenta").val(1);
+	$(document).on("click",".s-cliente",function(){   
 
-		$("#"+det).append(getFila(0,'',0));
-	});
+		if ($("#slide-tc").length == 1)
+			$(".tc-show").sideNav('destroy');
+
+		var code = parseInt($(this).attr('num'));
+
+		$("#slide-cliente").attr('num',code);
+		$("#slide-cliente").attr('el',$(this).attr('id'));
+
+		$(".s-cliente").sideNav('destroy');
+
+		$(this).sideNav({
+		    menuWidth: 300,
+		    edge: 'right',
+		    closeOnClick: true,
+		    draggable: true,
+		    onOpen: function(){
+		        var titulo = cuerpo = '';
+		        $(".subclie").addClass('hide');
+		        switch(code){
+		            case 1: 
+		                titulo = 'Financiero';
+		                $("#financiero").removeClass('hide');
+		                break;
+		            case 2: 
+		                titulo = 'Exoneraciones';
+		                $("#exoneracion").removeClass('hide');
+		                break;
+		            case 3: 
+		                titulo = 'XML Otros';
+		                $("#xmlotros").removeClass('hide');
+		                break;
+		            case 4: 
+		                titulo = 'Contactos';
+		                $("#contactos").removeClass('hide');
+		                break;
+		            default:
+		                break;
+		        }
+
+		        $(".ntitc").html('<b>'+titulo+'</b>');
+		        
+		        Materialize.updateTextFields();
+		    }
+		});
+
+		$(this).sideNav('show');
+
+		});
 
 	$("#ingClie").click(function(){
 		$("#titModal").html('Agregar Cliente');
@@ -36,46 +70,17 @@ $(function(){
 		$("#agClie").removeClass('edit');
 		$("#agClie").addClass('add');
 
-		clearcard();
-		$("#telefono_in").focus(function(){
-		$(".iphone").css({"height": "100px", "transition": "0.5s ease"});
-		$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
-		$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
-});
-$("#telefono_in").blur(function(){
-	$(".iphone").css({"height": "50px", "transition": "0.5s ease"});
-});
 		deadclear('cliente');
+		$("[slide-id]").attr('slide-id',0);
+		$("#tipocliente").prop('checked',false).change();
 
-		$("#ln1").click();
-		$("#videstado").val(1);
-		$('#videstado').material_select('update');
-		// $("#vidpais").val(52);
-		ind_1 = 1;
-		$("#ftelefonos").html('');
-		$("#fcorreos").html('');
-		//obtenerCuentas(0);
-		//obtenerImpuestos(0);
-		if($("#tipocliente").attr("tp") != 1)
-			$("#tipocliente").click();
-
-	});
-
-	$("[id^=ln]").click(function(){
-		var id = $(this).attr('id').substr(2);
-		$(".ptr").hide()
-		$(".parte"+id).show()
-		$("[id^=ln]").removeClass('active')
-		$(this).addClass('active')
 	});
 
 	$("#tipocliente").change(function(){
-		if($(this).attr('tp') == 2){
-			$(".cre").hide();
-			$(this).attr('tp',1);
+		if($(this).is(":checked")){
+			$(".cre").removeClass('hide');
 		}else{
-			$(".cre").show();
-			$(this).attr('tp',2);
+			$(".cre").addClass('hide');
 		}
 	});
 
@@ -88,38 +93,6 @@ $("#telefono_in").blur(function(){
 	// 	$("#prefijo").html('('+$('option:selected',this).attr('cod')+')')
 	// });
 	
-
-	$("#correo_in").keyup(function(e){
-		var code = e.which || e.keyCode
-		if (code == 13) 
-			$(this).blur();
-	});
-
-	$("#correo_in").blur(function(){
-		var correo = $("#correo_in").val();
-		if (correo.length > 1) {
-			var idfila = $(this).attr('idfila');
-			crreo_addon_ckub(idfila,correo);
-		}
-		
-	});
-
-	$("#telefono_in").keyup(function(e){
-		var code = e.which || e.keyCode
-		if (code == 13) {
-			$(this).blur();
-		}
-	});
-
-	$("#telefono_in").blur(function(){
-		var telefono = $(this).val();
-		if (telefono.length > 1) {
-			var idfila = $(this).attr('idfila');
-			var htipo = $("#tptel").val();
-			phone_addon_ckub(idfila,telefono,htipo);
-		}
-		
-	});
 
 	$(".btn-expand").click(function(){
 		var estado = $(this).attr('estado');
@@ -152,8 +125,7 @@ $("#telefono_in").blur(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vidusuario:'',vidsucursal:'',_sid:'@@@',vmensaje:'',vcomision:0});
-	//vid:0,vidnivel:0,vdescuentom:0,vplazo:0,vcredito:0,vbisproveedor:1,vidcuenta:'',videstadocontable:1,
+	$(".zelda").data('triforce',{vid:0,videstado:1,vidcuenta:0,vbisnacional:1,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
 
 	var add = getParameterByName("add") //accesos
 	if (add) {
@@ -213,13 +185,6 @@ $(document).on("click",".chpcrr",function(){
 	$("#schp"+id).remove();
 	$("#ichp"+id).remove();
 });
-
-// $(document).on("click",".chpphone",function(){
-// 	var id = $(this).attr('id').substr(5);
-
-// 	$("#stchp"+id).remove();
-// 	$("#itchp"+id).remove();
-// });
 
 $("#vidprovincia").change(function(){
 	var prov = $("#vidprovincia option:selected").text();
@@ -288,42 +253,8 @@ $(document).on("click",".load",function(){
 	$("#agClie").removeClass('add');
 	$("#agClie").addClass('edit');
 
-	$("#ln1").click();
-	// obtenerCuentas($(this).attr('id').substr(1));
-	// obtenerImpuestos($(this).attr('id').substr(1));
+	$("[slide-id]").attr('slide-id',$(this).attr('id').substr(1));
 });
-
-// $(document).on("click","input[name='tipoclie']",function(){
-// 	var tipo = parseInt($(this).attr('tipoClie'));
-// 	$("#vidtipocliente").val(tipo);
-
-// 	switch(tipo){
-// 		case 1:
-// 		$("#titInfo").html('<b>Datos Personales<b/>');
-// 		$("#nomClie").html('Nombre');
-// 		$(".hid").show(300);
-// 		break;
-// 		case 3:
-// 		$("#titInfo").html('<b>Información Tributaria<b/>');
-// 		$("#nomClie").html('Razón Social');
-// 		$("#vapellido1").val('');
-// 		$("#vapellido2").val('');
-// 		$(".hid").css('display','none');
-// 		break;
-// 		case 4:
-// 		$("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
-// 		$("#nomClie").html('Nombre');
-// 		$(".hid").show(300);
-// 		break;
-// 		default:
-// 		$("#titInfo").html('<b>Información Jurídica<b/>');
-// 		$("#nomClie").html('Razón Social');
-// 		$("#vapellido1").val('');
-// 		$("#vapellido2").val('');
-// 		$(".hid").css('display','none');
-// 		break;
-// 	}
-// });
 
 $(document).on("click","#Iadd",function(){
 	deadclear('clientes')
@@ -361,7 +292,8 @@ function validar (varreglo,vmodulo) {
 	var salida = {}
 	
 	/*VALIDACION FRONT END*/
-	
+	var vform = "f"+vmodulo['modulo']+"s";
+
 	switch(vmodulo['modulo']) {
 		case 'cliente':
 		if (vmodulo['tip'] == '') {
@@ -380,20 +312,24 @@ function validar (varreglo,vmodulo) {
 			}
 			break;
 		case 'telefono':
-		break;
+			vform = 'slideTelefono';
+			break;
 		case 'ubicacione':
-		break;	
+			vform = 'slideDireccion';
+			break;	
 		case 'defectocuenta':
 		break;
-		case 'correo':
+			case 'correo':
+			vform = 'slideCorreo';
 		break;	
 		default:
 		return 'Módulo no Existente';
 		break;
 	}
 
-	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	//console.log(salida)
+	salida = odin(varreglo,vform);
+	console.log(vform)
+	console.log(salida)
 	return salida;
 
 }
@@ -467,30 +403,6 @@ function validarclientes() {
 			return arr;
 		}
 
-		function getFila(valor,vtipo,vdh,vtp){
-	//<i class="fa fa-times delcta" delcetap tp="'+valor+'"></i>
-	//<input type="number" noClear="1" class="form-control eder" id="pr'+valor+'" value="100">
-
-	return '<div class="row ctas" id="fl'+valor+'"><div class="col s2">'+vtipo+'</div> <div class="col s10"><select noClear="1" class="browser-default cta-array der" tp="'+vtp+'" dh="'+vdh+'" id="my-array'+valor+'" >'+cuentas+'</select></div></div>';
-}
-
-function obtenerCuentas(vid){
-    var cuentasg = arr('login',4,'',85,'2,'+vid+',"1,2"','',0,'');
-	$("#ctacontado").html('');
-	$("#ctacredito").html('');
-
-	for (var i = 0; i < cuentasg[0].length; i++) {
-		if (cuentasg[0][i][5] == 1) {
-			$("#ctacontado").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
-		}else{
-			$("#ctacredito").append(getFila(cuentasg[0][i][0],cuentasg[0][i][7],cuentasg[0][i][4],cuentasg[0][i][5]));
-		}
-		$("#my-array"+cuentasg[0][i][0]).val(cuentasg[0][i][1]);
-	}
-
-	$("#vidcuenta").val('');
-}
-
 function obtenerImpuestos(vid){
 	var imp = arr('login',4,'',200,'2,'+vid,0,'',0)[0];
 	
@@ -555,10 +467,8 @@ function postload(modulo) {
 			$("[tipoclie = "+idtipo+"]").prop('checked', true);
 
 			if (parseFloat($("#vcredito").val()) != 0){
-				$("#tipocliente").attr('tp',1)
 				$("#tipocliente").prop('checked',true).change();
 			}else{
-				$("#tipocliente").attr('tp',2)
 				$("#tipocliente").prop('checked',false).change();
 			}
 				
@@ -568,65 +478,6 @@ function postload(modulo) {
 			},500);
 
 		break;
-	}
-}
-
-function crreo_addon_ckub(vfila,vcorreo){
-	var cont = parseInt($(".chpcrr").length) + 1;
-
-	if (vcorreo.match(/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i)) {
-		if (vfila == undefined) {
-			$("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close close_mail mdi mdi-close"></i></div>');
-			$("#cgl"+cont).data('triforce',{vaccion:1,vidcorreo:0,vcorreo:$("#correo_in").val()});
-			
-			$("#correo_in").val('');
-			ind_2 += 1;
-			$('.collapsible').collapsible();
-			$(".chpcr").remove();
-			$("#infcorreo2").append('<div id="ichpc0_'+cont+'" class="chpcrr chip">'+vcorreo+'</div>');
-		}else{
-			$("#ichp"+vfila).html(vcorreo);
-			$("#"+vfila).html(vcorreo);
-			$("#"+vfila).parent().data('triforce')['vcorreo'] = vcorreo;
-			$("#correo_in").removeAttr('idfila');
-			$("#correo_in").val('');
-		}
-		
-	}else{
-		Materialize.toast('Correo no Válido',4000,'danger');
-		$("#correo_in").select();
-	}
-}
-
-function phone_addon_ckub(vfila,vphone,vtipo){
-	var tipotel;
-	var cont = parseInt($(".chpphone").length) + 1;
-	
-	if (vtipo == 1) { tipotel = 'home'; }else if (vtipo == 2) { tipotel = 'business'; }else if (vtipo == 3) { tipotel = 'phone'; }
-
-	if (vtelefono && vtipo) {
-		if (vfila == undefined) {
-			$("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right"></i></div>');
-			$("#tgl"+cont).data('triforce',{vaccion:1,vidtelefono:0,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:52});
-
-			$("#telefono_in").val('');
-			ind_2 += 1;
-			$('.collapsible').collapsible();
-			$(".chpph").remove();
-			$("#inftelefono4").append('<div id="itchpt0_'+cont+'" class="chpphone chip"><img src="../assets/img/icon/'+tipotel+'.png">'+vphone+'</div>');
-		}else{
-
-			$("#itchp"+vfila).html('<img src="../assets/img/icon/'+tipotel+'.png">'+vphone);
-			$("#"+vfila).html(vphone);
-			$("#ftp"+vfila).attr('src','img src="../assets/img/icon/'+tipotel+'.png"');
-			$("#"+vfila).parent().data('triforce')['vtelefono'] = vphone;
-			$("#"+vfila).parent().data('triforce')['vidtipotel'] = vtipo;
-			$("#telefono_in").removeAttr('idfila');
-			$("#telefono_in").val('');
-		}
-	}else{
-		Materialize.toast('Teléfono no Válido '+vphone+' '+vtipo,4000,'danger');2
-		$("#telefono_in").select();
 	}
 }
 

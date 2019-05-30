@@ -1722,7 +1722,7 @@ function cargarSintax(vtabla){
 		case 'nivelesclientes':
 			arr['sel'] = '*';
 			arr['tbl'] = 69;
-			arr['where'] = 'id > 0';
+			arr['where'] = 'id > 0 and idsucursal = @@impresa';
 			break;
 		case 'tipopagos':
 			arr['sel'] = 'id,nombre,principal';

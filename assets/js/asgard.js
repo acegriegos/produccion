@@ -72,6 +72,9 @@ $(document).on("click",".tc-show",function(){
 
     var code = parseInt($(this).data('num'));
 
+    if ($("#slide-cliente").length == 1)
+            $(".s-cliente").sideNav('destroy');
+
     if ($("#slide-tc").length == 0) {
         var ul = '<ul id="slide-tc" class="side-nav" style="z-index:1500;"><li><div class="user-view center"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div> <a class="btn btn-default" id="eslide" style="bottom:42px;position:absolute;">Salir</a></li></ul>';
         $(".bdy").append(ul);
@@ -872,7 +875,29 @@ case "5":
             salida[varreglo[i][0]] = salida[varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[varreglo[i][0]];
         }
         break;
+case "6":
+    if ($("#"+vform).data('fila1') != undefined) {
+            var num = 1;
+            while($("#"+vform).data('fila'+num) != undefined){
+                salida[num] = {};
+            for (var i = 0;  i < varreglo.length; i++) {
+                salida[num][varreglo[i][0]] = $("#"+vform).data('fila'+num)[varreglo[i][0]];
 
+                salida[num][varreglo[i][0]] = salida[num][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal' ) ? 0 : salida[num][varreglo[i][0]];
+                if (salida[num][varreglo[i][0]] == undefined) {
+                    if (varreglo[i][0] == 'vidfila' || varreglo[i][0] == 'vidtabla') {
+                        varreglo[i][0] = 0;
+                    }else{
+                        console.log(varreglo[i][0]+" No Existe, "+vform);
+                        return "Error en Interno, Codigo: Odin"
+                    }
+                    
+                }
+                }// end FOR
+                num++;
+            }
+        }
+    break;
 default:
 
     //LLENADO DE VARIABLES POR ID SIN DETALLE
@@ -1958,7 +1983,7 @@ function phone_addon_ckub(vfila,vphone){
             ind_2 += 1;
             $('.collapsible').collapsible();
         }else{
-            $("#itchp"+vfila).html('<img src="../assets/img/icon/'+tipotel+'.png">'+vphone);
+            // $("#itchp"+vfila).html('<img src="../assets/img/icon/'+tipotel+'.png">'+vphone);
             $("#"+vfila).html(vphone);
             $("#ftp"+vfila).attr('src','img src="../assets/img/icon/'+tipotel+'.png"');
             $("#slideTelefono").data('fila'+vfila.substr(3))['vtelefono'] = vphone;
@@ -1996,20 +2021,20 @@ function phone_addon_ckub(vfila,vphone){
 
     $(document).on('blur',"#telefono_in",function(){
         var telefono = $(this).val();
-        if (isNaN(telefono.replace('-',''))) {
-            Materialize.toast('Telefono Invalido',4000,'red')
-            return false;
-        }
-
-        if (telefono.replace('-','').length != 8) {
-            Materialize.toast('Telefono Invalido',4000,'red')
-            return false;
-        }
 
         if (telefono.length > 1) {
+            if (isNaN(telefono.replace('-',''))) {
+                Materialize.toast('Telefono Invalido',4000,'red')
+                return false;
+            }
+
+            if (telefono.length > 20) {
+                Materialize.toast('Telefono Invalido',4000,'red')
+                return false;   
+            }
+            
             var idfila = $(this).attr('idfila');
-            var htipo = $("#tptel").val();
-            phone_addon_ckub(idfila,telefono,htipo);
+            phone_addon_ckub(idfila,telefono);
         }
         
     });
@@ -2029,7 +2054,7 @@ function phone_addon_ckub(vfila,vphone){
 $(document).on("click",".close_mail",function(){
     $(this).parent().removeClass('chip');
     $(this).parent().addClass('hide');
-    $(this).parent().data('triforce').vaccion = 3;
+    $(this).parent().data('triforce')['vaccion'] = 3;
 });
 
 $(document).on("click",".close_phone",function(){
@@ -2046,11 +2071,8 @@ $(document).on("click",".vcoo",function(){
 });
 
 $(document).on("click","._tel",function(){
-    var id = $(this).attr('id').substr(3);
     $("#telefono_in").val($(this).html()).select().focus();
     $("#telefono_in").attr('idfila',$(this).attr('id'));
-    $("#tptel").val($(this).attr('tp'));
-    $("#tptel").material_select('update');
     Materialize.updateTextFields();
 });
 
@@ -2123,7 +2145,7 @@ function guardarSlide(vaccion,pr,vtabla){
                         var del = $("#slideTelefono").data('fila'+num)['vtelefono'].substring(0,1);
                         var vtipo = del == 2 || del == 4 ? 2 : 3;
                         insertar(238,'','null,'+vtipo+',"'+$("#slideTelefono").data('fila'+num)['vtelefono']+'",'+vtabla+','+pr+',52');
-                        $("#slideTelefono").removeData('fila'+num)
+                        $("#slideTelefono").removeData('fila'+num);
                         num++;
                     }
                 }
@@ -2177,6 +2199,33 @@ function guardarSlide(vaccion,pr,vtabla){
             break;
     }
     
+}
+
+function setCookie(tipo,valor,suma){
+    var d = new Date();
+    d.setTime(d.getTime() + suma);
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = tipo + "=" + valor + ";" + expires + ";path=/";
+}
+
+function deleteCookie(cname){
+    document.cookie = cname + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
 
 // addgeneral
