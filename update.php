@@ -659,11 +659,11 @@
 
             fclose(fopen('./assets/update/update.git','w'));
 
-            shell_exec('git config --global user.name "APSY" >> ./assets/update/update.git 2>&1');
-            shell_exec('git config --global user.email "info@apsycr.com" >> ./assets/update/update.git 2>&1');
-            shell_exec('git commit -a -m"sync" >> ./assets/update/update.git 2>&1');
+            shell_exec('git config --global user.name "APSY"');
+            shell_exec('git config --global user.email "info@apsycr.com"');
+            shell_exec('git commit -a -m"sync"');
             shell_exec('git pull >> ./assets/update/update.git 2>&1');
-            shell_exec('git git reset --hard HEAD~1 >> ./assets/update/update.git 2>&1');
+            shell_exec('git git reset --hard HEAD~1');
             shell_exec('git pull >> ./assets/update/update.git 2>&1');
 
             $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
