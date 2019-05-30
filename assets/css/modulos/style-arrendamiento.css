@@ -1,0 +1,20 @@
+.select-dropdown{
+    margin: 1% !important;
+}
+
+select{
+    color: black;
+    border:0px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+select option{
+    color: black;
+}
+
+@media screen and (max-width: 480px) {
+select{
+    box-shadow: 0;
+    border: 0px;
+}
+}

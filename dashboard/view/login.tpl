@@ -9,10 +9,10 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.0.1.4">
-  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.1.4">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.0.1.4"> 
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.0.1.4">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.1.0.24">
+  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.1.0.24">
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.1.0.24"> 
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.1.0.24">
 
 
 </head>
@@ -25,14 +25,14 @@
         <input type="hidden" name="vdir" value="" id="vdir"> 
 
         <div class="login__check" align="center">
-          <img id="img" src="../assets/img/login/2.png">
+          <img id="img" src="../assets/img/login/2.png" style="width: 80%">
         </div>
-        <div class="login__form">
-          <div class="input-field">
+        <div class="login__form" style="padding-top: 0;">
+          <div class="input-field" style="margin-top: 0;">
             <svg class="login__icon name svg-icon prefix" viewBox="0 0 20 20">
               <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
             </svg>
-            <input type="text"  id="user" name="usr" class="login__input "  placeholder="Usuario" value= "sadmin" autocomplete="off" />
+            <input type="text"  id="user" name="usr" class="login__input "  placeholder="Usuario" value= "" autocomplete="off" />
 
           </div>
 
@@ -40,11 +40,13 @@
             <svg class="login__icon pass svg-icon prefix" viewBox="0 0 20 20">
               <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
             </svg>
-            <input type="password" id="pass" class="login__input " name="pss" placeholder="Contraseña" value= "Login2Help"/>
+            <input type="password" id="pass" class="login__input" autocomplete="new-password" name="pss" placeholder="Contraseña" value= ""/>
 
           </div>
+          <input type="checkbox" name="remember" id="remember">
+          <label for="remember" class="left">Recordar Usuario</label>
           <button type="submit" class="login__submit btn1">Ingresar</button>
-
+          
           <p class="login__signup"> Olvido su contraseña? &nbsp;<a href="#modal1" class="modal-trigger" id="recupss">Recuperar</a> <span id="smail"></span></p>
         </div>
       </form>
@@ -58,9 +60,9 @@
 
   </div>
 </div>
-<script src="../assets/js/jquery.js?v=10.0.1.4"></script>
-<script src="../assets/js/materialize.min.js?v=10.0.1.4"></script>
-<script src="../assets/js/asgard.js?v=10.0.1.4"></script>
-<script src="../assets/js/modulos/login.js?v=10.0.1.4"></script>
+<script src="../assets/js/jquery.js?v=10.1.0.24"></script>
+<script src="../assets/js/materialize.min.js?v=10.1.0.24"></script>
+<script src="../assets/js/asgard.js?v=10.1.0.24"></script>
+<script src="../assets/js/modulos/login.js?v=10.1.0.24"></script>
 </body>
 </html>

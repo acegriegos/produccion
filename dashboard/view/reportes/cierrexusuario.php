@@ -5,7 +5,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.0.1.4">
+<link href="../assets/css/materialize.css?v=10.1.0.24">
 <style>
   @media print {
     .print{
@@ -180,6 +180,7 @@
         </thead>
         <thead>
           <tr>
+            <th>Cantidad</th>
             <th >Producto</th>
             <th >Total</th>
           </tr>
@@ -187,6 +188,7 @@
         <tbody >
           <?php foreach ($cierreg as $obj) {?>
           <tr class="tr" >
+            <td align="left"><?php echo $obj[24]; ?></td>
             <td ><span><?php echo $obj[11]; ?></span></td>
             <td align="right"><span><?php echo number_format($obj[16],2); ?></span></td>
           </tr>
@@ -254,8 +256,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.0.1.4"></script>
-    <script src="../assets/js/materialize.js?v=10.0.1.4"></script>
+    <script src="../assets/js/jquery.js?v=10.1.0.24"></script>
+    <script src="../assets/js/materialize.js?v=10.1.0.24"></script>
 
      <script type="text/javascript">
    $(function(){

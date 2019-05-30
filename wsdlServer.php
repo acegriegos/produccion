@@ -287,7 +287,8 @@ if (isset($_POST['respuestaXml'])) {
                 $salida['rs'] = $rs->fetch_all();
             }else
                 $salida['error'] = $rs;
-                $salida['sql'] = 'call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')';
+            
+            $salida['sql'] = 'call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')';
           }
           break;
         case 5: //GUARDAR EN HACIENDA
@@ -295,6 +296,18 @@ if (isset($_POST['respuestaXml'])) {
           $base = new DBClass();
 
           $salida['rs'] = $base->ejecutar('insert into hacienda values(null,now(),"'.$_REQUEST['clave'].'","'.$_REQUEST['correos'].'")');
+          break;
+        case 6:
+          require_once '_config/mysqlDB.php';
+          $base = new DBClass();
+
+          $rs = $base->ejecutar('select cedula from recepciones where !isin and !isprueba group by cedula');
+          
+          if (isset($rs->num_rows)) {
+              $salida['rs'] = $rs->fetch_all();
+          }else
+              $salida['error'] = $rs;
+            
           break;
         default:
            $salida['msj'] = 'WSDL LOGINTECH';

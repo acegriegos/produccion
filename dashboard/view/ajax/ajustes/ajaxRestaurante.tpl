@@ -100,6 +100,22 @@
 <li>
 <div class="collapsible-header"><i class="small mdi mdi-note-text"></i><h5>Comandas</h5></div>
     <div class="collapsible-body pequeño card">
+        <div class="input-field">
+            <input type="text" id="ipcomanda">
+            <label for="ipcomanda">IP</label>
+        </div>
+
+        <div class="col">
+            <select id="sfam">
+                <option disabled selected value="0">Familia</option>
+
+            </select>    
+        </div>
+
+        <div class="col s8">
+            <label>Familias para Comanda</label>
+            <div class="chips chips-initial" id="litreg"></div>
+        </div>
         
     </div>
 </li>
@@ -118,7 +134,17 @@
                 </select>   
             </div>
             
-           
+           <div class="col s2">
+                <label>Sercicio de Mesero:</label>    
+            </div>
+            <div class="col s4">
+                <select id="vinventario">
+                    <option value="0" disabled>Seleccione un Servicio</option>
+                    <!-- {section name=LE loop=$INV}
+                    <option value="{$INV[LE][0]}">{$INV[LE][1]}</option>
+                    {/section} -->
+                </select>   
+            </div>
        </div>
     </div>
 </li>

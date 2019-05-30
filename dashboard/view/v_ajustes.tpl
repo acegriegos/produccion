@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Configuración</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.1.4">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=10.0.1.4">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.24">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=10.1.0.24">
   </head>
 <body>
   {$NAV}
@@ -23,14 +23,15 @@
       <div class="col s12">
         <ul class="tabs head2">
             <li class="menu3 col tab pbtn" href="#m1" id="m1"><a class=" white-text" class="active">Empresa</a></li>
-            <li class="menu3 col tab pbtn" href="#m2" id="m2"><a class=" white-text">Descuentos</a></li>
-            <li class="menu3 col tab pbtn" href="#m3" id="m3"><a class=" white-text">Impuestos</a></li>
-            <li class="menu3 col tab pbtn hide"# id="m4" id="m4"><a class=" white-text tamLetra">Cuentas Contables</a></li>
+            <li class="menu3 col tab pbtn {if $smarty.session.BUSS eq 5}hide{/if}" href="#m2" id="m2"><a class=" white-text">Descuentos</a></li>
+            <li class="menu3 col tab pbtn {if $smarty.session.BUSS eq 5}hide{/if}" href="#m3" id="m3"><a class=" white-text">Impuestos</a></li>
+            <li class="menu3 col tab pbtn {if $smarty.session.BUSS neq 0}hide{/if}"# id="m4" id="m4"><a class=" white-text">Cuentas Contables</a></li>
             <li class="menu3 col tab  pbtn {if $smarty.session.BUSS neq 0}hide{/if}" href="#m5" id="m5"><a class=" white-text">Sucursales</a></li>
             <li class="menu3 col tab pbtn {if $smarty.session.BUSS neq 0 && $smarty.session.BUSS neq 3}hide{/if}" href="#m6" id="m6"><a class=" white-text">Bodegas</a></li>
             <li class="menu3 col tab pbtn hide" href="#m7" id="m7"><a class=" white-text">Producción</a></li>
             <li class="menu3 col tab  pbtn per11 hide" href="#m10" id="m10"><a class=" white-text">Restaurante</a></li>
-            <li class="menu3 col tab  pbtn" href="#m9 " id="m9 "><a class=" white-text">Productos</a></li>
+            <li class="menu3 col tab  pbtn {if $smarty.session.BUSS eq 5}hide{/if}" href="#m9 " id="m9 "><a class=" white-text">Productos</a></li>
+            <li class="menu3 col tab  pbtn {if $smarty.session.BUSS neq 5}hide{/if}" href="#m11 " id="m11 "><a class=" white-text">Rubros</a></li>
             <li class="menu3 col tab pbtn {if $smarty.session.BUSS neq 0}hide{/if}" href="#m8" id="m8"><a class=" white-text">Accesos</a></li>
         </ul>
       </div>
@@ -48,7 +49,7 @@
     <div id="majustes" class="pequeño"></div>
   </div>
   {$SCR}
-  <script src="../assets/js/dropzone.js?v=10.0.1.4"></script>
-  <script src="../assets/js/modulos/ajustes.js?v=10.0.1.4"></script>
+  <script src="../assets/js/dropzone.js?v=10.1.0.24"></script>
+  <script src="../assets/js/modulos/ajustes.js?v=10.1.0.24"></script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 <?php  
-	
 	  require_once 'model/m_login.php';
    	$log = new _login();
 
@@ -64,6 +63,9 @@
                   break;
                 case 4:
                   $mod = 'documentos';
+                  break;
+                case 5:
+                  $mod = 'arrendamiento';
                   break;
                 default:
                   $mod = 'facturacion';
@@ -141,7 +143,9 @@
    			break;
    		case 8:  //MOSTRAR SOLO PDFs
           $pagina = 1;
-
+          if(!isset($_SESSION['IMPRESA']) && isset($_REQUEST['arreglo']['empresaid'])){
+            $_SESSION['IMPRESA'] = $_REQUEST['arreglo']['empresaid'] ;
+          }
           if (isset($_REQUEST['arreglo']['sel'])) {
             $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
             $datos = $transaccion;
@@ -161,6 +165,9 @@
         case 9:  //GENERAR SOLO XML
           $pagina = 1;
           unset($_REQUEST['accion']);
+          if(!isset($_SESSION['IMPRESA']) && isset($_REQUEST['arreglo']['empresaid'])){
+            $_SESSION['IMPRESA'] = $_REQUEST['arreglo']['empresaid'] ;
+          }
           $estado = isset($_REQUEST['arreglo']['restado']) ? $_REQUEST['arreglo']['restado'] : 'Factura';
           require_once '../wsdlClient.php';
           $xml = new facturaElectronica($_REQUEST['arreglo']['id']);
@@ -188,7 +195,7 @@
         $conteo = isset($_REQUEST['arreglo']['conteo']) ? $_REQUEST['arreglo']['conteo'] : '' ;
         $suma = isset($_REQUEST['arreglo']['suma']) ? $_REQUEST['arreglo']['suma'] : '' ;
 
-        $omitir = isset($_REQUEST['arreglo']['omitir']) ? $_REQUEST['arreglo']['omitir'] : '';
+        $vista = isset($_REQUEST['arreglo']['vista']) ? $_REQUEST['arreglo']['vista'] : '';
         $miscelaneos = $log->kamehameha('',50,'@@impresa')[0];
         $transaccion = $log->sel_col($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
         include 'view/ajax/tabla_excel.php'; 
@@ -202,7 +209,7 @@
 
         $lpr = new PrintSendLPR();
         $lpr->setHost($_REQUEST['arreglo']['ip']); //192.168.31.153
-        $lpr->setData($_REQUEST['arreglo']['data']);//utf8_encode()
+        $lpr->setData(htmlspecialchars($_REQUEST['arreglo']['data']));//utf8_encode()
 
         $lpr->printJob("l2");
         break;
@@ -308,5 +315,22 @@
           $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id='.$obj[0]);
         };
      }	
+
+         /**
+     * TLPS
+     */
+    class excel
+    {
+      var $str;
+
+      function __construct()
+      {
+        $this->str = $str;
+      }
+
+      public function getFile(){
+        
+      }
+    }
 			   
 ?>

@@ -32,7 +32,7 @@
           <?php } ?>
         </select>
       </div>
-      <div class="input-field col s12 m6 l4" >
+      <div class="input-field col s12 m6 l4 <?php if ($_SESSION['BUSS'] == 5) echo 'hide'; ?>" >
         <select id="vidsuc" <?php if ($_SESSION['BUSS'] == 1) echo 'disabled'; ?> type="select" style="margin-bottom: 0 !important" class="suc" multiple>
           <option value="" selected disabled>Seleccione una Sucursal</option>
           <?php  foreach ($suc as $obj) { ?>
@@ -41,6 +41,20 @@
 
         </select>
       </div>
+      <?php if ($_SESSION['BUSS'] == 5){?>
+      <div class="input-field col s12 m6 l4">
+        <select id="vruta" style="margin-bottom: 0 !important">
+          <option value="0" selected disabled>Seleccione una Ruta</option>
+          <?php  
+          $rut = $kakaroto->kamehameha('id,nombre',208,'id > 0');
+          foreach ($rut as $obj) { ?>
+          <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
+          <?php } ?>
+
+        </select>
+      </div>
+      <?php } ?>
+
       <div class="input-field col s12 m6 l4">
         <input id="vclave" type="password" class="validate">
         <label for="vclave">Contraseña</label>

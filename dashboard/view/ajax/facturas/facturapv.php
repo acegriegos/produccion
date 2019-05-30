@@ -117,7 +117,7 @@ echo '<br>Ced. '.$miscelaneos[1];
 if(strlen(trim($miscelaneos[5])))
     echo '<br> Telf. '.$miscelaneos[5];
 
-echo '<br> '.$miscelaneos[6].'
+echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
         </div>
      </td>
   </tr>
@@ -283,9 +283,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.1.4"></script>
- <script src="../assets/js/materialize.js?v=10.0.1.4"></script>
- <script src="../assets/js/asgard.js?v=10.0.1.4"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.24"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.24"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.24"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

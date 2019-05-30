@@ -29,19 +29,16 @@
                     <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Administrar Teléfonos de la Empresa" data-position="bottom" id="tc-t" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"></a>
                     <label for="vtelefono">Teléfonos de la Empresa</label>
                     <input type="text"  id="vtelefono" readonly>
-                    <div id="ftelefonos" hasTabla="1" tp="4" vtabla="telefono"></div>
                 </div>
                 <div class="col s12 m12 l4 pequeño">
                     <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="button-collapse der tc-show tooltipped black-text" data-tooltip="Administrar Correos de la Empresa" data-position="bottom" id="tc-c" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"><i class="mdi mdi-email  mdi-24px"></i></a>
                     <label for="vcorreo">Correos de la Empresa</label>
                     <input type="email"id="vcorreo" readonly>
-                    <div id="fcorreos" hasTabla="1" tp="4" vtabla="correo"></div>
                 </div>
                 <div class="col s12 m12 l4 pequeño">
                     <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="button-collapse der tooltipped tc-show black-text" data-tooltip="Administrar Ubicacion de la Empresa" data-position="bottom" id="tc-u" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
                     <label for="vdireccion">Dirección de la Empresa</label>
                     <input type="text" id="vdireccion" readonly>
-                    <div id="fubicaciones" hasTabla="1" tp="4" vtabla="ubicacione"></div>
                 </div>
             </div>
             <div class="row col s12">
@@ -513,7 +510,7 @@
                                     <a class="prefix btn-floating btn2 add tooltipped z-depth-3" modulo="nivelescliente" data-position="top" data-tooltip="Ingresar Categoría" style="padding-right: 5% !important;"><i class="mdi mdi-plus"></i></a>
                                     <input type="hidden" id="vid_nivel" value="0">
                                     <input type="text" id="vnombre_nivel" style="margin-left: 15% !important;">
-                                    <input type="hidden" id="vbisproveedor" value="0">
+                                    <input type="hidden" id="vidsucursal" value="">
                                     <label for="vnombre_nivel" style="margin-left: 15% !important;">Ingresar Categoría</label>
                                 </div>
                             </div>

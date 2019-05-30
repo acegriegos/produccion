@@ -185,7 +185,12 @@
     
     {if $smarty.session.BUSS eq 0 or $smarty.session.BUSS eq 3}
     <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
+
+    <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
+
+    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der" data-tooltip="Factura Especial" data-position="bottom" id="special" ></a>
     {/if}
+
  </div>
 
   <div class="row">
@@ -203,8 +208,8 @@
           <label for="tc3"  class="hide" style="float: left;margin-right: 5px">Gasto no Diferido</label>
     <section class="right">
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
-          <label for="iva" class="hide valor_grabado" style="float: left;margin-right: 5px">IVI</label>
-          <input type="checkbox" name="isexcento" id="exct" hclk="0">
+          <label for="iva" class="hide" style="float: left;margin-right: 5px">IVI</label>
+          <input type="checkbox" name="hasimpuesto" id="exct" hclk="0">
           <label for="exct" class="hide"  style="float: left;margin-right: 5px">Exento</label>
       {if $smarty.session.BUSS neq 1}
         <a href="#" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
@@ -510,7 +515,7 @@
           <label for="vcomentario">Comentario de Factura</label>
         </div>
         <table style="margin-top: 150px">
-          <tr>
+          <tr class="hide trCompra trVenta">
             <td style="padding-top: 0px;padding-bottom: 0px;"><label for="vdescuentop">Descuento</label></td>
             <td>
               <select id="tdescuento" class="eder tdesc trVenta hide" tp="1" style="margin: 0px; height: 0.5%% !important">
@@ -576,6 +581,11 @@
               <label for="p_v" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" data-position="left">Punto Venta</label>
           </div>
 
+          <div class="col s12 m6 l6 hide">
+              <input type="checkbox" id="impm" checked disabled />
+              <label for="impm" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para Acreditar el Impuesto de Mesero" data-position="left">Imp. Mesero</label>
+          </div>
+
           <div class="col s12 m6 l6 _odt hide">
             <select id="idodt" type="select">
               <option value="0" style="color: black"><b>ODT</b></option>
@@ -584,11 +594,9 @@
 
           <div class="col s12" style="padding: 0px;">
             <div class="row" style="padding: 0px;">
-              {if $smarty.session.TMPT eq 1 || $smarty.session.TMPT eq 7}
               <div class="col s6 hide clieBTN" id="exobtn" style="padding: 0px;">
                 <a href="#modal-exo" class="btn doexo modal-trigger" style="width: 90%;padding-left: 19px;">Exonerar</a>
               </div>
-              {/if}
               <div class="col s6" style="padding: 0px;">
                 <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
               </div>
@@ -704,11 +712,11 @@
         <label for="byfact">Por Factura</label>
       </div>
        <div class="col s6 input-field">
-        <input type="text" id="byclie" class="autocomplete" autocomplete="off">
+        <input type="text" id="byclie" class="autocomplete" autocomplete="off" cid="0">
         <label for="byclie">Por Cliente</label>
       </div>
     </div>
-    <table>
+    <table class="highlight"> 
       <thead>
         <th></th>
         <th>Numero Factura</th>
@@ -968,6 +976,7 @@
 <!--  -->
 <!-- FOOTER -->
   <div class="modal-footer">
+    <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factrealp" modulo="factura" varias="1" style="cursor: pointer;">ACEPTAR IMPRIMIR</a>
     <a href="#!" class="add modal-action waves-effect waves-green btn-flat" id="factreal" modulo="factura" varias="1" style="cursor: pointer;">ACEPTAR</a>
   </div>
 </div>
@@ -981,14 +990,22 @@
     <input type="hidden" class="zelda">
     <div class="row">
 
-      <div class="input-field col s6 edescu">
+      <div class="input-field col s6">
         <input type="text" id="vcodigo" autocomplete="off">
         <label for="vcodigo">Código</label>
       </div>
 
-      <div class="input-field col s6 eimp">
-        <input type="text" id="vpnombre" autocomplete="off">
+      <div class="input-field col s6">
+        <input type="text" id="vpnombre" autocomplete="off" autosave="off">
         <label for="vpnombre">Nombre</label>
+      </div>
+
+      <div class="input-field col s6">
+       <select id="pmoneda">
+          {section name="LE" loop=$MON}
+            <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]}</option>
+          {/section}
+        </select>
       </div>
 
     </div>
@@ -1039,4 +1056,37 @@
   </div>
 </div>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.1.4"></script>
+<ul id="slide-factura" class="side-nav" style="z-index:1500;width: 50%">
+  <li class="hide">
+    <div class="user-view center">
+      <span class="ftit"></span>
+    </div>
+  </li>
+  <li class="hide">
+    <input type="checkbox" id="afactura">
+    <label for="afactura">Anular Factura</label>
+    <div class="divider"></div>
+  </li>
+  <li>
+    Productos a Devolver <br>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>CANT</th>
+          <th>ITEM</th>
+          <th>A DEVOLVER</th>
+          <th>RAZON</th>
+        </tr>
+      </thead>
+      <tbody id="detfact"></tbody>
+    </table> 
+    <div class="footer row" style="bottom:42px;position:absolute;">
+      <a class="btn btn-success col s6 mdi mdi-plus der" id="fdev" title="Realizar Devolución"></a>
+      <a class="btn btn-default col s6 der" id="fext">Salir</a>
+    </div>
+    
+  </li>
+</ul>
+
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.24"></script>

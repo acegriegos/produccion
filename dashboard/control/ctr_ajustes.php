@@ -29,7 +29,7 @@ if (!isset($_REQUEST['accion'])) {
 	   			$smarty->assign('WSDL',$kakaroto->kamehameha('wsid,wsname',100,'wsid > 0 order by wsname'));
 	   			$smarty->assign('TUSR',$kakaroto->kamehameha('',402,'0'));
 	   			$smarty->assign('TPAG',$kakaroto->kamehameha('id,nombre,principal',26,'id >= 0 order by id'));
-	   			$smarty->assign('CATC',$kakaroto->kamehameha('id,nombre',69,'id > 0'));
+	   			$smarty->assign('CATC',$kakaroto->kamehameha('id,nombre',69,'id > 0 and idsucursal = @@impresa'));
 	   			$smarty->assign('CUE',$kakaroto->kamehameha('id,nombre,numero',36,'id > 0 and !ispadre order by nombre'));	
 	   			$smarty->assign('BNK',$kakaroto->kamehameha('id,nombre',202,'id > 0 order by nombre'));
 	   			$smarty->display('ajax/ajustes/ajaxDatosEmpresa.tpl');
@@ -103,6 +103,12 @@ if (!isset($_REQUEST['accion'])) {
 	   			$pagina = 1;
 	   			$smarty->assign('INV',$kakaroto->kamehameha('id,nombre',111,'id > 0 and idbodega = 1 and idsucursal in(-1,@@impresa) order by id'));
 	   			$smarty->display('ajax/ajustes/ajaxRestaurante.tpl');
+	   			break;
+	   		case 14:
+	   			$pagina = 1;
+	   			$smarty->assign('RUB',$kakaroto->kamehameha('vid,nombre,if(idtiporubro,"Entrada","Salida")',281,'vid > 0 and idsucursal in(-1,@@impresa) order by nombre'));
+	   			//print_r($kakaroto->kamehameha('vid,nombre,if(idtiporubro,"Entrada","Salida")',281,'vid > 0 and idsucursal in(-1,@@impresa) order by nombre'));
+	   			$smarty->display('ajax/ajustes/ajaxRubros.tpl');
 	   			break;
 	   	}
 		if(!$pagina){

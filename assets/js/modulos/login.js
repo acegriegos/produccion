@@ -3,7 +3,6 @@ var conteo = 1;
 
 $(document).ready(function(){
 
- console.log(getDatos('nombre',39,'id = 0',0,0,0));
  $(".modal").modal();
  
  var animating = false,
@@ -67,15 +66,22 @@ $(document).ready(function(){
         }
     });
 
+    var user = getCookie('userAPSY');
+    if (user.length) {
+        $("#user").val(user);
+        $("#pass").val(getCookie('pwd'));
+        $("#remember").prop('checked',true);
+        $("#pwd").click().focus();
+    }
+
     Materialize.updateTextFields();
 });
 
 $(document).on("click","#sendrecupss",function(){
-    var p = getDatos('',232,"'"+crr+"'",0,0);
-
+    var p = getDatos('',232,'"'+crr+'"',0,0);
     var bdy = p[0][0][0];
     
-    enviarCorreo(1,crr,'Petición de Cambio de Contraseña',bdy);
+    enviarCorreo(1,crr,'Petición de Cambio de Contraseña',bdy,0,0,0);
 
 });
 
@@ -145,7 +151,7 @@ function getIn(){
                 if (correo != ''){
                     var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ varibale +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
 
-                    enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy);
+                    enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy,0,0,0);
                 }
             }
             
@@ -161,6 +167,13 @@ function getIn(){
         direccion = window.location.pathname;
         direccion = direccion.substring(direccion.lastIndexOf('/')+1)
         $("#vdir").val(direccion)
+        var usr = getCookie('userAPSY');
+        if ($("#remember").is(':checked') && !usr){
+            setCookie('userAPSY',p[0][0][1],365*24*60*60*1000)
+            setCookie('pwd',$("#pass").val(),365*24*60*60*1000)
+        }
+        else if(!$("#remember").is(':checked'))
+            deleteCookie('userAPSY');
     }else
         $("#vdir").val('')
     

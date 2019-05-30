@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.1.4">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.0.1.4">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.24">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.24">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.1.4"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.1.0.24"> -->
 
-<link href="../assets/css/modulos/style-factura.css?v=10.0.1.4">
+<link href="../assets/css/modulos/style-factura.css?v=10.1.0.24">
 
 <title>Movimiento CxC</title>
 
@@ -73,6 +73,10 @@
           <span class=""><b>Usuario:</b></span>
           <span id="fvendedor" class=""><i><?php echo $datos[10]; ?> </i></span>
         </div>
+        <div  class="col s12">
+          <span class=""><b>Comentario:</b></span>
+          <span id="fvendedor" class=""><?php echo $datos[7]; ?></span>
+        </div>
 
       </div>   
     </div>
@@ -130,8 +134,8 @@
           <tr></tr>
           <td class="margen" colspan="3">&nbsp;</td>
 
-          <td  style="background-color: #3960A7;" class=" white-text sinborde imprimirSINBOR center-align"><b>SALDO TOTAL</b></td>
-          <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11]; ?><?php echo $datos[6]; ?></b></td>
+          <td  style="background-color: #3960A7;" class=" white-text sinborde imprimirSINBOR center-align"><b>SALDO CLIENTE</b></td>
+          <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11].number_format($datos[20]); ?></b></td>
 
         </tr>
       </tfoot>
@@ -172,11 +176,11 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js?v=10.0.1.4"></script>
+<script src="../assets/js/jquery.js?v=10.1.0.24"></script>
 
-<script src="../assets/js/materialize.js?v=10.0.1.4"></script>
-<script src="../assets/js/asgard.js?v=10.0.1.4"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.1.4"></script>
+<script src="../assets/js/materialize.js?v=10.1.0.24"></script>
+<script src="../assets/js/asgard.js?v=10.1.0.24"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.1.0.24"></script>
   <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

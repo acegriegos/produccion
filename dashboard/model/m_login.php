@@ -30,34 +30,35 @@
 			$accion = $arreglo['atributos']['vaccion'];
 			$rollback = '';
 
-			if (isset($arreglo['varios']) && $accion != 3 && isset($arreglo['varios'][0]['atributos']) && is_array($id_new)) {
-
+			if (isset($arreglo['varios']) && $accion != 3 && is_array($id_new)) { //isset($arreglo['varios'][0]['atributos'])
+				
 				$posicion = strpos($arreglo['modulo'], '-');
 				$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : '';
 				$modulo = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
 				$id_tabla = $this->kamehameha('id',70,'nombre like "'.$schema.$modulo.'s"')[0][0];
 				$rollback = '';
 				$roll_tbl = 0;
-			
+				
 				foreach ($arreglo['varios'] as $index => $varios) {
-					if (isset($varios['atributos'])) 
-					foreach ($varios['atributos'] as $detalles) {
-	
-						if ($varios['hasTabla']) {
-							$detalles['vidfila'] = isset($detalles['vidfila']) ? $detalles['vidfila'] == 0 ? $id_new[0][0] : $detalles['vidfila'] : $id_new[0][0];
-							$detalles['vidtabla'] = isset($detalles['vidtabla']) ? $detalles['vidtabla'] == 0 ? $id_tabla : $detalles['vidtabla'] : $id_tabla;
-						}
 
-						$detalles['vaccion'] = $detalles['vaccion'] == 0 ? $accion : $detalles['vaccion'];
-						$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
+					if (isset($varios['atributos'])){
+						foreach ($varios['atributos'] as $detalles) {
 
-						if (!is_array($rs)){
-							// $save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
-							$this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
-							$rollback = $rs." Modulo: ".$varios['modulo'];
-							$roll_tbl = $varios['rollback'];
+							if ($varios['hasTabla']) {
+								$detalles['vidfila'] = isset($detalles['vidfila']) ? $detalles['vidfila'] == 0 ? $id_new[0][0] : $detalles['vidfila'] : $id_new[0][0];
+								$detalles['vidtabla'] = isset($detalles['vidtabla']) ? $detalles['vidtabla'] == 0 ? $id_tabla : $detalles['vidtabla'] : $id_tabla;
+							}
+
+							$detalles['vaccion'] = $detalles['vaccion'] == 0 ? $accion : $detalles['vaccion'];
+							$rs = $this->mant($varios['modulo'],$detalles,$id_new[0][0]);
+
+							if (!is_array($rs)){
+								// $save_sql = $_SESSION['ERRNO'] == 1644 ? '' : $this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
+								$this->genkidama(1,251,'sql_str,sql_res','"'.$this->sql.'","'.$rs.'"');
+								$rollback = $rs." Modulo: ".$varios['modulo'];
+								$roll_tbl = $varios['rollback'];
+							}
 						}
-		
 					}
 				}
 			}

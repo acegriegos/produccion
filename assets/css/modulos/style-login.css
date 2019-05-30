@@ -15,7 +15,7 @@
   color: #fff; }
 
 .btn1 {
-  background: #0080C6;
+  background: #2D2E82;
   color: #fff; }
 
 .btn1:hover {
@@ -129,7 +129,8 @@ input, button {
   margin-top: -26.5rem;
   width: 30rem;
   height: 53rem;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .login {
   position: relative;
@@ -286,3 +287,8 @@ input, button {
     stroke-dashoffset: 0; } }
 
 /*# sourceMappingURL=style-login.css.map */
+
+::placeholder {
+  color: #8C8080;
+  opacity: 1; /* Firefox */
+}

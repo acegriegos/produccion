@@ -1,7 +1,12 @@
 <div class="card pequeño">
     
     <div class="card-block pequeño">
-        <h3 class="center-align">Mantenimiento Cuentas</h3>
+        
+        <div style="float: right;width: 25%;margin:0px;padding: 0px" class="input-field">
+          <i class="mdi mdi-magnify prefix"></i>
+          <input type="text" id="bcuenta" style="padding: 0px;margin-top: 0px;margin-bottom: 0px" placeholder="Buscar Cuenta por Nosmbre">
+        </div>
+        <h3 class="center">Catálogo de Cuentas</h3>
         <div class="z-depth-5" id="vcuentas">
             <div class="collection">
 
@@ -25,13 +30,10 @@
                 <div class="col s4 left">
                     <input type="text" tp="{$VCUE[LE][0]}" class="editc" value="{$VCUE[LE][1]}" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px;{if $VCUE[LE][4] neq 1} margin-left: {math equation='x * y' x=2 y=$VCUE[LE][4]}%;{/if}" {if $VCUE[LE][4] eq 1} readonly {/if} maxlength="40">
                 </div>
-              x   <div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;">
+              <div class="col s4 numcon center" style="cursor: pointer; min-height: 40px;">
                     {$VCUE[LE][2]}
                 </div>
                 <div class="col s4 right">
-
-                    <input type="checkbox" class="ispadr" {if $VCUE[LE][4] eq 1} indeterminate-checkbox disabled {/if} id="ip{$VCUE[LE][0]}" title="Sub Cuenta" {if $VCUE[LE][5] eq 1} checked {/if}>
-                    <label for="ip{$VCUE[LE][0]}"></label>
                     <i class="mdi mdi-plus mdi-24px" id="ac{$VCUE[LE][0]}" title="Agregar Cuenta"></i>
                     <i class="mdi mdi-delete mdi-24px {if $VCUE[LE][4] eq 1} disabled {/if} " id="ec{$VCUE[LE][0]}" title="Eliminar Cuenta"></i>
                 </div>
@@ -59,8 +61,7 @@
                     <td style="width:20%">{$DCUE[LE][4]} {$DCUE[LE][6]}</td>
                     <td style="width:50%" id="cta{$DCUE[LE][0]}" pr="{$DCUE[LE][1]}">{$DCUE[LE][2]}</td>
                     <td style="width:50%">
-                      <input name="cta-def" type="radio" id="r{$DCUE[LE][0]}"/>
-                      <label for="r{$DCUE[LE][0]}"></label>
+                      <i class="mdi mdi-camera-switch mdi-24px cta-def" style="cursor: pointer" id="r{$DCUE[LE][0]}"></i> 
                     </td>
                 </tr>
             {/section}
@@ -71,11 +72,11 @@
 
          <div id="modal-defcta" class="modal bottom-sheet" style="min-height:520px;" >
             <div class="modal-content">
-              <h4>Cambio de Cuenta por Defecto</h4>
+              <h4 class="center">Cambio de Cuenta por Defecto</h4>
               <br>
               <div class="input-field">
                   <select id="vdefecto">
-                    <option value="0" disabled>Seleccione una Opción</option>
+                    <option value="0" disabled>No Aplica</option>
                     {section name=LE loop=$RCUE}
                         <option value="{$RCUE[LE][0]}">{$RCUE[LE][1]}</option>
                     {/section}

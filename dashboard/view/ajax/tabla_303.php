@@ -12,26 +12,16 @@
 			<div class="card-content white-text" style="padding: 0.1% !important">
 				<div class="row">
 					<div class="col s12 m8">
-						<div class="col s12 m6">
-							<p style="padding-top: 1%"><b>Nombre: </b><span> <?php echo $transaccion[0][1]; ?> </span></p>
-						</div>
-						<div class="col s12 m6">
-							<p style="padding-top: 1%"><b>Fecha: </b><span id="ifecha"> <?php echo $transaccion[0][4]; ?></span></p>
-						</div>
-						<div class="col s12 m6">
-							<p style="padding-top: 1%"><b>Monto Original de la Factura: </b><span id="imonto"> <?php echo $transaccion[0][8]; ?></span></p>
-						</div>
-						<div class="col s12 m6">
-							<p style="padding-top: 1%"><b>Saldo Actual:</b> <span id="isaldo"> <?php $length=sizeof($transaccion)-1; echo $transaccion[$length][5]; ?></span></p>
-						</div>
-						<div class="col s12 m4 l4">
-							<p style="padding-top: 1%"><b>Tipo de Factura: </b><span id="isaldo"> <?php echo $transaccion[0][11]; ?></span></p>
-						</div>
+						<p style="padding-top: 1%"><b>Razón Social: </b><span> <?php echo $transaccion[0][1]; ?> </span></p>
+						<p style="padding-top: 1%"><b>Fecha: </b><span id="ifecha"> <?php echo $transaccion[0][4]; ?></span></p>
+						<p style="padding-top: 1%"><b>Monto Original de la Factura: </b><span id="imonto"> <?php echo $transaccion[0][15].number_format($transaccion[0][8],2); ?></span></p>
+						<p style="padding-top: 1%"><b>Saldo Actual:</b> <span id="isaldo"> <?php $length=sizeof($transaccion)-1; echo $transaccion[0][15].number_format($transaccion[$length][5],2); ?></span></p>
+						<p style="padding-top: 1%"><b>Tipo de Factura: </b><span id="isaldo"> <?php echo $transaccion[0][11]; ?></span></p>
 					</div>
 					<div class="col s12 m12 l4">
 						<div class="row" style=" padding-top: 10%;">
 							<div class="col s12">
-								<button href="#!" class="waves-effect waves-light btn btn2 rigth z-depth-3" id="btn-div"><i class="mdi mdi-24px mdi-credit-card left"></i>Realizar Nota</button>
+								<button href="#!" class="waves-effect waves-light btn btn2 rigth z-depth-3" id="btn-div"><i class="mdi mdi-24px mdi-credit-card left"></i>NC-ND</button>
 							</div>
 						</div>
 					</div>
@@ -51,6 +41,7 @@
 				<input type="hidden" id="vdivisa" value="1">
 				<input type="hidden" id="vidmoneda" value="1">
 				<input type="hidden" id="vreferencia" value="">
+				<input type="hidden" id="vfechabol" value="">
 				<div class="row">
 					<div class="col s12">
 						<div class="card bg1">
@@ -86,7 +77,7 @@
 									</div>
 									<div class="row">
 										<div class="col s12 offset-m2 ">
-											<button href="#!" class="waves-effect btn btn1 waves-light z-depth-3 add" modulo="estadoscuenta" >Realizar Nota</button>
+											<button href="#!" class="waves-effect btn btn1 waves-light z-depth-3 add" modulo="estadoscuenta">Realizar Nota</button>
 											<button href="#!" class="waves-effec btn btn2 waves-light z-depth-3" id="btn-anular">Anular</button>
 											<button href="#!" class="waves-effec btn btn3 waves-light z-depth-3" id="btn-divsalir">Salir</button>
 										</div>
@@ -105,9 +96,10 @@
 						<thead>
 							<tr>
 								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Movimientos</th>
+								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Consec.</th>
 								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Fecha</th>
 								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Monto</th>
-								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;"><?php echo $transaccion[0][12] == 1 ? "Valor Factura" : "Saldo" ?> </th>
+								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Valor Fact. </th>
 								<th class="white-text tab1" style="border: 0; border-radius: 0px !important;">Usuario</th>
 							</tr>
 						</thead>
@@ -115,9 +107,10 @@
 							<?php foreach ($transaccion as $obj) { ?>
 							<tr>
 								<td><?php echo $obj[9]; ?></td>
+								<td><?php echo $obj[2]; ?></td>
 								<td><?php echo $obj[4]; ?></td>
-								<td><?php echo $obj[8]; ?></td>
-								<td><?php echo $obj[5]; ?></td>
+								<td><?php echo number_format($obj[8],2); ?></td>
+								<td><?php echo number_format($obj[5],2); ?></td>
 								<td><?php echo $obj[10]; ?></td>
 							</tr>
 							<?php } ?>

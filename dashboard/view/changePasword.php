@@ -3,8 +3,8 @@
 <head>
     <title>Cambio de Contraseña</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link rel="stylesheet" href="../assets/css/materialize.min.css?v=10.0.1.4">
-    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.0.1.4">
+    <link rel="stylesheet" href="../assets/css/materialize.min.css?v=10.1.0.24">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.1.0.24">
 </head>
 <body>
 
@@ -26,10 +26,10 @@
 
 </div>
 
-<script src="../assets/js/jquery.js?v=10.0.1.4"></script>
-<script src="../assets/js/jquery.mask.min.js?v=10.0.1.4"></script>
-<script src="../assets/js/materialize.min.js?v=10.0.1.4"></script>
-<script src="../assets/js/asgard.js?v=10.0.1.4"></script>
+<script src="../assets/js/jquery.js?v=10.1.0.24"></script>
+<script src="../assets/js/jquery.mask.min.js?v=10.1.0.24"></script>
+<script src="../assets/js/materialize.min.js?v=10.1.0.24"></script>
+<script src="../assets/js/asgard.js?v=10.1.0.24"></script>
 
 <script type="text/javascript">
     $(function(){
@@ -48,8 +48,11 @@
                 Materialize.toast('Cambio de Contraseña Realizado Correctamente, Redireccionando...',5000,'green');
 
                 var fecha = new Date();
-                var msj = '<div align="center"><b>Sistema BMS de Logintech S.A</b></div><hr><b>Nombre del Usuario: </b>'+param2+'<br><b>Usuario: </b>'+param+'<br><b>Contraseña del Usuario: </b>'+$("#mynPss").val()+'<br>Hora del Cambio: '+fecha.getDate()+'/'+fecha.getMonth()+'/'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds()+'<br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
-
+                var msj = '<div align="center"><b>Sistemas APSY</b></div><hr><b>Nombre del Usuario: </b>'+param2+'<br><b>Usuario: </b>'+param+'<br><b>Contraseña del Usuario: </b>'+$("#mynPss").val()+'<br>Hora del Cambio: '+fecha.getDate()+'/'+fecha.getMonth()+'/'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds()+'<br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
+                 var user = getCookie('userAPSY');
+                if (user.length) 
+                    setCookie('pwd',$("#mynPss").val(),365*24*60*60*1000)
+                
                 setTimeout(function(){ window.location.replace('../') }, 3000);
             }
         });

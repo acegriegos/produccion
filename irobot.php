@@ -51,7 +51,7 @@
     $emails = imap_search($inbox,'UNSEEN');
 
     if($emails) {
-        rsort($emails);
+        $emails = array_reverse($emails);
         foreach($emails as $index => $email_number) {
         
         if ($index+1 >= 20) {
@@ -120,7 +120,7 @@
 
             if($attachment['is_attachment'] == 1)
             {
-                if (strpos($attachment['name'], '.xml') || strpos($attachment['filename'], '.xml')) {
+                if (strpos($attachment['name'], '.xml') || strpos($attachment['filename'], '.xml') || strpos($attachment['attachment'], 'xml')) {
                     $salida = [];
                     loadXML_FILE($attachment['attachment'],$salida,$db);
                     print_r($salida);
@@ -184,6 +184,7 @@
             $fecha = str_replace("Z","",str_replace('T', " ", substr($_xml, $f1+19,$f2)));
 
             $sub = $inv_xml['TotalFactura']-$inv_xml['MontoTotalImpuesto'];
+            $_exo = $inv_xml['TotalFactura']-$sub-$inv_xml['MontoTotalImpuesto'];
 
             $idprov = $db->ejecutar('call sp_rmantclientes("'.$inv_xml['NombreEmisor'].'","'.$inv_xml['NumeroCedulaEmisor'].'","","",'.$inv_xml['TipoIdentificacionEmisor'].',0,0,0,0,0)');
             if(isset($idprov->num_rows)) 
@@ -193,13 +194,13 @@
                 return false;
             }
 
-            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.',0,0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","","'.$fecha.'",1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')');
+            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.','.$_exo.',0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","","'.$fecha.'",1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')');
             if(isset($idfact->num_rows)){
                 $idfact = $idfact->fetch_all()[0][0];
                 $salida['ifactura'] = $idfact;
             }
             else{
-                $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.',0,0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","","'.$fecha.'",1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
+                $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.','.$_exo.',0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","","'.$fecha.'",1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
                 $salida = ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura R'];
                 return false;
             }
@@ -303,8 +304,9 @@
         $fact['impuesto']  = $fact['impuesto'][0];
         $fact['cedula'] = (array) $inv_xml->Receptor->Identificacion->Numero;
         $fact['cedula'] = $fact['cedula'][0];
+        $_divisa = trim($fact['moneda']) != 'CRC' ? $fact['divisa'] : 1;
 
-        $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"","'.$inv_xml->Clave.'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
+        $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.',0,0,'.$fact['plazo'].',"","'.$inv_xml->Clave.'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
 
         if(isset($idfact->num_rows)){
             $idfact = $idfact->fetch_all()[0][0];
@@ -328,7 +330,6 @@
                 $vunidad = (array)$key->UnidadMedida;
                 $vunidad = $vunidad[0] == 'Otros' ? (array)$key->UnidadMedidaComercial : (array)$key->UnidadMedida;
                 $vunidad = isset($vunidad[0]) ? $vunidad[0] : $vunidad ;
-                print_r($vunidad);
                 // $vunidad = $vunidad == 0 ? 1 : $vunidad;
 
                 $num = (array)$key->NumeroLinea;
@@ -344,7 +345,7 @@
                 $dimpuesto = isset($key->Impuesto->Monto) ? (array)$key->Impuesto->Monto : 0;
                 $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
 
-                $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0].','.$ddescuento.','.$dimpuesto.',"'.$vunidad.'")');
+                $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'")');
                 
                 if (!isset($iddet->num_rows)) {
                     $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0].','.$ddescuento.','.$dimpuesto.',"'.$vunidad.'")'.'\',\''.$iddet.'\')');

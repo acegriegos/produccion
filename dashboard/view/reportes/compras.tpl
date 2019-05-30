@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Compras Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.1.4">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.1.0.24">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -41,7 +41,6 @@
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
-        <td class="white-text blue sinborde" style="width: 1%"></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Número de Factura</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Fecha</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Cliente</b></td>
@@ -58,7 +57,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.1.4"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.0.1.4"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.1.0.24"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.1.0.24"></script>
 </body>
 </html>

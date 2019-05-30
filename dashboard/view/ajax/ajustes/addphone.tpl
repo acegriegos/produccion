@@ -8,7 +8,7 @@
     </div>
 
     <div class="input-field col s6" style="margin: 0px">
-      <input type="text" class="validate tooltipped" id="telefono_in" data-mask="9999-9999" data-position="top" data-tooltip="Ingresar Teléfono">
+      <input type="text" class="validate tooltipped" id="telefono_in" data-position="top" data-tooltip="Ingresar Teléfono">
       <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
     </div>
       
@@ -25,8 +25,13 @@
     $(function(){
         $("#telefono_in").focus();
 
+        $("#ftelefonos .ciclos").each(function(index){
+          var id = $(this).attr('id').substr(3);
+          $("#slideTelefono").data('fila'+(index+1),{vtelefono:$("#t0_"+id).html(),vidtipotel:$(this).attr('tp'),vidtelefono:id,vaccion:2});
+        });
+
         if ($("#slideTelefono").data('fila1') != undefined) {
-            var num = 1;
+            var num = $("#ftelefonos .ciclos").length +1;
             while($("#slideTelefono").data('fila'+num) != undefined){
                 var del = $("#slideTelefono").data('fila'+num)['vtelefono'].substring(0,1);
                 var vtipo = del == 2 || del == 4 ? 2 : 3;
@@ -36,8 +41,6 @@
                 $("#ftelefonos").append('<div id="tgl'+num+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+num+'" class="_tel">'+$("#slideTelefono").data('fila'+num)['vtelefono']+'</span> <img id="ftpt0_'+num+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+num+'" class="close_phone mdi mdi-close right"></i></div>');
                 num++;
             }
-
-            ind_2 = num;
         }
     });
 </script>
