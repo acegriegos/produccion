@@ -650,7 +650,12 @@
                 print_r($db->ejecutar(substr($str, 0, strlen($str)-1)));
 
             }
-            break;        
+            break; 
+        case 6:
+            $db = new DBClass();
+            $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
+            print_r($vbase);
+            break;       
         default:
             break;
     }
