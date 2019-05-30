@@ -659,6 +659,8 @@
 
             fclose(fopen('./assets/update/update.log','w'));
 
+            shell_exec('git config --global user.name "APSY" >> ./assets/update/update.log 2>&1');
+            shell_exec('git config --global user.email "info@apsycr.com" >> ./assets/update/update.log 2>&1');
             shell_exec('git commit -a -m"sync" >> ./assets/update/update.log 2>&1');
             shell_exec('git pull >> ./assets/update/update.log 2>&1');
             shell_exec('git git reset --hard HEAD~1 >> ./assets/update/update.log 2>&1');
