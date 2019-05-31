@@ -17,7 +17,9 @@
 
 			<a id="addproduct" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger per4102" href="#modal-productos" title="Agregar Producto"><i class="mdi mdi-plus"></i></a>
 
+            {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
              <a id="boletaes" class="btn-floating waves-effect waves-light right z-depth-3 per4110" title="Boleta E/S Inventario" style="margin-right: 2%;"><i class="mdi mdi-truck"></i></a>
+             {/if}
 		</div>
 	</div>
 	<div class="row pequeño">
@@ -155,7 +157,7 @@
                         <select type="select" id="vidunidad">
                             <option value="">Seleccione una Unidad</option>
                             {section name=LE loop=$UNI}
-                            <option value="{$UNI[LE][0]}">{$UNI[LE][1]}</option>
+                            <option value="{$UNI[LE][0]}" tipo="{$UNI[LE][3]}">{$UNI[LE][1]}</option>
                             {/section}
                         </select>
                         <label for="vidunidad">Unidad</label>
@@ -182,6 +184,7 @@
                             <label class="active" for="vcantidad">Cantidad</label>
                         </div>
                     {/if}
+
                     <input type="hidden" id="vidinventario" value="6" noClear="1">
                     {else}
                     <div class="input-field marginzero col s12" id="dinventario">
@@ -194,6 +197,16 @@
                         <label for="vidinventario">Inventario</label>
                     </div>
                      {/if}
+
+                    {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
+                    <div class="input-field marginzero col s12">
+                        <a href="#" id="heredado" class="btn-floating tooltipped hide" data-tooltip="Producto Heredado" data-position="bottom"><i>H</i></a>
+                        <a href="#" id="union" class="btn-floating tooltipped" data-tooltip="Producto de Receta" data-position="bottom"><i class="mdi mdi-book-multiple-variant mdi-24px"></i></a>
+                        <a href="#" id="proveedores" class="btn-floating tooltipped" data-tooltip="Proveedores" data-position="bottom" style="margin-bottom: 5px"><i class="mdi mdi-account-multiple-outline mdi-24px"></i></a>
+                        <a href="#" id="imagenes" class="btn-floating tooltipped" data-tooltip="Imagenes" data-position="bottom"><i class="mdi mdi-image-multiple mdi-24px"></i></a>
+                        <a href="#" id="dimensiones" class="btn-floating tooltipped hide" data-tooltip="Dimensiones" data-position="bottom"><i class="mdi mdi-move-resize-variant mdi-24px"></i></a>
+                    </div>
+                    {/if}
 
                 </div>
 
@@ -237,16 +250,18 @@
 
         </div>
 
-        <div id="financiero" class="row hide" style="padding: 20px 10px 0 0px">            
-            <div class="center">
+        <div id="financiero" class="row hide" style="padding: 10px 10px 0 0px"> 
+
                 <div class="row" style="padding: 0px;float: right;margin: 0px;">
                     <input type="checkbox" id="pg" checked >
                     <label for="pg" class="col s6" style="padding: 0px; padding-left: 25px;">Gravado</label>
                      <input type="text" id="vexoneracion" class="der eder numeric exo col s6" noClear value="13" num="4" autocomplete="off" style="margin: 0px">
+                     
                 </div>
-            </div>
+                <input type="checkbox" id="pu" >
+                    <label for="pu" class="col s6" style="padding: 0px; padding-left: 25px; margin-left: 2%;">Por Unidad</label>
             <br><br>
-            <div class="row">
+            <div class="row" style="margin: 0;">
 
                 <div class="col s12 l4 ">
                     <div class="input-field">
@@ -279,36 +294,43 @@
 
             </div>
 
-          <!--   <tr> 
-                <td><div class="switch hide">
-                        <label>
-                            Cliente
-                            <input type="checkbox" class="chg" value="1" checked>
-                            <span class="lever"></span>
-                            Categoria
-                        </label>
-                    </div></td>
-                <td colspan="2" style="padding: 2%;"> <b class="chg0 {if $smarty.session.BUSS neq 0 or $smarty.session.BUSS neq 3} hide {/if}">Precio por Categoría</b> <b class="chg1 hide">Precio por Cliente</b> </td>
-            </tr> -->
+            <div class="hide precunidiv">
+                
+            </div>
+
+            {if $smarty.session.BUSS eq 0 || $smarty.session.BUSS eq 3}
+
+            <div class="col s12 hide">
+                <input type="radio" name="tprecio" value="1" id="tpr1" checked class="with-gap">
+                <label for="tpr1">Categoría</label>
+
+                <input type="radio" name="tprecio" value="2" id="tpr2" class="with-gap">
+                <label for="tpr2">Unidad</label>
+            </div>
 
             {section name=LE loop=$NIV}
-            <div class="precionivel row chg0 {if $smarty.session.BUSS neq 0 && $smarty.session.BUSS neq 3} hide {/if}" id="f{$NIV[LE][0]}" style="margin: 0px">
-                <div class="col s12 l4">
-                    <b>{$NIV[LE][1]}</b>
-                </div>
-                <div class="col s12 l4 input-field">
-                    <i class="mdi prefix">%</i>
-                    <input type="text" id="vgganancia{$NIV[LE][0]}" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off">
-                    <input type="hidden" id="vganancia{$NIV[LE][0]}" value="0" class="rgan">
-                </div>
-                <div class="col s12 l4 input-field">
-                    <i class="mdi prefix moneda">¢</i>
-                    <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off">
+            <div style="margin: 0; padding: 0;" id="precionivel">
+                <div class="precionivel row" id="f{$NIV[LE][0]}" style="margin: 0px">
+                    <div class="col s12 l4">
+                        <b>{$NIV[LE][1]}</b>
+                    </div>
+                    <div class="col s12 l4 input-field">
+                        <i class="mdi prefix">%</i>
+                        <input type="text" id="vgganancia{$NIV[LE][0]}" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off">
+                        <input type="hidden" id="vganancia{$NIV[LE][0]}" value="0" class="rgan">
+                    </div>
+                    <div class="col s12 l4 input-field">
+                        <i class="mdi prefix moneda">¢</i>
+                        <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off">
+                    </div>
                 </div>
             </div>
+            <div class="hide precunidiv">
+                
+            </div>
             {/section}
-        
-            <div class="chg1 hide precclienete">
+
+            <div class="chg hide precclienete">
                 <tr>
                     <td style="padding: 0px"><label>Nombre Cliente</label></td>
                 </tr>
@@ -333,6 +355,8 @@
                     </td>
                 </tr>
             </div>
+
+        {/if}
 
     <div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
         <div class="col s12">
@@ -574,15 +598,13 @@
     <div class="row">
         <div class="col s3 input-field">
             <select type="select" id="bod1">
-                <option value="6" selected="">NARANJO</option>
-                <option value="10">SAN CARLOS</option>
+                <option value="6" selected="">Producto Venta</option>
             </select>
             <label for="bod1">Bodega 1</label>
         </div>
         <div class="col s3 input-field bd2 hide">
             <select type="select" id="bod2">
-                <option value="6">NARANJO</option>
-                <option value="10" selected="">SAN CARLOS</option>
+                <option value="6">Producto Venta</option>
             </select>
             <label for="bod2">Bodega 2</label>
         </div>
@@ -626,6 +648,180 @@
     <input type="checkbox" id="p_v" checked />
               <label for="p_v" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" data-position="left">Punto Venta</label>
 <a class="modal-action waves-effect waves-light waves-green btn-flat z-depth-3" id="boletainv">Guardar</a>
+<a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+</div>
+</div>
+
+<div id="modal-imagenes" class="modal modal-fixed-footer grandemodal" >
+<div class="modal-header">
+<ul class="tabs head2">
+    <li class="tab col s3"><a class="white-text">Imágenes del Producto <span class="dprd"></span></a></li>
+</ul>
+</div>
+<div class="modal-content pequeño" stylle="padding: 0px;">
+<div class="row pequeño"><br>
+    <div class="col s6">
+        SUBIR
+    </div>
+
+    <div class="col s6">
+         <ul class="collection">
+            <li class="collection-item avatar">
+              <img src="images/yuna.jpg" alt="">
+              <span class="title">Foto 1</span>
+              <p>
+                <a href="#" class="der red-text"><i class="mdi mdi-close"></i></a>
+              </p>
+            </li>
+            <li class="collection-item avatar">
+              <img src="images/yuna.jpg" alt="">
+              <span class="title">Foto 2</span>
+              <p>
+                <a href="#" class="der red-text"><i class="mdi mdi-close"></i></a>
+              </p>
+            </li>
+            <li class="collection-item avatar">
+              <img src="images/yuna.jpg" alt="">
+              <span class="title">Foto 3</span>
+              <p>
+                <a href="#" class="der red-text"><i class="mdi mdi-close"></i></a>
+              </p>
+            </li>
+            <li class="collection-item avatar">
+              <img src="images/yuna.jpg" alt="">
+              <span class="title">Foto 4</span>
+              <p>
+                <a href="#" class="der red-text"><i class="mdi mdi-close"></i></a>
+              </p>
+            </li>
+          </ul>
+    </div>
+</div>
+</div>
+<div class="modal-footer">
+<a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+</div>
+</div>
+
+<div id="modal-proveedores" class="modal modal-fixed-footer grandemodal" >
+<div class="modal-header">
+<ul class="tabs head2">
+    <li class="tab col s3"><a class="white-text">Proveedores del Producto <span class="dprd"></span></a></li>
+</ul>
+</div>
+<div class="modal-content pequeño" stylle="padding: 0px;">
+<div class="row pequeño"><br>
+    <table class="table pequeño responsive-table centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
+        <thead class="head1">
+            <tr>
+                <th style="border: 0; border-radius: 0px !important;">Proveedor</th>
+                <th style="border: 0; border-radius: 0px !important;">Código</th>
+                <th style="border: 0; border-radius: 0px !important;">Costo</th>
+                <th style="border: 0; border-radius: 0px !important;">Ult. Fecha</th>
+                <th style="border: 0; border-radius: 0px !important;">Cantidades</th>
+                <th style="border: 0; border-radius: 0px !important;">Lotes</th>
+            </tr>
+        </thead>
+        <tbody id="listainfop"></tbody>
+    </table>
+</div>
+</div>
+<div class="modal-footer">
+<a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+</div>
+</div>
+
+<div id="modal-heredado" class="modal modal-fixed-footer grandemodal" >
+<div class="modal-header">
+<ul class="tabs head2">
+    <li class="tab col s3"><a class="white-text">Herencia del Producto <span class="dprd"></span></a></li>
+</ul>
+</div>
+<div class="modal-content pequeño" stylle="padding: 0px;">
+<div class="row pequeño"><br>
+
+<div class="col s6 input-field">
+    <input type="text" id="prpadre">
+    <label for="prpadre">Producto Padre</label>
+</div>
+
+<div class="col s6">
+    <input type="text" id="cntpadre">
+    <label for="cntpadre">Cantidad</label>
+</div>
+
+<label>Productos Heredados</label>
+
+<table class="table pequeño responsive-table centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
+        <thead class="head1">
+            <tr>
+                <th style="border: 0; border-radius: 0px !important;">Código</th>
+                <th style="border: 0; border-radius: 0px !important;">Nombre</th>
+                <th style="border: 0; border-radius: 0px !important;">Cantidad</th>
+            </tr>
+        </thead>
+        <tbody id="listainfoh"></tbody>
+    </table>
+
+</div>
+</div>
+<div class="modal-footer">
+<a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+</div>
+</div>
+
+<div id="modal-union" class="modal modal-fixed-footer grandemodal" >
+<div class="modal-header">
+<ul class="tabs head2">
+    <li class="tab col s3"><a class="white-text">Receta del Producto <span class="dprd"></span></a></li>
+</ul>
+</div>
+<div class="modal-content pequeño" stylle="padding: 0px;">
+<div class="row pequeño">
+
+<div class="col s6 row">
+    <div class="input-field col s12">
+        <input type="text" id="prunion">
+        <label for="prunion">Buscar Producto</label>
+    </div>
+
+    <div class="input-field col s5">
+        <input type="text" id="cntunion">
+        <label for="cntunion">Cantidad</label>
+    </div>
+
+    <div class="input-field col s5">
+        <select id="cntunid">
+            <option disabled selected>----</option>
+        </select>
+        <label for="cntunid">Unidad</label>
+    </div>
+
+    <a href="#" id="inclreceta" class="btn-floating"><i class="mdi mdi-24px mdi-plus"></i></a>
+</div>
+
+<div class="col s6">
+    <span>Lista de Ingredientes</span>
+</div>
+
+</div>
+<label>Productos Elaborados a Base</label>
+
+<table class="table pequeño responsive-table centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
+        <thead class="head1">
+            <tr>
+                <th style="border: 0; border-radius: 0px !important;">Código</th>
+                <th style="border: 0; border-radius: 0px !important;">Nombre</th>
+                <th style="border: 0; border-radius: 0px !important;">Cantidad</th>
+                <th style="border: 0; border-radius: 0px !important;">Unidad</th>
+                <th style="border: 0; border-radius: 0px !important;">Precio Final</th>
+            </tr>
+        </thead>
+        <tbody id="listainfou"></tbody>
+    </table>
+
+</div>
+<div class="modal-footer">
 <a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
 </div>
 </div>

@@ -5,7 +5,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"omitir":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i></a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
+    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i></a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -96,27 +96,27 @@ $(function(){
 
     mdate = $(".principal .filtros").attr('entrefechas');
     if (mdate != undefined){
-        html = '<div class="row col s12 m6 l6 rous"><div class="col s4"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s8 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport datepicker" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport datepicker" id="vhasta" value="" str="1"></div></div></div>';
+        html = '<div class="row col s12 m6 l6 rous"><div class="col s4"><input type="checkbox" id="xfec" value="1" class="repcheck"><label for="xfec" class="pbtn">Entre Fechas</label></div><div class="col s8 '+mdate+'" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport" id="vdesde" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport" id="vhasta" value="" str="1"></div></div></div>';
 
         $(".principal .filtros").append(html);
 
-        $('.datepicker').pickadate({
-            labelMonthNext: 'Siguiente',
-            labelMonthPrev: 'Anterior',
-            labelMonthSelect: 'Seleccione un Mes',
-            labelYearSelect: 'Seleccione un Año',
-            monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-            monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-            weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-            weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-            weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
-            today: 'Hoy',
-            clear: 'Limpiar',
-            close: 'Cerrar',
-            format: 'yyyy-mm-dd',
-            selectMonths: true,
-            selectYears: 10
-        });
+        // $('.datepicker').pickadate({
+        //     labelMonthNext: 'Siguiente',
+        //     labelMonthPrev: 'Anterior',
+        //     labelMonthSelect: 'Seleccione un Mes',
+        //     labelYearSelect: 'Seleccione un Año',
+        //     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+        //     monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+        //     weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+        //     weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+        //     weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+        //     today: 'Hoy',
+        //     clear: 'Limpiar',
+        //     close: 'Cerrar',
+        //     format: 'yyyy-mm-dd',
+        //     selectMonths: true,
+        //     selectYears: 10
+        // });
 
 
         // var fecha = new Date();
@@ -138,7 +138,7 @@ $(function(){
 
                 switch(parseInt(vtype[i])){
                     case 1://para select
-                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl+'"></select>';/*168*/
+                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl+'"></select>';
 
                     break;
                     case 2: //para numero
@@ -147,6 +147,16 @@ $(function(){
                     break;
                     case 3: //solo check
                     type = '<input type="hidden" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" value="-1">';
+                        break;
+                    case 4: //select create
+                        var options = $(".principal .filtros").attr('options').split(",");
+                        var optionsval = $(".principal .filtros").attr('optionsval').split(",");
+                        var stroptions = '';
+                        for (var j = 0; j < options.length; j++) {
+                            stroptions += '<option value="'+optionsval[j]+'">'+options[j]+'</option>';
+                        }
+
+                        type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos">'+stroptions+'</select>';
                         break;
                     default://para texto
                     type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
@@ -158,11 +168,18 @@ $(function(){
 
                 html = '<div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field" style="margin:0px">'+type+'</div></div></div>';
                 $(".principal .filtros").append(html);
-
-                if (parseInt(vtbl[i])) {
-                    arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
-                }else
-                    $("#chktipo"+inc).addClass('justChange').prop('indeterminate',true)
+                
+                switch(parseInt(vtbl[i])) {
+                    case -1:
+                        break;
+                    case 0:
+                        $("#chktipo"+inc).addClass('justChange').prop('indeterminate',true)
+                        break;
+                    default:
+                        arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
+                        break;
+                }
+                    
                 filtro += 1;
             }
             $('select').material_select();
@@ -227,7 +244,9 @@ $(document).on("click","#sndcrr",function(){
 
     for (var i = 0, len = datos.length; i < len; i++) {
 
-        if ($("#"+datos[i][0]).attr('str') != undefined) {
+        if($("#"+datos[i][0]).attr('change') != undefined){
+
+        if ($("#"+datos[i][0]).attr('str') == undefined) {
             if ($("#"+datos[i][0]).attr('type') == 'date') {
                 
                 if ( $("#"+datos[i][0]).val()=='' ){
@@ -248,6 +267,9 @@ $(document).on("click","#sndcrr",function(){
 
         if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
+        }else{
+            search[i] = $("#"+datos[i][0]).attr('change');
+        }
     }
 
     var string = elem.concat(search);
@@ -256,9 +278,9 @@ $(document).on("click","#sndcrr",function(){
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
 
-    mantenimiento('login',11,{sel:'',tbl:vtbl,where:atributos,omitir:$(".excel").data('parametros')['omitir'],tit:$("#titrep").html(),archivo:$("#titrep").html()+", "+sucursal,save:1,conteo:1,suma:$(".excel").data('parametros')['suma']},1);
+    mantenimiento('login',11,{sel:'',tbl:vtbl,where:atributos,vista:$(".excel").data('parametros')['vista'],tit:$("#titrep").html(),archivo:$("#titrep").html()+", "+sucursal,save:1,conteo:1,suma:$(".excel").data('parametros')['suma']},1);
 
-    enviarCorreo(3,vpara,"Reporte de "+$("#titrep").html()+", "+sucursal,"Se adjuntan los archivos correspondientes.",'excel/'+$("#titrep").html()+", "+sucursal+".xls");
+    enviarCorreo(3,vpara,"Reporte de "+$("#titrep").html()+", "+sucursal,"Se adjuntan los archivos correspondientes.",'excel/'+$("#titrep").html()+", "+sucursal+".xlsx",0,0,0);
 });
 
 $(document).on("click",".excel",function(){
@@ -275,6 +297,8 @@ $(document).on("click",".excel",function(){
 
     for (var i = 0, len = datos.length; i < len; i++) {
 
+        if($("#"+datos[i][0]).attr('change') == undefined){
+
         if ($("#"+datos[i][0]).attr('str') != undefined) {
             if ($("#"+datos[i][0]).attr('type') == 'date') {
                 
@@ -296,6 +320,10 @@ $(document).on("click",".excel",function(){
 
         if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
+    
+        }else{
+            search[i] = $("#"+datos[i][0]).attr('change');
+        }
     }
 
     var string = elem.concat(search);
@@ -304,7 +332,7 @@ $(document).on("click",".excel",function(){
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
 
-    window.location = "login?accion=11&arreglo[sel]=&arreglo[tbl]="+vtbl+"&arreglo[where]="+atributos+"&arreglo[save]=0&arreglo[omitir]="+$(".excel").data('parametros')['omitir']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'];
+    window.location = "login?accion=11&arreglo[sel]=&arreglo[tbl]="+vtbl+"&arreglo[where]="+atributos+"&arreglo[save]=0&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'];
 });
 
 $(document).on("click",".sendrep",function(){

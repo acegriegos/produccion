@@ -3,7 +3,7 @@ var ind_1 = ind_2 = 1;
 var numero = 0;
 $(function(){
     $('.dropdown-button').dropdown();
-    $('.tooltipped').tooltip({delay: 50});
+    $('.tooltipped').tooltip({delay: 50,duration:1000});
     $('.modal').modal();   
     $('select').material_select();
 
@@ -71,6 +71,9 @@ $(document).on("click","#eslide",function(){
 $(document).on("click",".tc-show",function(){   
 
     var code = parseInt($(this).data('num'));
+
+    if ($("#slide-cliente").length == 1)
+            $(".s-cliente").sideNav('destroy');
 
     if ($("#slide-tc").length == 0) {
         var ul = '<ul id="slide-tc" class="side-nav" style="z-index:1500;"><li><div class="user-view center"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div> <a class="btn btn-default" id="eslide" style="bottom:42px;position:absolute;">Salir</a></li></ul>';
@@ -218,6 +221,67 @@ $(document).on("click","#fclientes [name='tipoclie']",function(){
     }
 });
 //
+
+$(document).on("click",".detallefactura",function(){
+    $("#btndetfact").click()
+    var id = $(this).attr('id').substr(1);
+    var estado = $(this).attr('estado');
+    var tabla= $("#data-table-cuentas-detalle").DataTable();
+    tabla.destroy();
+    var datos=  arr('login',6,'',303,id,0,1,$("#listaCuentasNotaDetalle"));
+
+    if (config[5] == 1){
+        $("#tipoimpresion").attr('checked',true);
+    }else{
+        $("#tipoimpresion").attr('checked',false);
+    }
+
+    $('select').material_select();
+
+    switch (parseInt(estado)) {
+        case 1:
+            $("#data-table-cuentas-detalle").dataTable({
+
+                bFilter: false,
+                order : [],
+                "bLengthChange": false
+            });
+
+            $("#btn-navsalir").click(function(){
+                
+                $('#detfacturag').sideNav('hide');
+
+            });
+            
+            $("#btn-divsalir").click(function(){
+
+                $(".divabono").hide();
+                $(".divabono").attr('visible',0);
+
+            });
+
+            $("#btn-anular").click(function(){
+                var saldo = $("#isaldo").html().replace(/,/g,'').trim().substring(1);
+                $("#vvalor").val(saldo);
+                $("#vcomentario").val('Factura anulada debido a: ').focus();     
+            });
+            
+            $("#btn-div").click(function(){
+                var vi = $(".divabono").attr('visible');
+                if (vi == 0) {
+                    $(".divabono").show();
+                    $(".divabono").attr('visible',1);
+                }else{
+                    $(".divabono").hide();
+                    $(".divabono").attr('visible',0);
+                }
+            });
+            break;
+        default:
+            break;
+    }
+
+});
 
 $(document).on("blur",".numeric",function(){
     $(this).val(parseFloat($(this).val().replace(/,/g,'')).formatMoney(2,'.',',') )
@@ -421,7 +485,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        //console.log(p)
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -656,51 +720,24 @@ function getParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
-function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto) {
-    if(!$("#smail").is(':visible')){
-        var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
-        Materialize.toast($toastContent);
-    }
+function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla) {
+    // if(!$("#smail").is(':visible')){
+    //     var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
+    //     Materialize.toast($toastContent);
+    // }
    $.ajax({
         url: '../_config/correoAjax.php',
         type: 'POST',
-        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto}
+        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto,con_con : vconcon,idfila : vidfila,idtabla : vidtabla}
     })
    .done(function(data) {
-    var p;
-    var rs;
-
-    $(".expect_mail").removeClass('progress');
-        try {
-            p = JSON.parse(data);
-            if (parseInt(p['success'])) {
-                if($("#smail").is(':visible')){
-                    Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green");
-                    $("#smail").html('')
-                }else{
-                     $(".expect_mail").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-                }
-            }else{
-                if($("#smail").is(':visible')){
-                    Materialize.toast('Problemas Enviando Correo &nbsp;&nbsp; <i class="mdi mdi-close"></i>',4000,"red");
-                    $("#smail").html('')
-                }else{
-                     Materialize.toast('Problemas Enviando Correo: '+p['error'],4000,"red");
-                     $(".expect_mail").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-                }
-            }
-            
-        }
-        catch(err){
-            p = data;
-            console.log(data)
-            console.log(err)
-            if($("#smail").is(':visible')){
-                Materialize.toast('Problemas Enviando Correo &nbsp;&nbsp; <i class="mdi mdi-close"></i>',4000,"red");
-                $("#smail").html('')
-            }else{
-                 $(".expect_mail").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-            }
+        console.log(data);
+        
+        if($("#smail").is(':visible')){
+            Materialize.toast('Correo Enviado &nbsp;&nbsp; <i class="mdi mdi-check"></i>',4000,"green");
+            $("#smail").html('')
+        }else{
+             $(".expect_mail").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
         }
         
         try{
@@ -838,7 +875,29 @@ case "5":
             salida[varreglo[i][0]] = salida[varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal') ? 0 : salida[varreglo[i][0]];
         }
         break;
+case "6":
+    if ($("#"+vform).data('fila1') != undefined) {
+            var num = 1;
+            while($("#"+vform).data('fila'+num) != undefined){
+                salida[num] = {};
+            for (var i = 0;  i < varreglo.length; i++) {
+                salida[num][varreglo[i][0]] = $("#"+vform).data('fila'+num)[varreglo[i][0]];
 
+                salida[num][varreglo[i][0]] = salida[num][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal' ) ? 0 : salida[num][varreglo[i][0]];
+                if (salida[num][varreglo[i][0]] == undefined) {
+                    if (varreglo[i][0] == 'vidfila' || varreglo[i][0] == 'vidtabla') {
+                        varreglo[i][0] = 0;
+                    }else{
+                        console.log(varreglo[i][0]+" No Existe, "+vform);
+                        return "Error en Interno, Codigo: Odin"
+                    }
+                    
+                }
+                }// end FOR
+                num++;
+            }
+        }
+    break;
 default:
 
     //LLENADO DE VARIABLES POR ID SIN DETALLE
@@ -852,7 +911,7 @@ default:
                 salida[varreglo[i][0]] = 0;
                 break
                 case 'vidtabla':
-                salida[varreglo[i][0]] = $("#"+vform+" #vtabla").val();
+                salida[varreglo[i][0]] = $("#"+vform+" #vidtabla").val() == undefined ? 0 : $("#"+vform+" #vidtabla").val();
                 break;
                 default:
                 if (/vfecha/.test(varreglo[i][0]) && $("#"+vform+" #"+varreglo[i][0]).length){
@@ -1924,7 +1983,7 @@ function phone_addon_ckub(vfila,vphone){
             ind_2 += 1;
             $('.collapsible').collapsible();
         }else{
-            $("#itchp"+vfila).html('<img src="../assets/img/icon/'+tipotel+'.png">'+vphone);
+            // $("#itchp"+vfila).html('<img src="../assets/img/icon/'+tipotel+'.png">'+vphone);
             $("#"+vfila).html(vphone);
             $("#ftp"+vfila).attr('src','img src="../assets/img/icon/'+tipotel+'.png"');
             $("#slideTelefono").data('fila'+vfila.substr(3))['vtelefono'] = vphone;
@@ -1962,20 +2021,20 @@ function phone_addon_ckub(vfila,vphone){
 
     $(document).on('blur',"#telefono_in",function(){
         var telefono = $(this).val();
-        if (isNaN(telefono.replace('-',''))) {
-            Materialize.toast('Telefono Invalido',4000,'red')
-            return false;
-        }
-
-        if (telefono.replace('-','').length != 8) {
-            Materialize.toast('Telefono Invalido',4000,'red')
-            return false;
-        }
 
         if (telefono.length > 1) {
+            if (isNaN(telefono.replace('-',''))) {
+                Materialize.toast('Telefono Invalido',4000,'red')
+                return false;
+            }
+
+            if (telefono.length > 20) {
+                Materialize.toast('Telefono Invalido',4000,'red')
+                return false;   
+            }
+            
             var idfila = $(this).attr('idfila');
-            var htipo = $("#tptel").val();
-            phone_addon_ckub(idfila,telefono,htipo);
+            phone_addon_ckub(idfila,telefono);
         }
         
     });
@@ -1995,7 +2054,7 @@ function phone_addon_ckub(vfila,vphone){
 $(document).on("click",".close_mail",function(){
     $(this).parent().removeClass('chip');
     $(this).parent().addClass('hide');
-    $(this).parent().data('triforce').vaccion = 3;
+    $(this).parent().data('triforce')['vaccion'] = 3;
 });
 
 $(document).on("click",".close_phone",function(){
@@ -2012,11 +2071,8 @@ $(document).on("click",".vcoo",function(){
 });
 
 $(document).on("click","._tel",function(){
-    var id = $(this).attr('id').substr(3);
     $("#telefono_in").val($(this).html()).select().focus();
     $("#telefono_in").attr('idfila',$(this).attr('id'));
-    $("#tptel").val($(this).attr('tp'));
-    $("#tptel").material_select('update');
     Materialize.updateTextFields();
 });
 
@@ -2089,7 +2145,7 @@ function guardarSlide(vaccion,pr,vtabla){
                         var del = $("#slideTelefono").data('fila'+num)['vtelefono'].substring(0,1);
                         var vtipo = del == 2 || del == 4 ? 2 : 3;
                         insertar(238,'','null,'+vtipo+',"'+$("#slideTelefono").data('fila'+num)['vtelefono']+'",'+vtabla+','+pr+',52');
-                        $("#slideTelefono").removeData('fila'+num)
+                        $("#slideTelefono").removeData('fila'+num);
                         num++;
                     }
                 }
@@ -2143,6 +2199,33 @@ function guardarSlide(vaccion,pr,vtabla){
             break;
     }
     
+}
+
+function setCookie(tipo,valor,suma){
+    var d = new Date();
+    d.setTime(d.getTime() + suma);
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = tipo + "=" + valor + ";" + expires + ";path=/";
+}
+
+function deleteCookie(cname){
+    document.cookie = cname + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
 
 // addgeneral

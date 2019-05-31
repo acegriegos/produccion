@@ -52,7 +52,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
         }
 
         public function cargarConfigFile($mdb)
@@ -84,6 +84,7 @@
             $mdb = $db->getDB();
             $user = $db->getUSR();
             $pass = $db->getPSS();
+            $port = $db->getPort();
             $salida = [];
             set_time_limit(0);
 
@@ -101,7 +102,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
             unlink($destination);
             
@@ -133,7 +134,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
             
             unlink($destination);
         }
@@ -411,6 +412,7 @@
             $mdb = $db->getDB();
             $user = $db->getUSR();
             $pass = $db->getPSS();
+            $port = $db->getPort();
             $salida = [];
             set_time_limit(0);
 
@@ -428,7 +430,7 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/first.sql >> ./assets/update/update.log 2>&1");
 
             $source = "https://logintechcr.com/descargas/310169776129.p12";
             $ch = curl_init();
@@ -458,12 +460,128 @@
             fputs($file, $data);
             fclose($file);
 
-            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/ubicaciones.sql >> ./assets/update/update.log 2>&1");
             
             unlink($destination);
             
             if(filesize("assets/update/update.log"))
                 $salida['CONF'] = "ERROR";
+            break;
+        case 3:
+            require_once '_config/mysqlDB.php';
+            
+            $db = new DBClass();
+            $mdb = $db->getDB();
+            $user = $db->getUSR();
+            $pass = $db->getPSS();
+            $port = $db->getPort();
+            $salida = [];
+            $errors = [];
+            set_time_limit(0);
+
+            fclose(fopen('./assets/update/update.log','w'));
+            
+            if (!file_exists("assets/update/update.sql")) {
+
+                shell_exec("mysqldump --user=".$user." --password=".$pass." --port=".$port." ".$mdb." --complete-insert --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".impuestos --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipodeclaraciones --ignore-table=".$mdb.".tipoestadocuentas --ignore-table=".$mdb.".tipomonedas --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoexoneraciones --ignore-table=".$mdb.".tipoventas --ignore-table=".$mdb.".permisos --ignore-table=".$mdb.".permisosCliente --ignore-table=".$mdb.".permisosLogintech --ignore-table=".$mdb.".unidadeshacienda --ignore-table=".$mdb.".sysplanes --ignore-table=".$mdb.".sysmods --ignore-table=".$mdb.".wsdls > ./assets/update/info.sql");
+
+                shell_exec("mysqldump --user=".$user." --password=".$pass." --port=".$port." ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
+
+                $source = "https://logintechcr.com/descargas/struct.lt";
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $source);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_SSLVERSION,false);
+                $data = curl_exec ($ch);
+                $error = curl_error($ch); 
+                curl_close ($ch);
+
+                $destination = "./assets/update/update.sql";
+                $file = fopen($destination, "w+");
+                fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
+                fclose($file);
+
+                $archivo = file_get_contents('./assets/update/update.sql');
+                $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
+                $archivo = preg_replace('/`%`/', `localhost`, $archivo);
+                $archivo = preg_replace('/developer/', $mdb, $archivo);
+                file_put_contents('./assets/update/update.sql', $archivo);
+            }
+
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
+
+            $salida['update'] = 1;
+
+            if(filesize("assets/update/update.log")){
+
+                $salida['update'] = 0;
+
+                shell_exec("mysql -u".$user." -p".$pass." -P".$port." ".$mdb." < ./assets/update/full.sql");
+                $salida['rollback'] = 1;
+            }else{
+                #unlink("assets/update/info.sql");
+                unlink("assets/update/update.sql");
+                #unlink("assets/update/full.sql");
+            }
+            break;
+        case 5: //BASE RESTAURANTES
+            require_once '_config/mysqlDB.php';
+            
+            $db = new DBClass();
+            $mdb = 'restaurantes';
+            $user = $db->getUSR();
+            $pass = $db->getPSS();
+            $port = $db->getPort();
+            $rdb = $db->getDB();
+            $salida = [];
+            $errors = [];
+            set_time_limit(0);
+
+            fclose(fopen('./assets/update/update.log','w'));
+            
+            if (!file_exists("assets/update/update.sql")) {
+
+                shell_exec("mysqldump --user=".$user." --password=".$pass." --port=".$port." ".$mdb." --complete-insert --no-create-info --skip-triggers > ./assets/update/info.sql");
+
+                shell_exec("mysqldump --user=".$user." --password=".$pass." --port=".$port." ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
+
+                $source = "https://logintechcr.com/descargas/structR.lt";
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $source);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_SSLVERSION,false);
+                $data = curl_exec ($ch);
+                $error = curl_error($ch); 
+                curl_close ($ch);
+
+                $destination = "./assets/update/update.sql";
+                $file = fopen($destination, "w+");
+                fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
+                fclose($file);
+                $archivo = file_get_contents('./assets/update/update.sql');
+                $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
+                $archivo = preg_replace('/`%`/', `localhost`, $archivo);
+                $archivo = preg_replace('/developer/', $rdb, $archivo);
+                file_put_contents('./assets/update/update.sql', $archivo);
+            }
+
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
+            shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
+
+            $salida['update'] = 1;
+
+            if(filesize("assets/update/update.log")){
+
+                $salida['update'] = 0;
+
+                shell_exec("mysql -u".$user." -p".$pass." -P".$port." ".$mdb." < ./assets/update/full.sql");
+                $salida['rollback'] = 1;
+            }else{
+                #unlink("assets/update/info.sql");
+                unlink("assets/update/update.sql");
+                #unlink("assets/update/full.sql");
+            }
             break;
         case 12:
             echo json_encode($update->ubicaciones());
@@ -532,64 +650,31 @@
                 print_r($db->ejecutar(substr($str, 0, strlen($str)-1)));
 
             }
-            break;        
-        default: //CONFIGURACION BASE
-
+            break; 
+        case 6:
             require_once '_config/mysqlDB.php';
-            
+
             $db = new DBClass();
-            $mdb = $db->getDB();
-            $user = $db->getUSR();
-            $pass = $db->getPSS();
-            $salida = [];
-            $errors = [];
-            set_time_limit(0);
+            $act = new updated();
 
-            fclose(fopen('./assets/update/update.log','w'));
-            
-            if (!file_exists("assets/update/update.sql")) {
+            fclose(fopen('./assets/update/update.git','w'));
 
-                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --complete-insert --no-create-info --skip-triggers --ignore-table=".$mdb.".tablas --ignore-table=".$mdb.".accesos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadopresupuestos --ignore-table=".$mdb.".estadofacturas --ignore-table=".$mdb.".impuestos --ignore-table=".$mdb.".tipoacciones --ignore-table=".$mdb.".tipoakeys --ignore-table=".$mdb.".tipoasientos --ignore-table=".$mdb.".tipociclos --ignore-table=".$mdb.".tipoclientes --ignore-table=".$mdb.".tipocontable --ignore-table=".$mdb.".tipocuentas --ignore-table=".$mdb.".tipodevoluciones --ignore-table=".$mdb.".tipofacturaimpresiones --ignore-table=".$mdb.".tipofacturas --ignore-table=".$mdb.".tipoflotilla --ignore-table=".$mdb.".tipodeclaraciones --ignore-table=".$mdb.".tipoestadocuentas --ignore-table=".$mdb.".tipomonedas --ignore-table=".$mdb.".tipoimpresion --ignore-table=".$mdb.".tipoimpresiones --ignore-table=".$mdb.".tipojerarquia --ignore-table=".$mdb.".tiporutas --ignore-table=".$mdb.".tipotelefonos --ignore-table=".$mdb.".tipoexoneraciones --ignore-table=".$mdb.".tipoventas --ignore-table=".$mdb.".permisos --ignore-table=".$mdb.".permisosCliente --ignore-table=".$mdb.".permisosLogintech --ignore-table=".$mdb.".unidadeshacienda --ignore-table=".$mdb.".sysplanes --ignore-table=".$mdb.".sysmods --ignore-table=".$mdb.".wsdls > ./assets/update/info.sql");
+            shell_exec('git config --global user.name "APSY"');
+            shell_exec('git config --global user.email "info@apsycr.com"');
 
-                shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > ./assets/update/full.sql");
+            shell_exec('git commit -a -m"sync"');
+            shell_exec('git pull >> ./assets/update/update.git 2>&1');
+            shell_exec('git reset --hard HEAD~1');
+            shell_exec('git pull >> ./assets/update/update.git 2>&1');
 
-                $source = "https://logintechcr.com/descargas/struct.lt";
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $source);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_SSLVERSION,false);
-                $data = curl_exec ($ch);
-                $error = curl_error($ch); 
-                curl_close ($ch);
-
-                $destination = "./assets/update/update.sql";
-                $file = fopen($destination, "w+");
-                fputs($file, base64_decode($data)); //openssl_decrypt(base64_decode($data),'AES-256-CBC',base64_encode('".$pass."'))
-                fclose($file);
-
-                $archivo = file_get_contents('./assets/update/update.sql');
-                $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
-                $archivo = preg_replace('/`%`/', `localhost`, $archivo);
-                $archivo = preg_replace('/developer/', $mdb, $archivo);
-                file_put_contents('./assets/update/update.sql', $archivo);
-            }
-
-            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/update.sql >> ./assets/update/update.log 2>&1");
-            shell_exec("mysql -u".$user." -p".$pass."  -f ".$mdb." < ./assets/update/info.sql >> ./assets/update/update.log 2>&1");
-
-            $salida['update'] = 1;
-
-            if(filesize("assets/update/update.log")){
-
-                $salida['update'] = 0;
-
-                shell_exec("mysql -u".$user." -p".$pass."  ".$mdb." < ./assets/update/full.sql");
-                $salida['rollback'] = 1;
+            $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
+            if(!sizeof($vbase)){ //CARGAR TODO Y VERSION 0
+                echo "string";
             }else{
-                #unlink("assets/update/info.sql");
-                unlink("assets/update/update.sql");
-                #unlink("assets/update/full.sql");
+                echo "verionado";
             }
+            break;     
+        default:
             break;
     }
 

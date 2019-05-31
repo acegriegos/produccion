@@ -21,7 +21,68 @@
                 header("Content-Length: " . ob_get_length());
                 ob_end_flush();
                 flush();
-                print_r($fe->recepcion());
+                $rs = $fe->recepcion();
+
+                if(isset($_REQUEST['to'])){
+                    if(strlen(trim($_REQUEST['to'])) > 8){ //VALIDAR SI FUE ACEPTADO
+                        $db = new DBClass();
+                        $cnf = $db->ejecutar("call krattos('',73,".$id.")")->fetch_all()[0];
+
+                        $url2 = 99;
+                        $_POST['con_con'] = 1;
+                        $_POST['accion'] = 3;
+                        $_POST['body'] = $cnf[0];
+                        $_POST['idfila'] = $id;
+                        $_POST['subject'] = $cnf[3]." N° ".$rs['num'];
+                        $_POST['adjunto'] = [0=>'xml/'.$_REQUEST['tit'].' N°'.$rs['num'].', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$_REQUEST['tit'].' N°'.$rs['num'].', '.$_SESSION['EMPRESA'].'.pdf'];
+
+                        //MAKE ARCHIVOS
+                        //PDF
+                        $_arreglo = ['arch'=>'recibo','id'=>$id,"mic"=>1,"tit"=>$_REQUEST['tit'] ,"sel"=>'',"tbl"=>72,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+
+                        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                        $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
+                        $curl = curl_init($actual_link);
+                        curl_setopt($curl, CURLOPT_HEADER, true);
+                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($curl, CURLOPT_POST, true);
+
+                        $params = array(
+                          "accion" => 8,
+                          "arreglo" => $_arreglo);
+
+                        $postData = http_build_query($params);
+
+                        $postData = rtrim($postData, '&');
+                        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+                        $json_response = curl_exec($curl);
+                        curl_close($curl);
+
+                        //XML
+                        $_arreglo = ['id'=>$id,"factura"=>$rs['num'],"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA']];
+
+                        $curl = curl_init($actual_link);
+                        curl_setopt($curl, CURLOPT_HEADER, true);
+                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($curl, CURLOPT_POST, true);
+
+                        $params = array(
+                          "accion" => 9,
+                          "arreglo" => $_arreglo);
+
+                        $postData = http_build_query($params);
+
+                        $postData = rtrim($postData, '&');
+                        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+                        $json_response = curl_exec($curl);
+                        curl_close($curl);
+                        
+                        require_once './_config/correoAjax.php';
+                        
+                        echo "\nENVIO DE CORREO";
+                    }
+                }else
+                    echo json_encode($rs);
                 break;
             case 2://GET XML
                 if (isset($_REQUEST['view'])) {
@@ -370,6 +431,8 @@
                     $salida['succed'] = 0;
                 echo json_encode($salida);
                 break;
+            case 99: //
+                break;
             default:
                 echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
@@ -434,7 +497,7 @@
                     <b>Consecutivo: </b> <?php echo substr($det[0], 21,20); ?> <br>
                     <b>Estado: </b> <?php echo strtoupper($det[4]['estado']); ?> <br>
                     <?php if(isset($det[4]['rs'])){ ?><b>Mensaje: </b> <?php echo $det[4]['rs']; ?> <br> <?php } ?>
-                    <div id="dxml" style="display: none"><?php echo $det[4]['xml']; ?></div>
+                    <div id="dxml" style="display: none"><?php echo     $det[4]['xml']; ?></div>
                     <a href="#" class="btn bxml">Descargar Documento XML</a>
                 </div>
             </div>
@@ -504,7 +567,7 @@
 
             $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$inv_xml['Clave'].'\"")')->fetch_all()[0];
 
-            /*if ($rs_compra[0] > 0) {
+            if ($rs_compra[0] > 0) {
                 $str = "";
                 switch ($rs_compra[1]) {
                     case 5:
@@ -521,7 +584,7 @@
                 }
                 $salida = ['succed' => 0,'ERROR' => 'Factura '.$str];
                 return false;
-            }*/
+            }
 
             $scedula = $inv_xml['NumeroCedulaReceptor'];
 
@@ -557,7 +620,7 @@
         $rs_compra = $db->ejecutar('call krattos("count(id),idestado",64,"id > 0 and idtipoventa = 2 and referencia = \"'.$salida['clave'].'\"")')->fetch_all()[0];
 
         
-        /*if ($rs_compra[0] > 0) {
+        if ($rs_compra[0] > 0) {
             $str = "";
             switch ($rs_compra[1]) {
                 case 5:
@@ -574,7 +637,7 @@
             }
             $salida = ['succed' => 0,'ERROR' => 'Factura '.$str];
             return false;
-        }*/
+        }
 
         $salida['emisor']['cedula'] = (array) $inv_xml->Emisor->Identificacion->Numero;
         $salida['emisor']['cedula'] = $salida['emisor']['cedula'][0];
@@ -981,7 +1044,7 @@
                 case 202:
                 case 206:
                     foreach (json_decode($body) as $index => $key) {
-                        
+                        $salida[$index] = [];
                         $salida[$index]['numfact'] = substr($key->clave,21,20);
                         $fecha = strtotime(substr(str_replace('T', ' ',$key->fecha),0,-6));
                         $fecha = date('d/m/Y H:i:s',$fecha);
@@ -1051,13 +1114,13 @@
         {
             $doBearer = $this->getBearer();
             if(!is_array($doBearer))
-                return json_encode(['factura'=>$this->id,'succed'=>0,'rs'=>$doBearer,'erno'=>1]);
+                return ['factura'=>$this->id,'succed'=>0,'rs'=>$doBearer,'erno'=>1];
             
             if ($this->bearer == '') 
-                return 'Problemas con la Llave Criptográfica';
+                return ['factura'=>$this->id,'succed'=>0,'rs'=>'Problemas con la Llave Criptográfica','erno'=>1];
 
             if (!isset($this->info['Clave']))
-                return "Factura no Existente - Clave no Valida";
+                return ['factura'=>$this->id,'succed'=>0,'rs'=>"Factura no Existente - Clave no Valida",'erno'=>1];
 
             $xml = $this->getXMLRecepcion();
             if (is_array($xml)) {
@@ -1085,21 +1148,21 @@
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             switch ($status) {
                 case 0:
-                    $json_response = json_encode(["rs"=>'Supero Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
+                    $json_response = ["rs"=>'Superó Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];
                     break;
                 case 201:
                 case 202:
                 case 100:
-                    $json_response = json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1]);
+                    $json_response = ['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1];
                     break;
                 case 400:
 
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
-                    $json_response = json_encode(['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2]);
+                    $json_response = ['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2];
                     break;
                 case 500:
-                    $json_response = json_encode(["rs"=>'Error Interno en el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]);
+                    $json_response = ["rs"=>'Error Interno en el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];
                     break; 
                 default:
                     $json_response = $rs;
@@ -1231,8 +1294,8 @@
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
 
-                /*if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']) != round($data['ResumenFactura']['TotalVenta'])) 
-                     return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];*/
+                if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']) != round($data['ResumenFactura']['TotalVenta'])) 
+                     return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];
 
                 if ($this->ref) {
                     $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');

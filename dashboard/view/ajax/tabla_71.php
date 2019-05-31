@@ -12,13 +12,14 @@
         </thead>
         <tbody style="padding: 2%;max-height: 500px; overflow-y: scroll">
             
-<?php 
+<?php
+$pagination = ''; 
 if(sizeof($transaccion) <> 0){
     $sumd = 0;
     $sumh = 0;
     $num = 0;
     $pg = 1;
-    $pagination = '';
+    
 
     foreach ($transaccion as $key) {
         $sumh += $key[2];
@@ -67,7 +68,9 @@ echo '<tfoot>
         </td>
     </tr>
 </tfoot>';
-}
+ }//else{
+//     $pagination = '<li class="pgli waves-effect"><a href="#!" class="pgbtn">0</a></li>';
+// }
 ?>
 
         </table>

@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Proveedores</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.0.1.4">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.24">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -32,7 +32,7 @@
              
             </div>
             <div class="col s2 m6 ">
-              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
+              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Proveedor" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
             </div>
           </div>
           <div class="card-block">
@@ -503,6 +503,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=10.0.1.4"></script>
+<script src="../assets/js/modulos/proveedores.js?v=10.1.0.24"></script>
 </body>
 </html>

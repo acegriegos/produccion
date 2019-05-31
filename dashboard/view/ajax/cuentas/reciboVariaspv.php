@@ -162,8 +162,8 @@ echo '<tr>
   echo '
 </table>';
 
-echo '<hr>
-<div style="text-align: center;" id="resolucion"></div><br><br><br>
+echo '<hr><b>SALDO CLIENTE:</b> '.$obj[6].$obj[11].'
+<br><br><br>
 <hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>
 <br><br><br>
@@ -171,9 +171,9 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.0.1.4"></script>
- <script src="../assets/js/materialize.js?v=10.0.1.4"></script>
- <script src="../assets/js/asgard.js?v=10.0.1.4"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.24"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.24"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.24"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

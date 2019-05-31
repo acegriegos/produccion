@@ -139,16 +139,16 @@ function cargarOCompras(){
         var idprd = $("#valores").data('elemento')['idp'];
         var dcs = 0;
         var mdcs = 0;
-        var desc = $("#descp").val();
+        var desc = 0;
         var hinv = 0;
         var unidad = $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
         var comodin = $("#valores").data('elemento')['hcomodin'];
         var desgloce = $("#valores").data('elemento')['isdesgloce'];
         var strimp = $("#valores").data('elemento')['strimp'];
-        var exo = 0;//$("#valores").data('elemento')['vexo'];
+        var exo = $("#valores").data('elemento')['exo'];
         var mobil = $(this).attr('tr') == 2 ? 1 : 0;
 
-        addline(idprd,cod,desc,cant,precio,total,cnti,dcs,mdcs,hinv,0,unidad,comodin,desgloce,strimp,exo,mobil);
+        addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:0},mdcs,hinv,0,unidad,comodin,desgloce,strimp,exo,mobil);
     });
 
 }//cargar ORDEN COMPRA
@@ -210,6 +210,9 @@ function cargarCompras(){
         $("#modal-producto").modal('open');
         $("#vcodigo").focus()
         $(this).parent().parent().hide();
+
+        $("#pmoneda").val($("#monedas").val());
+        $("#pmoneda").material_select('update');
     });
 
     $("#vplazo").keyup(function(e){
@@ -232,8 +235,8 @@ function cargarCompras(){
             if($("#valor_grabado:visible").length)
                 $("#valor_grabado").focus().select();
             else{
-                 cargarUtilidad();
-                $(".addline").click();
+                cargarUtilidad();
+                $(".ven2:first").focus();
             }
         } 
             
@@ -242,7 +245,7 @@ function cargarCompras(){
     $("#valor_grabado").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13)
-            $(".addline").click();
+            $(".ven2:first").focus();
     });
 
     $(".addline").click(function(){
@@ -300,30 +303,29 @@ function cargarCompras(){
             $("#valores").data('elemento')['hprec'] = valor;
             $("#descup").select().focus();
             
-            //cargarUtilidad();
+            cargarUtilidad();
         }
-    });
-    
-    $("#iva").change(function(){
-        if ( $(this).is(':checked') )
-            $("[for='exct']").addClass('hide').prop('checked',false);
-        else
-            $("[for='exct']").removeClass('hide');
-        //cargarUtilidad();
     });
 
-    $(document).on("change","#exct",function(){
-        if ( $(this).is(':checked') ){
+    $(document).on("click","[name=hasimpuesto]",function(){
+
+        if($(this).attr('id') == 'exct'){
             $(".valor_grabado").addClass('hide');
             $("#valor_grabado").val(0);
-            $("#iva").prop('checked',false)
-        }
-        else{
-            $(".valor_grabado").removeClass('hide');
-            if(parseInt($("#valor_grabado").val()) == 0)
+            $("input:checkbox[name=hasimpuesto]").prop('checked',false);
+            $(this).prop('checked',true);
+        }else{
+            if(!$(this).is(":checked")){
+                $("input:checkbox[name=hasimpuesto]").prop('checked',false);
+            }
+            else{
+                $("input:checkbox[name=hasimpuesto]").prop('checked',false);
+                $(this).prop('checked',true);
+                $(".valor_grabado").removeClass('hide');
+                if(parseInt($("#valor_grabado").val()) == 0)
                 $("#valor_grabado").val($("#valor_grabado").attr('orig'));
+            }
         }
-        //cargarUtilidad();
     });
 
     function cargarUtilidad(){
@@ -336,7 +338,6 @@ function cargarCompras(){
         var ncosto = (parseFloat($("#precp").val().replace(/,/g,''))*descuentol)/($("#iva").is(":checked") ? (parseFloat($("#valor_grabado").val())/100 +1): 1);
 
         $("#cos2").html(parseFloat(ncosto).formatMoney(2,'.',''));
-        ncosto = ncosto/tpdivisa
         matriz['costo'] = $("#cos2").html();
 
         if(!$("#chgvalor").is(":checked")){
@@ -515,12 +516,12 @@ function cargarGlobal(){
     var dpick = $('#vfecha').pickadate()
     dpick.pickadate('picker').set('select', [fecha.getFullYear(), fecha.getMonth(),fecha.getDate()]);
     dpick.pickadate('picker').on({close: function() {
-        if($(".con").is(":visible")){
-            $(".con .select-wrapper .select-dropdown").click();
-            $(".con .select-wrapper .select-dropdown").addClass('active');
-            $(".con .select-wrapper .select-dropdown").focus();
-            $(".con .select-wrapper .select-dropdown").first('li').addClass('selected');
-        }else{
+        if(!$(".con").is(":visible")){
+            // $(".con .select-wrapper .select-dropdown").click();
+            // $(".con .select-wrapper .select-dropdown").addClass('active');
+            // $(".con .select-wrapper .select-dropdown").focus();
+            // $(".con .select-wrapper .select-dropdown").first('li').addClass('selected');
+
             $("#vplazo").focus().select();
         }
         $("#vfecha").blur();
@@ -629,8 +630,9 @@ function cargarGlobal(){
     $("#ncli").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
-            var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
-            searchClient($(this).val(),isproveedor);
+            // var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
+            // searchClient($(this).val(),isproveedor);
+            $(this).blur()
         }
     });
 
@@ -666,6 +668,12 @@ function cargarGlobal(){
 
             $("#byclie").siblings($(".autocomplete-content")).css('width','100%');
         }
+    });
+
+    $("#byfact").keyup(function(e){
+         var code = e.which || e.keyCode;
+        if (code == 13)
+            cargarFacturasNota();
     });
 
     $("#ncli").keydown(function(e){
@@ -798,6 +806,10 @@ function cargarGlobal(){
         Materialize.updateTextFields();
 
     });
+    
+    $(document).on("click",".detalle",function(){
+        $("#dfact").sideNav('show');
+    });
 
     $(document).on("click","#editprod",function(){
         var id = $("#hdnprd").val();
@@ -856,22 +868,28 @@ function doplazo(vval){
 function cargarFactura(vidp,asoc){
     var vfacturap = arr('login',6,'',163,vidp+',\"'+asoc+'\"',0,1,$("#fdetallefacturas"));
     idext = vidp;
+    if($("#impm:visible").length){
+        $("#codp").val('S-500').blur();
+        var e = jQuery.Event("keyup");
+            e.which = 13;
+            $("#cantp").focus().trigger(e);
+    }
     Materialize.updateTextFields();
 }
 
 function cargarFacturasNota(){
     var vcliente = $("#byclie").attr('cid');
     var vfactura = $("#byfact").val().trim().length ? $("#byfact").val() : 0;
-
-    var info = getDatos('lpad(consecutivo,6,0),concat((select simbolo from monedas where id = idmoneda),format(subtotal+exento+imv-descuento,2)),date_format(fecha,"%d-%m-%Y"),datediff(curdate(),fecha) as dias,id',64,'id > 0 and if('+vcliente+' = 0,1,idcliente = '+vcliente+') and if("'+vfactura+'" = 0,1,consecutivo = "'+vfactura+'") having dias <= 15',0,0,0);
-    
+    var str = '';
+    var info = getDatos('concat(case idtipoventa when 1 then "F-" else "T-" end,lpad(consecutivo,6,0)),concat((select simbolo from monedas where id = idmoneda),format(subtotal+exento+imv-descuento,2)),date_format(fecha,"%d-%m-%Y"),datediff(curdate(),fecha) as dias,id',64,'id > 0 and if('+vcliente+' = 0,1,idcliente = '+vcliente+') and if("'+vfactura+'" = 0,1,consecutivo = "'+vfactura+'") and idtipoventa in(1,7,8) and idsucursal = @@impresa having dias <= 15',0,0,0);
+  
     $("#listafacturas").html('');
     if (info.succed) {
         for (var i = 0; i < info[0].length; i++) {
-            str += '<tr><td></td><td>'+info[0][i][0]+'</td><td>'+info[0][i][1]+'</td><td>'+info[0][i][2]+'</td></tr>';
+            str += '<tr class="detalle" id="h'+info[0][i][4]+'" style="cursor:pointer"><td></td><td>'+info[0][i][0]+'</td><td>'+info[0][i][1]+'</td><td>'+info[0][i][2]+'</td></tr>';
         }
         $("#listafacturas").html(str);
     }else{
-        $("#listafacturas").html('<tr><td colspan="3">No hay Facturas Disponibles</td></tr>');
+        $("#listafacturas").html('<tr><td colspan="3" align="center" >No hay Facturas Disponibles</td></tr>');
     }
 }

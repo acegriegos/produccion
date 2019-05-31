@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.0.1.4">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.0.1.4">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.24">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.1.0.24">
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
 <title>Recibo de Dinero Multiple</title>
 
@@ -37,7 +37,7 @@
        <div class="row">
          <div class="col s12" id="infofact" >
           <b id="fact">Recibo N°</b>
-            <span id="numfact"><?php echo $transaccion[0][0]; ?> </span>
+            <span id="numfact"><?php echo $transaccion[0][1]; ?> </span>
           </div>
          
 
@@ -52,19 +52,16 @@
      <div class="row">
        <div class="col s12">
         <span class=""><b>Cliente:</b></span>   
-        <span class=""><?php echo $transaccion[0][1]; ?></span>
-        <br>
-        <span class=""><b>Cedula:</b></span>   
         <span class=""><?php echo $transaccion[0][2]; ?></span>
         <br>
-        <span class=""><b>Direccion:</b></span>   
-        <span class=""><?php echo $transaccion[0][4]; ?></span>
+        <span class=""><b>Cedula:</b></span>   
+        <span class=""><?php echo $transaccion[0][12]; ?></span>
         <br>
-        <span class=""><b>Telefono 1:</b></span>   
-        <span class=""><?php echo $transaccion[0][5]; ?></span>
-        <br>
-        <span class=""><b>Telefono 2:</b></span>   
+        <span class=""><b>Usuario:</b></span>   
         <span class=""><?php echo $transaccion[0][3]; ?></span>
+        <br>
+        <span><b>Monto de Abono:</b></span>
+        <span><?php echo $transaccion[sizeof($transaccion)-1][10] ?></span>
       </div>
      
    </div>   
@@ -86,7 +83,7 @@
   <div class="card  white-text imprimirSINBOR" style="background-color: #3960A7;">
     <div class=" card-content white-text imprimirSINBOR">
       <p>Fecha:
-       <?php echo $transaccion[0][6]; ?>
+       <?php echo $transaccion[0][7]; ?>
       </div>
     </div>
   </div>
@@ -107,20 +104,21 @@
     <tbody >
        <?php  for ($i = 0; $i < count($transaccion); $i++) { ?>
       <tr class="tr" >
-        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][8]; ?> </span>
-        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][10]; ?> </span>
-        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][9]; ?> </span> <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][11]; ?> </span>
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][5]; ?> </span>
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][7]; ?> </span>
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][9]; ?> </span> 
+          <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][8]; ?> </span>
         </td>
       </tr>
 <?php } ?>
     </tbody>
     <tfoot>
     <tr>
-    <td class="margen" colspan="1">&nbsp;</td>
+    <td class="margen" colspan="4">&nbsp;</td>
     <tr></tr>
-        <td class="margen" colspan="1">&nbsp;</td>
+        <td class="margen" colspan="2">&nbsp;</td>
 
-      <td  class="   white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b>SALDO TOTAL</b></td>
+      <td  class="   white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b>SALDO CLIENTE</b></td>
       <td  class="  white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b><?php echo $transaccion[0][11]; ?></b></td> 
     </tr>
     </tfoot>
@@ -133,9 +131,9 @@
   </div>
   </div>
 
-<script src="../assets/js/jquery.js?v=10.0.1.4"></script>
+<script src="../assets/js/jquery.js?v=10.1.0.24"></script>
 
-<script src="../assets/js/materialize.js?v=10.0.1.4"></script>
-<script src="../assets/js/asgard.js?v=10.0.1.4"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.0.1.4"></script>
+<script src="../assets/js/materialize.js?v=10.1.0.24"></script>
+<script src="../assets/js/asgard.js?v=10.1.0.24"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.1.0.24"></script>
 </body>

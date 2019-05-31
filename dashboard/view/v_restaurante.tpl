@@ -7,10 +7,9 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.0.1.4">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.1.0.24">
   </head>
   <body>
-  <br>
     {$NAV}
     <div class="bdy" style="margin-top: 0px">
 
@@ -29,7 +28,7 @@
         <h5>{$smarty.session.EMPRESA}</h5>
       </div>
       <div class="row ">
-        <h6 class="col s2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ">BARRAS</h6>
+        <h6 class="col s6 m2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ">BARRAS</h6>
       </div>
      
       <div class="row" id="barras">
@@ -50,8 +49,8 @@
         
       </div>
       <div class="row ">
-        <h6 class="col s2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ;">MESAS</h6>
-        <div class="input-field col s3 right" style="margin: 0px">
+        <h6 class="col s6 m2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ;">MESAS</h6>
+        <div class="input-field col s6 m3 right" style="margin: 0px">
               <span class="prefix"><i class="mdi mdi-magnify mdi-24px"></i></span>
               <input type="number" id="bmesas" maxlength="45">
               <label for="bmesas">Buscar Mesa</label>
@@ -64,7 +63,7 @@
         {section name=LE loop=$MESAS}
         <!-- <div class="center col s2 btn black-text mesa" style="border: 1px solid #e2e2e2; background-color: white;padding: 0.5%;margin: 0.5%;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1"> {$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
         </div> -->
-        <div class="col s3 m2 black-text mesa center" style="background: url('../assets/img/mesa.png');padding: 0.5%;margin: 0.5%;background-repeat: no-repeat;background-size: 100%;border-radius: 50%;height: 125px;width: 125px;background-color: white;border: 3px solid black; cursor: pointer;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1">
+        <div class="col s6 m2 black-text mesa center" style="background: url('../assets/img/mesa.png');padding: 0.5%;margin: 0.5%;background-repeat: no-repeat;background-size: 100%;border-radius: 50%;height: 125px;width: 125px;background-color: white;border: 3px solid black; cursor: pointer;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1">
           {$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
         </div>
 
@@ -111,7 +110,7 @@
       </div>
     </div>
 
-    <div id="modal-mesa" class="modal modal-fixed-footer grandemodal" style="max-height: 100vh">
+    <div id="modal-mesa" class="modal modal-fixed-footer">
       <div class="modal-header head3 center" style="height: 36px;"><span id="tit">Mesa</span> <i class="mdi mdi-magnify der pbtn mdi-24px hide" id="scodigo"></i></div>
 
       <div class="modal-content" style="padding: 0px" id="ffacturas">
@@ -119,18 +118,24 @@
         <a class="mdi mdi-book hide tooltipped black-text mdi-24px pbtn" style="position: fixed;top:15px;right: 0px" data-tooltip="Menú" data-position="bottom"></a>        
         <div class="row" style="margin: 0px;padding: 0px;" >
           <div class="col s8 row">
-            
-            <div class="col s12 row" style="margin: 0px;position: relative;">
-              {section name=LE loop=$FAM}
-              <a id="f{$FAM[LE][0]}" class="btn btn-success s12 fam" style="width: 100%;height: 75px;padding-top: 4%;font-size: 22px;"><small>{$FAM[LE][1]}</small></a>
-              {/section}
-              <a id="fsalir" class="btn btn-success s12 fam" style="width: 100%"><small>Salir</small></a>
 
-              <div id="tipos" style="position: absolute;margin-left: 15%;z-index: 90;top: 0;left: 0;display: none"></div>
+            <div class="col s6">
+              <select class="browser-default" id="fam">
+                <option value="0" selected disabled>Seleccione una Opción</option>
+                {section name=LE loop=$FAM}
+                <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
+                {/section}
+              </select>
+            </div>
 
-              <div id="productos" style="position: absolute;margin-left: 30%;z-index: 100;top: 0;left: 0;display: none"> 
-              </div>
+            <div class="col s6">
+              <select class="browser-default" id="tip">
+                <option value="0" selected disabled>----</option>
+              </select>
+            </div>
 
+            <div style="padding: 0; margin: 0;" class="col s12 row" id="productos">
+              
             </div>
 
           </div>
@@ -148,33 +153,33 @@
              <span class="mdi mdi-magnify mdi-24px prefix pbtn tooltipped" data-tooltip="Buscar Producto Manual" data-position="top" id="showprod"></span>
             </div>
 
-            <div class="input-field col s5">
-              <input type="text" id="descp" class="sprod hide" autocomplete="off">
+            <div class="input-field col s10">
+              <input type="text" id="descp" autocomplete="off">
               <label for="descp" class="sprod hide">Descripción</label>
               <input type="hidden" id="valores">
             </div>
 
-            <div class="input-field col s5">
-              <input type="text" id="codp" class="sprod hide" autocomplete="off">
+            <div class="input-field col s5 hide">
+              <input type="text" id="codp" class="hide" autocomplete="off">
               <label for="codp" class="sprod hide">Código</label>
             </div>
           </div>
 
           <div class="input-field col s4">
-            <i class="prefix mdi mdi-plus pbtn" id="addline"></i>
+            <i class="prefix mdi mdi-plus pbtn hide" id="addline"></i>
             <input type="text" id="cantp" class="eder" value="1" min="0" autocomplete="off">
             <label for="cantp">Cantidad</label>
           </div>
         </div>
       <div class="modal-footer">
-        <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="total_mesa">0.00</span></section>
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide" id="cancOrder">Cancelar Orden</a>
-        <a href="#!" class="modal-action waves-effect waves-green btn-flat add" id="saveOrder" modulo="factura" varias="1">Guardar Orden</a>
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="orderout">Salir</a>
+        <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="total_mesa">0.00</span> </section>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder"></a>
+        <a href="#!" class="modal-action waves-effect waves-green btn-flat add mdi mdi-table-edit mdi-24px" id="saveOrder" modulo="factura" varias="1" title="Guardar Orden"></a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat mdi mdi-24px mdi-exit-to-app" title="Salir" id="orderout"></a>
       </div>
     </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.0.1.4"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.1.0.24"></script>
   </body>
 </html>

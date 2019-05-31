@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.1.4">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.1.0.24">
 <div class="card z-depth-3">
 
 <div class="card-header center head1">
@@ -115,9 +115,8 @@
                         <input type="hidden" id="vdebe" value="0">
                         <input type="hidden" id="vhaber" value="0">
                         <input type="hidden" id="vconsecutivo" value="0">
-                        <input type="hidden" id="vcomentario" value="">
-                        <input type="hidden" id="vidmoneda" value="1">
                         <input type="hidden" id="vdivisa" value="1">
+                        <input type="hidden" class="zelda">
                         <div class="row">
                             <div class="col s12">
                                 <div class="card bg1">
@@ -129,36 +128,44 @@
                                             <div class="col s12">
                                                 <p>Saldo Actual: <span id="isaldovista"> </span></p>
                                             </div>
-                                            <div class="input-field col s12 m6">
-                                                <i class="mdi-credit-card mdi-24px mdi prefix"></i>
-                                                <input id="vvalor" type="text"  class="validate eder" value="0.00" autocomplete="off">
+                                            <div class="input-field col s6">
+                                                <input id="vvalor" type="text" class="eder" value="0.00" autocomplete="off" style="margin: 0px">
                                                 <label for="vvalor" style="color: white !important">Monto</label>
                                             </div>
-                                            <div class="input-field col s12 m6">
+                                            <div class="input-field col s6">
+                                                <input type="text" id="vcomentario" style="margin: 0px">
+                                                <label for="vcomentario" style="color: white !important">Comentario</label>
+                                            </div>
+                                            
+                                            <div class="input-field col s6">
                                                 <select type="select" id="vidtipopago">
                                                     <option value="0" disabled selected style="font-size: 1.2em !important">Tipo de Pago</option>
                                                     {section name=LE loop=$TIPOPAGO}
-                                                    <option value="{$TIPOPAGO[LE][0]}">{$TIPOPAGO[LE][1]}</option>
+                                                    <option value="{$TIPOPAGO[LE][0]}" {if $smarty.section.LE.index eq 0} selected {/if} >{$TIPOPAGO[LE][1]}</option>
                                                     {/section}
                                                 </select>
                                             </div>
-                                            <div class="row">
-                                                <div class="col s12 m6">
-                                                    <p>
-                                                        <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
-                                                        <label for="p_v" style="color: white !important">Punto Venta</label>
-                                                    </p>
-                                                </div>
-                                                 <div class="input-field col s6 m6">
-                                                    <input  id="vreferencia" type="text">
-                                                    <label for="vreferencia">Referencia</label>
-                                                </div> 
+                                            <div class="input-field col s6">
+                                                <select type="select" id="vidmoneda" style="margin: 0px">
+                                                  {section name="LE" loop=$MON}
+                                                    <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]} {if $smarty.section.LE.index neq 0} ({$MON[0][3]} {$MON[LE][2]}) {/if}</option>
+                                                  {/section}
+                                                </select>
                                             </div>
-                                            <div class="row">
-                                                <div class="col s12 m8 offset-m4 ">
-                                                    <button href="#!" class="waves-effect btn btn2 waves-light z-depth-3 add" tipo="1" modulo="estadoscuenta" >Realizar Pago</button>
-                                                    <button href="#!" class="waves-effec btn btn1 waves-light z-depth-3" id="btn-divsalir">Salir</button>
-                                                </div>
+                                            <div class="input-field col s6">
+                                                 <input type="date" class="datepickere" id="vfechabol" value="" style="margin: 0px" />
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input  id="vreferencia" type="text">
+                                                <label for="vreferencia" style="color: white !important">Referencia</label>
+                                            </div> 
+                                            <div class="col s12 der">
+                                                <p>
+                                                    <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
+                                                    <label for="p_v" style="color: white !important">Punto Venta</label>
+                                                </p>
+                                                <button href="#!" class="waves-effect btn btn2 waves-light z-depth-3 add" tipo="1" modulo="estadoscuenta" >Realizar Pago</button>
+                                                <button href="#!" class="waves-effec btn btn1 waves-light z-depth-3" id="btn-divsalir">Salir</button>
                                             </div>
                                         </div>
                                     </div>
@@ -250,8 +257,7 @@
                             <label for="monedas">Moneda</label>
                         </div>
                         <div class="input-field col s6 m6">
-                            <input  id="referencia" type="text">
-                            <label for="referencia">Referencia</label>
+                           
                         </div>
                         <div class="col s6">
                             Saldo Actual: <span class="moneda"></span> <span id="saldo">0.00</span>

@@ -40,6 +40,30 @@ $(function(){
                     if (code == 13)
                         $(this).blur();
                 });
+
+                $("#prorut").change(function(){
+                    var sopt = '<option disabled selected value="0">Cantón</option>';
+                    $("#canrut").html('');
+                    opts = getDatos('id,nombre',9,'id>0 and idprovincia = '+$('option:selected',this).val()+' order by nombre',0,0,0)[0];
+                    for (var i = 0; i < opts.length; i++) {
+                        sopt += '<option value="'+opts[i][0]+'"">'+opts[i][1]+'</option>';
+                    }
+                    $("#canrut").html(sopt);
+                });
+
+                $("#addrg").click(function(){
+                    if( !parseInt($("#canrut option:selected").val())){
+                        Materialize.toast('Debe Seleccionar un Cantón',4000,'red');
+                        return false;
+                    }
+                    if(!$('[vl='+$("#canrut option:selected").val()+']').length){
+                        $("#litreg").prepend('<div class="chip" vl="'+$("#canrut option:selected").val()+'">'+$("#canrut option:selected").html()+'<i class="mdi mdi-close close"></i></div>');
+
+                        insertar(284,'',$("#litreg").attr('idruta')+','+$("#canrut option:selected").val());
+                    }
+                });
+
+                $("#prorut").change();
         		break;
         	case 2:
             $(".ld").hide();
@@ -62,6 +86,13 @@ $(function(){
     Materialize.updateTextFields();
 
 });
+
+
+$(document).on("click",".chips .close",function(){
+    $(this).parent().remove();
+    eliminar(284,'idruta = '+$("#litreg").attr('idruta')+' and idregion ='+$("#canrut option:selected").val(),'');
+});
+
 
 $(document).on("click",".chrgpedido",function(){
     var idruta = $("#seachruteros").val();
@@ -394,6 +425,16 @@ $(document).on("click",".lcliente",function(){
    inicializarClientes(id,'');
 });
 
+$(document).on("click",".lrcliente",function(){
+   var id  = $(this).prop('id').substr(1);
+   $("#litreg").attr('idruta',id);
+   $(".titr").html($("#rn"+id).html());
+   $('.chips-initial').material_chip({
+        data: getRegiones(),
+    });
+   $("#modal-lrcliente").modal('open');
+});
+
 $(document).on("keyup","#seachcliente",function(e){
     var code = e.which || e.keyCode
     if (code == 13) {
@@ -690,4 +731,17 @@ function cargarSintax(modulo){
             break;
     }
 	return arr;
+}
+
+function getRegiones(){
+    var salida = "[";
+    var p = getDatos('(select nombre from cantones where id = idregion)',284,'idruta = '+$("#litreg").attr('idruta'),0,0,0)[0];
+    for (var i = 0; i < p.length; i++) {
+        salida+='{"tag":"'+p[i][0]+'"},';
+    }
+
+    if (p.length > 0) {
+        return JSON.parse(salida.substring(0,salida.length -1)+"]");
+    }else
+        return '';
 }

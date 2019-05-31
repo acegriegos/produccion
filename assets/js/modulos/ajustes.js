@@ -77,7 +77,6 @@ $(document).on("click",".menu3",function(){
 					accion: 9,
 					id: 0
 				}).done(function(data){
-					console.log(data)
 					var p = JSON.parse(data);
 					if (p['succed']) {
 						$(".fe").addClass('hide');			
@@ -171,7 +170,20 @@ $(document).on("click",".menu3",function(){
 			var p = mantenimiento('ajustes',4,'');
 			$("#majustes").html('');
 			$("#majustes").html(p);
-			$("#data-table-defecto").dataTable();
+			$("#data-table-defecto").dataTable({
+				bLengthChange : false,
+				order : []
+			});
+
+			$("#bcuenta").keyup(function(){
+				var code = $(this).val();
+				$(".cuecon").hide();
+
+				if(code.trim().length)
+					$(".editc").filter(function(){ return $(this).attr('value').toLowerCase().indexOf(code) > -1; }).parent().parent().parent().show();
+				else
+					$(".cuecon[ndeep=1]").show();
+			})
 			break;
 		case 5:
 			var p = mantenimiento('ajustes',5,'');
@@ -312,7 +324,34 @@ $(document).on("click",".menu3",function(){
 		case 9:
 			var p = mantenimiento('ajustes',9,'');
 			$("#majustes").html(p);
-			actPaginate('familias')
+
+			var familias = getDatos('id,if(nombre = "","N/A",nombre) as nom',20,'id > 0 and idsucursal = @@impresa order by nom',0,0,0);
+			var str = '';
+			if(familias[0].length){
+				for (var i = 0; i < familias[0].length; i++) {
+					str += '<tr><td>'+familias[0][i][1]+'</td><td> <i class="mdi mdi-stackexchange mdi-16px pbtn" title="Cambiar Valores"></i>  <i class="mdi mdi-chili-mild mdi-16px pbtn" title="Tipos Asignados"></i> <i class="mdi mdi-chili-medium mdi-16px pbtn" title="Marcas Asignadas"></i> <i class="mdi mdi-chili-hot mdi-16px pbtn" title="Productos Asignados"></i> <i class="mdi mdi-close mdi-16px pbtn" title="Eliminar Familia"></i> </td>'
+				}
+			}
+			$("#listafamilias").html(str);
+
+			familias = getDatos('id,if(nombre = "","N/A",nombre) as nom,(select if(nombre = "","N/A",nombre) from familias where id = idfamilia) as fam',21,'id > 0 and idsucursal = @@impresa order by fam,nom',0,0,0);
+			str = '';
+			if(familias[0].length){
+				for (var i = 0; i < familias[0].length; i++) {
+					str += '<tr><td>'+familias[0][i][1]+'</td><td> <td>'+familias[0][i][2]+'</td><td> <i class="mdi mdi-stackexchange mdi-16px pbtn" title="Cambiar Valores"></i>  <i class="mdi mdi-chili-medium mdi-16px pbtn" title="Marcas Asignadas"></i> <i class="mdi mdi-chili-hot mdi-16px pbtn" title="Productos Asignados"></i> <i class="mdi mdi-close mdi-16px pbtn" title="Eliminar Familia"></i> </td>'
+				}
+			}
+			$("#listatipos").html(str);
+
+			familias = getDatos('id,if(nombre = "","N/A",nombre) as nom,(select if(nombre = "","N/A",nombre) from tipos where id = idtipo) as tip,(select if(nombre = "","N/A",nombre) from familias where id = (select idfamilia from tipos where id = idtipo)) as fam',22,'id > 0 and idsucursal = @@impresa order by fam,tip,nom',0,0,0);
+			str = '';
+			if(familias[0].length){
+				for (var i = 0; i < familias[0].length; i++) {
+					str += '<tr><td>'+familias[0][i][1]+'</td><td> <td>'+familias[0][i][2]+'</td><td> <td>'+familias[0][i][3]+'</td><td> <i class="mdi mdi-stackexchange mdi-16px pbtn" title="Cambiar Valores"></i> </i> <i class="mdi mdi-chili-hot mdi-16px pbtn" title="Productos Asignados"></i> <i class="mdi mdi-close mdi-16px pbtn" title="Eliminar Familia"></i> </td>'
+				}
+			}
+			$("#listamarcas").html(str);
+
 			break;
 		case 10:
 			var p = mantenimiento('ajustes',13,'');
@@ -349,6 +388,14 @@ $(document).on("click",".menu3",function(){
 					actualizar(171,'idinventario = '+$(this).val(),'idtipo = 4 and idsucursal = @@impresa');
 				else
 					insertar(171,'','null,'+$(this).val()+',@@impresa,4');
+			});
+			break;
+		case 11:
+			var p = mantenimiento('ajustes',14,'');
+			$("#majustes").html(p);
+			$("#ingRub").click(function(){
+				$("#modal-rubros").modal('open');
+				$("#dosrubro").addClass('guardar').removeClass('editar')
 			});
 			break;
 		default:
@@ -457,14 +504,23 @@ $(document).on("change","#videtapa",function(){
 
 $(document).on("click","[id^=ec]",function(){
 	var id = $(this).attr('id').substr(2);
-	alert(id)
-	// var p = arr('login',7,3,36,'','id = '+id, 0,0,0)[0];
-	// if (p['ERROR'] != undefined) {
-	// 	Materialize.toast(p['ERROR'],4000,'red');
-	// 	$(this).prop('checked',true);
-	// }else{
-	// 	alert("deleted")
-	// }
+	var p = arr('login',7,3,36,'id = '+id,'', 0,0,0)[0];
+	if (!p.success) {
+		Materialize.toast(p['ERROR'],4000,'red');
+	}else{
+		alert(1)
+		$(this).parent().parent().parent().remove();
+		Materialize.toast('Cuenta Eliminada Correctamente',4000,'green');
+	}
+});
+
+$(document).on("click","[id^=ac]",function(){
+	var id = $(this).attr('id').substr(2);
+	var ml = parseInt($(this).parent().parent().parent().attr('ndeep'));
+
+	$(this).parent().parent().parent().after('<a href="#!" class="collection-item cuecon" style="color:black;max-height:220px;padding:0;padding-top: 2px;" deep="0" ndeep="'+(ml+1)+'"> <div class="row"> <div class="col s4 left"> <input type="text" tp="0" class="editc" atp="'+id+'" value="" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px; margin-left: '+((ml+1)*2)+'%;" maxlength="40"> </div><div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;"> ----- </div><div class="col s4 right"><i class="mdi mdi-plus mdi-24px" id="ac0" title="Agregar Cuenta"></i><i class="mdi mdi-delete mdi-24px" id="ec0" title="Eliminar Cuenta"></i></div></div></a>');
+
+	$(".editc[tp=0]").focus();
 });
 
 $(document).on("change","#xidbodega",function(){
@@ -1086,29 +1142,48 @@ if ($("#vfatura").val() == '') {
 });
 
 $(document).on("click",".numcon",function(){
-var vdeep = parseInt($(this).parent().parent().attr('deep'));
-var vndeep = parseInt($(this).parent().parent().attr('ndeep'))+1;
+	var vdeep = parseInt($(this).parent().parent().attr('deep'));
+	var vndeep = parseInt($(this).parent().parent().attr('ndeep'))+1;
 
-if($(".cuecon[deep^='"+vdeep+"']:visible").filter(function(){ return $(this).attr('ndeep') == vndeep}).length == 0)
-$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') == vndeep}).show()
-else
-$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') >= vndeep}).hide()
+	if($(".cuecon[deep^='"+vdeep+"']:visible").filter(function(){ return $(this).attr('ndeep') == vndeep}).length == 0)
+	$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') == vndeep}).show()
+	else
+	$(".cuecon[deep^='"+vdeep+"']").filter(function(){ return $(this).attr('ndeep') >= vndeep}).hide()
 });
 
 
 $(document).on("keyup",'.editc',function(e){
-var code = e.which || e.keyCode
-if (code == 13) {
-var valorc = $(this).val();
-if(valorc == '')
-Materialize.toast('Cuenta Requiere Nombre',4000,'red')
-else{
-rs = arr('login',4,'',37,'2,'+$(this).attr('tp')+',0,"'+valorc+'",0,0');
-if (rs['succed'] == 0) 
-Materialize.toast(rs[0]['ERROR'],4000,'red')
-else
-Materialize.toast('Cambio de Nombre Exitoso',4000,'green')
-}
+	var code = e.which || e.keyCode
+	if (code == 13) {
+		var valorc = $(this).val();
+		if(valorc == '')
+			Materialize.toast('Cuenta Requiere Nombre',4000,'red')
+		else{
+			if(parseInt($(this).attr('tp')) == 0){
+				rs = arr('login',4,'',37,'1,0,'+$(this).attr('atp')+',"'+valorc+'",@@usr,@@impresa');
+				
+				if (rs['succed'] == 0){
+					$(this).focus().select();
+					Materialize.toast(rs[0]['ERROR'],4000,'red')
+				} 
+				else{
+					var padre = $(this).parent().parent().parent();
+					padre.find('#ac0').attr('id','ac'+rs[0][0][0]);
+					padre.find('#ec0').attr('id','ec'+rs[0][0][0]);
+					padre.find('.numcon').html(rs[0][0][2]);
+					padre.attr('ndeep',rs[0][0][1])
+					padre.attr('deep',rs[0][0][3])
+					Materialize.toast('Cuenta Creada Exitosamente',4000,'green')
+				}
+			}else{
+				rs = arr('login',4,'',37,'2,'+$(this).attr('tp')+',0,"'+valorc+'",@@usr,@@impresa');
+				if (rs['succed'] == 0) 
+					Materialize.toast(rs[0]['ERROR'],4000,'red')
+				else
+					Materialize.toast('Cambio de Nombre Exitoso',4000,'green')
+			}
+			
+	}
 };
 
 });
@@ -1618,8 +1693,8 @@ vmodulo['sel'] = 'id as vid,nombre as vnombre,codigo as vcodigo';
 vmodulo['tbl'] = 196;
 vmodulo['where'] = 'id = '+vid;
 break;
-case 'frestaurantes-mesa':
-vmodulo['sel'] = '';
+case 'restaurantes-mesa':
+vmodulo['sel'] = 'id as vid,nombre as vnombre';
 vmodulo['tbl'] = 800;
 vmodulo['where'] = vid;
 break;
@@ -1647,7 +1722,7 @@ function cargarSintax(vtabla){
 		case 'nivelesclientes':
 			arr['sel'] = '*';
 			arr['tbl'] = 69;
-			arr['where'] = 'id > 0';
+			arr['where'] = 'id > 0 and idsucursal = @@impresa';
 			break;
 		case 'tipopagos':
 			arr['sel'] = 'id,nombre,principal';
@@ -1738,7 +1813,7 @@ $("#vgenero").html(rs);
 $("#vgenero").material_select('update')
 });
 
-$(document).on("click","[name='cta-def']",function(){
+$(document).on("click",".cta-def",function(){
 var id_def = $(this).attr('id').substr(1);
 var id_cta = $("#cta"+id_def).attr('pr');
 var nom = $("#def"+id_def+" td").first().html();
