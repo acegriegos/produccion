@@ -669,8 +669,13 @@
 
             $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
             if(!sizeof($vbase)){ //CARGAR TODO Y VERSION 0
+                //TRAER VERSION 0
+                //ACTUALIZAR AJUSTES
+                //ACTUALIZAR VERSION
                 echo "string";
             }else{
+                //WHILE A LA ULTIMA VERSION
+                //ACTUALIZAR VERSION
                 echo "verionado";
             }
             break;     
