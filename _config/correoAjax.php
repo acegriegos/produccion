@@ -21,7 +21,9 @@ header("Content-Length: " . ob_get_length());
 ob_end_flush();
 flush();
 
-if($_POST['con_con']){
+$con_con = isset($_REQUEST['con_con']) ? $_REQUEST['con_con'] : $_POST['con_con'];
+
+if($con_con){
     $caccion = $_POST['accion'];
     $_REQUEST['accion'] = 99;
 

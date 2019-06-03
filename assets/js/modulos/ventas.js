@@ -397,6 +397,7 @@ $(function(){
         var e = jQuery.Event("keyup");
             e.which = 13;
             $("#cantp").focus().trigger(e);
+    if(param.toString().match(new RegExp(/[17]/i)))
     }
     
 })//READY
@@ -1888,6 +1889,7 @@ function sendFE(clave){
         data: {id: clave, accion : 1,to:str_correos,idfila : clave,idtabla : 64,tit:vtit}
     })
       .done(function(data) {
+        
         var p;
         try {
             p = JSON.parse(data);

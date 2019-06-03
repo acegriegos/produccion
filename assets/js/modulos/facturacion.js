@@ -75,6 +75,18 @@ $(function(){
             cargarVentas();
             cargarResembled('PRE-VENTA');
             break;
+        case 9:
+            //cargarFECompra();
+            cargarResembled('PRE-VENTA');
+            break;
+        case 10:
+            cargarVentas();
+            cargarResembled('Exportación');
+            break;
+        case 100:
+            cargarVentas();
+            cargarResembled('Pago sobre Adelanto');
+            break;
         default:
             cargarVentas();
             break;
