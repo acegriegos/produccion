@@ -397,7 +397,10 @@ $(function(){
         var e = jQuery.Event("keyup");
             e.which = 13;
             $("#cantp").focus().trigger(e);
-    if(param.toString().match(new RegExp(/[17]/i)))
+    }
+
+    if(param.toString().match(new RegExp(/[17910]/i))){
+        console.log('in');
     }
     
 })//READY

@@ -14,20 +14,22 @@
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
-        <img src="../assets/img/logo.png" class="img-responsive" style="width: 60%">
+        {if $MIS[3]}
+        <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
+        {/if}
       </div>
-      <div class="col s4 m4 l4" align="center">
+      <div class="col s6 m4 l4" align="center">
+        <h2 align="center" style="margin-top: 0px" id="titrep">Ventas Totales</h2>
         <font size="3">
-           <b>{$MIS[2]}</b><br>
+          <b>{$MIS[0]}</b><br>
+          {if $MIS[2]}<b>{$MIS[2]}</b><br>{/if}
           <b>Cédula:</b> {$MIS[1]}<br>
           <b>Teléfono:</b> {$MIS[5]}<br>
         </font>
+        <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" title="Mostrar Filtros" style="display:none;"></i>
       </div>
-      <div class="col s4 m4 l4">
+      <div class="col s2 m4 l4">
         <input type="hidden" class="zelda">
-        <input type="hidden" id="vidtipo1" value="0">
-        <input type="hidden" id="vtrep" value="0">
-        <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" id="ofiltr" title="Mostrar Filtros"></i>
       </div>
     </div>
     <h2 align="center" id="tit"></h2>

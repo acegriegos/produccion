@@ -77,15 +77,15 @@ $(function(){
             break;
         case 9:
             //cargarFECompra();
-            cargarResembled('PRE-VENTA');
+            cargarResembled('COMPRA ELECTRONICA');
             break;
         case 10:
             cargarVentas();
-            cargarResembled('Exportación');
+            cargarResembled('EXPORTACION');
             break;
         case 100:
             cargarVentas();
-            cargarResembled('Pago sobre Adelanto');
+            cargarResembled('PAGO SOBRE ADELANTO');
             break;
         default:
             cargarVentas();
