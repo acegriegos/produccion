@@ -44,7 +44,10 @@
                       <a href="facturacion?tf=5" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Pedidos">Pedidos</a>
                     </div>
                     <div class="col s12 m6 l6 per1600 hide">
-                      <a href="facturacion?tf=6" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Pre Ventas">Pre Venta</a>
+                      <a href="facturacion?tf=6" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Pre Ventas">Pre-Venta</a>
+                    </div>
+                    <div class="col s12 m6 l6 per1700">
+                      <a href="facturacion?tf=10" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Exportaciones">Exportaciones</a>
                     </div>
                     <div class="col s12 m6 l6 per1500 hide">
                       <a href="reportes?tr=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
