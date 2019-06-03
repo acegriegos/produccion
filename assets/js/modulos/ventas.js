@@ -397,7 +397,10 @@ $(function(){
         var e = jQuery.Event("keyup");
             e.which = 13;
             $("#cantp").focus().trigger(e);
-    if(param.toString().match(new RegExp(/[17]/i)))
+    }
+
+    if(param.toString().match(new RegExp(/[17910]/i))){
+        console.log('in')
     }
     
 })//READY
@@ -1733,15 +1736,6 @@ function searchClient(vvariable,visprv){
         $("#ingclie").removeClass('hide');
     }
 
-<<<<<<< HEAD
-    if (vclie[13] != 1) {
-        console.log(vclie[13])
-        $("#monedas").val(vclie[13]).change();
-        $("#monedas").material_select('update');
-    }
-
-=======
->>>>>>> d1aaec946ec2edbc57a132539af82c049548649a
     cargarImpuestos($("#ffacturas .zelda").data('triforce')['vidcliente'],'2');
     cargarDescuentos($("#ffacturas .zelda").data('triforce')['vidcliente']+',0','2');
     // cambio cliente
