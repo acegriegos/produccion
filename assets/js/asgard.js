@@ -1280,7 +1280,11 @@ function doreport() {
     var orden = $(".excel").data('parametros')['vista'] == undefined ? '' : $(".excel").data('parametros')['vista'];
     var conteo = $(".excel").data('parametros')['conteo'] == undefined ? '' : $(".excel").data('parametros')['conteo'];
     var suma = $(".excel").data('parametros')['suma'] == undefined ? '' : $(".excel").data('parametros')['suma'];
-    var otros = Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma));
+    var original = $(".excel").data('parametros')['suma'] == undefined ? 0 : 1;
+    if(original)
+        var otros = '';
+    else
+        var otros = Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma));
     var atributos = '';
     var vmodulo = {};
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
@@ -1318,7 +1322,7 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    console.log(tbl,' ',atributos)
+    console.log('TABLA: '+tbl+' - ATRR: '+atributos+' - OTROS: '+otros);
     arr('login',6,'',tbl,atributos,0,1,$(".detrep"),0,otros);
 
 }
