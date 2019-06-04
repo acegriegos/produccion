@@ -922,7 +922,7 @@ default:
                     if (typeof $("#"+vform+" #"+varreglo[i][0]) == 'undefined') {
                         salida[varreglo[i][0]] = '1990-01-01';
                     }else{
-                        if ($("#ftransacciones #vfecha").hasClass('datepicker')) {
+                        if ($("#"+vform+" #"+varreglo[i][0]).hasClass('datepicker')) {
                         salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
                         '1990-01-01' : $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }else
