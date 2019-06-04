@@ -73,28 +73,30 @@
     <li class="per9 gtext hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
     <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
     <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
-    <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
-    <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
-    <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
-    <li class="per5 gtext"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
-    <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
+    <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
+    <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
+    <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
+    <li class="per5 gtext"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
+    <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
     <li class="per13 gtext hide"><a href="rrhh
-      "><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de RRHH</span></a></li>
-    <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
-    <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+      "><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de RRHH</span></a></li>
+    <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
+    <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 {php} break; case 3: {/php}
   <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
   <li class="gtext">
-      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Facturación</span></a>
+      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Facturación</span></a>
       <ul id='dropfact' class='dropdown-content'>
         <li class="per1100"><a href="facturacion?tf=1">Ventas</a></li>
         <li class="per1600"><a href="facturacion?tf=4">Proformas</a></li>
+        <li class="per1700"><a href="facturacion?tf=10">Exportaciones</a></li>
         <li class="per2100"><a href="facturacion?tf=2">Compras</a></li>
+        <li class="per2200"><a href="facturacion?tf=9">Compras Electrónicas</a></li>
       </ul>
 
     </li>
     <li class="gtext">
-      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a>
+      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a>
       <ul id='dropfact_0' class='dropdown-content'>
         <li class="per1000"><a href="clientes">Mantenimiento</a></li>
         <li class="per3200"><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
@@ -102,17 +104,17 @@
 
     </li>
     <li class="gtext">
-      <a class="collapsible-header dropdown-button per2000" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_1'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Proveedores</span></a>
+      <a class="collapsible-header dropdown-button per2000" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_1'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Proveedores</span></a>
       <ul id='dropfact_1' class='dropdown-content'>
         <li class="per2000"><a href="proveedores">Mantenimiento</a></li>
         <li class="per3300"><a href="cuentas?tf=2">Cuentas por Pagar</a></li>
       </ul>
 
     </li>
-    <li class="gtext per4100"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
-    <li class="gtext per3400"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
+    <li class="gtext per4100"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
+    <li class="gtext per3400"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
     
-    <li class="gtext per1500"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+    <li class="gtext per1500"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     {literal}
       <script type="text/javascript">
         window.addEventListener('load', function () {
@@ -134,17 +136,18 @@
       {/literal}
 {php} break; case 1: {/php}
     <li class="gtext">
-      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Facturación</span></a>
+      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Facturación</span></a>
       <ul id='dropfact' class='dropdown-content'>
         <li><a href="facturacion?tf=1">Ventas</a></li>
         <li><a href="facturacion?tf=4">Proformas</a></li>
+        <li class="per2200"><a href="facturacion?tf=9">Compras Electrónicas</a></li>
       </ul>
     </li>
-    <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
-    <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
-    <li class="gtext"><a href="cuentas?tf=1"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
-    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
-    <li class="gtext"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+    <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
+    <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
+    <li class="gtext"><a href="cuentas?tf=1"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
+    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
+    <li class="gtext"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     
 {php} break; case 4: {/php}
   <li class="per1 gtext"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
@@ -152,20 +155,20 @@
     <li class="per9 gtext hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
     <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
     <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
-    <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" "></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
-    <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
-    <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
-    <li class="per5 gtext"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
-    <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
+    <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" ></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
+    <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
+    <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
+    <li class="per5 gtext"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
+    <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
     <li class="per13 gtext hide"><a href="rrhh
-      "><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área de RRHH</span></a></li>
-    <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
-    <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+      "><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de RRHH</span></a></li>
+    <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
+    <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 {php} break; case 5: {/php}
   <li class=""><a href="arrendamiento"><i class="mdi mdi-cash-usd right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Préstamos</span></a></li>
 
     <li class="gtext">
-      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Clientes</span></a>
+      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a>
       <ul id='dropfact_0' class='dropdown-content'>
         <li class="per1000"><a href="clientes">Mantenimiento</a></li>
         <li class="per3200"><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
@@ -173,9 +176,9 @@
 
     </li>
 
-    <li class="gtext"><a href="rutas"><i class="mdi mdi-car-sports mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Rutas</span></a></li>
+    <li class="gtext"><a href="rutas"><i class="mdi mdi-car-sports mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Rutas</span></a></li>
     
-    <li class="gtext per1500"><a href="reportes?tr=5" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+    <li class="gtext per1500"><a href="reportes?tr=5" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 
     {literal}
       <script type="text/javascript">
@@ -185,8 +188,8 @@
       </script>
       {/literal}
 {php} break; defualt: break;} {/php}
-  <li class="gtext per12"><a href="documentos"><i class="mdi mdi-file-document mdi-24px right" aria-hidden="true""></i><span style="font-size: 1.2em !important">Documentos Electrónicos</span></a></li>
-    <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true";"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
+  <li class="gtext per12"><a href="documentos"><i class="mdi mdi-file-document mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Documentos Electrónicos</span></a></li>
+    <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
 </ul>
 

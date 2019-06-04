@@ -686,7 +686,7 @@ function eliminar(vtabla,varg1){
     return arr('login',7,3,vtabla,varg1,'',0,0,0);
 }
 
-function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
+function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson,votros = ''){
     var arr = {};
 
     if(vref == 'login' && vaccion == 7){
@@ -705,6 +705,10 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson){
             vjson = 0;
     }
 
+    for (var i = 0; i < votros.length; i++) {
+        arr[votros[i][0]] = votros[i][1];
+    }
+    
     if (vch){
         velemto.html(mantenimiento(vref,vaccion,arr,vjson));
         return true;
@@ -918,8 +922,11 @@ default:
                     if (typeof $("#"+vform+" #"+varreglo[i][0]) == 'undefined') {
                         salida[varreglo[i][0]] = '1990-01-01';
                     }else{
+                        if ($("#"+vform+" #"+varreglo[i][0]).hasClass('datepicker')) {
                         salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
                         '1990-01-01' : $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+                        }else
+                            salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).val()
                     }
                 }else{
                     switch($("#"+vform+" #"+varreglo[i][0]).attr("type")){
@@ -1270,6 +1277,14 @@ function doreport() {
     var elem = $(".principal .filtros").attr('elem').split(',');
     elem = $(".principal .filtros").attr('elem').indexOf(',') == -1 ? [] : elem;
     var tbl = $(".principal .filtros").attr('sp');
+    var orden = $(".excel").data('parametros')['vista'] == undefined ? '' : $(".excel").data('parametros')['vista'];
+    var conteo = $(".excel").data('parametros')['conteo'] == undefined ? '' : $(".excel").data('parametros')['conteo'];
+    var suma = $(".excel").data('parametros')['suma'] == undefined ? '' : $(".excel").data('parametros')['suma'];
+    var original = $(".excel").data('parametros')['suma'] == undefined ? 0 : 1;
+    if(original)
+        var otros = '';
+    else
+        var otros = Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma));
     var atributos = '';
     var vmodulo = {};
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
@@ -1307,8 +1322,8 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    console.log(tbl,' ',atributos)
-    arr('login',6,'',tbl,atributos,0,1,$(".detrep"));
+    console.log('TABLA: '+tbl+' - ATRR: '+atributos+' - OTROS: '+otros);
+    arr('login',6,'',tbl,atributos,0,1,$(".detrep"),0,otros);
 
 }
 

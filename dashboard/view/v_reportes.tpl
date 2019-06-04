@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Reportes</title>
 {$STY}
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-reportes.css?v=10.1.0.24">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-reportes.css?v=10.0.1.26">
 </head>
 {$NAV}
 <body>
@@ -144,11 +144,11 @@
 {/if}
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-chart-bar"></i>
+<a class="report pbtn" rep="contabilidad" tf="asientos"><i class="mdi-48px mdi mdi-chart-bar"></i>
 </a>
 <div class="row">
 <div class="col s12">
-<p>Contabilidad</p>
+<p>Asientos Contables</p>
 </div>
 </div>
 </div>
@@ -156,6 +156,18 @@
 
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="contabilidad" tf="estadoresultados"><i class="mdi-48px mdi mdi-chart-bar"></i>
+</a>
+<div class="row">
+<div class="col s12">
+<p>Estado Resultados</p>
+</div>
+</div>
+</div>
+{/if}
+
+{if $TR eq 3}
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn hide"><i class="mdi-48px mdi mdi-briefcase-download"></i>
 </a>
 <div class="row">
@@ -166,7 +178,7 @@
 </div>
 {/if}
 {if $TR eq 3}
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn hide"><i class="mdi-48px mdi mdi-library-books"></i>
 </a>
 <div class="row">
@@ -177,7 +189,7 @@
 </div>
 {/if}
 {if $TR eq 3}
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn hide"><i class="mdi-48px mdi mdi-chart-gantt"></i>
 </a>
 <div class="row">
@@ -188,7 +200,7 @@
 </div>
 {/if}
 {if $TR eq 3}
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn hide"><i class="mdi-48px mdi mdi-gift"></i>
 </a>
 <div class="row">
@@ -351,6 +363,6 @@
 <div id="mreportes"></div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.1.0.24"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.0.1.26"></script>
 </body>
 </html>

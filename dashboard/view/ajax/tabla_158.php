@@ -12,8 +12,8 @@
 <td style="width: 10%"><?php echo $obj[7] ?></td>
 <td style="width: 10%"><?php echo $obj[8] ?></td>
 <td style="width: 10%">
-    <a class="dropdown-button btn btn-default" style="cursor: pointer;padding: 0;width: 100%;background-color: #e2e2e2; " data-activates='acciones'><i class="mdi mdi-cursor-default mdi-16px black-text"></i> <i class="der mdi mdi-menu-down mdi-24px black-text"></i></a>
-        <ul id='acciones' class='dropdown-content'>
+    <a class="dropdown-button btn btn-default" style="cursor: pointer;padding: 0;width: 100%;background-color: #e2e2e2; " data-activates='acciones<?php echo $obj[0];?>'><i class="mdi mdi-cursor-default mdi-16px black-text"></i> <i class="der mdi mdi-menu-down mdi-24px black-text"></i></a>
+        <ul id="acciones<?php echo $obj[0];?>" class='dropdown-content'>
 
             <li><a class="center print tooltipped mdi mdi-24px mdi-printer" data-tooltip="Visualizar" data-position="left" id="a<?php echo $obj[0] ?>"></a></li>
 

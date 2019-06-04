@@ -36,6 +36,32 @@
             return file_exists('_config/mysqlDB.php');
         }
 
+        public function getCurl($url,$params){
+            $source = $url;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $source);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, true);
+
+            $postData = "";
+
+            foreach($params as $k => $v)
+            {
+               $postData .= $k . '='.urlencode($v).'&';
+            }
+
+            $postData = rtrim($postData, '&');
+
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+
+            $data = curl_exec ($ch);
+            $error = curl_error($ch);
+
+            curl_close ($ch);
+
+            return $error ? $error : $data;
+        }
+
         public function ubicaciones()
         {
             $source = "https://logintechcr.com/descargas/dump-ubicaciones.sql";
@@ -657,7 +683,7 @@
             $db = new DBClass();
             $act = new updated();
 
-            fclose(fopen('./assets/update/update.git','w'));
+            /*fclose(fopen('./assets/update/update.git','w'));
 
             shell_exec('git config --global user.name "APSY"');
             shell_exec('git config --global user.email "info@apsycr.com"');
@@ -665,12 +691,18 @@
             shell_exec('git commit -a -m"sync"');
             shell_exec('git pull >> ./assets/update/update.git 2>&1');
             shell_exec('git reset --hard HEAD~1');
-            shell_exec('git pull >> ./assets/update/update.git 2>&1');
+            shell_exec('git pull >> ./assets/update/update.git 2>&1');*/
 
             $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
             if(!sizeof($vbase)){ //CARGAR TODO Y VERSION 0
-                echo "string";
+                //TRAER VERSION 0
+                //ACTUALIZAR AJUSTES
+                //ACTUALIZAR VERSION
+                $cu = $act->getCurl('https://logintechcr.com/descargas/v0.sql','');
+                print_r($cu);
             }else{
+                //WHILE A LA ULTIMA VERSION
+                //ACTUALIZAR VERSION
                 echo "verionado";
             }
             break;     
