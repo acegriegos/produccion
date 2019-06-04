@@ -138,7 +138,7 @@
                                             </div>
                                             
                                             <div class="input-field col s6">
-                                                <select type="select" id="vidtipopago">
+                                                <select type="select" id="vidtipopago" noClear="0">
                                                     <option value="0" disabled selected style="font-size: 1.2em !important">Tipo de Pago</option>
                                                     {section name=LE loop=$TIPOPAGO}
                                                     <option value="{$TIPOPAGO[LE][0]}" {if $smarty.section.LE.index eq 0} selected {/if} >{$TIPOPAGO[LE][1]}</option>

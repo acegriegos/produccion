@@ -507,6 +507,7 @@ function cargarSintax(){
 }
 
 function endDetail(vid,vacc,modulo) {
+	console.log(vid)
 	if (vacc == 1) {
 		var saldo = $("#isaldovista").text();
 		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
@@ -519,6 +520,6 @@ function endDetail(vid,vacc,modulo) {
 		arr('login',6,'',214,gtipo+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 		$("#btn-div").click();
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-		window.open('cuentas?accion=4&id='+vid+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+		window.open('cuentas?accion=4&id='+vid[0][0][0]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 	}
 }

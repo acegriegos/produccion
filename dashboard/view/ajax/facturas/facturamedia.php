@@ -110,6 +110,7 @@
               <b style="padding-left: 5%;">Orden N°:</b>0
               <b style="padding-left: 5%;">Agente:</b><?php echo $datos[44]; ?>
               <b style="padding-left: 5%;">Bodega:</b><?php echo $datos[42]; ?>
+              <b style="padding-left: 5%; color: red">ORIGINAL</b>
             </div>
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
@@ -202,49 +203,26 @@
                   <table>
 
                     <tr>
-                      <?php if ($grabado > 0){ ?>
+
 
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
                     </tr>
 
                     <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Imv</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
-                    </tr>
-
-                    <?php } ?>
-
-                    <?php if ($exento > 0) { ?>
-
-                    <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Exento</td>
+                      <td style="padding: 0px" class="left-align sinborde margen">Exento</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
                     </tr>
-
-                     <?php } ?>
-
-                    <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
 
                     <tr>
                       <td style="padding: 0px !important" class="left-align sinborde margen">Descuento</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
                     </tr>
-                    <?php } ?>
 
-                    <?php if ($datos[7] > 0){ ?>
                     <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Flete</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">Imv</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
                     </tr>
-                    <?php } ?>
-
-                    <?php if ($datos[8] > 0){ ?>
-                    <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Ajuste</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
-                    </tr>
-                    <?php } ?>
 
                     <tr>
 
@@ -436,6 +414,7 @@
               <b style="padding-left: 5%;">Orden N°:</b>0
               <b style="padding-left: 5%;">Agente:</b><?php echo $datos[44]; ?>
               <b style="padding-left: 5%;">Bodega:</b><?php echo $datos[42]; ?>
+              <b style="padding-left: 5%; color: red">COPIA</b>
             </div>
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
@@ -528,10 +507,20 @@
                   <table>
 
                     <tr>
-                      <?php if ($grabado > 0){ ?>
+
 
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
+                    </tr>
+
+                    <tr>
+                      <td style="padding: 0px" class="left-align sinborde margen">Exento</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
+                    </tr>
+
+                    <tr>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">Descuento</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
                     </tr>
 
                     <tr>
@@ -539,40 +528,8 @@
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
                     </tr>
 
-                    <?php } ?>
-
-                    <?php if ($exento > 0) { ?>
-
                     <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Exento</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
-                    </tr>
 
-                     <?php } ?>
-
-                    <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
-
-                    <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Descuento</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
-                    </tr>
-                    <?php } ?>
-
-                    <?php if ($datos[7] > 0){ ?>
-                    <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Flete</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
-                    </tr>
-                    <?php } ?>
-
-                    <?php if ($datos[8] > 0){ ?>
-                    <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Ajuste</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
-                    </tr>
-                    <?php } ?>
-
-                    <tr>
                       <td  class="left-align sinborde " style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
                       <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
                     </tr>

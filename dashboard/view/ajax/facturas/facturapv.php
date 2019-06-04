@@ -140,7 +140,8 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
 
 <table>
   <tr>
-    <td colspan="2">Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
+    <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
+    <td>Hora: '.$datos[37].'</td>
   </tr>';
   if ($datos[4] != '') {
     echo '<tr '.$ocultar.'>
