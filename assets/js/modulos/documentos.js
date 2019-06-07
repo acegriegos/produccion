@@ -26,6 +26,7 @@ $(function(){
         })
             .done(function(res){
                 var p = JSON.parse(res);
+                console.log(p)
                 var str = '';
                 var tabla = $("#data-table-compras").DataTable();   
                 tabla.destroy();
@@ -33,7 +34,7 @@ $(function(){
                 if(p['rs'].length){
 
                     for (var i = 0; i < p['rs'].length; i++) {
-                        p['rs'][i][17] = p['rs'][i][17] == 'CRC' || parseInt(p['rs'][i][17]) == 1 ? 1 : 2;
+                        p['rs'][i][17] = p['rs'][i][17] == 'CRC' ? 1 : 2; //GENERAR SP PARA LEER MONEDAS Y SINO AGREGARLA
                         var idproveedor = getDatos("vid",264,'replace(cedula,"-","") = '+p['rs'][i][39],0,0,0);
                         if(!idproveedor[0].length)
                             insertar(264,'',p['rs'][i][37]+',"'+p['rs'][i][38]+'","'+p['rs'][i][39]+'","'+p['rs'][i][40]+'","'+p['rs'][i][41]+'","'+p['rs'][i][42]+'","'+p['rs'][i][43]+'","'+p['rs'][i][44]+'","'+p['rs'][i][45]+'","'+p['rs'][i][46]+'","'+p['rs'][i][47]+'"');
@@ -46,7 +47,7 @@ $(function(){
                         }else
                             compra = compra[0][0][0];
 
-                        insertar(263,'','null,"'+compra+'","'+p['rs'][i][31]+'",null,null,"'+p['rs'][i][32]+'","'+p['rs'][i][33]+'","'+p['rs'][i][34]+'",0,"'+p['rs'][i][35]+'","'+p['rs'][i][30]+'","'+p['rs'][i][36]+'","","",0');
+                        insertar(263,'','null,"'+compra+'","'+p['rs'][i][31]+'",null,null,"'+p['rs'][i][32]+'","'+p['rs'][i][33]+'","'+p['rs'][i][34]+'",0,"'+p['rs'][i][35]+'","'+p['rs'][i][30]+'","'+p['rs'][i][36]+'","'+p['rs'][i][50  ]+'","",0');
                     }
                 }
 
@@ -210,12 +211,12 @@ $(document).on("click",".status",function(){
                 console.log(p['estado'])
 				switch(p['estado']){
 					case 'aceptado':
-						color = 'green';
+						color = 'lime';
 						state = 1;
                         msj = !p['rs'].trim().length ? 'Documento Electrónico Aceptado' : p['rs'];
 						break;
                     case 'recibido':
-                        color = 'green lighten-3';
+                        color = 'light-green';
                         state = 9;
                         msj = 'Documento Electrónico Recibido';
                         break;
@@ -225,7 +226,7 @@ $(document).on("click",".status",function(){
                         msj = !p['rs'].trim().length ? 'Documento Electrónico Rechazado' : p['rs'];
 						break;
 					case 'procesando':
-						color = '#cddc39';
+						color = 'yellow';
 						state = 2;
                         msj = 'Procesando Documento Electrónico';
 						break;
@@ -233,12 +234,12 @@ $(document).on("click",".status",function(){
 						var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
 						Materialize.toast($toastContent,5000);
 						sendFE(vid);
-                        color = '#cddc39';
+                        color = 'blue';
                         state = 2;
                         msj = 'Procesando Documento Electrónico';
 						break;
 					case 'Sin Internet':
-						color = 'red';
+						color = 'blue';
                         state = 0;
                         msj = p['rs'];
 						break;

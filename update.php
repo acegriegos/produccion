@@ -43,16 +43,18 @@
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_POST, true);
 
-            $postData = "";
+            if ($params) {
+                $postData = "";
 
-            foreach($params as $k => $v)
-            {
-               $postData .= $k . '='.urlencode($v).'&';
+                foreach($params as $k => $v)
+                {
+                   $postData .= $k . '='.urlencode($v).'&';
+                }
+
+                $postData = rtrim($postData, '&');
+
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);   
             }
-
-            $postData = rtrim($postData, '&');
-
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 
             $data = curl_exec ($ch);
             $error = curl_error($ch);
@@ -693,17 +695,31 @@
             shell_exec('git reset --hard HEAD~1');
             shell_exec('git pull >> ./assets/update/update.git 2>&1');*/
 
-            $vbase = $db->ejecutar('select valor from ajustes where descr= "versionbase"')->fetch_all();
-            if(!sizeof($vbase)){ //CARGAR TODO Y VERSION 0
+            $vbase = $db->ejecutar('select if(count(valor),valor,0) from ajustes where descr= "versionbase"')->fetch_all();
+            if(!$vbase[0][0][0]){ //CARGAR TODO Y VERSION 0
                 //TRAER VERSION 0
                 //ACTUALIZAR AJUSTES
                 //ACTUALIZAR VERSION
-                $cu = $act->getCurl('https://logintechcr.com/descargas/v0.sql','');
-                print_r($cu);
+                $cu = $act->getCurl('https://logintechcr.com/descargas/actualizaciones/v0.sql','');
+                $destination = "./assets/update/act.sql";
+
+                $rte = $act->getCurl('https://logintechcr.com/descargas/RTE.sql','');
+
+                $file = fopen($destination, "w+");
+                fputs($file, $cu);
+                fputs($file, '\n'.$rte);  
+                fclose($file);
+
+
+                // $archivo = file_get_contents('./assets/update/update.sql');
+                // $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
+                // $archivo = preg_replace('/`%`/', `localhost`, $archivo);
+                // $archivo = preg_replace('/developer/', $rdb, $archivo);
+                // file_put_contents($destination, $archivo);
             }else{
                 //WHILE A LA ULTIMA VERSION
                 //ACTUALIZAR VERSION
-                echo "verionado";
+                echo "while";
             }
             break;     
         default:

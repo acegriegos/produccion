@@ -33,7 +33,7 @@
       </div>
       <div class="col s2 m4 l4">
         <input type="hidden" class="zelda">
-        <input type="hidden" id="vdetalle" value="1">
+        <input type="hidden" id="vdetalle" value="2">
       </div>
     </div>
     

@@ -1,6 +1,5 @@
 <?php 
     require_once '_config/mysqlDB.php';
-    set_time_limit(40);
     
     if (isset($_REQUEST['accion'])) {
 
@@ -21,68 +20,59 @@
                 header("Content-Length: " . ob_get_length());
                 ob_end_flush();
                 flush();
+
                 $rs = $fe->recepcion();
+                $db = new DBClass();
 
-                if(isset($_REQUEST['to'])){
-                    if(strlen(trim($_REQUEST['to'])) > 8){ //VALIDAR SI FUE ACEPTADO
-                        $db = new DBClass();
-                        $cnf = $db->ejecutar("call krattos('',73,".$id.")")->fetch_all()[0];
+                if(isset($_REQUEST['to']) && !isset($rs['erno'])){
+                    if(strlen(trim($_REQUEST['to'])) > 8){
+                        $fe->envioWsdlCorreo($db,$id,$_REQUEST['to']);
+                    }else{
 
-                        $url2 = 99;
-                        $_POST['con_con'] = 1;
-                        $_POST['accion'] = 3;
-                        $_POST['body'] = $cnf[0];
-                        $_POST['idfila'] = $id;
-                        $_POST['subject'] = $cnf[3]." N° ".$rs['num'];
-                        $_POST['adjunto'] = [0=>'xml/'.$_REQUEST['tit'].' N°'.$rs['num'].', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$_REQUEST['tit'].' N°'.$rs['num'].', '.$_SESSION['EMPRESA'].'.pdf'];
+                    sleep(10);
+                    $estado = $fe->estado();
+                    
+                    if(isset($estado['xml'])){
 
-                        //MAKE ARCHIVOS
-                        //PDF
-                        $_arreglo = ['arch'=>'recibo','id'=>$id,"mic"=>1,"tit"=>$_REQUEST['tit'] ,"sel"=>'',"tbl"=>72,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+                            switch($estado['estado']){
+                                case 'aceptado':
+                                    $state = 1;
+                                    break;
+                                case 'recibido':
+                                    $state = 9;
+                                    break;
+                                case 'rechazado':
+                                    $state = 3;
+                                    break;
+                                case 'procesando':
+                                    $state = 2;
+                                    break;
+                                case 'Sin Subir':
+                                    $state = 2;
+                                    break;
+                                case 'Sin Internet':
+                                    $state = 0;
+                                    break;
+                                case 'error':
+                                    $state = 8;
+                                    break;
+                                default:
+                                    $state = 0;
+                                    break;
+                            }
 
-                        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                        $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
-                        $curl = curl_init($actual_link);
-                        curl_setopt($curl, CURLOPT_HEADER, true);
-                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($curl, CURLOPT_POST, true);
+                            $rs = $db->ejecutar('call shadow(2,'.$fe->idtabla.',"feestado = '.$state.'","id = '.$_POST['idfila'].'")');
 
-                        $params = array(
-                          "accion" => 8,
-                          "arreglo" => $_arreglo);
-
-                        $postData = http_build_query($params);
-
-                        $postData = rtrim($postData, '&');
-                        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-                        $json_response = curl_exec($curl);
-                        curl_close($curl);
-
-                        //XML
-                        $_arreglo = ['id'=>$id,"factura"=>$rs['num'],"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA']];
-
-                        $curl = curl_init($actual_link);
-                        curl_setopt($curl, CURLOPT_HEADER, true);
-                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($curl, CURLOPT_POST, true);
-
-                        $params = array(
-                          "accion" => 9,
-                          "arreglo" => $_arreglo);
-
-                        $postData = http_build_query($params);
-
-                        $postData = rtrim($postData, '&');
-                        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-                        $json_response = curl_exec($curl);
-                        curl_close($curl);
-                        
-                        require_once './_config/correoAjax.php';
-                        
-                        echo "\nENVIO DE CORREO";
+                        }else
+                            echo json_encode($estado);
                     }
-                }else
+                }else{
+                    if(strpos($rs['rs'], 'recibido anteriormente') >= 0)
+                        $db->ejecutar('call shadow(2,'.$fe->idtabla.',"feestado = 2,mailstatus=0","id = '.$id.'")');
+
                     echo json_encode($rs);
+                }
+                
                 break;
             case 2://GET XML
                 if (isset($_REQUEST['view'])) {
@@ -791,6 +781,8 @@
         var $sumaimpuestos = 0;
         var $sumadescuentos = 0;
         var $exo = 0;
+        var $idtabla = 64;
+        var $titulo = 'Factura';
 
         function __construct($vid){
             $this->id = $vid;
@@ -802,11 +794,16 @@
                     $this->tdoc = 'NotaDebitoElectronica';
                     $this->xmldoc = 'notaDebitoElectronica';
                     $this->ref = 1;
+                    $this->idtabla = 301;
+                    $titulo = 'Nota Debito';
+
                     break;
                 case 3: //NOTA DE CREDITO
                     $this->tdoc = 'NotaCreditoElectronica';
                     $this->xmldoc = 'notaCreditoElectronica';
                     $this->ref = 1;
+                    $this->idtabla = 301;
+                    $titulo = 'Nota Credito';
                     break;
                 case 4: //TIQUETE ELECTRONICO
                     $this->tdoc = 'TiqueteElectronico';
@@ -817,6 +814,17 @@
                 case 7: //RECHAZAR
                     $this->tdoc = 'MensajeReceptor';
                     $this->xmldoc = 'mensajeReceptor';
+                    $titulo = 'Aceptacion';
+                    break;
+                case 8: //COMPRA ELECTTRONICA
+                    $this->tdoc = 'FacturaElectronicaCompra';
+                    $this->xmldoc = 'facturaElectronicaCompra';
+                    $titulo = 'Compra';
+                    break;
+                case 9: //EXPORTACION ELECTTRONICA
+                    $this->tdoc = 'FacturaElectronicaExportacion';
+                    $this->xmldoc = 'facturaElectronicaExportacion';
+                    $titulo = 'Exportacion';
                     break;
                 default: //FACTRA ELECTRONICA
                     break;
@@ -909,7 +917,7 @@
             if (isset($json_response->access_token) && !isset($_REQUEST['ref'])) {
                 $this->bearer = $json_response->access_token;
                 $db = new DBClass();
-                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now(),refrescado = 0 where id = '.$_SESSION['IMPRESA']);
+                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now() where id = '.$_SESSION['IMPRESA']);
             }
             }
 
@@ -972,7 +980,7 @@
             if (isset($json_response->access_token)) {
                 $this->bearer = $json_response->access_token;
                 $db = new DBClass();
-                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now(),refrescado=1 where id = '.$_SESSION['IMPRESA']);
+                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now() where id = '.$_SESSION['IMPRESA']);
             }else
                 $salida = $json_response;
             
@@ -1136,7 +1144,7 @@
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_TIMEOUT,2);
+            //curl_setopt($curl, CURLOPT_TIMEOUT,2);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
 
             $params = json_encode($this->getPayload($xml));
@@ -1146,6 +1154,7 @@
             $rs = curl_exec($curl);
             
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
             switch ($status) {
                 case 0:
                     $json_response = ["rs"=>'Superó Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];
@@ -1156,10 +1165,9 @@
                     $json_response = ['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1];
                     break;
                 case 400:
-
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
-                    $json_response = ['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2];
+                    $json_response = ['rs'=>'Error '.$this->tdoc.': '.$this->id.', '.$rs,'succes'=>0,'erno'=>2,'id'=>$this->id];
                     break;
                 case 500:
                     $json_response = ["rs"=>'Error Interno en el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];
@@ -1904,6 +1912,76 @@
 
             $correo = new correo($crr,$sub,$bdy,'',0);
             $correo->enviar_adjunto($adj);
+        }
+
+        function envioWsdlCorreo(&$db,$id,$to,$mh = 0,$vurl = 99){
+
+            $cnf = $db->ejecutar("call krattos('',73,".$id.")")->fetch_all()[0];
+            $num = $this->info['NumeroConsecutivo'];
+            $tit = $this->titulo;
+
+            $url2 = $vurl;
+            $_POST['con_con'] = 1;
+            $_POST['accion'] = 3;
+            $_POST['body'] = $cnf[0];
+            $_POST['idfila'] = $id;
+            $_POST['subject'] = $cnf[3]." N° ".$num;
+            $_POST['to'] = $to;
+            $_POST['idtabla'] = $this->idtabla;
+            if(!$mh){
+                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
+
+                //MAKE ARCHIVOS
+                //PDF
+                $_arreglo = ['arch'=>'recibo','id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>72,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+
+                $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
+                $curl = curl_init($actual_link);
+                curl_setopt($curl, CURLOPT_HEADER, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_POST, true);
+
+                $params = array(
+                  "accion" => 8,
+                  "arreglo" => $_arreglo);
+
+                $postData = http_build_query($params);
+
+                $postData = rtrim($postData, '&');
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+                $json_response = curl_exec($curl);
+                print_r($json_response);
+
+                //XML
+                $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA']];
+
+                $curl = curl_init($actual_link);
+                curl_setopt($curl, CURLOPT_HEADER, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_POST, true);
+
+                $params = array(
+                  "accion" => 9,
+                  "arreglo" => $_arreglo);
+
+                $postData = http_build_query($params);
+
+                $postData = rtrim($postData, '&');
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+                $json_response = curl_exec($curl);
+                curl_close($curl);
+            }else
+                $_POST['adjunto'] = []; 
+
+            switch($url2){
+                case 98:
+                    require_once './correoAjax.php';
+                    break;
+                default:
+                    require_once './_config/correoAjax.php';
+                    break;
+            }
         }
     }   
 

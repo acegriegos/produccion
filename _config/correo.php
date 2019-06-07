@@ -5,6 +5,9 @@ if (isset($url2)){
     case 99:
       $ubi = './';
       break;
+    case 98:
+      $ubi = '../';
+      break;
     default:
       $ubi = '';
       break;

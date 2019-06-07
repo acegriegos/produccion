@@ -46,13 +46,12 @@
 	   		case 3:
 	   			$idsuc = $_POST['arreglo'] == -1 ? $_SESSION['TMP_CIA'] : $_POST['arreglo'];
 	   			$idsuc == -1 ? $_SESSION['IMPRESA'] : $_POST['arreglo'];
-	   			print_r($idsuc);
 	   			// if ($idsuc == -1) {
 	   			// 	$idsuc = $_SESSION['IMPRESA'];
 	   			// }else{
 	   			// 	$idsuc = $_POST['arreglo'];
 	   			// }
-				$sucursal = $kakaroto->kamehameha('id,if(pfisico = '',nombre,pfisico)',39,'id = '.$idsuc)[0];
+				$sucursal = $kakaroto->kamehameha('id,if(pfisico = "",nombre,pfisico)',39,'id = '.$idsuc)[0];
 				$_SESSION['EMPRESA'] = $sucursal[1];
 				$_SESSION['IMPRESA'] = $sucursal[0];
 				$_SESSION['TMP_CIA'] = $_POST['arreglo'] >= 0 ? $_POST['arreglo'] : -1;

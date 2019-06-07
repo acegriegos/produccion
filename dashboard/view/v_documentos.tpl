@@ -58,7 +58,7 @@
             <hr>
         <div class="row">
             <div class="col s12">
-              Estados de Documentos: <div style="height: 15px;width: 15px;display: inline-block;" class="green"></div> Aceptado  <div style="height: 15px;width: 15px;display: inline-block;" class="light-green"></div> Recibido  <div style="height: 15px;width: 15px;display: inline-block;" class="lime"></div> Procesando  <div style="height: 15px;width: 15px;display: inline-block;" class="red"></div> Rechazado  <div style="height: 15px;width: 15px;display: inline-block;" class="grey"></div> Sin Subir
+              Estados de Documentos: <div style="height: 15px;width: 15px;display: inline-block;" class="lime"></div> Aceptado  <div style="height: 15px;width: 15px;display: inline-block;" class="light-green"></div> Recibido  <div style="height: 15px;width: 15px;display: inline-block;" class="yellow"></div> Procesando  <div style="height: 15px;width: 15px;display: inline-block;" class="red"></div> Rechazado  <div style="height: 15px;width: 15px;display: inline-block;" class="blue"></div> Sin Subir
             </div>
 
             <div class="col s9 m7 input-field">
