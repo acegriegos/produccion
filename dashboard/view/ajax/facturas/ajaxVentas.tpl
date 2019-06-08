@@ -1108,4 +1108,4 @@
   </li>
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.30"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.31"></script>
