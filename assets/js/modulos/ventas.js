@@ -1989,8 +1989,7 @@ function sendVMail(factura,clave,vid){
 
 
 function makeArchivos(vfactura,vclave,vid,vsucursal,ntipo){
-    alert(vfactura);
-    alert(vclave);
+    
     var archivos = '';
     var vtit = param == 1 ? 'Factura Electrónica' : ntipo;
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vtit,sel:'',tbl:72,where:vid},1);

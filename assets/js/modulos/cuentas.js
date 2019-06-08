@@ -7,7 +7,7 @@ $(function(){
 	paramTemp = param;
 	config = getDatos('',42,'@@impresa',0,0)[0][0];
 
-	switch(param){			
+	switch(param){
 		case 2:
 			arr("cuentas",1,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,2+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
@@ -521,6 +521,9 @@ function endDetail(vid,vacc,modulo) {
 		arr('login',6,'',214,gtipo+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 		$("#btn-div").click();
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-		window.open('cuentas?accion=4&id='+vid[0][0][0]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+
+		if($("#vcta").val() != 0)
+			insertar(280,'','null,'+vid[0][0]+','+$("#vcta").val());
+		window.open('cuentas?accion=4&id='+vid[0][0]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
 	}
 }
