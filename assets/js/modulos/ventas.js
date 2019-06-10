@@ -1887,19 +1887,17 @@ function sendFE(clave){
         data: {id: clave, accion : 1,to:str_correos,idfila : clave,idtabla : 64,tit:vtit}
     })
       .done(function(data) {
-        alert(1)
+
         var p;
         try {
             p = JSON.parse(data);
             $(".expect").removeClass('progress');
       
-            if (p['succes']) {
-                var vfactura = p['num'];
-                var vclave = p['clave'];
-                $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-                str_correos = '';
-                sendVMail(0,0,clave);
-            }             
+            var vfactura = p['num'];
+            var vclave = p['clave'];
+            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+            str_correos = '';
+            sendVMail(0,0,clave);         
             
         }
         catch(err){
