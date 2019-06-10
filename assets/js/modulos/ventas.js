@@ -1937,9 +1937,6 @@ function sendVMail(factura,clave,vid){
             archivos = makeArchivos(factura,clave,vid,vbody[1],ntipo);
             enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,1,vid,64);
         }else{
-            console.log(1)
-
-
             if(parseInt($("[name=tipopago]:checked").val()) != 5){ //MIXTO
                 if (parseInt(idext) > 0) {
                     setTimeout(function(){window.close();},2000);
@@ -1953,9 +1950,6 @@ function sendVMail(factura,clave,vid){
                 if(parseFloat($("#mxtot").val()) < 5)
                     setTimeout(function(){window.close();},2000);
         }
-
-        console.log(2)
-        
     }else{
         switch(param){
             case 2:
