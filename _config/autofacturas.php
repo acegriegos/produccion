@@ -215,7 +215,7 @@
     //TIQUETES Y FACTURAS
     //ESTADOS DE CORREO = 0 => SE ENVIO PARCIAL O NULO, 1 => SE ENVIO BIEN, 2 => VOLVER A ENVIAR
 
-    $lista = $db->ejecutar('select a.id,group_concat(c.correo) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(0,7) and a.id > 1 and a.idsucursal = '.$_SESSION['IMPRESA'].' and a.idtipoventa in(1,7) group by a.id order by a.id limit 5');
+     $lista = $db->ejecutar('select a.id,group_concat(c.correo) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(0,7) and a.id > 1 and a.idsucursal = '.$_SESSION['IMPRESA'].' and a.idtipoventa in(1,7) group by a.id order by a.id limit 5');
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
