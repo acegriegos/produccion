@@ -282,7 +282,7 @@ $(document).on("click",".status",function(){
 					
 				}
                 //console.log(p+' '+msj)
-				Materialize.toast(msj,6000,color);
+				Materialize.toast(msj,6000,colort);
 			}catch(ex){
 				console.log(ex)
 				console.log(data)
@@ -290,7 +290,7 @@ $(document).on("click",".status",function(){
 			}
 			$(".status").attr('disabled',false)
 			$("#e"+vid).removeClass('mdi-spin mdi-loading').addClass('mdi-information-outline');
-            $("#e"+vid).css('color',colort);
+            $("#e"+vid).css('color',color);
 		});
 });
 $(document).on("click",".shcompra",function(){
