@@ -203,7 +203,7 @@ $(document).on("click",".status",function(){
 		.done(function(data){
 			var ex;
 			var p;
-			var color = msj = '';
+			var color = msj = colort = '';
 			var state = 0;
 
 			try{
@@ -214,21 +214,25 @@ $(document).on("click",".status",function(){
 						color = 'lime';
 						state = 1;
                         msj = !p['rs'].trim().length ? 'Documento Electrónico Aceptado' : p['rs'];
+                        colort = 'green';
 						break;
                     case 'recibido':
                         color = 'light-green';
                         state = 9;
                         msj = 'Documento Electrónico Recibido';
+                        colort = 'light-green';
                         break;
 					case 'rechazado':
 						color = 'red';
 						state = 3;
                         msj = !p['rs'].trim().length ? 'Documento Electrónico Rechazado' : p['rs'];
+                        colort = 'red';
 						break;
 					case 'procesando':
 						color = 'yellow';
 						state = 2;
                         msj = 'Procesando Documento Electrónico';
+                        colort = 'yellow'
 						break;
 					case 'Sin Subir':
 						var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
@@ -237,16 +241,19 @@ $(document).on("click",".status",function(){
                         color = 'blue';
                         state = 2;
                         msj = 'Procesando Documento Electrónico';
+                        colort = 'blue';
 						break;
 					case 'Sin Internet':
 						color = 'blue';
                         state = 0;
                         msj = p['rs'];
+                        colort = 'blue';
 						break;
 					case 'error':
                         state = 8;
 						color = 'red'
 						msj = 'Error en Documento Electrónico';
+                        colort = 'red';
 						break;
 					default:
 						break;
@@ -283,7 +290,7 @@ $(document).on("click",".status",function(){
 			}
 			$(".status").attr('disabled',false)
 			$("#e"+vid).removeClass('mdi-spin mdi-loading').addClass('mdi-information-outline');
-            $("#e"+vid).css('color',color);
+            $("#e"+vid).css('color',colort);
 		});
 });
 $(document).on("click",".shcompra",function(){
