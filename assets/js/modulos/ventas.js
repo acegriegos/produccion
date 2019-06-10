@@ -1887,6 +1887,7 @@ function sendFE(clave){
         data: {id: clave, accion : 1,to:str_correos,idfila : clave,idtabla : 64,tit:vtit}
     })
       .done(function(data) {
+        alert(1)
         var p;
         try {
             p = JSON.parse(data);
