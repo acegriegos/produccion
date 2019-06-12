@@ -26,6 +26,7 @@ if (!isset($_REQUEST['accion'])) {
 			$smarty->assign('TIPOPAGO',$kakaroto->kamehameha('id,nombre',26,'id > 0 order by principal desc, nombre'));
 			$smarty->assign('CLIDeta',$kakaroto->kamehameha('',213,'1,0'));
 			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
+			$smarty->assign('CUE',$kakaroto->kamehameha('id,nombre',36,'id > 0 and !ispadre and numero like "4%" order by nombre'));
 			$smarty->display('ajax/cuentas/ajaxmantCxC.tpl');
 			break;
 		case 4:

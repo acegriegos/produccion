@@ -40,7 +40,16 @@
           'alignment' => array(
               'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
           )
-        );;
+        );
+
+        // $styleTotal = array(
+        //   'font'  => array(
+        //     'bold'  => true
+        //   ),
+        //   'alignment' => array(
+        //       'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+        //   )
+        // );
 
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('A6', $miscelaneos[2] ? $miscelaneos[2] : $miscelaneos[0])
@@ -79,15 +88,19 @@
           $objPHPExcel->setActiveSheetIndex(0)
               ->setCellValue($column.($row-1), strtoupper($transaccion[1][$obj]->name))
                ->getStyle($column.($row-1))->applyFromArray($styleArray);
-          $column++;
 
           if(is_numeric(strpos($suma, ",".$obj.","))){
             $tsuma[$index]['valor'] = 0;
             $tsuma[$index]['nombre'] = $transaccion[1][$obj]->name;
+            $tsuma[$index]['columna'] = $column;
           }
+
+          $column++;
         }
         
-        $lastrow = sizeof($varray)-1;
+        $lastcolumn = sizeof($varray)-1;
+        $lastrow = sizeof($transaccion[0])-1;
+
         foreach ($transaccion[0] as $indexk => $obj) {
           $column = 'A';
           foreach ($varray as $indexj => $data) {
@@ -102,13 +115,20 @@
               ->setCellValue($column.$row, strtoupper($rvalor));
 
             if ($indexk == $lastrow) {
-              
-              if(isset($tsuma[$indexj])){
-                $objPHPExcel->setActiveSheetIndex(0)
-                            ->setCellValue($column.($row+1), strtoupper(number_format($tsuma[$indexj]['valor'],2,".",""))); 
-              }
 
-              $objPHPExcel->getActiveSheet()->getColumnDimension($column)
+              if (sizeof($tsuma) && $indexj == $lastcolumn){
+                $ftotal = $row+2;
+                $objPHPExcel->setActiveSheetIndex(0)
+                       ->setCellValue('A'.$ftotal,'TOTAL(CRC)')
+                       ->getStyle('A'.$ftotal)->applyFromArray($styleArray);
+
+                foreach ($tsuma as $aindex => $areglo) {
+                    $objPHPExcel->setActiveSheetIndex(0)
+                          ->setCellValue($areglo['columna'].$ftotal, strtoupper(number_format($areglo['valor'],2,".","")));
+                }
+              }
+                
+                $objPHPExcel->getActiveSheet()->getColumnDimension($column)
                         ->setAutoSize(true);
             }
             $column++;
@@ -116,11 +136,6 @@
           }
           $row++;
         }
-
-        if (sizeof($tsuma))
-          $objPHPExcel->setActiveSheetIndex(0)
-                 ->setCellValue('A'.($row+1),'TOTAL(CRC)')
-                 ->getStyle('A'.($row+1))->applyFromArray($styleArray);
 
         $objPHPExcel->setActiveSheetIndex(0);
 
@@ -137,18 +152,8 @@
     exit;
 
     //<img src="'.$miscelaneos[3].'" style="width:200px !important;height:152px !important;"/>
-    
-        
 
     /*if ($conteo) {
       $archivo .= '<table><tr><td colspan="2"></td></tr><tr><td><b>Cantidad:</b></td><td>'.sizeof($transaccion[1]).'</td></tr></table>';
     } */
-
-    // if (sizeof($tsuma)) {
-    //   $archivo .= '<table><tr><td colspan="2"><b>TOTALES</b></td></tr>';
-    //   foreach ($tsuma as $aindex => $areglo) {
-    //     $archivo .= '<tr><td><b>'.strtoupper($areglo['nombre']).': </b></td><td> '.number_format($areglo['valor'],2,".","").'</td></tr>';
-    //   }
-    //   $archivo .= '<table>';
-    // }
  ?>

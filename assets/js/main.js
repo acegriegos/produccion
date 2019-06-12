@@ -170,7 +170,7 @@ function SSE_SERVER(vmodulo,vaccion,varreglo,vid,vjson) {
 }
 
 function sse_response(vid,p) {
-
+    
     switch(parseInt(vid)){
         case 1:
             if (p['succed'] == undefined || p['succed'] == '')

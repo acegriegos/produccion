@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.0.1.26">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.0.1.26">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.33">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.1.0.33">
   </head>
   <body>
   <br>
@@ -58,7 +58,7 @@
             <hr>
         <div class="row">
             <div class="col s12">
-              Estados de Documentos: <div style="height: 15px;width: 15px;display: inline-block;" class="green"></div> Aceptado  <div style="height: 15px;width: 15px;display: inline-block;" class="light-green"></div> Recibido  <div style="height: 15px;width: 15px;display: inline-block;" class="lime"></div> Procesando  <div style="height: 15px;width: 15px;display: inline-block;" class="red"></div> Rechazado  <div style="height: 15px;width: 15px;display: inline-block;" class="grey"></div> Sin Subir
+              Estados de Documentos: <div style="height: 15px;width: 15px;display: inline-block;" class="lime"></div> Aceptado  <div style="height: 15px;width: 15px;display: inline-block;" class="light-green"></div> Recibido  <div style="height: 15px;width: 15px;display: inline-block;" class="yellow"></div> Procesando  <div style="height: 15px;width: 15px;display: inline-block;" class="red"></div> Rechazado  <div style="height: 15px;width: 15px;display: inline-block;" class="blue"></div> Sin Subir
             </div>
 
             <div class="col s9 m7 input-field">
@@ -204,7 +204,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.0.1.26"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.0.1.26"></script>
+    <script src="../assets/js/dropzone.js?v=10.1.0.33"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.1.0.33"></script>
   </body>
 </html>

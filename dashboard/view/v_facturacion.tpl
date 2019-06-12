@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.0.1.26">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.33">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,7 +16,7 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.0.1.26"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.33"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -118,11 +118,6 @@
           <span class="prefix mdi mdi-24px mdi-clock"></span>
           <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
         </div>
-      </div>
-
-      <div class="col s6 input-field">
-        <input type="text" id="vmontoexo" data-position="bottom" data-tooltip="Monto del impuesto exonerado o autorizado sin impuestos" class="validate tooltiped eder" value="0.00" isnumeric="1" autocomplete="off">
-        <label for="vmontoexo">Monto del Impuesto Exonerado</label>
       </div>
 
       <div class="col s6 input-field">

@@ -33,14 +33,17 @@ if($con_con){
     $fe = new facturaElectronica($_POST['idfila']);
     $estado = $fe->estado();
 
-    if(isset($estado['xml'])){
+    if(isset($estado['estado'])){
 
-        $xml = $estado['xml'];
-        file_put_contents($ubi."assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml", $xml);
-        array_push($_POST['adjunto'], "xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml");
+        if(isset($estado['xml'])){
+            $xml = $estado['xml'];
+            file_put_contents($ubi."assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml", $xml);
+            array_push($_POST['adjunto'], "xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml");
+        }
 
         if (isset($_POST['idtabla'])) {
             $db = new DBClass();
+            $mail = 1;
 
             switch($estado['estado']){
                 case 'aceptado':
@@ -48,15 +51,17 @@ if($con_con){
                     break;
                 case 'recibido':
                     $state = 9;
+                    $mail = 2;
                     break;
                 case 'rechazado':
                     $state = 3;
                     break;
                 case 'procesando':
                     $state = 2;
+                    $mail = 2;
                     break;
                 case 'Sin Subir':
-                    $state = 2;
+                    $state = 7;
                     break;
                 case 'Sin Internet':
                     $state = 0;
@@ -69,7 +74,10 @@ if($con_con){
                     break;
             }
 
-            $db->ejecutar('call shadow(2,'.$_POST['idtabla'].',"feestado = '.$state.'","id = '.$_POST['idfila'].'")');
+            if (!file_exists($ubi."assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml"))
+                $mail = 2;
+
+            $rs = $db->ejecutar('call shadow(2,'.$_POST['idtabla'].',"feestado = '.$state.', mailstatus='.$mail.'","id = '.$_POST['idfila'].'")');
         }
 
     }else{

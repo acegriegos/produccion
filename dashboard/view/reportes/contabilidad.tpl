@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Contabilidad</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.1.26">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.1.0.33">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -19,7 +19,7 @@
         {/if}
       </div>
       <div class="col s6 m4 l4" align="center">
-        <h2 align="center" style="margin-top: 0px" id="tit">Ventas Totales</h2>
+        <h2 align="center" style="margin-top: 0px" id="tit"></h2>
         <font size="3">
           <b>{$MIS[0]}</b><br>
           {if $MIS[2]}<b>{$MIS[2]}</b><br>{/if}
@@ -40,7 +40,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.1.26"></script>
-  <script src="../assets/js/modulos/reportes/contabilidad.js?v=10.0.1.26"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.1.0.33"></script>
+  <script src="../assets/js/modulos/reportes/contabilidad.js?v=10.1.0.33"></script>
 </body>
 </html>

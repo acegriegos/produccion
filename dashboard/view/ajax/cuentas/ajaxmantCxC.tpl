@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.0.1.26">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.1.0.33">
 <div class="card z-depth-3">
 
 <div class="card-header center head1">
@@ -159,11 +159,21 @@
                                                 <input  id="vreferencia" type="text">
                                                 <label for="vreferencia" style="color: white !important">Referencia</label>
                                             </div> 
-                                            <div class="col s12 der">
+                                            <div class="col s6">
                                                 <p>
                                                     <input type="checkbox" id="p_v" title="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'"/>
                                                     <label for="p_v" style="color: white !important">Punto Venta</label>
                                                 </p>
+                                            </div>
+                                            <div class="col s6">
+                                                <select id="ctav">
+                                                    <option disabled selected value="0">Cuenta Contable</option>
+                                                    {section name=LE loop=$CUE}
+                                                    <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                                                    {/section}
+                                                </select>
+                                            </div>
+
                                                 <button href="#!" class="waves-effect btn btn2 waves-light z-depth-3 add" tipo="1" modulo="estadoscuenta" >Realizar Pago</button>
                                                 <button href="#!" class="waves-effec btn btn1 waves-light z-depth-3" id="btn-divsalir">Salir</button>
                                             </div>
@@ -256,8 +266,13 @@
                             </select>
                             <label for="monedas">Moneda</label>
                         </div>
-                        <div class="input-field col s6 m6">
-                           
+                        <div class="col s6">
+                            <select id="vcta">
+                                <option disabled selected value="0">Cuenta Contable</option>
+                                {section name=LE loop=$CUE}
+                                <option value="{$CUE[LE][0]}">{$CUE[LE][1]}</option>
+                                {/section}
+                            </select>
                         </div>
                         <div class="col s6">
                             Saldo Actual: <span class="moneda"></span> <span id="saldo">0.00</span>

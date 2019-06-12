@@ -1033,6 +1033,25 @@
   </div>
 </div>
 
+<div id="modal-noticia" class="modal modal-fixed-footer">
+  <div class="modal-content" >
+    <h4 class="center">Estimado Contribuyente</h4>
+    
+    <p>De Acuerdo a las <b><i>"ESPECIFICACIONES TÉCNICAS Y FORMATO DE LOS DOCUMENTOS ELECTRÓNICOS"</i></b>, es necesario el código de la actividad económica, por lo cual es requerido que digite en el siguiente espacio:</p>
+
+    <div class="input-field col s6 edescu container" style="width: 50%">
+        <input type="text" class="eder" id="codactividad" autocomplete="off" maxlength="6" autosave="off">
+        <label for="codactividad">Código de Actividad</label>
+    </div>
+
+    <small><a style="color: blue" href="https://www.hacienda.go.cr/ATV/frmConsultaSituTributaria.aspx" target="_blank">Buscar Código de Actividad en Hacienda</a></small>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acepnew">Aceptar</a>
+  </div>
+</div>
+
 <div id="modal-facturas" class="modal modal-fixed-footer" style="width: 80%; height: 90% !important;">
   <div class="modal-content">
     <h4>Lista de Ordenes</h4>
@@ -1089,4 +1108,4 @@
   </li>
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.0.1.26"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.33"></script>

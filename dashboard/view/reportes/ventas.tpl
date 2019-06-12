@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Ventas Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.0.1.26">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.1.0.33">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -33,7 +33,7 @@
       </div>
       <div class="col s2 m4 l4">
         <input type="hidden" class="zelda">
-        <input type="hidden" id="vdetalle" value="1">
+        <input type="hidden" id="vdetalle" value="2">
       </div>
     </div>
     
@@ -59,8 +59,8 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.0.1.26"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.0.1.26"></script>
-  <script src="../assets/libs/jspdf/jspdf.js?v=10.0.1.26"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.1.0.33"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.1.0.33"></script>
+  <script src="../assets/libs/jspdf/jspdf.js?v=10.1.0.33"></script>
 </body>
 </html>

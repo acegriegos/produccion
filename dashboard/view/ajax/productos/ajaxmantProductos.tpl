@@ -346,12 +346,7 @@
                     </td> 
                     <td class="center-align input-field" style="padding: 0px">
                         <i class="mdi prefix moneda">¢</i>
-                        <input type="text" id="vventa1" class="validate calcvv eder" value="0" data-mask="9999999999.99" focus="vexoneracion" num="3" line="1" style="margin: 0px">
-                    </td> 
-                    <td class="center-align input-field" style="padding: 0px">
-                        <i class="mdi prefix">%</i>
-                        <input type="text" id="vexoneracion1" style="width: 70%;margin: 0px" class="validate calcvv eder" value="0" data-mask="9999999999.99" nc="1" line="1"> 
-                        <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i> 
+                        <input type="text" id="vventa1" class="validate calcvv eder" value="0" data-mask="9999999999.99" num="3" line="1" style="margin: 0px">
                     </td>
                 </tr>
             </div>

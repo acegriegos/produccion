@@ -471,11 +471,12 @@ function postload(modulo) {
 			}else{
 				$("#tipocliente").prop('checked',false).change();
 			}
-				
-			setTimeout(function(){
-				$(".close_phone").removeClass('close');
-				$(".close_mail").removeClass('close');
-			},500);
+			
+			var num = 1;
+            while($("#slideTelefono").data('fila'+num) != undefined){
+				$("#slideTelefono").removeData('fila'+num);
+			 num++;
+            }
 
 		break;
 	}
