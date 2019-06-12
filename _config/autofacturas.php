@@ -109,9 +109,9 @@
                     case 'aceptado':
                         $nesatdo = 1;
                         if ($obj[2] == 0 && $obj[3]) # EVIOCORREO NORMAL
-                            enviocorreoauto($db,$obj[0],$obj[1],0,$fe->info,$fe->tit,64);
+                            enviocorreoauto($db,$obj[0],$obj[1],0,$fe->info,$fe->titulo,64);
                         elseif ($obj[2] == 2 && $obj[3]) #ENVIAR SOLO RH
-                            enviocorreoauto($db,$obj[0],$obj[1],1,$fe->info,$fe->tit,64); 
+                            enviocorreoauto($db,$obj[0],$obj[1],1,$fe->info,$fe->titulo,64); 
                         break;
                     case 'rechazado':
                         $nesatdo = 3;
