@@ -522,13 +522,8 @@ function endDetail(vid,vacc,modulo) {
 		arr('login',6,'',214,gtipo+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 		$("#btn-div").click();
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-<<<<<<< HEAD
-		window.open('cuentas?accion=4&id='+vid[0][0][0]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-=======
-
 		if($("#vcta").val() != 0)
 			insertar(280,'','null,'+vid[0][0]+','+$("#vcta").val());
 		window.open('cuentas?accion=4&id='+vid[0][0]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
->>>>>>> afdfd936e33ed09e2fbb79237f07d57331bcdeb5
 	}
 }
