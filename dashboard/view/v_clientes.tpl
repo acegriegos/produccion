@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.32">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.33">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -298,25 +298,26 @@
                   <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
                 </div>
 
-                  <div class="col s12 input-field" >
-                    <span class="prefix mdi mdi-24px mdi-calendar"></span>
+                  <label class="col s12">Fecha y Hora de Emisión</label>
+
+                  <div class="col s6">
                     <input type="date" id="vfechaDoc" class="validate tooltiped">
                   </div>
 
-                  <div class="col s12 input-field">
-                    <span class="prefix mdi mdi-24px mdi-clock"></span>
+                  <div class="col s6 input-field">
                     <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
                   </div>
-
-                <div class="col s12 input-field">
-                  <input type="text" id="vmontoexo" data-position="bottom" data-tooltip="Monto del impuesto exonerado o autorizado sin impuestos" class="validate tooltiped eder" value="0.00" isnumeric="1" autocomplete="off">
-                  <label for="vmontoexo">Monto del Impuesto Exonerado</label>
-                </div>
 
                 <div class="col s12 input-field">
                   <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off">
                   <label for="vporcompra">Porcentaje de Compra</label>
                 </div>
+
+                <label class="col s12">Fecha Fin</label>
+
+                  <div class="col s6">
+                    <input type="date" id="vfechafin" class="validate tooltiped">
+                  </div>
 
           </div>
 
@@ -398,6 +399,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.1.0.32"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.1.0.33"></script>
 </body>
 </html>
