@@ -2122,9 +2122,8 @@ function endDetail(id, acc, modulo) {
 				if (parseFloat($("#vventa" + idfila).val().replace(/,/g,'')) > 0) {
 					imp_n = parseInt($("#vexoneracion").val());
 					gan_n = (parseFloat($("#vventa" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - parseFloat($("#vcosto").val().replace(/,/g,''));
-					console.log(gan_n)
 					acc = !parseInt(idlinea) ? 1 : acc;
-					console.log(arr('login', 4, '', 108, acc+','+idlinea+',1,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vventa" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0));
+					arr('login', 4, '', 108, acc+','+idlinea+',1,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vventa" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0);
 				}
 			});
 
@@ -2132,6 +2131,18 @@ function endDetail(id, acc, modulo) {
 				var idfila = $(this).attr('id').substr(1);
 				if ($("#vventa" + idfila).val() > 0) {
 					arr('login', 4, '', 162, '1,0,' + id[0][0] + ',' + $("#vidcliente" + idfila).val() + ',' + $("#vgganancia" + idfila).val() + ',' + $("#vexoneracion" + idfila).val() + ',@@usr,@@impresa,'+parseFloat($("#vcosto").val().replace(/,/g,""))*((parseFloat($("#vgganancia"+idfila).val().replace(/,/g,""))/100)+1), 0, 0, 0)
+				}
+			});
+
+			$(".precunidad").each(function() {
+				var gan_n = 0;
+				var idlinea = $(this).attr('idu');
+				var idfila = $(this).attr('id').substr(1);
+				if (parseFloat($("#vuventa" + idfila).val().replace(/,/g,'')) > 0) {
+					imp_n = parseInt($("#vexoneracion").val());
+					gan_n = (parseFloat($("#vuventa" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - parseFloat($("#vcosto").val().replace(/,/g,''));
+					acc = !parseInt(idlinea) ? 1 : acc;
+					console.log(arr('login', 4, '', 108, acc+','+idlinea+',2,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vuventa" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0));
 				}
 			});
 
@@ -2272,6 +2283,21 @@ function postload(vmodulo){
 		    	}
 		    });
 
+		    $(".precunidad").each(function(){
+		    	var id = $(this).attr('id').substr(1);
+		    	var infonivel = getDatos('format(((venta/((exoneracion/100)+1)/'+$("#vcosto").val().replace(/,/g,'')+')-1)*100,2),venta,exoneracion,id',105,'idnivel = '+id+' and idtipoentrada = 2 and identrada = '+$("#fproductos .zelda").data('triforce')['vid'],0,0,0)[0][0];
+
+		    	if(infonivel != undefined){
+		    		$("#vuganancia"+id).val(infonivel[0])
+		    		$("#vuventa"+id).val(infonivel[1])
+		    		$(this).attr('idu',infonivel[3])
+		    	}else{
+		    		$("#vuganancia"+id).val(0)
+		    		$("#vuventa"+id).val(0)
+		    		$(this).attr('idu',0);
+		    	}
+		    });
+
 		    Materialize.updateTextFields();
 			break;
 		case 'servicio':
@@ -2290,7 +2316,7 @@ function cargarUnidades(vidproducto){
 
     $.each(unis, function(index, valor) {
     	if(parseInt(valor[0]) != parseInt(vidproducto))
-        uni += '<div class="precunidad row" id="f'+valor[0]+'" style="margin: 0px;"> <div class="col s12 l4" style="padding-left: 5%;"><b>'+valor[1]+'</b> </div> <div class="col s12 l4 input-field"> <i class="mdi prefix">%</i> <input type="text" id="vuganancia'+valor[0]+'" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off"> <input type="hidden" id="vuganancia'+valor[0]+'" value="0" class="rgan"> </div> <div class="col s12 l4 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventa'+valor[0]+'" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off"> </div> </div>';
+        uni += '<div class="precunidad row" id="x'+valor[0]+'" style="margin: 0px;"> <div class="col s12 l4" style="padding-left: 5%;"><b>'+valor[1]+'</b> </div> <div class="col s12 l4 input-field"> <i class="mdi prefix">%</i> <input type="text" id="vuganancia'+valor[0]+'" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off"> <input type="hidden" id="vuganancia'+valor[0]+'" value="0" class="rgan"> </div> <div class="col s12 l4 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventa'+valor[0]+'" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off"> </div> </div>';
     });
     $(".precunidiv").html(uni);
 

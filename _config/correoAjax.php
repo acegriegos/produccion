@@ -33,11 +33,13 @@ if($con_con){
     $fe = new facturaElectronica($_POST['idfila']);
     $estado = $fe->estado();
 
-    if(isset($estado['xml'])){
+    if(isset($estado['estado'])){
 
-        $xml = $estado['xml'];
-        file_put_contents($ubi."assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml", $xml);
-        array_push($_POST['adjunto'], "xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml");
+        if(isset($estado['xml'])){
+            $xml = $estado['xml'];
+            file_put_contents($ubi."assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml", $xml);
+            array_push($_POST['adjunto'], "xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml");
+        }
 
         if (isset($_POST['idtabla'])) {
             $db = new DBClass();

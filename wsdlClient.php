@@ -1,5 +1,6 @@
 <?php 
     require_once '_config/mysqlDB.php';
+    set_time_limit(0);
     
     if (isset($_REQUEST['accion'])) {
 
@@ -32,7 +33,7 @@
                     sleep(10);
                     $estado = $fe->estado();
                     
-                    if(isset($estado['xml'])){
+                    if(isset($estado['estado'])){
 
                             switch($estado['estado']){
                                 case 'aceptado':
@@ -66,12 +67,8 @@
                         }else
                             echo json_encode($estado);
                     }
-                }else{
-                    if(strpos($rs['rs'], 'recibido anteriormente') >= 0)
-                        $db->ejecutar('call shadow(2,'.$fe->idtabla.',"feestado = 2,mailstatus=0","id = '.$id.'")');
-
+                }else
                     echo json_encode($rs);
-                }
                 
                 break;
             case 2://GET XML
@@ -1132,7 +1129,6 @@
 
             $xml = $this->getXMLRecepcion();
             if (is_array($xml)) {
-                
                 return 'Problemas Generando la Factura: '.$xml['error'].', no se Envió Hacienda';
             }
 
@@ -1140,6 +1136,7 @@
                 $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
             else
                 $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion");
+            
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLINFO_HEADER_OUT,true);
@@ -1167,7 +1164,13 @@
                 case 400:
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
-                    $json_response = ['rs'=>'Error '.$this->tdoc.': '.$this->id.', '.$rs,'succes'=>0,'erno'=>2,'id'=>$this->id];
+
+                    if(strpos($rs, 'recibido anteriormente') >= 0){
+                        $db = new DBClass();
+                        $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 2,mailstatus=0","id = '.$this->id.'")')->fetch_all();
+                    }
+
+                    $json_response = ['rs'=>'Error '.$this->tdoc.': '.$this->id.', '.$rs,'succes'=>0,'erno'=>2,'id'=>$this->id,'actualizacion' => $act];
                     break;
                 case 500:
                     $json_response = ["rs"=>'Error Interno en el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];

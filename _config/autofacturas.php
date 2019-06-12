@@ -73,14 +73,14 @@
 
     if(!isset($_COOKIE['AUTO'])){
         setcookie("AUTO",1, time()+10);
-        /*ob_end_clean();
+        ob_end_clean();
         ignore_user_abort();
         ob_start();
         header("Connection: close");
         echo json_encode(['success'=>1]);
         header("Content-Length: " . ob_get_length());
         ob_end_flush();
-        flush();*/
+        flush();
     }else{
         echo "AUTO ACTIVADO";
         exit(0);
@@ -91,12 +91,11 @@
     require_once '../wsdlClient.php';
     $db = new DBClass();
     $salida = [];
-
 //ESTADO PROCESANDO
 
     //FACTURAS Y TICKETS
 
-    $lista = $db->ejecutar('select a.id,group_concat(c.correo),mailstatus,if(idtipoventa in(1,10),1,0) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(2,9) and a.id > 1 and a.idsucursal = '.$_SESSION['IMPRESA'].' and a.idtipoventa in(1,7) group by a.id order by a.id limit 10');
+    $lista = $db->ejecutar('select a.id,group_concat(c.correo),mailstatus,if(idtipoventa in(1,10),1,0) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(2,9) and a.id > 0 and a.idsucursal = '.$_SESSION['IMPRESA'].' and a.idtipoventa in(1,7) group by a.id order by a.id limit 10');
 
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
@@ -110,9 +109,9 @@
                     case 'aceptado':
                         $nesatdo = 1;
                         if ($obj[2] == 0 && $obj[3]) # EVIOCORREO NORMAL
-                            $fe->envioWsdlCorreo($db,$obj[0],$obj[1],0,98);
+                            enviocorreoauto($db,$obj[0],$obj[1],0,$fe->info,$fe->tit,64);
                         elseif ($obj[2] == 2 && $obj[3]) #ENVIAR SOLO RH
-                            $fe->envioWsdlCorreo($db,$obj[0],$obj[1],1,98); 
+                            enviocorreoauto($db,$obj[0],$obj[1],1,$fe->info,$fe->tit,64); 
                         break;
                     case 'rechazado':
                         $nesatdo = 3;
@@ -215,24 +214,17 @@
     //TIQUETES Y FACTURAS
     //ESTADOS DE CORREO = 0 => SE ENVIO PARCIAL O NULO, 1 => SE ENVIO BIEN, 2 => VOLVER A ENVIAR
 
-     $lista = $db->ejecutar('select a.id,group_concat(c.correo) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(0,7) and a.id > 1 and a.idsucursal = '.$_SESSION['IMPRESA'].' and a.idtipoventa in(1,7) group by a.id order by a.id limit 5');
+     $lista = $db->ejecutar('select a.id,group_concat(c.correo) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(0,7) and a.id > 0 and a.idsucursal = '.$_SESSION['IMPRESA'].' and a.idtipoventa in(1,7) group by a.id order by a.id limit 5');
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
-            $_POST['idtabla'] = 64;
-            $_POST['idfila'] = $obj[0];
-            $_POST['to'] = $obj[1];
-            $_POST['con_con'] = 1;
-            $_POST['accion'] = 1;
+            
             $fe = new facturaElectronica($obj[0]);
-            /*$rs = $fe->recepcion();
-            if(strpos($rs['rs'], 'recibido anteriormente') >= 0)
-                $db->ejecutar('call shadow(2,64,"feestado = 2,mailstatus=0","id = '.$obj[0].'")');
-            else
-                if($obj[1])
-                    $fe->envioWsdlCorreo($db,$obj[0],$obj[1],0,98);*/
+            $rs = $fe->recepcion();
+            // if($obj[1])
+            //     $fe->envioWsdlCorreo($db,$obj[0],$obj[1],0,98);
 
-            $salida['SEND']['FACTURAS'][$obj[0]] = 'done';
+            $salida['SEND']['FACTURAS'][$obj[0]] = $rs;//'done';
         }
     }
 
@@ -279,6 +271,67 @@
     echo json_encode($salida);
     unset($_SESSION['AUTO']);
 }//NORMAL
+
+function enviocorreoauto(&$db,$id,$to,$mh = 0,$info,$tit,$idtabla){
+
+    $cnf = $db->ejecutar("call krattos('',73,".$id.")")->fetch_all()[0];
+    $num = $info['NumeroConsecutivo'];
+
+    $_POST['con_con'] = 1;
+    $_POST['accion'] = 3;
+    $_POST['body'] = $cnf[0];
+    $_POST['idfila'] = $id;
+    $_POST['subject'] = $cnf[3]." N° ".$num;
+    $_POST['to'] = $to;
+    $_POST['idtabla'] = $idtabla;
+    if(!$mh){
+        $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
+
+        //MAKE ARCHIVOS
+        //PDF
+        $_arreglo = ['arch'=>'recibo','id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>72,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $actual_link = str_replace('autofacturas.php','/dashboard/login', $actual_link);
+        $curl = curl_init($actual_link);
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+
+        $params = array(
+          "accion" => 8,
+          "arreglo" => $_arreglo);
+
+        $postData = http_build_query($params);
+
+        $postData = rtrim($postData, '&');
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+        $json_response = curl_exec($curl);
+        print_r($json_response);
+
+        //XML
+        $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA']];
+
+        $curl = curl_init($actual_link);
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+
+        $params = array(
+          "accion" => 9,
+          "arreglo" => $_arreglo);
+
+        $postData = http_build_query($params);
+
+        $postData = rtrim($postData, '&');
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+        $json_response = curl_exec($curl);
+        curl_close($curl);
+    }else
+        $_POST['adjunto'] = []; 
+
+   require_once './correoAjax.php';
+}
 
 function compras($url,$ced,$isp,&$log,&$salida){
     $curl = curl_init($url);
