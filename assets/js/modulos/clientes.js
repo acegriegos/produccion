@@ -207,25 +207,12 @@ $("#vdireccion").keyup(function(){
 	$("#infdireccion11").html(dir)
 });
 
-
-$(document).on("click",".close_mail",function(){
-	$(this).parent().removeClass('chip');
-	$(this).parent().addClass('hide');
-	$(this).parent().data('triforce').vaccion = 3;
-});
-
-$(document).on("click",".close_phone",function(){
-	$(this).parent().removeClass('chip');
-	$(this).parent().addClass('hide');
-	$(this).parent().data('triforce').vaccion = 3;
-});
-
-$(document).on("click",".vcoo",function(){
-	var id = $(this).attr('id').substr(3);
-	$("#correo_in").val($(this).html()).select().focus();
-	$("#correo_in").attr('idfila',$(this).attr('id'));
-	Materialize.updateTextFields();
-});
+// $(document).on("click",".vcoo",function(){
+// 	var id = $(this).attr('id').substr(3);
+// 	$("#correo_in").val($(this).html()).select().focus();
+// 	$("#correo_in").attr('idfila',$(this).attr('id'));
+// 	Materialize.updateTextFields();
+// });
 
 $(document).on("click","._tel",function(){
 	var id = $(this).attr('id').substr(3);
@@ -328,8 +315,7 @@ function validar (varreglo,vmodulo) {
 	}
 
 	salida = odin(varreglo,vform);
-	console.log(vform)
-	console.log(salida)
+
 	return salida;
 
 }
@@ -437,15 +423,9 @@ function clearcard() {
 function endDetail(vid,vacc,modulo){
 	switch (modulo) {
 		case 'cliente':
-			setTimeout(function(){ deadclear('cliente'); }, 2500);
 			thorload('cliente');
 			if (vacc == 1) {
-				$("#fcorreos").html('');
-				$("#ftelefonos").html('');
-				$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
-				$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
 				setTimeout(function(){ deadclear('cliente');$("#videstado").val(1);$("#videstado").material_select();}, 500);
-				clearcard();
 			}
 			break;
 		case 'taller-vehiculo':
@@ -478,6 +458,11 @@ function postload(modulo) {
 			 num++;
             }
 
+            num = 1;
+            while($("#slideCorreo").data('fila'+num) != undefined){
+				$("#slideCorreo").removeData('fila'+num);
+			 num++;
+            }
 		break;
 	}
 }

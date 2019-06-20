@@ -26,7 +26,6 @@ $(function(){
         })
             .done(function(res){
                 var p = JSON.parse(res);
-                console.log(p)
                 var str = '';
                 var tabla = $("#data-table-compras").DataTable();   
                 tabla.destroy();

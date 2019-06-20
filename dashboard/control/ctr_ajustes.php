@@ -85,17 +85,14 @@ if (!isset($_REQUEST['accion'])) {
 	   			break;
 	   		case 10:
 	   			$pagina = 1;
-	   			$smarty->assign('TELS',$kakaroto->kamehameha('',19,$_REQUEST['arreglo']['vidfila'].",".$_REQUEST['arreglo']['vidtabla']));
 	   			$smarty->display('ajax/ajustes/addphone.tpl');
 	   			break;
 	   		case 11:
 	   			$pagina = 1;
-	   			$smarty->assign('CORS',$kakaroto->kamehameha('',18,$_REQUEST['arreglo']['vidfila'].",".$_REQUEST['arreglo']['vidtabla']));
 	   			$smarty->display('ajax/ajustes/addmail.tpl');
 	   			break;
 	   		case 12:
 	   			$pagina = 1;
-	   			$smarty->assign('UBIC',$kakaroto->kamehameha('',92,$_REQUEST['arreglo']['vidfila'].",".$_REQUEST['arreglo']['vidtabla']));
 	   			$smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));
 	   			$smarty->display('ajax/ajustes/addaddress.tpl');
 	   			break;

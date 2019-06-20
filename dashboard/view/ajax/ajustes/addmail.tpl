@@ -3,25 +3,37 @@
     <label for="correo_in">Ingresar Correo</label>
 </div>
 <ul class="collection col s12" id="fcorreos" style="border: 0;">
-    
-    {section name=LE loop=$CORS}
-      <div id="cgl{$CORS[LE][0]}" class="chpcrr chip ciclos"><span class="vcoo" id="c0_{$CORS[LE][0]}">{$CORS[LE][3]}</span><i id="cd_{$CORS[LE][0]}" class="close close_mail mdi mdi-close"></i></div>
-    {/section}
 </ul>
+
+<input type="hidden" id="_idfila" value="{$smarty.post.arreglo.vidfila}">
+<input type="hidden" id="_idtabla" value="{$smarty.post.arreglo.vidtabla}">
 
 {literal}
 <script type="text/javascript">
     $(function(){
         $("#correo_in").focus();
 
+        if(!$("#fcorreos .ciclos").length || $("#slideCorreo").data('idfila') != $("#_idfila").val()){
+
+            var correos = getDatos('',18,$("#_idfila").val()+","+$("#_idtabla").val(),0,0,0);
+            var str = '';
+            $("#slideCorreo").data('idfila',$("#_idfila").val());
+
+            for (var i = 0; i < correos[0].length; i++) {
+                str += '<div id="cgl'+(i+1)+'" class="chpcrr chip ciclos" gid="'+correos[0][i][0]+'"><span class="vcoo" id="c0_'+(i+1)+'">'+correos[0][i][3]+'}</span><i id="cd_'+(i+1)+'" class="close close_mail mdi mdi-close"></i></div> ';
+
+                $("#slideCorreo").data('fila'+(i+1),{vaccion:2,vidcorreo:correos[0][i][0],vcorreo:correos[0][i][3]});   
+            }
+        }
+
         if ($("#slideCorreo").data('fila1') != undefined) {
             var num = 1;
+            var cstr = '';
             while($("#slideCorreo").data('fila'+num) != undefined){
-                $("#fcorreos").append('<div id="cgl'+num+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+num+'">'+$("#slideCorreo").data('fila'+num)['vcorreo']+'</span><i id="cd_'+num+'" class="close close_mail mdi mdi-close"></i></div>');
+                cstr += '<div id="cgl'+num+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+num+'">'+$("#slideCorreo").data('fila'+num)['vcorreo']+'</span><i id="cd_'+num+'" class="close close_mail mdi mdi-close"></i></div>';
                 num++;
             }
-
-            ind_1 = num;
+            $("#fcorreos").html(cstr);
         }
     });
 </script>

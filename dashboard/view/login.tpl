@@ -25,7 +25,7 @@
         <input type="hidden" name="vdir" value="" id="vdir"> 
 
         <div class="login__check" align="center">
-          <img id="img" src="../assets/img/login/2.png" style="width: 80%">
+          <img id="img" src="../assets/img/login/2.png?v=1" style="width: 80%">
         </div>
         <div class="login__form" style="padding-top: 0;">
           <div class="input-field" style="margin-top: 0;">

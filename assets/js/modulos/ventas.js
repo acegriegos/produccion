@@ -404,8 +404,30 @@ $(function(){
     }
 
     if(param.toString().match(new RegExp(/[17910]/i)) && !config[24]){
-        //$("#modal-noticia").modal('open');
+        $("#modal-noticia").modal('open');
         $("#codactividad").focus();
+        $("#acepnew").click(function(){
+            if(!$("#codactividad").val().trim().length){
+                Materialize.toast('Codigo Requerido',4000,'red');
+                $("#codactividad").focus();
+                return false;
+            }
+
+            var codact = getDatos('codigo',286,'codigo like "'+$("#codactividad").val().trim()+'"',0,0,0);
+            if(!codact[0].length){
+                Materialize.toast('Codigo No Existente',4000,'red');
+                $("#codactividad").focus().select();
+                return false;
+            }
+
+            actualizar(39,'codactividad='+$("#codactividad").val().trim(),'id=@@impresa');
+            Materialize.toast('Codigo Aceptado',4000,'green');
+            setTimeout(function(){location.reload();},500);
+
+        })
+    }else{
+        $("#codact").html('<option value="'+config[24]+'">'+config[25]+'</option>')
+        $("#codact").material_select('update')
     }
     
 })//READY
@@ -591,9 +613,17 @@ $("#crrclie").click(function(){
         str += '<input type="checkbox" class="selcorreo" '+checked+' id="chk'+i+'"><label for="chk'+i+'">'+tmp.substr(0,index)+'</label><br>';
         tmp = tmp.substr(index+1,tmp.length);
     }
+    var ii = $(".selcorreo").length + 1;
+    str += '<input type="text" placeholder="Digitar Correo" id="dcorreo">';
 
     $('#bdycrr').html(str);
-    
+    $("#dcorreo").focus();
+
+    $("#dcorreo").keyup(function(e){
+        var code = e.wich || e.keyCode
+        if(code == 13)
+            validarCorreo($(this).val().trim())
+    });
 });
 
 $(".mcancelar").blur(function(){
@@ -1804,7 +1834,7 @@ function cargarImpuestos(vfila,vtabla){
 
         if (!$("#imp_"+imp[i][0]).length) {
             exo = (parseFloat(imp[i][3])*(1-(parseFloat(imp[i][4])/100))).toFixed(2);
-            textImpuestos = '<tr id="imp_'+imp[i][0]+'" class="dimpuesto" '+noBorrar+'><td id="imp_v'+imp[i][0]+'">'+imp[i][2]+' ['+exo+'%]:</td><td style="float: right;"><span class="moneda">'+sMoneda+'</span><span id="imv_'+imp[i][0]+'" type="html">0.00</span></td></tr>';
+            textImpuestos = '<tr id="imp_'+imp[i][0]+'" class="dimpuesto" '+noBorrar+'><td id="imp_v'+imp[i][0]+'">'+imp[i][2]+':</td><td style="float: right;"><span class="moneda">'+sMoneda+'</span><span id="imv_'+imp[i][0]+'" type="html">0.00</span></td></tr>';
             
             $("#sh_imp").append(textImpuestos);
 

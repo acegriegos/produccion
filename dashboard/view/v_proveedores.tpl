@@ -87,6 +87,7 @@
             <div class="modal-content " style="padding: 0px;">
               <div id="fclientes">
                 <input type="hidden" class="zelda">
+                <input type="hidden" id="vdproforma">
                 <div class="row">
                   <br>
                   <div class="col s12 m8 l9">
