@@ -678,7 +678,7 @@ $(document).on("keyup",".fventa",function(e){
 
 $(document).on("change","#uni",function(){
 
-    if (!parseInt(punidad))
+    /*if (!parseInt(punidad))
         punidad = parseFloat($('option:selected',this).attr('cant'));
     else{
         var pbase = parseFloat($("#precp").val().replace(/,/g,''))*(1/parseFloat(punidad));
@@ -687,8 +687,19 @@ $(document).on("change","#uni",function(){
         $("#precp").val(pfinal.formatMoney(2,'.',','));
         $("#valores").data('elemento')['hprec'] = pfinal;
         $("#cantp").focus().select();
-    } 
-    
+    }*/
+     punidad = parseFloat($('option:selected',this).attr('cant'));
+     var nprecio = getDatos('venta,exoneracion',105,'idtipoentrada = 2 and identrada = '+$("#valores").data('elemento')['idp']+' and idnivel = '+$(this).val(),0,0,0);
+     if(nprecio[0].length){
+        if(!$("#iva").is(":checked") && $("#iva:visible").length)
+            var pfinal = parseFloat(nprecio[0][0][0]) / ((parseFloat(nprecio[0][0][1])/100)+1);
+        else
+            var pfinal = nprecio[0][0][0];
+        $("#precp").val(parseFloat(pfinal).formatMoney(2,'.',','));
+        $("#valores").data('elemento')['hprec'] = pfinal;
+        $("#cantp").focus().select();
+        $("#totp").val(pfinal)
+     }    
 });
 
 $(document).on("blur",".fventa",function(){
@@ -1444,6 +1455,9 @@ function cargarProducto(kbrota,elemento) {
         var char1 = cod[0].substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
+
+        if(!$("#iva").is(":checked") && $("#iva:visible").length)
+            cod[3] = parseFloat(cod[3])/((parseFloat(cod[8])/100)+1);
 
         $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25]}) //,imp: cod[6]
 

@@ -181,6 +181,11 @@ $(document).on("click",".status",function(){
         event.preventDefault();
     }
 
+    if($(this).attr('style').indexOf('lime') > -1){
+        Materialize.toast('Documento Electrónico Aceptado',4000,'green');
+        return false;
+    }
+
 	$(".status").attr('disabled',true)
 	$(this).removeClass('mdi-information-outline').addClass('mdi-spin mdi-loading')
 	var vid = $(this).attr('id').substr(1);

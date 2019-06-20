@@ -1322,7 +1322,7 @@ $(document).on("blur",".calcvv",function(){
 
 		if (padre.attr('dimension') != undefined){
 			costo = costo/parseFloat($("#vldimension1").val())
-			costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+padre.attr('id').substr(1)+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
+			costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+padre.attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
 		}
 
 		switch(num){
