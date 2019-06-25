@@ -698,7 +698,7 @@ $(document).on("change","#uni",function(){
         $("#precp").val(parseFloat(pfinal).formatMoney(2,'.',','));
         $("#valores").data('elemento')['hprec'] = pfinal;
         $("#cantp").focus().select();
-        $("#totp").val(pfinal)
+        $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','))
      }    
 });
 

@@ -1152,6 +1152,7 @@
             
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
+            $db = new DBClass();
             switch ($status) {
                 case 0:
                     $json_response = ["rs"=>'Superó Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];
@@ -1160,6 +1161,7 @@
                 case 202:
                 case 100:
                     $json_response = ['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1];
+                    $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 3,mailstatus=0","id = '.$this->id.'")')->fetch_all();
                     break;
                 case 400:
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
@@ -1455,7 +1457,7 @@
                             $detalle['NaturalezaDescuento'] = $value[10];
                         }
                         $detalle['SubTotal'] = $value[11];
-                        $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19], 'MontoImpuesto' =>$value[20], 'PorcentajeCompra' => $value[21]];
+                        
                         $sum_imp = 0;
                         if ($value[12] != '') {
                             
@@ -1469,23 +1471,13 @@
 
                                     if ($value[16] != ''){
                                         $this->exo = 1;
+                                        $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19], 'MontoImpuesto' => str_replace(',', '',number_format($sub_array[2]*(1-($value[21]/100)),5)), 'PorcentajeCompra' => $value[21]];
                                         $impuesto['Exoneracion'] = $exoneracion;
-                                        if ($exoneracion['MontoImpuesto']  > 0 && $globalmexo) { //POR MONTO
-
-                                            if ($globalmexo >= $sub_array[2]) {
-                                                $sub_array[2] = 0;
-                                                $globalmexo -= $sub_array[2];
-                                            }else{
-                                                $sub_array[2] = $sub_array[2] - $globalmexo;
-                                                $globalmexo = 0;    
-                                            }                                            
-                                        }else{ //POR PORCENTAJE
-                                            $sub_array[2] = $sub_array[2]*(1-$exoneracion['PorcentajeCompra']/100);
-                                        }
+                                        $sub_array[2] = $sub_array[2]*($exoneracion['PorcentajeCompra']/100);
                                         $this->sumaimpuestos += $sub_array[2];
                                         $sum_imp += $sub_array[2];
-                                        $impuesto['Monto'] = $sub_array[2];
-                                        $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
+                                        // $impuesto['Monto'] = $sub_array[2];
+                                        // $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
                                     }else{
                                         $this->sumaimpuestos += $sub_array[2];
                                         $sum_imp += $sub_array[2];
