@@ -9,10 +9,10 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.1.0.33">
-  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.1.0.33">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.1.0.33"> 
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.1.0.33">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.1.0.34">
+  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.1.0.34">
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.1.0.34"> 
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.1.0.34">
 
 
 </head>
@@ -25,7 +25,7 @@
         <input type="hidden" name="vdir" value="" id="vdir"> 
 
         <div class="login__check" align="center">
-          <img id="img" src="../assets/img/login/2.png" style="width: 80%">
+          <img id="img" src="../assets/img/login/2.png?v=1" style="width: 80%">
         </div>
         <div class="login__form" style="padding-top: 0;">
           <div class="input-field" style="margin-top: 0;">
@@ -60,9 +60,9 @@
 
   </div>
 </div>
-<script src="../assets/js/jquery.js?v=10.1.0.33"></script>
-<script src="../assets/js/materialize.min.js?v=10.1.0.33"></script>
-<script src="../assets/js/asgard.js?v=10.1.0.33"></script>
-<script src="../assets/js/modulos/login.js?v=10.1.0.33"></script>
+<script src="../assets/js/jquery.js?v=10.1.0.34"></script>
+<script src="../assets/js/materialize.min.js?v=10.1.0.34"></script>
+<script src="../assets/js/asgard.js?v=10.1.0.34"></script>
+<script src="../assets/js/modulos/login.js?v=10.1.0.34"></script>
 </body>
 </html>

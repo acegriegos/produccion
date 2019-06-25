@@ -65,6 +65,10 @@ $(document).on("click","#vdireccion",function(){
 });
 
 $(document).on("click","#eslide",function(){
+    if($("#direccion_in:visible").length){
+        $("#slideDireccion").data('fila1')['vdireccion'] = $("#direccion_in").val();
+        $("#slideDireccion").data('fila1')['vidbarrio'] = $("#vidbarrio").val() == null ? 0 : $("#vidbarrio").val();
+    }
     $("#slide-tc").sideNav('hide');
 });
 
@@ -724,6 +728,15 @@ function getParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
+function validarCorreo(valor) {
+    if(/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(valor))
+        return 1
+    else{
+        Materialize.toast('Correo no Válido',4000,'red');
+        return 0;
+    }
+}
+
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla) {
     // if(!$("#smail").is(':visible')){
     //     var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
@@ -887,7 +900,7 @@ case "6":
                 salida[num] = {};
             for (var i = 0;  i < varreglo.length; i++) {
                 salida[num][varreglo[i][0]] = $("#"+vform).data('fila'+num)[varreglo[i][0]];
-
+                console.log(varreglo[i][0])
                 salida[num][varreglo[i][0]] = salida[num][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal' ) ? 0 : salida[num][varreglo[i][0]];
                 if (salida[num][varreglo[i][0]] == undefined && varreglo[i][0] != 0) {
                     if (varreglo[i][0] == 'vidfila' || varreglo[i][0] == 'vidtabla') {
@@ -899,6 +912,10 @@ case "6":
                     
                 }
                 }// end FOR
+                
+                if($("#"+vform).data('fila'+num)['vaccion'] == '3')
+                    $("#"+vform).removeData('fila'+num);
+
                 num++;
             }
         }
@@ -2021,7 +2038,7 @@ function keysight(e) {
 function crreo_addon_ckub(vfila,vcorreo){
     var cont = parseInt($(".chpcrr").length) + 1;
 
-    if (vcorreo.match(/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i)) {
+    if (validarCorreo(vcorreo)) {
         if (vfila == undefined) {
             $("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close close_mail mdi mdi-close"></i></div>');
             $("#slideCorreo").data('fila'+cont,{vaccion:1,vidcorreo:0,vcorreo:$("#correo_in").val()});
@@ -2033,12 +2050,13 @@ function crreo_addon_ckub(vfila,vcorreo){
             $("#ichp"+vfila).html(vcorreo);
             $("#"+vfila).html(vcorreo);
             $("#slideCorreo").data('fila'+vfila.substr(3))['vcorreo'] = vcorreo;
+            $("#slideCorreo").data('fila'+vfila.substr(3))['vaccion'] = 2;
             $("#correo_in").removeAttr('idfila');
             $("#correo_in").val('');
         }
         
     }else{
-        Materialize.toast('Correo no Válido',4000,'danger');
+        // Materialize.toast('Correo no Válido',4000,'danger');
         $("#correo_in").select();
     }
 }
@@ -2052,7 +2070,7 @@ function phone_addon_ckub(vfila,vphone){
 
     if (vtelefono && vtipo) {
         if (vfila == undefined) {
-            $("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'" country="'+$("#vidpais").val()+'" gid="0"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right"></i></div>');
+            $("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'" country="'+$("#vidpais").val()+'" gid="0"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right" style="cursor:pointer"></i></div>');
             $("#slideTelefono").data('fila'+cont,{vaccion:1,vidtelefono:0,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:$("#vidpais").val()});
 
             $("#telefono_in").val('');
@@ -2130,13 +2148,13 @@ function phone_addon_ckub(vfila,vphone){
 $(document).on("click",".close_mail",function(){
     $(this).parent().removeClass('chip');
     $(this).parent().addClass('hide');
-    $(this).parent().data('triforce')['vaccion'] = 3;
+    $("#slideCorreo").data('fila'+$(this).attr('id').substr(3))['vaccion'] = 3;
 });
 
 $(document).on("click",".close_phone",function(){
     $(this).parent().removeClass('chip');
     $(this).parent().addClass('hide');
-    $(this).parent().data('triforce').vaccion = 3;
+    $("#slideTelefono").data('fila'+$(this).attr('id').substr(3))['vaccion'] = 3;
 });
 
 $(document).on("click",".vcoo",function(){
@@ -2205,7 +2223,7 @@ function guardarSlide(vaccion,pr,vtabla){
             if(pr.succed){
                 pr = pr[0][0][0];
                 
-                if ($("#slideCorreo").data('fila1') != undefined) {
+                if ($("#slideCorreo").data('fila1z') != undefined) {
                     var num = 1;
                     var nfila;
                     while($("#slideCorreo").data('fila'+num) != undefined){

@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.33">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.34">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,7 +16,7 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.33"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.34"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">

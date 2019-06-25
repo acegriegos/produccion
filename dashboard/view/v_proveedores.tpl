@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Proveedores</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.33">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.34">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -87,6 +87,7 @@
             <div class="modal-content " style="padding: 0px;">
               <div id="fclientes">
                 <input type="hidden" class="zelda">
+                <input type="hidden" id="vdproforma">
                 <div class="row">
                   <br>
                   <div class="col s12 m8 l9">
@@ -503,6 +504,6 @@
 </div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/proveedores.js?v=10.1.0.33"></script>
+<script src="../assets/js/modulos/proveedores.js?v=10.1.0.34"></script>
 </body>
 </html>

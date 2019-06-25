@@ -26,7 +26,6 @@ $(function(){
         })
             .done(function(res){
                 var p = JSON.parse(res);
-                console.log(p)
                 var str = '';
                 var tabla = $("#data-table-compras").DataTable();   
                 tabla.destroy();
@@ -180,6 +179,11 @@ $(document).on("click",".msjh",function(){
 $(document).on("click",".status",function(){
 	if ($(this).is("[disabled]")) {
         event.preventDefault();
+    }
+
+    if($(this).attr('style').indexOf('lime') > -1){
+        Materialize.toast('Documento Electrónico Aceptado',4000,'green');
+        return false;
     }
 
 	$(".status").attr('disabled',true)

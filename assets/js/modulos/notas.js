@@ -387,7 +387,7 @@ function sendFE(clave,factura){
 
     str_correos = '';
 
-    if (idcliente != 0) {
+    if (idcliente != '') {
         var correos = getDatos("",18,idcliente+",2",0,0);
         if (correos == undefined) {
             Materialize.toast('Correos Inválidos',4000,'red');

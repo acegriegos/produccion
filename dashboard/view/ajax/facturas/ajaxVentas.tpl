@@ -88,6 +88,12 @@
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
+
+    <div class="col s12 m3">
+      <select id="codact">
+        
+      </select>
+    </div>
     
   </div>
 <!-- gen aff afc cre -->
@@ -514,7 +520,7 @@
           <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea>
           <label for="vcomentario">Comentario de Factura</label>
         </div>
-        <table style="margin-top: 150px">
+        <table style="margin-top: 100px">
           <tr class="hide trCompra trVenta">
             <td style="padding-top: 0px;padding-bottom: 0px;"><label for="vdescuentop">Descuento</label></td>
             <td>
@@ -543,10 +549,20 @@
       <table class="table table-striped table-hover">
         <thead style="border: 0px">
           <tr>
-            <td>SUBTOTAL:</td>
+            <td>GRAVADO:</td>
             <td style="float: right;">
               <span class="moneda"></span><span id="subtot" type="html" value="0" style="color: black">0.00</span>
             </td>
+          </tr>
+          <tr>
+            <td>EXENTO:</td>
+            <td style="float: right;">
+              <span class="moneda"></span><span id="exent" type="html" value="0" style="color: black">0.00</span>
+            </td>
+          </tr>
+          <tr class="_desc">
+            <td>DESCUENTO:</td>
+            <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
           </tr>
         </thead>
 
@@ -554,17 +570,11 @@
           
         </tbody>  
 
-        <tfoot>  
-          <tr class="_desc">
-            <td>DESCUENTO:</td>
-            <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
+        <tfoot> 
+          <tr class="">
+            <td>EXONERADO:</td>
+            <td style="float: right;"><span class="moneda"></span><span id="exonerado" type="html" value="0">0.00</span></td>
           </tr>
-
-          <tr class="_flete hide">
-            <td>FLETE:</td>
-            <td style="float: right;"><span class="moneda"></span><span id="flete" type="html" value="0">0.00</span></td>
-          </tr>
-
           <tr style="border-top:1px solid #E9E9E9">
             <td><b>TOTAL:</b></td>
             <td style="float: right;"><b><span class="moneda"></span><span id="tot" type="html" value="0">0.00</span></b>
@@ -1108,4 +1118,4 @@
   </li>
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.33"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.34"></script>

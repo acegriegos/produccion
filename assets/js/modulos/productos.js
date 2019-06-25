@@ -79,6 +79,26 @@ $(function () {
 			        $("#p_v").attr('checked',false);
 			    }
 
+			    $("#edim").click(function(e){
+			    	var salir = 1;
+			    	$("[id^=vldimension]").each(function(){
+			    		var num = $(this).attr('id').substr(11);
+			    		if(isNaN($(this).val())){
+			    			Materialize.toast('Valor no es Numérico',4000,'red');
+			    			$(this).focus().select();
+			    			salir = 0;
+			    		}
+
+			    		if(parseInt($(this).val()) > 0 && $("#unidimension"+num).val() == 0){
+			    			Materialize.toast('Unidad Requerida',4000,'red');
+			    			salir = 0;
+			    		}
+			    	});
+
+			    	if(salir)
+			    		$("#modal-dimensiones").modal('close');
+			    });
+
 				$("#data-table-productos").DataTable({
 					bFilter: false,
 					bScrollInfinite: true,
@@ -88,11 +108,20 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
-				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:'',visvariable:0,visgravamen:0})
+				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:'',visvariable:0,visgravamen:0,vexoneracion:13})
 
 				if($("#goldinventariado").length)
                     $("#fproductos .zelda").attr('inventariado',1);
-
+               	 arr('login',6,'',14,'0,0,",@@impresa","0,10"',0,1,$("#listaproductos"));
+			    $("#data-table-facturas").dataTable({
+					bFilter: false,
+					bScrollInfinite: true,
+					bSort: false,
+					bLengthChange: false,
+					order: [],
+					bPaginate: false,
+					info: false
+				});
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -191,13 +220,6 @@ $(function () {
 		$("#addpackage").click();
 	} else
 		$("#m1").click();
-
-	$("#pg").change(function(){
-		if ($(this).is(":checked")) {
-			$("#vexoneracion").val(13).removeAttr('readonly')
-		}else
-			$("#vexoneracion").val(0).attr('readonly',true)
-	});
 	
 	permisos(4100,4200);
 });
@@ -413,17 +435,6 @@ $(document).on("blur", "[id^=vcliente]", function () {
 	}
 });
 
-$(document).on("keyup","[id^=vexoneracion]",function(e){
-    var code  = e.which || e.keyCode;
-    if (code == 13) {
-        if ($(this).attr('nc') != undefined) {
-            $(".precclienete").append(addlineCliente());
-            $("#vcliente"+$(".chg1").length).focus();
-        }
-    }
-
-});
-
 $(document).on("click", ".cl", function () {
 	var idf = $(this).parent().parent().parent();
 	if (idf.attr('idf') == 0)
@@ -447,7 +458,7 @@ $(document).on("keyup", "#vpeso", function (e) {
 	}
 });
 
-$(document).on("change","#vidunidad",function(){
+$(document).on("change","#unidimension1",function(){
 	var id = $(this).val();
 	cargarUnidades(id);
 });
@@ -702,67 +713,6 @@ $(document).on("click", "#addfeat", function () {
 	var nombre = $("#nom").val();
 	var val = $("#val").val();
 	addfeat(nombre, val);
-});
-
-$(document).on("click", ".editprod", function () {
-	$(".autocomplete-content").hide();
-	$(".calcvv").val('0.00');
-	var id = $(this).attr('id').substr(1);
-
-	var p = arr('login',4,'',14,id+',0,",@@impresa","0,1"',0,0,0);
-	var q = p[0][0];
-	var preccat = arr('login',4,'',110,id,0,0,0)[0];
-	var preccli = arr('login',4,'',165,id,0,0,0)[0];
-
-	$("#listavariables").html('');
-	var car = arr('login', 6, 'id,nombre,valor', 193, 'id > 0 and idproducto = ' + id, 194, 1, $("#listavariables"))[0];
-	$(".accmodal").html("Actualizar Producto " + q[5]);
-	$("#editprod").removeClass('hide');
-	$("#editprod").attr('idprod', id);
-	$("#impuestos").removeClass('hide');
-	$("#vidfamilia").val(q[24]);
-	$("#vfamilia").val(q[25]);
-	$("#vidtipo").val(q[26]);
-	$("#vtipo").val(q[27]);
-	$("#vidmarca").val(q[28]);
-	$("#vmarca").val(q[29]);
-	$("#vpeso").val(q[18])
-	$("#vidunidad").val(q[15]);
-	$("#vidunidad").material_select();
-	$("#vidinventario").val(q[30]);
-	if ($("#vidinventario").attr('type') == 'select')
-		$("#vidinventario").material_select();
-	$("#vnombre").val(q[3]);
-	$("#vcodigo").val(q[1]);
-	$("#vcodigointerno").val(q[2])
-	$("#vminimo").val(q[19]);
-	$("#vmaximo").val(q[20]);
-	$("#vmaxdescuento").val(q[22]);
-	$("#vcosto").val(q[5]);
-	$("#hvcosto").val(q[4]);
-	$("#vgganancia").val( ((parseFloat(q[8])*100)/parseFloat($("#vcosto").val().replace(/,/g,''))).toFixed(2) );
-	$("#vventa").val(q[11]);
-	$("#hventa").val(q[10]);
-	$("#vexoneracion").val(q[13]);
-
-	$("#impuestos").html('');
-	$(".chg1").html('');
-	arr('login', 6, '', 153, id, 0, 1, $("#impuestos"))
-	$("#impuestos").removeClass('hide');
-	for (var i = 0; i < preccat.length; i++) {
-		$("#vgganancia" + preccat[i][0]).val(preccat[i][1]);
-		$("#vventa" + preccat[i][0]).val(preccat[i][2]);
-		$("#vexoneracion" + preccat[i][0]).val(preccat[i][3]);
-	}
-	if (preccli != '') {
-		for (var i = 0; i < preccli.length; i++) {
-			$(".precclienete").append(addlineCliente(preccli[i]));
-		}
-	} else {
-		$(".precclienete").append(addlineCliente());
-	}
-	$("#vcosto").blur();
-	Materialize.updateTextFields();
 });
 
 $(document).on("click",".descuentos",function() {
@@ -1341,46 +1291,61 @@ $(document).on("blur",".calcvv",function(){
 
 	var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
 	var costo = parseFloat($("#vcosto").val().replace(/,/,''))/parseFloat($("#vdivisa").val());
-	var impuestos = 0;//parseFloat($("#vexoneracion").val());
+	var impuestos = parseFloat($("#vimpiva option:selected").attr('num'));
 
 	if (parseInt(num) == 1) {
 		var tven = rven = 0;
 		$(".gan").each(function(){
 			var padre = $(this).parent().parent();
 			var ganancia = padre.find('.gan').val().replace(/,/g,'');
-			var venta = padre.find('.ven').val().replace(/,/g,'');
+			var ventaiva = padre.find('.veniva').val().replace(/,/g,'');
 
-			tven = parseInt(venta) ? (((venta / (1+(impuestos/100)))/ costo) - 1)	 * 100 : 0;
-			rven = parseInt(venta) ? ((venta / (1+impuestos/100) ) - costo) : 0;
+			tven = parseInt(ventaiva) ? (((ventaiva / (1+(impuestos/100)))/ costo) - 1)	 * 100 : 0;
+			rven = parseInt(ventaiva) ? ((ventaiva / (1+impuestos/100) ) - costo) : 0;
 			tven = isNaN(tven) ? 0 : tven;
 			padre.find('.gan').val(tven.formatMoney(2,'.',','));
 			padre.find('.rgan').val(rven.toFixed(5));
+			var venta = ganancia == 0 ? '0.00' : (costo+rven).formatMoney(2,'.',',');
+			padre.find('.ven').val(venta);
 		});
 	}else{
 		var padre = $(this).parent().parent();
 		var ganancia = padre.find('.gan').val() == undefined ? 0 : padre.find('.gan').val().replace(/,/g,'');
+		var ventaiva = padre.find('.veniva').val() == undefined ? 0 : padre.find('.veniva').val().replace(/,/g,'');
 		var venta = padre.find('.ven').val() == undefined ? 0 : padre.find('.ven').val().replace(/,/g,'');
-		var tgan = tven = rven = 0;
+		var tgan = tven = rven = tcos = 0;
 
 		costo = isNaN(costo) ? 0 : costo;
 		ganancia = isNaN(ganancia) ? 0 : ganancia;
 		venta = isNaN(venta) ? 0 : venta;
+		ventaiva = isNaN(ventaiva) ? 0 : ventaiva;
+
+		if (padre.attr('dimension') != undefined){
+			costo = costo/parseFloat($("#vldimension1").val())
+			costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+padre.attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
+		}
 
 		switch(num){
 			case 2: //POR GANANCIA
 				rven = costo * (ganancia / 100);
 				tven = costo * (1+impuestos/100) * ((ganancia / 100) + 1);
-				padre.find('.ven').val(tven.formatMoney(2,'.',','));
+				tcos = costo * ((ganancia / 100) + 1);
+				
+				padre.find('.ven').val(tcos.formatMoney(2,'.',','));
+				padre.find('.veniva').val(tven.formatMoney(2,'.',','));
 				padre.find('.rgan').val(rven.toFixed(5));
 				break;
-			case 3: //POR VENTA
-				rven = parseInt(venta) ? ((venta / (1+impuestos/100)) - costo) : 0;
-				tven = parseInt(venta) ? (((venta / (1+impuestos/100)) / costo) - 1) * 100 : 0;
+			case 5: //POR VENTA +iva
+				rven = parseInt(ventaiva) ? ((ventaiva / (1+impuestos/100)) - costo) : 0;
+				tven = parseInt(ventaiva) ? (((ventaiva / (1+impuestos/100)) / costo) - 1) * 100 : 0;
 				padre.find('.gan').val(tven.formatMoney(2,'.',','));
 				padre.find('.rgan').val(rven.toFixed(5));
+				padre.find('.ven').val((costo+rven).formatMoney(2,'.',','));
+				break;
+			case 3: // VENTA
 				break;
 			default:
-			console.log("globalizar")
+				console.log("globalizar")
 				$("#vgganancia").blur();
 				break;
 		}	
@@ -1970,6 +1935,7 @@ function validarproductos() {
 		}
 	}
 
+	$("#fproductos .zelda").data('triforce')['vexoneracion'] = $("#vimpiva option:selected").attr('num');
 	return false;
 }
 
@@ -2119,11 +2085,11 @@ function endDetail(id, acc, modulo) {
 				var gan_n = 0;
 				var idlinea = $(this).attr('idn');
 				var idfila = $(this).attr('id').substr(1);
-				if (parseFloat($("#vventa" + idfila).val().replace(/,/g,'')) > 0) {
-					imp_n = parseInt($("#vexoneracion").val());
-					gan_n = (parseFloat($("#vventa" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - parseFloat($("#vcosto").val().replace(/,/g,''));
+				if (parseFloat($("#vventaiva" + idfila).val().replace(/,/g,'')) > 0) {
+					imp_n = parseInt($("#vimpiva option:selected").attr('num'));
+					gan_n = (parseFloat($("#vventaiva" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - parseFloat($("#vcosto").val().replace(/,/g,''));
 					acc = !parseInt(idlinea) ? 1 : acc;
-					arr('login', 4, '', 108, acc+','+idlinea+',1,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vventa" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0);
+					arr('login', 4, '', 108, acc+','+idlinea+',1,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vventaiva" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0);
 				}
 			});
 
@@ -2137,12 +2103,12 @@ function endDetail(id, acc, modulo) {
 			$(".precunidad").each(function() {
 				var gan_n = 0;
 				var idlinea = $(this).attr('idu');
-				var idfila = $(this).attr('id').substr(1);
-				if (parseFloat($("#vuventa" + idfila).val().replace(/,/g,'')) > 0) {
-					imp_n = parseInt($("#vexoneracion").val());
-					gan_n = (parseFloat($("#vuventa" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - parseFloat($("#vcosto").val().replace(/,/g,''));
+				var idfila = $(this).attr('idf');
+				if (parseFloat($("#vuventaiva" + idfila).val().replace(/,/g,'')) > 0) {
+					imp_n = parseInt($("#vimpiva option:selected").attr('num'));
+					gan_n = (parseFloat($("#vuventaiva" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - parseFloat($("#vcosto").val().replace(/,/g,''));
 					acc = !parseInt(idlinea) ? 1 : acc;
-					console.log(arr('login', 4, '', 108, acc+','+idlinea+',2,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vuventa" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0));
+					arr('login', 4, '', 108, acc+','+idlinea+',2,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vuventaiva" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0);
 				}
 			});
 
@@ -2152,15 +2118,30 @@ function endDetail(id, acc, modulo) {
 					arr('login',4,'',194,'1,0,"'+$(this).attr('nom')+'","'+$(this).attr('var')+'",'+id[0][0]+',@@usr,@@impresa',0,0,0);
 				});
 			}
+
+			$("[id^=vldimension]").each(function(){
+				var num = $(this).attr('id').substr(11);
+
+				if($("#vldimension"+num).val().trim().length > 0 && parseInt($("#vldimension"+num).val()) ){
+					var acc = parseInt($("#dimension"+num).attr('vid'));
+
+					if(acc == 0){
+						insertar(283,'','null,'+id[0][0]+','+$("#unidimension"+num).val()+',"",'+num+','+$("#vldimension"+num).val());
+					}else{
+						actualizar(283,'idunidad = '+$("#unidimension"+num).val()+',valor = '+$("#vldimension"+num).val(),'id = '+acc);
+					}
+				}
+			});
+
 			//exoneracion
-			var imps = $(".impuestos");
-			if (imps.length > 0) {
-				$(".impuestos").each(function() {
-					// vaccion,vid,vidfila,vidtabla,vidimpuesto,vexoneracion
-					var idimp = $(this).attr('id').substr(4)
-					arr('login',4,'',86,'1,0,'+id[0][0]+',11,'+idimp+','+$("#impexo"+idimp).val(),0,0,0);
-				});
-			}
+			// var imps = $(".impuestos");
+			// if (imps.length > 0) {
+			// 	$(".impuestos").each(function() {
+			// 		// vaccion,vid,vidfila,vidtabla,vidimpuesto,vexoneracion
+			// 		var idimp = $(this).attr('id').substr(4)
+			// 		arr('login',4,'',86,'1,0,'+id[0][0]+',11,'+idimp+','+$("#impexo"+idimp).val(),0,0,0);
+			// 	});
+			// }
 			// fin exoneracion
 
 			if($("#fproductos .zelda").attr('inventariado') != undefined){
@@ -2220,7 +2201,7 @@ function addlineCliente(preccli) {
 		vaccion = 1;
 	}
 	//DATA-MASK NO FUNCIONA
-	var salida = '<tr class="preciocliente" id="c' + vlinea + '" accion="'+vaccion+'" idf="'+ preccli[6] +'" style="border: 1px solid #e2e2e2"><td class="center-align input-field" style="padding: 0px"><input type="text" id="vcliente' + vlinea + '" class="validate autocomplete" value="' + preccli[2] + '" style="font-size: 12px;margin: 0px"><input type="hidden" class="vidcliente" id="vidcliente' + vlinea + '" value="' + preccli[1] + '"></td> <td class="center-align input-field" style="padding: 0px"> <i class="mdi prefix">%</i><input type="text" id="vgganancia' + vlinea + '" class="validate calcvv eder" value="' + preccli[3] + '" data-mask="9999999999.99" focus="vventa" num="2" line="' + vlinea + '" style="margin: 0px"></td> <td class="center-align input-field" style="padding: 0px"><i class="mdi prefix moneda">¢</i><input type="text" id="vventa' + vlinea + '" class="validate calcvv eder" value="' + preccli[4] + '" data-mask="9999999999.99" focus="vexoneracion" num="3" line="' + vlinea + '" style="margin: 0px"><input type="hidden" id="hventa' + vlinea + '" value="' + preccli[4] + '"></td> <td class="center-align input-field" style="padding: 0px"><i class="mdi prefix">%</i><input type="text" id="vexoneracion' + vlinea + '" style="width: 70%;margin: 0px" class="validate calcvv eder" value="' + preccli[5] + '" data-mask="9999999999.99" nc="1" line="' + vlinea + '"> <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i> </td></tr>';
+	var salida = '<tr class="preciocliente" id="c' + vlinea + '" accion="'+vaccion+'" idf="'+ preccli[6] +'" style="border: 1px solid #e2e2e2"><td class="center-align input-field" style="padding: 0px"><input type="text" id="vcliente' + vlinea + '" class="validate autocomplete" value="' + preccli[2] + '" style="font-size: 12px;margin: 0px"><input type="hidden" class="vidcliente" id="vidcliente' + vlinea + '" value="' + preccli[1] + '"></td> <td class="center-align input-field" style="padding: 0px"> <i class="mdi prefix">%</i><input type="text" id="vgganancia' + vlinea + '" class="validate calcvv eder" value="' + preccli[3] + '" focus="vventa" num="2" line="' + vlinea + '" style="margin: 0px"></td> <td class="center-align input-field" style="padding: 0px"><i class="mdi prefix moneda">¢</i><input type="text" id="vventa' + vlinea + '" class="validate calcvv eder" value="' + preccli[4] + '" num="3" line="' + vlinea + '" style="margin: 0px"><input type="hidden" id="hventa' + vlinea + '" value="' + preccli[4] + '"></td> <td class="center-align input-field" style="padding: 0px"><i class="mdi prefix">%</i><input type="text" id="vexoneracion' + vlinea + '" style="width: 70%;margin: 0px" class="validate calcvv eder" value="' + preccli[5] + '" data-mask="9999999999.99" nc="1" line="' + vlinea + '"> <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i> </td></tr>';
 	
 	return salida;
 }
@@ -2258,27 +2239,19 @@ function postload(vmodulo){
 		    		$("#goldinventariado").click();
 		    }
 
-		    if(parseInt($("#vexoneracion").val())){
-		    	if(!$("#pg").is(":checked"))
-		    		$("#pg").prop('checked',true).change();
-		    }else{
-		    	if($("#pg").is(":checked"))
-		    		$("#pg").prop('checked',false).change();
-		    }
-
 		    $(".precionivel").each(function(){
 		    	var id = $(this).attr('id').substr(1);
-		    	var infonivel = getDatos('format(((venta/((exoneracion/100)+1)/'+$("#vcosto").val().replace(/,/g,'')+')-1)*100,2),venta,exoneracion,id',105,'idnivel = '+id+' and idtipoentrada = 1 and identrada = '+$("#fproductos .zelda").data('triforce')['vid'],0,0,0)[0][0];
+		    	var infonivel = getDatos('format(((venta/((exoneracion/100)+1)/'+$("#vcosto").val().replace(/,/g,'')+')-1)*100,2),venta,id',105,'idnivel = '+id+' and idtipoentrada = 1 and identrada = '+$("#fproductos .zelda").data('triforce')['vid'],0,0,0)[0][0];
 
 		    	if(infonivel != undefined){
 		    		$("#vgganancia"+id).val(infonivel[0])
-		    		$("#vventa"+id).val(infonivel[1])
-		    		$("#vexoneracion"+id).val(infonivel[2])
-		    		$(this).attr('idn',infonivel[3])
+		    		$("#vventaiva"+id).val(infonivel[1])
+		    		$(this).attr('idn',infonivel[2])
+		    		$("#vventa"+id).val((parseFloat($("#vcosto").val().replace(/,/g,''))*((parseFloat(infonivel[0])/100)+1) ).formatMoney(2,'.',','))
 		    	}else{
 		    		$("#vgganancia"+id).val(0)
+		    		$("#vventaiva"+id).val(0)
 		    		$("#vventa"+id).val(0)
-		    		$("#vexoneracion"+id).val(0)
 		    		$(this).attr('idn',0);
 		    	}
 		    });
@@ -2298,6 +2271,15 @@ function postload(vmodulo){
 		    	}
 		    });
 
+		    var sv = getDatos('id,idunidad,valor,codigo',283,'idproducto = '+$("#fproductos .zelda").data('triforce')['vid'],0,0,0);
+		    if(sv[0].length){
+		    	for (var i = 0; i < sv[0].length; i++) {
+		    		$("#dimension"+sv[0][i][3]).attr('vid',sv[0][i][0]);
+		    		$("#vldimension"+sv[0][i][3]).val(sv[0][i][2]);
+		    		$("#unidimension"+sv[0][i][3]).val(sv[0][i][1]).change().material_select('update');
+		    	}
+		    }
+
 		    Materialize.updateTextFields();
 			break;
 		case 'servicio':
@@ -2315,13 +2297,7 @@ function cargarUnidades(vidproducto){
 	unis = unis[0];
 
     $.each(unis, function(index, valor) {
-    	if(parseInt(valor[0]) != parseInt(vidproducto))
-        uni += '<div class="precunidad row" id="x'+valor[0]+'" style="margin: 0px;"> <div class="col s12 l4" style="padding-left: 5%;"><b>'+valor[1]+'</b> </div> <div class="col s12 l4 input-field"> <i class="mdi prefix">%</i> <input type="text" id="vuganancia'+valor[0]+'" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off"> <input type="hidden" id="vuganancia'+valor[0]+'" value="0" class="rgan"> </div> <div class="col s12 l4 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventa'+valor[0]+'" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off"> </div> </div>';
+        uni += '<div class="precunidad row" idf="'+valor[0]+'" idu="0" dimension style="margin: 0px;"> <div class="col s12 l3" style="padding-left: 5%;"><b>'+valor[1]+'</b> </div> <div class="col s12 l3 input-field"> <i class="mdi prefix">%</i> <input type="text" id="vuganancia'+valor[0]+'" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off"> <input type="hidden" id="vuganancia'+valor[0]+'" value="0" class="rgan"> </div> <div class="col s12 l3 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventa'+valor[0]+'" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off"> </div> <div class="col s12 l3 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventaiva'+valor[0]+'" class="validate calcvv eder numeric veniva" value="0.00" num="5" autocomplete="off"> </div></div>';
     });
     $(".precunidiv").html(uni);
-
-    if(parseInt($('#vidunidad option:selected').attr('tipo')) == 3)
-		$("#dimensiones").removeClass('hide')
-	else
-		$("#dimensiones").addClass('hide')
 };
