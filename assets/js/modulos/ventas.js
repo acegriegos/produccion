@@ -439,6 +439,11 @@ $(document).on("change","[name=tipoclie]",function(){
     $("#fclientes .zelda").data('triforce')['vidtipocliente'] = $(this).attr('tipoclie');
 });
 
+$(document).on("change","#vidunidad",function(){
+    var id = $(this).val();
+    console.log(id)
+});
+
 $(document).on("click","#fastClient",function(){
     addGeneral(1);
     var $toastContent = $('<span>Cliente no Existente</span>').add($('<button class="btn-flat toast-action green white-text clientNotFound" tp="1">Agregarlo</button>'));

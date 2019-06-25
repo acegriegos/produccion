@@ -1341,7 +1341,7 @@ $(document).on("blur",".calcvv",function(){
 
 	var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
 	var costo = parseFloat($("#vcosto").val().replace(/,/,''))/parseFloat($("#vdivisa").val());
-	var impuestos = parseFloat($("#vexoneracion").val());
+	var impuestos = 0;//parseFloat($("#vexoneracion").val());
 
 	if (parseInt(num) == 1) {
 		var tven = rven = 0;
