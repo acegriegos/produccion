@@ -122,7 +122,7 @@
 
       <div class="col s6 input-field">
         <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off">
-        <label for="vporcompra">Porcentaje de Compra</label>
+        <label for="vporcompra">Porcentaje de Exoneración</label>
       </div>
 
 

@@ -199,6 +199,9 @@ $(document).on("click",".status",function(){
 		case 7:
 			vid = '^'+vid;
 			break;
+        case 8:
+            vid = '!'+vid;
+            break;
 		default:
 			break;
 	}
@@ -274,6 +277,7 @@ $(document).on("click",".status",function(){
 						case 5:
 						case 6:
 						case 7:
+                        case 8:
 							vid = vid.substr(1);					
 							$("#e"+vid).css('color',color);
 							arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);

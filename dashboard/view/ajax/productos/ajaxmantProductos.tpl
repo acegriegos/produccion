@@ -237,7 +237,7 @@
                 <div class="row" style="padding: 0px;float: right;margin: 0px;">
                     
                     <label class="col s3 red-text"><b>IVA:</b></label>
-                    <select id="vimpiva" class="col s9 calcvv" style="margin: 0px" num="4">
+                    <select id="vimpiva" class="col s9" style="margin: 0px" num="4">
                         <option selected value="1" num="0">Exento 0%</option>
                         <option selected value="2" num="1">Reducido 1%</option>
                         <option selected value="3" num="2">Reducido 2%</option>

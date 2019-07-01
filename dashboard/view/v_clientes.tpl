@@ -280,8 +280,9 @@
 
           <div class="subclie row" id="exoneracion">
             <div class="col s12 input-field">
+                  <input type="hidden" id="videxoneracion" value="0">
                   <select id="vtipodoc" class="validate tooltiped" type="select">
-                    <option value="0" class="disabled">Seleccione una Opción</option>
+                    <option value="0" class="disabled">Tipo de Documento</option>
                     {section name=LE loop=$EXOS}
                     <option value="{$EXOS[LE][0]}">{$EXOS[LE][1]}</option>
                     {/section}
@@ -300,22 +301,22 @@
 
                   <label class="col s12">Fecha y Hora de Emisión</label>
 
-                  <div class="col s6">
+                  <div class="col s8">
                     <input type="date" id="vfechaDoc" class="validate tooltiped">
                   </div>
 
-                  <div class="col s6 input-field">
+                  <div class="col s4 input-field">
                     <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
                   </div>
 
                 <div class="col s12 input-field">
-                  <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off">
-                  <label for="vporcompra">Porcentaje de Compra</label>
+                  <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off" maxlength="3">
+                  <label for="vporcompra">Porcentaje de Exoneración</label>
                 </div>
 
                 <label class="col s12">Fecha Fin</label>
 
-                  <div class="col s6">
+                  <div class="col s8">
                     <input type="date" id="vfechafin" class="validate tooltiped">
                   </div>
 

@@ -73,7 +73,7 @@
                         <input id="vnombre" type="text" class="validate" autocomplete="off" maxlength="150">
                         <label for="vnombre">Nombre de Servicio</label>
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m6 hide">
                         <textarea id="vdescripcion" type="textarea" class="materialize-textarea" length="150" style="margin: 0;padding: 0px"></textarea>
                         <label for="vdescripcion">Descripción del Servicio</label>
                     </div>
@@ -89,28 +89,36 @@
                     {/if}
                 </div>
                 <div class="row">
-                    <div class="col s6 m6 l3 hide">
+                    <div class="col s6 m4 hide">
                         <a class="btn btn-success" href="#modal-servcliente" id="btn-servclie">Por Período</a>
                     </div>
 
-                    <div class="col s6 m6 l3">
-                        <input type="checkbox" class="noextra" id="cexento" value="0">
-                        <label for="cexento">IMV</label>
-                        <a class="btn btn-success hide" href="#modal-serImpuestos" id="btn-impuestos">Impuestos</a>
+                    <div class="col s6 m4">
+                       <label class="col s3 red-text"><b>IVA:</b></label>
+                        <select id="vimpiva" class="col s9" style="margin: 0px" num="4">
+                            <option selected value="1" num="0">Exento 0%</option>
+                            <option selected value="2" num="1">Reducido 1%</option>
+                            <option selected value="3" num="2">Reducido 2%</option>
+                            <option selected value="4" num="4">Reducido 4%</option>
+                            <option selected value="5" num="0">Transitorio 0%</option>
+                            <option selected value="6" num="4">Transitorio 4%</option>
+                            <option selected value="7" num="8">Transitorio 8%</option>
+                            <option selected value="8" num="13">General 13%</option>
+                        </select>
                     </div>
 
-                    <div class="col s6 m6 l3 hide">
+                    <div class="col s6 m4 hide">
                         <input type="checkbox" class="noextra" id="servpro">
                         <label for="servpro">Servicio Profesional</label>
                         <input type="hidden" id="vservprofesional">
                     </div>
 
-                    <div class="col s6 m6 l3">
+                    <div class="col s6 m4">
                         <input type="checkbox" id="porfact">
                         <label for="porfact">Retención de Pago</label>
                     </div>
-                    <div class="input-field col s6 m6 l3 hide vpfactura">
-                            <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+                    <div class="input-field col s6 m4 hide vpfactura">
+                            <i class="prefix mdi-percent mdi pbtn por-num" tipo="1"></i>
                             <input type="text" id="vpfactura" noClear="1" value="0.00" class="eder" autocomplete="off">
                             <label for="vpfactura">Valor</label>
                     </div>

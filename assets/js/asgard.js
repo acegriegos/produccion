@@ -489,7 +489,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        // console.log(p)
+        console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -900,7 +900,7 @@ case "6":
                 salida[num] = {};
             for (var i = 0;  i < varreglo.length; i++) {
                 salida[num][varreglo[i][0]] = $("#"+vform).data('fila'+num)[varreglo[i][0]];
-                console.log(varreglo[i][0])
+
                 salida[num][varreglo[i][0]] = salida[num][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal' ) ? 0 : salida[num][varreglo[i][0]];
                 if (salida[num][varreglo[i][0]] == undefined && varreglo[i][0] != 0) {
                     if (varreglo[i][0] == 'vidfila' || varreglo[i][0] == 'vidtabla') {
@@ -1087,6 +1087,7 @@ function permisos(vnumber,vnumber2) {
         data: {x1 : vnumber, x2 : vnumber2}
     })
     .done(function(data) {
+        // console.log(data)
         p = JSON.parse(data);
         for (var i = 0; i < p.length; i++) {
             var op = parseInt(p[i][3]);
@@ -1292,6 +1293,7 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr,colbase,coldata,colbel
 function rexcel(){
     var filtros = $(".inpreport").length;
     var elem = $(".principal .filtros").attr('elem').split(',');
+    elem = $(".principal .filtros").attr('elem').indexOf(',') == -1 ? [] : elem;
     var vtbl = $(".principal .filtros").attr('sp');
     var atributos = '';
     var vmodulo = {};
