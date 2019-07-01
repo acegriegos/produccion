@@ -38,17 +38,17 @@
 
       {assign var="column" value="6"}
       <div class="col s12 m{$column} l{$column} concre movil" align="center">
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1003" val="1" id="chg_tipo1" checked>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2">
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1105" val="2" id="chg_tipo2">
         <label for="chg_tipo2">Crédito</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005 hide" val="3" id="chg_tipo3" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1106 hide" val="3" id="chg_tipo3" disabled>
         <label for="chg_tipo3">Consignación</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1006 hide" val="4" id="chg_tipo4" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1107 hide" val="4" id="chg_tipo4" disabled>
         <label for="chg_tipo4">Apartado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1007 hide" val="5" id="chg_tipo5" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1108 hide" val="5" id="chg_tipo5" disabled>
         <label for="chg_tipo5" class="tooltipped" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1008 hide" val="6" id="chg_tipo6" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1108 hide" val="6" id="chg_tipo6" disabled>
         <label for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
 

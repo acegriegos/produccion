@@ -1161,7 +1161,7 @@
                 case 202:
                 case 100:
                     $json_response = ['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1];
-                    $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 3,mailstatus=0","id = '.$this->id.'")')->fetch_all();
+                    $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 2","id = '.$this->id.'")')->fetch_all();
                     break;
                 case 400:
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
