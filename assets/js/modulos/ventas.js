@@ -103,7 +103,7 @@ $(function(){
             $("#slideCorreo").click();
             return false;
         }
-        
+
         var isprov = param.toString().match(new RegExp(/[239]/i)) ? 1 : 0;
 
         var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap2").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,'+isprov+',0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id,1,0,0,""',0,0,0);
@@ -375,6 +375,7 @@ $(function(){
 
     if ($("#celectronica:visible[disabled=disabled]").length){
         $("#codp").val('*').attr('readonly',true);
+        $("#tpagos").addClass('hide')
     }
   
     if (parseInt(config[11]) == 3 && param.toString().match(new RegExp(/[1678]/i)) && $(".zelda").attr('tipo') != 1)

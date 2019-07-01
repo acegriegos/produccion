@@ -37,8 +37,7 @@
       </div>
 
       {assign var="column" value="6"}
-      {if $smarty.session.BUSS neq 1}
-      <div class="col s12 m{$column} l{$column} concre movil" align="center">
+      <div class="col s12 m{$column} l{$column} concre movil" align="center" id="tpagos">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1105" val="2" id="chg_tipo2">
@@ -52,7 +51,6 @@
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1109 hide" val="6" id="chg_tipo6" disabled>
         <label for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
-      {/if}
     <div class="col s12 m3 l3 cre gen hide" align="center">
       <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div>
@@ -1147,4 +1145,4 @@
   </li>
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.34"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.36"></script>
