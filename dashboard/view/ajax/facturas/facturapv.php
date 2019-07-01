@@ -284,9 +284,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.36"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.36"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.36"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.38"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.38"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.38"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
