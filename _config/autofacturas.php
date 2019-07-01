@@ -358,28 +358,30 @@ function compras($url,$ced,$isp,&$log,&$salida){
 
     curl_close($curl);
     $json_response = json_decode($json_response);
+    if (isset($json_response->rs)) {
 
-    foreach ($json_response->rs as $obj) {
-        $obj[17] = $obj[17] == 'CRC' ? 1 : 2;
+        foreach ($json_response->rs as $obj) {
+            $obj[17] = $obj[17] == 'CRC' ? 1 : 2;
 
-        $idproveedor = $log->kamehameha("vid",264,'replace(cedula,"-","") = '.$obj[39]);
+            $idproveedor = $log->kamehameha("vid",264,'replace(cedula,"-","") = '.$obj[39]);
 
-        if(!sizeof($idproveedor))
-           $log->genkidama(1,264,'',$obj[37].',"'.$obj[38].'","'.$obj[39].'","'.$obj[40].'","'.$obj[41].'","'.$obj[42].'","'.$obj[43].'","'.$obj[44].'","'.$obj[45].'","'.$obj[46].'","'.$obj[47].'"');
-        
-        $compra = $log->kamehameha('id',262,'referencia = "'.$obj[16].'"');
+            if(!sizeof($idproveedor))
+               $log->genkidama(1,264,'',$obj[37].',"'.$obj[38].'","'.$obj[39].'","'.$obj[40].'","'.$obj[41].'","'.$obj[42].'","'.$obj[43].'","'.$obj[44].'","'.$obj[45].'","'.$obj[46].'","'.$obj[47].'"');
+            
+            $compra = $log->kamehameha('id',262,'referencia = "'.$obj[16].'"');
 
-        if (!sizeof($compra)) {
-            $salida['RS_HACIENDA'][$obj[0]]['Referencia'] = "Referencia Nueva: ".$obj[16].'';
-           $log->genkidama(1,262,'','null,"'.$obj[1].'","'.$obj[2].'","'.$obj[3].'","'.$obj[4].'","'.$obj[5].'","'.$obj[6].'","'.$obj[49].'","'.$obj[8].'","'.$obj[9].'","'.$obj[10].'","'.$obj[11].'","'.$obj[12].'","'.$obj[13].'","'.$obj[14].'","'.$obj[15].'","'.$obj[16].'","'.$obj[17].'","'.$obj[18].'","'.$obj[19].'","'.$obj[48].'","'.$obj[21].'","'.$obj[22].'","'.$obj[23].'","'.$obj[24].'","'.$obj[25].'","'.$obj[26].'","'.$obj[27].'"');
-           $compra = $log->kamehameha('id',262,'referencia = '.$obj[16])[0][0];
-        }else{
-            $salida['RS_HACIENDA'][$obj[0]]['Referencia'] =  "Referencia Existente: ".$obj[16].'';
-            $compra = $compra[0][0];
+            if (!sizeof($compra)) {
+                $salida['RS_HACIENDA'][$obj[0]]['Referencia'] = "Referencia Nueva: ".$obj[16].'';
+               $log->genkidama(1,262,'','null,"'.$obj[1].'","'.$obj[2].'","'.$obj[3].'","'.$obj[4].'","'.$obj[5].'","'.$obj[6].'","'.$obj[49].'","'.$obj[8].'","'.$obj[9].'","'.$obj[10].'","'.$obj[11].'","'.$obj[12].'","'.$obj[13].'","'.$obj[14].'","'.$obj[15].'","'.$obj[16].'","'.$obj[17].'","'.$obj[18].'","'.$obj[19].'","'.$obj[48].'","'.$obj[21].'","'.$obj[22].'","'.$obj[23].'","'.$obj[24].'","'.$obj[25].'","'.$obj[26].'","'.$obj[27].'"');
+               $compra = $log->kamehameha('id',262,'referencia = '.$obj[16])[0][0];
+            }else{
+                $salida['RS_HACIENDA'][$obj[0]]['Referencia'] =  "Referencia Existente: ".$obj[16].'';
+                $compra = $compra[0][0];
+            }
+
+            $log->genkidama(1,63,'','null,"'.$compra.'","'.$obj[31].'",null,null,"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.$obj[30].'","'.$obj[36].'","'.$obj[50].'","",0');
+
         }
-
-        $log->genkidama(1,63,'','null,"'.$compra.'","'.$obj[31].'",null,null,"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.$obj[30].'","'.$obj[36].'","'.$obj[50].'","",0');
-
     }
     $temporales = $log->kamehameha('id,fecha',262,'id>0 and datediff(curdate(),fecha) >= 7 limit 20');
 

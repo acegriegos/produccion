@@ -41,6 +41,74 @@ $(function(){
 		            case 2: 
 		                titulo = 'Exoneraciones';
 		                $("#exoneracion").removeClass('hide');
+		                $(".exoneracion .select-wrapper").css('border','0px');
+
+		                 validares = function(){
+		                	var salida = true;
+		                	if($("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
+
+		                		if(!$("#vtipodoc").val()){
+		                			Materialize.toast('Tipo Documento Requerido',4000,'red')
+		                			return false;
+		                		}
+
+		                		if(!$("#vnumdoc").val().trim().length){
+		                			$("#vnumdoc").focus();
+		                			Materialize.toast('Número de Documento Requerido',4000,'red')
+		                			return false;
+		                		}
+
+		                		if(!$("#ventidad").val().trim().length){
+		                			$("#ventidad").focus();
+		                			Materialize.toast('Entidad Requerida',4000,'red')
+		                			return false;
+		                		}
+
+		                		if(!$("#vfechaDoc").val().trim().length){
+		                			$("#vfechaDoc").focus();
+		                			Materialize.toast('Fecha Requerida',4000,'red')
+		                			return false;
+		                		}
+
+		                		if(!$("#vtimeDoc").val().trim().length){
+		                			$("#vtimeDoc").focus();
+		                			Materialize.toast('Hora Requerida',4000,'red')
+		                			return false;
+		                		}
+
+		                		if(!$("#ventidad").val().trim().length){
+		                			$("#ventidad").focus();
+		                			Materialize.toast('Entidad Requerida',4000,'red')
+		                			return false;
+		                		}
+
+		                		if(isNaN($("#vporcompra").val())){
+		                			$("#vporcompra").focus().select();
+		                			Materialize.toast('Monto Debe ser Numerico',4000,'red')
+		                			return false;
+		                		}
+
+		                		if(parseInt($("#vporcompra").val()) < 0 || parseInt($("#vporcompra").val()) > 100){
+		                			$("#vporcompra").focus().select();
+		                			Materialize.toast('Valor no Aceptado debe ser entre 0 a 100',4000,'red')
+		                			return false;
+		                		}
+
+		                		if($("#vporcompra").val().indexOf('.') > -1 || $("#vporcompra").val().indexOf(',') > -1){
+		                			$("#vporcompra").focus().select();
+		                			Materialize.toast('Valor no Aceptado debe ser Entero no Decimal',4000,'red')
+		                			return false;
+		                		}
+
+		                		if(parseInt($("#vporcompra").val()) < 0 || parseInt($("#vporcompra").val()) > 100){
+		                			$("#vporcompra").focus().select();
+		                			Materialize.toast('Valor no Aceptado debe ser entre 0 a 100',4000,'red')
+		                			return false;
+		                		}
+
+		                	}
+		                	return salida;
+		                }
 		                break;
 		            case 3: 
 		                titulo = 'XML Otros';
@@ -63,6 +131,11 @@ $(function(){
 		$(this).sideNav('show');
 
 		});
+
+    $("#eslidec").click(function(e){
+    	e.preventDefault();
+    	return validares()
+    });
 
 	$("#ingClie").click(function(){
 		$("#titModal").html('Agregar Cliente');
@@ -137,6 +210,8 @@ $(function(){
     permisos(1001,1010);
 
 });
+
+function validares(){ return false };
 
 $(document).on("blur",".onblur",function(){
 	var id = $(this).attr('id');
@@ -427,6 +502,19 @@ function endDetail(vid,vacc,modulo){
 			if (vacc == 1) {
 				setTimeout(function(){ deadclear('cliente');$("#videstado").val(1);$("#videstado").material_select();}, 500);
 			}
+
+			if(parseInt($("#videxoneracion").val())){
+				var ffin  = $("#vfechafin").val() == '' ? 'null' : '"'+$("#vfechafin").val()+'"';
+
+				actualizar(285,'tdoc = '+$("#vtipodoc").val()+', ndoc = "'+$("#vnumdoc").val()+'",inst = "'+$("#ventidad").val()+'", femision = "'+$("#vfechaDoc").val()+' '+tiempo+'", exoneracion = '+$("#vporcompra").val()+',ffin = '+ffin+'','id = '+vid[0][0]);
+			}else{
+				if($("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
+					var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
+					var ffin  = $("#vfechafin").val() == '' ? 'null' : '"'+$("#vfechafin").val()+'"';
+					insertar(285,'','null,'+vid[0][0]+','+$("#vtipodoc").val()+',"'+$("#vnumdoc").val()+'","'+$("#ventidad").val()+'","'+$("#vfechaDoc").val()+' '+tiempo+'",'+$("#vporcompra").val()+','+ffin+'');
+				}	
+			}
+			
 			break;
 		case 'taller-vehiculo':
 			deadclear('taller-vehiculo');
@@ -462,6 +550,18 @@ function postload(modulo) {
             while($("#slideCorreo").data('fila'+num) != undefined){
 				$("#slideCorreo").removeData('fila'+num);
 			 num++;
+            }
+
+            var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),exoneracion,ffin',285,'idcliente = '+$("#vid").val(),0,0,0);
+            if(exoneraciones[0].length){
+            	$("#vtipodoc").val(exoneraciones[0][0][0])
+            	$("#vtipodoc").material_select('update');
+            	$("#vnumdoc").val(exoneraciones[0][0][1]);
+            	$("#ventidad").val(exoneraciones[0][0][2]);
+            	$("#vfechaDoc").val(exoneraciones[0][0][3]);
+            	$("#vtimeDoc").val(exoneraciones[0][0][4]);
+            	$("#vporcompra").val(exoneraciones[0][0][5]);
+            	$("#vfechafin").val(exoneraciones[0][0][6]);
             }
 		break;
 	}

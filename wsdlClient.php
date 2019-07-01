@@ -284,7 +284,9 @@
                     $rxml['FacturaElectronica']['Emisor']['CorreoElectronico'] = $intsuc[10];
 
                     
-                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                        xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$fe->xmldoc.' 
+                        />');
                     $fe->array_to_xml($rxml,$xml_data);
 
                     $xml = $xml_data->asXML();
@@ -370,7 +372,7 @@
                     $fechaorig = $rxml['NotaCreditoElectronica']['FechaEmision'];
                     $rxml['NotaCreditoElectronica']['FechaEmision'] = date('Y-m-d\TH:i:s-06:00');
 
-                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><NotaCreditoElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><NotaCreditoElectronica xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/ xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
 
                     $fe->array_to_xml($rxml,$xml_data);
 
@@ -777,6 +779,8 @@
         var $opcion = 0;
         var $sumaimpuestos = 0;
         var $sumadescuentos = 0;
+        var $sumaexonerados = 0;
+        var $sumagravados = 0;
         var $exo = 0;
         var $idtabla = 64;
         var $titulo = 'Factura';
@@ -1307,7 +1311,7 @@
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
 
-                if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']) != round($data['ResumenFactura']['TotalVenta'])) 
+                if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']+$data['ResumenFactura']['TotalExonerado']) != round($data['ResumenFactura']['TotalVenta'])) 
                      return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];
 
                 if ($this->ref) {
@@ -1315,11 +1319,11 @@
                     $data['InformacionReferencia'] = $refxml;
                 }
 
-                $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
+                //$data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
                 // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             }
 
-            if (!isset($this->info['Emisor']['CorreoElectronico'])) {
+            if (!isset($this->info['Emisor']['CorreoElectronico']) && substr($this->id, 0,1) != '!') {
                return ['error'=>'Emisor sin Correo'];
             }
 
@@ -1368,22 +1372,9 @@
                     break;
             }
 
-            if ($this->sumaimpuestos == 0 and $this->exo) {
-                $data['ResumenFactura']['TotalServExentos'] += $data['ResumenFactura']['TotalServGravados'];
-                $data['ResumenFactura']['TotalMercanciasExentas'] += $data['ResumenFactura']['TotalMercanciasGravadas'];
-                $data['ResumenFactura']['TotalExento'] += $data['ResumenFactura']['TotalGravado'];
-
-                $data['ResumenFactura']['TotalGravado'] = str_replace(',', '', number_format(0,5));
-                $data['ResumenFactura']['TotalMercanciasGravadas'] = str_replace(',', '', number_format(0,5));
-                $data['ResumenFactura']['TotalServGravados'] = str_replace(',', '', number_format(0,5));
-
-                $data['ResumenFactura']['TotalExento'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalExento'],5));
-                $data['ResumenFactura']['TotalMercanciasExentas'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalMercanciasExentas'],5));
-                $data['ResumenFactura']['TotalServExentos'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalServExentos'],5));
-            }
-
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-            <'.$this->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+            <'.$this->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$this->xmldoc.'" />');
             $this->array_to_xml($data,$xml_data);
 
             $xml = $xml_data->asXML();
@@ -1444,7 +1435,7 @@
                         $detalle = [];
                         $detalle['NumeroLinea'] = $fila;
                         $codigo = ['Tipo'=>$value[1],'Codigo'=>$value[2]];
-                        $detalle['Codigo'] = $codigo;
+                        //$detalle['Codigo'] = $codigo;
                         $detalle['Cantidad'] = $value[3];
                         $detalle['UnidadMedida'] = $value[4];
                         $detalle['UnidadMedidaComercial'] = $value[5];
@@ -1453,8 +1444,8 @@
                         $detalle['MontoTotal'] = $value[8];
                         if ($value[9] > 0) {
                             $this->sumadescuentos += $value[9];
-                            $detalle['MontoDescuento'] = $value[9];
-                            $detalle['NaturalezaDescuento'] = $value[10];
+                            $detalle['Descuento']['MontoDescuento'] = $value[9];
+                            $detalle['Descuento']['NaturalezaDescuento'] = $value[10];
                         }
                         $detalle['SubTotal'] = $value[11];
                         
@@ -1467,28 +1458,36 @@
                                 $sub_array = explode(',', $obj);
                                 if (strlen($sub_array[0])) {
                                     
-                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
+                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> $sub_array[4],'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
 
                                     if ($value[16] != ''){
+                                        
                                         $this->exo = 1;
-                                        $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19], 'MontoImpuesto' => str_replace(',', '',number_format($sub_array[2]*(1-($value[21]/100)),5)), 'PorcentajeCompra' => $value[21]];
+
+                                        $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[21], 'MontoExoneracion' => number_format($sub_array[2]*($value[21]/100),5,'.','')];
+
+                                        $this->sumaexonerados += $value[11];//$sub_array[2];
+                                        $sub_array[2] = $sub_array[2]*(1-$exoneracion['PorcentajeExoneracion']/100);
+
                                         $impuesto['Exoneracion'] = $exoneracion;
-                                        $sub_array[2] = $sub_array[2]*($exoneracion['PorcentajeCompra']/100);
-                                        $this->sumaimpuestos += $sub_array[2];
-                                        $sum_imp += $sub_array[2];
+                                        
                                         // $impuesto['Monto'] = $sub_array[2];
                                         // $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
+                                        $sum_imp += $impuesto['Monto']-$impuesto['Exoneracion']['MontoExoneracion'];
                                     }else{
-                                        $this->sumaimpuestos += $sub_array[2];
+                                        $this->sumagravados += $value[11];
                                         $sum_imp += $sub_array[2];
                                     }
 
+                                    $this->sumaimpuestos += $sub_array[2];
                                     array_push($detalle, ['Impuesto' => $impuesto]);
                                 }
                             }
+
                         }
-                        
-                        $detalle['MontoTotalLinea'] = $value[15] + $sum_imp;
+
+                        $detalle['ImpuestoNeto'] = number_format($sum_imp,5,'.','');
+                        $detalle['MontoTotalLinea'] = $value[15] + number_format($sum_imp,5,'.','');
                         array_push($linea, ['LineaDetalle'=>$detalle]);
                     }
                     
@@ -1622,19 +1621,19 @@
             
             $SignedProperties = "SignedProperties-".$signatureID; 
 
-            $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
+            $xmlns_keyinfo='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
              'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
              'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
              'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
              
-            $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
+            $xmnls_signedprops='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" '.
             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
 
             
-            $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
+            $xmnls_signeg='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';

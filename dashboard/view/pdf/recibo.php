@@ -39,7 +39,7 @@ class myPDF extends TCPDF {
         $html = '<div align="center">';
           if ($this->fe != '') {
            $html .= '<p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
-              <br> 
+              <br>Versión API Hacienda: 4.3<br> 
               <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span></p><br>
             </div>';
           }else{
@@ -258,7 +258,7 @@ if(strlen($datos[0][33])){
   $time = strtotime($exoneracion[3]);
   $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-  $html .= '<br><span style="padding-right: 15px;font-size: 12px;text-align:justify;color: #494949;font-family: Helvetica;">Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].',<br>con fecha '.$fexo.'. Monto Autorizado: '.$exoneracion[4].'. Porcentaje de Compra Autorizado: '.$exoneracion[5].'% </span><br><br>';
+  $html .= '<br><span style="padding-right: 15px;font-size: 12px;text-align:justify;color: #494949;font-family: Helvetica;">Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].',<br>con fecha '.$fexo.'</span><br><br>';
 } 
 
 
@@ -272,7 +272,7 @@ $html .= '* Producto Exento <br>** I.V.I<br>'.
 '<td valign="top" class="mcnTextContent" style="font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="10%">'.
 '<strong>Código</strong>'.
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="36%">'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="26%">'.
 '<strong>Descripción</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="15%">'.
@@ -283,6 +283,12 @@ $html .= '* Producto Exento <br>** I.V.I<br>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="10%">'.
 '<strong>Descuento</strong>'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="5%">'.
+'<strong>IVA</strong>'.
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="5%">'.
+'<strong>EXO</strong>'.
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="15%">'.
 '<strong>Importe</strong>'.
@@ -308,7 +314,7 @@ $obj[29].$obj[18].
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="10%">'.
 $obj[36].
 '</td>'.
-'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="36%">'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="26%">'.
 $obj[19].
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="15%">'.
@@ -320,6 +326,12 @@ $obj[23].
 
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="10%">'.
 $obj[21].
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
+number_format($obj[47],0,'','').
+'</td>'.
+'<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
+$obj[46].
 '</td>'.
 '<td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="15%">'.
 $obj[22].
@@ -352,51 +364,35 @@ $html .= '</tbody>'.
 
 $html .= '<table style="width: 100%">';
 
-if ($grabado > 0){
-
   $html .= '<tr>
     <td></td>
     <td align="right">Gravado:</td>
-    <td align="right">'.$datos[0][15].number_format($grabado+str_replace(',', '', $obj[6]),2).'</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td align="right">Impuesto:</td>
-    <td align="right">'.$datos[0][15].$datos[0][5].'</td>
+    <td align="right">'.$datos[0][15].$datos[0][9].'</td>
   </tr>';
-}
 
-if ($exento > 0) {
   $html .= '<tr>
     <td></td>
     <td align="right">Exento:</td>
-    <td align="right">'.$datos[0][15].number_format($exento,2).'</td>
+    <td align="right">'.$datos[0][15].$datos[0][8].'</td>
   </tr>';
-}
 
-if (str_replace(',', '', $datos[0][6]) > 0){
+  $html .= '<tr>
+    <td></td>
+    <td align="right">Exonerado:</td>
+    <td align="right">'.$datos[0][15].$datos[0][7].'</td>
+  </tr>';
+
   $html .= '<tr>
     <td></td>
     <td align="right">Descuento:</td>
     <td align="right">'.$datos[0][15].$datos[0][6].'</td>
   </tr>';
-} 
 
-if ($datos[0][7] > 0){
   $html .= '<tr>
     <td></td>
-    <td align="right">Flete:</td>
-    <td align="right">'.$datos[0][15].number_format($datos[0][7],2).'</td>
+    <td align="right">Impuesto:</td>
+    <td align="right">'.$datos[0][15].$datos[0][5].'</td>
   </tr>';
-}
-
-if ($datos[0][8] > 0){
-  $html .= '<tr>
-    <td></td>
-    <td align="right">Ajuste:</td>
-    <td align="right">'.$datos[0][15].number_format($datos[0][8],2).'</td>
-  </tr>';
-} 
 
 $html .= '<tr>
     <td></td>
