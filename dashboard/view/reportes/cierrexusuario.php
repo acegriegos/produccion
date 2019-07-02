@@ -86,7 +86,7 @@
       Ventas en Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br>
       Ventas con Depósito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br>
       Excento:<span style="float: right;"><?php echo $cierre[22]; ?></span><br>
-      IMV:<span style="float: right;"><?php echo $cierre[23]; ?></span><br>
+      IVA:<span style="float: right;"><?php echo $cierre[23]; ?></span><br>
       <b>Ventas Totales:</b> <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
       <br>
       Caja Inicial:<span style="float: right;"><?php echo $cierre[20]; ?></span><br>

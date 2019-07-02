@@ -97,12 +97,11 @@ echo '<tr align="center" >
 </table>
 <br>
 <table style="width: 100% !important;">
-  <tr>
-    <td align="left">Recibo N°</td>
-    <td colspan="3">'.$datos[9].'</td>
-  </tr>
   <tr class="fe hide">
-    <td align="left" colspan="4">'.$datos[1].'</td>
+    <td align="center" colspan="4">'.$datos[9].'</td>
+  </tr>
+  <tr>
+    <td align="left" colspan="4">Recibo N° '.$datos[1].'</td>
   </tr>
   <tr><td colspan="4"><br></td></tr>
   <tr>
@@ -136,9 +135,9 @@ echo '<tr align="center" >
 <hr>
 <table  style="width: 100% !important;">
   <tr>
-    <td align="center" width="30%">SALDO ANT.</td>
+    <td align="center" width="30%">VALOR ANT.</td>
     <td align="center" width="40%">MONTO</td>
-    <td align="center" width="30%">SALDO ACTUAL</td>
+    <td align="center" width="30%">VALOR ACTUAL</td>
   </tr>
   <tr>
     <td colspan="3"></td>

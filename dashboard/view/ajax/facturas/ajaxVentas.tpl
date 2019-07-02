@@ -1137,9 +1137,9 @@
       </thead>
       <tbody id="detfact"></tbody>
     </table> 
-    <div class="footer row" style="bottom:42px;position:absolute;">
-      <a class="btn btn-success col s6 mdi mdi-plus der" id="fdev" title="Realizar Devolución"></a>
-      <a class="btn btn-default col s6 der" id="fext">Salir</a>
+    <div class="row">
+      <a class="btn btn-success col s6 mdi mdi-plus" id="fdev" title="Realizar Devolución"></a>
+      <a class="btn btn-default col s6" id="fext">Salir</a>
     </div>
     
   </li>

@@ -15,7 +15,7 @@
     <div class="card z-depth-3">
       <div class="card-header center head1">
         <span class="flow-text">Notas</span>
-        <a href="vistanotaspagos" target="_new" class="der pbtn tooltipped white-text" data-tooltip="Ver Notas" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
+        <a href="vistanotaspagos?tf=5" target="_new" class="der pbtn tooltipped white-text" data-tooltip="Ver Notas" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
       </div>
       <div class="card-content pequeño">
         <div class="row">

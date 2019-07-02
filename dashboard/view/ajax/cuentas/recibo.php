@@ -110,9 +110,9 @@
           <tr>
             <th class="center-align sinborde" id="th1">Tipo de movimiento</th>
             <th class="center-align sinborde" id="th2">Fecha</th>
-            <th class="center-align sinborde" id="th3">Saldo anterior</th>
+            <th class="center-align sinborde" id="th3">Valor anterior</th>
             <th class="center-align sinborde" id="th6">Monto </th>
-            <th class="center-align sinborde" id="th6">Saldo actual</th>
+            <th class="center-align sinborde" id="th6">Valor actual</th>
 
           </tr>
         </thead>

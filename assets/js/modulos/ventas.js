@@ -1483,7 +1483,7 @@ function cargarProducto(kbrota,elemento) {
         $("#iva").prop('checked',false)
 
     var cod = arr('login',4,'',43,'"'+ kbrota.replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+$("#ffacturas .zelda").data('triforce')['vidtipoventa']+','+$("#invgeneral").val(),0,0,0);
-
+    console.log(cod)
     if (cod[0][0] != undefined) {
 
         cod = cod[0][0];

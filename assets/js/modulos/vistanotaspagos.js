@@ -3,7 +3,7 @@ var param;
 $(function(){
     var tf  = getParameterByName('tf');
     param = getParameterByName('tp');
-    $('#tf'+tf).click();
+    $('#tf'+tf).prop('checked',true);
     tf = !tf.length ? 3 : tf;
     param = !param.length ? 0 : param;
     if(param == 0){

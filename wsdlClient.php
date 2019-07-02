@@ -1458,7 +1458,7 @@
                                 $sub_array = explode(',', $obj);
                                 if (strlen($sub_array[0])) {
                                     
-                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> $sub_array[4],'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
+                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> isset($sub_array[4]) ? $sub_array[4] : '08' ,'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
 
                                     if ($value[16] != ''){
                                         
