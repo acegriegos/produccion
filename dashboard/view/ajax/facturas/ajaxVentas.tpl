@@ -1145,4 +1145,4 @@
   </li>
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.38"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.40"></script>
