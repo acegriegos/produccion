@@ -5,7 +5,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.1.0.34">
+<link href="../assets/css/materialize.css?v=10.1.0.40">
 <style>
   @media print {
     .print{
@@ -86,7 +86,7 @@
       Ventas en Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br>
       Ventas con Depósito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br>
       Excento:<span style="float: right;"><?php echo $cierre[22]; ?></span><br>
-      IMV:<span style="float: right;"><?php echo $cierre[23]; ?></span><br>
+      IVA:<span style="float: right;"><?php echo $cierre[23]; ?></span><br>
       <b>Ventas Totales:</b> <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
       <br>
       Caja Inicial:<span style="float: right;"><?php echo $cierre[20]; ?></span><br>
@@ -256,8 +256,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.1.0.34"></script>
-    <script src="../assets/js/materialize.js?v=10.1.0.34"></script>
+    <script src="../assets/js/jquery.js?v=10.1.0.40"></script>
+    <script src="../assets/js/materialize.js?v=10.1.0.40"></script>
 
      <script type="text/javascript">
    $(function(){

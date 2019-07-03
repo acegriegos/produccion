@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.34">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.34">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.40">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.40">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.1.0.34"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.1.0.40"> -->
 
-<link href="../assets/css/modulos/style-factura.css?v=10.1.0.34">
+<link href="../assets/css/modulos/style-factura.css?v=10.1.0.40">
 
 <title>Movimiento CxC</title>
 
@@ -110,9 +110,9 @@
           <tr>
             <th class="center-align sinborde" id="th1">Tipo de movimiento</th>
             <th class="center-align sinborde" id="th2">Fecha</th>
-            <th class="center-align sinborde" id="th3">Saldo anterior</th>
+            <th class="center-align sinborde" id="th3">Valor anterior</th>
             <th class="center-align sinborde" id="th6">Monto </th>
-            <th class="center-align sinborde" id="th6">Saldo actual</th>
+            <th class="center-align sinborde" id="th6">Valor actual</th>
 
           </tr>
         </thead>
@@ -176,11 +176,11 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js?v=10.1.0.34"></script>
+<script src="../assets/js/jquery.js?v=10.1.0.40"></script>
 
-<script src="../assets/js/materialize.js?v=10.1.0.34"></script>
-<script src="../assets/js/asgard.js?v=10.1.0.34"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.1.0.34"></script>
+<script src="../assets/js/materialize.js?v=10.1.0.40"></script>
+<script src="../assets/js/asgard.js?v=10.1.0.40"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.1.0.40"></script>
   <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

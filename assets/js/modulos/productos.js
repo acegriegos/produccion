@@ -2130,18 +2130,21 @@ function endDetail(id, acc, modulo) {
 			});
 
 			$(".precunidad").each(function() {
+				
+				var idfila = $(this).attr('idf');
 				if($("#vuventaiva" + idfila).val().trim().length){
 					var gan_n = 0;
-					var idlinea = $(this).attr('idu');
-					var idfila = $(this).attr('idf');
+					var idlinea = $(this).attr('idf');
 					var costo = parseFloat($("#vcosto").val().replace(/,/g,''))
 					costo = costo/parseFloat($("#vldimension1").val())
-					costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+$(this).attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
-					if (parseFloat($("#vuventaiva" + idfila).val().replace(/,/g,'')) > 0) {
-						imp_n = parseInt($("#vimpiva option:selected").attr('num'));
-						gan_n = (parseFloat($("#vuventaiva" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - costo;
-						acc = !parseInt(idlinea) ? 1 : acc;
-						arr('login', 4, '', 108, acc+','+idlinea+',2,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vuventaiva" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0);
+					if(!isNaN(costo)){
+						costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+$(this).attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
+						if (parseFloat($("#vuventaiva" + idfila).val().replace(/,/g,'')) > 0) {
+							imp_n = parseInt($("#vimpiva option:selected").attr('num'));
+							gan_n = (parseFloat($("#vuventaiva" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - costo;
+							acc = !parseInt(idlinea) ? 1 : acc;
+							arr('login', 4, '', 108, acc+','+idlinea+',2,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vuventaiva" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0);
+						}
 					}
 				}
 			});

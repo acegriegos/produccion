@@ -37,8 +37,7 @@
       </div>
 
       {assign var="column" value="6"}
-      {if $smarty.session.BUSS neq 1}
-      <div class="col s12 m{$column} l{$column} concre movil" align="center">
+      <div class="col s12 m{$column} l{$column} concre movil" align="center" id="tpagos">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1105" val="2" id="chg_tipo2">
@@ -52,7 +51,6 @@
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1109 hide" val="6" id="chg_tipo6" disabled>
         <label for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
-      {/if}
     <div class="col s12 m3 l3 cre gen hide" align="center">
       <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div>
@@ -1139,12 +1137,12 @@
       </thead>
       <tbody id="detfact"></tbody>
     </table> 
-    <div class="footer row" style="bottom:42px;position:absolute;">
-      <a class="btn btn-success col s6 mdi mdi-plus der" id="fdev" title="Realizar Devolución"></a>
-      <a class="btn btn-default col s6 der" id="fext">Salir</a>
+    <div class="row">
+      <a class="btn btn-success col s6 mdi mdi-plus" id="fdev" title="Realizar Devolución"></a>
+      <a class="btn btn-default col s6" id="fext">Salir</a>
     </div>
     
   </li>
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.34"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.40"></script>
