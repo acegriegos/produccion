@@ -1961,6 +1961,8 @@ function sendVMail(factura,clave,vid){
                 }else
                     setTimeout(function(){location.reload();},2000);
                 }
+                console.log(1)
+                alert(1)
             }else
                 if(parseFloat($("#mxtot").val()) < 5)
                     setTimeout(function(){window.close();},2000);

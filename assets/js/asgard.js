@@ -838,7 +838,7 @@ function odin(varreglo,vform) {
                             }
                             catch(e){
                                 console.log(varreglo[i][0]+" No Existe");
-                                return "Error en Interno, Codigo: Odin"
+                                return "Error Interno, Codigo: Odin"
                             } 
                             break;
                             
@@ -853,6 +853,7 @@ break;
 
 case "4":
     //LLENADO DE VARIABLES POR DATA EN DETALLE
+
     $("#"+vform+" .ciclos").each(function(index){
         salida[index] = {};
         for (var i = 0;  i < varreglo.length; i++) {
@@ -864,7 +865,7 @@ case "4":
                     varreglo[i][0] = 0;
                 }else{
                     console.log(varreglo[i][0]+" No Existe, "+vform);
-                    return "Error en Interno, Codigo: Odin"
+                    return "Error Interno, Codigo: Odin"
                 }
                 
             }
@@ -886,18 +887,22 @@ case "6":
                 salida[num] = {};
             for (var i = 0;  i < varreglo.length; i++) {
                 salida[num][varreglo[i][0]] = $("#"+vform).data('fila'+num)[varreglo[i][0]];
-
+                console.log(varreglo[i][0])
                 salida[num][varreglo[i][0]] = salida[num][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal' ) ? 0 : salida[num][varreglo[i][0]];
-                if (salida[num][varreglo[i][0]] == undefined) {
+                if (salida[num][varreglo[i][0]] == undefined && varreglo[i][0] != 0) {
                     if (varreglo[i][0] == 'vidfila' || varreglo[i][0] == 'vidtabla') {
                         varreglo[i][0] = 0;
                     }else{
-                        console.log(varreglo[i][0]+" No Existe, "+vform);
-                        return "Error en Interno, Codigo: Odin"
+                        console.log(varreglo[i][0]+" No Existe,num: "+num+",form: "+vform);
+                        return "Error Interno, Codigo: Odin"
                     }
                     
                 }
                 }// end FOR
+                
+                if($("#"+vform).data('fila'+num)['vaccion'] == '3')
+                    $("#"+vform).removeData('fila'+num);
+
                 num++;
             }
         }
@@ -922,7 +927,7 @@ default:
                     if (typeof $("#"+vform+" #"+varreglo[i][0]) == 'undefined') {
                         salida[varreglo[i][0]] = '1990-01-01';
                     }else{
-                        if ($("#ftransacciones #vf1").hasClass('datepicker')) {
+                        if ($("#"+vform+" #"+varreglo[i][0]).hasClass('datepicker')) {
                         salida[varreglo[i][0]] = $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd') == '' ? 
                         '1990-01-01' : $("#"+vform+" #"+varreglo[i][0]).pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
                         }else
@@ -983,49 +988,6 @@ default:
     break;
     }//end SWITCH
     return salida;
-}
-
-function deadclear(vform) {
-    
-    if (acc == 1) {
-        vform = "#f"+vform+"s";
-        /*REGLAS PARA VACIAR CAMPOS*/
-        $(vform+" :input").each(function(){
-            if ($(this).attr('noClear') == undefined && $(this).prop('id') != '') { 
-                switch($(this).attr('type')){
-                    case 'checkbox':
-                    $(vform+" :input[name='"+$(this).prop('name')+"'][stay='1']").prop('checked', true);
-                    $(vform+" :input[name='"+$(this).prop('name')+"'][stay='0']").prop('checked',false);
-                    
-                    $(this).change();
-                    break;
-                    case 'radio':
-                    //SI ES RADIO SOLO PONER ATRIBUTO PRINCIPAL PARA EL CUAL QUIERE MANTENER CHECKED
-                    $(vform+" :input[name='"+$(this).prop('name')+"'][principal='1']").click();
-                    break;
-                    case 'number':
-                    case 'textarea':
-                    case 'text':
-                    case 'password':
-                    case 'time':
-                    $(vform+" #"+$(this).prop('id')).val('');
-                    break;
-                    case 'select':
-                    $(vform+" #"+$(this).prop('id')).val("");
-                    if ($(vform+" #"+$(this).prop('id')).val() == undefined)
-                        $(vform+" #"+$(this).prop('id')).val(0)
-                    $(vform+" #"+$(this).prop('id')).material_select('update');
-                    break;
-                    default:
-                    break;
-                };
-                
-            }
-        });
-        
-    } else
-        acc = 1;
-    // Materialize.updateTextFields();
 }
 
 function thorload(vtabla) {

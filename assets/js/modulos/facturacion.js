@@ -7,7 +7,8 @@ $(function(){
   param = getParameterByName('tf');
   param = param == '' || param == 1 ? 7 : parseInt(param) ;
 
-  config = getDatos('',42,'@@impresa',0,0)[0][0];
+  config = getDatos('',42,'@@impresa',0,0)
+  config = config[0][0];
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,param));
 

@@ -386,7 +386,7 @@ function endDetail(vid,vacc,modulo){
 function sendFE(clave,factura){
 
     str_correos = '';
-
+    idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+factura,0,0);
     if (idcliente != 0) {
         var correos = getDatos("",18,idcliente+",2",0,0);
         if (correos == undefined) {
@@ -405,10 +405,9 @@ function sendFE(clave,factura){
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
-        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:vtit}
+        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:"Nota Crédito"}
     })
       .done(function( data ) {
-        console.log(data)
         var p;
         var continuar = 1;
         try {
@@ -418,7 +417,10 @@ function sendFE(clave,factura){
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
             arr('login',7,2,301,'feestado=2','id='+clave,0,0);
-            // sendVMail(factura,clave,vclave);
+            if (config[4] == 1){
+                var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+                window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+            }
         }
         catch(err){
             console.log(data)
