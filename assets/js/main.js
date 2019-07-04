@@ -15,24 +15,8 @@ $(function(){
         draggable: true // Choose whether you can drag to open on touch screens
     });
 
-    if(parseInt($("#cpu").attr('xyz')) == 5){
-        $("#gingclie").click(function(){
-            $("#modal-clientesg").modal('open');
-            $("#c-ced").focus();        
-        });
+    if(parseInt($("#cpu").attr('xyz')) == 5){   
 
-        $("#shrutas").click(function(){
-            $("#modal-rutasg").modal('open');
-            $("#chruta").val($("#idruta option:selected").val());
-        });
-
-        $("#chruta").change(function(){
-            var id = $('option:selected',this).val();
-            $("#idruta").val(id);
-            $("#ncli").val('').attr('idclie',0).blur();
-            $("#idboletas").val(0).change();
-            getDatos('',278,'1,'+id+',@@usr,0,0,@@impresa',0,0,0);
-        });
 
             // $("#grubro").blur(function(){
             //     var isproveedor = 0;
@@ -63,33 +47,6 @@ $(function(){
         }
 
         $("#listrubros").html(strboletas); 
-
-        $("#addclie").click(function(){
-            // if($("#slideCorreo").data('fila1') == undefined && param.toString().match(new RegExp(/[145678]/i))){
-            //     Materialize.toast('Correo sin Asignar',4000,'red');
-            //     $("#slideCorreo").click();
-            //     return false;
-            // }
-            var isprov =  0;
-            var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap2").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,'+isprov+',0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id,1,0,0,""',0,0,0);
-            if(guardarSlide(1,pr,2)){
-                Materialize.toast('Cliente Agregado Exitosamente',4000,'green');
-                insertar(219,'','null,'+pr[0][0][0]+','+$("#idruta option:selected").val());
-                $("#ncli").val($("#c-nom").val()+' '+$("#c-ap1").val()+' '+$("#c-ap2").val()+' *'+$("#c-ced").val()+'*');
-                $("#slideDireccion").data('idbarrio',0);
-                $("#slideDireccion").data('direccion','');
-                $(".c-st").addClass('hide');
-                $("#c-ced").val('');
-                ind_2 = 0;
-                ind_1 = 0;
-                $("#modal-clientesg").modal('close');
-                $("#ncli").focus();
-                var e = jQuery.Event("keyup");
-                e.which = 13;
-                $("#ncli").trigger(e);
-            }
-            
-        });
     }
 
     $(".otpmenu").click(function(){

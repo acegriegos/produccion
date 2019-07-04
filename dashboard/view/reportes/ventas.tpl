@@ -7,11 +7,11 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Ventas Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.1.0.40">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.1.0.41">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-           <div class="filtros row" entrefechas entrenumeros porcliente porusuario portipo="varios" tbltipos="168,26" tipos="Tipo,Tipo Pago" elem='0,"1&7&6"' sp="167" modulo="reporteFactura" types="1,1" bisprov="0"></div>
+           <div class="filtros row" entrefechas porcliente porusuario portipo="varios" tbltipos="168,26,57" tipos="Tipo Factura,Tipo Pago,Tipo Documento" tfiltar="0,0,1&7&10&102&103" elem='0,"1&7&10"' sp="167" modulo="reporteFactura" types="1,1,1" bisprov="0"></div>
 
       <!-- HEADER -->
     <input type="hidden" id="vdetalle" value="1" change="2">
@@ -46,12 +46,12 @@
         <td class="white-text blue sinborde" style="text-align: center"><b>Número de Factura</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Fecha</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Cliente</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Tipo</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Descuento</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Gravado</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>I.V.</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Exento</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Monto</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Exonerado</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Descuento</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>IVA</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Total</b></td>
       </tr>
       </thead>
       <tbody class="detrep"></tbody>
@@ -59,8 +59,8 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.1.0.40"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.1.0.40"></script>
-  <script src="../assets/libs/jspdf/jspdf.js?v=10.1.0.40"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.1.0.41"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.1.0.41"></script>
+  <script src="../assets/libs/jspdf/jspdf.js?v=10.1.0.41"></script>
 </body>
 </html>

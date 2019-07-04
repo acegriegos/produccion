@@ -133,6 +133,8 @@ $(function(){
             var inc = 0;
             var filtro = 5;
             var type = '';
+            var vwhere = $(".principal .filtros").attr('tfiltar') == undefined ? '' : $(".principal .filtros").attr('tfiltar').split(',');
+            var strwhere;
             for (var i = 0, len = vtbl.length; i < len; i++) {
                 inc += 1;
 
@@ -176,7 +178,8 @@ $(function(){
                         $("#chktipo"+inc).addClass('justChange').prop('indeterminate',true)
                         break;
                     default:
-                        arr('login',6,'id,nombre',vtbl[i],'id > 0 order by id',15,1,$("#vidtipo"+inc));
+                        strwhere = vwhere[i] == '0' ? '' : ' and id in('+vwhere[i].replace(/&/g,',')+')';
+                        arr('login',6,'id,nombre',vtbl[i],'id > 0 '+strwhere+' order by id',15,1,$("#vidtipo"+inc));
                         break;
                 }
                     

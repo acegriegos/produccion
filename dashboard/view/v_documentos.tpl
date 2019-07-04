@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.40">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.1.0.40">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.41">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.1.0.41">
   </head>
   <body>
   <br>
@@ -214,7 +214,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.1.0.40"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.1.0.40"></script>
+    <script src="../assets/js/dropzone.js?v=10.1.0.41"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.1.0.41"></script>
   </body>
 </html>

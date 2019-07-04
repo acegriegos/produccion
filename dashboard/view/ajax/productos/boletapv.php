@@ -184,20 +184,22 @@ echo '<br> '.$miscelaneos[6].'
 
  echo '<table  style="width: 100% !important;">
   <tr>
-    <td align="center" width="50%">ARTICULO</td>
-    <td align="center" width="25%">CANT</td>
-    <td align="center" width="25%">ANT</td>
+    <td align="center" width="46%">ARTICULO</td>
+    <td align="center" width="18%">CANT</td>
+    <td align="center" width="18%">ANT</td>
+    <td align="center" width="18%">FIN</td>
   </tr>
   <tr>
-    <td colspan="3"></td>
+    <td colspan="4"></td>
   </tr>';
 
   foreach ($transaccion as $obj) {
 
     echo '<tr>
-      <td align="center" width="15%">'.$obj[4].'</td>
-      <td align="center" width="45%">'.$obj[5].'</td>
-      <td align="center" width="20%">'.$obj[6].'</td>';
+      <td align="center" width="46%">'.$obj[4].'</td>
+      <td align="center" width="18%">'.$obj[5].'</td>
+      <td align="center" width="18%">'.$obj[6].'</td>
+      <td align="center" width="18%">'.$obj[13].'</td>';
     }
   
 
@@ -211,9 +213,9 @@ echo '</table><div style="text-align: center;font-size:10px;" id="resolucion"></
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.40"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.40"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.40"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.41"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.41"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.41"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

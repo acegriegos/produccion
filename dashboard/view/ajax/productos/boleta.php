@@ -2,9 +2,9 @@
 <title>Recibo de Boleta</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.40">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.40">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.40">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.41">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.41">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.41">
 
 <body class="grey darken-4 pequeño " style="font-size: 1.1em;">
 
@@ -114,6 +114,7 @@
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Pproducto</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Cantidad</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">Cantidad Anterior</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">Cantidad Final</th>
             </tr>
           </thead>
           <tbody id="ftbody">
@@ -124,6 +125,7 @@
                 <td class="flista1 td center-align"><span id="cant"><?php echo $obj[4] ?></span></td>
                 <td class="flista2 td center-align"><span id="desc1"><?php echo $obj[5]; ?></span></td>
                 <td class="flista2 td center-align"><span id="desc"><?php echo $obj[6]; ?></span></td>
+                <td class="flista2 td center-align"><span id="desc"><?php echo $obj[13]; ?></span></td>
               </tr>
 
               <?php } ?>
@@ -163,10 +165,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.1.0.40"></script>
-     <script src="../assets/js/materialize.js?v=10.1.0.40"></script>
-     <script src="../assets/js/asgard.js?v=10.1.0.40"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.1.0.40"></script>
+     <script src="../assets/js/jquery.js?v=10.1.0.41"></script>
+     <script src="../assets/js/materialize.js?v=10.1.0.41"></script>
+     <script src="../assets/js/asgard.js?v=10.1.0.41"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.1.0.41"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
