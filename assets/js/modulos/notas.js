@@ -108,51 +108,53 @@ $(function(){
 
 	$("#ftr0").show();
 	$("#busnota").click(function(){
-		var cliente = factura = num1 = num2 = 0;
-		var desde = hasta = "";
-		if ($("#cp").is(":checked")) {
-			if ($("#nprov").val() != '') {
-				cliente= $("#nprov").attr("idc"); 
-			}
-		}else{
-			if ($("#ncli").val() != '') {
-				cliente= $("#ncli").attr("idc"); 
-			}
-		}
-		if ($("#vfac").val() != '') {
-			factura= $("#vfac").val() == '' ?0: $("#vfac").val();
-		}
-		if ($("#vnum1").val() != '') {
-			num1= $("#vnum1").val() == '' ?0: $("#vnum1").val();
-			num2= $("#vnum2").val() == ''?0: $("#vnum2").val();
+        if($("#vfac").val().trim().length){
+    		var cliente = factura = num1 = num2 = 0;
+    		var desde = hasta = "";
+    		if ($("#cp").is(":checked")) {
+    			if ($("#nprov").val() != '') {
+    				cliente= $("#nprov").attr("idc"); 
+    			}
+    		}else{
+    			if ($("#ncli").val() != '') {
+    				cliente= $("#ncli").attr("idc"); 
+    			}
+    		}
+    		if ($("#vfac").val() != '') {
+    			factura= $("#vfac").val() == '' ?0: $("#vfac").val();
+    		}
+    		if ($("#vnum1").val() != '') {
+    			num1= $("#vnum1").val() == '' ?0: $("#vnum1").val();
+    			num2= $("#vnum2").val() == ''?0: $("#vnum2").val();
 
-		}
-		if ($("#desde").val() != '') {
-			desde= $("#desde").val();
-			hasta= $("#hasta").val();
+    		}
+    		if ($("#desde").val() != '') {
+    			desde= $("#desde").val();
+    			hasta= $("#hasta").val();
 
-		}
-		$("#data-table-Notas").DataTable().destroy();
+    		}
+    		$("#data-table-Notas").DataTable().destroy();
 
-		var p = arr('login', 4, "" , 302,'0,0,"'+$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa'+'","0,10"', 0,0,0)[0];
-		$("#listaclientes").html('');
+    		var p = arr('login', 4, "" , 302,'0,0,"'+$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa'+'","0,10"', 0,0,0)[0];
+    		$("#listaclientes").html('');
 
-		$.each(p,function(i){
-			$("#listaclientes").append('<tr class="detallefactura" estado="1" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
-		});
+    		$.each(p,function(i){
+    			$("#listaclientes").append('<tr class="detallefactura" estado="1" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
+    		});
 
-		$("#data-table-Notas").dataTable({
-			bFilter: false,
-            bScrollInfinite: true,
-            bSort: false,
-            bLengthChange: false,
-            order: [],
-            bPaginate: false,
-            info: false
-		}); 
+    		$("#data-table-Notas").dataTable({
+    			bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+    		}); 
 
-        paginate($("ul.pagination").attr('vtbl'),undefined,$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa');
-	});
+            paginate($("ul.pagination").attr('vtbl'),undefined,$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa');
+        }
+    	});
     $("#vfac").focus();
 });
 
@@ -386,6 +388,7 @@ function endDetail(vid,vacc,modulo){
 function sendFE(clave,factura){
 
     str_correos = '';
+    var idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+factura,0,0);
 
     if (idcliente != '') {
         var correos = getDatos("",18,idcliente+",2",0,0);
@@ -405,7 +408,7 @@ function sendFE(clave,factura){
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
-        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:vtit}
+        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de '}
     })
       .done(function( data ) {
         console.log(data)
@@ -418,6 +421,10 @@ function sendFE(clave,factura){
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
             arr('login',7,2,301,'feestado=2','id='+clave,0,0);
+             if (config[4] == 1){
+                var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+                window.open('cuentas?accion=4&id='+clave+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+            }
             // sendVMail(factura,clave,vclave);
         }
         catch(err){

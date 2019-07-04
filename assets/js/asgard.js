@@ -2225,7 +2225,7 @@ function guardarSlide(vaccion,pr,vtabla){
             if(pr.succed){
                 pr = pr[0][0][0];
                 
-                if ($("#slideCorreo").data('fila1z') != undefined) {
+                if ($("#slideCorreo").data('fila1') != undefined) {
                     var num = 1;
                     var nfila;
                     while($("#slideCorreo").data('fila'+num) != undefined){

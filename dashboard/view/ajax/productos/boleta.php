@@ -114,6 +114,7 @@
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Pproducto</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Cantidad</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">Cantidad Anterior</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">Cantidad Final</th>
             </tr>
           </thead>
           <tbody id="ftbody">
@@ -124,6 +125,7 @@
                 <td class="flista1 td center-align"><span id="cant"><?php echo $obj[4] ?></span></td>
                 <td class="flista2 td center-align"><span id="desc1"><?php echo $obj[5]; ?></span></td>
                 <td class="flista2 td center-align"><span id="desc"><?php echo $obj[6]; ?></span></td>
+                <td class="flista2 td center-align"><span id="desc"><?php echo $obj[13]; ?></span></td>
               </tr>
 
               <?php } ?>
