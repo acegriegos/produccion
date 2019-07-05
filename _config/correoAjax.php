@@ -12,14 +12,14 @@ if (isset($url2)){
 }
 $correo = new correo($_POST['to'],$_POST['subject'],$_POST['body'],$ubi);
 
-// ob_end_clean();
-// ignore_user_abort();
-// ob_start();
-// header("Connection: close");
-// echo json_encode(['success'=>1]);
-// header("Content-Length: " . ob_get_length());
-// ob_end_flush();
-// flush();
+ob_end_clean();
+ignore_user_abort();
+ob_start();
+header("Connection: close");
+echo json_encode(['success'=>1]);
+header("Content-Length: " . ob_get_length());
+ob_end_flush();
+flush();
 
 $con_con = isset($_REQUEST['con_con']) ? $_REQUEST['con_con'] : $_POST['con_con'];
 

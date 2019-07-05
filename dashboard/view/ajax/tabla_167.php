@@ -17,6 +17,7 @@ foreach ($transaccion as $obj) {
 
       </tr>';
       $cantt++;
+      $obj[9] = 1;
       $tgr += str_replace(",", "", $obj[3])*$obj[9];
       $text += str_replace(",", "", $obj[4])*$obj[9];
       $texo += str_replace(",", "", $obj[5])*$obj[9];

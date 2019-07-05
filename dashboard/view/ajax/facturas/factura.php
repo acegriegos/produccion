@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.41">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.41">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.41">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.42">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.42">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.42">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -197,8 +197,6 @@
                 <td colspan="3">
                   <table>
                     <tr>
-
-
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].$datos[9]; ?></span></td>
                     </tr>
@@ -319,10 +317,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.1.0.41"></script>
-     <script src="../assets/js/materialize.js?v=10.1.0.41"></script>
-     <script src="../assets/js/asgard.js?v=10.1.0.41"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.1.0.41"></script>
+     <script src="../assets/js/jquery.js?v=10.1.0.42"></script>
+     <script src="../assets/js/materialize.js?v=10.1.0.42"></script>
+     <script src="../assets/js/asgard.js?v=10.1.0.42"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.1.0.42"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

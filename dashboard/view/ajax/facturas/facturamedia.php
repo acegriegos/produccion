@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.41">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.41">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.41">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.42">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.42">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.42">
 
 <style type="text/css">
   html{
@@ -137,9 +137,9 @@
             </tr>
           </thead>
           <tbody id="ftbody">
-            <?php  
-            foreach ($transaccion as $obj) { ?>
-
+            <?php 
+          
+            foreach ($transaccion as $obj) {?>
               <tr class="tr" >
                 <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
                 <td class="flista2 td center-align" style="padding: 0px"><span id="desc1"><?php echo $obj[36]; ?></span></td>
@@ -156,8 +156,7 @@
               $exoneracion = explode('^', $obj[33]);
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
-
-              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". </span><br><br>";
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.".</span><br><br>";
             } ?>
             <tfoot>
               <tr>
@@ -192,8 +191,7 @@
                 </td>
                 <td colspan="3" style="padding-bottom: 0;">
                   <table>
-
-                   <tr>
+                    <tr>
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].$datos[9]; ?></span></td>
                     </tr>
@@ -219,9 +217,11 @@
                     </tr>
 
                     <tr>
-                      <td  class="left-align sinborde" style="padding:0px;border-radius: 0px !important;"><b>TOTAL</b></td>
-                      <td  class="right-align sinborde" style="border-radius: 0px !important; padding: 0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+                      <td  class="left-align sinborde " style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
+                      <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b>
+                      </td>
                     </tr>
+
                   </table>
                 </td>
               </tr>
@@ -433,8 +433,7 @@
           </thead>
           <tbody id="ftbody">
             <?php 
-            foreach ($transaccion as $obj) { ?>
-
+            foreach ($transaccion as $obj) {?>
               <tr class="tr" >
                 <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
                 <td class="flista2 td center-align" style="padding: 0px"><span id="desc1"><?php echo $obj[36]; ?></span></td>
@@ -451,8 +450,7 @@
               $exoneracion = explode('^', $obj[33]);
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
-
-              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.".</span><br><br>";
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". </span><br><br>";
             } ?>
             * Producto Exento
             <br>
@@ -514,11 +512,10 @@
                       <td style="padding: 0px !important" class="left-align sinborde margen">IVA</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
                     </tr>
-
-                    
-                      <td  class="left-align sinborde" style="padding: 0px;border-radius: 0px !important;"><b>TOTAL</b></td>
-                      <td  class="right-align sinborde" style="border-radius: 0px !important; padding: 0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
-                    
+                    <tr>
+                      <td  class="left-align sinborde " style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
+                      <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+                    </tr>                    
                   </table>
                 </td>
               </tr>
@@ -706,8 +703,8 @@
             </tr>
           </thead>
           <tbody id="ftbody">
-            <?php  
-            foreach ($transaccion as $obj) {?>
+            <?php 
+            foreach ($transaccion as $obj) { ?>
 
               <tr class="tr" >
                 <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
@@ -764,7 +761,7 @@
                 </td>
                 <td colspan="3" style="padding-bottom: 0;">
                   <table>
-                    <tr>
+<tr>
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].$datos[9]; ?></span></td>
                     </tr>
@@ -788,11 +785,13 @@
                       <td style="padding: 0px !important" class="left-align sinborde margen">IVA</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
                     </tr>
-
+                    
                     <tr>
-                      <td  class="left-align sinborde" style="padding:0px;border-radius: 0px !important;"><b>TOTAL</b></td>
-                      <td  class="right-align sinborde" style="border-radius: 0px !important; padding: 0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+                      <td  class="left-align sinborde " style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
+                      <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b>
+                      </td>
                     </tr>
+                    
                   </table>
                 </td>
               </tr>
@@ -856,10 +855,10 @@
 
      </div>
 
-     <script src="../assets/js/jquery.js?v=10.1.0.41"></script>
-     <script src="../assets/js/materialize.js?v=10.1.0.41"></script>
-     <script src="../assets/js/asgard.js?v=10.1.0.41"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.1.0.41"></script>
+     <script src="../assets/js/jquery.js?v=10.1.0.42"></script>
+     <script src="../assets/js/materialize.js?v=10.1.0.42"></script>
+     <script src="../assets/js/asgard.js?v=10.1.0.42"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.1.0.42"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
