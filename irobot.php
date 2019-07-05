@@ -8,9 +8,9 @@
 <?php 
     set_time_limit(0);
     require_once '_config/mysqlDB.php';
-    $_REQUEST['accion'] = 1;
+    $_REQUEST['accion'] = 99;
     require_once 'wsdlClient.php';
-    $fe = new facturaElectronica();
+    $fe = new facturaElectronica(0);
     $db = new DBClass();
     set_time_limit(0);
     if (isset($_REQUEST['succ'])) {
@@ -125,7 +125,7 @@
             {
                 if (strpos($attachment['name'], '.xml') || strpos($attachment['filename'], '.xml') || strpos($attachment['attachment'], '.xml')) {
                     $salida = [];
-                    loadXML_FILE($attachment['attachment'],$salida,$db);
+                    $fe->loadXML_FILE($attachment['attachment'],$salida,$db);
                     print_r($salida);
                 }
             }

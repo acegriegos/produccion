@@ -225,13 +225,16 @@ echo '<tr>
     <td colspan="'.$colspan1.'"></td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="'.$colspan2.'">Sub-Total:</td>
+    <td width="50%" colspan="'.$colspan2.'">Gravado:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[9].' </td>
-  </tr>
-  <tr '.$ocultar.'>
-    <td width="50%" colspan="'.$colspan2.'">13% IV:</td>
-    <td width="50%" align="right"> '.$obj[15].$obj[5].' </td>
   </tr>';
+
+    if ($obj[8] > 0) {
+      echo '<tr '.$ocultar.'>
+      <td width="50%" colspan="'.$colspan2.'">Exento:</td>
+      <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
+    </tr>';
+    }
   
   if ($obj[6] > 0) {
     echo '<tr '.$ocultar.'>
@@ -242,17 +245,15 @@ echo '<tr>
 
   if ($obj[7] > 0) {
     echo  '<tr '.$ocultar.'>
-    <td width="50%" colspan="'.$colspan2.'">Flete:</td>
+    <td width="50%" colspan="'.$colspan2.'">Exonerado:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[7].' </td>
   </tr>';
   }
- 
-  if ($obj[8] > 0) {
-    echo '<tr '.$ocultar.'>
-    <td width="50%" colspan="'.$colspan2.'">Ajuste:</td>
-    <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
+
+  echo '<tr '.$ocultar.'>
+    <td width="50%" colspan="'.$colspan2.'">IVA:</td>
+    <td width="50%" align="right"> '.$obj[15].$obj[5].' </td>
   </tr>';
-  }
 
   echo '<tr '.$ocultar.'>
     <td width="50%" colspan="'.$colspan2.'">TOTAL GENERAL:  </td>

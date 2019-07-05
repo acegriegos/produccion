@@ -136,11 +136,9 @@
 
             </div>
             
-            <input type="hidden" id="fclientes">
-            <section class="upxml hide" xml="2" id="ffacturas">
-                <input type="hidden" class="zelda">
+            <section class="upxml hide" xml="2">
                 <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
-                <div class="upxml hide" xml="3">
+                <div>
                     <div class="shxml_head"></div>
                     <table style="margin-bottom: 3%">
                         <thead>
@@ -160,10 +158,10 @@
                 </div>
             </section>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="5">Aceptar</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="6">Aceptar Parcial</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide add mhacienda" modulo="factura" tp="3" varias="1" xml="3" dc="7">Rechazar</a>
+        <div class="modal-footer" id="faapr" idcompra="0">
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide msjh" xml="3" tipo="5">Aceptar</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide msjh" xml="3" tipo="6">Aceptar Parcial</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat hide msjh" xml="3" tipo="7">Rechazar</a>
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="ret-xml">Cancelar</a>
         </div>
     </div>

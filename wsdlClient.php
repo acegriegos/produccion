@@ -141,9 +141,10 @@
                 if (!file_exists('./assets/xml/'.$id)) {
                     $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
                 }else{
-                    $fe = new facturaElectronica();
+                    $fe = new facturaElectronica(0);
                     $db = new DBClass();
-                    $fe->loadXML_FILE($id,$salidam,$db);
+                    $xml = file_get_contents('./assets/xml/'.$id);
+                    $fe->loadXML_FILE($xml,$salida,$db);
                 }
 
                 echo json_encode($salida);
@@ -1018,10 +1019,10 @@
                 }
                 if ($idfact) {
 
-                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0)');
+                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
 
                     if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0)'.'\',\''.$iddet.'\')');
+                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
                         $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura R'];
                         //$db->ejecutar('call sp_rrollback('.$idfact.')');1
                         return false;
@@ -1029,8 +1030,8 @@
                 }
                 return false;
             }
-            $salida['clave'] = $inv_xml->Clave[0];
-            
+            $salida['clave'] = ((array)$inv_xml->Clave)[0];
+
             if (strlen($salida['clave']) != 50){
                 $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
                 return false;
@@ -1100,16 +1101,34 @@
             $fact['tipopago']  = (array) $inv_xml->MedioPago;
             $fact['tipopago']  = $fact['tipopago'][0];
 
+            $version = '4.2';
+
             $fact['moneda']    = (array) $inv_xml->ResumenFactura->CodigoMoneda;
-            $fact['moneda']    = $fact['moneda'][0];
-            $fact['divisa']    = (array) $inv_xml->ResumenFactura->TipoCambio;
-            $fact['divisa']    = isset($fact['divisa'][0]) ? $fact['divisa'][0] : 0;
-            $fact['divisa']    = $fact['divisa'] == 0 ? 1 : $fact['divisa'];
+        
+            if(!isset($fact['moneda'][0]))  { //4.2
+                $fact['moneda'] = (array) $inv_xml->ResumenFactura->CodigoTipoMoneda->CodigoMoneda;
+                $fact['moneda'] = $fact['moneda'][0];
+                $version = '4.3';
+            }
+            else
+                $fact['moneda']    = $fact['moneda'][0];
+
+            if($version == '4.3'){
+                $fact['divisa']    = (array) $inv_xml->ResumenFactura->CodigoTipoMoneda->TipoCambio;
+                $fact['divisa']    = isset($fact['divisa'][0]) ? $fact['divisa'][0] : 0;
+                $fact['divisa']    = $fact['divisa'] == 0 ? 1 : $fact['divisa'];
+            }else{
+                $fact['divisa']    = (array) $inv_xml->ResumenFactura->TipoCambio;
+                $fact['divisa']    = isset($fact['divisa'][0]) ? $fact['divisa'][0] : 0;
+                $fact['divisa']    = $fact['divisa'] == 0 ? 1 : $fact['divisa'];
+            }
 
             $fact['subtotal']  = (array) $inv_xml->ResumenFactura->TotalGravado;
             $fact['subtotal']  = $fact['subtotal'][0];
             $fact['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
             $fact['exento']    = isset($fact['exento'][0]) ? $fact['exento'][0] : 0;
+            $fact['exonerado']    = (array) $inv_xml->ResumenFactura->TotalExonerado;
+            $fact['exonerado']    = isset($fact['exento'][0]) ? $fact['exento'][0] : 0;
             $fact['descuento'] = (array) $inv_xml->ResumenFactura->TotalDescuentos;
             $fact['descuento'] = isset($fact['descuento'][0]) ? $fact['descuento'][0]: 0;
             $fact['impuesto']  = (array) $inv_xml->ResumenFactura->TotalImpuesto;
@@ -1118,14 +1137,14 @@
             $fact['cedula'] = $fact['cedula'][0];
             $_divisa = trim($fact['moneda']) != 'CRC' ? $fact['divisa'] : 1;
 
-            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.',0,0,'.$fact['plazo'].',"","'.$inv_xml->Clave.'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
+            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.','.$fact['exonerado']*$_divisa.',0,'.$fact['plazo'].',"","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
 
             if(isset($idfact->num_rows)){
                 $idfact = $idfact->fetch_all()[0][0];
                 $salida['ifactura'] = $idfact;
             }
             else{
-                $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"","'.$inv_xml->Clave.'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
+                $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
                 $salida = ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura'];
                 return false;
             }
@@ -1158,11 +1177,13 @@
                     $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
                     $dtarifa = isset($key->Impuesto->Tarifa) ? (array)$key->Impuesto->Tarifa : 0;
                     $dtarifa = $dtarifa == 0 ? $dtarifa : $dtarifa[0];
+                    $timv = isset($key->Impuesto->CodigoTarifa) ? ((array)$key->Impuesto->CodigoTarifa)[0] : 0;
+                    $pexo = isset($key->Impuesto->Exoneracion->MontoExoneracion) ? ((array)$key->Impuesto->Exoneracion->MontoExoneracion)[0] : 0; 
 
-                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.')');
+                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');
                     
                     if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0].','.$ddescuento.','.$dimpuesto.',"'.$vunidad.'",)'.'\',\''.$iddet.'\')');
+                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');
                         $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura'];
                         //$db->ejecutar('call sp_rrollback('.$idfact.')');
                         return false;
@@ -1434,13 +1455,14 @@
                         $sum_imp = 0;
                         if ($value[12] != '') {
                             
-                            $array_impuestos = explode(']', $value[12]);
+                            $obj = $value[12];//explode(']', $value[12]);
                             
-                            foreach ($array_impuestos as $obj) {
+                            // foreach ($array_impuestos as $obj) {
                                 $sub_array = explode(',', $obj);
+                              
                                 if (strlen($sub_array[0])) {
                                     
-                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> isset($sub_array[4]) ? $sub_array[4] : '08' ,'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
+                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> str_pad($sub_array[3], 2,0,STR_PAD_LEFT) ,'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
 
                                     if ($value[16] != ''){
                                         
@@ -1464,7 +1486,7 @@
                                     $this->sumaimpuestos += $sub_array[2];
                                     array_push($detalle, ['Impuesto' => $impuesto]);
                                 }
-                            }
+                            // }
 
                         }
 

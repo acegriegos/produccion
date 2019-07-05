@@ -197,8 +197,6 @@
                 <td colspan="3">
                   <table>
                     <tr>
-
-
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].$datos[9]; ?></span></td>
                     </tr>

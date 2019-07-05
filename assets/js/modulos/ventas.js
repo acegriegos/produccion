@@ -956,6 +956,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     var comision = $("#valores").data('elemento')['comision'];
     var tmpidmoneda = $("#valores").data('elemento')['moneda'];
     var tmpdivisa = $("#valores").data('elemento')['divisa'];
+    var vtimv = $("#valores").data('elemento')['timv'];
 
     $("#valores").removeData('elemento');
 
@@ -1049,7 +1050,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
                 break;
         }
 
-        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : 0,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs,iddesc:dcs['iddescuento'],vdescuento : dcs['descuento'],iva:isiva,isinventariado : inventariado,vcomision : comision,videxoneracion : vexo == 0 ? '' : $("#ffacturas .zelda").data('triforce')['videxoneracion']});
+        $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : 0,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs,iddesc:dcs['iddescuento'],vdescuento : dcs['descuento'],iva:isiva,isinventariado : inventariado,vcomision : comision,videxoneracion : vexo == 0 ? '' : $("#ffacturas .zelda").data('triforce')['videxoneracion'],timv : vtimv});
         if (parseInt($("#monedas option:selected").attr('dv')) != 1)
             $("#prec"+id).attr('base',precio)
        
@@ -1079,7 +1080,7 @@ function totalizar(){
     var gravado = exento = exonerado = 0;
     var desc = $("#vdescuentop").val();
 
-    var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv  = rimv = iva_imp = geimv = simv = dunit =0;
+    var vidlinea = vid = cantidad = precio = decindv = descmax = desct = dimv = timv  = rimv = iva_imp = geimv = simv = dunit =0;
     var divisa =parseFloat($("#monedas option:selected").attr('dv'));
     var exov = cexov = orig = 0;
 
@@ -1131,6 +1132,7 @@ function totalizar(){
             // if ($("#fd"+vidlinea).data('triforce')['strimp'].indexOf(','+$(this).data('valores')['vid']+',') >= 0) {
 
                 eimv = $("#fd"+vidlinea).data('triforce')['exoneracion'];
+                timv = $("#fd"+vidlinea).data('triforce')['timv'];
                 rimv = eimv;
                 iimv = $(this).data('valores')['vid'];
                 var simv = dimv = dimve = oimv = 0
@@ -1147,7 +1149,7 @@ function totalizar(){
 
                     dimve = parseFloat(cexov*(rimv/100)).toFixed(5);
                     $("#fd"+vidlinea).data('triforce')['vimv'] = parseFloat(dimv)+parseFloat(dimve);
-                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+eimv+','+(parseFloat(simv+dimve)).toFixed(5)+','+eimv+']';
+                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+eimv+','+(parseFloat(simv+dimve)).toFixed(5)+','+timv;
 
                     tmpdesc = tmpdesc-cexov;
 
@@ -1178,7 +1180,7 @@ function totalizar(){
                     impuesto += parseFloat(dimv);
 
                     $("#fd"+vidlinea).data('triforce')['vimv'] = parseFloat(dimv).toFixed(5);
-                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+eimv+','+(parseFloat(dimv)+parseFloat(dimve))+','+eimv+']';
+                    $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = iimv+','+eimv+','+(parseFloat(dimv)+parseFloat(dimve))+','+timv;
 
                     var im_variable = parseFloat($("#imv_"+iimv).html().replace(/,/g,''))+parseFloat(dimv)
                     $("#imv_"+iimv).html((im_variable).formatMoney(2,'.',','));
@@ -1495,7 +1497,7 @@ function cargarProducto(kbrota,elemento) {
         if($("#iva").is(":checked") && $("#iva:visible").length)
             cod[3] = parseFloat(cod[3])/((parseFloat(cod[8])/100)+1);
 
-        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25]}) //,imp: cod[6]
+        $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25],timv:cod[26]}) //,imp: cod[6]
 
         if (param==2){
              cod[3] = cod[3]/(divisa == 1 ? 1 : parseFloat(cod[25]));

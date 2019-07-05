@@ -138,13 +138,8 @@
           </thead>
           <tbody id="ftbody">
             <?php 
-            $grabado = $exento = 0; 
-            foreach ($transaccion as $obj) {
-
-              if ($obj[28] > 0) 
-                $grabado += str_replace(',', '', $obj[20])*$obj[18];
-              else
-                $exento += str_replace(',', '', $obj[20])*$obj[18];?>
+           
+            foreach ($transaccion as $obj) {?>
 
               <tr class="tr" >
                 <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
@@ -163,7 +158,7 @@
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". Monto Autorizado: ".$exoneracion[4].". Porcentaje de Compra Autorizado: ".$exoneracion[5]."% </span><br><br>";
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.".</span><br><br>";
             } ?>
             * Producto Exento
             <br>
@@ -201,17 +196,19 @@
                 </td>
                 <td colspan="3" style="padding-bottom: 0;">
                   <table>
-
                     <tr>
-
-
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].$datos[9]; ?></span></td>
                     </tr>
 
                     <tr>
                       <td style="padding: 0px" class="left-align sinborde margen">Exento</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[8]; ?></span></td>
+                    </tr>
+
+                     <tr>
+                      <td style="padding: 0px" class="left-align sinborde margen">Exonerado</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[7]; ?></span></td>
                     </tr>
 
                     <tr>
@@ -220,15 +217,16 @@
                     </tr>
 
                     <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Imv</td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">IVA</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
                     </tr>
 
                     <tr>
-
                       <td  class="left-align sinborde " style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
-                      <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+                      <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b>
+                      </td>
                     </tr>
+
                   </table>
                 </td>
               </tr>
@@ -442,13 +440,7 @@
           </thead>
           <tbody id="ftbody">
             <?php 
-            $grabado = $exento = 0; 
-            foreach ($transaccion as $obj) {
-
-              if ($obj[28] > 0) 
-                $grabado += str_replace(',', '', $obj[20])*$obj[18];
-              else
-                $exento += str_replace(',', '', $obj[20])*$obj[18];?>
+            foreach ($transaccion as $obj) {?>
 
               <tr class="tr" >
                 <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
@@ -467,7 +459,7 @@
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". Monto Autorizado: ".$exoneracion[4].". Porcentaje de Compra Autorizado: ".$exoneracion[5]."% </span><br><br>";
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". </span><br><br>";
             } ?>
             * Producto Exento
             <br>
@@ -529,10 +521,10 @@
                     </tr>
 
                     <tr>
-
                       <td  class="left-align sinborde " style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
                       <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
                     </tr>
+                    
                   </table>
                 </td>
               </tr>
@@ -713,13 +705,7 @@
           </thead>
           <tbody id="ftbody">
             <?php 
-            $grabado = $exento = 0; 
-            foreach ($transaccion as $obj) {
-
-              if ($obj[28] > 0) 
-                $grabado += str_replace(',', '', $obj[20])*$obj[18];
-              else
-                $exento += str_replace(',', '', $obj[20])*$obj[18];?>
+            foreach ($transaccion as $obj) { ?>
 
               <tr class="tr" >
                 <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
@@ -738,7 +724,7 @@
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". Monto Autorizado: ".$exoneracion[4].". Porcentaje de Compra Autorizado: ".$exoneracion[5]."% </span><br><br>";
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". </span><br><br>";
             } ?>
             * Producto Exento
             <br>
@@ -776,17 +762,19 @@
                 </td>
                 <td colspan="3" style="padding-bottom: 0;">
                   <table>
-
-                    <tr>
-
-
+<tr>
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].$datos[9]; ?></span></td>
                     </tr>
 
                     <tr>
                       <td style="padding: 0px" class="left-align sinborde margen">Exento</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[8]; ?></span></td>
+                    </tr>
+
+                     <tr>
+                      <td style="padding: 0px" class="left-align sinborde margen">Exonerado</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[7]; ?></span></td>
                     </tr>
 
                     <tr>
@@ -795,15 +783,16 @@
                     </tr>
 
                     <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Imv</td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">IVA</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
                     </tr>
-
+                    
                     <tr>
-
                       <td  class="left-align sinborde " style="padding:0px;border-radius: 0px !important; "><b>TOTAL</b></td>
-                      <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b></td>
+                      <td  class="right-align sinborde " style="border-radius: 0px !important; padding:0px !important;"><b><span id="ftotal"><?php echo $datos[15].$datos[10]; ?></span></b>
+                      </td>
                     </tr>
+                    
                   </table>
                 </td>
               </tr>
