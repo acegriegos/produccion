@@ -27,7 +27,7 @@ $(function(){
       default:
             break;
     }
-  $(".excel").data('parametros')['vista'] = '0,1,2,12,3,4,5,6,7,8,11,9';
+  $(".excel").data('parametros')['vista'] = '0,1,2,12,3,4,5,6,7,8,11,9,15,16,17';
   $(".excel").data('parametros')['conteo'] = 1;
   $(".excel").data('parametros')['suma'] = ',3,4,5,6,7,8,';
   $(".excel").data('parametros')['original'] = 1;

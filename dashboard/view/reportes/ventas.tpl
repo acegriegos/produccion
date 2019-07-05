@@ -39,7 +39,6 @@
     
     <small id="leyenda"></small>
     F: Factura, T: Tickete<br>
-    [A]: Anulada, [C]: Cancelada, [P]: Pendiente
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
