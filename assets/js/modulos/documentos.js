@@ -85,7 +85,7 @@ $(document).on("click",".msjh",function(){
 
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado,0,0,0);
     var crrprov = getDatos('group_concat(correo)',17,'idtabla = 2 and idfila = (select idcliente from facturas where id ='+idcomp+') group by idfila',0,0,0);
-    crrprov = crrprov[0].length ? '' : crrprov[0][0][0];
+    crrprov = crrprov[0].length ? crrprov[0][0][0] : '';
     var titulo = parseInt(tstado) == 5 ? 'Aceptación' : paseInt(tstado) == 6 ? 'Acep. Parcial' : 'Rechazo';
 
     if(!idfact.succed){
