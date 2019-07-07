@@ -1498,7 +1498,7 @@ function cargarProducto(kbrota,elemento) {
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
 
-        if($("#iva").is(":checked") && $("#iva:visible").length)
+        if(!$("#iva").is(":checked") && $("#iva:visible").length)
             cod[3] = parseFloat(cod[3])/((parseFloat(cod[8])/100)+1);
         
 

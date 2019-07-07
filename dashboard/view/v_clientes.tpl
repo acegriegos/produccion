@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.42">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.48">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -400,6 +400,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.1.0.42"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.1.0.48"></script>
 </body>
 </html>

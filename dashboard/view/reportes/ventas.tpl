@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Ventas Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.1.0.42">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.1.0.48">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -39,7 +39,6 @@
     
     <small id="leyenda"></small>
     F: Factura, T: Tickete<br>
-    [A]: Anulada, [C]: Cancelada, [P]: Pendiente
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
@@ -59,8 +58,8 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.1.0.42"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.1.0.42"></script>
-  <script src="../assets/libs/jspdf/jspdf.js?v=10.1.0.42"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.1.0.48"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.1.0.48"></script>
+  <script src="../assets/libs/jspdf/jspdf.js?v=10.1.0.48"></script>
 </body>
 </html>
