@@ -181,7 +181,7 @@
                 <link rel="icon" type="image/png" href="assets/img/favicon.ico">
                 <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.0.0.29">
                 <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/mdi-out.min.css?v=10.0.0.29">
-                <title>Logintech</title>
+                <title>APSY</title>
             </head>
             <body>
             
@@ -624,7 +624,7 @@
             $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : '';
             $salida = [];
 
-            $source = "http://sistema.logintechcr.com/wsdlServer.php";
+            $source = "http://sistema.apsycr.com/wsdlServer.php";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

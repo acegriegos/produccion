@@ -965,7 +965,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     if(param.toString().match(new RegExp(/[1345678]/i)))
         $("[for=iva]").addClass('hide');
     else{
-        vexo = $("#vimpiva").attr('num')
+        vexo = $("#vimpiva option:selected").attr('num')
     }
 
     if (isiva && vexo > 0){
@@ -1133,7 +1133,7 @@ function totalizar(){
 
                 eimv = $("#fd"+vidlinea).data('triforce')['exoneracion'];
                 timv = $("#fd"+vidlinea).data('triforce')['timv'];
-                rimv = eimv;
+                rimv = $("#vimpiva:visible").length ? $("#vimpiva").attr('num') : eimv;
                 iimv = $(this).data('valores')['vid'];
                 var simv = dimv = dimve = oimv = 0
 
@@ -1494,7 +1494,7 @@ function cargarProducto(kbrota,elemento) {
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
 
-        if(!$("#iva").is(":checked") && $("#iva:visible").length)
+        if($("#iva").is(":checked") && $("#iva:visible").length)
             cod[3] = parseFloat(cod[3])/((parseFloat(cod[8])/100)+1);
 
         $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25],timv:cod[26]}) //,imp: cod[6]
@@ -1598,7 +1598,8 @@ function endCargarProducto(exo,cod,pesaje){
             }
         }else{
             if (param == 2 || param == 9) {
-
+                $("#iva").prop('checked',false);
+                $("#vimpiva").val($("#valores").data("elemento")['timv']).material_select('update');
                 if (parseInt(pesaje)){
                     $("._uni .select-wrapper .select-dropdown").click();
                     $("._uni .select-wrapper .select-dropdown").addClass('active');

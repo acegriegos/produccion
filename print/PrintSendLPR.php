@@ -14,7 +14,7 @@ class PrintSendLPR extends PrintSend{
 
     private $host = "localhost";
     private $port = "515";
-    private $timeout = "20"; //20 secs
+    private $timeout = "0.5"; //20 secs
     private $errNo;
     private $errStr;
 
