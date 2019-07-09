@@ -1083,7 +1083,6 @@
 
             $fecha = (array) $inv_xml->FechaEmision;
             $fecha = date('Y-m-d H:i:s',strtotime($fecha[0]));
-            $fechasistema =  date('Y/m/d H:i:s',strtotime($fecha[0]));
 
             $fact['tipoventa'] = (array) $inv_xml->CondicionVenta;
             $fact['tipoventa'] = $fact['tipoventa'][0];
@@ -1130,14 +1129,14 @@
             $fact['cedula'] = $fact['cedula'][0];
             $_divisa = trim($fact['moneda']) != 'CRC' ? $fact['divisa'] : 1;
 
-            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.','.$fact['exonerado']*$_divisa.',0,'.$fact['plazo'].',"","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
+            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.','.$fact['exonerado']*$_divisa.',0,'.$fact['plazo'].',"","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fecha.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
 
             if(isset($idfact->num_rows)){
                 $idfact = $idfact->fetch_all()[0][0];
                 $salida['ifactura'] = $idfact;
             }
             else{
-                $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fechasistema.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
+                $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fecha.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
                 $salida = ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura'];
                 return false;
             }
