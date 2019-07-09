@@ -51,7 +51,7 @@
         $ced = $ced->fetch_all();
         echo '<hr>'.$ced[0][0].'<hr>';
         $_SESSION['IMPRESA'] = $ced[0][0];
-                print_r(compras($config[18],$ced[0][1],0,$log,$salida));
+                //print_r(compras($config[18],$ced[0][1],0,$log,$salida));
         echo '<br>';
             }
         }
@@ -264,7 +264,7 @@
 
 
     $sucursal = $log->kamehameha('cedula,isprueba',39,'id=@@impresa')[0];
-    compras($config[18],$sucursal[0],$sucursal[1],$log,$salida);
+    //compras($config[18],$sucursal[0],$sucursal[1],$log,$salida);
     echo json_encode($salida);
     unset($_SESSION['AUTO']);
 }//NORMAL

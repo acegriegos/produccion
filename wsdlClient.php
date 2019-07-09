@@ -991,10 +991,6 @@
                 }
 
                 $salida['clave'] = $inv_xml['Clave'];
-                $f1 = strpos($_xml, '<xades:SigningTime>');
-                $f2 = strpos($_xml, '</xades:SigningTime>');
-                $f2 = $f2 - $f1-19;
-                $fecha = str_replace("Z","",str_replace('T', " ", substr($_xml, $f1+19,$f2)));
 
                 $sub = $inv_xml['TotalFactura']-$inv_xml['MontoTotalImpuesto'];
                 $_exo = $inv_xml['TotalFactura']-$sub-$inv_xml['MontoTotalImpuesto'];
@@ -1007,7 +1003,7 @@
                     return false;
                 }
 
-                $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.','.$_exo.',0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","","'.$fecha.'",1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')');
+                $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.','.$_exo.',0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","",now(),1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')');
                 if(isset($idfact->num_rows)){
                     $idfact = $idfact->fetch_all()[0][0];
                     $salida['ifactura'] = $idfact;
@@ -1030,7 +1026,8 @@
                 }
                 return false;
             }
-            $salida['clave'] = ((array)$inv_xml->Clave)[0];
+            $salida['clave'] = (array)$inv_xml->Clave;
+            $salida['clave'] = $inv_xml->Clave[0];
 
             if (strlen($salida['clave']) != 50){
                 $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
@@ -1085,12 +1082,8 @@
 
 
             $fecha = (array) $inv_xml->FechaEmision;
-            $fecha = $fecha[0];
-            if (strpos($fecha, '.')) {
-                $fecha = substr($fecha, 0,strpos($fecha, '.'));
-            }
-            $fecha = strlen($fecha) > 19 ? strtotime(substr(str_replace('T', ' ', $fecha),0,-6)) : strtotime(str_replace('T', ' ', $fecha));
-            $fechasistema =  date('Y/m/d H:i:s',$fecha);
+            $fecha = date('Y-m-d H:i:s',strtotime($fecha[0]));
+            $fechasistema =  date('Y/m/d H:i:s',strtotime($fecha[0]));
 
             $fact['tipoventa'] = (array) $inv_xml->CondicionVenta;
             $fact['tipoventa'] = $fact['tipoventa'][0];
@@ -1124,7 +1117,7 @@
             }
 
             $fact['subtotal']  = (array) $inv_xml->ResumenFactura->TotalGravado;
-            $fact['subtotal']  = $fact['subtotal'][0];
+            $fact['subtotal']  = isset($fact['subtotal'][0]) ? $fact['subtotal'][0] : 0;
             $fact['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
             $fact['exento']    = isset($fact['exento'][0]) ? $fact['exento'][0] : 0;
             $fact['exonerado']    = (array) $inv_xml->ResumenFactura->TotalExonerado;
@@ -1132,7 +1125,7 @@
             $fact['descuento'] = (array) $inv_xml->ResumenFactura->TotalDescuentos;
             $fact['descuento'] = isset($fact['descuento'][0]) ? $fact['descuento'][0]: 0;
             $fact['impuesto']  = (array) $inv_xml->ResumenFactura->TotalImpuesto;
-            $fact['impuesto']  = $fact['impuesto'][0];
+            $fact['impuesto']  = isset($fact['impuesto'][0]) ? $fact['impuesto'][0] : 0 ;
             $fact['cedula'] = (array) $inv_xml->Receptor->Identificacion->Numero;
             $fact['cedula'] = $fact['cedula'][0];
             $_divisa = trim($fact['moneda']) != 'CRC' ? $fact['divisa'] : 1;
@@ -1177,13 +1170,15 @@
                     $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
                     $dtarifa = isset($key->Impuesto->Tarifa) ? (array)$key->Impuesto->Tarifa : 0;
                     $dtarifa = $dtarifa == 0 ? $dtarifa : $dtarifa[0];
-                    $timv = isset($key->Impuesto->CodigoTarifa) ? ((array)$key->Impuesto->CodigoTarifa)[0] : 0;
-                    $pexo = isset($key->Impuesto->Exoneracion->MontoExoneracion) ? ((array)$key->Impuesto->Exoneracion->MontoExoneracion)[0] : 0; 
+                    $timv = isset($key->Impuesto->CodigoTarifa) ? (array)$key->Impuesto->CodigoTarifa : 0;
+                    $timv = is_array($timv) ? $timv[0] : $timv;
+                    $pexo = isset($key->Impuesto->Exoneracion->MontoExoneracion) ? (array)$key->Impuesto->Exoneracion->MontoExoneracion : 0;
+                    $pexo = is_array($pexo) ? $pexo[0] : $pexo; 
 
                     $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');
                     
                     if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle[0].'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');
+                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.htmlspecialchars($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');
                         $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura'];
                         //$db->ejecutar('call sp_rrollback('.$idfact.')');
                         return false;
