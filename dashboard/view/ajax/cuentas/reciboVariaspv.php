@@ -171,9 +171,9 @@ echo '<hr><b>SALDO CLIENTE:</b> '.$obj[6].$obj[11].'
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.48"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.48"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.48"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.50"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.50"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.50"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
