@@ -154,7 +154,6 @@ $(document).on("click",".status",function(){
     }
 
 	$(".status").attr('disabled',true)
-	$(this).removeClass('mdi-information-outline').addClass('mdi-spin mdi-loading')
 	var vid = $(this).attr('id').substr(1);
 	switch(parseInt($("input[name=tventa]:checked").attr('id').substr(2))){
 		case 2:
@@ -165,6 +164,7 @@ $(document).on("click",".status",function(){
 		case 6:
 		case 7:
 			vid = '^'+vid;
+            exit(0)
 			break;
         case 8:
             vid = '!'+vid;
@@ -172,7 +172,7 @@ $(document).on("click",".status",function(){
 		default:
 			break;
 	}
-
+    $(this).removeClass('mdi-information-outline').addClass('mdi-spin mdi-loading')
 	$.get('../wsdlClient.php',{accion:4,id:vid})
 		.done(function(data){
 			var ex;
@@ -268,6 +268,7 @@ $(document).on("click",".status",function(){
             $("#e"+vid).css('color',color);
 		});
 });
+
 $(document).on("click",".shcompra",function(){
     var dtcompra = getDatos('comodin,format(cantidad,2),format(precio,2),format(precio*cantidad+imv-descuento,2)',263,'idfactura = '+$(this).parent().parent().attr('id').substr(2),0,0,0);
     $("#modal-shcompra").modal('open');

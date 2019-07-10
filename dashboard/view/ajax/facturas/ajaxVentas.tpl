@@ -587,7 +587,11 @@
         </tbody>  
 
         <tfoot> 
-          
+          <tr class="hide rest">
+            <td>10% SERV.:</td>
+            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0">0.00</span></b></td>
+          </tr>
+
           <tr style="border-top:1px solid #E9E9E9">
             <td><b>TOTAL:</b></td>
             <td style="float: right;"><b><span class="moneda"></span><span id="tot" type="html" value="0">0.00</span></b>
@@ -604,7 +608,7 @@
               <label for="p_v" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" data-position="left">Punto Venta</label>
           </div>
 
-          <div class="col s12 m6 l6 hide">
+          <div class="col s12 m6 l6 rest hide">
               <input type="checkbox" id="impm" checked disabled />
               <label for="impm" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para Acreditar el Impuesto de Mesero" data-position="left">Imp. Mesero</label>
           </div>

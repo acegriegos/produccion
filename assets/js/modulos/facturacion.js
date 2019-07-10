@@ -869,10 +869,10 @@ function cargarFactura(vidp,asoc){
     var vfacturap = arr('login',6,'',163,vidp+',\"'+asoc+'\"',0,1,$("#fdetallefacturas"));
     idext = vidp;
     if($("#impm:visible").length){
-        $("#codp").val('S-500').blur();
-        var e = jQuery.Event("keyup");
-            e.which = 13;
-            $("#cantp").focus().trigger(e);
+        var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
+        addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
+        $("#ffacturas .zelda").data('triforce')['idline'] = parseInt($("#ffacturas .zelda").data('triforce')['idline'])+1;
+        $("#fd"+$("#ffacturas .zelda").data('triforce')['idline']).addClass('hide')
     }
     Materialize.updateTextFields();
 }
