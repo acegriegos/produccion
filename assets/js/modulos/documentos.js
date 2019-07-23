@@ -2,6 +2,7 @@ Dropzone.autoDiscover = false;
 var myDropzone;
 var estado;
 var config;
+var opcompras = '<option value="1">Compra</option> <option value="2">Gasto</option> <option value="3">Gasto No Diferido</option> <option value="4">Bien de Capital</option> <option value="5">Proporcionalidad</option>';
 
 $(function(){
     config = getDatos('',42,'@@impresa',0,0)[0][0];
@@ -23,7 +24,7 @@ $(function(){
             type: "post",
             data: {accion:15,arreglo:1,server:config[18],ced:sucursal[0],isp:sucursal[1]}
         })
-            .done(function(res){
+            .done(function(res){  
                 var str = '';
                 var tabla = $("#data-table-compras").DataTable();   
                 tabla.destroy();
@@ -75,29 +76,153 @@ $(function(){
 $(document).on("click",".msjh",function(){
     var tstado = $(this).attr('tipo');
 
+    if(parseInt($("#continuar").val()) == 0){
+        var motiv = '';
+        $("#msjreceptor").val('');
+        $("#credito").val(0);
+        $("#gasto").val(0);
+        $("#tipo").val(1);
+
+        var _gasto = _credito  = tcgeneral =  0;
+
+        if ($(this).attr('xml') == undefined) {
+            var idcomp = $(this).parent().parent().attr('id').substr(2);
+            var mdatos = getDatos('',289,'@@impresa,'+idcomp+',1',0,0,0);
+            tcgeneral = parseInt($(".tcompra option:selected").val());
+            /*1=>COMPRA 100%
+              2=>COMPRA PARCIAL
+              3=>BIEN DE CAPITAL
+              4=>GASTO
+              5=>PROPORCIONALIDAD*/
+            switch (tcgeneral) {
+                case 1:
+                    if(parseFloat($("#credito").val()) != parseFloat($("#gasto").val()))
+                        tcgeneral = 2;
+                    break;
+                case 2:
+                    mdatos[0][0][0] = 0;
+                    mdatos[0][0][1] = mdatos[0][0][2];
+                    tcgeneral = 4;
+                    break;
+                case 3:
+                    mdatos[0][0][0] = 0;
+                    mdatos[0][0][1] = 0;
+                    tcgeneral = 4;
+                    break;
+                case 4:
+                    tcgeneral = 3;
+                    break;
+                case 5:
+                    mdatos[0][0][0] = 0;
+                    mdatos[0][0][1] = 0;
+                    break;
+                default:
+                    break;
+            }
+        
+            _credito = parseFloat(mdatos[0][0][0]);
+            _gasto = parseFloat(mdatos[0][0][1]);
+
+        }else{
+            var idcomp = $(this).parent().attr('idcompra')
+            var mdatos = getDatos('',289,'@@impresa,'+idcomp+',2',0,0,0);
+
+            if($(".tcompramg:visible").length){//VIENDO LISTA
+                tcgeneral = parseInt($(".tcompramg option:selected").val());
+            }
+            else
+                tcgeneral = parseInt($(".tcompramg option:selected").val());
+            /*1=>COMPRA 100%
+              2=>COMPRA PARCIAL
+              3=>BIEN DE CAPITAL
+              4=>GASTO
+              5=>PROPORCIONALIDAD*/
+            switch (tcgeneral) {
+                case 1:
+                    if(parseFloat($("#credito").val()) != parseFloat($("#gasto").val()))
+                        tcgeneral = 2;
+                    break;
+                case 2:
+                    mdatos[0][0][0] = 0;
+                    mdatos[0][0][1] = mdatos[0][0][2];
+                    tcgeneral = 4;
+                    break;
+                case 3:
+                    mdatos[0][0][0] = 0;
+                    mdatos[0][0][1] = 0;
+                    tcgeneral = 4;
+                    break;
+                case 4:
+                    tcgeneral = 3;
+                    break;
+                case 5:
+                    mdatos[0][0][0] = 0;
+                    mdatos[0][0][1] = 0;
+                    break;
+                default:
+                    break;
+            }
+        
+            _credito = parseFloat(mdatos[0][0][0]);
+            _gasto = parseFloat(mdatos[0][0][1]);
+        }
+
+        $("#gasto").val(_gasto);
+        $("#credito").val(_credito);
+        $("#tipo").val(tcgeneral);
+
+        if(parseInt(tstado) != 5)
+            motiv = 'Motivo:<br><input type="text" id="motivoa" maxlength="160"/><br>';
+
+        if(!$("#mensaje:visible").length){
+            var $toastContent = $('<span id="mensaje" >'+motiv+'<small>Crédito IVA Aplicar: '+parseFloat($("#credito").val()).formatMoney(2,'.',',')+'</small> <br> <small>Gasto Aplicar: '+parseFloat($("#gasto").val()).formatMoney(2,'.',',')+'</small> <br> <a class="btn green" id="arecep">Aceptar</a> <a class="btn red" id="erecep">Cancelar</a></span> </span>');
+            Materialize.toast($toastContent);
+        }
+        if(motiv != '')
+            $("#motivoa").focus()
+        $(this).attr('este',1);
+
+        $("#arecep").click(function(){
+            $("#continuar").val(1);
+            $("#msjreceptor").val($("#motivoa").val());
+            $("#mensaje").parent().remove();
+            $('[este=1]').click();
+            $('[este=1]').removeAttr('este');
+        });
+
+        $("#erecep").click(function(){
+            $("#continuar").val(0);
+            $("#mensaje").parent().remove();
+            $('[este=1]').removeAttr('este');
+        });
+        return false;
+    }
+    $("#continuar").val(0);
+
     if ($(this).attr('xml') == undefined) {
-        var idcomp = $(this).parent().parent().attr('id').substr(2)
+        var idcomp = $(this).parent().parent().attr('id').substr(2);
     }else{
        var idcomp = getDatos('',278,$(this).parent().attr('idcompra'),0,0,0)
-       console.log(idcomp)
        idcomp = idcomp[0][0][0];
     }
 
-    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado,0,0,0);
-    var crrprov = getDatos('group_concat(correo)',17,'idtabla = 2 and idfila = (select idcliente from facturas where id ='+idcomp+') group by idfila',0,0,0);
+    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+$("#msjreceptor").val()+'",'+$("#tipo").val()+','+$("#credito").val()+','+$("#gasto").val(),0,0,0);
+    var crrprov = getDatos('correo',264,'vid = (select idcliente from tmpcompras where id ='+idcomp+')',0,0,0);
+
     crrprov = crrprov[0].length ? crrprov[0][0][0] : '';
-    var titulo = parseInt(tstado) == 5 ? 'Aceptación' : paseInt(tstado) == 6 ? 'Acep. Parcial' : 'Rechazo';
+    var titulo = parseInt(tstado) == 5 ? 'Aceptación' : parseInt(tstado) == 6 ? 'Acep. Parcial' : 'Rechazo';
 
     if(!idfact.succed){
         Materialize.toast(idfact[0]['ERROR'],4000,'red');
         $(this).parent().parent().remove();
     }else{
+
         var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent,5000);
         var factura = getDatos('consecutivo,datediff(curdate(),fecha)',64,'id = '+idfact[0][0][0],0,0)[0][0];
         var tlimit = parseInt(factura[1]);
 
-        if(tlimit <= 38)
+        if(tlimit <= 36)
             sendFE('^'+idfact[0][0][0],crrprov,64,titulo);
 
         if($(this).attr('xml') == undefined){
@@ -143,6 +268,10 @@ $(document).on("click",".msjh",function(){
 
 });
 
+function msjh(){
+
+}
+
 $(document).on("click",".status",function(){
 	if ($(this).is("[disabled]")) {
         event.preventDefault();
@@ -164,7 +293,7 @@ $(document).on("click",".status",function(){
 		case 6:
 		case 7:
 			vid = '^'+vid;
-            exit(0)
+            return false;
 			break;
         case 8:
             vid = '!'+vid;
@@ -209,13 +338,10 @@ $(document).on("click",".status",function(){
                         colort = 'yellow'
 						break;
 					case 'Sin Subir':
-						var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-						Materialize.toast($toastContent,5000);
-						sendFE(vid,);
-                        color = 'blue';
-                        state = 2;
-                        msj = 'Procesando Documento Electrónico';
+                        msj = 'Sin Subir';
                         colort = 'blue';
+                        color = 'blue';
+                        state = 7;
 						break;
 					case 'Sin Internet':
 						color = 'blue';
@@ -270,12 +396,13 @@ $(document).on("click",".status",function(){
 });
 
 $(document).on("click",".shcompra",function(){
-    var dtcompra = getDatos('comodin,format(cantidad,2),format(precio,2),format(precio*cantidad+imv-descuento,2)',263,'idfactura = '+$(this).parent().parent().attr('id').substr(2),0,0,0);
+    var dtcompra = getDatos('format(cantidad,2),idunidad,comodin,format(descuento,2),format(idpaquete,2),format(idimpuestos,2),format((precio*cantidad)+(imv*(1-(idpaquete/100)))-descuento,2) as total',263,'idfactura = '+$(this).parent().parent().attr('id').substr(2),0,0,0);
     $("#modal-shcompra").modal('open');
     $("#bdtompras").html();
+
     var str = '';
     for (var i = 0; i < dtcompra[0].length; i++) {
-        str += '<tr><td>'+dtcompra[0][i][0]+'</td><td>'+dtcompra[0][i][1]+'</td><td>'+dtcompra[0][i][2]+'</td><td>'+dtcompra[0][i][3]+'</td></tr>';
+        str += '<tr> <td class="hide"><select class="browser-default tcompraa">'+opcompras+'</select></td> <td>'+dtcompra[0][i][0]+'</td><td>'+dtcompra[0][i][1]+'</td><td>'+dtcompra[0][i][2]+'</td><td>'+dtcompra[0][i][3]+'</td> <td>'+dtcompra[0][i][4]+'</td> <td>'+dtcompra[0][i][5]+'</td> <td>'+dtcompra[0][i][6]+'</td></tr>';
     }
     $("#bdtompras").html(str);
 })
@@ -312,12 +439,20 @@ function removeHacienda(file){
 
 function xmlCargar(file,response){
 	if(response == ''){
-		$.get('../wsdlClient.php',{accion:10,id:file['name'],hclave:$("#myclave").val()})
+        var mced = getDatos('replace(cedula,"-","")',39,'id = @@impresa',0,0,0)[0][0][0];
+
+		$.get('../wsdlClient.php',{accion:10,id:file['name'],hclave:$("#myclave").val(),ced:mced})
 			.done(function(data){
 				var p;
 				$(".iloop").hide();
 				try{
 					p = JSON.parse(data);
+
+                    if(!p.succed){
+                        Materialize.toast(p['ERROR'],4000,'red');
+                        return false;
+                    }
+                    p['clave'] = p['clave'].length == 50 ? p['clave'] : p['clave'][0]; 
 					var factura = getDatos('',287,p['clave'],0,0,0);
 
                     if(factura[0].length){
@@ -328,25 +463,27 @@ function xmlCargar(file,response){
                                 break;
                             case 1:
                                 $("[xml=3]").removeClass('hide').removeAttr('disabled');
-                                $("#mha").html(factura[0][0][1]+', '+factura[0][0][2]+'<br>Impuesto: '+parseFloat(factura[0][0][3]).formatMoney(2,'.',',')+'<br>Total: '+parseFloat(factura[0][0][4]).formatMoney(2,'.',','));
+                                $("#mha").html(factura[0][0][1]+', '+factura[0][0][2]+'<br>Impuesto: '+parseFloat(factura[0][0][3]).formatMoney(2,'.',',')+'<br>Total: '+parseFloat(factura[0][0][4]).formatMoney(2,'.',',')+'<br><select class="browser-default tcompraag" style="color:black">'+opcompras+'</select>');
                                 $("#faapr").attr('idcompra',factura[0][0][21]);
                                 break;
+                            /*case 2:*/
                             case 2:
                                 $("[xml=2]").removeClass('hide');
                                 $("[xml=1]").addClass('hide');
                                 $("[xml=4]").addClass('hide');
 
-                                $(".shxml_head").html('<b>Factura: </b>'+p['clave'].substr(21,20)+', Fecha: '+factura[0][0][5]+', Tipo Venta: '+factura[0][0][6]+', Tipo Pago: '+factura[0][0][7]+', Tipo Cambio: '+factura[0][0][8]+'<br><b>Emisor: </b>'+factura[0][0][1]+', Ced.: '+factura[0][0][2]+', Correo: '+factura[0][0][9]+'<input type="checkbox" name="icompra" id="invcompra"> <label style="float:right    " for="invcompra">Incluir al Inventario</label>');
+                                $(".shxml_head").html('<b>Factura: </b>'+p['clave'].substr(21,20)+', <b>Fecha:</b> '+factura[0][0][5]+', <b>Tipo Venta:</b> '+factura[0][0][6]+', <b>Tipo Pago:</b> '+factura[0][0][7]+', <b>Tipo Cambio:</b> '+factura[0][0][8]+'<br><b>Emisor:</b> </b>'+factura[0][0][1]+', <b>Ced.:</b> '+factura[0][0][2]+', <b>Correo:</b> '+factura[0][0][9]+'<input type="checkbox" name="icompra" id="invcompra"> <label style="float:right" for="invcompra" class="hide">Incluir al Inventario</label> <div class="row"><label class="col s2"><b>TIPO DE COMPRA</b></label><select class="browser-default tcompramg col s10">'+opcompras+'</select></div>');
 
                                 var str = '';
+                                
 
                                 for (var i = 0; i < factura[0].length; i++) {
-                                    str += '<tr class="ciclos" id="fd'+i+'"> <td><input type="checkbox" name="isvalid" id="valid'+i+'" checked><label for="valid'+i+'"></label></td> <td>'+factura[0][i][10]+'</td><td>'+factura[0][i][11]+'</td><td>'+factura[0][i][12]+'</td><td style="text-align:right;">'+parseFloat(factura[0][i][13]).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(factura[0][i][14]).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(factura[0][i][15]).formatMoney(2,'.',',')+'</td></tr>';
+                                    str += '<tr class="ciclos" id="fd'+i+'"> <td class="hide"><select class="browser-default tcompram">'+opcompras+'</select></td> <td>'+factura[0][i][10]+'</td><td>'+factura[0][i][11]+'</td><td>'+factura[0][i][12]+'</td><td style="text-align:right;">'+parseFloat(factura[0][i][13]).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(factura[0][i][22]).formatMoney(2,'.',',')+'</td><td style="text-align:center;">'+parseFloat(factura[0][i][14]).formatMoney(2,'.',',')+'</td><td style="text-align:right;">'+parseFloat(factura[0][i][15]).formatMoney(2,'.',',')+'</td> </tr>';
                                 }
 
                                 $(".shxml_body").html(str);
 
-                                $(".shxml_foot").html('<tr><td colspan="5" style="padding:0px;text-align:right;"><b>Gravado</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][16]).formatMoney(2,'.',',')+'</td></tr>  <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Exento</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][17]).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Exonerado</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][18]).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>Descuentos</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][19]).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding:0px;text-align:right;"><b>IVA</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][3]).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="5" style="padding: 0px;text-align:right"><b>TOTAL</b></td><td colspan="2" style="padding: 0px;text-align:right">'+factura[0][0][20]+' '+parseFloat(factura[0][0][4]).formatMoney(2,'.',',')+'</td></tr>');
+                                $(".shxml_foot").html('<tr><td colspan="6" style="padding:0px;text-align:right;"><b>Gravado</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][16]).formatMoney(2,'.',',')+'</td></tr>  <tr><td colspan="6" style="padding:0px;text-align:right;"><b>Exento</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][17]).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="6" style="padding:0px;text-align:right;"><b>Exonerado</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][18]).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="6" style="padding:0px;text-align:right;"><b>Descuentos</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][19]).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="6" style="padding:0px;text-align:right;"><b>IVA</b></td><td colspan="2" style="padding:0px;text-align:right;">'+parseFloat(factura[0][0][3]).formatMoney(2,'.',',')+'</td></tr> <tr><td colspan="6" style="padding: 0px;text-align:right"><b>TOTAL</b></td><td colspan="2" style="padding: 0px;text-align:right">'+factura[0][0][20]+' '+parseFloat(factura[0][0][4]).formatMoney(2,'.',',')+'</td></tr>');
 
                                 $("#faapr").attr('idcompra',factura[0][0][21]);
                                 $("[xml=3]").removeClass('hide').removeAttr('disabled');
@@ -419,16 +556,6 @@ function validar (varreglo,vmodulo) {
 function endDetail(vid,vacc,vmodulo){
 	switch(vmodulo){
         case 'factura':
-            var factura = getDatos('consecutivo,datediff(curdate(),fecha)',64,'id = '+vid[0][0],0,0)[0][0];
-            var tlimit = parseInt(factura[1]);
-            factura = factura[0]
-            var clave = vid[0][0];
-
-            if(tlimit <= 38){
-                var $toastContent = $('<span style="width: 500px">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-                Materialize.toast($toastContent,5000);
-                sendFE('^'+clave);
-            }
             break;
         case 'cliente':
             break;
@@ -466,6 +593,7 @@ function cargarSintax(){
 }
 
 function sendFE(clave,str_correos,vtabla,vtit){
+    console.log(str_correos)
     $.ajax({
         async: true,
         url: "../wsdlClient.php",
@@ -473,95 +601,7 @@ function sendFE(clave,str_correos,vtabla,vtit){
         data: {id: clave, accion : 1,to:str_correos,idfila : clave,idtabla : vtabla,tit:vtit}
     })
       .done(function(data) {
-
-        var p;
-        var detbl = 64;
-        var color = '';
-        estado = $("[xml=3]:visible").length ? estado : $("input[name=tventa]:checked").attr('id').substr(2);
-
-        try {
-            p = JSON.parse(data);
-            $(".expect").removeClass('progress');
-
-            if (parseInt(p['succes'])) {
-                
-                var vfactura = p['num'];
-                var vclave = p['clave'];
-                switch(estado){
-                    case 2:
-                    case 3:
-                        clave = clave.substr(1);
-                        detbl = 301;
-                        var idfact = factura = getDatos('fe_getclave(idfactura),fe_getnumeracion(idfactura),idfactura',301,'id = '+clave,0,0,0);
-                        vfactura = idfact[0][0][1];
-                        vclave = idfact[0][0][0];
-                        idfact = idfact[0][0][2]
-                        break;
-                    case 5:
-                    case 6:
-                    case 7:
-                        clave = clave.substr(1);
-                        break;
-                    default:
-                        break;
-                }
-                color = 'yellow';
-                arr('login',7,2,detbl,'feestado=2','id='+clave,0,0);
-                $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-            }else{
-                color = 'red';
-                switch(estado){
-                    case 2:
-                    case 3:
-                        clave = clave.substr(1);
-                        detbl = 301;
-                        break;
-                    case 5:
-                    case 6:
-                    case 7:
-                        clave = clave.substr(1);
-                        break;
-                    default:
-                        break;
-                }
-                $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-                Materialize.toast(p['rs'],5000,'red');
-                switch(parseInt(p['erno'])){
-                    case 1:
-                        arr('login',7,2,detbl,'feestado=0','id='+clave,0,0);
-                        break;
-                    default:
-                        arr('login',7,2,detbl,'feestado=8','id='+clave,0,0);
-                    break;
-                }
-                setTimeout(function(){$("#t"+clave).parent().parent().remove();},3000);
-            }
-            
-        }
-        catch(err){
-            console.log(err)
-            switch(estado){
-                case 2:
-                case 3:
-                    clave = clave.substr(1);
-                    detbl = 301;
-                    break;
-                case 5:
-                case 6:
-                case 7:
-                    clave = clave.substr(1);
-                    break;
-                default:
-                    break;
-            }
-            $(".expect").removeClass('progress')
-            $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-            Materialize.toast(data,5000,'red');
-            arr('login',7,2,detbl,'feestado=8','id='+clave,0,0);
-            setTimeout(function(){$("#t"+clave).parent().parent().remove();},10000);
-            $(".status").attr('disabled',false)
-        } 
-
+        console.log(data);
   });
 }
 

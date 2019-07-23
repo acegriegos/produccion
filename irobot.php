@@ -17,12 +17,13 @@
         $valores = $db->ejecutar('select botmail,botpswd from ajustessucursales where idsucursal = '.$_REQUEST['succ'])->fetch_all()[0];
         $username = $valores[0];
         $password  = $valores[1];
-
+        $cedula = $db->ejecutar('select replace(cedula,"-","") from sucursales where id = '.$_REQUEST['succ'])->fetch_all()[0][0];
         $check = 1;
     }else{
         $username = 'fe.recepcionelectronica@gmail.com';
         $password  = 'Login2Help';
         $check = 0;
+        $cedula = '';
     }
     
     $hostname='{imap.gmail.com:993/debug/imap/ssl/novalidate-cert}INBOX';
@@ -125,7 +126,7 @@
             {
                 if (strpos($attachment['name'], '.xml') || strpos($attachment['filename'], '.xml') || strpos($attachment['attachment'], '.xml')) {
                     $salida = [];
-                    $fe->loadXML_FILE($attachment['attachment'],$salida,$db);
+                    $fe->loadXML_FILE($attachment['attachment'],$salida,$db,$cedula);
                     print_r($salida);
                 }
             }

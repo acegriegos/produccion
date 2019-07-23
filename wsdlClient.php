@@ -144,7 +144,7 @@
                     $fe = new facturaElectronica(0);
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$id);
-                    $fe->loadXML_FILE($xml,$salida,$db);
+                    $fe->loadXML_FILE($xml,$salida,$db,$_REQUEST['ced']);
                 }
 
                 echo json_encode($salida);
@@ -419,7 +419,7 @@
                 if ($xml) {
                     $salida['succed'] = 1;
                     $salida['arhivo'] = "../assets/xml/".$fe->info['NumeroConsecutivo'].".xml";
-                    $salida['mfile'] = file_put_contents("../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml", $xml['xml']);
+                    $salida['mfile'] = file_put_contents("./assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml", $xml['xml']);
                 }else
                     $salida['succed'] = 0;
                 echo json_encode($salida);
@@ -924,7 +924,8 @@
                 case 202:
                 case 100:
                     $json_response = ['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1];
-                    $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 2","id = '.$this->id.'")')->fetch_all();
+                    $midfila =  is_numeric(substr($this->id, 0,1)) ? $this->id : substr($this->id,1);
+                    $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 2","id = \"'.$midfila.'\"")');
                     break;
                 case 400:
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
@@ -932,10 +933,11 @@
 
                     if(strpos($rs, 'recibido anteriormente') >= 0){
                         $db = new DBClass();
-                        $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 2,mailstatus=0","id = '.$this->id.'")')->fetch_all();
+                        $midfila =  is_numeric(substr($this->id, 0,1)) ? $this->id : substr($this->id,1);
+                        $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 2","id = \"'.$midfila.'\"")');
                     }
 
-                    $json_response = ['rs'=>'Error '.$this->tdoc.': '.$this->id.', '.$rs,'succes'=>0,'erno'=>2,'id'=>$this->id,'actualizacion' => $act];
+                    $json_response = ['rs'=>'Error '.$this->tdoc.': '.$this->id.', '.$rs,'succes'=>0,'erno'=>2,'id'=>$this->id,'actualizacion' => $act,'sql'=>'call shadow(2,'.$this->idtabla.',"feestado = 2","id = \"'.$midfila.'\")'];
                     break;
                 case 500:
                     $json_response = ["rs"=>'Error Interno en el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];
@@ -949,7 +951,7 @@
             return $json_response;
         }
 
-        function loadXML_FILE($_xml,&$salida,&$db)
+        function loadXML_FILE($_xml,&$salida,&$db,$cedula)
         {       
             
             $inv_xml = simplexml_load_string($_xml);
@@ -990,6 +992,11 @@
                     return false;
                 }
 
+                if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
+                    $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '];
+                    return false;
+                }
+
                 $salida['clave'] = $inv_xml['Clave'];
 
                 $sub = $inv_xml['TotalFactura']-$inv_xml['MontoTotalImpuesto'];
@@ -1026,6 +1033,17 @@
                 }
                 return false;
             }
+
+            if(!isset($inv_xml->Emisor->Identificacion->Numero)){
+                $salida = ['succed' => 0,'ERROR' => 'Receptor Requerido'];
+                return false;
+            }
+
+            if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
+                $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
+                return false;
+            }
+
             $salida['clave'] = (array)$inv_xml->Clave;
             $salida['clave'] = $inv_xml->Clave[0];
 
@@ -1907,8 +1925,8 @@
         }
 
         function envioWsdlCorreo(&$db,$id,$to,$mh = 0,$vurl = 99){
-
-            $cnf = $db->ejecutar("call krattos('',73,".$id.")")->fetch_all()[0];
+            
+            $cnf = $db->ejecutar('call sp_msg0("'.$id.'");')->fetch_all()[0];
             $num = $this->info['NumeroConsecutivo'];
             $tit = $this->titulo;
 
@@ -1917,18 +1935,22 @@
             $_POST['accion'] = 3;
             $_POST['body'] = $cnf[0];
             $_POST['idfila'] = $id;
-            $_POST['subject'] = $cnf[3]." N° ".$num;
+            $_POST['subject'] = substr($id,0,1) == '^' ? $cnf[3]." del Consecutivo ".$cnf[4] : $cnf[3]." N° ".$num;
             $_POST['to'] = $to;
             $_POST['idtabla'] = $this->idtabla;
             if(!$mh){
-                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
 
+                $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
+
+                if(substr($id,0,1) == '^')
+                    $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml'];
+                else{
+                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
                 //MAKE ARCHIVOS
                 //PDF
                 $_arreglo = ['arch'=>'recibo','id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>72,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
 
-                $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
                 $curl = curl_init($actual_link);
                 curl_setopt($curl, CURLOPT_HEADER, true);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -1943,8 +1965,8 @@
                 $postData = rtrim($postData, '&');
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
                 $json_response = curl_exec($curl);
-                print_r($json_response);
-
+                
+                }
                 //XML
                 $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA']];
 

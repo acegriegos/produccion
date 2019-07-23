@@ -137,9 +137,11 @@
     
     //ACPTACIONES ACEPTACIONES-PARCIALES RECHAZOS
 
-    $lista = $db->ejecutar('select a.id,group_concat(c.correo),mailstatus,if(idtipoventa in(1,10),1,0) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(2,9) and a.id > 1 and a.idsucursal = '.$_SESSION['IMPRESA'].' and chat_lenght(a.referencia) = 50 order by a.id desc limit 20');
+    $lista = $db->ejecutar('select a.id,group_concat(distinct c.correo),mailstatus,if(idtipoventa in(1,10),1,0) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(2,9) and a.id > 1 and a.idsucursal = '.$_SESSION['IMPRESA'].' and char_length(a.referencia) = 50  group by a.id order by a.id limit 10');
+
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
+
         foreach ($lista as $obj) {
             $fe = new facturaElectronica('^'.$obj[0]);
 
@@ -237,7 +239,7 @@
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
-            $fe = new facturaElectronica($obj[0]);
+            $fe = new facturaElectronica('^'.$obj[0]);
             $rs = $fe->recepcion();
             $salida['SEND']['COMPRAS'][$obj[0]] = 'done compra';
         }

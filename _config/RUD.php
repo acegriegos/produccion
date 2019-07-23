@@ -160,6 +160,11 @@
 				$wher = str_replace('@@impresa', $impresa, $wher);
 			}
 
+			if (strpos($sel,'@impresa')) {
+				$impresa = $_SESSION['IMPRESA'];
+				$sel = str_replace('@@impresa', $impresa, $sel);
+			}
+
 			if (strpos($wher, '@tmp')) {
 				// $str = ($_SESSION['TIPO'] == 1) && ($_SESSION['TMP_CIA'] == 0) ? "0" : $_SESSION['IMPRESA'];
 				$str  = $_SESSION['TMP_CIA'];

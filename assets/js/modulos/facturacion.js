@@ -623,7 +623,7 @@ function cargarGlobal(){
 
     $("#ncli").blur(function(){
         if ($(this).val().trim().length > 0 || parseInt($("#ffacturas .zelda").data('triforce')['vidcliente'])) {
-            var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
+            var isproveedor = param.toString().match(new RegExp(/[239]/i)) ? 1 : 0;
             searchClient($(this).val(),isproveedor);
         }
         
@@ -870,10 +870,11 @@ function cargarFactura(vidp,asoc){
     idext = vidp;
     if($("#impm:visible").length){
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
-        addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
         $("#ffacturas .zelda").data('triforce')['idline'] = parseInt($("#ffacturas .zelda").data('triforce')['idline'])+1;
+        addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);        
         $("#fd"+$("#ffacturas .zelda").data('triforce')['idline']).addClass('hide')
     }
+    $("#ffacturas .zelda").data('triforce')['vterminal'] = config[26];
     Materialize.updateTextFields();
 }
 

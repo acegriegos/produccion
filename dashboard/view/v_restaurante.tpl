@@ -25,7 +25,7 @@
       </div>
 
       <div class="row center head1" style="margin-bottom: 0px;background-color: #01579b;">
-        <h5>{$smarty.session.EMPRESA}</h5>
+        <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span>
       </div>
       <div class="row ">
         <h6 class="col s6 m2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ">BARRAS</h6>
@@ -140,10 +140,10 @@
 
           </div>
 
-          <div class="col s4 collection row" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" style="margin: 0px;padding: 0px">
-                <a href="#!" class="collection-item black-text col12" id="detfactmsj">No hay Productos Ingresados</a>
+          <ul class="col s4 collapsible row" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" style="margin: 0px;padding: 0px">
+                <li><a href="#!" class="collection-item black-text col12" id="detfactmsj">No hay Productos Ingresados</a><li>
               
-          </div>
+          </ul>
         </div>
       </div>
        <div class="row" style="margin: 0px;position: fixed; bottom: 7%; width: 100%">
