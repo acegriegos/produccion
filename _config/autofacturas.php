@@ -51,7 +51,7 @@
         $ced = $ced->fetch_all();
         echo '<hr>'.$ced[0][0].'<hr>';
         $_SESSION['IMPRESA'] = $ced[0][0];
-                print_r(compras($config[18],$ced[0][1],0,$log,$salida));
+                //print_r(compras($config[18],$ced[0][1],0,$log,$salida));
         echo '<br>';
             }
         }
@@ -137,9 +137,11 @@
     
     //ACPTACIONES ACEPTACIONES-PARCIALES RECHAZOS
 
-    $lista = $db->ejecutar('select a.id,group_concat(c.correo),mailstatus,if(idtipoventa in(1,10),1,0) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(2,9) and a.id > 1 and a.idsucursal = '.$_SESSION['IMPRESA'].' and chat_lenght(a.referencia) = 50 order by a.id desc limit 20');
+    $lista = $db->ejecutar('select a.id,group_concat(distinct c.correo),mailstatus,if(idtipoventa in(1,10),1,0) from facturas a left join clientes b on b.id = a.idcliente left join correos c on c.idfila = b.id and c.idtabla = 2 where a.feestado in(2,9) and a.id > 1 and a.idsucursal = '.$_SESSION['IMPRESA'].' and char_length(a.referencia) = 50  group by a.id order by a.id limit 10');
+
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
+
         foreach ($lista as $obj) {
             $fe = new facturaElectronica('^'.$obj[0]);
 
@@ -237,7 +239,7 @@
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
-            $fe = new facturaElectronica($obj[0]);
+            $fe = new facturaElectronica('^'.$obj[0]);
             $rs = $fe->recepcion();
             $salida['SEND']['COMPRAS'][$obj[0]] = 'done compra';
         }
@@ -264,7 +266,7 @@
 
 
     $sucursal = $log->kamehameha('cedula,isprueba',39,'id=@@impresa')[0];
-    compras($config[18],$sucursal[0],$sucursal[1],$log,$salida);
+    //compras($config[18],$sucursal[0],$sucursal[1],$log,$salida);
     echo json_encode($salida);
     unset($_SESSION['AUTO']);
 }//NORMAL

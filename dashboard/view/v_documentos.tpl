@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.48">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.1.0.48">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.70">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.1.0.70">
   </head>
   <body>
   <br>
@@ -117,6 +117,11 @@
         </div>
         <div class="modal-content">
             <div class="row">
+                <input type="hidden" id="msjreceptor">
+                <input type="hidden" id="continuar" value="0">
+                <input type="hidden" id="gasto" value="0">
+                <input type="hidden" id="credito" value="0">
+                <input type="hidden" id="tipo" value="0">
 
                 <section class="upxml col s12 l6" xml="4" style="margin-top: 8%">
                     <span>Subir Documento Electrónico: Mensaje Hacienda</span>
@@ -143,12 +148,13 @@
                     <table style="margin-bottom: 3%">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th class="hide">Tipo</th>
                                 <th>Cantidad</th>
                                 <th>Unidad</th>
                                 <th>Descripción</th>
                                 <th>Descuento</th>
-                                <th>Impuesto</th>
+                                <th>Exonerado</th>
+                                <th>IVA(%)</th>
                                 <th>Precio</th>
                             </tr>
                         </thead>
@@ -182,6 +188,7 @@
                         <th>Fecha</th>
                         <th>Consecutivo</th>
                         <th>Total</th>
+                        <th>Tipo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -198,10 +205,14 @@
             <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-dtcompras" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>Descripción</th>
+                        <th class="hide">Tipo</th>
                         <th>Cantidad</th>
+                        <th>Unidad</th>
+                        <th>Descripción</th>
+                        <th>Descuento</th>
+                        <th>Exonerado</th>
+                        <th>IVA(%)</th>
                         <th>Precio</th>
-                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody id="bdtompras"></tbody>
@@ -212,7 +223,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.1.0.48"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.1.0.48"></script>
+    <script src="../assets/js/dropzone.js?v=10.1.0.70"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.1.0.70"></script>
   </body>
 </html>

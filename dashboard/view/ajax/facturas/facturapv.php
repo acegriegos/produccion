@@ -127,7 +127,7 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
     <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
   <tr>
-    <td align="left" colspan="4" style="font-size:9px">'.$transaccion[0][32].'</td>
+    <td align="left" colspan="4" style="font-size:11px">'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>
@@ -178,14 +178,16 @@ if ($config[0][10] == 1) {
   <tr>
     <td colspan="4"></td>
   </tr>';
-
+  $sr = 0;
   foreach ($transaccion as $obj) {
-
-    echo '<tr>
-      <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
-      <td align="center" width="45%">'.$obj[19].'</td>
-      <td align="center" width="20%">'.$obj[20].'</td>
-      <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
+    if( strpos($obj[19], 'Servicios Restaurante') == ''){
+      echo '<tr>
+        <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
+        <td align="center" width="45%">'.$obj[19].'</td>
+        <td align="center" width="20%">'.$obj[20].'</td>
+        <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
+      }else
+        $sr += str_replace(',', '', $obj[20]);
     }
 
 }else{
@@ -202,12 +204,15 @@ echo '<table  style="width: 100% !important;">
   </tr>';
   
 
+    $sr = 0;
     foreach ($transaccion as $obj) {
-
-    echo '<tr>
-      <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
-      <td align="center" width="50%">'.$obj[19].'</td>
-      <td align="right" width="30%">'.$obj[20].'</td>';
+      if( strpos($obj[19], 'Servicios Restaurante') == ''){
+          echo '<tr>
+            <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
+            <td align="center" width="50%">'.$obj[19].'</td>
+            <td align="right" width="30%">'.number_format(str_replace(',','',$obj[20])*str_replace(',', '', $obj[18]),2).'</td>';
+      }else
+        $sr += str_replace(',', '', $obj[20]);
     }
   }
   
@@ -232,7 +237,14 @@ echo '<tr>
     if ($obj[8] > 0) {
       echo '<tr '.$ocultar.'>
       <td width="50%" colspan="'.$colspan2.'">Exento:</td>
-      <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
+      <td width="50%" align="right"> '.$obj[15].number_format($sr,2).' </td>
+    </tr>';
+    }
+
+    if ($sr > 0) {
+      echo '<tr '.$ocultar.'>
+      <td width="50%" colspan="'.$colspan2.'">10% Serv. Rest.:</td>
+      <td width="50%" align="right"> '.$obj[15].number_format($sr,2).' </td>
     </tr>';
     }
   
@@ -260,8 +272,7 @@ echo '<tr>
     <td width="50%" align="right"> '.$obj[15].$obj[10].' </td>
   </tr>
 </table>
-<div '.$ocultar.'>*=EXENTO</div>
-<div '.$ocultar.'>**=I.V.I</div>';
+<div '.$ocultar.'>*=EXENTO</div>';
 
 if ($pvuelto > 0 && $vuelto >= 0) {
   echo '<table width="100%">
@@ -285,9 +296,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.48"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.48"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.48"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.70"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.70"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.70"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

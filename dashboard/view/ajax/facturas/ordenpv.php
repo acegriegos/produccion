@@ -3,7 +3,7 @@
 <html>
 <head>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-  <title>Boletas</title>  
+  <title>Orden</title>  
 <style>
   *{font-size: 1em}
 
@@ -57,14 +57,13 @@
 </head>
 
 <body style="margin-left: 35%; margin-right: 35%;">
-  <input type="hidden" id="ttipo" value="<?php echo $datos[35]; ?>">
-  <input type="hidden" id="config0" value="<?php echo $config[0][0]; ?>">
-  <input type="hidden" id="config9" value="<?php echo $config[0][9]; ?>">
 <?php 
+$pvuelto = isset($_REQUEST['pvuelto']) ? $_REQUEST['pvuelto'] : 0;
+$vuelto = isset($_REQUEST['vuelto']) ? $_REQUEST['vuelto'] : 0;
 // $transaccion;
 // $miscelaneos;
 // $datos;  padding: 0% 37.5% 0% 37.5%
-$fecha = explode('/', $transaccion[0][1]);
+$fecha = explode('/', $transaccion[0][0]);
 $logo = '<tr align="center">
     <td>
       <img src="'.$miscelaneos[3].'" alt="LOGO" width="60%">
@@ -115,96 +114,99 @@ echo '<br>Ced. '.$miscelaneos[1];
 if(strlen(trim($miscelaneos[5])))
     echo '<br> Telf. '.$miscelaneos[5];
 
-echo '<br> '.$miscelaneos[6].'
+echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].' <br> <span>PRE-FACTURA</span>
         </div>
      </td>
-  </tr>
-</table>
-<table style="width: 100% !important;">
-  <tr>
-    <td align="left" colspan="4">Boleta de '.$transaccion[0][3].'</td>
   </tr>
 </table>
 
 <table>
   <tr>
-    <td colspan="2">Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
+    <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
+    <td>Hora: '.$transaccion[0][1].'</td>
   </tr>';
   
-  echo '<tr>
-    <td width="50%">N°:</td>
-    <td width="50%">'.$transaccion[0][0].'</td>
+  echo '<tr >
+    <td width="50%">Atiende: </td>
+    <td width="50%">'.$transaccion[0][2].'</td>
   </tr>
-  <tr >
-    <td width="50%">Usuario:</td>
-    <td width="50%"> '.$transaccion[0][2].'</td>
-  </tr>';
-
-  if($transaccion[0][10] == '') {
-    echo '<tr>
-      <td width="50%">Bodega</td>
-      <td width="50%">'. $transaccion[0][8].'</td>
-    </tr>
-    <tr>
-      <td width="50%">Inventario</td>
-      <td width="50%">'. $transaccion[0][9].'</td>
-    </tr>';
-    }else{
-      echo ' <tr>
-      <td colspan="2">DESDE</td>
-    </tr>
-    <tr>
-      <td width="50%">Bodega</td>
-      <td width="50%">'. $transaccion[0][8].'</td>
-    </tr>
-    <tr>
-      <td width="50%">Inventario</td>
-      <td width="50%">'. $transaccion[0][9].'</td>
-    </tr>
-    <tr>
-      <td colspan="2">PARA</td>
-    </tr>
-     <tr>
-      <td width="50%">Bodega</td>
-      <td width="50%">'. $transaccion[0][10].'</td>
-    </tr>
-    <tr>
-      <td width="50%">Inventario</td>
-      <td width="50%">'. $transaccion[0][11].'</td>
-    </tr>';
-  }
-
-  echo '<tr>
-      <td width="50%">Comentario</td>
-      <td width="50%">'. $transaccion[0][12].'</td>
-    </tr>
 </table>
 
 <hr>';
 
- echo '<table  style="width: 100% !important;">
+  $colspan1 = 3;
+  $colspan2 = 2;
+  
+echo '<table  style="width: 100% !important;">
   <tr>
-    <td align="center" width="46%">ARTICULO</td>
-    <td align="center" width="18%">CANT</td>
-    <td align="center" width="18%">ANT</td>
-    <td align="center" width="18%">FIN</td>
+    <td align="center" width="20%">CANT</td>
+    <td align="center" width="50%">ARTICULO</td>
+    <td align="center" width="30%">PRECIO</td>
   </tr>
   <tr>
-    <td colspan="4"></td>
+    <td colspan="3"></td>
+  </tr>';
+  
+    $sr = $grav = $iva = $tot = 0;
+    foreach ($detalle as $obj) {
+      /*if( strpos($obj[19], 'Servicios Restaurante') == ''){*/
+          echo '<tr>
+            <td align="center" width="20%">'.$obj[0].'</td>
+            <td align="center" width="50%">'.$obj[2].'</td>
+            <td align="right" width="30%">'.number_format($obj[1],2).'</td>';
+        $grav += $obj[1]/1.1;
+        $sr += ($obj[1]*0.1)/1.1;
+        $iva += $obj[3]; 
+      /*}else
+        $sr += str_replace(',', '', $obj[20]);*/
+    }
+  $tot = $grav+$iva+$sr;
+  
+echo '<tr>
+    <td colspan="'.$colspan1.'"></td>
+  </tr>
+  <tr >
+    <td colspan="'.$colspan1.'" style="border-bottom: 1px dashed white;"></td>
+  </tr>
+  <tr >
+    <td colspan="'.$colspan1.'"></td>
+  </tr>
+  <tr >
+    <td width="50%" colspan="'.$colspan2.'">Gravado:</td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav,2).' </td>
   </tr>';
 
-  foreach ($transaccion as $obj) {
 
-    echo '<tr>
-      <td align="center" width="46%">'.$obj[4].'</td>
-      <td align="center" width="18%">'.$obj[5].'</td>
-      <td align="center" width="18%">'.$obj[6].'</td>
-      <td align="center" width="18%">'.$obj[13].'</td>';
-    }
-  
+      echo '<tr >
+      <td width="50%" colspan="'.$colspan2.'">10% Serv. Rest.:</td>
+      <td width="50%" align="right"> '.$transaccion[0][4].number_format($sr,2).' </td>
+    </tr>';
 
-echo '</table><div style="text-align: center;font-size:10px;" id="resolucion"></div><br><br><br>
-<div class="recibo"><b><br> <hr>
+  echo '<tr >
+    <td width="50%" colspan="'.$colspan2.'">IVA:</td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($iva,2).' </td>
+  </tr>';
+
+  echo '<tr >
+    <td width="50%" colspan="'.$colspan2.'">TOTAL GENERAL:  </td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($tot,2).' </td>
+  </tr>
+</table>';
+
+if ($pvuelto > 0 && $vuelto >= 0) {
+  echo '<table width="100%">
+  <tr>
+    <td align="center">Paga con: '.$pvuelto.'</td>
+  </tr>
+  <tr>
+    <td align="center">Vuelto: '.$vuelto.'</td>
+  </tr>
+</table>';
+}
+
+echo '
+<div style="text-align: center;font-size:10px" id="resolucion" class="salto"></div><br><br><br>
+<div class="recibo" style="display:none"><hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>
 <br><br><br>
 <hr>
@@ -217,24 +219,13 @@ echo '</table><div style="text-align: center;font-size:10px;" id="resolucion"></
  <script src="../assets/js/materialize.js?v=10.1.0.70"></script>
  <script src="../assets/js/asgard.js?v=10.1.0.70"></script>
  <script type="text/javascript">
+  var salir = 0;
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
+      var resol = "ESTE DOCUMENTO NO REPRESENTA UNA FACTURA VALIDA"
 
-
-      $("#resolucion").html('');
-
-      if ($("#ttipo").val() != 1) {
-        $(".ncontado").show();
-        
-      }
-
-      if (config9) {
-        $(".recibo").show();
-      }
-
-      param = getParameterByName('fp');
-      param = param == '' ? 0 : parseInt(param) ;
+      $("#resolucion").html(resol);
       
       window.onafterprint = function(){
         //$("#resolucion").html(navigator.userAgent)
@@ -248,11 +239,12 @@ echo '</table><div style="text-align: center;font-size:10px;" id="resolucion"></
          )
             return true;
         else
-          window.close();
+            window.close();
       }
 
       $(".print").click(function(){
         window.print();
+
       });
 
       if(parseInt(param)){
