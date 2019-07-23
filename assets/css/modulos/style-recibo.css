@@ -136,7 +136,9 @@ h3 {
 
 
   .salto {
-    page-break-before: always; }
+    display: block;
+    page-break-before: always;
+  }
 
   ul, img {
     page-break-inside: avoid; }

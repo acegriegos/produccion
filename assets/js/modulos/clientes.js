@@ -410,8 +410,14 @@ function validarclientes() {
 	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0) };
 
 	var fe = getDatos('isprueba',39,'id=@@impresa',0,0,0)[0][0][0];
-	if(!parseInt(fe))
-		if (!$("#fcorreos .ciclos").length) { $("#correo_in").focus(); return 'Correo Requerido'; }
+	if(!parseInt(fe)){
+		if(!parseInt($("#vid").val())){
+			if (!$("#fcorreos .ciclos").length) { $("#slideCorreo").click(); return 'Correo Requerido'; }
+		}else{
+			var correos = getDatos('count(idcorreo)',17,'idtabla = 2 and idfila = '+$("#vid").val(),0,0,0);
+			if (!correos[0].length) { $("#slideCorreo").click(); return 'Correo Requerido'; }
+		}
+	}
 
 	if(!$("#tipocliente").is(":checked")){
 		$("#vcredito").val(0);

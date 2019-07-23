@@ -311,7 +311,7 @@
 
      </div>
 
-     <div class="row" id="segundo" style="display: none">
+     <div class="row salto" id="segundo" style="display: none">
     <div class="col s12 m9 l9">
 
       <!-- MAIN -->
@@ -582,7 +582,7 @@
           <!-- @PRINT -->
      </div>
 
-     <div class="row" id="segundo" style="display: none">
+     <div class="row salto" id="segundo" style="display: none">
     <div class="col s12 m9 l9">
 
       <!-- MAIN -->

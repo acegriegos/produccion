@@ -162,7 +162,7 @@
                     {if $smarty.session.BUSS neq 0} 
                     {if $smarty.session.BUSS eq 3}
                         <div class="input-field marginzero col s12 " id="cantpro">
-                            <input type="text" id="vcantidad" noClear="1" class="validate" value="0.00" autocomplete="off">
+                            <input type="text" id="vcantidad" noClear="1" class="validate" value="0" autocomplete="off">
                             <label class="active" for="vcantidad">Cantidad</label>
                         </div>
                     {/if}

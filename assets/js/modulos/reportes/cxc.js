@@ -26,5 +26,10 @@ $(function(){
             arr('login',6,'',269,'0,0,0,@@impresa',0,1,$(".detrep"));
             break;
     }
+
+    $(".excel").data('parametros')['vista'] = '0,1,2,3,4,5,6,7';
+    $(".excel").data('parametros')['conteo'] = 1;
+    $(".excel").data('parametros')['suma'] = ',2,3,4,5,6,';
+    //$(".excel").data('parametros')['original'] = 1;
     
 });

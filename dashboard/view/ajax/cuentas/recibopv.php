@@ -125,12 +125,22 @@ echo '<tr align="center" >
   <tr >
     <td width="50%">USUARIO: </td>
     <td width="50%">'.$datos[10].'</td>
-  </tr>
-  <tr >
+  </tr>';
+
+if($datos[8] <> ''){
+  echo '<tr >
     <td width="50%">T. PAGO:</td>
     <td width="50%">'.$datos[8].'</td>
-  </tr>
-</table>
+  </tr>';
+}
+
+if($datos[7] <> ''){
+  echo '<tr >
+    <td colspan="2">COMENTARIO: '.$datos[7].'</td>
+  </tr>';
+}
+
+echo '</table>
   <br>
 <hr>
 <table  style="width: 100% !important;">

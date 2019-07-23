@@ -211,7 +211,7 @@ $(document).on("blur",".vabono",function(){
 		var nm = parseFloat($(this).val());
 		nm = isNaN(nm) ? 0 : nm;
 		var gm = mt-monto+nm;
-		$("#monto").val(gm)
+		$("#monto").val(parseFloat(gm).formatMoney(2,'.',''))
 	}
 })
 
@@ -227,7 +227,7 @@ $(document).on("click",".factclie",function(){
 	}else{
 		mt -= valor;
 	}
-	$("#monto").val(mt)
+	$("#monto").val(parseFloat(mt).formatMoney(2,'.',''))
 });
 
 $(document).on("click","#btnPagar",function(){
@@ -248,7 +248,7 @@ $(document).on("click","#btnPagar",function(){
 		var divisa = $("#monedas option:selected").attr('dv');
 		var fechabol = $("#fecha").val();	
 		var idpag = getDatos('ec7+1',252,'idsucursal = @@impresa',0,0,0)[0][0][0];
-		console.log(idpag)
+
 		actualizar(252,'ect = ec7+1','idsucursal = @@impresa')
 
 		if ($(".factclie:checked").length) {

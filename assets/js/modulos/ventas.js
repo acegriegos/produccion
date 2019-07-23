@@ -1388,13 +1388,28 @@ function validarFactura() {
     }
 
 
-    if($("#ffacturas .zelda").data('triforce')['vidtipo'] == 2 || $("#ffacturas .zelda").data('triforce')['vidtipo'] == 4){
-        // var p = arr('login',4,'',205,$("#ffacturas .zelda").data('triforce')['vidcliente'],0,0,0);
-        // if(p['succed'] == 0){
-        //     return p[0]['ERROR'] 
-        // }
+    switch(parseInt( $("#ffacturas .zelda").data('triforce')['vidtipo'])) {
+        case 2:
+            if(isNaN($("#vplazo").val())){
+                $("#vplazo").focus()
+                return 'Plazo Crédito no Válido';
+            }
 
-     }
+            if(parseInt($("#vplazo").val()) <= 0){
+                $("#vplazo").focus()
+                return 'Plazo Crédito Debe ser Mayor a 0';
+            }
+
+            // var p = arr('login',4,'',205,$("#ffacturas .zelda").data('triforce')['vidcliente'],0,0,0);
+            // if(p['succed'] == 0){
+            //     return p[0]['ERROR'] 
+            // }
+
+            break;
+        default:
+            break;
+    }
+     
 
        $("#ffacturas .zelda").data("triforce")['voc'] = $("#oc").val();
        $("#ffacturas .zelda").data("triforce")['vidmoneda'] = $(".moneda").first().data("triforce")['id'];
@@ -1832,9 +1847,9 @@ function searchClient(vvariable,visprv){
         $("#vplazo").val(0);
 
         $("#ffacturas .zelda").data('triforce')['videxoneracion'] = '';
-        //$(".chg_tipo").attr('disabled','disabled')
-        // $(".chg_tipo[val=1]").removeAttr('disabled');
-        $(".chg_tipo[val="+config[20]+"]").click()
+        $(".chg_tipo").attr('disabled','disabled')
+        $(".chg_tipo[val=1]").removeAttr('disabled');
+        $(".chg_tipo[val=1]").click()
 
         $("#ingclie").removeClass('hide');
     }

@@ -625,6 +625,10 @@ function cargarGlobal(){
         if ($(this).val().trim().length > 0 || parseInt($("#ffacturas .zelda").data('triforce')['vidcliente'])) {
             var isproveedor = param.toString().match(new RegExp(/[23]/i)) ? 1 : 0;
             searchClient($(this).val(),isproveedor);
+        }else{
+            $(".chg_tipo").attr('disabled','disabled')
+            $(".chg_tipo[val=1]").removeAttr('disabled');
+            $(".chg_tipo[val=1]").click()
         }
         
     });

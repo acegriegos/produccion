@@ -295,6 +295,7 @@ label{
   }
   
   .salto {
+    display: block;
     page-break-before: always;
   }
   

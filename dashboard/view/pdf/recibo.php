@@ -170,7 +170,7 @@ $miscelaneos[6].'</div>'.
 if ($datos[0][32] != '') {
   $html.= '<br>'.
 '<br>'.
-'<div style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;"> <b>Factura Electrónica</b></span>';
+'<div style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;"> <b>Factura Electrónica</b>  </div>';
 }
 
 $html .= '</td>'.
@@ -208,6 +208,9 @@ $html .= '<div style="padding: 8px 0px 8px 0px">
 
 if($datos[0][16] != '')
   $html .= '<strong>Vende:</strong> '.$datos[0][16].'<br>';
+
+if($datos[0][48] != '')
+  $html .= '<strong>Orden N:</strong> '.$datos[0][48].'<br>';
 
 if ($datos[0][12] != '') {
 $html .= '<strong>Comentario:</strong><br>'.$datos[0][12];
