@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Lista de Boletas</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.1.0.52">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.1.0.70">
   </head>
   <body>
   <br>
@@ -88,6 +88,6 @@
            
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/listaboletas.js?v=10.1.0.52"></script>
+    <script src="../assets/js/modulos/listaboletas.js?v=10.1.0.70"></script>
   </body>
 </html>
