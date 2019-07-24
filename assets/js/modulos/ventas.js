@@ -463,6 +463,10 @@ $(function(){
     
 })//READY
 
+$(document).on("click","#fdev",function(){
+
+})
+
 $(document).on("keyup",".vextra",function(e){
     var code = e.wich || e.keyCode
     if (code == 13) {

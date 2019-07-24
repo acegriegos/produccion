@@ -993,7 +993,7 @@
                 }
 
                 if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
-                    $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '];
+                    $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
                     return false;
                 }
 
@@ -1040,7 +1040,7 @@
             }
 
             if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
-                $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido'];
+                $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
                 return false;
             }
 
