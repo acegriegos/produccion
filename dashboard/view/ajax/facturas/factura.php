@@ -275,7 +275,7 @@
               <hr>
               <div>
                 <?php if ($transaccion[0][32] != '') { ?>
-                <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016. V4.3
+                <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019. V4.3
                   <br> 
                   <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
                 </div>

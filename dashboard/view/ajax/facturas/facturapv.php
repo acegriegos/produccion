@@ -303,10 +303,10 @@ echo '
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
-      var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D";
+      var resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        resol = "AUTORIZADO MEDIANTE RESOLUCION DGT-R-48-2016, 07-10-2016";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
+        resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }
 
       $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);

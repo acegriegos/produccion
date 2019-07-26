@@ -464,7 +464,7 @@ $(function(){
 })//READY
 
 $(document).on("click","#fdev",function(){
-
+    console.log('devolucion')
 })
 
 $(document).on("keyup",".vextra",function(e){

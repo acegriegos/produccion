@@ -207,6 +207,8 @@ $(document).on("click",".msjh",function(){
     }
 
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+$("#msjreceptor").val()+'",'+$("#tipo").val()+','+$("#credito").val()+','+$("#gasto").val(),0,0,0);
+                console.log(idfact)
+                console.log(idcomp+',@@usr,@@impresa,'+tstado+',"'+$("#msjreceptor").val()+'",'+$("#tipo").val()+','+$("#credito").val()+','+$("#gasto").val())
     var crrprov = getDatos('correo',264,'vid = (select idcliente from tmpcompras where id ='+idcomp+')',0,0,0);
 
     crrprov = crrprov[0].length ? crrprov[0][0][0] : '';

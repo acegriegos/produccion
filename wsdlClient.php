@@ -992,10 +992,10 @@
                     return false;
                 }
 
-                if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
-                    $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
-                    return false;
-                }
+                // if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
+                //     $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
+                //     return false;
+                // }
 
                 $salida['clave'] = $inv_xml['Clave'];
 
@@ -1039,10 +1039,10 @@
                 return false;
             }
 
-            if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
-                $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
-                return false;
-            }
+            // if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
+            //     $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
+            //     return false;
+            // }
 
             $salida['clave'] = (array)$inv_xml->Clave;
             $salida['clave'] = $inv_xml->Clave[0];
@@ -1183,7 +1183,7 @@
                     $dsubtotal = (array)$key->SubTotal;
                     $ddescuento = isset($key->MontoDescuento) ? (array)$key->MontoDescuento : 0;
                     $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
-                    $dimpuesto = isset($key->Impuesto->Monto) ? (array)$key->Impuesto->Monto : 0;
+                    $dimpuesto = isset($key->ImpuestoNeto) ? (array)$key->ImpuestoNeto : 0;
                     $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
                     $dtarifa = isset($key->Impuesto->Tarifa) ? (array)$key->Impuesto->Tarifa : 0;
                     $dtarifa = $dtarifa == 0 ? $dtarifa : $dtarifa[0];
