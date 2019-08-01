@@ -529,7 +529,7 @@
     <div class="col s12 m12 l12">
 
         <div class="col s12 m12 l12 input-field">
-          <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea>
+          <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea>
           <label for="vcomentario">Comentario de Factura</label>
         </div>
         <table style="margin-top: 100px">
@@ -1126,10 +1126,10 @@
     <div class="divider"></div>
   </li>
   <li>
-    Productos a Devolver
-      <a class="btn btn-default" id="fext" style="width: 25% !important; float: right;">Salir</a>
+    Productos a Devolver por: <input type="text" id="rdev" maxlength="180" style="width: 50%">
+      <i class="mdi mdi-exit-to-app mdi-24px" id="fext" title="Salir" style="width: 5% !important; float: right;cursor: pointer;"></i>
 
-      <a class="btn btn-success mdi mdi-plus" id="fdev" title="Realizar Devolución" style="width: 25% !important; float: right;"></a>
+      <i class="mdi mdi-plus mdi-24px" id="fdev" title="Realizar Devolución" style="width: 5% !important; float: right;cursor: pointer;"></i>
       
     <br>
     <table>
@@ -1148,4 +1148,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.70"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.82"></script>
