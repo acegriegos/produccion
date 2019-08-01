@@ -992,10 +992,10 @@
                     return false;
                 }
 
-                // if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
-                //     $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
-                //     return false;
-                // }
+                if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
+                    $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
+                    return false;
+                }
 
                 $salida['clave'] = $inv_xml['Clave'];
 
@@ -1016,7 +1016,7 @@
                     $salida['ifactura'] = $idfact;
                 }
                 else{
-                    $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.','.$_exo.',0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","","'.$fecha.'",1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
+                    $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.','.$_exo.',0,0,0,0,"","'.$inv_xml['Clave'].'",1,1,0,"",0,"","",now(),1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
                     $salida = ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura R'];
                     return false;
                 }
@@ -1039,10 +1039,10 @@
                 return false;
             }
 
-            // if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
-            //     $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
-            //     return false;
-            // }
+            if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
+                $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
+                return false;
+            }
 
             $salida['clave'] = (array)$inv_xml->Clave;
             $salida['clave'] = $inv_xml->Clave[0];
@@ -1117,7 +1117,7 @@
         
             if(!isset($fact['moneda'][0]))  { //4.2
                 $fact['moneda'] = (array) $inv_xml->ResumenFactura->CodigoTipoMoneda->CodigoMoneda;
-                $fact['moneda'] = $fact['moneda'][0];
+                $fact['moneda'] = isset($fact['moneda'][0]) ? $fact['moneda'][0] : 'CRC';
                 $version = '4.3';
             }
             else

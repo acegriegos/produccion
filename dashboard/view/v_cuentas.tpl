@@ -19,7 +19,7 @@
     
     {$SCR}
     
-    <script src="../assets/js/modulos/cuentas.js?v=10.1.0.70"></script>
+    <script src="../assets/js/modulos/cuentas.js?v=10.1.0.71"></script>
     
   </body>
 </html>

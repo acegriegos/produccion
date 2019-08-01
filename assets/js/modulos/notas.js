@@ -45,6 +45,14 @@ $(function(){
 		}
 	});
 
+    $("#pce").click(function(){
+        $("#modal-clave").modal('open');
+    });
+
+    $("#pce-acep").click(fucntion(){
+        alert(1)
+    });
+
 	$(".sclie").blur(function(){
 		var bisclie = 0;
 		var nombre = $("#ncli").val()
