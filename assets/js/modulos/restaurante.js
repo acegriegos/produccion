@@ -787,19 +787,19 @@ function generarComanda(idfactura){
         if(lcant > 0){
             imprimir = 1;
 
-            switch(parseInt($(this).data('triforce')['idfam'])){
-                case 1:
-                case 2:
+            // switch(parseInt($(this).data('triforce')['idfam'])){
+            //     case 1:
+            //     case 2:
                     cant1 += 1;
                     vcocina += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
                     if($("#cmt"+idprod).val().trim() != '')
                         vcocina += "\n----"+$("#cmt"+idprod).val();
-                    break;
-                default:
-                    cant2 += 1;
-                    vrefresco += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
-                    break;    
-            }
+                    // break;
+            //     default:
+            //         cant2 += 1;
+            //         vrefresco += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
+            //         break;    
+            // }
             
         }
 

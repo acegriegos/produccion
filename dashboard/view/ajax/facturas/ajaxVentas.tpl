@@ -627,6 +627,9 @@
               <div class="col s6" style="padding: 0px;">
                 <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
               </div>
+              <div class="col s12 order hide">
+                <a href="#!" class="green btn"  title="Imprimir Orden" id="printOrder">Imprimir Orden</a>
+              </div>
             </div>  
           </div>
 
@@ -1148,4 +1151,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.82"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.84"></script>
