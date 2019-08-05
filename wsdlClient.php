@@ -1314,6 +1314,9 @@
                 $data[] = $this->info;
 
                 $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
+                 $ocargos = $this->getJSON('call fe_getOtrosCargos("'.$this->id.'")');
+                if($ocargos)
+                    $data['OtrosCargos'] = $ocargos; 
                 $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
 
                 $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
@@ -1321,8 +1324,8 @@
                     return ['error'=>'No hay Detalle'];
 
                 $data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
-                
-                $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos,5));
+                $totoc = isset($data['ResumenFactura']['TotalOtrosCargos']) ? $data['ResumenFactura']['TotalOtrosCargos'] : 0;
+                $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos+$totoc,5));
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
 

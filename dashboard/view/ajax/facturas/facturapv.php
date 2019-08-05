@@ -215,7 +215,7 @@ echo '<table  style="width: 100% !important;">
         $sr += str_replace(',', '', $obj[20]);
     }
   }
-$obj[8] =str_replace(',', '', $obj[8])-$sr;
+  
 echo '<tr>
     <td colspan="'.$colspan1.'"></td>
   </tr>

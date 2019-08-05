@@ -875,7 +875,7 @@ function cargarFactura(vidp,asoc){
     if($("#impm:visible").length){
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
         $("#ffacturas .zelda").data('triforce')['idline'] = parseInt($("#ffacturas .zelda").data('triforce')['idline'])+1;
-        addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);        
+        addline('-0','sr','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);        
         $("#fd"+$("#ffacturas .zelda").data('triforce')['idline']).addClass('hide')
     }
     $("#ffacturas .zelda").data('triforce')['vterminal'] = config[26];

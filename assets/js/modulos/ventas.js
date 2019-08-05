@@ -457,7 +457,7 @@ $(function(){
         $(".rest").removeClass('hide')
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
         if($("#impm").is(':checked'))
-            addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
+            addline('-0','sr','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
         $("#ffacturas .zelda").data('triforce')['idline'] = 1;
         $("#fd1").addClass('hide')
     }
@@ -467,7 +467,7 @@ $(function(){
 $(document).on("click","#impm",function(){
     if($(this).is(':checked')){
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
-        addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
+        addline('-0','sr','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
         var nlinea = parseInt($("#ffacturas .zelda").data('triforce')['idline']);
         $("#fd"+nlinea).addClass('hide');
         $("#ffacturas .zelda").data('triforce')['idline'] = nlinea+1;
@@ -812,7 +812,7 @@ $(document).on("click","#acepfact",function(){
 
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
         if($("#impm").is(':checked'))
-            addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil); 
+            addline('-0','sr','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil); 
         $("#fd1").addClass('hide');
         var detalles = getDatos('(select codigo from productos where id = idproducto),cantidad',260,'idfactura ='+$("input[name=factlist]:checked").attr('id').substr(1),0,0,0);
 
@@ -1537,10 +1537,6 @@ function validarFactura() {
             $("#ffacturas .zelda").data('triforce')['vexento'] = parseFloat($("#ffacturas .zelda").data('triforce')['vexento']*divisa);
             $("#ffacturas .zelda").data('triforce')['vdescuento'] = parseFloat($("#ffacturas .zelda").data('triforce')['vdescuento']*divisa);
             $("#ffacturas .zelda").data('triforce')['vexonerado'] = parseFloat($("#ffacturas .zelda").data('triforce')['vexonerado']*divisa);
-        }
-
-        if($(".per11:visible").length){
-            $("#ffacturas .zelda").data('triforce')['vexento'] = parseFloat($("#ffacturas .zelda").data('triforce')['vexento']) + parseFloat($("#serv").html().replace(/,/g,''));
         }
         
     return false;
