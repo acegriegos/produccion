@@ -215,7 +215,7 @@ echo '<table  style="width: 100% !important;">
         $sr += str_replace(',', '', $obj[20]);
     }
   }
-$obj[8] = $obj[8]-$sr;
+$obj[8] =str_replace(',', '', $obj[8])-$sr;
 echo '<tr>
     <td colspan="'.$colspan1.'"></td>
   </tr>
@@ -296,9 +296,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.82"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.82"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.82"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.84"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.84"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.84"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
