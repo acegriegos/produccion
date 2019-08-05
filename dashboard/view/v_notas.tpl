@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.1.0.70">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.1.0.82">
 </head>
 <body>
   {$NAV}
@@ -227,6 +227,7 @@
 </div>
 
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=10.1.0.71"></script>
+
+  <script src="../assets/js/modulos/notas.js?v=10.1.0.82"></script>
 </body>
 </html>
