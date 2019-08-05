@@ -585,7 +585,7 @@ $(document).on("blur","[id^=vcantidad]",function(){
 });
 
 $(document).on("click","#printOrder",function(){
-    window.open('facturacion?accion=10&id='+id);
+    window.open('facturacion?accion=10&id='+idext);
 });
 
 $(document).on("click","#facturar",function(){
