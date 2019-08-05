@@ -215,7 +215,7 @@ echo '<table  style="width: 100% !important;">
         $sr += str_replace(',', '', $obj[20]);
     }
   }
-  
+$obj[8] = $obj[8]-$sr;
 echo '<tr>
     <td colspan="'.$colspan1.'"></td>
   </tr>
@@ -237,7 +237,7 @@ echo '<tr>
     if ($obj[8] > 0) {
       echo '<tr '.$ocultar.'>
       <td width="50%" colspan="'.$colspan2.'">Exento:</td>
-      <td width="50%" align="right"> '.$obj[15].number_format($sr,2).' </td>
+      <td width="50%" align="right"> '.$obj[15].number_format($obj[8],2).' </td>
     </tr>';
     }
 

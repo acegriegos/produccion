@@ -456,12 +456,28 @@ $(function(){
     if($(".per11:visible").length){//RESTAURANTES
         $(".rest").removeClass('hide')
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
-        addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
+        if($("#impm").is(':checked'))
+            addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
         $("#ffacturas .zelda").data('triforce')['idline'] = 1;
         $("#fd1").addClass('hide')
     }
     
 })//READY
+
+$(document).on("click","#impm",function(){
+    if($(this).is(':checked')){
+        var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
+        addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);
+        var nlinea = parseInt($("#ffacturas .zelda").data('triforce')['idline']);
+        $("#fd"+nlinea).addClass('hide');
+        $("#ffacturas .zelda").data('triforce')['idline'] = nlinea+1;
+    }else{
+        $("#fdetallefacturas .ciclos:hidden").remove();
+        $("#serv").html('0.00');
+    }
+
+    totalizar();
+});
 
 $(document).on("click","#fdev",function(){
     var variable1 = $(".cdev").filter(function(){ return $(this).val() > 0 })
@@ -795,7 +811,8 @@ $(document).on("click","#acepfact",function(){
         $("#ffacturas .zelda").data('triforce')['idline'] = 0;
 
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
-        addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil); 
+        if($("#impm").is(':checked'))
+            addline(0,'sr1','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil); 
         $("#fd1").addClass('hide');
         var detalles = getDatos('(select codigo from productos where id = idproducto),cantidad',260,'idfactura ='+$("input[name=factlist]:checked").attr('id').substr(1),0,0,0);
 
