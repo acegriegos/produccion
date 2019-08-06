@@ -459,7 +459,7 @@ $(document).on("keyup","[id^=search_]",function(e){
         var j = $(this).attr('filtro') == undefined ? 1 : $(this).attr('filtro');
         var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
         var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
-
+        
         filltable(h,b,c,g);
         $(".pagination").html('');
         paginate(c,i)
