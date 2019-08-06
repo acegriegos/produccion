@@ -15,6 +15,7 @@ $(function(){
 			$("#gtit").html("Cuentas por Pagar");
 			$("#shabonos").attr('href','vistanotaspagos?tp=1');
 			break;
+
 		default:
 			param = 1;
 			gtipo = 1;
@@ -249,7 +250,7 @@ $(document).on("click","#btnPagar",function(){
 		var fechabol = $("#fecha").val();	
 		var idpag = getDatos('ec7+1',252,'idsucursal = @@impresa',0,0,0)[0][0][0];
 
-		actualizar(252,'ect = ec7+1','idsucursal = @@impresa')
+		actualizar(252,'ec7 = ec7+1','idsucursal = @@impresa')
 
 		if ($(".factclie:checked").length) {
 
