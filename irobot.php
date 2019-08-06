@@ -57,10 +57,9 @@
     if($emails) {
         $emails = array_reverse($emails);
         foreach($emails as $index => $email_number) {
-        
-        if ($index+1 >= 20) {
-           break;
-        }
+        // if ($index+1 >= 20) {
+        //    break;
+        // }
 
         $overview = imap_fetch_overview($inbox,$email_number,0);
         $message = imap_fetchbody($inbox,$email_number, 1);
@@ -124,8 +123,9 @@
 
             if($attachment['is_attachment'] == 1)
             {
-                if (strpos($attachment['name'], '.xml') || strpos($attachment['filename'], '.xml') || strpos($attachment['attachment'], '.xml')) {
-                    $salida = [];
+                if (strpos(strtolower($attachment['name']), '.xml') || strpos(strtolower($attachment['filename']), '.xml') || strpos($attachment['attachment'], '.xml')) {
+                    echo "h<br>";
+                    $salida = [];                    
                     $fe->loadXML_FILE($attachment['attachment'],$salida,$db,$cedula);
                     print_r($salida);
                 }

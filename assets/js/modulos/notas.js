@@ -118,7 +118,6 @@ $(function(){
 
     $("#ftr0").show();
     $("#busnota").click(function(){
->>>>>>> c9fa19a84d996e74ae7c14f1f56faae155ecf022
         if($("#vfac").val().trim().length){
             var cliente = factura = num1 = num2 = 0;
             var desde = hasta = "";
