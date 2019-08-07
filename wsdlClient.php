@@ -1184,6 +1184,7 @@
                     $ddescuento = isset($key->Descuento->MontoDescuento) ? (array)$key->Descuento->MontoDescuento : 0;
                     $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
                     $dimpuesto = isset($key->ImpuestoNeto) ? (array)$key->ImpuestoNeto : 0;
+                    $dimpuesto = $dimpuesto == 0 ? $key->Impuesto->Monto : $dimpuesto;
                     $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
                     $dtarifa = isset($key->Impuesto->Tarifa) ? (array)$key->Impuesto->Tarifa : 0;
                     $dtarifa = $dtarifa == 0 ? $dtarifa : $dtarifa[0];

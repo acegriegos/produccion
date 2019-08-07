@@ -252,6 +252,7 @@ $(document).on("click",".excel",function(){
     var resultado = rexcel()
 
     window.location = "login?accion=11&arreglo[sel]=&arreglo[tbl]="+resultado['tbl']+"&arreglo[where]="+resultado['vatr']+"&arreglo[save]=0&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'];
+    //console.log("login?accion=11&arreglo[sel]=&arreglo[tbl]="+resultado['tbl']+"&arreglo[where]="+resultado['vatr']+"&arreglo[save]=0&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'])
 });
 
 $(document).on("click",".sendrep",function(){
