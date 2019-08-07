@@ -237,7 +237,7 @@ echo '<tr>
     if ($obj[8] > 0) {
       echo '<tr '.$ocultar.'>
       <td width="50%" colspan="'.$colspan2.'">Exento:</td>
-      <td width="50%" align="right"> '.$obj[15].number_format($obj[8],2).' </td>
+      <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
     </tr>';
     }
 
@@ -296,9 +296,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.84"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.84"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.84"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.88"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.88"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.88"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

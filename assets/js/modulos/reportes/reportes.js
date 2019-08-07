@@ -178,8 +178,10 @@ $(function(){
                         $("#chktipo"+inc).addClass('justChange').prop('indeterminate',true)
                         break;
                     default:
-                        strwhere = vwhere[i] == '0' ? '' : ' and id in('+vwhere[i].replace(/&/g,',')+')';
-                        arr('login',6,'id,nombre',vtbl[i],'id > 0 '+strwhere+' order by id',15,1,$("#vidtipo"+inc));
+                        if(vwhere[i] != undefined){
+                            strwhere = vwhere[i] == '0' ? '' : ' and id in('+vwhere[i].replace(/&/g,',')+')';
+                            arr('login',6,'id,nombre',vtbl[i],'id > 0 '+strwhere+' order by id',15,1,$("#vidtipo"+inc));
+                        }
                         break;
                 }
                     

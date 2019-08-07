@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Devoluciones</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-devoluciones.css?v=10.1.0.84">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-devoluciones.css?v=10.1.0.88">
 </head>
 <body>
   {$NAV}
@@ -167,6 +167,6 @@
     </div>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/devoluciones.js?v=10.1.0.84"></script>
+  <script src="../assets/js/modulos/devoluciones.js?v=10.1.0.88"></script>
 </body>
 </html>

@@ -86,7 +86,13 @@
 	   			require 'view/ajax/facturas/orden.php';
 	   			break;
 	   		case 10:
+	   				$pagina = 1;
+	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
+	   			$_REQUEST['id'] = $_REQUEST['id'] < 0 ? -1*$_REQUEST['id'] : $_REQUEST['id'];
+	   			$transaccion = $kakaroto->kamehameha('date_format(fecha,"%d/%m/%Y"),curtime(),(select nombre from usuarios where id = idusuario),id,(select simbolo from monedas where id = idmoneda)',261,'id = '.$_REQUEST['id']);
+	   			$detalle = $kakaroto->kamehameha('cantidad,precio*cantidad-descuento,(select nombre from productos where id = idproducto),imv',260,'idfactura = '.$_REQUEST['id']);
 	   			
+	   			include_once 'view/ajax/facturas/ordenpv.php';
         	break;
 
 	   	}
