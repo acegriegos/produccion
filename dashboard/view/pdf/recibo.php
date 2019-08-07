@@ -138,21 +138,11 @@ $html .= '</td>'.
 '<td valign="top" class="mcnTextContent" style="font-size: 13px;font-family: Helvetica;">'.
 '<div style="text-align: left; color: #494949;">';
 $fact = $miscelaneos[2] != '' ? $miscelaneos[2] : $miscelaneos[0];
-if ($miscelaneos[10] == 2) {
-   if ($miscelaneos[2] != ''){ 
-      $html .= '<strong>'.$miscelaneos[2].'</strong><br>';
-      $fact = $miscelaneos[2];
-    }
-   else
-      $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
-}else{
    if ($miscelaneos[2] != ''){
-      $html .= '<strong>'.$miscelaneos[2].'</strong><br>';
-      $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
+      $html .= '<strong>'.$miscelaneos[2].'</strong><br>'.$miscelaneos[0].'<br>';
    }
    else
       $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
-}   
 
 $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 '<strong>Teléfono:</strong> '.$miscelaneos[5].'<br>'.

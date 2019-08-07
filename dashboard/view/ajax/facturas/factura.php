@@ -37,20 +37,10 @@
             <font size="2.5">
   
               <?php
-                if ($miscelaneos[10] == 2) {
-                   if (trim($miscelaneos[2]) != '') 
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
-                   else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
-                }else{
-                   if (trim($miscelaneos[2]) != ''){
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
-                      echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
-                   }
-                   else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
-                }
-                
+                if (trim($miscelaneos[2]) != ''){
+                  echo '<b>'.$miscelaneos[2].'</b><br>'.$miscelaneos[0].'<br>';
+                }else
+                  echo '<b>'.$miscelaneos[0].'</b>';
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
               <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
