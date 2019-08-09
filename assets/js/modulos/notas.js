@@ -1,3 +1,5 @@
+Dropzone.autoDiscover = false;
+var myDropzone;
 var config;
 var factura;
 var clave;
@@ -49,8 +51,10 @@ $(function(){
         $("#modal-clave").modal('open');
     });
 
-    $("#pce-acep").click(function(){
-        alert(1)
+    $("#sde-acep").click(function(){
+        var _clie = getDatos('id',2,'replace(cedula,"-","") = "'+$("#sde-all").data('cliente')+'"',0,0,0);
+        console.log(_clie);
+        //var ins = insertar(64,'','-1, 1, 1, 1,now(),'+_clie+', 4, 0,'+_imv+', '+_gravado+','+_exento+' , '+_desc+', '+_exo+', "", 0, "", '+clave+', 1, 1, "", 0, "0", "0", 1.00000, 1, 1, "", 0, 0, 0.00');
     });
 
     $(".sclie").blur(function(){
@@ -68,7 +72,12 @@ $(function(){
         }
         
 
-    })
+    });
+
+    $("#sde-exit").click(function(){
+        $("#hacienda-upload").removeClass('hide');
+        $("#vista-xml").addClass('hide');
+    });
 
     $("#cp").change(function(){
         if ($(this).is(':checked')) {
@@ -164,6 +173,7 @@ $(function(){
         }
         });
     $("#vfac").focus();
+    InitDropzone(1,true,'../cargar.php?accion=4',"#hacienda-upload",1,'text/xml','',removeHacienda,xmlCargar);
 });
 
 $('.datepicker').pickadate({
@@ -181,6 +191,29 @@ $("#data-table-Notas").DataTable({
     order : [],
     "bLengthChange": false
 });
+
+function removeHacienda(file){
+    console.log('Empty hidden')
+}
+
+function xmlCargar(file,response){
+
+    $.get('login',{accion:16,arreglo:1,n_archivo:file['name']})
+        .done(function(data){
+            var p = JSON.parse(data);
+
+            if(p.succed){
+                $("#hacienda-upload").addClass('hide');
+                $("#vista-xml").removeClass('hide');
+                p = p.rs;
+                //$("#sde-all").data("datos",{cliente:p.Receptor.Identificacion.Numero})
+                $("#sde-clave").html(p.Clave)
+                $("#sde-tipo").html(p.Clave.substr(29,02));
+            }else {
+                Materialize.toast(p.rs,4000,'red')
+            }
+        });
+}
 
 function manualPaginate(limit){
     var cliente = factura = num1 = num2 = 0;

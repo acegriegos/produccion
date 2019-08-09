@@ -57,6 +57,11 @@
         </tr>
       </div>
 
+      <div class="input-field col s6 export hide">
+        <input type="text" id="parancel" maxlength="12">
+        <label for="parancel">Partida Arancelaria</label>
+      </div>
+
       <div class="input-field col s6 eimp">
         <input type="text" id="eimpuesto">
         <label for="eimpuesto">Impuesto</label>

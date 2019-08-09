@@ -992,10 +992,10 @@
                     return false;
                 }
 
-                if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
-                    $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
-                    return false;
-                }
+                // if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
+                //     $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
+                //     return false;
+                // }
 
                 $salida['clave'] = $inv_xml['Clave'];
 
@@ -1038,10 +1038,10 @@
                 return false;
             }
 
-            if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
-                $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
-                return false;
-            }
+            // if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
+            //     $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
+            //     return false;
+            // }
 
             $salida['clave'] = (array)$inv_xml->Clave;
             $salida['clave'] = $inv_xml->Clave[0];
@@ -1174,7 +1174,7 @@
                     // $vunidad = $vunidad == 0 ? 1 : $vunidad;
 
                     $num = (array)$key->NumeroLinea;
-                    $dcodigo = (array)$key->Codigo->Codigo;
+                    $dcodigo = isset($key->Codigo) ? (array)$key->Codigo : isset($key->CodigoComercial) ? $key->CodigoComercial->Codigo : '';
                     $dcodigo = isset($dcodigo[0]) ? $dcodigo[0] : '';
                     
                     $dcantidad = (array)$key->Cantidad;
@@ -1183,13 +1183,27 @@
                     $dsubtotal = (array)$key->SubTotal;
                     $ddescuento = isset($key->Descuento->MontoDescuento) ? (array)$key->Descuento->MontoDescuento : 0;
                     $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
-                    $dimpuesto = isset($key->ImpuestoNeto) ? (array)$key->ImpuestoNeto : 0;
-                    $dimpuesto = $dimpuesto == 0 ? $key->Impuesto->Monto : $dimpuesto;
-                    $dimpuesto = $dimpuesto == 0 ? $dimpuesto : $dimpuesto[0];
-                    $dtarifa = isset($key->Impuesto->Tarifa) ? (array)$key->Impuesto->Tarifa : 0;
-                    $dtarifa = $dtarifa == 0 ? $dtarifa : $dtarifa[0];
-                    $timv = isset($key->Impuesto->CodigoTarifa) ? (array)$key->Impuesto->CodigoTarifa : 0;
-                    $timv = is_array($timv) ? $timv[0] : $timv;
+                    $dtarifa = 0;
+                    $timv = 0;
+                    $dimpuesto = isset($key->ImpuestoNeto) ? (array) $key->ImpuestoNeto : 0;
+                    $dimpuesto = $dimpuesto == 0 ? isset($key->Impuesto) ? (array) $key->Impuesto->Monto : 0 : $dimpuesto;
+                    $dimpuesto = $dimpuesto == 0 ? 0 : $dimpuesto[0];
+
+                    if(isset($key->Impuesto)){
+
+                        for ($i = 0; $i < sizeof($key->Impuesto); $i++) {
+
+                            $timpuesto = (array) $key->Impuesto[$i]->Codigo;
+                            $timpuesto = $timpuesto[0];
+
+                            if( $timpuesto == '01'){
+                                $dtarifa = isset($key->Impuesto[$i]->Tarifa) ? (array)$key->Impuesto[$i]->Tarifa : 0;
+                                $dtarifa = $dtarifa == 0 ? $dtarifa : $dtarifa[0];
+                                $timv = isset($key->Impuesto[$i]->CodigoTarifa) ? (array)$key->Impuesto[$i]->CodigoTarifa : 0;
+                                $timv = is_array($timv) ? $timv[0] : $timv;
+                            }
+                        }
+                    }
                     $pexo = isset($key->Impuesto->Exoneracion->MontoExoneracion) ? (array)$key->Impuesto->Exoneracion->MontoExoneracion : 0;
                     $pexo = is_array($pexo) ? $pexo[0] : $pexo; 
 
@@ -1453,8 +1467,8 @@
                         $iddetalle = $value[0];
                         $detalle = [];
                         $detalle['NumeroLinea'] = $fila;
-                        $codigo = ['Tipo'=>$value[1],'Codigo'=>$value[2]];
-                        //$detalle['Codigo'] = $codigo;
+                        //$codigo = ['Tipo'=>$value[1],'Codigo'=>$value[2]];
+                        $detalle['Codigo'] = $value[2];//$codigo;
                         $detalle['Cantidad'] = $value[3];
                         $detalle['UnidadMedida'] = $value[4];
                         $detalle['UnidadMedidaComercial'] = $value[5];

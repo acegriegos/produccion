@@ -244,6 +244,17 @@
         $pagina = 1;
         getCompras($_REQUEST['server'],$_REQUEST['ced'],$_REQUEST['isp'],$log);
         break;
+      case 16: //READ XML FILE RETURN ARRAY
+        $pagina = 1;
+
+        if(!file_exists('../assets/xml/'.$_REQUEST['n_archivo'])){
+          echo json_encode(['succed'=>0,'rs'=>'Archivo no Existente']);
+        }else{
+          $xml = (array) simplexml_load_file('../assets/xml/'.$_REQUEST['n_archivo']);
+          unlink('../assets/xml/'.$_REQUEST['n_archivo']);
+          echo json_encode(['succed'=>1,'rs'=>$xml]);
+        }
+        break;
       default:
         break;
 

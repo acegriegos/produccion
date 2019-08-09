@@ -7,6 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
+  <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.89">
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.1.0.89">
 </head>
 <body>
@@ -62,7 +63,7 @@
               <div class="col s12 m6 l6">
                 <div class="row">
                   <div class="col s12 m12">
-                    <a class="btn btn-default" id="pce">Por Clave Electrónica</a>
+                    <a class="btn btn-default" id="pce">Por Documento Electrónico</a>
                   </div>
 
                   <div class="col s12 m12 hide">
@@ -165,68 +166,30 @@
   </div>
 
   <div class="modal modal-fixed-footer grandemodal" id="modal-clave" style="height: 100%; width: 75%">
-  <div class="modal-header head3 center" style="font-size: 22px;">Nota por Clave Electrónica</div>
+  <div class="modal-header head3 center" style="font-size: 22px;">Nota por Documento Electrónico</div>
   <div class="modal-content">
     <div class="row">
-      <div class="col s6 input-field">
-        <input type="text" id="pce-clave" maxlength="50">
-        <label for="pce-clave">Clave Numérica</label>
-      </div>
 
-      <div class="col s6 input-field">
-          <a class="prefix  tooltipped" style="max-width: 3% !important" data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small mdi mdi-magnify mdi-24px"></i></a>
-          <label class="truncate" for="ncli" style="font-size: 1em !important"> Nombre o Cédula del <span class="tipoclie">Cliente</span></label>
-          <input type="text" id="ncli" var="nombre" class="autocomplete validate sclie snota" maxlength="64" />
-      </div>
-
-      <div class="col s3">
-        <input type="date" id="pce-fecha">
-      </div>
-
-      <div class="col s3">
-        <input type="time" id="pce-hora">
-      </div>
-
-      <div class="col s6 input-field">
-        <input type="text" id="pce-gravado" value="0.00" class="eder">
-        <label for="pce-gravado">Total Gravado</label>
-      </div>
-
-      <div class="col s6 input-field">
-        <input type="text" id="pce-exento" value="0.00" class="eder">
-        <label for="pce-exento">Total Exento</label>
-      </div>
-
-      <div class="col s6 input-field">
-        <input type="text" id="pce-exoneado" value="0.00" class="eder">
-        <label for="pce-exoneado">Total Exonerado</label>
-      </div>
-
-      <div class="col s6 input-field">
-        <input type="text" id="pce-desceunto" value="0.00" class="eder">
-        <label for="pce-desceunto">Total Descuento</label>
-      </div>
-
-      <div class="col s6 input-field">
-        <input type="text" id="pce-impuesto" value="0.00" class="eder">
-        <label for="pce-impuesto">Total Impuesto</label>
-      </div>
-
-       <div class="col s12 input-field">
-        <input type="text" id="pce-razon">
-        <label for="pce-razon">Razón</label>
-      </div>
-
+      <section class="upxml col s12" style="margin-top: 8%">
+        <form class="dropzone needsclick dz-clickable dz-started" id="hacienda-upload" style="padding-left: 44% !important">
+            <span class="dz-message needsclick text-center ico-reg"><i class="mdi mdi-xml mdi-48px imgDrop" style="margin-top: 25px;margin-bottom: 25px;"></i></span>
+        </form>
+        <div id="vista-xml" class="hide row col s12">
+          <div class="col s6"><b>CLAVE:</b> <span id="sde-clave"></span></div>
+          <div class="col s6"><b>TIPO:</b> <span id="sde-tipo"></span></div>
+        </div>
+    </section>     
 
     </div>
   </div>
   <div class="modal-footer">
-      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-      <a class="modal-action waves-effect waves-green btn-flat" id="pce-acep">Aceptar</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat" id="sde-exit">Salir</a>
+      <a class="modal-action waves-effect waves-green btn-flat" id="sde-acep">Aceptar</a>
   </div>
 </div>
 
   {$SCR}
+  <script src="../assets/js/dropzone.js?v=10.1.0.89"></script>
   <script src="../assets/js/modulos/notas.js?v=10.1.0.89"></script>
 </body>
 </html>

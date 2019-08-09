@@ -173,13 +173,14 @@
         </div>
       <div class="modal-footer">
         <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="total_mesa">0.00</span> </section>
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder"></a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder" style="float: left"></a>
+        
         <a href="#!" class="modal-action waves-effect waves-green btn-flat add mdi mdi-table-edit mdi-24px" id="saveOrder" modulo="factura" varias="1" title="Guardar Orden"></a>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat mdi mdi-24px mdi-exit-to-app" title="Salir" id="orderout"></a>
       </div>
     </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.1.0.89"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.1.0.90"></script>
   </body>
 </html>
