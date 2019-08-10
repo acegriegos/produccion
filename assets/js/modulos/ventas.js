@@ -1820,7 +1820,8 @@ function endDetail(vid,vacc,vmodulo) {
             factura = factura[0];
             var clave = vid[0][0];
 
-            if (param == 2) {
+            switch(parseInt(param )) {
+                case 2:
                 $("#ffacturas .ciclos").each(function(){
                    var idp =  $(this).data('triforce')['videntrada'];
                    var matriz = $(this).data('matriz');
@@ -1846,7 +1847,29 @@ function endDetail(vid,vacc,vmodulo) {
                        }
                    }
                 });
-            }
+                    break;
+                case 1:
+                case 7:
+                    var ms = 0
+                    var set = '';
+
+                    if($("#impm:visible").length){
+                        var sr = parseFloat($("#serv").html());
+                        if (sr > 0) {
+                            ms = 1;
+                            set += 'servmesero = '+sr+',';
+                        }
+                    }
+
+                    if(ms){
+                        set = set.substr(0,set.length-1);
+                        insertar(291,'idfactura',vid[0][0])[0];
+                        actualizar(291,set,'idfactura = '+vid[0][0]);
+                    }
+                    break;
+                default:
+                    break;
+                }
 
             if (parseInt(idext) < 0){
                 getDatos('',259,'0,'+idext+',0',0,0,0);
