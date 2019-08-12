@@ -154,9 +154,8 @@ echo '<table  style="width: 100% !important;">
             <td align="center" width="20%">'.$obj[0].'</td>
             <td align="center" width="50%">'.$obj[2].'</td>
             <td align="right" width="30%">'.number_format($obj[1],2).'</td>';
-        $grav += $obj[1]/1.1;
-        $sr += ($obj[1]*0.1)/1.1;
-        $iva += $obj[3]; 
+        $grav += $obj[1]/1.23;
+        //$sr += ($obj[1]/1.23)*0.1;
       /*}else
         $sr += str_replace(',', '', $obj[20]);*/
     }
@@ -179,17 +178,17 @@ echo '<tr>
 
       echo '<tr >
       <td width="50%" colspan="'.$colspan2.'">10% Serv. Rest.:</td>
-      <td width="50%" align="right"> '.$transaccion[0][4].number_format($sr,2).' </td>
+      <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*0.1,2).' </td>
     </tr>';
 
   echo '<tr >
     <td width="50%" colspan="'.$colspan2.'">IVA:</td>
-    <td width="50%" align="right"> '.$transaccion[0][4].number_format($iva,2).' </td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*0.13,2).' </td>
   </tr>';
 
   echo '<tr >
     <td width="50%" colspan="'.$colspan2.'">TOTAL GENERAL:  </td>
-    <td width="50%" align="right"> '.$transaccion[0][4].number_format($tot,2).' </td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*1.23,2).' </td>
   </tr>
 </table>';
 
