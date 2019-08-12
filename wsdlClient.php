@@ -1209,6 +1209,9 @@
                     }
                     $pexo = isset($key->Impuesto->Exoneracion->MontoExoneracion) ? (array)$key->Impuesto->Exoneracion->MontoExoneracion : 0;
                     $pexo = is_array($pexo) ? $pexo[0] : $pexo; 
+                    $dcodigo =  is_array($dcodigo) ? $dcodigo[0] : $dcodigo;
+                    $ddescuento = is_array($ddescuento) ? $ddescuento[0] : $ddescuento;
+                    $vunidad = is_array($vunidad) ? isset($vunidad[0]) ? $vunidad[0]  : 0 : $vunidad;
 
                     $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');
                     
