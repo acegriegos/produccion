@@ -954,7 +954,7 @@
         function loadXML_FILE($_xml,&$salida,&$db,$cedula)
         {       
             
-            $inv_xml = simplexml_load_string($_xml);
+            $inv_xml = simplexml_load_string(utf8_encode($_xml));
             if (!isset($inv_xml->Clave)) {
                 $salida = ['succed' => 0,'ERROR' => 'XML no Válido'];
                 return false;
