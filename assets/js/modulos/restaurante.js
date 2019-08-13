@@ -190,16 +190,15 @@ $(function(){
 
         if($(".ciclos").length){
             vdata = generarComanda(idfactura);
-
+            console.log('save order')
+            console.log(vdata);
             Materialize.toast('Orden Editada Corectamente',4000,'green');
             
-//            if(imprimir){
-                if(vdata['cocina'] != '')
-                    mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
-                
-                if(vdata['refresco'] != '')    
-                    mantenimiento('login',12,{data:vdata['refresco'],ip:ipbebidas['ip'],port:ipbebidas['port'],cola:ipbebidas['cola']},1);
-           // }
+            if(vdata['cocina'] != '')
+                mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
+            
+            if(vdata['refresco'] != '')    
+                mantenimiento('login',12,{data:vdata['refresco'],ip:ipbebidas['ip'],port:ipbebidas['port'],cola:ipbebidas['cola']},1);
             
         }else{
             Materialize.toast('No Hay Productos que Ingresar',4000,'red');
@@ -306,6 +305,7 @@ $(function(){
                 break;
             case 2:
                 var detalle = getDatos('',803,mesa+',0',0,0,0);
+                console.log(mesa)
                 var mstr = '';
                 $("#fdetallefacturas .ciclos").remove();
                 $(".zelda").data('triforce')['vidtipo'] = mesa;
@@ -323,11 +323,11 @@ $(function(){
                     var total = parseFloat((precio+cimp)*cantidad);
                     t_mesa += total;
 
-                    mstr = '<li><div class="collapsible-header ciclos black-text" nuevo="0" id="fd'+idproducto+'" style="padding: 0px;margin:0px"><span class="row" style="margin:0;width:100%"><span id="fnom" style="font: bold;padding-left:1%;padding-right:0;" class="col s12">'+detalle[0][i][0]+'</span> <small class="hide">Uni:<span id="funit">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s3" style="padding-left:1%;padding-right:0;">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s9" style="padding-left:1%;padding-right:0;">Total: <span id="ftot">'+(total).formatMoney(2,'.',',')+'</span></small><span></div> <div class="collapsible-body" style="padding:0px;npadding-left:1%;margin:0px"><b>Comentario</b> <textarea type="textarea" class="materialize-textarea" id="cmt'+idproducto+'"></textarea </div></li>';
+                    mstr = '<li><div class="collapsible-header ciclos black-text" nuevo="'+cantidad+'" id="fd'+idproducto+'" style="padding: 0px;margin:0px"><span class="row" style="margin:0;width:100%"><span id="fnom" style="font: bold;padding-left:1%;padding-right:0;" class="col s12">'+detalle[0][i][0]+'</span> <small class="hide">Uni:<span id="funit">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s3" style="padding-left:1%;padding-right:0;">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s9" style="padding-left:1%;padding-right:0;">Total: <span id="ftot">'+(total).formatMoney(2,'.',',')+'</span></small><span></div> <div class="collapsible-body" style="padding:0px;npadding-left:1%;margin:0px"><b>Comentario</b> <textarea type="textarea" class="materialize-textarea" id="cmt'+idproducto+'"></textarea </div></li>';
 
                     $("#fdetallefacturas").prepend(mstr);
                     
-                    $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio).formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][0],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp,vcomision : 0,videxoneracion:''});
+                    $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio).formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][0],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp,vcomision : 0,videxoneracion:'',idtipo:1,ntipo:1,idfam:detalle[0][i][6]});
 
                 };
 
@@ -700,40 +700,15 @@ function validarFactura() {
 
 
 function validarDetalleFactura(){
-    // var ciclos = $("#fdetallefacturas .ciclos");
-    // var fila;
-    // var cantidad = ciclos.length;
-
-    // ciclos.each(function(index){
-    //     var fila = $(this);
-    //     var i = $(this).attr('id').substr(2)
-    //     if (fila.data() != undefined) {
-    //         if(fila.data('triforce')['vcomodin'] == "1")
-    //         fila.data('triforce')['vcomodin'] = $("#desc"+i).html();    
-    //     }
-    // });
 
     return false;
 }
 
 function endDetail(vid,vacc,vmodulo) {
-
-    // var vdata = "\t   \1COMANDA\0\n\tOrden #"+vid[0][0][0]+" - "+$("#tit").html()+"\n\nCANT \tPRODUCTOS"; //20 CARACTERES 
-    // var lcant = 0;
-    // var imprimir = 0;
-    // $(".ciclos").each(function(){
-    //     cant = $(this).data('triforce')['vcantidad'];
-    //     vdata += "\n"+cant.toString().padEnd(6,' ')+$("#fnom",this).html().trim().substr(0,20).padEnd(20,' ');
-    //     $(this).attr('nuevo',cant);
-    // });
-
-    // vdata += '\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n';
-    
-    // //mantenimiento('login',12,{data:vdata,ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
-    // mantenimiento('login',12,{data:vdata,ip:ipbebidas['ip'],port:ipbebidas['port'],cola:ipbebidas['cola']},1);
-    
+   
     vdata = generarComanda(vid[0][0][0]);
-    
+    console.log('end detail')
+    console.log(vdata);
     if(vdata['cocina'] != '')
         mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
     
@@ -770,11 +745,22 @@ function totalizar(){
 }
 
 function generarComanda(idfactura){
-    var vcocina = "\t   COMANDA\n\tOrden #"+idfactura+"\n"+$("#tit").html()+"\n\nCANT \tPRODUCTOS"; 
-    var vrefresco = "\tOrden #"+idfactura+"\n"+$("#tit").html()+"\n\nCANT \tPRODUCTOS";
+    var sucursal = $('#sucname').html() == undefined ? $('#loadMyBussiness').html() : $('#sucname').html();
+    var cfecha = new Date();
+    var hours = cfecha.getHours();
+    var minutes = cfecha.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    var str_fecha = ("0"+cfecha.getDate()).slice(-2)+'/'+("0"+cfecha.getMonth()).slice(-2)+'/'+cfecha.getFullYear()+' '+strTime;
+    var vcocina = "\n\t"+sucursal+"\n\t"+str_fecha+"\n\tOrden #"+idfactura+"\n"+$("#tit").html()+"\n\nCANT \tPRODUCTOS"; 
+    var vrefresco = "\n\t"+sucursal+"\tOrden #"+idfactura+"\n"+$("#tit").html()+"\n\nCANT \tPRODUCTOS";
     var cant1 = cant2 = 0;
     var lcant = 0;
     var imprimir = 0;
+
     $(".ciclos").each(function(){
         idprod = $(this).attr('id').substr(2);
         cant = $(this).data('triforce')['vcantidad'];
@@ -783,29 +769,28 @@ function generarComanda(idfactura){
         idimv = $(this).data('triforce')['idimv'];
         insertar(260,'','null,'+idfactura+','+idprod+',null,null,'+cant+','+precio+',0,0,'+imv+',"",1,"'+idimv+'","",6');
         lcant = parseFloat(cant) - parseFloat($(this).attr('nuevo'));
-        if(lcant > 0){
-            imprimir = 1;
 
-            // switch(parseInt($(this).data('triforce')['idfam'])){
-            //     case 1:
-            //     case 2:
+        if(lcant > 0){
+            switch(parseInt($(this).data('triforce')['idfam'])){
+                 case 1:
+                 case 2:
                     cant1 += 1;
                     vcocina += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
                     if($("#cmt"+idprod).val().trim() != '')
                         vcocina += "\n----"+$("#cmt"+idprod).val();
-                    // break;
-            //     default:
-            //         cant2 += 1;
-            //         vrefresco += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
-            //         break;    
-            // }
+                     break;
+                 default:
+                     cant2 += 1;
+                     vrefresco += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
+                     break;    
+            }
             
         }
 
         $(this).attr('nuevo',cant);
     });
-    /*vcocina += '\n\n'+$("#comentario").val()+'\n\n\n\n\n\n--------';
-    vrefresco += '\n\n'+$("#comentario").val()+'\n\n\n\n\n\n--------';*/
+    vcocina += '\n\n\n\n\n\n\n\n--------';
+    vrefresco += '\n\n\n\n\n\n\n\n\n--------';
     vcocina = parseInt(cant1) ? vcocina : '';
     vrefresco = parseInt(cant2) ? vrefresco : '';
     return {cocina:vcocina,refresco:vrefresco}

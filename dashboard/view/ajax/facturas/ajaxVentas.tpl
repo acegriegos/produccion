@@ -37,7 +37,7 @@
       </div>
 
       {assign var="column" value="6"}
-      <div class="col s12 m{$column} l{$column} concre movil" align="center" id="tpagos">
+      <div class="col s12 m{$column} l{$column} concre movil hide trVenta" align="center" id="tpagos">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1105" val="2" id="chg_tipo2">
@@ -427,7 +427,7 @@
       </div>
 
       {if $smarty.session.BUSS neq 1}
-      <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px">
+      <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px" id="precioscat">
         <table style="border: 1px solid #e2e2e2">
           <thead>
             <tr>
@@ -580,6 +580,10 @@
             <td>DESCUENTO:</td>
             <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
           </tr>
+          <tr class="hide rest">
+            <td>10% SERV.:</td>
+            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0">0.00</span></b></td>
+          </tr>
         </thead>
 
         <tbody id="sh_imp">
@@ -587,10 +591,6 @@
         </tbody>  
 
         <tfoot> 
-          <tr class="hide rest">
-            <td>10% SERV.:</td>
-            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0">0.00</span></b></td>
-          </tr>
 
           <tr style="border-top:1px solid #E9E9E9">
             <td><b>TOTAL:</b></td>
@@ -793,12 +793,12 @@
         <input type="hidden" id="c-tp">
       </div>
 
-      <div class="input-field col s6 hide c-stp1 c-st">
+      <div class="input-field col s6 hide">
         <input type="text" id="c-ap1" readonly>
         <label for="c-ap1">Apellido 1</label>
       </div>
 
-      <div class="input-field col s6 hide c-stp1 c-st">
+      <div class="input-field col s6 hide">
         <input type="text" id="c-ap2" readonly>
         <label for="c-ap2">Apellido 2</label>
       </div>
@@ -1151,4 +1151,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.89"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.90"></script>

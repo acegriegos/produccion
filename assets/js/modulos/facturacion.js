@@ -180,17 +180,21 @@ function cargarCompras(){
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
     $("#vdescuentop").removeAttr('disabled')
 
-    param = $("#celectronica").is(':checked') ? 9 : 2;
-
     $("#celectronica").change(function(){
         if($("#celectronica").is(':checked')){
+            param = 9
             $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 9;
             var ncons = getDatos('lpad(consecutivo8+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
             $("#idfact").html(ncons);
+            $("#precioscat").addClass('hide');
+            $("#vimpiva").val(1).material_select('update');
         }else{
+            param = 2;
             $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 2;
             var ncons = getDatos('lpad(consecutivo1+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
             $("#idfact").html(ncons);
+            $("#precioscat").removeClass('hide');
+            $("#vimpiva").val(8).material_select('update');
         }
     });
 
@@ -874,9 +878,12 @@ function cargarFactura(vidp,asoc){
     idext = vidp;
     if($("#impm:visible").length){
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
-        $("#ffacturas .zelda").data('triforce')['idline'] = parseInt($("#ffacturas .zelda").data('triforce')['idline'])+1;
-        addline('-0','sr','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);        
-        $("#fd"+$("#ffacturas .zelda").data('triforce')['idline']).addClass('hide')
+        if($("#impm").is(':checked')){
+            $("#ffacturas .zelda").data('triforce')['idline'] = parseInt($("#ffacturas .zelda").data('triforce')['idline'])+1;
+            addline('-0','sr','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);        
+            $("#fd"+$("#ffacturas .zelda").data('triforce')['idline']).addClass('hide')
+        }
+        $(".order").removeClass('hide');
     }
     $("#ffacturas .zelda").data('triforce')['vterminal'] = config[26];
     Materialize.updateTextFields();

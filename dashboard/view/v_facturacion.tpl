@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.89">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.90">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,7 +16,7 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.89"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.90"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -55,6 +55,11 @@
             <input type="text" id="edescuento" class="hide trCompra" tdesc="2">
           </td>
         </tr>
+      </div>
+
+      <div class="input-field col s6 export hide">
+        <input type="text" id="parancel" maxlength="12">
+        <label for="parancel">Partida Arancelaria</label>
       </div>
 
       <div class="input-field col s6 eimp">
