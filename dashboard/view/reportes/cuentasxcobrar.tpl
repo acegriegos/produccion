@@ -11,7 +11,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" porcliente tbltipos="" tipos="" elem="" sp="269" modulo="reportecxc" types=""></div>
+      <div class="filtros row" porcliente entrefechas="," tbltipos="" tipos="" elem="" sp="269" modulo="reportecxc" types=""></div>
       <input type="hidden" id="vishistorico" value="0">
       <input type="hidden" id="visproveedor" value="0">
       <!-- HEADER -->

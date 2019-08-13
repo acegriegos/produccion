@@ -165,6 +165,9 @@
           if (isset($_REQUEST['arreglo']['tit']))
             $tit = $_REQUEST['arreglo']['tit'];
            
+          if (isset($_REQUEST['arreglo']['filtro']))
+            $filtros = $_REQUEST['arreglo']['filtro'];
+             
           include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php';  
 		   	break;
         case 9:  //GENERAR SOLO XML
