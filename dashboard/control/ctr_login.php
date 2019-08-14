@@ -164,7 +164,8 @@
 
           if (isset($_REQUEST['arreglo']['tit']))
             $tit = $_REQUEST['arreglo']['tit'];
-           
+          
+          $filtros = ''; 
           if (isset($_REQUEST['arreglo']['filtro']))
             $filtros = $_REQUEST['arreglo']['filtro'];
              
