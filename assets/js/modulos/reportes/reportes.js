@@ -100,6 +100,7 @@ $(function(){
         var tmfech = (mdate.length - mdate.replace(/,/g,'').length);
         $html = '';
         var vl = '';
+        tmfech = !tmfech ? 1 : tmfech;
         for(var i = 1 ;i <= tmfech;i++){
             vl = i == 1 ? '' : i;
             console.log(vl)
