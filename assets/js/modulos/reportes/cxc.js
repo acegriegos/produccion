@@ -17,7 +17,7 @@ $(function(){
             $("#titrep").html('Estado de Cuenta Histórico por Cobrar');
             // arr('login',6,'',269,'0,1,0,@@impresa',0,1,$(".detrep"));
             $("#vishistorico").val(1);
-            $(".pdf").attr('whr','0,0,1,@@impresa');
+            $(".pdf").attr('whr','0,0,0,@@impresa');
             break;
         case 3:
             $("#titrep").html('Estado de Cuenta Histórico por Pagar');
@@ -30,7 +30,7 @@ $(function(){
         default:
             $("#titrep").html('Estado de Cuenta por Cobrar');
             arr('login',6,'',269,'0,0,0,@@impresa',0,1,$(".detrep"));
-            $(".pdf").attr('whr','0,0,1,@@impresa');
+            $(".pdf").attr('whr','0,0,0,@@impresa');
             break;
     }
 
