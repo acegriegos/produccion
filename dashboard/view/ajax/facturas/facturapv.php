@@ -140,7 +140,8 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
 
 <table>
   <tr>
-    <td colspan="2">Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
+    <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
+    <td>Hora: '.$datos[37].'</td>
   </tr>';
   if ($datos[4] != '') {
     echo '<tr '.$ocultar.'>
@@ -283,9 +284,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.24"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.24"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.24"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.40"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.40"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.40"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

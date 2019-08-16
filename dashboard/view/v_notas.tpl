@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.1.0.24">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.1.0.40">
 </head>
 <body>
   {$NAV}
@@ -15,7 +15,7 @@
     <div class="card z-depth-3">
       <div class="card-header center head1">
         <span class="flow-text">Notas</span>
-        <a href="vistanotaspagos" target="_new" class="der pbtn tooltipped white-text" data-tooltip="Ver Notas" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
+        <a href="vistanotaspagos?tf=5" target="_new" class="der pbtn tooltipped white-text" data-tooltip="Ver Notas" data-position="botton"><i class="mdi mdi-magnify mdi-24px" ></i></a>
       </div>
       <div class="card-content pequeño">
         <div class="row">
@@ -162,6 +162,6 @@
     </div>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=10.1.0.24"></script>
+  <script src="../assets/js/modulos/notas.js?v=10.1.0.40"></script>
 </body>
 </html>

@@ -89,9 +89,8 @@
       <ul id='dropfact' class='dropdown-content'>
         <li class="per1100"><a href="facturacion?tf=1">Ventas</a></li>
         <li class="per1600"><a href="facturacion?tf=4">Proformas</a></li>
-        <li class="per1700"><a href="facturacion?tf=10">Exportaciones</a></li>
         <li class="per2100"><a href="facturacion?tf=2">Compras</a></li>
-        <li class="per2200"><a href="facturacion?tf=9">Compras Electrónicas</a></li>
+        <li class="per1700"><a href="facturacion?tf=10">Exportaciones</a></li>
       </ul>
 
     </li>
@@ -140,7 +139,7 @@
       <ul id='dropfact' class='dropdown-content'>
         <li><a href="facturacion?tf=1">Ventas</a></li>
         <li><a href="facturacion?tf=4">Proformas</a></li>
-        <li class="per2200"><a href="facturacion?tf=9">Compras Electrónicas</a></li>
+        <li class="per2200"><a href="facturacion?tf=2">Compras</a></li>
       </ul>
     </li>
     <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a></li>

@@ -25,7 +25,6 @@
 	   			$smarty->setModule('dashboard');
 	   			$smarty->assign('UNI',$kakaroto->kamehameha('',12,'"1,2,3"'));
 	   			$smarty->assign('INV',$kakaroto->kamehameha('*',111,'id > 0 and idbodega = 1 and idsucursal in(-1,@@impresa) order by id'));
-	   			$smarty->assign('PROD',$kakaroto->kamehameha('',14,'0,0,",@@impresa","0,10"'));
 	   			$smarty->assign('NIV',$kakaroto->kamehameha('id,nombre',69,'id > 0 and idsucursal = @@impresa order by id'));
 	   			$smarty->assign('MON',$kakaroto->kamehameha('id,nombre,valor+suma as valor,simbolo',54,'id > 0 order by principal desc'));
 	   			$smarty->display('ajax/productos/ajaxmantProductos.tpl');

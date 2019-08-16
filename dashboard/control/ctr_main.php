@@ -46,7 +46,6 @@
 	   		case 3:
 	   			$idsuc = $_POST['arreglo'] == -1 ? $_SESSION['TMP_CIA'] : $_POST['arreglo'];
 	   			$idsuc == -1 ? $_SESSION['IMPRESA'] : $_POST['arreglo'];
-	   			print_r($idsuc);
 	   			// if ($idsuc == -1) {
 	   			// 	$idsuc = $_SESSION['IMPRESA'];
 	   			// }else{

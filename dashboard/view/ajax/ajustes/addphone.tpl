@@ -8,15 +8,15 @@
     </div>
 
     <div class="input-field col s6" style="margin: 0px">
-      <input type="text" class="validate tooltipped" id="telefono_in" data-position="top" data-tooltip="Ingresar Teléfono">
+      <input type="text" class="validate tooltipped" id="telefono_in" data-position="top" data-tooltip="Ingresar Teléfono" autocomplete="off">
       <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
     </div>
       
       <ul class="collection col s12" id="ftelefonos" style="border: 0;">
-        {section name=LE loop=$TELS}
-          <div id="tgl{$TELS[LE][0]}" class="chpphone chip ciclos" tp="{$TELS[LE][1]}"> <span id="t0_{$TELS[LE][0]}" class="_tel">{$TELS[LE][2]}</span> <img id="ftpt0_{$TELS[LE][0]}" src="../assets/img/icon/{$TELS[LE][3]}.png"> <i id="td_{$TELS[LE][0]}" class="close_phone mdi mdi-close right"></i></div>
-        {/section}
       </ul>
+
+      <input type="hidden" id="_idfila" value="{$smarty.post.arreglo.vidfila}">
+      <input type="hidden" id="_idtabla" value="{$smarty.post.arreglo.vidtabla}">
 
 </div>
 
@@ -25,22 +25,33 @@
     $(function(){
         $("#telefono_in").focus();
 
-        $("#ftelefonos .ciclos").each(function(index){
-          var id = $(this).attr('id').substr(3);
-          $("#slideTelefono").data('fila'+(index+1),{vtelefono:$("#t0_"+id).html(),vidtipotel:$(this).attr('tp'),vidtelefono:id,vaccion:2});
-        });
+        if(!$("#ftelefonos .ciclos").length || $("#slideTelefono").data('idfila') != $("#_idfila").val()){
+
+            var telefonos = getDatos('',19,$("#_idfila").val()+","+$("#_idtabla").val(),0,0,0);
+            var str = '';
+            $("#slideTelefono").data('idfila',$("#_idfila").val());
+
+            for (var i = 0; i < telefonos[0].length; i++) {
+                str += '<div id="tgl'+(i+1)+'}" class="chpphone chip ciclos" tp="'+telefonos[0][i][1]+'" country="'+telefonos[0][i][5]+'" gid="'+telefonos[0][i][0]+'"> <span id="t0_'+(i+1)+'}" class="_tel">'+telefonos[0][i][2]+'</span> <img id="ftpt0_'+(i+1)+'}" src="../assets/img/icon/'+telefonos[0][i][3]+'.png"> <i id="td_'+(i+1)+'}" class="close_phone mdi mdi-close right" style="cursor: pointer;"></i></div>';
+
+               $("#slideTelefono").data('fila'+(i+1),{vtelefono:telefonos[0][i][2],vidtipotel:telefonos[0][i][1],vidtelefono:telefonos[0][i][0],vaccion:2,vidpais:telefonos[0][i][5]});  
+            }
+        }
 
         if ($("#slideTelefono").data('fila1') != undefined) {
             var num = $("#ftelefonos .ciclos").length +1;
+            var tstr = '';
             while($("#slideTelefono").data('fila'+num) != undefined){
                 var del = $("#slideTelefono").data('fila'+num)['vtelefono'].substring(0,1);
                 var vtipo = del == 2 || del == 4 ? 2 : 3;
     
                 if (vtipo == 1) { tipotel = 'home'; }else if (vtipo == 2) { tipotel = 'business'; }else if (vtipo == 3) { tipotel = 'phone'; }
 
-                $("#ftelefonos").append('<div id="tgl'+num+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+num+'" class="_tel">'+$("#slideTelefono").data('fila'+num)['vtelefono']+'</span> <img id="ftpt0_'+num+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+num+'" class="close_phone mdi mdi-close right"></i></div>');
+                tstr += '<div id="tgl'+num+'" class="chpphone chip ciclos" tp="'+vtipo+'" country="'+$("#slideTelefono").data('fila'+num)['vidpais']+'" gid="'+$("#slideTelefono").data('fila'+num)['vid']+'"> <span id="t0_'+num+'" class="_tel">'+$("#slideTelefono").data('fila'+num)['vtelefono']+'</span> <img id="ftpt0_'+num+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+num+'" class="close_phone mdi mdi-close right"></i></div>';
                 num++;
             }
+
+            $("#ftelefonos").html(tstr);
         }
     });
 </script>

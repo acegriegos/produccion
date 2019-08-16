@@ -65,6 +65,10 @@ $(document).on("click","#vdireccion",function(){
 });
 
 $(document).on("click","#eslide",function(){
+    if($("#direccion_in:visible").length){
+        $("#slideDireccion").data('fila1')['vdireccion'] = $("#direccion_in").val();
+        $("#slideDireccion").data('fila1')['vidbarrio'] = $("#vidbarrio").val() == null ? 0 : $("#vidbarrio").val();
+    }
     $("#slide-tc").sideNav('hide');
 });
 
@@ -724,6 +728,15 @@ function getParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
+function validarCorreo(valor) {
+    if(/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(valor))
+        return 1
+    else{
+        Materialize.toast('Correo no Válido',4000,'red');
+        return 0;
+    }
+}
+
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla) {
     // if(!$("#smail").is(':visible')){
     //     var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
@@ -1031,6 +1044,7 @@ function permisos(vnumber,vnumber2) {
         data: {x1 : vnumber, x2 : vnumber2}
     })
     .done(function(data) {
+        // console.log(data)
         p = JSON.parse(data);
         for (var i = 0; i < p.length; i++) {
             var op = parseInt(p[i][3]);
@@ -1233,8 +1247,59 @@ function dibujarGrafico(elemento,texto,etiqueta,tipo,varr,colbase,coldata,colbel
     });
 };
 
+function rexcel(){
+    var filtros = $(".inpreport").length;
+    var elem = $(".principal .filtros").attr('elem').split(',');
+    elem = $(".principal .filtros").attr('elem').indexOf(',') == -1 ? [] : elem;
+    var vtbl = $(".principal .filtros").attr('sp');
+    var atributos = '';
+    var vmodulo = {};
+    vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
+    var search = new Array;
+    var datos = mantenimiento('login',1,vmodulo)[0];
+    datos = datos.splice(elem.length,datos.length-elem.length);
 
-function doreport() {
+    for (var i = 0, len = datos.length; i < len; i++) {
+
+        if($("#"+datos[i][0]).attr('change') == undefined){
+
+        if ($("#"+datos[i][0]).attr('str') != undefined) {
+            if ($("#"+datos[i][0]).attr('type') == 'date') {
+                
+                if ( $("#"+datos[i][0]).val()=='' ){
+                    search[i] = '""';
+                }else{
+                    search[i] = '"'+$("#"+datos[i][0]).val()+'"';
+                }
+            }else{
+                search[i] = '"'+$("#"+datos[i][0]).val()+'"';
+            }
+        }else{
+            if ($("#"+datos[i][0]).val() == '') {
+                search[i] = "''";
+            }else{
+                search[i] = $("#"+datos[i][0]).val();
+            }
+        }
+
+        if (datos[i][0] == 'vidsucursal')
+            search[i] = '@@impresa';
+    
+        }else{
+            search[i] = $("#"+datos[i][0]).attr('change');
+        }
+    }
+
+    var string = elem.concat(search);
+    $.each(string,function(index){
+        atributos += string[index]+',';
+    });  
+    atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
+
+    return {tbl:vtbl,vatr:atributos};
+}
+
+function rreport(){
     var filtros = $(".inpreport").length;
     var elem = $(".principal .filtros").attr('elem').split(',');
     elem = $(".principal .filtros").attr('elem').indexOf(',') == -1 ? [] : elem;
@@ -1242,7 +1307,11 @@ function doreport() {
     var orden = $(".excel").data('parametros')['vista'] == undefined ? '' : $(".excel").data('parametros')['vista'];
     var conteo = $(".excel").data('parametros')['conteo'] == undefined ? '' : $(".excel").data('parametros')['conteo'];
     var suma = $(".excel").data('parametros')['suma'] == undefined ? '' : $(".excel").data('parametros')['suma'];
-    var otros = Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma));
+    var original = $(".excel").data('parametros')['suma'] == undefined ? 0 : 1;
+    if(original)
+        var otros = '';
+    else
+        var otros = Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma));
     var atributos = '';
     var vmodulo = {};
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
@@ -1280,8 +1349,18 @@ function doreport() {
         atributos += string[index]+',';
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-    console.log(tbl,' ',atributos)
-    arr('login',6,'',tbl,atributos,0,1,$(".detrep"),0,otros);
+
+    return {vtbl:tbl,vattr:atributos,votros:otros};
+}
+
+
+function doreport() {
+    
+    var resultado = rreport();
+
+    console.log('TABLA: '+resultado['vtbl']+' - ATRR: '+resultado['vattr']+' - OTROS: '+resultado['votros']);
+
+    arr('login',6,'',resultado['vtbl'],resultado['vattr'],0,1,$(".detrep"),0,resultado['votros']);
 
 }
 
@@ -1918,7 +1997,7 @@ function keysight(e) {
 function crreo_addon_ckub(vfila,vcorreo){
     var cont = parseInt($(".chpcrr").length) + 1;
 
-    if (vcorreo.match(/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i)) {
+    if (validarCorreo(vcorreo)) {
         if (vfila == undefined) {
             $("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close close_mail mdi mdi-close"></i></div>');
             $("#slideCorreo").data('fila'+cont,{vaccion:1,vidcorreo:0,vcorreo:$("#correo_in").val()});
@@ -1930,12 +2009,13 @@ function crreo_addon_ckub(vfila,vcorreo){
             $("#ichp"+vfila).html(vcorreo);
             $("#"+vfila).html(vcorreo);
             $("#slideCorreo").data('fila'+vfila.substr(3))['vcorreo'] = vcorreo;
+            $("#slideCorreo").data('fila'+vfila.substr(3))['vaccion'] = 2;
             $("#correo_in").removeAttr('idfila');
             $("#correo_in").val('');
         }
         
     }else{
-        Materialize.toast('Correo no Válido',4000,'danger');
+        // Materialize.toast('Correo no Válido',4000,'danger');
         $("#correo_in").select();
     }
 }
@@ -1949,8 +2029,8 @@ function phone_addon_ckub(vfila,vphone){
 
     if (vtelefono && vtipo) {
         if (vfila == undefined) {
-            $("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right"></i></div>');
-            $("#slideTelefono").data('fila'+cont,{vaccion:1,vidtelefono:0,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:52});
+            $("#ftelefonos").append('<div id="tgl'+cont+'" class="chpphone chip ciclos" tp="'+vtipo+'" country="'+$("#vidpais").val()+'" gid="0"> <span id="t0_'+cont+'" class="_tel">'+$("#telefono_in").val()+'</span> <img id="ftpt0_'+cont+'" src="../assets/img/icon/'+tipotel+'.png"> <i id="td_'+cont+'" class="close_phone mdi mdi-close right" style="cursor:pointer"></i></div>');
+            $("#slideTelefono").data('fila'+cont,{vaccion:1,vidtelefono:0,vidtipotel:vtipo,vtelefono:$("#telefono_in").val(),vidpais:$("#vidpais").val()});
 
             $("#telefono_in").val('');
             ind_2 += 1;
@@ -1958,7 +2038,7 @@ function phone_addon_ckub(vfila,vphone){
         }else{
             // $("#itchp"+vfila).html('<img src="../assets/img/icon/'+tipotel+'.png">'+vphone);
             $("#"+vfila).html(vphone);
-            $("#ftp"+vfila).attr('src','img src="../assets/img/icon/'+tipotel+'.png"');
+            $("#ftp"+vfila).attr('src','../assets/img/icon/'+tipotel+'.png');
             $("#slideTelefono").data('fila'+vfila.substr(3))['vtelefono'] = vphone;
             $("#slideTelefono").data('fila'+vfila.substr(3))['vidtipotel'] = vtipo;
             $("#telefono_in").removeAttr('idfila');
@@ -2027,13 +2107,13 @@ function phone_addon_ckub(vfila,vphone){
 $(document).on("click",".close_mail",function(){
     $(this).parent().removeClass('chip');
     $(this).parent().addClass('hide');
-    $(this).parent().data('triforce')['vaccion'] = 3;
+    $("#slideCorreo").data('fila'+$(this).attr('id').substr(3))['vaccion'] = 3;
 });
 
 $(document).on("click",".close_phone",function(){
     $(this).parent().removeClass('chip');
     $(this).parent().addClass('hide');
-    $(this).parent().data('triforce').vaccion = 3;
+    $("#slideTelefono").data('fila'+$(this).attr('id').substr(3))['vaccion'] = 3;
 });
 
 $(document).on("click",".vcoo",function(){
@@ -2102,7 +2182,7 @@ function guardarSlide(vaccion,pr,vtabla){
             if(pr.succed){
                 pr = pr[0][0][0];
                 
-                if ($("#slideCorreo").data('fila1') != undefined) {
+                if ($("#slideCorreo").data('fila1z') != undefined) {
                     var num = 1;
                     var nfila;
                     while($("#slideCorreo").data('fila'+num) != undefined){

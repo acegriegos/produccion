@@ -89,7 +89,6 @@
 		   	$smarty->setModule('dashboard');
 		   	$pg = $smarty->fetch('../view/menuSmarty.php');
 		    
-		   	$smarty->assign('NAV',$pg);
 		   	$smarty->display('login.tpl');
 
 		   }

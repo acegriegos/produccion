@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.24">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.24">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.24">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.40">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.40">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.40">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -83,9 +83,10 @@
                 <b style="color: white;"><?php echo $datos[30]; ?>:</b><span id="fcliente"><?php echo $datos[4]; ?></span>  <br>
             </div>
             <b>Cédula:</b> <?php echo $datos[34]; ?><br>
+            <b>Correo:</b> <?php echo $datos[41]; ?><br>
             <?php } ?>
             <div class="col s12" style="padding: 0px">
-              <span><b>Vende:</b></span>
+              <span><b>Usuario:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
             </div>
             <?php if($datos[12] != ''){ ?>
@@ -103,7 +104,7 @@
             <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
               <div class=" card-content white-text imprimirSINBOR">
                 <p><b>Fecha:</b>
-                  <span id="ffecha"><?php echo $datos[3]; ?> </p></span>
+                  <span id="ffecha"><?php echo $datos[3].' '.$datos[37]; ?> </p></span>
               </div>
             </div>
 
@@ -132,33 +133,32 @@
         <table class=" bordered  dt-responsive nowrap " style="border: 0px; font-size: 1.1em;" id="detalle">
           <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
             <tr>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th2">Código</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th3">Descripción</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th4">P. Unit</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th5">Tipo</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th6">Descuento</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;" id="th7">Importe</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">Cantidad</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">Código</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">Descripción</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">P.Unit</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">Tipo</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">Descuento</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">IVA%</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">EXO%</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">Importe</th>
             </tr>
           </thead>
           <tbody id="ftbody">
             <?php 
-            $grabado = $exento = 0; 
-            foreach ($transaccion as $obj) {
-
-              if ($obj[28] > 0) 
-                $grabado += str_replace(',', '', $obj[20])*$obj[18];
-              else
-                $exento += str_replace(',', '', $obj[20])*$obj[18];?>
+       
+            foreach ($transaccion as $obj) { ?>
 
               <tr class="tr" >
                 <td class="flista1 td center-align"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
-                <td class="flista2 td center-align"><span id="desc1"><?php echo $obj[36]; ?></span></td>
-                <td class="flista2 td center-align"><span id="desc"><?php echo $obj[19]; ?></span></td>
-                <td class="flista3 td center-align"><span id="punit"><?php echo $obj[20]; ?></span></td>
-                <td class="flista4 td center-align"><span id="desc2"><?php echo $obj[23]; ?></span></td>
-                <td class="flista5 td center-align"><span id="desc3"><?php echo $obj[21]; ?></span></td>
-                <td class="flista6 td right-align"><span id="import" ><?php echo $obj[22]; ?></span></td>
+                <td class="flista2 td center-align"><span><?php echo $obj[36]; ?></span></td>
+                <td class="flista2 td center-align"><span><?php echo $obj[19]; ?></span></td>
+                <td class="flista3 td center-align"><span><?php echo $obj[20]; ?></span></td>
+                <td class="flista4 td center-align"><span><?php echo $obj[23]; ?></span></td>
+                <td class="flista5 td center-align"><span><?php echo $obj[21]; ?></span></td>
+                <td class="flista5 td center-align"><span><?php echo number_format($obj[47],0); ?></span></td>
+                <td class="flista5 td center-align"><span><?php echo $obj[46]; ?></span></td>
+                <td class="flista6 td right-align"><span><?php echo $obj[22]; ?></span></td>
               </tr>
 
               <?php } ?>
@@ -168,14 +168,14 @@
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo.". Monto Autorizado: ".$exoneracion[4].". Porcentaje de Compra Autorizado: ".$exoneracion[5]."% </span><br><br>";
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo."</span><br><br>";
             } ?>
             * Producto Exento
             <br>
             ** I.V.I
             <tfoot>
               <tr>
-                <td style="padding: 0px !important" colspan="4" class="center ">
+                <td style="padding: 0px !important" colspan="6" class="center ">
                  <!--  <?php 
                                               
                       require_once('../assets/libs/phpqrcode/qrlib.php'); 
@@ -196,51 +196,32 @@
                 </td>
                 <td colspan="3">
                   <table>
-
                     <tr>
-                      <?php if ($grabado > 0){ ?>
+
 
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].number_format($grabado,2); ?></span></td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].$datos[9]; ?></span></td>
                     </tr>
 
                     <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Imv</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
+                      <td style="padding: 0px" class="left-align sinborde margen">Exento</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[8]; ?></span></td>
                     </tr>
 
-                    <?php } ?>
-
-                    <?php if ($exento > 0) { ?>
-
-                    <tr>
-                      <td style="padding-left: 5px !important" class="left-align sinborde margen">Exento</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($exento,2); ?></span></td>
+                     <tr>
+                      <td style="padding: 0px" class="left-align sinborde margen">Exonerado</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[7]; ?></span></td>
                     </tr>
-
-                     <?php } ?>
-
-                    <?php if (str_replace(',', '', $datos[6]) > 0){ ?>
 
                     <tr>
                       <td style="padding: 0px !important" class="left-align sinborde margen">Descuento</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>
                     </tr>
-                    <?php } ?>
 
-                    <?php if ($datos[7] > 0){ ?>
                     <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Flete</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[7],2); ?></span></td>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">IVA</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[5]; ?></span></td>
                     </tr>
-                    <?php } ?>
-
-                    <?php if ($datos[8] > 0){ ?>
-                    <tr>
-                      <td style="padding: 0px !important" class="left-align sinborde margen">Ajuste</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].number_format($datos[8],2) ?></span></td>
-                    </tr>
-                    <?php } ?>
 
                     <tr>
                       <td  class="left-align white-text sinborde imprimirSINBOR" style="border-radius: 0px !important;  background-color: #3960A7;"><b>TOTAL</b></td>
@@ -296,7 +277,7 @@
               <hr>
               <div>
                 <?php if ($transaccion[0][32] != '') { ?>
-                <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
+                <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016. V4.3
                   <br> 
                   <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
                 </div>
@@ -338,10 +319,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.1.0.24"></script>
-     <script src="../assets/js/materialize.js?v=10.1.0.24"></script>
-     <script src="../assets/js/asgard.js?v=10.1.0.24"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.1.0.24"></script>
+     <script src="../assets/js/jquery.js?v=10.1.0.40"></script>
+     <script src="../assets/js/materialize.js?v=10.1.0.40"></script>
+     <script src="../assets/js/asgard.js?v=10.1.0.40"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.1.0.40"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

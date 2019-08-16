@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.1.0.24">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.1.0.40">
 <div class="card z-depth-3">
 
 <div class="card-header center head1">

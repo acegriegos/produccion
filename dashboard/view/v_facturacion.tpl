@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.24">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.40">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,7 +16,7 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.24"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.40"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -121,6 +121,7 @@
       </div>
 
       <div class="col s6 input-field">
+<<<<<<< HEAD
         <input type="text" id="vmontoexo" data-position="bottom" data-tooltip="Monto del impuesto exonerado o autorizado sin impuestos" class="validate tooltiped eder" value="0.00" isnumeric="1" autocomplete="off" value="0" readonly>
         <label for="vmontoexo">Monto del Impuesto Exonerado</label>
       </div>
@@ -128,6 +129,10 @@
       <div class="col s6 input-field">
         <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off" value="100">
         <label for="vporcompra">Porcentaje de Compra</label>
+=======
+        <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off">
+        <label for="vporcompra">Porcentaje de Exoneración</label>
+>>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
       </div>
 
 

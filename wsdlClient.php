@@ -1,6 +1,6 @@
 <?php 
     require_once '_config/mysqlDB.php';
-    set_time_limit(40);
+    set_time_limit(0);
     
     if (isset($_REQUEST['accion'])) {
 
@@ -21,68 +21,55 @@
                 header("Content-Length: " . ob_get_length());
                 ob_end_flush();
                 flush();
+
                 $rs = $fe->recepcion();
+                $db = new DBClass();
 
-                if(isset($_REQUEST['to'])){
-                    if(strlen(trim($_REQUEST['to'])) > 8){ //VALIDAR SI FUE ACEPTADO
-                        $db = new DBClass();
-                        $cnf = $db->ejecutar("call krattos('',73,".$id.")")->fetch_all()[0];
+                if(isset($_REQUEST['to']) && !isset($rs['erno'])){
+                    if(strlen(trim($_REQUEST['to'])) > 8){
+                        $fe->envioWsdlCorreo($db,$id,$_REQUEST['to']);
+                    }else{
 
-                        $url2 = 99;
-                        $_POST['con_con'] = 1;
-                        $_POST['accion'] = 3;
-                        $_POST['body'] = $cnf[0];
-                        $_POST['idfila'] = $id;
-                        $_POST['subject'] = $cnf[3]." N° ".$rs['num'];
-                        $_POST['adjunto'] = [0=>'xml/'.$_REQUEST['tit'].' N°'.$rs['num'].', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$_REQUEST['tit'].' N°'.$rs['num'].', '.$_SESSION['EMPRESA'].'.pdf'];
+                    sleep(10);
+                    $estado = $fe->estado();
+                    
+                    if(isset($estado['estado'])){
 
-                        //MAKE ARCHIVOS
-                        //PDF
-                        $_arreglo = ['arch'=>'recibo','id'=>$id,"mic"=>1,"tit"=>$_REQUEST['tit'] ,"sel"=>'',"tbl"=>72,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+                            switch($estado['estado']){
+                                case 'aceptado':
+                                    $state = 1;
+                                    break;
+                                case 'recibido':
+                                    $state = 9;
+                                    break;
+                                case 'rechazado':
+                                    $state = 3;
+                                    break;
+                                case 'procesando':
+                                    $state = 2;
+                                    break;
+                                case 'Sin Subir':
+                                    $state = 2;
+                                    break;
+                                case 'Sin Internet':
+                                    $state = 0;
+                                    break;
+                                case 'error':
+                                    $state = 8;
+                                    break;
+                                default:
+                                    $state = 0;
+                                    break;
+                            }
 
-                        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                        $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
-                        $curl = curl_init($actual_link);
-                        curl_setopt($curl, CURLOPT_HEADER, true);
-                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($curl, CURLOPT_POST, true);
+                            $rs = $db->ejecutar('call shadow(2,'.$fe->idtabla.',"feestado = '.$state.'","id = '.$_POST['idfila'].'")');
 
-                        $params = array(
-                          "accion" => 8,
-                          "arreglo" => $_arreglo);
-
-                        $postData = http_build_query($params);
-
-                        $postData = rtrim($postData, '&');
-                        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-                        $json_response = curl_exec($curl);
-                        curl_close($curl);
-
-                        //XML
-                        $_arreglo = ['id'=>$id,"factura"=>$rs['num'],"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA']];
-
-                        $curl = curl_init($actual_link);
-                        curl_setopt($curl, CURLOPT_HEADER, true);
-                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($curl, CURLOPT_POST, true);
-
-                        $params = array(
-                          "accion" => 9,
-                          "arreglo" => $_arreglo);
-
-                        $postData = http_build_query($params);
-
-                        $postData = rtrim($postData, '&');
-                        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-                        $json_response = curl_exec($curl);
-                        curl_close($curl);
-                        
-                        require_once './_config/correoAjax.php';
-                        
-                        echo "\nENVIO DE CORREO";
+                        }else
+                            echo json_encode($estado);
                     }
                 }else
                     echo json_encode($rs);
+                
                 break;
             case 2://GET XML
                 if (isset($_REQUEST['view'])) {
@@ -299,7 +286,9 @@
                     $rxml['FacturaElectronica']['Emisor']['CorreoElectronico'] = $intsuc[10];
 
                     
-                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                        xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$fe->xmldoc.' 
+                        />');
                     $fe->array_to_xml($rxml,$xml_data);
 
                     $xml = $xml_data->asXML();
@@ -385,7 +374,7 @@
                     $fechaorig = $rxml['NotaCreditoElectronica']['FechaEmision'];
                     $rxml['NotaCreditoElectronica']['FechaEmision'] = date('Y-m-d\TH:i:s-06:00');
 
-                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><NotaCreditoElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><NotaCreditoElectronica xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/ xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
 
                     $fe->array_to_xml($rxml,$xml_data);
 
@@ -544,7 +533,11 @@
         var $opcion = 0;
         var $sumaimpuestos = 0;
         var $sumadescuentos = 0;
+        var $sumaexonerados = 0;
+        var $sumagravados = 0;
         var $exo = 0;
+        var $idtabla = 64;
+        var $titulo = 'Factura';
 
         function __construct($vid){
             $this->id = $vid;
@@ -556,11 +549,16 @@
                     $this->tdoc = 'NotaDebitoElectronica';
                     $this->xmldoc = 'notaDebitoElectronica';
                     $this->ref = 1;
+                    $this->idtabla = 301;
+                    $titulo = 'Nota Debito';
+
                     break;
                 case 3: //NOTA DE CREDITO
                     $this->tdoc = 'NotaCreditoElectronica';
                     $this->xmldoc = 'notaCreditoElectronica';
                     $this->ref = 1;
+                    $this->idtabla = 301;
+                    $titulo = 'Nota Credito';
                     break;
                 case 4: //TIQUETE ELECTRONICO
                     $this->tdoc = 'TiqueteElectronico';
@@ -571,6 +569,17 @@
                 case 7: //RECHAZAR
                     $this->tdoc = 'MensajeReceptor';
                     $this->xmldoc = 'mensajeReceptor';
+                    $titulo = 'Aceptacion';
+                    break;
+                case 8: //COMPRA ELECTTRONICA
+                    $this->tdoc = 'FacturaElectronicaCompra';
+                    $this->xmldoc = 'facturaElectronicaCompra';
+                    $titulo = 'Compra';
+                    break;
+                case 9: //EXPORTACION ELECTTRONICA
+                    $this->tdoc = 'FacturaElectronicaExportacion';
+                    $this->xmldoc = 'facturaElectronicaExportacion';
+                    $titulo = 'Exportacion';
                     break;
                 default: //FACTRA ELECTRONICA
                     break;
@@ -663,7 +672,7 @@
             if (isset($json_response->access_token) && !isset($_REQUEST['ref'])) {
                 $this->bearer = $json_response->access_token;
                 $db = new DBClass();
-                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now(),refrescado = 0 where id = '.$_SESSION['IMPRESA']);
+                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now() where id = '.$_SESSION['IMPRESA']);
             }
             }
 
@@ -726,7 +735,7 @@
             if (isset($json_response->access_token)) {
                 $this->bearer = $json_response->access_token;
                 $db = new DBClass();
-                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now(),refrescado=1 where id = '.$_SESSION['IMPRESA']);
+                $db->ejecutar('update sucursales set acces_tkn = "'.$this->bearer.'",rfh_tkn = "'.$json_response->refresh_token.'",tkn_time = now() where id = '.$_SESSION['IMPRESA']);
             }else
                 $salida = $json_response;
             
@@ -1100,7 +1109,6 @@
 
             $xml = $this->getXMLRecepcion();
             if (is_array($xml)) {
-                
                 return 'Problemas Generando la Factura: '.$xml['error'].', no se Envió Hacienda';
             }
 
@@ -1108,11 +1116,12 @@
                 $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
             else
                 $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion");
+            
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_TIMEOUT,2);
+            //curl_setopt($curl, CURLOPT_TIMEOUT,2);
             curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
 
             $params = json_encode($this->getPayload($xml));
@@ -1122,6 +1131,8 @@
             $rs = curl_exec($curl);
             
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            $db = new DBClass();
             switch ($status) {
                 case 0:
                     $json_response = ["rs"=>'Superó Tiempo de Espera',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];
@@ -1130,12 +1141,18 @@
                 case 202:
                 case 100:
                     $json_response = ['rs'=>'Documento Electronico Aprobado','clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo'],'succes'=>1];
+                    $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 2","id = '.$this->id.'")')->fetch_all();
                     break;
                 case 400:
-
                     $rs = substr($rs, strpos($rs, 'X-Error-Cause')+14);
                     $rs = substr($rs, 0, strpos($rs,'X-')-3);
-                    $json_response = ['rs'=>'Error Factura Electronica: '.$this->id.', '.$rs,'succes'=>0,'erno'=>2];
+
+                    if(strpos($rs, 'recibido anteriormente') >= 0){
+                        $db = new DBClass();
+                        $act = $db->ejecutar('call shadow(2,'.$this->idtabla.',"feestado = 2,mailstatus=0","id = '.$this->id.'")')->fetch_all();
+                    }
+
+                    $json_response = ['rs'=>'Error '.$this->tdoc.': '.$this->id.', '.$rs,'succes'=>0,'erno'=>2,'id'=>$this->id,'actualizacion' => $act];
                     break;
                 case 500:
                     $json_response = ["rs"=>'Error Interno en el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']];
@@ -1270,7 +1287,7 @@
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
 
-                if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']) != round($data['ResumenFactura']['TotalVenta'])) 
+                if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']+$data['ResumenFactura']['TotalExonerado']) != round($data['ResumenFactura']['TotalVenta'])) 
                      return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];
 
                 if ($this->ref) {
@@ -1278,11 +1295,11 @@
                     $data['InformacionReferencia'] = $refxml;
                 }
 
-                $data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
+                //$data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
                 // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
             }
 
-            if (!isset($this->info['Emisor']['CorreoElectronico'])) {
+            if (!isset($this->info['Emisor']['CorreoElectronico']) && substr($this->id, 0,1) != '!') {
                return ['error'=>'Emisor sin Correo'];
             }
 
@@ -1331,22 +1348,9 @@
                     break;
             }
 
-            if ($this->sumaimpuestos == 0 and $this->exo) {
-                $data['ResumenFactura']['TotalServExentos'] += $data['ResumenFactura']['TotalServGravados'];
-                $data['ResumenFactura']['TotalMercanciasExentas'] += $data['ResumenFactura']['TotalMercanciasGravadas'];
-                $data['ResumenFactura']['TotalExento'] += $data['ResumenFactura']['TotalGravado'];
-
-                $data['ResumenFactura']['TotalGravado'] = str_replace(',', '', number_format(0,5));
-                $data['ResumenFactura']['TotalMercanciasGravadas'] = str_replace(',', '', number_format(0,5));
-                $data['ResumenFactura']['TotalServGravados'] = str_replace(',', '', number_format(0,5));
-
-                $data['ResumenFactura']['TotalExento'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalExento'],5));
-                $data['ResumenFactura']['TotalMercanciasExentas'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalMercanciasExentas'],5));
-                $data['ResumenFactura']['TotalServExentos'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalServExentos'],5));
-            }
-
             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-            <'.$this->tdoc.' xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
+            <'.$this->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$this->xmldoc.'" />');
             $this->array_to_xml($data,$xml_data);
 
             $xml = $xml_data->asXML();
@@ -1407,7 +1411,7 @@
                         $detalle = [];
                         $detalle['NumeroLinea'] = $fila;
                         $codigo = ['Tipo'=>$value[1],'Codigo'=>$value[2]];
-                        $detalle['Codigo'] = $codigo;
+                        //$detalle['Codigo'] = $codigo;
                         $detalle['Cantidad'] = $value[3];
                         $detalle['UnidadMedida'] = $value[4];
                         $detalle['UnidadMedidaComercial'] = $value[5];
@@ -1416,8 +1420,8 @@
                         $detalle['MontoTotal'] = $value[8];
                         if ($value[9] > 0) {
                             $this->sumadescuentos += $value[9];
-                            $detalle['MontoDescuento'] = $value[9];
-                            $detalle['NaturalezaDescuento'] = $value[10];
+                            $detalle['Descuento']['MontoDescuento'] = $value[9];
+                            $detalle['Descuento']['NaturalezaDescuento'] = $value[10];
                         }
                         $detalle['SubTotal'] = $value[11];
                         
@@ -1430,10 +1434,12 @@
                                 $sub_array = explode(',', $obj);
                                 if (strlen($sub_array[0])) {
                                     
-                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
+                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> isset($sub_array[4]) ? $sub_array[4] : '08' ,'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
 
                                     if ($value[16] != ''){
+                                        
                                         $this->exo = 1;
+<<<<<<< HEAD
                                         $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19], 'MontoImpuesto' => str_replace(',', '',number_format($sub_array[2]*(1-($value[21]/100)),5)), 'PorcentajeCompra' => $value[21]];
                                         $impuesto['Exoneracion'] = $exoneracion;
                                         $sub_array[2] = $sub_array[2]*($exoneracion['PorcentajeCompra']/100);
@@ -1441,17 +1447,33 @@
                                         $sum_imp += $sub_array[2];
                                         // $impuesto['Monto'] = $sub_array[2];
                                         // $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
+=======
+
+                                        $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[21], 'MontoExoneracion' => number_format($sub_array[2]*($value[21]/100),5,'.','')];
+
+                                        $this->sumaexonerados += $value[11];//$sub_array[2];
+                                        $sub_array[2] = $sub_array[2]*(1-$exoneracion['PorcentajeExoneracion']/100);
+
+                                        $impuesto['Exoneracion'] = $exoneracion;
+                                        
+                                        // $impuesto['Monto'] = $sub_array[2];
+                                        // $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
+                                        $sum_imp += $impuesto['Monto']-$impuesto['Exoneracion']['MontoExoneracion'];
+>>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
                                     }else{
-                                        $this->sumaimpuestos += $sub_array[2];
+                                        $this->sumagravados += $value[11];
                                         $sum_imp += $sub_array[2];
                                     }
 
+                                    $this->sumaimpuestos += $sub_array[2];
                                     array_push($detalle, ['Impuesto' => $impuesto]);
                                 }
                             }
+
                         }
-                        
-                        $detalle['MontoTotalLinea'] = $value[15] + $sum_imp;
+
+                        $detalle['ImpuestoNeto'] = number_format($sum_imp,5,'.','');
+                        $detalle['MontoTotalLinea'] = $value[15] + number_format($sum_imp,5,'.','');
                         array_push($linea, ['LineaDetalle'=>$detalle]);
                     }
                     
@@ -1585,19 +1607,19 @@
             
             $SignedProperties = "SignedProperties-".$signatureID; 
 
-            $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
+            $xmlns_keyinfo='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
              'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
              'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
              'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
              
-            $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
+            $xmnls_signedprops='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" '.
             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
 
             
-            $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/'.$this->xmldoc.'" '.
+            $xmnls_signeg='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
@@ -1870,6 +1892,76 @@
 
             $correo = new correo($crr,$sub,$bdy,'',0);
             $correo->enviar_adjunto($adj);
+        }
+
+        function envioWsdlCorreo(&$db,$id,$to,$mh = 0,$vurl = 99){
+
+            $cnf = $db->ejecutar("call krattos('',73,".$id.")")->fetch_all()[0];
+            $num = $this->info['NumeroConsecutivo'];
+            $tit = $this->titulo;
+
+            $url2 = $vurl;
+            $_POST['con_con'] = 1;
+            $_POST['accion'] = 3;
+            $_POST['body'] = $cnf[0];
+            $_POST['idfila'] = $id;
+            $_POST['subject'] = $cnf[3]." N° ".$num;
+            $_POST['to'] = $to;
+            $_POST['idtabla'] = $this->idtabla;
+            if(!$mh){
+                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
+
+                //MAKE ARCHIVOS
+                //PDF
+                $_arreglo = ['arch'=>'recibo','id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>72,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+
+                $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
+                $curl = curl_init($actual_link);
+                curl_setopt($curl, CURLOPT_HEADER, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_POST, true);
+
+                $params = array(
+                  "accion" => 8,
+                  "arreglo" => $_arreglo);
+
+                $postData = http_build_query($params);
+
+                $postData = rtrim($postData, '&');
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+                $json_response = curl_exec($curl);
+                print_r($json_response);
+
+                //XML
+                $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA']];
+
+                $curl = curl_init($actual_link);
+                curl_setopt($curl, CURLOPT_HEADER, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_POST, true);
+
+                $params = array(
+                  "accion" => 9,
+                  "arreglo" => $_arreglo);
+
+                $postData = http_build_query($params);
+
+                $postData = rtrim($postData, '&');
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+                $json_response = curl_exec($curl);
+                curl_close($curl);
+            }else
+                $_POST['adjunto'] = []; 
+
+            switch($url2){
+                case 98:
+                    require_once './correoAjax.php';
+                    break;
+                default:
+                    require_once './_config/correoAjax.php';
+                    break;
+            }
         }
     }   
 

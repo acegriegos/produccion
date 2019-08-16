@@ -37,23 +37,7 @@
 					</tr>
 				</thead>
 				<tbody id="listaproductos">
-					{section name=LE loop=$PROD}
-					<tr>
-						<td>{$PROD[LE][1]}</td>
-						<td>{$PROD[LE][3]}</td>
-						<td>{$PROD[LE][4]}</td>
-						<td style="text-align: right;" class="per4119">{$PROD[LE][5]}</td>
-						<td style="text-align: right;">{$PROD[LE][6]}</td>
-						<td style="text-align: right;" class="per4120">{$PROD[LE][7]}</td>
-						<td style="width: 18%">
-							<a class="btn-color pbtn info mdi mdi-alert-circle mdi-24px blueh per4115000 hide  " id="info{$PROD[LE][0]}" href="#modal-info2" title="Mostrar Informacion del Producto"></a>
-							<a class="btn-color pbtn descuentos per4103 mdi mdi-percent mdi-24px modal-trigger" id="desc{$PROD[LE][0]}" href="#modal-descuentos" title="Mostrar Descuentos del Producto"></a>
-							<a class="btn-color pbtn salidainv per4116000 hide mdi mdi-arrow-down-bold-box mdi-24px  modal-trigger  " id="s{$PROD[LE][0]}" href="#modal-movinventario" title="Movimiento de Inventario"></a>
-							<a class="btn-color pbtn load mdi mdi-pencil mdi-24px per4108 modal-trigger" id="m{$PROD[LE][0]}" href="#modal-productos" title="Editar Producto" modulo="producto"></a>
-							<a class="btn-color pbtn cdel delete  mdi mdi-close mdi-24px per4109" id="d{$PROD[LE][0]}" title="Eliminar Producto" modulo="producto"></a>
-						</td>
-					</tr>
-					{/section}
+					
 				</tbody>
 			</table>
         <ul class="left showing" modulo="14"><small></small></ul>
@@ -133,11 +117,10 @@
                         <label class="active" for="vcodigointerno">Código Interno</label>
                     </div>
 
-                    {if $smarty.session.BUSS neq 0}
+                    {if $smarty.session.BUSS eq 1}
                         <input type="hidden" id="vminimo" value="0">
                         <input type="hidden" id="vmaximo" value="0">
                      {else}
-                     <div class="col s12">
                         <div class="input-field marginzero col s12 _inventariado">
                             <input type="number" id="vminimo" class="formprod validate eder" value="" min="0" focus="1vmaximo" autocomplete="off" tabindex="7">
                             <label for="vminimo">Mínimo</label>
@@ -146,7 +129,6 @@
                             <input type="number" id="vmaximo" class="formprod validate eder" value="" min="0" focus="1vmaxdescuento" autocomplete="off" tabindex="8">
                             <label for="vmaximo">Máximo</label>
                         </div>
-                    </div>
                     {/if}
 
                 </div>
@@ -204,7 +186,7 @@
                         <a href="#" id="union" class="btn-floating tooltipped" data-tooltip="Producto de Receta" data-position="bottom"><i class="mdi mdi-book-multiple-variant mdi-24px"></i></a>
                         <a href="#" id="proveedores" class="btn-floating tooltipped" data-tooltip="Proveedores" data-position="bottom" style="margin-bottom: 5px"><i class="mdi mdi-account-multiple-outline mdi-24px"></i></a>
                         <a href="#" id="imagenes" class="btn-floating tooltipped" data-tooltip="Imagenes" data-position="bottom"><i class="mdi mdi-image-multiple mdi-24px"></i></a>
-                        <a href="#" id="dimensiones" class="btn-floating tooltipped hide" data-tooltip="Dimensiones" data-position="bottom"><i class="mdi mdi-move-resize-variant mdi-24px"></i></a>
+                        <a href="#" id="dimensiones" class="btn-floating tooltipped" data-tooltip="Dimensiones" data-position="bottom"><i class="mdi mdi-move-resize-variant mdi-24px"></i></a>
                     </div>
                     {/if}
 
@@ -253,17 +235,26 @@
         <div id="financiero" class="row hide" style="padding: 10px 10px 0 0px"> 
 
                 <div class="row" style="padding: 0px;float: right;margin: 0px;">
-                    <input type="checkbox" id="pg" checked >
-                    <label for="pg" class="col s6" style="padding: 0px; padding-left: 25px;">Gravado</label>
-                     <input type="text" id="vexoneracion" class="der eder numeric exo col s6" noClear value="13" num="4" autocomplete="off" style="margin: 0px">
-                     
+                    
+                    <label class="col s3 red-text"><b>IVA:</b></label>
+                    <select id="vimpiva" class="col s9" style="margin: 0px" num="4">
+                        <option selected value="1" num="0">Exento 0%</option>
+                        <option selected value="2" num="1">Reducido 1%</option>
+                        <option selected value="3" num="2">Reducido 2%</option>
+                        <option selected value="4" num="4">Reducido 4%</option>
+                        <option selected value="5" num="0">Transitorio 0%</option>
+                        <option selected value="6" num="4">Transitorio 4%</option>
+                        <option selected value="7" num="8">Transitorio 8%</option>
+                        <option selected value="8" num="13">General 13%</option>
+                    </select>
+                    
                 </div>
                 <input type="checkbox" id="pu" >
                     <label for="pu" class="col s6" style="padding: 0px; padding-left: 25px; margin-left: 2%;">Por Unidad</label>
             <br><br>
-            <div class="row" style="margin: 0;">
+            <div class="row" style="margin: 0;margin-top:20px;">
 
-                <div class="col s12 l4 ">
+                <div class="col s12 l3 ">
                     <div class="input-field">
                         <i class="mdi prefix" id="icosto">¢</i>
                         <input type="text" id="vcosto" class="validate eder numeric cos calcvv" value="0.00" num="1" autocomplete="off" focus="vgganancia">
@@ -279,22 +270,28 @@
                     </div>
                 </div>
 
-                <div class="col s12 l4 input-field">
+                <div class="col s12 l3 input-field">
                     <i class="mdi prefix">%</i>
-                    <input type="text" id="vgganancia" class="validate calcvv eder numeric gan" value="0.00" data-mask="9999999999.99" focus="vventa" num="2" autocomplete="off">
+                    <input type="text" id="vgganancia" class="validate calcvv eder numeric gan" value="0.00" focus="vventa" num="2" autocomplete="off">
                     <input type="hidden" id="vganancia" value="0" class="rgan">
                     <label for="vgganancia">Ganancia</label>
                 </div>
 
-                <div class="col s12 l4 input-field">
+                <div class="col s12 l3 input-field">
                     <i class="mdi prefix moneda">¢</i>
                     <input type="text" id="vventa" class="validate calcvv eder numeric ven" value="0.00" num="3" autocomplete="off">
                     <label for="vventa">Precio Venta</label>
                 </div>
 
+                 <div class="col s12 l3 input-field">
+                    <i class="mdi prefix moneda">¢</i>
+                    <input type="text" id="vventaiva" class="validate calcvv eder numeric veniva" value="0.00" num="5" autocomplete="off">
+                    <label for="vventaiva">Precio Venta +IVA</label>
+                </div>
+
             </div>
 
-            <div class="hide precunidiv">
+            <div class="hide precunidiv" map="0">
                 
             </div>
 
@@ -311,22 +308,23 @@
             {section name=LE loop=$NIV}
             <div style="margin: 0; padding: 0;" id="precionivel">
                 <div class="precionivel row" id="f{$NIV[LE][0]}" style="margin: 0px">
-                    <div class="col s12 l4">
+                    <div class="col s12 l3">
                         <b>{$NIV[LE][1]}</b>
                     </div>
-                    <div class="col s12 l4 input-field">
+                    <div class="col s12 l3 input-field">
                         <i class="mdi prefix">%</i>
                         <input type="text" id="vgganancia{$NIV[LE][0]}" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off">
                         <input type="hidden" id="vganancia{$NIV[LE][0]}" value="0" class="rgan">
                     </div>
-                    <div class="col s12 l4 input-field">
+                    <div class="col s12 l3 input-field">
                         <i class="mdi prefix moneda">¢</i>
                         <input type="text" id="vventa{$NIV[LE][0]}" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off">
                     </div>
+                    <div class="col s12 l3 input-field">
+                    <i class="mdi prefix moneda">¢</i>
+                    <input type="text" id="vventaiva{$NIV[LE][0]}" class="validate calcvv eder numeric veniva" value="0.00" num="5" autocomplete="off">
                 </div>
-            </div>
-            <div class="hide precunidiv">
-                
+                </div>
             </div>
             {/section}
 
@@ -341,70 +339,20 @@
                     </td> 
                     <td class="center-align input-field" style="padding: 0px"> 
                         <i class="mdi prefix">%</i>
-                        <input type="text" id="vgganancia1" class="validate calcvv eder" value="0" data-mask="9999999999.99" focus="vventa" num="2" line="1" style="margin: 0px">
+                        <input type="text" id="vgganancia1" class="validate calcvv eder" value="0" focus="vventa" num="2" line="1" style="margin: 0px">
                         <input type="hidden" id="vganancia1" value="0">
                     </td> 
                     <td class="center-align input-field" style="padding: 0px">
                         <i class="mdi prefix moneda">¢</i>
-                        <input type="text" id="vventa1" class="validate calcvv eder" value="0" data-mask="9999999999.99" focus="vexoneracion" num="3" line="1" style="margin: 0px">
-                    </td> 
-                    <td class="center-align input-field" style="padding: 0px">
-                        <i class="mdi prefix">%</i>
-                        <input type="text" id="vexoneracion1" style="width: 70%;margin: 0px" class="validate calcvv eder" value="0" data-mask="9999999999.99" nc="1" line="1"> 
-                        <i class="mdi mdi-delete der red-text pbtn mdi-24px cl"></i> 
+                        <input type="text" id="vventa1" class="validate calcvv eder" value="0" num="3" line="1" style="margin: 0px">
                     </td>
                 </tr>
             </div>
 
         {/if}
 
-    <div id="dimpuestos" class="row hide" style="padding: 50px 10px 0 10px">
-        <div class="col s12">
-            <div class="col s2"></div>
-            <div class="row">
-                <div class="col s12">
-                    <ul class="collection z-depth-3" id="impuestos"></ul>
-                </div>
-             </div>
-        </div>
+	</div>
     </div>
-
-    <div id="features" class="row hide" style="padding: 30px 10px 0 10px">
-	        <div class="col s5 m5 l5">
-	            <div class="input-field col s12 m12 l12">
-	                <input type="text" class="validate ffeat" id="nom">
-	                <input type="hidden" id="cnt" value="0">
-	                <label for="nom">Nombre</label>
-	            </div>
-	            <div class="input-field col s5 m5 l5">
-	                <input type="text" class="validate ffeat autocomplete" id="val">
-	                <label for="val">Valor</label>
-	            </div>
-	            <div class="col s1 m1 l1">
-	                <button type="button" class="btn-floating waves-effect waves-light blue z-depth-4" id="addfeat"><i class="mdi mdi-plus">add</i></button>
-	            </div>
-	        </div>
-	        <div class="col s7 m7 l7">
-	            <div class="input-field col s6 m6 l6 right">
-	                <input type="text" class="validate" id="fltr">
-	                <label for="fltr">Filtro:</label>
-	            </div>
-	            <div class="col s12 m12 l12 pequeño">
-	                <table class="table responsive-table pequeño centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
-	                    <thead class="head1">
-	                        <tr>
-	                            <th style="border: 0; border-radius: 0px !important;">Nombre</th>
-	                            <th style="border: 0; border-radius: 0px !important;">Valor</th>
-	                            <th style="border: 0; border-radius: 0px !important; width: 20%">Acciones</th>
-	                        </tr>
-	                    </thead>
-	                <tbody id="listavariables"></tbody>
-	            </table>
-	        </div>
-	    </div>
-	</div>
-
-	</div>
 	<div class="modal-footer ">
 		<a class="modal-action waves-effect waves-green btn-flat z-depth-3 add" modulo="producto"  id="agProd">Agregar</a>
 		<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
@@ -700,6 +648,64 @@
 </div>
 <div class="modal-footer">
 <a class="modal-action modal-close waves-effect waves-light waves-red btn-flat z-depth-3" style="margin-right: 2%">Salir</a>
+</div>
+</div>
+
+<div id="modal-dimensiones" class="modal modal-fixed-footer grandemodal" >
+<div class="modal-header">
+<ul class="tabs head2">
+    <li class="tab col s3"><a class="white-text">Dimensiones del Producto <span class="dprd"></span></a></li>
+</ul>
+</div>
+<div class="modal-content pequeño" stylle="padding: 0px;">
+<div class="row pequeño"><br>
+    <table class="table pequeño responsive-table centered striped bordered highlight z-depth-3" cellspacing="0" width="100%" >
+        <thead class="head1">
+            <tr>
+                <th style="border: 0; border-radius: 0px !important;">Característica</th>
+                <th style="border: 0; border-radius: 0px !important;">Valor</th>
+                <th style="border: 0; border-radius: 0px !important;">Unidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="dimension1" vid="0">
+                <td>LONGITUD</td>
+                <td><input type="text" class="eder" id="vldimension1" value="0"></td> 
+                <td><select id="unidimension1"><option value="0">Seleccione una Unidad</option>
+                            {section name=LE loop=$UNI}
+                            {if $UNI[LE][0] eq 8 or $UNI[LE][4] eq 8}
+                            <option value="{$UNI[LE][0]}" tipo="{$UNI[LE][3]}">{$UNI[LE][1]}</option>
+                            {/if}
+                            {/section}</select></td>
+            </tr>
+
+             <tr id="dimension2" vid="0">
+                <td>PESO</td>
+                <td><input type="text" class="eder" id="vldimension2" value="0"></td> 
+                <td><select id="unidimension2"><option value="0">Seleccione una Unidad</option>
+                            {section name=LE loop=$UNI}
+                            {if $UNI[LE][0] eq 3 or $UNI[LE][4] eq 3}
+                            <option value="{$UNI[LE][0]}" tipo="{$UNI[LE][3]}">{$UNI[LE][1]}</option>
+                            {/if}
+                            {/section}</select></td>
+            </tr>
+
+             <tr id="dimension3" vid="0">
+                <td>TIEMPO</td>
+                <td><input type="text" class="eder" id="vldimension3" value="0"></td> 
+                <td><select id="unidimension3"><option value="">Seleccione una Unidad</option>
+                            {section name=LE loop=$UNI}
+                            {if $UNI[LE][3] eq 2}
+                            <option value="{$UNI[LE][0]}" tipo="{$UNI[LE][3]}">{$UNI[LE][1]}</option>
+                            {/if}
+                            {/section}</select></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="modal-footer">
+<a class="modal-action waves-effect waves-light waves-red btn-flat z-depth-3" id="edim" style="margin-right: 2%">Salir</a>
 </div>
 </div>
 

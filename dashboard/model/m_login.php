@@ -90,7 +90,7 @@
 				return $rs;
 			}else
 				$salida = $rs->fetch_all();
-
+				
 			return $salida;
 		}
 

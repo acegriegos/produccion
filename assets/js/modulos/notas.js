@@ -386,8 +386,13 @@ function endDetail(vid,vacc,modulo){
 function sendFE(clave,factura){
 
     str_correos = '';
+<<<<<<< HEAD
     idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+factura,0,0);
     if (idcliente != 0) {
+=======
+
+    if (idcliente != '') {
+>>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
         var correos = getDatos("",18,idcliente+",2",0,0);
         if (correos == undefined) {
             Materialize.toast('Correos Inválidos',4000,'red');

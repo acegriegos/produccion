@@ -232,107 +232,21 @@ $(document).on("click","#sndcrr",function(){
     }
     vpara=vpara.substring(0,vpara.length -1);
 
-    var filtros = $(".inpreport").length;
-    var elem = $(".principal .filtros").attr('elem').split(',');
-    var vtbl = $(".principal .filtros").attr('sp');
-    var atributos = '';
-    var vmodulo = {};
-    vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
-    var search = new Array;
-    var datos = mantenimiento('login',1,vmodulo)[0];
-    datos = datos.splice(elem.length,datos.length-elem.length);
+    var resultado = rexcel();
 
-    for (var i = 0, len = datos.length; i < len; i++) {
-
-        if($("#"+datos[i][0]).attr('change') != undefined){
-
-        if ($("#"+datos[i][0]).attr('str') == undefined) {
-            if ($("#"+datos[i][0]).attr('type') == 'date') {
-                
-                if ( $("#"+datos[i][0]).val()=='' ){
-                    search[i] = '""';
-                }else{
-                    search[i] = '"'+$("#"+datos[i][0]).val()+'"';
-                }
-            }else{
-                search[i] = '"'+$("#"+datos[i][0]).val()+'"';
-            }
-        }else{
-            if ($("#"+datos[i][0]).val() == '') {
-                search[i] = "''";
-            }else{
-                search[i] = $("#"+datos[i][0]).val();
-            }
-        }
-
-        if (datos[i][0] == 'vidsucursal')
-            search[i] = '@@impresa';
-        }else{
-            search[i] = $("#"+datos[i][0]).attr('change');
-        }
-    }
-
-    var string = elem.concat(search);
-    $.each(string,function(index){
-        atributos += string[index]+',';
-    });  
-    atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-
-    mantenimiento('login',11,{sel:'',tbl:vtbl,where:atributos,vista:$(".excel").data('parametros')['vista'],tit:$("#titrep").html(),archivo:$("#titrep").html()+", "+sucursal,save:1,conteo:1,suma:$(".excel").data('parametros')['suma']},1);
+    mantenimiento('login',11,{sel:'',tbl:resultado['tbl'],where:resultado['vatr'],vista:$(".excel").data('parametros')['vista'],tit:$("#titrep").html(),archivo:$("#titrep").html()+", "+sucursal,save:1,conteo:1,suma:$(".excel").data('parametros')['suma']},1);
 
     enviarCorreo(3,vpara,"Reporte de "+$("#titrep").html()+", "+sucursal,"Se adjuntan los archivos correspondientes.",'excel/'+$("#titrep").html()+", "+sucursal+".xlsx",0,0,0);
+
+    Materialize.toast('Correo Enviado',4000,'green');
 });
 
 $(document).on("click",".excel",function(){
     var sucursal = getDatos('if(pfisico <> "",pfisico,nombre)',39,"id=@@impresa",0,0,0)[0][0][0];
-    var filtros = $(".inpreport").length;
-    var elem = $(".principal .filtros").attr('elem').split(',');
-    var vtbl = $(".principal .filtros").attr('sp');
-    var atributos = '';
-    var vmodulo = {};
-    vmodulo['modulo'] = $(".principal .filtros").attr('modulo');
-    var search = new Array;
-    var datos = mantenimiento('login',1,vmodulo)[0];
-    datos = datos.splice(elem.length,datos.length-elem.length);
-
-    for (var i = 0, len = datos.length; i < len; i++) {
-
-        if($("#"+datos[i][0]).attr('change') == undefined){
-
-        if ($("#"+datos[i][0]).attr('str') != undefined) {
-            if ($("#"+datos[i][0]).attr('type') == 'date') {
-                
-                if ( $("#"+datos[i][0]).val()=='' ){
-                    search[i] = '""';
-                }else{
-                    search[i] = '"'+$("#"+datos[i][0]).val()+'"';
-                }
-            }else{
-                search[i] = '"'+$("#"+datos[i][0]).val()+'"';
-            }
-        }else{
-            if ($("#"+datos[i][0]).val() == '') {
-                search[i] = "''";
-            }else{
-                search[i] = $("#"+datos[i][0]).val();
-            }
-        }
-
-        if (datos[i][0] == 'vidsucursal')
-            search[i] = '@@impresa';
     
-        }else{
-            search[i] = $("#"+datos[i][0]).attr('change');
-        }
-    }
+    var resultado = rexcel()
 
-    var string = elem.concat(search);
-    $.each(string,function(index){
-        atributos += string[index]+',';
-    });  
-    atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
-
-    window.location = "login?accion=11&arreglo[sel]=&arreglo[tbl]="+vtbl+"&arreglo[where]="+atributos+"&arreglo[save]=0&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'];
+    window.location = "login?accion=11&arreglo[sel]=&arreglo[tbl]="+resultado['tbl']+"&arreglo[where]="+resultado['vatr']+"&arreglo[save]=0&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'];
 });
 
 $(document).on("click",".sendrep",function(){

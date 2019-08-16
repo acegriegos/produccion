@@ -37,28 +37,27 @@
       </div>
 
       {assign var="column" value="6"}
-      <div class="col s12 m{$column} l{$column} concre movil" align="center">
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1003" val="1" id="chg_tipo1" checked>
+      <div class="col s12 m{$column} l{$column} concre movil" align="center" id="tpagos">
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1004" val="2" id="chg_tipo2">
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1105" val="2" id="chg_tipo2">
         <label for="chg_tipo2">Crédito</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1005 hide" val="3" id="chg_tipo3" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1106 hide" val="3" id="chg_tipo3" disabled>
         <label for="chg_tipo3">Consignación</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1006 hide" val="4" id="chg_tipo4" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1107 hide" val="4" id="chg_tipo4" disabled>
         <label for="chg_tipo4">Apartado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1007 hide" val="5" id="chg_tipo5" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1108 hide" val="5" id="chg_tipo5" disabled>
         <label for="chg_tipo5" class="tooltipped" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1008 hide" val="6" id="chg_tipo6" disabled>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1109 hide" val="6" id="chg_tipo6" disabled>
         <label for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
-
     <div class="col s12 m3 l3 cre gen hide" align="center">
       <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div>
 
     <div class="input-field col s12 m3 trCompra hide">
-      <label for="vreferencia">Número de Referencia</label>
-      <input type="text" id="vreferencia" class="validate" style="padding: 0px;margin: 0px" autocomplete="off" />
+      <label for="vreferencia"><!-- Número de Referencia --></label>
+      <input type="text" id="vreferencia" class="validate" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="off" />
     </div>
 
   </div>
@@ -88,6 +87,17 @@
       <i class="mdi mdi-16px mdi-file-document-box pbtn tooltipped hide clieBTN" id="hisclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 38px; z-index: 160" data-position="bottom" data-tooltip="Ventas del Cliente"></i>
       
     </div> 
+
+    <div class="col s12 m3 hide trVenta">
+      <select id="codact">
+        
+      </select>
+    </div>
+
+    <div class="col s12 m3 hide trCompra">
+      <input type="checkbox" id="celectronica" {if $smarty.session.BUSS eq 1} checked disabled {/if}>
+      <label for="celectronica">Compra Electrónica</label>
+    </div>
     
   </div>
 <!-- gen aff afc cre -->
@@ -209,8 +219,6 @@
     <section class="right">
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
           <label for="iva" class="hide" style="float: left;margin-right: 5px">IVI</label>
-          <input type="checkbox" name="hasimpuesto" id="exct" hclk="0">
-          <label for="exct" class="hide"  style="float: left;margin-right: 5px">Exento</label>
       {if $smarty.session.BUSS neq 1}
         <a href="#" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
       {/if}
@@ -245,7 +253,8 @@
             <div style="padding: 0 !important;" class="col s1 center-align"><b>Costo</b></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Descuento</b></span></div>
             <div style="padding: 0 !important;" class="col s1 center-align"><b>Total</b></div>
-            <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
+            <div style="padding: 0 !important;" class="col s1 center-align"><b>IVA</b></div>
+            <div style="padding: 0 !important;" class="col s1 center-align"></div>
 
           </div>
          
@@ -368,8 +377,16 @@
 
          <div class="center col s12 m2 row" style="font-size: 1em;  padding: 0px 5px !important;">
             <div style="padding: 0 !important;" class="col s8 input-field valor_grabado">
-                <input type="text" id="valor_grabado" autocomplete="off" class="eder">
-                <label for="valor_grabado">IV</label>
+                <select id="vimpiva" style="margin: 0px" num="4">
+                    <option value="1" num="0">Exento 0%</option>
+                    <option value="2" num="1">Reducido 1%</option>
+                    <option value="3" num="2">Reducido 2%</option>
+                    <option value="4" num="4">Reducido 4%</option>
+                    <option value="5" num="0">Transitorio 0%</option>
+                    <option value="6" num="4">Transitorio 4%</option>
+                    <option value="7" num="8">Transitorio 8%</option>
+                    <option selected value="8" num="13">General 13%</option>
+                </select>
             </div>
             <div class="col s4" style="padding: 0px">
               <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
@@ -409,6 +426,7 @@
 
       </div>
 
+      {if $smarty.session.BUSS neq 1}
       <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px">
         <table style="border: 1px solid #e2e2e2">
           <thead>
@@ -445,7 +463,7 @@
 
         </table>
       </div>
-
+      {/if}
       <div class="trcompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="ventap" class="eder" autocomplete="off">
@@ -514,7 +532,7 @@
           <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea>
           <label for="vcomentario">Comentario de Factura</label>
         </div>
-        <table style="margin-top: 150px">
+        <table style="margin-top: 100px">
           <tr class="hide trCompra trVenta">
             <td style="padding-top: 0px;padding-bottom: 0px;"><label for="vdescuentop">Descuento</label></td>
             <td>
@@ -524,9 +542,9 @@
               style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO" autocomplete="off">
             </td>
           </tr>
-          <tr class="hide">
-            <td><label for="vflete">Flete</label></td>
-            <td><input type="text" id="vflete" class="eder _txtaside divisa" value="0" placeholder="FLETE" style="margin:0px;height: 0.5% !important"></td>
+          <tr class="hide clieBTN" id="norden">
+            <td><label for="oc">N° Orden</label></td>
+            <td><input type="text" id="oc" class="eder _txtaside" value=""  style="margin:0px;height: 0.5% !important"></td>
           </tr>
           <tr class="hide">
             <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
@@ -543,10 +561,24 @@
       <table class="table table-striped table-hover">
         <thead style="border: 0px">
           <tr>
-            <td>SUBTOTAL:</td>
+            <td>GRAVADO:</td>
             <td style="float: right;">
               <span class="moneda"></span><span id="subtot" type="html" value="0" style="color: black">0.00</span>
             </td>
+          </tr>
+          <tr>
+            <td>EXENTO:</td>
+            <td style="float: right;">
+              <span class="moneda"></span><span id="exent" type="html" value="0" style="color: black">0.00</span>
+            </td>
+          </tr>
+          <tr class="">
+            <td>EXONERADO:</td>
+            <td style="float: right;"><span class="moneda"></span><span id="exonerado" type="html" value="0">0.00</span></td>
+          </tr>
+          <tr class="_desc">
+            <td>DESCUENTO:</td>
+            <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
           </tr>
         </thead>
 
@@ -554,17 +586,8 @@
           
         </tbody>  
 
-        <tfoot>  
-          <tr class="_desc">
-            <td>DESCUENTO:</td>
-            <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
-          </tr>
-
-          <tr class="_flete hide">
-            <td>FLETE:</td>
-            <td style="float: right;"><span class="moneda"></span><span id="flete" type="html" value="0">0.00</span></td>
-          </tr>
-
+        <tfoot> 
+          
           <tr style="border-top:1px solid #E9E9E9">
             <td><b>TOTAL:</b></td>
             <td style="float: right;"><b><span class="moneda"></span><span id="tot" type="html" value="0">0.00</span></b>
@@ -1008,6 +1031,20 @@
         </select>
       </div>
 
+      <div class="col s6 input-field">
+         <select id="pimv" style="margin: 0px" >
+              <option value="1" num="0">Exento 0%</option>
+              <option value="2" num="1">Reducido 1%</option>
+              <option value="3" num="2">Reducido 2%</option>
+              <option value="4" num="4">Reducido 4%</option>
+              <option value="5" num="0">Transitorio 0%</option>
+              <option value="6" num="4">Transitorio 4%</option>
+              <option value="7" num="8">Transitorio 8%</option>
+              <option selected value="8" num="13">General 13%</option>
+          </select>
+          <label for="pimv">IVA</label>
+      </div>
+
     </div>
 
   </div>
@@ -1030,6 +1067,25 @@
   <div class="modal-footer">
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
+  </div>
+</div>
+
+<div id="modal-noticia" class="modal modal-fixed-footer">
+  <div class="modal-content" >
+    <h4 class="center">Estimado Contribuyente</h4>
+    
+    <p>De Acuerdo a las <b><i>"ESPECIFICACIONES TÉCNICAS Y FORMATO DE LOS DOCUMENTOS ELECTRÓNICOS"</i></b>, es necesario el código de la actividad económica, por lo cual es requerido que digite en el siguiente espacio:</p>
+
+    <div class="input-field col s6 edescu container" style="width: 50%">
+        <input type="text" class="eder" id="codactividad" autocomplete="off" maxlength="6" autosave="off">
+        <label for="codactividad">Código de Actividad</label>
+    </div>
+
+    <small><a style="color: blue" href="https://www.hacienda.go.cr/ATV/frmConsultaSituTributaria.aspx" target="_blank">Buscar Código de Actividad en Hacienda</a></small>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acepnew">Aceptar</a>
   </div>
 </div>
 
@@ -1081,12 +1137,12 @@
       </thead>
       <tbody id="detfact"></tbody>
     </table> 
-    <div class="footer row" style="bottom:42px;position:absolute;">
-      <a class="btn btn-success col s6 mdi mdi-plus der" id="fdev" title="Realizar Devolución"></a>
-      <a class="btn btn-default col s6 der" id="fext">Salir</a>
+    <div class="row">
+      <a class="btn btn-success col s6 mdi mdi-plus" id="fdev" title="Realizar Devolución"></a>
+      <a class="btn btn-default col s6" id="fext">Salir</a>
     </div>
     
   </li>
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.24"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.40"></script>

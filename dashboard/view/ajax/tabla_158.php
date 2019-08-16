@@ -12,8 +12,8 @@
 <td style="width: 10%"><?php echo $obj[7] ?></td>
 <td style="width: 10%"><?php echo $obj[8] ?></td>
 <td style="width: 10%">
-    <a class="dropdown-button btn btn-default" style="cursor: pointer;padding: 0;width: 100%;background-color: #e2e2e2; " data-activates='acciones'><i class="mdi mdi-cursor-default mdi-16px black-text"></i> <i class="der mdi mdi-menu-down mdi-24px black-text"></i></a>
-        <ul id='acciones' class='dropdown-content'>
+    <a class="dropdown-button btn btn-default hide-on-med-and-down" style="cursor: pointer;padding: 0;width: 100%;background-color: #e2e2e2; " data-activates='acciones<?php echo $obj[0];?>'><i class="mdi mdi-cursor-default mdi-16px black-text"></i> <i class="der mdi mdi-menu-down mdi-24px black-text"></i></a>
+        <ul id="acciones<?php echo $obj[0];?>" class='dropdown-content'>
 
             <li><a class="center print tooltipped mdi mdi-24px mdi-printer" data-tooltip="Visualizar" data-position="left" id="a<?php echo $obj[0] ?>"></a></li>
 
@@ -32,6 +32,26 @@
             <li class="tr trVenta trCot trOCompra trExportacion"><a class="center mdi mdi-24px mdi-send send tooltipped" data-tooltip="Enviar por Correo" data-position="left" id="d<?php echo $obj[0] ?>"></a></li>
             <!-- tr trVenta trCot trOCompra trPedido -->
         </ul>
+        
+        <div class="hide-on-large-only" style="margin: 0px">
+
+        <i class="print tooltipped mdi mdi-36px mdi-printer" data-tooltip="Visualizar" data-position="left" id="z<?php echo $obj[0] ?>"></i>
+
+        <!-- <i class="mdi mdi-24px mdi-file-pdf pdf tooltipped" data-tooltip="Descargar PDF" data-position="left" download target="_blank" id="y<?php echo $obj[0] ?>" data-tooltip=""></i>
+
+        <i class="tr trVenta trTiquete trExportacion trFECompra  mdi mdi-24px mdi-file-xml xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="x<?php echo $obj[0] ?>" data-tooltip=""></i>
+
+        <i data-tooltip="Descargar Mensaje de Hacienda" data-position="left" download target="_blank" id="w<?php echo $obj[0] ?>" data-tooltip=""></i>
+
+        <i class="mdi mdi-24px mdi-settings process tooltipped tr trCot hide" data-tooltip="Procesar Factura" data-position="left" id="v<?php echo $obj[0] ?>"></i>
+
+        <i class="mdi mdi-24px mdi-pencil edit tooltipped  tr trCot trCompra trPedido hide" data-tooltip="Editar" data-position="left" id="u<?php echo $obj[0] ?>" ></i>
+
+        <i class="mdi mdi-24px mdi-content-duplicate clone tooltipped tr hide" data-tooltip="Clonar" data-position="left" id="t<?php echo $obj[0] ?>" style="cursor: pointer;"></i> -->
+
+        <i class="mdi mdi-36    px mdi-send send tooltipped tr trVenta trCot trOCompra trExportacion " data-tooltip="Enviar por Correo" data-position="left" id="s<?php echo $obj[0] ?>" style="cursor: pointer;"></i>
+
+        </div>
 </td>
 </tr>
 

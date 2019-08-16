@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.24">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.1.0.24">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.40">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.1.0.40">
   </head>
   <body>
   <br>
@@ -21,44 +21,54 @@
           </div>
           
           <div class="row">
-            <div class="col s4 l3">
+            <div class="col s4 l2">
                 <input name="tventa" class="with-gap" type="radio" id="tf1" checked />
                 <label for="tf1">Facturas</label>
             </div>
            
-            <div class="col s4 l3">
+            <div class="col s4 l2">
                 <input name="tventa" class="with-gap" type="radio" id="tf4"/>
                 <label for="tf4">Tiquetes</label>
             </div>
 
-            <div class="col s4 l3">
+            <div class="col s4 l2">
                 <input name="tventa" class="with-gap" type="radio" id="tf2"/>
                 <label for="tf2">Notas de Débito</label>
             </div>
-            <div class="col s4 l3">
+            <div class="col s4 l2">
                 <input name="tventa" class="with-gap" type="radio" id="tf3"/>
                 <label for="tf3">Notas de Crédito</label>
             </div>
 
-            <div class="col s4 l3">
+            <div class="col s4 l2">
                 <input name="tventa" class="with-gap" type="radio" id="tf5"/>
                 <label for="tf5">Aceptaciones</label>
             </div>  
 
-            <div class="col s4 l3">
+            <div class="col s4 l2">
                 <input name="tventa" class="with-gap" type="radio" id="tf6"/>
-                <label for="tf6">Aceptaciones Parciales</label>
+                <label for="tf6">Acept. Parciales</label>
             </div>
 
-            <div class="col s4 l3">
+            <div class="col s4 l2">
                 <input name="tventa" class="with-gap" type="radio" id="tf7"/>
                 <label for="tf7">Rechazo</label>
             </div> 
+
+            <div class="col s4 l2">
+                <input name="tventa" class="with-gap" type="radio" id="tf8"/>
+                <label for="tf8">Compras Elect.</label>
+            </div> 
+
+            <div class="col s4 l2">
+                <input name="tventa" class="with-gap" type="radio" id="tf9"/>
+                <label for="tf9">Exportaciones</label>
+            </div>
         </div>        
             <hr>
         <div class="row">
             <div class="col s12">
-              Estados de Documentos: <div style="height: 15px;width: 15px;display: inline-block;" class="green"></div> Aceptado  <div style="height: 15px;width: 15px;display: inline-block;" class="light-green"></div> Recibido  <div style="height: 15px;width: 15px;display: inline-block;" class="lime"></div> Procesando  <div style="height: 15px;width: 15px;display: inline-block;" class="red"></div> Rechazado  <div style="height: 15px;width: 15px;display: inline-block;" class="grey"></div> Sin Subir
+              Estados de Documentos: <div style="height: 15px;width: 15px;display: inline-block;" class="lime"></div> Aceptado  <div style="height: 15px;width: 15px;display: inline-block;" class="light-green"></div> Recibido  <div style="height: 15px;width: 15px;display: inline-block;" class="yellow"></div> Procesando  <div style="height: 15px;width: 15px;display: inline-block;" class="red"></div> Rechazado  <div style="height: 15px;width: 15px;display: inline-block;" class="blue"></div> Sin Subir
             </div>
 
             <div class="col s9 m7 input-field">
@@ -86,7 +96,7 @@
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Fecha</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cliente</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Total</th>
-                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">IV</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">IVA</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Estado</th>
                             </tr>
                         </thead>
@@ -204,7 +214,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.1.0.24"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.1.0.24"></script>
+    <script src="../assets/js/dropzone.js?v=10.1.0.40"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.1.0.40"></script>
   </body>
 </html>
