@@ -221,8 +221,8 @@ if (isset($_POST['respuestaXml'])) {
                         $salida['error'] = 0;
                         $salida['correo'] = $correo;
                         
-                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'','".$salida['cedula']."','','',".$salida['tipo'].",0,'assets/p12/".$name."','".$pin."',NULL,1,0,1,'".$userComprobante."','".$passComprobante."',1,'',NULL,NULL,NULL,120,0)");
-                        $rs = $db->ejecutar("select id from sucursales where cedula = '".$salida['cedula']."'")->fetch_all()[0][0];
+                        $rs = $db->ejecutar("insert into sucursales values(null,'".$salida['CN']."',1,'','".$salida['cedula']."','','',".$salida['tipo'].",'assets/p12/".$name."','".$pin."',NULL,1,0,1,'".$userComprobante."','".$passComprobante."',1,'',NULL,NULL,NULL,120,0,'',1)");
+                        $rs = $db->ejecutar("select id from sucursales where cedula = '".$salida['cedula']."'")->fetch_all()[0][0]; 
 
                         $db->ejecutar("insert into correos values(null,".$rs.",39,'".$correo."')");
                         $db->ejecutar("insert into telefonos values(null,3,'".$telefono."',39,".$rs.",52)");

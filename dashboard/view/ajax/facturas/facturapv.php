@@ -127,7 +127,7 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
     <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
   <tr>
-    <td align="left" colspan="4" style="font-size:9px">'.$transaccion[0][32].'</td>
+    <td align="left" colspan="4" style="font-size:11px">'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>
@@ -178,14 +178,16 @@ if ($config[0][10] == 1) {
   <tr>
     <td colspan="4"></td>
   </tr>';
-
+  $sr = 0;
   foreach ($transaccion as $obj) {
-
-    echo '<tr>
-      <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
-      <td align="center" width="45%">'.$obj[19].'</td>
-      <td align="center" width="20%">'.$obj[20].'</td>
-      <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
+    if( strpos($obj[19], 'Servicios Restaurante') == ''){
+      echo '<tr>
+        <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
+        <td align="center" width="45%">'.$obj[19].'</td>
+        <td align="center" width="20%">'.$obj[20].'</td>
+        <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
+      }else
+        $sr += str_replace(',', '', $obj[20]);
     }
 
 }else{
@@ -202,12 +204,15 @@ echo '<table  style="width: 100% !important;">
   </tr>';
   
 
+    $sr = 0;
     foreach ($transaccion as $obj) {
-
-    echo '<tr>
-      <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
-      <td align="center" width="50%">'.$obj[19].'</td>
-      <td align="right" width="30%">'.$obj[20].'</td>';
+      if( strpos($obj[19], 'Servicios Restaurante') == ''){
+          echo '<tr>
+            <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
+            <td align="center" width="50%">'.$obj[19].'</td>
+            <td align="right" width="30%">'.number_format(str_replace(',','',$obj[20])*str_replace(',', '', $obj[18]),2).'</td>';
+      }else
+        $sr += str_replace(',', '', $obj[20]);
     }
   }
   
@@ -225,13 +230,23 @@ echo '<tr>
     <td colspan="'.$colspan1.'"></td>
   </tr>
   <tr '.$ocultar.'>
-    <td width="50%" colspan="'.$colspan2.'">Sub-Total:</td>
+    <td width="50%" colspan="'.$colspan2.'">Gravado:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[9].' </td>
-  </tr>
-  <tr '.$ocultar.'>
-    <td width="50%" colspan="'.$colspan2.'">13% IV:</td>
-    <td width="50%" align="right"> '.$obj[15].$obj[5].' </td>
   </tr>';
+
+    if ($obj[8] > 0) {
+      echo '<tr '.$ocultar.'>
+      <td width="50%" colspan="'.$colspan2.'">Exento:</td>
+      <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
+    </tr>';
+    }
+
+    if ($sr > 0) {
+      echo '<tr '.$ocultar.'>
+      <td width="50%" colspan="'.$colspan2.'">10% Serv. Rest.:</td>
+      <td width="50%" align="right"> '.$obj[15].number_format($sr,2).' </td>
+    </tr>';
+    }
   
   if ($obj[6] > 0) {
     echo '<tr '.$ocultar.'>
@@ -242,25 +257,22 @@ echo '<tr>
 
   if ($obj[7] > 0) {
     echo  '<tr '.$ocultar.'>
-    <td width="50%" colspan="'.$colspan2.'">Flete:</td>
+    <td width="50%" colspan="'.$colspan2.'">Exonerado:</td>
     <td width="50%" align="right"> '.$obj[15].$obj[7].' </td>
   </tr>';
   }
- 
-  if ($obj[8] > 0) {
-    echo '<tr '.$ocultar.'>
-    <td width="50%" colspan="'.$colspan2.'">Ajuste:</td>
-    <td width="50%" align="right"> '.$obj[15].$obj[8].' </td>
+
+  echo '<tr '.$ocultar.'>
+    <td width="50%" colspan="'.$colspan2.'">IVA:</td>
+    <td width="50%" align="right"> '.$obj[15].$obj[5].' </td>
   </tr>';
-  }
 
   echo '<tr '.$ocultar.'>
     <td width="50%" colspan="'.$colspan2.'">TOTAL GENERAL:  </td>
     <td width="50%" align="right"> '.$obj[15].$obj[10].' </td>
   </tr>
 </table>
-<div '.$ocultar.'>*=EXENTO</div>
-<div '.$ocultar.'>**=I.V.I</div>';
+<div '.$ocultar.'>*=EXENTO</div>';
 
 if ($pvuelto > 0 && $vuelto >= 0) {
   echo '<table width="100%">
@@ -284,17 +296,17 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.40"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.40"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.40"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.96"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.96"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.96"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
-      var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 del la D.G.T.D";
+      var resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        resol = "AUTORIZADO MEDIANTE RESOLUCION DGT-R-48-2016, 07-10-2016";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
+        resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }
 
       $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);

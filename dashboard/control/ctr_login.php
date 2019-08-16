@@ -1,9 +1,8 @@
 <?php  
 	  require_once 'model/m_login.php';
    	$log = new _login();
-
+    
     if (!isset($_REQUEST['accion'])) {
-
     	if (session_status() !== PHP_SESSION_ACTIVE){
 		    session_start();
         //exit(0);  
@@ -81,7 +80,7 @@
             if ($_SESSION['BUSS'] == 1) {
               $mod = 'facturacion';
             }
-		        header("Location: ../dashboard/".$mod);
+            header("Location: ../dashboard/".$mod);
 		    }else{
 		   	require '../_config/mySmarty.php';
 		   
@@ -165,7 +164,11 @@
 
           if (isset($_REQUEST['arreglo']['tit']))
             $tit = $_REQUEST['arreglo']['tit'];
-           
+          
+          $filtros = ''; 
+          if (isset($_REQUEST['arreglo']['filtro']))
+            $filtros = $_REQUEST['arreglo']['filtro'];
+             
           include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php';  
 		   	break;
         case 9:  //GENERAR SOLO XML
@@ -240,6 +243,21 @@
         $_REQUEST['sucname'] = $_REQUEST['arreglo']['sucursal'];
         require_once '../wsdlClient.php';
         $fe = new facturaElectronica($_REQUEST['arreglo']['id']);
+        break;
+      case 15: //READ SERVER COMPRAS
+        $pagina = 1;
+        getCompras($_REQUEST['server'],$_REQUEST['ced'],$_REQUEST['isp'],$log);
+        break;
+      case 16: //READ XML FILE RETURN ARRAY
+        $pagina = 1;
+
+        if(!file_exists('../assets/xml/'.$_REQUEST['n_archivo'])){
+          echo json_encode(['succed'=>0,'rs'=>'Archivo no Existente']);
+        }else{
+          $xml = (array) simplexml_load_file('../assets/xml/'.$_REQUEST['n_archivo']);
+          unlink('../assets/xml/'.$_REQUEST['n_archivo']);
+          echo json_encode(['succed'=>1,'rs'=>$xml]);
+        }
         break;
       default:
         break;
@@ -322,20 +340,59 @@
         };
      }	
 
-         /**
-     * TLPS
-     */
-    class excel
-    {
-      var $str;
+    function getCompras($url,$ced,$isp,&$log){
+      $curl = curl_init($url);
+      curl_setopt($curl, CURLOPT_HEADER, true);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($curl, CURLOPT_POST, true);
+      curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
 
-      function __construct()
+      $params = array(
+        "cmd" => 4,
+        "ced" => $ced,
+        "isp" => $isp);
+
+      $postData = "";
+
+      foreach($params as $k => $v)
       {
-        $this->str = $str;
+         $postData .= $k . '='.urlencode($v).'&';
       }
 
-      public function getFile(){
-        
+      $postData = rtrim($postData, '&');
+
+      curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+      $json_response = curl_exec($curl);
+      $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+      curl_close($curl);
+      $json_response = json_decode($json_response);
+
+      if (isset($json_response->rs)) {
+
+          foreach ($json_response->rs as $obj) {
+              $obj[17] = trim($obj[17]) == 'CRC' ? 1 : 2;
+
+              $idproveedor = $log->kamehameha("vid",264,'replace(cedula,"-","") = '.$obj[39]);
+              //echo json_encode(['proveedor'=>$idproveedor]);
+
+              if(!sizeof($idproveedor))
+                 $log->genkidama(1,264,'',$obj[37].',"'.$obj[38].'","'.$obj[39].'","'.$obj[40].'","'.$obj[41].'","'.$obj[42].'","'.$obj[43].'","'.$obj[44].'","'.$obj[45].'","'.$obj[46].'","'.$obj[47].'"');
+              
+              $compra = $log->kamehameha('id',262,'referencia = "'.$obj[16].'"');
+
+              if (!sizeof($compra)) {
+                 $log->genkidama(1,262,'','null,"'.$obj[1].'","'.$obj[2].'","'.$obj[3].'","'.$obj[4].'","'.$obj[5].'","'.$obj[6].'","'.$obj[49].'","'.$obj[8].'","'.$obj[9].'","'.$obj[10].'","'.$obj[11].'","'.$obj[12].'","'.$obj[13].'","'.$obj[14].'","'.$obj[15].'","'.$obj[16].'","'.$obj[17].'","'.$obj[18].'","'.$obj[19].'","'.$obj[48].'","'.$obj[21].'","'.$obj[22].'","'.$obj[23].'","'.$obj[24].'","'.$obj[25].'","'.$obj[26].'","'.$obj[27].'"');
+                 $compra = $log->kamehameha('id',262,'referencia = "'.$obj[16].'"')[0][0];
+              }else{
+                  $compra = $compra[0][0];
+              }
+
+              $rs = $log->genkidama(1,263,'','null,"'.$compra.'","'.$obj[31].'",'.$obj[52].','.$obj[51].',"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.str_replace('"', '\"', $obj[30]).'","'.$obj[36].'","'.$obj[50].'","",0');
+
+              // echo json_encode(['rs'=>$rs,'sql'=>'null,"'.$compra.'","'.$obj[31].'",'.$obj[52].','.$obj[51].',"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.str_replace('"', '\"', $obj[30]).'","'.$obj[36].'","'.$obj[50].'","",0']);
+          }
       }
     }
 			   

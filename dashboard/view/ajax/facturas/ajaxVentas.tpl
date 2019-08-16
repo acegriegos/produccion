@@ -8,7 +8,7 @@
       </div>
       <div class="col s4 center" style="cursor: pointer;">
         <input type="radio" name="ubfactura" val="2" id="ubfact2">
-        <label for="ubfact2" >Detalle</label>
+        <label for="ubfact2" >Detallepor</label>
       </div>
       <div class="col s4 center" style="cursor: pointer;">
         <input type="radio" name="ubfactura" val="3" id="ubfact3">
@@ -37,7 +37,7 @@
       </div>
 
       {assign var="column" value="6"}
-      <div class="col s12 m{$column} l{$column} concre movil" align="center" id="tpagos">
+      <div class="col s12 m{$column} l{$column} concre movil hide trVenta" align="center" id="tpagos">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1105" val="2" id="chg_tipo2">
@@ -57,7 +57,7 @@
 
     <div class="input-field col s12 m3 trCompra hide">
       <label for="vreferencia"><!-- Número de Referencia --></label>
-      <input type="text" id="vreferencia" class="validate" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="off" />
+      <input type="text" id="vreferencia" class="validate" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" />
     </div>
 
   </div>
@@ -71,13 +71,13 @@
    
     <div class="input-field cre gen col s12 m3 l3 hide">
       <i class="mdi mdi-calendar-clock mdi-24px prefix"></i>
-      <input type="text" id="vplazo" value="0" class="eder" autocomplete="off" />
+      <input type="text" id="vplazo" value="0" class="eder" autocomplete="new-password" />
       <label style="color: black"><b>Plazo en Días</b></label>
     </div>
     
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
-      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="off"/>
+      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="new-password"/>
 
       <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180;cursor: pointer;" data-position="bottom" data-tooltip="Agregar Cliente"></a>
 
@@ -137,25 +137,25 @@
     </div>
 
     <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1"></i>
       <input type="text" id="vcuotainicial" class="eder calpres" value="0">
       <label for="vcuotainicial">Cuota Inicial (Prima)</label>
     </div>
 
      <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1"></i>
       <input type="text" id="vcomisioning" class="eder calpres" value="0">
       <label for="vcomisioning">Comisión Ingreso</label>
     </div>
 
      <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1"></i>
       <input type="text" id="vcomisionmes" class="eder calpres" value="0">
       <label for="vcomisionmes">Comisión Mes</label>
     </div>
 
     <div class="col s12 l3 input-field">
-      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1""></i>
+      <i class="prefix mdi-percent mdi pbtn por-num" tipo="1"></i>
       <input type="text" id="vpagresiadual" class="eder" value="0">
       <label for="vpagresiadual">Pago Residual</label>
     </div>
@@ -272,16 +272,16 @@
 
         <div class="trVenta hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="new-password">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="new-password">
           </div>
 
           <div style=padding: 0 !important" class="input-field col s12 m1">
@@ -291,7 +291,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off" placeholder="Cantidad">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
@@ -310,12 +310,12 @@
 
         <div class="trOCompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m4">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="new-password">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
@@ -323,7 +323,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off" placeholder="Cantidad" autocomplete="off">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad" autocomplete="new-password">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
@@ -345,12 +345,12 @@
 
         <div class="trCompra hide trsec hide-on-med-and-down row">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="new-password">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1 _uni">
@@ -360,15 +360,15 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off" placeholder="Cantidad" autocomplete="off">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad" autocomplete="new-password">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="new-password">
           </div>
 
           <div class="input-field col s12 m1">
-            <input type="text" class="f center" id="descup" min="0" value="0" data-mask="999999999.99" placeholder="Descuento" value="0.00" autocomplete="off">
+            <input type="text" class="f center" id="descup" min="0" value="0" data-mask="999999999.99" placeholder="Descuento" value="0.00" autocomplete="new-password">
           </div>
           
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
@@ -407,15 +407,15 @@
         <div class="trComprax hide trsec hide-on-med-and-down row">
 
           <div style="padding: 0px 5px !important" class="input-field col s2">
-            <input type="text" class="f center putil" id="putil" value="0" placeholder="Utilidad %" autocomplete="off">
+            <input type="text" class="f center putil" id="putil" value="0" placeholder="Utilidad %" autocomplete="new-password">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s2">
-            <input type="text" class="f center putil" id="putils" readonly value="0" placeholder="Utilidad $" autocomplete="off">
+            <input type="text" class="f center putil" id="putils" readonly value="0" placeholder="Utilidad $" autocomplete="new-password">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s3">
-            <input type="text" class="f center" id="pventa" min="1" value="0" placeholder="Precio Venta" autocomplete="off">
+            <input type="text" class="f center" id="pventa" min="1" value="0" placeholder="Precio Venta" autocomplete="new-password">
           </div>
 
           <div style="padding: 0 !important;" class="col s2 center"><span id="preponderado">0.00</span></div>
@@ -427,7 +427,7 @@
       </div>
 
       {if $smarty.session.BUSS neq 1}
-      <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px">
+      <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px" id="precioscat">
         <table style="border: 1px solid #e2e2e2">
           <thead>
             <tr>
@@ -466,17 +466,17 @@
       {/if}
       <div class="trcompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="ventap" class="eder" autocomplete="off">
+            <input type="text" id="ventap" class="eder" autocomplete="new-password">
             <label for="ventap">Costo Original</label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="ventap" class="eder" autocomplete="off">
+            <input type="text" id="ventap" class="eder" autocomplete="new-password">
             <label for="ventap">Precio Venta</label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="gananciap" class="eder" autocomplete="off">
+            <input type="text" id="gananciap" class="eder" autocomplete="new-password">
             <label for="gananciap">Utilidad</label>
           </div>
       </div>
@@ -529,7 +529,7 @@
     <div class="col s12 m12 l12">
 
         <div class="col s12 m12 l12 input-field">
-          <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 80px; max-height: 80px; height: 80px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea>
+          <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea>
           <label for="vcomentario">Comentario de Factura</label>
         </div>
         <table style="margin-top: 100px">
@@ -539,7 +539,7 @@
               <select id="tdescuento" class="eder tdesc trVenta hide" tp="1" style="margin: 0px; height: 0.5%% !important">
               </select>
               <input type="text" id="vdescuentop" class="eder _txtaside hide trCompra" value="0" tdesc="1"
-              style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO" autocomplete="off">
+              style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO" autocomplete="new-password">
             </td>
           </tr>
           <tr class="hide clieBTN" id="norden">
@@ -580,6 +580,10 @@
             <td>DESCUENTO:</td>
             <td style="float: right;"><span class="moneda"></span><span id="descuento_v" type="html" value="0">0.00</span></td>
           </tr>
+          <tr class="hide rest">
+            <td>10% SERV.:</td>
+            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0">0.00</span></b></td>
+          </tr>
         </thead>
 
         <tbody id="sh_imp">
@@ -587,7 +591,7 @@
         </tbody>  
 
         <tfoot> 
-          
+
           <tr style="border-top:1px solid #E9E9E9">
             <td><b>TOTAL:</b></td>
             <td style="float: right;"><b><span class="moneda"></span><span id="tot" type="html" value="0">0.00</span></b>
@@ -604,7 +608,7 @@
               <label for="p_v" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para imprimir la factura en formato de impresión 'Punto de Venta'" data-position="left">Punto Venta</label>
           </div>
 
-          <div class="col s12 m6 l6 hide">
+          <div class="col s12 m6 l6 rest hide">
               <input type="checkbox" id="impm" checked disabled />
               <label for="impm" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para Acreditar el Impuesto de Mesero" data-position="left">Imp. Mesero</label>
           </div>
@@ -622,6 +626,9 @@
               </div>
               <div class="col s6" style="padding: 0px;">
                 <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
+              </div>
+              <div class="col s12 order hide">
+                <a href="#!" class="green btn"  title="Imprimir Orden" id="printOrder">Imprimir Orden</a>
               </div>
             </div>  
           </div>
@@ -645,18 +652,18 @@
     <div class="trVenta hide trsec hide-on-large-only">
       <div style="padding: 0px 5px !important" class="input-field col s12 m2">
 
-            <input type="text" id="codp" class="f prod center truncate" autocomplete="off">
+            <input type="text" id="codp" class="f prod center truncate" autocomplete="new-password">
             <label for="codp">Código</label>
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" autocomplete="off">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" autocomplete="new-password">
             <label for="descp">Descripción</label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="new-password">
             <label for="precp">Precio</label>
           </div>
 
@@ -668,7 +675,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password">
             <label for="cantp">Cantidad</label>
           </div>
 
@@ -701,7 +708,7 @@
   <div class="modal-content">
     <div class="input-field">
       <span class="prefix mdi mdi-magnify mdi-24px"></span>
-      <input type="text" id="bproductos" style="width: 70%">
+      <input type="text" id="bproductos" style="width: 70%" autocomplete="new-password">
       <label>Buscar por Código, Nombre, Marca, Tipo o Familia</label>
     </div>
     <table class="table centered bordered z-depth-1">
@@ -711,8 +718,6 @@
         <th>Código</th>
         <th>Nombre</th>
         <th>Marca</th>
-        <th>Tipo</th>
-        <th>Familia</th>
         <th>Venta</th>
         <th>Cantidad</th>
         </tr>
@@ -731,11 +736,11 @@
   <div class="modal-content">
     <div class="row">
       <div class="col s6 input-field">
-        <input type="text" id="byfact" class="autocomplete" autocomplete="off">
+        <input type="text" id="byfact" class="autocomplete" autocomplete="new-password">
         <label for="byfact">Por Factura</label>
       </div>
        <div class="col s6 input-field">
-        <input type="text" id="byclie" class="autocomplete" autocomplete="off" cid="0">
+        <input type="text" id="byclie" class="autocomplete" autocomplete="new-password" cid="0" >
         <label for="byclie">Por Cliente</label>
       </div>
     </div>
@@ -778,7 +783,7 @@
     
     <div class="row">
       <div class="input-field col s6">
-        <input type="text" id="c-ced" maxlength="12" class="buscarNom" autocomplete="off">
+        <input type="text" id="c-ced" maxlength="12" class="buscarNom" autocomplete="new-password">
         <label for="c-ced">Cédula</label>
       </div>
 
@@ -788,12 +793,12 @@
         <input type="hidden" id="c-tp">
       </div>
 
-      <div class="input-field col s6 hide c-stp1 c-st">
+      <div class="input-field col s6 hide">
         <input type="text" id="c-ap1" readonly>
         <label for="c-ap1">Apellido 1</label>
       </div>
 
-      <div class="input-field col s6 hide c-stp1 c-st">
+      <div class="input-field col s6 hide">
         <input type="text" id="c-ap2" readonly>
         <label for="c-ap2">Apellido 2</label>
       </div>
@@ -860,7 +865,7 @@
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
     <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
       <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric " id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="off">
+      <input type="text" class="form-control form-control-sm center numeric " id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
     </div>
     <br>
     <span>SU CAMBIO ES DE:</span><br>
@@ -937,7 +942,7 @@
 
        <div class="col s12 input-field">
         <input type="text" id="ntarjmixto" maxlength="4">
-        <label for="ntarjmixto"">Número de Tarjeta</label>
+        <label for="ntarjmixto">Número de Tarjeta</label>
       </div>
 
       <hr style="border:1px dashed #e2e2e2">
@@ -948,7 +953,7 @@
       </div>
       <br>
       <div class="input-field col s6 hide">
-        <input type="text" id="c0-ced" maxlength="12" class="buscarNombre" autocomplete="off" num="0">
+        <input type="text" id="c0-ced" maxlength="12" class="buscarNombre" autocomplete="new-password" num="0">
         <label for="c0-ced">Cédula</label>
       </div>
 
@@ -1014,12 +1019,12 @@
     <div class="row">
 
       <div class="input-field col s6">
-        <input type="text" id="vcodigo" autocomplete="off">
+        <input type="text" id="vcodigo" autocomplete="new-password">
         <label for="vcodigo">Código</label>
       </div>
 
       <div class="input-field col s6">
-        <input type="text" id="vpnombre" autocomplete="off" autosave="off">
+        <input type="text" id="vpnombre" autocomplete="new-password" autosave="off">
         <label for="vpnombre">Nombre</label>
       </div>
 
@@ -1059,7 +1064,7 @@
     <h4 class="center">Autenticar Usuario</h4>
    
     <div class="input-field col s6 edescu container" style="width: 50%">
-        <input type="password" id="ecouser" autocomplete="off" maxlength="64" autosave="off">
+        <input type="password" id="ecouser" autocomplete="new-password" maxlength="64" autosave="off">
         <label for="ecouser">Código</label>
     </div>
 
@@ -1077,7 +1082,7 @@
     <p>De Acuerdo a las <b><i>"ESPECIFICACIONES TÉCNICAS Y FORMATO DE LOS DOCUMENTOS ELECTRÓNICOS"</i></b>, es necesario el código de la actividad económica, por lo cual es requerido que digite en el siguiente espacio:</p>
 
     <div class="input-field col s6 edescu container" style="width: 50%">
-        <input type="text" class="eder" id="codactividad" autocomplete="off" maxlength="6" autosave="off">
+        <input type="text" class="eder" id="codactividad" autocomplete="new-password" maxlength="6" autosave="off">
         <label for="codactividad">Código de Actividad</label>
     </div>
 
@@ -1124,25 +1129,26 @@
     <div class="divider"></div>
   </li>
   <li>
-    Productos a Devolver <br>
+    Productos a Devolver por: <input type="text" id="rdev" maxlength="180" style="width: 50%">
+      <i class="mdi mdi-exit-to-app mdi-24px" id="fext" title="Salir" style="width: 5% !important; float: right;cursor: pointer;"></i>
+
+      <i class="mdi mdi-plus mdi-24px" id="fdev" title="Realizar Devolución" style="width: 5% !important; float: right;cursor: pointer;"></i>
+      
+    <br>
     <table>
       <thead>
         <tr>
-          <th></th>
           <th>CANT</th>
           <th>ITEM</th>
-          <th>A DEVOLVER</th>
+          <th>CANT. A DEVOLVER</th>
           <th>RAZON</th>
+          <th>CAMBIO</th>
         </tr>
       </thead>
       <tbody id="detfact"></tbody>
-    </table> 
-    <div class="row">
-      <a class="btn btn-success col s6 mdi mdi-plus" id="fdev" title="Realizar Devolución"></a>
-      <a class="btn btn-default col s6" id="fext">Salir</a>
-    </div>
-    
+    </table>     
   </li>
+
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.1.0.40"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.1.0.96"></script>

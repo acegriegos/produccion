@@ -459,7 +459,7 @@ $(document).on("keyup","[id^=search_]",function(e){
         var j = $(this).attr('filtro') == undefined ? 1 : $(this).attr('filtro');
         var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
         var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
-
+        
         filltable(h,b,c,g);
         $(".pagination").html('');
         paginate(c,i)
@@ -489,7 +489,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        console.log(p)
+        //console.log(p)
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -2075,7 +2075,7 @@ function phone_addon_ckub(vfila,vphone){
     $(document).on('blur',"#telefono_in",function(){
         var telefono = $(this).val();
 
-        if (telefono.length > 1) {
+        if (telefono.length >= 8) {
             if (isNaN(telefono.replace('-',''))) {
                 Materialize.toast('Telefono Invalido',4000,'red')
                 return false;
@@ -2088,6 +2088,9 @@ function phone_addon_ckub(vfila,vphone){
             
             var idfila = $(this).attr('idfila');
             phone_addon_ckub(idfila,telefono);
+        }else{
+            Materialize.toast('Telefono Invalido',4000,'red')
+            return false;
         }
         
     });
@@ -2182,7 +2185,7 @@ function guardarSlide(vaccion,pr,vtabla){
             if(pr.succed){
                 pr = pr[0][0][0];
                 
-                if ($("#slideCorreo").data('fila1z') != undefined) {
+                if ($("#slideCorreo").data('fila1') != undefined) {
                     var num = 1;
                     var nfila;
                     while($("#slideCorreo").data('fila'+num) != undefined){

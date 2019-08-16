@@ -15,6 +15,7 @@ $(function(){
 			$("#gtit").html("Cuentas por Pagar");
 			$("#shabonos").attr('href','vistanotaspagos?tp=1');
 			break;
+
 		default:
 			param = 1;
 			gtipo = 1;
@@ -211,7 +212,7 @@ $(document).on("blur",".vabono",function(){
 		var nm = parseFloat($(this).val());
 		nm = isNaN(nm) ? 0 : nm;
 		var gm = mt-monto+nm;
-		$("#monto").val(gm)
+		$("#monto").val(parseFloat(gm).formatMoney(2,'.',''))
 	}
 })
 
@@ -227,7 +228,7 @@ $(document).on("click",".factclie",function(){
 	}else{
 		mt -= valor;
 	}
-	$("#monto").val(mt)
+	$("#monto").val(parseFloat(mt).formatMoney(2,'.',''))
 });
 
 $(document).on("click","#btnPagar",function(){
@@ -248,8 +249,8 @@ $(document).on("click","#btnPagar",function(){
 		var divisa = $("#monedas option:selected").attr('dv');
 		var fechabol = $("#fecha").val();	
 		var idpag = getDatos('ec7+1',252,'idsucursal = @@impresa',0,0,0)[0][0][0];
-		console.log(idpag)
-		actualizar(252,'ect = ec7+1','idsucursal = @@impresa')
+
+		actualizar(252,'ec7 = ec7+1','idsucursal = @@impresa')
 
 		if ($(".factclie:checked").length) {
 
@@ -509,6 +510,7 @@ function cargarSintax(){
 }
 
 function endDetail(vid,vacc,modulo) {
+	console.log(vid)
 	if (vacc == 1) {
 		var saldo = $("#isaldovista").text();
 		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
@@ -521,7 +523,6 @@ function endDetail(vid,vacc,modulo) {
 		arr('login',6,'',214,gtipo+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 		$("#btn-div").click();
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-
 		if($("#vcta").val() != 0)
 			insertar(280,'','null,'+vid[0][0]+','+$("#vcta").val());
 		window.open('cuentas?accion=4&id='+vid[0][0]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);

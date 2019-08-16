@@ -38,7 +38,7 @@ class myPDF extends TCPDF {
 
         $html = '<div align="center">';
           if ($this->fe != '') {
-           $html .= '<p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016.
+           $html .= '<p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
               <br>Versión API Hacienda: 4.3<br> 
               <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span></p><br>
             </div>';
@@ -138,21 +138,11 @@ $html .= '</td>'.
 '<td valign="top" class="mcnTextContent" style="font-size: 13px;font-family: Helvetica;">'.
 '<div style="text-align: left; color: #494949;">';
 $fact = $miscelaneos[2] != '' ? $miscelaneos[2] : $miscelaneos[0];
-if ($miscelaneos[10] == 2) {
-   if ($miscelaneos[2] != ''){ 
-      $html .= '<strong>'.$miscelaneos[2].'</strong><br>';
-      $fact = $miscelaneos[2];
-    }
-   else
-      $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
-}else{
    if ($miscelaneos[2] != ''){
-      $html .= '<strong>'.$miscelaneos[2].'</strong><br>';
-      $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
+      $html .= '<strong>'.$miscelaneos[2].'</strong><br>'.$miscelaneos[0].'<br>';
    }
    else
       $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
-}   
 
 $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 '<strong>Teléfono:</strong> '.$miscelaneos[5].'<br>'.
@@ -170,7 +160,7 @@ $miscelaneos[6].'</div>'.
 if ($datos[0][32] != '') {
   $html.= '<br>'.
 '<br>'.
-'<div style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;"> <b>Factura Electrónica</b></span>';
+'<div style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;"> <b>Factura Electrónica</b>  </div>';
 }
 
 $html .= '</td>'.
@@ -208,6 +198,9 @@ $html .= '<div style="padding: 8px 0px 8px 0px">
 
 if($datos[0][16] != '')
   $html .= '<strong>Vende:</strong> '.$datos[0][16].'<br>';
+
+if($datos[0][48] != '')
+  $html .= '<strong>Orden N:</strong> '.$datos[0][48].'<br>';
 
 if ($datos[0][12] != '') {
 $html .= '<strong>Comentario:</strong><br>'.$datos[0][12];

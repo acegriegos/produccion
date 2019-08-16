@@ -1,11 +1,13 @@
+Dropzone.autoDiscover = false;
+var myDropzone;
 var config;
 var factura;
 var clave;
 var str_correos = '';
 
 $(function(){
-	config =getDatos('',42,'@@impresa',0,0)[0][0];
-	$("[id^=ftr]").hide();
+    config =getDatos('',42,'@@impresa',0,0)[0][0];
+    $("[id^=ftr]").hide();
 
     $("#vfac").keyup(function(e){
         var code = e.which || e.keyCode;
@@ -18,148 +20,166 @@ $(function(){
         $("#busnota").click();
     });
 
-	$(".chg_tipo").change(function(){
-		var id=$(this).prop('value')
-		if ($(this).is(':checked')){
-			$("#ftr"+id).removeClass("hide");
-			$("#ftr"+id).show();
-		}
-		else
-			$("#ftr"+id).addClass("hide");
+    $(".chg_tipo").change(function(){
+        var id=$(this).prop('value')
+        if ($(this).is(':checked')){
+            $("#ftr"+id).removeClass("hide");
+            $("#ftr"+id).show();
+        }
+        else
+            $("#ftr"+id).addClass("hide");
 
-	})
+    })
     
-	$("#ncli").keydown(function(e){
-		var charCode = e.which || e.keyCode;
-		var charStr = String.fromCharCode(charCode);
+    $("#ncli").keydown(function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
 
-		if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-			$(".autocomplete-content").remove();
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
 
-			$("#ncli").autocomplete({
-				limit: 20,
-				data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
-			});
+            $("#ncli").autocomplete({
+                limit: 20,
+                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+            });
 
-			$("#ncli").siblings($(".autocomplete-content")).css('width','25%');
-		}
-	});
+            $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
+        }
+    });
 
-	$(".sclie").blur(function(){
-		var bisclie = 0;
-		var nombre = $("#ncli").val()
-		if (!$("#cp").is(":checked")) {
-			bisclie=1
-			nombre = $("#nprov").val()
-		}
-		var id = arr('login',4,'id',2,'bisproveedor = '+bisclie+' where nombre = "%'+nombre+'%" limit 20',0,0,0)[0][0];
-		if (id != undefined) {
-			$(".sclie").attr('idc',id);	
-		}else{
-			$(".sclie").attr('idc',0);
-		}
-		
+    $("#pce").click(function(){
+        $("#modal-clave").modal('open');
+    });
 
-	})
+    $("#sde-acep").click(function(){
+        var _clie = getDatos('id',2,'replace(cedula,"-","") = "'+$("#sde-all").data('cliente')+'"',0,0,0);
+        console.log(_clie);
+        //var ins = insertar(64,'','-1, 1, 1, 1,now(),'+_clie+', 4, 0,'+_imv+', '+_gravado+','+_exento+' , '+_desc+', '+_exo+', "", 0, "", '+clave+', 1, 1, "", 0, "0", "0", 1.00000, 1, 1, "", 0, 0, 0.00');
+    });
 
-	$("#cp").change(function(){
-		if ($(this).is(':checked')) {
-			$("#nprov").val('')
-			$(".tipoclie").text('Proveedor')
-			$(".sclie").attr('id','nprov')
-			$("label[for=ncli]").attr('for','nprov')
-			$("#nprov").keydown(function(e){
-				var charCode = e.which || e.keyCode;
-				var charStr = String.fromCharCode(charCode);
+    $(".sclie").blur(function(){
+        var bisclie = 0;
+        var nombre = $("#ncli").val()
+        if (!$("#cp").is(":checked")) {
+            bisclie=1
+            nombre = $("#nprov").val()
+        }
+        var id = arr('login',4,'id',2,'bisproveedor = '+bisclie+' where nombre = "%'+nombre+'%" limit 20',0,0,0)[0][0];
+        if (id != undefined) {
+            $(".sclie").attr('idc',id); 
+        }else{
+            $(".sclie").attr('idc',0);
+        }
+        
 
-				if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-					$(".autocomplete-content").remove();
+    });
 
-					$("#nprov").autocomplete({
-						limit: 20,
-						data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#nprov").val()+'%" limit 20',0,0,0,1)
-					});
+    $("#sde-exit").click(function(){
+        $("#hacienda-upload").removeClass('hide');
+        $("#vista-xml").addClass('hide');
+    });
 
-					$("#nprov").siblings($(".autocomplete-content")).css('width','25%');
-				}
-			});
+    $("#cp").change(function(){
+        if ($(this).is(':checked')) {
+            $("#nprov").val('')
+            $(".tipoclie").text('Proveedor')
+            $(".sclie").attr('id','nprov')
+            $("label[for=ncli]").attr('for','nprov')
+            $("#nprov").keydown(function(e){
+                var charCode = e.which || e.keyCode;
+                var charStr = String.fromCharCode(charCode);
 
-		}else{
-			$(".tipoclie").text('Cliente')
-			$(".sclie").attr('id','ncli')
-			$("label[for=nprov]").attr('for','ncli')
-			$("#ncli").keydown(function(e){
-				var charCode = e.which || e.keyCode;
-				var charStr = String.fromCharCode(charCode);
+                if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+                    $(".autocomplete-content").remove();
 
-				if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-					$(".autocomplete-content").remove();
+                    $("#nprov").autocomplete({
+                        limit: 20,
+                        data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'bisproveedor having nom like "%'+$("#nprov").val()+'%" limit 20',0,0,0,1)
+                    });
 
-					$("#ncli").autocomplete({
-						limit: 20,
-						data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
-					});
+                    $("#nprov").siblings($(".autocomplete-content")).css('width','25%');
+                }
+            });
 
-					$("#ncli").siblings($(".autocomplete-content")).css('width','25%');
-				}
-			});
-		}
-	})
+        }else{
+            $(".tipoclie").text('Cliente')
+            $(".sclie").attr('id','ncli')
+            $("label[for=nprov]").attr('for','ncli')
+            $("#ncli").keydown(function(e){
+                var charCode = e.which || e.keyCode;
+                var charStr = String.fromCharCode(charCode);
 
-	$("#ftr0").show();
-	$("#busnota").click(function(){
-		var cliente = factura = num1 = num2 = 0;
-		var desde = hasta = "";
-		if ($("#cp").is(":checked")) {
-			if ($("#nprov").val() != '') {
-				cliente= $("#nprov").attr("idc"); 
-			}
-		}else{
-			if ($("#ncli").val() != '') {
-				cliente= $("#ncli").attr("idc"); 
-			}
-		}
-		if ($("#vfac").val() != '') {
-			factura= $("#vfac").val() == '' ?0: $("#vfac").val();
-		}
-		if ($("#vnum1").val() != '') {
-			num1= $("#vnum1").val() == '' ?0: $("#vnum1").val();
-			num2= $("#vnum2").val() == ''?0: $("#vnum2").val();
+                if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+                    $(".autocomplete-content").remove();
 
-		}
-		if ($("#desde").val() != '') {
-			desde= $("#desde").val();
-			hasta= $("#hasta").val();
+                    $("#ncli").autocomplete({
+                        limit: 20,
+                        data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",replace(cedula,"-",""),"*")) as nom,null',2,'!bisproveedor having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1)
+                    });
 
-		}
-		$("#data-table-Notas").DataTable().destroy();
+                    $("#ncli").siblings($(".autocomplete-content")).css('width','25%');
+                }
+            });
+        }
+    })
 
-		var p = arr('login', 4, "" , 302,'0,0,"'+$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa'+'","0,10"', 0,0,0)[0];
-		$("#listaclientes").html('');
+    $("#ftr0").show();
+    $("#busnota").click(function(){
+        if($("#vfac").val().trim().length){
+            var cliente = factura = num1 = num2 = 0;
+            var desde = hasta = "";
+            if ($("#cp").is(":checked")) {
+                if ($("#nprov").val() != '') {
+                    cliente= $("#nprov").attr("idc"); 
+                }
+            }else{
+                if ($("#ncli").val() != '') {
+                    cliente= $("#ncli").attr("idc"); 
+                }
+            }
+            if ($("#vfac").val() != '') {
+                factura= $("#vfac").val() == '' ?0: $("#vfac").val();
+            }
+            if ($("#vnum1").val() != '') {
+                num1= $("#vnum1").val() == '' ?0: $("#vnum1").val();
+                num2= $("#vnum2").val() == ''?0: $("#vnum2").val();
 
-		$.each(p,function(i){
-			$("#listaclientes").append('<tr class="detallefactura" estado="1" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
-		});
+            }
+            if ($("#desde").val() != '') {
+                desde= $("#desde").val();
+                hasta= $("#hasta").val();
 
-		$("#data-table-Notas").dataTable({
-			bFilter: false,
-            bScrollInfinite: true,
-            bSort: false,
-            bLengthChange: false,
-            order: [],
-            bPaginate: false,
-            info: false
-		}); 
+            }
+            $("#data-table-Notas").DataTable().destroy();
 
-        paginate($("ul.pagination").attr('vtbl'),undefined,$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa');
-	});
+            var p = arr('login', 4, "" , 302,'0,0,"'+$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa'+'","0,10"', 0,0,0)[0];
+            $("#listaclientes").html('');
+
+            $.each(p,function(i){
+                $("#listaclientes").append('<tr class="detallefactura" estado="1" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');
+            });
+
+            $("#data-table-Notas").dataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            }); 
+
+            paginate($("ul.pagination").attr('vtbl'),undefined,$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa');
+        }
+        });
     $("#vfac").focus();
+    InitDropzone(1,true,'../cargar.php?accion=4',"#hacienda-upload",1,'text/xml','',removeHacienda,xmlCargar);
 });
 
 $('.datepicker').pickadate({
-	selectMonths: true, // Creates a dropdown to control month
-	selectYears: 15, // Creates a dropdown of 15 years to control year
-	format: 'yyyy-mm-dd'
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    format: 'yyyy-mm-dd'
 });
 
 fecha = new Date();
@@ -167,10 +187,33 @@ $('.vfecha').pickadate();
 $('select').material_select();
 
 $("#data-table-Notas").DataTable({
-	bFilter: false,
-	order : [],
-	"bLengthChange": false
+    bFilter: false,
+    order : [],
+    "bLengthChange": false
 });
+
+function removeHacienda(file){
+    console.log('Empty hidden')
+}
+
+function xmlCargar(file,response){
+
+    $.get('login',{accion:16,arreglo:1,n_archivo:file['name']})
+        .done(function(data){
+            var p = JSON.parse(data);
+
+            if(p.succed){
+                $("#hacienda-upload").addClass('hide');
+                $("#vista-xml").removeClass('hide');
+                p = p.rs;
+                //$("#sde-all").data("datos",{cliente:p.Receptor.Identificacion.Numero})
+                $("#sde-clave").html(p.Clave)
+                $("#sde-tipo").html(p.Clave.substr(29,02));
+            }else {
+                Materialize.toast(p.rs,4000,'red')
+            }
+        });
+}
 
 function manualPaginate(limit){
     var cliente = factura = num1 = num2 = 0;
@@ -218,37 +261,37 @@ function manualPaginate(limit){
 };
 
 function validar (varreglo,vmodulo) {
-	
-	var salida = {}
-	
-	/*VALIDACION FRONT END*/
-	
-	switch(vmodulo['modulo']) {
-		case 'estadoscuenta':
-		if (vmodulo['tip'] == '') {
-			err = validarnotas();
-			if ( err ) {
-				return err;
-			}
-		}
+    
+    var salida = {}
+    
+    /*VALIDACION FRONT END*/
+    
+    switch(vmodulo['modulo']) {
+        case 'estadoscuenta':
+        if (vmodulo['tip'] == '') {
+            err = validarnotas();
+            if ( err ) {
+                return err;
+            }
+        }
 
-		break;
+        break;
 
-		default:
-		return 'Módulo no Existente '  ;
-		break;
-	}
+        default:
+        return 'Módulo no Existente '  ;
+        break;
+    }
 
-	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	return salida;
+    salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+    return salida;
 
 }
 
 function validarnotas() {
-	if(isNaN($('#vvalor').val())){
-		$('#vvalor').focus().select();
-		return 'El Valor no es Numérico' ;
-	}
+    if(isNaN($('#vvalor').val())){
+        $('#vvalor').focus().select();
+        return 'El Valor no es Numérico' ;
+    }
 
     if(parseInt($('#vvalor').val()) <= 0 || !$('#vvalor').val().trim().length){
         $('#vvalor').focus().select();
@@ -260,58 +303,58 @@ function validarnotas() {
         return 'El Valor no Puede ser Mayor al Saldo' ;
     }
     
-	if ($('#vcomentario').val() == '') {
-		$('#vcomentario').focus().select();
-		return 'Comentario Requerido';
-	}
-	$("#vidtipo").val( $("#ncd").is(":checked") ? 5 : 6 );
+    if ($('#vcomentario').val() == '') {
+        $('#vcomentario').focus().select();
+        return 'Comentario Requerido';
+    }
+    $("#vidtipo").val( $("#ncd").is(":checked") ? 5 : 6 );
 
-	return false;
+    return false;
 }
 
 function cargar(vmodulo,vid) {
 
 
-	switch(vmodulo['modulo']) {
-		case 'notas':
-		vmodulo['sel'] = '';
-		vmodulo['tbl'] = 3;
-		vmodulo['where'] ='';
-		break;
-		default:
-		return 'Módulo no Existente';
-		break;
-	}
-	
-	return vmodulo;
+    switch(vmodulo['modulo']) {
+        case 'notas':
+        vmodulo['sel'] = '';
+        vmodulo['tbl'] = 3;
+        vmodulo['where'] ='';
+        break;
+        default:
+        return 'Módulo no Existente';
+        break;
+    }
+    
+    return vmodulo;
 }
 
 function cargarSintax(){
-	var arr = {}
+    var arr = {}
 
-	arr['sel'] = '';
-	arr['tbl'] = 4;
-	arr['where'] = '';
+    arr['sel'] = '';
+    arr['tbl'] = 4;
+    arr['where'] = '';
 
-	return arr;
+    return arr;
 }
 
 function endDetail(vid,vacc,modulo){
-	if (vacc == 1) {
-		$("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
-		factura = getDatos('consecutivo,idfactura',301,'id = '+vid[0][0],0,0,0);
+    if (vacc == 1) {
+        $("#isaldo").html(parseFloat($("#isaldo").html()) + parseFloat($("#vvalor").val()) );
+        factura = getDatos('consecutivo,idfactura',301,'id = '+vid[0][0],0,0,0);
         var idfact = factura[0][0][1];
         var estado = parseInt(getDatos('feestado',64,'id = '+idfact,0,0,0)[0][0][0]);
         factura = factura[0][0][0];
         clave = vid[0][0];
 
-		$("#vvalor").val(0.00);
-		$('#vcomentario').val('');
-		arr('login',4,'',304,'1,0,3,'+$("#tipoimpresion").val(),0,0,0);
-		arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
+        $("#vvalor").val(0.00);
+        $('#vcomentario').val('');
+        arr('login',4,'',304,'1,0,3,'+$("#tipoimpresion").val(),0,0,0);
+        arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
 
         arr('login',4,'',276,$("#vidfactura").val(),0,0,0);
-        // window.open("cuentas?accion=4&id="+clave+"&tp=0")
+        window.open("cuentas?accion=4&id="+clave+"&tp=0")
         if (estado == 0 || estado == 7 || estado == 9) {
             $.get('../wsdlClient.php',{accion:4,id:idfact})
             .done(function(data){
@@ -387,9 +430,13 @@ function sendFE(clave,factura){
 
     str_correos = '';
 <<<<<<< HEAD
+<<<<<<< HEAD
     idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+factura,0,0);
     if (idcliente != 0) {
 =======
+=======
+    var idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+factura,0,0);
+>>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
 
     if (idcliente != '') {
 >>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
@@ -410,7 +457,11 @@ function sendFE(clave,factura){
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
+<<<<<<< HEAD
         data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:"Nota Crédito"}
+=======
+        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de '}
+>>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
     })
       .done(function( data ) {
         var p;
@@ -422,10 +473,18 @@ function sendFE(clave,factura){
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
             arr('login',7,2,301,'feestado=2','id='+clave,0,0);
+<<<<<<< HEAD
             if (config[4] == 1){
                 var tp = $("#p_v").is(":checked") == true ? 1 : 2;
                 window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
             }
+=======
+             if (config[4] == 1){
+                var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+                window.open('cuentas?accion=4&id='+clave+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+            }
+            // sendVMail(factura,clave,vclave);
+>>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
         }
         catch(err){
             console.log(data)
@@ -478,10 +537,10 @@ function sendVMail(idfact,idnota,cnota){
             enviarCorreo(3,str_correos,"Nota Crédito N° "+cnota,vbody[0],archivos,0,idnota,301);
         }
     
-		//
+        //
     }else{
         if (config[4] == 1){
-           	var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+            var tp = $("#p_v").is(":checked") == true ? 1 : 2;
             window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
         }
     }

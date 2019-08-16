@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Clientes</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.40">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.1.0.96">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -217,7 +217,7 @@
                 <div class="switch" align="center">
                   <label>
                     Contado
-                    <input type="checkbox" tp="1" name="tipocliente" id="tipocliente">
+                    <input type="checkbox" tp="1" name="tipocliente" id="tipocliente" class="per1004">
                     <span class="lever"></span>
                     Crédito
                   </label>
@@ -239,12 +239,12 @@
             <div class="input-field col s12 cre hide">
               <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
               <label for="vplazo">Plazo en Días</label>
-              <input type="number" class="eder" id="vplazo" value="0" autocomplete="off">
+              <input type="number" class="eder per1004" id="vplazo" value="0" autocomplete="off">
             </div>
             <div class="input-field col s12 cre hide">
               <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
               <label for="vcredito">Crédito del Cliente</label>
-              <input type="number" class="eder" id="vcredito" value="0" autocomplete="off">
+              <input type="number" class="eder per1004" id="vcredito" value="0" autocomplete="off">
             </div>
 
           </div>
@@ -290,12 +290,12 @@
                 </div>
 
                 <div class="col s12 input-field">
-                  <input type="text" id="vnumdoc" maxlength="17" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off">
+                  <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off">
                   <label for="vnumdoc">Número de Documento</label>
                 </div>
 
                 <div class="col s12 input-field">
-                  <input type="text" id="ventidad" maxlength="100" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off">
+                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off">
                   <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
                 </div>
 
@@ -400,6 +400,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.1.0.40"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.1.0.96"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.40">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.96">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,7 +16,7 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.40"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.96"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -55,6 +55,11 @@
             <input type="text" id="edescuento" class="hide trCompra" tdesc="2">
           </td>
         </tr>
+      </div>
+
+      <div class="input-field col s6 export hide">
+        <input type="text" id="parancel" maxlength="12">
+        <label for="parancel">Partida Arancelaria</label>
       </div>
 
       <div class="input-field col s6 eimp">
@@ -99,12 +104,20 @@
       </div>
 
       <div class="col s6 input-field">
+<<<<<<< HEAD
         <input type="text" id="vnumdoc" maxlength="17" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off" value="abc">
+=======
+        <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off">
+>>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
         <label for="vnumdoc">Número de Documento</label>
       </div>
 
       <div class="col s12 input-field">
+<<<<<<< HEAD
         <input type="text" id="ventidad" maxlength="100" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off" value="xxx">
+=======
+        <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off">
+>>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
         <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
       </div>
 

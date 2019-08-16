@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.40">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.40">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.40">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.1.0.96">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.1.0.96">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.1.0.96">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -37,20 +37,10 @@
             <font size="2.5">
   
               <?php
-                if ($miscelaneos[10] == 2) {
-                   if (trim($miscelaneos[2]) != '') 
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
-                   else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
-                }else{
-                   if (trim($miscelaneos[2]) != ''){
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
-                      echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
-                   }
-                   else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
-                }
-                
+                if (trim($miscelaneos[2]) != ''){
+                  echo '<b>'.$miscelaneos[2].'</b><br>'.$miscelaneos[0].'<br>';
+                }else
+                  echo '<b>'.$miscelaneos[0].'</b>';
               ?>
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
               <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
@@ -197,8 +187,6 @@
                 <td colspan="3">
                   <table>
                     <tr>
-
-
                       <td style="padding: 0px !important" class="left-align sinborde margen2">Gravado</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen2"><span id="fsubtotal"><?php echo $datos[15].$datos[9]; ?></span></td>
                     </tr>
@@ -277,7 +265,7 @@
               <hr>
               <div>
                 <?php if ($transaccion[0][32] != '') { ?>
-                <p class="center-align" style="font-size: 0.8em;">Autorizado mediante la resolución DGT-R-48-2016 de la Dirección General de Tributación Directa, 07-10-2016. V4.3
+                <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019. V4.3
                   <br> 
                   <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
                 </div>
@@ -319,10 +307,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.1.0.40"></script>
-     <script src="../assets/js/materialize.js?v=10.1.0.40"></script>
-     <script src="../assets/js/asgard.js?v=10.1.0.40"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.1.0.40"></script>
+     <script src="../assets/js/jquery.js?v=10.1.0.96"></script>
+     <script src="../assets/js/materialize.js?v=10.1.0.96"></script>
+     <script src="../assets/js/asgard.js?v=10.1.0.96"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.1.0.96"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

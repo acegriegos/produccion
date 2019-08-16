@@ -14,15 +14,22 @@
         $smarty->assign('STY',$sty);
         $smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
-	   	$smarty->assign('MESAS',$kakaroto->kamehameha('id,nombre,idtipoocupado',800,'id > 0 and !bisbarra'));
-	   	$smarty->assign('BARRAS',$kakaroto->kamehameha('id,nombre',800,'id > 0 and bisbarra'));
+	   	$smarty->assign('MESAS',$kakaroto->kamehameha('id,nombre,idtipoocupado',800,'id > 0 and !bisbarra and idsucursal = @@impresa'));
+	   	$smarty->assign('BARRAS',$kakaroto->kamehameha('id,nombre',800,'id > 0 and bisbarra and idsucursal = @@impresa'));
 	   	$smarty->assign('FAM',$kakaroto->kamehameha('',804,'@@impresa'));
 	   	$smarty->display('v_restaurante.tpl');
 	   }else{
 	   $pagina = 0;
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
+	   			$pagina = 1;
+	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
+	   			$transaccion = $kakaroto->kamehameha('date_format(fecha,"%d/%m/%Y"),curtime(),(select nombre from usuarios where id = idusuario),id,(select simbolo from monedas where id = idmoneda)',261,'idtipo = '.$_REQUEST['id'].' and idtipopago = '.$_REQUEST['tpago']);
+	   			$detalle = $kakaroto->kamehameha('cantidad,precio*cantidad-descuento,(select nombre from productos where id = idproducto),imv',260,'idfactura = '.$transaccion[0][3]);
 	   			
+	   			include_once 'view/ajax/restaurantes/ordenpv.php';
+	   			break;
+	   		default:
 	   			break;
 	   	}
 		if(!$pagina){

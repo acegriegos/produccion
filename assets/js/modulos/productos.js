@@ -2134,9 +2134,9 @@ function endDetail(id, acc, modulo) {
 				var idfila = $(this).attr('idf');
 				if($("#vuventaiva" + idfila).val().trim().length){
 					var gan_n = 0;
-					var idlinea = $(this).attr('idf');
+					var idlinea = $(this).attr('idu');
 					var costo = parseFloat($("#vcosto").val().replace(/,/g,''))
-					costo = costo/parseFloat($("#vldimension1").val())
+					costo = costo/parseFloat($("#vldimension1").val());
 					if(!isNaN(costo)){
 						costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+$(this).attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
 						if (parseFloat($("#vuventaiva" + idfila).val().replace(/,/g,'')) > 0) {
@@ -2170,20 +2170,8 @@ function endDetail(id, acc, modulo) {
 				}
 			});
 
-			//exoneracion
-			// var imps = $(".impuestos");
-			// if (imps.length > 0) {
-			// 	$(".impuestos").each(function() {
-			// 		// vaccion,vid,vidfila,vidtabla,vidimpuesto,vexoneracion
-			// 		var idimp = $(this).attr('id').substr(4)
-			// 		arr('login',4,'',86,'1,0,'+id[0][0]+',11,'+idimp+','+$("#impexo"+idimp).val(),0,0,0);
-			// 	});
-			// }
-			// fin exoneracion
-
 			if($("#fproductos .zelda").attr('inventariado') != undefined){
 				var cnt = $("#unidimension1").val() == '0' ? $("#vcantidad").val() : parseFloat($("#vcantidad").val())*parseFloat($("#unidimension1").val());
-				
 				actualizar(97,'cantidad='+cnt,'idinventario = 6 and idproducto='+id[0][0]);
 			}
 

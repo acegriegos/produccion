@@ -76,7 +76,7 @@ if($con_con){
 
             if (!file_exists($ubi."assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_SESSION['EMPRESA'].".xml"))
                 $mail = 2;
-
+            $_POST['idfila'] =  is_numeric(substr($_POST['idfila'], 0,1)) ? $_POST['idfila'] : substr($_POST['idfila'],1);
             $rs = $db->ejecutar('call shadow(2,'.$_POST['idtabla'].',"feestado = '.$state.', mailstatus='.$mail.'","id = '.$_POST['idfila'].'")');
         }
 

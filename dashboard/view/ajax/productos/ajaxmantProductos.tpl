@@ -3,14 +3,14 @@
 		<div class="input-field col s10 m8 l5">
 			<a class="prefix dropdown-button tooltipped small mdi mdi-magnify pbtn"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"></a>
 			<ul id='filtr_1' class='dropdown-content' style="width: auto;">
-				<li><a class="optns" tipo="codigo,codigointerno,nombre" href="#!" fltr="1">Código, Código Interno o Nombre</a></li>
+				<li><a class="optns" tipo="codigo,codigointerno,nombre" href="#!" fltr="1">Código, Notas o Nombre</a></li>
 				<li><a class="optns" tipo="codigo" href="#!" fltr="4">Código</a></li>
-				<li><a class="optns" tipo="codigointerno" href="#!" fltr="5">Código Interno</a></li>
+				<li><a class="optns" tipo="codigointerno" href="#!" fltr="5">Notas</a></li>
 				<li><a class="optns" tipo="nombre" href="#!" fltr="2">Nombre</a></li>
 				<li><a class="optns" tipo="marca" href="#!" fltr="3">Marca</a></li>
 			</ul>
 			<input type="text" id="search_productos" maxlength="100" num="v14" var="0,1" autocomplete="off">
-			<label class="truncate" for="search_productos">Buscar Producto por Código, Código Interno o Nombre</label>
+			<label class="truncate" for="search_productos">Buscar Producto por Código, Notas o Nombre</label>
 		</div>
 
 		<div class="col s2 m4 l7">
@@ -114,7 +114,7 @@
 
                     <div class="input-field marginzero col s12">
                         <input type="text" id="vcodigointerno" class="formprod validate" value="" focus="1vidunidad" autocomplete="off" tabindex="6">
-                        <label class="active" for="vcodigointerno">Código Interno</label>
+                        <label class="active" for="vcodigointerno">Notas</label>
                     </div>
 
                     {if $smarty.session.BUSS eq 1}
@@ -162,7 +162,7 @@
                     {if $smarty.session.BUSS neq 0} 
                     {if $smarty.session.BUSS eq 3}
                         <div class="input-field marginzero col s12 " id="cantpro">
-                            <input type="text" id="vcantidad" noClear="1" class="validate" value="0.00" autocomplete="off">
+                            <input type="text" id="vcantidad" noClear="1" class="validate" value="0" autocomplete="off">
                             <label class="active" for="vcantidad">Cantidad</label>
                         </div>
                     {/if}

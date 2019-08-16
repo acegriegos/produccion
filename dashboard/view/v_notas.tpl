@@ -7,7 +7,8 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.1.0.40">
+  <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.1.0.96">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.1.0.96">
 </head>
 <body>
   {$NAV}
@@ -59,9 +60,13 @@
                 </div>
               </div>
 
-              <div class="col s12 m6 l6 hide">
+              <div class="col s12 m6 l6">
                 <div class="row">
-                  <div class="col s12 m12 ">
+                  <div class="col s12 m12">
+                    <a class="btn btn-default" id="pce">Por Documento Electrónico</a>
+                  </div>
+
+                  <div class="col s12 m12 hide">
                     <div class="switch">
                       <label style="color: black; font-size: 1.1em">
                         <input type="checkbox" class="chg_tipo" value="1" >
@@ -71,9 +76,7 @@
                     </div>
                   </div>
                   <div class="input-field col hide s12 m12" id="ftr1">
-                    <a class="prefix  tooltipped "  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="small mdi mdi-magnify mdi-24px"></i></a>
-                    <label class="truncate" for="ncli" style="font-size: 1em !important"> Nombre o Cédula del <span class="tipoclie">Cliente</span></label>
-                    <input type="text" id="ncli" var="nombre" class="autocomplete validate sclie snota" maxlength="64" />
+                    
                   </div> 
                 </div>
               </div>
@@ -161,7 +164,32 @@
       </div>
     </div>
   </div>
+
+  <div class="modal modal-fixed-footer grandemodal" id="modal-clave" style="height: 100%; width: 75%">
+  <div class="modal-header head3 center" style="font-size: 22px;">Nota por Documento Electrónico</div>
+  <div class="modal-content">
+    <div class="row">
+
+      <section class="upxml col s12" style="margin-top: 8%">
+        <form class="dropzone needsclick dz-clickable dz-started" id="hacienda-upload" style="padding-left: 44% !important">
+            <span class="dz-message needsclick text-center ico-reg"><i class="mdi mdi-xml mdi-48px imgDrop" style="margin-top: 25px;margin-bottom: 25px;"></i></span>
+        </form>
+        <div id="vista-xml" class="hide row col s12">
+          <div class="col s6"><b>CLAVE:</b> <span id="sde-clave"></span></div>
+          <div class="col s6"><b>TIPO:</b> <span id="sde-tipo"></span></div>
+        </div>
+    </section>     
+
+    </div>
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat" id="sde-exit">Salir</a>
+      <a class="modal-action waves-effect waves-green btn-flat" id="sde-acep">Aceptar</a>
+  </div>
+</div>
+
   {$SCR}
-  <script src="../assets/js/modulos/notas.js?v=10.1.0.40"></script>
+  <script src="../assets/js/dropzone.js?v=10.1.0.96"></script>
+  <script src="../assets/js/modulos/notas.js?v=10.1.0.96"></script>
 </body>
 </html>
