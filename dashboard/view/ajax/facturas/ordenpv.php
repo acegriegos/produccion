@@ -175,11 +175,12 @@ echo '<tr>
     <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav,2).' </td>
   </tr>';
 
-
+if($_REQUEST['has']){
       echo '<tr >
       <td width="50%" colspan="'.$colspan2.'">10% Serv. Rest.:</td>
       <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*0.1,2).' </td>
     </tr>';
+    }
 
   echo '<tr >
     <td width="50%" colspan="'.$colspan2.'">IVA:</td>
@@ -214,9 +215,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.92"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.92"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.92"></script>
+ <script src="../assets/js/jquery.js?v=10.1.0.96"></script>
+ <script src="../assets/js/materialize.js?v=10.1.0.96"></script>
+ <script src="../assets/js/asgard.js?v=10.1.0.96"></script>
  <script type="text/javascript">
   var salir = 0;
    $(function(){

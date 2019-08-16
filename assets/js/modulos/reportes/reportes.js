@@ -145,6 +145,9 @@ $(function(){
 
                         type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos">'+stroptions+'</select>';
                         break;
+                    case 5: //para fecha unica
+                        type = '<input type="date" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px">'
+                        break;
                     default://para texto
                     type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
 
