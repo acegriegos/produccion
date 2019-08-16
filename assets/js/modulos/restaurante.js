@@ -742,6 +742,7 @@ function totalizar(){
 }
 
 function generarComanda(idfactura){
+
     var sucursal = $('#sucname').html() == undefined ? $('#loadMyBussiness').html() : $('#sucname').html();
     var cfecha = new Date();
     var hours = cfecha.getHours();
@@ -752,9 +753,8 @@ function generarComanda(idfactura){
     minutes = minutes < 10 ? '0'+minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
     var str_fecha = ("0"+cfecha.getDate()).slice(-2)+'/'+("0"+cfecha.getMonth()).slice(-2)+'/'+cfecha.getFullYear()+' '+strTime;
-    var vcocina = "\n\t"+sucursal+"\n\t"+str_fecha+"\n\tOrden #"+idfactura+"\n"+$("#tit").html()+"\n\nCANT \tPRODUCTOS"; 
-    var vrefresco = "\n\t"+sucursal+"\tOrden #"+idfactura+"\n"+$("#tit").html()+"\n\nCANT \tPRODUCTOS";
-    var cant1 = cant2 = 0;
+    var vcocina = "\n\t"+sucursal+"\n\t"+str_fecha+"\n\tOrden #"+idfactura+"\n"+$("#tit").html(); 
+    var vrefresco = "\n\t"+sucursal+"\n\tOrden #"+idfactura+"\n"+$("#tit").html();
     var lcant = 0;
     var imprimir = 0;
 
@@ -774,17 +774,17 @@ function generarComanda(idfactura){
         if(lcant > 0){
             if(parseInt($(this).data('triforce')['idfam']) == 1){
 
-                if(listacocina[$(this).data('triforce')['idfam']] == undefined)
-                    listacocina[$(this).data('triforce')['idfam']] = {str:'',nombre:$(this).data('triforce')['ntipo']};
+                if(listacocina[$(this).data('triforce')['idtipo']] == undefined)
+                    listacocina[$(this).data('triforce')['idtipo']] = {str:'',nombre:$(this).data('triforce')['ntipo']};
 
-                listacocina[$(this).data('triforce')['idfam']]['str'] += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
+                listacocina[$(this).data('triforce')['idtipo']]['str'] += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
                 if($("#cmt"+idprod).val().trim() != '')
-                    listacocina[$(this).data('triforce')['idfam']]['str'] += "\n----"+$("#cmt"+idprod).val();
+                    listacocina[$(this).data('triforce')['idtipo']]['str'] += "\n----"+$("#cmt"+idprod).val();
             }else{
-                 if(listarefresco[$(this).data('triforce')['idfam']] == undefined)
-                    listarefresco[$(this).data('triforce')['idfam']] = {str:'',nombre:$(this).data('triforce')['ntipo']};
+                 if(listarefresco[$(this).data('triforce')['idtipo']] == undefined)
+                    listarefresco[$(this).data('triforce')['idtipo']] = {str:'',nombre:$(this).data('triforce')['ntipo']};
 
-                 listarefresco[$(this).data('triforce')['idfam']]['str'] += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim(); 
+                 listarefresco[$(this).data('triforce')['idtipo']]['str'] += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim(); 
             }
             
         }
@@ -793,11 +793,11 @@ function generarComanda(idfactura){
     });
 
     listacocina.forEach(function(element){
-        vcocina += '\n---'+element['nombre']+'---\n\n'+element['str'];
+        vcocina += '\n\n---'+element['nombre']+'---\n'+element['str'];
     })
 
     listarefresco.forEach(function(element){
-        vcocina += '\n---'+element['nombre']+'---\n\n'+element['str'];
+        vrefresco += '\n\n---'+element['nombre']+'---\n'+element['str'];
     })
 
     vcocina += '\n\n\n\n\n\n\n\n--------';
