@@ -168,7 +168,6 @@
           $filtros = ''; 
           if (isset($_REQUEST['arreglo']['filtro']))
             $filtros = $_REQUEST['arreglo']['filtro'];
-             
           include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php';  
 		   	break;
         case 9:  //GENERAR SOLO XML
@@ -258,6 +257,10 @@
           unlink('../assets/xml/'.$_REQUEST['n_archivo']);
           echo json_encode(['succed'=>1,'rs'=>$xml]);
         }
+        break;
+      case 1: //REMOVE FILES
+        $pagina = 1;
+        unlink($_REQUEST['arreglo']['file']);
         break;
       default:
         break;

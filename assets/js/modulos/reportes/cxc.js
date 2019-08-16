@@ -25,12 +25,12 @@ $(function(){
             $("#visproveedor").val(1);
             $(".principal .filtros").attr('bisprov',1);
             $("#vishistorico").val(1);
-            $(".pdf").attr('whr','0,0,1,@@impresa');
+            $(".pdf").attr('whr','0,0,0,@@impresa');
             break;
         default:
             $("#titrep").html('Estado de Cuenta por Cobrar');
             arr('login',6,'',269,'0,0,0,@@impresa',0,1,$(".detrep"));
-            $(".pdf").attr('whr','0,0,1,@@impresa');
+            $(".pdf").attr('whr','0,0,0,@@impresa');
             break;
     }
 
