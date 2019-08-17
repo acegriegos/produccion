@@ -19,11 +19,7 @@
         {/if}
       </div>
       <div class="col s6 m4 l4" align="center">
-<<<<<<< HEAD
-        <h2 align="center" style="margin-top: 0px" id="titrep">Ventas Totales</h2>
-=======
         <h2 align="center" style="margin-top: 0px" id="tit"></h2>
->>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
         <font size="3">
           <b>{$MIS[0]}</b><br>
           {if $MIS[2]}<b>{$MIS[2]}</b><br>{/if}
@@ -34,11 +30,9 @@
       </div>
       <div class="col s2 m4 l4">
         <input type="hidden" class="zelda">
-<<<<<<< HEAD
-=======
+
         <input type="hidden" id="vtrep">
         <input type="hidden" id="vidtipo1" value="0">
->>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
       </div>
     </div>
     <small id="leyenda"></small>

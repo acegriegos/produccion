@@ -426,10 +426,6 @@ $(function(){
             $("#cantp").focus().trigger(e);
     }
 
-<<<<<<< HEAD
-    if(param.toString().match(new RegExp(/[17910]/i))){
-        console.log('in')
-=======
     if(param.toString().match(new RegExp(/[17910]/i)) && !config[24]){
         $("#modal-noticia").modal('open');
         $("#codactividad").focus();
@@ -455,7 +451,6 @@ $(function(){
     }else{
         $("#codact").html('<option value="'+config[24]+'">'+config[25]+'</option>')
         $("#codact").material_select('update')
->>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
     }
 
     if($(".per11:visible").length){//RESTAURANTES

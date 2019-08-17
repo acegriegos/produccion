@@ -429,17 +429,9 @@ function endDetail(vid,vacc,modulo){
 function sendFE(clave,factura){
 
     str_correos = '';
-<<<<<<< HEAD
-<<<<<<< HEAD
-    idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+factura,0,0);
-    if (idcliente != 0) {
-=======
-=======
     var idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+factura,0,0);
->>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
 
     if (idcliente != '') {
->>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
         var correos = getDatos("",18,idcliente+",2",0,0);
         if (correos == undefined) {
             Materialize.toast('Correos Inválidos',4000,'red');
@@ -457,11 +449,7 @@ function sendFE(clave,factura){
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
-<<<<<<< HEAD
-        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:"Nota Crédito"}
-=======
         data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de '}
->>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
     })
       .done(function( data ) {
         var p;
@@ -473,18 +461,12 @@ function sendFE(clave,factura){
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
             arr('login',7,2,301,'feestado=2','id='+clave,0,0);
-<<<<<<< HEAD
-            if (config[4] == 1){
-                var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-                window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-            }
-=======
+
              if (config[4] == 1){
                 var tp = $("#p_v").is(":checked") == true ? 1 : 2;
                 window.open('cuentas?accion=4&id='+clave+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
             }
             // sendVMail(factura,clave,vclave);
->>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
         }
         catch(err){
             console.log(data)

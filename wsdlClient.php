@@ -141,15 +141,10 @@
                 if (!file_exists('./assets/xml/'.$id)) {
                     $salida = ['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO'];
                 }else{
-<<<<<<< HEAD
-                    $db = new DBClass();
-                    loadXML_FILE($id,$salida,$db);
-=======
                     $fe = new facturaElectronica(0);
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$id);
                     $fe->loadXML_FILE($xml,$salida,$db,$_REQUEST['ced']);
->>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
                 }
 
                 echo json_encode($salida);
@@ -1727,15 +1722,6 @@
                                     if ($value[16] != ''){
                                         
                                         $this->exo = 1;
-<<<<<<< HEAD
-                                        $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19], 'MontoImpuesto' => str_replace(',', '',number_format($sub_array[2]*(1-($value[21]/100)),5)), 'PorcentajeCompra' => $value[21]];
-                                        $impuesto['Exoneracion'] = $exoneracion;
-                                        $sub_array[2] = $sub_array[2]*($exoneracion['PorcentajeCompra']/100);
-                                        $this->sumaimpuestos += $sub_array[2];
-                                        $sum_imp += $sub_array[2];
-                                        // $impuesto['Monto'] = $sub_array[2];
-                                        // $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
-=======
 
                                         $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[21], 'MontoExoneracion' => number_format($sub_array[2]*($value[21]/100),5,'.','')];
 
@@ -1747,7 +1733,6 @@
                                         // $impuesto['Monto'] = $sub_array[2];
                                         // $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
                                         $sum_imp += $impuesto['Monto']-$impuesto['Exoneracion']['MontoExoneracion'];
->>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
                                     }else{
                                         $this->sumagravados += $value[11];
                                         $sum_imp += $sub_array[2];

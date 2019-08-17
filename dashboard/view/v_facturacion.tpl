@@ -104,20 +104,12 @@
       </div>
 
       <div class="col s6 input-field">
-<<<<<<< HEAD
-        <input type="text" id="vnumdoc" maxlength="17" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off" value="abc">
-=======
         <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off">
->>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
         <label for="vnumdoc">Número de Documento</label>
       </div>
 
       <div class="col s12 input-field">
-<<<<<<< HEAD
-        <input type="text" id="ventidad" maxlength="100" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off" value="xxx">
-=======
         <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off">
->>>>>>> 9f88dde9f4e68ec8d295e22ee03aed07fdff662d
         <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
       </div>
 
@@ -134,18 +126,9 @@
       </div>
 
       <div class="col s6 input-field">
-<<<<<<< HEAD
-        <input type="text" id="vmontoexo" data-position="bottom" data-tooltip="Monto del impuesto exonerado o autorizado sin impuestos" class="validate tooltiped eder" value="0.00" isnumeric="1" autocomplete="off" value="0" readonly>
-        <label for="vmontoexo">Monto del Impuesto Exonerado</label>
-      </div>
 
-      <div class="col s6 input-field">
-        <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off" value="100">
-        <label for="vporcompra">Porcentaje de Compra</label>
-=======
         <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off">
         <label for="vporcompra">Porcentaje de Exoneración</label>
->>>>>>> 9fe82137721abf9fe21a6ac742448b714bb29f97
       </div>
 
 
