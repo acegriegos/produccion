@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.1.0.96">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.0">
   </head>
   <body>
     {$NAV}
@@ -181,6 +181,6 @@
     </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.1.0.96"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.0"></script>
   </body>
 </html>
