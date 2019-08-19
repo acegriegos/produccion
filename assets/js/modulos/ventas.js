@@ -2197,7 +2197,7 @@ function sendVMail(factura,clave,vid){
                 setTimeout(function(){window.close();},2000);
                 break;
             default:
-                if (imprimir && (param == 1 || param == 7)) {
+                if (imprimir && (param == 1 || param == 7 || param == 8)) {
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
                     
                     try{ 

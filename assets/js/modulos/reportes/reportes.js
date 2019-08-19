@@ -44,7 +44,7 @@ $(function(){
      mdate = $(".principal .filtros").attr('porProducto');
     if (mdate != undefined){
 
-        html = '<div class="row col s6 rous"><div class="col s12"><input type="checkbox" id="chkprod" value="4" class="repcheck"><label for="chkprod" class="pbtn">Por Producto</label></div><div class="col s12 '+mdate+'" id="fltr4"><div class="input-field"><label for="productos" class="width:100%">Nombre</label><input type="text" class="validate init autocomplete" id="productos"><input type="hidden" id="vidproducto" class="inpreport" value="0" /></div></div></div>';
+        html = '<div class="row col s6 rous" style="margin:0;"><div class="col s4"><input type="checkbox" id="chkprod" value="4" class="repcheck"><label for="chkprod" class="pbtn">Por Producto</label></div><div class="col s8 '+mdate+'" id="fltr4" style="paddin:0"><div class="input-field" style="margin:0;"><label for="productos" class="width:100%">Nombre</label><input type="text" class="validate init autocomplete" style="margin:0;padding:0" id="productos"><input type="hidden" id="vidproducto" class="inpreport" value="0" /></div></div></div>';
 
         $(".principal .filtros").append(html);
 
@@ -90,7 +90,7 @@ $(function(){
 
     mdate = $(".principal .filtros").attr('entrenumeros');
     if (mdate != undefined) {
-        html = '<div class="row col s12 m6 rous"><div class="col s4"><input type="checkbox" id="xnum" value="2" class="repcheck"><label class="pbtn" for="xnum">Entre <label class="variable-s">Números</label></label></div><div class="col s8 '+mdate+'" id="fltr2"><div class="col s6"><div class="input-field"><input type="number" class="validate init eder inpreport" id="vnum1" value="0"><label for="vnum1">Número1</label></div></div><div class="col s6"><div class="input-field"><input type="number" class="validate eder inpreport" id="vnum2" value="0" ><label for="vnum2">Número2</label></div></div></div></div>';
+        html = '<div class="row col s12 m6 rous" style="margin:0;"><div class="col s4"><input type="checkbox" id="xnum" value="2" class="repcheck"><label class="pbtn" for="xnum">Entre <label class="variable-s">Números</label></label></div><div class="col s8 '+mdate+'" id="fltr2"><div class="col s6"><div class="input-field"><input type="number" class="validate init eder inpreport" id="vnum1" value="0"><label for="vnum1">Número1</label></div></div><div class="col s6"><div class="input-field"><input type="number" class="validate eder inpreport" id="vnum2" value="0" ><label for="vnum2">Número2</label></div></div></div></div>';
         $(".principal .filtros").append(html);
     }
 
@@ -98,15 +98,35 @@ $(function(){
 
     if (mdate != undefined){
         var tmfech = (mdate.length - mdate.replace(/,/g,'').length);
-        $html = '';
+        html = '';
         var vl = '';
         tmfech = !tmfech ? 1 : tmfech;
         for(var i = 1 ;i <= tmfech;i++){
             vl = i == 1 ? '' : i;
             console.log(vl)
-            html += '<div class="row col s12 m6 l6 rous"><div class="col s4"><input type="checkbox" id="xfec'+vl+'" value="1" class="repcheck"><label for="xfec'+vl+'" class="pbtn">Entre Fechas</label></div><div class="col s8" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport" id="vdesde'+vl+'" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport" id="vhasta'+vl+'" value="" str="1"></div></div></div>';
+            html += '<div class="row col s12 m6 l6 rous" style="margin:0"><div class="col s4"><input type="checkbox" id="xfec'+vl+'" value="1" class="repcheck"><label for="xfec'+vl+'" class="pbtn">Entre Fechas</label></div><div class="col s8" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport" id="vdesde'+vl+'" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport" id="vhasta'+vl+'" value="" str="1"></div></div></div>';
         }
         $(".principal .filtros").append(html);
+    }
+
+    mdate = $(".principal .filtros").attr('pormarca');
+    if (mdate != undefined) {
+        var opts;
+        var stropts;
+
+        opts = getDatos('id,if(char_length(trim(nombre)),nombre,"Sin Asignar") as nombre ',20,'id > 0 and idsucursal = @@impresa group by nombre order by nombre',0,0,0);
+        console.log(opts)
+        stropts = '<option value="0">Sin Asignar</option>';
+        for(var j = 0;j<opts[0].length;j++)
+            stropts += '<option value="'+opts[0][j][0]+'">'+opts[0][j][1]+'</option>';
+
+        html = '<div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="porfam" value="5" class="repcheck"><label for="porfam" class="pbtn">Por Familia</label></div><div class="col s9" id="fltr5"><select type="select" id="vporfam" class="inpreport tipos" ttbl="20">'+stropts+'</select></div></div> <div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="portip" value="6" class="repcheck"><label for="portip" class="pbtn">Por Tipo</label></div><div class="col s9" id="fltr6"><select type="select" id="vportip" class="inpreport tipos" ttbl="21"><option value="0">Seleccione una Familia</option></select></div> </div> <div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="pormar" value="7" class="repcheck"><label for="pormar" class="pbtn">Por Marca</label></div><div class="col s9" id="fltr7"><select type="select" id="vpormar" class="inpreport tipos" ttbl="22"><option value="0">Seleccione un Tipo</option></select></div></div>';
+
+        $(".principal .filtros").append(html);
+
+        $("#_porfam").change(function(){
+
+        })
     }
 
     mdate = $(".principal .filtros").attr('portipo');
@@ -120,12 +140,19 @@ $(function(){
             var type = '';
             var vwhere = $(".principal .filtros").attr('tfiltar') == undefined ? '' : $(".principal .filtros").attr('tfiltar').split(',');
             var strwhere;
+            var opts;
+            var stropts;
             for (var i = 0, len = vtbl.length; i < len; i++) {
                 inc += 1;
 
                 switch(parseInt(vtype[i])){
                     case 1://para select
-                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl+'"></select>';
+                    opts = getDatos('id,nombre',vtbl[i],'id > 0',0,0,0);
+                    stropts = '';
+                    for(var j = 0;j<opts[0].length;j++)
+                        stropts += '<option value="'+opts[0][j][0]+'">'+opts[0][j][1]+'</option>';
+
+                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl[i]+'">'+stropts+'</select>';
 
                     break;
                     case 2: //para numero

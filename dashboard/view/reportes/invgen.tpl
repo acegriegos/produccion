@@ -10,7 +10,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" porproducto entrefechas tbltipos="20,21,22,0,0,0,0,0,0" tipos="Por Familia,Por Tipo,Por Marca,Variable,Inventariado,Pesaje,Gravado,Existencia,Negativos" types="1,1,1,3,3,3,3,3,3" portipo="varios"></div>
+      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" porproducto pormarca tbltipos="0,0,0,0,0" tipos="Variable,Inventariado,Gravado,Existencia,Negativos" types="3,3,3,3,3" portipo="varios" tfiltrar=""></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -18,7 +18,9 @@
         <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
         {/if}
       </div>
+      <input type="hidden" id="vidinventario" value="6">  
       <div class="col s4 m4 l4" align="center">
+        <h2 align="center" style="margin-top: 0px" id="titrep">Inventario</h2>
         <font size="3">
            <b>{$MIS[2]}</b><br>
           <b>Cédula:</b> {$MIS[1]}<br>
@@ -30,7 +32,6 @@
         <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" id="ofiltr" title="Mostrar Filtros"></i>
       </div>
     </div>
-    <h2 align="center">Inventario</h2>
     <small id="leyenda"></small>
     
     <div class="detrep"></div>

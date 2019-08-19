@@ -1321,27 +1321,15 @@ function rreport(){
 
     for (var i = 0, len = datos.length; i < len; i++) {
 
-        if ($("#"+datos[i][0]).attr('str') != undefined) {
-            if ($("#"+datos[i][0]).attr('type') == 'date') {
-                
-                if ( $("#"+datos[i][0]).val()=='' ){
-                    search[i] = '""';
-                }else{
-                    search[i] = '"'+$("#"+datos[i][0]).val()+'"';
-                }
-            }else{
-                search[i] = '"'+$("#"+datos[i][0]).val()+'"';
-            }
-        }else{
-            if ($("#"+datos[i][0]).val() == '') {
-                search[i] = "''";
-            }else{
-                search[i] = $("#"+datos[i][0]).val();
-            }
+        if ($("#"+datos[i][0]).val() != undefined) {
+            search[i] = '"'+$("#"+datos[i][0]).val()+'"';
         }
-
-        if (datos[i][0] == 'vidsucursal')
+        else if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
+        else if (datos[i][0] == 'vidusuario')
+            search[i] = '@@user';
+        else
+            search[i] = 'null';
     }
 
     var string = elem.concat(search);
