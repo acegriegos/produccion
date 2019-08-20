@@ -11,12 +11,9 @@
                     <label for="vnombre">Razón Social</label>
                     <input type="text" id="vnombre" autocomplete="off" readonly>
                     <input type="hidden" id="vid" value="">
-                    <input type="hidden" id="vidusuario" value="">
-                    <input type="hidden" id="vencabezado" value="">
-                    <input type="hidden" id="vidtiponegocio" value="">
                 </div>
                 <div class="col s12 m12 l4 pequeño">
-                    <label for="vcedula">Cédula Jurídica</label>
+                    <label for="vcedula">Cédula</label>
                     <input type="text" id="vcedula" autocomplete="off" readonly>
                 </div>
                 <div class="col s12 m12 l4 pequeño">
@@ -26,7 +23,7 @@
             </div>
             <div class="row pequeño">
                 <div class="col s12 m12 l4 pequeño">
-                    <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Administrar Teléfonos de la Empresa" data-position="bottom" id="tc-t" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"></a>
+                    <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Administrar Teléfonos de la Empresa" data-position="bottom" id="slideTelefono" hasTabla="1" tp="6" vtabla="telefono" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"></a>
                     <label for="vtelefono">Teléfonos de la Empresa</label>
                     <input type="text"  id="vtelefono" readonly>
                 </div>
@@ -54,6 +51,10 @@
 
                     <img type="file" src="#" class="responsive-img hide" alt="Image" id="vlogo">
                     <span class="vloge">SIN LOGO</span><i class="mdi mdi-24px mdi-backspace vloge"></i>
+                    <strong>Actividades Registradas</strong>
+                    <table id="myactivities">
+                        
+                    </table>
                     <div style="float: right;">
                         <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
                     </div>
@@ -123,7 +124,7 @@
                     </div>
 
                     <div class="col s12 m12 pull-s2">
-                        <button type="button" class="btn btn-primary edit der z-depth-3" modulo="sucursale" varias="1"><i class="small mdi mdi-refresh right  mdi-24px"></i>Actualizar</button>
+                        <a  class="btn btn-primary der z-depth-3" id="actSuc"><i class="small mdi mdi-refresh right mdi-24px"></i>Actualizar</a>
                     </div>
                 </div>
             </div>

@@ -424,10 +424,7 @@
                     $salida['succed'] = 0;
                 echo json_encode($salida);
                 break;
-            case 99: //
-                break;
             default:
-                echo json_encode(['ERROR'=>'Accion no Valida']);
                 break;
         }
     }else{

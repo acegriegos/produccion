@@ -3,14 +3,14 @@
 <head>
     <title>Cambio de Contraseña</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link rel="stylesheet" href="../assets/css/materialize.min.css?v=10.1.0.96">
-    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.1.0.96">
+    <link rel="stylesheet" href="../assets/css/materialize.min.css?v=10.2.0.2">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.2">
 </head>
 <body>
 
 
 <div class="container center" style="margin-top: 5%;border:1px solid #e2e2e2;background-color: white;padding: 2%">
-    <img src="../assets/img/logo.png" width="40%">
+    <img src="../assets/img/login/2.png" width="40%">
     
     <div class="input-field" style="width: 50%">
         <input type="password" id="myPss" autofocus autocomplete="off" autosave="off">
@@ -26,10 +26,10 @@
 
 </div>
 
-<script src="../assets/js/jquery.js?v=10.1.0.96"></script>
-<script src="../assets/js/jquery.mask.min.js?v=10.1.0.96"></script>
-<script src="../assets/js/materialize.min.js?v=10.1.0.96"></script>
-<script src="../assets/js/asgard.js?v=10.1.0.96"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.2"></script>
+<script src="../assets/js/jquery.mask.min.js?v=10.2.0.2"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.2"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.2"></script>
 
 <script type="text/javascript">
     $(function(){
@@ -49,6 +49,7 @@
 
                 var fecha = new Date();
                 var msj = '<div align="center"><b>Sistemas APSY</b></div><hr><b>Nombre del Usuario: </b>'+param2+'<br><b>Usuario: </b>'+param+'<br><b>Contraseña del Usuario: </b>'+$("#mynPss").val()+'<br>Hora del Cambio: '+fecha.getDate()+'/'+fecha.getMonth()+'/'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds()+'<br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
+                enviarCorreo(1,param1,"Cambio de Contraseña",msj,"",0,0,0)
                  var user = getCookie('userAPSY');
                 if (user.length) 
                     setCookie('pwd',$("#mynPss").val(),365*24*60*60*1000)

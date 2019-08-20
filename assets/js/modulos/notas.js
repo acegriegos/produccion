@@ -453,7 +453,6 @@ function sendFE(clave,factura){
         data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de '}
     })
       .done(function( data ) {
-        console.log(data)
         var p;
         var continuar = 1;
         try {
@@ -463,6 +462,7 @@ function sendFE(clave,factura){
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
             arr('login',7,2,301,'feestado=2','id='+clave,0,0);
+
              if (config[4] == 1){
                 var tp = $("#p_v").is(":checked") == true ? 1 : 2;
                 window.open('cuentas?accion=4&id='+clave+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);

@@ -36,10 +36,9 @@ $(function(){
         else{
             archivos = {0:'xml/'+tipo+' N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf',2:'xml/RH_'+vfactura+', '+vsucursal+'.xml'}
             mantenimiento('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
-            mantenimiento('login',14,{id:mid,sucursal:vsucursal,restado:tipo},1);
         }
         
-        var e = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos,0,mid,64);
+        var envio = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos,1,mid,64);
         vpara = vbody = "";
         mid = 0;
 

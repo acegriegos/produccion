@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Compras Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.1.0.96">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.2">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -42,7 +42,7 @@
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Número de Factura</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Factura</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Fecha</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Cliente</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Tipo</b></td>
@@ -50,6 +50,7 @@
         <td class="white-text blue sinborde" style="text-align: center"><b>Exento</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Exonerado</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Descuento</b></td>
+        <td class="white-text blue sinborde" style="text-align: center"><b>Otros Cargos</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>IVA</b></td>
         <td class="white-text blue sinborde" style="text-align: center"><b>Total</b></td>
       </tr>
@@ -59,8 +60,8 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.1.0.96"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.1.0.96"></script>
-  <script src="../assets/libs/jspdf/jspdf.js?v=10.1.0.96"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.2"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.2.0.2"></script>
+  <script src="../assets/libs/jspdf/jspdf.js?v=10.2.0.2"></script>
 </body>
 </html>

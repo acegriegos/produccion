@@ -26,7 +26,6 @@ $(document).ready(function(){
 });
 
 $(document).on("click",".menu3",function(){
-	console.clear()
 	$(".menu3").removeClass('active');
 	$(this).addClass('active');
 	$("#titulo").html($(this).html());
@@ -56,22 +55,46 @@ $(document).on("click",".menu3",function(){
 			$("#vdireccion").val(e[6]);
 			$("#vfechainicio").val(e[7]);
 			$("#vfechafinal").val(e[8]);
-			$("#vidtipoabono").val(e[12]);
-			$("#vidtipofactura").val(e[13]);
-			$("#vidtiponota").val(e[14]);
 			$("#vuser_atv").val(e[20]);
-			$("#vpass_atv").val(e[21]);
+			$("#vpass_n_atv").val(e[21]);
 			$("#vpass_n").val(e[22]);
-			var isinvent = e[15] == 1 ? true : false;
-			var isfe = e[23] == 1 ? true : false;
-			var fastshow = e[17] == 1 ? true : false;
-			var printsale = e[18] == 1 ? true : false;
-			var prueba = e[19] == 1 ? true : false;
-			$("#visinventariado").prop('checked',isinvent);
-			$("#isfe").prop('checked',isfe);
-			$("#vfastshow").prop('checked',fastshow);
-			$("#vprintSale").prop('checked',printsale);
-			$("#visPrueba").prop('checked',prueba);
+
+			var actividades = getDatos('codigo,actividad',286,'codigo in(select codigo from sucactivids where idsucursal = @@impresa)',0,0,0);
+
+			$("#actSuc").click(function(){
+
+				if ($("#vnombre").val() == '') {
+					$("#vnombre").focus();
+					return "Razón Social Requerida";
+				}
+
+				if ($("#vcedula").val() == '') {
+					$("#vcedula").focus();
+					return "Cédula Requerida";
+				}
+
+				if ($("#vtelefono").val() == '') {
+					$("#vtelefono").focus();
+					return "Teléfono Requerido";
+				}
+
+				if ($("#isfe").is(":checked") && $("#valid_p12").attr('isvalid') == 0) {
+					return "Validación Factura Electrónica Requerida";
+				}	
+
+				$.get( "https://api.hacienda.go.cr/fe/ae", {identificacion:$("#vcedula").val().replace(/-/g,'')})
+				.done(function( data ) {
+				  for(var i = 0;i<data['actividades'].length;i++){
+				  	if(data.actividades[i].estado == 'A'){
+				  		eliminar(293,'idsucursal = @@impresa');
+				  		insertar(293,'','idsucursal = @@impresa,codactividad = "'+data.actividades[i].codigo+'"');
+				  	}
+				  }
+				});
+
+
+			});
+
 			if (e[16] != '') {
 				$.post('../wsdlClient.php',{
 					accion: 9,
@@ -183,7 +206,16 @@ $(document).on("click",".menu3",function(){
 					$(".editc").filter(function(){ return $(this).attr('value').toLowerCase().indexOf(code) > -1; }).parent().parent().parent().show();
 				else
 					$(".cuecon[ndeep=1]").show();
-			})
+			});
+
+			$(document).on("click","[id^=ac]",function(){
+				var id = $(this).attr('id').substr(2);
+				var ml = parseInt($(this).parent().parent().parent().attr('ndeep'));
+
+				$(this).parent().parent().parent().after('<a href="#!" class="collection-item cuecon" style="color:black;max-height:220px;padding:0;padding-top: 2px;" deep="0" ndeep="'+(ml+1)+'"> <div class="row"> <div class="col s4 left"> <input type="text" tp="0" class="editc" atp="'+id+'" value="" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px; margin-left: '+((ml+1)*2)+'%;" maxlength="40"> </div><div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;"> ----- </div><div class="col s4 right"><i class="mdi mdi-plus mdi-24px" id="ac0" title="Agregar Cuenta"></i><i class="mdi mdi-delete mdi-24px" id="ec0" title="Eliminar Cuenta"></i></div></div></a>');
+
+				$(".editc[tp=0]").focus();
+			});
 			break;
 		case 5:
 			var p = mantenimiento('ajustes',5,'');
@@ -508,19 +540,9 @@ $(document).on("click","[id^=ec]",function(){
 	if (!p.success) {
 		Materialize.toast(p['ERROR'],4000,'red');
 	}else{
-		alert(1)
 		$(this).parent().parent().parent().remove();
 		Materialize.toast('Cuenta Eliminada Correctamente',4000,'green');
 	}
-});
-
-$(document).on("click","[id^=ac]",function(){
-	var id = $(this).attr('id').substr(2);
-	var ml = parseInt($(this).parent().parent().parent().attr('ndeep'));
-
-	$(this).parent().parent().parent().after('<a href="#!" class="collection-item cuecon" style="color:black;max-height:220px;padding:0;padding-top: 2px;" deep="0" ndeep="'+(ml+1)+'"> <div class="row"> <div class="col s4 left"> <input type="text" tp="0" class="editc" atp="'+id+'" value="" title="Editar Nombre" style="border: 0px; border-left:1px solid #e2e2e2;margin-bottom: 0px; margin-left: '+((ml+1)*2)+'%;" maxlength="40"> </div><div class="col s4 numcon center" style="cursor: pointer; min-height: 40px; margin: 0 auto;"> ----- </div><div class="col s4 right"><i class="mdi mdi-plus mdi-24px" id="ac0" title="Agregar Cuenta"></i><i class="mdi mdi-delete mdi-24px" id="ec0" title="Eliminar Cuenta"></i></div></div></a>');
-
-	$(".editc[tp=0]").focus();
 });
 
 $(document).on("change","#xidbodega",function(){
@@ -1520,29 +1542,7 @@ return false;
 }
 
 function validarsucursales() {
-	if ($("#vnombre").val() == '') {
-		$("#vnombre").focus();
-		return "Razón Social Requerida";
-	}
-
-	if ($("#vcedula").val() == '') {
-		$("#vcedula").focus();
-		return "Cédula Requerida";
-	}
-
-	if ($("#vtelefono").val() == '') {
-		$("#vtelefono").focus();
-		return "Teléfono Requerido";
-	}
-
-	if ($("#isfe").is(":checked") && $("#valid_p12").attr('isvalid') == 0) {
-		return "Validación Factura Electrónica Requerida";
-	}
-
-	if ($("#fisico").is(":checked")) {
-		$("#vidtipocliente").val(1);
-	}else
-		$("#vidtipocliente").val(2);
+	
 	
 }
 

@@ -501,7 +501,7 @@ pg += '/>'+
 
 		switch(modulo){
 			case 'usuario':
-			var msj = '<div align="center"><b>Bienvenido al Sistema BMS de Logintech S.A</b></div><hr><b>Nombre del Usuario: </b>'+$("#vnombre").val()+'<br><b>Usuario: </b>'+$("#vuser").val()+'<br><b>Contraseña del Usuario: </b>'+$("#vclave").val()+' <br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
+			var msj = '<div align="center"><b>Bienvenido al Sistema ZION de APSY S.A</b></div><hr><b>Nombre del Usuario: </b>'+$("#vnombre").val()+'<br><b>Usuario: </b>'+$("#vuser").val()+'<br><b>Contraseña del Usuario: </b>'+$("#vclave").val()+' <br><small style="font-style: italic; bottom:0px;">Mensaje AutoGenerado por el Sistema Favor no Responder"</small>';
 			if (acc == 1)			
 				enviarCorreo(1,$("#vmail").val(),'Bienvenido '+$("#vnombre").val(),msj,'',0,0,0);
 			

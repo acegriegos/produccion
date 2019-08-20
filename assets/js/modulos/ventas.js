@@ -589,7 +589,8 @@ $(document).on("blur","[id^=vcantidad]",function(){
 });
 
 $(document).on("click","#printOrder",function(){
-    window.open('facturacion?accion=10&id='+idext+'&has='+$("#impm").is(':checked'));
+    var has = $("#impm").is(':checked') ? 1 : 0;
+    window.open('facturacion?accion=10&id='+idext+'&has='+has);
 });
 
 $(document).on("click","#facturar",function(){
@@ -2197,7 +2198,7 @@ function sendVMail(factura,clave,vid){
                 setTimeout(function(){window.close();},2000);
                 break;
             default:
-                if (imprimir && (param == 1 || param == 7)) {
+                if (imprimir && (param == 1 || param == 7 || param == 8)) {
                     var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
                     
                     try{ 
@@ -2224,6 +2225,7 @@ function sendVMail(factura,clave,vid){
                 }else
                     setTimeout(function(){location.reload();},2000);
                 }
+                console.log(1)
             }else
                 if(parseFloat($("#mxtot").val()) < 5)
                     setTimeout(function(){window.close();},2000);

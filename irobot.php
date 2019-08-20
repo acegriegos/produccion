@@ -10,6 +10,7 @@
     require_once '_config/mysqlDB.php';
     $_REQUEST['accion'] = 99;
     require_once 'wsdlClient.php';
+
     $fe = new facturaElectronica(0);
     $db = new DBClass();
     set_time_limit(0);
@@ -204,8 +205,7 @@
         $date = $overview[0]->date;
   }
  }
- imap_close($inbox);
-  
+ imap_close($inbox);  
 ?>
 
 </body>

@@ -183,7 +183,7 @@
                     {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
                     <div class="input-field marginzero col s12">
                         <a href="#" id="heredado" class="btn-floating tooltipped hide" data-tooltip="Producto Heredado" data-position="bottom"><i>H</i></a>
-                        <a href="#" id="union" class="btn-floating tooltipped" data-tooltip="Producto de Receta" data-position="bottom"><i class="mdi mdi-book-multiple-variant mdi-24px"></i></a>
+                        <a href="#" id="union" class="btn-floating tooltipped" data-tooltip="Producto Heredado" data-position="bottom"><i class="mdi mdi-book-multiple-variant mdi-24px"></i></a>
                         <a href="#" id="proveedores" class="btn-floating tooltipped" data-tooltip="Proveedores" data-position="bottom" style="margin-bottom: 5px"><i class="mdi mdi-account-multiple-outline mdi-24px"></i></a>
                         <a href="#" id="imagenes" class="btn-floating tooltipped" data-tooltip="Imagenes" data-position="bottom"><i class="mdi mdi-image-multiple mdi-24px"></i></a>
                         <a href="#" id="dimensiones" class="btn-floating tooltipped" data-tooltip="Dimensiones" data-position="bottom"><i class="mdi mdi-move-resize-variant mdi-24px"></i></a>

@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.1.0.96">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.2">
   <body >
   {$NAV}
     <div class="bdy pequeño movil" >
@@ -16,7 +16,7 @@
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.1.0.96"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.2"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -97,7 +97,7 @@
         <select id="vtipodoc" class="validate tooltiped" type="select">
           <option value="0" class="disabled">Seleccione una Opción</option>
           {section name=LE loop=$EXOS}
-          <option value="{$EXOS[LE][0]}">{$EXOS[LE][1]}</option>
+          <option value="{$EXOS[LE][0]}" selected>{$EXOS[LE][1]}</option>
           {/section}
         </select>
         <label for="vtipodoc">Tipo de Documento</label>
@@ -116,16 +116,17 @@
       <div class="col s12 row" >
         <div class="col s6 input-field" >
           <span class="prefix mdi mdi-24px mdi-calendar"></span>
-          <input type="date" id="vfechaDoc" class="validate tooltiped">
+          <input type="date" id="vfechaDoc" class="validate tooltiped" value="2019-06-21">
         </div>
 
         <div class="col s6 input-field">
           <span class="prefix mdi mdi-24px mdi-clock"></span>
-          <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
+          <input type="time" id="vtimeDoc" class="validate tooltiped" step="1" value="0" value="10:30:0">
         </div>
       </div>
 
       <div class="col s6 input-field">
+
         <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off">
         <label for="vporcompra">Porcentaje de Exoneración</label>
       </div>

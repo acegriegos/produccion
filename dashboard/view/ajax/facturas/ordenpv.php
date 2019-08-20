@@ -176,20 +176,24 @@ echo '<tr>
   </tr>';
 
 if($_REQUEST['has']){
+    $sr = $grav*0.1;
       echo '<tr >
       <td width="50%" colspan="'.$colspan2.'">10% Serv. Rest.:</td>
-      <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*0.1,2).' </td>
+      <td width="50%" align="right"> '.$transaccion[0][4].number_format($sr,2).' </td>
     </tr>';
+    }else{
+      $sr = 0;
     }
 
+  $imv = $grav*0.13;
   echo '<tr >
     <td width="50%" colspan="'.$colspan2.'">IVA:</td>
-    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*0.13,2).' </td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($imv,2).' </td>
   </tr>';
 
   echo '<tr >
     <td width="50%" colspan="'.$colspan2.'">TOTAL GENERAL:  </td>
-    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*1.23,2).' </td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav+$sr+$imv,2).' </td>
   </tr>
 </table>';
 
@@ -215,9 +219,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.1.0.96"></script>
- <script src="../assets/js/materialize.js?v=10.1.0.96"></script>
- <script src="../assets/js/asgard.js?v=10.1.0.96"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.2"></script>
+ <script src="../assets/js/materialize.js?v=10.2.0.2"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.2"></script>
  <script type="text/javascript">
   var salir = 0;
    $(function(){

@@ -5,14 +5,13 @@
         <td class="white-text blue sinborde " style="text-align: center"><b>Código</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Descripción</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Marca</b></td>
-        <td class="white-text blue sinborde " style="text-align: center"><b>Tipo</b></td>
-        <td class="white-text blue sinborde " style="text-align: center"><b>Familia</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Existencia</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Unidad</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Gravado</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Variable</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Inventariado</b></td>
-        <td class="white-text blue sinborde " style="text-align: center"><b>Pesaje</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Venta</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Venta+IVA</b></td>
       </tr>
     </thead>
     <tbody>
@@ -24,14 +23,13 @@
         <td style=" padding: 1px;"><?php echo $obj[0] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[2] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[3] ?></td> 
-        <td style=" padding: 1px;"><?php echo $obj[4] ?></td> 
-        <td style=" padding: 1px;"><?php echo $obj[5] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[6] ?></td> 
-        <td style=" padding: 1px;"><?php echo number_format($obj[7],3) ?></td> 
+        <td style=" padding: 1px;"><?php echo $obj[] ?></td> 
+        <td style=" padding: 1px;"><?php echo number_format($obj[7],0) ?></td> 
         <td style=" padding: 1px;"><?php echo $obj[8] ? '<i class="mdi mdi-check"></i>' : '<i class="mdi mdi-close"></i>' ?></td>
         <td style=" padding: 1px;"><?php echo $obj[9] ? '<i class="mdi mdi-check"></i>' : '<i class="mdi mdi-close"></i>' ?></td> 
-        <td style=" padding: 1px;"><?php echo $obj[10] ? '<i class="mdi mdi-check"></i>' : '<i class="mdi mdi-close"></i>' ?></td>
         <td style=" padding: 1px;"><?php echo number_format($obj[11],2) ?></td>
+        <td style=" padding: 1px;"><?php echo number_format($obj[5],2) ?></td>
        
     </tr>
 
