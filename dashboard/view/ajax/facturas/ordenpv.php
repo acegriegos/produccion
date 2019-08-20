@@ -176,10 +176,13 @@ echo '<tr>
   </tr>';
 
 if($_REQUEST['has']){
+    $sr = $grav*0.1;
       echo '<tr >
       <td width="50%" colspan="'.$colspan2.'">10% Serv. Rest.:</td>
-      <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*0.1,2).' </td>
+      <td width="50%" align="right"> '.$transaccion[0][4].number_format($sr,2).' </td>
     </tr>';
+    }else{
+      $sr = 0;
     }
 
   echo '<tr >
