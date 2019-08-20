@@ -23,7 +23,7 @@
             </div>
             <div class="row pequeño">
                 <div class="col s12 m12 l4 pequeño">
-                    <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Administrar Teléfonos de la Empresa" data-position="bottom" id="tc-t" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"></a>
+                    <a href="#" data-activates="slide-tc" data-num="1" class="mdi mdi-phone tooltipped mdi-24px button-collapse der tc-show  black-text" data-tooltip="Administrar Teléfonos de la Empresa" data-position="bottom" id="slideTelefono" hasTabla="1" tp="6" vtabla="telefono" slide-id="{$smarty.session.IMPRESA}" slide-tbl="39" asave="0"></a>
                     <label for="vtelefono">Teléfonos de la Empresa</label>
                     <input type="text"  id="vtelefono" readonly>
                 </div>

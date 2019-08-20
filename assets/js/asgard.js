@@ -2119,7 +2119,7 @@ function phone_addon_ckub(vfila,vphone){
             
             var idfila = $(this).attr('idfila');
             phone_addon_ckub(idfila,telefono);
-        }else{
+        }else if(telefono.length < 0){
             Materialize.toast('Telefono Invalido',4000,'red')
             return false;
         }

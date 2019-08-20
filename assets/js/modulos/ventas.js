@@ -589,7 +589,8 @@ $(document).on("blur","[id^=vcantidad]",function(){
 });
 
 $(document).on("click","#printOrder",function(){
-    window.open('facturacion?accion=10&id='+idext+'&has='+$("#impm").is(':checked'));
+    var has = $("#impm").is(':checked') ? 1 : 0;
+    window.open('facturacion?accion=10&id='+idext+'&has='+has;
 });
 
 $(document).on("click","#facturar",function(){

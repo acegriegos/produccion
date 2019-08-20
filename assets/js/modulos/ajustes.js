@@ -26,7 +26,6 @@ $(document).ready(function(){
 });
 
 $(document).on("click",".menu3",function(){
-	console.clear()
 	$(".menu3").removeClass('active');
 	$(this).addClass('active');
 	$("#titulo").html($(this).html());
@@ -61,7 +60,7 @@ $(document).on("click",".menu3",function(){
 			$("#vpass_n").val(e[22]);
 
 			var actividades = getDatos('codigo,actividad',286,'codigo in(select codigo from sucactivids where idsucursal = @@impresa)',0,0,0);
-			console.log(actividades)
+
 			$("#actSuc").click(function(){
 
 				if ($("#vnombre").val() == '') {
