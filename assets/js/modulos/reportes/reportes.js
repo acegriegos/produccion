@@ -123,17 +123,17 @@ $(function(){
             for (var i = 0, len = vtbl.length; i < len; i++) {
                 inc += 1;
 
-                switch(parseInt(vtype[i])){
+               switch(parseInt(vtype[i])){
                     case 1://para select
                     type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl+'"></select>';
 
                     break;
                     case 2: //para numero
-                    type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+                    type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px"><label for="vidtipo'+inc+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                     case 3: //solo check
-                    type = '<input type="hidden" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" value="-1">';
+                    type = '<input type="hidden" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" value="-1" str="1">';
                         break;
                     case 4: //select create
                         var options = $(".principal .filtros").attr('options').split(",");
@@ -146,14 +146,12 @@ $(function(){
                         type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos">'+stroptions+'</select>';
                         break;
                     case 5: //para fecha unica
-                        type = '<input type="date" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px">'
+                        type = '<input type="date" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" str="1">'
                         break;
                     default://para texto
-                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'" str="1">'+tipos[i]+'</label>';
 
                     break;
-
-
                 }
 
                 html = '<div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field" style="margin:0px">'+type+'</div></div></div>';
@@ -249,6 +247,7 @@ $(document).on("click",".pdf",function(){
 
     var $toastContent = $('<span style="width: 500px" id="shpdf">Generando PDF:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent);
+
     $.get('login',{accion:8,arreglo:{sel:'',tbl:resultado.vtbl,where:resultado.vattr,mic:1,tit:$("#titrep").html(),arch:$(this).attr('arch')}})
         .done(function(data){
            console.log(data) 
