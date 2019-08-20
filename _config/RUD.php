@@ -94,6 +94,11 @@
 				$args2 = str_replace('@@impresa', $impresa, $args2);
 			}
 
+			if (strpos($arg1,'@impresa')) {
+				$impresa = $_SESSION['IMPRESA'];
+				$arg1 = str_replace('@@impresa', $impresa, $arg1);
+			}
+
 			$args2 = addslashes($args2);
 
 			$rs = $this->db->ejecutar("call shadow($accion,$tabl,'$arg1','$args2')");
