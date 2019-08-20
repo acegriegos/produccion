@@ -185,14 +185,15 @@ if($_REQUEST['has']){
       $sr = 0;
     }
 
+  $imv = $grav*0.13;
   echo '<tr >
     <td width="50%" colspan="'.$colspan2.'">IVA:</td>
-    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*0.13,2).' </td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($imv,2).' </td>
   </tr>';
 
   echo '<tr >
     <td width="50%" colspan="'.$colspan2.'">TOTAL GENERAL:  </td>
-    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav*1.23,2).' </td>
+    <td width="50%" align="right"> '.$transaccion[0][4].number_format($grav+$sr+$imv,2).' </td>
   </tr>
 </table>';
 
