@@ -113,7 +113,9 @@ $(document).on("click",".process",function(){
         "bScrollInfinite": true
 	});
 
-	var tipo = arr('login',4,'',161,id,0,0,0)[0];
+	var tipo = arr('login',4,'',161,id,0,0,0)
+    console.log(tipo)
+    tipo = tipo[0];
 	$("#process").attr('idfactura',tipo[0][0]);
 	$("#process").attr('tipo',tipo[0][7]);
 	$("#nomproc").text(tipo[0][1]);

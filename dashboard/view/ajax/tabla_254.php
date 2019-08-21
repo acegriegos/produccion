@@ -24,7 +24,7 @@
         <td style=" padding: 1px;"><?php echo $obj[2] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[3] ?></td> 
         <td style=" padding: 1px;"><?php echo $obj[6] ?></td> 
-        <td style=" padding: 1px;"><?php echo $obj[] ?></td> 
+        <td style=" padding: 1px;"><?php echo $obj[4] ?></td> 
         <td style=" padding: 1px;"><?php echo number_format($obj[7],0) ?></td> 
         <td style=" padding: 1px;"><?php echo $obj[8] ? '<i class="mdi mdi-check"></i>' : '<i class="mdi mdi-close"></i>' ?></td>
         <td style=" padding: 1px;"><?php echo $obj[9] ? '<i class="mdi mdi-check"></i>' : '<i class="mdi mdi-close"></i>' ?></td> 

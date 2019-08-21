@@ -1654,7 +1654,7 @@ function cargarProducto(kbrota,elemento) {
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
 
-        if(!$("#iva").is(":checked") && $("#iva:visible").length)
+        if(!$("#iva").is(":checked") && $("#iva:visible").length && parseInt(param) != 2)
                 cod[3] = parseFloat(cod[3])/((parseFloat(cod[8])/100)+1);
 
         $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25],timv:cod[26]}) //,imp: cod[6]
@@ -1692,7 +1692,7 @@ function cargarProducto(kbrota,elemento) {
 
         $("#cantp").val(cantidad);
 
-        if(param != 2 && param != 9 && param != 4){ //PRODUCTO DE VALOR VARIABLE
+        if(param != 2 && param != 9){ //PRODUCTO DE VALOR VARIABLE
             if(!parseInt(cod[19])){
                 $("#precp").prop("readonly",true);
             }
@@ -1744,6 +1744,7 @@ function endCargarProducto(exo,cod,pesaje){
     var modselec = $("input[name='modselected']:checked").val();
 
     if (modselec == 1 || cod != 0 || param == 2 || param == 9) {
+
         if (($("#precp").prop("readonly") == undefined || !$("#precp").prop("readonly")) && (param != 2 && param != 9)){
             $("#precp").focus().select();
 
@@ -2191,16 +2192,19 @@ function sendFE(clave){
 
 function sendVMail(factura,clave,vid){
     var archivos = '';
-
+    console.log(config[3]);
     if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
         switch(param){
             case 2:
                 setTimeout(function(){window.close();},2000);
                 break;
             default:
-                if (imprimir && (param == 1 || param == 7 || param == 8)) {
-                    var vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
-                    
+                var con_con = 0;
+                if (imprimir) {
+                    var vuelto = parseInt(param) == 1 ? 1 : 0;
+                    if((param == 1 || param == 7 || param == 8)){
+                        vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                    }
                     try{ 
                         w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
                     }catch(e){
@@ -2214,7 +2218,7 @@ function sendVMail(factura,clave,vid){
             var vbody = getDatos('',73,vid,0,0)[0][0];
             var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
             archivos = makeArchivos(factura,clave,vid,vbody[1],ntipo);
-            enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,1,vid,64);
+            enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,con_con,vid,64);
         }else{
             if(parseInt($("[name=tipopago]:checked").val()) != 5){ //MIXTO
                 if (parseInt(idext) > 0) {

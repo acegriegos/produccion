@@ -100,7 +100,7 @@ $(function(){
         var estado = param == 5 ? 5 : 1;
 
         setTimeout(function(){inicial.focus();},300);
-         $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0,vidusuario:'', vidsucursal:'', videstado:estado, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vlista1:'',vlista2:'', idline:0,vidtipopago : 0, vextrapagos : 0,vidodt:0,vdivisa : 0, saldo : 0, notific : 0});
+         $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 0,vidusuario:'',vidtipopago:1,vidodt:0,vexonerado : 0,voc:'', idline:0,  saldo : 0, notific : 0,tmpcorreo:'',videxoneracion:'',vidagente:0,margenes:0,vterminal:config[26]});
     }else{
        var vidp = getParameterByName('id');
        cargarFactura(vidp,asoc);
@@ -831,7 +831,7 @@ function cargarGlobal(){
         $("#vpnombre").val($("#descp").val());
         Materialize.updateTextFields();
 
-        $("#fproductos .zelda").data('triforce',{vid:0,vnombre:'',vcodigointerno:'',vcosto:0,vganancia:0,vexoneracion: 0,vidunidad:1,vminimo:0,vmaximo:0,vmaxdescuento:0,vidmarca:0,vidinventario:6,vidusuario: '',vidmoneda:1,vidsucursal:'',visinventariado:1,vidheredado:0,visvariable:1,vcantequiv:0,visgravamen:0,vcomision:0,vventa:0,vventaiva:0,vtimv:8});
+        $("#fproductos .zelda").data('triforce',{vid:0,vnombre:'',vcodigointerno:'',vcosto:0,vganancia:0,vexoneracion: 0,vidunidad:1,vminimo:0,vmaximo:0,vmaxdescuento:0,vidmarca:0,vidinventario:6,vidusuario: '',vidmoneda:1,vidsucursal:'',visinventariado:0,vidheredado:0,visvariable:1,vcantequiv:0,visgravamen:0,vcomision:0,vventa:0,vventaiva:0,vtimv:8});
         
         $("#modal-producto").modal('open');
         $("#vcodigo").focus()
@@ -876,6 +876,7 @@ function doplazo(vval){
 
 function cargarFactura(vidp,asoc){
     var vfacturap = arr('login',6,'',163,vidp+',\"'+asoc+'\"',0,1,$("#fdetallefacturas"));
+
     idext = vidp;
     if($("#impm:visible").length){
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
@@ -886,7 +887,8 @@ function cargarFactura(vidp,asoc){
         }
         $(".order").removeClass('hide');
     }
-    $("#ffacturas .zelda").data('triforce')['vterminal'] = config[26];
+
+    // $("#ffacturas .zelda").data('triforce')['vterminal'] = config[26];
     Materialize.updateTextFields();
 }
 

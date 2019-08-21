@@ -296,14 +296,14 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.2"></script>
- <script src="../assets/js/materialize.js?v=10.2.0.2"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.2"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.4"></script>
+ <script src="../assets/js/materialize.js?v=10.2.0.4"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.4"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
-      var resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019";
+      var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
         resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
