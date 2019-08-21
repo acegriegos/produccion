@@ -37,8 +37,8 @@ echo '<input type="hidden" id="indice" value="'.$index.'" clie="'.$transaccion[0
 	<td id="vdesc<?php echo $index ?>" class="center"><?php echo $obj[15] ?></td>
 	<td class="center totp divisa" id="tota<?php echo $index ?>"><?php echo number_format($total,2)?></td>
 	<td id="desctd<?php echo $index ?>" align="left">
-		<a href="#modal-edit" id="edit<?php echo $index ?>" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion" style="padding="0.2%"></a>
-		<a href="#" id="del<?php echo $index ?>" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion" style="padding="0.2%"></a>
+		<a href="#modal-edit" id="edit<?php echo $index ?>" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit faccion"></a>
+		<a href="#" id="del<?php echo $index ?>" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf faccion"></a>
 	</td>
 </tr>
 <?php }
