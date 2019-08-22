@@ -60,8 +60,8 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.4"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.2.0.4"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.5"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.2.0.5"></script>
   <script src="../assets/libs/jspdf/jspdf.js?v=10.2.0.4"></script>
 </body>
 </html>
