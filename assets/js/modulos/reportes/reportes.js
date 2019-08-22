@@ -272,8 +272,32 @@ $(document).on("click",".excel",function(){
 
 $(document).on("click",".pdf",function(){
 
-    window.location = "login?accion=8&arreglo[sel]=&arreglo[tbl]="+$(this).attr('tbl')+"&arreglo[where]="+$(this).attr('whr')+"&arreglo[mic]=1&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[arch]="+$(this).attr('arch')+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'];
-    //console.log("login?accion=11&arreglo[sel]=&arreglo[tbl]="+resultado['tbl']+"&arreglo[where]="+resultado['vatr']+"&arreglo[save]=0&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'])
+    var resultado = rreport();
+
+    var $toastContent = $('<span style="width: 500px" id="shpdf">Generando PDF:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        Materialize.toast($toastContent);
+
+    $.get('login',{accion:8,arreglo:{sel:'',tbl:resultado.vtbl,where:resultado.vattr,mic:1,tit:$("#titrep").html(),arch:$(this).attr('arch')}})
+        .done(function(data){
+           console.log(data) 
+           $("#shpdf").html('PDF Generado')
+           $(".expect").removeClass('progress');
+           $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+           data =JSON.parse(data);
+            var link = document.createElement('a');
+            link.href = '../assets/pdf/'+data;
+            link.download = data;
+            link.dispatchEvent(new MouseEvent('click'));
+            
+           setTimeout(function(){ 
+                $("#shpdf").parent().remove();
+                $.get('login',{accion:17,arreglo:{file:'../assets/pdf/'+data}})
+                .done(function(data){
+                    console.log(data);
+                })
+            }, 3000);
+           
+        })
 });
 
 $(document).on("click",".sendrep",function(){

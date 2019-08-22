@@ -13,14 +13,14 @@
 
         switch ($accion) {
             case 1://RECIBO DE FACTURA
-                ob_end_clean();
+                /*ob_end_clean();
                 ignore_user_abort();
                 ob_start();
                 header("Connection: close");
                 echo json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$fe->info['Clave'],'num'=>$fe->info['NumeroConsecutivo'],'succes'=>1]);
                 header("Content-Length: " . ob_get_length());
                 ob_end_flush();
-                flush();
+                flush();*/
 
                 $rs = $fe->recepcion();
                 $db = new DBClass();
@@ -552,7 +552,7 @@
                     $this->xmldoc = 'notaDebitoElectronica';
                     $this->ref = 1;
                     $this->idtabla = 301;
-                    $titulo = 'Nota Debito';
+                    $this->titulo = 'Nota Debito';
 
                     break;
                 case 3: //NOTA DE CREDITO
@@ -560,7 +560,7 @@
                     $this->xmldoc = 'notaCreditoElectronica';
                     $this->ref = 1;
                     $this->idtabla = 301;
-                    $titulo = 'Nota Credito';
+                    $this->titulo = 'Nota Credito';
                     break;
                 case 4: //TIQUETE ELECTRONICO
                     $this->tdoc = 'TiqueteElectronico';
@@ -571,17 +571,17 @@
                 case 7: //RECHAZAR
                     $this->tdoc = 'MensajeReceptor';
                     $this->xmldoc = 'mensajeReceptor';
-                    $titulo = 'Aceptacion';
+                    $this->titulo = 'Aceptacion';
                     break;
                 case 8: //COMPRA ELECTTRONICA
                     $this->tdoc = 'FacturaElectronicaCompra';
                     $this->xmldoc = 'facturaElectronicaCompra';
-                    $titulo = 'Compra';
+                    $this->titulo = 'Compra';
                     break;
                 case 9: //EXPORTACION ELECTTRONICA
                     $this->tdoc = 'FacturaElectronicaExportacion';
                     $this->xmldoc = 'facturaElectronicaExportacion';
-                    $titulo = 'Exportacion';
+                    $this->titulo = 'Exportacion';
                     break;
                 default: //FACTRA ELECTRONICA
                     break;
@@ -1145,7 +1145,7 @@
             $fact['cedula'] = (array) $inv_xml->Receptor->Identificacion->Numero;
             $fact['cedula'] = $fact['cedula'][0];
             $_divisa = trim($fact['moneda']) != 'CRC' ? $fact['divisa'] : 1;
-            $ireferencia = isset($inv_xml['InformacionReferencia']) ? $inv_xml['InformacionReferencia']['Numero'] : '';
+            $ireferencia = isset($inv_xml->InformacionReferencia) ? $inv_xml->InformacionReferencia->Numero : '';
 
             $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.','.$fact['exonerado']*$_divisa.',0,'.$fact['plazo'].',"'.$ireferencia.'","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fecha.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
 
@@ -1970,8 +1970,9 @@
                 $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
                 //MAKE ARCHIVOS
                 //PDF
-                $_arreglo = ['arch'=>'recibo','id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>72,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
-
+                $_arch = isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
+                $_arreglo = ['arch'=> $_arch,'id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>$this->idtabla,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+                print_r($_arreglo);
                 $curl = curl_init($actual_link);
                 curl_setopt($curl, CURLOPT_HEADER, true);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -1986,10 +1987,10 @@
                 $postData = rtrim($postData, '&');
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
                 $json_response = curl_exec($curl);
-                
+                print_r($$_arreglo);
                 }
                 //XML
-                $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA']];
+                $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA'],'restado' => $tit];
 
                 $curl = curl_init($actual_link);
                 curl_setopt($curl, CURLOPT_HEADER, true);

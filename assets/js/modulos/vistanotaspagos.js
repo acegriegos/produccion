@@ -69,6 +69,7 @@ $(document).on("click",".sendm",function(){
     var factura =  getDatos('idfactura,fe_getnumeracion(id*-1)',301,'id = '+clave,0,0,0)[0][0];
     var vclave = factura[1];
     factura = factura[0];
+    config[3] = 1;
     sendVMail(factura,clave,vclave);
 });
 

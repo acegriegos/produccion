@@ -432,16 +432,15 @@ function sendFE(clave,factura){
     var idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+factura,0,0);
 
     if (idcliente != '') {
-        var correos = getDatos("",18,idcliente+",2",0,0);
+        var correos = getDatos("",18,idcliente[0][0][0]+",2",0,0);
         if (correos == undefined) {
             Materialize.toast('Correos Inválidos',4000,'red');
-            arr('login',7,2,301,'feestado=2','id='+idnota,0,0);
+        }else{
+            for (var i = 0; i < correos[0].length; i++) {
+                str_correos += correos[0][i][3]+",";
+            }
+            str_correos = str_correos.substr(0,str_correos.length-1);
         }
-    }else{
-        for (var i = 0; i < correos[0].length; i++) {
-            str_correos += correos[0][i][3]+",";
-        }
-        str_correos = str_correos.substr(0,str_correos.length-1);
     }
     
     var festado = getDatos('feestado',64,'id='+clave,0,0,0)
@@ -449,9 +448,10 @@ function sendFE(clave,factura){
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
-        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de '}
+        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de ',con_con:1,arch:'recibo-notas-pagos'}
     })
       .done(function( data ) {
+        console.log(data)
         var p;
         var continuar = 1;
         try {
@@ -460,7 +460,6 @@ function sendFE(clave,factura){
             p = p['rs'];
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-            arr('login',7,2,301,'feestado=2','id='+clave,0,0);
 
              if (config[4] == 1){
                 var tp = $("#p_v").is(":checked") == true ? 1 : 2;
@@ -469,7 +468,6 @@ function sendFE(clave,factura){
             // sendVMail(factura,clave,vclave);
         }
         catch(err){
-            console.log(data)
             console.log(err)
             $(".expect").removeClass('progress')
             $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
