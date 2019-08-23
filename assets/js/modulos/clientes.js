@@ -511,8 +511,9 @@ function endDetail(vid,vacc,modulo){
 
 			if(parseInt($("#videxoneracion").val())){
 				var ffin  = $("#vfechafin").val() == '' ? 'null' : '"'+$("#vfechafin").val()+'"';
+				var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
 
-				actualizar(285,'tdoc = '+$("#vtipodoc").val()+', ndoc = "'+$("#vnumdoc").val()+'",inst = "'+$("#ventidad").val()+'", femision = "'+$("#vfechaDoc").val()+' '+tiempo+'", exoneracion = '+$("#vporcompra").val()+',ffin = '+ffin+'','id = '+vid[0][0]);
+				actualizar(285,'tdoc = '+$("#vtipodoc").val()+', ndoc = "'+$("#vnumdoc").val()+'",inst = "'+$("#ventidad").val()+'", femision = "'+$("#vfechaDoc").val()+' '+tiempo+'", exoneracion = '+$("#vporcompra").val()+',ffin = '+ffin+'','id = '+$("#videxoneracion").val());
 			}else{
 				if($("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
 					var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
@@ -558,8 +559,9 @@ function postload(modulo) {
 			 num++;
             }
 
-            var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),exoneracion,ffin',285,'idcliente = '+$("#vid").val(),0,0,0);
+            var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),exoneracion,ffin,id',285,'idcliente = '+$("#vid").val(),0,0,0);
             if(exoneraciones[0].length){
+            	$("#videxoneracion").val(exoneraciones[0][0][7])
             	$("#vtipodoc").val(exoneraciones[0][0][0])
             	$("#vtipodoc").material_select('update');
             	$("#vnumdoc").val(exoneraciones[0][0][1]);
