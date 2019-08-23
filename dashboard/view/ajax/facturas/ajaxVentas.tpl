@@ -1151,4 +1151,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.5"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.6"></script>
