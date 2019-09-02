@@ -505,7 +505,7 @@ function cargarProducto(kbrota,elemento) {
 
     if (cod[0][0] != undefined) {
         var famtip = getDatos('',807,cod[0][0][0],0,0,0);
-
+        console.log(famtip)
         cod = cod[0][0];
         var char1 = cod[0].substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;

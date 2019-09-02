@@ -94,6 +94,10 @@
 	   			
 	   			include_once 'view/ajax/facturas/ordenpv.php';
         	break;
+        	case 11:
+        		$pagina = 1;
+        		include_once 'view/ajax/facturas/showfacturas.php';
+        	break;
 
 	   	}
 		if(!$pagina){

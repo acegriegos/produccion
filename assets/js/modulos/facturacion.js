@@ -425,6 +425,7 @@ function cargarVentas(){
     });
     
     $(document).on("keyup","#cantp",function(e){
+        
         if ($("#valores").data('elemento') == undefined) {
             return false
         }
@@ -456,8 +457,13 @@ function cargarVentas(){
     });
 
     $(".addline").click(function(){
+
         if ($("#valores").data('elemento') == undefined) {
             pril.focus();
+            return false
+        }
+        if($(this).attr('sg')){
+            $(this).removeAttr('sg');
             return false
         }
         var cant = parseFloat($("#cantp").val()),

@@ -63,14 +63,14 @@
                   <span id="clave" class="fe"><?php echo $transaccion[0][32]; ?></span><br>
                 <?php } ?>
                 
-                <b><span id="fact"><?php echo $transaccion[0][25] ?></span> </b> de: </b><span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:
+                <b><span id="fact"><?php echo $transaccion[0][25] ?></span> de <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
                 <span id="numfact" class="fe"> <?php echo $datos[0]; ?> </span>
               </div>
 
              <?php if ($datos[4] != '') { ?>
-             <div class="col s12" style="padding: 8px 0px 8px 0px">
-                <b><?php echo $datos[30]; ?>:</b><br>
-                <b style="color: white;"><?php echo $datos[30]; ?>:</b><span id="fcliente"><?php echo $datos[4]; ?></span>  <br>
+             <div class="col s12" style="padding: 0</b>px">
+                <b><?php echo $datos[30]; ?>:</b>
+                <span id="fcliente"><?php echo $datos[4]; ?></span>
             </div>
             <b>Cédula:</b> <?php echo $datos[34]; ?><br>
             <b>Correo:</b> <?php echo $datos[41]; ?><br>

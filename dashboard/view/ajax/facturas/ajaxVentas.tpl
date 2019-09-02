@@ -227,7 +227,11 @@
 
         <input class="with-gap" name="modselected" type="radio" value="1" id="teclado"/>
         <label for="teclado" class="isfast"><i class="mdi mdi-keyboard mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" data-position="bottom" style="font-size: 1.4em"></i></label>
+        
+        <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-16px"></i></a>
+            
     </section>
+
     </div>
     <div class="col s12 hide-on-med-and-down">
 <!--     <table class="table detalle" id="data-table-detalle" cellspacing="0">
@@ -299,12 +303,7 @@
           </div>
 
           <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
-            <div class="col s8">
-      
-            </div>
-            <div class="col s4" style="padding: 0px">
-             <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
-            </div>
+
           </div>
         </div>
 
@@ -609,7 +608,7 @@
           </div>
 
           <div class="col s12 m6 l6 rest hide">
-              <input type="checkbox" id="impm" checked disabled />
+              <input type="checkbox" id="impm"/>
               <label for="impm" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para Acreditar el Impuesto de Mesero" data-position="left">Imp. Mesero</label>
           </div>
 
