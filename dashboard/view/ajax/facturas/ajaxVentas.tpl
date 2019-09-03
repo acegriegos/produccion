@@ -216,7 +216,7 @@
           <label for="tc2"  class="hide" style="float: left;margin-right: 5px">Gasto Diferido</label>
           <input type="radio" name="tcompra" id="tc3" value="3" class="with-gap">
           <label for="tc3"  class="hide" style="float: left;margin-right: 5px">Gasto no Diferido</label>
-    <section class="right">
+    <section class="right hide-on-small-only">
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
           <label for="iva" class="hide" style="float: left;margin-right: 5px">IVI</label>
       {if $smarty.session.BUSS neq 1}

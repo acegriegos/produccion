@@ -815,7 +815,7 @@ function cargarGlobal(){
         var id = $("#hdnprd").val();
         var cant,desc,prec,exo,unid = 0;
         cant = $("#ecantidad").val();
-        desc = $("#edescuento").val();
+        desc = $("#edescuento").val().replace(',','');
         prec = $("#eunitario").val().replace(',','');
         exo = $("#texct").val();
         unid = $("#uniadl").val();

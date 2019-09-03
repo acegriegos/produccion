@@ -1912,7 +1912,7 @@
                 if(substr($id,0,1) == '^')
                     $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml'];
                 else{
-                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
+                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdfd /'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
                 //MAKE ARCHIVOS
                 //PDF
                 $_arch = !isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
