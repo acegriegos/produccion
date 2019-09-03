@@ -1261,7 +1261,7 @@ function totalizar(){
         $("#tota"+vidlinea).html((tmpdesc).formatMoney(2,'.',','))
         $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
         console.log(dunit)
-        $("#fd"+vidlinea).data('triforce')['vdesc'] = parseFloat(('"'+dunit+'"').replace(/,/g,'')).formatMoney(5);
+        $("#fd"+vidlinea).data('triforce')['vdesc'] = parseFloat(dunit).toFixed(5);
         tmpdesc = tmpdesc * (1-(desc/100));
 
         $(".dimpuesto").each(function(){
