@@ -1260,7 +1260,6 @@ function totalizar(){
         $("#fd"+vidlinea).data('triforce')['vtotal'] = tmpdesc.toFixed(5);
         $("#tota"+vidlinea).html((tmpdesc).formatMoney(2,'.',','))
         $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
-        console.log(dunit)
         $("#fd"+vidlinea).data('triforce')['vdesc'] = parseFloat(dunit).toFixed(5);
         tmpdesc = tmpdesc * (1-(desc/100));
 
@@ -1881,8 +1880,8 @@ function endDetail(vid,vacc,vmodulo) {
                     if(ms){
                         console.log(set);
                         set = set.substr(0,set.length-1);
-                        console.log(insertar(291,'idfactura',vid[0][0])[0]);
-                        console.log(actualizar(291,set,'idfactura = '+vid[0][0]));
+                        insertar(291,'idfactura',vid[0][0]);
+                        actualizar(291,set,'idfactura = '+vid[0][0]);
                     }
                     break;
                 default:

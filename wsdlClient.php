@@ -13,14 +13,14 @@
 
         switch ($accion) {
             case 1://RECIBO DE FACTURA
-                ob_end_clean();
+                /*ob_end_clean();
                 ignore_user_abort();
                 ob_start();
                 header("Connection: close");
                 echo json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$fe->info['Clave'],'num'=>$fe->info['NumeroConsecutivo'],'succes'=>1]);
                 header("Content-Length: " . ob_get_length());
                 ob_end_flush();
-                flush();
+                flush();*/
 
                 $rs = $fe->recepcion();
                 $db = new DBClass();
@@ -1912,7 +1912,7 @@
                 if(substr($id,0,1) == '^')
                     $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml'];
                 else{
-                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdfd /'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
+                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
                 //MAKE ARCHIVOS
                 //PDF
                 $_arch = !isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
