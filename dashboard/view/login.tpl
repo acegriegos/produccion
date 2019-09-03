@@ -9,10 +9,10 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.10">
-  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.2.0.10">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.10"> 
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.2.0.10">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.11">
+  <link rel="stylesheet" type="text/css" href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.2.0.11">
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.11"> 
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.2.0.11">
 
 
 </head>
@@ -60,9 +60,9 @@
 
   </div>
 </div>
-<script src="../assets/js/jquery.js?v=10.2.0.10"></script>
-<script src="../assets/js/materialize.min.js?v=10.2.0.10"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.10"></script>
-<script src="../assets/js/modulos/login.js?v=10.2.0.10"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.11"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.11"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.11"></script>
+<script src="../assets/js/modulos/login.js?v=10.2.0.11"></script>
 </body>
 </html>
