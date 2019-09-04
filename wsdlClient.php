@@ -13,14 +13,14 @@
 
         switch ($accion) {
             case 1://RECIBO DE FACTURA
-                /*ob_end_clean();
+                ob_end_clean();
                 ignore_user_abort();
                 ob_start();
                 header("Connection: close");
                 echo json_encode(['rs'=>'Documento Electronico Aprobado','clave'=>$fe->info['Clave'],'num'=>$fe->info['NumeroConsecutivo'],'succes'=>1]);
                 header("Content-Length: " . ob_get_length());
                 ob_end_flush();
-                flush();*/
+                flush();
 
                 $rs = $fe->recepcion();
                 $db = new DBClass();
