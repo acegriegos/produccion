@@ -9,9 +9,11 @@ $(function(){
 
             $(".excel").data('parametros')['vista'] = orden;
             $(".excel").data('parametros')['conteo'] = conteo;
-            $("#tit").html('Asientos');
-            arr('login',6,'',271,'"","",@@impresa,0,0',0,1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
-            $("#vtrep").val(0)
+            $(".excel").data('parametros')['original'] = 1;
+            $("#titrep").html('Asientos');
+            arr('login',6,'',271,'"","",@@impresa,0,0',0,1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));;
+            $("#vtrep").val(0);
+             $(".principal .filtros").removeAttr('chg');
             break;
        
        case 'estadoresultados':
@@ -21,14 +23,25 @@ $(function(){
 
             $(".excel").data('parametros')['vista'] = orden;
             $(".excel").data('parametros')['conteo'] = conteo;
-            arr('login',6,'',271,'"","",@@impresa,1,0',0,1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
-            $("#tit").html('Estado Resultado');
+            $(".excel").data('parametros')['original'] = 1;
+            arr('login',6,'',271,'"","",@@impresa,1,0','271_1',1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
+            $("#titrep").html('Estado Resultado');
             $("#vtrep").val(1)
+            break;
+         case 'balancegeneral':
+            var orden = '2,3';
+            var suma = '';
+            var conteo = 1;
+
+            $(".excel").data('parametros')['vista'] = orden;
+            $(".excel").data('parametros')['conteo'] = conteo;
+            $(".excel").data('parametros')['original'] = 1;
+            arr('login',6,'',271,'"","",@@impresa,2,0','271_1',1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
+            $("#titrep").html('Balance General');
+            $("#vtrep").val(2)
             break;
       default:
             break;
-       
-        
 
     }
 });

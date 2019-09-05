@@ -1350,7 +1350,7 @@ function rreport(){
     var orden = $(".excel").data('parametros')['vista'] == undefined ? '' : $(".excel").data('parametros')['vista'];
     var conteo = $(".excel").data('parametros')['conteo'] == undefined ? '' : $(".excel").data('parametros')['conteo'];
     var suma = $(".excel").data('parametros')['suma'] == undefined ? '' : $(".excel").data('parametros')['suma'];
-    var original = $(".excel").data('parametros')['suma'] == undefined ? 0 : 1;
+    var original = $(".excel").data('parametros')['original'] == undefined ? 0 : 1;
     if(original)
         var otros = '';
     else
