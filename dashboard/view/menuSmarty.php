@@ -90,6 +90,7 @@
         <li class="per1100"><a href="facturacion?tf=1">Ventas</a></li>
         <li class="per1600"><a href="facturacion?tf=4">Proformas</a></li>
         <li class="per2100"><a href="facturacion?tf=2">Compras</a></li>
+        <li class="hide"><a href="facturacion?tf=3">Orden de Compra</a></li>
         <li class="per1700"><a href="facturacion?tf=10">Exportaciones</a></li>
       </ul>
 
@@ -112,7 +113,7 @@
     </li>
     <li class="gtext per4100"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
     <li class="gtext per3400"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
-    
+    <li class="gtext hide"><a href="contabilidad"><i class="mdi mdi-newspaper mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Contabilidad</span></a></li>
     <li class="gtext per1500"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     {literal}
       <script type="text/javascript">

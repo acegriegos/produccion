@@ -6,7 +6,7 @@
 <tr>
 <td style="width: 10%"><?php echo $obj[1] ?></td>
 <td style="width: 10%"><?php echo $obj[2] ?></td>
-<td style="width: 10%"><?php echo $obj[3] ?></td>
+<td style="width: 10%"><?php echo strlen($obj[3]) > 10 ? substr($obj[3],0,10).'...' : $obj[3] ?></td>
 <td style="width: 10%"><?php echo $obj[4] ?></td>
 <td style="width: 10%"><?php echo $obj[6] ?></td>
 <td style="width: 10%"><?php echo $obj[7] ?></td>

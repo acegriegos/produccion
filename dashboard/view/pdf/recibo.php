@@ -51,7 +51,7 @@ class myPDF extends TCPDF {
 }
 
 // create new PDF document
-$pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false,$transaccion[0][32]);
+ // $pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false,$transaccion[0][32]);
 $pdf->setData(['tfactura'=>$datos[0][24],'credito'=>$datos[0][26],'fe'=>$datos[0][32]]);
 // set document information
 // $pdf->SetCreator(PDF_CREATOR);

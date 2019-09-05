@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Movimientos Estados</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.2.0.12">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.2.0.5">
   </head>
   <body>
   <br>
@@ -49,7 +49,7 @@
                     <li><a class="optns" href="#!" fltr="2">Razón Social o Cédula</a></li>
                     <li><a class="optns" href="#!" fltr="3">Fecha</a></li>
                   </ul>
-                  <input type="text" id="search_facturas" maxlength="100" num="v179" var="0,1" filtro="1">
+                  <input type="text" id="search_facturas" maxlength="100" num="v187" var="0,1" filtro="1">
                   <label class="truncate" for="search_facturas">Buscar Documento por <span>Número</span></label>
             </div>
 
@@ -88,6 +88,6 @@
            
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.2.0.12"></script>
+    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.2.0.5"></script>
   </body>
 </html>
