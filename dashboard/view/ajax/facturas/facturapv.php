@@ -164,7 +164,8 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
 
 <hr>';
 
-if ($config[0][10] == 1) {
+switch($config[0][10]) {
+  case 1:
   $colspan1 = 4;
   $colspan2 = 3;
 
@@ -190,7 +191,34 @@ if ($config[0][10] == 1) {
         $sr += str_replace(',', '', $obj[20]);
     }
 
-}else{
+break;
+case 2:
+    $colspan1 = 4;
+  $colspan2 = 3;
+
+ echo '<table  style="width: 100% !important;">
+  <tr>
+    <td align="center" width="15%">CANT</td>
+    <td align="center" width="45%">ARTICULO</td>
+    <td align="center" width="20%">P.UNIT</td>
+    <td align="center" width="20%">PRECIO</td>
+  </tr>
+  <tr>
+    <td colspan="4"></td>
+  </tr>';
+  $sr = 0;
+  foreach ($transaccion as $obj) {
+    if( strpos($obj[19], 'Servicios Restaurante') == ''){
+      echo '<tr>
+        <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
+        <td align="center" width="45%">'.$obj[19].'</td>
+        <td align="center" width="20%">'.$obj[20].'</td>
+        <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
+      }else
+        $sr += str_replace(',', '', $obj[20]);
+    }
+break;
+default:
   $colspan1 = 3;
   $colspan2 = 2;
 echo '<table  style="width: 100% !important;">
@@ -214,6 +242,7 @@ echo '<table  style="width: 100% !important;">
       }else
         $sr += str_replace(',', '', $obj[20]);
     }
+    break;
   }
   
 echo '<tr>

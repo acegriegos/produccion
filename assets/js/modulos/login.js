@@ -126,41 +126,14 @@ function getIn(){
 
     var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
 
-    if(p.length == 0){
-        Materialize.toast('Archivo Conf. Inválido', 4000, 'red');
-        return false;
-    }
-    if(p[0].length == 2){
-        Materialize.toast(p[0][0], 4000, 'red');
-        $('#pass').select();
-        switch(parseInt(p[0][1])){
-        case 1:
-        $.getJSON("http://ip-api.com/json", function (data) {
-
-        var correo = '';
-        var varibale = $('#user').val();
-
-        if ($('#user').val().indexOf('@') > 0) {
-            rs = arr('login',4,'*',92,'correos like \"%'+ $('#user').val() +'%\"',0,0,'')[0];
-            correo = rs[0][0];
-            varibale = rs[0][1];
-        }else{
-            if (conteo % 3 == 0) {
-                correo = arr('login',4,'mail',1,'user = \"'+ $('#user').val() +'\"',0,0,'')[0][0][0];
-
-                if (correo != ''){
-                    var bdy = '<h2>Intento de Ingreso al Sistema</h2><br><b>Usuario:</b> '+ varibale +'<br><b>ISP:</b> ' +data['isp'] + '<br><b>Ubicación:</b> ['+ data['countryCode']+'] ' + data['country'] +', '+ data['regionName'] +', '+ data['city'] +'.<br><b>IP: </b>'+ data['query'] +'<br>';
-
-                    enviarCorreo(1,correo,'Intento de Acceso al Sistema',bdy,0,0,0);
-                }
-            }
-            
-        }
-
-        });
-        salida = false;
-        break;
-        }
+    switch(p.length == 0){
+        case 2:
+            Materialize.toast(p[0][0], 4000, 'red');
+            $('#pass').select();
+            salida = false;
+            break;
+        default:
+            break;
     }
     
     if (salida){
