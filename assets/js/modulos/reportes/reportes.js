@@ -5,7 +5,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
+    $(".principal .filtros").append('<div class="col s12" id="fbtns"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -145,7 +145,7 @@ $(function(){
             for (var i = 0, len = vtbl.length; i < len; i++) {
                 inc += 1;
 
-                switch(parseInt(vtype[i])){
+               switch(parseInt(vtype[i])){
                     case 1://para select
                     opts = getDatos('id,nombre',vtbl[i],'id > 0',0,0,0);
                     stropts = '';
@@ -156,11 +156,11 @@ $(function(){
 
                     break;
                     case 2: //para numero
-                    type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+                    type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px"><label for="vidtipo'+inc+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                     case 3: //solo check
-                    type = '<input type="hidden" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" value="-1">';
+                    type = '<input type="hidden" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" value="-1" str="1">';
                         break;
                     case 4: //select create
                         var options = $(".principal .filtros").attr('options').split(",");
@@ -173,14 +173,12 @@ $(function(){
                         type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos">'+stroptions+'</select>';
                         break;
                     case 5: //para fecha unica
-                        type = '<input type="date" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px">'
+                        type = '<input type="date" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" str="1">'
                         break;
                     default://para texto
-                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'">'+tipos[i]+'</label>';
+                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'" str="1">'+tipos[i]+'</label>';
 
                     break;
-
-
                 }
 
                 html = '<div class="row col s12 m6 l6 rous" style="margin:0px"><div class="col s3"><input type="checkbox" id="chktipo'+inc+'" value="'+filtro+'" class="repcheck"><label for="chktipo'+inc+'" class="pbtn">'+tipos[i]+'</label></div><div class="col s9 '+mdate+'" id="fltr'+filtro+'"><div class="input-field" style="margin:0px">'+type+'</div></div></div>';
