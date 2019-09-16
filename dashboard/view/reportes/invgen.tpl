@@ -10,7 +10,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" tbltipos="11,0,0,0,0,0" tipos="Por Producto,Variable,Inventariado,Gravado,Existencia,Negativos" types="0,3,3,3,3,3" portipo="varios" tfiltrar=""></div>
+      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" tbltipos="11,0,0,0,0,0" tipos="Poducto,Variable,Inventariado,Gravado,Existencia,Negativos" types="0,3,3,3,3,3" portipo="varios" tfiltrar=""></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
