@@ -193,27 +193,31 @@ switch($config[0][10]) {
 
 break;
 case 2:
-    $colspan1 = 4;
+  $colspan1 = 4;
   $colspan2 = 3;
 
  echo '<table  style="width: 100% !important;">
-  <tr>
-    <td align="center" width="15%">CANT</td>
-    <td align="center" width="45%">ARTICULO</td>
-    <td align="center" width="20%">P.UNIT</td>
-    <td align="center" width="20%">PRECIO</td>
-  </tr>
+ <tr>
+  <td colspan="4">ARTICULO</td>
+ </tr>
+ <tr>
+  <td>CANT</td>
+  <td align="center">COD</td>
+  <td>P.UNIT</td>
+  <td>P.TOTAL</td>
+ </tr>
   <tr>
     <td colspan="4"></td>
   </tr>';
   $sr = 0;
   foreach ($transaccion as $obj) {
     if( strpos($obj[19], 'Servicios Restaurante') == ''){
-      echo '<tr>
+      echo ' <tr> <td style="border-top: 1px dashed black" colspan="4">'.$obj[19].'</td></tr>
+      <tr>
         <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
-        <td align="center" width="45%">'.$obj[19].'</td>
-        <td align="center" width="20%">'.$obj[20].'</td>
-        <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
+        <td align="center" width="45%">'.$obj[36].'</td>
+        <td align="right" width="20%">'.$obj[20].'</td>
+        <td align="right" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
       }else
         $sr += str_replace(',', '', $obj[20]);
     }

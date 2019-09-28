@@ -378,7 +378,7 @@
               //echo json_encode(['proveedor'=>$idproveedor]);
 
               if(!sizeof($idproveedor)){
-                 $log->genkidama(1,264,'',$obj[37].',"'.$obj[38].'","'.$obj[39].'","'.$obj[40].'","'.$obj[41].'","'.$obj[42].'","'.$obj[43].'","'.$obj[44].'","'.$obj[45].'","'.$obj[46].'","'.$obj[47].'"');
+                 $log->genkidama(1,264,'','null,"'.$obj[38].'","'.$obj[39].'","'.$obj[40].'","'.$obj[41].'","'.$obj[42].'","'.$obj[43].'","'.$obj[44].'","'.$obj[45].'","'.$obj[46].'","'.$obj[47].'"');
                  $idproveedor = $log->kamehameha("vid",264,'replace(cedula,"-","") = '.$obj[39]);
                }
               

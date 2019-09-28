@@ -216,6 +216,23 @@ $(document).on("click",".menu3",function(){
 
 				$(".editc[tp=0]").focus();
 			});
+
+			$(".mp").click(function(){
+				$(".mp").css('opacity','0.5');
+				$(this).css('opacity','1');	
+				$(".atbl").addClass('hide');
+				$("#tbl"+$(this).attr('mp')).removeClass('hide');
+				var datos = getDatos('',,'',0,0,0);
+				switch (parseInt($(this).attr('mp'))) {
+					case 1:
+						break;
+					default:
+						break;
+				}
+
+				$("#vistat").removeClass('hide');
+			});
+
 			break;
 		case 5:
 			var p = mantenimiento('ajustes',5,'');

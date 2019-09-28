@@ -72,6 +72,13 @@
   
       </div>
 
+      <ul id="shcomanda" class="side-nav hide-on-small-only" style="max-width: 400px !important; font-size: 1.2em !important;z-index: 1016">
+      <li>
+        <div class="userView">
+        </div>
+      </li>
+    </ul>
+
       <div class="fixed-action-btn hide">
         <a class="btn-floating btn-large red">
           <i class="large mdi mdi-settings"></i>
@@ -117,13 +124,11 @@
         <input type="hidden" class="zelda">
           <div class="row">
             <div class="col l3 hide-on-small-only" style="overflow: auto;">
-              <b>Articulo 1</b>
-              <span class="der">1,000.00</span> <br>
-              <input type="number" class="browser-default eder" style="border: 0;width: 25%;" value="2.000"> Unid(s) a 500.00 / Und <i class="mdi mdi-close pbtn der" title="Eliminar Línea"></i><i class="der mdi mdi-calendar-text pbtn" title="Comentarios del Artículo"></i><br>
-
-               <b>Articulo 1</b>
-              <span class="der">500.00</span> <br>
-              <input type="number" class="browser-default eder" style="border: 0;width: 25%;" value="1.000"> Unid(s) a 500.00 / Und <i class="mdi mdi-close pbtn der" title="Eliminar Línea"></i><i class="der mdi mdi-calendar-text pbtn" title="Comentarios del Artículo"></i><br>
+              <section id="lentradas"></section>
+              <section id="lpfuertes"></section>
+              <section id="lpostres"></section>
+              <section id="lgeneral"></section>
+              <section id="lbebidas"></section>
             </div>
           <div class="col s12 l9" style="border-left: 1px solid black;height: 80vh;">
             <div class="row col s12" style="margin: 0px;">
@@ -136,7 +141,27 @@
               <li class="tab col s1"><a href="#test1">{$FAM[0][LE][1]}</a></li>
               {/section}
             </ul>
-          <div id="test1" class="col s12">Test 1</div>
+          <div id="test1" class="col s12">
+
+            <div class="comida" trid="1" trcol="0" isbebida="0" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">
+              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0;">¢<span class="cprod">1,500.00</span></span>
+              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;" class="nprod">Producto 1</span>
+              <div class="chover hide" style="position: absolute;right: 0;padding-top: 20%">
+                <i class="mdi mdi-circle tlista" trcol="1" style="color: green;z-index: 998" title="ENTRADA"></i> <br>
+                <i class="mdi mdi-circle tlista" trcol="2" style="color: #C32B1B;z-index: 998" title="PLATO FUERTE"></i> <br>
+                <i class="mdi mdi-circle tlista" trcol="3" style="color: blue;z-index: 998" title="POSTRE"></i> 
+              </div>
+              <img src="../assets/img/foto.svg" height="90%" width="90%;">
+            </div>
+            
+
+            <div class="comida" trid="2" trcol="0" isbebida="-1" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">
+              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0;">¢<span class="cprod">4,000.00</span></span>
+              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;" class="nprod">Bebida 1</span>
+              <img src="../assets/img/foto.svg" height="90%" width="90%;">
+            </div>
+
+          </div>
         </div>
         
       </div>
@@ -145,6 +170,10 @@
         <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="total_mesa">0.00</span> CRC / <span id="total_mesa_d">0.00</span> USD </section>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder" style="float: left"></a>
         
+        <i data-activates="shcomanda" class="mdi mdi-eye mdi-24px pbtn button-collapses-com hide" title="Ver Comanda" style="padding-right: 2%"></i>
+
+        Cocina General <i class="mdi mdi-flag-variant pbtn"></i> Entrada <i class="mdi mdi-flag-variant green-text"></i> Plato Fuerte <i class="mdi mdi-flag-variant" style="color: #C32B1B"></i> Postre <i class="mdi mdi-flag-variant blue-text"></i>
+
         <a href="#!" class="modal-action waves-effect waves-green btn-flat add mdi mdi-table-edit mdi-24px" id="saveOrder" modulo="factura" varias="1" title="Guardar Orden"></a>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat mdi mdi-24px mdi-exit-to-app" title="Salir" id="orderout"></a>
       </div>

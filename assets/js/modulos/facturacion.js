@@ -179,8 +179,18 @@ function cargarCompras(){
 
     $("#precp").attr('readonly',false);
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
-    $("#vdescuentop").removeAttr('disabled')
+    $("#vdescuentop").removeAttr('disabled');
 
+    if($("#fcompra").is(':visible')){
+        var comprasacp = getDatos('',295,'@@impresa',0,0,0);
+
+        var strfact = '<option value="0">Seleccione una Factura</option>'
+        for(var i=0; i<comprasacp[0].length;i++){
+            strfact += '<option value="'+comprasacp[0][i][0]+'" title="'+comprasacp[0][i][2]+'">'+comprasacp[0][i][1]+'</option>'
+        }
+        $("#fcompra").html(strfact)
+    }
+    
     $("#celectronica").change(function(){
         if($("#celectronica").is(':checked')){
             param = 9
@@ -411,7 +421,6 @@ function cargarVentas(){
 
         if ( $(this).attr('readonly') == undefined) {
             $("#valores").data('elemento')['hprec'] = parseFloat($(this).val().replace(/,/g,''))*parseFloat($("#monedas option:selected").attr('dv'));
-            $("#cantp").val(1).focus().select();
             $("#totp").val((parseFloat($(this).val().replace(/,/g,''))*1).formatMoney(2,'.',','))
         }
         
@@ -420,6 +429,7 @@ function cargarVentas(){
     $(document).on("keyup","#precp",function(e){
          var code = e.which || e.keyCode;
          if (code == 13) {
+            $("#cantp").val(1).focus().select();
             $(this).blur()
          }
     });

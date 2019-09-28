@@ -108,10 +108,25 @@ $(function(){
             $("#slideDireccion").click();
             return false;
         }
+        if(isNaN($("#c-dias").val())){
+            Materialize.toast('Valor no Numérico',4000,'red');
+            $("#c-dias").focus().select();
+            return false;
+        }
+        if(isNaN($("#c-max").val())){
+            Materialize.toast('Valor no Numérico',4000,'red');
+            $("#c-max").focus().select();
+            return false;
+        }
+        if(parseInt($("#c-dias").val()) <= 0){
+            Materialize.toast('Valor Debe ser Mayor a Cero(0)',4000,'red');
+            $("#c-dias").focus().select();
+            return false;
+        }
 
         var isprov = param.toString().match(new RegExp(/[239]/i)) ? 1 : 0;
 
-        var pr = getDatos('',172,'1,0,"'+$("#c-ap1").val()+'","'+$("#c-ap2").val()+'","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,'+isprov+',0,500000,30,0,1,"",@@usr,30,"",0,@@impresa,@id,1,0,0,""',0,0,0);
+        var pr = getDatos('',172,'1,0,"","","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,'+isprov+',0,'+$("#c-max").val()+','+$("#c-dias").val()+',0,1,"",@@usr,0,"",0,@@impresa,@id,1,0,0,""',0,0,0);
 
         if(guardarSlide(1,pr,2)){
             Materialize.toast('Cliente Agregado Exitosamente',4000,'green');
@@ -375,6 +390,13 @@ $(function(){
             draggable: true
         });
     }
+
+    $("#ccr").change(function(){
+        if($(this).is(":checked"))
+            $("#idcc").removeClass('hide')
+        else
+            $("#idcc").addClass('hide')
+    })
 
     cargarMoneda(0);    
     permisos(1101,1110);

@@ -44,50 +44,110 @@
         </div>
 
         <br>
-         <h3 class="center-align">Cuentas por Defecto Sistema</h3>
+         <h3 class="center-align">Cuentas por Procesos del Sistema</h3>
 
-         <div class="row pequeño">
-
-            <div class="col s12 pequeño">
-            <table class=" pequeño centered highlight bordered responsive-table z-depth-5 " id="data-table-defecto">
-            <thead>
-                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important">Nombre</th>
-                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width: 100%;">Cuenta</th>
-                <th class="white-text blue" style="border: 0px;  border-radius: 0px !important; width: 100%;">Cambiar</th>
-            </thead>
-            <tbody>
-             {section name=LE loop=$DCUE}
-                <tr id="def{$DCUE[LE][0]}">
-                    <td style="width:20%">{$DCUE[LE][4]} {$DCUE[LE][6]}</td>
-                    <td style="width:50%" id="cta{$DCUE[LE][0]}" pr="{$DCUE[LE][1]}">{$DCUE[LE][2]}</td>
-                    <td style="width:50%">
-                      <i class="mdi mdi-camera-switch mdi-24px cta-def" style="cursor: pointer" id="r{$DCUE[LE][0]}"></i> 
-                    </td>
-                </tr>
-            {/section}
-            </tbody>
-            </table>
-            </div>
+         <div class="row">
+            <a href="#subpro" id="pventas" class="btn btn-success col s2 mp" mp=1 style="margin-left: 1%;">Ventas</a>
+            <a href="#subpro" id="pcompras" class="btn btn-success col s2 mp" mp=2 style="margin-left: 1%;">Compras</a>
          </div>
-
-         <div id="modal-defcta" class="modal bottom-sheet" style="min-height:520px;" >
-            <div class="modal-content">
-              <h4 class="center">Cambio de Cuenta por Defecto</h4>
-              <br>
-              <div class="input-field">
-                  <select id="vdefecto">
-                    <option value="0" disabled>No Aplica</option>
-                    {section name=LE loop=$RCUE}
-                        <option value="{$RCUE[LE][0]}">{$RCUE[LE][1]}</option>
-                    {/section}
-                </select>
-                <label for="vdefecto" id="ldef-cta"></label>
-            </div>
-            </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-            </div>
-          </div>
          
+         <section id="subpro" class="row" style="padding-top: 1%;"></section>
+         <section id="vistat" style="padding-top: 1%;width: 100%" class="hide">
+          <select><option value="1">Colones (CRC)</option> <option value="2">Dolares (USD)</option></select>
+           <table style="width: 50%;margin: 0px auto;" id="tbl1" class="hide atbl">
+             <tr>
+               <td></td>
+               <td style="border-bottom: 1px solid black; border-right: 1px solid black; text-align: center"><b>DEBE</b></td>
+               <td style="border-bottom: 1px solid black; text-align: center"><b>HABER</b></td>
+               <td></td>
+             </tr>
+             <tbody id="cuerpoc">
+               <tr>
+                 <td style="padding: 0px">EFECTIVO</td>
+                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>caja chica</option></select></td>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px">TARJETAS</td>
+                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>tarjetas</option></select></td>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px">BANCOS</td>
+                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>cta banco</option></select></td>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px">DESCUENTOS</td>
+                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>descuentos</option></select></td>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+                <tr>
+                 <td style="padding: 0px">CREDITOS CP</td>
+                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>cxc</option></select></td>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px">CREDITOS LP</td>
+                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>documentos lp</option></select></td>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+                <tr>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px;border-right: 1px solid black;"></td>
+                 <td style="padding: 0px"><select class="browser-default"><option>inventario</option></select></td>
+                 <td style="padding: 0px">MERCANCIAS</td>
+               </tr>
+                <tr>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px;border-right: 1px solid black;"></td>
+                 <td style="padding: 0px"><select class="browser-default"><option>ing por servicios</option></select></td>
+                 <td style="padding: 0px">SERVICIOS</td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px;border-right: 1px solid black;"></td>
+                 <td style="padding: 0px"><select class="browser-default"><option>iva por pagar</option></select></td>
+                 <td style="padding: 0px">IVA</td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px" title="Costo Mercaderia Vendida">CMV</td>
+                 <td style="padding: 0px;border-right: 1px solid black;border-top: 1px solid black;"><select class="browser-default"><option>cmv</option></select></td>
+                 <td style="padding: 0px;border-top: 1px solid black;"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px;border-right: 1px solid black"></td>
+                 <td style="padding: 0px"><select class="browser-default"><option>ing. Venta</option></select></td>
+                 <td style="padding: 0px">VENTA</td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px">Bancos</td>
+                 <td style="padding: 0px;border-right: 1px solid black;border-top: 1px solid black;"><select class="browser-default"><option>bancos</option></select></td>
+                 <td style="padding: 0px;border-top: 1px solid black;"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px">SERV. BANCARIO</td>
+                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>datafonos</option></select></td>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px"></td>
+               </tr>
+               <tr>
+                 <td style="padding: 0px"></td>
+                 <td style="padding: 0px;border-right: 1px solid black;"></td>
+                 <td style="padding: 0px"><select class="browser-default"><option>tarjetas</option></select></td>
+                 <td style="padding: 0px">TARJETAS</td>
+               </tr>
+             </tbody>
+           </table>
+         </section>
     </div>
 </div>

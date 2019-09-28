@@ -8,7 +8,7 @@
 <td style="width: 10%" class="tr trCompra"><?php echo $obj[2] ?></td>
 <td style="width: 10%" class="tr trCompra trVenta trCot"><?php echo $obj[4] ?></td>
 <td style="width: 10%"><?php echo $obj[5] ?></td>
-<td style="width: 10%"><?php echo $obj[6] ?></td>
+<td style="width: 10%"><?php echo substr($obj[6],0,20)   ?></td>
 <td style="width: 10%"><?php echo $obj[7] ?></td>
 <td style="width: 10%"><?php echo $obj[8] ?></td>
 <td style="width: 10%">
@@ -49,7 +49,7 @@
 
         <i class="mdi mdi-24px mdi-content-duplicate clone tooltipped tr hide" data-tooltip="Clonar" data-position="left" id="t<?php echo $obj[0] ?>" style="cursor: pointer;"></i> -->
 
-        <i class="mdi mdi-36    px mdi-send send tooltipped tr trVenta trCot trOCompra trExportacion " data-tooltip="Enviar por Correo" data-position="left" id="s<?php echo $obj[0] ?>" style="cursor: pointer;"></i>
+        <i class="mdi mdi-24px mdi-send send tooltipped tr trVenta trCot trOCompra trExportacion " data-tooltip="Enviar por Correo" data-position="left" id="s<?php echo $obj[0] ?>" style="cursor: pointer;"></i>
 
         </div>
 </td>
