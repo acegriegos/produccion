@@ -118,7 +118,7 @@ $(function(){
             $("#c-max").focus().select();
             return false;
         }
-        if(parseInt($("#c-dias").val()) <= 0){
+        if(parseInt($("#c-dias").val()) <= 0 && $("#c-dias").is(":visible")){
             Materialize.toast('Valor Debe ser Mayor a Cero(0)',4000,'red');
             $("#c-dias").focus().select();
             return false;

@@ -80,7 +80,7 @@ $(document).on("click",".tc-show",function(){
             $(".s-cliente").sideNav('destroy');
 
     if ($("#slide-tc").length == 0) {
-        var ul = '<ul id="slide-tc" class="side-nav" style="z-index:1500;"><li><div class="user-view center"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div> <a class="btn btn-default" id="eslide" style="bottom:42px;position:absolute;">Salir</a></li></ul>';
+        var ul = '<ul id="slide-tc" class="side-nav" style="z-index:1500;padding-left:0.5%;"><li><div class="user-view center"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div> <a class="btn btn-default" id="eslide" style="bottom:42px;position:absolute;">Salir</a></li></ul>';
         $(".bdy").append(ul);
     }
     
@@ -2029,7 +2029,7 @@ function crreo_addon_ckub(vfila,vcorreo){
 
     if (validarCorreo(vcorreo)) {
         if (vfila == undefined) {
-            $("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close close_mail mdi mdi-close"></i></div>');
+            $("#fcorreos").append('<div id="cgl'+cont+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+cont+'" style="font-size: 16px;font-weight: bold;">'+$("#correo_in").val()+'</span><i id="cd_'+cont+'" class="close close_mail mdi mdi-close"></i></div>');
             $("#slideCorreo").data('fila'+cont,{vaccion:1,vidcorreo:0,vcorreo:$("#correo_in").val()});
             
             $("#correo_in").val('');
