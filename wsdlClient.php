@@ -1917,6 +1917,7 @@
                 //PDF
                 $_arch = !isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
                 $pdftbl = $this->idtabla == 64 ? 72 : 186;
+                print_r($pdftbl);
                 $_arreglo = ['arch'=> $_arch,'id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>$pdftbl,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
 
                 $curl = curl_init($actual_link);
@@ -1933,6 +1934,7 @@
                 $postData = rtrim($postData, '&');
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
                 $json_response = curl_exec($curl);
+
                 }
                 //XML
                 $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA'],'restado' => $tit];

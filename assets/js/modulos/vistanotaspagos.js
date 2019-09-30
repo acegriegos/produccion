@@ -101,9 +101,9 @@ function sendVMail(idfact,idnota,cnota){
 
         if (str_correos != '') {
             var vbody = getDatos('',73,'-'+idnota,0,0)[0][0];
-            var vestado = $("#tf5").is(":checked") ? 'Nota Crédito' : 'Nota Débito';
+            var vestado = $("#tf5").is(":checked") ? 'Nota Credito' : 'Nota Debito';
             archivos = makeArchivos(cnota,factura,idfact,'-'+idnota,vbody[1],vestado);
-            enviarCorreo(3,str_correos,"Nota Crédito N° "+cnota,vbody[0],archivos,0,idnota,301);
+            enviarCorreo(3,str_correos,"Nota Credito No "+cnota,vbody[0],archivos,1,idnota,301);
         }
     
         //
@@ -115,7 +115,7 @@ function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
     console.log(vidnota)
     mantenimiento_async('login',8,{arch:'recibo-notas-pagos',id:vidnota*-1,mic:1,tit:vestado,sel:'',tbl:186,where:vidnota*-1},1);
 
-    archivos = {0:'xml/'+vestado+' N°'+vnota+', '+vsucursal+'.xml',1:'pdf/'+vestado+' N°'+vnota+', '+vsucursal+'.pdf'}
+    archivos = {0:'xml/'+vestado+' N°'+vnota+', '+vsucursal+'.xml',1:'pdf/'+vestado+' No '+vnota+', '+vsucursal+'.pdf'}
     mantenimiento_async('login',9,{id:vidnota,factura:vnota,sucursal:vsucursal,restado:vestado},1);
 
     return archivos;
@@ -128,6 +128,7 @@ function postExcecute(vid,p){
             Materialize.toast('Correo Enviado',4000,'green')
             break;
     }
+    return false;
 }
 
 function postSendmail() {

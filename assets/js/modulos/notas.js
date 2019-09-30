@@ -448,7 +448,7 @@ function sendFE(clave,factura){
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
-        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de ',con_con:1,arch:'recibo-notas-pagos'}
+        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de ',con_con:1,arch:'recibos-notas-pagos',pre:'-'}
     })
       .done(function( data ) {
         console.log(data)
@@ -465,7 +465,6 @@ function sendFE(clave,factura){
                 var tp = $("#p_v").is(":checked") == true ? 1 : 2;
                 window.open('cuentas?accion=4&id='+clave+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
             }
-            // sendVMail(factura,clave,vclave);
         }
         catch(err){
             console.log(err)
@@ -478,62 +477,6 @@ function sendFE(clave,factura){
         }
         
       });
-}
-
-
-function sendVMail(idfact,idnota,cnota){
-    var archivos = '';
-    var idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+idfact,0,0);
-    var factura = idcliente[0][0][1];
-    var clave = idcliente[0][0][2];
-    idcliente = parseInt(idcliente[0][0][0]);
-
-    if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
-        str_correos = '';
-
-        if (idcliente != 0) {
-            var correos = getDatos("",18,idcliente+",2",0,0);
-            if (correos == undefined) {
-                Materialize.toast('Correos Inválidos',4000,'red');
-                arr('login',7,2,301,'feestado=2','id='+idnota,0,0);
-            }else{
-                for (var i = 0; i < correos[0].length; i++) {
-                    str_correos += correos[0][i][3]+",";
-                }
-
-                str_correos = str_correos.substr(0,str_correos.length-1);
-            }
-        }
-        
-        if (config[4] == 1) {
-            var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-            window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-        }
-
-        if (str_correos != '') {
-            var vbody = getDatos('',73,'-'+idnota,0,0)[0][0];
-            var vestado = $("#ncd").is(":checked") ? 'Nota Crédito' : 'Nota Débito';
-            archivos = makeArchivos(cnota,factura,idfact,idnota,vbody[1],vestado);
-            enviarCorreo(3,str_correos,"Nota Crédito N° "+cnota,vbody[0],archivos,0,idnota,301);
-        }
-    
-        //
-    }else{
-        if (config[4] == 1){
-            var tp = $("#p_v").is(":checked") == true ? 1 : 2;
-            window.open('cuentas?accion=4&id='+idnota+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
-        }
-    }
-}
-
-function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
-    var archivos = '';
-    mantenimiento_async('login',8,{arch:'recibo',id:vidfactura,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vidfactura},1);
-
-    archivos = {0:'xml/'+vestado+' N°'+vnota+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
-    mantenimiento_async('login',9,{id:vidnota,factura:vnota,sucursal:vsucursal,restado:vestado},1);
-
-    return archivos;
 }
 
 function postExcecute(vid,p){

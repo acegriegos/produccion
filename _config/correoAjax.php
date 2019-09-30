@@ -30,7 +30,19 @@ if($con_con){
     require_once $ubi.'wsdlClient.php';
     include_once 'mysqlDB.php';
     sleep(10);
-    $fe = new facturaElectronica($_POST['idfila']);
+    $pre = '';
+    if(isset($_POST['idtabla'])){
+        switch ($_POST['idtabla']) {
+            case 301:
+                $pre = '-';
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    } 
+    $fe = new facturaElectronica($pre.$_POST['idfila']);
     $estado = $fe->estado();
 
     if(isset($estado['estado'])){
