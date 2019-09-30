@@ -552,7 +552,7 @@ function loadpool(vmodulo,vid,vvarias){
 
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
             case 'select':
-            
+
             if ($("#"+vform+" #"+columns[0][1][i]['name']).attr('multiple') == undefined){
                 $("#"+vform+" #"+columns[0][1][i]['name']).val(columns[0][0][0][i]);
                 $("#"+vform+" #"+columns[0][1][i]['name']).material_select('update');
@@ -1008,7 +1008,7 @@ function deadclear(vform) {
     if (acc == 1) {
         vform = "#f"+vform+"s";
         /*REGLAS PARA VACIAR CAMPOS*/
-        $(vform+" :input").each(function(){
+        $(vform+" [type]").each(function(){
             if ($(this).attr('noClear') == undefined && $(this).prop('id') != '') { 
                 switch($(this).attr('type')){
                     case 'checkbox':
@@ -1029,7 +1029,6 @@ function deadclear(vform) {
                     $(vform+" #"+$(this).prop('id')).val('');
                     break;
                     case 'select':
-                    $(vform+" #"+$(this).prop('id')).val("");
                     if ($(vform+" #"+$(this).prop('id')).val() == undefined)
                         $(vform+" #"+$(this).prop('id')).val(0)
                     $(vform+" #"+$(this).prop('id')).material_select('update');
@@ -1043,7 +1042,7 @@ function deadclear(vform) {
         
     } else
     acc = 1;
-    // Materialize.updateTextFields();
+    Materialize.updateTextFields();
 }
 
 function thorload(vtabla) {

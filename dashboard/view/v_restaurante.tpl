@@ -74,7 +74,7 @@
 
       <ul id="shcomanda" class="side-nav hide-on-small-only" style="max-width: 400px !important; font-size: 1.2em !important;z-index: 1016">
       <li>
-        <div class="userView">
+        <div id="userView">
         </div>
       </li>
     </ul>
@@ -89,6 +89,16 @@
         </ul>
       </div>
     </div>
+
+     <div id="modal-comentario" class="modal modal-fixed-footer" style="z-index: 1600 !important">
+          <div class="modal-content">
+            <h4 id="pname"></h4>
+            <div id="cbody"></div>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="savecoment">Aceptar</a>
+          </div>
+        </div>
 
     <div id="modal-barra" class="modal modal-fixed-footer grandemodal" style="min-height: 100vh !important; min-width: 90% !important">
       <div class="modal-header head3 center" style="height: 36px;"><span id="btit">Barra</span> <i class="mdi mdi-magnify der pbtn mdi-24px hide" id="bcodigo"></i></div>
@@ -118,12 +128,12 @@
     </div>
 
     <div id="modal-mesa" class="modal modal-fixed-footer comanda">
-      <div class="modal-header head3" style="height: 36px;padding-left: 1%;padding-right: 1%"><a href="#" class="btn" id="tit">Mesa<i class="mdi mdi-magnify der pbtn mdi-24px hide" id="scodigo"></i></a> <i class="mdi mdi-account-plus mdi-24px der pbtn" title="Agregar Persona"></i> </div>
+      <div class="modal-header head3" style="height: 36px;padding-left: 1%;padding-right: 1%"><section id="clientes" style=" float: left;"> <span id="tit">Mesa</span> </section> <i class="mdi mdi-account-plus mdi-24px pbtn der" id="agcliente" title="Agregar Persona"></i> </div>
 
       <div class="modal-content" style="padding: 0px" id="ffacturas">
         <input type="hidden" class="zelda">
           <div class="row">
-            <div class="col l3 hide-on-small-only" style="overflow: auto;">
+            <div class="col l3 hide-on-small-only" style="overflow: auto;" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" >
               <section id="lentradas"></section>
               <section id="lpfuertes"></section>
               <section id="lpostres"></section>
@@ -132,8 +142,12 @@
             </div>
           <div class="col s12 l9" style="border-left: 1px solid black;height: 80vh;">
             <div class="row col s12" style="margin: 0px;">
-              <select class="browser-default col s4"> <option>Todos los Productos</option> </select>
-              <input type="text" placeholder="Buscar Producto" class="der" style="width: 30%">
+              <select class="browser-default col s4" id="lfam"> 
+                {section name=LE loop=$FAM}
+                  <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
+                {/section}
+              </select>
+              <input type="text" placeholder="Buscar Producto" class="der" style="width: 30%" id="sprod">
             </div>
             
             <ul>
@@ -141,36 +155,18 @@
               <li class="tab col s1"><a href="#test1">{$FAM[0][LE][1]}</a></li>
               {/section}
             </ul>
-          <div id="test1" class="col s12">
-
-            <div class="comida" trid="1" trcol="0" isbebida="0" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">
-              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0;">¢<span class="cprod">1,500.00</span></span>
-              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;" class="nprod">Producto 1</span>
-              <div class="chover hide" style="position: absolute;right: 0;padding-top: 20%">
-                <i class="mdi mdi-circle tlista" trcol="1" style="color: green;z-index: 998" title="ENTRADA"></i> <br>
-                <i class="mdi mdi-circle tlista" trcol="2" style="color: #C32B1B;z-index: 998" title="PLATO FUERTE"></i> <br>
-                <i class="mdi mdi-circle tlista" trcol="3" style="color: blue;z-index: 998" title="POSTRE"></i> 
-              </div>
-              <img src="../assets/img/foto.svg" height="90%" width="90%;">
-            </div>
-            
-
-            <div class="comida" trid="2" trcol="0" isbebida="-1" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">
-              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0;">¢<span class="cprod">4,000.00</span></span>
-              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;" class="nprod">Bebida 1</span>
-              <img src="../assets/img/foto.svg" height="90%" width="90%;">
-            </div>
+          <div id="test1" class="col s12" style="max-height: -webkit-fill-available;overflow-y: auto;margin-bottom: 10%">
 
           </div>
         </div>
-        
+
       </div>
     
-      <div class="modal-footer">
-        <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="total_mesa">0.00</span> CRC / <span id="total_mesa_d">0.00</span> USD </section>
+      <div class="modal-footer row" style="z-index: 1014;margin: 0px">
+        <section style="float: left;font-size: 16px;padding-top: 2px;" class="col l3"><span style="float: left;"><b>TOTAL:</b></span> <span id="total_mesa">0.00</span> CRC <br> <span id="total_mesa_d">0.00</span> USD </section>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder" style="float: left"></a>
         
-        <i data-activates="shcomanda" class="mdi mdi-eye mdi-24px pbtn button-collapses-com hide" title="Ver Comanda" style="padding-right: 2%"></i>
+        <i data-activates="shcomanda" class="mdi mdi-eye mdi-24px pbtn button-collapses-com hide" title="Ver Comanda" id="mcomanda" style="padding-right: 2%"></i>
 
         Cocina General <i class="mdi mdi-flag-variant pbtn"></i> Entrada <i class="mdi mdi-flag-variant green-text"></i> Plato Fuerte <i class="mdi mdi-flag-variant" style="color: #C32B1B"></i> Postre <i class="mdi mdi-flag-variant blue-text"></i>
 

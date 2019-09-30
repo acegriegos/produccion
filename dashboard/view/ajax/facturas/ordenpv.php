@@ -154,7 +154,7 @@ echo '<table  style="width: 100% !important;">
             <td align="center" width="20%">'.$obj[0].'</td>
             <td align="center" width="50%">'.$obj[2].'</td>
             <td align="right" width="30%">'.number_format($obj[1],2).'</td>';
-        $grav += $obj[1]/1.23;
+        $grav += $obj[1];
         //$sr += ($obj[1]/1.23)*0.1;
       /*}else
         $sr += str_replace(',', '', $obj[20]);*/

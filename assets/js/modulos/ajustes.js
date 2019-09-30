@@ -222,7 +222,7 @@ $(document).on("click",".menu3",function(){
 				$(this).css('opacity','1');	
 				$(".atbl").addClass('hide');
 				$("#tbl"+$(this).attr('mp')).removeClass('hide');
-				var datos = getDatos('',,'',0,0,0);
+				//var datos = getDatos('',,'',0,0,0);
 				switch (parseInt($(this).attr('mp'))) {
 					case 1:
 						break;

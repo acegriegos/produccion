@@ -60,15 +60,33 @@ $pageLayout = array($width, $height);
 $pdf->AddPage('P',$pageLayout);
 $total = 0;
 
-$html = '<div style="text-align: center;"><b>RESTAURANTE NOMBRE</b> <br> MESA #1 <br> Atiente: Andres Miranda <br>
-'.date('d/m/Y H:m:s').' </div> <br><br> <table><tr><td colspan="2" style="border-bottom: 1px solid black;">Entrada</td></tr>
-<tr> <td>1</td> <td>ENSALADA LECHUGA</td> </tr>
-<tr> <td></td> <td>>Mucha Sal</td> </tr>
-<tr><td colspan="2"></td></tr> <tr><td colspan="2" style="border-bottom: 1px solid black;">Plato Fuerte</td></tr>
-<tr> <td>1</td> <td>LOMITO</td> </tr>
-<tr> <td></td> <td>>3/4</td> </tr>
-<tr> <td>1</td> <td>LOMITO</td> </tr>
-</table>
+$html = '<div style="text-align: center;"><b>'.$transaccion[0][0].'</b> <br> '.$transaccion[0][1].' <br> Atiente: '.$transaccion[0][2].' <br>
+'.date('d/m/Y H:m:s').' </div> <table>';
+
+$val = '';
+$marr = [0=>'COCINA',1=>'ENTRADAS',2=>'PLATOS FUERTES',3=>'POSTRES',4=>'BEBIDAS'];
+foreach ($transaccion as $obj) {
+    if($obj[3] != $val){
+        $html .= '<tr><td colspan="2"></td></tr> <tr><td colspan="2" style="border-bottom: 1px solid black;">'.$marr[$obj[3]].'</td></tr>';
+        $val = $obj[3];
+    }
+
+    if($obj[6] <> ''){
+        $cantt = strlen($obj[6]) - strlen( str_replace('^','',$obj[6])); 
+        $residuo = '';
+        $totalr = $obj[6];
+
+        for ($i=0; $i < $obj[4]; $i++) { 
+            $residuo = substr($totalr,1,strpos($totalr, '!'));
+            $totalr = substr($totalr,strlen($residuo)+1);
+            $html .= '<tr> <td>1</td> <td>'.$obj[5].'</td> </tr> <tr> <td></td> <td>->'.str_replace('^','',str_replace('!','',$residuo)).'</td> </tr>';
+        }
+    }
+    else
+        $html .= '<tr> <td>'.$obj[4].'</td> <td>'.$obj[5].'</td> </tr>';
+}
+
+$html .= '</table>
 <br><br><br>';
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.
 $pdf->writeHTML($html, true, false, true, false, '');
@@ -77,6 +95,6 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('../assets/pdf/Com'.$nom.'.pdf','F');
+$pdf->Output('../assets/pdf/C-'.$nom.'.pdf','F');
 
 ?>
