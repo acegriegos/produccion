@@ -235,7 +235,7 @@
     </section>
 
     </div>
-    <div class="col s12 hide-on-med-and-down">
+    <div class="trsec col s12 hide-on-med-and-down">
 <!--     <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead> -->
         <section class="trVenta hide">

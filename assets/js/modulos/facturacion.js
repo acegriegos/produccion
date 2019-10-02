@@ -535,7 +535,7 @@ function cargarGlobal(){
         $("#vfecha").blur();
     }});
 
-    if ($(".trsec:hidden").length > 1){
+    if ($(".trsec:hidden").length == 1){
         $(".trsec.hide-on-large-only").remove();
     }
     else
