@@ -535,8 +535,9 @@ function cargarGlobal(){
         $("#vfecha").blur();
     }});
 
-    if ($(".trsec:hidden").length == 1)
+    if ($(".trsec:hidden").length > 1){
         $(".trsec.hide-on-large-only").remove();
+    }
     else
        $(".trsec.hide-on-med-and-down").remove();
 
@@ -874,6 +875,16 @@ function cargarGlobal(){
     }
 
     $("#p_v").change();
+
+    $(document).on("change","[id^=cant]",function(){
+        var valor = $(this).val();
+        if(isNaN(valor))
+            $(this).val(1)
+        if(parseFloat(valor) <= 0)
+            $(this).val(1)
+        $(this).parent().parent().data('triforce')['vcantidad'] = valor;
+        totalizar();
+    });
 
 }//cargar GLOBAL
 

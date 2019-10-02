@@ -25,7 +25,7 @@
     
     <div class="row">
 
-      <div class="input-field col s6 ecant">
+      <div class="input-field col s6 ecant hide">
         <input type="text" id="ecantidad">
         <label for="ecantidad">Cantidad</label>
       </div>

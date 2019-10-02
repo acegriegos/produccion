@@ -45,7 +45,7 @@ $(document).on("click",".menu3",function(){
 			$("#vcedula").val(e[1]);
 			$("#vpfisico").val(e[2]);
 			if (e[3]){
-				$("#vlogo").removeAttr('hide');
+				$("#vlogo").removeClass('hide');
 				$("#vlogo").attr('src',e[3]);
 				$(".vloge").addClass('hide');
 			}
@@ -59,7 +59,18 @@ $(document).on("click",".menu3",function(){
 			$("#vpass_n_atv").val(e[21]);
 			$("#vpass_n").val(e[22]);
 
-			var actividades = getDatos('codigo,actividad',286,'codigo in(select codigo from sucactivids where idsucursal = @@impresa)',0,0,0);
+			//var actividades = getDatos('codigo,actividad',286,'codigo in(select codigo from sucactivids where idsucursal = @@impresa)',0,0,0);
+
+			$.get( "https://api.hacienda.go.cr/fe/ae", {identificacion:$("#vcedula").val().replace(/-/g,'')})
+			.done(function( data ) {
+			  for(var i = 0;i<data['actividades'].length;i++){
+			  	if(data.actividades[i].estado == 'A'){
+			  		alert(data.actividades[i].codigo);
+			  		//eliminar(293,'idsucursal = @@impresa');
+			  		// insertar(293,'','idsucursal = @@impresa,codactividad = "'+data.actividades[i].codigo+'"');
+			  	}
+			  }
+			});
 
 			$("#actSuc").click(function(){
 
@@ -81,18 +92,6 @@ $(document).on("click",".menu3",function(){
 				if ($("#isfe").is(":checked") && $("#valid_p12").attr('isvalid') == 0) {
 					return "Validación Factura Electrónica Requerida";
 				}	
-
-				$.get( "https://api.hacienda.go.cr/fe/ae", {identificacion:$("#vcedula").val().replace(/-/g,'')})
-				.done(function( data ) {
-				  for(var i = 0;i<data['actividades'].length;i++){
-				  	if(data.actividades[i].estado == 'A'){
-				  		eliminar(293,'idsucursal = @@impresa');
-				  		insertar(293,'','idsucursal = @@impresa,codactividad = "'+data.actividades[i].codigo+'"');
-				  	}
-				  }
-				});
-
-
 			});
 
 			if (e[16] != '') {

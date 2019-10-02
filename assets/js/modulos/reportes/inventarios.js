@@ -4,9 +4,9 @@ $(function(){
     switch(param){
         case 'invgen':
             //arr('login',6,'',254,'6,@@impresa,"",-1,-1,-1,-1,-1','',1,$(".detrep")); 
-            $(".excel").data('parametros')['vista'] = '0,1,2,3,4,5,6,10';
+            $(".excel").data('parametros')['vista'] = '0,2,6,4,7,12,11,5';
             $(".excel").data('parametros')['conteo'] = 1;
-            $(".excel").data('parametros')['suma'] = ',9,10,';
+            $(".excel").data('parametros')['suma'] = ',12,11,5,';
             $(".excel").data('parametros')['original'] = 1;
 
             $("#fbtns").append('<a class="der btn-floating lpc" style="margin-right:2%;" title="Inventariar"><i class="mdi mdi-format-list-checks mdi-24px"></i> </a>');

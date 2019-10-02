@@ -53,7 +53,7 @@ $(function(){
         var charCode = e.which;
         var charStr = keysight(e);
 
-        if ((/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) && $(this).val().trim().length > 2) {
+        if ((/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) && $(this).val().trim().length > 1) {
             var data = getDatos('',6,'"'+$("#bproductos").val()+'",9,@@impresa',0,0,0);
             $("#bdylproductos").html('');
 
@@ -130,7 +130,7 @@ $(function(){
 
         if(guardarSlide(1,pr,2)){
             Materialize.toast('Cliente Agregado Exitosamente',4000,'green');
-            $("#ncli").val($("#c-nom").val()+' '+$("#c-ap1").val()+' '+$("#c-ap2").val()+' *'+$("#c-ced").val()+'*');
+            $("#ncli").val($("#c-nom").val()+' *'+$("#c-ced").val()+'*');
             $("#slideDireccion").data('idbarrio',0);
             $("#slideDireccion").data('direccion','');
             $(".c-st").addClass('hide');

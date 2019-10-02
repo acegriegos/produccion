@@ -41,7 +41,7 @@
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="2" id="chg_tipo2">
-        <label for="chg_tipo2" class="hide per1105">Crédito</label>
+        <label for="chg_tipo2" class="per1105-">Crédito</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="3" id="chg_tipo3" disabled>
         <label for="chg_tipo3" class="per1106 hide">Consignación</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="4" id="chg_tipo4" disabled>
