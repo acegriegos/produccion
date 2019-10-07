@@ -95,7 +95,12 @@
 	   			include_once 'view/ajax/facturas/ordenpv.php';
         			
         	break;
+        	case 11:
+        		$pagina = 1;
+        		$transaccion = $kakaroto->kamehameha('',296,$_REQUEST['arreglo']['idfact'].','.$_REQUEST['arreglo']['idtp']);
 
+        		include_once 'view/ajax/facturas/showfacturas.php';
+        		break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion) or die(header("Location: error"))){

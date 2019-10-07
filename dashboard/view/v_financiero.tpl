@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Financiera</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-financiero.css?v=10.2.0.17">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-financiero.css?v=10.2.0.18">
   </head>
   <body>
     {$NAV}
@@ -80,6 +80,6 @@
       </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/financiero.js?v=10.2.0.17"></script>
+    <script src="../assets/js/modulos/financiero.js?v=10.2.0.18"></script>
   </body>
 </html>

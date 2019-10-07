@@ -57,7 +57,7 @@
 
     <div class="input-field col s12 m3 trCompra hide">
       <label for="vreferencia"></label>
-      <input type="text" id="vreferencia" class="validate" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" />
+      <input type="text" id="vreferencia" class="validate eder" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" readonly />
     </div>
 
     <select id="fcompra" class="col s12 m3 trCompra hide browser-default" style="border: 0px"></select>
@@ -66,7 +66,7 @@
   <hr style="border: 1px solid #F9F9F9; width: 90%">
   <div class="row padd">
 
-   <div class="trCompra hide input-field col s12 m3 l3">
+   <div class="hide input-field col s12 m3 l3">
       <i class="mdi mdi-calendar mdi-24px prefix"></i>
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
@@ -79,7 +79,7 @@
     
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
-      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="new-password"/>
+      <input type="text" id="ncli" value="" class="autocomplete sclie" maxlength="64" autocomplete="new-password"/>
 
       <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180;cursor: pointer;" data-position="bottom" data-tooltip="Agregar Cliente"></a>
 
@@ -206,7 +206,7 @@
  </div>
 
   <div class="row">
-    <div class="col s12" style="padding-right: 0px;margin-bottom: 1.5%;">
+    <div class="col s12" style="padding-right: 0px;margin-bottom: 1.5%;" id="addliner">
 
       <select class="col s3 hide" id="invgeneral" style="margin: 0px;width: 150px;padding: 0px;float: left;">
         <option value="6">NARANJO</option>
@@ -277,7 +277,7 @@
           </div>
         </section>
 
-        <section class="trCompra hide">
+        <section class="trComprae hide">
           <div class="hide-on-med-and-down">
             <div style="padding: 0 !important;" class="col s2 center-align"><b>Código Barras</b></div>
             <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
@@ -330,15 +330,9 @@
           <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
             <input type="text" id="totp" class="f center hide divisa" value="0.00" readonly placeholder="Total">
           </div>
-
-          <div class="center col s12 m2 row" style="font-size: 1em; padding: 0px 5px !important;">
-            <div class="col s4" style="padding: 0px">
-             <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
-            </div>
-          </div>
         </div>
 
-        <div class="trCompra hide trsec hide-on-med-and-down row">
+        <div class="trComprae hide trsec hide-on-med-and-down row">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
             <input type="hidden" id="valores">
@@ -390,39 +384,10 @@
           </div>
         </div>
 
-        <div class="trComprax hide trsec hide-on-med-and-down row">
-          <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad %</b></div>
-          <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad $</b></div>
-          <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Precio Público</b></span></div>
-          <div style="padding: 0 !important;" class="col s2 center"><b>Costo Ponderado</b></div>
-          <div style="padding: 0 !important;" class="col s1"></div>
-          <div style="padding: 0 !important;" class="col s2"></div>
-        </div>
-
-        <div class="trComprax hide trsec hide-on-med-and-down row">
-
-          <div style="padding: 0px 5px !important" class="input-field col s2">
-            <input type="text" class="f center putil" id="putil" value="0" placeholder="Utilidad %" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s2">
-            <input type="text" class="f center putil" id="putils" readonly value="0" placeholder="Utilidad $" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s3">
-            <input type="text" class="f center" id="pventa" min="1" value="0" placeholder="Precio Venta" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0 !important;" class="col s2 center"><span id="preponderado">0.00</span></div>
-          <div style="padding: 0 !important;" class="col s1"></div>
-         
-
-        </div>
-
       </div>
 
       {if $smarty.session.BUSS neq 1}
-      <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px" id="precioscat">
+      <div class="trCompraa hide trsec hide-on-med-and-down row" style="font-size: 12px" id="precioscat">
         <table style="border: 1px solid #e2e2e2">
           <thead>
             <tr>
@@ -1159,4 +1124,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.17"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.18"></script>

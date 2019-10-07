@@ -1116,8 +1116,16 @@
                     // $vunidad = $vunidad == 0 ? 1 : $vunidad;
 
                     $num = (array)$key->NumeroLinea;
-                    $dcodigo = isset($key->Codigo) ? (array)$key->Codigo : isset($key->CodigoComercial) ? $key->CodigoComercial->Codigo : '';
-                    $dcodigo = isset($dcodigo[0]) ? $dcodigo[0] : '';
+                    $dcodigo = '';
+                    if(isset($key->Codigo)) 
+                        $dcodigo = (array)$key->Codigo; 
+                    else
+                        if(isset($key->CodigoComercial)) 
+                            $dcodigo =  1; 
+                        else 
+                            $dcodigo = 2;//  (array)$key->CodigoComercial->Codigo : '';
+                    $salida['codigo'] = $dcodigo;
+                    $dcodigo = isset($dcodigo[0]) ? $dcodigo[0] : '';     
                     
                     $dcantidad = (array)$key->Cantidad;
                     $ddetalle = (array)$key->Detalle;

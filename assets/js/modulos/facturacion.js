@@ -176,20 +176,36 @@ function cargarCompras(){
     $(".trsec.hide").remove(); //.trsec:hidden
 
     $(".isfast").addClass('hide');
+    $("#ingclie").addClass('hide');
 
     $("#precp").attr('readonly',false);
-    $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
-    $("#vdescuentop").removeAttr('disabled');
+    $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor").prop('readonly',true);
+    $("#vdescuentop").prop('readonly',true);
+    $("#monedas").prop('readonly',true);
+    $("#vcomentario").prop('readonly',true);
+
+    $("#facturar").html('Aceptar').attr('id','docompra')
 
     if($("#fcompra").is(':visible')){
         var comprasacp = getDatos('',295,'@@impresa',0,0,0);
 
         var strfact = '<option value="0">Seleccione una Factura</option>'
         for(var i=0; i<comprasacp[0].length;i++){
-            strfact += '<option value="'+comprasacp[0][i][0]+'" title="'+comprasacp[0][i][2]+'">'+comprasacp[0][i][1]+'</option>'
+            strfact += '<option value="'+comprasacp[0][i][0]+'" title="'+comprasacp[0][i][2]+'" ref="'+comprasacp[0][i][4]+'">'+comprasacp[0][i][1]+'</option>'
         }
         $("#fcompra").html(strfact)
     }
+
+    $("#fcompra").change(function(){
+        var vidfact = $('option:selected',this).val();
+        var ref = $('option:selected',this).attr('ref');
+        var client = $('option:selected',this).attr('title');
+        $("#vreferencia").val(ref);
+        $("#ncli").val(client);
+
+        $("#fdetallefacturas").html(mantenimiento('facturacion',11,{idfact:vidfact,idtp:1}));
+        $(".autocomplete").autocomplete();
+    });
     
     $("#celectronica").change(function(){
         if($("#celectronica").is(':checked')){
@@ -240,6 +256,31 @@ function cargarCompras(){
         totalizar();
     });
 
+    $(document).on("keydown",".eqprod",function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = keysight(e)
+       
+        if (/[a-zA-Z0-9-_.&," ]/i.test(charStr) || charCode == 8) {
+            var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : charStr == -1 ? $(this).val() : $(this).val()+charStr;
+            var tipo = getParameterByName('tf');
+            $(".autocomplete-content").remove();
+            
+            $(this).autocomplete({
+                limit: 20,
+                data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1),
+                onAutocomplete: function(val){
+                    
+                    var cod = arr('login',4,'',43,'"'+ val.replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+$("#ffacturas .zelda").data('triforce')['vidtipoventa']+','+$("#invgeneral").val(),0,0,0);
+                    if (cod[0][0] != undefined) {
+                        console.log($(this))
+                    }
+                }
+            })
+
+            $(".autocomplete-content").css('max-width','250px');
+        }
+    });
+
     $("#vplazo").keyup(function(e){
         var code = e.which || e.keyCode
         if(code == 13){
@@ -271,29 +312,31 @@ function cargarCompras(){
             $(".ven2:first").focus();
     });
 
-    $(".addline").click(function(){
-        if ($("#valores").data('elemento') == undefined) {
-            pril.focus();
-            return false
-        }
-        var cant = parseFloat($("#cantp").val()),
-            precio = parseFloat($("#precp").val().replace(/,/g,'')),
-            total = precio * cant;
-        var cod = $("#valores").data('elemento')['hcodp'];
-        var inv = $("#valores").data('elemento')['hinv'];
-        var cnti = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
-        var idprd = $("#valores").data('elemento')['idp'];
-        var desc = $("#descp").val();
-        var hinv = $("#valores").data('elemento')['hinv'];
-        var defi = 0;//arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
-        var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
-        var comodin= $("#valores").data('elemento')['hcomodin'];
-        var desgloce= $("#valores").data('elemento')['isdesgloce'];
-        var strimp = $("#valores").data('elemento')['strimp'];
-        var exo = $("#valores").data('elemento')['exo'];
-        var mobil = $(this).attr('tr') == 2 ? 1 : 0;
+    $("#addliner").addClass('hide');
 
-        addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:$("#descup").val()},0,hinv,0, unidad, comodin,desgloce,strimp,exo,mobil);
+    $(".addline").click(function(){
+        // if ($("#valores").data('elemento') == undefined) {
+        //     pril.focus();
+        //     return false
+        // }
+        // var cant = parseFloat($("#cantp").val()),
+        //     precio = parseFloat($("#precp").val().replace(/,/g,'')),
+        //     total = precio * cant;
+        // var cod = $("#valores").data('elemento')['hcodp'];
+        // var inv = $("#valores").data('elemento')['hinv'];
+        // var cnti = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
+        // var idprd = $("#valores").data('elemento')['idp'];
+        // var desc = $("#descp").val();
+        // var hinv = $("#valores").data('elemento')['hinv'];
+        // var defi = 0;//arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
+        // var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
+        // var comodin= $("#valores").data('elemento')['hcomodin'];
+        // var desgloce= $("#valores").data('elemento')['isdesgloce'];
+        // var strimp = $("#valores").data('elemento')['strimp'];
+        // var exo = $("#valores").data('elemento')['exo'];
+        // var mobil = $(this).attr('tr') == 2 ? 1 : 0;
+
+        // addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:$("#descup").val()},0,hinv,0, unidad, comodin,desgloce,strimp,exo,mobil);
     });
 
     $("#cantp").keyup(function(e){

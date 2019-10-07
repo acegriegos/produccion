@@ -3,8 +3,8 @@
 <head>
     <title>Cambio de Contraseña</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link rel="stylesheet" href="../assets/css/materialize.min.css?v=10.2.0.17">
-    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.17">
+    <link rel="stylesheet" href="../assets/css/materialize.min.css?v=10.2.0.18">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.18">
 </head>
 <body>
 
@@ -26,10 +26,10 @@
 
 </div>
 
-<script src="../assets/js/jquery.js?v=10.2.0.17"></script>
-<script src="../assets/js/jquery.mask.min.js?v=10.2.0.17"></script>
-<script src="../assets/js/materialize.min.js?v=10.2.0.17"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.17"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.18"></script>
+<script src="../assets/js/jquery.mask.min.js?v=10.2.0.18"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.18"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.18"></script>
 
 <script type="text/javascript">
     $(function(){

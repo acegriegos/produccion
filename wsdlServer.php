@@ -230,7 +230,7 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
-                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,null,0,0,0,0,1,'http://35.188.212.38/produccion/wsdlServer.php')");
+                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,null,0,0,0,0,1,'https://recepcion.logintechcr.com/produccion/wsdlServer.php')");
                     }else{
                         $salida['error'] = 14;
                     }
