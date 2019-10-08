@@ -333,7 +333,7 @@ $(document).on("click",".print",function(){
 });
 
 $(document).on("click",".xml",function(){
-	window.location = "../wsdlClient.php?accion=2&id="+$(this).attr('id').substr(1);
+	window.location = "../wsdlClient.php?accion=2&view=1&id="+$(this).attr('id').substr(1);
 });
 
 

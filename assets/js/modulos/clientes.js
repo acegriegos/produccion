@@ -512,7 +512,7 @@ function endDetail(vid,vacc,modulo){
 			if(parseInt($("#videxoneracion").val())){
 				var ffin  = $("#vfechafin").val() == '' ? 'null' : '"'+$("#vfechafin").val()+'"';
 
-				actualizar(285,'tdoc = '+$("#vtipodoc").val()+', ndoc = "'+$("#vnumdoc").val()+'",inst = "'+$("#ventidad").val()+'", femision = "'+$("#vfechaDoc").val()+' '+tiempo+'", exoneracion = '+$("#vporcompra").val()+',ffin = '+ffin+'','id = '+vid[0][0]);
+				consnole.log(actualizar(285,'tdoc = '+$("#vtipodoc").val()+', ndoc = "'+$("#vnumdoc").val()+'",inst = "'+$("#ventidad").val()+'", femision = "'+$("#vfechaDoc").val()+' '+tiempo+'", exoneracion = '+$("#vporcompra").val()+',ffin = '+ffin+'','id = '+vid[0][0]));
 			}else{
 				if($("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
 					var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();

@@ -65,10 +65,10 @@ $html = '<!doctype html>'.
 
 $html .= '<table align="right" boridder="0" cellpadding="0" cellspacing="0"> '.
 '<tr><td>';
-/*if ($miscelaneos[3]) {
+if ($miscelaneos[3]) {
   $logo = isset($url2) ? str_replace('../', '', $miscelaneos[3]) : $miscelaneos[3];
   $html .= '<img src="'.$logo.'" width="264" style="max-width:339px;">';
-}*/
+}
 $html .=  '</td><td valign="top" style="font-size: 13px;font-family: Helvetica;">'.
 '<div style="text-align: center; color: #494949;">';
 $fact = $miscelaneos[2] != '' ? $miscelaneos[2] : $miscelaneos[0];
@@ -113,26 +113,16 @@ for($i = 0; $i<sizeof($datos);$i++){
       </tr>';
   }
 
-  $suma += $datos[$i][6];
-  $html .= '
-      <tr>
-          <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][0].'</td>
-          <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][1].'</td>
-          <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][10].'</td>
-          <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][11].'</td>
-          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][2],2).'</td>
-          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][3],2).'</td>
-          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][4],2).'</td>
-          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][5],2).'</td>
-          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][6],2).'</td>
-          <td style="border:1px solid #e2e2e2">'.$datos[$i][13].number_format($suma,2).'</td>
-      </tr>';
+  $color = '';
 
- if($datos[$i][11] <= 0){
+  if($datos[$i][11] <= 0){
   $sv += $datos[$i][6];
+  $color = 'color:red;';
 
-  if($datos[$i][11] == 0)
+  if($datos[$i][11] == 0){
     $sv0 += $datos[$i][6];
+    $color = '';
+  }
   elseif($datos[$i][11] == -1)
     $sv1 += $datos[$i][6];
   elseif($datos[$i][11] < -1 && $datos[$i][11] >= -8)
@@ -143,7 +133,7 @@ for($i = 0; $i<sizeof($datos);$i++){
     $sv30 += $datos[$i][6];
   else
     $svm30 += $datos[$i][6];
- }else
+ }else{
   $ssv += $datos[$i][6];
 
   if($datos[$i][11] == 1)
@@ -156,6 +146,22 @@ for($i = 0; $i<sizeof($datos);$i++){
     $spv30 += $datos[$i][6];
   else
     $spvm30 += $datos[$i][6];
+}
+
+  $suma += $datos[$i][6];
+  $html .= '
+      <tr style="'.$color.'">
+          <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][0].'</td>
+          <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][1].'</td>
+          <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][10].'</td>
+          <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][11].'</td>
+          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][2],2).'</td>
+          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][3],2).'</td>
+          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][4],2).'</td>
+          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][5],2).'</td>
+          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][6],2).'</td>
+          <td style="border:1px solid #e2e2e2">'.$datos[$i][13].number_format($suma,2).'</td>
+      </tr>';
 }
 
 $html .= '<tr> <td colspan="2" align="left"><br><br><br><br> <br> <b>Saldo por Vencer 1 Dia:</b> <br> <b>Saldo por Vencer 8 Dias</b> <br> <b>Saldo por Vencer 15 Dias</b> <br> <b>Saldo por Vencer 30 Dias</b> <br> <b>Saldo por Vencer +30 Dias</b> <br> <b>Saldo sin Vencer:</b> </td> <td colspan="2" align="right"><br><br><br><br> <br>'.number_format($spv1,2).' <br>'.number_format($spv8,2).' <br>'.number_format($spv15,2).' <br>'.number_format($spv30,2).' <br>'.number_format($spvm30,2).' <br> '.number_format($ssv,2).'</td> <td></td> <td colspan="2" align="left"><br><br><br><br> <b>Saldo Vencido Hoy:</b> <br> <b>Saldo Vencido 1 Dia:</b> <br> <b>Saldo Vencido 8 Dias</b> <br> <b>Saldo Vencido 15 Dias</b> <br> <b>Saldo Vencido 30 Dias</b> <br> <b>Saldo Vencido +30 Dias</b> <br> <b>Saldo Vencido:</b></td> <td colspan="2" align="right"><br><br><br><br>'.number_format($sv0,2).' <br>'.number_format($sv1,2).' <br>'.number_format($sv8,2).' <br>'.number_format($sv15,2).' <br>'.number_format($sv30,2).' <br>'.number_format($svm30,2).' <br> '.number_format($sv,2).'</td> </tr></table></td></tr></table>';

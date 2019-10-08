@@ -7,11 +7,11 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Estado de Cuenta</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.4">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.5">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" porcliente portipo="varios" tbltipos="-1" tipos="Fecha Vencimiento" types="5" elem="" sp="269" modulo="reportecxc" types=""></div>
+      <div class="filtros row" porcliente portipo="varios" tbltipos="0,0" tipos="Fecha Vencimiento,Cobrar Interéses" types="5,3" elem="" sp="269" modulo="reportecxc"></div>
       <input type="hidden" id="vishistorico" value="0">
       <input type="hidden" id="visproveedor" value="0">
       <!-- HEADER -->
@@ -55,7 +55,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.4"></script>
-  <script src="../assets/js/modulos/reportes/cxc.js?v=10.2.0.4"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.5"></script>
+  <script src="../assets/js/modulos/reportes/cxc.js?v=10.2.0.5"></script>
 </body>
 </html>

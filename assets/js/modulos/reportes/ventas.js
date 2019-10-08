@@ -27,9 +27,9 @@ $(function(){
       default:
             break;
     }
-  $(".excel").data('parametros')['vista'] = '0,1,2,3,4,5,11,16,17,26,14,28,30,39,40';
+  $(".excel").data('parametros')['vista'] = '0,2,3,4,5,11,16,17,26,14,1,28,30,39,40,44';
   $(".excel").data('parametros')['conteo'] = 1;
-  $(".excel").data('parametros')['suma'] = ',11,16,17,27,28,29,30,39,40,';
+  $(".excel").data('parametros')['suma'] = ',11,16,17,26,14,28,30,39,40,';
   $(".excel").data('parametros')['original'] = 1;
   arr('login',6,'',167,'0,"'+tipo+'",@@impresa,0,0,1,"","",0,0,0',0,1,$(".detrep"));
 

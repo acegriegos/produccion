@@ -5,7 +5,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
+    $(".principal .filtros").append('<div class="col s12" id="fbtns"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -338,6 +338,7 @@ $(document).on("change",".repcheck",function(){
     if($(this).prop('checked')){
         $("#fltr"+id).show();
         $("#fltr"+id).find('.init').select();
+        $("#vidtipo"+ $(this).attr('id').substr(7)).focus();
     }
     else
         $("#fltr"+id).hide();

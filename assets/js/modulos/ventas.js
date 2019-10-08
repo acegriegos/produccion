@@ -380,7 +380,7 @@ $(function(){
     permisos(1101,1110);
 
     if ($("#celectronica:visible[disabled=disabled]").length){
-        $("#codp").val('*').attr('readonly',true);
+        //$("#codp").val('*').attr('readonly',true);
         $("#tpagos").addClass('hide')
     }
   
@@ -1059,6 +1059,32 @@ $(document).on("click",".mover",function(){
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo,vmobil) {
 
+var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : config[6];
+
+    if(param.toString().match(new RegExp(/[1345678]/i)))
+        $("[for=iva]").addClass('hide');
+    else{
+        vexo = $("#vimpiva option:selected").attr('num')
+    }
+
+    if (isiva && vexo > 0){
+        vexo = parseFloat(vexo);
+        if($("#impm").is(":checked") && $("#impm:visible").length)
+            prec = prec/(1+((10+vexo)/100));
+        else
+            prec = prec/((vexo/100)+1);
+        tot = prec * cant;
+    }
+    var cst = getDatos('if(truncate(costo*(select (mnventa/100)+1 from ajustessucursales where idsucursal = @@impresa),5) >= '+prec+',1,0),truncate(costo*(select (mnventa/100)+1 from ajustessucursales where idsucursal = @@impresa),5)',11,'id='+idprod,0,0,0);
+
+    /*if(parseInt(cst[0][0][0]) && param.toString().match(new RegExp(/[1345678]/i))){
+        $("[for=iva]").removeClass('hide');
+        $(".addline").attr('sg',1);
+        $("#precp").focus().select();
+        Materialize.toast("Precio de Venta no Permitido",4000,"red");
+        return false;
+    }*/
+
     if($("#valores").data('elemento') != undefined){
         var rpago = parseFloat($("#valores").data('elemento')['retpago']) == 0 ? '' : 'retpago="'+$("#valores").data('elemento')['retpago']+'"';
         var inventariado = $("#valores").data('elemento')['inventariado'];
@@ -1077,23 +1103,6 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
 
     $("#valores").removeData('elemento');
-
-    var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : config[6];
-
-    if(param.toString().match(new RegExp(/[1345678]/i)))
-        $("[for=iva]").addClass('hide');
-    else{
-        vexo = $("#vimpiva option:selected").attr('num')
-    }
-
-    if (isiva && vexo > 0){
-        vexo = parseFloat(vexo);
-        if($("#impm").is(":checked") && $("#impm:visible").length)
-            prec = prec/(1+((10+vexo)/100));
-        else
-            prec = prec/((vexo/100)+1);
-        tot = prec * cant;
-    }
 
     if(comodin.indexOf('^') != -1)
         cod = comodin.replace(/\^/g,'');
@@ -1591,9 +1600,9 @@ function cargarSintax(){
 }
 
 function cargarProducto(kbrota,elemento) {
-    if ($("#celectronica:visible[disabled=disabled]").length){
-        kbrota = '*';
-    }
+    // if ($("#celectronica:visible[disabled=disabled]").length){
+    //     kbrota = '*';
+    // }
 
     var cantidad = 1;
     var iscomodin = 0;
@@ -1724,13 +1733,13 @@ function cargarProducto(kbrota,elemento) {
             case 2:
             case 9:
             case 4:
-                if (!$("#celectronica:visible[disabled=disabled]").length) {
+                //if (!$("#celectronica:visible[disabled=disabled]").length) {
                     var $toastContent = $('<span>Producto no Existente</span>').add($('<button class="btn-flat toast-action green white-text addProduct">Agregarlo</button>'));
                     Materialize.toast($toastContent, 10000);
 
                     $(".addProduct").focus();
-                }else
-                    Materialize.toast('Producto no Existente',4000,'red');
+                /*}else
+                    Materialize.toast('Producto no Existente',4000,'red');*/
                 break;
             default:
                 Materialize.toast('Producto no Existente',4000,'red');

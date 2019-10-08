@@ -54,7 +54,7 @@
     $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Tiriyo: ' . imap_last_error());
     
     $emails = imap_search($inbox,'UNSEEN');
-
+    $emails = array_reverse($emails);
     if($emails) {
         $emails = array_reverse($emails);
         foreach($emails as $index => $email_number) {

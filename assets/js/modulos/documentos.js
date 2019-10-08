@@ -59,7 +59,7 @@ $(function(){
 	InitDropzone(1,true,'../cargar.php?accion=4',"#registro-upload",1,'text/xml','','',xmlCargar);
     InitDropzone(1,true,'../cargar.php?accion=4',"#hacienda-upload",1,'text/xml','',removeHacienda,xmlCargar);
 
-    arr('login',6,'',179,'0,0,"1,1,@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
+    arr('login',6,'',179,'0,0,"1,1,@@impresa,0,0,'+$(".tpf.active").attr('tpf')+'","0,10"',0,1,$("#listafacturas"));
     $("#data-table-facturas").dataTable({
 		bFilter: false,
 		bScrollInfinite: true,
@@ -70,7 +70,29 @@ $(function(){
 		info: false
 	});
 
-	paginate($("ul.pagination").attr('vtbl'),undefined,'1,1,@@impresa,0,0');
+    $(".tpf").click(function(){
+        $(".tpf").removeClass('active');
+        $(this).addClass('active');
+        var id = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
+        var tabla = $("#data-table-facturas").DataTable();
+        tabla.destroy();
+        
+        arr('login',6,'',179,'0,0,"1,'+id+',@@impresa,0,0,'+$(this).attr('tpf')+'","0,10"',0,1,$("#listafacturas"));
+        console.log('0,0,"1,'+id+',@@impresa,0,0,'+$(this).attr('tpf')+'","0,10"')
+        paginate($("ul.pagination").attr('vtbl'),undefined,'1,'+id+',@@impresa,0,0,'+$(this).attr('tpf'))
+        $("ul.pagination").attr('filtro_sp','1,'+id+',@@impresa,^,?,'+$(this).attr('tpf'));
+        $("#data-table-facturas").dataTable({
+            bFilter: false,
+            bScrollInfinite: true,
+            bSort: false,
+            bLengthChange: false,
+            order: [],
+            bPaginate: false,
+            info: false
+        });
+    });
+
+	paginate($("ul.pagination").attr('vtbl'),undefined,'1,1,@@impresa,0,0,0');
 });
 
 $(document).on("click",".msjh",function(){
@@ -207,6 +229,7 @@ $(document).on("click",".msjh",function(){
     }
 
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+$("#msjreceptor").val()+'",'+$("#tipo").val()+','+$("#credito").val()+','+$("#gasto").val(),0,0,0);
+    console.log(idcomp+',@@usr,@@impresa,'+tstado+',"'+$("#msjreceptor").val()+'",'+$("#tipo").val()+','+$("#credito").val()+','+$("#gasto").val())
     var crrprov = getDatos('correo',264,'vid = (select idcliente from tmpcompras where id ='+idcomp+')',0,0,0);
 
     crrprov = crrprov[0].length ? crrprov[0][0][0] : '';
@@ -415,10 +438,10 @@ $(document).on("change","input[name=tventa]",function(){
 	var tabla = $("#data-table-facturas").DataTable();
 	tabla.destroy();
 	
-	arr('login',6,'',179,'0,0,"1,'+id+',@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
-    console.log('0,0,"1,'+id+',@@impresa,0,0","0,10"')
-	paginate($("ul.pagination").attr('vtbl'),undefined,'1,'+id+',@@impresa,0,0')
-    $("ul.pagination").attr('filtro_sp','1,'+id+',@@impresa,^,?');
+	arr('login',6,'',179,'0,0,"1,'+id+',@@impresa,0,0,'+$(".tpf.active").attr('tpf')+'","0,10"',0,1,$("#listafacturas"));
+    console.log('0,0,"1,'+id+',@@impresa,0,0'+$(".tpf.active").attr('tpf')+'","0,10"')
+	paginate($("ul.pagination").attr('vtbl'),undefined,'1,'+id+',@@impresa,0,0,'+$(".tpf.active").attr('tpf'))
+    $("ul.pagination").attr('filtro_sp','1,'+id+',@@impresa,^,?,'+$(".tpf.active").attr('tpf'));
 	$("#data-table-facturas").dataTable({
 		bFilter: false,
 		bScrollInfinite: true,
@@ -592,7 +615,6 @@ function cargarSintax(){
 }
 
 function sendFE(clave,str_correos,vtabla,vtit){
-    console.log(str_correos)
     $.ajax({
         async: true,
         url: "../wsdlClient.php",

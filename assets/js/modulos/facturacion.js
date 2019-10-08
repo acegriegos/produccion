@@ -460,6 +460,10 @@ function cargarVentas(){
             pril.focus();
             return false
         }
+        if($(this).attr('sg')){
+            $(this).removeAttr('sg');
+            return false
+        }
         var cant = parseFloat($("#cantp").val()),
             precio = parseFloat($("#valores").data('elemento')['hprec']),
             total = precio * cant;

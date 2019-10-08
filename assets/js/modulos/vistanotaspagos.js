@@ -1,11 +1,11 @@
 var param;
 
 $(function(){
+
     var tf  = getParameterByName('tf');
     param = getParameterByName('tp');
     $('#tf'+tf).prop('checked',true);
-    tf = !tf.length ? 3 : tf;
-    param = !param.length ? 0 : param;
+    
     if(param == 0){
         $("#titg").html('Movimientos Cuentas por Cobrar');
     }else{
@@ -13,8 +13,8 @@ $(function(){
     }
 
 	config = getDatos('',42,'@@impresa',0,0)[0][0];
-	arr('login',6,'',187,'0,0,"'+tf+'|'+param+'|@@impresa","0,10"',0,1,$("#listafacturas"));
-    console.log('0,0,"'+tf+'|0|@@impresa","0,10"')
+	arr('login',6,'',187,'0,0,"'+tf+'|'+param+'|@@impresa|||","0,10"',0,1,$("#listafacturas"));
+    console.log('0,0,"'+tf+'|'+param+'|@@impresa|||","0,10"')
     var tabla = $("#data-table-facturas").DataTable();
     tabla.destroy();
     $("#data-table-facturas").dataTable({
@@ -26,8 +26,9 @@ $(function(){
         bPaginate: false,
         info: false
     });
-    $(".pagination").attr('filtro_sp',tf+'|@@impresa')
-    paginate($("ul.pagination").attr('vtbl'),undefined,tf+'|@@impresa');
+
+    $(".pagination").attr('filtro_sp',tf+'|'+param+'|@@impresa|^|?|')
+    paginate($("ul.pagination").attr('vtbl'),undefined,tf+'|'+param+'|@@impresa|||');
 });
 
 $(document).on("change","input[name=tventa]",function(){
@@ -49,8 +50,8 @@ $(document).on("change","input[name=tventa]",function(){
         info: false
     });
 
-    $(".pagination").attr('filtro_sp',id+',@@impresa')
-    paginate($("ul.pagination").attr('vtbl'),undefined,id+',@@impresa');
+    $(".pagination").attr('filtro_sp',id+'|'+param+'|@@impresa|^|?|')
+    paginate($("ul.pagination").attr('vtbl'),undefined,id+'|'+param+'|@@impresa|||');
     
 });
 
@@ -69,6 +70,7 @@ $(document).on("click",".sendm",function(){
     var factura =  getDatos('idfactura,fe_getnumeracion(id*-1)',301,'id = '+clave,0,0,0)[0][0];
     var vclave = factura[1];
     factura = factura[0];
+    config[3] = 1;
     sendVMail(factura,clave,vclave);
 });
 

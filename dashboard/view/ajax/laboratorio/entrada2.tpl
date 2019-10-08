@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Laboratorio de Hongos Entomopatógenos</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.2.0.4">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.2.0.5">
   </head>
 <body>
   {$NAV}
@@ -122,6 +122,6 @@
     </div>
     
     {$SCR}
-    <script src="../assets/js/modulos/laboratorio.js?v=10.2.0.4"></script>
+    <script src="../assets/js/modulos/laboratorio.js?v=10.2.0.5"></script>
   </body>
 </html>
