@@ -36,11 +36,31 @@ class myPDF extends TCPDF {
           break;
         } 
 
+        $style = array(
+            'position' => '',
+            'align' => 'C',
+            'stretch' => false,
+            'fitwidth' => true,
+            'cellfitalign' => 'yes',
+            'border' => false,
+            'hpadding' => 'auto',
+            'vpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255),
+            'text' => false,
+            'font' => 'helvetica',
+            'fontsize' => 8,
+            'stretchtext' => 4
+        );
+
+        $params = $this->serializeTCPDFtagParameters(array($this->fe, 'C128', '', '', '', 18, 0.4, $style, 'N'));
         $html = '<div align="center">';
           if ($this->fe != '') {
            $html .= '<p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
               <br>Versión API Hacienda: 4.3<br> 
-              <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span></p><br>
+              <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span>
+              <tcpdf method="write1DBarcode" params="'.$params.'"/>
+              </p>
             </div>';
           }else{
             $html .= '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>';
@@ -74,7 +94,7 @@ $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 // set margins
 $pdf->SetMargins(5, 5, 5);
 $pdf->SetHeaderMargin(10);
-$pdf->SetFooterMargin(25);
+$pdf->SetFooterMargin(50);
 $pdf->setPrintFooter(true);
 $pdf->setPrintHeader(false);
 // set auto page breaks
@@ -106,8 +126,7 @@ if ($datos[0][32] != '') {
 }
 
 $html .= '</head>'.
-'<body style="width: 100%"; >'.
-'<center>'.
+'<body style="width: 100%"; > <center>'.
 '<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">'.
 '<tr>'.
 '<td align="left" valign="top" id="bodyCell">'.
@@ -418,6 +437,6 @@ $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 $sld = $datos[0][25] == 'Venta' ?  'Factura' : $datos[0][25];
-$pdf->Output($ubic.'assets/pdf/'.$sld.' N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','F');
+$pdf->Output($ubic.'assets/pdf/'.$sld.' N°'.$datos[0][0].', '.strtoupper($fact).'.pdf','I');
 
 ?>

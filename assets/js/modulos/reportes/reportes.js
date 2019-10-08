@@ -338,6 +338,7 @@ $(document).on("change",".repcheck",function(){
     if($(this).prop('checked')){
         $("#fltr"+id).show();
         $("#fltr"+id).find('.init').select();
+        $("#vidtipo"+ $(this).attr('id').substr(7)).focus();
     }
     else
         $("#fltr"+id).hide();

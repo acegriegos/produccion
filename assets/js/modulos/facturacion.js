@@ -272,7 +272,7 @@ function cargarCompras(){
                     
                     var cod = arr('login',4,'',43,'"'+ val.replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+$("#ffacturas .zelda").data('triforce')['vidtipoventa']+','+$("#invgeneral").val(),0,0,0);
                     if (cod[0][0] != undefined) {
-                        console.log($(this))
+                        console.log($(this).data())
                     }
                 }
             })

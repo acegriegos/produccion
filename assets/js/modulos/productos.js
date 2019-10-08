@@ -1370,7 +1370,6 @@ $(document).on("blur",".calcvv",function(){
 			case 3: // VENTA
 				break;
 			case 4: //IMV
-				alert(1)
 				break;
 			default:
 				console.log("globalizar")
@@ -2158,15 +2157,17 @@ function endDetail(id, acc, modulo) {
 
 			$("[id^=vldimension]").each(function(){
 				var num = $(this).attr('id').substr(11);
+				var acc = parseInt($("#dimension"+num).attr('vid'));
 
 				if($("#vldimension"+num).val().trim().length > 0 && parseInt($("#vldimension"+num).val()) ){
-					var acc = parseInt($("#dimension"+num).attr('vid'));
 
 					if(acc == 0){
 						insertar(283,'','null,'+id[0][0]+','+$("#unidimension"+num).val()+',"",'+num+','+$("#vldimension"+num).val());
 					}else{
 						actualizar(283,'idunidad = '+$("#unidimension"+num).val()+',valor = '+$("#vldimension"+num).val(),'id = '+acc);
 					}
+				}else if (acc != 0) {
+					actualizar(283,'valor = 0','id = '+acc);
 				}
 			});
 

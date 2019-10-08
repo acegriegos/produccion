@@ -13,7 +13,7 @@
         $salida['ap1'] = "";
         $salida['ap2'] = "";
         $salida['nom'] = $data['nombre'];
-        $salida['ced'] = $_REQUEST['ced'];
+        $salida['ced'] = substr($_REQUEST['ced'], 0,10);
         $salida['tip'] = $data['tipoIdentificacion'];
         $salida['succed'] = 1;
     }else{

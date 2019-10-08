@@ -7,9 +7,9 @@ var opcompras = '<option value="1">Compra</option> <option value="2">Gasto</opti
 $(function(){
     config = getDatos('',42,'@@impresa',0,0)[0][0];
 
-	$('[href="#modal-getxml"]').click(function(){
-		$("#modal-getxml").modal('open')
-	});
+    $('[href="#modal-getxml"]').click(function(){
+        $("#modal-getxml").modal('open')
+    });
 
     $('[href="#modal-irobot"]').click(function(){
         $("#modal-irobot").modal('open');
@@ -47,30 +47,52 @@ $(function(){
     });
 
 
-	$("#ret-xml").click(function(){
-		$("[xml=3]").addClass('hide');
-		$("[xml=2]").addClass('hide');
-		$("[xml=1]").removeClass('hide');
+    $("#ret-xml").click(function(){
+        $("[xml=3]").addClass('hide');
+        $("[xml=2]").addClass('hide');
+        $("[xml=1]").removeClass('hide');
         $("[xml=4]").removeClass('hide');
         Dropzone.forElement("#registro-upload").removeAllFiles(true);
         Dropzone.forElement("#hacienda-upload").removeAllFiles(true);
-	});
+    });
 
-	InitDropzone(1,true,'../cargar.php?accion=4',"#registro-upload",1,'text/xml','','',xmlCargar);
+    InitDropzone(1,true,'../cargar.php?accion=4',"#registro-upload",1,'text/xml','','',xmlCargar);
     InitDropzone(1,true,'../cargar.php?accion=4',"#hacienda-upload",1,'text/xml','',removeHacienda,xmlCargar);
 
-    arr('login',6,'',179,'0,0,"1,1,@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
+    arr('login',6,'',179,'0,0,"1,1,@@impresa,0,0,'+$(".tpf.active").attr('tpf')+'","0,10"',0,1,$("#listafacturas"));
     $("#data-table-facturas").dataTable({
-		bFilter: false,
-		bScrollInfinite: true,
-		bSort: false,
-		bLengthChange: false,
-		order: [],
-		bPaginate: false,
-		info: false
-	});
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
 
-	paginate($("ul.pagination").attr('vtbl'),undefined,'1,1,@@impresa,0,0');
+    $(".tpf").click(function(){
+        $(".tpf").removeClass('active');
+        $(this).addClass('active');
+        var id = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
+        var tabla = $("#data-table-facturas").DataTable();
+        tabla.destroy();
+        
+        arr('login',6,'',179,'0,0,"1,'+id+',@@impresa,0,0,'+$(this).attr('tpf')+'","0,10"',0,1,$("#listafacturas"));
+        console.log('0,0,"1,'+id+',@@impresa,0,0,'+$(this).attr('tpf')+'","0,10"')
+        paginate($("ul.pagination").attr('vtbl'),undefined,'1,'+id+',@@impresa,0,0,'+$(this).attr('tpf'))
+        $("ul.pagination").attr('filtro_sp','1,'+id+',@@impresa,^,?,'+$(this).attr('tpf'));
+        $("#data-table-facturas").dataTable({
+            bFilter: false,
+            bScrollInfinite: true,
+            bSort: false,
+            bLengthChange: false,
+            order: [],
+            bPaginate: false,
+            info: false
+        });
+    });
+
+    paginate($("ul.pagination").attr('vtbl'),undefined,'1,1,@@impresa,0,0,0');
 });
 
 $(document).on("click",".msjh",function(){
@@ -274,7 +296,7 @@ function msjh(){
 }
 
 $(document).on("click",".status",function(){
-	if ($(this).is("[disabled]")) {
+    if ($(this).is("[disabled]")) {
         event.preventDefault();
     }
 
@@ -283,116 +305,116 @@ $(document).on("click",".status",function(){
         return false;
     }
 
-	$(".status").attr('disabled',true)
-	var vid = $(this).attr('id').substr(1);
-	switch(parseInt($("input[name=tventa]:checked").attr('id').substr(2))){
-		case 2:
-		case 3:
-			vid = '-'+vid;
-			break;
-		case 5:
-		case 6:
-		case 7:
-			vid = '^'+vid;
-			break;
+    $(".status").attr('disabled',true)
+    var vid = $(this).attr('id').substr(1);
+    switch(parseInt($("input[name=tventa]:checked").attr('id').substr(2))){
+        case 2:
+        case 3:
+            vid = '-'+vid;
+            break;
+        case 5:
+        case 6:
+        case 7:
+            vid = '^'+vid;
+            break;
         case 8:
             vid = '!'+vid;
             break;
-		default:
-			break;
-	}
+        default:
+            break;
+    }
     $(this).removeClass('mdi-information-outline').addClass('mdi-spin mdi-loading')
-	$.get('../wsdlClient.php',{accion:4,id:vid})
-		.done(function(data){
-			var ex;
-			var p;
-			var color = msj = colort = '';
-			var state = 0;
+    $.get('../wsdlClient.php',{accion:4,id:vid})
+        .done(function(data){
+            var ex;
+            var p;
+            var color = msj = colort = '';
+            var state = 0;
 
-			try{
-				p = JSON.parse(data);
+            try{
+                p = JSON.parse(data);
                 console.log(p['estado'])
-				switch(p['estado']){
-					case 'aceptado':
-						color = 'lime';
-						state = 1;
+                switch(p['estado']){
+                    case 'aceptado':
+                        color = 'lime';
+                        state = 1;
                         msj = !p['rs'].trim().length ? 'Documento Electrónico Aceptado' : p['rs'];
                         colort = 'green';
-						break;
+                        break;
                     case 'recibido':
                         color = 'light-green';
                         state = 9;
                         msj = 'Documento Electrónico Recibido';
                         colort = 'light-green';
                         break;
-					case 'rechazado':
-						color = 'red';
-						state = 3;
+                    case 'rechazado':
+                        color = 'red';
+                        state = 3;
                         msj = !p['rs'].trim().length ? 'Documento Electrónico Rechazado' : p['rs'];
                         colort = 'red';
-						break;
-					case 'procesando':
-						color = 'yellow';
-						state = 2;
+                        break;
+                    case 'procesando':
+                        color = 'yellow';
+                        state = 2;
                         msj = 'Procesando Documento Electrónico';
                         colort = 'yellow'
-						break;
-					case 'Sin Subir':
+                        break;
+                    case 'Sin Subir':
                         msj = 'Sin Subir';
                         colort = 'blue';
                         color = 'blue';
                         state = 7;
-						break;
-					case 'Sin Internet':
-						color = 'blue';
+                        break;
+                    case 'Sin Internet':
+                        color = 'blue';
                         state = 0;
                         msj = p['rs'];
                         colort = 'blue';
-						break;
-					case 'error':
+                        break;
+                    case 'error':
                         state = 8;
-						color = 'red'
-						msj = 'Error en Documento Electrónico';
+                        color = 'red'
+                        msj = 'Error en Documento Electrónico';
                         colort = 'red';
-						break;
-					default:
-						break;
-				}
+                        break;
+                    default:
+                        break;
+                }
 
-				if (state){
-					switch(parseInt($("input[name=tventa]:checked").attr('id').substr(2))){
-						case 2:
-						case 3:
-							vid = vid.substr(1);
-							$("#e"+vid).css('color',color);
-							arr('login',7,2,301,'feestado='+state,'id='+vid,0,0);
-							break;
-						case 5:
-						case 6:
-						case 7:
+                if (state){
+                    switch(parseInt($("input[name=tventa]:checked").attr('id').substr(2))){
+                        case 2:
+                        case 3:
+                            vid = vid.substr(1);
+                            $("#e"+vid).css('color',color);
+                            arr('login',7,2,301,'feestado='+state,'id='+vid,0,0);
+                            break;
+                        case 5:
+                        case 6:
+                        case 7:
                         case 8:
-							vid = vid.substr(1);					
-							$("#e"+vid).css('color',color);
-							arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
-							break;
-						default:
-							$("#e"+vid).css('color',color);
-							arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
-							break;
-					}
-					
-				}
+                            vid = vid.substr(1);                    
+                            $("#e"+vid).css('color',color);
+                            arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
+                            break;
+                        default:
+                            $("#e"+vid).css('color',color);
+                            arr('login',7,2,64,'feestado='+state,'id='+vid,0,0);
+                            break;
+                    }
+                    
+                }
                 //console.log(p+' '+msj)
-				Materialize.toast(msj,6000,colort);
-			}catch(ex){
-				console.log(ex)
-				console.log(data)
-				Materialize.toast('Error Obteniendo Estado',6000,'red')
-			}
-			$(".status").attr('disabled',false)
-			$("#e"+vid).removeClass('mdi-spin mdi-loading').addClass('mdi-information-outline');
+                Materialize.toast(msj,6000,colort);
+            }catch(ex){
+                console.log(ex)
+                console.log(data)
+                Materialize.toast('Error Obteniendo Estado',6000,'red')
+            }
+            $(".status").attr('disabled',false)
+            $("#e"+vid).removeClass('mdi-spin mdi-loading').addClass('mdi-information-outline');
             $("#e"+vid).css('color',color);
-		});
+        });
 });
 
 $(document).on("click",".shcompra",function(){
@@ -409,26 +431,26 @@ $(document).on("click",".shcompra",function(){
 
 
 $(document).on("change","input[name=tventa]",function(){
-	var id = parseInt($(this).attr('id').substr(2));
-	$("#search_facturas").val('').attr('filtro',1);
-	$("[fltr=1]").click();
-	Materialize.updateTextFields();
-	var tabla = $("#data-table-facturas").DataTable();
-	tabla.destroy();
-	
-	arr('login',6,'',179,'0,0,"1,'+id+',@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
-    console.log('0,0,"1,'+id+',@@impresa,0,0","0,10"')
-	paginate($("ul.pagination").attr('vtbl'),undefined,'1,'+id+',@@impresa,0,0')
-    $("ul.pagination").attr('filtro_sp','1,'+id+',@@impresa,^,?');
-	$("#data-table-facturas").dataTable({
-		bFilter: false,
-		bScrollInfinite: true,
-		bSort: false,
-		bLengthChange: false,
-		order: [],
-		bPaginate: false,
-		info: false
-	});
+    var id = parseInt($(this).attr('id').substr(2));
+    $("#search_facturas").val('').attr('filtro',1);
+    $("[fltr=1]").click();
+    Materialize.updateTextFields();
+    var tabla = $("#data-table-facturas").DataTable();
+    tabla.destroy();
+    
+    arr('login',6,'',179,'0,0,"1,'+id+',@@impresa,0,0,'+$(".tpf.active").attr('tpf')+'","0,10"',0,1,$("#listafacturas"));
+    console.log('0,0,"1,'+id+',@@impresa,0,0'+$(".tpf.active").attr('tpf')+'","0,10"')
+    paginate($("ul.pagination").attr('vtbl'),undefined,'1,'+id+',@@impresa,0,0,'+$(".tpf.active").attr('tpf'))
+    $("ul.pagination").attr('filtro_sp','1,'+id+',@@impresa,^,?,'+$(".tpf.active").attr('tpf'));
+    $("#data-table-facturas").dataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
 });
 
 function removeHacienda(file){
@@ -438,22 +460,22 @@ function removeHacienda(file){
 }
 
 function xmlCargar(file,response){
-	if(response == ''){
+    if(response == ''){
         var mced = getDatos('replace(cedula,"-","")',39,'id = @@impresa',0,0,0)[0][0][0];
 
-		$.get('../wsdlClient.php',{accion:10,id:file['name'],hclave:$("#myclave").val(),ced:mced})
-			.done(function(data){
-				var p;
-				$(".iloop").hide();
-				try{
-					p = JSON.parse(data);
+        $.get('../wsdlClient.php',{accion:10,id:file['name'],hclave:$("#myclave").val(),ced:mced})
+            .done(function(data){
+                var p;
+                $(".iloop").hide();
+                try{
+                    p = JSON.parse(data);
 
                     if(!p.succed){
                         Materialize.toast(p['ERROR'],4000,'red');
                         return false;
                     }
                     p['clave'] = p['clave'].length == 50 ? p['clave'] : p['clave'][0]; 
-					var factura = getDatos('',287,p['clave'],0,0,0);
+                    var factura = getDatos('',287,p['clave'],0,0,0);
 
                     if(factura[0].length){
 
@@ -506,17 +528,17 @@ function xmlCargar(file,response){
                                 break;
                         }
                     }
-				}catch(e){
-					$("[xml=1]").removeClass('hide');
-					$("[xml=2]").addClass('hide');
-					Materialize.toast('Error Extrayendo XML',4000,'red');
+                }catch(e){
+                    $("[xml=1]").removeClass('hide');
+                    $("[xml=2]").addClass('hide');
+                    Materialize.toast('Error Extrayendo XML',4000,'red');
                     emptyDropzones()
-					console.log(data)
-                    console.log(e)				
-				}
-			});
-	}else
-		Materialize.toast('Error Subiendo el XML',4000,'red')	
+                    console.log(data)
+                    console.log(e)              
+                }
+            });
+    }else
+        Materialize.toast('Error Subiendo el XML',4000,'red')   
 };
 
 function emptyDropzones() {
@@ -536,25 +558,25 @@ function emptyDropzones() {
 
 
 function validar (varreglo,vmodulo) {
-	
-	var salida = {}
-	
-		/*VALIDACION FRONT END*/
-	
-	switch(vmodulo['modulo']) {
-		default:
-			return 'Módulo no Existente';
-			break;
-	}
+    
+    var salida = {}
+    
+        /*VALIDACION FRONT END*/
+    
+    switch(vmodulo['modulo']) {
+        default:
+            return 'Módulo no Existente';
+            break;
+    }
 
-	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	return salida;
+    salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+    return salida;
 
 }
 
 
 function endDetail(vid,vacc,vmodulo){
-	switch(vmodulo){
+    switch(vmodulo){
         case 'factura':
             break;
         case 'cliente':
@@ -568,28 +590,28 @@ function endDetail(vid,vacc,vmodulo){
 function cargar(vmodulo,vid) {
 
 
-	switch(vmodulo['modulo']) {
-		case 'documentos':
-			vmodulo['sel'] = '';
-			vmodulo['tbl'] = 3;
-			vmodulo['where'] ='';
-			break;
-		default:
-			return 'Módulo no Existente';
-			break;
-	}
-	
-	return vmodulo;
+    switch(vmodulo['modulo']) {
+        case 'documentos':
+            vmodulo['sel'] = '';
+            vmodulo['tbl'] = 3;
+            vmodulo['where'] ='';
+            break;
+        default:
+            return 'Módulo no Existente';
+            break;
+    }
+    
+    return vmodulo;
 }
 
 function cargarSintax(){
-	var arr = {}
+    var arr = {}
 
-	arr['sel'] = '';
-	arr['tbl'] = 4;
-	arr['where'] = '';
+    arr['sel'] = '';
+    arr['tbl'] = 4;
+    arr['where'] = '';
 
-	return arr;
+    return arr;
 }
 
 function sendFE(clave,str_correos,vtabla,vtit){

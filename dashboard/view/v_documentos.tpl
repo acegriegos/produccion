@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.18">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.18">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.5">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.5">
   </head>
   <body>
   <br>
@@ -68,7 +68,7 @@
             <hr>
         <div class="row">
             <div class="col s12">
-              Estados de Documentos: <div style="height: 15px;width: 15px;display: inline-block;" class="lime"></div> Aceptado  <div style="height: 15px;width: 15px;display: inline-block;" class="light-green"></div> Recibido  <div style="height: 15px;width: 15px;display: inline-block;" class="yellow"></div> Procesando  <div style="height: 15px;width: 15px;display: inline-block;" class="red"></div> Rechazado  <div style="height: 15px;width: 15px;display: inline-block;" class="blue"></div> Sin Subir
+              <span class="tpf active pbtn" tpf="0">Estados de Documentos:</span> <span class="tpf pbtn" tpf="1"><div style="height: 15px;width: 15px;display: inline-block;" class="lime"></div> Aceptado </span> <span class="tpf active pbtn" tpf="6"><div style="height: 15px;width: 15px;display: inline-block;" class="light-green"></div> Recibido </span> <span class="tpf active pbtn" tpf="2"><div style="height: 15px;width: 15px;display: inline-block;" class="yellow"></div> Procesando </span> <span class="tpf active pbtn" tpf="3"> <div style="height: 15px;width: 15px;display: inline-block;" class="red"></div> Rechazado </span> <span class="tpf active pbtn" tpf="7"> <div style="height: 15px;width: 15px;display: inline-block;" class="blue"></div> Sin Subir </span>
             </div>
 
             <div class="col s9 m7 input-field">
@@ -223,7 +223,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.2.0.18"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.2.0.18"></script>
+    <script src="../assets/js/dropzone.js?v=10.2.0.5"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.2.0.5"></script>
   </body>
 </html>

@@ -1318,9 +1318,9 @@ function rexcel(){
             }
         }else{
             if ($("#"+datos[i][0]).val() == '') {
-                search[i] = "''";
+                search[i] = '""';
             }else{
-                search[i] = $("#"+datos[i][0]).val();
+                search[i] = '"'+$("#"+datos[i][0]).val()+'"';
             }
         }
 
