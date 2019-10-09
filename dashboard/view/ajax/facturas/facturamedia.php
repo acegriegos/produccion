@@ -170,24 +170,6 @@
                       <div style="border-top: 1px solid black;">Cédula</div>
                     </div>
                   </div>
-                  
-                 <!--  <?php 
-                                              
-                      require_once('../assets/libs/phpqrcode/qrlib.php'); 
-     
-                      $codeContents = $miscelaneos[11]; 
-                       
-                      $text = QRcode::text($codeContents); 
-                      $raw = join("<br/>", $text); 
-                       
-                      $raw = strtr($raw, array( 
-                          '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
-                          '1' => '&#9608;&#9608;' 
-                      )); 
-                       
-                      echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
-                      
-                   ?> -->
                 </td>
                 <td colspan="3" style="padding-bottom: 0;">
                   <table>
@@ -314,7 +296,6 @@
      <div class="row salto" id="segundo" style="display: none">
     <div class="col s12 m9 l9">
 
-      <!-- MAIN -->
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
         <div class="row">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
@@ -370,7 +351,6 @@
           
           <div class="col s12" id="infofact">
             <div class="row" style="padding: 0% 0% 0% 0%;margin: 0px">
-              <!--  -->
               <div class="col s12" style="padding: 0px">
                 <?php if ($transaccion[0][32] != '') { ?>
                   <b class="fe">Clave: </b>
@@ -467,24 +447,6 @@
                       <div style="border-top: 1px solid black;">Cédula</div>
                     </div>
                   </div>
-                  
-                 <!--  <?php 
-                                              
-                      require_once('../assets/libs/phpqrcode/qrlib.php'); 
-     
-                      $codeContents = $miscelaneos[11]; 
-                       
-                      $text = QRcode::text($codeContents); 
-                      $raw = join("<br/>", $text); 
-                       
-                      $raw = strtr($raw, array( 
-                          '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
-                          '1' => '&#9608;&#9608;' 
-                      )); 
-                       
-                      echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
-                      
-                   ?> -->
                 </td>
                 <td colspan="3" style="padding-bottom: 0;">
                   <table>
@@ -523,7 +485,6 @@
             </tfoot>
           </table>
 
-          <!-- @PRINT -->
           <section class="hide">
             <div class="row">
               <br>
@@ -561,7 +522,6 @@
               break;
             } ?>
             
-              <!-- /FOOTER -->
               <div class=" center " style=" width: 100%; padding-right: 8% !important" >
               <hr>
               <div>
@@ -573,19 +533,14 @@
                 <?php }else echo '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>'; ?>
               </div>
             </div>
-            <!-- /MAIN -->
 
           </div>
 
-
-
-          <!-- @PRINT -->
      </div>
 
      <div class="row salto" id="segundo" style="display: none">
     <div class="col s12 m9 l9">
 
-      <!-- MAIN -->
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
         <div class="row">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
@@ -741,23 +696,6 @@
                     </div>
                   </div>
                   
-                 <!--  <?php 
-                                              
-                      require_once('../assets/libs/phpqrcode/qrlib.php'); 
-     
-                      $codeContents = $miscelaneos[11]; 
-                       
-                      $text = QRcode::text($codeContents); 
-                      $raw = join("<br/>", $text); 
-                       
-                      $raw = strtr($raw, array( 
-                          '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
-                          '1' => '&#9608;&#9608;' 
-                      )); 
-                       
-                      echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
-                      
-                   ?> -->
                 </td>
                 <td colspan="3" style="padding-bottom: 0;">
                   <table>
@@ -799,7 +737,6 @@
             </tfoot>
           </table>
 
-          <!-- @PRINT -->
           <section class="hide">
             <div class="row">
               <br>
@@ -837,7 +774,6 @@
               break;
             } ?>
             
-              <!-- /FOOTER -->
               <div class=" center " style=" width: 100%; padding-right: 8% !important" >
               <hr>
               <div>
@@ -850,7 +786,6 @@
               </div>
             </div>
              </section>
-       <!-- @PRINT -->
 
 
      </div>

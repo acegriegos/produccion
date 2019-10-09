@@ -181,17 +181,17 @@ function cargarCompras(){
     $("#precp").attr('readonly',false);
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor").prop('readonly',true);
     $("#vdescuentop").prop('readonly',true);
-    $("#monedas").prop('readonly',true);
+    $("#monedas").prop('readonly',true).material_select('update');
     $("#vcomentario").prop('readonly',true);
 
-    $("#facturar").html('Aceptar').attr('id','docompra')
+    $("#facturar").html('Aceptar').attr('id','docompra').attr('href','#')
 
     if($("#fcompra").is(':visible')){
         var comprasacp = getDatos('',295,'@@impresa',0,0,0);
 
         var strfact = '<option value="0">Seleccione una Factura</option>'
         for(var i=0; i<comprasacp[0].length;i++){
-            strfact += '<option value="'+comprasacp[0][i][0]+'" title="'+comprasacp[0][i][2]+'" ref="'+comprasacp[0][i][4]+'">'+comprasacp[0][i][1]+'</option>'
+            strfact += '<option value="'+comprasacp[0][i][0]+'" title="'+comprasacp[0][i][2]+'" ref="'+comprasacp[0][i][4]+'" idc="'+comprasacp[0][i][5]+'">'+comprasacp[0][i][1]+'</option>'
         }
         $("#fcompra").html(strfact)
     }
@@ -203,6 +203,7 @@ function cargarCompras(){
         $("#vreferencia").val(ref);
         $("#ncli").val(client);
 
+        $("#ffacturas .zelda").data('triforce')['vidcliente'] = $('option:selected',this).attr('idc');
         $("#fdetallefacturas").html(mantenimiento('facturacion',11,{idfact:vidfact,idtp:1}));
         $(".autocomplete").autocomplete();
     });
@@ -263,6 +264,7 @@ function cargarCompras(){
         if (/[a-zA-Z0-9-_.&," ]/i.test(charStr) || charCode == 8) {
             var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : charStr == -1 ? $(this).val() : $(this).val()+charStr;
             var tipo = getParameterByName('tf');
+            var id = $(this).parent().parent().attr('id')
             $(".autocomplete-content").remove();
             
             $(this).autocomplete({
@@ -272,7 +274,11 @@ function cargarCompras(){
                     
                     var cod = arr('login',4,'',43,'"'+ val.replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+$("#ffacturas .zelda").data('triforce')['vidtipoventa']+','+$("#invgeneral").val(),0,0,0);
                     if (cod[0][0] != undefined) {
-                        console.log($(this).data())
+                        $("#"+id).data('triforce')['videntrada'] = cod[0][0][0];
+                        $("#"+id).find('.mdi-plus').addClass('hide');
+                    }else{
+                        $("#"+id).data('triforce')['videntrada'] = 0;
+                        $("#"+id).find('.mdi-plus').removeClass('hide');
                     }
                 }
             })
@@ -314,29 +320,82 @@ function cargarCompras(){
 
     $("#addliner").addClass('hide');
 
-    $(".addline").click(function(){
-        // if ($("#valores").data('elemento') == undefined) {
-        //     pril.focus();
-        //     return false
-        // }
-        // var cant = parseFloat($("#cantp").val()),
-        //     precio = parseFloat($("#precp").val().replace(/,/g,'')),
-        //     total = precio * cant;
-        // var cod = $("#valores").data('elemento')['hcodp'];
-        // var inv = $("#valores").data('elemento')['hinv'];
-        // var cnti = arr('login',4,'if(count(cantidad) = 0,0,cantidad)',97,'idproducto = "'+ cod+'" and idinventario = '+inv,'',0,'')[0][0][0];
-        // var idprd = $("#valores").data('elemento')['idp'];
-        // var desc = $("#descp").val();
-        // var hinv = $("#valores").data('elemento')['hinv'];
-        // var defi = 0;//arr('login',4,'',200,'64,0',0,0,0)[0][0][3];
-        // var unidad= $("#uni option:selected").html();//$("#valores").data('elemento')['hunidad'];
-        // var comodin= $("#valores").data('elemento')['hcomodin'];
-        // var desgloce= $("#valores").data('elemento')['isdesgloce'];
-        // var strimp = $("#valores").data('elemento')['strimp'];
-        // var exo = $("#valores").data('elemento')['exo'];
-        // var mobil = $(this).attr('tr') == 2 ? 1 : 0;
+    $("#docompra").click(function(){
+        if(!$("#fdetallefacturas .ciclos").length){
+            Materialize.toast('No hay Artículos',4000,'red');
+            return false;
+        }
 
-        // addline(idprd,cod,desc,cant,precio,total,cnti,{iddescuento:0,descuento:$("#descup").val()},0,hinv,0, unidad, comodin,desgloce,strimp,exo,mobil);
+        var cnt = 1;
+        var cant = 0;
+        var ppro = 0;
+
+        $("#fdetallefacturas .ciclos").each(function(){
+            if($(this).data('triforce')['videntrada'] == 0){
+                Materialize.toast('Artículo no Incluido',4000,'red')
+                $(this).find('.eqprod').focus();
+                cnt = 0;
+                return false;
+            }
+            cant = parseFloat($(this).data('triforce')['vcantidad']);
+
+            ppro = getDatos('id',104,'idproveedor = '+$("#ffacturas .zelda").data('triforce')['vidcliente']+' and idproducto = '+$(this).data('triforce')['videntrada'],0,0,0);
+            if(ppro[0].length){
+                actualizar(104,'costo = '+$(this).data('triforce')['vprecio']+', ultimafecha = now()','id = '+ppro[0][0][0]);
+            }else{
+                insertar(104,'','null,'+$(this).data('triforce')['videntrada']+','+$("#ffacturas .zelda").data('triforce')['vidcliente']+',"'+$(this).data('triforce')['vcodigo']+'",'+$(this).data('triforce')['vprecio']+',0,now(),1,0');
+            }
+            actualizar(97,'cantidad = cantidad+'+$(this).data('triforce')['vcantidad'],'idproducto = '+$(this).data('triforce')['videntrada']);
+        });
+
+        insertar(291,'idfactura,compraprocesada',$("#fd1").data('triforce')['vidfactura']+',1');
+
+        if(cnt){
+            Materialize.toast('Artículos Incluidos',4000,'green');
+
+            setTimeout(function(){
+                location.reload();
+            },4000);
+        }
+
+    });
+
+    $(document).on("click",".costo",function(){
+        if(parseInt($(this).parent().parent().data('triforce')['videntrada']) == 0){
+            Materialize.toast('Artículo no Enlazado',4000,'red');
+            return false;
+        }
+
+        var prod = getDatos('',297,$(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'],0,0,0);
+        var str = '';
+        if(prod[0].length){
+            var cst = parseFloat($(this).parent().parent().data('triforce')['vprecio']);
+            var cstold = parseFloat(prod[0][0][1]);
+            var ddif = cst - cstold;
+            var color = 'black';
+            var icon = '';
+            if(ddif > 0){
+                //AUMENTO EL COSTO
+                color = 'red';
+                icon = 'mdi-arrow-up';
+            }
+            var utlnew = 1;
+            str += '<label><b>COSTOS</b></label><br> '+cstold.formatMoney(2,'.',',')+' => '+cst.formatMoney(2,'.',',') + ' <span style="color:'+color+'"><i class="mdi '+icon+'"></i> '+((ddif*100)/cstold).formatMoney(2,'.',',')+'% ('+ddif+')</span> <br>  <table> <tr> <td>Utilidad</td> <td style="text-align: right;">'+parseFloat(prod[0][0][5]).formatMoney(0)+'</td> <td>=></td> <td><input type="number" class="browser-default eder" value="'+utlnew+'" style="border: 0px;width:50px;"/></td></tr> <tr> <td>Venta</td> <td style="text-align:right">'+parseFloat(prod[0][0][3]).formatMoney(2,'.',',')+'</td> <td>=></td> <td></td> </tr> <tr> <td>+IVA</td> <td style="text-align:right">'+parseFloat(prod[0][0][4]).formatMoney(2,'.',',')+'</td> <td>=></td> <td></td> </tr>';
+            for (var i = 0; i < prod[0].length; i++) {
+
+                str += '<tr> <td>'+prod[0][i][6]+'</td> <td>'+parseFloat(prod[0][i][10]).formatMoney(0)+' => <input type="number" class="browser-default eder" value="'+utlnew+'" style="border: 0px;width:50px;"/> %</td> <td style="text-align:right">'+parseFloat(prod[0][i][8]).formatMoney('2','.',',')+'</td> <td style="text-align:right">'+parseFloat(prod[0][i][9]).formatMoney('2','.',',')+'</td> </tr>';
+            }
+        }
+        $("#marbdy").html(str+'<table>')
+
+        $("#openmargen").sideNav('show');
+    });
+
+     $('#openmargen').sideNav({
+        menuWidth: 400, // Default is 240
+        edge: 'rigth', // Choose the horizontal origin
+        closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+        draggable: true // Choose whether you can drag to open on touch screens
     });
 
     $("#cantp").keyup(function(e){
