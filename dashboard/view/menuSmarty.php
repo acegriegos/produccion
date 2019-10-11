@@ -98,7 +98,7 @@
     <li class="gtext">
       <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a>
       <ul id='dropfact_0' class='dropdown-content'>
-        <li class="per1000"><a href="clientes">Mantenimiento</a></li>
+        <li class="per1000"><a href="clientes?is=0">Mantenimiento</a></li>
         <li class="per3200"><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
       </ul>
 
@@ -106,7 +106,7 @@
     <li class="gtext">
       <a class="collapsible-header dropdown-button per2000" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_1'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Proveedores</span></a>
       <ul id='dropfact_1' class='dropdown-content'>
-        <li class="per2000"><a href="proveedores">Mantenimiento</a></li>
+        <li class="per2000"><a href="clientes?is=1">Mantenimiento</a></li>
         <li class="per3300"><a href="cuentas?tf=2">Cuentas por Pagar</a></li>
       </ul>
 
@@ -143,7 +143,7 @@
         <li class="per2200"><a href="facturacion?tf=2">Compras</a></li>
       </ul>
     </li>
-    <li class="gtext"><a href="clientes"><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
+    <li class="gtext"><a href="clientes?is=0"><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
     <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
     <li class="gtext"><a href="cuentas?tf=1"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
     <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
@@ -170,7 +170,7 @@
     <li class="gtext">
       <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a>
       <ul id='dropfact_0' class='dropdown-content'>
-        <li class="per1000"><a href="clientes">Mantenimiento</a></li>
+        <li class="per1000"><a href="clientes?is=0">Mantenimiento</a></li>
         <li class="per3200"><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
       </ul>
 

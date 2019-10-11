@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Clientes</title>
+    <title class="cghs"> </title>
     {$STY}
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.21">
   </head>
@@ -16,7 +16,7 @@
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
         <div class="card-header center white-text head1">
-          <p class="flow-text" style="font-size: 1.9em;">Clientes</p>
+          <p class="flow-text cghs" style="font-size: 1.9em;"></p>
         </div>
         <div class="card-content pequeño">
           <div class="row">
@@ -27,12 +27,12 @@
                 <li><a class="optns" tipo="telefonos" href="#!" fltr="3">Teléfono</a></li>
               </ul>
               <input type="text" id="search_clientes" maxlength="100" num="v76" var="0,1" cambio="29" autocomplete="off">
-              <label class="truncate" for="search_clientes">Buscar Cliente por Nombre o Cédula</label>
+              <label class="truncate" for="search_clientes">Buscar <span class="cgh"></span> por Nombre o Cédula</label>
 
              
             </div>
             <div class="col s2 m6 ">
-              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar Cliente" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
+              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
             </div>
           </div>
           <div class="card-block">
@@ -69,7 +69,7 @@
               </tbody>
             </table>
             <ul class="left showing" modulo="76"><small></small></ul>
-            <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29" filtro_sp="?,0,@@impresa"></ul>
+            <ul class="pagination right" vtbl="76" modulo="clientes" cambio="29"></ul>
           <br>
           <br>
         </div>
@@ -115,27 +115,18 @@
                       </div>
                       <br>
                       <div class="row ">
-                        <div class="input-field col s12 m6 l4 pequeño">
-                          <label id="nomClie" for="vnombre">Nombre</label>
+                        <div class="input-field col s12 m6 l6 pequeño">
+                          <label id="nomClie" for="vnombre">Razón Social</label>
                           <input type="text" class="validate onblur" id="vnombre" autocomplete="off">
                           <input type="hidden" id="vid" value="0">
-                          <input type="hidden" id="vbisproveedor" value="0">
                           <input type="hidden" id="vidsucursal" value="">
                         </div>
-                        <div class="input-field col s12 m6 l4 hid">
-                          <label for="vapellido1">Primer Apellido</label>
-                          <input type="text" class="validate onblur" id="vapellido1" autocomplete="off">
-                        </div>
-                        <div class="input-field col s12 m6 l4 hid">
-                          <label for="vapellido2">Segundo Apellido</label>
-                          <input type="text" class="validate onblur" id="vapellido2" autocomplete="off">
-                        </div>
                         <div class="input-field col s12 m6 l4">
-                          <label for="vcedula">Cédula del Cliente</label>
+                          <label for="vcedula">Cédula del <span class="cgh">Cliente</span></label>
                           <input type="text" class="validate onblur" id="vcedula" autocomplete="off">
                         </div>
                         <div class="input-field col s12 m6 l4">
-                          <label for="vcodigo">Código del Cliente</label>
+                          <label for="vcodigo">Código del <span class="cgh">Cliente</span></label>
                           <input type="text" class="validate onblur" id="vcodigo" autocomplete="off">
                         </div>
                         <div class="input-field col s12 m6 l4">
@@ -143,7 +134,7 @@
                           <input type="text" class="validate onblur" id="vweb" autocomplete="off">
                         </div>
 
-                        <div class="input-field col s12 m6 l4">
+                        <div class="input-field col s12 m6 l4 ncliente">
 
                           <select type="select" id="vidmoneda" noClear="1">
                             {section name=LE loop=$MON}
@@ -153,7 +144,7 @@
                           <label for="vidmoneda">Moneda</label>
                         </div>
                           
-                        <div class="input-field col s12 m6 l4">
+                        <div class="input-field col s12 m6 l4 ncliente">
                           <select type="select" id="vidagente"> 
                           <option value="0">Seleccione un Agente</option>
                           {section name=LE loop=$AGE}
@@ -163,7 +154,7 @@
                           <label for="vidagente">Agente</label>
                         </div>
 
-                        <div class="input-field col s12 m6 l4 {if $smarty.session.BUSS eq 1} hide {/if}">
+                        <div class="input-field ncliente col s12 m6 l4 {if $smarty.session.BUSS eq 1} hide {/if}">
                           <select type="select" id="vidnivel">
                             <option value="0">Seleccione una Categoría</option>
                             {section name=LE loop=$NVLCLIE}
@@ -173,7 +164,7 @@
                           <label for="vidnivel">Categoría del Cliente</label>
                         </div>
 
-                        <div class="input-field col s12">
+                        <div class="input-field col s12 ncliente">
                           <input type="text" id="vmensaje">
                           <label for="vmensaje">Mensaje Adicional</label>
                         </div>
@@ -184,20 +175,20 @@
                       <div class="row center">
 
 
-                        <a href="#" data-activates="slide-tc" data-num="1" class="col s1 mdi mdi-phone tooltipped mdi-24px button-collapse tc-show  black-text" data-tooltip="Administrar Teléfonos del Cliente" data-position="bottom" id="slideTelefono" hasTabla="1" tp="6" vtabla="telefono" slide-id="0" slide-tbl="2" asave="0"></a>
+                        <a href="#" data-activates="slide-tc" data-num="1" class="col s1 mdi mdi-phone tooltipped mdi-24px button-collapse tc-show  black-text" data-tooltip="Administrar Teléfonos" data-position="bottom" id="slideTelefono" hasTabla="1" tp="6" vtabla="telefono" slide-id="0" slide-tbl="2" asave="0"></a>
                         <input type="hidden" id="vtelefono">
                         
-                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="col s1 button-collapse tc-show tooltipped black-text" data-tooltip="Administrar Correos del Cliente" data-position="bottom" hasTabla="1" tp="6" vtabla="correo" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-email  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="col s1 button-collapse tc-show tooltipped black-text" data-tooltip="Administrar Correos" data-position="bottom" hasTabla="1" tp="6" vtabla="correo" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-email  mdi-24px"></i></a>
 
-                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="col s1 button-collapse tooltipped tc-show black-text" data-tooltip="Administrar Ubicacion del Cliente" data-position="bottom" hasTabla="1" tp="6" vtabla="ubicacione" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="col s1 button-collapse tooltipped tc-show black-text" data-tooltip="Administrar Ubicacion" data-position="bottom" hasTabla="1" tp="6" vtabla="ubicacione" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" data-tooltip="Administrar Finanzas del Cliente" slide-id="0" data-position="bottom" num="1"><i class="mdi mdi-square-inc-cash mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" data-tooltip="Administrar Parámetros" slide-id="0" data-position="bottom" num="1"><i class="mdi mdi-square-inc-cash mdi-24px"></i></a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Exoneración del Cliente" data-position="bottom" num="2"><i class="mdi mdi-clipboard-text mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s1 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Exoneración" data-position="bottom" num="2"><i class="mdi mdi-clipboard-text mdi-24px"></i></a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar XML Otros del Cliente" data-position="bottom" num="3"><i class="mdi mdi-file-xml mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s1 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar XML Otros" data-position="bottom" num="3"><i class="mdi mdi-file-xml mdi-24px"></i></a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Contactos del Cliente" data-position="bottom" num="4"><i class="mdi mdi-account-multiple mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Contactos" data-position="bottom" num="4"><i class="mdi mdi-account-multiple mdi-24px"></i></a>
 
                       </div>
                 </div>
@@ -224,13 +215,13 @@
                 </div>
             </div>
 
-            <div class="input-field col s12">
+            <div class="input-field col s12 ncliente">
               <div class="prefix"><i class="mdi-calendar mdi mdi-24px"></i></div>
               <input type="number" class="eder center" id="vdproforma" value="0" autocomplete="off">
               <label for="vdproforma">Días Validez Proforma</label>
             </div>
            
-            <div class="input-field col s12 {if $smarty.session.BUSS eq 1} hide {/if}">
+            <div class="input-field col s12 ncliente {if $smarty.session.BUSS eq 1} hide {/if}">
               <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
               <input type="number" class="eder center" id="vdescuentom" value="0" autocomplete="off">
               <label for="vdescuentom">Descuento Máximo</label>
@@ -243,7 +234,7 @@
             </div>
             <div class="input-field col s12 cre hide">
               <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
-              <label for="vcredito">Crédito del Cliente</label>
+              <label for="vcredito">Máximo Crédito</label>
               <input type="number" class="eder per1004" id="vcredito" value="0" autocomplete="off">
             </div>
 

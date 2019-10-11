@@ -194,38 +194,6 @@ $(document).on("blur",".pais",function(){
     $(this).attr('vid',idpais);
 });
 
-// tipocliente
-$(document).on("click","#fclientes [name='tipoclie']",function(){
-    var tipo = parseInt($(this).attr('tipoClie'));
-    switch(tipo){
-        case 1:
-        $("#titInfo").html('<b>Datos Personales<b/>');
-        $("#nomClie").html('Nombre');
-        $(".hid").show(300);
-        break;
-        case 3:
-        $("#titInfo").html('<b>Información Tributaria<b/>');
-        $("#nomClie").html('Razón Social');
-        $("#vapellido1").val('');
-        $("#vapellido2").val('');
-        $(".hid").css('display','none');
-        break;
-        case 4:
-        $("#titInfo").html('<b>Datos Personales Extranjeros<b/>');
-        $("#nomClie").html('Nombre');
-        $(".hid").show(300);
-        break;
-        default:
-        $("#titInfo").html('<b>Información Jurídica<b/>');
-        $("#nomClie").html('Razón Social');
-        $("#vapellido1").val('');
-        $("#vapellido2").val('');
-        $(".hid").css('display','none');
-        break;
-    }
-});
-//
-
 $(document).on("click",".detallefactura",function(){
     $("#btndetfact").click()
     var id = $(this).attr('id').substr(1);
@@ -392,8 +360,8 @@ $(document).on("blur",".buscarNom",function(e){
                         break;
                 }
                 $("#c-ced").val(p['ced']);
-                $("#c-ap1").val(p['ap1']);
-                $("#c-ap2").val(p['ap2']);
+                // $("#c-ap1").val(p['ap1']);
+                // $("#c-ap2").val(p['ap2']);
                 $("#c-nom").val(p['nom']);
                 $("#c-nom").attr('tipo',p['tip']);
             }else

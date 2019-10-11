@@ -18,7 +18,7 @@
 	    $smarty->assign('NVLCLIE',$kakaroto->kamehameha('*',69,'id > 0 and idsucursal = @@impresa order by id'));
 	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
 	    $smarty->assign('IMP',$kakaroto->kamehameha('*',51,'id > 0 order by nombre'));
-	    $smarty->assign('CLIE',$kakaroto->kamehameha('',76,'0,0,",0,@@impresa","0,10"'));
+	    $smarty->assign('CLIE',$kakaroto->kamehameha('',76,'0,0,",'.$_REQUEST['is'].',@@impresa","0,10"'));
 	    $smarty->assign('AGE',$kakaroto->kamehameha('id,nombre',1,'id > 0 and idtipousuario = 4 order by nombre'));
 	    $smarty->assign('MON',$kakaroto->kamehameha('id,simbolo',54,'id > 0 order by principal desc'));
 	    $smarty->assign('EXOS',$kakaroto->kamehameha('idhacienda,nombre',126,'id > 0 order by nombre'));
