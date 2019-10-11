@@ -386,7 +386,7 @@
 
       </div>
 
-        <div class="trComprae hide hide-on-med-and-down row">
+        <div class="trComprae hide trsec hide-on-med-and-down row">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
             <input type="hidden" id="valores">

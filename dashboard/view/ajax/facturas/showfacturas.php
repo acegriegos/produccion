@@ -10,7 +10,7 @@
 
 ?>
 
-<div id="fd<?php echo $obj[0]; ?>" <?php echo $data; ?> xtr="<?php echo $obj[1]; ?>" idprod="<?php echo $obj[2]; ?>" class="ciclos row col s12"> <div class="col s1 hide"><input type="checkbox" id="check<?php echo $obj[0]; ?>" checked><label for="check<?php echo $obj[0]; ?>"></label></div> <div style="padding: 0 !important;" class="col s2" id="codprod<?php echo $obj[0]; ?>"><?php echo $obj[3]; ?></div> <div style="padding: 0 !important;" class="col s3" id="desc<?php echo $obj[0]; ?>"><?php echo $obj[4]; ?></div> <div style="padding: 0 !important;position: relative;" class="col s2 center-align" id="unitprod<?php echo $obj[0]; ?>"> <input class="browser-default autocomplete eqprod" style="margin:0px;height: auto !important;" value="<?php echo $obj[27]; ?>" /> <i class="mdi mdi-plus der pbtn" style="position: absolute;" title="Agregar Articulo"></i> </div> <div id="divcnt" style="padding: 0 !important;" class="col s1 right-align"> <?php echo $obj[6]; ?> </div> <div style="padding: 0 !important;" class="col s1 center-align totp divisa" id="totl<?php echo $obj[0]; ?>"><?php echo $obj[7]; ?></div> <div style="padding: 0 !important;" class="col s2 right-align" id="total<?php echo $obj[0]; ?>"><?php echo number_format($obj[8],2); ?></div> <div class="right"> <i id="cs<?php echo $obj[0]; ?>" class="mdi mdi-24px mdi-clipboard-flow pbtn costo" title="Cambiar Márgenes"></i> </div> </div>
+<div id="fd<?php echo $obj[0]; ?>" <?php echo $data; ?> xtr="<?php echo $obj[1]; ?>" idprod="<?php echo $obj[2]; ?>" class="ciclos row col s12"> <div class="col s1 hide"><input type="checkbox" id="check<?php echo $obj[0]; ?>" checked><label for="check<?php echo $obj[0]; ?>"></label></div> <div style="padding: 0 !important;" class="col s2" id="codprod<?php echo $obj[0]; ?>"><?php echo $obj[3]; ?></div> <div style="padding: 0 !important;" class="col s3" id="desc<?php echo $obj[0]; ?>"><?php echo $obj[4]; ?></div> <div style="padding: 0 !important;position: relative;" class="col s2 center-align" id="unitprod<?php echo $obj[0]; ?>"> <input class="browser-default autocomplete eqprod" style="margin:0px;height: auto !important;" value="<?php echo $obj[27]; ?>" /> <i class="mdi mdi-plus der pbtn addpr" style="position: absolute;" title="Agregar Articulo"></i> </div> <div id="divcnt" style="padding: 0 !important;" class="col s1 right-align"> <?php echo $obj[6]; ?> </div> <div style="padding: 0 !important;" class="col s1 center-align totp divisa" id="totl<?php echo $obj[0]; ?>"><?php echo $obj[7]; ?></div> <div style="padding: 0 !important;" class="col s2 right-align" id="total<?php echo $obj[0]; ?>"><?php echo number_format($obj[8],2); ?></div> <div class="right"> <i id="cs<?php echo $obj[0]; ?>" class="mdi mdi-24px mdi-clipboard-flow pbtn costo" title="Cambiar Márgenes"></i> </div> </div>
 
             <?php }
             break;
@@ -23,6 +23,14 @@
 
  <script type="text/javascript">
      $(function(){
+
+        $(".addpr").click(function(){
+            $("#fproductos .zelda").data('triforce',{vid:0,vnombre:'',vcodigointerno:'',vcosto:0,vganancia:0,vexoneracion: 0,vidunidad:1,vminimo:0,vmaximo:0,vmaxdescuento:0,vidmarca:0,vidinventario:6,vidusuario: '',vidmoneda:1,vidsucursal:'',visinventariado:0,vidheredado:0,visvariable:1,vcantequiv:0,visgravamen:0,vcomision:0,vventa:0,vventaiva:0,vtimv:8,vidvarios:0});
+        
+            $("#modal-producto").modal('open');
+            $("#vcodigo").focus()
+        });
+
         totalizar();
      });
  </script>

@@ -297,7 +297,7 @@ function cargarCompras(){
             var tipo = getParameterByName('tf');
             var id = $(this).parent().parent().attr('id')
             $(".autocomplete-content").remove();
-            
+
             $(this).autocomplete({
                 limit: 20,
                 data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1),
@@ -317,6 +317,21 @@ function cargarCompras(){
             $(".autocomplete-content").css('max-width','250px');
         }
     });
+
+    $(document).on("keyup",".eqprod",function(e){
+        var code = e.which || e.keyCode;
+        var id = $(this).parent().parent().attr('id')
+        if(code == 13){
+             var cod = arr('login',4,'',43,'"'+ $(this).val().replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+$("#ffacturas .zelda").data('triforce')['vidtipoventa']+','+$("#invgeneral").val(),0,0,0);
+            if (cod[0][0] != undefined) {
+                $("#"+id).data('triforce')['videntrada'] = cod[0][0][0];
+                $("#"+id).find('.mdi-plus').addClass('hide');
+            }else{
+                $("#"+id).data('triforce')['videntrada'] = 0;
+                $("#"+id).find('.mdi-plus').removeClass('hide');
+            }
+        }
+    })
 
     $("#vplazo").keyup(function(e){
         var code = e.which || e.keyCode
@@ -400,6 +415,7 @@ function cargarCompras(){
         }
 
         var prod = getDatos('',297,$(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'],0,0,0);
+        console.log(prod)
         var str = '';
         if(prod[0].length){
             var cst = parseFloat($(this).parent().parent().data('triforce')['vprecio']);
@@ -413,10 +429,15 @@ function cargarCompras(){
                 icon = 'mdi-arrow-up';
             }
             var utlnew = 1;
-            str += '<label><b>COSTOS</b></label><br> '+cstold.formatMoney(2,'.',',')+' => '+cst.formatMoney(2,'.',',') + ' <span style="color:'+color+'"><i class="mdi '+icon+'"></i> '+((ddif*100)/cstold).formatMoney(2,'.',',')+'% ('+ddif+')</span> <br>  <table> <tr> <td>Utilidad</td> <td style="text-align: right;">'+parseFloat(prod[0][0][5]).formatMoney(0)+'</td> <td>=></td> <td><input type="number" class="browser-default eder" value="'+utlnew+'" style="border: 0px;width:50px;"/></td></tr> <tr> <td>Venta</td> <td style="text-align:right">'+parseFloat(prod[0][0][3]).formatMoney(2,'.',',')+'</td> <td>=></td> <td></td> </tr> <tr> <td>+IVA</td> <td style="text-align:right">'+parseFloat(prod[0][0][4]).formatMoney(2,'.',',')+'</td> <td>=></td> <td></td> </tr>';
+            var perrcent = ''
+            if(cstold > 0){
+                perrcent = ((ddif*100)/cstold).formatMoney(2,'.',',')+'%';
+            }
+            str += '<label><b>COSTOS</b></label><br> '+cstold.formatMoney(2,'.',',')+' => '+cst.formatMoney(2,'.',',') + ' <span style="color:'+color+'"><i class="mdi '+icon+'"></i> '+perrcent+' ('+ddif+')</span> <br>  PUBLICO <hr> <span style="width: 20% !important">Utilidad</span> <span style="width: 20%">'+parseFloat(prod[0][0][5]).formatMoney(0)+'</span> <span> => </span> <span style="width:10%"><input type="number" class="browser-default eder" value="'+utlnew+'" style="border: 0px;height:auto !important;"/></span>  <br> <span>'+parseFloat(prod[0][0][3]).formatMoney(2,'.',',')+'</span> <span> => </span> <span><input type="number" class="browser-default eder" value="2" style="border: 0px;height:auto !important;"/></span> <br> <tr> <td>+IVA</td> <td style="text-align:right">'+parseFloat(prod[0][0][4]).formatMoney(2,'.',',')+'</td> <td>=></td> <td></td> </tr>';
+            
             for (var i = 0; i < prod[0].length; i++) {
-
-                str += '<tr> <td>'+prod[0][i][6]+'</td> <td>'+parseFloat(prod[0][i][10]).formatMoney(0)+' => <input type="number" class="browser-default eder" value="'+utlnew+'" style="border: 0px;width:50px;"/> %</td> <td style="text-align:right">'+parseFloat(prod[0][i][8]).formatMoney('2','.',',')+'</td> <td style="text-align:right">'+parseFloat(prod[0][i][9]).formatMoney('2','.',',')+'</td> </tr>';
+                if(prod[0][i][6])
+                    str += ''; //<tr> <td>'+prod[0][i][6]+'</td> <td>'+parseFloat(prod[0][i][10]).formatMoney(0)+' => <input type="number" class="browser-default eder" value="'+utlnew+'" style="border: 0px;width:50px;"/> %</td> <td style="text-align:right">'+parseFloat(prod[0][i][8]).formatMoney('2','.',',')+'</td> <td style="text-align:right">'+parseFloat(prod[0][i][9]).formatMoney('2','.',',')+'</td> </tr>';
             }
         }
         $("#marbdy").html(str+'<table>')

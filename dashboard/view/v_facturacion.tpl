@@ -15,7 +15,7 @@
 
         <ul id="margenes" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
           <li>
-            <div id="marbdy">
+            <div id="marbdy" style="line-height: 0px;">
               HOLA
             </div>
           </li>

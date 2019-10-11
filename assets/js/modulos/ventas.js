@@ -402,8 +402,7 @@ $(function(){
     permisos(1101,1110);
 
     if ($("#celectronica:visible[disabled=disabled]").length){
-        $("#codp").val('*').attr('readonly',true);
-        $("#tpagos").addClass('hide')
+        $("#celectronica").change();
     }
   
     if (parseInt(config[11]) == 3 && param.toString().match(new RegExp(/[1678]/i)) && $(".zelda").attr('tipo') != 1)
