@@ -298,6 +298,6 @@
 <div id="mreportes"></div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.21"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.2.0.25"></script>
 </body>
 </html>
