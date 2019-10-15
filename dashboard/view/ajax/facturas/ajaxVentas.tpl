@@ -386,58 +386,6 @@
 
       </div>
 
-        <div class="trComprae hide trsec hide-on-med-and-down row">
-          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
-            <input type="hidden" id="valores">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m1 _uni">
-            <select id="uni" readonly >
-              <option value="1">Unid</option>
-            </select>
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="new-password">
-          </div>
-
-          <div class="input-field col s12 m1">
-            <input type="text" class="f center" id="descup" min="0" value="0" data-mask="999999999.99" placeholder="Descuento" value="0.00" autocomplete="new-password">
-          </div>
-          
-          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
-          </div>
-
-         <div class="center col s12 m2 row" style="font-size: 1em;  padding: 0px 5px !important;">
-            <div style="padding: 0 !important;" class="col s8 input-field valor_grabado">
-                <select id="vimpiva" style="margin: 0px" num="4">
-                    <option value="1" num="0">Exento 0%</option>
-                    <option value="2" num="1">Reducido 1%</option>
-                    <option value="3" num="2">Reducido 2%</option>
-                    <option value="4" num="4">Reducido 4%</option>
-                    <option value="5" num="0">Transitorio 0%</option>
-                    <option value="6" num="4">Transitorio 4%</option>
-                    <option value="7" num="8">Transitorio 8%</option>
-                    <option selected value="8" num="13">General 13%</option>
-                </select>
-            </div>
-            <div class="col s4" style="padding: 0px">
-          
-            </div>
-
-          </div>
-        </div>
-
       {if $smarty.session.BUSS neq 1}
       <div class="trCompraa hide trsec hide-on-med-and-down row" style="font-size: 12px" id="precioscat">
         <table style="border: 1px solid #e2e2e2">
@@ -594,7 +542,7 @@
           </tr>
           <tr class="hide rest">
             <td>10% SERV.:</td>
-            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0">0.00</span></b></td>
+            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0" class="otroscargos" porcentaje="10">0.00</span></b></td>
           </tr>
         </thead>
 

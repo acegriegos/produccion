@@ -213,14 +213,18 @@
         $pagina = 1;
         error_reporting(E_ALL);
 
+        $pagina = 1;
+        error_reporting(E_ALL);
+
         include("../print/PrintSend.php");
         include("../print/PrintSendLPR.php");
 
         $lpr = new PrintSendLPR();
         $lpr->setHost($_REQUEST['arreglo']['ip']); //192.168.31.153
+        $lpr->setPort($_REQUEST['arreglo']['port']);
         $lpr->setData(htmlspecialchars($_REQUEST['arreglo']['data']));//utf8_encode()
 
-        $lpr->printJob("l2");
+        $lpr->printJob($_REQUEST['arreglo']['cola']);
         break;
       case 13: //FORKING
         $pagina = 1;

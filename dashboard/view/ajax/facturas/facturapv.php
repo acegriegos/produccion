@@ -179,16 +179,12 @@ switch($config[0][10]) {
   <tr>
     <td colspan="4"></td>
   </tr>';
-  $sr = 0;
   foreach ($transaccion as $obj) {
-    if( strpos($obj[19], 'Servicios Restaurante') == ''){
       echo '<tr>
         <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
         <td align="center" width="45%">'.$obj[19].'</td>
         <td align="center" width="20%">'.$obj[20].'</td>
         <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
-      }else
-        $sr += str_replace(',', '', $obj[20]);
     }
 
 break;
@@ -209,17 +205,14 @@ case 2:
   <tr>
     <td colspan="4"></td>
   </tr>';
-  $sr = 0;
   foreach ($transaccion as $obj) {
-    if( strpos($obj[19], 'Servicios Restaurante') == ''){
       echo ' <tr> <td style="border-top: 1px dashed black" colspan="4">'.$obj[19].'</td></tr>
       <tr>
         <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
         <td align="center" width="45%">'.$obj[36].'</td>
         <td align="right" width="20%">'.$obj[20].'</td>
         <td align="right" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
-      }else
-        $sr += str_replace(',', '', $obj[20]);
+
     }
 break;
 default:
@@ -236,15 +229,11 @@ echo '<table  style="width: 100% !important;">
   </tr>';
   
 
-    $sr = 0;
     foreach ($transaccion as $obj) {
-      if( strpos($obj[19], 'Servicios Restaurante') == ''){
           echo '<tr>
             <td align="center" width="20%">'.$obj[29].$obj[18].'</td>
             <td align="center" width="50%">'.$obj[19].'</td>
             <td align="right" width="30%">'.number_format(str_replace(',','',$obj[20])*str_replace(',', '', $obj[18]),2).'</td>';
-      }else
-        $sr += str_replace(',', '', $obj[20]);
     }
     break;
   }
@@ -274,10 +263,10 @@ echo '<tr>
     </tr>';
     }
 
-    if ($sr > 0) {
+    if ($obj[49] > 0) {
       echo '<tr '.$ocultar.'>
       <td width="50%" colspan="'.$colspan2.'">10% Serv. Rest.:</td>
-      <td width="50%" align="right"> '.$obj[15].number_format($sr,2).' </td>
+      <td width="50%" align="right"> '.$obj[15].number_format($obj[49],2).' </td>
     </tr>';
     }
   

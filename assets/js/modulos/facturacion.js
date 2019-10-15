@@ -172,6 +172,7 @@ function cargarCompras(){
     $("#vplazo").attr('disabled',false);
     $("[for=iva]").removeClass('hide');
 
+    $(".trComprae").removeClass('trsec');
     $(".trCompra").removeClass('hide');
     $(".trsec.hide").remove(); //.trsec:hidden
 
@@ -181,7 +182,7 @@ function cargarCompras(){
     $("#precp").attr('readonly',false);
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor").prop('readonly',true);
     $("#vdescuentop").prop('readonly',true);
-    $("#monedas").prop('readonly',true).material_select('update');
+    $("#monedas").prop('disabled',true).material_select('update');
     $("#vcomentario").prop('readonly',true);
 
     $("#facturar").html('Aceptar').attr('id','docompra').attr('href','#')
@@ -220,7 +221,7 @@ function cargarCompras(){
 
             $("#ncli").prop('readonly',false);
             $("#vdescuentop").prop('readonly',false);
-            $("#monedas").prop('readonly',false).material_select('update');
+            $("#monedas").prop('disabled',false).material_select('update');
             $("#vcomentario").prop('readonly',false);
 
             $("#fcompra").addClass('hide');
@@ -243,7 +244,7 @@ function cargarCompras(){
             $("#precp").attr('readonly',false);
             $("#ncli").prop('readonly',true);
             $("#vdescuentop").prop('readonly',true);
-            $("#monedas").prop('readonly',true).material_select('update');
+            $("#monedas").prop('disabled',true).material_select('update');
             $("#vcomentario").prop('readonly',true);
 
             $("#fcompra").removeClass('hide');
@@ -433,17 +434,23 @@ function cargarCompras(){
             if(cstold > 0){
                 perrcent = ((ddif*100)/cstold).formatMoney(2,'.',',')+'%';
             }
-            str += '<label><b>COSTOS</b></label><br> '+cstold.formatMoney(2,'.',',')+' => '+cst.formatMoney(2,'.',',') + ' <span style="color:'+color+'"><i class="mdi '+icon+'"></i> '+perrcent+' ('+ddif+')</span> <br>  PUBLICO <hr> <span style="width: 20% !important">Utilidad</span> <span style="width: 20%">'+parseFloat(prod[0][0][5]).formatMoney(0)+'</span> <span> => </span> <span style="width:10%"><input type="number" class="browser-default eder" value="'+utlnew+'" style="border: 0px;height:auto !important;"/></span>  <br> <span>'+parseFloat(prod[0][0][3]).formatMoney(2,'.',',')+'</span> <span> => </span> <span><input type="number" class="browser-default eder" value="2" style="border: 0px;height:auto !important;"/></span> <br> <tr> <td>+IVA</td> <td style="text-align:right">'+parseFloat(prod[0][0][4]).formatMoney(2,'.',',')+'</td> <td>=></td> <td></td> </tr>';
-            
+            str += '<label><b>COSTOS</b></label><br>'+cstold.formatMoney(2,'.',',')+' => '+cst.formatMoney(2,'.',',') + ' <span style="color:'+color+'"><i class="mdi '+icon+'"></i> '+perrcent+' ('+ddif+')</span> <br><br>  PUBLICO <small id="lgrp0"></small> <hr> <table id="grp0"> <tr> <td style="width:20% !important;">Utilidad</td> <td style="width:20% !important;text-align:right;">'+parseFloat(prod[0][0][5]).formatMoney(0)+'</td> <td style="width:5% !important;"> => </td> <td style="width:20% !important;"><input type="number" class="browser-default eder vgan" value="'+utlnew+'" style="border: 0px;height:auto !important;width: 100%;"/></td> </tr>  <tr> <td style="width:20% !important;">Venta</td> <td style="width:20% !important;text-align:right;">'+parseFloat(prod[0][0][3]).formatMoney(0)+'</td> <td style="width:5% !important;"> => </td> <td style="width:20% !important;"><input type="number" class="browser-default eder vbruta" value="'+utlnew+'" style="border: 0px;height:auto !important;width: 100%;"/></td> </tr>  <tr> <td style="width:20% !important;">Venta+IVA</td> <td style="width:20% !important;text-align:right;">'+parseFloat(prod[0][0][4]).formatMoney(0)+'</td> <td style="width:5% !important;"> => </td> <td style="width:20% !important;"><input type="number" class="browser-default eder vneta" value="'+utlnew+'" style="border: 0px;height:auto !important;width: 100%;"/></td> </tr> </table>';
+            cargarcosto(0,cst);
             for (var i = 0; i < prod[0].length; i++) {
                 if(prod[0][i][6])
                     str += ''; //<tr> <td>'+prod[0][i][6]+'</td> <td>'+parseFloat(prod[0][i][10]).formatMoney(0)+' => <input type="number" class="browser-default eder" value="'+utlnew+'" style="border: 0px;width:50px;"/> %</td> <td style="text-align:right">'+parseFloat(prod[0][i][8]).formatMoney('2','.',',')+'</td> <td style="text-align:right">'+parseFloat(prod[0][i][9]).formatMoney('2','.',',')+'</td> </tr>';
             }
         }
-        $("#marbdy").html(str+'<table>')
+        $("#marbdy").html(str)
 
         $("#openmargen").sideNav('show');
     });
+
+    function cargarcosto(vgrupo,vcosto){
+        var venta = parseFloat($("#grp"+vgrupo).find('.vbruta').val())
+        var ganan = parseFloat($("#grp"+vgrupo).find('.vgan').val())
+        var viva = parseFloat($("#grp"+vgrupo).find('.vneta').val())
+    }
 
      $('#openmargen').sideNav({
         menuWidth: 400, // Default is 240
@@ -1035,8 +1042,8 @@ function cargarGlobal(){
         $("#vcodigo").focus()
         $(this).parent().parent().hide();
 
-        $("#pmoneda").val($("#monedas").val());
-        $("#pmoneda").material_select('update');
+        $("#pmoneda").val($("#monedas").val()).prop('disabled',false).material_select('update');
+        $("#pimv").prop('disabled',false).material_select('update');
     });
 
     // if (config[1] == 0) {
