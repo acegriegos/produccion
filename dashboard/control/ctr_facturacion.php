@@ -90,11 +90,17 @@
 	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
 	   			$_REQUEST['id'] = $_REQUEST['id'] < 0 ? -1*$_REQUEST['id'] : $_REQUEST['id'];
 	   			$transaccion = $kakaroto->kamehameha('date_format(fecha,"%d/%m/%Y"),curtime(),(select nombre from usuarios where id = idusuario),id,(select simbolo from monedas where id = idmoneda)',261,'id = '.$_REQUEST['id']);
-	   			$detalle = $kakaroto->kamehameha('cantidad,(precio*cantidad-descuento)*1.13,(select nombre from productos where id = idproducto),(precio*cantidad-descuento)*0.13',260,'idfactura = '.$_REQUEST['id']);
+	   			$detalle = $kakaroto->kamehameha('cantidad,(precio*cantidad-descuento)/1.23,(select nombre from productos where id = idproducto),(precio*cantidad-descuento)*0.13',260,'idfactura = '.$_REQUEST['id']);
 	   			
 	   			include_once 'view/ajax/facturas/ordenpv.php';
+        			
         	break;
+        	case 11:
+        		$pagina = 1;
+        		$transaccion = $kakaroto->kamehameha('',296,$_REQUEST['arreglo']['idfact'].','.$_REQUEST['arreglo']['idtp']);
 
+        		include_once 'view/ajax/facturas/showfacturas.php';
+        		break;
 	   	}
 		if(!$pagina){
 		   	if (is_array($transaccion) or die(header("Location: error"))){

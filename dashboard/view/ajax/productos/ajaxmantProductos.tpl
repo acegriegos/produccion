@@ -75,6 +75,17 @@
                         <label for="vmarca">Marca</label>
                     </div>
 
+                     <div class="input-field marginzero col s12">
+                        <select id="vidvarios" type="select" class="per11">
+                            <option value="0" selected>N/A</option>   
+                            <option value="1">Entrada</option>
+                            <option value="2">Plato Fuerte</option>
+                            <option value="3">Postre</option>
+                            <option value="4">Bebida</option>
+                        </select>
+                        <label for="vidvarios">Tipo Plato</label>
+                    </div>
+
                     <div class="col s12 switch">
                         <label>
                           <input type="checkbox" id="variable" ische="{if $smarty.session.BUSS eq 1}3{else}1{/if}">
@@ -159,16 +170,12 @@
                         <label>Comision de Venta</label>
                     </div>
 
-                    {if $smarty.session.BUSS neq 0} 
                     {if $smarty.session.BUSS eq 3}
                         <div class="input-field marginzero col s12 " id="cantpro">
-                            <input type="text" id="vcantidad" noClear="1" class="validate" value="0" autocomplete="off">
+                            <input type="text" id="vcantidad" noClear="1" class="validate der" value="0" autocomplete="off">
                             <label class="active" for="vcantidad">Cantidad</label>
                         </div>
-                    {/if}
 
-                    <input type="hidden" id="vidinventario" value="6" noClear="1">
-                    {else}
                     <div class="input-field marginzero col s12" id="dinventario">
                         <select type="select" id="vidinventario" noClear="1">
                             <option value="0">Seleccione un Inventario</option>

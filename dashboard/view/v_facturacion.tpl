@@ -8,15 +8,24 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.5">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.19">
   <body >
   {$NAV}
+    <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
+
+        <ul id="margenes" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
+          <li>
+            <div id="marbdy">
+              HOLA
+            </div>
+          </li>
+        </ul>
     <div class="bdy pequeño movil" >
       <div id="mfacturacion"></div>
     </div>
   </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.5"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.20"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -25,7 +34,7 @@
     
     <div class="row">
 
-      <div class="input-field col s6 ecant">
+      <div class="input-field col s6 ecant hide">
         <input type="text" id="ecantidad">
         <label for="ecantidad">Cantidad</label>
       </div>

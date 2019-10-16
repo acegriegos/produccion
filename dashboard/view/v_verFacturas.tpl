@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.2.0.5">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.2.0.19">
   </head>
   <body>
   
@@ -105,7 +105,7 @@
                                 <th class="white-text tr trCompra" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Referencia</th>
                                 <th class="white-text tr trCompra trVenta trCot" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Tipo</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Fecha</th>
-                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%"><span id="tclie"></span></th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Razon Social</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Total</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Comentario</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
@@ -156,6 +156,6 @@
 
     {$SCR}
     
-    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.5"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.19"></script>
   </body>
 </html>

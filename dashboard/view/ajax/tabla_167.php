@@ -4,6 +4,14 @@ $idfactura = 0;
 $cantt = $tot = $tde = $tim = $tgr = $text = $texo = $toc = 0;
 
 foreach ($transaccion as $obj) {
+
+      if($obj[5] == ''){
+        $obj[5] = substr($obj[1], 0,2);
+        $obj[6] = -1*($obj[28]+$obj[31]+$obj[33]+$obj[35]+$obj[37]);
+        $obj[7] = -1*($obj[39]);
+        $obj[13] = -1*($obj[30]+$obj[32]+$obj[34]+$obj[36]+$obj[38]);
+        $obj[14] = -1*$obj[40];
+      }
       echo '<tr>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[0].'</td>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[2].'</td>

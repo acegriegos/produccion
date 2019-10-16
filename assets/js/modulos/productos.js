@@ -2315,7 +2315,6 @@ function postload(vmodulo){
 		    });
 
 		    $("#vimpiva").val($("#fproductos .zelda").data('triforce')['vtimv']).material_select('update')
-
 		    Materialize.updateTextFields();
 			break;
 		case 'servicio':

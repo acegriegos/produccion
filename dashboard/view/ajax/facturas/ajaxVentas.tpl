@@ -40,31 +40,33 @@
       <div class="col s12 m{$column} l{$column} concre movil hide trVenta" align="center" id="tpagos">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1105" val="2" id="chg_tipo2">
-        <label for="chg_tipo2">Crédito</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1106 hide" val="3" id="chg_tipo3" disabled>
-        <label for="chg_tipo3">Consignación</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1107 hide" val="4" id="chg_tipo4" disabled>
-        <label for="chg_tipo4">Apartado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1108 hide" val="5" id="chg_tipo5" disabled>
-        <label for="chg_tipo5" class="tooltipped" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap per1109 hide" val="6" id="chg_tipo6" disabled>
-        <label for="chg_tipo6" class="tooltipped" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="2" id="chg_tipo2">
+        <label for="chg_tipo2" class="per1105-">Crédito</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="3" id="chg_tipo3" disabled>
+        <label for="chg_tipo3" class="per1106 hide">Consignación</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="4" id="chg_tipo4" disabled>
+        <label for="chg_tipo4" class="per1107 hide">Apartado</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="5" id="chg_tipo5" disabled>
+        <label for="chg_tipo5" class="tooltipped per1108 hide" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="6" id="chg_tipo6" disabled>
+        <label for="chg_tipo6" class="tooltipped per1109 hide" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
     <div class="col s12 m3 l3 cre gen hide" align="center">
       <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div>
 
     <div class="input-field col s12 m3 trCompra hide">
-      <label for="vreferencia"><!-- Número de Referencia --></label>
-      <input type="text" id="vreferencia" class="validate" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" />
+      <label for="vreferencia"></label>
+      <input type="text" id="vreferencia" class="validate eder" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" readonly />
     </div>
+
+    <select id="fcompra" class="col s12 m3 trCompra hide browser-default" style="border: 0px"></select>
 
   </div>
   <hr style="border: 1px solid #F9F9F9; width: 90%">
   <div class="row padd">
 
-   <div class="trCompra hide input-field col s12 m3 l3">
+   <div class="hide input-field col s12 m3 l3">
       <i class="mdi mdi-calendar mdi-24px prefix"></i>
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
@@ -77,7 +79,7 @@
     
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
-      <input type="text" id="ncli" value="" class="autocomplete validate sclie" maxlength="64" autocomplete="new-password"/>
+      <input type="text" id="ncli" value="" class="autocomplete sclie" maxlength="64" autocomplete="new-password"/>
 
       <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180;cursor: pointer;" data-position="bottom" data-tooltip="Agregar Cliente"></a>
 
@@ -204,7 +206,7 @@
  </div>
 
   <div class="row">
-    <div class="col s12">
+    <div class="col s12" style="padding-right: 0px;margin-bottom: 1.5%;" id="addliner">
 
       <select class="col s3 hide" id="invgeneral" style="margin: 0px;width: 150px;padding: 0px;float: left;">
         <option value="6">NARANJO</option>
@@ -216,7 +218,7 @@
           <label for="tc2"  class="hide" style="float: left;margin-right: 5px">Gasto Diferido</label>
           <input type="radio" name="tcompra" id="tc3" value="3" class="with-gap">
           <label for="tc3"  class="hide" style="float: left;margin-right: 5px">Gasto no Diferido</label>
-    <section class="right">
+    <section class="right hide-on-small-only">
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
           <label for="iva" class="hide" style="float: left;margin-right: 5px">IVI</label>
       {if $smarty.session.BUSS neq 1}
@@ -227,24 +229,55 @@
 
         <input class="with-gap" name="modselected" type="radio" value="1" id="teclado"/>
         <label for="teclado" class="isfast"><i class="mdi mdi-keyboard mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" data-position="bottom" style="font-size: 1.4em"></i></label>
+        
+        <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea" style="margin-left: 5px;"><i class="mdi mdi-plus mdi-16px"></i></a>
+            
     </section>
+
     </div>
-    <div class="col s12 hide-on-med-and-down">
+    <div class="trsec col s12 hide-on-med-and-down">
 <!--     <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead> -->
         <section class="trVenta hide">
-        <div class="hide-on-med-and-down">
-          <div style="padding: 0 !important;" class="col s2 center-align"> <b>Código</b></div>
-          <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
-          <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Prec.Unit</b></span></div>
-          <div style="padding: 0 !important;" class="col s1 center-align"><span class="truncate"><b>Unidad</b></span></div>
-          <div style="padding: 0 !important;" class="col s1 center-align"><b>Cantidad</b></div>
-          <div style="padding: 0 !important;" class="col s1 center-align"><b>Total</b></div>
-          <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
-        </div>
+
+          <div class="row">
+            <div class="input-field col s2">
+              <input type="hidden" id="valores">
+              <input type="text" placeholder="Código" id="codp" autocomplete="new-password" class="autocomplete">
+              <label for="codp" style="font-size: 20px" class="active"><b>Código</b></label>
+            </div>
+
+            <div class="input-field col s5">
+              <input type="text" id="descp" placeholder="Artículo" autocomplete="new-password" class="autocomplete">
+              <label for="descp" style="font-size: 20px" class="active center"><b>Artículo</b></label>
+            </div>
+
+           <div class="input-field col s2">
+              <input type="text" id="precp" class="divisa numeric" value="0.00" readonly autocomplete="new-password">
+              <label for="precp" style="font-size: 20px" class="active"><b>P.Unit</b></label>
+            </div> 
+
+            <div class="input-field col s1">
+               <input type="text" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad" class="center">
+              <label for="c4" style="font-size: 20px" class="active"><b>Cantidad</b></label>
+            </div> 
+
+            <div class="col s1 input-field">
+              <label for="uni" class="active" style="font-size: 20px;"><b>Unidad</b></label>
+              <select id="uni" readonly >
+                <option value="1">Unid</option>
+              </select>
+            </div>
+
+            <div class="input-field col s1">
+              <input type="text" id="totp" class="divisa" value="0.00" readonly placeholder="Total">
+              <label for="c6" style="font-size: 20px" class="active"><b>Total</b></label>
+            </div> 
+
+          </div>
         </section>
 
-        <section class="trCompra hide">
+        <section class="trComprae hide">
           <div class="hide-on-med-and-down">
             <div style="padding: 0 !important;" class="col s2 center-align"><b>Código Barras</b></div>
             <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
@@ -269,44 +302,6 @@
             <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
           </div>
         </section>
-
-        <div class="trVenta hide trsec hide-on-med-and-down">
-          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
-            <input type="hidden" id="valores">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="new-password">
-          </div>
-
-          <div style=padding: 0 !important" class="input-field col s12 m1">
-            <select id="uni" readonly >
-              <option value="1">Unid</option>
-            </select>
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" id="totp" class="f center divisa" value="0.00" readonly placeholder="Total">
-          </div>
-
-          <div class="center col s12 m2" style="font-size: 1em; padding: 0px 5px !important;">
-            <div class="col s8">
-      
-            </div>
-            <div class="col s4" style="padding: 0px">
-             <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
-            </div>
-          </div>
-        </div>
 
         <div class="trOCompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
@@ -335,15 +330,9 @@
           <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
             <input type="text" id="totp" class="f center hide divisa" value="0.00" readonly placeholder="Total">
           </div>
-
-          <div class="center col s12 m2 row" style="font-size: 1em; padding: 0px 5px !important;">
-            <div class="col s4" style="padding: 0px">
-             <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
-            </div>
-          </div>
         </div>
 
-        <div class="trCompra hide trsec hide-on-med-and-down row">
+        <div class="trComprae hide trsec hide-on-med-and-down row">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
             <input type="hidden" id="valores">
@@ -389,45 +378,16 @@
                 </select>
             </div>
             <div class="col s4" style="padding: 0px">
-              <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea"><i class="mdi mdi-plus mdi-24px"></i></a>
+          
             </div>
 
           </div>
         </div>
 
-        <div class="trComprax hide trsec hide-on-med-and-down row">
-          <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad %</b></div>
-          <div style="padding: 0 !important;" class="col s2 center-align"><b>Utilidad $</b></div>
-          <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Precio Público</b></span></div>
-          <div style="padding: 0 !important;" class="col s2 center"><b>Costo Ponderado</b></div>
-          <div style="padding: 0 !important;" class="col s1"></div>
-          <div style="padding: 0 !important;" class="col s2"></div>
-        </div>
-
-        <div class="trComprax hide trsec hide-on-med-and-down row">
-
-          <div style="padding: 0px 5px !important" class="input-field col s2">
-            <input type="text" class="f center putil" id="putil" value="0" placeholder="Utilidad %" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s2">
-            <input type="text" class="f center putil" id="putils" readonly value="0" placeholder="Utilidad $" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s3">
-            <input type="text" class="f center" id="pventa" min="1" value="0" placeholder="Precio Venta" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0 !important;" class="col s2 center"><span id="preponderado">0.00</span></div>
-          <div style="padding: 0 !important;" class="col s1"></div>
-         
-
-        </div>
-
       </div>
 
       {if $smarty.session.BUSS neq 1}
-      <div class="trCompra hide trsec hide-on-med-and-down row" style="font-size: 12px" id="precioscat">
+      <div class="trCompraa hide trsec hide-on-med-and-down row" style="font-size: 12px" id="precioscat">
         <table style="border: 1px solid #e2e2e2">
           <thead>
             <tr>
@@ -514,7 +474,7 @@
       </div>
 
       {if $AG}
-      <div class="input-field">
+      <div class="input-field hide trVenta">
         <select id="vidagente" type="select">
             <option value="0">Agente</option>
           {section name="LE" loop=$AG}
@@ -609,7 +569,7 @@
           </div>
 
           <div class="col s12 m6 l6 rest hide">
-              <input type="checkbox" id="impm" checked disabled />
+              <input type="checkbox" id="impm"/>
               <label for="impm" style="color: black; padding-left: 20px;" class="tooltipped" data-tooltip="Seleccione esta opción para Acreditar el Impuesto de Mesero" data-position="left">Imp. Mesero</label>
           </div>
 
@@ -649,7 +609,7 @@
 
 <div class="modal modal-fixed-footer" id="modal-addline" style="height: 400px;">
   <div class="modal-content">
-    <div class="trVenta hide trsec hide-on-large-only">
+    <div class="trVenta hide trsec hide-on-large-only"> <!-- MOBIL -->
       <div style="padding: 0px 5px !important" class="input-field col s12 m2">
 
             <input type="text" id="codp" class="f prod center truncate" autocomplete="new-password">
@@ -793,15 +753,28 @@
         <input type="hidden" id="c-tp">
       </div>
 
-      <div class="input-field col s6 hide">
-        <input type="text" id="c-ap1" readonly>
-        <label for="c-ap1">Apellido 1</label>
+       <div class="switch der">
+          <label>
+            <span class="hide-on-small">Contado</span>
+            <input type="checkbox" id="ccr">
+            <span class="lever"></span>
+            Crédito
+          </label>
+        </div>
       </div>
 
-      <div class="input-field col s6 hide">
-        <input type="text" id="c-ap2" readonly>
-        <label for="c-ap2">Apellido 2</label>
+      <div class="row hide" id="idcc">
+      
+      <div class="col s6 input-field">
+        <input type="text" id="c-dias" value="0" class="eder">
+        <label for="c-dias">Plazo en Días</label>
       </div>
+
+      <div class="col s6 input-field">
+        <input type="text" id="c-max" value="0" class="eder">
+        <label for="c-max">Max Crédito</label>
+      </div>
+
     </div>
     
   </div>
@@ -1151,4 +1124,5 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.7"></script>
+
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.19"></script>

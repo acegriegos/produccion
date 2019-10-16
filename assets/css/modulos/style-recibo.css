@@ -1,3 +1,7 @@
+#detalle td,th{
+  padding: 5px 5px;
+}
+
 .head1 {
   background: #0080C6;
   color: #fff; }

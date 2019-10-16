@@ -23,11 +23,29 @@
 	   	switch ($_REQUEST['accion']) {
 	   		case 1:
 	   			$pagina = 1;
-	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
-	   			$transaccion = $kakaroto->kamehameha('date_format(fecha,"%d/%m/%Y"),curtime(),(select nombre from usuarios where id = idusuario),id,(select simbolo from monedas where id = idmoneda)',261,'idtipo = '.$_REQUEST['id'].' and idtipopago = '.$_REQUEST['tpago']);
-	   			$detalle = $kakaroto->kamehameha('cantidad,precio*cantidad-descuento,(select nombre from productos where id = idproducto),imv',260,'idfactura = '.$transaccion[0][3]);
+
+        		if($_REQUEST['arreglo']['tp'] == 1){
+        			$transaccion = $kakaroto->kamehameha('',808,$_REQUEST['arreglo']['id'].',0');
+        			echo "VISTA";
+        		} //VISTA HTML
+        		else{
+
+        			$transaccion = $kakaroto->kamehameha('',808,$_REQUEST['arreglo']['id'].',1');
+        			if(sizeof($transaccion[0])){
+        				$nom = $_SESSION['EMPRESA'].'_COCINA_'.date('YmdHmi');
+        				include_once 'view/ajax/restaurantes/comanda.php';
+        				shell_exec("start-process 'C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe' -ArgumentList '/S /T C:\logintech\apache\htdocs\produccion\assets\pdf\C-".$nom.".pdf'");
+        			}
+
+        			if(sizeof($transaccion[0])){
+        				$nom = $_SESSION['EMPRESA'].'_BEBIDAS_'.date('YmdHmi');
+	        			$transaccion = $kakaroto->kamehameha('',808,$_REQUEST['arreglo']['id'].',2');
+	        			include_once 'view/ajax/restaurantes/comanda.php';
+	        			shell_exec("start-process 'C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe' -ArgumentList '/S /T C:\logintech\apache\htdocs\produccion\assets\pdf\C-".$nom.".pdf'");
+	        		}
+
+        		} //CREAR ARCHIVO Y MANDAR A IMPRIMIR
 	   			
-	   			include_once 'view/ajax/restaurantes/ordenpv.php';
 	   			break;
 	   		default:
 	   			break;

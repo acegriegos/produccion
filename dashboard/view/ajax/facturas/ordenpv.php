@@ -154,7 +154,7 @@ echo '<table  style="width: 100% !important;">
             <td align="center" width="20%">'.$obj[0].'</td>
             <td align="center" width="50%">'.$obj[2].'</td>
             <td align="right" width="30%">'.number_format($obj[1],2).'</td>';
-        $grav += $obj[1]/1.23;
+        $grav += $obj[1];
         //$sr += ($obj[1]/1.23)*0.1;
       /*}else
         $sr += str_replace(',', '', $obj[20]);*/
@@ -219,9 +219,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.5"></script>
- <script src="../assets/js/materialize.js?v=10.2.0.5"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.5"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.19"></script>
+ <script src="../assets/js/materialize.js?v=10.2.0.19"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.19"></script>
  <script type="text/javascript">
   var salir = 0;
    $(function(){

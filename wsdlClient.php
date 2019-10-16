@@ -205,11 +205,11 @@
                 break;
              case 12: //INTEGRACION XML GENERADO
                 $salida = ['succed'=>1];
-                if (!file_exists('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml')) {
-                    echo json_encode(['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO ']);
+                if (!file_exists('C:/FACTURA_XML/'.$id.'.xml')) {
+                    echo json_encode(['succed'=>0,'ERROR'=>'ARCHIVO NO VALIDO A']);
                 }else{
                     $db = new DBClass();
-                    $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$id.'.xml');
+                    $xml = file_get_contents('C:/FACTURA_XML/'.$id.'.xml');
                     $nombresuc = $db->ejecutar('select if(pfisico = "",nombre,pfisico) from sucursales where id = '.$_REQUEST['sucursal']);
 
                     $tid = $id;
@@ -218,41 +218,52 @@
                     $cedula = '';
                     $rxml = $fe->XMLtoArray($xml);
                     $tp = 'Factura';
+                    $intpdf = 1;
+                    if(isset($rxml['FacturaElectronica']))
+                     $tiqueta = 'FacturaElectronica';
+                    else
+                        $tiqueta = isset($rxml['NotaCreditoElectronica']) ?  'NotaCreditoElectronica' : 'NotaDebitoElectronica' ;
 
-                    if (is_array($rxml['FacturaElectronica']['Receptor']['Nombre']))
-                        if(!sizeof($rxml['FacturaElectronica']['Receptor']['Nombre']))
-                            $rxml['FacturaElectronica']['Receptor']['Nombre'] = '';
+                    if (is_array($rxml[$tiqueta]['Receptor']['Nombre']))
+                        if(!sizeof($rxml[$tiqueta]['Receptor']['Nombre']))
+                            $rxml[$tiqueta]['Receptor']['Nombre'] = '';
                          
                     switch($nid){
-                        case 'F':
-                        if (!strlen($rxml['FacturaElectronica']['Receptor']['Nombre'])) {
-                            unset($rxml['FacturaElectronica']['Receptor']);
+                        case 'T':
+                            unset($rxml[$tiqueta]['Receptor']);
                             $fe->tdoc = 'TiqueteElectronico';
                             $fe->xmldoc = 'tiqueteElectronico';
                             $id = '!'.substr($id, 1,strlen($id));
                             $tp = 'Tiquete';
-                        }else{
-                            $cliente = $rxml['FacturaElectronica']['Receptor']['Nombre'];
-                            $cedula  = $rxml['FacturaElectronica']['Receptor']['Identificacion']['Numero'];
-                            $id = substr($id, 1,strlen($id));
-                        }
-                        break;
+                            break;
+                        case 'F':
+                            $cliente = $rxml[$tiqueta]['Receptor']['Nombre'];
+                            $cedula  = $rxml[$tiqueta]['Receptor']['Identificacion']['Numero'];
+                            $cedula = is_array($cedula) ? $cedula[0] : $cedula;
+                            $id = substr($id, 1,strlen($id)); 
+                            break;
                         case 'C':
-                            $cliente = $rxml['FacturaElectronica']['Receptor']['Nombre'];
-                            $cedula  = $rxml['FacturaElectronica']['Receptor']['Identificacion']['Numero'];
+                            if(isset($rxml[$tiqueta]['Receptor']['Identificacion']['Numero'])){
+                                $cliente = $rxml[$tiqueta]['Receptor']['Nombre'];
+                                $cedula  = $rxml[$tiqueta]['Receptor']['Identificacion']['Numero'];
+                            }
                             $fe->tdoc = 'NotaCreditoElectronica';
                             $fe->xmldoc = 'notaCreditoElectronica';
                             $id = '-'.substr($id, 1,strlen($id));
                             $tp = 'Nota Crédito';
-                        break;
+                            $intpdf = 0;
+                            break;
                         case 'D':
-                            $cliente = $rxml['FacturaElectronica']['Receptor']['Nombre'];
-                            $cedula  = $rxml['FacturaElectronica']['Receptor']['Identificacion']['Numero'];
+                            if(isset($rxml[$tiqueta]['Receptor']['Identificacion']['Numero'])){
+                                $cliente = $rxml[$tiqueta]['Receptor']['Nombre'];
+                                $cedula  = $rxml[$tiqueta]['Receptor']['Identificacion']['Numero'];
+                            }
                             $fe->tdoc = 'NotaDebitoElectronica';
                             $fe->xmldoc = 'notaDebitoElectronica';
                             $id = '^'.substr($id, 1,strlen($id));
                             $tp = 'Nora Débito';
-                        break;
+                            $intpdf = 0;
+                            break;
                     }
 
                     $repetir = isset($_REQUEST['view']) ? 1 : 0;
@@ -261,36 +272,36 @@
                     $intsuc = $intsuc->fetch_all()[0];
                     $_REQUEST['sucname'] = $intsuc[11];
                     
-                    $fe->info['FechaEmision'] = $rxml['FacturaElectronica']['FechaEmision'];
-                    $fe->info['Emisor']['Identificacion']['Tipo'] = $rxml['FacturaElectronica']['Emisor']['Identificacion']['Tipo'];
-                    $fe->info['Emisor']['Identificacion']['Numero'] = $rxml['FacturaElectronica']['Emisor']['Identificacion']['Numero'];
-                    $rxml['FacturaElectronica']['Clave'] = $intsuc[0];
-                    $rxml['FacturaElectronica']['NumeroConsecutivo'] = substr($rxml['FacturaElectronica']['Clave'], 21,20);
+                    $fe->info['FechaEmision'] = $rxml[$tiqueta]['FechaEmision'];
+                    $fe->info['Emisor']['Identificacion']['Tipo'] = $rxml[$tiqueta]['Emisor']['Identificacion']['Tipo'];
+                    $fe->info['Emisor']['Identificacion']['Numero'] = $rxml[$tiqueta]['Emisor']['Identificacion']['Numero'];
+                    $rxml[$tiqueta]['Clave'] = $intsuc[0];
+                    $rxml[$tiqueta]['CodigoActividad'] = $intsuc[12];
+                    $rxml[$tiqueta]['NumeroConsecutivo'] = substr($rxml[$tiqueta]['Clave'], 21,20);
 
-                    $fe->info['NumeroConsecutivo'] = $rxml['FacturaElectronica']['NumeroConsecutivo'];
-                    $fe->info['Clave'] = $rxml['FacturaElectronica']['Clave'];
+                    $fe->info['NumeroConsecutivo'] = $rxml[$tiqueta]['NumeroConsecutivo'];
+                    $fe->info['Clave'] = $rxml[$tiqueta]['Clave'];
 
-                    $rxml['FacturaElectronica']['Emisor']['Nombre'] = $intsuc[1];
-                    $rxml['FacturaElectronica']['Emisor']['Identificacion']['Tipo'] = $intsuc[2];
-                    $rxml['FacturaElectronica']['Emisor']['Identificacion']['Numero'] = $intsuc[3];
-                    $rxml['FacturaElectronica']['Emisor']['Ubicacion']['Barrio'] = $intsuc[4];
-                    $rxml['FacturaElectronica']['Emisor']['Ubicacion']['Canton'] = $intsuc[5];
-                    $rxml['FacturaElectronica']['Emisor']['Ubicacion']['Distrito'] = $intsuc[6];
-                    $rxml['FacturaElectronica']['Emisor']['Ubicacion']['Provincia'] = $intsuc[7];
+                    $rxml[$tiqueta]['Emisor']['Nombre'] = $intsuc[1];
+                    $rxml[$tiqueta]['Emisor']['Identificacion']['Tipo'] = $intsuc[2];
+                    $rxml[$tiqueta]['Emisor']['Identificacion']['Numero'] = $intsuc[3];
+                    $rxml[$tiqueta]['Emisor']['Ubicacion']['Barrio'] = $intsuc[4];
+                    $rxml[$tiqueta]['Emisor']['Ubicacion']['Canton'] = $intsuc[5];
+                    $rxml[$tiqueta]['Emisor']['Ubicacion']['Distrito'] = $intsuc[6];
+                    $rxml[$tiqueta]['Emisor']['Ubicacion']['Provincia'] = $intsuc[7];
 
                     if ($intsuc[7] != '') {
-                        $rxml['FacturaElectronica']['Emisor']['Telefono']['CodigoPais'] = $intsuc[8];
-                        $rxml['FacturaElectronica']['Emisor']['Telefono']['NumTelefono'] = $intsuc[9];
+                        $rxml[$tiqueta]['Emisor']['Telefono']['CodigoPais'] = $intsuc[8];
+                        $rxml[$tiqueta]['Emisor']['Telefono']['NumTelefono'] = $intsuc[9];
                     }else{
-                        unset($rxml['FacturaElectronica']['Emisor']['Telefono']);
+                        unset($rxml[$tiqueta]['Emisor']['Telefono']);
                     }
 
-                    $rxml['FacturaElectronica']['Emisor']['CorreoElectronico'] = $intsuc[10];
+                    $rxml[$tiqueta]['Emisor']['CorreoElectronico'] = $intsuc[10];
 
                     
-                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><'.$fe->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                        xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$fe->xmldoc.' 
-                        />');
+                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
+                    <'.$fe->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$fe->xmldoc.'" />');
                     $fe->array_to_xml($rxml,$xml_data);
 
                     $xml = $xml_data->asXML();
@@ -309,21 +320,22 @@
 
                     $fe->firmarXML($xml);
                     file_put_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml', $xml);
-                    unlink('./assets/xml/'.$_REQUEST['ruta'].'/'.$tid.'.xml');
+                    //unlink('C:/FACTURA_XML/'.$tid.'.xml');
 
                     if (isset($_REQUEST['view'])) {
                         header("Content-type: text/xml; encoding='UTF-8'");
                         print_r($xml);
                     }else{
                         
-                        $salida["Base"] = $db->ejecutar('insert into integraciones values(null,"'.$rxml['FacturaElectronica']['Clave'].'","../assets/xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml","'.$tid.'",3,'.$_REQUEST['sucursal'].',"'.$cliente.'","'.$cedula.'",'.$rxml[$fe->tdoc]['ResumenFactura']['TotalComprobante'].')');
+                        $salida["Base"] = $db->ejecutar('insert into integraciones values(null,"'.$rxml[$tiqueta]['Clave'].'","../assets/xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml","'.$tid.'",3,'.$_REQUEST['sucursal'].',"'.$cliente.'","'.$cedula.'",'.$rxml[$tiqueta]['ResumenFactura']['TotalComprobante'].')')    ;
                         
                         $salida["Integracion"] = $fe->integracion($xml,$db,$_REQUEST['sucursal']);
                         if ($cliente) {
                             $cbody = $db->ejecutar("select concat('<b>Factura Electrónica N° ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>') from integraciones a join sucursales b on a.idsucursal = b.id where a.factura = '".$tid."'")->fetch_all()[0][0];
-
-                            $salida["PDF"] = $fe->procesarPDF($xml,$db,$_REQUEST['sucursal']);
-                            $salida["Mail"] = $fe->enviarCorreo($rxml['FacturaElectronica']['Receptor']['CorreoElectronico'],$tp." N° ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' N°'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf']);
+                            if($intpdf){
+                                $salida["PDF"] = $fe->procesarPDF($xml,$db,$_REQUEST['sucursal']);
+                                $salida["Mail"] = $fe->enviarCorreo($rxml[$tiqueta]['Receptor']['CorreoElectronico'],$tp." N° ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' N°'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf']);
+                            }
                             unlink('./assets/pdf/'.$tp.' N°'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf');
                         }
                         
@@ -340,76 +352,6 @@
                     echo "NO HAY LOG IN";
                 break;
             case 14: //NC INTEGRACION
-                $salida = ['succed'=>1];
-                $db = new DBClass();
-                $exists = $db->ejecutar('SELECT count(id),substring(clave,22,20) as consecutivo,cliente from integraciones where factura = "'.$id.'"')->fetch_all()[0];
-                $cliente = '';
-
-                if($exists[0]){
-                    $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$exists[1].'.xml');
-                    $oxml = $xml;
-                    $tipodoc = substr($exists[1], 8,2);
-                    switch($tipodoc){
-                        case '01':
-                            $xml = str_replace('FacturaElectronica', 'NotaCreditoElectronica', $xml);
-                            $xml = str_replace('facturaElectronica', 'notaCreditoElectronica', $xml);
-                            $cliente = $exists[2];
-                            $otit = 'FacturaElectronica';
-                            break;
-                        case '04':
-                            $xml = str_replace('TiqueteElectronico', 'NotaCreditoElectronica', $xml);
-                            $xml = str_replace('tiqueteElectronico', 'notaCreditoElectronica', $xml);
-                            $otit = 'TiqueteElectronico';
-                            break;
-                        default:
-                            break;
-                    }
-                    $fe->tdoc = 'NotaCreditoElectronica';
-                    $fe->xmldoc = 'notaCreditoElectronica';
-                    
-                    $rxml = $fe->XMLtoArray($xml);
-                    unset($rxml['NotaCreditoElectronica']['ds:Signature']);
-                    $intsuc = $db->ejecutar('call fe_integracion("-'.$id.'",'.$_SESSION['IMPRESA'].',curdate(),0)')->fetch_all()[0];
-                    $_REQUEST['sucname'] = $intsuc[1];
-                    $rxml['NotaCreditoElectronica']['Clave'] = $intsuc[0];
-                    $rxml['NotaCreditoElectronica']['NumeroConsecutivo'] = substr($intsuc[0], 21,20);
-                    $fechaorig = $rxml['NotaCreditoElectronica']['FechaEmision'];
-                    $rxml['NotaCreditoElectronica']['FechaEmision'] = date('Y-m-d\TH:i:s-06:00');
-
-                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?><NotaCreditoElectronica xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/ xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />');
-
-                    $fe->array_to_xml($rxml,$xml_data);
-
-                    $xml = $xml_data->asXML();
-                    $xml = str_replace('<NotaCreditoElectronica>', '', $xml);
-                    $xml = str_replace('</NotaCreditoElectronica></NotaCreditoElectronica>', '</NotaCreditoElectronica>', $xml);
-                    $xml = str_replace('</ResumenFactura>','</ResumenFactura><InformacionReferencia><TipoDoc>'.$tipodoc.'</TipoDoc><Numero>'.$exists[1].'</Numero><FechaEmision>'.$fechaorig.'</FechaEmision><Codigo>01</Codigo><Razon>Factura anulada debido a: Monto Incorrecto</Razon></InformacionReferencia>',$xml);
-
-                    $fe->info['FechaEmision'] = $rxml['NotaCreditoElectronica']['FechaEmision'];
-                    $fe->info['Emisor']['Identificacion']['Tipo'] = $rxml['NotaCreditoElectronica']['Emisor']['Identificacion']['Tipo'];
-                    $fe->info['Emisor']['Identificacion']['Numero'] = $rxml['NotaCreditoElectronica']['Emisor']['Identificacion']['Numero'];
-                    $fe->info['NumeroConsecutivo'] = $rxml['NotaCreditoElectronica']['NumeroConsecutivo'];
-                    $fe->info['Clave'] = $rxml['NotaCreditoElectronica']['Clave'];
-                    $fe->firmarXML($xml);
-
-                    file_put_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml', $xml);
-
-                    $salida["Base"] = $db->ejecutar('insert into integraciones values(null,"'.$fe->info['Clave'].'","../assets/xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml","'.$id.'",3,'.$_REQUEST['sucursal'].',"","",0)');
-                    $salida["Integracion"] = $fe->integracion($xml,$db,$_REQUEST['sucursal']);
-
-                    if ($cliente) {
-                        $cbody = $db->ejecutar("select concat('<b>Nota Crédito Electrónica N° ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>') from integraciones a join sucursales b on a.idsucursal = b.id where a.factura = '".$id."'")->fetch_all()[0][0];
-
-                        $fe->tdoc = $otit;
-                        $salida["PDF"] = $fe->procesarPDF($oxml,$db,$_REQUEST['sucursal']);
-                        $salida["Mail"] = $fe->enviarCorreo($rxml['NotaCreditoElectronica']['Receptor']['CorreoElectronico'],"Nota Crédito N° ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/Factura N°'.$exists[1].', '.$_REQUEST['sucname'].'.pdf']);
-                        unlink('./assets/pdf/Factura N°'.$exists[1].', '.$_REQUEST['sucname'].'.pdf');
-                    }
-
-                }else{
-                    $salida = ['succed'=>0,'ERROR'=>'FACTURA NO EXISTENTE'];
-                }
-                echo json_encode($salida);
                 break;
             case 15: //ENVIAR CORREO Integracion
                 break;
@@ -1174,8 +1116,16 @@
                     // $vunidad = $vunidad == 0 ? 1 : $vunidad;
 
                     $num = (array)$key->NumeroLinea;
-                    $dcodigo = isset($key->Codigo) ? (array)$key->Codigo : isset($key->CodigoComercial) ? $key->CodigoComercial->Codigo : '';
-                    $dcodigo = isset($dcodigo[0]) ? $dcodigo[0] : '';
+                    $dcodigo = '';
+                    if(isset($key->Codigo)) 
+                        $dcodigo = (array)$key->Codigo; 
+                    else
+                        if(isset($key->CodigoComercial)) 
+                            $dcodigo =  1; 
+                        else 
+                            $dcodigo = 2;//  (array)$key->CodigoComercial->Codigo : '';
+                    $salida['codigo'] = $dcodigo;
+                    $dcodigo = isset($dcodigo[0]) ? $dcodigo[0] : '';     
                     
                     $dcantidad = (array)$key->Cantidad;
                     $ddetalle = (array)$key->Detalle;
@@ -1498,10 +1448,10 @@
                                     $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> str_pad($sub_array[3], 2,0,STR_PAD_LEFT) ,'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
 
                                     if ($value[16] != '' && $value[21] > 0){
-                                        
+
                                         $this->exo = 1;
 
-                                        $exoneracion = ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[21], 'MontoExoneracion' => number_format($sub_array[2]*($value[21]/100),5,'.','')];
+                                        $exoneracion =   ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[21], 'MontoExoneracion' => number_format($sub_array[2]*($value[21]/100),5,'.','')];
 
                                         $this->sumaexonerados += $value[11];//$sub_array[2];
                                         $sub_array[2] = $sub_array[2]*(1-$exoneracion['PorcentajeExoneracion']/100);
@@ -1895,8 +1845,8 @@
                 $linea['11'] = $_xml[$this->tdoc]['CondicionVenta'] == '01' ? 0 : $_xml[$this->tdoc]['PlazoCredito'];
                 $linea['12'] = '';
                 $linea['13'] = '';
-                $linea['14'] = $_xml[$this->tdoc]['ResumenFactura']['CodigoMoneda'];
-                $linea['15'] = $_xml[$this->tdoc]['ResumenFactura']['CodigoMoneda'] == 'CRC' ? '¢' : '$';
+                $linea['14'] = $_xml[$this->tdoc]['ResumenFactura']['CodigoTipoMoneda']['CodigoMoneda'];
+                $linea['15'] = $_xml[$this->tdoc]['ResumenFactura']['CodigoTipoMoneda']['CodigoMoneda'] == 'CRC' ? '¢' : '$';
                 $linea['16'] = '';
                 $linea['17'] = $_REQUEST['sucname'];
                 $linea['18'] = $obj['Cantidad'];
@@ -1924,6 +1874,9 @@
                 $linea['33'] = ''; //EXONERACION
                 $linea['35'] = '';
                 $linea['36'] = isset($obj['Codigo']) ? $obj['Codigo']['Codigo'] : '';
+                $linea['46'] = 0;
+                $linea['47'] = 0;
+                $linea['48'] = '';
 
                 $transaccion[$ind] = $linea;
                 $ind += 1;
@@ -1959,6 +1912,7 @@
             $_POST['subject'] = substr($id,0,1) == '^' ? $cnf[3]." del Consecutivo ".$cnf[4] : $cnf[3]." N° ".$num;
             $_POST['to'] = $to;
             $_POST['idtabla'] = $this->idtabla;
+
             if(!$mh){
 
                 $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -1972,7 +1926,9 @@
                 //PDF
                 $_arch = !isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
                 $pdftbl = $this->idtabla == 64 ? 72 : 186;
+
                 $_arreglo = ['arch'=> $_arch,'id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>$pdftbl,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+
                 $curl = curl_init($actual_link);
                 curl_setopt($curl, CURLOPT_HEADER, true);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -1987,7 +1943,7 @@
                 $postData = rtrim($postData, '&');
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
                 $json_response = curl_exec($curl);
-                print_r($$_arreglo);
+
                 }
                 //XML
                 $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA'],'restado' => $tit];

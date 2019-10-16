@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="row col s12">
-                <div class="col s6 pequeño">
+                <div class="col s3 pequeño">
                     <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
                         <input type="hidden" name="idsucursal"/>
                         <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;" /></span>
@@ -47,14 +47,16 @@
                     <label for="registro-upload" class="right">LOGO DE EMPRESA</label>
 
                 </div>
-                <div class="col s6 center">
-
+                <div class="col s3 center" style="margin: 0px">
                     <img type="file" src="#" class="responsive-img hide" alt="Image" id="vlogo">
-                    <span class="vloge">SIN LOGO</span><i class="mdi mdi-24px mdi-backspace vloge"></i>
+                    <span class="vloge">SIN LOGO</span><i class="mdi mdi-24px mdi-backspace vloge"></i>    
+                </div>
+                
+                <div class="col s6 center">
                     <strong>Actividades Registradas</strong>
-                    <table id="myactivities">
+                    <ul id="myactivities">
                         
-                    </table>
+                    </ul>
                     <div style="float: right;">
                         <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
                     </div>

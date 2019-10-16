@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.5">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.19">
   </head>
   <body>
     {$NAV}
@@ -72,6 +72,13 @@
   
       </div>
 
+      <ul id="shcomanda" class="side-nav hide-on-small-only" style="max-width: 400px !important; font-size: 1.2em !important;z-index: 1016">
+      <li>
+        <div id="userView">
+        </div>
+      </li>
+    </ul>
+
       <div class="fixed-action-btn hide">
         <a class="btn-floating btn-large red">
           <i class="large mdi mdi-settings"></i>
@@ -83,7 +90,17 @@
       </div>
     </div>
 
-    <div id="modal-barra" class="modal modal-fixed-footer grandemodal" style="max-height: 100vh">
+     <div id="modal-comentario" class="modal modal-fixed-footer" style="z-index: 1600 !important">
+          <div class="modal-content">
+            <h4 id="pname"></h4>
+            <div id="cbody"></div>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="savecoment">Aceptar</a>
+          </div>
+        </div>
+
+    <div id="modal-barra" class="modal modal-fixed-footer grandemodal" style="min-height: 100vh !important; min-width: 90% !important">
       <div class="modal-header head3 center" style="height: 36px;"><span id="btit">Barra</span> <i class="mdi mdi-magnify der pbtn mdi-24px hide" id="bcodigo"></i></div>
 
       <div class="modal-content" style="padding: 0px">
@@ -110,77 +127,55 @@
       </div>
     </div>
 
-    <div id="modal-mesa" class="modal modal-fixed-footer">
-      <div class="modal-header head3 center" style="height: 36px;"><span id="tit">Mesa</span> <i class="mdi mdi-magnify der pbtn mdi-24px hide" id="scodigo"></i></div>
+    <div id="modal-mesa" class="modal modal-fixed-footer comanda">
+      <div class="modal-header head3" style="height: 36px;padding-left: 1%;padding-right: 1%"><section id="clientes" style=" float: left;"> <span id="tit">Mesa</span> </section> <i class="mdi mdi-account-plus mdi-24px pbtn der" id="agcliente" title="Agregar Persona"></i> </div>
 
       <div class="modal-content" style="padding: 0px" id="ffacturas">
         <input type="hidden" class="zelda">
-        <a class="mdi mdi-book hide tooltipped black-text mdi-24px pbtn" style="position: fixed;top:15px;right: 0px" data-tooltip="Menú" data-position="bottom"></a>        
-        <div class="row" style="margin: 0px;padding: 0px;" >
-          <div class="col s8 row">
-
-            <div class="col s6">
-              <select class="browser-default" id="fam">
-                <option value="0" selected disabled>Seleccione una Opción</option>
+          <div class="row">
+            <div class="col l3 hide-on-small-only" style="overflow: auto;" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" >
+              <section id="lentradas"></section>
+              <section id="lpfuertes"></section>
+              <section id="lpostres"></section>
+              <section id="lgeneral"></section>
+              <section id="lbebidas"></section>
+            </div>
+          <div class="col s12 l9" style="border-left: 1px solid black;height: 80vh;">
+            <div class="row col s12" style="margin: 0px;">
+              <select class="browser-default col s4" id="lfam"> 
                 {section name=LE loop=$FAM}
-                <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
+                  <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
                 {/section}
               </select>
+              <input type="text" placeholder="Buscar Producto" class="der" style="width: 30%" id="sprod">
             </div>
-
-            <div class="col s6">
-              <select class="browser-default" id="tip">
-                <option value="0" selected disabled>----</option>
-              </select>
-            </div>
-
-            <div style="padding: 0; margin: 0;" class="col s12 row" id="productos">
-              
-            </div>
+            
+            <ul>
+              {section name=LE loop=$FAM}
+              <li class="tab col s1"><a href="#test1">{$FAM[0][LE][1]}</a></li>
+              {/section}
+            </ul>
+          <div id="test1" class="col s12" style="max-height: -webkit-fill-available;overflow-y: auto;margin-bottom: 10%">
 
           </div>
-
-          <ul class="col s4 collapsible row" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" style="margin: 0px;padding: 0px">
-                <li><a href="#!" class="collection-item black-text col12" id="detfactmsj">No hay Productos Ingresados</a><li>
-              
-          </ul>
         </div>
+
       </div>
-       <div class="row" style="margin: 0px;position: fixed; bottom: 7%; width: 100%">
-
-          <div class="row col s8" style="margin: 0px;">
-            <div class="input-field col s2">
-             <span class="mdi mdi-magnify mdi-24px prefix pbtn tooltipped" data-tooltip="Buscar Producto Manual" data-position="top" id="showprod"></span>
-            </div>
-
-            <div class="input-field col s10">
-              <input type="text" id="descp" autocomplete="off">
-              <label for="descp" class="sprod hide">Descripción</label>
-              <input type="hidden" id="valores">
-            </div>
-
-            <div class="input-field col s5 hide">
-              <input type="text" id="codp" class="hide" autocomplete="off">
-              <label for="codp" class="sprod hide">Código</label>
-            </div>
-          </div>
-
-          <div class="input-field col s4">
-            <i class="prefix mdi mdi-plus pbtn hide" id="addline"></i>
-            <input type="text" id="cantp" class="eder" value="1" min="0" autocomplete="off">
-            <label for="cantp">Cantidad</label>
-          </div>
-        </div>
-      <div class="modal-footer">
-        <section style="float: left;font-size: 22px;padding-top: 2px;">Total: <span id="total_mesa">0.00</span> </section>
+    
+      <div class="modal-footer row" style="z-index: 1014;margin: 0px">
+        <section style="float: left;font-size: 16px;padding-top: 2px;" class="col l3"><span style="float: left;"><b>TOTAL:</b></span> <span id="total_mesa">0.00</span> CRC <br> <span id="total_mesa_d">0.00</span> USD </section>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder" style="float: left"></a>
         
+        <i data-activates="shcomanda" class="mdi mdi-eye mdi-24px pbtn button-collapses-com hide" title="Ver Comanda" id="mcomanda" style="padding-right: 2%"></i>
+
+        Cocina General <i class="mdi mdi-flag-variant pbtn"></i> Entrada <i class="mdi mdi-flag-variant green-text"></i> Plato Fuerte <i class="mdi mdi-flag-variant" style="color: #C32B1B"></i> Postre <i class="mdi mdi-flag-variant blue-text"></i>
+
         <a href="#!" class="modal-action waves-effect waves-green btn-flat add mdi mdi-table-edit mdi-24px" id="saveOrder" modulo="factura" varias="1" title="Guardar Orden"></a>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat mdi mdi-24px mdi-exit-to-app" title="Salir" id="orderout"></a>
       </div>
     </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.5"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.19"></script>
   </body>
 </html>

@@ -1,10 +1,10 @@
-<?php $config = $kakaroto->kamehameha('',42,'@@impresa')[0];?>
+<?php include_once '../assets/libs/qr/barcode.php'; $generator = new barcode_generator(); $config = $kakaroto->kamehameha('',42,'@@impresa')[0];?>
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.5">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.5">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.5">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.19">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.19">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.19">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -19,23 +19,9 @@
       <!-- MAIN -->
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
         <div class="row">
-          <div class="col s12 m1 l1 hide-on-med-and-down">&nbsp;</div>
-          <div class="col s5 m3 l3" align="center" style="padding: 6% 0% 0% 0%;">
-            <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100%">';
-            }else{
-              $nom = explode(' ', $miscelaneos[2]);
-              $luno = substr($nom[0], 0,1);
-              $ldos = isset($nom[1]) ? substr($nom[1], 0,1) : substr($nom[0], 1,1);
-              echo strtoupper($luno.$ldos);
-            }?>
-            
-          </div>
-          <div class="col s2 m4 l4 hide-for-small-only">&nbsp;</div>
-          <div class="col s5 m4 l4 left-align">
-            <br><br>
+
+          <div class="col s4" style="padding: 2px 2px; text-align: left;">
             <font size="2.5">
-  
               <?php
                 if (trim($miscelaneos[2]) != ''){
                   echo '<b>'.$miscelaneos[2].'</b><br>'.$miscelaneos[0].'<br>';
@@ -48,11 +34,32 @@
               <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
             </font>
           </div>
+
+          <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
+
+            <?php if ($miscelaneos[3]) {
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="50%">';
+            }else{
+              $nom = explode(' ', $miscelaneos[2]);
+              $luno = substr($nom[0], 0,1);
+              $ldos = isset($nom[1]) ? substr($nom[1], 0,1) : substr($nom[0], 1,1);
+              echo strtoupper($luno.$ldos);
+            }?>
+            
+          </div>
+          <div class="col s4">
+            <div style="float: right;">
+            <?php 
+                $svg = $generator->render_svg('qr-l', $transaccion[0][32],'');
+                echo $svg;        
+            ?>
+            </div>
+          </div>
         </div>
 
-        <div class="row" style="padding: 0px">
+        <div class="row" style="padding: 0px;margin: 0px;">
           <?php if ($transaccion[0][32] != '') { ?>
-            <b><h3 id="ftipo" style="font-size: 19px">Documento Electrónico</h3></b>
+            <b><h3 id="ftipo" style="font-size: 19px" class="center"><?php echo $transaccion[0][25]; ?> Electrónica</h3></b>
           <?php } ?>
           <div class="col s6 m6 l6" id="infofact">
             <div class="row" style="padding: 0% 0% 0% 0%;margin: 0px">
@@ -63,14 +70,14 @@
                   <span id="clave" class="fe"><?php echo $transaccion[0][32]; ?></span><br>
                 <?php } ?>
                 
-                <b><span id="fact"><?php echo $transaccion[0][25] ?></span> </b> de: </b><span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:
+                <b><span id="fact"><?php echo $transaccion[0][25] ?></span> de <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
                 <span id="numfact" class="fe"> <?php echo $datos[0]; ?> </span>
               </div>
 
              <?php if ($datos[4] != '') { ?>
-             <div class="col s12" style="padding: 8px 0px 8px 0px">
-                <b><?php echo $datos[30]; ?>:</b><br>
-                <b style="color: white;"><?php echo $datos[30]; ?>:</b><span id="fcliente"><?php echo $datos[4]; ?></span>  <br>
+             <div class="col s12" style="padding: 0px">
+                <b><?php echo $datos[30]; ?>:</b>
+                <span id="fcliente"><?php echo $datos[4]; ?></span>
             </div>
             <b>Cédula:</b> <?php echo $datos[34]; ?><br>
             <b>Correo:</b> <?php echo $datos[41]; ?><br>
@@ -92,7 +99,7 @@
 
           <div class="col s8 right">
             <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
-              <div class=" card-content white-text imprimirSINBOR">
+              <div class=" card-content white-text imprimirSINBOR" style="padding: 2px 2px">
                 <p><b>Fecha:</b>
                   <span id="ffecha"><?php echo $datos[3].' '.$datos[37]; ?> </p></span>
               </div>
@@ -102,7 +109,7 @@
           <?php if ($transaccion[0][32] != '') { ?>
             <div class="col s8 right">
               <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
-                <div class="card-content ">
+                <div class="card-content" style="padding: 2%;">
                   <?php if ($datos[2] === 'N/A'){ ?>
                   <p><b class="ftipofact">Plazo en Días: </b>
                     <span class="ftipofa"><?php echo $datos[11]; ?></span>
@@ -161,28 +168,9 @@
               echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo."</span><br><br>";
             } ?>
             * Producto Exento
-            <br>
-            ** I.V.I
             <tfoot>
               <tr>
-                <td style="padding: 0px !important" colspan="6" class="center ">
-                 <!--  <?php 
-                                              
-                      require_once('../assets/libs/phpqrcode/qrlib.php'); 
-     
-                      $codeContents = $miscelaneos[11]; 
-                       
-                      $text = QRcode::text($codeContents); 
-                      $raw = join("<br/>", $text); 
-                       
-                      $raw = strtr($raw, array( 
-                          '0' => '<span style="color:white;width=15%">&#9608;&#9608;</span>', 
-                          '1' => '&#9608;&#9608;' 
-                      )); 
-                       
-                      echo '<tt style="font-size:5px;">'.$raw.'</tt>'; 
-                      
-                   ?> -->
+                <td style="padding: 0px !important;" colspan="6" >
                 </td>
                 <td colspan="3">
                   <table>
@@ -271,6 +259,13 @@
                 </div>
                 <?php }else echo '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>'; ?>
               </footer>
+
+              <div class="center" style="width: 100%;">
+               <?php 
+                  $svg = $generator->render_svg('ean-128', $transaccion[0][32],'');
+                  echo $svg . '<br>';
+                 ?>
+              </div>
             </div>
             <!-- /MAIN -->
 
@@ -307,10 +302,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.2.0.5"></script>
-     <script src="../assets/js/materialize.js?v=10.2.0.5"></script>
-     <script src="../assets/js/asgard.js?v=10.2.0.5"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.2.0.5"></script>
+     <script src="../assets/js/jquery.js?v=10.2.0.19"></script>
+     <script src="../assets/js/materialize.js?v=10.2.0.19"></script>
+     <script src="../assets/js/asgard.js?v=10.2.0.19"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.2.0.19"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
@@ -323,6 +318,9 @@
           if(parseInt(param)){
             window.print();
           }
+
+          $("svg").css('width','100%');
+          $("text").hide();
 
        })
      </script>
