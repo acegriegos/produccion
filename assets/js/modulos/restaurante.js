@@ -647,7 +647,7 @@ function generarComanda(idfactura){
                     if(listacocina[color] == undefined)
                         listacocina[color] = {str:'',nombre:'ENTRADAS'};
 
-                      stl = "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
+                      strl = "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
                     break;
                 case 2:
                     if(listacocina[color] == undefined)
