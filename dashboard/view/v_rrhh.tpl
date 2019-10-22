@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Área Recurso Humano</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css?v=10.2.0.30">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css?v=10.2.0.31">
 
     </head>
     <body>
@@ -67,6 +67,6 @@
       </div>
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/comercial.js?v=10.2.0.30"></script>
+    <script src="../assets/js/modulos/comercial.js?v=10.2.0.31"></script>
   </body>
 </html>
