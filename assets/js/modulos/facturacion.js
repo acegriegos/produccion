@@ -445,15 +445,15 @@ function cargarCompras(){
             }
         });
 
-        //console.log(insertar(291,'idfactura,compraprocesada',$("#fd1").data('triforce')['vidfactura']+',1'));
+        console.log(insertar(291,'idfactura,compraprocesada',$("#fd1").data('triforce')['vidfactura']+',1'));
 
 
         if(cnt){
             Materialize.toast('Artículos Incluidos',4000,'green');
 
-            /*setTimeout(function(){
+            setTimeout(function(){
                 location.reload();
-            },4000);*/
+            },4000);
         }
     };
 
