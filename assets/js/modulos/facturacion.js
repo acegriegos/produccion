@@ -67,6 +67,7 @@ $(function(){
         case 4:
             cargarVentas();
             cargarResembled('PROFORMAS');
+            $("#facturar").html('Generar');
             break;
         case 5:
             cargarVentas();

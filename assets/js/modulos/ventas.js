@@ -759,18 +759,21 @@ $(document).on("keyup",".fventa",function(e){
 
 $(document).on("change","#uni",function(){
 
-    /*if (!parseInt(punidad))
-        punidad = parseFloat($('option:selected',this).attr('cant'));
-    else{
-        var pbase = parseFloat($("#precp").val().replace(/,/g,''))*(1/parseFloat(punidad));
-        punidad = parseFloat($('option:selected',this).attr('cant'));
-        var pfinal = pbase*punidad;
-        $("#precp").val(pfinal.formatMoney(2,'.',','));
-        $("#valores").data('elemento')['hprec'] = pfinal;
-        $("#cantp").focus().select();
-    }*/
      punidad = parseFloat($('option:selected',this).attr('cant'));
-     var nprecio = getDatos('venta,exoneracion',105,'idtipoentrada = 2 and identrada = '+$("#valores").data('elemento')['idp']+' and idnivel = '+$(this).val(),0,0,0);
+
+     switch(parseInt($(this).val())){
+        case 1:
+            var nprecio = getDatos('venta,exoneracion',11,'id = '+$("#valores").data('elemento')['idp'],0,0,0);
+            break;
+        case -99:
+            var nprecio = getDatos('venta/(select valor from dimensioproductos where idproducto = '+$("#valores").data('elemento')['idp']+'),exoneracion',105,'id = '+$("#valores").data('elemento')['idp'],0,0,0);
+            console.log(nprecio)
+            break;
+        default:
+            var nprecio = getDatos('venta,exoneracion',105,'idtipoentrada = 2 and identrada = '+$("#valores").data('elemento')['idp']+' and idnivel = '+$(this).val(),0,0,0);
+            break;
+     }
+
      if(nprecio[0].length){
         if(!$("#iva").is(":checked") && $("#iva:visible").length)
             var pfinal = parseFloat(nprecio[0][0][0]) / ((parseFloat(nprecio[0][0][1])/100)+1);
