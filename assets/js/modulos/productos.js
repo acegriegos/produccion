@@ -1939,11 +1939,8 @@ function validarproductos() {
 		$("#vgganancia").val(0);
 	}
 
-	if($("#pesaje").is(":checked")){
-		$("#fproductos .zelda").data('triforce')["visgravamen"] = 1;
-	}else{
-		$("#fproductos .zelda").data('triforce')["visgravamen"] = 0;
-	}
+	
+	$("#fproductos .zelda").data('triforce')["visgravamen"] = 0;
 
 	if($("#variable").is(":checked")){
 		$("#fproductos .zelda").data('triforce')["visvariable"] = $("#variable").attr('ische');
@@ -2244,13 +2241,6 @@ function postload(vmodulo){
 				$("#costodivisa").addClass('hide')
 			else
 				$("#costodivisa").removeClass('hide')
-		   	
-		    if(parseInt($("#fproductos .zelda").data('triforce')['visgravamen'])){
-		    	$("#pesaje").prop('checked',true);
-		    }
-		    else{
-		    	$("#pesaje").prop('checked',false);
-		    }
 
 		    if(parseInt($("#fproductos .zelda").data('triforce')['visvariable'])){
 		    	$("#variable").prop('checked',true);
