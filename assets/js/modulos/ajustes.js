@@ -65,7 +65,7 @@ $(document).on("click",".menu3",function(){
 			.done(function( data ) {
 			  for(var i = 0;i<data['actividades'].length;i++){
 			  	if(data.actividades[i].estado == 'A'){
-			  		alert(data.actividades[i].codigo);
+			  		console.log(data.actividades[i].codigo);
 			  		//eliminar(293,'idsucursal = @@impresa');
 			  		// insertar(293,'','idsucursal = @@impresa,codactividad = "'+data.actividades[i].codigo+'"');
 			  	}
