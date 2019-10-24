@@ -8,14 +8,15 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.19">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.30">
   <body >
   {$NAV}
     <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
 
         <ul id="margenes" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
           <li>
-            <div id="marbdy">
+
+            <div id="marbdy" style="line-height: 22px;">
               HOLA
             </div>
           </li>
@@ -23,9 +24,9 @@
     <div class="bdy pequeño movil" >
       <div id="mfacturacion"></div>
     </div>
-  </body>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.20"></script>
+
+  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.30"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">

@@ -185,7 +185,10 @@
                         </select>
                         <label for="vidinventario">Inventario</label>
                     </div>
+                    {else}
+                        <input type="hidden" id="vidinventario" value="6">
                      {/if}
+                    }
 
                     {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
                     <div class="input-field marginzero col s12">

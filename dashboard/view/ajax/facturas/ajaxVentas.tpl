@@ -238,7 +238,7 @@
     <div class="trsec col s12 hide-on-med-and-down">
 <!--     <table class="table detalle" id="data-table-detalle" cellspacing="0">
       <thead> -->
-        <section class="trVenta hide">
+        <section class="trVenta hide trsec">
 
           <div class="row">
             <div class="input-field col s2">
@@ -542,7 +542,7 @@
           </tr>
           <tr class="hide rest">
             <td>10% SERV.:</td>
-            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0">0.00</span></b></td>
+            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0" class="otroscargos" porcentaje="10">0.00</span></b></td>
           </tr>
         </thead>
 
@@ -1125,4 +1125,4 @@
 </ul>
 
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.19"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.31"></script>

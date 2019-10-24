@@ -50,8 +50,19 @@ $(function(){
 
         if($(".ciclos").length){
             $(".ciclos").each(function(){
-                console.log(insertar(260,'','null,'+idfactura+','+$(this).attr('strid')+','+$(this).attr('strcol')+',null,'+$(this).find('.clinea').val()+','+$(this).data('triforce')['vprecio']+',0,0,0,"",1,"","",6,"'+$(this).data('triforce')['vcomodin']+'"'));
+                insertar(260,'','null,'+idfactura+','+$(this).attr('strid')+','+$(this).attr('strcol')+',null,'+$(this).find('.clinea').val()+','+$(this).data('triforce')['vprecio']+',0,0,0,"",1,"","",6,"'+$(this).data('triforce')['vcomodin']+'"');
             });
+
+            vdata = generarComanda(id);
+
+            if(vdata['cocina'] != ''){
+                mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
+                mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
+            }
+            
+            if(vdata['refresco'] != '')    
+                mantenimiento('login',12,{data:vdata['refresco'],ip:ipbebidas['ip'],port:ipbebidas['port'],cola:ipbebidas['cola']},1);
+
             Materialize.toast('Orden Editada Corectamente',4000,'green');
         }else{
             Materialize.toast('No Hay Productos que Ingresar',4000,'red');
@@ -139,7 +150,7 @@ $(function(){
                 var fecha = new Date();
                 
                 $(".zelda").data('triforce')['vidtipo'] = mesa;
-                $(".zelda").data('triforce')['vcomodin'] = 'MESA '+$(this).attr('nmesa');
+                $(".zelda").data('triforce')['vcomodin'] = $(this).attr('nmesa');
 
                 $("#modal-mesa").modal('open');
                 /mobile/i.test(navigator.userAgent) && document.documentElement.scrollTop === 0 && !pageYOffset && !location.hash && setTimeout(function () {
@@ -147,7 +158,7 @@ $(function(){
                 }, 1000);
                 $("#ffacturas .zelda").data()['idmesa'] = id;
                 $("#ffacturas .zelda").data()['idbarra'] = 0;
-                $("#tit").html('MESA '+$(this).attr('nmesa'));
+                $("#tit").html($(this).attr('nmesa'));
                 $("#fdetallefacturas .ciclos").remove();
                 $("#detfactmsj").show();
                 $(".showprod").hide();
@@ -178,7 +189,7 @@ $(function(){
                     var flag = '';
                     t_mesa += total;
 
-                    mstr = '<section strid="'+idproducto+'" strcol="0" old="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und  <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+                    mstr = '<section strid="'+idproducto+'" strcol="0" old="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
 
                     $("#fdetallefacturas").prepend(mstr);
                     
@@ -192,7 +203,7 @@ $(function(){
                 $("#total_mesa_d").html((t_mesa/parseFloat($("#ffacturas .zelda").data('triforce')['dolares'])).formatMoney(2,'.',','));
                 $("#modal-mesa").modal('open');
                 $("#ffacturas .zelda").data()['idmesa'] = id;
-                $("#tit").html('MESA '+$(this).attr('nmesa'));
+                $("#tit").html($(this).attr('nmesa'));
                 $("#detfactmsj").hide();
                 $(".showprod").hide();
                 $("#saveOrder").addClass('saveOrder');
@@ -290,8 +301,12 @@ $(function(){
 
     $("#savecoment").click(function(){
         var gstr = ''
+        var qrc = '';
+
         $(".comentr").each(function(index){
-            gstr += '^'+$(this).val()+'!\n';
+            qrc = $(this).val();
+            qrc = parseInt(qrc.lastIndexOf('\n')) != -1 ? qrc.substring(0,qrc.lastIndexOf('\n')): qrc;
+            gstr += '?^'+qrc+'!\n';
         });
        
         $("[strid="+$("#pname").attr('idf')+"][strcol="+$("#pname").attr('icol')+"]").data('triforce')['vcomodin'] = gstr;
@@ -309,6 +324,9 @@ $(function(){
             if(parseInt(productos[0][i][4]) != 4){
                 isbebida  = 0;
                 btns = '<div class="chover hide" style="position: absolute;right: 0;padding-top: 20%">                <i class="mdi mdi-circle tlista" trcol="1" style="color: green;z-index: 998" title="ENTRADA"></i> <br>                <i class="mdi mdi-circle tlista" trcol="2" style="color: #C32B1B;z-index: 998" title="PLATO FUERTE"></i> <br>                <i class="mdi mdi-circle tlista" trcol="3" style="color: blue;z-index: 998" title="POSTRE"></i>               </div>';
+            }else{
+                isbebida = 1;
+                btns = '';
             }
 
             str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
@@ -386,7 +404,7 @@ $(function(){
     });
 
     $(document).on('click','.comida',function(){
-        addline($(this).attr('trid'),$(this).attr('isbebida'));
+        addline($(this).attr('trid'),$(this).attr('trcol'));
     });
 
     $(document).on('click','.tlista',function(e){
@@ -405,7 +423,7 @@ $(function(){
         $("#pname").html($(this).parent().find('.lpname').html());
         $("#pname").attr('idf',$(this).parent().attr('strid'))
         $("#pname").attr('icol',$(this).parent().attr('strcol'));
-        var largo = $(this).parent().data('triforce')['vcomodin'];
+        var largo = $(this).parent().data('triforce')['vcomodin'].replace(/\#/g,'');
         var lindex = 0;
         var cstr = '';
         var cdiv = '';
@@ -553,8 +571,9 @@ function validarDetalleFactura(){
 function endDetail(vid,vacc,vmodulo) {
    
     vdata = generarComanda(vid[0][0][0]);
-
+    console.log(vdata)
     if(vdata['cocina'] != ''){
+        mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
         mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
     }
     
@@ -620,40 +639,86 @@ function generarComanda(idfactura){
         
         if(lcant > 0){
             var color = parseInt($(this).attr('strcol'));
-            switch (color) {
-                case 4:
-                    if(listarefresco[$(this).data('triforce')['idtipo']] == undefined)
-                        listarefresco[$(this).data('triforce')['idtipo']] = {str:'',nombre:'BEBIDAS'};
+            var strl = '';
+            var arreglo = listacocina;
 
-                     listarefresco[$(this).data('triforce')['idtipo']]['str'] += "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
+            switch (color) {
+                case 1:
+                    if(listacocina[color] == undefined)
+                        listacocina[color] = {str:'',nombre:'ENTRADAS'};
+
+                      stl = "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
+                    break;
+                case 2:
+                    if(listacocina[color] == undefined)
+                        listacocina[color] = {str:'',nombre:'PLATOS FUERTES'};
+
+                     strl = "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
+                     break;
+                case 3:
+                    if(listacocina[color] == undefined)
+                        listacocina[color] = {str:'',nombre:'POSTRES'};
+
+                     strl = "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
+                     break;
+                case 4:
+                    if(listarefresco[color] == undefined)
+                        listarefresco[color] = {str:'',nombre:'BEBIDAS'};
+
+                     strl = "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
+                     arreglo = listarefresco;
                     break;
                 default:
-                    // statements_def
+                    if(listacocina[color] == undefined)
+                        listacocina[color] = {str:'',nombre:''};
+
+                     strl = "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
                     break;
             }
-            if(parseInt($(this).data('triforce')['idfam']) == 1){
+            if($(this).data('triforce')['vcomodin'].indexOf('?') != -1){
+                var comentario  = $(this).data('triforce')['vcomodin'].substr('?');
+                var cntcom = comentario.length - comentario.replace(/\?/g,'').length;
+                var rcantl = 0;
+                strl = '';
 
-                if(listacocina[$(this).data('triforce')['idtipo']] == undefined)
-                    listacocina[$(this).data('triforce')['idtipo']] = {str:'',nombre:$(this).data('triforce')['ntipo']};
+                for (var i = 0; i < cntcom; i++) {
+                    var scomen = comentario.substring(comentario.indexOf('?')+2,comentario.indexOf('!'));
+                    if(scomen != ''){
+                        rcantl += 1;
+                        strl += "\n"+('1').padEnd(6,' ')+$(this).find('.lpname').html().trim() + "\n"+(" ").padEnd(6,' ')+'---'+scomen;
+                        comentario = comentario.replace('?','');
+                        comentario = comentario.substr(comentario.indexOf('?'));
+                    }
+                }
 
-                listacocina[$(this).data('triforce')['idtipo']]['str'] += "\n"+lcant.toString().padEnd(6,' ')+$("#fnom",this).html().trim();
-                if($("#cmt"+idprod).val().trim() != '')
-                    listacocina[$(this).data('triforce')['idtipo']]['str'] += "\n----"+$("#cmt"+idprod).val();
-            }else{
-                 
+                if(rcantl < lcant){
+                    strl += "\n"+(rcantl-cntcom).toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
+                }
+
+                $(this).data('triforce')['vcomodin'] = $(this).data('triforce')['vcomodin'].replace(/\?/g,'');
+
             }
+            console.log(strl)
+            arreglo[color]['str'] += strl;
             
         }
 
         $(this).attr('nuevo',cant);
     });
+    var tit = '';
 
     listacocina.forEach(function(element){
-        vcocina += '\n\n---'+element['nombre']+'---\n'+element['str'];
+         if(tit != element['nombre']){
+            vcocina += '\n\n---'+element['nombre']+'---';    
+        }
+        vcocina += '\n'+element['str'];
     })
-
+    
     listarefresco.forEach(function(element){
-        vrefresco += '\n\n---'+element['nombre']+'---\n'+element['str'];
+        if(tit != element['nombre']){
+            vrefresco += '\n\n---'+element['nombre']+'---';    
+        }
+        vrefresco += '\n'+element['str'];
     })
 
     vcocina += '\n\n\n\n\n\n\n\n--------';

@@ -1,7 +1,22 @@
+var isprov = 0;
+var ntext = 'Cliente';
+
 $(function(){
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	$("#fclientes").submit(function(){return false});
+
+	var param = getParameterByName('is');
+	if(param == "1"){
+		$(".ncliente").addClass('hide');
+		$(".cgh").html('Proveedor');
+		$(".cghs").html('Proveedores');
+		isprov = 1;
+		ntext = 'Proveedor';
+	}else {
+		$(".cgh").html('Cliente');
+		$(".cghs").html('Clientes');
+	}
 
 	$("#data-table-clientes").dataTable({
 		bFilter: false,
@@ -12,6 +27,23 @@ $(function(){
 		bPaginate: false,
 		info: false
 	});
+
+	$("#vcedula").keyup(function(e){
+		var code = e.wich || e.keyCode;
+		if(code == 13){
+			$.get('../sic.php?',{ced:$(this).val()})
+        	.done(function(data){
+        		var p = JSON.parse(data);
+            	if (p['succed']) {
+            		$("#vcedula").val(p['ced']);
+                	$("#vnombre").val(p['nom']);
+                	$("[name='tipoclie'][tipoClie="+p['tip']+"]").click();
+            	}else{
+            		 Materialize.toast(p['error'],4000,'red');
+            	}
+        	})
+		}
+	})
 
 	$(document).on("click",".s-cliente",function(){   
 
@@ -138,7 +170,7 @@ $(function(){
     });
 
 	$("#ingClie").click(function(){
-		$("#titModal").html('Agregar Cliente');
+		$("#titModal").html('Agregar '+ntext);
 		$("#agClie").html('Agregar');
 		$("#agClie").removeClass('edit');
 		$("#agClie").addClass('add');
@@ -198,15 +230,15 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,videstado:1,vidcuenta:0,vbisnacional:1,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
+	$(".zelda").data('triforce',{vid:0,vapellido1:'',vapellido2:'',videstado:1,vidcuenta:0,vbisnacional:1,vbisproveedor:isprov,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
 
 	var add = getParameterByName("add") //accesos
 	if (add) {
 		$("#ingClie").click()
 	}
 	
-	paginate($("ul.pagination").attr('vtbl'),undefined,',0,@@impresa')
-
+	paginate($("ul.pagination").attr('vtbl'),undefined,','+isprov+',@@impresa')
+	$(".pagination").attr('filtro_sp','?,'+isprov+',@@impresa');
     permisos(1001,1010);
 
 });
@@ -218,27 +250,21 @@ $(document).on("blur",".onblur",function(){
 
 	if (id == 'vnombre') /*{*/
 		$("#infvnombre0").html($("#vnombre").val());
-	 // }else{ $("#infvnombre0").html('<span class="placeh">Nombre Cliente</span>') }
 
 	 if (id == 'vapellido1') /*{*/
 	 	$("#infvapellido0").html($("#vapellido1").val()); 
-	 // }else{ $("#infvapellido0").html('<span class="placeh">Nombre Cliente</span>') }
 
 	 if (id == 'vapellido2') /*{*/
 	 	$("#infvapellido1").html($("#vapellido2").val());
-	 // }else{ $("#infvapellido1").html('<span class="placeh">Nombre Cliente</span>') }
 
 	 if (id == 'vcedula') /*{*/
 	 	$("#infcedula1").html($("#vcedula").val());
-	 // }else{ $("#infcedula1").html('<span class="placeh">808880888</span>') }
 
 	 if (id == 'vcodigo') /*{*/
 	 	$("#infcodigo6").html($("#vcodigo").val()); 
-	// }else{ $("#infcodigo6").html('<span class="placeh">COD01</span>') }
 
 	if (id == 'vweb') /*{*/
 		$("#infweb7").html($("#vweb").val());
-	 // }else{ $("#infweb7").html('<span class="placeh">www.example.com</span>') }
 	});
 
 $("#correo_in").focus(function(){
@@ -309,7 +335,7 @@ $(document).on("change",".cta-array",function(){
 });
 
 $(document).on("click",".load",function(){
-	$("#titModal").html('Editar Cliente');
+	$("#titModal").html('Editar '+ntext);
 	$("#agClie").html('Editar');
 
 	$("#agClie").removeClass('add');
@@ -404,13 +430,13 @@ function validarclientes() {
 	if ($("#vnombre").val() == '') { $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == '') {	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
 		
-	if ($("#videstado").val() == '') { $('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado'; }
+	if ($("#videstado").val() == '' && !isprov) { $('#ln1').click(); $("#videstado").focus(); return 'Debe Seleccionar un Estado'; }
 	if ($("#vcredito").val() == '') { $("#vcredito").val(0) };
 	if ($("#vplazo").val() == '') {$("#vplazo").val(0) };
 	if ($("#vdescuentom").val() == '') {$("#vdescuentom").val(0) };
 
 	var fe = getDatos('isprueba',39,'id=@@impresa',0,0,0)[0][0][0];
-	if(!parseInt(fe)){
+	if(!parseInt(fe) || !isprov){
 		if(!parseInt($("#vid").val())){
 			if (!$("#fcorreos .ciclos").length) { $("#slideCorreo").click(); return 'Correo Requerido'; }
 		}else{
@@ -458,7 +484,7 @@ function validarclientes() {
 				case 'clientes':
 					arr['sel'] = '';
 					arr['tbl'] = 76;
-					arr['where'] = '0,0,",0,@@impresa","0,10"';
+					arr['where'] = '0,0,",'+isprov+',@@impresa","0,10"';
 					arr['cambio'] = 29;
 					break;
 				case 'vehiculos':
@@ -470,36 +496,7 @@ function validarclientes() {
 			return arr;
 		}
 
-function obtenerImpuestos(vid){
-	var imp = arr('login',4,'',200,'2,'+vid,0,'',0)[0];
-	
-	$("#showimpuestos").html('');
 
-	for (var i = 0; i < imp.length; i++) {
-		fila = imp[i];
-		addIM(fila[0],fila[1],fila[2],fila[3],fila[4]);
-	}
-}
-
-function addIM(vid,vimpuesto,vnombre,vvalor,vexoneracion){
-	$("#showimpuestos").append('<li class="collection-item dismissable" id="newimp'+vid+'"><div><span class="impuestos" id="vimv'+vid+'" value="'+vvalor+'" timv="'+vimpuesto+'">'+vnombre+' - '+vvalor+'%</span><a class="secondary-content delimp" id="dimp'+vid+'"><i class="mdi mdi-delete"></i></a></div></li>')
-}
-
-function clearcard() {
-	$("#infvnombre0").text('Nombre '+$("label[for=vcedula]").text().substr(11));
-	$("#infvapellido0").text('');
-	$("#infvapellido1").text('');
-	$("#infcedula1").html('<span class="placeh">0-0000-0000</span>');
-	$("#infcodigo6").text('');
-	$("#infweb7").text('');
-	$("#infprovincia8").text('');
-	$("#infcanton9").text('');
-	$("#infdistrito10").text('');
-	$("#infdireccion11").text('');
-	$("#infbarrio12").text('');
-	$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
-	$("#inftelefono4").html('<div class="placeh chip chpph"></div>');
-}
 
 function endDetail(vid,vacc,modulo){
 	switch (modulo) {
@@ -509,17 +506,19 @@ function endDetail(vid,vacc,modulo){
 				setTimeout(function(){ deadclear('cliente');$("#videstado").val(1);$("#videstado").material_select();}, 500);
 			}
 
-			if(parseInt($("#videxoneracion").val())){
-				var ffin  = $("#vfechafin").val() == '' ? 'null' : '"'+$("#vfechafin").val()+'"';
-				var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
-
-				actualizar(285,'tdoc = '+$("#vtipodoc").val()+', ndoc = "'+$("#vnumdoc").val()+'",inst = "'+$("#ventidad").val()+'", femision = "'+$("#vfechaDoc").val()+' '+tiempo+'", exoneracion = '+$("#vporcompra").val()+',ffin = '+ffin+'','id = '+$("#videxoneracion").val());
-			}else{
-				if($("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
-					var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
+			if(!isprov){
+				if(parseInt($("#videxoneracion").val())){
 					var ffin  = $("#vfechafin").val() == '' ? 'null' : '"'+$("#vfechafin").val()+'"';
-					insertar(285,'','null,'+vid[0][0]+','+$("#vtipodoc").val()+',"'+$("#vnumdoc").val()+'","'+$("#ventidad").val()+'","'+$("#vfechaDoc").val()+' '+tiempo+'",'+$("#vporcompra").val()+','+ffin+'');
-				}	
+					var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
+
+					actualizar(285,'tdoc = '+$("#vtipodoc").val()+', ndoc = "'+$("#vnumdoc").val()+'",inst = "'+$("#ventidad").val()+'", femision = "'+$("#vfechaDoc").val()+' '+tiempo+'", exoneracion = '+$("#vporcompra").val()+',ffin = '+ffin+'','id = '+$("#videxoneracion").val());
+				}else{
+					if($("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
+						var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
+						var ffin  = $("#vfechafin").val() == '' ? 'null' : '"'+$("#vfechafin").val()+'"';
+						insertar(285,'','null,'+vid[0][0]+','+$("#vtipodoc").val()+',"'+$("#vnumdoc").val()+'","'+$("#ventidad").val()+'","'+$("#vfechaDoc").val()+' '+tiempo+'",'+$("#vporcompra").val()+','+ffin+'');
+					}	
+				}
 			}
 			
 			break;
@@ -537,7 +536,6 @@ function endDetail(vid,vacc,modulo){
 function postload(modulo) {
 	switch(modulo) {
 		case 'cliente':
-			//llenarTarjeta(1);
 			var idtipo = $("#vidtipocliente").val();
 			$("[tipoclie = "+idtipo+"]").prop('checked', true);
 
@@ -578,87 +576,3 @@ function postload(modulo) {
 $(document).on('click','[id^=dc]',function(){
 	var id = $(this).attr('id').substr(2);
 })
-
-function llenarTarjeta(vis){
-
-	$("#infcorreo2").html('<div class="placeh chip chpcr"></div>');
-	$("#inftelefono4").html('<div class="placeh chip chpph"></div>');	
-
-	if (vis) {
-		var tipo = $("#vidtipocliente").val();
-		$("[tipoclie="+tipo+"]").prop('checked',true);
-		$("[tipoclie="+tipo+"]").change();
-		$("#infvnombre0").html($("#vnombre").val());
-		$("#infvapellido0").html($("#vapellido1").val());
-		$("#infvapellido1").html($("#vapellido2").val());
-		$("#infcedula1").html($("#vcedula").val());
-		var t_valor;
-		
-		$("#fcorreos .ciclos").each(function(index){
-			if(index == 0)
-				$("#infcorreo2").html('');
-			t_valor = $(this).data('triforce')['vcorreo'];
-
-			$("#infcorreo2").append('<div id="ichpce_'+$(this).data('triforce')['vidcorreo']+'" class="chpcrr chip">'+t_valor+'</div>');
-		});
-
-		$("#ftelefonos .ciclos").each(function(index){
-			if(index == 0)
-				$("#inftelefono4").html('');
-
-			t_valor = $(this).data('triforce')['vtelefono'];
-			var tnum = $(this).data('triforce')['vtipotel'];
-			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
-
-
-			$("#inftelefono4").append('<div id="itchptt_'+$(this).data('triforce')['vidtelefono']+'" class="chpphone chip"><img src="../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
-		});
-
-		$("#infcodigo6").html($("#vcodigo").val());
-		$("#infweb7").html($("#vweb").val());
-
-		$("#infprovincia8").html( $("#vidcprovincia option:selected").val() );
-		$("#infcanton9").val( $("#vidcanton option:selected").val() );
-		$("#infdistrito10").val( $("#viddistrito option:selected").val() );
-		$("#infdireccion11").html( $("#vdireccion").val() );
-		$("#infbarrio12").val( $("#vidbarrio option:selected").val() );
-	}else{
-
-		$("[tipoclie=1]").prop('checked',true);
-		$("[tipoclie=1]").change();
-		$("#infvnombre0").html("Nombre Cliente");
-		$("#infvapellido0").html('');
-		$("#infvapellido1").html('');
-		$("#infcedula1").html('8088800888');
-		var t_valor;
-		
-		$("#fcorreos .ciclos").each(function(index){
-			if(index == 0)
-				$("#infcorreo2").html('');
-			t_valor = $(this).data('triforce')['vcorreo'];
-
-			$("#infcorreo2").append('<div id="ichpce_'+$(this).data('triforce')['vidcorreo']+'" class="chpcrr chip">'+t_valor+'</div>');
-		});
-		
-		$("#ftelefonos .ciclos").each(function(index){
-			if(index == 0)
-				$("#inftelefono4").html('');
-
-			t_valor = $(this).data('triforce')['vtelefono'];
-			var tnum = $(this).data('triforce')['vtipotel'];
-			var vtipotel = tnum == 1 ? 'home' : tnum == 2 ?  'business' : 'phone';
-			
-			$("#inftelefono4").append('<div id="itchptt_'+cont+'" class="chpphone chip"><img src="../assets/img/icon/'+vtipotel+'.png">'+t_valor+'</div>');
-		});
-
-		$("#infcodigo6").html($("#vcodigo").val());
-		$("#infweb7").html($("#vweb").val());
-
-		$("#infprovincia8").html( $("#vidcprovincia option:selected").val() );
-		$("#infcanton9").val( $("#vidcanton option:selected").val() );
-		$("#infdistrito10").val( $("#viddistrito option:selected").val() );
-		$("#infdireccion11").html( $("#vdireccion").val() );
-		$("#infbarrio12").html( $("#vidbarrio option:selected").val() )
-	}
-	
-}
