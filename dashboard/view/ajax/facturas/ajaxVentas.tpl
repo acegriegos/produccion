@@ -57,10 +57,10 @@
 
     <div class="input-field col s12 m3 trCompra hide">
       <label for="vreferencia"></label>
-      <input type="text" id="vreferencia" class="validate eder" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" readonly />
+      <input type="text" id="vreferencia" class="validate eder" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" />
     </div>
 
-    <select id="fcompra" class="col s12 m3 trCompra hide browser-default" style="border: 0px"></select>
+    <select id="fcompra" class="col s12 m3 hide browser-default" style="border: 0px"></select>
 
   </div>
   <hr style="border: 1px solid #F9F9F9; width: 90%">
@@ -100,6 +100,13 @@
       <input type="checkbox" id="celectronica" {if $smarty.session.BUSS eq 1} checked disabled {/if}>
       <label for="celectronica">Compra Electrónica</label>
     </div>
+
+    {if $smarty.session.BUSS eq 3}
+      <div class="col s12 m3 hide trCompra">
+        <input type="checkbox" id="cauto" checked>
+        <label for="cauto">Manual</label>
+      </div>
+    {/if}
     
   </div>
 <!-- gen aff afc cre -->
@@ -277,7 +284,7 @@
           </div>
         </section>
 
-        <section class="trComprae hide">
+        <section class="trCompra hide v104">
           <div class="hide-on-med-and-down">
             <div style="padding: 0 !important;" class="col s2 center-align"><b>Código Barras</b></div>
             <div style="padding: 0 !important;" class="col s3 center-align"><span class="truncate"><b>Descripción</b></span></div>
@@ -332,7 +339,7 @@
           </div>
         </div>
 
-        <div class="trComprae hide trsec hide-on-med-and-down row">
+        <div class="trCompra hide trsec hide-on-med-and-down row v104">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
             <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
             <input type="hidden" id="valores">
@@ -387,7 +394,7 @@
       </div>
 
       {if $smarty.session.BUSS neq 1}
-      <div class="trCompraa hide trsec hide-on-med-and-down row" style="font-size: 12px" id="precioscat">
+      <div class="trCompra hide trsec hide-on-med-and-down row v104" style="font-size: 12px" id="precioscat">
         <table style="border: 1px solid #e2e2e2">
           <thead>
             <tr>
@@ -627,7 +634,7 @@
             <label for="precp">Precio</label>
           </div>
 
-          <div style=padding: 0 !important" class="input-field col s12 m1">
+          <div style="padding: 0 !important" class="input-field col s12 m1">
             <select id="uni" readonly >
               <option value="1">Unid</option>
             </select>
