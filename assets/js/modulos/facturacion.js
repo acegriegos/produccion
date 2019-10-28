@@ -507,7 +507,6 @@ function cargarCompras(){
             return false;
         }
 
-        alert(1)
         var prod = getDatos('',297,$(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'],0,0,0);
 
         var str = '';
