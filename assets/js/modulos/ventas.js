@@ -473,11 +473,35 @@ $(function(){
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
     }
 
-    if(parseInt(param) == 10)
-        $(".export").removeClass('hide');
+    if(config[21] == '0'){//COMPRAS AUTO
+        $(".rest").removeClass('hide')
+        $("#impm").change()
+        var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
+    }
 
     if($(".mstatic:visible").length){
         $("#iva").remove()
+    }
+
+    switch (param) {
+        case 1: //FACTURACION
+            break;
+        case 104: //COMPRAS MANUALES
+            if(config[21] == "1")
+                $("#cauto").prop('checked',false).change();
+            break;
+        case 3: //ORDEN COMPRA
+        case 4: //PROFORMA
+        case 5: //PEDIDO
+        case 6: //SPECIAL
+        case 7: //TIQUETE
+            break;
+        case 10:
+            $(".export").removeClass('hide');
+            break;
+        default:
+            console.error('XTR-00'+param)
+            break;
     }
     
 })//READY
@@ -1923,7 +1947,7 @@ function endDetail(vid,vacc,vmodulo) {
             else{
                 $("[activeq=1]").val($("#vcodigo").val());
                 $("[activeq=1]").parent().parent().data('triforce')['videntrada'] = vid[0][0];
-                $(".addProducto").addClass('hide') 
+                $("[activeq=1]").parent().find('.addProducto').hide()
             }
             break;
         default:
@@ -2377,7 +2401,7 @@ function validarGeneral(velemento) {
 
 function cargarMargenes(){
     var margenes = getDatos('',270,$("#ffacturas .zelda").data('triforce')['margenes'],0,0,0)[0]; 
-    console.log(margenes)
+
     if(margenes[0][3]){
         var niveles = margenes[0][3].split(',');
         var ventas = margenes[0][4].split(',');
