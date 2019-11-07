@@ -314,6 +314,6 @@
 <div id="mreportes"></div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.34"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.2.0.40"></script>
 </body>
 </html>
