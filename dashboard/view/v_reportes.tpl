@@ -141,6 +141,22 @@
 </div>
 {/if}
 
+{if $TR eq 3 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="contabilidad" tf="balancegeneral"><i class="mdi-48px mdi mdi-chart-bar"></i>
+</a>
+<p>Balance General</p>
+</div>
+{/if}
+
+{if $TR eq 3 or $TR eq 0}
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="contabilidad" tf="balancecomprobacion"><i class="mdi-48px mdi mdi-chart-bar"></i>
+</a>
+<p>Balance de Comprobación de Saldos</p>
+</div>
+{/if}
+
 {if $TR eq 3}
 <div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn hide"><i class="mdi-48px mdi mdi-briefcase-download"></i>

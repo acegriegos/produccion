@@ -334,9 +334,9 @@
                             $cbody = $db->ejecutar("select concat('<b>Factura Electrónica N° ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>') from integraciones a join sucursales b on a.idsucursal = b.id where a.factura = '".$tid."'")->fetch_all()[0][0];
                             if($intpdf){
                                 $salida["PDF"] = $fe->procesarPDF($xml,$db,$_REQUEST['sucursal']);
-                                $salida["Mail"] = $fe->enviarCorreo($rxml[$tiqueta]['Receptor']['CorreoElectronico'],$tp." N° ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' N°'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf']);
+                                $salida["Mail"] = $fe->enviarCorreo($rxml[$tiqueta]['Receptor']['CorreoElectronico'],$tp." N° ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' No'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf']);
                             }
-                            unlink('./assets/pdf/'.$tp.' N°'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf');
+                            unlink('./assets/pdf/'.$tp.' No'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf');
                         }
                         
                         print_r($salida);
@@ -1898,7 +1898,7 @@
         }
 
         function envioWsdlCorreo(&$db,$id,$to,$mh = 0,$vurl = 99){
-            
+            echo "envio correo";
             $cnf = $db->ejecutar('call sp_msg0("'.$id.'");')->fetch_all()[0];
             $num = $this->info['NumeroConsecutivo'];
             $tit = $this->titulo;
@@ -1918,14 +1918,14 @@
                 $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
 
                 if(substr($id,0,1) == '^')
-                    $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml'];
+                    $_POST['adjunto'] = [0=>'xml/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.xml'];
                 else{
-                $_POST['adjunto'] = [0=>'xml/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' N°'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
+                $_POST['adjunto'] = [0=>'xml/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
                 //MAKE ARCHIVOS
                 //PDF
                 $_arch = !isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
                 $pdftbl = $this->idtabla == 64 ? 72 : 186;
-                print_r($pdftbl);
+
                 $_arreglo = ['arch'=> $_arch,'id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>$pdftbl,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
 
                 $curl = curl_init($actual_link);

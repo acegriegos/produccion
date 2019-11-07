@@ -241,7 +241,7 @@ $(document).on("click",".msjh",function(){
     }else{
 
         var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-        Materialize.toast($toastContent,5000);
+        Materialize.toast($toastContent,2000);
         var factura = getDatos('consecutivo,datediff(curdate(),fecha)',64,'id = '+idfact[0][0][0],0,0)[0][0];
         var tlimit = parseInt(factura[1]);
 

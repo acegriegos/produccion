@@ -52,14 +52,10 @@
                     <span class="vloge">SIN LOGO</span><i class="mdi mdi-24px mdi-backspace vloge"></i>    
                 </div>
                 
-                <div class="col s6 center">
-                    <strong>Actividades Registradas</strong>
+                <div class="col s6">
+                    <span class="center"><b>Actividades Registradas</b></span>
                     <ul id="myactivities">
-                        
                     </ul>
-                    <div style="float: right;">
-                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
-                    </div>
                 </div>
             </div>
             <div class="row col s12 fe">
@@ -126,6 +122,7 @@
                     </div>
 
                     <div class="col s12 m12 pull-s2">
+                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
                         <a  class="btn btn-primary der z-depth-3" id="actSuc"><i class="small mdi mdi-refresh right mdi-24px"></i>Actualizar</a>
                     </div>
                 </div>

@@ -57,8 +57,22 @@
         if(code == 13){
             var tr = $(this).parent().parent();
             var ml = tr.find('.um').val() == 1 ? parseFloat($(this).val())*parseFloat(tr.attr('metrica')) : $(this).val();
-            console.log('cantidad = '+ml,'idproducto = '+tr.attr('id'));
+            var cactual = getDatos('cantidad',97,'idproducto = '+tr.attr('id'),0,0,0)
             actualizar(97,'cantidad = '+ml,'idproducto = '+tr.attr('id'));
+            /*if(cactual[0].length){
+
+                if(parseFloat(cactual[0][0][0]) > parseFloat(ml)){
+                    cactual = parseFloat(cactual[0][0][0])-parseFloat(ml);
+                    insertar(298,'','null,2,'+cactual+',now(),'+$(this).data('triforce')['videntrada']+',"",@@impresa,@@usr');
+                }
+                else if(parseFloat(cactual[0][0][0]) < parseFloat(ml)){
+                    cactual = parseFloat(cactual[0][0][0])-parseFloat(ml);
+                    insertar(298,'','null,2,'+cactual+',now(),'+$(this).data('triforce')['videntrada']+',"",@@impresa,@@usr');
+                }
+            }
+            else
+                cactual = ml;*/
+            
             $(this).next('.focus').focus().select();
         }
     });

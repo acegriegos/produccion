@@ -41,7 +41,7 @@ $(function(){
 			$(".autocomplete-content").remove();
 			$("#ncli").autocomplete({
 				limit: 20,
-				data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'id > 0 and if('+gtipo+' = 1 ,!bisproveedor,bisproveedor) having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1),
+				data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'id > 0 and if('+gtipo+' = 1 ,!bisproveedor,bisproveedor)  and idsucursal = @@impresa having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1),
                 onAutocomplete: function(val){
 
                     var sql = "id > 0 and if("+gtipo+" = 1 ,!bisproveedor,bisproveedor) and concat(nombre,' ', apellido1,' ',apellido2,' *',replace(cedula, '-',''),'*') = '"+$("#ncli").val()+"' and idsucursal = @@impresa limit 1";

@@ -340,8 +340,22 @@ $(document).on("change",".repcheck",function(){
         $("#fltr"+id).find('.init').select();
         $("#vidtipo"+ $(this).attr('id').substr(7)).focus();
     }
-    else
+    else{
         $("#fltr"+id).hide();
+        $("#fltr"+id+' input').each(function(){
+            switch($(this).attr('type')){
+                case 'date':
+                case 'text':
+                    $(this).val('');
+                    break;
+                case 'number':
+                    $(this).val(0);
+                    break;
+                default:
+                    break;
+            }
+        })
+    }
 });
 
 // $(document).on("blur",".vid",function(){

@@ -6,11 +6,11 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Reporte D-151</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.34">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.17">
 </head>
 <body class="black">
   <div class="principal contenedor" >
-      <div class="filtros row" porcliente entrefechas entrenumeros portipo="varios" tbltipos="123" tipos="Declaración" types="1" elem="@@impresa" sp="235" modulo="dinformativa"></div>
+      <div class="filtros row" entrefechas entrenumeros elem="@@impresa" sp="235" modulo="dinformativa"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -38,23 +38,55 @@
       <span id="leyenda"></span>
     </div>
     
-    <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
-      <thead>
-      <tr>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Razón Social</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Teléfonos</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Tipo</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Total Factura</b></td>
-        <td class="white-text blue sinborde" style="text-align: center"><b>Total a Declarar</b></td>
-      </tr>
-      </thead>
-      <tbody class="detrep">
-        <tr><td colspan="5" class="center">No se a Seleccionado Ninguna Declaración</td></tr>
+    <table class="table responsive-table centered bordered z-depth-3 detrep" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
+      
+      <tbody>
+        <tr><td class="center">No se a Seleccionado Ninguna Declaración</td></tr>
       </tbody>
  
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.34"></script>
-  <script src="../assets/js/modulos/reportes/financiero.js?v=10.2.0.34"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.17"></script>
+  {literal}
+  <script type="text/javascript">
+    $(function(){
+      
+      $(".principal .filtros").append('<div class="col s6"> <select id="vdeclaracion" class="browser-default"> <option value="0" selected>Seleccione una Declaración</option> <option value="1">D151</option> <option value="2">D104-2</option> </select> </div>');
+
+      $("#vdeclaracion").change(function(){
+        var date = new Date(); 
+        if(!$("#xfec").is(":checked"))
+          $("#xfec").prop('checked',true).change()
+        
+        switch(parseInt($('option:selected',this).val())){
+          case 1:
+            if(date.getFullYear() >= 2019){
+              $("#vdesde").attr('type','date').val((date.getFullYear()-1)+'-10-01');
+              $("#vhasta").val(date.getFullYear()+'-09-30').show();
+            }
+
+            if(!$("#xum").is(":checked"))
+              $("#xum").prop('checked',true).change()
+
+            $("#vnum1").val(2500000);
+            break;
+          case 2:
+            $("#vdesde").attr('type','month').val(date.getFullYear()+'-'+(date.getMonth()+1))
+            $("#vhasta").val('').hide();
+
+            if($("#xum").is(":checked"))
+              $("#xum").prop('checked',false).change()
+
+            $("#vnum1").val(0);
+            $("#vnum2").val(0);
+            break;
+          default:
+            break;
+        }
+      });
+
+    })
+  </script>
+  {/literal}
 </body>
 </html>

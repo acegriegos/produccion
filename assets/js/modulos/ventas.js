@@ -29,7 +29,7 @@ $("#fe").on('click',function(e){
 $(function(){
     $('select').material_select();
     $('.tooltipped').tooltip({delay: 50});
-     $('.dropdown-button').dropdown();
+    $('.dropdown-button').dropdown();
     $('#vcomentario').characterCounter();
 
     $(".autocomplete").blur(function(){ 
@@ -463,7 +463,12 @@ $(function(){
 
         })
     }else{
-        $("#codact").html('<option value="'+config[24]+'">'+config[25]+'</option>')
+        var list = '<option value="'+config[24]+'" selected orig>'+config[25]+'</option>';
+        var oactivis = getDatos('codactividad,(select actividad from actividades where codigo = codactividad)',293,'idsucursal=@@impresa');
+        for (var i = 0; i < oactivis[0].length; i++) {
+            list += '<option value="'+oactivis[0][i][0]+'">'+oactivis[0][i][1]+'</option>';
+        }
+        $("#codact").html(list);
         $("#codact").material_select('update')
     }
 
@@ -717,9 +722,11 @@ $("#crrclie").click(function(){
 
     for (var i = 0; i < cantidad+1; i++) {
         index = tmp.indexOf(',') == -1 ? tmp.length : tmp.indexOf(',');
-        checked = str_correos.indexOf(tmp.substr(0,index)) == -1 ? '': 'checked';
-        str += '<input type="checkbox" class="selcorreo" '+checked+' id="chk'+i+'"><label for="chk'+i+'">'+tmp.substr(0,index)+'</label><br>';
-        tmp = tmp.substr(index+1,tmp.length);
+        if(tmp.substr(0,index) != ''){
+            checked = str_correos.indexOf(tmp.substr(0,index)) == -1 ? '': 'checked';
+            str += '<input type="checkbox" class="selcorreo" '+checked+' id="chk'+i+'"><label for="chk'+i+'">'+tmp.substr(0,index)+'</label><br>';
+            tmp = tmp.substr(index+1,tmp.length);
+        }
     }
     var ii = $(".selcorreo").length + 1;
     str += '<input type="text" placeholder="Digitar Correo" id="dcorreo">';
@@ -1555,6 +1562,16 @@ function validarFactura() {
             $("#ffacturas .zelda").data('triforce')['visregistrada'] = parseInt($("[name='tcompra']:checked").val())
             break;
         case 4:
+            if(!$("#ncli").val().trim().length){
+                $("#ncli").focus();
+                return "No se Ha Ingresado Cliente";
+            }
+
+            if ($("#ffacturas .zelda").data('triforce')['vidcliente'] == 0){
+                $("#ffacturas .zelda").data('triforce')['vcomodin'] = $("#ncli").val();
+            }
+
+            break;
         case 5:
             if ($("#ffacturas .zelda").data('triforce')['vidcliente'] == 0){
                 $("#ncli").focus();
@@ -1909,6 +1926,11 @@ function endDetail(vid,vacc,vmodulo) {
                     var ms = 0
                     var set = '';
 
+                    if($("#codact option:selected").attr('orig') == undefined){
+                        ms = 1;
+                        set += 'codactividad = "'+$("#codact option:selected").val()+'",';
+                    }
+
                     if($("#impm:visible").length){
                         var sr = parseFloat($("#serv").html().replace(/,/g,''));
                         if (sr > 0) {
@@ -2254,7 +2276,7 @@ function sendFE(clave){
 
 function sendVMail(factura,clave,vid){
     var archivos = '';
-    console.log(config[3]);
+
     if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
         switch(param){
             case 104:
@@ -2280,7 +2302,7 @@ function sendVMail(factura,clave,vid){
             var vbody = getDatos('',73,vid,0,0)[0][0];
             var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
             archivos = makeArchivos(factura,clave,vid,vbody[1],ntipo);
-            enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,con_con,vid,64);
+            enviarCorreo(3,str_correos,ntipo+" No"+factura,vbody[0],archivos,con_con,vid,64);
         }else{
             if(parseInt($("[name=tipopago]:checked").val()) != 5){ //MIXTO
                 if (parseInt(idext) > 0) {
@@ -2337,9 +2359,9 @@ function makeArchivos(vfactura,vclave,vid,vsucursal,ntipo){
     var vtit = param == 1 ? 'Factura Electrónica' : ntipo;
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vtit,sel:'',tbl:72,where:vid},1);
     if (vclave == vid || (param != 1 && param != 7))
-        archivos = 'pdf/'+ntipo+' N°'+vfactura+', '+vsucursal+'.pdf';
+        archivos = 'pdf/'+ntipo+' No'+vfactura+', '+vsucursal+'.pdf';
     else{
-        archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+        archivos = {0:'xml/Factura No'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura No'+vfactura+', '+vsucursal+'.pdf'}
         mantenimiento('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
     }
     return archivos;
