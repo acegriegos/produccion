@@ -448,7 +448,7 @@ function sendFE(clave,factura){
         async: true,
         url: "../wsdlClient.php",
         type: 'POST',
-        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de ',con_con:1,arch:'recibos-notas-pagos',pre:'-'}
+        data: {id: "-"+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 301,tit:'Nota de ',con_con:1,arch:'recibo-notas-pagos',pre:'-'}
     })
       .done(function( data ) {
         console.log(data)

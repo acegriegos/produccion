@@ -1898,7 +1898,6 @@
         }
 
         function envioWsdlCorreo(&$db,$id,$to,$mh = 0,$vurl = 99){
-            echo "envio correo";
             $cnf = $db->ejecutar('call sp_msg0("'.$id.'");')->fetch_all()[0];
             $num = $this->info['NumeroConsecutivo'];
             $tit = $this->titulo;
@@ -1923,10 +1922,11 @@
                 $_POST['adjunto'] = [0=>'xml/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
                 //MAKE ARCHIVOS
                 //PDF
-                $_arch = !isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
+                $_arch = isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
                 $pdftbl = $this->idtabla == 64 ? 72 : 186;
+                $tid = $this->idtabla == 64 ? $id : $id*-1;
 
-                $_arreglo = ['arch'=> $_arch,'id'=>$id,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>$pdftbl,"where"=>$id,"empresaid"=>$_SESSION['IMPRESA']];
+                $_arreglo = ['arch'=> $_arch,'id'=>$tid,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>$pdftbl,"where"=>$tid,"empresaid"=>$_SESSION['IMPRESA']];
 
                 $curl = curl_init($actual_link);
                 curl_setopt($curl, CURLOPT_HEADER, true);
@@ -1942,7 +1942,6 @@
                 $postData = rtrim($postData, '&');
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
                 $json_response = curl_exec($curl);
-
                 }
                 //XML
                 $_arreglo = ['id'=>$id,"factura"=>$num,"sucursal"=>$_SESSION['EMPRESA'],"empresaid"=>$_SESSION['IMPRESA'],'restado' => $tit];

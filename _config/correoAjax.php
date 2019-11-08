@@ -21,8 +21,7 @@ header("Content-Length: " . ob_get_length());
 ob_end_flush();
 flush();
 
-$con_con = isset($_REQUEST['con_con']) ? $_REQUEST['con_con'] : $_POST['con_con'];
-
+$con_con = isset($_REQUEST['con_con']) ? $_REQUEST['con_con'] : $_POST['con_con']
 if($con_con){
     $caccion = $_POST['accion'];
     $_REQUEST['accion'] = 99;
@@ -34,7 +33,7 @@ if($con_con){
     if(isset($_POST['idtabla'])){
         switch ($_POST['idtabla']) {
             case 301:
-                $pre = '-';
+                //$pre = '-';
                 break;
             
             default:
