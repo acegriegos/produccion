@@ -246,7 +246,7 @@
     }
 
     //NC ND
-    /*$lista = $db->ejecutar('select a.id from estadoscuentas a join facturas b on b.id = a.idfactura and b.idsucursal = '.$_SESSION['IMPRESA'].' where a.feestado in(0,7) and a.idtipo in(5,6) order by id desc limit 10');
+    $lista = $db->ejecutar('select a.id from estadoscuentas a join facturas b on b.id = a.idfactura and b.idsucursal = '.$_SESSION['IMPRESA'].' where a.feestado in(0,7) and a.idtipo in(5,6) order by id desc limit 10');
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
@@ -262,7 +262,7 @@
             }
             
         }
-    }*/
+    }
 
 
     $sucursal = $log->kamehameha('cedula,isprueba',39,'id=@@impresa')[0];
