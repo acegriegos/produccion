@@ -1922,7 +1922,7 @@
                 $_POST['adjunto'] = [0=>'xml/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
                 //MAKE ARCHIVOS
                 //PDF
-                $_arch = isset($_REQUEST['arreglo']['arch']) ? 'recibo' : $_REQUEST['arch'];
+                $_arch = isset($_REQUEST['arch']) ? $_REQUEST['arch'] : 'recibo';
                 $pdftbl = $this->idtabla == 64 ? 72 : 186;
                 $tid = $this->idtabla == 64 ? $id : $id*-1;
 

@@ -52,7 +52,7 @@
                     <div class="row">
                       <div class="col s12">
                         <i class=" mdi mdi-magnify mdi-24px prefix"></i>
-                        <input id="vfac" type="text"  class="validate eder">
+                        <input id="vfac" type="text"  class="validate eder" autocomplete="off">
                         <label for="vfac" style="font-size: 1em !important">Numero de Factura</label>
                       </div>
                     </div>

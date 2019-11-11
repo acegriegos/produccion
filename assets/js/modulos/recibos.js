@@ -32,9 +32,9 @@ $(function(){
         var vsucursal = vbody[1];
 
         if (vfactura == mid)
-            archivos = 'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf';
+            archivos = 'pdf/'+tipo+' No'+vfactura+', '+vsucursal+'.pdf';
         else{
-            archivos = {0:'xml/'+tipo+' N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' N°'+vfactura+', '+vsucursal+'.pdf',2:'xml/RH_'+vfactura+', '+vsucursal+'.xml'}
+            archivos = {0:'xml/'+tipo+' No'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' No'+vfactura+', '+vsucursal+'.pdf'}
             mantenimiento('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
         }
         

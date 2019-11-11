@@ -2252,25 +2252,12 @@ function sendFE(clave){
         data: {id: ap+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 64,tit:vtit}
     })
       .done(function(data) {
-        var p;
-        try {
-            p = JSON.parse(data);
-            $(".expect").removeClass('progress');
-      
-            var vfactura = p['num'];
-            var vclave = p['clave'];
-            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-            str_correos = '';
-            sendVMail(0,0,clave);         
-            
-        }
-        catch(err){
-            console.log(data)
-            $(".expect").removeClass('progress')
-            $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-            Materialize.toast(data,5000,'red');
-            //setTimeout(function(){location.reload();},4000);
-        }       
+        console.log(data)
+        
+        var vclave = p['clave'];
+        $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+        str_correos = '';
+        sendVMail(0,0,clave);              
   });
 }
 
@@ -2313,7 +2300,6 @@ function sendVMail(factura,clave,vid){
                 }else
                     setTimeout(function(){location.reload();},2000);
                 }
-                console.log(1)
             }else
                 if(parseFloat($("#mxtot").val()) < 5)
                     setTimeout(function(){window.close();},2000);
@@ -2377,7 +2363,7 @@ function postExcecute(vid,p){
 
 function postSendmail() {
 
-   if(parseInt($("[name=tipopago]:checked").val()) != 5){
+   /*if(parseInt($("[name=tipopago]:checked").val()) != 5){
         if (parseInt(idext) > 0) {
             setTimeout(function(){window.close();},2000);
         }else{
@@ -2388,7 +2374,7 @@ function postSendmail() {
         }
     }else
         if(parseFloat($("#mxtot").val()) < 5)
-            setTimeout(function(){window.close();},2000);
+            setTimeout(function(){window.close();},2000);*/
 }
 
 function validarGeneral(velemento) {
