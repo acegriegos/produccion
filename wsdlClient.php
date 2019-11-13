@@ -1131,7 +1131,10 @@
                     $ddetalle = (array)$key->Detalle;
                     $dunitario = (array)$key->PrecioUnitario;
                     $dsubtotal = (array)$key->SubTotal;
-                    $ddescuento = isset($key->Descuento->MontoDescuento) ? (array)$key->Descuento->MontoDescuento : 0;
+                    if(isset($key->MontoDescuento))
+                        $ddescuento = (array)$key->MontoDescuento;
+                    else 
+                        $ddescuento = isset($key->Descuento->MontoDescuento) ? (array)$key->Descuento->MontoDescuento : 0;
                     $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
                     $dtarifa = 0;
                     $timv = 0;

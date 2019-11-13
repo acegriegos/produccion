@@ -1357,8 +1357,13 @@ function doreport() {
     var resultado = rreport();
 
     console.log('TABLA: '+resultado['vtbl']+' - ATRR: '+resultado['vattr']+' - OTROS: '+resultado['votros']);
-
+    if($("#cabeza").length){
+        var cabeza = $("#cabeza")[0].outerHTML;
+    }
     arr('login',6,'',resultado['vtbl'],resultado['vattr'],0,1,$(".detrep"),0,resultado['votros']);
+
+    if(rxlxs != undefined)
+        rxlxs(cabeza);
 
 }
 

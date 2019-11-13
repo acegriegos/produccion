@@ -10,30 +10,32 @@
 
     switch ($transaccion[0][0]) {
         case 1:
-            echo '<thead>
+            echo '<tbody>
                   <tr>
                     <td class="white-text blue sinborde" style="text-align: center"><b>Tipo</b></td>
                     <td class="white-text blue sinborde" style="text-align: center"><b>Total Mercancias</b></td>
                     <td class="white-text blue sinborde" style="text-align: center"><b>Total Servicios</b></td>
+                    <td class="white-text blue sinborde" style="text-align: center"><b>Notas Débito</b></td>
                     <td class="white-text blue sinborde" style="text-align: center"><b>Notas Crédito</b></td>
                     <td class="white-text blue sinborde" style="text-align: center"><b>Total a Declarar</b></td>
                   </tr>
-                  </thead>';
+                  </tbody>';
             $idf = 0;
             foreach ($transaccion as $obj){
 
-                if($idf != $obj[3]){
-                    $idf = $obj[3];
-                    echo '<tr> <td colspan="2" style="text-align: left;"><b>'.$obj[4].'</b>, '.$obj[5].'</td> <td colspan="3" style="text-align: left;">TEL: </td> <tr>';
+                if($idf != $obj[1]){
+                    $idf = $obj[1];
+                    echo '<tr> <td colspan="3" style="text-align: left;"><b>'.$obj[2].'</b>, '.$obj[3].'</td> <td colspan="3" style="text-align: left;"><b>TEL:</b> '.$obj[7].'</td> <tr>';
                 }
         ?>
 
             <tr>
-                <td style="border-radius: 0px !important; text-align: center"><?php echo $obj[2]; ?></td>
-                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[6],2); ?></td>
-                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[7],2); ?></td>
-                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[8],2); ?></td>
-                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[6]+$obj[7]-$obj[8],2); ?></td>
+                <td style="border-radius: 0px !important; text-align: center"><?php echo $obj[4]; ?></td>
+                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[5],2,'.',''); ?></td>
+                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[6],2,'.',''); ?></td>
+                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[8]+$obj[10],2,'.',''); ?></td>
+                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[9]+$obj[11],2,'.',''); ?></td>
+                <td style="border-radius: 0px !important; text-align: right;"><?php echo number_format($obj[5]+$obj[6]+$obj[8]+$obj[10]-$obj[9]-$obj[11],2,'.',''); ?></td>
             </tr>
 
             <?php    }  ?>

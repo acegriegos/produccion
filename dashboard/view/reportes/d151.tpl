@@ -6,14 +6,14 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Reporte D-151</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.43">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.17">
 </head>
 <body class="black">
   <div class="principal contenedor" >
-      <div class="filtros row" entrefechas entrenumeros elem="@@impresa" sp="235" modulo="dinformativa"></div>
+      <div class="filtros row" entrefechas entrenumeros elem="@@impresa" sp="235" modulo="dinformativa" style="margin:0px;"></div>
       <!-- HEADER -->
     <div class="row header">
-      <div class="col s4 m4 l4">
+      <!-- <div class="col s4 m4 l4">
         {if $MIS[3]}
         <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
         {/if}
@@ -26,31 +26,56 @@
           <b>Teléfono:</b> {$MIS[5]}<br>
         </font>
          
-      </div>
+      </div> -->
       <div class="col s4 m4 l4">
         <input type="hidden" class="zelda">
         <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" id="ofiltr" title="Mostrar Filtros"></i>
       </div>
     </div>
 
-    <div class="center">
+<!--     <div class="center">
       <h3>Declaraciones Informativas</h3>
       <span id="leyenda"></span>
-    </div>
+    </div> -->
     
     <table class="table responsive-table centered bordered z-depth-3 detrep" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
-      
-      <tbody>
-        <tr><td class="center">No se a Seleccionado Ninguna Declaración</td></tr>
+      <tbody style="text-align: center;font-size: 18px;" id="cabeza">
+        <tr><!-- 
+            <td>
+              {if $MIS[3]}
+              <img src="{$MIS[3]}" class="img-responsive" style="width: 100%">
+              {/if}
+            </td> -->
+            <td colspan="100%"> 
+              <b>{$MIS[0]}</b><br>
+              {if $MIS[2]}{$MIS[2]}</b><br>{/if}
+              <b>Cédula:</b> {$MIS[1]}<br>
+              <b>Teléfono:</b> {$MIS[5]}<br>
+              <h3>Declaraciones Informativas</h3>
+              <span id="leyenda"></span>
+            </td>
+        </tr>
       </tbody>
- 
+      
+      <tr><td class="center" colspan="100%">No se a Seleccionado Ninguna Declaración</td></tr>
+    </table>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.43"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.17"></script>
+  <script src="../assets/js/modulos/reportes/xlsx.core.min.js"></script>
+  <script src="../assets/js/modulos/reportes/FileSaver.min.js"></script>
+  <script src="../assets/js/modulos/reportes/tableexport.min.js"></script>
   {literal}
   <script type="text/javascript">
-    $(function(){
-      
+
+    function rxlxs(cabeza){
+      console.log(cabeza)
+      $(".detrep").prepend(cabeza);
+      $("table").tableExport();
+    }
+
+    $(function(){   
+
       $(".principal .filtros").append('<div class="col s6"> <select id="vdeclaracion" class="browser-default"> <option value="0" selected>Seleccione una Declaración</option> <option value="1">D151</option> <option value="2">D104-2</option> </select> </div>');
 
       $("#vdeclaracion").change(function(){
@@ -84,6 +109,8 @@
             break;
         }
       });
+
+
 
     })
   </script>
