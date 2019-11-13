@@ -1189,7 +1189,7 @@ function cargarGlobal(){
 
     $("#ncli").blur(function(){
         if ($(this).val().trim().length > 0 || parseInt($("#ffacturas .zelda").data('triforce')['vidcliente'])) {
-            var isproveedor = param.toString().match(new RegExp(/\b2\b|\b3\b|\b9\b/g)) ? 1 : 0;
+            var isproveedor = param.toString().match(new RegExp(/\b104\b|\b3\b|\b9\b/g)) ? 1 : 0;
             searchClient($(this).val(),isproveedor);
         }else{
             $(".chg_tipo").attr('disabled','disabled')

@@ -48,7 +48,9 @@
 
          <div class="row">
             <a href="#subpro" id="pventas" class="btn btn-success col s2 mp" mp=1 style="margin-left: 1%;">Ventas</a>
+            <a href="#subpro" id="pcobro" class="btn btn-success col s2 mp" mp=3 style="margin-left: 1%;">Cobros</a>
             <a href="#subpro" id="pcompras" class="btn btn-success col s2 mp" mp=2 style="margin-left: 1%;">Compras</a>
+            <a href="#subpro" id="ppagos" class="btn btn-success col s2 mp" mp=4 style="margin-left: 1%;">Pagos</a>
          </div>
          
          <section id="subpro" class="row" style="padding-top: 1%;"></section>
