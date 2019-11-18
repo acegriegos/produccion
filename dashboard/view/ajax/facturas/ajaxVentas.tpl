@@ -271,7 +271,7 @@
 
             <div class="col s1 input-field">
               <label for="uni" class="active" style="font-size: 20px;"><b>Unidad</b></label>
-              <select id="uni" readonly >
+              <select id="uni">
                 <option value="1">Unid</option>
               </select>
             </div>

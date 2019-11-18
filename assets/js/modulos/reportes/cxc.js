@@ -8,7 +8,7 @@ $(function(){
     switch(parseInt(param)){
         case 1:
             $("#titrep").html('Estado de Cuenta por Pagar');
-            arr('login',6,'',269,'0,0,1,@@impresa,""',0,1,$(".detrep"));
+            arr('login',6,'',269,'0,0,1,@@impresa,"",-1,""',0,1,$(".detrep"));
             $("#visproveedor").val(1);
             $(".principal .filtros").attr('bisprov',1);
             $(".pdf").attr('whr','0,0,1,@@impresa,""');
@@ -29,7 +29,7 @@ $(function(){
             break;
         default:
             $("#titrep").html('Estado de Cuenta por Cobrar');
-            arr('login',6,'',269,'0,0,0,@@impresa,""',0,1,$(".detrep"));
+            arr('login',6,'',269,'0,0,0,@@impresa,"",-1,""',0,1,$(".detrep"));
             $(".pdf").attr('whr','0,0,0,@@impresa,""');
             break;
     }
@@ -37,6 +37,6 @@ $(function(){
     $(".excel").data('parametros')['vista'] = '0,1,2,3,4,5,6,7';
     $(".excel").data('parametros')['conteo'] = 1;
     $(".excel").data('parametros')['suma'] = ',2,3,4,5,6,';
-    //$(".excel").data('parametros')['original'] = 1;
+    $(".excel").data('parametros')['original'] = 1;
     
 });

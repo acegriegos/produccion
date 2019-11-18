@@ -11,7 +11,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" porcliente portipo="varios" tbltipos="0,0" tipos="Fecha Vencimiento,Cobrar Interéses" types="5,3" elem="" sp="269" modulo="reportecxc"></div>
+      <div class="filtros row" porcliente portipo="varios" tbltipos="0,0,0" tipos="Fecha Vencimiento,Cobrar Interéses,Fecha Corte" types="5,3,5" elem="" sp="269" modulo="reportecxc"></div>
       <input type="hidden" id="vishistorico" value="0">
       <input type="hidden" id="visproveedor" value="0">
       <!-- HEADER -->

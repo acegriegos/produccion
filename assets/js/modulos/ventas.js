@@ -29,9 +29,9 @@ $("#fe").on('click',function(e){
 $(function(){
     $('select').material_select();
     $('.tooltipped').tooltip({delay: 50});
-     $('.dropdown-button').dropdown();
+    $('.dropdown-button').dropdown();
     $('#vcomentario').characterCounter();
-
+    
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
@@ -808,7 +808,10 @@ $(document).on("change","#uni",function(){
         $("#valores").data('elemento')['hprec'] = pfinal;
         $("#cantp").focus().select();
         $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','))
-     }    
+     }else{
+        nprecio = getDatos('convercion('+$(this).val()+','+$("#valores").data('elemento')['hprec']+')',0,'',0,0,0);
+        console.log(nprecio)
+     }   
 });
 
 $(document).on("blur",".fventa",function(){

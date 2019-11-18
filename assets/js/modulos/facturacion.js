@@ -460,11 +460,11 @@ function cargarCompras(){
 
                     console.log(insertar(104,'','null,'+$(this).data('triforce')['videntrada']+','+$("#ffacturas .zelda").data('triforce')['vidcliente']+',"'+cpp+'",'+$(this).data('triforce')['vprecio']+',0,now(),1,0'));
                 }
-
+                var cante = getDatos('cantidad',97,'idproducto =  '+$(this).data('triforce')['videntrada'],0,0,0);
                 actualizar(97,'cantidad = cantidad+'+
                     $(this).data('triforce')['vcantidad'],'idproducto = '+$(this).data('triforce')['videntrada']);
 
-                insertar(298,'','null,1,'+$(this).data('triforce')['vcantidad']+',now(),'+$(this).data('triforce')['videntrada']+',"",@@impresa,@@usr');
+                insertar(298,'','null,1,'+(parseFloat(cante[0][0][0])+parseFloat($(this).data('triforce')['vcantidad']))+',now(),'+$(this).data('triforce')['videntrada']+',"",@@impresa,@@usr,'+cante[0][0][0]);
 
                 var matriz = $(this).data('matriz');
                 var indice = 0;
@@ -495,9 +495,9 @@ function cargarCompras(){
         if(cnt){
             Materialize.toast('Artículos Incluidos',4000,'green');
 
-            // setTimeout(function(){
-            //     location.reload();
-            // },4000);
+            setTimeout(function(){
+                location.reload();
+            },4000);
         }
     };
 
@@ -507,7 +507,6 @@ function cargarCompras(){
             return false;
         }
 
-        alert(1)
         var prod = getDatos('',297,$(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'],0,0,0);
 
         var str = '';
