@@ -69,7 +69,7 @@
   <script type="text/javascript">
 
     function rxlxs(cabeza){
-      console.log(cabeza)
+      alert(1)
       $(".detrep").prepend(cabeza);
       $("table").tableExport();
     }
