@@ -318,9 +318,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.43"></script>
- <script src="../assets/js/materialize.js?v=10.2.0.43"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.43"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.44"></script>
+ <script src="../assets/js/materialize.js?v=10.2.0.44"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.44"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

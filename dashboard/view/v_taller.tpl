@@ -8,7 +8,7 @@
         <title>Taller</title>
     </head>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-taller.css?v=10.2.0.43">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-taller.css?v=10.2.0.44">
     <body>
         {$NAV}
         <div class="bdy">
@@ -33,6 +33,6 @@
             </div>
         </div> <!-- END BDY -->
         {$SCR}
-        <script src="../assets/js/modulos/taller.js?v=10.2.0.43"></script>
+        <script src="../assets/js/modulos/taller.js?v=10.2.0.44"></script>
     </body>
 </html>
