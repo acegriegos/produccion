@@ -815,7 +815,6 @@ $(document).on("change","#uni",function(){
         $("#cantp").focus().select();
         $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','))
      }else{
-        console.log($(this).attr('old'))
         if($(this).attr('old') != undefined){
             var pfinal = getDatos('(select ('+$("#valores").data('elemento')['hprec']+'/a.cantidad)*b.cantidad from unidades a join unidades b on b.id = '+$(this).val()+' where a.id = '+$(this).attr('old')+')',0,'',0,0,0)[0][0][0];
             $("#precp").val(parseFloat(pfinal).formatMoney(2,'.',','));
@@ -2279,6 +2278,7 @@ function sendVMail(factura,clave,vid){
         switch(param){
             case 104:
                 setTimeout(function(){window.close();},2000);
+                str_correos = '';
                 break;
             default:
                 var con_con = 0;

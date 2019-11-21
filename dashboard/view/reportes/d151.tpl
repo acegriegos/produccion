@@ -47,12 +47,12 @@
               {/if}
             </td> -->
             <td colspan="100%"> 
-              <b>{$MIS[0]}</b><br>
+              <b id="sucursal">{$MIS[0]}</b><br>
               {if $MIS[2]}{$MIS[2]}</b><br>{/if}
               <b>Cédula:</b> {$MIS[1]}<br>
               <b>Teléfono:</b> {$MIS[5]}<br>
               <h3>Declaraciones Informativas</h3>
-              <span id="leyenda"></span>
+              <span id="leyenda">D151</span>
             </td>
         </tr>
       </tbody>
@@ -69,9 +69,27 @@
   <script type="text/javascript">
 
     function rxlxs(cabeza){
-      alert(1)
       $(".detrep").prepend(cabeza);
-      $("table").tableExport();
+      //$("table").tableExport();
+
+      if($(".excel").length){
+        $(".excel").addClass('exc').removeClass('excel');
+      }
+
+      var ExportButtons = document.getElementById('data-table-ventas');
+
+      var instance = new TableExport(ExportButtons, {
+          formats: ['xlsx'],
+          exportButtons: false,
+          filename: $("#leyenda").html()+', '+$("#sucursal").html()
+      });
+
+      var exportData = instance.getExportData()['data-table-ventas']['xlsx'];
+      $(".exc").unbind();
+      $(".exc").click(function (e) {
+        instance.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension);
+      });
+     
     }
 
     $(function(){   
