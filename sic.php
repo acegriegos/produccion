@@ -3,10 +3,13 @@
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $source);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_SSLVERSION,false);
-    $data = curl_exec ($ch);
+    curl_setopt($ch, CURLOPT_SSLVERSION,0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    $data = curl_exec($ch);
     $error = curl_error($ch);
     curl_close ($ch);
+    
     $data = (array)json_decode($data);
     
     if (isset($data['nombre'])) {

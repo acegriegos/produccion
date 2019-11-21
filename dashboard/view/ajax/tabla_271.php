@@ -5,7 +5,7 @@
     $suma = $_REQUEST['arreglo']['suma'];
     $varray = explode(',', $vista);
 
-    echo '<table class="table responsive-table striped highlight centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;"><thead><tr>';
+    echo '<table class="table responsive-table striped highlight bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;"><thead><tr>';
     foreach($varray as $index => $obj) {
         echo '<th>'.strtoupper($transaccion[1][$obj]->name).'</th>';
 

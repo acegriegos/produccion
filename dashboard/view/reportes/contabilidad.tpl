@@ -10,7 +10,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" entrefechas elem="" sp="271" modulo="reporteconta" ></div>
+      <div class="filtros row" entrefechas elem="" sp="271" chg="271_1" modulo="reporteconta" ></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -19,6 +19,7 @@
         {/if}
       </div>
       <div class="col s6 m4 l4" align="center">
+        <h2 align="center" style="margin-top: 0px" id="titrep">Ventas Totales</h2>
         <h2 align="center" style="margin-top: 0px" id="tit"></h2>
         <font size="3">
           <b>{$MIS[0]}</b><br>
@@ -34,6 +35,7 @@
         <input type="hidden" id="vtrep">
         <input type="hidden" id="vidtipo1" value="0">
         <input type="hidden" id="vidmoneda" value="1">
+
       </div>
     </div>
     <small id="leyenda"></small>
@@ -42,6 +44,7 @@
   <br><br>
   </div>
   {$SCR}
+
   <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.43"></script>
   <script src="../assets/js/modulos/reportes/contabilidad.js?v=10.2.0.43"></script>
 </body>

@@ -814,7 +814,17 @@ $(document).on("change","#uni",function(){
         $("#valores").data('elemento')['hprec'] = pfinal;
         $("#cantp").focus().select();
         $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','))
-     }    
+     }else{
+        console.log($(this).attr('old'))
+        if($(this).attr('old') != undefined){
+            var pfinal = getDatos('(select ('+$("#valores").data('elemento')['hprec']+'/a.cantidad)*b.cantidad from unidades a join unidades b on b.id = '+$(this).val()+' where a.id = '+$(this).attr('old')+')',0,'',0,0,0)[0][0][0];
+            $("#precp").val(parseFloat(pfinal).formatMoney(2,'.',','));
+            $("#valores").data('elemento')['hprec'] = pfinal;
+            $("#cantp").focus().select();
+            $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','));
+        }
+        $(this).attr('old',$(this).val())
+     }      
 });
 
 $(document).on("blur",".fventa",function(){
@@ -1675,6 +1685,7 @@ function cargarProducto(kbrota,elemento) {
     
     $("#precp").attr('base',"0.00");
     $("#totp").attr('base',"0.00");
+    $("#uni").removeAttr('old');
 
     if($("#codp").val() == '' && $("#descp").val() == '')
         return false;

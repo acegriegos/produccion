@@ -19,7 +19,7 @@
   
             <ul class="tabs tabs-transparent tabs-fixed-width">
               <li class="tab col s6 menu3 per3001" id="m1"><a class="active tamLetra">Cuentas</a></li>
-              <li class="tab col s6 menu3 per3002" id="m2"><a class="tamLetra">Transacciones</a></li>
+              <li class="tab col s6 menu3 per3002" id="m2"><a class="tamLetra">Asientos</a></li>
               
           </ul>
       </div>

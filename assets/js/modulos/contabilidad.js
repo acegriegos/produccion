@@ -59,6 +59,7 @@ $(document).on('change','#continuo',function(){
 $(document).on("click",".view-cuenta",function(){
 	var id = $(this).attr('id').substr(1);
 	arr('login',6,'',71,op1+","+id+","+op2+',"'+vdate1+'","'+vdate2+'"',71,1,$(".colDetalle"));
+	
 	var titulo = "Movimiento ";
 	switch(op2){
 		case 1:
@@ -122,7 +123,15 @@ $(document).on("keyup","#vdescripcion",function(e){
 	}
 });
 
-$(document).on("keyup","[id^=f]",function(e){
+$(document).on("click","#addnline",function(e){
+	var id = parseInt($('#fdetalletransacciones tr').last().attr('id').substr(1))+1;
+
+	$('#fdetalletransacciones').append(getFila(id));
+
+	$("#f"+id).data('triforce',{vaccion:0,vid:0, vidtransaccion:'?',vdebe:0, vhaber:0, vfila:0, vtabla:0,vidcuenta : 0});
+});
+
+/*$(document).on("keyup","[id^=f]",function(e){
 	var code = e.which || e.keyCode;
 	if(code == 46){
 		$(this).remove();
@@ -131,7 +140,7 @@ $(document).on("keyup","[id^=f]",function(e){
 
 		$("#f"+id).data('triforce',{vaccion:0,vid:0, vidtransaccion:'?',vdebe:0, vhaber:0, vfila:0, vtabla:0,vidcuenta : 0});
 	}
-});
+});*/
 
 $(document).on("keyup",".tdtext",function(e){
 	var code = e.which || e.keyCode;
@@ -180,8 +189,9 @@ $(document).on("blur",".tdtext",function(){
 			totalizar();
 			break;
 			default:
-			var rs = arr('login',4,'',53,"'"+$(this).val()+"',1",'',0,'')[0][0];
+			var rs = arr('login',4,'',53,'"'+$(this).val()+'",1','',0,'')
 
+			rs = rs[0][0];
 			if(rs != undefined && $(this).val() != ''){
 				var repetido = 0;
 

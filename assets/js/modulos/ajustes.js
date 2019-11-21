@@ -59,8 +59,6 @@ $(document).on("click",".menu3",function(){
 			$("#vpass_n_atv").val(e[21]);
 			$("#vpass_n").val(e[22]);
 
-			//var actividades = getDatos('codigo,actividad',286,'codigo in(select codigo from sucactivids where idsucursal = @@impresa)',0,0,0);
-
 			$.get( "https://api.hacienda.go.cr/fe/ae", {identificacion:$("#vcedula").val().replace(/-/g,'')})
 			.done(function( data ) {
 				var list = ''
@@ -68,8 +66,6 @@ $(document).on("click",".menu3",function(){
 				  	if(data.actividades[i].estado == 'A'){
 				  		list += '<li type="circle"> <i class="mdi mdi-subdirectory-arrow-right"></i><span class="actividades" cod="'+data.actividades[i].codigo+'">'+data.actividades[i].descripcion+'</span></li>'
 				  	}
-
-				  	list += '<li type="circle"> <i class="mdi mdi-subdirectory-arrow-right"></i><span class="actividades" cod="402002">INSTALACION Y VENTA DE TANQUES PARA GAS</span></li>  <li type="circle"> <i class="mdi mdi-subdirectory-arrow-right"></i><span class="actividades" cod="372003">RECICLAJE DE PAPEL Y PLASTICO Y MATERIALES RELACIONADOS</span></li>'
 
 			  		$("#myactivities").html(list)
 			  	}

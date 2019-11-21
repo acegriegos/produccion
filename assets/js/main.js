@@ -149,8 +149,8 @@ function sse_response(vid,p) {
                 })
                 .done(function(data) {
 
-                    console.log('REFRESH TOKEN');   
-                    console.log(data)
+                    /*console.log('REFRESH TOKEN');   
+                    console.log(data)*/
               });
             }
 

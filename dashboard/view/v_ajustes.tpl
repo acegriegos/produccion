@@ -23,11 +23,12 @@
       <div class="col s12">
         <ul class="tabs head2">
             <li class="menu3 col tab pbtn" href="#m1" id="m1"><a class=" white-text" class="active">Empresa</a></li>
-            <li class="menu3 col tab pbtn" href="#m2" id="m2"><a class=" white-text">Descuentos</a></li>
-            <li class="menu3 col tab pbtn" href="#m3" id="m3"><a class=" white-text">Impuestos</a></li>
-            <li class="menu3 col tab pbtn" href="#m4" id="m4"><a class=" white-text">Contabilidad</a></li>
-            <li class="menu3 col tab pbtn hide" href="#m5" id="m5"><a class=" white-text">Sucursales</a></li>
-            <li class="menu3 col tab pbtn {if $smarty.session.BUSS neq 3}hide{/if}" href="#m6" id="m6"><a class=" white-text">Bodegas</a></li>
+            <li class="menu3 col tab pbtn {if $smarty.session.BUSS eq 5}hide{/if}" href="#m2" id="m2"><a class=" white-text">Descuentos</a></li>
+            <li class="menu3 col tab pbtn {if $smarty.session.BUSS eq 5}hide{/if}" href="#m3" id="m3"><a class=" white-text">Impuestos</a></li>
+            <li class="menu3 col tab pbtn"# id="m4" id="m4"><a class=" white-text">Cuentas Contables</a></li>
+            <li class="menu3 col tab  pbtn {if $smarty.session.BUSS neq 0}hide{/if}" href="#m5" id="m5"><a class=" white-text">Sucursales</a></li>
+            <li class="menu3 col tab pbtn {if $smarty.session.BUSS neq 0 && $smarty.session.BUSS neq 3}hide{/if}" href="#m6" id="m6"><a class=" white-text">Bodegas</a></li>
+            <li class="menu3 col tab pbtn hide" href="#m7" id="m7"><a class=" white-text">Producción</a></li>
             <li class="menu3 col tab  pbtn per11 hide" href="#m10" id="m10"><a class=" white-text">Restaurante</a></li>
             <li class="menu3 col tab  pbtn hide" href="#m9 " id="m9 "><a class=" white-text">Productos</a></li>
             <li class="menu3 col tab  pbtn hide" href="#m11 " id="m11 "><a class=" white-text">Rubros</a></li>
