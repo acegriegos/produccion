@@ -187,7 +187,7 @@ $barrio = '';
 $dir = '';
 if($datos[0][53]){
   $barrio = '<b>Barrio:</b> '.$datos[0][53];
-  $dir = '<table> <tr><td>'.$prov.'</td> <td>'.$cant.'</td></tr> <tr>'.$dist.'<td></td> <td>'.$barrio.'</td></tr> </table>';
+  $dir = '<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%;"> <tr><td>'.$prov.'</td> <td>'.$cant.'</td></tr> <tr> <td>'.$dist.'</td> <td>'.$barrio.'</td></tr> </table>';
 }
 
   $cliente = '<b>'.$datos[0][30].':</b> <span>'.$datos[0][4].'</span>  <br><b>Cédula:</b> '.$datos[0][34].' <br> '.$dir;
