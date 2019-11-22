@@ -348,7 +348,7 @@ $html .= '<table style="width: 100%" style="font-size:9px">';
     <td></td>
     <td align="right"><strong>TOTAL:</strong></td>
     <td align="right"><b>'.$datos[0][15].$datos[0][10].'</b></td>
-  </tr></table>'.
+  </tr></table>';
 
 $html .= '</body></html>';
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.
