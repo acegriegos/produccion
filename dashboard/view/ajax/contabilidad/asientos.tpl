@@ -3,11 +3,11 @@
         <br>
         <div class="row">
             <div class="col s10 offset-s2 m4 l3" style="margin-top:2%; ">
-              <li class="btn waves-effect waves-light func z-depth-5" fn="f1" id="fn1">Realizar Transacción</li>
+              <li class="btn waves-effect waves-light func z-depth-5" fn="f1" id="fn1">Realizar Asiento</li>
 
           </div>
 
-          <div class="col s10 offset-s2 m4 l3 hide" style="margin-top:2%; "><li class="btn waves-effect waves-light func z-depth-5" fn="f2">Ver Transacciones</li></div>
+          <div class="col s10 offset-s2 m4 l3 hide" style="margin-top:2%; "><li class="btn waves-effect waves-light func z-depth-5" fn="f2">Ver Asientos</li></div>
 
       </div>
 
@@ -24,12 +24,12 @@
                 <div class="row">
                    <div class="input-field col s12 m6 l4">
                   <input  id="vdescripcion" type="text" class="validate" autocomplete="off">
-                  <label for="descripcion">Descripcion de la Transacción</label>
+                  <label for="descripcion">Descripcion del Asiento</label>
               </div>
 
               <div class="input-field col s12 m6 l4">
                   <i class="fa fa-calendar-o prefix"></i>
-                  <input type="date" class="eder" id="vfecha" value="" placeholder="Fecha de la Transacción" />
+                  <input type="date" class="eder" id="vfecha" value="" placeholder="Fecha del Asiento" />
 
               </div>
               <div class="input-field col s12 m12 l4" >

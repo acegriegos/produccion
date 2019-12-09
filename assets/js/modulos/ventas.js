@@ -464,7 +464,12 @@ $(function(){
 
         })
     }else{
-        $("#codact").html('<option value="'+config[24]+'">'+config[25]+'</option>')
+        var list = '<option value="'+config[24]+'" selected orig>'+config[25]+'</option>';
+        var oactivis = getDatos('codactividad,(select actividad from actividades where codigo = codactividad)',293,'idsucursal=@@impresa');
+        for (var i = 0; i < oactivis[0].length; i++) {
+            list += '<option value="'+oactivis[0][i][0]+'">'+oactivis[0][i][1]+'</option>';
+        }
+        $("#codact").html(list);
         $("#codact").material_select('update')
     }
 
@@ -718,9 +723,11 @@ $("#crrclie").click(function(){
 
     for (var i = 0; i < cantidad+1; i++) {
         index = tmp.indexOf(',') == -1 ? tmp.length : tmp.indexOf(',');
-        checked = str_correos.indexOf(tmp.substr(0,index)) == -1 ? '': 'checked';
-        str += '<input type="checkbox" class="selcorreo" '+checked+' id="chk'+i+'"><label for="chk'+i+'">'+tmp.substr(0,index)+'</label><br>';
-        tmp = tmp.substr(index+1,tmp.length);
+        if(tmp.substr(0,index) != ''){
+            checked = str_correos.indexOf(tmp.substr(0,index)) == -1 ? '': 'checked';
+            str += '<input type="checkbox" class="selcorreo" '+checked+' id="chk'+i+'"><label for="chk'+i+'">'+tmp.substr(0,index)+'</label><br>';
+            tmp = tmp.substr(index+1,tmp.length);
+        }
     }
     var ii = $(".selcorreo").length + 1;
     str += '<input type="text" placeholder="Digitar Correo" id="dcorreo">';
@@ -809,9 +816,17 @@ $(document).on("change","#uni",function(){
         $("#cantp").focus().select();
         $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','))
      }else{
-        nprecio = getDatos('convercion('+$(this).val()+','+$("#valores").data('elemento')['hprec']+')',0,'',0,0,0);
-        console.log(nprecio)
-     }   
+
+        if($(this).attr('old') != undefined){
+            var pfinal = getDatos('(select ('+$("#valores").data('elemento')['hprec']+'/a.cantidad)*b.cantidad from unidades a join unidades b on b.id = '+$(this).val()+' where a.id = '+$(this).attr('old')+')',0,'',0,0,0)[0][0][0];
+            $("#precp").val(parseFloat(pfinal).formatMoney(2,'.',','));
+            $("#valores").data('elemento')['hprec'] = pfinal;
+            $("#cantp").focus().select();
+            $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','));
+            console.log(pfinal+' select ('+$("#valores").data('elemento')['hprec']+'/a.cantidad)*b.cantidad from unidades a join unidades b on b.id = '+$(this).val()+' where a.id = '+$(this).attr('old'))
+        }
+        $(this).attr('old',$(this).val())
+     }  
 });
 
 $(document).on("blur",".fventa",function(){
@@ -1561,6 +1576,16 @@ function validarFactura() {
             $("#ffacturas .zelda").data('triforce')['visregistrada'] = parseInt($("[name='tcompra']:checked").val())
             break;
         case 4:
+            if(!$("#ncli").val().trim().length){
+                $("#ncli").focus();
+                return "No se Ha Ingresado Cliente";
+            }
+
+            if ($("#ffacturas .zelda").data('triforce')['vidcliente'] == 0){
+                $("#ffacturas .zelda").data('triforce')['vcomodin'] = $("#ncli").val();
+            }
+
+            break;
         case 5:
             if ($("#ffacturas .zelda").data('triforce')['vidcliente'] == 0){
                 $("#ncli").focus();
@@ -1664,6 +1689,7 @@ function cargarProducto(kbrota,elemento) {
     
     $("#precp").attr('base',"0.00");
     $("#totp").attr('base',"0.00");
+    $("#uni").removeAttr('old');
 
     if($("#codp").val() == '' && $("#descp").val() == '')
         return false;
@@ -1914,6 +1940,11 @@ function endDetail(vid,vacc,vmodulo) {
                 case 7:
                     var ms = 0
                     var set = '';
+
+                    if($("#codact option:selected").attr('orig') == undefined){
+                        ms = 1;
+                        set += 'codactividad = "'+$("#codact option:selected").val()+'",';
+                    }
 
                     if($("#impm:visible").length){
                         var sr = parseFloat($("#serv").html().replace(/,/g,''));
@@ -2236,31 +2267,18 @@ function sendFE(clave){
         data: {id: ap+clave, accion : 1,to:str_correos,idfila : clave,idtabla : 64,tit:vtit}
     })
       .done(function(data) {
-        var p;
-        try {
-            p = JSON.parse(data);
-            $(".expect").removeClass('progress');
-      
-            var vfactura = p['num'];
-            var vclave = p['clave'];
-            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
-            str_correos = '';
-            sendVMail(0,0,clave);         
-            
-        }
-        catch(err){
-            console.log(data)
-            $(".expect").removeClass('progress')
-            $(".expect").html("<i class='mdi mdi-24px mdi-close red-text'></i>");
-            Materialize.toast(data,5000,'red');
-            //setTimeout(function(){location.reload();},4000);
-        }       
+        console.log(data)
+        
+        var vclave = p['clave'];
+        $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+        str_correos = '';
+        sendVMail(0,0,clave);              
   });
 }
 
 function sendVMail(factura,clave,vid){
     var archivos = '';
-    console.log(config[3]);
+
     if(config[3] == 1){ //ENVIO RAPIDO DE FACTURA
         switch(param){
             case 104:
@@ -2286,7 +2304,7 @@ function sendVMail(factura,clave,vid){
             var vbody = getDatos('',73,vid,0,0)[0][0];
             var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
             archivos = makeArchivos(factura,clave,vid,vbody[1],ntipo);
-            enviarCorreo(3,str_correos,ntipo+" N° "+factura,vbody[0],archivos,con_con,vid,64);
+            enviarCorreo(3,str_correos,ntipo+" No"+factura,vbody[0],archivos,con_con,vid,64);
         }else{
             if(parseInt($("[name=tipopago]:checked").val()) != 5){ //MIXTO
                 if (parseInt(idext) > 0) {
@@ -2297,7 +2315,6 @@ function sendVMail(factura,clave,vid){
                 }else
                     setTimeout(function(){location.reload();},2000);
                 }
-                console.log(1)
             }else
                 if(parseFloat($("#mxtot").val()) < 5)
                     setTimeout(function(){window.close();},2000);
@@ -2343,9 +2360,9 @@ function makeArchivos(vfactura,vclave,vid,vsucursal,ntipo){
     var vtit = param == 1 ? 'Factura Electrónica' : ntipo;
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vtit,sel:'',tbl:72,where:vid},1);
     if (vclave == vid || (param != 1 && param != 7))
-        archivos = 'pdf/'+ntipo+' N°'+vfactura+', '+vsucursal+'.pdf';
+        archivos = 'pdf/'+ntipo+' No'+vfactura+', '+vsucursal+'.pdf';
     else{
-        archivos = {0:'xml/Factura N°'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura N°'+vfactura+', '+vsucursal+'.pdf'}
+        archivos = {0:'xml/Factura No'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura No'+vfactura+', '+vsucursal+'.pdf'}
         mantenimiento('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
     }
     return archivos;
@@ -2361,7 +2378,7 @@ function postExcecute(vid,p){
 
 function postSendmail() {
 
-   if(parseInt($("[name=tipopago]:checked").val()) != 5){
+   /*if(parseInt($("[name=tipopago]:checked").val()) != 5){
         if (parseInt(idext) > 0) {
             setTimeout(function(){window.close();},2000);
         }else{
@@ -2372,7 +2389,7 @@ function postSendmail() {
         }
     }else
         if(parseFloat($("#mxtot").val()) < 5)
-            setTimeout(function(){window.close();},2000);
+            setTimeout(function(){window.close();},2000);*/
 }
 
 function validarGeneral(velemento) {

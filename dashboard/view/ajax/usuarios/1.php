@@ -10,8 +10,8 @@
         <label for="vuser">Usuario</label>
       </div>
       <div class="input-field col s12 m6 l4" style="margin-bottom: 0 !important">
-        <input id="vnombre" type="text" class="validate">
-        <label for="vnombre">Nombre de Usuario</label>
+        <input id="vnombre" type="text" class="validate" autocomplete="new-password">
+        <label for="vnombre">Nombre</label>
       </div>
 
       <div class="input-field col s12 m6 l4" style="margin-bottom: 0 !important">
@@ -56,11 +56,11 @@
       <?php } ?>
 
       <div class="input-field col s12 m6 l4">
-        <input id="vclave" type="password" class="validate">
+        <input id="vclave" type="password" class="validate" autocomplete="new-password">
         <label for="vclave">Contraseña</label>
       </div>
       <div class="input-field col s12 m6 l4">
-        <input id="clave" type="password" class="validate">
+        <input id="clave" type="password" class="validate" autocomplete="new-password">
         <label for="clave">Repetir Contraseña</label>
       </div>
 

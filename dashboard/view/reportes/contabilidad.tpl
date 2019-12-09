@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Contabilidad</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.34">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.43">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -33,6 +33,7 @@
 
         <input type="hidden" id="vtrep">
         <input type="hidden" id="vidtipo1" value="0">
+        <input type="hidden" id="vidmoneda" value="1">
       </div>
     </div>
     <small id="leyenda"></small>
@@ -41,7 +42,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.34"></script>
-  <script src="../assets/js/modulos/reportes/contabilidad.js?v=10.2.0.34"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.43"></script>
+  <script src="../assets/js/modulos/reportes/contabilidad.js?v=10.2.0.43"></script>
 </body>
 </html>

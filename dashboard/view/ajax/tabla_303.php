@@ -107,7 +107,7 @@
 							<?php foreach ($transaccion as $obj) { ?>
 							<tr>
 								<td><?php echo $obj[9]; ?></td>
-								<td><?php echo $obj[2]; ?></td>
+								<td><?php echo $obj[16]; ?></td>
 								<td><?php echo $obj[4]; ?></td>
 								<td><?php echo number_format($obj[8],2); ?></td>
 								<td><?php echo number_format($obj[5],2); ?></td>

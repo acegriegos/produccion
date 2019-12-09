@@ -181,7 +181,7 @@ switch($config[0][10]) {
   </tr>';
   foreach ($transaccion as $obj) {
       echo '<tr>
-        <td align="center" width="15%">'.$obj[29].$obj[18].'</td>
+        <td align="center" width="15%">'.$obj[29].number_format($obj[18],3).'</td>
         <td align="center" width="45%">'.$obj[19].'</td>
         <td align="center" width="20%">'.$obj[20].'</td>
         <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
@@ -318,9 +318,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.34"></script>
- <script src="../assets/js/materialize.js?v=10.2.0.34"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.34"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.43"></script>
+ <script src="../assets/js/materialize.js?v=10.2.0.43"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.43"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

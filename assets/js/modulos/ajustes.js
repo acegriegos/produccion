@@ -63,13 +63,16 @@ $(document).on("click",".menu3",function(){
 
 			$.get( "https://api.hacienda.go.cr/fe/ae", {identificacion:$("#vcedula").val().replace(/-/g,'')})
 			.done(function( data ) {
-			  for(var i = 0;i<data['actividades'].length;i++){
-			  	if(data.actividades[i].estado == 'A'){
-			  		console.log(data.actividades[i].codigo);
-			  		//eliminar(293,'idsucursal = @@impresa');
-			  		// insertar(293,'','idsucursal = @@impresa,codactividad = "'+data.actividades[i].codigo+'"');
+				var list = ''
+			  	for(var i = 0;i<data['actividades'].length;i++){
+				  	if(data.actividades[i].estado == 'A'){
+				  		list += '<li type="circle"> <i class="mdi mdi-subdirectory-arrow-right"></i><span class="actividades" cod="'+data.actividades[i].codigo+'">'+data.actividades[i].descripcion+'</span></li>'
+				  	}
+
+				  	list += '<li type="circle"> <i class="mdi mdi-subdirectory-arrow-right"></i><span class="actividades" cod="402002">INSTALACION Y VENTA DE TANQUES PARA GAS</span></li>  <li type="circle"> <i class="mdi mdi-subdirectory-arrow-right"></i><span class="actividades" cod="372003">RECICLAJE DE PAPEL Y PLASTICO Y MATERIALES RELACIONADOS</span></li>'
+
+			  		$("#myactivities").html(list)
 			  	}
-			  }
 			});
 
 			$("#actSuc").click(function(){
@@ -91,7 +94,45 @@ $(document).on("click",".menu3",function(){
 
 				if ($("#isfe").is(":checked") && $("#valid_p12").attr('isvalid') == 0) {
 					return "Validación Factura Electrónica Requerida";
-				}	
+				}
+
+				actualizar(39,'pfisico='+$("#vpfisico").val(),'id=@@impresa');
+
+				var num = 1;
+				while ($("#slideTelefono").data()['fila'+num] != undefined) {
+					if($("#slideTelefono").data()['fila'+num]['vidtelefono'] != "0"){
+						actualizar(238,'telefono='+$("#slideTelefono").data()['fila'+num]['vtelefono']+',idtipotel='+$("#slideTelefono").data()['fila'+num]['vidtipotel']+',idpais='+$("#slideTelefono").data()['fila'+num]['vidpais'],'idtelefono='+$("#slideTelefono").data()['fila'+num]['vidtelefono']);
+					}else{
+						ingresar(238,'','null,'+$("#slideTelefono").data()['fila'+num]['vidtipotel']+','+$("#slideTelefono").data()['fila'+num]['vtelefono']+',39,@@impresa,'+$("#slideTelefono").data()['fila'+num]['vidpais'])
+					}
+					num += 1;
+				}
+
+				num = 1;
+				while ($("#slideCorreo").data()['fila'+num] != undefined) {
+					if($("#slideTelefono").data()['fila'+num]['vidcorreo'] != "0"){
+						actualizar(17,'correo='+$("#slideTelefono").data()['fila'+num]['vcorreo'],'idcorreo='+$("#slideTelefono").data()['fila'+num]['vidcorreo']);
+					}else{
+						ingresar(17,'','null,@@impresa,39,'+$("#slideTelefono").data()['fila'+num]['vcorreo'])
+					}
+					num += 1;
+				}
+
+				if($("#slideDireccion").data()['fila1'] != undefined){
+					actualizar(239,'direccion='+$("#slideDireccion").data()['fila1']['vdireccion']+',idbarrio='+$("#slideDireccion").data()['vidbarrio'],'idubicacion='+$("#slideDireccion").data()['vidubicacion'])
+				}
+
+				eliminar(293,'idsucursal = @@impresa');
+			  		
+				$(".actividades").each(function(index){
+					if(index == 0)
+						actualizar(39,'codactividad='+$(this).attr('cod'),'id=@@impresa');
+					else
+						insertar(293,'','@@impresa,"'+$(this).attr('cod')+'"');
+				})
+
+				Materialize.toast('Datos Actualizados Correctamente',4000,'green');
+
 			});
 
 			if (e[16] != '') {
@@ -231,6 +272,91 @@ $(document).on("click",".menu3",function(){
 
 				$("#vistat").removeClass('hide');
 			});
+
+			$("#pventas").click(function(){
+				var cdef = getDatos('',89,'1,1',0,0,0);
+
+				if(cdef[0].length){
+					var ntr = ntd1 = ntd2 = vtd = vtd1 = vtd2 = btpl = btp = '';
+					var sugrupo = 0;
+					$("#cuerpoc").html('')
+					for (var i = 0; i < cdef[0].length; i++) {
+						if(parseInt(cdef[0][i][4]) != sugrupo){
+							sugrupo = parseInt(cdef[0][i][4]);
+							btp = 'border-top: 1px solid black;';
+						}else {
+							btp = '';
+						}
+						if(cdef[0][i][0] == "1"){
+							btpl = 'border-right: 1px solid black;'+btp;
+							vtd2 = '<td style="padding: 0px;"></td>';
+							vtd1 = '<td style="padding: 0px;'+btp+'"></td>'; 
+						}else {
+							btpl = 'border-left: 1px solid black;'+btp;
+							vtd1 = '<td style="padding: 0px;"></td>';
+							vtd2 = '<td style="padding: 0px;'+btp+'"></td>'; 
+						}
+						vtd  = vtd1+vtd2;
+						ntd1 = '<td style="padding: 0px;">'+cdef[0][i][1]+'</td> ';
+						ntd2 = '<td style="padding: 0px;'+btpl+'"><select class="browser-default dc" id="dc'+cdef[0][i][5]+'">'+$("#vcuentas").attr('lp'+cdef[0][i][2])+'</select></td>';
+
+						if(cdef[0][i][0] == "1")
+							ntr = '<tr> '+ntd1+ntd2+vtd+' </tr>'; 
+						else
+							ntr = '<tr> '+vtd+ntd2+ntd1+' </tr>'; 
+
+						$("#cuerpoc").append(ntr);
+						$("#dc"+cdef[0][i][5]).val(cdef[0][i][3]);
+					}
+				}
+				
+			});
+
+			$(document).on('change','.dc',function(){
+				console.log(actualizar(88,'idcuenta='+$("option:selected",this).val(),'id='+$(this).attr('id').substr(2)));
+			});
+
+			var lista = '<option value="0">N/A</option>'
+			var lpactivos = getDatos('id,nombre',36,'id > 0 and !ispadre and substring(numero,1,1) = 1 order by numero');
+			for (var i = 0; i < lpactivos[0].length; i++) {
+				lista += '<option value="'+lpactivos[0][i][0]+'">'+lpactivos[0][i][1]+'</option>';
+			}
+			$("#vcuentas").attr('lp1',lista);
+
+			lista = '<option value="0">N/A</option>'
+			lpactivos = getDatos('id,nombre',36,'id > 0 and !ispadre and substring(numero,1,1) = 2');
+			for (var i = 0; i < lpactivos[0].length; i++) {
+				lista += '<option value="'+lpactivos[0][i][0]+'">'+lpactivos[0][i][1]+'</option>';
+			}
+			$("#vcuentas").attr('lp2',lista);
+
+			lista = '<option value="0">N/A</option>'
+			lpactivos = getDatos('id,nombre',36,'id > 0 and !ispadre and substring(numero,1,1) = 3');
+			for (var i = 0; i < lpactivos[0].length; i++) {
+				lista += '<option value="'+lpactivos[0][i][0]+'">'+lpactivos[0][i][1]+'</option>';
+			}
+			$("#vcuentas").attr('lp3',lista);
+
+			lista = '<option value="0">N/A</option>'
+			lpactivos = getDatos('id,nombre',36,'id > 0 and !ispadre and substring(numero,1,1) = 4');
+			for (var i = 0; i < lpactivos[0].length; i++) {
+				lista += '<option value="'+lpactivos[0][i][0]+'">'+lpactivos[0][i][1]+'</option>';
+			}
+			$("#vcuentas").attr('lp4',lista);
+
+			lista = '<option value="0">N/A</option>'
+			lpactivos = getDatos('id,nombre',36,'id > 0 and !ispadre and substring(numero,1,1) = 5');
+			for (var i = 0; i < lpactivos[0].length; i++) {
+				lista += '<option value="'+lpactivos[0][i][0]+'">'+lpactivos[0][i][1]+'</option>';
+			}
+			$("#vcuentas").attr('lp5',lista);
+
+			lista = '<option value="0">N/A</option>'
+			lpactivos = getDatos('id,nombre',36,'id > 0 and !ispadre and substring(numero,1,1) = 6');
+			for (var i = 0; i < lpactivos[0].length; i++) {
+				lista += '<option value="'+lpactivos[0][i][0]+'">'+lpactivos[0][i][1]+'</option>';
+			}
+			$("#vcuentas").attr('lp6',lista);
 
 			break;
 		case 5:
@@ -552,8 +678,9 @@ $(document).on("change","#videtapa",function(){
 
 $(document).on("click","[id^=ec]",function(){
 	var id = $(this).attr('id').substr(2);
-	var p = arr('login',7,3,36,'id = '+id,'', 0,0,0)[0];
-	if (!p.success) {
+	var p = actualizar(36,'id=min(id)-1','id='+id);
+
+	if (!p[0].length) {
 		Materialize.toast(p['ERROR'],4000,'red');
 	}else{
 		$(this).parent().parent().parent().remove();

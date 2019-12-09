@@ -1,4 +1,5 @@
-<?php 
+<?php
+
     $tsuma = [];
     $vista = $_REQUEST['arreglo']['orden'];
     $suma = $_REQUEST['arreglo']['suma'];

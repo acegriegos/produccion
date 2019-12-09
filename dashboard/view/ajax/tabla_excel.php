@@ -2,6 +2,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', TRUE);
     ini_set('display_startup_errors', TRUE);
+    set_time_limit(0);
 
     if (PHP_SAPI == 'cli')
       die('This example should only be run from a Web Browser');

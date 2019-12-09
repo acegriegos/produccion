@@ -158,9 +158,8 @@ function sse_response(vid,p) {
                 $("#cantFact").html(p[0][0][2]);
             
             if(parseInt(p[0][0][3])){ //RECURSIVIDAD 20MIN
-                console.log('RECURSIVIDAD');
                 $.post('../_config/autofacturas.php')
-                    .done(function(data){ console.log(data) });
+                    .done(function(data){ });
             }
             break;
         case 2:

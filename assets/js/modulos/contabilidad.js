@@ -59,7 +59,6 @@ $(document).on('change','#continuo',function(){
 $(document).on("click",".view-cuenta",function(){
 	var id = $(this).attr('id').substr(1);
 	arr('login',6,'',71,op1+","+id+","+op2+',"'+vdate1+'","'+vdate2+'"',71,1,$(".colDetalle"));
-	console.log(getDatos('',71,op1+","+id+","+op2+',"'+vdate1+'","'+vdate2+'"',0,0,0));
 	var titulo = "Movimiento ";
 	switch(op2){
 		case 1:

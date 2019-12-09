@@ -60,8 +60,6 @@
       <input type="text" id="vreferencia" class="validate eder" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" />
     </div>
 
-    <select id="fcompra" class="col s12 m3 hide browser-default" style="border: 0px"></select>
-
   </div>
   <hr style="border: 1px solid #F9F9F9; width: 90%">
   <div class="row padd">
@@ -91,7 +89,7 @@
     </div> 
 
     <div class="col s12 m3 hide trVenta">
-      <select id="codact">
+      <select id="codact" class="browser-default">
         
       </select>
     </div>
@@ -1131,4 +1129,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.34"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.43"></script>

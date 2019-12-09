@@ -48,12 +48,14 @@
 
          <div class="row">
             <a href="#subpro" id="pventas" class="btn btn-success col s2 mp" mp=1 style="margin-left: 1%;">Ventas</a>
+            <a href="#subpro" id="pcobro" class="btn btn-success col s2 mp" mp=3 style="margin-left: 1%;">Cobros</a>
             <a href="#subpro" id="pcompras" class="btn btn-success col s2 mp" mp=2 style="margin-left: 1%;">Compras</a>
+            <a href="#subpro" id="ppagos" class="btn btn-success col s2 mp" mp=4 style="margin-left: 1%;">Pagos</a>
          </div>
          
          <section id="subpro" class="row" style="padding-top: 1%;"></section>
          <section id="vistat" style="padding-top: 1%;width: 100%" class="hide">
-          <select><option value="1">Colones (CRC)</option> <option value="2">Dolares (USD)</option></select>
+          <select id="tmoneda"><option value="1">Colones (CRC)</option> <option value="2">Dolares (USD)</option></select>
            <table style="width: 50%;margin: 0px auto;" id="tbl1" class="hide atbl">
              <tr>
                <td></td>
@@ -62,72 +64,7 @@
                <td></td>
              </tr>
              <tbody id="cuerpoc">
-               <tr>
-                 <td style="padding: 0px">EFECTIVO</td>
-                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>caja chica</option></select></td>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px"></td>
-               </tr>
-               <tr>
-                 <td style="padding: 0px">TARJETAS</td>
-                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>tarjetas</option></select></td>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px"></td>
-               </tr>
-               <tr>
-                 <td style="padding: 0px">BANCOS</td>
-                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>cta banco</option></select></td>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px"></td>
-               </tr>
-               <tr>
-                 <td style="padding: 0px">DESCUENTOS</td>
-                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>descuentos</option></select></td>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px"></td>
-               </tr>
-                <tr>
-                 <td style="padding: 0px">CREDITOS CP</td>
-                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>cxc</option></select></td>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px"></td>
-               </tr>
-               <tr>
-                 <td style="padding: 0px">CREDITOS LP</td>
-                 <td style="padding: 0px;border-right: 1px solid black;"><select class="browser-default"><option>documentos lp</option></select></td>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px"></td>
-               </tr>
-                <tr>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px;border-right: 1px solid black;"></td>
-                 <td style="padding: 0px"><select class="browser-default"><option>inventario</option></select></td>
-                 <td style="padding: 0px">MERCANCIAS</td>
-               </tr>
-                <tr>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px;border-right: 1px solid black;"></td>
-                 <td style="padding: 0px"><select class="browser-default"><option>ing por servicios</option></select></td>
-                 <td style="padding: 0px">SERVICIOS</td>
-               </tr>
-               <tr>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px;border-right: 1px solid black;"></td>
-                 <td style="padding: 0px"><select class="browser-default"><option>iva por pagar</option></select></td>
-                 <td style="padding: 0px">IVA</td>
-               </tr>
-               <tr>
-                 <td style="padding: 0px" title="Costo Mercaderia Vendida">CMV</td>
-                 <td style="padding: 0px;border-right: 1px solid black;border-top: 1px solid black;"><select class="browser-default"><option>cmv</option></select></td>
-                 <td style="padding: 0px;border-top: 1px solid black;"></td>
-                 <td style="padding: 0px"></td>
-               </tr>
-               <tr>
-                 <td style="padding: 0px"></td>
-                 <td style="padding: 0px;border-right: 1px solid black"></td>
-                 <td style="padding: 0px"><select class="browser-default"><option>ing. Venta</option></select></td>
-                 <td style="padding: 0px">VENTA</td>
-               </tr>
+              
                <tr>
                  <td style="padding: 0px">Bancos</td>
                  <td style="padding: 0px;border-right: 1px solid black;border-top: 1px solid black;"><select class="browser-default"><option>bancos</option></select></td>
