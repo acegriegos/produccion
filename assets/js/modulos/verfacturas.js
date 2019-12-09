@@ -82,6 +82,16 @@ $(document).ready(function(){
 });
 
 
+$(document).on("click",".mh",function(){
+    var vid = $(this).attr('id').substr(1);
+    var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
+    $.post('login',{arreglo:{accion:14,id:vid,sucname:}})
+    .done(function(data){
+        console.log(data)
+    })
+
+});
+
 $(document).on("click","#process",function(){
 	var idfactura = $("#process").attr('idfactura');
 	var tf = $("#process").attr('tipo');
@@ -97,7 +107,6 @@ $(document).on("click",".pdf",function(e){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vbody[3],sel:'',tbl:72,where:vid},1);
-    console.log(vbody);
     $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf'); 
 });
 

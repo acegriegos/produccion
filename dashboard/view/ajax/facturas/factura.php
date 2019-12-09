@@ -165,7 +165,7 @@
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo."</span><br><br>";
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuesto. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo."</span><br><br>";
             } ?>
             * Producto Exento
             <tfoot>

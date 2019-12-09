@@ -500,6 +500,7 @@ $(function(){
         case 5: //PEDIDO
         case 6: //SPECIAL
         case 7: //TIQUETE
+        case 9: //COMPRA ELETRONICA
             break;
         case 10:
             $(".export").removeClass('hide');

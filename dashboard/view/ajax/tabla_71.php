@@ -4,7 +4,7 @@
         <table class="bordered striped highlight centered">
         <thead class="blue">
             <tr>
-                <td class="truncate white-text" align="center" style="font-size: 1.2em;text-align: center;">N° Transacción</td>
+                <td class="truncate white-text" align="center" style="font-size: 1.2em;text-align: center;">N° Asiento</td>
                 <td class="white-text" align="center" style="font-size: 1.2em;text-align: center;">Fecha</td>
                 <td class="white-text" align="center" style="font-size: 1.2em;text-align: right;">Debe(CRC)</td>
                 <td class="white-text" align="center" style="font-size: 1.2em;text-align: right;">Debe(CRC)</td>

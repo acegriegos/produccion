@@ -90,58 +90,51 @@
 <ul id="transacciones" class="side-nav side-nav-conta" style="width: 50%;">
 
 <div class="card-header center white-text" style="background-color:#0B3861; padding: 0.5%;">
-    <h3 class="flow-text">Detalle de Asientos</h3>
+    <h3 class="flow-text">Detalle del Asiento</h3>
 </div>
 
 <div class="card-content" style="padding: 2%;">
 
 <div class="row">
 
-<div class="row pequeño blue z-depth-5">
-    <div class="col s12 m12 pequeño">
-        <div class="card pequeño">
-            <div class="card-content white-text" style="padding-top: 0.5% !important; padding-bottom: 0 !important">
-            
-                <div class="col s12 m12 l6">
-                    <p class="fsize"><b>N° Transacción:</b> <span id="dtranN"></span></p>
-                </div>
+<div class="row pequeño z-depth-5 pequeño">
 
-                <div class="col s12 m12 l6">
-                    <p class="fsize"><b>Fecha:</b> <span id="dtranF"></span></p> 
-                </div>
+    <div class="col s12 m12 l6">
+        <b>N° Asiento:</b> <span id="dtranN"></span>
+    </div>
 
-                <div class="col s12 m12 l6">
-                    <p class="fsize"><b>Usuario:</b> <span id="dtranU"></span></p>
-                </div>
+    <div class="col s12 m12 l6">
+        <b>Fecha:</b> <span id="dtranF"></span> 
+    </div>
 
-                <div class="col s12 m12 l6">
-                    <p class="fsize"><b>Empresa:</b> <span id="dtranE"></span></p>
-                </div>
+    <div class="col s12 m12 l6">
+        <b>Usuario:</b> <span id="dtranU"></span>
+    </div>
 
-                <div class="col s12 m12 l12">
-                    <p class="fsize"><b>Descripción:</b> <span id="dtranD"></span></p>
-                    <br><br>
-                </div>
+    <div class="col s12 m12 l6">
+        <b>Empresa:</b> <span id="dtranE"></span>
+    </div>
 
-            </div>
-        </div>
+    <div class="col s12 m12 l12">
+        <b>Descripción:</b> <span id="dtranD"></span>
+        <br><br>
     </div>
 </div>
 
 
         <div class="col s12 ">
-            <div class="card-block ">
-                <div class="row">
-                    <div class="col s2 white-text blue" align="center" style="padding: 0.8%">
+            <div class="card-block">
+                <div class="row white-text blue">
+                    <div class="col s2" align="center" style="padding: 0.8%">
                         Cuenta
                     </div>
-                    <div class="col s4 white-text blue" align="center" style="padding: 0.8%">
+                    <div class="col s4" align="center" style="padding: 0.8%">
                         Comentario
                     </div>
-                    <div class="col s3 white-text blue" align="center" style="padding: 0.8%">
+                    <div class="col s3" align="center" style="padding: 0.8%">
                         Debe
                     </div>
-                    <div class="col s3 white-text blue" align="center" style="padding: 0.8%">
+                    <div class="col s3" align="center" style="padding: 0.8%">
                         Haber
                     </div>
                 </div>
@@ -150,6 +143,7 @@
                 <div id="dtranDet"></div>
 
             </div>
+
             <div class="card-block sh-cta-card">
                 <div class="row">
                 <div class="col s3" align="center" style="height: 5px;">
@@ -175,7 +169,7 @@
 </ul>
 
 <ul id="extra" class="side-nav side-nav-conta1" >
-<h1>EXTRA</h1>
+<iframe src="" id="extra-i" style="width: 100%;height: 100vh;"></iframe>
 </ul>
 
 </div>

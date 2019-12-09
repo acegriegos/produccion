@@ -11,7 +11,7 @@ $(function(){
     if (mdate != undefined){
         var pc = $(".principal .filtros").attr('bisprov') == undefined ? 'Razón Social': parseInt($(".principal .filtros").attr('bisprov')) ? 'Proveedor' : 'Cliente';
 
-        html = '<div class="row col s12 m6 rous" style="margin: 0px"><div class="col s4"><input type="checkbox" id="chkcliente" value="3" class="repcheck"><label for="chkcliente" class="pbtn">Por '+pc+'</label></div><div class="col s8 '+mdate+'" id="fltr3"><div class="input-field" style="margin:0px"><label for="cliente">Nombre</label><input type="text" class="validate init eder autocomplete" id="cliente" style="margin: 0px"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
+        html = '<div class="row col s12 m6 rous" style="margin: 0px"><div class="col s4"><input type="checkbox" id="chkcliente" value="3" class="repcheck"><label for="chkcliente" class="pbtn">Por '+pc+'</label></div><div class="col s8 '+mdate+'" id="fltr3"><div class="input-field" style="margin:0px"><label for="cliente">Nombre</label><input type="text" class="validate init eder autocomplete" id="cliente" style="margin: 0px" autocomplete="off"><input type="hidden" id="vidcliente" class="inpreport" value="0" /></div></div></div>';
 
         $(".principal .filtros").append(html);
 

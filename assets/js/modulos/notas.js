@@ -308,6 +308,8 @@ function validarnotas() {
         return 'Comentario Requerido';
     }
     $("#vidtipo").val( $("#ncd").is(":checked") ? 5 : 6 );
+    $("#vidmoneda").val($("#monedas option:selected").val());
+    $("#vdivisa").val($("#monedas option:selected").attr('dv'));
 
     return false;
 }
